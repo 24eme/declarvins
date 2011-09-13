@@ -22,3 +22,10 @@ le projet est donc accessible dans le sous-répertoire declarweb et le projet sy
 
 un fichier de configuration est à adapter dans le sous-répertoire du projet config
 
+une fois le fichier adapté et mis dans /etc/apache2/site-enabled/, il faut redémarrer apache 
+
+$ sudo /etc/init.d/apache restart
+
+* attribuer les bons droits au cache et au log
+
+$ sudo chown .www-data log cache
