@@ -1,0 +1,15 @@
+    <VirtualHost *:80>
+      ServerName declaration.dev.declarweb.com
+      DocumentRoot "/data/declarweb/project/web"
+      DirectoryIndex index.php
+      <Directory "/data/declarweb/project/web">
+        AllowOverride All
+        Allow from All
+      </Directory>
+
+      Alias /sf "/data/declarweb/project/lib/vendor/symfony/data/web/sf"
+      <Directory "/data/declarweb/project/lib/vendor/symfony/data/web/sf">
+        AllowOverride All
+        Allow from All
+      </Directory>
+    </VirtualHost>

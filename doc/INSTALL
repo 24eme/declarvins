@@ -1,0 +1,24 @@
+* generer une cle ssh (si jamais générée)
+
+$ ssh-keygen -t rsa
+
+* faire intégrer la cle publique sur dev-actualys
+
+La clé publique est lisible grace à cette commande :
+
+$ cat ~/.ssh/id_rsa.pub 
+
+(en cas de clé dsa, remplacer rsa par dsa)
+
+Faire mettre cette cle à la fin du fichier /home/git/.ssh/authorized_keys sur dev-actualys
+
+* cloner le projet depuis git 
+
+$ git clone ssh://git@dev-actualys.integra.fr/home/git/declarweb.git
+
+le projet est donc accessible dans le sous-répertoire declarweb et le projet symfony est accessible depuis declarweb/project
+
+* configurer apache
+
+un fichier de configuration est à adapter dans le sous-répertoire du projet config
+
