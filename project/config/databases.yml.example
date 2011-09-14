@@ -2,9 +2,8 @@
 # http://www.symfony-project.org/reference/1_4/en/07-Databases
 
 all:
-  doctrine:
-    class: sfDoctrineDatabase
+  default:
+    class: sfCouchdbDatabase
     param:
-      dsn:      mysql:host=localhost;dbname=declarweb
-      username: root
-      password: 
+      dsn: http://127.0.0.1:5984/
+      dbname: declarweb
