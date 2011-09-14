@@ -11,7 +11,13 @@ _Compte:
         definition:
           fields:
             '*': { }
-            
+_Tiers:
+  type: abstract
+  definition:
+    fields:
+      nom: { }
+      type: {  }
+
 CompteTiers:
   inheritance: _Compte
   definition:
@@ -39,3 +45,27 @@ CompteTiers:
                   id: {  }
                   type: {  }
                   nom: {  }
+
+Interpro:
+  inheritance: _Tiers
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+
+Chai:
+  inheritance: _Tiers
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+
+Contrat:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      no_contrat: {  }
+      type: {  }
+      compte: {  }
+
