@@ -1,0 +1,331 @@
+@charset "utf-8";
+/**
+ * Fichier : global.css
+ * Description : styles génériques du site
+ * Auteur : Hamza Iqbal - hiqbal[at]actualys.com
+ * Version : 1.0.0
+ ******************************************/
+
+/**
+ * Reset
+ ******************************************/
+*
+{
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+html, body
+{
+    font-family: Calibri, Arial, Verdana, Helvetica, sans-serif;
+    /*height: 100%;*/
+    line-height: 1.2;
+}
+
+a img, fieldset { border: 0; }
+
+label, a * { cursor: pointer; }
+
+ol { list-style-position: inside; }
+
+ul { list-style: none; }
+
+textarea, input, select { font: 12px Calibri, Arial, Helvetica, sans-serif; }
+
+sup { vertical-align: top; }
+
+strong { font-weight: bold; }
+
+em { font-style: italic; }
+
+ins { text-decoration: none; }
+
+del { text-decoration: line-through; }
+
+table
+{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+/**
+ * Eléments génériques
+ ******************************************/
+body
+{
+    background: #000 url(../images/fonds/bg_global.jpg) center 0 no-repeat;
+    font-size: 12px;
+}
+
+a { color: #000; text-decoration: none; }
+a:hover, a:focus { text-decoration: underline; }
+
+input[type=radio]
+{
+    height: 14px;
+    vertical-align: top;
+    width: 14px;
+}
+
+/**
+ * Classes génériques
+ ******************************************/
+
+/* Divers */
+.invisible
+{
+    background: 0 !important;
+    border: 0 !important;
+    display: block !important;
+    float: none !important;
+    height: 1px !important;
+    list-style: none !important;
+    margin: -1px 0 0 -1px !important;
+    position: absolute !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    width: 1px !important;
+}
+
+.clear { clear: both; }
+.center { text-align: center; }
+.f_left { display: inline; float: left; }
+.f_right { display: inline; float: right; }
+
+.clearfix { display: inline-block; }
+html[xmlns] .clearfix { display: block; } 
+* html .clearfix { height: 1%; }
+
+.clearfix:after
+{
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+.ligne_form
+{
+    clear: both;
+    overflow: hidden;
+}
+
+p.flash_message
+{
+    background: #fffcef;
+    border: 1px solid #f90;
+    margin: 0 0 8px;
+    padding: 5px;
+    font-size: 13px !important;
+}
+
+#popup_msg_erreur{
+    background:url("../images/pictos/pi_alert_error.png") no-repeat scroll 10px 50% ;
+    display:none;
+}
+
+#popup_msg_erreur p{
+    margin:20px 0 0 90px;
+}
+#popup_msg_erreur .close_btn{
+    margin-top:10px;
+    text-align:right;
+}
+
+
+/**
+ * Structure générique
+ ******************************************/
+#global
+{
+    margin: 0 auto;
+    width: 1000px;
+}
+
+#header
+{
+    background: url(../images/fonds/bg_header.png) 0 0 repeat;
+    border: 1px solid #252303;
+    color: #f1f1f1;
+    margin: 7px 0;
+    padding: 10px;
+}
+
+#contenu
+{
+    background: #fff;
+    border: 1px solid #000;
+    border-bottom-color: #dedede;
+    clear: both;
+    padding: 0 0 20px;
+}
+
+#principal
+{
+}
+
+#colonne
+{
+}
+
+#footer
+{
+    color: #ccc;
+    font-size: 12px;
+    padding: 20px 0;
+    text-align: center;
+}
+
+
+/**
+ * Lien d'évitement
+ ******************************************/
+ul#liens_evitement
+{
+    font-size: 10px;
+    line-height: 12px;
+    margin: 7px 0 0;
+    text-transform: uppercase;
+}
+
+ul#liens_evitement li
+{
+    display: inline;
+    float: right;
+    margin: 0 0 0 28px;
+}
+
+ul#liens_evitement li a
+{
+    background: url(../images/pictos/pi_liens_evitement.png) no-repeat;
+    color: #c4d00a;
+}
+
+ul#liens_evitement li.accueil a
+{
+    background-position: 0 2px;
+    color: #c4d00a;
+    padding: 0 0 0 18px;
+}
+
+ul#liens_evitement li.deconnexion a
+{
+    background-position: right -14px;
+    color: #c4d00a;
+    padding: 0 25px 0 0;
+}
+
+/**
+ * Header
+ ******************************************/
+/* Logo */
+#header h1#logo
+{
+    float: left;
+    text-align: center;
+    width: 135px;
+}
+
+/* Titre rubrique */
+#header #titre_rubrique
+{
+    border: solid #fff;
+    border-width: 0 1px;
+    float: left;
+    margin: 0 12px;
+    padding: 0 12px;
+    width: 658px;
+}
+
+#header #titre_rubrique h1
+{
+    font-size: 30px;
+    font-weight: normal;
+    margin: 0 0 5px;
+}
+
+#header #titre_rubrique p.utilisateur
+{
+    background: url(../images/pictos/pi_utilisateur.png) 0 center no-repeat;
+    font-size: 20px;
+    padding: 0 0 0 15px;
+}
+
+#header #titre_rubrique p.utilisateur a
+{
+    background: url(../images/puces/fleche_bas_1.png) right center no-repeat;
+    color: #f1f1f1;
+    padding: 0 12px 0 0;
+}
+
+#header #titre_rubrique p.utilisateur { font-size: 16px; }
+
+/* Accès directs */
+#header #acces_directs
+{
+    float: left;
+    width: 135px;
+}
+
+#header #acces_directs h2
+{
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 15px;
+}
+
+#header #acces_directs ul li a { color: #c4d00a; }
+
+#header #acces_directs ul li.admin a { color: #ff0000; }
+/**
+ * Footer
+ ******************************************/
+#footer * { display: inline; }
+
+#footer p,
+#footer ul li { margin: 0 12px 0 0; }
+
+#footer ul li a
+{
+    background: url(../images/puces/bullet_noir.png) 0 center no-repeat;
+    color: #ccc;
+    padding: 0 0 0 15px;
+}
+
+
+/***
+ * ERROR 404
+ ****************/
+
+#error_page {
+    margin-left: 40px;
+}
+
+#error_page img{
+    float: left;
+    margin-right:36px;
+}
+
+#error_page h1{
+    font-size:20px;
+    font-weight:normal;
+    line-height:26px;
+    margin:0 0 0 20px;
+    padding:0 10px;
+}
+
+#error_page li{
+    list-style: square;
+}
+
+ul.statistiques ul li{
+    list-style: square;
+    margin: 2px 0 1px 25px;
+}
+
+ul.statistiques li{
+    margin-bottom: 5px;
+}
