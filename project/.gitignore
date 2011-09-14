@@ -1,5 +1,2 @@
 cache/[^.]*
 log/[^.]*
-../.buildpath
-../.project
-../settings
