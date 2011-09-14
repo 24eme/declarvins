@@ -12,9 +12,9 @@ default:
     #language:     en
     #robots:       index, follow
 
-  stylesheets:    [main.css]
+  stylesheets:    [global.css, declaration_recolte.css]
 
-  javascripts:    []
+  javascripts:    [lib/jquery-1.4.2.min.js, lib/jquery-ui-1.8.1.min.js, global.js, declaration_recolte.js]
 
   has_layout:     true
   layout:         layout

@@ -6,7 +6,7 @@ class _CompteClient extends sfCouchdbClient {
      *
      * @param string $login
      * @param integer $hydrate
-     * @return Compte 
+     * @return _Compte 
      */
     public function retrieveByLogin($login, $hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
         return parent::retrieveDocumentById('COMPTE-'.$login, $hydrate);
