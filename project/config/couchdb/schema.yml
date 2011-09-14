@@ -1,0 +1,41 @@
+_Compte:
+  type: abstract
+  definition:
+    fields:
+      login: { }
+      mot_de_passe: {  }
+      email: {  }
+      statut: {  }
+      droits:
+        type: array_collection
+        definition:
+          fields:
+            '*': { }
+            
+CompteTiers:
+  inheritance: _Compte
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {  }
+      interpro: 
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  statut: {  }
+      tiers:
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  id: {  }
+                  type: {  }
+                  nom: {  }
