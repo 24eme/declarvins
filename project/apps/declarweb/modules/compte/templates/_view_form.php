@@ -36,7 +36,7 @@
 
             <div class="btn">
                 <a href="javascript:void(0)" class="annuler"><img src="/images/boutons/btn_annuler.png" alt="Annuler" /></a>
-                <input type="image" src="/images/boutons/btn_valider.png" alt="Valider" />
+                <input type="submit" value="Valider" />
             </div>
         </form>
     </div>
