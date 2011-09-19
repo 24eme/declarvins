@@ -13,7 +13,8 @@ class LoginForm extends BaseForm {
         ));
 
         $this->widgetSchema->setLabels(array(
-                'contrat' => 'Contrat numéro: '
+					     'interpro' => 'Se connecter en tant que :',
+                'contrat' => 'Contrat numéro : '
         ));
 
         $this->setValidators(array(
