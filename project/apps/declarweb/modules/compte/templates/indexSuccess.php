@@ -1,6 +1,9 @@
 <!-- #principal -->
 
 <!-- #application_dr -->
+<div class="btn" style="text-align: right;">
+    <a class="modifier" href="<?php echo url_for('@homepage') ?>">Déconnexion</a>
+</div>
 <script type="text/javascript">
     var interproLocked = new Array();
     <?php foreach($compte->getNbChaiByInterproId() as $id => $nb): ?>
@@ -41,6 +44,7 @@
     <h2 class="titre_principal">Liaison interpro</h2>
     <?php include_partial('compte/form_liaison_interpro', array('form' => $formLiaison)) ?>
     <h2 class="titre_principal">Validation</h2>
+    <?php include_component('compte', 'validation', array('compte' => $compte, 'interpro' => $interpro)) ?>
 
 </div>
 <!-- fin #exploitation_administratif -->
