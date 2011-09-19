@@ -8,6 +8,6 @@
     </div>
 
     <div class="btnValidation">
-        <input type="image" src="/images/boutons/btn_valider.png" alt="Lier" />
+        <input type="submit" value="Lier/Délier" />
     </div>
 </form>
