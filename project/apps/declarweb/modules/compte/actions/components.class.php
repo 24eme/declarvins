@@ -3,22 +3,14 @@
 class compteComponents extends sfComponents {
   public function executeValidation()
   {
+    $this->valide_interpro = false;
     if ($this->compte->interpro->exist($this->interpro->get('_id'))) {
         $interpro = $this->compte->interpro->get($this->interpro->get('_id'));
-        if ($interpro->getStatut() == _Compte::STATUT_VALIDATION_ATTENTE) {
-            $this->message = 'Vous n\'avez pas valider le compte';
-            $this->valide = false;
+        if ($interpro->getStatut() != _Compte::STATUT_VALIDATION_ATTENTE) {
+            $this->valide_interpro = true;
         }
-        else {
-            $this->message = 'Vous avez validé le compte pour votre interpro';
-            $this->valide = true;
-        }
-       
     }
-    else {
-        $this->message = 'Vous n\'avez pas validé le compte pour votre interpro';
-        $this->valide = false;
-    }
+    $this->compte_active = ($this->compte->getStatut() == _Compte::STATUT_ACTIVE);
   }
 }
 
