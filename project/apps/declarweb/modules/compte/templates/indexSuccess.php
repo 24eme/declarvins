@@ -2,7 +2,7 @@
 
 <!-- #application_dr -->
 <div class="btn" style="text-align: right;">
-    <a class="modifier" href="<?php echo url_for('@homepage') ?>">Déconnexion</a>
+   <span>Vous êtes loggué en tant que <?php echo $interpro; ?></span>&nbsp; | &nbsp; <span><a class="modifier" href="<?php echo url_for('@homepage') ?>">Déconnexion</a></span>
 </div>
 <script type="text/javascript">
     var interproLocked = new Array();
