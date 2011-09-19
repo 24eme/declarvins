@@ -10,13 +10,13 @@ class compteComponents extends sfComponents {
             $this->valide = false;
         }
         else {
-            $this->message = 'Vous avez valider le compte';
+            $this->message = 'Vous avez validé le compte pour votre interpro';
             $this->valide = true;
         }
        
     }
     else {
-        $this->message = 'Vous n\'avez pas valider le compte';
+        $this->message = 'Vous n\'avez pas validé le compte pour votre interpro';
         $this->valide = false;
     }
   }
