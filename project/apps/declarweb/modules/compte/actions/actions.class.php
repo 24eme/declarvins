@@ -89,7 +89,7 @@ class compteActions extends sfActions {
      */
     public function executeLiaisonInterpro(sfWebRequest $request) {
         $this->init($request);
-        $this->action = 'validation';
+        $this->action = 'liaison';
         
         if ($request->isMethod(sfWebRequest::POST)) {
 
@@ -102,6 +102,26 @@ class compteActions extends sfActions {
         }
         
         $this->setTemplate('index');
+    }
+    /**
+     *
+     * @param sfWebRequest $request 
+     */
+    public function executeValidation(sfWebRequest $request) {       
+        if ($request->isMethod(sfWebRequest::POST)) {
+            $this->forward404Unless($interpro_id = $request->getParameter('interpro_id'));
+            $this->compte = $this->getUser()->getCompte();
+            if (!$this->compte->interpro->exist($interpro_id)) {
+                $this->compte->interpro->add($interpro_id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
+            } else {
+                $this->compte->interpro->get($interpro_id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
+            }
+            $this->compte->save();
+            $this->redirect('@compte');
+        }
+        else {
+            $this->forward404();
+        }
     }
     
     /**
