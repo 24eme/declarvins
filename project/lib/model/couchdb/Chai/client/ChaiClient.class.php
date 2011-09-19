@@ -8,8 +8,8 @@ class ChaiClient extends sfCouchdbClient {
      * @param integer $hydrate
      * @return Chai 
      */
-    public function retrieveByLogin($login, $hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
-        return parent::retrieveDocumentById('CHAI-'.$login, $hydrate);
+    public function retrieveByIdentifiant($identifiant, $hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
+        return parent::retrieveDocumentById('CHAI-'.$identifiant, $hydrate);
     }
     
     /**
