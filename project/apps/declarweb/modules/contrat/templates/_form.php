@@ -15,6 +15,6 @@
     </div>
 
     <div class="btnValidation">
-        <input type="image" src="/images/boutons/btn_valider.png" alt="Valider" />
+        <input type="submit" value="Valider" />
     </div>
 </form>
