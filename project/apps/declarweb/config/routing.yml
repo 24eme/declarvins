@@ -17,6 +17,9 @@ compte_update_chai:
 compte_liaison_interpro:
   url:   /compte/liaison-interpro
   param: { module: compte, action: liaisonInterpro }
+compte_validation:
+  url:   /compte/validation
+  param: { module: compte, action: validation }
 
 # generic rules
 # please, remove them by adding more specific rules
