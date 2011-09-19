@@ -17,6 +17,7 @@ class compteActions extends sfActions {
      */
     public function executeIndex(sfWebRequest $request) {
         $this->init($request);
+
         $this->action = 'index';
         if ($request->isMethod(sfWebRequest::POST) && $request->getParameter($this->form->getName())) {
             $this->form->bind($request->getParameter($this->form->getName()));
@@ -47,6 +48,10 @@ class compteActions extends sfActions {
                 $tiers->setId($this->chai->get('_id'));
                 $tiers->setType('Chai');
                 $tiers->setNom($this->chai->getNom());
+                $tiers->setInterpro($this->interpro->get('_id'));
+                if (!$this->compte->getInterpro()->exist($this->interpro->get('_id'))) {
+                    $this->compte->interpro->add($this->interpro->get('_id'))->setStatut(_Compte::STATUT_VALIDATION_ATTENTE);
+                }
                 $this->compte->save();
                 $this->getUser()->setFlash('chai', 'Le chai bien été ajouté.');
                 $this->redirect('@compte');

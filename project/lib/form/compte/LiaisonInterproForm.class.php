@@ -47,8 +47,16 @@ class LiaisonInterproForm extends BaseForm {
     protected function getInterprosChoices() {
         $interpros = $this->getInterpros();
         $choices = array();
+        $nbChaisByInterpro = $this->_compte->getNbChaiByInterproId();
         foreach ($interpros as $interpro) {
-            $choices[$interpro->get('_id')] = $interpro->getNom();
+            if (isset($nbChaisByInterpro[$interpro->get('_id')])) {
+                if (($nbChais = $nbChaisByInterpro[$interpro->get('_id')]) > 1)
+                    $choices[$interpro->get('_id')] = $interpro->getNom().' ('.$nbChaisByInterpro[$interpro->get('_id')].' Chais liés)';
+                else
+                    $choices[$interpro->get('_id')] = $interpro->getNom().' ('.$nbChaisByInterpro[$interpro->get('_id')].' Chai lié)';
+            }
+            else
+                $choices[$interpro->get('_id')] = $interpro->getNom();
         }
         return $choices;
     }
@@ -73,13 +81,20 @@ class LiaisonInterproForm extends BaseForm {
         $existingInterpros = $this->_compte->getInterpro()->toArray();
         $existingInterprosId = array_keys($existingInterpros);
         $values = $this->getValues();
-        $interprosId = $values['interpro'];
+        $interprosId = ($values['interpro'])? $values['interpro'] : array();
         foreach ($interprosId as $interproId) {
             if (!in_array($interproId, $existingInterprosId)) {
-                echo 'yep<br />';
+                $this->_compte->interpro->add($interproId)->setStatut(_Compte::STATUT_VALIDATION_ATTENTE);
+                $this->_compte->save();
             }
         }
-        exit;
+        foreach ($existingInterprosId as $existingInterproId) {
+            if (!in_array($existingInterproId, $interprosId)) {
+                $this->_compte->interpro->remove($existingInterproId);
+                $this->_compte->save();
+            }
+        }
+        return $this->_compte;
     }
 }
 

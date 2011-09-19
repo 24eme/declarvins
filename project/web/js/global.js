@@ -13,6 +13,9 @@ $(document).ready( function()
 	rolloverImg();
 	videInputFocus();
 	hauteurEgale('#logo, #titre_rubrique, #acces_directs');
+        for (var interproIdLocked in interproLocked) {
+            $('#interpro_interpro_'+interproLocked[interproIdLocked]).attr('readonly', 'readonly');
+        }
 });
 
 /**
@@ -59,8 +62,8 @@ var videInputFocus = function()
 	
 	input.each( function()
 	{
-		$(this).focus( function() { if(this.value == this.defaultValue) this.value=''; });	
-		$(this).blur( function() { if(this.value == '') this.value=this.defaultValue; });
+		$(this).focus( function() {if(this.value == this.defaultValue) this.value='';});	
+		$(this).blur( function() {if(this.value == '') this.value=this.defaultValue;});
 	});
 };
 
