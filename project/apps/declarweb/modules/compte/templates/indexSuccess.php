@@ -35,7 +35,7 @@
         <?php endforeach; ?>
         <li class="presentation">
             <?php if ($action == 'new'): ?>
-            <?php include_partial('chai/form', array('form' => $formChai)) ?>
+            <?php include_partial('chai/form_new', array('form' => $formChai)) ?>
            <?php else: ?>
             <a href="<?php echo url_for('@compte_new_chai') ?>" class="new">Ajouter un chai</a>
            <?php endif; ?>
