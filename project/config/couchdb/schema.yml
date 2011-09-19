@@ -15,6 +15,7 @@ _Tiers:
   type: abstract
   definition:
     fields:
+      identifiant: { }
       nom: { }
       type: {  }
 
@@ -59,6 +60,9 @@ Chai:
     fields:
       _id: {  }
       _rev: {  }
+      siret: {  }
+      interpro: {  }
+      compte: {  }
 
 Contrat:
   definition:

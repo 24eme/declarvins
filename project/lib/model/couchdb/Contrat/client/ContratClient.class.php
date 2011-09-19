@@ -8,8 +8,8 @@ class ContratClient extends sfCouchdbClient {
      * @param integer $hydrate
      * @return Contrat 
      */
-    public function retrieveByLogin($login, $hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
-        return parent::retrieveDocumentById('CONTRAT-'.$login, $hydrate);
+    public function retrieveById($id, $hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
+        return parent::retrieveDocumentById('CONTRAT-'.$id, $hydrate);
     }
     
     /**

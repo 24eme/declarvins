@@ -1,59 +1,41 @@
 <!-- #principal -->
-<h2 class="titre_principal">Compte</h2>
-<!-- #application_dr -->
-<div class="clearfix" id="application_dr">
 
+<!-- #application_dr -->
+
+<?php if($sf_user->hasFlash('general')) : ?>
+    <p class="flash_message"><?php echo $sf_user->getFlash('general'); ?></p>
+<?php endif; ?>
+<div class="clearfix" id="application_dr">
+    <h2 class="titre_principal">Compte</h2>
     <!-- #exploitation_administratif -->
     <div id="mon_compte">
-
-        <h2 class="titre_section">Identifiants</h2>
-        <div class="contenu_section" id="modification_compte">
-            <div class="presentation clearfix"<?php if ($form->hasErrors()) echo ' style="display:none;"'; ?>>
-                <p class="intro">Vos identifiants de connexion :</p>
-                <?php if($sf_user->hasFlash('maj')) : ?>
-                    <p class="flash_message"><?php echo $sf_user->getFlash('maj'); ?></p>
-                <?php endif; ?>
-                <p><span>Email :</span> <?php echo $compte->email; ?></p>
-                <p><span>Mot de passe :</span> ****** </p>
-                <div class="btn">
-                    <a href="javascript:void(0)" class="modifier"><img src="/images/boutons/btn_modifier_infos.png" alt="Modifier les informations" /></a>
-                </div>
-            </div>
-
-
-            <div class="modification clearfix"<?php if (!$form->hasErrors()) echo ' style="display:none;"'; ?>>
-                <p class="intro">Modification de vos identifiants de connexion :</p>
-                
-                <form method="post" action="<?php echo url_for('@compte') ?>">
-                    <div class="ligne_form ligne_form_label">
-                        <?php echo $form->renderHiddenFields(); ?>
-                        <?php echo $form->renderGlobalErrors(); ?>
-
-                        <?php echo $form['email']->renderError() ?>
-                        <?php echo $form['email']->renderLabel() ?>
-                        <?php echo $form['email']->render() ?>
-                    </div>
-                    <div class="ligne_form ligne_form_label">
-                        <?php echo $form['mdp1']->renderError() ?>
-                        <?php echo $form['mdp1']->renderLabel() ?>
-                        <?php echo $form['mdp1']->render() ?>
-                    </div>
-                    <div class="ligne_form">
-                        <?php echo $form['mdp2']->renderError() ?>
-                        <?php echo $form['mdp2']->renderLabel() ?>
-                        <?php echo $form['mdp2']->render() ?>
-                    </div>
-
-                    <div class="btn">
-                        <a href="javascript:void(0)" class="annuler"><img src="/images/boutons/btn_annuler.png" alt="Annuler" /></a>
-                        <input type="image" src="/images/boutons/btn_valider.png" alt="Valider" />
-                    </div>
-                </form>
-            </div>
-
-
-        </div>
+        <?php include_partial('compte/view_form', array('form' => $form, 'compte' => $compte))?>
     </div>
+    <h2 class="titre_principal">Chais associés</h2>
+    <?php if($sf_user->hasFlash('chai')) : ?>
+        <p class="flash_message"><?php echo $sf_user->getFlash('chai'); ?></p>
+    <?php endif; ?>
+    <ul class="chais">
+        <?php foreach ($chais as $chai): ?>
+        <li class="presentation">
+            <?php if ($chai->getIdentifiant() == $identifiant): ?>
+                <?php include_partial('chai/form_update', array('form' => $formChai)) ?>
+            <?php else: ?>
+                <?php include_partial('chai/view', array('chai' => $chai, 'interpro' => $interpro)) ?>
+            <?php endif; ?>
+        </li>
+        <?php endforeach; ?>
+        <li class="presentation">
+            <?php if ($action == 'new'): ?>
+            <?php include_partial('chai/form', array('form' => $formChai)) ?>
+           <?php else: ?>
+            <a href="<?php echo url_for('@compte_new_chai') ?>" class="new">Ajouter un chai</a>
+           <?php endif; ?>
+        </li>
+    </ul>
+    <h2 class="titre_principal">Liaison interpro</h2>
+    <?php include_partial('compte/form_liaison_interpro', array('form' => $formLiaison)) ?>
+    <h2 class="titre_principal">Validation</h2>
 
 </div>
 <!-- fin #exploitation_administratif -->

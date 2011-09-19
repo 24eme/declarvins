@@ -4,10 +4,19 @@
 # default rules
 homepage:
   url:   /
-  param: { module: default, action: index }
+  param: { module: contrat, action: index }
 compte:
   url:   /compte
   param: { module: compte, action: index }
+compte_new_chai:
+  url:   /compte/chai/nouveau
+  param: { module: compte, action: newChai }
+compte_update_chai:
+  url:   /compte/chai/:id/update
+  param: { module: compte, action: updateChai, id: null }
+compte_liaison_interpro:
+  url:   /compte/liaison-interpro
+  param: { module: compte, action: liaisonInterpro }
 
 # generic rules
 # please, remove them by adding more specific rules

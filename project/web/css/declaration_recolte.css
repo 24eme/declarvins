@@ -1615,11 +1615,23 @@ a.msg_aide:hover{
 /**
  * Mon compte
  ******************************************/
-#modification_compte { width:488px; }
+#application_dr {
+    margin: 0!important;
+}
+#modification_compte { width:100%; }
 
+#modification_compte .presentation 
+{
+    padding-top:10px;
+}
+#modification_compte .btn input {
+    border: 1px solid #C7C9C8;
+    margin: 10px 0;
+    padding: 10px;
+}
 #modification_compte .presentation p
 {
-    font-size:18px;
+    font-size:14px;
     margin:0 0 10px;
 }
 
@@ -1634,7 +1646,7 @@ a.msg_aide:hover{
 
 #modification_compte .btn { float: right; }
 
-#modification_compte .ligne_form { margin: 0 0 5px 25px; }
+#modification_compte .ligne_form { margin: 0 0 5px 0; }
 #modification_compte .ligne_form label { font-size: 14px; }
 
 #modification_compte .ligne_form_label label
@@ -1650,6 +1662,81 @@ a.msg_aide:hover{
     margin:0 0 8px;
     padding:5px;
     font-size: 13px;
+}
+
+/**
+ * Chai
+ ******************************************/
+.btnValidation {
+    text-align: center;
+    margin: 50px 0 0 0;
+}
+.btnValidation input {
+    border:1px solid #C7C9C8;
+    padding: 10px;
+    margin: 10px 0;
+}
+.titre_principal
+{
+    margin: 0 0 5px 0!important;
+    border-bottom: 1px solid #C7C9C8;
+    width:100%;
+    background: none!important;
+    color: #848C03!important;
+    padding: 30px 0 0 0;
+}
+.chais { width:100%; }
+
+.chais .presentation
+{
+    width: 200px;
+    display: inline-block;
+    border: 1px solid #C7C9C8;
+    padding: 10px;
+    margin: 10px 15px 10px 0;
+}
+
+.chais .presentation p
+{
+    font-size:14px;
+    margin:0 0 10px;
+}
+
+.chais p.intro
+{
+    color: #666;
+    font-size:14px;
+    margin:0 0 10px;
+}
+
+.chais .presentation p span { color:#7A7A7A; }
+
+.chais .btn { float: right; }
+
+.chais .ligne_form { margin: 0 0 5px 0; }
+.chais .ligne_form label { font-size: 14px; }
+
+.chais .ligne_form_label label
+{
+    float:left;
+    width:110px;
+}
+
+.chais .presentation .message
+{
+    background:none repeat scroll 0 0 #FFFCEF;
+    border:1px solid #FF9900;
+    margin:0 0 8px;
+    padding:5px;
+    font-size: 13px;
+}
+
+.chais .new
+{
+   text-transform: uppercase;
+   display: inline-block;
+   text-align: center;
+   width: 100%;
 }
 
 /**** Message aide ****/
