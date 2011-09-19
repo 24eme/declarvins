@@ -46,6 +46,7 @@ CompteTiers:
                   id: {  }
                   type: {  }
                   nom: {  }
+                  interpro: {  }
 
 Interpro:
   inheritance: _Tiers

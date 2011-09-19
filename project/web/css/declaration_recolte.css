@@ -1668,8 +1668,7 @@ a.msg_aide:hover{
  * Chai
  ******************************************/
 .btnValidation {
-    text-align: center;
-    margin: 50px 0 0 0;
+    margin: 20px 0 0 0;
 }
 .btnValidation input {
     border:1px solid #C7C9C8;
