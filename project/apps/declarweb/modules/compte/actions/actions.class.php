@@ -108,20 +108,16 @@ class compteActions extends sfActions {
      * @param sfWebRequest $request 
      */
     public function executeValidation(sfWebRequest $request) {       
-        if ($request->isMethod(sfWebRequest::POST)) {
-            $this->forward404Unless($interpro_id = $request->getParameter('interpro_id'));
-            $this->compte = $this->getUser()->getCompte();
-            if (!$this->compte->interpro->exist($interpro_id)) {
-                $this->compte->interpro->add($interpro_id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
-            } else {
-                $this->compte->interpro->get($interpro_id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
-            }
-            $this->compte->save();
-            $this->redirect('@compte');
-        }
-        else {
-            $this->forward404();
-        }
+      $this->forward404Unless($interpro_id = $request->getParameter('interpro_id'));
+      $this->forward404Unless($request->isMethod(sfWebRequest::POST));
+      $this->compte = $this->getUser()->getCompte();
+      if (!$this->compte->interpro->exist($interpro_id)) {
+	$this->compte->interpro->add($interpro_id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
+      } else {
+	$this->compte->interpro->get($interpro_id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
+      }
+      $this->compte->save();
+      $this->redirect('@compte');
     }
     
     /**
