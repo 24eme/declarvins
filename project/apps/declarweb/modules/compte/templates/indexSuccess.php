@@ -1,7 +1,12 @@
 <!-- #principal -->
 
 <!-- #application_dr -->
-
+<script type="text/javascript">
+    var interproLocked = new Array();
+    <?php foreach($compte->getNbChaiByInterproId() as $id => $nb): ?>
+    interproLocked.push("<?php echo $id ?>");
+    <?php endforeach; ?>
+</script>
 <?php if($sf_user->hasFlash('general')) : ?>
     <p class="flash_message"><?php echo $sf_user->getFlash('general'); ?></p>
 <?php endif; ?>
