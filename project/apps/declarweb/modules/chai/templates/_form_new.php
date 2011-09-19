@@ -21,6 +21,6 @@
 
     <div class="btn">
         <a href="<?php echo url_for('@compte') ?>">Annuler</a>
-        <input type="image" src="/images/boutons/btn_valider.png" alt="Valider" />
+        <input type="submit" value="Créer" />
     </div>
 </form>
