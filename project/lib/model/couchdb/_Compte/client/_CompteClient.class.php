@@ -14,6 +14,16 @@ class _CompteClient extends sfCouchdbClient {
     
     /**
      *
+     * @param string $id
+     * @param integer $hydrate
+     * @return _Compte 
+     */
+    public function getById($id, $hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
+        return parent::retrieveDocumentById($id, $hydrate);
+    }
+    
+    /**
+     *
      * @param integer $hydrate
      * @return sfCouchdbDocumentCollection 
      */

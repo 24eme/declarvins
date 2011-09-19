@@ -1,4 +1,4 @@
 <?php
-class Chaipro extends BaseChai {
+class Chai extends BaseChai {
     
 }

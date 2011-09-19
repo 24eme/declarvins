@@ -1,0 +1,20 @@
+<form method="post" action="<?php echo url_for('@homepage') ?>">
+    <div class="ligne_form ligne_form_label">
+        <?php echo $form->renderHiddenFields(); ?>
+        <?php echo $form->renderGlobalErrors(); ?>
+
+        <?php echo $form['interpro']->renderError() ?>
+        <?php echo $form['interpro']->renderLabel() ?>
+        <?php echo $form['interpro']->render() ?>
+    </div>
+    
+    <div class="ligne_form ligne_form_label">
+        <?php echo $form['contrat']->renderError() ?>
+        <?php echo $form['contrat']->renderLabel() ?>
+        <?php echo $form['contrat']->render() ?>
+    </div>
+
+    <div class="btnValidation">
+        <input type="image" src="/images/boutons/btn_valider.png" alt="Valider" />
+    </div>
+</form>
