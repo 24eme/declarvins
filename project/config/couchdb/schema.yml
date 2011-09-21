@@ -25,6 +25,11 @@ CompteTiers:
     fields:
       _id: {  }
       _rev: {  }
+      nom: {  }
+      prenom: {  }
+      fonction: {  }
+      telephone: {  }
+      fax: {  }
       type: {  }
       interpro: 
         type: collection
