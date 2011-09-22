@@ -21,6 +21,10 @@ compte_validation:
   url:   /compte/validation
   param: { module: compte, action: validation }
 
+compte_nouveau:
+  url:   /compte/nouveau
+  param: { module: compte, action: nouveau }
+
 # generic rules
 # please, remove them by adding more specific rules
 default_index:

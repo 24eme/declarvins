@@ -119,6 +119,29 @@ class compteActions extends sfActions {
       $this->compte->save();
       $this->redirect('@compte');
     }
+
+    /**
+     * 
+     *
+     * @param sfRequest $request A request object
+     */
+    public function executeNouveau(sfWebRequest $request) {
+        $this->form = new CompteTiersAjoutForm(new CompteTiers());
+        if ($request->isMethod(sfWebRequest::POST)) {
+            $this->form->bind($request->getParameter($this->form->getName()));
+            if ($this->form->isValid()) {
+                $compte = $this->form->save();
+                $noContrat = sfCouchdbManager::getClient('Contrat')->getNextNoContrat();
+                $contrat = new Contrat();
+                $contrat->set('_id', 'CONTRAT-'.$noContrat);
+                $contrat->set('no_contrat', $noContrat);
+                $contrat->set('compte', $compte->get('_id'));
+                $contrat->save();
+                $this->getUser()->setFlash('notice', 'Le compte a bien été créé');
+                $this->redirect('@compte_nouveau');
+            }
+        }
+    }
     
     /**
      * 

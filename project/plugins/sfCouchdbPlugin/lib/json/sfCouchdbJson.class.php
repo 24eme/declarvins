@@ -483,7 +483,9 @@ class sfCouchdbJson implements IteratorAggregate, ArrayAccess, Countable {
     public function fromArray($values) {
         foreach ($values as $key => $value) {
             if (!is_array($value)) {
-                $this->set($key, $value);
+            	if($this->exist($key)) {
+                	$this->set($key, $value);
+            	}
             }
         }
     }
