@@ -1,66 +1,34 @@
 <?php
-abstract class CompteForm extends BaseForm {
+abstract class CompteForm extends sfCouchdbFormDocumentJson {
     
-    protected $_compte = null;
     
-    /**
-     *
-     * @param Compte $compte
-     * @param array $options
-     * @param string $CSRFSecret 
-     */
-    public function __construct(_Compte $compte, $options = array(), $CSRFSecret = null) {
-        $this->_compte = $compte;
-        $this->checkCompte();
-        parent::__construct(array('email' => $this->_compte->email), $options, $CSRFSecret);
-    }
-    
-    /**
-     * 
-     */
-    protected function checkCompte() {
-        if (!$this->_compte) {
-            throw new sfException("compte does exist");
-        }
-    }
-    
-    /**
-     * 
-     */
     public function configure() {
         $this->setWidgets(array(
                 'email' => new sfWidgetFormInputText(),
+        		'login' => new sfWidgetFormInputText(),
                 'mdp1'  => new sfWidgetFormInputPassword(),
                 'mdp2'  => new sfWidgetFormInputPassword()
         ));
-
         $this->widgetSchema->setLabels(array(
-                'email' => 'Adresse e-mail: ',
-                'mdp1'  => 'Mot de passe: ',
-                'mdp2'  => 'Vérification du mot de passe: '
+                'email' => 'Adresse e-mail*: ',
+        		'login' => 'Identifiant*: ',
+                'mdp1'  => 'Mot de passe*: ',
+                'mdp2'  => 'Vérification du mot de passe*: '
         ));
 
-        $this->widgetSchema->setNameFormat('compte[%s]');
-
         $this->setValidators(array(
-                'email' => new sfValidatorEmail(array('required' => true),array('required' => 'Champ obligatoire', 'invalid' => 'Adresse email invalide.')),
+                'email' => new sfValidatorEmailStrict(array('required' => true),array('required' => 'Champ obligatoire', 'invalid' => 'Adresse email invalide.')),
+        		'login' => new sfValidatorRegex(array('required' => true, 'pattern' => '/^([a-zA-Z0-9\-_]*)$/', 'min_length' => 6),array('required' => 'Champ obligatoire', 'invalid' => 'Identifiant invalide.', 'min_length' => '6 caractères minimum.')),
                 'mdp1'  => new sfValidatorString(array('required' => true, "min_length" => "4"), array('required' => 'Champ obligatoire', "min_length" => "Votre mot de passe doit comporter au minimum 4 caractères.")),
                 'mdp2'  => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')),
         ));
-        //$this->validatorSchema->setPostValidator(new ValidatorCreateCompte());
         
         $this->validatorSchema->setPostValidator(new sfValidatorSchemaCompare('mdp1', 
                                                                              sfValidatorSchemaCompare::EQUAL, 
                                                                              'mdp2',
                                                                              array(),
-                                                                             array('invalid' => 'The passwords must match')));
-    }
-    
-    /**
-     * 
-     * @return _Compte
-     */
-    public function save() {
-        throw new sfException("method not defined");
+                                                                             array('invalid' => 'Les mots de passe doivent être identique')));
+		$this->widgetSchema->setNameFormat('compte[%s]');
+		$this->mergePostValidator(new ValidatorLoginCompte());
     }
 }
