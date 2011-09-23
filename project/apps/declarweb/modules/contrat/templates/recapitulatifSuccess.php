@@ -43,6 +43,7 @@ foreach ($contrat->etablissements as $etablissement):
 		Commune: <?php echo $etablissement->comptabilite_commune ?>
 		<?php endif; ?>
 		<?php endif; ?>
-	<a href="<?php echo url_for('contrat_etablissement_modification', array('indice' => $etablissement->getKey())) ?>">Modifier</a>
+	<a href="<?php echo url_for('contrat_etablissement_modification', array('indice' => $etablissement->getKey(), 'recapitulatif' => 1)) ?>">Modifier</a>
 	<hr />
 <?php endforeach; ?>
+<a href="<?php echo url_for('contrat_etablissement_confirmation') ?>">Valider</a>
