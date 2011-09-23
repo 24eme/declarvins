@@ -3,14 +3,20 @@
 class myUser extends sfBasicSecurityUser
 {
 	/**
-	 * Récupération du compte en statique (temporaire)
-         * @todo Récupérer le compte qui est en session
+	 * Récupération du compte 
 	 * @return _Compte
 	 */
 	public function getCompte()
 	{
-            $contrat = sfCouchdbManager::getClient('Contrat')->retrieveById($this->getAttribute('contrat_id'));
-            return sfCouchdbManager::getClient('_Compte')->getById($contrat->getCompte());
+            return sfCouchdbManager::getClient('_Compte')->getById($this->getAttribute('compte_id'));
+	}
+	/**
+	 * Récupération du contrat
+	 * @return Contrat
+	 */
+	public function getContrat()
+	{
+            return sfCouchdbManager::getClient('Contrat')->retrieveDocumentById($this->getAttribute('contrat_id'));
 	}
         /**
 	 * Récupération de l'interpro en statique (temporaire)

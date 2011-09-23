@@ -70,6 +70,14 @@ Chai:
       interpro: {  }
       compte: {  }
 
+Douane:
+  inheritance: _Tiers
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      email: {  }
+
 Contrat:
   definition:
     fields:
@@ -78,4 +86,29 @@ Contrat:
       no_contrat: {  }
       type: {  }
       compte: {  }
-
+      etablissements:
+        type: array_collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  raison_sociale: { }
+                  siret: { }
+                  cni: { }
+                  cvi: { }
+                  no_accises: { }
+                  no_tva_intracommunautaire: { }
+                  adresse: { }
+                  code_postal: { }
+                  commune: { }
+                  telephone: { }
+                  fax: { }
+                  email: { }
+                  famille: { }
+                  sous_famille: { }
+                  comptabilite_adresse: { }
+                  comptabilite_code_postal: { }
+                  comptabilite_commune: { }
+                  service_douane: { }
