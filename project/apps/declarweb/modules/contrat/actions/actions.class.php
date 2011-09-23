@@ -31,4 +31,55 @@ class contratActions extends sfActions
         }
     }
   }
+ /**
+  * 
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeNouveauEtablissement(sfWebRequest $request)
+  {
+  	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
+    $this->form = new ContratEtablissementNouveauForm($this->contrat->etablissements->add());
+    if ($request->isMethod(sfWebRequest::POST)) {
+
+        $this->form->bind($request->getParameter($this->form->getName()));
+        if ($this->form->isValid()) {
+            $this->form->save();
+            $this->redirect('@contrat_etablissement_nouveau');
+        }
+    }
+  }
+ /**
+  * 
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeModificationEtablissement(sfWebRequest $request)
+  {
+  	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
+  	$this->forward404Unless($request->hasParameter('indice'));
+  	$indice = $request->getParameter('indice');
+  	$nextIndice = $indice + 1;
+    $this->form = new ContratEtablissementModificationForm($this->contrat->etablissements->get($indice));
+    if ($request->isMethod(sfWebRequest::POST)) {
+
+        $this->form->bind($request->getParameter($this->form->getName()));
+        if ($this->form->isValid()) {
+            $this->form->save();
+            if ($this->contrat->etablissements->exist($nextIndice))
+            	$this->redirect('contrat_etablissement_modification', array('indice' => $nextIndice));
+            else 
+            	$this->redirect('@contrat_recapitulatif');
+        }
+    }
+  }
+ /**
+  * 
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeRecapitulatif(sfWebRequest $request)
+  {
+  	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
+  }
 }
