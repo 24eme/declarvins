@@ -28,11 +28,17 @@ contrat_etablissement_nouveau:
   url:   /contrat/etablissement/nouveau
   param: { module: contrat, action: nouveauEtablissement }
 contrat_etablissement_modification:
-  url:   /contrat/etablissement/:indice/modification
-  param: { module: contrat, action: modificationEtablissement, indice: null }
-contrat_recapitulatif:
+  url:   /contrat/etablissement/:indice/modification/:recapitulatif
+  param: { module: contrat, action: modificationEtablissement, indice: null, recapitulatif: null }
+contrat_etablissement_suppression:
+  url:   /contrat/etablissement/:indice/suppression/:recapitulatif
+  param: { module: contrat, action: suppressionEtablissement, indice: null, recapitulatif: null  }
+contrat_etablissement_recapitulatif:
   url:   /contrat/recapitulatif
   param: { module: contrat, action: recapitulatif }
+contrat_etablissement_confirmation:
+  url:   /contrat/confirmation
+  param: { module: contrat, action: confirmation }
 
 # generic rules
 # please, remove them by adding more specific rules

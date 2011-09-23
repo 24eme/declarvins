@@ -58,6 +58,7 @@ class contratActions extends sfActions
   {
   	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
   	$this->forward404Unless($request->hasParameter('indice'));
+  	$this->recapitulatif = $request->getParameter('recapitulatif');
   	$indice = $request->getParameter('indice');
   	$nextIndice = $indice + 1;
     $this->form = new ContratEtablissementModificationForm($this->contrat->etablissements->get($indice));
@@ -66,10 +67,13 @@ class contratActions extends sfActions
         $this->form->bind($request->getParameter($this->form->getName()));
         if ($this->form->isValid()) {
             $this->form->save();
-            if ($this->contrat->etablissements->exist($nextIndice))
-            	$this->redirect('contrat_etablissement_modification', array('indice' => $nextIndice));
-            else 
-            	$this->redirect('@contrat_recapitulatif');
+            if ($this->contrat->etablissements->exist($nextIndice)) {
+            	if ($this->recapitulatif)
+            		$this->redirect('@contrat_etablissement_recapitulatif');
+            	else
+            		$this->redirect('contrat_etablissement_modification', array('indice' => $nextIndice));
+            } else 
+            	$this->redirect('@contrat_etablissement_recapitulatif');
         }
     }
   }
@@ -78,7 +82,38 @@ class contratActions extends sfActions
   *
   * @param sfRequest $request A request object
   */
+  public function executeSuppressionEtablissement(sfWebRequest $request)
+  {
+  	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
+  	$this->forward404Unless($request->hasParameter('indice'));
+  	$this->recapitulatif = $request->getParameter('recapitulatif');
+  	$indice = $request->getParameter('indice');
+  	$nextIndice = $indice + 1;
+  	$this->contrat->etablissements->remove($indice);
+  	$this->contrat->save();
+  	if ($this->contrat->etablissements->exist($nextIndice)) {
+  		if ($this->recapitulatif)
+  			$this->redirect('@contrat_etablissement_recapitulatif');
+  		else
+  			$this->redirect('contrat_etablissement_modification', array('indice' => $indice));
+  	} else
+  		$this->redirect('@contrat_etablissement_recapitulatif');
+  }
+ /**
+  * 
+  *
+  * @param sfRequest $request A request object
+  */
   public function executeRecapitulatif(sfWebRequest $request)
+  {
+  	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
+  }
+ /**
+  * 
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeConfirmation(sfWebRequest $request)
   {
   	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
   }

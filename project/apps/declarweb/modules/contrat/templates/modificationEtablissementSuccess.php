@@ -3,54 +3,10 @@
 </script>
 <?php 
 foreach ($contrat->etablissements as $etablissement): 
-if ($etablissement->getKey() != $form->getObject()->getKey()):
+if ($etablissement->getKey() == $form->getObject()->getKey()):
 ?>
-	<p>
-		Raison sociale: <?php echo $etablissement->raison_sociale ?>
-		<br />
-		SIRET: <?php echo $etablissement->siret ?>
-		<?php if ($etablissement->adresse): ?>
-		<br />
-		CNI: <?php echo $etablissement->cni ?>
-		<br />
-		CVI: <?php echo $etablissement->cvi ?>
-		<br />
-		Numéro accises: <?php echo $etablissement->no_accises ?>
-		<br />
-		Numéro TVA intracommunautaire: <?php echo $etablissement->no_tva_intracommunautaire ?>
-		<br />
-		Adresse: <?php echo $etablissement->adresse ?>
-		<br />
-		Code postal: <?php echo $etablissement->code_postal ?>
-		<br />
-		Commune: <?php echo $etablissement->commune ?>
-		<br />
-		Téléphone: <?php echo $etablissement->telephone ?>
-		<br />
-		Fax: <?php echo $etablissement->fax ?>
-		<br />
-		Email: <?php echo $etablissement->email ?>
-		<br />
-		Famille: <?php echo $etablissement->famille ?>
-		<br />
-		Sous famille: <?php echo $etablissement->sous_famille ?>
-		<br />
-		Service douane: <?php echo $etablissement->service_douane ?>
-		<br />
-		<?php if ($etablissement->comptabilite_adresse || $etablissement->comptabilite_code_postal || $etablissement->comptabilite_commune): ?>
-		Comptabilité:
-		<br />
-		Adresse: <?php echo $etablissement->comptabilite_adresse ?>
-		<br />
-		Code postal: <?php echo $etablissement->comptabilite_code_postal ?>
-		<br />
-		Commune: <?php echo $etablissement->comptabilite_commune ?>
-		<?php endif; ?>
-		<?php endif; ?>
-	</p>
-	<hr />
-<?php else: ?>
-<form method="post" action="<?php echo url_for('contrat_etablissement_modification', array('indice' => $etablissement->getKey())) ?>">
+
+<form method="post" action="<?php echo ($recapitulatif)? url_for('contrat_etablissement_modification', array('indice' => $etablissement->getKey(), 'recapitulatif' => 1)) : url_for('contrat_etablissement_modification', array('indice' => $etablissement->getKey())); ?>">
 	<div class="ligne_form ligne_form_label">
 	<?php echo $form->renderHiddenFields(); ?>
 	<?php echo $form->renderGlobalErrors(); ?>
@@ -146,10 +102,10 @@ if ($etablissement->getKey() != $form->getObject()->getKey()):
 	<?php echo $form['comptabilite_commune']->render() ?>
 	</div>
 	<div class="btn">
-		<input type="submit" value="Modifier" />
+		<input type="submit" value="<?php echo ($recapitulatif)? 'Modifier' : 'Ajouter'; ?>" />
+		<a href="<?php echo ($recapitulatif)? url_for('contrat_etablissement_suppression', array('indice' => $etablissement->getKey(), 'recapitulatif' => 1)) : url_for('contrat_etablissement_suppression', array('indice' => $etablissement->getKey())); ?>">Supprimer</a>
 	</div>
 </form>
-<hr />
 <?php 
 endif;
 endforeach;
