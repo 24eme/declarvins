@@ -137,8 +137,9 @@ class compteActions extends sfActions {
                 $contrat->set('no_contrat', $noContrat);
                 $contrat->set('compte', $compte->get('_id'));
                 $contrat->save();
-                $this->getUser()->setFlash('notice', 'Le compte a bien été créé');
-                $this->redirect('@compte_nouveau');
+                $this->getUser()->setAttribute('compte_id', $compte->get('_id'));
+                $this->getUser()->setAttribute('contrat_id', $contrat->get('_id'));
+                $this->redirect('@contrat_etablissement_nouveau');
             }
         }
     }

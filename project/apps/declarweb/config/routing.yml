@@ -20,10 +20,19 @@ compte_liaison_interpro:
 compte_validation:
   url:   /compte/validation
   param: { module: compte, action: validation }
-
+# Nouveau
 compte_nouveau:
   url:   /compte/nouveau
   param: { module: compte, action: nouveau }
+contrat_etablissement_nouveau:
+  url:   /contrat/etablissement/nouveau
+  param: { module: contrat, action: nouveauEtablissement }
+contrat_etablissement_modification:
+  url:   /contrat/etablissement/:indice/modification
+  param: { module: contrat, action: modificationEtablissement, indice: null }
+contrat_recapitulatif:
+  url:   /contrat/recapitulatif
+  param: { module: contrat, action: recapitulatif }
 
 # generic rules
 # please, remove them by adding more specific rules

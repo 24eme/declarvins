@@ -13,9 +13,19 @@ $(document).ready( function()
 	rolloverImg();
 	videInputFocus();
 	hauteurEgale('#logo, #titre_rubrique, #acces_directs');
-        for (var interproIdLocked in interproLocked) {
-            $('#interpro_interpro_'+interproLocked[interproIdLocked]).attr('readonly', 'readonly');
-        }
+	var bool = familles || 0;
+	if(bool) {
+		famillesJSON = JSON.parse(familles);
+		$("#contratetablissement_famille").change(function(){
+			var sousFamilles = famillesJSON[$(this).val()];
+			var options = '';
+		    for (var i in sousFamilles)
+		    {
+		    	options += '<option value="'+sousFamilles[i]+'">'+sousFamilles[i]+'</option>';
+		    }
+		    $("#contratetablissement_sous_famille").html(options);
+		});
+	}
 });
 
 /**
