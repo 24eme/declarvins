@@ -85,6 +85,11 @@ Contrat:
       _rev: {  }
       no_contrat: {  }
       type: {  }
+      nom: {  }
+      prenom: {  }
+      fonction: {  }
+      telephone: {  }
+      fax: {  }
       compte: {  }
       etablissements:
         type: array_collection

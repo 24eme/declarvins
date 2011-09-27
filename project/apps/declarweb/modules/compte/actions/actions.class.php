@@ -126,20 +126,12 @@ class compteActions extends sfActions {
      * @param sfRequest $request A request object
      */
     public function executeNouveau(sfWebRequest $request) {
-        $this->form = new CompteTiersAjoutForm(new CompteTiers());
+        $this->nbEtablissement = $request->getParameter('nb_etablissement', 1);
+        $this->form = new ContratForm(new Contrat(), array('nbEtablissement' => $this->nbEtablissement));
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
-                $compte = $this->form->save();
-                $noContrat = sfCouchdbManager::getClient('Contrat')->getNextNoContrat();
-                $contrat = new Contrat();
-                $contrat->set('_id', 'CONTRAT-'.$noContrat);
-                $contrat->set('no_contrat', $noContrat);
-                $contrat->set('compte', $compte->get('_id'));
-                $contrat->save();
-                $this->getUser()->setAttribute('compte_id', $compte->get('_id'));
-                $this->getUser()->setAttribute('contrat_id', $contrat->get('_id'));
-                $this->redirect('@contrat_etablissement_nouveau');
+                $contrat = $this->form->save();
             }
         }
     }
