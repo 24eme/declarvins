@@ -21,9 +21,9 @@ compte_validation:
   url:   /compte/validation
   param: { module: compte, action: validation }
 # Nouveau
-compte_nouveau:
-  url:   /compte/nouveau
-  param: { module: compte, action: nouveau }
+contrat_nouveau:
+  url:   /contrat/nouveau
+  param: { module: contrat, action: nouveau }
 contrat_etablissement_nouveau:
   url:   /contrat/etablissement/nouveau
   param: { module: contrat, action: nouveauEtablissement }

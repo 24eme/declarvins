@@ -27,7 +27,55 @@ $(document).ready( function()
 		});
 	}
 });
-
+function addEtablissement() {
+	var nbEtablissements = parseInt($("#contrat_nb_etablissement").val());
+	var tabEtablissements = $("#etablissements");
+	var etablissement = "<tr id=\"etablissement"+nbEtablissements+"\">" +
+	"<td>" +
+	"	<table>" +
+	"		<tr>" +
+	"			<td>Raison sociale*: </td>" +
+	"			<td><input type=\"text\" id=\"contrat_etablissements_"+nbEtablissements+"_raison_sociale\" name=\"contrat[etablissements]["+nbEtablissements+"][raison_sociale]\"></td>" +
+	"			<td></td>" +
+	"		</tr>" +
+	"		<tr>" +
+	"			<td>SIRET*: </td>" +
+	"			<td><input type=\"text\" id=\"contrat_etablissements_"+nbEtablissements+"_siret\" name=\"contrat[etablissements]["+nbEtablissements+"][siret]\"></td>" +
+	"			<td></td>" +
+	"		</tr>" +
+	"	</table>" +
+	"</td>" +
+	"</tr>" +
+	"<tr id=\"optionsEtablissement"+nbEtablissements+"\">" +
+	"<td>" +
+	"	<a href=\"javascript:removeEtablissement("+nbEtablissements+")\">Supprimer</a>" +
+	"</td>" +
+	"</tr>";
+	$("#etablissements").append(etablissement);
+	$("#contrat_nb_etablissement").val(nbEtablissements + 1);
+	$("#addEtablissement").css('display', 'inline-block');
+}
+function removeEtablissement(ind) {
+	var nbEtablissements = parseInt($("#contrat_nb_etablissement").val());
+	$("#etablissement"+ind).remove();
+	$("#optionsEtablissement"+ind).remove();
+	$("#contrat_nb_etablissement").val(nbEtablissements - 1);
+	if ((nbEtablissements - 1) == 1) {
+		$("#addEtablissement").css('display', 'none');
+		$("#r2").attr("checked", "checked");
+		$("#r1").removeAttr("checked");
+	}
+	
+}
+function removeAllEtablissement() {
+	var nbEtablissements = parseInt($("#contrat_nb_etablissement").val());
+	for(i=(nbEtablissements-1); i>0; i--) {
+		$("#etablissement"+i).remove();
+		$("#optionsEtablissement"+i).remove();
+	}
+	$("#contrat_nb_etablissement").val(1);
+	$("#addEtablissement").css('display', 'none');
+}
 /**
  * Rollover
  ******************************************/
