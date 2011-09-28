@@ -18,7 +18,8 @@ class DouaneClient extends sfCouchdbClient {
      * @return sfCouchdbDocumentCollection 
      */
     public function getAll($hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
-        return $this->startkey('DOUANE-A')->endkey('CONTRAT-Z')->execute($hydrate);
+        //return $this->startkey('DOUANE-A')->endkey('CONTRAT-Z')->execute($hydrate);
+        return $this->executeView('douane', 'all');
     }
     
 
