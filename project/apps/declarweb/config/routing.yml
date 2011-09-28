@@ -15,6 +15,9 @@ contrat_nouveau:
 contrat_etablissement_modification:
   url:   /contrat/etablissement/:indice/modification/:recapitulatif
   param: { module: contrat, action: modificationEtablissement, indice: null, recapitulatif: null }
+contrat_etablissement_nouveau:
+  url:   /contrat/etablissement/nouveau
+  param: { module: contrat, action: nouveauEtablissement }
 contrat_etablissement_suppression:
   url:   /contrat/etablissement/:indice/suppression/:recapitulatif
   param: { module: contrat, action: suppressionEtablissement, indice: null, recapitulatif: null  }
