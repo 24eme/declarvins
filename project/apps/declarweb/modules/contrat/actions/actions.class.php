@@ -44,28 +44,11 @@ class contratActions extends sfActions
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
                 $contrat = $this->form->save();
+                $this->getUser()->setAttribute('contrat_id', $contrat->get('_id'));
                 $this->redirect('contrat_etablissement_modification', array('indice' => 0));
             }
         }
     }
- /**
-  * 
-  *
-  * @param sfRequest $request A request object
-  */
-  public function executeNouveauEtablissement(sfWebRequest $request)
-  {
-  	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
-    $this->form = new ContratEtablissementNouveauForm($this->contrat->etablissements->add());
-    if ($request->isMethod(sfWebRequest::POST)) {
-
-        $this->form->bind($request->getParameter($this->form->getName()));
-        if ($this->form->isValid()) {
-            $this->form->save();
-            $this->redirect('@contrat_etablissement_nouveau');
-        }
-    }
-  }
  /**
   * 
   *
@@ -87,8 +70,10 @@ class contratActions extends sfActions
             if ($this->contrat->etablissements->exist($nextIndice)) {
             	if ($this->recapitulatif)
             		$this->redirect('@contrat_etablissement_recapitulatif');
-            	else
+            	else {
+            		$this->getUser()->setFlash('success', 'Modification effectuées');
             		$this->redirect('contrat_etablissement_modification', array('indice' => $nextIndice));
+            	}
             } else 
             	$this->redirect('@contrat_etablissement_recapitulatif');
         }
