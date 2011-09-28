@@ -76,6 +76,15 @@ function removeAllEtablissement() {
 	$("#contrat_nb_etablissement").val(1);
 	$("#addEtablissement").css('display', 'none');
 }
+function voirFormAdresseComptabilite() {
+	$("#adresseComptabilite").css("display", "block");
+}
+function masquerFormAdresseComptabilite() {
+	$("#adresseComptabilite").css("display", "none");
+	 $("#adresseComptabilite input").each(function(){
+	   $(this).val('');
+	 });
+}
 /**
  * Rollover
  ******************************************/
