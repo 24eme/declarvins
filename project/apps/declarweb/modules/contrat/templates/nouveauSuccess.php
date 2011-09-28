@@ -44,9 +44,9 @@
 						<td><?php echo $form['etablissements'][0]['raison_sociale']->renderError() ?></td>
 					</tr>
 					<tr>
-						<td><?php echo $form['etablissements'][0]['siret']->renderLabel() ?></td>
-						<td><?php echo $form['etablissements'][0]['siret']->render() ?></td>
-						<td><?php echo $form['etablissements'][0]['siret']->renderError() ?></td>
+						<td><?php echo $form['etablissements'][0]['siret_cni']->renderLabel() ?></td>
+						<td><?php echo $form['etablissements'][0]['siret_cni']->render() ?></td>
+						<td><?php echo $form['etablissements'][0]['siret_cni']->renderError() ?></td>
 					</tr>
 				</table>
 			</td>
@@ -81,9 +81,9 @@
 						<td><?php echo $etablissement['raison_sociale']->renderError() ?></td>
 					</tr>
 					<tr>
-						<td><?php echo $etablissement['siret']->renderLabel() ?></td>
-						<td><?php echo $etablissement['siret']->render() ?></td>
-						<td><?php echo $etablissement['siret']->renderError() ?></td>
+						<td><?php echo $etablissement['siret_cni']->renderLabel() ?></td>
+						<td><?php echo $etablissement['siret_cni']->render() ?></td>
+						<td><?php echo $etablissement['siret_cni']->renderError() ?></td>
 					</tr>
 				</table>
 			</td>
