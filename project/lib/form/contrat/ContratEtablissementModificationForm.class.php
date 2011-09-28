@@ -59,7 +59,7 @@ class ContratEtablissementModificationForm extends ContratEtablissementNouveauFo
        $this->setValidator('comptabilite_adresse', new sfValidatorString(array('required' => false)));
        $this->setValidator('comptabilite_code_postal', new sfValidatorString(array('required' => false)));
        $this->setValidator('comptabilite_commune', new sfValidatorString(array('required' => false)));
-       $this->setValidator('service_douane', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($douaneChoices))));
+       $this->setValidator('service_douane', new sfValidatorChoice(array('required' => true, 'choices' => array_keys($douaneChoices))));
     }
     
     /**
