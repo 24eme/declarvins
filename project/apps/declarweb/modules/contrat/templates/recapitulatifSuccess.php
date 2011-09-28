@@ -1,49 +1,35 @@
 <h1>Récapitulatif</h1>
+<p>
+	Nom : <?php echo $contrat->getNom() ?><br />
+	Prénom : <?php echo $contrat->getPrenom() ?><br /> 
+	Fonction : <?php echo $contrat->getFonction() ?><br />
+	Téléphone : <?php echo $contrat->getTelephone() ?><br />
+	Fax : <?php echo $contrat->getFax() ?><br />
+</p>
 <?php 
 foreach ($contrat->etablissements as $etablissement): 
 ?>
-	Raison sociale: <?php echo $etablissement->raison_sociale ?>
-		<br />
-		SIRET: <?php echo $etablissement->siret ?>
+<?php echo $etablissement->raison_sociale ?> (<?php echo $etablissement->siret ?><?php if ($etablissement->siret && $etablissement->cni): ?>/<?php endif; ?><?php echo $etablissement->cni ?>)
 		<?php if ($etablissement->adresse): ?>
 		<br />
-		CNI: <?php echo $etablissement->cni ?>
+		<?php echo $etablissement->adresse ?>
 		<br />
-		CVI: <?php echo $etablissement->cvi ?>
-		<br />
-		Numéro accises: <?php echo $etablissement->no_accises ?>
-		<br />
-		Numéro TVA intracommunautaire: <?php echo $etablissement->no_tva_intracommunautaire ?>
-		<br />
-		Adresse: <?php echo $etablissement->adresse ?>
-		<br />
-		Code postal: <?php echo $etablissement->code_postal ?>
-		<br />
-		Commune: <?php echo $etablissement->commune ?>
-		<br />
-		Téléphone: <?php echo $etablissement->telephone ?>
-		<br />
-		Fax: <?php echo $etablissement->fax ?>
-		<br />
-		Email: <?php echo $etablissement->email ?>
-		<br />
-		Famille: <?php echo $etablissement->famille ?>
-		<br />
-		Sous famille: <?php echo $etablissement->sous_famille ?>
-		<br />
-		Service douane: <?php echo $etablissement->service_douane ?>
-		<br />
+		<?php echo $etablissement->code_postal ?> <?php echo $etablissement->commune ?>
+		<br /><br />
+		 <?php echo $etablissement->famille ?> <?php echo $etablissement->service_douane ?>
 		<?php if ($etablissement->comptabilite_adresse || $etablissement->comptabilite_code_postal || $etablissement->comptabilite_commune): ?>
-		Comptabilité:
+		<br /><br />
+		Adresse comptabilité:
 		<br />
-		Adresse: <?php echo $etablissement->comptabilite_adresse ?>
+		<?php echo $etablissement->comptabilite_adresse ?>
 		<br />
-		Code postal: <?php echo $etablissement->comptabilite_code_postal ?>
-		<br />
-		Commune: <?php echo $etablissement->comptabilite_commune ?>
+		<?php echo $etablissement->comptabilite_code_postal ?> <?php echo $etablissement->comptabilite_commune ?>
 		<?php endif; ?>
 		<?php endif; ?>
+	<br /><br />
 	<a href="<?php echo url_for('contrat_etablissement_modification', array('indice' => $etablissement->getKey(), 'recapitulatif' => 1)) ?>">Modifier</a>
 	<hr />
 <?php endforeach; ?>
+<br /><br />
 <a href="<?php echo url_for('contrat_etablissement_confirmation') ?>">Valider</a>
+<a href="<?php echo url_for('contrat_etablissement_confirmation') ?>">Nouveau</a>
