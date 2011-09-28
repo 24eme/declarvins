@@ -67,6 +67,23 @@ class contratActions extends sfActions
   *
   * @param sfRequest $request A request object
   */
+  public function executeNouveauEtablissement(sfWebRequest $request)
+  {
+  	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
+    $this->form = new ContratEtablissementModificationForm($this->contrat->etablissements->add());
+    if ($request->isMethod(sfWebRequest::POST)) {
+        $this->form->bind($request->getParameter($this->form->getName()));
+        if ($this->form->isValid()) {
+           $this->form->save();
+           $this->redirect('@contrat_etablissement_recapitulatif');
+        }
+    }
+  }
+ /**
+  * 
+  *
+  * @param sfRequest $request A request object
+  */
   public function executeSuppressionEtablissement(sfWebRequest $request)
   {
   	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());

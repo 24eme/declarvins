@@ -6,6 +6,12 @@
 	Téléphone : <?php echo $contrat->getTelephone() ?><br />
 	Fax : <?php echo $contrat->getFax() ?><br />
 </p>
+<br />
+<strong>Etablissements :</strong>
+<br />
+<br />
+<hr />
+<br />
 <?php 
 foreach ($contrat->etablissements as $etablissement): 
 ?>
@@ -28,8 +34,8 @@ foreach ($contrat->etablissements as $etablissement):
 		<?php endif; ?>
 	<br /><br />
 	<a href="<?php echo url_for('contrat_etablissement_modification', array('indice' => $etablissement->getKey(), 'recapitulatif' => 1)) ?>">Modifier</a>
+	<br /><br />
 	<hr />
+	<br />
 <?php endforeach; ?>
-<br /><br />
-<a href="<?php echo url_for('contrat_etablissement_confirmation') ?>">Valider</a>
-<a href="<?php echo url_for('contrat_etablissement_confirmation') ?>">Nouveau</a>
+<a href="<?php echo url_for('contrat_etablissement_confirmation') ?>">Valider</a> | <a href="<?php echo url_for('contrat_etablissement_nouveau') ?>">Nouveau</a>
