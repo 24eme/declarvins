@@ -8,7 +8,7 @@
 foreach ($contrat->etablissements as $etablissement): 
 if ($etablissement->getKey() == $form->getObject()->getKey()):
 ?>
-<p>Modification de l'établissement <?php echo $etablissement->getKey() + 1; ?></p>
+<p>Veuillez saisir les informations pour l'établissement <?php echo $etablissement->getKey() + 1; ?></p>
 <form method="post" action="<?php echo ($recapitulatif)? url_for('contrat_etablissement_modification', array('indice' => $etablissement->getKey(), 'recapitulatif' => 1)) : url_for('contrat_etablissement_modification', array('indice' => $etablissement->getKey())); ?>">
 	<div class="ligne_form ligne_form_label">
 	<?php echo $form->renderHiddenFields(); ?>
