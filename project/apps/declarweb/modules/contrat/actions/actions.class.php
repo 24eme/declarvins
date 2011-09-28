@@ -38,6 +38,7 @@ class contratActions extends sfActions
      * @param sfRequest $request A request object
      */
     public function executeNouveau(sfWebRequest $request) {
+    	print_r(sfCouchdbManager::getClient('Douane')->getAll());exit;
         $this->nbEtablissement = $request->getParameter('nb_etablissement', 1);
         $this->form = new ContratForm(new Contrat(), array('nbEtablissement' => $this->nbEtablissement));
         if ($request->isMethod(sfWebRequest::POST)) {
@@ -75,7 +76,7 @@ class contratActions extends sfActions
             		$this->redirect('contrat_etablissement_modification', array('indice' => $nextIndice));
             	}
             } else 
-            	$this->redirect('@contrat_etablissement_recapitulatif');
+            	$this->redirect('@compte_nouveau');
         }
     }
   }
@@ -99,7 +100,7 @@ class contratActions extends sfActions
   		else
   			$this->redirect('contrat_etablissement_modification', array('indice' => $indice));
   	} else
-  		$this->redirect('@contrat_etablissement_recapitulatif');
+  		$this->redirect('@compte_nouveau');
   }
  /**
   * 

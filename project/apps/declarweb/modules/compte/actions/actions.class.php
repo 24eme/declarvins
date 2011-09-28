@@ -15,12 +15,15 @@ class compteActions extends sfActions {
      * @param sfRequest $request A request object
      */
     public function executeNouveau(sfWebRequest $request) {
-        $this->nbEtablissement = $request->getParameter('nb_etablissement', 1);
-        $this->form = new ContratForm(new Contrat(), array('nbEtablissement' => $this->nbEtablissement));
+   		$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
+        $this->form = new CompteTiersAjoutForm(new CompteTiers(), array('contrat' => $this->contrat));
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
-                $contrat = $this->form->save();
+                $compteTiers = $this->form->save();
+                $this->contrat->setCompte($compteTiers->get('_id'));
+                $this->contrat->save();
+                $this->redirect('@contrat_etablissement_recapitulatif');
             }
         }
     }
