@@ -1,65 +1,80 @@
 <?php
-class ContratEtablissementModificationForm extends ContratEtablissementNouveauForm {
+class ContratEtablissementModificationForm extends sfCouchdbFormDocumentJson {
 	
 	protected $_douaneCollection = null;
 	protected $_familleCollection = null;
 	
     public function configure() {
-	   parent::configure();
 	   $douaneChoices = $this->getDouaneChoices();
 	   $familleChoices = $this->getFamilleChoices();
-	   $sousFamilleChoices = $this->getFamilleSousFamilleChoices();
+	   if (!$this->getObject()->getAdresse())
+	   	$sousFamilleChoices = $this->getFamilleSousFamilleChoices();
+	   else
+	   	$sousFamilleChoices = $this->getSousFamilleChoicesByFamille($this->getObject()->getFamille()); 
 	   $sousFamilleValidators = $this->getSousFamilleValidators();
-       $this->setWidget('cni', new sfWidgetFormInputText());
-       $this->setWidget('cvi', new sfWidgetFormInputText());
-       $this->setWidget('no_accises', new sfWidgetFormInputText());
-       $this->setWidget('no_tva_intracommunautaire', new sfWidgetFormInputText());
-       $this->setWidget('adresse', new sfWidgetFormInputText());
-       $this->setWidget('code_postal', new sfWidgetFormInputText());
-       $this->setWidget('commune', new sfWidgetFormInputText());
-       $this->setWidget('telephone', new sfWidgetFormInputText());
-       $this->setWidget('fax', new sfWidgetFormInputText());
-       $this->setWidget('email', new sfWidgetFormInputText());
-       $this->setWidget('famille', new sfWidgetFormChoice(array('choices' => $familleChoices)));
-       $this->setWidget('sous_famille', new sfWidgetFormChoice(array('choices' => $sousFamilleChoices)));
-       $this->setWidget('comptabilite_adresse', new sfWidgetFormInputText());
-       $this->setWidget('comptabilite_code_postal', new sfWidgetFormInputText());
-       $this->setWidget('comptabilite_commune', new sfWidgetFormInputText());
-       $this->setWidget('service_douane', new sfWidgetFormChoice(array('choices' => $douaneChoices)));
+	   
+	   $this->setWidgets(array(
+		   'raison_sociale' => new sfWidgetFormInputText(),
+	       'siret' => new sfWidgetFormInputText(),
+	       'cni' => new sfWidgetFormInputText(),
+	       'cvi' => new sfWidgetFormInputText(),
+	       'no_accises' => new sfWidgetFormInputText(),
+	       'no_tva_intracommunautaire' => new sfWidgetFormInputText(),
+	       'adresse' => new sfWidgetFormInputText(),
+	       'code_postal' => new sfWidgetFormInputText(),
+	       'commune' => new sfWidgetFormInputText(),
+	       'telephone' => new sfWidgetFormInputText(),
+	       'fax' => new sfWidgetFormInputText(),
+	       'email' => new sfWidgetFormInputText(),
+	       'famille' => new sfWidgetFormChoice(array('choices' => $familleChoices)),
+	       'sous_famille' => new sfWidgetFormChoice(array('choices' => $sousFamilleChoices)),
+	       'comptabilite_adresse' => new sfWidgetFormInputText(),
+	       'comptabilite_code_postal' => new sfWidgetFormInputText(),
+	       'comptabilite_commune' => new sfWidgetFormInputText(),
+	       'service_douane' => new sfWidgetFormChoice(array('choices' => $douaneChoices))
+	   ));
+       $this->widgetSchema->setLabels(array(
+       	   'raison_sociale' => 'Raison sociale*: ',
+	       'siret' => 'SIRET: ',
+	       'cni' => 'CNI: ',
+	       'cvi' => 'CVI: ',
+	       'no_accises' => 'Numéro accises: ',
+	       'no_tva_intracommunautaire' => 'Numéro TVA intracommunautaire: ',
+	       'adresse' => 'Adresse*: ',
+	       'code_postal' => 'Code postal*: ',
+	       'commune' => 'Commune*: ',
+	       'telephone' => 'Téléphone: ',
+	       'fax' => 'Fax: ',
+	       'email' => 'Email: ',
+	       'famille' => 'Famille*: ',
+	       'sous_famille' => 'Sous famille*: ',
+	       'comptabilite_adresse' => 'Adresse: ',
+	       'comptabilite_code_postal' => 'Code postal: ',
+	       'comptabilite_commune' => 'Commune: ',
+	       'service_douane' => 'Service douane*: '
+       ));
+       $this->setValidators(array(
+       	   'raison_sociale' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
+	       'siret' => new sfValidatorString(array('required' => false, 'max_length' => 15, 'min_length' => 13)),
+	       'cni' => new sfValidatorString(array('required' => false, 'max_length' => 13, 'min_length' => 11)),
+	       'cvi' => new sfValidatorString(array('required' => false, 'max_length' => 11, 'min_length' => 9)),
+	       'no_accises' => new sfValidatorString(array('required' => false)),
+	       'no_tva_intracommunautaire' => new sfValidatorString(array('required' => false)),
+	       'adresse' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
+	       'code_postal' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
+	       'commune' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
+	       'telephone' => new sfValidatorString(array('required' => false)),
+	       'fax' => new sfValidatorString(array('required' => false)),
+	       'email' => new sfValidatorString(array('required' => false)),
+	       'famille' => new sfValidatorChoice(array('choices' => array_keys($familleChoices))),
+	       'sous_famille' => new sfValidatorChoice(array('choices' => $sousFamilleValidators)),
+	       'comptabilite_adresse' => new sfValidatorString(array('required' => false)),
+	       'comptabilite_code_postal' => new sfValidatorString(array('required' => false)),
+	       'comptabilite_commune' => new sfValidatorString(array('required' => false)),
+	       'service_douane' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($douaneChoices)))
+       ));
        
-       $this->getWidget('cni')->setLabel('CNI: ');
-       $this->getWidget('cvi')->setLabel('CVI: ');
-       $this->getWidget('no_accises')->setLabel('Numéro accises: ');
-       $this->getWidget('no_tva_intracommunautaire')->setLabel('Numéro TVA intracommunautaire: ');
-       $this->getWidget('adresse')->setLabel('Adresse*: ');
-       $this->getWidget('code_postal')->setLabel('Code postal*: ');
-       $this->getWidget('commune')->setLabel('Commune*: ');
-       $this->getWidget('telephone')->setLabel('Téléphone: ');
-       $this->getWidget('fax')->setLabel('Fax: ');
-       $this->getWidget('email')->setLabel('Email: ');
-       $this->getWidget('famille')->setLabel('Famille*: ');
-       $this->getWidget('sous_famille')->setLabel('Sous famille*: ');
-       $this->getWidget('comptabilite_adresse')->setLabel('Adresse: ');
-       $this->getWidget('comptabilite_code_postal')->setLabel('Code postal: ');
-       $this->getWidget('comptabilite_commune')->setLabel('Commune: ');
-       $this->getWidget('service_douane')->setLabel('Service douane*: ');
-       
-       $this->setValidator('cni', new sfValidatorString(array('required' => false)));
-       $this->setValidator('cvi', new sfValidatorString(array('required' => false)));
-       $this->setValidator('no_accises', new sfValidatorString(array('required' => false)));
-       $this->setValidator('no_tva_intracommunautaire', new sfValidatorString(array('required' => false)));
-       $this->setValidator('adresse', new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')));
-       $this->setValidator('code_postal', new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')));
-       $this->setValidator('commune', new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')));
-       $this->setValidator('telephone', new sfValidatorString(array('required' => false)));
-       $this->setValidator('fax', new sfValidatorString(array('required' => false)));
-       $this->setValidator('email', new sfValidatorString(array('required' => false)));
-       $this->setValidator('famille', new sfValidatorChoice(array('choices' => array_keys($familleChoices))));
-       $this->setValidator('sous_famille', new sfValidatorChoice(array('choices' => $sousFamilleValidators)));
-       $this->setValidator('comptabilite_adresse', new sfValidatorString(array('required' => false)));
-       $this->setValidator('comptabilite_code_postal', new sfValidatorString(array('required' => false)));
-       $this->setValidator('comptabilite_commune', new sfValidatorString(array('required' => false)));
-       $this->setValidator('service_douane', new sfValidatorChoice(array('required' => true, 'choices' => array_keys($douaneChoices))));
+		$this->widgetSchema->setNameFormat('contratetablissement[%s]');
     }
     
     /**
@@ -67,7 +82,7 @@ class ContratEtablissementModificationForm extends ContratEtablissementNouveauFo
      */
     protected function getDouaneChoices() {
         $douanes = $this->getDouanes();
-        $choices = array();
+        $choices = array('' => '');
         foreach ($douanes as $douane) {
             $choices[$douane->getNom()] = $douane->getNom();
         }
@@ -91,7 +106,7 @@ class ContratEtablissementModificationForm extends ContratEtablissementNouveauFo
      */
     protected function getFamilleChoices() {
         $familles = array_keys($this->getFamillesSousFamilles());
-        $choices = array();
+        $choices = array('' => '');
         foreach ($familles as $famille) {
             $choices[$famille] = $famille;
         }
@@ -102,13 +117,14 @@ class ContratEtablissementModificationForm extends ContratEtablissementNouveauFo
      * 
      */
     protected function getFamilleSousFamilleChoices() {
-        $famillesSousFamilles = $this->getFamillesSousFamilles();
+        /*$famillesSousFamilles = $this->getFamillesSousFamilles();
         $choices = array();
         foreach ($famillesSousFamilles as $famille => $sousFamilles) {
             $choices = $this->getSousFamilleChoicesByFamille($famille);
             break;
         }
-        return $choices;
+        return $choices;*/
+    	return array('' => '');
     }
     
     /**
@@ -117,7 +133,7 @@ class ContratEtablissementModificationForm extends ContratEtablissementNouveauFo
     protected function getSousFamilleChoicesByFamille($famille) {
         $famillesSousFamilles = $this->getFamillesSousFamilles();
         $famillesSousFamilles = $famillesSousFamilles[$famille];
-        $choices = array();
+        $choices = array('' => '');
         foreach ($famillesSousFamilles as $sousFamilles) {
             $choices[$sousFamilles] = $sousFamilles;
         }

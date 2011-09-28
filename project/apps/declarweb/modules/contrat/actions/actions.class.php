@@ -42,7 +42,6 @@ class contratActions extends sfActions
   	$nextIndice = $indice + 1;
     $this->form = new ContratEtablissementModificationForm($this->contrat->etablissements->get($indice));
     if ($request->isMethod(sfWebRequest::POST)) {
-
         $this->form->bind($request->getParameter($this->form->getName()));
         if ($this->form->isValid()) {
             $this->form->save();
@@ -53,8 +52,13 @@ class contratActions extends sfActions
             		$this->getUser()->setFlash('success', 'Modification effectuées');
             		$this->redirect('contrat_etablissement_modification', array('indice' => $nextIndice));
             	}
-            } else 
-            	$this->redirect('@compte_nouveau');
+            } else {
+            	
+            	if ($this->recapitulatif)
+            		$this->redirect('@contrat_etablissement_recapitulatif');
+            	else
+            		$this->redirect('@compte_nouveau');
+            }
         }
     }
   }
@@ -77,8 +81,13 @@ class contratActions extends sfActions
   			$this->redirect('@contrat_etablissement_recapitulatif');
   		else
   			$this->redirect('contrat_etablissement_modification', array('indice' => $indice));
-  	} else
-  		$this->redirect('@compte_nouveau');
+  	}  else {
+  		 
+  		if ($this->recapitulatif)
+  			$this->redirect('@contrat_etablissement_recapitulatif');
+  		else
+  			$this->redirect('@compte_nouveau');
+  	}
   }
  /**
   * 
