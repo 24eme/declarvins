@@ -88,21 +88,30 @@ if ($etablissement->getKey() == $form->getObject()->getKey()):
 	<?php echo $form['service_douane']->renderLabel() ?>
 	<?php echo $form['service_douane']->render() ?>
 	</div>
-	<p>Si l'adresse de comptabilité est différente:</p>
+	
 	<div class="ligne_form ligne_form_label">
-	<?php echo $form['comptabilite_adresse']->renderError() ?>
-	<?php echo $form['comptabilite_adresse']->renderLabel() ?>
-	<?php echo $form['comptabilite_adresse']->render() ?>
+		<span>L'adresse de votre comptabilité est-elle différente de la précédente ?</span>
+		<input type="radio" id="r1" name="adresse_comptabilite" value="Oui" onclick="voirFormAdresseComptabilite()" />
+		<label for="r1">Oui</label>
+		<input type="radio" id="r2" name="adresse_comptabilite" value="Non" onclick="masquerFormAdresseComptabilite()" checked="checked" />
+		<label for="r2">Non</label>
 	</div>
-	<div class="ligne_form ligne_form_label">
-	<?php echo $form['comptabilite_code_postal']->renderError() ?>
-	<?php echo $form['comptabilite_code_postal']->renderLabel() ?>
-	<?php echo $form['comptabilite_code_postal']->render() ?>
-	</div>
-	<div class="ligne_form ligne_form_label">
-	<?php echo $form['comptabilite_commune']->renderError() ?>
-	<?php echo $form['comptabilite_commune']->renderLabel() ?>
-	<?php echo $form['comptabilite_commune']->render() ?>
+	<div id="adresseComptabilite" style="display:none;">
+		<div class="ligne_form ligne_form_label">
+		<?php echo $form['comptabilite_adresse']->renderError() ?>
+		<?php echo $form['comptabilite_adresse']->renderLabel() ?>
+		<?php echo $form['comptabilite_adresse']->render() ?>
+		</div>
+		<div class="ligne_form ligne_form_label">
+		<?php echo $form['comptabilite_code_postal']->renderError() ?>
+		<?php echo $form['comptabilite_code_postal']->renderLabel() ?>
+		<?php echo $form['comptabilite_code_postal']->render() ?>
+		</div>
+		<div class="ligne_form ligne_form_label">
+		<?php echo $form['comptabilite_commune']->renderError() ?>
+		<?php echo $form['comptabilite_commune']->renderLabel() ?>
+		<?php echo $form['comptabilite_commune']->render() ?>
+		</div>
 	</div>
 	<div class="btn">
 		<input type="submit" value="<?php echo ($recapitulatif)? 'Modifier' : 'Ajouter'; ?>" />

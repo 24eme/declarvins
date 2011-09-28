@@ -23,9 +23,9 @@
 	<?php echo $form['mdp2']->render() ?>
 	</div>
 	<div class="ligne_form">
-	<?php echo $form['email1']->renderError() ?>
-	<?php echo $form['email1']->renderLabel() ?>
-	<?php echo $form['email1']->render() ?>
+	<?php echo $form['email']->renderError() ?>
+	<?php echo $form['email']->renderLabel() ?>
+	<?php echo $form['email']->render() ?>
 	</div>
 	<div class="ligne_form">
 	<?php echo $form['email2']->renderError() ?>
