@@ -40,7 +40,7 @@ function addEtablissement() {
 	"		</tr>" +
 	"		<tr>" +
 	"			<td>SIRET*: </td>" +
-	"			<td><input type=\"text\" id=\"contrat_etablissements_"+nbEtablissements+"_siret\" name=\"contrat[etablissements]["+nbEtablissements+"][siret]\"></td>" +
+	"			<td><input type=\"text\" id=\"contrat_etablissements_"+nbEtablissements+"_siret\" name=\"contrat[etablissements]["+nbEtablissements+"][siret_cni]\"></td>" +
 	"			<td></td>" +
 	"		</tr>" +
 	"	</table>" +
