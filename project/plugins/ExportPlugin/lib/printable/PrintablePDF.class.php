@@ -2,7 +2,7 @@
 
 require_once(sfConfig::get('sf_lib_dir').'/vendor/dompdf/dompdf_config.inc.php');
 
-class PageablePDF extends PageableOutput {
+class PrintablePDF extends PrintableOutput {
 
     protected $pdf;
     protected $pdf_file;
