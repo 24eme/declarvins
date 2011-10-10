@@ -1,6 +1,6 @@
 <?php
 
-class PageableOutput {
+class PrintableOutput {
 
   protected $title;
   protected $link;
