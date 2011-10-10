@@ -1,6 +1,6 @@
 <?php
 
-class PageableHTML extends PageableOutput {
+class PrintableHTML extends PageableOutput {
 
   protected $html;
 
