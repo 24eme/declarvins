@@ -16,6 +16,19 @@ $(document).ready( function()
 	var bool = familles || 0;
 	if(bool) {
 		famillesJSON = JSON.parse(familles);
+		if ($("#contratetablissement_famille").val()) {
+			var sousFamilles = famillesJSON[$("#contratetablissement_famille").val()];
+			var options = '';
+		    for (var i in sousFamilles)
+		    {
+		    	if (sousFamilleSelected == sousFamilles[i]) {
+		    		options += '<option value="'+sousFamilles[i]+'" selected="selected">'+sousFamilles[i]+'</option>';
+		    	} else {
+		    		options += '<option value="'+sousFamilles[i]+'">'+sousFamilles[i]+'</option>';
+		    	}
+		    }
+		    $("#contratetablissement_sous_famille").html(options);
+		}
 		$("#contratetablissement_famille").change(function(){
 			var sousFamilles = famillesJSON[$(this).val()];
 			var options = '';
