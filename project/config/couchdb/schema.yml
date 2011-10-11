@@ -31,6 +31,7 @@ CompteTiers:
       telephone: {  }
       fax: {  }
       type: {  }
+      contrat: {  }
       interpro: 
         type: collection
         definition:
@@ -60,15 +61,46 @@ Interpro:
       _id: {  }
       _rev: {  }
 
-Chai:
+Etablissement:
   inheritance: _Tiers
   definition:
     fields:
       _id: {  }
       _rev: {  }
-      siret: {  }
       interpro: {  }
       compte: {  }
+      contrat: {  }
+      droits: {  }
+      siret: {  }
+      cni: {  }
+      cvi: {  }
+      no_accises: {  }
+      no_tva_intracommunautaire: {  }
+      famille: {  }
+      sous_famille: {  }
+      raison_social: {  }
+      email: {  }
+      telephone: {  }
+      fax: {  }
+      siege:
+        '*':
+          type: collection
+          definition:
+            fields:
+              adresse: {  }
+              code_postal: {  }
+              ville: {  }
+      comptabilite:
+        '*':
+          type: collection
+          definition:
+            fields:
+              adresse: {  }
+              code_postal: {  }
+              ville: {  }
+      douane: {  }
+      complementaires:
+        '*': {  }       
 
 Douane:
   inheritance: _Tiers
