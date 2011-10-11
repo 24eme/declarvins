@@ -1,6 +1,7 @@
 <?php
 
-require_once(sfConfig::get('sf_lib_dir').'/vendor/dompdf/dompdf_config.inc.php');
+require_once(sfConfig::get('sf_plugins_dir').'/sfDompdfPlugin/lib/vendor/dompdf/dompdf_config.inc.php');
+
 
 class PrintablePDF extends PrintableOutput {
 
@@ -10,7 +11,7 @@ class PrintablePDF extends PrintableOutput {
     protected function init() {
         // create new PDF document
         $this->pdf = new DOMPDF();
-        $this->pdf->set_paper("A4", "portrait");
+        $this->pdf->set_paper("a4", "portrait");
 
          /* Defaulf file_dir */
         if (!$this->file_dir) {
@@ -38,8 +39,6 @@ class PrintablePDF extends PrintableOutput {
 
     public function addHtml($html) {
     	$this->pdf->load_html($html);
-        $this->pdf->AddPage();
-        $this->pdf->writeHTML($html);
     }
 
     public function generatePDF($no_cache = false) {
@@ -50,6 +49,16 @@ class PrintablePDF extends PrintableOutput {
         }        
 		$this->pdf->render();
 		file_put_contents($this->pdf_file, $this->pdf->output());
+    }
+
+    public function addHeaders($response) {
+        $response->setHttpHeader('Content-Type', 'application/pdf');
+        $response->setHttpHeader('Content-disposition', 'attachment; filename="' . basename($this->filename) . '"');
+        $response->setHttpHeader('Content-Transfer-Encoding', 'binary');
+        //$response->setHttpHeader('Content-Length', filesize($this->pdf_file));
+        $response->setHttpHeader('Pragma', '');
+        $response->setHttpHeader('Cache-Control', 'public');
+        $response->setHttpHeader('Expires', '0');
     }
 
     public function output() {
