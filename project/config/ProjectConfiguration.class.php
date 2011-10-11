@@ -11,5 +11,6 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('sfCouchdbPlugin');
     $this->enablePlugins('sfDompdfPlugin');
     $this->enablePlugins('ExportPlugin');
+    $this->enablePlugins('ImportPlugin');
   }
 }
