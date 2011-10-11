@@ -2,17 +2,11 @@
 
 class PrintableOutput {
 
-  protected $title;
-  protected $link;
-  protected $subtitle;
   protected $filename;
   protected $file_dir;
   
 
-  public function __construct($title, $subtitle, $filename = '', $file_dir = null, $link = ' de ') {
-    $this->title = $title;
-    $this->link = $link;
-    $this->subtitle = $subtitle;
+  public function __construct($filename = '', $file_dir = null) {
     $this->filename = $filename;
     $this->file_dir = $file_dir;
     $this->init();

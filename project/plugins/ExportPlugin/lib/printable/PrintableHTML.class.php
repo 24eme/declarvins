@@ -1,6 +1,6 @@
 <?php
 
-class PrintableHTML extends PageableOutput {
+class PrintableHTML extends PrintableOutput {
 
   protected $html;
 
@@ -11,6 +11,10 @@ class PrintableHTML extends PageableOutput {
   public function addHtml($html) {
     $this->html .= $html;
   }
+
+    public function addHeaders($response) {
+        
+    }
 
   public function output() {
     echo $this->html;
