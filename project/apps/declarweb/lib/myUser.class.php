@@ -8,7 +8,7 @@ class myUser extends sfBasicSecurityUser
 	 */
 	public function getCompte()
 	{
-            return sfCouchdbManager::getClient('_Compte')->getById($this->getAttribute('compte_id'));
+		return ($this->hasAttribute('compte_id'))? sfCouchdbManager::getClient('_Compte')->getById($this->getAttribute('compte_id')) : null;
 	}
 	/**
 	 * Récupération du contrat
@@ -16,15 +16,14 @@ class myUser extends sfBasicSecurityUser
 	 */
 	public function getContrat()
 	{
-            return sfCouchdbManager::getClient('Contrat')->retrieveDocumentById($this->getAttribute('contrat_id'));
+		return ($this->hasAttribute('contrat_id'))? sfCouchdbManager::getClient('Contrat')->retrieveDocumentById($this->getAttribute('contrat_id')) : null;
 	}
-        /**
-	 * Récupération de l'interpro en statique (temporaire)
-         * @todo Récupérer l'interpro qui est en session
+	/**
+	 * Récupération de l'interpro
 	 * @return Interpro
 	 */
 	public function getInterpro()
 	{
-            return sfCouchdbManager::getClient('Interpro')->getById($this->getAttribute('interpro_id'));
+		return ($this->hasAttribute('interpro_id'))? sfCouchdbManager::getClient('Interpro')->getById($this->getAttribute('interpro_id')) : null;
 	}
 }
