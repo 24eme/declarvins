@@ -4,6 +4,14 @@ class _CompteClient extends sfCouchdbClient {
     
     /**
      *
+     * @return _CompteClient
+     */
+    public static function getInstance() {
+        return sfCouchdbManager::getClient("_Compte");
+    }
+    
+    /**
+     *
      * @param string $login
      * @param integer $hydrate
      * @return _Compte 

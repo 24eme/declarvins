@@ -4,6 +4,14 @@ class ContratClient extends sfCouchdbClient {
     
     /**
      *
+     * @return _ContratClient
+     */
+    public static function getInstance() {
+        return sfCouchdbManager::getClient("Contrat");
+    }
+    
+    /**
+     *
      * @param string $login
      * @param integer $hydrate
      * @return Contrat 
