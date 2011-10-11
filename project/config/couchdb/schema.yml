@@ -69,8 +69,12 @@ Etablissement:
       _rev: {  }
       interpro: {  }
       compte: {  }
-      contrat: {  }
-      droits: {  }
+      droits:
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
+      num_interne: {  }
       siret: {  }
       cni: {  }
       cvi: {  }
@@ -78,29 +82,24 @@ Etablissement:
       no_tva_intracommunautaire: {  }
       famille: {  }
       sous_famille: {  }
-      raison_social: {  }
       email: {  }
       telephone: {  }
       fax: {  }
       siege:
-        '*':
           type: collection
           definition:
             fields:
               adresse: {  }
               code_postal: {  }
-              ville: {  }
+              commune: {  }
       comptabilite:
-        '*':
           type: collection
           definition:
             fields:
               adresse: {  }
               code_postal: {  }
-              ville: {  }
-      douane: {  }
-      complementaires:
-        '*': {  }       
+              commune: {  }
+      service_douane: {  }     
 
 Douane:
   inheritance: _Tiers
