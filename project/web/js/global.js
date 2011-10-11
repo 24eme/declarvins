@@ -13,7 +13,7 @@ $(document).ready( function()
 	rolloverImg();
 	videInputFocus();
 	hauteurEgale('#logo, #titre_rubrique, #acces_directs');
-	var bool = familles || 0;
+	var bool = window.familles || 0;
 	if(bool) {
 		famillesJSON = JSON.parse(familles);
 		if ($("#contratetablissement_famille").val()) {
