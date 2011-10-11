@@ -40,7 +40,7 @@ class validationActions extends sfActions
   {
 	$this->interpro = $this->getUser()->getInterpro();
 	$this->contrat = $this->getUser()->getContrat();
-	$this->compte = sfCouchdbManager::getClient('_Compte')->getById($this->contrat->getCompte());
+	$this->compte = $this->contrat->getCompteObject();
 	$this->form = new CompteModificationForm($this->compte);
 	if ($request->isMethod(sfWebRequest::POST) && $request->getParameter($this->form->getName())) {
 		$this->form->bind($request->getParameter($this->form->getName()));
@@ -50,5 +50,11 @@ class validationActions extends sfActions
 			$this->redirect('@validation_fiche');
 		}
 	}
+  }
+  
+  public function executeEtablissementsImport(sfWebRequest $request) {
+      $import = new ImportEtablissementsCsv($this->getUser()->getInterpro(), $this->getUser()->getContrat()->getCompteObject());
+      $import->import();
+      $this->redirect('@validation_fiche');
   }
 }
