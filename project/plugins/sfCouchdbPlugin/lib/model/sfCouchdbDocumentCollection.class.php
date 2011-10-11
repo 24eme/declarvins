@@ -32,7 +32,7 @@ class sfCouchdbDocumentCollection implements IteratorAggregate, ArrayAccess, Cou
                     }
                 }
             } catch (Exception $exc) {
-                throw new sfCouchdbException('Load error : data invalid');
+                throw new sfCouchdbException('Load error : data invalid. '.$exc->getMessage());
             }
         }
     }

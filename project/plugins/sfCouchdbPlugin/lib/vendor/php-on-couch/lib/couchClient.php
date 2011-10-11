@@ -120,8 +120,8 @@ class couchClient extends couch {
 	* @param string|object|array $data the request body. If it's an array or an object, $data is json_encode()d
 	*/
 	protected function _queryAndTest ( $method, $url,$allowed_status_codes, $parameters = array(),$data = NULL ) {
- 		//print_r($method.' '.$url."\n");
- 		//print_r($parameters);
+// 		print_r($method.' '.$url."\n");
+// 		print_r($parameters);
 		$raw = $this->query($method,$url,$parameters,$data);
 // 		echo $raw."\n";
 		$response = $this->parseRawResponse($raw, $this->results_as_array);
@@ -535,6 +535,13 @@ class couchClient extends couch {
 		$response = $this->parseRawResponse($raw, $this->results_as_array);
 		$this->results_as_array = false;
 		return $response['body'];
+	}
+
+	public function getAttachmentUri($doc, $filename) {
+	  if ( !is_object($doc) )	throw new InvalidArgumentException ("Document should be an object");
+	  if ( !$doc->_id )       throw new InvalidArgumentException ("Document should have an ID");
+	  $url  = '/'.urlencode($this->dbname).'/'.urlencode($doc->_id).'/'.urlencode($filename);
+	  return $url;
 	}
 
 	/**
