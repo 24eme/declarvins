@@ -1,0 +1,3 @@
+all:
+  .settings:
+    autoloading_functions:    [[sfDOMPDFBridge, autoload]]
