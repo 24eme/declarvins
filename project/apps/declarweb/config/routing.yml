@@ -27,6 +27,9 @@ contrat_etablissement_recapitulatif:
 contrat_etablissement_confirmation:
   url:   /contrat/confirmation
   param: { module: contrat, action: confirmation }
+contrat_pdf:
+  url:   /contrat/pdf
+  param: { module: contrat, action: pdf }
 
 # generic rules
 # please, remove them by adding more specific rules

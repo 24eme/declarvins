@@ -9,5 +9,7 @@ class ProjectConfiguration extends sfProjectConfiguration
   {
     $this->enablePlugins('sfDoctrinePlugin');
     $this->enablePlugins('sfCouchdbPlugin');
+    $this->enablePlugins('sfDompdfPlugin');
+    $this->enablePlugins('ExportPlugin');
   }
 }

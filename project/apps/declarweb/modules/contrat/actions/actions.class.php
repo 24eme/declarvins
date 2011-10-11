@@ -124,4 +124,15 @@ class contratActions extends sfActions
   {
   	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
   }
+ /**
+  * 
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executePdf(sfWebRequest $request)
+  {
+  	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
+  	$pdf = new ExportContratPdf($this->contrat);
+	return $this->renderText($pdf->render($this->getResponse()));
+  }
 }
