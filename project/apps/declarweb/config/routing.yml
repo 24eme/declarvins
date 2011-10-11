@@ -1,7 +1,7 @@
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 
-# default rules
+# Declaration routing
 homepage:
   url:   /
   param: { module: contrat, action: nouveau }
@@ -30,6 +30,14 @@ contrat_etablissement_confirmation:
 contrat_pdf:
   url:   /contrat/pdf
   param: { module: contrat, action: pdf }
+
+# Validation routing
+validation_login:
+  url:   /validation/login
+  param: { module: validation, action: login }
+validation_fiche:
+  url:   /validation/fiche
+  param: { module: validation, action: fiche }
 
 # generic rules
 # please, remove them by adding more specific rules
