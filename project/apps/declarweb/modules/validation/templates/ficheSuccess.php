@@ -15,9 +15,9 @@
     </div>
     <h2 class="titre_principal">Etablissements associés</h2>
     <?php if (count($etablissements) > 0): ?>
-    <ul class="etablissements">
+    <ul class="chais">
         <?php foreach ($etablissements as $etablissement): ?>
-        <li class="presentation">
+        <li class="presentation"<?php if ($etablissement->statut == _Tiers::STATUT_ARCHIVER): ?> style="opacity:0.5;"<?php endif; ?>>
             <?php include_partial('etablissement/view', array('etablissement' => $etablissement, 'interpro' => $interpro)) ?>
         </li>
         <?php endforeach; ?>
