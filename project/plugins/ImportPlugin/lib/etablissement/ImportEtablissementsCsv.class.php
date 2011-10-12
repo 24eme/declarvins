@@ -7,17 +7,18 @@ class ImportEtablissementsCsv {
     protected $_csv = array();
 
     public function __construct(Interpro $interpro, _Compte $compte) {
-        $file_uri = $interpro->getAttachmentUri("import_etablissements.csv");
+        $contrat = $compte->getContratObject();
+        $file_uri = $contrat->getAttachmentUri("etablissements.csv");
         $handler = fopen($file_uri, 'r');
         if (!$handler) {
             throw new Exception('Cannot open csv file anymore');
         }
-        $contrat = $compte->getContratObject();
+        
         $this->_interpro = $interpro;
         $this->_compte = $compte;
         $this->_csv = array();
         while (($line = fgetcsv($handler, 0, ";")) !== FALSE) {
-            if ($contrat->no_contrat == $line[EtablissementCsv::COL_NUMERO_CONTRAT]) {
+            if (preg_match('/[0-9]+/', $line[EtablissementCsv::COL_ID])) {
                 $this->_csv[] = $line;
             }
         }
