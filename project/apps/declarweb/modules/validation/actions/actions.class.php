@@ -90,17 +90,6 @@ class validationActions extends sfActions {
 		}
 	}
 
-	public function executeDelier(sfWebRequest $request) {
-		$this->forward404Unless($etablissement = EtablissementClient::retrieveById($request->getParameter("etablisssement")));
-		$this->forward404Unless($etablissement->compte == $this->getUser()->getContrat()->compte);
-		$etablissement->statut == _Tiers::STATUT_DELIER;
-		$etablissement->save();
-		$compte = $etablissement->getCompteObject();
-		$compte->tiers->remove($etablissement->get('_id'));
-
-		$this->redirect('@validation_fiche');
-	}
-
 
 	public function executeUploadCsv(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod('post'));
@@ -120,11 +109,22 @@ class validationActions extends sfActions {
 	}
 
 	public function executeArchiver(sfWebRequest $request) {
-		$this->forward404Unless($etablissement = EtablissementClient::retrieveById($request->getParameter("etablisssement")));
+		$this->forward404Unless($etablissement = EtablissementClient::getInstance()->retrieveById($request->getParameter("etablissement")));
 		$this->forward404Unless($etablissement->compte == $this->getUser()->getContrat()->compte);
-		$etablissement->statut == _Tiers::STATUT_ARCHIVER;
+		$etablissement->statut = _Tiers::STATUT_ARCHIVER;
 		$etablissement->save();
 
+		$this->redirect('@validation_fiche');
+	}
+
+	public function executeDelier(sfWebRequest $request) {
+		$this->forward404Unless($etablissement = EtablissementClient::getInstance()->retrieveById($request->getParameter("etablissement")));
+		$this->forward404Unless($etablissement->compte == $this->getUser()->getContrat()->compte);
+		$etablissement->statut = _Tiers::STATUT_DELIER;
+		$etablissement->save();
+		$compte = $this->getUser()->getContrat()->getCompteObject();
+		$compte->tiers->remove($etablissement->get('_id'));
+		$compte->save();
 		$this->redirect('@validation_fiche');
 	}
 
