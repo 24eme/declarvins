@@ -33,10 +33,12 @@
     <?php endif; ?>
     <h2 class="titre_principal">Import</h2>
     <a href="<?php echo url_for('@validation_import') ?>">Lancer l'import</a>
+    <?php include_component('validation', 'formUploadCsv'); ?>
      <h2 class="titre_principal">Liaison interpro</h2>
     <?php include_partial('compte/form_liaison_interpro', array('form' => $formLiaison)) ?>
     <h2 class="titre_principal">Validation</h2>
     <?php include_partial('validation/validation', array('valide_interpro' => $valide_interpro, 'compte_active' => $compte_active, 'interpro' => $interpro)) ?>
+
 </div>
 <!-- fin #exploitation_administratif -->
 
