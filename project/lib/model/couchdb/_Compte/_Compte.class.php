@@ -19,7 +19,7 @@ abstract class _Compte extends Base_Compte {
     /**
      * 
      */
-    public function getNbChaiByInterproId() {
+    public function getNbEtablissementByInterproId() {
         $result = array();
         foreach ($this->getTiers() as $tier) {
             if (array_key_exists($tier->getInterpro(), $result)) {
