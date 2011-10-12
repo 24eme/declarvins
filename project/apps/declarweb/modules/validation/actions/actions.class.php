@@ -8,91 +8,125 @@
  * @author     Your name here
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class validationActions extends sfActions
-{
- /**
-  * 
-  *
-  * @param sfRequest $request A request object
-  */
-  public function executeLogin(sfWebRequest $request)
-  {
-  	$this->formLogin = new LoginForm();
-    
-        
-    if ($request->isMethod(sfWebRequest::POST)) {
+class validationActions extends sfActions {
 
-        $this->formLogin->bind($request->getParameter($this->formLogin->getName()));
-        if ($this->formLogin->isValid()) {
-            $values = $this->formLogin->getValues();
-            $this->getUser()->setAttribute('interpro_id', $values['interpro']);
-            $this->getUser()->setAttribute('contrat_id', 'CONTRAT-'.$values['contrat']);
-            $this->redirect('@validation_fiche');
-        }
-    }
-  }
- /**
-  * 
-  *
-  * @param sfRequest $request A request object
-  */
-  public function executeFiche(sfWebRequest $request)
-  {
-  	// Global
-	$this->interpro = $this->getUser()->getInterpro();
-	$this->contrat = $this->getUser()->getContrat();
-	$this->compte = $this->contrat->getCompteObject();
-	$this->etablissements = $this->compte->getTiersCollection();
-	// Etape compte
-	$this->form = new CompteModificationForm($this->compte);
-	// Etape liaison
-	$this->formLiaison = new LiaisonInterproForm($this->compte);
-	// Etape validation
-	$this->valide_interpro = false;
-    if ($this->compte->interpro->exist($this->interpro->get('_id'))) {
-        $interpro = $this->compte->interpro->get($this->interpro->get('_id'));
-        if ($interpro->getStatut() != _Compte::STATUT_VALIDATION_ATTENTE) {
-            $this->valide_interpro = true;
-        }
-    }
-    $this->compte_active = ($this->compte->getStatut() == _Compte::STATUT_ACTIVE);
-	
-	// Traitement des formulaires
-	// Form compte
-	if ($request->isMethod(sfWebRequest::POST) && $request->getParameter($this->form->getName())) {
-		$this->form->bind($request->getParameter($this->form->getName()));
-		if ($this->form->isValid()) {
-			$this->compte = $this->form->save();
-			$this->getUser()->setFlash('maj', 'Les identifiants ont bien été mis à jour.');
+	/**
+	 *
+	 *
+	 * @param sfRequest $request A request object
+	 */
+	public function executeLogin(sfWebRequest $request) {
+		$this->formLogin = new LoginForm();
+
+
+		if ($request->isMethod(sfWebRequest::POST)) {
+
+			$this->formLogin->bind($request->getParameter($this->formLogin->getName()));
+			if ($this->formLogin->isValid()) {
+				$values = $this->formLogin->getValues();
+				$this->getUser()->setAttribute('interpro_id', $values['interpro']);
+				$this->getUser()->setAttribute('contrat_id', 'CONTRAT-' . $values['contrat']);
+				$this->redirect('@validation_fiche');
+			}
+		}
+	}
+
+	/**
+	 *
+	 *
+	 * @param sfRequest $request A request object
+	 */
+	public function executeFiche(sfWebRequest $request)
+	{
+		// Global
+		$this->interpro = $this->getUser()->getInterpro();
+		$this->contrat = $this->getUser()->getContrat();
+		$this->compte = $this->contrat->getCompteObject();
+		$this->etablissements = $this->compte->getTiersCollection();
+		// Etape compte
+		$this->form = new CompteModificationForm($this->compte);
+		// Etape liaison
+		$this->formLiaison = new LiaisonInterproForm($this->compte);
+		// Etape validation
+		$this->valide_interpro = false;
+		if ($this->compte->interpro->exist($this->interpro->get('_id'))) {
+			$interpro = $this->compte->interpro->get($this->interpro->get('_id'));
+			if ($interpro->getStatut() != _Compte::STATUT_VALIDATION_ATTENTE) {
+				$this->valide_interpro = true;
+			}
+		}
+		$this->compte_active = ($this->compte->getStatut() == _Compte::STATUT_ACTIVE);
+
+		// Traitement des formulaires
+		// Form compte
+		if ($request->isMethod(sfWebRequest::POST) && $request->getParameter($this->form->getName())) {
+			$this->form->bind($request->getParameter($this->form->getName()));
+			if ($this->form->isValid()) {
+				$this->compte = $this->form->save();
+				$this->getUser()->setFlash('maj', 'Les identifiants ont bien été mis à jour.');
+				$this->redirect('@validation_fiche');
+			}
+		}
+		// Form liaison
+		if ($request->isMethod(sfWebRequest::POST) && $request->getParameter($this->formLiaison->getName())) {
+			$this->formLiaison->bind($request->getParameter($this->formLiaison->getName()));
+			if ($this->formLiaison->isValid()) {
+				$this->formLiaison->save();
+				$this->getUser()->setFlash('general', 'Liaisons interpro faites');
+				$this->redirect('@validation_fiche');
+			}
+		}
+		// Form validation
+		if ($request->isMethod(sfWebRequest::POST) && $request->getParameter('interpro_id')) {
+			$interpro_id = $request->getParameter('interpro_id');
+			if (!$this->compte->interpro->exist($interpro_id)) {
+				$this->compte->interpro->add($interpro_id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
+			} else {
+				$this->compte->interpro->get($interpro_id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
+			}
+			$this->compte->save();
+			$this->getUser()->setFlash('general', 'Compte validé');
 			$this->redirect('@validation_fiche');
 		}
 	}
-	// Form liaison
-	if ($request->isMethod(sfWebRequest::POST) && $request->getParameter($this->formLiaison->getName())) {
-		$this->formLiaison->bind($request->getParameter($this->formLiaison->getName()));
-        if ($this->formLiaison->isValid()) {
-			$this->formLiaison->save();
-			$this->getUser()->setFlash('general', 'Liaisons interpro faites');
-			$this->redirect('@validation_fiche');
-		}
-	}
-	// Form validation
-	if ($request->isMethod(sfWebRequest::POST) && $request->getParameter('interpro_id')) {
-		$interpro_id = $request->getParameter('interpro_id');
-		if (!$this->compte->interpro->exist($interpro_id)) {
-			$this->compte->interpro->add($interpro_id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
-      	} else {
-			$this->compte->interpro->get($interpro_id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
-      	}
-      	$this->compte->save();
-		$this->getUser()->setFlash('general', 'Compte validé');
+
+	public function executeDelier(sfWebRequest $request) {
+		$this->forward404Unless($etablissement = EtablissementClient::retrieveById($request->getParameter("etablisssement")));
+		$this->forward404Unless($etablissement->compte == $this->getUser()->getContrat()->compte);
+		$etablissement->statut == _Tiers::STATUT_DELIER;
+		$etablissement->save();
+		$compte = $etablissement->getCompteObject();
+		$compte->tiers->remove($etablissement->get('_id'));
+
 		$this->redirect('@validation_fiche');
 	}
-  }
-  
-  public function executeImport(sfWebRequest $request) {
-      $import = new ImportEtablissementsCsv($this->getUser()->getInterpro(), $this->getUser()->getContrat()->getCompteObject());
-      $import->import();
-      $this->redirect('@validation_fiche');
-  }
+
+
+	public function executeUploadCsv(sfWebRequest $request) {
+		$this->forward404Unless($request->isMethod('post'));
+		$this->form = new UploadCSVForm();
+
+		$this->form->bind($request->getParameter('csv'), $request->getFiles('csv'));
+		if ($this->form->isValid()) {
+
+		}
+		$this->redirect('@validation_fiche');
+	}
+
+	public function executeImport(sfWebRequest $request) {
+		$import = new ImportEtablissementsCsv($this->getUser()->getInterpro(), $this->getUser()->getContrat()->getCompteObject());
+		$import->import();
+		$this->redirect('@validation_fiche');
+	}
+
+	public function executeArchiver(sfWebRequest $request) {
+		$this->forward404Unless($etablissement = EtablissementClient::retrieveById($request->getParameter("etablisssement")));
+		$this->forward404Unless($etablissement->compte == $this->getUser()->getContrat()->compte);
+		$etablissement->statut == _Tiers::STATUT_ARCHIVER;
+		$etablissement->save();
+
+		$this->redirect('@validation_fiche');
+	}
+
+
 }
