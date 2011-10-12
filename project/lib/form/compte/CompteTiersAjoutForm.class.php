@@ -15,6 +15,7 @@ class CompteTiersAjoutForm extends CompteForm {
             $this->getObject()->setPasswordSSHA($values['mdp1']);
             // Duplication des infos du contrat dans le compte
             $contrat = $this->getOption('contrat');
+            $this->getObject()->setContrat($contrat->get('_id'));
             $this->getObject()->setNom($contrat->getNom());
             $this->getObject()->setPrenom($contrat->getPrenom());
             $this->getObject()->setFonction($contrat->getFonction());
