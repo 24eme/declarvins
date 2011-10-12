@@ -52,7 +52,7 @@ class validationActions extends sfActions
 	}
   }
   
-  public function executeEtablissementsImport(sfWebRequest $request) {
+  public function executeImport(sfWebRequest $request) {
       $import = new ImportEtablissementsCsv($this->getUser()->getInterpro(), $this->getUser()->getContrat()->getCompteObject());
       $import->import();
       $this->redirect('@validation_fiche');
