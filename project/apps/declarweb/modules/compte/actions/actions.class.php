@@ -14,6 +14,7 @@ class compteActions extends sfActions {
      *
      * @param sfRequest $request A request object
      */
+		
     public function executeNouveau(sfWebRequest $request) {
    		$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
         $this->form = new CompteTiersAjoutForm(new CompteTiers(), array('contrat' => $this->contrat));
