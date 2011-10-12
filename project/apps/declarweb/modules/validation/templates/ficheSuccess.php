@@ -38,8 +38,9 @@
         </p> 
         <br />
     <?php else: ?>
+        <p>
         <i>Vous n'avez pas encore chargé de fichier d'import.</i>
-        <br />
+        </p>
         <br />
     <?php endif; ?>
     <?php include_component('validation', 'formUploadCsv'); ?>
