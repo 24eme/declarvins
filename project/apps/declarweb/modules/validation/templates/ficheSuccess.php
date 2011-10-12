@@ -26,6 +26,7 @@
     <p><i>Aucun établissement importé à ce jour</i></p>
     <?php endif; ?>
     <h2 class="titre_principal">Import</h2>
+    <a href="<?php echo url_for('@validation_import') ?>">Lancer l'import</a>
 </div>
 <!-- fin #exploitation_administratif -->
 
