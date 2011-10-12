@@ -42,11 +42,11 @@ validation_import:
   url:   /validation/import
   param: { module: validation, action: import }
 validation_archiver:
-  url:   /validation/archiver
-  param: { module: validation, action: archiver }
+  url:   /validation/archiver/:etablissement
+  param: { module: validation, action: archiver, etablissement: null }
 validation_delier:
-  url:   /validation/delier
-  param: { module: validation, action: delier }
+  url:   /validation/delier/:etablissement
+  param: { module: validation, action: delier, etablissement: null }
 validation_upload_csv:
   url:   /validation/upload_csv
   param: { module: validation, action: uploadCsv }
