@@ -53,6 +53,7 @@ class ImportEtablissementsCsv {
             $etab->comptabilite->code_postal = $line[EtablissementCsv::COL_COMPTA_CODE_POSTAL];
             $etab->comptabilite->commune = $line[EtablissementCsv::COL_COMPTA_CODE_POSTAL];
             $etab->service_douane = $line[EtablissementCsv::COL_SERVICE_DOUANE];
+            $etab->statut = _Tiers::STATUT_ACTIF;
             $etab->save();
 
             $tiers_compte = $this->_compte->tiers->add($etab->get('_id'));
