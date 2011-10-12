@@ -4,6 +4,12 @@
 <div class="btn" style="text-align: right;">
    <span>Vous êtes loggué en tant que <?php echo $interpro; ?></span>&nbsp; | &nbsp; <span><a class="modifier" href="<?php echo url_for('@validation_login') ?>">Déconnexion</a></span>
 </div>
+<script type="text/javascript">
+    var interproLocked = new Array();
+    <?php foreach($compte->getNbEtablissementByInterproId() as $id => $nb): ?>
+    interproLocked.push("<?php echo $id ?>");
+    <?php endforeach; ?>
+</script>
 <?php if($sf_user->hasFlash('general')) : ?>
     <p class="flash_message"><?php echo $sf_user->getFlash('general'); ?></p>
 <?php endif; ?>
@@ -27,6 +33,10 @@
     <?php endif; ?>
     <h2 class="titre_principal">Import</h2>
     <a href="<?php echo url_for('@validation_import') ?>">Lancer l'import</a>
+     <h2 class="titre_principal">Liaison interpro</h2>
+    <?php include_partial('compte/form_liaison_interpro', array('form' => $formLiaison)) ?>
+    <h2 class="titre_principal">Validation</h2>
+    <?php include_partial('validation/validation', array('valide_interpro' => $valide_interpro, 'compte_active' => $compte_active, 'interpro' => $interpro)) ?>
 </div>
 <!-- fin #exploitation_administratif -->
 

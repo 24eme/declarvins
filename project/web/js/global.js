@@ -13,6 +13,12 @@ $(document).ready( function()
 	rolloverImg();
 	videInputFocus();
 	hauteurEgale('#logo, #titre_rubrique, #acces_directs');
+	var bool = window.interproLocked || 0;
+	if(bool) {
+		for (var interproIdLocked in interproLocked) {
+            $('#interpro_interpro_'+interproLocked[interproIdLocked]).attr('readonly', 'readonly');
+        }
+	}
 	var bool = window.familles || 0;
 	if(bool) {
 		famillesJSON = JSON.parse(familles);
