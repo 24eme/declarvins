@@ -39,6 +39,10 @@ validation_fiche:
   url:   /validation/fiche
   param: { module: validation, action: fiche }
 
+validation_import:
+  url:   /validation/import
+  param: { module: validation, action: import }
+
 # generic rules
 # please, remove them by adding more specific rules
 default_index:
