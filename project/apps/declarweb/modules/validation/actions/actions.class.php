@@ -41,6 +41,7 @@ class validationActions extends sfActions
 	$this->interpro = $this->getUser()->getInterpro();
 	$this->contrat = $this->getUser()->getContrat();
 	$this->compte = $this->contrat->getCompteObject();
+	$this->etablissements = $this->compte->getTiersCollection();
 	$this->form = new CompteModificationForm($this->compte);
 	if ($request->isMethod(sfWebRequest::POST) && $request->getParameter($this->form->getName())) {
 		$this->form->bind($request->getParameter($this->form->getName()));
