@@ -14,24 +14,17 @@ class ValidatorImportCsv extends sfValidatorFile
 
   }
 
-  protected function doClean($values)
-  {
-    $csvValidated = new CsvValidatedFile(parent::doClean($values));
+  protected function doClean($value)
+  { 
+
+    $csvValidated = new CsvValidatedFile($value['name'], 'text/csv', $value['tmp_name'], $value['size'], $this->getOption('file_path'));
     
     $errorSchema = new sfValidatorErrorSchema($this);
-
-    //Conversion UTF8
-    $fc = htmlentities(utf8_decode(file_get_contents($csvValidated->getTempName())),ENT_NOQUOTES);
-    $md5 = md5($fc);
-    $file = $this->getOption('file_path').'/'.$md5;
-    $csvValidated->setMd5($md5);
-    $handle=fopen($file, "w+");
-    fwrite($handle, $fc);
-    fseek($handle, 0);
-    fclose($handle);
+    
+    $csvValidated->save();
 
     try {
-      $csv = new CsvFile($file);
+      $csv = new CsvFile($csvValidated->getSavedName());
     }catch(Exception $e) {
       $csv = null;
       $errorSchema->addError(new sfValidatorError($this, $e->getMessage()));

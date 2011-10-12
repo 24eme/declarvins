@@ -105,11 +105,16 @@ class validationActions extends sfActions {
 	public function executeUploadCsv(sfWebRequest $request) {
 		$this->forward404Unless($request->isMethod('post'));
 		$this->form = new UploadCSVForm();
-
+                
 		$this->form->bind($request->getParameter('csv'), $request->getFiles('csv'));
 		if ($this->form->isValid()) {
-
-		}
+                    $file = $this->form->getValue('file');                 
+                    $contrat = $this->getUser()->getContrat();
+                    $contrat->storeAttachment($file->getSavedName(), 'text/csv', 'etablissements.csv');
+                    unlink($file->getSavedName());
+		} else {
+                    throw new sfException("Csv not valid");
+                }
 		$this->redirect('@validation_fiche');
 	}
 
