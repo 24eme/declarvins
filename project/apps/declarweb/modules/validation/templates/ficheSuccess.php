@@ -27,6 +27,7 @@
     <?php endif; ?>
     <h2 class="titre_principal">Import</h2>
     <a href="<?php echo url_for('@validation_import') ?>">Lancer l'import</a>
+    <?php include_component('validation', 'formUploadCsv'); ?>
 </div>
 <!-- fin #exploitation_administratif -->
 
