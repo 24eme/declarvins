@@ -13,6 +13,19 @@
     <div id="mon_compte">
         <?php include_partial('compte/view_form', array('form' => $form, 'compte' => $compte))?>
     </div>
+    <h2 class="titre_principal">Etablissements associés</h2>
+    <?php if (count($etablissements) > 0): ?>
+    <ul class="etablissements">
+        <?php foreach ($etablissements as $etablissement): ?>
+        <li class="presentation">
+            <?php include_partial('etablissement/view', array('etablissement' => $etablissement, 'interpro' => $interpro)) ?>
+        </li>
+        <?php endforeach; ?>
+    </ul>
+    <?php else: ?>
+    <p><i>Aucun établissement importé à ce jour</i></p>
+    <?php endif; ?>
+    <h2 class="titre_principal">Import</h2>
 </div>
 <!-- fin #exploitation_administratif -->
 
