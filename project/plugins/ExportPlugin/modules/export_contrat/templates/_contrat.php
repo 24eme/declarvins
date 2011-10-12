@@ -164,7 +164,7 @@
 		<div id="entete_doc">
 			<h1>
 				<span>Projet suite à la réunion du 22/09/10</span> : Contrat - Mandat <br />
-				&laquo; la Déclaration Web &raquo; N° : <strong><?php echo $contrat->no_contrat ?></strong> <sup>(1)</sup>
+				&laquo; la Déclaration Web &raquo; N° : <?php echo $contrat->no_contrat ?>&nbsp;&nbsp;&nbsp;<sup>(1)</sup>
 			</h1>
 			<p>à un système de Déclarations Informatisé (DRM, DAI/DS, DR, Contrats...)<br />
 			ET aux autres systèmes des Interprofessions : Intranet d'échange d'information...</p>
