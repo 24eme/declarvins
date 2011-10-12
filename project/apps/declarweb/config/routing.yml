@@ -38,7 +38,6 @@ validation_login:
 validation_fiche:
   url:   /validation/fiche
   param: { module: validation, action: fiche }
-
 validation_import:
   url:   /validation/import
   param: { module: validation, action: import }

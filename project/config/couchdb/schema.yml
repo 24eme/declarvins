@@ -18,6 +18,7 @@ _Tiers:
       identifiant: { }
       nom: { }
       type: {  }
+      statut: {  }
 
 CompteTiers:
   inheritance: _Compte
@@ -99,7 +100,7 @@ Etablissement:
               adresse: {  }
               code_postal: {  }
               commune: {  }
-      service_douane: {  }     
+      service_douane: {  }
 
 Douane:
   inheritance: _Tiers
@@ -130,21 +131,21 @@ Contrat:
               type: collection
               definition:
                 fields:
-                  raison_sociale: { }
-                  siret: { }
-                  cni: { }
-                  cvi: { }
-                  no_accises: { }
-                  no_tva_intracommunautaire: { }
-                  adresse: { }
-                  code_postal: { }
-                  commune: { }
-                  telephone: { }
-                  fax: { }
-                  email: { }
-                  famille: { }
-                  sous_famille: { }
-                  comptabilite_adresse: { }
-                  comptabilite_code_postal: { }
-                  comptabilite_commune: { }
-                  service_douane: { }
+                  raison_sociale: {  }
+                  siret: {  }
+                  cni: {  }
+                  cvi: {  }
+                  no_accises: {  }
+                  no_tva_intracommunautaire: {  }
+                  adresse: {  }
+                  code_postal: {  }
+                  commune: {  }
+                  telephone: {  }
+                  fax: {  }
+                  email: {  }
+                  famille: {  }
+                  sous_famille: {  }
+                  comptabilite_adresse: {  }
+                  comptabilite_code_postal: {  }
+                  comptabilite_commune: {  }
+                  service_douane: {  }
