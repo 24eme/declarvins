@@ -5,7 +5,9 @@ class ExportContratPdf extends ExportContrat
 	{
 		$targetClass = ($debug)? 'PrintableHTML' : 'PrintablePDF';
 		$document = new $targetClass($this->contrat->get('_id').'.pdf');
-		$document->addHtml($this->getPartial('contrat', array('contrat' => $this->getContrat())));
+		$contrat = $this->getContrat();
+		$compte = $contrat->getCompteObject();
+		$document->addHtml($this->getPartial('contrat', array('contrat' => $contrat, 'compte' => $compte)));
 		$document->addHeaders($response);
 		return $document->output();
 	}
