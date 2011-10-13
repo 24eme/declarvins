@@ -30,68 +30,6 @@ class validationActions extends sfActions {
 			}
 		}
 	}
-
-	/**
-	 *
-	 *
-	 * @param sfRequest $request A request object
-	 */
-	public function executeFiche(sfWebRequest $request)
-	{
-		$this->init();
-		/*
-		// Global
-		$this->interpro = $this->getUser()->getInterpro();
-		$this->contrat = $this->getUser()->getContrat();
-		$this->compte = $this->contrat->getCompteObject();
-		$this->etablissements = $this->compte->getTiersCollection();
-		// Etape compte
-		$this->form = new CompteModificationForm($this->compte);
-		// Etape liaison
-		$this->formLiaison = new LiaisonInterproForm($this->compte);
-		// Etape validation
-		$this->valide_interpro = false;
-		if ($this->compte->interpro->exist($this->interpro->get('_id'))) {
-			$interpro = $this->compte->interpro->get($this->interpro->get('_id'));
-			if ($interpro->getStatut() != _Compte::STATUT_VALIDATION_ATTENTE) {
-				$this->valide_interpro = true;
-			}
-		}
-		$this->compte_active = ($this->compte->getStatut() == _Compte::STATUT_ACTIVE);
-
-		// Traitement des formulaires
-		// Form compte
-		if ($request->isMethod(sfWebRequest::POST) && $request->getParameter($this->form->getName())) {
-			$this->form->bind($request->getParameter($this->form->getName()));
-			if ($this->form->isValid()) {
-				$this->compte = $this->form->save();
-				$this->getUser()->setFlash('maj', 'Les identifiants ont bien été mis à jour.');
-				$this->redirect('@validation_fiche');
-			}
-		}
-		// Form liaison
-		if ($request->isMethod(sfWebRequest::POST) && $request->getParameter($this->formLiaison->getName())) {
-			$this->formLiaison->bind($request->getParameter($this->formLiaison->getName()));
-			if ($this->formLiaison->isValid()) {
-				$this->formLiaison->save();
-				$this->getUser()->setFlash('general', 'Liaisons interpro faites');
-				$this->redirect('@validation_fiche');
-			}
-		}
-		// Form validation
-		if ($request->isMethod(sfWebRequest::POST) && $request->getParameter('interpro_id')) {
-			$interpro_id = $request->getParameter('interpro_id');
-			if (!$this->compte->interpro->exist($interpro_id)) {
-				$this->compte->interpro->add($interpro_id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
-			} else {
-				$this->compte->interpro->get($interpro_id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
-			}
-			$this->compte->save();
-			$this->getUser()->setFlash('general', 'Compte validé');
-			$this->redirect('@validation_fiche');
-		}
-		*/
-	}
 	
 	public function init()
 	{
@@ -109,6 +47,16 @@ class validationActions extends sfActions {
 			}
 		}
 		$this->compte_active = ($this->compte->getStatut() == _Compte::STATUT_ACTIVE);
+	}
+
+	/**
+	 *
+	 *
+	 * @param sfRequest $request A request object
+	 */
+	public function executeFiche(sfWebRequest $request)
+	{
+		$this->init();
 	}
 	
 	public function executeCompte(sfWebRequest $request)
