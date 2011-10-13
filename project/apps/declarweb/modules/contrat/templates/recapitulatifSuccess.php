@@ -1,4 +1,5 @@
-<h1>Récapitulatif</h1>
+<section id="contenu">
+<h2>Récapitulatif</h2>
 <p>
 	Nom : <?php echo $contrat->getNom() ?><br />
 	Prénom : <?php echo $contrat->getPrenom() ?><br /> 
@@ -9,8 +10,6 @@
 <br />
 <strong>Etablissements :</strong>
 <br />
-<br />
-<hr />
 <br />
 <?php 
 foreach ($contrat->etablissements as $etablissement): 
@@ -39,3 +38,5 @@ foreach ($contrat->etablissements as $etablissement):
 	<br />
 <?php endforeach; ?>
 <a href="<?php echo url_for('contrat_etablissement_confirmation') ?>">Valider</a> | <a href="<?php echo url_for('contrat_etablissement_nouveau') ?>">Nouveau</a>
+
+</section>
