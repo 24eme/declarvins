@@ -180,7 +180,7 @@
 					<strong>Je soussigné, <?php echo $contrat->nom ?> <?php echo $contrat->prenom ?></strong><br />
 					Représentant les entreprises suivantes<br />
 					Qualité (fonction) : <strong><?php echo $contrat->fonction ?></strong><br />
-					Courriel : <strong>adresse@email.com</strong><br />
+					Courriel : <strong><?php echo $compte->email ?></strong><br />
 					<span class="note">(Attention à vérifier les sécurités, paramètres, et espaces disponibles sur cette adresse mail : des informations importantes vous y seront envoyées. Notamment certains systèmes de sécurité pourraient classer en « SPAM » ces informations)</span>
 				</p>
 			</div>
