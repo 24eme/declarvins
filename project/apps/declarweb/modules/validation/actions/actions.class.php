@@ -118,8 +118,16 @@ class validationActions extends sfActions {
     }
 
     public function executeImport(sfWebRequest $request) {
-        $import = new ImportEtablissementsCsv($this->getUser()->getInterpro(), $this->getUser()->getContrat()->getCompteObject());
+    	$interpro = $this->getUser()->getInterpro();
+    	$compte = $this->getUser()->getContrat()->getCompteObject();
+        $import = new ImportEtablissementsCsv($interpro, $compte);
         $import->import();
+        if (!$compte->interpro->exist($interpro->id)) {
+            $compte->interpro->add($interpro->id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
+        } else {
+            $compte->interpro->get($interpro->id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
+        }
+        $compte->save();
         $this->getUser()->setFlash('notification_general', "Les établissements ont bien été importés");
         $this->redirect('@validation_fiche');
     }
