@@ -93,6 +93,7 @@ class validationActions extends sfActions {
         } else {
             $this->compte->interpro->get($interpro_id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
         }
+        $this->compte->setStatut(_Compte::STATUT_ACTIVE);
         $this->compte->save();
         $this->getUser()->setFlash('notification_general', 'Compte validé');
         $this->redirect('@validation_fiche');
@@ -122,10 +123,10 @@ class validationActions extends sfActions {
     	$compte = $this->getUser()->getContrat()->getCompteObject();
         $import = new ImportEtablissementsCsv($interpro, $compte);
         $import->import();
-        if (!$compte->interpro->exist($interpro->id)) {
-            $compte->interpro->add($interpro->id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
+        if (!$compte->interpro->exist($interpro->get('_id'))) {
+            $compte->interpro->add($interpro->get('_id'))->setStatut(_Compte::STATUT_VALIDATION_ATTENTE);
         } else {
-            $compte->interpro->get($interpro->id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
+            $compte->interpro->get($interpro->get('_id'))->setStatut(_Compte::STATUT_VALIDATION_ATTENTE);
         }
         $compte->save();
         $this->getUser()->setFlash('notification_general', "Les établissements ont bien été importés");
@@ -154,11 +155,15 @@ class validationActions extends sfActions {
     public function executeDelier(sfWebRequest $request) {
         $this->forward404Unless($etablissement = EtablissementClient::getInstance()->retrieveById($request->getParameter("etablissement")));
         $this->forward404Unless($etablissement->compte == $this->getUser()->getContrat()->compte);
+    	$interpro = $this->getUser()->getInterpro();
         $etablissement->statut = _Tiers::STATUT_DELIER;
         $etablissement->save();
         $compte = $this->getUser()->getContrat()->getCompteObject();
         $compte->tiers->remove($etablissement->get('_id'));
         if ($compte->tiers->count() == 0) {
+        	if ($compte->interpro->exist($interpro->get('_id'))) {
+        		$compte->interpro->remove($interpro->get('_id'));
+        	}
         	$compte->setStatut(_Compte::STATUT_INACTIVE);
         }
         $compte->save();
