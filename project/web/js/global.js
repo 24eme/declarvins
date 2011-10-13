@@ -8,196 +8,354 @@
 /**
  * Initialisation
  ******************************************/
-$(document).ready( function()
+(function($)
 {
-	rolloverImg();
-	videInputFocus();
-	hauteurEgale('#logo, #titre_rubrique, #acces_directs');
-	var bool = window.interproLocked || 0;
-	if(bool) {
-		for (var interproIdLocked in interproLocked) {
-            $('#interpro_interpro_'+interproLocked[interproIdLocked]).attr('readonly', 'readonly');
-        }
-	}
-	var bool = window.familles || 0;
-	if(bool) {
-		famillesJSON = JSON.parse(familles);
-		if ($("#contratetablissement_famille").val()) {
-			var sousFamilles = famillesJSON[$("#contratetablissement_famille").val()];
-			var options = '';
-		    for (var i in sousFamilles)
-		    {
-		    	if (sousFamilleSelected == sousFamilles[i]) {
-		    		options += '<option value="'+sousFamilles[i]+'" selected="selected">'+sousFamilles[i]+'</option>';
-		    	} else {
-		    		options += '<option value="'+sousFamilles[i]+'">'+sousFamilles[i]+'</option>';
-		    	}
-		    }
-		    $("#contratetablissement_sous_famille").html(options);
+	$(document).ready( function()
+	{
+		$.metadata.setType('html5');
+		$.detectTerminal();
+		
+		$.videInputFocus();
+		$('img.rollover').survolImg();
+	});
+	
+	
+	/**
+	 * Var dump
+	 ******************************************/
+	$.varDump = function(arr,level)
+	{
+		var dumped_text = "";
+		if(!level) level = 0;
+		
+		//The padding given at the beginning of the line.
+		var level_padding = "";
+		for(var j=0;j<level+1;j++) level_padding += "    ";
+		
+		if(typeof(arr) == 'object') { //Array/Hashes/Objects 
+			for(var item in arr) {
+				var value = arr[item];
+				
+				if(typeof(value) == 'object') { //If it is an array,
+					dumped_text += level_padding + "'" + item + "' ...\n";
+					dumped_text += $.varDump(value,level+1);
+				} else {
+					dumped_text += level_padding + "'" + item + "' => \"" + value + "\"\n";
+				}
+			}
+		} else { //Stings/Chars/Numbers etc.
+			dumped_text = "===> "+arr+" <=== ("+typeof(arr)+")";
 		}
-		$("#contratetablissement_famille").change(function(){
-			var sousFamilles = famillesJSON[$(this).val()];
-			var options = '';
-		    for (var i in sousFamilles)
-		    {
-		    	options += '<option value="'+sousFamilles[i]+'">'+sousFamilles[i]+'</option>';
-		    }
-		    $("#contratetablissement_sous_famille").html(options);
-		});
-	}
-});
-function addEtablissement() {
-	var nbEtablissements = parseInt($("#contrat_nb_etablissement").val());
-	var tabEtablissements = $("#etablissements");
-	var etablissement = "<tr id=\"etablissement"+nbEtablissements+"\">" +
-	"<td>" +
-	"	<table>" +
-	"		<tr>" +
-	"			<td>Raison sociale*: </td>" +
-	"			<td><input type=\"text\" id=\"contrat_etablissements_"+nbEtablissements+"_raison_sociale\" name=\"contrat[etablissements]["+nbEtablissements+"][raison_sociale]\"></td>" +
-	"			<td></td>" +
-	"		</tr>" +
-	"		<tr>" +
-	"			<td>SIRET*: </td>" +
-	"			<td><input type=\"text\" id=\"contrat_etablissements_"+nbEtablissements+"_siret\" name=\"contrat[etablissements]["+nbEtablissements+"][siret_cni]\"></td>" +
-	"			<td></td>" +
-	"		</tr>" +
-	"	</table>" +
-	"</td>" +
-	"</tr>" +
-	"<tr id=\"optionsEtablissement"+nbEtablissements+"\">" +
-	"<td>" +
-	"	<a href=\"javascript:removeEtablissement("+nbEtablissements+")\">Supprimer</a>" +
-	"</td>" +
-	"</tr>";
-	$("#etablissements").append(etablissement);
-	$("#contrat_nb_etablissement").val(nbEtablissements + 1);
-	$("#addEtablissement").css('display', 'inline-block');
-}
-function removeEtablissement(ind) {
-	var nbEtablissements = parseInt($("#contrat_nb_etablissement").val());
-	$("#etablissement"+ind).remove();
-	$("#optionsEtablissement"+ind).remove();
-	$("#contrat_nb_etablissement").val(nbEtablissements - 1);
-	if ((nbEtablissements - 1) == 1) {
-		$("#addEtablissement").css('display', 'none');
-		$("#r2").attr("checked", "checked");
-		$("#r1").removeAttr("checked");
-	}
+		console.log(dumped_text);
+	};
 	
-}
-function removeAllEtablissement() {
-	var nbEtablissements = parseInt($("#contrat_nb_etablissement").val());
-	for(i=(nbEtablissements-1); i>0; i--) {
-		$("#etablissement"+i).remove();
-		$("#optionsEtablissement"+i).remove();
-	}
-	$("#contrat_nb_etablissement").val(1);
-	$("#addEtablissement").css('display', 'none');
-}
-function voirFormAdresseComptabilite() {
-	$("#adresseComptabilite").css("display", "block");
-}
-function masquerFormAdresseComptabilite() {
-	$("#adresseComptabilite").css("display", "none");
-	 $("#adresseComptabilite input").each(function(){
-	   $(this).val('');
-	 });
-}
-/**
- * Rollover
- ******************************************/
-var rolloverImg = function()
-{
-	preloadRolloverImg();
-	
-	$(".rollover").hover
-	(
-		function () {$(this).attr( 'src', rolloverNewImg($(this).attr('src')) );}, 
-		function () {$(this).attr( 'src', rolloverOldimage($(this).attr('src')) );}
-	);
-}
- 
-var preloadRolloverImg = function()
-{
-	$(window).bind('load', function()
+	/**
+	 * Transforme une chaîne de caractères en objet JS
+	 * $.unserialize(s);
+	 ******************************************/
+	$.unserialize = function(s)
 	{
-		$('.rollover').each( function()
+	 	var s = decodeURI(s).split("&");
+		var param;
+		var paramsTab = {};
+		
+		$.each(s, function()
 		{
-			$('<img>').attr( 'src', rolloverNewImg( $(this).attr('src') ) );
-		});
-	});
-}
-
-var rolloverNewImg = function(src)
-{ 
-	return src.substring(0, src.search(/(\.[a-z]+)$/) ) + '_on' + src.match(/(\.[a-z]+)$/)[0]; 
-}
-
-var rolloverOldimage = function(src)
-{ 
-	return src.replace(/_on\./, '.'); 
-}
-
-/**
- * Vide la valeur des champs input au focus
- ******************************************/
-var videInputFocus = function()
-{
-	var input = $('input.input_focus[value!=""]');
+			param = this.split("=");
+			paramsTab[param[0]] = param[1];
+        });
+		
+        return paramsTab;
+    };
 	
-	input.each( function()
+	/**
+	 * Transforme une chaîne de caractères en objet JS
+	 * $.detectTerminal();
+	 ******************************************/
+	$.detectTerminal = function()
 	{
-		$(this).focus( function() {if(this.value == this.defaultValue) this.value='';});	
-		$(this).blur( function() {if(this.value == '') this.value=this.defaultValue;});
-	});
-};
-
-/**
- * Colonnes de même hauteur
- ******************************************/
-var hauteurEgale = function(blocs)
-{
-	var hauteurMax = 0;
-	$(blocs).each(function()
-	{
-		var hauteur = $(this).height();
-		if(hauteur > hauteurMax) hauteurMax = hauteur;
-	});
-	$(blocs).height(hauteurMax);
-};
-
-/**
- * Var dump
- ******************************************/
-function var_dump(arr,level)
-{
-	var dumped_text = "";
-	if(!level) level = 0;
-	
-	//The padding given at the beginning of the line.
-	var level_padding = "";
-	for(var j=0;j<level+1;j++) level_padding += "    ";
-	
-	if(typeof(arr) == 'object') { //Array/Hashes/Objects 
-		for(var item in arr) {
-			var value = arr[item];
+		var terminalAgent = navigator.userAgent.toLowerCase();
+		var agentID = terminalAgent.match(/(iphone|ipod|ipad|android)/);
+		var terminal = '';
+		var version;
+		
+		if(agentID)
+		{
+			if(agentID.indexOf('iphone') >= 0) terminal = 'iphone';
+			else if(agentID.indexOf('ipod') >=0 ) terminal = 'ipod';
+			else if(agentID.indexOf('ipad') >= 0) terminal = 'ipad';
+			else if(agentID.indexOf('android') >= 0) terminal = 'android';
+		}
+		else
+		{
+			version = parseInt($.browser.version);
 			
-			if(typeof(value) == 'object') { //If it is an array,
-				dumped_text += level_padding + "'" + item + "' ...\n";
-				dumped_text += dump(value,level+1);
-			} else {
-				dumped_text += level_padding + "'" + item + "' => \"" + value + "\"\n";
+			if($.browser.webkit) terminal = 'webkit';
+			else if($.browser.mozilla) terminal = 'mozilla';
+			else if($.browser.opera) terminal = 'opera';
+			else if($.browser.msie)
+			{
+				if(version == 6) terminal = 'msie6';
+				else if(version == 7) terminal = 'msie7';
+				else if(version == 8) terminal = 'msie8';
+				else if(version == 9) terminal = 'msie9';
 			}
 		}
-	} else { //Stings/Chars/Numbers etc.
-		dumped_text = "===>"+arr+"<===("+typeof(arr)+")";
+		
+		$('body').addClass(terminal);
+		return terminal;
+	};
+	
+	/**
+	 * Gère le remplacement d'image au survol
+	 * $(s).survolImg({suffixe: '_on'});
+	 ******************************************/
+	$.fn.survolImg = function(opt)
+	{
+		var images = $(this);
+		var options = { suffixe: '_on' };
+		if(opt) options = $.extend(options, opt);
+		
+		images.prechargeSurvolImg(options.suffixe);
+		
+		images.hover
+		(
+			function () {$(this).attr( 'src', survolCheminImg('survol', $(this).attr('src'), options.suffixe) );}, 
+			function () {$(this).attr( 'src', survolCheminImg('', $(this).attr('src'), options.suffixe) );}
+		);
+	};
+	 
+	$.fn.prechargeSurvolImg = function(suffixe)
+	{
+		var images = $(this);
+		
+		$(window).bind('load', function()
+		{
+			images.each( function()
+			{
+				$('<img>').attr( 'src', survolCheminImg('survol', $(this).attr('src'), suffixe) );
+			});
+		});
 	}
-	console.log(dumped_text);
-};
+	
+	var survolCheminImg = function(etat, src, suffixe)
+	{
+		if(etat == 'survol')
+			return src.substring(0, src.search(/(\.[a-z]+)$/) ) + suffixe + src.match(/(\.[a-z]+)$/)[0]; 
+		else
+			return src.replace(suffixe+'.', '.');	
+	}
+	
+	/**
+	 * Vide la valeur des champs input au focus
+	 * $.videInputFocus();
+	 ******************************************/
+	$.videInputFocus = function(opt)
+	{	
+		if(!Modernizr.input.placeholder)
+		{
+			var input = $('input[placeholder!=""][value=""]');
+			
+			input.each(function()
+			{
+				var placeholder = $(this).attr('placeholder');
+				$(this).val(placeholder);
+				
+				$(this).focus( function() { if($(this).val() == placeholder) $(this).val(''); });	
+				$(this).blur( function() { if($(this).val() == '') $(this).val(placeholder); });
+			});
+		}
+	};
+	
+	/**
+	 * Rollover d'un élément
+	 * $(s).survolElem
+		({
+			classe: 'hover',
+			ie6: false
+		});
+	 ******************************************/
+	$.fn.survolElem = function(opt)
+	{
+		var elem = $(this);
+		
+		var options =
+		{
+			classe: 'hover',
+			ie6: false
+		};
+		
+		if(opt) options = $.extend(options, opt);
+		
+		if(options.ie6 && !($.browser.msie && parseInt($.browser.version) == 6)) return false;
+		
+		elem.hover
+		(
+			function () { $(this).addClass(options.classe); }, 
+			function () { $(this).removeClass(options.classe); }
+		);
+	};
+	
+	/**
+	 * Blocs de même hauteur
+	 * $(s).hauteurEgale();
+	 ******************************************/
+	$.fn.hauteurEgale = function()
+	{
+		var blocs = $(this);
+		var hauteurMax = 0;
+		
+		blocs.height('auto');
+		blocs.each(function()
+		{
+			var hauteur = $(this).height();
+			if(hauteur > hauteurMax) hauteurMax = hauteur;
+		});
+		
+		if($.browser.msie && parseInt($.browser.version) <= 6) blocs.height(hauteurMax);
+		else blocs.css({'min-height': hauteurMax}); 
+	};
+	
+	/**
+	 * Blocs de même largeur
+	 * $(s).largeurEgale();
+	 ******************************************/
+	$.fn.largeurEgale = function()
+	{
+		var blocs = $(this);
+		var largeurMax = 0;
+		
+		blocs.each(function()
+		{
+			var largeur = $(this).width();
+			if(largeur > largeurMax) largeurMax = largeur;
+		});
+		blocs.width(largeurMax);
+	};
+	
+	
+	/**
+	 * Affiche / Masque plus de texte
+	 * $(s).voirPlus
+		({
+			contenu: '.plus',
+			lien: '.voir_plus',
+			lien_ouvert: '.voir_plus_on',
+			vitesse: '',
+			callback: function() {}
+		});
+	 ******************************************/
+	$.fn.voirPlus = function(opt) 
+	{
+		var blocs = $(this);
+		
+		var options =
+		{
+			contenu: '.plus',
+			lien: '.voir_plus',
+			lien_ouvert: '.voir_plus_on',
+			vitesse: '',
+			callback: function() {}
+		};
+		
+		if(opt) options = $.extend(options, opt);
+		
+		blocs.each(function()
+		{
+			var bloc = $(this);
+			var contenu = bloc.find('.'+options.contenu);
+			var lien = bloc.find('a.'+options.lien);
+	
+			contenu.hide();
+			
+			lien.click(function()
+			{
+				contenu.slideToggle(options.vitesse, function(){ options.callback(); });
+				lien.toggleClass(options.lien_ouvert);
+				return false;
+			});
+		});
+	}
+	
+	
+	/**
+	 * Retourne les paramètres d'une URL
+	 * URL de la page par défaut
+	 * $.getURLParam(url);
+	 ******************************************/
+	$.getURLParam = function(url) 
+	{
+		if(!url) url = window.location.href;
+		
+		var paramsTab = {};
+		var params, param;
+		var domaine = false;
+		
+		// Si c'est une url sans paramètre
+		if(url.indexOf('?') == -1 && url.indexOf('=') == -1)
+		{
+			paramsTab['domaine'] = url;
+		}
+		else
+		{
+			url = url.split('?');
+			
+			// Si un nom de domaine est défini 
+			if(url[1])
+			{
+				domaine = true;
+				params = url[1];
+			}
+			// S'il n'y a que des paramètres
+			else if(url[0] != "" && url[0].indexOf('=') != -1)
+			{
+				params = url[0];
+			}
+			else domaine = true;
 
+			// Construction de l'objet
+			if(params) paramsTab = $.unserialize(params);
+			if(domaine) paramsTab['domaine'] = url[0];
+		}
+		
+		return paramsTab;
+	};
+	
+	/**
+	 * Met à jour une URL avec des nouveaux 
+	 * paramètres
+	 * $.setURLParam(url, {nom1: val1, nom2: val2, ... });
+	 ******************************************/
+	$.setURLParam = function(url, nouvParams) 
+	{
+		var paramsTab = $.getURLParam(url);
+		var nouvUrl = '';
+		var domaine = false;
+		var param;
+		var premierParam = true;
+		
+		// fusionne les anciens et les nouveaux paramètres
+		$.extend(paramsTab, nouvParams);
+		
+		for(param in paramsTab)
+		{
+			// Si un nom de domaine est défini
+			if(param == 'domaine') domaine = paramsTab[param];
+			
+			// Sinon construction de l'URL avec les paramètres
+			else
+			{
+				// ajoute '&' avant chaque paramètre sauf le 1er 
+				if(!premierParam) nouvUrl += '&';
+				premierParam = false;
+				
+				nouvUrl += param + '=' + paramsTab[param];
+			}
+		}
+		// ajoute le domaine aux paramètres
+		if(domaine) nouvUrl = domaine + '?' + nouvUrl;
 
-
-
-
-;(function(d){var k=d.scrollTo=function(a,i,e){d(window).scrollTo(a,i,e)};k.defaults={axis:'xy',duration:parseFloat(d.fn.jquery)>=1.3?0:1};k.window=function(a){return d(window)._scrollable()};d.fn._scrollable=function(){return this.map(function(){var a=this,i=!a.nodeName||d.inArray(a.nodeName.toLowerCase(),['iframe','#document','html','body'])!=-1;if(!i)return a;var e=(a.contentWindow||a).document||a.ownerDocument||a;return d.browser.safari||e.compatMode=='BackCompat'?e.body:e.documentElement})};d.fn.scrollTo=function(n,j,b){if(typeof j=='object'){b=j;j=0}if(typeof b=='function')b={onAfter:b};if(n=='max')n=9e9;b=d.extend({},k.defaults,b);j=j||b.speed||b.duration;b.queue=b.queue&&b.axis.length>1;if(b.queue)j/=2;b.offset=p(b.offset);b.over=p(b.over);return this._scrollable().each(function(){var q=this,r=d(q),f=n,s,g={},u=r.is('html,body');switch(typeof f){case'number':case'string':if(/^([+-]=)?\d+(\.\d+)?(px|%)?$/.test(f)){f=p(f);break}f=d(f,this);case'object':if(f.is||f.style)s=(f=d(f)).offset()}d.each(b.axis.split(''),function(a,i){var e=i=='x'?'Left':'Top',h=e.toLowerCase(),c='scroll'+e,l=q[c],m=k.max(q,i);if(s){g[c]=s[h]+(u?0:l-r.offset()[h]);if(b.margin){g[c]-=parseInt(f.css('margin'+e))||0;g[c]-=parseInt(f.css('border'+e+'Width'))||0}g[c]+=b.offset[h]||0;if(b.over[h])g[c]+=f[i=='x'?'width':'height']()*b.over[h]}else{var o=f[h];g[c]=o.slice&&o.slice(-1)=='%'?parseFloat(o)/100*m:o}if(/^\d+$/.test(g[c]))g[c]=g[c]<=0?0:Math.min(g[c],m);if(!a&&b.queue){if(l!=g[c])t(b.onAfterFirst);delete g[c]}});t(b.onAfter);function t(a){r.animate(g,j,b.easing,a&&function(){a.call(this,n,b)})}}).end()};k.max=function(a,i){var e=i=='x'?'Width':'Height',h='scroll'+e;if(!d(a).is('html,body'))return a[h]-d(a)[e.toLowerCase()]();var c='client'+e,l=a.ownerDocument.documentElement,m=a.ownerDocument.body;return Math.max(l[h],m[h])-Math.min(l[c],m[c])};function p(a){return typeof a=='object'?a:{top:a,left:a}}})(jQuery);
+		return nouvUrl;
+	};
+	
+})(jQuery);
