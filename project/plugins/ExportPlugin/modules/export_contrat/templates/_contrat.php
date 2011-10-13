@@ -38,7 +38,7 @@
 			vertical-align: baseline;
 		} 
 		
-		html, body { height: 100%; }
+		html, body { margin: 0 15pt; height: 100%; }
 		a img, fieldset { border: 0; }
 		a *, label, button, input[type=image], input[type=button], input[type=submit] { cursor: pointer; }
 		ol { list-style-position: inside; }
@@ -163,7 +163,6 @@
 	<div id="global">
 		<div id="entete_doc">
 			<h1>
-				<span>Projet suite à la réunion du 22/09/10</span> : Contrat - Mandat <br />
 				&laquo; la Déclaration Web &raquo; N° : <?php echo $contrat->no_contrat ?>&nbsp;&nbsp;&nbsp;<sup>(1)</sup>
 			</h1>
 			<p>à un système de Déclarations Informatisé (DRM, DAI/DS, DR, Contrats...)<br />
@@ -242,9 +241,9 @@
 			</ul>
 			<p>En cas de changement de la production, ou de l'adhésion d'organismes représentatifs de la production aux Interprofessions, les interlocuteurs de gestion peuvent évoluer.</p>
 		</div>
-            
+		<p style="page-break-after: always"></p>
                 <?php echo include_partial('export_contrat/contrat_conditions') ?>
-            
+        <p style="page-break-after: always"></p>
 		<div id="signature">
                         <p>Fait à 
                         <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>, Le <strong></strong>
