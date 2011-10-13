@@ -33,7 +33,7 @@ abstract class _Compte extends Base_Compte {
         return $result;
     }
 
-    public function save($conn = null) {
+    /*public function save($conn = null) {
       if ($this->statut != _Compte::STATUT_ACTIVE) {
 		$active = true;
 		foreach ($this->interpro as $inter) {
@@ -46,6 +46,6 @@ abstract class _Compte extends Base_Compte {
 		  $this->setStatut(_Compte::STATUT_ACTIVE);
       }
       return parent::save($conn);
-    }
+    }*/
     
 }
