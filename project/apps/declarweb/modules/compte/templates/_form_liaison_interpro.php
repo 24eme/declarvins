@@ -1,4 +1,4 @@
-<form method="post" action="<?php echo url_for('@validation_fiche') ?>">
+<form method="post" action="<?php echo url_for('@validation_liaison') ?>">
     <div class="ligne_form ligne_form_label">
         <?php echo $form->renderHiddenFields(); ?>
         <?php echo $form->renderGlobalErrors(); ?>
