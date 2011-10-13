@@ -65,6 +65,6 @@ class ImportEtablissementsCsv {
         }
         $this->_compte->save();
         return true;
-    }
+    }   
 }
 
