@@ -16,7 +16,10 @@ $(document).ready( function()
 	var bool = window.interproLocked || 0;
 	if(bool) {
 		for (var interproIdLocked in interproLocked) {
-            $('#interpro_interpro_'+interproLocked[interproIdLocked]).attr('readonly', 'readonly');
+ 			var input = '<input type="hidden" name="'+$('#interpro_interpro_'+interproLocked[interproIdLocked]).attr('name')+'" value="'+$('#interpro_interpro_'+interproLocked[interproIdLocked]).val()+'" />';
+            $('#interpro_interpro_'+interproLocked[interproIdLocked]).after(input);
+            $('#interpro_interpro_'+interproLocked[interproIdLocked]).attr('name', '');
+            $('#interpro_interpro_'+interproLocked[interproIdLocked]).attr('disabled', 'disabled');
         }
 	}
 	var bool = window.familles || 0;
