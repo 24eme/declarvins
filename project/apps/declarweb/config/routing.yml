@@ -53,6 +53,9 @@ validation_import:
 validation_archiver:
   url:   /validation/archiver/:etablissement
   param: { module: validation, action: archiver, etablissement: null }
+validation_desarchiver:
+  url:   /validation/desarchiver/:etablissement
+  param: { module: validation, action: desarchiver, etablissement: null }
 validation_delier:
   url:   /validation/delier/:etablissement
   param: { module: validation, action: delier, etablissement: null }
