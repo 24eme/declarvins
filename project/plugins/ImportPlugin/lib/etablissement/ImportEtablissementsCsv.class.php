@@ -64,7 +64,7 @@ class ImportEtablissementsCsv {
             $tiers_compte->interpro = $this->_interpro->get('_id');
         }
         $this->_compte->save();
+        return true;
     }
-    return true:
 }
 
