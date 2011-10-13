@@ -62,7 +62,7 @@ class validationActions extends sfActions {
         $this->formCompte->bind($request->getParameter($this->formCompte->getName()));
         if ($this->formCompte->isValid()) {
             $this->compte = $this->formCompte->save();
-            $this->getUser()->setFlash('maj', 'Les identifiants ont bien été mis à jour.');
+            $this->getUser()->setFlash('notification_compte', 'Les identifiants ont bien été mis à jour.');
             $this->redirect('@validation_fiche');
         }
 
@@ -76,7 +76,7 @@ class validationActions extends sfActions {
             $this->formLiaison->bind($request->getParameter($this->formLiaison->getName()));
             if ($this->formLiaison->isValid()) {
                 $this->formLiaison->save();
-                $this->getUser()->setFlash('general', 'Liaisons interpro faites');
+                $this->getUser()->setFlash('notification_general', 'Liaisons interpro faites');
                 $this->redirect('@validation_fiche');
             }
         }
@@ -94,7 +94,7 @@ class validationActions extends sfActions {
             $this->compte->interpro->get($interpro_id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
         }
         $this->compte->save();
-        $this->getUser()->setFlash('general', 'Compte validé');
+        $this->getUser()->setFlash('notification_general', 'Compte validé');
         $this->redirect('@validation_fiche');
 
         $this->setTemplate('fiche');
@@ -111,7 +111,8 @@ class validationActions extends sfActions {
             $contrat = $this->getUser()->getContrat();
             $contrat->storeAttachment($file->getSavedName(), 'text/csv', 'etablissements.csv');
             unlink($file->getSavedName());
-             $this->redirect('@validation_fiche');
+            $this->getUser()->setFlash('notification_general', "Le fichier csv d'import a bien été uploader");
+            $this->redirect('@validation_fiche');
         } 
         $this->setTemplate('fiche');
     }
@@ -119,6 +120,7 @@ class validationActions extends sfActions {
     public function executeImport(sfWebRequest $request) {
         $import = new ImportEtablissementsCsv($this->getUser()->getInterpro(), $this->getUser()->getContrat()->getCompteObject());
         $import->import();
+        $this->getUser()->setFlash('notification_general', "Les établissements ont bien été importés");
         $this->redirect('@validation_fiche');
     }
 
@@ -127,7 +129,7 @@ class validationActions extends sfActions {
         $this->forward404Unless($etablissement->compte == $this->getUser()->getContrat()->compte);
         $etablissement->statut = _Tiers::STATUT_ARCHIVER;
         $etablissement->save();
-
+        $this->getUser()->setFlash('notification_general', "L'établissement est archivé");
         $this->redirect('@validation_fiche');
     }
 
@@ -139,6 +141,7 @@ class validationActions extends sfActions {
         $compte = $this->getUser()->getContrat()->getCompteObject();
         $compte->tiers->remove($etablissement->get('_id'));
         $compte->save();
+        $this->getUser()->setFlash('notification_general', "L'établissement est délié");
         $this->redirect('@validation_fiche');
     }
 
