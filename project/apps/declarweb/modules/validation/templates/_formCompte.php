@@ -1,8 +1,8 @@
 <div id="modification_compte">
 
     <div class="presentation clearfix"<?php if ($form->hasErrors()) echo ' style="display:none;"'; ?>>
-        <?php if($sf_user->hasFlash('maj')) : ?>
-            <p class="flash_message"><?php echo $sf_user->getFlash('maj'); ?></p>
+        <?php if($sf_user->hasFlash('notification_compte')) : ?>
+            <p class="flash_message"><?php echo $sf_user->getFlash('notification_compte'); ?></p>
         <?php endif; ?>
         <p><span>Nom :</span> <?php echo $compte->nom; ?></p>
         <p><span>Prénom :</span> <?php echo $compte->prenom; ?></p>
