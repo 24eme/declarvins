@@ -8,7 +8,7 @@
 (function($)
 {
 	/**
-	 * Gère l'inclusion de fichier JS
+	 * Gï¿½re l'inclusion de fichier JS
 	 * $.fn.include(chemin, fichier, {condition: false, operateur: '', version: ''});
 	 ******************************************/
 	$.fn.includeJS = function(chemin, fichier, opt)
@@ -43,8 +43,9 @@
 	$.fn.includeJS(jsPath, 'plugins/DD_belatedPNG.js', {condition: true, operateur: 'lte', version: 'IE 6'});
 	$.fn.includeJS(jsPath, 'plugins/jquery.metadata.js');
 	
-	// Fonctions personnalisées
+	// Fonctions personnalisï¿½es
 	$.fn.includeJS(jsPath, 'affichage.js');
 	$.fn.includeJS(jsPath, 'global.js');
+	$.fn.includeJS(jsPath, 'contrat.js');
 
 })(jQuery);

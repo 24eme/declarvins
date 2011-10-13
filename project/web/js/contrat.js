@@ -1,14 +1,5 @@
 $(document).ready( function()
 {
-	rolloverImg();
-	videInputFocus();
-	hauteurEgale('#logo, #titre_rubrique, #acces_directs');
-	var bool = window.interproLocked || 0;
-	if(bool) {
-		for (var interproIdLocked in interproLocked) {
-            $('#interpro_interpro_'+interproLocked[interproIdLocked]).attr('readonly', 'readonly');
-        }
-	}
 	var bool = window.familles || 0;
 	if(bool) {
 		famillesJSON = JSON.parse(familles);
@@ -39,27 +30,21 @@ $(document).ready( function()
 function addEtablissement(html) {
 	var nbEtablissements = parseInt($("#contrat_nb_etablissement").val());
 	var tabEtablissements = $("#etablissements");
-	var etablissement = "<tr id=\"etablissement"+nbEtablissements+"\">" +
-	"<td>" +
-	"	<table>" +
-	"		<tr>" +
-	"			<td>Raison sociale*: </td>" +
-	"			<td><input type=\"text\" id=\"contrat_etablissements_"+nbEtablissements+"_raison_sociale\" name=\"contrat[etablissements]["+nbEtablissements+"][raison_sociale]\"></td>" +
-	"			<td></td>" +
-	"		</tr>" +
-	"		<tr>" +
-	"			<td>SIRET*: </td>" +
-	"			<td><input type=\"text\" id=\"contrat_etablissements_"+nbEtablissements+"_siret\" name=\"contrat[etablissements]["+nbEtablissements+"][siret_cni]\"></td>" +
-	"			<td></td>" +
-	"		</tr>" +
-	"	</table>" +
-	"</td>" +
-	"</tr>" +
-	"<tr id=\"optionsEtablissement"+nbEtablissements+"\">" +
-	"<td>" +
-	"	<a href=\"javascript:removeEtablissement("+nbEtablissements+")\">Supprimer</a>" +
-	"</td>" +
-	"</tr>";
+	var etablissement = 
+		"" +
+		"<div id=\"etablissement"+nbEtablissements+"\">" +
+		"			<div class=\"ligne_form\">" +
+		"				<label for=\"contrat_etablissements_"+nbEtablissements+"_raison_sociale\">Raison sociale* :</label>" +
+		"				<input type=\"text\" id=\"contrat_etablissements_"+nbEtablissements+"_raison_sociale\" name=\"contrat[etablissements]["+nbEtablissements+"][raison_sociale]\">" +
+		"			</div>" +
+		"			<div class=\"ligne_form\">" +
+		"				<label for=\"contrat_etablissements_"+nbEtablissements+"_siret\">SIRET/CNI* :</label>" +
+		"				<input type=\"text\" id=\"contrat_etablissements_"+nbEtablissements+"_siret\" name=\"contrat[etablissements]["+nbEtablissements+"][siret_cni]\">" +
+		"			</div>" +
+		"			<div id=\"optionsEtablissement"+nbEtablissements+"\">" +
+		"				<a href=\"javascript:removeEtablissement("+nbEtablissements+")\">Supprimer</a>" +
+		"			</div>" +
+		"</div>";
 	$("#etablissements").append(etablissement);
 	$("#contrat_nb_etablissement").val(nbEtablissements + 1);
 	$("#addEtablissement").css('display', 'inline-block');
