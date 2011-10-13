@@ -37,10 +37,13 @@ class ContratClient extends sfCouchdbClient {
     public function getNextNoContrat() {
     	$date = date('Ymd');
     	$contrats = self::getAtDate($date, sfCouchdbClient::HYDRATE_ON_DEMAND)->getIds();
-        if (count($contrats) > 0)
-        	return ((int)str_replace('CONTRAT-', '', max($contrats)) + 1);
-        else
-        	return $date.'001';
+        print_r($contrats);
+        if (count($contrats) > 0) {
+            return ((double)str_replace('CONTRAT-', '', max($contrats)) + 1);
+        } else {
+            return $date.'001';
+        }
+                
     }
     
     /**
