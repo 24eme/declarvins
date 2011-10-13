@@ -129,7 +129,17 @@ class validationActions extends sfActions {
         $this->forward404Unless($etablissement->compte == $this->getUser()->getContrat()->compte);
         $etablissement->statut = _Tiers::STATUT_ARCHIVER;
         $etablissement->save();
-        $this->getUser()->setFlash('notification_general', "L'établissement est archivé");
+        $this->getUser()->setFlash('notification_general', "L'établissement a bien été archivé");
+        $this->redirect('@validation_fiche');
+    }
+    
+    public function executeDesarchiver(sfWebRequest $request) {
+        $this->forward404Unless($etablissement = EtablissementClient::getInstance()->retrieveById($request->getParameter("etablissement")));
+        $this->forward404Unless($etablissement->compte == $this->getUser()->getContrat()->compte);
+        $this->forward404Unless($etablissement->statut == _Tiers::STATUT_ARCHIVER);
+        $etablissement->statut = _Tiers::STATUT_ACTIF;
+        $etablissement->save();
+        $this->getUser()->setFlash('notification_general', "L'établissement a bien été désarchiver");
         $this->redirect('@validation_fiche');
     }
 
@@ -141,7 +151,7 @@ class validationActions extends sfActions {
         $compte = $this->getUser()->getContrat()->getCompteObject();
         $compte->tiers->remove($etablissement->get('_id'));
         $compte->save();
-        $this->getUser()->setFlash('notification_general', "L'établissement est délié");
+        $this->getUser()->setFlash('notification_general', "L'établissement a bien été délié");
         $this->redirect('@validation_fiche');
     }
 
