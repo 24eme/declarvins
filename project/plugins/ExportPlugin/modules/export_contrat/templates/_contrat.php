@@ -107,10 +107,10 @@
 		/**
 		 * Structure générique
 		 ******************************************/
-		#global { padding: 15px; }
+		#global { padding: 15px 30px; }
 		#global p,
 		#global ul { margin: 12px 0; }
-		#global ul { list-style: disc inside; }
+		#global ul { list-style: disc inside; padding: 0 0 0 20px; }
 		#global .note { font-size: 11px; }
 		#global .important { font-size: 13px; font-weight: bold; }
 		#global .important p { margin: 20px 0; }
