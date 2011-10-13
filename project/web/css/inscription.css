@@ -124,7 +124,7 @@
 	width: 330px;
 }
 
-#creation_compte .ligne_btn button
+#creation_compte .ligne_btn button, #creation_compte .ligne_btn a.button
 {
 	background: 0 center no-repeat;
 	color: #900000;
@@ -135,10 +135,12 @@
 	margin: 0 0 0 15px;
 	padding: 0 0 0 30px;
 	text-decoration: underline;
+        display: inline-block;
 }
 
-#creation_compte .ligne_btn button:hover { text-decoration: none; }
 
-#creation_compte .ligne_btn button.btn_valider { background-image: url(../images/boutons/btn_valider.png); }
-#creation_compte .ligne_btn button.btn_ajouter { background-image: url(../images/boutons/btn_ajouter.png); }
-#creation_compte .ligne_btn button.btn_supprimer { background-image: url(../images/boutons/btn_supprimer.png); color: #000; }
+#creation_compte .ligne_btn button:hover, #creation_compte .ligne_btn a.button:hover { text-decoration: none; }
+
+#creation_compte .ligne_btn button.btn_valider, #creation_compte .ligne_btn a.button.btn_valider { background-image: url(../images/boutons/btn_valider.png); }
+#creation_compte .ligne_btn button.btn_ajouter, #creation_compte .ligne_btn a.button.btn_ajouter { background-image: url(../images/boutons/btn_ajouter.png); }
+#creation_compte .ligne_btn button.btn_supprimer, #creation_compte .ligne_btn a.button.btn_supprimer { background-image: url(../images/boutons/btn_supprimer.png); color: #000; }

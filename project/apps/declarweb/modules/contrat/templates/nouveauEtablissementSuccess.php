@@ -11,6 +11,6 @@
         <h1>Étape 2 : <strong>Création de compte</strong></h1>
 
         <h2>Veuillez saisir les informations pour le nouvel établissement</h2>
-        <?php include_partial('contrat/formEtablissement', array('form' => $form)); ?>
+        <?php include_partial('contrat/formEtablissement', array('form' => $form, 'new' => true, 'annulation' => true)); ?>
     </form>
 </section>

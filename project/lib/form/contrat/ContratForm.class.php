@@ -39,7 +39,7 @@ class ContratForm extends sfCouchdbFormDocumentJson {
         parent::doUpdateObject($values);
         if ($this->getObject()->isNew())
         {
-        	$noContrat = sfCouchdbManager::getClient('Contrat')->getNextNoContrat();
+            $noContrat = ContratClient::getInstance()->getNextNoContrat();
             $this->getObject()->set('_id', 'CONTRAT-'.$noContrat);
             $this->getObject()->setNoContrat($noContrat);
         }
