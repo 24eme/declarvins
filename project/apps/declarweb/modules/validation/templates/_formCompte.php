@@ -11,7 +11,7 @@
         <p><span>Email :</span> <?php echo $compte->email; ?></p>
         <p><span>Mot de passe :</span> ****** </p>
         <div class="btn">
-            <a href="javascript:void(0)" class="modifier"><img src="/images/boutons/btn_modifier_infos.png" alt="Modifier les informations" /></a>
+            <a href="javascript:void(0)" class="modifier">Modifier les informations</a>
         </div>
     </div>
 
@@ -59,7 +59,7 @@
             </div>
 
             <div class="btn">
-                <a href="javascript:void(0)" class="annuler"><img src="/images/boutons/btn_annuler.png" alt="Annuler" /></a>
+                <a href="javascript:void(0)" class="annuler">Annuler</a>
                 <input type="submit" value="Valider" />
             </div>
         </form>

@@ -17,7 +17,7 @@
     <h2 class="titre_principal">Compte</h2>
     <!-- #exploitation_administratif -->
     <div id="mon_compte">
-        <?php include_partial('compte/view_form', array('form' => $form, 'compte' => $compte)) ?>
+        <?php include_partial('validation/formCompte', array('form' => $formCompte, 'compte' => $compte)) ?>
     </div>
     <h2 class="titre_principal">Etablissements associés</h2>
     <?php if (count($etablissements) > 0): ?>
@@ -43,10 +43,10 @@
         </p>
         <br />
     <?php endif; ?>
-    <?php include_component('validation', 'formUploadCsv'); ?>
+    <?php include_partial('validation/formUploadCsv', array('form' => $formUploadCsv)) ?>
 
     <h2 class="titre_principal">Liaison interpro</h2>
-    <?php include_partial('compte/form_liaison_interpro', array('form' => $formLiaison)) ?>
+    <?php include_partial('validation/formLiaisonInterpro', array('form' => $formLiaison)) ?>
     <h2 class="titre_principal">Validation</h2>
     <?php include_partial('validation/validation', array('valide_interpro' => $valide_interpro, 'compte_active' => $compte_active, 'interpro' => $interpro)) ?>
 
