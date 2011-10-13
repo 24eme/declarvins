@@ -31,10 +31,10 @@
     <?php else: ?>
         <p><i>Aucun établissement importé à ce jour</i></p>
     <?php endif; ?>
-    <h2 class="titre_principal">Import</h2>
+    <h2 class="titre_principal">Import des établissements</h2>
     <?php if (@file_get_contents($contrat->getAttachmentUri('etablissements.csv'))): ?>
         <p>
-            Fichier prêt pour l'import (<a href="<?php echo $contrat->getAttachmentUri('etablissements.csv'); ?>">télécharger le fichier</a>) => <a href="<?php echo url_for("@validation_upload_csv") ?>">Lancer l'import</a>
+            Fichier prêt pour l'import (<a href="<?php echo $contrat->getAttachmentUri('etablissements.csv'); ?>">télécharger le fichier</a>) => <a href="<?php echo url_for("@validation_import") ?>">Lancer l'import</a>
         </p> 
         <br />
     <?php else: ?>
