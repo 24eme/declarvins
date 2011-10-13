@@ -1,3 +1,5 @@
 default:
   stylesheets:    [civa/global.css, civa/declaration_recolte.css]
   javascripts:    [civa/lib/jquery-1.4.2.min.js, civa/lib/jquery-ui-1.8.1.min.js, civa/global.js, civa/declaration_recolte.js]
+
+  layout:         layoutCiva
