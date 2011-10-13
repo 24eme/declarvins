@@ -4,6 +4,14 @@ class InterproClient extends sfCouchdbClient {
     
     /**
      *
+     * @return _ContratClient
+     */
+    public static function getInstance() {
+        return sfCouchdbManager::getClient("Interpro");
+    }
+    
+    /**
+     *
      * @param string $id
      * @param integer $hydrate
      * @return Interpro 
