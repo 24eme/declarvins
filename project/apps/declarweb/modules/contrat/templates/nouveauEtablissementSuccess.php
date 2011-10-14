@@ -8,9 +8,9 @@
 <!-- #contenu -->
 <section id="contenu">
     <form id="creation_compte" action="<?php echo url_for('@contrat_etablissement_nouveau'); ?>" method="post">
-        <h1>Étape 2 : <strong>Création de compte</strong></h1>
+        <h1>Étape 2 : <strong>Veuillez saisir les informations pour le nouvel établissement</strong></h1>
 
-        <h2>Veuillez saisir les informations pour le nouvel établissement</h2>
+        <!--<h2>Veuillez saisir les informations pour le nouvel établissement</h2>-->
         <?php include_partial('contrat/formEtablissement', array('form' => $form, 'new' => true, 'annulation' => true)); ?>
     </form>
 </section>
