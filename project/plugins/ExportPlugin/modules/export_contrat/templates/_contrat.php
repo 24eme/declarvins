@@ -193,12 +193,12 @@
 					N° RCS / SIRET: <strong><?php echo $etablissement->siret ?></strong><br />
 					N° Carte Nationale d'Identité pour les exploitants individuels : <strong><?php echo $etablissement->cni ?></strong><br />
 					N° CVI : <strong><?php echo $etablissement->cvi ?></strong><br />
-					N° accises : FR. <strong><?php echo $etablissement->no_accises ?></strong><br />
+					N° accises : <strong><?php echo $etablissement->no_accises ?></strong><br />
 					Nom/Raison Sociale : <strong><?php echo $etablissement->raison_sociale ?></strong><br />
 					Adresse : <strong><?php echo $etablissement->adresse ?></strong><br />
 					CP : <strong><?php echo $etablissement->code_postal ?></strong><br />
 					ville : <strong><?php echo $etablissement->commune ?></strong><br />
-					tel :<strong><?php echo $etablissement->telephone ?></strong><br />
+					tel : <strong><?php echo $etablissement->telephone ?></strong><br />
 					fax : <strong><?php echo $etablissement->fax ?></strong><br />
 					email : <strong><?php echo $etablissement->email ?></strong>
 				</p>

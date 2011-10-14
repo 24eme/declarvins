@@ -5,6 +5,7 @@
 all:
   etablissements:
     familles:
-      "famille1": ["sf1", "sf2", "sf3"]
-      "famille2": ["sf21", "sf22", "sf23"]
-      "famille3": ["sf31", "sf32", "sf33"]
+      "Producteur": ["Cave particulière", "Cave coopérative", "Coopérateur"]
+      "Négociant": ["Négociant régional", "Négociant hors région", "Unions de producteurs"]
+      "Vinificateur": ["Vinificateur"]
+      "Courtier": ["Courtier"]

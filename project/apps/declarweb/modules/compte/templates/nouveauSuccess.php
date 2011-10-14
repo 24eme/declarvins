@@ -3,7 +3,7 @@
 <p class="flash_message"><?php echo $sf_user->getFlash('notice'); ?></p>
 <?php endif; ?>
 <form id="creation_compte" method="post" action="<?php echo url_for('@compte_nouveau') ?>">
-	<h1>Etape 3 : Création de compte</h1>
+	<h1>Etape 3 : <strong>Création de compte</strong></h1>
 	<div class="col">
 		<div class="ligne_form">
 		<?php echo $form->renderHiddenFields(); ?>
