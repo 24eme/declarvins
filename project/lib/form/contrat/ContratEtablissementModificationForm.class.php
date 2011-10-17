@@ -73,7 +73,7 @@ class ContratEtablissementModificationForm extends sfCouchdbFormDocumentJson {
 	       'comptabilite_commune' => new sfValidatorString(array('required' => false)),
 	       'service_douane' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($douaneChoices)))
        ));
-       
+       $this->mergePostValidator(new ValidatorXorSiretCni());
 		$this->widgetSchema->setNameFormat('contratetablissement[%s]');
     }
     
