@@ -132,6 +132,20 @@ class contratActions extends sfActions
   public function executeConfirmation(sfWebRequest $request)
   {
   	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
+  	$this->compte = $this->contrat->getCompteObject();
+  	$this->form = new CompteModificationEmailForm($this->compte);
+  	$this->showForm = false;
+    if ($request->isMethod(sfWebRequest::POST)) {
+        $this->form->bind($request->getParameter($this->form->getName()));
+        if ($this->form->isValid()) {
+           $this->form->save();
+           $this->getUser()->setFlash('success', 'Modification prise en compte, vous devriez recevoir un nouvel email');
+           $this->redirect('@contrat_etablissement_confirmation');
+        }
+        else {
+        	$this->showForm = true;
+        }
+    }
   }
  /**
   * 
