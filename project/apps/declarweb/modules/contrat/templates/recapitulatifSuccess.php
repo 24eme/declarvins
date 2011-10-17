@@ -13,27 +13,33 @@
 	<?php 
 	foreach ($contrat->etablissements as $etablissement): 
 	?>
-	<?php echo $etablissement->raison_sociale ?> (<?php echo $etablissement->siret ?><?php if ($etablissement->siret && $etablissement->cni): ?>/<?php endif; ?><?php echo $etablissement->cni ?>)
-			<?php if ($etablissement->adresse): ?>
-			<br />
-			<?php echo $etablissement->adresse ?>
-			<br />
-			<?php echo $etablissement->code_postal ?> <?php echo $etablissement->commune ?>
-			<br /><br />
-			 <?php echo $etablissement->famille ?> <?php echo $etablissement->service_douane ?>
-			<?php if ($etablissement->comptabilite_adresse || $etablissement->comptabilite_code_postal || $etablissement->comptabilite_commune): ?>
-			<br /><br />
-			Adresse comptabilité:
-			<br />
-			<?php echo $etablissement->comptabilite_adresse ?>
-			<br />
-			<?php echo $etablissement->comptabilite_code_postal ?> <?php echo $etablissement->comptabilite_commune ?>
-			<?php endif; ?>
-			<?php endif; ?>
-		<div class="ligne_btn">
-			<a href="<?php echo url_for('contrat_etablissement_modification', array('indice' => $etablissement->getKey(), 'recapitulatif' => 1)) ?>" class="button btn_ajouter" style="margin-left: 248px;">Modifier</a>
-		</div>
-		<hr />
+	<p>
+		N° RCS / SIRET: <strong><?php echo $etablissement->siret ?></strong><br />
+		N° CNI : <strong><?php echo $etablissement->cni ?></strong><br />
+		N° CVI : <strong><?php echo $etablissement->cvi ?></strong><br />
+		N° accises : <strong><?php echo $etablissement->no_accises ?></strong><br />
+		Nom/Raison Sociale : <strong><?php echo $etablissement->raison_sociale ?></strong><br />
+		Adresse : <strong><?php echo $etablissement->adresse ?></strong><br />
+		CP : <strong><?php echo $etablissement->code_postal ?></strong><br />
+		ville : <strong><?php echo $etablissement->commune ?></strong><br />
+		tel : <strong><?php echo $etablissement->telephone ?></strong><br />
+		fax : <strong><?php echo $etablissement->fax ?></strong><br />
+		email : <strong><?php echo $etablissement->email ?></strong>
+	</p>
+	<p>Famille : <strong><?php echo $etablissement->famille ?></strong></p>
+	<p>Sous-famille : <strong><?php echo $etablissement->sous_famille ?></strong></p>
+	<?php if ($etablissement->comptabilite_adresse): ?>
+	<p>
+		Lieu où est tenue la comptabilité matière (si différente de l'adresse du chai) :<br />
+		Adresse : <strong><?php echo $etablissement->comptabilite_adresse ?></strong><br />
+		CP : <strong><?php echo $etablissement->comptabilite_code_postal ?></strong><br />
+		ville : <strong><?php echo $etablissement->comptabilite_commune ?></strong>
+	</p>
+	<div class="ligne_btn">
+		<a href="<?php echo url_for('contrat_etablissement_modification', array('indice' => $etablissement->getKey(), 'recapitulatif' => 1)) ?>" class="button btn_ajouter" style="margin-left: 248px;">Modifier</a>
+	</div>
+	<hr />
+	<?php endif; ?>
 	<?php endforeach; ?>
 	<div class="ligne_btn">
 		<a href="<?php echo url_for('contrat_etablissement_nouveau') ?>" class="button btn_ajouter">Nouveau</a>
