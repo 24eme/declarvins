@@ -4,6 +4,7 @@
 <?php endif; ?>
 <form id="creation_compte"  method="post" action="<?php echo url_for('@contrat_nouveau') ?>">
 	<h1>Étape 1 : <strong>Création de compte</strong></h1>
+	<p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
 	<div class="col">
 		<div class="ligne_form">
 		<?php echo $form->renderHiddenFields(); ?>
