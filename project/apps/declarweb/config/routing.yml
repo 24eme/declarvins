@@ -4,7 +4,7 @@
 # Declaration routing
 homepage:
   url:   /
-  param: { module: contrat, action: nouveau }
+  param: { module: contrat, action: index }
 
 compte_nouveau:
   url:   /compte/nouveau

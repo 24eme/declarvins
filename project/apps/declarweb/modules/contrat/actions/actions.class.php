@@ -16,6 +16,15 @@ class contratActions extends sfActions
      *
      * @param sfRequest $request A request object
      */
+    public function executeIndex(sfWebRequest $request) {
+
+    }
+
+    /**
+     * 
+     *
+     * @param sfRequest $request A request object
+     */
     public function executeNouveau(sfWebRequest $request) {
         $this->nbEtablissement = $request->getParameter('nb_etablissement', 1);
         $this->form = new ContratForm(new Contrat(), array('nbEtablissement' => $this->nbEtablissement));
