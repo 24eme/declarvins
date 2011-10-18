@@ -3,6 +3,7 @@ class ContratEtablissementModificationForm extends sfCouchdbFormDocumentJson {
 	
 	protected $_douaneCollection = null;
 	protected $_familleCollection = null;
+	protected $_ediCollection = null;
 	
     public function configure() {
 	   $douaneChoices = $this->getDouaneChoices();

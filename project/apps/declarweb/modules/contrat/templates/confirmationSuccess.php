@@ -1,7 +1,7 @@
 <script type="text/javascript">
-	function updateCompte() {
-		$('#form').show();
-	}
+function updateCompte() {
+	$('#form').show();
+}
 </script>
 <section id="contenu">
 	<div id="creation_compte">
