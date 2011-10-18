@@ -35,11 +35,11 @@
 		CP : <strong><?php echo $etablissement->comptabilite_code_postal ?></strong><br />
 		ville : <strong><?php echo $etablissement->comptabilite_commune ?></strong>
 	</p>
+	<?php endif; ?>
 	<div class="ligne_btn">
 		<a href="<?php echo url_for('contrat_etablissement_modification', array('indice' => $etablissement->getKey(), 'recapitulatif' => 1)) ?>" class="button btn_ajouter" style="margin-left: 248px;">Modifier</a>
 	</div>
 	<hr />
-	<?php endif; ?>
 	<?php endforeach; ?>
 	<div class="ligne_btn">
 		<a href="<?php echo url_for('contrat_etablissement_nouveau') ?>" class="button btn_ajouter">Nouveau</a>
