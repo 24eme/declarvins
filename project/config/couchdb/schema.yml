@@ -110,6 +110,13 @@ Douane:
       _rev: {  }
       email: {  }
 
+Edi:
+  inheritance: _Tiers
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+
 Contrat:
   definition:
     fields:
