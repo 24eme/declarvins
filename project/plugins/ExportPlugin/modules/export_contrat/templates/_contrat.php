@@ -242,9 +242,8 @@
 			</ul>
 			<p>En cas de changement de la production, ou de l'adhésion d'organismes représentatifs de la production aux Interprofessions, les interlocuteurs de gestion peuvent évoluer.</p>
 		</div>
-		<p style="page-break-after: always"></p>
-                <?php echo include_partial('export_contrat/contrat_conditions') ?>
-        <p style="page-break-after: always"></p>
+
+        <?php echo include_partial('export_contrat/contrat_conditions') ?>
 		<div id="signature">
                         <p>Fait à 
                         <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>, Le <strong></strong>
