@@ -10,13 +10,27 @@
  */
 class interproActions extends sfActions
 {
- /**
-  * Executes index action
-  *
-  * @param sfRequest $request A request object
-  */
-  public function executeIndex(sfWebRequest $request)
-  {
-    $this->forward('default', 'module');
-  }
+
+    public function executeUploadCsv(sfWebRequest $request) {  
+    	$this->forward404Unless($this->interpro = InterproClient::getInstance()->getById($request->getParameter("id")));     
+        $this->formUploadCsv = new UploadCSVForm();
+        if ($request->isMethod(sfWebRequest::POST) && $request->getParameter($this->formUploadCsv->getName())) {
+	        $this->formUploadCsv->bind($request->getParameter('csv'), $request->getFiles('csv'));
+	        if ($this->formUploadCsv->isValid()) {
+	            $file = $this->formUploadCsv->getValue('file');
+	            $this->interpro->storeAttachment($file->getSavedName(), 'text/csv', 'etablissements.csv');
+	            unlink($file->getSavedName());
+	            $this->getUser()->setFlash('notification_general', "Le fichier csv d'import a bien été uploader");
+	            $this->redirect('interpro_upload_csv', array('id' => $this->interpro->get('_id')));
+	        } 
+        }
+    }
+
+    public function executeUpdateEtablissements(sfWebRequest $request) {
+    	$this->forward404Unless($this->interpro = InterproClient::getInstance()->getById($request->getParameter("id")));
+        $import = new ImportEtablissementsCsv($this->interpro);
+        $import->update();
+        $this->getUser()->setFlash('notification_general', "Les établissements ont bien été importés");
+        $this->redirect('interpro_upload_csv', array('id' => $this->interpro->get('_id')));
+    }
 }
