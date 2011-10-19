@@ -47,9 +47,6 @@ validation_liaison:
 validation_validation:
   url:   /validation/validation
   param: { module: validation, action: validation }
-validation_import:
-  url:   /validation/import
-  param: { module: validation, action: import }
 validation_archiver:
   url:   /validation/archiver/:etablissement
   param: { module: validation, action: archiver, etablissement: null }
@@ -59,9 +56,14 @@ validation_desarchiver:
 validation_delier:
   url:   /validation/delier/:etablissement
   param: { module: validation, action: delier, etablissement: null }
-validation_upload_csv:
-  url:   /validation/upload_csv
-  param: { module: validation, action: uploadCsv }
+
+# Interpro routing
+interpro_import:
+  url:   /interpro/:id/update_etablissements
+  param: { module: interpro, action: updateEtablissements, id: null }
+interpro_upload_csv:
+  url:   /interpro/:id/upload_csv
+  param: { module: interpro, action: uploadCsv, id: null }
 
 # generic rules
 # please, remove them by adding more specific rules

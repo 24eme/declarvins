@@ -32,7 +32,8 @@ class validationActions extends sfActions {
         $this->interpro = $this->getUser()->getInterpro();
         $this->contrat = $this->getUser()->getContrat();
         $this->compte = $this->contrat->getCompteObject();
-        $this->etablissements = $this->compte->getTiersCollection();
+        $import = new ImportEtablissementsCsv($this->interpro);
+        $this->etablissements = $import->getEtablissementsByContrat($this->contrat);
         $this->formCompte = new CompteModificationForm($this->compte);
         $this->formUploadCsv = new UploadCSVForm();
         $this->formLiaison = new LiaisonInterproForm($this->compte);
@@ -101,7 +102,7 @@ class validationActions extends sfActions {
         $this->setTemplate('fiche');
     }
 
-    public function executeUploadCsv(sfWebRequest $request) {
+    /*public function executeUploadCsv(sfWebRequest $request) {
         $this->forward404Unless($request->isMethod(sfWebRequest::POST));
         $this->init();
         
@@ -131,7 +132,7 @@ class validationActions extends sfActions {
         $compte->save();
         $this->getUser()->setFlash('notification_general', "Les établissements ont bien été importés");
         $this->redirect('@validation_fiche');
-    }
+    }*/
 
     public function executeArchiver(sfWebRequest $request) {
         $this->forward404Unless($etablissement = EtablissementClient::getInstance()->retrieveById($request->getParameter("etablissement")));
