@@ -2,7 +2,7 @@
 
 <!-- #application_dr -->
 <div class="btn" style="text-align: right;">
-    <span>Vous êtes loggué en tant que <?php echo $interpro; ?></span>&nbsp; | &nbsp; <span><a class="modifier" href="<?php echo url_for('@validation_login') ?>">Déconnexion</a></span>
+    <span>Vous êtes loggué en tant que <?php echo $interpro; ?></span>&nbsp; | &nbsp;<span><a class="modifier" href="<?php echo url_for('interpro_upload_csv', array('id' => $interpro->get('_id'))) ?>">Gestion CSV</a></span>&nbsp; | &nbsp;<span><a class="modifier" href="<?php echo url_for('@validation_login') ?>">Déconnexion</a></span>
 </div>
 <script type="text/javascript">
     var interproLocked = new Array();
@@ -31,19 +31,6 @@
     <?php else: ?>
         <p><i>Aucun établissement importé à ce jour</i></p>
     <?php endif; ?>
-    <h2 class="titre_principal">Import des établissements</h2>
-    <?php if (@file_get_contents($contrat->getAttachmentUri('etablissements.csv'))): ?>
-        <p>
-            Fichier prêt pour l'import (<a href="<?php echo $contrat->getAttachmentUri('etablissements.csv'); ?>">télécharger le fichier</a>) => <a href="<?php echo url_for("@validation_import") ?>">Lancer l'import</a>
-        </p> 
-        <br />
-    <?php else: ?>
-        <p>
-        <i>Vous n'avez pas encore chargé de fichier d'import.</i>
-        </p>
-        <br />
-    <?php endif; ?>
-    <?php include_partial('validation/formUploadCsv', array('form' => $formUploadCsv)) ?>
 
     <h2 class="titre_principal">Liaison interpro</h2>
     <?php include_partial('validation/formLiaisonInterpro', array('form' => $formLiaison)) ?>
