@@ -56,6 +56,9 @@ validation_desarchiver:
 validation_delier:
   url:   /validation/delier/:etablissement
   param: { module: validation, action: delier, etablissement: null }
+validation_lier:
+  url:   /validation/lier/:etablissement
+  param: { module: validation, action: lier, etablissement: null }
 
 # Interpro routing
 interpro_import:
