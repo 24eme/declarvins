@@ -33,7 +33,10 @@ class validationActions extends sfActions {
         $this->contrat = $this->getUser()->getContrat();
         $this->compte = $this->contrat->getCompteObject();
         $import = new ImportEtablissementsCsv($this->interpro);
-        $this->etablissements = $import->getEtablissementsByContrat($this->contrat);
+        
+        $this->etablissements = $this->compte->getTiersCollection();
+        $this->etablissementsCsv = array_diff_key($import->getEtablissementsByContrat($this->contrat), $this->compte->tiers->toArray());
+
         $this->formCompte = new CompteModificationForm($this->compte);
         $this->formUploadCsv = new UploadCSVForm();
         $this->formLiaison = new LiaisonInterproForm($this->compte);
@@ -136,7 +139,6 @@ class validationActions extends sfActions {
 
     public function executeArchiver(sfWebRequest $request) {
         $this->forward404Unless($etablissement = EtablissementClient::getInstance()->retrieveById($request->getParameter("etablissement")));
-        $this->forward404Unless($etablissement->compte == $this->getUser()->getContrat()->compte);
         $etablissement->statut = _Tiers::STATUT_ARCHIVER;
         $etablissement->save();
         $this->getUser()->setFlash('notification_general', "L'établissement a bien été archivé");
@@ -145,7 +147,6 @@ class validationActions extends sfActions {
     
     public function executeDesarchiver(sfWebRequest $request) {
         $this->forward404Unless($etablissement = EtablissementClient::getInstance()->retrieveById($request->getParameter("etablissement")));
-        $this->forward404Unless($etablissement->compte == $this->getUser()->getContrat()->compte);
         $this->forward404Unless($etablissement->statut == _Tiers::STATUT_ARCHIVER);
         $etablissement->statut = _Tiers::STATUT_ACTIF;
         $etablissement->save();
@@ -153,12 +154,28 @@ class validationActions extends sfActions {
         $this->redirect('@validation_fiche');
     }
 
+    public function executeLier(sfWebRequest $request) {
+        $this->forward404Unless($etablissement = $request->getParameter("etablissement"));
+        $this->forward404Unless($compte = $this->getUser()->getContrat()->getCompteObject());
+    	$this->forward404Unless($interpro = $this->getUser()->getInterpro());
+    	$import = new ImportEtablissementsCsv($interpro);
+    	$etablissement = $import->getEtablissementByIdentifiant($etablissement);
+        $etablissement->statut = _Tiers::STATUT_ACTIF;
+        $etablissement->save();
+        $tiers_compte = $compte->tiers->add($etablissement->get('_id'));
+        $tiers_compte->id = $etablissement->get('_id');
+        $tiers_compte->type = "Etablissement";
+        $tiers_compte->nom = $etablissement->nom;
+        $tiers_compte->interpro = $interpro->get('_id');
+        $compte->save();
+        $this->getUser()->setFlash('notification_general', "L'établissement a bien été lié");
+        $this->redirect('@validation_fiche');
+    }
+
     public function executeDelier(sfWebRequest $request) {
         $this->forward404Unless($etablissement = EtablissementClient::getInstance()->retrieveById($request->getParameter("etablissement")));
-        $this->forward404Unless($etablissement->compte == $this->getUser()->getContrat()->compte);
-    	$interpro = $this->getUser()->getInterpro();
-        $etablissement->statut = _Tiers::STATUT_DELIER;
-        $etablissement->save();
+    	$this->forward404Unless($interpro = $this->getUser()->getInterpro());
+        $etablissement->delete();
         $compte = $this->getUser()->getContrat()->getCompteObject();
         $compte->tiers->remove($etablissement->get('_id'));
         if ($compte->tiers->count() == 0) {
