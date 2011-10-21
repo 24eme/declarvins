@@ -16,7 +16,7 @@ Faire mettre cette cle à la fin du fichier /home/git/.ssh/authorized_keys sur d
 
 $ git clone ssh://git@dev-actualys.integra.fr/home/git/declarweb.git
 
-le projet est donc accessible dans le sous-répertoire declarweb et le projet symfony est accessible depuis declarweb/project
+le projet est donc accessible dans le sous-répertoire declarvin et le projet symfony est accessible depuis declarvin/project
 
 * configurer apache
 
