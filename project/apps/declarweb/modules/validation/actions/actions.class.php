@@ -167,6 +167,7 @@ class validationActions extends sfActions {
         $tiers_compte->type = "Etablissement";
         $tiers_compte->nom = $etablissement->nom;
         $tiers_compte->interpro = $interpro->get('_id');
+        $compte->interpro->add($interpro->get('_id'))->setStatut(_Compte::STATUT_VALIDATION_ATTENTE);
         $compte->save();
         $this->getUser()->setFlash('notification_general', "L'établissement a bien été lié");
         $this->redirect('@validation_fiche');
