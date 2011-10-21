@@ -6,4 +6,4 @@ all:
     class: sfCouchdbDatabase
     param:
       dsn: http://127.0.0.1:5984/
-      dbname: declarweb
+      dbname: declarvin
