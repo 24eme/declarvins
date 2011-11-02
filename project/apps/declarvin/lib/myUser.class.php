@@ -1,15 +1,7 @@
 <?php
 
-class myUser extends sfBasicSecurityUser
+class myUser extends DrmSecurityUser
 {
-	/**
-	 * Récupération du compte 
-	 * @return _Compte
-	 */
-	public function getCompte()
-	{
-		return ($this->hasAttribute('compte_id'))? sfCouchdbManager::getClient('_Compte')->getById($this->getAttribute('compte_id')) : null;
-	}
 	/**
 	 * Récupération du contrat
 	 * @return Contrat
