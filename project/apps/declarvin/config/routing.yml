@@ -67,6 +67,11 @@ interpro_import:
 interpro_upload_csv:
   url:   /interpro/:id/upload_csv
   param: { module: interpro, action: uploadCsv, id: null }
+  
+# Rush II : DRM routing
+etablissement_selection:
+  url:   /etablissement/selection
+  param: { module: etablissement, action: selectionEtablissement }
 
 # generic rules
 # please, remove them by adding more specific rules
