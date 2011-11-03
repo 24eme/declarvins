@@ -156,3 +156,155 @@ Contrat:
                   comptabilite_code_postal: {  }
                   comptabilite_commune: {  }
                   service_douane: {  }
+
+DRM:
+  definition:
+  fields:
+    _id: {  }
+    _rev: {  }
+    type: {  }
+    campagne: {  }
+    
+Current:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {  }
+      campagne: {  }
+      
+Configuration:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {  }
+      campagne: {  }
+      declaration:
+        type: collection
+        definition:
+          fields:
+            labels:
+              type: collection
+              definition:
+                fields:
+                  '*':
+                    # LABEL
+                    class: ConfigurationLabel
+                    inheritance: _ConfigurationDeclaration
+                    type: collection
+                    definition:
+                      fields:
+                        appellations:
+                          type: collection
+                          definition:
+                            fields:
+                              '*':
+                                # APPELLATION
+                                class: ConfigurationAppellation
+                                inheritance: _ConfigurationDeclaration
+                                type: collection
+                                definition:
+                                  fields:
+                                    libelle: {  }
+                                    couleurs:
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          '*':
+                                            # COULEUR
+                                            class: ConfigurationCouleur
+                                            inheritance: _ConfigurationDeclaration
+                                            type: collection
+                                            definition:
+                                              fields:
+                                                libelle: {  }
+
+DRM:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {  }
+      campagne: {  }
+      declaration:
+        type: collection
+        definition:
+          fields:
+            labels:
+              type: collection
+              definition:
+                fields:
+                  '*':
+                    # LABEL
+                    class: DRMLabel
+                    inheritance: _DRMTotal
+                    type: collection
+                    definition:
+                      fields:
+                        appellations:
+                          type: collection
+                          definition:
+                            fields:
+                              '*':
+                                # APPELLATION
+                                class: DRMAppellation
+                                inheritance: _DRMTotal
+                                type: collection
+                                definition:
+                                  fields:
+                                    libelle: {  }
+                                    couleurs:
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          '*':
+                                            # COULEUR
+                                            class: DRMCouleur
+                                            inheritance: _DRMTotal
+                                            type: collection
+                                            definition:
+                                              fields:
+                                                libelle: {  }
+                                                details:
+                                                  type: array_collection
+                                                  definition:
+                                                    fields:
+                                                      '*':
+                                                        type: collection
+                                                        definition:
+                                                          fields:
+                                                            '*':
+                                                              class: DRMDetail
+                                                              type: collection
+                                                              definition:
+                                                                fields:
+                                                                  entrees: {  }
+                                                                  sorties: {  }
+      declarant:
+        type: collection
+        class: DRMDeclarant
+        definition:
+          fields:
+            nom: {  }
+            siret: {  }
+            cni: {  }
+            cvi: {  }
+            no_accises: {  }
+            no_tva_intracommunautaire: {  }
+            siege:
+                type: collection
+                definition:
+                  fields:
+                    adresse: {  }
+                    code_postal: {  }
+                    commune: {  }
+            comptabilite:
+                type: collection
+                definition:
+                  fields:
+                    adresse: {  }
+                    code_postal: {  }
+                    commune: {  }
+            service_douane: {  }
+            
