@@ -6,6 +6,7 @@ class sfCouchdbJsonDefinitionField {
     private $class;
     protected $collection = false;
     protected $collection_class = '';
+    protected $collection_inheritance = null;
     protected $is_multiple = false;
     protected $field_definition = null;
     protected $is_required = true;
@@ -73,6 +74,10 @@ class sfCouchdbJsonDefinitionField {
     public function getCollectionClass() {
         return $this->collection_class;
     }
+    
+    public function getCollectionInheritance() {
+        return $this->collection_inheritance;
+    }
 
     public function isMultiple() {
         return $this->is_multiple;
@@ -113,6 +118,20 @@ class sfCouchdbJsonDefinitionField {
             return true;
         } else {
             throw new sfCouchdbException("Type doesn't exit");
+        }
+    }
+    
+    public function getPhpType() {
+        if ($this->type == self::TYPE_STRING) {
+            return "string";
+        } elseif($this->type == self::TYPE_INTEGER ) {
+            return "integer";
+        } elseif($this->type == self::TYPE_FLOAT ) {
+            return "float";
+        } elseif ($this->type == self::TYPE_COLLECTION || $this->type == self::TYPE_ARRAY_COLLECTION) {
+            return $this->getCollectionClass();
+        } else {
+            return "mixed";
         }
     }
 }
