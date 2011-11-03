@@ -76,21 +76,11 @@
 			+-->
 		<property name="authenticationHandlers">
 			<list>
-				<!--
-					| This is the authentication handler that authenticates services by means of callback via SSL, thereby validating
-					| a server side SSL certificate.
-					+-->
-				<bean class="org.jasig.cas.authentication.handler.support.HttpBasedServiceCredentialsAuthenticationHandler"
-					p:httpClient-ref="httpClient" />
-				<!--
-					| This is the authentication handler declaration that every CAS deployer will need to change before deploying CAS 
-					| into production.  The default SimpleTestUsernamePasswordAuthenticationHandler authenticates UsernamePasswordCredentials
-					| where the username equals the password.  You will need to replace this with an AuthenticationHandler that implements your
-					| local authentication strategy.  You might accomplish this by coding a new such handler and declaring
-					| edu.someschool.its.cas.MySpecialHandler here, or you might use one of the handlers provided in the adaptors modules.
-					+-->
-				<bean
-					class="org.jasig.cas.authentication.handler.support.SimpleTestUsernamePasswordAuthenticationHandler" />
+                                <bean class="org.jasig.cas.authentication.handler.support.HttpBasedServiceCredentialsAuthenticationHandler" p:httpClient-ref="httpClient" />
+                                <bean class="org.jasig.cas.adaptors.ldap.FastBindLdapAuthenticationHandler" >
+                                                <property name="filter" value="uid=%u,ou=people,dc=vinsdalsace,dc=pro" />
+                                                <property name="contextSource" ref="contextSource" />
+                                </bean>
 			</list>
 		</property>
 	</bean>
@@ -165,4 +155,27 @@
         </bean>
 
     <bean id="auditTrailManager" class="com.github.inspektr.audit.support.Slf4jLoggingAuditTrailManager" />
+
+
+                <bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
+                        <property name="pooled" value="false"/>
+                        <property name="urls">
+                                <list>
+                                        <value>ldap://localhost/</value>
+                                </list>
+                        </property>
+                        <property name="userDn" value="cn=admin,dc=inter-rhone,dc=com"/>
+                        <property name="password" value="actualys"/>
+                        <property name="baseEnvironmentProperties">
+                                <map>
+                                        <entry>
+                                                <key>
+                                                        <value>java.naming.security.authentication</value>
+                                                </key>
+                                                <value>simple</value>
+                                        </entry>
+                                </map>
+                        </property>
+                </bean>
+
 </beans>
