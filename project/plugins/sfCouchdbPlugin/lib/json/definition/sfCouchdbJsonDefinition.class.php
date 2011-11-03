@@ -32,7 +32,6 @@ class sfCouchdbJsonDefinition {
     }
 
     public function getRequiredFields() {
-
         $this->_required_fields = array();
         foreach($this->_fields as $key => $field) {
             if (!$field->isMultiple() && $field->isRequired()) {
@@ -40,6 +39,10 @@ class sfCouchdbJsonDefinition {
             }
         }
         return $this->_required_fields;
+    }
+    
+    public function getFields() {
+        return $this->_fields;
     }
 
     protected function has($key) {
