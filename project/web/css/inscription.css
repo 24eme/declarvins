@@ -1,0 +1,146 @@
+@charset "utf-8";
+/**
+ * Fichier : inscription.css
+ * Description : styles spécifiques au formulaire d'inscription
+ * Auteur : Hamza Iqbal - hiqbal[at]actualys.com
+ * Version : 1.0.0
+ ******************************************/
+
+/**
+ * Création de compte
+ ******************************************/
+#creation_compte h1
+{
+	color: #1a1a1a;
+	font-size: 23px;
+	font-weight: normal;
+	margin: 0 0 25px;
+}
+
+#creation_compte h1 strong { color: #900000; }
+
+#creation_compte h2
+{
+	font-size: 16px;
+	margin: 0 0 15px;
+}
+
+#creation_compte .col
+{
+	display: inline-block;
+	vertical-align: top;
+	width: 430px;
+}
+
+.ielt8 #creation_compte .col
+{
+	display: inline;
+	zoom: 1;
+}
+
+#creation_compte .ligne_form { margin: 0 0 15px; }
+
+#creation_compte .ligne_form .error_list
+{
+	background: #fdd;
+	border: 1px solid #f30;
+	font-size: 12px;
+	font-weight: bold;
+	margin: 0 0 10px;
+	padding: 5px 10px;
+	width: 310px;
+}
+
+
+
+
+#creation_compte .ligne_form label
+{
+	display: inline-block;
+	vertical-align: middle;
+	width: 200px;
+}
+
+#creation_compte .ligne_form_large label
+{
+	display: block;
+	margin: 0 0 10px;
+	width: auto;
+}
+
+#creation_compte .ligne_form input[type=text],
+#creation_compte .ligne_form input[type=password],
+#creation_compte .ligne_form select
+{
+	background: #fff;
+	border: 1px solid #d3d2cd;
+	-webkit-border-radius: 2px;
+	   -moz-border-radius: 2px;
+	        border-radius: 2px;
+	font-size: 12px;
+	position: relative;
+	vertical-align: middle;
+	behavior: url(../pie.htc);
+}
+
+#creation_compte .ligne_form input[type=text],
+#creation_compte .ligne_form input[type=password]
+{
+	height: 18px;
+	padding: 0 4px;
+	width: 120px;
+}
+
+.ielt9 #creation_compte .ligne_form input[type=text],
+.ielt9 #creation_compte .ligne_form input[type=password]
+{
+	height: 16px;
+	padding-top: 2px;
+}
+
+#creation_compte .ligne_form select
+{
+	height: 20px;
+	width: 130px;
+}
+
+#creation_compte .ligne_form_large .champ_form_radio_cb label
+{
+	display: inline-block;
+	margin: 0 20px 0 0;
+	width: auto;
+}
+
+#creation_compte .ligne_form_large .champ_form_radio_cb input
+{
+	margin: 0 5px 0 0;
+	vertical-align: middle;
+}
+
+#creation_compte .ligne_btn 
+{
+	margin: 30px 0 0;
+	text-align: right;
+	width: 330px;
+}
+
+#creation_compte .ligne_btn button, #creation_compte .ligne_btn a.button
+{
+	background: 0 center no-repeat;
+	color: #900000;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 21px;
+	height: 21px;
+	margin: 0 0 0 15px;
+	padding: 0 0 0 30px;
+	text-decoration: underline;
+        display: inline-block;
+}
+
+
+#creation_compte .ligne_btn button:hover, #creation_compte .ligne_btn a.button:hover { text-decoration: none; }
+
+#creation_compte .ligne_btn button.btn_valider, #creation_compte .ligne_btn a.button.btn_valider { background-image: url(../images/boutons/btn_valider.png); }
+#creation_compte .ligne_btn button.btn_ajouter, #creation_compte .ligne_btn a.button.btn_ajouter { background-image: url(../images/boutons/btn_ajouter.png); }
+#creation_compte .ligne_btn button.btn_supprimer, #creation_compte .ligne_btn a.button.btn_supprimer { background-image: url(../images/boutons/btn_supprimer.png); color: #000; }
