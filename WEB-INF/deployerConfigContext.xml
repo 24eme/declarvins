@@ -78,7 +78,7 @@
 			<list>
                                 <bean class="org.jasig.cas.authentication.handler.support.HttpBasedServiceCredentialsAuthenticationHandler" p:httpClient-ref="httpClient" />
                                 <bean class="org.jasig.cas.adaptors.ldap.FastBindLdapAuthenticationHandler" >
-                                                <property name="filter" value="uid=%u,ou=people,dc=vinsdalsace,dc=pro" />
+                                                <property name="filter" value="uid=%u,ou=people,dc=inter-rhone,dc=com" />
                                                 <property name="contextSource" ref="contextSource" />
                                 </bean>
 			</list>
