@@ -1,0 +1,11 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/11-App
+
+# default values
+all:
+  etablissements:
+    familles:
+      "Producteur": ["Cave particulière", "Cave coopérative", "Coopérateur"]
+      "Négociant": ["Négociant régional", "Négociant hors région", "Unions de producteurs"]
+      "Vinificateur": ["Vinificateur"]
+      "Courtier": ["Courtier"]

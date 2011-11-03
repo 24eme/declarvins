@@ -1,0 +1,310 @@
+_Compte:
+  type: abstract
+  definition:
+    fields:
+      login: { }
+      mot_de_passe: {  }
+      email: {  }
+      statut: {  }
+      droits:
+        type: array_collection
+        definition:
+          fields:
+            '*': { }
+_Tiers:
+  type: abstract
+  definition:
+    fields:
+      identifiant: { }
+      nom: { }
+      type: {  }
+      statut: {  }
+
+CompteTiers:
+  inheritance: _Compte
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      nom: {  }
+      prenom: {  }
+      fonction: {  }
+      telephone: {  }
+      fax: {  }
+      type: {  }
+      contrat: {  }
+      interpro: 
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  statut: {  }
+      tiers:
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  id: {  }
+                  type: {  }
+                  nom: {  }
+                  interpro: {  }
+
+Interpro:
+  inheritance: _Tiers
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+
+Etablissement:
+  inheritance: _Tiers
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      interpro: {  }
+      compte: {  }
+      droits:
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
+      num_interne: {  }
+      siret: {  }
+      cni: {  }
+      cvi: {  }
+      no_accises: {  }
+      no_tva_intracommunautaire: {  }
+      famille: {  }
+      sous_famille: {  }
+      email: {  }
+      telephone: {  }
+      fax: {  }
+      siege:
+          type: collection
+          definition:
+            fields:
+              adresse: {  }
+              code_postal: {  }
+              commune: {  }
+      comptabilite:
+          type: collection
+          definition:
+            fields:
+              adresse: {  }
+              code_postal: {  }
+              commune: {  }
+      service_douane: {  }
+
+Douane:
+  inheritance: _Tiers
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      email: {  }
+
+Edi:
+  inheritance: _Tiers
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+
+Contrat:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      no_contrat: {  }
+      type: {  }
+      nom: {  }
+      prenom: {  }
+      fonction: {  }
+      telephone: {  }
+      fax: {  }
+      compte: {  }
+      etablissements:
+        type: array_collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  raison_sociale: {  }
+                  siret: {  }
+                  cni: {  }
+                  cvi: {  }
+                  no_accises: {  }
+                  no_tva_intracommunautaire: {  }
+                  adresse: {  }
+                  code_postal: {  }
+                  commune: {  }
+                  telephone: {  }
+                  fax: {  }
+                  email: {  }
+                  famille: {  }
+                  sous_famille: {  }
+                  comptabilite_adresse: {  }
+                  comptabilite_code_postal: {  }
+                  comptabilite_commune: {  }
+                  service_douane: {  }
+
+DRM:
+  definition:
+  fields:
+    _id: {  }
+    _rev: {  }
+    type: {  }
+    campagne: {  }
+    
+Current:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {  }
+      campagne: {  }
+      
+Configuration:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {  }
+      campagne: {  }
+      declaration:
+        type: collection
+        definition:
+          fields:
+            labels:
+              type: collection
+              definition:
+                fields:
+                  '*':
+                    # LABEL
+                    class: ConfigurationLabel
+                    inheritance: _ConfigurationDeclaration
+                    type: collection
+                    definition:
+                      fields:
+                        appellations:
+                          type: collection
+                          definition:
+                            fields:
+                              '*':
+                                # APPELLATION
+                                class: ConfigurationAppellation
+                                inheritance: _ConfigurationDeclaration
+                                type: collection
+                                definition:
+                                  fields:
+                                    libelle: {  }
+                                    couleurs:
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          '*':
+                                            # COULEUR
+                                            class: ConfigurationCouleur
+                                            inheritance: _ConfigurationDeclaration
+                                            type: collection
+                                            definition:
+                                              fields:
+                                                libelle: {  }
+
+DRM:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {  }
+      campagne: {  }
+      declaration:
+        type: collection
+        definition:
+          fields:
+            labels:
+              type: collection
+              definition:
+                fields:
+                  '*':
+                    # LABEL
+                    class: DRMLabel
+                    inheritance: _DRMTotal
+                    type: collection
+                    definition:
+                      fields:
+                        appellations:
+                          type: collection
+                          definition:
+                            fields:
+                              '*':
+                                # APPELLATION
+                                class: DRMAppellation
+                                inheritance: _DRMTotal
+                                type: collection
+                                definition:
+                                  fields:
+                                    libelle: {  }
+                                    couleurs:
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          '*':
+                                            # COULEUR
+                                            class: DRMCouleur
+                                            inheritance: _DRMTotal
+                                            type: collection
+                                            definition:
+                                              fields:
+                                                libelle: {  }
+                                                details:
+                                                  type: array_collection
+                                                  definition:
+                                                    fields:
+                                                      '*':
+                                                        type: collection
+                                                        definition:
+                                                          fields:
+                                                            '*':
+                                                              class: DRMDetail
+                                                              type: collection
+                                                              definition:
+                                                                fields:
+                                                                  entrees: {  }
+                                                                  sorties: {  }
+      declarant:
+        type: collection
+        class: DRMDeclarant
+        definition:
+          fields:
+            nom: {  }
+            siret: {  }
+            cni: {  }
+            cvi: {  }
+            no_accises: {  }
+            no_tva_intracommunautaire: {  }
+            siege:
+                type: collection
+                definition:
+                  fields:
+                    adresse: {  }
+                    code_postal: {  }
+                    commune: {  }
+            comptabilite:
+                type: collection
+                definition:
+                  fields:
+                    adresse: {  }
+                    code_postal: {  }
+                    commune: {  }
+            service_douane: {  }
+            

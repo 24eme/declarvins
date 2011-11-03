@@ -1,0 +1,95 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+
+# Declaration routing
+homepage:
+  url:   /
+  param: { module: contrat, action: index }
+
+compte_nouveau:
+  url:   /compte/nouveau
+  param: { module: compte, action: nouveau }
+contrat_nouveau:
+  url:   /contrat/nouveau
+  param: { module: contrat, action: nouveau }
+contrat_etablissement_modification:
+  url:   /contrat/etablissement/:indice/modification/:recapitulatif
+  param: { module: contrat, action: modificationEtablissement, indice: null, recapitulatif: null }
+contrat_etablissement_nouveau:
+  url:   /contrat/etablissement/nouveau
+  param: { module: contrat, action: nouveauEtablissement }
+contrat_etablissement_suppression:
+  url:   /contrat/etablissement/:indice/suppression/:recapitulatif
+  param: { module: contrat, action: suppressionEtablissement, indice: null, recapitulatif: null  }
+contrat_etablissement_recapitulatif:
+  url:   /contrat/recapitulatif
+  param: { module: contrat, action: recapitulatif }
+contrat_etablissement_confirmation:
+  url:   /contrat/confirmation
+  param: { module: contrat, action: confirmation }
+contrat_pdf:
+  url:   /contrat/pdf
+  param: { module: contrat, action: pdf }
+
+# Validation routing
+validation_login:
+  url:   /validation/login
+  param: { module: validation, action: login }
+validation_fiche:
+  url:   /validation/fiche
+  param: { module: validation, action: fiche }
+validation_compte:
+  url:   /validation/compte
+  param: { module: validation, action: compte }
+validation_liaison:
+  url:   /validation/liaison
+  param: { module: validation, action: liaison }
+validation_validation:
+  url:   /validation/validation
+  param: { module: validation, action: validation }
+validation_archiver:
+  url:   /validation/archiver/:etablissement
+  param: { module: validation, action: archiver, etablissement: null }
+validation_desarchiver:
+  url:   /validation/desarchiver/:etablissement
+  param: { module: validation, action: desarchiver, etablissement: null }
+validation_delier:
+  url:   /validation/delier/:etablissement
+  param: { module: validation, action: delier, etablissement: null }
+validation_lier:
+  url:   /validation/lier/:etablissement
+  param: { module: validation, action: lier, etablissement: null }
+
+# Interpro routing
+interpro_import:
+  url:   /interpro/:id/update_etablissements
+  param: { module: interpro, action: updateEtablissements, id: null }
+interpro_upload_csv:
+  url:   /interpro/:id/upload_csv
+  param: { module: interpro, action: uploadCsv, id: null }
+  
+# Rush II : DRM routing
+etablissement_selection:
+  url:   /etablissement/selection
+  param: { module: etablissement, action: selectionEtablissement }
+drm_mon_espace:
+  url:   /drm/mon-espace
+  param: { module: drm, action: monEspace }
+drm_informations:
+  url:   /drm/informations
+  param: { module: drm, action: informations }
+drm_mouvements_generaux:
+  url:   /drm/mouvements-generaux
+  param: { module: drm, action: mouvementsGeneraux }
+drm_evolution:
+  url:   /drm/evolution
+  param: { module: drm, action: evolution }
+
+# generic rules
+# please, remove them by adding more specific rules
+default_index:
+  url:   /:module
+  param: { action: index }
+
+default:
+  url:   /:module/:action/*

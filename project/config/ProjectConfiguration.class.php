@@ -1,0 +1,16 @@
+<?php
+
+require_once dirname(__FILE__).'/../lib/vendor/symfony/lib/autoload/sfCoreAutoload.class.php';
+sfCoreAutoload::register();
+
+class ProjectConfiguration extends sfProjectConfiguration
+{
+  public function setup()
+  {
+    $this->enablePlugins('sfDoctrinePlugin');
+    $this->enablePlugins('sfCouchdbPlugin');
+    $this->enablePlugins('sfDompdfPlugin');
+    $this->enablePlugins('ExportPlugin');
+    $this->enablePlugins('ImportPlugin');
+  }
+}
