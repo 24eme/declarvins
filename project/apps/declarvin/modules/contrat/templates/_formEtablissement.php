@@ -1,0 +1,122 @@
+<div class="col">
+    <?php echo $form->renderHiddenFields(); ?>
+    <div class="ligne_form">
+        <?php echo $form->renderGlobalErrors(); ?>
+
+        <?php echo $form['raison_sociale']->renderError() ?>
+        <?php echo $form['raison_sociale']->renderLabel() ?>
+        <?php echo $form['raison_sociale']->render() ?>
+    </div>
+    <div class="ligne_form">
+        <?php echo $form['siret']->renderError() ?>
+        <?php echo $form['siret']->renderLabel() ?>
+        <?php echo $form['siret']->render() ?>
+    </div>
+    <div class="ligne_form">
+        <?php echo $form['cni']->renderError() ?>
+        <?php echo $form['cni']->renderLabel() ?>
+        <?php echo $form['cni']->render() ?>
+    </div>
+    <div class="ligne_form">
+        <?php echo $form['cvi']->renderError() ?>
+        <?php echo $form['cvi']->renderLabel() ?>
+        <?php echo $form['cvi']->render() ?>
+    </div>
+    <div class="ligne_form">
+        <?php echo $form['no_accises']->renderError() ?>
+        <?php echo $form['no_accises']->renderLabel() ?>
+        <?php echo $form['no_accises']->render() ?>
+    </div>
+    <div class="ligne_form">
+        <?php echo $form['no_tva_intracommunautaire']->renderError() ?>
+        <?php echo $form['no_tva_intracommunautaire']->renderLabel() ?>
+        <?php echo $form['no_tva_intracommunautaire']->render() ?>
+    </div>
+    <div class="ligne_form">
+        <?php echo $form['adresse']->renderError() ?>
+        <?php echo $form['adresse']->renderLabel() ?>
+        <?php echo $form['adresse']->render() ?>
+    </div>
+    <div class="ligne_form">
+        <?php echo $form['code_postal']->renderError() ?>
+        <?php echo $form['code_postal']->renderLabel() ?>
+        <?php echo $form['code_postal']->render() ?>
+    </div>
+    <div class="ligne_form">
+        <?php echo $form['commune']->renderError() ?>
+        <?php echo $form['commune']->renderLabel() ?>
+        <?php echo $form['commune']->render() ?>
+    </div>
+</div>
+
+<div class="col">
+    <div class="ligne_form">
+        <?php echo $form['telephone']->renderError() ?>
+        <?php echo $form['telephone']->renderLabel() ?>
+        <?php echo $form['telephone']->render() ?>
+    </div>
+    <div class="ligne_form">
+        <?php echo $form['fax']->renderError() ?>
+        <?php echo $form['fax']->renderLabel() ?>
+        <?php echo $form['fax']->render() ?>
+    </div>
+    <div class="ligne_form">
+        <?php echo $form['email']->renderError() ?>
+        <?php echo $form['email']->renderLabel() ?>
+        <?php echo $form['email']->render() ?>
+    </div>
+    <div class="ligne_form">
+        <?php echo $form['famille']->renderError() ?>
+        <?php echo $form['famille']->renderLabel() ?>
+        <?php echo $form['famille']->render() ?>
+    </div>
+    <div class="ligne_form">
+        <?php echo $form['sous_famille']->renderError() ?>
+        <?php echo $form['sous_famille']->renderLabel() ?>
+        <?php echo $form['sous_famille']->render() ?>
+    </div>
+    <div class="ligne_form">
+        <?php echo $form['service_douane']->renderError() ?>
+        <?php echo $form['service_douane']->renderLabel() ?>
+        <?php echo $form['service_douane']->render() ?>
+    </div>
+    <div class="ligne_form ligne_form_large">
+        <label for="champ_16-1">L'adresse de votre comptabilité est-elle différente de la précédente ?</label>
+        <div class="champ_form champ_form_radio_cb">
+            <input type="radio" id="r1" name="adresse_comptabilite" value="Oui" onclick="voirFormAdresseComptabilite()" />
+            <label for="r1">Oui</label>
+            <input type="radio" id="r2" name="adresse_comptabilite" value="Non" onclick="masquerFormAdresseComptabilite()" checked="checked" />
+            <label for="r2">Non</label>
+        </div>
+    </div>
+
+    <div id="adresseComptabilite" style="display:none;">
+        <div class="ligne_form">
+            <?php echo $form['comptabilite_adresse']->renderError() ?>
+            <?php echo $form['comptabilite_adresse']->renderLabel() ?>
+            <?php echo $form['comptabilite_adresse']->render() ?>
+        </div>
+        <div class="ligne_form">
+            <?php echo $form['comptabilite_code_postal']->renderError() ?>
+            <?php echo $form['comptabilite_code_postal']->renderLabel() ?>
+            <?php echo $form['comptabilite_code_postal']->render() ?>
+        </div>
+        <div class="ligne_form">
+            <?php echo $form['comptabilite_commune']->renderError() ?>
+            <?php echo $form['comptabilite_commune']->renderLabel() ?>
+            <?php echo $form['comptabilite_commune']->render() ?>
+        </div>
+    </div>
+
+    <div class="ligne_btn">
+        <button type="submit" class="btn_ajouter"><?php echo (!$new) ? 'Modifier' : 'Ajouter'; ?></button>
+        <?php if(!$new): ?>
+        <a class="button btn_supprimer" href="<?php echo ($recapitulatif) ? url_for('contrat_etablissement_suppression', array('indice' => $form->getObject()->getKey(), 'recapitulatif' => 1)) : url_for('contrat_etablissement_suppression', array('indice' => $form->getObject()->getKey())); ?>">Supprimer</a>
+        <?php else: ?>
+        <a href="<?php echo url_for("contrat_etablissement_recapitulatif"); ?>" class="button btn_supprimer">Annuler</a>
+        <?php endif; ?>
+        
+        <!--<button type="submit" class="btn_ajouter">Ajouter</button>
+        <button type="submit" class="btn_supprimer">Supprimer</button>-->
+    </div>
+</div>
