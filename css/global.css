@@ -200,7 +200,7 @@ a:hover { text-decoration: underline; }
 	text-transform: uppercase;
 }
 
-#connexion p { margin: 0 0 15px; }
+#connexion p.msg { margin: 0 0 15px; }
 
 #connexion .form_ligne { margin: 0 0 7px; }
 
@@ -242,3 +242,14 @@ a:hover { text-decoration: underline; }
 	display: inline-block;
 	padding: 0 0 0 25px;
 }
+/****
+ * Block d'erreur
+ ******/
+
+.errors {
+	border: 1px solid red;
+	background-color: #FFEEDD;
+	margin: 10px;
+	padding: 5px;
+}
+.errors p {margin: 0px; padding: 0px;}
