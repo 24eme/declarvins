@@ -29,6 +29,7 @@
   <div class="box fl-panel" id="login">
 			<form:form method="post" id="fm1" cssClass="fm-v clearfix" commandName="${commandName}" htmlEscape="true">
                     <h2>Se <strong>connecter</strong></h2>
+                    <p class="msg">Connectez-vous ici pour accéder aux applications InterRhone, CIVP et Intervins SE</p>
                     <form:errors path="*" cssClass="errors" id="status" element="div" />
                     <div class="form_ligne">
                         <label for="username" class="fl-label"><spring:message code="screen.welcome.label.netid" /></label>
