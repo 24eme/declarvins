@@ -72,6 +72,18 @@ interpro_upload_csv:
 etablissement_selection:
   url:   /etablissement/selection
   param: { module: etablissement, action: selectionEtablissement }
+drm_mon_espace:
+  url:   /drm/mon-espace
+  param: { module: drm, action: monEspace }
+drm_informations:
+  url:   /drm/informations
+  param: { module: drm, action: informations }
+drm_mouvements_generaux:
+  url:   /drm/mouvements-generaux
+  param: { module: drm, action: mouvementsGeneraux }
+drm_evolution:
+  url:   /drm/evolution
+  param: { module: drm, action: evolution }
 
 # generic rules
 # please, remove them by adding more specific rules
