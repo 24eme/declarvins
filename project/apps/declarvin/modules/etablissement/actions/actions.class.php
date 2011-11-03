@@ -19,4 +19,13 @@ class etablissementActions extends sfActions
   {
     $this->forward('default', 'module');
   }
+ /**
+  * Executes index action
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeSelectionEtablissement(sfWebRequest $request)
+  {
+    
+  }
 }
