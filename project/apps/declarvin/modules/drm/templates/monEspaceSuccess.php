@@ -6,7 +6,11 @@
 		<br /><br />
 		<ul>
 			<li><a href="#">Accédez à mon historique de DRM &raquo;</a></li>
-			<li><a href="<?php echo url_for('@drm_init') ?>">Saisir ma DRM en cours &raquo;</a></li>
+                        <?php if($sf_user->getDrm()->isNew()): ?>
+			<li><a href="<?php echo url_for('@drm_init') ?>">Commencer ma DRM &raquo;</a></li>
+                        <?php else: ?>
+                        <li><a href="<?php echo url_for('@drm_init') ?>">Continuer ma DRM en cours &raquo;</a></li>
+                        <?php endif; ?>
 			<li><a href="#">Soumettre une DRM récapitulative &raquo;</a></li>
 		</ul>
 	</div>
