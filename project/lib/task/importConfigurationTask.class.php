@@ -5,9 +5,9 @@ class importConfigurationTask extends sfBaseTask
   protected function configure()
   {
     // // add your own arguments here
-    // $this->addArguments(array(
-    //   new sfCommandArgument('my_arg', sfCommandArgument::REQUIRED, 'My argument'),
-    // ));
+    $this->addArguments(array(
+       new sfCommandArgument('file', sfCommandArgument::REQUIRED, 'Appellations File'),
+    ));
 
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name'),
@@ -40,5 +40,23 @@ EOF;
     $current = new Current();
     $current->campagne = '2011-11';
     $current->save();
+    
+    if ($configuration = sfCouchdbManager::getClient()->retrieveDocumentById('CONFIGURATION')) {
+        $configuration->delete();
+    }
+    
+    $configuration = new Configuration();
+    $aop = $configuration->declaration->labels->add('AOP')->libelle = 'AOP';
+    $igp = $configuration->declaration->labels->add('IGP')->libelle = 'IGP';
+    $vinsansig = $configuration->declaration->labels->add('VINSSANSIG');
+    $vinsansig->libelle = 'Vins sans IG';
+    $vinsansig->appellations->add("VINSSANSIG")->libelle = "Vins sans IG";
+   
+    foreach (file($arguments['file']) as $a) {
+        $datas = explode(";", $a);
+        $configuration->declaration->labels->get($datas[0])->appellations->add($datas[2])->libelle = $datas[1];
+    }
+    
+    $configuration->save();
   }
 }
