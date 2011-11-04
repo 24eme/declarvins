@@ -7,6 +7,10 @@ abstract class _Compte extends Base_Compte {
     const STATUT_VALIDATION_ATTENTE = "ATTENTE";
     const STATUT_VALIDATION_VALIDE = "VALIDE";
     
+    public function getGecos() {
+      return $this->login.', '.$this->prenom.' '.$this->nom;
+    }
+
     /**
      *
      * @param string $mot_de_passe 
@@ -17,6 +21,10 @@ abstract class _Compte extends Base_Compte {
         $hash = "{SSHA}" . base64_encode(pack("H*", sha1($mot_de_passe . $salt)) . $salt);
         $this->_set('mot_de_passe', $hash);
     }
+    public function setMotDePasse($mdp) {
+      $this->setPasswordSSHA($mdp);
+    }
+
     /**
      * 
      */
