@@ -2,3 +2,5 @@ cache/[^.]*
 log/[^.]*
 config/databases.yml
 data/[^.]*
+config/app.yml
+*~
