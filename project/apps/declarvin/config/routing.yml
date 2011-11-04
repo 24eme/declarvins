@@ -90,6 +90,12 @@ drm_mouvements_generaux:
 drm_evolution:
   url:   /drm/evolution
   param: { module: drm, action: evolution }
+login:
+  url: /login
+  param: {module: compte, action: login}
+logout:
+  url: /logout
+  param: {module: compte, action: logout}
 
 # generic rules
 # please, remove them by adding more specific rules
