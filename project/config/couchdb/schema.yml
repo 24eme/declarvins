@@ -195,6 +195,7 @@ Configuration:
                     type: collection
                     definition:
                       fields:
+                        libelle: {  }
                         appellations:
                           type: collection
                           definition:
