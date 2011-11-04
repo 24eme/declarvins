@@ -4,6 +4,6 @@
  *
  */
 
-class _ConfigurationDeclaration extends sfCouchdbDocumentTree {
+abstract class _ConfigurationDeclaration extends sfCouchdbDocumentTree {
 
 }
