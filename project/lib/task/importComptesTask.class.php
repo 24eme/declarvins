@@ -10,7 +10,7 @@ class importComptesTask extends sfBaseTask
     // ));
 
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name'),
+      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
       // add your own options here
@@ -65,8 +65,17 @@ EOF;
     }
     
     $compte = new CompteTiers();
+    $compte->nom = "Admin";
+    $compte->prenom = "Ruth";
     $compte->login = 'admin';
     $compte->email = 'admin@example.org';
+    $compte->mot_de_passe = "bonjour";
     $compte->save();
+
+    $ldap = new Ldap();
+    $ldap->connect();
+    if ($ldap->exist($compte))
+      $ldap->delete($compte);
+    $ldap->add($compte);
   }
 }
