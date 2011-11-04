@@ -32,6 +32,10 @@ abstract class _Compte extends Base_Compte {
         }
         return $result;
     }
+    
+    public function constructId() {
+        $this->set('_id', 'COMPTE-'.$this->login);
+    }
 
     /*public function save($conn = null) {
       if ($this->statut != _Compte::STATUT_ACTIVE) {
