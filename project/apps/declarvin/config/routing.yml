@@ -70,8 +70,8 @@ interpro_upload_csv:
   
 # Rush II : DRM routing
 tiers:
-  url: /tiers/:tiers_id
-  param: { module: tiers, action: login, tiers_id: null }
+  url: /tiers
+  param: { module: tiers, action: login }
 admin:
   url: /admin
   param: { module: admin, action: index }
