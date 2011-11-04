@@ -23,7 +23,11 @@ class adminActions extends sfActions
     if ($request->isMethod(sfWebRequest::POST)) {
     	$this->form->bind($request->getParameter($this->form->getName()));
         if ($this->form->isValid()) {
-        	$this->getUser()->signInCompte($this->form->process());
+        	/*
+        	 * @todo Utiliser signInCompte quand le cas sera en place
+        	 */
+        	//$this->getUser()->signInCompte($this->form->process());
+        	$this->getUser()->signInFirst($this->form->process());
             $this->redirect('@tiers');
         }
     }
