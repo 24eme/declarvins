@@ -1,8 +1,7 @@
 <?php
 
 abstract class DrmSecurityUser extends TiersSecurityUser {
-    
-	const CREDENTIAL_DRM = 'drm';
+
     const CREDENTIAL_DRM_EN_COURS = 'drm_en_cours';
     const CREDENTIAL_DRM_VALIDE = 'drm_valide';
     
@@ -54,7 +53,8 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
             $this->_drm = $this->getTiers()->getDrm($this->getCampagne());
             if (!$this->_drm) {
                 $drm = new DRM();
-                $drm->set('_id', 'DRM-'.$this->getTiers()->identifiant.'-'.$this->getCampagne());
+                $drm->identifiant = $this->getTiers()->identifiant;
+                $drm->campagne = $this->getCampagne();
                 return $drm;
             }
         }
@@ -108,7 +108,7 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
      */
     public function signInTiers($tiers) {
         parent::signInTiers($tiers);
-        if($this->hasCredential(myUser::CREDENTIAL_DRM)) {
+        if($this->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_DRM)) {
             $this->initCredentialsDrm();
         }
     }
