@@ -17,6 +17,15 @@ class adminActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->forward('default', 'module');
+  	$this->getUser()->signOutCompte(myUser::NAMESPACE_COMPTE_PROXY);
+    $this->getUser()->signOutCompte(myUser::NAMESPACE_COMPTE_TIERS);
+    $this->form = new AdminCompteLoginForm();
+    if ($request->isMethod(sfWebRequest::POST)) {
+    	$this->form->bind($request->getParameter($this->form->getName()));
+        if ($this->form->isValid()) {
+        	$this->getUser()->signInCompte($this->form->process());
+            $this->redirect('@tiers');
+        }
+    }
   }
 }
