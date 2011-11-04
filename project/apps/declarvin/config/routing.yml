@@ -78,6 +78,9 @@ admin:
 drm_mon_espace:
   url:   /drm/mon-espace
   param: { module: drm, action: monEspace }
+drm_init:
+  url:   /drm/init
+  param: { module: drm, action: init }
 drm_informations:
   url:   /drm/informations
   param: { module: drm, action: informations }
