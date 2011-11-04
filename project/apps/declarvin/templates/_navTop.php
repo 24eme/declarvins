@@ -16,7 +16,7 @@
 			<option value="etablissement3">Etablissement 3</option>
 		</select>
 	</li>
-	<li style="display: inline;"><a href="<?php echo url_for('@etablissement_selection') ?>">Sortir</a></li>
+	<li style="display: inline;"><a href="<?php echo url_for('@tiers') ?>">Sortir</a></li>
 </ul>
 <div style="clear: both">&nbsp;</div>
 </div>

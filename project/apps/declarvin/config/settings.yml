@@ -34,3 +34,9 @@ all:
 
     # Enable the database manager
     use_database:           true
+    
+  .actions:
+    login_module:           admin
+    login_action:           index
+    secure_module:          global
+    secure_action:          secure
