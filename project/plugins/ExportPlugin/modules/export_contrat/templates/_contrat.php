@@ -182,7 +182,6 @@
 					Représentant les entreprises suivantes<br />
 					Qualité (fonction) : <strong><?php echo $contrat->fonction ?></strong><br />
 					Courriel : <strong><?php echo $compte->email ?></strong><br />
-					<span class="note">(Attention à vérifier les sécurités, paramètres, et espaces disponibles sur cette adresse mail : des informations importantes vous y seront envoyées. Notamment certains systèmes de sécurité pourraient classer en « SPAM » ces informations)</span>
 				</p>
 			</div>
 			
@@ -216,9 +215,7 @@
                                 <?php endif; ?>
 				
 				<p>
-					Dépend du service des douanes de : <strong><?php echo $etablissement->service_douane ?></strong><br />
-					<span class="note">Provence : Aix-en-Provence, Brignoles, Draguignan.<br />
-					Vallée du Rhône : Châteauneuf du Pape (84), Cairanne (84), Portes les Valence (26), Tain l'Hermitage (26), Bagnols sur Ceze (30), Nîmes (30), Privas (07), Orange (84), Sablet (84), Saint Egreve (38)</span>
+					Dépend du service des douanes de : <strong><?php echo $etablissement->service_douane ?></strong>
 				</p>
 			</div>
                         <?php endforeach; ?>
