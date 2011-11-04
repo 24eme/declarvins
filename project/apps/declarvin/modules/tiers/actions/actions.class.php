@@ -20,21 +20,12 @@ class tiersActions extends sfActions
 	$this->getUser()->signOutTiers();
 	$this->compte = $this->getUser()->getCompte();
 	if (count($this->compte->tiers) == 1) {
-		$this->getUser()->signInTiers(sfCouchdbManager::getClient('_Tiers')->retrieveDocumentById($this->compte->tiers[0]->_id));
-		return $this->redirect("@mon_espace");
+		$this->getUser()->signInTiers(sfCouchdbManager::getClient('_Tiers')->retrieveDocumentById($this->compte->tiers[0]->id));
+		return $this->redirect("@drm_mon_espace");
 	}
 	if ($tiers_id = $request->getParameter('tiers_id')) {
 		$this->getUser()->signInTiers(sfCouchdbManager::getClient('_Tiers')->retrieveDocumentById($tiers_id));
-		return $this->redirect("@mon_espace");
+		return $this->redirect("@drm_mon_espace");
 	}
-  }
- /**
-  * Executes mon espace action
-  *
-  * @param sfRequest $request A request object
-  */
-  public function executeMonEspace(sfWebRequest $request) 
-  {
-	
   }
 }
