@@ -70,14 +70,17 @@ interpro_upload_csv:
   
 # Rush II : DRM routing
 tiers:
-  url: /tiers/:tiers_id
-  param: { module: tiers, action: login, tiers_id: null }
+  url: /tiers
+  param: { module: tiers, action: login }
 admin:
   url: /admin
   param: { module: admin, action: index }
 drm_mon_espace:
   url:   /drm/mon-espace
   param: { module: drm, action: monEspace }
+drm_init:
+  url:   /drm/init
+  param: { module: drm, action: init }
 drm_informations:
   url:   /drm/informations
   param: { module: drm, action: informations }
@@ -87,6 +90,12 @@ drm_mouvements_generaux:
 drm_evolution:
   url:   /drm/evolution
   param: { module: drm, action: evolution }
+login:
+  url: /login
+  param: {module: compte, action: login}
+logout:
+  url: /logout
+  param: {module: compte, action: logout}
 
 # generic rules
 # please, remove them by adding more specific rules
