@@ -99,6 +99,10 @@ class validationActions extends sfActions {
         }
         $this->compte->setStatut(_Compte::STATUT_ACTIVE);
         $this->compte->save();
+
+	$ldap = new Ldap();
+	$ldap->updateOrAdd($this->compte);
+
         $this->getUser()->setFlash('notification_general', 'Compte validé');
         $this->redirect('@validation_fiche');
 
