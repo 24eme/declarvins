@@ -19,6 +19,19 @@ class drmActions extends sfActions
   {
     $this->forward('default', 'module');
   }
+  
+  /**
+   *
+   * @param sfWebRequest $request 
+   */
+  public function executeInit(sfWebRequest $request) {
+      $drm = $this->getUser()->getDRM();
+      if ($drm->isNew()) {
+          $drm->save();
+      }
+      $this->redirect('drm_informations');
+  }
+  
  /**
   * Executes mon espace action
   *
@@ -26,7 +39,7 @@ class drmActions extends sfActions
   */
   public function executeMonEspace(sfWebRequest $request)
   {
-    
+      
   }
  /**
   * Executes informations action
@@ -35,7 +48,7 @@ class drmActions extends sfActions
   */
   public function executeInformations(sfWebRequest $request)
   {
-    
+      
   }
  /**
   * Executes mouvements generaux action
