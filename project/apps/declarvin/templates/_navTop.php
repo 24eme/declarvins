@@ -10,11 +10,7 @@
 </ul>
 <ul style="width: 30%; float: left;display: inline;">
 	<li style="display: inline;">
-		<select>
-			<option value="etablissement1">Etablissement 1</option>
-			<option value="etablissement2">Etablissement 2</option>
-			<option value="etablissement3">Etablissement 3</option>
-		</select>
+		<?php include_component('tiers', 'choixTiers')?>
 	</li>
 	<li style="display: inline;"><a href="<?php echo url_for('@tiers') ?>">Sortir</a></li>
 </ul>

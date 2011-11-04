@@ -1,0 +1,17 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/11-App
+
+# default values
+all:
+  base_url : http://declaration.dev.vinsalsace.pro
+  tomcat_dir : /var/lib/tomcat6/webapps/cas
+  cas:
+    domain: declarweb.site.com
+    port: 443
+    path: cas
+    url : "https://declarweb.site.com/cas/login"
+  ldap:
+    serveur: "declarweb.intra.actualys.fr"
+    dn: "cn=admin,dc=site,dc=com"
+    dc: "dc=site,dc=com"
+    pass: "**********"
