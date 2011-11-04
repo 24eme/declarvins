@@ -48,7 +48,7 @@ class drmActions extends sfActions
   */
   public function executeInformations(sfWebRequest $request)
   {
-      
+      $this->tiers = $this->getUser()->getTiers();
   }
  /**
   * Executes mouvements generaux action
