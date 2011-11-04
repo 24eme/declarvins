@@ -14,4 +14,8 @@ class Etablissement extends BaseEtablissement {
         return $this->_interpro;
     }
     
+    public function constructId() {
+        $this->set('_id', 'ETABLISSEMENT-' . $this->identifiant);
+    }
+    
 }
