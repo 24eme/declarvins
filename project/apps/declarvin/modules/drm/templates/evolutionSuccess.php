@@ -19,11 +19,19 @@
 				</ul>
 				<br />
 				<strong>&raquo; Vous souhaitez ajouter une nouvelle appelation à votre stock :</strong>
+                                <br /><br />
+                                <div style="float:left;">
+				<?php foreach($configuration->declaration->labels as $label): ?>
+                                <div style="float:left; width: 190px;">
+                                <strong><?php echo $label->libelle ?></strong>
 				<ul>
-					<li><input type="checkbox" /><label>Beaumes de Venise Rouge</label></li>
-					<li><input type="checkbox" /><label>AOP Côtes du Rhône</label></li>
-					<li><input type="checkbox" /><label>sans IG</label></li>
+                                    <?php foreach($label->appellations as $appellation): ?>
+					<li><input id="appellation_<?php echo $appellation->getKey() ?>" type="checkbox" /><label for="appellation_<?php echo $appellation->getKey() ?>" ><?php echo $appellation->libelle ?></label></li>
+                                    <?php endforeach; ?>
 				</ul>
+                                </div>
+                                <?php endforeach; ?>
+                                </div>
 				<br />
 				<input type="button" value="Valider &raquo;" />
 			</div>

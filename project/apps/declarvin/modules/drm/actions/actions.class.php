@@ -66,6 +66,7 @@ class drmActions extends sfActions
   */
   public function executeEvolution(sfWebRequest $request)
   {
-    
+    $this->configuration = ConfigurationClient::getCurrent();
   }
+  
 }
