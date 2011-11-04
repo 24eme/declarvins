@@ -29,4 +29,41 @@ class compteActions extends sfActions {
         }
     }
 
+    public function executeLogin(sfWebRequest $request) {
+        if ($this->getUser()->isAuthenticated() && $this->getUser()->hasCredential("compte")) {
+	  $this->redirect('@tiers');
+        } elseif ($request->getParameter('ticket')) {
+	  /** CAS * */
+	  error_reporting(E_ALL);
+	  require_once(sfConfig::get('sf_lib_dir') . '/vendor/phpCAS/CAS.class.php');
+	  phpCAS::client(CAS_VERSION_2_0, sfConfig::get('app_cas_domain'), sfConfig::get('app_cas_port'), sfConfig::get('app_cas_path'), false);
+	  phpCAS::setNoCasServerValidation();
+	  $this->getContext()->getLogger()->debug('{sfCASRequiredFilter} about to force auth');
+	  phpCAS::forceAuthentication();
+	  $this->getContext()->getLogger()->debug('{sfCASRequiredFilter} auth is good');
+	  /** ***** */
+	  $this->getUser()->signIn(phpCAS::getUser());
+	  $this->redirect('@tiers');
+        } else {
+	  $url = sfConfig::get('app_cas_url') . '/login?service=' . $request->getUri();
+	  $this->redirect($url);
+        }
+    }
+    
+    /**
+     *
+     * @param sfWebRequest $request 
+     */
+    public function executeLogout(sfWebRequest $request) {
+      require_once(sfConfig::get('sf_lib_dir').'/vendor/phpCAS/CAS.class.php');
+      $this->getUser()->signOut();
+      $url = 'http://'.$request->getHost();
+      error_reporting(E_ALL);
+      phpCAS::client(CAS_VERSION_2_0,sfConfig::get('app_cas_domain'), sfConfig::get('app_cas_port'), sfConfig::get('app_cas_path'), false);
+      phpCAS::logoutWithRedirectService($url);
+      $this->redirect($url);
+    }
+    
+
+
 }
