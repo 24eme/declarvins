@@ -10,6 +10,7 @@
  * @property string $campagne
  * @property sfCouchdbJson $declaration
  * @property DRMDeclarant $declarant
+ * @property string $identifiant
 
  * @method string get_id()
  * @method string set_id()
@@ -23,6 +24,8 @@
  * @method sfCouchdbJson setDeclaration()
  * @method DRMDeclarant getDeclarant()
  * @method DRMDeclarant setDeclarant()
+ * @method string getIdentifiant()
+ * @method string setIdentifiant()
  
  */
  

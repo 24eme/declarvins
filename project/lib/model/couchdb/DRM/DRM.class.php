@@ -4,6 +4,8 @@
  *
  */
 
-class DRM extends BaseDRM {
-
+class DRM extends BaseDRM { 
+    public function constructId() {
+        $this->set('_id', 'DRM-'.$this->identifiant.'-'.$this->campagne);
+    }
 }
