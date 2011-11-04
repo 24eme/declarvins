@@ -35,6 +35,10 @@ abstract class sfCouchdbDocument extends sfCouchdbJson {
     }
 
     public function save() {
+        if ($this->isNew() && !$this->get('_id')) {
+            $this->constructId();
+        }
+        
         $this->definitionValidation();
         if ($this->isModified()) {
             $ret = sfCouchdbManager::getClient()->saveDocument($this);
@@ -43,6 +47,10 @@ abstract class sfCouchdbDocument extends sfCouchdbJson {
             return $ret;
         }
         return false;
+    }
+    
+    public function generateId() {
+        
     }
 
     public function getData() {
