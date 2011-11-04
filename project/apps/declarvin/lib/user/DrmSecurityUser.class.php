@@ -5,8 +5,7 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
     const CREDENTIAL_DRM_EN_COURS = 'drm_en_cours';
     const CREDENTIAL_DRM_VALIDE = 'drm_valide';
     
-    protected $_credentials_drm = array(self::CREDENTIAL_DRM,
-    									self::CREDENTIAL_DRM_EN_COURS, 
+    protected $_credentials_drm = array(self::CREDENTIAL_DRM_EN_COURS, 
                                         self::CREDENTIAL_DRM_VALIDE);
     
     protected $_drm = null;
@@ -97,7 +96,7 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
      */
     protected function requireDrm() {
         $this->requireTiers();
-        if (!$this->hasCredential(self::CREDENTIAL_DRM)) {
+        if (!$this->hasCredential(self::CREDENTIAL_DROIT_DRM)) {
             throw new sfException("you must be logged in with a tiers");
         }
     }
