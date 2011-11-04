@@ -49,7 +49,7 @@ abstract class sfCouchdbDocument extends sfCouchdbJson {
         return false;
     }
     
-    public function generateId() {
+    public function constructId() {
         
     }
 
