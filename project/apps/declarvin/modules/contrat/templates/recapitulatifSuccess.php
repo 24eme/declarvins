@@ -5,6 +5,7 @@
 	<p>Nom : <strong><?php echo $contrat->getNom() ?></strong></p>
 	<p>Prénom : <strong><?php echo $contrat->getPrenom() ?></strong></p>
 	<p>Fonction : <strong><?php echo $contrat->getFonction() ?></strong></p>
+	<p>Email : <strong><?php echo $contrat->getCompteObject()->getEmail() ?></strong></p>
 	<p>Téléphone : <strong><?php echo $contrat->getTelephone() ?></strong></p>
 	<p>Fax : <strong><?php echo $contrat->getFax() ?></strong></p>
 </div>
