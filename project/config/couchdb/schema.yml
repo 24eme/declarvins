@@ -307,4 +307,5 @@ DRM:
                     code_postal: {  }
                     commune: {  }
             service_douane: {  }
+      identifiant: {  }
             
