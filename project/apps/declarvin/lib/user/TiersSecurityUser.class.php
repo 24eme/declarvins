@@ -8,10 +8,18 @@ abstract class TiersSecurityUser extends CompteSecurityUser {
     const CREDENTIAL_TIERS = 'tiers';
     const CREDENTIAL_INTERPRO = 'interpro';
     const CREDENTIAL_ETABLISSEMENT = 'etablissement';
+    
+    const CREDENTIAL_DROIT_DRM = 'drm';
 
-    protected $_credentials_tiers = array(self::CREDENTIAL_TIERS,
+    protected $_credentials_tiers = array(
+        self::CREDENTIAL_TIERS,
         self::CREDENTIAL_INTERPRO,
-        self::CREDENTIAL_ETABLISSEMENT);
+        self::CREDENTIAL_ETABLISSEMENT
+        );
+    
+    protected $_credentials_droits = array(
+        self::CREDENTIAL_DROIT_DRM
+        );
 
     /**
      *
@@ -39,6 +47,7 @@ abstract class TiersSecurityUser extends CompteSecurityUser {
         	$this->addCredential(self::CREDENTIAL_INTERPRO);
         } elseif ($tiers->type == "Etablissement") {
         	$this->addCredential(self::CREDENTIAL_ETABLISSEMENT);
+                $this->addCredential(self::CREDENTIAL_DROIT_DRM);
         }
         $this->setAttribute(self::SESSION_TIERS, $tiers->_id, self::NAMESPACE_TIERS);
     }
