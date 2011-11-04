@@ -19,12 +19,15 @@ class tiersActions extends sfActions
   {
 	$this->getUser()->signOutTiers();
 	$this->compte = $this->getUser()->getCompte();
+	$this->form = new TiersLoginForm($this->compte, true);
 	if (count($this->compte->tiers) == 1) {
 		$this->getUser()->signInTiers(sfCouchdbManager::getClient('_Tiers')->retrieveDocumentById($this->compte->tiers[0]->id));
 		return $this->redirect("@drm_mon_espace");
 	}
-	if ($tiers_id = $request->getParameter('tiers_id')) {
-		$this->getUser()->signInTiers(sfCouchdbManager::getClient('_Tiers')->retrieveDocumentById($tiers_id));
+  	if ($request->isMethod(sfWebRequest::POST)) {
+    	$this->form->bind($request->getParameter($this->form->getName()));
+    	$tiers = $this->form->process();
+    	$this->getUser()->signInTiers($tiers);
 		return $this->redirect("@drm_mon_espace");
 	}
   }
