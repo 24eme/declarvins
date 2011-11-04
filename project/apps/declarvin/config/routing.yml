@@ -72,6 +72,12 @@ interpro_upload_csv:
 etablissement_selection:
   url:   /etablissement/selection
   param: { module: etablissement, action: selectionEtablissement }
+tiers:
+  url: /tiers
+  param: { module: tiers, action: login }
+admin:
+  url: /admin
+  param: { module: admin, action: index }
 drm_mon_espace:
   url:   /drm/mon-espace
   param: { module: drm, action: monEspace }
