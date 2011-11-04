@@ -5,9 +5,9 @@
 		<span>Attention, vous n'avez plus que 4 jours pour soumettre votre DRM du mois en cours</span>
 		<br /><br />
 		<ul>
-			<li><a href="<?php echo url_for('@drm_mon_espace') ?>">Etablissement 1</a></li>
-			<li><a href="<?php echo url_for('@drm_mon_espace') ?>">Etablissement 2</a></li>
-			<li><a href="<?php echo url_for('@drm_mon_espace') ?>">Etablissement 3</a></li>
+			<?php foreach ($compte->tiers as $tiers): ?>
+			<li><a href="<?php echo url_for('tiers', array('tiers_id' => $tiers->id)) ?>"><?php echo $tiers->nom ?></a></li>
+			<?php endforeach; ?>
 		</ul>
 	</div>
 	<?php include_partial('global/aides') ?>
