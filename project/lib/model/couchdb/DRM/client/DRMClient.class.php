@@ -1,13 +1,13 @@
 <?php
 
-class DRMClient extends sfCouchdbClient {
+class DRMClient extends acCouchdbClient {
    
     /**
      *
      * @return DRMClient
      */
     public static function getInstance() {
-        return sfCouchdbManager::getClient("DRM");
+        return acCouchdbManager::getClient("DRM");
     }
     
     /**
@@ -16,7 +16,7 @@ class DRMClient extends sfCouchdbClient {
      * @param integer $hydrate
      * @return DRM
      */
-    public function retrieveByIdentifiantAndCampagne($identifiant, $campagne, $hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
+    public function retrieveByIdentifiantAndCampagne($identifiant, $campagne, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         return parent::retrieveDocumentById('DRM-'.$identifiant.'-'.$campagne, $hydrate);
     }
     

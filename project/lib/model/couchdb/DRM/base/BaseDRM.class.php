@@ -8,7 +8,7 @@
  * @property string $_rev
  * @property string $type
  * @property string $campagne
- * @property sfCouchdbJson $declaration
+ * @property acCouchdbJson $declaration
  * @property DRMDeclarant $declarant
  * @property string $identifiant
 
@@ -20,8 +20,8 @@
  * @method string setType()
  * @method string getCampagne()
  * @method string setCampagne()
- * @method sfCouchdbJson getDeclaration()
- * @method sfCouchdbJson setDeclaration()
+ * @method acCouchdbJson getDeclaration()
+ * @method acCouchdbJson setDeclaration()
  * @method DRMDeclarant getDeclarant()
  * @method DRMDeclarant setDeclarant()
  * @method string getIdentifiant()
@@ -29,7 +29,7 @@
  
  */
  
-abstract class BaseDRM extends sfCouchdbDocument {
+abstract class BaseDRM extends acCouchdbDocument {
 
     public function getDocumentDefinitionModel() {
         return 'DRM';

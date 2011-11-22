@@ -11,7 +11,7 @@ class ValidatorLoginCompte extends sfValidatorSchema {
 
     protected function doClean($values) {
         if ($values['login']) {
-            $compte = sfCouchdbManager::getClient('_Compte')->retrieveByLogin($values['login']);
+            $compte = acCouchdbManager::getClient('_Compte')->retrieveByLogin($values['login']);
             if (!$compte)
                 return $values;
         }

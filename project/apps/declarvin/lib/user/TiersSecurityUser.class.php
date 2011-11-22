@@ -78,7 +78,7 @@ abstract class TiersSecurityUser extends CompteSecurityUser {
         if (is_null($this->_tiers)) {
             $this->_tiers = array();
             if ($this->getAttribute(self::SESSION_TIERS, null, self::NAMESPACE_TIERS)) {
-            	$this->_tiers = sfCouchdbManager::getClient()->retrieveDocumentById($this->getAttribute(self::SESSION_TIERS, null, self::NAMESPACE_TIERS));
+            	$this->_tiers = acCouchdbManager::getClient()->retrieveDocumentById($this->getAttribute(self::SESSION_TIERS, null, self::NAMESPACE_TIERS));
             } else {
                 $this->_tiers = $this->getCompte()->getTiers();
             }

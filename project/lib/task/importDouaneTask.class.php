@@ -33,7 +33,7 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
     
-    $douanes = sfCouchdbManager::getClient("Douane")->getAll();
+    $douanes = acCouchdbManager::getClient("Douane")->getAll();
     foreach($douanes as $douane) {
         $douane->delete();
     }

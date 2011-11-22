@@ -12,7 +12,7 @@
  * @property string $_rev
  * @property string $interpro
  * @property string $compte
- * @property sfCouchdbJson $droits
+ * @property acCouchdbJson $droits
  * @property string $num_interne
  * @property string $siret
  * @property string $cni
@@ -24,8 +24,8 @@
  * @property string $email
  * @property string $telephone
  * @property string $fax
- * @property sfCouchdbJson $siege
- * @property sfCouchdbJson $comptabilite
+ * @property acCouchdbJson $siege
+ * @property acCouchdbJson $comptabilite
  * @property string $service_douane
 
  * @method string getIdentifiant()
@@ -44,8 +44,8 @@
  * @method string setInterpro()
  * @method string getCompte()
  * @method string setCompte()
- * @method sfCouchdbJson getDroits()
- * @method sfCouchdbJson setDroits()
+ * @method acCouchdbJson getDroits()
+ * @method acCouchdbJson setDroits()
  * @method string getNumInterne()
  * @method string setNumInterne()
  * @method string getSiret()
@@ -68,16 +68,16 @@
  * @method string setTelephone()
  * @method string getFax()
  * @method string setFax()
- * @method sfCouchdbJson getSiege()
- * @method sfCouchdbJson setSiege()
- * @method sfCouchdbJson getComptabilite()
- * @method sfCouchdbJson setComptabilite()
+ * @method acCouchdbJson getSiege()
+ * @method acCouchdbJson setSiege()
+ * @method acCouchdbJson getComptabilite()
+ * @method acCouchdbJson setComptabilite()
  * @method string getServiceDouane()
  * @method string setServiceDouane()
  
  */
  
-abstract class BaseEtablissement extends sfCouchdbDocument {
+abstract class BaseEtablissement extends acCouchdbDocument {
 
     public function getDocumentDefinitionModel() {
         return 'Etablissement';

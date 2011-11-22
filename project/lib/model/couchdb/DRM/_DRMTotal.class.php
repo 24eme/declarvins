@@ -4,6 +4,6 @@
  *
  */
 
-class _DRMTotal extends sfCouchdbDocumentTree {
+class _DRMTotal extends acCouchdbDocumentTree {
 
 }

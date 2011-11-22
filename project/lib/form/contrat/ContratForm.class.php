@@ -1,5 +1,5 @@
 <?php
-class ContratForm extends sfCouchdbFormDocumentJson {
+class ContratForm extends acCouchdbFormDocumentJson {
 
     public function configure() {
     	$this->setWidgets(array(

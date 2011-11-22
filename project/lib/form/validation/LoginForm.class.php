@@ -43,7 +43,7 @@ class LoginForm extends BaseForm {
      */
     protected function getInterpros() {
         if (!$this->_interproCollection) {
-            return $this->_interproCollection = sfCouchdbManager::getClient('Interpro')->getAll();
+            return $this->_interproCollection = acCouchdbManager::getClient('Interpro')->getAll();
         }
         else {
             return $this->_interproCollection;

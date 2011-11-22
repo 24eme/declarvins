@@ -10,8 +10,8 @@
  * @property string $cvi
  * @property string $no_accises
  * @property string $no_tva_intracommunautaire
- * @property sfCouchdbJson $siege
- * @property sfCouchdbJson $comptabilite
+ * @property acCouchdbJson $siege
+ * @property acCouchdbJson $comptabilite
  * @property string $service_douane
 
  * @method string getNom()
@@ -26,16 +26,16 @@
  * @method string setNoAccises()
  * @method string getNoTvaIntracommunautaire()
  * @method string setNoTvaIntracommunautaire()
- * @method sfCouchdbJson getSiege()
- * @method sfCouchdbJson setSiege()
- * @method sfCouchdbJson getComptabilite()
- * @method sfCouchdbJson setComptabilite()
+ * @method acCouchdbJson getSiege()
+ * @method acCouchdbJson setSiege()
+ * @method acCouchdbJson getComptabilite()
+ * @method acCouchdbJson setComptabilite()
  * @method string getServiceDouane()
  * @method string setServiceDouane()
  
  */
 
-abstract class BaseDRMDeclarant extends sfCouchdbDocumentTree {
+abstract class BaseDRMDeclarant extends acCouchdbDocumentTree {
                 
     public function configureTree() {
        $this->_root_class_name = 'DRM';

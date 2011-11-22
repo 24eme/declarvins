@@ -33,7 +33,7 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-    if ($civp = sfCouchdbManager::getClient()->retrieveDocumentById('INTERPRO-civp')) {
+    if ($civp = acCouchdbManager::getClient()->retrieveDocumentById('INTERPRO-civp')) {
         $civp->delete();
     }
     
@@ -42,7 +42,7 @@ EOF;
     $civp->nom = 'CIVP';
     $civp->save();
 
-    if ($ir = sfCouchdbManager::getClient()->retrieveDocumentById('INTERPRO-inter-rhone')) {
+    if ($ir = acCouchdbManager::getClient()->retrieveDocumentById('INTERPRO-inter-rhone')) {
         $ir->delete();
     }
     
@@ -51,7 +51,7 @@ EOF;
     $ir->nom = 'InterRhône';
     $ir->save();
 
-    if ($ise = sfCouchdbManager::getClient()->retrieveDocumentById('INTERPRO-intervins-sud-est')) {
+    if ($ise = acCouchdbManager::getClient()->retrieveDocumentById('INTERPRO-intervins-sud-est')) {
         $ise->delete();
     }
     
@@ -60,7 +60,7 @@ EOF;
     $ise->nom = "Intervins Sud-Est";
     $ise->save();
 
-    if ($compte = sfCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin')) {
+    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin')) {
         $compte->delete();
     }
     

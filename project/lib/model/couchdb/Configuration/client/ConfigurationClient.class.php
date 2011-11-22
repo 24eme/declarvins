@@ -1,6 +1,6 @@
 <?php
 
-class ConfigurationClient extends sfCouchdbClient {
+class ConfigurationClient extends acCouchdbClient {
   private static $current = array();
   
   /**
@@ -8,7 +8,7 @@ class ConfigurationClient extends sfCouchdbClient {
    * @return CurrentClient 
    */
   public static function getInstance() {
-      return sfCouchdbManager::getClient("CONFIGURATION");
+      return acCouchdbManager::getClient("CONFIGURATION");
   }
 
   /**

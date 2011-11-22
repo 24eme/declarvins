@@ -42,7 +42,7 @@ class TiersLoginForm extends BaseForm {
      */
     public function process() {
         if ($this->isValid()) {
-            return sfCouchdbManager::getClient()->retrieveDocumentById($this->getValue('tiers'));
+            return acCouchdbManager::getClient()->retrieveDocumentById($this->getValue('tiers'));
         } else {
             throw new sfException("must be valid");
         }

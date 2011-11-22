@@ -5,12 +5,12 @@
  * Base model for DRMAppellation
 
  * @property string $libelle
- * @property sfCouchdbJson $couleurs
+ * @property acCouchdbJson $couleurs
 
  * @method string getLibelle()
  * @method string setLibelle()
- * @method sfCouchdbJson getCouleurs()
- * @method sfCouchdbJson setCouleurs()
+ * @method acCouchdbJson getCouleurs()
+ * @method acCouchdbJson setCouleurs()
  
  */
 
