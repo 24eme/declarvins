@@ -114,7 +114,7 @@ class acCouchdbClient extends couchClient {
                 return $this->asArray()->getDoc($id);
             } else {
                 
-                throw new sfCouchdbException('This hydration method does not exist');
+                throw new acCouchdbException('This hydration method does not exist');
             }
         } catch (couchException $exc) {
 
@@ -145,7 +145,7 @@ class acCouchdbClient extends couchClient {
                 return $this->asArray()->getDoc($id);
             } else {
                 
-                throw new sfCouchdbException('This hydrate method does not exist');
+                throw new acCouchdbException('This hydrate method does not exist');
             }
         } catch (couchException $exc) {
 
@@ -162,11 +162,11 @@ class acCouchdbClient extends couchClient {
     public function create($data) {
         if (!isset($data->type)) {
             
-            throw new sfCouchdbException('Property "type" ($data->type)');
+            throw new acCouchdbException('Property "type" ($data->type)');
         }
         if (!class_exists($data->type)) {
             
-            throw new sfCouchdbException('Class "' . $data->type . '" not found');
+            throw new acCouchdbException('Class "' . $data->type . '" not found');
         }
         
         $doc = new $data->type();
@@ -185,10 +185,10 @@ class acCouchdbClient extends couchClient {
      */
     public function createDocumentFromData($data) {
         if (!isset($data->type)) {
-            throw new sfCouchdbException('data should have a type');
+            throw new acCouchdbException('data should have a type');
         }
         if (!class_exists($data->type)) {
-            throw new sfCouchdbException('class ' . $data->type . ' not found');
+            throw new acCouchdbException('class ' . $data->type . ' not found');
         }
         $doc = new $data->type();
         $doc->loadFromCouchdb($data);
