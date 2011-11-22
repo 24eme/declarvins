@@ -1,13 +1,13 @@
 <?php
 
-class _CompteClient extends sfCouchdbClient {
+class _CompteClient extends acCouchdbClient {
     
     /**
      *
      * @return _CompteClient
      */
     public static function getInstance() {
-        return sfCouchdbManager::getClient("_Compte");
+        return acCouchdbManager::getClient("_Compte");
     }
     
     /**
@@ -16,7 +16,7 @@ class _CompteClient extends sfCouchdbClient {
      * @param integer $hydrate
      * @return _Compte 
      */
-    public function retrieveByLogin($login, $hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
+    public function retrieveByLogin($login, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         return parent::retrieveDocumentById('COMPTE-'.$login, $hydrate);
     }
     
@@ -24,18 +24,18 @@ class _CompteClient extends sfCouchdbClient {
      *
      * @param string $id
      * @param integer $hydrate
-     * @return _Compte 
+     * @return _Compte
      */
-    public function getById($id, $hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
+    public function getById($id, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         return parent::retrieveDocumentById($id, $hydrate);
     }
     
     /**
      *
      * @param integer $hydrate
-     * @return sfCouchdbDocumentCollection 
+     * @return acCouchdbDocumentCollection 
      */
-    public function getAll($hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
+    public function getAll($hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         return $this->startkey('COMPTE-A')->endkey('COMPTE-Z')->execute($hydrate);
     }
 }

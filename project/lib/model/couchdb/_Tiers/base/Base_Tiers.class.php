@@ -1,4 +1,5 @@
 <?php
 
-abstract class Base_Tiers extends sfCouchdbDocument {
+abstract class Base_Tiers extends acCouchdbDocument {
+    
 }

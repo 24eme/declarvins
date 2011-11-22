@@ -33,7 +33,7 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-    if ($current = sfCouchdbManager::getClient()->retrieveDocumentById('CURRENT')) {
+    if ($current = acCouchdbManager::getClient()->retrieveDocumentById('CURRENT')) {
         $current->delete();
     }
     
@@ -41,7 +41,7 @@ EOF;
     $current->campagne = '2011-11';
     $current->save();
     
-    if ($configuration = sfCouchdbManager::getClient()->retrieveDocumentById('CONFIGURATION')) {
+    if ($configuration = acCouchdbManager::getClient()->retrieveDocumentById('CONFIGURATION')) {
         $configuration->delete();
     }
     

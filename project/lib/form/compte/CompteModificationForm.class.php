@@ -1,5 +1,5 @@
 <?php
-class CompteModificationForm extends sfCouchdbFormDocumentJson {
+class CompteModificationForm extends acCouchdbFormDocumentJson {
     
     /**
      * 

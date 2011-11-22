@@ -1,13 +1,13 @@
 <?php
 
-class InterproClient extends sfCouchdbClient {
+class InterproClient extends acCouchdbClient {
     
     /**
      *
      * @return _ContratClient
      */
     public static function getInstance() {
-        return sfCouchdbManager::getClient("Interpro");
+        return acCouchdbManager::getClient("Interpro");
     }
     
     /**
@@ -16,7 +16,7 @@ class InterproClient extends sfCouchdbClient {
      * @param integer $hydrate
      * @return Interpro 
      */
-    public function retrieveById($id, $hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
+    public function retrieveById($id, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         return parent::retrieveDocumentById('INTERPRO-'.$id, $hydrate);
     }
     
@@ -26,17 +26,17 @@ class InterproClient extends sfCouchdbClient {
      * @param integer $hydrate
      * @return Interpro 
      */
-    public function getById($id, $hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
+    public function getById($id, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         return parent::retrieveDocumentById($id, $hydrate);
     }
     
     /**
      *
      * @param integer $hydrate
-     * @return sfCouchdbDocumentCollection
+     * @return acCouchdbDocumentCollection
      * @todo remplacer la fonction par une vue
      */
-    public function getAll($hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
+    public function getAll($hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         return $this->keys(array('INTERPRO-civp', 'INTERPRO-inter-rhone', 'INTERPRO-intervins-sud-est'))->execute($hydrate);
     }
     

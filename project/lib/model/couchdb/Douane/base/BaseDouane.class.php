@@ -1,6 +1,6 @@
 <?php
 
-class BaseDouane extends sfCouchdbDocument {
+class BaseDouane extends acCouchdbDocument {
     public function getDocumentDefinitionModel() {
         return 'Douane';
     }

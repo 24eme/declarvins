@@ -14,7 +14,7 @@
  
  */
 
-abstract class BaseDRMDetail extends sfCouchdbDocumentTree {
+abstract class BaseDRMDetail extends acCouchdbDocumentTree {
                 
     public function configureTree() {
        $this->_root_class_name = 'DRM';
