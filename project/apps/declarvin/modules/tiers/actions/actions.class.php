@@ -21,7 +21,7 @@ class tiersActions extends sfActions
 	$this->compte = $this->getUser()->getCompte();
 	$this->form = new TiersLoginForm($this->compte, true);
 	if (count($this->compte->tiers) == 1) {
-		$this->getUser()->signInTiers(sfCouchdbManager::getClient()->retrieveDocumentById($this->compte->tiers->getFirst()->id));
+		$this->getUser()->signInTiers(acCouchdbManager::getClient()->retrieveDocumentById($this->compte->tiers->getFirst()->id));
 		return $this->redirect("@drm_mon_espace");
 	}
   	if ($request->isMethod(sfWebRequest::POST)) {

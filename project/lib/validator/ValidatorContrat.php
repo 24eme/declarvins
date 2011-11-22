@@ -11,7 +11,7 @@ class ValidatorContrat extends sfValidatorSchema {
 
     protected function doClean($values) {
         if ($values['contrat']) {
-            $contrat = sfCouchdbManager::getClient('Contrat')->retrieveById($values['contrat']);
+            $contrat = acCouchdbManager::getClient('Contrat')->retrieveById($values['contrat']);
             if ($contrat)
                 return $values;
         }

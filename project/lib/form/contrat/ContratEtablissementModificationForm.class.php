@@ -1,5 +1,5 @@
 <?php
-class ContratEtablissementModificationForm extends sfCouchdbFormDocumentJson {
+class ContratEtablissementModificationForm extends acCouchdbFormDocumentJson {
 	
 	protected $_douaneCollection = null;
 	protected $_familleCollection = null;
@@ -95,7 +95,7 @@ class ContratEtablissementModificationForm extends sfCouchdbFormDocumentJson {
      */
     protected function getDouanes() {
         if (!$this->_douaneCollection) {
-            return $this->_douaneCollection = sfCouchdbManager::getClient('Douane')->getAll();
+            return $this->_douaneCollection = acCouchdbManager::getClient('Douane')->getAll();
         }
         else {
             return $this->_douaneCollection;

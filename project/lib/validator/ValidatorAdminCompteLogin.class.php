@@ -11,7 +11,7 @@ class ValidatorAdminCompteLogin extends sfValidatorBase {
             return array_merge($values);
         }
         
-        $compte = sfCouchdbManager::getClient('_Compte')->retrieveByLogin($values['login']);
+        $compte = acCouchdbManager::getClient('_Compte')->retrieveByLogin($values['login']);
 
         if (!$compte) {
             throw new sfValidatorErrorSchema($this, array($this->getOption('login') => new sfValidatorError($this, 'invalid')));

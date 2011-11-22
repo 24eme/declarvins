@@ -1,6 +1,6 @@
 <?php
 
-class DouaneClient extends sfCouchdbClient {
+class DouaneClient extends acCouchdbClient {
     
     /**
      *
@@ -8,16 +8,16 @@ class DouaneClient extends sfCouchdbClient {
      * @param integer $hydrate
      * @return Douane 
      */
-    public function retrieveById($id, $hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
+    public function retrieveById($id, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         return parent::retrieveDocumentById('DOUANE-'.$id, $hydrate);
     }
     
     /**
      *
      * @param integer $hydrate
-     * @return sfCouchdbDocumentCollection 
+     * @return acCouchdbDocumentCollection 
      */
-    public function getAll($hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
+    public function getAll($hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         //return $this->startkey('DOUANE-A')->endkey('CONTRAT-Z')->execute($hydrate);
         return $this->executeView('douane', 'all');
     }

@@ -1,13 +1,13 @@
 <?php
 
-class EtablissementClient extends sfCouchdbClient {
+class EtablissementClient extends acCouchdbClient {
    
     /**
      *
      * @return EtablissementClient
      */
     public static function getInstance() {
-        return sfCouchdbManager::getClient("Etablissement");
+        return acCouchdbManager::getClient("Etablissement");
     }
     
     /**
@@ -16,7 +16,7 @@ class EtablissementClient extends sfCouchdbClient {
      * @param integer $hydrate
      * @return Etablissement 
      */
-    public function retrieveById($id, $hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
+    public function retrieveById($id, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         return parent::retrieveDocumentById('ETABLISSEMENT-'.$id, $hydrate);
     }
     

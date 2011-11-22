@@ -5,12 +5,12 @@
  * Base model for ConfigurationLabel
 
  * @property string $libelle
- * @property sfCouchdbJson $appellations
+ * @property acCouchdbJson $appellations
 
  * @method string getLibelle()
  * @method string setLibelle()
- * @method sfCouchdbJson getAppellations()
- * @method sfCouchdbJson setAppellations()
+ * @method acCouchdbJson getAppellations()
+ * @method acCouchdbJson setAppellations()
  
  */
 

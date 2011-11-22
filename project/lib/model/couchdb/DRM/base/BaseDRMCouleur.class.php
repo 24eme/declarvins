@@ -5,12 +5,12 @@
  * Base model for DRMCouleur
 
  * @property string $libelle
- * @property sfCouchdbJson $details
+ * @property acCouchdbJson $details
 
  * @method string getLibelle()
  * @method string setLibelle()
- * @method sfCouchdbJson getDetails()
- * @method sfCouchdbJson setDetails()
+ * @method acCouchdbJson getDetails()
+ * @method acCouchdbJson setDetails()
  
  */
 

@@ -4,10 +4,10 @@
  * 
  * Base model for DRMLabel
 
- * @property sfCouchdbJson $appellations
+ * @property acCouchdbJson $appellations
 
- * @method sfCouchdbJson getAppellations()
- * @method sfCouchdbJson setAppellations()
+ * @method acCouchdbJson getAppellations()
+ * @method acCouchdbJson setAppellations()
  
  */
 

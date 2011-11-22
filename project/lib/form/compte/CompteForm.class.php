@@ -1,5 +1,5 @@
 <?php
-abstract class CompteForm extends sfCouchdbFormDocumentJson {
+abstract class CompteForm extends acCouchdbFormDocumentJson {
     
     
     public function configure() {

@@ -1,4 +1,4 @@
 <?php
 
-abstract class Base_Compte extends sfCouchdbDocument {
+abstract class Base_Compte extends acCouchdbDocument {
 }

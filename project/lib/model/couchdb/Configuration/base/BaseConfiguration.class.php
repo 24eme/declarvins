@@ -8,7 +8,7 @@
  * @property string $_rev
  * @property string $type
  * @property string $campagne
- * @property sfCouchdbJson $declaration
+ * @property acCouchdbJson $declaration
 
  * @method string get_id()
  * @method string set_id()
@@ -18,12 +18,12 @@
  * @method string setType()
  * @method string getCampagne()
  * @method string setCampagne()
- * @method sfCouchdbJson getDeclaration()
- * @method sfCouchdbJson setDeclaration()
+ * @method acCouchdbJson getDeclaration()
+ * @method acCouchdbJson setDeclaration()
  
  */
  
-abstract class BaseConfiguration extends sfCouchdbDocument {
+abstract class BaseConfiguration extends acCouchdbDocument {
 
     public function getDocumentDefinitionModel() {
         return 'Configuration';

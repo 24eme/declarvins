@@ -1,6 +1,6 @@
 <?php
 
-class BaseContrat extends sfCouchdbDocument {
+class BaseContrat extends acCouchdbDocument {
     public function getDocumentDefinitionModel() {
         return 'Contrat';
     }

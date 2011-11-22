@@ -1,13 +1,13 @@
 <?php
 
-class ContratClient extends sfCouchdbClient {
+class ContratClient extends acCouchdbClient {
     
     /**
      *
      * @return _ContratClient
      */
     public static function getInstance() {
-        return sfCouchdbManager::getClient("Contrat");
+        return acCouchdbManager::getClient("Contrat");
     }
     
     /**
@@ -16,16 +16,16 @@ class ContratClient extends sfCouchdbClient {
      * @param integer $hydrate
      * @return Contrat 
      */
-    public function retrieveById($id, $hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
+    public function retrieveById($id, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         return parent::retrieveDocumentById('CONTRAT-'.$id, $hydrate);
     }
     
     /**
      *
      * @param integer $hydrate
-     * @return sfCouchdbDocumentCollection 
+     * @return acCouchdbDocumentCollection 
      */
-    public function getAll($hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
+    public function getAll($hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         return $this->startkey('CONTRAT-00000000000')->endkey('CONTRAT-99999999999')->execute($hydrate);
     }
     
@@ -36,7 +36,7 @@ class ContratClient extends sfCouchdbClient {
      */
     public function getNextNoContrat() {
     	$date = date('Ymd');
-    	$contrats = self::getAtDate($date, sfCouchdbClient::HYDRATE_ON_DEMAND)->getIds();
+    	$contrats = self::getAtDate($date, acCouchdbClient::HYDRATE_ON_DEMAND)->getIds();
         print_r($contrats);
         if (count($contrats) > 0) {
             return ((double)str_replace('CONTRAT-', '', max($contrats)) + 1);
@@ -49,9 +49,9 @@ class ContratClient extends sfCouchdbClient {
     /**
      * @param string $date
      * @param integer $hydrate
-     * @return sfCouchdbDocumentCollection 
+     * @return acCouchdbDocumentCollection 
      */
-    public function getAtDate($date, $hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) {
+    public function getAtDate($date, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         return $this->startkey('CONTRAT-'.$date.'000')->endkey('CONTRAT-'.$date.'999')->execute($hydrate);
     }
     
