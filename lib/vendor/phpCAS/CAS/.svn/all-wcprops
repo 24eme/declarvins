@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/286/trunk/lib/vendor/phpCAS/CAS
+END
+client.php
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/286/trunk/lib/vendor/phpCAS/CAS/client.php
+END
+domxml-php4-to-php5.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/180/trunk/lib/vendor/phpCAS/CAS/domxml-php4-to-php5.php
+END

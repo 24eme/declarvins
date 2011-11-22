@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/180/trunk/lib/vendor/phpCAS/CAS/PGTStorage
+END
+pgt-main.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/180/trunk/lib/vendor/phpCAS/CAS/PGTStorage/pgt-main.php
+END
+pgt-db.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/180/trunk/lib/vendor/phpCAS/CAS/PGTStorage/pgt-db.php
+END
+pgt-file.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/180/trunk/lib/vendor/phpCAS/CAS/PGTStorage/pgt-file.php
+END
