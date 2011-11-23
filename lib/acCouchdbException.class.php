@@ -22,12 +22,12 @@
  * @version    0.1
  */
 
-class sfCouchdbException extends acCouchdbException
+class acCouchdbException extends sfException
 {
 
 }
 
-class acCouchdbException extends sfException
+class sfCouchdbException extends acCouchdbException
 {
 
 }

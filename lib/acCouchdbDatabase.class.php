@@ -22,9 +22,6 @@
  * @version    0.1
  */
 
-class sfCouchdbDatabase extends acCouchdbDatabase {
-    
-}
 
 class acCouchdbDatabase extends sfDatabase
 {
@@ -63,4 +60,8 @@ class acCouchdbDatabase extends sfDatabase
       $this->connection = null;
     }
   }
+}
+
+class sfCouchdbDatabase extends acCouchdbDatabase {
+    
 }

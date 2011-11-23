@@ -22,10 +22,6 @@
  * @version    0.1
  */
 
-class sfCouchdbClient extends acCouchdbClient {
-    
-}
-
 class acCouchdbClient extends couchClient {
     
     const HYDRATE_ON_DEMAND = 1;
@@ -230,4 +226,8 @@ class acCouchdbClient extends couchClient {
         return new acCouchdbDocumentCollection($this->getAllDocs(), $hydrate);
     }
 
+}
+
+class sfCouchdbClient extends acCouchdbClient {
+    
 }
