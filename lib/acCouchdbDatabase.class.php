@@ -22,7 +22,7 @@
  * @version    0.1
  */
 
-class acCouchdbDatabase extends acCouchdbDatabase {
+class sfCouchdbDatabase extends acCouchdbDatabase {
     
 }
 
