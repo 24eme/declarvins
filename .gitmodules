@@ -10,3 +10,6 @@
 [submodule "project/plugins/acLdapPlugin"]
 	path = project/plugins/acLdapPlugin
 	url = git@gitorious.org:acldapplugin/acldapplugin.git
+[submodule "project/plugins/acDompdfPlugin"]
+	path = project/plugins/acDompdfPlugin
+	url = git@gitorious.org:acdompdfplugin/acdompdfplugin.git
