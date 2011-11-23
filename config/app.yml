@@ -1,6 +1,5 @@
 all:
   cas:
-    ssl_validation: false
     domain: "**********.***"
     port: 443
     path: "****"
