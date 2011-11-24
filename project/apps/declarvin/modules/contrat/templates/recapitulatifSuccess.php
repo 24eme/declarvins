@@ -37,8 +37,10 @@
 		ville : <strong><?php echo $etablissement->comptabilite_commune ?></strong>
 	</p>
 	<?php endif; ?>
-	<div class="ligne_btn">
-		<a href="<?php echo url_for('contrat_etablissement_modification', array('indice' => $etablissement->getKey(), 'recapitulatif' => 1)) ?>" class="button btn_ajouter" style="margin-left: 248px;">Modifier</a>
+	<div class="ligne_btn" style="width:100%">
+		<a href="<?php echo url_for('contrat_etablissement_modification', array('indice' => $etablissement->getKey(), 'recapitulatif' => 1)) ?>" class="button btn_ajouter" style="margin-left: 214px; float:left;">Modifier</a>
+		<a class="button btn_supprimer" href="<?php echo url_for('contrat_etablissement_suppression', array('indice' => $etablissement->getKey(), 'recapitulatif' => 1)) ?>" style="float:left;">Supprimer</a>
+		<div style="clear:both">&nbsp;</div>
 	</div>
 	<hr />
 	<?php endforeach; ?>

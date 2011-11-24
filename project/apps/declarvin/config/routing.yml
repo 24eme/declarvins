@@ -8,7 +8,7 @@ homepage:
 
 compte_nouveau:
   url:   /compte/nouveau
-  param: { module: compte, action: nouveau }
+  param: { module: acVinCompte, action: nouveau }
 contrat_nouveau:
   url:   /contrat/nouveau
   param: { module: contrat, action: nouveau }
@@ -92,10 +92,10 @@ drm_evolution:
   param: { module: drm, action: evolution }
 login:
   url: /login
-  param: {module: compte, action: login}
+  param: {module: acVinCompte, action: login}
 logout:
   url: /logout
-  param: {module: compte, action: logout}
+  param: {module: acVinCompte, action: logout}
 
 # generic rules
 # please, remove them by adding more specific rules
