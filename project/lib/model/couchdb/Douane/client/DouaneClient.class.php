@@ -18,7 +18,6 @@ class DouaneClient extends acCouchdbClient {
      * @return acCouchdbDocumentCollection 
      */
     public function getAll($hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
-        //return $this->startkey('DOUANE-A')->endkey('CONTRAT-Z')->execute($hydrate);
         return $this->executeView('douane', 'all');
     }
     
