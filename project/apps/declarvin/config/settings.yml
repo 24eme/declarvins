@@ -24,7 +24,7 @@ test:
 
 all:
   .settings:
-    enabled_modules:        [default, export_contrat]
+    enabled_modules:        [default, export_contrat, acVinCompte]
     # Form security secret (CSRF protection)
     csrf_secret:            d7b2b897396f37bf566acbb8257946a785fd1348
 

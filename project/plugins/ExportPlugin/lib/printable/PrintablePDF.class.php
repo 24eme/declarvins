@@ -1,7 +1,5 @@
 <?php
 
-require_once(sfConfig::get('sf_plugins_dir').'/sfDompdfPlugin/lib/vendor/dompdf/dompdf_config.inc.php');
-
 
 class PrintablePDF extends PrintableOutput {
 
