@@ -1,9 +1,5 @@
 <?php
 
-class sfCouchdbDocumentCollection extends acCouchdbDocumentCollection {
-    
-}
-
 class acCouchdbDocumentCollection extends acCouchdbCollection {
 
     protected function load($data) {

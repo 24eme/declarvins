@@ -1,9 +1,5 @@
 <?php
 
-abstract class sfCouchdbDocument extends acCouchdbDocument {
-    
-}
-
 abstract class acCouchdbDocument extends acCouchdbJson {
 
     protected $_is_new = true;

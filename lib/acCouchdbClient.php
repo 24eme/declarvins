@@ -227,7 +227,3 @@ class acCouchdbClient extends couchClient {
     }
 
 }
-
-class sfCouchdbClient extends acCouchdbClient {
-    
-}

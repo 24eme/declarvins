@@ -61,7 +61,3 @@ class acCouchdbDatabase extends sfDatabase
     }
   }
 }
-
-class sfCouchdbDatabase extends acCouchdbDatabase {
-    
-}

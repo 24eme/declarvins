@@ -1,9 +1,5 @@
 <?php
 
-abstract class sfCouchdbDocumentTree extends acCouchdbDocumentTree {
-    
-}
-
 abstract class acCouchdbDocumentTree extends acCouchdbJson {
    protected $_root_class_name = null;
    protected $_tree_class_name = null;

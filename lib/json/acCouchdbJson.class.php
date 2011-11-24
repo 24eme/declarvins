@@ -1,9 +1,5 @@
 <?php
 
-class sfCouchdbJson extends acCouchdbJson {
-    
-}
-
 class acCouchdbJson extends acCouchdbJsonField implements IteratorAggregate, ArrayAccess, Countable {
 
     /**

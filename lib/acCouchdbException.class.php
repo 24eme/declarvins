@@ -26,8 +26,3 @@ class acCouchdbException extends sfException
 {
 
 }
-
-class sfCouchdbException extends acCouchdbException
-{
-
-}

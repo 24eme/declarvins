@@ -99,6 +99,3 @@ class acCouchdbManager {
         return self::getInstance()->_definition_tree_hash[$class_tree];
     }
 }
-class sfCouchdbManager extends acCouchdbManager {
-    
-}
