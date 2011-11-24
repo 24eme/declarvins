@@ -118,13 +118,6 @@ class ContratEtablissementModificationForm extends acCouchdbFormDocumentJson {
      * 
      */
     protected function getFamilleSousFamilleChoices() {
-        /*$famillesSousFamilles = $this->getFamillesSousFamilles();
-        $choices = array();
-        foreach ($famillesSousFamilles as $famille => $sousFamilles) {
-            $choices = $this->getSousFamilleChoicesByFamille($famille);
-            break;
-        }
-        return $choices;*/
     	return array('' => '');
     }
     
