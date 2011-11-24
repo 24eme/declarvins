@@ -1,5 +1,5 @@
 <?php
-
+require_once dirname(__FILE__).'/../lib/BaseacVinCompteActions.class.php';
 /* This file is part of the acVinComptePlugin package.
  * Copyright (c) 2011 Actualys
  * Authors :	
