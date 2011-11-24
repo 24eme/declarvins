@@ -35,7 +35,7 @@ class acCouchdbDatabase extends sfDatabase
   public function initialize($parameters = array())
   {
     parent::initialize($parameters);
-    sfCouchdbManager::initializeClient($this->getParameter('dsn'), $this->getParameter('dbname'));
+    acCouchdbManager::initializeClient($this->getParameter('dsn'), $this->getParameter('dbname'));
   }
 
   /**
@@ -45,7 +45,7 @@ class acCouchdbDatabase extends sfDatabase
    */
   public function connect()
   {
-    $this->connection = sfCouchdbManager::getClient();
+    $this->connection = acCouchdbManager::getClient();
   }
 
   /**

@@ -6,7 +6,7 @@ class acCouchDbPluginConfiguration extends sfPluginConfiguration
   {
       sfConfig::set('sf_orm', 'couchdb');
       if ($this->configuration instanceof sfApplicationConfiguration) {
-        sfCouchdbManager::setSchema(include $this->configuration->getConfigCache()->checkConfig('config/couchdb/schema.yml'));
+        acCouchdbManager::setSchema(include $this->configuration->getConfigCache()->checkConfig('config/couchdb/schema.yml'));
       }
   }
 }

@@ -16,7 +16,7 @@ class acCouchdbJson extends acCouchdbJsonField implements IteratorAggregate, Arr
      * @param string $hash 
      */
     public function __construct(acCouchdbJsonDefinition $definition, acCouchdbDocument $document, $hash) {
-        parent::__construct($definition, $hash);
+        parent::__construct($definition, $document, $hash);
     }
 
     /**
