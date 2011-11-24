@@ -37,7 +37,6 @@ class acCouchdbClient extends couchClient {
      * @return void
      */
     public function save($document) {
-        $this->
         $method = 'POST';
         $url = '/' . urlencode($this->dbname);
         if (!$document->isNew()) {

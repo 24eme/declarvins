@@ -1,6 +1,6 @@
 <?php
 
-class acCouchdbJson extends acCouchdbJsonField implements IteratorAggregate, ArrayAccess, Countable {
+class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, ArrayAccess, Countable {
 
     /**
      *
@@ -137,9 +137,9 @@ class acCouchdbJson extends acCouchdbJsonField implements IteratorAggregate, Arr
         $array_fields = array();
         foreach ($this as $key => $field) {
             if ($deep_array && $this->fieldIsCollection($key)) {
-                $array_fields[$key] = $field->toArray($deep);
+                $array_fields[$key] = $field->toArray($deep_array, $fetch_object);
                 continue;
-            } elseif ($deep_object && $this->fieldIsCollection($key)) {
+            } elseif ($deep_array && $this->fieldIsCollection($key)) {
                 $array_fields[$key] = $this->get($key);
             } elseif (!$this->fieldIsCollection($key)) {
                 $array_fields[$key] = $this->get($key);
@@ -159,10 +159,6 @@ class acCouchdbJson extends acCouchdbJsonField implements IteratorAggregate, Arr
 
     public function getKey() {
         return preg_replace('/^.*\//', '\1', $this->getHash());
-    }
-
-    public function getHash() {
-        return $this->_hash;
     }
 
     public function getFirst() {

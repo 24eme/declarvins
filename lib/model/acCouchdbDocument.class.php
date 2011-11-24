@@ -29,7 +29,7 @@ abstract class acCouchdbDocument extends acCouchdbJson {
     }
 
     public function isNew() {
-        if (!$this->hasField('_rev'))
+        if (!$this->_exist('_rev'))
             return true;
         return is_null($this->get('_rev'));
     }

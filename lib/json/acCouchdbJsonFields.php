@@ -6,11 +6,11 @@
  */
 
 /**
- * Description of acCouchdbJsonField
+ * Description of acCouchdbJsonFields
  *
  * @author vince
  */
-class acCouchdbJsonField {
+abstract class acCouchdbJsonFields {
 
     /**
      *
@@ -101,6 +101,14 @@ class acCouchdbJsonField {
      */
     public function setIsArray($value) {
         $this->_is_array = $value;
+    }
+    
+	/**
+	 * 
+	 * @return string
+	 */
+    public function getHash() {
+        return $this->_hash;
     }
 
     /**
@@ -290,7 +298,7 @@ class acCouchdbJsonField {
     }
 
     private function getFieldNameNormal($key) {
-        if ($this->hasField($key)) {
+        if ($this->_exist($key)) {
             if ($this->getDefinition()->get($key)->isMultiple()) {
                 return $this->_fields_name[$key];
             } else {
@@ -313,7 +321,7 @@ class acCouchdbJsonField {
     }
 
     private function getFieldNameNumeric($key) {
-        if ($this->hasField($key)) {
+        if ($this->_exist($key)) {
             return $key;
         } else {
             throw new acCouchdbException(sprintf('field inexistant : %s', $key));
@@ -329,7 +337,7 @@ class acCouchdbJsonField {
     }
 
     private function getFieldNormal($key) {
-        if ($this->hasField($key)) {
+        if ($this->_exist($key)) {
             return $this->_fields[$this->formatFieldKey($key)];
         } else {
             throw new acCouchdbException(sprintf('field inexistant : %s (%s%s)', $key, $this->_definition_model, $this->getHash()));
@@ -337,7 +345,7 @@ class acCouchdbJsonField {
     }
 
     private function getFieldNumeric($key) {
-        if ($this->hasField($key)) {
+        if ($this->_exist($key)) {
             return $this->_fields[$key];
         } else {
             throw new acCouchdbException(sprintf('field inexistant : %s (%s%s)', $key, $this->_definition_model, $this->getHash()));
@@ -345,7 +353,7 @@ class acCouchdbJsonField {
     }
 
     private function addNormal($key = null) {
-        if ($this->hasField($key)) {
+        if ($this->_exist($key)) {
             return $this->getField($key);
         }
         $name = $key;
@@ -399,7 +407,7 @@ class acCouchdbJsonField {
     }
 
     private function removeNormal($key) {
-        if ($this->hasField($key)) {
+        if ($this->_exist($key)) {
             unset($this->_fields[$this->formatFieldKey($key)]);
             return true;
         }
@@ -407,7 +415,7 @@ class acCouchdbJsonField {
     }
 
     private function removeNumeric($key) {
-        if ($this->hasField($key)) {
+        if ($this->_exist($key)) {
             unset($this->_fields[$key]);
             return true;
         }
