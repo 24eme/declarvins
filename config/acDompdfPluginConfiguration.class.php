@@ -25,6 +25,7 @@ class acDompdfPluginConfiguration extends sfPluginConfiguration
    */
   public function initialize()
   {
+  	require_once(dirname(__FILE__).'/../lib/vendor/dompdf/dompdf_config.inc.php');
     sfConfig::set('sf_autoloading_functions', array(array('acDompdfBridge', 'autoload')));
   }
 }
