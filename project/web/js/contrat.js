@@ -8,7 +8,7 @@ $(document).ready( function()
 			var options = '';
 		    for (var i in sousFamilles)
 		    {
-		    	if (sousFamilleSelected == sousFamilles[i]) {
+		    	if ($("#contratetablissement_sous_famille").val() == sousFamilles[i]) {
 		    		options += '<option value="'+sousFamilles[i]+'" selected="selected">'+sousFamilles[i]+'</option>';
 		    	} else {
 		    		options += '<option value="'+sousFamilles[i]+'">'+sousFamilles[i]+'</option>';
