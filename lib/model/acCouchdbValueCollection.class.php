@@ -11,8 +11,14 @@ class acCouchdbValueCollection extends acCouchdbCollection {
                     }
                 } else {
                     foreach ($data->rows as $item) {
-                        if ($this->_hydrate == acCouchdbClient::HYDRATE_JSON) {
-                            $this->_datas[$item->id] = $item->value;
+                        if ($this->_hydrate == acCouchdbClient::HYDRATE_ON_DEMAND) {
+                            $this->_datas[$item->id] = null;
+                        } elseif ($this->_hydrate == acCouchdbClient::HYDRATE_ON_DEMAND_WITH_DATA) {
+                            $this->_datas[$item->id] = $item->doc;
+                        } elseif ($this->_hydrate == acCouchdbClient::HYDRATE_JSON) {
+                            $this->_datas[$item->id] = $item->doc;
+                        } elseif ($this->_hydrate == acCouchdbClient::HYDRATE_DOCUMENT) {
+                            $this->_datas[$item->id] = acCouchdbManager::getClient()->create($item->doc);
                         }
                     }
                 }
