@@ -23,7 +23,7 @@
  * @author     Jean-Baptiste Le Metayer <lemetayer.jb@gmail.com>
  * @version    0.1
  */
-abstract class BaseacVinCompte extends sfCouchdbDocument 
+abstract class BaseacVinCompte extends acCouchdbDocument 
 {
 	public function getDocumentDefinitionModel() 
 	{

@@ -75,7 +75,7 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
      */
     public function signIn($cas_user) 
     {
-        $compte = sfCouchdbManager::getClient('_Compte')->retrieveByLogin($cas_user);
+        $compte = acCouchdbManager::getClient('_Compte')->retrieveByLogin($cas_user);
         if (!$compte) {
             throw new sfException('compte does not exist');
         }
@@ -121,7 +121,7 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
                 $this->addCredential($credential);
         }
         if ($compte->type == 'CompteProxy') {
-            $this->signInCompte(sfCouchdbManager::getClient()->retrieveDocumentById($compte->compte_reference));
+            $this->signInCompte(acCouchdbManager::getClient()->retrieveDocumentById($compte->compte_reference));
         }
     }
     
@@ -144,7 +144,7 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
     {
         $this->requireCompte();
         if (is_null($this->_compte)) {
-            $this->_compte = sfCouchdbManager::getClient('_Compte')->retrieveByLogin($this->getAttribute(self::SESSION_COMPTE, null, $this->getNamespaceCompte()));
+            $this->_compte = acCouchdbManager::getClient('_Compte')->retrieveByLogin($this->getAttribute(self::SESSION_COMPTE, null, $this->getNamespaceCompte()));
             if (!$this->_compte) {
                 $this->signOut();
                 throw new sfException("The compte does not exist");

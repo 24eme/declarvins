@@ -38,7 +38,7 @@ class ValidatorCompteLoginFirst extends sfValidatorBase
             return array_merge($values);
         }
         
-        $compte = sfCouchdbManager::getClient('_Compte')->retrieveByLogin($values['login']);
+        $compte = acCouchdbManager::getClient('_Compte')->retrieveByLogin($values['login']);
 
         if (!$compte) {
             throw new sfValidatorErrorSchema($this, array($this->getOption('mdp') => new sfValidatorError($this, 'invalid')));

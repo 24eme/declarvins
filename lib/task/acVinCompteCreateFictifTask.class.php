@@ -63,7 +63,7 @@ EOF;
         throw new sfCommandException("L'identifiant doit commencer par \"ext-\"");
     }
 
-    if (sfCouchdbManager::getClient()->retrieveDocumentById('COMPTE-'.$arguments['login'])) {
+    if (acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-'.$arguments['login'])) {
         throw new sfCommandException(sprintf("Le compte \"%s\" existe déjà", $arguments['login']));
     }
     

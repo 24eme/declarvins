@@ -52,7 +52,7 @@ class acVinCompteTiers extends BaseacVinCompteTiers
 	  		$this->_duplicated = null;
 	  		$this->_tiers = array();
 	  		foreach ($this->tiers as $tiers) {
-	    		$this->_tiers[] = sfCouchdbManager::getClient()->retrieveDocumentById($tiers->id);
+	    		$this->_tiers[] = acCouchdbManager::getClient()->retrieveDocumentById($tiers->id);
 	  		}
         }
         return $this->_tiers;

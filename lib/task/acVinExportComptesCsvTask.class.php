@@ -57,7 +57,7 @@ EOF;
 
         $tiers = array();
         foreach ($arguments['tiers_types'] as $tiers_type) {
-            $tiers = array_merge($tiers, sfCouchdbManager::getClient($tiers_type)->getAll(sfCouchdbClient::HYDRATE_JSON)->getDocs());
+            $tiers = array_merge($tiers, acCouchdbManager::getClient($tiers_type)->getAll(acCouchdbClient::HYDRATE_JSON)->getDocs());
         }
 
         $comptes = array();
@@ -110,7 +110,7 @@ EOF;
         );
 
         foreach ($comptes as $id_compte => $tiers_c) {
-            $compte = sfCouchdbManager::getClient()->retrieveDocumentById($id_compte, sfCouchdbClient::HYDRATE_JSON);
+            $compte = acCouchdbManager::getClient()->retrieveDocumentById($id_compte, acCouchdbClient::HYDRATE_JSON);
             if ($compte) {
                 foreach ($tiers_c as $t) {
 

@@ -23,7 +23,7 @@
  * @author     Jean-Baptiste Le Metayer <lemetayer.jb@gmail.com>
  * @version    0.1
  */
-class acVinCompteClient extends sfCouchdbClient 
+class acVinCompteClient extends acCouchdbClient 
 {
     
     /**
@@ -32,7 +32,7 @@ class acVinCompteClient extends sfCouchdbClient
      * @param integer $hydrate
      * @return Compte 
      */
-    public function retrieveByLogin($login, $hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) 
+    public function retrieveByLogin($login, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) 
     {
         return parent::retrieveDocumentById('COMPTE-'.$login, $hydrate);
     }
@@ -40,9 +40,9 @@ class acVinCompteClient extends sfCouchdbClient
     /**
      *
      * @param integer $hydrate
-     * @return sfCouchdbDocumentCollection 
+     * @return acCouchdbDocumentCollection 
      */
-    public function getAll($hydrate = sfCouchdbClient::HYDRATE_DOCUMENT) 
+    public function getAll($hydrate = acCouchdbClient::HYDRATE_DOCUMENT) 
     {
         return $this->startkey('COMPTE-')->endkey('COMPTE-C999999999')->execute($hydrate);
     }

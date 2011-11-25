@@ -160,7 +160,7 @@ class BaseacVinCompteActions extends sfActions
 
     public function executeAcVinCompteMotDePasseOublieLogin(sfWebRequest $request) 
     {
-        $this->forward404Unless($compte = sfCouchdbManager::getClient('_Compte')->retrieveByLogin($request->getParameter('login', null)));
+        $this->forward404Unless($compte = acCouchdbManager::getClient('_Compte')->retrieveByLogin($request->getParameter('login', null)));
         $this->forward404Unless($compte->mot_de_passe == '{OUBLIE}' . $request->getParameter('mdp', null));
         $this->getUser()->signInFirst($compte);
         $this->redirect('@ac_vin_compte_modification_oublie');

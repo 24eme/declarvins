@@ -34,7 +34,7 @@ class acVinCompteProxy extends BaseacVinCompteProxy
     public function getCompteReferenceObject() 
     {
         if (is_null($this->_compte_reference)) {
-            $this->_compte_reference = sfCouchdbManager::getClient()->retrieveDocumentById($this->compte_reference);
+            $this->_compte_reference = acCouchdbManager::getClient()->retrieveDocumentById($this->compte_reference);
             if (!$this->_compte_reference) {
                 throw new sfException("Le compte référence n'existe pas");
             }
