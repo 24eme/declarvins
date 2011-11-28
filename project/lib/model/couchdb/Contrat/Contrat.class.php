@@ -8,9 +8,8 @@ class Contrat extends BaseContrat {
      */
     public function getCompteObject() {
         if (is_null($this->_compte)) {
-            $this->_compte = _CompteClient::getInstance()->retrieveDocumentById($this->compte);
+            $this->_compte = acCouchdbManager::getClient('_Compte')->retrieveDocumentById($this->compte);
         }
-        
         return $this->_compte;
     }
 }
