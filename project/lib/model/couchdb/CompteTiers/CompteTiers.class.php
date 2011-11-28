@@ -4,6 +4,20 @@ class CompteTiers extends BaseCompteTiers {
     
     protected $_contrat = null;
     
+    public function getNbEtablissementByInterproId() 
+    {
+        $result = array();
+        foreach ($this->getTiers() as $tier) {
+            if (array_key_exists($tier->getInterpro(), $result)) {
+                $result[$tier->getInterpro()] = $result[$tier->getInterpro()] + 1;
+            }
+            else {
+                $result[$tier->getInterpro()] = 1;
+            }
+        }
+        return $result;
+    }
+    
     /**
      * @return _Compte
      */

@@ -11,7 +11,7 @@ class LiaisonInterproForm extends BaseForm {
      * @param array $options
      * @param string $CSRFSecret 
      */
-    public function __construct(_Compte $compte, $options = array(), $CSRFSecret = null) {
+    public function __construct(acVinCompte $compte, $options = array(), $CSRFSecret = null) {
         $this->_compte = $compte;
         $this->checkCompte();
         parent::__construct(array('interpro' => array_keys($this->_compte->getInterpro()->toArray())), $options, $CSRFSecret);
