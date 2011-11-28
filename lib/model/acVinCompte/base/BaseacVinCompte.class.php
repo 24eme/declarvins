@@ -27,6 +27,6 @@ abstract class BaseacVinCompte extends acCouchdbDocument
 {
 	public function getDocumentDefinitionModel() 
 	{
-        return '_Compte';
+        return 'acVinCompte';
     }
 }

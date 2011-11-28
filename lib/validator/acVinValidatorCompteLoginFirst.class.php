@@ -44,7 +44,7 @@ class ValidatorCompteLoginFirst extends sfValidatorBase
             throw new sfValidatorErrorSchema($this, array($this->getOption('mdp') => new sfValidatorError($this, 'invalid')));
         }
                 
-        if ($compte->getStatus() != _Compte::STATUS_NOUVEAU){
+        if ($compte->getStatut() != _Compte::STATUT_NOUVEAU){
             throw new sfValidatorErrorSchema($this, array($this->getOption('mdp') => new sfValidatorError($this, 'invalid_status')));
         }
         

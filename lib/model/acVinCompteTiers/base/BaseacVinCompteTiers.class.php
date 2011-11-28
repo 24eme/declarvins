@@ -23,10 +23,11 @@
  * @author     Jean-Baptiste Le Metayer <lemetayer.jb@gmail.com>
  * @version    0.1
  */
-class BaseacVinCompteTiers extends acVinCompte 
+
+class BaseacVinCompteTiers extends _Compte
 {
     public function getDocumentDefinitionModel() 
     {
-        return 'CompteTiers';
+        return 'acVinCompteTiers';
     }
 }

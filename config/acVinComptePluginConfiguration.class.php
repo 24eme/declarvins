@@ -30,6 +30,8 @@ class acVinComptePluginConfiguration extends sfPluginConfiguration
    */
   public function initialize()
   {
-
+		if (!class_exists('_Compte')) {
+			//require_once dirname(__FILE__).'/../lib/_Compte.php';
+		}
   }
 }

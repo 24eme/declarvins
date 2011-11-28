@@ -23,7 +23,7 @@
  * @author     Jean-Baptiste Le Metayer <lemetayer.jb@gmail.com>
  * @version    0.1
  */
-class acVinCreationCompteForm extends CompteForm 
+class acVinCreationCompteForm extends acVinCompteForm 
 {    
     /**
      * 
@@ -31,7 +31,7 @@ class acVinCreationCompteForm extends CompteForm
     protected function checkCompte() 
     {
         parent::checkCompte();
-        if ($this->_compte->getStatus() != _Compte::STATUS_NOUVEAU) {
+        if ($this->_compte->getStatut() != _Compte::STATUT_NOUVEAU) {
             throw new sfException("compte must be status : NOUVEAU");
         }
     }

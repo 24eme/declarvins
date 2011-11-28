@@ -90,7 +90,7 @@ class BaseacVinCompteActions extends sfActions
     public function executeAcVinCompteCreation(sfWebRequest $request) 
     {
         $this->compte = $this->getUser()->getCompte();
-        $this->forward404Unless($this->compte->getStatus() == _Compte::STATUS_NOUVEAU);
+        $this->forward404Unless($this->compte->getStatut() == _Compte::STATUT_NOUVEAU);
 
         $this->form = new CreationCompteForm($this->compte);
 
@@ -117,7 +117,7 @@ class BaseacVinCompteActions extends sfActions
     public function executeAcVinCompteModificationOublie(sfWebRequest $request) 
     {
         $this->compte = $this->getUser()->getCompte();
-        $this->forward404Unless($this->compte->getStatus() == _Compte::STATUS_MOT_DE_PASSE_OUBLIE);
+        $this->forward404Unless($this->compte->getStatut() == _Compte::STATUT_MOT_DE_PASSE_OUBLIE);
 
         $this->form = new CompteModificationOublieForm($this->compte);
 
@@ -144,7 +144,7 @@ class BaseacVinCompteActions extends sfActions
     public function executeAcVinCompteModification(sfWebRequest $request) 
     {
         $this->compte = $this->getUser()->getCompte();
-        $this->forward404Unless(in_array($this->compte->getStatus(), array(_Compte::STATUS_MOT_DE_PASSE_OUBLIE, _Compte::STATUS_INSCRIT)));
+        $this->forward404Unless(in_array($this->compte->getStatut(), array(_Compte::STATUT_MOT_DE_PASSE_OUBLIE, _Compte::STATUT_INSCRIT)));
 
         $this->form = new CompteModificationForm($this->compte);
 

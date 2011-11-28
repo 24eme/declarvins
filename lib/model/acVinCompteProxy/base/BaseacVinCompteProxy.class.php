@@ -27,6 +27,6 @@ class BaseacVinCompteProxy extends acVinCompte
 {
     public function getDocumentDefinitionModel() 
     {
-        return 'CompteProxy';
+        return 'acVinCompteProxy';
     }
 }

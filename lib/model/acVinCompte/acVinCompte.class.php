@@ -25,22 +25,10 @@
  */
 abstract class acVinCompte extends BaseacVinCompte 
 {
-    const STATUS_NOUVEAU = 'NOUVEAU';
-    const STATUS_INSCRIT = 'INSCRIT';
-    const STATUS_MOT_DE_PASSE_OUBLIE = 'MOT_DE_PASSE_OUBLIE';
-    
-    /**
-     *
-     * @param string $mot_de_passe
-     * @deprecated
-     */
-    public function setPasswordSSHA($mot_de_passe) 
-    {
-        mt_srand((double)microtime()*1000000);
-        $salt = pack("CCCC", mt_rand(), mt_rand(), mt_rand(), mt_rand());
-        $hash = "{SSHA}" . base64_encode(pack("H*", sha1($mot_de_passe . $salt)) . $salt);
-        $this->_set('mot_de_passe', $hash);
-    }
+    const STATUT_NOUVEAU = 'NOUVEAU';
+    const STATUT_INSCRIT = 'INSCRIT';
+    const STATUT_INACTIF = 'INACTIF';
+    const STATUT_MOT_DE_PASSE_OUBLIE = 'MOT_DE_PASSE_OUBLIE';
     
 	/**
      *
@@ -60,11 +48,11 @@ abstract class acVinCompte extends BaseacVinCompte
     protected function updateStatut() 
     {
        if (substr($this->mot_de_passe,0,6) == '{SSHA}') {
-           $this->_set('statut', self::STATUS_INSCRIT);
+           $this->_set('statut', self::STATUT_INSCRIT);
        } elseif(substr($this->mot_de_passe,0,6) == '{TEXT}') {
-           $this->_set('statut', self::STATUS_NOUVEAU);
+           $this->_set('statut', self::STATUT_NOUVEAU);
        } elseif(substr($this->mot_de_passe,0,8) == '{OUBLIE}') {
-           $this->_set('statut', self::STATUS_MOT_DE_PASSE_OUBLIE);
+           $this->_set('statut', self::STATUT_MOT_DE_PASSE_OUBLIE);
        } else {
            $this->_set('statut', null);
        }
@@ -74,7 +62,7 @@ abstract class acVinCompte extends BaseacVinCompte
      *
      * @return string 
      */
-    public function getStatus() 
+    public function getStatut() 
     {
         $this->updateStatut();
         return $this->_get('statut');
@@ -83,54 +71,9 @@ abstract class acVinCompte extends BaseacVinCompte
     /**
      * 
      */
-    public function setStatus() 
+    public function setStatut() 
     {
         throw new sfException("Compte status is not editable");
-    }
-    
-    /**
-     *
-     * @return string 
-     */
-    public function getNom() 
-    {
-        return ' ';
-    }
-    
-    /**
-     *
-     * @return string 
-     */
-    public function getGecos() 
-    {
-        return ',,'.$this->getNom().',';
-    }
-    
-    /**
-     *
-     * @return string 
-     */
-    public function getAdresse() 
-    {
-        return ' ';
-    }
-    
-    /**
-     *
-     * @return string 
-     */
-    public function getCodePostal() 
-    {
-        return ' ';
-    }
-    
-    /**
-     *
-     * @return string 
-     */
-    public function getCommune() 
-    {
-        return  ' ';
     }
     
     /**
@@ -140,5 +83,10 @@ abstract class acVinCompte extends BaseacVinCompte
     {
         $this->updateStatut();
         parent::save();
+    }
+    
+	public function constructId() 
+    {
+        $this->set('_id', sfConfig::get('app_ac_vin_compte_couchdb_prefix').$this->login);
     }
 }

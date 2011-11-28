@@ -39,37 +39,6 @@ class acVinCompteProxy extends BaseacVinCompteProxy
                 throw new sfException("Le compte référence n'existe pas");
             }
         }
-        
         return $this->_compte_reference;
-    }
-    
-    public function getNom() 
-    {
-        return $this->getCompteReferenceObject()->getNom();
-    }
-    
-    public function getTiers() 
-    {
-        return $this->getCompteReferenceObject()->getTiers();
-    }
-    
-    public function getGecos() 
-    {
-        return $this->getCompteReferenceObject()->getGecos(); 
-    }
-    
-    public function getAdresse() 
-    {
-        return $this->getCompteReferenceObject()->getAdresse();
-    }
-    
-    public function getCodePostal() 
-    {
-        return $this->getCompteReferenceObject()->getCodePostal();
-    }
-    
-    public function getCommune() 
-    {
-        return $this->getCompteReferenceObject()->getCommune();
     }
 }

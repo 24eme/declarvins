@@ -28,7 +28,7 @@ class acVinCompteModificationOublieForm extends CompteForm
     protected function checkCompte() 
     {
         parent::checkCompte();
-        if ($this->_compte->getStatus() != _Compte::STATUS_MOT_DE_PASSE_OUBLIE) {
+        if ($this->_compte->getStatut() != _Compte::STATUT_MOT_DE_PASSE_OUBLIE) {
             throw new sfException("compte must be status : OUBLIE");
         }
     }

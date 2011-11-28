@@ -41,23 +41,23 @@ class _acVinCompteTest extends PHPUnit_Framework_TestCase
 	$password = 'test';
 	$object->setMotDePasseSSHA($password);
   	$updateStatut->invokeArgs($object, array());
-	$this->assertEquals($object::STATUS_INSCRIT, $object->statut);
+	$this->assertEquals($object::STATUT_INSCRIT, $object->statut);
 	$object->mot_de_passe = str_replace('{SSHA}', '{TEXT}', $object->mot_de_passe);
   	$updateStatut->invokeArgs($object, array());
-	$this->assertEquals($object::STATUS_NOUVEAU, $object->statut);
+	$this->assertEquals($object::STATUT_NOUVEAU, $object->statut);
 	$object->mot_de_passe = str_replace('{TEXT}', '{OUBLIE}', $object->mot_de_passe);
   	$updateStatut->invokeArgs($object, array());
-	$this->assertEquals($object::STATUS_MOT_DE_PASSE_OUBLIE, $object->statut);
+	$this->assertEquals($object::STATUT_MOT_DE_PASSE_OUBLIE, $object->statut);
 	$object->mot_de_passe = str_replace('{OUBLIE}', '{BIDON}', $object->mot_de_passe);
   	$updateStatut->invokeArgs($object, array());
 	$this->assertNull($object->statut);
 
   }
-  public function testSetStatus()
+  public function testSetStatut()
   {
   	$object = $this->getMockForAbstractClass('_acVinCompte');
 	try {
-		$object->setStatus();
+		$object->setStatut();
     } catch (Exception $expected) {
 		return;
 	}

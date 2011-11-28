@@ -23,19 +23,8 @@
  * @author     Jean-Baptiste Le Metayer <lemetayer.jb@gmail.com>
  * @version    0.1
  */
-class acVinCompteModificationForm extends CompteForm 
+class acVinCompteModificationForm extends acVinCompteForm 
 {
-    
-    /**
-     * 
-     */
-    protected function checkCompte() 
-    {
-        parent::checkCompte();
-        if ($this->_compte->getStatus() != _Compte::STATUS_INSCRIT) {
-            throw new sfException("compte must be status : INSCRIT");
-        }
-    }
     
     /**
      * 
@@ -47,23 +36,12 @@ class acVinCompteModificationForm extends CompteForm
         $this->getValidator('mdp2')->setOption('required', false);
     }
     
-    /**
-     *
-     * @return _Compte 
-     */
-    public function save() 
-    {
-        if ($this->isValid()) {
-            if ($this->getValue('mdp1')) {
-                $this->_compte->setPasswordSSHA($this->getValue('mdp1'));
-            }
-            $this->_compte->email = $this->getValue('email');
-            $this->_compte->save();
-            $this->_compte->updateLdap();
-        } else {
-            throw new sfException("form must be valid");
-        }
-        
-        return $this->_compte;
-    }
+    
+    
+	public function doUpdateObject($values) {
+		parent::doUpdateObject($values);
+		if (!$this->getObject()->isNew()) {
+			$this->getObject()->setMotDePasseSSHA($values['mdp1']);
+		}
+	}
 }

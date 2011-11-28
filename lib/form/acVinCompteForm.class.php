@@ -23,37 +23,8 @@
  * @author     Jean-Baptiste Le Metayer <lemetayer.jb@gmail.com>
  * @version    0.1
  */
-abstract class acVinCompteForm extends BaseForm 
+class acVinCompteForm extends acCouchdbFormDocumentJson 
 {
-    
-    protected $_compte = null;
-    
-    /**
-     *
-     * @param Compte $compte
-     * @param array $options
-     * @param string $CSRFSecret 
-     */
-    public function __construct(_Compte $compte, $options = array(), $CSRFSecret = null) 
-    {
-        $this->_compte = $compte;
-        $this->checkCompte();
-        parent::__construct(array('email' => $this->_compte->email), $options, $CSRFSecret);
-    }
-    
-    /**
-     * 
-     */
-    protected function checkCompte() 
-    {
-        if (!$this->_compte) {
-            throw new sfException("compte does exist");
-        }
-    }
-    
-    /**
-     * 
-     */
     public function configure() 
     {
         $this->setWidgets(array(
@@ -68,7 +39,7 @@ abstract class acVinCompteForm extends BaseForm
                 'mdp2'  => 'Vérification du mot de passe: '
         ));
 
-        $this->widgetSchema->setNameFormat('compte[%s]');
+        $this->widgetSchema->setNameFormat('ac_vin_compte[%s]');
 
         $this->setValidators(array(
                 'email' => new sfValidatorEmail(array('required' => true),array('required' => 'Champ obligatoire', 'invalid' => 'Adresse email invalide.')),
@@ -81,14 +52,5 @@ abstract class acVinCompteForm extends BaseForm
                                                                              'mdp2',
                                                                              array(),
                                                                              array('invalid' => 'The passwords must match')));
-    }
-    
-    /**
-     * 
-     * @return _Compte
-     */
-    public function save() 
-    {
-        throw new sfException("method not defined");
     }
 }

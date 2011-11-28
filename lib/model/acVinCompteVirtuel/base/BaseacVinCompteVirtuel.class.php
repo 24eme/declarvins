@@ -27,6 +27,6 @@ class BaseacVinCompteVirtuel extends acVinCompte
 {
     public function getDocumentDefinitionModel() 
     {
-        return 'CompteVirtuel';
+        return 'acVinCompteVirtuel';
     }
 }
