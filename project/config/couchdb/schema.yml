@@ -1,4 +1,4 @@
-_Compte:
+acVinCompte:
   type: abstract
   definition:
     fields:
@@ -11,6 +11,14 @@ _Compte:
         definition:
           fields:
             '*': { }
+
+_Compte:
+  inheritance: acVinCompte
+  type: abstract
+  definition:
+    fields:
+      login: { }
+            
 _Tiers:
   type: abstract
   definition:
@@ -20,12 +28,29 @@ _Tiers:
       type: {  }
       statut: {  }
 
-CompteTiers:
+acVinCompteTiers:
   inheritance: _Compte
   definition:
     fields:
       _id: {  }
       _rev: {  }
+      tiers:
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  id: {  }
+                  type: {  }
+                  nom: {  }
+                  interpro: {  }
+                  
+CompteTiers:
+  inheritance: acVinCompteTiers
+  definition:
+    fields:
       nom: {  }
       prenom: {  }
       fonction: {  }
@@ -42,18 +67,7 @@ CompteTiers:
               definition:
                 fields:
                   statut: {  }
-      tiers:
-        type: collection
-        definition:
-          fields:
-            '*':
-              type: collection
-              definition:
-                fields:
-                  id: {  }
-                  type: {  }
-                  nom: {  }
-                  interpro: {  }
+                  
 
 Interpro:
   inheritance: _Tiers

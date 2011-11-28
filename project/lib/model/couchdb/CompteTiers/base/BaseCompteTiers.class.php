@@ -1,7 +1,8 @@
 <?php
-
-class BaseCompteTiers extends _Compte {
-    public function getDocumentDefinitionModel() {
+class BaseCompteTiers extends acVinCompteTiers {
+    public function getDocumentDefinitionModel() 
+    {
         return 'CompteTiers';
     }
+
 }
