@@ -23,7 +23,7 @@
  * @author     Jean-Baptiste Le Metayer <lemetayer.jb@gmail.com>
  * @version    0.1
  */
-class BaseacVinCompteProxy extends acVinCompte 
+class BaseacVinCompteProxy extends _Compte 
 {
     public function getDocumentDefinitionModel() 
     {

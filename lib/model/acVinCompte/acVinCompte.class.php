@@ -42,49 +42,6 @@ abstract class acVinCompte extends BaseacVinCompte
         $this->_set('mot_de_passe', $hash);
     }
     
-    /**
-     * 
-     */
-    protected function updateStatut() 
-    {
-       if (substr($this->mot_de_passe,0,6) == '{SSHA}') {
-           $this->_set('statut', self::STATUT_INSCRIT);
-       } elseif(substr($this->mot_de_passe,0,6) == '{TEXT}') {
-           $this->_set('statut', self::STATUT_NOUVEAU);
-       } elseif(substr($this->mot_de_passe,0,8) == '{OUBLIE}') {
-           $this->_set('statut', self::STATUT_MOT_DE_PASSE_OUBLIE);
-       } else {
-           $this->_set('statut', null);
-       }
-    }
-    
-    /**
-     *
-     * @return string 
-     */
-    public function getStatut() 
-    {
-        $this->updateStatut();
-        return $this->_get('statut');
-    }
-    
-    /**
-     * 
-     */
-    public function setStatut() 
-    {
-        throw new sfException("Compte status is not editable");
-    }
-    
-    /**
-     * 
-     */
-    public function save() 
-    {
-        $this->updateStatut();
-        parent::save();
-    }
-    
 	public function constructId() 
     {
         $this->set('_id', sfConfig::get('app_ac_vin_compte_couchdb_prefix').$this->login);
