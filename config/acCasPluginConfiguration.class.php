@@ -5,8 +5,6 @@
  * Authors :
  * Jean-Baptiste Le Metayer <lemetayer.jb@gmail.com>
  * Vincent Laurent <vince.laurent@gmail.com>
- * Tangui Morlier <tangui@tangui.eu.org>
- * Charlotte De Vichet <c.devichet@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
