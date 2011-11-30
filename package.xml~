@@ -5,7 +5,7 @@
     http://pear.php.net/dtd/package-2.0.xsd">
  <name>acExceptionNotifierPlugin</name>
  <uri>https://gitorious.org/acexceptionnotifierplugin</uri>
- <summary>acExceptionNotifierPlugin - Allows you to send by e-mails errors 500.</summary>
+ <summary>acExceptionNotifierPlugin - Allows you to send by e-mails errors 500 (Exception type) that occur in production environments.</summary>
  <description>Allows you to send by e-mails errors 500 (Exception type) that occur in production environments.</description>
  <lead>
   <name>Jean-Baptiste Le Metayer</name>
