@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+    http://pear.php.net/dtd/tasks-1.0.xsd
+    http://pear.php.net/dtd/package-2.0
+    http://pear.php.net/dtd/package-2.0.xsd">
+ <name>acDompdfPlugin</name>
+ <uri>https://gitorious.org/acdompdfplugin</uri>
+ <summary>acDompdfPlugin</summary>
+ <description>Allows you to use easily the DOMPDF library (an HTML to PDF converter).</description>
+ <lead>
+  <name>Jean-Baptiste Le Metayer</name>
+  <user>jblemetayer</user>
+  <email>lemetayer.jb@gmail.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Vincent Laurent</name>
+  <user>vlaurent</user>
+  <email>vince.laurent@gmail.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-11-30</date>
+ <version>
+  <release>0.1</release>
+  <api>0.1</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/mit-license.html">MIT</license>
+ <notes>
+Initial release
+ </notes>
+ <contents>
+  <dir baseinstalldir="." name="/">
+   <file baseinstalldir="." md5sum="28a4356e7f7dbe108ca0b3a3590687f9" name="config/acDompdfPluginConfiguration.class.php" role="data" />
+   <file baseinstalldir="." md5sum="f3f7614a67039c2a4bbc859de598651d" name="lib/acDompdfBridge.class.php" role="data" />
+   <file baseinstalldir="." md5sum="4eb4bcb26aee6ae81c87d31cedb3386b" name="lib/vendor/dompdf/dompdf.php" role="data" />
+   <file baseinstalldir="." md5sum="5d3e74ed750751a8ef350db7472e2174" name="lib/vendor/dompdf/dompdf_config.custom.inc.php" role="data" />
+   <file baseinstalldir="." md5sum="42aefc77901c5f3c984a88398a28e734" name="lib/vendor/dompdf/dompdf_config.inc.php" role="data" />
+   <file baseinstalldir="." md5sum="2a997265330410f8b508fe71d402a144" name="lib/vendor/dompdf/index.php" role="data" />
+   <file baseinstalldir="." md5sum="3b574c68f70fcf4b8dcd71915463de9b" name="lib/vendor/dompdf/LICENSE.LGPL" role="data" />
+   <file baseinstalldir="." md5sum="5bc8955f7bb4fb0597bbeecb7a777334" name="lib/vendor/dompdf/load_font.php" role="data" />
+   <file baseinstalldir="." md5sum="4c7930728e08a3351e9fe1c4eccc3d2e" name="lib/vendor/dompdf/include/absolute_positioner.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="67cdec1b98902b5f6c1fb54dc41db428" name="lib/vendor/dompdf/include/abstract_renderer.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="e218b1aeafe0ef50ba66a0e27f4a2128" name="lib/vendor/dompdf/include/attribute_translator.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="50d683ec6d0a726183a97fefc9d3d677" name="lib/vendor/dompdf/include/block_frame_decorator.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="4f96262ca0c97d93bbdfaaffc66f848d" name="lib/vendor/dompdf/include/block_frame_reflower.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="4730628e3707baddb16edfa6895fe290" name="lib/vendor/dompdf/include/block_positioner.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="cfd0d95c2edee9d11655ebd28936faeb" name="lib/vendor/dompdf/include/block_renderer.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="8eacd7fb09b3971767b1e6571f836c0c" name="lib/vendor/dompdf/include/cached_pdf_decorator.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="748c5d426621712d73cbddbdbc3add55" name="lib/vendor/dompdf/include/canvas.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="cc09909b21d09b143010fb8f78ca2a3a" name="lib/vendor/dompdf/include/canvas_factory.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="0c48dc7e12abcd31d86af5112ede88a0" name="lib/vendor/dompdf/include/cellmap.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="97d93913a5c3b7dd840f62d7a954a283" name="lib/vendor/dompdf/include/cpdf_adapter.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="bb7817ba69e292d618da62b2c2be90ef" name="lib/vendor/dompdf/include/css_color.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="618223f11491d305329b7f37e46ea9a5" name="lib/vendor/dompdf/include/dompdf.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="ebc0d38b2ca2cdea9b934dc95a0fe560" name="lib/vendor/dompdf/include/dompdf_exception.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="38dd1a188743cab922b5d1d3200abfb8" name="lib/vendor/dompdf/include/dompdf_internal_exception.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="a7064fbadabe3ed68420fc7170be8cd2" name="lib/vendor/dompdf/include/file.skel" role="data" />
+   <file baseinstalldir="." md5sum="d1830a20dbe56542a19d8f1bd7dfc041" name="lib/vendor/dompdf/include/fixed_positioner.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="18aa6aeb70c75ed1a4bbb1b4d164398d" name="lib/vendor/dompdf/include/font_metrics.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="0354e586a107dd1e08c5a3832dd73bf3" name="lib/vendor/dompdf/include/frame.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="23ffac36a1aa78f11082fd97e06b0165" name="lib/vendor/dompdf/include/frame_decorator.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="538aca94633baa2499cdcd11cea9dc39" name="lib/vendor/dompdf/include/frame_factory.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="a6663f2d87d1ac8ca4b5aabe0cbf50f3" name="lib/vendor/dompdf/include/frame_reflower.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="1b60b77773818b9e9917916426def21e" name="lib/vendor/dompdf/include/frame_tree.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="8350aff87613bb3155ba19cf3b96ecc8" name="lib/vendor/dompdf/include/functions.inc.php" role="data" />
+   <file baseinstalldir="." md5sum="e238e01d5d737d517a547d53450994ef" name="lib/vendor/dompdf/include/gd_adapter.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="425776ebb88a471d96d316a7a982624a" name="lib/vendor/dompdf/include/image_cache.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="204ce432d50fee262bba809ad5cdcd5c" name="lib/vendor/dompdf/include/image_frame_decorator.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="45c4193da1acc588c109c9d458071102" name="lib/vendor/dompdf/include/image_frame_reflower.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="8c64337070377bd1b1bb8abfd126c598" name="lib/vendor/dompdf/include/image_renderer.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="7a8b8f1c684f38e7e4a286e46db7e0e5" name="lib/vendor/dompdf/include/inline_frame_decorator.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="798eccf2bf8e9c8be5426cc089aed7bf" name="lib/vendor/dompdf/include/inline_frame_reflower.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="e55f25b5509b998e46ec411e717efa29" name="lib/vendor/dompdf/include/inline_positioner.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="5b13a27e24bce33f644869c1a7be6c2c" name="lib/vendor/dompdf/include/inline_renderer.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="f48b65fdf6b47a911323156a05da47f4" name="lib/vendor/dompdf/include/javascript_embedder.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="91114a14a525044eb9dcbaa8049fc93f" name="lib/vendor/dompdf/include/list_bullet_frame_decorator.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="d6f42218b46cf14f9ac998df66129f1b" name="lib/vendor/dompdf/include/list_bullet_frame_reflower.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="f0cf5922e1c7f232a87993f627bdc6b8" name="lib/vendor/dompdf/include/list_bullet_image_frame_decorator.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="cdc8c1886966701960536cdd09046507" name="lib/vendor/dompdf/include/list_bullet_positioner.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="bb7b2aa79eb9d2473f7408b1ab9efab4" name="lib/vendor/dompdf/include/list_bullet_renderer.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="d4cc5af789a16f221a2de82f8b652628" name="lib/vendor/dompdf/include/null_frame_decorator.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="0f09dac20fe3030466232c78ec985733" name="lib/vendor/dompdf/include/null_frame_reflower.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="9e83bdb9ce51b24b6296be2989f2f6de" name="lib/vendor/dompdf/include/null_positioner.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="648a9f9887969bfb1196add9682790b7" name="lib/vendor/dompdf/include/page_cache.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="c0402fa0e43a7ea7bacab79772fe7936" name="lib/vendor/dompdf/include/page_frame_decorator.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="a3322436349a0a6bb2e95b763fc408d2" name="lib/vendor/dompdf/include/page_frame_reflower.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="c7fbe2244003723714a95b8603d1b3de" name="lib/vendor/dompdf/include/pdflib_adapter.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="c1bd457b737efcc8b0baaec724baa14b" name="lib/vendor/dompdf/include/php_evaluator.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="bb6e8249afa94cf0c1b9277171d5efa1" name="lib/vendor/dompdf/include/positioner.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="3e7b6781d4bdc793179e83cf85522cb1" name="lib/vendor/dompdf/include/renderer.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="b283b87063f10d93604046d23d10c3e2" name="lib/vendor/dompdf/include/style.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="0818e27ebc003ebe4ba27ec61aac800f" name="lib/vendor/dompdf/include/stylesheet.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="661baebd86b45c10604c4a46e9491d1f" name="lib/vendor/dompdf/include/table_cell_frame_decorator.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="d9d3f342f514cb40c2fe930758b2e115" name="lib/vendor/dompdf/include/table_cell_frame_reflower.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="6b0287996994183788f7078117c92f37" name="lib/vendor/dompdf/include/table_cell_positioner.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="935a48e301be6b8e368e982648abde60" name="lib/vendor/dompdf/include/table_cell_renderer.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="89256fff8acf37ce16ca946dd1ec9827" name="lib/vendor/dompdf/include/table_frame_decorator.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="ad7191aa7afde66ecae412059b42c25e" name="lib/vendor/dompdf/include/table_frame_reflower.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="b158b21f19d42c59c0c5c986f724e39f" name="lib/vendor/dompdf/include/table_row_frame_decorator.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="ae6d5b73117c589a5cbef400692597c8" name="lib/vendor/dompdf/include/table_row_frame_reflower.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="eae925d6487df704bf8c9d2fe16aaaf4" name="lib/vendor/dompdf/include/table_row_group_frame_decorator.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="daf0804c97a9378b86058c4c8b074d76" name="lib/vendor/dompdf/include/table_row_group_frame_reflower.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="5a936c73a4ab133a9dc25b586aa0c9d7" name="lib/vendor/dompdf/include/table_row_positioner.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="3a73ad951fadba0a3c461c13c6723e67" name="lib/vendor/dompdf/include/tcpdf_adapter.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="3da648b83a39a48994b6a39e2b6db2cf" name="lib/vendor/dompdf/include/text_frame_decorator.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="ef9a102c839cca524884b9891e5d9718" name="lib/vendor/dompdf/include/text_frame_reflower.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="8a58725ba9ddc60afbbf38745bf17363" name="lib/vendor/dompdf/include/text_renderer.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="176f583c658488d947c49713e913eac8" name="lib/vendor/dompdf/include/ttf_info.cls.php" role="data" />
+   <file baseinstalldir="." md5sum="4af9ee3d891858c67a111893607a136d" name="lib/vendor/dompdf/lib/class.pdf.php" role="data" />
+   <file baseinstalldir="." md5sum="6fc48972d0c4e1d877df9f774f2c607c" name="lib/vendor/dompdf/lib/fonts/Courier-Bold.afm" role="data" />
+   <file baseinstalldir="." md5sum="02721b7f14f2a3ad5629c0d608580975" name="lib/vendor/dompdf/lib/fonts/Courier-BoldOblique.afm" role="data" />
+   <file baseinstalldir="." md5sum="c51785e1b5692e50810d3af9f11ea719" name="lib/vendor/dompdf/lib/fonts/Courier-Oblique.afm" role="data" />
+   <file baseinstalldir="." md5sum="4a20aa7b0aee057d4ccf646a8bcb4ef7" name="lib/vendor/dompdf/lib/fonts/Courier.afm" role="data" />
+   <file baseinstalldir="." md5sum="71bf55aa0dfec3fd76c070a0167c96ee" name="lib/vendor/dompdf/lib/fonts/dompdf_font_family_cache.dist.php" role="data" />
+   <file baseinstalldir="." md5sum="e3fe0c36a8f5897803e143fa3ce8b050" name="lib/vendor/dompdf/lib/fonts/Helvetica-Bold.afm" role="data" />
+   <file baseinstalldir="." md5sum="42a473f85d788afc871c2fd54432ccb3" name="lib/vendor/dompdf/lib/fonts/Helvetica-BoldOblique.afm" role="data" />
+   <file baseinstalldir="." md5sum="4d78336194ea1cb084db129325b6b710" name="lib/vendor/dompdf/lib/fonts/Helvetica-Oblique.afm" role="data" />
+   <file baseinstalldir="." md5sum="160cca93dd018a6d212de1648f656e42" name="lib/vendor/dompdf/lib/fonts/Helvetica.afm" role="data" />
+   <file baseinstalldir="." md5sum="e5013b5c73921e3dea085e1615a22f66" name="lib/vendor/dompdf/lib/fonts/mustRead.html" role="data" />
+   <file baseinstalldir="." md5sum="b4a0380a9218d59a0fade19bd62267a0" name="lib/vendor/dompdf/lib/fonts/Symbol.afm" role="data" />
+   <file baseinstalldir="." md5sum="9596500caf1b36a9c55f641b219c45cc" name="lib/vendor/dompdf/lib/fonts/Times-Bold.afm" role="data" />
+   <file baseinstalldir="." md5sum="d53c92f1d481dfeab08ca52d0e98ae95" name="lib/vendor/dompdf/lib/fonts/Times-BoldItalic.afm" role="data" />
+   <file baseinstalldir="." md5sum="de1bc28c9c6de2024a31e01e58ed84cf" name="lib/vendor/dompdf/lib/fonts/Times-Italic.afm" role="data" />
+   <file baseinstalldir="." md5sum="7e26f98e7e2d477a5c84c4719b0b0327" name="lib/vendor/dompdf/lib/fonts/Times-Roman.afm" role="data" />
+   <file baseinstalldir="." md5sum="2cd8c462e075c9dda87546ab356aaa32" name="lib/vendor/dompdf/lib/fonts/ZapfDingbats.afm" role="data" />
+   <file baseinstalldir="." md5sum="dbb511bf5c2d3b020c58e6bf9bf51abe" name="lib/vendor/dompdf/lib/res/broken_image.png" role="data" />
+   <file baseinstalldir="." md5sum="675154ff0a849aa5d64bd08e4d1209c4" name="lib/vendor/dompdf/lib/res/html.css" role="data" />
+   <file baseinstalldir="." md5sum="e3d15763875a3b5d4190cf70793aff55" name="lib/vendor/dompdf/lib/ttf2ufm/README.TXT" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/bin/ttf2ufm.exe" role="data" />
+   
+   
+   
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/bdf.c" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/bitmap.c" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/byteorder.h" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/CHANGES" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/CHANGES.html" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/COPYRIGHT" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/cygbuild.sh" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/FONTS" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/FONTS.hpux" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/FONTS.hpux.html" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/FONTS.html" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/ft.c" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/global.h" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/Makefile" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/pt1.c" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/pt1.h" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/README" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/README.FIRST" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/README.html" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/runt1asm.c" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/t1asm.c" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/ttf.c" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/ttf.h" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/ttf2pt1.1" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/ttf2pt1.c" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/ttf2pt1_convert.1" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/ttf2pt1_x2gs.1" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/ttf2ufm" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/version.h" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/winbuild.bat" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/windows.h" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/netscape/fontsz.cf" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/netscape/Makefile" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/netscape/notscape" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/netscape/nsfilter" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/netscape/nsfix.c" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/netscape/nspr" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/netscape/nsprint" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/netscape/psfonts.cf" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/netscape/README" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/netscape/README.html" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/RPM/Makefile" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/RPM/ttf2pt1.spec" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/RPM/ttf2pt1.spec.src" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/TeX/cjk-latex-config" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/TeX/cjk-latex-t1mapgen" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/TeX/README" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/TeX/README.html" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/TeX/sfd2map" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/X11/README" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/X11/README.html" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/X11/t1-xf86.39.patch" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/app/X11/t1-xf86.334.patch" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/README" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/README.html" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/adobestd/adobe-std.tbl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/bulgarian/encodings.alias" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/bulgarian/ibm-866.tbl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/bulgarian/ibm-1251.tbl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/bulgarian/iso8859-5.tbl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/bulgarian/koi8-r.tbl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/bulgarian/README" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/cyrillic/encodings.alias" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/cyrillic/ibm-866.tbl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/cyrillic/ibm-1251.tbl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/cyrillic/iso8859-5.tbl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/cyrillic/koi8-r.tbl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/latin1/iso8859-1.tbl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/latin2/iso8859-2.tbl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/latin4/iso8859-4" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/latin4/iso8859-4.tbl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/latin5/iso8859-9" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/russian/encodings.alias" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/russian/ibm-866.tbl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/russian/ibm-1251.tbl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/russian/iso8859-5.tbl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/russian/koi8-r.tbl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/encodings/russian/README" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/maps/adobe-standard-encoding.map" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/maps/CP1250.map" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/maps/CP1251.map" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/maps/cubg5plus.map" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/maps/cubig5.map" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/maps/cugb.map" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/maps/cugbk.map" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/maps/T2A_compact.map" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/maps/ubig5.map" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/maps/ugb.map" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/maps/ugbk.map" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/maps/unicode-sample.map" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/other/bmpfont.h" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/other/bz.c" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/other/bzscreen.c" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/other/bzscreen.h" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/other/cmpf.c" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/other/cntstems.pl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/other/dmpf.c" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/other/lst.pl" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/other/Makefile" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/other/README" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/other/README.html" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/other/showdf" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/other/showg" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/scripts/convert" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/scripts/convert.cfg.sample" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/scripts/forceiso" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/scripts/frommap" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/scripts/html2man" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/scripts/inst_dir" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/scripts/inst_file" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/scripts/mkrel" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/scripts/t1fdir" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/scripts/trans" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/scripts/unhtml" role="data" />
+   <file baseinstalldir="." md5sum="4e6c749371e14d3a3d7dcad0c081b0eb" name="lib/vendor/dompdf/lib/ttf2ufm/src/scripts/x2gs" role="data" />
+   
+   
+   
+   
+   <file baseinstalldir="." md5sum="e417630677c9e722fd326ef6e92be390" name="lib/vendor/dompdf/www/controller.php" role="data" />
+   <file baseinstalldir="." md5sum="c191fc8f84d82b11d5a52074095c63f4" name="lib/vendor/dompdf/www/debugger.php" role="data" />
+   <file baseinstalldir="." md5sum="d59fca47dd286333a64190a67a355313" name="lib/vendor/dompdf/www/demo.php" role="data" />
+   <file baseinstalldir="." md5sum="37d4bcf8d0b3072285fb6994cb19f087" name="lib/vendor/dompdf/www/examples.php" role="data" />
+   <file baseinstalldir="." md5sum="bd410993650dcfd482f396666590f3c5" name="lib/vendor/dompdf/www/foot.inc" role="data" />
+   <file baseinstalldir="." md5sum="05b401c5615068cee27712747f2dcf34" name="lib/vendor/dompdf/www/head.inc" role="data" />
+   <file baseinstalldir="." md5sum="b928152a602503368530c9a915105f42" name="lib/vendor/dompdf/www/index.php" role="data" />
+   <file baseinstalldir="." md5sum="a8a2a48ddaa95527c6d3db763e2b7809" name="lib/vendor/dompdf/www/jquery-1.4.2.js" role="data" />
+   <file baseinstalldir="." md5sum="c8ec95f12afa4e7609eee126c3089b4b" name="lib/vendor/dompdf/www/setup.php" role="data" />
+   <file baseinstalldir="." md5sum="a2d306a2388b1f94bdc0338085490f49" name="lib/vendor/dompdf/www/style.css" role="data" />
+   <file baseinstalldir="." md5sum="149d3bd4c3c977c3d1629984b8a5de67" name="lib/vendor/dompdf/www/cssSandpaper/css/reset.css" role="data" />
+   <file baseinstalldir="." md5sum="c260e94c53eca2a4c27de8e948664d2b" name="lib/vendor/dompdf/www/cssSandpaper/js/cssQuery-p.js" role="data" />
+   <file baseinstalldir="." md5sum="d04ebd732ea65416403cc6ceace24515" name="lib/vendor/dompdf/www/cssSandpaper/js/cssSandpaper.js" role="data" />
+   <file baseinstalldir="." md5sum="d9a27761952a6b6f0c1a0f85eb645de2" name="lib/vendor/dompdf/www/cssSandpaper/js/EventHelpers.js" role="data" />
+   <file baseinstalldir="." md5sum="80e9f775d47c568df4b9abbd1a6d5f51" name="lib/vendor/dompdf/www/cssSandpaper/js/jcoglan.com/sylvester.js" role="data" />
+   <file baseinstalldir="." md5sum="5c61eea53b4294aa5c8dbea9a8379921" name="lib/vendor/dompdf/www/images/arrow_01.gif" role="data" />
+   <file baseinstalldir="." md5sum="110ce17762f3f263bc831dd99c33ab97" name="lib/vendor/dompdf/www/images/arrow_02.gif" role="data" />
+   <file baseinstalldir="." md5sum="98c1acc3fc9c6324b0c530186ba7e099" name="lib/vendor/dompdf/www/images/arrow_03.gif" role="data" />
+   <file baseinstalldir="." md5sum="7284099f2a4641c7672260cdd0246ef4" name="lib/vendor/dompdf/www/images/arrow_04.gif" role="data" />
+   <file baseinstalldir="." md5sum="a817d2d3ff19fa3517d0bbf03fcb4eae" name="lib/vendor/dompdf/www/images/arrow_05.gif" role="data" />
+   <file baseinstalldir="." md5sum="0a07faa589eac49e9b64014f67799d06" name="lib/vendor/dompdf/www/images/arrow_06.gif" role="data" />
+   <file baseinstalldir="." md5sum="6f94f74da5975aa2efb496cd8d7d3d92" name="lib/vendor/dompdf/www/images/css2.png" role="data" />
+   <file baseinstalldir="." md5sum="e0e6968494ad641ea693c9c1119f8863" name="lib/vendor/dompdf/www/images/dompdf_simple.png" role="data" />
+   <file baseinstalldir="." md5sum="4e9b398ab96547a064867f2d79218ef3" name="lib/vendor/dompdf/www/images/favicon.ico" role="data" />
+   <file baseinstalldir="." md5sum="025ba8ac023e35373d59e02c78e5bdba" name="lib/vendor/dompdf/www/images/favicon.png" role="data" />
+   <file baseinstalldir="." md5sum="fa6ba336b537c1d49dcacd264da68655" name="lib/vendor/dompdf/www/images/h_bar.gif" role="data" />
+   <file baseinstalldir="." md5sum="58249197c3eaf9cbd478a2bbfa93e20e" name="lib/vendor/dompdf/www/images/left_arrow.gif" role="data" />
+   <file baseinstalldir="." md5sum="e269ffabec0055f9bb0481752067f71d" name="lib/vendor/dompdf/www/images/logo.png" role="data" />
+   <file baseinstalldir="." md5sum="cd61a785ed034f917704ca96c1a0ed3f" name="lib/vendor/dompdf/www/images/logo.xcf" role="data" />
+   <file baseinstalldir="." md5sum="cd26dbd4037566fbe2fff19d2176a54c" name="lib/vendor/dompdf/www/images/php5-power-micro.png" role="data" />
+   <file baseinstalldir="." md5sum="73516981c875d08ebb13cf22606e1a1a" name="lib/vendor/dompdf/www/images/small_logo.png" role="data" />
+   <file baseinstalldir="." md5sum="ec1938c6312ce975bb4bbafaafbf1011" name="lib/vendor/dompdf/www/images/star_01.gif" role="data" />
+   <file baseinstalldir="." md5sum="d7fdcde3dc614d8c94eb2bd9424a5249" name="lib/vendor/dompdf/www/images/star_02.gif" role="data" />
+   <file baseinstalldir="." md5sum="2ae72684359033e2311e35ac836c2be8" name="lib/vendor/dompdf/www/images/star_03.gif" role="data" />
+   <file baseinstalldir="." md5sum="60208247d9bf6ec5149009500a2a1e70" name="lib/vendor/dompdf/www/images/star_04.gif" role="data" />
+   <file baseinstalldir="." md5sum="5675ca3805c0be24376333602726a216" name="lib/vendor/dompdf/www/images/star_05.gif" role="data" />
+   <file baseinstalldir="." md5sum="e84bf949fc712ea846f731c2ae679082" name="lib/vendor/dompdf/www/images/title.gif" role="data" />
+   <file baseinstalldir="." md5sum="cc3fa84d5269ba0df8fc420772179889" name="lib/vendor/dompdf/www/images/v_bar.gif" role="data" />
+   <file baseinstalldir="." md5sum="06a08242436409aa002c8ed8c87427bb" name="lib/vendor/dompdf/www/images/xhtml10.png" role="data" />
+   <file baseinstalldir="." md5sum="c92c5516ca19b9dfd54f157885a8b89c" name="lib/vendor/dompdf/www/test/backgroundcolor_fontdecoration_pageborder.html" role="data" />
+   <file baseinstalldir="." md5sum="d9c9fcde62ed9d9610c9cfab2593f255" name="lib/vendor/dompdf/www/test/css_2d_transforms.html" role="data" />
+   <file baseinstalldir="." md5sum="967d72b9bb48abc715b93f69818150aa" name="lib/vendor/dompdf/www/test/css_baseline.html" role="data" />
+   <file baseinstalldir="." md5sum="8adfe12e32f3384dbba146b1d35e2c6c" name="lib/vendor/dompdf/www/test/css_block_height.html" role="data" />
+   <file baseinstalldir="." md5sum="cc3c202a7ffa6f0696fdd4247672a320" name="lib/vendor/dompdf/www/test/css_border.html" role="data" />
+   <file baseinstalldir="." md5sum="507b67fa23514a8b22fa7013714311fe" name="lib/vendor/dompdf/www/test/css_border_values.html" role="data" />
+   <file baseinstalldir="." md5sum="346e0762de561f083a165534ceb51875" name="lib/vendor/dompdf/www/test/css_color_cmyk.html" role="data" />
+   <file baseinstalldir="." md5sum="c09600a151e616d4a8786642c1e7cc8b" name="lib/vendor/dompdf/www/test/css_content.html" role="data" />
+   <file baseinstalldir="." md5sum="58b45c527204a626af39c7321775eae1" name="lib/vendor/dompdf/www/test/css_float.html" role="data" />
+   <file baseinstalldir="." md5sum="996a0c066084100ef65fd30b63aa4eb4" name="lib/vendor/dompdf/www/test/css_font_selection.html" role="data" />
+   <file baseinstalldir="." md5sum="c69f95f9ec808c6d29f9d878768abeee" name="lib/vendor/dompdf/www/test/css_important_flag.html" role="data" />
+   <file baseinstalldir="." md5sum="9857ea963bdfaa05ecb00b8827543a64" name="lib/vendor/dompdf/www/test/css_letter_spacing.html" role="data" />
+   <file baseinstalldir="." md5sum="0a536dc5bd568944c9730c3e80f79d3b" name="lib/vendor/dompdf/www/test/css_line_height.html" role="data" />
+   <file baseinstalldir="." md5sum="c2c04563d99bc222b58408cf12a07f5a" name="lib/vendor/dompdf/www/test/css_margin.html" role="data" />
+   <file baseinstalldir="." md5sum="c05ec2b6f1f442f8e779ba1eb5ff9216" name="lib/vendor/dompdf/www/test/css_media.html" role="data" />
+   <file baseinstalldir="." md5sum="1dd84b3488c92c0e7db2f427d53aee1e" name="lib/vendor/dompdf/www/test/css_multiple_class.html" role="data" />
+   <file baseinstalldir="." md5sum="dea4d4d7960fc0407af4037369ffa6af" name="lib/vendor/dompdf/www/test/css_opacity.html" role="data" />
+   <file baseinstalldir="." md5sum="d6deed924964f317cd5187fd091d0b89" name="lib/vendor/dompdf/www/test/css_outline.html" role="data" />
+   <file baseinstalldir="." md5sum="38f25e4ab552458ba3f75e38274ac838" name="lib/vendor/dompdf/www/test/css_overflow_hidden.html" role="data" />
+   <file baseinstalldir="." md5sum="585424cb96094b91295dcf19b9fea855" name="lib/vendor/dompdf/www/test/css_position_all.html" role="data" />
+   <file baseinstalldir="." md5sum="c2027ada227af19c141b80f942200697" name="lib/vendor/dompdf/www/test/css_position_fixed.html" role="data" />
+   <file baseinstalldir="." md5sum="44b0c326bdd2a595f41fbddcae6417be" name="lib/vendor/dompdf/www/test/css_selectors.html" role="data" />
+   <file baseinstalldir="." md5sum="a10cecd3bb15caeed7c9c4ecff78d2c0" name="lib/vendor/dompdf/www/test/css_table_height.html" role="data" />
+   <file baseinstalldir="." md5sum="3d34bcc9ef58f1fa01641af0f556c82c" name="lib/vendor/dompdf/www/test/css_text_align.html" role="data" />
+   <file baseinstalldir="." md5sum="d1f92680705ef71fc03ef7c96d434465" name="lib/vendor/dompdf/www/test/css_z_index.html" role="data" />
+   <file baseinstalldir="." md5sum="9bddee86401f25dba8b9cd17228b3f4d" name="lib/vendor/dompdf/www/test/demo_01.html" role="data" />
+   <file baseinstalldir="." md5sum="5c679850ff4e93bb0ff9caca635ac819" name="lib/vendor/dompdf/www/test/dom_anchor_link.html" role="data" />
+   <file baseinstalldir="." md5sum="0ce7b204c48224fe9db24a4d0f65bcbf" name="lib/vendor/dompdf/www/test/dom_br.html" role="data" />
+   <file baseinstalldir="." md5sum="4d773127ae2b9a1a17040542e68996c4" name="lib/vendor/dompdf/www/test/dom_large_table.html" role="data" />
+   <file baseinstalldir="." md5sum="de13461ad3e8139e6a211c50cf9e5bde" name="lib/vendor/dompdf/www/test/dom_long_table.php" role="data" />
+   <file baseinstalldir="." md5sum="a88e4d46a388c6a940a76c6daa571589" name="lib/vendor/dompdf/www/test/dom_nbsp.html" role="data" />
+   <file baseinstalldir="." md5sum="2335c8be3d252f4514e24108742eccc7" name="lib/vendor/dompdf/www/test/dom_nested_table.html" role="data" />
+   <file baseinstalldir="." md5sum="17d6312a4e0a76345103f97d949db83c" name="lib/vendor/dompdf/www/test/dom_ol.html" role="data" />
+   <file baseinstalldir="." md5sum="889160f7fd215743b6415a65d42d78e2" name="lib/vendor/dompdf/www/test/dom_simple_ul.html" role="data" />
+   <file baseinstalldir="." md5sum="77b7c4aea4f296cba4584d9206dae3b8" name="lib/vendor/dompdf/www/test/dom_table.html" role="data" />
+   <file baseinstalldir="." md5sum="a3f371891fbe143e86c45fc00e38bd5e" name="lib/vendor/dompdf/www/test/dom_table_01.html" role="data" />
+   <file baseinstalldir="." md5sum="0e148da73af85a549b2dc961bb31c337" name="lib/vendor/dompdf/www/test/dom_table_image.html" role="data" />
+   <file baseinstalldir="." md5sum="95d47b7fbe5d5df22363348babcba61c" name="lib/vendor/dompdf/www/test/dom_ul.html" role="data" />
+   <file baseinstalldir="." md5sum="af3cb31ded9ca61e1d3f2572cae561e9" name="lib/vendor/dompdf/www/test/encoding_entities.html" role="data" />
+   <file baseinstalldir="." md5sum="478f835c32853563c6a688091ec439fe" name="lib/vendor/dompdf/www/test/encoding_latin1.html" role="data" />
+   <file baseinstalldir="." md5sum="a550ed6a78a768708400358fd67e316e" name="lib/vendor/dompdf/www/test/encoding_special.html" role="data" />
+   <file baseinstalldir="." md5sum="7ccdb7c8a6a1d2db9a6b9469a48536f7" name="lib/vendor/dompdf/www/test/encoding_symbols.html" role="data" />
+   <file baseinstalldir="." md5sum="c8cc37c65a2ba05f5eabbc204b0c3369" name="lib/vendor/dompdf/www/test/encoding_unicode.html" role="data" />
+   <file baseinstalldir="." md5sum="afe88462816d946e531169d9e5e65c74" name="lib/vendor/dompdf/www/test/encoding_unicode_wrapping.html" role="data" />
+   <file baseinstalldir="." md5sum="dfb01f5241c7d72f82ff5e42c05c33b9" name="lib/vendor/dompdf/www/test/encoding_utf-8.html" role="data" />
+   <file baseinstalldir="." md5sum="6384f715668e07d87d47866b607c13a2" name="lib/vendor/dompdf/www/test/encoding_utf-8_w3.html" role="data" />
+   <file baseinstalldir="." md5sum="7e99f74a19d2d2371ce4088df31d3208" name="lib/vendor/dompdf/www/test/image_background.html" role="data" />
+   <file baseinstalldir="." md5sum="073d22c72fe5d66eab426bc3fa06bff1" name="lib/vendor/dompdf/www/test/image_basic.html" role="data" />
+   <file baseinstalldir="." md5sum="e85ccc9f6ca544e05e5eda6e714eb5d9" name="lib/vendor/dompdf/www/test/image_bmp.html" role="data" />
+   <file baseinstalldir="." md5sum="104645fd5b8ac630bd2bec3ef5aca86b" name="lib/vendor/dompdf/www/test/image_datauri.html" role="data" />
+   <file baseinstalldir="." md5sum="04d26d643557eae269cfc22dbd608393" name="lib/vendor/dompdf/www/test/image_gif.html" role="data" />
+   <file baseinstalldir="." md5sum="e1f9b64717c4db55b014f966fa6d5d3f" name="lib/vendor/dompdf/www/test/image_remote.html" role="data" />
+   <file baseinstalldir="." md5sum="f1df38573ecd0cd0e9c6918e574b9d9e" name="lib/vendor/dompdf/www/test/image_transparent_gif.html" role="data" />
+   <file baseinstalldir="." md5sum="0eaf9d08c2fb4d268a00fb5abdaab200" name="lib/vendor/dompdf/www/test/image_transparent_png.html" role="data" />
+   <file baseinstalldir="." md5sum="bb85a070e71fc40ea96fecc0009e3207" name="lib/vendor/dompdf/www/test/image_variants.html" role="data" />
+   <file baseinstalldir="." md5sum="0f5d5960a02cca5290ae7b05d824772c" name="lib/vendor/dompdf/www/test/page_pages.html" role="data" />
+   <file baseinstalldir="." md5sum="d200852bf77d347f5a72fd9ba3414231" name="lib/vendor/dompdf/www/test/quirks_center_table.html" role="data" />
+   <file baseinstalldir="." md5sum="73a8465ac3b6962a2b2fe3a2c362447a" name="lib/vendor/dompdf/www/test/quirks_font_tag.html" role="data" />
+   <file baseinstalldir="." md5sum="b13572a0a3d4581625ab853a6f3c3b56" name="lib/vendor/dompdf/www/test/quirks_html_attributes.html" role="data" />
+   <file baseinstalldir="." md5sum="8525ca7f9183aeb3e0f92c5c66b8fe60" name="lib/vendor/dompdf/www/test/script_javascript.html" role="data" />
+   <file baseinstalldir="." md5sum="cc524cfc71f0557de55636ba047561d1" name="lib/vendor/dompdf/www/test/script_php.php" role="data" />
+   <file baseinstalldir="." md5sum="d36f0d8b43ed657e192f561e16285cc8" name="lib/vendor/dompdf/www/test/css/common.css" role="data" />
+   <file baseinstalldir="." md5sum="e745c52117cd24f849d5f2f08ba5e864" name="lib/vendor/dompdf/www/test/css/importabs.css" role="data" />
+   <file baseinstalldir="." md5sum="e5db052d5e0683321f545f618cf5e1ee" name="lib/vendor/dompdf/www/test/css/importall.css" role="data" />
+   <file baseinstalldir="." md5sum="dcdcb68338a3cc85593a9a4a6b79811e" name="lib/vendor/dompdf/www/test/css/importdisplay.css" role="data" />
+   <file baseinstalldir="." md5sum="1cf14b78df886327a35318f80a4489f0" name="lib/vendor/dompdf/www/test/css/importprint.css" role="data" />
+   <file baseinstalldir="." md5sum="8a232d7784a09b6eb61587179e7a17f3" name="lib/vendor/dompdf/www/test/css/importsub.css" role="data" />
+   <file baseinstalldir="." md5sum="0084395a5f412a65489618ebc881005a" name="lib/vendor/dompdf/www/test/css/linkall.css" role="data" />
+   <file baseinstalldir="." md5sum="44d419996b1edaad53559eac3792ac1c" name="lib/vendor/dompdf/www/test/css/linkdefault.css" role="data" />
+   <file baseinstalldir="." md5sum="98e27862a0ffaf8111429edf72c3d053" name="lib/vendor/dompdf/www/test/css/linkdisplay.css" role="data" />
+   <file baseinstalldir="." md5sum="1ffd1d20d4b719a6630144c2923699c9" name="lib/vendor/dompdf/www/test/css/linkprint.css" role="data" />
+   <file baseinstalldir="." md5sum="097a87a2effe62dbc8a792d303bd09f1" name="lib/vendor/dompdf/www/test/css/print_static.css" role="data" />
+   <file baseinstalldir="." md5sum="b71ef5ce01926b2e83db72a3efe48fe2" name="lib/vendor/dompdf/www/test/images/cmyk_test2.jpg" role="data" />
+   <file baseinstalldir="." md5sum="4eecb1d82294524607d8764bee3dd39c" name="lib/vendor/dompdf/www/test/images/dokuwiki-128.png" role="data" />
+   <file baseinstalldir="." md5sum="50b4f061f9369d0c04ede3cc251f890a" name="lib/vendor/dompdf/www/test/images/dompdf_simple.png" role="data" />
+   <file baseinstalldir="." md5sum="a0d1051fe8c0bb316f5fd9c94904a84b" name="lib/vendor/dompdf/www/test/images/goldengate.jpg" role="data" />
+   <file baseinstalldir="." md5sum="d0c84fe0c29b4af575af16890b886277" name="lib/vendor/dompdf/www/test/images/green.gif" role="data" />
+   <file baseinstalldir="." md5sum="9fb3659ebf17a3be54bb0be2469ba259" name="lib/vendor/dompdf/www/test/images/html.png" role="data" />
+   <file baseinstalldir="." md5sum="bd5239846e0092d51259bcfa08eb252d" name="lib/vendor/dompdf/www/test/images/pdf.png" role="data" />
+   <file baseinstalldir="." md5sum="614fcbba1effb7caa27ef0ef25c27fcf" name="lib/vendor/dompdf/www/test/images/php.gif" role="data" />
+   <file baseinstalldir="." md5sum="2702082903e17db9d8fce6392de8f373" name="lib/vendor/dompdf/www/test/images/png.png" role="data" />
+   <file baseinstalldir="." md5sum="5cf2f7baecb5051b9b6939f0e38248dd" name="lib/vendor/dompdf/www/test/images/smiley.png" role="data" />
+   <file baseinstalldir="." md5sum="fdb03938f5780340e1fad4b0a9ad014a" name="lib/vendor/dompdf/www/test/images/what_ordered.gif" role="data" />
+   <file baseinstalldir="." md5sum="956e405d2a9f2a71c7618b018be6c49d" name="lib/vendor/dompdf/www/test/images/bmp/test1.bmp" role="data" />
+   <file baseinstalldir="." md5sum="160b24edcb521996c6d5ad2e2292e08c" name="lib/vendor/dompdf/www/test/images/bmp/test1.png" role="data" />
+   <file baseinstalldir="." md5sum="ba6bb428a4348b228da13d16c0c27ce0" name="lib/vendor/dompdf/www/test/images/bmp/test4.bmp" role="data" />
+   <file baseinstalldir="." md5sum="6967ee5fd8c3397f5f99a4f7633601d6" name="lib/vendor/dompdf/www/test/images/bmp/test4.png" role="data" />
+   <file baseinstalldir="." md5sum="4937c84220565d60e77f9e2e7456ba04" name="lib/vendor/dompdf/www/test/images/bmp/test4os2v2.bmp" role="data" />
+   <file baseinstalldir="." md5sum="614f75d439861c87da6c730483102771" name="lib/vendor/dompdf/www/test/images/bmp/test4os2v2.png" role="data" />
+   <file baseinstalldir="." md5sum="764b31cef529c653545848080544a820" name="lib/vendor/dompdf/www/test/images/bmp/test8.bmp" role="data" />
+   <file baseinstalldir="." md5sum="1ec927c8dd84c6fba294373d44d735f3" name="lib/vendor/dompdf/www/test/images/bmp/test8.png" role="data" />
+   <file baseinstalldir="." md5sum="914d07775cafc5504825cfd5c4980169" name="lib/vendor/dompdf/www/test/images/bmp/test8os2.bmp" role="data" />
+   <file baseinstalldir="." md5sum="1ec927c8dd84c6fba294373d44d735f3" name="lib/vendor/dompdf/www/test/images/bmp/test8os2.png" role="data" />
+   <file baseinstalldir="." md5sum="8ee33112a3db61d7a5fb3889826936dc" name="lib/vendor/dompdf/www/test/images/bmp/test16.bmp" role="data" />
+   <file baseinstalldir="." md5sum="c856beff0d84e653ec4b142e7138e977" name="lib/vendor/dompdf/www/test/images/bmp/test16.png" role="data" />
+   <file baseinstalldir="." md5sum="28d0faef987d207cbef9102ced4e72be" name="lib/vendor/dompdf/www/test/images/bmp/test16bf555.bmp" role="data" />
+   <file baseinstalldir="." md5sum="c856beff0d84e653ec4b142e7138e977" name="lib/vendor/dompdf/www/test/images/bmp/test16bf555.png" role="data" />
+   <file baseinstalldir="." md5sum="836a296de2a6e3be316906a13d45be09" name="lib/vendor/dompdf/www/test/images/bmp/test16bf565.bmp" role="data" />
+   <file baseinstalldir="." md5sum="4f3bc3110015b0aec9817298fff7c2e0" name="lib/vendor/dompdf/www/test/images/bmp/test16bf565.png" role="data" />
+   <file baseinstalldir="." md5sum="11a4915e54d3246b4cc60778812dfecf" name="lib/vendor/dompdf/www/test/images/bmp/test24.bmp" role="data" />
+   <file baseinstalldir="." md5sum="3f3610a887d425d3be971db82e33b095" name="lib/vendor/dompdf/www/test/images/bmp/test24.png" role="data" />
+   <file baseinstalldir="." md5sum="b23c8d05b43b3e7b664ea4193b1da559" name="lib/vendor/dompdf/www/test/images/bmp/test32.bmp" role="data" />
+   <file baseinstalldir="." md5sum="3f3610a887d425d3be971db82e33b095" name="lib/vendor/dompdf/www/test/images/bmp/test32.png" role="data" />
+   <file baseinstalldir="." md5sum="39cc7a602d8034eb839ddded37827a65" name="lib/vendor/dompdf/www/test/images/bmp/test32bf.bmp" role="data" />
+   <file baseinstalldir="." md5sum="3f3610a887d425d3be971db82e33b095" name="lib/vendor/dompdf/www/test/images/bmp/test32bf.png" role="data" />
+   <file baseinstalldir="." md5sum="a3e438ae9ff917d958b457c8cc9115fa" name="lib/vendor/dompdf/www/test/images/bmp/test32bfv4.bmp" role="data" />
+   <file baseinstalldir="." md5sum="0b919e7bab256a1e27e57fbb20b85b48" name="lib/vendor/dompdf/www/test/images/bmp/test32bfv4.png" role="data" />
+   <file baseinstalldir="." md5sum="ae5ce1c3a820c220e80bd8668411b6a9" name="lib/vendor/dompdf/www/test/images/bmp/test32v5.bmp" role="data" />
+   <file baseinstalldir="." md5sum="9cbff6f12cb4dde21599d764c42deca8" name="lib/vendor/dompdf/www/test/images/bmp/test32v5.png" role="data" />
+   <file baseinstalldir="." md5sum="1d1985e1a32b3636af32e60423bc79a9" name="lib/vendor/dompdf/www/test/images/bmp/testcompress4.bmp" role="data" />
+   <file baseinstalldir="." md5sum="6967ee5fd8c3397f5f99a4f7633601d6" name="lib/vendor/dompdf/www/test/images/bmp/testcompress4.png" role="data" />
+   <file baseinstalldir="." md5sum="9e6495c3a447b0f2404d19c943b4a197" name="lib/vendor/dompdf/www/test/images/bmp/testcompress8.bmp" role="data" />
+   <file baseinstalldir="." md5sum="1ec927c8dd84c6fba294373d44d735f3" name="lib/vendor/dompdf/www/test/images/bmp/testcompress8.png" role="data" />
+   <file baseinstalldir="." md5sum="cead20ff864e10a08d3c2444e6c93dd6" name="lib/vendor/dompdf/www/test/images/bmp/trans.bmp" role="data" />
+   <file baseinstalldir="." md5sum="3ab8b0bd03278330960907502100342d" name="lib/vendor/dompdf/www/test/images/bmp/trans.png" role="data" />
+   <file baseinstalldir="." md5sum="55624c75943e36e6ecf2dafa6af84839" name="lib/vendor/dompdf/www/test/images/png/gray8a.png" role="data" />
+   <file baseinstalldir="." md5sum="cb002eecbdb9b67625c7bae64d184f6f" name="lib/vendor/dompdf/www/test/images/png/gray8a_bk.png" role="data" />
+   <file baseinstalldir="." md5sum="80fdf635e24acf5555ec4c88ec3ba305" name="lib/vendor/dompdf/www/test/images/png/gray8b.png" role="data" />
+   <file baseinstalldir="." md5sum="e3685081965ef9c68bc34f9e23419fbf" name="lib/vendor/dompdf/www/test/images/png/gray8b_bk.png" role="data" />
+   <file baseinstalldir="." md5sum="41268b9f42d59bc5ab346050fd057dc4" name="lib/vendor/dompdf/www/test/images/png/gray16a.png" role="data" />
+   <file baseinstalldir="." md5sum="8c9fc8a28114520b32146e3a3aa29b7d" name="lib/vendor/dompdf/www/test/images/png/gray16a_bk.png" role="data" />
+   <file baseinstalldir="." md5sum="6da7d20c285b33411ad84b3d0f023037" name="lib/vendor/dompdf/www/test/images/png/gray16b.png" role="data" />
+   <file baseinstalldir="." md5sum="e5a42950a7517f8f095bcfae632f2ce1" name="lib/vendor/dompdf/www/test/images/png/gray16b_bk.png" role="data" />
+   <file baseinstalldir="." md5sum="200be2be97a465ecd2054a51522f65b5" name="lib/vendor/dompdf/www/test/images/png/pal.png" role="data" />
+   <file baseinstalldir="." md5sum="b0275803c7afc5a65fda49d94e5dc8b4" name="lib/vendor/dompdf/www/test/images/png/palb.png" role="data" />
+   <file baseinstalldir="." md5sum="90102915946454847cfa9a99c5513ef7" name="lib/vendor/dompdf/www/test/images/png/pal_bk.png" role="data" />
+   <file baseinstalldir="." md5sum="d5fc71bd023b1210449c4c4906e5b777" name="lib/vendor/dompdf/www/test/images/png/pal_bk_notrns.png" role="data" />
+   <file baseinstalldir="." md5sum="472c8527a7f0e882918e4b19ecb146c0" name="lib/vendor/dompdf/www/test/images/png/resultb_bla.gif" role="data" />
+   <file baseinstalldir="." md5sum="f6fafb6c2953bf844c37992f7a1ccf5c" name="lib/vendor/dompdf/www/test/images/png/resultb_bug.gif" role="data" />
+   <file baseinstalldir="." md5sum="11f52ecd48fc585d69018cb1cfe44e5a" name="lib/vendor/dompdf/www/test/images/png/resultb_mag.gif" role="data" />
+   <file baseinstalldir="." md5sum="f210c71278a0afb5fb93dcaa5496dfd1" name="lib/vendor/dompdf/www/test/images/png/resultb_moz2.gif" role="data" />
+   <file baseinstalldir="." md5sum="5fcb3b1402f040d3722c9fe037d58dba" name="lib/vendor/dompdf/www/test/images/png/resultb_no.gif" role="data" />
+   <file baseinstalldir="." md5sum="489501ea4d6ced31a47c1586cbec5c7a" name="lib/vendor/dompdf/www/test/images/png/resultb_ok.gif" role="data" />
+   <file baseinstalldir="." md5sum="b234229b73938eb194b3fb20070d04b1" name="lib/vendor/dompdf/www/test/images/png/resultb_whi.gif" role="data" />
+   <file baseinstalldir="." md5sum="d6ab1b48241a7d190434ab3fa87d18c4" name="lib/vendor/dompdf/www/test/images/png/resultb_yel.gif" role="data" />
+   <file baseinstalldir="." md5sum="56fb3295db91ed0de80f5a1fbf8d5f8b" name="lib/vendor/dompdf/www/test/images/png/resultga.gif" role="data" />
+   <file baseinstalldir="." md5sum="e696be238b809e9c44d70006a0dfd708" name="lib/vendor/dompdf/www/test/images/png/resultgb.gif" role="data" />
+   <file baseinstalldir="." md5sum="8a7bf55c3d96d0fe03c35db9817abc73" name="lib/vendor/dompdf/www/test/images/png/resultgb_dgr.gif" role="data" />
+   <file baseinstalldir="." md5sum="8a34dc48255f6e84b6eaf942a455de8c" name="lib/vendor/dompdf/www/test/images/png/resultgb_no.gif" role="data" />
+   <file baseinstalldir="." md5sum="c37d88748d204b98b544bea966edf0a4" name="lib/vendor/dompdf/www/test/images/png/resultg_bla.gif" role="data" />
+   <file baseinstalldir="." md5sum="fcfcd4c1e700a71363005fff71d3c74f" name="lib/vendor/dompdf/www/test/images/png/resultg_dgr.gif" role="data" />
+   <file baseinstalldir="." md5sum="6af6f4f2b4a0878d36ba51a00521b5b5" name="lib/vendor/dompdf/www/test/images/png/resultg_lgr.gif" role="data" />
+   <file baseinstalldir="." md5sum="17cce771b0d510e66f6d57de972f2082" name="lib/vendor/dompdf/www/test/images/png/resultg_no.gif" role="data" />
+   <file baseinstalldir="." md5sum="884764fd4846e97d6cbc8c544be0ae3d" name="lib/vendor/dompdf/www/test/images/png/resultpb_no.gif" role="data" />
+   <file baseinstalldir="." md5sum="4de976a2e4e58e4a62a9b137fc3e441d" name="lib/vendor/dompdf/www/test/images/png/result_1trns.gif" role="data" />
+   <file baseinstalldir="." md5sum="eb7a5ccea2f1d40dcb61d4fac759cb60" name="lib/vendor/dompdf/www/test/images/png/result_16ns.gif" role="data" />
+   <file baseinstalldir="." md5sum="df8c3e1e13c3e65c49d4c83e047fb3dc" name="lib/vendor/dompdf/www/test/images/png/result_bla.gif" role="data" />
+   <file baseinstalldir="." md5sum="9b03685425013e11597aef0d5a3eb107" name="lib/vendor/dompdf/www/test/images/png/result_dith.gif" role="data" />
+   <file baseinstalldir="." md5sum="afddab9a28eae65b686f1ee9024aef8c" name="lib/vendor/dompdf/www/test/images/png/result_gra.gif" role="data" />
+   <file baseinstalldir="." md5sum="e7757ef45a2e3b91dd6515d0d4061af4" name="lib/vendor/dompdf/www/test/images/png/result_mag.gif" role="data" />
+   <file baseinstalldir="." md5sum="2e879b55bb194156615a426384580628" name="lib/vendor/dompdf/www/test/images/png/result_magthr1.gif" role="data" />
+   <file baseinstalldir="." md5sum="f73d513c2faff06a05faf34a4cfdc5b8" name="lib/vendor/dompdf/www/test/images/png/result_no.gif" role="data" />
+   <file baseinstalldir="." md5sum="4f334dc46d5213de605f32099b2aaebc" name="lib/vendor/dompdf/www/test/images/png/result_nsbug.gif" role="data" />
+   <file baseinstalldir="." md5sum="2fc306c5d7cdad1db5a934f31713f415" name="lib/vendor/dompdf/www/test/images/png/result_ok.gif" role="data" />
+   <file baseinstalldir="." md5sum="0cec41d9f7167ca4949cea7ccb5db624" name="lib/vendor/dompdf/www/test/images/png/result_oprbug.gif" role="data" />
+   <file baseinstalldir="." md5sum="b6505e1c2c7ecbbc5d0365e5eab688ee" name="lib/vendor/dompdf/www/test/images/png/result_thr1.gif" role="data" />
+   <file baseinstalldir="." md5sum="bd0cc3cbd725566c3e225a89ab92643f" name="lib/vendor/dompdf/www/test/images/png/result_thr128.gif" role="data" />
+   <file baseinstalldir="." md5sum="c8e6497da861564a58aeb5d2ee879ca3" name="lib/vendor/dompdf/www/test/images/png/result_thr255.gif" role="data" />
+   <file baseinstalldir="." md5sum="cdb700f34200c36787cfbacd8aae03cb" name="lib/vendor/dompdf/www/test/images/png/result_whi.gif" role="data" />
+   <file baseinstalldir="." md5sum="a703d6d728fb2196d2312adabd916921" name="lib/vendor/dompdf/www/test/images/png/result_yel.gif" role="data" />
+   <file baseinstalldir="." md5sum="c17e02871ecd99f2ecd572735a3d9b9f" name="lib/vendor/dompdf/www/test/images/png/result_yelthr1.gif" role="data" />
+   <file baseinstalldir="." md5sum="7da93fe597cff17eeac8600c120529cb" name="lib/vendor/dompdf/www/test/images/png/rgb8_t.png" role="data" />
+   <file baseinstalldir="." md5sum="49d90e3cdc3840d1a68e72c5bfa06e7a" name="lib/vendor/dompdf/www/test/images/png/rgb8_t_bk.png" role="data" />
+   <file baseinstalldir="." md5sum="d82b297f64cd56dc156d2b39df42c6c2" name="lib/vendor/dompdf/www/test/images/png/rgb16_t.png" role="data" />
+   <file baseinstalldir="." md5sum="e3d403b5663b024d79b456a8ebce06f3" name="lib/vendor/dompdf/www/test/images/png/rgb16_t_bk.png" role="data" />
+   <file baseinstalldir="." md5sum="8c18cf4c32fd31322063358bc6f61434" name="lib/vendor/dompdf/www/test/images/png/rgba8.png" role="data" />
+   <file baseinstalldir="." md5sum="f8d94197eae6660abcf5cf8bf8e12190" name="lib/vendor/dompdf/www/test/images/png/rgba8_bk.png" role="data" />
+   <file baseinstalldir="." md5sum="c5c5711f34bbc61663fd526475b833c1" name="lib/vendor/dompdf/www/test/images/png/rgba16.png" role="data" />
+   <file baseinstalldir="." md5sum="bc25c37a0ace41b04845c13aa6e19188" name="lib/vendor/dompdf/www/test/images/png/rgba16_bk.png" role="data" />
+   <file baseinstalldir="." md5sum="efc5e4fb8926adc2cdf1f872319dba69" name="lib/vendor/dompdf/www/test/images/png/stripe.gif" role="data" />
+   <file baseinstalldir="." md5sum="d0d70d2e5bf30aad8bd3ed847b2cf781" name="AUTHORS" role="data" />
+   <file baseinstalldir="." md5sum="476140a0f33ded7400c83532d43a2969" name="LICENSE" role="data" />
+   <file baseinstalldir="." md5sum="0c424a697e0470c2f0d0fcbe0f4d6610" name="README" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>   
+   <package>
+     <name>symfony</name>
+     <channel>pear.symfony-project.com</channel>
+     <min>1.3.0</min>
+     <max>2.0.0</max>
+     <exclude>2.0.0</exclude>
+  </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.1</release>
+    <api>0.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-11-30</date>
+   <license uri="http://www.opensource.org/licenses/mit-license.html">MIT</license>
+   <notes>
+Initial release
+   </notes>
+  </release>
+ </changelog>
+</package>
