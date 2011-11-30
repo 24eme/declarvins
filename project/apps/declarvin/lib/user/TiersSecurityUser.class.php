@@ -1,6 +1,6 @@
 <?php
 
-abstract class TiersSecurityUser extends CompteSecurityUser {
+abstract class TiersSecurityUser extends acVinCompteSecurityUser {
 
     protected $_tiers = null;
     const SESSION_TIERS = 'tiers';

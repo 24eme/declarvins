@@ -10,18 +10,4 @@ abstract class _Compte extends acVinCompte {
     {
       return $this->login.', '.$this->prenom.' '.$this->nom;
     }
-    
-    public function getNbEtablissementByInterproId() 
-    {
-        $result = array();
-        foreach ($this->getTiers() as $tier) {
-            if (array_key_exists($tier->getInterpro(), $result)) {
-                $result[$tier->getInterpro()] = $result[$tier->getInterpro()] + 1;
-            }
-            else {
-                $result[$tier->getInterpro()] = 1;
-            }
-        }
-        return $result;
-    }
 }
