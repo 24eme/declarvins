@@ -4,11 +4,20 @@
  * 
  * Base model for DRMCouleur
 
- * @property string $libelle
+ * @property float $total_stocks
+ * @property float $total_entrees
+ * @property float $total_sorties
+ * @property float $total
  * @property acCouchdbJson $details
 
- * @method string getLibelle()
- * @method string setLibelle()
+ * @method float getTotalStocks()
+ * @method float setTotalStocks()
+ * @method float getTotalEntrees()
+ * @method float setTotalEntrees()
+ * @method float getTotalSorties()
+ * @method float setTotalSorties()
+ * @method float getTotal()
+ * @method float setTotal()
  * @method acCouchdbJson getDetails()
  * @method acCouchdbJson setDetails()
  
