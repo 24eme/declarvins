@@ -33,9 +33,5 @@ class acCasPluginConfiguration extends sfPluginConfiguration
 	public function initialize()
 	{
 		require_once(dirname(__FILE__).'/../lib/vendor/phpCAS/CAS.class.php');
-		phpCAS::client(CAS_VERSION_2_0, sfConfig::get('app_cas_domain'), sfConfig::get('app_cas_port'), sfConfig::get('app_cas_path'), false);
-		if (!sfConfig::get('app_cas_ssl_validation')) {
-			phpCAS::setNoCasServerValidation();
-		}
 	}
 }
