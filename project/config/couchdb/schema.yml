@@ -262,6 +262,8 @@ DRM:
                         total_sorties: { type: float }
                         total: { type: float }
                         appellations:
+                          class: DRMAppellation
+                          inheritance: _DRMTotal
                           type: collection
                           definition:
                             fields:
