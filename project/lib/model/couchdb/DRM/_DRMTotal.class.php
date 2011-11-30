@@ -4,7 +4,7 @@
  *
  */
 
-class _DRMTotal extends acCouchdbDocumentTree {
+abstract class _DRMTotal extends acCouchdbDocumentTree {
     
     public function getConfig() {
         

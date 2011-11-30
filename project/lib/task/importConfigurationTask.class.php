@@ -54,7 +54,7 @@ EOF;
    
     foreach (file($arguments['file']) as $a) {
         $datas = explode(";", $a);
-        $configuration->declaration->labels->get($datas[0])->appellations->add($datas[2])->libelle = $datas[1];
+        $configuration->declaration->labels->get($datas[0])->appellations->add(str_replace("\n", "", $datas[2]))->libelle = $datas[1];
     }
     
     $configuration->save();
