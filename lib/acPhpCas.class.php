@@ -1,4 +1,19 @@
 <?php
+/* This file is part of the acPhpCasPlugin package.
+ * (c) Actualys
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+/**
+ * acPhpCas allows you to use the phpCas library
+ *
+ * @package    acPhpCasPlugin
+ * @subpackage lib
+ * @author     Jean-Baptiste Le Metayer <lemetayer.jb@gmail.com>
+ * @author     Vincent Laurent <vince.laurent@gmail.com>
+ * @version    0.1
+ */
 class acPhpCas
 {	
 
@@ -19,7 +34,7 @@ class acPhpCas
 	public static function client($start_session = false) 
 	{
 		error_reporting(E_ALL);
-		phpCAS::client(CAS_VERSION_2_0, sfConfig::get('app_cas_domain'), sfConfig::get('app_cas_port'), sfConfig::get('app_cas_path'), $start_session);
+		phpCAS::client(CAS_VERSION_2_0, sfConfig::get('app_ac_php_cas_domain'), sfConfig::get('app_ac_php_cas_port'), sfConfig::get('app_ac_php_cas_path'), $start_session);
 	}
 
 	/**
@@ -39,7 +54,7 @@ class acPhpCas
 	public static function proxy($start_session = false) 
 	{
 		error_reporting(E_ALL);
-		phpCAS::proxy(CAS_VERSION_2_0, sfConfig::get('app_cas_domain'), sfConfig::get('app_cas_port'), sfConfig::get('app_cas_path'), $start_session);		
+		phpCAS::proxy(CAS_VERSION_2_0, sfConfig::get('app_ac_php_cas_domain'), sfConfig::get('app_ac_php_cas_port'), sfConfig::get('app_ac_php_cas_path'), $start_session);		
 	}
 
 	/**

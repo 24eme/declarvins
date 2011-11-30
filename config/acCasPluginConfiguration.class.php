@@ -1,6 +1,6 @@
 <?php
 
-/* This file is part of the acCasPlugin package.
+/* This file is part of the acPhpCasPlugin package.
  * Copyright (c) 2011 Actualys
  * Authors :
  * Jean-Baptiste Le Metayer <lemetayer.jb@gmail.com>
@@ -11,17 +11,15 @@
  */
 
 /**
- * acCasPluginConfiguration represents the configuration for acCasPlugin plugin.
+ * acPhpCasPluginConfiguration represents the configuration for acCasPlugin plugin.
  * 
  * @package    acCasPlugin
  * @subpackage config
  * @author     Jean-Baptiste Le Metayer <lemetayer.jb@gmail.com>
  * @author     Vincent Laurent <vince.laurent@gmail.com>
- * @author     Tangui Morlier <tangui@tangui.eu.org>
- * @author     Charlotte De Vichet <c.devichet@gmail.com>
  * @version    0.1
  */
-class acCasPluginConfiguration extends sfPluginConfiguration
+class acPhpCasPluginConfiguration extends sfPluginConfiguration
 {
   /**
    * Initializes acCasPlugin.
