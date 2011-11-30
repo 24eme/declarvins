@@ -1,0 +1,43 @@
+<?php
+
+class DRMAppellationAjoutForm extends acCouchdbFormDocumentJson {
+
+    protected $_appellation_choices = null;
+
+    public function setup() {
+
+        if ($this->getObject()->getDefinition()->getModel().$this->getObject()->getDefinition()->getHash() != 'DRM/declaration/labels/*/appellations') {
+            throw new sfException("Object must be a DRM/declaration/labels/*/appellations object");
+        }
+
+        $this->setWidgets(array(
+            'appellation' => new sfWidgetFormChoice(array('choices' => $this->getAppellationChoices())),
+        ));
+
+        $this->setValidators(array(
+            'appellation' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getAppellationChoices()))),
+        ));
+
+        $this->widgetSchema->setNameFormat('drm_appellation_ajout[%s]');
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+    }
+
+    public function getAppellationChoices() {
+        if (is_null($this->_appellation_choices)) {
+            $this->_appellation_choices = array('' => '');
+            foreach ($this->getObject()->getConfig() as $key => $item) {
+                if (!$this->getObject()->exist($key)) {
+                    $this->_appellation_choices[$key] = $item->getLibelle();
+                }
+            }
+        }
+
+        return $this->_appellation_choices;
+    }
+
+    
+    public function doUpdateObject($values) {
+        $this->getObject()->add($values['appellation']);
+    }
+
+}
