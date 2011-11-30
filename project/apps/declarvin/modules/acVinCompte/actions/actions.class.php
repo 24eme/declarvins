@@ -34,12 +34,10 @@ class acVinCompteActions extends BaseacVinCompteActions {
 	  $this->redirect('@tiers');
         } elseif ($request->getParameter('ticket')) {
 	  /** CAS * */
-	  error_reporting(E_ALL);
-	  require_once(sfConfig::get('sf_lib_dir') . '/vendor/phpCAS/CAS.class.php');
-	  phpCAS::client(CAS_VERSION_2_0, sfConfig::get('app_cas_domain'), sfConfig::get('app_cas_port'), sfConfig::get('app_cas_path'), false);
-	  phpCAS::setNoCasServerValidation();
+      acPhpCas::client();
+	  acPhpCas::setNoCasServerValidation();
 	  $this->getContext()->getLogger()->debug('{sfCASRequiredFilter} about to force auth');
-	  phpCAS::forceAuthentication();
+	  acPhpCas::forceAuthentication();
 	  $this->getContext()->getLogger()->debug('{sfCASRequiredFilter} auth is good');
 	  /** ***** */
 	  $this->getUser()->signIn(phpCAS::getUser());
@@ -55,11 +53,9 @@ class acVinCompteActions extends BaseacVinCompteActions {
      * @param sfWebRequest $request 
      */
     public function executeLogout(sfWebRequest $request) {
-      require_once(sfConfig::get('sf_lib_dir').'/vendor/phpCAS/CAS.class.php');
       $this->getUser()->signOut();
       $url = 'http://'.$request->getHost();
-      error_reporting(E_ALL);
-      phpCAS::client(CAS_VERSION_2_0,sfConfig::get('app_cas_domain'), sfConfig::get('app_cas_port'), sfConfig::get('app_cas_path'), false);
+      acPhpCas::client();
       phpCAS::logoutWithRedirectService($url);
       $this->redirect($url);
     }

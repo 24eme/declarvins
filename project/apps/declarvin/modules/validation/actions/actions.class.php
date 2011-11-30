@@ -29,9 +29,9 @@ class validationActions extends sfActions {
     }
 
     public function init() {
-        $this->interpro = $this->getUser()->getInterpro();
-        $this->contrat = $this->getUser()->getContrat();
-        $this->compte = $this->contrat->getCompteObject();
+        $this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
+        $this->forward404Unless($this->contrat = $this->getUser()->getContrat());
+         $this->forward404Unless($this->compte = $this->contrat->getCompteObject());
         $import = new ImportEtablissementsCsv($this->interpro);
         
         $this->etablissements = $this->compte->getTiersCollection();
@@ -100,46 +100,14 @@ class validationActions extends sfActions {
         $this->compte->setStatut(_Compte::STATUT_ACTIVE);
         $this->compte->save();
 
-	$ldap = new Ldap();
-	$ldap->updateOrAdd($this->compte);
+		$ldap = new Ldap();
+		$ldap->saveCompte($this->compte);
 
         $this->getUser()->setFlash('notification_general', 'Compte validé');
         $this->redirect('@validation_fiche');
 
         $this->setTemplate('fiche');
     }
-
-    /*public function executeUploadCsv(sfWebRequest $request) {
-        $this->forward404Unless($request->isMethod(sfWebRequest::POST));
-        $this->init();
-        
-        $this->formUploadCsv = new UploadCSVForm();
-        $this->formUploadCsv->bind($request->getParameter('csv'), $request->getFiles('csv'));
-        if ($this->formUploadCsv->isValid()) {
-            $file = $this->formUploadCsv->getValue('file');
-            $contrat = $this->getUser()->getContrat();
-            $contrat->storeAttachment($file->getSavedName(), 'text/csv', 'etablissements.csv');
-            unlink($file->getSavedName());
-            $this->getUser()->setFlash('notification_general', "Le fichier csv d'import a bien été uploader");
-            $this->redirect('@validation_fiche');
-        } 
-        $this->setTemplate('fiche');
-    }
-
-    public function executeImport(sfWebRequest $request) {
-    	$interpro = $this->getUser()->getInterpro();
-    	$compte = $this->getUser()->getContrat()->getCompteObject();
-        $import = new ImportEtablissementsCsv($interpro, $compte);
-        $import->import();
-        if (!$compte->interpro->exist($interpro->get('_id'))) {
-            $compte->interpro->add($interpro->get('_id'))->setStatut(_Compte::STATUT_VALIDATION_ATTENTE);
-        } else {
-            $compte->interpro->get($interpro->get('_id'))->setStatut(_Compte::STATUT_VALIDATION_ATTENTE);
-        }
-        $compte->save();
-        $this->getUser()->setFlash('notification_general', "Les établissements ont bien été importés");
-        $this->redirect('@validation_fiche');
-    }*/
 
     public function executeArchiver(sfWebRequest $request) {
         $this->forward404Unless($etablissement = EtablissementClient::getInstance()->retrieveById($request->getParameter("etablissement")));
