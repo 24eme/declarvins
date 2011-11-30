@@ -4,13 +4,25 @@
  * 
  * Base model for DRMDetail
 
- * @property string $entrees
- * @property string $sorties
+ * @property string $denomination
+ * @property string $label
+ * @property acCouchdbJson $stocks
+ * @property acCouchdbJson $entrees
+ * @property acCouchdbJson $sorties
+ * @property float $total
 
- * @method string getEntrees()
- * @method string setEntrees()
- * @method string getSorties()
- * @method string setSorties()
+ * @method string getDenomination()
+ * @method string setDenomination()
+ * @method string getLabel()
+ * @method string setLabel()
+ * @method acCouchdbJson getStocks()
+ * @method acCouchdbJson setStocks()
+ * @method acCouchdbJson getEntrees()
+ * @method acCouchdbJson setEntrees()
+ * @method acCouchdbJson getSorties()
+ * @method acCouchdbJson setSorties()
+ * @method float getTotal()
+ * @method float setTotal()
  
  */
 

@@ -4,8 +4,20 @@
  * 
  * Base model for DRMLabel
 
+ * @property float $total_stocks
+ * @property float $total_entrees
+ * @property float $total_sorties
+ * @property float $total
  * @property acCouchdbJson $appellations
 
+ * @method float getTotalStocks()
+ * @method float setTotalStocks()
+ * @method float getTotalEntrees()
+ * @method float setTotalEntrees()
+ * @method float getTotalSorties()
+ * @method float setTotalSorties()
+ * @method float getTotal()
+ * @method float setTotal()
  * @method acCouchdbJson getAppellations()
  * @method acCouchdbJson setAppellations()
  
