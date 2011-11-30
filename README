@@ -4,6 +4,10 @@ Allows you to send by e-mails errors 500 (Exception type) that occur in producti
 
 ## Installation ##
 
+  * Install the plugin (via a package)
+
+        symfony plugin:install acExceptionNotifierPlugin
+
   * Install the plugin (via a git clone)
     
         git clone git://gitorious.org/acexceptionnotifierplugin/acexceptionnotifierplugin.git acExceptionNotifierPlugin
@@ -23,7 +27,7 @@ Allows you to send by e-mails errors 500 (Exception type) that occur in producti
           }
         }
 
-  * Configure the plugin in the project `config/app.yml` (create it if not exist)
+  * Configure the plugin in the `config/app.yml` of the project (create it if it doesn't exist)
   
         [yaml]
         all:

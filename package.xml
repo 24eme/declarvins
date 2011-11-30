@@ -42,6 +42,7 @@ Initial release
    <file baseinstalldir="." md5sum="082cbd188b8a0934dbf4c46f2f91904a" name="lib/notifier/acExceptionEmailNotifier.class.php" role="data" />
    <file baseinstalldir="." md5sum="47957584e1648901ddb3c911405bdc94" name="lib/notifier/IExceptionNotifier.class.php" role="data" />
    <file baseinstalldir="." md5sum="476140a0f33ded7400c83532d43a2969" name="LICENSE" role="data" />
+   <file baseinstalldir="." md5sum="476140a0f33ded7400c83532d43a2969" name="README" role="data" />
   </dir>
  </contents>
  <dependencies>
@@ -51,7 +52,14 @@ Initial release
    </php>
    <pearinstaller>
     <min>1.4.0</min>
-   </pearinstaller>
+   </pearinstaller>      
+   <package>
+     <name>symfony</name>
+     <channel>pear.symfony-project.com</channel>
+     <min>1.3.0</min>
+     <max>2.0.0</max>
+     <exclude>2.0.0</exclude>
+  </package>
   </required>
  </dependencies>
  <phprelease />
