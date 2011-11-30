@@ -8,7 +8,7 @@
  * @property float $total_entrees
  * @property float $total_sorties
  * @property float $total
- * @property acCouchdbJson $appellations
+ * @property DRMAppellation $appellations
 
  * @method float getTotalStocks()
  * @method float setTotalStocks()
@@ -18,8 +18,8 @@
  * @method float setTotalSorties()
  * @method float getTotal()
  * @method float setTotal()
- * @method acCouchdbJson getAppellations()
- * @method acCouchdbJson setAppellations()
+ * @method DRMAppellation getAppellations()
+ * @method DRMAppellation setAppellations()
  
  */
 
