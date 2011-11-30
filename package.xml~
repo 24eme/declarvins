@@ -5,7 +5,7 @@
     http://pear.php.net/dtd/package-2.0.xsd">
  <name>acDompdfPlugin</name>
  <uri>https://gitorious.org/acdompdfplugin</uri>
- <summary>acDompdfPlugin - Allows you to use the DOMPDF library.</summary>
+ <summary>acDompdfPlugin - Allows you to use easily the DOMPDF library.</summary>
  <description>Allows you to use easily the DOMPDF library (an HTML to PDF converter).</description>
  <lead>
   <name>Jean-Baptiste Le Metayer</name>
