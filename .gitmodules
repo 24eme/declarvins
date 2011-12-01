@@ -4,8 +4,8 @@
 [submodule "project/plugins/acVinComptePlugin"]
 	path = project/plugins/acVinComptePlugin
 	url = git@gitorious.org:acvin/acvincompteplugin.git
-[submodule "project/plugins/acCasPlugin"]
-	path = project/plugins/acCasPlugin
+[submodule "project/plugins/acPhpCasPlugin"]
+	path = project/plugins/acPhpCasPlugin
 	url = git@gitorious.org:accasplugin/accasplugin.git
 [submodule "project/plugins/acLdapPlugin"]
 	path = project/plugins/acLdapPlugin
