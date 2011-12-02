@@ -49,6 +49,9 @@ class DrmRouting {
                         array('model' => 'DRMLabel',
                             'type' => 'object'
                 )));
+
+        $r->prependRoute('drm_mouvements_generaux', new sfRoute('/drm/mouvements-generaux', array('module' => 'drm_mouvements_generaux', 'action' => 'index')));
+        $r->prependRoute('drm_mouvements_generaux_add_form', new sfRoute('/drm/mouvements-generaux/add-form', array('module' => 'drm_mouvements_generaux', 'action' => 'addTableRowItemAjax')));
     }
 
 }
