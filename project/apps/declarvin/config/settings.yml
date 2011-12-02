@@ -24,7 +24,7 @@ test:
 
 all:
   .settings:
-    enabled_modules:        [default, export_contrat, acVinCompte, drm_recap]
+    enabled_modules:        [default, export_contrat, acVinCompte, drm_recap, drm_mouvements_generaux]
     # Form security secret (CSRF protection)
     csrf_secret:            d7b2b897396f37bf566acbb8257946a785fd1348
 
@@ -36,7 +36,7 @@ all:
     use_database:           true
     
   .actions:
-    login_module:           compte
-    login_action:           login
+    login_module:           acVinCompte
+    login_action:           acVinCompteLogin
     secure_module:          global
     secure_action:          secure

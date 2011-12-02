@@ -3,7 +3,7 @@
 
 # Declaration routing
 homepage:
-  url:   /
+  url:   /contrat
   param: { module: contrat, action: index }
 
 compte_nouveau:
@@ -84,9 +84,6 @@ drm_init:
 drm_informations:
   url:   /drm/informations
   param: { module: drm, action: informations }
-drm_mouvements_generaux:
-  url:   /drm/mouvements-generaux
-  param: { module: drm, action: mouvementsGeneraux }
 drm_evolution:
   url:   /drm/evolution
   param: { module: drm, action: evolution }
