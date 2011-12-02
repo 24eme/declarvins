@@ -1,6 +1,6 @@
 <?php
 
-class DRMDetailStocksForm  extends sfCouchdbFormDocumentJson {
+class DRMDetailStocksForm  extends acCouchdbFormDocumentJson {
 
     public function configure() {
         $this->setWidgets(array(
