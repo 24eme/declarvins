@@ -41,12 +41,36 @@ class DrmRouting {
                         array('model' => 'DRMAppellation',
                             'type' => 'object'
                 )));
-
-        $r->prependRoute('drm_recap_appellation_ajout', new DrmRecapLabelRoute('/drm/recapitulatif/:label/appellation_ajout',
+        
+        $r->prependRoute('drm_recap_appellation_ajout_ajax', new DrmRecapLabelRoute('/drm/recapitulatif-appellation-ajout/:label',
                         array('module' => 'drm_recap',
-                            'action' => 'appellationAjout'),
-                        array('sf_method' => array('get', 'post')),
+                            'action' => 'appellationAjoutAjax'),
+                        array('sf_method' => array('post')),
                         array('model' => 'DRMLabel',
+                            'type' => 'object'
+                )));
+
+        $r->prependRoute('drm_recap_appellation', new DrmRecapAppellationRoute('/drm/recapitulatif/:label/:appellation',
+                        array('module' => 'drm_recap',
+                            'action' => 'appellation'),
+                        array('sf_method' => array('get')),
+                        array('model' => 'DRMAppellation',
+                            'type' => 'object'
+                )));
+        
+        $r->prependRoute('drm_recap_ajout', new DrmRecapAppellationRoute('/drm/recapitulatif/:label/:appellation/ajout',
+                        array('module' => 'drm_recap',
+                            'action' => 'ajout'),
+                        array('sf_method' => array('get', 'post')),
+                        array('model' => 'DRMAppellation',
+                            'type' => 'object'
+                )));
+        
+        $r->prependRoute('drm_recap_update', new DrmRecapDetailRoute('/drm/recapitulatif/:label/:appellation/update/:couleur/:detail',
+                        array('module' => 'drm_recap',
+                            'action' => 'update'),
+                        array('sf_method' => array('post')),
+                        array('model' => 'DRMDetail',
                             'type' => 'object'
                 )));
     }
