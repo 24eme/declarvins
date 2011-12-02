@@ -1,0 +1,1 @@
+<?php include_partial('drm_global/errorMessages', array('form' => $form)) ?>
