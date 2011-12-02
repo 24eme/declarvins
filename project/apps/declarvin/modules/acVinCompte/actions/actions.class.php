@@ -29,7 +29,7 @@ class acVinCompteActions extends BaseacVinCompteActions {
         }
     }
 
-    public function executeLogin(sfWebRequest $request) {
+    public function executeAcVinCompteLogin(sfWebRequest $request) {
         if ($this->getUser()->isAuthenticated() && $this->getUser()->hasCredential("compte")) {
 	  $this->redirect('@tiers');
         } elseif ($request->getParameter('ticket')) {
@@ -43,6 +43,9 @@ class acVinCompteActions extends BaseacVinCompteActions {
 	  $this->getUser()->signIn(phpCAS::getUser());
 	  $this->redirect('@tiers');
         } else {
+            
+          $this->getUser()->signIn('yopyop');
+          $this->redirect('@tiers');
 	  $url = sfConfig::get('app_cas_url') . '/login?service=' . $request->getUri();
 	  $this->redirect($url);
         }

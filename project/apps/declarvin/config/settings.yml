@@ -36,7 +36,7 @@ all:
     use_database:           true
     
   .actions:
-    login_module:           compte
-    login_action:           login
+    login_module:           acVinCompte
+    login_action:           acVinCompteLogin
     secure_module:          global
     secure_action:          secure
