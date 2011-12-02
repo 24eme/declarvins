@@ -170,14 +170,6 @@ Contrat:
                   comptabilite_code_postal: {  }
                   comptabilite_commune: {  }
                   service_douane: {  }
-
-DRM:
-  definition:
-  fields:
-    _id: {  }
-    _rev: {  }
-    type: {  }
-    campagne: {  }
     
 Current:
   definition:
@@ -298,49 +290,45 @@ DRM:
                                                   definition:
                                                     fields:
                                                       '*':
+                                                        class: DRMDetail
                                                         type: collection
                                                         definition:
                                                           fields:
-                                                            '*':
-                                                              class: DRMDetail
+                                                            denomination: {  }
+                                                            label: {  }
+                                                            stocks:
                                                               type: collection
                                                               definition:
                                                                 fields:
-                                                                  denomination: {  }
-                                                                  label: {  }
-                                                                  stocks:
-                                                                    type: collection
-                                                                    definition:
-                                                                      fields:
-                                                                        theorique: { type: float }
-                                                                        bloque: { type: float }  
-                                                                        warrante: { type: float }
-                                                                        instance: { type: float }
-                                                                        total: { type: float }
-                                                                  entrees:
-                                                                    type: collection
-                                                                    definition:
-                                                                      fields:
-                                                                        nouveau: { type: float }  
-                                                                        changement: { type: float }
-                                                                        mouvement: { type: float }
-                                                                        total: { type: float }
-                                                                  sorties:
-                                                                    type: collection
-                                                                    definition:
-                                                                      fields:
-                                                                        vrac: { type: float }  
-                                                                        export: { type: float }  
-                                                                        factures: { type: float } 
-                                                                        crd: { type: float }
-                                                                        consommation: { type: float }
-                                                                        pertes: { type: float }
-                                                                        declassement: { type: float }
-                                                                        repli: { type: float }
-                                                                        mouvement: { type: float }
-                                                                        lies: { type: float }
-                                                                        total: { type: float }
+                                                                  theorique: { type: float }
+                                                                  bloque: { type: float }  
+                                                                  warrante: { type: float }
+                                                                  instance: { type: float }
                                                                   total: { type: float }
+                                                            entrees:
+                                                              type: collection
+                                                              definition:
+                                                                fields:
+                                                                  nouveau: { type: float }  
+                                                                  changement: { type: float }
+                                                                  mouvement: { type: float }
+                                                                  total: { type: float }
+                                                            sorties:
+                                                              type: collection
+                                                              definition:
+                                                                fields:
+                                                                  vrac: { type: float }  
+                                                                  export: { type: float }  
+                                                                  factures: { type: float } 
+                                                                  crd: { type: float }
+                                                                  consommation: { type: float }
+                                                                  pertes: { type: float }
+                                                                  declassement: { type: float }
+                                                                  repli: { type: float }
+                                                                  mouvement: { type: float }
+                                                                  lies: { type: float }
+                                                                  total: { type: float }
+                                                            total: { type: float }
       declarant:
         type: collection
         class: DRMDeclarant
