@@ -1,12 +1,14 @@
 <?php
 
-class DRMMouvementsGenerauxProduitCollectionForm extends sfForm {
+class DRMMouvementsGenerauxProduitCollectionForm extends acCouchdbFormDocumentJson {
+	
 
 	public function configure()
 	{
-    	for ($i=0; $i<$this->getOption('nb_produit', 1); $i++) {
-    		$this->embedForm ($i, new DRMMouvementsGenerauxProduitForm());
-    	}
+		foreach ($this->getObject() as $key => $produit) {
+			$this->embedForm ($key, new DRMMouvementsGenerauxProduitModificationForm($produit));
+		}
+		$this->widgetSchema->setNameFormat('drm_mouvements_generaux[%s]');
   	}
 
 }

@@ -76,6 +76,8 @@ class DrmRouting {
 
         $r->prependRoute('drm_mouvements_generaux', new sfRoute('/drm/mouvements-generaux', array('module' => 'drm_mouvements_generaux', 'action' => 'index')));
         $r->prependRoute('drm_mouvements_generaux_add_form', new sfRoute('/drm/mouvements-generaux/add-form', array('module' => 'drm_mouvements_generaux', 'action' => 'addTableRowItemAjax')));
+        $r->prependRoute('drm_mouvements_generaux_save_form', new sfRoute('/drm/mouvements-generaux/save-form', array('module' => 'drm_mouvements_generaux', 'action' => 'saveTableRowItemAjax')));
+        $r->prependRoute('drm_mouvements_generaux_save', new sfRoute('/drm/mouvements-generaux/save', array('module' => 'drm_mouvements_generaux', 'action' => 'saveFormAjax')));
     }
 
 }

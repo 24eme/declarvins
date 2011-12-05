@@ -1,37 +1,34 @@
 <?php
 
-class DRMMouvementsGenerauxProduitForm extends sfForm {
+class DRMMouvementsGenerauxProduitForm extends sfForm { //acCouchdbFormDocumentJson {
+	
+    const FORM_NAME = 'drm_mouvements_generaux[%s]';
+    const EMBED_FORM_NAME = 'produit';
+    
+    protected $_produit;
 
-	public function configure() {
-        $this->setWidgets(array(
-                'appellation' => new sfWidgetFormChoice(array('choices' => array('appellation1' => 'Appellation 1', 'appellation2' => 'Appellation 2', 'appellation3' => 'Appellation 3', 'appellation4' => 'Appellation 4'))),
-        		'couleur' => new sfWidgetFormChoice(array('choices' => array('blanc' => 'Blanc', 'rouge' => 'Rouge'))),
-        		'denomination' => new sfWidgetFormInputText(),
-        		'label' => new sfWidgetFormInputText(),
-        		'disponible' => new sfWidgetFormInputText(),
-        		'stock_vide' => new sfWidgetFormInputCheckbox(),
-        		'pas_de_mouvement' => new sfWidgetFormInputCheckbox()
-        ));
-        $this->widgetSchema->setLabels(array(
-                'appellation' => 'Appellation*: ',
-        		'couleur' => 'Couleur*: ',
-                'denomination' => 'Dénomination*: ',
-        		'label' => 'Label: ',
-                'disponible' => 'Disponible*: ',
-        		'stock_vide' => 'Stock vide ',
-        		'pas_de_mouvement' => 'Pas de mouvement '
-        ));
-
-        $this->setValidators(array(
-        		'appellation' => new sfValidatorChoice(array('required' => true, 'choices' => array('appellation1', 'appellation2', 'appellation3', 'appellation4')),array('required' => 'Champ obligatoire')),
-        		'couleur' => new sfValidatorChoice(array('required' => true, 'choices' => array('blanc', 'rouge')),array('required' => 'Champ obligatoire')),
-        		'denomination' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
-        		'label' => new sfValidatorString(array('required' => false)),
-                'disponible' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
-        		'stock_vide' => new sfValidatorBoolean(array('required' => false)),
-        		'pas_de_mouvement' => new sfValidatorBoolean(array('required' => false))
-        ));
-		$this->widgetSchema->setNameFormat('produit[%s]');
+    public function __construct(DRM $drm) {
+    	if (!$drm) {
+    		throw new sfException('DRM Object needed');
+    	}
+    	$this->_drm = $drm;
+    	parent::__construct();
+    }
+    
+	public function configure()
+	{
+    	$formProduits = new DRMMouvementsGenerauxProduitCollectionForm($this->_drm);
+  		$this->embedForm(self::EMBED_FORM_NAME, $formProduits);
+        $this->widgetSchema->setNameFormat(self::FORM_NAME);
+  	}
+  	
+    public static function getNewItem($numeroProduitSuivant, $produit) {
+        $form_container = new BaseForm();
+        $form_container->getWidgetSchema()->setNameFormat(self::FORM_NAME);
+        $form = new BaseForm();
+        $form->embedForm($numeroProduitSuivant, new DRMMouvementsGenerauxProduitForm($produit));
+        $form_container->embedForm(self::EMBED_FORM_NAME, $form);
+        return $form_container;
     }
     
     public function doUpdateObject($values) {
