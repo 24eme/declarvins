@@ -8,6 +8,7 @@
  * @property string $_rev
  * @property string $type
  * @property string $campagne
+ * @property acCouchdbJson $produits
  * @property acCouchdbJson $declaration
  * @property DRMDeclarant $declarant
  * @property string $identifiant
@@ -20,6 +21,8 @@
  * @method string setType()
  * @method string getCampagne()
  * @method string setCampagne()
+ * @method acCouchdbJson getProduits()
+ * @method acCouchdbJson setProduits()
  * @method acCouchdbJson getDeclaration()
  * @method acCouchdbJson setDeclaration()
  * @method DRMDeclarant getDeclarant()
