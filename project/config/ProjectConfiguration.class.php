@@ -15,5 +15,6 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('DrmPlugin');
     $this->enablePlugins('ExportPlugin');
     $this->enablePlugins('ImportPlugin');
+    $this->enablePlugins('sfLESSPlugin');
   }
 }
