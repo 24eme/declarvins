@@ -307,7 +307,7 @@ DRM:
                                                 total_sorties: { type: float }
                                                 total: { type: float }
                                                 details:
-                                                  type: array_collection
+                                                  type: collection
                                                   definition:
                                                     fields:
                                                       '*':
