@@ -19,7 +19,8 @@ class DrmRecapDetailRoute extends DrmRecapAppellationRoute {
         if ($details->exist($parameters['detail'])) {
             $drm_detail = $details->get($parameters['detail']);
         } else {
-            $drm_detail = $details->add();
+            $drm_detail = $details->add("NOUVELLE");
+            $drm_detail->getDocument()->synchroniseProduits();
         }
         
 

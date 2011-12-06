@@ -3,36 +3,37 @@
 class DrmRecapAppellationRoute extends DrmRecapLabelRoute {
 
     public function getConfigAppellation() {
-        
+
         return $this->getObject();
     }
-    
+
     public function getDrmAppellation() {
-        
-        return $this->getDRM()->get($this->getConfigAppellation()->getHash());
+
+        return $this->getDRM()->getOrAdd($this->getConfigAppellation()->getHash());
     }
-    
+
     public function getConfigLabel() {
-        
-         return $this->getConfigAppellation()->getLabel();
+
+        return $this->getConfigAppellation()->getLabel();
     }
-    
+
     protected function getObjectForParameters($parameters) {
         $config_label = parent::getObjectForParameters($parameters);
-        $drm_appellations = $this->getDRM()->get($config_label->getHash())->appellations;
-        
+        $drm_appellations = $this->getDRM()->declaration->labels->add($config_label->getKey())->appellations;
+
         if ($config_label) {
             if (!array_key_exists('appellation', $parameters)) {
-                foreach($config_label->appellations as $config_appellation) {
+                foreach ($config_label->appellations as $config_appellation) {
                     if ($drm_appellations->exist($config_appellation->getKey())) {
-                        
+
                         return $config_appellation;
                     }
                 }
+                return $config_label->appellations->add("nop");
             }
 
             if ($drm_appellations->exist($parameters['appellation'])) {
-                
+
                 return $config_label->appellations->get($parameters['appellation']);
             }
         }
@@ -41,9 +42,13 @@ class DrmRecapAppellationRoute extends DrmRecapLabelRoute {
     }
 
     protected function doConvertObjectToArray($object) {
-        $parameters = parent::doConvertObjectToArray($object->getLabel());
-        $parameters['appellation'] = $object->getKey();
-        
+        if ($object->getDefinition()->getHash() == "/declaration/labels/*/appellations/*") {
+            $parameters = parent::doConvertObjectToArray($object->getLabel());
+            $parameters['appellation'] = $object->getKey();
+        } elseif($object->getDefinition()->getHash() == "/declaration/labels/*") {
+            $parameters = parent::doConvertObjectToArray($object);
+        }
+
         return $parameters;
     }
 

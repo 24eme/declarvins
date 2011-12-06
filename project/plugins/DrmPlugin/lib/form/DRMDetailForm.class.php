@@ -5,13 +5,13 @@ class DRMDetailForm extends acCouchdbFormDocumentJson {
     public function configure() {
         $this->setWidgets(array(
             'denomination' => new sfWidgetFormInputText(),
-            'couleur'      => new sfWidgetFormInputText(),
+            'couleur'      => new sfWidgetFormChoice(array('choices' => array('' => "", 'blanc' => 'Blanc', 'rouge' => 'Rouge', 'rose' => "Rosé"))),
             'label'        => new sfWidgetFormInputText(),
         ));
 
         $this->setValidators(array(
             'denomination' => new sfValidatorString(array('required' => true)),
-            'couleur'      => new sfValidatorString(array('required' => true)),
+            'couleur'      => new sfValidatorChoice(array('required' => true, 'choices' => array('blanc', 'rouge', 'rose'))),
             'label'        => new sfValidatorString(array('required' => false)),
         ));
 
@@ -35,17 +35,9 @@ class DRMDetailForm extends acCouchdbFormDocumentJson {
 
     public function doUpdateObject($values) {
         parent::doUpdateObject($values);
-
-        if($this->getObject()->getCouleur()->getKey() != $values['couleur']) {
-            $clone = clone $this->getObject();
-            $appellation = $this->getObject()->getCouleur()->getAppellation();
-            
-            $clone->getCouleur()->details->remove($this->getObject()->getKey());
-            if (count($clone->getCouleur()->details) == 0) {
-                $clone->remove($this->getObject()->getCouleur()->getKey());
-            }
-
-            $this->object = $appellation->couleurs->add($values['couleur'])->details->add(null, $this->getObject());
-        }
+        $this->getObject()->setCouleurValue($values['couleur']);
+        $this->getObject()->getDocument()->synchroniseProduits();
+        $this->getObject()->getAppellation()->couleurs->move($this->getObject()->getCouleur()->getKey().'/details/'.$this->getObject()->getKey(), 
+                                                             $values['couleur'].'/details/'.KeyInflector::slugify($this->getObject()->denomination));
     }
 }
