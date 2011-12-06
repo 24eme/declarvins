@@ -1,5 +1,5 @@
 <tr>
-	<td align="center"><?php echo $object->appellation ?></td>
+    <td align="center"><?php echo ConfigurationClient::getCurrent()->declaration->labels->get($object->getParent()->getKey())->appellations->get($object->appellation)->libelle ?></td>
 	<td align="center"><?php echo $object->couleur ?></td>
 	<td align="center"><?php echo $object->denomination ?></td>
 	<td align="center"><?php echo $object->label ?></td>

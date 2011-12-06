@@ -6,7 +6,7 @@ class DRMAppellationAjoutForm extends acCouchdbFormDocumentJson {
 
     public function setup() {
 
-        if ($this->getObject()->getDefinition()->getModel().$this->getObject()->getDefinition()->getHash() != 'DRM/declaration/labels/*/appellations') {
+        if ($this->getObject()->getDefinition()->getModel() . $this->getObject()->getDefinition()->getHash() != 'DRM/declaration/labels/*/appellations') {
             throw new sfException("Object must be a DRM/declaration/labels/*/appellations object");
         }
 
@@ -26,25 +26,24 @@ class DRMAppellationAjoutForm extends acCouchdbFormDocumentJson {
         if (is_null($this->_appellation_choices)) {
             $this->_appellation_choices = array('' => '');
             foreach ($this->getObject()->getConfig() as $key => $item) {
-                if (!$this->getObject()->exist($key)) {
-                    $this->_appellation_choices[$key] = $item->getLibelle();
-                }
+                //if (!$this->getObject()->exist($key)) {
+                $this->_appellation_choices[$key] = $item->getLibelle();
+                //}
             }
         }
 
         return $this->_appellation_choices;
     }
 
-    
     public function doUpdateObject($values) {
         $this->getObject()->add($values['appellation']);
     }
-    
+
     public function getAppellation() {
         if ($this->isValid()) {
             return $this->getObject()->get($this->values['appellation']);
         }
-        
+
         return null;
     }
 

@@ -8,11 +8,24 @@
     Il existe des erreurs !
 </div>
 
-<?php foreach($drm_appellation->couleurs as $couleur) :?>
-    <?php foreach($couleur->details as $detail): ?>
-        <?php include_component('drm_recap', 'itemForm', array('detail' => $detail, 'form' => $form)); ?>
-    <?php endforeach; ?>
-<?php endforeach; ?>
+<div id="colonnes_dr">
+    <?php include_partial('drm_recap/itemHeader'); ?>    
+    <div id="col_saisies">
+        <script type="text/javascript">
+            /* Colonne avec le focus par défaut */
+            var colFocusDefaut = null;
+        </script>
+
+        <div id="col_saisies_cont">
+            <?php foreach ($drm_appellation->getDocument()->produits->get($drm_appellation->getLabel()->getKey()) as $produit): ?>
+                <?php if ($produit->getAppellation() == $drm_appellation->getKey() && !$produit->stock_vide): ?>
+                    <?php include_component('drm_recap', 'itemForm', array('produit' => $produit, 'detail' => $produit->getDetail(), 'form' => $form)); ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <a class="btn_ajouter" href="<?php echo url_for('drm_recap_ajout', $config_appellation); ?>">Ajouter Dénomination</a>
+</div>
 
 <script type="text/javascript">
     $(document).ready(function () {
