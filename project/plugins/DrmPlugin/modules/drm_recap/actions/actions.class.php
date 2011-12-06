@@ -20,7 +20,7 @@ class drm_recapActions extends sfActions
             if ($this->form->isValid()) {
                 $this->form->save();
                 return $this->renderText(json_encode(array("success" => true, 
-                                                           "url" => $this->generateUrl('drm_recap_appellation', $this->form->getAppellation()))));
+                                                           "url" => $this->generateUrl('drm_recap_ajout', $this->form->getAppellation()))));
             }
         }
 
@@ -35,7 +35,8 @@ class drm_recapActions extends sfActions
     public function executeAjout(sfWebRequest $request) {
         
         $this->init();
-        $this->drm_appellation->couleurs->add('rouge')->details->add();
+        $this->drm_appellation->couleurs->add('NONE')->details->add("NOUVELLE");
+        $this->drm_appellation->getDocument()->synchroniseProduits();
 
         $this->setTemplate('appellation');
     }

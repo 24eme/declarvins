@@ -10,5 +10,9 @@ class DRMMouvementsGenerauxProduitCollectionForm extends acCouchdbFormDocumentJs
 		}
 		$this->widgetSchema->setNameFormat('drm_mouvements_generaux[%s]');
   	}
+        
+        public function doUpdateObject($values) {
+            parent::doUpdateObject($values);
+        }
 
 }

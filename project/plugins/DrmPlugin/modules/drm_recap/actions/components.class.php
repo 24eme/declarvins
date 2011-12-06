@@ -13,5 +13,23 @@ class drm_recapComponents extends sfComponents {
             $this->form = new DRMDetailForm($this->detail);
         }
     }
+    
+    public function executeOnglets() {
+        $this->appellations = array();
+        
+        foreach($this->getUser()->getDrm()->produits->get($this->config_appellation->getLabel()->getKey()) as $produit) {
+            if ($produit->stock_vide) {
+                continue;
+            }
+            if (!array_key_exists($produit->appellation, $this->appellations)) {
+                $this->appellations[$produit->appellation] = 0;
+            }
+            
+            if (!$produit->pas_de_mouvement) {
+                 $this->appellations[$produit->appellation] += 1;
+            }
+        }
+        $this->appellation_keys = array_keys($this->appellations);
+    }
 
 }

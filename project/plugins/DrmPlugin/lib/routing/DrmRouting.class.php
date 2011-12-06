@@ -68,7 +68,8 @@ class DrmRouting {
         
         $r->prependRoute('drm_recap_update', new DrmRecapDetailRoute('/drm/recapitulatif/:label/:appellation/update/:couleur/:detail',
                         array('module' => 'drm_recap',
-                            'action' => 'update'),
+                            'action' => 'update',
+                            'detail' => null),
                         array('sf_method' => array('post')),
                         array('model' => 'DRMDetail',
                             'type' => 'object'
