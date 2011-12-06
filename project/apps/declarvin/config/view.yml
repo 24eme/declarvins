@@ -12,9 +12,9 @@ default:
     #language:     en
     #robots:       index, follow
 
-  stylesheets:    [includes.css, inscription.css]
+  stylesheets:    [includes, main]
 
-  javascripts:    [lib/jquery-1.4.2.min.js, lib/modernizr-2.js, includes.js]
+  javascripts:    [lib/jquery-1.4.2.min.js, lib/modernizr-2.js]
 
   has_layout:     true
   layout:         layout

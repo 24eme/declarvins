@@ -4,9 +4,9 @@
 	<?php include_http_metas() ?>
     <?php include_metas() ?>
     <?php include_title() ?>
-	
-    <?php include_stylesheets() ?>
-    <script type="text/javascript">var jsPath = "/js/";</script>
+    
+    <link rel="stylesheet" type="text/css" href="http://webfonts.fontslive.com/css/47bf5cee-2e68-410c-a2b9-19ca7c9808f2.css" media="screen" />
+    <?php include_less_stylesheets() ?>
     <?php include_javascripts() ?>
 </head>
 
@@ -21,18 +21,13 @@
 
 	<!-- #global -->
 	<div id="global">
-	
-		<!-- #header -->
-		<header id="header">
-			<img src="/images/temp/header.png" alt="" />
-		</header>
+            
+                <?php include_partial('global/header'); ?>
+                
 		<!-- fin #header -->
 		<?php echo $sf_content ?>
-		<!-- #footer -->
-		<footer id="footer">
-			<img src="/images/temp/footer.png" alt="" />
-		</footer>
-		<!-- fin #footer -->
+		
+                <?php include_partial('global/footer'); ?>
 	
 	</div>
 	<!-- fin #global -->
@@ -40,8 +35,8 @@
 <!-- ####### A REPRENDRE ABSOLUMENT ####### -->
 <!--[if lte IE 9 ]> </div> <![endif]-->
 <!-- ####### A REPRENDRE ABSOLUMENT ####### -->
-	
-
+	<script type="text/javascript">var jsPath = "/js/";</script>
+        <script type="text/javascript" src="/js/includes.js"></script>
 </body>
 
 </html>
