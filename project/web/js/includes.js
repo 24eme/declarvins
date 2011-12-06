@@ -8,7 +8,7 @@
 (function($)
 {
 	/**
-	 * G�re l'inclusion de fichier JS
+	 * Gére l'inclusion de fichier JS
 	 * $.fn.include(chemin, fichier, {condition: false, operateur: '', version: ''});
 	 ******************************************/
 	$.fn.includeJS = function(chemin, fichier, opt)
@@ -40,12 +40,12 @@
 	
 	// Plugins
 	$.fn.includeJS(jsPath, 'plugins/selectivizr-min.js', {condition: true, operateur: 'lte', version: 'IE 8'});
-	$.fn.includeJS(jsPath, 'plugins/DD_belatedPNG.js', {condition: true, operateur: 'lte', version: 'IE 6'});
 	$.fn.includeJS(jsPath, 'plugins/jquery.metadata.js');
+	$.fn.includeJS(jsPath, 'plugins/scrollTo-1.4.2-min.js');
 	
-	// Fonctions personnalis�es
+	// Fonctions personnalisées
 	$.fn.includeJS(jsPath, 'affichage.js');
 	$.fn.includeJS(jsPath, 'global.js');
-	$.fn.includeJS(jsPath, 'contrat.js');
+        $.fn.includeJS(jsPath, 'declaration.js');
 
 })(jQuery);

@@ -19,6 +19,7 @@
 		$('img.rollover').survolImg();
 	});
 	
+	
 	/**
 	 * Var dump
 	 ******************************************/
@@ -211,8 +212,7 @@
 			if(hauteur > hauteurMax) hauteurMax = hauteur;
 		});
 		
-		if($.browser.msie && parseInt($.browser.version) <= 6) blocs.height(hauteurMax);
-		else blocs.css({'min-height': hauteurMax}); 
+		blocs.height(hauteurMax);
 	};
 	
 	/**
@@ -229,6 +229,7 @@
 			var largeur = $(this).width();
 			if(largeur > largeurMax) largeurMax = largeur;
 		});
+		
 		blocs.width(largeurMax);
 	};
 	
@@ -356,5 +357,23 @@
 
 		return nouvUrl;
 	};
+	
+	/**
+	 * Gère les raccourcis clavier du type Ctrl+Touche
+	 * $.ctrl(key, callback, args);
+	 ******************************************/
+	$.ctrl = function(key, callback, args)
+	{
+    	$(document).keydown(function(e)
+		{
+        	if(!args) args = []; // IE barks when args is null
+			//if(e.keyCode == key.charCodeAt(0) && e.ctrlKey) callback.apply(this, args);
+            if(e.keyCode == key && e.ctrlKey)
+			{
+				callback.apply(this, args);
+            	return false;
+			}
+		});
+    };
 	
 })(jQuery);
