@@ -75,6 +75,21 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
     public function __set($key, $value) {
         return $this->set($key, $value);
     }
+    
+    public function move($key_or_hash, $new_key_or_hash) {
+        $object = $this->get($key_or_hash);
+        if ($key_or_hash != $new_key_or_hash) {
+            if ($this->exist($new_key_or_hash)) {
+                throw new acCouchdbException("new key already exist");
+            }
+            $clone = clone $object;
+            $this->remove($key_or_hash);
+            $new = $this->getOrAdd($new_key_or_hash);
+            return $new->getParent()->set($new->getKey(), $clone);
+        }
+        
+        return $object;
+    }
 
     public function remove($key_or_hash) {
         return $this->_remove($key_or_hash);
