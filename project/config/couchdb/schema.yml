@@ -239,22 +239,25 @@ DRM:
         definition:
           fields:
             '*':
-              # LABEL
-              type: array_collection
+              type: collection
               definition:
                 fields:
                   '*':
-                    class: DRMProduit
-                    type: collection
+                    # LABEL
+                    type: array_collection
                     definition:
                       fields:
-                        appellation: {  }
-                        couleur: {  }
-                        denomination: {  }
-                        label: {  }
-                        disponible: {  }
-                        stock_vide: {  }
-                        pas_de_mouvement: {  }
+                        '*':
+                          class: DRMProduit
+                          type: collection
+                          definition:
+                            fields:
+                              couleur: {  }
+                              denomination: {  }
+                              label: {  }
+                              disponible: {  }
+                              stock_vide: {  }
+                              pas_de_mouvement: {  }
       declaration:
         type: collection
         definition:
