@@ -16,7 +16,7 @@ class DRMMouvementsGenerauxProduitModificationForm extends acCouchdbFormDocument
         		'stock_vide' => new sfValidatorBoolean(array('required' => false)),
         		'pas_de_mouvement' => new sfValidatorBoolean(array('required' => false))
         ));
-		$this->widgetSchema->setNameFormat('produit[%s]');
+		$this->widgetSchema->setNameFormat('produit_'.$this->getObject()->getKey().'[%s]');
     }
     
     public function doUpdateObject($values) {

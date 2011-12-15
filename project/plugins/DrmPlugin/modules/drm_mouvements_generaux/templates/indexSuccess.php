@@ -1,55 +1,42 @@
 <script type="text/javascript">
     $(document).ready( function()
     {
-        $('.addRow').click(function() {
-            $('.labelForm')
-            $('.addRow').hide();
-            var label = "";
-            if ($(this).attr('id') == 'aopRow') {
-                label = 'AOP';
-            } else if ($(this).attr('id') == 'igpRow') {
-                label = 'IGP';
-            } else {
-                label = 'VINSSANSIG';
-            }
-            $.post(
-            "<?php echo url_for('drm_mouvements_generaux_add_form') ?>", 
-            {label: label},
-            function(data) {
-                $(data).insertAfter($("#listing"+label+" tr:last"));
-            }
-        );
+        $('.showForm').click(function() {
+            $('.showForm').hide();
+            $.get(
+            	$(this).attr('href'), 
+            	{certification: $(this).attr('id')},
+            	function(data) {
+                	$('#form').html(data.content);
+            	}
+        	);
+        	return false;
         });
-        $('.deleteRow').live('click', function() {
-            $('#currentForm').remove();
-            $('.addRow').show();
+        $('.closeForm').live('click', function() {
+            $('#form').html('');
+            $('.showForm').show();
         });
         $('#subForm').live('submit', function () {
-            alert('nop');
-            $.post($(this).attr('action'), $(this).serializeArray(), function (data) {
-                $("#currentForm").replaceWith(data);
-            });
+            $.post($(this).attr('action'), $(this).serializeArray(),
+            	function (data) {
+                	if(data.success) {
+                    	document.location.href = data.url;
+                	} else {
+                		$('#form').html(data.content);
+                	}
+            	}, "json"
+            );
             $('.addRow').show();
             return false;
         });
-        $('.labelForm').live('submit', function () {
-            return false;
+        $('#forms :checkbox').change(function() {
+            $(this).parents('form').submit();
         });
-        $('#nextStep').click(function () {
-            $(".labelForm").each(function(){
-                $.post($(this).attr('action'), $(this).serializeArray());
-            });
-            return true;
+        $('.updateProduct').submit(function() {
+        	$.post($(this).attr('action'), $(this).serializeArray());
+        	return false;
         });
     })
-    function truc(form)
-    {
-        $.post($(form).attr('action'), $(form).serializeArray(), function (data) {
-            $("#currentForm").replaceWith(data);
-        });
-        $('.addRow').show();
-        return false;
-    }
 </script>
 
 <?php include_partial('global/navTop'); ?>
@@ -60,95 +47,40 @@
 
     <section id="principal">
 
-        <?php //include_partial('drm_mouvements_generaux/onglets', array('active' => 'mouvements-generaux')) ?>
-
         <div id="contenu_onglet">
-            <div style="margin-bottom:30px;">
-                <form class="labelForm" id="formAOP" action="<?php echo url_for('@drm_mouvements_generaux_save') ?>" method="post">
-                    <input type="hidden" value="AOP" name="label" />
-                    <h2 style="font-size: 16px;">AOP</h2>
-                    <table class="table_mouv" id="listingAOP" width="100%">
-                        <tr>
-                            <th width="240">Appellation</th>
-                            <th width="100">Couleur</th>
-                            <th width="150">Dénomination</th>
-                            <th width="100">Label</th>
-                            <th width="80">Disponible</th>
-                            <th width="80">Stock vide</th>
-                            <th width="80">Pas de mouvement</th>
-                            <th></th>
-                        </tr>
-                        <?php
-                        if ($aopForms):
-                            echo $aopForms->renderHiddenFields();
-                            foreach ($aopForms->getEmbeddedForms() as $key => $aopForm):
-                                ?>
-                                <?php include_partial('produitLigneModificationForm', array('form' => $aopForms[$key], 'object' => $aopForm->getObject(), 'appellation' => 'AOP')) ?>
-                                <?php
-                            endforeach;
-                        endif;
-                        ?>
-                    </table>
-                    <a href="javascript:void(0)" class="addRow " id="aopRow" style="display: inline-block;width:100%;text-align:right;">Ajouter un nouveau produit</a>
-                </form>
-            </div>
-            <div style="margin-bottom:30px;">
-                <form class="labelForm" id="formIGP" action="<?php echo url_for('@drm_mouvements_generaux_save') ?>" method="post">
-                    <input type="hidden" value="IGP" name="label" />
-                    <h2 style="font-size: 16px;">IGP</h2>
-                    <table class="table_mouv" id="listingIGP" width="100%">
-                        <tr>
-                            <th width="240">Appellation</th>
-                            <th width="100">Couleur</th>
-                            <th width="150">Dénomination</th>
-                            <th width="100">Label</th>
-                            <th width="80">Disponible</th>
-                            <th width="80">Stock vide</th>
-                            <th width="80">Pas de mouvement</th>
-                            <th></th>
-                        </tr>
-                        <?php
-                        if ($igpForms):
-                            echo $igpForms->renderHiddenFields();
-                            foreach ($igpForms->getEmbeddedForms() as $key => $igpForm):
-                                ?>
-                                <?php include_partial('produitLigneModificationForm', array('form' => $igpForms[$key], 'object' => $igpForm->getObject(), 'appellation' => 'IGP')) ?>
-                                <?php
-                            endforeach;
-                        endif;
-                        ?>
-                    </table>
-                    <a href="javascript:void(0)" class="addRow" id="igpRow" style="display: inline-block;width:100%;text-align:right;">Ajouter un nouveau produit</a>
-                </form>
-            </div>
-            <div style="margin-bottom:30px;">
-                <form class="labelForm" id="formVINSSANSIG" action="<?php echo url_for('@drm_mouvements_generaux_save') ?>" method="post">
-                    <input type="hidden" value="VINSSANSIG" name="label" />
-                    <h2 style="font-size: 16px;">Vins sans IG</h2>
-                    <table class="table_mouv" id="listingVINSSANSIG" width="100%">
-                        <tr>
-                            <th width="240">Appellation</th>
-                            <th width="120">Couleur</th>
-                            <th width="150">Dénomination</th>
-                            <th width="120">Label</th>
-                            <th width="80">Disponible</th>
-                            <th width="80">Stock vide</th>
-                            <th width="80">Pas de mouvement</th>
-                            <th></th>
-                        </tr>
-                        <?php
-                        if ($vinssansigForms):
-                            echo $vinssansigForms->renderHiddenFields();
-                            foreach ($vinssansigForms->getEmbeddedForms() as $key => $vinssansigForm):
-                                ?>
-                                <?php include_partial('produitLigneModificationForm', array('form' => $vinssansigForms[$key], 'object' => $vinssansigForm->getObject(), 'appellation' => 'VINSSANSIG')) ?>
-                                <?php
-                            endforeach;
-                        endif;
-                        ?>
-                    </table>
-                    <a href="javascript:void(0)" class="addRow ajouter" id="vinssansigRow" style="display: inline-block;width:100%;text-align:right;">Ajouter un nouveau produit</a>
-                </form>
+        	<?php if ($sf_user->hasFlash('notice')): ?>
+        		<p><?php echo $sf_user->getFlash('notice') ?></p>
+        	<?php endif; ?>
+        	<div id="form" style="padding:10px 0;">
+        	
+        	</div>
+        	<div id="forms">
+        		<?php foreach ($forms as $certification => $tabForm): ?>
+	            <div style="margin-bottom:30px;">
+	                    <h2 style="font-size: 16px;"><?php echo $certificationLibelle[$certification] ?></h2>
+	                    <table class="table_mouv" width="100%">
+	                        <tr>
+	                            <th width="240">Appellation</th>
+	                            <th width="100">Couleur</th>
+	                            <th width="150">Dénomination</th>
+	                            <th width="100">Label</th>
+	                            <th width="80">Disponible</th>
+	                            <th width="80">Stock vide</th>
+	                            <th width="80">Pas de mouvement</th>
+	                        </tr>
+	                        <?php
+	                        if ($tabForm):
+	                            foreach ($tabForm as $form):
+	                                ?>
+	                                <?php include_partial('produitLigneModificationForm', array('form' => $form)) ?>
+	                                <?php
+	                            endforeach;
+	                        endif;
+	                        ?>
+	                    </table>
+	                    <a href="<?php echo url_for('drm_mouvements_generaux_product_form') ?>" class="showForm " id="<?php echo $certification ?>" style="display: inline-block;width:100%;text-align:right;">Ajouter un nouveau produit</a>
+	            </div>
+	            <?php endforeach; ?>
             </div>
         </div>
         <div id="btn_etape_dr">
