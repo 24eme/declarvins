@@ -1,8 +1,12 @@
 <?php
 
-class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson {
-
-    public function configure() {
+class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson 
+{
+	protected $_appellation_choices;
+	const NOEUD_TEMPORAIRE = 'tmp';
+	
+    public function configure() 
+    {
         $this->setWidgets(array(
             'appellation' => new sfWidgetFormChoice(array('choices' => $this->getAppellationChoices())),
             'couleur' => new sfWidgetFormChoice(array('choices' => array('' => "", 'blanc' => 'Blanc', 'rouge' => 'Rouge', 'rose' => "Rosé"))),
@@ -13,7 +17,7 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson {
             'pas_de_mouvement' => new sfWidgetFormInputCheckbox()
         ));
         $this->widgetSchema->setLabels(array(
-            'appellation' => 'Appellation*: ',
+        	'appellation' => 'Appellation*: ',
             'couleur' => 'Couleur*: ',
             'denomination' => 'Dénomination*: ',
             'label' => 'Label: ',
@@ -21,7 +25,6 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson {
             'stock_vide' => 'Stock vide ',
             'pas_de_mouvement' => 'Pas de mouvement '
         ));
-
         $this->setValidators(array(
             'appellation' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getAppellationChoices())), array('required' => 'Champ obligatoire')),
             'couleur' => new sfValidatorChoice(array('required' => true, 'choices' => array('blanc', 'rouge', 'rose')), array('required' => 'Champ obligatoire')),
@@ -36,10 +39,12 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson {
 
     public function doUpdateObject($values) {
         parent::doUpdateObject($values);
+        $this->getObject()->getLabelObject()->move(self::NOEUD_TEMPORAIRE.'/'.$this->getObject()->getKey(), $values['appellation'].'/0');
         $this->getObject()->getDocument()->synchroniseDeclaration();
     }
     
-    public function getAppellationChoices() {
+    public function getAppellationChoices() 
+    {
         if (is_null($this->_appellation_choices)) {
             $this->_appellation_choices = array('' => '');
             foreach ($this->getObject()->getDocument()->declaration->labels->add($this->getObject()->getLabelObject()->getKey())->getConfig()->appellations as $key => $item) {
@@ -48,7 +53,6 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson {
                 }
             }
         }
-
         return $this->_appellation_choices;
     }
 

@@ -33,9 +33,11 @@ class DRM extends BaseDRM {
     }
 
     public function synchroniseDeclaration() {
-        foreach ($this->produits as $label) {
-            foreach ($label as $item) {
-                $item->updateDetail();
+        foreach ($this->produits as $certification) {
+            foreach ($certification as $label) {
+            	foreach ($label as $item) {
+                	$item->updateDetail();
+            	}
             }
         }
     }

@@ -9,6 +9,7 @@ class drm_recapActions extends sfActions
     
     public function executeAppellationAjoutAjax(sfWebRequest $request) {
         $this->forward404Unless($request->isXmlHttpRequest());
+        $this->getResponse()->setContentType('text/json');
         
         $drm = $this->getUser()->getDrm();
         $this->label = $this->getRoute()->getObject();
@@ -23,7 +24,7 @@ class drm_recapActions extends sfActions
                                                            "url" => $this->generateUrl('drm_recap_ajout', $this->form->getAppellation()))));
             }
         }
-
+		
         return $this->renderText(json_encode(array("success" => false, 
                                                        "content" => $this->getPartial('drm_recap/popupAppellationAjout', array('label' => $this->label, 'form' => $this->form)))));
     }
