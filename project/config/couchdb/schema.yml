@@ -186,6 +186,11 @@ Configuration:
       _rev: {  }
       type: {  }
       campagne: {  }
+      label:
+        type: collection
+        definition:
+          fields:
+            '*': {  }
       declaration:
         type: collection
         definition:
