@@ -28,9 +28,8 @@ class DRMDetail extends BaseDRMDetail {
         if (is_null($produit)) {
             $produit = $this->getDocument()->produits->add($this->getAppellation()->getLabel()->getKey())->add();
         }
-
-        $produit->denomination = $this->denomination;
         $produit->label = $this->label;
+        $produit->label_supplementaire = $this->label_supplementaire;
         $produit->couleur = $this->getCouleurValue();
         $produit->appellation = $this->getAppellation()->getKey();
         
@@ -47,6 +46,14 @@ class DRMDetail extends BaseDRMDetail {
     
     public function setCouleurValue($value) {
        $this->_couleur = $value;
+    }
+    
+    public function getLabelKey() {
+    	if ($this->label && is_array($this->label)) {
+    		return implode('-', $this->label);
+    	} else {
+    		return self::LABEL_DEFAULT_KEY;
+    	}
     }
 
 }

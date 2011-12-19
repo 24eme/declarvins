@@ -5,6 +5,8 @@
  */
 
 class DRMProduit extends BaseDRMProduit {
+	
+	const LABEL_DEFAULT_KEY = 'defaut';
     
     public function getLabelObject() {
         return $this->getParent()->getParent();
@@ -16,12 +18,23 @@ class DRMProduit extends BaseDRMProduit {
         return $this->getParent()->getKey();
     }
     
+    public function getLabelKey() {
+    	if ($this->label && is_array($this->label)) {
+    		return implode('-', $this->label);
+    	} else {
+    		return self::LABEL_DEFAULT_KEY;
+    	}
+    }
+    
     public function getDetail() {
+    	if ($this->label && is_array($this->label)) {
+    		$label = implode('-', $this->label);
+    	}
         return $this->getDocument()->declaration
                                    ->labels->get($this->getLabelObject()->getKey())
                                    ->appellations->add($this->getAppellation())
                                    ->couleurs->add($this->couleur)
-                                   ->details->add(KeyInflector::slugify($this->denomination));        
+                                   ->details->add(KeyInflector::slugify($this->getLabelKey()));        
     }
     
     public function existDetail() {
@@ -29,13 +42,13 @@ class DRMProduit extends BaseDRMProduit {
                                    ->labels->add($this->getLabelObject()->getKey())
                                    ->appellations->add($this->getAppellation())
                                    ->couleurs->add($this->couleur)
-                                   ->details->exist(KeyInflector::slugify($this->denomination));        
+                                   ->details->exist(KeyInflector::slugify($this->getLabelKey()));        
     }
     
     public function updateDetail() {
         $detail = $this->getDetail();
-        $detail->denomination = $this->denomination;
         $detail->label = $this->label;
+        $detail->label_supplementaire = $this->label_supplementaire;
         
         return $detail;
     }
