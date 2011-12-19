@@ -10,8 +10,8 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
         $this->setWidgets(array(
             'appellation' => new sfWidgetFormChoice(array('choices' => $this->getAppellationChoices())),
             'couleur' => new sfWidgetFormChoice(array('choices' => array('' => "", 'blanc' => 'Blanc', 'rouge' => 'Rouge', 'rose' => "Rosé"))),
-            'denomination' => new sfWidgetFormInputText(),
             'label' => new sfWidgetFormInputText(),
+            'label_supplementaire' => new sfWidgetFormInputText(),
             'disponible' => new sfWidgetFormInputText(),
             'stock_vide' => new sfWidgetFormInputCheckbox(),
             'pas_de_mouvement' => new sfWidgetFormInputCheckbox()
@@ -19,8 +19,8 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
         $this->widgetSchema->setLabels(array(
         	'appellation' => 'Appellation*: ',
             'couleur' => 'Couleur*: ',
-            'denomination' => 'Dénomination*: ',
             'label' => 'Label: ',
+            'label_supplementaire' => 'Label supplémentaire: ',
             'disponible' => 'Disponible*: ',
             'stock_vide' => 'Stock vide ',
             'pas_de_mouvement' => 'Pas de mouvement '
@@ -28,8 +28,8 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
         $this->setValidators(array(
             'appellation' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getAppellationChoices())), array('required' => 'Champ obligatoire')),
             'couleur' => new sfValidatorChoice(array('required' => true, 'choices' => array('blanc', 'rouge', 'rose')), array('required' => 'Champ obligatoire')),
-            'denomination' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')),
             'label' => new sfValidatorString(array('required' => false)),
+            'label_supplementaire' => new sfValidatorString(array('required' => false)),
             'disponible' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')),
             'stock_vide' => new sfValidatorBoolean(array('required' => false)),
             'pas_de_mouvement' => new sfValidatorBoolean(array('required' => false))

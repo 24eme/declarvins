@@ -4,15 +4,15 @@ class DRMDetailForm extends acCouchdbFormDocumentJson {
 
     public function configure() {
         $this->setWidgets(array(
-            'denomination' => new sfWidgetFormInputText(),
+            'label' => new sfWidgetFormInputText(),
             'couleur'      => new sfWidgetFormChoice(array('choices' => array('' => "", 'blanc' => 'Blanc', 'rouge' => 'Rouge', 'rose' => "Rosé"))),
-            'label'        => new sfWidgetFormInputText(),
+            'label_supplementaire'        => new sfWidgetFormInputText(),
         ));
 
         $this->setValidators(array(
-            'denomination' => new sfValidatorString(array('required' => true)),
+            'label' => new sfValidatorString(array('required' => true)),
             'couleur'      => new sfValidatorChoice(array('required' => true, 'choices' => array('blanc', 'rouge', 'rose'))),
-            'label'        => new sfValidatorString(array('required' => false)),
+            'label_supplementaire'        => new sfValidatorString(array('required' => false)),
         ));
 
         $this->stocks = new DRMDetailStocksForm($this->getObject()->stocks);
@@ -38,6 +38,6 @@ class DRMDetailForm extends acCouchdbFormDocumentJson {
         $this->getObject()->setCouleurValue($values['couleur']);
         $this->getObject()->getDocument()->synchroniseProduits();
         $this->getObject()->getAppellation()->couleurs->move($this->getObject()->getCouleur()->getKey().'/details/'.$this->getObject()->getKey(), 
-                                                             $values['couleur'].'/details/'.KeyInflector::slugify($this->getObject()->denomination));
+                                                             $values['couleur'].'/details/'.KeyInflector::slugify($this->getObject()->getLabelKey()));
     }
 }

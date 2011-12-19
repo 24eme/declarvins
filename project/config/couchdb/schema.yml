@@ -258,8 +258,8 @@ DRM:
                           definition:
                             fields:
                               couleur: {  }
-                              denomination: {  }
                               label: {  }
+                              label_supplementaire: {  }
                               disponible: {  }
                               stock_vide: {  }
                               pas_de_mouvement: {  }
@@ -323,8 +323,8 @@ DRM:
                                                         type: collection
                                                         definition:
                                                           fields:
-                                                            denomination: {  }
                                                             label: {  }
+                                                            label_supplementaire: {  }
                                                             stocks:
                                                               type: collection
                                                               definition:
