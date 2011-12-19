@@ -6,8 +6,8 @@
 
  * @property string $appellation
  * @property string $couleur
- * @property string $denomination
  * @property string $label
+ * @property string $label_supplementaire
  * @property string $disponible
  * @property string $stock_vide
  * @property string $pas_de_mouvement
@@ -16,10 +16,10 @@
  * @method string setAppellation()
  * @method string getCouleur()
  * @method string setCouleur()
- * @method string getDenomination()
- * @method string setDenomination()
  * @method string getLabel()
  * @method string setLabel()
+ * @method string getLabelSupplementaire()
+ * @method string setLabelSupplementaire()
  * @method string getDisponible()
  * @method string setDisponible()
  * @method string getStockVide()
