@@ -5,6 +5,8 @@
  *
  */
 class DRMDetail extends BaseDRMDetail {
+	
+	const LABEL_DEFAULT_KEY = 'defaut';
 
     protected $_couleur = null;
     
@@ -50,8 +52,8 @@ class DRMDetail extends BaseDRMDetail {
     
     public function getLabelKey() {
     	$key = '';
-    	if ($this->label && is_array($this->label)) {
-    		$key = implode('-', $this->label);
+    	if ($this->label) {
+    		$key .= implode('-', $this->label->toArray());
     	}
     	if ($this->label_supplementaire) {
     		if ($key) {
