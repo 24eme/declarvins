@@ -132,11 +132,14 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
 
     public function fromArray($values) {
         foreach ($values as $key => $value) {
-            if (!is_array($value)) {
+            //if (!is_array($value)) {
                 if ($this->exist($key)) {
+		        	if ($this->fieldIsCollection($key) && !$value) {
+		        		$value = array();
+		        	}
                     $this->set($key, $value);
                 }
-            }
+            //}
         }
     }
 
@@ -151,10 +154,9 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
     public function toArray($deep_array = true, $fetch_object = true) {
         $array_fields = array();
         foreach ($this as $key => $field) {
-            if ($deep_array && $this->fieldIsCollection($key)) {
+            if ($deep_array && $this->fieldIsCollection($key) && !$fetch_object) {
                 $array_fields[$key] = $field->toArray($deep_array, $fetch_object);
-                continue;
-            } elseif ($deep_array && $this->fieldIsCollection($key)) {
+            } elseif ($deep_array && $this->fieldIsCollection($key) && $fetch_object) {
                 $array_fields[$key] = $this->get($key);
             } elseif (!$this->fieldIsCollection($key)) {
                 $array_fields[$key] = $this->get($key);
