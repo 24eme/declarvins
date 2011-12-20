@@ -327,7 +327,11 @@ DRM:
                                                         type: collection
                                                         definition:
                                                           fields:
-                                                            label: {  }
+                                                            label:
+                                                              type: array_collection
+                                                              definition:
+                                                                fields:
+                                                                  '*': {  }
                                                             label_supplementaire: {  }
                                                             stocks:
                                                               type: collection
