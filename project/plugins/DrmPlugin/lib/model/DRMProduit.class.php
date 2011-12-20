@@ -6,7 +6,7 @@
 
 class DRMProduit extends BaseDRMProduit {
 	
-	const LABEL_DEFAULT_KEY = 'defaut';
+	const LABEL_DEFAULT_KEY = 'DEFAUT';
     
     public function getLabelObject() {
         return $this->getParent()->getParent();
@@ -17,18 +17,15 @@ class DRMProduit extends BaseDRMProduit {
     public function getAppellation() {
         return $this->getParent()->getKey();
     }
+    public function getAppellationObject() {
+        return $this->getParent();
+    }
     
     public function getLabelKey() {
-    	$key = '';
+    	$key = null;
     	if ($this->label) {
-    		$key .= implode('-', $this->label->toArray());
+    		$key = implode('-', $this->label->toArray());
     	}
-    	if ($this->label_supplementaire) {
-    		if ($key) {
-    			$key .= '-';
-    		}
-    		$key .= $this->label_supplementaire;
-    	} 
     	return ($key)? $key : self::LABEL_DEFAULT_KEY;
     }
     
