@@ -35,7 +35,7 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
             'stock_vide' => new sfValidatorBoolean(array('required' => false)),
             'pas_de_mouvement' => new sfValidatorBoolean(array('required' => false))
         ));
-        $this->validatorSchema->setPostValidator(new DRMLabelValidator());
+        $this->validatorSchema->setPostValidator(new DRMLabelValidator(null, array('object' => $this->getObject())));
         $this->widgetSchema->setNameFormat('produit[%s]');
     }
 

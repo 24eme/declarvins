@@ -5,8 +5,6 @@
  *
  */
 class DRMDetail extends BaseDRMDetail {
-	
-	const LABEL_DEFAULT_KEY = 'defaut';
 
     protected $_couleur = null;
     
@@ -51,17 +49,11 @@ class DRMDetail extends BaseDRMDetail {
     }
     
     public function getLabelKey() {
-    	$key = '';
+    	$key = null;
     	if ($this->label) {
-    		$key .= implode('-', $this->label->toArray());
+    		$key = implode('-', $this->label->toArray());
     	}
-    	if ($this->label_supplementaire) {
-    		if ($key) {
-    			$key .= '-';
-    		}
-    		$key .= $this->label_supplementaire;
-    	} 
-    	return ($key)? $key : self::LABEL_DEFAULT_KEY;
+    	return ($key)? $key : DRMProduit::LABEL_DEFAULT_KEY;
     }
 
 }
