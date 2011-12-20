@@ -41,9 +41,8 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
 
     public function doUpdateObject($values) {
         parent::doUpdateObject($values);
-        //$this->getObject()->label = $values['label'];
         $this->getObject()->getLabelObject()->move(self::NOEUD_TEMPORAIRE.'/'.$this->getObject()->getKey(), $values['appellation'].'/0');
-        //$this->getObject()->getDocument()->synchroniseDeclaration();
+        $this->getObject()->getDocument()->synchroniseDeclaration();
     }
     
     public function getAppellationChoices() 
