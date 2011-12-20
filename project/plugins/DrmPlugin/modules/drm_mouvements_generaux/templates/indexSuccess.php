@@ -62,8 +62,8 @@
 	                        <tr>
 	                            <th width="240">Appellation</th>
 	                            <th width="100">Couleur</th>
-	                            <th width="150">Dénomination</th>
-	                            <th width="100">Label</th>
+	                            <th width="150">Labels</th>
+	                            <th width="100">Label supplémentaire</th>
 	                            <th width="80">Disponible</th>
 	                            <th width="80">Stock vide</th>
 	                            <th width="80">Pas de mouvement</th>
