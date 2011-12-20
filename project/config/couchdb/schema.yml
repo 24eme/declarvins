@@ -258,7 +258,11 @@ DRM:
                           definition:
                             fields:
                               couleur: {  }
-                              label: {  }
+                              label:
+                                type: array_collection
+                                definition:
+                                  fields:
+                                    '*': {  }
                               label_supplementaire: {  }
                               disponible: {  }
                               stock_vide: {  }

@@ -19,11 +19,17 @@ class DRMProduit extends BaseDRMProduit {
     }
     
     public function getLabelKey() {
+    	$key = '';
     	if ($this->label && is_array($this->label)) {
-    		return implode('-', $this->label);
-    	} else {
-    		return self::LABEL_DEFAULT_KEY;
+    		$key = implode('-', $this->label);
     	}
+    	if ($this->label_supplementaire) {
+    		if ($key) {
+    			$key .= '-';
+    		}
+    		$key .= $this->label_supplementaire;
+    	} 
+    	return ($key)? $key : self::LABEL_DEFAULT_KEY;
     }
     
     public function getDetail() {
