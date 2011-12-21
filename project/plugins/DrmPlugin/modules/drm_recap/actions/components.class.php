@@ -21,12 +21,12 @@ class drm_recapComponents extends sfComponents {
 	            if ($produit->stock_vide) {
 	                continue;
 	            }
-	            if (!array_key_exists($produit->appellation, $this->appellations)) {
-	                $this->appellations[$produit->appellation] = 0;
+	            if (!array_key_exists($produit->getAppellation()->getKey(), $this->appellations)) {
+	                $this->appellations[$produit->getAppellation()->getKey()] = 0;
 	            }
 	            
 	            if (!$produit->pas_de_mouvement) {
-	                 $this->appellations[$produit->appellation] += 1;
+	                 $this->appellations[$produit->getAppellation()->getKey()] += 1;
 	            }
         	}
         }

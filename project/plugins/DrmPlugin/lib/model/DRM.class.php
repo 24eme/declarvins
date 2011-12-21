@@ -12,11 +12,13 @@ class DRM extends BaseDRM {
 
     public function synchroniseProduits() {
         $details = array();
-        foreach ($this->produits as $items) {
-            foreach ($items as $item) {
-                if ($detail = $item->updateProduit()) {
-                    $details[] = $detail->getHash();
-                }
+        foreach ($this->produits as $certification) {
+            foreach ($certification as $appellation) {
+            	foreach ($appellation as $item) {
+	                if ($detail = $item->updateProduit()) {
+	                    $details[] = $detail->getHash();
+	                }
+            	}
             }
         }
         foreach ($this->declaration->labels as $label) {
@@ -34,8 +36,8 @@ class DRM extends BaseDRM {
 
     public function synchroniseDeclaration() {
         foreach ($this->produits as $certification) {
-            foreach ($certification as $label) {
-            	foreach ($label as $item) {
+            foreach ($certification as $appellation) {
+            	foreach ($appellation as $item) {
                 	$item->updateDetail();
             	}
             }

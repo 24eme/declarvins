@@ -41,7 +41,7 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
 
     public function doUpdateObject($values) {
         parent::doUpdateObject($values);
-        $this->getObject()->getLabelObject()->move(self::NOEUD_TEMPORAIRE.'/'.$this->getObject()->getKey(), $values['appellation'].'/0');
+        $this->getObject()->getCertification()->move(self::NOEUD_TEMPORAIRE.'/'.$this->getObject()->getKey(), $values['appellation'].'/0');
         $this->getObject()->getDocument()->synchroniseDeclaration();
     }
     
@@ -49,7 +49,7 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
     {
         if (is_null($this->_appellation_choices)) {
             $this->_appellation_choices = array('' => '');
-            foreach ($this->getObject()->getDocument()->declaration->labels->add($this->getObject()->getLabelObject()->getKey())->getConfig()->appellations as $key => $item) {
+            foreach ($this->getObject()->getDocument()->declaration->labels->add($this->getObject()->getCertification()->getKey())->getConfig()->appellations as $key => $item) {
                 if (!$this->getObject()->exist($key)) {
                     $this->_appellation_choices[$key] = $item->getLibelle();
                 }
