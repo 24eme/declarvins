@@ -29,7 +29,7 @@ class DRMLabelValidator extends sfValidatorSchema
     
     protected function existDetail($values) {
         return $this->getObject()->getDocument()->declaration
-                                   ->labels->add($this->getObject()->getLabelObject()->getKey())
+                                   ->labels->add($this->getObject()->getCertification()->getKey())
                                    ->appellations->add($values['appellation'])
                                    ->couleurs->add($values['couleur'])
                                    ->details->exist($this->getLabelKey($values['label']));        

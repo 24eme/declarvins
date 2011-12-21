@@ -1,8 +1,8 @@
 <!-- #colonne_intitules -->
 <div id="colonne_intitules">
-    <p class="denomination">Dénomination</p>
-    <p>Couleur</p>
-    <p>Label</p>
+    <p class="denomination">Couleur</p>
+    <p style="margin-bottom: 90px;">Label</p>
+    <p>Label supplémentaire</p>
 
     <div class="groupe" data-groupe-id="1">
         <p>Stock théorique principal début de mois</p>

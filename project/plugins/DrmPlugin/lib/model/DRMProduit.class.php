@@ -8,16 +8,11 @@ class DRMProduit extends BaseDRMProduit {
 	
 	const LABEL_DEFAULT_KEY = 'DEFAUT';
     
-    public function getLabelObject() {
-        return $this->getParent()->getParent();
-    }
     public function getCertification() {
-        return $this->getLabelObject()->getKey();
+        return $this->getAppellation()->getParent();
     }
+    
     public function getAppellation() {
-        return $this->getParent()->getKey();
-    }
-    public function getAppellationObject() {
         return $this->getParent();
     }
     
@@ -30,20 +25,17 @@ class DRMProduit extends BaseDRMProduit {
     }
     
     public function getDetail() {
-    	if ($this->label && is_array($this->label)) {
-    		$label = implode('-', $this->label);
-    	}
         return $this->getDocument()->declaration
-                                   ->labels->get($this->getLabelObject()->getKey())
-                                   ->appellations->add($this->getAppellation())
+                                   ->labels->add($this->getCertification()->getKey())
+                                   ->appellations->add($this->getAppellation()->getKey())
                                    ->couleurs->add($this->couleur)
                                    ->details->add(KeyInflector::slugify($this->getLabelKey()));        
     }
     
     public function existDetail() {
         return $this->getDocument()->declaration
-                                   ->labels->add($this->getLabelObject()->getKey())
-                                   ->appellations->add($this->getAppellation())
+                                   ->labels->add($this->getCertification()->getKey())
+                                   ->appellations->add($this->getAppellation()->getKey())
                                    ->couleurs->add($this->couleur)
                                    ->details->exist(KeyInflector::slugify($this->getLabelKey()));        
     }

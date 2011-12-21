@@ -1,11 +1,16 @@
+<style>
+#colonnes_dr .col_recolte .col_cont .large {
+	height: 100px;
+}
+</style>
 <div id="col_recolte_<?php echo $form->getObject()->getKey() ?>" class="col_recolte" style="<?php echo ($produit->pas_de_mouvement) ? 'opacity: 0.3;' : '' ?>">
     <form action="<?php echo url_for('drm_recap_update', $form->getObject()) ?>" method="post">
         <?php echo $form->renderHiddenFields(); ?>
         <a href="#" class="col_curseur" data-curseur="<?php echo $form->getObject()->getKey() ?>"></a>
-        <h2><?php echo $form['label']->render(array('data-val-defaut' => $form['label']->getValue(), 'style' => "width: 90px; background: transparent; border: none; color: #fff; font-weight: bold; text-align: center; font-size: 13px; outline: none;")) ?></h2>
+        <h2><?php echo $form['couleur']->render(array('data-val-defaut' => $form['couleur']->getValue(), 'style' => "width: 90px; background: transparent; border: none; color: #fff; font-weight: bold; text-align: center; font-size: 13px; outline: none;")) ?></h2>
         <div class="col_cont">
-            <p>
-                <?php echo $form['couleur']->render(array('data-val-defaut' => $form['couleur']->getValue())) ?>
+            <p class="large">
+                <?php echo $form['label']->render(array('class' => 'large')) ?>
             </p>
             <p>
                 <?php echo $form['label_supplementaire']->render(array('data-val-defaut' => $form['label_supplementaire']->getValue())) ?>

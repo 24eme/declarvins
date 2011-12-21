@@ -7,8 +7,8 @@ class DrmMouvementsGenerauxProduitUpdateRoute extends sfObjectRoute {
     }
 
     protected function doConvertObjectToArray($object) {
-        $parameters['certification'] = $object->getCertification();
-        $parameters['appellation'] = $object->getAppellation();
+        $parameters['certification'] = $object->getCertification()->getKey();
+        $parameters['appellation'] = $object->getAppellation()->getKey();
         $parameters['indice'] = $object->getKey();
         
         return $parameters;
