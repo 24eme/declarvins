@@ -26,12 +26,11 @@ class DRMDetail extends BaseDRMDetail {
 
     public function updateProduit($produit = null) {
         if (is_null($produit)) {
-            $produit = $this->getDocument()->produits->add($this->getAppellation()->getLabel()->getKey())->add();
+            $produit = $this->getDocument()->produits->add($this->getAppellation()->getLabel()->getKey())->add($this->getAppellation()->getKey())->add();
         }
         $produit->label = $this->label;
         $produit->label_supplementaire = $this->label_supplementaire;
         $produit->couleur = $this->getCouleurValue();
-        $produit->appellation = $this->getAppellation()->getKey();
         
         return $this;
     }
