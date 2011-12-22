@@ -4,7 +4,7 @@ class drm_recapComponents extends sfComponents {
 
     public function executePopupAppellationAjout() {
         if (is_null($this->form)) {
-            $this->form = new DRMAppellationAjoutForm($this->getUser()->getDrm()->declaration->labels->add($this->label->getKey())->appellations);
+            $this->form = new DRMAppellationAjoutForm($this->getUser()->getDrm()->declaration->certifications->add($this->label->getKey())->appellations);
         }
     }
     

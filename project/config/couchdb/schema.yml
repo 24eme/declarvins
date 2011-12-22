@@ -195,7 +195,7 @@ Configuration:
         type: collection
         definition:
           fields:
-            labels:
+            certifications:
               type: collection
               definition:
                 fields:
@@ -271,7 +271,7 @@ DRM:
         type: collection
         definition:
           fields:
-            labels:
+            certifications:
               type: collection
               definition:
                 fields:

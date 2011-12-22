@@ -6,8 +6,8 @@ class DRMAppellationAjoutForm extends acCouchdbFormDocumentJson {
 
     public function setup() {
 
-        if ($this->getObject()->getDefinition()->getModel() . $this->getObject()->getDefinition()->getHash() != 'DRM/declaration/labels/*/appellations') {
-            throw new sfException("Object must be a DRM/declaration/labels/*/appellations object");
+        if ($this->getObject()->getDefinition()->getModel() . $this->getObject()->getDefinition()->getHash() != 'DRM/declaration/certifications/*/appellations') {
+            throw new sfException("Object must be a DRM/declaration/certifications/*/appellations object");
         }
 
         $this->setWidgets(array(

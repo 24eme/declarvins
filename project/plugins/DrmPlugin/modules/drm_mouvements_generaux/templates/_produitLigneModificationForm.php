@@ -6,7 +6,7 @@
 				<tr>
 				    <td align="center" width="240">
 				    <?php echo ConfigurationClient::getCurrent()->declaration
-    														    ->labels->get($form->getObject()->getCertification()->getKey())
+    														    ->certifications->get($form->getObject()->getCertification()->getKey())
     															->appellations->get($form->getObject()->getAppellation()->getKey())
     															->libelle ?>
     				</td>

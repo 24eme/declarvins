@@ -49,7 +49,7 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
     {
         if (is_null($this->_appellation_choices)) {
             $this->_appellation_choices = array('' => '');
-            foreach ($this->getObject()->getDocument()->declaration->labels->add($this->getObject()->getCertification()->getKey())->getConfig()->appellations as $key => $item) {
+            foreach ($this->getObject()->getDocument()->declaration->certifications->add($this->getObject()->getCertification()->getKey())->getConfig()->appellations as $key => $item) {
                 if (!$this->getObject()->exist($key)) {
                     $this->_appellation_choices[$key] = $item->getLibelle();
                 }

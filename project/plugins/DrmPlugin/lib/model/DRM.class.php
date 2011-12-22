@@ -21,8 +21,8 @@ class DRM extends BaseDRM {
             	}
             }
         }
-        foreach ($this->declaration->labels as $label) {
-            foreach ($label->appellations as $appellation) {
+        foreach ($this->declaration->certifications as $certifications) {
+            foreach ($certifications->appellations as $appellation) {
                 foreach ($appellation->couleurs as $couleur) {
                     foreach ($couleur->details as $detail) {
                         if (!in_array($detail->getHash(), $details)) {
