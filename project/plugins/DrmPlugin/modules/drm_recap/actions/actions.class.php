@@ -14,7 +14,7 @@ class drm_recapActions extends sfActions
         $drm = $this->getUser()->getDrm();
         $this->label = $this->getRoute()->getObject();
 
-        $this->form = new DRMAppellationAjoutForm($drm->declaration->labels->add($this->label->getKey())->appellations);
+        $this->form = new DRMAppellationAjoutForm($drm->declaration->certifications->add($this->label->getKey())->appellations);
         
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
