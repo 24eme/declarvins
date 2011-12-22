@@ -47,12 +47,12 @@ EOF;
 	    }
 	    
 	    $configuration = new Configuration();
-	    $aop = $configuration->declaration->labels->add('AOP')->libelle = 'AOP';
-	    $igp = $configuration->declaration->labels->add('IGP')->libelle = 'IGP';
-	    $vinsansig = $configuration->declaration->labels->add('VINSSANSIG')->libelle = "Vins sans IG";
+	    $aop = $configuration->declaration->certifications->add('AOP')->libelle = 'AOP';
+	    $igp = $configuration->declaration->certifications->add('IGP')->libelle = 'IGP';
+	    $vinsansig = $configuration->declaration->certifications->add('VINSSANSIG')->libelle = "Vins sans IG";
 	    foreach (file($arguments['file']) as $a) {
 	        $datas = explode(";", $a);
-	        $configuration->declaration->labels->get($datas[0])->appellations->add(str_replace("\n", "", $datas[2]))->libelle = $datas[1];
+	        $configuration->declaration->certifications->get($datas[0])->appellations->add(str_replace("\n", "", $datas[2]))->libelle = $datas[1];
 	    }
     	$configuration->save();
     } elseif ($configuration) {

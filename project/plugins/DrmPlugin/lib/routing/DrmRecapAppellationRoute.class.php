@@ -19,7 +19,7 @@ class DrmRecapAppellationRoute extends DrmRecapLabelRoute {
 
     protected function getObjectForParameters($parameters) {
         $config_label = parent::getObjectForParameters($parameters);
-        $drm_appellations = $this->getDRM()->declaration->labels->add($config_label->getKey())->appellations;
+        $drm_appellations = $this->getDRM()->declaration->certifications->add($config_label->getKey())->appellations;
 
         if ($config_label) {
             if (!array_key_exists('appellation', $parameters)) {
@@ -42,10 +42,10 @@ class DrmRecapAppellationRoute extends DrmRecapLabelRoute {
     }
 
     protected function doConvertObjectToArray($object) {
-        if ($object->getDefinition()->getHash() == "/declaration/labels/*/appellations/*") {
+        if ($object->getDefinition()->getHash() == "/declaration/certifications/*/appellations/*") {
             $parameters = parent::doConvertObjectToArray($object->getLabel());
             $parameters['appellation'] = $object->getKey();
-        } elseif($object->getDefinition()->getHash() == "/declaration/labels/*") {
+        } elseif($object->getDefinition()->getHash() == "/declaration/certifications/*") {
             $parameters = parent::doConvertObjectToArray($object);
         }
 

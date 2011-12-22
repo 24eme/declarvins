@@ -26,7 +26,7 @@ class DRMProduit extends BaseDRMProduit {
     
     public function getDetail() {
         return $this->getDocument()->declaration
-                                   ->labels->add($this->getCertification()->getKey())
+                                   ->certifications->add($this->getCertification()->getKey())
                                    ->appellations->add($this->getAppellation()->getKey())
                                    ->couleurs->add($this->couleur)
                                    ->details->add(KeyInflector::slugify($this->getLabelKey()));        
@@ -34,7 +34,7 @@ class DRMProduit extends BaseDRMProduit {
     
     public function existDetail() {
         return $this->getDocument()->declaration
-                                   ->labels->add($this->getCertification()->getKey())
+                                   ->certifications->add($this->getCertification()->getKey())
                                    ->appellations->add($this->getAppellation()->getKey())
                                    ->couleurs->add($this->couleur)
                                    ->details->exist(KeyInflector::slugify($this->getLabelKey()));        

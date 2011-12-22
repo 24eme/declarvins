@@ -7,7 +7,7 @@ class drm_mouvements_generauxActions extends sfActions
 		$drm = $this->getUser()->getDrm();
 		$this->forms = array();
 		$this->certificationLibelle = array();
-		foreach (ConfigurationClient::getCurrent()->declaration->labels as $certification => $item) {
+		foreach (ConfigurationClient::getCurrent()->declaration->certifications as $certification => $item) {
 			if (!isset($this->forms[$certification])) {
 				$this->forms[$certification] = array();
 				$this->certificationLibelle[$certification] = $item->libelle;

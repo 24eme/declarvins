@@ -12,11 +12,11 @@ class DrmRecapLabelRoute extends sfObjectRoute {
     
     protected function getObjectForParameters($parameters) {
         if (!array_key_exists('label', $parameters)) {
-            return $this->getDRMConfiguration()->declaration->labels->getFirst();
+            return $this->getDRMConfiguration()->declaration->certifications->getFirst();
         }
         
-        if ($this->getDRMConfiguration()->declaration->labels->exist($parameters['label'])) {
-            return $this->getDRMConfiguration()->declaration->labels->get($parameters['label']);
+        if ($this->getDRMConfiguration()->declaration->certifications->exist($parameters['label'])) {
+            return $this->getDRMConfiguration()->declaration->certifications->get($parameters['label']);
         }
         
         return null;

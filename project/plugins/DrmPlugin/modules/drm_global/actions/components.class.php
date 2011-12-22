@@ -3,13 +3,13 @@
 class drm_globalComponents extends sfComponents {
 
     public function executeEtapes() {
-        $this->config_labels = ConfigurationClient::getCurrent()->declaration->labels;
-        $this->labels = array();
+        $this->config_certifications = ConfigurationClient::getCurrent()->declaration->certifications;
+        $this->certifications = array();
         
         $i = 3;
-        foreach ($this->config_labels as $label => $produit) {
+        foreach ($this->config_certifications as $label => $produit) {
             if ($this->getUser()->getDrm()->produits->exist($label)) {
-                $this->labels[$i] = $label;
+                $this->certifications[$i] = $label;
                 $i++;
             }
         }
@@ -18,7 +18,7 @@ class drm_globalComponents extends sfComponents {
             'informations' => 1,
             'ajouts-liquidations' => 2,
             'recapitulatif' => 3,
-            'validation' => 3 + count($this->labels),
+            'validation' => 3 + count($this->certifications),
         );
         
         $this->numero = $this->numeros[$this->etape];
@@ -27,9 +27,9 @@ class drm_globalComponents extends sfComponents {
 
 
         if ($this->etape == 'recapitulatif') {
-            foreach ($this->config_labels as $label => $produit) {
-                if ($this->getUser()->getDrm()->produits->exist($label))
-                    if ($label == $this->label) {
+            foreach ($this->config_certifications as $certification => $produit) {
+                if ($this->getUser()->getDrm()->produits->exist($certification))
+                    if ($certification == $this->certification) {
                         break;
                     }
                 $this->numero++;
