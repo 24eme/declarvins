@@ -80,15 +80,32 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
         $object = $this->get($key_or_hash);
         if ($key_or_hash != $new_key_or_hash) {
             if ($this->exist($new_key_or_hash)) {
-                throw new acCouchdbException("new key already exist");
+                throw new acCouchdbException($new_key_or_hash." : new key already exist");
             }
             $clone = clone $object;
             $this->remove($key_or_hash);
             $new = $this->getOrAdd($new_key_or_hash);
             return $new->getParent()->set($new->getKey(), $clone);
         }
-        
         return $object;
+    }
+    
+    public function moveAndClean($key_or_hash, $new_key_or_hash) {
+    	$node = $this->get($key_or_hash)->getParent()->getHash();
+        $object = $this->move($key_or_hash, $new_key_or_hash);
+        $this->clean($node);
+        return $object;
+    }
+    
+    public function clean($key_or_hash) {
+    	$object = $this->getDocument()->get($key_or_hash);
+    	if ($object->count() == 0) {
+    		$object->delete();
+    	}
+    }
+    
+    public function delete() {
+    	return $this->getParent()->remove($this->getKey());
     }
 
     public function remove($key_or_hash) {
@@ -107,8 +124,23 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
         return $this->_add($key, $item);
     }
 
-    public function exist($key) {
-        return $this->_exist($key);
+    public function exist($key_or_hash) {
+    	$obj_hash = new acCouchdbHash($key_or_hash);
+        if ($obj_hash->isAlone()) {
+        	return $this->_exist($obj_hash->getFirst());
+        } else {
+        	$exist = true;
+        	$object = $this;
+        	foreach ($obj_hash->toArray() as $key) {
+        		if ($object->_exist($key)) {
+        			$object = $object->get($key);
+        		} else {
+        			$exist = false;
+        			break;
+        		}
+        	}
+        	return $exist;
+        }
     }
 
     public function __call($method, $arguments) {

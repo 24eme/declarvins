@@ -24,6 +24,17 @@
 class acCouchdbHash {
 
     private $_hash = array();
+    
+    
+
+    /**
+     *
+     * @return array
+     */
+    public function toArray() 
+    {
+    	return $this->_hash;
+    }
 
     /**
      *
