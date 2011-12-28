@@ -1,14 +1,14 @@
 <?php
 /**
- * BaseDRMCouleur
+ * BaseDRMCepage
  * 
- * Base model for DRMCouleur
+ * Base model for DRMCepage
 
  * @property float $total_stocks
  * @property float $total_entrees
  * @property float $total_sorties
  * @property float $total
- * @property acCouchdbJson $cepages
+ * @property acCouchdbJson $details
 
  * @method float getTotalStocks()
  * @method float setTotalStocks()
@@ -18,16 +18,16 @@
  * @method float setTotalSorties()
  * @method float getTotal()
  * @method float setTotal()
- * @method acCouchdbJson getCepages()
- * @method acCouchdbJson setCepages()
+ * @method acCouchdbJson getDetails()
+ * @method acCouchdbJson setDetails()
  
  */
 
-abstract class BaseDRMCouleur extends _DRMTotal {
+abstract class BaseDRMCepage extends _DRMTotal {
                 
     public function configureTree() {
        $this->_root_class_name = 'DRM';
-       $this->_tree_class_name = 'DRMCouleur';
+       $this->_tree_class_name = 'DRMCepage';
     }
                 
 }

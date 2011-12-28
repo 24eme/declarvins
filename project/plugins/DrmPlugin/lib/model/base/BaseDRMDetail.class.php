@@ -4,15 +4,14 @@
  * 
  * Base model for DRMDetail
 
- * @property string $label
+ * @property acCouchdbJson $label
  * @property string $label_supplementaire
  * @property acCouchdbJson $stocks
  * @property acCouchdbJson $entrees
  * @property acCouchdbJson $sorties
- * @property float $total
 
- * @method string getLabel()
- * @method string setLabel()
+ * @method acCouchdbJson getLabel()
+ * @method acCouchdbJson setLabel()
  * @method string getLabelSupplementaire()
  * @method string setLabelSupplementaire()
  * @method acCouchdbJson getStocks()
@@ -21,8 +20,6 @@
  * @method acCouchdbJson setEntrees()
  * @method acCouchdbJson getSorties()
  * @method acCouchdbJson setSorties()
- * @method float getTotal()
- * @method float setTotal()
  
  */
 
