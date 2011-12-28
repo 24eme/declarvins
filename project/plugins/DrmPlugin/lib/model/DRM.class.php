@@ -24,11 +24,13 @@ class DRM extends BaseDRM {
         foreach ($this->declaration->certifications as $certifications) {
             foreach ($certifications->appellations as $appellation) {
                 foreach ($appellation->couleurs as $couleur) {
-                    foreach ($couleur->details as $detail) {
-                        if (!in_array($detail->getHash(), $details)) {
-                            $detail->updateProduit();
-                        }
-                    }
+                	foreach ($couleur->cepages as $cepage) {
+	                    foreach ($cepage->details as $detail) {
+	                        if (!in_array($detail->getHash(), $details)) {
+	                            $detail->updateProduit();
+	                        }
+	                    }
+                	}
                 }
             }
         }
