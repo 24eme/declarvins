@@ -15,6 +15,14 @@ class DRMDetail extends BaseDRMDetail {
     public function getCouleur() {
         return $this->getParent()->getParent();
     }
+    
+    /**
+     *
+     * @return DRMCepage
+     */
+    public function getCepage() {
+        return $this->getParent();
+    }
 
     /**
      *

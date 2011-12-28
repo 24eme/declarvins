@@ -27,19 +27,18 @@ class DRMLabelValidator extends sfValidatorSchema
         throw new sfValidatorErrorSchema($this, array($this->getOption('label_supplementaire_field') => new sfValidatorError($this, 'invalid')));
     }
     
-    protected function existDetail($values) {
-        return $this->getObject()->getDocument()->declaration
-                                   ->certifications->add($this->getObject()->getCertification()->getKey())
-                                   ->appellations->add($values['appellation'])
-                                   ->couleurs->add($values['couleur'])
-                                   ->details->exist($this->getLabelKey($values['label']));        
+    protected function existDetail($values) 
+    {
+    	return $this->getObject()->getDocument()->exist('declaration/certifications/'.$this->getObject()->getCertification()->getKey().'/appellations/'.$values['appellation'].'/couleurs/'.$values['couleur'].'/cepages/'.$values['cepage'].'/details/'.$this->getLabelKey($values['label']));    
     }
 
-    protected function getObject() {
+    protected function getObject() 
+    {
         return $this->getOption('object');
     }
     
-	protected function getLabelKey($labels) {
+	protected function getLabelKey($labels) 
+	{
     	$key = null;
     	if ($labels) {
     		$key = implode('-', $labels);

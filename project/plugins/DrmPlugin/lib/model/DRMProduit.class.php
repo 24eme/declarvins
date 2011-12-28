@@ -29,29 +29,25 @@ class DRMProduit extends BaseDRMProduit {
                                    ->certifications->add($this->getCertification()->getKey())
                                    ->appellations->add($this->getAppellation()->getKey())
                                    ->couleurs->add($this->couleur)
+                                   ->cepages->add($this->cepage)
                                    ->details->add(KeyInflector::slugify($this->getLabelKey()));        
     }
     
     public function existDetail() {
-        return $this->getDocument()->declaration
-                                   ->certifications->add($this->getCertification()->getKey())
-                                   ->appellations->add($this->getAppellation()->getKey())
-                                   ->couleurs->add($this->couleur)
-                                   ->details->exist(KeyInflector::slugify($this->getLabelKey()));        
+    	return $this->getDocument()->exist('declaration/certifications/'.$this>getCertification()->getKey().'/appellations/'.$this->getAppellation()->getKey().'/couleurs/'.$this->couleur.'/cepages/'.$this->cepage.'/details/'.KeyInflector::slugify($this->getLabelKey()));        
     }
     
     public function updateDetail() {
         $detail = $this->getDetail();
         $detail->label = $this->label;
-        $detail->label_supplementaire = $this->label_supplementaire;
-        
+        $detail->label_supplementaire = $this->label_supplementaire;        
         return $detail;
     }
     
     public function updateProduit() {
         if ($this->existDetail()) {
             return $this->getDetail()->updateProduit($this);
-        } else {
+        } else { 
             $this->getParent()->remove($this->getKey());
             return null;
         }

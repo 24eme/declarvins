@@ -5,10 +5,12 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
 	protected $_appellation_choices;
 	protected $_label_choices;
 	const NOEUD_TEMPORAIRE = 'tmp';
+	const NOEUD_CEPAGE_TEMPORAIRE = 'DEFAUT';
 	
     public function configure() 
     {
         $this->setWidgets(array(
+        	'cepage' => new sfWidgetFormInputHidden(array(), array('value' => self::NOEUD_CEPAGE_TEMPORAIRE)),
             'appellation' => new sfWidgetFormChoice(array('choices' => $this->getAppellationChoices())),
             'couleur' => new sfWidgetFormChoice(array('choices' => array('' => "", 'blanc' => 'Blanc', 'rouge' => 'Rouge', 'rose' => "Rosé"))),
             'label' => new sfWidgetFormChoice(array('expanded' => true, 'multiple' => true,'choices' => $this->getLabelChoices())),
@@ -18,6 +20,7 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
             'pas_de_mouvement' => new sfWidgetFormInputCheckbox()
         ));
         $this->widgetSchema->setLabels(array(
+        	'cepage' => 'Cépage*: ',
         	'appellation' => 'Appellation*: ',
             'couleur' => 'Couleur*: ',
             'label' => 'Label: ',
@@ -27,6 +30,7 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
             'pas_de_mouvement' => 'Pas de mouvement '
         ));
         $this->setValidators(array(
+        	'cepage' => new sfValidatorString(array('required' => true)),
             'appellation' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getAppellationChoices())), array('required' => 'Champ obligatoire')),
             'couleur' => new sfValidatorChoice(array('required' => true, 'choices' => array('blanc', 'rouge', 'rose')), array('required' => 'Champ obligatoire')),
             'label' => new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($this->getLabelChoices()))),
@@ -41,7 +45,7 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
 
     public function doUpdateObject($values) {
         parent::doUpdateObject($values);
-        $this->getObject()->getCertification()->move(self::NOEUD_TEMPORAIRE.'/'.$this->getObject()->getKey(), $values['appellation'].'/0');
+        $this->getObject()->getCertification()->moveAndClean(self::NOEUD_TEMPORAIRE.'/'.$this->getObject()->getKey(), $values['appellation'].'/'.$this->getObject()->getParent()->getParent()->get($values['appellation'])->count());
         $this->getObject()->getDocument()->synchroniseDeclaration();
     }
     
