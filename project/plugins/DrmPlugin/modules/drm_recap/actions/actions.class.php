@@ -4,7 +4,8 @@ class drm_recapActions extends sfActions
 {
     
     public function executeIndex(sfWebRequest $request) {
-        $this->forward('drm_recap', 'appellation');
+        $this->init();
+        $this->setTemplate('appellation');
     }
     
     public function executeAppellationAjoutAjax(sfWebRequest $request) {
