@@ -17,7 +17,7 @@ class DRMClient extends acCouchdbClient {
      * @return DRM
      */
     public function retrieveByIdentifiantAndCampagne($identifiant, $campagne, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
-        return parent::retrieveDocumentById('DRM-'.$identifiant.'-'.$campagne, $hydrate);
+    	return parent::retrieveDocumentById('DRM-'.$identifiant.'-'.$campagne, $hydrate);
     }
     
     

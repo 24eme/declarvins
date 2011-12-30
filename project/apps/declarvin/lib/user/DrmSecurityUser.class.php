@@ -57,7 +57,6 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
                 return $drm;
             }
         }
-
         return $this->_drm;
     }
     

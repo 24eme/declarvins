@@ -7,7 +7,6 @@ class DrmRecapDetailRoute extends DrmRecapAppellationRoute {
     }
     
     public function getConfigAppellation() {
-        
         return $this->getDRMConfiguration()->get($this->getDRMDetail()->getCouleur()->getAppellation()->getHash());
     }
     
