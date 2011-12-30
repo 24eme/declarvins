@@ -66,7 +66,7 @@ class DrmRouting {
                             'type' => 'object'
                 )));
         
-        $r->prependRoute('drm_recap_update', new DrmRecapDetailRoute('/drm/recapitulatif/:label/:appellation/update/:couleur/:detail',
+        $r->prependRoute('drm_recap_update', new DrmRecapDetailRoute('/drm/recapitulatif/:label/:appellation/:couleur/update/:cepage/:detail',
                         array('module' => 'drm_recap',
                             'action' => 'update',
                             'detail' => null),

@@ -38,8 +38,8 @@ class DRMDetailForm extends acCouchdbFormDocumentJson {
         parent::doUpdateObject($values);
         $this->getObject()->setCouleurValue($values['couleur']);
         $this->getObject()->getDocument()->synchroniseProduits();
-        $this->getObject()->getAppellation()->couleurs->move($this->getObject()->getCouleur()->getKey().'/details/'.$this->getObject()->getKey(), 
-                                                             $values['couleur'].'/details/'.KeyInflector::slugify($this->getObject()->getLabelKey()));
+        $this->getObject()->getAppellation()->couleurs->move($this->getObject()->getCouleur()->getKey().'/cepages/'.$this->getObject()->getCepage()->getKey().'/details/'.$this->getObject()->getKey(), 
+                                                             $values['couleur'].'/cepages/'.$this->getObject()->getCepage()->getKey().'/details/'.KeyInflector::slugify($this->getObject()->getLabelKey()));
     }
     
     public function getLabelChoices() 

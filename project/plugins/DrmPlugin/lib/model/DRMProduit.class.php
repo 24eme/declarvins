@@ -34,7 +34,7 @@ class DRMProduit extends BaseDRMProduit {
     }
     
     public function existDetail() {
-    	return $this->getDocument()->exist('declaration/certifications/'.$this>getCertification()->getKey().'/appellations/'.$this->getAppellation()->getKey().'/couleurs/'.$this->couleur.'/cepages/'.$this->cepage.'/details/'.KeyInflector::slugify($this->getLabelKey()));        
+    	return $this->getDocument()->exist('declaration/certifications/'.$this->getCertification()->getKey().'/appellations/'.$this->getAppellation()->getKey().'/couleurs/'.$this->couleur.'/cepages/'.$this->cepage.'/details/'.KeyInflector::slugify($this->getLabelKey()));        
     }
     
     public function updateDetail() {
