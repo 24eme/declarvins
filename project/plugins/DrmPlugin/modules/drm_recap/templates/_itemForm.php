@@ -7,13 +7,30 @@
     <form action="<?php echo url_for('drm_recap_update', $form->getObject()) ?>" method="post">
         <?php echo $form->renderHiddenFields(); ?>
         <a href="#" class="col_curseur" data-curseur="<?php echo $form->getObject()->getKey() ?>"></a>
-        <h2><?php echo $form['couleur']->render(array('data-val-defaut' => $form['couleur']->getValue(), 'style' => "width: 90px; background: transparent; border: none; color: #fff; font-weight: bold; text-align: center; font-size: 13px; outline: none;")) ?></h2>
+        <h2>
+        	<?php if ($form->getObject()->getKey() == DRMProduit::LABEL_DEFAULT_KEY): ?>
+        		<?php echo $form['couleur']->render(array('data-val-defaut' => $form['couleur']->getValue(), 'style' => "width: 90px; background: transparent; border: none; color: #fff; font-weight: bold; text-align: center; font-size: 13px; outline: none;")) ?>
+        	<?php else: ?>
+        		<?php echo $form['couleur']->getValue() ?>
+        		<?php echo $form['couleur']->render(array('data-val-defaut' => $form['couleur']->getValue(), 'style' => "display: none; width: 90px; background: transparent; border: none; color: #fff; font-weight: bold; text-align: center; font-size: 13px; outline: none;")) ?>
+        	<?php endif; ?>
+        </h2>
         <div class="col_cont">
             <p class="large">
-                <?php echo $form['label']->render(array('class' => 'large')) ?>
+                <?php if ($form->getObject()->getKey() == DRMProduit::LABEL_DEFAULT_KEY): ?>
+	        		<?php echo $form['label']->render(array('class' => 'large')) ?>
+	        	<?php else: ?>
+	        		<?php echo $form['label']->render(array('disabled' => 'disabled', 'class' => 'large')) ?>
+	        		<?php echo $form['label']->render(array('class' => 'large', 'style' => 'display: none;')) ?>
+	        	<?php endif; ?>
             </p>
             <p>
-                <?php echo $form['label_supplementaire']->render(array('data-val-defaut' => $form['label_supplementaire']->getValue())) ?>
+                <?php if ($form->getObject()->getKey() == DRMProduit::LABEL_DEFAULT_KEY): ?>
+	        		<?php echo $form['label_supplementaire']->render(array('data-val-defaut' => $form['label_supplementaire']->getValue())) ?>
+	        	<?php else: ?>
+	        		<?php echo $form['label_supplementaire']->render(array('disabled' => 'disabled', 'data-val-defaut' => $form['label_supplementaire']->getValue())) ?>
+	        		<?php echo $form['label_supplementaire']->render(array('style' => 'display: none;', 'data-val-defaut' => $form['label_supplementaire']->getValue())) ?>
+	        	<?php endif; ?>
             </p>
 
             <div class="groupe" data-groupe-id="1">
