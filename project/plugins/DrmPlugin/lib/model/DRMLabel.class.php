@@ -6,4 +6,5 @@
 
 class DRMLabel extends BaseDRMLabel {
 
+
 }

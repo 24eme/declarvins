@@ -283,13 +283,11 @@ DRM:
                     type: collection
                     definition:
                       fields:
-                        total_stocks: { type: float }
+                        total_debut_mois: { type: float }
                         total_entrees: { type: float }
                         total_sorties: { type: float }
                         total: { type: float }
                         appellations:
-                          class: DRMAppellation
-                          inheritance: _DRMTotal
                           type: collection
                           definition:
                             fields:
@@ -300,7 +298,7 @@ DRM:
                                 type: collection
                                 definition:
                                   fields:
-                                    total_stocks: { type: float }
+                                    total_debut_mois: { type: float }
                                     total_entrees: { type: float }
                                     total_sorties: { type: float }
                                     total: { type: float }
@@ -315,7 +313,7 @@ DRM:
                                             type: collection
                                             definition:
                                               fields:
-                                                total_stocks: { type: float }
+                                                total_debut_mois: { type: float }
                                                 total_entrees: { type: float }
                                                 total_sorties: { type: float }
                                                 total: { type: float }
@@ -330,7 +328,7 @@ DRM:
                                                         type: collection
                                                         definition:
                                                           fields:
-                                                            total_stocks: { type: float }
+                                                            total_debut_mois: { type: float }
                                                             total_entrees: { type: float }
                                                             total_sorties: { type: float }
                                                             total: { type: float }
@@ -343,6 +341,10 @@ DRM:
                                                                     type: collection
                                                                     definition:
                                                                       fields:
+                                                                        total_debut_mois: { type: float }
+                                                                        total_entrees: { type: float }
+                                                                        total_sorties: { type: float }
+                                                                        total: { type: float }
                                                                         label:
                                                                           type: array_collection
                                                                           definition:
@@ -353,11 +355,9 @@ DRM:
                                                                           type: collection
                                                                           definition:
                                                                             fields:
-                                                                              theorique: { type: float }
                                                                               bloque: { type: float }  
                                                                               warrante: { type: float }
                                                                               instance: { type: float }
-                                                                              total: { type: float }
                                                                         entrees:
                                                                           type: collection
                                                                           definition:
@@ -365,7 +365,6 @@ DRM:
                                                                               nouveau: { type: float }  
                                                                               changement: { type: float }
                                                                               mouvement: { type: float }
-                                                                              total: { type: float }
                                                                         sorties:
                                                                           type: collection
                                                                           definition:
@@ -380,7 +379,6 @@ DRM:
                                                                               repli: { type: float }
                                                                               mouvement: { type: float }
                                                                               lies: { type: float }
-                                                                              total: { type: float }
       declarant:
         type: collection
         class: DRMDeclarant
