@@ -4,7 +4,7 @@
  * 
  * Base model for DRMCouleur
 
- * @property float $total_stocks
+ * @property float $total_debut_mois
  * @property float $total_entrees
  * @property float $total_sorties
  * @property float $total

@@ -34,10 +34,7 @@
             </p>
 
             <div class="groupe" data-groupe-id="1">
-                <p>
-                    <?php echo $form['stocks']['theorique']->render(array('data-val-defaut' => $form['stocks']['theorique']->getValue(),
-                                                                        'class' => 'num num_float somme_stock_debut')) ?>
-                </p>
+                <p><input type="text" value="<?php echo $form->getObject()->total_debut_mois ?>" data-val-defaut="<?php echo $form->getObject()->total_debut_mois ?>" class="num num_float somme_stock_debut" id="<?php echo $col_id; ?>-1" name="<?php echo $col_id; ?>-1" readonly="readonly" /></p>
                 <ul>
                     <?php foreach($form['stocks'] as $key => $subform): ?>
                     <li>
@@ -49,7 +46,7 @@
             </div>
 
             <div class="groupe" data-groupe-id="2">
-                <p><input type="text" value="<?php echo $form->getObject()->entrees->total ?>" data-val-defaut="<?php echo $form->getObject()->entrees->total ?>" class="num num_float somme_groupe somme_entrees" id="<?php echo $col_id; ?>-2" name="<?php echo $col_id; ?>-2" readonly="readonly" /></p>
+                <p><input type="text" value="<?php echo $form->getObject()->total_entrees ?>" data-val-defaut="<?php echo $form->getObject()->total_entrees ?>" class="num num_float somme_groupe somme_entrees" id="<?php echo $col_id; ?>-2" name="<?php echo $col_id; ?>-2" readonly="readonly" /></p>
                 <ul>
                     <?php foreach($form['entrees'] as $key => $subform): ?>
                     <li>
@@ -61,7 +58,7 @@
             </div>
 
             <div class="groupe" data-groupe-id="3">
-                <p><input type="text" value="<?php echo $form->getObject()->sorties->total ?>" data-val-defaut="<?php echo $form->getObject()->sorties->total ?>" class="num num_float somme_groupe somme_sorties" id="<?php echo $col_id; ?>-3" name="<?php echo $col_id; ?>-3" readonly="readonly" /></p>
+                <p><input type="text" value="<?php echo $form->getObject()->total_sorties ?>" data-val-defaut="<?php echo $form->getObject()->total_sorties ?>" class="num num_float somme_groupe somme_sorties" id="<?php echo $col_id; ?>-3" name="<?php echo $col_id; ?>-3" readonly="readonly" /></p>
                 <ul>
                     <?php foreach($form['sorties'] as $key => $subform): ?>
                     <li>

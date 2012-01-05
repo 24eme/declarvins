@@ -76,5 +76,19 @@ class DRMDetail extends BaseDRMDetail {
     	}
     	return ($key)? $key : DRMProduit::LABEL_DEFAULT_KEY;
     }
+    
+    protected function update($params = array()) {
+        parent::update($params);
+        $this->set('total_entrees', $this->getTotalByKey('entrees'));
+        $this->set('total_sorties', $this->getTotalByKey('sorties'));
+    }
+    
+    private function getTotalByKey($key) {
+    	$sum = 0;
+    	foreach ($this->get($key) as $k) {
+    		$sum += $k;
+    	}
+    	return $sum;
+    }
 
 }
