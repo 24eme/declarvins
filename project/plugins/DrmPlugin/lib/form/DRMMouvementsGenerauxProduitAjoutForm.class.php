@@ -45,7 +45,7 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
 
     public function doUpdateObject($values) {
         parent::doUpdateObject($values);
-        $this->getObject()->getCertification()->moveAndClean(self::NOEUD_TEMPORAIRE.'/'.$this->getObject()->getKey(), $values['appellation'].'/'.$this->getObject()->getParent()->getParent()->get($values['appellation'])->count());
+        $this->getObject()->getCertification()->moveAndClean(self::NOEUD_TEMPORAIRE.'/'.$this->getObject()->getKey(), $values['appellation'].'/'.$this->getObject()->getParent()->getParent()->add($values['appellation'])->count());
         $this->getObject()->getDocument()->synchroniseDeclaration();
     }
     

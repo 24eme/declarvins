@@ -25,7 +25,7 @@ class DRMAppellationAjoutForm extends acCouchdbFormDocumentJson {
     public function getAppellationChoices() {
         if (is_null($this->_appellation_choices)) {
             $this->_appellation_choices = array('' => '');
-            foreach ($this->getObject()->getConfig() as $key => $item) {
+            foreach (ConfigurationClient::getCurrent()->declaration->certifications->get($this->getObject()->getParent()->getKey())->appellations as $key => $item) {
                 //if (!$this->getObject()->exist($key)) {
                 $this->_appellation_choices[$key] = $item->getLibelle();
                 //}
