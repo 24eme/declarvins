@@ -26,17 +26,17 @@
 				 rgb(@stop,@stop,@stop) 100%);
 }
 
-.bordered(@top-color: #000, @right-color: #000, @bottom-color: #000, @left-color: #000)
-{
-	border: 1px solid;
-	border-color: @top-color @right-color @bottom-color @left-color;
-}
+.border(@color: #000) { border: 1px solid @color; }
+.border-left(@color: #000) { border-left: 1px solid @color; }
+.border-top(@color: #000) { border-top: 1px solid @color; }
+.border-right(@color: #000) { border-right: 1px solid @color; }
+.border-bottom(@color: #000) { border-bottom: 1px solid @color; }
 
-.box-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1)
+.box-shadow(@shadow: 0)
 {
-	-webkit-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
-	   -moz-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
-	        box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+	-webkit-box-shadow: @shadow;
+	   -moz-box-shadow: @shadow;
+	        box-shadow: @shadow;
 }
 
 .border-radius(@radius: 5px)
@@ -46,12 +46,12 @@
 	        border-radius: @radius;
 }
 
-.opacity(@opacity: 0.5)
+.opacite(@opacite: 0.5)
 {
-	-webkit-opacity: @opacity;
-	 -khtml-opacity: @opacity;
-	   -moz-opacity: @opacity;
-	        opacity: @opacity;
+	-webkit-opacity: @opacite;
+	 -khtml-opacity: @opacite;
+	   -moz-opacity: @opacite;
+	        opacity: @opacite;
 }
 
 .transition-duration(@duration: 0.2s)
@@ -75,11 +75,11 @@
 	        transform:scale(@ratio);
 }
 
-.transition(@duration:0.2s, @ease:ease-out)
+.transition(@property:all, @duration:0.2s, @ease:ease-in)
 {
-	-webkit-transition: all @duration @ease;
-	   -moz-transition: all @duration @ease;
-	        transition: all @duration @ease;
+	-webkit-transition: @property @duration @ease ;
+	   -moz-transition: @property @duration @ease ;
+	        transition: @property @duration @ease ;
 }
 
 .inner-shadow(@horizontal:0, @vertical:1px, @blur:2px, @alpha: 0.4)
@@ -124,4 +124,17 @@
 	        column-rule-color: @columnRuleColor;
 	        column-rule-style: @columnRuleStyle;
 	        column-rule-width: @columnRuleWidth;
+}
+
+.box-dimensions(@width, @height)
+{
+	height: @height;
+	width: @width;
+}
+
+.box(@width, @height, @margin, @padding)
+{
+	.box-dimensions(@width, @height);
+	margin: @margin;
+	padding: @padding;
 }

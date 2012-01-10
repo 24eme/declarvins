@@ -75,9 +75,16 @@ class DrmRouting {
                             'type' => 'object'
                 )));
         
-        $r->prependRoute('drm_mouvements_generaux_produit_update', new DrmMouvementsGenerauxProduitUpdateRoute('/drm/mouvements-generaux/:certification/:appellation/update/:indice',
+        $r->prependRoute('drm_mouvements_generaux_produit_update', new DrmMouvementsGenerauxProduitRoute('/drm/mouvements-generaux/:certification/:appellation/update/:indice',
                         array('module' => 'drm_mouvements_generaux',
                             'action' => 'saveFormAjax'),
+                        array('sf_method' => array('post')),
+                        array('model' => 'DRMProduit',
+                            'type' => 'object'
+                )));
+        $r->prependRoute('drm_mouvements_generaux_produit_delete', new DrmMouvementsGenerauxProduitRoute('/drm/mouvements-generaux/:certification/:appellation/delete/:indice',
+                        array('module' => 'drm_mouvements_generaux',
+                            'action' => 'deleteAjax'),
                         array('sf_method' => array('post')),
                         array('model' => 'DRMProduit',
                             'type' => 'object'

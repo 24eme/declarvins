@@ -34,6 +34,15 @@ class drm_mouvements_generauxActions extends sfActions
         return sfView::NONE;
     }
     
+    public function executeDeleteAjax(sfWebRequest $request) 
+    {
+        if ($request->isXmlHttpRequest()) {
+			$this->getRoute()->getObject()->delete();
+			$this->getRoute()->getObject()->getDocument()->save();
+        } 
+        return sfView::NONE;
+    }
+    
     public function executeProductFormAjax(sfWebRequest $request) 
     {
         if ($request->isXmlHttpRequest()) {
