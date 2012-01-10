@@ -16,6 +16,15 @@
             $('#form').html('');
             $('.showForm').show();
         });
+        $('.supprimer').live('click', function() {
+            var link = $(this);
+        	$.post($(this).attr('href'), null, 
+                function() {
+        			link.parents('tr').remove();
+        		}
+        	);
+        	return false;
+        });
         $('#subForm').live('submit', function () {
             $.post($(this).attr('action'), $(this).serializeArray(),
             	function (data) {
@@ -29,7 +38,7 @@
             $('.addRow').show();
             return false;
         });
-        $('#forms :checkbox').change(function() {
+        $('#ajouts_liquidations :checkbox').change(function() {
             $(this).parents('form').submit();
         });
         $('.updateProduct').submit(function() {
@@ -46,47 +55,60 @@
     <?php include_component('drm_global', 'etapes', array('etape' => 'ajouts-liquidations', 'pourcentage' => '10')); ?>
 
     <section id="principal">
-
-        <div id="contenu_onglet">
-        	<?php if ($sf_user->hasFlash('notice')): ?>
-        		<p><?php echo $sf_user->getFlash('notice') ?></p>
-        	<?php endif; ?>
-        	<div id="form" style="padding:10px 0;">
+		<div id="application_dr">
+			<ul id="onglets_principal"><li class="actif"><strong>Mouvements Généraux</strong></li></ul>
+			<div id="contenu_onglet">
+				<a href="<?php echo url_for('drm_recap', ConfigurationClient::getCurrent()->declaration->certifications->AOP) ?>" class="btn_passer_etape">Passer cette étape</a>	
+				<p class="intro">Au cours du mois écoulé, avez-vous connu des changements de structure particuliers ?</p>
+	        	<?php if ($sf_user->hasFlash('notice')): ?>
+	        		<p><?php echo $sf_user->getFlash('notice') ?></p>
+	        	<?php endif; ?>
+	        	
+        		<div id="form" style="padding:10px 0;">
         	
+        		</div>
+        		
+        		<div id="ajouts_liquidations">
+        			<?php foreach ($forms as $certification => $tabForm): ?>
+		            <div id="tableau_<?php echo strtolower($certificationLibelle[$certification]) ?>" class="tableau_ajouts_liquidations">
+		                    <h2><?php echo $certificationLibelle[$certification] ?></h2>
+		                    <div class="recap_produit">
+			                    <table class="tableau_recap">
+			                        <thead>
+										<tr>
+											<th>Appelation</th>
+											<th>Couleur</th>
+											<th>Label</th>
+											<th>Disponible</th>
+											<th>Stock vide</th>
+											<th>Pas de mouvement</th>
+										</tr>
+									</thead>
+									<tbody>
+			                        <?php
+			                        if ($tabForm):
+			                            foreach ($tabForm as $form):
+			                                ?>
+			                                <?php include_partial('produitLigneModificationForm', array('form' => $form)) ?>
+			                                <?php
+			                            endforeach;
+			                        endif;
+			                        ?>
+			                        </tbody>
+			                    </table>
+			                    <div class="btn">
+									<a href="<?php echo url_for('drm_mouvements_generaux_product_form') ?>" class="btn_ajouter btn_popup" data-popup="#popup_ajout_produit" data-popup-config="configPopupAjoutProduit">Ajouter un nouveau produit</a>
+								</div>
+		                    	<!-- <a href="<?php echo url_for('drm_mouvements_generaux_product_form') ?>" class="showForm " id="<?php echo $certification ?>" style="display: inline-block;width:100%;text-align:right;">Ajouter un nouveau produit</a> -->
+		                    </div>
+		            </div>
+		            <?php endforeach; ?>
+            	</div>
         	</div>
-        	<div id="forms">
-        		<?php foreach ($forms as $certification => $tabForm): ?>
-	            <div style="margin-bottom:30px;">
-	                    <h2 style="font-size: 16px;"><?php echo $certificationLibelle[$certification] ?></h2>
-	                    <table class="table_mouv" width="100%">
-	                        <tr>
-	                            <th width="240">Appellation</th>
-	                            <th width="100">Couleur</th>
-	                            <th width="150">Labels</th>
-	                            <th width="100">Label supplémentaire</th>
-	                            <th width="80">Disponible</th>
-	                            <th width="80">Stock vide</th>
-	                            <th width="80">Pas de mouvement</th>
-	                        </tr>
-	                        <?php
-	                        if ($tabForm):
-	                            foreach ($tabForm as $form):
-	                                ?>
-	                                <?php include_partial('produitLigneModificationForm', array('form' => $form)) ?>
-	                                <?php
-	                            endforeach;
-	                        endif;
-	                        ?>
-	                    </table>
-	                    <a href="<?php echo url_for('drm_mouvements_generaux_product_form') ?>" class="showForm " id="<?php echo $certification ?>" style="display: inline-block;width:100%;text-align:right;">Ajouter un nouveau produit</a>
-	            </div>
-	            <?php endforeach; ?>
-            </div>
-        </div>
-        <div id="btn_etape_dr">
-            <a href="<?php echo url_for('@drm_informations') ?>" class="btn_prec">Précédent</a>
-            <a id="nextStep" href="<?php echo url_for('drm_recap', ConfigurationClient::getCurrent()->declaration->certifications->AOP) ?>" class="btn_suiv">Suivant</a>
-        </div>
-
+	        <div id="btn_etape_dr">
+	            <a href="<?php echo url_for('@drm_informations') ?>" class="btn_prec">Précédent</a>
+	            <a id="nextStep" href="<?php echo url_for('drm_recap', ConfigurationClient::getCurrent()->declaration->certifications->AOP) ?>" class="btn_suiv">Suivant</a>
+	        </div>
+		</div>
     </section>
 </section>

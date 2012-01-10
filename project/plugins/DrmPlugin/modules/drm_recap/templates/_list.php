@@ -11,10 +11,10 @@
 <div id="colonnes_dr">
     <?php include_partial('drm_recap/itemHeader'); ?>    
     <div id="col_saisies">
-        <script type="text/javascript">
-            /* Colonne avec le focus par défaut */
-            var colFocusDefaut = null;
-        </script>
+		<script type="text/javascript">
+			/* Colonne avec le focus par défaut */
+			var colFocusDefaut = 1;
+		</script>
 
         <div id="col_saisies_cont">
             <?php foreach ($drm_appellation->getDocument()->produits->get($drm_appellation->getLabel()->getKey()) as $appellation): ?>
