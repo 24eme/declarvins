@@ -1,7 +1,7 @@
 @charset "utf-8";
 /**
  * Fichier : declaration.css
- * Description : styles spécifiques à la déclaration
+ * Description : styles spécifiques aux étapes de la déclaration
  * Auteur : Hamza Iqbal - hiqbal[at]actualys.com
  * Version : 1.0.0
  ******************************************/
@@ -121,16 +121,160 @@ p#date_drm
 
 
 /**
- * Colonnes déclaration
+ * Etape 2 -> Ajouts / Liquidations
+ ******************************************/
+#principal .tableau_ajouts_liquidations
+{
+	margin: 0 0 25px;
+	
+	h2
+	{
+		font-size: 16px;
+		font-weight: normal;
+		margin: 0 0 10px;
+	}
+	
+	.recap_produit
+	{
+		position: relative;
+		
+		.btn
+		{
+			text-align: right;
+		}
+	}
+	
+	/* Tableau de données */
+	table
+	{
+		border-collapse: separate;
+		border-spacing: 3px;
+		margin: 0 0 10px;
+		width: 100%;
+		
+		th, td
+		{
+			border: 1px solid;
+			font-weight: normal;
+			line-height: 18px;
+			padding: 0 10px;
+			vertical-align: middle;
+		}
+		
+		thead
+		{
+			th
+			{
+				background: @couleur-b1;
+				border-color: @couleur-b1;
+				color: #fff;
+				
+				&:first-child
+				{
+					text-align: left;
+					width: 180px;
+				}
+			}
+		}
+		
+		tbody
+		{
+			td
+			{
+				background: @couleur-a3;
+				border-color: @couleur-a5;
+				text-align: center;
+				
+				&:first-child { text-align: left; }
+				
+				a.supprimer
+				{
+					.box-dimensions(13px,13px);
+					background: url(../images/pictos/pi_supprimer.png) 0 0 no-repeat;
+					display: inline-block;
+					position: absolute;
+					left: -15px;
+					text-indent: -9999px;
+				}
+				
+				input, select
+				{
+					margin: 3px 0;
+					vertical-align: middle;
+				}
+				
+				input[type=checkbox] { height: 14px; }
+
+				input[type=text], select
+				{
+					background: #fff;
+					.border(@couleur-a5);
+					color: @couleur-a1;
+					
+					&.num { width: 50px; }
+					&:hover, &:focus { border-color: #777; }
+				}
+				
+				input[type=text]
+				{
+					height: 16px;
+					padding: 2px 5px 0;
+				}
+				
+				select { height: 20px; }
+			}
+			
+			tr.alt td
+			{
+				background: #fff;
+			}
+		}
+	}
+	
+	
+	/* Ajout de produits */
+	.ajout_produit
+	{
+		margin: 10px 0 0;
+		
+		table
+		{
+			margin: 0 0 10px;
+		}
+		
+		.btn
+		{
+			text-align: right;
+			
+			.btn_annuler { .btn_rose; }
+			.btn_valider { .btn_vert; }
+			
+			.btn_annuler, .btn_valider
+			{
+				line-height: 20px;
+				margin: 0 0 0 5px;
+				padding: 0 5px;
+			}
+		}
+	}
+}
+
+
+/**
+ * Etape 3 -> Colonnes déclaration
  ******************************************/
 #colonnes_dr
 {
+	@largeur-col-saisie: 102px;
+	@marge-col-saisie: 25px;
+	
+	.clearfix;
+	.border(@couleur-a5);
+	
 	background: #fff;
-	border: 1px solid #dbdbdb;
 	margin: 0 0 15px;
 	padding: 15px;
-	.clearfix;
-	
+		
 	.col_curseur { font-size: 1px; }
 	
 	/* Colonne des intitulés */
@@ -139,19 +283,19 @@ p#date_drm
 		float: left;
 		font-size: 13px;
 		line-height: 20px;
-		margin: 0 25px 0 0;
+		margin-right: @marge-col-saisie;
 		position: relative;
-		width: 190px;
+		width: 280px;
 		
 		p 
 		{
 			background: @couleur-a4 8px 5px no-repeat;
-			border: 1px solid #dbdbdb;
+			.border(@couleur-a5);
 			margin: 0 0 10px;
 			padding: 0 8px;
 			
-			&.total_sorties { text-align: right; }
-			&.total_stock_theorique { font-size: 10px; }
+			/*&.couleur { padding: 4px 8px; }*/
+			&.label { /*margin-bottom: 40px;*/ }
 		}
 		
 		.groupe
@@ -179,7 +323,7 @@ p#date_drm
 			{
 				color: @couleur-b1;
 				font-size: 12px;
-				padding: 10px 9px 0;
+				padding: 10px 9px 0 0;
 				
 				li { margin: 0 0 10px; }
 			}
@@ -204,7 +348,7 @@ p#date_drm
 		padding: 0 0 10px;
 		position: relative;
 		overflow-x: auto;
-		width: 405px;
+		width: (@largeur-col-saisie + @marge-col-saisie) * 4;
 		
 		.col_saisies_cont
 		{
@@ -217,9 +361,50 @@ p#date_drm
 		float: left;
 		font-size: 13px;
     	line-height: 20px;
-		margin: 0 25px 0 0;
+		margin-right: @marge-col-saisie;
 		position: relative;
-		width: 110px;
+		width: @largeur-col-saisie;
+		
+		input, select
+		{
+			background: #fff;
+			.border(@couleur-a5);
+			color: @couleur-a1;
+			text-align: right;
+			
+			&:hover, &:focus { border-color: #777; }
+		}
+		
+		input
+		{
+			height: 16px;
+			padding: 2px 5px 0;
+			position: relative;
+			top: -1px;
+			width: @largeur-col-saisie - 26px; /* largeur col - padding et bordure col - padding et bordure input */
+			
+			&.somme,
+			&.somme_groupe,
+			&.somme_stock_debut,
+			&.somme_stock_fin
+			{
+				border-color: #bcbcbc;
+				font-weight: bold;
+				
+				&:hover, &:focus { border-color: #777; }
+			}
+		}
+		
+		select
+		{
+			height: 18px;
+			width: @largeur-col-saisie - 14px; /* largeur col - padding et bordure col */
+			
+			&[multiple]
+			{
+				height: 50px
+			}
+		}
 		
 		h2
 		{
@@ -232,7 +417,7 @@ p#date_drm
 		.col_cont
 		{
 			background: @couleur-a4;
-			border: solid #dbdbdb;
+			.border(@couleur-a5);
 			border-width: 0 1px 1px;
 			padding: 10px 6px;
 			
@@ -245,42 +430,12 @@ p#date_drm
 				margin: 0 0 10px;
 				overflow: hidden;
 				zoom: 1;
-			}
-			
-			input, select
-			{
-				background: #fff;
-				border: 1px solid #dbdbdb;
-				color: @couleur-a1;
-				text-align: right;
 				
-				&:hover, &:focus { border-color: #777; }
-			}
-			
-			input
-			{
-				height: 16px;
-				padding: 2px 5px 0;
-				position: relative;
-				top: -1px;
-				width: 84px;
-				
-				&.somme,
-				&.somme_groupe,
-				&.somme_stock_debut,
-				&.somme_stock_fin
+				&.label
 				{
-					border-color: #bcbcbc;
-					font-weight: bold;
-					
-					&:hover, &:focus { border-color: #777; }
+					height: auto;
+					span { display: block; }
 				}
-			}
-			
-			select
-			{
-				height: 18px;
-				width: 96px
 			}
 			
 			.groupe
@@ -300,12 +455,6 @@ p#date_drm
 						margin: 0 0 10px;
 						overflow: hidden;
 						zoom: 1;
-						
-						/*input
-						{
-							position: relative;
-							top: -1px;
-						}*/
 					}
 				}
 			}
@@ -318,7 +467,8 @@ p#date_drm
 			
 			.col_btn
 			{
-				.btn_col_active { display: none; }
+				/*.btn_col_active { display: none; }*/
+				visibility: hidden;
 				
 				button
 				{
@@ -344,7 +494,7 @@ p#date_drm
 			position: absolute;
 			top: 0;
 			bottom: 0;
-			width: 110px;
+			width: @largeur-col-saisie;
 		}
 		
 		&.col_inactive
@@ -366,8 +516,9 @@ p#date_drm
 				
 				.col_btn
 				{
-					.btn_col_inactive { visibility: hidden; }
-					.btn_col_active { display: none; }
+					.col_btn { visibility: hidden; } 
+					/*.btn_col_inactive { visibility: hidden; }
+					.btn_col_active { display: none; }*/
 				}
 			}
 			
@@ -384,8 +535,9 @@ p#date_drm
 		{
 			.col_cont
 			{
-				.btn_col_active { display: block; }
-				.btn_col_inactive { display: none; }
+				.col_btn { visibility: visible; } 
+				/*.btn_col_active { display: block; }
+				.btn_col_inactive { display: none; }*/
 			}
 		}
 		
@@ -396,7 +548,8 @@ p#date_drm
 				.col_btn
 				{
 					background: url(../images/visuels/ajax_loader.gif) center center no-repeat;
-					.btn_col_active { visibility: hidden; }
+					/*.btn_col_active { visibility: hidden; }*/
+					button { visibility: hidden; }
 				}
 			}
 		}
@@ -434,9 +587,27 @@ p#date_drm
 }
 
 
+
 /**
  * Boutons étape
  ******************************************/
+#principal .btn_passer_etape
+{
+	.btn_gris;
+	.btn_suiv;
+	
+	float: right;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 20px;
+	margin: 0 0 0 15px;
+	padding: 0 23px 0 10px;
+	text-transform: uppercase;
+	
+	&:hover { text-decoration: none; }
+}
+
+
 #btn_etape_dr
 {
 	position: relative;
@@ -451,15 +622,15 @@ p#date_drm
 	
 	.btn_prec
 	{
-		float: left;
 		.btn_vert;
+		float: left;
 		padding: 0 15px 0 23px;
 	}
 	
 	.btn_suiv
 	{
-		float: right;
 		.btn_rose;
+		float: right;
 		padding: 0 23px 0 15px;
 	}
 }
