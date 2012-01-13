@@ -13,3 +13,6 @@
 [submodule "project/plugins/acDompdfPlugin"]
 	path = project/plugins/acDompdfPlugin
 	url = git@gitorious.org:acdompdfplugin/acdompdfplugin.git
+[submodule "project/plugins/acLessphpPlugin"]
+	path = project/plugins/acLessphpPlugin
+	url = git@gitorious.org:aclessphpplugin/aclessphpplugin.git

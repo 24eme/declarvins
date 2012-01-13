@@ -52,7 +52,6 @@
 		var section = $(this);
 		
 		var blocRecapProduit = section.find('.recap_produit');
-		var formRecap = blocRecapProduit.find('form');
 		var tableauRecap = blocRecapProduit.find('.tableau_recap');
 		var tableauRecapLignes = tableauRecap.find('tbody tr');
 		var tableauRecapChamps = tableauRecap.find('input, select');
@@ -61,7 +60,6 @@
 		{
 			section: section,
 			blocRecapProduit: blocRecapProduit,
-			formRecap: formRecap,
 			tableauRecap: tableauRecap,
 			tableauRecapLignes: tableauRecapLignes
 		};
