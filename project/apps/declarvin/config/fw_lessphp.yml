@@ -1,0 +1,12 @@
+all:
+  enabled: false                            # Enabled or not
+  substitute_helper: 'get_stylesheets'      # Helper used if not enabled
+
+dev:
+  enabled: true
+  source:
+    pattern: '#(.*)\.less#'                 # Pattern matched by all your less file
+    base_path: /web/less/partial            # The base directory of your less files, relative to sf_root_dir
+  destination:
+    pattern: '\main.css'                    # The generated css files name pattern
+    base_path: /web/css                     # The base directory of generated file, relative to sf_web_dir

@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $(document).ready( function()
     {
-        $('.showForm').click(function() {
+        /*$('.showForm').click(function() {
             $('.showForm').hide();
             $.get(
             	$(this).attr('href'), 
@@ -15,7 +15,7 @@
         $('.closeForm').live('click', function() {
             $('#form').html('');
             $('.showForm').show();
-        });
+        });*/
         $('.supprimer').live('click', function() {
             var link = $(this);
         	$.post($(this).attr('href'), null, 
@@ -97,7 +97,7 @@
 			                        </tbody>
 			                    </table>
 			                    <div class="btn">
-									<a href="<?php echo url_for('drm_mouvements_generaux_product_form') ?>" class="btn_ajouter btn_popup" data-popup="#popup_ajout_produit" data-popup-config="configPopupAjoutProduit">Ajouter un nouveau produit</a>
+									<a href="<?php echo url_for('drm_mouvements_generaux_product_form') ?>?certification=<?php echo $certification ?>" class="btn_ajouter btn_popup" data-popup-ajax="true" data-popup="#popup_ajout_produit" data-popup-config="configAjoutProduit">Ajouter un nouveau produit</a>
 								</div>
 		                    	<!-- <a href="<?php echo url_for('drm_mouvements_generaux_product_form') ?>" class="showForm " id="<?php echo $certification ?>" style="display: inline-block;width:100%;text-align:right;">Ajouter un nouveau produit</a> -->
 		                    </div>

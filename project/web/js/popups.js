@@ -10,27 +10,32 @@
  ******************************************/
 (function($)
 {
-	var configPopup =
-	{
-		autoOpen: false,
-		draggable: false,
-		resizable: false,
-		width: 460,
-		modal: true
-	};
+	var objPopups = {}
 	
-	var configPopupAjoutProduit = 
+	$.extend(objPopups,
 	{
-		close: function(event, ui)
+		infosPopups: [],
+		configDefaut:
 		{
-			// Réinitialise les champs à la fermeture
-			var popup = $(this);
-			popup.find(':text').val('');
-			popup.find('option').removeAttr('selected');
-			popup.find(':checkbox,:radio').removeAttr('checked');
-			popup.find('.ui-dropdownchecklist-selector .ui-dropdownchecklist-text').text('').attr('title','');
+			autoOpen: false,
+			draggable: false,
+			resizable: false,
+			width: 460,
+			modal: true
+		},
+		configAjoutProduit:
+		{
+			close: function(event, ui)
+			{
+				// Réinitialise les champs à la fermeture
+				var popup = $(this);
+				popup.find(':text').val('');
+				popup.find('option').removeAttr('selected');
+				popup.find(':checkbox,:radio').removeAttr('checked');
+				popup.find('.ui-dropdownchecklist-selector .ui-dropdownchecklist-text').text('').attr('title','');
+			}
 		}
-	};
+	});
 	
 	
 	$(document).ready(function()
@@ -40,7 +45,7 @@
 	
 	
 	/**
-	 * Initialisation de a fonction générique
+	 * Initialisation de la fonction générique
 	 * de créations de popups
 	 * $.initPopups();
 	 ******************************************/
@@ -51,47 +56,92 @@
 		btnsPopup.each(function()
 		{
 			var btnPopup = $(this);
-			var popup = $(btnPopup.attr('data-popup'));
-			var config = configPopup;
+			var popupId = btnPopup.attr('data-popup');
 			var popupConfigSpec = btnPopup.attr('data-popup-config');
 			var popupTitre = btnPopup.attr('data-popup-titre');
-			var btnFermer = popup.find('.btn_fermer');
+			var ajax = btnPopup.attr('data-popup-ajax');
+			var href = btnPopup.attr('href');
+			var popup = $(popupId);
 			
-			if(!popupTitre) popupTitre = btnPopup.text();
-			
-			// Ajout du titre dynamique
-			$.extend(config,
+			var infosPopup =
 			{
-				title: popupTitre
-			});
+				btnPopup: btnPopup,
+				btnPopupTexte: btnPopup.text(),
+				config: objPopups.configDefaut,
+				popupId: popupId,
+				popup: popup,
+				popupConfigSpec: popupConfigSpec,
+				popupTitre: popupTitre,
+				ajax: ajax,
+				href: href
+			};
 			
-			// Fusion avec la configuration spécifique
-			if(popupConfigSpec)
+			
+			// Si le contenu est à charger en ajax
+			if(ajax && ajax == "true")
 			{
-				$.extend(config, eval(popupConfigSpec));
+				$.get(href, function(reponse)
+				{
+					// On n'insère pas une popup déjà présente
+					if($(infosPopup.popupId).size() == 0)
+					{
+						$('body').append(reponse);
+					}
+					
+					infosPopup.popup = $(infosPopup.popupId);
+					infosPopup = $.initActionsPopup(infosPopup);
+					
+				}, 'html');
+			}
+			else
+			{
+				infosPopup = $.initActionsPopup(infosPopup);
 			}
 			
-			popup.dialog(config);
-			
-			// Ouverture
-			btnPopup.click(function()
-			{
-
-				alert('fuck');
-				popup.dialog('open');
-				return false;
-			});
-			
-			// Fermeture
-			btnFermer.click(function()
-			{
-				popup.dialog('close');
-				return false;
-			});
+			objPopups.infosPopups.push(infosPopup);
 		});
 	};
 	
-	
-	
+	/**
+	 * Initialisation des actions d'une popup
+	 * $.initActionsPopup(infosPopup);
+	 ******************************************/
+	$.initActionsPopup = function(infos)
+	{
+		var btnFermer = infos.popup.find('.btn_fermer');
+			
+		if(!infos.popupTitre) infos.popupTitre = infos.btnPopupTexte;
+		
+		// Ajout du titre dynamique
+		$.extend(infos.config,
+		{
+			title: infos.popupTitre
+		});
+		
+		// Fusion avec la configuration spécifique
+		if(infos.popupConfigSpec)
+		{
+			$.extend(infos.config, objPopups[infos.popupConfigSpec]);
+		}
+		
+		// Initialisation
+		infos.popup.dialog(infos.config);
+		
+		// Ouverture
+		infos.btnPopup.click(function()
+		{
+			infos.popup.dialog('open');
+			return false;
+		});
+		
+		// Fermeture
+		btnFermer.click(function()
+		{
+			infos.popup.dialog('close');
+			return false;
+		});
+			
+		return infos;
+	};
 	
 })(jQuery);

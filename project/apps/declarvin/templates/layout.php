@@ -6,7 +6,7 @@
     <?php include_title() ?>
     
     <link rel="stylesheet" type="text/css" href="http://webfonts.fontslive.com/css/47bf5cee-2e68-410c-a2b9-19ca7c9808f2.css" media="screen" />
-    <?php include_less_stylesheets() ?>
+    <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
 </head>
 
