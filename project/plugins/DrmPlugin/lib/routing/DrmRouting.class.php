@@ -45,7 +45,7 @@ class DrmRouting {
         $r->prependRoute('drm_recap_appellation_ajout_ajax', new DrmRecapLabelRoute('/drm/recapitulatif-appellation-ajout/:label',
                         array('module' => 'drm_recap',
                             'action' => 'appellationAjoutAjax'),
-                        array('sf_method' => array('post')),
+                        array('sf_method' => array('get','post')),
                         array('model' => 'DRMLabel',
                             'type' => 'object'
                 )));

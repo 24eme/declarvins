@@ -17,14 +17,6 @@
             </li>
         <?php endif; ?>
     <?php endforeach; ?>
-    <li class="ajouter"><a href="#">Ajouter Appelation</a></li>
+    <li class="ajouter"><a class="btn_popup" data-popup-titre="Ajouter une appelation" data-popup="#popup_ajout_appelation" data-popup-ajax="true" href="<?php echo url_for('drm_recap_appellation_ajout_ajax', $config_appellation->getLabel()) ?>">Ajouter Appellation</a></li>
 </ul>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#onglets_principal .ajouter a').click(function () {
-            $('#popup_appellation_ajout').toggle(); 
-            return false;
-        });
-    })
-</script>
+	

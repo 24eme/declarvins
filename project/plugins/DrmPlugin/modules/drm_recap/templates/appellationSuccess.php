@@ -24,9 +24,9 @@
 					</ul>
 				</div>
                 
-                <div id="popup_appellation_ajout" class="notice" style="display: none;">
-                    <?php include_component('drm_recap', 'popupAppellationAjout', array('label' => $config_appellation->getLabel())) ?>
-                </div>
+                
+                <?php //include_component('drm_recap', 'popupAppellationAjout', array('label' => $config_appellation->getLabel())) ?>
+
                 
                 
 				

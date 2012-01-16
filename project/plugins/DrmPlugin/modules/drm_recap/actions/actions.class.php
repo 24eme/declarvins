@@ -9,25 +9,21 @@ class drm_recapActions extends sfActions
     }
     
     public function executeAppellationAjoutAjax(sfWebRequest $request) {
-        $this->forward404Unless($request->isXmlHttpRequest());
+        //$this->forward404Unless($request->isXmlHttpRequest());
         $this->getResponse()->setContentType('text/json');
-        
         $drm = $this->getUser()->getDrm();
         $this->label = $this->getRoute()->getObject();
 
         $this->form = new DRMAppellationAjoutForm($drm->declaration->certifications->add($this->label->getKey())->appellations);
-        
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
                 $this->form->save();
-                return $this->renderText(json_encode(array("success" => true, 
-                                                           "url" => $this->generateUrl('drm_recap_ajout', $this->form->getAppellation()))));
+                return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_recap_ajout', $this->form->getAppellation()))));
             }
         }
 		
-        return $this->renderText(json_encode(array("success" => false, 
-                                                       "content" => $this->getPartial('drm_recap/popupAppellationAjout', array('label' => $this->label, 'form' => $this->form)))));
+        return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('drm_recap/popupAppellationAjout', array('label' => $this->label, 'form' => $this->form)))));
     }
     
     public function executeAppellation(sfWebRequest $request) {
