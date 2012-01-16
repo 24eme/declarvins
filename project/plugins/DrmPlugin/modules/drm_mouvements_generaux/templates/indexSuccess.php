@@ -1,21 +1,6 @@
 <script type="text/javascript">
     $(document).ready( function()
     {
-        /*$('.showForm').click(function() {
-            $('.showForm').hide();
-            $.get(
-            	$(this).attr('href'), 
-            	{certification: $(this).attr('id')},
-            	function(data) {
-                	$('#form').html(data.content);
-            	}
-        	);
-        	return false;
-        });
-        $('.closeForm').live('click', function() {
-            $('#form').html('');
-            $('.showForm').show();
-        });*/
         $('.supprimer').live('click', function() {
             var link = $(this);
         	$.post($(this).attr('href'), null, 
@@ -31,7 +16,7 @@
                 	if(data.success) {
                     	document.location.href = data.url;
                 	} else {
-                		$('#form').html(data.content);
+                		$('#popup_ajout_produit').html(data.content);
                 	}
             	}, "json"
             );

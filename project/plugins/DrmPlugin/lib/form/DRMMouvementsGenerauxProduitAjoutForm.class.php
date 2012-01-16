@@ -13,7 +13,7 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
         	'cepage' => new sfWidgetFormInputHidden(array(), array('value' => self::NOEUD_CEPAGE_TEMPORAIRE)),
             'appellation' => new sfWidgetFormChoice(array('choices' => $this->getAppellationChoices())),
             'couleur' => new sfWidgetFormChoice(array('choices' => array('' => "", 'blanc' => 'Blanc', 'rouge' => 'Rouge', 'rose' => "Rosé"))),
-            'label' => new sfWidgetFormChoice(array('expanded' => true, 'multiple' => true,'choices' => $this->getLabelChoices())),
+            'label' => new sfWidgetFormChoice(array('multiple' => true,'choices' => $this->getLabelChoices())),
             'label_supplementaire' => new sfWidgetFormInputText(),
             'disponible' => new sfWidgetFormInputText(),
             'stock_vide' => new sfWidgetFormInputCheckbox(),

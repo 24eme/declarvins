@@ -43,7 +43,6 @@
 		$.initPopups();
 	});
 	
-	
 	/**
 	 * Initialisation de la fonction générique
 	 * de créations de popups
@@ -85,13 +84,13 @@
 					// On n'insère pas une popup déjà présente
 					if($(infosPopup.popupId).size() == 0)
 					{
-						$('body').append(reponse);
+						$('body').append(reponse.content);
 					}
 					
 					infosPopup.popup = $(infosPopup.popupId);
 					infosPopup = $.initActionsPopup(infosPopup);
 					
-				}, 'html');
+				});
 			}
 			else
 			{
