@@ -162,14 +162,18 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
         return $this->getData();
     }
 
-    public function fromArray($values) {
+    public function fromArray(array $values) {
         foreach ($values as $key => $value) {
             //if (!is_array($value)) {
                 if ($this->exist($key)) {
 		        	if ($this->fieldIsCollection($key) && !$value) {
 		        		$value = array();
 		        	}
-                    $this->set($key, $value);
+		        	if($this->fieldIsCollection($key)) {
+		        		$this->get($key)->fromArray($value);
+		        	} else {
+                    	$this->set($key, $value);
+		        	}
                 }
             //}
         }
