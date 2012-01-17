@@ -5,7 +5,20 @@
     <?php include_metas() ?>
     <?php include_title() ?>
     
-    <link rel="stylesheet" type="text/css" href="http://webfonts.fontslive.com/css/47bf5cee-2e68-410c-a2b9-19ca7c9808f2.css" media="screen" />
+	
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="author" content="Actualys" />
+	<meta name="Description" content="" /> 
+	<meta name="Keywords" content="" />
+	<meta name="robots" content="index,follow" />
+	<meta name="Content-Language" content="fr-FR" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="copyright" content="DéclarVins - 2011" />
+	
+	
+	
+    <link rel="stylesheet" type="text/css" href="http://webfonts.fontslive.com/css/4145075a-3116-42db-9643-0f49fcd9e55e.css" media="screen" />
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
 </head>
