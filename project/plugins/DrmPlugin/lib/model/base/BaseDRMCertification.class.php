@@ -1,8 +1,8 @@
 <?php
 /**
- * BaseDRMLabel
+ * BaseDRMCertification
  * 
- * Base model for DRMLabel
+ * Base model for DRMCertification
 
  * @property float $total_debut_mois
  * @property float $total_entrees
@@ -23,11 +23,11 @@
  
  */
 
-abstract class BaseDRMLabel extends _DRMTotal {
+abstract class BaseDRMCertification extends _DRMTotal {
                 
     public function configureTree() {
        $this->_root_class_name = 'DRM';
-       $this->_tree_class_name = 'DRMLabel';
+       $this->_tree_class_name = 'DRMCertification';
     }
                 
 }

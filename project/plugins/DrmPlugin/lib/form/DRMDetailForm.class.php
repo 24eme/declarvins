@@ -11,7 +11,7 @@ class DRMDetailForm extends acCouchdbFormDocumentJson {
         ));
 
         $this->setValidators(array(
-            'label' => new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($this->getLabelChoices()))),
+            'label' => new sfValidatorChoice(array('multiple' => true, 'required' => true, 'choices' => array_keys($this->getLabelChoices()))),
             'couleur'      => new sfValidatorChoice(array('required' => true, 'choices' => array('blanc', 'rouge', 'rose'))),
             'label_supplementaire'        => new sfValidatorString(array('required' => false)),
         ));

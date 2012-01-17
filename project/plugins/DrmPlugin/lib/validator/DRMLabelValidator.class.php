@@ -43,6 +43,6 @@ class DRMLabelValidator extends sfValidatorSchema
     	if ($labels) {
     		$key = implode('-', $labels);
     	}
-    	return ($key)? $key : DRMProduit::LABEL_DEFAULT_KEY;
+    	return ($key)? $key : DRMProduit::DEFAULT_KEY;
     }
 }

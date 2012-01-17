@@ -17,8 +17,8 @@
 		</script>
 
         <div id="col_saisies_cont">
-            <?php foreach ($drm_appellation->getDocument()->produits->get($drm_appellation->getLabel()->getKey()) as $appellation): ?>
-            	<?php foreach ($drm_appellation->getDocument()->produits->get($drm_appellation->getLabel()->getKey())->get($appellation->getKey()) as $produit): ?>
+            <?php foreach ($drm_appellation->getDocument()->produits->get($drm_appellation->getCertification()->getKey()) as $appellation): ?>
+            	<?php foreach ($drm_appellation->getDocument()->produits->get($drm_appellation->getCertification()->getKey())->get($appellation->getKey()) as $produit): ?>
                 	<?php if ($produit->getAppellation()->getKey() == $drm_appellation->getKey() && !$produit->stock_vide): ?>
                     	<?php include_component('drm_recap', 'itemForm', array('produit' => $produit, 'detail' => $produit->getDetail(), 'form' => $form)); ?>
                 	<?php endif; ?>

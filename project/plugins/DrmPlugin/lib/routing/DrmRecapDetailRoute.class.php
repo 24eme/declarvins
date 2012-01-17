@@ -22,13 +22,12 @@ class DrmRecapDetailRoute extends DrmRecapAppellationRoute {
             $drm_detail->getDocument()->synchroniseProduits();
         }
         
-
         return $drm_detail;
     }
 
     protected function doConvertObjectToArray($object) {
-        $config_label = $this->getDRMConfiguration()->get($object->getCepage()->getCouleur()->getAppellation()->getHash());
-        $parameters = parent::doConvertObjectToArray($config_label);
+        $config_certification = $this->getDRMConfiguration()->get($object->getCepage()->getCouleur()->getAppellation()->getHash());
+        $parameters = parent::doConvertObjectToArray($config_certification);
         $parameters['couleur'] = $object->getCepage()->getCouleur()->getKey();
         $parameters['cepage'] = $object->getCepage()->getKey();
         $parameters['detail'] = $object->getKey();

@@ -3,7 +3,7 @@
         <?php echo $form->renderHiddenFields(); ?>
         <a href="#" class="col_curseur" data-curseur="<?php echo $form->getObject()->getKey() ?>"></a>
         <h2>
-        	<?php if ($form->getObject()->getKey() == DRMProduit::LABEL_DEFAULT_KEY): ?>
+        	<?php if ($form->getObject()->isNew()): ?>
         		<?php echo $form['couleur']->render(array('data-val-defaut' => $form['couleur']->getValue())) ?>
         	<?php else: ?>
         		<?php echo $form['couleur']->getValue() ?>
@@ -12,7 +12,7 @@
         </h2>
         <div class="col_cont">
             <p class="label">
-                <?php if ($form->getObject()->getKey() == DRMProduit::LABEL_DEFAULT_KEY): ?>
+                <?php if ($form->getObject()->isNew()): ?>
 	        		<?php echo $form['label']->render(array('class' => 'large')) ?>
 	        	<?php else: ?>
 	        		<?php foreach ($form['label']->getValue() as $label): ?>

@@ -35,7 +35,7 @@ class DRMDetail extends BaseDRMDetail {
 
     public function updateProduit($produit = null) {
         if (is_null($produit)) {
-            $produit = $this->getDocument()->produits->add($this->getAppellation()->getLabel()->getKey())->add($this->getAppellation()->getKey())->add();
+            $produit = $this->getDocument()->produits->add($this->getAppellation()->getCertification()->getKey())->add($this->getAppellation()->getKey())->add();
         }
         $produit->label = $this->label;
         $produit->label_supplementaire = $this->label_supplementaire;
@@ -74,7 +74,11 @@ class DRMDetail extends BaseDRMDetail {
     	if ($this->label) {
     		$key = implode('-', $this->label->toArray());
     	}
-    	return ($key)? $key : DRMProduit::LABEL_DEFAULT_KEY;
+    	return ($key)? $key : DRMProduit::DEFAULT_KEY;
+    }
+
+    public function isNew() {
+        return $this->getKey() == DRMProduit::DEFAULT_KEY;
     }
     
     protected function update($params = array()) {

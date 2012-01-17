@@ -1,16 +1,15 @@
 <?php
 /**
- * Model for DRMAppellation
- *
+ * Model for DRMCertification
  */
 
 class DRMAppellation extends BaseDRMAppellation {
     
     /**
      *
-     * @return DRMLabel
+     * @return DRMCertification
      */
-    public function getLabel() {
+    public function getCertification() {
         return $this->getParent()->getParent();
     }
 }

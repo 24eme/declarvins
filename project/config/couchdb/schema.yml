@@ -200,8 +200,8 @@ Configuration:
               definition:
                 fields:
                   '*':
-                    # LABEL
-                    class: ConfigurationLabel
+                    # CERTIFICATION
+                    class: ConfigurationCertification
                     inheritance: _ConfigurationDeclaration
                     type: collection
                     definition:
@@ -278,7 +278,7 @@ DRM:
                 fields:
                   '*':
                     # LABEL
-                    class: DRMLabel
+                    class: DRMCertification
                     inheritance: _DRMTotal
                     type: collection
                     definition:
