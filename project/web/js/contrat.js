@@ -32,7 +32,7 @@ function addEtablissement(html) {
 	var tabEtablissements = $("#etablissements");
 	var etablissement = 
 		"" +
-		"<div id=\"etablissement"+nbEtablissements+"\">" +
+		"<div class=\"etablissement\" id=\"etablissement"+nbEtablissements+"\">" +
 		"			<div class=\"ligne_form\">" +
 		"				<label for=\"contrat_etablissements_"+nbEtablissements+"_raison_sociale\">Raison sociale* :</label>" +
 		"				<input type=\"text\" id=\"contrat_etablissements_"+nbEtablissements+"_raison_sociale\" name=\"contrat[etablissements]["+nbEtablissements+"][raison_sociale]\">" +
@@ -47,18 +47,12 @@ function addEtablissement(html) {
 		"</div>";
 	$("#etablissements").append(etablissement);
 	$("#contrat_nb_etablissement").val(nbEtablissements + 1);
-	$("#addEtablissement").css('display', 'inline-block');
 }
 function removeEtablissement(ind) {
 	var nbEtablissements = parseInt($("#contrat_nb_etablissement").val());
 	$("#etablissement"+ind).remove();
 	$("#optionsEtablissement"+ind).remove();
 	$("#contrat_nb_etablissement").val(nbEtablissements - 1);
-	if ((nbEtablissements - 1) == 1) {
-		$("#addEtablissement").css('display', 'none');
-		$("#r2").attr("checked", "checked");
-		$("#r1").removeAttr("checked");
-	}
 	
 }
 function removeAllEtablissement() {
@@ -68,7 +62,6 @@ function removeAllEtablissement() {
 		$("#optionsEtablissement"+i).remove();
 	}
 	$("#contrat_nb_etablissement").val(1);
-	$("#addEtablissement").css('display', 'none');
 }
 function voirFormAdresseComptabilite() {
 	$("#adresseComptabilite").css("display", "block");

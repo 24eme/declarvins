@@ -1,8 +1,7 @@
 <div class="col">
     <?php echo $form->renderHiddenFields(); ?>
-    <div class="ligne_form">
         <?php echo $form->renderGlobalErrors(); ?>
-
+    <div class="ligne_form">
         <?php echo $form['raison_sociale']->renderError() ?>
         <?php echo $form['raison_sociale']->renderLabel() ?>
         <?php echo $form['raison_sociale']->render() ?>
@@ -111,12 +110,9 @@
     <div class="ligne_btn">
         <button type="submit" class="btn_ajouter"><?php echo (!$new) ? 'Modifier' : 'Ajouter'; ?></button>
         <?php if(!$new): ?>
-        <a class="button btn_supprimer" href="<?php echo ($recapitulatif) ? url_for('contrat_etablissement_suppression', array('indice' => $form->getObject()->getKey(), 'recapitulatif' => 1)) : url_for('contrat_etablissement_suppression', array('indice' => $form->getObject()->getKey())); ?>">Supprimer</a>
+        <button type="button" class="btn_supprimer" onclick="window.location.href='<?php echo ($recapitulatif) ? url_for('contrat_etablissement_suppression', array('indice' => $form->getObject()->getKey(), 'recapitulatif' => 1)) : url_for('contrat_etablissement_suppression', array('indice' => $form->getObject()->getKey())); ?>'">Supprimer</button>
         <?php else: ?>
-        <a href="<?php echo url_for("contrat_etablissement_recapitulatif"); ?>" class="button btn_supprimer">Annuler</a>
+        <button type="button" class="btn_supprimer" onclick="window.location.href='<?php echo url_for("contrat_etablissement_recapitulatif"); ?>'">Annuler</button>
         <?php endif; ?>
-        
-        <!--<button type="submit" class="btn_ajouter">Ajouter</button>
-        <button type="submit" class="btn_supprimer">Supprimer</button>-->
     </div>
 </div>
