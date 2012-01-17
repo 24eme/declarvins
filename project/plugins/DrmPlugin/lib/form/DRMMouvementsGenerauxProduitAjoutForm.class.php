@@ -13,11 +13,11 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
         	'cepage' => new sfWidgetFormInputHidden(array(), array('value' => self::NOEUD_CEPAGE_TEMPORAIRE)),
             'appellation' => new sfWidgetFormChoice(array('choices' => $this->getAppellationChoices())),
             'couleur' => new sfWidgetFormChoice(array('choices' => array('' => "", 'blanc' => 'Blanc', 'rouge' => 'Rouge', 'rose' => "Rosé"))),
-            'label' => new sfWidgetFormChoice(array('multiple' => true,'choices' => $this->getLabelChoices())),
+            'label' => new sfWidgetFormChoice(array('expanded' => true, 'multiple' => true,'choices' => $this->getLabelChoices())),
             'label_supplementaire' => new sfWidgetFormInputText(),
-            'disponible' => new sfWidgetFormInputText(),
-            'stock_vide' => new sfWidgetFormInputCheckbox(),
-            'pas_de_mouvement' => new sfWidgetFormInputCheckbox()
+            //'disponible' => new sfWidgetFormInputText(),
+            //'stock_vide' => new sfWidgetFormInputCheckbox(),
+            //'pas_de_mouvement' => new sfWidgetFormInputCheckbox()
         ));
         $this->widgetSchema->setLabels(array(
         	'cepage' => 'Cépage*: ',
@@ -25,9 +25,9 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
             'couleur' => 'Couleur*: ',
             'label' => 'Label: ',
             'label_supplementaire' => 'Label supplémentaire: ',
-            'disponible' => 'Disponible*: ',
-            'stock_vide' => 'Stock vide ',
-            'pas_de_mouvement' => 'Pas de mouvement '
+            //'disponible' => 'Disponible*: ',
+            //'stock_vide' => 'Stock vide ',
+            //'pas_de_mouvement' => 'Pas de mouvement '
         ));
         $this->setValidators(array(
         	'cepage' => new sfValidatorString(array('required' => true)),
@@ -35,9 +35,9 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
             'couleur' => new sfValidatorChoice(array('required' => true, 'choices' => array('blanc', 'rouge', 'rose')), array('required' => 'Champ obligatoire')),
             'label' => new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($this->getLabelChoices()))),
             'label_supplementaire' => new sfValidatorString(array('required' => false)),
-            'disponible' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')),
-            'stock_vide' => new sfValidatorBoolean(array('required' => false)),
-            'pas_de_mouvement' => new sfValidatorBoolean(array('required' => false))
+            //'disponible' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')),
+            //'stock_vide' => new sfValidatorBoolean(array('required' => false)),
+            //'pas_de_mouvement' => new sfValidatorBoolean(array('required' => false))
         ));
         $this->validatorSchema->setPostValidator(new DRMLabelValidator(null, array('object' => $this->getObject())));
         $this->widgetSchema->setNameFormat('produit[%s]');

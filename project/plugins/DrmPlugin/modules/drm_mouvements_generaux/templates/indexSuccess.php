@@ -11,12 +11,14 @@
         	return false;
         });
         $('#subForm').live('submit', function () {
+            var id = $(this).parents('div').attr('id');
             $.post($(this).attr('action'), $(this).serializeArray(),
             	function (data) {
                 	if(data.success) {
                     	document.location.href = data.url;
                 	} else {
-                		$('#popup_ajout_produit').html(data.content);
+                    	alert(id);
+                		$('#'+id).html(data.content);
                 	}
             	}, "json"
             );
@@ -82,7 +84,7 @@
 			                        </tbody>
 			                    </table>
 			                    <div class="btn">
-									<a href="<?php echo url_for('drm_mouvements_generaux_product_form') ?>?certification=<?php echo $certification ?>" class="btn_ajouter btn_popup" data-popup-ajax="true" data-popup="#popup_ajout_produit" data-popup-config="configAjoutProduit">Ajouter un nouveau produit</a>
+									<a href="<?php echo url_for('drm_mouvements_generaux_product_form') ?>?certification=<?php echo $certification ?>" class="btn_ajouter btn_popup" data-popup-ajax="true" data-popup="#popup_ajout_produit_<?php echo $certification ?>" data-popup-config="configAjoutProduit">Ajouter un nouveau produit</a>
 								</div>
 		                    	<!-- <a href="<?php echo url_for('drm_mouvements_generaux_product_form') ?>" class="showForm " id="<?php echo $certification ?>" style="display: inline-block;width:100%;text-align:right;">Ajouter un nouveau produit</a> -->
 		                    </div>
