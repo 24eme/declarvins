@@ -10,7 +10,7 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
      *
      * @return ConfigurationLabel
      */
-    public function getLabel() {
+    public function getCertification() {
         return $this->getParent()->getParent();
     }
     

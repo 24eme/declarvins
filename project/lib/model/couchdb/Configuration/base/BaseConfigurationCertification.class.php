@@ -2,7 +2,7 @@
 /**
  * BaseConfigurationLabel
  * 
- * Base model for ConfigurationLabel
+ * Base model for ConfigurationCertification
 
  * @property string $libelle
  * @property acCouchdbJson $appellations
@@ -14,11 +14,11 @@
  
  */
 
-abstract class BaseConfigurationLabel extends _ConfigurationDeclaration {
+abstract class BaseConfigurationCertification extends _ConfigurationDeclaration {
                 
     public function configureTree() {
        $this->_root_class_name = 'Configuration';
-       $this->_tree_class_name = 'ConfigurationLabel';
+       $this->_tree_class_name = 'ConfigurationCertification';
     }
                 
 }

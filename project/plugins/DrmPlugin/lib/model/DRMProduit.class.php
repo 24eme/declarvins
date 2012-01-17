@@ -6,8 +6,8 @@
 
 class DRMProduit extends BaseDRMProduit {
 	
-	const LABEL_DEFAULT_KEY = 'DEFAUT';
-    
+	const DEFAULT_KEY = 'DEFAUT';
+
     public function getCertification() {
         return $this->getAppellation()->getParent();
     }
@@ -21,7 +21,7 @@ class DRMProduit extends BaseDRMProduit {
     	if ($this->label) {
     		$key = implode('-', $this->label->toArray());
     	}
-    	return ($key)? $key : self::LABEL_DEFAULT_KEY;
+    	return ($key)? $key : self::DEFAULT_KEY;
     }
     
     public function getDetail() {

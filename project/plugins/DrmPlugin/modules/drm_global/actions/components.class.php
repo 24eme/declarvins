@@ -7,9 +7,9 @@ class drm_globalComponents extends sfComponents {
         $this->certifications = array();
         
         $i = 3;
-        foreach ($this->config_certifications as $label => $produit) {
-            if ($this->getUser()->getDrm()->produits->exist($label)) {
-                $this->certifications[$i] = $label;
+        foreach ($this->config_certifications as $certification => $produit) {
+            if ($this->getUser()->getDrm()->produits->exist($certification)) {
+                $this->certifications[$i] = $certification;
                 $i++;
             }
         }

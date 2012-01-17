@@ -5,12 +5,12 @@
 			<li class="<?php echo ($numero > 2) ? 'passe' : '' ?> <?php echo ($numero == 2) ? 'actif' : '' ?>">
                             <a href="<?php echo url_for('drm_mouvements_generaux') ?>">2. Ajouts / Liquidations</a>
                         </li>
-                        <?php foreach($certifications as $key => $label): ?>
-                        <li class="<?php echo ($numero > $key) ? 'passe' : '' ?> <?php echo ($numero == $key) ? 'actif' : '' ?>">
-                            <a href="<?php echo url_for('drm_recap', $config_certifications->get($label)) ?>"><?php echo $key ?>. <?php echo $label ?></a>
-                        </li>
+                        <?php foreach($certifications as $key => $certification): ?>
+	                        <li class="<?php echo ($numero > $key) ? 'passe' : '' ?> <?php echo ($numero == $key) ? 'actif' : '' ?>">
+	                            <a href="<?php echo url_for('drm_recap', $config_certifications->get($certification)) ?>"><?php echo $key ?>. <?php echo $certification ?></a>
+	                        </li>
                         <?php endforeach; ?>
-			<li <?php echo ($numero > $numero_validation) ? 'passe' : '' ?> <?php echo ($numero == $numero_validation) ? 'actif' : '' ?>>
+						<li <?php echo ($numero > $numero_validation) ? 'passe' : '' ?> <?php echo ($numero == $numero_validation) ? 'actif' : '' ?>>
                             <span><?php echo $numero_validation ?>. Validation</span>
                         </li>
 		</ol>

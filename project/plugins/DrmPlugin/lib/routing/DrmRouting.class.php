@@ -34,7 +34,7 @@ class DrmRouting {
     static public function listenToRoutingLoadConfigurationEvent(sfEvent $event) {
         $r = $event->getSubject();
 
-        $r->prependRoute('drm_recap', new DrmRecapAppellationRoute('/drm/recapitulatif/:label',
+        $r->prependRoute('drm_recap', new DrmRecapAppellationRoute('/drm/recapitulatif/:certification',
                         array('module' => 'drm_recap',
                             'action' => 'index'),
                         array('sf_method' => array('get')),
@@ -42,15 +42,15 @@ class DrmRouting {
                             'type' => 'object'
                 )));
         
-        $r->prependRoute('drm_recap_appellation_ajout_ajax', new DrmRecapLabelRoute('/drm/recapitulatif-appellation-ajout/:label',
+        $r->prependRoute('drm_recap_appellation_ajout_ajax', new DrmRecapCertificationRoute('/drm/recapitulatif-appellation-ajout/:certification',
                         array('module' => 'drm_recap',
                             'action' => 'appellationAjoutAjax'),
                         array('sf_method' => array('get','post')),
-                        array('model' => 'DRMLabel',
+                        array('model' => 'DRMCertification',
                             'type' => 'object'
                 )));
 
-        $r->prependRoute('drm_recap_appellation', new DrmRecapAppellationRoute('/drm/recapitulatif/:label/:appellation',
+        $r->prependRoute('drm_recap_appellation', new DrmRecapAppellationRoute('/drm/recapitulatif/:certification/:appellation',
                         array('module' => 'drm_recap',
                             'action' => 'appellation'),
                         array('sf_method' => array('get')),
@@ -58,7 +58,7 @@ class DrmRouting {
                             'type' => 'object'
                 )));
         
-        $r->prependRoute('drm_recap_ajout', new DrmRecapAppellationRoute('/drm/recapitulatif/:label/:appellation/ajout',
+        $r->prependRoute('drm_recap_ajout', new DrmRecapAppellationRoute('/drm/recapitulatif/:certification/:appellation/ajout',
                         array('module' => 'drm_recap',
                             'action' => 'ajout'),
                         array('sf_method' => array('get', 'post')),
@@ -66,7 +66,7 @@ class DrmRouting {
                             'type' => 'object'
                 )));
         
-        $r->prependRoute('drm_recap_update', new DrmRecapDetailRoute('/drm/recapitulatif/:label/:appellation/:couleur/update/:cepage/:detail',
+        $r->prependRoute('drm_recap_update', new DrmRecapDetailRoute('/drm/recapitulatif/:certification/:appellation/:couleur/update/:cepage/:detail',
                         array('module' => 'drm_recap',
                             'action' => 'update',
                             'detail' => null),
