@@ -373,7 +373,7 @@ function DOMPDF_autoload($class) {
 // If SPL autoload functions are available (PHP >= 5.1.2)
 if ( function_exists("spl_autoload_register") ) {
   $autoload = "DOMPDF_autoload";
-  $funcs = spl_autoload_functions();
+  $funcs = false;
   
   // No functions currently in the stack. 
   if ( $funcs === false ) { 
