@@ -41,4 +41,13 @@ class acVinCompteTiers extends BaseacVinCompteTiers
         }
         return $this->_tiers;
     }
+
+    public function addTiers($tiers) {
+        $tiers_compte = $this->tiers->add($tiers->get('_id'));
+        $tiers_compte->id = $tiers->get('_id');
+        $tiers_compte->type = $tiers->type;
+        $tiers_compte->nom = $tiers->nom;
+	return $tiers_compte;
+    }
+
 }
