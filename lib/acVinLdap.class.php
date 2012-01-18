@@ -45,7 +45,7 @@ class acVinLdap
      *
      * @return bool 
      */
-    protected function connect() 
+    public function connect() 
     {
         $con = ldap_connect($this->serveur);
         ldap_set_option($con, LDAP_OPT_PROTOCOL_VERSION, 3);
