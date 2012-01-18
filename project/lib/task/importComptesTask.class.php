@@ -63,6 +63,13 @@ EOF;
     if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin')) {
         $compte->delete();
     }
+
+    $compte = new CompteTiers();
+    $compte->nom = "Login";
+    $compte->prenom = "Auto";
+    $compte->login = 'autologin';
+    $compte->email = 'autologin@example.org';
+    $compte->save();
     
     $compte = new CompteTiers();
     $compte->nom = "Admin";
