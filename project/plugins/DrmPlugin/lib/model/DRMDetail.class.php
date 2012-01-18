@@ -95,4 +95,12 @@ class DRMDetail extends BaseDRMDetail {
     	return $sum;
     }
 
+    public function getTotalDebutMois() {
+        if (is_null($this->_get('total_debut_mois'))) {
+            return 0;
+        } else {
+            return $this->_get('total_debut_mois');
+        }
+    }
+
 }
