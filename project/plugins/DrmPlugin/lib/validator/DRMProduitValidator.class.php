@@ -1,5 +1,5 @@
 <?php
-class DRMLabelValidator extends sfValidatorSchema 
+class DRMProduitValidator extends sfValidatorSchema 
 {
     public function configure($options = array(), $messages = array()) 
     {
@@ -21,7 +21,7 @@ class DRMLabelValidator extends sfValidatorSchema
     
     protected function existDetail($values) 
     {
-    	return $this->getObject()->getDocument()->exist('declaration/certifications/'.$this->getObject()->getCertification()->getKey().'/appellations/'.$values['appellation'].'/couleurs/'.$values['couleur'].'/cepages/'.$values['cepage'].'/details/'.$this->getLabelKey($sfValidatorErroralues['label']));    
+    	return $this->getObject()->getDocument()->exist('declaration/certifications/'.$this->getObject()->getCertification()->getKey().'/appellations/'.$values['appellation'].'/couleurs/'.$values['couleur'].'/cepages/'.$values['cepage'].'/details/'.$this->getLabelKey($values['label']));    
     }
 
     protected function getObject() 

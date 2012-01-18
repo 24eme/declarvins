@@ -2,26 +2,10 @@
     <form action="<?php echo url_for('drm_recap_update', $form->getObject()) ?>" method="post">
         <?php echo $form->renderHiddenFields(); ?>
         <a href="#" class="col_curseur" data-curseur="<?php echo $form->getObject()->getKey() ?>"></a>
-        <h2>
-        	<?php if ($form->getObject()->isNew()): ?>
-        		<?php echo $form['couleur']->render(array('data-val-defaut' => $form['couleur']->getValue())) ?>
-        	<?php else: ?>
-        		<?php echo $form['couleur']->getValue() ?>
-        		<?php echo $form['couleur']->render(array('data-val-defaut' => $form['couleur']->getValue(), 'style' => "display: none;")) ?>
-        	<?php endif; ?>
-        </h2>
+        <h2><?php echo $form->getObject()->getCouleur()->getKey() ?></h2>
         <div class="col_cont">
-            <p class="label">
-                <?php if ($form->getObject()->isNew()): ?>
-	        		<?php echo $form['label']->render(array('class' => 'large')) ?>
-	        	<?php else: ?>
-	        		<?php foreach ($form['label']->getValue() as $label): ?>
-	        		<span><?php echo $label ?></span>
-	        		<?php endforeach; ?>
-	        		<?php echo $form['label']->render(array('style' => 'display: none;')) ?>
-	        	<?php endif; ?>
-            </p>
-
+            <p class="label"><?php echo implode(', ', $form->getObject()->label->toArray()) ?><br />
+                            <?php echo $form->getObject()->label_supplementaire ?></p>
             <div class="groupe" data-groupe-id="1">
                 <p><input type="text" value="<?php echo $form->getObject()->total_debut_mois ?>" data-val-defaut="<?php echo $form->getObject()->total_debut_mois ?>" class="num num_float somme_stock_debut" id="<?php echo $col_id; ?>-1" name="<?php echo $col_id; ?>-1" readonly="readonly" /></p>
                 <ul>
