@@ -77,7 +77,7 @@
  
  */
  
-abstract class BaseEtablissement extends acCouchdbDocument {
+abstract class BaseEtablissement extends _Tiers {
 
     public function getDocumentDefinitionModel() {
         return 'Etablissement';
