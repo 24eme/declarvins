@@ -65,13 +65,6 @@ EOF;
     }
 
     $compte = new CompteTiers();
-    $compte->nom = "Login";
-    $compte->prenom = "Auto";
-    $compte->login = 'autologin';
-    $compte->email = 'autologin@example.org';
-    $compte->save();
-    
-    $compte = new CompteTiers();
     $compte->nom = "Admin";
     $compte->prenom = "Ruth";
     $compte->login = 'admin';
@@ -84,5 +77,37 @@ EOF;
     if ($ldap->exist($compte))
       $ldap->delete($compte);
     $ldap->saveCompte($compte);
+
+    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-autologin')) {
+        $compte->delete();
+    }
+
+    $compte = new CompteTiers();
+    $compte->nom = "Login";
+    $compte->prenom = "Auto";
+    $compte->login = 'autologin';
+    $compte->interpro = array('INTERPRO-inter-rhone' => array('statut' => 'VALIDE'));
+    $compte->email = 'autologin@example.org';
+    $compte->save();
+
+    if ($e = acCouchdbManager::getClient()->retrieveDocumentById('ETABLISSEMENT-9223700100')) {
+        $e->delete();
+    }
+
+    $e = new Etablissement();
+    $e->cvi = "9223700100";
+    $e->email = "test@example.org";
+    $e->interpro = 'INTERPRO-inter-rhone';
+    $e->identifiant = "9223700100";
+    $e->no_accises  = "FR9200000000";
+    $e->no_tva_intracommunautaire = "FR9200000000";
+    $e->nom = "Garage d'Actualys";
+    $e->siege = array("adresse" => "1 rue Garnier", "code_postal" => "92200", "commune" => "Neuilly");
+    $e->statut = "ACTIF";
+    $e->save();
+
+    $compte->addEtablissement($e);
+    $compte->save();
+
   }
 }
