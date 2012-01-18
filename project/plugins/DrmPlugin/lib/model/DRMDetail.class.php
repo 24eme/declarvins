@@ -103,4 +103,10 @@ class DRMDetail extends BaseDRMDetail {
         }
     }
 
+    public function isComplete() {
+        return $this->total_entrees > 0 || $this->total_sorties > 0;
+    }
+
+
+
 }

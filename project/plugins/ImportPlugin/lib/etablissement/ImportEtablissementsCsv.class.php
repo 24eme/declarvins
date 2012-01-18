@@ -23,46 +23,30 @@ class ImportEtablissementsCsv {
     	}
     }
 
-    /*public function update() {
-        foreach ($this->_csv as $line) {
-            $etab = EtablissementClient::getInstance()->retrieveById($line[EtablissementCsv::COL_ID]);
-            if (!$etab) {
-                $etab = new Etablissement();
-                $etab->set('_id', 'ETABLISSEMENT-' . $line[EtablissementCsv::COL_ID]);
-            }
-            $etab->identifiant = $line[EtablissementCsv::COL_ID];
-            $etab->num_interne = $line[EtablissementCsv::COL_NUM_INTERNE];
-            $etab->siret = $line[EtablissementCsv::COL_SIRET];
-            $etab->cni = $line[EtablissementCsv::COL_CNI];
-            $etab->cvi = $line[EtablissementCsv::COL_CVI];
-            $etab->no_accises = $line[EtablissementCsv::COL_NO_ASSICES];
-            $etab->no_tva_intracommunautaire = $line[EtablissementCsv::COL_NO_TVA_INTRACOMMUNAUTAIRE];
-            $etab->famille = $line[EtablissementCsv::COL_FAMILLE];
-            $etab->sous_famille = $line[EtablissementCsv::COL_SOUS_FAMILLE];
-            $etab->nom = $line[EtablissementCsv::COL_NOM_RAISON_SOCIALE];
-            $etab->email = $line[EtablissementCsv::COL_EMAIL];
-            $etab->telephone = $line[EtablissementCsv::COL_TELEPHONE];
-            $etab->fax = $line[EtablissementCsv::COL_FAX];
-            $etab->siege->adresse = $line[EtablissementCsv::COL_ADRESSE];
-            $etab->siege->code_postal = $line[EtablissementCsv::COL_CODE_POSTAL];
-            $etab->siege->commune = $line[EtablissementCsv::COL_COMMUNE];
-            $etab->comptabilite->adresse = $line[EtablissementCsv::COL_COMPTA_ADRESSE];
-            $etab->comptabilite->code_postal = $line[EtablissementCsv::COL_COMPTA_CODE_POSTAL];
-            $etab->comptabilite->commune = $line[EtablissementCsv::COL_COMPTA_CODE_POSTAL];
-            $etab->service_douane = $line[EtablissementCsv::COL_SERVICE_DOUANE];
-            $etab->statut = _Tiers::STATUT_ACTIF;
-            $etab->save();
+    protected function bind($etab, $line) {
+    	$etab->identifiant = $line[EtablissementCsv::COL_ID];
+        $etab->num_interne = $line[EtablissementCsv::COL_NUM_INTERNE];
+        $etab->siret = $line[EtablissementCsv::COL_SIRET];
+        $etab->cni = $line[EtablissementCsv::COL_CNI];
+        $etab->cvi = $line[EtablissementCsv::COL_CVI];
+        $etab->no_accises = $line[EtablissementCsv::COL_NO_ASSICES];
+        $etab->no_tva_intracommunautaire = $line[EtablissementCsv::COL_NO_TVA_INTRACOMMUNAUTAIRE];
+        $etab->famille = $line[EtablissementCsv::COL_FAMILLE];
+        $etab->sous_famille = $line[EtablissementCsv::COL_SOUS_FAMILLE];
+        $etab->nom = $line[EtablissementCsv::COL_NOM_RAISON_SOCIALE];
+        $etab->email = $line[EtablissementCsv::COL_EMAIL];
+        $etab->telephone = $line[EtablissementCsv::COL_TELEPHONE];
+        $etab->fax = $line[EtablissementCsv::COL_FAX];
+        $etab->siege->adresse = $line[EtablissementCsv::COL_ADRESSE];
+        $etab->siege->code_postal = $line[EtablissementCsv::COL_CODE_POSTAL];
+        $etab->siege->commune = $line[EtablissementCsv::COL_COMMUNE];
+        $etab->comptabilite->adresse = $line[EtablissementCsv::COL_COMPTA_ADRESSE];
+        $etab->comptabilite->code_postal = $line[EtablissementCsv::COL_COMPTA_CODE_POSTAL];
+        $etab->comptabilite->commune = $line[EtablissementCsv::COL_COMPTA_CODE_POSTAL];
+        $etab->service_douane = $line[EtablissementCsv::COL_SERVICE_DOUANE];
 
-            $tiers_compte = $this->_compte->tiers->add($etab->get('_id'));
-            $tiers_compte->id = $etab->get('_id');
-            $tiers_compte->type = "Etablissement";
-            $tiers_compte->nom = $etab->nom;
-            $tiers_compte->interpro = $this->_interpro->get('_id');
-        }
-        $this->_compte->save();
-        return true;
-    }   */
-    
+        return $etab;
+    }
     
     public function getEtablissementByIdentifiant($identifiant)
     {
@@ -75,26 +59,7 @@ class ImportEtablissementsCsv {
 	                $etab->set('_id', 'ETABLISSEMENT-' . $line[EtablissementCsv::COL_ID]);
 	            	$etab->interpro = $this->_interpro->get('_id');
 	            }
-	            $etab->identifiant = $line[EtablissementCsv::COL_ID];
-	            $etab->num_interne = $line[EtablissementCsv::COL_NUM_INTERNE];
-	            $etab->siret = $line[EtablissementCsv::COL_SIRET];
-	            $etab->cni = $line[EtablissementCsv::COL_CNI];
-	            $etab->cvi = $line[EtablissementCsv::COL_CVI];
-	            $etab->no_accises = $line[EtablissementCsv::COL_NO_ASSICES];
-	            $etab->no_tva_intracommunautaire = $line[EtablissementCsv::COL_NO_TVA_INTRACOMMUNAUTAIRE];
-	            $etab->famille = $line[EtablissementCsv::COL_FAMILLE];
-	            $etab->sous_famille = $line[EtablissementCsv::COL_SOUS_FAMILLE];
-	            $etab->nom = $line[EtablissementCsv::COL_NOM_RAISON_SOCIALE];
-	            $etab->email = $line[EtablissementCsv::COL_EMAIL];
-	            $etab->telephone = $line[EtablissementCsv::COL_TELEPHONE];
-	            $etab->fax = $line[EtablissementCsv::COL_FAX];
-	            $etab->siege->adresse = $line[EtablissementCsv::COL_ADRESSE];
-	            $etab->siege->code_postal = $line[EtablissementCsv::COL_CODE_POSTAL];
-	            $etab->siege->commune = $line[EtablissementCsv::COL_COMMUNE];
-	            $etab->comptabilite->adresse = $line[EtablissementCsv::COL_COMPTA_ADRESSE];
-	            $etab->comptabilite->code_postal = $line[EtablissementCsv::COL_COMPTA_CODE_POSTAL];
-	            $etab->comptabilite->commune = $line[EtablissementCsv::COL_COMPTA_CODE_POSTAL];
-	            $etab->service_douane = $line[EtablissementCsv::COL_SERVICE_DOUANE];
+	            $etab = $this->bind($etab, $line);
 	            break;
     		}
     	}
@@ -112,26 +77,7 @@ class ImportEtablissementsCsv {
 	                $etab = new Etablissement();
 	                $etab->set('_id', 'ETABLISSEMENT-' . $line[EtablissementCsv::COL_ID]);
 	            	$etab->interpro = $this->_interpro->get('_id');
-		            $etab->identifiant = $line[EtablissementCsv::COL_ID];
-		            $etab->num_interne = $line[EtablissementCsv::COL_NUM_INTERNE];
-		            $etab->siret = $line[EtablissementCsv::COL_SIRET];
-		            $etab->cni = $line[EtablissementCsv::COL_CNI];
-		            $etab->cvi = $line[EtablissementCsv::COL_CVI];
-		            $etab->no_accises = $line[EtablissementCsv::COL_NO_ASSICES];
-		            $etab->no_tva_intracommunautaire = $line[EtablissementCsv::COL_NO_TVA_INTRACOMMUNAUTAIRE];
-		            $etab->famille = $line[EtablissementCsv::COL_FAMILLE];
-		            $etab->sous_famille = $line[EtablissementCsv::COL_SOUS_FAMILLE];
-		            $etab->nom = $line[EtablissementCsv::COL_NOM_RAISON_SOCIALE];
-		            $etab->email = $line[EtablissementCsv::COL_EMAIL];
-		            $etab->telephone = $line[EtablissementCsv::COL_TELEPHONE];
-		            $etab->fax = $line[EtablissementCsv::COL_FAX];
-		            $etab->siege->adresse = $line[EtablissementCsv::COL_ADRESSE];
-		            $etab->siege->code_postal = $line[EtablissementCsv::COL_CODE_POSTAL];
-		            $etab->siege->commune = $line[EtablissementCsv::COL_COMMUNE];
-		            $etab->comptabilite->adresse = $line[EtablissementCsv::COL_COMPTA_ADRESSE];
-		            $etab->comptabilite->code_postal = $line[EtablissementCsv::COL_COMPTA_CODE_POSTAL];
-		            $etab->comptabilite->commune = $line[EtablissementCsv::COL_COMPTA_CODE_POSTAL];
-		            $etab->service_douane = $line[EtablissementCsv::COL_SERVICE_DOUANE];
+		            $etab = $this->bind($etab, $line);
 		            $etab->statut = _Tiers::STATUT_CSV;
 	            }
 	            $etablissements[$etab->get('_id')] = $etab;
@@ -144,26 +90,7 @@ class ImportEtablissementsCsv {
         foreach ($this->_csv as $line) {
             $etab = EtablissementClient::getInstance()->retrieveById($line[EtablissementCsv::COL_ID]);
             if ($etab) {
-	            $etab->identifiant = $line[EtablissementCsv::COL_ID];
-	            $etab->num_interne = $line[EtablissementCsv::COL_NUM_INTERNE];
-	            $etab->siret = $line[EtablissementCsv::COL_SIRET];
-	            $etab->cni = $line[EtablissementCsv::COL_CNI];
-	            $etab->cvi = $line[EtablissementCsv::COL_CVI];
-	            $etab->no_accises = $line[EtablissementCsv::COL_NO_ASSICES];
-	            $etab->no_tva_intracommunautaire = $line[EtablissementCsv::COL_NO_TVA_INTRACOMMUNAUTAIRE];
-	            $etab->famille = $line[EtablissementCsv::COL_FAMILLE];
-	            $etab->sous_famille = $line[EtablissementCsv::COL_SOUS_FAMILLE];
-	            $etab->nom = $line[EtablissementCsv::COL_NOM_RAISON_SOCIALE];
-	            $etab->email = $line[EtablissementCsv::COL_EMAIL];
-	            $etab->telephone = $line[EtablissementCsv::COL_TELEPHONE];
-	            $etab->fax = $line[EtablissementCsv::COL_FAX];
-	            $etab->siege->adresse = $line[EtablissementCsv::COL_ADRESSE];
-	            $etab->siege->code_postal = $line[EtablissementCsv::COL_CODE_POSTAL];
-	            $etab->siege->commune = $line[EtablissementCsv::COL_COMMUNE];
-	            $etab->comptabilite->adresse = $line[EtablissementCsv::COL_COMPTA_ADRESSE];
-	            $etab->comptabilite->code_postal = $line[EtablissementCsv::COL_COMPTA_CODE_POSTAL];
-	            $etab->comptabilite->commune = $line[EtablissementCsv::COL_COMPTA_CODE_POSTAL];
-	            $etab->service_douane = $line[EtablissementCsv::COL_SERVICE_DOUANE];
+	            $etab = $this->bind($etab, $line);
             	$etab->save();
         	}
         }

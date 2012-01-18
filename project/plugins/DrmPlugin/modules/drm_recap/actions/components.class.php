@@ -17,27 +17,18 @@ class drm_recapComponents extends sfComponents {
     public function executeOnglets() {
         $this->appellations = array();
         $this->appellations_updated = array();
-        foreach($this->getUser()->getDrm()->produits->get($this->config_appellation->getCertification()->getKey()) as $appellation) {
-        	foreach ($this->getUser()->getDrm()->produits->get($this->config_appellation->getCertification()->getKey())->get($appellation->getKey()) as $produit) {
-	            if ($produit->stock_vide) {
-	                continue;
-	            }
+        $certification_key = $this->config_appellation->getCertification()->getKey();
+        foreach($this->getUser()->getDrm()->produits->get($certification_key) as $appellation_key => $appellation) {
+        	foreach ($appellation as $produit) {
 	            if (!array_key_exists($produit->getAppellation()->getKey(), $this->appellations)) {
-	                $this->appellations[$produit->getAppellation()->getKey()] = 0;
-	                $this->appellations_updated[$produit->getAppellation()->getKey()] = 0;
+	                $this->appellations[$appellation_key] = 0;
+	                $this->appellations_updated[$appellation_key] = 0;
 	            }
-	            
-	            if (!$produit->pas_de_mouvement) {
-	                $this->appellations[$produit->getAppellation()->getKey()] += 1;
-		            foreach ($this->getUser()->getDrm()->declaration->certifications->get($this->config_appellation->getCertification()->getKey())->appellations->get($appellation->getKey())->couleurs as $couleur) {
-		            	foreach ($couleur->cepages as $cepage) {
-		            		foreach ($cepage->details as $detail) {
-		            			if ($detail->total_entrees || $detail->total_sorties) {
-		            				$this->appellations_updated[$produit->getAppellation()->getKey()] += 1;
-		            			}
-		            		}
-		            	}
-		            }
+	            if (!$produit->pas_de_mouvement && !$produit->stock_vide) {
+	                $this->appellations[$appellation_key] += 1;
+	                if ($produit->getDetail()->isComplete()) {
+        				$this->appellations_updated[$appellation_key] += 1;
+        			}
 	            }
         	}
         }
