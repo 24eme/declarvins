@@ -36,7 +36,7 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
         }
 
         $this->validatorSchema->setPostValidator(new DRMProduitValidator(null, array('object' => $this->getObject())));
-        $this->widgetSchema->setNameFormat('produit[%s]');
+        $this->widgetSchema->setNameFormat('produit_'.$this->getObject()->getCertification()->getKey().'[%s]');
     }
 
     public function doUpdateObject($values) {

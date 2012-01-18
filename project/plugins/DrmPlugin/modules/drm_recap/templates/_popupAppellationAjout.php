@@ -3,13 +3,11 @@
 		<?php echo $form->renderGlobalErrors() ?>
 		<?php echo $form->renderHiddenFields() ?>
 		<div class="ligne_form">
-			<label for="produit_appellation"><?php echo $form['appellation']->renderLabel() ?> </label>
+			<?php echo $form['appellation']->renderLabel() ?> 
 			<?php echo $form['appellation']->render() ?>
 			<span class="error"><?php echo $form['appellation']->renderError() ?></span>
 		</div>
-		
 		<div class="ligne_form_btn">
-
 			<button name="annuler" class="btn_annuler btn_fermer" type="reset">Annuler</button>
 			<button name="valider" class="btn_valider" type="submit">Valider</button>
 		</div>
