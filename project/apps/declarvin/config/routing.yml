@@ -90,6 +90,9 @@ drm_evolution:
 drm_historique:
   url:   /drm/historique/:annee
   param: { module: drm, action: historique, annee: null }
+drm_validation:
+  url:   /drm/validation
+  param: { module: drm, action: validation }
 login:
   url: /login
   param: {module: acVinCompte, action: login}

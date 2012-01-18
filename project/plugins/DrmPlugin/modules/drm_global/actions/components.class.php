@@ -22,7 +22,6 @@ class drm_globalComponents extends sfComponents {
         );
         
         $this->numero = $this->numeros[$this->etape];
-        
         $this->numero_validation = $this->numeros['validation'];
 
 

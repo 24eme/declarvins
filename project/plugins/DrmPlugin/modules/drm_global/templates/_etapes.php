@@ -10,7 +10,7 @@
 	                            <a href="<?php echo url_for('drm_recap', $config_certifications->get($certification)) ?>"><?php echo $key ?>. <?php echo $certification ?></a>
 	                        </li>
                         <?php endforeach; ?>
-						<li <?php echo ($numero > $numero_validation) ? 'passe' : '' ?> <?php echo ($numero == $numero_validation) ? 'actif' : '' ?>>
+						<li class="<?php echo ($numero > $numero_validation) ? 'passe' : '' ?> <?php echo ($numero == $numero_validation) ? 'actif' : '' ?>">
                             <span><?php echo $numero_validation ?>. Validation</span>
                         </li>
 		</ol>

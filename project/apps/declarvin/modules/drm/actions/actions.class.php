@@ -100,5 +100,14 @@ class drmActions extends sfActions
     $this->drms = $drms->getDatas();
     krsort($this->drms);
   }
+ /**
+  * Executes mouvements generaux action
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeValidation(sfWebRequest $request)
+  {
+    
+  }
   
 }
