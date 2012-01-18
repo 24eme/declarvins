@@ -76,6 +76,6 @@ EOF;
     $ldap->connect();
     if ($ldap->exist($compte))
       $ldap->delete($compte);
-    $ldap->add($compte);
+    $ldap->saveCompte($compte);
   }
 }
