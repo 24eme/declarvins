@@ -39,16 +39,12 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
             //'stock_vide' => new sfValidatorBoolean(array('required' => false)),
             //'pas_de_mouvement' => new sfValidatorBoolean(array('required' => false))
         ));
-        $this->validatorSchema->setPostValidator(new DRMLabelValidator(null, array('object' => $this->getObject())));
+        $this->validatorSchema->setPostValidator(new DRMProduitValidator(null, array('object' => $this->getObject())));
         $this->widgetSchema->setNameFormat('produit[%s]');
     }
 
     public function doUpdateObject($values) {
-        //var_dump($values);
-        //exit;
         parent::doUpdateObject($values);
-        /*print_r($this->getObject()->toJson());
-        exit;*/
         $this->getObject()->getCertification()->moveAndClean(self::NOEUD_TEMPORAIRE.'/'.$this->getObject()->getKey(), $values['appellation'].'/'.$this->getObject()->getParent()->getParent()->add($values['appellation'])->count());
         $this->getObject()->getDocument()->synchroniseDeclaration();
     }
