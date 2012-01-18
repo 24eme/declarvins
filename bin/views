@@ -1,0 +1,48 @@
+CONFIGFILE=project/config/databases.yml
+TMPFILE=/tmp/couchdb.$$.tmp
+
+url=$(grep 'dsn:' $CONFIGFILE | sed 's/.*dsn: //' | sed 's/[^\/]*$//')
+base=$(grep 'dbname:' $CONFIGFILE | sed 's/.*dbname: //' | sed 's/\W*$//')
+COUCHDBURL=$url$base
+
+design=douane
+curl -s -X DELETE "$COUCHDBURL/_design/$design?rev=$(curl --stderr /dev/null $COUCHDBURL/_design/$design | sed 's/.*_rev":"//' | sed 's/",".*//' 2> /dev/null)" > /dev/null 2>&1
+
+cat <<EOF > $TMPFILE
+{
+   "_id": "_design/douane",
+   "language": "javascript",
+   "views": {
+       "all": {
+           "map": "function(doc) {\n  if (doc.type == \"Douane\")\n  emit(doc.id, null);\n}"
+       }
+   }
+}
+EOF
+
+curl -s -X PUT -d "@$TMPFILE" $COUCHDBURL/_design/$design
+
+curl -s $COUCHDBURL/_design/$design/_view/all > /dev/null &
+sleep 1
+kill %1
+
+design=edi
+curl -s -X DELETE "$COUCHDBURL/_design/$design?rev=$(curl --stderr /dev/null $COUCHDBURL/_design/$design | sed 's/.*_rev":"//' | sed 's/",".*//' 2> /dev/null)" > /dev/null 2>&1
+
+cat <<EOF > $TMPFILE
+{
+   "_id": "_design/edi",
+   "language": "javascript",
+   "views": {
+       "all": {
+           "map": "function(doc) {\n  if (doc.type == \"Edi\")\n  emit(doc.id, null);\n}"
+       }
+   }
+}
+EOF
+
+curl -s -X PUT -d "@$TMPFILE" $COUCHDBURL/_design/$design
+
+curl -s $COUCHDBURL/_design/$design/_view/all > /dev/null &
+sleep 1
+kill %1
