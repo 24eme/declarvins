@@ -1,4 +1,4 @@
-CONFIGFILE=project/config/databases.yml
+CONFIGFILE=config/databases.yml
 TMPFILE=/tmp/couchdb.$$.tmp
 
 url=$(grep 'dsn:' $CONFIGFILE | sed 's/.*dsn: //' | sed 's/[^\/]*$//')
