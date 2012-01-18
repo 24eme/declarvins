@@ -21,7 +21,13 @@ class DRMProduitValidator extends sfValidatorSchema
     
     protected function existDetail($values) 
     {
-    	return $this->getObject()->getDocument()->exist('declaration/certifications/'.$this->getObject()->getCertification()->getKey().'/appellations/'.$values['appellation'].'/couleurs/'.$values['couleur'].'/cepages/'.$values['cepage'].'/details/'.$this->getLabelKey($values['label']));    
+        $appellation = null;
+        if (array_key_exists('appellation', $values)) {
+          $appellation = $values['appellation'];
+        } else {
+          $appellation = $this->getObject()->getAppellation()->getKey();
+        }
+    	return $this->getObject()->getDocument()->exist('declaration/certifications/'.$this->getObject()->getCertification()->getKey().'/appellations/'.$appellation.'/couleurs/'.$values['couleur'].'/cepages/'.$values['cepage'].'/details/'.$this->getLabelKey($values['label']));    
     }
 
     protected function getObject() 

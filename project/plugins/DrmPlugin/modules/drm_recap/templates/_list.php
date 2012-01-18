@@ -8,6 +8,11 @@
     Il existe des erreurs !
 </div>
 
+<!-- C'est degelousse -->
+ <p style="text-align:right; padding-bottom: 4px;">
+ <a href="<?php echo url_for('drm_recap_ajout_ajax', $config_appellation) ?>" class="btn_ajouter btn_popup" data-popup-ajax="true" data-popup="#popup_ajout_detail"  data-popup-config="configAjoutProduit">Ajouter un produit</a>
+ </p>
+
 <div id="colonnes_dr">
     <?php include_partial('drm_recap/itemHeader'); ?>    
     <div id="col_saisies">
@@ -26,7 +31,6 @@
             <?php endforeach; ?>
         </div>
     </div>
-    <a class="btn_ajouter" href="<?php echo url_for('drm_recap_ajout', $config_appellation); ?>">Ajouter Dénomination</a>
 </div>
 
 <script type="text/javascript">

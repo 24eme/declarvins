@@ -58,9 +58,9 @@ class DrmRouting {
                             'type' => 'object'
                 )));
         
-        $r->prependRoute('drm_recap_ajout', new DrmRecapAppellationRoute('/drm/recapitulatif/:certification/:appellation/ajout',
+        $r->prependRoute('drm_recap_ajout_ajax', new DrmRecapAppellationRoute('/drm/recapitulatif/:certification/:appellation/ajout-ajax',
                         array('module' => 'drm_recap',
-                            'action' => 'ajout'),
+                            'action' => 'ajoutAjax'),
                         array('sf_method' => array('get', 'post')),
                         array('model' => 'DRMAppellation',
                             'type' => 'object'

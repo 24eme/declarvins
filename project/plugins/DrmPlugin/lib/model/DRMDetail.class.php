@@ -76,10 +76,6 @@ class DRMDetail extends BaseDRMDetail {
     	}
     	return ($key)? $key : DRMProduit::DEFAULT_KEY;
     }
-
-    public function isNew() {
-        return $this->getKey() == DRMProduit::DEFAULT_KEY;
-    }
     
     protected function update($params = array()) {
         parent::update($params);
