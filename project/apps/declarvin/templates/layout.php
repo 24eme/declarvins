@@ -18,7 +18,6 @@
 	
 	
 	
-    <link rel="stylesheet" type="text/css" href="http://webfonts.fontslive.com/css/4145075a-3116-42db-9643-0f49fcd9e55e.css" media="screen" />
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
 </head>
