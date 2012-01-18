@@ -14,7 +14,7 @@
         <?php else: ?>
                     <li><a href="<?php echo url_for('@drm_init') ?>">Continuer ma DRM en cours &raquo;</a></li>
         <?php endif; ?>
-                <!--<li><a href="#">Soumettre une DRM récapitulative &raquo;</a></li>-->
+                <li><a href="<?php echo url_for('@drm_historique') ?>">Votre historique &raquo;</a></li>
         </ul>
 
     </div>

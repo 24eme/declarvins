@@ -68,5 +68,37 @@ class drmActions extends sfActions
   {
     $this->configuration = ConfigurationClient::getCurrent();
   }
+ /**
+  * Executes historique action
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeHistorique(sfWebRequest $request)
+  {
+    $this->annee = $request->getParameter('annee');
+    // On recupere les annees
+    $drms = acCouchdbManager::getClient()->startkey(array($this->getUser()->getTiers()->identifiant, null))
+    										   ->endkey(array($this->getUser()->getTiers()->identifiant, array()))
+    										   ->group(true)
+    										   ->group_level(2)
+    										   ->getView("drm", "all")->rows;
+  	$this->annees = array();
+    foreach ($drms as $drm) {
+  		$this->annees[] = $drm->key[1];
+  	}
+  	rsort($this->annees);
+  	// -------------------------------
+  	if (!$this->annee) {
+  		$this->annee = $this->annees[0];
+  	}
+  	$this->anneeFixe = $this->annees[0];
+
+  	$drms = acCouchdbManager::getClient()->startkey(array($this->getUser()->getTiers()->identifiant, $this->annee, null))
+    										  ->endkey(array($this->getUser()->getTiers()->identifiant, $this->annee, array()))
+    										  ->reduce(false)
+    										  ->executeView("drm", "all", acCouchdbClient::HYDRATE_DOCUMENT);
+    $this->drms = $drms->getDatas();
+    krsort($this->drms);
+  }
   
 }

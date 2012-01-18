@@ -18,4 +18,10 @@ class Etablissement extends BaseEtablissement {
         $this->set('_id', 'ETABLISSEMENT-' . $this->identifiant);
     }
     
+    public function getAllDRM() {
+        return acCouchdbManager::getClient()->startkey(array($this->identifiant, null))
+                                     ->endkey(array($this->identifiant, null))
+                                     ->getView("drm", "all");
+    }
+    
 }

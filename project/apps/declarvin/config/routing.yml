@@ -87,6 +87,9 @@ drm_informations:
 drm_evolution:
   url:   /drm/evolution
   param: { module: drm, action: evolution }
+drm_historique:
+  url:   /drm/historique/:annee
+  param: { module: drm, action: historique, annee: null }
 login:
   url: /login
   param: {module: acVinCompte, action: login}
