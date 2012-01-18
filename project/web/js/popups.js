@@ -27,12 +27,13 @@
 		{
 			close: function(event, ui)
 			{
-				// Réinitialise les champs à la fermeture
+				// Réinitialise le formulaire à la fermeture
 				var popup = $(this);
-				popup.find(':text').val('');
-				popup.find('option').removeAttr('selected');
-				popup.find(':checkbox,:radio').removeAttr('checked');
-				popup.find('.ui-dropdownchecklist-selector .ui-dropdownchecklist-text').text('').attr('title','');
+				var linkAction = $('a[data-popup=#'+popup.attr('id')+']');
+				if (linkAction.attr('data-popup-ajax') && linkAction.attr('data-popup-ajax') == "true") {
+					popup.remove();
+					$.initPopup(linkAction);
+				}
 			}
 		}
 	});
@@ -99,6 +100,58 @@
 			
 			objPopups.infosPopups.push(infosPopup);
 		});
+	};
+	
+	/**
+	 * Initialisation de la fonction générique
+	 * de créations d'une popup
+	 * $.initPopup(btnPopup);
+	 ******************************************/
+	$.initPopup = function(btnPopup)
+	{
+		var popupId = btnPopup.attr('data-popup');
+		var popupConfigSpec = btnPopup.attr('data-popup-config');
+		var popupTitre = btnPopup.attr('data-popup-titre');
+		var ajax = btnPopup.attr('data-popup-ajax');
+		var href = btnPopup.attr('href');
+		var popup = $(popupId);
+		
+		var infosPopup =
+		{
+			btnPopup: btnPopup,
+			btnPopupTexte: btnPopup.text(),
+			config: objPopups.configDefaut,
+			popupId: popupId,
+			popup: popup,
+			popupConfigSpec: popupConfigSpec,
+			popupTitre: popupTitre,
+			ajax: ajax,
+			href: href
+		};
+		
+		
+		// Si le contenu est à charger en ajax
+		if(ajax && ajax == "true")
+		{
+			$.get(href, function(reponse)
+			{
+				// On n'insère pas une popup déjà présente
+				if($(infosPopup.popupId).size() == 0)
+				{
+					$('body').append(reponse.content);
+				}
+				
+				infosPopup.popup = $(infosPopup.popupId);
+				infosPopup = $.initActionsPopup(infosPopup);
+				
+			});
+		}
+		else
+		{
+			infosPopup = $.initActionsPopup(infosPopup);
+		}
+		
+		objPopups.infosPopups.push(infosPopup);
 	};
 	
 	/**

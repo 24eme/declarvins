@@ -17,8 +17,9 @@
                 	if(data.success) {
                     	document.location.href = data.url;
                 	} else {
-                    	alert(id);
                 		$('#'+id).html(data.content);
+                		var linkAction = $('a[data-popup=#'+id+']');
+                		$.initPopup(linkAction);
                 	}
             	}, "json"
             );
