@@ -32,5 +32,11 @@ class CompteTiers extends BaseCompteTiers {
     public function getTiersCollection() {
         return acCouchdbManager::getClient()->keys(array_keys($this->getTiers()->toArray()))->execute();
     }
+
+    public function addEtablissement($etablissement) {
+	$compte_tiers = $this->addTiers($etablissement);
+	$compte_tiers->interpro = $etablissement->interpro;
+	return $compte_tiers;
+    }
     
 }
