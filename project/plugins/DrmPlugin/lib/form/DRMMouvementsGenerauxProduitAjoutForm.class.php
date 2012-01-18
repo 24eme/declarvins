@@ -44,6 +44,8 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
     }
 
     public function doUpdateObject($values) {
+        //var_dump($values);
+        //exit;
         parent::doUpdateObject($values);
         /*print_r($this->getObject()->toJson());
         exit;*/
