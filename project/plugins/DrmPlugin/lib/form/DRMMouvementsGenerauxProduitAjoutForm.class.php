@@ -15,9 +15,6 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
             'couleur' => new sfWidgetFormChoice(array('choices' => array('' => "", 'blanc' => 'Blanc', 'rouge' => 'Rouge', 'rose' => "Rosé"))),
             'label' => new sfWidgetFormChoice(array('expanded' => true, 'multiple' => true,'choices' => $this->getLabelChoices())),
             'label_supplementaire' => new sfWidgetFormInputText(),
-            //'disponible' => new sfWidgetFormInputText(),
-            //'stock_vide' => new sfWidgetFormInputCheckbox(),
-            //'pas_de_mouvement' => new sfWidgetFormInputCheckbox()
         ));
         $this->widgetSchema->setLabels(array(
         	'cepage' => 'Cépage*: ',
@@ -25,9 +22,6 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
             'couleur' => 'Couleur*: ',
             'label' => 'Label: ',
             'label_supplementaire' => 'Label supplémentaire: ',
-            //'disponible' => 'Disponible*: ',
-            //'stock_vide' => 'Stock vide ',
-            //'pas_de_mouvement' => 'Pas de mouvement '
         ));
         $this->setValidators(array(
         	'cepage' => new sfValidatorString(array('required' => true)),
@@ -35,17 +29,21 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
             'couleur' => new sfValidatorChoice(array('required' => true, 'choices' => array('blanc', 'rouge', 'rose')), array('required' => 'Champ obligatoire')),
             'label' => new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($this->getLabelChoices()))),
             'label_supplementaire' => new sfValidatorString(array('required' => false)),
-            //'disponible' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')),
-            //'stock_vide' => new sfValidatorBoolean(array('required' => false)),
-            //'pas_de_mouvement' => new sfValidatorBoolean(array('required' => false))
         ));
+
+        if ($this->hasAppellation()) {
+            unset($this['appellation']);
+        }
+
         $this->validatorSchema->setPostValidator(new DRMProduitValidator(null, array('object' => $this->getObject())));
-        $this->widgetSchema->setNameFormat('produit[%s]');
+        $this->widgetSchema->setNameFormat('produit_'.$this->getObject()->getCertification()->getKey().'[%s]');
     }
 
     public function doUpdateObject($values) {
         parent::doUpdateObject($values);
-        $this->getObject()->getCertification()->moveAndClean(self::NOEUD_TEMPORAIRE.'/'.$this->getObject()->getKey(), $values['appellation'].'/'.$this->getObject()->getParent()->getParent()->add($values['appellation'])->count());
+        if (!$this->hasAppellation()) {
+            $this->getObject()->getCertification()->moveAndClean($this->getObject()->getAppellation()->getKey().'/'.$this->getObject()->getKey(), $this->getAppellation().'/'.$this->getObject()->getParent()->getParent()->add($values['appellation'])->count());
+        }
         $this->getObject()->getDocument()->synchroniseDeclaration();
     }
     
@@ -59,6 +57,7 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
                 }
             }
         }
+
         return $this->_appellation_choices;
     }
     
@@ -70,7 +69,20 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
             	$this->_label_choices[$key] = $label;
             }
         }
+
         return $this->_label_choices;
     }
 
+    public function hasAppellation() {
+
+        return $this->getObject()->getAppellation()->getKey() != DRMMouvementsGenerauxProduitAjoutForm::NOEUD_TEMPORAIRE;
+    }
+
+    public function getAppellation() {
+        if ($this->hasAppellation()) {
+            return $this->getObject()->getAppellation()->getKey();
+        } else {
+            return $this->getValue('appellation');
+        }
+    }
 }

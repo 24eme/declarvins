@@ -462,7 +462,7 @@
 			if(val.indexOf('0') == 0 && val.length > 1) val = val.substring(1);
 			
 			// Comparaison nombre entier / flottant
-			if(parseInt(val) == parseFloat(val) || !float) val = parseInt(val);
+			if(parseInt(val) == parseFloat(val) || !float) val = parseFloat(val).toFixed(2);
 			else val = parseFloat(val).toFixed(2);
 		}
 		// Si rien n'a été saisi

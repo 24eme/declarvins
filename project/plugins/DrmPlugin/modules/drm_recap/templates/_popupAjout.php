@@ -1,12 +1,10 @@
-<div id="popup_ajout_produit_<?php echo $certification ?>" class="popup_contenu">
-	<form  class="popup_form" id="subForm" action="<?php echo url_for('@drm_mouvements_generaux_product_form') ?>" method="post">
+<div id="popup_ajout_detail" class="popup_contenu">
+	<form  class="popup_form" id="form_ajout_detail" action="<?php echo url_for('drm_recap_ajout_ajax', $config_appellation) ?>" method="post">
 		<?php echo $form->renderGlobalErrors() ?>
 		<?php echo $form->renderHiddenFields() ?>
-		<input type="hidden" name="certification" value="<?php echo $certification ?>" />
 		<div class="ligne_form">
-			<?php echo $form['appellation']->renderLabel() ?>
-			<?php echo $form['appellation']->render() ?>
-			<span class="error"><?php echo $form['appellation']->renderError() ?></span>
+			<label>Appellation</label>
+			<strong><?php echo $config_appellation->libelle ?></strong>
 		</div>
 		<div class="ligne_form">
 			<?php echo $form['couleur']->renderLabel() ?>
@@ -31,3 +29,18 @@
 		</div>
 	</form>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#form_ajout_detail').submit( function () {
+            $.post($(this).attr('action'), $(this).serializeArray(), 
+            function (data) {
+                if(data.success) {
+                    document.location.href = data.url;
+                } else {
+                    $('#popup_ajout_detail').html(data.content);
+                }
+            }, "json");
+            return false;
+        });
+    })
+</script>
