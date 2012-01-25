@@ -44,7 +44,7 @@
 			<tr>
 				<td></td>
 				<td align="center">
-					<span><?php echo $vrac->getNumero() ?></span>
+					<span><?php echo $vrac->getKey() ?></span>
 				</td>
 				<td align="center"></td>
 			</tr>
