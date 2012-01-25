@@ -75,7 +75,7 @@ class acCouchdbJsonDefinitionParser {
                 );
             }
         } else {
-            throw new acCouchdbException(sprintf("Parser Type doesn't exit : %s", $type));
+            throw new acCouchdbException(sprintf("Parser Type doesn't exit : %s (%s)", $type, $definition->getHash()));
         }
         return $definition;
     }
