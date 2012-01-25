@@ -110,6 +110,16 @@ class DRMDetail extends BaseDRMDetail {
     public function __toString() {
         return $this->getAppellation()->getCertification()." - ".$this->getAppellation()." - ".$this->getCouleur()."<br />".$this->getLabelKey();
     }
+    
+    public function hasContratVrac() {
+    	$etablissement = $this->getDocument()->identifiant;
+		foreach (VracClient::getInstance()->getAll() as $contrat) {
+			if ($contrat->etablissement == $etablissement && (strpos($this->getHash(), $contrat->produit) !== false) && !$this->vrac->exist($contrat->numero)) {
+				return true;
+            }
+        }
+        return false;
+    }
 
 
 
