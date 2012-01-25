@@ -45,5 +45,23 @@ class DRM extends BaseDRM {
             }
         }
     }
+    
+    public function getDetailsAvecVrac() {
+        $details = array();
+        foreach ($this->declaration->certifications as $certifications) {
+            foreach ($certifications->appellations as $appellation) {
+                foreach ($appellation->couleurs as $couleur) {
+                	foreach ($couleur->cepages as $cepage) {
+	                    foreach ($cepage->details as $detail) {
+	                        if ($detail->sorties->vrac) {
+	                            $details[] = $detail;
+	                        }
+	                    }
+                	}
+                }
+            }
+        }
+        return $details;
+    }
 
 }

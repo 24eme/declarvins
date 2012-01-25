@@ -106,6 +106,14 @@ class DRMDetail extends BaseDRMDetail {
     public function isComplete() {
         return $this->total_entrees > 0 || $this->total_sorties > 0;
     }
+    
+    public function getIdentifiant() {
+    	return strtolower($this->getAppellation()->getCertification()."_".$this->getAppellation()->getKey()."_".$this->getCouleur()."_".str_replace('-', '_', $this->getLabelKey()));
+    }
+
+    public function __toString() {
+        return $this->getAppellation()->getCertification()." - ".$this->getAppellation()." - ".$this->getCouleur()."<br />".$this->getLabelKey();
+    }
 
 
 

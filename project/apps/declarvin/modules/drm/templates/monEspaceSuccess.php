@@ -1,9 +1,8 @@
-<?php include_partial('global/navTop'); ?>
+<?php include_partial('global/navTop', array('active' => 'drm')); ?>
 
 <section id="contenu">
     <h1>Déclaration Récapitulative Mensuelle</h1>
     <p id="date_drm">Bienvenue sur votre espace DRM. Que pensez-vous faire ?</p>
-    <?php //include_partial('global/navTop', array('active' => 'drm')) ?>
     <div id="creation_compte" style="width:70%; float: left;">
 
         <br /><br />

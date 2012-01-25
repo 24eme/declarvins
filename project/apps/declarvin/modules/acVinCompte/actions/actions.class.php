@@ -43,7 +43,7 @@ class acVinCompteActions extends BaseacVinCompteActions {
 	  $this->getUser()->signIn(phpCAS::getUser());
 	  $this->redirect('@tiers');
         } else {
-        	$this->getUser()->signIn('autologin');
+        	$this->getUser()->signIn('yopyop');//'autologin');
 	  		$this->redirect('@tiers');
 	  		$url = sfConfig::get('app_cas_url') . '/login?service=' . $request->getUri();
 	  		$this->redirect($url);

@@ -13,4 +13,12 @@ class DRMCouleur extends BaseDRMCouleur {
     public function getAppellation() {
         return $this->getParent()->getParent();
     }
+    
+    /**
+     *
+     * @return string
+     */
+    public function __toString() {
+        return ucfirst($this->getKey());
+    }
 }

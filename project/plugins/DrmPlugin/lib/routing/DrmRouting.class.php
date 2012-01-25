@@ -93,6 +93,19 @@ class DrmRouting {
         $r->prependRoute('drm_mouvements_generaux', new sfRoute('/drm/mouvements-generaux', array('module' => 'drm_mouvements_generaux', 'action' => 'index')));
         $r->prependRoute('drm_mouvements_generaux_product_form', new sfRoute('/drm/mouvements-generaux/product-form', array('module' => 'drm_mouvements_generaux', 'action' => 'productFormAjax')));
         $r->prependRoute('drm_mouvements_generaux_save', new sfRoute('/drm/mouvements-generaux/save', array('module' => 'drm_mouvements_generaux', 'action' => 'saveFormAjax')));
+        
+        /*
+         * VRAC
+         */
+         $r->prependRoute('vrac_ajout_contrat', new DrmRecapDetailRoute('/vrac/contrat/:certification/:appellation/:couleur/:cepage/ajout/:detail',
+                        array('module' => 'drm_vrac',
+                            'action' => 'nouveauContrat',
+                            'detail' => null),
+                        array('sf_method' => array('post', 'get')),
+                        array('model' => 'DRMDetail',
+                            'type' => 'object'
+                )));
+        $r->prependRoute('vrac', new sfRoute('/vrac', array('module' => 'drm_vrac', 'action' => 'index')));
     }
 
 }

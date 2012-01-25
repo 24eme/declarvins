@@ -163,7 +163,23 @@ Contrat:
                   comptabilite_code_postal: {  }
                   comptabilite_commune: {  }
                   service_douane: {  }
-    
+Vrac:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {  }
+      produit: {  }
+      numero: {  }
+      acheteur:
+        type: collection
+        definition:
+          fields:
+            nom: {  }
+      etablissement: {  }
+      volume_promis: { type: float }
+      volume_realise: { type: float }
+
 Current:
   definition:
     fields:
@@ -344,6 +360,15 @@ DRM:
                                                                             fields:
                                                                               '*': {  }
                                                                         label_supplementaire: {  }
+                                                                        vrac:
+                                                                          type: collection
+                                                                          definition:
+                                                                            fields:
+                                                                              '*':
+                                                                                type: collection
+                                                                                definition:
+                                                                                  fields:
+                                                                                    volume: { type: float }
                                                                         stocks:
                                                                           type: collection
                                                                           definition:

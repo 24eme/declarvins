@@ -1,4 +1,4 @@
-<?php include_partial('global/navTop'); ?>
+<?php include_partial('global/navTop', array('active' => 'drm')); ?>
 
 <section id="contenu">
     <h1>Déclaration Récapitulative Mensuelle</h1>
