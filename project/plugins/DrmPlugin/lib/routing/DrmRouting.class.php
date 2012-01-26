@@ -105,6 +105,13 @@ class DrmRouting {
                         array('model' => 'DRMDetail',
                             'type' => 'object'
                 )));
+        $r->prependRoute('vrac_update_volume', new VracDetailContratRoute('/vrac/update/:certification/:appellation/:couleur/:cepage/:detail/volume/:contrat',
+                        array('module' => 'drm_vrac',
+                            'action' => 'updateVolume'),
+                        array('sf_method' => array('post')),
+                        array('model' => 'acCouchdbJson',
+                            'type' => 'object'
+                )));
         $r->prependRoute('vrac', new sfRoute('/vrac', array('module' => 'drm_vrac', 'action' => 'index')));
     }
 

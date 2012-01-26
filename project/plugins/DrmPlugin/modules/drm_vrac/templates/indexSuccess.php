@@ -31,26 +31,14 @@
 		</thead>
 		<tbody>
 		<?php foreach ($details as $detail): ?>
-			<tr>
-				<td><?php echo $detail->getRawValue() ?></td>
-				<td align="center">
-					<?php if ($detail->hasContratVrac()): ?>
-                    <div class="btn">
-						<a href="<?php echo url_for('vrac_ajout_contrat', $detail) ?>" class="btn_ajouter btn_popup" data-popup-ajax="true" data-popup="#popup_ajout_contrat_<?php echo $detail->getIdentifiant() ?>" data-popup-config="configAjoutProduit"></a>
-					</div>
-					<?php endif; ?>
-				</td>
-				<td align="center"></td>
-			</tr>	
-			<?php foreach ($detail->getVrac() as $vrac): ?>
-			<tr>
-				<td></td>
-				<td align="center">
-					<span><?php echo $vrac->getKey() ?></span>
-				</td>
-				<td align="center"></td>
-			</tr>
-			<?php endforeach; ?>
+			<?php include_partial('addContrat', array('detail' => $detail)) ?>	
+			<?php
+				if (isset($forms[$detail->getIdentifiant()])) { 
+					foreach ($forms[$detail->getIdentifiant()] as $form) {
+						include_partial('itemContrat', array('form' => $form));
+					}
+				}
+			?>
 		<?php endforeach; ?>
 		</tbody>
 	</table>

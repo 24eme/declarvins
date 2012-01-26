@@ -5,6 +5,12 @@ class drm_vracActions extends sfActions
     
     public function executeIndex(sfWebRequest $request) {
     	$this->details = $this->getUser()->getDrm()->getDetailsAvecVrac();
+		$this->forms = array();
+		foreach ($this->details as $detail) {
+			foreach ($detail->getVrac() as $vrac) {
+				$this->forms[$detail->getIdentifiant()][$vrac->getKey()] = new VracDetailModificationForm($vrac);
+			}
+		}
     }
     
     public function executeNouveauContrat(sfWebRequest $request) {
@@ -25,5 +31,14 @@ class drm_vracActions extends sfActions
         }
     }
     
-    
+    public function executeUpdateVolume(sfWebRequest $request) {
+    	if ($request->isMethod(sfWebRequest::POST)) {
+			$form = new VracDetailModificationForm($this->getRoute()->getObject());
+        	$form->bind($request->getParameter($form->getName()));
+            if ($form->isValid()) {
+               $form->save();
+            }
+        } 
+        $this->redirect('vrac');
+    }
 }
