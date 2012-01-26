@@ -18,7 +18,7 @@ _Compte:
   definition:
     fields:
       login: { }
-            
+
 _Tiers:
   type: abstract
   definition:
@@ -46,7 +46,7 @@ acVinCompteTiers:
                   type: {  }
                   nom: {  }
                   interpro: {  }
-                  
+
 CompteTiers:
   inheritance: acVinCompteTiers
   definition:
@@ -67,7 +67,6 @@ CompteTiers:
               definition:
                 fields:
                   statut: {  }
-                  
 
 Interpro:
   inheritance: _Tiers
@@ -123,7 +122,7 @@ Douane:
       _id: {  }
       _rev: {  }
       email: {  }
-      
+
 Contrat:
   definition:
     fields:
@@ -163,6 +162,7 @@ Contrat:
                   comptabilite_code_postal: {  }
                   comptabilite_commune: {  }
                   service_douane: {  }
+
 Vrac:
   definition:
     fields:
@@ -187,7 +187,7 @@ Current:
       _rev: {  }
       type: {  }
       campagne: {  }
-      
+
 Configuration:
   definition:
     fields:
@@ -240,6 +240,30 @@ Configuration:
                                             definition:
                                               fields:
                                                 libelle: {  }
+                                                cepages: 
+                                                  type: collection
+                                                  definition:
+                                                    fields:
+                                                      '*':
+                                                        # CEPAGE
+                                                        class: ConfigurationCepage
+                                                        inheritance: _ConfigurationDeclaration
+                                                        type: collection
+                                                        definition:
+                                                          fields:
+                                                            libelle: {  }
+                                                            millesimes: 
+                                                              type: collection
+                                                              definition:
+                                                                fields:
+                                                                  '*':
+                                                                    # MILLESIME
+                                                                    class: ConfigurationMillesime
+                                                                    inheritance: _ConfigurationDeclaration
+                                                                    type: collection
+                                                                    definition:
+                                                                      fields:
+                                                                        libelle: {  }
 
 DRM:
   definition:
@@ -274,6 +298,7 @@ DRM:
                                     '*': {  }
                               label_supplementaire: {  }
                               cepage: {  }
+                              millesime: {  }
                               disponible: {  }
                               stock_vide: {  }
                               pas_de_mouvement: {  }
@@ -341,62 +366,73 @@ DRM:
                                                             total_entrees: { type: float }
                                                             total_sorties: { type: float }
                                                             total: { type: float }
-                                                            details:
+                                                            millesimes:
                                                               type: collection
                                                               definition:
                                                                 fields:
                                                                   '*':
-                                                                    class: DRMDetail
+                                                                    # MILLESIME
+                                                                    class: DRMMillesime
+                                                                    inheritance: _DRMTotal
                                                                     type: collection
                                                                     definition:
                                                                       fields:
-                                                                        total_debut_mois: { type: float }
-                                                                        total_entrees: { type: float }
-                                                                        total_sorties: { type: float }
-                                                                        total: { type: float }
-                                                                        label:
-                                                                          type: array_collection
-                                                                          definition:
-                                                                            fields:
-                                                                              '*': {  }
-                                                                        label_supplementaire: {  }
-                                                                        vrac:
+                                                                        details:
                                                                           type: collection
                                                                           definition:
                                                                             fields:
                                                                               '*':
+                                                                                class: DRMDetail
                                                                                 type: collection
                                                                                 definition:
                                                                                   fields:
-                                                                                    volume: { type: float }
-                                                                        stocks:
-                                                                          type: collection
-                                                                          definition:
-                                                                            fields:
-                                                                              bloque: { type: float }  
-                                                                              warrante: { type: float }
-                                                                              instance: { type: float }
-                                                                        entrees:
-                                                                          type: collection
-                                                                          definition:
-                                                                            fields:
-                                                                              nouveau: { type: float }  
-                                                                              changement: { type: float }
-                                                                              mouvement: { type: float }
-                                                                        sorties:
-                                                                          type: collection
-                                                                          definition:
-                                                                            fields:
-                                                                              vrac: { type: float }  
-                                                                              export: { type: float }  
-                                                                              factures: { type: float } 
-                                                                              crd: { type: float }
-                                                                              consommation: { type: float }
-                                                                              pertes: { type: float }
-                                                                              declassement: { type: float }
-                                                                              repli: { type: float }
-                                                                              mouvement: { type: float }
-                                                                              lies: { type: float }
+                                                                                    total_debut_mois: { type: float }
+                                                                                    total_entrees: { type: float }
+                                                                                    total_sorties: { type: float }
+                                                                                    total: { type: float }
+                                                                                    label:
+                                                                                      type: array_collection
+                                                                                      definition:
+                                                                                        fields:
+                                                                                          '*': {  }
+                                                                                    label_supplementaire: {  }
+                                                                                    vrac:
+                                                                                      type: collection
+                                                                                      definition:
+                                                                                        fields:
+                                                                                          '*':
+                                                                                            type: collection
+                                                                                            definition:
+                                                                                              fields:
+                                                                                                volume: { type: float }
+                                                                                    stocks:
+                                                                                      type: collection
+                                                                                      definition:
+                                                                                        fields:
+                                                                                          bloque: { type: float }
+                                                                                          warrante: { type: float }
+                                                                                          instance: { type: float }
+                                                                                    entrees:
+                                                                                      type: collection
+                                                                                      definition:
+                                                                                        fields:
+                                                                                          nouveau: { type: float }
+                                                                                          changement: { type: float }
+                                                                                          mouvement: { type: float }
+                                                                                    sorties:
+                                                                                      type: collection
+                                                                                      definition:
+                                                                                        fields:
+                                                                                          vrac: { type: float }
+                                                                                          export: { type: float }
+                                                                                          factures: { type: float }
+                                                                                          crd: { type: float }
+                                                                                          consommation: { type: float }
+                                                                                          pertes: { type: float }
+                                                                                          declassement: { type: float }
+                                                                                          repli: { type: float }
+                                                                                          mouvement: { type: float }
+                                                                                          lies: { type: float }
       declarant:
         type: collection
         class: DRMDeclarant
@@ -424,4 +460,3 @@ DRM:
                     commune: {  }
             service_douane: {  }
       identifiant: {  }
-            
