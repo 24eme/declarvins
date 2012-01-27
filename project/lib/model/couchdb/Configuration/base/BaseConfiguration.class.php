@@ -8,6 +8,7 @@
  * @property string $_rev
  * @property string $type
  * @property string $campagne
+ * @property acCouchdbJson $label
  * @property acCouchdbJson $declaration
 
  * @method string get_id()
@@ -18,6 +19,8 @@
  * @method string setType()
  * @method string getCampagne()
  * @method string setCampagne()
+ * @method acCouchdbJson getLabel()
+ * @method acCouchdbJson setLabel()
  * @method acCouchdbJson getDeclaration()
  * @method acCouchdbJson setDeclaration()
  

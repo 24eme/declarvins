@@ -6,6 +6,8 @@
         <a href="#" class="col_curseur" data-curseur="<?php echo $form->getObject()->getKey() ?>"></a>
         <h2><?php echo $form->getObject()->getCouleur()->getKey() ?></h2>
         <div class="col_cont">
+            <p class="cepage"><?php echo $form->getObject()->getCepage()->getConfig()->libelle ?></p>
+            <p class="millesime"><?php echo $form->getObject()->getMillesime()->getConfig()->libelle ?></p>
             <p class="label"><?php echo implode(', ', $form->getObject()->label->toArray()) ?><br />
                             <?php echo $form->getObject()->label_supplementaire ?></p>
             <div class="groupe" data-groupe-id="1">
@@ -47,7 +49,7 @@
             <p><input type="text" value="0" class="num num_float somme_stock_fin" readonly="readonly" /></p>
 
             <div class="col_btn">
-                <button class="btn_reinitialiser" type="submit">Réinitialiser</button>
+                <button class="btn_reinitialiser" type="submit">Annuler</button>
 				<button class="btn_valider" type="submit">Valider</button>
             </div>
         </div>

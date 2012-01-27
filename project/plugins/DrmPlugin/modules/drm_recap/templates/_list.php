@@ -10,7 +10,7 @@
 
 <!-- C'est degelousse -->
  <p style="text-align:right; padding-bottom: 4px;">
- <a href="<?php echo url_for('drm_recap_ajout_ajax', $config_appellation) ?>" class="btn_ajouter btn_popup" data-popup-ajax="true" data-popup="#popup_ajout_detail"  data-popup-config="configAjoutProduit">Ajouter un produit</a>
+ <a href="<?php //echo url_for('drm_recap_ajout_ajax', $config_appellation) ?>" class="btn_ajouter btn_popup" data-popup-ajax="true" data-popup="#popup_ajout_detail"  data-popup-config="configAjoutProduit">Ajouter un produit</a>
  </p>
 
 <div id="colonnes_dr">
@@ -22,12 +22,10 @@
 		</script>
 
         <div id="col_saisies_cont">
-            <?php foreach ($drm_appellation->getDocument()->produits->get($drm_appellation->getCertification()->getKey()) as $appellation): ?>
-            	<?php foreach ($drm_appellation->getDocument()->produits->get($drm_appellation->getCertification()->getKey())->get($appellation->getKey()) as $produit): ?>
-                	<?php if ($produit->getAppellation()->getKey() == $drm_appellation->getKey() && !$produit->stock_vide): ?>
-                    	<?php include_component('drm_recap', 'itemForm', array('produit' => $produit, 'detail' => $produit->getDetail(), 'form' => $form)); ?>
-                	<?php endif; ?>
-            	<?php endforeach; ?>
+            <?php foreach ($produits as $produit): ?>
+                    	<?php include_component('drm_recap', 'itemForm', array('produit' => $produit,
+                                                                               'detail' => $produit->getDetail(), 
+                                                                               'form' => $form)); ?>
             <?php endforeach; ?>
         </div>
     </div>

@@ -10,23 +10,26 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
     public function configure() 
     {
         $this->setWidgets(array(
-        	'cepage' => new sfWidgetFormInputHidden(array(), array('value' => self::NOEUD_CEPAGE_TEMPORAIRE)),
-            'appellation' => new sfWidgetFormChoice(array('choices' => $this->getAppellationChoices())),
-            'couleur' => new sfWidgetFormChoice(array('choices' => array('' => "", 'blanc' => 'Blanc', 'rouge' => 'Rouge', 'rose' => "Rosé"))),
+            'produit' => new sfWidgetFormInputText(array(), array('autocomplete-data' => json_encode($this->getProduits()))),
+            'appellation' => new sfWidgetFormInputHidden(),
+            'couleur' => new sfWidgetFormInputHidden(),
+            'cepage' => new sfWidgetFormInputHidden(),
+            'millesime' => new sfWidgetFormInputHidden(),
             'label' => new sfWidgetFormChoice(array('expanded' => true, 'multiple' => true,'choices' => $this->getLabelChoices())),
             'label_supplementaire' => new sfWidgetFormInputText(),
         ));
         $this->widgetSchema->setLabels(array(
-        	'cepage' => 'Cépage*: ',
-        	'appellation' => 'Appellation*: ',
-            'couleur' => 'Couleur*: ',
+            'produits' => 'Produits*: ',
             'label' => 'Label: ',
             'label_supplementaire' => 'Label supplémentaire: ',
         ));
+
         $this->setValidators(array(
-        	'cepage' => new sfValidatorString(array('required' => true)),
-            'appellation' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getAppellationChoices())), array('required' => 'Champ obligatoire')),
-            'couleur' => new sfValidatorChoice(array('required' => true, 'choices' => array('blanc', 'rouge', 'rose')), array('required' => 'Champ obligatoire')),
+            'produit' => new sfValidatorString(array('required' => true)),
+            'appellation' => new sfValidatorString(array('required' => true)),
+            'couleur' => new sfValidatorString(array('required' => true)),
+            'cepage' => new sfValidatorString(array('required' => true)),
+            'millesime' => new sfValidatorString(array('required' => true)),
             'label' => new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($this->getLabelChoices()))),
             'label_supplementaire' => new sfValidatorString(array('required' => false)),
         ));
@@ -34,6 +37,8 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
         if ($this->hasAppellation()) {
             unset($this['appellation']);
         }
+
+        $this->getProduits();
 
         $this->validatorSchema->setPostValidator(new DRMProduitValidator(null, array('object' => $this->getObject())));
         $this->widgetSchema->setNameFormat('produit_'.$this->getObject()->getCertification()->getKey().'[%s]');
@@ -45,20 +50,6 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
             $this->getObject()->getCertification()->moveAndClean($this->getObject()->getAppellation()->getKey().'/'.$this->getObject()->getKey(), $this->getAppellation().'/'.$this->getObject()->getParent()->getParent()->add($values['appellation'])->count());
         }
         $this->getObject()->getDocument()->synchroniseDeclaration();
-    }
-    
-    public function getAppellationChoices() 
-    {
-        if (is_null($this->_appellation_choices)) {
-            $this->_appellation_choices = array('' => '');
-            foreach ($this->getObject()->getDocument()->declaration->certifications->add($this->getObject()->getCertification()->getKey())->getConfig()->appellations as $key => $item) {
-                if (!$this->getObject()->exist($key)) {
-                    $this->_appellation_choices[$key] = $item->getLibelle();
-                }
-            }
-        }
-
-        return $this->_appellation_choices;
     }
     
     public function getLabelChoices() 
@@ -84,5 +75,30 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
         } else {
             return $this->getValue('appellation');
         }
+    }
+
+    public function getProduits() {
+        $produits = array();
+        $config_certification = ConfigurationClient::getCurrent()->declaration
+                                                ->certifications
+                                                ->get($this->getObject()->getCertification()->getKey());
+        foreach($config_certification->appellations as $appellation) {
+            foreach($appellation->couleurs as $couleur) {
+                foreach($couleur->cepages as $cepage) {
+                    foreach($cepage->millesimes as $millesime) {
+                        $produits[] = implode('|@', array($appellation->getKey(),
+                                                          $appellation->libelle,
+                                                          $couleur->getKey(),
+                                                          $couleur->libelle,
+                                                          $cepage->getKey(),
+                                                          $cepage->libelle,
+                                                          $millesime->getKey(),
+                                                          $millesime->libelle));
+                    }
+                }
+            }
+        }
+
+        return $produits;
     }
 }

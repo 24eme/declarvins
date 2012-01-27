@@ -1,5 +1,7 @@
 <div id="colonne_intitules">
 	<p class="couleur">Couleur</p>
+	<p class="cepage">Cépage</p>
+	<p class="millesime">Millésime</p>
 	<p class="label">Labels</p>
 	
 	<div class="groupe" data-groupe-id="1">
@@ -15,8 +17,10 @@
 		<p>Entrées</p>
 		<ul>
 			<li>Achats / Récolte / Agrément IGP/ Retour</li>
-			<li>Replis / Déclassement / Changement de dénomination</li>
+			<li>Replis / Changement de dénomination</li>
+			<li>Déclassement</li>
 			<li>Transfert de chai / Embouteillage</li>
+			<li>Réintégration CRD</li>
 		</ul>
 	</div>
 	

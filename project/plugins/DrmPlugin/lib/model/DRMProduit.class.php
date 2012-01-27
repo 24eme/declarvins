@@ -30,27 +30,36 @@ class DRMProduit extends BaseDRMProduit {
                                    ->appellations->add($this->getAppellation()->getKey())
                                    ->couleurs->add($this->couleur)
                                    ->cepages->add($this->cepage)
+                                   ->millesimes->add($this->millesime)
                                    ->details->add(KeyInflector::slugify($this->getLabelKey()));        
+    }
+
+    public function getOrAddDetail() {
+        return $this->getDetail();
     }
     
     public function existDetail() {
-    	return $this->getDocument()->exist('declaration/certifications/'.$this->getCertification()->getKey().'/appellations/'.$this->getAppellation()->getKey().'/couleurs/'.$this->couleur.'/cepages/'.$this->cepage.'/details/'.KeyInflector::slugify($this->getLabelKey()));        
+    	return $this->getDocument()->exist('declaration/certifications/'.$this->getCertification()->getKey().'/appellations/'.$this->getAppellation()->getKey().'/couleurs/'.$this->couleur.'/cepages/'.$this->cepage.'/millesimes/'.$this->millesime.'/details/'.KeyInflector::slugify($this->getLabelKey()));        
     }
     
     public function updateDetail() {
-        $detail = $this->getDetail();
+        $detail = $this->getOrAddDetail();
         $detail->label = $this->label;
         $detail->label_supplementaire = $this->label_supplementaire;        
         return $detail;
     }
+
+    public function delete() {
+        $this->getDetail()->delete();
+    }
     
-    public function updateProduit() {
+    /*public function updateProduit() {
         if ($this->existDetail()) {
             return $this->getDetail()->updateProduit($this);
         } else { 
             $this->getParent()->remove($this->getKey());
             return null;
         }
-    }
+    }*/
     
 }

@@ -34,7 +34,7 @@ class DrmRouting {
     static public function listenToRoutingLoadConfigurationEvent(sfEvent $event) {
         $r = $event->getSubject();
 
-        $r->prependRoute('drm_recap', new DrmRecapAppellationRoute('/drm/recapitulatif/:certification',
+        $r->prependRoute('drm_recap', new DrmAppellationRoute('/drm/recapitulatif/:certification',
                         array('module' => 'drm_recap',
                             'action' => 'index'),
                         array('sf_method' => array('get')),
@@ -42,7 +42,7 @@ class DrmRouting {
                             'type' => 'object'
                 )));
         
-        $r->prependRoute('drm_recap_appellation_ajout_ajax', new DrmRecapCertificationRoute('/drm/recapitulatif-appellation-ajout/:certification',
+        $r->prependRoute('drm_recap_appellation_ajout_ajax', new DrmCertificationRoute('/drm/recapitulatif-appellation-ajout/:certification',
                         array('module' => 'drm_recap',
                             'action' => 'appellationAjoutAjax'),
                         array('sf_method' => array('get','post')),
@@ -50,39 +50,46 @@ class DrmRouting {
                             'type' => 'object'
                 )));
 
-        $r->prependRoute('drm_recap_appellation', new DrmRecapAppellationRoute('/drm/recapitulatif/:certification/:appellation',
+        $r->prependRoute('drm_recap_appellation', new DrmAppellationRoute('/drm/recapitulatif/:certification/:appellation',
                         array('module' => 'drm_recap',
                             'action' => 'appellation'),
                         array('sf_method' => array('get')),
                         array('model' => 'DRMAppellation',
+                             'type' => 'object'
+                )));
+
+        $r->prependRoute('drm_recap_detail', new DrmDetailRoute('/drm/recapitulatif/:certification/:appellation/:couleur/:cepage/:millesime/:detail',
+                        array('module' => 'drm_recap',
+                            'action' => 'detail'),
+                        array('sf_method' => array('get')),
+                        array('model' => 'DRMDetail',
                             'type' => 'object'
                 )));
         
-        $r->prependRoute('drm_recap_ajout_ajax', new DrmRecapAppellationRoute('/drm/recapitulatif/:certification/:appellation/ajout-ajax',
+        /*$r->prependRoute('drm_recap_ajout_ajax', new DrmAppellationRoute('/drm/recapitulatif/:certification/:appellation/ajout-ajax',
                         array('module' => 'drm_recap',
                             'action' => 'ajoutAjax'),
                         array('sf_method' => array('get', 'post')),
                         array('model' => 'DRMAppellation',
                             'type' => 'object'
-                )));
+                )));*/
         
-        $r->prependRoute('drm_recap_update', new DrmRecapDetailRoute('/drm/recapitulatif/:certification/:appellation/:couleur/update/:cepage/:detail',
+        $r->prependRoute('drm_recap_update', new DrmDetailRoute('/drm/recapitulatif/update/:certification/:appellation/:couleur/:cepage/:millesime/:detail',
                         array('module' => 'drm_recap',
-                            'action' => 'update',
-                            'detail' => null),
+                            'action' => 'update'),
                         array('sf_method' => array('post')),
                         array('model' => 'DRMDetail',
                             'type' => 'object'
                 )));
         
-        $r->prependRoute('drm_mouvements_generaux_produit_update', new DrmMouvementsGenerauxProduitRoute('/drm/mouvements-generaux/:certification/:appellation/update/:indice',
+        $r->prependRoute('drm_mouvements_generaux_produit_update', new DrmProduitRoute('/drm/mouvements-generaux/:certification/:appellation/update/:indice',
                         array('module' => 'drm_mouvements_generaux',
                             'action' => 'saveFormAjax'),
                         array('sf_method' => array('post')),
                         array('model' => 'DRMProduit',
                             'type' => 'object'
                 )));
-        $r->prependRoute('drm_mouvements_generaux_produit_delete', new DrmMouvementsGenerauxProduitRoute('/drm/mouvements-generaux/:certification/:appellation/delete/:indice',
+        $r->prependRoute('drm_mouvements_generaux_produit_delete', new DrmProduitRoute('/drm/mouvements-generaux/:certification/:appellation/delete/:indice',
                         array('module' => 'drm_mouvements_generaux',
                             'action' => 'deleteAjax'),
                         array('sf_method' => array('post')),
@@ -97,7 +104,7 @@ class DrmRouting {
         /*
          * VRAC
          */
-         $r->prependRoute('vrac_ajout_contrat', new DrmRecapDetailRoute('/vrac/contrat/:certification/:appellation/:couleur/:cepage/ajout/:detail',
+         $r->prependRoute('vrac_ajout_contrat', new DrmDetailRoute('/vrac/contrat/:certification/:appellation/:couleur/:cepage/:millesime/ajout/:detail',
                         array('module' => 'drm_vrac',
                             'action' => 'nouveauContrat',
                             'detail' => null),
@@ -105,7 +112,7 @@ class DrmRouting {
                         array('model' => 'DRMDetail',
                             'type' => 'object'
                 )));
-        $r->prependRoute('vrac_update_volume', new VracDetailContratRoute('/vrac/update/:certification/:appellation/:couleur/:cepage/:detail/volume/:contrat',
+        $r->prependRoute('vrac_update_volume', new VracDetailContratRoute('/vrac/update/:certification/:appellation/:couleur/:cepage/:millesime/:detail/volume/:contrat',
                         array('module' => 'drm_vrac',
                             'action' => 'updateVolume'),
                         array('sf_method' => array('post')),

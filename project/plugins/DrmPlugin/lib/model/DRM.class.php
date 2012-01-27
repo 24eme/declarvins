@@ -10,7 +10,7 @@ class DRM extends BaseDRM {
         $this->set('_id', 'DRM-' . $this->identifiant . '-' . $this->campagne);
     }
 
-    public function synchroniseProduits() {
+    /*public function synchroniseProduits() {
         $details = array();
         foreach ($this->produits as $certification) {
             foreach ($certification as $appellation) {
@@ -25,16 +25,18 @@ class DRM extends BaseDRM {
             foreach ($certifications->appellations as $appellation) {
                 foreach ($appellation->couleurs as $couleur) {
                 	foreach ($couleur->cepages as $cepage) {
-	                    foreach ($cepage->details as $detail) {
-	                        if (!in_array($detail->getHash(), $details)) {
-	                            $detail->updateProduit();
-	                        }
+	                    foreach ($cepage->millesimes as $millesime) {
+                            foreach ($millesime->details as $detail) {
+	                           if (!in_array($detail->getHash(), $details)) {
+                                    $detail->updateProduit();
+	                           }
+                            }
 	                    }
                 	}
                 }
             }
         }
-    }
+    }*/
 
     public function synchroniseDeclaration() {
         foreach ($this->produits as $certification) {
@@ -52,10 +54,12 @@ class DRM extends BaseDRM {
             foreach ($certifications->appellations as $appellation) {
                 foreach ($appellation->couleurs as $couleur) {
                 	foreach ($couleur->cepages as $cepage) {
-	                    foreach ($cepage->details as $detail) {
-	                        if ($detail->sorties->vrac) {
-	                            $details[] = $detail;
-	                        }
+	                    foreach ($cepage->millesimes as $millesime) {
+                            foreach ($millesime->details as $detail) {
+    	                        if ($detail->sorties->vrac) {
+    	                            $details[] = $detail;
+    	                        }
+                            }
 	                    }
                 	}
                 }

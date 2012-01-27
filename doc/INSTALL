@@ -1,31 +1,73 @@
-* generer une cle ssh (si jamais générée)
+h1. Installation
 
-$ ssh-keygen -t rsa
+h2. dépendances
 
-* faire intégrer la cle publique sur dev-actualys
+$ sudo aptitude install couchdb libapache2-mod-php5 php5-cli php5-ldap
 
-La clé publique est lisible grace à cette commande :
+h2. git
 
-$ cat ~/.ssh/id_rsa.pub 
+$ cd /var/www (ou à un autre emplacement)
+$ git clone https://git.gitorious.org/declarvin/declarvin.git
+$ cd declarvin
+$ cat .gitmodules  | sed 's/git@gitorious.org:/https:\/\/git.gitorious\.org\//' > /tmp/gitmodules && mv /tmp/gitmodules .gitmodules
+$ git submodule init
+$ git submodule update
+$ git submodule foreach git checkout master
 
-(en cas de clé dsa, remplacer rsa par dsa)
+h2. mise à jour du code 
 
-Faire mettre cette cle à la fin du fichier /home/git/.ssh/authorized_keys sur dev-actualys
+A la racine du projet :
 
-* cloner le projet depuis git 
+$ git submodule foreach git pull
+$ git pull
 
-$ git clone ssh://git@dev-actualys.integra.fr/home/git/declarweb.git
+h2. configuration d'apache
 
-le projet est donc accessible dans le sous-répertoire declarvin et le projet symfony est accessible depuis declarvin/project
+Ajouter un vhost avec les éléments suivants :
 
-* configurer apache
+<pre>
+        DocumentRoot /var/www/declarvin/project/web
+        <Directory /var/www/declarvin>
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride All
+                Order allow,deny
+                allow from all
+        </Directory>
 
-un fichier de configuration est à adapter dans le sous-répertoire du projet config
+        Alias /sf "/var/www/declarvin/project/lib/vendor/symfony/data/web/sf"
+</pre>
 
-une fois le fichier adapté et mis dans /etc/apache2/site-enabled/, il faut redémarrer apache 
+h2. création de la base couchdb
 
-$ sudo /etc/init.d/apache restart
+$ curl -X PUT http://localhost:5984/declarvin
 
-* attribuer les bons droits au cache et au log
+h2. configuration de symfony
 
-$ sudo chown .www-data log cache
+$ cd project
+$ mkdir log cache
+$ chown www-data log cache
+$ chmod g+wx log cache
+$ cp config/databases.yml{.example,}
+
+adapter l'adresse du couchdb si nécessaire
+
+$ cp config/app.yml{.example,}
+
+adapter les adresse du LDAP ou du CAS si nécessaire
+
+h2. import/initialisation de données de l'application
+
+transférer https://clients.intra.actualys.fr/attachments/download/2955/import.zip import.zip dans le /tmp de la machine
+
+puis :
+
+$ cd project
+$ cd data
+$ unzip /tmp/import.zip
+$ cd ..
+$ php symfony import:configuration
+$ php symfony import:configuration data/import/appellations
+$ php symfony import:Compte
+$ php symfony import:douane
+$ bash bin/views
+$ php symfony cc
