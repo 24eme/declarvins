@@ -421,8 +421,10 @@ DRM:
                                                                                       definition:
                                                                                         fields:
                                                                                           nouveau: { type: float }
-                                                                                          changement: { type: float }
+                                                                                          repli: { type: float }
+                                                                                          declassement: { type: float }
                                                                                           mouvement: { type: float }
+                                                                                          crd: { type: float }
                                                                                     sorties:
                                                                                       type: collection
                                                                                       definition:
