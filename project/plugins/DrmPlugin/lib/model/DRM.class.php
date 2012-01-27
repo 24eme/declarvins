@@ -54,10 +54,12 @@ class DRM extends BaseDRM {
             foreach ($certifications->appellations as $appellation) {
                 foreach ($appellation->couleurs as $couleur) {
                 	foreach ($couleur->cepages as $cepage) {
-	                    foreach ($cepage->details as $detail) {
-	                        if ($detail->sorties->vrac) {
-	                            $details[] = $detail;
-	                        }
+	                    foreach ($cepage->millesimes as $millesime) {
+                            foreach ($millesime->details as $detail) {
+    	                        if ($detail->sorties->vrac) {
+    	                            $details[] = $detail;
+    	                        }
+                            }
 	                    }
                 	}
                 }
