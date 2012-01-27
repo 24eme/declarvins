@@ -1,5 +1,5 @@
 <div id="popup_ajout_produit_<?php echo $certification ?>" class="popup_contenu">
-	<form  class="popup_form" id="subForm" action="<?php echo url_for('@drm_mouvements_generaux_product_form') ?>" method="post">
+	<form  class="popup_form" id="subForm" action="<?php echo url_for(array('sf_route' => 'drm_mouvements_generaux_product_form','certification' => $certification)) ?>" method="post">
 		<?php echo $form->renderGlobalErrors() ?>
 		<?php echo $form->renderHiddenFields() ?>
 		<input type="hidden" name="certification" value="<?php echo $certification ?>" />
@@ -8,26 +8,6 @@
 			<?php echo $form['produit']->render() ?>
 			<span class="error"><?php echo $form['produit']->renderError() ?></span>
 		</div>
-		<!--<div class="ligne_form">
-			<?php echo $form['appellation']->renderLabel() ?>
-			<?php echo $form['appellation']->render() ?>
-			<span class="error"><?php echo $form['appellation']->renderError() ?></span>
-		</div>
-		<div class="ligne_form">
-			<?php echo $form['couleur']->renderLabel() ?>
-			<?php echo $form['couleur']->render() ?>
-			<span class="error"><?php echo $form['couleur']->renderError() ?></span>
-		</div>
-		<div class="ligne_form">
-			<?php echo $form['cepage']->renderLabel() ?>
-			<?php echo $form['cepage']->render() ?>
-			<span class="error"><?php echo $form['cepage']->renderError() ?></span>
-		</div>
-		<div class="ligne_form">
-			<?php echo $form['millesime']->renderLabel() ?>
-			<?php echo $form['millesime']->render() ?>
-			<span class="error"><?php echo $form['millesime']->renderError() ?></span>
-		</div>-->
 		<div class="ligne_form">
 			<?php echo $form['label']->renderLabel() ?>
 			<div style="width: 240px; height: 100px; display: inline-block; overflow-x: hidden; overflow-y: scroll;">
@@ -46,35 +26,34 @@
 		</div>
 	</form>
 </div>
-
 <script type="text/javascript">
 $(document).ready(function () {
-		var produits = JSON.parse($("#produit_AOP_produit").attr('autocomplete-data'));
-		$("#produit_AOP_produit").autocomplete({
+		var produits = JSON.parse($("#<?php echo $form['produit']->renderId() ?>").attr('autocomplete-data'));
+		$("#<?php echo $form['produit']->renderId() ?>").autocomplete({
 			minLength: 0,
 			source: produits,
 			focus: function(event, ui)
 	        {
-	        	$("#produit_AOP_produit").val(ui.item[1] + ' ' + ui.item[3] + ' ' + ui.item[5] + ' ' + ui.item[7]);
-	        	$('#produit_AOP_appellation').val(ui.item[0]);
-	        	$('#produit_AOP_couleur').val(ui.item[2]);
-	        	$('#produit_AOP_cepage').val(ui.item[4]);
-	        	$('#produit_AOP_millesime').val(ui.item[6]);
+	        	$('#<?php echo $form['produit']->renderId() ?>').val(ui.item[1] + ' ' + ui.item[3] + ' ' + ui.item[5] + ' ' + ui.item[7]);
+	        	$('#<?php echo $form['appellation']->renderId() ?>').val(ui.item[0]);
+	        	$('#<?php echo $form['couleur']->renderId() ?>').val(ui.item[2]);
+	        	$('#<?php echo $form['cepage']->renderId() ?>').val(ui.item[4]);
+	        	$('#<?php echo $form['millesime']->renderId() ?>').val(ui.item[6]);
 				
 	            return false;
 	        },
 	        select: function(event, ui)
 	        {
-	        	$("#produit_AOP_produit").val(ui.item[1] + ' ' + ui.item[3] + ' ' + ui.item[5] + ' ' + ui.item[7]);
-	        	$('#produit_AOP_appellation').val(ui.item[0]);
-	        	$('#produit_AOP_couleur').val(ui.item[2]);
-	        	$('#produit_AOP_cepage').val(ui.item[4]);
-	        	$('#produit_AOP_millesime').val(ui.item[6]);
+	        	$('#<?php echo $form['produit']->renderId() ?>').val(ui.item[1] + ' ' + ui.item[3] + ' ' + ui.item[5] + ' ' + ui.item[7]);
+	        	$('#<?php echo $form['appellation']->renderId() ?>').val(ui.item[0]);
+	        	$('#<?php echo $form['couleur']->renderId() ?>').val(ui.item[2]);
+	        	$('#<?php echo $form['cepage']->renderId() ?>').val(ui.item[4]);
+	        	$('#<?php echo $form['millesime']->renderId() ?>').val(ui.item[6]);
 					
 	            return false;
 	        }
 		});	
-		$("#produit_AOP_produit").data('autocomplete')._renderItem = function(ul, item)
+		$("#<?php echo $form['produit']->renderId() ?>").data('autocomplete')._renderItem = function(ul, item)
 	    {
 	        var tab = item['value'].split('|@');
 	        return $('<li></li>')

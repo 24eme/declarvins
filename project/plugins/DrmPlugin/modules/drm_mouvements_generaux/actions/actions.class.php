@@ -24,7 +24,8 @@ class drm_mouvements_generauxActions extends sfActions
     
     public function executeSaveFormAjax(sfWebRequest $request) 
     {
-        if ($request->isXmlHttpRequest() && $request->isMethod(sfWebRequest::POST)) {
+        $this->forward404Unless($request->isXmlHttpRequest());
+        if ($request->isMethod(sfWebRequest::POST)) {
 			$form = new DRMMouvementsGenerauxProduitModificationForm($this->getRoute()->getObject());
         	$form->bind($request->getParameter($form->getName()));
             if ($form->isValid()) {
@@ -36,11 +37,10 @@ class drm_mouvements_generauxActions extends sfActions
     
     public function executeDeleteAjax(sfWebRequest $request) 
     {
-        if ($request->isXmlHttpRequest()) {
-			$this->getRoute()->getObject()->delete();
-            //$this->getRoute()->getObject()->synchroniseDeclaration();
-			$this->getRoute()->getObject()->getDocument()->save();
-        } 
+        $this->forward404Unless($request->isXmlHttpRequest());
+		$this->getRoute()->getObject()->delete();
+		$this->getRoute()->getObject()->getDocument()->save();
+        
         return sfView::NONE;
     }
     
@@ -50,7 +50,7 @@ class drm_mouvements_generauxActions extends sfActions
     	$this->getResponse()->setContentType('text/json');
     	$drm = $this->getUser()->getDrm();
     	$certification = $request->getParameter('certification');
-        $form = new DRMMouvementsGenerauxProduitAjoutForm($drm->produits->add($certification)->add(DRMMouvementsGenerauxProduitAjoutForm::NOEUD_TEMPORAIRE)->add());
+        $form = new DRMProduitAjoutForm($drm->produits->add($certification)->add(DRMProduitAjoutForm::NOEUD_TEMPORAIRE)->add());
         if ($request->isMethod(sfWebRequest::POST)) {
             $form->bind($request->getParameter($form->getName()));
 			if ($form->isValid()) {

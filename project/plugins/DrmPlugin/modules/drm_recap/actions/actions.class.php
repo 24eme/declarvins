@@ -29,13 +29,31 @@ class drm_recapActions extends sfActions
     public function executeAppellation(sfWebRequest $request) {
         $this->init();
     }
+
+    public function executeAjoutAjax(sfWebRequest $request) 
+    {
+        $this->forward404Unless($request->isXmlHttpRequest());
+        $this->getResponse()->setContentType('text/json');
+        $drm = $this->getUser()->getDrm();
+        $certification = $request->getParameter('certification');
+        $form = new DRMProduitAjoutForm($drm->produits->add($certification)->add(DRMProduitAjoutForm::NOEUD_TEMPORAIRE)->add());
+        if ($request->isMethod(sfWebRequest::POST)) {
+            $form->bind($request->getParameter($form->getName()));
+            if ($form->isValid()) {
+                $form->save();
+                $this->getUser()->setFlash("notice", 'Le produit a été ajouté avec success.');
+                return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_mouvements_generaux'))));
+            }
+        }
+        return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('drm_mouvements_generaux/LigneAjoutForm', array('form' => $form, 'certification' => $certification)))));
+    }
     
-    public function executeAjoutAjax(sfWebRequest $request) {
+    /*public function executeAjoutAjax(sfWebRequest $request) {
         $this->init();
         $this->forward404Unless($request->isXmlHttpRequest());
         $this->getResponse()->setContentType('text/json');
         $drm = $this->getUser()->getDrm();
-        $form = new DRMMouvementsGenerauxProduitAjoutForm(
+        $form = new DRMProduitAjoutForm(
             $drm->produits->add($this->drm_appellation->getCertification()->getKey())
                           ->add($this->drm_appellation->getKey())
                           ->add()
@@ -49,7 +67,7 @@ class drm_recapActions extends sfActions
             }
         }
         return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('popupAjout', array('form' => $form, 'config_appellation' => $this->config_appellation)))));
-    }
+    }*/
 
     public function executeDetail(sfWebRequest $request) {
         $this->init();

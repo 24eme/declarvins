@@ -1,6 +1,6 @@
 <?php
 
-class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson 
+class DRMProduitAjoutForm extends acCouchdbFormDocumentJson 
 {
 	protected $_appellation_choices;
 	protected $_label_choices;
@@ -66,7 +66,7 @@ class DRMMouvementsGenerauxProduitAjoutForm extends acCouchdbFormDocumentJson
 
     public function hasAppellation() {
 
-        return $this->getObject()->getAppellation()->getKey() != DRMMouvementsGenerauxProduitAjoutForm::NOEUD_TEMPORAIRE;
+        return $this->getObject()->getAppellation()->getKey() != DRMProduitAjoutForm::NOEUD_TEMPORAIRE;
     }
 
     public function getAppellation() {

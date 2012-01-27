@@ -34,6 +34,29 @@ class DrmRouting {
     static public function listenToRoutingLoadConfigurationEvent(sfEvent $event) {
         $r = $event->getSubject();
 
+        $r->prependRoute('drm_mouvements_generaux_produit_update', new DrmProduitRoute('/drm/mouvements-generaux/:certification/:appellation/update/:indice',
+                        array('module' => 'drm_mouvements_generaux',
+                            'action' => 'saveFormAjax'),
+                        array('sf_method' => array('post')),
+                        array('model' => 'DRMProduit',
+                            'type' => 'object'
+                )));
+        $r->prependRoute('drm_mouvements_generaux_produit_delete', new DrmProduitRoute('/drm/mouvements-generaux/:certification/:appellation/delete/:indice',
+                        array('module' => 'drm_mouvements_generaux',
+                            'action' => 'deleteAjax'),
+                        array('sf_method' => array('post')),
+                        array('model' => 'DRMProduit',
+                            'type' => 'object'
+                )));  
+
+        $r->prependRoute('drm_mouvements_generaux', new sfRoute('/drm/mouvements-generaux', array('module' => 'drm_mouvements_generaux', 'action' => 'index')));
+
+        $r->prependRoute('drm_mouvements_generaux_product_form', new sfRoute('/drm/mouvements-generaux/ajout/:certification',
+                        array('module' => 'drm_mouvements_generaux',
+                            'action' => 'productFormAjax'),
+                        array('sf_method' => array('get','post'))
+                ));
+
         $r->prependRoute('drm_recap', new DrmAppellationRoute('/drm/recapitulatif/:certification',
                         array('module' => 'drm_recap',
                             'action' => 'index'),
@@ -81,26 +104,7 @@ class DrmRouting {
                         array('model' => 'DRMDetail',
                             'type' => 'object'
                 )));
-        
-        $r->prependRoute('drm_mouvements_generaux_produit_update', new DrmProduitRoute('/drm/mouvements-generaux/:certification/:appellation/update/:indice',
-                        array('module' => 'drm_mouvements_generaux',
-                            'action' => 'saveFormAjax'),
-                        array('sf_method' => array('post')),
-                        array('model' => 'DRMProduit',
-                            'type' => 'object'
-                )));
-        $r->prependRoute('drm_mouvements_generaux_produit_delete', new DrmProduitRoute('/drm/mouvements-generaux/:certification/:appellation/delete/:indice',
-                        array('module' => 'drm_mouvements_generaux',
-                            'action' => 'deleteAjax'),
-                        array('sf_method' => array('post')),
-                        array('model' => 'DRMProduit',
-                            'type' => 'object'
-                )));
 
-        $r->prependRoute('drm_mouvements_generaux', new sfRoute('/drm/mouvements-generaux', array('module' => 'drm_mouvements_generaux', 'action' => 'index')));
-        $r->prependRoute('drm_mouvements_generaux_product_form', new sfRoute('/drm/mouvements-generaux/product-form', array('module' => 'drm_mouvements_generaux', 'action' => 'productFormAjax')));
-        $r->prependRoute('drm_mouvements_generaux_save', new sfRoute('/drm/mouvements-generaux/save', array('module' => 'drm_mouvements_generaux', 'action' => 'saveFormAjax')));
-        
         /*
          * VRAC
          */

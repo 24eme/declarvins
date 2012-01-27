@@ -6,7 +6,7 @@
 	<td>
 		<?php echo $form->getObject()->getDetail()->total_debut_mois ?> HL
 		<?php if ($form->getObject()->getDetail()->total_debut_mois != $form->getObject()->getDetail()->total): ?>
-			=> <?php echo $form->getObject()->getDetail()->total ?> renderHiddenFields
+			=> <?php echo $form->getObject()->getDetail()->total ?> HL
 		<?php endif; ?>
 	</td>
 	<td>

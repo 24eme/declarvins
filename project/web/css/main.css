@@ -967,7 +967,7 @@ p#date_drm {
 }
 #principal .tableau_ajouts_liquidations table thead th:first-child {
   text-align:left;
-  /*width:180px;*/
+  width:520px;
 }
 #principal .tableau_ajouts_liquidations table tbody td {
   background:#e9e9e9;
