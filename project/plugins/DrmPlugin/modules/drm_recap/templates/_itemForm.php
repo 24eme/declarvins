@@ -49,7 +49,7 @@
             <p><input type="text" value="0" class="num num_float somme_stock_fin" readonly="readonly" /></p>
 
             <div class="col_btn">
-                <button class="btn_reinitialiser" type="submit">Réinitialiser</button>
+                <button class="btn_reinitialiser" type="submit">Annuler</button>
 				<button class="btn_valider" type="submit">Valider</button>
             </div>
         </div>

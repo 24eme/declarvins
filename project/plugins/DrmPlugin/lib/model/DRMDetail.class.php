@@ -59,7 +59,7 @@ class DRMDetail extends BaseDRMDetail {
     public function getLabelKey() {
     	$key = null;
     	if ($this->label) {
-    		$key = implode('-', $this->label->toArray());
+    		$key = implode(',', $this->label->toArray());
     	}
     	return ($key)? $key : DRMProduit::DEFAULT_KEY;
     }
@@ -68,6 +68,7 @@ class DRMDetail extends BaseDRMDetail {
         parent::update($params);
         $this->set('total_entrees', $this->getTotalByKey('entrees'));
         $this->set('total_sorties', $this->getTotalByKey('sorties'));
+        $this->set('total', $this->get('total_debut_mois') + $this->get('total_entrees') -  $this->get('total_sorties'));
     }
     
     private function getTotalByKey($key) {
@@ -95,7 +96,7 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function __toString() {
-        return $this->getAppellation()->getCertification()." - ".$this->getAppellation()." - ".$this->getCouleur()."<br />".$this->getLabelKey();
+        return "<strong>".$this->getAppellation()->getCertification()." - ".$this->getAppellation()."</strong> - ".$this->getCouleur()." - ".$this->getLabelKey();
     }
     
     public function hasContratVrac() {
@@ -107,7 +108,5 @@ class DRMDetail extends BaseDRMDetail {
         }
         return false;
     }
-
-
 
 }

@@ -64,12 +64,9 @@
 			                    <table class="tableau_recap">
 			                        <thead>
 										<tr>
-											<th>Appelation</th>
-											<th>Couleur</th>
-											<th>Label</th>
+											<th>Produits</th>
 											<th>Disponible</th>
-											<th>Stock vide</th>
-											<th>Pas de mouvement</th>
+											<th>Rien à déclarer</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -87,7 +84,6 @@
 			                    <div class="btn">
 									<a href="<?php echo url_for('drm_mouvements_generaux_product_form') ?>?certification=<?php echo $certification ?>" class="btn_ajouter btn_popup" data-popup-ajax="true" data-popup="#popup_ajout_produit_<?php echo $certification ?>" data-popup-config="configAjoutProduit">Ajouter un nouveau produit</a>
 								</div>
-		                    	<!-- <a href="<?php echo url_for('drm_mouvements_generaux_product_form') ?>" class="showForm " id="<?php echo $certification ?>" style="display: inline-block;width:100%;text-align:right;">Ajouter un nouveau produit</a> -->
 		                    </div>
 		            </div>
 		            <?php endforeach; ?>
