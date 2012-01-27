@@ -50,6 +50,11 @@ class drm_recapActions extends sfActions
         }
         return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('popupAjout', array('form' => $form, 'config_appellation' => $this->config_appellation)))));
     }
+
+    public function executeDetail(sfWebRequest $request) {
+        $this->init();
+        $this->setTemplate('appellation');
+    }
     
     public function executeUpdate(sfWebRequest $request) {
         $this->init();

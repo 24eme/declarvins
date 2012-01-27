@@ -55,6 +55,14 @@ class DrmRouting {
                             'action' => 'appellation'),
                         array('sf_method' => array('get')),
                         array('model' => 'DRMAppellation',
+                             'type' => 'object'
+                )));
+
+        $r->prependRoute('drm_recap_detail', new DrmDetailRoute('/drm/recapitulatif/:certification/:appellation/:couleur/:cepage/:millesime/:detail',
+                        array('module' => 'drm_recap',
+                            'action' => 'detail'),
+                        array('sf_method' => array('get')),
+                        array('model' => 'DRMDetail',
                             'type' => 'object'
                 )));
         
@@ -66,10 +74,9 @@ class DrmRouting {
                             'type' => 'object'
                 )));*/
         
-        $r->prependRoute('drm_recap_update', new DrmDetailRoute('/drm/recapitulatif/:certification/:appellation/:couleur/:cepage/:millesime/update/:detail',
+        $r->prependRoute('drm_recap_update', new DrmDetailRoute('/drm/recapitulatif/update/:certification/:appellation/:couleur/:cepage/:millesime/:detail',
                         array('module' => 'drm_recap',
-                            'action' => 'update',
-                            'detail' => null),
+                            'action' => 'update'),
                         array('sf_method' => array('post')),
                         array('model' => 'DRMDetail',
                             'type' => 'object'
