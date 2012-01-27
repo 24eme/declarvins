@@ -1,6 +1,6 @@
 <?php
 
-class DrmMouvementsGenerauxProduitRoute extends sfObjectRoute {
+class DrmProduitRoute extends sfObjectRoute {
     
     protected function getObjectForParameters($parameters) {
         return $this->getDRM()->produits->get($parameters['certification'])->get($parameters['appellation'])->get($parameters['indice']);

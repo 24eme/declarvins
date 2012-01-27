@@ -8,7 +8,7 @@ class drm_recapActions extends sfActions
         $this->setTemplate('appellation');
     }
     
-    public function executeAppellationAjoutAjax(sfWebRequest $request) {
+    /*public function executeAppellationAjoutAjax(sfWebRequest $request) {
         $this->forward404Unless($request->isXmlHttpRequest());
         $this->getResponse()->setContentType('text/json');
         $drm = $this->getUser()->getDrm();
@@ -24,7 +24,7 @@ class drm_recapActions extends sfActions
         }
 		
         return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('drm_recap/popupAppellationAjout', array('label' => $this->label, 'form' => $this->form)))));
-    }
+    }*/
     
     public function executeAppellation(sfWebRequest $request) {
         $this->init();
@@ -76,7 +76,7 @@ class drm_recapActions extends sfActions
     
     protected function init() {
         $this->form = null;
-        $this->form_appellation_ajout = null;
+        //$this->form_appellation_ajout = null;
         $this->config_appellation = $this->getRoute()->getConfigAppellation();
         $this->drm_appellation = $this->getRoute()->getDrmAppellation();
     }

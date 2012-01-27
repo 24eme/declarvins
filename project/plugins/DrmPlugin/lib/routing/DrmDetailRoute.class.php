@@ -1,6 +1,6 @@
 <?php
 
-class DrmRecapDetailRoute extends DrmRecapAppellationRoute {
+class DrmDetailRoute extends DrmAppellationRoute {
 
     public function getDRMDetail() {
         return $this->getObject();
@@ -13,15 +13,12 @@ class DrmRecapDetailRoute extends DrmRecapAppellationRoute {
     protected function getObjectForParameters($parameters) {
         $config_appellation = parent::getObjectForParameters($parameters);
         
-        $details = $this->getDRM()->get($config_appellation->getHash())->couleurs->add($parameters['couleur'])->cepages->add($parameters['cepage'])->details;
-        
-        if ($details->exist($parameters['detail'])) {
-            $drm_detail = $details->get($parameters['detail']);
-        } else {
-            $drm_detail = $details->add("NOUVELLE");
-            $drm_detail->getDocument()->synchroniseProduits();
-        }
-        
+        $drm_detail = $this->getDRM()->get($config_appellation->getHash())
+                                  ->couleurs->add($parameters['couleur'])
+                                  ->cepages->add($parameters['cepage'])
+                                  ->millesimes->add($parameters['millesime'])
+                                  ->details->get($parameters['detail']);
+
         return $drm_detail;
     }
 
@@ -30,6 +27,7 @@ class DrmRecapDetailRoute extends DrmRecapAppellationRoute {
         $parameters = parent::doConvertObjectToArray($config_certification);
         $parameters['couleur'] = $object->getCepage()->getCouleur()->getKey();
         $parameters['cepage'] = $object->getCepage()->getKey();
+        $parameters['millesime'] = $object->getMillesime()->getKey();
         $parameters['detail'] = $object->getKey();
         
         return $parameters;

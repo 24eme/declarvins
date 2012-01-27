@@ -1,5 +1,7 @@
 <div id="colonne_intitules">
 	<p class="couleur">Couleur</p>
+	<p class="cepage">Cépage</p>
+	<p class="millesime">Millésime</p>
 	<p class="label">Labels</p>
 	
 	<div class="groupe" data-groupe-id="1">

@@ -377,6 +377,10 @@ DRM:
                                                                     type: collection
                                                                     definition:
                                                                       fields:
+                                                                        total_debut_mois: { type: float }
+                                                                        total_entrees: { type: float }
+                                                                        total_sorties: { type: float }
+                                                                        total: { type: float }
                                                                         details:
                                                                           type: collection
                                                                           definition:

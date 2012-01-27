@@ -10,8 +10,8 @@
  * @property float $total
  * @property acCouchdbJson $couleurs
 
- * @method float getTotalStocks()
- * @method float setTotalStocks()
+ * @method float getTotalDebutMois()
+ * @method float setTotalDebutMois()
  * @method float getTotalEntrees()
  * @method float setTotalEntrees()
  * @method float getTotalSorties()

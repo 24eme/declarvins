@@ -1,6 +1,6 @@
 <?php
 
-class DrmRecapAppellationRoute extends DrmRecapCertificationRoute {
+class DrmAppellationRoute extends DrmCertificationRoute {
 
     public function getConfigAppellation() {
         return $this->getObject();
@@ -19,21 +19,17 @@ class DrmRecapAppellationRoute extends DrmRecapCertificationRoute {
     protected function getObjectForParameters($parameters) {
         $config_certification = parent::getObjectForParameters($parameters);
         $drm_appellations = $this->getDRM()->declaration->certifications->get($config_certification->getKey())->appellations;
-        if ($config_certification) {
-            if (!array_key_exists('appellation', $parameters)) {
-                foreach ($config_certification->appellations as $config_appellation) {
-                    if ($drm_appellations->exist($config_appellation->getKey())) {
-                        return $config_appellation;
-                    }
-                }
-                return $config_certification->appellations->add("nop");
-            }
 
-            if ($drm_appellations->exist($parameters['appellation'])) {
-                return $config_certification->appellations->get($parameters['appellation']);
+        if (!array_key_exists('appellation', $parameters)) {
+            foreach ($config_certification->appellations as $config_appellation) {
+                if ($drm_appellations->exist($config_appellation->getKey())) {
+                    return $config_appellation;
+                }
             }
+            
         }
-        return null;
+
+        return $config_certification->appellations->get($parameters['appellation']);
     }
 
     protected function doConvertObjectToArray($object) {

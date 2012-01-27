@@ -1,6 +1,6 @@
 <?php
 /**
- * BaseConfigurationLabel
+ * BaseConfigurationCertification
  * 
  * Base model for ConfigurationCertification
 

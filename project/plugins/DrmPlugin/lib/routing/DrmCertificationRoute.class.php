@@ -1,6 +1,6 @@
 <?php
 
-class DrmRecapCertificationRoute extends sfObjectRoute {
+class DrmCertificationRoute extends sfObjectRoute {
     
     public function getConfigCertification() {
          $this->getObject();
