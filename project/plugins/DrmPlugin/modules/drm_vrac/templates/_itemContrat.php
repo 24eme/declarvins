@@ -4,7 +4,7 @@
 		<span><?php echo $form->getObject()->getKey() ?></span>
 	</td>
 	<td align="center">
-		<form action="<?php echo url_for('vrac_update_volume', $form->getObject()) ?>" method="post">
+		<form action="<?php echo url_for('drm_vrac_update_volume', $form->getObject()) ?>" method="post">
 			<?php echo $form->renderGlobalErrors() ?>
 			<?php echo $form->renderHiddenFields() ?>
 			<div class="ligne_form">

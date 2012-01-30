@@ -108,7 +108,7 @@ class DrmRouting {
         /*
          * VRAC
          */
-         $r->prependRoute('vrac_ajout_contrat', new DrmDetailRoute('/vrac/contrat/:certification/:appellation/:couleur/:cepage/:millesime/ajout/:detail',
+         $r->prependRoute('drm_vrac_ajout_contrat', new DrmDetailRoute('/drm/vrac/contrat/:certification/:appellation/:couleur/:cepage/:millesime/ajout/:detail',
                         array('module' => 'drm_vrac',
                             'action' => 'nouveauContrat',
                             'detail' => null),
@@ -116,14 +116,14 @@ class DrmRouting {
                         array('model' => 'DRMDetail',
                             'type' => 'object'
                 )));
-        $r->prependRoute('vrac_update_volume', new VracDetailContratRoute('/vrac/update/:certification/:appellation/:couleur/:cepage/:millesime/:detail/volume/:contrat',
+        $r->prependRoute('drm_vrac_update_volume', new VracDetailContratRoute('/drm/vrac/update/:certification/:appellation/:couleur/:cepage/:millesime/:detail/volume/:contrat',
                         array('module' => 'drm_vrac',
                             'action' => 'updateVolume'),
                         array('sf_method' => array('post')),
                         array('model' => 'acCouchdbJson',
                             'type' => 'object'
                 )));
-        $r->prependRoute('vrac', new sfRoute('/vrac', array('module' => 'drm_vrac', 'action' => 'index')));
+        $r->prependRoute('drm_vrac', new sfRoute('/drm/vrac', array('module' => 'drm_vrac', 'action' => 'index')));
     }
 
 }

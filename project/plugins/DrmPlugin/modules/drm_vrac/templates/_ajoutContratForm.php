@@ -1,5 +1,5 @@
 <div id="popup_ajout_contrat_<?php echo $form->getObject()->getIdentifiant() ?>" class="popup_contenu">
-	<form  class="popup_form" id="subForm" action="<?php echo url_for('vrac_ajout_contrat', $form->getObject()) ?>" method="post">
+	<form  class="popup_form" id="subForm" action="<?php echo url_for('drm_vrac_ajout_contrat', $form->getObject()) ?>" method="post">
 		<?php echo $form->renderGlobalErrors() ?>
 		<?php echo $form->renderHiddenFields() ?>
 		<div class="ligne_form">

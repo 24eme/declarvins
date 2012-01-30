@@ -39,6 +39,6 @@ class drm_vracActions extends sfActions
                $form->save();
             }
         } 
-        $this->redirect('vrac');
+        $this->redirect('drm_vrac');
     }
 }
