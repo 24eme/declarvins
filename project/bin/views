@@ -46,3 +46,46 @@ curl -s -X PUT -d "@$TMPFILE" $COUCHDBURL/_design/$design
 curl -s $COUCHDBURL/_design/$design/_view/all > /dev/null &
 sleep 1
 kill %1
+
+design=drm
+curl -s -X DELETE "$COUCHDBURL/_design/$design?rev=$(curl --stderr /dev/null $COUCHDBURL/_design/$design | sed 's/.*_rev":"//' | sed 's/",".*//' 2> /dev/null)" > /dev/null 2>&1
+
+cat <<EOF > $TMPFILE
+{
+   "_id": "_design/drm",
+   "language": "javascript",
+   "views": {
+       "all": {
+           "map": "function(doc) {\n  if (doc.type == \"DRM\")\n  emit([doc.identifiant, (doc.campagne).substring(0, 4), (doc.campagne).substring(4, 2)], 1);\n}",
+           "reduce": "function (keys, values, rereduce) {\n     return sum(values);\n}"
+       }
+   }
+}
+EOF
+
+curl -s -X PUT -d "@$TMPFILE" $COUCHDBURL/_design/$design
+
+curl -s $COUCHDBURL/_design/$design/_view/all > /dev/null &
+sleep 1
+kill %1
+
+design=vrac
+curl -s -X DELETE "$COUCHDBURL/_design/$design?rev=$(curl --stderr /dev/null $COUCHDBURL/_design/$design | sed 's/.*_rev":"//' | sed 's/",".*//' 2> /dev/null)" > /dev/null 2>&1
+
+cat <<EOF > $TMPFILE
+{
+   "_id": "_design/vrac",
+   "language": "javascript",
+   "views": {
+       "all": {
+           "map": "function(doc) {\n\tif (doc.type == 'Vrac')\n  \t\temit(doc.numero, 1);\n}"
+       }
+   }
+}
+EOF
+
+curl -s -X PUT -d "@$TMPFILE" $COUCHDBURL/_design/$design
+
+curl -s $COUCHDBURL/_design/$design/_view/all > /dev/null &
+sleep 1
+kill %1
