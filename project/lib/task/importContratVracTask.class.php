@@ -38,7 +38,7 @@ EOF;
     $vrac->produit = '/declaration/certifications/AOP/appellations/CP/';
     $vrac->numero = '123456';
     $vrac->acheteur->nom = "Acheteur test";
-    $vrac->etablissement = '84000000000000';
+    $vrac->etablissement = '9223700100';
     $vrac->volume_promis = 25;
     $vrac->save();
     
@@ -47,7 +47,7 @@ EOF;
     $vrac->produit = '/declaration/certifications/IGP/appellations/VAU/';
     $vrac->numero = '123457';
     $vrac->acheteur->nom = "Acheteur test";
-    $vrac->etablissement = '84000000000000';
+    $vrac->etablissement = '9223700100';
     $vrac->volume_promis = 36;
     $vrac->save();
     // add your code here
