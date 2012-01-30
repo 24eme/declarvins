@@ -35,10 +35,12 @@ class DRMValidation
 			foreach ($certification->appellations as $appellation) {
 				foreach ($appellation->couleurs as $couleur) {
 					foreach ($couleur->cepages as $cepage) {
-						foreach ($cepage->details as $detail) {
-							$this->controleEngagements($detail);
-							$this->controleErrors($detail);
-							$this->controleWarnings($detail);
+						foreach ($cepage->millesimes as $millesime) {
+							foreach($millesime->details as $detail) {
+								$this->controleEngagements($detail);
+								$this->controleErrors($detail);
+								$this->controleWarnings($detail);
+							}
 						}
 					}
 				}
@@ -72,7 +74,7 @@ class DRMValidation
 		if ($detail->total < 0) {
 			$this->errors[] = new DRMControleError('total_negatif', $this->generateUrl('drm_recap', array('sf_subject' => $detail->getAppellation())));
 		}
-		if ($detail->total >= ($detail->stocks->bloque + $detail->stocks->instance)) {
+		if ($detail->total < ($detail->stocks->bloque + $detail->stocks->instance)) {
 			$this->errors[] = new DRMControleError('total_stocks', $this->generateUrl('drm_recap', array('sf_subject' => $detail->getAppellation())));
 		}
 	}
