@@ -1,15 +1,17 @@
-    <VirtualHost *:80>
-      ServerName declaration.dev.declarvin.com
-      DocumentRoot "/data/declarvin/project/web"
-      DirectoryIndex index.php
-      <Directory "/data/declarvin/project/web">
-        AllowOverride All
-        Allow from All
-      </Directory>
+<VirtualHost *:80>
+  ServerName declaration.dev.declarvin.com
+  DocumentRoot "/data/declarvin/project/web"
+  DirectoryIndex index.php
+  <Directory "/data/declarvin/project/web">
+    AllowOverride All
+    Allow from All
+  </Directory>
 
-      Alias /sf "/data/declarvin/project/lib/vendor/symfony/data/web/sf"
-      <Directory "/data/declarvin/project/lib/vendor/symfony/data/web/sf">
-        AllowOverride All
-        Allow from All
-      </Directory>
-    </VirtualHost>
+  Alias /sf "/data/declarvin/project/lib/vendor/symfony/data/web/sf"
+  <Directory "/data/declarvin/project/lib/vendor/symfony/data/web/sf">
+    AllowOverride All
+    Allow from All
+  </Directory>
+  
+  php_value xdebug.max_nesting_level 120
+</VirtualHost>

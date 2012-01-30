@@ -11,6 +11,32 @@
     <section id="principal">
 		<div id="application_dr">
             <div id="contenu_onglet">
+            	<?php if (!$drmValidation->isValide()): ?>
+            	<div id="retours">
+            		<?php if ($drmValidation->hasErrors()): ?>
+            			<h3>Points bloquants</h3>
+            			<?php foreach ($drmValidation->getErrors() as $error): ?>
+            				<?php echo $error->getRawValue() ?><br />
+            			<?php endforeach; ?>
+            			<br />
+            		<?php endif; ?>
+            		<?php if ($drmValidation->hasWarnings()): ?>
+            			<h3>Points de vigilance</h3>
+            			<?php foreach ($drmValidation->getWarnings() as $warning): ?>
+            				<?php echo $warning->getRawValue() ?><br />
+            			<?php endforeach; ?>
+            			<br />
+            		<?php endif; ?>
+            		<?php if ($drmValidation->hasEngagements()): ?>
+            			<h3>Engagements</h3>
+            			<?php foreach ($drmValidation->getEngagements() as $engagement): ?>
+            				<?php echo $engagement->getRawValue() ?><br />
+            			<?php endforeach; ?>
+            			<br />
+            		<?php endif; ?>
+            	</div>
+            	<br />
+            	<?php endif; ?>
                 <div id="tableau_aop" class="tableau_ajouts_liquidations">
                 <?php foreach($drm->declaration->certifications as $certification): ?>
                     <h2><?php echo $certification->getConfig()->libelle ?></h2>

@@ -6,7 +6,6 @@ class importConfigurationTask extends sfBaseTask
   {
     // // add your own arguments here
     $this->addArguments(array(
-       new sfCommandArgument('file', sfCommandArgument::REQUIRED, 'Appellations File'),
     ));
 
     $this->addOptions(array(
@@ -33,6 +32,8 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
+    $import_dir = sfConfig::get('sf_data_dir').'/import/configuration';
+
     if ($current = acCouchdbManager::getClient()->retrieveDocumentById('CURRENT')) {
         $current->delete();
     }
@@ -44,16 +45,14 @@ EOF;
     if ($configuration) {
       $configuration->delete();
     }
-
-    if (!is_file($arguments['file'])) {
-      $this->logSection("configuration", "Appellation file does not find", null, 'ERROR');
-    }
 	    
     $configuration = new Configuration();
+    
     $aop = $configuration->declaration->certifications->add('AOP')->libelle = 'AOP';
     $igp = $configuration->declaration->certifications->add('IGP')->libelle = 'IGP';
     $vinsansig = $configuration->declaration->certifications->add('VINSSANSIG')->libelle = "Vins sans IG";
-    foreach (file($arguments['file']) as $a) {
+
+    foreach (file($import_dir.'/appellations') as $a) {
         $datas = explode(";", $a);
         $appellation = $configuration->declaration->certifications->get($datas[0])->appellations->add(str_replace("\n", "", $datas[2]));
 
@@ -68,8 +67,6 @@ EOF;
         $rose->libelle = "Rosé";
         $rose->cepages->add('DEFAUT')->millesimes->add('DEFAUT');
     }
-    
-  	$configuration->save();
 
   	$configuration->label->add('AB', 'Agriculture Biologique');
   	$configuration->label->add('AR', 'Agriculture Raisonnée');
@@ -85,6 +82,7 @@ EOF;
   	$configuration->label->add('CL', 'Clos');
   	$configuration->label->add('CC', 'Cru Classé');
   	$configuration->label->add('BT', 'Mise en bouteille ("conditionné") à la propriété');
+
   	$configuration->save();
   }
 }

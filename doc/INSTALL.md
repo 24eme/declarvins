@@ -1,31 +1,27 @@
-h1. Installation
-
-h2. dépendances
+# dépendances
 
 $ sudo aptitude install couchdb libapache2-mod-php5 php5-cli php5-ldap
 
-h2. git
+# git
 
 $ cd /var/www (ou à un autre emplacement)
 $ git clone https://git.gitorious.org/declarvin/declarvin.git
 $ cd declarvin
 $ cat .gitmodules  | sed 's/git@gitorious.org:/https:\/\/git.gitorious\.org\//' > /tmp/gitmodules && mv /tmp/gitmodules .gitmodules
-$ git submodule init
-$ git submodule update
-$ git submodule foreach git checkout master
+$ bash bin/update
 
-h2. mise à jour du code 
+# mise à jour du code 
 
 A la racine du projet :
 
-$ git submodule foreach git pull
-$ git pull
+$ bash bin/update
 
-h2. configuration d'apache
+# configuration d'apache
 
 Ajouter un vhost avec les éléments suivants :
 
 <pre>
+<code>
         DocumentRoot /var/www/declarvin/project/web
         <Directory /var/www/declarvin>
                 Options Indexes FollowSymLinks MultiViews
@@ -35,13 +31,14 @@ Ajouter un vhost avec les éléments suivants :
         </Directory>
 
         Alias /sf "/var/www/declarvin/project/lib/vendor/symfony/data/web/sf"
+</code>
 </pre>
 
-h2. création de la base couchdb
+# création de la base couchdb
 
 $ curl -X PUT http://localhost:5984/declarvin
 
-h2. configuration de symfony
+# configuration de symfony
 
 $ cd project
 $ mkdir log cache
@@ -55,19 +52,8 @@ $ cp config/app.yml{.example,}
 
 adapter les adresse du LDAP ou du CAS si nécessaire
 
-h2. import/initialisation de données de l'application
+# import/initialisation de données de l'application
 
-transférer https://clients.intra.actualys.fr/attachments/download/2955/import.zip import.zip dans le /tmp de la machine
-
-puis :
-
-$ cd project
-$ cd data
-$ unzip /tmp/import.zip
-$ cd ..
-$ php symfony import:configuration
-$ php symfony import:configuration data/import/appellations
-$ php symfony import:Compte
-$ php symfony import:douane
 $ bash bin/views
+$ bash bin/import
 $ php symfony cc

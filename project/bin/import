@@ -1,0 +1,7 @@
+#!/bin/bash
+
+php symfony import:interpro
+php symfony import:douane
+php symfony import:configuration
+php symfony import:compte
+php symfony import:contrat-vrac
