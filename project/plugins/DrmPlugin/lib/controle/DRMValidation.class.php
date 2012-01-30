@@ -69,7 +69,7 @@ class DRMValidation
 			$totalVolume += $contrat->volume;
 		}
 		if ($totalVolume != $detail->sorties->vrac) {
-			$this->errors[] = new DRMControleError('vrac', $this->generateUrl('vrac'));
+			$this->errors[] = new DRMControleError('vrac', $this->generateUrl('drm_vrac'));
 		}
 		if ($detail->total < 0) {
 			$this->errors[] = new DRMControleError('total_negatif', $this->generateUrl('drm_recap', array('sf_subject' => $detail->getAppellation())));

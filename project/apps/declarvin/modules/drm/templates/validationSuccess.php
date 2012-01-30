@@ -81,7 +81,7 @@
             </div>
 	    </div>
         <div id="btn_etape_dr">
-			<a href="<?php echo url_for('drm_recap', ConfigurationClient::getCurrent()->declaration->certifications->AOP) ?>" class="btn_prec">Précédent</a>
+			<a href="<?php echo url_for('drm_vrac') ?>" class="btn_prec">Précédent</a>
             <a href="" class="btn_suiv">Valider</a>
 		</div>
     </section>

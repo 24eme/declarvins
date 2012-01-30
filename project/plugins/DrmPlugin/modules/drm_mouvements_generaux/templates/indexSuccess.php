@@ -64,7 +64,7 @@
 			                    <table class="tableau_recap">
 			                        <thead>
 										<tr>
-											<th>Produits</th>
+											<th style="width: 570px">Produits</th>
 											<th>Disponible</th>
 											<th>Rien à déclarer</th>
 										</tr>
@@ -91,7 +91,9 @@
         	</div>
 	        <div id="btn_etape_dr">
 	            <a href="<?php echo url_for('@drm_informations') ?>" class="btn_prec">Précédent</a>
-	            <a id="nextStep" href="<?php echo url_for('drm_recap', ConfigurationClient::getCurrent()->declaration->certifications->AOP) ?>" class="btn_suiv">Suivant</a>
+                <?php if($first_certification): ?>
+	            <a id="nextStep" href="<?php echo url_for('drm_recap', $first_certification->getConfig()) ?>" class="btn_suiv">Suivant</a>
+                <?php endif; ?>
 	        </div>
 		</div>
     </section>

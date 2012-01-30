@@ -24,7 +24,7 @@
             </div>
             <div id="btn_etape_dr">
                 <a href="<?php echo url_for('drm_mouvements_generaux') ?>" class="btn_prec">Précédent</a>
-                <a href="<?php echo url_for('@drm_validation')?>" class="btn_suiv">Suivant</a>
+                <a href="<?php echo url_for('drm_vrac')?>" class="btn_suiv">Suivant</a>
             </div>
         </div>
     </section>

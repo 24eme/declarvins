@@ -51,6 +51,7 @@ EOF;
     $aop = $configuration->declaration->certifications->add('AOP')->libelle = 'AOP';
     $igp = $configuration->declaration->certifications->add('IGP')->libelle = 'IGP';
     $vinsansig = $configuration->declaration->certifications->add('VINSSANSIG')->libelle = "Vins sans IG";
+    $vinsansiglie = $configuration->declaration->certifications->add('VINSSANSIGLIE')->libelle = "Vins sans IG Lie";
 
     foreach (file($import_dir.'/appellations') as $a) {
         $datas = explode(";", $a);

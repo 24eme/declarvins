@@ -20,6 +20,10 @@ class drm_mouvements_generauxActions extends sfActions
 				}
 			}
 		}
+        $this->first_certification = null;
+        if(count($this->getUser()->getDrm()->declaration->certifications) > 0) {
+            $this->first_certification = $this->getUser()->getDrm()->declaration->certifications->getFirst();
+        }
     }
     
     public function executeSaveFormAjax(sfWebRequest $request) 

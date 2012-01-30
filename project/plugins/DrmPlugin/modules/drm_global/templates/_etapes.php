@@ -10,12 +10,14 @@
 	                            <a href="<?php echo url_for('drm_recap', $config_certifications->get($certification)) ?>"><?php echo $key ?>. <?php echo $certification ?></a>
 	                        </li>
                         <?php endforeach; ?>
+                        <li class="<?php echo ($numero > $numero_vrac) ? 'passe' : '' ?> <?php echo ($numero == $numero_vrac) ? 'actif' : '' ?>">
+                            <a href="<?php echo url_for('drm_vrac') ?>"><?php echo $numero_vrac ?>. Vrac</a>
+                        </li>
 						<li class="<?php echo ($numero > $numero_validation) ? 'passe' : '' ?> <?php echo ($numero == $numero_validation) ? 'actif' : '' ?>">
                             <span><?php echo $numero_validation ?>. Validation</span>
                         </li>
 		</ol>
-	</nav>
-	
+	</nav>	
 	<div id="etat_avancement">
 		<p>Vous avez saisi <strong><?php echo $pourcentage ?><span>%</span></strong></p>
 		<div id="barre_avancement">
