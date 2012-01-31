@@ -109,6 +109,14 @@ class drmActions extends sfActions
   {
       $this->drm = $this->getUser()->getDrm();
       $this->drmValidation = new DRMValidation($this->drm);
+      if ($this->drmValidation->hasEngagements()) {
+      	$this->form = new DRMValidationForm(array(), array('engagements' => $this->drmValidation->getEngagements()));
+      	if ($request->isMethod(sfWebRequest::POST)) {
+            $this->form->bind($request->getParameter($this->form->getName()));
+			if ($this->form->isValid()) {
+			}
+        }
+      }
   }
   
 }

@@ -7,10 +7,16 @@ class DRMControleEngagement extends DRMControle
 		'repli' => "Je m'engage à ... pour le repli"
 	);
 	
-	public function __construct($code) {
+	public function __construct($code) 
+	{
 		$this->setCode($code);
 		$this->setLien(null);
 		$this->setMessages($this->messages);
+	}
+	
+	public function getMessage()
+	{
+		return $this->__toString();
 	}
 	
 	public function __toString()

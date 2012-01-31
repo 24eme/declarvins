@@ -12,6 +12,7 @@ class DRMValidation
 		$this->engagements = array();
 		$this->warnings = array();
 		$this->errors = array();
+		$this->controleDrm();
 	}
 	
 	public function getEngagements()
@@ -29,7 +30,7 @@ class DRMValidation
 		return $this->errors;
 	}
 	
-	public function isValide()
+	private function controleDrm()
 	{
 		foreach ($this->drm->declaration->certifications as $certification) {
 			foreach ($certification->appellations as $appellation) {
@@ -46,7 +47,10 @@ class DRMValidation
 				}
 			}	
 		}
-		return ($this->hasEngagements() && $this->hasErrors() && $this->hasWarnings());
+	}
+	
+	public function isValide() {
+		return ($this->hasErrors());
 	}
 	
 	private function controleEngagements($detail)
