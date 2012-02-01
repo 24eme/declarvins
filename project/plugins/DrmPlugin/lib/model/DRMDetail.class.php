@@ -61,7 +61,11 @@ class DRMDetail extends BaseDRMDetail {
     	if ($this->label) {
     		$key = implode(',', $this->label->toArray());
     	}
-    	return ($key)? $key : DRMProduit::DEFAULT_KEY;
+    	return ($key)? $key : DRM::DEFAULT_KEY;
+    }
+
+    public function getLabelLibelle() {
+        
     }
     
     protected function update($params = array()) {

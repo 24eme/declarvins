@@ -6,6 +6,9 @@
  */
 class DRM extends BaseDRM {
 
+    const NOEUD_TEMPORAIRE = 'TMP';
+    const DEFAULT_KEY = 'DEFAUT';
+
     public function constructId() {
         $this->set('_id', 'DRM-' . $this->identifiant . '-' . $this->campagne);
     }

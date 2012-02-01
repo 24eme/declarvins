@@ -4,9 +4,7 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
 {
 	protected $_appellation_choices;
 	protected $_label_choices;
-	const NOEUD_TEMPORAIRE = 'tmp';
-	const NOEUD_CEPAGE_TEMPORAIRE = 'DEFAUT';
-	
+
     public function configure() 
     {
         $this->setWidgets(array(
@@ -66,7 +64,7 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
 
     public function hasAppellation() {
 
-        return $this->getObject()->getAppellation()->getKey() != DRMProduitAjoutForm::NOEUD_TEMPORAIRE;
+        return $this->getObject()->getAppellation()->getKey() != DRM::NOEUD_TEMPORAIRE;
     }
 
     public function getAppellation() {
