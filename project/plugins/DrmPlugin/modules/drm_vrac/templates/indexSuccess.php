@@ -52,7 +52,7 @@
 				<?php endif; ?>
 			</div>
 			<div id="btn_etape_dr">
-	            <a href="" class="btn_prec">Précédent</a>
+	            <a href="<?php echo url_for('drm_mouvements_generaux') ?>" class="btn_prec">Précédent</a>
 	            <a id="nextStep" href="<?php echo url_for('drm_validation') ?>" class="btn_suiv">Suivant</a>
 	        </div>
 		</div>
