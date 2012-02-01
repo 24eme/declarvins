@@ -81,7 +81,6 @@ class drm_recapActions extends sfActions
         $this->form->bind($request->getParameter($this->form->getName()));
         
         if($this->form->isValid()) {
-        	$this->form->getObject()->getDocument()->update();
             $this->form->save();
             if ($request->isXmlHttpRequest()) {
                 return $this->renderText(json_encode(array("success" => true, "content" => "")));

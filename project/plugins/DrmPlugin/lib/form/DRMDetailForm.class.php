@@ -19,7 +19,7 @@ class DRMDetailForm extends acCouchdbFormDocumentJson {
     
     public function updateDefaultsFromObject() {
         parent::updateDefaultsFromObject();
-        $this->setDefault('couleur', $this->getObject()->getCouleur()->getKey());
+        $this->getObject()->getDocument()->update();
     }
     
     public function getLabelChoices() 

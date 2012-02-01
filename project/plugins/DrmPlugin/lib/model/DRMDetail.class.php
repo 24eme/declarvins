@@ -66,9 +66,9 @@ class DRMDetail extends BaseDRMDetail {
     
     protected function update($params = array()) {
         parent::update($params);
-        $this->set('total_entrees', $this->getTotalByKey('entrees'));
-        $this->set('total_sorties', $this->getTotalByKey('sorties'));
-        $this->set('total', $this->get('total_debut_mois') + $this->get('total_entrees') -  $this->get('total_sorties'));
+        $this->total_entrees = $this->getTotalByKey('entrees');
+        $this->total_sorties = $this->getTotalByKey('sorties');
+        $this->total = $this->total_debut_mois + $this->total_entrees - $this->total_sorties;
     }
     
     private function getTotalByKey($key) {
