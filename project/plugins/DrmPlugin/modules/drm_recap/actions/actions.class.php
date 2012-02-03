@@ -36,7 +36,7 @@ class drm_recapActions extends sfActions
         $this->getResponse()->setContentType('text/json');
         $drm = $this->getUser()->getDrm();
         $certification = $request->getParameter('certification');
-        $form = new DRMProduitAjoutForm($drm->produits->add($certification)->add(DRMProduitAjoutForm::NOEUD_TEMPORAIRE)->add());
+        $form = new DRMProduitAjoutForm($drm->produits->add($certification)->add(DRM::NOEUD_TEMPORAIRE)->add());
         if ($request->isMethod(sfWebRequest::POST)) {
             $form->bind($request->getParameter($form->getName()));
             if ($form->isValid()) {
@@ -81,7 +81,6 @@ class drm_recapActions extends sfActions
         $this->form->bind($request->getParameter($this->form->getName()));
         
         if($this->form->isValid()) {
-        	$this->form->getObject()->getDocument()->update();
             $this->form->save();
             if ($request->isXmlHttpRequest()) {
                 return $this->renderText(json_encode(array("success" => true, "content" => "")));

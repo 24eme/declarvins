@@ -10,15 +10,6 @@
  */
 class drmActions extends sfActions
 {
- /**
-  * Executes index action
-  *
-  * @param sfRequest $request A request object
-  */
-  public function executeIndex(sfWebRequest $request)
-  {
-    $this->forward('default', 'module');
-  }
   
   /**
    *
@@ -50,24 +41,7 @@ class drmActions extends sfActions
   {
       $this->tiers = $this->getUser()->getTiers();
   }
- /**
-  * Executes mouvements generaux action
-  *
-  * @param sfRequest $request A request object
-  */
-  public function executeMouvementsGeneraux(sfWebRequest $request)
-  {
-    
-  }
- /**
-  * Executes evolution action
-  *
-  * @param sfRequest $request A request object
-  */
-  public function executeEvolution(sfWebRequest $request)
-  {
-    $this->configuration = ConfigurationClient::getCurrent();
-  }
+
  /**
   * Executes historique action
   *

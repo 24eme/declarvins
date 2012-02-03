@@ -41,6 +41,6 @@ class DRMProduitValidator extends sfValidatorSchema
     	if ($labels) {
     		$key = implode('-', $labels);
     	}
-    	return ($key)? $key : DRMProduit::DEFAULT_KEY;
+    	return ($key)? $key : DRM::DEFAULT_KEY;
     }
 }

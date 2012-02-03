@@ -1,6 +1,6 @@
 <?php
 
-class drm_globalComponents extends sfComponents {
+class drmComponents extends sfComponents {
 
     public function executeEtapes() {
         $this->config_certifications = ConfigurationClient::getCurrent()->declaration->certifications;

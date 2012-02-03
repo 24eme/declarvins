@@ -21,8 +21,8 @@
 <?php include_partial('global/navTop', array('active' => 'drm')); ?>
 <section id="contenu">
 
-    <?php include_partial('drm_global/header'); ?>
-    <?php include_component('drm_global', 'etapes', array('etape' => 'vrac', 'pourcentage' => '30')); ?>
+    <?php include_partial('drm/header'); ?>
+    <?php include_component('drm', 'etapes', array('etape' => 'vrac', 'pourcentage' => '30')); ?>
 
     <section id="principal">
 		<div id="application_dr">
