@@ -39,8 +39,8 @@
 <?php include_partial('global/navTop', array('active' => 'drm')); ?>
 
 <section id="contenu">
-    <?php include_partial('drm_global/header'); ?>
-    <?php include_component('drm_global', 'etapes', array('etape' => 'ajouts-liquidations', 'pourcentage' => '10')); ?>
+    <?php include_partial('drm/header'); ?>
+    <?php include_component('drm', 'etapes', array('etape' => 'ajouts-liquidations', 'pourcentage' => '10')); ?>
 
     <section id="principal">
 		<div id="application_dr">

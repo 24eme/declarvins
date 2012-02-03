@@ -2,8 +2,8 @@
 
 <section id="contenu">
 
-    <?php include_partial('drm_global/header'); ?>
-    <?php include_component('drm_global', 'etapes', array('etape' => 'informations', 'pourcentage' => '5')); ?>
+    <?php include_partial('drm/header'); ?>
+    <?php include_component('drm', 'etapes', array('etape' => 'informations', 'pourcentage' => '5')); ?>
 
     <!-- #principal -->
     <section id="principal">

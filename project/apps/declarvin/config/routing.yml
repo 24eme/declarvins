@@ -75,24 +75,6 @@ tiers:
 admin:
   url: /admin
   param: { module: admin, action: index }
-drm_mon_espace:
-  url:   /drm/mon-espace
-  param: { module: drm, action: monEspace }
-drm_init:
-  url:   /drm/init
-  param: { module: drm, action: init }
-drm_informations:
-  url:   /drm/informations
-  param: { module: drm, action: informations }
-drm_evolution:
-  url:   /drm/evolution
-  param: { module: drm, action: evolution }
-drm_historique:
-  url:   /drm/historique/:annee
-  param: { module: drm, action: historique, annee: null }
-drm_validation:
-  url:   /drm/validation
-  param: { module: drm, action: validation }
 login:
   url: /login
   param: {module: acVinCompte, action: login}

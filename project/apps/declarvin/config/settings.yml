@@ -24,7 +24,7 @@ test:
 
 all:
   .settings:
-    enabled_modules:        [default, export_contrat, acVinCompte, drm_global, drm_recap, drm_mouvements_generaux, drm_vrac]
+    enabled_modules:        [default, export_contrat, acVinCompte, drm, drm_recap, drm_mouvements_generaux, drm_vrac]
     standard_helpers:       [Partial, Cache]
     # Form security secret (CSRF protection)
     csrf_secret:            d7b2b897396f37bf566acbb8257946a785fd1348
@@ -35,7 +35,7 @@ all:
 
     # Enable the database manager
     use_database:           true
-    
+
   .actions:
     login_module:           acVinCompte
     login_action:           acVinCompteLogin

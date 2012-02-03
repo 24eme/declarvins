@@ -34,6 +34,22 @@ class DrmRouting {
     static public function listenToRoutingLoadConfigurationEvent(sfEvent $event) {
         $r = $event->getSubject();
 
+        $r->prependRoute('drm_mon_espace', new sfRoute('/drm/mon-espace', array('module' => 'drm', 
+                                                                                'action' => 'monEspace')));
+
+        $r->prependRoute('drm_init', new sfRoute('/drm/init', array('module' => 'drm', 
+                                                                    'action' => 'init')));
+
+        $r->prependRoute('drm_informations', new sfRoute('/drm/informations', array('module' => 'drm', 
+                                                                                    'action' => 'informations')));
+
+        $r->prependRoute('drm_historique', new sfRoute('/drm/historique/:annee', array('module' => 'drm', 
+                                                                                       'action' => 'historique', 
+                                                                                       'annee' => null)));
+
+        $r->prependRoute('drm_validation', new sfRoute('/drm/validation', array('module' => 'drm', 
+                                                                                'action' => 'validation')));
+
         $r->prependRoute('drm_mouvements_generaux_produit_update', new DrmProduitRoute('/drm/mouvements-generaux/:certification/:appellation/update/:indice',
                         array('module' => 'drm_mouvements_generaux',
                             'action' => 'saveFormAjax'),
@@ -105,10 +121,9 @@ class DrmRouting {
                             'type' => 'object'
                 )));
 
-        /*
-         * VRAC
-         */
-         $r->prependRoute('drm_vrac_ajout_contrat', new DrmDetailRoute('/drm/vrac/contrat/:certification/:appellation/:couleur/:cepage/:millesime/ajout/:detail',
+        $r->prependRoute('drm_vrac', new sfRoute('/drm/vrac', array('module' => 'drm_vrac', 'action' => 'index')));
+
+        $r->prependRoute('drm_vrac_ajout_contrat', new DrmDetailRoute('/drm/vrac/contrat/:certification/:appellation/:couleur/:cepage/:millesime/ajout/:detail',
                         array('module' => 'drm_vrac',
                             'action' => 'nouveauContrat',
                             'detail' => null),
@@ -123,7 +138,7 @@ class DrmRouting {
                         array('model' => 'acCouchdbJson',
                             'type' => 'object'
                 )));
-        $r->prependRoute('drm_vrac', new sfRoute('/drm/vrac', array('module' => 'drm_vrac', 'action' => 'index')));
+        
     }
 
 }

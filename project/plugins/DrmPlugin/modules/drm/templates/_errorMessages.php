@@ -3,6 +3,6 @@
     <?php foreach($form->getGlobalErrors() as $item): ?>
         <li><?php echo $item->getMessage(); ?></li>
     <?php endforeach; ?>
-    <?php include_partial('drm_global/errorMessagesFromFormFieldSchema', array('form_field_schema' => $form->getFormFieldSchema())) ?>
+    <?php include_partial('drm/errorMessagesFromFormFieldSchema', array('form_field_schema' => $form->getFormFieldSchema())) ?>
 </ul>
 <?php endif; ?>

@@ -2,8 +2,8 @@
 
 <section id="contenu">
 
-    <?php include_partial('drm_global/header'); ?>
-    <?php include_component('drm_global', 'etapes', array('etape' => 'recapitulatif', 'certification' => $config_appellation->getCertification()->getKey(), 'pourcentage' => '30')); ?>
+    <?php include_partial('drm/header'); ?>
+    <?php include_component('drm', 'etapes', array('etape' => 'recapitulatif', 'certification' => $config_appellation->getCertification()->getKey(), 'pourcentage' => '30')); ?>
 
     <!-- #principal -->
     <section id="principal">
