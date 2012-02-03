@@ -15,7 +15,7 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
             'couleur' => new sfWidgetFormInputHidden(),
             'cepage' => new sfWidgetFormInputHidden(),
             'millesime' => new sfWidgetFormInputHidden(),
-            'label' => new sfWidgetFormChoice(array('expanded' => true, 'multiple' => true,'choices' => $this->getLabelChoices())),
+            'label' => new sfWidgetFormChoice(array('expanded' => false, 'multiple' => true,'choices' => $this->getLabelChoices())),
             'label_supplementaire' => new sfWidgetFormInputText(),
         ));
         $this->widgetSchema->setLabels(array(
@@ -26,10 +26,10 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
 
         $this->setValidators(array(
             'produit' => new sfValidatorString(array('required' => true)),
-            'appellation' => new sfValidatorString(array('required' => true)),
-            'couleur' => new sfValidatorString(array('required' => true)),
-            'cepage' => new sfValidatorString(array('required' => true)),
-            'millesime' => new sfValidatorString(array('required' => true)),
+            'appellation' => new sfValidatorString(array('required' => false)),
+            'couleur' => new sfValidatorString(array('required' => false)),
+            'cepage' => new sfValidatorString(array('required' => false)),
+            'millesime' => new sfValidatorString(array('required' => false)),
             'label' => new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($this->getLabelChoices()))),
             'label_supplementaire' => new sfValidatorString(array('required' => false)),
         ));

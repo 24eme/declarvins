@@ -69,7 +69,10 @@ hgroup, nav, section { display: block; }
 .ui-state-disabled { cursor: default !important; }
 .ui-icon { display: block; text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; }
 .ui-widget-overlay {background: #000; opacity: .2; filter:Alpha(Opacity=20); position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-
+.ui-autocomplete { background: #fff; border: 1px solid #c2c1ba; font-size: 11px; position: absolute; _width:1px; font-family: Arial, Verdana, Helvetica, sans-serif; }
+.ui-autocomplete .ui-menu-item a { background: #fff; clear: both; color: #7a7a7a; cursor: pointer; display: block; padding: 2px; text-decoration: none; }
+.ui-autocomplete .ui-menu-item a.ui-state-hover,
+.ui-autocomplete .ui-menu-item a.ui-state-active { background: #dcdfa9; color: #000; }
 
 /**
  * Eléments génériques
@@ -123,6 +126,12 @@ pre, code, kbd, samp { font-family: monospace, sans-serif; }
 	padding: 0 0 0 15px;
 	
 	&:hover, &:focus { text-decoration: underline; }
+}
+
+.btn_ajouter.btn_chargement
+{
+    background-image: url(../images/pictos/pi_loader.gif);
+    padding-left: 20px;
 }
 
 .btn_majeur
@@ -290,8 +299,8 @@ a
 
 #header
 {
-	margin: 0 0 60px;
 	.clearfix;
+	margin: 0 0 10px;
 }
 
 #contenu
@@ -342,6 +351,7 @@ a
 	/* Logo */
 	#logo
 	{
+		margin: 0 0 40px;
 		padding: 25px 0 0;
 				
 		h1
@@ -388,6 +398,20 @@ a
 				border-color: #8a0808;
 				a { color: #fff; }
 			}
+		}
+	}
+
+	p.deconnexion
+	{
+		font-size: 15px;
+		font-style: italic;
+		text-align: right;
+	
+		a
+		{
+			color: #fff;
+			text-decoration: underline;
+			&:hover { text-decoration: none; }
 		}
 	}
 }
@@ -688,9 +712,10 @@ a
 			{
 				background: #fff;
 				border: 1px solid #d3d2cd;
+				color: @couleur-a1;
 				font-size: 14px;
-				height: 20px;
-				padding: 0 4px;
+				height: 18px;
+				padding: 2px 4px 0;
 				width: 190px !important;
 			}
 			
@@ -729,7 +754,7 @@ a
 		{
 			display: block;
 			line-height: 1.2;
-			margin: 5px 0 0 200px;
+			margin: 15px 0 0;
 		}
 	}
 	
@@ -750,4 +775,18 @@ a
 			&.btn_valider { .btn_vert; }
 		}
 	}
+}
+
+.popup_chargement
+{
+    .ligne_form_btn 
+    {
+        background: url(../images/pictos/pi_loader.gif) 0 center no-repeat;
+        padding-left: 20px;
+        
+        button
+        {
+            .opacite(0.5);
+        }
+    }
 }

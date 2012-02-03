@@ -1,74 +1,240 @@
-$(document).ready( function()
+/**
+ * Fichier : contrat.js
+ * Description : fonctions JS spécifiques à la gestion d'un contrat
+ * Auteur : Hamza Iqbal - hiqbal[at]actualys.com
+ * Copyright: Actualys
+ ******************************************/
+
+/**
+ * Variables globales
+ ******************************************/
+objContrat = {};
+
+/**
+ * Initialisation
+ ******************************************/
+(function($)
 {
-	var bool = window.familles || 0;
-	if(bool) {
-		famillesJSON = JSON.parse(familles);
-		if ($("#contratetablissement_famille").val()) {
-			var sousFamilles = famillesJSON[$("#contratetablissement_famille").val()];
-			var options = '';
-		    for (var i in sousFamilles)
-		    {
-		    	if ($("#contratetablissement_sous_famille").val() == sousFamilles[i]) {
-		    		options += '<option value="'+sousFamilles[i]+'" selected="selected">'+sousFamilles[i]+'</option>';
-		    	} else {
-		    		options += '<option value="'+sousFamilles[i]+'">'+sousFamilles[i]+'</option>';
-		    	}
-		    }
-		    $("#contratetablissement_sous_famille").html(options);
+	$(document).ready( function()
+	{
+		if($('#infos_etablissements').exists())
+		{
+			$.initInfosEtablissements();
 		}
-		$("#contratetablissement_famille").change(function(){
-			var sousFamilles = famillesJSON[$(this).val()];
-			var options = '';
-		    for (var i in sousFamilles)
-		    {
-		    	options += '<option value="'+sousFamilles[i]+'">'+sousFamilles[i]+'</option>';
-		    }
-		    $("#contratetablissement_sous_famille").html(options);
+		
+		if($('#contratetablissement_famille').exists())
+		{
+			$.initEtablissementFamille();
+		}
+		
+		if($('#adresse_comptabilite').exists())
+		{
+			$.toggleAdresseCompatibilite();
+		}
+	});
+
+	/**
+	 * Initialisation des informations 
+	 * des établissements
+	 * $.initInfosEtablissements();
+	 ******************************************/
+	$.initInfosEtablissements = function()
+	{
+		var infosEtablissements = $('#infos_etablissements');
+		var champNbEtablissements = $('#contrat_nb_etablissement');
+		var templateEtablissement = $('#template_etablissement');
+		var btnAjoutEtablissement = $('#btn_ajouter_etablissement');
+		var etablissements = infosEtablissements.find('.etablissement');
+		var nbEtablissements = etablissements.size();
+		var premierEtablissement = etablissements.filter(':first');
+		var dernierEtablissement = etablissements.filter(':last');
+
+		$.extend(objContrat,
+		{
+			infosEtablissements: infosEtablissements,
+			nbEtablissements: nbEtablissements,
+			champNbEtablissements: champNbEtablissements,
+			btnAjoutEtablissement: btnAjoutEtablissement,
+			templateEtablissement : templateEtablissement,
+			etablissements: etablissements,
+			premierEtablissement: premierEtablissement,
+			dernierEtablissement: dernierEtablissement
 		});
-	}
-});
-function addEtablissement(html) {
-	var nbEtablissements = parseInt($("#contrat_nb_etablissement").val());
-	var tabEtablissements = $("#etablissements");
-	var etablissement = 
-		"" +
-		"<div class=\"etablissement\" id=\"etablissement"+nbEtablissements+"\">" +
-		"			<div class=\"ligne_form\">" +
-		"				<label for=\"contrat_etablissements_"+nbEtablissements+"_raison_sociale\">Raison sociale* :</label>" +
-		"				<input type=\"text\" id=\"contrat_etablissements_"+nbEtablissements+"_raison_sociale\" name=\"contrat[etablissements]["+nbEtablissements+"][raison_sociale]\">" +
-		"			</div>" +
-		"			<div class=\"ligne_form\">" +
-		"				<label for=\"contrat_etablissements_"+nbEtablissements+"_siret\">SIRET/CNI* :</label>" +
-		"				<input type=\"text\" id=\"contrat_etablissements_"+nbEtablissements+"_siret\" name=\"contrat[etablissements]["+nbEtablissements+"][siret_cni]\">" +
-		"			</div>" +
-		"			<div id=\"optionsEtablissement"+nbEtablissements+"\">" +
-		"				<a href=\"javascript:removeEtablissement("+nbEtablissements+")\">Supprimer</a>" +
-		"			</div>" +
-		"</div>";
-	$("#etablissements").append(etablissement);
-	$("#contrat_nb_etablissement").val(nbEtablissements + 1);
-}
-function removeEtablissement(ind) {
-	var nbEtablissements = parseInt($("#contrat_nb_etablissement").val());
-	$("#etablissement"+ind).remove();
-	$("#optionsEtablissement"+ind).remove();
-	$("#contrat_nb_etablissement").val(nbEtablissements - 1);
+		
+		etablissements.not(premierEtablissement).supprimerEtablissement();
+		
+		// Bouton d'ajout
+		$.ajouterEtablissement();
+	};
 	
-}
-function removeAllEtablissement() {
-	var nbEtablissements = parseInt($("#contrat_nb_etablissement").val());
-	for(i=(nbEtablissements-1); i>0; i--) {
-		$("#etablissement"+i).remove();
-		$("#optionsEtablissement"+i).remove();
-	}
-	$("#contrat_nb_etablissement").val(1);
-}
-function voirFormAdresseComptabilite() {
-	$("#adresseComptabilite").css("display", "block");
-}
-function masquerFormAdresseComptabilite() {
-	$("#adresseComptabilite").css("display", "none");
-	 $("#adresseComptabilite input").each(function(){
-	   $(this).val('');
-	 });
-}
+	/**
+	 * Mise à jour du dernier établissement
+	 * et du nombre d'établissements
+	 * $.majNbEtablissements();
+	 ******************************************/
+	$.majNbEtablissements = function(operation)
+	{
+		objContrat.etablissements = objContrat.infosEtablissements.find('.etablissement');
+		objContrat.dernierEtablissement = objContrat.etablissements.filter(':last');
+		objContrat.nbEtablissements = objContrat.etablissements.size();
+		
+		objContrat.champNbEtablissements.val(objContrat.nbEtablissements);
+	};
+	
+	
+	/**
+	 * Ajout d'un établissement
+	 * $.ajouterEtablissement();
+	 ******************************************/
+	$.ajouterEtablissement = function()
+	{
+		objContrat.btnAjoutEtablissement.click(function()
+		{
+			// Récupération du template et insertion
+			objContrat.templateEtablissement.tmpl({nbEtablissements: objContrat.nbEtablissements}).appendTo(objContrat.infosEtablissements);
+			$.majNbEtablissements('ajout');
+			
+			// Suppression de l'établissement
+			objContrat.dernierEtablissement.supprimerEtablissement();
+			
+			return false;
+		});
+	};
+	
+	
+	/**
+	 * Suppression d'un établissement
+	 * $(etablissement).supprimerEtablissement();
+	 ******************************************/
+	$.fn.supprimerEtablissement = function()
+	{
+		var etablissements = $(this);
+		
+		etablissements.each(function()
+		{
+			var etablissement = $(this);
+			var btnSupprimer = etablissement.find('a.supprimer');
+		
+			btnSupprimer.click(function()
+			{
+				// Suppression
+				etablissement.remove();
+				$.majNbEtablissements('suppression');
+				
+				return false;
+			});
+		});
+	};
+	
+	
+	/**
+	 * Suppression de tous les établissements
+	 * $.supprimerTousEtablissements();
+	 ******************************************/
+	$.supprimerTousEtablissements = function()
+	{
+		objContrat.etablissements.not(':first').remove();
+		$.majNbEtablissements('suppressionTous');
+	};
+	
+	
+	
+	/**
+	 * Initialisation de la famille de 
+	 * l'établissement
+	 * $.initEtablissementFamille();
+	 ******************************************/
+	$.initEtablissementFamille = function()
+	{
+		if(familles)
+		{
+			var famillesJSON = JSON.parse(familles);
+			var champFamilles = $("#contratetablissement_famille");
+			var champFamillesVal = champFamilles.val();
+			var champSousFamilles = $("#contratetablissement_sous_famille");
+			var templateSousFamilles = $('#template_options_sous_famille');
+			
+			// Création de l'objet
+			$.extend(objContrat,
+			{
+				famillesJSON: famillesJSON,
+				champFamilles: champFamilles,
+				champFamillesVal: champFamillesVal,
+				champSousFamilles: champSousFamilles,
+				champSousFamillesVal: '',
+				tabSousFamilles: [],
+				templateSousFamilles: templateSousFamilles
+			});
+			
+			
+			// Si le champ est prérempli
+			if(champFamillesVal)
+			{
+				$.majEtablissementSousFamille();
+			}
+			
+			
+			// A chaque sélection de familles
+			objContrat.champFamilles.change(function()
+			{
+				objContrat.champFamillesVal = objContrat.champFamilles.val();
+				$.majEtablissementSousFamille();
+			});
+		}
+	};
+	
+	
+	/**
+	 * Met à jour la sous-famille de 
+	 * l'établissement
+	 * $.majEtablissementSousFamille();
+	 ******************************************/
+	$.majEtablissementSousFamille = function()
+	{
+		var objTemplate = {};
+		
+		objContrat.champSousFamillesVal = objContrat.champSousFamilles.val();
+		objContrat.tabSousFamilles = objContrat.famillesJSON[objContrat.champFamillesVal];
+		objContrat.champSousFamilles.html('');
+		
+		// Parcours des sous-familles
+		for(var i in objContrat.tabSousFamilles)
+		{
+			objTemplate = { value: objContrat.tabSousFamilles[i] };
+			
+			// Si l'éléments courant doit être sélectionné
+			if(objContrat.champSousFamillesVal == objContrat.tabSousFamilles[i])
+			{
+				$.extend(objTemplate, {selected: true });
+			}
+			
+			// Insertion de l'option
+			objContrat.templateSousFamilles.tmpl(objTemplate).appendTo(objContrat.champSousFamilles);
+		}
+	};
+	
+	
+	/**
+	 * Affiche / masque l'adresse de
+	 * la comptabilité
+	 * $.toggleAdresseCompatibilite();
+	 ******************************************/
+	$.toggleAdresseCompatibilite = function()
+	{
+		var blocAdresseComptabilite = $('#adresse_comptabilite');
+		var radios = $('input[name=adresse_comptabilite]');
+		var val = radios.filter(':checked').val();
+		
+		if(val == "Oui") blocAdresseComptabilite.show();
+		else blocAdresseComptabilite.hide();
+		
+		radios.click(function()
+		{
+			val = radios.filter(':checked').val();
+			
+			if(val == "Oui") blocAdresseComptabilite.show();
+			else blocAdresseComptabilite.hide();
+		});
+	};
+	
+})(jQuery);

@@ -5,17 +5,27 @@
  * Copyright: Actualys
  ******************************************/
 
+var objAjoutsLiquidations = {};
+
 /**
  * Initialisation
  ******************************************/
 (function($)
 {
 	var ajoutsLiquidations = $('#ajouts_liquidations');
-	var popupAjoutProduit = $('#popup_ajout_produit');
 
 	$(document).ready( function()
 	{
 		if(ajoutsLiquidations.exists()) $.initAjoutsLiquidations();
+		
+		 $('#ajouts_liquidations :checkbox').change(function() {
+            $(this).parents('form').submit();
+        });
+		
+        $('.updateProduct').submit(function() {
+        	$.post($(this).attr('action'), $(this).serializeArray());
+        	return false;
+        });
 	});
 	
 	
@@ -28,16 +38,24 @@
 	{
 		var sections = ajoutsLiquidations.find('.tableau_ajouts_liquidations');
 		
-		sections.each(function()
+		$.extend(objAjoutsLiquidations,
+		{
+			sections: sections,
+			tabSections: []
+		});
+		
+		sections.each(function(i)
 		{
 			var section = $(this);
 			var tabInfos = section.getInfosTableauProduits();
 			
-			$.verifCoherenceStock(tabInfos.tableauRecapLignes);
-			$.stylesTableaux(tabInfos);
+			objAjoutsLiquidations.tabSections.push(tabInfos);
+			
+			$.verifCoherenceStock(i);
+			$.stylesTableaux(i);
+			$.initSupressionProduit(i);
 		});
 		
-		$.initAjoutProduit();
 	};
 	
 	
@@ -71,10 +89,12 @@
 	/**
 	 * Vérifie la cohérence en disponibilité
 	 * et stock vide pour les lignes des tableaux
-	 * $.verifCoherenceStock(lignes);
+	 * $.verifCoherenceStock();
 	 ******************************************/
-	$.verifCoherenceStock = function(lignes)
+	$.verifCoherenceStock = function(i)
 	{
+		var lignes = objAjoutsLiquidations.tabSections[i].tableauRecapLignes;
+		
 		lignes.each(function()
 		{
 			var ligne = $(this);
@@ -89,38 +109,108 @@
 	
 	/**
 	 * Styles des tableaux
-	 * $.stylesTableaux(tabInfos);
+	 * $.stylesTableaux(i);
 	 ******************************************/
-	$.stylesTableaux = function(t)
+	$.stylesTableaux = function(i)
 	{
-		var lignes = t.tableauRecapLignes.not('.vide');
-		var casesTableauRecap = t.tableauRecapLignes.filter(':last').children('td');
+		var tabSection = objAjoutsLiquidations.tabSections[i];
+		var lignes = tabSection.tableauRecapLignes.not('.vide');
+		var casesTableauRecap = tabSection.tableauRecapLignes.filter(':last').children('td');
 		
 		// Alternance de couleurs
 		lignes.removeClass('alt');
 		lignes.filter(':odd').addClass('alt');
 	};
 	
+
 	/**
 	 * Initialise le formulaire d'ajout d'un
 	 * produit
-	 * $.initAjoutProduit();
+	 * $(popup).initPopupAjoutProduit();
 	 ******************************************/
-	$.initAjoutProduit = function(t)
+	$.fn.initPopupAjoutProduit = function()
 	{
-		var disponible = popupAjoutProduit.find('#produit_disponible');
-		var stockVide = popupAjoutProduit.find('#produit_stock_vide');
-		var selectMultiple = popupAjoutProduit.find('.select_multiple');
+		var popup = $(this);
+		var form = popup.find('form');
+		var parent = popup.parent();
+		var selectMultiple = popup.find('.select_multiple');
+		var formBtn = form.find('button');
 		
-		disponible.saisieNum(true, function()
-		{
-			if(parseFloat(disponible.val()) > 0) stockVide.attr('disabled','disabled');
-			else stockVide.removeAttr('disabled');
-			
-			stockVide.removeAttr('checked');
-		});
-		
+		// Select multiple
 		selectMultiple.dropdownchecklist({width: 200});
+
+		// Soumission
+		form.live('submit', function()
+		{
+			popup.addClass('popup_chargement');
+			formBtn.attr('disabled', 'disabled');
+			
+			// Soumission AJAX
+			$.post(form.attr('action'), form.serializeArray(), function (data)
+			{
+				popup.removeClass('popup_chargement');
+				
+				// S'il n'y a pas d'erreur -> Redirection
+				if(data.success)
+				{
+					document.location.href = data.url;
+				}
+				// Sinon remplacement du formulaire par celui récupéré en AJAX
+				else
+				{
+					popup.html(data.content);
+
+					// Réinitialisation des fonctions
+					selectMultiple = popup.find('.select_multiple');
+					selectMultiple.dropdownchecklist({width: 200});
+					form = popup.find('form');
+					formBtn = form.find('button');
+					formBtn.removeAttr('disabled');
+				}
+			}, "json");
+
+            return false;
+		});
+
+
+		// Reinitialisation des champs et 
+		// suppression des messages d'erreur à la fermeture
+		popup.bind('fermer', function()
+		{
+			popup.find(':text').val('');
+			popup.find('option').removeAttr('selected');
+			popup.find(':checkbox,:radio').removeAttr('checked');
+			popup.find('.ui-dropdownchecklist-selector .ui-dropdownchecklist-text').text('').attr('title','');
+			popup.find('.error').remove();
+		});
+	};	
+	
+	/**
+	 * Initialise la suppresion des produits
+	 * $.initSupressionProduit(i);
+	 ******************************************/
+	$.initSupressionProduit = function(i)
+	{
+		var tabSection = objAjoutsLiquidations.tabSections[i];
+		var btnSupprimer = tabSection.tableauRecapLignes.find('.supprimer');
+		
+		btnSupprimer.click(function()
+		{
+			var btn = $(this);
+			var url = btn.attr('href');
+			
+			$.post(url, function()
+			{
+				// suppression
+				btn.parents('tr').remove();
+				
+				// application des styles
+				tabSection.tableauRecapLignes = tabSection.tableauRecap.find('tbody tr');
+				$.stylesTableaux(i);
+			});
+			
+        	return false;
+		});
 	};
 
 })(jQuery);

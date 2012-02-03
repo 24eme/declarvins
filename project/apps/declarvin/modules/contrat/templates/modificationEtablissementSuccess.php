@@ -2,9 +2,6 @@
     var familles = '<?php echo json_encode(sfConfig::get('app_etablissements_familles')) ?>';
     var sousFamilleSelected = '<?php echo $form['sous_famille']->getValue() ?>';
 </script>
-<?php if ($sf_user->hasFlash('success')) : ?>
-    <p class="flash_message"><?php echo $sf_user->getFlash('success'); ?></p>
-<?php endif; ?>
 
 <section id="contenu">
     <?php

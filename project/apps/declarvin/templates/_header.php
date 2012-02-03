@@ -12,5 +12,6 @@
         <h1><a href="#" title="Declarvin - Retour à l'accueil"><img src="/images/visuels/logo_declarvins.png" alt="Declarvin" /></a></h1>
         <p>La plateforme déclarative des vins du Rhône, de Provence et du Sud Est</p>
     </div>
+    <p class="deconnexion"><a href="#">Se deconnecter</a></p>
 </header>
 <!-- fin #header -->
