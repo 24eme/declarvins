@@ -8,7 +8,7 @@
 (function($)
 {
 	/**
-	 * Gère l'inclusion de fichier JS
+	 * G�re l'inclusion de fichier JS
 	 * $.fn.include(chemin, fichier, {condition: false, operateur: '', version: ''});
 	 ******************************************/
 	$.fn.includeJS = function(chemin, fichier, opt)
@@ -40,16 +40,14 @@
 	
 	// Plugins
 	$.fn.includeJS(jsPath, 'plugins/selectivizr-min.js', {condition: true, operateur: 'lte', version: 'IE 8'});
-	$.fn.includeJS(jsPath, 'plugins/jquery.metadata.js');
-	$.fn.includeJS(jsPath, 'plugins/scrollTo-1.4.2-min.js');
+	$.fn.includeJS(jsPath, 'plugins/jquery.plugins.min.js');
 	$.fn.includeJS(jsPath, 'plugins/ui.dropdownchecklist-1.3-min.js');
 		
-	// Fonctions personnalisées
-	$.fn.includeJS(jsPath, 'affichage.js');
+	// Fonctions personnalis�es)
 	$.fn.includeJS(jsPath, 'global.js');
 	$.fn.includeJS(jsPath, 'popups.js');
-	$.fn.includeJS(jsPath, 'declaration.js');
-	$.fn.includeJS(jsPath, 'drm.js');
 	$.fn.includeJS(jsPath, 'contrat.js');
+	$.fn.includeJS(jsPath, 'drm.js');
+	$.fn.includeJS(jsPath, 'declaration.js');
 
 })(jQuery);

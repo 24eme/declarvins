@@ -49,6 +49,7 @@ class DRMProduit extends BaseDRMProduit {
 
     public function delete() {
         $this->getDetail()->delete();
+        parent::delete();
     }
     
     /*public function updateProduit() {

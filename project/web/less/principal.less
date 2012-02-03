@@ -109,7 +109,7 @@
 	{
 		margin: 30px 0 0;
 		
-		button
+		button, a
 		{
 			height: 28px;
 			line-height: 28px;
@@ -144,6 +144,7 @@
 		}
 	}
 	
+	/* Ajout d'établissements */
 	#infos_etablissements
 	{
 		margin: 40px 0 0;
@@ -151,9 +152,7 @@
 		padding: 0 150px 0 0;
 		width: 600px;
 		
-		h2
-		{
-		}
+		h2 { }
 		
 		a#btn_ajouter_etablissement
 		{
@@ -187,12 +186,60 @@
 			display: inline-block;
 			margin: 0 20px 20px 0;
 			padding: 10px 10px 0;
+			position: relative;
 			vertical-align: top;
 			width: 250px;
 			
 			.ielt8 & { .inline-block-ie; }
 			
+			.error_list { width: auto; }
+			
 			.ligne_form label { width: 110px; }
+		
+			a.supprimer
+			{
+				.box-dimensions(13px, 13px);
+				.pos-abs(-5px, -5px);
+				background: url(../images/pictos/pi_supprimer.png) 0 0 no-repeat;
+				display: inline-block;
+				text-indent: -9999px;
+			}
 		}
+	}
+
+	/* Récapitulatif */
+	#recapitulatif
+	{
+		.recap_perso,
+		.recap_etablissement
+		{
+			margin: 0 0 20px;
+
+			p
+			{
+				margin: 5px 0;
+				span { font-weight: bold; }
+				strong
+				{
+					color: @couleur-a2;
+					font-style: italic;
+					font-weight: normal;
+				}
+			}
+		}
+
+		.recap_etablissement
+		{
+			.border(@couleur-a3);
+			background: @couleur-a4;
+			padding: 15px;
+
+			.adresse_comptabilite
+			{
+				margin: 20px 0 0;
+			}
+		}
+
+		.ligne_btn { text-align: right; }
 	}
 }

@@ -15,43 +15,94 @@
 	$.extend(objPopups,
 	{
 		infosPopups: [],
+		/* Configuration par défaut */
 		configDefaut:
 		{
 			autoOpen: false,
 			draggable: false,
 			resizable: false,
 			width: 460,
-			modal: true
+			modal: true,
+			create: function(event, ui) {},
+			open: function(event, ui) {},
+			close: function(event, ui) { }
 		},
+
+		/* Configuration d'ajout de produit */
 		configAjoutProduit:
 		{
+			create: function(popup)
+			{
+				popup.initPopupAjoutProduit();
+			},
+			open: function(event, ui)
+			{
+				
+			},
 			close: function(event, ui)
 			{
-				// Réinitialise le formulaire à la fermeture
-				var popup = $(this);
-				var linkAction = $('a[data-popup=#'+popup.attr('id')+']');
-				if (linkAction.attr('data-popup-ajax') && linkAction.attr('data-popup-ajax') == "true") {
-					popup.remove();
-					$.initPopup(linkAction);
-				}
+				$(this).trigger('fermer');
 			}
 		}
+		
 	});
+	
+	
+	/*$(document).ready(function()
+	{
+		$.initPopups();
+	});*/
 	
 	
 	$(document).ready(function()
 	{
-		$.initPopups();
+		$('.btn_popup').each(function()
+		{
+			var btnPopup = $(this);
+			btnPopup.click(function()
+			{
+				if(btnPopup.attr('data-popup-ajax') && btnPopup.attr('data-popup-ajax') == "true")
+				{
+					if($(btnPopup.attr('data-popup')).size() == 0)
+					{
+						btnPopup.addClass('btn_chargement');
+						
+						$.get(btnPopup.attr('href'), function(reponse)
+						{
+								$('body').append(reponse);
+								$.initPopups(btnPopup);
+								$(btnPopup.attr('data-popup')).dialog('open');
+								btnPopup.removeClass('btn_chargement');
+		
+						}, 'html');
+					} else {
+						$(btnPopup.attr('data-popup')).dialog('open');
+					}
+				} else {
+					if($(btnPopup.attr('data-popup')).size() == 0)
+					{
+						$.initPopups(btnPopup);
+						
+					}
+					$(btnPopup.attr('data-popup')).dialog('open');
+				}
+				return false;
+			});
+		});
 	});
+	
 	
 	/**
 	 * Initialisation de la fonction générique
 	 * de créations de popups
 	 * $.initPopups();
 	 ******************************************/
-	$.initPopups = function()
+	/*$.initPopups = function(btnPopup)
 	{
-		var btnsPopup = $('.btn_popup');
+		var btnsPopup;
+		
+		if(btnPopup) btnsPopup = btnPopup;
+		else btnsPopup = $('.btn_popup');		
 		
 		btnsPopup.each(function()
 		{
@@ -85,13 +136,13 @@
 					// On n'insère pas une popup déjà présente
 					if($(infosPopup.popupId).size() == 0)
 					{
-						$('body').append(reponse.content);
+						$('body').append(reponse);
 					}
 					
 					infosPopup.popup = $(infosPopup.popupId);
 					infosPopup = $.initActionsPopup(infosPopup);
-					
-				});
+
+				}, 'html');
 			}
 			else
 			{
@@ -100,14 +151,8 @@
 			
 			objPopups.infosPopups.push(infosPopup);
 		});
-	};
-	
-	/**
-	 * Initialisation de la fonction générique
-	 * de créations d'une popup
-	 * $.initPopup(btnPopup);
-	 ******************************************/
-	$.initPopup = function(btnPopup)
+	};*/
+	$.initPopups = function(btnPopup)
 	{
 		var popupId = btnPopup.attr('data-popup');
 		var popupConfigSpec = btnPopup.attr('data-popup-config');
@@ -128,29 +173,7 @@
 			ajax: ajax,
 			href: href
 		};
-		
-		
-		// Si le contenu est à charger en ajax
-		if(ajax && ajax == "true")
-		{
-			$.get(href, function(reponse)
-			{
-				// On n'insère pas une popup déjà présente
-				if($(infosPopup.popupId).size() == 0)
-				{
-					$('body').append(reponse.content);
-				}
-				
-				infosPopup.popup = $(infosPopup.popupId);
-				infosPopup = $.initActionsPopup(infosPopup);
-				
-			});
-		}
-		else
-		{
-			infosPopup = $.initActionsPopup(infosPopup);
-		}
-		
+		infosPopup = $.initActionsPopup(infosPopup);
 		objPopups.infosPopups.push(infosPopup);
 	};
 	
@@ -178,16 +201,19 @@
 		
 		// Initialisation
 		infos.popup.dialog(infos.config);
+
+		// Création
+		infos.config.create(infos.popup);
 		
 		// Ouverture
-		infos.btnPopup.click(function()
+		/*infos.btnPopup.click(function()
 		{
 			infos.popup.dialog('open');
 			return false;
-		});
+		});*/
 		
 		// Fermeture
-		btnFermer.click(function()
+		btnFermer.live('click', function()
 		{
 			infos.popup.dialog('close');
 			return false;
@@ -195,5 +221,5 @@
 			
 		return infos;
 	};
-	
+
 })(jQuery);

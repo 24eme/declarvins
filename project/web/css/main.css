@@ -98,6 +98,27 @@ article, aside, figure, footer, header, hgroup, nav, section { display:block; }
   width:100%;
   height:100%;
 }
+.ui-autocomplete {
+  background:#ffffff;
+  border:1px solid #c2c1ba;
+  font-size:11px;
+  position:absolute;
+  _width:1px;
+  font-family:Arial, Verdana, Helvetica, sans-serif;
+}
+.ui-autocomplete .ui-menu-item a {
+  background:#ffffff;
+  clear:both;
+  color:#7a7a7a;
+  cursor:pointer;
+  display:block;
+  padding:2px;
+  text-decoration:none;
+}
+.ui-autocomplete .ui-menu-item a.ui-state-hover, .ui-autocomplete .ui-menu-item a.ui-state-active {
+  background:#dcdfa9;
+  color:#000000;
+}
 html {
   overflow-y:scroll;
   -webkit-font-smoothing:antialiased;
@@ -147,6 +168,10 @@ pre, code, kbd, samp { font-family:monospace, sans-serif; }
   padding:0 0 0 15px;
 }
 .btn_ajouter:hover, .btn_ajouter:focus { text-decoration:underline; }
+.btn_ajouter.btn_chargement {
+  background-image:url(../images/pictos/pi_loader.gif);
+  padding-left:20px;
+}
 .btn_majeur {
   background-repeat:no-repeat;
   border:1px solid;
@@ -275,8 +300,8 @@ a:hover { text-decoration:underline; }
   width:940px;
 }
 #header {
-  margin:0 0 60px;
   zoom:1;
+  margin:0 0 10px;
 }
 #header:before, #header:after {
   content:"\0020";
@@ -332,7 +357,10 @@ a:hover { text-decoration:underline; }
   visibility:hidden;
 }
 #footer:after { clear:both; }
-#header #logo { padding:25px 0 0; }
+#header #logo {
+  margin:0 0 40px;
+  padding:25px 0 0;
+}
 #header #logo h1 { margin:0 0 12px; }
 #header #logo p {
   color:#ffffff;
@@ -363,6 +391,16 @@ a:hover { text-decoration:underline; }
   border-color:#8a0808;
 }
 #header nav li.profil a { color:#ffffff; }
+#header p.deconnexion {
+  font-size:15px;
+  font-style:italic;
+  text-align:right;
+}
+#header p.deconnexion a {
+  color:#ffffff;
+  text-decoration:underline;
+}
+#header p.deconnexion a:hover { text-decoration:none; }
 #barre_navigation {
   background:#f1f1f1;
   border-bottom:1px solid #e1e1e0;
@@ -590,9 +628,10 @@ a:hover { text-decoration:underline; }
 .popup_form .ligne_form .ui-dropdownchecklist-selector-wrapper .ui-dropdownchecklist-text, .popup_form .ligne_form .ui-dropdownchecklist-selector .ui-dropdownchecklist-text {
   background:#ffffff;
   border:1px solid #d3d2cd;
+  color:#494949;
   font-size:14px;
-  height:20px;
-  padding:0 4px;
+  height:18px;
+  padding:2px 4px 0;
   width:190px !important;
 }
 .popup_form .ligne_form .ui-dropdownchecklist-selector-wrapper.ui-state-active .ui-dropdownchecklist-text, .popup_form .ligne_form .ui-dropdownchecklist-selector.ui-state-active .ui-dropdownchecklist-text { border-bottom-color:#f4f4f4; }
@@ -614,7 +653,7 @@ a:hover { text-decoration:underline; }
 .popup_form .ligne_form .error {
   display:block;
   line-height:1.2;
-  margin:5px 0 0 200px;
+  margin:15px 0 0;
 }
 .popup_form .ligne_form_btn {
   margin:30px 0 0;
@@ -645,6 +684,16 @@ a:hover { text-decoration:underline; }
   border-color:#99af00;
 }
 .popup_form .ligne_form_btn button.btn_valider:hover, .popup_form .ligne_form_btn button.btn_valider:focus { background-color:#99af00; }
+.popup_chargement .ligne_form_btn {
+  background:url(../images/pictos/pi_loader.gif) 0 center no-repeat;
+  padding-left:20px;
+}
+.popup_chargement .ligne_form_btn button {
+  -webkit-opacity:0.5;
+  -khtml-opacity:0.5;
+  -moz-opacity:0.5;
+  opacity:0.5;
+}
 #creation_compte h1 {
   font-size:23px;
   font-weight:normal;
@@ -710,14 +759,14 @@ a:hover { text-decoration:underline; }
   vertical-align:middle;
 }
 #creation_compte .ligne_btn { margin:30px 0 0; }
-#creation_compte .ligne_btn button {
+#creation_compte .ligne_btn button, #creation_compte .ligne_btn a {
   height:28px;
   line-height:28px;
   font-size:15px;
   font-weight:normal;
   text-transform:uppercase;
 }
-#creation_compte .ligne_btn button:hover { text-decoration:none; }
+#creation_compte .ligne_btn button:hover, #creation_compte .ligne_btn a:hover { text-decoration:none; }
 #creation_compte .ligne_btn .btn_valider {
   background-repeat:no-repeat;
   border:1px solid;
@@ -793,6 +842,7 @@ a:hover { text-decoration:underline; }
   display:inline-block;
   margin:0 20px 20px 0;
   padding:10px 10px 0;
+  position:relative;
   vertical-align:top;
   width:250px;
 }
@@ -800,7 +850,35 @@ a:hover { text-decoration:underline; }
   display:inline;
   zoom:1;
 }
+#creation_compte #infos_etablissements .etablissement .error_list { width:auto; }
 #creation_compte #infos_etablissements .etablissement .ligne_form label { width:110px; }
+#creation_compte #infos_etablissements .etablissement a.supprimer {
+  height:13px;
+  width:13px;
+  bottom:auto;
+  left:auto;
+  position:absolute;
+  right:-5px;
+  top:-5px;
+  background:url(../images/pictos/pi_supprimer.png) 0 0 no-repeat;
+  display:inline-block;
+  text-indent:-9999px;
+}
+#creation_compte #recapitulatif .recap_perso, #creation_compte #recapitulatif .recap_etablissement { margin:0 0 20px; }
+#creation_compte #recapitulatif .recap_perso p, #creation_compte #recapitulatif .recap_etablissement p { margin:5px 0; }
+#creation_compte #recapitulatif .recap_perso p span, #creation_compte #recapitulatif .recap_etablissement p span { font-weight:bold; }
+#creation_compte #recapitulatif .recap_perso p strong, #creation_compte #recapitulatif .recap_etablissement p strong {
+  color:#737373;
+  font-style:italic;
+  font-weight:normal;
+}
+#creation_compte #recapitulatif .recap_etablissement {
+  border:1px solid #e9e9e9;
+  background:#f1f1f1;
+  padding:15px;
+}
+#creation_compte #recapitulatif .recap_etablissement .adresse_comptabilite { margin:20px 0 0; }
+#creation_compte #recapitulatif .ligne_btn { text-align:right; }
 p#date_drm {
   font-size:16px;
   font-style:italic;
@@ -855,14 +933,14 @@ p#date_drm {
   text-align:right;
 }
 #statut_declaration #etat_avancement p strong {
-  color:#d4484a;
+  color:#820608;
   font-size:24px;
   margin:0 0 0 5px;
 }
 #statut_declaration #etat_avancement p strong span { font-size:12px; }
 #statut_declaration #etat_avancement #barre_avancement { background:#494949; }
 #statut_declaration #etat_avancement #barre_avancement div {
-  background:#d4484a;
+  background:#820608;
   height:3px;
 }
 #principal #recap_drm {
@@ -967,7 +1045,7 @@ p#date_drm {
 }
 #principal .tableau_ajouts_liquidations table thead th:first-child {
   text-align:left;
-  width:520px;
+  width:180px;
 }
 #principal .tableau_ajouts_liquidations table tbody td {
   background:#e9e9e9;
@@ -1208,11 +1286,12 @@ p#date_drm {
 }
 #colonnes_dr .col_recolte .col_cont .col_btn .btn_supprimer:hover, #colonnes_dr .col_recolte .col_cont .col_btn .btn_supprimer:focus { background-color:#a12929; }
 #colonnes_dr .col_recolte .col_masque {
-  display:none;
+  bottom:0;
   left:0;
   position:absolute;
+  right:auto;
   top:0;
-  bottom:0;
+  display:none;
   width:102px;
 }
 #colonnes_dr .col_recolte.col_inactive .col_cont input, #colonnes_dr .col_recolte.col_inactive .col_cont select { background:#f1f1f1; }
@@ -1312,8 +1391,3 @@ p#date_drm {
   padding:0 23px 0 15px;
 }
 #btn_etape_dr .btn_suiv:hover, #btn_etape_dr .btn_suiv:focus { background-color:#a12929; }
-
-.ui-autocomplete { background: #fff; border: 1px solid #c2c1ba; font-size: 11px; position: absolute; _width:1px; font-family: Arial, Verdana, Helvetica, sans-serif; }
-.ui-autocomplete .ui-menu-item a { background: #fff; clear: both; color: #7a7a7a; cursor: pointer; display: block; padding: 2px; text-decoration: none; }
-.ui-autocomplete .ui-menu-item a.ui-state-hover,
-.ui-autocomplete .ui-menu-item a.ui-state-active { background: #dcdfa9; color: #000; }

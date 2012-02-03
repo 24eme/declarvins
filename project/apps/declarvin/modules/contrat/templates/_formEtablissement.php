@@ -73,6 +73,9 @@
         <?php echo $form['sous_famille']->renderError() ?>
         <?php echo $form['sous_famille']->renderLabel() ?>
         <?php echo $form['sous_famille']->render() ?>
+		<script id="template_options_sous_famille" type="text/x-jquery-tmpl">
+			<option value="${value}" {{if selected}}selected="selected"{{/if}} >${value}</option>
+		</script>
     </div>
     <div class="ligne_form">
         <?php echo $form['service_douane']->renderError() ?>
@@ -82,14 +85,14 @@
     <div class="ligne_form ligne_form_large">
         <label for="champ_16-1">L'adresse de votre comptabilité est-elle différente de la précédente ?</label>
         <div class="champ_form champ_form_radio_cb">
-            <input type="radio" id="r1" name="adresse_comptabilite" value="Oui" onclick="voirFormAdresseComptabilite()" />
-            <label for="r1">Oui</label>
-            <input type="radio" id="r2" name="adresse_comptabilite" value="Non" onclick="masquerFormAdresseComptabilite()" checked="checked" />
-            <label for="r2">Non</label>
+			<input type="radio" value="Oui" name="adresse_comptabilite" id="champ_16-1">
+			<label for="champ_16-1">Oui</label>
+			<input type="radio" checked="checked" value="Non" name="adresse_comptabilite" id="champ_16-2">
+			<label for="champ_16-2">Non</label>
         </div>
     </div>
 
-    <div id="adresseComptabilite" style="display:none;">
+    <div id="adresse_comptabilite">
         <div class="ligne_form">
             <?php echo $form['comptabilite_adresse']->renderError() ?>
             <?php echo $form['comptabilite_adresse']->renderLabel() ?>
@@ -108,7 +111,7 @@
     </div>
 
     <div class="ligne_btn">
-        <button type="submit" class="btn_ajouter"><?php echo (!$new) ? 'Modifier' : 'Ajouter'; ?></button>
+        <button type="submit" class="btn_ajouter"><?php echo ($recapitulatif) ? 'Modifier' : 'Ajouter'; ?></button>
         <?php if(!$new): ?>
         <button type="button" class="btn_supprimer" onclick="window.location.href='<?php echo ($recapitulatif) ? url_for('contrat_etablissement_suppression', array('indice' => $form->getObject()->getKey(), 'recapitulatif' => 1)) : url_for('contrat_etablissement_suppression', array('indice' => $form->getObject()->getKey())); ?>'">Supprimer</button>
         <?php else: ?>

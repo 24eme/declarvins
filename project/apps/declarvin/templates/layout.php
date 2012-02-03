@@ -34,12 +34,12 @@
 	<!-- #global -->
 	<div id="global">
             
-                <?php include_partial('global/header'); ?>
+        <?php include_partial('global/header'); ?>
                 
 		<!-- fin #header -->
 		<?php echo $sf_content ?>
 		
-                <?php include_partial('global/footer'); ?>
+        <?php include_partial('global/footer'); ?>
 	
 	</div>
 	<!-- fin #global -->
@@ -48,7 +48,7 @@
 <!--[if lte IE 9 ]> </div> <![endif]-->
 <!-- ####### A REPRENDRE ABSOLUMENT ####### -->
 	<script type="text/javascript">var jsPath = "/js/";</script>
-        <script type="text/javascript" src="/js/includes.js"></script>
+    <script type="text/javascript" src="/js/includes.js"></script>
 </body>
 
 </html>

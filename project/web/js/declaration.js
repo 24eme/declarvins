@@ -29,7 +29,7 @@
 	
 	$(document).ready( function()
 	{
-		if(colonnesDR)
+		if(colonnesDR.exists())
 		{
 			$.initColonnes();
 			$.verifierChampsNombre();
