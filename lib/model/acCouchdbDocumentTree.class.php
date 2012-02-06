@@ -11,9 +11,13 @@ abstract class acCouchdbDocumentTree extends acCouchdbJson {
        //$this->_is_new = (is_null($definition_model) && is_null($definition_hash));
         $this->configureTree();
         parent::__construct($definition, $_couchdb_document, $hash);
+        $this->init();
    }
 
    abstract public function configureTree();
+
+   public function init() {
+   }
 
    /*public function setupDefinition() {
        $this->_definition_model = call_user_func_array(array($this->getRootClassName(), 'getDocumentDefinitionModel'), array());
