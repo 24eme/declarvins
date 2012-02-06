@@ -8,6 +8,7 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
      */
     private $_filter = null;
     private $_filter_persisent = false;
+    private $_parent = null;
 
     /**
      *
@@ -205,7 +206,10 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
     }
 
     public function getParent() {
-        return $this->getDocument()->get($this->getParentHash());
+        if (is_null($this->_parent)) {
+            $this->_parent = $this->getDocument()->get($this->getParentHash());
+        }
+        return $this->_parent;
     }
 
     public function getKey() {
