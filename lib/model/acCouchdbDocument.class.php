@@ -81,6 +81,10 @@ abstract class acCouchdbDocument extends acCouchdbJson {
         return parent::update($params);
     }
 
+    public function loadAllData() {
+        return parent::loadAllData();
+    }
+
     public function isModified() {
         return $this->isNew() || (unserialize($this->_loaded_data) != $this->getData());
     }

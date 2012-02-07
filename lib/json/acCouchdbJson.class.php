@@ -232,6 +232,15 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
         return $this->getIterator()->getLastKey();
     }
 
+    protected function loadAllData() {
+       $this->loadData();
+       foreach ($this as $key => $field) {
+            if ($this->fieldIsCollection($key)) {
+                $field->loadAllData();
+            }
+        } 
+    }
+
     protected function update($params = array()) {
         foreach ($this as $key => $field) {
             if ($this->fieldIsCollection($key)) {
@@ -252,6 +261,7 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
     }
 
     public function getIterator() {
+        $this->loadData();
         $iterator = new acCouchdbJsonArrayIterator($this, $this->_filter);
         if (!$this->_filter_persisent) {
             $this->clearFilter();

@@ -7,25 +7,11 @@ abstract class acCouchdbDocumentTree extends acCouchdbJson {
    protected $_storage = array();
 
    public function  __construct($definition, $_couchdb_document, $hash) {
-
-       //$this->_is_new = (is_null($definition_model) && is_null($definition_hash));
         $this->configureTree();
         parent::__construct($definition, $_couchdb_document, $hash);
-        $this->init();
    }
 
    abstract public function configureTree();
-
-   public function init() {
-   }
-
-   /*public function setupDefinition() {
-       $this->_definition_model = call_user_func_array(array($this->getRootClassName(), 'getDocumentDefinitionModel'), array());
-       $this->_definition_hash = acCouchdbManager::getDefinitionHashTree($this->getRootClassName(), $this->getTreeClassName());
-       if (is_null($this->_definition_hash)) {
-           throw new acCouchdbException('definition hash not find');
-       }
-    }*/
 
    public function getRootClassName() {
        if (!class_exists($this->_root_class_name)) {

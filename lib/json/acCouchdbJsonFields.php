@@ -48,6 +48,8 @@ abstract class acCouchdbJsonFields {
      */
     private $_document = null;
 
+    private $_unloaded_data = null;
+
     /**
      *
      * @var acCouchdbDocument 
@@ -132,13 +134,22 @@ abstract class acCouchdbJsonFields {
      * @param mixed $data 
      */
     public function load($data) {
-        if (!is_null($data)) {
-            foreach ($data as $key => $item) {
-                if (!$this->_exist($key)) {
-                    $this->_add($key);
-                }
-                $this->_set($key, $item);
+        $this->_unloaded_data = $data;
+    }
+    
+    public function loadData() {
+        if (is_null($this->_unloaded_data)) {
+            return;
+        }
+
+        $data = $this->_unloaded_data;
+        $this->_unloaded_data = null;
+
+        foreach ($data as $key => $item) {
+            if (!$this->_exist($key)) {
+                $this->_add($key);
             }
+            $this->_set($key, $item);
         }
     }
 
@@ -192,6 +203,7 @@ abstract class acCouchdbJsonFields {
     }
 
     protected function _exist($key) {
+        $this->loadData();
         if ($this->_is_array) {
             return $this->hasFieldNumeric($key);
         } else {
@@ -200,6 +212,7 @@ abstract class acCouchdbJsonFields {
     }
 
     protected function getData() {
+        $this->loadData();
         $data = array();
         foreach ($this->_fields as $key => $field) {
             if ($this->_is_array) {
