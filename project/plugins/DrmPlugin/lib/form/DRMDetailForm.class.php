@@ -17,11 +17,10 @@ class DRMDetailForm extends acCouchdbFormDocumentJson {
         $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
     }
     
-    public function updateDefaultsFromObject() {
-        parent::updateDefaultsFromObject();
+    public function doUpdateObject($values) {
         $this->getObject()->getDocument()->update();
     }
-    
+
     public function getLabelChoices() 
     {
         if (is_null($this->_label_choices)) {

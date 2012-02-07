@@ -30,21 +30,21 @@ $(document).ready(function () {
 			source: produits,
 			focus: function(event, ui)
 	        {
-	        	$('#<?php echo $form['produit']->renderId() ?>').val(ui.item[1] + ' ' + ui.item[3] + ' ' + ui.item[5] + ' ' + ui.item[7]);
+	        	$('#<?php echo $form['produit']->renderId() ?>').val(ui.item[4]);
 	        	$('#<?php echo $form['appellation']->renderId() ?>').val(ui.item[0]);
-	        	$('#<?php echo $form['couleur']->renderId() ?>').val(ui.item[2]);
-	        	$('#<?php echo $form['cepage']->renderId() ?>').val(ui.item[4]);
-	        	$('#<?php echo $form['millesime']->renderId() ?>').val(ui.item[6]);
+	        	$('#<?php echo $form['couleur']->renderId() ?>').val(ui.item[1]);
+	        	$('#<?php echo $form['cepage']->renderId() ?>').val(ui.item[2]);
+	        	$('#<?php echo $form['millesime']->renderId() ?>').val(ui.item[3]);
 				
 	            return false;
 	        },
 	        select: function(event, ui)
 	        {
-	        	$('#<?php echo $form['produit']->renderId() ?>').val(ui.item[1] + ' ' + ui.item[3] + ' ' + ui.item[5] + ' ' + ui.item[7]);
+	        	$('#<?php echo $form['produit']->renderId() ?>').val(ui.item[5]);
 	        	$('#<?php echo $form['appellation']->renderId() ?>').val(ui.item[0]);
-	        	$('#<?php echo $form['couleur']->renderId() ?>').val(ui.item[2]);
-	        	$('#<?php echo $form['cepage']->renderId() ?>').val(ui.item[4]);
-	        	$('#<?php echo $form['millesime']->renderId() ?>').val(ui.item[6]);
+	        	$('#<?php echo $form['couleur']->renderId() ?>').val(ui.item[1]);
+	        	$('#<?php echo $form['cepage']->renderId() ?>').val(ui.item[2]);
+	        	$('#<?php echo $form['millesime']->renderId() ?>').val(ui.item[3]);
 					
 	            return false;
 	        }
@@ -54,7 +54,7 @@ $(document).ready(function () {
 	        var tab = item['value'].split('|@');
 	        return $('<li></li>')
 	        .data("item.autocomplete", tab)
-	        .append('<a><span class="appellation"><strong>'+tab[1]+'</strong></span> <span class="couleur">'+tab[3]+'</span> <span class="cepage">'+tab[5]+'</span> <span class="millesime">'+tab[7]+'</span></a>' )
+	        .append('<a><span class="appellation">'+tab[4]+'</a>' )
 	        .appendTo(ul);
 	    };
 });

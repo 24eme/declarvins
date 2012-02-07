@@ -4,6 +4,7 @@ class drm_recapActions extends sfActions
 {
     
     public function executeIndex(sfWebRequest $request) {
+        //$this->run = new XHProfRun('declarvin-recap');
         $this->init();
         $this->setTemplate('appellation');
     }
@@ -27,6 +28,7 @@ class drm_recapActions extends sfActions
     }*/
     
     public function executeAppellation(sfWebRequest $request) {
+        //$this->run = new XHProfRun('declarvin-recap');
         $this->init();
     }
 

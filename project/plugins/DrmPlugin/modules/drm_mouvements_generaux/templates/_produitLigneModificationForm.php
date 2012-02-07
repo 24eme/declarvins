@@ -1,7 +1,7 @@
 <tr>
     <td>
     	<a href="<?php echo url_for('drm_mouvements_generaux_produit_delete', $form->getObject()) ?>" class="supprimer">Supprimer</a>
-    	<?php echo $form->getObject()->getDetail() ?>
+    	<?php echo implode(' ', $form->getObject()->getDetail()->getConfig()->getLibelles()) ?>
     </td>
 	<td>
 		<?php echo $form->getObject()->getDetail()->total_debut_mois ?> HL

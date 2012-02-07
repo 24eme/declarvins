@@ -4,6 +4,7 @@ class drm_mouvements_generauxActions extends sfActions
 {
 	public function executeIndex(sfWebRequest $request) 
 	{
+        //$this->run = new XHProfRun('declarvin-mouv');
 		$drm = $this->getUser()->getDrm();
 		$this->forms = array();
 		$this->certificationLibelle = array();
@@ -64,6 +65,7 @@ class drm_mouvements_generauxActions extends sfActions
 				return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('ajoutForm', array('form' => $form, 'certification' => $certification)))));
 			}
         }
+
         return $this->renderText($this->getPartial('produitLigneAjoutForm', array('form' => $form, 'certification' => $certification)));
     }
 }

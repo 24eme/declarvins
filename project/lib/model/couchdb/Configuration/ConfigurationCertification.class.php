@@ -6,45 +6,38 @@
 
 class ConfigurationCertification extends BaseConfigurationCertification {
 
-	public function getAppellationsChoices(array $exclude_key = array())
-	{
-        $choices = array();
-        foreach ($this->appellations as $appellation_key => $appellation) {
-            if (!in_array($appellation_key, $exclude_key)) {
-                $choices[$appellation_key] = $appellation->getLibelle();
-            }
-        }
-        
-        return $choices;	
-	}
-
-    public function getCouleursChoices(array $exclude_key = array())
-    {
-        $choices = array();
-        foreach ($this->appellations as $appellation_key => $appellation) {
-            foreach ($appellation->couleurs as $couleur_key => $couleur) {
-                if (!in_array($couleur_key, $exclude_key)) {
-                    $choices[$appellation_key][$appellation_key.'/'.$couleur_key] = $couleur->getLibelle();
-                }
-            }
-        }
-        
-        return $choices;    
+    
+    protected function loadAllData() {
+        parent::loadAllData();
+        $this->getProduits();
     }
 
-    public function getCepagesChoices(array $exclude_key = array())
-    {
-        $choices = array();
-        foreach ($this->appellations as $appellation_key => $appellation) {
-            foreach ($appellation->couleurs as $couleur_key => $couleur) {
-                foreach ($couleur->cepages as $cepage_key => $cepage) {
-                    if (!in_array($couleur_key, $exclude_key)) {
-                        $choices[$appellation_key.'/'.$couleur_key][$appellation_key.'/'.$couleur_key.'/'.$cepage_key] = $cepage->getLibelle();
+    protected function getLibellesAbstract() {
+
+        return array($this->getKey() => $this->libelle);
+    }
+
+    public function getProduits() {
+        return $this->store('produits', array($this, 'getProduitsAbstract'));
+    }
+
+    protected function getProduitsAbstract() {
+        $produits = array();
+
+        foreach($this->appellations as $appellation) {
+            foreach($appellation->couleurs as $couleur) {
+                foreach($couleur->cepages as $cepage) {
+                    foreach($cepage->millesimes as $millesime) {
+                        $produits[] = array($appellation->getKey(),
+                                         $couleur->getKey(),
+                                         $cepage->getKey(),
+                                         $millesime->getKey(),
+                                         'libelles' => $millesime->getLibelles());
                     }
                 }
             }
         }
-        //print_r($choices);
-        return $choices;    
+
+        return $produits;
     }
 }

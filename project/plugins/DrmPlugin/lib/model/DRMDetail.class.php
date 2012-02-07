@@ -5,12 +5,12 @@
  *
  */
 class DRMDetail extends BaseDRMDetail {
+    
+    public function getConfig() {
 
-    protected $_couleur = null;
-    protected $_cepage = null;
-    
-    
-    
+        return $this->getMillesime()->getConfig();
+    }
+
     /**
      *
      * @return DRMMillesime
@@ -59,13 +59,18 @@ class DRMDetail extends BaseDRMDetail {
     public function getLabelKey() {
     	$key = null;
     	if ($this->label) {
-    		$key = implode(',', $this->label->toArray());
+    		$key = implode('-', $this->label->toArray());
     	}
-    	return ($key)? $key : DRM::DEFAULT_KEY;
+    	return ($key) ? $key : DRM::DEFAULT_KEY;
     }
 
     public function getLabelLibelle() {
-        
+        $libelles = array(); 
+        foreach($this->label as $key) {
+            $libelles[] = ConfigurationClient::getCurrent()->label[$key];
+        }
+
+        return implode(', ', $libelles);
     }
     
     protected function update($params = array()) {
@@ -96,11 +101,7 @@ class DRMDetail extends BaseDRMDetail {
     }
     
     public function getIdentifiant() {
-    	return strtolower($this->getAppellation()->getCertification()."_".$this->getAppellation()->getKey()."_".$this->getCouleur()."_".str_replace('-', '_', $this->getLabelKey()));
-    }
-
-    public function __toString() {
-        return "<strong>".$this->getAppellation()->getCertification()." - ".$this->getAppellation()."</strong> - ".$this->getCouleur()." - ".$this->getLabelKey();
+    	return strtolower($this->getAppellation()->getCertification()."_".$this->getAppellation()->getKey()."_".$this->getCouleur()."_".$this->getLabelKey());
     }
     
     public function hasContratVrac() {

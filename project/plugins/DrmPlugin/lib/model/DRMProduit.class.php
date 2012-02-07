@@ -23,6 +23,10 @@ class DRMProduit extends BaseDRMProduit {
     }
     
     public function getDetail() {
+        return $this->store('detail', array($this, 'getOrAddDetail')); 
+    }
+
+    protected function getOrAddDetail() {
         return $this->getDocument()->declaration
                                    ->certifications->add($this->getCertification()->getKey())
                                    ->appellations->add($this->getAppellation()->getKey())
@@ -30,10 +34,6 @@ class DRMProduit extends BaseDRMProduit {
                                    ->cepages->add($this->cepage)
                                    ->millesimes->add($this->millesime)
                                    ->details->add(KeyInflector::slugify($this->getLabelKey()));        
-    }
-
-    public function getOrAddDetail() {
-        return $this->getDetail();
     }
     
     public function existDetail() {

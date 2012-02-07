@@ -17,7 +17,7 @@ class ConfigurationClient extends acCouchdbClient {
    */
   public static function getCurrent() {
     if (self::$current == null) {
-        self::$current = CacheFunction::cache('model', array(ConfigurationClient::getInstance(), 'retrieveCurrent'), array());
+      self::$current = CacheFunction::cache('model', array(ConfigurationClient::getInstance(), 'retrieveCurrent'), array());
     }
     return self::$current;
   }
@@ -27,7 +27,12 @@ class ConfigurationClient extends acCouchdbClient {
    * @return Current
    */
   public function retrieveCurrent() {
-    return parent::retrieveDocumentById('CONFIGURATION');
+      $configuration = parent::retrieveDocumentById('CONFIGURATION');
+      if (!sfConfig::get('sf_debug')) {
+        $configuration->loadAllData();
+      }
+
+    return $configuration;
   }
   
 }

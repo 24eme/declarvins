@@ -36,7 +36,7 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
             unset($this['appellation']);
         }
 
-        $this->getProduits();
+        //$this->getProduits();
 
         $this->validatorSchema->setPostValidator(new DRMProduitValidator(null, array('object' => $this->getObject())));
         $this->widgetSchema->setNameFormat('produit_'.$this->getObject()->getCertification()->getKey().'[%s]');
@@ -76,27 +76,18 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
     }
 
     public function getProduits() {
-        $produits = array();
         $config_certification = ConfigurationClient::getCurrent()->declaration
                                                 ->certifications
                                                 ->get($this->getObject()->getCertification()->getKey());
-        foreach($config_certification->appellations as $appellation) {
-            foreach($appellation->couleurs as $couleur) {
-                foreach($couleur->cepages as $cepage) {
-                    foreach($cepage->millesimes as $millesime) {
-                        $produits[] = implode('|@', array($appellation->getKey(),
-                                                          $appellation->libelle,
-                                                          $couleur->getKey(),
-                                                          $couleur->libelle,
-                                                          $cepage->getKey(),
-                                                          $cepage->libelle,
-                                                          $millesime->getKey(),
-                                                          $millesime->libelle));
-                    }
-                }
-            }
+
+        $produits = $config_certification->getProduits();
+
+        $produits_flat = array();
+        foreach($produits as $produit)  {
+            $produit['libelles'] = implode(' ', array_filter($produit['libelles']));
+            $produits_flat[] = implode('|@', $produit);
         }
 
-        return $produits;
+        return $produits_flat;
     }
 }
