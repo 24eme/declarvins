@@ -30,11 +30,12 @@ $(document).ready(function () {
 			source: produits,
 			focus: function(event, ui)
 	        {
-	        	$('#<?php echo $form['produit']->renderId() ?>').val(ui.item[4]);
+	        	$('#<?php echo $form['produit']->renderId() ?>').val(ui.item[5]);
 	        	$('#<?php echo $form['appellation']->renderId() ?>').val(ui.item[0]);
-	        	$('#<?php echo $form['couleur']->renderId() ?>').val(ui.item[1]);
-	        	$('#<?php echo $form['cepage']->renderId() ?>').val(ui.item[2]);
-	        	$('#<?php echo $form['millesime']->renderId() ?>').val(ui.item[3]);
+	        	$('#<?php echo $form['lieu']->renderId() ?>').val(ui.item[1]);
+	        	$('#<?php echo $form['couleur']->renderId() ?>').val(ui.item[2]);
+	        	$('#<?php echo $form['cepage']->renderId() ?>').val(ui.item[3]);
+	        	$('#<?php echo $form['millesime']->renderId() ?>').val(ui.item[4]);
 				
 	            return false;
 	        },
@@ -42,9 +43,10 @@ $(document).ready(function () {
 	        {
 	        	$('#<?php echo $form['produit']->renderId() ?>').val(ui.item[5]);
 	        	$('#<?php echo $form['appellation']->renderId() ?>').val(ui.item[0]);
-	        	$('#<?php echo $form['couleur']->renderId() ?>').val(ui.item[1]);
-	        	$('#<?php echo $form['cepage']->renderId() ?>').val(ui.item[2]);
-	        	$('#<?php echo $form['millesime']->renderId() ?>').val(ui.item[3]);
+	        	$('#<?php echo $form['lieu']->renderId() ?>').val(ui.item[1]);
+	        	$('#<?php echo $form['couleur']->renderId() ?>').val(ui.item[2]);
+	        	$('#<?php echo $form['cepage']->renderId() ?>').val(ui.item[3]);
+	        	$('#<?php echo $form['millesime']->renderId() ?>').val(ui.item[4]);
 					
 	            return false;
 	        }
@@ -54,7 +56,7 @@ $(document).ready(function () {
 	        var tab = item['value'].split('|@');
 	        return $('<li></li>')
 	        .data("item.autocomplete", tab)
-	        .append('<a><span class="appellation">'+tab[4]+'</a>' )
+	        .append('<a><span class="appellation">'+tab[5]+'</a>' )
 	        .appendTo(ul);
 	    };
 });

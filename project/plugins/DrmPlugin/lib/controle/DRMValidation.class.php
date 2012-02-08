@@ -34,13 +34,15 @@ class DRMValidation
 	{
 		foreach ($this->drm->declaration->certifications as $certification) {
 			foreach ($certification->appellations as $appellation) {
-				foreach ($appellation->couleurs as $couleur) {
-					foreach ($couleur->cepages as $cepage) {
-						foreach ($cepage->millesimes as $millesime) {
-							foreach($millesime->details as $detail) {
-								$this->controleEngagements($detail);
-								$this->controleErrors($detail);
-								$this->controleWarnings($detail);
+				foreach($appellation->lieux as $lieu) {
+					foreach ($lieu->couleurs as $couleur) {
+						foreach ($couleur->cepages as $cepage) {
+							foreach ($cepage->millesimes as $millesime) {
+								foreach($millesime->details as $detail) {
+										$this->controleEngagements($detail);
+										$this->controleErrors($detail);
+										$this->controleWarnings($detail);
+								}
 							}
 						}
 					}

@@ -97,7 +97,7 @@ class DrmRouting {
                              'type' => 'object'
                 )));
 
-        $r->prependRoute('drm_recap_detail', new DrmDetailRoute('/drm/recapitulatif/:certification/:appellation/:couleur/:cepage/:millesime/:detail',
+        $r->prependRoute('drm_recap_detail', new DrmDetailRoute('/drm/recapitulatif/:certification/:appellation/:lieu/:couleur/:cepage/:millesime/:detail',
                         array('module' => 'drm_recap',
                             'action' => 'detail'),
                         array('sf_method' => array('get')),
@@ -113,7 +113,7 @@ class DrmRouting {
                             'type' => 'object'
                 )));*/
         
-        $r->prependRoute('drm_recap_update', new DrmDetailRoute('/drm/recapitulatif/update/:certification/:appellation/:couleur/:cepage/:millesime/:detail',
+        $r->prependRoute('drm_recap_update', new DrmDetailRoute('/drm/recapitulatif/update/:certification/:appellation/:lieu/:couleur/:cepage/:millesime/:detail',
                         array('module' => 'drm_recap',
                             'action' => 'update'),
                         array('sf_method' => array('post')),
@@ -123,7 +123,7 @@ class DrmRouting {
 
         $r->prependRoute('drm_vrac', new sfRoute('/drm/vrac', array('module' => 'drm_vrac', 'action' => 'index')));
 
-        $r->prependRoute('drm_vrac_ajout_contrat', new DrmDetailRoute('/drm/vrac/contrat/:certification/:appellation/:couleur/:cepage/:millesime/ajout/:detail',
+        $r->prependRoute('drm_vrac_ajout_contrat', new DrmDetailRoute('/drm/vrac/contrat/:certification/:appellation/:lieu/:couleur/:cepage/:millesime/ajout/:detail',
                         array('module' => 'drm_vrac',
                             'action' => 'nouveauContrat',
                             'detail' => null),
@@ -131,7 +131,7 @@ class DrmRouting {
                         array('model' => 'DRMDetail',
                             'type' => 'object'
                 )));
-        $r->prependRoute('drm_vrac_update_volume', new VracDetailContratRoute('/drm/vrac/update/:certification/:appellation/:couleur/:cepage/:millesime/:detail/volume/:contrat',
+        $r->prependRoute('drm_vrac_update_volume', new VracDetailContratRoute('/drm/vrac/update/:certification/:appellation/:lieu/:couleur/:cepage/:millesime/:detail/volume/:contrat',
                         array('module' => 'drm_vrac',
                             'action' => 'updateVolume'),
                         array('sf_method' => array('post')),

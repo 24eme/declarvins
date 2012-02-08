@@ -25,17 +25,20 @@ class ConfigurationCertification extends BaseConfigurationCertification {
         $produits = array();
 
         foreach($this->appellations as $appellation) {
-            foreach($appellation->couleurs as $couleur) {
-                foreach($couleur->cepages as $cepage) {
-                    foreach($cepage->millesimes as $millesime) {
-                        $produits[] = array($appellation->getKey(),
-                                         $couleur->getKey(),
-                                         $cepage->getKey(),
-                                         $millesime->getKey(),
-                                         'libelles' => $millesime->getLibelles());
+            foreach($appellation->lieux as $lieu) {
+                foreach($lieu->couleurs as $couleur) {
+                    foreach($couleur->cepages as $cepage) {
+                        foreach($cepage->millesimes as $millesime) {
+                            $produits[] = array($appellation->getKey(),
+                                                $lieu->getKey(),
+                                                $couleur->getKey(),
+                                                $cepage->getKey(),
+                                                $millesime->getKey(),
+                                                'libelles' => $millesime->getLibelles());
+                        }
                     }
                 }
-            }
+            }   
         }
 
         return $produits;

@@ -41,9 +41,9 @@ EOF;
     $current = new Current();
     $current->campagne = '2011-11';
     $current->save();
-    $configuration = acCouchdbManager::getClient()->retrieveDocumentById('CONFIGURATION');
+    $configuration = acCouchdbManager::getClient()->retrieveDocumentById('CONFIGURATION', acCouchdbClient::HYDRATE_JSON);
     if ($configuration) {
-      $configuration->delete();
+      acCouchdbManager::getClient()->deleteDoc($configuration);
     }
 	    
     $configuration = new Configuration();
@@ -56,15 +56,15 @@ EOF;
     foreach (file($import_dir.'/appellations') as $a) {
         $datas = explode(";", $a);
         $appellation = $configuration->declaration->certifications->get($datas[0])->appellations->add(str_replace("\n", "", $datas[2]));
-
         $appellation->libelle = $datas[1];
-        $blanc = $appellation->couleurs->add('blanc');
+        $lieu = $appellation->lieux->add('DEFAUT');
+        $blanc = $lieu->couleurs->add('blanc');
         $blanc->libelle = "Blanc";
         $blanc->cepages->add('DEFAUT')->millesimes->add('DEFAUT');
-        $rouge = $appellation->couleurs->add('rouge');
+        $rouge = $lieu->couleurs->add('rouge');
         $rouge->libelle = "Rouge";
         $rouge->cepages->add('DEFAUT')->millesimes->add('DEFAUT');
-        $rose = $appellation->couleurs->add('rose');
+        $rose = $lieu->couleurs->add('rose');
         $rose->libelle = "Rosé";
         $rose->cepages->add('DEFAUT')->millesimes->add('DEFAUT');
     }

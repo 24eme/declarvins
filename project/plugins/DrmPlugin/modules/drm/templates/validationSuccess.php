@@ -9,9 +9,6 @@
 
     <!-- #principal -->
     <section id="principal">
-    	<form action="<?php echo url_for('@drm_validation') ?>" method="post">
-    		<?php echo $form->renderGlobalErrors() ?>
-			<?php echo $form->renderHiddenFields() ?>
 			<div id="application_dr">
 	            <div id="contenu_onglet">
 	            
@@ -31,6 +28,9 @@
 	            			<br />
 	            		<?php endif; ?>
 	            		<?php if ($drmValidation->hasEngagements()): ?>
+	            		<form action="<?php echo url_for('@drm_validation') ?>" method="post">
+	            			<?php echo $form->renderGlobalErrors() ?>
+							<?php echo $form->renderHiddenFields() ?>
 	            			<h3>Engagements</h3>
 	            			<?php foreach ($drmValidation->getEngagements() as $engagement): ?>
 	            				<div class="ligne_form">
@@ -39,6 +39,7 @@
 									<span class="error"><?php echo $form['engagement_'.$engagement->getCode()]->renderError() ?></span>
 								</div>
 	            			<?php endforeach; ?>
+        					</form>
 	            		<?php endif; ?>
 	            	</div>
 	            	
@@ -88,8 +89,8 @@
 		    </div>
 	        <div id="btn_etape_dr">
 				<a href="<?php echo url_for('drm_vrac') ?>" class="btn_prec">Précédent</a>
-	            <button name="valider" class="btn_suiv" type="submit">Valider</button>
+				<a href="<?php echo url_for('drm_vrac') ?>" class="btn_suiv">Suivant</a>
+	            <!--<button name="valider" class="btn_suiv" type="submit">Valider</button>-->
 			</div>
-		</form>
     </section>
 </section>

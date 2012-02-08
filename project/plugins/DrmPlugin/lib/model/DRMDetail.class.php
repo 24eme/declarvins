@@ -37,24 +37,19 @@ class DRMDetail extends BaseDRMDetail {
 
     /**
      *
-     * @return DRMCouleur
+     * @return DRMLieu
      */
-    public function getAppellation() {
-        return $this->getCouleur()->getAppellation();
+    public function getLieu() {
+        return $this->getCouleur()->getLieu();
     }
 
-    /*public function updateProduit($produit = null) {
-        if (is_null($produit)) {
-            $produit = $this->getDocument()->produits->add($this->getAppellation()->getCertification()->getKey())->add($this->getAppellation()->getKey())->add();
-        }
-        $produit->label = $this->label;
-        $produit->label_supplementaire = $this->label_supplementaire;
-        $produit->couleur = $this->getCouleur()->getKey();
-        $produit->cepage = $this->getCepageValue();
-        $produit->millesime = $this->getCepageValue();
-        
-        return $this;
-    }*/
+    /**
+     *
+     * @return DRMAppellation
+     */
+    public function getAppellation() {
+        return $this->getLieu()->getAppellation();
+    }
     
     public function getLabelKey() {
     	$key = null;
@@ -101,7 +96,7 @@ class DRMDetail extends BaseDRMDetail {
     }
     
     public function getIdentifiant() {
-    	return strtolower($this->getAppellation()->getCertification()."_".$this->getAppellation()->getKey()."_".$this->getCouleur()."_".$this->getLabelKey());
+    	return strtolower(str_replace($this->getDocument()->declaration->getHash(), '', str_replace('/', '_', $this->getHash())));
     }
     
     public function hasContratVrac() {

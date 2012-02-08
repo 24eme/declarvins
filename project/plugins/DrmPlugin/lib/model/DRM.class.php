@@ -55,16 +55,18 @@ class DRM extends BaseDRM {
         $details = array();
         foreach ($this->declaration->certifications as $certifications) {
             foreach ($certifications->appellations as $appellation) {
-                foreach ($appellation->couleurs as $couleur) {
-                	foreach ($couleur->cepages as $cepage) {
-	                    foreach ($cepage->millesimes as $millesime) {
-                            foreach ($millesime->details as $detail) {
-    	                        if ($detail->sorties->vrac) {
-    	                            $details[] = $detail;
-    	                        }
-                            }
-	                    }
-                	}
+                foreach ($appellation->lieux as $lieu) {
+                    foreach ($lieu->couleurs as $couleur) {
+                    	foreach ($couleur->cepages as $cepage) {
+    	                    foreach ($cepage->millesimes as $millesime) {
+                                foreach ($millesime->details as $detail) {
+        	                        if ($detail->sorties->vrac) {
+        	                            $details[] = $detail;
+        	                        }
+                                }
+    	                    }
+                    	}
+                    }
                 }
             }
         }

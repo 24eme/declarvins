@@ -8,9 +8,9 @@ class ConfigurationCouleur extends BaseConfigurationCouleur {
     
     /**
      *
-     * @return ConfigurationAppellation
+     * @return ConfigurationLieu
      */
-    public function getAppellation() {
+    public function getLieu() {
         return $this->getParent()->getParent();
     }
 

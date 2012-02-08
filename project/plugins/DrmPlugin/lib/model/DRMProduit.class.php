@@ -27,17 +27,23 @@ class DRMProduit extends BaseDRMProduit {
     }
 
     protected function getOrAddDetail() {
-        return $this->getDocument()->declaration
-                                   ->certifications->add($this->getCertification()->getKey())
-                                   ->appellations->add($this->getAppellation()->getKey())
-                                   ->couleurs->add($this->couleur)
-                                   ->cepages->add($this->cepage)
-                                   ->millesimes->add($this->millesime)
-                                   ->details->add(KeyInflector::slugify($this->getLabelKey()));        
+
+        return $this->getDocument()->declaration->getOrAdd($this->getHashDetail());
+    }
+
+    public function getHashDetail() {
+        return 'certifications/'.$this->getCertification()->getKey().
+               '/appellations/'.$this->getAppellation()->getKey().
+               '/lieux/'.$this->lieu.
+               '/couleurs/'.$this->couleur.
+               '/cepages/'.$this->cepage.
+               '/millesimes/'.$this->millesime.
+               '/details/'.KeyInflector::slugify($this->getLabelKey());
     }
     
     public function existDetail() {
-    	return $this->getDocument()->exist('declaration/certifications/'.$this->getCertification()->getKey().'/appellations/'.$this->getAppellation()->getKey().'/couleurs/'.$this->couleur.'/cepages/'.$this->cepage.'/millesimes/'.$this->millesime.'/details/'.KeyInflector::slugify($this->getLabelKey()));        
+
+    	return $this->getDocument()->declaration->exist($this->getHashDetail());        
     }
     
     public function updateDetail() {
@@ -51,14 +57,5 @@ class DRMProduit extends BaseDRMProduit {
         $this->getDetail()->delete();
         parent::delete();
     }
-    
-    /*public function updateProduit() {
-        if ($this->existDetail()) {
-            return $this->getDetail()->updateProduit($this);
-        } else { 
-            $this->getParent()->remove($this->getKey());
-            return null;
-        }
-    }*/
     
 }

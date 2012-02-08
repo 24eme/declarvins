@@ -5,12 +5,12 @@
  * Base model for ConfigurationAppellation
 
  * @property string $libelle
- * @property acCouchdbJson $couleurs
+ * @property acCouchdbJson $lieux
 
  * @method string getLibelle()
  * @method string setLibelle()
- * @method acCouchdbJson getCouleurs()
- * @method acCouchdbJson setCouleurs()
+ * @method acCouchdbJson getLieux()
+ * @method acCouchdbJson setLieux()
  
  */
 

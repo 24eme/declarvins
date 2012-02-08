@@ -27,7 +27,13 @@ class DRMProduitValidator extends sfValidatorSchema
         } else {
           $appellation = $this->getObject()->getAppellation()->getKey();
         }
-    	return $this->getObject()->getDocument()->exist('declaration/certifications/'.$this->getObject()->getCertification()->getKey().'/appellations/'.$appellation.'/couleurs/'.$values['couleur'].'/cepages/'.$values['cepage'].'/details/'.$this->getLabelKey($values['label']));    
+
+    	return $this->getObject()->getDocument()->exist('declaration/certifications/'.$this->getObject()->getCertification()->getKey().
+                                                                   '/appellations/'.$appellation.
+                                                                   '/lieux/'.$values['lieu'].
+                                                                   '/couleurs/'.$values['couleur'].
+                                                                   '/cepages/'.$values['cepage'].
+                                                                   '/details/'.$this->getLabelKey($values['label']));    
     }
 
     protected function getObject() 

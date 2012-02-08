@@ -39,9 +39,11 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
     }
 
     public function hasCepageStore() {
-        foreach($this->couleurs as $couleur) {
-            if ($couleur->hasCepage()) {
-                return true;
+        foreach($this->lieux as $lieu) {
+            foreach($lieu->couleurs as $couleur) {
+                if ($couleur->hasCepage()) {
+                    return true;
+                }
             }
         }
 
@@ -49,9 +51,11 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
     }
 
     public function hasMillesimeStore() {
-        foreach($this->couleurs as $couleur) {
-            if ($couleur->hasMillesime()) {
-                return true;
+        foreach($this->lieux as $lieu) {
+            foreach($lieu->couleurs as $couleur) {
+                if ($couleur->hasMillesime()) {
+                    return true;
+                }
             }
         }
 

@@ -10,7 +10,8 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
         $this->setWidgets(array(
             'produit' => new sfWidgetFormInputText(array(), array('autocomplete-data' => json_encode($this->getProduits()))),
             'appellation' => new sfWidgetFormInputHidden(),
-            'couleur' => new sfWidgetFormInputHidden(),
+            'lieu' => new sfWidgetFormInputHidden(),
+            'couleur' => new sfWidgetFormInputHidden(),            
             'cepage' => new sfWidgetFormInputHidden(),
             'millesime' => new sfWidgetFormInputHidden(),
             'label' => new sfWidgetFormChoice(array('expanded' => false, 'multiple' => true,'choices' => $this->getLabelChoices())),
@@ -25,6 +26,7 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
         $this->setValidators(array(
             'produit' => new sfValidatorString(array('required' => true)),
             'appellation' => new sfValidatorString(array('required' => false)),
+            'lieu' => new sfValidatorString(array('required' => false)),            
             'couleur' => new sfValidatorString(array('required' => false)),
             'cepage' => new sfValidatorString(array('required' => false)),
             'millesime' => new sfValidatorString(array('required' => false)),

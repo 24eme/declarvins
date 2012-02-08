@@ -8,9 +8,9 @@ class DRMCouleur extends BaseDRMCouleur {
     
     /**
      *
-     * @return DRMAppellation
+     * @return DRMLieu
      */
-    public function getAppellation() {
+    public function getLieu() {
         return $this->getParent()->getParent();
     }
     
