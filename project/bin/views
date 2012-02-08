@@ -86,6 +86,22 @@ EOF
 
 curl -s -X PUT -d "@$TMPFILE" $COUCHDBURL/_design/$design
 
+design=configuration
+curl -s -X DELETE "$COUCHDBURL/_design/$design?rev=$(curl --stderr /dev/null $COUCHDBURL/_design/$design | sed 's/.*_rev":"//' | sed 's/",".*//' 2> /dev/null)" > /dev/null 2>&1
+
+cat <<EOF > $TMPFILE
+{
+   "language": "javascript",
+   "views": {
+       "produits": {
+           "map": "function(doc) {\u000a  if (doc.type != \"Configuration\")\u000a    return ;\u000a  inter = \"\"; dep = [\"\"];\u000a  for (c in doc.declaration.certifications) {\u000a    if (doc.declaration.certifications[c].interpro)\u000a       inter = doc.declaration.certifications[c].interpro;\u000a    if (doc.declaration.certifications[c].departements)\u000a       dep = doc.declaration.certifications[c].departements;\u000a    for (a in doc.declaration.certifications[c].appellations) {\u000a       if (doc.declaration.certifications[c].appellations[a].interpro)\u000a         inter = doc.declaration.certifications[c].appellations[a].interpro;\u000a       if (doc.declaration.certifications[c].appellations[a].departements)\u000a         dep = doc.declaration.certifications[c].appellations[a].departements;\u000a       for(co in doc.declaration.certifications[c].appellations[a].couleurs) {\u000a         if (doc.declaration.certifications[c].appellations[a].couleurs[co].interpro)\u000a           inter = doc.declaration.certifications[c].appellations[a].couleurs[co].interpro;\u000a         if (doc.declaration.certifications[c].appellations[a].couleurs[co].departements)\u000a           dep = doc.declaration.certifications[c].appellations[a].couleurs[co].departements;\u000a         for(ce in doc.declaration.certifications[c].appellations[a].couleurs[co].cepages) {\u000a           if (doc.declaration.certifications[c].appellations[a].couleurs[co].cepages[ce].interpro)\u000a             inter = doc.declaration.certifications[c].appellations[a].couleurs[co].cepages[ce].interpro;\u000a           if (doc.declaration.certifications[c].appellations[a].couleurs[co].cepages[ce].departements)\u000a             dep = doc.declaration.certifications[c].appellations[a].couleurs[co].cepages[ce].departements;\u000a           for(m in doc.declaration.certifications[c].appellations[a].couleurs[co].cepages[ce].millesimes) {\u000a             nom = \"\";\u000a             if (doc.declaration.certifications[c].libelle)\u000a             nom += doc.declaration.certifications[c].libelle + \" \";\u000a             if (doc.declaration.certifications[c].appellations[a].libelle)\u000a             nom += doc.declaration.certifications[c].appellations[a].libelle + \" \";\u000a             if (doc.declaration.certifications[c].appellations[a].couleurs[co].libelle)\u000a             nom += doc.declaration.certifications[c].appellations[a].couleurs[co].libelle + \" \";\u000a             if (doc.declaration.certifications[c].appellations[a].couleurs[co].cepages[ce].libelle)\u000a             nom += doc.declaration.certifications[c].appellations[a].couleurs[co].cepages[ce].libelle + \" \";\u000a             if (doc.declaration.certifications[c].appellations[a].couleurs[co].cepages[ce].millesimes[m].libelle)\u000a             nom += doc.declaration.certifications[c].appellations[a].couleurs[co].cepages[ce].millesimes[m].libelle + \" \";\u000a             hash = \"declaration/certifications/\"+c+\"/appellations/\"+a+\"/couleurs/\"+co+\"/cepages/\"+ce+\"/millesimes/\"+m;\u000a             for(d in dep)\u000a               emit([\"produits\", inter, dep[d], a, hash], nom);\u000a          }\u000a        }\u000a      }\u000a    }\u000a  }\u000a}"
+       }
+   }
+}
+EOF
+
+curl -s -X PUT -d "@$TMPFILE" $COUCHDBURL/_design/$design
+
 curl -s $COUCHDBURL/_design/$design/_view/all > /dev/null &
 sleep 1
 kill %1

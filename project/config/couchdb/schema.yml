@@ -216,6 +216,12 @@ Configuration:
                     definition:
                       fields:
                         libelle: {  }
+                        interpro: {required: false}
+                        departements:
+                          type: array_collection
+                          definition:
+                            fields:
+                              '*': {  }
                         appellations:
                           type: collection
                           definition:
@@ -228,6 +234,12 @@ Configuration:
                                 definition:
                                   fields:
                                     libelle: {  }
+                                    interpro: {required: false}
+                                    departements:
+                                      type: array_collection
+                                      definition:
+                                        fields:
+                                          '*': {  }
                                     lieux:
                                       type: collection
                                       definition:
@@ -240,7 +252,13 @@ Configuration:
                                             definition:
                                               fields:
                                                 libelle: {  }
-                                                couleurs:
+                                                interpro: {required: false}
+                                                departements:
+                                                  type: array_collection
+                                                  definition:
+                                                    fields:
+                                                      '*': {  }
+                                                couleurs: 
                                                   type: collection
                                                   definition:
                                                     fields:
@@ -252,6 +270,12 @@ Configuration:
                                                         definition:
                                                           fields:
                                                             libelle: {  }
+                                                            interpro: {required: false}
+                                                            departements:
+                                                              type: array_collection
+                                                              definition:
+                                                                fields:
+                                                                  '*': {  }
                                                             cepages: 
                                                               type: collection
                                                               definition:
@@ -264,6 +288,12 @@ Configuration:
                                                                     definition:
                                                                       fields:
                                                                         libelle: {  }
+                                                                        interpro: {required: false}
+                                                                        departements:
+                                                                          type: array_collection
+                                                                          definition:
+                                                                            fields:
+                                                                              '*': {  }
                                                                         millesimes: 
                                                                           type: collection
                                                                           definition:
