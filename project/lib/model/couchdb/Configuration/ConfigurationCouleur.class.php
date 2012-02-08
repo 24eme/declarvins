@@ -13,4 +13,18 @@ class ConfigurationCouleur extends BaseConfigurationCouleur {
     public function getAppellation() {
         return $this->getParent()->getParent();
     }
+
+    public function hasCepage() {
+    	return (count($this->cepages) > 1 || (count($this->cepages) == 1 && $this->cepages->getFirst()->getKey() != Configuration::DEFAULT_KEY));
+    }
+
+    public function hasMillesime() {
+    	foreach($this->cepages as $cepage) {
+    		if ($cepage->hasMillesime()) {
+    			return true;
+    		}
+    	}
+
+    	return false;
+    }
 }

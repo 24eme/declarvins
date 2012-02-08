@@ -5,5 +5,4 @@
  */
 
 class ConfigurationMillesime extends BaseConfigurationMillesime {
-
 }

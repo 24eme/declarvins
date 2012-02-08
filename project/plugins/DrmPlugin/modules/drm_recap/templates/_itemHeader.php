@@ -1,7 +1,11 @@
 <div id="colonne_intitules">
 	<p class="couleur">Couleur</p>
+	<?php if($config_appellation->hasCepage()): ?>
 	<p class="cepage">Cépage</p>
+	<?php endif; ?>
+	<?php if($config_appellation->hasMillesime()): ?>
 	<p class="millesime">Millésime</p>
+	<?php endif; ?>
 	<p class="label">Labels</p>
 	
 	<div class="groupe" data-groupe-id="1">

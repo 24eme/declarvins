@@ -14,7 +14,7 @@
  </p>
 
 <div id="colonnes_dr">
-    <?php include_partial('drm_recap/itemHeader'); ?>    
+    <?php include_partial('drm_recap/itemHeader', array('config_appellation' => $config_appellation)); ?>    
     <div id="col_saisies">
 		<script type="text/javascript">
 			/* Colonne avec le focus par défaut */
@@ -24,6 +24,7 @@
         <div id="col_saisies_cont">
             <?php foreach ($produits as $produit): ?>
                     	<?php include_component('drm_recap', 'itemForm', array('produit' => $produit,
+                                                                               'config_appellation' => $config_appellation,
                                                                                'detail' => $produit->getDetail(), 
                                                                                'form' => $form)); ?>
             <?php endforeach; ?>
