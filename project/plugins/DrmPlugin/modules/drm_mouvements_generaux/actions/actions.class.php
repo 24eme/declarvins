@@ -27,7 +27,7 @@ class drm_mouvements_generauxActions extends sfActions
         }
     }
     
-    public function executeSaveFormAjax(sfWebRequest $request) 
+    public function executeUpdateAjax(sfWebRequest $request) 
     {
         $this->forward404Unless($request->isXmlHttpRequest());
         if ($request->isMethod(sfWebRequest::POST)) {
@@ -48,7 +48,7 @@ class drm_mouvements_generauxActions extends sfActions
         return sfView::NONE;
     }
     
-    public function executeProductFormAjax(sfWebRequest $request) 
+    public function executeAjoutAjax(sfWebRequest $request) 
     {
         $this->forward404Unless($request->isXmlHttpRequest());
     	$drm = $this->getUser()->getDrm();
@@ -62,10 +62,10 @@ class drm_mouvements_generauxActions extends sfActions
 				$this->getUser()->setFlash("notice", 'Le produit a été ajouté avec success.');
 				return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_mouvements_generaux'))));
 			} else {
-				return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('ajoutForm', array('form' => $form, 'certification' => $certification)))));
+				return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form, 'certification' => $certification)))));
 			}
         }
 
-        return $this->renderText($this->getPartial('produitLigneAjoutForm', array('form' => $form, 'certification' => $certification)));
+        return $this->renderText($this->getPartial('popupAjout', array('form' => $form, 'certification' => $certification)));
     }
 }

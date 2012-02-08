@@ -36,7 +36,7 @@
 			                        if ($tabForm):
 			                            foreach ($tabForm as $form):
 			                                ?>
-			                                <?php include_partial('produitLigneModificationForm', array('form' => $form)) ?>
+			                                <?php include_partial('item', array('form' => $form)) ?>
 			                                <?php
 			                            endforeach;
 			                        endif;

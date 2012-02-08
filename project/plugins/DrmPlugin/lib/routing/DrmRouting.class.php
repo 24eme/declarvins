@@ -52,7 +52,7 @@ class DrmRouting {
 
         $r->prependRoute('drm_mouvements_generaux_produit_update', new DrmProduitRoute('/drm/mouvements-generaux/:certification/:appellation/update/:indice',
                         array('module' => 'drm_mouvements_generaux',
-                            'action' => 'saveFormAjax'),
+                            'action' => 'updateAjax'),
                         array('sf_method' => array('post')),
                         array('model' => 'DRMProduit',
                             'type' => 'object'
@@ -69,7 +69,7 @@ class DrmRouting {
 
         $r->prependRoute('drm_mouvements_generaux_product_form', new sfRoute('/drm/mouvements-generaux/ajout/:certification',
                         array('module' => 'drm_mouvements_generaux',
-                            'action' => 'productFormAjax'),
+                            'action' => 'ajoutAjax'),
                         array('sf_method' => array('get','post'))
                 ));
 
