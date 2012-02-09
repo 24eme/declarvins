@@ -28,7 +28,7 @@
 										<tr>
 											<th style="width: 570px">Produits</th>
 											<th>Disponible</th>
-											<th>Rien à déclarer</th>
+											<th>Pas de mouvement</th>
 										</tr>
 									</thead>
 									<tbody>
