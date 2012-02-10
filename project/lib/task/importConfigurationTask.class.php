@@ -57,6 +57,21 @@ EOF;
         $datas = explode(";", $a);
         $appellation = $configuration->declaration->certifications->get($datas[0])->appellations->add(str_replace("\n", "", $datas[2]));
         $appellation->libelle = $datas[1];
+        if (isset($datas[3])) {
+          $appellation->add('interpro', 'INTERPRO-'.$datas[3]);
+        }
+
+        $deps = null;
+        if (isset($datas[4])) {
+          $deps = str_replace("\n", "", $datas[4]);
+          trim($deps);
+        }
+
+        if ($deps) {
+          $appellation->departements = explode('|', $deps);
+        }
+
+
         $lieu = $appellation->lieux->add('DEFAUT');
         $blanc = $lieu->couleurs->add('blanc');
         $blanc->libelle = "Blanc";

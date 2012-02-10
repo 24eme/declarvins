@@ -9,7 +9,7 @@ class ConfigurationCertification extends BaseConfigurationCertification {
     
     protected function loadAllData() {
         parent::loadAllData();
-        $this->getProduits();
+        //$this->getProduits();
     }
 
     protected function getLibellesAbstract() {
@@ -18,27 +18,11 @@ class ConfigurationCertification extends BaseConfigurationCertification {
     }
 
     public function getProduits() {
-        return $this->store('produits', array($this, 'getProduitsAbstract'));
-    }
-
-    protected function getProduitsAbstract() {
         $produits = array();
 
-        foreach($this->appellations as $appellation) {
-            foreach($appellation->lieux as $lieu) {
-                foreach($lieu->couleurs as $couleur) {
-                    foreach($couleur->cepages as $cepage) {
-                        foreach($cepage->millesimes as $millesime) {
-                            $produits[] = array($appellation->getKey(),
-                                                $lieu->getKey(),
-                                                $couleur->getKey(),
-                                                $cepage->getKey(),
-                                                $millesime->getKey(),
-                                                'libelles' => $millesime->getLibelles());
-                        }
-                    }
-                }
-            }   
+        $results = ConfigurationClient::getInstance()->findProduits($this->getKey(), 'INTERPRO-inter-rhone');
+        foreach($results->rows as $item) {
+            $produits[] = array_merge($item->key[5], array('libelles' => $item->value));
         }
 
         return $produits;
