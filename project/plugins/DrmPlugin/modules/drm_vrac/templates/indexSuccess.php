@@ -1,23 +1,3 @@
-<script type="text/javascript">
-    $(document).ready( function()
-    {
-        $('#subForm').live('submit', function () {
-            var id = $(this).parents('div').attr('id');
-            $.post($(this).attr('action'), $(this).serializeArray(),
-            	function (data) {
-                	if(data.success) {
-                    	document.location.href = data.url;
-                	} else {
-                		$('#'+id).html(data.content);
-                		var linkAction = $('a[data-popup=#'+id+']');
-                		$.initPopup(linkAction);
-                	}
-            	}, "json"
-            );
-            return false;
-        });
-    })
-</script>
 <?php include_partial('global/navTop', array('active' => 'drm')); ?>
 <section id="contenu">
 

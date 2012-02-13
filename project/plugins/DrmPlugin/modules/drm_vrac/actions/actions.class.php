@@ -14,18 +14,20 @@ class drm_vracActions extends sfActions
     }
     
     public function executeNouveauContrat(sfWebRequest $request) {
-    	if ($request->isXmlHttpRequest()) {
-        	$this->getResponse()->setContentType('text/json');        	
+    	if ($request->isXmlHttpRequest()) {        	
             $form = new VracAjoutContratForm($this->getRoute()->getObject());
             if ($request->isMethod(sfWebRequest::POST)) {
+        		$this->getResponse()->setContentType('text/json');
 	            $form->bind($request->getParameter($form->getName()));
 				if ($form->isValid()) {
 					$form->save();
 					$this->getUser()->setFlash("notice", 'Le contrat a été ajouté avec success.');
 					return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('vrac'))));
+				} else {
+					return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form)))));
 				}
             }
-            return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('ajoutContratForm', array('form' => $form)))));
+            return $this->renderText($this->getPartial('ajoutContratForm', array('form' => $form)));
         } else {
             return sfView::NONE;
         }

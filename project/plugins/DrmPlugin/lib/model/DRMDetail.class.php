@@ -99,6 +99,10 @@ class DRMDetail extends BaseDRMDetail {
     	return strtolower(str_replace($this->getDocument()->declaration->getHash(), '', str_replace('/', '_', $this->getHash())));
     }
     
+	public function __toString() {
+        return "<strong>".$this->getAppellation()->getCertification()." - ".$this->getAppellation()."</strong> - ".$this->getCouleur()." - ".$this->getLabelKey();
+    }	
+    
     public function hasContratVrac() {
     	$etablissement = $this->getDocument()->identifiant;
 		foreach (VracClient::getInstance()->getAll() as $contrat) {
