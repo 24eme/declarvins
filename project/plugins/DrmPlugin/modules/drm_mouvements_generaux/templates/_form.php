@@ -9,7 +9,7 @@
 	</div>
 	<div class="ligne_form">
 		<?php echo $form['label']->renderLabel() ?>
-		<?php echo $form['label']->render(array("class"=>"select_multiple")) ?>
+		<?php echo $form['label']->render()//array("class"=>"select_multiple")) ?>
 		<span class="error"><?php echo $form['label']->renderError() ?></span>
 	</div>
 	<div class="ligne_form">

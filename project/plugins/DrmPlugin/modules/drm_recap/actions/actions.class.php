@@ -9,7 +9,7 @@ class drm_recapActions extends sfActions
         $this->setTemplate('appellation');
     }
     
-    /*public function executeAppellationAjoutAjax(sfWebRequest $request) {
+    public function executeAppellationAjoutAjax(sfWebRequest $request) {
         $this->forward404Unless($request->isXmlHttpRequest());
         $this->getResponse()->setContentType('text/json');
         $drm = $this->getUser()->getDrm();
@@ -25,7 +25,7 @@ class drm_recapActions extends sfActions
         }
 		
         return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('drm_recap/popupAppellationAjout', array('label' => $this->label, 'form' => $this->form)))));
-    }*/
+    }
     
     public function executeAppellation(sfWebRequest $request) {
         //$this->run = new XHProfRun('declarvin-recap');

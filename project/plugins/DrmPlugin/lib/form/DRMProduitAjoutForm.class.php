@@ -14,7 +14,7 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
             'couleur' => new sfWidgetFormInputHidden(),            
             'cepage' => new sfWidgetFormInputHidden(),
             'millesime' => new sfWidgetFormInputHidden(),
-            'label' => new sfWidgetFormChoice(array('expanded' => false, 'multiple' => true,'choices' => $this->getLabelChoices())),
+            'label' => new sfWidgetFormChoice(array('expanded' => true, 'multiple' => true,'choices' => $this->getLabelChoices())),
             'label_supplementaire' => new sfWidgetFormInputText(),
         ));
         $this->widgetSchema->setLabels(array(

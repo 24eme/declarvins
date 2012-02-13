@@ -609,6 +609,16 @@ a:hover { text-decoration:underline; }
   padding:0 4px;
   width:190px;
 }
+.popup_form .ligne_form ul {
+  height:135px;
+  padding:0 4px;
+  width:190px;
+  overflow: auto;
+  display: inline-block;
+}
+.popup_form .ligne_form ul label {
+  display: inline;
+}
 .ielt9 .popup_form .ligne_form input[type=text] {
   height:18px;
   padding-top:2px;
