@@ -621,6 +621,14 @@
 				
 				if(!groupe.hasClass('groupe_ouvert'))
 				{
+					groupesIntitules.each(function()
+					{						
+						if($(this).hasClass('groupe_ouvert')) {
+							$(this).removeClass('groupe_ouvert');
+							$(this).children('ul').slideToggle();
+							colSaisies.find('.groupe[data-groupe-id='+$(this).attr('data-groupe-id')+']').children('ul').slideToggle();
+						}
+					});
 					groupe.addClass('groupe_ouvert');
 					listeIntitules.slideToggle();
 					gpeChamps.slideToggle();
