@@ -8,7 +8,6 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
 
 	protected function loadAllData() {
 		parent::loadAllData();
-        $this->getLibelles();
     }
 
 	public function getLibelles() {
@@ -16,8 +15,14 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
 	}
 
 	protected function getLibellesAbstract() {
+		$libelle = $this->getDocument()->getProduitLibelles($this->getHash());
+		if ($libelle !== null) {
 
-		return array_merge($this->getParent()->getParent()->getLibelles(), 
+			return $libelle;
+		} else {
+
+			return array_merge($this->getParent()->getParent()->getLibelles(), 
 						   array($this->getKey() => $this->libelle));
+		}
 	}
 }

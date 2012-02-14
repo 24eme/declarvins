@@ -5,6 +5,11 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
 	protected $_appellation_choices;
 	protected $_label_choices;
 
+    public function __construct(acCouchdbJson $object, string $interpro, $options = array(), $CSRFSecret = null) {
+
+        $this->setOption('interpro', $interpro);
+    }
+
     public function configure() 
     {
         $this->setWidgets(array(
@@ -82,7 +87,8 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
                                                 ->certifications
                                                 ->get($this->getObject()->getCertification()->getKey());
 
-        $produits = $config_certification->getProduits();
+        $produits = $config_certification->getProduits($this->getOption('interpro'), 
+                                                       $this->getOption('departement', null));
 
         $produits_flat = array();
         foreach($produits as $produit)  {
