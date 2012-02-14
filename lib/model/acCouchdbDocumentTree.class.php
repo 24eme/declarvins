@@ -1,10 +1,9 @@
 <?php
 
-abstract class acCouchdbDocumentTree extends acCouchdbJson {
+abstract class acCouchdbDocumentTree extends acCouchdbDocumentStorable {
    protected $_root_class_name = null;
    protected $_tree_class_name = null;
    protected $_is_new = false;
-   protected $_storage = array();
 
    public function  __construct($definition, $_couchdb_document, $hash) {
         $this->configureTree();
@@ -31,13 +30,6 @@ abstract class acCouchdbDocumentTree extends acCouchdbJson {
 
    public function isNew() {
        return $this->_is_new;
-   }
-
-   protected function store($key, $function, $arguments = array()) {
-        if (!array_key_exists($key, $this->_storage)) {
-            $this->_storage[$key] = call_user_func_array($function, $arguments);
-        }
-        return $this->_storage[$key];
    }
 
    protected function update($params = array()) {

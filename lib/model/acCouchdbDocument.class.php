@@ -1,6 +1,6 @@
 <?php
 
-abstract class acCouchdbDocument extends acCouchdbJson {
+abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
 
     protected $_is_new = true;
     protected $_loaded_data = null;
