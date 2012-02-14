@@ -22,7 +22,7 @@ class drm_vracActions extends sfActions
 				if ($form->isValid()) {
 					$form->save();
 					$this->getUser()->setFlash("notice", 'Le contrat a été ajouté avec success.');
-					return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('vrac'))));
+					return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_vrac'))));
 				} else {
 					return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form)))));
 				}
