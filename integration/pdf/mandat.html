@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="no-js">
+<head>
+	<title>Mandat | Vins de Provence</title>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="author" content="Actualys" />
+	<meta name="Description" content="" /> 
+	<meta name="Keywords" content="" />
+	<meta name="robots" content="index,follow" />
+	<meta name="Content-Language" content="fr-FR" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="copyright" content="Vins de Provence - 2011" />
+	
+	<style type="text/css" media="all">
+		/**
+		 * Reset
+		 ******************************************/
+		html, body, div, span, object, iframe,
+		h1, h2, h3, h4, h5, h6, p, a, blockquote, pre,
+		abbr, address, cite, code,
+		del, dfn, em, img, ins, kbd, q, samp,
+		small, strong, sub, sup, var,
+		b, i,
+		dl, dt, dd, ol, ul, li,
+		fieldset, form, label, legend,
+		table, caption, tbody, tfoot, thead, tr, th, td,
+		article, aside, figure, footer, header, 
+		hgroup, menu, nav, section, menu,
+		time, mark, audio, video
+		{
+			border: 0;
+			font-size: 100%;
+			margin: 0;
+			outline: 0;
+			padding: 0;
+			vertical-align: baseline;
+		} 
+		
+		html, body { height: 100%; }
+		a img, fieldset { border: 0; }
+		a *, label, button, input[type=image], input[type=button], input[type=submit] { cursor: pointer; }
+		ol { list-style-position: inside; }
+		ul { list-style: none; }
+		strong { font-weight: bold; }
+		em { font-style: italic; }
+		ins { text-decoration: none; }
+		del { text-decoration: line-through; }
+		sub { vertical-align: sub; font-size: smaller; }
+		sup { vertical-align: super; font-size: smaller; }
+		table { border-collapse: collapse; border-spacing: 0; }
+		blockquote, q { quotes: none; }
+		blockquote:before, blockquote:after,
+		q:before, q:after { content: ''; content: none; }
+		hr { border: 0; border-top: 1px solid #ccc; display: block; height: 1px; margin: 1em 0; padding: 0; }
+		input, select { vertical-align: middle; }
+		
+		article, aside, figure, footer, header, 
+		hgroup, nav, section { display: block; }
+		
+		/**
+		 * Eléments génériques
+		 ******************************************/
+		html
+		{
+			overflow-y: scroll;
+			-webkit-font-smoothing: antialiased;
+		}
+		
+		body
+		{
+			background: #fff;
+			color: #000;
+			font-family: Arial, Verdana, Helvetica, sans-serif;
+			font-size: 12px;
+			line-height: 1.2;
+		}
+		 
+		a { color: #000; text-decoration: none; }
+		a:hover { text-decoration: underline; }
+		
+		h1, h2, h3, h4, h5, h6 { font-weight: bold; }
+		
+		textarea, input, select { font: 12px Arial, Verdana, Helvetica, sans-serif; }
+		
+		input[type=search] { -webkit-appearance: none; }
+		input[type="radio"] { height: 14px; vertical-align: text-bottom; width: 14px; }
+		input[type="checkbox"] { vertical-align: bottom; *vertical-align: baseline; }
+		.ie6 input { vertical-align: text-bottom; }
+		
+		button { background: 0; border: 0; font-family: Arial, Verdana, Helvetica, sans-serif; margin: 0; outline: 0; overflow: visible; padding: 0; }
+		button::-moz-focus-inner { border: 0; padding: 0; }
+		button span { position: relative; !margin: -1px 0 -2px; }
+		
+		pre, code, kbd, samp { font-family: monospace, sans-serif; }
+		
+		pre
+		{ 
+			padding: 15px;
+			white-space: pre; /* CSS2 */
+			white-space: pre-wrap; /* CSS 2.1 */
+			white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+			word-wrap: break-word; /* IE */
+		}
+		
+		/**
+		 * Structure générique
+		 ******************************************/
+		#global { padding: 15px 30px; }
+		#global p,
+		#global ul { margin: 12px 0; }
+		#global ul { list-style: disc inside; padding: 0 0 0 20px; }
+		#global .note { font-size: 11px; }
+		#global .important { font-size: 13px; font-weight: bold; }
+		#global .important p { margin: 20px 0; }
+		#global .souligne { text-decoration: underline; }
+		#global .page_break { page-break-after: always; }
+		
+		/**
+		 * Entête
+		 ******************************************/
+		#entete_doc { margin: 0 0 40px; text-align: center; }
+		#entete_doc h1 { font-size: 24px; margin: 0 0 20px; }
+		#entete_doc h1 span { font-style: italic; }
+		#entete_doc p { font-size: 16px; margin: 0 0 20px; }
+		#entete_doc p.note { margin: 0; text-align: left; }
+		
+		/**
+		 * Forumulaire
+		 ******************************************/
+		#formulaire { font-size: 13px; }
+		#formulaire #declarant { margin: 0 0 30px; }
+		#formulaire #declarant h2 {  }
+		#formulaire #declarant p { margin: 0; }
+		#formulaire .societe { margin: 0 0 40px; }
+		
+		/**
+		 * Interprofessions
+		 ******************************************/
+		#interprofessions { font-size: 13px; margin: 0 0 30px; }
+	
+		
+		/**
+		 * Articles
+		 ******************************************/
+		#articles { margin: 0 0 20px;}
+		#articles h2 { font-size: 16px; margin: 30px 0 20px; }
+		#articles h3 { font-family: "Times New Roman", Times, serif; font-size: 16px; font-style: italic; margin: 15px 0; }
+	</style>
+</head>
+
+<body>
+
+<!-- ####### A REPRENDRE ABSOLUMENT ####### -->
+<!--[if lte IE 6 ]> <div class="ie6 ielt7 ielt8 ielt9"> <![endif]-->
+<!--[if IE 7 ]> <div class="ie7 ielt8 ielt9"> <![endif]-->
+<!--[if IE 8 ]> <div class="ie8 ielt9"> <![endif]-->
+<!--[if IE 9 ]> <div class="ie9"> <![endif]-->
+<!-- ####### A REPRENDRE ABSOLUMENT ####### -->
+
+	<!-- #global -->
+	<div id="global">
+		<div id="entete_doc">
+			<h1>
+				<span>Projet suite à la réunion du 22/09/10</span> : Contrat - Mandat <br />
+				&laquo; la Déclaration Web &raquo; N° : <strong>00000000</strong> <sup>(1)</sup>
+			</h1>
+			<p>à un système de Déclarations Informatisé (DRM, DAI/DS, DR, Contrats...)<br />
+			ET aux autres systèmes des Interprofessions : Intranet d'échange d'information...</p>
+
+			<p class="note">(1) Numéro Interprofessionnel d'enregistrement de l'inscription</p>
+		</div>
+		
+		
+		<div id="formulaire" class="page_break">
+			
+			<div id="declarant">
+				<h2>D&Eacute;CLARANT</h2>
+				<p>
+					<strong>Je soussigné, nom prénom</strong><br />
+					Représentant les entreprises suivantes<br />
+					Qualité (fonction) : <strong>Lorem Ipsum</strong><br />
+					Courriel : <strong>adresse@email.com</strong><br />
+					<span class="note">(Attention à vérifier les sécurités, paramètres, et espaces disponibles sur cette adresse mail : des informations importantes vous y seront envoyées. Notamment certains systèmes de sécurité pourraient classer en « SPAM » ces informations)</span>
+				</p>
+			</div>
+			
+			<p>Adresse des sociétés concernés </p>
+			
+			<div class="societe">
+				<h3>Société 1</h3>
+				<p>
+					N° RCS / SIRET: <strong>00000</strong><br />
+					N° Carte Nationale d'Identité pour les exploitants individuels : <strong>00000</strong><br />
+					N° CVI : <strong>00000</strong><br />
+					N° accises : FR. <strong>00000</strong><br />
+					Nom/Raison Sociale : <strong>00000</strong><br />
+					Adresse : <strong>00000</strong><br />
+					CP : <strong>00000</strong><br />
+					ville : <strong>00000</strong><br />
+					tel :<strong>00000</strong><br />
+					fax : <strong>00000</strong><br />
+					email : <strong>00000</strong>
+				</p>
+				<p>Famille : <strong>producteur, négociant, courtier</strong></p>
+				<p>Sous-famille : <strong>cave particulière, cave coopérative</strong></p>
+				
+				<p>
+					Lieu où est tenue la comptabilité matière (si différente de l'adresse du chai) :<br />
+					Adresse : <strong>00000</strong><br />
+					CP : <strong>00000</strong><br />
+					ville : <strong>00000</strong>
+				</p>
+				
+				<p>
+					Dépend du service des douanes de : <strong>Provence</strong><br />
+					<span class="note">Provence : Aix-en-Provence, Brignoles, Draguignan.<br />
+					Vallée du Rhône : Châteauneuf du Pape (84), Cairanne (84), Portes les Valence (26), Tain l'Hermitage (26), Bagnols sur Ceze (30), Nîmes (30), Privas (07), Orange (84), Sablet (84), Saint Egreve (38)</span>
+				</p>
+			</div>
+			
+			<div class="societe">
+				<h3>Société 2</h3>
+				<p>
+					N° RCS / SIRET: <strong>00000</strong><br />
+					N° Carte Nationale d'Identité pour les exploitants individuels : <strong>00000</strong><br />
+					N° CVI : <strong>00000</strong><br />
+					N° accises : FR. <strong>00000</strong><br />
+					Nom/Raison Sociale : <strong>00000</strong><br />
+					Adresse : <strong>00000</strong><br />
+					CP : <strong>00000</strong><br />
+					ville : <strong>00000</strong><br />
+					tel :<strong>00000</strong><br />
+					fax : <strong>00000</strong><br />
+					email : <strong>00000</strong>
+				</p>
+				<p>Famille : <strong>producteur, négociant, courtier</strong></p>
+				<p>Sous-famille : <strong>cave particulière, cave coopérative</strong></p>
+				
+				<p>
+					Lieu où est tenue la comptabilité matière (si différente de l'adresse du chai) :<br />
+					Adresse : <strong>00000</strong><br />
+					CP : <strong>00000</strong><br />
+					ville : <strong>00000</strong>
+				</p>
+				
+				<p>
+					Dépend du service des douanes de : <strong>Provence</strong><br />
+					<span class="note">Provence : Aix-en-Provence, Brignoles, Draguignan.<br />
+					Vallée du Rhône : Châteauneuf du Pape (84), Cairanne (84), Portes les Valence (26), Tain l'Hermitage (26), Bagnols sur Ceze (30), Nîmes (30), Privas (07), Orange (84), Sablet (84), Saint Egreve (38)</span>
+				</p>
+			</div>
+			
+			
+			<p>Le cas échéant, logiciel utilisé pour la gestion de cave et transmission (DTI) des informations à « Déclarations Web » : <strong>Logiciels</strong><br />
+			(lister les logiciels testés et validés)</p>
+		</div>
+		
+		<div class="important">
+			<p>Demande à bénéficier d'une connexion au système informatique « Déclaration Web », et donne mandat pour dépôt définitif aux Interprofessions (InterRhône, CIVP, InterVins SE) de me représenter en la personne de ses salariés habilités dans le cadre de la télédéclaration des informations relatives à mes déclarations auprès des douanes : DRM, DAI/DS, DR, DAA.</p>
+			<p>Le présent mandat prend effet à compter de la date de signature, et demeure valable jusqu'à dénonciation par l'une ou l'autre des parties.</p>
+		</div>
+ 
+		<div id="interprofessions">
+			<p><span class="souligne">INTERPROFESSIONS :</span> InterRhône, CIVP, InterVins SE, en partenariat avec les douanes.<br />
+			Interlocuteur en gestion :</p>
+			<ul>
+				<li>pour les opérateurs de Provence (départements 13, 83, 04, 06) ressortissants d'InterVins SE et du CIVP : CIVP.</li>
+				<li>pour les opérateurs de Vallée du Rhône (départements 04, 05, 07, 26, 84) ressortissants d'InterVins SE et d'InterRhône : InterRhône.</li>
+				<li>pour les opérateurs ressortissants d'InterVins SE uniquement (tous départements + 30): InterVins SE.</li>
+			</ul>
+			<p>En cas de changement de la production, ou de l'adhésion d'organismes représentatifs de la production aux Interprofessions, les interlocuteurs de gestion peuvent évoluer.</p>
+		</div>
+		
+		<div id="articles">
+			<div class="article">
+				<h2>Article 1 – Responsabilités</h2>
+				<h3>Déclarant</h3>
+				<p>Définition : le déclarant est la personne qui fait la déclaration en douane en son nom propre celle au nom de laquelle une déclaration en douane est faite.</p>
+				<p>&laquo; Déclaration Web &raquo; est un outil proposé par les Interprofessions permettant de réaliser ces déclarations auprès des douanes (protocole signé par InterRhône, CIVP, InterVins SE et les douanes locales).</p>
+				
+				
+				<h3>Mandat de dépôt</h3>
+				<p>Par le biais du mandat de dépôt, le déclarant conserve la responsabilité :</p>
+				<ul>
+					<li>de la réalisation des déclarations obligatoires,</li> 
+					<li>des informations contenues sur les déclarations,</li>
+					<li>de la saisie, de l'envoi (EDI ou DTI), et de la validation des informations sur le système &laquo; Déclaration Web &raquo;,</li>
+					<li>de la singularité (données identiques) des informations déclarées en cas de déclarations multiples (EDI, et/ou DTI, et/ou papier), </li>
+					<li>de la mise à jour de son logiciel (EDI), en cas d'évolutions du système (cahier des charges fournis aux prestataires identifiés et sur demande aux déclarants).</li>
+					<li>d'informer les Interprofessions dont il est ressortissant en cas d'évolution des produits concernés par ses déclarations.</li>
+				</ul>
+				
+				<h3>Interprofessions</h3>
+				<p>Les Interprofessions s'engagent à ce que &laquo; Déclaration Web &raquo; donne les moyens aux déclarants d'effectuer leurs déclarations obligatoires auprès des Interprofessions et des douanes (comparable à la liasse papier). L'information est transmise instantanément et en toute transparence au déclarant (visualisation définitive avant envoi).</p> 
+				<p>Des mises à jour peuvent être faites sur le système pour répondre aux évolutions règlementaires.</p>
+				<p>Les évolutions du système &laquo; Déclaration Web &raquo; donneront lieu à une information faite par les Interprofessions dans des délais raisonnables. Elles pourront notamment permettre la réalisation d'autres déclarations obligatoires.<br />
+				Les Interprofessions informent les producteurs concernés en cas de changement d'adhésion d'organismes représentatifs de produits aux Interprofessions, et d'interlocuteur de gestion des déclarants sur &laquo; Déclaration Web &raquo;.</p>
+				<p>Les Interprofessions assureront la bonne transmission et traçabilité des données des DRM aux organismes concernés et aux services des douanes. Un protocole de sécurité, de sauvegarde et de résolution des problèmes en moins de 12h00 (à finaliser) sera établi avec le prestataire hébergeant la solution &laquo; Déclaration Web &raquo;.</p> 
+				<p>Les Interprofessions ne pourront pas être tenues responsables d'éventuelles pannes informatiques : serveurs,  réseaux… chez les organismes partenaires ou les services des douanes. 
+				Les Interprofessions assurent une traçabilité des transferts d'information vers les autres destinataires (douanes notamment), et le cas échéant des accusés de réception sont consultables (émis par le destinataire, lié à l'ouverture/le traitement des informations).<br />
+				Des alertes sont prévues en cas de disfonctionnement d'un transfert d'information dématérialisée, et informeront sur les procédures à mettre en place éventuellement par les déclarants (procédures de secours).</p>
+
+				<h3>Procédures de secours </h3>
+				<p>Dans le cas extrême où le problème informatique ne pourrait être résolu dans les délais impartis, une procédure de secours sera en place via l'utilisation des liasses papier toujours valides.</p>
+				<p>En cas de déclarations multiples (EDI, et/ou DTI, et/ou papier), tous les destinataires considèreront les informations comme identiques. Les procédures techniques rendent les informations saisies (DTI) prioritaires sur les informations envoyées (EDI), elles-mêmes prioritaires sur les informations papier.</p>
+			</div>
+			
+			<div class="article">
+				<h2>Article 2- Informatique et Liberté</h2>
+				<p>Les informations recueillies font l'objet d'un traitement informatique destiné à l'Information collective statistique. Les destinataires des données sont : Interprofessions, et douanes.</p>
+				<p>Conformément à la loi &laquo;informatique et libertés&raquo; du 6 janvier 1978, vous bénéficiez d'un droit d'accès et de rectification aux informations qui vous concernent. Si vous souhaitez exercer ce droit et obtenir communication des informations vous concernant, veuillez vous adresser aux Interprofessions, et douanes.</p>
+			</div>
+
+			<div class="article">
+				<h2>Article 3 – Entrée en vigueur et durée du contrat-mandat</h2>
+				<p>Le présent contrat prendra effet à partir de l'envoi au déclarant par e-mail de son identifiant et mot de passe.<br />
+				Ce contrat est valide un an, et renouvelée par tacite reconduction. <br />
+				PJ : K-Bis ou copie Carte Nationale d'Identité (exploitant individuel)</p>
+			</div>
+		</div>
+
+		<div id="signature">
+			<p>Fait à <strong>Lieu</strong>, Le <strong>Date</strong></p>
+			<p>Le déclarant, <strong>Prénom Nom</strong></p> 								
+			<p>Le représentant de &laquo; déclaration web &raquo; pour les 3 Interprofessions, <strong>Prénom Nom</strong></p>
+		</div>
+	</div>
+<!-- fin #global -->
+
+<!-- ####### A REPRENDRE ABSOLUMENT ####### -->
+<!--[if lte IE 9 ]> </div> <![endif]-->
+<!-- ####### A REPRENDRE ABSOLUMENT ####### -->
+</body>
+</html>
