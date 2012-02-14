@@ -98,6 +98,27 @@ article, aside, figure, footer, header, hgroup, nav, section { display:block; }
   width:100%;
   height:100%;
 }
+.ui-autocomplete {
+  background:#ffffff;
+  border:1px solid #c2c1ba;
+  font-size:11px;
+  position:absolute;
+  _width:1px;
+  font-family:Arial, Verdana, Helvetica, sans-serif;
+}
+.ui-autocomplete .ui-menu-item a {
+  background:#ffffff;
+  clear:both;
+  color:#7a7a7a;
+  cursor:pointer;
+  display:block;
+  padding:2px;
+  text-decoration:none;
+}
+.ui-autocomplete .ui-menu-item a.ui-state-hover, .ui-autocomplete .ui-menu-item a.ui-state-active {
+  background:#dcdfa9;
+  color:#000000;
+}
 html {
   overflow-y:scroll;
   -webkit-font-smoothing:antialiased;
@@ -171,6 +192,22 @@ pre, code, kbd, samp { font-family:monospace, sans-serif; }
   border-color:#a12929;
 }
 .btn_rose:hover, .btn_rose:focus { background-color:#a12929; }
+.btn_bordeaux {
+  background-repeat:no-repeat;
+  border:1px solid;
+  color:#ffffff;
+  display:inline-block;
+  background:#820608 url(../images/fonds/bg_drm_actions.png) left top repeat-x;
+  border:none;
+  height:21px;
+}
+.btn_bordeaux span {
+  background-image:url(../images/pictos/pi_drm_actions.png);
+  background-repeat:no-repeat;
+  display:inline-block;
+  height:21px;
+  padding:0 5px 0 32px;
+}
 .btn_rouge {
   background-repeat:no-repeat;
   border:1px solid;
@@ -586,8 +623,8 @@ a:hover { text-decoration:underline; }
   padding:0 20px 0 0;
 }
 .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close {
-  left:0;
   position:absolute;
+  right:0;
   top:0;
 }
 .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close .ui-icon {
@@ -629,17 +666,14 @@ a:hover { text-decoration:underline; }
   height:18px;
   padding-top:2px;
 }
-
 .popup_form .ligne_form ul {
   height:135px;
   padding:0 4px;
   width:190px;
-  overflow: auto;
-  display: inline-block;
+  overflow:auto;
+  display:inline-block;
 }
-.popup_form .ligne_form ul label {
-  display: inline;
-}
+.popup_form .ligne_form ul label { display:inline; }
 .popup_form .ligne_form input[type=checkbox], .popup_form .ligne_form input[type=radio] {
   margin:0 5px 0 0;
   vertical-align:middle;
@@ -1003,27 +1037,41 @@ p#date_drm {
   vertical-align:top;
 }
 #principal #recap_drm table tbody td.msg { color:#820608; }
+#principal #recap_drm table tbody td.alerte_forte { color:#ea0000; }
+#principal #recap_drm table tbody td.alerte_moyenne { color:#ff9f00; }
 #principal #recap_drm table tbody td a {
   font-style:italic;
   text-decoration:underline;
 }
 #principal #recap_drm table tbody td a:hover { text-decoration:none; }
-#principal #recap_drm table tbody td .btn_declarer, #principal #recap_drm table tbody td .btn_visualiser {
+#principal #recap_drm table tbody td .btn_declarer, #principal #recap_drm table tbody td .btn_visualiser, #principal #recap_drm table tbody td .btn_accueil_drm {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
   display:inline-block;
-  background-color:#d4484a;
-  border-color:#a12929;
+  background:#820608 url(../images/fonds/bg_drm_actions.png) left top repeat-x;
+  border:none;
+  height:21px;
   font-style:normal;
-  line-height:20px;
-  padding:0 5px;
+  line-height:21px;
   text-decoration:none;
 }
-#principal #recap_drm table tbody td .btn_declarer:hover, #principal #recap_drm table tbody td .btn_declarer:focus, #principal #recap_drm table tbody td .btn_visualiser:hover, #principal #recap_drm table tbody td .btn_visualiser:focus { background-color:#a12929; }
+#principal #recap_drm table tbody td .btn_declarer span, #principal #recap_drm table tbody td .btn_visualiser span, #principal #recap_drm table tbody td .btn_accueil_drm span {
+  background-image:url(../images/pictos/pi_drm_actions.png);
+  background-repeat:no-repeat;
+  display:inline-block;
+  height:21px;
+  padding:0 5px 0 32px;
+}
+#principal #recap_drm table tbody td .btn_declarer span { background-position:left -21px; }
+#principal #recap_drm table tbody td .btn_visualiser { margin-right:35px; }
+#principal #recap_drm table tbody td .btn_visualiser span { background-position:left top; }
+#principal #recap_drm table tbody td .btn_accueil_drm { margin-right:15px; }
+#principal #recap_drm table tbody td .btn_accueil_drm span { background-position:left -42px; }
 #principal #recap_drm table tbody tr.alt td { background:#ffffff; }
 #principal #recap_drm #drm_annee_courante { margin:0 0 25px; }
 #principal #recap_drm #drm_anciennes h2 {
+  zoom:1;
   background:#820608;
   color:#ffffff;
   cursor:pointer;
@@ -1032,6 +1080,7 @@ p#date_drm {
   margin:20px 0;
 }
 #principal #recap_drm #drm_anciennes h2 span {
+  zoom:1;
   background:url('../images/fonds/bg_ancienne_drm_titre.png') right 0 no-repeat;
   display:block;
   padding:4px 15px 0;
