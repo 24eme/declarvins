@@ -1,5 +1,5 @@
 <tr>
-	<td><?php echo $detail->getRawValue() ?></td>
+	<td><?php echo implode(' ', $detail->getConfig()->getLibelles()->getRawValue()) ?></td>
 	<td align="center">
 		<?php if ($detail->hasContratVrac()): ?>
                     <div class="btn">
