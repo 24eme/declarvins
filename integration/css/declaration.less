@@ -194,6 +194,8 @@ p#date_drm
 				vertical-align: top;
 				
 				&.msg { color: @couleur-b1; }
+                &.alerte_forte { color: #ea0000; }
+                &.alerte_moyenne { color: @couleur-d1; }
 				
 				a 
 				{
@@ -202,16 +204,43 @@ p#date_drm
 					 &:hover { text-decoration: none; }
 				}
 				
-				
 				.btn_declarer,
-				.btn_visualiser
+				.btn_visualiser,
+                .btn_accueil_drm
 				{
-					.btn_rose;
+					.btn_bordeaux;
 					font-style: normal;
-					line-height: 20px;
-					padding: 0 5px;
+					line-height: 21px;
 					text-decoration: none;
 				}
+                
+                .btn_declarer
+                {
+                    span
+                    {
+                        background-position: left -21px;
+                    }
+                }
+                
+    			.btn_visualiser
+                {
+                    margin-right: 35px;
+                    
+                    span
+                    {
+                        background-position: left top;
+                    }
+                }
+                
+                .btn_accueil_drm
+                {
+                    margin-right: 15px;
+                    
+                    span
+                    {
+                        background-position: left -42px;
+                    }
+                }
 			}
 			
 			tr.alt td
@@ -233,6 +262,7 @@ p#date_drm
 	{
 		h2
 		{
+            .z1;
 			background: @couleur-b1;
 			color: #fff;
 			cursor:  pointer;
@@ -242,6 +272,7 @@ p#date_drm
 
 			span
 			{
+                .z1;
 				background: url('../images/fonds/bg_ancienne_drm_titre.png') right 0 no-repeat;
 				display: block;
 				padding: 4px 15px 0;
