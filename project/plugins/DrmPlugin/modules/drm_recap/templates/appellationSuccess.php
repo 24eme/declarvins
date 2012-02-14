@@ -23,8 +23,12 @@
                 <?php include_component('drm_recap', 'list', array('drm_appellation' => $drm_appellation, 'config_appellation' => $config_appellation, 'form' => $form)); ?>
             </div>
             <div id="btn_etape_dr">
-                <a href="<?php echo url_for('drm_mouvements_generaux') ?>" class="btn_prec">Précédent</a>
-                <a href="<?php echo url_for('drm_vrac')?>" class="btn_suiv">Suivant</a>
+                <a href="<?php echo url_for('drm_mouvements_generaux') ?>" class="btn_prec">
+                	<span>Précédent</span>
+                </a>
+                <a href="<?php echo url_for('drm_vrac')?>" class="btn_suiv">
+                	<span>Suivant</span>
+                </a>
             </div>
         </div>
     </section>
