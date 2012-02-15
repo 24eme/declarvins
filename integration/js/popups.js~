@@ -48,9 +48,47 @@
 	});
 	
 	
-	$(document).ready(function()
+	/*$(document).ready(function()
 	{
 		$.initPopups();
+	});*/
+	
+	
+	$(document).ready(function()
+	{
+		$('.btn_popup').each(function()
+		{
+			var btnPopup = $(this);
+			btnPopup.click(function()
+			{
+				if(btnPopup.attr('data-popup-ajax') && btnPopup.attr('data-popup-ajax') == "true")
+				{
+					if($(btnPopup.attr('data-popup')).size() == 0)
+					{
+						btnPopup.addClass('btn_chargement');
+						
+						$.get(btnPopup.attr('href'), function(reponse)
+						{
+								$('body').append(reponse);
+								$.initPopups(btnPopup);
+								$(btnPopup.attr('data-popup')).dialog('open');
+								btnPopup.removeClass('btn_chargement');
+		
+						}, 'html');
+					} else {
+						$(btnPopup.attr('data-popup')).dialog('open');
+					}
+				} else {
+					if($(btnPopup.attr('data-popup')).size() == 0)
+					{
+						$.initPopups(btnPopup);
+						
+					}
+					$(btnPopup.attr('data-popup')).dialog('open');
+				}
+				return false;
+			});
+		});
 	});
 	
 	
@@ -59,7 +97,7 @@
 	 * de créations de popups
 	 * $.initPopups();
 	 ******************************************/
-	$.initPopups = function(btnPopup)
+	/*$.initPopups = function(btnPopup)
 	{
 		var btnsPopup;
 		
@@ -113,6 +151,30 @@
 			
 			objPopups.infosPopups.push(infosPopup);
 		});
+	};*/
+	$.initPopups = function(btnPopup)
+	{
+		var popupId = btnPopup.attr('data-popup');
+		var popupConfigSpec = btnPopup.attr('data-popup-config');
+		var popupTitre = btnPopup.attr('data-popup-titre');
+		var ajax = btnPopup.attr('data-popup-ajax');
+		var href = btnPopup.attr('href');
+		var popup = $(popupId);
+		
+		var infosPopup =
+		{
+			btnPopup: btnPopup,
+			btnPopupTexte: btnPopup.text(),
+			config: objPopups.configDefaut,
+			popupId: popupId,
+			popup: popup,
+			popupConfigSpec: popupConfigSpec,
+			popupTitre: popupTitre,
+			ajax: ajax,
+			href: href
+		};
+		infosPopup = $.initActionsPopup(infosPopup);
+		objPopups.infosPopups.push(infosPopup);
 	};
 	
 	/**
@@ -144,11 +206,11 @@
 		infos.config.create(infos.popup);
 		
 		// Ouverture
-		infos.btnPopup.click(function()
+		/*infos.btnPopup.click(function()
 		{
 			infos.popup.dialog('open');
 			return false;
-		});
+		});*/
 		
 		// Fermeture
 		btnFermer.live('click', function()

@@ -5,8 +5,8 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
 	protected $_appellation_choices;
 	protected $_label_choices;
 
-    public function __construct(acCouchdbJson $object, string $interpro, $options = array(), $CSRFSecret = null) {
-
+    public function __construct(acCouchdbJson $object, $interpro, $options = array(), $CSRFSecret = null) {
+		parent::__construct($object, $options, $CSRFSecret);
         $this->setOption('interpro', $interpro);
     }
 
