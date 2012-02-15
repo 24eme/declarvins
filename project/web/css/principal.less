@@ -1,0 +1,245 @@
+@charset "utf-8";
+/**
+ * Fichier : principal.less
+ * Description : styles spécifiques au formulaire d'inscription
+ * Auteur : Hamza Iqbal - hiqbal[at]actualys.com
+ * Version : 1.0.0
+ ******************************************/
+
+/**
+ * Création de compte
+ ******************************************/
+#creation_compte
+{
+	h1
+	{
+		font-size: 23px;
+		font-weight: normal;
+		margin: 0 0 25px;
+		
+		strong { color: @couleur-b1; }
+	}
+	
+	h2
+	{
+		font-size: 16px;
+		margin: 0 0 15px;
+	}
+	
+	.col
+	{
+		display: inline-block;
+		vertical-align: top;
+		width: 430px;
+		
+		.ielt8 & { .inline-block-ie; }
+	}
+	
+	.ligne_form
+	{
+		margin: 0 0 15px;
+		
+		.error_list { width: 310px; }
+		
+		label
+		{
+			display: inline-block;
+			vertical-align: middle;
+			width: 200px;
+		}
+		
+		&.ligne_form_large label
+		{
+			display: block;
+			margin: 0 0 10px;
+			width: auto;
+		}
+		
+		input[type=text], input[type=password], select
+		{
+			background: #fff;
+			border: 1px solid #d3d2cd;
+			.border-radius(2px);
+			font-size: 12px;
+			position: relative;
+			vertical-align: middle;
+			.pie;
+		}
+
+		input[type=text], input[type=password]
+		{
+			height: 18px;
+			padding: 0 4px;
+			width: 120px;
+			
+			.ielt9 &
+			{
+				height: 16px;
+				padding-top: 2px;
+			}
+		}
+		
+		select
+		{
+			height: 20px;
+			width: 130px;
+		}
+		
+		.champ_form_radio_cb 
+		{
+			label
+			{
+				display: inline-block;
+				margin: 0 20px 0 0;
+				width: auto;
+			}
+		}
+		
+		&.ligne_form_large .champ_form_radio_cb
+		{
+			input
+			{
+				margin: 0 5px 0 0;
+				vertical-align: middle;
+			}
+		}
+	}
+	
+	.ligne_btn 
+	{
+		margin: 30px 0 0;
+		
+		button, a
+		{
+			height: 28px;
+			line-height: 28px;
+			font-size: 15px;
+			font-weight: normal;
+			text-transform: uppercase;
+			&:hover { text-decoration: none; }
+		}
+		
+		.btn_valider
+		{
+			.btn_rouge;
+			.btn_suiv;
+			padding: 0 23px 0 15px;
+		}
+		
+		.btn_ajouter
+		{
+			.btn_vert;
+			background-image: url(../images/boutons/btn_ajouter.png);
+			background-position: 7px center;
+			margin: 0 10px 0 0;
+			padding: 0 10px 0 30px;
+		}
+		
+		.btn_supprimer
+		{
+			.btn_rose;
+			background-image: url(../images/boutons/btn_supprimer.png);
+			background-position: 7px center;
+			padding: 0 10px 0 30px;
+		}
+	}
+	
+	/* Ajout d'établissements */
+	#infos_etablissements
+	{
+		margin: 40px 0 0;
+		position: relative;
+		padding: 0 150px 0 0;
+		width: 600px;
+		
+		h2 { }
+		
+		a#btn_ajouter_etablissement
+		{
+			.btn_vert;
+			background-image: url(../images/boutons/btn_ajouter.png);
+			background-position: 10px center;
+			font-size: 15px;
+			line-height: 1;
+			position: absolute;
+			padding: 4px 10px 4px 32px;
+			font-size: 15px;
+			right: 0;
+			text-transform: uppercase;
+			
+			&:hover { text-decoration: none; }
+			
+			span
+			{
+				color: #494949;
+				display: block;
+				font-size: 14px;
+				font-weight: bold;
+				text-transform: none;
+			}
+		}
+		
+		.etablissement
+		{
+			.border(@couleur-a3);
+			background: @couleur-a4;
+			display: inline-block;
+			margin: 0 20px 20px 0;
+			padding: 10px 10px 0;
+			position: relative;
+			vertical-align: top;
+			width: 250px;
+			
+			.ielt8 & { .inline-block-ie; }
+			
+			.error_list { width: auto; }
+			
+			.ligne_form label { width: 110px; }
+		
+			a.supprimer
+			{
+				.box-dimensions(13px, 13px);
+				.pos-abs(-5px, -5px);
+				background: url(../images/pictos/pi_supprimer.png) 0 0 no-repeat;
+				display: inline-block;
+				text-indent: -9999px;
+			}
+		}
+	}
+
+	/* Récapitulatif */
+	#recapitulatif
+	{
+		.recap_perso,
+		.recap_etablissement
+		{
+			margin: 0 0 20px;
+
+			p
+			{
+				margin: 5px 0;
+				span { font-weight: bold; }
+				strong
+				{
+					color: @couleur-a2;
+					font-style: italic;
+					font-weight: normal;
+				}
+			}
+		}
+
+		.recap_etablissement
+		{
+			.border(@couleur-a3);
+			background: @couleur-a4;
+			padding: 15px;
+
+			.adresse_comptabilite
+			{
+				margin: 20px 0 0;
+			}
+		}
+
+		.ligne_btn { text-align: right; }
+	}
+}
