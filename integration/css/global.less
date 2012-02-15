@@ -179,6 +179,40 @@ pre, code, kbd, samp { font-family: monospace, sans-serif; }
     }
 }
 
+.btn_declarer,
+.btn_visualiser,
+.btn_accueil_drm
+{
+	.btn_bordeaux;
+	font-style: normal;
+	line-height: 21px;
+	text-decoration: none;
+}
+
+.btn_declarer
+{
+	span
+	{
+		background-position: left -21px;
+	}
+}
+
+.btn_visualiser
+{
+	span
+	{
+		background-position: left top;
+	}
+}
+
+.btn_accueil_drm
+{	
+	span
+	{
+		background-position: left -42px;
+	}
+}
+
 .btn_rouge
 {
 	.btn_majeur;
@@ -245,8 +279,13 @@ button.btn_suiv span { height: 26px; }
 		padding: 0 10px 0 18px;
 	}
 }
- 
- 
+
+.msg { color: @couleur-b1; }
+
+.alerte_forte { color: #ea0000; }
+
+.alerte_moyenne { color: @couleur-d1; } 
+
 /* Divers */ 
 .invisible
 {    
