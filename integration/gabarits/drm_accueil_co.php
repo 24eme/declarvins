@@ -15,96 +15,63 @@
 	<!-- #contenu -->
 	<section id="contenu">
 		<h1><?php echo $titre_rub; ?></h1>
-		<p id="date_drm"><?php echo $titre_page; ?></p>
-	
-		<?php require('../includes/statut_declaration.php'); ?>
+		<p id="nombre_etabs">Vous disposez de <b>2</b> établissements. Choisissez celui dans lequel vous voulez entrer.</p>
 	
 		<!-- #principal -->
 		<section id="principal">
-			<div id="application_dr">
-				<div id="drm_informations">
-					<p>Veuillez tout d'abord confirmer les informations ci-dessous :</p>
-
-					<form action="#" method="post">
-
-						<div class="ligne_form">
-							<label for="champ_1">CVI :</label>
-							<input type="hidden" value="840121213" id="champ_1" />
-							<span class="valeur">840121213</span>
-						</div>
-
-						<div class="ligne_form">
-							<label for="champ_2">N° SIRET :</label>
-							<input type="hidden" value="78320555200012" id="champ_2" />
-							<span class="valeur">78320555200012</span>
-						</div>
-
-						<div class="ligne_form">
-							<label for="champ_3">N° entrepositaire agréé :</label>
-							<input type="hidden" value="FR093027E0323" id="champ_3" />
-							<span class="valeur">FR093027E0323</span>
-						</div>
-
-
-						<div class="ligne_form">
-							<label for="champ_4">Nom :</label>
-							<input type="hidden" value="DE BALMA" id="champ_4" />
-							<span class="valeur valeur_2">DE BALMA</span>
-						</div>
-
-						<div class="ligne_form">
-							<label for="champ_5">Raison Sociale :</label>
-							<input type="hidden" value="SCA VIGNERONS DE BALMA" id="champ_5" />
-							<span class="valeur">SCA VIGNERONS DE BALMA</span>
-						</div>
-
-						<div class="ligne_form">
-							<label for="champ_6">Adresse du chai :</label>
-							<input type="hidden" value="VENITIA, Quartier Ravel 84190 BEAUMES DE VENISE" id="champ_6" />
-							<span class="valeur">VENITIA, Quartier Ravel<br /> 84190 BEAUMES DE VENISE</span>
-						</div>
-
-						<div class="ligne_form">
-							<label for="champ_7">Lieu ou est tenue la comptabilité matière :</label>
-							<input type="hidden" value="VENITIA, Quartier Ravel 84190 BEAUMES DE VENISE" id="champ_7" />
-							<span class="valeur">IDEM</span>
-						</div>
-
-						<div class="ligne_form">
-							<label for="champ_8">Service des douanes :</label>
-							<input type="hidden" value="Bagnols" id="champ_8" />
-							<span class="valeur">Bagnols</span>
-						</div>
-
-						<div class="ligne_form">
-							<label for="champ_9">Numéro d’Accise :</label>
-							<input type="hidden" value="1654546764" id="champ_9" />
-							<span class="valeur">1654546764</span>
-						</div>
-
-						<div class="ligne_form">
-							<label for="champ_conf_infos">Je confirme l'exactitude de ces informations</label>
-							<input type="radio" id="champ_conf_infos" name="champ_10" />
-						</div>
-
-						<div class="ligne_form">
-							<label for="champ_modif_infos">Je souhaite modifier mes informations de structure</label>
-							<input type="radio" id="champ_modif_infos" name="champ_10" data-popup-trigger="true" />
-						</div>
-
-						<div class="ligne_btn">
-							<button type="submit" class="btn_valider">Valider</button>
-							
-							<a href="#" class="btn_popup btn_popup_trigger" data-popup="#popup_confirm_modif_infos" data-popup-config="configConfirmModifInfos" data-popup-titre="Etes-vous sûr de vouloir modifier ces informations ?"></a>
-						</div>
-					</form>
-
+			<div id="etablissements_drm">
+				<div id="liste_etablissements">
+					<ul>
+						<li><a href=""><span class="visualiser">Visualiser</span></a></li>
+						<li><a href=""><span class="visualiser">Visualiser</span></a></li>
+						<li><a href=""><span class="visualiser">Visualiser</span></a></li>
+					</ul>
+				</div>
+				<div id="etablissements_infos">
+					<table>
+						<tbody>
+							<tr>
+								<th>Contrats Vrac</th>
+								<td>Vous n'avez pas d'échéance programmée</td>
+								<td>&nbsp;</td>
+								<td>
+									<a href="#" class="btn_accueil_drm"><span>Accueil DRM</span></a>
+									<a href="#" class="btn_declarer"><span>Déclarer</span></a>
+								</td>
+							</tr>
+							<tr>
+								<th>DRM</th>
+								<td>Dernière DRM validée le: 18 Juillet</td>
+								<td>Prochaine Echéance: dans 20 jours</td>
+								<td>
+									<a href="#" class="btn_accueil_drm"><span>Accueil DRM</span></a>
+									<a href="#" class="btn_declarer"><span>Déclarer</span></a>
+								</td>
+							</tr>
+							<tr>
+								<th>DAI/DS</th>
+								<td>Déclaration en attente de validation</td>
+								<td>Validation Attendue : dans 5 jours</td>
+								<td>
+									<a href="#" class="btn_accueil_drm"><span>Accueil DRM</span></a>
+									<a href="#" class="btn_declarer"><span>Déclarer</span></a>
+								</td>
+							</tr>
+							<tr>
+								<th>DR</th>
+								<td>Ouverture de la campagne le 1er Octobre</td>
+								<td>&nbsp;</td>
+								<td>
+									<a href="#" class="btn_accueil_drm"><span>Accueil DRM</span></a>
+									<a href="#" class="btn_declarer"><span>Déclarer</span></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</section>
 		<!-- fin #principal -->
-
-		<?php require('../includes/_popup_confirm_modif_infos.php'); ?>
 		
 	</section>
 	<!-- fin #contenu -->

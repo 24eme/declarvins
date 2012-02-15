@@ -1455,3 +1455,50 @@ p#date_drm {
   visibility:hidden;
 }
 #btn_etape_dr:after { clear:both; }
+#contenu #nombre_etabs {
+  color:#737373;
+  font-size:15px;
+  margin:-10px 0 35px;
+}
+#contenu #nombre_etabs b { font-weight:bold; }
+#principal #etablissements_drm {
+  padding-top:10px;
+  position:relative;
+}
+#principal #etablissements_drm #liste_etablissements ul {
+  zoom:1;
+  bottom:auto;
+  left:15px;
+  position:absolute;
+  right:auto;
+  top:0;
+}
+#principal #etablissements_drm #liste_etablissements ul:before, #principal #etablissements_drm #liste_etablissements ul:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+#principal #etablissements_drm #liste_etablissements ul:after { clear:both; }
+#principal #etablissements_drm #liste_etablissements ul li {
+  display:inline;
+  float:left;
+  background:url(../images/fonds/bg_etabs_liste.png) left top no-repeat;
+  margin-right:20px;
+  padding-left:4px;
+}
+#principal #etablissements_drm #liste_etablissements ul li a {
+  border:1px solid #830404;
+  background:#830404 url(../images/fonds/bg_etabs_liste_lien.png) left top repeat-x;
+  color:#ffffff;
+  display:inline-block;
+  padding:5px;
+}
+#principal #etablissements_drm #etablissements_infos {
+  border:1px solid #e9e9e9;
+  background:#f1f1f1;
+  padding:15px;
+  padding-top:55px;
+}
+#principal #etablissements_drm #etablissements_infos .adresse_comptabilite { margin:20px 0 0; }
