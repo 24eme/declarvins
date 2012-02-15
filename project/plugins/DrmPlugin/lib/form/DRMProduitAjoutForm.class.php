@@ -87,8 +87,7 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
                                                 ->certifications
                                                 ->get($this->getObject()->getCertification()->getKey());
 
-        $produits = $config_certification->getProduits($this->getOption('interpro'), 
-                                                       $this->getOption('departement', null));
+        $produits = $config_certification->getProduits();
 
         $produits_flat = array();
         foreach($produits as $produit)  {
