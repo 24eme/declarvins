@@ -155,6 +155,24 @@ pre, code, kbd, samp { font-family: monospace, sans-serif; }
 	&:hover, &:focus { background-color: @couleur-b2; }
 }
 
+.btn_bordeaux
+{
+    .btn_majeur;
+    @hauteur_btn: 21px;
+    background: @couleur-b1 url(../images/fonds/bg_drm_actions.png) left top repeat-x;
+    border: none;
+    height: @hauteur_btn;
+    
+    span
+    {
+        background-image: url(../images/pictos/pi_drm_actions.png);
+        background-repeat: no-repeat;
+        display: inline-block;
+        height: @hauteur_btn;
+        padding: 0 5px 0 32px;
+    }
+}
+
 .btn_rouge
 {
 	.btn_majeur;
@@ -742,7 +760,6 @@ a
 			}
 		}
 		
-		
 		ul 
 		{
 		    height:135px;
@@ -756,6 +773,7 @@ a
 		        display: inline;
 		    }
 		}
+		
 		input[type=checkbox],
 		input[type=radio]
 		{

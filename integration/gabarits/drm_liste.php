@@ -28,8 +28,7 @@
 						<thead>
 							<tr>
 								<th>DRM</th>
-								<th>Etat validation</th>
-								<th>Etat réception</th>
+								<th>Etat</th>
 								<th>&nbsp;</th>
 							</tr>
 						</thead>
@@ -37,7 +36,6 @@
 							<tr>
 								<td>Novembre 2011</td>
 								<td class="msg">En cours</td>
-								<td>&nbsp;</td>
 								<td>
 									<a href="#" class="btn_visualiser"><span>Visualiser</span></a>
 									<a href="#" class="btn_declarer"><span>Déclarer</span></a>
@@ -46,7 +44,6 @@
 							<tr class="alt">
 								<td>Octobre 2011</td>
 								<td>OK</td>
-								<td class="msg">Saisie IR</td>
 								<td>
 									<a href="#" class="btn_visualiser"><span>Visualiser</span></a>
 									<a href="#" class="btn_declarer"><span>Déclarer</span></a>
@@ -56,7 +53,6 @@
 							<?php if($i%2!=0) $class=' class="alt"'; else $class = ''; ?>
 							<tr <?php echo $class; ?>>
 								<td>Septembre 2011</td>
-								<td>OK</td>
 								<td>OK</td>
 								<td>
 									<a href="#" class="btn_visualiser"><span>Visualiser</span></a>
@@ -75,8 +71,7 @@
 							<thead>
 								<tr>
 									<th>DRM</th>
-									<th>Etat validation</th>
-									<th>Etat réception</th>
+									<th>Etat</th>
 									<th>&nbsp;</th>
 								</tr>
 							</thead>
@@ -85,7 +80,6 @@
 								<?php if($i%2!=0) $class=' class="alt"'; else $class = ''; ?>
 								<tr <?php echo $class; ?>>
 									<td>Décembre 2010</td>
-									<td>OK</td>
 									<td>OK</td>
 									<td>
 										<a href="#" class="btn_visualiser"><span>Visualiser</span></a>
@@ -105,8 +99,7 @@
 							<thead>
 								<tr>
 									<th>DRM</th>
-									<th>Etat validation</th>
-									<th>Etat réception</th>
+									<th>Etat</th>
 									<th>&nbsp;</th>
 								</tr>
 							</thead>
@@ -115,7 +108,6 @@
 								<?php if($i%2!=0) $class=' class="alt"'; else $class = ''; ?>
 								<tr <?php echo $class; ?>>
 									<td>Décembre 2010</td>
-									<td>OK</td>
 									<td>OK</td>
 									<td>
 										<a href="#" class="btn_visualiser"><span>Visualiser</span></a>

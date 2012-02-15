@@ -9,7 +9,6 @@ class ConfigurationCertification extends BaseConfigurationCertification {
     
     protected function loadAllData() {
         parent::loadAllData();
-        //$this->getProduits();
     }
 
     protected function getLibellesAbstract() {
@@ -17,12 +16,12 @@ class ConfigurationCertification extends BaseConfigurationCertification {
         return array($this->getKey() => $this->libelle);
     }
 
-    public function getProduits() {
+    public function getProduits($interpro = 'INTERPRO-inter-rhone', $departement = null) {
         $produits = array();
 
-        $results = ConfigurationClient::getInstance()->findProduits($this->getKey(), 'INTERPRO-inter-rhone');
+        $results = ConfigurationClient::getInstance()->findProduitsInterpro($this->getKey(), $interpro);
         foreach($results->rows as $item) {
-            $produits[] = array_merge($item->key[5], array('libelles' => $item->value));
+            $produits[] = array_merge($item->value->keys, array('libelles' => $item->value->libelles));
         }
 
         return $produits;

@@ -38,7 +38,9 @@ class drm_recapActions extends sfActions
         $this->getResponse()->setContentType('text/json');
         $drm = $this->getUser()->getDrm();
         $certification = $request->getParameter('certification');
-        $form = new DRMProduitAjoutForm($drm->produits->add($certification)->add(DRM::NOEUD_TEMPORAIRE)->add());
+        $form = new DRMProduitAjoutForm(
+            $drm->produits->add($certification)->add(DRM::NOEUD_TEMPORAIRE)->add(),
+            'INTERPRO-inter-rhone');
         if ($request->isMethod(sfWebRequest::POST)) {
             $form->bind($request->getParameter($form->getName()));
             if ($form->isValid()) {
