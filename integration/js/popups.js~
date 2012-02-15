@@ -33,7 +33,7 @@
 		{
 			create: function(popup)
 			{
-				//popup.initPopupAjoutProduit();
+				popup.initPopupAjoutProduit();
 			},
 			open: function(event, ui)
 			{

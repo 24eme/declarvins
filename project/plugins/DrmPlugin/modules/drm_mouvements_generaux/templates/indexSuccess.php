@@ -52,9 +52,13 @@
             	</div>
         	</div>
 	        <div id="btn_etape_dr">
-	            <a href="<?php echo url_for('@drm_informations') ?>" class="btn_prec">Précédent</a>
+	            <a href="<?php echo url_for('@drm_informations') ?>" class="btn_prec">
+	            	<span>Précédent</span>
+	            </a>
                 <?php if($first_certification): ?>
-	            <a id="nextStep" href="<?php echo url_for('drm_recap', $first_certification->getConfig()) ?>" class="btn_suiv">Suivant</a>
+	            <a id="nextStep" href="<?php echo url_for('drm_recap', $first_certification->getConfig()) ?>" class="btn_suiv">
+	            	<span>Suivant</span>
+	            </a>
                 <?php endif; ?>
 	        </div>
 		</div>

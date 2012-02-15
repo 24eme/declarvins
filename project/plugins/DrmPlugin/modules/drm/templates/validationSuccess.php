@@ -88,9 +88,12 @@
 	            </div>
 		    </div>
 	        <div id="btn_etape_dr">
-				<a href="<?php echo url_for('drm_vrac') ?>" class="btn_prec">Précédent</a>
-				<a href="<?php echo url_for('drm_vrac') ?>" class="btn_suiv">Suivant</a>
-	            <!--<button name="valider" class="btn_suiv" type="submit">Valider</button>-->
+				<a href="<?php echo url_for('drm_vrac') ?>" class="btn_prec">
+					<span>Précédent</span>
+				</a>
+				<a href="<?php echo url_for('drm_vrac') ?>" class="btn_suiv">
+					<span>Suivant</span>
+				</a>
 			</div>
     </section>
 </section>

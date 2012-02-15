@@ -8,48 +8,55 @@
     <!-- #principal -->
     <section id="principal">
 		<div id="application_dr">
-	        <p>Veuillez tout d'abord confirmer les informations ci-dessous :<br /><br /></p>
-	        <table width="780px">
-	        	<tr>
-	        		<td width="500px" height="35px">CVI :</td>
-	        		<td><?php echo $tiers->cvi ?></td>
-	        	</tr>
-	        	<tr>
-	        		<td width="500px" height="35px">N° SIRET :</td>
-	        		<td><?php echo $tiers->siret ?></td>
-	        	</tr>
-	        	<tr>
-	        		<td width="500px" height="35px">N° entrepositaire agréé :</td>
-	        		<td><?php echo $tiers->no_tva_intracommunautaire ?></td>
-	        	</tr>
-	        	<tr>
-	        		<td width="500px" height="35px">Nom / Raison Sociale / Adresse :</td>
-	        		<td><?php echo $tiers->nom ?>,<br /><?php echo $tiers->siege->adresse ?><br /><?php echo $tiers->siege->code_postal ?> <?php echo $tiers->siege->commune ?></td>
-	        	</tr>
-	        	<tr>
-	        		<td width="500px" height="35px">Lieu ou est tenu la comptabilité matière :</td>
-	        		<td><?php if (!$tiers->comptabilite->adresse): ?>IDEM<?php else: ?><?php echo $tiers->comptabilite->adresse ?><br /><?php echo $tiers->comptabilite->code_postal ?> <?php echo $tiers->comptabilite->commune ?><?php endif; ?></td>
-	        	</tr>
-	        	<tr>
-	        		<td width="500px" height="35px">Service des douanes :</td>
-	        		<td><?php echo $tiers->service_douane ?></td>
-	        	</tr>
-	        	<tr>
-	        		<td width="500px" height="35px">Numéro d'Accise</td>
-	        		<td>16879908</td>
-	        	</tr>
-	        	<tr>
-	        		<td width="500px" height="35px">Je confirme l'exactitude de ces informations :</td>
-	        		<td><input type="radio" value="1" name="confirm" /></td>
-	        	</tr>
-	        	<tr>
-	        		<td width="500px" height="35px">Je souhaite modifier mes informations de structure :</td>
-	        		<td><input type="radio" value="0" name="confirm" /></td>
-	        	</tr>
-	        </table>
+			<div id="drm_informations">
+		        <p>Veuillez tout d'abord confirmer les informations ci-dessous :<br /><br /></p>
+		        <form action="<?php echo url_for('drm_mouvements_generaux') ?>" method="post">
+					<div class="ligne_form">
+						<label for="champ_1">CVI :</label>
+						<span class="valeur"><?php echo $tiers->cvi ?></span>
+					</div>
+					<div class="ligne_form">
+						<label for="champ_2">N° SIRET :</label>
+						<span class="valeur"><?php echo $tiers->siret ?></span>
+					</div>
+					<div class="ligne_form">
+						<label for="champ_3">N° entrepositaire agréé :</label>
+						<span class="valeur"><?php echo $tiers->no_tva_intracommunautaire ?></span>
+					</div>
+					<div class="ligne_form">
+						<label for="champ_4">Nom / Raison Sociale :</label>
+						<span class="valeur valeur_2"><?php echo $tiers->nom ?></span>
+					</div>
+					<div class="ligne_form">
+						<label for="champ_6">Adresse du chai :</label>
+						<span class="valeur"><?php echo $tiers->siege->adresse ?><br /><?php echo $tiers->siege->code_postal ?> <?php echo $tiers->siege->commune ?></span>
+					</div>
+					<div class="ligne_form">
+						<label for="champ_7">Lieu ou est tenue la comptabilité matière :</label>
+						<span class="valeur"><?php if (!$tiers->comptabilite->adresse): ?>IDEM<?php else: ?><?php echo $tiers->comptabilite->adresse ?><br /><?php echo $tiers->comptabilite->code_postal ?> <?php echo $tiers->comptabilite->commune ?><?php endif; ?></span>
+					</div>
+					<div class="ligne_form">
+						<label for="champ_8">Service des douanes :</label>
+						<span class="valeur"><?php echo $tiers->service_douane ?></span>
+					</div>
+					<div class="ligne_form">
+						<label for="champ_9">Numéro d’Accise :</label>
+						<span class="valeur">1654546764</span>
+					</div>
+					<div class="ligne_form">
+						<label for="champ_conf_infos">Je confirme l'exactitude de ces informations</label>
+						<input type="radio" id="champ_conf_infos" name="champ_10" />
+					</div>
+					<div class="ligne_form">
+						<label for="champ_modif_infos">Je souhaite modifier mes informations de structure</label>
+						<input type="radio" id="champ_modif_infos" name="champ_10" data-popup-trigger="true" />
+					</div>
+					<div class="ligne_btn">
+						<button type="submit" class="btn_valider">Valider</button>
+						<a href="#" class="btn_popup btn_popup_trigger" data-popup="#popup_confirm_modif_infos" data-popup-config="configConfirmModifInfos" data-popup-titre="Etes-vous sûr de vouloir modifier ces informations ?"></a>
+					</div>
+		        </form>
+			</div>
 	    </div>
-        <div id="btn_etape_dr">
-            <a href="<?php echo url_for('drm_mouvements_generaux') ?>" class="btn_suiv">Valider</a>
-        </div>
     </section>
 </section>

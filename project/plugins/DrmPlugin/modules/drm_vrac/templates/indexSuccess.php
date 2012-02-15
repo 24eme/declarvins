@@ -32,8 +32,12 @@
 				<?php endif; ?>
 			</div>
 			<div id="btn_etape_dr">
-	            <a href="<?php echo url_for('drm_mouvements_generaux') ?>" class="btn_prec">Précédent</a>
-	            <a id="nextStep" href="<?php echo url_for('drm_validation') ?>" class="btn_suiv">Suivant</a>
+	            <a href="<?php echo url_for('drm_mouvements_generaux') ?>" class="btn_prec">
+	            	<span>Précédent</span>
+	            </a>
+	            <a id="nextStep" href="<?php echo url_for('drm_validation') ?>" class="btn_suiv">
+	            	<span>Suivant</span>
+	            </a>
 	        </div>
 		</div>
 	</section>
