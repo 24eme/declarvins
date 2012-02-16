@@ -4,7 +4,6 @@ class drm_recapActions extends sfActions
 {
     
     public function executeIndex(sfWebRequest $request) {
-        //$this->run = new XHProfRun('declarvin-recap');
         $this->init();
         $this->setTemplate('appellation');
     }
@@ -13,66 +12,54 @@ class drm_recapActions extends sfActions
         $this->forward404Unless($request->isXmlHttpRequest());
         $this->getResponse()->setContentType('text/json');
         $drm = $this->getUser()->getDrm();
-        $this->label = $this->getRoute()->getObject();
+        $this->certification = $this->getRoute()->getObject();
 
-        $this->form = new DRMAppellationAjoutForm($drm->declaration->certifications->add($this->label->getKey())->appellations);
+        $this->form = new DRMAppellationAjoutForm($drm->produits->add($this->certification->getKey()));
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
                 $this->form->save();
-                return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_recap_appellation', $this->form->getAppellation()))));
+                return $this->renderText(json_encode(array("success" => true,
+                                                           "ajax" => true,
+                                                           "url" => $this->generateUrl('drm_recap_ajout_ajax', array('certification' => 'AOP')))));
             }
+
+            return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('drm_recap/formAppellationAjout', array('certification' => $this->certification, 'form' => $this->form)))));
         }
 		
-        return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('drm_recap/popupAppellationAjout', array('label' => $this->label, 'form' => $this->form)))));
+        return $this->renderText($this->getPartial('drm_recap/popupAppellationAjout', array('certification' => $this->certification, 'form' => $this->form)));
     }
     
     public function executeAppellation(sfWebRequest $request) {
-        //$this->run = new XHProfRun('declarvin-recap');
         $this->init();
     }
 
     public function executeAjoutAjax(sfWebRequest $request) 
     {
+        $this->init();
         $this->forward404Unless($request->isXmlHttpRequest());
-        $this->getResponse()->setContentType('text/json');
         $drm = $this->getUser()->getDrm();
-        $certification = $request->getParameter('certification');
-        $form = new DRMProduitAjoutForm(
-            $drm->produits->add($certification)->add(DRM::NOEUD_TEMPORAIRE)->add(),
-            'INTERPRO-inter-rhone');
+        $form = new DRMProduitAjoutForm($drm->produits->get($this->config_appellation->getCertification()->getKey())
+                                                      ->get($this->config_appellation->getKey())
+                                                      ->add(),
+                                        'INTERPRO-inter-rhone');
+
         if ($request->isMethod(sfWebRequest::POST)) {
+            $this->getResponse()->setContentType('text/json');
             $form->bind($request->getParameter($form->getName()));
             if ($form->isValid()) {
                 $form->save();
                 $this->getUser()->setFlash("notice", 'Le produit a été ajouté avec success.');
-                return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_mouvements_generaux'))));
+                return $this->renderText(json_encode(array("success" => true, 
+                                                           "url" => $this->generateUrl('drm_recap', $this->config_appellation))));
             }
+            return $this->renderText(json_encode(array("success" => false, 
+                                                       "content" => $this->getPartial('form', array('form' => $form, 
+                                                                                                    'config_appellation' => $this->config_appellation)))));
         }
-        return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('drm_mouvements_generaux/LigneAjoutForm', array('form' => $form, 'certification' => $certification)))));
+        return $this->renderPartial('popupAjout', array('form' => $form, 'config_appellation' => $this->config_appellation));
     }
     
-    /*public function executeAjoutAjax(sfWebRequest $request) {
-        $this->init();
-        $this->forward404Unless($request->isXmlHttpRequest());
-        $this->getResponse()->setContentType('text/json');
-        $drm = $this->getUser()->getDrm();
-        $form = new DRMProduitAjoutForm(
-            $drm->produits->add($this->drm_appellation->getCertification()->getKey())
-                          ->add($this->drm_appellation->getKey())
-                          ->add()
-        );
-        if ($request->isMethod(sfWebRequest::POST)) {
-            $form->bind($request->getParameter($form->getName()));
-            if ($form->isValid()) {
-                $form->save();
-                return $this->renderText(json_encode(array("success" => true, 
-                                                           "url" => $this->generateUrl('drm_recap_appellation', $this->config_appellation))));
-            }
-        }
-        return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('popupAjout', array('form' => $form, 'config_appellation' => $this->config_appellation)))));
-    }*/
-
     public function executeDetail(sfWebRequest $request) {
         $this->init();
         $this->setTemplate('appellation');

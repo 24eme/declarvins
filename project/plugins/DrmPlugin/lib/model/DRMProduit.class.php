@@ -28,22 +28,16 @@ class DRMProduit extends BaseDRMProduit {
 
     protected function getOrAddDetail() {
 
-        return $this->getDocument()->declaration->getOrAdd($this->getHashDetail());
+        return $this->getDocument()->getOrAdd($this->getHashDetail());
     }
 
     public function getHashDetail() {
-        return 'certifications/'.$this->getCertification()->getKey().
-               '/appellations/'.$this->getAppellation()->getKey().
-               '/lieux/'.$this->lieu.
-               '/couleurs/'.$this->couleur.
-               '/cepages/'.$this->cepage.
-               '/millesimes/'.$this->millesime.
-               '/details/'.KeyInflector::slugify($this->getLabelKey());
+        return $this->hashref.'/details/'.KeyInflector::slugify($this->getLabelKey());
     }
     
     public function existDetail() {
 
-    	return $this->getDocument()->declaration->exist($this->getHashDetail());        
+    	return $this->getDocument()->exist($this->getHashDetail());        
     }
     
     public function updateDetail() {
