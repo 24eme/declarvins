@@ -5,14 +5,14 @@
             <li class="actif">
                 <strong>
                     <?php echo $appellation->libelle ?> 
-                    <span class="completion completion_validee">(<?php echo $appellations_updated[$appellation_key] ?>/<?php echo $appellations[$appellation_key] ?>)</span>
+                    <span class="completion completion_validee">(<span class="appellation_produit_saisie"><?php echo $appellations_updated[$appellation_key] ?></span>/<span class="appellation_produit_total"><?php echo $appellations[$appellation_key] ?></span>)</span>
                 </strong>
             </li>
         <?php else: ?>
             <li>
                 <a href="<?php echo url_for('drm_recap_appellation', $appellation) ?>">
                     <?php echo $appellation->libelle ?> 
-                    <span class="completion">(<?php echo $appellations_updated[$appellation_key] ?>/<?php echo $appellations[$appellation_key] ?>)</span>
+                    <span class="completion">(<span class="appellation_produit_saisie"><?php echo $appellations_updated[$appellation_key] ?></span>/<span class="appellation_produit_total"><?php echo $appellations[$appellation_key] ?></span>)</span>
                 </a>
             </li>
         <?php endif; ?>
