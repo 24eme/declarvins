@@ -18,7 +18,7 @@
 					<tbody>
 						<?php $i=0; foreach ($drms as $drm): ?>
 						<tr<?php if($i%2==0): ?> class="alt"<?php endif; ?>>
-							<td><?php echo $drm->campagne ?></td>
+							<td><?php echo $drm[1].'-'.$drm[2] ?></td>
 							<td><?php if ($anneeFixe == $annee): ?>En cours<?php else: ?>OK<?php endif; ?></td>
 							<td><?php if ($anneeFixe == $annee): ?>&nbsp;<?php else: ?>OK<?php endif; ?></td>
 							<td>

@@ -524,3 +524,10 @@ DRM:
                     commune: {  }
             service_douane: {  }
       identifiant: {  }
+      valide: {  }
+      douane:
+        type: collection
+        definition:
+          fields:
+            envoi: {  }
+            accuse: {  }
