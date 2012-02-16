@@ -14,33 +14,25 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
     {
         $this->setWidgets(array(
             'produit' => new sfWidgetFormInputText(array(), array('autocomplete-data' => json_encode($this->getProduits()))),
-            'appellation' => new sfWidgetFormInputHidden(),
-            'lieu' => new sfWidgetFormInputHidden(),
-            'couleur' => new sfWidgetFormInputHidden(),            
-            'cepage' => new sfWidgetFormInputHidden(),
-            'millesime' => new sfWidgetFormInputHidden(),
+            'hashref' => new sfWidgetFormInputHidden(),
             'label' => new sfWidgetFormChoice(array('expanded' => true, 'multiple' => true,'choices' => $this->getLabelChoices())),
             'label_supplementaire' => new sfWidgetFormInputText(),
         ));
         $this->widgetSchema->setLabels(array(
-            'produits' => 'Produits*: ',
+            'produit' => 'Produits*: ',
             'label' => 'Label: ',
             'label_supplementaire' => 'Label supplémentaire: ',
         ));
 
         $this->setValidators(array(
             'produit' => new sfValidatorString(array('required' => true)),
-            'appellation' => new sfValidatorString(array('required' => false)),
-            'lieu' => new sfValidatorString(array('required' => false)),            
-            'couleur' => new sfValidatorString(array('required' => false)),
-            'cepage' => new sfValidatorString(array('required' => false)),
-            'millesime' => new sfValidatorString(array('required' => false)),
+            'hashref' => new sfValidatorString(array('required' => true)),
             'label' => new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($this->getLabelChoices()))),
             'label_supplementaire' => new sfValidatorString(array('required' => false)),
         ));
 
         if ($this->hasAppellation()) {
-            unset($this['appellation']);
+            //unset($this['appellation']);
         }
 
         //$this->getProduits();
@@ -52,7 +44,7 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
     public function doUpdateObject($values) {
         parent::doUpdateObject($values);
         if (!$this->hasAppellation()) {
-            $this->getObject()->getCertification()->moveAndClean($this->getObject()->getAppellation()->getKey().'/'.$this->getObject()->getKey(), $this->getAppellation().'/'.$this->getObject()->getParent()->getParent()->add($values['appellation'])->count());
+            $this->getObject()->getCertification()->moveAndClean($this->getObject()->getAppellation()->getKey().'/'.$this->getObject()->getKey(), $this->getAppellation().'/'.$this->getObject()->getParent()->getParent()->add($this->getAppellation())->count());
         }
         $this->getObject()->getDocument()->synchroniseDeclaration();
     }
@@ -76,23 +68,33 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
 
     public function getAppellation() {
         if ($this->hasAppellation()) {
-            return $this->getObject()->getAppellation()->getKey();
+
+            return $this->getObject()->getAppellation()->getKey();  
         } else {
-            return $this->getValue('appellation');
-        }
+
+            return ConfigurationClient::getCurrent()->get($this->getValue('hashref'))->getAppellation()->getKey();
+        } 
     }
 
     public function getProduits() {
-        $config_certification = ConfigurationClient::getCurrent()->declaration
-                                                ->certifications
-                                                ->get($this->getObject()->getCertification()->getKey());
-
-        $produits = $config_certification->getProduits();
+        if ($this->hasAppellation()) {
+            $produits = ConfigurationClient::getCurrent()->declaration
+                                                         ->certifications
+                                                         ->get($this->getObject()->getCertification()->getKey())
+                                                         ->appellations
+                                                         ->get($this->getObject()->getAppellation()->getKey())
+                                                         ->getProduits(); 
+        } else {
+            $produits = ConfigurationClient::getCurrent()->declaration
+                                                         ->certifications
+                                                         ->get($this->getObject()->getCertification()->getKey())
+                                                         ->getProduits();
+        }
 
         $produits_flat = array();
-        foreach($produits as $produit)  {
-            $produit['libelles'] = implode(' ', array_filter($produit['libelles']));
-            $produits_flat[] = implode('|@', $produit);
+        foreach($produits as $hash => $libelles)  {
+            $libelle = implode(' ', array_filter($libelles));
+            $produits_flat[] = $hash.'|@'.$libelle;
         }
 
         return $produits_flat;

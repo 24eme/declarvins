@@ -10,4 +10,14 @@ class ConfigurationMillesime extends BaseConfigurationMillesime {
 		parent::loadAllData();
 		$this->getLibelles();
     }
+
+    public function getCepage() {
+
+    	return $this->getParent()->getParent();
+    }
+
+    public function getAppellation() {
+
+    	return $this->getCepage()->getCouleur()->getLieu()->getAppellation();
+    }
 }

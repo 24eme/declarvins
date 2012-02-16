@@ -1,7 +1,6 @@
-<form  class="popup_form" id="form_ajout" action="<?php echo url_for(array('sf_route' => 'drm_mouvements_generaux_product_form', 'certification' => $certification)) ?>" method="post">
+<form  class="popup_form" id="form_ajout" action="<?php echo url_for('drm_recap_ajout_ajax', $config_appellation) ?>" method="post">
 	<?php echo $form->renderGlobalErrors() ?>
 	<?php echo $form->renderHiddenFields() ?>
-	<input type="hidden" name="certification" value="<?php echo $certification ?>" />
 	<div class="ligne_form">
 		<?php echo $form['produit']->renderLabel() ?>
 		<?php echo $form['produit']->render() ?>
@@ -30,15 +29,24 @@ $(document).ready(function () {
 			source: produits,
 			focus: function(event, ui)
 	        {
-	        	$('#<?php echo $form['produit']->renderId() ?>').val(ui.item[1]);
-	        	$('#<?php echo $form['hashref']->renderId() ?>').val(ui.item[0]);
+	        	$('#<?php echo $form['produit']->renderId() ?>').val(ui.item[5]);
+	        	$('#<?php echo $form['appellation']->renderId() ?>').val(ui.item[0]);
+	        	$('#<?php echo $form['lieu']->renderId() ?>').val(ui.item[1]);
+	        	$('#<?php echo $form['couleur']->renderId() ?>').val(ui.item[2]);
+	        	$('#<?php echo $form['cepage']->renderId() ?>').val(ui.item[3]);
+	        	$('#<?php echo $form['millesime']->renderId() ?>').val(ui.item[4]);
 				
 	            return false;
 	        },
 	        select: function(event, ui)
 	        {
-	        	$('#<?php echo $form['produit']->renderId() ?>').val(ui.item[1]);
-	        	$('#<?php echo $form['hashref']->renderId() ?>').val(ui.item[0]);
+	        	$('#<?php echo $form['produit']->renderId() ?>').val(ui.item[5]);
+	        	$('#<?php echo $form['appellation']->renderId() ?>').val(ui.item[0]);
+	        	$('#<?php echo $form['lieu']->renderId() ?>').val(ui.item[1]);
+	        	$('#<?php echo $form['couleur']->renderId() ?>').val(ui.item[2]);
+	        	$('#<?php echo $form['cepage']->renderId() ?>').val(ui.item[3]);
+	        	$('#<?php echo $form['millesime']->renderId() ?>').val(ui.item[4]);
+					
 	            return false;
 	        }
 		});	
@@ -47,7 +55,7 @@ $(document).ready(function () {
 	        var tab = item['value'].split('|@');
 	        return $('<li></li>')
 	        .data("item.autocomplete", tab)
-	        .append('<a><span class="appellation">'+tab[1]+'</a>' )
+	        .append('<a><span class="appellation">'+tab[5]+'</a>' )
 	        .appendTo(ul);
 	    };
 });

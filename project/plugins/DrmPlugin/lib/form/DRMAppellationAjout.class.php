@@ -5,34 +5,34 @@ class DRMAppellationAjoutForm extends acCouchdbFormDocumentJson {
     protected $_appellation_choices = null;
 
     public function setup() {
-
-        if ($this->getObject()->getDefinition()->getModel() . $this->getObject()->getDefinition()->getHash() != 'DRM/declaration/certifications/*/appellations') {
-            throw new sfException("Object must be a DRM/declaration/certifications/*/appellations object");
-        }
-
         $this->setWidgets(array(
-            'appellation' => new sfWidgetFormChoice(array('choices' => $this->getAppellationChoices())),
+            'appellation_autocomplete' => new sfWidgetFormInputText(array('label' => 'Appellation'), array('autocomplete-data' => json_encode($this->getProduitsAppellations()))),
+            'appellation' => new sfWidgetFormInputHidden(array()),
         ));
 
         $this->setValidators(array(
-            'appellation' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getAppellationChoices()))),
+            'appellation_autocomplete' => new sfValidatorString(array('required' => true)),
+            'appellation' => new sfValidatorString(array('required' => false)),
         ));
 
         $this->widgetSchema->setNameFormat('drm_appellation_ajout[%s]');
         $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
     }
 
-    public function getAppellationChoices() {
-        if (is_null($this->_appellation_choices)) {
-            $this->_appellation_choices = array('' => '');
-            foreach (ConfigurationClient::getCurrent()->declaration->certifications->get($this->getObject()->getParent()->getKey())->appellations as $key => $item) {
-                //if (!$this->getObject()->exist($key)) {
-                $this->_appellation_choices[$key] = $item->getLibelle();
-                //}
-            }
+    public function getProduitsAppellations() {
+        $config_certification = ConfigurationClient::getCurrent()->declaration
+                                                ->certifications
+                                                ->get($this->getObject()->getKey());
+
+        $produits = $config_certification->getProduitsAppellations();
+
+        $produits_flat = array();
+        foreach($produits as $produit)  {
+            $produit['libelles'] = implode(' ', array_filter($produit['libelles']));
+            $produits_flat[] = implode('|@', $produit);
         }
 
-        return $this->_appellation_choices;
+        return $produits_flat;
     }
 
     public function doUpdateObject($values) {

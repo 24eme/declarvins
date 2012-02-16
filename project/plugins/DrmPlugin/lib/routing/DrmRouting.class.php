@@ -105,13 +105,13 @@ class DrmRouting {
                             'type' => 'object'
                 )));
         
-        /*$r->prependRoute('drm_recap_ajout_ajax', new DrmAppellationRoute('/drm/recapitulatif/:certification/:appellation/ajout-ajax',
+        $r->prependRoute('drm_recap_ajout_ajax', new DrmAppellationRoute('/drm/recapitulatif/:certification/:appellation/ajout-ajax',
                         array('module' => 'drm_recap',
                             'action' => 'ajoutAjax'),
                         array('sf_method' => array('get', 'post')),
                         array('model' => 'DRMAppellation',
                             'type' => 'object'
-                )));*/
+                )));
         
         $r->prependRoute('drm_recap_update', new DrmDetailRoute('/drm/recapitulatif/update/:certification/:appellation/:lieu/:couleur/:cepage/:millesime/:detail',
                         array('module' => 'drm_recap',
