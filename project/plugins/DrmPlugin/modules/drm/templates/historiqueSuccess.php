@@ -35,7 +35,7 @@
 				<?php foreach ($annees as $an): ?>
 				<?php if ($an != $annee): ?>
 					<a href="<?php echo url_for('drm_historique', array('annee' => $an))?>">Afficher les drm <?php echo $an ?></a>
-				<?php endif; ?>
+				<?php endif; ?>	
 			<?php endforeach; ?>
 			</div>
 		</div>
