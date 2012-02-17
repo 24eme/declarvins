@@ -30,7 +30,14 @@ class drmActions extends sfActions
   */
   public function executeMonEspace(sfWebRequest $request)
   {
-      
+      $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant);
+      $this->nbDrmHistory = 3;
+      $this->futurDrm = current($this->historique->getFutureDrm());
+      $this->hasNewDrm = false;
+      if (CurrentClient::getCurrent()->campagne >= ($this->futurDrm[1].'-'.$this->futurDrm[2]) && !$this->historique->hasDrmInProcess()) {
+      	$this->hasNewDrm = true;
+      	$this->nbDrmHistory = 2;
+      }
   }
  /**
   * Executes informations action
@@ -50,11 +57,7 @@ class drmActions extends sfActions
   public function executeHistorique(sfWebRequest $request)
   {
     $this->annee = $request->getParameter('annee');
-	$historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant, $this->annee);
-  	$this->annees = $historique->getAnnees();
-  	$this->annee = $historique->getAnneeCourante();
-  	$this->anneeFixe = $this->annees[0];
-  	$this->drms = $historique->getDrmsParAnneeCourante();
+	$this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant, $this->annee);
   }
  /**
   * Executes mouvements generaux action

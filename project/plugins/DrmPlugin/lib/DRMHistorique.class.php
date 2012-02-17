@@ -10,25 +10,45 @@ class DRMHistorique
 	{
 		$this->etablissement = $etablissement;
 		$this->anneeCourante = $anneeCourante;
-		$this->loadDrms();
+	}
+	
+	public function getSliceDrms($limit = 0) {
+		return array_slice($this->getDrms(), 0, $limit);
+	}
+	
+	public function getDrms($limite = 0)
+	{
+		if (!$this->drms) {
+			$this->loadDrms();
+		}
+		return $this->drms;
 	}
 	
 	private function loadDrms()
 	{
-		$this->drms = acCouchdbManager::getClient()
+		$drms = acCouchdbManager::getClient()
 						->startkey(array($this->etablissement, null))
     					->endkey(array($this->etablissement, array()))
     					->group(true)
     					->getView("drm", "all")
     					->rows;
+    	$result = array();
+    	foreach ($drms as $drm) {
+			$result['DRM-'.$drm->key[0].'-'.$drm->key[1].'-'.$drm->key[2]] = $drm->key;
+		}
+		krsort($result);
+		$this->drms = $result;
 	}
 	
 	public function getAnnees()
 	{
 		if (!$this->annees) {
 			$annees = array();
-	    	foreach ($this->drms as $drm) {
-	  			$annees[] = $drm->key[1];
+			$drms = $this->getDrms();
+	    	foreach ($drms as $drm) {
+	    		if (!in_array($drm[1], $annees)) {
+	  				$annees[] = $drm[1];
+	    		}
 	  		}
 	  		rsort($annees);
 	  		$this->annees = $annees;
@@ -38,15 +58,15 @@ class DRMHistorique
 	
 	public function getDrmsParAnneeCourante()
 	{
-		$drms = array();
+		$drmsAnnee = array();
 		$anneeCourante = $this->getAnneeCourante();
-		foreach ($this->drms as $drm) {
-			if ($drm->key[1] == $anneeCourante) {
-				$drms['DRM-'.$drm->key[0].'-'.$drm->key[1].'-'.$drm->key[2]] = $drm->key;
+		$drms = $this->getDrms();
+		foreach ($drms as $id => $drm) {
+			if ($drm[1] == $anneeCourante) {
+				$drmsAnnee[$id] = $drm;
 			}
 		}
-		krsort($drms);
-		return $drms;
+		return $drmsAnnee;
 	}
 	
 	public function getAnneeCourante()
@@ -57,5 +77,38 @@ class DRMHistorique
 			}
 		}
 		return $this->anneeCourante;
+	}
+	
+	public function getFutureDrm()
+	{
+		$lastDrm = current($this->getLastDrm());
+		$nextMonth = $lastDrm[2] + 1;
+		if ($nextMonth < 10) {
+			$nextMonth = '0'.$nextMonth;
+		}
+		$nextYear = $lastDrm[1];
+		if ($nextMonth > 12) {
+			$nextMonth = '01';
+			$nextYear++;
+		}
+		return array('DRM-'.$this->etablissement.'-'.$nextYear.'-'.$nextMonth => array($this->etablissement, $nextYear, $nextMonth, 0, null, null));
+	}
+	
+	public function getLastDrm()
+	{
+		return $this->getSliceDrms(1);
+	}
+	
+	public function hasDrmInProcess()
+	{
+		$result = false;
+		$drms = $this->getDrms();
+		foreach ($drms as $drm) {
+			if (!$drm[3]) {
+				$result = true;
+				break;
+			}
+		}
+		return $result;
 	}
 }

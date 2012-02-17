@@ -38,7 +38,7 @@ class DrmRouting {
                                                                                 'action' => 'monEspace')));
 
         $r->prependRoute('drm_init', new sfRoute('/drm/init', array('module' => 'drm', 
-                                                                    'action' => 'init')));
+                                                                    		'action' => 'init')));
 
         $r->prependRoute('drm_informations', new sfRoute('/drm/informations', array('module' => 'drm', 
                                                                                     'action' => 'informations')));
