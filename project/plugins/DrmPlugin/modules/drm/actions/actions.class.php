@@ -34,7 +34,6 @@ class drmActions extends sfActions
       $this->nbDrmHistory = 3;
       $this->futurDrm = current($this->historique->getFutureDrm());
       $this->hasNewDrm = false;
-      print_r($this->futurDrm);
       if (CurrentClient::getCurrent()->campagne >= ($this->futurDrm[1].'-'.$this->futurDrm[2]) && !$this->historique->hasDrmInProcess()) {
       	$this->hasNewDrm = true;
       	$this->nbDrmHistory = 2;
