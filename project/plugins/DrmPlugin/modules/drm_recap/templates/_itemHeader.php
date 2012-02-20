@@ -44,5 +44,13 @@
 		</ul>
 	</div>
 	
-	<p class="stock_th_fin">Stock théorique fin de mois</p>
+	<!-- <p class="stock_th_fin">Stock théorique fin de mois</p>  -->
+	<div class="groupe" data-groupe-id="4">
+		<p>Stock théorique fin de mois</p>
+		<ul>
+			<li>Dont Vin bloqué</li>
+			<li>Dont Vin warranté</li>
+			<li>Dont Vin en instance</li>
+		</ul>
+	</div>
 </div>

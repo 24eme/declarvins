@@ -17,10 +17,11 @@
             <div class="groupe" data-groupe-id="1">
                 <p><input type="text" value="<?php echo echoFloat($form->getObject()->total_debut_mois) ?>" class="num num_float somme_stock_debut" readonly="readonly" /></p>
                 <ul>
-                    <?php foreach($form['stocks'] as $key => $subform): ?>
+                    <?php foreach($form['stocks_debut'] as $key => $subform): ?>
                     <li>
-                        <?php echo $form['stocks'][$key]->render(array('data-val-defaut' => sprintFloat($form['stocks'][$key]->getValue()),
-                                                                        'class' => 'num num_float')) ?>
+                        <?php echo $form['stocks_debut'][$key]->render(array('data-val-defaut' => sprintFloat($form['stocks_fin'][$key]->getValue()),
+                                                                        'class' => 'num num_float',
+                        												'readonly' => 'readonly')) ?>
                     </li>
                     <?php endforeach; ?>
                 </ul>
@@ -50,7 +51,18 @@
                 </ul>
             </div>
 
-            <p><input type="text" value="0" class="num num_float somme_stock_fin" readonly="readonly" /></p>
+            <!-- <p><input type="text" value="0" class="num num_float somme_stock_fin" readonly="readonly" /></p>  -->
+            <div class="groupe" data-groupe-id="4">
+                <p><input type="text" value="0" class="num num_float somme_stock_fin" readonly="readonly" /></p>
+                <ul>
+                    <?php foreach($form['stocks_fin'] as $key => $subform): ?>
+                    <li>
+                        <?php echo $form['stocks_fin'][$key]->render(array('data-val-defaut' => sprintFloat($form['stocks_fin'][$key]->getValue()),
+                                                                        'class' => 'num num_float')) ?>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
 
             <div class="col_btn">
                 <button class="btn_reinitialiser" type="submit">Annuler</button>

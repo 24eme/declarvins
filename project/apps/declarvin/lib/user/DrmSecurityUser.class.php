@@ -9,6 +9,7 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
                                         self::CREDENTIAL_DRM_VALIDE);
     
     protected $_drm = null;
+    protected $_historique = null;
     
     /**
      *
@@ -51,13 +52,23 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
         if (is_null($this->_drm)) {
         	if ($lastDrm = $this->getDrmHistorique()->getLastDrm()) {
         		$drm = DRMClient::getInstance()->find(key($lastDrm));
-        		if ($drm && !$drm->valide) {
+        		if (!$drm->valide) {
         			$this->_drm = $drm;
         		} else {
-        			$this->_drm = new DRM();
+        			$this->_drm = clone $drm;
+        			$this->_drm->initialiseCommeDrmSuivante();
 	                $this->_drm->identifiant = $this->getTiers()->identifiant;
 	                $this->_drm->campagne = $this->getCampagneDrm();
+	                $this->_drm->remove('douane');
+	                $this->_drm->add('douane');
+	                $this->_drm->remove('declarant');
+	                $this->_drm->add('declarant');
+	                $this->_drm->valide = 0;
         		}
+        	} else {
+        		$this->_drm = new DRM();
+	            $this->_drm->identifiant = $this->getTiers()->identifiant;
+	            $this->_drm->campagne = $this->getCampagneDrm();
         	}
         }
         return $this->_drm;
@@ -67,7 +78,10 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
      * 
      */
     public function getDrmHistorique() {
-        return new DRMHistorique($this->getTiers()->identifiant);
+    	if (is_null($this->_historique)) {
+        	$this->_historique = new DRMHistorique($this->getTiers()->identifiant);
+    	}
+    	return $this->_historique;
     }
     
     /**

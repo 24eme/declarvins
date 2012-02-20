@@ -80,7 +80,7 @@ class DRMValidation
 		if ($detail->total < 0) {
 			$this->errors[] = new DRMControleError('total_negatif', $this->generateUrl('drm_recap', array('sf_subject' => $detail->getAppellation())));
 		}
-		if ($detail->total < ($detail->stocks->bloque + $detail->stocks->instance)) {
+		if ($detail->total < ($detail->stocks_fin->bloque + $detail->stocks_fin->instance)) {
 			$this->errors[] = new DRMControleError('total_stocks', $this->generateUrl('drm_recap', array('sf_subject' => $detail->getAppellation())));
 		}
 	}

@@ -11,9 +11,10 @@
  * @property acCouchdbJson $label
  * @property string $label_supplementaire
  * @property acCouchdbJson $vrac
- * @property acCouchdbJson $stocks
+ * @property acCouchdbJson $stocks_debut
  * @property acCouchdbJson $entrees
  * @property acCouchdbJson $sorties
+ * @property acCouchdbJson $stocks_fin
 
  * @method float getTotalDebutMois()
  * @method float setTotalDebutMois()
@@ -29,12 +30,14 @@
  * @method string setLabelSupplementaire()
  * @method acCouchdbJson getVrac()
  * @method acCouchdbJson setVrac()
- * @method acCouchdbJson getStocks()
- * @method acCouchdbJson setStocks()
+ * @method acCouchdbJson getStocksDebut()
+ * @method acCouchdbJson setStocksDebut()
  * @method acCouchdbJson getEntrees()
  * @method acCouchdbJson setEntrees()
  * @method acCouchdbJson getSorties()
  * @method acCouchdbJson setSorties()
+ * @method acCouchdbJson getStocksFin()
+ * @method acCouchdbJson setStocksFin()
  
  */
 

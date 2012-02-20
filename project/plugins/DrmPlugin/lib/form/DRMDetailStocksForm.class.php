@@ -15,7 +15,7 @@ class DRMDetailStocksForm  extends acCouchdbFormDocumentJson {
             'instance'  => new sfValidatorNumber(array('required' => false)),
         ));
         
-        $this->widgetSchema->setNameFormat('drm_detail_stocks[%s]');
+        $this->widgetSchema->setNameFormat('drm_detail_stocks_fin[%s]');
         $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
     }
 

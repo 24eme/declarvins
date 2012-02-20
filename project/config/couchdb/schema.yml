@@ -464,7 +464,7 @@ DRM:
                                                                                                         definition:
                                                                                                           fields:
                                                                                                             volume: { type: float }
-                                                                                                stocks:
+                                                                                                stocks_debut:
                                                                                                   type: collection
                                                                                                   definition:
                                                                                                     fields:
@@ -494,6 +494,13 @@ DRM:
                                                                                                       repli: { type: float }
                                                                                                       mouvement: { type: float }
                                                                                                       lies: { type: float }
+                                                                                                stocks_fin:
+                                                                                                  type: collection
+                                                                                                  definition:
+                                                                                                    fields:
+                                                                                                      bloque: { type: float }
+                                                                                                      warrante: { type: float }
+                                                                                                      instance: { type: float }
       declarant:
         type: collection
         class: DRMDeclarant
