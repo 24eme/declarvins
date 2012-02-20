@@ -50,8 +50,8 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
         $this->requireDrm();
         $this->requireTiers();
         if (is_null($this->_drm)) {
-        	if ($lastDrm = $this->getDrmHistorique()->getLastDrm()) {
-        		$drm = DRMClient::getInstance()->find(key($lastDrm));
+        	$lastDrm = $this->getDrmHistorique()->getLastDrm()
+        	if ($drm = DRMClient::getInstance()->find(key($lastDrm))) {
         		if (!$drm->valide) {
         			$this->_drm = $drm;
         		} else {
