@@ -29,6 +29,12 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
+    // initialize the database connection
+    $databaseManager = new sfDatabaseManager($this->configuration);
+    $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
+
+    $import_dir = sfConfig::get('sf_data_dir').'/import/configuration';
+
     if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin')) {
         $compte->delete();
     }
