@@ -82,6 +82,9 @@ class DRMHistorique
 	public function getFutureDrm()
 	{
 		$lastDrm = current($this->getLastDrm());
+		if (!$lastDrm) {
+			return array('DRM-'.$this->etablissement.'-'.date('Y').'-'.date('m') => array($this->etablissement, date('Y'), date('m'), 0, null, null));
+		}
 		$nextMonth = $lastDrm[2] + 1;
 		if ($nextMonth < 10) {
 			$nextMonth = '0'.$nextMonth;
