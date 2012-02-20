@@ -18,7 +18,7 @@
 					<tbody>
 						<?php $i=0; if ($hasNewDrm): $i++; ?>
 						<tr class="alt">
-							<td><?php echo $futurDrm[1].'-'.$futurDrm[2] ?></td>
+							      <td><?php echo $futurDrm[DRMHistorique::$VIEW_INDEX_ANNEE].'-'.$futurDrm[DRMHistorique::$VIEW_INDEX_MOIS] ?></td>
 							<td>NOUVELLE</td>
 							<td>
 								<a href="<?php echo url_for('drm_init') ?>">Démarrer la DRM</a><br />
@@ -27,8 +27,8 @@
 						<?php endif; ?>
 						<?php foreach ($historique->getSliceDrms($nbDrmHistory) as $drm_id => $drm): ?>
 						<tr<?php if($i%2==0): ?> class="alt"<?php endif; ?>>
-							<td><?php echo $drm[1].'-'.$drm[2] ?></td>
-							<?php if (!$drm[3]): ?>
+							<td><?php echo $drm[DRMHistorique::$VIEW_INDEX_ANNEE].'-'.$drm[DRMHistorique::$VIEW_INDEX_MOIS] ?></td>
+							<?php if (!$drm[DRMHistorique::$VIEW_INDEX_STATUS]): ?>
 							<td>En cours</td>
 							<td>
 								<a href="<?php echo url_for('drm_init') ?>">Accéder à la déclaration en cours</a><br />
@@ -57,7 +57,7 @@
 
         <br /><br />
         <ul>
-        <?php if ($sf_user->getDrm()->isNew()): ?>
+        <?php if (!$sf_user->getDrm() || $sf_user->getDrm()->isNew()): ?>
                     <li><a href="<?php echo url_for('@drm_init') ?>">Commencer ma DRM &raquo;</a></li>
         <?php else: ?>
                     <li><a href="<?php echo url_for('@drm_init') ?>">Continuer ma DRM en cours &raquo;</a></li>

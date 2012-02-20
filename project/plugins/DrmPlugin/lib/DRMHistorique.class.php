@@ -1,6 +1,11 @@
 <?php
 class DRMHistorique
 {
+  public static $VIEW_INDEX_ETABLISSEMENT = 0;
+  public static $VIEW_INDEX_ANNEE = 1;
+  public static $VIEW_INDEX_MOIS = 2;
+  public static $VIEW_INDEX_STATUS = 3;
+
 	private $etablissement;
 	private $anneeCourante;
 	private $drms;
@@ -32,9 +37,9 @@ class DRMHistorique
     					->group(true)
     					->getView("drm", "all")
     					->rows;
-    	$result = array();
-    	foreach ($drms as $drm) {
-			$result['DRM-'.$drm->key[0].'-'.$drm->key[1].'-'.$drm->key[2]] = $drm->key;
+		$result = array();
+		foreach ($drms as $drm) {
+		  $result['DRM-'.$drm->key[self::$VIEW_INDEX_ETABLISSEMENT].'-'.$drm->key[self::$VIEW_INDEX_ANNEE].'-'.$drm->key[self::$VIEW_INDEX_MOIS]] = $drm->key;
 		}
 		krsort($result);
 		$this->drms = $result;
@@ -46,8 +51,8 @@ class DRMHistorique
 			$annees = array();
 			$drms = $this->getDrms();
 	    	foreach ($drms as $drm) {
-	    		if (!in_array($drm[1], $annees)) {
-	  				$annees[] = $drm[1];
+		  if (!in_array($drm[self::$VIEW_INDEX_ANNEE], $annees)) {
+	  				$annees[] = $drm[self::$VIEW_INDEX_ANNEE];
 	    		}
 	  		}
 	  		rsort($annees);
@@ -82,7 +87,7 @@ class DRMHistorique
 	public function getFutureDrm()
 	{
 		$lastDrm = current($this->getLastDrm());
-		$nextMonth = $lastDrm[2] + 1;
+		$nextMonth = $lastDrm[self::$VIEW_INDEX_MOIS] + 1;
 		if ($nextMonth < 10) {
 			$nextMonth = '0'.$nextMonth;
 		}
@@ -104,7 +109,7 @@ class DRMHistorique
 		$result = false;
 		$drms = $this->getDrms();
 		foreach ($drms as $drm) {
-			if (!$drm[3]) {
+			if (!$drm[self::$VIEW_INDEX_STATUS]) {
 				$result = true;
 				break;
 			}
