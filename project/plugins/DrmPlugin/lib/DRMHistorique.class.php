@@ -5,6 +5,8 @@ class DRMHistorique
   public static $VIEW_INDEX_ANNEE = 1;
   public static $VIEW_INDEX_MOIS = 2;
   public static $VIEW_INDEX_STATUS = 3;
+  public static $VIEW_INDEX_STATUS_DOUANE_ENVOI = 4;
+  public static $VIEW_INDEX_STATUS_DOUANE_ACCUSE = 5;
 
 	private $etablissement;
 	private $anneeCourante;
