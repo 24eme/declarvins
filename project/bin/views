@@ -56,10 +56,10 @@ cat <<EOF > $TMPFILE
    "language": "javascript",
    "views": {
        "all": {
-           "map": "function(doc) {\n  if (doc.type == \"DRM\")\n  emit([doc.identifiant, (doc.campagne).substring(0, 4), (doc.campagne).substring(4, 2)], 1);\n}",
+           "map": "function(doc) {\n  if (doc.type == \"DRM\")\n  emit([doc.identifiant, (doc.campagne).substring(0, 4), (doc.campagne).substring(5, 7), doc.valide, doc.douane.envoi, doc.douane.accuse], 1);\n}",
            "reduce": "function (keys, values, rereduce) {\n     return sum(values);\n}"
        }
-   }
+}
 }
 EOF
 

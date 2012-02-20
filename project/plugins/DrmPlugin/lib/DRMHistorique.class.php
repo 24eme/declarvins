@@ -87,15 +87,16 @@ class DRMHistorique
 	public function getFutureDrm()
 	{
 		$lastDrm = current($this->getLastDrm());
-		$nextMonth = $lastDrm[self::$VIEW_INDEX_MOIS] + 1;
-		if ($nextMonth < 10) {
-			$nextMonth = '0'.$nextMonth;
+		if (!$lastDrm) {
+		  return array('DRM-'.$this->etablissement.'-'.date('Y').'-'.date('m') => array($this->etablissement, date('Y'), sprintf("%02d", date('m')), 0, null, null));
 		}
-		$nextYear = $lastDrm[1];
+		$nextMonth = $lastDrm[self::$VIEW_INDEX_MOIS] + 1;
+		$nextYear = $lastDrm[self::$VIEW_INDEX_ANNEE];
 		if ($nextMonth > 12) {
 			$nextMonth = '01';
 			$nextYear++;
 		}
+	        $nextMonth = sprintf("%02d", $nextMonth);
 		return array('DRM-'.$this->etablissement.'-'.$nextYear.'-'.$nextMonth => array($this->etablissement, $nextYear, $nextMonth, 0, null, null));
 	}
 	
