@@ -12,6 +12,8 @@
  * @property acCouchdbJson $declaration
  * @property DRMDeclarant $declarant
  * @property string $identifiant
+ * @property boolean $valide
+ * @property acCouchdbJson $douane
 
  * @method string get_id()
  * @method string set_id()
@@ -29,6 +31,10 @@
  * @method DRMDeclarant setDeclarant()
  * @method string getIdentifiant()
  * @method string setIdentifiant()
+ * @method string getValide()
+ * @method string setValide()
+ * @method acCouchdbJson getDouane()
+ * @method acCouchdbJson setDouane()
  
  */
  

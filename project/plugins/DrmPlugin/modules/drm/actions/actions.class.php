@@ -30,7 +30,14 @@ class drmActions extends sfActions
   */
   public function executeMonEspace(sfWebRequest $request)
   {
-      
+      $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant);
+      $this->nbDrmHistory = 3;
+      $this->futurDrm = current($this->historique->getFutureDrm());
+      $this->hasNewDrm = false;
+      if (CurrentClient::getCurrent()->campagne >= ($this->futurDrm[1].'-'.$this->futurDrm[2]) && !$this->historique->hasDrmInProcess()) {
+      	$this->hasNewDrm = true;
+      	$this->nbDrmHistory = 2;
+      }
   }
  /**
   * Executes informations action
@@ -50,29 +57,7 @@ class drmActions extends sfActions
   public function executeHistorique(sfWebRequest $request)
   {
     $this->annee = $request->getParameter('annee');
-    // On recupere les annees
-    $drms = acCouchdbManager::getClient()->startkey(array($this->getUser()->getTiers()->identifiant, null))
-    										   ->endkey(array($this->getUser()->getTiers()->identifiant, array()))
-    										   ->group(true)
-    										   ->group_level(2)
-    										   ->getView("drm", "all")->rows;
-  	$this->annees = array();
-    foreach ($drms as $drm) {
-  		$this->annees[] = $drm->key[1];
-  	}
-  	rsort($this->annees);
-  	// -------------------------------
-  	if (!$this->annee) {
-  		$this->annee = $this->annees[0];
-  	}
-  	$this->anneeFixe = $this->annees[0];
-
-  	$drms = acCouchdbManager::getClient()->startkey(array($this->getUser()->getTiers()->identifiant, $this->annee, null))
-    										  ->endkey(array($this->getUser()->getTiers()->identifiant, $this->annee, array()))
-    										  ->reduce(false)
-    										  ->executeView("drm", "all", acCouchdbClient::HYDRATE_DOCUMENT);
-    $this->drms = $drms->getDatas();
-    krsort($this->drms);
+	$this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant, $this->annee);
   }
  /**
   * Executes mouvements generaux action

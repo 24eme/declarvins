@@ -10,42 +10,40 @@
 					<thead>
 						<tr>
 							<th>DRM</th>
-							<th>Etat validation</th>
-							<th>Etat réception</th>
+							<th>Etat</th>
 							<th>&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php $i=0; foreach ($drms as $drm): ?>
+						<?php $i=0; foreach ($historique->getDrmsParAnneeCourante() as $drm_id => $drm): ?>
 						<tr<?php if($i%2==0): ?> class="alt"<?php endif; ?>>
-							<td><?php echo $drm->campagne ?></td>
-							<td><?php if ($anneeFixe == $annee): ?>En cours<?php else: ?>OK<?php endif; ?></td>
-							<td><?php if ($anneeFixe == $annee): ?>&nbsp;<?php else: ?>OK<?php endif; ?></td>
+							<td><?php echo $drm[1].'-'.$drm[2] ?></td>
+							<?php if (!$drm[3]): ?>
+							<td>En cours</td>
 							<td>
-								<?php if ($anneeFixe == $annee): ?><a href="<?php echo url_for('@drm_init') ?>">Accéder à la déclaration en cours</a><?php else: ?><a href="#">Soumettre une DRM rectificative</a><?php endif; ?><br />
-								<a href="#" class="btn_reinitialiser"><span><?php if ($anneeFixe == $annee): ?>Réinitialiser la déclaration<?php else: ?>Visualiser<?php endif; ?></span></a>
+								<a href="<?php echo url_for('drm_init') ?>">Accéder à la déclaration en cours</a><br />
+								<a href="#" class="btn_reinitialiser"><span>Réinitialiser la déclaration</span></a>
 							</td>
+							<?php else: ?>
+							<td>OK</td>
+							<td>
+								<a href="#">Soumettre une DRM rectificative</a><br />
+								<a href="#" class="btn_reinitialiser"><span>Visualiser</span></a>
+							</td>							
+							<?php endif; ?>
 						</tr>
 						<?php $i++; endforeach; ?>
 					</tbody>
 				</table>
 			</div>
-			
-			<div id="drm_autres_annees">
-				<?php foreach ($annees as $an): ?>
-				<?php if ($an != $annee): ?>
-					<a href="<?php echo url_for('drm_historique', array('annee' => $an))?>">Afficher les drm <?php echo $an ?></a>
-				<?php endif; ?>
-			<?php endforeach; ?>
-			</div>
 		</div>
 		
 		<ul id="nav_drm_annees">
-			<?php foreach ($annees as $an): ?>
-				<?php if ($an == $annee): ?>
-					<li class="actif"><strong>DRM <?php echo $an ?></strong></li>
+			<?php foreach ($historique->getAnnees() as $annee): ?>
+				<?php if ($annee == $historique->getAnneeCourante()): ?>
+					<li class="actif"><strong>DRM <?php echo $annee ?></strong></li>
 				<?php else: ?>
-					<li><a href="<?php echo url_for('drm_historique', array('annee' => $an))?>">DRM <?php echo $an ?></a></li>
+					<li><a href="<?php echo url_for('drm_historique', array('annee' => $annee))?>">DRM <?php echo $annee ?></a></li>
 				<?php endif; ?>
 			<?php endforeach; ?>
 		</ul>

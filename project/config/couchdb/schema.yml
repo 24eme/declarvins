@@ -332,16 +332,13 @@ DRM:
                           type: collection
                           definition:
                             fields:
-                              couleur: {  }
+                              hashref: {  }
                               label:
                                 type: array_collection
                                 definition:
                                   fields:
                                     '*': {  }
                               label_supplementaire: {  }
-                              lieu: {  }
-                              cepage: {  }
-                              millesime: {  }
                               disponible: {  }
                               stock_vide: {  }
                               pas_de_mouvement: {  }
@@ -524,3 +521,10 @@ DRM:
                     commune: {  }
             service_douane: {  }
       identifiant: {  }
+      valide: {  }
+      douane:
+        type: collection
+        definition:
+          fields:
+            envoi: {  }
+            accuse: {  }

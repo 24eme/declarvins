@@ -2,11 +2,11 @@
 
 class drm_recapComponents extends sfComponents {
 
-    public function executePopupAppellationAjout() {
+    /*public function executePopupAppellationAjout() {
         if (is_null($this->form)) {
             $this->form = new DRMAppellationAjoutForm($this->getUser()->getDrm()->declaration->certifications->add($this->label->getKey())->appellations);
         }
-    }
+    }*/
 
     public function executeList() {
         $this->produits = $this->getUser()->getDrm()->produits
