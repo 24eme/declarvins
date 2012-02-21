@@ -51,10 +51,10 @@ class drm_recapActions extends sfActions
                 $form->save();
                 $this->getUser()->setFlash("notice", 'Le produit a été ajouté avec success.');
                 return $this->renderText(json_encode(array("success" => true, 
-                                                           "url" => $this->generateUrl('drm_recap', $this->config_appellation))));
+                                                           "url" => $this->generateUrl('drm_recap_appellation', $this->config_appellation))));
             }
             return $this->renderText(json_encode(array("success" => false, 
-                                                       "content" => $this->getPartial('form', array('form' => $form, 
+                                                       "content" => $this->getPartial('formAjout', array('form' => $form, 
                                                                                                     'config_appellation' => $this->config_appellation)))));
         }
         return $this->renderPartial('popupAjout', array('form' => $form, 'config_appellation' => $this->config_appellation));
