@@ -81,6 +81,9 @@ login:
 logout:
   url: /logout
   param: {module: acVinCompte, action: logout}
+upload:
+  url: /csv
+  param: {module: upload, action: file}
 
 # generic rules
 # please, remove them by adding more specific rules

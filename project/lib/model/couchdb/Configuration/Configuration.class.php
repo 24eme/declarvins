@@ -6,7 +6,7 @@
 
 class Configuration extends BaseConfiguration {
 
-	const DEFAULT_KEY = 'DEFAUT';
+  const DEFAULT_KEY = 'DEFAUT';
 
     public function constructId() {
         $this->set('_id', "CONFIGURATION");
@@ -33,4 +33,48 @@ class Configuration extends BaseConfiguration {
 
     	return $libelles;
     }
+
+    private static function normalizeLibelle($libelle) {
+      $libelle = str_ireplace('SAINT-', 'saint ', $libelle);
+      $libelle = preg_replace('/&nbsp;/', ' ', strtolower($libelle));
+      if (!preg_match('/&[^;]+;/', $libelle)) {
+	$libelle = html_entity_decode(preg_replace('/&([^;#])[^;]*;/', '\1', htmlentities($libelle, ENT_NOQUOTES, 'UTF-8')));
+      }
+      $libelle = str_replace(array('é', 'è', 'ê'), 'e', $libelle);
+      $libelle = preg_replace('/[^a-z ]/', '', preg_replace('/  */', ' ', preg_replace('/&([a-z])[^;]+;/i', '\1', $libelle)));
+      $libelle = preg_replace('/^\s+/', '', preg_replace('/\s+$/', '', $libelle));
+      return $libelle;
+    }
+
+    private function getObjectByLibelle($parent, $libelle, $previous_libelles = null) {
+      $libelle = ($libelle) ? self::normalizeLibelle($libelle) : 'DEFAUT';
+      $obj_id = 'DEFAUT';
+      foreach ( $parent as $obj_key => $obj_obj) {
+	if ($libelle == self::normalizeLibelle($obj_obj->getLibelle())) {
+	  $obj_id = $obj_key;
+	  break;
+	}
+      }
+      $next_libelles = $libelle;
+      if ($previous_libelles)
+	$next_libelles = $previous_libelles.' / '.$libelle;
+      if (!$parent->exist($obj_id))
+	  throw new Exception($next_libelles);
+      return array('obj' => $obj_obj, 'next_libelles' => $next_libelles);
+    }
+
+    public function identifyProduct($certification, $appellation, $lieu = 'DEFAUT', $couleur = 'DEFAUT', $cepage = 'DEFAUT', $millesime = 'DEFAUT') {
+      try {
+	$res = $this->getObjectByLibelle($this->declaration->getCertifications(), $certification);
+	$res = $this->getObjectByLibelle($res['obj']->getAppellations(), $appellation, $res['next_libelles']);
+	$res = $this->getObjectByLibelle($res['obj']->getLieux(), $lieu, $res['next_libelles']);
+	$res = $this->getObjectByLibelle($res['obj']->getCouleurs(), $couleur, $res['next_libelles']);
+	$res = $this->getObjectByLibelle($res['obj']->getCepages(), $cepage, $res['next_libelles']);
+	$res = $this->getObjectByLibelle($res['obj']->getMillesimes(), $millesime, $res['next_libelles']);
+      }catch(Exception $e) {
+	return array("error" => $e->getMessage());
+      }
+      return array("hash" => $res['obj']->getHash());
+    }
+
 }
