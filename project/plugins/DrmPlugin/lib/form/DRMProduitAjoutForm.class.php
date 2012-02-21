@@ -31,12 +31,6 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
             'label_supplementaire' => new sfValidatorString(array('required' => false)),
         ));
 
-        if ($this->hasAppellation()) {
-            //unset($this['appellation']);
-        }
-
-        //$this->getProduits();
-
         $this->validatorSchema->setPostValidator(new DRMProduitValidator(null, array('object' => $this->getObject())));
         $this->widgetSchema->setNameFormat('produit_'.$this->getObject()->getCertification()->getKey().'[%s]');
     }

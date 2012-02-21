@@ -28,7 +28,7 @@ class Configuration extends BaseConfiguration {
     	$libelles = array();
 
     	foreach($results->rows as $item) {
-    		$libelles['/'.$item->key[5]] = $item->value->libelles;
+    		$libelles['/'.$item->key[5]] = $item->value;
     	}
 
     	return $libelles;

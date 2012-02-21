@@ -62,12 +62,13 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
         return false;
     }
 
-    public function getProduits($interpro = 'INTERPRO-inter-rhone', $departement = null) {
+    public function getProduits($interpro = 'INTERPRO-inter-rhone', $departement = '') {
         $produits = array();
 
-        $results = ConfigurationClient::getInstance()->findProduitsByAppellation($this->getCertification()->getKey(), $interpro, "", $this->getKey());
+        $results = ConfigurationClient::getInstance()->findProduitsByAppellation($this->getCertification()->getKey(), $interpro, $departement, $this->getKey());
+
         foreach($results->rows as $item) {
-            $produits[] = array_merge($item->value->keys, array('libelles' => $item->value->libelles));
+            $produits[$item->key[5]] = $item->value;
         }
 
         return $produits;

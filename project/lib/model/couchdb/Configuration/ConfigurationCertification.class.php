@@ -21,7 +21,7 @@ class ConfigurationCertification extends BaseConfigurationCertification {
 
         $results = ConfigurationClient::getInstance()->findProduitsByCertification($this->getKey(), $interpro);
         foreach($results->rows as $item) {
-            $produits[$item->key[5]] = $item->value->libelles;
+            $produits[$item->key[5]] = $item->value;
         }
 
         return $produits;
@@ -32,7 +32,7 @@ class ConfigurationCertification extends BaseConfigurationCertification {
 
         $results = ConfigurationClient::getInstance()->findProduitsAppellationsByCertification($this->getKey(), $interpro);
         foreach($results->rows as $item) {
-            $produits[] = array_merge($item->value->keys, array('libelles' => $item->value->libelles));
+            $produits[$item->key[5]] = $item->value;
         }
 
         return $produits;
