@@ -141,6 +141,13 @@ class DrmRouting {
                         array('model' => 'acCouchdbJson',
                             'type' => 'object'
                 )));
+        $r->prependRoute('drm_delete_vrac', new VracDetailContratRoute('/drm/vrac/update/:certification/:appellation/:lieu/:couleur/:cepage/:millesime/:detail/delete/:contrat',
+                        array('module' => 'drm_vrac',
+                            'action' => 'deleteVrac'),
+                        array('sf_method' => array('post', 'get')),
+                        array('model' => 'acCouchdbJson',
+                            'type' => 'object'
+                )));
         
     }
 

@@ -23,6 +23,14 @@ class drm_vracActions extends sfActions
 		}
     }
     
+    public function executeDeleteVrac(sfWebRequest $request) {
+    	$vrac = $this->getRoute()->getObject();
+    	$vrac->getParent()->remove($vrac->getKey());
+    	$vrac->getDocument()->save();
+    	$this->redirect('drm_vrac');
+    	
+    }
+    
     public function executeNouveauContrat(sfWebRequest $request) {
     	if ($request->isXmlHttpRequest()) {        	
             $form = new VracAjoutContratForm($this->getRoute()->getObject());
