@@ -47,52 +47,95 @@ EOF;
     }
 	    
     $configuration = new Configuration();
-    
-    $configuration->declaration->certifications->add('AOP')->libelle = 'AOP';
-    $configuration->declaration->certifications->add('IGP')->libelle = 'IGP';
-    $configuration->declaration->certifications->add('VINSSANSIG')->libelle = "Vins sans IG";
-    $configuration->declaration->certifications->add('VINSSANSIGLIE')->libelle = "Vins sans IG Lie";
 
-    foreach (file($import_dir.'/appellations') as $a) {
-        $datas = explode(";", $a);
-        $appellation = $configuration->declaration->certifications->get($datas[0])->appellations->add(str_replace("\n", "", $datas[2]));
-        $appellation->libelle = $datas[1];
-        if (isset($datas[3])) {
-          $appellation->add('interpro', 'INTERPRO-'.$datas[3]);
-        }
-
-        $deps = null;
-        if (isset($datas[4])) {
-          $deps = str_replace("\n", "", $datas[4]);
-          trim($deps);
-        }
-
-        if ($deps) {
-          $appellation->departements = explode('|', $deps);
-        }
-
-
-        $lieu = $appellation->lieux->add('DEFAUT');
-        $blanc = $lieu->couleurs->add('blanc');
-        $blanc->libelle = "Blanc";
-        $blanc->cepages->add('DEFAUT')->millesimes->add('DEFAUT');
-        $rouge = $lieu->couleurs->add('rouge');
-        $rouge->libelle = "Rouge";
-        $rouge->cepages->add('DEFAUT')->millesimes->add('DEFAUT');
-        $rose = $lieu->couleurs->add('rose');
-        $rose->libelle = "Rosé";
-        $rose->cepages->add('DEFAUT')->millesimes->add('DEFAUT');
+    $certifications = array();
+    foreach (file($import_dir.'/certifications') as $line) {
+      $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
+      $certifications[$datas[0]] = $datas[1];
     }
 
-    $configuration->declaration->certifications->get('VINSSANSIGLIE')
-                               ->appellations->add('DEFAUT')
-                               ->lieux->add('DEFAUT')
-                               ->couleurs->add('DEFAUT')
-                               ->cepages->add('DEFAUT')
-                               ->millesimes->add('DEFAUT');
+    $appellations = array();
+    foreach (file($import_dir.'/appellations') as $line) {
+      $datas = explode(';', preg_replace('/"/', '', str_replace("\n", "", $line)));
+      $appellations[$datas[0]][$datas[1]] = $datas[2];
+    }
+    
+    $couleurs = array();
+    foreach (file($import_dir.'/couleurs') as $line) {
+      $datas = explode(';', preg_replace('/"/', '', str_replace("\n", "", $line)));
+      $couleurs[$datas[0]] = $datas[1];
+    }
 
-    $configuration->declaration->certifications->get('VINSSANSIGLIE')
-                               ->appellations->get('DEFAUT')->add('interpro', 'INTERPRO-inter-rhone');
+    foreach (file($import_dir.'/produits') as $line) {
+        $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
+
+        foreach($datas as $key => $value) {
+          if (!$value) {
+            $datas[$key] = "DEFAUT";
+          }
+        }
+
+        $hash = 'certifications/'.$datas[0].
+                '/appellations/'.$datas[1].
+                '/lieux/'.$datas[2].
+                '/couleurs/'.$datas[3].
+                '/cepages/'.$datas[4].
+                '/millesimes/'.$datas[5];
+
+        $configuration->declaration->getOrAdd($hash);
+    }
+
+    foreach($configuration->declaration->certifications as $certification) {
+      if(array_key_exists($certification->getKey(), $certifications)) {
+        $certification->libelle = $certifications[$certification->getKey()];
+      } else {
+        throw new sfCommandException("Libelle not found");
+      }
+      foreach($certification->appellations as $appellation) {
+        if(array_key_exists($certification->getKey(), $appellations) && array_key_exists($appellation->getKey(), $appellations[$certification->getKey()])) {
+          $appellation->libelle = $appellations[$certification->getKey()][$appellation->getKey()];
+        } elseif($appellation->getKey() != "DEFAUT") {
+          throw new sfCommandException(sprintf("Libelle not found : %s", $appellation->getHash()));
+        }
+        foreach($appellation->lieux->get('DEFAUT')->couleurs as $couleur) {
+          if(array_key_exists($couleur->getKey(), $couleurs)) {
+            $couleur->libelle = $couleurs[$couleur->getKey()];
+          } elseif($couleur->getKey() != "DEFAUT") {
+            throw new sfCommandException("Libelle not found");
+          }
+        }
+      }
+    }
+
+    foreach (file($import_dir.'/appellations_interpros') as $line) {
+        $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
+
+        foreach($datas as $key => $value) {
+          if (!$value) {
+            $datas[$key] = "DEFAUT";
+          }
+        }
+
+        $hash = 'certifications/'.$datas[0].
+                '/appellations/'.$datas[1];
+
+        $configuration->declaration->get($hash)->interpro->add(null, 'INTERPRO-'.$datas[2]);
+    }
+
+    foreach (file($import_dir.'/appellations_departements') as $line) {
+        $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
+
+        foreach($datas as $key => $value) {
+          if (!$value) {
+            $datas[$key] = "DEFAUT";
+          }
+        }
+
+        $hash = 'certifications/'.$datas[0].
+                '/appellations/'.$datas[1];
+
+        $configuration->declaration->get($hash)->departements->add(null, $datas[2]);
+    }
 
   	$configuration->label->add('AB', 'Agriculture Biologique');
   	$configuration->label->add('AR', 'Agriculture Raisonnée');
