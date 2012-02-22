@@ -8,18 +8,21 @@ class VracAjoutContratForm extends acCouchdbFormDocumentJson
     {
         $this->setWidgets(array(
             'vrac' => new sfWidgetFormChoice(array('choices' => $this->getContratChoices())),
+        	'volume' => new sfWidgetFormInputFloat(),
         ));
         $this->widgetSchema->setLabels(array(
         	'vrac' => 'Contrat*: ',
+        	'volume' => 'Volume*: ',
         ));
         $this->setValidators(array(
             'vrac' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getContratChoices())), array('required' => 'Champ obligatoire')),
+        	'volume' => new sfValidatorNumber(array('required' => true)),
         ));
         $this->widgetSchema->setNameFormat('vrac_'.$this->getObject()->getIdentifiant().'[%s]');
     }
 
     public function doUpdateObject($values) {
-    	$this->getObject()->vrac->add($values['vrac']);
+    	$this->getObject()->vrac->add($values['vrac'])->volume = $values['volume'];
     }
     
 	public function getContratChoices() 
