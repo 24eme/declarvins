@@ -28,8 +28,13 @@ class uploadActions extends sfActions
     set_time_limit(600);
     $this->csv = new CsvFile(sfConfig::get('sf_data_dir') . '/upload/' . $md5);
     $config = ConfigurationClient::getCurrent();
+    $drm = null;
     foreach ($this->csv->getCsv() as $line) {
-      print_r($config->identifyProduct($line[3], $line[4], $line[5], $line[6], $line[7], $line[8]));
+      if (!$drm)
+	$drm = new DRM('DRM-9223700100-'.$line[3].'-'.$line[4]);
+      $res = $config->identifyProduct($line[5], $line[6], $line[7], $line[8], $line[9], $line[10]);
+      $detail = $drm->addProduit($res['hash'], $config->identifyLabels($line[11]));
     }
+    exit;
   }
 }

@@ -77,4 +77,23 @@ class Configuration extends BaseConfiguration {
       return array("hash" => $res['obj']->getHash());
     }
 
+    public function identifyLabels($labels, $separateur = '|') {
+      $label_keys = array();
+      foreach(explode($separateur, $labels) as $l) {
+	if ($k = $this->identifyLabel($l)) {
+	  $label_keys[] = $k;
+	}
+      }
+      return $label_keys;
+    }
+
+    public function identifyLabel($label) {
+      $label = self::normalizeLibelle($label);
+      foreach ($this->label as $k => $l) {
+	if ($label == self::normalizeLibelle($l))
+	  return $k;
+      }
+      return false;
+    }
+
 }
