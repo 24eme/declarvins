@@ -50,7 +50,7 @@
 						<?php echo $form['confirmation']->renderError() ?>
 					</div>
 					<div class="ligne_btn">
-						<button type="submit" class="btn_valider">Valider</button>
+						<button type="submit" class="btn_suiv"><span>VALIDER</span></button>
 						<a href="#" class="btn_popup btn_popup_trigger" data-popup="#popup_confirm_modif_infos" data-popup-config="configConfirmModifInfos" data-popup-titre="Etes-vous sûr de vouloir modifier ces informations ?"></a>
 					</div>
 		        </form>
