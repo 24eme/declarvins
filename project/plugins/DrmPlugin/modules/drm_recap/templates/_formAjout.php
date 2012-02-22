@@ -2,6 +2,11 @@
 	<?php echo $form->renderGlobalErrors() ?>
 	<?php echo $form->renderHiddenFields() ?>
 	<div class="ligne_form">
+		<label>Appellations</label>
+		<?php echo $config_appellation->libelle ?>
+		<small style="font-size:9px">(<a href="#">modifier)</a></small>
+	</div>
+	<div class="ligne_form">
 		<?php echo $form['produit']->renderLabel() ?>
 		<?php echo $form['produit']->render() ?>
 		<span class="error"><?php echo $form['produit']->renderError() ?></span>
