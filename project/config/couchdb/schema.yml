@@ -216,7 +216,11 @@ Configuration:
                     definition:
                       fields:
                         libelle: {  }
-                        interpro: {required: false}
+                        interpro:
+                          type: array_collection
+                          definition:
+                            fields:
+                              '*': {  }
                         departements:
                           type: array_collection
                           definition:
@@ -234,7 +238,11 @@ Configuration:
                                 definition:
                                   fields:
                                     libelle: {  }
-                                    interpro: {required: false}
+                                    interpro:
+                                      type: array_collection
+                                      definition:
+                                        fields:
+                                          '*': {  }
                                     departements:
                                       type: array_collection
                                       definition:
@@ -252,7 +260,11 @@ Configuration:
                                             definition:
                                               fields:
                                                 libelle: {  }
-                                                interpro: {required: false}
+                                                interpro:
+                                                  type: array_collection
+                                                  definition:
+                                                    fields:
+                                                      '*': {  }
                                                 departements:
                                                   type: array_collection
                                                   definition:
@@ -270,7 +282,11 @@ Configuration:
                                                         definition:
                                                           fields:
                                                             libelle: {  }
-                                                            interpro: {required: false}
+                                                            interpro:
+                                                              type: array_collection
+                                                              definition:
+                                                                fields:
+                                                                  '*': {  }
                                                             departements:
                                                               type: array_collection
                                                               definition:
@@ -288,7 +304,11 @@ Configuration:
                                                                     definition:
                                                                       fields:
                                                                         libelle: {  }
-                                                                        interpro: {required: false}
+                                                                        interpro:
+                                                                          type: array_collection
+                                                                          definition:
+                                                                            fields:
+                                                                              '*': {  }
                                                                         departements:
                                                                           type: array_collection
                                                                           definition:
