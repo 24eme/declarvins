@@ -1447,27 +1447,19 @@ p#date_drm {
   line-height:22px;
 }
 #principal .btn_passer_etape {
-  background-repeat:no-repeat;
-  border:1px solid;
-  color:#ffffff;
-  display:inline-block;
-  background-color:#a0a0a0;
-  border-color:#c0c0c0;
-  background:url(../images/boutons/btn_majeur.png) 0 0 no-repeat;
-  color:#ffffff;
-  display:inline-block;
-  font-size:15px;
-  line-height:26px;
-  background-position:right -52px;
-  float:right;
-  padding:0 18px 0 0;
-  float:right;
-  font-size:12px;
-  font-weight:bold;
-  line-height:20px;
-  margin:0 0 0 15px;
-  padding:0 23px 0 10px;
-  text-transform:uppercase;
+    background-color: #A0A0A0;
+    background-position: right -52px;
+    background-repeat: no-repeat;
+    border: 1px solid #C0C0C0;
+    color: #FFFFFF;
+    display: inline-block;
+    float: right;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 20px;
+    margin: 0 0 0 15px;
+    padding: 0 23px 0 10px;
+    text-transform: uppercase;
 }
 #principal .btn_passer_etape:hover, #principal .btn_passer_etape:focus { background-color:#494949; }
 #principal .btn_passer_etape:hover { text-decoration:none; }
