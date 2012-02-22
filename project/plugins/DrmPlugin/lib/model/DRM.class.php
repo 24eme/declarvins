@@ -8,6 +8,42 @@ class DRM extends BaseDRM {
 
     const NOEUD_TEMPORAIRE = 'TMP';
     const DEFAULT_KEY = 'DEFAUT';
+    const CSV_COL_TYPE = 0;
+    const CSV_COL_DETAIL_IDENTIFIANT_DECLARANT = 1;
+    const CSV_COL_DETAIL_NOM_DECLARANT = 2;
+    const CSV_COL_DETAIL_ANNEE = 3;
+    const CSV_COL_DETAIL_MOIS = 4;
+    const CSV_COL_DETAIL_PRECEDENTE = 5;
+    const CSV_COL_DETAIL_CERTIFICATION = 6;
+    const CSV_COL_DETAIL_APPELLATION = 7;
+    const CSV_COL_DETAIL_LIEU = 8;
+    const CSV_COL_DETAIL_COULEUR = 9;
+    const CSV_COL_DETAIL_CEPAGE = 10;
+    const CSV_COL_DETAIL_MILLESIME = 11;
+    const CSV_COL_DETAIL_LABELS = 12;
+    const CSV_COL_DETAIL_MENTION = 13;
+    const CSV_COL_DETAIL_TOTAL_DEBUT_MOIS = 14;
+    const CSV_COL_DETAIL_ENTREES = 15;
+    const CSV_COL_DETAIL_ENTREES_NOUVEAU = 16;
+    const CSV_COL_DETAIL_ENTREES_REPLI = 17;
+    const CSV_COL_DETAIL_ENTREES_DECLASSEMENT = 18;
+    const CSV_COL_DETAIL_ENTREES_MOUVEMENT = 19;
+    const CSV_COL_DETAIL_ENTREES_CRD = 20;
+    const CSV_COL_DETAIL_SORTIES = 21;
+    const CSV_COL_DETAIL_SORTIES_VRAC = 22;
+    const CSV_COL_DETAIL_SORTIES_EXPORT = 23;
+    const CSV_COL_DETAIL_SORTIES_FACTURES = 24;
+    const CSV_COL_DETAIL_SORTIES_CRD = 25;
+    const CSV_COL_DETAIL_SORTIES_CONSOMMATION = 26;
+    const CSV_COL_DETAIL_SORTIES_PERTES = 27;
+    const CSV_COL_DETAIL_SORTIES_DECLASSEMENT = 28;
+    const CSV_COL_DETAIL_SORTIES_REPLI = 29;
+    const CSV_COL_DETAIL_SORTIES_MOUVEMENT = 30;
+    const CSV_COL_DETAIL_SORTIES_LIES = 31;
+    const CSV_COL_DETAIL_TOTAL = 32;
+    const CSV_COL_DETAIL_STOCKFIN_BLOQUE = 33;
+    const CSV_COL_DETAIL_STOCKFIN_WARRANTE = 34;
+    const CSV_COL_DETAIL_STOCKFIN_INSTANCE = 35;
 
     public function constructId() {
         $this->set('_id', 'DRM-' . $this->identifiant . '-' . $this->campagne);
@@ -36,7 +72,7 @@ class DRM extends BaseDRM {
       try {
 	if ($produits = $this->getProduits()->get($hashes['certification'])->get($hashes['appellation'])) {
 	  foreach ($produits as $p) {
-	    $leslabels = $p->label;
+	    $leslabels = $p->label->toArray();
 	    sort($leslabels);
 	    if (!count(array_diff($leslabels,$labels))) {
 	      return $p;
