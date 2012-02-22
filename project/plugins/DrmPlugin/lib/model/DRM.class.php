@@ -22,7 +22,47 @@ class DRM extends BaseDRM {
             }
         }
     }
-    
+
+    private function interpretHash($hash) {
+      if (!preg_match('|declaration/certifications/([^/]*)/appellations/([^/]*)/|', $hash, $match)) {
+	throw new sfException($hash." invalid");
+      }
+      return array('certification' => $match[1], 'appellation' => $match[2]);
+    }
+
+    public function getProduit($hash, $labels = array()) {
+      $hashes = $this->interpretHash($hash);
+      sort($labels);
+      try {
+	if ($produits = $this->getProduits()->get($hashes['certification'])->get($hashes['appellation'])) {
+	  foreach ($produits as $p) {
+	    $leslabels = $p->label;
+	    sort($leslabels);
+	    if (!count(array_diff($leslabels,$labels))) {
+	      return $p;
+	    }
+	  }
+	}
+      }catch(Exception $e) {
+      }
+      return false;
+    }
+
+    public function addProduit($hash, $labels = array()) {
+      if ($p = $this->getProduit($hash, $labels)) {
+	return $p;
+      }
+      $hashes = $this->interpretHash($hash);
+      $produit = $this->produits->add($hashes['certification'])->add($hashes['appellation'])->add();
+      $produit->setLabel($labels);
+      $produit->setHashref($hash);
+
+      $this->synchroniseDeclaration();
+      
+      return $produit;
+
+    }
+
     public function getDetailsAvecVrac() {
         $details = array();
         foreach ($this->declaration->certifications as $certifications) {
