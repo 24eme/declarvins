@@ -10,7 +10,9 @@
 		<div id="application_dr">
 			<div id="drm_informations">
 		        <p>Veuillez tout d'abord confirmer les informations ci-dessous :<br /><br /></p>
-		        <form action="<?php echo url_for('drm_mouvements_generaux') ?>" method="post">
+		        <form action="<?php echo url_for('drm_informations') ?>" method="post">
+			        <?php echo $form->renderGlobalErrors() ?>
+					<?php echo $form->renderHiddenFields() ?>
 					<div class="ligne_form">
 						<label for="champ_1">CVI :</label>
 						<span class="valeur"><?php echo $tiers->cvi ?></span>
@@ -43,13 +45,9 @@
 						<label for="champ_9">Numéro d’Accise :</label>
 						<span class="valeur">1654546764</span>
 					</div>
+					<?php echo $form['confirmation']->render() ?>
 					<div class="ligne_form">
-						<label for="champ_conf_infos">Je confirme l'exactitude de ces informations</label>
-						<input type="radio" id="champ_conf_infos" name="champ_10" />
-					</div>
-					<div class="ligne_form">
-						<label for="champ_modif_infos">Je souhaite modifier mes informations de structure</label>
-						<input type="radio" id="champ_modif_infos" name="champ_10" data-popup-trigger="true" />
+						<?php echo $form['confirmation']->renderError() ?>
 					</div>
 					<div class="ligne_btn">
 						<button type="submit" class="btn_valider">Valider</button>
