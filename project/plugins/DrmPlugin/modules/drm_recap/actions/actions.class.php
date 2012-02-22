@@ -39,6 +39,7 @@ class drm_recapActions extends sfActions
         $this->init();
         $this->forward404Unless($request->isXmlHttpRequest());
         $drm = $this->getUser()->getDrm();
+
         $form = new DRMProduitAjoutForm($drm->produits->get($this->config_appellation->getCertification()->getKey())
                                                       ->get($this->config_appellation->getKey())
                                                       ->add(),
