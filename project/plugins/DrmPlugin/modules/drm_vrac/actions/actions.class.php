@@ -5,6 +5,9 @@ class drm_vracActions extends sfActions
     
     public function executeIndex(sfWebRequest $request) {
     	$this->details = $this->getUser()->getDrm()->getDetailsAvecVrac();
+    	if (count($this->details)==0) {
+    		$this->redirect('drm_succes');
+    	}
 		$this->forms = array();
 		foreach ($this->details as $detail) {
 			foreach ($detail->getVrac() as $vrac) {

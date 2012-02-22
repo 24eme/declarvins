@@ -68,14 +68,24 @@ class drmActions extends sfActions
   {
       $this->drm = $this->getUser()->getDrm();
       $this->drmValidation = new DRMValidation($this->drm);
-      if ($this->drmValidation->hasEngagements()) {
-      	$this->form = new DRMValidationForm(array(), array('engagements' => $this->drmValidation->getEngagements()));
-      	if ($request->isMethod(sfWebRequest::POST)) {
-            $this->form->bind($request->getParameter($this->form->getName()));
-			if ($this->form->isValid()) {
-			}
-        }
+      $this->form = new DRMValidationForm(array(), array('engagements' => $this->drmValidation->getEngagements()));
+      if ($request->isMethod(sfWebRequest::POST)) {
+      	$this->form->bind($request->getParameter($this->form->getName()));
+		if ($this->form->isValid()) {
+			$this->drm->valide = 1;
+			$this->drm->save();
+			$this->redirect('drm_validation');
+      	}
       }
+  }
+ /**
+  * Executes mouvements generaux action
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeSucces(sfWebRequest $request)
+  {
+      
   }
   
 }

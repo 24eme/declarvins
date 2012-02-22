@@ -3,10 +3,8 @@ class DRMValidationForm extends BaseForm
 {
 	public function configure()
   	{
-  		if (!($engagements = $this->getOption('engagements'))) {
-  			throw new sfException('Engagements are needed');
-  		}
-  		
+
+  		$engagements = $this->getOption('engagements');
   		foreach ($engagements as $engagement) {
   			$this->setWidget('engagement_'.$engagement->getCode(), new sfWidgetFormInputCheckbox());
   			$this->getWidget('engagement_'.$engagement->getCode())->setLabel($engagement->getMessage());

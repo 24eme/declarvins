@@ -50,6 +50,9 @@ class DrmRouting {
         $r->prependRoute('drm_validation', new sfRoute('/drm/validation', array('module' => 'drm', 
                                                                                 'action' => 'validation')));
 
+        $r->prependRoute('drm_succes', new sfRoute('/drm/succes', array('module' => 'drm', 
+                                                                                'action' => 'succes')));
+
         $r->prependRoute('drm_mouvements_generaux_produit_update', new DrmProduitRoute('/drm/mouvements-generaux/:certification/:appellation/update/:indice',
                         array('module' => 'drm_mouvements_generaux',
                             'action' => 'updateAjax'),

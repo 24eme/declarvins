@@ -2,7 +2,8 @@
 class DRMControleWarning extends DRMControle
 {
 	protected $messages = array(
-		'mouvement' => "Attention ... mouvement"
+		'mouvement' => "Attention ... mouvement",
+		'declassement' => "Attention ... declassement",
 	);
 	
 	public function __construct($code, $lien) {
