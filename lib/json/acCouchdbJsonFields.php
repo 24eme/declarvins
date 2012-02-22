@@ -381,6 +381,7 @@ abstract class acCouchdbJsonFields {
     }
 
     private function addNumeric() {
+        $this->loadData();
         $field = $this->getDefinition()->get('*')->getDefaultValue($this->_document, $this->_hash . '/' . count($this->_fields));
         //$field = $this->getDefinition()->getJsonField(null, true, $this->_document, $this->_hash . '/' . count($this->_fields));
         $this->_fields[] = $field;
