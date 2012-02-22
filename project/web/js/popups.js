@@ -23,6 +23,7 @@
 			resizable: false,
 			width: 460,
 			modal: true,
+			minHeight: 0,
 			create: function(event, ui) {},
 			open: function(event, ui) {},
 			close: function(event, ui) { }
@@ -34,6 +35,23 @@
 			create: function(popup)
 			{
 				popup.initPopupAjoutProduit();
+			},
+			open: function(event, ui)
+			{
+				
+			},
+			close: function(event, ui)
+			{
+				$(this).trigger('fermer');
+			}
+		},
+
+		/* Configuration d'ajout d'une appellation */
+		configAjoutAppellation:
+		{
+			create: function(popup)
+			{
+				popup.initPopupAjoutAppellation();
 			},
 			open: function(event, ui)
 			{

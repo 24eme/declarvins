@@ -555,6 +555,10 @@ a:hover { text-decoration:underline; }
   height:23px;
   padding:0 0 0 15px;
 }
+#principal #onglets_principal li.ajouter a.btn_chargement {
+  background-image:url(../images/pictos/pi_loader.gif);
+  padding-left:20px;
+}
 #principal #onglets_principal li.ajouter a:hover, #principal #onglets_principal li.ajouter a:focus { text-decoration:underline; }
 #principal #contenu_onglet {
   background:#f1f1f1;

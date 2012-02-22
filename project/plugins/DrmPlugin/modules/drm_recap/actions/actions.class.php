@@ -21,7 +21,7 @@ class drm_recapActions extends sfActions
                 $this->form->save();
                 return $this->renderText(json_encode(array("success" => true,
                                                            "ajax" => true,
-                                                           "url" => $this->generateUrl('drm_recap_ajout_ajax', array('certification' => 'AOP')))));
+                                                           "url" => $this->generateUrl('drm_recap_ajout_ajax', $this->certification->appellations->get($this->form->getAppellation()->getKey())))));
             }
 
             return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('drm_recap/formAppellationAjout', array('certification' => $this->certification, 'form' => $this->form)))));
