@@ -48,10 +48,10 @@ EOF;
 	    
     $configuration = new Configuration();
     
-    $aop = $configuration->declaration->certifications->add('AOP')->libelle = 'AOP';
-    $igp = $configuration->declaration->certifications->add('IGP')->libelle = 'IGP';
-    $vinsansig = $configuration->declaration->certifications->add('VINSSANSIG')->libelle = "Vins sans IG";
-    $vinsansiglie = $configuration->declaration->certifications->add('VINSSANSIGLIE')->libelle = "Vins sans IG Lie";
+    $configuration->declaration->certifications->add('AOP')->libelle = 'AOP';
+    $configuration->declaration->certifications->add('IGP')->libelle = 'IGP';
+    $configuration->declaration->certifications->add('VINSSANSIG')->libelle = "Vins sans IG";
+    $configuration->declaration->certifications->add('VINSSANSIGLIE')->libelle = "Vins sans IG Lie";
 
     foreach (file($import_dir.'/appellations') as $a) {
         $datas = explode(";", $a);
@@ -83,6 +83,16 @@ EOF;
         $rose->libelle = "Rosé";
         $rose->cepages->add('DEFAUT')->millesimes->add('DEFAUT');
     }
+
+    $configuration->declaration->certifications->get('VINSSANSIGLIE')
+                               ->appellations->add('DEFAUT')
+                               ->lieux->add('DEFAUT')
+                               ->couleurs->add('DEFAUT')
+                               ->cepages->add('DEFAUT')
+                               ->millesimes->add('DEFAUT');
+
+    $configuration->declaration->certifications->get('VINSSANSIGLIE')
+                               ->appellations->get('DEFAUT')->add('interpro', 'INTERPRO-inter-rhone');
 
   	$configuration->label->add('AB', 'Agriculture Biologique');
   	$configuration->label->add('AR', 'Agriculture Raisonnée');
