@@ -5,6 +5,7 @@ class DRMValidation
 	private $engagements;
 	private $warnings;
 	private $errors;
+	const VINSSANSIG_KEY = 'VINSSANSIG';
 	
 	public function __construct($drm)
 	{
@@ -32,7 +33,15 @@ class DRMValidation
 	
 	private function controleDrm()
 	{
+		$totalEntreeDeclassement = 0;
+		$totalSortiDeclassement = 0;
+		$certificationVinssansig = null;
 		foreach ($this->drm->declaration->certifications as $certification) {
+			if ($certification->getKey() == self::VINSSANSIG_KEY) {
+				$certificationVinssansig = $certification;
+			}
+			$totalEntreeRepli = 0;
+			$totalSortiRepli = 0;
 			foreach ($certification->appellations as $appellation) {
 				foreach($appellation->lieux as $lieu) {
 					foreach ($lieu->couleurs as $couleur) {
@@ -42,12 +51,24 @@ class DRMValidation
 										$this->controleEngagements($detail);
 										$this->controleErrors($detail);
 										$this->controleWarnings($detail);
+										$totalEntreeRepli += $detail->entrees->repli;
+										$totalSortiRepli += $detail->sorties->repli;
+										$totalSortiDeclassement += $detail->sorties->declassement;
+										if ($certification->getKey() == self::VINSSANSIG_KEY) {
+											$totalEntreeDeclassement += $detail->entrees->declassement;
+										}
 								}
 							}
 						}
 					}
 				}
-			}	
+			}
+			if ($totalEntreeRepli != $totalSortiRepli) {
+				$this->errors[] = new DRMControleError('repli', $this->generateUrl('drm_recap', array('sf_subject' => $certification)));
+			}
+		}
+		if ($totalEntreeDeclassement > $totalSortiDeclassement) {
+			$this->warnings[] = new DRMControleWarning('declassement', $this->generateUrl('drm_recap', array('sf_subject' => $certificationVinssansig)));
 		}
 	}
 	
@@ -65,6 +86,9 @@ class DRMValidation
 		}
 		if ($detail->sorties->repli > 0) {
 			$this->engagements[] = new DRMControleEngagement('repli');
+		}
+		if ($detail->sorties->pertes > 0) {
+			$this->engagements[] = new DRMControleEngagement('pertes');
 		}
 	}
 	

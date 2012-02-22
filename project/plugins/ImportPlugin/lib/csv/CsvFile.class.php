@@ -44,7 +44,8 @@ class CsvFile
       throw new Exception('Cannot open csv file anymore');
     $this->csvdata = array();
     while (($data = fgetcsv($handler, 0, $this->separator)) !== FALSE) {
-      $this->csvdata[] = $data;
+      if (!preg_match('/^#/', $data[0]))
+	$this->csvdata[] = $data;
     }
     fclose($handler);
     /*if ($this->ignore && !preg_match('/^\d{10}$/', $this->csvdata[0][0]))

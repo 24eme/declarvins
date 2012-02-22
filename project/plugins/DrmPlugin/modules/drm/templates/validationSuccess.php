@@ -9,38 +9,28 @@
 
     <!-- #principal -->
     <section id="principal">
+    	<form action="<?php echo url_for('@drm_validation') ?>" method="post">
+	        <?php echo $form->renderGlobalErrors() ?>
+			<?php echo $form->renderHiddenFields() ?>
 			<div id="application_dr">
 	            <div id="contenu_onglet">
 	            
 	            	<div id="retours">
-	            		<?php if ($drmValidation->hasErrors()): ?>
-	            			<h3>Points bloquants</h3>
-	            			<?php foreach ($drmValidation->getErrors() as $error): ?>
-	            				<?php echo $error->getRawValue() ?><br />
-	            			<?php endforeach; ?>
-	            			<br />
-	            		<?php endif; ?>
-	            		<?php if ($drmValidation->hasWarnings()): ?>
-	            			<h3>Points de vigilance</h3>
-	            			<?php foreach ($drmValidation->getWarnings() as $warning): ?>
-	            				<?php echo $warning->getRawValue() ?><br />
-	            			<?php endforeach; ?>
-	            			<br />
-	            		<?php endif; ?>
-	            		<?php if ($drmValidation->hasEngagements()): ?>
-	            		<form action="<?php echo url_for('@drm_validation') ?>" method="post">
-	            			<?php echo $form->renderGlobalErrors() ?>
-							<?php echo $form->renderHiddenFields() ?>
-	            			<h3>Engagements</h3>
-	            			<?php foreach ($drmValidation->getEngagements() as $engagement): ?>
-	            				<div class="ligne_form">
-									<?php echo $form['engagement_'.$engagement->getCode()]->renderLabel() ?>
-									<?php echo $form['engagement_'.$engagement->getCode()]->render() ?>
-									<span class="error"><?php echo $form['engagement_'.$engagement->getCode()]->renderError() ?></span>
-								</div>
-	            			<?php endforeach; ?>
-        					</form>
-	            		<?php endif; ?>
+	            		<?php 
+	            			if ($drmValidation->hasErrors()) {
+	            				include_partial('erreurs', array('drmValidation' => $drmValidation));
+	            			}
+	            		?>
+	            		<?php 
+	            			if ($drmValidation->hasWarnings()) {
+	            				include_partial('vigilances', array('drmValidation' => $drmValidation));
+	            			}
+	            		?>
+	            		<?php 
+	            			if ($drmValidation->hasEngagements()) {
+	            				include_partial('engagements', array('drmValidation' => $drmValidation, 'form' => $form));
+	            			}
+	            		?>
 	            	</div>
 	            	
 	                <div id="tableau_aop" class="tableau_ajouts_liquidations">
@@ -91,9 +81,8 @@
 				<a href="<?php echo url_for('drm_vrac') ?>" class="btn_prec">
 					<span>Précédent</span>
 				</a>
-				<a href="<?php echo url_for('drm_vrac') ?>" class="btn_suiv">
-					<span>Suivant</span>
-				</a>
+				<button type="submit" class="btn_suiv"<?php if ($drmValidation->hasErrors()): ?> disabled="disabled"<?php endif; ?>><span>Valider</span></button>
 			</div>
+		</form>
     </section>
 </section>

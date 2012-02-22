@@ -108,5 +108,16 @@ class DRMDetail extends BaseDRMDetail {
         }
         return false;
     }
+    
+    public function getContratsVrac() {
+    	$etablissement = $this->getDocument()->identifiant;
+    	$contrats = array();
+		foreach (VracClient::getInstance()->getAll() as $contrat) {
+			if ($contrat->etablissement == $etablissement && (strpos($this->getHash(), $contrat->produit) !== false)) {
+				$contrats[] = $contrat;
+            }
+        }
+        return $contrats;
+    }
 
 }

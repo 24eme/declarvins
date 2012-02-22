@@ -50,6 +50,9 @@ class DrmRouting {
         $r->prependRoute('drm_validation', new sfRoute('/drm/validation', array('module' => 'drm', 
                                                                                 'action' => 'validation')));
 
+        $r->prependRoute('drm_succes', new sfRoute('/drm/succes', array('module' => 'drm', 
+                                                                                'action' => 'succes')));
+
         $r->prependRoute('drm_mouvements_generaux_produit_update', new DrmProduitRoute('/drm/mouvements-generaux/:certification/:appellation/update/:indice',
                         array('module' => 'drm_mouvements_generaux',
                             'action' => 'updateAjax'),
@@ -135,6 +138,13 @@ class DrmRouting {
                         array('module' => 'drm_vrac',
                             'action' => 'updateVolume'),
                         array('sf_method' => array('post')),
+                        array('model' => 'acCouchdbJson',
+                            'type' => 'object'
+                )));
+        $r->prependRoute('drm_delete_vrac', new VracDetailContratRoute('/drm/vrac/update/:certification/:appellation/:lieu/:couleur/:cepage/:millesime/:detail/delete/:contrat',
+                        array('module' => 'drm_vrac',
+                            'action' => 'deleteVrac'),
+                        array('sf_method' => array('post', 'get')),
                         array('model' => 'acCouchdbJson',
                             'type' => 'object'
                 )));

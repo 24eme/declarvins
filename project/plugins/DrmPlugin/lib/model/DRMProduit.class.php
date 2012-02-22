@@ -14,10 +14,17 @@ class DRMProduit extends BaseDRMProduit {
         return $this->getParent();
     }
     
+    public function setLabel($label) {
+      sort($label);
+      $this->_set('label', $label);
+    }
+
     public function getLabelKey() {
     	$key = null;
     	if ($this->label) {
-    		$key = implode('-', $this->label->toArray());
+	  $labels = $this->label->toArray();
+	  sort($labels);
+	  $key = implode('-', $labels);
     	}
     	return ($key)? $key : DRM::DEFAULT_KEY;
     }

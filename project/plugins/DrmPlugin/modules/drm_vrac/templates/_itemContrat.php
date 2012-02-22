@@ -16,4 +16,7 @@
 			</div>
 		</form>
 	</td>
+	<td>
+		<a href="<?php echo url_for('drm_delete_vrac', $form->getObject()) ?>">X</a>
+	</td>
 </tr>
