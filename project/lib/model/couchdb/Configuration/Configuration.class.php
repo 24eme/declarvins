@@ -72,9 +72,9 @@ class Configuration extends BaseConfiguration {
 	$res = $this->getObjectByLibelle($res['obj']->getCepages(), $cepage, $res['next_libelles']);
 	$res = $this->getObjectByLibelle($res['obj']->getMillesimes(), $millesime, $res['next_libelles']);
       }catch(Exception $e) {
-	return array("error" => $e->getMessage());
+	throw new sfException("Impossible d'indentifier le produit (".$e->getMessage().")");
       }
-      return array("hash" => $res['obj']->getHash());
+      return $res['obj']->getHash();
     }
 
     public function identifyLabels($labels, $separateur = '|') {
