@@ -65,8 +65,8 @@
             </div>
 
             <div class="col_btn">
-                <button class="btn_reinitialiser" type="submit">Annuler</button>
 				<button class="btn_valider" type="submit">Valider</button>
+                <button class="btn_reinitialiser" type="submit">Annuler</button>
             </div>
         </div>
     </form>
