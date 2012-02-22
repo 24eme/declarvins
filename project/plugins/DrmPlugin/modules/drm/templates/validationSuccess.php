@@ -5,7 +5,7 @@
 <section id="contenu">
 
     <?php include_partial('drm/header'); ?>
-    <?php include_component('drm', 'etapes', array('etape' => 'validation', 'pourcentage' => '95')); ?>
+    <?php include_component('drm', 'etapes', array('etape' => 'validation', 'pourcentage' => '100')); ?>
 
     <!-- #principal -->
     <section id="principal">
