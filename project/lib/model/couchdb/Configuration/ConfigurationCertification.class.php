@@ -32,7 +32,7 @@ class ConfigurationCertification extends BaseConfigurationCertification {
 
         $results = ConfigurationClient::getInstance()->findProduitsAppellationsByCertification($this->getKey(), $interpro);
         foreach($results->rows as $item) {
-            $produits[$item->key[5]] = $item->value;
+            $produits[$item->key[4]] = $item->value;
         }
 
         return $produits;
