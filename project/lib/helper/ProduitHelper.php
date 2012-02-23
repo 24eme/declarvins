@@ -19,7 +19,7 @@ function produitLibelle($libelles, $libelles_labels = array(), $format = "%a% %l
 	return $libelle;
 }
 
-function labelsLibelles($libelles, $format = "%la", $label_separator = ", ") {
+function labelsLibelles($libelles, $format = "%la%", $label_separator = ", ") {
 
 	return str_replace("%la%", implode($label_separator, $libelles), $format);
 }

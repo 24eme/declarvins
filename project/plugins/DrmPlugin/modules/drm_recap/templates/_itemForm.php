@@ -1,10 +1,11 @@
 <?php use_helper('Float'); ?>
+<?php use_helper('Produit'); ?>
 
 <div id="col_recolte_<?php echo $form->getObject()->getKey() ?>" class="col_recolte" style="<?php echo ($produit->pas_de_mouvement) ? 'opacity: 0.3;' : '' ?>">
     <form action="<?php echo url_for('drm_recap_update', $form->getObject()) ?>" method="post">
         <?php echo $form->renderHiddenFields(); ?>
         <a href="#" class="col_curseur" data-curseur="<?php echo $form->getObject()->getKey() ?>"></a>
-        <h2><?php echo $form->getObject()->getCouleur()->getKey() ?></h2>
+        <h2><?php echo $form->getObject()->getCouleur()->getConfig()->libelle ?></h2>
         <div class="col_cont">
             <?php if($config_appellation->hasCepage()): ?>
             <p class="cepage"><?php echo $form->getObject()->getCepage()->getConfig()->libelle ?></p>
@@ -12,7 +13,8 @@
             <?php if($config_appellation->hasMillesime()): ?>
             <p class="millesime"><?php echo $form->getObject()->getMillesime()->getConfig()->libelle ?></p>
             <?php endif; ?>
-            <p class="label"><?php echo implode(', ', $form->getObject()->label->toArray()) ?><br />
+            <p class="label">
+                <?php echo labelsLibelles($form->getObject()->getLabelLibelles()) ?><br />
                             <?php echo $form->getObject()->label_supplementaire ?></p>
             <div class="groupe" data-groupe-id="1">
                 <p><input type="text" value="<?php echo echoFloat($form->getObject()->total_debut_mois) ?>" class="num num_float somme_stock_debut" readonly="readonly" /></p>
