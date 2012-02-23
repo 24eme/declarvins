@@ -50,6 +50,10 @@ class DRMDetail extends BaseDRMDetail {
     public function getAppellation() {
         return $this->getLieu()->getAppellation();
     }
+
+    public function getLabelKeyFromValues($values) {
+        
+    }
     
     public function getLabelKey() {
     	$key = null;

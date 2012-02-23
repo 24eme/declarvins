@@ -10,18 +10,18 @@ class DRMProduitValidator extends sfValidatorSchema
 
     protected function doClean($values) 
     {
-      if($this->getObject()->existDetail($values)) {
-	if ($this->getOption('throw_global_error')) {
-	  throw new sfValidatorError($this, 'exist');
-	}
-	throw new sfValidatorErrorSchema($this, array('label' => new sfValidatorError($this, 'exist')));
-      }
-      return $values;
+        if($this->getObject()->getDocument()->exist($this->getObject()->getHashDetailFromValues($values['hashref'], $values['label']))) {
+            if ($this->getOption('throw_global_error')) {
+                throw new sfValidatorError($this, 'exist');
+            }
+            throw new sfValidatorErrorSchema($this, array('label' => new sfValidatorError($this, 'exist')));
+        }
+        return $values;
     }
-    
+
     protected function getObject() 
     {
         return $this->getOption('object');
     }
-    
+
 }
