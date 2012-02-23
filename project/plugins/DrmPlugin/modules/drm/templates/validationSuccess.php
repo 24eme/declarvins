@@ -14,7 +14,6 @@
 			<?php echo $form->renderHiddenFields() ?>
 			<div id="application_dr">
 	            <div id="contenu_onglet">
-	            
 	            	<div id="retours">
 	            		<?php 
 	            			if ($drmValidation->hasErrors()) {
@@ -32,7 +31,8 @@
 	            			}
 	            		?>
 	            	</div>
-	            	
+	           	</div>
+	           	<div id="contenu_onglet">
 	                <div id="tableau_aop" class="tableau_ajouts_liquidations">
 	                <?php foreach($drm->declaration->certifications as $certification): ?>
 	                    <h2><?php echo $certification->getConfig()->libelle ?></h2>
@@ -40,36 +40,22 @@
 	                        <thead>
 	                            <tr>
 	                                <td style="border: none;">&nbsp;</td>
-	                                <?php foreach($certification->appellations as $appellation): ?>
-	                                    <th><?php echo $appellation->getConfig()->libelle ?></th>
-	                                <?php endforeach; ?>
+	                                <th style="font-weight: bold; border: none;">Stock début de mois</th>
+	                                <th style="font-weight: bold; border: none;">Entrées</th>
+	                                <th style="font-weight: bold; border: none;">Sorties</th>
+	                                <th style="font-weight: bold; border: none;"><strong>Stock fin de mois</strong></th>
 	                            </tr>
 	                        </thead>
 	                        <tbody>
-	                            <tr class="alt">
-	                                <th style="font-weight: bold; border: none;">Stock début de mois</th>
-	                                <?php foreach($certification->appellations as $appellation): ?>
-	                                    <td><?php echoFloat($appellation->total_debut_mois) ?></td>
-	                                <?php endforeach; ?>
-	                            </tr>
-	                            <tr>
-	                                <th style="font-weight: bold; border: none;">Entrées</th>
-	                                <?php foreach($certification->appellations as $appellation): ?>
-	                                    <td><?php echoFloat($appellation->total_entrees) ?></td>
-	                                <?php endforeach; ?>
-	                            </tr>
-	                            <tr>
-	                                <th style="font-weight: bold; border: none;">Sorties</th>
-	                                <?php foreach($certification->appellations as $appellation): ?>
-	                                    <td><?php echoFloat($appellation->total_sorties) ?></td>
-	                                <?php endforeach; ?>
-	                            </tr>
-	                            <tr class="alt">
-	                                <th style="font-weight: bold; border: none;"><strong>Stock fin de mois</strong></th>
-	                                <?php foreach($certification->appellations as $appellation): ?>
-	                                    <td><strong><?php echoFloat($appellation->total) ?></strong></td>
-	                                <?php endforeach; ?>
-	                            </tr>
+	                        	<?php foreach($certification->appellations as $appellation): ?>
+	                        		<tr class="alt">
+                                    	<td><?php echo $appellation->getConfig()->libelle ?></td>
+                                    	<td><strong><?php echoFloat($appellation->total_debut_mois) ?></strong></td>
+                                    	<td><?php echoFloat($appellation->total_entrees) ?></td>
+                                    	<td><?php echoFloat($appellation->total_sorties) ?></td>
+                                    	<td><strong><?php echoFloat($appellation->total) ?></strong></td>
+                           	 		</tr>
+	                        	<?php endforeach; ?>
 	                        </tbody>
 	                    </table>
 	                <?php endforeach; ?>
