@@ -43,7 +43,7 @@ class drm_recapActions extends sfActions
         $form = new DRMProduitAjoutForm($drm->produits->get($this->config_appellation->getCertification()->getKey())
                                                       ->get($this->config_appellation->getKey())
                                                       ->add(),
-                                        'INTERPRO-inter-rhone');
+                                        $this->getUser()->getTiers()->interpro);
 
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->getResponse()->setContentType('text/json');

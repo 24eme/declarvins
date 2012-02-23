@@ -16,7 +16,7 @@ class ConfigurationCertification extends BaseConfigurationCertification {
         return array($this->getKey() => $this->libelle);
     }
 
-    public function getProduits($interpro = 'INTERPRO-inter-rhone', $departement = null) {
+    public function getProduits($interpro, $departement = null) {
         $produits = array();
 
         $results = ConfigurationClient::getInstance()->findProduitsByCertification($this->getKey(), $interpro);
@@ -29,7 +29,7 @@ class ConfigurationCertification extends BaseConfigurationCertification {
         return $produits;
     }
 
-    public function getProduitsAppellations($interpro = 'INTERPRO-inter-rhone', $departement = null) {
+    public function getProduitsAppellations($interpro, $departement = null) {
         $produits = array();
 
         $results = ConfigurationClient::getInstance()->findProduitsAppellationsByCertification($this->getKey(), $interpro);

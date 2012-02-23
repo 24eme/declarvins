@@ -4,12 +4,13 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
 {
 	protected $_appellation_choices;
 	protected $_label_choices;
+    protected $_interpro = null;
 
     public function __construct(acCouchdbJson $object, $interpro, $options = array(), $CSRFSecret = null) {
-		parent::__construct($object, $options, $CSRFSecret);
-        $this->setOption('interpro', $interpro);
+		$this->_interpro = $interpro;
+        parent::__construct($object, $options, $CSRFSecret);
     }
-
+    
     public function configure() 
     {
         $this->setWidgets(array(
@@ -82,12 +83,12 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
                                                          ->get($this->getObject()->getCertification()->getKey())
                                                          ->appellations
                                                          ->get($this->getObject()->getAppellation()->getKey())
-                                                         ->getProduits(); 
+                                                         ->getProduits($this->_interpro); 
         } else {
             $produits = ConfigurationClient::getCurrent()->declaration
                                                          ->certifications
                                                          ->get($this->getObject()->getCertification()->getKey())
-                                                         ->getProduits();
+                                                         ->getProduits($this->_interpro);
         }
 
         $produits_flat = array();

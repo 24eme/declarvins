@@ -52,9 +52,10 @@ class drm_mouvements_generauxActions extends sfActions
         $this->forward404Unless($request->isXmlHttpRequest());
     	$drm = $this->getUser()->getDrm();
     	$certification = $request->getParameter('certification');
+
         $form = new DRMProduitAjoutForm(
             $drm->produits->add($certification)->add(DRM::NOEUD_TEMPORAIRE)->add(),
-            'INTERPRO-inter-rhone'
+            $this->getUser()->getTiers()->interpro
             );
         if ($request->isMethod(sfWebRequest::POST)) {
     		$this->getResponse()->setContentType('text/json');
