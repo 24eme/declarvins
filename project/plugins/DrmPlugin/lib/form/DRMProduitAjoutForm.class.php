@@ -17,6 +17,7 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
             'hashref' => new sfWidgetFormInputHidden(),
             'label' => new sfWidgetFormChoice(array('expanded' => true, 'multiple' => true,'choices' => $this->getLabelChoices())),
             'label_supplementaire' => new sfWidgetFormInputText(),
+            'disponible' => new sfWidgetFormInputFloat(),
         ));
         $this->widgetSchema->setLabels(array(
             'produit' => 'Produits*: ',
@@ -29,6 +30,7 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
             'hashref' => new sfValidatorString(array('required' => true)),
             'label' => new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($this->getLabelChoices()))),
             'label_supplementaire' => new sfValidatorString(array('required' => false)),
+            'disponible' => new sfValidatorNumber(array('required' => false)),
         ));
 
         $this->validatorSchema->setPostValidator(new DRMProduitValidator(null, array('object' => $this->getObject())));
@@ -41,6 +43,9 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
             $this->getObject()->getCertification()->moveAndClean($this->getObject()->getAppellation()->getKey().'/'.$this->getObject()->getKey(), $this->getAppellation().'/'.$this->getObject()->getParent()->getParent()->add($this->getAppellation())->count());
         }
         $this->getObject()->getDocument()->synchroniseDeclaration();
+        if ($values['disponible']) {
+            $this->getObject()->getDocument()->update();
+        }
     }
     
     public function getLabelChoices() 
