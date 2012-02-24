@@ -145,8 +145,9 @@ var objAjoutsLiquidations = {};
 			// Soumission AJAX
 			$.post(form.attr('action'), form.serializeArray(), function (data)
 			{
-				popup.removeClass('popup_chargement');
 				
+
+				popup.removeClass('popup_chargement');
 				// S'il n'y a pas d'erreur -> Redirection
 				if(data.success)
 				{
@@ -206,7 +207,6 @@ var objAjoutsLiquidations = {};
 			// Soumission AJAX
 			$.post(form.attr('action'), form.serializeArray(), function (data)
 			{
-				popup.removeClass('popup_chargement');
 				
 				// S'il n'y a pas d'erreur -> Redirection
 				if(data.success)
@@ -224,6 +224,7 @@ var objAjoutsLiquidations = {};
 					form = popup.find('form');
 					formBtn = form.find('button');
 					formBtn.removeAttr('disabled');
+					popup.removeClass('popup_chargement');
 				}
 			}, "json");
 
