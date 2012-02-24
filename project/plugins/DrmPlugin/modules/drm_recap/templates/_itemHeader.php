@@ -20,7 +20,7 @@
 	<div class="groupe" data-groupe-id="2">
 		<p>Entrées</p>
 		<ul>
-			<li>Achats / Récolte / Agrément IGP/ Retour</li>
+			<li>Achats / Récolte</li>
 			<li>Replis / Changement de dénomination</li>
 			<li>Déclassement</li>
 			<li>Transfert de chai / Embouteillage</li>
