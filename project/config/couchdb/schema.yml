@@ -491,6 +491,7 @@ DRM:
                                                                                                       bloque: { type: float }
                                                                                                       warrante: { type: float }
                                                                                                       instance: { type: float }
+                                                                                                      commercialisable: { type: float }
                                                                                                 entrees:
                                                                                                   type: collection
                                                                                                   definition:
@@ -521,6 +522,7 @@ DRM:
                                                                                                       bloque: { type: float }
                                                                                                       warrante: { type: float }
                                                                                                       instance: { type: float }
+                                                                                                      commercialisable: { type: float }
       declarant:
         type: collection
         class: DRMDeclarant

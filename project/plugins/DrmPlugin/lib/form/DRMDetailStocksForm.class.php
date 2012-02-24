@@ -7,12 +7,14 @@ class DRMDetailStocksForm  extends acCouchdbFormDocumentJson {
             'bloque'    => new sfWidgetFormInputFloat(),
             'warrante'  => new sfWidgetFormInputFloat(),
             'instance'  => new sfWidgetFormInputFloat(),
+            'commercialisable'  => new sfWidgetFormInputFloat(),
         ));
 
         $this->setValidators(array(
             'bloque'    => new sfValidatorNumber(array('required' => false)),
             'warrante'  => new sfValidatorNumber(array('required' => false)),
             'instance'  => new sfValidatorNumber(array('required' => false)),
+            'commercialisable'  => new sfValidatorNumber(array('required' => false)),
         ));
         
         $this->widgetSchema->setNameFormat('drm_detail_stocks_fin[%s]');

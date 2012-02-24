@@ -14,6 +14,7 @@
 			<li>Dont Vin bloqué</li>
 			<li>Dont Vin warranté</li>
 			<li>Dont Vin en instance</li>
+			<li>Dont Commercialisable</li>
 		</ul>
 	</div>
 	
@@ -51,6 +52,7 @@
 			<li>Dont Vin bloqué</li>
 			<li>Dont Vin warranté</li>
 			<li>Dont Vin en instance</li>
+			<li>Dont Commercialisable</li>
 		</ul>
 	</div>
 </div>
