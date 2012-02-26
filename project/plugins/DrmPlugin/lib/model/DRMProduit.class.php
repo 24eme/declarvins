@@ -31,7 +31,7 @@ class DRMProduit extends BaseDRMProduit {
 
     public function getLabelKey() {
         
-        return $this->getLabelKeyFromValues($this->label);
+        return $this->getLabelKeyFromValues($this->label->toArray());
     }
     
     public function getDetail() {
@@ -50,7 +50,7 @@ class DRMProduit extends BaseDRMProduit {
 
     public function getHashDetail() {
         
-        return $this->getHashDetailFromValues($this->hashref, $this->label);
+        return $this->getHashDetailFromValues($this->hashref, $this->label->toArray());
     }
     
     public function existDetail() {
