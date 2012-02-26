@@ -1,8 +1,8 @@
-<form  class="popup_form" id="form_ajout" action="<?php echo url_for('drm_recap_ajout_ajax', $config_appellation) ?>" method="post">
+<form  class="popup_form" id="form_ajout" action="<?php echo url_for('drm_recap_ajout_ajax', $config_appellation) ?>" method="post" >
 	<?php echo $form->renderGlobalErrors() ?>
 	<?php echo $form->renderHiddenFields() ?>
 	<div class="ligne_form">
-		<label>Appellations</label>
+		<label>Appellation:</label>
 		<?php echo $config_appellation->libelle ?>
 		<small style="font-size:9px">(<a href="#">modifier)</a></small>
 	</div>
