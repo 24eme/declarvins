@@ -60,6 +60,8 @@
 		var formBtn = form.find('button');
 		var btnFermer = popup.find('.btn_fermer');
 		
+		form.find('input:visible', 'select').eq(0).focus();
+
 		// Soumission
 		form.live('submit', function()
 		{
