@@ -70,6 +70,7 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
         foreach($results->rows as $item) {
             $libelles = $item->value;
             unset($libelles[0]);
+            unset($libelles[1]);
             $produits[$item->key[5]] = $libelles;
         }
 
