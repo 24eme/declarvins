@@ -35,6 +35,8 @@ class uploadActions extends sfActions
 
   public function executeCsvView(sfWebRequest $request) 
   {
+    $this->response->setContentType('text/plain');
+
     $md5 = $request->getParameter('md5');
     set_time_limit(600);
     $this->csv = new CsvFile(sfConfig::get('sf_data_dir') . '/upload/' . $md5);
@@ -49,7 +51,13 @@ class uploadActions extends sfActions
       try {
 	if (!$drm)
 	  $drm = DRMClient::getInstance()->retrieveOrCreateByIdentifiantAndCampagne('9223700100', $line[DRM::CSV_COL_DETAIL_ANNEE], $line[DRM::CSV_COL_DETAIL_MOIS]);
-	$detail = $drm->addProduit($config->identifyProduct($line[DRM::CSV_COL_DETAIL_CERTIFICATION], $line[DRM::CSV_COL_DETAIL_APPELLATION], $line[DRM::CSV_COL_DETAIL_LIEU], $line[DRM::CSV_COL_DETAIL_COULEUR], $line[DRM::CSV_COL_DETAIL_CEPAGE], $line[DRM::CSV_COL_DETAIL_MILLESIME]), 
+	$hash = $config->identifyProduct($line[DRM::CSV_COL_DETAIL_CERTIFICATION], 
+					 $line[DRM::CSV_COL_DETAIL_APPELLATION], 
+					 $line[DRM::CSV_COL_DETAIL_LIEU], 
+					 $line[DRM::CSV_COL_DETAIL_COULEUR], 
+					 $line[DRM::CSV_COL_DETAIL_CEPAGE], 
+					 $line[DRM::CSV_COL_DETAIL_MILLESIME]);
+	$detail = $drm->addProduit($hash, 
 				   $config->identifyLabels($line[DRM::CSV_COL_DETAIL_LABELS]))->getDetail();
 	if ($line[DRM::CSV_COL_DETAIL_MENTION])
 	  $detail->label_supplementaire = $line[DRM::CSV_COL_DETAIL_MENTION] * 1;
@@ -77,14 +85,12 @@ class uploadActions extends sfActions
 	$errors[] = array('line'=> $numline, 'message'=>$e->getMessage());
       }
     }
+    $this->iddrm = null;
     if (!count($errors)) {
       $drm->save();
-      echo $drm->_id;
-    }else{
-      foreach ($errors as $e) {
-	echo $e['line'].';'.$e['message'].";\n";
-      }
+      $this->iddrm = $drm->_id;
     }
-    exit;
+    $this->errors = $errors;
+    $this->setLayout(false);
   }
 }

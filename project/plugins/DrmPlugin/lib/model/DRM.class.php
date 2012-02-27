@@ -74,7 +74,7 @@ class DRM extends BaseDRM {
 	  foreach ($produits as $p) {
 	    $leslabels = $p->label->toArray();
 	    sort($leslabels);
-	    if (!count(array_diff($leslabels,$labels))) {
+	    if (!count(array_diff($leslabels,$labels)) &&  $p->hashref == $hash) {
 	      return $p;
 	    }
 	  }
