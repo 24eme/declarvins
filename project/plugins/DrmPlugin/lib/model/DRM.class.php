@@ -183,5 +183,24 @@ class DRM extends BaseDRM {
         }
         $this->update();
     }
+    
+    public function getNextCertification($currentCertification)
+    {
+    	$findCertification = false;
+    	$nextCertification = null;
+    	$config_certifications = ConfigurationClient::getCurrent()->declaration->certifications;
+    	foreach ($config_certifications as $certification => $produit) {
+            if ($this->produits->exist($certification)) {
+            	if ($findCertification) {
+            		$nextCertification = $this->declaration->certifications->get($certification);
+            		break;
+            	}
+                if ($certification == $currentCertification->getKey()) {
+                	$findCertification = true;
+                }
+            }
+        }
+        return $nextCertification;
+    }
 
 }

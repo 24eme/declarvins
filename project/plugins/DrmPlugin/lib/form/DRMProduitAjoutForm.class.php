@@ -4,12 +4,13 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
 {
 	protected $_appellation_choices;
 	protected $_label_choices;
+    protected $_interpro = null;
 
     public function __construct(acCouchdbJson $object, $interpro, $options = array(), $CSRFSecret = null) {
-		parent::__construct($object, $options, $CSRFSecret);
-        $this->setOption('interpro', $interpro);
+		$this->_interpro = $interpro;
+        parent::__construct($object, $options, $CSRFSecret);
     }
-
+    
     public function configure() 
     {
         $this->setWidgets(array(
@@ -17,9 +18,10 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
             'hashref' => new sfWidgetFormInputHidden(),
             'label' => new sfWidgetFormChoice(array('expanded' => true, 'multiple' => true,'choices' => $this->getLabelChoices())),
             'label_supplementaire' => new sfWidgetFormInputText(),
+            'disponible' => new sfWidgetFormInputFloat(),
         ));
         $this->widgetSchema->setLabels(array(
-            'produit' => 'Produits*: ',
+            'produit' => 'Produit*: ',
             'label' => 'Label: ',
             'label_supplementaire' => 'Label supplémentaire: ',
         ));
@@ -29,6 +31,7 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
             'hashref' => new sfValidatorString(array('required' => true)),
             'label' => new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($this->getLabelChoices()))),
             'label_supplementaire' => new sfValidatorString(array('required' => false)),
+            'disponible' => new sfValidatorNumber(array('required' => false)),
         ));
 
         $this->validatorSchema->setPostValidator(new DRMProduitValidator(null, array('object' => $this->getObject())));
@@ -41,6 +44,9 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
             $this->getObject()->getCertification()->moveAndClean($this->getObject()->getAppellation()->getKey().'/'.$this->getObject()->getKey(), $this->getAppellation().'/'.$this->getObject()->getParent()->getParent()->add($this->getAppellation())->count());
         }
         $this->getObject()->getDocument()->synchroniseDeclaration();
+        if ($values['disponible']) {
+            $this->getObject()->getDocument()->update();
+        }
     }
     
     public function getLabelChoices() 
@@ -77,12 +83,12 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
                                                          ->get($this->getObject()->getCertification()->getKey())
                                                          ->appellations
                                                          ->get($this->getObject()->getAppellation()->getKey())
-                                                         ->getProduits(); 
+                                                         ->getProduits($this->_interpro); 
         } else {
             $produits = ConfigurationClient::getCurrent()->declaration
                                                          ->certifications
                                                          ->get($this->getObject()->getCertification()->getKey())
-                                                         ->getProduits();
+                                                         ->getProduits($this->_interpro);
         }
 
         $produits_flat = array();

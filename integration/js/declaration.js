@@ -600,7 +600,28 @@
 	 ******************************************/
 	$.toggleGroupesChamps = function()
 	{
-		var groupesIntitules = colIntitules.find('.groupe');
+		var groupesIntitules = colIntitules.find('.groupe[data-groupe-id!=4]');
+		var groupeOuvert = colIntitules.find('.groupe[data-groupe-id=4]');
+		var gpeAssocieOuvert = colSaisies.find('.groupe[data-groupe-id=4]');
+		var gpeAssocieOuvertIntitules = gpeAssocieOuvert.children('p');
+		
+		gpeAssocieOuvertIntitules.find('input').focus(function()
+		{
+			var champ = $(this);
+			var champSuivant = champ.parents('.groupe').find('ul input:first');
+			
+			if(!groupeOuvert.hasClass('groupe_ouvert'))
+			{
+				groupesIntitules.each(function()
+				{						
+					if($(this).hasClass('groupe_ouvert')) {
+						$(this).removeClass('groupe_ouvert');
+						$(this).children('ul').slideToggle();
+						colSaisies.find('.groupe[data-groupe-id='+$(this).attr('data-groupe-id')+']').children('ul').slideToggle();
+					}
+				});
+			}
+		});
 		
 		groupesIntitules.each(function()
 		{

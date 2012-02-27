@@ -21,7 +21,7 @@ class drm_recapActions extends sfActions
                 $this->form->save();
                 return $this->renderText(json_encode(array("success" => true,
                                                            "ajax" => true,
-                                                           "url" => $this->generateUrl('drm_recap_ajout_ajax', array('certification' => 'AOP')))));
+                                                           "url" => $this->generateUrl('drm_recap_ajout_ajax', $this->certification->appellations->get($this->form->getAppellation()->getKey())))));
             }
 
             return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('drm_recap/formAppellationAjout', array('certification' => $this->certification, 'form' => $this->form)))));
@@ -43,7 +43,7 @@ class drm_recapActions extends sfActions
         $form = new DRMProduitAjoutForm($drm->produits->get($this->config_appellation->getCertification()->getKey())
                                                       ->get($this->config_appellation->getKey())
                                                       ->add(),
-                                        'INTERPRO-inter-rhone');
+                                        $this->getUser()->getTiers()->interpro);
 
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->getResponse()->setContentType('text/json');
@@ -90,7 +90,6 @@ class drm_recapActions extends sfActions
     
     protected function init() {
         $this->form = null;
-        //$this->form_appellation_ajout = null;
         $this->config_appellation = $this->getRoute()->getConfigAppellation();
         $this->drm_appellation = $this->getRoute()->getDrmAppellation();
     }

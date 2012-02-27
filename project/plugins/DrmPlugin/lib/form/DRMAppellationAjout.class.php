@@ -12,7 +12,7 @@ class DRMAppellationAjoutForm extends acCouchdbFormDocumentJson {
 
         $this->setValidators(array(
             'appellation_autocomplete' => new sfValidatorString(array('required' => true)),
-            'appellation' => new sfValidatorString(array('required' => false)),
+            'appellation' => new sfValidatorString(array('required' => true)),
         ));
 
         $this->widgetSchema->setNameFormat('drm_appellation_ajout[%s]');
@@ -24,12 +24,14 @@ class DRMAppellationAjoutForm extends acCouchdbFormDocumentJson {
                                                 ->certifications
                                                 ->get($this->getObject()->getKey());
 
-        $produits = $config_certification->getProduitsAppellations();
+        $produits = $config_certification->getProduitsAppellations('INTERPRO-inter-rhone');
 
         $produits_flat = array();
-        foreach($produits as $produit)  {
-            $produit['libelles'] = implode(' ', array_filter($produit['libelles']));
-            $produits_flat[] = implode('|@', $produit);
+        foreach($produits as $hash => $libelles)  {
+            $libelle = implode(' ', array_filter($libelles));
+            preg_match('|declaration/certifications/.+/appellations/(.+)|', $hash, $matches);
+            $appellation_key = $matches[1];
+            $produits_flat[] = $appellation_key.'|@'.$libelle;
         }
 
         return $produits_flat;

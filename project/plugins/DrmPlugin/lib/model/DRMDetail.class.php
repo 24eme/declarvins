@@ -50,6 +50,10 @@ class DRMDetail extends BaseDRMDetail {
     public function getAppellation() {
         return $this->getLieu()->getAppellation();
     }
+
+    public function getLabelKeyFromValues($values) {
+        
+    }
     
     public function getLabelKey() {
     	$key = null;
@@ -59,13 +63,13 @@ class DRMDetail extends BaseDRMDetail {
     	return ($key) ? $key : DRM::DEFAULT_KEY;
     }
 
-    public function getLabelLibelle() {
+    public function getLabelLibelles() {
         $libelles = array(); 
         foreach($this->label as $key) {
             $libelles[] = ConfigurationClient::getCurrent()->label[$key];
         }
 
-        return implode(', ', $libelles);
+        return $libelles;
     }
     
     protected function update($params = array()) {

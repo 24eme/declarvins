@@ -1,3 +1,4 @@
+
 /**
  * Fichier : drm.js
  * Description : fonctions JS spécifiques à la drm
@@ -28,7 +29,6 @@ var objAjoutsLiquidations = {};
         });
 	});
 	
-	
 	/**
 	 * Initialise les fonctions de l'étape
 	 * Ajouts / Liquidations de la DRM
@@ -57,7 +57,6 @@ var objAjoutsLiquidations = {};
 		});
 		
 	};
-	
 	
 	/**
 	 * Retourne toutes les informations liée
@@ -121,70 +120,7 @@ var objAjoutsLiquidations = {};
 		lignes.removeClass('alt');
 		lignes.filter(':odd').addClass('alt');
 	};
-	
 
-	/**
-	 * Initialise le formulaire d'ajout d'un
-	 * produit
-	 * $(popup).initPopupAjoutProduit();
-	 ******************************************/
-	$.fn.initPopupAjoutProduit = function()
-	{
-		var popup = $(this);
-		var form = popup.find('form');
-		var parent = popup.parent();
-		var selectMultiple = popup.find('.select_multiple');
-		var formBtn = form.find('button');
-		
-		// Select multiple
-		selectMultiple.dropdownchecklist({width: 200});
-
-		// Soumission
-		form.live('submit', function()
-		{
-			popup.addClass('popup_chargement');
-			formBtn.attr('disabled', 'disabled');
-			
-			// Soumission AJAX
-			$.post(form.attr('action'), form.serializeArray(), function (data)
-			{
-				popup.removeClass('popup_chargement');
-				
-				// S'il n'y a pas d'erreur -> Redirection
-				if(data.success)
-				{
-					document.location.href = data.url;
-				}
-				// Sinon remplacement du formulaire par celui récupéré en AJAX
-				else
-				{
-					popup.html(data.content);
-
-					// Réinitialisation des fonctions
-					selectMultiple = popup.find('.select_multiple');
-					selectMultiple.dropdownchecklist({width: 200});
-					form = popup.find('form');
-					formBtn = form.find('button');
-					formBtn.removeAttr('disabled');
-				}
-			}, "json");
-
-            return false;
-		});
-
-
-		// Reinitialisation des champs et 
-		// suppression des messages d'erreur à la fermeture
-		popup.bind('fermer', function()
-		{
-			popup.find(':text').val('');
-			popup.find('option').removeAttr('selected');
-			popup.find(':checkbox,:radio').removeAttr('checked');
-			popup.find('.ui-dropdownchecklist-selector .ui-dropdownchecklist-text').text('').attr('title','');
-			popup.find('.error').remove();
-		});
-	};	
-	
 	/**
 	 * Initialise la suppresion des produits
 	 * $.initSupressionProduit(i);

@@ -1,8 +1,8 @@
-<form  class="popup_form" id="form_ajout" action="<?php echo url_for('drm_recap_ajout_ajax', $config_appellation) ?>" method="post">
+<form  class="popup_form" id="form_ajout" action="<?php echo url_for('drm_recap_ajout_ajax', $config_appellation) ?>" method="post" >
 	<?php echo $form->renderGlobalErrors() ?>
 	<?php echo $form->renderHiddenFields() ?>
 	<div class="ligne_form">
-		<label>Appellations</label>
+		<label>Appellation:</label>
 		<?php echo $config_appellation->libelle ?>
 		<small style="font-size:9px">(<a href="#">modifier)</a></small>
 	</div>
@@ -20,6 +20,12 @@
 		<?php echo $form['label_supplementaire']->renderLabel() ?>
 		<?php echo $form['label_supplementaire']->render() ?>
 		<span class="error"><?php echo $form['label_supplementaire']->renderError() ?></span>
+	</div>
+	<a href="#" id="lien_produit_disponible" style="font-size: 12px">Je souhaite déclarer un stock initial non nul</a>
+	<div id="ligne_produit_disponible" class="ligne_form" style="display: none">
+		<?php echo $form['disponible']->renderLabel() ?>
+		<?php echo $form['disponible']->render(array('class' => 'num num_float')) ?>
+		<span class="error"><?php echo $form['disponible']->renderError() ?></span>
 	</div>
 	<div class="ligne_form_btn">
 		<button name="annuler" class="btn_annuler btn_fermer" type="reset">Annuler</button>
@@ -54,5 +60,10 @@ $(document).ready(function () {
 	        .append('<a><span class="appellation">'+tab[1]+'</a>' )
 	        .appendTo(ul);
 	    };
+	    $('#lien_produit_disponible').click(function() {
+	    	$(this).hide();
+	    	$('#ligne_produit_disponible').show();
+	    	return false;
+	    });
 });
 </script>

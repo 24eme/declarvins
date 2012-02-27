@@ -17,7 +17,7 @@ class importInterproTask extends sfBaseTask
     ));
 
     $this->namespace        = 'import';
-    $this->name             = 'interpo';
+    $this->name             = 'interpro';
     $this->briefDescription = '';
     $this->detailedDescription = <<<EOF
 The [importInterpo|INFO] task does things.

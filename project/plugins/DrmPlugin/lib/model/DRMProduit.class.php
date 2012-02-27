@@ -19,14 +19,19 @@ class DRMProduit extends BaseDRMProduit {
       $this->_set('label', $label);
     }
 
+    protected function getLabelKeyFromValues($labels) {
+        $key = null;
+        if ($labels && is_array($labels) && count($labels) > 0) {
+           sort($labels);
+           $key = implode('-', $labels);
+        }
+        
+        return ($key)? $key : DRM::DEFAULT_KEY;
+    }
+
     public function getLabelKey() {
-    	$key = null;
-    	if ($this->label) {
-	  $labels = $this->label->toArray();
-	  sort($labels);
-	  $key = implode('-', $labels);
-    	}
-    	return ($key)? $key : DRM::DEFAULT_KEY;
+        
+        return $this->getLabelKeyFromValues($this->label->toArray());
     }
     
     public function getDetail() {
@@ -38,8 +43,14 @@ class DRMProduit extends BaseDRMProduit {
         return $this->getDocument()->getOrAdd($this->getHashDetail());
     }
 
+    public function getHashDetailFromValues($hashref, $labels) {
+        
+        return $hashref.'/details/'.KeyInflector::slugify($this->getLabelKeyFromValues($labels));
+    }
+
     public function getHashDetail() {
-        return $this->hashref.'/details/'.KeyInflector::slugify($this->getLabelKey());
+        
+        return $this->getHashDetailFromValues($this->hashref, $this->label->toArray());
     }
     
     public function existDetail() {
@@ -50,7 +61,8 @@ class DRMProduit extends BaseDRMProduit {
     public function updateDetail() {
         $detail = $this->getOrAddDetail();
         $detail->label = $this->label;
-        $detail->label_supplementaire = $this->label_supplementaire;        
+        $detail->label_supplementaire = $this->label_supplementaire;
+        $detail->total_debut_mois = $this->disponible;        
         return $detail;
     }
 

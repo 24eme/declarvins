@@ -1,9 +1,10 @@
+<?php use_helper('Produit'); ?>
+
 <tr>
     <td>
     	<a href="<?php echo url_for('drm_mouvements_generaux_produit_delete', $form->getObject()) ?>" class="supprimer">Supprimer</a>
-    	<?php echo implode(' ', array_merge($form->getObject()->getDetail()->getConfig()->getLibelles(),
-    										array($form->getObject()->getDetail()->getLabelLibelle())
-    									   )) ?>
+    	<?php echo produitLibelle($form->getObject()->getDetail()->getConfig()->getLibelles(), 
+    							  $form->getObject()->getDetail()->getLabelLibelles()); ?>
     </td>
 	<td>
 		<?php echo $form->getObject()->getDetail()->total_debut_mois ?> HL
