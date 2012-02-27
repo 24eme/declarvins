@@ -231,6 +231,50 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
     public function getLastKey() {
         return $this->getIterator()->getLastKey();
     }
+    
+    public function getNext() {
+    	$next = null;
+    	for ($item = $this->getParent()->getIterator(); $item->valid(); $item->getNext()) {
+    		if ($this->getKey() == $item->key()) {
+    			$next = $item->getNext();
+    			break;
+    		}
+		}
+		return $next;
+    }
+    
+    public function getNextKey() {
+    	$nextKey = null;
+    	for ($item = $this->getParent()->getIterator(); $item->valid(); $item->getNext()) {
+    		if ($this->getKey() == $item->key()) {
+    			$nextKey = $item->getNextKey();
+    			break;
+    		}
+		}
+		return $nextKey;    	
+    }
+    
+	public function getPrevious() {
+    	$previous = null;
+    	for ($item = $this->getParent()->getIterator(); $item->valid(); $item->getNext()) {
+    		if ($this->getKey() == $item->key()) {
+    			$previous = $item->getPrevious();
+    			break;
+    		}
+		}
+		return $previous;  
+    }
+    
+	public function getPreviousKey() {
+    	$previousKey = null;
+    	for ($item = $this->getParent()->getIterator(); $item->valid(); $item->getNext()) {
+    		if ($this->getKey() == $item->key()) {
+    			$previousKey = $item->getPreviousKey();
+    			break;
+    		}
+		}
+		return $previousKey;  
+    }
 
     protected function loadAllData() {
        $this->loadData();

@@ -1,10 +1,12 @@
 <?php
 class acCouchdbJsonArrayIterator extends ArrayIterator {
     private $_json;
+    private $_previous;
 
     public function __construct(acCouchdbJson $json, $filter = null)
     {
         $this->_json = $json;
+        $this->_previous = null;
         if (!is_null($filter)) {
             $fields = array();
             foreach($json->getFields() as $key => $field) {
@@ -21,6 +23,7 @@ class acCouchdbJsonArrayIterator extends ArrayIterator {
     public function getFirst() {
         if($this->valid()){
             $this->seek(0);
+            $this->_previous = null;
             return $this->current();
         } else {
             throw new acCouchdbException('This iterator has no entrie');
@@ -30,6 +33,7 @@ class acCouchdbJsonArrayIterator extends ArrayIterator {
     public function getFirstKey() {
         if($this->valid()){
             $this->seek(0);
+            $this->_previous = null;
             return $this->key();
         } else {
             throw new acCouchdbException('This iterator has no entrie');
@@ -38,6 +42,8 @@ class acCouchdbJsonArrayIterator extends ArrayIterator {
 
     public function getLast() {
         if($this->valid()){
+            $this->seek($this->count() -2);
+        	$this->_previous = $this->key();
             $this->seek($this->count() -1);
             return $this->current();
         } else {
@@ -47,11 +53,45 @@ class acCouchdbJsonArrayIterator extends ArrayIterator {
 
     public function getLastKey() {
         if($this->valid()){
+            $this->seek($this->count() -2);
+        	$this->_previous = $this->key();
             $this->seek($this->count() -1);
             return $this->key();
         } else {
             throw new acCouchdbException('This iterator has no entrie');
         }
+    }
+    
+    public function next() {
+    	if($this->valid()){
+	    	$this->_previous = $this->key(); 
+		    parent::next();
+        } else {
+            throw new acCouchdbException('This iterator has no entrie');
+        }
+    }
+    
+    public function getNext() {
+    	$this->next();
+    	if($this->valid()){
+    		return $this->current();
+    	} else {
+    		return null;
+    	}
+    }
+    public function getNextKey() {
+        $this->next();
+    	if($this->valid()){
+    		return $this->key();
+    	} else {
+    		return null;
+    	}
+    }
+	public function getPrevious() {
+		return ($this->_previous)? $this->_json->get($this->_previous) : null;
+    }
+	public function getPreviousKey() {
+    	return $this->_previous;
     }
 
     public function current() {
