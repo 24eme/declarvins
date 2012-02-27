@@ -14,7 +14,7 @@
             <?php foreach($certifications as $key => $certification): ?>
             <li class="<?php echo ($numero > $key) ? 'passe' : '' ?> <?php echo ($numero == $key) ? 'actif' : '' ?>">
             	<a href="<?php echo url_for('drm_recap', $config_certifications->get($certification)) ?>">
-            		<span><?php echo $key ?>. <?php echo $certification ?></span>
+            		<span><?php echo $key ?>. <?php echo $certificationsLibelle[$key] ?></span>
             	</a>
 	        </li>
             <?php endforeach; ?>

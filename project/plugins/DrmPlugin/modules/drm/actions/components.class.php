@@ -5,11 +5,13 @@ class drmComponents extends sfComponents {
     public function executeEtapes() {
         $this->config_certifications = ConfigurationClient::getCurrent()->declaration->certifications;
         $this->certifications = array();
+        $this->certificationsLibelle = array();
         
         $i = 3;
         foreach ($this->config_certifications as $certification => $produit) {
             if ($this->getUser()->getDrm()->produits->exist($certification)) {
                 $this->certifications[$i] = $certification;
+                $this->certificationsLibelle[$i] = ConfigurationClient::getCurrent()->declaration->certifications->get($certification)->libelle;
                 $i++;
             }
         }
