@@ -21,12 +21,8 @@ class DrmAppellationRoute extends DrmCertificationRoute {
         $drm_appellations = $this->getDRM()->declaration->certifications->get($config_certification->getKey())->appellations;
 
         if (!array_key_exists('appellation', $parameters)) {
-            foreach ($config_certification->appellations as $config_appellation) {
-                if ($drm_appellations->exist($config_appellation->getKey())) {
-                    return $config_appellation;
-                }
-            }
-            
+        	$key = $this->getDRM()->produits->get($config_certification->getKey())->getFirst()->getKey();
+        	return $config_certification->appellations->get($key);            
         }
 
         return $config_certification->appellations->get($parameters['appellation']);

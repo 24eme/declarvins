@@ -90,7 +90,6 @@ class drm_recapActions extends sfActions
     
     protected function init() {
         $this->form = null;
-        //$this->form_appellation_ajout = null;
         $this->config_appellation = $this->getRoute()->getConfigAppellation();
         $this->drm_appellation = $this->getRoute()->getDrmAppellation();
     }
