@@ -13,7 +13,7 @@ class DRMAppellation extends BaseDRMAppellation {
         return $this->getParent()->getParent();
     }
     
-	public function getProduitsAppellation() {
+	public function getProduits() {
 		return $this->getDocument()->produits->get($this->getCertification()->getKey())->get($this->getKey());
 	}
     

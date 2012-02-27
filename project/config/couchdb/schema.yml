@@ -339,11 +339,14 @@ DRM:
         definition:
           fields:
             '*':
+              # CERTIFICATION
+              class: DRMProduitCertification
               type: collection
               definition:
                 fields:
                   '*':
-                    # LABEL
+                    # APPELLATION
+                    class: DRMProduitAppellation
                     type: array_collection
                     definition:
                       fields:
