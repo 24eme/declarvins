@@ -326,6 +326,55 @@ Configuration:
                                                                                 definition:
                                                                                   fields:
                                                                                     libelle: {  }
+                        details:
+                          type: collection
+                          definition:
+                            fields:
+                              '*':
+                                # DETAIL
+                                class: ConfigurationDetail
+                                type: collection
+                                definition:
+                                  fields:
+                                    stocks_debut:
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          bloque: {  }
+                                          warrante: {  }
+                                          instance: {  }
+                                          commercialisable: {  }
+                                    entrees:
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          nouveau: {  }
+                                          repli: {  }
+                                          declassement: {  }
+                                          mouvement: {  }
+                                          crd: {  }
+                                    sorties:
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          vrac: {  }
+                                          export: {  }
+                                          factures: {  }
+                                          crd: {  }
+                                          consommation: {  }
+                                          pertes: {  }
+                                          declassement: {  }
+                                          repli: {  }
+                                          mouvement: {  }
+                                          lies: {  }
+                                    stocks_fin:
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          bloque: {  }
+                                          warrante: {  }
+                                          instance: {  }
+                                          commercialisable: {  }
 
 DRM:
   definition:
