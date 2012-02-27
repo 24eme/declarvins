@@ -17,7 +17,7 @@ class importContratVracTask extends sfBaseTask
     ));
 
     $this->namespace        = 'import';
-    $this->name             = 'contrat-vrac';
+    $this->name             = 'ContratVrac';
     $this->briefDescription = '';
     $this->detailedDescription = <<<EOF
 The [importContratVrac|INFO] task does things.
