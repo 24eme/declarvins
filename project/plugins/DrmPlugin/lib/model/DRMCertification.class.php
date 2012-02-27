@@ -6,7 +6,7 @@
 
 class DRMCertification extends BaseDRMCertification {
     
-	public function getProduitsCertification() {
+	public function getProduits() {
 		return $this->getDocument()->produits->get($this->getKey());
 	}
 

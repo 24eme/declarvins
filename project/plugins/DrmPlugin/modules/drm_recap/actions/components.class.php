@@ -2,16 +2,8 @@
 
 class drm_recapComponents extends sfComponents {
 
-    /*public function executePopupAppellationAjout() {
-        if (is_null($this->form)) {
-            $this->form = new DRMAppellationAjoutForm($this->getUser()->getDrm()->declaration->certifications->add($this->label->getKey())->appellations);
-        }
-    }*/
-
     public function executeList() {
-        $this->produits = $this->getUser()->getDrm()->produits
-                                                  ->get($this->drm_appellation->getCertification()->getKey())
-                                                  ->get($this->drm_appellation->getKey());
+        $this->produits = $this->drm_appellation->getProduits();
     }
     
     public function executeItemForm() {
@@ -23,8 +15,8 @@ class drm_recapComponents extends sfComponents {
     public function executeOnglets() {
         $this->appellations = array();
         $this->appellations_updated = array();
-        $certification_key = $this->config_appellation->getCertification()->getKey();
-        foreach($this->getUser()->getDrm()->produits->get($certification_key) as $appellation_key => $appellation) {
+
+        foreach($this->drm_appellation->getCertification()->getProduits() as $appellation_key => $appellation) {
         	foreach ($appellation as $produit) {
 	            if (!array_key_exists($produit->getAppellation()->getKey(), $this->appellations)) {
 	                $this->appellations[$appellation_key] = 0;

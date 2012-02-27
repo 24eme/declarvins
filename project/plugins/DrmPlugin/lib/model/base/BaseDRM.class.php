@@ -12,7 +12,7 @@
  * @property acCouchdbJson $declaration
  * @property DRMDeclarant $declarant
  * @property string $identifiant
- * @property boolean $valide
+ * @property string $valide
  * @property acCouchdbJson $douane
 
  * @method string get_id()
