@@ -570,6 +570,7 @@ DRM:
                                                                                                             volume: { type: float }
                                                                                                 stocks_debut:
                                                                                                   type: collection
+                                                                                                  class: DRMDetailNoeud
                                                                                                   definition:
                                                                                                     fields:
                                                                                                       bloque: { type: float }
@@ -578,6 +579,7 @@ DRM:
                                                                                                       commercialisable: { type: float }
                                                                                                 entrees:
                                                                                                   type: collection
+                                                                                                  class: DRMDetailNoeud
                                                                                                   definition:
                                                                                                     fields:
                                                                                                       nouveau: { type: float }
@@ -587,6 +589,7 @@ DRM:
                                                                                                       crd: { type: float }
                                                                                                 sorties:
                                                                                                   type: collection
+                                                                                                  class: DRMDetailNoeud
                                                                                                   definition:
                                                                                                     fields:
                                                                                                       vrac: { type: float }
@@ -601,6 +604,7 @@ DRM:
                                                                                                       lies: { type: float }
                                                                                                 stocks_fin:
                                                                                                   type: collection
+                                                                                                  class: DRMDetailNoeud
                                                                                                   definition:
                                                                                                     fields:
                                                                                                       bloque: { type: float }

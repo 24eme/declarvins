@@ -11,10 +11,10 @@
  * @property acCouchdbJson $label
  * @property string $label_supplementaire
  * @property acCouchdbJson $vrac
- * @property acCouchdbJson $stocks_debut
- * @property acCouchdbJson $entrees
- * @property acCouchdbJson $sorties
- * @property acCouchdbJson $stocks_fin
+ * @property DRMDetailNoeud $stocks_debut
+ * @property DRMDetailNoeud $entrees
+ * @property DRMDetailNoeud $sorties
+ * @property DRMDetailNoeud $stocks_fin
 
  * @method float getTotalDebutMois()
  * @method float setTotalDebutMois()
@@ -30,14 +30,14 @@
  * @method string setLabelSupplementaire()
  * @method acCouchdbJson getVrac()
  * @method acCouchdbJson setVrac()
- * @method acCouchdbJson getStocksDebut()
- * @method acCouchdbJson setStocksDebut()
- * @method acCouchdbJson getEntrees()
- * @method acCouchdbJson setEntrees()
- * @method acCouchdbJson getSorties()
- * @method acCouchdbJson setSorties()
- * @method acCouchdbJson getStocksFin()
- * @method acCouchdbJson setStocksFin()
+ * @method DRMDetailNoeud getStocksDebut()
+ * @method DRMDetailNoeud setStocksDebut()
+ * @method DRMDetailNoeud getEntrees()
+ * @method DRMDetailNoeud setEntrees()
+ * @method DRMDetailNoeud getSorties()
+ * @method DRMDetailNoeud setSorties()
+ * @method DRMDetailNoeud getStocksFin()
+ * @method DRMDetailNoeud setStocksFin()
  
  */
 
