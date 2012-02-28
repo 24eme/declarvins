@@ -18,11 +18,11 @@ class DrmAppellationRoute extends DrmCertificationRoute {
 
     protected function getObjectForParameters($parameters) {
         $config_certification = parent::getObjectForParameters($parameters);
-        $drm_appellations = $this->getDRM()->declaration->certifications->get($config_certification->getKey())->appellations;
+        $drm_certification = $this->getDRM()->declaration->certifications->get($config_certification->getKey());
 
         if (!array_key_exists('appellation', $parameters)) {
-        	$key = $this->getDRM()->produits->get($config_certification->getKey())->getFirst()->getKey();
-        	return $config_certification->appellations->get($key);            
+
+        	return $drm_certification->getProduits()->getFirst()->getDeclaration()->getConfig();
         }
 
         return $config_certification->appellations->get($parameters['appellation']);
