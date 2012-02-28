@@ -195,7 +195,7 @@ Configuration:
       _rev: {  }
       type: {  }
       campagne: {  }
-      label:
+      labels:
         type: collection
         definition:
           fields:
@@ -240,16 +240,24 @@ Configuration:
                     definition:
                       fields:
                         libelle: {  }
-                        interpro:
-                          type: array_collection
-                          definition:
-                            fields:
-                              '*': {  }
                         departements:
                           type: array_collection
                           definition:
                             fields:
                               '*': {  }
+                        interpro:
+                          type: collection
+                          definition:
+                            fields:
+                              '*':
+                                type: collection
+                                definition:
+                                  fields:
+                                    labels:
+                                      type: array_collection
+                                      definition:
+                                        fields:
+                                          '*': {  }
                         appellations:
                           type: collection
                           definition:
@@ -263,7 +271,7 @@ Configuration:
                                   fields:
                                     libelle: {  }
                                     interpro:
-                                      type: array_collection
+                                      type: collection
                                       definition:
                                         fields:
                                           '*': {  }
@@ -285,7 +293,7 @@ Configuration:
                                               fields:
                                                 libelle: {  }
                                                 interpro:
-                                                  type: array_collection
+                                                  type: collection
                                                   definition:
                                                     fields:
                                                       '*': {  }
@@ -307,7 +315,7 @@ Configuration:
                                                           fields:
                                                             libelle: {  }
                                                             interpro:
-                                                              type: array_collection
+                                                              type: collection
                                                               definition:
                                                                 fields:
                                                                   '*': {  }
@@ -329,7 +337,7 @@ Configuration:
                                                                       fields:
                                                                         libelle: {  }
                                                                         interpro:
-                                                                          type: array_collection
+                                                                          type: collection
                                                                           definition:
                                                                             fields:
                                                                               '*': {  }

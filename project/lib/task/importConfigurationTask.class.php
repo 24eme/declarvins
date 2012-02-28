@@ -119,7 +119,7 @@ EOF;
         $hash = 'certifications/'.$datas[0].
                 '/appellations/'.$datas[1];
 
-        $configuration->declaration->get($hash)->interpro->add(null, 'INTERPRO-'.$datas[2]);
+        $configuration->declaration->get($hash)->interpro->add('INTERPRO-'.$datas[2], null);
     }
 
     foreach (file($import_dir.'/appellations_departements') as $line) {
@@ -134,25 +134,21 @@ EOF;
         $hash = 'certifications/'.$datas[0].
                 '/appellations/'.$datas[1];
 
-        $configuration->declaration->get($hash)->interpro->add(null, 'INTERPRO-'.$datas[2]);
+        $configuration->declaration->get($hash)->departements->add(null, $datas[2]);
     }
 
-  	$configuration->label->add('AB', 'Agriculture Biologique');
-  	$configuration->label->add('AR', 'Agriculture Raisonnée');
-  	$configuration->label->add('BD', 'Biodynamie');
-  	$configuration->label->add('AC', 'Agri confiance');
-  	$configuration->label->add('TV', 'Terra Vitis');
-  	$configuration->label->add('DD', 'Vigneron développement durable');
-  	$configuration->label->add('NMP', 'Nutrition Méditérannéenne en Provence');
-  	$configuration->label->add('HVE', 'Haute Valeur Environnementale');
-  	$configuration->label->add('FU', 'Elevage en fût');
-  	$configuration->label->add('DO', 'Domaine');
-  	$configuration->label->add('CH', 'Château');
-  	$configuration->label->add('CL', 'Clos');
-  	$configuration->label->add('CC', 'Cru Classé');
-  	$configuration->label->add('BT', 'Mise en bouteille ("conditionné") à la propriété');
-  	
-  
+    foreach (file($import_dir.'/labels') as $line) {
+      $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
+      
+      $configuration->labels->add($datas[0], $datas[1]);
+    }
+
+    foreach (file($import_dir.'/labels_certif_interpros') as $line) {
+      $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
+      $hash = 'certifications/'.$datas[0];
+
+      $configuration->declaration->get($hash)->interpro->add('INTERPRO-'.$datas[1])->labels->add(null, $datas[2]);
+    }
 
     foreach (file($import_dir.'/details') as $line) {
         $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
@@ -160,6 +156,7 @@ EOF;
         $detail->readable = $datas[3];
         $detail->writable = $datas[4];
     }
+    
     foreach (file($import_dir.'/libelle_detail_ligne') as $line) {
         $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
         $detail = $configuration->libelle_detail_ligne->get($datas[0])->add($datas[1], $datas[2]);
