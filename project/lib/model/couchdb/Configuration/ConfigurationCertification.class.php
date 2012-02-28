@@ -41,4 +41,14 @@ class ConfigurationCertification extends BaseConfigurationCertification {
 
         return $produits;
     }
+
+    public function getLabels($interpro) {
+        $labels = array();
+        $results = ConfigurationClient::getInstance()->findLabelsByCertification($this->getKey(), $interpro);
+        foreach($results->rows as $item) {
+            $labels[$item->key[3]] = $item->value;
+        }
+
+        return $labels;
+    }
 }

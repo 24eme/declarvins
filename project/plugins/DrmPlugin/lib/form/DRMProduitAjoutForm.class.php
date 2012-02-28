@@ -16,7 +16,7 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
         $this->setWidgets(array(
             'produit' => new sfWidgetFormInputText(array(), array('autocomplete-data' => json_encode($this->getProduits()))),
             'hashref' => new sfWidgetFormInputHidden(),
-            'label' => new sfWidgetFormChoice(array('expanded' => true, 'multiple' => true,'choices' => $this->getLabelChoices())),
+            'label' => new sfWidgetFormChoice(array('expanded' => true, 'multiple' => true,'choices' => $this->getLabels())),
             'label_supplementaire' => new sfWidgetFormInputText(),
             'disponible' => new sfWidgetFormInputFloat(),
         ));
@@ -29,7 +29,7 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
         $this->setValidators(array(
             'produit' => new sfValidatorString(array('required' => true)),
             'hashref' => new sfValidatorString(array('required' => true)),
-            'label' => new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($this->getLabelChoices()))),
+            'label' => new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($this->getLabels()))),
             'label_supplementaire' => new sfValidatorString(array('required' => false)),
             'disponible' => new sfValidatorNumber(array('required' => false)),
         ));
@@ -49,16 +49,12 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
         }
     }
     
-    public function getLabelChoices() 
+    public function getLabels() 
     {
-        if (is_null($this->_label_choices)) {
-            $this->_label_choices = array();
-            foreach (ConfigurationClient::getCurrent()->label as $key => $label) {
-            	$this->_label_choices[$key] = $label;
-            }
-        }
-
-        return $this->_label_choices;
+        return ConfigurationClient::getCurrent()->declaration
+                                                         ->certifications
+                                                         ->get($this->getObject()->getCertification()->getKey())
+                                                         ->getLabels($this->_interpro);
     }
 
     public function hasAppellation() {

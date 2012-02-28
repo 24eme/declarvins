@@ -74,7 +74,7 @@ class DRMDetail extends BaseDRMDetail {
     public function getLabelLibelles() {
         $libelles = array(); 
         foreach($this->label as $key) {
-            $libelles[] = ConfigurationClient::getCurrent()->label[$key];
+            $libelles[] = ConfigurationClient::getCurrent()->labels[$key];
         }
 
         return $libelles;
