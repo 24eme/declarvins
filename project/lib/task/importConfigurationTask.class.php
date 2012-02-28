@@ -134,7 +134,7 @@ EOF;
         $hash = 'certifications/'.$datas[0].
                 '/appellations/'.$datas[1];
 
-        $configuration->declaration->get($hash)->departements->add(null, $datas[2]);
+        $configuration->declaration->get($hash)->interpro->add(null, 'INTERPRO-'.$datas[2]);
     }
 
   	$configuration->label->add('AB', 'Agriculture Biologique');
@@ -151,6 +151,19 @@ EOF;
   	$configuration->label->add('CL', 'Clos');
   	$configuration->label->add('CC', 'Cru Classé');
   	$configuration->label->add('BT', 'Mise en bouteille ("conditionné") à la propriété');
+  	
+  
+
+    foreach (file($import_dir.'/details') as $line) {
+        $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
+        $detail = $configuration->declaration->certifications->get($datas[0])->detail->get($datas[1])->add($datas[2]);
+        $detail->readable = $datas[3];
+        $detail->writable = $datas[4];
+    }
+    foreach (file($import_dir.'/libelle_detail_ligne') as $line) {
+        $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
+        $detail = $configuration->libelle_detail_ligne->get($datas[0])->add($datas[1], $datas[2]);
+    }
 
   	$configuration->save();
   }

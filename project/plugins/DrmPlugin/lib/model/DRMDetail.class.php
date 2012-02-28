@@ -6,9 +6,17 @@
  */
 class DRMDetail extends BaseDRMDetail {
     
-    public function getConfig() {
+    public function getLibelles() {
 
-        return $this->getMillesime()->getConfig();
+        return $this->getMillesime()->getConfig()->getLibelles();
+    }
+    
+    public function getConfig() {
+    	return ConfigurationClient::getCurrent()->declaration->certifications->get($this->getCertification()->getKey())->detail;
+    }
+    
+    public function getCertification() {
+    	return $this->getAppellation()->getCertification();
     }
 
     /**

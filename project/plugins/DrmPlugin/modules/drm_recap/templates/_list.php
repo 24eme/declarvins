@@ -14,7 +14,7 @@
  </p>
 
 <div id="colonnes_dr">
-    <?php include_partial('drm_recap/itemHeader', array('config_appellation' => $config_appellation)); ?>    
+    <?php include_partial('drm_recap/itemHeader', array('libelle_detail_ligne' => $libelle_detail_ligne, 'config_appellation' => $config_appellation)); ?>    
     <div id="col_saisies">
 		<script type="text/javascript">
 			/* Colonne avec le focus par défaut */
