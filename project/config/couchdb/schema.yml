@@ -327,59 +327,54 @@ Configuration:
                                                                                   fields:
                                                                                     libelle: {  }
                         details:
+                          class: ConfigurationDetail
                           type: collection
                           definition:
                             fields:
-                              '*':
-                                # DETAIL
-                                class: ConfigurationDetail
+                              stocks_debut:
                                 type: collection
                                 definition:
                                   fields:
-                                    stocks_debut:
+                                    '*':
+                                      class: ConfigurationDetailLigne
                                       type: collection
                                       definition:
                                         fields:
-                                          '*':
-                                            class: ConfigurationDetailLigne
-                                            type: collection
-                                            definition:
-                                              fields:
-                                                readable: {  }
-                                                writable: {  }
-                                    entrees:
+                                          readable: {  }
+                                          writable: {  }
+                              entrees:
+                                type: collection
+                                definition:
+                                  fields:
+                                    '*':
+                                      class: ConfigurationDetailLigne
                                       type: collection
                                       definition:
                                         fields:
-                                          '*':
-                                            class: ConfigurationDetailLigne
-                                            type: collection
-                                            definition:
-                                              fields:
-                                                readable: {  }
-                                                writable: {  }
-                                    sorties:
+                                          readable: {  }
+                                          writable: {  }
+                              sorties:
+                                type: collection
+                                definition:
+                                  fields:
+                                    '*':
+                                      class: ConfigurationDetailLigne
                                       type: collection
                                       definition:
                                         fields:
-                                          '*':
-                                            class: ConfigurationDetailLigne
-                                            type: collection
-                                            definition:
-                                              fields:
-                                                readable: {  }
-                                                writable: {  }
-                                    stocks_fin:
+                                          readable: {  }
+                                          writable: {  }
+                              stocks_fin:
+                                type: collection
+                                definition:
+                                  fields:
+                                    '*':
+                                      class: ConfigurationDetailLigne
                                       type: collection
                                       definition:
                                         fields:
-                                          '*':
-                                            class: ConfigurationDetailLigne
-                                            type: collection
-                                            definition:
-                                              fields:
-                                                readable: {  }
-                                                writable: {  }
+                                          readable: {  }
+                                          writable: {  }
 
 DRM:
   definition:
