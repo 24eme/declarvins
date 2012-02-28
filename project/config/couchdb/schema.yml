@@ -340,41 +340,46 @@ Configuration:
                                       type: collection
                                       definition:
                                         fields:
-                                          bloque: {  }
-                                          warrante: {  }
-                                          instance: {  }
-                                          commercialisable: {  }
+                                          '*':
+                                            class: ConfigurationDetailLigne
+                                            type: collection
+                                            definition:
+                                              fields:
+                                                readable: {  }
+                                                writable: {  }
                                     entrees:
                                       type: collection
                                       definition:
                                         fields:
-                                          nouveau: {  }
-                                          repli: {  }
-                                          declassement: {  }
-                                          mouvement: {  }
-                                          crd: {  }
+                                          '*':
+                                            class: ConfigurationDetailLigne
+                                            type: collection
+                                            definition:
+                                              fields:
+                                                readable: {  }
+                                                writable: {  }
                                     sorties:
                                       type: collection
                                       definition:
                                         fields:
-                                          vrac: {  }
-                                          export: {  }
-                                          factures: {  }
-                                          crd: {  }
-                                          consommation: {  }
-                                          pertes: {  }
-                                          declassement: {  }
-                                          repli: {  }
-                                          mouvement: {  }
-                                          lies: {  }
+                                          '*':
+                                            class: ConfigurationDetailLigne
+                                            type: collection
+                                            definition:
+                                              fields:
+                                                readable: {  }
+                                                writable: {  }
                                     stocks_fin:
                                       type: collection
                                       definition:
                                         fields:
-                                          bloque: {  }
-                                          warrante: {  }
-                                          instance: {  }
-                                          commercialisable: {  }
+                                          '*':
+                                            class: ConfigurationDetailLigne
+                                            type: collection
+                                            definition:
+                                              fields:
+                                                readable: {  }
+                                                writable: {  }
 
 DRM:
   definition:
