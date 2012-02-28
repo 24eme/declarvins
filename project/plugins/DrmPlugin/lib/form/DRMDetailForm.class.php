@@ -4,7 +4,7 @@ class DRMDetailForm extends acCouchdbFormDocumentJson {
 	protected $_label_choices;
 
     public function configure() {
-        $this->stocks_debut = new DRMDetailStocksForm($this->getObject()->stocks_debut);
+        $this->stocks_debut = new DRMDetailStocksDebutForm($this->getObject()->stocks_debut);
         $this->embedForm('stocks_debut', $this->stocks_debut);
             
         $this->entrees = new DRMDetailEntreesForm($this->getObject()->entrees);
@@ -13,7 +13,7 @@ class DRMDetailForm extends acCouchdbFormDocumentJson {
         $this->sorties = new DRMDetailSortiesForm($this->getObject()->sorties);
         $this->embedForm('sorties', $this->sorties);
         
-        $this->stocks_fin = new DRMDetailStocksForm($this->getObject()->stocks_fin);
+        $this->stocks_fin = new DRMDetailStocksFinForm($this->getObject()->stocks_fin);
         $this->embedForm('stocks_fin', $this->stocks_fin);
         
         $this->widgetSchema->setNameFormat('drm_detail[%s]');

@@ -200,6 +200,30 @@ Configuration:
         definition:
           fields:
             '*': {  }
+      libelle_detail_ligne:
+        type: collection
+        definition:
+          fields:
+            stocks_debut:
+              type: collection
+              definition:
+                fields:
+                  '*': {  }
+            entrees:
+              type: collection
+              definition:
+                fields:
+                  '*': {  }
+            sorties:
+              type: collection
+              definition:
+                fields:
+                  '*': {  }
+            stocks_fin:
+              type: collection
+              definition:
+                fields:
+                  '*': {  }
       declaration:
         type: collection
         definition:
@@ -326,7 +350,7 @@ Configuration:
                                                                                 definition:
                                                                                   fields:
                                                                                     libelle: {  }
-                        details:
+                        detail:
                           class: ConfigurationDetail
                           type: collection
                           definition:

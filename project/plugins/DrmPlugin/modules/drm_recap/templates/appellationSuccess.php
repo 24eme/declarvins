@@ -20,7 +20,7 @@
 						<li><kbd>Ctrl</kbd> + <kbd>Entrée</kbd> : Valider la colonne courante</li>
 					</ul>
 				</div>-->
-                <?php include_component('drm_recap', 'list', array('drm_appellation' => $drm_appellation, 'config_appellation' => $config_appellation, 'form' => $form)); ?>
+                <?php include_component('drm_recap', 'list', array('libelle_detail_ligne' => $libelle_detail_ligne, 'drm_appellation' => $drm_appellation, 'config_appellation' => $config_appellation, 'form' => $form)); ?>
             </div>
             <div id="btn_etape_dr">
                 <?php if ($produits_appellation = $drm_appellation->getProduits()->getPrevious()): ?>

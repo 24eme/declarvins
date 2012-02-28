@@ -8,7 +8,7 @@
  * @property acCouchdbJson $interpro
  * @property acCouchdbJson $departements
  * @property acCouchdbJson $appellations
- * @property ConfigurationDetail $details
+ * @property ConfigurationDetail $detail
 
  * @method string getLibelle()
  * @method string setLibelle()
@@ -18,8 +18,8 @@
  * @method acCouchdbJson setDepartements()
  * @method acCouchdbJson getAppellations()
  * @method acCouchdbJson setAppellations()
- * @method ConfigurationDetail getDetails()
- * @method ConfigurationDetail setDetails()
+ * @method ConfigurationDetail getDetail()
+ * @method ConfigurationDetail setDetail()
  
  */
 

@@ -5,5 +5,4 @@
  */
 
 class ConfigurationDetailLigne extends BaseConfigurationDetailLigne {
-
 }
