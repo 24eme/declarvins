@@ -42,9 +42,14 @@ class acCouchdbJsonArrayIterator extends ArrayIterator {
 
     public function getLast() {
         if($this->valid()){
-            $this->seek($this->count() -2);
-        	$this->_previous = $this->key();
+        	if ($this->count() -2 > 0) {
+            	$this->seek($this->count() -2);
+        		$this->_previous = $this->key();
+        	}
             $this->seek($this->count() -1);
+            if ($this->count() -2 > 0) {
+        		$this->_previous = null;
+        	}
             return $this->current();
         } else {
             throw new acCouchdbException('This iterator has no entrie');
@@ -53,9 +58,14 @@ class acCouchdbJsonArrayIterator extends ArrayIterator {
 
     public function getLastKey() {
         if($this->valid()){
-            $this->seek($this->count() -2);
-        	$this->_previous = $this->key();
+        	if ($this->count() -2 > 0) {
+            	$this->seek($this->count() -2);
+        		$this->_previous = $this->key();
+        	}
             $this->seek($this->count() -1);
+            if ($this->count() -2 > 0) {
+        		$this->_previous = null;
+        	}
             return $this->key();
         } else {
             throw new acCouchdbException('This iterator has no entrie');
