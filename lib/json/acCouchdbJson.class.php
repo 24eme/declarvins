@@ -288,7 +288,9 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
     protected function update($params = array()) {
         foreach ($this as $key => $field) {
             if ($this->fieldIsCollection($key)) {
-                $field->update($params);
+	      if (!is_object($field))
+		throw new sfException("Cannot update the object corresponding to '$key' : not an object");
+	      $field->update($params);
             }
         }
     }
