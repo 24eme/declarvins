@@ -9,7 +9,7 @@
  * @property acCouchdbJson $interpro
  * @property acCouchdbJson $appellations
  * @property ConfigurationDetail $detail
- * @property ConfigurationDroits $droits
+ * @property acCouchdbJson $droits
 
  * @method string getLibelle()
  * @method string setLibelle()
@@ -21,8 +21,8 @@
  * @method acCouchdbJson setAppellations()
  * @method ConfigurationDetail getDetail()
  * @method ConfigurationDetail setDetail()
- * @method ConfigurationDroits getDroits()
- * @method ConfigurationDroits setDroits()
+ * @method acCouchdbJson getDroits()
+ * @method acCouchdbJson setDroits()
  
  */
 

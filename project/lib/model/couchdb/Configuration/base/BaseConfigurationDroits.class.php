@@ -4,13 +4,7 @@
  * 
  * Base model for ConfigurationDroits
 
- * @property ConfigurationDroit $douane
- * @property ConfigurationDroit $cvo
 
- * @method ConfigurationDroit getDouane()
- * @method ConfigurationDroit setDouane()
- * @method ConfigurationDroit getCvo()
- * @method ConfigurationDroit setCvo()
  
  */
 

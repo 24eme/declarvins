@@ -4,7 +4,16 @@
  * 
  * Base model for ConfigurationDroit
 
+ * @property string $date
+ * @property float $ratio
+ * @property string $code
 
+ * @method string getDate()
+ * @method string setDate()
+ * @method float getRatio()
+ * @method float setRatio()
+ * @method string getCode()
+ * @method string setCode()
  
  */
 
