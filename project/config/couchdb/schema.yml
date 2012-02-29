@@ -407,7 +407,29 @@ Configuration:
                                         fields:
                                           readable: {  }
                                           writable: {  }
-
+                        droits:
+                          class: ConfigurationDroits
+                          type: collection
+                          definition:
+                            fields:
+                              douane:
+                                class: ConfigurationDroit
+                                type: array_collection
+                                definition:
+                                  fields:
+                                    '*':
+                                      date: {  }
+                                      ratio: { type: float }
+                                      code: {  }
+                              cvo:
+                                class: ConfigurationDroit
+                                type: array_collection
+                                definition:
+                                  fields:
+                                    '*':
+                                      date: {  }
+                                      ratio: { type: float }
+                                      code: {  }
 DRM:
   definition:
     fields:
@@ -465,6 +487,25 @@ DRM:
                         total_entrees: { type: float }
                         total_sorties: { type: float }
                         total: { type: float }
+                        droits:
+                          class: DRMDroits
+                          type: collection
+                          definition:
+                            fields:
+                              douane:
+                                class: DRMDroit
+                                type: collection
+                                definition:
+                                  fields:
+                                    ratio: { type: float }
+                                    code: {  }
+                              cvo:
+                                class: DRMDroit
+                                type: collection
+                                definition:
+                                  fields:
+                                    ratio: { type: float }
+                                    code: {  }
                         appellations:
                           type: collection
                           definition:
@@ -480,6 +521,25 @@ DRM:
                                     total_entrees: { type: float }
                                     total_sorties: { type: float }
                                     total: { type: float }
+                                    droits:
+                                      class: DRMDroits
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          douane:
+                                            class: DRMDroit
+                                            type: collection
+                                            definition:
+                                              fields:
+                                                ratio: { type: float }
+                                                code: {  }
+                                          cvo:
+                                            class: DRMDroit
+                                            type: collection
+                                            definition:
+                                              fields:
+                                                ratio: { type: float }
+                                                code: {  }
                                     lieux:
                                       type: collection
                                       definition:
