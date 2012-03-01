@@ -89,7 +89,7 @@ class DRMDetail extends BaseDRMDetail {
     
     private function getTotalByKey($key) {
     	$sum = 0;
-    	foreach ($this->get($key) as $k) {
+    	foreach ($this->get($key, true) as $k) {
     		$sum += $k;
     	}
     	return $sum;
@@ -111,14 +111,19 @@ class DRMDetail extends BaseDRMDetail {
     	return strtolower(str_replace($this->getDocument()->declaration->getHash(), '', str_replace('/', '_', $this->getHash())));
     }	
     
+    public function addVrac($contrat_numero, $volume) {
+      $contratVrac = $this->vrac->add($contrat_numero."");
+      $contratVrac->volume = $volume*1 ;
+    }
+
     public function hasContratVrac() {
-    	$etablissement = $this->getDocument()->identifiant;
-		foreach (VracClient::getInstance()->getAll() as $contrat) {
-			if ($contrat->etablissement == $etablissement && (strpos($this->getHash(), $contrat->produit) !== false) && !$this->vrac->exist($contrat->numero)) {
-				return true;
-            }
-        }
-        return false;
+      $etablissement = $this->getDocument()->identifiant;
+      foreach (VracClient::getInstance()->getAll() as $contrat) {
+	if ($contrat->etablissement == $etablissement && (strpos($this->getHash(), $contrat->produit) !== false) && !$this->vrac->exist($contrat->numero)) {
+	  return true;
+	}
+      }
+      return false;
     }
     
     public function getContratsVrac() {
