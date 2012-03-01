@@ -5,6 +5,7 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
 	protected $_appellation_choices;
 	protected $_label_choices;
     protected $_interpro = null;
+    const LABEL_AUTRE_KEY = "AUTRE";
 
     public function __construct(acCouchdbJson $object, $interpro, $options = array(), $CSRFSecret = null) {
 		$this->_interpro = $interpro;
@@ -14,21 +15,19 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
     public function configure() 
     {
         $this->setWidgets(array(
-            'produit' => new sfWidgetFormInputText(array(), array('autocomplete-data' => json_encode($this->getProduits()))),
-            'hashref' => new sfWidgetFormInputHidden(),
+            'hashref' => new sfWidgetFormChoice(array('choices' => $this->getProduits())),
             'label' => new sfWidgetFormChoice(array('expanded' => true, 'multiple' => true,'choices' => $this->getLabels())),
             'label_supplementaire' => new sfWidgetFormInputText(),
             'disponible' => new sfWidgetFormInputFloat(),
         ));
         $this->widgetSchema->setLabels(array(
-            'produit' => 'Produit*: ',
+            'hashref' => 'Produit*: ',
             'label' => 'Label: ',
             'label_supplementaire' => 'Label supplémentaire: ',
         ));
 
         $this->setValidators(array(
-            'produit' => new sfValidatorString(array('required' => true)),
-            'hashref' => new sfValidatorString(array('required' => true)),
+            'hashref' => new sfValidatorString(array('required' => true),array('required' => "Aucun produit n'a été saisi !")),
             'label' => new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($this->getLabels()))),
             'label_supplementaire' => new sfValidatorString(array('required' => false)),
             'disponible' => new sfValidatorNumber(array('required' => false)),
@@ -36,6 +35,18 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
 
         $this->validatorSchema->setPostValidator(new DRMProduitValidator(null, array('object' => $this->getObject())));
         $this->widgetSchema->setNameFormat('produit_'.$this->getObject()->getCertification()->getKey().'[%s]');
+    }
+
+    protected function updateDefaultsFromObject() {
+        parent::updateDefaultsFromObject();
+
+        $defaults = $this->getDefaults();
+
+        if ($this->object->label_supplementaire) {
+            $defaults['label'][] = self::LABEL_AUTRE_KEY;
+        }
+
+        $this->setDefaults($defaults);
     }
 
     public function doUpdateObject($values) {
@@ -51,10 +62,13 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
     
     public function getLabels() 
     {
-        return ConfigurationClient::getCurrent()->declaration
+        $labels = ConfigurationClient::getCurrent()->declaration
                                                          ->certifications
                                                          ->get($this->getObject()->getCertification()->getKey())
                                                          ->getLabels($this->_interpro);
+        $labels[self::LABEL_AUTRE_KEY] = "Autre";
+
+        return $labels;
     }
 
     public function hasAppellation() {
@@ -87,12 +101,11 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
                                                          ->getProduits($this->_interpro);
         }
 
-        $produits_flat = array();
-        foreach($produits as $hash => $libelles)  {
-            $libelle = implode(' ', array_filter($libelles));
-            $produits_flat[] = $hash.'|@'.$libelle;
-        }
+        return array_merge(array("" => ""), array_map(array($this, 'formatProduit'), $produits));
+    }
 
-        return $produits_flat;
+    public function formatProduit($libelles) {
+
+        return implode(' ', array_filter($libelles));
     }
 }

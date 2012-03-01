@@ -677,14 +677,14 @@ a:hover { text-decoration:underline; }
   height:18px;
   padding-top:2px;
 }
-.popup_form .ligne_form ul {
+.popup_form .ligne_form ul.checkbox_list {
   height:135px;
   padding:0 4px;
   width:190px;
   overflow:auto;
   display:inline-block;
 }
-.popup_form .ligne_form ul label { display:inline; }
+.popup_form .ligne_form ul.checkbox_list label { display:inline; }
 .popup_form .ligne_form input[type=checkbox], .popup_form .ligne_form input[type=radio] {
   margin:0 5px 0 0;
   vertical-align:middle;
@@ -1545,3 +1545,4 @@ p#date_drm {
   font-weight:normal;
 }
 #principal #etablissements_drm #etablissements_infos .adresse_comptabilite { margin:20px 0 0; }
+
