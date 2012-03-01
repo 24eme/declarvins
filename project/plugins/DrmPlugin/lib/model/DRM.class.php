@@ -167,11 +167,31 @@ class DRM extends BaseDRM {
         return $nextCertification;
     }
 
+    public function setCampagneMoisAnnee($mois, $annee) {
+      $this->campagne = sprintf("%04d-%02d", $annee, $mois);
+    }
+
+    public function setMois($mois) {
+      $annee = $this->getAnnee();
+      $this->setCampagneMoisAnnee($mois, $annee);
+    }
+
+    public function setAnnee($annee) {
+      $mois = $this->getMois();
+      $this->setCampagneMoisAnnee($mois, $annee);
+    }
+
     public function getMois() {
       return preg_replace('/.*-/', '', $this->campagne)*1;
     }
+
     public function getAnnee() {
       return preg_replace('/-.*/', '', $this->campagne)*1;
     }
 
+    public function save($e = null) {
+      if (!preg_match('/^2\d{3}-[01][0-9]$/', $this->campagne))
+	throw new sfException('Wrong format for campagne ('.$this->campagne.')');
+      return parent::save($e);
+    }
 }

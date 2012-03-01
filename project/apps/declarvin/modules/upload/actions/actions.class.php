@@ -35,6 +35,8 @@ class uploadActions extends sfActions
       $this->iddrm = $drm->_id;
     }catch(sfException $e) {
       $this->errors = $csv->getErrors();
+      if (!count($this->errors))
+	throw $e;
     }
     
     $this->setLayout(false);

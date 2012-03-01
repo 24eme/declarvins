@@ -8,6 +8,7 @@
  * @property float $total_entrees
  * @property float $total_sorties
  * @property float $total
+ * @property DRMDroits $droits
  * @property acCouchdbJson $lieux
 
  * @method float getTotalDebutMois()
@@ -18,6 +19,8 @@
  * @method float setTotalSorties()
  * @method float getTotal()
  * @method float setTotal()
+ * @method DRMDroits getDroits()
+ * @method DRMDroits setDroits()
  * @method acCouchdbJson getLieux()
  * @method acCouchdbJson setLieux()
  

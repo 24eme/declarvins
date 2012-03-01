@@ -358,6 +358,24 @@ Configuration:
                                                                                 definition:
                                                                                   fields:
                                                                                     libelle: {  }
+                                                                                    
+                                    droits:
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          '*':
+                                            class: ConfigurationDroits
+                                            type: array_collection
+                                            definition:
+                                              fields:
+                                                '*':
+                                                  class: ConfigurationDroit
+                                                  type: collection
+                                                  definition:
+                                                    fields:
+                                                      date: {  }
+                                                      ratio: { type: float }
+                                                      code: {  }
                         detail:
                           class: ConfigurationDetail
                           type: collection
@@ -407,7 +425,24 @@ Configuration:
                                         fields:
                                           readable: {  }
                                           writable: {  }
-
+                                                                                    
+                        droits:
+                          type: collection
+                          definition:
+                            fields:
+                              '*':
+                                class: ConfigurationDroits
+                                type: array_collection
+                                definition:
+                                  fields:
+                                    '*':
+                                      class: ConfigurationDroit
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          date: {  }
+                                          ratio: { type: float }
+                                          code: {  }
 DRM:
   definition:
     fields:
@@ -465,6 +500,17 @@ DRM:
                         total_entrees: { type: float }
                         total_sorties: { type: float }
                         total: { type: float }
+                        droits:
+                          type: collection
+                          definition:
+                            fields:
+                              '*':
+                                class: DRMDroit
+                                type: collection
+                                definition:
+                                  fields:
+                                    ratio: { type: float }
+                                    code: {  }
                         appellations:
                           type: collection
                           definition:
@@ -480,6 +526,17 @@ DRM:
                                     total_entrees: { type: float }
                                     total_sorties: { type: float }
                                     total: { type: float }
+                                    droits:
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          '*':
+                                            class: DRMDroit
+                                            type: collection
+                                            definition:
+                                              fields:
+                                                ratio: { type: float }
+                                                code: {  }
                                     lieux:
                                       type: collection
                                       definition:
