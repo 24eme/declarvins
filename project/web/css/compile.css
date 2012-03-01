@@ -101,10 +101,8 @@ article, aside, figure, footer, header, hgroup, nav, section { display:block; }
 .ui-autocomplete {
   background:#ffffff;
   border:1px solid #c2c1ba;
-  font-size:11px;
   position:absolute;
   _width:1px;
-  font-family:Arial, Verdana, Helvetica, sans-serif;
 }
 .ui-autocomplete .ui-menu-item a {
   background:#ffffff;
