@@ -161,6 +161,19 @@ EOF;
         $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
         $detail = $configuration->libelle_detail_ligne->get($datas[0])->add($datas[1], $datas[2]);
     }
+    
+    foreach (file($import_dir.'/droits') as $line) {
+        $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
+        
+        $droit = $configuration->declaration->certifications->get($datas[0]);
+        if ($datas[1]) {
+        	$droit = $configuration->declaration->certifications->get($datas[0])->appellations->get($datas[1]);
+        }
+        $value = $droit->droits->add($datas[2])->add();
+        $value->date = $datas[3];
+        $value->ratio = (float)$datas[4];
+        $value->code = $datas[5];
+    }
 
   	$configuration->save();
   }
