@@ -73,7 +73,7 @@ class DRMValidation
 	}
 	
 	public function isValide() {
-		return ($this->hasErrors());
+	  return !($this->hasErrors());
 	}
 	
 	private function controleEngagements($detail)

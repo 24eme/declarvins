@@ -4,5 +4,11 @@ if ($iddrm) {
   return ;
  }
 foreach ($errors as $e) {
-  echo $e['line'].';'.$e['message'].";\n";
+  $type = 'COHERENCE';
+  $line = '';
+  if (isset($e['line'])) {
+    $type = "LIGNE";
+    $line = $e['line'];
+  }
+  echo $type.';'.$line.';'.$e['message'].";\n";
 }
