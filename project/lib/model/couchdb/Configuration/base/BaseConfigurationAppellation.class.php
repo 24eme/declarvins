@@ -8,7 +8,6 @@
  * @property acCouchdbJson $interpro
  * @property acCouchdbJson $departements
  * @property acCouchdbJson $lieux
- * @property acCouchdbJson $droits
 
  * @method string getLibelle()
  * @method string setLibelle()
@@ -18,8 +17,6 @@
  * @method acCouchdbJson setDepartements()
  * @method acCouchdbJson getLieux()
  * @method acCouchdbJson setLieux()
- * @method acCouchdbJson getDroits()
- * @method acCouchdbJson setDroits()
  
  */
 
