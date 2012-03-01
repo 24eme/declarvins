@@ -8,11 +8,13 @@ class DRMDetailNoeud extends BaseDRMDetailNoeud {
 
   // $get_anyway : si le champ n'existe pas ou n'est pas lisible, on retourne 0 et pas une exception
   public function get($key, $get_anyway = null) {
+    /*
     if (!$this->getConfig()->exist($key) || !$this->getConfig()->get($key)->isReadable()) {
       if ($get_anyway)
 	return 0;
       throw new sfException("$key is not readable");
     }
+    */
     return $this->_get($key);    
   }
 
