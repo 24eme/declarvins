@@ -56,9 +56,9 @@ class DRMCsvFile extends CsvFile
   }
 
   private function getProduit($line) {
-    if($this->drm->annee != $line[self::CSV_COL_ANNEE])
+    if($this->drm->getAnnee() != $line[self::CSV_COL_ANNEE])
       throw new sfException("Incoherence dans l'année de la DRM");
-    if($this->drm->mois != $line[self::CSV_COL_MOIS])
+    if($this->drm->getMois() != $line[self::CSV_COL_MOIS])
       throw new sfException("Incoherence dans le mois de la DRM");
     if($this->drm->identifiant != $line[self::CSV_COL_IDENTIFIANT_DECLARANT])
       throw new sfException("Incoherence dans l'identifiant de l'établissement DRM");
@@ -115,7 +115,6 @@ class DRMCsvFile extends CsvFile
 	$this->numline++;
 	if (!$this->drm)
 	  $this->drm = DRMClient::getInstance()->retrieveOrCreateByIdentifiantAndCampagne($etablissement, $line[self::CSV_COL_ANNEE], $line[self::CSV_COL_MOIS]);
-	
 	switch($line[self::CSV_COL_TYPE]) {
 	case 'DETAIL':
 	  $this->parseDetail($line);

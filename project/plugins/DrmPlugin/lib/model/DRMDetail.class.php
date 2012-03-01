@@ -89,7 +89,7 @@ class DRMDetail extends BaseDRMDetail {
     
     private function getTotalByKey($key) {
     	$sum = 0;
-    	foreach ($this->get($key) as $k) {
+    	foreach ($this->get($key, true) as $k) {
     		$sum += $k;
     	}
     	return $sum;

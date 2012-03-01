@@ -89,7 +89,7 @@ class Configuration extends BaseConfiguration {
 
     public function identifyLabel($label) {
       $label = self::normalizeLibelle($label);
-      foreach ($this->label as $k => $l) {
+      foreach ($this->labels as $k => $l) {
 	if ($label == self::normalizeLibelle($l))
 	  return $k;
       }
