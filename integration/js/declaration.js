@@ -348,6 +348,7 @@
 		else colFocusNum = colCurseurs.first().attr('data-curseur');*/
 		
 		colFocusNum = colCurseurs.first().attr('data-curseur');
+
 		
 		// Colonne au focus par défaut
 		colFocus = $('#col_recolte_'+colFocusNum);

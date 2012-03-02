@@ -2,7 +2,7 @@
 {
 
 	var normalize = function(term) {
-		var accentMap = {"à": "a", "á": "a", "ã": "a", "ä": "a", "å": "a", "é": "e", "è": "e", "ê": "e", "ë": "e", "ì":"i", "í":"i", "î":"i", "ï":"i", "ð": "o", "ò": "o", "ó": "o", "ô": "o", "õ": "o", "ö":"o", "ù": "u", "ú": "u", "û": "u", "ü": "u", "ý": "y", "ÿ":"y", "ç": "c", "À": "A", "Á": "A", "Â": "A", "Ã": "A", "Ä": "A", "Å": "A", "Ç": "C", "È": "E", "É": "E", "Ê": "E", "Ë": "E", "Ì" : "I", "Í": "I", "Î": "I", "Ï": "I", "Ò":"O", "Ó":"O", "Ô":"O", "Õ":"O", "Ö":"O", "Ù":"U", "Ú":"U", "Û":"U", "Ü":"U", "Ý":"Y"};
+		var accentMap = { "à": "a", "á": "a", "ã": "a", "ä": "a", "å": "a", "â":"a", "é": "e", "è": "e", "ê": "e", "ë": "e", "ì":"i", "í":"i", "î":"i", "ï":"i", "ð": "o", "ò": "o", "ó": "o", "ô": "o", "õ": "o", "ö":"o", "ù": "u", "ú": "u", "û": "u", "ü": "u", "ý": "y", "ÿ":"y", "ç": "c", "À": "A", "Á": "A", "Â": "A", "Ã": "A", "Ä": "A", "Å": "A", "Ç": "C", "È": "E", "É": "E", "Ê": "E", "Ë": "E", "Ì" : "I", "Í": "I", "Î": "I", "Ï": "I", "Ò":"O", "Ó":"O", "Ô":"O", "Õ":"O", "Ö":"O", "Ù":"U", "Ú":"U", "Û":"U", "Ü":"U", "Ý":"Y" };
 		var ret = "";
 		for ( var i = 0; i < term.length; i++ ) {
 			ret += accentMap[ term.charAt(i) ] || term.charAt(i);
@@ -48,7 +48,7 @@
 		return text_final;
 	}
 
-	$.widget( "ui.combobox", {
+	$.widget("ui.combobox", {
 		_create: function() {
 			var self = this,
 			select = this.element.hide(),
@@ -61,7 +61,7 @@
 				delay: 0,
 				minLength: 0,
 				source: function( request, response ) {
-					response( select.children( "option" ).map(function() {
+					response( select.children("option").map(function() {
 						var text = $(this).text();
 						var text_highlight = search(text, request.term);
 						if (this.value && (!request.term || text_highlight != false))

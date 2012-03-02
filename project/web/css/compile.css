@@ -103,6 +103,8 @@ article, aside, figure, footer, header, hgroup, nav, section { display:block; }
   border:1px solid #c2c1ba;
   position:absolute;
   _width:1px;
+  max-height: 300px;
+  overflow-y: auto;
 }
 .ui-autocomplete .ui-menu-item a {
   background:#ffffff;
