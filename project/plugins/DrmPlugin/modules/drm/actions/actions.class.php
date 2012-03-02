@@ -114,7 +114,7 @@ class drmActions extends sfActions
   */
   public function executeSucces(sfWebRequest $request)
   {
-      
+      $this->drm = $this->getUser()->getLastDrmValide();
   }
   
 }
