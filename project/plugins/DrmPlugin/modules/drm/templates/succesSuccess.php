@@ -9,7 +9,7 @@
     <!-- #principal -->
     <section id="principal">
     	DRM Validé avec succès
-    	<h2>Droits otal</h2>
+    	<h2>Droits total</h2>
     	<p><span>CVO: </span><?php echo echoFloat($drm->getTotalCvo()) ?>€</p>
     	<p><span>Douane: </span><?php echo echoFloat($drm->getTotalDouane()) ?>€</p>
     	<h2>Droits par code</h2>
@@ -27,5 +27,6 @@
     		</tr>
     		<?php endforeach; ?>
     	</table>
+    	<a href="<?php echo url_for('@drm_pdf') ?>">Pdf</a>
     </section>
 </section>

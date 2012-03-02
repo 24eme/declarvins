@@ -19,7 +19,7 @@ class ExportContrat
 
     protected static function getPartial($partial, $vars = null) 
     {
-        return sfContext::getInstance()->getController()->getAction('export_contrat', 'main')->getPartial('export_contrat/' . $partial, $vars);
+        return sfContext::getInstance()->getController()->getAction('export', 'main')->getPartial('export/' . $partial, $vars);
     }
 	
 }
