@@ -542,6 +542,8 @@ DRM:
                                     total_entrees: { type: float }
                                     total_sorties: { type: float }
                                     total: { type: float }
+                                    total_cvo: { type: float }
+                                    total_douane: { type: float }
                                     droits:
                                       type: collection
                                       definition:

@@ -16,6 +16,11 @@ class DRMAppellation extends BaseDRMAppellation {
 	public function getProduits() {
 		return $this->getDocument()->produits->get($this->getCertification()->getKey())->get($this->getKey());
 	}
+	
+	public function calculDroits() {
+		$this->total_cvo = $this->total * $this->droits->cvo->ratio;
+		$this->total_douane = $this->total * $this->droits->douane->ratio;
+	}
     
 
 }

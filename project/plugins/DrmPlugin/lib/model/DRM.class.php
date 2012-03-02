@@ -194,6 +194,7 @@ class DRM extends BaseDRM {
             foreach ($certification->appellations as $appellation) {
             	$this->setDroit('douane', $appellation);
             	$this->setDroit('cvo', $appellation);
+            	$appellation->calculDroits();
             }
     	}
     }
@@ -211,6 +212,40 @@ class DRM extends BaseDRM {
     
     public function getInterpro() {
     	return $this->getEtablissement()->getInterproObject();
+    }
+    
+    public function getTotalCvo() {
+    	return $this->getTotalDroit('cvo');
+    }
+    public function getTotalDouane() {
+    	return $this->getTotalDroit('douane');
+    }    
+    private function getTotalDroit($type) {
+    	$total = 0;
+    	foreach ($this->declaration->certifications as $certification) {
+            foreach ($certification->appellations as $appellation) {
+            	$total += $appellation->get('total_'.$type);
+            }
+    	}
+    	return $total; 	
+    }
+    public function getTotalDroitByCode() {
+    	$result = array();
+    	foreach ($this->declaration->certifications as $certification) {
+            foreach ($certification->appellations as $appellation) {
+            	if (isset($result[$appellation->droits->get('douane')->code]['douane'])) {
+            		$result[$appellation->droits->get('douane')->code]['douane'] += $appellation->get('total_douane');
+            	} else {
+            		$result[$appellation->droits->get('douane')->code]['douane'] = $appellation->get('total_douane');
+            	}
+            	if (isset($result[$appellation->droits->get('cvo')->code]['cvo'])) {
+            		$result[$appellation->droits->get('cvo')->code]['cvo'] += $appellation->get('total_cvo');
+            	} else {
+            		$result[$appellation->droits->get('cvo')->code]['cvo'] = $appellation->get('total_cvo');
+            	}
+            }
+    	}
+    	return $result;
     }
 
     public function save($e = null) {

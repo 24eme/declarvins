@@ -73,6 +73,18 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
         }
         return $this->_drm;
     }
+    /**
+     * @return DR
+     */
+    public function getLastDrmValide() {
+        $lastDrm = $this->getDrmHistorique()->getLastDrm();
+        if ($lastDrm && $drm = DRMClient::getInstance()->find(key($lastDrm))) {
+        	if ($drm->valide) {
+        		return $drm;
+        	}
+        }
+        return null;
+    }
     
     /**
      * 
