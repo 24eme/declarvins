@@ -11,6 +11,6 @@ class ConfigurationCepage extends BaseConfigurationCepage {
     }
 
     public function getCouleur() {
-    	return $this->getParent()->getParent();
+    	return $this->getParentNode();
     }
 }

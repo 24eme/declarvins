@@ -257,7 +257,37 @@ Configuration:
                                       type: array_collection
                                       definition:
                                         fields:
-                                          '*': {  }
+                                          '*': {  }                              
+                                    droits:
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          douane:
+                                            class: ConfigurationDroits
+                                            type: array_collection
+                                            definition:
+                                              fields:
+                                                '*':
+                                                  class: ConfigurationDroit
+                                                  type: collection
+                                                  definition:
+                                                    fields:
+                                                      date: {  }
+                                                      ratio: { type: float }
+                                                      code: {  }
+                                          cvo:
+                                            class: ConfigurationDroits
+                                            type: array_collection
+                                            definition:
+                                              fields:
+                                                '*':
+                                                  class: ConfigurationDroit
+                                                  type: collection
+                                                  definition:
+                                                    fields:
+                                                      date: {  }
+                                                      ratio: { type: float }
+                                                      code: {  }
                         appellations:
                           type: collection
                           definition:
@@ -274,7 +304,40 @@ Configuration:
                                       type: collection
                                       definition:
                                         fields:
-                                          '*': {  }
+                                          '*':
+                                            type: collection
+                                            definition:
+                                              fields:      
+                                                droits:
+                                                  type: collection
+                                                  definition:
+                                                    fields:
+                                                      douane:
+                                                        class: ConfigurationDroits
+                                                        type: array_collection
+                                                        definition:
+                                                          fields:
+                                                            '*':
+                                                              class: ConfigurationDroit
+                                                              type: collection
+                                                              definition:
+                                                                fields:
+                                                                  date: {  }
+                                                                  ratio: { type: float }
+                                                                  code: {  }
+                                                      cvo:
+                                                        class: ConfigurationDroits
+                                                        type: array_collection
+                                                        definition:
+                                                          fields:
+                                                            '*':
+                                                              class: ConfigurationDroit
+                                                              type: collection
+                                                              definition:
+                                                                fields:
+                                                                  date: {  }
+                                                                  ratio: { type: float }
+                                                                  code: {  }
                                     departements:
                                       type: array_collection
                                       definition:
@@ -358,24 +421,6 @@ Configuration:
                                                                                 definition:
                                                                                   fields:
                                                                                     libelle: {  }
-                                                                                    
-                                    droits:
-                                      type: collection
-                                      definition:
-                                        fields:
-                                          '*':
-                                            class: ConfigurationDroits
-                                            type: array_collection
-                                            definition:
-                                              fields:
-                                                '*':
-                                                  class: ConfigurationDroit
-                                                  type: collection
-                                                  definition:
-                                                    fields:
-                                                      date: {  }
-                                                      ratio: { type: float }
-                                                      code: {  }
                         detail:
                           class: ConfigurationDetail
                           type: collection
@@ -425,24 +470,6 @@ Configuration:
                                         fields:
                                           readable: {  }
                                           writable: {  }
-                                                                                    
-                        droits:
-                          type: collection
-                          definition:
-                            fields:
-                              '*':
-                                class: ConfigurationDroits
-                                type: array_collection
-                                definition:
-                                  fields:
-                                    '*':
-                                      class: ConfigurationDroit
-                                      type: collection
-                                      definition:
-                                        fields:
-                                          date: {  }
-                                          ratio: { type: float }
-                                          code: {  }
 DRM:
   definition:
     fields:
@@ -500,17 +527,6 @@ DRM:
                         total_entrees: { type: float }
                         total_sorties: { type: float }
                         total: { type: float }
-                        droits:
-                          type: collection
-                          definition:
-                            fields:
-                              '*':
-                                class: DRMDroit
-                                type: collection
-                                definition:
-                                  fields:
-                                    ratio: { type: float }
-                                    code: {  }
                         appellations:
                           type: collection
                           definition:
@@ -530,7 +546,14 @@ DRM:
                                       type: collection
                                       definition:
                                         fields:
-                                          '*':
+                                          douane:
+                                            class: DRMDroit
+                                            type: collection
+                                            definition:
+                                              fields:
+                                                ratio: { type: float }
+                                                code: {  }
+                                          cvo:
                                             class: DRMDroit
                                             type: collection
                                             definition:

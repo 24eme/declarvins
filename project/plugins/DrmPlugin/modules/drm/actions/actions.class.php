@@ -101,6 +101,7 @@ class drmActions extends sfActions
       	$this->form->bind($request->getParameter($this->form->getName()));
 		if ($this->form->isValid()) {
 			$this->drm->valide = 1;
+			$this->drm->setDroits();
 			$this->drm->save();
 			$this->redirect('drm_succes');
       	}

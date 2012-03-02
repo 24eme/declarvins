@@ -13,7 +13,7 @@ class ConfigurationMillesime extends BaseConfigurationMillesime {
 
     public function getCepage() {
 
-    	return $this->getParent()->getParent();
+    	return $this->getParentNode();
     }
 
     public function getAppellation() {
