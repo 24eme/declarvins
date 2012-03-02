@@ -2,17 +2,21 @@
 
 class DRMAppellationAjoutForm extends acCouchdbFormDocumentJson {
 
-    protected $_appellation_choices = null;
+    protected $_interpro = null;
+    protected $_choices_appellation = null;
+
+    public function __construct(acCouchdbJson $object, $interpro, $options = array(), $CSRFSecret = null) {
+        $this->_interpro = $interpro;
+        parent::__construct($object, $options, $CSRFSecret);
+    }
 
     public function setup() {
         $this->setWidgets(array(
-            'appellation_autocomplete' => new sfWidgetFormInputText(array('label' => 'Appellation'), array('autocomplete-data' => json_encode($this->getProduitsAppellations()))),
-            'appellation' => new sfWidgetFormInputHidden(array()),
+            'appellation' => new sfWidgetFormChoice(array('choices' => $this->getProduitsAppellations())),
         ));
 
         $this->setValidators(array(
-            'appellation_autocomplete' => new sfValidatorString(array('required' => true)),
-            'appellation' => new sfValidatorString(array('required' => true)),
+            'appellation' => new sfValidatorChoice(array('choices' => array_keys($this->getProduitsAppellations()), 'required' => true), array('required' => "Aucune appellation n'a été saisi !")),
         ));
 
         $this->widgetSchema->setNameFormat('drm_appellation_ajout[%s]');
@@ -20,21 +24,23 @@ class DRMAppellationAjoutForm extends acCouchdbFormDocumentJson {
     }
 
     public function getProduitsAppellations() {
-        $config_certification = ConfigurationClient::getCurrent()->declaration
-                                                ->certifications
-                                                ->get($this->getObject()->getKey());
+        if (is_null($this->_choices_appellation)) {
+            $config_certification = ConfigurationClient::getCurrent()->declaration
+                                                    ->certifications
+                                                    ->get($this->getObject()->getKey());
 
-        $produits = $config_certification->getProduitsAppellations('INTERPRO-inter-rhone');
+            $produits = $config_certification->getProduitsAppellations($this->_interpro);
 
-        $produits_flat = array();
-        foreach($produits as $hash => $libelles)  {
-            $libelle = implode(' ', array_filter($libelles));
-            preg_match('|declaration/certifications/.+/appellations/(.+)|', $hash, $matches);
-            $appellation_key = $matches[1];
-            $produits_flat[] = $appellation_key.'|@'.$libelle;
+            $this->_choices_appellation = array("" => "");
+            foreach($produits as $hash => $libelles)  {
+                $libelle = implode(' ', array_filter($libelles));
+                preg_match('|declaration/certifications/.+/appellations/(.+)|', $hash, $matches);
+                $appellation_key = $matches[1];
+                $this->_choices_appellation[$appellation_key] = $libelle;
+            }
         }
 
-        return $produits_flat;
+        return $this->_choices_appellation;
     }
 
     public function doUpdateObject($values) {

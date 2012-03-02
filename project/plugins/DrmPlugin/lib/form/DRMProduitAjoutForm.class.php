@@ -2,7 +2,7 @@
 
 class DRMProduitAjoutForm extends acCouchdbFormDocumentJson 
 {
-	protected $_appellation_choices;
+	protected $_choices_produits;
 	protected $_label_choices;
     protected $_interpro = null;
     const LABEL_AUTRE_KEY = "AUTRE";
@@ -27,7 +27,7 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
         ));
 
         $this->setValidators(array(
-            'hashref' => new sfValidatorString(array('required' => true),array('required' => "Aucun produit n'a été saisi !")),
+            'hashref' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getProduits())),array('required' => "Aucun produit n'a été saisi !")),
             'label' => new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($this->getLabels()))),
             'label_supplementaire' => new sfValidatorString(array('required' => false)),
             'disponible' => new sfValidatorNumber(array('required' => false)),
@@ -87,21 +87,25 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
     }
 
     public function getProduits() {
-        if ($this->hasAppellation()) {
-            $produits = ConfigurationClient::getCurrent()->declaration
-                                                         ->certifications
-                                                         ->get($this->getObject()->getCertification()->getKey())
-                                                         ->appellations
-                                                         ->get($this->getObject()->getAppellation()->getKey())
-                                                         ->getProduits($this->_interpro); 
-        } else {
-            $produits = ConfigurationClient::getCurrent()->declaration
-                                                         ->certifications
-                                                         ->get($this->getObject()->getCertification()->getKey())
-                                                         ->getProduits($this->_interpro);
+        if (is_null($this->_choices_produits)) {
+            if ($this->hasAppellation()) {
+                $this->_choices_produits = ConfigurationClient::getCurrent()->declaration
+                                                             ->certifications
+                                                             ->get($this->getObject()->getCertification()->getKey())
+                                                             ->appellations
+                                                             ->get($this->getObject()->getAppellation()->getKey())
+                                                             ->getProduits($this->_interpro); 
+            } else {
+                $this->_choices_produits = ConfigurationClient::getCurrent()->declaration
+                                                             ->certifications
+                                                             ->get($this->getObject()->getCertification()->getKey())
+                                                             ->getProduits($this->_interpro);
+            }
+
+            $this->_choices_produits = array_merge(array("" => ""), array_map(array($this, 'formatProduit'), $this->_choices_produits));
         }
 
-        return array_merge(array("" => ""), array_map(array($this, 'formatProduit'), $produits));
+        return $this->_choices_produits;
     }
 
     public function formatProduit($libelles) {
