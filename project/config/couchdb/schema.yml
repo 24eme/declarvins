@@ -257,7 +257,7 @@ Configuration:
                                       type: array_collection
                                       definition:
                                         fields:
-                                          '*': {  }                              
+                                          '*': {  }
                                     droits:
                                       type: collection
                                       definition:
