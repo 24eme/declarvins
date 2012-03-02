@@ -25,4 +25,12 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
 						   array($this->getKey() => $this->libelle));
 		}
 	}
+	public function getParentNode() {
+		$parent = $this->getParent()->getParent();
+		if ($parent->getKey() == 'declaration') {
+			throw new sfException('Noeud racine atteint');
+		} else {
+			return $this->getParent()->getParent();
+		}
+	}
 }

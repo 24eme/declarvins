@@ -170,10 +170,7 @@ EOF;
         	$droit = $droit->appellations->get($datas[1]);
         }
         $interpro = $droit->interpro->add("INTERPRO-".$datas[2]);
-        $value = $interpro->droits->add($datas[3])->add();
-        $value->date = $datas[4];
-        $value->ratio = (float)$datas[5];
-        $value->code = $datas[6];
+        $interpro->droits->get($datas[3])->addDroit($datas[4], (float)$datas[5], $datas[6]);
     }
 
   	$configuration->save();

@@ -262,7 +262,20 @@ Configuration:
                                       type: collection
                                       definition:
                                         fields:
-                                          '*':
+                                          douane:
+                                            class: ConfigurationDroits
+                                            type: array_collection
+                                            definition:
+                                              fields:
+                                                '*':
+                                                  class: ConfigurationDroit
+                                                  type: collection
+                                                  definition:
+                                                    fields:
+                                                      date: {  }
+                                                      ratio: { type: float }
+                                                      code: {  }
+                                          cvo:
                                             class: ConfigurationDroits
                                             type: array_collection
                                             definition:
@@ -299,7 +312,20 @@ Configuration:
                                                   type: collection
                                                   definition:
                                                     fields:
-                                                      '*':
+                                                      douane:
+                                                        class: ConfigurationDroits
+                                                        type: array_collection
+                                                        definition:
+                                                          fields:
+                                                            '*':
+                                                              class: ConfigurationDroit
+                                                              type: collection
+                                                              definition:
+                                                                fields:
+                                                                  date: {  }
+                                                                  ratio: { type: float }
+                                                                  code: {  }
+                                                      cvo:
                                                         class: ConfigurationDroits
                                                         type: array_collection
                                                         definition:
@@ -501,17 +527,6 @@ DRM:
                         total_entrees: { type: float }
                         total_sorties: { type: float }
                         total: { type: float }
-                        droits:
-                          type: collection
-                          definition:
-                            fields:
-                              '*':
-                                class: DRMDroit
-                                type: collection
-                                definition:
-                                  fields:
-                                    ratio: { type: float }
-                                    code: {  }
                         appellations:
                           type: collection
                           definition:
@@ -531,7 +546,14 @@ DRM:
                                       type: collection
                                       definition:
                                         fields:
-                                          '*':
+                                          douane:
+                                            class: DRMDroit
+                                            type: collection
+                                            definition:
+                                              fields:
+                                                ratio: { type: float }
+                                                code: {  }
+                                          cvo:
                                             class: DRMDroit
                                             type: collection
                                             definition:

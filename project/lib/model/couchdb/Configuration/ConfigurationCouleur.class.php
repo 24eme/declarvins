@@ -11,7 +11,7 @@ class ConfigurationCouleur extends BaseConfigurationCouleur {
      * @return ConfigurationLieu
      */
     public function getLieu() {
-        return $this->getParent()->getParent();
+        return $this->getParentNode();
     }
 
     public function hasCepage() {

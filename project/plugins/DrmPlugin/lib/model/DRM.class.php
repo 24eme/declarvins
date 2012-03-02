@@ -188,6 +188,30 @@ class DRM extends BaseDRM {
     public function getAnnee() {
       return preg_replace('/-.*/', '', $this->campagne)*1;
     }
+    
+    public function setDroits() {
+    	foreach ($this->declaration->certifications as $certification) {
+            foreach ($certification->appellations as $appellation) {
+            	$this->setDroit('douane', $appellation);
+            	$this->setDroit('cvo', $appellation);
+            }
+    	}
+    }
+    
+    private function setDroit($type, $appellation) {
+    	$configurationDroits = $appellation->getConfig()->interpro->get($this->getInterpro()->get('_id'))->droits->get($type)->getCurrentDroit($this->campagne);
+    	$droit = $appellation->droits->get($type);
+    	$droit->ratio = $configurationDroits->ratio;
+        $droit->code = $configurationDroits->code;
+    }
+    
+    public function getEtablissement() {
+    	return EtablissementClient::getInstance()->retrieveById($this->identifiant);
+    }
+    
+    public function getInterpro() {
+    	return $this->getEtablissement()->getInterproObject();
+    }
 
     public function save($e = null) {
       if (!preg_match('/^2\d{3}-[01][0-9]$/', $this->campagne))

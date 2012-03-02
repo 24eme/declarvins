@@ -13,7 +13,7 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
     }
 
     public function getCertification() {
-        return $this->getParent()->getParent();
+        return $this->getParentNode();
     }
 
     public function getCepagesChoices(array $exclude_key = array())
