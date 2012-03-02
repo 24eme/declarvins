@@ -128,6 +128,14 @@ class DRMCsvFile extends CsvFile
       $this->errors[] = array('line'=> $this->numline, 'message'=>$e->getMessage());
     }
 
+    $validator = new DRMValidation($this->drm);
+
+    if ($validator->hasErrors()) {
+      foreach($validator->getErrors() as $err) {
+	$this->errors[] = array('message' => $err->getMessage());
+      }
+    }
+
     if (count($this->errors)) {
       throw new sfException('errors');
     }

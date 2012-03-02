@@ -25,22 +25,33 @@ abstract class DRMControle
 		$this->lien = $lien;
 	}
 	
+	public function hasMessages() {
+	  return count($this->getMessages());
+	}
+
 	public function getMessages()
 	{
 		return $this->messages;
 	}
 	
+	public function getMessage()
+	{
+	  if (!$this->hasMessages()  || !isset($this->messages[$this->getCode()]))
+	    throw new sfException('no messages for code "'.$this->getCode().'"');
+	  return $this->messages[$this->getCode()];
+	}
+	
 	public function setMessages($messages)
 	{
-		$this->messages = $messages;
+	  $this->messages = $messages;
 	}
 	
 	public function __toString()
 	{
-		if ($messages = $this->getMessages()) {
-			return (isset($messages[$this->getCode()]))? '<a href="'.$this->getLien().'">'.$messages[$this->getCode()].'</a>' : '<a href="'.$this->getLien().'">'.$this->getCode().'</a>';
-		} else {
-			return '<a href="'.$this->getLien().'">'.$this->getCode().'</a>';
-		}
+	  try {
+	    return '<a href="'.$this->getLien().'">'.$this->getMessage().'</a>';
+	  }catch(sfException $e) {
+	    return '<a href="'.$this->getLien().'">'.$this->getCode().'</a>';
+	  }
 	}
 }
