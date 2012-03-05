@@ -8,7 +8,9 @@
 		<div id="application_dr">
 			<ul id="onglets_principal"><li class="actif"><strong>Mouvements Généraux</strong></li></ul>
 			<div id="contenu_onglet">
-				<a href="<?php echo url_for('drm_recap', ConfigurationClient::getCurrent()->declaration->certifications->AOP) ?>" class="btn_passer_etape">Passer cette étape</a>	
+				<?php if($first_certification): ?>
+				<a href="<?php echo url_for('drm_recap', $first_certification->getConfig()) ?>" class="btn_passer_etape">Passer cette étape</a>	
+				<?php endif; ?>
 				<p class="intro">Au cours du mois écoulé, avez-vous connu des changements de structure particuliers ?</p>
 	        	<?php if ($sf_user->hasFlash('notice')): ?>
 	        		<p><?php echo $sf_user->getFlash('notice') ?></p>
