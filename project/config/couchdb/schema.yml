@@ -355,11 +355,6 @@ Configuration:
                                             definition:
                                               fields:
                                                 libelle: {  }
-                                                interpro:
-                                                  type: collection
-                                                  definition:
-                                                    fields:
-                                                      '*': {  }
                                                 departements:
                                                   type: array_collection
                                                   definition:
@@ -377,16 +372,6 @@ Configuration:
                                                         definition:
                                                           fields:
                                                             libelle: {  }
-                                                            interpro:
-                                                              type: collection
-                                                              definition:
-                                                                fields:
-                                                                  '*': {  }
-                                                            departements:
-                                                              type: array_collection
-                                                              definition:
-                                                                fields:
-                                                                  '*': {  }
                                                             cepages: 
                                                               type: collection
                                                               definition:
@@ -399,16 +384,6 @@ Configuration:
                                                                     definition:
                                                                       fields:
                                                                         libelle: {  }
-                                                                        interpro:
-                                                                          type: collection
-                                                                          definition:
-                                                                            fields:
-                                                                              '*': {  }
-                                                                        departements:
-                                                                          type: array_collection
-                                                                          definition:
-                                                                            fields:
-                                                                              '*': {  }
                                                                         millesimes: 
                                                                           type: collection
                                                                           definition:
