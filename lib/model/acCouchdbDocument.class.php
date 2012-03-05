@@ -3,18 +3,21 @@
 abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
 
     protected $_is_new = true;
-    protected $_loaded_data = null;
+    protected $_serialize_loaded_json = null;
 
     public function loadFromCouchdb(stdClass $data) {
-        if (!is_null($this->_loaded_data)) {
+        if (!is_null($this->_serialize_loaded_json)) {
             throw new acCouchdbException("data already load");
         }
-	if (isset($data->_attachments))
-	  unset($data->_attachments);
-        $this->_loaded_data = serialize($data);
+    	if (isset($data->_attachments)) {
+    	  unset($data->_attachments);
+        }
+
+        $this->_serialize_loaded_json = serialize(new acCouchdbJsonNative($data));
+
         $this->load($data);
     }
-
+    
     public function __toString() {
         return $this->get('_id') . '/' . $this->get('_rev');
     }
@@ -43,7 +46,7 @@ abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
         if ($this->isModified()) {
             $ret = acCouchdbManager::getClient()->save($this);
             $this->_rev = $ret->rev;
-            $this->_loaded_data = serialize($this->getData());
+            $this->_serialize_loaded_json = serialize(new acCouchdbJsonNative($this->getData()));
             return $ret;
         }
         return false;
@@ -66,27 +69,42 @@ abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
     }
 
     public function delete() {
+
         return acCouchdbManager::getClient()->delete($this);
     }
 
     public function storeAttachment($file, $content_type = 'application/octet-stream', $filename = null) { 
-      return acCouchdbManager::getClient()->storeAttachment($this, $file, $content_type, $filename);
-   }
+
+        return acCouchdbManager::getClient()->storeAttachment($this, $file, $content_type, $filename);
+    }
 
     public function getAttachmentUri($filename) {
-      return 'http://localhost:5984'.acCouchdbManager::getClient()->getAttachmentUri($this, $filename);
+
+        return 'http://localhost:5984'.acCouchdbManager::getClient()->getAttachmentUri($this, $filename);
     }
 
     public function update($params = array()) {
+
         return parent::update($params);
     }
 
     public function loadAllData() {
+
         return parent::loadAllData();
     }
 
+    public function getModifications() {
+        $native_json = unserialize($this->_serialize_loaded_json);
+        $final_json = new acCouchdbJsonNative($this->getData());
+
+        return $final_json->diff($native_json);
+    }
+
     public function isModified() {
-        return $this->isNew() || (unserialize($this->_loaded_data) != $this->getData());
+        $native_json = unserialize($this->_serialize_loaded_json);
+        $final_json = new acCouchdbJsonNative($this->getData());
+
+        return $this->isNew() || (!$native_json->equal($final_json));
     }
 
     public function __clone() {
