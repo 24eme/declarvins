@@ -91,7 +91,6 @@ class drm_recapActions extends sfActions
     
     protected function init() {
         $this->form = null;
-        $this->libelle_detail_ligne = ConfigurationClient::getCurrent()->libelle_detail_ligne;
         $this->config_appellation = $this->getRoute()->getConfigAppellation();
         $this->drm_appellation = $this->getRoute()->getDrmAppellation();
     }

@@ -2,8 +2,14 @@
 
 function sprintFloat($float) 
 {
-  return sprintf("%01.02f", round($float, 2));
 
+  return sprintf("%01.02f", round($float, 2));
+}
+
+function sprintFloatFr($float)
+{
+
+  return preg_replace('/\./', ',', sprintFloat($float));
 }
 
 function echoFloat($float) 
@@ -13,6 +19,5 @@ function echoFloat($float)
 
 function echoFloatFr($float)
 {
-  echo preg_replace('/\./', ',', sprintFloat($float));
-
+  echo sprintFloatFr($float);
 }

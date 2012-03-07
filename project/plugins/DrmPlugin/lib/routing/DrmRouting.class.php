@@ -53,8 +53,10 @@ class DrmRouting {
         $r->prependRoute('drm_succes', new sfRoute('/drm/succes', array('module' => 'drm', 
                                                                                 'action' => 'succes')));
 
-        $r->prependRoute('drm_pdf', new sfRoute('/drm/pdf', array('module' => 'drm', 
-                                                                                'action' => 'pdf')));
+        $r->prependRoute('drm_pdf', new sfRoute('/drm/pdf.:format', array('module' => 'drm', 
+                                                                             'action' => 'pdf',
+                                                                             'format' => 'pdf'), 
+                                                                          array('format' => '(html|pdf)')));
 
         $r->prependRoute('drm_mouvements_generaux_produit_update', new DrmProduitRoute('/drm/mouvements-generaux/:certification/:appellation/update/:indice',
                         array('module' => 'drm_mouvements_generaux',
