@@ -17,8 +17,7 @@ class PrintableHTML extends PrintableOutput {
     }
 
   public function output() {
-    echo $this->html;
-    return;
+    return $this->html;
   }
 }
 
