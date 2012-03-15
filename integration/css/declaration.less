@@ -115,7 +115,7 @@ p#date_drm
 	{
 		float: right;
 		margin: -10px 0 0;
-		width: 190px;
+		width: 130px; /* anciennement 190 */
 		
 		p
 		{
@@ -923,7 +923,78 @@ p#date_drm
 	}
 }
 
-
+/**
+ * Etape 6 -> Déclaratif
+ ******************************************/
+#declaratif_info
+{
+	@ecart_lateral: 235px;
+	
+	.onglets_declaratif
+	{
+		#principal > #onglets_principal;
+		
+		margin-top:15px;
+	}
+	
+	.contenu_onglet_declaratif
+	{
+		#principal > #contenu_onglet;
+		
+		.col
+		{
+			display: inline-block;
+			vertical-align: top;
+			width: 235px;
+			
+			.ielt8 & { .inline-block-ie; }
+			
+			.ligne_form
+			{
+				label
+				{
+					display: inline-block;
+					vertical-align: top;
+					max-width:210px;
+				}
+			}
+		}
+		
+		h3 { margin-left: @ecart_lateral; }
+		
+		.ligne_form
+		{
+			margin:10px 0;
+			
+			input[type="text"] { margin: 0 20px; }
+			
+			&.ligne_entiere
+			{
+				margin-top: 15px;
+				
+				label { margin-left: @ecart_lateral; }
+				
+				input[type="text"] { margin-left: 48px; }
+				
+				&.ecart_check
+				{
+					input[type="checkbox"] { margin-left: 237px; }
+					
+					label { margin-left: 20px; }
+				}
+			}
+		}
+		
+		.champs_centres
+		{
+			margin-bottom:30px;
+		
+			.ligne_form { text-align:center; }
+		}
+	}
+	
+	#btn_etape_dr .btn_suiv span { text-transform:uppercase; }
+}
 
 /**
  * Boutons étape

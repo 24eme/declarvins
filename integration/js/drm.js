@@ -27,6 +27,8 @@ var objAjoutsLiquidations = {};
         	$.post($(this).attr('action'), $(this).serializeArray());
         	return false;
         });
+		
+		if($('#declaratif_info').size()) $.choixCaution();
 	});
 	
 	/**
@@ -148,5 +150,26 @@ var objAjoutsLiquidations = {};
         	return false;
 		});
 	};
+	
+	
+	/**
+	 * Manipule le champ texte dans l'onglet caution de la page déclaratif
+	 * $.choixCaution();
+	 ******************************************/
+	$.choixCaution = function()
+	{
+		var conteneurGeneral = $('#principal');
+		var conteneurOnglets = $('.contenu_onglet_declaratif').has('#caution_accepte')
+		var champCaution = conteneurOnglets.find('#caution_accepte');
+		var radioBouton = champCaution.find(':radio');
+		var texteCaution = champCaution.find(':text');
+		var enclencheursRadio = conteneurOnglets.find('label,:radio');
+		
+		enclencheursRadio.click(function()
+		{
+			if(radioBouton.is(':checked')) texteCaution.show();
+			else texteCaution.hide();
+		}); // fin de click()
+	} // fin de $.choixCaution()
 
 })(jQuery);

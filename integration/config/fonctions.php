@@ -62,7 +62,7 @@
 	 *************************************************/
 	function getDeclarationEtapes($etape_courante)
 	{
-		$tab_etapes = array ('Informations', 'Ajouts / Liquidations', 'AOP', 'IGP', 'Vins sans IG', 'Validation');
+		$tab_etapes = array ('Informations', 'Mouvements', 'AOP', 'IGP', 'Vins sans IG', 'Déclaratif', 'Validation');
 		
 		$nav = '';
 		$i = 1;
