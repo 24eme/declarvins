@@ -43,13 +43,16 @@ class ediActions extends sfActions
   }
   public function executeListDRM(sfWebRequest $request) 
   {
-    $this->response->setContentType('text/plain');
-    $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant);
     $this->setLayout(false);
+    $this->response->setContentType('text/plain');
+
+    $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant);
   }
   public function executeListContrat(sfWebRequest $request) 
   {
+    $this->setLayout(false);
+    $this->response->setContentType('text/plain');
     
-    $this->setLayout(false);    
+    $this->contrats = VracClient::getInstance()->retrieveFromEtablissements($this->getUser()->getTiers()->identifiant);
   }
 }
