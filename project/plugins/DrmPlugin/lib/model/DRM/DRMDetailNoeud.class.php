@@ -18,12 +18,17 @@ class DRMDetailNoeud extends BaseDRMDetailNoeud {
   public function set($key, $value) {
     try {
       if (!$value && !$this->get($key))
-	return;
+        return;
     }catch(sfException $e) {
+
       return ;
     }
-    if (!$this->getConfig()->exist($key) && !$this->getConfig()->get($key)->isWritable())
+    if (!$this->getConfig()->exist($key) && !$this->getConfig()->get($key)->isWritable()) {
+      
       throw new sfException("$key is not writable");
+    }
+
     return $this->_set($key, $value);
   }
+
 }

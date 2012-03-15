@@ -56,15 +56,7 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
         		if (!$drm->valide) {
         			$this->_drm = $drm;
         		} else {
-        			$this->_drm = clone $drm;
-        			$this->_drm->initialiseCommeDrmSuivante();
-	                $this->_drm->identifiant = $this->getTiers()->identifiant;
-	                $this->_drm->campagne = $this->getCampagneDrm();
-	                $this->_drm->remove('douane');
-	                $this->_drm->add('douane');
-	                $this->_drm->remove('declarant');
-	                $this->_drm->add('declarant');
-	                $this->_drm->valide = 0;
+        			$this->_drm = $drm->generateSuivante($this->getCampagneDrm());
         		}
         	} else {
         		$this->_drm = new DRM();

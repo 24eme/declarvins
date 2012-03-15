@@ -78,68 +78,20 @@ class DRM extends BaseDRM {
         }
         return $details;
     }
-    
-    public function initialiseCommeDrmSuivante() 
+
+    public function generateSuivante($campagne) 
     {
-    	foreach ($this->declaration->certifications as $certification) {
-    		$certification->total_debut_mois = null;
-    		$certification->total_entrees = null;
-    		$certification->total_sorties = null;
-    		$certification->total = null;
-            foreach ($certification->appellations as $appellation) {
-	    		$appellation->total_debut_mois = null;
-	    		$appellation->total_entrees = null;
-	    		$appellation->total_sorties = null;
-	    		$appellation->total = null;
-                foreach ($appellation->lieux as $lieu) {
-		    		$lieu->total_debut_mois = null;
-		    		$lieu->total_entrees = null;
-		    		$lieu->total_sorties = null;
-		    		$lieu->total = null;
-                    foreach ($lieu->couleurs as $couleur) {
-			    		$couleur->total_debut_mois = null;
-			    		$couleur->total_entrees = null;
-			    		$couleur->total_sorties = null;
-			    		$couleur->total = null;
-                    	foreach ($couleur->cepages as $cepage) {
-				    		$cepage->total_debut_mois = null;
-				    		$cepage->total_entrees = null;
-				    		$cepage->total_sorties = null;
-				    		$cepage->total = null;
-    	                    foreach ($cepage->millesimes as $millesime) {
-					    		$millesime->total_debut_mois = null;
-					    		$millesime->total_entrees = null;
-					    		$millesime->total_sorties = null;
-					    		$millesime->total = null;
-                                foreach ($millesime->details as $detail) {
-						    		
-                                	$detail->total_debut_mois = $detail->total;
-						    		$detail->total_entrees = null;
-						    		$detail->total_sorties = null;
-						    		$detail->total = null;
-						    		
-        	                    	$detail->stocks_debut->bloque = $detail->stocks_fin->bloque;
-        	                    	$detail->stocks_debut->warrante = $detail->stocks_fin->warrante;
-        	                    	$detail->stocks_debut->instance = $detail->stocks_fin->instance;
-        	                    	
-        	                    	$detail->stocks_fin->bloque = null;
-        	                    	$detail->stocks_fin->warrante = null;
-        	                    	$detail->stocks_fin->instance = null;
-        	                    	
-        	                    	foreach ($detail->entrees as $key => $entree) {
-        	                    		$detail->entrees->$key = null;
-        	                    	}
-        	                    	foreach ($detail->sorties as $key => $sortie) {
-        	                    		$detail->sorties->$key = null;
-        	                    	}
-                                }
-    	                    }
-                    	}
-                    }
-                }
-            }
-        }
-        $this->update();
+        $drm_suivante = clone $this;
+    	$drm_suivante->init();
+        $drm_suivante->update();
+        $drm_suivante->campagne = $campagne;
+        $drm_suivante->remove('douane');
+        $drm_suivante->add('douane');
+        $drm_suivante->remove('declarant');
+        $drm_suivante->add('declarant');
+        $drm_suivante->valide = 0;
+
+        return $drm_suivante;
     }
     
     public function getNextCertification($currentCertification)
@@ -240,7 +192,7 @@ class DRM extends BaseDRM {
 
     public function isRectificable() {
         if (!$this->valide) {
-            
+
             return false;
         }
 
@@ -254,7 +206,7 @@ class DRM extends BaseDRM {
 
     public function generateRectificative() {
         $drm_rectificative = clone $this;
-        $drm_rectificative->valide = false;
+        $drm_rectificative->valide = 0;
 
         if(!$this->isRectificable()) {
 
