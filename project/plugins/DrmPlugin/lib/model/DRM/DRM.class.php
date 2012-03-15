@@ -146,11 +146,13 @@ class DRM extends BaseDRM {
     }
 
     public function getEtablissement() {
-    	return EtablissementClient::getInstance()->retrieveById($this->identifiant);
+    	
+        return EtablissementClient::getInstance()->retrieveById($this->identifiant);
     }
     
     public function getInterpro() {
-    	return $this->getEtablissement()->getInterproObject();
+    	
+        return $this->getEtablissement()->getInterproObject();
     }
     
     public function getTotalCvo() {
@@ -220,6 +222,39 @@ class DRM extends BaseDRM {
         $drm_rectificative->rectificative += 1;
 
         return $drm_rectificative;
+    }
+
+    public function getDRMMaster($hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
+        if (!$this->isRectificative()) {
+
+            throw new sfException("You can not recover the master of a non rectificative drm");
+        }
+
+        return DRMClient::getInstance()->findByIdentifiantCampagneAndRectificative($this->identifiant, $this->campagne, $this->rectificative - 1, $hydrate);    
+    }
+
+    protected function getDiffWithAnotherDRM(stdClass $drm) {
+        $other_json = new acCouchdbJsonNative($drm);
+        $current_json = new acCouchdbJsonNative($this->getData());
+
+        return $current_json->diff($other_json);
+    }
+
+    protected function getDiffWithMasterDRM() {
+        $drm_master = $this->getDRMMaster(acCouchdbClient::HYDRATE_JSON);
+
+        return $this->store('drm_diff_master', array($this, 'getDiffWithAnotherDRM', array($drm_master)));
+    }
+
+    public function isModifiedMasterDRM($hash_or_object, $key = null) {
+        if(!$this->isRectificative()) {
+
+            return false;
+        }
+        $hash = ($hash_or_object instanceof acCouhdbJson) ? $hash_or_object->getHash() : $hash_or_object;
+        $hash .= ($key) ? "/".$key : null;
+
+        return array_key_exists($hash, $this->getDiffWithMasterDRM());
     }
 
     public function save() {

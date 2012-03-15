@@ -138,6 +138,11 @@ class DRMDetail extends BaseDRMDetail {
       return $contrats;
     }
 
+    public function isModifiedMasterDRM($key) {
+      
+        return $this->getDocument()->isModifiedMasterDRM($this, $key);
+    }
+
     protected function init() {
       parent::init();
 
