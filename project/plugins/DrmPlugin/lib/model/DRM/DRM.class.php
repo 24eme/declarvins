@@ -10,7 +10,8 @@ class DRM extends BaseDRM {
     const DEFAULT_KEY = 'DEFAUT';
 
     public function constructId() {
-        $this->set('_id', 'DRM-' . $this->identifiant . '-' . $this->campagne);
+        $rectificative = ($this->exist('rectificative')) ? $this->rectificative : null;
+        $this->set('_id', DRMClient::getInstance()->getId($this->identifiant, $this->campagne, $rectificative));
     }
 
     public function synchroniseDeclaration() {
@@ -21,13 +22,6 @@ class DRM extends BaseDRM {
             	}
             }
         }
-    }
-
-    private function interpretHash($hash) {
-      if (!preg_match('|declaration/certifications/([^/]*)/appellations/([^/]*)/|', $hash, $match)) {
-	throw new sfException($hash." invalid");
-      }
-      return array('certification' => $match[1], 'appellation' => $match[2]);
     }
 
     public function getProduit($hash, $labels = array()) {
@@ -198,14 +192,7 @@ class DRM extends BaseDRM {
             }
     	}
     }
-    
-    private function setDroit($type, $appellation) {
-    	$configurationDroits = $appellation->getConfig()->interpro->get($this->getInterpro()->get('_id'))->droits->get($type)->getCurrentDroit($this->campagne);
-    	$droit = $appellation->droits->get($type);
-    	$droit->ratio = $configurationDroits->ratio;
-        $droit->code = $configurationDroits->code;
-    }
-    
+
     public function getEtablissement() {
     	return EtablissementClient::getInstance()->retrieveById($this->identifiant);
     }
@@ -217,18 +204,11 @@ class DRM extends BaseDRM {
     public function getTotalCvo() {
     	return $this->getTotalDroit('cvo');
     }
+
     public function getTotalDouane() {
     	return $this->getTotalDroit('douane');
     }    
-    private function getTotalDroit($type) {
-    	$total = 0;
-    	foreach ($this->declaration->certifications as $certification) {
-            foreach ($certification->appellations as $appellation) {
-            	$total += $appellation->get('total_'.$type);
-            }
-    	}
-    	return $total; 	
-    }
+
     public function getTotalDroitByCode() {
     	$result = array();
     	foreach ($this->declaration->certifications as $certification) {
@@ -248,9 +228,85 @@ class DRM extends BaseDRM {
     	return $result;
     }
 
-    public function save($e = null) {
-      if (!preg_match('/^2\d{3}-[01][0-9]$/', $this->campagne))
-	throw new sfException('Wrong format for campagne ('.$this->campagne.')');
-      return parent::save($e);
+    public function getDrmHistorique() {
+
+        return $this->store('drm_historique', array($this, 'getDrmHistoriqueAbstract'));
+    }
+
+    public function isRectificative() {
+
+        return $this->exist('rectificative') && $this->rectificative > 0;
+    }
+
+    public function isRectificable() {
+        if (!$this->valide) {
+            
+            return false;
+        }
+
+        if ($drm = DRMClient::getInstance()->findLastByIdentifiantAndCampagne($this->identifiant, $this->campagne, acCouchdbClient::HYDRATE_JSON)) {
+
+            return $drm->_id == $this->get('_id');
+        }
+
+        return false;
+    }
+
+    public function generateRectificative() {
+        $drm_rectificative = clone $this;
+        $drm_rectificative->valide = false;
+
+        if(!$this->isRectificable()) {
+
+            throw new sfException('This DRM is not rectificable, maybe she was already rectificate');
+        }
+
+        if(!$drm_rectificative->exist('rectificative')) {
+            $drm_rectificative->add('rectificative', 0);
+        }
+
+        $drm_rectificative->rectificative += 1;
+
+        return $drm_rectificative;
+    }
+
+    public function save() {
+      if (!preg_match('/^2\d{3}-[01][0-9]$/', $this->campagne)) {
+	    
+        throw new sfException('Wrong format for campagne ('.$this->campagne.')');
+      }
+
+      return parent::save();
+    }
+
+    protected function getDrmHistoriqueAbstract() {
+
+        return new DRMHistorique($this->identifiant, $this->campagne);
+    }
+
+    private function getTotalDroit($type) {
+        $total = 0;
+        foreach ($this->declaration->certifications as $certification) {
+            foreach ($certification->appellations as $appellation) {
+                $total += $appellation->get('total_'.$type);
+            }
+        }
+        return $total;  
+    }
+
+    private function interpretHash($hash) {
+      if (!preg_match('|declaration/certifications/([^/]*)/appellations/([^/]*)/|', $hash, $match)) {
+        
+        throw new sfException($hash." invalid");
+      }
+      
+      return array('certification' => $match[1], 'appellation' => $match[2]);
+    }
+
+    private function setDroit($type, $appellation) {
+        $configurationDroits = $appellation->getConfig()->interpro->get($this->getInterpro()->get('_id'))->droits->get($type)->getCurrentDroit($this->campagne);
+        $droit = $appellation->droits->get($type);
+        $droit->ratio = $configurationDroits->ratio;
+        $droit->code = $configurationDroits->code;
     }
 }

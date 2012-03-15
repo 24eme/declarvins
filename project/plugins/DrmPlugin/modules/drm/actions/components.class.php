@@ -39,4 +39,20 @@ class drmComponents extends sfComponents {
         }
     }
 
+    public function executeHistoriqueList() {
+        if (isset($this->limit)) {
+            $this->list = $this->historique->getSliceDrms($this->limit);
+        } else {
+            $this->list = $this->historique->getDrmsParAnneeCourante();   
+        }
+        $this->futurDrm = current($this->historique->getFutureDrm());
+        $this->hasNewDrm = false;
+        if (CurrentClient::getCurrent()->campagne >= ($this->futurDrm[1].'-'.$this->futurDrm[2]) && !$this->historique->hasDrmInProcess()) {
+            $this->hasNewDrm = true;
+            if (isset($this->limit)) {
+                $this->limit--;
+            }
+        }
+    }
+
 }

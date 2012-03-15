@@ -452,6 +452,7 @@ DRM:
       _rev: {  }
       type: {  }
       campagne: {  }
+      rectificative: { type: integer, required: false }
       produits:
         type: collection
         definition:

@@ -40,6 +40,10 @@ class DrmRouting {
         $r->prependRoute('drm_init', new sfRoute('/drm/init', array('module' => 'drm', 
                                                                     		'action' => 'init')));
 
+        $r->prependRoute('drm_rectificative', new sfRoute('/drm/rectifier/:campagne/:rectificative', array('module' => 'drm', 
+                                                                                                       'action' => 'rectificative',
+                                                                                                       'rectificative' => '')));
+
         $r->prependRoute('drm_informations', new sfRoute('/drm/informations', array('module' => 'drm', 
                                                                                     'action' => 'informations')));
 
