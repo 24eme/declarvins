@@ -87,10 +87,13 @@ upload:
 uploadView:
   url: /edi/drm/csv/:md5
   param: {module: edi, action: csvView}
-
-uploadView:
+listDRMEdi:
   url: /edi/drm/list
   param: {module: edi, action: listDRM}
+listContratEdi:
+  url: /edi/contrat/list
+  param: {module: edi, action: listContrat}
+
 
 # generic rules
 # please, remove them by adding more specific rules

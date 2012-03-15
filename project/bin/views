@@ -78,7 +78,7 @@ cat <<EOF > $TMPFILE
    "language": "javascript",
    "views": {
        "all": {
-           "map": "function(doc) {\n\tif (doc.type == 'Vrac')\n  \t\temit(doc.numero, 1);\n}"
+           "map": "function(doc) {\n\tif (doc.type == 'Vrac')\n  \t\temit([doc.etablissement, doc.numero], 1);\n}"
        }
    }
 }

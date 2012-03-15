@@ -8,17 +8,17 @@ class drm_vracActions extends sfActions
     	if (count($this->details)==0) {
     		$this->redirect('drm_validation');
     	}
-		$this->forms = array();
-		foreach ($this->details as $detail) {
-			$contrats = $detail->getContratsVrac();
-			if (count($contrats)==1) {
-				$contratVrac = $detail->addVrac($contratVrac->numero, $detail->sorties->vrac);
-				$detail->getDocument()->save();
-			}
-			foreach ($detail->getVrac() as $vrac) {
-				$this->forms[$detail->getIdentifiant()][$vrac->getKey()] = new VracDetailModificationForm($vrac);
-			}
-		}
+	$this->forms = array();
+	foreach ($this->details as $detail) {
+	  $contrats = $detail->getContratsVrac();
+	  if (count($contrats)==1) {
+	    $contratVrac = $detail->addVrac($contrats[0]->numero, $detail->sorties->vrac);
+	    $detail->getDocument()->save();
+	  }
+	  foreach ($detail->getVrac() as $vrac) {
+	    $this->forms[$detail->getIdentifiant()][$vrac->getKey()] = new VracDetailModificationForm($vrac);
+	  }
+	}
     }
     
     public function executeDeleteVrac(sfWebRequest $request) {
@@ -33,15 +33,15 @@ class drm_vracActions extends sfActions
     	if ($request->isXmlHttpRequest()) {        	
             $form = new VracAjoutContratForm($this->getRoute()->getObject());
             if ($request->isMethod(sfWebRequest::POST)) {
-        		$this->getResponse()->setContentType('text/json');
-	            $form->bind($request->getParameter($form->getName()));
-				if ($form->isValid()) {
-					$form->save();
-					$this->getUser()->setFlash("notice", 'Le contrat a été ajouté avec success.');
-					return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_vrac'))));
-				} else {
-					return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form)))));
-				}
+	      $this->getResponse()->setContentType('text/json');
+	      $form->bind($request->getParameter($form->getName()));
+	      if ($form->isValid()) {
+		$form->save();
+		$this->getUser()->setFlash("notice", 'Le contrat a été ajouté avec success.');
+		return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_vrac'))));
+	      } else {
+		return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form)))));
+	      }
             }
             return $this->renderText($this->getPartial('ajoutContratForm', array('form' => $form)));
         } else {
