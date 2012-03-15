@@ -83,14 +83,19 @@ abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
         return 'http://localhost:5984'.acCouchdbManager::getClient()->getAttachmentUri($this, $filename);
     }
 
+    public function loadAllData() {
+
+        return parent::loadAllData();
+    }
+
     public function update($params = array()) {
 
         return parent::update($params);
     }
 
-    public function loadAllData() {
+    public function init() {
 
-        return parent::loadAllData();
+        return parent::init();
     }
 
     public function getModifications() {
