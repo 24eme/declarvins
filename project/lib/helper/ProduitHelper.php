@@ -23,3 +23,16 @@ function labelsLibelles($libelles, $format = "%la%", $label_separator = ", ") {
 
 	return str_replace("%la%", implode($label_separator, $libelles), $format);
 }
+
+function produitLibelleFormDetail($detail, $format = "%a% %l% %co% %ce% %m% %la%", $label_separator = ", ") {
+
+	if ($detail instanceof sfOutputEscaperIteratorDecorator) {
+		$detail = $detail->getRawValue();
+	}
+
+	if (!($detail instanceof DRMDetail)) {
+		throw new sfRenderException("detail is not instanceof DRMDetail");
+	}
+
+	return produitLibelle($detail->getLibelles(), $detail->getLabelLibelles(), $format, $label_separator);
+}

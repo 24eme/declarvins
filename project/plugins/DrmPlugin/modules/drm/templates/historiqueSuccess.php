@@ -6,35 +6,7 @@
     <section id="principal">
 	    <div id="recap_drm">
 			<div id="drm_annee_courante">
-				<table>
-					<thead>
-						<tr>
-							<th>DRM</th>
-							<th>Etat</th>
-							<th>&nbsp;</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php $i=0; foreach ($historique->getDrmsParAnneeCourante() as $drm_id => $drm): ?>
-						<tr<?php if($i%2==0): ?> class="alt"<?php endif; ?>>
-							<td><?php echo $drm[1].'-'.$drm[2] ?></td>
-							<?php if (!$drm[3]): ?>
-							<td>En cours</td>
-							<td>
-								<a href="<?php echo url_for('drm_init') ?>">Accéder à la déclaration en cours</a><br />
-								<a href="#" class="btn_reinitialiser"><span>Réinitialiser la déclaration</span></a>
-							</td>
-							<?php else: ?>
-							<td>OK</td>
-							<td>
-								<a href="#">Soumettre une DRM rectificative</a><br />
-								<a href="#" class="btn_reinitialiser"><span>Visualiser</span></a>
-							</td>							
-							<?php endif; ?>
-						</tr>
-						<?php $i++; endforeach; ?>
-					</tbody>
-				</table>
+				<?php include_component('drm', 'historiqueList', array('historique' => $historique)) ?>
 			</div>
 		</div>
 		

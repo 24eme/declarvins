@@ -40,6 +40,10 @@ class DrmRouting {
         $r->prependRoute('drm_init', new sfRoute('/drm/init', array('module' => 'drm', 
                                                                     		'action' => 'init')));
 
+        $r->prependRoute('drm_rectificative', new sfRoute('/drm/rectifier/:campagne/:rectificative', array('module' => 'drm', 
+                                                                                                       'action' => 'rectificative',
+                                                                                                       'rectificative' => '')));
+
         $r->prependRoute('drm_informations', new sfRoute('/drm/informations', array('module' => 'drm', 
                                                                                     'action' => 'informations')));
 
@@ -52,6 +56,11 @@ class DrmRouting {
 
         $r->prependRoute('drm_succes', new sfRoute('/drm/succes', array('module' => 'drm', 
                                                                                 'action' => 'succes')));
+
+        $r->prependRoute('drm_pdf', new sfRoute('/drm/pdf.:format', array('module' => 'drm', 
+                                                                             'action' => 'pdf',
+                                                                             'format' => 'pdf'), 
+                                                                          array('format' => '(html|pdf)')));
 
         $r->prependRoute('drm_mouvements_generaux_produit_update', new DrmProduitRoute('/drm/mouvements-generaux/:certification/:appellation/update/:indice',
                         array('module' => 'drm_mouvements_generaux',

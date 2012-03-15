@@ -3,18 +3,23 @@ class DRMProduitValidator extends sfValidatorSchema
 {
     public function configure($options = array(), $messages = array()) 
     {
-    	$this->addRequiredOption('object');
-        $this->addOption('throw_global_error', false);
-        $this->addMessage('exist', 'Ce(s) label(s) existe(nt) déjà pour cette appellation dans cette couleur');
+        $this->addRequiredOption('object');
+        $this->addMessage('exist', 'Ce produit existe déjà !');
     }
 
     protected function doClean($values) 
     {
+        if (!is_array($values['label'])) {
+            $values['label'] = array();
+        }
+
+        $index_autre = array_search(DRMProduitAjoutForm::LABEL_AUTRE_KEY, $values['label']);
+        if ($index_autre !== false) {
+            unset($values['label'][$index_autre]);
+        }
+
         if($this->getObject()->getDocument()->exist($this->getObject()->getHashDetailFromValues($values['hashref'], $values['label']))) {
-            if ($this->getOption('throw_global_error')) {
-                throw new sfValidatorError($this, 'exist');
-            }
-            throw new sfValidatorErrorSchema($this, array('label' => new sfValidatorError($this, 'exist')));
+            throw new sfValidatorError($this, 'exist');
         }
         return $values;
     }
@@ -23,5 +28,4 @@ class DRMProduitValidator extends sfValidatorSchema
     {
         return $this->getOption('object');
     }
-
 }

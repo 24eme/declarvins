@@ -43,9 +43,10 @@
 	$.fn.includeJS(jsPath, 'plugins/jquery.plugins.min.js');
 	$.fn.includeJS(jsPath, 'plugins/ui.dropdownchecklist-1.3-min.js');
 		
-	// Fonctions personnalis�es)
+	// Fonctions personnalisées)
 	$.fn.includeJS(jsPath, 'global.js');
 	$.fn.includeJS(jsPath, 'popups.js');
+	$.fn.includeJS(jsPath, 'autocomplete.js');
 	$.fn.includeJS(jsPath, 'contrat.js');
 	$.fn.includeJS(jsPath, 'drm.js');
 	$.fn.includeJS(jsPath, 'declaration.js');

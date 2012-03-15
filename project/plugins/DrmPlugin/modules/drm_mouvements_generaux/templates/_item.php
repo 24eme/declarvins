@@ -3,8 +3,7 @@
 <tr>
     <td>
     	<a href="<?php echo url_for('drm_mouvements_generaux_produit_delete', $form->getObject()) ?>" class="supprimer">Supprimer</a>
-    	<?php echo produitLibelle($form->getObject()->getDetail()->getLibelles(), 
-    							  $form->getObject()->getDetail()->getLabelLibelles()); ?>
+    	<?php echo produitLibelleFormDetail($form->getObject()->getDetail()); ?>
     </td>
 	<td>
 		<?php echo $form->getObject()->getDetail()->total_debut_mois ?> HL

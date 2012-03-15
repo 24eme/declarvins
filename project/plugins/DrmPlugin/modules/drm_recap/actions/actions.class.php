@@ -14,7 +14,8 @@ class drm_recapActions extends sfActions
         $drm = $this->getUser()->getDrm();
         $this->certification = $this->getRoute()->getObject();
 
-        $this->form = new DRMAppellationAjoutForm($drm->produits->add($this->certification->getKey()));
+        $this->form = new DRMAppellationAjoutForm($drm->produits->add($this->certification->getKey()),
+                                                  $this->getUser()->getTiers()->interpro);
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
@@ -90,7 +91,6 @@ class drm_recapActions extends sfActions
     
     protected function init() {
         $this->form = null;
-        $this->libelle_detail_ligne = ConfigurationClient::getCurrent()->libelle_detail_ligne;
         $this->config_appellation = $this->getRoute()->getConfigAppellation();
         $this->drm_appellation = $this->getRoute()->getDrmAppellation();
     }

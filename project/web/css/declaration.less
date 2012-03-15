@@ -146,7 +146,158 @@ p#date_drm
 	}
 }
 
+/**
+ * Accueil connecté
+ ******************************************/
+#contenu #utilisateur
+{
+	.pos-abs(5px, -8px, auto, auto);
+	background: url(../images/fonds/bg_utilisateur.png) right top no-repeat;
+	font-size: 12px;
+	padding: 0 8px 7px 0; 
+	text-transform:uppercase;
+	
+	p
+	{
+		background: url(../images/fonds/bg_utilisateur_contenu.png) left top no-repeat;
+		color: #fff;
+		font-style:italic;
+		height: 23px;
+		line-height:23px;
+		padding-left:15px;
+		
+		b
+	    {
+	        font-weight: bold;
+	    }
+	}
+} 
 
+#contenu #nombre_etabs
+{
+    color: @couleur-a2;
+    font-size: 15px;
+    margin: -10px 0 35px;
+    
+    b
+    {
+        font-weight: bold;
+    }
+}
+
+#principal #etablissements_drm
+{
+    padding-top: 8px;
+    position: relative;
+    
+    #liste_etablissements
+    {
+        ul
+        {
+            .clearfix;
+            .pos-abs(0,auto,auto, 15px);
+            
+            li
+            {
+                .f_left;
+                background: url(../images/fonds/bg_etabs_liste.png) left top no-repeat;
+                margin-right: 20px;
+                padding-left: 4px;
+                
+                &.etab_courant
+                {
+                    a
+                    {
+                        .border(#830404);
+                        background: #830404 url(../images/fonds/bg_etabs_liste_lien.png) left top repeat-x;
+                        color: #fff;
+                    }
+                }
+                
+                a
+                {
+                    .border(#aaa);
+                    background: #a8a8a8 url(../images/fonds/bg_etabs_liste_default.png) left top repeat-x;
+                    color: @couleur-a1;    
+                    display: inline-block;
+                    padding: 5px 7px;
+                    
+                    &:hover
+                    {
+                        text-decoration: none;
+                    }
+                    
+                    .surligne
+                    {
+                        font-style: italic;
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+    
+    #etablissements_infos
+    {
+        #creation_compte > #recapitulatif > .recap_etablissement;
+        padding: 55px 0 15px 20px;
+        
+        table
+        {
+			width: 100%;
+				
+			colgroup
+			{
+				#titres
+				{
+					width: 95px;
+				}
+				
+				#echeance
+				{
+					width: 260px;
+				}
+				
+				#etat
+				{
+					width: 215px;
+				}
+				
+				#liens_etabs
+				{
+					width: 225px;
+				}
+			}
+			
+            tbody td,
+			tbody th
+            {
+				padding: 0 20px 0 0;
+                text-align: left;
+				
+                &.derniers
+				{
+					padding: 0;
+				}
+				
+				.masque_case
+				{
+					background: url(../images/fonds/bg_etabs_table_td.png) left bottom repeat-x;
+					display: block;
+					padding: 7px 0 9px 0;
+				}
+				
+				a
+				{
+					&.btn_accueil_drm
+					{
+						margin-right: 15px;
+					}
+				}
+            }
+        }
+    }
+}
 
 /**
  * Récapitulatif des DRM
@@ -193,54 +344,17 @@ p#date_drm
 				text-align: left;
 				vertical-align: top;
 				
-				&.msg { color: @couleur-b1; }
-                &.alerte_forte { color: #ea0000; }
-                &.alerte_moyenne { color: @couleur-d1; }
-				
 				a 
 				{
-					 font-style: italic;
-					 text-decoration: underline;
-					 &:hover { text-decoration: none; }
+					text-decoration: underline;
+					&:hover { text-decoration: none; }
+					 
+					&.btn_visualiser
+					{
+						margin-right: 35px;
+					}
 				}
 				
-				.btn_declarer,
-				.btn_visualiser,
-                .btn_accueil_drm
-				{
-					.btn_bordeaux;
-					font-style: normal;
-					line-height: 21px;
-					text-decoration: none;
-				}
-                
-                .btn_declarer
-                {
-                    span
-                    {
-                        background-position: left -21px;
-                    }
-                }
-                
-    			.btn_visualiser
-                {
-                    margin-right: 35px;
-                    
-                    span
-                    {
-                        background-position: left top;
-                    }
-                }
-                
-                .btn_accueil_drm
-                {
-                    margin-right: 15px;
-                    
-                    span
-                    {
-                        background-position: left -42px;
-                    }
-                }
 			}
 			
 			tr.alt td
@@ -838,79 +952,4 @@ p#date_drm
 	.clearfix;
 	
 	
-}
-
-/**
- * Accueil connecté
- ******************************************/
-#contenu #nombre_etabs
-{
-    color: @couleur-a2;
-    font-size: 15px;
-    margin: -10px 0 35px;
-    
-    b
-    {
-        font-weight: bold;
-    }
-}
-
-#principal #etablissements_drm
-{
-    padding-top: 10px;
-    position: relative;
-    
-    #liste_etablissements
-    {
-        ul
-        {
-            .clearfix;
-            .pos-abs(0,auto,auto, 15px);
-            
-            li
-            {
-                .f_left;
-                background: url(../images/fonds/bg_etabs_liste.png) left top no-repeat;
-                margin-right: 20px;
-                padding-left: 4px;
-                
-                a
-                {
-                    .border(#830404);
-                    background: #830404 url(../images/fonds/bg_etabs_liste_lien.png) left top repeat-x;
-                    color: #fff;
-                    display: inline-block;
-                    padding: 5px;
-                }
-            }
-        }
-    }
-    
-    #etablissements_infos
-    {
-        #creation_compte > #recapitulatif > .recap_etablissement;
-        padding-top: 55px;
-        
-        table
-        {
-            #principal > #recap_drm > table;
-            
-            tbody td
-            {
-                #principal > #recap_drm > table > tbody > td;
-                
-                a
-                {
-                    #principal > #recap_drm > table > tbody > td > .btn_accueil_drm;
-                    #principal > #recap_drm > table > tbody > td > .btn_declarer;
-                    
-                    span
-                    {
-                        #principal > #recap_drm > table > tbody > td > .btn_accueil_drm > span;
-                        #principal > #recap_drm > table > tbody > td > .btn_declarer > span; 
-                    }
-                }
-            }
-        }
-    }
 }

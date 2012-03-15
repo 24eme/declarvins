@@ -31,13 +31,6 @@ class drmActions extends sfActions
   public function executeMonEspace(sfWebRequest $request)
   {
       $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant);
-      $this->nbDrmHistory = 3;
-      $this->futurDrm = current($this->historique->getFutureDrm());
-      $this->hasNewDrm = false;
-      if (CurrentClient::getCurrent()->campagne >= ($this->futurDrm[1].'-'.$this->futurDrm[2]) && !$this->historique->hasDrmInProcess()) {
-      	$this->hasNewDrm = true;
-      	$this->nbDrmHistory = 2;
-      }
   }
  /**
   * Executes informations action
@@ -82,7 +75,7 @@ class drmActions extends sfActions
   public function executeHistorique(sfWebRequest $request)
   {
     $this->annee = $request->getParameter('annee');
-	$this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant, $this->annee);
+	  $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant, $this->annee);
   }
  /**
   * Executes mouvements generaux action
@@ -101,6 +94,7 @@ class drmActions extends sfActions
       	$this->form->bind($request->getParameter($this->form->getName()));
 		if ($this->form->isValid()) {
 			$this->drm->valide = 1;
+			$this->drm->setDroits();
 			$this->drm->save();
 			$this->redirect('drm_succes');
       	}
@@ -113,7 +107,37 @@ class drmActions extends sfActions
   */
   public function executeSucces(sfWebRequest $request)
   {
-      
+    $this->drm = $this->getUser()->getLastDrmValide();
+  }
+
+  public function executeRectificative(sfWebRequest $request)
+  {
+    $campagne = $request->getParameter('campagne');
+    $rectificative = $request->getParameter('rectificative', 0);
+    $drm = DRMClient::getInstance()->findByIdentifiantCampagneAndRectificative($this->getUser()->getTiers()->identifiant, 
+                                                                               $campagne, 
+                                                                               $rectificative);
+    $this->forward404Unless($drm);
+
+    $drm_rectificative = $drm->generateRectificative();
+    $drm_rectificative->save();
+
+    return $this->redirect(array('sf_route' => 'drm_historique',
+                                 'annee' => $drm->getAnnee()));
+  }
+
+
+ /**
+  * Executes mouvements generaux action
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executePdf(sfWebRequest $request)
+  {
+    $this->forward404Unless($this->drm = $this->getUser()->getLastDrmValide());
+  	$pdf = new ExportDRMPdf($this->drm);
+
+    return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
   }
   
 }

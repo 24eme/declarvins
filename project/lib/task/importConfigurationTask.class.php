@@ -167,12 +167,10 @@ EOF;
         
         $droit = $configuration->declaration->certifications->get($datas[0]);
         if ($datas[1]) {
-        	$droit = $configuration->declaration->certifications->get($datas[0])->appellations->get($datas[1]);
+        	$droit = $droit->appellations->get($datas[1]);
         }
-        $value = $droit->droits->add($datas[2])->add();
-        $value->date = $datas[3];
-        $value->ratio = (float)$datas[4];
-        $value->code = $datas[5];
+        $interpro = $droit->interpro->add("INTERPRO-".$datas[2]);
+        $interpro->droits->get($datas[3])->addDroit($datas[4], (float)$datas[5], $datas[6]);
     }
 
   	$configuration->save();

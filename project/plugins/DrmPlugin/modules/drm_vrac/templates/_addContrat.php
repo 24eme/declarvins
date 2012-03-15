@@ -1,7 +1,7 @@
 <?php use_helper('Produit'); ?>
 
 <tr>
-	<td><?php echo produitLibelle($detail->getRawValue()->getLibelles(), $detail->getRawValue()->getLabelLibelles()); ?></td>
+	<td><?php echo produitLibelleFormDetail($detail); ?></td>
 	<td align="center">
 		<?php if ($detail->hasContratVrac()): ?>
                     <div class="btn">
