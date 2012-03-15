@@ -119,9 +119,9 @@ class DRMDetail extends BaseDRMDetail {
     public function hasContratVrac() {
       $etablissement = $this->getDocument()->identifiant;
       foreach (VracClient::getInstance()->getAll() as $contrat) {
-	if ($contrat->etablissement == $etablissement && (strpos($this->getHash(), $contrat->produit) !== false) && !$this->vrac->exist($contrat->numero)) {
-	  return true;
-	}
+      	if ($contrat->etablissement == $etablissement && (strpos($this->getHash(), $contrat->produit) !== false) && !$this->vrac->exist($contrat->numero)) {
+      	  return true;
+      	}
       }
       return false;
     }
@@ -129,12 +129,36 @@ class DRMDetail extends BaseDRMDetail {
     public function getContratsVrac() {
     	$etablissement = $this->getDocument()->identifiant;
     	$contrats = array();
-		foreach (VracClient::getInstance()->getAll() as $contrat) {
-			if ($contrat->etablissement == $etablissement && (strpos($this->getHash(), $contrat->produit) !== false)) {
-				$contrats[] = $contrat;
-            }
+		  foreach (VracClient::getInstance()->getAll() as $contrat) {
+  			if ($contrat->etablissement == $etablissement && (strpos($this->getHash(), $contrat->produit) !== false)) {
+  				$contrats[] = $contrat;
         }
-        return $contrats;
+      }
+
+      return $contrats;
     }
 
+    protected function init() {
+      parent::init();
+
+      $this->total_debut_mois = $this->total;
+      $this->total_entrees = null;
+      $this->total_sorties = null;
+      $this->total = null;
+                    
+      $this->stocks_debut->bloque = $this->stocks_fin->bloque;
+      $this->stocks_debut->warrante = $this->stocks_fin->warrante;
+      $this->stocks_debut->instance = $this->stocks_fin->instance;
+      
+      $this->stocks_fin->bloque = null;
+      $this->stocks_fin->warrante = null;
+      $this->stocks_fin->instance = null;
+      
+      foreach ($this->entrees as $key => $entree) {
+        $this->entrees->$key = null;
+      }
+      foreach ($this->sorties as $key => $sortie) {
+        $this->sorties->$key = null;
+      }
+    }
 }
