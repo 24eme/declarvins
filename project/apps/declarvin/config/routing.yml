@@ -82,8 +82,15 @@ logout:
   url: /logout
   param: {module: acVinCompte, action: logout}
 upload:
-  url: /csv
-  param: {module: upload, action: file}
+  url: /edi/drm/csv
+  param: {module: edi, action: file}
+uploadView:
+  url: /edi/drm/csv/:md5
+  param: {module: edi, action: csvView}
+
+uploadView:
+  url: /edi/drm/list
+  param: {module: edi, action: listDRM}
 
 # generic rules
 # please, remove them by adding more specific rules

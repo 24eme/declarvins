@@ -8,7 +8,7 @@
  * @author     Your name here
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class uploadActions extends sfActions
+class ediActions extends sfActions
 {
   public function executeFile(sfWebRequest $request)
   {
@@ -17,7 +17,7 @@ class uploadActions extends sfActions
     if ($request->isMethod('post')) {
       $this->formUploadCsv->bind($request->getParameter($this->formUploadCsv->getName()), $request->getFiles($this->formUploadCsv->getName()));
       if ($this->formUploadCsv->isValid()) {
-	return $this->redirect('upload/csvView?md5=' . $this->formUploadCsv->getValue('file')->getMd5());
+	return $this->redirect('edi/csvView?md5=' . $this->formUploadCsv->getValue('file')->getMd5());
       }
     }
   }
@@ -40,5 +40,16 @@ class uploadActions extends sfActions
     }
     
     $this->setLayout(false);
+  }
+  public function executeListDRM(sfWebRequest $request) 
+  {
+    $this->response->setContentType('text/plain');
+    $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant);
+    $this->setLayout(false);
+  }
+  public function executeListContrat(sfWebRequest $request) 
+  {
+    
+    $this->setLayout(false);    
   }
 }
