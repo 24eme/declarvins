@@ -1,4 +1,6 @@
-<form  class="popup_form" id="form_ajout" action="<?php echo url_for(array('sf_route' => 'drm_mouvements_generaux_product_form', 'certification' => $certification)) ?>" method="post">
+<form  class="popup_form" id="form_ajout" action="<?php echo url_for(array('sf_route' => 'drm_mouvements_generaux_product_form', 
+																		   'sf_subject' => $form->getObject()->getDocument(),
+																		   'certification' => $certification)) ?>" method="post">
 	<?php echo $form->renderGlobalErrors() ?>
 	<?php echo $form->renderHiddenFields() ?>
 	<input type="hidden" name="certification" value="<?php echo $certification ?>" />

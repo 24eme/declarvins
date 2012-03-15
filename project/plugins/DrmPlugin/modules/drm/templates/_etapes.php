@@ -2,24 +2,24 @@
 	<nav id="declaration_etapes">
 		<ol>
 			<li class="premier <?php echo ($numero > 1) ? 'passe' : '' ?> <?php echo ($numero == 1) ? 'actif' : '' ?>">
-				<a href="<?php echo url_for('@drm_informations') ?>">
+				<a href="<?php echo url_for('drm_informations', $drm) ?>">
 					<span>1. Informations</span>
 				</a>
 			</li>
 			<li class="<?php echo ($numero > 2) ? 'passe' : '' ?> <?php echo ($numero == 2) ? 'actif' : '' ?>">
-            	<a href="<?php echo url_for('drm_mouvements_generaux') ?>">
+            	<a href="<?php echo url_for('drm_mouvements_generaux', $drm) ?>">
             		<span>2. Ajouts / Liquidations</span>
             	</a>
             </li>
             <?php foreach($certifications as $key => $certification): ?>
             <li class="<?php echo ($numero > $key) ? 'passe' : '' ?> <?php echo ($numero == $key) ? 'actif' : '' ?>">
-            	<a href="<?php echo url_for('drm_recap', $config_certifications->get($certification)) ?>">
+            	<a href="<?php echo url_for('drm_recap', $drm->declaration->certifications->get($certification)) ?>">
             		<span><?php echo $key ?>. <?php echo $certificationsLibelle[$key] ?></span>
             	</a>
 	        </li>
             <?php endforeach; ?>
             <li class="<?php echo ($numero > $numero_vrac) ? 'passe' : '' ?> <?php echo ($numero == $numero_vrac) ? 'actif' : '' ?>">
-            	<a href="<?php echo url_for('drm_vrac') ?>">
+            	<a href="<?php echo url_for('drm_vrac', $drm) ?>">
             		<span><?php echo $numero_vrac ?>. Vrac</span>
             	</a>
             </li>

@@ -11,10 +11,10 @@ class drm_recapActions extends sfActions
     public function executeAppellationAjoutAjax(sfWebRequest $request) {
         $this->forward404Unless($request->isXmlHttpRequest());
         $this->getResponse()->setContentType('text/json');
-        $drm = $this->getUser()->getDrm();
         $this->certification = $this->getRoute()->getObject();
+        $this->drm = $this->getRoute()->getDrm();
 
-        $this->form = new DRMAppellationAjoutForm($drm->produits->add($this->certification->getKey()),
+        $this->form = new DRMAppellationAjoutForm($this->drm->produits->add($this->certification->getKey()),
                                                   $this->getUser()->getTiers()->interpro);
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
@@ -39,11 +39,8 @@ class drm_recapActions extends sfActions
     {
         $this->init();
         $this->forward404Unless($request->isXmlHttpRequest());
-        $drm = $this->getUser()->getDrm();
 
-        $form = new DRMProduitAjoutForm($drm->produits->get($this->config_appellation->getCertification()->getKey())
-                                                      ->get($this->config_appellation->getKey())
-                                                      ->add(),
+        $form = new DRMProduitAjoutForm($this->drm_appellation->getProduits()->add(),
                                         $this->getUser()->getTiers()->interpro);
 
         if ($request->isMethod(sfWebRequest::POST)) {
@@ -53,13 +50,12 @@ class drm_recapActions extends sfActions
                 $form->save();
                 $this->getUser()->setFlash("notice", 'Le produit a été ajouté avec success.');
                 return $this->renderText(json_encode(array("success" => true, 
-                                                           "url" => $this->generateUrl('drm_recap_appellation', $this->config_appellation))));
+                                                           "url" => $this->generateUrl('drm_recap_appellation', $this->drm_appellation))));
             }
             return $this->renderText(json_encode(array("success" => false, 
-                                                       "content" => $this->getPartial('formAjout', array('form' => $form, 
-                                                                                                    'config_appellation' => $this->config_appellation)))));
+                                                       "content" => $this->getPartial('formAjout', array('form' => $form)))));
         }
-        return $this->renderPartial('popupAjout', array('form' => $form, 'config_appellation' => $this->config_appellation));
+        return $this->renderPartial('popupAjout', array('form' => $form));
     }
     
     public function executeDetail(sfWebRequest $request) {
@@ -91,6 +87,7 @@ class drm_recapActions extends sfActions
     
     protected function init() {
         $this->form = null;
+        $this->drm = $this->getRoute()->getDrm();
         $this->config_appellation = $this->getRoute()->getConfigAppellation();
         $this->drm_appellation = $this->getRoute()->getDrmAppellation();
     }

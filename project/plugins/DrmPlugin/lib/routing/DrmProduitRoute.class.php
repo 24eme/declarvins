@@ -1,12 +1,16 @@
 <?php
 
-class DrmProduitRoute extends sfObjectRoute {
+class DrmProduitRoute extends DrmRoute {
     
     protected function getObjectForParameters($parameters) {
-        return $this->getDRM()->produits->get($parameters['certification'])->get($parameters['appellation'])->get($parameters['indice']);
+        parent::getObjectForParameters($parameters);
+
+        return $this->getDrm()->produits->get($parameters['certification'])->get($parameters['appellation'])->get($parameters['indice']);
     }
 
     protected function doConvertObjectToArray($object) {
+        $parameters = parent::doConvertObjectToArray($object->getDocument());
+
         $parameters['certification'] = $object->getCertification()->getKey();
         $parameters['appellation'] = $object->getAppellation()->getKey();
         $parameters['indice'] = $object->getKey();
@@ -14,8 +18,4 @@ class DrmProduitRoute extends sfObjectRoute {
         return $parameters;
     }
     
-    protected function getDRM() {
-        return sfContext::getInstance()->getUser()->getDrm();
-    }
-
 }

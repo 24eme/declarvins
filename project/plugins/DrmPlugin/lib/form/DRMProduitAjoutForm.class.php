@@ -85,7 +85,7 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
             return ConfigurationClient::getCurrent()->get($this->getValue('hashref'))->getAppellation()->getKey();
         } 
     }
-
+    
     public function getProduits() {
         if (is_null($this->_choices_produits)) {
             if ($this->hasAppellation()) {

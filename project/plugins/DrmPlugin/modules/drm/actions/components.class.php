@@ -9,7 +9,7 @@ class drmComponents extends sfComponents {
         
         $i = 3;
         foreach ($this->config_certifications as $certification => $produit) {
-            if ($this->getUser()->getDrm()->produits->exist($certification)) {
+            if ($this->drm->produits->exist($certification)) {
                 $this->certifications[$i] = $certification;
                 $this->certificationsLibelle[$i] = ConfigurationClient::getCurrent()->declaration->certifications->get($certification)->libelle;
                 $i++;
@@ -30,7 +30,7 @@ class drmComponents extends sfComponents {
 
         if ($this->etape == 'recapitulatif') {
             foreach ($this->config_certifications as $certification => $produit) {
-                if ($this->getUser()->getDrm()->produits->exist($certification))
+                if ($this->drm->produits->exist($certification))
                     if ($certification == $this->certification) {
                         break;
                     }

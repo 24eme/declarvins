@@ -3,12 +3,13 @@
 class DrmAppellationRoute extends DrmCertificationRoute {
 
     public function getConfigAppellation() {
-        return $this->getObject();
+        
+        return $this->getDrmAppellation()->getConfig();
     }
 
     public function getDrmAppellation() {
 
-        return $this->getDRM()->getOrAdd($this->getConfigAppellation()->getHash());
+        return $this->getObject();
     }
 
     public function getConfigCertification() {
@@ -17,15 +18,14 @@ class DrmAppellationRoute extends DrmCertificationRoute {
     }
 
     protected function getObjectForParameters($parameters) {
-        $config_certification = parent::getObjectForParameters($parameters);
-        $drm_certification = $this->getDRM()->declaration->certifications->get($config_certification->getKey());
+        $drm_certification = parent::getObjectForParameters($parameters);
 
         if (!array_key_exists('appellation', $parameters)) {
 
-        	return $drm_certification->getProduits()->getFirst()->getDeclaration()->getConfig();
+        	return $drm_certification->getProduits()->getFirst()->getDeclaration();
         }
 
-        return $config_certification->appellations->get($parameters['appellation']);
+        return $drm_certification->appellations->get($parameters['appellation']);
     }
 
     protected function doConvertObjectToArray($object) {

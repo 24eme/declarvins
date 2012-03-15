@@ -14,6 +14,16 @@ class DRM extends BaseDRM {
         $this->set('_id', DRMClient::getInstance()->getId($this->identifiant, $this->campagne, $rectificative));
     }
 
+    public function getCampagneAndRectificative() {
+        if($this->isRectificative()) {
+
+            return $this->campagne.'-R'.sprintf("%02d",$this->rectificative);
+        } else {
+
+            return $this->campagne;
+        }
+    }
+
     public function synchroniseDeclaration() {
         foreach ($this->produits as $certification) {
             foreach ($certification as $appellation) {

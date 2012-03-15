@@ -7,7 +7,7 @@
 			<a href="<?php echo url_for('@drm_mon_espace') ?>">DRM</a>
 		</li>
 		<li<?php if ($active == 'vrac'): ?> class="actif"<?php endif; ?>>
-			<a href="<?php echo url_for('drm_vrac') ?>">Vrac</a>
+			<a href="#">Vrac</a>
 		</li>
 		<li>
 			<a href="#">DAI/DS</a>

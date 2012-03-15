@@ -1,39 +1,36 @@
 <?php
 
-class DrmCertificationRoute extends sfObjectRoute {
+class DrmCertificationRoute extends DrmRoute {
     
     public function getConfigCertification() {
-         $this->getObject();
+        
+        return $this->getDrmCertification()->getConfig();
     }
     
     public function getDrmCertification() {
-         $this->getDRM()->get($this->getConfigCertification()->getHash());
+        
+        return $this->getObject();
     }
     
     protected function getObjectForParameters($parameters) {
+        parent::getObjectForParameters($parameters);
+
         if (!array_key_exists('certification', $parameters)) {
-            return $this->getDRMConfiguration()->declaration->certifications->getFirst();
+            return $this->getDrm()->declaration->certifications->getFirst();
         }
         
         if ($this->getDRMConfiguration()->declaration->certifications->exist($parameters['certification'])) {
-            return $this->getDRMConfiguration()->declaration->certifications->get($parameters['certification']);
+            return $this->getDrm()->declaration->certifications->get($parameters['certification']);
         }
         
         return null;
     }
 
-    protected function doConvertObjectToArray($object) {  
-        $parameters = array("certification" => $object->getKey());
+    protected function doConvertObjectToArray($object) {
+        $parameters = parent::doConvertObjectToArray($object->getDocument());
+        $parameters["certification"] = $object->getKey();
         
         return $parameters;
-    }
-    
-    protected function getDRMConfiguration() {
-        return ConfigurationClient::getCurrent();
-    }
-    
-    protected function getDRM() {
-        return sfContext::getInstance()->getUser()->getDrm();
     }
 
 }

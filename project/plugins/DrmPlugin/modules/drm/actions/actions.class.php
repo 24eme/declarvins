@@ -20,7 +20,7 @@ class drmActions extends sfActions
       if ($drm->isNew()) {
           $drm->save();
       }
-      $this->redirect('drm_informations');
+      $this->redirect('drm_informations', $drm);
   }
   
  /**
@@ -39,7 +39,7 @@ class drmActions extends sfActions
   */
   public function executeInformations(sfWebRequest $request)
   {
-  	  $this->drm = $this->getUser()->getDrm();
+  	  $this->drm = $this->getRoute()->getDrm();
       $this->tiers = $this->getUser()->getTiers();
       $this->form = new DRMInformationsForm();
       if ($request->isMethod(sfWebRequest::POST)) {
@@ -84,21 +84,21 @@ class drmActions extends sfActions
   */
   public function executeValidation(sfWebRequest $request)
   {
-      $this->drm = $this->getUser()->getDrm();
-      if ($this->drm->valide) {
-		$this->redirect('drm_succes');
-      }
-      $this->drmValidation = new DRMValidation($this->drm);
-      $this->form = new DRMValidationForm(array(), array('engagements' => $this->drmValidation->getEngagements()));
-      if ($request->isMethod(sfWebRequest::POST)) {
-      	$this->form->bind($request->getParameter($this->form->getName()));
-		if ($this->form->isValid()) {
-			$this->drm->valide = 1;
-			$this->drm->setDroits();
-			$this->drm->save();
-			$this->redirect('drm_succes');
-      	}
-      }
+    $this->drm = $this->getRoute()->getDrm();
+    if ($this->drm->valide) {
+	    $this->redirect('drm_succes', $this->drm);
+    }
+    $this->drmValidation = new DRMValidation($this->drm);
+    $this->form = new DRMValidationForm(array(), array('engagements' => $this->drmValidation->getEngagements()));
+    if ($request->isMethod(sfWebRequest::POST)) {
+    	$this->form->bind($request->getParameter($this->form->getName()));
+	    if ($this->form->isValid()) {
+  			$this->drm->valide = 1;
+  			$this->drm->setDroits();
+  			$this->drm->save();
+  			$this->redirect('drm_succes', $this->drm);
+    	}
+    }
   }
  /**
   * Executes mouvements generaux action
@@ -107,7 +107,7 @@ class drmActions extends sfActions
   */
   public function executeSucces(sfWebRequest $request)
   {
-    $this->drm = $this->getUser()->getLastDrmValide();
+    $this->drm = $this->getRoute()->getDrm();
   }
 
   public function executeRectificative(sfWebRequest $request)

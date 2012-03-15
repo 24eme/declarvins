@@ -2,7 +2,7 @@
 <section id="contenu">
 
     <?php include_partial('drm/header'); ?>
-    <?php include_component('drm', 'etapes', array('etape' => 'vrac', 'pourcentage' => '30')); ?>
+    <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'vrac', 'pourcentage' => '30')); ?>
 
     <section id="principal">
 		<div id="application_dr">

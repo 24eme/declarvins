@@ -3,14 +3,14 @@
 <section id="contenu">
 
     <?php include_partial('drm/header'); ?>
-    <?php include_component('drm', 'etapes', array('etape' => 'informations', 'pourcentage' => '5')); ?>
+    <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'informations', 'pourcentage' => '5')); ?>
 
     <!-- #principal -->
     <section id="principal">
 		<div id="application_dr">
 			<div id="drm_informations">
 		        <p>Veuillez tout d'abord confirmer les informations ci-dessous :<br /><br /></p>
-		        <form action="<?php echo url_for('drm_informations') ?>" method="post">
+		        <form action="<?php echo url_for('drm_informations', $drm) ?>" method="post">
 			        <?php echo $form->renderGlobalErrors() ?>
 					<?php echo $form->renderHiddenFields() ?>
 					<div class="ligne_form">

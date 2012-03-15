@@ -27,6 +27,6 @@
     		</tr>
     		<?php endforeach; ?>
     	</table>
-    	<a href="<?php echo url_for('@drm_pdf') ?>">Pdf</a>
+    	<a href="<?php echo url_for('drm_pdf', $drm) ?>">Pdf</a>
     </section>
 </section>

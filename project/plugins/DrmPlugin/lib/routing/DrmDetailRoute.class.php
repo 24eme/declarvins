@@ -13,7 +13,7 @@ class DrmDetailRoute extends DrmAppellationRoute {
     protected function getObjectForParameters($parameters) {
         $config_appellation = parent::getObjectForParameters($parameters);
         
-        $drm_detail = $this->getDRM()->get($config_appellation->getHash())
+        $drm_detail = $this->getDrm()->get($config_appellation->getHash())
                                   ->lieux->add($parameters['lieu'])
                                   ->couleurs->add($parameters['couleur'])
                                   ->cepages->add($parameters['cepage'])
@@ -24,8 +24,7 @@ class DrmDetailRoute extends DrmAppellationRoute {
     }
 
     protected function doConvertObjectToArray($object) {
-        $config_certification = $this->getDRMConfiguration()->get($object->getAppellation()->getHash());
-        $parameters = parent::doConvertObjectToArray($config_certification);
+        $parameters = parent::doConvertObjectToArray($object->getAppellation());
         $parameters['lieu'] = $object->getLieu()->getKey();
         $parameters['couleur'] = $object->getCouleur()->getKey();
         $parameters['cepage'] = $object->getCepage()->getKey();

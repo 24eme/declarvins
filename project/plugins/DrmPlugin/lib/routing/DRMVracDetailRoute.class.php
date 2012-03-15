@@ -1,6 +1,6 @@
 <?php
 
-class VracDetailContratRoute extends DrmDetailRoute {
+class DRMVracDetailRoute extends DrmDetailRoute {
     
     protected function getObjectForParameters($parameters) {
     	$config_detail = parent::getObjectForParameters($parameters);

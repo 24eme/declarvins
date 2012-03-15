@@ -2,14 +2,14 @@
 
 <section id="contenu">
     <?php include_partial('drm/header'); ?>
-    <?php include_component('drm', 'etapes', array('etape' => 'ajouts-liquidations', 'pourcentage' => '10')); ?>
+    <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'ajouts-liquidations', 'pourcentage' => '10')); ?>
 
     <section id="principal">
 		<div id="application_dr">
 			<ul id="onglets_principal"><li class="actif"><strong>Mouvements Généraux</strong></li></ul>
 			<div id="contenu_onglet">
 				<?php if($first_certification): ?>
-				<a href="<?php echo url_for('drm_recap', $first_certification->getConfig()) ?>" class="btn_passer_etape">Passer cette étape</a>	
+				<a href="<?php echo url_for('drm_recap', $first_certification) ?>" class="btn_passer_etape">Passer cette étape</a>	
 				<?php endif; ?>
 				<p class="intro">Au cours du mois écoulé, avez-vous connu des changements de structure particuliers ?</p>
 	        	<?php if ($sf_user->hasFlash('notice')): ?>
@@ -46,7 +46,9 @@
 			                        </tbody>
 			                    </table>
 			                    <div class="btn">
-									<a href="<?php echo url_for(array('sf_route' => 'drm_mouvements_generaux_product_form', 'certification' => $certification)) ?>" class="btn_ajouter btn_popup" data-popup="#popup_ajout_produit_<?php echo $certification ?>" data-popup-config="configForm">Ajouter un nouveau produit</a>
+									<a href="<?php echo url_for(array('sf_route' => 'drm_mouvements_generaux_product_form', 
+																	  'sf_subject' => $drm, 
+																	  'certification' => $certification)) ?>" class="btn_ajouter btn_popup" data-popup="#popup_ajout_produit_<?php echo $certification ?>" data-popup-config="configForm">Ajouter un nouveau produit</a>
 								</div>
 		                    </div>
 		            </div>
@@ -54,11 +56,11 @@
             	</div>
         	</div>
 	        <div id="btn_etape_dr">
-	            <a href="<?php echo url_for('@drm_informations') ?>" class="btn_prec">
+	            <a href="<?php echo url_for('drm_informations', $drm) ?>" class="btn_prec">
 	            	<span>Précédent</span>
 	            </a>
                 <?php if($first_certification): ?>
-	            <a id="nextStep" href="<?php echo url_for('drm_recap', $first_certification->getConfig()) ?>" class="btn_suiv">
+	            <a id="nextStep" href="<?php echo url_for('drm_recap', $first_certification) ?>" class="btn_suiv">
 	            	<span>Suivant</span>
 	            </a>
                 <?php endif; ?>

@@ -5,11 +5,11 @@
 <section id="contenu">
 
     <?php include_partial('drm/header'); ?>
-    <?php include_component('drm', 'etapes', array('etape' => 'validation', 'pourcentage' => '100')); ?>
+    <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'validation', 'pourcentage' => '100')); ?>
 
     <!-- #principal -->
     <section id="principal">
-    	<form action="<?php echo url_for('@drm_validation') ?>" method="post">
+    	<form action="<?php echo url_for('drm_validation', $drm) ?>" method="post">
 	        <?php echo $form->renderGlobalErrors() ?>
 			<?php echo $form->renderHiddenFields() ?>
 			<div id="application_dr">
@@ -64,7 +64,7 @@
 	            </div>
 		    </div>
 	        <div id="btn_etape_dr">
-				<a href="<?php echo url_for('drm_vrac') ?>" class="btn_prec">
+				<a href="<?php echo url_for('drm_vrac', $drm) ?>" class="btn_prec">
 					<span>Précédent</span>
 				</a>
 				<button type="submit" class="btn_suiv"<?php if ($drmValidation->hasErrors()): ?> disabled="disabled"<?php endif; ?>><span>Valider</span></button>
