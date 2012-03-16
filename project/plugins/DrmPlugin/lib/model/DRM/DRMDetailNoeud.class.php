@@ -33,6 +33,6 @@ class DRMDetailNoeud extends BaseDRMDetailNoeud {
 
   public function isModifiedMasterDRM($key) {
 
-    return $this->getDocument()->isModifiedMasterDRM($this, $key);
+    return $this->getDocument()->isModifiedMasterDRM($this->getHash(), $key);
   }
 }

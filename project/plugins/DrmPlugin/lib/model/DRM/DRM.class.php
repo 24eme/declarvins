@@ -239,17 +239,9 @@ class DRM extends BaseDRM {
         return DRMClient::getInstance()->findByIdentifiantCampagneAndRectificative($this->identifiant, $this->campagne, $this->rectificative - 1, $hydrate);    
     }
 
-    protected function getDiffWithAnotherDRM(stdClass $drm) {
-        $other_json = new acCouchdbJsonNative($drm);
-        $current_json = new acCouchdbJsonNative($this->getData());
+    public function getDiffWithMasterDRM() {
 
-        return $current_json->diff($other_json);
-    }
-
-    protected function getDiffWithMasterDRM() {
-        $drm_master = $this->getDRMMaster(acCouchdbClient::HYDRATE_JSON);
-
-        return $this->store('drm_diff_master', array($this, 'getDiffWithAnotherDRM', array($drm_master)));
+        return $this->store('diff_with_master_drm', array($this, 'getDiffWithMasterDRMAbstract'));
     }
 
     public function isModifiedMasterDRM($hash_or_object, $key = null) {
@@ -270,6 +262,19 @@ class DRM extends BaseDRM {
       }
 
       return parent::save();
+    }
+
+     protected function getDiffWithAnotherDRM(stdClass $drm) {
+        $other_json = new acCouchdbJsonNative($drm);
+        $current_json = new acCouchdbJsonNative($this->getData());
+
+        return $current_json->diff($other_json);
+    }
+
+    protected function getDiffWithMasterDRMAbstract() {
+        $drm_master = $this->getDRMMaster(acCouchdbClient::HYDRATE_JSON)->getData();
+
+        return $this->getDiffWithAnotherDRM($drm_master);
     }
 
     protected function getDrmHistoriqueAbstract() {
