@@ -17,7 +17,7 @@
 		</tr>
 		<?php endif; ?>
 		<?php $i=0; foreach ($list as $drm_id => $drm): ?>
-		<?php include_partial('historiqueItem', array('alt' => $i%2 == 0, 'drm' => $drm)) ?>
+		<?php include_component('drm', 'historiqueItem', array('alt' => $i%2 == 0, 'drm' => $drm)) ?>
 		<?php $i++; endforeach; ?>
 	</tbody>
 </table>

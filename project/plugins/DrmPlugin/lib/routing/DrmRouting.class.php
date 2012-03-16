@@ -37,17 +37,16 @@ class DrmRouting {
         $r->prependRoute('drm_mon_espace', new sfRoute('/drm/mon-espace', array('module' => 'drm', 
                                                                                 'action' => 'monEspace')));
 
-        $r->prependRoute('drm_init', new sfRoute('/drm/init', array('module' => 'drm', 
-                                                                    		'action' => 'init')));
-
         $r->prependRoute('drm_historique', new sfRoute('/drm/historique/:annee', array('module' => 'drm', 
                                                                                        'action' => 'historique', 
                                                                                        'annee' => null)));
 
-        $r->prependRoute('drm_rectificative', new sfRoute('/drm/rectifier/:campagne/:rectificative', 
+        $r->prependRoute('drm_init', new DrmLightRoute('/drm/initialiser/:campagne_rectificative', array('module' => 'drm', 
+                                                                        'action' => 'init')));
+
+        $r->prependRoute('drm_rectificative', new DrmLightRoute('/drm/rectifier/:campagne_rectificative', 
                                                           array('module' => 'drm', 
-                                                               'action' => 'rectificative',
-                                                               'rectificative' => null)));
+                                                               'action' => 'rectificative')));
 
         $r->prependRoute('drm_informations', new DrmRoute('/drm-edition/:campagne_rectificative/informations', 
                                                           array('module' => 'drm', 

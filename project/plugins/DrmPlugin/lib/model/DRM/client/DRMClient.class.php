@@ -11,25 +11,33 @@ class DRMClient extends acCouchdbClient {
     }
 
     public function getId($identifiant, $campagne, $rectificative = null) {
-        if ($rectificative && $rectificative > 0) {
-
-            return 'DRM-'.$identifiant.'-'.$campagne.'-R'.sprintf('%02d', $rectificative);
-        } else {
-
-            return 'DRM-'.$identifiant.'-'.$campagne;
-        }
+      
+      return 'DRM-'.$identifiant.'-'.$this->getCampagneAndRectificative($campagne, $rectificative);
     }
 
     public function getCampagne($annee, $mois) {
+
       return sprintf("%04d-%02d", $annee, $mois);
     }
 
     public function getAnnee($campagne) {
+
       return preg_replace('/([0-9]{4})-([0-9]{2})/', '$1', $campagne);
     }
 
     public function getMois($campagne) {
+
       return preg_replace('/([0-9]{4})-([0-9]{2})/', '$2', $campagne);
+    }
+
+    public function getCampagneAndRectificative($campagne, $rectificative = null) {
+      if($rectificative  && $rectificative > 0) {
+
+        return $campagne.'-R'.sprintf("%02d", $rectificative);
+      } else {
+
+        return $campagne;
+      }
     }
 
     public function findLastByIdentifiantAndCampagne($identifiant, $campagne, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
