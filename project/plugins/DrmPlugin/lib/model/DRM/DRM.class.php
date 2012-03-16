@@ -15,13 +15,9 @@ class DRM extends BaseDRM {
     }
 
     public function getCampagneAndRectificative() {
-        if($this->isRectificative()) {
+        $rectificative = ($this->exist('rectificative')) ? $this->rectificative : null;
 
-            return $this->campagne.'-R'.sprintf("%02d",$this->rectificative);
-        } else {
-
-            return $this->campagne;
-        }
+        return DRMClient::getInstance()->getCampagneAndRectificative($this->campagne, $rectificative);
     }
 
     public function synchroniseDeclaration() {

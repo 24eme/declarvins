@@ -16,10 +16,7 @@ class drmActions extends sfActions
    * @param sfWebRequest $request 
    */
   public function executeInit(sfWebRequest $request) {
-      $drm = $this->getUser()->getDRM();
-      if ($drm->isNew()) {
-          $drm->save();
-      }
+      $drm = $this->getRoute()->getDRM();
       $this->redirect('drm_informations', $drm);
   }
   
@@ -117,12 +114,7 @@ class drmActions extends sfActions
 
   public function executeRectificative(sfWebRequest $request)
   {
-    $campagne = $request->getParameter('campagne');
-    $rectificative = $request->getParameter('rectificative', 0);
-    $drm = DRMClient::getInstance()->findByIdentifiantCampagneAndRectificative($this->getUser()->getTiers()->identifiant, 
-                                                                               $campagne, 
-                                                                               $rectificative);
-    $this->forward404Unless($drm);
+    $drm = $this->getRoute()->getDrm();
 
     $drm_rectificative = $drm->generateRectificative();
     $drm_rectificative->save();
