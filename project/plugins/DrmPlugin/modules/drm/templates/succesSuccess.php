@@ -4,7 +4,7 @@
 
 <section id="contenu">
 
-    <?php include_partial('drm/header'); ?>
+    <?php include_partial('drm/header', array('drm' => $drm)); ?>
 
     <!-- #principal -->
     <section id="principal">

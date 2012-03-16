@@ -2,7 +2,7 @@
 
 <section id="contenu">
 
-    <?php include_partial('drm/header'); ?>
+    <?php include_partial('drm/header', array('drm' => $drm)); ?>
     <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'recapitulatif', 'certification' => $config_appellation->getCertification()->getKey(), 'pourcentage' => '30')); ?>
 
     <!-- #principal -->
