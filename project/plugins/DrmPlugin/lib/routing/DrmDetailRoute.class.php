@@ -3,11 +3,13 @@
 class DrmDetailRoute extends DrmAppellationRoute {
 
     public function getDRMDetail() {
+        
         return $this->getObject();
     }
     
-    public function getConfigAppellation() {
-        return $this->getDRMConfiguration()->get($this->getDRMDetail()->getAppellation()->getHash());
+    public function getDRMAppellation() {
+
+        return $this->getDRMDetail()->getAppellation();
     }
     
     protected function getObjectForParameters($parameters) {

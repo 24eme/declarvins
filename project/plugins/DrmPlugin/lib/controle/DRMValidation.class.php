@@ -64,11 +64,11 @@ class DRMValidation
 				}
 			}
 			if ($totalEntreeRepli != $totalSortiRepli) {
-				$this->errors[] = new DRMControleError('repli', $this->generateUrl('drm_recap', array('sf_subject' => $certification)));
+				$this->errors[] = new DRMControleError('repli', $this->generateUrl('drm_recap', $certification));
 			}
 		}
 		if ($totalEntreeDeclassement > $totalSortiDeclassement) {
-			$this->warnings[] = new DRMControleWarning('declassement', $this->generateUrl('drm_recap', array('sf_subject' => $certificationVinssansig)));
+			$this->warnings[] = new DRMControleWarning('declassement', $this->generateUrl('drm_recap', $certificationVinssansig));
 		}
 	}
 	
@@ -99,20 +99,20 @@ class DRMValidation
 			$totalVolume += $contrat->volume;
 		}
 		if ($totalVolume != $detail->sorties->vrac) {
-			$this->errors[] = new DRMControleError('vrac', $this->generateUrl('drm_vrac'));
+			$this->errors[] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm));
 		}
 		if ($detail->total < 0) {
-			$this->errors[] = new DRMControleError('total_negatif', $this->generateUrl('drm_recap', array('sf_subject' => $detail->getAppellation())));
+			$this->errors[] = new DRMControleError('total_negatif', $this->generateUrl('drm_recap_detail', $detail));
 		}
 		if ($detail->total < ($detail->stocks_fin->bloque + $detail->stocks_fin->instance)) {
-			$this->errors[] = new DRMControleError('total_stocks', $this->generateUrl('drm_recap', array('sf_subject' => $detail->getAppellation())));
+			$this->errors[] = new DRMControleError('total_stocks', $this->generateUrl('drm_recap_detail', $detail));
 		}
 	}
 	
 	private function controleWarnings($detail)
 	{
 		if ($detail->sorties->mouvement > 0) {
-			$this->warnings[] = new DRMControleWarning('mouvement', $this->generateUrl('drm_recap', array('sf_subject' => $detail->getAppellation())));
+			$this->warnings[] = new DRMControleWarning('mouvement', $this->generateUrl('drm_recap_detail', $detail));
 		}
 	}
 	

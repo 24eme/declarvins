@@ -44,10 +44,10 @@ class DrmRouting {
                                                                                        'action' => 'historique', 
                                                                                        'annee' => null)));
 
-        $r->prependRoute('drm_rectificative', new sfRoute('/drm/rectifier.drm_identifiant/:rectificative', 
+        $r->prependRoute('drm_rectificative', new sfRoute('/drm/rectifier/:campagne/:rectificative', 
                                                           array('module' => 'drm', 
                                                                'action' => 'rectificative',
-                                                               'rectificative' => '')));
+                                                               'rectificative' => null)));
 
         $r->prependRoute('drm_informations', new DrmRoute('/drm-edition/:campagne_rectificative/informations', 
                                                           array('module' => 'drm', 
@@ -70,7 +70,7 @@ class DrmRouting {
                                                           array('model' => 'DRM',
                                                                 'type' => 'object')));
 
-        $r->prependRoute('drm_pdf', new DrmRoute('/drm-edition/:campagne_rectificative/pdf.:format', 
+        $r->prependRoute('drm_pdf', new DrmRoute('/drm/pdf/:campagne_rectificative.:format', 
                                                           array('module' => 'drm', 
                                                                 'action' => 'pdf',
                                                                 'format' => 'pdf'),

@@ -32,6 +32,7 @@ class drmActions extends sfActions
   {
       $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant);
   }
+
  /**
   * Executes informations action
   *
@@ -39,32 +40,36 @@ class drmActions extends sfActions
   */
   public function executeInformations(sfWebRequest $request)
   {
-  	  $this->drm = $this->getRoute()->getDrm();
-      $this->tiers = $this->getUser()->getTiers();
-      $this->form = new DRMInformationsForm();
-      if ($request->isMethod(sfWebRequest::POST)) {
-      	$this->form->bind($request->getParameter($this->form->getName()));
-	  	if ($this->form->isValid()) {
+	  $this->drm = $this->getRoute()->getDrm();
+    $this->tiers = $this->getUser()->getTiers();
+    $this->form = new DRMInformationsForm();
+
+    if ($request->isMethod(sfWebRequest::POST)) {
+    	$this->form->bind($request->getParameter($this->form->getName()));
+
+  	  if ($this->form->isValid()) {
 	  		$values = $this->form->getValues();
+
 	  		if ($values['confirmation']) {
-				$this->drm->declarant->nom = $this->tiers->nom;
-				$this->drm->declarant->siret = $this->tiers->siret;
-				$this->drm->declarant->cni = $this->tiers->cni;
-				$this->drm->declarant->cvi = $this->tiers->cvi;
-				$this->drm->declarant->siege->adresse = $this->tiers->siege->adresse;
-				$this->drm->declarant->siege->code_postal = $this->tiers->siege->code_postal;
-				$this->drm->declarant->siege->commune = $this->tiers->siege->commune;
-				$this->drm->declarant->comptabilite->adresse = $this->tiers->comptabilite->adresse;
-				$this->drm->declarant->comptabilite->code_postal = $this->tiers->comptabilite->code_postal;
-				$this->drm->declarant->comptabilite->commune = $this->tiers->comptabilite->commune;
-				$this->drm->declarant->no_accises = $this->tiers->no_accises;
-				$this->drm->declarant->no_tva_intracommunautaire = $this->tiers->no_tva_intracommunautaire;
-				$this->drm->declarant->service_douane = $this->tiers->service_douane;			
-				$this->drm->save();
+  				$this->drm->declarant->nom = $this->tiers->nom;
+  				$this->drm->declarant->siret = $this->tiers->siret;
+  				$this->drm->declarant->cni = $this->tiers->cni;
+  				$this->drm->declarant->cvi = $this->tiers->cvi;
+  				$this->drm->declarant->siege->adresse = $this->tiers->siege->adresse;
+  				$this->drm->declarant->siege->code_postal = $this->tiers->siege->code_postal;
+  				$this->drm->declarant->siege->commune = $this->tiers->siege->commune;
+  				$this->drm->declarant->comptabilite->adresse = $this->tiers->comptabilite->adresse;
+  				$this->drm->declarant->comptabilite->code_postal = $this->tiers->comptabilite->code_postal;
+  				$this->drm->declarant->comptabilite->commune = $this->tiers->comptabilite->commune;
+  				$this->drm->declarant->no_accises = $this->tiers->no_accises;
+  				$this->drm->declarant->no_tva_intracommunautaire = $this->tiers->no_tva_intracommunautaire;
+  				$this->drm->declarant->service_douane = $this->tiers->service_douane;			
+  				$this->drm->save();
 	  		}
-			$this->redirect('drm_mouvements_generaux');
-      	}
-      }
+        
+			  $this->redirect('drm_mouvements_generaux', $this->drm);
+    	}
+    }
   }
 
  /**
