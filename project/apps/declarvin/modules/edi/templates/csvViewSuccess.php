@@ -1,14 +1,14 @@
 <?php
 if ($iddrm) {
-  echo $iddrm;
+  echo "OK;;;$iddrm\n";
   return ;
  }
-foreach ($errors as $e) {
+foreach ($errors->getRawValue() as $e) {
   $type = 'COHERENCE';
   $line = '';
   if (isset($e['line'])) {
     $type = "LIGNE";
     $line = $e['line'];
   }
-  echo $type.';'.$line.';'.$e['message'].";\n";
+  echo 'ERREUR;'.$type.';'.$line.';"'.$e['message']."\";\n";
 }
