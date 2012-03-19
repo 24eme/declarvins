@@ -9,6 +9,22 @@ class VracClient extends acCouchdbClient {
     public static function getInstance() {
         return acCouchdbManager::getClient("Vrac");
     }
+
+    public function retrieveByNumeroAndEtablissementAndHashOrCreateIt($id, $etablissement, $hash, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
+      $vrac = $this->retrieveById($id);
+      if (!$vrac) {
+	$vrac = new Vrac();
+	$vrac->etablissement = $etablissement;
+	$vrac->numero = $id;
+	$vrac->produit = $hash;
+      }
+      if ($etablissement != $vrac->etablissement)
+	throw new sfException('Etablissement ne correpond pas à l\'établissement initial');
+      if ($hash != $vrac->produit)
+	throw new sfException('Le hash du produit ne correpond pas au hash initial');
+      return $vrac;
+    }
+    
     
     /**
      *

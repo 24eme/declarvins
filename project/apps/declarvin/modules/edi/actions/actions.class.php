@@ -41,6 +41,18 @@ class ediActions extends sfActions
     
     $this->setLayout(false);
   }
+  public function executeCsvContratView(sfWebRequest $request) 
+  {
+    $this->response->setContentType('text/plain');
+    $md5 = $request->getParameter('md5');
+    set_time_limit(600);
+    $csv = new VracCsvFile(sfConfig::get('sf_data_dir') . '/upload/' . $md5);
+    $contrats = $csv->importContrats();
+    foreach($contrats as $c) {
+      $c->save();
+    }
+    $this->setLayout(false);
+  }
   public function executeListDRM(sfWebRequest $request) 
   {
     $this->setLayout(false);
