@@ -12,7 +12,7 @@
 			      <td><?php echo $futurDrm[DRMHistorique::VIEW_INDEX_ANNEE].'-'.$futurDrm[DRMHistorique::VIEW_INDEX_MOIS] ?></td>
 			<td>NOUVELLE</td>
 			<td>
-				<a href="<?php echo url_for('drm_init') ?>">Démarrer la DRM</a><br />
+				<a href="<?php echo url_for('drm_nouvelle') ?>">Démarrer la DRM</a><br />
 			</td>
 		</tr>
 		<?php endif; ?>

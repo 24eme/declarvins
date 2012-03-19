@@ -10,6 +10,16 @@
  */
 class drmActions extends sfActions
 {
+
+  /**
+   *
+   * @param sfWebRequest $request 
+   */
+  public function executeNouvelle(sfWebRequest $request) {
+      $drm = $this->getUser()->getDrm();
+      $drm->save();
+      $this->redirect('drm_informations', $drm);
+  }
   
   /**
    *

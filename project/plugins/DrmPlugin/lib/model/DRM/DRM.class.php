@@ -90,6 +90,7 @@ class DRM extends BaseDRM {
         $drm_suivante = clone $this;
     	$drm_suivante->init();
         $drm_suivante->update();
+        $drm_suivante->remove('rectificative');
         $drm_suivante->campagne = $campagne;
         $drm_suivante->remove('douane');
         $drm_suivante->add('douane');
