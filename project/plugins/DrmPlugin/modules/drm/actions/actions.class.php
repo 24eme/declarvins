@@ -87,17 +87,21 @@ class drmActions extends sfActions
   public function executeValidation(sfWebRequest $request)
   {
     $this->drm = $this->getRoute()->getDrm();
-    if ($this->drm->valide) {
-	    $this->redirect('drm_succes', $this->drm);
-    }
     $this->drmValidation = new DRMValidation($this->drm);
     $this->form = new DRMValidationForm(array(), array('engagements' => $this->drmValidation->getEngagements()));
     if ($request->isMethod(sfWebRequest::POST)) {
     	$this->form->bind($request->getParameter($this->form->getName()));
 	    if ($this->form->isValid()) {
-  			$this->drm->valide = 1;
-  			$this->drm->setDroits();
-  			$this->drm->save();
+  			$this->drm->validate();
+        $this->drm->save();
+
+        if ($this->drm->isRectificative()) {
+          $drm_rectificative_suivante = $this->drm->generateRectificativeSuivante();
+          if ($drm_rectificative_suivante) {
+            $drm_rectificative_suivante->save();
+          }
+        }
+
   			$this->redirect('drm_succes', $this->drm);
     	}
     }
@@ -110,6 +114,7 @@ class drmActions extends sfActions
   public function executeSucces(sfWebRequest $request)
   {
     $this->drm = $this->getRoute()->getDrm();
+    $this->drm_suivante = $this->drm->getSuivante();
   }
 
   public function executeRectificative(sfWebRequest $request)
