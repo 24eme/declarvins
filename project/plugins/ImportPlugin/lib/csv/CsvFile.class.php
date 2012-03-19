@@ -28,11 +28,11 @@ class CsvFile
     if (!$buffer) {
       throw new Exception('invalid_file');
     }
-    /*if (!preg_match('/("?)[0-9]{10}("?)([,;\t])/', $buffer, $match)) {
-      throw new Exception('invalid_csv_file');
-    }
-    $this->separator = $match[3];*/
-    $this->separator = ";";
+    $virgule = explode(',', $buffer);
+    $ptvirgule = explode(';', $buffer);
+    $this->separator = ';';
+    if (count($virgule) > count($ptvirgule))
+      $this->separator = ',';
   }
 
   public function getCsv() {
