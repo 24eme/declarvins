@@ -147,10 +147,12 @@ class DRMDetail extends BaseDRMDetail {
       $this->stocks_debut->bloque = $this->stocks_fin->bloque;
       $this->stocks_debut->warrante = $this->stocks_fin->warrante;
       $this->stocks_debut->instance = $this->stocks_fin->instance;
+      $this->stocks_debut->commercialisable = $this->stocks_fin->commercialisable;
       
       $this->stocks_fin->bloque = null;
       $this->stocks_fin->warrante = null;
       $this->stocks_fin->instance = null;
+      $this->stocks_fin->commercialisable = null;
       
       foreach ($this->entrees as $key => $entree) {
         $this->entrees->$key = null;

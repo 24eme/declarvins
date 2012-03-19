@@ -7,7 +7,7 @@
     <section id="principal">
 	    <div id="recap_drm">
 			<div id="drm_annee_courante">
-				<?php include_component('drm', 'historiqueList', array('historique' => $historique)) ?>
+				<?php include_component('drm', 'historiqueList', array('historique' => $historique, 'limit' => 5)) ?>
 			</div>
 		</div>
 	</section>

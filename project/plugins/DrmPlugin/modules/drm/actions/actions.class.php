@@ -135,8 +135,7 @@ class drmActions extends sfActions
     $drm_rectificative = $drm->generateRectificative();
     $drm_rectificative->save();
 
-    return $this->redirect(array('sf_route' => 'drm_historique',
-                                 'annee' => $drm->getAnnee()));
+    return $this->redirect('drm_init', array('campagne_rectificative' => $drm->getCampagneAndRectificative()));
   }
 
 

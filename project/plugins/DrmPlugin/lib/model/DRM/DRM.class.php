@@ -253,11 +253,11 @@ class DRM extends BaseDRM {
             $next_drm_rectificative = $next_drm->generateRectificative();
             foreach($this->getDiffWithMasterDRM() as $key => $value) {
                 if (preg_match('|^(/declaration/certifications/.+/appellations/.+/lieux/.+/couleurs/.+/cepages/.+/millesimes/.+/details/.+)/total$|', $key, $match)) {
-                    $produit = $this->get($match[1]);
-                    if (!$next_drm_rectificative->exist($key)) {
-                        $next_drm_rectificative->addProduit($produit->getMillesime()->getHash(), $produit->label->toArray());
+                    $detail = $this->get($match[1]);
+                    if (!$next_drm_rectificative->exist($detail->getHash())) {
+                        $next_drm_rectificative->addProduit($detail->getMillesime()->getHash(), $detail->label->toArray());
                     }
-                    $next_drm_rectificative->set($key.'_debut_mois', $value);
+                    $next_drm_rectificative->set($detail->getHash().'/total_debut_mois', $value);
                 }
             }
             $next_drm_rectificative->update();
