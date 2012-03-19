@@ -22,7 +22,7 @@ class drm_recapComponents extends sfComponents {
 	                $this->appellations[$appellation_key] = 0;
 	                $this->appellations_updated[$appellation_key] = 0;
 	            }
-	            if (!$produit->pas_de_mouvement && !$produit->stock_vide) {
+	            if (!$produit->pas_de_mouvement) {
 	                $this->appellations[$appellation_key] += 1;
 	                if ($produit->getDetail()->isComplete()) {
         				$this->appellations_updated[$appellation_key] += 1;

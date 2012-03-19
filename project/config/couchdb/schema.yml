@@ -481,8 +481,6 @@ DRM:
                                   fields:
                                     '*': {  }
                               label_supplementaire: {  }
-                              disponible: {  }
-                              stock_vide: {  }
                               pas_de_mouvement: {  }
       declaration:
         type: collection

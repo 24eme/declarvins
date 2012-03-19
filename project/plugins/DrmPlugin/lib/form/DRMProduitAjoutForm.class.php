@@ -56,7 +56,10 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
         }
         $this->getObject()->getDocument()->synchroniseDeclaration();
         if ($values['disponible']) {
+            $this->getObject()->getDetail()->total_debut_mois = $values['disponible'];
             $this->getObject()->getDocument()->update();
+        } else {
+            $this->getObject()->getDetail()->total_debut_mois = 0;
         }
     }
     

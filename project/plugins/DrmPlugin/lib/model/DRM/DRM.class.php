@@ -34,15 +34,15 @@ class DRM extends BaseDRM {
       $hashes = $this->interpretHash($hash);
       sort($labels);
       try {
-	if ($produits = $this->getProduits()->get($hashes['certification'])->get($hashes['appellation'])) {
-	  foreach ($produits as $p) {
-	    $leslabels = $p->label->toArray();
-	    sort($leslabels);
-	    if (!count(array_diff($leslabels,$labels)) &&  $p->hashref == $hash) {
-	      return $p;
-	    }
-	  }
-	}
+    	if ($produits = $this->getProduits()->get($hashes['certification'])->get($hashes['appellation'])) {
+    	  foreach ($produits as $p) {
+    	    $leslabels = $p->label->toArray();
+    	    sort($leslabels);
+    	    if (!count(array_diff($leslabels,$labels)) &&  $p->hashref == $hash) {
+    	      return $p;
+    	    }
+    	  }
+    	}
       }catch(Exception $e) {
       }
       return false;
@@ -252,8 +252,8 @@ class DRM extends BaseDRM {
             $next_drm_rectificative = $next_drm->generateRectificative();
             foreach($this->getDiffWithMasterDRM() as $key => $value) {
                 if (preg_match('|^(/declaration/certifications/.+/appellations/.+/lieux/.+/couleurs/.+/cepages/.+/millesimes/.+/details/.+)/total$|', $key, $match)) {
+                    $produit = $this->get($match[1]);
                     if (!$next_drm_rectificative->exist($key)) {
-                        $produit = $this->get($match[1]);
                         $next_drm_rectificative->addProduit($produit->getMillesime()->getHash(), $produit->label->toArray());
                     }
                     $next_drm_rectificative->set($key.'_debut_mois', $value);

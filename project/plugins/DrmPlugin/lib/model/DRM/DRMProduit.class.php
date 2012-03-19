@@ -61,8 +61,7 @@ class DRMProduit extends BaseDRMProduit {
     public function updateDetail() {
         $detail = $this->getOrAddDetail();
         $detail->label = $this->label;
-        $detail->label_supplementaire = $this->label_supplementaire;
-        $detail->total_debut_mois = $this->disponible;        
+        $detail->label_supplementaire = $this->label_supplementaire;     
         return $detail;
     }
 
