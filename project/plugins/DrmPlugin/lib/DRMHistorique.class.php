@@ -8,7 +8,7 @@ class DRMHistorique
 	const VIEW_INDEX_STATUS = 4;
 	const VIEW_INDEX_STATUS_DOUANE_ENVOI = 5;
 	const VIEW_INDEX_STATUS_DOUANE_ACCUSE = 6;
-	const DERNIERE = 6;
+	const DERNIERE = 'derniere';
 
 	private $etablissement;
 	private $anneeCourante;
