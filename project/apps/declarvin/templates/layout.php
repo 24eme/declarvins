@@ -16,7 +16,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="copyright" content="DéclarVins - 2011" />
 	
-	
+	<style type="text/css">
+		.rectifier {
+			border: 1px dotted #ff0000 !important;
+		}
+	</style>
 	
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>

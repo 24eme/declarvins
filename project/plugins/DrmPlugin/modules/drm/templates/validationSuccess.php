@@ -1,10 +1,10 @@
 <?php use_helper('Float'); ?>
+<?php use_helper('Rectificative'); ?>
 <?php include_partial('global/navTop', array('active' => 'drm')); ?>
-
 
 <section id="contenu">
 
-    <?php include_partial('drm/header'); ?>
+    <?php include_partial('drm/header', array('drm' => $drm)); ?>
     <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'validation', 'pourcentage' => '100')); ?>
 
     <!-- #principal -->
@@ -50,17 +50,17 @@
 	                        	<?php foreach($certification->appellations as $appellation): ?>
 	                        		<tr class="alt">
                                     	<td><?php echo $appellation->getConfig()->libelle ?></td>
-                                    	<td><strong><?php echoFloat($appellation->total_debut_mois) ?></strong></td>
-                                    	<td><?php echoFloat($appellation->total_entrees) ?></td>
-                                    	<td><?php echoFloat($appellation->total_sorties) ?></td>
-                                    	<td><strong><?php echoFloat($appellation->total) ?></strong></td>
+                                    	<td class="<?php echo isRectifierCssClass($appellation, 'total_debut_mois') ?>"><strong><?php echoFloat($appellation->total_debut_mois) ?></strong></td>
+                                    	<td class="<?php echo isRectifierCssClass($appellation, 'total_entrees') ?>"><?php echoFloat($appellation->total_entrees) ?></td>
+                                    	<td class="<?php echo isRectifierCssClass($appellation, 'total_sorties') ?>"><?php echoFloat($appellation->total_sorties) ?></td>
+                                    	<td class="<?php echo isRectifierCssClass($appellation, 'total') ?>"><strong><?php echoFloat($appellation->total) ?></strong></td>
                            	 		</tr>
 	                        	<?php endforeach; ?>
 	                        </tbody>
 	                    </table>
 	                <?php endforeach; ?>
 	                </div>
-	                
+	                <?php //var_dump($drm->getDiffWithMasterDRM()) ?>
 	            </div>
 		    </div>
 	        <div id="btn_etape_dr">

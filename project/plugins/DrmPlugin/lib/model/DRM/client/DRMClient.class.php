@@ -53,7 +53,7 @@ class DRMClient extends acCouchdbClient {
 
     public function findByIdentifiantCampagneAndRectificative($identifiant, $campagne, $rectificative = null, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
 
-      return $this->find($this->getId($identifiant, $campagne, $rectificative));
+      return $this->find($this->getId($identifiant, $campagne, $rectificative, $hydrate));
     }
     
     public function retrieveOrCreateByIdentifiantAndCampagne($identifiant, $annee, $mois, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {

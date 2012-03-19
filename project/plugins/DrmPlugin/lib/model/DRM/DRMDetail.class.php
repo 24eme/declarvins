@@ -133,7 +133,7 @@ class DRMDetail extends BaseDRMDetail {
 
     public function isModifiedMasterDRM($key) {
       
-        return $this->getDocument()->isModifiedMasterDRM($this, $key);
+      return $this->getDocument()->isModifiedMasterDRM($this->getHash(), $key);
     }
 
     protected function init() {

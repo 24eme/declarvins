@@ -230,6 +230,43 @@ class DRM extends BaseDRM {
         return $drm_rectificative;
     }
 
+    public function getSuivante() {
+       $date_campagne = new DateTime($this->getAnnee().'-'.$this->getMois().'-01');
+       $date_campagne->modify('+1 month');
+       $next_campagne = DRMClient::getInstance()->getCampagne($date_campagne->format('Y'), $date_campagne->format('m'));
+
+       $next_drm = DRMClient::getInstance()->findLastByIdentifiantAndCampagne($this->identifiant, $next_campagne);
+
+       return $next_drm;
+    }
+
+    public function generateRectificativeSuivante() {
+        if (!$this->isRectificative()) {
+
+            throw new sfException('This drm is not a rectificative');
+        }
+
+        $next_drm = $this->getSuivante();
+
+        if ($next_drm) {
+            $next_drm_rectificative = $next_drm->generateRectificative();
+            foreach($this->getDiffWithMasterDRM() as $key => $value) {
+                if (preg_match('|^(/declaration/certifications/.+/appellations/.+/lieux/.+/couleurs/.+/cepages/.+/millesimes/.+/details/.+)/total$|', $key, $match)) {
+                    if (!$next_drm_rectificative->exist($key)) {
+                        $produit = $this->get($match[1]);
+                        $next_drm_rectificative->addProduit($produit->getMillesime()->getHash(), $produit->label->toArray());
+                    }
+                    $next_drm_rectificative->set($key.'_debut_mois', $value);
+                }
+            }
+            $next_drm_rectificative->update();
+
+            return $next_drm_rectificative;
+        } else {
+            return null;
+        }
+    }
+
     public function getDRMMaster($hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         if (!$this->isRectificative()) {
 
@@ -239,17 +276,9 @@ class DRM extends BaseDRM {
         return DRMClient::getInstance()->findByIdentifiantCampagneAndRectificative($this->identifiant, $this->campagne, $this->rectificative - 1, $hydrate);    
     }
 
-    protected function getDiffWithAnotherDRM(stdClass $drm) {
-        $other_json = new acCouchdbJsonNative($drm);
-        $current_json = new acCouchdbJsonNative($this->getData());
+    public function getDiffWithMasterDRM() {
 
-        return $current_json->diff($other_json);
-    }
-
-    protected function getDiffWithMasterDRM() {
-        $drm_master = $this->getDRMMaster(acCouchdbClient::HYDRATE_JSON);
-
-        return $this->store('drm_diff_master', array($this, 'getDiffWithAnotherDRM', array($drm_master)));
+        return $this->store('diff_with_master_drm', array($this, 'getDiffWithMasterDRMAbstract'));
     }
 
     public function isModifiedMasterDRM($hash_or_object, $key = null) {
@@ -263,13 +292,31 @@ class DRM extends BaseDRM {
         return array_key_exists($hash, $this->getDiffWithMasterDRM());
     }
 
-    public function save() {
-      if (!preg_match('/^2\d{3}-[01][0-9]$/', $this->campagne)) {
-	    
-        throw new sfException('Wrong format for campagne ('.$this->campagne.')');
-      }
+    public function validate() {
+        $this->valide = 1;
+        $this->setDroits();
+    }
 
-      return parent::save();
+    public function save() {
+        if (!preg_match('/^2\d{3}-[01][0-9]$/', $this->campagne)) {
+	    
+            throw new sfException('Wrong format for campagne ('.$this->campagne.')');
+        }
+
+        return parent::save();
+    }
+
+    protected function getDiffWithAnotherDRM(stdClass $drm) {
+        $other_json = new acCouchdbJsonNative($drm);
+        $current_json = new acCouchdbJsonNative($this->getData());
+
+        return $current_json->diff($other_json);
+    }
+
+    protected function getDiffWithMasterDRMAbstract() {
+        $drm_master = $this->getDRMMaster(acCouchdbClient::HYDRATE_JSON)->getData();
+
+        return $this->getDiffWithAnotherDRM($drm_master);
     }
 
     protected function getDrmHistoriqueAbstract() {
