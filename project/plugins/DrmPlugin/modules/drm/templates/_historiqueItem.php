@@ -14,7 +14,7 @@
 		<a href="<?php echo url_for('drm_rectificative', array('campagne_rectificative' => $campagne_rectificative)) ?>">
 		  	Soumettre une DRM rectificative
 		</a><br />
-			<a href="#" class="btn_reinitialiser"><span>Visualiser</span></a>
+			<a href="<?php echo url_for('drm_visualisation', array('campagne_rectificative' => $campagne_rectificative)) ?>" class="btn_reinitialiser"><span>Visualiser</span></a>
 		</td>							
 	<?php endif; ?>
 </tr>

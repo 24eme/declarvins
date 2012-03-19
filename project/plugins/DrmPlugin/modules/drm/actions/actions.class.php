@@ -102,16 +102,17 @@ class drmActions extends sfActions
           }
         }
 
-  			$this->redirect('drm_succes', $this->drm);
+  			$this->redirect('drm_visualisation', array('campagne_rectificative' => $this->drm->getCampagneAndRectificative()));
     	}
     }
   }
+
  /**
   * Executes mouvements generaux action
   *
   * @param sfRequest $request A request object
   */
-  public function executeSucces(sfWebRequest $request)
+  public function executeVisualisation(sfWebRequest $request)
   {
     $this->drm = $this->getRoute()->getDrm();
     $this->drm_suivante = $this->drm->getSuivante();

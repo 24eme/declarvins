@@ -62,20 +62,16 @@ class DrmRouting {
                                                           array('model' => 'DRM',
                                                                 'type' => 'object')));
 
-        $r->prependRoute('drm_succes', new DrmRoute('/drm-edition/:campagne_rectificative/succes', 
+        $r->prependRoute('drm_visualisation', new DrmLightRoute('/drm/visualisation/:campagne_rectificative', 
                                                           array('module' => 'drm', 
-                                                                'action' => 'succes'),
-                                                          array('sf_method' => array('get')),
-                                                          array('model' => 'DRM',
-                                                                'type' => 'object')));
+                                                                'action' => 'visualisation'),
+                                                          array('sf_method' => array('get'))));
 
-        $r->prependRoute('drm_pdf', new DrmRoute('/drm/pdf/:campagne_rectificative.:format', 
+        $r->prependRoute('drm_pdf', new DrmLightRoute('/drm/pdf/:campagne_rectificative.:format', 
                                                           array('module' => 'drm', 
                                                                 'action' => 'pdf',
                                                                 'format' => 'pdf'),
-                                                          array('sf_method' => array('get'), 'format' => '(html|pdf)'),
-                                                          array('model' => 'DRM',
-                                                                'type' => 'object')));
+                                                          array('sf_method' => array('get'), 'format' => '(html|pdf)')));
 
         $r->prependRoute('drm_mouvements_generaux', new DrmRoute('/drm-edition/:campagne_rectificative/mouvements-generaux', 
                                                           array('module' => 'drm_mouvements_generaux', 

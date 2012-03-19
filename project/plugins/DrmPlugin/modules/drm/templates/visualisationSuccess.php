@@ -8,7 +8,11 @@
 
     <!-- #principal -->
     <section id="principal">
-    	DRM Validé avec succès
+
+        <div id="contenu_onglet">
+            <?php include_partial('drm/recap', array('drm' => $drm)) ?>
+        </div>
+
     	<h2>Droits total</h2>
     	<p><span>CVO: </span><?php echo echoFloat($drm->getTotalCvo()) ?>€</p>
     	<p><span>Douane: </span><?php echo echoFloat($drm->getTotalDouane()) ?>€</p>
@@ -27,7 +31,7 @@
     		</tr>
     		<?php endforeach; ?>
     	</table>
-    	<a href="<?php echo url_for('drm_pdf', $drm) ?>">Pdf</a>
+    	<a href="<?php echo url_for('drm_pdf', array('campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Pdf</a>
         <div id="btn_etape_dr">
             <?php if($drm_suivante && $drm_suivante->isRectificative()): ?>
             <a href="<?php echo url_for('drm_init', array('campagne_rectificative' => $drm_suivante->getCampagneAndRectificative())) ?>" class="btn_suiv">

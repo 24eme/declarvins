@@ -1,5 +1,3 @@
-<?php use_helper('Float'); ?>
-<?php use_helper('Rectificative'); ?>
 <?php include_partial('global/navTop', array('active' => 'drm')); ?>
 
 <section id="contenu">
@@ -33,34 +31,7 @@
 	            	</div>
 	           	</div>
 	           	<div id="contenu_onglet">
-	                <div id="tableau_aop" class="tableau_ajouts_liquidations">
-	                <?php foreach($drm->declaration->certifications as $certification): ?>
-	                    <h2><?php echo $certification->getConfig()->libelle ?></h2>
-	                    <table class="tableau_recap">
-	                        <thead>
-	                            <tr>
-	                                <td style="border: none;">&nbsp;</td>
-	                                <th style="font-weight: bold; border: none;">Stock début de mois</th>
-	                                <th style="font-weight: bold; border: none;">Entrées</th>
-	                                <th style="font-weight: bold; border: none;">Sorties</th>
-	                                <th style="font-weight: bold; border: none;"><strong>Stock fin de mois</strong></th>
-	                            </tr>
-	                        </thead>
-	                        <tbody>
-	                        	<?php foreach($certification->appellations as $appellation): ?>
-	                        		<tr class="alt">
-                                    	<td><?php echo $appellation->getConfig()->libelle ?></td>
-                                    	<td class="<?php echo isRectifierCssClass($appellation, 'total_debut_mois') ?>"><strong><?php echoFloat($appellation->total_debut_mois) ?></strong></td>
-                                    	<td class="<?php echo isRectifierCssClass($appellation, 'total_entrees') ?>"><?php echoFloat($appellation->total_entrees) ?></td>
-                                    	<td class="<?php echo isRectifierCssClass($appellation, 'total_sorties') ?>"><?php echoFloat($appellation->total_sorties) ?></td>
-                                    	<td class="<?php echo isRectifierCssClass($appellation, 'total') ?>"><strong><?php echoFloat($appellation->total) ?></strong></td>
-                           	 		</tr>
-	                        	<?php endforeach; ?>
-	                        </tbody>
-	                    </table>
-	                <?php endforeach; ?>
-	                </div>
-	                <?php //var_dump($drm->getDiffWithMasterDRM()) ?>
+	                <?php include_partial('drm/recap', array('drm' => $drm)) ?>
 	            </div>
 		    </div>
 	        <div id="btn_etape_dr">
