@@ -46,6 +46,7 @@ class drmComponents extends sfComponents {
         if($this->drm[DRMHistorique::VIEW_INDEX_RECTIFICATIVE]) {
             $this->titre .= ' R'.$this->drm[DRMHistorique::VIEW_INDEX_RECTIFICATIVE];
         }
+        $this->derniere = $this->drm[DRMHistorique::DERNIERE];
     }
 
     public function executeHistoriqueList() {

@@ -8,6 +8,7 @@ class DRMHistorique
 	const VIEW_INDEX_STATUS = 4;
 	const VIEW_INDEX_STATUS_DOUANE_ENVOI = 5;
 	const VIEW_INDEX_STATUS_DOUANE_ACCUSE = 6;
+	const DERNIERE = 6;
 
 	private $etablissement;
 	private $anneeCourante;
@@ -46,6 +47,16 @@ class DRMHistorique
 		  $result[$drm->id] = $drm->key;
 		}
 		krsort($result);
+
+		$campagne = null;
+		foreach($result as $key => $item) {
+			if ($item[self::VIEW_INDEX_ANNEE].'-'.$item[self::VIEW_INDEX_MOIS] != $campagne) {
+				$result[$key][self::DERNIERE] = true;
+				$campagne = $item[self::VIEW_INDEX_ANNEE].'-'.$item[self::VIEW_INDEX_MOIS];
+			} else {
+				$result[$key][self::DERNIERE] = false;
+			}
+		}
 		$this->drms = $result;
 	}
 	
@@ -55,7 +66,7 @@ class DRMHistorique
 			$annees = array();
 			$drms = $this->getDrms();
 	    	foreach ($drms as $drm) {
-		  if (!in_array($drm[self::VIEW_INDEX_ANNEE], $annees)) {
+		  	if (!in_array($drm[self::VIEW_INDEX_ANNEE], $annees)) {
 	  				$annees[] = $drm[self::VIEW_INDEX_ANNEE];
 	    		}
 	  		}
