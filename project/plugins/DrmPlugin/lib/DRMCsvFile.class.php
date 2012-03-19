@@ -74,7 +74,7 @@ class DRMCsvFile extends CsvFile
 					   $line[self::CSV_COL_MILLESIME]);
     $detail = $this->drm->addProduit($hash, $this->config->identifyLabels($line[self::CSV_COL_LABELS]))->getDetail();
     if ($line[self::CSV_COL_MENTION])
-      $detail->label_supplementaire = $line[self::CSV_COL_MENTION] * 1;
+      $detail->label_supplementaire = $line[self::CSV_COL_MENTION];
     return $detail;
   }
 

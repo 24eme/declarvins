@@ -63,6 +63,16 @@ class Configuration extends BaseConfiguration {
       return array('obj' => $obj_obj, 'next_libelles' => $next_libelles);
     }
 
+    public function identifyNodeProduct($certification, $appellation, $lieu = 'DEFAUT', $couleur = 'DEFAUT', $cepage = 'DEFAUT', $millesime = 'DEFAUT') {
+      $hash = $this->identifyProduct($certification, $appellation, $lieu, $couleur, $cepage, $millesime);
+      $rwhash = ' ';
+      while ($rwhash != $hash && $rwhash) {
+	if ($rwhash != ' ')
+	  $hash = $rwhash;
+	$rwhash = preg_replace('/[^\/]*\/DEFAUT\/?$/', '', $hash);
+      }
+      return $hash;
+    }
     public function identifyProduct($certification, $appellation, $lieu = 'DEFAUT', $couleur = 'DEFAUT', $cepage = 'DEFAUT', $millesime = 'DEFAUT') {
       try {
 	$res = $this->getObjectByLibelle($this->declaration->getCertifications(), $certification);

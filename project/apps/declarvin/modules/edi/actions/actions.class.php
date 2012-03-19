@@ -17,12 +17,12 @@ class ediActions extends sfActions
     if ($request->isMethod('post')) {
       $this->formUploadCsv->bind($request->getParameter($this->formUploadCsv->getName()), $request->getFiles($this->formUploadCsv->getName()));
       if ($this->formUploadCsv->isValid()) {
-	return $this->redirect('edi/csvView?md5=' . $this->formUploadCsv->getValue('file')->getMd5());
+	return $this->redirect('edi/'.$request->getParameter('csvViewer').'?md5=' . $this->formUploadCsv->getValue('file')->getMd5());
       }
     }
   }
 
-  public function executeCsvView(sfWebRequest $request) 
+  public function executeCsvDRMView(sfWebRequest $request) 
   {
     $this->response->setContentType('text/plain');
     $md5 = $request->getParameter('md5');
@@ -39,6 +39,18 @@ class ediActions extends sfActions
 	throw $e;
     }
     
+    $this->setLayout(false);
+  }
+  public function executeCsvContratView(sfWebRequest $request) 
+  {
+    $this->response->setContentType('text/plain');
+    $md5 = $request->getParameter('md5');
+    set_time_limit(600);
+    $csv = new VracCsvFile(sfConfig::get('sf_data_dir') . '/upload/' . $md5);
+    $contrats = $csv->importContrats();
+    foreach($contrats as $c) {
+      $c->save();
+    }
     $this->setLayout(false);
   }
   public function executeListDRM(sfWebRequest $request) 
