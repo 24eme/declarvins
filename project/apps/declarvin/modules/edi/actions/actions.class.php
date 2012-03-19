@@ -17,12 +17,12 @@ class ediActions extends sfActions
     if ($request->isMethod('post')) {
       $this->formUploadCsv->bind($request->getParameter($this->formUploadCsv->getName()), $request->getFiles($this->formUploadCsv->getName()));
       if ($this->formUploadCsv->isValid()) {
-	return $this->redirect('edi/csvView?md5=' . $this->formUploadCsv->getValue('file')->getMd5());
+	return $this->redirect('edi/'.$request->getParameter('csvViewer').'?md5=' . $this->formUploadCsv->getValue('file')->getMd5());
       }
     }
   }
 
-  public function executeCsvView(sfWebRequest $request) 
+  public function executeCsvDRMView(sfWebRequest $request) 
   {
     $this->response->setContentType('text/plain');
     $md5 = $request->getParameter('md5');
