@@ -6,11 +6,11 @@
 
 class ConfigurationDroits extends BaseConfigurationDroits {
 	
-	public function addDroit($date, $ration, $code) {
-		$value = $this->add();
-        $value->date = $date;
-        $value->ratio = $ration;
-        $value->code = $code;
+	public function addDroit($date, $taux, $code) {
+	  $value = $this->add();
+	  $value->date = $date;
+	  $value->taux = $taux;
+	  $value->code = $code;
 	}
 	
 	public function getCurrentDroit($campagne) {
@@ -29,13 +29,12 @@ class ConfigurationDroits extends BaseConfigurationDroits {
 		}
 		if ($currentDroit) {
 			return $currentDroit;
-		} else {
-			try {
-				$parent = $this->getInterpro()->getParent()->getParent()->getParentNode();
-				return $parent->interpro->get($this->getInterpro()->getKey())->droits->get($this->getKey())->getCurrentDroit($campagne);
-			} catch (sfException $e) {
-				throw new sfException('Aucuns droits pour la campagne spécifiée');
-			}
+		}
+		try {
+		  $parent = $this->getInterpro()->getParent()->getParent()->getParentNode();
+		  return $parent->interpro->get($this->getInterpro()->getKey())->droits->get($this->getKey())->getCurrentDroit($campagne);
+		} catch (sfException $e) {
+		  throw new sfException('Aucuns droits pour la campagne spécifiée');
 		}
 	}
 	

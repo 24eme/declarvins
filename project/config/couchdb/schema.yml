@@ -273,7 +273,7 @@ Configuration:
                                                   definition:
                                                     fields:
                                                       date: {  }
-                                                      ratio: { type: float }
+                                                      taux: { type: float }
                                                       code: {  }
                                           cvo:
                                             class: ConfigurationDroits
@@ -286,7 +286,7 @@ Configuration:
                                                   definition:
                                                     fields:
                                                       date: {  }
-                                                      ratio: { type: float }
+                                                      taux: { type: float }
                                                       code: {  }
                         appellations:
                           type: collection
@@ -323,7 +323,7 @@ Configuration:
                                                               definition:
                                                                 fields:
                                                                   date: {  }
-                                                                  ratio: { type: float }
+                                                                  taux: { type: float }
                                                                   code: {  }
                                                       cvo:
                                                         class: ConfigurationDroits
@@ -336,7 +336,7 @@ Configuration:
                                                               definition:
                                                                 fields:
                                                                   date: {  }
-                                                                  ratio: { type: float }
+                                                                  taux: { type: float }
                                                                   code: {  }
                                     departements:
                                       type: array_collection
@@ -482,6 +482,36 @@ DRM:
                                     '*': {  }
                               label_supplementaire: {  }
                               pas_de_mouvement: {  }
+      droits:
+        type: collection
+        definition:
+          fields:
+            douane:
+              type: collection
+              definition:
+                fields:
+                  '*': 
+                    class: DRMDroit
+                    type: collection
+                    definition:
+                      fields:
+                        volume_taxe: { type: integer }
+                        volume_reintegre: { type: integer }
+                        taux: { type: float }
+                        code: {  }
+            cvo:
+              type: collection
+              definition:
+                fields:
+                  '*': 
+                    class: DRMDroit
+                    type: collection
+                    definition:
+                      fields:
+                        volume_taxe: { type: integer }
+                        volume_reintegre: { type: integer }
+                        taux: { type: float }
+                        code: {  }
       declaration:
         type: collection
         definition:
@@ -516,26 +546,6 @@ DRM:
                                     total_entrees: { type: float }
                                     total_sorties: { type: float }
                                     total: { type: float }
-                                    total_cvo: { type: float }
-                                    total_douane: { type: float }
-                                    droits:
-                                      type: collection
-                                      definition:
-                                        fields:
-                                          douane:
-                                            class: DRMDroit
-                                            type: collection
-                                            definition:
-                                              fields:
-                                                ratio: { type: float }
-                                                code: {  }
-                                          cvo:
-                                            class: DRMDroit
-                                            type: collection
-                                            definition:
-                                              fields:
-                                                ratio: { type: float }
-                                                code: {  }
                                     lieux:
                                       type: collection
                                       definition:

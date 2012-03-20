@@ -14,4 +14,12 @@ class DRMCouleur extends BaseDRMCouleur {
         return $this->getParent()->getParent();
     }
     
+    public function sommeLignes($lines) {
+      $sum = 0;
+      foreach($this->cepages as $cepage) {
+	$sum += $cepage->sommeLignes($lines);
+      }
+      return $sum;
+    }
+	
 }

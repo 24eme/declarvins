@@ -143,13 +143,13 @@ class DRM extends BaseDRM {
     }
     
     public function setDroits() {
-    	foreach ($this->declaration->certifications as $certification) {
-            foreach ($certification->appellations as $appellation) {
-            	$this->setDroit('douane', $appellation);
-            	$this->setDroit('cvo', $appellation);
-            	$appellation->calculDroits();
-            }
-    	}
+      $this->remove('droits');
+      $this->add('droits');
+      foreach ($this->declaration->certifications as $certification) {
+	foreach ($certification->appellations as $appellation) {
+	  $appellation->updateDroits($this->droits);
+	}
+      }
     }
 
     public function getEtablissement() {
@@ -162,33 +162,6 @@ class DRM extends BaseDRM {
         return $this->getEtablissement()->getInterproObject();
     }
     
-    public function getTotalCvo() {
-    	return $this->getTotalDroit('cvo');
-    }
-
-    public function getTotalDouane() {
-    	return $this->getTotalDroit('douane');
-    }    
-
-    public function getTotalDroitByCode() {
-    	$result = array();
-    	foreach ($this->declaration->certifications as $certification) {
-            foreach ($certification->appellations as $appellation) {
-            	if (isset($result[$appellation->droits->get('douane')->code]['douane'])) {
-            		$result[$appellation->droits->get('douane')->code]['douane'] += $appellation->get('total_douane');
-            	} else {
-            		$result[$appellation->droits->get('douane')->code]['douane'] = $appellation->get('total_douane');
-            	}
-            	if (isset($result[$appellation->droits->get('cvo')->code]['cvo'])) {
-            		$result[$appellation->droits->get('cvo')->code]['cvo'] += $appellation->get('total_cvo');
-            	} else {
-            		$result[$appellation->droits->get('cvo')->code]['cvo'] = $appellation->get('total_cvo');
-            	}
-            }
-    	}
-    	return $result;
-    }
-
     public function getDrmHistorique() {
 
         return $this->store('drm_historique', array($this, 'getDrmHistoriqueAbstract'));
@@ -331,7 +304,6 @@ class DRM extends BaseDRM {
     }
 
     protected function getDrmHistoriqueAbstract() {
-
         return new DRMHistorique($this->identifiant, $this->campagne);
     }
 

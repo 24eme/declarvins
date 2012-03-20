@@ -11,26 +11,34 @@
 
         <div id="contenu_onglet">
             <?php include_partial('drm/recap', array('drm' => $drm)) ?>
-        </div>
-
-    	<h2>Droits total</h2>
-    	<p><span>CVO: </span><?php echo echoFloat($drm->getTotalCvo()) ?>€</p>
-    	<p><span>Douane: </span><?php echo echoFloat($drm->getTotalDouane()) ?>€</p>
-    	<h2>Droits par code</h2>
-    	<table>
+        
+    <?php foreach ($drm->getDroits() as $typedroit => $droits) : ?>
+    <div class="tableau_ajouts_liquidations">
+    <h2>Droits <?php echo $typedroit; ?></h2>
+    	<table class="tableau_recap">
+            <thead>
     		<tr>
-    			<th align="left" width="150px">Code</th>
-    			<th align="left" width="80px">CVO</th>
-    			<th align="left" width="80px">Douane</th>
+    			<th>Code</th>
+    			<th>Volume taxe</th>
+    			<th>Volume réintégré</th>
+    			<th>Taux</th>
+    			<th>Droits à payer</th>
     		</tr>
-    		<?php foreach ($drm->getTotalDroitByCode() as $code => $value): $value = $value->getRawValue(); ?>
-    		<tr>
-    			<td><?php echo $code ?></td>
-    			<td><?php echo (isset($value['cvo']))? echoFloat($value['cvo']) : echoFloat(0.00); ?></td>
-    			<td><?php echo (isset($value['douane']))? echoFloat($value['douane']) : echoFloat(0.00); ?></td>
+             </thead>
+             <tbody>
+                <?php foreach ($droits as $code => $droit) :  ?>
+    		<tr class="alt">
+                        <td><?php echo "$code"; ?></td>
+    			<td><?php echoFloat( $droit->volume_taxe); ?></td>
+    			<td><?php echoFloat( $droit->volume_reintegre); ?></td>
+    			<td><?php echoFloat( $droit->taux); ?></td>
+    			<td><?php echoFloat( $droit->payable); ?>&nbsp;€</td>
     		</tr>
     		<?php endforeach; ?>
+	    </tbody>
     	</table>
+        </div>
+  	<?php endforeach; ?>
     	<a href="<?php echo url_for('drm_pdf', array('campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Pdf</a>
         <div id="btn_etape_dr">
             <?php if($drm_suivante && $drm_suivante->isRectificative()): ?>
@@ -43,6 +51,6 @@
             </a>
             <?php endif; ?>
         </div>
-        
+     </div>    
     </section>
 </section>

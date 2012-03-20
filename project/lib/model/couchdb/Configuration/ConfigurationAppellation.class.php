@@ -76,5 +76,9 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
 
         return $produits;
     }
+
+    public function getDroits($interpro) {
+      return $this->interpro->get($interpro)->droits;
+    }
     
 }
