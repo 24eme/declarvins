@@ -17,7 +17,7 @@
 		</ul>
 	</div>
 	
-	<div class="groupe" data-groupe-id="2">
+	<div class="groupe demarrage-ouvert" data-groupe-id="2">
 		<p>Entrées</p>
 		<ul>
 			<?php foreach ($config_appellation->getCertification()->detail->getEntrees() as $key => $item): ?>
@@ -36,7 +36,7 @@
 	</div>
 	
 	<!-- <p class="stock_th_fin">Stock théorique fin de mois</p>  -->
-	<div class="groupe" data-groupe-id="4">
+	<div class="groupe demarrage-ouvert bloque" data-groupe-id="4">
 		<p>Stock théorique fin de mois</p>
 		<ul>
 			<?php foreach ($config_appellation->getCertification()->detail->getStocksFin() as $key => $item): ?>
