@@ -8,7 +8,11 @@ class drm_vracActions extends sfActions
     	$this->details = $this->drm->getDetailsAvecVrac();
 
     	if (count($this->details)==0) {
-    		$this->redirect('drm_validation', $this->drm);
+        if($request->hasParameter('precedent')) {
+          $this->redirect('drm_recap_appellation', $this->drm->produits->getLast()->getLast()->getDeclaration());
+        } else {
+          $this->redirect('drm_declaratif', $this->drm);
+        }
     	}
 
     	$this->forms = array();

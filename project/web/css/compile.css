@@ -79,7 +79,7 @@ article, aside, figure, footer, header, hgroup, nav, section { display:block; }
   left:0;
   position:absolute;
   opacity:0;
-  filter:1;
+  filter:Alpha(Opacity=0);
 }
 .ui-state-disabled { cursor:default !important; }
 .ui-icon {
@@ -91,7 +91,7 @@ article, aside, figure, footer, header, hgroup, nav, section { display:block; }
 .ui-widget-overlay {
   background:#000000;
   opacity:.2;
-  filter:1;
+  filter:Alpha(Opacity=20);
   position:absolute;
   top:0;
   left:0;
@@ -103,8 +103,6 @@ article, aside, figure, footer, header, hgroup, nav, section { display:block; }
   border:1px solid #c2c1ba;
   position:absolute;
   _width:1px;
-  max-height: 300px;
-  overflow-y: auto;
 }
 .ui-autocomplete .ui-menu-item a {
   background:#ffffff;
@@ -555,10 +553,6 @@ a:hover { text-decoration:underline; }
   height:23px;
   padding:0 0 0 15px;
 }
-#principal #onglets_principal li.ajouter a.btn_chargement {
-  background-image:url(../images/pictos/pi_loader.gif);
-  padding-left:20px;
-}
 #principal #onglets_principal li.ajouter a:hover, #principal #onglets_principal li.ajouter a:focus { text-decoration:underline; }
 #principal #contenu_onglet {
   background:#f1f1f1;
@@ -612,9 +606,6 @@ a:hover { text-decoration:underline; }
 .ui-dialog {
   background:#f4f4f4;
   border:10px solid #ffffff;
-  -webkit-box-shadow:0 0 5px #000000;
-  -moz-box-shadow:0 0 5px #000000;
-  box-shadow:0 0 5px #000000;
   -webkit-box-shadow:0 0 5px #000000;
   -moz-box-shadow:0 0 5px #000000;
   box-shadow:0 0 5px #000000;
@@ -846,23 +837,12 @@ a:hover { text-decoration:underline; }
   display:inline-block;
   background-color:#820608;
   border-color:#a12929;
-  background:url(../images/boutons/btn_majeur.png) 0 0 no-repeat;
-  color:#ffffff;
-  display:inline-block;
-  font-size:15px;
-  line-height:26px;
   background-position:right -52px;
   float:right;
   padding:0 18px 0 0;
   padding:0 23px 0 15px;
 }
 #creation_compte .ligne_btn .btn_valider:hover, #creation_compte .ligne_btn .btn_valider:focus { background-color:#a12929; }
-#creation_compte .ligne_btn .btn_valider:hover { text-decoration:none; }
-#creation_compte .ligne_btn .btn_valider span {
-  background:url(../images/boutons/btn_majeur.png) 0 0 no-repeat;
-  display:inline-block;
-  line-height:26px;
-}
 #creation_compte .ligne_btn .btn_valider span {
   background-position:0 -26px;
   padding:0 10px 0 18px;
@@ -1020,7 +1000,7 @@ p#date_drm {
 #statut_declaration #etat_avancement {
   float:right;
   margin:-10px 0 0;
-  width:190px;
+  width:130px;
 }
 #statut_declaration #etat_avancement p {
   font-size:11px;
@@ -1039,6 +1019,99 @@ p#date_drm {
   background:#820608;
   height:3px;
 }
+#contenu #utilisateur {
+  bottom:auto;
+  left:auto;
+  position:absolute;
+  right:-8px;
+  top:5px;
+  background:url(../images/fonds/bg_utilisateur.png) right top no-repeat;
+  font-size:12px;
+  padding:0 8px 7px 0;
+  text-transform:uppercase;
+}
+#contenu #utilisateur p {
+  background:url(../images/fonds/bg_utilisateur_contenu.png) left top no-repeat;
+  color:#ffffff;
+  font-style:italic;
+  height:23px;
+  line-height:23px;
+  padding-left:15px;
+}
+#contenu #utilisateur p b { font-weight:bold; }
+#contenu #nombre_etabs {
+  color:#737373;
+  font-size:15px;
+  margin:-10px 0 35px;
+}
+#contenu #nombre_etabs b { font-weight:bold; }
+#principal #etablissements_drm {
+  padding-top:8px;
+  position:relative;
+}
+#principal #etablissements_drm #liste_etablissements ul {
+  zoom:1;
+  bottom:auto;
+  left:15px;
+  position:absolute;
+  right:auto;
+  top:0;
+}
+#principal #etablissements_drm #liste_etablissements ul:before, #principal #etablissements_drm #liste_etablissements ul:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+#principal #etablissements_drm #liste_etablissements ul:after { clear:both; }
+#principal #etablissements_drm #liste_etablissements ul li {
+  display:inline;
+  float:left;
+  background:url(../images/fonds/bg_etabs_liste.png) left top no-repeat;
+  margin-right:20px;
+  padding-left:4px;
+}
+#principal #etablissements_drm #liste_etablissements ul li.etab_courant a {
+  border:1px solid #830404;
+  background:#830404 url(../images/fonds/bg_etabs_liste_lien.png) left top repeat-x;
+  color:#ffffff;
+}
+#principal #etablissements_drm #liste_etablissements ul li a {
+  border:1px solid #aaaaaa;
+  background:#a8a8a8 url(../images/fonds/bg_etabs_liste_default.png) left top repeat-x;
+  color:#494949;
+  display:inline-block;
+  padding:5px 7px;
+}
+#principal #etablissements_drm #liste_etablissements ul li a:hover { text-decoration:none; }
+#principal #etablissements_drm #liste_etablissements ul li a .surligne {
+  font-style:italic;
+  text-decoration:underline;
+}
+#principal #etablissements_drm #etablissements_infos {
+  border:1px solid #e9e9e9;
+  background:#f1f1f1;
+  padding:15px;
+  padding:55px 0 15px 20px;
+}
+#principal #etablissements_drm #etablissements_infos .adresse_comptabilite { margin:20px 0 0; }
+#principal #etablissements_drm #etablissements_infos table { width:100%; }
+#principal #etablissements_drm #etablissements_infos table colgroup #titres { width:95px; }
+#principal #etablissements_drm #etablissements_infos table colgroup #echeance { width:260px; }
+#principal #etablissements_drm #etablissements_infos table colgroup #etat { width:215px; }
+#principal #etablissements_drm #etablissements_infos table colgroup #liens_etabs { width:225px; }
+#principal #etablissements_drm #etablissements_infos table tbody td, #principal #etablissements_drm #etablissements_infos table tbody th {
+  padding:0 20px 0 0;
+  text-align:left;
+}
+#principal #etablissements_drm #etablissements_infos table tbody td.derniers, #principal #etablissements_drm #etablissements_infos table tbody th.derniers { padding:0; }
+#principal #etablissements_drm #etablissements_infos table tbody td .masque_case, #principal #etablissements_drm #etablissements_infos table tbody th .masque_case {
+  background:url(../images/fonds/bg_etabs_table_td.png) left bottom repeat-x;
+  display:block;
+  padding:7px 0 9px 0;
+}
+#principal #etablissements_drm #etablissements_infos table tbody td a.btn_accueil_drm, #principal #etablissements_drm #etablissements_infos table tbody th a.btn_accueil_drm { margin-right:15px; }
 #principal #recap_drm {
   float:left;
   width:670px;
@@ -1068,38 +1141,9 @@ p#date_drm {
   text-align:left;
   vertical-align:top;
 }
-#principal #recap_drm table tbody td.msg { color:#820608; }
-#principal #recap_drm table tbody td.alerte_forte { color:#ea0000; }
-#principal #recap_drm table tbody td.alerte_moyenne { color:#ff9f00; }
-#principal #recap_drm table tbody td a {
-  font-style:italic;
-  text-decoration:underline;
-}
+#principal #recap_drm table tbody td a { text-decoration:underline; }
 #principal #recap_drm table tbody td a:hover { text-decoration:none; }
-#principal #recap_drm table tbody td .btn_declarer, #principal #recap_drm table tbody td .btn_visualiser, #principal #recap_drm table tbody td .btn_accueil_drm {
-  background-repeat:no-repeat;
-  border:1px solid;
-  color:#ffffff;
-  display:inline-block;
-  background:#820608 url(../images/fonds/bg_drm_actions.png) left top repeat-x;
-  border:none;
-  height:21px;
-  font-style:normal;
-  line-height:21px;
-  text-decoration:none;
-}
-#principal #recap_drm table tbody td .btn_declarer span, #principal #recap_drm table tbody td .btn_visualiser span, #principal #recap_drm table tbody td .btn_accueil_drm span {
-  background-image:url(../images/pictos/pi_drm_actions.png);
-  background-repeat:no-repeat;
-  display:inline-block;
-  height:21px;
-  padding:0 5px 0 32px;
-}
-#principal #recap_drm table tbody td .btn_declarer span { background-position:left -21px; }
-#principal #recap_drm table tbody td .btn_visualiser { margin-right:35px; }
-#principal #recap_drm table tbody td .btn_visualiser span { background-position:left top; }
-#principal #recap_drm table tbody td .btn_accueil_drm { margin-right:15px; }
-#principal #recap_drm table tbody td .btn_accueil_drm span { background-position:left -42px; }
+#principal #recap_drm table tbody td a.btn_visualiser { margin-right:35px; }
 #principal #recap_drm table tbody tr.alt td { background:#ffffff; }
 #principal #recap_drm #drm_annee_courante { margin:0 0 25px; }
 #principal #recap_drm #drm_anciennes h2 {
@@ -1450,28 +1494,131 @@ p#date_drm {
   height:22px;
   line-height:22px;
 }
+#declaratif_info .onglets_declaratif {
+  line-height:23px;
+  zoom:1;
+  margin-top:15px;
+}
+#declaratif_info .onglets_declaratif:before, #declaratif_info .onglets_declaratif:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+#declaratif_info .onglets_declaratif:after { clear:both; }
+#declaratif_info .onglets_declaratif li {
+  background:#e9e9e9;
+  float:left;
+  margin:0 6px 0 0;
+}
+#declaratif_info .onglets_declaratif li.actif, #declaratif_info .onglets_declaratif li a:hover, #declaratif_info .onglets_declaratif li a:focus {
+  background:#820608;
+  color:#ffffff;
+}
+#declaratif_info .onglets_declaratif li.actif strong, #declaratif_info .onglets_declaratif li a:hover strong, #declaratif_info .onglets_declaratif li a:focus strong { font-weight:normal; }
+#declaratif_info .onglets_declaratif li a, #declaratif_info .onglets_declaratif li strong {
+  float:left;
+  padding:0 15px;
+}
+#declaratif_info .onglets_declaratif li a:hover { text-decoration:none; }
+#declaratif_info .onglets_declaratif li .completion {
+  color:#ff9f00;
+  font-weight:bold;
+  margin:0 0 0 5px;
+}
+#declaratif_info .onglets_declaratif li .completion.completion_validee { color:#b1cb00; }
+#declaratif_info .onglets_declaratif li.ajouter {
+  background:0;
+  margin:0 0 0 10px;
+}
+#declaratif_info .onglets_declaratif li.ajouter a {
+  background:url(../images/pictos/pi_ajouter.png) 0 center no-repeat;
+  color:#494949;
+  font-weight:bold;
+  height:23px;
+  padding:0 0 0 15px;
+}
+#declaratif_info .onglets_declaratif li.ajouter a:hover, #declaratif_info .onglets_declaratif li.ajouter a:focus { text-decoration:underline; }
+#declaratif_info .contenu_onglet_declaratif {
+  background:#f1f1f1;
+  border:1px solid #e9e9e9;
+  margin:0 0 15px;
+  padding:18px;
+}
+#declaratif_info .contenu_onglet_declaratif .notice {
+  background:#ffffff;
+  border:1px solid #dbdbdb;
+  margin:0 0 15px;
+  padding:15px;
+  zoom:1;
+}
+#declaratif_info .contenu_onglet_declaratif .notice:before, #declaratif_info .contenu_onglet_declaratif .notice:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+#declaratif_info .contenu_onglet_declaratif .notice:after { clear:both; }
+#declaratif_info .contenu_onglet_declaratif .notice h2, #declaratif_info .contenu_onglet_declaratif .notice ul li { margin:0 0 10px; }
+#declaratif_info .contenu_onglet_declaratif .notice kbd {
+  background:#ffffff;
+  border:1px solid #dbdbdb;
+  border-width:1px 2px 2px 1px;
+  -webkit-border-radius:3px;
+  -moz-border-radius:3px;
+  border-radius:3px;
+  display:inline-block;
+  padding:3px;
+  vertical-align:middle;
+}
+#declaratif_info .contenu_onglet_declaratif.alignes { padding-left:249px; }
+#declaratif_info .contenu_onglet_declaratif .col {
+  display:inline-block;
+  text-align:left;
+  vertical-align:top;
+  width:235px;
+}
+.ielt8 #declaratif_info .contenu_onglet_declaratif .col {
+  display:inline;
+  zoom:1;
+}
+#declaratif_info .contenu_onglet_declaratif .col .ligne_form label {
+  display:inline-block;
+  vertical-align:top;
+  max-width:209px;
+}
+#declaratif_info .contenu_onglet_declaratif h3 { margin-left:235px; }
+#declaratif_info .contenu_onglet_declaratif .ligne_form { margin:10px 0; }
+#declaratif_info .contenu_onglet_declaratif .ligne_form input[type="text"] { margin:0 20px; }
+#declaratif_info .contenu_onglet_declaratif .ligne_form.ligne_entiere { margin-top:15px; }
+#declaratif_info .contenu_onglet_declaratif .ligne_form.ligne_entiere label { margin-left:235px; }
+#declaratif_info .contenu_onglet_declaratif .ligne_form.ligne_entiere input[type="text"] { margin-left:48px; }
+#declaratif_info .contenu_onglet_declaratif .ligne_form.ligne_entiere.ecart_check input[type="checkbox"] { margin-left:237px; }
+#declaratif_info .contenu_onglet_declaratif .ligne_form.ligne_entiere.ecart_check label { margin-left:20px; }
+#declaratif_info .contenu_onglet_declaratif .champs_centres { margin-bottom:30px; }
+#declaratif_info .contenu_onglet_declaratif .champs_centres .ligne_form { text-align:center; }
+#declaratif_info #btn_etape_dr .btn_suiv span { text-transform:uppercase; }
 #principal .btn_passer_etape {
-    background-color: #A0A0A0;
-    background-position: right -52px;
-    background-repeat: no-repeat;
-    border: 1px solid #C0C0C0;
-    color: #FFFFFF;
-    display: inline-block;
-    float: right;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 20px;
-    margin: 0 0 0 15px;
-    padding: 0 23px 0 10px;
-    text-transform: uppercase;
+  background-repeat:no-repeat;
+  border:1px solid;
+  color:#ffffff;
+  display:inline-block;
+  background-color:#a0a0a0;
+  border-color:#c0c0c0;
+  background-position:right -52px;
+  float:right;
+  padding:0 18px 0 0;
+  float:right;
+  font-size:12px;
+  font-weight:bold;
+  line-height:20px;
+  margin:0 0 0 15px;
+  padding:0 23px 0 10px;
+  text-transform:uppercase;
 }
 #principal .btn_passer_etape:hover, #principal .btn_passer_etape:focus { background-color:#494949; }
-#principal .btn_passer_etape:hover { text-decoration:none; }
-#principal .btn_passer_etape span {
-  background:url(../images/boutons/btn_majeur.png) 0 0 no-repeat;
-  display:inline-block;
-  line-height:26px;
-}
 #principal .btn_passer_etape span {
   background-position:0 -26px;
   padding:0 10px 0 18px;
@@ -1490,59 +1637,3 @@ p#date_drm {
   visibility:hidden;
 }
 #btn_etape_dr:after { clear:both; }
-#contenu #nombre_etabs {
-  color:#737373;
-  font-size:15px;
-  margin:-10px 0 35px;
-}
-#contenu #nombre_etabs b { font-weight:bold; }
-#principal #etablissements_drm {
-  padding-top:10px;
-  position:relative;
-}
-#principal #etablissements_drm #liste_etablissements ul {
-  zoom:1;
-  bottom:auto;
-  left:15px;
-  position:absolute;
-  right:auto;
-  top:0;
-}
-#principal #etablissements_drm #liste_etablissements ul:before, #principal #etablissements_drm #liste_etablissements ul:after {
-  content:"\0020";
-  display:block;
-  font-size:0;
-  height:0;
-  visibility:hidden;
-}
-#principal #etablissements_drm #liste_etablissements ul:after { clear:both; }
-#principal #etablissements_drm #liste_etablissements ul li {
-  display:inline;
-  float:left;
-  background:url(../images/fonds/bg_etabs_liste.png) left top no-repeat;
-  margin-right:20px;
-  padding-left:4px;
-}
-#principal #etablissements_drm #liste_etablissements ul li a {
-  border:1px solid #830404;
-  background:#830404 url(../images/fonds/bg_etabs_liste_lien.png) left top repeat-x;
-  color:#ffffff;
-  display:inline-block;
-  padding:5px;
-}
-#principal #etablissements_drm #etablissements_infos {
-  margin:0 0 20px;
-  border:1px solid #e9e9e9;
-  background:#f1f1f1;
-  padding:15px;
-  padding-top:55px;
-}
-#principal #etablissements_drm #etablissements_infos p { margin:5px 0; }
-#principal #etablissements_drm #etablissements_infos p span { font-weight:bold; }
-#principal #etablissements_drm #etablissements_infos p strong {
-  color:#737373;
-  font-style:italic;
-  font-weight:normal;
-}
-#principal #etablissements_drm #etablissements_infos .adresse_comptabilite { margin:20px 0 0; }
-

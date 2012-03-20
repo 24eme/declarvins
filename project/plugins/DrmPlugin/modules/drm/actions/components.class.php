@@ -21,12 +21,14 @@ class drmComponents extends sfComponents {
             'ajouts-liquidations' => 2,
             'recapitulatif' => 3,
             'vrac' => 3 + count($this->certifications),
-            'validation' => 4 + count($this->certifications),
+            'declaratif' => 4 + count($this->certifications),
+            'validation' => 5 + count($this->certifications),
         );
         
         $this->numero = $this->numeros[$this->etape];
-        $this->numero_validation = $this->numeros['validation'];
         $this->numero_vrac = $this->numeros['vrac'];
+        $this->numero_declaratif = $this->numeros['declaratif'];
+        $this->numero_validation = $this->numeros['validation'];
 
         if ($this->etape == 'recapitulatif') {
             foreach ($this->config_certifications as $certification => $produit) {

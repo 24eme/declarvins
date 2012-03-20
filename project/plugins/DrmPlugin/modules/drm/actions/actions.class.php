@@ -40,6 +40,18 @@ class drmActions extends sfActions
       $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant);
   }
 
+
+ /**
+  * Executes historique action
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeHistorique(sfWebRequest $request)
+  {
+    $this->annee = $request->getParameter('annee');
+    $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant, $this->annee);
+  }
+
  /**
   * Executes informations action
   *
@@ -79,16 +91,17 @@ class drmActions extends sfActions
     }
   }
 
- /**
-  * Executes historique action
-  *
-  * @param sfRequest $request A request object
-  */
-  public function executeHistorique(sfWebRequest $request)
+
+  public function executeDeclaratif(sfWebRequest $request)
   {
-    $this->annee = $request->getParameter('annee');
-	  $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant, $this->annee);
+    $this->drm = $this->getRoute()->getDrm();
+
+    if($request->isMethod(sfWebRequest::POST)) {
+
+      $this->redirect('drm_validation', $this->drm);
+    }
   }
+
  /**
   * Executes mouvements generaux action
   *
