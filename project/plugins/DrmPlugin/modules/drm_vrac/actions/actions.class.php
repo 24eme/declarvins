@@ -42,7 +42,7 @@ class drm_vracActions extends sfActions
 	      if ($form->isValid()) {
 		$form->save();
 		$this->getUser()->setFlash("notice", 'Le contrat a été ajouté avec success.');
-		return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_vrac'))));
+		return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_vrac', $this->getRoute()->getDrm()))));
 	      } else {
 		return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form)))));
 	      }
@@ -61,6 +61,6 @@ class drm_vracActions extends sfActions
                $form->save();
             }
         } 
-        $this->redirect('drm_vrac');
+        $this->redirect('drm_vrac', $this->getRoute()->getDrm());
     }
 }
