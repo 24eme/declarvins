@@ -107,8 +107,8 @@ class DRMDetail extends BaseDRMDetail {
         return $this->total_entrees > 0 || $this->total_sorties > 0;
     }
     
-    public function getIdentifiant() {
-    	return strtolower(str_replace($this->getDocument()->declaration->getHash(), '', str_replace('/', '_', $this->getHash())));
+    public function getIdentifiantHTML() {
+      return strtolower(str_replace($this->getDocument()->declaration->getHash(), '', str_replace('/', '_', preg_replace('|\/[^\/]+\/DEFAUT|', '', $this->getHash()))));
     }	
     
     public function addVrac($contrat_numero, $volume) {

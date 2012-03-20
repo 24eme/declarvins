@@ -18,16 +18,20 @@
 						</tr>
 					</thead>
 					<tbody>
-					<?php foreach ($details as $detail): ?>
-						<?php include_partial('addContrat', array('detail' => $detail)) ?>	
-						<?php
-							if (isset($forms[$detail->getIdentifiant()])) { 
-								foreach ($forms[$detail->getIdentifiant()] as $form) {
-									include_partial('itemContrat', array('form' => $form));
-								}
-							}
-						?>
-					<?php endforeach; ?>
+				   <?php 
+				   foreach ($details as $detail) {
+      include_partial('addContrat', array('detail' => $detail));
+      if (isset($noContrats[$detail->getIdentifiantHTML()]) && $noContrats[$detail->getIdentifiantHTML()]) {
+	echo '<tr><td></td><td colspan=4>Pas de contrat défini pour ce produit.<br/>Merci de contacter votre interpro</td></tr>';
+	continue;
+      }
+      if (isset($forms[$detail->getIdentifiantHTML()])) { 
+	foreach ($forms[$detail->getIdentifiantHTML()] as $form) {
+	  include_partial('itemContrat', array('form' => $form));
+	}
+      }
+    }
+?>
 					</tbody>
 				</table>
 				<?php endif; ?>
@@ -36,9 +40,11 @@
 	            <a href="<?php echo url_for('drm_mouvements_generaux', $drm) ?>" class="btn_prec">
 	            	<span>Précédent</span>
 	            </a>
+    <?php if (!count($noContrats)) : ?>
 	            <a id="nextStep" href="<?php echo url_for('drm_validation', $drm) ?>" class="btn_suiv">
 	            	<span>Suivant</span>
 	            </a>
+    <?php endif; ?>
 	        </div>
 		</div>
 	</section>

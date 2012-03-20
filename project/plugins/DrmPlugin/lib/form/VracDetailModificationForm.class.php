@@ -13,7 +13,7 @@ class VracDetailModificationForm extends acCouchdbFormDocumentJson {
         $this->setValidators(array(
         		'volume' => new sfValidatorNumber(array('required' => false))
         ));
-		$this->widgetSchema->setNameFormat('vrac_'.$this->getObject()->getParent()->getParent()->getIdentifiant().'_'.$this->getObject()->getKey().'[%s]');
+		$this->widgetSchema->setNameFormat('vrac_detail'.$this->getObject()->getParent()->getParent()->getIdentifiantHTML().'_'.$this->getObject()->getKey().'[%s]');
     }
 
 }

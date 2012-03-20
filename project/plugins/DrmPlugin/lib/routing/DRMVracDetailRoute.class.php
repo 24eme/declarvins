@@ -4,7 +4,7 @@ class DRMVracDetailRoute extends DrmDetailRoute {
     
     protected function getObjectForParameters($parameters) {
     	$config_detail = parent::getObjectForParameters($parameters);
-    	return $this->getDRM()->get($config_detail->getHash())->vrac->get($parameters['contrat']);
+    	return $this->getDrm()->get($config_detail->getHash())->vrac->get($parameters['contrat']);
     }
 
     protected function doConvertObjectToArray($object) {
