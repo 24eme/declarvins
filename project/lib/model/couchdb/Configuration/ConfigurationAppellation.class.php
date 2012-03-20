@@ -77,6 +77,13 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
         return $produits;
     }
 
+    public function getLibelle() {
+      $libelle = $this->_get('libelle');
+      if ($libelle)
+	return $libelle;
+      return 'Total';
+    }
+
     public function getDroits($interpro) {
       return $this->interpro->get($interpro)->droits;
     }
