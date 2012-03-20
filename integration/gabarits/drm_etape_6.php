@@ -33,7 +33,7 @@
 						<li class="actif"><strong>Défaut d'apurement</strong></li>
 					</ul>
 					
-					<div class="contenu_onglet_declaratif">
+					<div class="contenu_onglet_declaratif alignes">
 						<div class="col">
 							<div class="ligne_form">
 								<input type="radio" name="sans_defaut" id="sans_defaut">
@@ -84,7 +84,7 @@
 						<li class="actif"><strong>Caution</strong></li>
 					</ul>
 					
-					<div class="contenu_onglet_declaratif">
+					<div class="contenu_onglet_declaratif alignes">
 						<div class="ligne_form" id="caution_accepte">
 							<input type="radio" name="caution" id="caution_organisme">
 							<label for="caution_organisme">Oui, organisme</label>
