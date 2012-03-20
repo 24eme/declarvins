@@ -2,7 +2,7 @@
 <?php use_helper('Produit'); ?>
 <?php use_helper('Rectificative'); ?>
 
-<div id="col_recolte_<?php echo $form->getObject()->getKey() ?>" class="col_recolte" style="<?php echo ($produit->pas_de_mouvement) ? 'opacity: 0.3;' : '' ?>">
+<div id="col_recolte_<?php echo $form->getObject()->getKey() ?>" class="col_recolte" data-input-focus="#drm_detail_entrees_nouveau" style="<?php echo ($produit->pas_de_mouvement) ? 'opacity: 0.3;' : '' ?>">
     <form action="<?php echo url_for('drm_recap_update', $form->getObject()) ?>" method="post">
         <?php echo $form->renderHiddenFields(); ?>
         <a href="#" class="col_curseur" data-curseur="<?php echo $form->getObject()->getKey() ?>"></a>

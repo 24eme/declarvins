@@ -271,8 +271,14 @@
 					}
 					$('#colonne_intitules').find('.groupe').each(function()
 					{						
-						if($(this).hasClass('groupe_ouvert')) {
+						if($(this).hasClass('groupe_ouvert') && !$(this).hasClass('bloque')) {
 							$(this).removeClass('groupe_ouvert');
+							$(this).children('ul').slideToggle();
+							colSaisies.find('.groupe[data-groupe-id='+$(this).attr('data-groupe-id')+']').children('ul').slideToggle();
+						}
+
+						if ($(this).hasClass('demarrage-ouvert') && !$(this).hasClass('bloque')) {
+							$(this).toggleClass('groupe_ouvert');
 							$(this).children('ul').slideToggle();
 							colSaisies.find('.groupe[data-groupe-id='+$(this).attr('data-groupe-id')+']').children('ul').slideToggle();
 						}
@@ -353,8 +359,12 @@
 		// Colonne au focus par défaut
 		colFocus = $('#col_recolte_'+colFocusNum);
 		colFocus.addClass('col_focus');
-		colCurseur = colFocus.find('a.col_curseur');
-		
+		//colCurseur = colFocus.find('a.col_curseur');
+		colCurseur = colFocus.find('#'+colFocus.attr('data-input-focus'));
+		if (colCurseur.length == 0) {
+			colCurseur = colFocus.find('a.col_curseur');
+		}
+
 		colCurseur.focus();
 		
 		// Positionnement du scroll
@@ -601,8 +611,8 @@
 	 ******************************************/
 	$.toggleGroupesChamps = function()
 	{
-		var groupesIntitules = colIntitules.find('.groupe[data-groupe-id!=4]');
-		var groupeOuvert = colIntitules.find('.groupe[data-groupe-id=4]');
+		var groupesIntitules = colIntitules.find('.groupe');
+		/*var groupeOuvert = colIntitules.find('.groupe[data-groupe-id=4]');
 		var gpeAssocieOuvert = colSaisies.find('.groupe[data-groupe-id=4]');
 		var gpeAssocieOuvertIntitules = gpeAssocieOuvert.children('p');
 		
@@ -622,7 +632,7 @@
 					}
 				});
 			}
-		});
+		});*/
 		
 		groupesIntitules.each(function()
 		{
@@ -651,40 +661,49 @@
 			listeIntitules.hide();
 			gpeChamps.hide();
 			//$.majHauteurMasque();
-			
+
 			// Affiche / Masque les groupes et les champs associés
-			titre.click(function()
+			if (!groupe.hasClass('bloque'))
 			{
-				groupe.toggleClass('groupe_ouvert');
-				listeIntitules.slideToggle();
-				gpeChamps.slideToggle();
-				//$.majHauteurMasque();
-			});
-			
-			gpeAssocieIntitules.find('input').focus(function()
-			{
-				var champ = $(this);
-				var champSuivant = champ.parents('.groupe').find('ul input:first');
-				
-				if(!groupe.hasClass('groupe_ouvert'))
+				titre.click(function()
 				{
-					groupesIntitules.each(function()
-					{						
-						if($(this).hasClass('groupe_ouvert')) {
-							$(this).removeClass('groupe_ouvert');
-							$(this).children('ul').slideToggle();
-							colSaisies.find('.groupe[data-groupe-id='+$(this).attr('data-groupe-id')+']').children('ul').slideToggle();
-						}
-					});
-					groupe.addClass('groupe_ouvert');
+					groupe.toggleClass('groupe_ouvert');
 					listeIntitules.slideToggle();
 					gpeChamps.slideToggle();
 					//$.majHauteurMasque();
+				});
+				
+				gpeAssocieIntitules.find('input').focus(function()
+				{
+					var champ = $(this);
+					var champSuivant = champ.parents('.groupe').find('ul input:first');
 					
-					// Focus sur le champ suivant si le champ courant n'est pas éditable 
-					if(champ.attr('readonly')) champSuivant.focus();
-				}
-			});
+					if(!groupe.hasClass('groupe_ouvert'))
+					{
+						groupesIntitules.each(function()
+						{						
+							if($(this).hasClass('groupe_ouvert') && !$(this).hasClass('bloque')) {
+								$(this).removeClass('groupe_ouvert');
+								$(this).children('ul').slideToggle();
+								colSaisies.find('.groupe[data-groupe-id='+$(this).attr('data-groupe-id')+']').children('ul').slideToggle();
+							}
+						});
+						groupe.addClass('groupe_ouvert');
+						listeIntitules.slideToggle();
+						gpeChamps.slideToggle();
+						//$.majHauteurMasque();
+						
+						// Focus sur le champ suivant si le champ courant n'est pas éditable 
+						if(champ.attr('readonly')) champSuivant.focus();
+					}
+				});
+			}
+
+			if (groupe.hasClass('demarrage-ouvert')) {
+				groupe.toggleClass('groupe_ouvert');
+				listeIntitules.slideToggle();
+				gpeChamps.slideToggle();
+			}
 		});
 	};
 	
