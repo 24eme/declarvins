@@ -45,6 +45,7 @@ class DRMAppellationAjoutForm extends acCouchdbFormDocumentJson {
 
     public function doUpdateObject($values) {
         $this->getObject()->add($values['appellation']);
+        $this->getObject()->getDeclaration()->appellations->add($values['appellation']);
     }
 
     public function getAppellation() {
