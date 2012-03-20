@@ -32,7 +32,7 @@
     			<td><?php echoFloat( $droit->volume_taxe); ?></td>
     			<td><?php echoFloat( $droit->volume_reintegre); ?></td>
     			<td><?php echoFloat( $droit->taux); ?></td>
-    			<td><?php echoFloat( $droit->payable); ?>&nbsp;€</td>
+    			<td><strong><?php echoFloat( $droit->payable); ?>&nbsp;€</strong></td>
     		</tr>
     		<?php endforeach; ?>
 	    </tbody>
