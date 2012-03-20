@@ -146,7 +146,7 @@ class drmActions extends sfActions
   */
   public function executePdf(sfWebRequest $request)
   {
-    $this->forward404Unless($this->drm = $this->getUser()->getLastDrmValide());
+    $this->drm = $this->getRoute()->getDrm();
   	$pdf = new ExportDRMPdf($this->drm);
 
     return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));

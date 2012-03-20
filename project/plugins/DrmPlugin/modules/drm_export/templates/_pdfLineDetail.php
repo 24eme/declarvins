@@ -2,5 +2,6 @@
 	<?php include_partial('drm_export/pdfLineFloat', array('libelle' => $item->getLibelle(), 
 													   	   'colonnes' => $colonnes, 
 														   'hash' => $hash.'/'.$item->getKey(),
+														   'cssclass_value' => 'detail',
 														   'cssclass_libelle' => 'detail')) ?>
 <?php endforeach; ?>

@@ -4,7 +4,7 @@
 	<?php if(!is_null($item)): ?>
 	<td class="<?php echo ((isset($cssclass_value)) ? $cssclass_value : null) ?>">
 		<?php if(isset($partial)): ?>
-			  <?php include_partial($partial, array('item' => $item)) ?>
+			  <?php include_partial($partial, array('item' => $item, 'hash' => isset($hash) ? $hash : null)) ?>
 		<?php elseif(isset($format)): ?>
 		<?php echo call_user_func_array($format, 
 										array_merge(array($item->get($hash)), 
