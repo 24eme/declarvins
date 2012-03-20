@@ -40,7 +40,7 @@ EOF;
 
     $vrac = new Vrac();
     $vrac->_id = 'VRAC-123456';
-    $vrac->produit = '/declaration/certifications/AOP/appellations';
+    $vrac->produit = '/declaration/certifications/AOP';
     $vrac->numero = '123456';
     $vrac->acheteur->nom = "Acheteur test";
     $vrac->etablissement = '9223700100';
@@ -60,6 +60,6 @@ EOF;
     $vrac->etablissement = '9223700100';
     $vrac->volume_promis = 36;
     $vrac->save();
-    // add your code here
+
   }
 }
