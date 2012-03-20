@@ -1573,8 +1573,10 @@ p#date_drm {
   padding:3px;
   vertical-align:middle;
 }
+#declaratif_info .contenu_onglet_declaratif.alignes { padding-left:249px; }
 #declaratif_info .contenu_onglet_declaratif .col {
   display:inline-block;
+  text-align:left;
   vertical-align:top;
   width:235px;
 }
@@ -1585,7 +1587,7 @@ p#date_drm {
 #declaratif_info .contenu_onglet_declaratif .col .ligne_form label {
   display:inline-block;
   vertical-align:top;
-  max-width:210px;
+  max-width:209px;
 }
 #declaratif_info .contenu_onglet_declaratif h3 { margin-left:235px; }
 #declaratif_info .contenu_onglet_declaratif .ligne_form { margin:10px 0; }
