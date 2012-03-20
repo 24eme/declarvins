@@ -7,7 +7,12 @@ class sfWidgetFormInputFloat extends sfWidgetFormInputText
     sfApplicationConfiguration::getActive()->loadHelpers('Float');
     $value = sprintFloat($value);
     $attributes['autocomplete'] = 'off';
-    //$attributes['class'] = 'num';
+    if (!isset($attributes['class']))
+      $attributes['class'] = '';
+    $attributes['class'] = ' num num_float';
+    if (!($value*1)) 
+      $attributes['class'] .= ' num_light';
+
     return parent::render($name, $value, $attributes, $errors);
   }
 }

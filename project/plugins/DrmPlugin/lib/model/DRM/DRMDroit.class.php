@@ -39,6 +39,9 @@ class DRMDroit extends BaseDRMDroit {
     return ($this->volume_taxe - $this->volume_reintegre) * $this->taux;
   }
   public function isTotal() {
+    return ($this->virtual) || !preg_match('/_/', $this->code);
+  }
+  public function isVirtual() {
     return ($this->virtual);
   }
   public function getLibelle() {
