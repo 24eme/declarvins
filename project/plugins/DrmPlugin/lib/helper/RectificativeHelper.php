@@ -2,11 +2,21 @@
 
 function isRectifierCssClass($object, $key) {
 
-	if ($object->getDocument()->isModifiedMasterDRM($object->getHash(), $key)) {
+	if (isRectifier($object, $key)) {
 
-		return 'rectifier';
+		return rectifierCssClass();
 	} else {
 
 		return null;
 	}
+}
+
+function rectifierCssClass() {
+
+	return 'rectifier';
+}
+
+function isRectifier($object, $key) {
+
+	return $object->getDocument()->isModifiedMasterDRM($object->getHash(), $key);
 }

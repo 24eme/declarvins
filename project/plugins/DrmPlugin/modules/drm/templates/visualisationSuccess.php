@@ -1,4 +1,5 @@
 <?php use_helper('Float'); ?>
+<?php use_helper('Rectificative'); ?>
 <?php include_partial('global/navTop', array('active' => 'drm')); ?>
 
 
@@ -28,11 +29,11 @@
              <tbody>
                 <?php foreach ($droits as $code => $droit) :  ?>
     		<tr class="alt">
-                        <td><?php echo "$code"; ?></td>
-    			<td><?php echoFloat( $droit->volume_taxe); ?></td>
-    			<td><?php echoFloat( $droit->volume_reintegre); ?></td>
-    			<td><?php echoFloat( $droit->taux); ?></td>
-    			<td><strong><?php echoFloat( $droit->payable); ?>&nbsp;€</strong></td>
+                <td><?php echo "$code"; ?></td>
+    			<td class="<?php echo isRectifierCssClass($droit, 'volume_taxe') ?>"><?php echoFloat($droit->volume_taxe); ?></td>
+    			<td class="<?php echo isRectifierCssClass($droit, 'volume_reintegre') ?>"><?php echoFloat($droit->volume_reintegre); ?></td>
+    			<td class=""><?php echoFloat($droit->taux); ?></td>
+    			<td class="<?php echo (isRectifier($droit, 'volume_taxe') || isRectifier($droit, 'volume_reintegre')) ? rectifierCssClass() : null ?>"><strong><?php echoFloat($droit->payable); ?>&nbsp;€</strong></td>
     		</tr>
     		<?php endforeach; ?>
 	    </tbody>
