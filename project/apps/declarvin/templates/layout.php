@@ -18,7 +18,7 @@
 	
 	<style type="text/css">
 		.rectifier {
-			border: 1px dotted #ff0000 !important;
+			outline: 1px dotted #ff0000 !important;
 		}
 	</style>
 	
