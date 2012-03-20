@@ -21,8 +21,8 @@
 					<?php foreach ($details as $detail): ?>
 						<?php include_partial('addContrat', array('detail' => $detail)) ?>	
 						<?php
-							if (isset($forms[$detail->getIdentifiant()])) { 
-								foreach ($forms[$detail->getIdentifiant()] as $form) {
+							if (isset($forms[$detail->getIdentifiantHTML()])) { 
+								foreach ($forms[$detail->getIdentifiantHTML()] as $form) {
 									include_partial('itemContrat', array('form' => $form));
 								}
 							}

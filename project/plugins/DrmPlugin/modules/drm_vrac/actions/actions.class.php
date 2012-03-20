@@ -18,9 +18,11 @@ class drm_vracActions extends sfActions
     	  if (count($contrats)==1) {
     	    $contratVrac = $detail->addVrac($contrats[0]->numero, $detail->sorties->vrac);
     	    $detail->getDocument()->save();
+	    continue;
     	  }
+
     	  foreach ($detail->getVrac() as $vrac) {
-    	    $this->forms[$detail->getIdentifiant()][$vrac->getKey()] = new VracDetailModificationForm($vrac);
+    	    $this->forms[$detail->getIdentifiantHTML()][$vrac->getKey()] = new VracDetailModificationForm($vrac);
     	  }
     	}
     }
@@ -29,38 +31,34 @@ class drm_vracActions extends sfActions
     	$vrac = $this->getRoute()->getObject();
     	$vrac->getParent()->remove($vrac->getKey());
     	$vrac->getDocument()->save();
-    	$this->redirect('drm_vrac');
+    	$this->redirect('drm_vrac', $this->getRoute()->getDrm());
     	
     }
     
     public function executeNouveauContrat(sfWebRequest $request) {
-    	if ($request->isXmlHttpRequest()) {        	
-            $form = new VracAjoutContratForm($this->getRoute()->getObject());
-            if ($request->isMethod(sfWebRequest::POST)) {
-	      $this->getResponse()->setContentType('text/json');
-	      $form->bind($request->getParameter($form->getName()));
-	      if ($form->isValid()) {
-		$form->save();
-		$this->getUser()->setFlash("notice", 'Le contrat a été ajouté avec success.');
-		return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_vrac', $this->getRoute()->getDrm()))));
-	      } else {
-		return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form)))));
-	      }
-            }
-            return $this->renderText($this->getPartial('ajoutContratForm', array('form' => $form)));
-        } else {
-            return sfView::NONE;
-        }
+      $this->forward404Unless($request->isXmlHttpRequest());
+      $form = new VracAjoutContratForm($this->getRoute()->getObject());
+      if (!$request->isMethod(sfWebRequest::POST)) {
+	return $this->renderText($this->getPartial('ajoutContratForm', array('form' => $form)));
+      }
+      $this->getResponse()->setContentType('text/json');
+      $form->bind($request->getParameter($form->getName()));
+      if (!$form->isValid()) {
+	return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form)))));
+      }
+      $form->save();
+      $this->getUser()->setFlash("notice", 'Le contrat a été ajouté avec success.');
+      return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_vrac', $this->getRoute()->getDrm()))));
     }
     
     public function executeUpdateVolume(sfWebRequest $request) {
-    	if ($request->isMethod(sfWebRequest::POST)) {
-			$form = new VracDetailModificationForm($this->getRoute()->getObject());
-        	$form->bind($request->getParameter($form->getName()));
-            if ($form->isValid()) {
-               $form->save();
-            }
-        } 
-        $this->redirect('drm_vrac', $this->getRoute()->getDrm());
+      if ($request->isMethod(sfWebRequest::POST)) {
+	$form = new VracDetailModificationForm($this->getRoute()->getObject());
+	$form->bind($request->getParameter($form->getName()));
+	if ($form->isValid()) {
+	  $form->save();
+	}
+      } 
+      $this->redirect('drm_vrac', $this->getRoute()->getDrm());
     }
 }
