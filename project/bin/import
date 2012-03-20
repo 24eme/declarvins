@@ -1,7 +1,7 @@
 #!/bin/bash
 
-php symfony import:interpro
-php symfony import:douane
-php symfony import:configuration
-php symfony import:compte
-php symfony import:ContratVrac
+php symfony import:interpro --trace
+php symfony import:douane --trace
+php symfony import:configuration --trace
+php symfony import:compte --trace
+php symfony import:contrat-vrac --trace

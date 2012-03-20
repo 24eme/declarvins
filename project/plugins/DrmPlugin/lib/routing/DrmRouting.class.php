@@ -62,6 +62,13 @@ class DrmRouting {
                                                           array('model' => 'DRM',
                                                                 'type' => 'object')));
 
+        $r->prependRoute('drm_declaratif', new DrmRoute('/drm-edition/:campagne_rectificative/declaratif', 
+                                                          array('module' => 'drm', 
+                                                                'action' => 'declaratif'),
+                                                          array('sf_method' => array('get','post')),
+                                                          array('model' => 'DRM',
+                                                                'type' => 'object')));
+
         $r->prependRoute('drm_validation', new DrmRoute('/drm-edition/:campagne_rectificative/validation', 
                                                           array('module' => 'drm', 
                                                                 'action' => 'validation'),
@@ -178,6 +185,7 @@ class DrmRouting {
                         array('model' => 'acCouchdbJson',
                             'type' => 'object'
                 )));
+
         $r->prependRoute('drm_delete_vrac', new DRMVracDetailRoute('/drm-edition/:campagne_rectificative/vrac/update/:certification/:appellation/:lieu/:couleur/:cepage/:millesime/:detail/delete/:contrat',
                         array('module' => 'drm_vrac',
                             'action' => 'deleteVrac'),

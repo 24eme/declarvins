@@ -41,7 +41,7 @@
 	            	<span>Précédent</span>
 	            </a>
     <?php if (!count($noContrats)) : ?>
-	            <a id="nextStep" href="<?php echo url_for('drm_validation', $drm) ?>" class="btn_suiv">
+	            <a id="nextStep" href="<?php echo url_for('drm_declaratif', $drm) ?>" class="btn_suiv">
 	            	<span>Suivant</span>
 	            </a>
     <?php endif; ?>

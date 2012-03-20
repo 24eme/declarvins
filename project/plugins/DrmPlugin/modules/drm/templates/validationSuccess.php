@@ -35,7 +35,7 @@
 	            </div>
 		    </div>
 	        <div id="btn_etape_dr">
-				<a href="<?php echo url_for('drm_vrac', $drm) ?>" class="btn_prec">
+				<a href="<?php echo url_for('drm_declaratif', $drm) ?>" class="btn_prec">
 					<span>Précédent</span>
 				</a>
 				<button type="submit" class="btn_suiv"<?php if ($drmValidation->hasErrors()): ?> disabled="disabled"<?php endif; ?>><span>Valider</span></button>

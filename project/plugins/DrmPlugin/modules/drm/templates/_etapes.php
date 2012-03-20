@@ -16,14 +16,19 @@
             	<a href="<?php echo url_for('drm_recap', $drm->declaration->certifications->get($certification)) ?>">
             		<span><?php echo $key ?>. <?php echo $certificationsLibelle[$key] ?></span>
             	</a>
-	        </li>
+	     </li>
             <?php endforeach; ?>
             <li class="<?php echo ($numero > $numero_vrac) ? 'passe' : '' ?> <?php echo ($numero == $numero_vrac) ? 'actif' : '' ?>">
             	<a href="<?php echo url_for('drm_vrac', $drm) ?>">
             		<span><?php echo $numero_vrac ?>. Vrac</span>
             	</a>
             </li>
-			<li class="dernier <?php echo ($numero > $numero_validation) ? 'passe' : '' ?> <?php echo ($numero == $numero_validation) ? 'actif' : '' ?>">
+            <li class="<?php echo ($numero > $numero_declaratif) ? 'passe' : '' ?> <?php echo ($numero == $numero_declaratif) ? 'actif' : '' ?>">
+                  <a href="<?php echo url_for('drm_declaratif', $drm) ?>">
+                        <span><?php echo $numero_declaratif ?>. Déclaratif</span>
+                  </a>
+            </li>
+		<li class="dernier <?php echo ($numero > $numero_validation) ? 'passe' : '' ?> <?php echo ($numero == $numero_validation) ? 'actif' : '' ?>">
             	<span>
             		<span><?php echo $numero_validation ?>. Validation</span>
             	</span>

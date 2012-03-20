@@ -3,7 +3,7 @@ class ExportDRM
 {
 	protected $drm;
 	protected $colonnes;
-	const NB_COL = 5;
+	const NB_COL = 4;
 	
 	public function __construct($drm)
 	{
