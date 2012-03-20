@@ -23,8 +23,8 @@
                 </p>
                 <ul>
                     <?php foreach($form['stocks_debut'] as $key => $subform): ?>
-                    <li>
-                        <?php echo $form['stocks_debut'][$key]->render(array('data-val-defaut' => sprintFloat($form['stocks_fin'][$key]->getValue()),
+                    <li class="<?php echo isRectifierCssClass($form->getObject()->stocks_debut, $key) ?>">
+                        <?php echo $form['stocks_debut'][$key]->render(array('data-val-defaut' => sprintFloat($form['stocks_debut'][$key]->getValue()),
                                                                         'class' => 'num num_float')) ?>
                     </li>
                     <?php endforeach; ?>

@@ -252,13 +252,11 @@ class DRM extends BaseDRM {
         if ($next_drm) {
             $next_drm_rectificative = $next_drm->generateRectificative();
             foreach($this->getDiffWithMasterDRM() as $key => $value) {
-                if (preg_match('|^(/declaration/certifications/.+/appellations/.+/lieux/.+/couleurs/.+/cepages/.+/millesimes/.+/details/.+)/total$|', $key, $match)) {
-                    $detail = $this->get($match[1]);
-                    if (!$next_drm_rectificative->exist($detail->getHash())) {
-                        $next_drm_rectificative->addProduit($detail->getMillesime()->getHash(), $detail->label->toArray());
-                    }
-                    $next_drm_rectificative->set($detail->getHash().'/total_debut_mois', $value);
-                }
+                $this->replicateDetail($next_drm_rectificative, $key, $value, 'total', 'total_debut_mois');
+                $this->replicateDetail($next_drm_rectificative, $key, $value, 'stocks_fin/bloque', 'stocks_debut/bloque');
+                $this->replicateDetail($next_drm_rectificative, $key, $value, 'stocks_fin/warrante', 'stocks_debut/warrante');
+                $this->replicateDetail($next_drm_rectificative, $key, $value, 'stocks_fin/instance', 'stocks_debut/instance');
+                $this->replicateDetail($next_drm_rectificative, $key, $value, 'stocks_fin/commercialisable', 'stocks_debut/commercialisable');
             }
             $next_drm_rectificative->update();
 
@@ -266,6 +264,18 @@ class DRM extends BaseDRM {
         } else {
             return null;
         }
+    }
+
+    protected function replicateDetail(&$drm, $key, $value, $hash_match, $hash_replication) {
+        if (preg_match('|^(/declaration/certifications/.+/appellations/.+/lieux/.+/couleurs/.+/cepages/.+/millesimes/.+/details/.+)/'.$hash_match.'$|', $key, $match)) {
+            $detail = $this->get($match[1]);
+            if (!$drm->exist($detail->getHash())) {
+                $drm->addProduit($detail->getMillesime()->getHash(), $detail->label->toArray());
+            }
+            $drm->get($detail->getHash())->set($hash_replication, $value);
+        }
+
+        return $drm;
     }
 
     public function getDRMMaster($hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
