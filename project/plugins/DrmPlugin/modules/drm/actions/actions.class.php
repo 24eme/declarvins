@@ -29,6 +29,16 @@ class drmActions extends sfActions
       $drm = $this->getRoute()->getDRM();
       $this->redirect('drm_informations', $drm);
   }
+  /**
+   *
+   * @param sfWebRequest $request 
+   */
+  public function executeDelete(sfWebRequest $request) {
+      $drm = $this->getRoute()->getDRM();
+      if (!$drm->isValidee())
+	$drm->delete();
+      $this->redirect('drm/monEspace');
+  }
   
  /**
   * Executes mon espace action

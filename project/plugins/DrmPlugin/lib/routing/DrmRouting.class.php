@@ -46,6 +46,11 @@ class DrmRouting {
                                                       'action' => 'nouvelle'),
                                                 array('sf_method' => array('get'))));
 
+        $r->prependRoute('drm_delete', new DrmLightRoute('/drm/delete/:campagne_rectificative', 
+                                                array('module' => 'drm', 
+                                                      'action' => 'delete'),
+                                                array('sf_method' => array('get'))));
+
         $r->prependRoute('drm_init', new DrmLightRoute('/drm/initialiser/:campagne_rectificative', 
                                                 array('module' => 'drm', 
                                                       'action' => 'init'),
