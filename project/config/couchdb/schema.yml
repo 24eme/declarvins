@@ -487,6 +487,7 @@ DRM:
         definition:
           fields:
             douane:
+              class: DRMDroits
               type: collection
               definition:
                 fields:
@@ -500,6 +501,7 @@ DRM:
                         taux: { type: float }
                         code: {  }
             cvo:
+              class: DRMDroits
               type: collection
               definition:
                 fields:

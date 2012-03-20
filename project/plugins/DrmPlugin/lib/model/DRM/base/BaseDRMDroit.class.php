@@ -4,11 +4,11 @@
  * 
  * Base model for DRMDroit
 
- * @property float $ratio
+ * @property float $taux
  * @property string $code
 
- * @method float getRatio()
- * @method float setRatio()
+ * @method float getTaux()
+ * @method float setTaux()
  * @method string getCode()
  * @method string setCode()
  

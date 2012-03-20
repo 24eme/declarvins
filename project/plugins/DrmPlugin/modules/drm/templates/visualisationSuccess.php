@@ -27,13 +27,18 @@
     		</tr>
              </thead>
              <tbody>
-                <?php foreach ($droits as $code => $droit) :  ?>
+             <?php foreach ($droits->getDroitsWithVirtual() as $code => $droit) :  
+
+    $strong = ($droit->isTotal()) ? '<strong>' : '';
+    $estrong = ($droit->isTotal()) ? '</strong>' : '';
+
+?>
     		<tr class="alt">
-                <td><?php echo "$code"; ?></td>
-    			<td class="<?php echo isRectifierCssClass($droit, 'volume_taxe') ?>"><?php echoFloat($droit->volume_taxe); ?></td>
-    			<td class="<?php echo isRectifierCssClass($droit, 'volume_reintegre') ?>"><?php echoFloat($droit->volume_reintegre); ?></td>
-    			<td class=""><?php echoFloat($droit->taux); ?></td>
-    			<td class="<?php echo (isRectifier($droit, 'volume_taxe') || isRectifier($droit, 'volume_reintegre')) ? rectifierCssClass() : null ?>"><strong><?php echoFloat($droit->payable); ?>&nbsp;€</strong></td>
+                <td><?php echo $strong.$droit->getLibelle().$estrong; ?></td>
+		<td class="<?php echo isRectifierCssClass($droit, 'volume_taxe') ?>"><?php echo $strong ; echoFloat($droit->volume_taxe); echo $estrong;?></td>
+		<td class="<?php echo isRectifierCssClass($droit, 'volume_reintegre') ?>"><?php echo $strong; echoFloat($droit->volume_reintegre); echo $estrong; ?></td>
+		<td class=""><?php if (!$droit->isTotal()) echoFloat($droit->taux); ?></td>
+		<td class="<?php echo (isRectifier($droit, 'volume_taxe') || isRectifier($droit, 'volume_reintegre')) ? rectifierCssClass() : null ?>"><strong><?php echoFloat($droit->payable); ?>&nbsp;€</strong></td>
     		</tr>
     		<?php endforeach; ?>
 	    </tbody>

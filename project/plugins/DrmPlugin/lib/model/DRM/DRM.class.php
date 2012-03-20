@@ -276,6 +276,10 @@ class DRM extends BaseDRM {
         return array_key_exists($hash, $this->getDiffWithMasterDRM());
     }
 
+    public function isValidee() {
+      return ($this->valide);
+    }
+
     public function validate() {
         $this->valide = 1;
         $this->setDroits();
