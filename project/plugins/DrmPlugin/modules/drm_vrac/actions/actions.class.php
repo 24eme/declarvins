@@ -23,7 +23,6 @@ class drm_vracActions extends sfActions
     	  if (count($contrats)==1) {
     	    $contratVrac = $detail->addVrac($contrats[0]->numero, $detail->sorties->vrac);
     	    $detail->getDocument()->save();
-	    continue;
     	  }
 	  if (!count($contrats)) {
 	    $this->noContrats[$detail->getIdentifiantHTML()] = true;
