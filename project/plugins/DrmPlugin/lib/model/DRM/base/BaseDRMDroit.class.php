@@ -4,9 +4,15 @@
  * 
  * Base model for DRMDroit
 
+ * @property integer $volume_taxe
+ * @property integer $volume_reintegre
  * @property float $taux
  * @property string $code
 
+ * @method integer getVolumeTaxe()
+ * @method integer setVolumeTaxe()
+ * @method integer getVolumeReintegre()
+ * @method integer setVolumeReintegre()
  * @method float getTaux()
  * @method float setTaux()
  * @method string getCode()
