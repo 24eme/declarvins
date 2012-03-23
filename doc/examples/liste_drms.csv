@@ -1,0 +1,5 @@
+#identifiant;nom déclarant;annee;mois;rectificative;drm validee;drm envoyée aux douanes;drm recues douanes;méthode saisie
+9223700100;Cave d'actualys;2012;03;1;1;;;EDI
+9223700100;Cave d'actualys;2012;03;;1;1;;EDI
+9223700100;Cave d'actualys;2012;02;;1;1;1;EDI
+9223700100;Cave d'actualys;2012;01;;1;1;1;EDI
