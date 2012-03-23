@@ -1,13 +1,13 @@
-"Interpro";"Certification – Libellé";"Certification – Code";"Genre – Libellé";"Genre – Code";"Appellation – Libellé";"Appellation – Code";"Lieu – Libellé";"Lieu – Code";"Couleur – Libellé";"Couleur – Code";"Cépage – Libellé";"Cépage – Code";"Millésime – Libellé";"Millésime – Code";"Départements";"Code Douane";"Taxe Douane";"Taxe CVO";;;
-"CIVP";"AOP";"AOP";;;"Côte de Provence";"CP";;;"Rouge";"rouge";;;;;13;" 83";" 06";"VT_AOP ou L387_AOP";0;3;1
-"CIVP";"AOP";"AOP";;;"Côte de Provence";"CP";;;"Rosé";"rose";;;;;13;" 83";" 06";"VT_AOP ou L387_AOP";0;3;1
-"CIVP";"AOP";"AOP";;;"Côte de Provence";"CP";;;"Blanc";"blanc";;;;;13;" 83";" 06";"VT_AOP ou L387_AOP";0;3;1
-"CIVP";"IGP";"IGP";;;"Var";"D83";;;"Rouge";"rouge";;;;;;"VT_IGP ou L387_IGP";0;0;;;
-"CIVP";"IGP";"IGP";;;"Var";"D83";;;"Rosé";"rose";;;;;;"VT_IGP ou L387_IGP";0;0;;;
-"CIVP";"IGP";"IGP";;;"Var";"D83";;;"Blanc";"blanc";;;;;;"VT_IGP ou L387_IGP";0;0;;;
-"CIVP";"IGP";"IGP";"Effervescent";"EFF";"Var";"D83";"Argens";"ARG";"Rouge";"rouge";;;;;;"VM ou L385";0;0;;;
-"CIVP";"IGP";"IGP";"Effervescent";"EFF";"Var";"D83";"Argens";"ARG";"Rosé";"rose";;;;;;"VM ou L385";0;0;;;
-"CIVP";"IGP";"IGP";"Effervescent";"EFF";"Var";"D83";"Argens";"ARG";"Blanc";"blanc";;;;;;"VM ou L385";0;0;;;
-"CIVP";"Vin sans IG";"VSSIG";"Effervescent";"EFF";;;;;"Rouge";"rouge";;;;;;"VM ou L385";0;0;;;
-"CIVP";"Vin sans IG";"VSSIG";"Effervescent";"EFF";;;;;"Rosé";"rose";;;;;;"VM ou L385";0;0;;;
-"CIVP";"Vin sans IG";"VSSIG";"Effervescent";"EFF";;;;;"Blanc";"blanc";;;;;;"VM ou L385";0;0;;;
+"Interpro";"Certification – Libellé";"Certification – Code";"Genre – Libellé";"Genre – Code";"Appellation – Libellé";"Appellation – Code";"Lieu – Libellé";"Lieu – Code";"Couleur – Libellé";"Couleur – Code";"Cépage – Libellé";"Cépage – Code";"Millésime – Libellé";"Millésime – Code";"Départements";"Code Douane";"Taxe Douane";"Taxe CVO";"Entrée Repli";"Sortie Repli";"Entrée Déclassement";"Sortie Déclassement"
+"CIVP";"AOP";"AOP";;;"Côte de Provence";"CP";;;"Rouge";"rouge";;;;;"13,83,06";"VT_AOP ou L387_AOP";0;3,1;;;;"Oui"
+"CIVP";"AOP";"AOP";;;"Côte de Provence";"CP";;;"Rosé";"rose";;;;;"13,83,06";"VT_AOP ou L387_AOP";0;3,1;;;;"Oui"
+"CIVP";"AOP";"AOP";;;"Côte de Provence";"CP";;;"Blanc";"blanc";;;;;"13,83,06";"VT_AOP ou L387_AOP";0;3,1;;;;"Oui"
+"CIVP";"IGP";"IGP";;;"Var";"D83";;;"Rouge";"rouge";;;;;;"VT_IGP ou L387_IGP";0;0;"Oui";;;"Oui"
+"CIVP";"IGP";"IGP";;;"Var";"D83";;;"Rosé";"rose";;;;;;"VT_IGP ou L387_IGP";0;0;"Oui";;;"Oui"
+"CIVP";"IGP";"IGP";;;"Var";"D83";;;"Blanc";"blanc";;;;;;"VT_IGP ou L387_IGP";0;0;"Oui";;;"Oui"
+"CIVP";"IGP";"IGP";"Effervescent";"EFF";"Var";"D83";"Argens";"ARG";"Rouge";"rouge";;;;;;"VM ou L385";0;0;;"Oui";;"Oui"
+"CIVP";"IGP";"IGP";"Effervescent";"EFF";"Var";"D83";"Argens";"ARG";"Rosé";"rose";;;;;;"VM ou L385";0;0;;"Oui";;"Oui"
+"CIVP";"IGP";"IGP";"Effervescent";"EFF";"Var";"D83";"Argens";"ARG";"Blanc";"blanc";;;;;;"VM ou L385";0;0;;"Oui";;"Oui"
+"CIVP";"Vin sans IG";"VSSIG";"Effervescent";"EFF";;;;;"Rouge";"rouge";;;;;;"VM ou L385";0;0;;;"Oui";
+"CIVP";"Vin sans IG";"VSSIG";"Effervescent";"EFF";;;;;"Rosé";"rose";;;;;;"VM ou L385";0;0;;;"Oui";
+"CIVP";"Vin sans IG";"VSSIG";"Effervescent";"EFF";;;;;"Blanc";"blanc";;;;;;"VM ou L385";0;0;;;"Oui";
