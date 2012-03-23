@@ -8,9 +8,7 @@
  * @property string $_rev
  * @property string $type
  * @property string $campagne
- * @property integer $rectificative
  * @property acCouchdbJson $produits
- * @property acCouchdbJson $droits
  * @property acCouchdbJson $declaration
  * @property DRMDeclarant $declarant
  * @property string $identifiant
@@ -25,12 +23,8 @@
  * @method string setType()
  * @method string getCampagne()
  * @method string setCampagne()
- * @method integer getRectificative()
- * @method integer setRectificative()
  * @method acCouchdbJson getProduits()
  * @method acCouchdbJson setProduits()
- * @method acCouchdbJson getDroits()
- * @method acCouchdbJson setDroits()
  * @method acCouchdbJson getDeclaration()
  * @method acCouchdbJson setDeclaration()
  * @method DRMDeclarant getDeclarant()

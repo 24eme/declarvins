@@ -5,10 +5,16 @@
  * Base model for ConfigurationCouleur
 
  * @property string $libelle
+ * @property acCouchdbJson $interpro
+ * @property acCouchdbJson $departements
  * @property acCouchdbJson $cepages
 
  * @method string getLibelle()
  * @method string setLibelle()
+ * @method acCouchdbJson getInterpro()
+ * @method acCouchdbJson setInterpro()
+ * @method acCouchdbJson getDepartements()
+ * @method acCouchdbJson setDepartements()
  * @method acCouchdbJson getCepages()
  * @method acCouchdbJson setCepages()
  

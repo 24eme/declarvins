@@ -5,13 +5,13 @@
  * Base model for ConfigurationDroit
 
  * @property string $date
- * @property float $taux
+ * @property float $ratio
  * @property string $code
 
  * @method string getDate()
  * @method string setDate()
- * @method float getTaux()
- * @method float setTaux()
+ * @method float getRatio()
+ * @method float setRatio()
  * @method string getCode()
  * @method string setCode()
  
