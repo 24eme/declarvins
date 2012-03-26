@@ -8,7 +8,7 @@
  * @property float $total_entrees
  * @property float $total_sorties
  * @property float $total
- * @property acCouchdbJson $genres
+ * @property acCouchdbJson $appellations
 
  * @method float getTotalDebutMois()
  * @method float setTotalDebutMois()
@@ -18,8 +18,8 @@
  * @method float setTotalSorties()
  * @method float getTotal()
  * @method float setTotal()
- * @method acCouchdbJson getGenres()
- * @method acCouchdbJson setGenres()
+ * @method acCouchdbJson getAppellations()
+ * @method acCouchdbJson setAppellations()
  
  */
 

@@ -1,11 +1,9 @@
 <?php
 /**
- * BaseDRMDroits
+ * BaseDRMDroit
  * 
- * Base model for DRMDroits
-
-
- 
+ * Base model for DRMDroit
+ * 
  */
 
 abstract class BaseDRMDroits extends acCouchdbDocumentTree {
