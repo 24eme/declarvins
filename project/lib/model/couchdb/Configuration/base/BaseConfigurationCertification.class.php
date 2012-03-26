@@ -5,19 +5,19 @@
  * Base model for ConfigurationCertification
 
  * @property string $libelle
- * @property acCouchdbJson $departements
  * @property acCouchdbJson $interpro
- * @property acCouchdbJson $appellations
+ * @property acCouchdbJson $departements
+ * @property acCouchdbJson $genres
  * @property ConfigurationDetail $detail
 
  * @method string getLibelle()
  * @method string setLibelle()
- * @method acCouchdbJson getDepartements()
- * @method acCouchdbJson setDepartements()
  * @method acCouchdbJson getInterpro()
  * @method acCouchdbJson setInterpro()
- * @method acCouchdbJson getAppellations()
- * @method acCouchdbJson setAppellations()
+ * @method acCouchdbJson getDepartements()
+ * @method acCouchdbJson setDepartements()
+ * @method acCouchdbJson getGenres()
+ * @method acCouchdbJson setGenres()
  * @method ConfigurationDetail getDetail()
  * @method ConfigurationDetail setDetail()
  
