@@ -650,7 +650,8 @@ DRM:
                                                                                                   class: DRMDetailNoeud
                                                                                                   definition:
                                                                                                     fields:
-                                                                                                      nouveau: { type: float }
+                                                                                                      achat: { type: float }
+                                                                                                      recolte: { type: float }
                                                                                                       repli: { type: float }
                                                                                                       declassement: { type: float }
                                                                                                       mouvement: { type: float }
@@ -669,6 +670,7 @@ DRM:
                                                                                                       declassement: { type: float }
                                                                                                       repli: { type: float }
                                                                                                       mouvement: { type: float }
+                                                                                                      distillation: { type: float }
                                                                                                       lies: { type: float }
                                                                                                 stocks_fin:
                                                                                                   type: collection
