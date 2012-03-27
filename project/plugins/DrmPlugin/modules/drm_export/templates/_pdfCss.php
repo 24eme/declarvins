@@ -100,23 +100,39 @@
 		font-weight: normal;
 	}
 
-	table.recap tr td.vide {
+	table.recap tr th.vide, table.recap tr td.vide {
 		border: none;
 	}
 
 	table.recap tr th {
-		width: 255px;
 		word-wrap: break-word;
 		white-space: normal;
 		padding-left: 3px;
 	}
 
-	table.recap tr td {
+	table.recap.volumes tr th {
+		width: 255px;
+	}
+
+	table.recap.volumes tr td {
 		width: 103px;
+	}
+
+	table.recap.droits_douane tr th {
+		width: 199px;
+	}
+
+	table.recap.droits_douane tr td {
+		width: 110px;
 	}
 
 	table.recap tr td.libelle {
 		text-align: center;
+	}
+
+	table.recap tr td.number .unite {
+		font-size: 8pt;
+		font-weight: normal;
 	}
 
 	table.recap tr td.detail, table.recap tr td.total {

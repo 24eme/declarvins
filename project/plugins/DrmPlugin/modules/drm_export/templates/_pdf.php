@@ -36,6 +36,7 @@
 															  'partial' => 'drm_export/pdfLineVolumeItemProduitLibelle')) ?>
 
 			<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total début de mois',
+																   'unite' => 'hl',
 																   'cssclass_libelle' => 'total',
 															       'cssclass_value' => 'total',
 															       'colonnes' => $colonnes,
@@ -45,7 +46,8 @@
 																	'colonnes' => $colonnes,
 															  		'hash' => 'stocks_debut')) ?>
 
-			<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total entrées', 
+			<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total entrées',
+																   'unite' => 'hl',
 																   'cssclass_libelle' => 'total',
 															  	   'cssclass_value' => 'total',
 																   'colonnes' => $colonnes,
@@ -57,16 +59,18 @@
 															  		'hash' => 'entrees')) ?>
 
 			<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total sorties',
-															  'colonnes' => $colonnes,
-															  'cssclass_libelle' => 'total',
-															  'cssclass_value' => 'total',
-															  'hash' => 'total_sorties')) ?>
+																   'unite' => 'hl',
+																   'colonnes' => $colonnes,
+																   'cssclass_libelle' => 'total',
+																   'cssclass_value' => 'total',
+																   'hash' => 'total_sorties')) ?>
 
 			<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
 																	'colonnes' => $colonnes,
 															  		'hash' => 'sorties')) ?>
 
 			<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total fin de mois',
+																   'unite' => 'hl',
 																   'cssclass_libelle' => 'total',
 															  	   'cssclass_value' => 'total',
 															  	   'colonnes' => $colonnes,
@@ -94,6 +98,7 @@
 
 			<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume',
 															  	   'colonnes' => $colonnes,
+															  	   'unite' => 'hl',
 															  	   'cssclass_libelle' => 'detail',
 															  	   'cssclass_value' => 'detail',
 															  	   'hash' => 'volume')) ?>
@@ -134,33 +139,38 @@
 	<?php $colonnes = $pager_droits_douane->getResults(); ?>
 
 	<h2>Droits de circulation et de consommation</h2>
-	<table class="recap">
+	<table class="recap droits_douane">
 		<?php include_partial('drm_export/pdfLine', array('libelle' => '',
 														  'colonnes' => $colonnes,
+														  'cssclass_libelle' => 'vide',
 														  'cssclass_value' => 'libelle',
 														  'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
 														  'method' => 'getLibelle')) ?>
 
 	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume réintégré',
 															   'colonnes' => $colonnes,
+															   'unite' => 'hl',
 															   'cssclass_libelle' => 'detail',
 															   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
 															   'hash' => 'volume_reintegre')) ?>
 
 		<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume taxé',
 															   'colonnes' => $colonnes,
+															   'unite' => 'hl',
 															   'cssclass_libelle' => 'detail',
 															   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
 															   'hash' => 'volume_taxe')) ?>
 
 		<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Taux des droits en vigueur',
 															   'colonnes' => $colonnes,
+															   'unite' => '€/hl',
 															   'cssclass_libelle' => 'detail',
 															   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
 															   'hash' => 'taux')) ?>
 
 		<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Droits à payer',
 															   'colonnes' => $colonnes,
+															   'unite' => '€',
 															   'cssclass_libelle' => 'total',
 															   'cssclass_value' => 'total',
 															   'hash' => 'payable')) ?>		   
