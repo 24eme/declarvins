@@ -2,7 +2,8 @@ AOP;stocks_debut;bloque;1;0
 AOP;stocks_debut;warrante;1;0
 AOP;stocks_debut;instance;1;0
 AOP;stocks_debut;commercialisable;1;0
-AOP;entrees;nouveau;1;1
+AOP;entrees;achat;1;1
+AOP;entrees;recolte;1;1
 AOP;entrees;repli;1;1
 AOP;entrees;mouvement;1;1
 AOP;entrees;crd;1;1
@@ -24,7 +25,8 @@ IGP;stocks_debut;bloque;1;0
 IGP;stocks_debut;warrante;1;0
 IGP;stocks_debut;instance;1;0
 IGP;stocks_debut;commercialisable;1;0
-IGP;entrees;nouveau;1;1
+IGP;entrees;achat;1;1
+IGP;entrees;recolte;1;1
 IGP;entrees;repli;1;1
 IGP;entrees;mouvement;1;1
 IGP;entrees;crd;1;1
@@ -46,7 +48,8 @@ VINSSANSIG;stocks_debut;bloque;1;0
 VINSSANSIG;stocks_debut;warrante;1;0
 VINSSANSIG;stocks_debut;instance;1;0
 VINSSANSIG;stocks_debut;commercialisable;1;0
-VINSSANSIG;entrees;nouveau;1;1
+VINSSANSIG;entrees;achat;1;1
+VINSSANSIG;entrees;recolte;1;1
 VINSSANSIG;entrees;repli;1;1
 VINSSANSIG;entrees;declassement;1;1
 VINSSANSIG;entrees;mouvement;1;1
