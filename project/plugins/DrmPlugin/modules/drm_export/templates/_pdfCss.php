@@ -123,11 +123,11 @@
 		text-align: center;
 	}
 
-	table.recap tr td.detail.number span.zero {
+	table.recap.volumes tr td.detail.number span.zero {
 		color: #fff;
 	}
 
-	table.recap tr td.total.number span.zero {
+	table.recap.recap.volumes tr td.total.number span.zero {
 		color: #aaa;
 	}
 

@@ -2,15 +2,19 @@
 	<th class="<?php echo ((isset($cssclass_libelle)) ? $cssclass_libelle : null) ?>"><?php echo $libelle ?></th>
 	<?php foreach($colonnes as $col_key => $item): ?>
 	<?php if(!is_null($item)): ?>
-	<td class="<?php echo ((isset($cssclass_value)) ? $cssclass_value : null) ?>">
+	<?php $td_cssclass_ = ((isset($cssclass_value)) ? $cssclass_value : null) ?>
+	<?php $td_cssclass_ .= ((isset($partial_cssclass_value)) ? ' '.get_partial($partial_cssclass_value, array('item' => $item, 'hash' => isset($hash) ? $hash : null)) : null) ?>
+	<td class="<?php echo $td_cssclass_ ?>">
 		<?php if(isset($partial)): ?>
 			  <?php include_partial($partial, array('item' => $item, 'hash' => isset($hash) ? $hash : null)) ?>
-		<?php elseif(isset($format)): ?>
-		<?php echo call_user_func_array($format, 
-										array_merge(array($item->get($hash)), 
-												    $format_params->getRawValue())) ?>
+		<?php elseif(isset($method)): ?>
+		<?php echo call_user_func_array(array($item, $method), array()) ?>
+		<?php elseif($item instanceof acCouchdbJson): ?>
+			<?php echo $item->get($hash) ?>
+		<?php elseif(is_array($item)): ?>
+			<?php echo $item[$hash] ?>
 		<?php else: ?>
-		<?php echo $item->get($hash) ?>
+			<?php echo $item ?>
 		<?php endif; ?>
 	</td>
 	<?php else: ?>

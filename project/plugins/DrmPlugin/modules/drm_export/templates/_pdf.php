@@ -29,7 +29,7 @@
 
 		<?php $colonnes = $pagers_volume[$certification_key]->getResults(); ?>
 		<h2>Suivi des vins - <?php echo $certification->getConfig()->libelle ?></h2>
-		<table class="recap">
+		<table class="recap volumes">
 			<?php include_partial('drm_export/pdfLine', array('libelle' => 'Code produit',
 															  'colonnes' => $colonnes,
 															  'cssclass_value' => 'libelle',
@@ -90,7 +90,7 @@
 																   'colonnes' => $colonnes,
 																   'cssclass_libelle' => 'detail',
 															  	   'cssclass_value' => 'detail',
-																   'partial' => 'drm_export/pdfLineVracItemNoContrat')) ?>
+															  	   'method' => 'getKey')) ?>
 
 			<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume',
 															  	   'colonnes' => $colonnes,
@@ -108,13 +108,74 @@
 		<?php endwhile; ?>
 	<?php endforeach; ?>
 
+	<!--<p>Pas de mouvement de vin sur le mois indiqué</p>
+	<p>Stock épuisé (vous n’avez plus aucun vin en cave)</p>-->
+
+	<h2>Défaut d'apurement</h2>
+	<p>Pas de défaut d'apurement</p>
+
+	<h2>Documents prévalidés ou N° empreinte utilisés au cours du mois</h2> 
+	<p><strong>A adhérer</strong> à EMCS/GAMMA</p>
+	<p><strong>DAA</strong> du 1258 au 1260</p>
+	<p>Pas de DSA</p>
+
+	<h2>Douanes</h2>
+	<p><strong>Services des douanes de</strong> : Orange</p>
+
+	<h2>Caution</h2>
+	<p><strong>Oui</strong>, Organisme : CIVP</p>
+
+	<h2>Paiement des droits de circulation</h2>
+	<p>Vous payer <strong>par échéance mensuelle</strong></p>
+	<p><strong>Mode de paiement</strong> : Chèque</p>
+
+
+	<?php while($pager_droits_douane->getPage() <= $pager_droits_douane->getLastPage()): ?>
+	<?php $colonnes = $pager_droits_douane->getResults(); ?>
+
+	<h2>Droits de circulation et de consommation</h2>
+	<table class="recap">
+		<?php include_partial('drm_export/pdfLine', array('libelle' => '',
+														  'colonnes' => $colonnes,
+														  'cssclass_value' => 'libelle',
+														  'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
+														  'method' => 'getLibelle')) ?>
+
+	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume réintégré',
+															   'colonnes' => $colonnes,
+															   'cssclass_libelle' => 'detail',
+															   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
+															   'hash' => 'volume_reintegre')) ?>
+
+		<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume taxé',
+															   'colonnes' => $colonnes,
+															   'cssclass_libelle' => 'detail',
+															   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
+															   'hash' => 'volume_taxe')) ?>
+
+		<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Taux des droits en vigueur',
+															   'colonnes' => $colonnes,
+															   'cssclass_libelle' => 'detail',
+															   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
+															   'hash' => 'taux')) ?>
+
+		<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Droits à payer',
+															   'colonnes' => $colonnes,
+															   'cssclass_libelle' => 'total',
+															   'cssclass_value' => 'total',
+															   'hash' => 'payable')) ?>		   
+	</table>
+	<?php $pager_droits_douane->gotoNextPage(); ?>
+	<?php endwhile; ?>
+
+	<hr />
 	<?php foreach($drm->declaration->certifications as $certification_key => $certification): ?>
 	<h2>Code produits - <?php echo $certification->getConfig()->libelle ?></h2>
 	<table class="legende">
-	<?php foreach($details[$certification_key] as $detail): ?>
+	<?php foreach($codes[$certification_key] as $code => $millesime): ?>
 	<tr>
-		<th><?php echo produitCodeFromDetail($detail) ?></th>
-		<td><?php echo produitLibelleFromDetail($detail) ?></td>
+		<th><?php echo produitLibelle($millesime->getConfig()->getCodes(), array(), "%a% %l% %co% %ce% %m%") ?></th>
+		<td><?php echo produitLibelle($millesime->getConfig()->getLibelles(), array(), "%a% %l% %co% %ce% %m%") ?></td>
 	</tr>
 	<?php endforeach; ?>
 	</table>

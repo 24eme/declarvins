@@ -4,7 +4,8 @@ class ExportDRM
 	protected $drm;
 	protected $pagers_volume;
     protected $pagers_vrac;
-    protected $details;
+    protected $pager_droits_douane;
+    protected $codes;
 	const NB_COL = 8;
 
 	public function __construct($drm)
@@ -18,9 +19,9 @@ class ExportDRM
 		return $this->drm;
 	}
 
-    public function getDetails() {
+    public function getCodes() {
 
-        return $this->details;
+        return $this->codes;
     }
 
 	public function getPagersVolume()
@@ -35,8 +36,15 @@ class ExportDRM
         return $this->pagers_vrac;
     }
 
+    public function getPagerDroitsDouane()
+    {
+        
+        return $this->pager_droits_douane;
+    }
+
 	public function setDrm($drm)
 	{
+
 		$this->drm = $drm;
 	}
 
@@ -60,13 +68,14 @@ class ExportDRM
                     foreach($detail->vrac as $vrac) {
                         $details_pour_vrac[] = $vrac;
                     }
-
+                    $this->codes[$certification->getKey()][$detail->getMillesime()->getHash()] = $detail->getMillesime();
     			}
     		}
-            $this->details[$certification->getKey()] = $details_pour_volume;
             $this->pagers_volume[$certification->getKey()] = $this->makePager($details_pour_volume);
             $this->pagers_vrac[$certification->getKey()] = $this->makePager($details_pour_vrac);
     	}
+
+        $this->pager_droits_douane = $this->makePager($this->drm->droits->douane->getDroitsWithVirtual());
     }
 
     protected function makePager($array) {
