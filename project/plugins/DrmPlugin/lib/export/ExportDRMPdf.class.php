@@ -26,7 +26,11 @@ class ExportDRMPdf extends ExportDRM
 
 	public function getContent() {
 
-		return $this->getPartial('pdf', array('drm' => $this->getDRM(), 'colonnes' => $this->getColonnes()));
+		return $this->getPartial('pdf', array('drm' => $this->getDRM(), 
+											  'details' => $this->getDetails(),
+											  'pagers_volume' => $this->getPagersVolume(),
+											  'pagers_vrac' => $this->getPagersVrac()
+											  ));
 	}
 	
 }

@@ -23,61 +23,104 @@
 	<?php include_partial('drm_export/pdfFooter'); ?>
 
 	<?php $i=0; ?>
-	<?php foreach($colonnes as $certification_key => $certification): ?>
-		<?php $certification_config = $drm->declaration->certifications->get($certification_key)->getConfig() ?>
-		<?php foreach($certification as $colonne): ?>
-		<h2>Suivi des vins - <?php echo $certification_config->libelle ?></h2>
+	<?php foreach($drm->declaration->certifications as $certification_key => $certification): ?>
+		<?php while($pagers_volume[$certification_key]->getPage() <= $pagers_volume[$certification_key]->getLastPage() || 
+					$pagers_vrac[$certification_key]->getPage() <= $pagers_vrac[$certification_key]->getLastPage()): ?>
+
+		<?php $colonnes = $pagers_volume[$certification_key]->getResults(); ?>
+		<h2>Suivi des vins - <?php echo $certification->getConfig()->libelle ?></h2>
 		<table class="recap">
-			<?php include_partial('drm_export/pdfLine', array('libelle' => 'Produits',
-															  'colonnes' => $colonne,
+			<?php include_partial('drm_export/pdfLine', array('libelle' => 'Code produit',
+															  'colonnes' => $colonnes,
 															  'cssclass_value' => 'libelle',
-															  'partial' => 'drm_export/pdfLineItemProduitLibelle')) ?>
+															  'partial' => 'drm_export/pdfLineVolumeItemProduitLibelle')) ?>
 
 			<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total début de mois',
 																   'cssclass_libelle' => 'total',
 															       'cssclass_value' => 'total',
-															       'colonnes' => $colonne,
+															       'colonnes' => $colonnes,
 															       'hash' => 'total_debut_mois')) ?>
 
-			<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification_config,
-																	'colonnes' => $colonne,
+			<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
+																	'colonnes' => $colonnes,
 															  		'hash' => 'stocks_debut')) ?>
 
 			<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total entrées', 
 																   'cssclass_libelle' => 'total',
 															  	   'cssclass_value' => 'total',
-																   'colonnes' => $colonne,
+																   'colonnes' => $colonnes,
 																   'hash' => 'total_entrees')) ?>
 
 
-			<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification_config,
-																	'colonnes' => $colonne,
+			<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
+																	'colonnes' => $colonnes,
 															  		'hash' => 'entrees')) ?>
 
 			<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total sorties',
-															  'colonnes' => $colonne,
+															  'colonnes' => $colonnes,
 															  'cssclass_libelle' => 'total',
 															  'cssclass_value' => 'total',
 															  'hash' => 'total_sorties')) ?>
 
-			<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification_config,
-																	'colonnes' => $colonne,
+			<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
+																	'colonnes' => $colonnes,
 															  		'hash' => 'sorties')) ?>
 
 			<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total fin de mois',
 																   'cssclass_libelle' => 'total',
 															  	   'cssclass_value' => 'total',
-															  	   'colonnes' => $colonne,
+															  	   'colonnes' => $colonnes,
 															  	   'hash' => 'total')) ?>
 
-			<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification_config,
-																	'colonnes' => $colonne,
+			<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
+																	'colonnes' => $colonnes,
 															  		'hash' => 'stocks_fin')) ?>
 
 		</table>
+
+		<?php $colonnes = $pagers_vrac[$certification_key]->getResults(); ?>
+		<h2>Contrats vrac - <?php echo $certification->getConfig()->libelle ?></h2>
+		<table class="recap">
+			<?php include_partial('drm_export/pdfLine', array('libelle' => 'Code produit',
+															  'colonnes' => $colonnes,
+															  'cssclass_value' => 'libelle',
+															  'partial' => 'drm_export/pdfLineVracItemProduitLibelle')) ?>
+
+			<?php include_partial('drm_export/pdfLine', array('libelle' => 'N° de contrat', 
+																   'colonnes' => $colonnes,
+																   'cssclass_libelle' => 'detail',
+															  	   'cssclass_value' => 'detail',
+																   'partial' => 'drm_export/pdfLineVracItemNoContrat')) ?>
+
+			<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume',
+															  	   'colonnes' => $colonnes,
+															  	   'cssclass_libelle' => 'detail',
+															  	   'cssclass_value' => 'detail',
+															  	   'hash' => 'volume')) ?>
+
+
+			
+		</table>
+
+		<?php $pagers_volume[$certification_key]->gotoNextPage(); ?>
+		<?php $pagers_vrac[$certification_key]->gotoNextPage(); ?>
 		<hr />
-		<?php endforeach; ?>
+		<?php endwhile; ?>
 	<?php endforeach; ?>
+
+	<?php foreach($drm->declaration->certifications as $certification_key => $certification): ?>
+	<h2>Code produits - <?php echo $certification->getConfig()->libelle ?></h2>
+	<table class="legende">
+	<?php foreach($details[$certification_key] as $detail): ?>
+	<tr>
+		<th><?php echo produitCodeFromDetail($detail) ?></th>
+		<td><?php echo produitLibelleFromDetail($detail) ?></td>
+	</tr>
+	<?php endforeach; ?>
+	</table>
+	<?php endforeach; ?>
+
+
 
 </body>
 </html>

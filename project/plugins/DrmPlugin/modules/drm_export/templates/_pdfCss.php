@@ -4,8 +4,8 @@
 	}
 	body {
 		font-family: sans-serif;
-		margin: 130px 0 20px 0;
-		font-size: 11pt;
+		margin: 100px 0 20px 0;
+		font-size: 10pt;
 	}
 
 	h1, h2, h3, h4, h5, p, table, div {
@@ -27,7 +27,7 @@
 	}
 
 	#header h1 {
-		font-size: 12pt;
+		font-size: 11pt;
 		margin: 0;
 	}
 
@@ -37,7 +37,7 @@
 
 	#header p.date_validation{
 		font-style: italic;
-		font-size: 10pt;
+		font-size: 9pt;
 	}
 
 	#header table {
@@ -83,6 +83,7 @@
 	table.recap {
 		border-collapse: collapse;
 		border-spacing: 0;
+		margin-bottom: 10px;
 	}
 
 	table.recap tr td, table.recap tr th {
@@ -111,14 +112,14 @@
 	}
 
 	table.recap tr td {
-		width: 206px;
+		width: 103px;
 	}
 
 	table.recap tr td.libelle {
 		text-align: center;
 	}
 
-	table.recap tr td.number {
+	table.recap tr td.detail, table.recap tr td.total {
 		text-align: center;
 	}
 
@@ -128,6 +129,14 @@
 
 	table.recap tr td.total.number span.zero {
 		color: #aaa;
+	}
+
+	table.legende {
+		font-size: 9pt;
+	}
+
+	table.legende th {
+		text-align: left;
 	}
 
 	.page-number {

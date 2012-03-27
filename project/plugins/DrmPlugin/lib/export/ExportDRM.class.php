@@ -2,9 +2,11 @@
 class ExportDRM 
 {
 	protected $drm;
-	protected $colonnes;
-	const NB_COL = 4;
-	
+	protected $pagers_volume;
+    protected $pagers_vrac;
+    protected $details;
+	const NB_COL = 8;
+
 	public function __construct($drm)
 	{
 		$this->setDrm($drm);
@@ -16,10 +18,22 @@ class ExportDRM
 		return $this->drm;
 	}
 
-	public function getColonnes()
+    public function getDetails() {
+
+        return $this->details;
+    }
+
+	public function getPagersVolume()
 	{
-		return $this->colonnes;
+		
+        return $this->pagers_volume;
 	}
+
+    public function getPagersVrac()
+    {
+        
+        return $this->pagers_vrac;
+    }
 
 	public function setDrm($drm)
 	{
@@ -33,24 +47,33 @@ class ExportDRM
 
     protected function create()
     {
-    	$this->colonnes = array();
+    	$this->pagers_volume = array();
+        $this->pagers_vrac = array();
 
     	foreach($this->drm->produits as $certification) {
-    		$this->colonnes[$certification->getKey()] = array();
-    		$i = 0;
+            $details_pour_volume = array();
+            $details_pour_vrac = array();
     		foreach($certification as $appellation) {
     			foreach($appellation as $produit) {
-    				$col_i = floor($i / self::NB_COL);
     				$detail = $produit->getDetail();
-    				$this->colonnes[$certification->getKey()][$col_i][$detail->getHash()] = $detail;
-    				$i++;
+    				$details_pour_volume[] = $detail;
+                    foreach($detail->vrac as $vrac) {
+                        $details_pour_vrac[] = $vrac;
+                    }
+
     			}
     		}
-    		if(count($this->colonnes[$certification->getKey()][$col_i]) < self::NB_COL) {
-    			for($i = count($this->colonnes[$certification->getKey()][$col_i]); $i < self::NB_COL; $i++) {
-    				$this->colonnes[$certification->getKey()][$col_i][] = null;
-    			}
-    		}
+            $this->details[$certification->getKey()] = $details_pour_volume;
+            $this->pagers_volume[$certification->getKey()] = $this->makePager($details_pour_volume);
+            $this->pagers_vrac[$certification->getKey()] = $this->makePager($details_pour_vrac);
     	}
+    }
+
+    protected function makePager($array) {
+        $pager = new ArrayPager(self::NB_COL, true);
+        $pager->setArray($array);
+        $pager->init();
+
+        return $pager;
     }
 }

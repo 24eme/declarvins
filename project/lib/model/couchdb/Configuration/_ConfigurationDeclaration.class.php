@@ -21,10 +21,32 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
 			return $libelle;
 		} else {
 
-			return array_merge($this->getParent()->getParent()->getLibelles(), 
-						   array($this->getKey() => $this->libelle));
+			return array_merge($this->getParentNode()->getLibelles(), 
+						   array($this->libelle));
 		}
 	}
+
+	public function getCode() {
+		if ($this->getKey() == Configuration::DEFAULT_KEY) {
+			return null;
+		}
+		return $this->getKey();
+	}
+
+	public function getCodes() {
+
+		return $this->store('codes', array($this, 'getCodesAbstract'));
+	}
+
+	protected function getCodesAbstract() {
+		try {
+			return array_merge($this->getParentNode()->getCodes(), 
+				   array($this->getCode()));
+		} catch (Exception $e) {
+			return array($this->getCode());
+		}
+	}
+
 	public function getParentNode() {
 		$parent = $this->getParent()->getParent();
 		if ($parent->getKey() == 'declaration') {

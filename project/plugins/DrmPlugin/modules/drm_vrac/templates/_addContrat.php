@@ -1,7 +1,7 @@
 <?php use_helper('Produit'); ?>
 
 <tr>
-	<td><?php echo produitLibelleFormDetail($detail); ?></td>
+	<td><?php echo produitLibelleFromDetail($detail); ?></td>
 	<td align="center">
 		<?php if ($detail->hasContratVrac()): ?>
                     <div class="btn">

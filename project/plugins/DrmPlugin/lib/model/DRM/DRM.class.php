@@ -50,7 +50,7 @@ class DRM extends BaseDRM {
 
     public function addProduit($hash, $labels = array()) {
       if ($p = $this->getProduit($hash, $labels)) {
-	return $p;
+	    return $p;
       }
       $hashes = $this->interpretHash($hash);
       $produit = $this->produits->add($hashes['certification'])->add($hashes['appellation'])->add();
