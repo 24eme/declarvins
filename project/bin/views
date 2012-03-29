@@ -58,6 +58,9 @@ cat <<EOF > $TMPFILE
        "all": {
            "map": "function(doc) {\n  if (doc.type == \"DRM\") {\n  rect = null ; if (doc.rectificative) rect = doc.rectificative;\n  emit([doc.identifiant, (doc.campagne).substring(0, 4), (doc.campagne).substring(5, 7), rect, doc.valide.date, doc.douane.envoi, doc.douane.accuse], 1);\n }\n}",
            "reduce": "function (keys, values, rereduce) {\n     return sum(values);\n}"
+       },
+       "date": {
+          "map": "function(doc) { if (doc.type == \"DRM\" && doc.valide.date) { rect = null ; if (doc.rectificative) rect = doc.rectificative; for(inter in doc.interpros) { emit([doc.interpros[inter], doc.valide.date, doc._id], 1);  }  } }"
        }
 }
 }

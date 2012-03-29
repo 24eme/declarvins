@@ -708,6 +708,11 @@ DRM:
                     commune: {  }
             service_douane: {  }
       identifiant: {  }
+      interpros:
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
       valide:
         type: collection
         definition:

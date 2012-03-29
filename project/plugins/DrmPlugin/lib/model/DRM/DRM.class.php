@@ -63,7 +63,7 @@ class DRM extends BaseDRM {
 
     }
 
-    public function getDetailsAvecVrac() {
+    public function getDetails() {
         $details = array();
         foreach ($this->declaration->certifications as $certifications) {
             foreach ($certifications->appellations as $appellation) {
@@ -72,9 +72,7 @@ class DRM extends BaseDRM {
                     	foreach ($couleur->cepages as $cepage) {
     	                    foreach ($cepage->millesimes as $millesime) {
                                 foreach ($millesime->details as $detail) {
-        	                        if ($detail->sorties->vrac) {
-        	                            $details[] = $detail;
-        	                        }
+				  $details[] = $detail;
                                 }
     	                    }
                     	}
@@ -83,6 +81,15 @@ class DRM extends BaseDRM {
             }
         }
         return $details;
+    }
+
+    public function getDetailsAvecVrac() {
+      $details = array();
+      foreach ($this->getDetails() as $d) {
+	if ($d->sorties->vrac)
+	  $details[] = $d;
+      }
+      return $details;
     }
 
     public function generateSuivante($campagne) 
@@ -290,6 +297,11 @@ class DRM extends BaseDRM {
 	$identifiant = $this->identifiant;
       $this->valide->identifiant = $identifiant;
       $this->setDroits();
+      $this->setInterpros();
+    }
+
+    public function setInterpros() {
+      $this->interpros->add(0,$this->getInterpro()->getKey());
     }
 
     public function save() {
