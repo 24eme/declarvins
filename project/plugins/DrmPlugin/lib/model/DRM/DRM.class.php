@@ -96,7 +96,7 @@ class DRM extends BaseDRM {
         $drm_suivante->add('douane');
         $drm_suivante->remove('declarant');
         $drm_suivante->add('declarant');
-        $drm_suivante->valide = 0;
+        $drm_suivante->devalide();
 
         return $drm_suivante;
     }
@@ -173,10 +173,9 @@ class DRM extends BaseDRM {
     }
 
     public function isRectificable() {
-        if (!$this->valide) {
-
-            return false;
-        }
+      if (!$this->isValidee()) {
+	return false;
+      }
 
         if ($drm = DRMClient::getInstance()->findLastByIdentifiantAndCampagne($this->identifiant, $this->campagne, acCouchdbClient::HYDRATE_JSON)) {
 
@@ -188,7 +187,7 @@ class DRM extends BaseDRM {
 
     public function generateRectificative() {
         $drm_rectificative = clone $this;
-        $drm_rectificative->valide = 0;
+        $drm_rectificative->devalide();
 
         if(!$this->isRectificable()) {
 
@@ -276,18 +275,25 @@ class DRM extends BaseDRM {
         return array_key_exists($hash, $this->getDiffWithMasterDRM());
     }
 
-    public function isValidee() {
-      return ($this->valide);
+    public function devalide() {
+      $this->valide->identifiant = '';
+      $this->valide->date = '';
     }
 
-    public function validate() {
-        $this->valide = 1;
-        $this->setDroits();
+    public function isValidee() {
+      return ($this->valide->date);
+    }
+
+    public function validate($identifiant = null) {
+      $this->valide->add('date', date('c'));
+      if (!$identifiant)
+	$identifiant = $this->identifiant;
+      $this->valide->identifiant = $identifiant;
+      $this->setDroits();
     }
 
     public function save() {
         if (!preg_match('/^2\d{3}-[01][0-9]$/', $this->campagne)) {
-	    
             throw new sfException('Wrong format for campagne ('.$this->campagne.')');
         }
 

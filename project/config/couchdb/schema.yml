@@ -708,7 +708,12 @@ DRM:
                     commune: {  }
             service_douane: {  }
       identifiant: {  }
-      valide: {  }
+      valide:
+        type: collection
+        definition:
+          fields:
+            date: {}
+            identifiant: {}
       douane:
         type: collection
         definition:
