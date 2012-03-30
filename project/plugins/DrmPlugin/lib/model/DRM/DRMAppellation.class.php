@@ -19,7 +19,7 @@ class DRMAppellation extends BaseDRMAppellation {
 
     public function updateDroits($droits) {
       foreach ($this->getDroits() as $typedroits => $droit) {
-	$droits->add($typedroits)->add($droit->code)->integreVolume($this->sommeLignes(array('total_sorties')), $this->sommeLignes(array('entrees/crd')), $droit->taux);
+	$droits->add($typedroits)->add($droit->code)->integreVolume($this->sommeLignes(DRMDroits::getDroitSorties()), $this->sommeLignes(DRMDroits::getDroitEntrees()), $droit->taux);
       }
     }
 
@@ -31,6 +31,10 @@ class DRMAppellation extends BaseDRMAppellation {
       return $sum;
     }
     
+    public function getDroit($type) {
+      return $this->getConfig()->getDroits($this->getInterproKey())->get($type)->getCurrentDroit($this->getCampagne());
+    }
+
     public function getDroits() {
       $conf = $this->getConfig();
       $droits = array();

@@ -99,7 +99,12 @@ listDRMEdi:
 listContratEdi:
   url: /edi/contrat/list
   param: {module: edi, action: listContrat}
-
+streamDRMEdi:
+  url: /edi/drm/:interpro/:date
+  param: {module: edi, action: streamDRM}
+viewDRMEdi:
+  url: /edi/drm/:identifiant/:annee/:mois/:rectificative
+  param: {module: edi, action: viewDRM, rectificative: ''}
 
 # generic rules
 # please, remove them by adding more specific rules

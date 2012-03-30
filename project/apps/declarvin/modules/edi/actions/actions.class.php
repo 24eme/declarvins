@@ -31,6 +31,7 @@ class ediActions extends sfActions
     $this->iddrm = null;
     try {
       $drm = $csv->importDRM($this->getUser()->getTiers()->identifiant);
+      $drm->mode_de_saisie = 'EDI';
       $drm->save();
       $this->iddrm = $drm->_id;
     }catch(sfException $e) {
@@ -53,6 +54,22 @@ class ediActions extends sfActions
     }
     $this->setLayout(false);
   }
+  public function executeViewDRM(sfWebRequest $request) 
+  {
+    $this->setLayout(false);
+    $this->response->setContentType('text/plain');
+
+    $this->drm = DRMClient::getInstance()->findByIdentifiantCampagneAndRectificative($request->getParameter('identifiant'), $request->getParameter('annee').'-'.$request->getParameter('mois'), $request->getParameter('rectificative'));
+    $this->forward404Unless($this->drm);
+  }
+
+  public function executeStreamDRM(sfWebRequest $request) {
+    $this->setLayout(false);
+    $this->response->setContentType('text/plain');
+    $this->drms = DRMClient::getInstance()->findByInterproDate($request->getParameter('interpro'), $request->getParameter('date'));
+    $this->forward404Unless($this->drms);
+  }
+
   public function executeListDRM(sfWebRequest $request) 
   {
     $this->setLayout(false);

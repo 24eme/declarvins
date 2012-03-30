@@ -10,6 +10,12 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
         return ConfigurationClient::getCurrent()->get($this->getHash());
     }
 
+    public function getLibelle() {
+      return $this->getConfig()->getLibelle();
+    }
+    public function getCode() {
+      return $this->getConfig()->getCode();
+    }
     protected function init() {
         parent::init();
         $this->total_debut_mois = null;

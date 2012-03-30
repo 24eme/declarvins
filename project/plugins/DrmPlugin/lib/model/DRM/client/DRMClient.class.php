@@ -11,7 +11,6 @@ class DRMClient extends acCouchdbClient {
     }
 
     public function getId($identifiant, $campagne, $rectificative = null) {
-      
       return 'DRM-'.$identifiant.'-'.$this->getCampagneAndRectificative($campagne, $rectificative);
     }
 
@@ -32,12 +31,9 @@ class DRMClient extends acCouchdbClient {
 
     public function getCampagneAndRectificative($campagne, $rectificative = null) {
       if($rectificative  && $rectificative > 0) {
-
         return $campagne.'-R'.sprintf("%02d", $rectificative);
-      } else {
-
-        return $campagne;
-      }
+      } 
+      return $campagne;
     }
 
     public function findLastByIdentifiantAndCampagne($identifiant, $campagne, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
@@ -66,6 +62,30 @@ class DRMClient extends acCouchdbClient {
       $obj->campagne = $this->getCampagne($annee, $mois);
       
       return $obj;
+    }
+
+    public function findByInterproDate($interpro, $date, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
+      $drm = array();
+      foreach ($this->viewByInterproDate($interpro, $date) as $id => $key) {
+	$drm[] = $this->find($id);
+      }
+      return $drm;
+    }
+
+    protected function viewByInterproDate($interpro, $date) {
+      $rows = acCouchdbManager::getClient()
+	->startkey(array($interpro, $date))
+	->endkey(array($interpro, array()))
+	->getView("drm", "date")
+	->rows;
+
+      $drms = array();
+
+      foreach($rows as $row) {
+        $drms[$row->id] = $row->key;
+      }
+      
+      return $drms;
     }
 
     protected function viewByIdentifiantCampagne($identifiant, $campagne) {

@@ -57,7 +57,74 @@ class DRMCsvFile extends CsvFile
   const CSV_COL_DETAIL_STOCKFIN_BLOQUE = 47;
   const CSV_COL_DETAIL_STOCKFIN_WARRANTE = 48;
   const CSV_COL_DETAIL_STOCKFIN_INSTANCE = 49;
-  const CSV_COL_DETAIL_STOCKFIN_COMMERCIALISABLE = 49;
+  const CSV_COL_DETAIL_STOCKFIN_COMMERCIALISABLE = 50;
+  const CSV_COL_DETAIL_CVO_TAUX = 51;
+  const CSV_COL_DETAIL_CVO_VOLUME = 52;
+  const CSV_COL_DETAIL_CVO_PRIX = 53;
+  const CSV_COL_DETAIL_MODEDESAISIE = 54;
+
+  public function __construct(DRM $drm) {
+    $this->csvdata = array();
+    foreach ($drm->getDetails() as $d) {
+      $line = array();
+      $line[self::CSV_COL_TYPE] = 'DETAIL';
+      $line[self::CSV_COL_IDENTIFIANT_DECLARANT] = $d->getDocument()->getIdentifiant();
+      $line[self::CSV_COL_NOM_DECLARANT] = $d->getDocument()->getDeclarant()->getNom();
+      $line[self::CSV_COL_ANNEE] = $d->getDocument()->getAnnee();
+      $line[self::CSV_COL_MOIS] = $d->getDocument()->getMois();
+      $line[self::CSV_COL_RECTIFICATIVE] = $d->getDocument()->getRectificative();
+      $line[self::CSV_COL_ANNEE_PRECEDENTE] = $d->getDocument()->getPrecedente()->getAnnee();
+      $line[self::CSV_COL_MOIS_PRECEDENTE] = $d->getDocument()->getPrecedente()->getMois();
+      $line[self::CSV_COL_RECTIFICATIVE_PRECEDENTE] = $d->getDocument()->getPrecedente()->getRectificative();
+      $line[self::CSV_COL_CERTIFICATION] = $d->getCertification()->getLibelle();
+      $line[self::CSV_COL_CERTIFICATION_CODE] = $d->getCertification()->getCode();
+      $line[self::CSV_COL_GENRE] = $d->getGenre()->getLibelle();
+      $line[self::CSV_COL_GENRE_CODE] = $d->getGenre()->getCode();
+      $line[self::CSV_COL_APPELLATION] = $d->getAppellation()->getLibelle();
+      $line[self::CSV_COL_APPELLATION_CODE] = $d->getAppellation()->getCode();
+      $line[self::CSV_COL_LIEU] = $d->getLieu()->getLibelle();
+      $line[self::CSV_COL_LIEU_CODE] = $d->getLieu()->getCode();
+      $line[self::CSV_COL_COULEUR] = $d->getCouleur()->getLibelle();
+      $line[self::CSV_COL_COULEUR_CODE] = $d->getCouleur()->getCode();
+      $line[self::CSV_COL_CEPAGE] = $d->getCepage()->getLibelle();
+      $line[self::CSV_COL_CEPAGE_CODE] = $d->getCepage()->getCode();
+      $line[self::CSV_COL_MILLESIME] = $d->getMillesime()->getLibelle();
+      $line[self::CSV_COL_MILLESIME_CODE] = $d->getMillesime()->getCode();
+      $line[self::CSV_COL_LABELS] = $d->getLabelLibellesString();
+      $line[self::CSV_COL_LABELS_CODE] = $d->getLabelKeyString();
+      $line[self::CSV_COL_MENTION] = $d->label_supplementaire;
+      $line[self::CSV_COL_DETAIL_TOTAL_DEBUT_MOIS] = $d->total_debut_mois;
+      $line[self::CSV_COL_DETAIL_ENTREES] = $d->total_entrees;
+      $line[self::CSV_COL_DETAIL_ENTREES_ACHAT] = $d->entrees->achat;
+      $line[self::CSV_COL_DETAIL_ENTREES_RECOLTE] = $d->entrees->recolte;
+      $line[self::CSV_COL_DETAIL_ENTREES_REPLI] = $d->entrees->repli;
+      $line[self::CSV_COL_DETAIL_ENTREES_DECLASSEMENT] = $d->entrees->declassement;
+      $line[self::CSV_COL_DETAIL_ENTREES_MOUVEMENT] = $d->entrees->mouvement;
+      $line[self::CSV_COL_DETAIL_ENTREES_CRD] = $d->entrees->crd;
+      $line[self::CSV_COL_DETAIL_SORTIES] = $d->total_sorties;
+      $line[self::CSV_COL_DETAIL_SORTIES_VRAC] = $d->sorties->vrac;
+      $line[self::CSV_COL_DETAIL_SORTIES_EXPORT] = $d->sorties->export;
+      $line[self::CSV_COL_DETAIL_SORTIES_FACTURES] = $d->sorties->factures;
+      $line[self::CSV_COL_DETAIL_SORTIES_CRD] = $d->sorties->crd;
+      $line[self::CSV_COL_DETAIL_SORTIES_CONSOMMATION] = $d->sorties->consommation;
+      $line[self::CSV_COL_DETAIL_SORTIES_PERTES] = $d->sorties->pertes;
+      $line[self::CSV_COL_DETAIL_SORTIES_DECLASSEMENT] = $d->sorties->declassement;
+      $line[self::CSV_COL_DETAIL_SORTIES_REPLI] = $d->sorties->repli;
+      $line[self::CSV_COL_DETAIL_SORTIES_MOUVEMENT] = $d->sorties->mouvement;
+      $line[self::CSV_COL_DETAIL_SORTIES_DISTILLATION] = $d->sorties->distillation;
+      $line[self::CSV_COL_DETAIL_SORTIES_LIES] = $d->sorties->lies;
+      $line[self::CSV_COL_DETAIL_TOTAL] = $d->total;
+      $line[self::CSV_COL_DETAIL_STOCKFIN_BLOQUE] = $d->stocks_fin->bloque;
+      $line[self::CSV_COL_DETAIL_STOCKFIN_WARRANTE] = $d->stocks_fin->warrante;
+      $line[self::CSV_COL_DETAIL_STOCKFIN_INSTANCE] = $d->stocks_fin->instance;
+      $line[self::CSV_COL_DETAIL_STOCKFIN_COMMERCIALISABLE] = $d->stocks_fin->commercialisable;
+      $line[self::CSV_COL_DETAIL_CVO_TAUX] = $d->getDroit(DrmDroits::DROIT_CVO)->getTaux();
+      $line[self::CSV_COL_DETAIL_CVO_VOLUME] = $d->getDroitVolume(DrmDroits::DROIT_CVO);
+      $line[self::CSV_COL_DETAIL_CVO_PRIX] = $line[self::CSV_COL_DETAIL_CVO_TAUX] * $line[self::CSV_COL_DETAIL_CVO_VOLUME];
+      $line[self::CSV_COL_DETAIL_MODEDESAISIE] = $d->getDocument()->mode_de_saisie;
+      $this->csvdata[] = $line;
+    }
+  }
 
   private function verifyCsvLine($detail, $line) {
     if ($line[self::CSV_COL_DETAIL_ENTREES]*1 != $detail->total_entrees)

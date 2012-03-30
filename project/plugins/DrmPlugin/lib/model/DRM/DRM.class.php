@@ -63,7 +63,7 @@ class DRM extends BaseDRM {
 
     }
 
-    public function getDetailsAvecVrac() {
+    public function getDetails() {
         $details = array();
         foreach ($this->declaration->certifications as $certifications) {
             foreach ($certifications->appellations as $appellation) {
@@ -72,9 +72,7 @@ class DRM extends BaseDRM {
                     	foreach ($couleur->cepages as $cepage) {
     	                    foreach ($cepage->millesimes as $millesime) {
                                 foreach ($millesime->details as $detail) {
-        	                        if ($detail->sorties->vrac) {
-        	                            $details[] = $detail;
-        	                        }
+				  $details[] = $detail;
                                 }
     	                    }
                     	}
@@ -83,6 +81,15 @@ class DRM extends BaseDRM {
             }
         }
         return $details;
+    }
+
+    public function getDetailsAvecVrac() {
+      $details = array();
+      foreach ($this->getDetails() as $d) {
+	if ($d->sorties->vrac)
+	  $details[] = $d;
+      }
+      return $details;
     }
 
     public function generateSuivante($campagne) 
@@ -96,7 +103,7 @@ class DRM extends BaseDRM {
         $drm_suivante->add('douane');
         $drm_suivante->remove('declarant');
         $drm_suivante->add('declarant');
-        $drm_suivante->valide = 0;
+        $drm_suivante->devalide();
 
         return $drm_suivante;
     }
@@ -141,6 +148,10 @@ class DRM extends BaseDRM {
     public function getAnnee() {
       return preg_replace('/-.*/', '', $this->campagne)*1;
     }
+
+    public function getRectificative() {
+      return (isset($this->rectificative)) ? $this->rectificative : 0;
+    }
     
     public function setDroits() {
       $this->remove('droits');
@@ -173,10 +184,9 @@ class DRM extends BaseDRM {
     }
 
     public function isRectificable() {
-        if (!$this->valide) {
-
-            return false;
-        }
+      if (!$this->isValidee()) {
+	return false;
+      }
 
         if ($drm = DRMClient::getInstance()->findLastByIdentifiantAndCampagne($this->identifiant, $this->campagne, acCouchdbClient::HYDRATE_JSON)) {
 
@@ -188,7 +198,7 @@ class DRM extends BaseDRM {
 
     public function generateRectificative() {
         $drm_rectificative = clone $this;
-        $drm_rectificative->valide = 0;
+        $drm_rectificative->devalide();
 
         if(!$this->isRectificable()) {
 
@@ -204,12 +214,19 @@ class DRM extends BaseDRM {
         return $drm_rectificative;
     }
 
+    public function getPrecedente() {
+      if (isset($this->precedente) && $this->precedente)
+	return DRMClient::getInstance()->findById($this->precedente);
+      return new DRM();
+    }
+
     public function getSuivante() {
        $date_campagne = new DateTime($this->getAnnee().'-'.$this->getMois().'-01');
        $date_campagne->modify('+1 month');
        $next_campagne = DRMClient::getInstance()->getCampagne($date_campagne->format('Y'), $date_campagne->format('m'));
 
        $next_drm = DRMClient::getInstance()->findLastByIdentifiantAndCampagne($this->identifiant, $next_campagne);
+       $next_drm->precedente = $this->_id;
 
        return $next_drm;
     }
@@ -276,18 +293,30 @@ class DRM extends BaseDRM {
         return array_key_exists($hash, $this->getDiffWithMasterDRM());
     }
 
-    public function isValidee() {
-      return ($this->valide);
+    public function devalide() {
+      $this->valide->identifiant = '';
+      $this->valide->date = '';
     }
 
-    public function validate() {
-        $this->valide = 1;
-        $this->setDroits();
+    public function isValidee() {
+      return ($this->valide->date);
+    }
+
+    public function validate($identifiant = null) {
+      $this->valide->add('date', date('c'));
+      if (!$identifiant)
+	$identifiant = $this->identifiant;
+      $this->valide->identifiant = $identifiant;
+      $this->setDroits();
+      $this->setInterpros();
+    }
+
+    public function setInterpros() {
+      $this->interpros->add(0,$this->getInterpro()->getKey());
     }
 
     public function save() {
         if (!preg_match('/^2\d{3}-[01][0-9]$/', $this->campagne)) {
-	    
             throw new sfException('Wrong format for campagne ('.$this->campagne.')');
         }
 

@@ -14,9 +14,7 @@ class DRMMillesime extends BaseDRMMillesime {
 	public function sommeLignes($lines) {
 	  $sum = 0;
 	  foreach($this->details as $detail) {
-	    foreach($lines as $line) {
-	      $sum += $detail->get($line);
-	    }
+	    $sum += $detail->sommeLigne($lines);
 	  }
 	  return $sum;
 	}

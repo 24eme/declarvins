@@ -452,6 +452,7 @@ DRM:
       _rev: {  }
       type: {  }
       campagne: {  }
+      precedente: {  }
       rectificative: { type: integer, required: false }
       produits:
         type: collection
@@ -738,7 +739,18 @@ DRM:
                   dispense: { type: integer }
                   organisme: {  }
       identifiant: {  }
-      valide: {  }
+      mode_de_saisie: {  }
+      interpros:
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
+      valide:
+        type: collection
+        definition:
+          fields:
+            date: {}
+            identifiant: {}
       douane:
         type: collection
         definition:

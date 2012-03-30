@@ -53,11 +53,11 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
         	$lastDrm = $this->getDrmHistorique()->getLastDrm();
 
         	if ($lastDrm && $drm = DRMClient::getInstance()->find(key($lastDrm))) {
-        		if (!$drm->valide) {
-        			$this->_drm = $drm;
-        		} else {
-        			$this->_drm = $drm->generateSuivante($this->getCampagneDrm());
-        		}
+		  if (!$drm->isValidee()) {
+		    $this->_drm = $drm;
+		  } else {
+		    $this->_drm = $drm->generateSuivante($this->getCampagneDrm());
+		  }
         	} else {
         		$this->_drm = new DRM();
 	            $this->_drm->identifiant = $this->getTiers()->identifiant;
@@ -72,9 +72,9 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
     public function getLastDrmValide() {
         $lastDrm = $this->getDrmHistorique()->getLastDrm();
         if ($lastDrm && $drm = DRMClient::getInstance()->find(key($lastDrm))) {
-        	if ($drm->valide) {
-        		return $drm;
-        	}
+	  if ($drm->isValidee()) {
+	    return $drm;
+	  }
         }
         return null;
     }
