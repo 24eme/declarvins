@@ -5,7 +5,7 @@ class CsvFile
 
   private $file = null;
   private $separator = null;
-  private $csvdata = null;
+  protected $csvdata = null;
   private $ignore = null;
 
   public function getFileName() {

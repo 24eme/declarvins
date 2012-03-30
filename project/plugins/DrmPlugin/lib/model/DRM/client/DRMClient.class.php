@@ -11,7 +11,6 @@ class DRMClient extends acCouchdbClient {
     }
 
     public function getId($identifiant, $campagne, $rectificative = null) {
-      
       return 'DRM-'.$identifiant.'-'.$this->getCampagneAndRectificative($campagne, $rectificative);
     }
 
@@ -32,12 +31,9 @@ class DRMClient extends acCouchdbClient {
 
     public function getCampagneAndRectificative($campagne, $rectificative = null) {
       if($rectificative  && $rectificative > 0) {
-
         return $campagne.'-R'.sprintf("%02d", $rectificative);
-      } else {
-
-        return $campagne;
-      }
+      } 
+      return $campagne;
     }
 
     public function findLastByIdentifiantAndCampagne($identifiant, $campagne, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
@@ -80,7 +76,6 @@ class DRMClient extends acCouchdbClient {
       $rows = acCouchdbManager::getClient()
 	->startkey(array($interpro, $date))
 	->endkey(array($interpro, array()))
-	->reduce(false)
 	->getView("drm", "date")
 	->rows;
 

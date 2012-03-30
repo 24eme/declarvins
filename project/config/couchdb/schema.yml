@@ -452,6 +452,7 @@ DRM:
       _rev: {  }
       type: {  }
       campagne: {  }
+      precedente: {  }
       rectificative: { type: integer, required: false }
       produits:
         type: collection

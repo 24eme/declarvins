@@ -24,6 +24,10 @@ class DRMDetail extends BaseDRMDetail {
     	return $this->getAppellation()->getCertification();
     }
 
+    public function getGenre() {
+      return new DRMGenre($this->getDocument()->getDefinition(), $this->getDocument(), '');
+    }
+
     /**
      *
      * @return DRMMillesime
@@ -68,6 +72,12 @@ class DRMDetail extends BaseDRMDetail {
         
     }
     
+    public function getLabelKeyString() {
+      if ($this->label) {
+	return implode('|', $this->label->toArray());
+      }
+      return '';
+    }
     public function getLabelKey() {
     	$key = null;
     	if ($this->label) {
@@ -76,6 +86,10 @@ class DRMDetail extends BaseDRMDetail {
     	return ($key) ? $key : DRM::DEFAULT_KEY;
     }
 
+    public function getLabelLibellesString() {
+      return implode('|', $this->getLabelLibelles());
+    }
+    
     public function getLabelLibelles() {
         $libelles = array(); 
         foreach($this->label as $key) {

@@ -148,6 +148,10 @@ class DRM extends BaseDRM {
     public function getAnnee() {
       return preg_replace('/-.*/', '', $this->campagne)*1;
     }
+
+    public function getRectificative() {
+      return (isset($this->rectificative)) ? $this->rectificative : 0;
+    }
     
     public function setDroits() {
       $this->remove('droits');
@@ -210,12 +214,19 @@ class DRM extends BaseDRM {
         return $drm_rectificative;
     }
 
+    public function getPrecedente() {
+      if (isset($this->precedente) && $this->precedente)
+	return DRMClient::getInstance()->findById($this->precedente);
+      return new DRM();
+    }
+
     public function getSuivante() {
        $date_campagne = new DateTime($this->getAnnee().'-'.$this->getMois().'-01');
        $date_campagne->modify('+1 month');
        $next_campagne = DRMClient::getInstance()->getCampagne($date_campagne->format('Y'), $date_campagne->format('m'));
 
        $next_drm = DRMClient::getInstance()->findLastByIdentifiantAndCampagne($this->identifiant, $next_campagne);
+       $next_drm->precedente = $this->_id;
 
        return $next_drm;
     }
