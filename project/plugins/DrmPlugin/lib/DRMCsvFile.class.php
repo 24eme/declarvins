@@ -57,7 +57,11 @@ class DRMCsvFile extends CsvFile
   const CSV_COL_DETAIL_STOCKFIN_BLOQUE = 47;
   const CSV_COL_DETAIL_STOCKFIN_WARRANTE = 48;
   const CSV_COL_DETAIL_STOCKFIN_INSTANCE = 49;
-  const CSV_COL_DETAIL_STOCKFIN_COMMERCIALISABLE = 49;
+  const CSV_COL_DETAIL_STOCKFIN_COMMERCIALISABLE = 50;
+  const CSV_COL_DETAIL_CVO_TAUX = 51;
+  const CSV_COL_DETAIL_CVO_VOLUME = 52;
+  const CSV_COL_DETAIL_CVO_PRIX = 53;
+  const CSV_COL_DETAIL_MODEDESAISIE = 54;
 
   public function __construct(DRM $drm) {
     $this->csvdata = array();
@@ -114,6 +118,10 @@ class DRMCsvFile extends CsvFile
       $line[self::CSV_COL_DETAIL_STOCKFIN_WARRANTE] = $d->stocks_fin->warrante;
       $line[self::CSV_COL_DETAIL_STOCKFIN_INSTANCE] = $d->stocks_fin->instance;
       $line[self::CSV_COL_DETAIL_STOCKFIN_COMMERCIALISABLE] = $d->stocks_fin->commercialisable;
+      $line[self::CSV_COL_DETAIL_CVO_TAUX] = $d->getDroit(DrmDroits::DROIT_CVO)->getTaux();
+      $line[self::CSV_COL_DETAIL_CVO_VOLUME] = $d->getDroitVolume(DrmDroits::DROIT_CVO);
+      $line[self::CSV_COL_DETAIL_CVO_PRIX] = $line[self::CSV_COL_DETAIL_CVO_TAUX] * $line[self::CSV_COL_DETAIL_CVO_VOLUME];
+      $line[self::CSV_COL_DETAIL_MODEDESAISIE] = $d->getDocument()->mode_de_saisie;
       $this->csvdata[] = $line;
     }
   }

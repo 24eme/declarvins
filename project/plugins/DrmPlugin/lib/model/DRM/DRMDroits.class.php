@@ -1,5 +1,17 @@
 <?php
 class DRMDroits extends BaseDRMDroits {
+  const DROIT_CVO = 'CVO';
+  const DROIT_DOUANE = 'Douane';
+
+  static $droit_entrees = array('entrees/crd');
+  public static function getDroitEntrees() {
+    return self::$droit_entrees;
+  }
+  static $droit_sorties = array('sorties/crd','sorties/factures');
+  public static function getDroitSorties() {
+    return self::$droit_sorties;
+  }
+
   private $res = array();
   private function addVirtual($key, $value) {
     if (!isset($this->res[$key]))

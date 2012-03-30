@@ -31,6 +31,7 @@ class ediActions extends sfActions
     $this->iddrm = null;
     try {
       $drm = $csv->importDRM($this->getUser()->getTiers()->identifiant);
+      $drm->mode_de_saisie = 'EDI';
       $drm->save();
       $this->iddrm = $drm->_id;
     }catch(sfException $e) {

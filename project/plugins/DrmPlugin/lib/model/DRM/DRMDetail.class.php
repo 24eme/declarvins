@@ -155,6 +155,13 @@ class DRMDetail extends BaseDRMDetail {
       return $this->getDocument()->isModifiedMasterDRM($this->getHash(), $key);
     }
 
+
+    public function getDroitVolume($type) {
+      return $this->sommeLignes(DRMDroits::getDroitSorties()) - $this->sommeLignes(DRMDroits::getDroitEntrees());
+    }
+    public function getDroit($type) {
+      return $this->getAppellation()->getDroit($type);
+    }
     protected function init() {
       parent::init();
 
@@ -179,5 +186,13 @@ class DRMDetail extends BaseDRMDetail {
       foreach ($this->sorties as $key => $sortie) {
         $this->sorties->$key = null;
       }
+    }
+
+    public function sommeLignes($lines) {
+      $sum = 0;
+      foreach($lines as $line) {
+	$sum += $this->get($line);
+      }
+      return $sum;
     }
 }
