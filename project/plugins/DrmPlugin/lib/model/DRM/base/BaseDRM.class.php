@@ -8,9 +8,12 @@
  * @property string $_rev
  * @property string $type
  * @property string $campagne
+ * @property integer $rectificative
  * @property acCouchdbJson $produits
+ * @property acCouchdbJson $droits
  * @property acCouchdbJson $declaration
  * @property DRMDeclarant $declarant
+ * @property acCouchdbJson $decaratif
  * @property string $identifiant
  * @property string $valide
  * @property acCouchdbJson $douane
@@ -23,12 +26,18 @@
  * @method string setType()
  * @method string getCampagne()
  * @method string setCampagne()
+ * @method integer getRectificative()
+ * @method integer setRectificative()
  * @method acCouchdbJson getProduits()
  * @method acCouchdbJson setProduits()
+ * @method acCouchdbJson getDroits()
+ * @method acCouchdbJson setDroits()
  * @method acCouchdbJson getDeclaration()
  * @method acCouchdbJson setDeclaration()
  * @method DRMDeclarant getDeclarant()
  * @method DRMDeclarant setDeclarant()
+ * @method acCouchdbJson getDecaratif()
+ * @method acCouchdbJson setDecaratif()
  * @method string getIdentifiant()
  * @method string setIdentifiant()
  * @method string getValide()

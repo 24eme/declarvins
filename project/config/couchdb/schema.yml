@@ -491,7 +491,7 @@ DRM:
               type: collection
               definition:
                 fields:
-                  '*': 
+                  '*':
                     class: DRMDroit
                     type: collection
                     definition:
@@ -505,7 +505,7 @@ DRM:
               type: collection
               definition:
                 fields:
-                  '*': 
+                  '*':
                     class: DRMDroit
                     type: collection
                     definition:
@@ -707,11 +707,42 @@ DRM:
                     code_postal: {  }
                     commune: {  }
             service_douane: {  }
+      declaratif:
+        type: collection
+        definition:
+          fields:
+            defaut_apurement: { type: integer }
+            daa:
+              type: collection
+              definition:
+                fields:
+                  debut: { type: integer }
+                  fin: { type: integer }
+            dsa:
+              type: collection
+              definition:
+                fields:
+                  debut: { type: integer }
+                  fin: { type: integer }
+            adhesion_emcs_gamma: { type: integer }
+            paiement:
+              type: collection
+              definition:
+                fields:
+                  frequence: {  }
+                  moyen: {  }
+            caution:
+              type: collection
+              definition:
+                fields:
+                  dispense: { type: integer }
+                  organisme: {  }
       identifiant: {  }
       valide: {  }
       douane:
         type: collection
         definition:
           fields:
+            service: {  }
             envoi: {  }
             accuse: {  }
