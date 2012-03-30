@@ -29,6 +29,7 @@ class ArrayPager extends sfPager
 	    if (0 == $this->getPage() || 0 == $this->getMaxPerPage() || 0 == $this->getNbResults())
 	    {
 	      $this->setLastPage(0);
+	      $this->results = array();
 	    }
 	    else
 	    {
@@ -50,12 +51,12 @@ class ArrayPager extends sfPager
 		$offset = ($this->getPage() - 1) * $this->getMaxPerPage();
 		$this->results = array_slice($this->array, $offset, $this->getMaxPerPage());
       	$offset = ($this->getPage() - 1) * $this->getMaxPerPage();
-	      $this->results = array_slice($this->array, $offset, $this->getMaxPerPage());
-	      if ($this->getFillWithMax() && count($this->results) < $this->getMaxPerPage()) {
+	    $this->results = array_slice($this->array, $offset, $this->getMaxPerPage());
+	    if ($this->getFillWithMax() && count($this->results) > 0 && count($this->results) < $this->getMaxPerPage()) {
 	      	for($i = count($this->results); $i < $this->getMaxPerPage(); $i++) {
-    				$this->results[] = null;
-    		}
-	     }
+					$this->results[] = null;
+			}
+	    }
 	} 
 
 	public function getResults() {

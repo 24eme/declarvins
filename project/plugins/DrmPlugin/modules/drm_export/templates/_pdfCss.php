@@ -14,6 +14,10 @@
 		padding: 0;
 	}
 
+	p {
+		margin-top: 5px;
+	}
+
 	#header,
 	#footer {
 		position: fixed;
@@ -35,9 +39,10 @@
 		margin: 0;
 	}
 
-	#header p.date_validation{
+	#header h1 span.date_validation{
 		font-style: italic;
 		font-size: 9pt;
+		font-weight: normal;
 	}
 
 	#header table {
@@ -73,23 +78,25 @@
 	}
 
 	h2 {
-		background-color: #000;
-		color: #fff;
+		background-color: #ccc;
+		color: #000;
 		margin: 0;
-		padding: 0;
-		display: inline;
+		text-align: center;
+		padding: 1px 0;
+		display: block;
+		margin-bottom: 4px;
 	}
 
 	table.recap {
 		border-collapse: collapse;
 		border-spacing: 0;
-		margin-bottom: 10px;
 	}
 
 	table.recap tr td, table.recap tr th {
 		border: 1px solid #000;
 		padding: 0;
 		text-align: left;
+		padding: 0 3px;
 	}
 
 	table.recap tr td.total, table.recap tr th.total {
@@ -107,23 +114,22 @@
 	table.recap tr th {
 		word-wrap: break-word;
 		white-space: normal;
-		padding-left: 3px;
 	}
 
 	table.recap.volumes tr th {
-		width: 255px;
+		width: 252px;
 	}
 
 	table.recap.volumes tr td {
-		width: 103px;
+		width: 96px;
 	}
 
 	table.recap.droits_douane tr th {
-		width: 199px;
+		width: 193px;
 	}
 
 	table.recap.droits_douane tr td {
-		width: 110px;
+		width: 104px;
 	}
 
 	table.recap tr td.libelle {
@@ -143,7 +149,7 @@
 		color: #fff;
 	}
 
-	table.recap.recap.volumes tr td.total.number span.zero {
+	table.recap.volumes tr td.total.number span.zero {
 		color: #aaa;
 	}
 
@@ -155,6 +161,42 @@
 		text-align: left;
 	}
 
+	.case_a_cocher_container {
+		position: relative;
+	}
+
+	.case_a_cocher_container label {
+/*		margin-left: 3px;
+*/	}
+
+	.case_a_cocher_croix {
+		position: absolute;
+		display: block;
+		left: 0; 
+		top: 0;
+	}
+
+	table.double_col {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+
+	table.double_col tr td {
+		width: 526px;
+		vertical-align: top;
+		margin: 0;
+	}
+
+	table.double_col tr td.col_left {
+		border-right: 1px dashed #000;
+		padding-right: 15px;
+	}
+
+	table.double_col tr td.col_right {
+		border-left: 1px dashed #000;
+		padding-left: 15px;
+	}
+
 	.page-number {
 		text-align: center;
 		font-size: 8pt;
@@ -162,6 +204,14 @@
 	.page-number:before {
 		content: "f " counter(page);
 	}
+	.bloc_bottom {
+		margin-bottom: 20px;
+	}
+
+	table.double_col tr td.col_right .bloc_bottom {
+		margin-bottom: 10px;
+	}
+
 	hr {
 		page-break-after: always;
 		border: 0;

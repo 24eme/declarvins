@@ -1,1 +1,1 @@
-<?php echo produitCodeFromDetail($item) ?>
+<?php echo strtoupper(produitCodeFromDetail($item)) ?>

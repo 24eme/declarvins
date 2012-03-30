@@ -28,84 +28,88 @@
 					$pagers_vrac[$certification_key]->getPage() <= $pagers_vrac[$certification_key]->getLastPage()): ?>
 
 		<?php $colonnes = $pagers_volume[$certification_key]->getResults(); ?>
-		<h2>Suivi des vins - <?php echo $certification->getConfig()->libelle ?></h2>
-		<table class="recap volumes">
-			<?php include_partial('drm_export/pdfLine', array('libelle' => 'Code produit',
-															  'colonnes' => $colonnes,
-															  'cssclass_value' => 'libelle',
-															  'partial' => 'drm_export/pdfLineVolumeItemProduitLibelle')) ?>
+		<?php if(count($colonnes) > 0): ?>
+			<h2>Suivi des vins - <?php echo $certification->getConfig()->libelle ?></h2>
+			<table class="recap volumes bloc_bottom">
+				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Code produit',
+																  'colonnes' => $colonnes,
+																  'cssclass_value' => 'libelle',
+																  'partial' => 'drm_export/pdfLineVolumeItemProduitLibelle')) ?>
 
-			<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total début de mois',
-																   'unite' => 'hl',
-																   'cssclass_libelle' => 'total',
-															       'cssclass_value' => 'total',
-															       'colonnes' => $colonnes,
-															       'hash' => 'total_debut_mois')) ?>
+				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total début de mois',
+																	   'unite' => 'hl',
+																	   'cssclass_libelle' => 'total',
+																       'cssclass_value' => 'total',
+																       'colonnes' => $colonnes,
+																       'hash' => 'total_debut_mois')) ?>
 
-			<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
-																	'colonnes' => $colonnes,
-															  		'hash' => 'stocks_debut')) ?>
+				<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
+																		'colonnes' => $colonnes,
+																  		'hash' => 'stocks_debut')) ?>
 
-			<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total entrées',
-																   'unite' => 'hl',
-																   'cssclass_libelle' => 'total',
-															  	   'cssclass_value' => 'total',
-																   'colonnes' => $colonnes,
-																   'hash' => 'total_entrees')) ?>
+				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total entrées',
+																	   'unite' => 'hl',
+																	   'cssclass_libelle' => 'total',
+																  	   'cssclass_value' => 'total',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'total_entrees')) ?>
 
 
-			<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
-																	'colonnes' => $colonnes,
-															  		'hash' => 'entrees')) ?>
+				<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
+																		'colonnes' => $colonnes,
+																  		'hash' => 'entrees')) ?>
 
-			<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total sorties',
-																   'unite' => 'hl',
-																   'colonnes' => $colonnes,
-																   'cssclass_libelle' => 'total',
-																   'cssclass_value' => 'total',
-																   'hash' => 'total_sorties')) ?>
+				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total sorties',
+																	   'unite' => 'hl',
+																	   'colonnes' => $colonnes,
+																	   'cssclass_libelle' => 'total',
+																	   'cssclass_value' => 'total',
+																	   'hash' => 'total_sorties')) ?>
 
-			<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
-																	'colonnes' => $colonnes,
-															  		'hash' => 'sorties')) ?>
+				<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
+																		'colonnes' => $colonnes,
+																  		'hash' => 'sorties')) ?>
 
-			<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total fin de mois',
-																   'unite' => 'hl',
-																   'cssclass_libelle' => 'total',
-															  	   'cssclass_value' => 'total',
-															  	   'colonnes' => $colonnes,
-															  	   'hash' => 'total')) ?>
+				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total fin de mois',
+																	   'unite' => 'hl',
+																	   'cssclass_libelle' => 'total',
+																  	   'cssclass_value' => 'total',
+																  	   'colonnes' => $colonnes,
+																  	   'hash' => 'total')) ?>
 
-			<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
-																	'colonnes' => $colonnes,
-															  		'hash' => 'stocks_fin')) ?>
+				<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
+																		'colonnes' => $colonnes,
+																  		'hash' => 'stocks_fin')) ?>
 
-		</table>
+			</table>
+		<?php endif; ?>
 
 		<?php $colonnes = $pagers_vrac[$certification_key]->getResults(); ?>
-		<h2>Contrats vrac - <?php echo $certification->getConfig()->libelle ?></h2>
-		<table class="recap">
-			<?php include_partial('drm_export/pdfLine', array('libelle' => 'Code produit',
-															  'colonnes' => $colonnes,
-															  'cssclass_value' => 'libelle',
-															  'partial' => 'drm_export/pdfLineVracItemProduitLibelle')) ?>
+		<?php if(count($colonnes) > 0): ?>
+			<h2>Contrats vrac - <?php echo $certification->getConfig()->libelle ?></h2>
+			<table class="recap volumes bloc_bottom">
+				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Code produit',
+																  'colonnes' => $colonnes,
+																  'cssclass_value' => 'libelle',
+																  'partial' => 'drm_export/pdfLineVracItemProduitLibelle')) ?>
 
-			<?php include_partial('drm_export/pdfLine', array('libelle' => 'N° de contrat', 
-																   'colonnes' => $colonnes,
-																   'cssclass_libelle' => 'detail',
-															  	   'cssclass_value' => 'detail',
-															  	   'method' => 'getKey')) ?>
+				<?php include_partial('drm_export/pdfLine', array('libelle' => 'N° de contrat', 
+																	   'colonnes' => $colonnes,
+																	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																  	   'method' => 'getKey')) ?>
 
-			<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume',
-															  	   'colonnes' => $colonnes,
-															  	   'unite' => 'hl',
-															  	   'cssclass_libelle' => 'detail',
-															  	   'cssclass_value' => 'detail',
-															  	   'hash' => 'volume')) ?>
+				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume',
+																  	   'colonnes' => $colonnes,
+																  	   'unite' => 'hl',
+																  	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																  	   'hash' => 'volume')) ?>
 
 
-			
-		</table>
+				
+			</table>
+		<?php endif; ?>
 
 		<?php $pagers_volume[$certification_key]->gotoNextPage(); ?>
 		<?php $pagers_vrac[$certification_key]->gotoNextPage(); ?>
@@ -113,33 +117,33 @@
 		<?php endwhile; ?>
 	<?php endforeach; ?>
 
-	<!--<p>Pas de mouvement de vin sur le mois indiqué</p>
-	<p>Stock épuisé (vous n’avez plus aucun vin en cave)</p>-->
-
-	<h2>Défaut d'apurement</h2>
-	<p>Pas de défaut d'apurement</p>
-
-	<h2>Documents prévalidés ou N° empreinte utilisés au cours du mois</h2> 
-	<p><strong>A adhérer</strong> à EMCS/GAMMA</p>
-	<p><strong>DAA</strong> du 1258 au 1260</p>
-	<p>Pas de DSA</p>
-
-	<h2>Douanes</h2>
-	<p><strong>Services des douanes de</strong> : Orange</p>
-
-	<h2>Caution</h2>
-	<p><strong>Oui</strong>, Organisme : CIVP</p>
-
-	<h2>Paiement des droits de circulation</h2>
-	<p>Vous payer <strong>par échéance mensuelle</strong></p>
-	<p><strong>Mode de paiement</strong> : Chèque</p>
-
+	<table class="double_col bloc_bottom">
+		<tr>
+			<td class="col_left">
+				<h2>Mouvements au cours du mois</h2>
+				<p><strong>Documents prévalidés ou N° empreinte utilisés au cours du mois</strong></p>
+				<p><strong>DAA</strong> du 1258 au 1260</p>
+				<p><strong>DSA</strong> : Aucun</p>
+				<p class="case_a_cocher_container">❑<span class="case_a_cocher_croix">✕</span> Adhésion à EMCS / GAMMA (n° non nécessaires)</p>
+			</td>
+			<td class="col_right">
+				<h2>Défaut d'apurement</h2>
+				<p class="bloc_bottom">
+					Défaut d'apurement à déclarer (Joindre relevé de non apurement et copie du DAA)
+				</p>
+				<h2>Caution</h2>
+				<p>
+					Oui, Organisme : CIVP<br />
+				</p>
+			</td>
+		</tr>
+	</table>
 
 	<?php while($pager_droits_douane->getPage() <= $pager_droits_douane->getLastPage()): ?>
 	<?php $colonnes = $pager_droits_douane->getResults(); ?>
 
 	<h2>Droits de circulation et de consommation</h2>
-	<table class="recap droits_douane">
+	<table class="recap droits_douane bloc_bottom">
 		<?php include_partial('drm_export/pdfLine', array('libelle' => '',
 														  'colonnes' => $colonnes,
 														  'cssclass_libelle' => 'vide',
@@ -178,20 +182,39 @@
 	<?php $pager_droits_douane->gotoNextPage(); ?>
 	<?php endwhile; ?>
 
+	<div class="bloc_bottom">
+	<h2>Paiement des droits de circulation</h2>
+	<p><strong>Echéance de paiement</strong> : Mensuel</p>
+	<p><strong>Mode de paiement</strong> : Chèque</p>
+	</div>
+
+	<table class="double_col bloc_bottom">
+		<tr>
+			<td class="col_left">
+				<h2>Cadre reservé à l'administration des douanes</h2>
+				<p>Date de récéption / Cachet dateur : <br /><br/><br/>
+				<p>N° de déclaration GILDA : <br /><br/><br/></p>
+			</td>
+			<td class="col_right">
+				<h2>Déclaration établie </h2>
+				<p><strong>le : 01/04/2012</strong></p>
+				<p>via l'application Déclarvin</p>
+			</td>
+		</tr>
+	</table>
+
 	<hr />
 	<?php foreach($drm->declaration->certifications as $certification_key => $certification): ?>
 	<h2>Code produits - <?php echo $certification->getConfig()->libelle ?></h2>
 	<table class="legende">
 	<?php foreach($codes[$certification_key] as $code => $millesime): ?>
 	<tr>
-		<th><?php echo produitLibelle($millesime->getConfig()->getCodes(), array(), "%a% %l% %co% %ce% %m%") ?></th>
+		<th><?php echo strtoupper(produitLibelle($millesime->getConfig()->getCodes(), array(), "%a% %l% %co% %ce% %m%")) ?></th>
 		<td><?php echo produitLibelle($millesime->getConfig()->getLibelles(), array(), "%a% %l% %co% %ce% %m%") ?></td>
 	</tr>
 	<?php endforeach; ?>
 	</table>
 	<?php endforeach; ?>
-
-
 
 </body>
 </html>
