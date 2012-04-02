@@ -32,11 +32,29 @@ class DRMDroit extends BaseDRMDroit {
     }
     $this->volume_taxe += $volume_taxable;
     $this->volume_reintegre += $volume_reintegre;
+    $this->calculTotaux();
+  }
+  public function calculTotaux() {
+  	$this->total = ($this->volume_taxe - $this->volume_reintegre) * $this->taux;
+  	$this->report = ($this->isReportable())? $this->getReport() : 0;
+  	$this->cumul = $this->total + $this->report;
+  }
+  public function getReport() {
+  	$drmPrecedente = $this->getDocument()->getPrecedente();
+  	if ($drmPrecedente->isNew()) {
+  		return 0;
+  	} else {
+  		if ($drmPrecedente->get('droits')->get('douane')->exist($this->getKey())) {
+  			return $drmPrecedente->get('droits')->get('douane')->get($this->getKey())->cumul;
+  		} else {
+  			return 0;
+  		}
+  	}
   }
   public function getPayable() {
     if ($this->virtual)
       return $this->payable_total;
-    return ($this->volume_taxe - $this->volume_reintegre) * $this->taux;
+    return $this->total;
   }
   public function isTotal() {
     return ($this->virtual) || !preg_match('/_/', $this->code);
@@ -46,5 +64,14 @@ class DRMDroit extends BaseDRMDroit {
   }
   public function getLibelle() {
     return isset($this->libelles[$this->code]) ? $this->libelles[$this->code] : $this->code;
+  }
+  public function isReportable() {
+  	return ($this->getPaiement()->isAnnuelle() && $this->isDroit('douane'))? true : false;
+  }
+  public function isDroit($type) {
+  	return ($this->getParent()->getKey() == $type)? true : false;
+  }
+  public function getPaiement() {
+  	return $this->getDocument()->get('declaratif')->get('paiement')->get($this->getParent()->getKey());
   }
 }
