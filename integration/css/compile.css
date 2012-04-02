@@ -1375,6 +1375,8 @@ p#date_drm {
   position:relative;
   width:102px;
 }
+#colonnes_dr .col_recolte input, #colonnes_dr .col_recolte .num_light {color: #B0B0B0}
+
 #colonnes_dr .col_recolte input, #colonnes_dr .col_recolte select {
   background:#ffffff;
   border:1px solid #dbdbdb;
