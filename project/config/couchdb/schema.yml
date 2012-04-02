@@ -501,6 +501,9 @@ DRM:
                         volume_reintegre: { type: integer }
                         taux: { type: float }
                         code: {  }
+                        total: { type: float }
+                        report: { type: float }
+                        cumul: { type: float }
             cvo:
               class: DRMDroits
               type: collection
@@ -515,6 +518,9 @@ DRM:
                         volume_reintegre: { type: integer }
                         taux: { type: float }
                         code: {  }
+                        total: { type: float }
+                        report: { type: float }
+                        cumul: { type: float }
       declaration:
         type: collection
         definition:
@@ -730,8 +736,20 @@ DRM:
               type: collection
               definition:
                 fields:
-                  frequence: {  }
-                  moyen: {  }
+                  douane:
+                    class: DRMPaiement
+                    type: collection
+                    definition:
+                      fields:
+                        frequence: {  }
+                        moyen: {  }
+                  cvo:
+                    class: DRMPaiement
+                    type: collection
+                    definition:
+                      fields:
+                        frequence: {  }
+                        moyen: {  }
             caution:
               type: collection
               definition:
