@@ -217,7 +217,7 @@
 				<?php foreach($colonnes as $item): ?>
 				<?php if($item): ?>
 				<td>
-					<strong><?php echo strtoupper(produitLibelle($item->getConfig()->getCodes(), array(), "%a% %l% %co% %ce% %m%")) ?></strong>
+					<strong><?php echo strtoupper($item->getConfig()->getCodes()) ?></strong>
 		   			<span><?php echo produitLibelle($item->getConfig()->getLibelles(), array(), "%a% %l% %co% %ce% %m%") ?></span>
 				</td>
 				<?php endif; ?>

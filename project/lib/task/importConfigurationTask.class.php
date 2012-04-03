@@ -94,6 +94,7 @@ EOF;
       foreach($certification->appellations as $appellation) {
         if(array_key_exists($certification->getKey(), $appellations) && array_key_exists($appellation->getKey(), $appellations[$certification->getKey()])) {
           $appellation->libelle = $appellations[$certification->getKey()][$appellation->getKey()];
+          $appellation->code = $appellation->getKey();
         } elseif($appellation->getKey() != "DEFAUT") {
           throw new sfCommandException(sprintf("Libelle not found : %s", $appellation->getHash()));
         }

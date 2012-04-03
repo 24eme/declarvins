@@ -5,16 +5,13 @@
  * Base model for ConfigurationCepage
 
  * @property string $libelle
- * @property acCouchdbJson $interpro
- * @property acCouchdbJson $departements
+ * @property string $code
  * @property acCouchdbJson $millesimes
 
  * @method string getLibelle()
  * @method string setLibelle()
- * @method acCouchdbJson getInterpro()
- * @method acCouchdbJson setInterpro()
- * @method acCouchdbJson getDepartements()
- * @method acCouchdbJson setDepartements()
+ * @method string getCode()
+ * @method string setCode()
  * @method acCouchdbJson getMillesimes()
  * @method acCouchdbJson setMillesimes()
  

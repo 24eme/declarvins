@@ -36,16 +36,3 @@ function produitLibelleFromDetail($detail, $format = "%a% %l% %co% %ce% %m% %la%
 
 	return produitLibelle($detail->getLibelles(), $detail->getLabelLibelles(), $format, $label_separator);
 }
-
-function produitCodeFromDetail($detail, $format = "%a% %l% %co% %ce% %m%") {
-
-	if ($detail instanceof sfOutputEscaperIteratorDecorator) {
-		$detail = $detail->getRawValue();
-	}
-
-	if (!($detail instanceof DRMDetail)) {
-		throw new sfRenderException("detail is not instanceof DRMDetail");
-	}
-
-	return produitLibelle($detail->getCodes(), array(), $format);
-}
