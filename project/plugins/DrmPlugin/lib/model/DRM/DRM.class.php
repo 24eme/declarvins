@@ -11,6 +11,7 @@ class DRM extends BaseDRM {
 
     public function constructId() {
         $rectificative = ($this->exist('rectificative')) ? $this->rectificative : null;
+
         $this->set('_id', DRMClient::getInstance()->getId($this->identifiant, $this->campagne, $rectificative));
     }
 
@@ -142,25 +143,28 @@ class DRM extends BaseDRM {
     }
 
     public function getMois() {
-      return preg_replace('/.*-/', '', $this->campagne)*1;
+        
+        return preg_replace('/.*-/', '', $this->campagne)*1;
     }
 
     public function getAnnee() {
-      return preg_replace('/-.*/', '', $this->campagne)*1;
+        
+        return preg_replace('/-.*/', '', $this->campagne)*1;
     }
 
     public function getRectificative() {
-      return (isset($this->rectificative)) ? $this->rectificative : 0;
+
+        return $this->exist('rectificative') ? $this->_get('rectificative') : 0;
     }
     
     public function setDroits() {
-      $this->remove('droits');
-      $this->add('droits');
-      foreach ($this->declaration->certifications as $certification) {
-	foreach ($certification->appellations as $appellation) {
-	  $appellation->updateDroits($this->droits);
-	}
-      }
+        $this->remove('droits');
+        $this->add('droits');
+        foreach ($this->declaration->certifications as $certification) {
+	        foreach ($certification->appellations as $appellation) {
+                $appellation->updateDroits($this->droits);
+	        }
+        }
     }
 
     public function getEtablissement() {
@@ -184,9 +188,10 @@ class DRM extends BaseDRM {
     }
 
     public function isRectificable() {
-      if (!$this->isValidee()) {
-	return false;
-      }
+        if (!$this->isValidee()) {
+	       
+           return false;
+        }
 
         if ($drm = DRMClient::getInstance()->findLastByIdentifiantAndCampagne($this->identifiant, $this->campagne, acCouchdbClient::HYDRATE_JSON)) {
 
@@ -215,9 +220,13 @@ class DRM extends BaseDRM {
     }
 
     public function getPrecedente() {
-      if (isset($this->precedente) && $this->precedente)
-	return DRMClient::getInstance()->findById($this->precedente);
-      return new DRM();
+        if ($this->exist('precedente') && $this->_get('precedente')) {
+	        
+            return DRMClient::getInstance()->findById($this->_get('precedente'));
+        } else {
+            
+            return new DRM();
+        }
     }
 
     public function getSuivante() {
@@ -226,7 +235,10 @@ class DRM extends BaseDRM {
        $next_campagne = DRMClient::getInstance()->getCampagne($date_campagne->format('Y'), $date_campagne->format('m'));
 
        $next_drm = DRMClient::getInstance()->findLastByIdentifiantAndCampagne($this->identifiant, $next_campagne);
-       $next_drm->precedente = $this->_id;
+       if (!$next_drm) {
+           return null;
+       }
+       $next_drm->set('precedente', $this->get('_id'));
 
        return $next_drm;
     }

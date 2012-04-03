@@ -74,9 +74,6 @@ class ExportDRM
                         $details_pour_vrac[] = $vrac;
                     }
                     $codes[$detail->getMillesime()->getHash().uniqid()] = $detail->getMillesime();
-                    $codes[$detail->getMillesime()->getHash().uniqid()] = $detail->getMillesime();
-                    $codes[$detail->getMillesime()->getHash().uniqid()] = $detail->getMillesime();
-                    $codes[$detail->getMillesime()->getHash().uniqid()] = $detail->getMillesime();
     			}
     		}
             $this->pagers_volume[$certification->getKey()] = $this->makePager($details_pour_volume);

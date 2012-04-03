@@ -156,6 +156,7 @@ class drmActions extends sfActions
     $drm = $this->getRoute()->getDrm();
 
     $drm_rectificative = $drm->generateRectificative();
+    echo "nop";
     $drm_rectificative->save();
 
     return $this->redirect('drm_init', array('campagne_rectificative' => $drm_rectificative->getCampagneAndRectificative()));
