@@ -101,6 +101,7 @@ EOF;
         foreach($appellation->lieux->get('DEFAUT')->couleurs as $couleur) {
           if(array_key_exists($couleur->getKey(), $couleurs)) {
             $couleur->libelle = $couleurs[$couleur->getKey()];
+            $couleur->code = $this->couleurkeytocode($couleur->getKey());
           } elseif($couleur->getKey() != "DEFAUT") {
             throw new sfCommandException("Libelle not found");
           }
@@ -175,5 +176,13 @@ EOF;
     }
 
   	$configuration->save();
+  }
+
+  function couleurkeytocode($key) {
+    $correspondances = array("rouge" => 1,
+                             "blanc" => 2,
+                             "rose" => 3);
+
+    return $correspondances[$key];
   }
 }

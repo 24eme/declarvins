@@ -1,1 +1,1 @@
-<?php echo produitCodeFromDetail($item->getParent()->getParent()); ?>
+<?php echo $item->getParent()->getParent()->getCodes(); ?>
