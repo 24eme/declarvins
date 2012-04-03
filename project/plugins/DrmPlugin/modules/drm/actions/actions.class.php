@@ -105,6 +105,7 @@ class drmActions extends sfActions
   public function executeDeclaratif(sfWebRequest $request)
   {
     $this->drm = $this->getRoute()->getDrm();
+    $this->form = new DRMDeclaratifForm();
 
     if($request->isMethod(sfWebRequest::POST)) {
 

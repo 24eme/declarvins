@@ -9,6 +9,8 @@
 			<h2>Veuillez maintenant déclarer ici les éléments suivants:</h2>
 				
 				<form id="declaratif_info" action="<?php echo url_for('drm_declaratif', $drm) ?>" method="post">
+			        <?php echo $form->renderGlobalErrors() ?>
+					<?php echo $form->renderHiddenFields() ?>
 					<ul class="onglets_declaratif">
 						<li class="actif"><strong>Défaut d'apurement</strong></li>
 					</ul>
@@ -16,17 +18,17 @@
 					<div class="contenu_onglet_declaratif alignes">
 						<div class="col">
 							<div class="ligne_form">
-								<input type="radio" name="sans_defaut" id="sans_defaut">
-								<label for="sans_defaut">Pas de défaut d'apurement</label>
+								<?php echo $form['apurement']->render() ?>
+								<?php echo $form['apurement']->renderError() ?>
 							</div>
 						</div>
 						
-						<div class="col">
+						<!-- <div class="col">
 							<div class="ligne_form">
 								<input type="radio" name="defaut_apurement" id="defaut_apurement">
 								<label for="defaut_apurement">Défaut d'apurement à déclarer (Joindre relevé de non apurement et copie du DAA)</label>
 							</div>
-						</div>
+						</div>  -->
 					</div>
 					
 					<ul class="onglets_declaratif">
@@ -40,23 +42,19 @@
 							<h3>DAA</h3>
 							
 							<div class="ligne_form">
-								<label for="daa_du">du</label><input type="text" name="daa_du" id="daa_du">
-								<label for="daa_au">au</label><input type="text" name="daa_au" id="daa_au">
+								<?php echo $form['daa_debut']->renderLabel() ?><?php echo $form['daa_debut']->render() ?><?php echo $form['daa_debut']->renderError() ?>
+								<?php echo $form['daa_fin']->renderLabel() ?><?php echo $form['daa_fin']->render() ?><?php echo $form['daa_fin']->renderError() ?>
 							</div>
 							
 							<h3>DSA</h3>
 							
 							<div class="ligne_form">
-								<label for="dsa_du">du</label><input type="text" name="dsa_du" id="dsa_du">
-								<label for="dsa_au">au</label><input type="text" name="dsa_au" id="dsa_au">
+								<?php echo $form['dsa_debut']->renderLabel() ?><?php echo $form['dsa_debut']->render() ?><?php echo $form['dsa_debut']->renderError() ?>
+								<?php echo $form['dsa_fin']->renderLabel() ?><?php echo $form['dsa_fin']->render() ?><?php echo $form['dsa_fin']->renderError() ?>
 							</div>
 						</div>
-						
-						<div class="ligne_form ligne_entiere">
-							<label for="num_empreinte">N° empreinte machine à timbrer</label><input type="text" name="num_empreinte" id="num_empreinte">
-						</div>
 						<div class="ligne_form ligne_entiere ecart_check">
-							<input type="checkbox" name="adhesion" id="adhesion"><label for="adhesion">Adhésion à EMCS/GAMMA (n° non nécessaires)</label>
+							<?php echo $form['adhesion_emcs_gamma']->render() ?><?php echo $form['adhesion_emcs_gamma']->renderLabel() ?><?php echo $form['adhesion_emcs_gamma']->renderError() ?>
 						</div>
 					</div>
 					
@@ -66,14 +64,23 @@
 					
 					<div class="contenu_onglet_declaratif alignes">
 						<div class="ligne_form" id="caution_accepte">
-							<input type="radio" name="caution" id="caution_organisme">
-							<label for="caution_organisme">Oui, organisme</label>
-							<input type="text" name="organisme" id="organisme">
+							<?php echo $form['caution']->render() ?>
+							<?php echo $form['caution']->renderError() ?>
 						</div>
 						
-						<div class="ligne_form">
+						<!-- <div class="ligne_form">
 							<input type="radio" name="caution" id="dispense">
 							<label for="dispense">Dispense</label>
+						</div> -->
+					</div>
+					
+					<ul class="onglets_declaratif">
+						<li class="actif"><strong>Paiement</strong></li>
+					</ul>
+					
+					<div class="contenu_onglet_declaratif alignes">
+						<div class="ligne_form">
+							<?php echo $form['moyen_paiement']->renderLabel() ?><?php echo $form['moyen_paiement']->render() ?><?php echo $form['moyen_paiement']->renderError() ?>
 						</div>
 					</div>
 					
