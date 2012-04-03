@@ -76,9 +76,14 @@
 				},
 				select: function( event, ui ) {
 					ui.item.option.selected = true;
+					console.log(ui.item.value);
+					console.log(ui);
+					console.log(this);
 					self._trigger( "selected", event, {
 						item: ui.item.option
 					});
+					$(this).val(ui.item.value.replace(new RegExp("[ ]*\\(.+\\)[ ]*"), ""));
+					return false;
 				},
 				change: function( event, ui ) {
 					if ( !ui.item ) {
@@ -105,7 +110,7 @@
 					input.data( "autocomplete" )._renderItem = function( ul, item ) {
 						return $( "<li></li>" )
 						.data( "item.autocomplete", item )
-						.append( "<a>" + item.label + "</a>" )
+						.append( "<a>" + item.label.replace('(', '<span style="font-size: 10px; color: #aaa" class="code">').replace(')', '</span>') + "</a>" )
 						.appendTo( ul );
 					};
 
