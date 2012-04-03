@@ -124,18 +124,18 @@ class drmActions extends sfActions
     $this->form = new DRMValidationForm(array(), array('engagements' => $this->drmValidation->getEngagements()));
     if ($request->isMethod(sfWebRequest::POST)) {
     	$this->form->bind($request->getParameter($this->form->getName()));
-	    if ($this->form->isValid()) {
-  			$this->drm->validate();
-        $this->drm->save();
+	if ($this->form->isValid()) {
+	  $this->drm->validate();
+	  $this->drm->save();
+	  
+	  if ($this->drm->needNextRectificative()) {
+	    $drm_rectificative_suivante = $this->drm->generateRectificativeSuivante();
+	    if ($drm_rectificative_suivante) {
+	      $drm_rectificative_suivante->save();
+	    }
+	  }
 
-        if ($this->drm->isRectificative()) {
-          $drm_rectificative_suivante = $this->drm->generateRectificativeSuivante();
-          if ($drm_rectificative_suivante) {
-            $drm_rectificative_suivante->save();
-          }
-        }
-
-  			$this->redirect('drm_visualisation', array('campagne_rectificative' => $this->drm->getCampagneAndRectificative()));
+	  $this->redirect('drm_visualisation', array('campagne_rectificative' => $this->drm->getCampagneAndRectificative()));
     	}
     }
   }
@@ -156,7 +156,6 @@ class drmActions extends sfActions
     $drm = $this->getRoute()->getDrm();
 
     $drm_rectificative = $drm->generateRectificative();
-    echo "nop";
     $drm_rectificative->save();
 
     return $this->redirect('drm_init', array('campagne_rectificative' => $drm_rectificative->getCampagneAndRectificative()));
