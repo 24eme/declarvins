@@ -124,7 +124,9 @@
 				<p><strong>Documents prévalidés ou N° empreinte utilisés au cours du mois</strong></p>
 				<p><strong>DAA</strong> du 1258 au 1260</p>
 				<p><strong>DSA</strong> : Aucun</p>
-				<p class="case_a_cocher_container">❑<span class="case_a_cocher_croix">✕</span> Adhésion à EMCS / GAMMA (n° non nécessaires)</p>
+				<p>
+					<strong>A adhérer</strong> à EMCS / GAMMA (n° non nécessaires)
+				</p>
 			</td>
 			<td class="col_right">
 				<h2>Défaut d'apurement</h2>
@@ -204,17 +206,28 @@
 	</table>
 
 	<hr />
+	<div class="legende">
 	<?php foreach($drm->declaration->certifications as $certification_key => $certification): ?>
-	<h2>Code produits - <?php echo $certification->getConfig()->libelle ?></h2>
-	<table class="legende">
-	<?php foreach($codes[$certification_key] as $code => $millesime): ?>
-	<tr>
-		<th><?php echo strtoupper(produitLibelle($millesime->getConfig()->getCodes(), array(), "%a% %l% %co% %ce% %m%")) ?></th>
-		<td><?php echo produitLibelle($millesime->getConfig()->getLibelles(), array(), "%a% %l% %co% %ce% %m%") ?></td>
-	</tr>
+		<h2>Codes produit - <?php echo $certification->getConfig()->libelle ?></h2>
+		<table class="codes_produit">
+		<?php while($pagers_code[$certification_key]->getPage() <= $pagers_code[$certification_key]->getLastPage()): ?>
+		<?php $colonnes = $pagers_code[$certification_key]->getResults(); ?>
+		<?php if(count($colonnes) > 0): ?>
+			<tr>
+				<?php foreach($colonnes as $item): ?>
+				<?php if($item): ?>
+				<td>
+					<strong><?php echo strtoupper(produitLibelle($item->getConfig()->getCodes(), array(), "%a% %l% %co% %ce% %m%")) ?></strong>
+		   			<span><?php echo produitLibelle($item->getConfig()->getLibelles(), array(), "%a% %l% %co% %ce% %m%") ?></span>
+				</td>
+				<?php endif; ?>
+				<?php endforeach; ?>
+			</tr>
+		<?php endif; ?>
+		<?php $pagers_code[$certification_key]->gotoNextPage(); ?>
+		<?php endwhile; ?>
+		</table>
 	<?php endforeach; ?>
-	</table>
-	<?php endforeach; ?>
-
+	</div>
 </body>
 </html>

@@ -45,6 +45,11 @@
 		font-weight: normal;
 	}
 
+	#header h1 span.rectificative {
+		background-color: #000;
+		color: #fff;
+	}
+
 	#header table {
 		border-collapse: collapse;
 		width: 100%;
@@ -134,6 +139,7 @@
 
 	table.recap tr td.libelle {
 		text-align: center;
+		font-weight: bold;
 	}
 
 	table.recap tr td.number .unite {
@@ -150,15 +156,20 @@
 	}
 
 	table.recap.volumes tr td.total.number span.zero {
-		color: #aaa;
+		color: #999;
 	}
 
-	table.legende {
+	div.legende {
 		font-size: 9pt;
 	}
 
-	table.legende th {
-		text-align: left;
+	table.codes_produit {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+
+	table.codes_produit tr td {
+		width: 361px;
 	}
 
 	.case_a_cocher_container {

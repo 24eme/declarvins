@@ -4,9 +4,11 @@ class ExportDRM
 	protected $drm;
 	protected $pagers_volume;
     protected $pagers_vrac;
+    protected $pagers_code;
     protected $pager_droits_douane;
-    protected $codes;
+
 	const NB_COL = 8;
+    const NB_COL_CODES = 3;
 
 	public function __construct($drm)
 	{
@@ -18,11 +20,6 @@ class ExportDRM
 	{
 		return $this->drm;
 	}
-
-    public function getCodes() {
-
-        return $this->codes;
-    }
 
 	public function getPagersVolume()
 	{
@@ -42,6 +39,12 @@ class ExportDRM
         return $this->pager_droits_douane;
     }
 
+    public function getPagersCode()
+    {
+        
+        return $this->pagers_code;
+    }
+
 	public function setDrm($drm)
 	{
 
@@ -57,10 +60,12 @@ class ExportDRM
     {
     	$this->pagers_volume = array();
         $this->pagers_vrac = array();
+        
 
     	foreach($this->drm->produits as $certification) {
             $details_pour_volume = array();
             $details_pour_vrac = array();
+            $codes = array();
     		foreach($certification as $appellation) {
     			foreach($appellation as $produit) {
     				$detail = $produit->getDetail();
@@ -68,18 +73,22 @@ class ExportDRM
                     foreach($detail->vrac as $vrac) {
                         $details_pour_vrac[] = $vrac;
                     }
-                    $this->codes[$certification->getKey()][$detail->getMillesime()->getHash()] = $detail->getMillesime();
+                    $codes[$detail->getMillesime()->getHash().uniqid()] = $detail->getMillesime();
+                    $codes[$detail->getMillesime()->getHash().uniqid()] = $detail->getMillesime();
+                    $codes[$detail->getMillesime()->getHash().uniqid()] = $detail->getMillesime();
+                    $codes[$detail->getMillesime()->getHash().uniqid()] = $detail->getMillesime();
     			}
     		}
             $this->pagers_volume[$certification->getKey()] = $this->makePager($details_pour_volume);
             $this->pagers_vrac[$certification->getKey()] = $this->makePager($details_pour_vrac);
+            $this->pagers_code[$certification->getKey()] = $this->makePager($codes, self::NB_COL_CODES);
     	}
 
         $this->pager_droits_douane = $this->makePager($this->drm->droits->douane->getDroitsWithVirtual());
     }
 
-    protected function makePager($array) {
-        $pager = new ArrayPager(self::NB_COL, true);
+    protected function makePager($array, $nb_col = self::NB_COL, $fill_with_max = true) {
+        $pager = new ArrayPager($nb_col, $fill_with_max);
         $pager->setArray($array);
         $pager->init();
 

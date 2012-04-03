@@ -1,7 +1,7 @@
 <div id="header">
 <h1>Déclaration récapitulative mensuelle de mars 2012
 <?php if($drm->isRectificative()): ?>
-- <span style="font-style: italic;">Rectificative n° <?php echo sprintf('%02d', $drm->rectificative) ?></span>
+- <span class="rectificative">Rectificative n° <?php echo sprintf('%02d', $drm->rectificative) ?></span>
 <?php endif; ?>
 <span class="date_validation">(validée le 01/12/2012)</span>
 </h1>
