@@ -233,7 +233,6 @@
 		if(colActive)
 		{
 			var form = colActive.find('form');
-			var champs = colActive.find('input:text, select');
 			var donneesCol = form.serializeArray();
 			
 			colActive.addClass('col_envoi');
@@ -241,13 +240,6 @@
 			
 			btn.css('visibility', 'hidden');
 			*/
-			champs.each(function()
-			{
-				var champ = $(this);
-				var val = champ.val();
-				
-				champ.attr('data-val-defaut', val);
-			});
 				
 			$.post(form.attr('action'), donneesCol, function (data)
 			{
@@ -255,6 +247,22 @@
 				if(!data.success) { 
 					$('#error_notification').show(); 
 				} else {
+
+					var champs = colActive.find('input:text, select');
+					champs.each(function()
+					{
+						var champ = $(this);
+						var val = champ.val();
+						var val_defaut = champ.attr('data-val-defaut');
+						if (parseFloat(val_defaut) != parseFloat(val)) {
+							if (colActive.attr('data-cssclass-rectif')) {
+								champ.parent().addClass(colActive.attr('data-cssclass-rectif'));
+							}
+						}
+						
+						champ.attr('data-val-defaut', val);
+					});
+
 					var cond = /^drm_detail\[(entrees|sorties)\]/;
 					var totalCol = 0;
 					for (var i in donneesCol) {
