@@ -20,7 +20,7 @@ class interproActions extends sfActions
 	            $file = $this->formUploadCsv->getValue('file');
 	            $this->interpro->storeAttachment($file->getSavedName(), 'text/csv', 'etablissements.csv');
 	            unlink($file->getSavedName());
-	            $this->getUser()->setFlash('notification_general', "Le fichier csv d'import a bien été uploader");
+	            $this->getUser()->setFlash('notification_general', "Le fichier csv d'import a bien été uploadé");
 	            $this->redirect('interpro_upload_csv', array('id' => $this->interpro->get('_id')));
 	        } 
         }

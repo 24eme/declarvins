@@ -23,14 +23,14 @@
         <?php endif; ?>
     <?php endif; ?>
 <?php endif; ?>
-<br />
+<br /><br />
 <?php if ($interpro->get('_id') == $etablissement->getInterpro()): ?>
     <div class="btn">
         <?php if ($etablissement->statut != _Tiers::STATUT_ARCHIVER): ?>
-            <a href="<?php echo url_for('validation_archiver', array('etablissement' => $etablissement->getIdentifiant())) ?>" class="modifier">Archiver</a> 
+            <a class="btn_valider" href="<?php echo url_for('validation_archiver', array('etablissement' => $etablissement->getIdentifiant())) ?>" class="modifier">Archiver</a> 
         <?php else: ?>
-            <a href="<?php echo url_for('validation_desarchiver', array('etablissement' => $etablissement->getIdentifiant())) ?>" class="modifier">Désarchiver</a> 
+            <a class="btn_valider" href="<?php echo url_for('validation_desarchiver', array('etablissement' => $etablissement->getIdentifiant())) ?>" class="modifier">Désarchiver</a> 
         <?php endif; ?>
-        | <a href="<?php echo url_for('validation_delier', array('etablissement' => $etablissement->getIdentifiant())) ?>" class="modifier">Délier</a>
+        <a class="btn_valider" href="<?php echo url_for('validation_delier', array('etablissement' => $etablissement->getIdentifiant())) ?>" class="modifier">Délier</a>
     </div>
 <?php endif; ?>

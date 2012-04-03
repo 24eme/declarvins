@@ -134,7 +134,7 @@ class validationActions extends sfActions {
     	$etablissement = $import->getEtablissementByIdentifiant($etablissement);
         $etablissement->statut = _Tiers::STATUT_ACTIF;
         $etablissement->save();
-	$compte->tiers->addEtablissement($etablissement);
+		$compte->addEtablissement($etablissement);
         $compte->interpro->add($interpro->get('_id'))->setStatut(_Compte::STATUT_VALIDATION_ATTENTE);
         $compte->save();
         $this->getUser()->setFlash('notification_general', "L'établissement a bien été lié");
