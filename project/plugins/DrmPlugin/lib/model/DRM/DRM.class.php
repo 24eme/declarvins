@@ -211,6 +211,9 @@ class DRM extends BaseDRM {
       if (count($this->getDetails()) != count($this->getDRMMaster()->getDetails())) {
 	return true;
       }
+      if ($this->droits->douane->getCumul() != $this->getDRMMaster()->droits->douane->getCumul()) {
+	return true;
+      }
       return false;
     }
 

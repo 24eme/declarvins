@@ -38,4 +38,12 @@ class DRMDroits extends BaseDRMDroits {
     }
     return $this->res;
   }
+
+  public function getCumul() {
+    $sum = 0;
+    foreach ($this->toArray() as $key => $value) {
+      $sum += $value->getCumul();
+    }
+    return $sum;
+  }
 }
