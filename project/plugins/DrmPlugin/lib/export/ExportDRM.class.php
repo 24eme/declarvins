@@ -78,6 +78,7 @@ class ExportDRM
     		}
             $this->pagers_volume[$certification->getKey()] = $this->makePager($details_pour_volume);
             $this->pagers_vrac[$certification->getKey()] = $this->makePager($details_pour_vrac);
+            ksort($codes);
             $this->pagers_code[$certification->getKey()] = $this->makePager($codes, self::NB_COL_CODES);
     	}
 
