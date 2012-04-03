@@ -23,6 +23,17 @@ class Configuration extends BaseConfiguration {
     	}
     }
 
+    public function getProduitCodes($hash) {
+      $libelles = $this->store('produits_codes', array($this, 'getProduitsCodeAbstract'));
+      if(array_key_exists($hash, $libelles)) {
+
+        return $libelles[$hash];
+      } else {
+        
+        return null;
+      }
+    }
+
     protected function getProduitsLibelleAbstract() {
     	$results = ConfigurationClient::getInstance()->findProduits();
     	$libelles = array();
@@ -32,6 +43,17 @@ class Configuration extends BaseConfiguration {
     	}
 
     	return $libelles;
+    }
+
+    protected function getProduitsCodeAbstract() {
+      $results = ConfigurationClient::getInstance()->findProduits();
+      $codes = array();
+
+      foreach($results->rows as $item) {
+        $codes['/'.$item->key[5]] = $item->key[6];
+      }
+
+      return $codes;
     }
 
     private static function normalizeLibelle($libelle) {

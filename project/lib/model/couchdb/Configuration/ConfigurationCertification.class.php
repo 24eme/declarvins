@@ -23,6 +23,7 @@ class ConfigurationCertification extends BaseConfigurationCertification {
         foreach($results->rows as $item) {
             $libelles = $item->value;
             unset($libelles[0]);
+            $libelles[] = '('.$item->key[6].')';
             $produits[$item->key[5]] = $libelles;
         }
 
@@ -36,6 +37,7 @@ class ConfigurationCertification extends BaseConfigurationCertification {
         foreach($results->rows as $item) {
             $libelles = $item->value;
             unset($libelles[0]);
+            $libelles[] = '('.$item->key[5].')';
             $produits[$item->key[4]] = $libelles;
         }
 

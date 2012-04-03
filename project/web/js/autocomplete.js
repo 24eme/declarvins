@@ -19,22 +19,24 @@
 		term = normalize(term);
 		var words_text = text.split(reg);
 		var words_term = term.split(reg);
-		var text_final = "";
+		var text_final = text;
 		for(wterm in words_term) {
 			var matcher = new RegExp(normalize(words_term[wterm]), "i" );
 			var find = false;
 			for(wtext in words_text) {
 				text_current = words_text[wtext];
-				text_final = text_final + " " + text_current.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
+			    text_final = text_final.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
 								 		words_term[wterm] +
-										")(?![^<>]*>)(?![^&;]+;)", "gi"
+										")(?![^<>]*>)(?![^&;]+;)", "i"
 										), hightlight.replace("%term%", "$1"));
 				if(matcher.test(text_current)) {
 					find = true;
 					delete words_text[wtext];
 					break;
 				}
-				delete words_text[wtext];
+
+
+				//delete words_text[wtext];
 			}
 			if(!find) {
 				return false;
@@ -42,7 +44,7 @@
 		}
 
 		for(wtext in words_text) {
-			text_final = text_final + " " + words_text[wtext];
+			//text_final = text_final + " " + words_text[wtext];
 		}
 
 		return text_final;
@@ -74,9 +76,14 @@
 				},
 				select: function( event, ui ) {
 					ui.item.option.selected = true;
+					console.log(ui.item.value);
+					console.log(ui);
+					console.log(this);
 					self._trigger( "selected", event, {
 						item: ui.item.option
 					});
+					$(this).val(ui.item.value.replace(new RegExp("[ ]*\\(.+\\)[ ]*"), ""));
+					return false;
 				},
 				change: function( event, ui ) {
 					if ( !ui.item ) {
@@ -103,7 +110,7 @@
 					input.data( "autocomplete" )._renderItem = function( ul, item ) {
 						return $( "<li></li>" )
 						.data( "item.autocomplete", item )
-						.append( "<a>" + item.label + "</a>" )
+						.append( "<a>" + item.label.replace('(', '<span style="font-size: 10px; color: #aaa" class="code">').replace(')', '</span>') + "</a>" )
 						.appendTo( ul );
 					};
 

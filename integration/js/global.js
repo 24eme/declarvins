@@ -156,14 +156,23 @@
 			if(val.indexOf('0') == 0 && val.length > 1) val = val.substring(1);
 			
 			// Comparaison nombre entier / flottant
-			if(parseInt(val) == parseFloat(val) || !float) val = parseInt(val);
-			else val = parseFloat(val).toFixed(2);
+			if(float || parseInt(val) != parseFloat(val)) {
+				val = parseFloat(val).toFixed(2);		
+			} else {
+				val = parseInt(val);
+			}
 		}
 		// Si rien n'a été saisi
 		else val = 0;
 		
 		// Si ce n'est pas un nombre (ex : copier/coller d'un texte)
 		if(isNaN(val)) val = 0;
+
+		if (val == 0) {
+			champ.addClass('num_light');
+		} else {
+			champ.removeClass('num_light');
+		}
 		
 		champ.attr('value', val);
 	};

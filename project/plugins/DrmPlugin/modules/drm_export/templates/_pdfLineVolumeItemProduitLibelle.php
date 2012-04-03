@@ -1,1 +1,1 @@
-<?php echo strtoupper(produitCodeFromDetail($item)) ?>
+<?php echo strtoupper($item->getCodes()) ?>

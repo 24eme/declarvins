@@ -5,14 +5,14 @@
  * Base model for ConfigurationLieu
 
  * @property string $libelle
- * @property acCouchdbJson $interpro
+ * @property string $code
  * @property acCouchdbJson $departements
  * @property acCouchdbJson $couleurs
 
  * @method string getLibelle()
  * @method string setLibelle()
- * @method acCouchdbJson getInterpro()
- * @method acCouchdbJson setInterpro()
+ * @method string getCode()
+ * @method string setCode()
  * @method acCouchdbJson getDepartements()
  * @method acCouchdbJson setDepartements()
  * @method acCouchdbJson getCouleurs()

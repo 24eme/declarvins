@@ -23,9 +23,9 @@
         <?php endif; ?>
     <?php endif; ?>
 <?php endif; ?>
-<br />
+<br /><br />
 <?php if ($interpro->get('_id') == $etablissement->getInterpro()): ?>
     <div class="btn">
-        <a href="<?php echo url_for('validation_lier', array('etablissement' => $etablissement->getIdentifiant())) ?>" class="modifier">Lier</a>
+        <a class="btn_valider" href="<?php echo url_for('validation_lier', array('etablissement' => $etablissement->getIdentifiant())) ?>" class="modifier">Lier</a>
     </div>
 <?php endif; ?>

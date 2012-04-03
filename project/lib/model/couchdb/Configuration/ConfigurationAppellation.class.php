@@ -71,6 +71,7 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
             $libelles = $item->value;
             unset($libelles[0]);
             unset($libelles[1]);
+            $libelles[] = '('.$item->key[6].')';
             $produits[$item->key[5]] = $libelles;
         }
 

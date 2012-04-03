@@ -26,24 +26,19 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
 		}
 	}
 
-	public function getCode() {
-		if ($this->getKey() == Configuration::DEFAULT_KEY) {
-			return null;
-		}
-		return $this->getKey();
-	}
-
 	public function getCodes() {
 
 		return $this->store('codes', array($this, 'getCodesAbstract'));
 	}
 
 	protected function getCodesAbstract() {
-		try {
-			return array_merge($this->getParentNode()->getCodes(), 
-				   array($this->getCode()));
-		} catch (Exception $e) {
-			return array($this->getCode());
+		$codes = $this->getDocument()->getProduitCodes($this->getHash());
+		if ($codes !== null) {
+
+			return $codes;
+		} else {
+
+			return $this->getParentNode()->getCodes().$this->getCode();
 		}
 	}
 
