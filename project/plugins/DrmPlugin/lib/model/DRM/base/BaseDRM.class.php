@@ -12,7 +12,7 @@
  * @property integer $rectificative
  * @property acCouchdbJson $produits
  * @property acCouchdbJson $droits
- * @property acCouchdbJson $declaration
+ * @property DRMDeclaration $declaration
  * @property DRMDeclarant $declarant
  * @property acCouchdbJson $declaratif
  * @property string $identifiant
@@ -37,8 +37,8 @@
  * @method acCouchdbJson setProduits()
  * @method acCouchdbJson getDroits()
  * @method acCouchdbJson setDroits()
- * @method acCouchdbJson getDeclaration()
- * @method acCouchdbJson setDeclaration()
+ * @method DRMDeclaration getDeclaration()
+ * @method DRMDeclaration setDeclaration()
  * @method DRMDeclarant getDeclarant()
  * @method DRMDeclarant setDeclarant()
  * @method acCouchdbJson getDeclaratif()

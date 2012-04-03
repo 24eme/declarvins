@@ -522,9 +522,15 @@ DRM:
                         report: { type: float }
                         cumul: { type: float }
       declaration:
+        class: DRMDeclaration
+        inheritance: _DRMTotal
         type: collection
         definition:
           fields:
+            total_debut_mois: { type: float }
+            total_entrees: { type: float }
+            total_sorties: { type: float }
+            total: { type: float }
             certifications:
               type: collection
               definition:

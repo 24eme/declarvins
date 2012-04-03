@@ -201,9 +201,21 @@ class DRM extends BaseDRM {
         return false;
     }
 
+    public function needNextRectificative() {
+      if (!$this->isRectificative()) {
+	return false;
+      }
+      if ($this->declaration->total != $this->getDRMMaster()->declaration->total) {
+	return true;
+      }
+      if (count($this->getDetails()) != count($this->getDRMMaster()->getDetails())) {
+	return true;
+      }
+      return false;
+    }
+
     public function generateRectificative() {
         $drm_rectificative = clone $this;
-        $drm_rectificative->devalide();
 
         if(!$this->isRectificable()) {
 
@@ -215,6 +227,7 @@ class DRM extends BaseDRM {
         }
 
         $drm_rectificative->rectificative += 1;
+	$drm_rectificative->devalide();
 
         return $drm_rectificative;
     }
@@ -222,7 +235,7 @@ class DRM extends BaseDRM {
     public function getPrecedente() {
         if ($this->exist('precedente') && $this->_get('precedente')) {
 	        
-            return DRMClient::getInstance()->findById($this->_get('precedente'));
+            return DRMClient::getInstance()->find($this->_get('precedente'));
         } else {
             
             return new DRM();
@@ -260,6 +273,7 @@ class DRM extends BaseDRM {
                 $this->replicateDetail($next_drm_rectificative, $key, $value, 'stocks_fin/instance', 'stocks_debut/instance');
                 $this->replicateDetail($next_drm_rectificative, $key, $value, 'stocks_fin/commercialisable', 'stocks_debut/commercialisable');
             }
+            $next_drm_rectificative->devalide();
             $next_drm_rectificative->update();
 
             return $next_drm_rectificative;
