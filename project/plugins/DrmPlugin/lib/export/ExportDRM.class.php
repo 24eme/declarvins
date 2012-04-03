@@ -73,7 +73,7 @@ class ExportDRM
                     foreach($detail->vrac as $vrac) {
                         $details_pour_vrac[] = $vrac;
                     }
-                    $codes[$detail->getMillesime()->getHash().uniqid()] = $detail->getMillesime();
+                    $codes[$detail->getCodes()] = $detail->getMillesime();
     			}
     		}
             $this->pagers_volume[$certification->getKey()] = $this->makePager($details_pour_volume);
