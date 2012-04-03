@@ -104,6 +104,7 @@ class DRM extends BaseDRM {
         $drm_suivante->add('douane');
         $drm_suivante->remove('declarant');
         $drm_suivante->add('declarant');
+	$drm_suivante->precedente = $this->_id;
         $drm_suivante->devalide();
 
         return $drm_suivante;
