@@ -1,6 +1,6 @@
 <?php
 
-class export_contratActions extends sfActions
+class exportActions extends sfActions
 {
   public function executeMain()
   {
