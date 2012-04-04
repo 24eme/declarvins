@@ -1,8 +1,35 @@
 <?php
 
-class DRMDeclaratifForm extends BaseForm {
-	protected $_label_choices;
-
+class DRMDeclaratifForm extends BaseForm 
+{
+	private $_drm = null;
+    
+    /**
+     *
+     * @param DRM $drm
+     * @param array $options
+     * @param string $CSRFSecret 
+     */
+    public function __construct(DRM $drm, $options = array(), $CSRFSecret = null) 
+    {
+        $this->_drm = $drm;
+        parent::__construct($this->getDefaultValues(), $options, $CSRFSecret);
+    }
+	public function getDefaultValues()
+	{
+		$default = array(
+			'apurement' => $this->_drm->declaratif->defaut_apurement,
+			'daa_debut' => $this->_drm->declaratif->daa->debut,
+			'daa_fin' => $this->_drm->declaratif->daa->fin,
+			'dsa_debut' => $this->_drm->declaratif->dsa->debut,
+			'dsa_fin' => $this->_drm->declaratif->dsa->fin,
+			'adhesion_emcs_gamma' => $this->_drm->declaratif->adhesion_emcs_gamma,
+			'caution' => $this->_drm->declaratif->caution->dispense,
+			'organisme' => $this->_drm->declaratif->caution->organisme,
+			'moyen_paiement' => $this->_drm->declaratif->paiement->douane->moyen
+		);
+		return $default;
+	}
     public function configure() {
          $this->setWidgets(array(
             'apurement' => new sfWidgetFormChoice(array(
@@ -21,8 +48,8 @@ class DRMDeclaratifForm extends BaseForm {
          	'caution' => new sfWidgetFormChoice(array(
          												'expanded' => true,
             											'choices' => array(
+         																1 => "Dispense",
          																0 => "Oui", 
-         																1 => "Dispense"
          															),
          												//'renderer_options' => array('formatter' => array($this, 'formatter'))
          											)),
@@ -48,12 +75,12 @@ class DRMDeclaratifForm extends BaseForm {
         ));
         $this->setValidators(array(
             'apurement' => new sfValidatorChoice(array('required' => true, 'choices' => array(0, 1))),
-        	'daa_debut' => new sfValidatorString(array('required' => false)),
-         	'daa_fin' => new sfValidatorString(array('required' => false)),
-         	'dsa_debut' => new sfValidatorString(array('required' => false)),
-         	'dsa_fin' => new sfValidatorString(array('required' => false)),
+        	'daa_debut' => new sfValidatorInteger(array('required' => false)),
+         	'daa_fin' => new sfValidatorInteger(array('required' => false)),
+         	'dsa_debut' => new sfValidatorInteger(array('required' => false)),
+         	'dsa_fin' => new sfValidatorInteger(array('required' => false)),
         	'adhesion_emcs_gamma' => new sfValidatorBoolean(array('required' => false)),
-            'caution' => new sfValidatorChoice(array('required' => true, 'choices' => array(0, 1))),
+            'caution' => new sfValidatorChoice(array('required' => true, 'choices' => array(1, 0))),
         	'organisme' => new sfValidatorString(array('required' => false)),
         	'moyen_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array('Numéraire', 'Chèque', 'Virement'))),
         ));
@@ -69,4 +96,24 @@ class DRMDeclaratifForm extends BaseForm {
 	
 	    return !$rows ? '' : implode($widget->getOption('separator'), $rows);
   	}*/
+    
+    /**
+     * 
+     * @return DRM
+     */
+    public function save() {
+        $values = $this->getValues();
+        $adhesion_emcs_gamma = ($values['adhesion_emcs_gamma'])? 1 : null;
+        $this->_drm->declaratif->defaut_apurement = (int)$values['apurement'];
+		$this->_drm->declaratif->daa->debut = (int)$values['daa_debut'];
+		$this->_drm->declaratif->daa->fin = (int)$values['daa_fin'];
+		$this->_drm->declaratif->dsa->debut = (int)$values['dsa_debut'];
+		$this->_drm->declaratif->dsa->fin = (int)$values['dsa_fin'];
+		$this->_drm->declaratif->adhesion_emcs_gamma = $adhesion_emcs_gamma;
+		$this->_drm->declaratif->caution->dispense = (int)$values['caution'];
+		$this->_drm->declaratif->caution->organisme = $values['organisme'];
+		$this->_drm->declaratif->paiement->douane->moyen = $values['moyen_paiement'];
+        $this->_drm->save();
+        return $this->_drm;
+    }
 }

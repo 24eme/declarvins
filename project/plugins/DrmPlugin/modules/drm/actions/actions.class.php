@@ -105,11 +105,14 @@ class drmActions extends sfActions
   public function executeDeclaratif(sfWebRequest $request)
   {
     $this->drm = $this->getRoute()->getDrm();
-    $this->form = new DRMDeclaratifForm();
+    $this->form = new DRMDeclaratifForm($this->drm);
 
     if($request->isMethod(sfWebRequest::POST)) {
-
-      $this->redirect('drm_validation', $this->drm);
+    	$this->form->bind($request->getParameter($this->form->getName()));
+		if ($this->form->isValid()) {
+			$this->form->save();
+      		$this->redirect('drm_validation', $this->drm);
+		}
     }
   }
 
