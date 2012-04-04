@@ -76,6 +76,14 @@ class DrmRouting {
                                                           array('sf_method' => array('get','post')),
                                                           array('model' => 'DRM',
                                                                 'type' => 'object')));
+        
+
+        $r->prependRoute('drm_declaratif_frequence_form', new DrmRoute('/drm-edition/:campagne_rectificative/declaratif/frequence-paiement',
+                                                          array('module' => 'drm', 
+                                                                'action' => 'paiementFrequenceFormAjax'),
+                                                          array('sf_method' => array('get','post')),
+                                                          array('model' => 'DRM',
+                                                                'type' => 'object')));
 
         $r->prependRoute('drm_validation', new DrmRoute('/drm-edition/:campagne_rectificative/validation', 
                                                           array('module' => 'drm', 

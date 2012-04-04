@@ -104,16 +104,35 @@ class drmActions extends sfActions
 
   public function executeDeclaratif(sfWebRequest $request)
   {
-    $this->drm = $this->getRoute()->getDrm();
-    $this->form = new DRMDeclaratifForm($this->drm);
+  	$this->drm = $this->getRoute()->getDrm();
+  	$this->form = new DRMDeclaratifForm($this->drm);
+  	$this->hasFrequencePaiement = ($this->drm->declaratif->paiement->douane->frequence)? true : false;
+  	if($request->isMethod(sfWebRequest::POST)) {
+  		$this->form->bind($request->getParameter($this->form->getName()));
+  		if ($this->form->isValid()) {
+  			$this->form->save();
+  			$this->redirect('drm_validation', $this->drm);
+  		}
+  	}
+  }
 
-    if($request->isMethod(sfWebRequest::POST)) {
-    	$this->form->bind($request->getParameter($this->form->getName()));
-		if ($this->form->isValid()) {
-			$this->form->save();
-      		$this->redirect('drm_validation', $this->drm);
-		}
-    }
+  public function executePaiementFrequenceFormAjax(sfWebRequest $request)
+  {
+  	$this->forward404Unless($request->isXmlHttpRequest());
+  	$drm = $this->getRoute()->getDrm();
+  	$form = new DRMDeclaratifPaiementForm($drm);
+  	if ($request->isMethod(sfWebRequest::POST)) {
+  		$this->getResponse()->setContentType('text/json');
+  		$form->bind($request->getParameter($form->getName()));
+  		if ($form->isValid()) {
+  			$form->save();
+  			return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_declaratif', $drm))));
+  		} else {
+  			return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('formAjout', array('form' => $form)))));
+  		}
+  	}
+
+  	return $this->renderText($this->getPartial('popupAjout', array('form' => $form)));
   }
 
  /**

@@ -7,9 +7,8 @@
     <section id="principal">
 		<div id="application_dr">
 			<h2>Veuillez maintenant déclarer ici les éléments suivants:</h2>
-				
+			
 				<form id="declaratif_info" action="<?php echo url_for('drm_declaratif', $drm) ?>" method="post">
-			        <?php echo $form->renderGlobalErrors() ?>
 					<?php echo $form->renderHiddenFields() ?>
 					<ul class="onglets_declaratif">
 						<li class="actif"><strong>Défaut d'apurement</strong></li>
@@ -76,8 +75,16 @@
 					<ul class="onglets_declaratif">
 						<li class="actif"><strong>Paiement</strong></li>
 					</ul>
-					
 					<div class="contenu_onglet_declaratif alignes">
+						<div class="ligne_form">
+							<?php if ($hasFrequencePaiement): ?>
+							Vous payez par échéance <strong><?php echo strtolower($drm->declaratif->paiement->douane->frequence) ?></strong>
+							<?php else: ?>
+							Veuillez définir votre fréquence d'échéance
+							<?php endif; ?>
+							- <a href="<?php echo url_for('drm_declaratif_frequence_form', $drm) ?>" class="btn_popup" data-popup="#popup_ajout_frequence" data-popup-config="configForm">Modifier l'échéance de paiement</a>
+							<?php echo $form['has_frequence_paiement']->renderError() ?>
+						</div>
 						<div class="ligne_form">
 							<?php echo $form['moyen_paiement']->renderLabel() ?><?php echo $form['moyen_paiement']->render() ?><?php echo $form['moyen_paiement']->renderError() ?>
 						</div>
