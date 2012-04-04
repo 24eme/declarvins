@@ -67,11 +67,10 @@
 							<?php echo $form['caution']->render() ?>
 							<?php echo $form['caution']->renderError() ?>
 						</div>
-						
-						<!-- <div class="ligne_form">
-							<input type="radio" name="caution" id="dispense">
-							<label for="dispense">Dispense</label>
-						</div> -->
+							
+						<div class="ligne_form" id="organisme">
+							<?php echo $form['organisme']->renderLabel() ?><?php echo $form['organisme']->render() ?><?php echo $form['organisme']->renderError() ?>
+						</div>
 					</div>
 					
 					<ul class="onglets_declaratif">
