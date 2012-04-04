@@ -89,6 +89,7 @@ class DRMDeclaratifForm extends BaseForm
         	'moyen_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array('Numéraire', 'Chèque', 'Virement'))),
         ));
         $this->widgetSchema->setNameFormat('drm_declaratif[%s]');
+        $this->validatorSchema->setPostValidator(new DRMDeclaratifValidator());
     }
 	/*public function formatter($widget, $inputs)
 	{
