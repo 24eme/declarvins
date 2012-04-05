@@ -26,8 +26,8 @@ class DRMDeclaratifForm extends BaseForm
 			'dsa_fin' => $this->_drm->declaratif->dsa->fin,
 			'adhesion_emcs_gamma' => $this->_drm->declaratif->adhesion_emcs_gamma,
 			'caution' => $this->_drm->declaratif->caution->dispense,
+			'frequence' => $this->_drm->declaratif->paiement->douane->frequence,
 			'organisme' => $this->_drm->declaratif->caution->organisme,
-			'has_frequence_paiement' => $has_frequence_paiement,
 			'moyen_paiement' => $this->_drm->declaratif->paiement->douane->moyen
 		);
 		return $default;
@@ -55,8 +55,14 @@ class DRMDeclaratifForm extends BaseForm
          															),
          												//'renderer_options' => array('formatter' => array($this, 'formatter'))
          											)),
+         	'frequence' => new sfWidgetFormChoice(array(
+         												'expanded' => true,
+            											'choices' => array(
+         																DRMPaiement::FREQUENCE_ANNUELLE => DRMPaiement::FREQUENCE_ANNUELLE, 
+         																DRMPaiement::FREQUENCE_MENSUELLE => DRMPaiement::FREQUENCE_MENSUELLE
+         															)
+         											)),
          	'organisme' => new sfWidgetFormInput(),
-         	'has_frequence_paiement' => new sfWidgetFormInputHidden(),
          	'moyen_paiement' => new sfWidgetFormChoice(array(
          												'expanded' => true,
             											'choices' => array(
@@ -75,6 +81,7 @@ class DRMDeclaratifForm extends BaseForm
         		'dsa_fin' => 'au',
         		'adhesion_emcs_gamma' => 'Adhésion à EMCS/GAMMA (n° non nécessaires)',
         		'moyen_paiement' => 'Paiement droit circulation',
+        		'frequence' => 'Selectionnez votre type d\'échéance'
         ));
         $this->setValidators(array(
             'apurement' => new sfValidatorChoice(array('required' => true, 'choices' => array(0, 1))),
@@ -85,8 +92,8 @@ class DRMDeclaratifForm extends BaseForm
         	'adhesion_emcs_gamma' => new sfValidatorBoolean(array('required' => false)),
             'caution' => new sfValidatorChoice(array('required' => true, 'choices' => array(1, 0))),
         	'organisme' => new sfValidatorString(array('required' => false)),
-        	'has_frequence_paiement' => new sfValidatorBoolean(array('required' => true)),
         	'moyen_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array('Numéraire', 'Chèque', 'Virement'))),
+        	'frequence' => new sfValidatorChoice(array('required' => true, 'choices' => array(DRMPaiement::FREQUENCE_ANNUELLE, DRMPaiement::FREQUENCE_MENSUELLE)))
         ));
         $this->widgetSchema->setNameFormat('drm_declaratif[%s]');
         $this->validatorSchema->setPostValidator(new DRMDeclaratifValidator());
@@ -117,6 +124,7 @@ class DRMDeclaratifForm extends BaseForm
 		$this->_drm->declaratif->adhesion_emcs_gamma = $adhesion_emcs_gamma;
 		$this->_drm->declaratif->caution->dispense = (int)$values['caution'];
 		$this->_drm->declaratif->caution->organisme = $values['organisme'];
+		$this->_drm->declaratif->paiement->douane->frequence = $values['frequence'];
 		$this->_drm->declaratif->paiement->douane->moyen = $values['moyen_paiement'];
         $this->_drm->save();
         return $this->_drm;

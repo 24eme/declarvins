@@ -120,19 +120,7 @@ class drmActions extends sfActions
   {
   	$this->forward404Unless($request->isXmlHttpRequest());
   	$drm = $this->getRoute()->getDrm();
-  	$form = new DRMDeclaratifPaiementForm($drm);
-  	if ($request->isMethod(sfWebRequest::POST)) {
-  		$this->getResponse()->setContentType('text/json');
-  		$form->bind($request->getParameter($form->getName()));
-  		if ($form->isValid()) {
-  			$form->save();
-  			return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_declaratif', $drm))));
-  		} else {
-  			return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('formAjout', array('form' => $form)))));
-  		}
-  	}
-
-  	return $this->renderText($this->getPartial('popupAjout', array('form' => $form)));
+  	return $this->renderText($this->getPartial('popupFrequence', array('drm' => $drm)));
   }
 
  /**

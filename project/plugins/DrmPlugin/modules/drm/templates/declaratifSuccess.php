@@ -78,12 +78,15 @@
 					<div class="contenu_onglet_declaratif alignes">
 						<div class="ligne_form">
 							<?php if ($hasFrequencePaiement): ?>
-							Vous payez par échéance <strong><?php echo strtolower($drm->declaratif->paiement->douane->frequence) ?></strong>
+								<?php if (DRMPaiement::isDebutCampagne()): ?>
+								<?php echo $form['frequence']->renderLabel() ?><?php echo $form['frequence']->render() ?><?php echo $form['frequence']->renderError() ?>
+								<?php else: ?>
+								Vous payez par échéance <strong><?php echo strtolower($drm->declaratif->paiement->douane->frequence) ?></strong>
+								- <a href="<?php echo url_for('drm_declaratif_frequence_form', $drm) ?>" class="btn_popup" data-popup="#popup_ajout_frequence" data-popup-config="configForm">Modifier l'échéance de paiement</a>
+								<?php endif; ?>
 							<?php else: ?>
-							Veuillez définir votre fréquence d'échéance
+							<?php echo $form['frequence']->renderLabel() ?><?php echo $form['frequence']->render() ?><?php echo $form['frequence']->renderError() ?>
 							<?php endif; ?>
-							- <a href="<?php echo url_for('drm_declaratif_frequence_form', $drm) ?>" class="btn_popup" data-popup="#popup_ajout_frequence" data-popup-config="configForm">Modifier l'échéance de paiement</a>
-							<?php echo $form['has_frequence_paiement']->renderError() ?>
 						</div>
 						<div class="ligne_form">
 							<?php echo $form['moyen_paiement']->renderLabel() ?><?php echo $form['moyen_paiement']->render() ?><?php echo $form['moyen_paiement']->renderError() ?>
