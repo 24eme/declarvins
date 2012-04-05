@@ -66,8 +66,10 @@ class DRMProduit extends BaseDRMProduit {
     }
 
     public function delete() {
-        $this->getDetail()->delete();
+    	$hash = $this->getAppellation()->getHash();
+        $this->getDocument()->remove($this->getDetail()->getAppellation()->getHash());
         parent::delete();
+        parent::clean($hash);
     }
     
 }
