@@ -179,7 +179,21 @@
 															   'unite' => '€',
 															   'cssclass_libelle' => 'total',
 															   'cssclass_value' => 'total',
-															   'hash' => 'payable')) ?>		   
+															   'hash' => 'payable')) ?>
+		<?php if ($drm->isPaiementAnnualise()): ?>
+
+		<?php include_partial('drm_export/pdfLine', array('libelle' => 'Report du mois précédent',
+															   'colonnes' => $colonnes,
+															   'cssclass_libelle' => 'total',
+															   'cssclass_value' => 'total',
+															   'partial' => 'drm_export/pdfLineReport')) ?>
+
+		<?php include_partial('drm_export/pdfLine', array('libelle' => 'Total cumulé à reporter ou à solder',
+															   'colonnes' => $colonnes,
+															   'cssclass_libelle' => 'total',
+															   'cssclass_value' => 'total',
+															   'partial' => 'drm_export/pdfLineCumul')) ?>
+		<?php endif; ?>  
 	</table>
 	<?php $pager_droits_douane->gotoNextPage(); ?>
 	<?php endwhile; ?>

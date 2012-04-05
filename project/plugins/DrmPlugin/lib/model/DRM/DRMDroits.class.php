@@ -36,6 +36,7 @@ class DRMDroits extends BaseDRMDroits {
 	unset(	$this->res['ZZZZTotal'] );
 	$this->res['Total']->code = 'Total';
     }
+    krsort($this->res);
     return $this->res;
   }
 

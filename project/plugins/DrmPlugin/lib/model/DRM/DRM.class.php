@@ -401,4 +401,8 @@ class DRM extends BaseDRM {
         $droit->ratio = $configurationDroits->ratio;
         $droit->code = $configurationDroits->code;
     }
+    
+    public function isPaiementAnnualise() {
+    	return $this->declaratif->paiement->douane->isAnnuelle();
+    }
 }

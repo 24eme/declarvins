@@ -19,7 +19,7 @@ class DRMAppellation extends BaseDRMAppellation {
 
     public function updateDroits($droits) {
       foreach ($this->getDroits() as $typedroits => $droit) {
-	$droits->add($typedroits)->add($droit->code)->integreVolume($this->sommeLignes(DRMDroits::getDroitSorties()), $this->sommeLignes(DRMDroits::getDroitEntrees()), $droit->taux);
+	$droits->add($typedroits)->add($droit->code)->integreVolume($this->sommeLignes(DRMDroits::getDroitSorties()), $this->sommeLignes(DRMDroits::getDroitEntrees()), $droit->taux, 0);
       }
     }
 

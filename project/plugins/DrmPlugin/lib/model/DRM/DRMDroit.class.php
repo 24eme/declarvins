@@ -8,6 +8,7 @@
 class DRMDroit extends BaseDRMDroit {
   private $virtual = 0;
   private $payable_total = 0;
+  private $cumulable_total = 0;
   private $libelles = array('VDN' => 'AOC VDN', 'VM' => 'Vins mousseux', 'VT' => 'Vins Tranquilles', 'VT_AOP' => 'Vins Tranquilles / AOC', 'VT_IGP' => 'Vins Tranquilles / IGP', 'VT_SSIG' => 'Vins Tranquilles / Sans IG');
 
   public function setTaux($taux) {
@@ -19,11 +20,12 @@ class DRMDroit extends BaseDRMDroit {
 
   public function integreVirtualVolume($drmdroit) {
     $this->virtual = 1;
-    $this->integreVolume($drmdroit->volume_taxe, $drmdroit->volume_reintegre, '');
+    $this->integreVolume($drmdroit->volume_taxe, $drmdroit->volume_reintegre, '', $drmdroit->report);
     $this->payable_total += $drmdroit->getPayable();
+    $this->cumulable_total += $drmdroit->getCumulable();
   }
 
-  public function integreVolume($volume_taxable, $volume_reintegre, $taux) {
+  public function integreVolume($volume_taxable, $volume_reintegre, $taux, $report) {
     if (!$this->taux && $taux) {
       $this->taux = $taux;
     }
@@ -32,14 +34,12 @@ class DRMDroit extends BaseDRMDroit {
     }
     $this->volume_taxe += $volume_taxable;
     $this->volume_reintegre += $volume_reintegre;
-    $this->calculTotaux();
-  }
-  public function calculTotaux() {
+    $this->report += $report;
   	$this->total = ($this->volume_taxe - $this->volume_reintegre) * $this->taux;
-  	$this->report = ($this->isReportable())? $this->getReport() : 0;
   	$this->cumul = $this->total + $this->report;
   }
-  public function getReport() {
+  
+  /*public function getReport() {
   	$drmPrecedente = $this->getDocument()->getPrecedente();
   	if ($drmPrecedente->isNew()) {
   		return 0;
@@ -50,11 +50,16 @@ class DRMDroit extends BaseDRMDroit {
   			return 0;
   		}
   	}
-  }
+  }*/
   public function getPayable() {
     if ($this->virtual)
       return $this->payable_total;
     return $this->total;
+  }
+  public function getCumulable() {
+    if ($this->cumulable_total)
+      return $this->cumulable_total;
+    return $this->cumul;
   }
   public function isTotal() {
     return ($this->virtual) || !preg_match('/_/', $this->code);
