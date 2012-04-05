@@ -34,8 +34,6 @@ class DrmRouting {
     static public function listenToRoutingLoadConfigurationEvent(sfEvent $event) {
         $r = $event->getSubject();
         
-		$r->prependRoute('drm_login', new sfRoute('/drm/login', array('module' => 'drm_login', 
-                                                                                'action' => 'index')));
 		
         $r->prependRoute('drm_mon_espace', new sfRoute('/drm/mon-espace', array('module' => 'drm', 
                                                                                 'action' => 'monEspace')));
