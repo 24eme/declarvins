@@ -98,16 +98,24 @@ class DRM extends BaseDRM {
         $drm_suivante = clone $this;
     	$drm_suivante->init();
         $drm_suivante->update();
-        $drm_suivante->remove('rectificative');
         $drm_suivante->campagne = $campagne;
-        $drm_suivante->remove('douane');
-        $drm_suivante->add('douane');
-        $drm_suivante->remove('declarant');
-        $drm_suivante->add('declarant');
-	$drm_suivante->precedente = $this->_id;
+		$drm_suivante->precedente = $this->_id;
         $drm_suivante->devalide();
 
         return $drm_suivante;
+    }
+    public function init() {
+      	parent::init();
+		$this->remove('rectificative');
+        $this->remove('douane');
+        $this->add('douane');
+        $this->remove('declarant');
+        $this->add('declarant');
+        $this->declaratif->defaut_apurement = null;
+        $this->declaratif->daa->debut = null;
+        $this->declaratif->daa->fin = null;
+        $this->declaratif->dsa->debut = null;
+        $this->declaratif->dsa->fin = null;
     }
     
     public function getNextCertification($currentCertification)
@@ -294,8 +302,6 @@ class DRM extends BaseDRM {
             }
             $drm->get($detail->getHash())->set($hash_replication, $value);
         }
-
-        return $drm;
     }
 
     public function getDRMMaster($hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
