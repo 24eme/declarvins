@@ -95,6 +95,9 @@ class DRMDeclaratifForm extends BaseForm
         	'moyen_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array('Numéraire', 'Chèque', 'Virement'))),
         	'frequence' => new sfValidatorChoice(array('required' => true, 'choices' => array(DRMPaiement::FREQUENCE_ANNUELLE, DRMPaiement::FREQUENCE_MENSUELLE)))
         ));
+        if (!$this->hasWidgetFrequence()) {
+        	unset($this['frequence']);
+        }
         $this->widgetSchema->setNameFormat('drm_declaratif[%s]');
         $this->validatorSchema->setPostValidator(new DRMDeclaratifValidator());
     }
@@ -124,9 +127,16 @@ class DRMDeclaratifForm extends BaseForm
 		$this->_drm->declaratif->adhesion_emcs_gamma = $adhesion_emcs_gamma;
 		$this->_drm->declaratif->caution->dispense = (int)$values['caution'];
 		$this->_drm->declaratif->caution->organisme = $values['organisme'];
-		$this->_drm->declaratif->paiement->douane->frequence = $values['frequence'];
+		if ($this->hasWidgetFrequence()) {
+			$this->_drm->declaratif->paiement->douane->frequence = $values['frequence'];
+		}
 		$this->_drm->declaratif->paiement->douane->moyen = $values['moyen_paiement'];
         $this->_drm->save();
         return $this->_drm;
+    }
+    
+    private function hasWidgetFrequence() 
+    {
+    	return ($this->_drm->declaratif->paiement->douane->frequence && !DRMPaiement::isDebutCampagne())? false : true;
     }
 }
