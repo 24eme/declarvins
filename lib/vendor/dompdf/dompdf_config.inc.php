@@ -305,7 +305,7 @@ def("DOMPDF_DPI", 96);
  *
  * @var bool
  */
-def("DOMPDF_ENABLE_PHP", false);
+def("DOMPDF_ENABLE_PHP", true);
 
 /**
  * Enable inline Javascript
