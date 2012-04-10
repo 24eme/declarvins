@@ -19,6 +19,14 @@
 </head>
 
 <body>
+	<script type="text/php">
+		if (isset($pdf)) {
+			$w = $pdf->get_width();
+			$h = $pdf->get_height();
+			$font = Font_Metrics::get_font("helvetica");
+			$pdf->page_text($w / 2 - 4, $h - 13, "f {PAGE_NUM} / {PAGE_COUNT}", $font, 8, array(0,0,0));
+		}
+	</script>
 	<?php include_partial('drm_export/pdfHeader', array('drm' => $drm)); ?>
 	<?php include_partial('drm_export/pdfFooter'); ?>
 
