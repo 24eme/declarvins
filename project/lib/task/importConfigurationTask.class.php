@@ -47,8 +47,14 @@ EOF;
     }
 	    
     $configuration = new Configuration();
+    
+    $csv = new ProduitCsvFile($configuration, $import_dir.'/csvproduits');
+    $configuration = $csv->importProduits();
+    
+    $csv = new LabelCsvFile($configuration, $import_dir.'/csvlabels');
+    $configuration = $csv->importLabels();
 
-    $certifications = array();
+    /*$certifications = array();
     foreach (file($import_dir.'/certifications') as $line) {
       $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
       $certifications[$datas[0]] = $datas[1];
@@ -173,16 +179,21 @@ EOF;
         }
         $interpro = $droit->interpro->add("INTERPRO-".$datas[2]);
         $interpro->droits->get($datas[3])->addDroit($datas[4], (float)$datas[5], $datas[6]);
+    }*/
+    
+  	foreach (file($import_dir.'/libelle_detail_ligne') as $line) {
+        $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
+        $detail = $configuration->libelle_detail_ligne->get($datas[0])->add($datas[1], $datas[2]);
     }
 
   	$configuration->save();
   }
 
-  function couleurkeytocode($key) {
+  /*function couleurkeytocode($key) {
     $correspondances = array("rouge" => 1,
                              "blanc" => 2,
                              "rose" => 3);
 
     return $correspondances[$key];
-  }
+  }*/
 }

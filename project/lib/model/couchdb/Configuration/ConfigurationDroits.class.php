@@ -6,6 +6,8 @@
 
 class ConfigurationDroits extends BaseConfigurationDroits {
 	
+	const CODE_CVO = 'CVO';
+	
 	public function addDroit($date, $taux, $code) {
 	  $value = $this->add();
 	  $value->date = $date;

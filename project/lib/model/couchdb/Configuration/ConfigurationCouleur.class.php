@@ -27,4 +27,10 @@ class ConfigurationCouleur extends BaseConfigurationCouleur {
 
     	return false;
     }
+    
+    public function setDonneesCsv($datas) {
+    	$this->getLieu()->setDonneesCsv($datas);
+    	$this->libelle = ($datas[ProduitCsvFile::CSV_PRODUIT_COULEUR_LIBELLE])? $datas[ProduitCsvFile::CSV_PRODUIT_COULEUR_LIBELLE] : null;
+    	$this->code = ($datas[ProduitCsvFile::CSV_PRODUIT_COULEUR_CODE])? $datas[ProduitCsvFile::CSV_PRODUIT_COULEUR_CODE] : null;
+    }
 }

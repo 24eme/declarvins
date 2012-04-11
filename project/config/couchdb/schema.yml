@@ -309,7 +309,12 @@ Configuration:
                                           '*':
                                             type: collection
                                             definition:
-                                              fields:      
+                                              fields:
+                                                labels:
+                                                  type: array_collection
+                                                  definition:
+                                                    fields:
+                                                      '*': {  }     
                                                 droits:
                                                   type: collection
                                                   definition:

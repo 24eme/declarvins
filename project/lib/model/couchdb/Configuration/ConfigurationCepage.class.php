@@ -13,4 +13,10 @@ class ConfigurationCepage extends BaseConfigurationCepage {
     public function getCouleur() {
     	return $this->getParentNode();
     }
+    
+    public function setDonneesCsv($datas) {
+    	$this->getCouleur()->setDonneesCsv($datas);
+    	$this->libelle = ($datas[ProduitCsvFile::CSV_PRODUIT_CEPAGE_LIBELLE])? $datas[ProduitCsvFile::CSV_PRODUIT_CEPAGE_LIBELLE] : null;
+    	$this->code = ($datas[ProduitCsvFile::CSV_PRODUIT_CEPAGE_CODE])? $datas[ProduitCsvFile::CSV_PRODUIT_CEPAGE_CODE] : null;
+    }
 }

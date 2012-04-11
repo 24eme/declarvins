@@ -127,5 +127,11 @@ class Configuration extends BaseConfiguration {
       }
       return false;
     }
+    
+    public function setLabelCsv($datas) {
+    	if ($datas[LabelCsvFile::CSV_LABEL_CODE] && !$this->labels->exist($datas[LabelCsvFile::CSV_LABEL_CODE])) {
+    		$this->labels->add($datas[LabelCsvFile::CSV_LABEL_CODE], $datas[LabelCsvFile::CSV_LABEL_LIBELLE]);
+    	}
+    }
 
 }
