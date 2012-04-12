@@ -180,6 +180,17 @@ EOF;
         $interpro = $droit->interpro->add("INTERPRO-".$datas[2]);
         $interpro->droits->get($datas[3])->addDroit($datas[4], (float)$datas[5], $datas[6]);
     }*/
+	/*
+	 * En attendant de voir avec Tangui pour le probleme CSV et noeud Certif / Millesime
+	 */
+    foreach (file($import_dir.'/details') as $line) {
+        $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
+        if ($detail = $configuration->declaration->certifications->exist($datas[0])) {
+	        $detail = $configuration->declaration->certifications->get($datas[0])->detail->get($datas[1])->add($datas[2]);
+	        $detail->readable = $datas[3];
+	        $detail->writable = $datas[4];
+        }
+    } // Fin
     
   	foreach (file($import_dir.'/libelle_detail_ligne') as $line) {
         $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
