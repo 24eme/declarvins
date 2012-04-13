@@ -16,12 +16,11 @@ class validationActions extends sfActions {
      * @param sfRequest $request A request object
      */
     public function executeLogin(sfWebRequest $request) {
-        $this->formLogin = new LoginForm();
+        $this->formLogin = new LoginContratForm();
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->formLogin->bind($request->getParameter($this->formLogin->getName()));
             if ($this->formLogin->isValid()) {
                 $values = $this->formLogin->getValues();
-                $this->getUser()->setAttribute('interpro_id', $values['interpro']);
                 $this->getUser()->setAttribute('contrat_id', 'CONTRAT-' . $values['contrat']);
                 $this->redirect('@validation_fiche');
             }

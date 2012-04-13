@@ -5,6 +5,7 @@ AOP;stocks_debut;commercialisable;1;0
 AOP;entrees;achat;1;1
 AOP;entrees;recolte;1;1
 AOP;entrees;repli;1;1
+AOP;entrees;declassement;1;1
 AOP;entrees;mouvement;1;1
 AOP;entrees;crd;1;1
 AOP;sorties;vrac;1;1
@@ -28,6 +29,7 @@ IGP;stocks_debut;commercialisable;1;0
 IGP;entrees;achat;1;1
 IGP;entrees;recolte;1;1
 IGP;entrees;repli;1;1
+IGP;entrees;declassement;1;1
 IGP;entrees;mouvement;1;1
 IGP;entrees;crd;1;1
 IGP;sorties;vrac;1;1

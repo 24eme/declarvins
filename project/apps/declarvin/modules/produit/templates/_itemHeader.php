@@ -1,0 +1,12 @@
+<tr>
+	<th><strong>Catégorie</strong></th>
+	<th><strong>Dénomination</strong></th>
+	<th><strong>Lieu</strong></th>
+	<th><strong>Couleur</strong></th>
+	<th><strong>Cépage</strong></th>
+	<th><strong>Millésime</strong></th>
+	<th><strong>Départements</strong></th>
+	<th><strong>Labels</strong></th>  
+	<th><strong>Douane</strong></th> 
+	<th><strong>CVO</strong></th>    			
+</tr>

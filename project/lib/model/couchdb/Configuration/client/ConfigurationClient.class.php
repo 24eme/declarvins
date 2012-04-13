@@ -34,6 +34,11 @@ class ConfigurationClient extends acCouchdbClient {
 
     return $configuration;
   }
+  
+  public function findProduitsForAdmin($interpro) {
+    return $this->startkey(array($interpro))
+              ->endkey(array($interpro, array()))->getView('configuration', 'produits_admin');
+  }
 
   public function findProduits() {
     return $this->startkey(array("produits"))
