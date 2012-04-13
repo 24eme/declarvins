@@ -171,5 +171,9 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
   	public function hasLabel() {
   		return true;
   	}
+	
+  	public function getTypeNoeud() {
+  		return self::TYPE_NOEUD;
+  	}
     
 }

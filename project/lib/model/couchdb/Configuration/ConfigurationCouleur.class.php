@@ -45,4 +45,8 @@ class ConfigurationCouleur extends BaseConfigurationCouleur {
   	public function hasLabel() {
   		return false;
   	}
+	
+  	public function getTypeNoeud() {
+  		return self::TYPE_NOEUD;
+  	}
 }

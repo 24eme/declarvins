@@ -32,6 +32,10 @@ class ConfigurationMillesime extends BaseConfigurationMillesime {
     public function getCepage() {
     	return $this->getParentNode();
     }
+
+    public function getMillesime() {
+    	return $this;
+    }
     
     public function setDonneesCsv($datas) {
     	$this->getCepage()->setDonneesCsv($datas);
@@ -47,5 +51,9 @@ class ConfigurationMillesime extends BaseConfigurationMillesime {
   	}
   	public function hasLabel() {
   		return false;
+  	}
+	
+  	public function getTypeNoeud() {
+  		return self::TYPE_NOEUD;
   	}
 }

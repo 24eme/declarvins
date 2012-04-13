@@ -31,4 +31,8 @@ class ConfigurationLieu extends BaseConfigurationLieu {
   	public function hasLabel() {
   		return false;
   	}
+	
+  	public function getTypeNoeud() {
+  		return self::TYPE_NOEUD;
+  	}
 }

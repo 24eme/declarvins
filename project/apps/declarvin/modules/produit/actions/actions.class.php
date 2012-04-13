@@ -20,4 +20,27 @@ class produitActions extends sfActions
   	$this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
 	$this->produits = ConfigurationClient::getInstance()->findProduitsForAdmin($this->interpro->_id);
   }
+  public function executeModification(sfWebRequest $request)
+  {
+  	//$this->forward404Unless($request->isXmlHttpRequest());
+  	$this->forward404Unless($noeud = $request->getParameter('noeud', null));
+  	$this->forward404Unless($hash = $request->getParameter('hash', null));
+  	$hash = str_replace('-', '/', $hash);
+  	$object = ConfigurationClient::getCurrent()->get($hash);
+  	$object = $object->__get($noeud);
+  	$form = $this->form = new ProduitDefinitionForm($object);
+  	
+  	if ($request->isMethod(sfWebRequest::POST)) {
+    	$this->getResponse()->setContentType('text/json');
+        $form->bind($request->getParameter($form->getName()));
+		if ($form->isValid()) {
+			$form->save();
+			$this->getUser()->setFlash("notice", 'Le produit a été modifié avec success.');
+			//return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('produits'))));
+		} else {
+			//return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form)))));
+		}
+    }
+    //return $this->renderText($this->getPartial('popup', array('form' => $form)));
+  }
 }

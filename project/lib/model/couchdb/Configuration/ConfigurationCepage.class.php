@@ -31,4 +31,8 @@ class ConfigurationCepage extends BaseConfigurationCepage {
   	public function hasLabel() {
   		return false;
   	}
+	
+  	public function getTypeNoeud() {
+  		return self::TYPE_NOEUD;
+  	}
 }
