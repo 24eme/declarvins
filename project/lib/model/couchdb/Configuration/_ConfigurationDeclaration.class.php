@@ -4,7 +4,9 @@
  *
  */
 
-abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
+abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree implements ConfigurationInterface {
+	
+	const TYPE_NOEUD = null;
 
 	protected function loadAllData() {
 		parent::loadAllData();
@@ -50,4 +52,7 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
 			return $this->getParent()->getParent();
 		}
 	}
+  	public function getTypeNoeud() {
+  		return self::TYPE_NOEUD;
+  	}
 }

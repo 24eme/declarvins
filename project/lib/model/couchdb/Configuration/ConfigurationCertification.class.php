@@ -5,6 +5,8 @@
  */
 
 class ConfigurationCertification extends BaseConfigurationCertification {
+	
+	const TYPE_NOEUD = 'certification';
 
     
     protected function loadAllData() {
@@ -126,4 +128,14 @@ class ConfigurationCertification extends BaseConfigurationCertification {
     private function castFloat($float) {
     	return floatval(str_replace(',', '.', $float));
     }
+    
+  	public function hasDepartements() {
+  		return true;
+  	}
+  	public function hasDroits() {
+  		return true;
+  	}
+  	public function hasLabel() {
+  		return true;
+  	}
 }

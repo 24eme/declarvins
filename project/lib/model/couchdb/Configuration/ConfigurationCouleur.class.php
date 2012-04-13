@@ -5,6 +5,8 @@
  */
 
 class ConfigurationCouleur extends BaseConfigurationCouleur {
+	
+	const TYPE_NOEUD = 'couleur';
     
     /**
      *
@@ -33,4 +35,14 @@ class ConfigurationCouleur extends BaseConfigurationCouleur {
     	$this->libelle = ($datas[ProduitCsvFile::CSV_PRODUIT_COULEUR_LIBELLE])? $datas[ProduitCsvFile::CSV_PRODUIT_COULEUR_LIBELLE] : null;
     	$this->code = ($datas[ProduitCsvFile::CSV_PRODUIT_COULEUR_CODE])? $datas[ProduitCsvFile::CSV_PRODUIT_COULEUR_CODE] : null;
     }
+    
+  	public function hasDepartements() {
+  		return false;
+  	}
+  	public function hasDroits() {
+  		return false;
+  	}
+  	public function hasLabel() {
+  		return false;
+  	}
 }

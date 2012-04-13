@@ -5,6 +5,8 @@
  */
 
 class ConfigurationMillesime extends BaseConfigurationMillesime {
+	
+	const TYPE_NOEUD = 'millesime';
 
 	protected function loadAllData() {
 		parent::loadAllData();
@@ -36,4 +38,14 @@ class ConfigurationMillesime extends BaseConfigurationMillesime {
     	$this->libelle = ($datas[ProduitCsvFile::CSV_PRODUIT_MILLESIME_LIBELLE])? $datas[ProduitCsvFile::CSV_PRODUIT_MILLESIME_LIBELLE] : null;
     	$this->code = ($datas[ProduitCsvFile::CSV_PRODUIT_MILLESIME_CODE])? $datas[ProduitCsvFile::CSV_PRODUIT_MILLESIME_CODE] : null;
     }
+    
+  	public function hasDepartements() {
+  		return false;
+  	}
+  	public function hasDroits() {
+  		return false;
+  	}
+  	public function hasLabel() {
+  		return false;
+  	}
 }

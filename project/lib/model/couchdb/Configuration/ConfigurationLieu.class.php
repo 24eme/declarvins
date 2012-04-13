@@ -5,6 +5,8 @@
  */
 
 class ConfigurationLieu extends BaseConfigurationLieu {
+	
+	const TYPE_NOEUD = 'lieu';
 	/**
      *
      * @return ConfigurationAppellation
@@ -19,4 +21,14 @@ class ConfigurationLieu extends BaseConfigurationLieu {
     	$this->code = ($datas[ProduitCsvFile::CSV_PRODUIT_LIEU_CODE])? $datas[ProduitCsvFile::CSV_PRODUIT_LIEU_CODE] : null;
     	$this->departements = ($datas[ProduitCsvFile::CSV_PRODUIT_DEPARTEMENTS])? explode(',', $datas[ProduitCsvFile::CSV_PRODUIT_DEPARTEMENTS]) : array();
     }
+    
+  	public function hasDepartements() {
+  		return true;
+  	}
+  	public function hasDroits() {
+  		return false;
+  	}
+  	public function hasLabel() {
+  		return false;
+  	}
 }
