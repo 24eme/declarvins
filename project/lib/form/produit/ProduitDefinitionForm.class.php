@@ -19,7 +19,7 @@ class ProduitDefinitionForm extends acCouchdbFormDocumentJson {
 		if ($this->getObject()->hasDepartements()) {
 			$this->embedForm(
 				'secteurs', 
-				new ProduitDepartementCollectionForm(null, array('departements' => $this->getNoeudDepartement()))
+				new ProduitDepartementCollectionForm(null, array('departements' => $this->getNoeudDepartement(), 'nb' => $this->getOption('nbDepartement', null)))
 			);
 		}
 		if ($this->getObject()->hasDroits()) {
@@ -27,17 +27,17 @@ class ProduitDefinitionForm extends acCouchdbFormDocumentJson {
     		$nbCvo = (count($this->getNoeudDroit('cvo')) > 0)? count($this->getNoeudDroit('cvo')) : 1;
 			$this->embedForm(
 				'droit_douane', 
-				new ProduitDroitCollectionForm(null, array('droits' => $this->getNoeudDroit('douane'), 'nbDroits' => $this->getOption('nbDouane', $nbDouane)))
+				new ProduitDroitCollectionForm(null, array('droits' => $this->getNoeudDroit('douane'), 'nb' => $this->getOption('nbDouane', null)))
 			);
 			$this->embedForm(
 				'droit_cvo', 
-				new ProduitDroitCollectionForm(null, array('droits' => $this->getNoeudDroit('cvo'), 'nbDroits' => $this->getOption('nbCvo', $nbCvo)))
+				new ProduitDroitCollectionForm(null, array('droits' => $this->getNoeudDroit('cvo'), 'nb' => $this->getOption('nbCvo', null)))
 			);
 		}
 		if ($this->getObject()->hasLabels()) {
 			$this->embedForm(
 				'labels', 
-				new ProduitLabelCollectionForm(null, array('labels' => $this->getNoeudLabel()))
+				new ProduitLabelCollectionForm(null, array('labels' => $this->getNoeudLabel(), 'nb' => $this->getOption('nbLabel', null)))
 			);
 		}
         $this->widgetSchema->setNameFormat('produit_definition[%s]');
@@ -92,26 +92,26 @@ class ProduitDefinitionForm extends acCouchdbFormDocumentJson {
     	if ($this->getObject()->hasDepartements()) {
     		$this->getObject()->remove('departements');
     		$departements = $this->getNoeudDepartement();
-    		foreach ($values['secteurs'] as $key => $value) {
-    			$departements->add($key, $value['departement']);
+    		foreach ($values['secteurs'] as $value) {
+    			$departements->add(null, $value['departement']);
     		}
     	}
     	if ($this->getObject()->hasDroits()) {
     		$this->getNoeudInterpro()->droits->remove('douane');
-    		foreach ($values['droit_douane'] as $key => $value) {
-    			$this->setDroit($this->getNoeudDroit('douane')->add($key), $value['date'], $value['taux'], $value['code']);
+    		foreach ($values['droit_douane'] as $value) {
+    			$this->setDroit($this->getNoeudDroit('douane')->add(), $value['date'], $value['taux'], $value['code']);
     		}
     		$this->getNoeudInterpro()->droits->remove('cvo');
-    		foreach ($values['droit_cvo'] as $key => $value) {
-    			$this->setDroit($this->getNoeudDroit('cvo')->add($key), $value['date'], $value['taux'], $value['code']);
+    		foreach ($values['droit_cvo'] as $value) {
+    			$this->setDroit($this->getNoeudDroit('cvo')->add(), $value['date'], $value['taux'], $value['code']);
     		}
     	}
     	if ($this->getObject()->hasLabels()) {
     		$this->getNoeudInterpro()->remove('labels');
     		$labels = $this->getNoeudLabel();
-    		foreach ($values['labels'] as $key => $value) {
+    		foreach ($values['labels'] as $value) {
     			$this->setLabel($value['code'], $value['label']);
-    			$labels->add($key, $value['code']);
+    			$labels->add(null, $value['code']);
     		}
     	}
     	$this->getObject()->getDocument()->save();

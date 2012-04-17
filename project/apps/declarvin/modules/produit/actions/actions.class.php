@@ -25,10 +25,14 @@ class produitActions extends sfActions
   	//$this->forward404Unless($request->isXmlHttpRequest());
   	$this->forward404Unless($noeud = $request->getParameter('noeud', null));
   	$this->forward404Unless($hash = $request->getParameter('hash', null));
+  	$this->nbDepartement = $request->getParameter('nb_departement', null);
+  	$this->nbDouane = $request->getParameter('nb_douane', null);
+  	$this->nbCvo = $request->getParameter('nb_cvo', null);
+  	$this->nbLabel = $request->getParameter('nb_label', null);
   	$hash = str_replace('-', '/', $hash);
   	$object = ConfigurationClient::getCurrent()->get($hash);
   	$object = $object->__get($noeud);
-  	$this->form = new ProduitDefinitionForm($object);
+  	$this->form = new ProduitDefinitionForm($object, array('nbDepartement' => $this->nbDepartement, 'nbDouane' => $this->nbDouane, 'nbCvo' => $this->nbCvo, 'nbLabel' => $this->nbLabel));
   	$this->form->setHash($hash);
   	
   	if ($request->isMethod(sfWebRequest::POST)) {
