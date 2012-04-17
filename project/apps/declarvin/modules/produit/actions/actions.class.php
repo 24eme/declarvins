@@ -28,13 +28,14 @@ class produitActions extends sfActions
   	$hash = str_replace('-', '/', $hash);
   	$object = ConfigurationClient::getCurrent()->get($hash);
   	$object = $object->__get($noeud);
-  	$form = $this->form = new ProduitDefinitionForm($object);
+  	$this->form = new ProduitDefinitionForm($object);
+  	$this->form->setHash($hash);
   	
   	if ($request->isMethod(sfWebRequest::POST)) {
-    	$this->getResponse()->setContentType('text/json');
-        $form->bind($request->getParameter($form->getName()));
-		if ($form->isValid()) {
-			$form->save();
+    	//$this->getResponse()->setContentType('text/json');
+        $this->form->bind($request->getParameter($this->form->getName()));
+		if ($this->form->isValid()) {
+			$this->form->save();
 			$this->getUser()->setFlash("notice", 'Le produit a été modifié avec success.');
 			//return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('produits'))));
 		} else {

@@ -5,10 +5,15 @@ class ProduitDroitCollectionForm extends sfForm
   {
     if (!$droits = $this->getOption('droits'))
       throw new InvalidArgumentException('You must provide a droit node.');
-      
-    for ($i=0; $i<$this->getOption('nbDroits', 1); $i++) {
-    	$this->embedForm ($i, new ProduitDroitForm($droits[$i]));
+    $hasItem = false;
+    $key = 0;
+    foreach ($droits as $key => $droit) {
+    	$this->embedForm ($key, new ProduitDroitForm(null, array('droit' => $droit)));
+    	$hasItem = true;
     }
-    $this->embedForm ($i, new ProduitDroitForm($droits->add()));
+    if ($hasItem) {
+    	$key++;
+    }
+    $this->embedForm ($key, new ProduitDroitForm());
   }
 }

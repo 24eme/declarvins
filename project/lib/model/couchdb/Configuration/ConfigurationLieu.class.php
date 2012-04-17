@@ -28,7 +28,7 @@ class ConfigurationLieu extends BaseConfigurationLieu {
   	public function hasDroits() {
   		return false;
   	}
-  	public function hasLabel() {
+  	public function hasLabels() {
   		return false;
   	}
 	

@@ -5,8 +5,15 @@ class ProduitLabelCollectionForm extends sfForm
   {
     if (!$labels = $this->getOption('labels'))
       throw new InvalidArgumentException('You must provide a label node.');
-    for ($i=0; $i<$this->getOption('nbLabel', 1); $i++) {
-    	$this->embedForm ($i, new ProduitLabelForm());
+    $hasItem = false;
+    $key = 0;
+    foreach ($labels as $key => $code_label) {
+    	$this->embedForm ($key, new ProduitLabelForm(null, array('code_label' => $code_label)));
+    	$hasItem = true;
     }
+    if ($hasItem) {
+    	$key++;
+    }
+    $this->embedForm ($key, new ProduitLabelForm());
   }
 }

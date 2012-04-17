@@ -135,7 +135,7 @@ class ConfigurationCertification extends BaseConfigurationCertification {
   	public function hasDroits() {
   		return true;
   	}
-  	public function hasLabel() {
+  	public function hasLabels() {
   		return true;
   	}
 	

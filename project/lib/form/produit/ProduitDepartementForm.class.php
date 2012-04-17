@@ -3,14 +3,18 @@ class ProduitDepartementForm extends sfForm {
 
     public function configure() {
     	$this->setWidgets(array(
-			'departement' => new sfWidgetFormInputText()	
+    		'departement' => new sfWidgetFormInputText()
+    	));
+    	$this->setValidators(array(
+    		'departement' => new sfValidatorString(array('required' => false))
     	));
 		$this->widgetSchema->setLabels(array(
-			'departement' => 'Département*: '
+			'departement' => 'Département: '
 		));
-		$this->setValidators(array(
-			'departement' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire'))
-		));
+    	
+    	$this->setDefaults(array(
+    		'departement' => $this->getOption('departement')
+    	));
         $this->widgetSchema->setNameFormat('produit_departement[%s]');
     }
 }

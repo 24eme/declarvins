@@ -168,7 +168,7 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
   	public function hasDroits() {
   		return true;
   	}
-  	public function hasLabel() {
+  	public function hasLabels() {
   		return true;
   	}
 	
