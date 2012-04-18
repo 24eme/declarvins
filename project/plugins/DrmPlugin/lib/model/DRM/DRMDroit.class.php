@@ -9,7 +9,7 @@ class DRMDroit extends BaseDRMDroit {
   private $virtual = 0;
   private $payable_total = 0;
   private $cumulable_total = 0;
-  private $libelles = array('VDN' => 'AOC VDN', 'VM' => 'Vins mousseux', 'VT' => 'Vins Tranquilles', 'VT_AOP' => 'Vins Tranquilles / AOC', 'VT_IGP' => 'Vins Tranquilles / IGP', 'VT_SSIG' => 'Vins Tranquilles / Sans IG');
+  private $libelles = array('L423' => 'AOC VDN', 'L385' => 'Vins mousseux', 'L387' => 'Vins Tranquilles', 'L387_AOP' => 'Vins Tranquilles / AOC', 'L387_IGP' => 'Vins Tranquilles / IGP', 'L387_SSIG' => 'Vins Tranquilles / Sans IG');
 
   public function setTaux($taux) {
     if ($taux <= 0) {
