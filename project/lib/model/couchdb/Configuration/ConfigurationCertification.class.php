@@ -138,8 +138,15 @@ class ConfigurationCertification extends BaseConfigurationCertification {
   	public function hasLabels() {
   		return true;
   	}
+  	public function hasDetails() {
+  		return true;
+  	}
 	
   	public function getTypeNoeud() {
   		return self::TYPE_NOEUD;
+  	}
+  	
+  	public function getDetailConfiguration() {
+  		return $this->getDetail();  	
   	}
 }

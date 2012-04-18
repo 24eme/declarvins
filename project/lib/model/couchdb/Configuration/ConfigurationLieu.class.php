@@ -31,8 +31,26 @@ class ConfigurationLieu extends BaseConfigurationLieu {
   	public function hasLabels() {
   		return false;
   	}
+  	public function hasDetails() {
+  		return true;
+  	}
 	
   	public function getTypeNoeud() {
   		return self::TYPE_NOEUD;
+  	}
+  	
+  	public function getDetailConfiguration() {
+  		$details = $this->getAppellation()->getDetailConfiguration();
+  		if ($this->exist('detail')) {
+  			foreach ($this->detail as $type => $detail) {
+  				foreach ($detail as $noeud => $droits) {
+  					if ($droits->readable !== null)
+  						$details->get($type)->get($noeud)->readable = $droits->readable;
+  					if ($droits->writable !== null)
+  						$details->get($type)->get($noeud)->writable = $droits->writable;
+  				}
+  			}
+  		}
+  		return $details;
   	}
 }

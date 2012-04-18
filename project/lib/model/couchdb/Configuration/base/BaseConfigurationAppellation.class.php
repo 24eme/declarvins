@@ -6,6 +6,7 @@
 
  * @property string $libelle
  * @property string $code
+ * @property ConfigurationDetail $detail
  * @property acCouchdbJson $interpro
  * @property acCouchdbJson $departements
  * @property acCouchdbJson $lieux
@@ -14,6 +15,8 @@
  * @method string setLibelle()
  * @method string getCode()
  * @method string setCode()
+ * @method ConfigurationDetail getDetail()
+ * @method ConfigurationDetail setDetail()
  * @method acCouchdbJson getInterpro()
  * @method acCouchdbJson setInterpro()
  * @method acCouchdbJson getDepartements()

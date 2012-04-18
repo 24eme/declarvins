@@ -4,7 +4,7 @@
  *
  */
 
-abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree implements ConfigurationInterface {
+abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
 
 	protected function loadAllData() {
 		parent::loadAllData();
@@ -50,4 +50,11 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree implement
 			return $this->getParent()->getParent();
 		}
 	}
+	public abstract function setDonneesCsv($datas);
+  	public abstract function hasDepartements();
+ 	public abstract function hasDroits();
+  	public abstract function hasLabels();
+  	public abstract function hasDetails();
+  	public abstract function getTypeNoeud();
+  	public abstract function getDetailConfiguration();
 }

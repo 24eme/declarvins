@@ -19,6 +19,14 @@
 .popup_form table {
    display: inline;
 }
+.popup_form .radio_form  {
+	display: inline-block;
+	width: 50px;
+}
+.popup_form .radio_form  label {
+	display: inline-block;
+	width: 30px;
+}
 -->
 </style>
 <script type="text/javascript">
@@ -98,6 +106,21 @@ $(document).ready( function() {
 		<?php endforeach; ?>
 		</div>
 		<input class="counteur" type="hidden" name="nb_label" value="<?php echo count($form['labels']) ?>" />
+	<?php endif; ?>
+	<?php if ($form->getObject()->hasDetails()): ?>
+		<h2>Activation des lignes</h2>
+		<div class="subForm" id="!">
+			<?php foreach ($form['detail'] as $detail): ?>
+			<?php foreach ($detail as $type): ?>
+			<div class="ligne_form">
+				<span class="error"><?php echo $type['readable']->renderError() ?></span>
+				<?php echo $type['readable']->renderLabel() ?>
+				<?php echo $type['readable']->render() ?>
+				<?php echo $type['writable']->render() ?>
+			</div>
+			<?php endforeach; ?>
+			<?php endforeach; ?>
+		</div>
 	<?php endif; ?>
 	<div class="ligne_form_btn">
 		<button name="annuler" class="btn_annuler btn_fermer" type="reset">Annuler</button>

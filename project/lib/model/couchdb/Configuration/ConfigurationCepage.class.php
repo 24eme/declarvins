@@ -31,8 +31,15 @@ class ConfigurationCepage extends BaseConfigurationCepage {
   	public function hasLabels() {
   		return false;
   	}
+  	public function hasDetails() {
+  		return false;
+  	}
 	
   	public function getTypeNoeud() {
   		return self::TYPE_NOEUD;
+  	}
+  	
+  	public function getDetailConfiguration() {
+  		return $this->getCouleur()->getDetailConfiguration();
   	}
 }
