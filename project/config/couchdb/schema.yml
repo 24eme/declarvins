@@ -309,6 +309,7 @@ Configuration:
                                       definition:
                                         fields:
                                           stocks_debut:
+                                            required: false
                                             type: collection
                                             definition:
                                               fields:
@@ -320,6 +321,7 @@ Configuration:
                                                       readable: {  }
                                                       writable: {  }
                                           entrees:
+                                            required: false
                                             type: collection
                                             definition:
                                               fields:
@@ -331,6 +333,7 @@ Configuration:
                                                       readable: {  }
                                                       writable: {  }
                                           sorties:
+                                            required: false
                                             type: collection
                                             definition:
                                               fields:
@@ -342,6 +345,7 @@ Configuration:
                                                       readable: {  }
                                                       writable: {  }
                                           stocks_fin:
+                                            required: false
                                             type: collection
                                             definition:
                                               fields:
@@ -413,6 +417,11 @@ Configuration:
                                               fields:
                                                 libelle: {  }
                                                 code: {  }
+                                                departements:
+                                                  type: array_collection
+                                                  definition:
+                                                    fields:
+                                                      '*': {  }
                                                 detail:
                                                   required: false
                                                   class: ConfigurationDetail
@@ -420,6 +429,7 @@ Configuration:
                                                   definition:
                                                     fields:
                                                       stocks_debut:
+                                                        required: false
                                                         type: collection
                                                         definition:
                                                           fields:
@@ -431,6 +441,7 @@ Configuration:
                                                                   readable: {  }
                                                                   writable: {  }
                                                       entrees:
+                                                        required: false
                                                         type: collection
                                                         definition:
                                                           fields:
@@ -442,6 +453,7 @@ Configuration:
                                                                   readable: {  }
                                                                   writable: {  }
                                                       sorties:
+                                                        required: false
                                                         type: collection
                                                         definition:
                                                           fields:
@@ -453,6 +465,7 @@ Configuration:
                                                                   readable: {  }
                                                                   writable: {  }
                                                       stocks_fin:
+                                                        required: false
                                                         type: collection
                                                         definition:
                                                           fields:

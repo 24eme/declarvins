@@ -40,6 +40,12 @@ class ProduitDefinitionForm extends acCouchdbFormDocumentJson {
 				new ProduitLabelCollectionForm(null, array('labels' => $this->getNoeudLabel(), 'nb' => $this->getOption('nbLabel', null)))
 			);
 		}
+		if ($this->getObject()->hasDetails()) {
+			$this->embedForm(
+				'detail', 
+				new ProduitDetailsForm($this->getObject()->getOrAdd('detail'))
+			);
+		}
         $this->widgetSchema->setNameFormat('produit_definition[%s]');
         $this->mergePostValidator(new ProduitDefinitionValidatorSchema());
     }
