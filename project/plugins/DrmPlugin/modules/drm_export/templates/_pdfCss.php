@@ -4,8 +4,8 @@
 	}
 	body {
 		font-family: sans-serif;
-		margin: 100px 0 20px 0;
-		font-size: 10pt;
+		margin: 110px 0 20px 0;
+		font-size: 9pt;
 	}
 
 	h1, h2, h3, h4, h5, p, table, div {
@@ -13,6 +13,10 @@
 		font-size: inherit;
 		padding: 0;
 	}
+
+        h1 {
+	  font-size: 10pt;
+        }
 
 	p {
 		margin-top: 5px;
@@ -222,6 +226,11 @@
 	table.double_col tr td.col_right .bloc_bottom {
 		margin-bottom: 10px;
 	}
+
+        td.blank {
+	  background-color: #555;
+	  color: #555;
+        }
 
 	hr {
 		page-break-after: always;

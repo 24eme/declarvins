@@ -5,10 +5,10 @@
 	<?php $td_cssclass_ = ((isset($cssclass_value)) ? $cssclass_value : null) ?>
 	<?php $td_cssclass_ .= ((isset($partial_cssclass_value)) ? ' '.get_partial($partial_cssclass_value, array('item' => $item, 'hash' => isset($hash) ? $hash : null)) : null) ?>
 	<td class="<?php echo $td_cssclass_ ?>">
-		<?php if(isset($partial)): ?>
-			  <?php include_partial($partial, array_merge(array('item' => $item, 
-			  												    'hash' => isset($hash) ? $hash : null),
-			  											  isset($partial_params) && is_array($partial_params->getRawValue()) ? $partial_params->getRawValue() : array())) ?>
+	    <?php if(isset($partial)): ?>
+	    <?php include_partial($partial, array_merge(array('item' => $item, 
+							      'hash' => isset($hash) ? $hash : null),
+							isset($partial_params) && is_array($partial_params->getRawValue()) ? $partial_params->getRawValue() : array())) ?>
 		<?php elseif(isset($method)): ?>
 		<?php echo call_user_func_array(array($item, $method), array()) ?>
 		<?php elseif($item instanceof acCouchdbJson): ?>

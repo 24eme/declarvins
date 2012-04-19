@@ -405,4 +405,12 @@ class DRM extends BaseDRM {
     public function isPaiementAnnualise() {
     	return $this->declaratif->paiement->douane->isAnnuelle();
     }
+
+    public function getHumanDate() {
+	setlocale (LC_TIME, 'fr_FR.utf8','fra'); 
+	return strftime('%B %Y', strtotime($this->campagne.'-01'));
+    }
+    public function getEuValideDate() {
+	return strftime('%d/%m/%Y', strtotime($this->valide->date));
+    }
 }

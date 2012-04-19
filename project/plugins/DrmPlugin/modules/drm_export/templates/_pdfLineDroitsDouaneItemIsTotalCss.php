@@ -1,1 +1,8 @@
-<?php if ($item->isVirtual()): ?>total<?php else: ?>detail<?php endif; ?>
+<?php if ($item->isVirtual()): 
+    if ($hash != 'taux') {
+      echo "total";
+    }else{
+      echo "blank";
+    }
+else: 
+?>detail<?php endif; ?>
