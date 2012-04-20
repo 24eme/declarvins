@@ -154,41 +154,41 @@
 
 	<h2>Droits de circulation et de consommation</h2>
 	<table class="recap droits_douane bloc_bottom">
-		<?php include_partial('drm_export/pdfLine', array('libelle' => '',
-														  'colonnes' => $colonnes,
-														  'cssclass_libelle' => 'vide',
-														  'cssclass_value' => 'libelle',
-														  'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
-														  'method' => 'getLibelle')) ?>
-
-	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume réintégré',
-															   'colonnes' => $colonnes,
-															   'unite' => 'hl',
-															   'cssclass_libelle' => 'detail',
-															   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
-															   'hash' => 'volume_reintegre')) ?>
-
-		<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume taxé',
-															   'colonnes' => $colonnes,
-															   'unite' => 'hl',
-															   'cssclass_libelle' => 'detail',
-															   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
-															   'hash' => 'volume_taxe')) ?>
-
-		<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Taux des droits en vigueur',
-															   'colonnes' => $colonnes,
-															   'unite' => '€/hl',
-															   'cssclass_libelle' => 'detail',
-															   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
-															   'hash' => 'taux')) ?>
-
-		<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Droits à payer',
-															   'colonnes' => $colonnes,
-															   'unite' => '€',
-															   'cssclass_libelle' => 'total',
-															   'cssclass_value' => 'total',
-															   'hash' => 'payable')) ?>
-		<?php if ($drm->isPaiementAnnualise()): ?>
+    <?php include_partial('drm_export/pdfLine', array('libelle' => '',
+						      'colonnes' => $colonnes,
+						      'cssclass_libelle' => 'vide',
+						      'cssclass_value' => 'libelle',
+						      'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
+						      'method' => 'getLibelle')) ?>
+    
+    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume réintégré',
+							   'colonnes' => $colonnes,
+							   'unite' => 'hl',
+							   'cssclass_libelle' => 'detail',
+							   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
+							   'hash' => 'volume_reintegre')) ?>
+    
+    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume taxé',
+							   'colonnes' => $colonnes,
+							   'unite' => 'hl',
+							   'cssclass_libelle' => 'detail',
+							   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
+							   'hash' => 'volume_taxe')) ?>
+    
+    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Taux des droits en vigueur',
+							   'colonnes' => $colonnes,
+							   'unite' => '€/hl',
+							   'cssclass_libelle' => 'detail',
+							   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
+							   'hash' => 'taux')) ?>
+    
+    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Droits à payer',
+							   'colonnes' => $colonnes,
+							   'unite' => '€',
+							   'cssclass_libelle' => 'total',
+							   'cssclass_value' => 'total',
+							   'hash' => 'payable')) ?>
+    <?php if ($drm->isPaiementAnnualise()): ?>
 
 		<?php include_partial('drm_export/pdfLine', array('libelle' => 'Report du mois précédent',
 															   'colonnes' => $colonnes,
@@ -221,7 +221,7 @@
 			</td>
 			<td class="col_right">
 				<h2>Déclaration établie </h2>
-				<p><strong>le : 01/04/2012</strong></p>
+				<p><strong>le : <?php echo $drm->getEuValideDate(); ?></strong></p>
 				<p>via l'application Déclarvin</p>
 			</td>
 		</tr>

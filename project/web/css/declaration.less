@@ -454,7 +454,7 @@ p#date_drm
 	form
 	{
 		font-size: 16px;
-		margin: 40px 0 0 70px;
+		margin: 0px 0 0 70px;
 
 		.ligne_form
 		{
@@ -972,6 +972,7 @@ p#date_drm
 		
 		.ligne_form
 		{
+
 			margin:10px 0;
 			
 			input[type="text"] { margin: 0 20px; }
@@ -991,17 +992,29 @@ p#date_drm
 					label { margin-left: 20px; }
 				}
 			}
+
+                        
 		}
 		
-		.champs_centres
+                .alignes { padding-left:249px }
+		
+                .champs_centres
 		{
 			margin-bottom:30px;
 		
 			.ligne_form { text-align:center; }
+
+                        .error_list { text-align:left; }
 		}
 	}
 	
 	#btn_etape_dr .btn_suiv span { text-transform:uppercase; }
+
+        .error_daa{
+            float:left;
+        }
+
+        #organisme { display:none; }
 }
 
 /**

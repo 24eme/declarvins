@@ -1,16 +1,26 @@
 <?php include_partial('global/navTop', array('active' => 'drm')); ?>
 
 <section id="contenu">
-    <h1>Déclaration Récapitulative Mensuelle</h1>
-    <p class="intro">Bienvenue sur votre espace DRM. Que pensez-vous faire ?</p>
     
+    <?php //if ($sf_user->hasFlash('notice')){ ?>
+        <div class="flash_notice"><?php //echo $sf_user->getFlash('notice') ?>flash_notice</div>
+    <?php //} ?>
+
+    <?php //if ($sf_user->hasFlash('error')){ ?>
+        <div class="flash_error"><?php //echo $sf_user->getFlash('error') ?>flash_error</div>
+    <?php //} ?>
+    
+    <h1>Déclaration Récapitulative Mensuelle</h1>
+
+    <p class="intro">Bienvenue sur votre espace DRM. Que pensez-vous faire ?</p>
+
     <section id="principal">
-	    <div id="recap_drm">
-			<div id="drm_annee_courante">
-				<?php include_component('drm', 'historiqueList', array('historique' => $historique, 'limit' => 5)) ?>
-			</div>
-		</div>
-	</section>
-	<a href="<?php echo url_for('@drm_historique') ?>">Votre historique complet &raquo;</a>
+        <div id="recap_drm">
+            <div id="drm_annee_courante">
+                <?php include_component('drm', 'historiqueList', array('historique' => $historique, 'limit' => 5)) ?>
+            </div>
+        </div>
+    </section>
+    <a href="<?php echo url_for('@drm_historique') ?>">Votre historique complet &raquo;</a>
 
 </section>

@@ -26,7 +26,7 @@
 	
 	var btnAjouter = colonnesDR.find('.btn_ajouter');
 	
-	
+        
 	$(document).ready( function()
 	{
 		if(colonnesDR.exists())
