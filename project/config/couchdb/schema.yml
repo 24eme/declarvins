@@ -98,7 +98,13 @@ Etablissement:
       sous_famille: {  }
       email: {  }
       telephone: {  }
-      fax: {  }
+      fax: {  }Messages:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {}
+      '*': {}
       siege:
           type: collection
           definition:
@@ -911,3 +917,10 @@ DRM:
             service: {  }
             envoi: {  }
             accuse: {  }
+Messages:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {}
+      '*': {}
