@@ -13,6 +13,9 @@
 		        <form action="<?php echo url_for('drm_informations', $drm) ?>" method="post">
 			        <?php echo $form->renderGlobalErrors() ?>
 					<?php echo $form->renderHiddenFields() ?>
+                                        <div class="ligne_form">
+						<?php echo $form['confirmation']->renderError() ?>
+					</div>
 					<div class="ligne_form">
 						<label for="champ_1">CVI :</label>
 						<span class="valeur"><?php echo $tiers->cvi ?></span>
@@ -46,9 +49,7 @@
 						<span class="valeur">1654546764</span>
 					</div>
 					<?php echo $form['confirmation']->render() ?>
-					<div class="ligne_form">
-						<?php echo $form['confirmation']->renderError() ?>
-					</div>
+					
 					<div class="ligne_btn">
 						<button type="submit" class="btn_suiv"><span>VALIDER</span></button>
 						<a href="#" class="btn_popup btn_popup_trigger" data-popup="#popup_confirm_modif_infos" data-popup-config="configConfirmModifInfos" data-popup-titre="Etes-vous sûr de vouloir modifier ces informations ?"></a>

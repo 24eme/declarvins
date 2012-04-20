@@ -1,11 +1,13 @@
-<h3>Engagements</h3>
+<h2>Engagements</h2>
+<?php if($form->hasErrors()){ ?>
+<div class="error_list">Veuillez cocher toutes les cases.</div>
+<?php } ?>
 <ol>
-<?php foreach ($drmValidation->getEngagements() as $engagement): ?>
-	<li>
-		<?php echo $form['engagement_'.$engagement->getCode()]->renderLabel() ?>
-		<?php echo $form['engagement_'.$engagement->getCode()]->render() ?>
-		<span class="error"><?php echo $form['engagement_'.$engagement->getCode()]->renderError() ?></span>
-	</li>
-<?php endforeach; ?>
+    <?php foreach ($drmValidation->getEngagements() as $engagement): ?>
+        <li>
+            <?php echo $form['engagement_' . $engagement->getCode()]->renderLabel() ?>
+            <?php echo $form['engagement_' . $engagement->getCode()]->render() ?>
+        </li>
+    <?php endforeach; ?>
 </ol>
 <br />
