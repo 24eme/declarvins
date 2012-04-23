@@ -98,13 +98,7 @@ Etablissement:
       sous_famille: {  }
       email: {  }
       telephone: {  }
-      fax: {  }Messages:
-  definition:
-    fields:
-      _id: {  }
-      _rev: {  }
-      type: {}
-      '*': {}
+      fax: {  }
       siege:
           type: collection
           definition:
