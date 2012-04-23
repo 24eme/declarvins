@@ -16,6 +16,6 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('ExportPlugin');
     $this->enablePlugins('ImportPlugin');
     $this->enablePlugins('acLessphpPlugin');
-    //$this->enablePlugins('MessagesPlugin');
+    $this->enablePlugins('MessagesPlugin');
   }
 }
