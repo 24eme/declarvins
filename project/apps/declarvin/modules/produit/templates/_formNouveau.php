@@ -9,12 +9,12 @@
 	<div class="ligne_form">
 		<span class="error"><?php echo $form['appellations']->renderError() ?></span>
 		<?php echo $form['appellations']->renderLabel() ?>
-		<?php echo $form['appellations']->render() ?>
+		<?php echo $form['appellations']->render(array('class' => 'permissif')) ?>
 	</div>
 	<div class="ligne_form">
 		<span class="error"><?php echo $form['lieux']->renderError() ?></span>
 		<?php echo $form['lieux']->renderLabel() ?>
-		<?php echo $form['lieux']->render() ?>
+		<?php echo $form['lieux']->render(array('class' => 'permissif')) ?>
 	</div>
 	<div class="ligne_form">
 		<span class="error"><?php echo $form['couleurs']->renderError() ?></span>
@@ -24,15 +24,23 @@
 	<div class="ligne_form">
 		<span class="error"><?php echo $form['cepages']->renderError() ?></span>
 		<?php echo $form['cepages']->renderLabel() ?>
-		<?php echo $form['cepages']->render() ?>
+		<?php echo $form['cepages']->render(array('class' => 'permissif')) ?>
 	</div>
 	<div class="ligne_form">
 		<span class="error"><?php echo $form['millesimes']->renderError() ?></span>
 		<?php echo $form['millesimes']->renderLabel() ?>
-		<?php echo $form['millesimes']->render() ?>
+		<?php echo $form['millesimes']->render(array('class' => 'permissif')) ?>
 	</div>
 	<div class="ligne_form_btn">
 		<button name="annuler" class="btn_annuler btn_fermer" type="reset">Annuler</button>
 		<button name="valider" class="btn_valider" type="submit">Valider</button>
 	</div>
 </form>
+<script type="text/javascript">
+$(document).ready(function () {
+	$( "#<?php echo $form['appellations']->renderId() ?>" ).combobox();
+	$( "#<?php echo $form['lieux']->renderId() ?>" ).combobox();
+	$( "#<?php echo $form['cepages']->renderId() ?>" ).combobox();
+	$( "#<?php echo $form['millesimes']->renderId() ?>" ).combobox();
+});
+</script>

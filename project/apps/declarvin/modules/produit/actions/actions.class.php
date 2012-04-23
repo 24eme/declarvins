@@ -30,19 +30,19 @@ class produitActions extends sfActions
   	$this->nbLabel = $request->getParameter('nb_label', null);
   	$hash = str_replace('-', '/', $hash);
   	$object = ConfigurationClient::getCurrent()->getOrAdd($hash);
-  	if ($pile = $this->getUser()->hasAttribute('pile_noeud')) {
-  		$pile = $this->getUser()->hasAttribute('pile_noeud');
+  	$object = $object->__get($noeud);
+  	if ($pile = $this->getUser()->hasAttribute('pile_noeud') && !$request->isMethod(sfWebRequest::POST)) {
+  		$pile = $this->getUser()->getAttribute('pile_noeud');
   		$arborescence = ConfigurationProduit::getArborescence();
   		foreach ($arborescence as $produit) {
   			if (isset($pile[$produit])) {
   				$object = $object->getOrAdd($produit)->add(Configuration::DEFAULT_KEY);
-  				$object->set('libelle', $pile[$produit]);
+  				$object->set('code', $pile[$produit]);
   				$noeud = $object->getTypeNoeud();
   				break;
   			}
   		}
   	}
-  	$object = $object->__get($noeud);
   	$this->form = new ProduitDefinitionForm($object, array('nbDepartement' => $this->nbDepartement, 'nbDouane' => $this->nbDouane, 'nbCvo' => $this->nbCvo, 'nbLabel' => $this->nbLabel));
   	$this->form->setHash($hash);
   	
@@ -50,21 +50,20 @@ class produitActions extends sfActions
         $this->form->bind($request->getParameter($this->form->getName()));
 		if ($this->form->isValid()) {
 			$this->form->save();
-			$this->checkKeys($hash);
 			$this->getUser()->setFlash("notice", 'Le produit a été modifié avec success.');
-			if ($pile) {
+			if ($pile = $this->getUser()->hasAttribute('pile_noeud')) {
+  				$pile = $this->getUser()->getAttribute('pile_noeud');
 		  		$arborescence = ConfigurationProduit::getArborescence();
 		  		foreach ($arborescence as $produit) {
 		  			if (isset($pile[$produit])) {
 		  				unset($pile[$produit]);
-		  				if ($pile) {
+		  				if (count($pile) > 0) {
 		  					$this->getUser()->setAttribute('pile_noeud', $pile);
 		  					$this->redirect('produit_modification', array('noeud' => $object->getTypeNoeud(), 'hash' => str_replace('/', '-', $hash)));
 		  				} else {
+		  					$this->getUser()->setAttribute('pile_noeud', null);
 		  					$this->redirect('produits');
 		  				}
-		  			} else {
-		  				$this->redirect('produits');
 		  			}
 		  		}
 		  	}
@@ -91,15 +90,5 @@ class produitActions extends sfActions
 			$this->redirect('produit_modification', array('noeud' => $noeud, 'hash' => str_replace('/', '-', $hash)));
 		}
     }
-  }
-  private function checkKeys($hash) {
-  
-    	/*if ($this->getObject()->getKey() == Configuration::DEFAULT_KEY) {
-    		$hash = $this->getObject()->getHash();
-    		$newHash = explode('/', $hash);
-    		$newHash[count($newHash) - 1] = strtoupper($values['code']);
-    		$newHash = implode('/', $newHash);
-    		$this->getObject()->getDocument()->moveAndClean($hash, $newHash);
-    	}*/
   }
 }

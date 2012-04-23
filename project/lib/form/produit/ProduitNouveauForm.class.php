@@ -31,11 +31,11 @@ class ProduitNouveauForm extends sfForm {
 		));
 		$this->setValidators(array(
 			'certifications' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->configurationProduit->getCertifications()))),
-			'appellations' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->configurationProduit->getAppellations()))),
-			'lieux' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->configurationProduit->getLieux()))),
+			'appellations' => new sfValidatorString(array('required' => false)),
+			'lieux' => new sfValidatorString(array('required' => false)),
 			'couleurs' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->configurationProduit->getCouleurs()))),
-			'cepages' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->configurationProduit->getCepages()))),
-			'millesimes' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->configurationProduit->getMillesimes())))
+			'cepages' => new sfValidatorString(array('required' => false)),
+			'millesimes' => new sfValidatorString(array('required' => false))
 		));
 		
         $this->widgetSchema->setNameFormat('produit[%s]');

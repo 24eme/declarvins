@@ -56,6 +56,12 @@
 			select = this.element.hide(),
 			selected = select.children( ":selected" ),
 			value = selected.val() ? selected.text() : "";
+			
+			var newValueOption = $('<option class="new_value" value=""></option>');
+			select.append(newValueOption);
+			
+			var newValueAllowed  = select.hasClass('permissif');
+			
 			var input = this.input = $( "<input type='text'>" )
 			.insertAfter( select )
 			.val( value )
@@ -96,10 +102,22 @@
 							}
 						});
 						if ( !valid ) {
-									// remove invalid value, as it didn't match anything
-									$( this ).val( "" );
-									select.val( "" );
-									input.data( "autocomplete" ).term = "";
+							
+							select.val('');
+							
+							// remove invalid value, as it didn't match anything
+							if(newValueAllowed)
+							{
+								var newValue = $( this ).val();
+								
+								select.find(':selected').removeAttr('selected');
+								newValueOption.attr('selected','selected').val(newValue); //.text(newValue);
+							}
+							else
+							{
+								$( this ).val( "" );
+								input.data( "autocomplete" ).term = "";
+							}
 									return false;
 								}
 							}
