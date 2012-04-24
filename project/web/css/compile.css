@@ -163,7 +163,7 @@ pre, code, kbd, samp { font-family:monospace, sans-serif; }
   border:1px solid #359b02;
   color:#1e5204;
   font-weight:bold;
-  margin:0 0 10px;
+  margin:0;
   padding:5px 10px;
 }
 .vigilance_list {
@@ -375,6 +375,19 @@ a:hover { text-decoration:underline; }
   visibility:hidden;
 }
 #header:after { clear:both; }
+#flash_message {
+  background:#ffffff;
+  padding:15px 20px 5px;
+  zoom:1;
+}
+#flash_message:before, #flash_message:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+#flash_message:after { clear:both; }
 #contenu {
   background:#ffffff;
   padding:25px 20px 70px;

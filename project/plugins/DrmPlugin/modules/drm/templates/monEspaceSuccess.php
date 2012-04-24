@@ -2,14 +2,6 @@
 
 <section id="contenu">
     
-    <?php //if ($sf_user->hasFlash('notice')){ ?>
-        <div class="flash_notice"><?php //echo $sf_user->getFlash('notice') ?>flash_notice</div>
-    <?php //} ?>
-
-    <?php //if ($sf_user->hasFlash('error')){ ?>
-        <div class="flash_error"><?php //echo $sf_user->getFlash('error') ?>flash_error</div>
-    <?php //} ?>
-    
     <h1>Déclaration Récapitulative Mensuelle <a href="" class="msg_aide" rel="help_popup_DR_lieu-dit" title="Message aide"></a></h1>
     
     <p class="intro">Bienvenue sur votre espace DRM. Que pensez-vous faire ?</p>
