@@ -113,7 +113,7 @@ produits:
 produit_modification:
   url: /produit/:noeud/modification/:hash
   param: {module: produit, action: modification, hash: null, noeud: null}
-
+  
 # generic rules
 # please, remove them by adding more specific rules
 default_index:

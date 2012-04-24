@@ -47,7 +47,7 @@
 	
 	</div>
 	<!-- fin #global -->
-
+        <?php include_partial('global/initMessageAide') ?>
 <!-- ####### A REPRENDRE ABSOLUMENT ####### -->
 <!--[if lte IE 9 ]> </div> <![endif]-->
 <!-- ####### A REPRENDRE ABSOLUMENT ####### -->
