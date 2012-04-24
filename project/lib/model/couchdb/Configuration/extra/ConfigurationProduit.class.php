@@ -3,7 +3,7 @@ class ConfigurationProduit
 {
 	protected static $arborescence = array('certifications', 'appellations', 'lieux', 'couleurs', 'cepages', 'millesimes');
 	protected static $certifications = array('' => '', 'AOP' => 'AOP', 'IGP' => 'IGP', 'VINSSANSIG' => 'SANS IG', 'LIE' => 'LIE');
-	protected static $couleurs = array('' => '', 'rouge' => 'Rouge', 'blanc' => 'Blanc', 'rose' => 'Rosé');
+	protected static $couleurs = array('' => '', 'Rouge' => 'Rouge', 'Blanc' => 'Blanc', 'Rosé' => 'Rosé');
 	
 	protected $datas;
 	protected $appellations;

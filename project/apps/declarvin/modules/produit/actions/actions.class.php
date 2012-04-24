@@ -37,7 +37,7 @@ class produitActions extends sfActions
   		foreach ($arborescence as $produit) {
   			if (isset($pile[$produit])) {
   				$object = $object->getOrAdd($produit)->add(Configuration::DEFAULT_KEY);
-  				$object->set('code', $pile[$produit]);
+  				$object->set('libelle', $pile[$produit]);
   				$noeud = $object->getTypeNoeud();
   				break;
   			}
