@@ -48,10 +48,10 @@ EOF;
 	    
     $configuration = new Configuration();
     
-    $csv = new ProduitCsvFile($configuration, $import_dir.'/csvproduits');
+    $csv = new ProduitCsvFile($configuration, $import_dir.'/produits.csv');
     $configuration = $csv->importProduits();
     
-    $csv = new LabelCsvFile($configuration, $import_dir.'/csvlabels');
+    $csv = new LabelCsvFile($configuration, $import_dir.'/labels.csv');
     $configuration = $csv->importLabels();
 
     /*$certifications = array();
@@ -183,7 +183,7 @@ EOF;
 	/*
 	 * En attendant de voir avec Tangui pour le probleme CSV et noeud Certif / Millesime
 	 */
-    foreach (file($import_dir.'/details') as $line) {
+    foreach (file($import_dir.'/details.csv') as $line) {
         $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
         if ($detail = $configuration->declaration->certifications->exist($datas[0])) {
 	        $detail = $configuration->declaration->certifications->get($datas[0])->detail->get($datas[1])->add($datas[2]);
@@ -192,19 +192,11 @@ EOF;
         }
     } // Fin
     
-  	foreach (file($import_dir.'/libelle_detail_ligne') as $line) {
+  	foreach (file($import_dir.'/libelle_detail_ligne.csv') as $line) {
         $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
         $detail = $configuration->libelle_detail_ligne->get($datas[0])->add($datas[1], $datas[2]);
     }
 
   	$configuration->save();
   }
-
-  /*function couleurkeytocode($key) {
-    $correspondances = array("rouge" => 1,
-                             "blanc" => 2,
-                             "rose" => 3);
-
-    return $correspondances[$key];
-  }*/
 }

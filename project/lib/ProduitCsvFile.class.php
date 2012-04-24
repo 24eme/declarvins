@@ -43,12 +43,20 @@ class ProduitCsvFile extends CsvFile
   private function getProduit($line) 
   {
   	$hash = 'certifications/'.$this->getKey($line[self::CSV_PRODUIT_CATEGORIE_CODE]).
-                '/appellations/'.$this->getKey($line[self::CSV_PRODUIT_DENOMINATION_CODE]).
+                '/appellations/'.$this->getKey($line[self::CSV_PRODUIT_DENOMINATION_CODE], true).
                 '/lieux/'.$this->getKey($line[self::CSV_PRODUIT_LIEU_CODE], true).
-                '/couleurs/'.strtolower($this->getKey($line[self::CSV_PRODUIT_COULEUR_LIBELLE])).
+                '/couleurs/'.strtolower($this->couleurKeyToCode($line[self::CSV_PRODUIT_COULEUR_CODE])).
                 '/cepages/'.$this->getKey($line[self::CSV_PRODUIT_CEPAGE_CODE], true).
                 '/millesimes/'.$this->getKey($line[self::CSV_PRODUIT_MILLESIME_CODE], true);
     return $this->config->declaration->getOrAdd($hash);
+  }
+  
+  private function couleurKeyToCode($key) {
+    $correspondances = array(1 => "rouge",
+                             2 => "rose",
+                             3 => "blanc");
+
+    return $correspondances[$key];
   }
   
   private function getKey($key, $withDefault = false) 
