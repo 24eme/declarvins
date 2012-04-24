@@ -27,8 +27,7 @@
 		<?php echo $form['disponible']->render(array('class' => 'num num_float')) ?>
 	</div>
 	<div class="ligne_form_btn">
-		<!-- <button name="annuler" class="btn_annuler btn_fermer" type="reset">Annuler</button> -->
-		<a name="annuler" class="btn_annuler btn_fermer" href="<?php echo url_for('produits') ?>">Annuler</a>
+		<button name="annuler" class="btn_annuler btn_fermer" type="reset">Annuler</button>
 		<button name="valider" class="btn_valider" type="submit">Valider</button>
 	</div>
 </form>
