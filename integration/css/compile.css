@@ -1375,8 +1375,6 @@ p#date_drm {
   position:relative;
   width:102px;
 }
-#colonnes_dr .col_recolte input, #colonnes_dr .col_recolte .num_light {color: #B0B0B0}
-
 #colonnes_dr .col_recolte input, #colonnes_dr .col_recolte select {
   background:#ffffff;
   border:1px solid #dbdbdb;
@@ -1401,6 +1399,7 @@ p#date_drm {
   width:88px;
 }
 #colonnes_dr .col_recolte select[multiple] { height:50px; }
+#colonnes_dr .col_recolte .num_light { color:#b0b0b0; }
 #colonnes_dr .col_recolte h2 {
   background:#820608;
   color:#ffffff;
@@ -1639,3 +1638,31 @@ p#date_drm {
   visibility:hidden;
 }
 #btn_etape_dr:after { clear:both; }
+#principal #back_office .btn_ajouter {
+  display:inline;
+  float:right;
+  background-repeat:no-repeat;
+  border:1px solid;
+  color:#ffffff;
+  display:inline-block;
+  background-color:#b1cb00;
+  border-color:#99af00;
+  background-image:url(../images/boutons/btn_ajouter.png);
+  background-position:7px center;
+  margin:0 10px 0 0;
+  padding:0 10px 0 30px;
+  font-size:15px;
+  font-weight:normal;
+  margin-right:0;
+}
+#principal #back_office .btn_ajouter:hover, #principal #back_office .btn_ajouter:focus { background-color:#99af00; }
+#principal #back_office .tableau_ajouts_liquidations table tbody td .editer {
+  zoom:1;
+  background:none;
+  padding:0 0 0 18px;
+}
+#principal #back_office .tableau_ajouts_liquidations table tbody td .editer:hover { background:url(../images/fonds/bg_editer.png) 0 0 no-repeat; }
+#principal #back_office .tableau_ajouts_liquidations table .separateur {
+  background-color:transparent;
+  border:none;
+}

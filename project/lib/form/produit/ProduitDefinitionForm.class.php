@@ -149,7 +149,7 @@ class ProduitDefinitionForm extends acCouchdbFormDocumentJson {
     			$labels->add(null, $value['code']);
     		}
     	}
-    	return $object->getDocument()->save();
-    	
+    	$object->getDocument()->save();
+    	return $object;    	
     }
 }
