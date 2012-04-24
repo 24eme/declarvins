@@ -110,13 +110,10 @@ viewDRMEdi:
 produits:
   url: /produits
   param: {module: produit, action: index}
-produit_nouveau:
-  url: /produit/nouveau
-  param: {module: produit, action: nouveau}
 produit_modification:
   url: /produit/:noeud/modification/:hash
   param: {module: produit, action: modification, hash: null, noeud: null}
-
+  
 # generic rules
 # please, remove them by adding more specific rules
 default_index:
