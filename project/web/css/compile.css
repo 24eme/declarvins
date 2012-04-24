@@ -79,7 +79,7 @@ article, aside, figure, footer, header, hgroup, nav, section { display:block; }
   left:0;
   position:absolute;
   opacity:0;
-  filter:Alpha(Opacity=0);
+  filter:1;
 }
 .ui-state-disabled { cursor:default !important; }
 .ui-icon {
@@ -91,7 +91,7 @@ article, aside, figure, footer, header, hgroup, nav, section { display:block; }
 .ui-widget-overlay {
   background:#000000;
   opacity:.2;
-  filter:Alpha(Opacity=20);
+  filter:1;
   position:absolute;
   top:0;
   left:0;
@@ -150,10 +150,26 @@ button::-moz-focus-inner {
 button span { position:relative; }
 .ielt8 button span { margin:-1px 0 -2px; }
 pre, code, kbd, samp { font-family:monospace, sans-serif; }
-.error_list {
+.error_list, .flash_error {
   background:#ffdddd;
   border:1px solid #a12929;
   color:#a12929;
+  font-weight:bold;
+  margin:0 0 10px;
+  padding:5px 10px;
+}
+.flash_notice {
+  background:#ecfeea;
+  border:1px solid #359b02;
+  color:#1e5204;
+  font-weight:bold;
+  margin:0;
+  padding:5px 10px;
+}
+.vigilance_list {
+  background:#fff1d9;
+  border:1px solid #ff9f00;
+  color:#d68500;
   font-weight:bold;
   margin:0 0 10px;
   padding:5px 10px;
@@ -260,6 +276,16 @@ button.btn_prec, button.btn_prec span, button.btn_suiv, button.btn_suiv span { h
   background-position:0 -26px;
   padding:0 10px 0 18px;
 }
+a.msg_aide {
+  background:url(../images/pictos/pi_aide.png) 0 0 no-repeat;
+  display:inline-block;
+  height:17px;
+  outline:0;
+  vertical-align:middle;
+  width:17px;
+  opacity:0.5;
+}
+a.msg_aide:hover { opacity:1; }
 .invisible {
   clip:rect(1px 1px 1px 1px);
   clip:rect(1px,1px,1px,1px);
@@ -349,6 +375,19 @@ a:hover { text-decoration:underline; }
   visibility:hidden;
 }
 #header:after { clear:both; }
+#flash_message {
+  background:#ffffff;
+  padding:15px 20px 5px;
+  zoom:1;
+}
+#flash_message:before, #flash_message:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+#flash_message:after { clear:both; }
 #contenu {
   background:#ffffff;
   padding:25px 20px 70px;
@@ -609,6 +648,9 @@ a:hover { text-decoration:underline; }
   -webkit-box-shadow:0 0 5px #000000;
   -moz-box-shadow:0 0 5px #000000;
   box-shadow:0 0 5px #000000;
+  -webkit-box-shadow:0 0 5px #000000;
+  -moz-box-shadow:0 0 5px #000000;
+  box-shadow:0 0 5px #000000;
   padding:15px;
 }
 .ui-dialog .ui-dialog-titlebar {
@@ -837,12 +879,23 @@ a:hover { text-decoration:underline; }
   display:inline-block;
   background-color:#820608;
   border-color:#a12929;
+  background:url(../images/boutons/btn_majeur.png) 0 0 no-repeat;
+  color:#ffffff;
+  display:inline-block;
+  font-size:15px;
+  line-height:26px;
   background-position:right -52px;
   float:right;
   padding:0 18px 0 0;
   padding:0 23px 0 15px;
 }
 #creation_compte .ligne_btn .btn_valider:hover, #creation_compte .ligne_btn .btn_valider:focus { background-color:#a12929; }
+#creation_compte .ligne_btn .btn_valider:hover { text-decoration:none; }
+#creation_compte .ligne_btn .btn_valider span {
+  background:url(../images/boutons/btn_majeur.png) 0 0 no-repeat;
+  display:inline-block;
+  line-height:26px;
+}
 #creation_compte .ligne_btn .btn_valider span {
   background-position:0 -26px;
   padding:0 10px 0 18px;
@@ -1090,10 +1143,18 @@ p#date_drm {
   text-decoration:underline;
 }
 #principal #etablissements_drm #etablissements_infos {
+  margin:0 0 20px;
   border:1px solid #e9e9e9;
   background:#f1f1f1;
   padding:15px;
   padding:55px 0 15px 20px;
+}
+#principal #etablissements_drm #etablissements_infos p { margin:5px 0; }
+#principal #etablissements_drm #etablissements_infos p span { font-weight:bold; }
+#principal #etablissements_drm #etablissements_infos p strong {
+  color:#737373;
+  font-style:italic;
+  font-weight:normal;
 }
 #principal #etablissements_drm #etablissements_infos .adresse_comptabilite { margin:20px 0 0; }
 #principal #etablissements_drm #etablissements_infos table { width:100%; }
@@ -1188,7 +1249,7 @@ p#date_drm {
 }
 #principal #drm_informations form {
   font-size:16px;
-  margin:40px 0 0 70px;
+  margin:0px 0 0 70px;
 }
 #principal #drm_informations form .ligne_form { margin:0 0 20px; }
 #principal #drm_informations form .ligne_form * {
@@ -1375,8 +1436,6 @@ p#date_drm {
   position:relative;
   width:102px;
 }
-#colonnes_dr .col_recolte input, #colonnes_dr .col_recolte .num_light {color: #B0B0B0}
-
 #colonnes_dr .col_recolte input, #colonnes_dr .col_recolte select {
   background:#ffffff;
   border:1px solid #dbdbdb;
@@ -1401,6 +1460,7 @@ p#date_drm {
   width:88px;
 }
 #colonnes_dr .col_recolte select[multiple] { height:50px; }
+#colonnes_dr .col_recolte .num_light { color:#b0b0b0; }
 #colonnes_dr .col_recolte h2 {
   background:#820608;
   color:#ffffff;
@@ -1599,9 +1659,13 @@ p#date_drm {
 #declaratif_info .contenu_onglet_declaratif .ligne_form.ligne_entiere input[type="text"] { margin-left:48px; }
 #declaratif_info .contenu_onglet_declaratif .ligne_form.ligne_entiere.ecart_check input[type="checkbox"] { margin-left:237px; }
 #declaratif_info .contenu_onglet_declaratif .ligne_form.ligne_entiere.ecart_check label { margin-left:20px; }
+#declaratif_info .contenu_onglet_declaratif .alignes { padding-left:249px; }
 #declaratif_info .contenu_onglet_declaratif .champs_centres { margin-bottom:30px; }
 #declaratif_info .contenu_onglet_declaratif .champs_centres .ligne_form { text-align:center; }
+#declaratif_info .contenu_onglet_declaratif .champs_centres .error_list { text-align:left; }
 #declaratif_info #btn_etape_dr .btn_suiv span { text-transform:uppercase; }
+#declaratif_info .error_daa { float:left; }
+#declaratif_info #organisme { display:none; }
 #principal .btn_passer_etape {
   background-repeat:no-repeat;
   border:1px solid;
@@ -1609,9 +1673,6 @@ p#date_drm {
   display:inline-block;
   background-color:#a0a0a0;
   border-color:#c0c0c0;
-  background-position:right -52px;
-  float:right;
-  padding:0 18px 0 0;
   float:right;
   font-size:12px;
   font-weight:bold;
@@ -1621,10 +1682,6 @@ p#date_drm {
   text-transform:uppercase;
 }
 #principal .btn_passer_etape:hover, #principal .btn_passer_etape:focus { background-color:#494949; }
-#principal .btn_passer_etape span {
-  background-position:0 -26px;
-  padding:0 10px 0 18px;
-}
 #principal .btn_passer_etape:hover { text-decoration:none; }
 #btn_etape_dr {
   position:relative;
@@ -1639,3 +1696,4 @@ p#date_drm {
   visibility:hidden;
 }
 #btn_etape_dr:after { clear:both; }
+#saving_notification, #error_notification { z-index:999; }

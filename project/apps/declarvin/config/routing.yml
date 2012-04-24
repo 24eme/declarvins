@@ -72,23 +72,32 @@ interpro_upload_csv:
 tiers:
   url: /tiers
   param: { module: tiers, action: login }
-admin:
-  url: /admin
-  param: { module: admin, action: index }
 login:
   url: /login
   param: {module: acVinCompte, action: login}
 logout:
   url: /logout
   param: {module: acVinCompte, action: logout}
-# Produit routing
-produits:
-  url: /produits
-  param: {module: produit, action: index}
-produit_modification:
-  url: /produit/:noeud/modification/:hash
-  param: {module: produit, action: modification, hash: null, noeud: null}
 
+# BO
+admin:
+  url: /admin
+  param: { module: admin, action: index }
+## Produit routing
+produits:
+  url: /admin/produits
+  param: {module: produit, action: index}
+produit_nouveau:
+  url: /admin/produit/nouveau
+  param: {module: produit, action: nouveau }
+produit_modification:
+  url: /admin/produit/:noeud/modification/:hash
+  param: {module: produit, action: modification, hash: null, noeud: null}
+## Etablissement routing
+etablissement_login:
+  url: /admin/etablissements
+  param: {module: admin, action: etablissementLogin}
+  
 # generic rules
 # please, remove them by adding more specific rules
 default_index:

@@ -911,3 +911,10 @@ DRM:
             service: {  }
             envoi: {  }
             accuse: {  }
+Messages:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {}
+      '*': {}

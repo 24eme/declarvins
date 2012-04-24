@@ -47,7 +47,7 @@ abstract class TiersSecurityUser extends acVinCompteSecurityUser {
         	$this->addCredential(self::CREDENTIAL_INTERPRO);
         } elseif ($tiers->type == "Etablissement") {
         	$this->addCredential(self::CREDENTIAL_ETABLISSEMENT);
-                $this->addCredential(self::CREDENTIAL_DROIT_DRM);
+            $this->addCredential(self::CREDENTIAL_DROIT_DRM);
         }
         $this->setAttribute(self::SESSION_TIERS, $tiers->_id, self::NAMESPACE_TIERS);
     }

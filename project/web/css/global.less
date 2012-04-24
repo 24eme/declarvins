@@ -109,7 +109,7 @@ pre, code, kbd, samp { font-family: monospace, sans-serif; }
  ******************************************/
  
 /* Messages d'erreur */
-.error_list
+.error_list, .flash_error
 {
 	background: #fdd;
 	.border(@couleur-b2);
@@ -118,6 +118,26 @@ pre, code, kbd, samp { font-family: monospace, sans-serif; }
 	margin: 0 0 10px;
 	padding: 5px 10px;
 } 
+
+.flash_notice
+{
+	background: #ecfeea;
+	.border(#359b02);
+	color: #1e5204;
+	font-weight: bold;
+	margin: 0;
+	padding: 5px 10px;
+} 
+
+.vigilance_list
+{
+	background: #fff1d9;
+	.border(@couleur-d1);
+	color: @couleur-d2;
+	font-weight: bold;
+	margin: 0 0 10px;
+	padding: 5px 10px;
+}
 
 /* Boutons */
 .btn_ajouter
@@ -246,6 +266,20 @@ button.btn_suiv span { height: 26px; }
 	}
 }
  
+a.msg_aide
+{
+    background: url(../images/pictos/pi_aide.png) 0 0 no-repeat;
+    display: inline-block;
+    height: 17px;
+    outline: 0;
+    vertical-align: middle;
+    width: 17px;
+    opacity:0.5;
+}
+
+a.msg_aide:hover{
+    opacity:1;
+}
  
 /* Divers */ 
 .invisible
@@ -361,6 +395,13 @@ a
 {
 	.clearfix;
 	margin: 0 0 10px;
+}
+
+#flash_message
+{
+	background: #fff;
+	padding: 15px 20px 5px;
+	.clearfix;
 }
 
 #contenu

@@ -58,24 +58,36 @@ class ProduitDefinitionForm extends acCouchdbFormDocumentJson {
     	$this->hash = $hash;
     }
     
-    private function getNoeudInterpro()
+    private function getNoeudInterpro($object = null)
     {
-    	return $this->getObject()->interpro->getOrAdd(sfContext::getInstance()->getUser()->getInterpro()->_id);
+    	if (!$object) {
+    		$object = $this->getObject();
+    	}
+    	return $object->interpro->getOrAdd(sfContext::getInstance()->getUser()->getInterpro()->_id);
     }
     
-    private function getNoeudDepartement()
+    private function getNoeudDepartement($object = null)
     {
-    	return $this->getObject()->getOrAdd('departements');
+    	if (!$object) {
+    		$object = $this->getObject();
+    	}
+    	return $object->getOrAdd('departements');
     }
     
-    private function getNoeudDroit($type)
+    private function getNoeudDroit($type, $object = null)
     {
-    	return $this->getNoeudInterpro()->getOrAdd('droits')->getOrAdd($type);
+    	if (!$object) {
+    		$object = $this->getObject();
+    	}
+    	return $this->getNoeudInterpro($object)->getOrAdd('droits')->getOrAdd($type);
     }
     
-    private function getNoeudLabel()
+    private function getNoeudLabel($object = null)
     {
-    	return $this->getNoeudInterpro()->getOrAdd('labels');
+    	if (!$object) {
+    		$object = $this->getObject();
+    	}
+    	return $this->getNoeudInterpro($object)->getOrAdd('labels');
     }
     
     private function setLabel($code, $libelle) {
@@ -92,35 +104,52 @@ class ProduitDefinitionForm extends acCouchdbFormDocumentJson {
     	$droit->code = $code;
     }
     
+    private function replaceKey($hash, $key) {
+    	$hash = explode('/', $hash);
+    	$hash[count($hash) - 1] = $key;
+    	return implode('/', $hash);
+    }
+    
+    private function normalizeKey($key, $uppercase = true) {
+    	$key = sfInflector::underscore($key);
+    	if ($uppercase) {
+    		$key = strtoupper($key);
+    	}
+    	return $key;
+    }
+    
     public function save($con = null) {
-    	parent::save($con);
+    	$object = parent::save($con);
     	$values = $this->getValues();
-    	if ($this->getObject()->hasDepartements()) {
-    		$this->getObject()->remove('departements');
-    		$departements = $this->getNoeudDepartement();
+    	if (!empty($values['code']) && $object->getKey() != $values['code']) {
+    		$object = $object->getDocument()->moveAndClean($object->getHash(), $this->replaceKey($object->getHash(), $this->normalizeKey($values['code'], (($object->getTypeNoeud() == ConfigurationCouleur::TYPE_NOEUD)? false : true))));
+    	}
+    	if ($object->hasDepartements()) {
+    		$object->remove('departements');
+    		$departements = $this->getNoeudDepartement($object);
     		foreach ($values['secteurs'] as $value) {
     			$departements->add(null, $value['departement']);
     		}
     	}
-    	if ($this->getObject()->hasDroits()) {
-    		$this->getNoeudInterpro()->droits->remove('douane');
+    	if ($object->hasDroits()) {
+    		$this->getNoeudInterpro($object)->droits->remove('douane');
     		foreach ($values['droit_douane'] as $value) {
-    			$this->setDroit($this->getNoeudDroit('douane')->add(), $value['date'], $value['taux'], $value['code']);
+    			$this->setDroit($this->getNoeudDroit('douane', $object)->add(), $value['date'], $value['taux'], $value['code']);
     		}
     		$this->getNoeudInterpro()->droits->remove('cvo');
     		foreach ($values['droit_cvo'] as $value) {
-    			$this->setDroit($this->getNoeudDroit('cvo')->add(), $value['date'], $value['taux'], $value['code']);
+    			$this->setDroit($this->getNoeudDroit('cvo', $object)->add(), $value['date'], $value['taux'], $value['code']);
     		}
     	}
-    	if ($this->getObject()->hasLabels()) {
-    		$this->getNoeudInterpro()->remove('labels');
-    		$labels = $this->getNoeudLabel();
+    	if ($object->hasLabels()) {
+    		$this->getNoeudInterpro($object)->remove('labels');
+    		$labels = $this->getNoeudLabel($object);
     		foreach ($values['labels'] as $value) {
     			$this->setLabel($value['code'], $value['label']);
     			$labels->add(null, $value['code']);
     		}
     	}
-    	$this->getObject()->getDocument()->save();
-    	
+    	$object->getDocument()->save();
+    	return $object;    	
     }
 }

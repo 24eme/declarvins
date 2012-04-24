@@ -11,6 +11,9 @@
 		<li<?php if ($active == 'contrat'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@validation_login') ?>">Contrat</a>
 		</li>
+		<li<?php if ($active == 'etablissement'): ?> class="actif"<?php endif; ?>>
+			<a href="<?php echo url_for('@etablissement_login') ?>">Etablissement</a>
+		</li>
 		<?php endif; ?>
 	</ul>
 	

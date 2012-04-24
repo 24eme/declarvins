@@ -129,3 +129,24 @@ curl -s -X PUT -d "@$TMPFILE" $COUCHDBURL/_design/$design
 curl -s $COUCHDBURL/_design/$design/_view/all > /dev/null &
 sleep 1
 kill %1
+
+design=etablissement
+curl -s -X DELETE "$COUCHDBURL/_design/$design?rev=$(curl --stderr /dev/null $COUCHDBURL/_design/$design | sed 's/.*_rev":"//' | sed 's/",".*//' 2> /dev/null)" > /dev/null 2>&1
+
+cat <<EOF > $TMPFILE
+{
+   "_id": "_design/etablissement",
+   "language": "javascript",
+   "views": {
+   "all": {
+       "map": "function(doc) {\n  if (doc.type == \"Etablissement\") {\n  emit([doc.interpro, doc._id, doc.nom, doc.identifiant], null);\n }\n}"
+        }
+    }
+}
+EOF
+
+curl -s -X PUT -d "@$TMPFILE" $COUCHDBURL/_design/$design
+
+curl -s $COUCHDBURL/_design/$design/_view/all > /dev/null &
+sleep 1
+kill %1

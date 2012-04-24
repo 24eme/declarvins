@@ -60,6 +60,7 @@ $(document).ready( function() {
 });
 //-->
 </script>
+
 <form class="popup_form" id="form_ajout" action="<?php echo url_for('produit_modification', array('noeud' => $form->getObject()->getTypeNoeud(), 'hash' => str_replace('/', '-', $form->getHash()))) ?>" method="post">
 	<?php echo $form->renderGlobalErrors() ?>
 	<?php echo $form->renderHiddenFields() ?>
@@ -123,7 +124,8 @@ $(document).ready( function() {
 		</div>
 	<?php endif; ?>
 	<div class="ligne_form_btn">
-		<button name="annuler" class="btn_annuler btn_fermer" type="reset">Annuler</button>
+		<!-- <button name="annuler" class="btn_annuler btn_fermer" type="reset">Annuler</button> -->
+		<a name="annuler" class="btn_annuler btn_fermer" href="<?php echo url_for('produits') ?>">Annuler</a>
 		<button name="valider" class="btn_valider" type="submit">Valider</button>
 	</div>
 </form>
