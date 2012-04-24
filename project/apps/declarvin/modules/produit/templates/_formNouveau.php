@@ -32,7 +32,8 @@
 		<?php echo $form['millesimes']->render(array('class' => 'permissif')) ?>
 	</div>
 	<div class="ligne_form_btn">
-		<button name="annuler" class="btn_annuler btn_fermer" type="reset">Annuler</button>
+		<!-- <button name="annuler" class="btn_annuler btn_fermer" type="reset">Annuler</button> -->
+		<a name="annuler" class="btn_annuler btn_fermer" href="<?php echo url_for('produits') ?>">Annuler</a>
 		<button name="valider" class="btn_valider" type="submit">Valider</button>
 	</div>
 </form>
