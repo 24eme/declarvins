@@ -50,5 +50,6 @@
 	$.fn.includeJS(jsPath, 'contrat.js');
 	$.fn.includeJS(jsPath, 'drm.js');
 	$.fn.includeJS(jsPath, 'declaration.js');
+	$.fn.includeJS(jsPath, 'declaration.js');
 
 })(jQuery);
