@@ -81,31 +81,6 @@ login:
 logout:
   url: /logout
   param: {module: acVinCompte, action: logout}
-upload_drm:
-  url: /edi/drm/csv
-  param: {module: edi, action: file, csvViewer: csvDRMView}
-uploadDRMView:
-  url: /edi/drm/csv/:md5
-  param: {module: edi, action: csvDRMView}
-upload_contrat:
-  url: /edi/contrat/csv
-  param: {module: edi, action: file, csvViewer: csvContratView}
-uploadContratView:
-  url: /edi/contrat/csv/:md5
-  param: {module: edi, action: csvContratView}
-listDRMEdi:
-  url: /edi/drm/list
-  param: {module: edi, action: listDRM}
-listContratEdi:
-  url: /edi/contrat/list
-  param: {module: edi, action: listContrat}
-streamDRMEdi:
-  url: /edi/drm/:interpro/:date
-  param: {module: edi, action: streamDRM}
-viewDRMEdi:
-  url: /edi/drm/:identifiant/:annee/:mois/:rectificative
-  param: {module: edi, action: viewDRM, rectificative: ''}
-
 # Produit routing
 produits:
   url: /produits
