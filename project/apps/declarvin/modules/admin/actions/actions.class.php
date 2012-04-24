@@ -41,7 +41,10 @@ class adminActions extends sfActions
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
                 $values = $this->form->getValues();
-                print_r($values);exit;
+                $etablissement = $values['etablissement'];
+                $this->getUser()->signOutTiers();
+                $this->getUser()->signInTiers(acCouchdbManager::getClient()->retrieveDocumentById($etablissement));
+				return $this->redirect("@drm_mon_espace");
             }
         }
   	

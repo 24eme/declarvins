@@ -139,7 +139,7 @@ cat <<EOF > $TMPFILE
    "language": "javascript",
    "views": {
    "all": {
-       "map": "function(doc) {\n  if (doc.type == \"Etablissement\") {\n  emit([doc.interpro, doc._id, doc.identifiant], null);\n }\n}"
+       "map": "function(doc) {\n  if (doc.type == \"Etablissement\") {\n  emit([doc.interpro, doc._id, doc.nom, doc.identifiant], null);\n }\n}"
         }
     }
 }

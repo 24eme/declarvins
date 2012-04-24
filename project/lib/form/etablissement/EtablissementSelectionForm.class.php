@@ -25,7 +25,7 @@ class EtablissementSelectionForm extends sfForm {
     	$etablissements = EtablissementClient::getInstance()->findByInterpro($this->interpro);
     	$result = array('' => '');
     	foreach ($etablissements->rows as $etablissement) {
-    		$result[$etablissement->key[1]] = $etablissement->key[2]; 
+    		$result[$etablissement->key[1]] = $etablissement->key[2].' - '.$etablissement->key[3]; 
     	}
     	return $result;
     }
