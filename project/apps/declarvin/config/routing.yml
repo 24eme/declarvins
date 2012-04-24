@@ -72,9 +72,6 @@ interpro_upload_csv:
 tiers:
   url: /tiers
   param: { module: tiers, action: login }
-admin:
-  url: /admin
-  param: { module: admin, action: index }
 login:
   url: /login
   param: {module: acVinCompte, action: login}
@@ -106,16 +103,24 @@ viewDRMEdi:
   url: /edi/drm/:identifiant/:annee/:mois/:rectificative
   param: {module: edi, action: viewDRM, rectificative: ''}
 
-# Produit routing
+# BO
+admin:
+  url: /admin
+  param: { module: admin, action: index }
+## Produit routing
 produits:
-  url: /produits
+  url: /admin/produits
   param: {module: produit, action: index}
 produit_nouveau:
-  url: /produit/nouveau
+  url: /admin/produit/nouveau
   param: {module: produit, action: nouveau }
 produit_modification:
-  url: /produit/:noeud/modification/:hash
+  url: /admin/produit/:noeud/modification/:hash
   param: {module: produit, action: modification, hash: null, noeud: null}
+## Etablissement routing
+etablissement_login:
+  url: /admin/etablissements
+  param: {module: admin, action: etablissementLogin}
   
 # generic rules
 # please, remove them by adding more specific rules
