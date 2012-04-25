@@ -26,16 +26,13 @@
 	
 	var btnAjouter = colonnesDR.find('.btn_ajouter');
 	
-        
+	
 	$(document).ready( function()
 	{
-		if(colonnesDR.exists())
-		{
-			$.initColonnes();
-			$.verifierChampsNombre();
-			$.calculerSommesChamps();
-			$.toggleGroupesChamps();
-		}
+		$.initColonnes();
+		$.verifierChampsNombre();
+		$.calculerSommesChamps();
+		$.toggleGroupesChamps();
 	});
 	
 	/**
@@ -73,8 +70,7 @@
 		$.initColFocus();
 		
 		// Egalisation de la hauteur des colonnes et des titres
-		colEgales.find('.couleur, h2').hauteurEgale();
-		colEgales.find('.label').hauteurEgale();
+		colEgales.find('.denomination, h2').hauteurEgale();
 	};
 	
 	
@@ -104,24 +100,24 @@
 		{
 			var col = $(this);
 			var boutons = col.find('.col_btn button');
-			//var btnModifier = boutons.filter('.btn_modifier');
-			//var btnSupprimer = boutons.filter('.btn_supprimer');
+			var btnModifier = boutons.filter('.btn_modifier');
+			var btnSupprimer = boutons.filter('.btn_supprimer');
 			var btnReinitialiser = boutons.filter('.btn_reinitialiser');
 			var btnValider = boutons.filter('.btn_valider');
 			
 			
 			// Modification de la colonne
-			/*btnModifier.click(function()
+			btnModifier.click(function()
 			{
 				if(!colActive) col.majColActive(true);
 				return false;
-			});*/
+			});
 			
 			// Suppression d'une colonne
-			/*btnSupprimer.click(function()
+			btnSupprimer.click(function()
 			{
 				return col.supprimerCol();
-			});*/
+			});
 			
 			// Réinitialisation des valeurs d'une colonne
 			btnReinitialiser.click(function()
@@ -157,7 +153,7 @@
 		$.ctrl(77, function () { colFocus.majColActive(true); });
 		
 		// Ctrl + touche supprimer ==> Suppression colonne avec focus
-		//$.ctrl(46, function() { colFocus.find('.btn_supprimer').trigger('click'); });
+		$.ctrl(46, function() { colFocus.find('.btn_supprimer').trigger('click'); });
 		
 		// Ctrl + Z ==> Réinitialisation colonne active
 		$.ctrl(90, function() { colFocus.find('.btn_reinitialiser').trigger('click'); });
@@ -233,6 +229,7 @@
 		if(colActive)
 		{
 			var form = colActive.find('form');
+			var champs = colActive.find('input:text, select');
 			var donneesCol = form.serializeArray();
 			
 			colActive.addClass('col_envoi');
@@ -240,58 +237,18 @@
 			
 			btn.css('visibility', 'hidden');
 			*/
+			champs.each(function()
+			{
+				var champ = $(this);
+				var val = champ.val();
+				
+				champ.attr('data-val-defaut', val);
+			});
 				
 			$.post(form.attr('action'), donneesCol, function (data)
 			{
 				$('#saving_notification').hide();
-				if(!data.success) { 
-					$('#error_notification').show(); 
-				} else {
-
-					var champs = colActive.find('input:text, select');
-					champs.each(function()
-					{
-						var champ = $(this);
-						var val = champ.val();
-						var val_defaut = champ.attr('data-val-defaut');
-						if (parseFloat(val_defaut) != parseFloat(val)) {
-							if (colActive.attr('data-cssclass-rectif')) {
-								champ.parent().addClass(colActive.attr('data-cssclass-rectif'));
-							}
-						}
-						
-						champ.attr('data-val-defaut', val);
-					});
-
-					var cond = /^drm_detail\[(entrees|sorties)\]/;
-					var totalCol = 0;
-					for (var i in donneesCol) {
-						if ((donneesCol[i].name).match(cond) && !isNaN(donneesCol[i].value)) {
-							totalCol += parseFloat(donneesCol[i].value);
-						}
-					}
-					if (totalCol > 0) {
-						var appellation_produit_saisie = parseInt($('#onglets_principal li.actif .appellation_produit_saisie').text());
-						var appellation_produit_total = parseInt($('#onglets_principal li.actif .appellation_produit_total').text());
-						if (appellation_produit_saisie < appellation_produit_total) {
-							$('#onglets_principal li.actif .appellation_produit_saisie').text(appellation_produit_saisie + 1);
-						}
-					}
-					$('#colonne_intitules').find('.groupe').each(function()
-					{						
-						if($(this).hasClass('groupe_ouvert') && !$(this).hasClass('bloque')) {
-							$(this).removeClass('groupe_ouvert');
-							$(this).children('ul').slideToggle();
-							colSaisies.find('.groupe[data-groupe-id='+$(this).attr('data-groupe-id')+']').children('ul').slideToggle();
-						}
-
-						if ($(this).hasClass('demarrage-ouvert') && !$(this).hasClass('bloque')) {
-							$(this).toggleClass('groupe_ouvert');
-							$(this).children('ul').slideToggle();
-							colSaisies.find('.groupe[data-groupe-id='+$(this).attr('data-groupe-id')+']').children('ul').slideToggle();
-						}
-					});
-				}
+				if(!data.success) { $('#error_notification').show(); }
 				$('#forms_errors').html(data.content);
 				
 				//btn.css('visibility', 'visible');
@@ -327,7 +284,7 @@
 				// et si la colonne courante n'a pas déjà le focus
 				champ.focus(function()
 				{
-					if(!colActive && !colonne.hasClass('col_focus')) $.majColFocus(colonne, true);
+					if(!colActive && !colonne.hasClass('col_focus')) $.majColFocus(colonne);
 				});
 				
 			
@@ -358,21 +315,14 @@
 	{
 		var colCurseurs = colSaisiesRecolte.find('a.col_curseur');
 		
-		/*if(colFocusDefaut) colFocusNum = colFocusDefaut;
-		else colFocusNum = colCurseurs.first().attr('data-curseur');*/
-		
-		colFocusNum = colCurseurs.first().attr('data-curseur');
-
+		if(colFocusDefaut)colFocusNum = colFocusDefaut;
+		else colFocusNum = colCurseurs.first().attr('data-curseur');
 		
 		// Colonne au focus par défaut
 		colFocus = $('#col_recolte_'+colFocusNum);
 		colFocus.addClass('col_focus');
-		//colCurseur = colFocus.find('a.col_curseur');
-		colCurseur = colFocus.find('#'+colFocus.attr('data-input-focus'));
-		if (colCurseur.length == 0) {
-			colCurseur = colFocus.find('a.col_curseur');
-		}
-
+		colCurseur = colFocus.find('a.col_curseur');
+		
 		colCurseur.focus();
 		
 		// Positionnement du scroll
@@ -381,14 +331,14 @@
 	
 	/**
 	 * Change le focus sur les colonnes
-	 * $.majColFocus(objet, garderChampFocus);
+	 * $.majColFocus(objet);
 	 ******************************************/
-	$.majColFocus = function(objet, garderChampFocus)
+	$.majColFocus = function(objet)
 	{
 		var colCurseur;
 		var direction = false;
 		
-		if(!garderChampFocus) $(':focus').blur();
+		$(':focus').blur();
 		
 		// S'il n'y a pas de colonne active définie
 		if(!colActive && !colEditee)
@@ -525,13 +475,82 @@
 			var colonne = champ.parents('.col_recolte');
 			var float = champ.hasClass('num_float');
 			
-			champ.saisieNum
-			(
-				float,
-				function(){ colonne.majColActive(false); },
-				function(){ $.calculerSommesChamps(); }
-			);
+			// A chaque touche pressée
+			champ.keypress(function(e)
+			{	
+				var val = $(this).val();
+				var touche = e.which;
+				var ponctuationPresente = (val.indexOf('.') != -1 || val.indexOf(',') != -1);
+				var chiffre = (touche >= 48 && touche <= 57); // Si chiffre
+				
+				// touche "entrer"
+				if(touche == 13) return e;
+				
+				// Champ nombre décimal
+				if(float)
+				{ 
+					// !backspace && !null && !point && !virgule && !chiffre
+					if(touche != 8 && touche != 0 && touche != 46 && touche != 44 && !chiffre) return false;  	
+					// point déjà présent
+					if(touche == 46 && ponctuationPresente) return false; 
+					// virgule déjà présente
+					if(touche == 44 && ponctuationPresente) return false; 
+					// 2 décimales
+					if(val.match(/[\.\,][0-9][0-9]/) && chiffre && e.currentTarget && e.currentTarget.selectionStart > val.length - 3) return false;
+				}
+				// Champ nombre entier
+				else
+				{
+					if(touche != 8 && touche != 0 && !chiffre) return false;
+				}
+				
+				colonne.majColActive(false);
+				return e;
+			});
+			
+			// A chaque fois que l'on quitte le champ
+			champ.blur(function()
+			{
+				$(this).nettoyageChamps();
+				$.calculerSommesChamps();
+			});
 		});
+	};
+	
+	
+	/**
+	 * Nettoie les champs après la saisie
+	 * $(champ).nettoyageChamps();
+	 ******************************************/
+	$.fn.nettoyageChamps = function()
+	{
+		var champ = $(this);
+		var val = champ.attr('value');
+		var float = champ.hasClass('num_float');
+		
+		// Si quelque chose a été saisi
+		if(val)
+		{
+			// Remplacement de toutes les virgules par des points
+			if(val.indexOf(',') != -1) val = val.replace(',', '.');
+			
+			// Si un point a été saisi sans chiffre
+			if(val.indexOf('.') != -1 && val.length == 1) val = '0';
+			
+			// Un nombre commençant par 0 peut être interprété comme étant en octal
+			if(val.indexOf('0') == 0 && val.length > 1) val = val.substring(1);
+			
+			// Comparaison nombre entier / flottant
+			if(parseInt(val) == parseFloat(val) || !float) val = parseInt(val);
+			else val = parseFloat(val).toFixed(2);
+		}
+		// Si rien n'a été saisi
+		else val = 0;
+		
+		// Si ce n'est pas un nombre (ex : copier/coller d'un texte)
+		if(isNaN(val)) val = 0;
+		
+		champ.attr('value', val);
 	};
 	
 	
@@ -620,27 +639,6 @@
 	$.toggleGroupesChamps = function()
 	{
 		var groupesIntitules = colIntitules.find('.groupe');
-		/*var groupeOuvert = colIntitules.find('.groupe[data-groupe-id=4]');
-		var gpeAssocieOuvert = colSaisies.find('.groupe[data-groupe-id=4]');
-		var gpeAssocieOuvertIntitules = gpeAssocieOuvert.children('p');
-		
-		gpeAssocieOuvertIntitules.find('input').focus(function()
-		{
-			var champ = $(this);
-			var champSuivant = champ.parents('.groupe').find('ul input:first');
-			
-			if(!groupeOuvert.hasClass('groupe_ouvert'))
-			{
-				groupesIntitules.each(function()
-				{						
-					if($(this).hasClass('groupe_ouvert')) {
-						$(this).removeClass('groupe_ouvert');
-						$(this).children('ul').slideToggle();
-						colSaisies.find('.groupe[data-groupe-id='+$(this).attr('data-groupe-id')+']').children('ul').slideToggle();
-					}
-				});
-			}
-		});*/
 		
 		groupesIntitules.each(function()
 		{
@@ -669,49 +667,32 @@
 			listeIntitules.hide();
 			gpeChamps.hide();
 			//$.majHauteurMasque();
-
+			
 			// Affiche / Masque les groupes et les champs associés
-			if (!groupe.hasClass('bloque'))
+			titre.click(function()
 			{
-				titre.click(function()
-				{
-					groupe.toggleClass('groupe_ouvert');
-					listeIntitules.slideToggle();
-					gpeChamps.slideToggle();
-					//$.majHauteurMasque();
-				});
-				
-				gpeAssocieIntitules.find('input').focus(function()
-				{
-					var champ = $(this);
-					var champSuivant = champ.parents('.groupe').find('ul input:first');
-					
-					if(!groupe.hasClass('groupe_ouvert'))
-					{
-						groupesIntitules.each(function()
-						{						
-							if($(this).hasClass('groupe_ouvert') && !$(this).hasClass('bloque')) {
-								$(this).removeClass('groupe_ouvert');
-								$(this).children('ul').slideToggle();
-								colSaisies.find('.groupe[data-groupe-id='+$(this).attr('data-groupe-id')+']').children('ul').slideToggle();
-							}
-						});
-						groupe.addClass('groupe_ouvert');
-						listeIntitules.slideToggle();
-						gpeChamps.slideToggle();
-						//$.majHauteurMasque();
-						
-						// Focus sur le champ suivant si le champ courant n'est pas éditable 
-						if(champ.attr('readonly')) champSuivant.focus();
-					}
-				});
-			}
-
-			if (groupe.hasClass('demarrage-ouvert')) {
 				groupe.toggleClass('groupe_ouvert');
 				listeIntitules.slideToggle();
 				gpeChamps.slideToggle();
-			}
+				//$.majHauteurMasque();
+			});
+			
+			gpeAssocieIntitules.find('input').focus(function()
+			{
+				var champ = $(this);
+				var champSuivant = champ.parents('.groupe').find('ul input:first');
+				
+				if(!groupe.hasClass('groupe_ouvert'))
+				{
+					groupe.addClass('groupe_ouvert');
+					listeIntitules.slideToggle();
+					gpeChamps.slideToggle();
+					//$.majHauteurMasque();
+					
+					// focus on the next input if the current input is not editable 
+					if(champ.attr('readonly')) champSuivant.focus();
+				}
+			});
 		});
 	};
 	

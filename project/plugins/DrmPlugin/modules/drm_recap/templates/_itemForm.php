@@ -1,8 +1,7 @@
 <?php use_helper('Float'); ?>
 <?php use_helper('Produit'); ?>
-<?php use_helper('Rectificative'); ?>
 
-<div id="col_recolte_<?php echo $form->getObject()->getKey() ?>" class="col_recolte" data-input-focus="#drm_detail_entrees_achat" data-cssclass-rectif="<?php echo ($form->getObject()->getDocument()->isRectificative()) ? rectifierCssClass() : '' ?>" style="<?php echo ($produit->pas_de_mouvement) ? 'opacity: 0.3;' : '' ?>">
+<div id="col_recolte_<?php echo $form->getObject()->getKey() ?>" class="col_recolte" style="<?php echo ($produit->pas_de_mouvement) ? 'opacity: 0.3;' : '' ?>">
     <form action="<?php echo url_for('drm_recap_update', $form->getObject()) ?>" method="post">
         <?php echo $form->renderHiddenFields(); ?>
         <a href="#" class="col_curseur" data-curseur="<?php echo $form->getObject()->getKey() ?>"></a>
@@ -18,25 +17,22 @@
                 <?php echo labelsLibelles($form->getObject()->getLabelLibelles()) ?><br />
                             <?php echo $form->getObject()->label_supplementaire ?></p>
             <div class="groupe" data-groupe-id="1">
-                <p class="<?php echo isRectifierCssClass($form->getObject(), 'total_debut_mois') ?>">
-                    <input type="text" value="<?php echo echoFloat($form->getObject()->total_debut_mois) ?>" class="num num_float somme_stock_debut" data-val-defaut="<?php echo $form->getObject()->total_debut_mois ?>" readonly="readonly" />
-                </p>
+                <p><input type="text" value="<?php echo echoFloat($form->getObject()->total_debut_mois) ?>" class="num num_float somme_stock_debut" readonly="readonly" /></p>
                 <ul>
                     <?php foreach($form['stocks_debut'] as $key => $subform): ?>
-                    <li class="<?php echo isRectifierCssClass($form->getObject()->stocks_debut, $key) ?>">
-    <?php echo $form['stocks_debut'][$key]->render(array('data-val-defaut' => sprintFloat($form['stocks_debut'][$key]->getValue()))) ?>
+                    <li>
+                        <?php echo $form['stocks_debut'][$key]->render(array('data-val-defaut' => sprintFloat($form['stocks_fin'][$key]->getValue()),
+                                                                        'class' => 'num num_float')) ?>
                     </li>
                     <?php endforeach; ?>
                 </ul>
             </div>
 
             <div class="groupe" data-groupe-id="2">
-                <p class="<?php echo isRectifierCssClass($form->getObject(), 'total_entrees') ?>">
-                    <input type="text" value="<?php echo $form->getObject()->total_entrees ?>" class="num num_float somme_groupe somme_entrees" data-val-defaut="<?php echo $form->getObject()->total_entrees ?>" readonly="readonly" />
-                </p>
+                <p><input type="text" value="<?php echo $form->getObject()->total_entrees ?>" class="num num_float somme_groupe somme_entrees" readonly="readonly" /></p>
                 <ul>
                     <?php foreach($form['entrees'] as $key => $subform): ?>
-                    <li class="<?php echo isRectifierCssClass($form->getObject()->entrees, $key) ?>">
+                    <li>
                         <?php echo $form['entrees'][$key]->render(array('data-val-defaut' => sprintFloat($form['entrees'][$key]->getValue()),
                                                                         'class' => 'num num_float')) ?>
                     </li>
@@ -45,12 +41,10 @@
             </div>
 
             <div class="groupe" data-groupe-id="3">
-                <p class="<?php echo isRectifierCssClass($form->getObject(), 'total_sorties') ?>">
-                    <input type="text" value="<?php echo $form->getObject()->total_sorties ?>" class="num num_float somme_groupe somme_sorties" data-val-defaut="<?php echo $form->getObject()->total_sorties ?>" readonly="readonly" />
-                </p>
+                <p><input type="text" value="<?php echo $form->getObject()->total_sorties ?>" class="num num_float somme_groupe somme_sorties" readonly="readonly" /></p>
                 <ul>
                     <?php foreach($form['sorties'] as $key => $subform): ?>
-                    <li class="<?php echo isRectifierCssClass($form->getObject()->sorties, $key) ?>">
+                    <li>
                         <?php echo $form['sorties'][$key]->render(array('data-val-defaut' => sprintFloat($form['sorties'][$key]->getValue()),
                                                                         'class' => 'num num_float')) ?>
                     </li>
@@ -60,12 +54,10 @@
 
             <!-- <p><input type="text" value="0" class="num num_float somme_stock_fin" readonly="readonly" /></p>  -->
             <div class="groupe" data-groupe-id="4">
-                <p class="<?php echo isRectifierCssClass($form->getObject(), 'total') ?>">
-                    <input type="text" value="<?php echo $form->getObject()->total ?>" class="num num_float somme_stock_fin" readonly="readonly" data-val-defaut="<?php echo sprintFloat($form->getObject()->total) ?>" />
-                </p>
+                <p><input type="text" value="0" class="num num_float somme_stock_fin" readonly="readonly" /></p>
                 <ul>
                     <?php foreach($form['stocks_fin'] as $key => $subform): ?>
-                    <li class="<?php echo isRectifierCssClass($form->getObject()->stocks_fin, $key) ?>">
+                    <li>
                         <?php echo $form['stocks_fin'][$key]->render(array('data-val-defaut' => sprintFloat($form['stocks_fin'][$key]->getValue()),
                                                                         'class' => 'num num_float')) ?>
                     </li>
