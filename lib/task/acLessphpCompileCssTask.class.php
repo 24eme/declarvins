@@ -35,6 +35,9 @@ EOF;
 
     $lessFile = $arguments['input'];
     $cssFile = $arguments['output'];
+  	if (file_exists($cssFile)) {
+  		unlink($cssFile);
+  	}
   	try {
 	    lessc::ccompile($lessFile, $cssFile);
 	    $this->logSection('compile', 'done', null, 'INFO');
