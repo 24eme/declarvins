@@ -28,6 +28,10 @@ class DRMDetailNoeud extends BaseDRMDetailNoeud {
       throw new sfException("$key is not writable");
     }
 
+    if ($key == 'vrac' && !$value) {
+      $this->getParent()->remove('vrac');
+    }
+
     return $this->_set($key, $value);
   }
 

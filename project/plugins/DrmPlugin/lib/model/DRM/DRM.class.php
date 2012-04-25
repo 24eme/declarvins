@@ -99,8 +99,12 @@ class DRM extends BaseDRM {
     	$drm_suivante->init();
         $drm_suivante->update();
         $drm_suivante->campagne = $campagne;
-		$drm_suivante->precedente = $this->_id;
+	$drm_suivante->precedente = $this->_id;
         $drm_suivante->devalide();
+       
+	foreach ($drm_suivante->getDetails() as $detail) {
+	  $drm_suivante->get($detail->getHash())->remove('vrac');
+	}
 
         return $drm_suivante;
     }
