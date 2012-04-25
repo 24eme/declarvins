@@ -15,7 +15,7 @@ class messagesActions extends sfActions
         $this->forward404Unless($request->isXmlHttpRequest());
         return $this->renderText(json_encode(array('titre' => $request->getParameter('title', null),
 						   'url_doc' => $request->getParameter('url_doc', '/telecharger_la_notice'),
-                'message' => sfCouchdbManager::getClient('Messages')->getMessage($request->getParameter('id', null)))));
+                'message' => acCouchdbManager::getClient('Messages')->getMessage($request->getParameter('id', null)))));
         
         
     }

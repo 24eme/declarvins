@@ -141,7 +141,7 @@
 			var btnPopup = $(this);
 			btnPopup.click(function()
 			{
-				var reload = btnPopup.attr('data-popup-reload') && btnPopup.attr('data-popup-reload') == "true";
+				var reload = btnPopup.attr('data-popup-reload') && btnPopup.attr('data-popup-reload') == "true";				
 				$.openPopup(btnPopup.attr('data-popup'), 
 							btnPopup.attr('data-popup-config'), 
 							btnPopup.text(), 
@@ -157,6 +157,8 @@
 				return false;
 			});
 		});
+
+		$.initPopupsMsgAide();
 	});
 
 	$.openPopup = function(id_popup, config, titre, href, reload, onload, onloaded) 
@@ -256,6 +258,66 @@
 		});
 			
 		return infos;
+	};
+
+
+	/**
+	 * Messages d'aide
+	 ******************************************/
+	$.initPopupsMsgAide = function()
+	{
+	    var liens = $('a.msg_aide');
+	    var popup = $('#popup_msg_aide');
+	    var textePopup = popup.find('#texte_popup_msg_aide');
+	    var btnPopup = popup.find('#btn_popup_msg_aide');
+		var btnTelecharger = $('<a class="btn_telecharger">Télécharger le document</a>');
+
+		popup.dialog(objPopups.configDefaut);
+
+	    liens.live('click', function()
+	    {
+	    	var lien = $(this);
+
+	        var id_msg_aide = lien.attr('data-msg');
+	        var titre_msg_aide = lien.attr('title');
+			var url_doc = lien.attr('data-doc');
+
+	        //$(popup).html('<div class="ui-autocomplete-loading popup-loading"></div>');
+
+	        $.getJSON
+	        (
+	            url_ajax_msg_aide,
+	            {
+	                id: id_msg_aide,
+	                url_doc: url_doc,
+	                title: titre_msg_aide
+	            },
+	            function(json)
+	            {
+	                var titre = json.titre;
+	                var message = json.message;
+	                var url = json.url_doc;
+	                
+	                // Remplace le texte et le bouton de la popup
+	                textePopup.html(message);
+	               	btnPopup.html('');
+
+	               	if(url_doc)
+	               	{
+	               		btnTelecharger.attr('href', url_doc);
+	                	btnPopup.append(btnTelecharger);
+	               	}
+
+	                popup.dialog('option' , 'title' , titre);
+	                popup.dialog('open');
+	                
+	            }
+            );
+
+	       // openPopup(popup);
+
+	        return false;
+	    });
 	};
 
 })(jQuery);
