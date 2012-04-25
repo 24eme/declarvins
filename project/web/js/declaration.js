@@ -360,10 +360,7 @@
 		var colCurseurs = colSaisiesRecolte.find('a.col_curseur');
 		
 		/*if(colFocusDefaut) colFocusNum = colFocusDefaut;
-		else colFocusNum = colCurseurs.first().attr('data-curseur');*/
-		
-		colFocusNum = colCurseurs.first().attr('data-curseur');
-
+		else*/ colFocusNum = colCurseurs.first().attr('data-curseur');
 		
 		// Colonne au focus par défaut
 		colFocus = $('#col_recolte_'+colFocusNum);

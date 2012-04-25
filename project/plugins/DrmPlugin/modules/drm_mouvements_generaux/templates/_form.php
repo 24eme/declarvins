@@ -20,7 +20,7 @@
 		<?php echo $form['label_supplementaire']->renderLabel() ?>
 		<?php echo $form['label_supplementaire']->render() ?>
 	</div>
-	<a href="#" id="lien_<?php echo $form['disponible']->renderId() ?>" style="font-size: 12px">Je souhaite déclarer un stock initial non nul</a>
+	<a href="#" id="lien_<?php echo $form['disponible']->renderId() ?>" style="font-size: 12px">Je souhaite déclarer un stock initial</a>
 	<div id="ligne_<?php echo $form['disponible']->renderId() ?>" class="ligne_form" style="display: none">
 		<span class="error"><?php echo $form['disponible']->renderError() ?></span>
 		<?php echo $form['disponible']->renderLabel() ?>

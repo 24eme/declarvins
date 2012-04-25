@@ -277,15 +277,23 @@ button.btn_prec, button.btn_prec span, button.btn_suiv, button.btn_suiv span { h
   padding:0 10px 0 18px;
 }
 a.msg_aide {
+  -webkit-opacity:0.5;
+  -khtml-opacity:0.5;
+  -moz-opacity:0.5;
+  opacity:0.5;
   background:url(../images/pictos/pi_aide.png) 0 0 no-repeat;
   display:inline-block;
   height:17px;
   outline:0;
   vertical-align:middle;
   width:17px;
-  opacity:0.5;
 }
-a.msg_aide:hover { opacity:1; }
+a.msg_aide hover {
+  -webkit-opacity:1;
+  -khtml-opacity:1;
+  -moz-opacity:1;
+  opacity:1;
+}
 .invisible {
   clip:rect(1px 1px 1px 1px);
   clip:rect(1px,1px,1px,1px);
@@ -799,6 +807,24 @@ a:hover { text-decoration:underline; }
   -moz-opacity:0.5;
   opacity:0.5;
 }
+#popup_msg_aide #btn_popup_msg_aide {
+  margin:15px 0 0;
+  text-align:center;
+}
+#popup_msg_aide #btn_popup_msg_aide a {
+  background-repeat:no-repeat;
+  border:1px solid;
+  color:#ffffff;
+  display:inline-block;
+  background-color:#b1cb00;
+  border-color:#99af00;
+  height:28px;
+  line-height:28px;
+  margin:0 0 0 5px;
+  padding:0 10px;
+  text-transform:uppercase;
+}
+#popup_msg_aide #btn_popup_msg_aide a:hover, #popup_msg_aide #btn_popup_msg_aide a:focus { background-color:#99af00; }
 #creation_compte h1 {
   font-size:23px;
   font-weight:normal;
