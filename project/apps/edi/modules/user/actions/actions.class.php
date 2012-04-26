@@ -17,8 +17,6 @@ class userActions extends sfActions
   */
   public function login(sfWebRequest $request)
   {
-    public function executeAcVinCompteLogin(sfWebRequest $request) {
       $this->getUser()->signIn($_SERVER['PHP_AUTH_USER']);
-    }
   }
 }
