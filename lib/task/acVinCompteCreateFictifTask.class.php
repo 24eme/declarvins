@@ -38,7 +38,7 @@ class acVinCompteCreateVirtuelTask extends sfBaseTask
      ));
 
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'civa'),
+      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
     ));
@@ -58,10 +58,6 @@ EOF;
   {
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-
-    if (substr($arguments['login'], 0, 4) != 'ext-') {
-        throw new sfCommandException("L'identifiant doit commencer par \"ext-\"");
-    }
 
     if (acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-'.$arguments['login'])) {
         throw new sfCommandException(sprintf("Le compte \"%s\" existe déjà", $arguments['login']));
