@@ -47,6 +47,17 @@ acVinCompteTiers:
                   nom: {  }
                   interpro: {  }
 
+acVinCompteVirtuel:
+  inheritance: _Compte
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {  }
+      nom: {  }
+      commune: {  }
+      code_postal: {  }
+
 CompteTiers:
   inheritance: acVinCompteTiers
   definition:
@@ -67,6 +78,12 @@ CompteTiers:
               definition:
                 fields:
                   statut: {  }
+
+CompteVirtuel:
+  inheritance: acVinCompteVirtuel
+  definition:
+    fields:
+      interpro: {  }
 
 Interpro:
   inheritance: _Tiers

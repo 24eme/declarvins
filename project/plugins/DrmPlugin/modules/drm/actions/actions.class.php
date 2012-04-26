@@ -48,6 +48,16 @@ class drmActions extends sfActions
   public function executeMonEspace(sfWebRequest $request)
   {
       $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant);
+      $this->formCampagne = new DRMCampagne();
+      if ($request->isMethod(sfWebRequest::POST)) {
+    	$this->formCampagne->bind($request->getParameter($this->formCampagne->getName()));
+  	  	if ($this->formCampagne->isValid()) {
+  	  		$values = $this->formCampagne->getValues();
+  	  		$drm = $this->getUser()->createDrmByCampagne($values['campagne']);
+      		$drm->save();
+      		$this->redirect('drm_informations', $drm);
+  	  	}
+      }
   }
 
 
