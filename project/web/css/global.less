@@ -268,18 +268,17 @@ button.btn_suiv span { height: 26px; }
  
 a.msg_aide
 {
+	.opacite(0.5);
     background: url(../images/pictos/pi_aide.png) 0 0 no-repeat;
     display: inline-block;
     height: 17px;
     outline: 0;
     vertical-align: middle;
     width: 17px;
-    opacity:0.5;
+
+    hover { .opacite(1); }
 }
 
-a.msg_aide:hover{
-    opacity:1;
-}
  
 /* Divers */ 
 .invisible
@@ -920,5 +919,29 @@ a
         {
             .opacite(0.5);
         }
+    }
+}
+
+#popup_msg_aide
+{
+    #texte_popup_msg_aide
+    {
+
+    }
+
+    #btn_popup_msg_aide
+    {
+    	margin: 15px 0 0;
+    	text-align: center;
+
+    	a
+		{
+			.btn_vert;
+			height: 28px;
+			line-height: 28px;
+			margin: 0 0 0 5px;
+			padding: 0 10px;
+			text-transform: uppercase;
+		}
     }
 }

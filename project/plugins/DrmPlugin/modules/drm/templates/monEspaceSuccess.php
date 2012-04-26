@@ -2,10 +2,10 @@
 
 <section id="contenu">
     
-    <h1>Déclaration Récapitulative Mensuelle <a href="" class="msg_aide" rel="help_popup_DR_lieu-dit" title="Message aide"></a></h1>
+    <h1>Déclaration Récapitulative Mensuelle <a href="" class="msg_aide" data-msg="help_popup_DR_lieu-dit" data-doc="doc_a_telecharger.pdf" title="Message aide"></a></h1>
     
     <p class="intro">Bienvenue sur votre espace DRM. Que pensez-vous faire ?</p>
-
+    
     <section id="principal">
         <div id="recap_drm">
             
