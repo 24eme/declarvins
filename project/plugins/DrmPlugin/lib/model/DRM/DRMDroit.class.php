@@ -39,26 +39,15 @@ class DRMDroit extends BaseDRMDroit {
   	$this->cumul = $this->total + $this->report;
   }
   
-  /*public function getReport() {
-  	$drmPrecedente = $this->getDocument()->getPrecedente();
-  	if ($drmPrecedente->isNew()) {
-  		return 0;
-  	} else {
-  		if ($drmPrecedente->get('droits')->get('douane')->exist($this->getKey())) {
-  			return $drmPrecedente->get('droits')->get('douane')->get($this->getKey())->cumul;
-  		} else {
-  			return 0;
-  		}
-  	}
-  }*/
   public function getPayable() {
     if ($this->virtual)
       return $this->payable_total;
     return $this->total;
   }
   public function getCumulable() {
-    if ($this->cumulable_total)
+    if ($this->virtual) {
       return $this->cumulable_total;
+    }
     return $this->cumul;
   }
   public function isTotal() {

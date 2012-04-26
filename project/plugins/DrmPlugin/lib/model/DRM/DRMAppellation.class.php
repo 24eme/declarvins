@@ -18,9 +18,23 @@ class DRMAppellation extends BaseDRMAppellation {
     }
 
     public function updateDroits($droits) {
-      foreach ($this->getDroits() as $typedroits => $droit) {
-	$droits->add($typedroits)->add($droit->code)->integreVolume($this->sommeLignes(DRMDroits::getDroitSorties()), $this->sommeLignes(DRMDroits::getDroitEntrees()), $droit->taux, 0);
-      }
+    	foreach ($this->getDroits() as $typedroits => $droit) {
+    		$droits->add($typedroits)->add($droit->code)->integreVolume($this->sommeLignes(DRMDroits::getDroitSorties()), $this->sommeLignes(DRMDroits::getDroitEntrees()), $droit->taux, $this->getReportByDroit($droit));
+    	}
+    }
+
+
+    public function getReportByDroit($droit) {
+    	$drmPrecedente = $this->getDocument()->getPrecedente();
+    	if ($drmPrecedente->isNew()) {
+    		return 0;
+    	} else {
+    		if ($drmPrecedente->get('droits')->get('douane')->exist($droit->code)) {
+    			return $drmPrecedente->get('droits')->get('douane')->get($droit->code)->cumul;
+    		} else {
+    			return 0;
+    		}
+    	}
     }
 
     public function sommeLignes($lines) {
