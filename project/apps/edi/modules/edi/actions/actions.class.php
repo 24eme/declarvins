@@ -27,10 +27,11 @@ class ediActions extends sfActions
     $this->response->setContentType('text/plain');
     $md5 = $request->getParameter('md5');
     set_time_limit(600);
+
     $csv = new DRMCsvFile(sfConfig::get('sf_data_dir') . '/upload/' . $md5);
     $this->iddrm = null;
     try {
-      $drm = $csv->importDRM($this->getUser()->getTiers()->identifiant);
+      $drm = $csv->importDRM($this->getUser());
       $drm->mode_de_saisie = 'EDI';
       $drm->save();
       $this->iddrm = $drm->_id;
@@ -74,14 +75,19 @@ class ediActions extends sfActions
   {
     $this->setLayout(false);
     $this->response->setContentType('text/plain');
-
-    $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant);
+    $this->historiques = array();
+    foreach($this->getUser()->getCompte()->getTiersCollection() as $tiers) {
+      $this->historiques[] = new DRMHistorique ($tiers->identifiant);
+    }
   }
   public function executeListContrat(sfWebRequest $request) 
   {
     $this->setLayout(false);
     $this->response->setContentType('text/plain');
     
-    $this->contrats = VracClient::getInstance()->retrieveFromEtablissements($this->getUser()->getTiers()->identifiant);
+    $this->contrats = array();
+    foreach ($this->getUser()->getCompte()->getTiersCollection() as $tiers) {
+      $this->contrats = array_merge($this->contrats, VracClient::getInstance()->retrieveFromEtablissements($tiers->identifiant));
+    }
   }
 }

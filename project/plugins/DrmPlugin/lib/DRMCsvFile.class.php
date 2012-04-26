@@ -64,8 +64,9 @@ class DRMCsvFile extends CsvFile
   const CSV_COL_DETAIL_CVO_VOLUME = 54;
   const CSV_COL_DETAIL_CVO_PRIX = 55;
 
-  public function __construct(DRM $drm) {
-    $this->csvdata = array();
+  public static function createFromDRM(DRM $drm) {
+    $csv = new DRMCsvFile();
+    $csv->csvdata = array();
     foreach ($drm->getDetails() as $d) {
       $line = array();
       $line[self::CSV_COL_TYPE] = 'DETAIL';
@@ -124,8 +125,9 @@ class DRMCsvFile extends CsvFile
       $line[self::CSV_COL_DETAIL_CVO_PRIX] = $line[self::CSV_COL_DETAIL_CVO_TAUX] * $line[self::CSV_COL_DETAIL_CVO_VOLUME];
       $line[self::CSV_COL_DETAIL_DATEDESAISIE] = $d->getDocument()->valide->date;
       $line[self::CSV_COL_DETAIL_MODEDESAISIE] = $d->getDocument()->mode_de_saisie;
-      $this->csvdata[] = $line;
+      $csv->csvdata[] = $line;
     }
+    return $csv;
   }
 
   private function verifyCsvLine($detail, $line) {
@@ -192,7 +194,7 @@ class DRMCsvFile extends CsvFile
       $this->verifyCsvLine($detail, $line);
   }
 
-  public function importDRM($etablissement) {
+  public function importDRM($compte = null) {
     $this->config = ConfigurationClient::getCurrent();
     $this->drm = null;
     $this->errors = array();
@@ -200,8 +202,14 @@ class DRMCsvFile extends CsvFile
     try {
       foreach ($this->getCsv() as $line) {
 	$this->numline++;
-	if (!$this->drm)
+	if (!$this->drm) {
+	  $etablissement = $line[self::CSV_COL_IDENTIFIANT_DECLARANT];
+	  if ($compte) {
+	    if (! $compte->getCompte()->hasEtablissementId($etablissement))
+	      throw new sfException("L'établissement $etablissement n'est pas accessible depuis votre compte");
+	  }
 	  $this->drm = DRMClient::getInstance()->retrieveOrCreateByIdentifiantAndCampagne($etablissement, $line[self::CSV_COL_ANNEE], $line[self::CSV_COL_MOIS]);
+	}
 	switch($line[self::CSV_COL_TYPE]) {
 	case 'DETAIL':
 	  $this->parseDetail($line);

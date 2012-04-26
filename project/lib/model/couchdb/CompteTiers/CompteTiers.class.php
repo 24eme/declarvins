@@ -38,5 +38,9 @@ class CompteTiers extends BaseCompteTiers {
 	$compte_tiers->interpro = $etablissement->interpro;
 	return $compte_tiers;
     }
-    
+
+    public function hasEtablissementId($etablissementId) {
+      return $this->tiers->exist('ETABLISSEMENT-'.$etablissementId);
+    }
+
 }
