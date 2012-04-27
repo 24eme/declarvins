@@ -188,7 +188,15 @@ Vrac:
       type: {  }
       produit: {  }
       numero: {  }
+      actif: {  }
+      date_creation: {  }
+      campagne: {  }
       acheteur:
+        type: collection
+        definition:
+          fields:
+            nom: {  }
+      courtier:
         type: collection
         definition:
           fields:

@@ -15,6 +15,10 @@ class Vrac extends BaseVrac {
     if (!$this->_id) {
       $this->_id = 'VRAC-'.$this->numero;
     }
+    if ($this->date_creation) {
+    	$date = explode('/', $this->date_creation);
+    	$this->campagne = $date[2];
+    }
     parent::save($conn);
   }
 }
