@@ -70,6 +70,11 @@ class DRMValidation
 		if ($totalEntreeDeclassement > $totalSortiDeclassement) {
 			$this->warnings[] = new DRMControleWarning('declassement', $this->generateUrl('drm_recap', $certificationVinssansig));
 		}
+		if ($drmSuivante = $this->drm->getSuivante()) {
+			if ($this->drm->declaration->total != $drmSuivante->declaration->total_debut_mois) {
+				$this->errors[] = new DRMControleError('stock', '#');
+			}
+		}
 	}
 	
 	public function isValide() {
