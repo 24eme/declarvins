@@ -111,7 +111,6 @@ class drmActions extends sfActions
     }
   }
 
-
   public function executeDeclaratif(sfWebRequest $request)
   {
   	$this->drm = $this->getRoute()->getDrm();

@@ -596,15 +596,16 @@
 					// Ajout du stock théorique du début
 					if(champSommeStockDebut.hasClass('num_float')) somme += parseFloat(champSommeStockDebut.val());
 					else somme += parseInt(champSommeStockDebut.val());
-					
+					$.varDump(champSommeStockDebut.val());
 					// Ajout des entrées
 					if(champSommeEntrees.hasClass('num_float')) somme += parseFloat(champSommeEntrees.val());
 					else somme += parseInt(champSommeEntrees.val());
-					
+					$.varDump(champSommeEntrees.val());
 					// Soustraction des sorties
 					if(champSommeSorties.hasClass('num_float')) somme -= parseFloat(champSommeSorties.val());
 					else somme -= parseInt(champSommeSorties.val());
 				
+					$.varDump(champSommeSorties.val());
 					if(float) somme = parseFloat(somme);
 					else somme = parseInt(somme);
 				}

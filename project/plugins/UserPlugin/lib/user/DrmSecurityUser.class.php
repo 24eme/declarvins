@@ -74,16 +74,17 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
     	if (!$campagne) {
     		$campagne = date('Y-m');
     	}
-    	$this->_drm = new DRM();
-    	$this->_drm->identifiant = $this->getTiers()->identifiant;
-    	$this->_drm->campagne = $campagne;
     	$campagne = explode('-', $campagne);
     	$date_campagne = new DateTime($campagne[0].'-'.$campagne[1].'-01');
        	$date_campagne->modify('-1 month');
        	$prev_campagne = DRMClient::getInstance()->getCampagne($date_campagne->format('Y'), $date_campagne->format('m'));
        	$prev_drm = DRMClient::getInstance()->findLastByIdentifiantAndCampagne($this->getTiers()->identifiant, $prev_campagne);
        	if ($prev_drm) {
-           $this->_drm->set('precedente', $prev_drm->get('_id'));
+           $this->_drm = $prev_drm->generateSuivante($campagne);
+       	} else {
+	    	$this->_drm = new DRM();
+	    	$this->_drm->identifiant = $this->getTiers()->identifiant;
+	    	$this->_drm->campagne = $campagne;
        	}
         return $this->_drm;
     }
