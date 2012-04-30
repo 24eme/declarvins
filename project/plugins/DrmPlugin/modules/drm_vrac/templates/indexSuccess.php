@@ -41,9 +41,9 @@
 	            	<span>Précédent</span>
 	            </a>
     <?php if (!count($noContrats)) : ?>
-	            <a id="nextStep" href="<?php echo url_for('drm_declaratif', $drm) ?>" class="btn_suiv">
-	            	<span>Suivant</span>
-	            </a>
+	            <form action="<?php echo url_for('drm_vrac', $drm) ?>" method="post">
+	            	<button type="submit" class="btn_suiv"><span>Suivant</span></button>
+	            </form>
     <?php endif; ?>
 	        </div>
 		</div>

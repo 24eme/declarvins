@@ -606,6 +606,7 @@ DRM:
       _rev: {  }
       type: {  }
       campagne: {  }
+      etape: {  }
       precedente: {  }
       rectificative: { type: integer, required: false }
       produits:

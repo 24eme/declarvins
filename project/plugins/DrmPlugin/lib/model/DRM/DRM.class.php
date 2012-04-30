@@ -421,6 +421,16 @@ class DRM extends BaseDRM {
     public function isDebutCampagne() {
     	return DRMPaiement::isDebutCampagne((int)$this->getMois());
     }
+    public function getCurrentEtapeRouting() {
+    	$etape = sfConfig::get('app_drm_etapes_'.$this->etape);
+    	return $etape['url'];
+    }
+    public function setCurrentEtapeRouting($etape) {
+    	if (!$this->isValidee()) {
+    		$this->etape = $etape;
+    		$this->getDocument()->save();
+    	}
+    }
     /*
      * Pour les users administrateur
      */

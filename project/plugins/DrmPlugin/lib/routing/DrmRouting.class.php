@@ -139,7 +139,7 @@ class DrmRouting {
         $r->prependRoute('drm_recap', new DrmAppellationRoute('/drm-edition/:campagne_rectificative/recapitulatif/:certification',
                         array('module' => 'drm_recap',
                             'action' => 'index'),
-                        array('sf_method' => array('get')),
+                        array('sf_method' => array('get', 'post')),
                         array('model' => 'DRMAppellation',
                             'type' => 'object'
                 )));
