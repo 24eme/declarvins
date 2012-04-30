@@ -11,7 +11,8 @@ class drm_vracActions extends sfActions
         if($request->hasParameter('precedent')) {
           $this->redirect('drm_recap_appellation', $this->drm->produits->getLast()->getLast()->getDeclaration());
         } else {
-          $this->redirect('drm_declaratif', $this->drm);
+			$this->drm->setCurrentEtapeRouting('declaratif');
+          	$this->redirect('drm_declaratif', $this->drm);
         }
     	}
 
@@ -31,6 +32,10 @@ class drm_vracActions extends sfActions
     	  foreach ($detail->getVrac() as $vrac) {
     	    $this->forms[$detail->getIdentifiantHTML()][$vrac->getKey()] = new VracDetailModificationForm($vrac);
     	  }
+    	}
+    	if ($request->isMethod(sfWebRequest::POST)) {
+			$this->drm->setCurrentEtapeRouting('declaratif');
+			$this->redirect('drm_declaratif', $this->drm);
     	}
     }
     

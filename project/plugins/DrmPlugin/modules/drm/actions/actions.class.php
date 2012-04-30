@@ -27,7 +27,12 @@ class drmActions extends sfActions
    */
   public function executeInit(sfWebRequest $request) {
       $drm = $this->getRoute()->getDRM();
-      $this->redirect('drm_informations', $drm);
+      if ($etape = $drm->etape) {
+      	$this->redirect($drm->getCurrentEtapeRouting(), $drm);
+      } else {
+		$drm->setCurrentEtapeRouting('ajouts_liquidations');
+      	$this->redirect('drm_informations', $drm);
+      }
   }
   /**
    *
@@ -48,6 +53,16 @@ class drmActions extends sfActions
   public function executeMonEspace(sfWebRequest $request)
   {
       $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant);
+      $this->formCampagne = new DRMCampagne();
+      if ($request->isMethod(sfWebRequest::POST)) {
+    	$this->formCampagne->bind($request->getParameter($this->formCampagne->getName()));
+  	  	if ($this->formCampagne->isValid()) {
+  	  		$values = $this->formCampagne->getValues();
+  	  		$drm = $this->getUser()->createDrmByCampagne($values['campagne']);
+      		$drm->save();
+      		$this->redirect('drm_informations', $drm);
+  	  	}
+      }
   }
 
 
@@ -69,7 +84,7 @@ class drmActions extends sfActions
   */
   public function executeInformations(sfWebRequest $request)
   {
-	  $this->drm = $this->getRoute()->getDrm();
+	$this->drm = $this->getRoute()->getDrm();
     $this->tiers = $this->getUser()->getTiers();
     $this->form = new DRMInformationsForm();
 
@@ -92,25 +107,26 @@ class drmActions extends sfActions
   				$this->drm->declarant->comptabilite->commune = $this->tiers->comptabilite->commune;
   				$this->drm->declarant->no_accises = $this->tiers->no_accises;
   				$this->drm->declarant->no_tva_intracommunautaire = $this->tiers->no_tva_intracommunautaire;
-  				$this->drm->declarant->service_douane = $this->tiers->service_douane;			
+  				$this->drm->declarant->service_douane = $this->tiers->service_douane;		
   				$this->drm->save();
 	  		}
-        
-			  $this->redirect('drm_mouvements_generaux', $this->drm);
+			$this->drm->setCurrentEtapeRouting('ajouts_liquidations');		
+        	$this->redirect('drm_mouvements_generaux', $this->drm);
     	}
     }
   }
 
-
   public function executeDeclaratif(sfWebRequest $request)
   {
   	$this->drm = $this->getRoute()->getDrm();
+	$this->drm->setCurrentEtapeRouting('declaratif');
   	$this->form = new DRMDeclaratifForm($this->drm);
   	$this->hasFrequencePaiement = ($this->drm->declaratif->paiement->douane->frequence)? true : false;
   	if($request->isMethod(sfWebRequest::POST)) {
   		$this->form->bind($request->getParameter($this->form->getName()));
   		if ($this->form->isValid()) {
   			$this->form->save();
+			$this->drm->setCurrentEtapeRouting('validation');		
   			$this->redirect('drm_validation', $this->drm);
   		}
   	}

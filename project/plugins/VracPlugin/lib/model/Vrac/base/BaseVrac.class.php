@@ -9,7 +9,11 @@
  * @property string $type
  * @property string $produit
  * @property string $numero
+ * @property string $actif
+ * @property string $date_creation
+ * @property string $campagne
  * @property acCouchdbJson $acheteur
+ * @property acCouchdbJson $courtier
  * @property string $etablissement
  * @property float $volume_promis
  * @property float $volume_realise
@@ -24,8 +28,16 @@
  * @method string setProduit()
  * @method string getNumero()
  * @method string setNumero()
+ * @method string getActif()
+ * @method string setActif()
+ * @method string getDateCreation()
+ * @method string setDateCreation()
+ * @method string getCampagne()
+ * @method string setCampagne()
  * @method acCouchdbJson getAcheteur()
  * @method acCouchdbJson setAcheteur()
+ * @method acCouchdbJson getCourtier()
+ * @method acCouchdbJson setCourtier()
  * @method string getEtablissement()
  * @method string setEtablissement()
  * @method float getVolumePromis()

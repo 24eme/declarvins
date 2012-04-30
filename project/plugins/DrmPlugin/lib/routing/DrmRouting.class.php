@@ -68,6 +68,13 @@ class DrmRouting {
                                                           array('model' => 'DRM',
                                                                 'type' => 'object')));
 
+        $r->prependRoute('drm_stock_debut_mois', new DrmRoute('/drm-edition/:campagne_rectificative/stock', 
+                                                          array('module' => 'drm', 
+                                                                'action' => 'stock'),
+                                                          array('sf_method' => array('get','post')),
+                                                          array('model' => 'DRM',
+                                                                'type' => 'object')));
+
         $r->prependRoute('drm_declaratif', new DrmRoute('/drm-edition/:campagne_rectificative/declaratif', 
                                                           array('module' => 'drm', 
                                                                 'action' => 'declaratif'),
@@ -132,7 +139,7 @@ class DrmRouting {
         $r->prependRoute('drm_recap', new DrmAppellationRoute('/drm-edition/:campagne_rectificative/recapitulatif/:certification',
                         array('module' => 'drm_recap',
                             'action' => 'index'),
-                        array('sf_method' => array('get')),
+                        array('sf_method' => array('get', 'post')),
                         array('model' => 'DRMAppellation',
                             'type' => 'object'
                 )));

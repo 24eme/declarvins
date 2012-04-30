@@ -24,6 +24,10 @@ class drm_mouvements_generauxActions extends sfActions
         if(count($this->drm->declaration->certifications) > 0) {
             $this->first_certification = $this->drm->declaration->certifications->getFirst();
         }
+        if ($request->isMethod(sfWebRequest::POST)) {
+        	$this->drm->setCurrentEtapeRouting('recapitulatif');
+        	$this->redirect('drm_recap', $this->first_certification);
+        }
     }
     
     public function executeUpdateAjax(sfWebRequest $request) 

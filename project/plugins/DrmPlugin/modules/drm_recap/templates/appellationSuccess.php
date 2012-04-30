@@ -34,13 +34,17 @@
                 </a>
                 <?php if ($produits_appellation = $drm_appellation->getProduits()->getNext()): ?>
                 <a href="<?php echo url_for('drm_recap_appellation', $produits_appellation->getDeclaration()) ?>" class="btn_suiv">
-                <?php elseif ($produits_certification = $drm_appellation->getCertification()->getProduits()->getNext()): ?>
-                <a href="<?php echo url_for('drm_recap_appellation', $produits_certification->getFirst()->getDeclaration()) ?>" class="btn_suiv">
-                <?php else: ?>
-                <a href="<?php echo url_for('drm_vrac', $drm) ?>" class="btn_suiv">
-                <?php endif; ?>
                 	<span>Suivant</span>
                 </a>
+                <?php elseif ($produits_certification = $drm_appellation->getCertification()->getProduits()->getNext()): ?>
+                <a href="<?php echo url_for('drm_recap_appellation', $produits_certification->getFirst()->getDeclaration()) ?>" class="btn_suiv">
+                	<span>Suivant</span>
+                </a>
+                <?php else: ?>                
+	            <form action="<?php echo url_for('drm_recap', $drm->declaration->certifications->getFirst()) ?>" method="post">
+	            	<button type="submit" class="btn_suiv"><span>Suivant</span></button>
+	            </form>
+                <?php endif; ?>
             </div>
         </div>
     </section>

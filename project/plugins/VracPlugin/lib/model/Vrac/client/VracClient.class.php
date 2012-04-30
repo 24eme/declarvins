@@ -56,13 +56,16 @@ class VracClient extends acCouchdbClient {
     }
     
 
-    public function retrieveFromEtablissementsAndHash($etablissement, $hash, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
+    public function retrieveFromEtablissementsAndHash($etablissement, $hash, $mustActive = true, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
       $contrats = array();
       foreach ($this->retrieveFromEtablissements($etablissement) as $contrat) {
-	if (strpos($hash, $contrat->produit) !== false)
-	  $contrats[] = $contrat;
+      	if ($mustActive && !$contrat->actif) {
+      		continue;
+      	}
+		if (strpos($hash, $contrat->produit) !== false)
+	  		$contrats[] = $contrat;
       }
-      return $contrats;
+      	return $contrats;
     }
 
     public function retrieveFromEtablissements($etablissement, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {

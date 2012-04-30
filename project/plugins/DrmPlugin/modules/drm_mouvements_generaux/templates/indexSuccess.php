@@ -60,9 +60,9 @@
 	            	<span>Précédent</span>
 	            </a>
                 <?php if($first_certification): ?>
-	            <a id="nextStep" href="<?php echo url_for('drm_recap', $first_certification) ?>" class="btn_suiv">
-	            	<span>Suivant</span>
-	            </a>
+	            <form action="<?php echo url_for('drm_mouvements_generaux', $drm) ?>" method="post">
+	            	<button type="submit" class="btn_suiv"><span>Suivant</span></button>
+	            </form>
                 <?php endif; ?>
 	        </div>
 		</div>

@@ -16,8 +16,8 @@ class importContratVracTask extends sfBaseTask
       // add your own options here
     ));
 
-    $this->namespace        = 'import';
-    $this->name             = 'contrat-vrac';
+    $this->namespace        = 'vrac';
+    $this->name             = 'import';
     $this->briefDescription = '';
     $this->detailedDescription = <<<EOF
 The [importContratVrac|INFO] task does things.
@@ -45,6 +45,9 @@ EOF;
     $vrac->acheteur->nom = "Acheteur test";
     $vrac->etablissement = '9223700100';
     $vrac->volume_promis = 25;
+    $vrac->courtier->nom = "Courtier test";
+    $vrac->actif = 1;
+    $vrac->date_creation = "27/04/2012";
     $vrac->save();
 
     $vrac = acCouchdbManager::getClient()->find('VRAC-123457');
@@ -59,6 +62,9 @@ EOF;
     $vrac->acheteur->nom = "Acheteur test";
     $vrac->etablissement = '9223700100';
     $vrac->volume_promis = 36;
+    $vrac->courtier->nom = "Courtier test";
+    $vrac->actif = 1;
+    $vrac->date_creation = "27/04/2012";
     $vrac->save();
 
   }

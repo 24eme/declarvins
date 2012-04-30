@@ -9,7 +9,7 @@ class sfWidgetFormInputFloat extends sfWidgetFormInputText
     $attributes['autocomplete'] = 'off';
     if (!isset($attributes['class']))
       $attributes['class'] = '';
-    $attributes['class'] = ' num num_float';
+    //$attributes['class'] = ' num num_float';
     if (!($value*1)) 
       $attributes['class'] .= ' num_light';
 

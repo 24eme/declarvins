@@ -47,23 +47,45 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
      * @return DR
      */
     public function getDrm() {
-        $this->requireDrm();
-        $this->requireTiers();
-        if (is_null($this->_drm)) {
-        	$lastDrm = $this->getDrmHistorique()->getLastDrm();
+    	$this->requireDrm();
+    	$this->requireTiers();
+    	if (is_null($this->_drm)) {
+    		$lastDrm = $this->getDrmHistorique()->getLastDrm();
 
-        	if ($lastDrm && $drm = DRMClient::getInstance()->find(key($lastDrm))) {
-		  if (!$drm->isValidee()) {
-		    $this->_drm = $drm;
-		  } else {
-		    $this->_drm = $drm->generateSuivante($this->getCampagneDrm());
-		  }
-        	} else {
-        		$this->_drm = new DRM();
-	            $this->_drm->identifiant = $this->getTiers()->identifiant;
-	            $this->_drm->campagne = $this->getCampagneDrm();
-        	}
-        }
+    		if ($lastDrm && $drm = DRMClient::getInstance()->find(key($lastDrm))) {
+    			if (!$drm->isValidee()) {
+    				$this->_drm = $drm;
+    			} else {
+    				$this->_drm = $drm->generateSuivante($this->getCampagneDrm());
+    			}
+    		} else {
+    			$this->_drm = new DRM();
+    			$this->_drm->identifiant = $this->getTiers()->identifiant;
+    			$this->_drm->campagne = $this->getCampagneDrm();
+    		}
+    	}
+    	return $this->_drm;
+    }
+    
+    /**
+     * @return DR
+     */
+    public function createDrmByCampagne($campagne = null) {
+    	if (!$campagne) {
+    		$campagne = date('Y-m');
+    	}
+    	$campagne = explode('-', $campagne);
+    	$date_campagne = new DateTime($campagne[0].'-'.$campagne[1].'-01');
+       	$date_campagne->modify('-1 month');
+       	$prev_campagne = DRMClient::getInstance()->getCampagne($date_campagne->format('Y'), $date_campagne->format('m'));
+       	$prev_drm = DRMClient::getInstance()->findLastByIdentifiantAndCampagne($this->getTiers()->identifiant, $prev_campagne);
+       	if ($prev_drm) {
+           $this->_drm = $prev_drm->generateSuivante($campagne);
+       	} else {
+	    	$this->_drm = new DRM();
+	    	$this->_drm->identifiant = $this->getTiers()->identifiant;
+	    	$this->_drm->campagne = $campagne;
+       	}
         return $this->_drm;
     }
     /**

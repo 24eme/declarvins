@@ -19,7 +19,7 @@
                             <?php echo $form->getObject()->label_supplementaire ?></p>
             <div class="groupe" data-groupe-id="1">
                 <p class="<?php echo isRectifierCssClass($form->getObject(), 'total_debut_mois') ?>">
-                    <input type="text" value="<?php echo echoFloat($form->getObject()->total_debut_mois) ?>" class="num num_float somme_stock_debut" data-val-defaut="<?php echo $form->getObject()->total_debut_mois ?>" readonly="readonly" />
+                	<?php echo $form['total_debut_mois']->render(array('data-val-defaut' => sprintFloat($form->getObject()->total_debut_mois), 'class' => 'num num_float somme_stock_debut test')) ?>
                 </p>
                 <ul>
                     <?php foreach($form['stocks_debut'] as $key => $subform): ?>
