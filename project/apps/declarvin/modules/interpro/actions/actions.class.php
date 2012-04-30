@@ -29,8 +29,8 @@ class interproActions extends sfActions
     public function executeUpdateEtablissements(sfWebRequest $request) {
     	$this->forward404Unless($this->interpro = InterproClient::getInstance()->getById($request->getParameter("id")));
         $import = new ImportEtablissementsCsv($this->interpro);
-        $import->update();
-        $this->getUser()->setFlash('notification_general', "Les établissements ont bien été importés");
+        $nb = $import->updateOrCreate();
+        $this->getUser()->setFlash('notification_general', "$nb établissements ont été importés");
         $this->redirect('interpro_upload_csv', array('id' => $this->interpro->get('_id')));
     }
 }

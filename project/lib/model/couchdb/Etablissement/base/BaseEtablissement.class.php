@@ -15,6 +15,7 @@
  * @property acCouchdbJson $droits
  * @property string $num_interne
  * @property string $siret
+ * @property string $raison_sociale
  * @property string $cni
  * @property string $cvi
  * @property string $no_accises
@@ -50,6 +51,8 @@
  * @method string setNumInterne()
  * @method string getSiret()
  * @method string setSiret()
+ * @method string getRaisonSociale()
+ * @method string setRaisonSociale()
  * @method string getCni()
  * @method string setCni()
  * @method string getCvi()
@@ -77,7 +80,7 @@
  
  */
  
-abstract class BaseEtablissement extends _Tiers {
+abstract class BaseEtablissement extends acCouchdbDocument {
 
     public function getDocumentDefinitionModel() {
         return 'Etablissement';

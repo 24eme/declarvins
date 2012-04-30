@@ -33,7 +33,8 @@ class ImportEtablissementsCsv {
         $etab->no_tva_intracommunautaire = $line[EtablissementCsv::COL_NO_TVA_INTRACOMMUNAUTAIRE];
         $etab->famille = $line[EtablissementCsv::COL_FAMILLE];
         $etab->sous_famille = $line[EtablissementCsv::COL_SOUS_FAMILLE];
-        $etab->nom = $line[EtablissementCsv::COL_NOM_RAISON_SOCIALE];
+        $etab->nom = $line[EtablissementCsv::COL_NOM];
+        $etab->raison_sociale = $line[EtablissementCsv::COL_RAISON_SOCIALE];
         $etab->email = $line[EtablissementCsv::COL_EMAIL];
         $etab->telephone = $line[EtablissementCsv::COL_TELEPHONE];
         $etab->fax = $line[EtablissementCsv::COL_FAX];
@@ -44,6 +45,7 @@ class ImportEtablissementsCsv {
         $etab->comptabilite->code_postal = $line[EtablissementCsv::COL_COMPTA_CODE_POSTAL];
         $etab->comptabilite->commune = $line[EtablissementCsv::COL_COMPTA_CODE_POSTAL];
         $etab->service_douane = $line[EtablissementCsv::COL_SERVICE_DOUANE];
+	$etab->interpro = $this->_interpro->get('_id');
 
         return $etab;
     }
@@ -87,14 +89,23 @@ class ImportEtablissementsCsv {
     }
 
     public function update() {
-        foreach ($this->_csv as $line) {
-            $etab = EtablissementClient::getInstance()->retrieveById($line[EtablissementCsv::COL_ID]);
-            if ($etab) {
-	            $etab = $this->bind($etab, $line);
-            	$etab->save();
-        	}
-        }
-        return true;
+      return $this->updateOrCreate(true);
+    }  
+
+    public function updateOrCreate($dontcreate = false) {
+      $cpt = 0;
+      foreach ($this->_csv as $line) {
+	if (!$dontcreate)
+	  $etab = EtablissementClient::getInstance()->retrieveOrCreateById($line[EtablissementCsv::COL_ID]);
+	else
+	  $etab = EtablissementClient::getInstance()->retrieveById($line[EtablissementCsv::COL_ID]);
+	if ($etab) {
+	  $etab = $this->bind($etab, $line);
+	  $etab->save();
+	  $cpt++;
+	}
+      }
+      return $cpt;
     }  
 }
 

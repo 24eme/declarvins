@@ -90,6 +90,7 @@ Etablissement:
             '*': {  }
       num_interne: {  }
       siret: {  }
+      raison_sociale: {  }
       cni: {  }
       cvi: {  }
       no_accises: {  }

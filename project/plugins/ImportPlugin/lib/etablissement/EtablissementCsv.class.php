@@ -13,16 +13,17 @@ class EtablissementCsv {
     const COL_EMAIL = 9;
     const COL_TELEPHONE = 10;
     const COL_FAX = 11;
-    const COL_NOM_RAISON_SOCIALE = 12;
-    const COL_ADRESSE = 13;
-    const COL_COMMUNE = 14;
-    const COL_CODE_POSTAL = 15;
-    const COL_FAMILLE = 16;
-    const COL_SOUS_FAMILLE = 17;
-    const COL_COMPTA_ADRESSE = 18;
-    const COL_COMPTA_COMMUNE = 19;
-    const COL_COMPTA_CODE_POSTAL = 20;
-    const COL_SERVICE_DOUANE = 21;
-    const COL_CHAMPS_COMPLEMENTAIRES = 22;
+    const COL_NOM = 12;
+    const COL_RAISON_SOCIALE = 13;
+    const COL_ADRESSE = 14;
+    const COL_COMMUNE = 15;
+    const COL_CODE_POSTAL = 16;
+    const COL_FAMILLE = 17;
+    const COL_SOUS_FAMILLE = 18;
+    const COL_COMPTA_ADRESSE = 19;
+    const COL_COMPTA_COMMUNE = 20;
+    const COL_COMPTA_CODE_POSTAL = 21;
+    const COL_SERVICE_DOUANE = 22;
+    const COL_CHAMPS_COMPLEMENTAIRES = 23;
 }
 
