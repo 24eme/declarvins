@@ -12,11 +12,18 @@
 		</tr>
 	</thead>
 	<tbody>
-		<?php foreach ($vracs as $vrac): ?>
+		<?php 
+			$config = $config->getRawValue();
+			foreach ($vracs as $vrac):
+		?>
 		<tr>
 			<td><?php echo $vrac[VracHistorique::VIEW_INDEX_NUMERO] ?></td>
 			<td><?php echo $vrac[VracHistorique::VIEW_INDEX_DATE_CREATION] ?></td>
-			<td><?php echo $vrac[VracHistorique::VIEW_INDEX_PRODUIT] ?></td>
+			<?php if ($config->get($vrac[VracHistorique::VIEW_INDEX_PRODUIT]) instanceof _ConfigurationDeclaration): ?>
+			<td><?php echo implode(' ', array_filter($config->get($vrac[VracHistorique::VIEW_INDEX_PRODUIT])->getLibelles())); ?></td>
+			<?php else: ?>
+			<td><?php echo implode(' ', array_filter($config->get($vrac[VracHistorique::VIEW_INDEX_PRODUIT])->getParent()->getLibelles())); ?></td>
+			<?php endif;?>
 			<td><?php echo $vrac[VracHistorique::VIEW_INDEX_VOLUME] ?></td>
 			<td><?php echo $vrac[VracHistorique::VIEW_INDEX_ACHETEUR] ?></td>
 			<td><?php echo $vrac[VracHistorique::VIEW_INDEX_COURTIER] ?></td>
