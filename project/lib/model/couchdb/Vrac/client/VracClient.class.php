@@ -20,7 +20,7 @@ class VracClient extends acCouchdbClient {
       }
       if ($etablissement != $vrac->etablissement)
 	throw new sfException('Etablissement ne correpond pas à l\'établissement initial');
-      if ($hash != $vrac->produit)
+      if (preg_match("|^$hash|", $vrac->produit))
 	throw new sfException('Le hash du produit ne correpond pas au hash initial');
       return $vrac;
     }

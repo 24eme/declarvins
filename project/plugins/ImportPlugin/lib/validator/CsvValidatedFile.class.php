@@ -28,7 +28,7 @@ class CsvValidatedFile extends sfValidatedFile {
 
     public function save($file = null, $fileMode = 0666, $create = true, $dirMode = 0777) {
 
-        $fc = htmlentities(utf8_decode(file_get_contents($this->getTempName())), ENT_NOQUOTES);
+      $fc = file_get_contents($this->getTempName());
         $md5 = md5($fc);
         $file = $this->path . '/' . $md5;
         $this->setMd5($md5);
