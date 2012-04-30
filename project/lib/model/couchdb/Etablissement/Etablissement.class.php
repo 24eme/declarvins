@@ -26,13 +26,14 @@ class Etablissement extends BaseEtablissement {
 
     private function cleanPhone($phone) {
       $phone = preg_replace('/[^0-9\+]+/', '', $phone);
+      $phone = preg_replace('/^00/', '+', $phone);
       $phone = preg_replace('/^0/', '+33', $phone);
       
       if (strlen($phone) == 9 && preg_match('/^[64]/', $phone) )
 	$phone = '+33'.$phone;
       
-      if (strlen($phone) != 12) 
-	echo("$phone n'est pas un téléphone correct");
+      if (!preg_match('/^\+/', $phone) || (strlen($phone) != 12 && preg_match('/^\+33/', $phone)))
+	echo("$phone n'est pas un téléphone correct ");
       return $phone;
       
     }

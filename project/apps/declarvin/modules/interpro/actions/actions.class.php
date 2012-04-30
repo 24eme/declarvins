@@ -30,6 +30,7 @@ class interproActions extends sfActions
     	$this->forward404Unless($this->interpro = InterproClient::getInstance()->getById($request->getParameter("id")));
         $import = new ImportEtablissementsCsv($this->interpro);
         $nb = $import->updateOrCreate();
+
         $this->getUser()->setFlash('notification_general', "$nb établissements ont été importés");
         $this->redirect('interpro_upload_csv', array('id' => $this->interpro->get('_id')));
     }
