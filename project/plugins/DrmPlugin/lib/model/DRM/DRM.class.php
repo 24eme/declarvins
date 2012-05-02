@@ -463,6 +463,13 @@ class DRM extends BaseDRM {
     		return false;
     	}
     }
+    public function isEnvoyee() {
+    	if ($this->valide->status != self::VALIDE_STATUS_VALIDEE_ENVOYEE && $this->valide->status != self::VALIDE_STATUS_VALIDEE_RECUE) {
+    		return false;
+    	} else {
+    		return true;
+    	}
+    }
     /*
      * Pour les users administrateur
      */
