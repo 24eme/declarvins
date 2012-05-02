@@ -24,6 +24,7 @@
     </ul>
 
     <ul id="actions_etablissement">
+        <?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?><li class="backend"><a href="<?php echo url_for('@admin'); ?>">Backend</a></li><?php  endif; ?>
         <li class="etablissement_courant"><a href=""><span><?php echo $sf_user->getTiers()->nom ?></span></a></li>
         <li class="quitter"><a href="<?php echo url_for('@tiers') ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
     </ul>

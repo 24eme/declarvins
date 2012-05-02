@@ -498,6 +498,7 @@ a
 				border-color: #8a0808;
 				a { color: #fff; }
 			}
+
 		}
 	}
 
@@ -513,7 +514,21 @@ a
 			text-decoration: underline;
 			&:hover { text-decoration: none; }
 		}
+
+                a.backend_link
+                {
+                        color: @couleur-b1;
+                }
 	}
+
+        .backend
+        {
+                background: url(../images/fonds/bg_btn_backend.png) 0 0 repeat-x;
+                border-color: #8a0808;
+                a { color: #fff; }
+        }
+
+        
 }
 
 
@@ -573,7 +588,14 @@ a
 		{
 			display: inline;
 			float: left;
-			
+
+                        &.backend
+                        {
+                                background: url(../images/fonds/bg_btn_backend.png) 0 0 repeat-x;
+                                a { color: #fff; }
+                                padding: 0 10px;
+                        }
+
 			&.etablissement_courant
 			{
 				a

@@ -38,9 +38,7 @@
 </style>
 <?php include_partial('global/navBack', array('active' => 'contrat')); ?>
 <section id="contenu">
-<div class="tools" style="text-align: right;">
-    <span>Vous êtes loggué en tant que <strong><?php echo $interpro; ?></strong></span>&nbsp; | &nbsp;<span><a href="<?php echo url_for('@validation_fiche') ?>">Fiche</a></span>&nbsp; | &nbsp;<span><a href="<?php echo url_for('@validation_login') ?>">Déconnexion</a></span>
-</div>
+
 
 <div class="clearfix" id="application_dr">
     <h1>Import des établissements</h1>

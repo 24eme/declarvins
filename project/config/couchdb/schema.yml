@@ -606,6 +606,7 @@ DRM:
       _id: {  }
       _rev: {  }
       type: {  }
+      apurement_possible: {  }
       raison_rectificative: {  }
       etape: {  }
       campagne: {  }
@@ -931,8 +932,10 @@ DRM:
         type: collection
         definition:
           fields:
-            date: {}
+            date_saisie: {}
+            date_signee: {}
             identifiant: {}
+            status: {}
       douane:
         type: collection
         definition:

@@ -23,6 +23,9 @@ class adminActions extends sfActions
             if ($this->formLogin->isValid()) {
                 $values = $this->formLogin->getValues();
                 $this->getUser()->setAttribute('interpro_id', $values['interpro']);
+                $this->getUser()->signOut();
+                $interpro = strtolower(str_replace('INTERPRO-', '', $values['interpro']));
+  	 			$this->getUser()->signIn('admin-'.$interpro);
                 $this->redirect('@produits');
             }
         }

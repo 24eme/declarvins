@@ -8,6 +8,12 @@ class DRM extends BaseDRM {
 
     const NOEUD_TEMPORAIRE = 'TMP';
     const DEFAULT_KEY = 'DEFAUT';
+    const VALIDE_STATUS_EN_COURS = '';
+    const VALIDE_STATUS_VALIDEE_ENATTENTE = 'VALIDEE';
+    const VALIDE_STATUS_VALIDEE_ENVOYEE = 'ENVOYEE';
+    const VALIDE_STATUS_VALIDEE_RECUE = 'RECUE';
+
+
 
     public function constructId() {
         $rectificative = ($this->exist('rectificative')) ? $this->rectificative : null;
@@ -115,6 +121,8 @@ class DRM extends BaseDRM {
         $this->add('douane');
         $this->remove('declarant');
         $this->add('declarant');
+        $this->raison_rectificative = null;
+        $this->etape = null;
         $this->declaratif->defaut_apurement = null;
         $this->declaratif->daa->debut = null;
         $this->declaratif->daa->fin = null;
@@ -335,15 +343,18 @@ class DRM extends BaseDRM {
 
     public function devalide() {
       $this->valide->identifiant = '';
-      $this->valide->date = '';
+      $this->valide->date_saisie = '';
+      $this->valide->date_signee = '';
     }
 
     public function isValidee() {
-      return ($this->valide->date);
+      return ($this->valide->date_saisie);
     }
 
     public function validate($identifiant = null) {
-      $this->valide->add('date', date('c'));
+      $this->valide->add('date_saisie', date('c'));
+      if (! $this->valide->date_signee)
+	$this->valide->add('date_signee', date('c'));
       if (!$identifiant)
 	$identifiant = $this->identifiant;
       $this->valide->identifiant = $identifiant;
@@ -415,7 +426,7 @@ class DRM extends BaseDRM {
 	return strftime('%B %Y', strtotime($this->campagne.'-01'));
     }
     public function getEuValideDate() {
-	return strftime('%d/%m/%Y', strtotime($this->valide->date));
+	return strftime('%d/%m/%Y', strtotime($this->valide->date_signee));
     }
     
     public function isDebutCampagne() {
@@ -429,6 +440,38 @@ class DRM extends BaseDRM {
     	if (!$this->isValidee()) {
     		$this->etape = $etape;
     		$this->getDocument()->save();
+    	}
+    }
+    public function hasApurementPossible() {
+    	if (
+    		$this->declaratif->daa->debut ||
+    		$this->declaratif->daa->fin ||
+    		$this->declaratif->dsa->debut ||
+    		$this->declaratif->dsa->debut ||
+    		$this->declaratif->adhesion_emcs_gamma
+    	) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    public function hasVrac() {
+    	$detailsVrac = $this->getDetailsAvecVrac();
+    	if (count($detailsVrac) > 0) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    public function isEnvoyee() {
+    	if (!$this->exist('valide'))
+    		return false;
+    	if (!$this->valide->exist('status'))
+    		return false;
+    	if ($this->valide->status != self::VALIDE_STATUS_VALIDEE_ENVOYEE && $this->valide->status != self::VALIDE_STATUS_VALIDEE_RECUE) {
+    		return false;
+    	} else {
+    		return true;
     	}
     }
     /*

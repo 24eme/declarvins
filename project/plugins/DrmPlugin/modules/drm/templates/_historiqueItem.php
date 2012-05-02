@@ -1,3 +1,7 @@
+<?php 
+	$drm = $drm->getRawValue(); 
+	$drm = DRMClient::getInstance()->find('DRM-'.$drm[0].'-'.$drm[1].'-'.$drm[2]);
+?>
 <tr class="<?php if($alt): ?>alt<?php endif; ?>">
 <td>
 	<?php if($derniere): ?>
@@ -10,7 +14,7 @@
 	<td>En cours</td>
 	<td>
 		<a href="<?php echo url_for('drm_init', array('campagne_rectificative' => $campagne_rectificative)); ?>">Accéder à la déclaration en cours</a><br />
-	   </td><td style="border: 0px; padding-left: 0px;">
+	   </td><td style="border: 0px; padding-left: 0px;background-color: #ffffff;">
 		<a href="<?php echo url_for('drm_delete', array('campagne_rectificative' => $campagne_rectificative)); ?>" class="btn_reinitialiser"><span><img src="/images/pictos/pi_supprimer.png"/></span></a>
 	</td>
 <?php else: ?>
@@ -23,6 +27,11 @@
 		<br />
 		<?php endif; ?>
 			<a href="<?php echo url_for('drm_visualisation', array('campagne_rectificative' => $campagne_rectificative)) ?>" class="btn_reinitialiser"><span>Visualiser</span></a>
-		</td>							
+		</td>	
+		<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && !$drm->isEnvoyee()): ?>	
+	<td style="border: 0px; padding-left: 0px;background-color: #ffffff;">
+		<a href="<?php echo url_for('drm_delete', array('campagne_rectificative' => $campagne_rectificative)); ?>" class="btn_reinitialiser"><span><img src="/images/pictos/pi_supprimer.png"/></span></a>
+	</td>
+	<?php endif; ?>					
 	<?php endif; ?>
 </tr>
