@@ -17,14 +17,15 @@ class adminActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-  		//$this->getUser()->signOut();
-  	 	//$this->getUser()->signIn('admin-inter-rhone');
         $this->formLogin = new LoginForm();
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->formLogin->bind($request->getParameter($this->formLogin->getName()));
             if ($this->formLogin->isValid()) {
                 $values = $this->formLogin->getValues();
                 $this->getUser()->setAttribute('interpro_id', $values['interpro']);
+                $this->getUser()->signOut();
+                $interpro = strtolower(str_replace('INTERPRO-', '', $values['interpro']));
+  	 			$this->getUser()->signIn('admin-'.$interpro);
                 $this->redirect('@produits');
             }
         }
