@@ -16,6 +16,7 @@ class validationActions extends sfActions {
      * @param sfRequest $request A request object
      */
     public function executeLogin(sfWebRequest $request) {
+    	$this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
         $this->formLogin = new LoginContratForm();
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->formLogin->bind($request->getParameter($this->formLogin->getName()));
