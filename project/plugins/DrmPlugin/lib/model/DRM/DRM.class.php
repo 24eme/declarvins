@@ -464,6 +464,10 @@ class DRM extends BaseDRM {
     	}
     }
     public function isEnvoyee() {
+    	if (!$this->exist('valide'))
+    		return false;
+    	if (!$this->valide->exist('status'))
+    		return false;
     	if ($this->valide->status != self::VALIDE_STATUS_VALIDEE_ENVOYEE && $this->valide->status != self::VALIDE_STATUS_VALIDEE_RECUE) {
     		return false;
     	} else {
