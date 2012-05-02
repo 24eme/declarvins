@@ -486,6 +486,12 @@ a:hover { text-decoration:underline; }
   text-decoration:underline;
 }
 #header p.deconnexion a:hover { text-decoration:none; }
+#header p.deconnexion a.backend_link { color:#820608; }
+#header .backend {
+  background:url(../images/fonds/bg_btn_backend.png) 0 0 repeat-x;
+  border-color:#8a0808;
+}
+#header .backend a { color:#ffffff; }
 #barre_navigation {
   background:#f1f1f1;
   border-bottom:1px solid #e1e1e0;
@@ -533,6 +539,11 @@ a:hover { text-decoration:underline; }
   display:inline;
   float:left;
 }
+#barre_navigation #actions_etablissement li.backend {
+  background:url(../images/fonds/bg_btn_backend.png) 0 0 repeat-x;
+  padding:0 10px;
+}
+#barre_navigation #actions_etablissement li.backend a { color:#ffffff; }
 #barre_navigation #actions_etablissement li.etablissement_courant a {
   background:url(../images/boutons/btn_etablissement_courant.png) right 0 no-repeat;
   padding:0 20px 0 0;
