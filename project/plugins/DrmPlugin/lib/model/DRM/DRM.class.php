@@ -446,6 +446,14 @@ class DRM extends BaseDRM {
     		return false;
     	}
     }
+    public function hasVrac() {
+    	$detailsVrac = $this->getDetailsAvecVrac();
+    	if (count($detailsVrac) > 0) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
     /*
      * Pour les users administrateur
      */

@@ -48,7 +48,7 @@
                     </div>  -->
                 </div>
                 <?php endif; ?>
-
+				<?php if ($form->getObject()->hasVrac()): ?>
                 <ul class="onglets_declaratif">
                     <li class="actif"><strong>Mouvements au cours du mois</strong></li>
                 </ul>
@@ -83,6 +83,7 @@
                         <?php echo $form['adhesion_emcs_gamma']->render() ?><?php echo $form['adhesion_emcs_gamma']->renderLabel() ?><?php echo $form['adhesion_emcs_gamma']->renderError() ?>
                     </div>
                 </div>
+                <?php endif; ?>
 
                 <ul class="onglets_declaratif">
                     <li class="actif"><strong>Caution</strong></li>
