@@ -123,7 +123,7 @@ class DRMCsvFile extends CsvFile
       $line[self::CSV_COL_DETAIL_CVO_TAUX] = $d->getDroit(DrmDroits::DROIT_CVO)->getTaux();
       $line[self::CSV_COL_DETAIL_CVO_VOLUME] = $d->getDroitVolume(DrmDroits::DROIT_CVO);
       $line[self::CSV_COL_DETAIL_CVO_PRIX] = $line[self::CSV_COL_DETAIL_CVO_TAUX] * $line[self::CSV_COL_DETAIL_CVO_VOLUME];
-      $line[self::CSV_COL_DETAIL_DATEDESAISIE] = $d->getDocument()->valide->date;
+      $line[self::CSV_COL_DETAIL_DATEDESAISIE] = $d->getDocument()->valide->date_saisie;
       $line[self::CSV_COL_DETAIL_MODEDESAISIE] = $d->getDocument()->mode_de_saisie;
       $csv->csvdata[] = $line;
     }
