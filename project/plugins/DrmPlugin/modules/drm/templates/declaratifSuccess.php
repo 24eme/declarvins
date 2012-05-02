@@ -10,6 +10,21 @@
 
             <form id="declaratif_info" action="<?php echo url_for('drm_declaratif', $drm) ?>" method="post">
                 <?php echo $form->renderHiddenFields() ?>
+                
+                <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && $form->getObject()->isRectificative()): ?>
+                <ul class="onglets_declaratif">
+                    <li class="actif"><strong>Administrateur</strong></li>
+                </ul>
+
+                <div class="contenu_onglet_declaratif ">
+                    <p class="intro"><?php echo $form['raison_rectificative']->renderLabel() ?></p>
+                    <div class="ligne_form alignes">
+                        <?php echo $form['raison_rectificative']->renderError() ?>
+                        <?php echo $form['raison_rectificative']->render() ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+                
                 <ul class="onglets_declaratif">
                     <li class="actif"><strong>Défaut d'apurement</strong></li>
                 </ul>

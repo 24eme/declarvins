@@ -606,8 +606,9 @@ DRM:
       _id: {  }
       _rev: {  }
       type: {  }
-      campagne: {  }
+      raison_rectificative: {  }
       etape: {  }
+      campagne: {  }
       precedente: {  }
       rectificative: { type: integer, required: false }
       produits:

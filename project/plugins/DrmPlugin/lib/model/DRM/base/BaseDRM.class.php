@@ -7,6 +7,7 @@
  * @property string $_id
  * @property string $_rev
  * @property string $type
+ * @property string $raison_rectificative
  * @property string $etape
  * @property string $campagne
  * @property string $precedente
@@ -28,6 +29,8 @@
  * @method string set_rev()
  * @method string getType()
  * @method string setType()
+ * @method string getRaisonRectificative()
+ * @method string setRaisonRectificative()
  * @method string getEtape()
  * @method string setEtape()
  * @method string getCampagne()

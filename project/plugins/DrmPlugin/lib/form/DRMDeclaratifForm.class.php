@@ -18,6 +18,7 @@ class DRMDeclaratifForm extends BaseForm {
     public function getDefaultValues() {
         $has_frequence_paiement = ($this->_drm->declaratif->paiement->douane->frequence) ? 1 : '';
         $default = array(
+            'raison_rectificative' => $this->_drm->raison_rectificative,
             'apurement' => $this->_drm->declaratif->defaut_apurement,
             'daa_debut' => $this->_drm->declaratif->daa->debut,
             'daa_fin' => $this->_drm->declaratif->daa->fin,
@@ -34,6 +35,7 @@ class DRMDeclaratifForm extends BaseForm {
 
     public function configure() {
         $this->setWidgets(array(
+        	'raison_rectificative' => new sfWidgetFormTextarea(),
             'apurement' => new sfWidgetFormChoice(array(
                 'expanded' => true,
                 'choices' => array(
@@ -75,6 +77,7 @@ class DRMDeclaratifForm extends BaseForm {
         ));
 
         $this->widgetSchema->setLabels(array(
+        	'raison_rectificative' => 'Raison de la rectificative :',
             'daa_debut' => 'du',
             'daa_fin' => 'au',
             'dsa_debut' => 'du ',
@@ -84,6 +87,7 @@ class DRMDeclaratifForm extends BaseForm {
             'frequence' => 'Veuillez sélectionner votre type d\'échéance :'
         ));
         $this->setValidators(array(
+        	'raison_rectificative' => new sfValidatorString(array('required' => false)),
             'apurement' => new sfValidatorChoice(array('required' => true, 'choices' => array(0, 1))),
             'daa_debut' => new sfValidatorInteger(array('required' => false)),
             'daa_fin' => new sfValidatorInteger(array('required' => false)),
@@ -135,6 +139,7 @@ class DRMDeclaratifForm extends BaseForm {
     public function save() {
         $values = $this->getValues();
         $adhesion_emcs_gamma = ($values['adhesion_emcs_gamma']) ? 1 : null;
+        $this->_drm->raison_rectificative = $values['raison_rectificative'];
         $this->_drm->declaratif->defaut_apurement = (int) $values['apurement'];
         $this->_drm->declaratif->daa->debut = (int) $values['daa_debut'];
         $this->_drm->declaratif->daa->fin = (int) $values['daa_fin'];
@@ -153,6 +158,10 @@ class DRMDeclaratifForm extends BaseForm {
 
     private function hasWidgetFrequence() {
         return ($this->_drm->declaratif->paiement->douane->frequence && !DRMPaiement::isDebutCampagne()) ? false : true;
+    }
+    
+    public function getObject() {
+    	return $this->_drm;
     }
 
 }
