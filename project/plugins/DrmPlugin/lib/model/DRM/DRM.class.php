@@ -8,6 +8,12 @@ class DRM extends BaseDRM {
 
     const NOEUD_TEMPORAIRE = 'TMP';
     const DEFAULT_KEY = 'DEFAUT';
+    const VALIDE_STATUS_EN_COURS = '';
+    const VALIDE_STATUS_VALIDEE_ENATTENTE = 'VALIDEE';
+    const VALIDE_STATUS_VALIDEE_ENVOYEE = 'ENVOYEE';
+    const VALIDE_STATUS_VALIDEE_RECUE = 'RECUE';
+
+
 
     public function constructId() {
         $rectificative = ($this->exist('rectificative')) ? $this->rectificative : null;
@@ -337,15 +343,18 @@ class DRM extends BaseDRM {
 
     public function devalide() {
       $this->valide->identifiant = '';
-      $this->valide->date = '';
+      $this->valide->date_saisie = '';
+      $this->valide->date_signee = '';
     }
 
     public function isValidee() {
-      return ($this->valide->date);
+      return ($this->valide->date_saisie);
     }
 
     public function validate($identifiant = null) {
-      $this->valide->add('date', date('c'));
+      $this->valide->add('date_saisie', date('c'));
+      if (! $this->valide->date_signee)
+	$this->valide->add('date_signee', date('c'));
       if (!$identifiant)
 	$identifiant = $this->identifiant;
       $this->valide->identifiant = $identifiant;
@@ -417,7 +426,7 @@ class DRM extends BaseDRM {
 	return strftime('%B %Y', strtotime($this->campagne.'-01'));
     }
     public function getEuValideDate() {
-	return strftime('%d/%m/%Y', strtotime($this->valide->date));
+	return strftime('%d/%m/%Y', strtotime($this->valide->date_signee));
     }
     
     public function isDebutCampagne() {
