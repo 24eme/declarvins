@@ -17,6 +17,8 @@ class adminActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
+  		//$this->getUser()->signOut();
+  	 	//$this->getUser()->signIn('admin-inter-rhone');
         $this->formLogin = new LoginForm();
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->formLogin->bind($request->getParameter($this->formLogin->getName()));

@@ -25,6 +25,7 @@
                 </div>
                 <?php endif; ?>
                 
+                <?php if ($form->getObject()->getApurementPossible()): ?>
                 <ul class="onglets_declaratif">
                     <li class="actif"><strong>Défaut d'apurement</strong></li>
                 </ul>
@@ -46,6 +47,7 @@
                             </div>
                     </div>  -->
                 </div>
+                <?php endif; ?>
 
                 <ul class="onglets_declaratif">
                     <li class="actif"><strong>Mouvements au cours du mois</strong></li>

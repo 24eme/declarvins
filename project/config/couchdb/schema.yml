@@ -606,6 +606,7 @@ DRM:
       _id: {  }
       _rev: {  }
       type: {  }
+      apurement_possible: {  }
       raison_rectificative: {  }
       etape: {  }
       campagne: {  }

@@ -152,6 +152,9 @@ class drmActions extends sfActions
     if ($request->isMethod(sfWebRequest::POST)) {
     	$this->form->bind($request->getParameter($this->form->getName()));
 	if ($this->form->isValid()) {
+		if ($this->drm->hasApurementPossible()) {
+			$this->drm->apurement_possible = 1;
+		}
 	  $this->drm->validate();
 	  $this->drm->save();
 	  

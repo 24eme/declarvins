@@ -115,6 +115,8 @@ class DRM extends BaseDRM {
         $this->add('douane');
         $this->remove('declarant');
         $this->add('declarant');
+        $this->raison_rectificative = null;
+        $this->etape = null;
         $this->declaratif->defaut_apurement = null;
         $this->declaratif->daa->debut = null;
         $this->declaratif->daa->fin = null;
@@ -429,6 +431,19 @@ class DRM extends BaseDRM {
     	if (!$this->isValidee()) {
     		$this->etape = $etape;
     		$this->getDocument()->save();
+    	}
+    }
+    public function hasApurementPossible() {
+    	if (
+    		$this->declaratif->daa->debut ||
+    		$this->declaratif->daa->fin ||
+    		$this->declaratif->dsa->debut ||
+    		$this->declaratif->dsa->debut ||
+    		$this->declaratif->adhesion_emcs_gamma
+    	) {
+    		return true;
+    	} else {
+    		return false;
     	}
     }
     /*
