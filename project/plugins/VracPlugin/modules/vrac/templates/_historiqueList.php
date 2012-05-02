@@ -27,8 +27,8 @@
 			<td><?php echo $vrac[VracHistorique::VIEW_INDEX_VOLUME] ?></td>
 			<td><?php echo $vrac[VracHistorique::VIEW_INDEX_ACHETEUR] ?></td>
 			<td><?php echo $vrac[VracHistorique::VIEW_INDEX_COURTIER] ?></td>
-			<td><?php echo ($vrac[VracHistorique::VIEW_INDEX_ACTIF])? 'Actif' : 'Inactif'; ?></td>
-			<td><a href="<?php echo url_for('vrac_switch', array('id' => $vrac[VracHistorique::VIEW_INDEX_ID], 'annee' => $vrac[VracHistorique::VIEW_INDEX_ANNEE]))?>"><?php echo (!$vrac[VracHistorique::VIEW_INDEX_ACTIF])? 'Activer' : 'Désactiver'; ?></a></td>
+			<td><?php echo ($vrac[VracHistorique::VIEW_INDEX_ACTIF])? 'Ouvert' : 'Cloturé'; ?></td>
+			<td><a href="<?php echo url_for('vrac_switch', array('id' => $vrac[VracHistorique::VIEW_INDEX_ID], 'annee' => $vrac[VracHistorique::VIEW_INDEX_ANNEE]))?>"><?php echo (!$vrac[VracHistorique::VIEW_INDEX_ACTIF])? 'Ouvrir' : 'Cloturer'; ?></a></td>
 		</tr>
 		<?php endforeach; ?>
 	</tbody>
