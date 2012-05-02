@@ -41,6 +41,10 @@ class produitActions extends sfActions
 	  				$object = $object->getOrAdd($produit)->add(Configuration::DEFAULT_KEY);
 	  				$object->set('libelle', $pile[$produit]);
 	  				$noeud = $object->getTypeNoeud();
+	  				if ($noeud == ConfigurationCouleur::TYPE_NOEUD) {
+	  					$codeCouleurs = ConfigurationProduit::getCodeCouleurs();
+	  					$object->set('code', $codeCouleurs[$pile[$produit]]);
+	  				}
 	  				break;
 	  			} else {
 	  				$object = $object->getOrAdd($produit)->add(Configuration::DEFAULT_KEY);

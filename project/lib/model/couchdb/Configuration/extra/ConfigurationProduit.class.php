@@ -4,6 +4,7 @@ class ConfigurationProduit
 	protected static $arborescence = array('certifications', 'appellations', 'lieux', 'couleurs', 'cepages', 'millesimes');
 	protected static $certifications = array('' => '', 'AOP' => 'AOP', 'IGP' => 'IGP', 'VINSSANSIG' => 'SANS IG', 'LIE' => 'LIE');
 	protected static $couleurs = array('' => '', 'Rouge' => 'Rouge', 'Blanc' => 'Blanc', 'Rosé' => 'Rosé');
+	protected static $codeCouleurs = array('Rouge' => 'rouge', 'Blanc' => 'blanc', 'Rosé' => 'rose');
 	
 	protected $datas;
 	protected $appellations;
@@ -62,5 +63,8 @@ class ConfigurationProduit
     }
     public static function getArborescence() {
     	return self::$arborescence;
+    }
+    public static function getCodeCouleurs() {
+    	return self::$codeCouleurs;
     }
 }
