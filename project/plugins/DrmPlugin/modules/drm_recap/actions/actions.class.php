@@ -5,6 +5,7 @@ class drm_recapActions extends sfActions
     
     public function executeIndex(sfWebRequest $request) {
         $this->init();
+
         if ($request->isMethod(sfWebRequest::POST)) {
         	$this->drm->setCurrentEtapeRouting('vrac');
         	$this->redirect('drm_vrac', $this->drm);

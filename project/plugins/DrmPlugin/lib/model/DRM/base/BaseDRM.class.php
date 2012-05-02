@@ -12,7 +12,7 @@
  * @property string $campagne
  * @property string $precedente
  * @property integer $rectificative
- * @property acCouchdbJson $produits
+ * @property DRMProduits $produits
  * @property acCouchdbJson $droits
  * @property DRMDeclaration $declaration
  * @property DRMDeclarant $declarant
@@ -39,8 +39,8 @@
  * @method string setPrecedente()
  * @method integer getRectificative()
  * @method integer setRectificative()
- * @method acCouchdbJson getProduits()
- * @method acCouchdbJson setProduits()
+ * @method DRMProduits getProduits()
+ * @method DRMProduits setProduits()
  * @method acCouchdbJson getDroits()
  * @method acCouchdbJson setDroits()
  * @method DRMDeclaration getDeclaration()

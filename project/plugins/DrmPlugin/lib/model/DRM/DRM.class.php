@@ -73,7 +73,7 @@ class DRM extends BaseDRM {
                     	foreach ($couleur->cepages as $cepage) {
     	                    foreach ($cepage->millesimes as $millesime) {
                                 foreach ($millesime->details as $detail) {
-				  $details[] = $detail;
+				                    $details[] = $detail;
                                 }
     	                    }
                     	}
@@ -443,4 +443,5 @@ class DRM extends BaseDRM {
     		return false;
     	}
     }
+    
 }

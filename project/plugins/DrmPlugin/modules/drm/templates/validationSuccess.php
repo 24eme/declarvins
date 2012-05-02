@@ -38,7 +38,11 @@
                     ?>
                 </div>
                 <div id="contenu_onglet">
-                    <?php include_partial('drm/recap', array('drm' => $drm)) ?>
+                    <?php if(!$drm->declaration->hasPasDeMouvement() && !$drm->declaration->hasStockEpuise()):  ?>
+                        <?php include_partial('drm/recap', array('drm' => $drm)) ?>
+                        <?php include_partial('drm/droits', array('drm' => $drm)) ?>
+                    <?php else: ?>
+                        <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
                 </div>
             </div>
             <div id="btn_etape_dr">

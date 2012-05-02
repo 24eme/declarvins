@@ -17,4 +17,15 @@ class DRMProduitAppellation extends BaseDRMProduitAppellation {
 
 		return $this->getCertification()->getDeclaration()->appellations->get($this->getKey());
 	}
+
+	public function hasMouvement() {
+		foreach($this as $produit) {
+			if (!$produit->pas_de_mouvement) {
+
+				return true;
+			}
+		}
+
+		return false;
+	}
 }

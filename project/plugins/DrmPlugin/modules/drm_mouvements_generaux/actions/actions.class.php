@@ -25,8 +25,15 @@ class drm_mouvements_generauxActions extends sfActions
             $this->first_certification = $this->drm->declaration->certifications->getFirst();
         }
         if ($request->isMethod(sfWebRequest::POST)) {
-        	$this->drm->setCurrentEtapeRouting('recapitulatif');
-        	$this->redirect('drm_recap', $this->first_certification);
+
+            if($this->drm->produits->hasMouvement()) {
+        	   $this->drm->setCurrentEtapeRouting('recapitulatif');
+        	   $this->redirect('drm_recap', $this->first_certification);
+            } else {
+               $this->drm->setCurrentEtapeRouting('declaratif');
+               $this->redirect('drm_declaratif', $this->drm);
+            }
+
         }
     }
     

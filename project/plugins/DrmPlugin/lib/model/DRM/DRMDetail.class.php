@@ -159,9 +159,11 @@ class DRMDetail extends BaseDRMDetail {
     public function getDroitVolume($type) {
       return $this->sommeLignes(DRMDroits::getDroitSorties()) - $this->sommeLignes(DRMDroits::getDroitEntrees());
     }
+
     public function getDroit($type) {
       return $this->getAppellation()->getDroit($type);
     }
+
     protected function init() {
       parent::init();
 

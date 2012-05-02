@@ -612,6 +612,7 @@ DRM:
       precedente: {  }
       rectificative: { type: integer, required: false }
       produits:
+        class: DRMProduits
         type: collection
         definition:
           fields:

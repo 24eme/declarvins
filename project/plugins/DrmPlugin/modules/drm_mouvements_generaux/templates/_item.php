@@ -16,7 +16,7 @@
 	<td>
 		<form class="updateProduct" action="<?php echo url_for('drm_mouvements_generaux_produit_update', $form->getObject()) ?>" method="post">
 			<?php echo $form->renderHiddenFields() ?>
-			<?php echo $form['pas_de_mouvement']->render() ?>
+			<?php echo $form['pas_de_mouvement']->render(array("class" => "pas_de_mouvement")) ?>
 		</form>
 	</td>
 </tr>
