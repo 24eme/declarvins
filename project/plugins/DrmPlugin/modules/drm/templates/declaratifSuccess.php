@@ -40,7 +40,6 @@
                 <?php endif; ?>
                 <?php endif; ?>
                 
-                <?php if ($form->getObject()->getApurementPossible()): ?>
                 <ul class="onglets_declaratif">
                     <li class="actif"><strong>Défaut d'apurement</strong></li>
                 </ul>
@@ -53,16 +52,8 @@
                         <?php echo $form['apurement']->render() ?>
 
                     </div>
-
-
-                    <!-- <div class="col">
-                            <div class="ligne_form">
-                                <input type="radio" name="defaut_apurement" id="defaut_apurement">
-                                <label for="defaut_apurement">Défaut d'apurement à déclarer (Joindre relevé de non apurement et copie du DAA)</label>
-                            </div>
-                    </div>  -->
                 </div>
-                <?php endif; ?>
+                
 				<?php if ($form->getObject()->hasVrac()): ?>
                 <ul class="onglets_declaratif">
                     <li class="actif"><strong>Mouvements au cours du mois</strong></li>
