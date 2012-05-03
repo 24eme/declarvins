@@ -251,7 +251,8 @@ class DRM extends BaseDRM {
         }
 
         $drm_rectificative->rectificative += 1;
-	$drm_rectificative->devalide();
+	    $drm_rectificative->devalide();
+        $drm_rectificative->etape = 'ajouts_liquidations';
 
         return $drm_rectificative;
     }
@@ -290,6 +291,7 @@ class DRM extends BaseDRM {
 
         if ($next_drm) {
             $next_drm_rectificative = $next_drm->generateRectificative();
+            $next_drm_rectificative->etape = 'validation';
             foreach($this->getDiffWithMasterDRM() as $key => $value) {
                 $this->replicateDetail($next_drm_rectificative, $key, $value, 'total', 'total_debut_mois');
                 $this->replicateDetail($next_drm_rectificative, $key, $value, 'stocks_fin/bloque', 'stocks_debut/bloque');
