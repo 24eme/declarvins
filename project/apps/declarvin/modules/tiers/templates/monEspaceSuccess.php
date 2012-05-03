@@ -2,7 +2,7 @@
 	<?php include_partial('global/navTop', array('active' => 'drm')) ?>
 	<div id="creation_compte" style="width:70%; float: left;">
 		<h1>Déclaration Récapitulative Mensuelle</h1>
-		<p>Bienvenue sur votre espace DRM. Que pensez-vous faire ?</p>
+		<p>Bienvenue sur votre espace DRM. Que voulez-vous faire ?</p>
 		<br /><br />
 		<ul>
 			<li><a href="#">Accédez à mon historique de DRM &raquo;</a></li>

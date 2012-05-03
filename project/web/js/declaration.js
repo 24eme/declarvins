@@ -27,6 +27,7 @@
 	var btnAjouter = colonnesDR.find('.btn_ajouter');
 	
 	var btnEtapesDR = $('#btn_etape_dr');
+        var btnPrecSuivProd = $('#btn_suiv_prec');
         
 	$(document).ready( function()
 	{
@@ -459,6 +460,7 @@
 		colActive.desactiverAutresCol();
 		
 		btnEtapesDR.addClass('inactif');
+                btnPrecSuivProd.addClass('inactif');
 		
 		$.majColSaisiesScroll();
 	};
@@ -499,6 +501,7 @@
 			colSaisiesRecolte.find('input, select').removeAttr('disabled');
 			
 			btnEtapesDR.removeClass('inactif');
+                        btnPrecSuivProd.removeClass('inactif');
 		}
 	};
 	

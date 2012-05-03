@@ -17,6 +17,11 @@ class tiersActions extends sfActions
   */
   public function executeLogin(sfWebRequest $request) 
   {
+  	if ($this->getUser()->hasCredential(myUser::CREDENTIAL_TIERS)) {
+  		return $this->redirect("@drm_mon_espace");
+  	} elseif ($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+  		return $this->redirect("@admin");	
+  	}
 	$this->getUser()->signOutTiers();
 	$this->compte = $this->getUser()->getCompte();
 	$this->form = new TiersLoginForm($this->compte, true);

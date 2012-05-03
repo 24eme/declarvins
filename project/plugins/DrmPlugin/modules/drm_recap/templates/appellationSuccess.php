@@ -10,34 +10,28 @@
         <div id="application_dr">
             <?php include_component('drm_recap', 'onglets', array('config_appellation' => $config_appellation, 'drm_appellation' => $drm_appellation)) ?>
             <div id="contenu_onglet">
-				<!--<div class="notice">
-					<h2>Raccourcis clavier :</h2>
-					<ul>
-						<li><kbd>Ctrl</kbd> + <kbd>Gauche</kbd> : Aller à la colonne de gauche</li>
-						<li><kbd>Ctrl</kbd> + <kbd>Droite</kbd> : Aller à la colonne de droite</li>
-						<li><kbd>Ctrl</kbd> + <kbd>M</kbd> : Commencer la saisie de la colonne courante</li>
-						<li><kbd>Ctrl</kbd> + <kbd>Z</kbd> : Réinitialiser les valeurs de la colonne courante</li>
-						<li><kbd>Ctrl</kbd> + <kbd>Entrée</kbd> : Valider la colonne courante</li>
-					</ul>
-				</div>-->
+                <!--<div class="notice">
+                        <h2>Raccourcis clavier :</h2>
+                        <ul>
+                                <li><kbd>Ctrl</kbd> + <kbd>Gauche</kbd> : Aller à la colonne de gauche</li>
+                                <li><kbd>Ctrl</kbd> + <kbd>Droite</kbd> : Aller à la colonne de droite</li>
+                                <li><kbd>Ctrl</kbd> + <kbd>M</kbd> : Commencer la saisie de la colonne courante</li>
+                                <li><kbd>Ctrl</kbd> + <kbd>Z</kbd> : Réinitialiser les valeurs de la colonne courante</li>
+                                <li><kbd>Ctrl</kbd> + <kbd>Entrée</kbd> : Valider la colonne courante</li>
+                        </ul>
+                </div>-->
                 <?php include_component('drm_recap', 'list', array('drm_appellation' => $drm_appellation, 'config_appellation' => $config_appellation, 'form' => $form)); ?>
             </div>
             <div id="btn_etape_dr">
-                <?php if ($produits_appellation = $drm_appellation->getProduits()->getPrevious()): ?>
-                <a href="<?php echo url_for('drm_recap_appellation', $produits_appellation->getDeclaration()) ?>" class="btn_prec">
-                <?php elseif ($produits_certification = $drm_appellation->getCertification()->getProduits()->getPrevious()): ?>
-                <a href="<?php echo url_for('drm_recap_appellation', $produits_certification->getLast()->getDeclaration()) ?>" class="btn_prec">
+                <?php if ($previous): ?>
+                <a href="<?php echo url_for('drm_recap_appellation', $previous) ?>" class="btn_prec">
                 <?php else: ?>
                 <a href="<?php echo url_for('drm_mouvements_generaux', $drm) ?>" class="btn_prec">
                 <?php endif; ?>
                 	<span>Précédent</span>
                 </a>
-                <?php if ($produits_appellation = $drm_appellation->getProduits()->getNext()): ?>
-                <a href="<?php echo url_for('drm_recap_appellation', $produits_appellation->getDeclaration()) ?>" class="btn_suiv">
-                	<span>Suivant</span>
-                </a>
-                <?php elseif ($produits_certification = $drm_appellation->getCertification()->getProduits()->getNext()): ?>
-                <a href="<?php echo url_for('drm_recap_appellation', $produits_certification->getFirst()->getDeclaration()) ?>" class="btn_suiv">
+                <?php if ($next): ?>
+                <a href="<?php echo url_for('drm_recap_appellation', $next) ?>" class="btn_suiv">
                 	<span>Suivant</span>
                 </a>
                 <?php else: ?>                
