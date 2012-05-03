@@ -11,7 +11,8 @@
             <form id="declaratif_info" action="<?php echo url_for('drm_declaratif', $drm) ?>" method="post">
                 <?php echo $form->renderHiddenFields() ?>
                 
-                <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && $form->getObject()->isRectificative()): ?>
+                <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
+                <?php if ($form->getObject()->isRectificative()): ?>
                 <ul class="onglets_declaratif">
                     <li class="actif"><strong>Administrateur</strong></li>
                 </ul>
@@ -23,6 +24,20 @@
                         <?php echo $form['raison_rectificative']->render() ?>
                     </div>
                 </div>
+                <?php endif; ?>
+                <?php if ($form->getObject()->isValidee()): ?>
+                <ul class="onglets_declaratif">
+                    <li class="actif"><strong>Date signature</strong></li>
+                </ul>
+
+                <div class="contenu_onglet_declaratif ">
+                    <p class="intro"><?php echo $form['date_signee']->renderLabel() ?></p>
+                    <div class="ligne_form alignes">
+                        <?php echo $form['date_signee']->renderError() ?>
+                        <?php echo $form['date_signee']->render() ?>
+                    </div>
+                </div>
+                <?php endif; ?>
                 <?php endif; ?>
                 
                 <?php if ($form->getObject()->getApurementPossible()): ?>

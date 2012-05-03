@@ -41,13 +41,21 @@ class drm_mouvements_generauxActions extends sfActions
     {
         $this->forward404Unless($request->isXmlHttpRequest());
         if ($request->isMethod(sfWebRequest::POST)) {
+        	$this->getResponse()->setContentType('text/json');
 			$form = new DRMMouvementsGenerauxProduitModificationForm($this->getRoute()->getObject());
         	$form->bind($request->getParameter($form->getName()));
             if ($form->isValid()) {
-               $form->save();
+            	$drm = $this->getUser()->getDrm();
+            	$detail = $this->getRoute()->getObject()->getDetail();
+            	if ($detail->hasPasDeMouvement()) {
+               		$form->save();
+               		return $this->renderText(json_encode(array("success" => true)));
+            	} else {
+            		return $this->renderText(json_encode(array("success" => false, "notice" => "Attention, il existe du mouvement pour ce produit")));
+            	}
             }
         } 
-        return sfView::NONE;
+        return $this->renderText(json_encode(array("success" => false)));
     }
     
     public function executeDeleteAjax(sfWebRequest $request) 

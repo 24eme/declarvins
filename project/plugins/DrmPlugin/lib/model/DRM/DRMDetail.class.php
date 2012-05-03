@@ -197,4 +197,11 @@ class DRMDetail extends BaseDRMDetail {
       }
       return $sum;
     }
+	/*
+	 * Fonction calculée
+	 */
+    public function hasPasDeMouvement() {
+
+        return $this->total_entrees == 0 && $this->total_sorties == 0;
+    }
 }
