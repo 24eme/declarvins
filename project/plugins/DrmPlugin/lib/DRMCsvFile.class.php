@@ -67,6 +67,12 @@ class DRMCsvFile extends CsvFile
   const CSV_COL_DETAIL_IDDRMDECLARVIN = 56;
   const CSV_COL_DETAIL_ID_ETABLISSEMENT_INTERNE = 57;
 
+  public static function createFromArray($array) {
+    $csv = new DRMCsvFile();
+    $csv->csvdata = $array;
+    return $csv;
+  }
+
   public static function createFromDRM(DRM $drm) {
     $csv = new DRMCsvFile();
     $csv->csvdata = array();
@@ -238,7 +244,7 @@ class DRMCsvFile extends CsvFile
     }
 
     if (count($this->errors)) {
-      throw new sfException('errors');
+      throw new sfException('errors (cf. DRMCsvFile->errors)');
     }
     return $this->drm;
   }
