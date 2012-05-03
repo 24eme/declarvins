@@ -34,24 +34,56 @@ EOF;
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
     $import_dir = sfConfig::get('sf_data_dir').'/import/configuration';
+    
+    /*
+     * COMPTE VIRTUEL ADMIN
+     */
 
-    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin')) {
+    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin-civp')) {
         $compte->delete();
     }
-
-    $compte = new CompteTiers();
-    $compte->nom = "Admin";
-    $compte->prenom = "Ruth";
-    $compte->login = 'admin';
-    $compte->email = 'admin@example.org';
-    $compte->mot_de_passe = "bonjour";
+    $compte = new CompteVirtuel();
+    $compte->nom = "CIVP";
+    $compte->login = 'admin-civp';
+    $compte->email = 'mcouderc@provencewines.com';
+    $compte->mot_de_passe = "admin";
+    $compte->droits->add(null, 'admin');
+    $compte->interpro = "INTERPRO-civp";
     $compte->save();
+    
+    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin-inter-rhone')) {
+        $compte->delete();
+    }
+    $compte = new CompteVirtuel();
+    $compte->nom = "Inter-Rhône";
+    $compte->login = 'admin-inter-rhone';
+    $compte->email = 'beymard@inter-rhone.com';
+    $compte->mot_de_passe = "admin";
+    $compte->droits->add(null, 'admin');
+    $compte->interpro = "INTERPRO-inter-rhone";
+    $compte->save();
+    
+    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin-intervins-sud-est')) {
+        $compte->delete();
+    }
+    $compte = new CompteVirtuel();
+    $compte->nom = "Intervins Sud-Est";
+    $compte->login = 'admin-intervins-sud-est';
+    $compte->email = 'marie.de-monte@intervins-sudest.org';
+    $compte->mot_de_passe = "admin";
+    $compte->droits->add(null, 'admin');
+    $compte->interpro = "INTERPRO-intervins-sud-est";
+    $compte->save();
+    
+    /*
+     * FIN COMPTE VIRTUEL ADMIN
+     */
 
-    $ldap = new Ldap();
+    /*$ldap = new Ldap();
     $ldap->connect();
     if ($ldap->exist($compte))
       $ldap->delete($compte);
-    $ldap->saveCompte($compte);
+    $ldap->saveCompte($compte);*/
 
     if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-autologin')) {
         $compte->delete();
