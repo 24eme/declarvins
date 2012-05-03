@@ -18,7 +18,7 @@ class drmComponents extends sfComponents {
         
         $this->numeros = array(
             'informations' => 1,
-            'ajouts-liquidations' => 2,
+            'ajouts_liquidations' => 2,
             'recapitulatif' => 3,
             'vrac' => 3 + count($this->certifications),
             'declaratif' => 4 + count($this->certifications),
@@ -26,6 +26,7 @@ class drmComponents extends sfComponents {
         );
         
         $this->numero = $this->numeros[$this->etape];
+        $this->numero_autorise = $this->numeros[$this->drm->etape];
         $this->numero_vrac = $this->numeros['vrac'];
         $this->numero_declaratif = $this->numeros['declaratif'];
         $this->numero_validation = $this->numeros['validation'];

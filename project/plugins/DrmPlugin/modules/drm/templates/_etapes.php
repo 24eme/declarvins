@@ -1,38 +1,53 @@
 <div id="statut_declaration">
 	<nav id="declaration_etapes">
 		<ol>
-			<li class="premier <?php echo ($numero > 1) ? 'passe' : '' ?> <?php echo ($numero == 1) ? 'actif' : '' ?>">
-				<a href="<?php echo url_for('drm_informations', $drm) ?>">
-					<span>1. Informations</span>
-				</a>
-			</li>
-			<li class="<?php echo ($numero > 2) ? 'passe' : '' ?> <?php echo ($numero == 2) ? 'actif' : '' ?>">
-            	<a href="<?php echo url_for('drm_mouvements_generaux', $drm) ?>">
-            		<span>2. Ajouts / Liquidations</span>
-            	</a>
-            </li>
+                  <?php include_partial('drm/etapeItem', array('drm' => $drm,
+                                                               'libelle' => 'Informations',
+                                                               'numero' => 1,
+                                                               'numero_courant' => $numero,
+                                                               'numero_autorise' => $numero_autorise,
+                                                               'url' => url_for('drm_informations', $drm),
+                                                               'cssclass' => 'premier')); ?>
+
+                  <?php include_partial('drm/etapeItem', array('drm' => $drm,
+                                                               'libelle' => 'Ajouts / Liquidations',
+                                                               'numero' => 2,
+                                                               'numero_courant' => $numero,
+                                                               'numero_autorise' => $numero_autorise,
+                                                               'url' => url_for('drm_mouvements_generaux', $drm),
+                                                               'cssclass' => null)); ?>
             <?php foreach($certifications as $key => $certification): ?>
-            <li class="<?php echo ($numero > $key) ? 'passe' : '' ?> <?php echo ($numero == $key) ? 'actif' : '' ?>">
-            	<a href="<?php echo url_for('drm_recap', $drm->declaration->certifications->get($certification)) ?>">
-            		<span><?php echo $key ?>. <?php echo $certificationsLibelle[$key] ?></span>
-            	</a>
-	     </li>
+                 <?php include_partial('drm/etapeItem', array('drm' => $drm,
+                                                               'libelle' => $certificationsLibelle[$key],
+                                                               'numero' => $key,
+                                                               'numero_courant' => $numero,
+                                                               'numero_autorise' => $numero_autorise,
+                                                               'url' => url_for('drm_recap', $drm->declaration->certifications->get($certification)),
+                                                               'cssclass' => null)); ?>
             <?php endforeach; ?>
-            <li class="<?php echo ($numero > $numero_vrac) ? 'passe' : '' ?> <?php echo ($numero == $numero_vrac) ? 'actif' : '' ?>">
-            	<a href="<?php echo url_for('drm_vrac', $drm) ?>">
-            		<span><?php echo $numero_vrac ?>. Vrac</span>
-            	</a>
-            </li>
-            <li class="<?php echo ($numero > $numero_declaratif) ? 'passe' : '' ?> <?php echo ($numero == $numero_declaratif) ? 'actif' : '' ?>">
-                  <a href="<?php echo url_for('drm_declaratif', $drm) ?>">
-                        <span><?php echo $numero_declaratif ?>. Déclaratif</span>
-                  </a>
-            </li>
-		<li class="dernier <?php echo ($numero > $numero_validation) ? 'passe' : '' ?> <?php echo ($numero == $numero_validation) ? 'actif' : '' ?>">
-            	<span>
-            		<span><?php echo $numero_validation ?>. Validation</span>
-            	</span>
-            </li>
+            <?php include_partial('drm/etapeItem', array('drm' => $drm,
+                                                               'libelle' => 'Vrac',
+                                                               'numero' => $numero_vrac,
+                                                               'numero_courant' => $numero,
+                                                               'numero_autorise' => $numero_autorise,
+                                                               'url' => url_for('drm_vrac', $drm),
+                                                               'cssclass' => null)); ?>
+
+            <?php include_partial('drm/etapeItem', array('drm' => $drm,
+                                                               'libelle' => 'Déclaratif',
+                                                               'numero' => $numero_declaratif,
+                                                               'numero_courant' => $numero,
+                                                               'numero_autorise' => $numero_autorise,
+                                                               'url' => url_for('drm_declaratif', $drm),
+                                                               'cssclass' => null)); ?>
+
+            <?php include_partial('drm/etapeItem', array('drm' => $drm,
+                                                               'libelle' => 'Validation',
+                                                               'numero' => $numero_validation,
+                                                               'numero_courant' => $numero,
+                                                               'numero_autorise' => $numero_autorise,
+                                                               'url' => url_for('drm_validation', $drm),
+                                                               'cssclass' => 'dernier')); ?>
 		</ol>
 	</nav>	
 	<div id="etat_avancement">
