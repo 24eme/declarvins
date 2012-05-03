@@ -43,6 +43,7 @@
                         <?php include_partial('drm/droits', array('drm' => $drm)) ?>
                     <?php else: ?>
                         <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
+                    <?php endif; ?>
                 </div>
             </div>
             <div id="btn_etape_dr">

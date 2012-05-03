@@ -13,8 +13,8 @@ class importTask extends sfBaseTask {
 		// add your own options here
 		));
 
-		$this->namespace = 'messages';
-		$this->name = 'import';
+		$this->namespace = 'import';
+		$this->name = 'messages';
 		$this->briefDescription = 'import csv messages file';
 		$this->detailedDescription = <<<EOF
 The [import|INFO] task does things.

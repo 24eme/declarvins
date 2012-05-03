@@ -30,6 +30,10 @@ class DRMDeclaratifForm extends BaseForm {
             'organisme' => $this->_drm->declaratif->caution->organisme,
             'moyen_paiement' => $this->_drm->declaratif->paiement->douane->moyen
         );
+
+        if(!$this->getObject()->getApurementPossible()) {
+            $default['apurement'] = 0;
+        }
         return $default;
     }
 
@@ -99,6 +103,10 @@ class DRMDeclaratifForm extends BaseForm {
             'moyen_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array('Numéraire', 'Chèque', 'Virement'))),
             'frequence' => new sfValidatorChoice(array('required' => true, 'choices' => array(DRMPaiement::FREQUENCE_ANNUELLE, DRMPaiement::FREQUENCE_MENSUELLE)))
         ));
+
+        if(!$this->getObject()->getApurementPossible()) {
+            $this->setWidget('apurement', new sfWidgetFormInputHidden());
+        }
         
 
         $this->validatorSchema['apurement']->setMessage('required', 'Vous n\'avez pas selectionné de défaut d\'apurement.');
