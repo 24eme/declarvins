@@ -235,7 +235,7 @@ class DRM extends BaseDRM {
       if ($this->droits->douane->getCumul() != $this->getDRMMaster()->droits->douane->getCumul()) {
 	return true;
       }
-      return false;
+        return false;
     }
 
     public function generateRectificative() {
@@ -459,12 +459,17 @@ class DRM extends BaseDRM {
     }
     public function hasVrac() {
     	$detailsVrac = $this->getDetailsAvecVrac();
-    	if (count($detailsVrac) > 0) {
-    		return true;
-    	} else {
-    		return false;
-    	}
+    	return (count($detailsVrac) > 0) ;
     }
+    
+    public function hasConditionneExport() {
+      return ($this->declaration->getTotalByKey('sorties/export') > 0);
+    }
+
+    public function hasMouvementAuCoursDuMois() {
+      return $this->hasVrac() || $this->hasConditionneExport();
+    }
+
     public function isEnvoyee() {
     	if (!$this->exist('valide'))
     		return false;

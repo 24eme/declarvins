@@ -63,7 +63,7 @@
                     </div>  -->
                 </div>
                 <?php endif; ?>
-				<?php if ($form->getObject()->hasVrac()): ?>
+		<?php if ($form->getObject()->hasMouvementAuCoursDuMois()): ?>
                 <ul class="onglets_declaratif">
                     <li class="actif"><strong>Mouvements au cours du mois</strong></li>
                 </ul>
