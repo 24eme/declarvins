@@ -132,7 +132,7 @@
 						.appendTo( ul );
 					};
 
-					this.button = $( "<button type='button'>&nbsp;&nbsp;v</button>" )
+					this.button = $( "<button type='button'></button>" )
 					.attr( "tabIndex", -1 )
 					.attr( "title", "Voir toute la liste" )
 					.insertAfter( input )
