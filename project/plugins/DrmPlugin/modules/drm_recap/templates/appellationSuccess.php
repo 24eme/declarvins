@@ -23,21 +23,15 @@
                 <?php include_component('drm_recap', 'list', array('drm_appellation' => $drm_appellation, 'config_appellation' => $config_appellation, 'form' => $form)); ?>
             </div>
             <div id="btn_etape_dr">
-                <?php if ($produits_appellation = $drm_appellation->getProduits()->getPrevious()): ?>
-                <a href="<?php echo url_for('drm_recap_appellation', $produits_appellation->getDeclaration()) ?>" class="btn_prec">
-                <?php elseif ($produits_certification = $drm_appellation->getCertification()->getProduits()->getPrevious()): ?>
-                <a href="<?php echo url_for('drm_recap_appellation', $produits_certification->getLast()->getDeclaration()) ?>" class="btn_prec">
+                <?php if ($previous): ?>
+                <a href="<?php echo url_for('drm_recap_appellation', $previous) ?>" class="btn_prec">
                 <?php else: ?>
                 <a href="<?php echo url_for('drm_mouvements_generaux', $drm) ?>" class="btn_prec">
                 <?php endif; ?>
                 	<span>Précédent</span>
                 </a>
-                <?php if ($produits_appellation = $drm_appellation->getProduits()->getNext()): ?>
-                <a href="<?php echo url_for('drm_recap_appellation', $produits_appellation->getDeclaration()) ?>" class="btn_suiv">
-                	<span>Suivant</span>
-                </a>
-                <?php elseif ($produits_certification = $drm_appellation->getCertification()->getProduits()->getNext()): ?>
-                <a href="<?php echo url_for('drm_recap_appellation', $produits_certification->getFirst()->getDeclaration()) ?>" class="btn_suiv">
+                <?php if ($next): ?>
+                <a href="<?php echo url_for('drm_recap_appellation', $next) ?>" class="btn_suiv">
                 	<span>Suivant</span>
                 </a>
                 <?php else: ?>                
