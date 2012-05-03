@@ -4,7 +4,7 @@
     
     <h1>Vrac</h1>
     
-    <p class="intro">Bienvenue sur votre espace Vrac. Que pensez-vous faire ?</p>
+    <p class="intro">Bienvenue sur votre espace Vrac. Que voulez-vous faire ?</p>
     
     <section id="principal">
         <div id="recap_drm">
