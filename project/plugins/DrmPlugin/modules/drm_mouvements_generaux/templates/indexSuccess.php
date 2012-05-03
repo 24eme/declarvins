@@ -6,7 +6,6 @@
 
     <section id="principal">
 		<div id="application_dr">
-			<ul id="onglets_principal"><li class="actif"><strong>Mouvements Généraux</strong></li></ul>
 			<div id="contenu_onglet">
 				<?php if($first_certification): ?>
 				<a href="<?php echo url_for('drm_recap', $first_certification) ?>" class="btn_passer_etape">Passer cette étape</a>	
