@@ -145,15 +145,21 @@ var objAjoutsLiquidations = {};
 			var btn = $(this);
 			var url = btn.attr('href');
 			
-			$.post(url, function()
-			{
-				// suppression
-				btn.parents('tr').remove();
-				
-				// application des styles
-				tabSection.tableauRecapLignes = tabSection.tableauRecap.find('tbody tr');
-				$.stylesTableaux(i);
-			});
+                         var confirm = window.confirm('Confirmez-vous la suppression de ce produit ?');
+                         
+                         if(confirm){
+                                $.post(url, function()
+                                {
+                                        // suppression
+                                        btn.parents('tr').remove();
+
+                                        // application des styles
+                                        tabSection.tableauRecapLignes = tabSection.tableauRecap.find('tbody tr');
+                                        $.stylesTableaux(i);
+                                });
+                         }
+                        
+			
 			
         	return false;
 		});
