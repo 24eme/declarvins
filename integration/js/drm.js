@@ -22,9 +22,17 @@ var objAjoutsLiquidations = {};
 		 $('#ajouts_liquidations :checkbox').change(function() {
             $(this).parents('form').submit();
         });
-		
+			
         $('.updateProduct').submit(function() {
-        	$.post($(this).attr('action'), $(this).serializeArray());
+        	var form = $(this);
+        	$.post($(this).attr('action'), $(this).serializeArray(), function (data) {
+        		if (!data.success && data.hasOwnProperty('notice')) {
+        			var cb = form.find('input:checked');
+        			$('#produits_pas_de_mouvement').removeAttr('checked');
+        			cb.removeAttr('checked');
+        			alert(data.notice);
+        		}
+        	});
         	return false;
         });
 		
