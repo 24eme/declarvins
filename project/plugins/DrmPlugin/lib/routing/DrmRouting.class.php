@@ -150,6 +150,13 @@ class DrmRouting {
                         array('model' => 'DRMAppellation',
                             'type' => 'object'
                 )));
+        $r->prependRoute('drm_recap_redirect', new DrmRoute('/drm-edition/:campagne_rectificative/recapitulatif',
+                        array('module' => 'drm_recap',
+                            'action' => 'redirectIndex'),
+                        array('sf_method' => array('get', 'post')),
+                        array('model' => 'DRM',
+                            'type' => 'object'
+                )));
         
         $r->prependRoute('drm_recap_appellation_ajout_ajax', new DrmCertificationRoute('/drm-edition/:campagne_rectificative/recapitulatif-appellation-ajout/:certification',
                         array('module' => 'drm_recap',

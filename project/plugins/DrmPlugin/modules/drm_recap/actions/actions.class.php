@@ -12,6 +12,14 @@ class drm_recapActions extends sfActions
         }
         $this->setTemplate('appellation');
     }
+    public function executeRedirectIndex(sfWebRequest $request) {
+    	$drm = $this->getRoute()->getDrm();
+    	$first_certification = null;
+        if(count($drm->declaration->certifications) > 0) {
+            $first_certification = $drm->declaration->certifications->getFirst();
+        }
+        $this->redirect('drm_recap', $first_certification);
+    }
     
     public function executeAppellationAjoutAjax(sfWebRequest $request) {
         $this->forward404Unless($request->isXmlHttpRequest());
