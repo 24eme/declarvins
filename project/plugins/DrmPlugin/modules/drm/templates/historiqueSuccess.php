@@ -1,8 +1,7 @@
 <?php include_partial('global/navTop', array('active' => 'drm')); ?>
 
 <section id="contenu">
-    <h1>Déclaration Récapitulative Mensuelle</h1>
-    <p class="intro">Bienvenue sur votre espace DRM. Que pensez-vous faire ?</p>
+    <h1>Historique de vos Déclarations Récapitulatives Mensuelles</h1>
     <section id="principal">
 	    <div id="recap_drm">
 			<div id="drm_annee_courante">
