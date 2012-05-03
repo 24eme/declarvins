@@ -84,7 +84,7 @@ class drmActions extends sfActions
   */
   public function executeInformations(sfWebRequest $request)
   {
-	$this->drm = $this->getRoute()->getDrm();
+    $this->drm = $this->getRoute()->getDrm();
     $this->tiers = $this->getUser()->getTiers();
     $this->form = new DRMInformationsForm();
 
@@ -93,8 +93,9 @@ class drmActions extends sfActions
 
   	  if ($this->form->isValid()) {
 	  		$values = $this->form->getValues();
-
-	  		if ($values['confirmation']) {
+                        if ($values['confirmation'] == "modification"){
+                            $this->redirect('drm_modif_infos', $this->drm);
+                        }elseif ($values['confirmation']) {
   				$this->drm->declarant->nom = $this->tiers->nom;
   				$this->drm->declarant->siret = $this->tiers->siret;
   				$this->drm->declarant->cni = $this->tiers->cni;
@@ -114,6 +115,11 @@ class drmActions extends sfActions
         	$this->redirect('drm_mouvements_generaux', $this->drm);
     	}
     }
+  }
+  
+  public function executeModificationInfos(sfWebRequest $request)
+  {
+      $this->drm = $this->getRoute()->getDrm();
   }
 
   public function executeDeclaratif(sfWebRequest $request)

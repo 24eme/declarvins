@@ -67,6 +67,13 @@ class DrmRouting {
                                                           array('sf_method' => array('get','post')),
                                                           array('model' => 'DRM',
                                                                 'type' => 'object')));
+        
+        $r->prependRoute('drm_modif_infos', new DrmRoute('/drm-edition/:campagne_rectificative/modification-informations', 
+                                                          array('module' => 'drm', 
+                                                                'action' => 'modificationInfos'),
+                                                          array('sf_method' => array('get','post')),
+                                                          array('model' => 'DRM',
+                                                                'type' => 'object')));
 
         $r->prependRoute('drm_stock_debut_mois', new DrmRoute('/drm-edition/:campagne_rectificative/stock', 
                                                           array('module' => 'drm', 
