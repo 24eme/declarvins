@@ -149,67 +149,78 @@
 		</tr>
 	</table>
 
-	<?php while($pager_droits_douane->getPage() <= $pager_droits_douane->getLastPage()): ?>
-	<?php $colonnes = $pager_droits_douane->getResults(); ?>
+	<?php if(!$drm->declaration->hasPasDeMouvement() && !$drm->declaration->hasStockEpuise()): ?>
+		<?php while($pager_droits_douane->getPage() <= $pager_droits_douane->getLastPage()): ?>
+			<?php $colonnes = $pager_droits_douane->getResults(); ?>
 
-	<h2>Droits de circulation et de consommation</h2>
-	<table class="recap droits_douane bloc_bottom">
-    <?php include_partial('drm_export/pdfLine', array('libelle' => '',
-						      'colonnes' => $colonnes,
-						      'cssclass_libelle' => 'vide',
-						      'cssclass_value' => 'libelle',
-						      'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
-						      'method' => 'getLibelle')) ?>
-    
-    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume réintégré',
-							   'colonnes' => $colonnes,
-							   'unite' => 'hl',
-							   'cssclass_libelle' => 'detail',
-							   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
-							   'hash' => 'volume_reintegre')) ?>
-    
-    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume taxé',
-							   'colonnes' => $colonnes,
-							   'unite' => 'hl',
-							   'cssclass_libelle' => 'detail',
-							   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
-							   'hash' => 'volume_taxe')) ?>
-    
-    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Taux des droits en vigueur',
-							   'colonnes' => $colonnes,
-							   'unite' => '€/hl',
-							   'cssclass_libelle' => 'detail',
-							   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
-							   'hash' => 'taux')) ?>
-    
-    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Droits à payer',
-							   'colonnes' => $colonnes,
-							   'unite' => '€',
-							   'cssclass_libelle' => 'total',
-							   'cssclass_value' => 'total',
-							   'hash' => 'payable')) ?>
-    <?php if ($drm->isPaiementAnnualise()): ?>
+			<h2>Droits de circulation et de consommation</h2>
+			<table class="recap droits_douane bloc_bottom">
+		    <?php include_partial('drm_export/pdfLine', array('libelle' => '',
+								      'colonnes' => $colonnes,
+								      'cssclass_libelle' => 'vide',
+								      'cssclass_value' => 'libelle',
+								      'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
+								      'method' => 'getLibelle')) ?>
+		    
+		    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume réintégré',
+									   'colonnes' => $colonnes,
+									   'unite' => 'hl',
+									   'cssclass_libelle' => 'detail',
+									   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
+									   'hash' => 'volume_reintegre')) ?>
+		    
+		    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume taxé',
+									   'colonnes' => $colonnes,
+									   'unite' => 'hl',
+									   'cssclass_libelle' => 'detail',
+									   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
+									   'hash' => 'volume_taxe')) ?>
+		    
+		    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Taux des droits en vigueur',
+									   'colonnes' => $colonnes,
+									   'unite' => '€/hl',
+									   'cssclass_libelle' => 'detail',
+									   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
+									   'hash' => 'taux')) ?>
+		    
+		    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Droits à payer',
+									   'colonnes' => $colonnes,
+									   'unite' => '€',
+									   'cssclass_libelle' => 'total',
+									   'cssclass_value' => 'total',
+									   'hash' => 'payable')) ?>
 
-		<?php include_partial('drm_export/pdfLine', array('libelle' => 'Report du mois précédent',
-															   'colonnes' => $colonnes,
-															   'cssclass_libelle' => 'total',
-															   'cssclass_value' => 'total',
-															   'partial' => 'drm_export/pdfLineReport')) ?>
-
-		<?php include_partial('drm_export/pdfLine', array('libelle' => 'Total cumulé à reporter ou à solder',
-															   'colonnes' => $colonnes,
-															   'cssclass_libelle' => 'total',
-															   'cssclass_value' => 'total',
-															   'partial' => 'drm_export/pdfLineCumul')) ?>
-		<?php endif; ?>  
-	</table>
-	<?php $pager_droits_douane->gotoNextPage(); ?>
-	<?php endwhile; ?>
+		    <?php if ($drm->isPaiementAnnualise()): ?>
+				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Report du mois précédent',
+																	   'colonnes' => $colonnes,
+																	   'cssclass_libelle' => 'total',
+																	   'cssclass_value' => 'total',
+																	   'partial' => 'drm_export/pdfLineReport')) ?>
+				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Total cumulé à reporter ou à solder',
+																	   'colonnes' => $colonnes,
+																	   'cssclass_libelle' => 'total',
+																	   'cssclass_value' => 'total',
+																	   'partial' => 'drm_export/pdfLineCumul')) ?>
+			<?php endif; ?>  
+			</table>
+			<?php $pager_droits_douane->gotoNextPage(); ?>
+		<?php endwhile; ?>
+	<?php else: ?>
+		<div class="bloc_bottom">
+			<h2>Droits de circulation et de consommation</h2>
+			<?php if($drm->declaration->hasPasDeMouvement()): ?>
+	            <p>Pas de mouvement pour l'ensemble des produits</p>
+	        <?php endif; ?>
+	        <?php if($drm->declaration->hasStockEpuise()): ?>
+	            <p>Stock épuisé pour l'ensemble des produits</p>
+	        <?php endif; ?>
+    	</div>
+	<?php endif; ?>
 
 	<div class="bloc_bottom">
-	<h2>Paiement des droits de circulation</h2>
-	<p><strong>Echéance de paiement</strong> : Mensuel</p>
-	<p><strong>Mode de paiement</strong> : Chèque</p>
+		<h2>Paiement des droits de circulation</h2>
+		<p><strong>Echéance de paiement</strong> : Mensuel</p>
+		<p><strong>Mode de paiement</strong> : Chèque</p>
 	</div>
 
 	<table class="double_col bloc_bottom">

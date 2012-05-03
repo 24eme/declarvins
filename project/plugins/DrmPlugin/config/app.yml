@@ -9,7 +9,7 @@ all:
     ajouts_liquidations:
       url: "drm_mouvements_generaux"
     recapitulatif:
-      url: "drm_recap"
+      url: "drm_recap_redirect"
     vrac:
       url: "drm_vrac"
     declaratif:

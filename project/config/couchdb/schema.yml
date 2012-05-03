@@ -606,12 +606,14 @@ DRM:
       _id: {  }
       _rev: {  }
       type: {  }
+      apurement_possible: {  }
       raison_rectificative: {  }
       etape: {  }
       campagne: {  }
       precedente: {  }
       rectificative: { type: integer, required: false }
       produits:
+        class: DRMProduits
         type: collection
         definition:
           fields:

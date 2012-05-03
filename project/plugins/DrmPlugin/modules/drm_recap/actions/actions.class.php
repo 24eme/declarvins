@@ -5,11 +5,20 @@ class drm_recapActions extends sfActions
     
     public function executeIndex(sfWebRequest $request) {
         $this->init();
+
         if ($request->isMethod(sfWebRequest::POST)) {
         	$this->drm->setCurrentEtapeRouting('vrac');
         	$this->redirect('drm_vrac', $this->drm);
         }
         $this->setTemplate('appellation');
+    }
+    public function executeRedirectIndex(sfWebRequest $request) {
+    	$drm = $this->getRoute()->getDrm();
+    	$first_certification = null;
+        if(count($drm->declaration->certifications) > 0) {
+            $first_certification = $drm->declaration->certifications->getFirst();
+        }
+        $this->redirect('drm_recap', $first_certification);
     }
     
     public function executeAppellationAjoutAjax(sfWebRequest $request) {

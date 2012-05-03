@@ -1,5 +1,5 @@
 <div id="header">
-   <center><h1>Déclaration récapitulative mensuelle en droit suspendus de <? echo $drm->getHumanDate(); ?> 
+   <center><h1>Déclaration récapitulative mensuelle en droit suspendus de <?php echo $drm->getHumanDate(); ?> 
 <?php if($drm->isRectificative()): ?>
  - <span class="rectificative">Rectificative <?php echo sprintf('%02d', $drm->rectificative) ?></span>
 <?php endif; ?>
@@ -8,7 +8,7 @@
 <table>
 <tr>
 	<td class="premier"><strong>Nom / Raison sociale : <?php echo $drm->declarant->nom ?></strong></td>
-   <td>n° DRM : <? echo preg_replace('/DRM-/', '', $drm->_id); ?> (validée le <?php echo $drm->getEuValideDate(); ?>)</td>
+   <td>n° DRM : <?php echo preg_replace('/DRM-/', '', $drm->_id); ?> (validée le <?php echo $drm->getEuValideDate(); ?>)</td>
 </tr>
 <tr>
 	<td class="premier" >Lieu où est tenue la comptabilité matière :

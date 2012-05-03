@@ -13,9 +13,11 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     public function getLibelle() {
       return $this->getConfig()->getLibelle();
     }
+
     public function getCode() {
       return $this->getConfig()->getCode();
     }
+
     protected function init() {
         parent::init();
         $this->total_debut_mois = null;
@@ -46,6 +48,18 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     		}
     	}
     	return $sum;
+    }
+	/*
+	 * Fonction calculée
+	 */
+    public function hasPasDeMouvement() {
+
+        return $this->total_entrees == 0 && $this->total_sorties == 0;
+    }
+
+    public function hasStockEpuise() {
+
+        return$this->total_debut_mois == 0 && $this->hasPasDeMouvement();
     }
     
 }

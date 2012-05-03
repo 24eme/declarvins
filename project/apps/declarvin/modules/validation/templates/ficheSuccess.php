@@ -106,7 +106,7 @@ var formModificationCompte = function()
 <section id="contenu">
 <!-- #application_dr -->
 <div class="tools" style="text-align: right;">
-    <span>Vous êtes loggué en tant que <strong><?php echo $interpro; ?></strong></span>&nbsp; | &nbsp;<span><a href="<?php echo url_for('interpro_upload_csv', array('id' => $interpro->get('_id'))) ?>">Gestion CSV</a></span>&nbsp; | &nbsp;<span><a href="<?php echo url_for('@validation_login') ?>">Déconnexion</a></span>
+    <span>Vous êtes loggué en tant que <strong><?php echo $interpro; ?></strong></span>&nbsp; | &nbsp;<span><a href="<?php echo url_for('@validation_login') ?>">Déconnexion</a></span>
 </div>
 <script type="text/javascript">
     var interproLocked = new Array();

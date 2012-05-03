@@ -79,7 +79,7 @@ class DRM extends BaseDRM {
                     	foreach ($couleur->cepages as $cepage) {
     	                    foreach ($cepage->millesimes as $millesime) {
                                 foreach ($millesime->details as $detail) {
-				  $details[] = $detail;
+				                    $details[] = $detail;
                                 }
     	                    }
                     	}
@@ -121,6 +121,8 @@ class DRM extends BaseDRM {
         $this->add('douane');
         $this->remove('declarant');
         $this->add('declarant');
+        $this->raison_rectificative = null;
+        $this->etape = null;
         $this->declaratif->defaut_apurement = null;
         $this->declaratif->daa->debut = null;
         $this->declaratif->daa->fin = null;
@@ -249,7 +251,8 @@ class DRM extends BaseDRM {
         }
 
         $drm_rectificative->rectificative += 1;
-	$drm_rectificative->devalide();
+	    $drm_rectificative->devalide();
+        $drm_rectificative->etape = 'ajouts_liquidations';
 
         return $drm_rectificative;
     }
@@ -288,6 +291,7 @@ class DRM extends BaseDRM {
 
         if ($next_drm) {
             $next_drm_rectificative = $next_drm->generateRectificative();
+            $next_drm_rectificative->etape = 'validation';
             foreach($this->getDiffWithMasterDRM() as $key => $value) {
                 $this->replicateDetail($next_drm_rectificative, $key, $value, 'total', 'total_debut_mois');
                 $this->replicateDetail($next_drm_rectificative, $key, $value, 'stocks_fin/bloque', 'stocks_debut/bloque');
@@ -440,6 +444,38 @@ class DRM extends BaseDRM {
     		$this->getDocument()->save();
     	}
     }
+    public function hasApurementPossible() {
+    	if (
+    		$this->declaratif->daa->debut ||
+    		$this->declaratif->daa->fin ||
+    		$this->declaratif->dsa->debut ||
+    		$this->declaratif->dsa->debut ||
+    		$this->declaratif->adhesion_emcs_gamma
+    	) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    public function hasVrac() {
+    	$detailsVrac = $this->getDetailsAvecVrac();
+    	if (count($detailsVrac) > 0) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    public function isEnvoyee() {
+    	if (!$this->exist('valide'))
+    		return false;
+    	if (!$this->valide->exist('status'))
+    		return false;
+    	if ($this->valide->status != self::VALIDE_STATUS_VALIDEE_ENVOYEE && $this->valide->status != self::VALIDE_STATUS_VALIDEE_RECUE) {
+    		return false;
+    	} else {
+    		return true;
+    	}
+    }
     /*
      * Pour les users administrateur
      */
@@ -452,4 +488,5 @@ class DRM extends BaseDRM {
     		return false;
     	}
     }
+    
 }

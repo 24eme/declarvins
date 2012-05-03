@@ -2,9 +2,8 @@
 class ProduitDroitForm extends sfForm {
 
     public function configure() {
-    	$years = range(date('Y') - 10, date('Y') + 10);
     	$this->setWidgets(array(
-			'date' => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => array_combine($years, $years))),
+			'date' => new sfWidgetFormInputText(),
 			'code' => new sfWidgetFormInputText(),
 			'taux' => new sfWidgetFormInputFloat()  		
     	));
@@ -14,7 +13,7 @@ class ProduitDroitForm extends sfForm {
 			'taux' => 'Taux: '
 		));
 		$this->setValidators(array(
-			'date' => new sfValidatorDate(array('required' => false)),
+			'date' => new sfValidatorString(array('required' => false)),
 			'code' => new sfValidatorString(array('required' => false)),
 			'taux' => new sfValidatorNumber(array('required' => false))
 		));

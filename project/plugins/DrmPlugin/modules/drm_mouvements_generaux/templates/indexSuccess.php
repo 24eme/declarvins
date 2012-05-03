@@ -2,22 +2,19 @@
 
 <section id="contenu">
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
-    <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'ajouts-liquidations', 'pourcentage' => '10')); ?>
+    <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'ajouts_liquidations', 'pourcentage' => '10')); ?>
 
     <section id="principal">
 		<div id="application_dr">
-			<ul id="onglets_principal"><li class="actif"><strong>Mouvements Généraux</strong></li></ul>
 			<div id="contenu_onglet">
 				<?php if($first_certification): ?>
 				<a href="<?php echo url_for('drm_recap', $first_certification) ?>" class="btn_passer_etape">Passer cette étape</a>	
 				<?php endif; ?>
 				<p class="intro">Au cours du mois écoulé, avez-vous connu des changements de structure particuliers ?</p>
-	        	<?php if ($sf_user->hasFlash('notice')): ?>
-	        		<p><?php echo $sf_user->getFlash('notice') ?></p>
-	        	<?php endif; ?>
 	        	
         		<div id="form" style="padding:10px 0;">
-        	
+        			<input id="produits_pas_de_mouvement" type="checkbox" value="" />
+        			<label for="produits_pas_de_mouvement">Pas de mouvement pour l'ensemble des produits</label>
         		</div>
         		
         		<div id="ajouts_liquidations">
@@ -68,3 +65,21 @@
 		</div>
     </section>
 </section>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#produits_pas_de_mouvement").click(function() {
+			if ($("#produits_pas_de_mouvement:checked").length > 0) {
+				$("#ajouts_liquidations input.pas_de_mouvement[type=checkbox]:not(:checked)").attr('checked', 'checked');
+			}
+		});
+
+		$("#ajouts_liquidations input.pas_de_mouvement[type=checkbox]").click(function() {
+			if ($("#ajouts_liquidations input.pas_de_mouvement[type=checkbox]:checked").length == $("#ajouts_liquidations input.pas_de_mouvement[type=checkbox]").length) {
+				$("#produits_pas_de_mouvement").attr('checked', 'checked')
+			} else {
+				$("#produits_pas_de_mouvement").removeAttr('checked');
+			}
+		});
+	});
+</script>
