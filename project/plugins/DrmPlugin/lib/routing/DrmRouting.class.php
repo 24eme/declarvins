@@ -129,6 +129,13 @@ class DrmRouting {
                         array('model' => 'DRMProduit',
                               'type' => 'object')));
 
+        $r->prependRoute('drm_mouvements_generaux_produits_update', new DrmRoute('/drm-edition/:campagne_rectificative/mouvements-generaux/update_produits',
+                        array('module' => 'drm_mouvements_generaux',
+                            'action' => 'updateProduitsAjax'),
+                        array('sf_method' => array('post')),
+                        array('model' => 'DRM',
+                              'type' => 'object')));
+
         $r->prependRoute('drm_mouvements_generaux_produit_delete', new DrmProduitRoute('/drm-edition/:campagne_rectificative/mouvements-generaux/:certification/:appellation/delete/:indice',
                         array('module' => 'drm_mouvements_generaux',
                             'action' => 'deleteAjax'),
