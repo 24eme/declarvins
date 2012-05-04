@@ -9,16 +9,17 @@ class DRMHistorique
 	const VIEW_INDEX_STATUS_DOUANE_ENVOI = 5;
 	const VIEW_INDEX_STATUS_DOUANE_ACCUSE = 6;
 	const DERNIERE = 'derniere';
+	const CAMPAGNE = 'campagne';
 
 	private $etablissement;
-	private $anneeCourante;
+	private $campagneCourante;
 	private $drms;
-	private $annees;
+	private $campagnes;
 	
-	public function __construct($etablissement, $anneeCourante = null)
+	public function __construct($etablissement, $campagneCourante = null)
 	{
 		$this->etablissement = $etablissement;
-		$this->anneeCourante = $anneeCourante;
+		$this->campagneCourante = $campagneCourante;
 	}
 	
 	public function getSliceDrms($limit = 0) {
@@ -50,6 +51,7 @@ class DRMHistorique
 
 		$campagne = null;
 		foreach($result as $key => $item) {
+			$result[$key][self::CAMPAGNE] = $this->makeCampagne($item[self::VIEW_INDEX_ANNEE], $item[self::VIEW_INDEX_MOIS]);
 			if ($item[self::VIEW_INDEX_ANNEE].'-'.$item[self::VIEW_INDEX_MOIS] != $campagne) {
 				$result[$key][self::DERNIERE] = true;
 				$campagne = $item[self::VIEW_INDEX_ANNEE].'-'.$item[self::VIEW_INDEX_MOIS];
@@ -60,43 +62,51 @@ class DRMHistorique
 		$this->drms = $result;
 	}
 	
-	public function getAnnees()
+	public function getCampagnes()
 	{
-		if (!$this->annees) {
-			$annees = array();
+		if (!$this->campagnes) {
+			$campagnes = array();
 			$drms = $this->getDrms();
 	    	foreach ($drms as $drm) {
-		  	if (!in_array($drm[self::VIEW_INDEX_ANNEE], $annees)) {
-	  				$annees[] = $drm[self::VIEW_INDEX_ANNEE];
+		  	if (!in_array($drm[self::CAMPAGNE], $campagnes)) {
+	  				$campagnes[] = $drm[self::CAMPAGNE];
 	    		}
 	  		}
-	  		rsort($annees);
-	  		$this->annees = $annees;
+	  		rsort($campagnes);
+	  		$this->campagnes = $campagnes;
 		}
-		return $this->annees;
+		return $this->campagnes;
 	}
 	
-	public function getDrmsParAnneeCourante()
+	private function makeCampagne($annee, $mois) {
+		if ($annee.$mois < $annee.'08') {
+			return ($annee-1).'-'.$annee;
+		} else {
+			return $annee.'-'.($annee+1);
+		}
+	}
+	
+	public function getDrmsParCampagneCourante()
 	{
-		$drmsAnnee = array();
-		$anneeCourante = $this->getAnneeCourante();
+		$drmsCampagne = array();
+		$campagneCourante = $this->getCampagneCourante();
 		$drms = $this->getDrms();
 		foreach ($drms as $id => $drm) {
-			if ($drm[1] == $anneeCourante) {
-				$drmsAnnee[$id] = $drm;
+			if ($drm[self::CAMPAGNE] == $campagneCourante) {
+				$drmsCampagne[$id] = $drm;
 			}
 		}
-		return $drmsAnnee;
+		return $drmsCampagne;
 	}
 	
-	public function getAnneeCourante()
+	public function getCampagneCourante()
 	{
-		if (!$this->anneeCourante) {
-			if($annees = $this->getAnnees()) {
-				$this->anneeCourante = $annees[0];
+		if (!$this->campagneCourante) {
+			if($campagnes = $this->getCampagnes()) {
+				$this->campagneCourante = $campagnes[0];
 			}
 		}
-		return $this->anneeCourante;
+		return $this->campagneCourante;
 	}
 	
 	public function getFutureDrm()

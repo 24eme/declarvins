@@ -10,11 +10,11 @@
 		</div>
 		
 		<ul id="nav_drm_annees">
-			<?php foreach ($historique->getAnnees() as $annee): ?>
-				<?php if ($annee == $historique->getAnneeCourante()): ?>
-					<li class="actif"><strong>DRM <?php echo $annee ?></strong></li>
+			<?php foreach ($historique->getCampagnes() as $campagne): ?>
+				<?php if ($campagne == $historique->getCampagneCourante()): ?>
+					<li class="actif"><strong>DRM <?php echo $campagne ?></strong></li>
 				<?php else: ?>
-					<li><a href="<?php echo url_for('drm_historique', array('annee' => $annee))?>">DRM <?php echo $annee ?></a></li>
+					<li><a href="<?php echo url_for('drm_historique', array('campagne' => $campagne))?>">DRM <?php echo $campagne ?></a></li>
 				<?php endif; ?>
 			<?php endforeach; ?>
 		</ul>
