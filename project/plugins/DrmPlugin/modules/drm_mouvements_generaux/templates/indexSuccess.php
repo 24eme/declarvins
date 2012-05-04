@@ -18,7 +18,7 @@
 							<tbody>
 							<tr class="alt">
 								<td style="width: 684px;" colspan="2"><label for="produits_pas_de_mouvement">Pas de mouvement pour l'ensemble des produits <a href="" class="msg_aide" data-msg="help_popup_mouvgen_pasdemouvement_global" title="Message aide"></a></label></td>
-								<td style="width: 122px" align="center"><input id="produits_pas_de_mouvement" type="checkbox" value="" /></td>
+								<td style="width: 150px" align="center"><input id="produits_pas_de_mouvement" type="checkbox" value="" /></td>
 							</tr>
 							</tbody>
 						</table>
@@ -32,7 +32,7 @@
 										<tr>
 											<th style="width: 570px">Produits</th>
 											<th style="width: 92px">Disponible <a href="" class="msg_aide" data-msg="help_popup_mouvgen_disponible" title="Message aide"></a></th>
-											<th style="width: 130px">Pas de mouvement <a href="" class="msg_aide" data-msg="help_popup_mouvgen_pasdemouvement" title="Message aide"></a></th>
+											<th style="width: 150px">Pas de mouvement <a href="" class="msg_aide" data-msg="help_popup_mouvgen_pasdemouvement" title="Message aide"></a></th>
 										</tr>
 									</thead>
 									<tbody>
