@@ -275,6 +275,10 @@
 						var appellation_produit_total = parseInt($('#onglets_principal li.actif .appellation_produit_total').text());
 						if (appellation_produit_saisie < appellation_produit_total) {
 							$('#onglets_principal li.actif .appellation_produit_saisie').text(appellation_produit_saisie + 1);
+							appellation_produit_saisie++;
+						}
+						if (appellation_produit_saisie == appellation_produit_total) {
+							$('#onglets_principal li.actif .completion').addClass('completion_validee');
 						}
 					}
 					$('#colonne_intitules').find('.groupe').each(function()
