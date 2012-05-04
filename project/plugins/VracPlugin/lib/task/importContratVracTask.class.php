@@ -33,9 +33,9 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-    $vrac = acCouchdbManager::getClient()->find('VRAC-123456');
+    $vrac = acCouchdbManager::getClient()->find('VRAC-123456', acCouchdbClient::HYDRATE_JSON);
     if($vrac) {
-      $vrac->delete();
+      acCouchdbManager::getClient()->deleteDoc($vrac);
     }
 
     $vrac = new Vrac();
@@ -45,14 +45,15 @@ EOF;
     $vrac->acheteur->nom = "Acheteur test";
     $vrac->etablissement = '9223700100';
     $vrac->volume_promis = 25;
+    $vrac->prix = 500;
     $vrac->courtier->nom = "Courtier test";
     $vrac->actif = 1;
     $vrac->date_creation = "2012-04-27";
     $vrac->save();
 
-    $vrac = acCouchdbManager::getClient()->find('VRAC-123457');
+    $vrac = acCouchdbManager::getClient()->find('VRAC-123457', acCouchdbClient::HYDRATE_JSON);
     if($vrac) {
-      $vrac->delete();
+      acCouchdbManager::getClient()->deleteDoc($vrac);
     }
     
     $vrac = new Vrac();
@@ -62,6 +63,7 @@ EOF;
     $vrac->acheteur->nom = "Acheteur test";
     $vrac->etablissement = '9223700100';
     $vrac->volume_promis = 36;
+    $vrac->prix = 500;
     $vrac->courtier->nom = "Courtier test";
     $vrac->actif = 1;
     $vrac->date_creation = "2011-04-27";

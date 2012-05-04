@@ -12,7 +12,7 @@
 					<thead>
 						<tr>
 							<th align="left">Produit</th>
-							<th width="150px">Contrat</th>
+							<th width="300px">Contrat</th>
 							<th width="200px">Volume</th>
 							<th width="50px"></th>
 						</tr>
