@@ -104,7 +104,7 @@ class Configuration extends BaseConfiguration {
 	$res = $this->getObjectByLibelle($res['obj']->getCepages(), $cepage, $res['next_libelles']);
 	$res = $this->getObjectByLibelle($res['obj']->getMillesimes(), $millesime, $res['next_libelles']);
       }catch(Exception $e) {
-	throw new sfException("Impossible d'indentifier le produit (".$e->getMessage().")");
+	throw new sfException("Impossible d'indentifier le produit (".$e->getMessage()." $certification / $appellation / $lieu / $couleur / $cepage / $millesime )");
       }
       return $res['obj']->getHash();
     }

@@ -52,7 +52,9 @@ $(document).ready(function () {
 		$('#lien_<?php echo $form['disponible']->renderId() ?>').click(function() {
 	    	$(this).hide();
 	    	$('#ligne_<?php echo $form['disponible']->renderId() ?>').show();
-	    	return false;
+		$('#produit_<?php echo $certification; ?>_disponible.num_float').saisieNum(true);
+		$('#produit_<?php echo $certification; ?>_disponible.num_float').nettoyageChamps();
+		return false;
 	    }); 
 });
 </script>
