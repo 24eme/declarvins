@@ -130,20 +130,45 @@
 			<td class="col_left">
 				<h2>Mouvements au cours du mois</h2>
 				<p><strong>Documents prévalidés ou N° empreinte utilisés au cours du mois</strong></p>
-				<p><strong>DAA</strong> du 1258 au 1260</p>
-				<p><strong>DSA</strong> : Aucun</p>
 				<p>
-					<strong>A adhérer</strong> à EMCS / GAMMA (n° non nécessaires)
+					<strong>DAA</strong> 
+					<?php if($drm->declaratif->daa->debut > 0 || $drm->declaratif->daa->debut > 0): ?>
+					du <?php echo $drm->declaratif->daa->debut ?> au <?php echo $drm->declaratif->daa->fin ?>
+					<?php else: ?>
+					Aucun
+					<?php endif; ?>
 				</p>
+				<p>
+					<strong>DSA</strong>
+					<?php if($drm->declaratif->dsa->debut > 0 || $drm->declaratif->dsa->debut > 0): ?>
+					du <?php echo $drm->declaratif->dsa->debut ?> au <?php echo $drm->declaratif->dsa->fin ?>
+					<?php else: ?>
+					Aucun
+					<?php endif; ?>
+				</p>
+				<?php if($drm->declaratif->adhesion_emcs_gamma): ?>
+					<p>
+						<strong>Adhère</strong> à EMCS / GAMMA (n° non nécessaires)
+					</p>
+				<?php endif; ?>
 			</td>
 			<td class="col_right">
 				<h2>Défaut d'apurement</h2>
 				<p class="bloc_bottom">
-					Défaut d'apurement à déclarer (Joindre relevé de non apurement et copie du DAA)
+					<?php if($drm->declaratif->defaut_apurement): ?>
+						Défaut d'apurement à déclarer (Joindre relevé de non apurement et copie du DAA)
+					<?php else: ?>
+						Pas de défaut d'apurement
+					<?php endif; ?>		
+					
 				</p>
 				<h2>Caution</h2>
 				<p>
-					Oui, Organisme : CIVP<br />
+					<?php if($drm->declaratif->caution->dispense): ?>
+						Dispensé
+					<?php else: ?>
+						Oui, Organisme : <?php echo $drm->declaratif->caution->organisme ?>
+					<?php endif; ?>
 				</p>
 			</td>
 		</tr>
@@ -219,8 +244,8 @@
 
 	<div class="bloc_bottom">
 		<h2>Paiement des droits de circulation</h2>
-		<p><strong>Echéance de paiement</strong> : Mensuel</p>
-		<p><strong>Mode de paiement</strong> : Chèque</p>
+		<p><strong>Echéance de paiement</strong> : <?php echo $drm->declaratif->paiement->douane->frequence ?></p>
+		<p><strong>Mode de paiement</strong> : <?php echo $drm->declaratif->paiement->douane->moyen ?></p>
 	</div>
 
 	<table class="double_col bloc_bottom">

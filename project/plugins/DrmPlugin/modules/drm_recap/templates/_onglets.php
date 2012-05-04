@@ -11,8 +11,8 @@
             </li>
         <?php else: ?>
             <li>
-                <a href="<?php echo url_for('drm_recap_appellation', $appellation) ?>">
-                    <?php echo $appellation->getConfig()->libelle ?> 
+                <a title="<?php echo $appellation->getConfig()->libelle ?>" href="<?php echo url_for('drm_recap_appellation', $appellation) ?>">
+                    <?php echo $appellation->getConfig()->code ?> 
                     <span class="completion">(<span class="appellation_produit_saisie"><?php echo $appellations_updated[$appellation_key] ?></span>/<span class="appellation_produit_total"><?php echo $appellations[$appellation_key] ?></span>)</span>
                 </a>
             </li>

@@ -295,11 +295,12 @@ a.msg_aide {
   background:url(../images/pictos/pi_aide.png) 0 0 no-repeat;
   display:inline-block;
   height:17px;
+  margin-top:-3px;
   outline:0;
   vertical-align:middle;
   width:17px;
 }
-a.msg_aide hover {
+a.msg_aide:hover {
   -webkit-opacity:1;
   -khtml-opacity:1;
   -moz-opacity:1;
@@ -1079,6 +1080,10 @@ p#date_drm {
   font-size:16px;
   font-style:italic;
   margin:20px 0;
+}
+#msg_aide_drm {
+  float:right;
+  width:17px;
 }
 #statut_declaration {
   margin:0 0 25px;

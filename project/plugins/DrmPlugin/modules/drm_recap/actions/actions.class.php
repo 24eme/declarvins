@@ -61,7 +61,7 @@ class drm_recapActions extends sfActions
             $form->bind($request->getParameter($form->getName()));
             if ($form->isValid()) {
                 $form->save();
-                $this->getUser()->setFlash("notice", 'Le produit a été ajouté avec success.');
+                $this->getUser()->setFlash("notice", 'Le produit a été ajouté avec succès.');
                 return $this->renderText(json_encode(array("success" => true, 
                                                            "url" => $this->generateUrl('drm_recap_appellation', $this->drm_appellation))));
             }
