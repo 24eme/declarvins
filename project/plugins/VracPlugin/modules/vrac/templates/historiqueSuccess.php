@@ -2,7 +2,7 @@
 
 <section id="contenu">
     <h1>Vrac</h1>
-    <p class="intro">Bienvenue sur votre espace Vrac. Que pensez-vous faire ?</p>
+    <p class="intro">Historique de vos contrats Vrac</p>
     <section id="principal">
 	    <div id="recap_drm">
 			<div id="drm_annee_courante">

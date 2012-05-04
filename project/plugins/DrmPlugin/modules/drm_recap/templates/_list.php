@@ -9,27 +9,44 @@
 </div>
 
 <!-- C'est degelousse -->
- <p style="text-align:right; padding-bottom: 4px;">
- <a href="<?php echo url_for('drm_recap_ajout_ajax', $drm_appellation) ?>" class="btn_ajouter btn_popup" data-popup-ajax="true" data-popup="#popup_ajout_detail" data-popup-config="configForm">Ajouter un produit</a>
- </p>
+<p style="text-align:right; padding-bottom: 4px;">
+    <a href="<?php echo url_for('drm_recap_ajout_ajax', $drm_appellation) ?>" class="btn_ajouter btn_popup" data-popup-ajax="true" data-popup="#popup_ajout_detail" data-popup-config="configForm">Ajouter un produit</a>
+</p>
 
 <div id="colonnes_dr">
     <?php include_partial('drm_recap/itemHeader', array('config_appellation' => $config_appellation)); ?>    
     <div id="col_saisies">
-		<script type="text/javascript">
-			/* Colonne avec le focus par défaut */
-			var colFocusDefaut = 1;
-		</script>
+        <script type="text/javascript">
+            /* Colonne avec le focus par défaut */
+            var colFocusDefaut = 1;
+        </script>
 
         <div id="col_saisies_cont">
             <?php foreach ($produits as $produit): ?>
+            	<?php if (!$produit->pas_de_mouvement): ?>
                     	<?php include_component('drm_recap', 'itemForm', array('produit' => $produit,
                                                                                'config_appellation' => $config_appellation,
                                                                                'detail' => $produit->getDetail(), 
                                                                                'form' => $form)); ?>
+                <?php endif; ?>
             <?php endforeach; ?>
         </div>
     </div>
+</div>
+
+<div id="btn_suiv_prec">
+<?php if ($produits_appellation = $drm_appellation->getProduits()->getPrevious()): ?>
+    <a href="<?php echo url_for('drm_recap_appellation', $produits_appellation->getDeclaration()) ?>" class="btn_prec">
+        <span>Produit précédent</span>
+    </a>
+<?php endif; ?>
+
+
+<?php if ($produits_appellation = $drm_appellation->getProduits()->getNext()): ?>
+    <a href="<?php echo url_for('drm_recap_appellation', $produits_appellation->getDeclaration()) ?>" class="btn_suiv">
+        <span>Produit suivant</span>
+    </a>
+<?php endif; ?>   
 </div>
 
 <script type="text/javascript">
