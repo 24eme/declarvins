@@ -38,9 +38,9 @@ class DrmRouting {
         $r->prependRoute('drm_mon_espace', new sfRoute('/drm/mon-espace', array('module' => 'drm', 
                                                                                 'action' => 'monEspace')));
 
-        $r->prependRoute('drm_historique', new sfRoute('/drm/historique/:annee', array('module' => 'drm', 
+        $r->prependRoute('drm_historique', new sfRoute('/drm/historique/:campagne', array('module' => 'drm', 
                                                                                        'action' => 'historique', 
-                                                                                       'annee' => null)));
+                                                                                       'campagne' => null)));
 
         $r->prependRoute('drm_nouvelle', new DrmLightRoute('/drm/nouvelle', 
                                                 array('module' => 'drm', 

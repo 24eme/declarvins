@@ -1081,6 +1081,10 @@ p#date_drm {
   font-style:italic;
   margin:20px 0;
 }
+#msg_aide_drm {
+  float:right;
+  width:17px;
+}
 #statut_declaration {
   margin:0 0 25px;
   zoom:1;

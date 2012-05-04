@@ -35,13 +35,13 @@ class VracRouting {
         $r = $event->getSubject();
         $r->prependRoute('vrac', new sfRoute('/vrac', array('module' => 'vrac',
                     'action' => 'list')));
-        $r->prependRoute('vrac_historique', new sfRoute('/vrac/historique/:annee', array('module' => 'vrac', 
+        $r->prependRoute('vrac_historique', new sfRoute('/vrac/historique/:campagne', array('module' => 'vrac', 
                                                                                        'action' => 'historique', 
-                                                                                       'annee' => null)));
-        $r->prependRoute('vrac_switch', new sfRoute('/vrac/:id/switch/:annee', array('module' => 'vrac', 
+                                                                                       'campagne' => null)));
+        $r->prependRoute('vrac_switch', new sfRoute('/vrac/:id/switch/:campagne', array('module' => 'vrac', 
                                                                                        'action' => 'switch', 
         																			   'id' => null,
-                                                                                       'annee' => null)));
+                                                                                       'campagne' => null)));
     }
 
 }

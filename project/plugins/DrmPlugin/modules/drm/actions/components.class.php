@@ -29,7 +29,10 @@ class drmComponents extends sfComponents {
         );
         
         $this->numero = $this->numeros[$this->etape];
-        $this->numero_autorise = $this->numeros[$this->drm->etape];
+        if(isset($this->numeros[$this->drm->etape])) 
+            $this->numero_autorise = $this->numeros[$this->drm->etape];
+        else 
+            $this->numero_autorise = '';
         $this->numero_vrac = $this->numeros['vrac'];
         $this->numero_declaratif = $this->numeros['declaratif'];
         $this->numero_validation = $this->numeros['validation'];
@@ -59,7 +62,7 @@ class drmComponents extends sfComponents {
         if (isset($this->limit)) {
             $this->list = $this->historique->getSliceDrms($this->limit);
         } else {
-            $this->list = $this->historique->getDrmsParAnneeCourante();   
+            $this->list = $this->historique->getDrmsParCampagneCourante();   
         }
         $this->futurDrm = current($this->historique->getFutureDrm());
         $this->hasNewDrm = false;

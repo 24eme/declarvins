@@ -5,22 +5,24 @@ class VracHistorique
 	const VIEW_INDEX_NUMERO = 1;
 	const VIEW_INDEX_ACTIF = 2;
 	const VIEW_INDEX_ANNEE = 3;
-	const VIEW_INDEX_DATE_CREATION = 4;
-	const VIEW_INDEX_PRODUIT = 5;
-	const VIEW_INDEX_VOLUME = 6;
-	const VIEW_INDEX_ACHETEUR = 7;
-	const VIEW_INDEX_COURTIER = 8;
-	const VIEW_INDEX_ID = 9;
+	const VIEW_INDEX_MOIS = 4;
+	const VIEW_INDEX_DATE_CREATION = 5;
+	const VIEW_INDEX_PRODUIT = 6;
+	const VIEW_INDEX_VOLUME = 7;
+	const VIEW_INDEX_ACHETEUR = 8;
+	const VIEW_INDEX_COURTIER = 9;
+	const VIEW_INDEX_ID = 10;
+	const CAMPAGNE = 'campagne';
 
 	private $etablissement;
-	private $anneeCourante;
+	private $campagneCourante;
 	private $vrac;
-	private $annees;
+	private $campagnes;
 	
-	public function __construct($etablissement, $anneeCourante = null)
+	public function __construct($etablissement, $campagneCourante = null)
 	{
 		$this->etablissement = $etablissement;
-		$this->anneeCourante = $anneeCourante;
+		$this->campagneCourante = $campagneCourante;
 	}
 	
 	public function getSliceVrac($limit = 0) {
@@ -45,42 +47,50 @@ class VracHistorique
 
 		$result = array();
 		foreach ($vracs as $vrac) {
-			$date = explode('/', $vrac->key[self::VIEW_INDEX_DATE_CREATION]);
 			$values = $vrac->key;
 			$values[self::VIEW_INDEX_ID] = $vrac->id;
-		  	$result[$date[2].$date[1].$date[0]] = $values;
+			$values[self::CAMPAGNE] = $this->makeCampagne($vrac->key[self::VIEW_INDEX_ANNEE], $vrac->key[self::VIEW_INDEX_MOIS]);
+		  	$result[str_replace('-', '', $vrac->key[self::VIEW_INDEX_DATE_CREATION])] = $values;
 		}
 		krsort($result);
 		$this->vrac = $result;
 	}
 	
-	public function getAnnees()
+	public function getCampagnes()
 	{
-		if (!$this->annees) {
-			$annees = array();
+		if (!$this->campagnes) {
+			$campagnes = array();
 			$vracs = $this->getVrac();
 	    	foreach ($vracs as $vrac) {
-		  	if (!in_array($vrac[self::VIEW_INDEX_ANNEE], $annees)) {
-	  				$annees[] = $vrac[self::VIEW_INDEX_ANNEE];
+		  	if (!in_array($vrac[self::CAMPAGNE], $campagnes)) {
+	  				$campagnes[] = $vrac[self::CAMPAGNE];
 	    		}
 	  		}
-	  		rsort($annees);
-	  		$this->annees = $annees;
+	  		rsort($campagnes);
+	  		$this->campagnes = $campagnes;
 		}
-		return $this->annees;
+		return $this->campagnes;
 	}
 	
-	public function getVracParAnneeCourante()
+	private function makeCampagne($annee, $mois) {
+		if ($annee.$mois < $annee.'08') {
+			return ($annee-1).'-'.$annee;
+		} else {
+			return $annee.'-'.($annee+1);
+		}
+	}
+	
+	public function getVracParCampagneCourante()
 	{
-		$vracAnnee = array();
-		$anneeCourante = $this->getAnneeCourante();
+		$vracCampagne = array();
+		$campagneCourante = $this->getCampagneCourante();
 		$vracs = $this->getVrac();
 		foreach ($vracs as $id => $vrac) {
-			if ($vrac[self::VIEW_INDEX_ANNEE] == $anneeCourante) {
-				$vracAnnee[] = $vrac;
+			if ($vrac[self::CAMPAGNE] == $campagneCourante) {
+				$vracCampagne[] = $vrac;
 			}
 		}
-		return $vracAnnee;
+		return $vracCampagne;
 	}
 	
 	public function getVracActif()
@@ -95,14 +105,14 @@ class VracHistorique
 		return $vracActif;
 	}
 	
-	public function getAnneeCourante()
+	public function getCampagneCourante()
 	{
-		if (!$this->anneeCourante) {
-			if($annees = $this->getAnnees()) {
-				$this->anneeCourante = $annees[0];
+		if (!$this->campagneCourante) {
+			if($campagnes = $this->getCampagnes()) {
+				$this->campagneCourante = $campagnes[0];
 			}
 		}
-		return $this->anneeCourante;
+		return $this->campagneCourante;
 	}
 
 	public function getLastVrac()
