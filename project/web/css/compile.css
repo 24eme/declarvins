@@ -1639,7 +1639,7 @@ p#date_drm {
 #declaratif_info .onglets_declaratif {
   line-height:23px;
   zoom:1;
-  margin-top:15px 0px 15px 15px;
+  margin-top:15px;
 }
 #declaratif_info .onglets_declaratif:before, #declaratif_info .onglets_declaratif:after {
   content:"\0020";
@@ -1682,6 +1682,7 @@ p#date_drm {
   padding:0 0 0 15px;
 }
 #declaratif_info .onglets_declaratif li.ajouter a:hover, #declaratif_info .onglets_declaratif li.ajouter a:focus { text-decoration:underline; }
+#declaratif_info .onglets_declaratif strong { padding-right:5px !important; }
 #declaratif_info .onglets_declaratif a.msg_aide {
   float:none;
   padding:0 5px;

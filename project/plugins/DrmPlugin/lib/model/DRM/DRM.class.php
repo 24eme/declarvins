@@ -107,10 +107,10 @@ class DRM extends BaseDRM {
       return $details;
     }
 
-    public function generateSuivante($campagne) 
+    public function generateSuivante($campagne, $keepStock = true) 
     {
         $drm_suivante = clone $this;
-    	$drm_suivante->init();
+    	$drm_suivante->init(array('keepStock' => $keepStock));
         $drm_suivante->update();
         $drm_suivante->campagne = $campagne;
 	$drm_suivante->precedente = $this->_id;
@@ -122,8 +122,8 @@ class DRM extends BaseDRM {
 
         return $drm_suivante;
     }
-    public function init() {
-      	parent::init();
+    public function init($params = array()) {
+      	parent::init($params);
 		$this->remove('rectificative');
         $this->remove('douane');
         $this->add('douane');

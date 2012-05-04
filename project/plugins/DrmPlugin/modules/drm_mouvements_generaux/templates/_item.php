@@ -2,7 +2,7 @@
 
 <tr>
     <td>
-    	<?php if (!$form->getObject()->getDetail()->total_debut_mois): ?>
+    	<?php if (!$form->getObject()->getDetail()->total_debut_mois && !$form->getObject()->getDetail()->hasStockFinDeMoisDrmPrecedente()): ?>
     	<a href="<?php echo url_for('drm_mouvements_generaux_produit_delete', $form->getObject()) ?>" class="supprimer">Supprimer</a>
     	<?php endif; ?>
     	<?php echo produitLibelleFromDetail($form->getObject()->getDetail()); ?>

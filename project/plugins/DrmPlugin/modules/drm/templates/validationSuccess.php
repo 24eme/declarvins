@@ -7,7 +7,7 @@
 
     <!-- #principal -->
     <section id="principal">
-        <form action="<?php echo url_for('drm_validation', $drm) ?>" method="post">
+        <form id="formValidation" action="<?php echo url_for('drm_validation', $drm) ?>" method="post">
             <?php echo $form->renderGlobalErrors() ?>
             <?php echo $form->renderHiddenFields() ?>
             <div id="application_dr">
@@ -54,3 +54,10 @@
         </form>
     </section>
 </section>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#formValidation").submit(function(){
+			return confirm("Une fois votre déclaration validée, vous ne pourrez plus la modifier.\n\nConfirmer vous la validation de votre déclaration de récolte ?");
+		});
+	});
+</script>

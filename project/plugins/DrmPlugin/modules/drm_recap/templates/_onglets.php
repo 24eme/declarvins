@@ -9,14 +9,14 @@
             <li class="actif">
                 <strong>
                     <?php echo $appellation->getConfig()->libelle ?> 
-                    <span class="completion completion_validee">(<span class="appellation_produit_saisie"><?php echo $appellations_updated[$appellation_key] ?></span>/<span class="appellation_produit_total"><?php echo $appellations[$appellation_key] ?></span>)</span>
+                    <span class="completion<?php if($appellations_updated[$appellation_key] == $appellations[$appellation_key]): ?> completion_validee<?php endif; ?>">(<span class="appellation_produit_saisie"><?php echo $appellations_updated[$appellation_key] ?></span>/<span class="appellation_produit_total"><?php echo $appellations[$appellation_key] ?></span>)</span>
                 </strong>
             </li>
         <?php else: ?>
             <li>
                 <a title="<?php echo $appellation->getConfig()->libelle ?>" href="<?php echo url_for('drm_recap_appellation', $appellation) ?>">
                     <?php echo $appellation->getConfig()->code ?> 
-                    <span class="completion">(<span class="appellation_produit_saisie"><?php echo $appellations_updated[$appellation_key] ?></span>/<span class="appellation_produit_total"><?php echo $appellations[$appellation_key] ?></span>)</span>
+                    <span class="completion<?php if($appellations_updated[$appellation_key] == $appellations[$appellation_key]): ?> completion_validee<?php endif; ?>">(<span class="appellation_produit_saisie"><?php echo $appellations_updated[$appellation_key] ?></span>/<span class="appellation_produit_total"><?php echo $appellations[$appellation_key] ?></span>)</span>
                 </a>
             </li>
         <?php endif; ?>

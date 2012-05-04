@@ -18,8 +18,8 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
       return $this->getConfig()->getCode();
     }
 
-    protected function init() {
-        parent::init();
+    protected function init($params = array()) {
+        parent::init($params);
         $this->total_debut_mois = null;
         $this->total_entrees = null;
         $this->total_sorties = null;

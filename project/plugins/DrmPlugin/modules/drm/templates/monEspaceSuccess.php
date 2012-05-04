@@ -18,7 +18,7 @@
         <?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
         <br /><br />
         <h1>Espace Admin <a href="" class="msg_aide" data-msg="help_popup_monespace_admin" data-doc="notice.pdf" title="Message aide"></a></h1>
-    	<p class="intro">Bienvenue sur votre espace Administrateur. Que voulez-vous faire ?</p>
+    	<p class="intro">Saisir une DRM d'un mois différent.</p>
         <div id="espace_admin" style="float: left; width: 670px;">
             <div class="contenu clearfix">
             	<?php include_partial('formCampagne', array('form' => $formCampagne)) ?>
