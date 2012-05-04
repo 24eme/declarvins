@@ -84,16 +84,16 @@ class DRMValidation
 	private function controleEngagements($detail)
 	{
 		if ($detail->sorties->export > 0) {
-			$this->engagements[] = new DRMControleEngagement('export');
+			$this->engagements['export'] = new DRMControleEngagement('export');
 		}
 		if ($detail->sorties->declassement > 0) {
-			$this->engagements[] = new DRMControleEngagement('declassement');
+			$this->engagements['declassement'] = new DRMControleEngagement('declassement');
 		}
 		if ($detail->sorties->repli > 0) {
-			$this->engagements[] = new DRMControleEngagement('repli');
+			$this->engagements['repli'] = new DRMControleEngagement('repli');
 		}
 		if ($detail->sorties->pertes > 0) {
-			$this->engagements[] = new DRMControleEngagement('pertes');
+			$this->engagements['pertes'] = new DRMControleEngagement('pertes');
 		}
 	}
 	
