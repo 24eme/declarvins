@@ -4,10 +4,11 @@
 
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
     <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'recapitulatif', 'certification' => $config_appellation->getCertification()->getKey(), 'pourcentage' => '30')); ?>
-
+    <?php include_partial('drm/controlMessage'); ?>
     <!-- #principal -->
     <section id="principal">
         <div id="application_dr">
+            
             <?php include_component('drm_recap', 'onglets', array('config_appellation' => $config_appellation, 'drm_appellation' => $drm_appellation)) ?>
             <div id="contenu_onglet">
                 <!--<div class="notice">
@@ -20,6 +21,7 @@
                                 <li><kbd>Ctrl</kbd> + <kbd>Entrée</kbd> : Valider la colonne courante</li>
                         </ul>
                 </div>-->
+
                 <?php include_component('drm_recap', 'list', array('drm_appellation' => $drm_appellation, 'config_appellation' => $config_appellation, 'form' => $form)); ?>
                 
                 <div id="btn_suiv_prec">

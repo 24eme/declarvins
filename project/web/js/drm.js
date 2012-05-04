@@ -31,6 +31,8 @@ var objAjoutsLiquidations = {};
         });
 		
 		if($('#declaratif_info').size()) $.choixCaution();
+
+		$(".flash_temporaire").delay(6000).fadeTo(1000, 0);
 	});
 	
 	/**

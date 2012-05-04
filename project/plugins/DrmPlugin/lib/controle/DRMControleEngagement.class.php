@@ -10,23 +10,13 @@ class DRMControleEngagement extends DRMControle
 	
 	public function __construct($code) 
 	{
-		$this->setCode($code);
-		$this->setLien(null);
-		$this->setMessages($this->messages);
+		$messages = array(
+			'export' => "Je m'engage à ... pour l'export",
+			'declassement' => "Je m'engage à ... pour le déclassement",
+			'repli' => "Je m'engage à ... pour le repli",
+			'pertes' => "Je m'engage à ... pour les pertes exceptionnelles"
+		);
+		
+		parent::__construct('engagement', $code, null, $messages);
 	}
-	
-	public function getMessage()
-	{
-		return $this->__toString();
-	}
-	
-	public function __toString()
-	{
-		if ($messages = $this->getMessages()) {
-			return (isset($messages[$this->getCode()]))? $messages[$this->getCode()] : $this->getCode();
-		} else {
-			return $this->getCode();
-		}
-	}
-	
 }

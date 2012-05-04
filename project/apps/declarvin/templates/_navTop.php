@@ -30,7 +30,6 @@
     </ul>
 </nav>
 
-
 <?php if ($sf_user->hasFlash('notice')){ ?>
     <div id="flash_message">
         <div class="flash_notice"><?php echo $sf_user->getFlash('notice'); ?></div>

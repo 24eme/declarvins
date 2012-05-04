@@ -64,15 +64,15 @@ class DRMValidation
 				}
 			}
 			if ($totalEntreeRepli != $totalSortiRepli) {
-				$this->errors[] = new DRMControleError('repli', $this->generateUrl('drm_recap', $certification));
+				$this->errors['repli_'.$certification->getKey()] = new DRMControleError('repli', $this->generateUrl('drm_recap', $certification));
 			}
 		}
 		if ($totalEntreeDeclassement > $totalSortiDeclassement) {
-			$this->warnings[] = new DRMControleWarning('declassement', $this->generateUrl('drm_recap', $certificationVinssansig));
+			$this->warnings['declassement_'.$certificationVinssansig->getKey()] = new DRMControleWarning('declassement', $this->generateUrl('drm_recap', $certificationVinssansig));
 		}
 		if ($drmSuivante = $this->drm->getSuivante()) {
 			if ($this->drm->declaration->total != $drmSuivante->declaration->total_debut_mois) {
-				$this->errors[] = new DRMControleError('stock', '#');
+				$this->errors['stock'] = new DRMControleError('stock', '#');
 			}
 		}
 	}
@@ -104,20 +104,20 @@ class DRMValidation
 			$totalVolume += $contrat->volume;
 		}
 		if ($totalVolume != $detail->sorties->vrac) {
-			$this->errors[] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm));
+			$this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm));
 		}
 		if ($detail->total < 0) {
-			$this->errors[] = new DRMControleError('total_negatif', $this->generateUrl('drm_recap_detail', $detail));
+			$this->errors['total_negatif_'.$detail->getIdentifiantHTML()] = new DRMControleError('total_negatif', $this->generateUrl('drm_recap_detail', $detail));
 		}
 		if ($detail->total < ($detail->stocks_fin->bloque + $detail->stocks_fin->instance)) {
-			$this->errors[] = new DRMControleError('total_stocks', $this->generateUrl('drm_recap_detail', $detail));
+			$this->errors['total_stocks_'.$detail->getIdentifiantHTML()] = new DRMControleError('total_stocks', $this->generateUrl('drm_recap_detail', $detail));
 		}
 	}
 	
 	private function controleWarnings($detail)
 	{
 		if ($detail->sorties->mouvement > 0) {
-			$this->warnings[] = new DRMControleWarning('mouvement', $this->generateUrl('drm_recap_detail', $detail));
+			$this->warnings['mouvement_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mouvement', $this->generateUrl('drm_recap_detail', $detail));
 		}
 	}
 	
@@ -135,8 +135,24 @@ class DRMValidation
 	{
 		return (count($this->warnings) > 0)? true : false;
 	}
+
+	public function find($type, $identifiant)
+	{
+		if ($type == 'error' && array_key_exists($identifiant, $this->errors)) {
+
+			return $this->errors[$identifiant];
+		} elseif($type == 'warning' && array_key_exists($identifiant, $this->warnings)) {
+
+			return $this->warnings[$identifiant];
+		} elseif($type == 'engagement' && array_key_exists($identifiant, $this->engagements)) {
+			
+			return $this->engagements[$identifiant];
+		}
+
+		return null;
+	}
 	
-	public function generateUrl($route, $params = array(), $absolute = false)
+	protected function generateUrl($route, $params = array(), $absolute = false)
 	{
 		return sfContext::getInstance()->getRouting()->generate($route, $params, $absolute);
 	}
