@@ -204,6 +204,7 @@ Vrac:
           fields:
             nom: {  }
       etablissement: {  }
+      prix: { type: float }
       volume_promis: { type: float }
       volume_realise: { type: float }
 
