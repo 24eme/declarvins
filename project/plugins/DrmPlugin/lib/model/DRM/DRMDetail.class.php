@@ -164,18 +164,21 @@ class DRMDetail extends BaseDRMDetail {
       return $this->getAppellation()->getDroit($type);
     }
 
-    protected function init() {
-      parent::init();
-
-      $this->total_debut_mois = $this->total;
+    protected function init($params = array()) {
+      parent::init($params);
+		$keepStock = true;
+		if (isset($params['keepStock'])) {
+			$keepStock = $params['keepStock'];
+		}
+      $this->total_debut_mois = ($keepStock)? $this->total : null;
       $this->total_entrees = null;
       $this->total_sorties = null;
       $this->total = null;
                     
-      $this->stocks_debut->bloque = $this->stocks_fin->bloque;
-      $this->stocks_debut->warrante = $this->stocks_fin->warrante;
-      $this->stocks_debut->instance = $this->stocks_fin->instance;
-      $this->stocks_debut->commercialisable = $this->stocks_fin->commercialisable;
+      $this->stocks_debut->bloque = ($keepStock)? $this->stocks_fin->bloque : null;
+      $this->stocks_debut->warrante = ($keepStock)? $this->stocks_fin->warrante : null;
+      $this->stocks_debut->instance = ($keepStock)? $this->stocks_fin->instance : null;
+      $this->stocks_debut->commercialisable = ($keepStock)? $this->stocks_fin->commercialisable : null;
       
       $this->stocks_fin->bloque = null;
       $this->stocks_fin->warrante = null;
