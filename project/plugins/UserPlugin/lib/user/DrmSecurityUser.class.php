@@ -82,9 +82,14 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
        	if ($prev_drm) {
            $this->_drm = $prev_drm->generateSuivante($campagne);
        	} else {
-	    	$this->_drm = new DRM();
-	    	$this->_drm->identifiant = $this->getTiers()->identifiant;
-	    	$this->_drm->campagne = $campagne;
+       		$lastDrm = $this->getDrmHistorique()->getLastDrm();
+    		if ($lastDrm && $drm = DRMClient::getInstance()->find(key($lastDrm))) {
+    			$this->_drm = $drm->generateSuivante($campagne, false);
+    		} else {
+		    	$this->_drm = new DRM();
+		    	$this->_drm->identifiant = $this->getTiers()->identifiant;
+		    	$this->_drm->campagne = $campagne;
+    		}
        	}
         return $this->_drm;
     }
