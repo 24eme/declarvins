@@ -1,8 +1,9 @@
+<?php use_helper('Produit'); ?>
 <?php use_helper('Rectificative'); ?>
 <?php use_helper('Float'); ?>
-<?php foreach($drm->declaration->certifications as $certification): ?>
+<?php foreach($drm->produits as $certification_produit): ?>
 	<div class="tableau_ajouts_liquidations">
-		<h2><?php echo $certification->getConfig()->libelle ?></h2>
+		<h2><?php echo $certification_produit->getConfig()->libelle ?></h2>
 		<table class="tableau_recap">
 			<thead>
 				<tr>
@@ -14,14 +15,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach($certification->appellations as $appellation): ?>
-				<tr class="alt">
-					<td><?php echo $appellation->getConfig()->libelle ?></td>
-					<td class="<?php echo isRectifierCssClass($appellation, 'total_debut_mois') ?>"><strong><?php echoFloat($appellation->total_debut_mois) ?></strong></td>
-					<td class="<?php echo isRectifierCssClass($appellation, 'total_entrees') ?>"><?php echoFloat($appellation->total_entrees) ?></td>
-					<td class="<?php echo isRectifierCssClass($appellation, 'total_sorties') ?>"><?php echoFloat($appellation->total_sorties) ?></td>
-					<td class="<?php echo isRectifierCssClass($appellation, 'total') ?>"><strong><?php echoFloat($appellation->total) ?></strong></td>
-				</tr>
+				<?php foreach($certification_produit as $appellation_produit): ?>
+					<?php foreach($appellation_produit as $produit): ?>
+						<?php $detail = $produit->getDetail(); ?>
+						<tr class="alt">
+							<td><?php echo produitLibelleFromDetail($detail) ?></td>
+							<td class="<?php echo isRectifierCssClass($detail, 'total_debut_mois') ?>"><strong><?php echoFloat($detail->total_debut_mois) ?></strong></td>
+							<td class="<?php echo isRectifierCssClass($detail, 'total_entrees') ?>"><?php echoFloat($detail->total_entrees) ?></td>
+							<td class="<?php echo isRectifierCssClass($detail, 'total_sorties') ?>"><?php echoFloat($detail->total_sorties) ?></td>
+							<td class="<?php echo isRectifierCssClass($detail, 'total') ?>"><strong><?php echoFloat($detail->total) ?></strong></td>
+						</tr>
+					<?php endforeach; ?>
 			<?php endforeach; ?>
 		</tbody>
 	</table>

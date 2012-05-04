@@ -17,6 +17,11 @@ class DRMProduitAppellation extends BaseDRMProduitAppellation {
 
 		return $this->getCertification()->getDeclaration()->appellations->get($this->getKey());
 	}
+
+	public function getConfig() {
+
+		return $this->getDeclaration()->getConfig();
+	}
 	
 	/*
 	 * Fonction basée sur le flag 

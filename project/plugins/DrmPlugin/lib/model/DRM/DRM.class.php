@@ -70,6 +70,14 @@ class DRM extends BaseDRM {
 
     }
 
+    public function getDepartement() {
+        if($this->declarant->siege->code_postal) {
+            return substr($this->declarant->siege->code_postal, 0, 2);
+        }
+
+        return null;
+    }
+
     public function getDetails() {
         $details = array();
         foreach ($this->declaration->certifications as $certifications) {

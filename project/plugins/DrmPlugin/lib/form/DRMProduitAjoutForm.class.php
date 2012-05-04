@@ -97,12 +97,12 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
                                                              ->get($this->getObject()->getCertification()->getKey())
                                                              ->appellations
                                                              ->get($this->getObject()->getAppellation()->getKey())
-                                                             ->getProduits($this->_interpro); 
+                                                             ->getProduits($this->_interpro, $this->getObject()->getDocument()->getDepartement());
             } else {
                 $this->_choices_produits = ConfigurationClient::getCurrent()->declaration
                                                              ->certifications
                                                              ->get($this->getObject()->getCertification()->getKey())
-                                                             ->getProduits($this->_interpro);
+                                                             ->getProduits($this->_interpro, $this->getObject()->getDocument()->getDepartement());
             }
 
             $this->_choices_produits = array_merge(array("" => ""), array_map(array($this, 'formatProduit'), $this->_choices_produits));
