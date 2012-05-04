@@ -10,19 +10,22 @@ class drmComponents extends sfComponents {
         $i = 3;
         foreach ($this->config_certifications as $certification => $produit) {
             if ($this->drm->produits->exist($certification)) {
-                $this->certifications[$i] = $certification;
-                $this->certificationsLibelle[$i] = ConfigurationClient::getCurrent()->declaration->certifications->get($certification)->libelle;
-                $i++;
+            	$certif = $this->drm->produits->get($certification);
+            	if ($certif->hasMouvement()) {
+	                $this->certifications[$i] = $certification;
+	                $this->certificationsLibelle[$i] = ConfigurationClient::getCurrent()->declaration->certifications->get($certification)->libelle;
+	                $i++;
+            	}
             }
         }
-        
+        $nbCertifs = count($this->certifications);
         $this->numeros = array(
             'informations' => 1,
             'ajouts_liquidations' => 2,
             'recapitulatif' => 3,
-            'vrac' => 3 + count($this->certifications),
-            'declaratif' => 4 + count($this->certifications),
-            'validation' => 5 + count($this->certifications),
+            'vrac' => 3 + $nbCertifs,
+            'declaratif' => 4 + $nbCertifs,
+            'validation' => 5 + $nbCertifs,
         );
         
         $this->numero = $this->numeros[$this->etape];

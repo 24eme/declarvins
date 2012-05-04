@@ -27,6 +27,7 @@
 	var btnAjouter = colonnesDR.find('.btn_ajouter');
 	
 	var btnEtapesDR = $('#btn_etape_dr');
+        var btnPrecSuivProd = $('#btn_suiv_prec');
         
 	$(document).ready( function()
 	{
@@ -331,7 +332,17 @@
 					if(!colActive && !colonne.hasClass('col_focus')) $.majColFocus(colonne, true);
 				});
 				
-			
+				
+				// Sélectionne le texte du champ au clic
+				if(champ.is(':text') && !champ.attr('readonly'))
+				{
+					champ.click(function(e)
+					{
+						champ.select();
+						e.preventDefault();
+					});
+				}
+				
 				if(champ.is('select'))
 				{
 					champ.blur(function()
@@ -449,6 +460,7 @@
 		colActive.desactiverAutresCol();
 		
 		btnEtapesDR.addClass('inactif');
+                btnPrecSuivProd.addClass('inactif');
 		
 		$.majColSaisiesScroll();
 	};
@@ -489,6 +501,7 @@
 			colSaisiesRecolte.find('input, select').removeAttr('disabled');
 			
 			btnEtapesDR.removeClass('inactif');
+                        btnPrecSuivProd.removeClass('inactif');
 		}
 	};
 	
@@ -596,16 +609,15 @@
 					// Ajout du stock théorique du début
 					if(champSommeStockDebut.hasClass('num_float')) somme += parseFloat(champSommeStockDebut.val());
 					else somme += parseInt(champSommeStockDebut.val());
-					$.varDump(champSommeStockDebut.val());
+
 					// Ajout des entrées
 					if(champSommeEntrees.hasClass('num_float')) somme += parseFloat(champSommeEntrees.val());
 					else somme += parseInt(champSommeEntrees.val());
-					$.varDump(champSommeEntrees.val());
+
 					// Soustraction des sorties
 					if(champSommeSorties.hasClass('num_float')) somme -= parseFloat(champSommeSorties.val());
 					else somme -= parseInt(champSommeSorties.val());
 				
-					$.varDump(champSommeSorties.val());
 					if(float) somme = parseFloat(somme);
 					else somme = parseInt(somme);
 				}
@@ -645,6 +657,7 @@
 			}
 		});*/
 		
+		
 		groupesIntitules.each(function()
 		{
 			var groupe = $(this);
@@ -672,48 +685,65 @@
 			listeIntitules.hide();
 			gpeChamps.hide();
 			//$.majHauteurMasque();
+			
+			
+			// Evènement "fermer"
+			groupe.bind('fermer',function()
+			{
+				groupe.removeClass('groupe_ouvert');
+				listeIntitules.slideUp();
+				gpeChamps.slideUp();
+			});
+			
+			// Evènement "ouvrir"
+			groupe.bind('ouvrir',function()
+			{
+				groupe.addClass('groupe_ouvert');
+				listeIntitules.slideDown();
+				gpeChamps.slideDown();
+			});
+			
 
 			// Affiche / Masque les groupes et les champs associés
 			if (!groupe.hasClass('bloque'))
 			{
 				titre.click(function()
 				{
-					groupe.toggleClass('groupe_ouvert');
-					listeIntitules.slideToggle();
-					gpeChamps.slideToggle();
-					//$.majHauteurMasque();
+					if(groupe.hasClass('groupe_ouvert')) groupe.trigger('fermer');
+					else groupe.trigger('ouvrir');
 				});
 				
+			}
+				// Parcours de tous les champs associés aux intitulés
 				gpeAssocieIntitules.find('input').focus(function()
 				{
 					var champ = $(this);
 					var champSuivant = champ.parents('.groupe').find('ul input:first');
 					
-					if(!groupe.hasClass('groupe_ouvert'))
+					// Si le groupe est fermé ou si c'est groupe bloqué et ouvert
+					if(!groupe.hasClass('groupe_ouvert') || (groupe.hasClass('bloque') && groupe.hasClass('demarrage-ouvert')))
 					{
+						// Fermeture de tous les autres groupes
+						// sauf les groupes bloqués
 						groupesIntitules.each(function()
-						{						
-							if($(this).hasClass('groupe_ouvert') && !$(this).hasClass('bloque')) {
-								$(this).removeClass('groupe_ouvert');
-								$(this).children('ul').slideToggle();
-								colSaisies.find('.groupe[data-groupe-id='+$(this).attr('data-groupe-id')+']').children('ul').slideToggle();
-							}
+						{
+							var gpeInt = $(this);
+							
+							if(gpeInt.hasClass('groupe_ouvert') && !gpeInt.hasClass('bloque')) gpeInt.trigger('fermer');
 						});
-						groupe.addClass('groupe_ouvert');
-						listeIntitules.slideToggle();
-						gpeChamps.slideToggle();
-						//$.majHauteurMasque();
+						
+						// Ouverture du groupe courant
+						groupe.trigger('ouvrir');
 						
 						// Focus sur le champ suivant si le champ courant n'est pas éditable 
 						if(champ.attr('readonly')) champSuivant.focus();
 					}
 				});
-			}
 
-			if (groupe.hasClass('demarrage-ouvert')) {
-				groupe.toggleClass('groupe_ouvert');
-				listeIntitules.slideToggle();
-				gpeChamps.slideToggle();
+			// Groupe ouvert par défaut
+			if(groupe.hasClass('demarrage-ouvert'))
+			{
+				groupe.trigger('ouvrir');
 			}
 		});
 	};

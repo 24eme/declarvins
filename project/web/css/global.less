@@ -239,28 +239,46 @@ button.btn_prec span,
 button.btn_suiv,
 button.btn_suiv span { height: 26px; }
 
+
+#btn_suiv_prec{
+    clear:both; 
+    height:20px
+}
+
+#btn_suiv_prec .btn_prec,
+#btn_suiv_prec .btn_suiv
+{
+	background: url(../images/boutons/btn_majeur_gris.png);
+
+	span
+	{
+		background: url(../images/boutons/btn_majeur_gris.png);
+	}
+}
+
+
 .btn_prec
 {
-	background-position: 0 -52px;
+	background-position: 0 -52px !important;
 	float: left;
 	padding: 0 0 0 18px;
 
 	span
 	{
-		background-position: right 0;
+		background-position: right 0 !important;
 		padding: 0 18px 0 10px;
 	}
 }
 
 .btn_suiv
 {
-	background-position: right -52px;
+	background-position: right -52px !important;
 	float: right;
 	padding: 0 18px 0 0;
 
 	span
 	{
-		background-position: 0 -26px;
+		background-position: 0 -26px !important;
 		padding: 0 10px 0 18px;
 	}
 }
@@ -268,14 +286,15 @@ button.btn_suiv span { height: 26px; }
 a.msg_aide
 {
 	.opacite(0.5);
-    background: url(../images/pictos/pi_aide.png) 0 0 no-repeat;
-    display: inline-block;
-    height: 17px;
-    outline: 0;
-    vertical-align: middle;
-    width: 17px;
+        background: url(../images/pictos/pi_aide.png) 0 0 no-repeat;
+        display: inline-block;
+        height: 17px;
+        margin-top: -3px;
+        outline: 0;
+        vertical-align: middle;
+        width: 17px;
 
-    hover { .opacite(1); }
+        &:hover { .opacite(1); }
 }
 
  

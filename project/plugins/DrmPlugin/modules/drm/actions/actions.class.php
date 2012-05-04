@@ -97,6 +97,7 @@ class drmActions extends sfActions
                             $this->redirect('drm_modif_infos', $this->drm);
                         }elseif ($values['confirmation']) {
   				$this->drm->declarant->nom = $this->tiers->nom;
+  				$this->drm->declarant->raison_sociale = $this->tiers->raison_sociale;
   				$this->drm->declarant->siret = $this->tiers->siret;
   				$this->drm->declarant->cni = $this->tiers->cni;
   				$this->drm->declarant->cvi = $this->tiers->cvi;

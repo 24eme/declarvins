@@ -61,7 +61,7 @@ class drm_recapActions extends sfActions
             $form->bind($request->getParameter($form->getName()));
             if ($form->isValid()) {
                 $form->save();
-                $this->getUser()->setFlash("notice", 'Le produit a été ajouté avec success.');
+                $this->getUser()->setFlash("notice", 'Le produit a été ajouté avec succès.');
                 return $this->renderText(json_encode(array("success" => true, 
                                                            "url" => $this->generateUrl('drm_recap_appellation', $this->drm_appellation))));
             }
@@ -103,6 +103,36 @@ class drm_recapActions extends sfActions
         $this->drm = $this->getRoute()->getDrm();
         $this->config_appellation = $this->getRoute()->getConfigAppellation();
         $this->drm_appellation = $this->getRoute()->getDrmAppellation();
+        $this->previous = null;
+        $this->next = null;
+        $previous = $this->drm_appellation->getProduits()->getPrevious();
+        while (!$this->previous && $previous) {
+        	if ($previous->hasMouvement()) {
+        		$this->previous = $previous->getDeclaration();
+        	}
+        	$previous = $previous->getPrevious();
+        }
+        $previous = $this->drm_appellation->getCertification()->getProduits()->getPrevious();
+        while (!$this->previous && $previous) {
+        	if ($previous->hasMouvement()) {
+        		$this->previous = $previous->getLast()->getDeclaration();
+        	}
+        	$previous = $previous->getPrevious();
+        }
+        $next = $this->drm_appellation->getProduits()->getNext();
+        while (!$this->next && $next) {
+        	if ($next->hasMouvement()) {
+        		$this->next = $next->getDeclaration();
+        	}
+        	$next = $next->getNext();
+        }
+        $next = $this->drm_appellation->getCertification()->getProduits()->getNext();
+        while (!$this->next && $next) {
+        	if ($next->hasMouvement()) {
+        		$this->next = $next->getFirst()->getDeclaration();
+        	}
+        	$next = $next->getNext();
+        }
     }
     
 }

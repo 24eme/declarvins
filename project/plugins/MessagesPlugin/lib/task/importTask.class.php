@@ -41,7 +41,8 @@ EOF;
 
                     $field = $this->getCsvValueAfterTreatment($datas[0]);
                     $value = $this->getCsvValueAfterTreatment($datas[1]);
-                    if ($field != "" || $value != "") {
+                    
+                    if ($field != "" && $value != '""') {
                         if (isset($json->{$field})) {
                             $this->logSection("ligne " . ($numero + 1), "update success", null);
                         } else {

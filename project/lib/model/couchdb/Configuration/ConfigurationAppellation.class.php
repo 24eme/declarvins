@@ -64,18 +64,24 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
         return false;
     }
 
-    public function getProduits($interpro, $departement = '') {
+    public function getProduits($interpro, $departement) {
         $produits = array();
 
-        $results = ConfigurationClient::getInstance()->findProduitsByAppellation($this->getCertification()->getKey(), $interpro, $departement, $this->getKey());
+        $results = ConfigurationClient::getInstance()->findProduitsByAppellation($this->getCertification()->getKey(), $interpro, '', $this->getKey())->rows;
 
-        foreach($results->rows as $item) {
+        if ($departement) {
+          $results = array_merge($results, ConfigurationClient::getInstance()->findProduitsByAppellation($this->getCertification()->getKey(), $interpro, $departement, $this->getKey())->rows);
+        }
+
+        foreach($results as $item) {
             $libelles = $item->value;
             unset($libelles[0]);
             unset($libelles[1]);
             $libelles[] = '('.$item->key[6].')';
             $produits[$item->key[5]] = $libelles;
         }
+
+        ksort($produits);
 
         return $produits;
     }

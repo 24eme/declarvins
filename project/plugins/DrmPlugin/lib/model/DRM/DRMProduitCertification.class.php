@@ -11,6 +11,11 @@ class DRMProduitCertification extends BaseDRMProduitCertification {
 		return $this->getDocument()->declaration->certifications->get($this->getKey());
 	}
 
+	public function getConfig() {
+
+		return $this->getDeclaration()->getConfig();
+	}
+
 	public function hasMouvement() {
 		
 		foreach($this as $appellation) {
