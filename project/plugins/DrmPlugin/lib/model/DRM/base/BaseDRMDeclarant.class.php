@@ -5,6 +5,7 @@
  * Base model for DRMDeclarant
 
  * @property string $nom
+ * @property string $raison_sociale
  * @property string $siret
  * @property string $cni
  * @property string $cvi
@@ -16,6 +17,8 @@
 
  * @method string getNom()
  * @method string setNom()
+ * @method string getRaisonSociale()
+ * @method string setRaisonSociale()
  * @method string getSiret()
  * @method string setSiret()
  * @method string getCni()

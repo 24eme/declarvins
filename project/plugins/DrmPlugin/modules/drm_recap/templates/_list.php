@@ -34,21 +34,6 @@
     </div>
 </div>
 
-<div id="btn_suiv_prec">
-<?php if ($produits_appellation = $drm_appellation->getProduits()->getPrevious()): ?>
-    <a href="<?php echo url_for('drm_recap_appellation', $produits_appellation->getDeclaration()) ?>" class="btn_prec">
-        <span>Produit précédent</span>
-    </a>
-<?php endif; ?>
-
-
-<?php if ($produits_appellation = $drm_appellation->getProduits()->getNext()): ?>
-    <a href="<?php echo url_for('drm_recap_appellation', $produits_appellation->getDeclaration()) ?>" class="btn_suiv">
-        <span>Produit suivant</span>
-    </a>
-<?php endif; ?>   
-</div>
-
 <script type="text/javascript">
     $(document).ready(function () {
         $('.form_detail').submit( function () {

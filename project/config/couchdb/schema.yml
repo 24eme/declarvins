@@ -859,6 +859,7 @@ DRM:
         definition:
           fields:
             nom: {  }
+            raison_sociale: {  }
             siret: {  }
             cni: {  }
             cvi: {  }
