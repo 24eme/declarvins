@@ -1,7 +1,10 @@
-<tr>
+<?php
+$contrat = VracClient::getInstance()->retrieveById($form->getObject()->getKey());
+
+?><tr>
 	<td></td>
 	<td align="center">
-		<span><?php echo $form->getObject()->getKey() ?></span>
+   <span><?php echo $form->getObject()->getKey() ?> (<?php echo $contrat->acheteur->nom; ?> - <?php echo $contrat->volume_promis; ?>&nbsp;hl)</span>
 	</td>
 	<td align="center">
 		<form action="<?php echo url_for('drm_vrac_update_volume', $form->getObject()) ?>" method="post">
