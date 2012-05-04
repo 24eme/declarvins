@@ -16,8 +16,9 @@ class Vrac extends BaseVrac {
       $this->_id = 'VRAC-'.$this->numero;
     }
     if ($this->date_creation) {
-    	$date = explode('/', $this->date_creation);
-    	$this->campagne = $date[2];
+    	$date = explode('-', $this->date_creation);
+    	$this->annee = $date[0];
+    	$this->mois = $date[1];
     }
     parent::save($conn);
   }

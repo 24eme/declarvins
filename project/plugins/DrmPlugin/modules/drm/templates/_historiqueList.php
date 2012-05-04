@@ -7,7 +7,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<?php $i=0; if ($hasNewDrm): $i++; ?>
+		<?php if ($hasNewDrm): ?>
 		<tr class="alt">
 			      <td><?php echo $futurDrm[DRMHistorique::VIEW_INDEX_ANNEE].'-'.$futurDrm[DRMHistorique::VIEW_INDEX_MOIS] ?></td>
 			<td>NOUVELLE</td>
@@ -18,6 +18,6 @@
 		<?php endif; ?>
 		<?php $i=0; foreach ($list as $drm_id => $drm): ?>
 		<?php include_component('drm', 'historiqueItem', array('alt' => $i%2 == 0, 'drm' => $drm)) ?>
-		<?php $i++; endforeach; ?>
+		<?php $i++; if (isset($limit) && $limit == $i) break; endforeach; ?>
 	</tbody>
 </table>

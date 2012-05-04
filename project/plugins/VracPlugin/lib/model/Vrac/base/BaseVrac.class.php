@@ -11,7 +11,8 @@
  * @property string $numero
  * @property string $actif
  * @property string $date_creation
- * @property string $campagne
+ * @property string $annee
+ * @property string $mois
  * @property acCouchdbJson $acheteur
  * @property acCouchdbJson $courtier
  * @property string $etablissement
@@ -32,8 +33,10 @@
  * @method string setActif()
  * @method string getDateCreation()
  * @method string setDateCreation()
- * @method string getCampagne()
- * @method string setCampagne()
+ * @method string getAnnee()
+ * @method string setAnnee()
+ * @method string getMois()
+ * @method string setMois()
  * @method acCouchdbJson getAcheteur()
  * @method acCouchdbJson setAcheteur()
  * @method acCouchdbJson getCourtier()

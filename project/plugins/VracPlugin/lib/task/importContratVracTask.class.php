@@ -47,7 +47,7 @@ EOF;
     $vrac->volume_promis = 25;
     $vrac->courtier->nom = "Courtier test";
     $vrac->actif = 1;
-    $vrac->date_creation = "27/04/2012";
+    $vrac->date_creation = "2012-04-27";
     $vrac->save();
 
     $vrac = acCouchdbManager::getClient()->find('VRAC-123457');
@@ -64,7 +64,7 @@ EOF;
     $vrac->volume_promis = 36;
     $vrac->courtier->nom = "Courtier test";
     $vrac->actif = 1;
-    $vrac->date_creation = "27/04/2012";
+    $vrac->date_creation = "2011-04-27";
     $vrac->save();
 
   }

@@ -1081,6 +1081,10 @@ p#date_drm {
   font-style:italic;
   margin:20px 0;
 }
+#msg_aide_drm {
+  float:right;
+  width:17px;
+}
 #statut_declaration {
   margin:0 0 25px;
   zoom:1;
@@ -1635,7 +1639,7 @@ p#date_drm {
 #declaratif_info .onglets_declaratif {
   line-height:23px;
   zoom:1;
-  margin-top:15px;
+  margin-top:15px 5px 15px 15px;
 }
 #declaratif_info .onglets_declaratif:before, #declaratif_info .onglets_declaratif:after {
   content:"\0020";
@@ -1678,6 +1682,17 @@ p#date_drm {
   padding:0 0 0 15px;
 }
 #declaratif_info .onglets_declaratif li.ajouter a:hover, #declaratif_info .onglets_declaratif li.ajouter a:focus { text-decoration:underline; }
+#declaratif_info .onglets_declaratif a.msg_aide {
+  float:none;
+  padding:0 5px;
+}
+#declaratif_info .onglets_declaratif a.msg_aide:hover {
+  -webkit-opacity:1;
+  -khtml-opacity:1;
+  -moz-opacity:1;
+  opacity:1;
+  background:url(../images/pictos/pi_aide.png) 0 0 no-repeat;
+}
 #declaratif_info .contenu_onglet_declaratif {
   background:#f1f1f1;
   border:1px solid #e9e9e9;
