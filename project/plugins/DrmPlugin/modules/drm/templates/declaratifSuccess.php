@@ -102,7 +102,7 @@
                         <?php echo $form['caution']->render() ?>
                     </div>
 
-                    <div class="ligne_form alignes" id="organisme">
+                    <div class="ligne_form alignes" id="organisme" style="display:<?php echo ($form['caution']->getValue()) ? 'none' : 'block' ?>;">
                         <?php echo $form['organisme']->renderError() ?>
                         <?php echo $form['organisme']->renderLabel() ?>
                         <?php echo $form['organisme']->render() ?>
@@ -155,8 +155,7 @@
 
 $(document).ready( function()
 	{
-            $('#drm_declaratif_caution_0').click(function() { $('#organisme').css('display', 'block') });
-            $('#drm_declaratif_caution_1').click(function() { $('#organisme').css('display', 'none') });
-        });
-
+        $('#drm_declaratif_caution_0').click(function() { $('#organisme').css('display', 'block') });
+        $('#drm_declaratif_caution_1').click(function() { $('#organisme').css('display', 'none') });
+    });
 </script>
