@@ -33,9 +33,9 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-    $vrac = acCouchdbManager::getClient()->find('VRAC-123456');
+    $vrac = acCouchdbManager::getClient()->find('VRAC-123456', acCouchdbClient::HYDRATE_JSON);
     if($vrac) {
-      $vrac->delete();
+      acCouchdbManager::getClient()->deleteDoc($vrac);
     }
 
     $vrac = new Vrac();
@@ -50,9 +50,9 @@ EOF;
     $vrac->date_creation = "2012-04-27";
     $vrac->save();
 
-    $vrac = acCouchdbManager::getClient()->find('VRAC-123457');
+    $vrac = acCouchdbManager::getClient()->find('VRAC-123457', acCouchdbClient::HYDRATE_JSON);
     if($vrac) {
-      $vrac->delete();
+      acCouchdbManager::getClient()->deleteDoc($vrac);
     }
     
     $vrac = new Vrac();
