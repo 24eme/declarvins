@@ -13,7 +13,7 @@ class MessagesClient extends acCouchdbClient {
     try {
       return $this->retrieveMessages()->{$id};
     }catch(Exception $e) {
-      return "PAS DE MESSAGE TROUVÉ !!";
+      return "\"".$id."\" PAS DE MESSAGE TROUVÉ !!";
     }
   }
 }

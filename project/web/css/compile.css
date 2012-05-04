@@ -299,7 +299,7 @@ a.msg_aide {
   vertical-align:middle;
   width:17px;
 }
-a.msg_aide hover {
+a.msg_aide:hover {
   -webkit-opacity:1;
   -khtml-opacity:1;
   -moz-opacity:1;

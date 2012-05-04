@@ -2,7 +2,7 @@
 	<thead>
 		<tr>
 			<th>DRM</th>
-			<th>Etat</th>
+			<th>Etat <a href="" class="msg_aide" data-msg="help_popup_monespace_etat" title="Message aide"></a></th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
