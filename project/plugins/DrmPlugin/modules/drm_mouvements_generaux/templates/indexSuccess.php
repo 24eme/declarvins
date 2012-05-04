@@ -18,7 +18,7 @@
 							<tbody>
 							<tr class="alt">
 								<td style="width: 684px;" colspan="2"><label for="produits_pas_de_mouvement">Pas de mouvement pour l'ensemble des produits <a href="" class="msg_aide" data-msg="help_popup_mouvgen_pasdemouvement_global" title="Message aide"></a></label></td>
-								<td style="width: 122px" align="center"><input id="produits_pas_de_mouvement" type="checkbox" value="" /></td>
+								<td style="width: 150px" align="center"><input id="produits_pas_de_mouvement" type="checkbox" value="" /></td>
 							</tr>
 							</tbody>
 						</table>
