@@ -29,7 +29,7 @@ class DRMAppellationAjoutForm extends acCouchdbFormDocumentJson {
                                                     ->certifications
                                                     ->get($this->getObject()->getKey());
 
-            $produits = $config_certification->getProduitsAppellations($this->_interpro);
+            $produits = $config_certification->getProduitsAppellations($this->_interpro, $this->getObject()->getDocument()->getDepartement());
 
             $this->_choices_appellation = array("" => "");
             foreach($produits as $hash => $libelles)  {
