@@ -1,4 +1,7 @@
 <ul id="onglets_principal">
+ <div id="msg_aide_drm">
+        <a href="" class="msg_aide" data-msg="help_popup_drm_global" data-doc="notice.pdf" title="Message aide"></a>
+ </div>
     <?php foreach ($appellation_keys as $appellation_key): ?>
         <?php $appellation = $drm_appellation->getCertification()->appellations->get($appellation_key); ?>
         <?php if ($appellation->getProduits()->hasMouvement()): ?>

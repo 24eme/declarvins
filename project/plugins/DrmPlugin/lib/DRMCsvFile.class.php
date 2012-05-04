@@ -58,11 +58,20 @@ class DRMCsvFile extends CsvFile
   const CSV_COL_DETAIL_STOCKFIN_WARRANTE = 48;
   const CSV_COL_DETAIL_STOCKFIN_INSTANCE = 49;
   const CSV_COL_DETAIL_STOCKFIN_COMMERCIALISABLE = 50;
-  const CSV_COL_DETAIL_DATEDESAISIE = 51;
-  const CSV_COL_DETAIL_MODEDESAISIE = 52;
-  const CSV_COL_DETAIL_CVO_TAUX = 53;
-  const CSV_COL_DETAIL_CVO_VOLUME = 54;
-  const CSV_COL_DETAIL_CVO_PRIX = 55;
+  const CSV_COL_DETAIL_DATEDESIGNATURE = 51;
+  const CSV_COL_DETAIL_DATEDESAISIE = 52;
+  const CSV_COL_DETAIL_MODEDESAISIE = 53;
+  const CSV_COL_DETAIL_CVO_TAUX = 54;
+  const CSV_COL_DETAIL_CVO_VOLUME = 55;
+  const CSV_COL_DETAIL_CVO_PRIX = 56;
+  const CSV_COL_DETAIL_IDDRMDECLARVIN = 56;
+  const CSV_COL_DETAIL_ID_ETABLISSEMENT_INTERNE = 57;
+
+  public static function createFromArray($array) {
+    $csv = new DRMCsvFile();
+    $csv->csvdata = $array;
+    return $csv;
+  }
 
   public static function createFromDRM(DRM $drm) {
     $csv = new DRMCsvFile();
@@ -124,7 +133,10 @@ class DRMCsvFile extends CsvFile
       $line[self::CSV_COL_DETAIL_CVO_VOLUME] = $d->getDroitVolume(DrmDroits::DROIT_CVO);
       $line[self::CSV_COL_DETAIL_CVO_PRIX] = $line[self::CSV_COL_DETAIL_CVO_TAUX] * $line[self::CSV_COL_DETAIL_CVO_VOLUME];
       $line[self::CSV_COL_DETAIL_DATEDESAISIE] = $d->getDocument()->valide->date_saisie;
+      $line[self::CSV_COL_DETAIL_DATEDESIGNATURE] = $d->getDocument()->valide->date_signature;
       $line[self::CSV_COL_DETAIL_MODEDESAISIE] = $d->getDocument()->mode_de_saisie;
+      $line[self::CSV_COL_DETAIL_IDDRMDECLARVIN] = $d->getDocument()->_id;
+      $line[self::CSV_COL_DETAIL_ID_ETABLISSEMENT_INTERNE] = $d->getDocument()->getEtablissement()->num_interne;
       $csv->csvdata[] = $line;
     }
     return $csv;
@@ -232,7 +244,7 @@ class DRMCsvFile extends CsvFile
     }
 
     if (count($this->errors)) {
-      throw new sfException('errors');
+      throw new sfException('errors (cf. DRMCsvFile->errors)');
     }
     return $this->drm;
   }

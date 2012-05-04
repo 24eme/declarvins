@@ -40,7 +40,6 @@
                 <div id="contenu_onglet">
                     <?php if(!$drm->declaration->hasPasDeMouvement() && !$drm->declaration->hasStockEpuise()):  ?>
                         <?php include_partial('drm/recap', array('drm' => $drm)) ?>
-                        <?php include_partial('drm/droits', array('drm' => $drm)) ?>
                     <?php else: ?>
                         <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
                     <?php endif; ?>

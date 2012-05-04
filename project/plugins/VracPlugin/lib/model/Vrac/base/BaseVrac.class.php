@@ -16,6 +16,7 @@
  * @property acCouchdbJson $acheteur
  * @property acCouchdbJson $courtier
  * @property string $etablissement
+ * @property float $prix
  * @property float $volume_promis
  * @property float $volume_realise
 
@@ -43,6 +44,8 @@
  * @method acCouchdbJson setCourtier()
  * @method string getEtablissement()
  * @method string setEtablissement()
+ * @method float getPrix()
+ * @method float setPrix()
  * @method float getVolumePromis()
  * @method float setVolumePromis()
  * @method float getVolumeRealise()

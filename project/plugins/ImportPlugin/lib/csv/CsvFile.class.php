@@ -12,11 +12,13 @@ class CsvFile
     return $this->file;
   }
 
-  public function __construct($file, $ignore_first_if_comment = 1) {
+  public function __construct($file = null, $ignore_first_if_comment = 1) {
     $this->ignore = $ignore_first_if_comment;
+    $this->separator = ';';
+    if (!$file)
+      return ;
     if (!file_exists($file) && !preg_match('/^http/', $file))
       throw new Exception("Cannont access $file");
-      
     $this->file = $file;
     $handle = fopen($this->file, 'r');
     if (!$handle) {
@@ -30,7 +32,6 @@ class CsvFile
     }
     $virgule = explode(',', $buffer);
     $ptvirgule = explode(';', $buffer);
-    $this->separator = ';';
     if (count($virgule) > count($ptvirgule))
       $this->separator = ',';
   }
