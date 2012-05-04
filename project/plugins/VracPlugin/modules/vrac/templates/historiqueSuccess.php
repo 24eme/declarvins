@@ -1,21 +1,20 @@
 <?php include_partial('global/navTop', array('active' => 'vrac')); ?>
 
 <section id="contenu">
-    <h1>Vrac</h1>
-    <p class="intro">Historique de vos contrats Vrac</p>
+    <h1>Historique de vos contrats Vrac</h1>
     <section id="principal">
 	    <div id="recap_drm">
 			<div id="drm_annee_courante">
-				<?php include_partial('vrac/historiqueList', array('config' => $config, 'vracs' => $historique->getVracParAnneeCourante())) ?>
+				<?php include_partial('vrac/historiqueList', array('config' => $config, 'vracs' => $historique->getVracParCampagneCourante())) ?>
 			</div>
 		</div>
 		
 		<ul id="nav_drm_annees">
-			<?php foreach ($historique->getAnnees() as $annee): ?>
-				<?php if ($annee == $historique->getAnneeCourante()): ?>
-					<li class="actif"><strong>Vrac <?php echo $annee ?></strong></li>
+			<?php foreach ($historique->getCampagnes() as $campagne): ?>
+				<?php if ($campagne == $historique->getCampagneCourante()): ?>
+					<li class="actif"><strong>Vrac <?php echo $campagne ?></strong></li>
 				<?php else: ?>
-					<li><a href="<?php echo url_for('vrac_historique', array('annee' => $annee))?>">Vrac <?php echo $annee ?></a></li>
+					<li><a href="<?php echo url_for('vrac_historique', array('campagne' => $campagne))?>">Vrac <?php echo $campagne ?></a></li>
 				<?php endif; ?>
 			<?php endforeach; ?>
 		</ul>

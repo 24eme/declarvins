@@ -191,7 +191,8 @@ Vrac:
       numero: {  }
       actif: {  }
       date_creation: {  }
-      campagne: {  }
+      annee: {  }
+      mois: {  }
       acheteur:
         type: collection
         definition:
