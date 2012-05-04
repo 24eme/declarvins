@@ -19,21 +19,21 @@ class vracActions extends sfActions
   
   public function executeHistorique(sfWebRequest $request)
   {
-    $this->annee = $request->getParameter('annee');
-    $this->historique = new VracHistorique ($this->getUser()->getTiers()->identifiant, $this->annee);
+    $this->campagne = $request->getParameter('campagne');
+    $this->historique = new VracHistorique ($this->getUser()->getTiers()->identifiant, $this->campagne);
     $this->config = ConfigurationClient::getCurrent();
   }
   
   public function executeSwitch(sfWebRequest $request)
   {
-    $this->annee = $request->getParameter('annee');
+    $this->campagne = $request->getParameter('campagne');
     $this->id = $request->getParameter('id');
     $vrac = VracClient::getInstance()->find($this->id);
     $actif = ($vrac->actif)? false : true;
     $vrac->set('actif', $actif);
     $vrac->save();
     $this->getUser()->setFlash("notice", 'Le contrat vrac a été modifié avec success.');
-    $this->redirect('vrac_historique', array('annee' => $this->annee));
+    $this->redirect('vrac_historique', array('campagne' => $this->campagne));
   }
     
 }

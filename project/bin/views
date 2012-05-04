@@ -81,7 +81,7 @@ cat <<EOF > $TMPFILE
    "language": "javascript",
    "views": {
        "all": {
-           "map": "function(doc) {\n\tif (doc.type == 'Vrac')\n  \t\temit([doc.etablissement, doc.numero, doc.actif, doc.campagne, doc.date_creation, doc.produit, doc.volume_promis, doc.acheteur.nom, doc.courtier.nom], 1);\n}"
+           "map": "function(doc) {\n\tif (doc.type == 'Vrac')\n  \t\temit([doc.etablissement, doc.numero, doc.actif, doc.annee, doc.mois, doc.date_creation, doc.produit, doc.volume_promis, doc.acheteur.nom, doc.courtier.nom], 1);\n}"
        }
     }
 }

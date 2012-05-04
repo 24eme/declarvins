@@ -73,8 +73,8 @@ class drmActions extends sfActions
   */
   public function executeHistorique(sfWebRequest $request)
   {
-    $this->annee = $request->getParameter('annee');
-    $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant, $this->annee);
+    $this->campagne = $request->getParameter('campagne');
+    $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant, $this->campagne);
   }
 
  /**

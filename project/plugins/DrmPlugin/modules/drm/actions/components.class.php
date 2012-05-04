@@ -62,7 +62,7 @@ class drmComponents extends sfComponents {
         if (isset($this->limit)) {
             $this->list = $this->historique->getSliceDrms($this->limit);
         } else {
-            $this->list = $this->historique->getDrmsParAnneeCourante();   
+            $this->list = $this->historique->getDrmsParCampagneCourante();   
         }
         $this->futurDrm = current($this->historique->getFutureDrm());
         $this->hasNewDrm = false;
