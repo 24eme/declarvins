@@ -10,8 +10,8 @@ class drmComponents extends sfComponents {
         $i = 3;
         foreach ($this->config_certifications as $certification => $produit) {
             if ($this->drm->produits->exist($certification)) {
-            	$certif = $this->drm->declaration->certifications->get($certification);
-            	if (!$certif->hasPasDeMouvement()) {
+            	$certif = $this->drm->produits->get($certification);
+            	if ($certif->hasMouvement()) {
 	                $this->certifications[$i] = $certification;
 	                $this->certificationsLibelle[$i] = ConfigurationClient::getCurrent()->declaration->certifications->get($certification)->libelle;
 	                $i++;
