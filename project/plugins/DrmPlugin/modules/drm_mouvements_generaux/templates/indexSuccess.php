@@ -43,7 +43,7 @@
 			                        <thead>
 										<tr>
 											<th style="width: 570px">Produits</th>
-											<th style="width: 92px">Stock début de mois <a href="" class="msg_aide" data-msg="help_popup_mouvgen_disponible" title="Message aide"></a></th>
+											<th style="width: 170px">Stock début de mois <a href="" class="msg_aide" data-msg="help_popup_mouvgen_disponible" title="Message aide"></a></th>
 											<th style="width: 150px">Pas de mouvement <a href="" class="msg_aide" data-msg="help_popup_mouvgen_pasdemouvement" title="Message aide"></a></th>
 										</tr>
 									</thead>

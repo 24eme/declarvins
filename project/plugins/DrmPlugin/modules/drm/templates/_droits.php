@@ -1,6 +1,6 @@
 <?php foreach ($drm->getDroits() as $typedroit => $droits) : ?>
     <div class="tableau_ajouts_liquidations">
-    <h2>Droits <?php echo $typedroit; ?></h2>
+    <h2>Droits <?php echo $typedroit; ?> <a href="" class="msg_aide" data-msg="help_popup_validation_droit_<?php echo $typedroit; ?>" title="Message aide"></a></h2>
     	<table class="tableau_recap">
             <thead>
     		<tr>

@@ -6,8 +6,6 @@
 
     <section id="principal">
         <div id="application_dr">
-            <h2>Veuillez maintenant déclarer ici les éléments suivants:</h2>
-
             <form id="declaratif_info" action="<?php echo url_for('drm_declaratif', $drm) ?>" method="post">
                 <?php echo $form->renderHiddenFields() ?>
                 
@@ -18,7 +16,7 @@
                 </ul>
 
                 <div class="contenu_onglet_declaratif ">
-                    <p class="intro"><?php echo $form['raison_rectificative']->renderLabel() ?></p>
+                    <p class="intro"><?php echo $form['raison_rectificative']->renderLabel() ?><a href="" class="msg_aide" data-msg="help_popup_declaratif_raison_rectificative" title="Message aide"></a></p>
                     <div class="ligne_form alignes">
                         <?php echo $form['raison_rectificative']->renderError() ?>
                         <?php echo $form['raison_rectificative']->render() ?>
@@ -27,11 +25,11 @@
                 <?php endif; ?>
                 <?php if ($form->getObject()->isValidee()): ?>
                 <ul class="onglets_declaratif">
-                    <li class="actif"><strong>Date signature</strong></li>
+                    <li class="actif"><strong>Date signature</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_date_signature" title="Message aide"></a></li>
                 </ul>
 
                 <div class="contenu_onglet_declaratif ">
-                    <p class="intro"><?php echo $form['date_signee']->renderLabel() ?></p>
+                    <p class="intro"><?php echo $form['date_signee']->renderLabel() ?><a href="" class="msg_aide" data-msg="help_popup_declaratif_date_signee" title="Message aide"></a></p>
                     <div class="ligne_form alignes">
                         <?php echo $form['date_signee']->renderError() ?>
                         <?php echo $form['date_signee']->render() ?>
@@ -41,7 +39,7 @@
                 <?php endif; ?>
                 
                 <ul class="onglets_declaratif">
-                    <li class="actif"><strong>Défaut d'apurement</strong></li>
+                    <li class="actif"><strong>Défaut d'apurement</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_defaut_apurement" title="Message aide"></a></li>
                 </ul>
 
                 <div class="contenu_onglet_declaratif ">
@@ -54,9 +52,9 @@
                     </div>
                 </div>
                 
-				<?php if ($form->getObject()->hasVrac()): ?>
+		<?php if ($form->getObject()->hasVrac()): ?>
                 <ul class="onglets_declaratif">
-                    <li class="actif"><strong>Mouvements au cours du mois</strong></li>
+                    <li class="actif"><strong>Mouvements au cours du mois</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_mouvement" title="Message aide"></a></li>
                 </ul>
 
                 <div class="contenu_onglet_declaratif">
@@ -92,7 +90,7 @@
                 <?php endif; ?>
 
                 <ul class="onglets_declaratif">
-                    <li class="actif"><strong>Caution</strong></li>
+                    <li class="actif"><strong>Caution</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_caution" title="Message aide"></a></li>
                 </ul>
 
                 <div class="contenu_onglet_declaratif">
@@ -110,7 +108,7 @@
                 </div>
 
                 <ul class="onglets_declaratif">
-                    <li class="actif"><strong>Paiement</strong></li>
+                    <li class="actif"><strong>Paiement</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_paiement" title="Message aide"></a></li>
                 </ul>
                 <div class="contenu_onglet_declaratif">
                     
