@@ -121,6 +121,7 @@
 			popup.find('option').removeAttr('selected');
 			popup.find(':checkbox,:radio').removeAttr('checked');
 			popup.find('.error').remove();
+			popup.unbind('fermer');
 		});
 	};
 
@@ -129,7 +130,6 @@
 		var form = popup.find('form');
 		var btnFermer = popup.find('.btn_fermer');
 		form.die('submit');
-		popup.unbind('fermer');
 		btnFermer.die('click');
 	}
 	
