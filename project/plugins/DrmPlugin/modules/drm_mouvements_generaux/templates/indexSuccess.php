@@ -11,13 +11,18 @@
 				<a href="<?php echo url_for('drm_recap', $first_certification) ?>" class="btn_passer_etape">Passer cette étape</a>	
 				<?php endif; ?>
 				<p class="intro">Au cours du mois écoulé, avez-vous connu des changements de structure particuliers ?</p>
-	        	
-        		<div id="form" style="padding:10px 0;">
-        			<input id="produits_pas_de_mouvement" type="checkbox" value="" />
-        			<label for="produits_pas_de_mouvement">Pas de mouvement pour l'ensemble des produits</label>
-        		</div>
         		
         		<div id="ajouts_liquidations">
+        			<div id="form" style="padding:15px 0 0 0;" class="tableau_ajouts_liquidations">
+	        			<table class="tableau_recap">
+							<tbody>
+							<tr class="alt">
+								<td style="width: 684px;" colspan="2"><label for="produits_pas_de_mouvement">Pas de mouvement pour l'ensemble des produits</label></td>
+								<td style="width: 122px" align="center"><input id="produits_pas_de_mouvement" type="checkbox" value="" /></td>
+							</tr>
+							</tbody>
+						</table>
+	        		</div>
         			<?php foreach ($forms as $certification => $tabForm): ?>
 		            <div id="tableau_<?php echo strtolower($certificationLibelle[$certification]) ?>" class="tableau_ajouts_liquidations">
 		                    <h2><?php echo $certificationLibelle[$certification] ?></h2>
@@ -26,8 +31,8 @@
 			                        <thead>
 										<tr>
 											<th style="width: 570px">Produits</th>
-											<th>Disponible</th>
-											<th>Pas de mouvement</th>
+											<th style="width: 92px">Disponible</th>
+											<th style="width: 122px">Pas de mouvement</th>
 										</tr>
 									</thead>
 									<tbody>
