@@ -37,7 +37,7 @@
 				<?php endif; ?>
 			</div>
 			<div id="btn_etape_dr">
-	            <a href="<?php echo url_for('drm_mouvements_generaux', $drm) ?>" class="btn_prec">
+	            <a href="<?php echo url_for('drm_recap_redirect', $drm) ?>" class="btn_prec">
 	            	<span>Précédent</span>
 	            </a>
     <?php if (!count($noContrats)) : ?>
