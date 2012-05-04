@@ -5,6 +5,7 @@ class drm_mouvements_generauxActions extends sfActions
 	public function executeIndex(sfWebRequest $request) 
 	{
 		$this->drm = $this->getRoute()->getDrm();
+        $this->form = new DRMMouvementsGenerauxProduitsForm($this->drm);
 		$this->forms = array();
 		$this->certificationLibelle = array();
 		foreach (ConfigurationClient::getCurrent()->declaration->certifications as $certification => $item) {
@@ -15,7 +16,7 @@ class drm_mouvements_generauxActions extends sfActions
 			if ($this->drm->produits->exist($certification)) {
 				foreach ($this->drm->produits->get($certification) as $appellation) {
 					foreach ($appellation as $produit) {
-						$this->forms[$certification][] = new DRMMouvementsGenerauxProduitModificationForm($produit);
+						$this->forms[$certification][] = new DRMMouvementsGenerauxProduitForm($produit);
 					}
 				}
 			}
@@ -40,20 +41,38 @@ class drm_mouvements_generauxActions extends sfActions
     public function executeUpdateAjax(sfWebRequest $request) 
     {
         $this->forward404Unless($request->isXmlHttpRequest());
-        if ($request->isMethod(sfWebRequest::POST)) {
-        	$this->getResponse()->setContentType('text/json');
-			$form = new DRMMouvementsGenerauxProduitModificationForm($this->getRoute()->getObject());
-        	$form->bind($request->getParameter($form->getName()));
-            if ($form->isValid()) {
-            	$drm = $this->getUser()->getDrm();
-            	$detail = $this->getRoute()->getObject()->getDetail();
-            	if ($detail->hasPasDeMouvement()) {
-               		$form->save();
-               		return $this->renderText(json_encode(array("success" => true)));
-            	} else {
-            		return $this->renderText(json_encode(array("success" => false, "notice" => "Attention, il existe du mouvement pour ce produit")));
-            	}
+        $this->getResponse()->setContentType('text/json');
+        $drm = $this->getRoute()->getDrm();
+        $detail = $this->getRoute()->getObject()->getDetail();
+        $this->forward404Unless($detail->hasPasDeMouvement());
+		$form = new DRMMouvementsGenerauxProduitForm($this->getRoute()->getObject());
+    	$form->bind($request->getParameter($form->getName()));
+        if ($form->isValid()) {
+       		$form->save();
+       		return $this->renderText(json_encode(array("success" => true)));
+        }
+        
+        return $this->renderText(json_encode(array("success" => false)));
+    }
+
+    public function executeUpdateProduitsAjax(sfWebRequest $request) 
+    {
+        $this->forward404Unless($request->isXmlHttpRequest());
+        $this->getResponse()->setContentType('text/json');
+        $drm = $this->getRoute()->getDrm();
+        $this->forward404Unless($drm->declaration->hasPasDeMouvement());
+        $form = new DRMMouvementsGenerauxProduitsForm($drm);
+        $form->bind($request->getParameter($form->getName()));
+        if ($form->isValid()) {
+            foreach($drm->produits as $certification_produit) {
+                foreach($certification_produit as $appellation_produit) {
+                    foreach($appellation_produit as $produit) {
+                        $produit->pas_de_mouvement = $form->getValue('pas_de_mouvement');
+                    }
+                }
             }
+            $drm->save();
+            return $this->renderText(json_encode(array("success" => true)));
         } 
         return $this->renderText(json_encode(array("success" => false)));
     }

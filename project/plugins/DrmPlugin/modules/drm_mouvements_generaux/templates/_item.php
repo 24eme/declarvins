@@ -9,9 +9,6 @@
     </td>
 	<td>
 		<?php echo $form->getObject()->getDetail()->total_debut_mois ?> HL
-		<?php if ($form->getObject()->getDetail()->total_debut_mois != $form->getObject()->getDetail()->total): ?>
-			=> <?php echo $form->getObject()->getDetail()->total ?> HL
-		<?php endif; ?>
 	</td>
 	<td>
 		<form class="updateProduct" action="<?php echo url_for('drm_mouvements_generaux_produit_update', $form->getObject()) ?>" method="post">
