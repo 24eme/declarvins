@@ -23,11 +23,13 @@
 
         <div id="col_saisies_cont">
             <?php foreach ($produits as $produit): ?>
-            	<?php if (!$produit->pas_de_mouvement): ?>
-                    	<?php include_component('drm_recap', 'itemForm', array('produit' => $produit,
-                                                                               'config_appellation' => $config_appellation,
-                                                                               'detail' => $produit->getDetail(), 
-                                                                               'form' => $form)); ?>
+                <?php if (!$produit->pas_de_mouvement): ?>
+                    <?php
+                    include_component('drm_recap', 'itemForm', array('produit' => $produit,
+                        'config_appellation' => $config_appellation,
+                        'detail' => $produit->getDetail(),
+                        'form' => $form));
+                    ?>
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>
