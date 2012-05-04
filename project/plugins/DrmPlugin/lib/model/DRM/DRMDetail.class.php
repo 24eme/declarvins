@@ -200,6 +200,18 @@ class DRMDetail extends BaseDRMDetail {
       }
       return $sum;
     }
+    public function hasStockFinDeMoisDrmPrecedente() {
+    	$result = false;
+    	$drmPrecedente = $this->getDocument()->getPrecedente();
+    	if (!$drmPrecedente->isNew()) {
+    		if ($drmPrecedente->exist($this->getHash())) {
+    			if ($drmPrecedente->get($this->getHash())->total) {
+    				$result = true;
+    			}
+    		}
+    	}
+    	return $result;
+    }
 	/*
 	 * Fonction calculée
 	 */
