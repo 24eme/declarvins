@@ -93,9 +93,9 @@ abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
         return parent::update($params);
     }
 
-    public function init() {
+    public function init($params = array()) {
 
-        return parent::init();
+        return parent::init($params);
     }
 
     public function getModifications() {

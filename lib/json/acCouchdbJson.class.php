@@ -287,10 +287,10 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
         } 
     }
 
-    protected function init() {
+    protected function init($params = array()) {
         foreach ($this as $key => $field) {
             if ($this->fieldIsCollection($key)) {
-                $field->init();
+                $field->init($params);
             }
         }
     }
