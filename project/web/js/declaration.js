@@ -255,6 +255,9 @@
 		// S'il y a une colonne active définie
 		if(colActive)
 		{
+			$.calculerSommesChamps();
+			
+			
 			var form = colActive.find('form');
 			var donneesCol = form.serializeArray();
 			
@@ -263,7 +266,8 @@
 			
 			btn.css('visibility', 'hidden');
 			*/
-				
+		
+			
 			$.post(form.attr('action'), donneesCol, function (data)
 			{
 				notificationSauv.hide();

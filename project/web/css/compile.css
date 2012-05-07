@@ -1543,7 +1543,6 @@ p#date_drm {
   width:88px;
 }
 #colonnes_dr .col_recolte select[multiple] { height:50px; }
-#colonnes_dr .col_recolte .num_light { color:#b0b0b0; }
 #colonnes_dr .col_recolte h2 {
   background:#820608;
   color:#ffffff;
