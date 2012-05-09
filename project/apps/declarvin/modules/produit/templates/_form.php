@@ -21,11 +21,11 @@
 }
 .popup_form .radio_form  {
 	display: inline-block;
-	width: 50px;
+	width: 83px;
 }
 .popup_form .radio_form  label {
 	display: inline-block;
-	width: 30px;
+	width: 64px;
 }
 -->
 </style>
