@@ -16,11 +16,11 @@
     		</tr>
              </thead>
              <tbody>
-             <?php foreach ($droits->getDroitsWithVirtual() as $code => $droit) :  
+             <?php $i=1; foreach ($droits->getDroitsWithVirtual() as $code => $droit) :  $i++;
     $strong = ($droit->isTotal()) ? '<strong>' : '';
     $estrong = ($droit->isTotal()) ? '</strong>' : '';
 ?>
-            <tr class="alt">
+            <tr <?php if($i%2!=0) echo ' class="alt"'; ?>>
                     <td><?php echo $strong.$droit->getLibelle().$estrong; ?></td>
         	<td class="<?php echo isRectifierCssClass($droit, 'volume_taxe') ?>"><?php echo $strong ; echoFloat($droit->volume_taxe); echo $estrong;?></td>
         	<td class="<?php echo isRectifierCssClass($droit, 'volume_reintegre') ?>"><?php echo $strong; echoFloat($droit->volume_reintegre); echo $estrong; ?></td>

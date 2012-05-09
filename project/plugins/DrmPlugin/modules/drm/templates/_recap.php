@@ -15,10 +15,13 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach($certification_produit as $appellation_produit): ?>
-					<?php foreach($appellation_produit as $produit): ?>
+				<?php foreach($certification_produit as $appellation_produit): 
+                                        $i = 1;
+                                ?>
+					<?php foreach($appellation_produit as $produit): 
+                                                $i++; ?>
 						<?php $detail = $produit->getDetail(); ?>
-						<tr class="alt">
+						<tr <?php if($i%2!=0) echo ' class="alt"'; ?>>
 							<td><?php echo produitLibelleFromDetail($detail) ?></td>
 							<td class="<?php echo isRectifierCssClass($detail, 'total_debut_mois') ?>"><strong><?php echoFloat($detail->total_debut_mois) ?></strong></td>
 							<td class="<?php echo isRectifierCssClass($detail, 'total_entrees') ?>"><?php echoFloat($detail->total_entrees) ?></td>
