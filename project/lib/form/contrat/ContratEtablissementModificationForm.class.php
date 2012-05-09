@@ -16,6 +16,7 @@ class ContratEtablissementModificationForm extends acCouchdbFormDocumentJson {
 	   
 	   $this->setWidgets(array(
 		   'raison_sociale' => new sfWidgetFormInputText(),
+	   		'nom' => new sfWidgetFormInputText(),
 	       'siret' => new sfWidgetFormInputText(),
 	       'cni' => new sfWidgetFormInputText(),
 	       'cvi' => new sfWidgetFormInputText(),
@@ -36,6 +37,7 @@ class ContratEtablissementModificationForm extends acCouchdbFormDocumentJson {
 	   ));
        $this->widgetSchema->setLabels(array(
        	   'raison_sociale' => 'Raison sociale*: ',
+       	   'nom' => 'Nom commercial*: ',
 	       'siret' => 'SIRET: ',
 	       'cni' => 'CNI: ',
 	       'cvi' => 'CVI: ',
@@ -56,6 +58,7 @@ class ContratEtablissementModificationForm extends acCouchdbFormDocumentJson {
        ));
        $this->setValidators(array(
        	   'raison_sociale' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
+       	   'nom' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
 	       'siret' => new sfValidatorString(array('required' => false, 'max_length' => 15, 'min_length' => 13)),
 	       'cni' => new sfValidatorString(array('required' => false, 'max_length' => 13, 'min_length' => 11)),
 	       'cvi' => new sfValidatorString(array('required' => false, 'max_length' => 11, 'min_length' => 9)),

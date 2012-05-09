@@ -194,7 +194,8 @@
 					N° Carte Nationale d'Identité pour les exploitants individuels : <strong><?php echo $etablissement->cni ?></strong><br />
 					N° CVI : <strong><?php echo $etablissement->cvi ?></strong><br />
 					N° accises : <strong><?php echo $etablissement->no_accises ?></strong><br />
-					Nom/Raison Sociale : <strong><?php echo $etablissement->raison_sociale ?></strong><br />
+					Raison Sociale : <strong><?php echo $etablissement->raison_sociale ?></strong><br />
+					Nom Commercial : <strong><?php echo $etablissement->nom ?></strong><br />
 					Adresse : <strong><?php echo $etablissement->adresse ?></strong><br />
 					CP : <strong><?php echo $etablissement->code_postal ?></strong><br />
 					ville : <strong><?php echo $etablissement->commune ?></strong><br />

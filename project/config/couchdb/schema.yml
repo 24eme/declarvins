@@ -108,6 +108,7 @@ Etablissement:
       num_interne: {  }
       siret: {  }
       raison_sociale: {  }
+      nom: {  }
       cni: {  }
       cvi: {  }
       no_accises: {  }
@@ -163,6 +164,7 @@ Contrat:
               definition:
                 fields:
                   raison_sociale: {  }
+                  nom: {  }
                   siret: {  }
                   cni: {  }
                   cvi: {  }

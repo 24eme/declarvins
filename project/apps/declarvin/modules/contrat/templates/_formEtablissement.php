@@ -7,6 +7,11 @@
         <?php echo $form['raison_sociale']->render() ?>
     </div>
     <div class="ligne_form">
+        <?php echo $form['nom']->renderError() ?>
+        <?php echo $form['nom']->renderLabel() ?>
+        <?php echo $form['nom']->render() ?>
+    </div>
+    <div class="ligne_form">
         <?php echo $form['siret']->renderError() ?>
         <?php echo $form['siret']->renderLabel() ?>
         <?php echo $form['siret']->render() ?>
