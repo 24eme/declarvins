@@ -61,6 +61,9 @@ cat <<EOF > $TMPFILE
        },
        "date": {
           "map": "function(doc) { if (doc.type == \"DRM\" && doc.valide.date_saisie) { rect = null ; if (doc.rectificative) rect = doc.rectificative; for(inter in doc.interpros) { emit([doc.interpros[inter], doc.valide.date_saisie, doc._id], 1);  }  } }"
+       },
+       "produits": {
+           "map": "function(doc) {\n  if (doc.type == \"DRM\") {\nfor (certification in doc.declaration.certifications) {\n        for (appellation in doc.declaration.certifications[certification].appellations) {\n            for(lieu in doc.declaration.certifications[certification].appellations[appellation].lieux) {\n                for(couleur in doc.declaration.certifications[certification].appellations[appellation].lieux[lieu].couleurs) {\n                    for(cepage in doc.declaration.certifications[certification].appellations[appellation].lieux[lieu].couleurs[couleur].cepages) {    \n                        for(millesime in doc.declaration.certifications[certification].appellations[appellation].lieux[lieu].couleurs[couleur].cepages[cepage].millesimes) {\n                            var hash = \"declaration/certifications/\"+certification+\"/appellations/\"+appellation+\"/lieux/\"+lieu+\"/couleurs/\"+couleur+\"/cepages/\"+cepage+\"/millesimes/\"+millesime;\n\t\t\t    emit([\"produit\", hash], 1);\n                        } // Boucle millesime\n                    } // Boucle cepage\n                } // Boucle couleur\n            } // Boucle lieu\n        } // Boucle appellation\n    } // Boucle certification\n }\n}"
        }
 }
 }
