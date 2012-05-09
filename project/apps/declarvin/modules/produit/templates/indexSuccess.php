@@ -10,7 +10,7 @@
             </thead>
             <tbody>
 	    	<?php foreach($produits->rows as $produit): ?>
-	    		<?php include_partial('produit/item', array('produit' => $produit)) ?>
+	    		<?php include_partial('produit/item', array('produit' => $produit, 'supprimable' => (!in_array($produit->key[7], $produitsNonSupprimables->getRawValue())))) ?>
 	    	<?php endforeach; ?>
 	    	</tbody>
     	</table>

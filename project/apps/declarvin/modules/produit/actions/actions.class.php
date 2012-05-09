@@ -19,6 +19,7 @@ class produitActions extends sfActions
   {
   	$this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
 	$this->produits = ConfigurationClient::getInstance()->findProduitsForAdmin($this->interpro->_id);
+	$this->produitsNonSupprimables = DRMClient::getInstance()->getAllProduits();
   }
   public function executeModification(sfWebRequest $request)
   {
@@ -83,6 +84,19 @@ class produitActions extends sfActions
 		  	$this->redirect('produits');
 		}
     }
+  }
+  public function executeSuppression(sfWebRequest $request)
+  {
+  	$this->forward404Unless($hash = $request->getParameter('hash', null));
+  	$this->nbDepartement = $request->getParameter('nb_departement', null);
+  	$this->nbDouane = $request->getParameter('nb_douane', null);
+  	$this->nbCvo = $request->getParameter('nb_cvo', null);
+  	$this->nbLabel = $request->getParameter('nb_label', null);
+  	$hash = str_replace('-', '/', $hash);
+  	$object = ConfigurationClient::getCurrent()->getOrAdd($hash);
+  	$object->delete();
+  	$object->getDocument()->save();
+	$this->redirect('produits');
   }
   private function getNextHash($object) {
   	$hash = $object->getHash();

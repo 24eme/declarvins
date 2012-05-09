@@ -8,7 +8,7 @@
 	$sorties = (isset($values->sorties))? $values->sorties->getRawValue() : null;
 ?>
 <tr>
-	<td><a href="<?php echo url_for('produit_modification', array('noeud' => 'certification', 'hash' => str_replace('/', '-', $produit->key[7]))) ?>" class="btn_ajouter btn_popup1" data-popup="popup_produit" data-popup-config="configForm"><?php echo $produit->key[1] ?></a></td>
+	<td><?php if ($supprimable): ?><a href="<?php echo url_for('produit_suppression', array('noeud' => 'certification', 'hash' => str_replace('/', '-', $produit->key[7]))) ?>" class="supprimer" style="left: 5px;" onclick="return confirm('Confirmez-vous la suppression du produit?')">Supprimer</a><?php endif; ?><a href="<?php echo url_for('produit_modification', array('noeud' => 'certification', 'hash' => str_replace('/', '-', $produit->key[7]))) ?>" class="btn_ajouter btn_popup1" data-popup="popup_produit" data-popup-config="configForm"><?php echo $produit->key[1] ?></a></td>
 	<td><a href="<?php echo url_for('produit_modification', array('noeud' => 'appellation', 'hash' => str_replace('/', '-', $produit->key[7]))) ?>" class="btn_ajouter btn_popup1" data-popup="popup_produit" data-popup-config="configForm"><?php echo $produit->key[2] ?></a></td>
 	<td><a href="<?php echo url_for('produit_modification', array('noeud' => 'lieu', 'hash' => str_replace('/', '-', $produit->key[7]))) ?>" class="btn_ajouter btn_popup1" data-popup="popup_produit" data-popup-config="configForm"><?php echo $produit->key[3] ?></a></td>
 	<td><a href="<?php echo url_for('produit_modification', array('noeud' => 'couleur', 'hash' => str_replace('/', '-', $produit->key[7]))) ?>" class="btn_ajouter btn_popup1" data-popup="popup_produit" data-popup-config="configForm"><?php echo $produit->key[4] ?></a></td>

@@ -93,6 +93,9 @@ produit_nouveau:
 produit_modification:
   url: /admin/produit/:noeud/modification/:hash
   param: {module: produit, action: modification, hash: null, noeud: null}
+produit_suppression:
+  url: /admin/produit/:noeud/suppression/:hash
+  param: {module: produit, action: suppression, hash: null, noeud: null}
 ## Etablissement routing
 etablissement_login:
   url: /admin/etablissements

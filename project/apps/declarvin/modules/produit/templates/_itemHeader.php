@@ -10,5 +10,5 @@
 	<th><strong>Douane</strong></th> 
 	<th><strong>CVO</strong></th>    
 	<th><strong>Repli</strong></th>   
-	<th><strong>Déclassement</strong></th>    			
+	<th><strong>Déclassement</strong></th>
 </tr>
