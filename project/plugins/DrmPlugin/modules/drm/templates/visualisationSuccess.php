@@ -9,7 +9,14 @@
 
     <!-- #principal -->
     <section id="principal">
-
+    
+    	<?php if($drm_suivante && $drm_suivante->isRectificative() && !$drm_suivante->isValidee()): ?>
+    	<div class="vigilance_list">
+		    <ul>
+		    	<li><?php echo MessagesClient::getInstance()->getMessage('msg_rectificatif_suivante') ?></li>
+		    </ul>
+		</div>
+    	<?php endif; ?>
         <div id="contenu_onglet">
 
             <?php if(!$drm->declaration->hasPasDeMouvement() && !$drm->declaration->hasStockEpuise()):  ?>
