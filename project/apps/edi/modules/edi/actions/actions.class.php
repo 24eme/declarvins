@@ -31,7 +31,7 @@ class ediActions extends sfActions
     $csv = new DRMCsvFile(sfConfig::get('sf_data_dir') . '/upload/' . $md5);
     $this->iddrm = null;
     try {
-      $drm = $csv->importDRM($this->getUser());
+      $drm = $csv->importDRM(array('compte' => $this->getUser()));
       $drm->mode_de_saisie = 'EDI';
       $drm->save();
       $this->iddrm = $drm->_id;

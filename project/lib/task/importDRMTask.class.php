@@ -30,12 +30,13 @@ EOF;
       return ;
     $csvDRM = DRMCsvFile::createFromArray($csv);
     try {
-      $drm = $csvDRM->importDRM();
+      $drm = $csvDRM->importDRM(array('no_vrac' => 1, 'init_line' => $this->line));
     }catch(Exception $e) {
       print_r($csvDRM->errors);
       throw new Exception();
     }
-    echo '<p>'.$drm->campagne.'</p>';
+    $this->line += count($csv);
+    $drm->save();
     return;
   }
 
@@ -47,8 +48,12 @@ EOF;
     $lignes = file($options['file']);
     $csv = array();
     $oldid = '';
+    $this->line = 0;
     foreach ($lignes as $l) {
+      $l = preg_replace('/"/', '', $l);
       if (preg_match('/^[^;]*;([^;]*)/', $l, $match)) {
+	if (!preg_match('/[0-9]/', $match[1]))
+	  continue;
 	if ($match[1] != $oldid) {
 	  $this->CSV2DRM($csv);
 	  $csv = array();
