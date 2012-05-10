@@ -1,15 +1,15 @@
 <?php
 /**
- * BaseConfigurationAppellation
+ * BaseConfigurationGenre
  * 
- * Base model for ConfigurationAppellation
+ * Base model for ConfigurationGenre
 
  * @property string $libelle
  * @property string $code
  * @property ConfigurationDetail $detail
  * @property acCouchdbJson $interpro
  * @property acCouchdbJson $departements
- * @property acCouchdbJson $mentions
+ * @property acCouchdbJson $appellations
 
  * @method string getLibelle()
  * @method string setLibelle()
@@ -21,16 +21,16 @@
  * @method acCouchdbJson setInterpro()
  * @method acCouchdbJson getDepartements()
  * @method acCouchdbJson setDepartements()
- * @method acCouchdbJson getMentions()
- * @method acCouchdbJson setMentions()
+ * @method acCouchdbJson getAppellations()
+ * @method acCouchdbJson setAppellations()
  
  */
 
-abstract class BaseConfigurationAppellation extends _ConfigurationDeclaration {
+abstract class BaseConfigurationGenre extends _ConfigurationDeclaration {
                 
     public function configureTree() {
        $this->_root_class_name = 'Configuration';
-       $this->_tree_class_name = 'ConfigurationAppellation';
+       $this->_tree_class_name = 'ConfigurationGenre';
     }
                 
 }
