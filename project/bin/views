@@ -56,7 +56,7 @@ cat <<EOF > $TMPFILE
    "language": "javascript",
    "views": {
        "all": {
-           "map": "function(doc) {\n  if (doc.type == \"DRM\") {\n  rect = null ; if (doc.rectificative) rect = doc.rectificative;\n  emit([doc.identifiant, (doc.campagne).substring(0, 4), (doc.campagne).substring(5, 7), rect, doc.valide.date_saisie, doc.douane.envoi, doc.douane.accuse], 1);\n }\n}",
+           "map": "function(doc) {\n  if (doc.type == \"DRM\") {\n  rect = null ; if (doc.rectificative) rect = doc.rectificative;\n  emit([doc.identifiant, (doc.campagne).substring(0, 4), (doc.campagne).substring(5, 7), rect, doc.valide.date_saisie, doc.douane.envoi, doc.douane.accuse, doc._id], 1);\n }\n}",
            "reduce": "function (keys, values, rereduce) {\n     return sum(values);\n}"
        },
        "date": {
