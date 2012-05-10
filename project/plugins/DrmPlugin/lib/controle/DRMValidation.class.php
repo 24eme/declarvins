@@ -7,9 +7,10 @@ class DRMValidation
 	private $errors;
 	const VINSSANSIG_KEY = 'VINSSANSIG';
 	
-	public function __construct($drm)
+	public function __construct($drm, $options = null)
 	{
 		$this->drm = $drm;
+		$this->options = $options;
 		$this->engagements = array();
 		$this->warnings = array();
 		$this->errors = array();
@@ -100,11 +101,13 @@ class DRMValidation
 	private function controleErrors($detail)
 	{
 		$totalVolume = 0;
-		foreach ($detail->vrac as $contrat) {
-			$totalVolume += $contrat->volume;
-		}
-		if ($totalVolume != $detail->sorties->vrac) {
-			$this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm));
+		if (!isset($this->options['no_vrac']) || ! $this->options['no_vrac']) {
+		  foreach ($detail->vrac as $contrat) {
+		    $totalVolume += $contrat->volume;
+		  }
+		  if ($totalVolume != $detail->sorties->vrac) {
+		    $this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm));
+		  }
 		}
 		if ($detail->total < 0) {
 			$this->errors['total_negatif_'.$detail->getIdentifiantHTML()] = new DRMControleError('total_negatif', $this->generateUrl('drm_recap_detail', $detail));
@@ -154,7 +157,11 @@ class DRMValidation
 	
 	protected function generateUrl($route, $params = array(), $absolute = false)
 	{
-		return sfContext::getInstance()->getRouting()->generate($route, $params, $absolute);
+	  try {
+	    return sfContext::getInstance()->getRouting()->generate($route, $params, $absolute);
+	  }catch(Exception $e) {
+	    return;
+	  }
 	}
 	
 }
