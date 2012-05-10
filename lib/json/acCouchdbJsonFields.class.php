@@ -162,7 +162,7 @@ abstract class acCouchdbJsonFields {
             throw new acCouchdbException(sprintf("Definition error : %s (%s)", $key, $this->getHash()));
         }
         if ($this->_is_array) {
-            $ret = $this->addNumeric();
+            $ret = $this->addNumeric($key);
         } else {
             $ret = $this->addNormal($key);
         }
@@ -365,7 +365,7 @@ abstract class acCouchdbJsonFields {
         }
     }
 
-    private function addNormal($key = null) {
+    private function addNormal($key) {
         if ($this->_exist($key)) {
             return $this->getField($key);
         }
@@ -380,8 +380,15 @@ abstract class acCouchdbJsonFields {
         return $field;
     }
 
-    private function addNumeric() {
-        $this->loadData();
+    private function addNumeric($key) {
+        if ($key !== null && $this->_exist($key)) {
+
+            return $this->getField($key);
+        } elseif($key !== null) {
+
+            throw new acCouchdbException("This numeric key does not exist");
+        }
+
         $field = $this->getDefinition()->get('*')->getDefaultValue($this->_document, $this->_hash . '/' . count($this->_fields));
         //$field = $this->getDefinition()->getJsonField(null, true, $this->_document, $this->_hash . '/' . count($this->_fields));
         $this->_fields[] = $field;
