@@ -384,11 +384,8 @@ abstract class acCouchdbJsonFields {
         if ($key !== null && $this->_exist($key)) {
 
             return $this->getField($key);
-        } elseif($key !== null) {
-
-            throw new acCouchdbException("This numeric key does not exist");
-        }
-
+        } 
+        
         $field = $this->getDefinition()->get('*')->getDefaultValue($this->_document, $this->_hash . '/' . count($this->_fields));
         //$field = $this->getDefinition()->getJsonField(null, true, $this->_document, $this->_hash . '/' . count($this->_fields));
         $this->_fields[] = $field;
