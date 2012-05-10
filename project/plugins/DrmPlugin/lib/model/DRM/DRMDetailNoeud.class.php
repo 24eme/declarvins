@@ -22,7 +22,7 @@ class DRMDetailNoeud extends BaseDRMDetailNoeud {
 	  
       foreach ($this as $key => $entree) {
       	if ($this->getKey() == 'stocks_fin' && $keepStock) {
-	   		$this->getParent()->stocks_debut->set($key, $this->get('stocks_fin'));
+	   		$this->getParent()->stocks_debut->set($key, $this->stocks_fin->get($key));
 	  	} 
       	$this->set($key, null);
       }
