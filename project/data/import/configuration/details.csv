@@ -17,6 +17,7 @@
 "AOP";"sorties";"declassement";1;1
 "AOP";"sorties";"repli";1;1
 "AOP";"sorties";"mouvement";1;1
+"AOP";"sorties";"distillation";1;1
 "AOP";"sorties";"lies";1;1
 "AOP";"stocks_fin";"bloque";1;1
 "AOP";"stocks_fin";"warrante";1;1
@@ -41,6 +42,7 @@
 "IGP";"sorties";"declassement";1;1
 "IGP";"sorties";"repli";1;1
 "IGP";"sorties";"mouvement";1;1
+"IGP";"sorties";"distillation";1;1
 "IGP";"sorties";"lies";1;1
 "IGP";"stocks_fin";"bloque";1;1
 "IGP";"stocks_fin";"warrante";1;1
@@ -65,6 +67,7 @@
 "VINSSANSIG";"sorties";"declassement";0;0
 "VINSSANSIG";"sorties";"repli";1;1
 "VINSSANSIG";"sorties";"mouvement";1;1
+"VINSSANSIG";"sorties";"distillation";1;1
 "VINSSANSIG";"sorties";"lies";1;1
 "VINSSANSIG";"stocks_fin";"bloque";1;1
 "VINSSANSIG";"stocks_fin";"warrante";1;1
@@ -89,6 +92,7 @@
 "VINSSANSIGLIE";"sorties";"declassement";0;0
 "VINSSANSIGLIE";"sorties";"repli";1;1
 "VINSSANSIGLIE";"sorties";"mouvement";0;0
+"VINSSANSIGLIE";"sorties";"distillation";0;0
 "VINSSANSIGLIE";"sorties";"lies";0;0
 "VINSSANSIGLIE";"stocks_fin";"bloque";0;0
 "VINSSANSIGLIE";"stocks_fin";"warrante";0;0

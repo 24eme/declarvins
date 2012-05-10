@@ -6,6 +6,8 @@ class DRMValidation
 	private $warnings;
 	private $errors;
 	const VINSSANSIG_KEY = 'VINSSANSIG';
+	const AOP_KEY = 'AOP';
+	const IGP_KEY = 'IGP';
 	
 	public function __construct($drm, $options = null)
 	{
@@ -55,6 +57,12 @@ class DRMValidation
 										$totalEntreeRepli += $detail->entrees->repli;
 										$totalSortiRepli += $detail->sorties->repli;
 										$totalSortiDeclassement += $detail->sorties->declassement;
+										if ($certification->getKey() == self::AOP_KEY && $detail->sorties->repli) {
+											$this->engagements['odg'] = new DRMControleEngagement('odg');
+										}
+										if ($certification->getKey() == self::IGP_KEY && $detail->entrees->declassement) {
+											$this->engagements['odg'] = new DRMControleEngagement('odg');
+										}
 										if ($certification->getKey() == self::VINSSANSIG_KEY) {
 											$totalEntreeDeclassement += $detail->entrees->declassement;
 										}
