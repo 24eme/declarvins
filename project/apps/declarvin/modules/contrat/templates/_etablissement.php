@@ -5,6 +5,11 @@
 		<?php echo $form['raison_sociale']->render() ?>
 	</div>
 	<div class="ligne_form">
+		<?php echo $form['nom']->renderError() ?>
+		<?php echo $form['nom']->renderLabel() ?>
+		<?php echo $form['nom']->render() ?>
+	</div>
+	<div class="ligne_form">
 		<?php echo $form['siret_cni']->renderError() ?>
 		<?php echo $form['siret_cni']->renderLabel() ?>
 		<?php echo $form['siret_cni']->render() ?>

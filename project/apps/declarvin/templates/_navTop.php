@@ -7,7 +7,7 @@
             <a href="<?php echo url_for('@drm_mon_espace') ?>">DRM</a>
         </li>
         <li<?php if ($active == 'vrac'): ?> class="actif"<?php endif; ?>>
-            <a href="<?php echo url_for('@vrac') ?>">Vrac</a>
+            <a href="<?php echo url_for('@vrac') ?>">Contrat interprofessionnel</a>
         </li>
         <li>
             <a href="#">DAI/DS</a>
@@ -29,7 +29,6 @@
         <li class="quitter"><a href="<?php echo url_for('@ac_vin_logout'); ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
     </ul>
 </nav>
-
 
 <?php if ($sf_user->hasFlash('notice')){ ?>
     <div id="flash_message">

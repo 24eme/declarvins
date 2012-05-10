@@ -2,7 +2,7 @@
 class ProduitDetailForm extends acCouchdbFormDocumentJson {
 
     public function configure() {    	
-    	$choices = array(1 => 'oui', 0 => 'non');
+    	$choices = array(1 => 'oui', 0 => 'non', '' => 'Non défini');
     	$this->setWidgets(array(
     		'readable' => new sfWidgetFormChoice(array('multiple' => false, 'expanded' => true, 'choices' => $choices, 'renderer_options' => array('formatter' => array($this, 'formatter')))),
     		'writable' => new sfWidgetFormInputHidden()
@@ -30,4 +30,11 @@ class ProduitDetailForm extends acCouchdbFormDocumentJson {
 	
 	    return !$rows ? '' : implode($widget->getOption('separator'), $rows);
   	}
+    
+    public function doUpdateObject($values) {
+        parent::doUpdateObject($values);
+        if (is_null($values['readable'])) {
+        	$this->getObject()->set('readable', null);
+        }
+    }
 }

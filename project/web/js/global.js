@@ -100,7 +100,7 @@
 			
 			// touche "entrer"
 			if(touche == 13) return e;
-			
+					
 			// Champ nombre décimal
 			if(float)
 			{ 
@@ -121,6 +121,19 @@
 			
 			if(callbackKeypress) callbackKeypress();
 			return e;
+		});
+		
+		// A chaque touche pressée
+		champ.keyup(function(e)
+		{
+			var touche = e.which;
+			
+			// touche "retour"
+			if(touche == 8)
+			{
+				if(callbackKeypress) callbackKeypress(); 
+				return e
+			}
 		});
 		
 		
@@ -150,29 +163,27 @@
 			if(val.indexOf(',') != -1) val = val.replace(',', '.');
 			
 			// Si un point a été saisi sans chiffre
-			if(val.indexOf('.') != -1 && val.length == 1) val = '0';
+			if(val.indexOf('.') != -1 && val.length == 1) val = ''; //val = '0';
 			
 			// Un nombre commençant par 0 peut être interprété comme étant en octal
 			if(val.indexOf('0') == 0 && val.length > 1) val = val.substring(1);
 			
 			// Comparaison nombre entier / flottant
-			if(float || parseInt(val) != parseFloat(val)) {
-				val = parseFloat(val).toFixed(2);		
-			} else {
-				val = parseInt(val);
-			}
+			if(float || parseInt(val) != parseFloat(val)) val = parseFloat(val).toFixed(2);		
+			else val = parseInt(val);
 		}
 		// Si rien n'a été saisi
-		else val = 0;
+		//else val = 0;
+		else val = '';
 		
 		// Si ce n'est pas un nombre (ex : copier/coller d'un texte)
-		if(isNaN(val)) val = 0;
+		if(isNaN(val)) val = ''; //val = 0;
 
-		if (val == 0) {
+		/*if (val == 0) {
 			champ.addClass('num_light');
 		} else {
 			champ.removeClass('num_light');
-		}
+		}*/
 		
 		champ.attr('value', val);
 	};

@@ -27,8 +27,13 @@
 	var btnAjouter = colonnesDR.find('.btn_ajouter');
 	
 	var btnEtapesDR = $('#btn_etape_dr');
-        var btnPrecSuivProd = $('#btn_suiv_prec');
-        
+	var btnPrecSuivProd = $('#btn_suiv_prec');
+
+	var masqueColActive;
+	
+	var notificationErreur = $('#error_notification');
+	var notificationSauv = $('#saving_notification');
+
 	$(document).ready( function()
 	{
 		if(colonnesDR.exists())
@@ -77,8 +82,24 @@
 		// Egalisation de la hauteur des colonnes et des titres
 		colEgales.find('.couleur, h2').hauteurEgale();
 		colEgales.find('.label').hauteurEgale();
+		
+		$.initMasqueColActive();
+		
+		
 	};
 	
+	/**
+	 * Initialise le masque qui désactive les 
+	 * liens lorque une colonne est active
+	 * $.initMasqueColActive();
+	 ******************************************/
+	$.initMasqueColActive = function()
+	{
+		var hauteur = $('#contenu_onglet').position().top;
+		masqueColActive = $('<div id="masque_col_active"></div>').height(hauteur).hide();
+		
+		$('#contenu').append(masqueColActive);
+	};
 	
 	/**
 	 * Positionne le scroll en fonction de la
@@ -234,6 +255,9 @@
 		// S'il y a une colonne active définie
 		if(colActive)
 		{
+			$.calculerSommesChamps();
+			
+			
 			var form = colActive.find('form');
 			var donneesCol = form.serializeArray();
 			
@@ -242,15 +266,18 @@
 			
 			btn.css('visibility', 'hidden');
 			*/
-				
+		
+			
 			$.post(form.attr('action'), donneesCol, function (data)
 			{
-				$('#saving_notification').hide();
-				if(!data.success) { 
-					$('#error_notification').show(); 
-				} else {
-
+				notificationSauv.hide();
+				
+				if(!data.success) {  notificationErreur.show(); }
+				
+				else
+				{
 					var champs = colActive.find('input:text, select');
+					
 					champs.each(function()
 					{
 						var champ = $(this);
@@ -283,21 +310,18 @@
 							$('#onglets_principal li.actif .completion').addClass('completion_validee');
 						}
 					}
-					$('#colonne_intitules').find('.groupe').each(function()
-					{						
-						if($(this).hasClass('groupe_ouvert') && !$(this).hasClass('bloque')) {
-							$(this).removeClass('groupe_ouvert');
-							$(this).children('ul').slideToggle();
-							colSaisies.find('.groupe[data-groupe-id='+$(this).attr('data-groupe-id')+']').children('ul').slideToggle();
-						}
+					
+					// Rétablissement des groupe ouverts / fermés par défaut
+					colIntitules.find('.groupe').each(function()
+					{
+						var groupe = $(this);
+						
+						if(groupe.hasClass('groupe_ouvert') && !groupe.hasClass('bloque')) groupe.trigger('fermer');
 
-						if ($(this).hasClass('demarrage-ouvert') && !$(this).hasClass('bloque')) {
-							$(this).toggleClass('groupe_ouvert');
-							$(this).children('ul').slideToggle();
-							colSaisies.find('.groupe[data-groupe-id='+$(this).attr('data-groupe-id')+']').children('ul').slideToggle();
-						}
+						if(groupe.hasClass('demarrage-ouvert') && !groupe.hasClass('bloque')) groupe.trigger('ouvrir');
 					});
 				}
+				
 				$('#forms_errors').html(data.content);
 				
 				//btn.css('visibility', 'visible');
@@ -305,8 +329,8 @@
 				$.enleverColActive();
 			}, "json");
 			
-			$('#error_notification').hide();
-			$('#saving_notification').show();
+			notificationErreur.hide();
+			notificationSauv.show();
 		}
 	};
 	
@@ -463,8 +487,10 @@
 		
 		colActive.desactiverAutresCol();
 		
+		// Boutons inactifs + masque
 		btnEtapesDR.addClass('inactif');
-                btnPrecSuivProd.addClass('inactif');
+		btnPrecSuivProd.addClass('inactif');
+		masqueColActive.show();
 		
 		$.majColSaisiesScroll();
 	};
@@ -504,8 +530,10 @@
 			colSaisiesRecolte.removeClass('col_inactive');
 			colSaisiesRecolte.find('input, select').removeAttr('disabled');
 			
+			// Boutons actifs + suppression du  masque
 			btnEtapesDR.removeClass('inactif');
-                        btnPrecSuivProd.removeClass('inactif');
+			btnPrecSuivProd.removeClass('inactif');
+			masqueColActive.hide();
 		}
 	};
 	

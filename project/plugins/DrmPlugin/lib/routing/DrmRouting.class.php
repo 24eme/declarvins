@@ -104,6 +104,13 @@ class DrmRouting {
                                                           array('model' => 'DRM',
                                                                 'type' => 'object')));
 
+        $r->prependRoute('drm_show_error', new DrmRoute('/drm-edition/:campagne_rectificative/voir-erreur/:type/:identifiant', 
+                                                          array('module' => 'drm', 
+                                                                'action' => 'showError'),
+                                                          array('sf_method' => array('get')),
+                                                          array('model' => 'DRM',
+                                                                'type' => 'object')));
+
         $r->prependRoute('drm_visualisation', new DrmLightRoute('/drm/visualisation/:campagne_rectificative', 
                                                           array('module' => 'drm', 
                                                                 'action' => 'visualisation'),

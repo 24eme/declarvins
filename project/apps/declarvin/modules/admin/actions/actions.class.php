@@ -26,7 +26,7 @@ class adminActions extends sfActions
                 $this->getUser()->signOut();
                 $interpro = strtolower(str_replace('INTERPRO-', '', $values['interpro']));
   	 			$this->getUser()->signIn('admin-'.$interpro);
-                $this->redirect('@produits');
+                $this->redirect('@etablissement_login');
             }
         }
   	

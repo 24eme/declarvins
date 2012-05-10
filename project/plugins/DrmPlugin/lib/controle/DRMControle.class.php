@@ -1,9 +1,27 @@
 <?php
 abstract class DRMControle
 {
+	protected $type;
 	protected $code;
 	protected $lien;
 	protected $messages;
+
+	public function __construct($type, $code, $lien, $messages) {
+		$this->setType($type);
+		$this->setCode($code);
+		$this->setLien($lien);
+		$this->setMessages($messages);
+	}
+
+	public function getType()
+	{
+		return $this->type;
+	}
+	
+	public function setType($type)
+	{
+		$this->type = $type;
+	}
 	
 	public function getCode()
 	{
@@ -49,9 +67,9 @@ abstract class DRMControle
 	public function __toString()
 	{
 	  try {
-	    return '<a href="'.$this->getLien().'">'.$this->getMessage().'</a>';
+	    return $this->getMessage();
 	  }catch(sfException $e) {
-	    return '<a href="'.$this->getLien().'">'.$this->getCode().'</a>';
+	    return $this->getCode();
 	  }
 	}
 }

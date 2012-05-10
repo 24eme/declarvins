@@ -5,6 +5,10 @@
 			<input type="text" id="contrat_etablissements_${nbEtablissements}_raison_sociale" name="contrat[etablissements][${nbEtablissements}][raison_sociale]">
 		</div>
 		<div class="ligne_form">
+			<label for="contrat_etablissements_${nbEtablissements}_nom">Nom commercial*: </label>
+			<input type="text" id="contrat_etablissements_${nbEtablissements}_nom" name="contrat[etablissements][${nbEtablissements}][nom]">
+		</div>
+		<div class="ligne_form">
 			<label for="contrat_etablissements_${nbEtablissements}_siret_cni">SIRET/CNI*: </label>
 			<input type="text" id="contrat_etablissements_${nbEtablissements}_siret_cni" name="contrat[etablissements][${nbEtablissements}][siret_cni]">
 		</div>

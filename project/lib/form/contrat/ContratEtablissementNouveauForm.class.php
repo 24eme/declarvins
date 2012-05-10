@@ -4,15 +4,18 @@ class ContratEtablissementNouveauForm extends acCouchdbFormDocumentJson {
     public function configure() {
         $this->setWidgets(array(
                 'raison_sociale' => new sfWidgetFormInputText(),
+        		 'nom' => new sfWidgetFormInputText(),
 	        'siret_cni' => new sfWidgetFormInputText()
         ));
         $this->widgetSchema->setLabels(array(
                 'raison_sociale' => 'Raison sociale*: ',
+        'nom' => 'Nom commercial*: ',
 		'siret_cni' => 'SIRET/CNI*: '
         ));
 
         $this->setValidators(array(
                 'raison_sociale' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
+        'nom' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
 		'siret_cni' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire'))
         ));
 		$this->widgetSchema->setNameFormat('contratetablissement[%s]');

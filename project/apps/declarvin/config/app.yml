@@ -6,6 +6,6 @@ all:
   etablissements:
     familles:
       "Producteur": ["Producteur cave particulière", "Producteur cave coopérative"]
-      "Négociant": ["Négociant", "Négociant vinificateur", "Union-négociant"]
+      "Négociant": ["Négociant régional", "Négociant hors région"]
       "Vinificateur": ["Vinificateur"]
       "Courtier": ["Courtier"]

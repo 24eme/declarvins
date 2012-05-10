@@ -177,6 +177,16 @@ class drmActions extends sfActions
     }
   }
 
+  public function executeShowError(sfWebRequest $request) {
+    $drm = $this->getRoute()->getDrm();
+    $drmValidation = new DRMValidation($drm);
+    $controle = $drmValidation->find($request->getParameter('type'), $request->getParameter('identifiant'));
+    $this->forward404Unless($controle);
+    $this->getUser()->setFlash('control_message', $controle->getMessage());
+    $this->getUser()->setFlash('control_css', "flash_".$controle->getType());
+    $this->redirect($controle->getLien());
+  }
+
  /**
   * Executes mouvements generaux action
   *

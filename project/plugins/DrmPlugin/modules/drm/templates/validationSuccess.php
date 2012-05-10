@@ -18,12 +18,12 @@
                     <div id="retours">
                         <?php
                         if ($drmValidation->hasErrors()) {
-                            include_partial('erreurs', array('drmValidation' => $drmValidation));
+                            include_partial('erreurs', array('drm' => $drm, 'drmValidation' => $drmValidation));
                         }
                         ?>
                         <?php
                         if ($drmValidation->hasWarnings()) {
-                            include_partial('vigilances', array('drmValidation' => $drmValidation));
+                            include_partial('vigilances', array('drm' => $drm, 'drmValidation' => $drmValidation));
                         }
                         ?>
                     </div>
@@ -33,7 +33,7 @@
                 <div id="contenu_onglet" class="tableau_ajouts_liquidations">
                     <?php
                     if ($drmValidation->hasEngagements()) {
-                        include_partial('engagements', array('drmValidation' => $drmValidation, 'form' => $form));
+                        include_partial('engagements', array('drm' => $drm, 'drmValidation' => $drmValidation, 'form' => $form));
                     }
                     ?>
                 </div>

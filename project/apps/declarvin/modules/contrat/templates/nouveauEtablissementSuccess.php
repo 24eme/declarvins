@@ -11,6 +11,6 @@
         <h1>Étape 2 : <strong>Veuillez saisir les informations pour le nouvel établissement</strong></h1>
 		<p>Les champs marqués d'un astérisque (*) sont obligatoires</p>
         <!--<h2>Veuillez saisir les informations pour le nouvel établissement</h2>-->
-        <?php include_partial('contrat/formEtablissement', array('form' => $form, 'new' => true, 'annulation' => true)); ?>
+        <?php include_partial('contrat/formEtablissement', array('form' => $form, 'new' => true, "recapitulatif" => false, 'annulation' => true)); ?>
     </form>
 </section>
