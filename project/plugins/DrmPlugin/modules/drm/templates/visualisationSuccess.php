@@ -19,8 +19,9 @@
                 <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
             <?php endif; ?>
 
-    	   <a href="<?php echo url_for('drm_pdf', array('campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
-
+    	    <a href="<?php echo url_for('drm_pdf', array('campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
+			<br />
+			<a href="<?php echo url_for('drm_rectificative', array('campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Soumettre une DRM rectificative</a>
             <div id="btn_etape_dr">
                 <?php if($drm_suivante && $drm_suivante->isRectificative()): ?>
                 <a href="<?php echo url_for('drm_init', array('campagne_rectificative' => $drm_suivante->getCampagneAndRectificative())) ?>" class="btn_suiv">

@@ -20,12 +20,6 @@
 <?php else: ?>
 	<td>OK</td>
 	<td>
-		<?php if($derniere): ?>
-		<a href="<?php echo url_for('drm_rectificative', array('campagne_rectificative' => $campagne_rectificative)) ?>">
-		  	Soumettre une DRM rectificative
-		</a>
-		<br />
-		<?php endif; ?>
 			<a href="<?php echo url_for('drm_visualisation', array('campagne_rectificative' => $campagne_rectificative)) ?>" class="btn_reinitialiser"><span>Visualiser</span></a>
 		</td>	
 		<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && !$drm->isEnvoyee()): ?>	
