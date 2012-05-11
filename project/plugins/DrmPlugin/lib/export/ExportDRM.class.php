@@ -69,7 +69,7 @@ class ExportDRM
     		foreach($certification as $appellation) {
     			foreach($appellation as $produit) {
 	    			$detail = $produit->getDetail();
-    				if ($detail->hasStockEpuise()) {
+    				if (!$detail->hasStockEpuise()) {
 	    				$details_pour_volume[] = $detail;
 	                    foreach($detail->vrac as $vrac) {
 	                        $details_pour_vrac[] = $vrac;
