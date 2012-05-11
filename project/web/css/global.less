@@ -389,7 +389,7 @@ a.msg_aide
  ******************************************/
 body
 {
-	background: #000 url(../images/fonds/bg_body.jpg) center 0 no-repeat;
+	background: #989898;
 	color: @couleur-a1;
 	font-family: @ff-Calibri;
 	font-size: 14px;
@@ -421,11 +421,18 @@ a
 	.clearfix;
 }
 
+#global_content{
+        .box-shadow(0 0 5px #666);
+}
+
 #contenu
 {
 	background: #fff;
 	padding: 25px 20px 70px;
 	.clearfix;
+
+
+        
 	
 	#principal
 	{
@@ -481,7 +488,7 @@ a
 		p
 		{
 			color: #fff;
-			font-size: 20px;
+			font-size: 16px;
 		}
 	}
 	
@@ -489,7 +496,7 @@ a
 	nav
 	{
 		float: right;
-		font-size: 17px;
+		font-size: 15px;
 		font-weight: bold;
 		line-height: 41px;
 		text-transform: uppercase;
@@ -522,7 +529,7 @@ a
 
 	p.deconnexion
 	{
-		font-size: 15px;
+		font-size: 13px;
 		font-style: italic;
 		text-align: right;
 	
@@ -581,7 +588,7 @@ a
 			{
 				color: @couleur-a1;
 				float: left;
-				padding: 5px 20px 0 15px;
+				padding: 5px 15px 0 20px;
 			}
 			
 			&.actif { font-weight: bold; }
@@ -590,7 +597,7 @@ a
 			a:hover,
 			a:focus
 			{
-				background: url(../images/fonds/bg_nav_principale.png) right 0 no-repeat;
+				background: url(../images/fonds/bg_nav_principale.png) left 0 no-repeat;
 				color: #fff;
 			}
 		}
