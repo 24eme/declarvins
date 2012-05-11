@@ -135,6 +135,13 @@ class DrmRouting {
                         array('sf_method' => array('post')),
                         array('model' => 'DRMProduit',
                               'type' => 'object')));
+                        
+        $r->prependRoute('drm_mouvements_generaux_stock_epuise', new DrmRoute('/drm-edition/:campagne_rectificative/mouvements-generaux/stock-epuise',
+                        array('module' => 'drm_mouvements_generaux',
+                            'action' => 'stockEpuise'),
+                        array('sf_method' => array('post', 'get')),
+                        array('model' => 'DRM',
+                              'type' => 'object')));
 
         $r->prependRoute('drm_mouvements_generaux_produits_update', new DrmRoute('/drm-edition/:campagne_rectificative/mouvements-generaux/update_produits',
                         array('module' => 'drm_mouvements_generaux',

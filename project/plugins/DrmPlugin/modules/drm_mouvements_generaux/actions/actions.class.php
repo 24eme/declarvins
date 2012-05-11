@@ -76,6 +76,23 @@ class drm_mouvements_generauxActions extends sfActions
         } 
         return $this->renderText(json_encode(array("success" => false)));
     }
+
+    public function executeStockEpuise(sfWebRequest $request) 
+    {
+    	$drm = $this->getRoute()->getDrm();
+    	$this->forward404Unless($drm->declaration->hasPasDeMouvement());
+    	$this->forward404Unless($drm->declaration->hasStockEpuise());
+
+    	foreach($drm->produits as $certification_produit) {
+    		foreach($certification_produit as $appellation_produit) {
+    			foreach($appellation_produit as $produit) {
+    				$produit->pas_de_mouvement = 1;
+    			}
+    		}
+    	}
+        $drm->setCurrentEtapeRouting('declaratif');
+        $this->redirect('drm_declaratif', $drm);
+    }
     
     public function executeDeleteAjax(sfWebRequest $request) 
     {

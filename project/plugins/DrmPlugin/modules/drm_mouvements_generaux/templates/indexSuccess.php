@@ -15,7 +15,7 @@
         		<div id="ajouts_liquidations">
         			
         			<?php if($drm->declaration->hasPasDeMouvement()): ?>
-        			<div id="form" style="padding:15px 0 0 0;" class="tableau_ajouts_liquidations">
+        			<div id="form" style="padding:15px 0 0 0; margin:0 0 15px 0;" class="tableau_ajouts_liquidations">
         				<form class="updateProduct" action="<?php echo url_for('drm_mouvements_generaux_produits_update', $drm) ?>" method="post">
 		        			<table class="tableau_recap">
 								<tbody>
@@ -33,6 +33,10 @@
 							</table>
 						</form>
 	        		</div>
+	        		<?php endif; ?>
+        			
+        			<?php if($drm->declaration->hasPasDeMouvement() && $drm->declaration->hasStockEpuise()): ?>
+        			<a href="<?php echo url_for('drm_mouvements_generaux_stock_epuise', $drm) ?>" class="btn_passer_etape" style="float:none; margin: 0 0 15px 0;">Stock épuisé</a>
 	        		<?php endif; ?>
 	        		
         			<?php foreach ($forms as $certification => $tabForm): ?>
