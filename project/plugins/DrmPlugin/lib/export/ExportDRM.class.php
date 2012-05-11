@@ -68,12 +68,14 @@ class ExportDRM
             $codes = array();
     		foreach($certification as $appellation) {
     			foreach($appellation as $produit) {
-    				$detail = $produit->getDetail();
-    				$details_pour_volume[] = $detail;
-                    foreach($detail->vrac as $vrac) {
-                        $details_pour_vrac[] = $vrac;
-                    }
-                    $codes[$detail->getCodes()] = $detail->getMillesime();
+	    			$detail = $produit->getDetail();
+    				if ($detail->hasStockEpuise()) {
+	    				$details_pour_volume[] = $detail;
+	                    foreach($detail->vrac as $vrac) {
+	                        $details_pour_vrac[] = $vrac;
+	                    }
+	                    $codes[$detail->getCodes()] = $detail->getMillesime();
+    				}
     			}
     		}
             $this->pagers_volume[$certification->getKey()] = $this->makePager($details_pour_volume);
