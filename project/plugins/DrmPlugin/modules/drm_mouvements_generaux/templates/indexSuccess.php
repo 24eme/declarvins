@@ -35,7 +35,7 @@
 	        		</div>
 	        		<?php endif; ?>
         			
-        			<?php if($drm->declaration->hasPasDeMouvement() && $drm->declaration->hasStockEpuise()): ?>
+        			<?php if($drm->declaration->hasStockEpuise()): ?>
         			<a href="<?php echo url_for('drm_mouvements_generaux_stock_epuise', $drm) ?>" class="btn_passer_etape" style="float:none; margin: 0 0 15px 0;">Stock épuisé</a>
 	        		<?php endif; ?>
 	        		
