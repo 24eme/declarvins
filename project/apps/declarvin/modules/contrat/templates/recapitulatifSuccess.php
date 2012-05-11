@@ -6,7 +6,7 @@
 				<p><span>Nom :</span> <strong><?php echo $contrat->getNom() ?></strong></p>
 				<p><span>Prénom :</span> <strong><?php echo $contrat->getPrenom() ?></strong></p>
 				<p><span>Fonction :</span> <strong><?php echo $contrat->getFonction() ?></strong></p>
-				<p><span>Email :</span> <strong><?php echo $contrat->getCompteObject()->getEmail() ?></strong></p>
+				<p><span>Email :</span> <strong><?php echo $contrat->getEmail() ?></strong></p>
 				<p><span>Téléphone :</span> <strong><?php echo $contrat->getTelephone() ?></strong></p>
 				<p><span>Fax :</span> <strong><?php echo $contrat->getFax() ?></strong></p>
 			</div>
@@ -48,6 +48,9 @@
 				</div>
 			</div>
 			<?php endforeach; ?>
+		    <div id="btn_etape_dr">
+		    	<a href="<?php echo url_for('contrat_etablissement_modification', array('indice' => $etablissement->getKey(), 'recapitulatif' => 1)) ?>" class="btn_prec"><span>Précédent</span></a>
+		    </div>
 			<div class="ligne_btn">
 				<a href="<?php echo url_for('contrat_etablissement_nouveau') ?>" class="btn_ajouter">Nouveau</a>
 				<a href="<?php echo url_for('contrat_etablissement_confirmation') ?>" class="btn_valider">Valider</a>

@@ -26,8 +26,13 @@ class contratActions extends sfActions
      * @param sfRequest $request A request object
      */
     public function executeNouveau(sfWebRequest $request) {
+    	if ($contrat = $request->getParameter('nocontrat')) {
+    		$object = ContratClient::getInstance()->find('CONTRAT-'.$contrat);
+    	} else {
+    		$object = new Contrat();
+    	}
         $this->nbEtablissement = $request->getParameter('nb_etablissement', 1);
-        $this->form = new ContratForm(new Contrat(), array('nbEtablissement' => $this->nbEtablissement));
+        $this->form = new ContratForm($object, array('nbEtablissement' => $this->nbEtablissement));
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
@@ -62,11 +67,7 @@ class contratActions extends sfActions
             		$this->redirect('contrat_etablissement_modification', array('indice' => $nextIndice));
             	}
             } else {
-            	
-            	if ($this->recapitulatif)
-            		$this->redirect('@contrat_etablissement_recapitulatif');
-            	else
-            		$this->redirect('@compte_nouveau');
+                $this->redirect('@contrat_etablissement_recapitulatif');
             }
         }
     }
@@ -132,8 +133,7 @@ class contratActions extends sfActions
   public function executeConfirmation(sfWebRequest $request)
   {
   	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
-  	$this->compte = $this->contrat->getCompteObject();
-  	$this->form = new CompteModificationEmailForm($this->compte);
+  	$this->form = new CompteModificationEmailForm($this->contrat);
   	$this->showForm = false;
     if ($request->isMethod(sfWebRequest::POST)) {
         $this->form->bind($request->getParameter($this->form->getName()));

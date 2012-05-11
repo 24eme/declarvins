@@ -17,4 +17,7 @@
         endif;
     endforeach;
     ?>
+    <div id="btn_etape_dr">
+    	<a href="<?php echo url_for('contrat_nouveau', array('nocontrat' => $contrat->no_contrat)) ?>" class="btn_prec"><span>Précédent</span></a>
+    </div>
 </section>

@@ -7,22 +7,34 @@ class ContratForm extends acCouchdbFormDocumentJson {
 			'prenom' => new sfWidgetFormInputText(),
 			'fonction' => new sfWidgetFormInputText(),
 			'telephone' => new sfWidgetFormInputText(),
-			'fax' => new sfWidgetFormInputText()    		
+			'fax' => new sfWidgetFormInputText(), 	
+            'email' => new sfWidgetFormInputText(),
+        	'email2' => new sfWidgetFormInputText()  		
     	));
 		$this->widgetSchema->setLabels(array(
 			'nom' => 'Nom*: ',
 			'prenom' => 'Prénom*: ',
 			'fonction' => 'Fonction*: ',
 			'telephone' => 'Téléphone*: ',
-			'fax' => 'Fax: '
+			'fax' => 'Fax: ',
+            'email' => 'Adresse e-mail*: ',
+            'email2' => 'Vérification de l\'e-mail*: '
 		));
 		$this->setValidators(array(
 			'nom' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')),
 			'prenom' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')),
 			'fonction' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')),
 			'telephone' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')),
-			'fax' => new sfValidatorString(array('required' => false))
+			'fax' => new sfValidatorString(array('required' => false)),
+            'email' => new sfValidatorEmailStrict(array('required' => true),array('required' => 'Champ obligatoire', 'invalid' => 'Adresse email invalide.')),
+        	'email2' => new sfValidatorEmailStrict(array('required' => true),array('required' => 'Champ obligatoire', 'invalid' => 'Adresse email invalide.'))
 		));
+        
+        $this->validatorSchema->setPostValidator(new sfValidatorSchemaCompare('email', 
+                                                                             sfValidatorSchemaCompare::EQUAL, 
+                                                                             'email2',
+                                                                             array(),
+                                                                             array('invalid' => 'Les adresses e-mail doivent être identique')));
 		
 		$formEtablissements = new ContratEtablissementCollectionForm(null, array(
 	    	'contrat' => $this->getObject(),
