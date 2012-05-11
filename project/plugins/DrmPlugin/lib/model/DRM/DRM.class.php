@@ -126,6 +126,7 @@ class DRM extends BaseDRM {
     }
     public function init($params = array()) {
       	parent::init($params);
+      	$keepStock = isset($params['keepStock']) ? $params['keepStock'] : true;
 		$this->remove('rectificative');
         $this->remove('douane');
         $this->add('douane');
@@ -133,6 +134,15 @@ class DRM extends BaseDRM {
         $this->add('declarant');
         $this->raison_rectificative = null;
         $this->etape = null;
+        if (!$keepStock) {
+        	$this->declaratif->adhesion_emcs_gamma = null;
+        	$this->declaratif->paiement->douane->frequence = null;
+        	$this->declaratif->paiement->douane->moyen = null;
+        	$this->declaratif->paiement->cvo->frequence = null;
+        	$this->declaratif->paiement->cvo->moyen = null;
+        	$this->declaratif->caution->dispense = null;
+        	$this->declaratif->caution->organisme = null;
+        }
         $this->declaratif->defaut_apurement = null;
         $this->declaratif->daa->debut = null;
         $this->declaratif->daa->fin = null;

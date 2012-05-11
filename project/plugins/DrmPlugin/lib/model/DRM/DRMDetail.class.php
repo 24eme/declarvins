@@ -164,31 +164,14 @@ class DRMDetail extends BaseDRMDetail {
 
     protected function init($params = array()) {
       parent::init($params);
-		$keepStock = true;
-		if (isset($params['keepStock'])) {
-			$keepStock = $params['keepStock'];
-		}
+      
+      $keepStock = isset($params['keepStock']) ? $params['keepStock'] : true;
+	
       $this->total_debut_mois = ($keepStock)? $this->total : null;
       $this->total_entrees = null;
       $this->total_sorties = null;
       $this->total = null;
-                    
-      $this->stocks_debut->bloque = ($keepStock)? $this->stocks_fin->bloque : null;
-      $this->stocks_debut->warrante = ($keepStock)? $this->stocks_fin->warrante : null;
-      $this->stocks_debut->instance = ($keepStock)? $this->stocks_fin->instance : null;
-      $this->stocks_debut->commercialisable = ($keepStock)? $this->stocks_fin->commercialisable : null;
       
-      $this->stocks_fin->bloque = null;
-      $this->stocks_fin->warrante = null;
-      $this->stocks_fin->instance = null;
-      $this->stocks_fin->commercialisable = null;
-      
-      foreach ($this->entrees as $key => $entree) {
-        $this->entrees->$key = null;
-      }
-      foreach ($this->sorties as $key => $sortie) {
-        $this->sorties->$key = null;
-      }
     }
 
     public function sommeLignes($lines) {

@@ -7,7 +7,7 @@
 		<?php echo $form['appellation']->render() ?>
 	</div>
 	<div class="ligne_form_btn">
-		<button name="annuler" class="btn_annuler btn_fermer" type="reset">Annuler</button>
+		<a href="#" onClick="location.reload(true); return false;" name="annuler" class="btn_annuler">Annuler</a>
 		<button name="valider" class="btn_valider" type="submit">Valider</button>
 	</div>
 </form>

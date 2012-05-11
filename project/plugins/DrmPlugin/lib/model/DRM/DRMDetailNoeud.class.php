@@ -14,15 +14,21 @@ class DRMDetailNoeud extends BaseDRMDetailNoeud {
   public function getConfig() {
     return $this->getParent()->getConfig()->get($this->getKey());
   }
+  
+  protected function init($params = array()) {
+      parent::init($params);
+   
+	  $keepStock = isset($params['keepStock']) ? $params['keepStock'] : true;
+	  
+      foreach ($this as $key => $entree) {
+      	if ($this->getKey() == 'stocks_fin' && $keepStock) {
+	   		$this->getParent()->stocks_debut->set($key, $this->get($key));
+	  	} 
+      	$this->set($key, null);
+      }
+    }
 
   public function set($key, $value) {
-    try {
-      if (!$value && !$this->get($key))
-        return;
-    }catch(sfException $e) {
-
-      return ;
-    }
     if (!$this->getConfig()->exist($key) && !$this->getConfig()->get($key)->isWritable()) {
       
       throw new sfException("$key is not writable");
@@ -31,8 +37,7 @@ class DRMDetailNoeud extends BaseDRMDetailNoeud {
     if ($key == 'vrac' && !$value) {
       $this->getParent()->remove('vrac');
     }
-
-    return $this->_set($key, $value);
+    parent::set($key, $value);
   }
 
   public function isModifiedMasterDRM($key) {

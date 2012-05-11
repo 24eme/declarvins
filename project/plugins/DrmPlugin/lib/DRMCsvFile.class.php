@@ -34,38 +34,42 @@ class DRMCsvFile extends CsvFile
   const CSV_COL_CONTRAT_IDENTIFIANT = 26;
   const CSV_COL_CONTRAT_VOLUME = 27;
   const CSV_COL_DETAIL_TOTAL_DEBUT_MOIS = 26;
-  const CSV_COL_DETAIL_ENTREES = 27;
-  const CSV_COL_DETAIL_ENTREES_ACHAT = 28;
-  const CSV_COL_DETAIL_ENTREES_RECOLTE = 29;
-  const CSV_COL_DETAIL_ENTREES_REPLI = 30;
-  const CSV_COL_DETAIL_ENTREES_DECLASSEMENT = 31;
-  const CSV_COL_DETAIL_ENTREES_MOUVEMENT = 32;
-  const CSV_COL_DETAIL_ENTREES_CRD = 33;
-  const CSV_COL_DETAIL_SORTIES = 34;
-  const CSV_COL_DETAIL_SORTIES_VRAC = 35;
-  const CSV_COL_DETAIL_SORTIES_EXPORT = 36;
-  const CSV_COL_DETAIL_SORTIES_FACTURES = 37;
-  const CSV_COL_DETAIL_SORTIES_CRD = 38;
-  const CSV_COL_DETAIL_SORTIES_CONSOMMATION = 39;
-  const CSV_COL_DETAIL_SORTIES_PERTES = 40;
-  const CSV_COL_DETAIL_SORTIES_DECLASSEMENT = 41;
-  const CSV_COL_DETAIL_SORTIES_REPLI = 42;
-  const CSV_COL_DETAIL_SORTIES_MOUVEMENT = 43;
-  const CSV_COL_DETAIL_SORTIES_DISTILLATION = 44;
-  const CSV_COL_DETAIL_SORTIES_LIES = 45;
-  const CSV_COL_DETAIL_TOTAL = 46;
-  const CSV_COL_DETAIL_STOCKFIN_BLOQUE = 47;
-  const CSV_COL_DETAIL_STOCKFIN_WARRANTE = 48;
-  const CSV_COL_DETAIL_STOCKFIN_INSTANCE = 49;
-  const CSV_COL_DETAIL_STOCKFIN_COMMERCIALISABLE = 50;
-  const CSV_COL_DETAIL_DATEDESIGNATURE = 51;
-  const CSV_COL_DETAIL_DATEDESAISIE = 52;
-  const CSV_COL_DETAIL_MODEDESAISIE = 53;
-  const CSV_COL_DETAIL_CVO_TAUX = 54;
-  const CSV_COL_DETAIL_CVO_VOLUME = 55;
-  const CSV_COL_DETAIL_CVO_PRIX = 56;
-  const CSV_COL_DETAIL_IDDRMDECLARVIN = 56;
-  const CSV_COL_DETAIL_ID_ETABLISSEMENT_INTERNE = 57;
+  const CSV_COL_DETAIL_STOCKDEB_BLOQUE = 27;
+  const CSV_COL_DETAIL_STOCKDEB_WARRANTE = 28;
+  const CSV_COL_DETAIL_STOCKDEB_INSTANCE = 29;
+  const CSV_COL_DETAIL_STOCKDEB_COMMERCIALISABLE = 30;
+  const CSV_COL_DETAIL_ENTREES = 31;
+  const CSV_COL_DETAIL_ENTREES_ACHAT = 32;
+  const CSV_COL_DETAIL_ENTREES_RECOLTE = 33;
+  const CSV_COL_DETAIL_ENTREES_REPLI = 34;
+  const CSV_COL_DETAIL_ENTREES_DECLASSEMENT = 35;
+  const CSV_COL_DETAIL_ENTREES_MOUVEMENT = 36;
+  const CSV_COL_DETAIL_ENTREES_CRD = 37;
+  const CSV_COL_DETAIL_SORTIES = 38;
+  const CSV_COL_DETAIL_SORTIES_VRAC = 39;
+  const CSV_COL_DETAIL_SORTIES_EXPORT = 40;
+  const CSV_COL_DETAIL_SORTIES_FACTURES = 41;
+  const CSV_COL_DETAIL_SORTIES_CRD = 42;
+  const CSV_COL_DETAIL_SORTIES_CONSOMMATION = 43;
+  const CSV_COL_DETAIL_SORTIES_PERTES = 44;
+  const CSV_COL_DETAIL_SORTIES_DECLASSEMENT = 45;
+  const CSV_COL_DETAIL_SORTIES_REPLI = 46;
+  const CSV_COL_DETAIL_SORTIES_MOUVEMENT = 47;
+  const CSV_COL_DETAIL_SORTIES_DISTILLATION = 48;
+  const CSV_COL_DETAIL_SORTIES_LIES = 49;
+  const CSV_COL_DETAIL_TOTAL = 50;
+  const CSV_COL_DETAIL_STOCKFIN_BLOQUE = 51;
+  const CSV_COL_DETAIL_STOCKFIN_WARRANTE = 52;
+  const CSV_COL_DETAIL_STOCKFIN_INSTANCE = 53;
+  const CSV_COL_DETAIL_STOCKFIN_COMMERCIALISABLE = 54;
+  const CSV_COL_DETAIL_DATEDESIGNATURE = 55;
+  const CSV_COL_DETAIL_DATEDESAISIE = 56;
+  const CSV_COL_DETAIL_MODEDESAISIE = 57;
+  const CSV_COL_DETAIL_CVO_TAUX = 58;
+  const CSV_COL_DETAIL_CVO_VOLUME = 59;
+  const CSV_COL_DETAIL_CVO_PRIX = 60;
+  const CSV_COL_DETAIL_IDDRMDECLARVIN = 61;
+  const CSV_COL_DETAIL_ID_ETABLISSEMENT_INTERNE = 62;
 
   public static function createFromArray($array) {
     $csv = new DRMCsvFile();
@@ -143,13 +147,13 @@ class DRMCsvFile extends CsvFile
   }
 
   private function verifyCsvLine($detail, $line) {
-    if ($line[self::CSV_COL_DETAIL_ENTREES]*1 != $detail->total_entrees)
-      throw new sfException("la somme des entrees (".$detail->total_entrees.") n'est pas en accord avec les informations du csv (".$line[14].")");
-    if ($line[self::CSV_COL_DETAIL_SORTIES]*1 != $detail->total_sorties)
-      throw new sfException("la somme des sorties n'est pas en accord avec les informations du csv");
-    if ($line[self::CSV_COL_DETAIL_TOTAL]*1 != $detail->total)
+    if (round($line[self::CSV_COL_DETAIL_ENTREES], 2) != round($detail->total_entrees, 2))
+      throw new sfException("la somme des entrees (".$detail->total_entrees.") n'est pas en accord avec les informations du csv (".$line[self::CSV_COL_DETAIL_ENTREES].")");
+    if (round($line[self::CSV_COL_DETAIL_SORTIES], 2) != round($detail->total_sorties, 2))
+      throw new sfException("la somme des sorties n'est pas en accord avec les informations du csv ('".$line[self::CSV_COL_DETAIL_SORTIES]."' != '".$detail->total_sorties."')");
+    if (round($line[self::CSV_COL_DETAIL_TOTAL], 2) != round($detail->total, 2))
       throw new sfException("le total n'est pas en accord avec les informations du csv");
-    if ($line[self::CSV_COL_DETAIL_TOTAL_DEBUT_MOIS]*1 != $detail->total_debut_mois*1)
+    if (round($line[self::CSV_COL_DETAIL_TOTAL_DEBUT_MOIS], 2) != round($detail->total_debut_mois, 2))
       throw new sfException("le total début de mois n'est pas en accord avec les informations historiques");
   }
 
@@ -181,6 +185,7 @@ class DRMCsvFile extends CsvFile
 
   private function parseDetail($line) {
       $detail = $this->getProduit($line);
+      $detail->total_debut_mois = $line[self::CSV_COL_DETAIL_TOTAL_DEBUT_MOIS]*1;
       $detail->entrees->achat = $line[self::CSV_COL_DETAIL_ENTREES_ACHAT] *1 ;
       $detail->entrees->recolte = $line[self::CSV_COL_DETAIL_ENTREES_RECOLTE] *1 ;
       $detail->entrees->repli = $line[self::CSV_COL_DETAIL_ENTREES_REPLI] * 1 ;
@@ -206,11 +211,15 @@ class DRMCsvFile extends CsvFile
       $this->verifyCsvLine($detail, $line);
   }
 
-  public function importDRM($compte = null) {
+  public function importDRM($options = null) {
+    $compte = null;
+    if (isset($options['compte']))
+      $compte = $options['compte'];
     $this->config = ConfigurationClient::getCurrent();
     $this->drm = null;
     $this->errors = array();
-    $this->numline = 0;
+    $this->numline = (isset($options['init_line'])) ? $options['init_line'] : 0;
+    
     try {
       foreach ($this->getCsv() as $line) {
 	$this->numline++;
@@ -235,7 +244,7 @@ class DRMCsvFile extends CsvFile
       $this->errors[] = array('line'=> $this->numline, 'message'=>$e->getMessage());
     }
 
-    $validator = new DRMValidation($this->drm);
+    $validator = new DRMValidation($this->drm, $options);
 
     if ($validator->hasErrors()) {
       foreach($validator->getErrors() as $err) {

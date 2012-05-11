@@ -2,6 +2,10 @@
 
 class MessagesClient extends acCouchdbClient {
   public static $messages = null;
+  
+	public static function getInstance() {
+      return acCouchdbManager::getClient("Messages");
+    }
 
   public function retrieveMessages() {
     if (!self::$messages)
