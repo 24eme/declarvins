@@ -155,6 +155,7 @@ Contrat:
       telephone: {  }
       fax: {  }
       compte: {  }
+      email: {  }
       etablissements:
         type: array_collection
         definition:

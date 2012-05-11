@@ -200,4 +200,9 @@ class DRMDetail extends BaseDRMDetail {
 
         return $this->total_entrees == 0 && $this->total_sorties == 0;
     }
+
+    public function hasStockEpuise() {
+
+        return$this->total_debut_mois == 0 && $this->hasPasDeMouvement();
+    }
 }

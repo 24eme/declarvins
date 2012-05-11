@@ -41,10 +41,11 @@
             <?php include_partial('global/header'); ?>
 
             <!-- fin #header -->
+            <div id="global_content">
+                <?php echo $sf_content ?>
 
-            <?php echo $sf_content ?>
-
-            <?php include_partial('global/footer'); ?>
+                <?php include_partial('global/footer'); ?>
+            </div>
 
         </div>
         <!-- fin #global -->
