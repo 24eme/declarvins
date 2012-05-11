@@ -10,8 +10,8 @@ compte_nouveau:
   url:   /compte/nouveau
   param: { module: acVinCompte, action: nouveau }
 contrat_nouveau:
-  url:   /contrat/nouveau
-  param: { module: contrat, action: nouveau }
+  url:   /contrat/nouveau/:nocontrat
+  param: { module: contrat, action: nouveau, nocontrat: null }
 contrat_etablissement_modification:
   url:   /contrat/etablissement/:indice/modification/:recapitulatif
   param: { module: contrat, action: modificationEtablissement, indice: null, recapitulatif: null }

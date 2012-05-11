@@ -2,7 +2,7 @@
 	<?php if($sf_user->hasFlash('notice')) : ?>
 	<p class="flash_message"><?php echo $sf_user->getFlash('notice'); ?></p>
 	<?php endif; ?>
-	<form id="creation_compte" method="post" action="<?php echo url_for('@contrat_nouveau') ?>">
+	<form id="creation_compte" method="post" action="<?php echo url_for('contrat_nouveau', array('nocontrat' => $form->getObject()->no_contrat)) ?>">
 		<?php echo $form->renderHiddenFields(); ?>
 		<?php echo $form->renderGlobalErrors(); ?>
 		<input id="contrat_nb_etablissement" type="hidden" name="nb_etablissement" value="<?php echo $nbEtablissement ?>" />
@@ -25,6 +25,16 @@
 			</div>
 		</div>
 		<div class="col">
+			<div class="ligne_form">
+				<?php echo $form['email']->renderError() ?>
+				<?php echo $form['email']->renderLabel() ?>
+				<?php echo $form['email']->render() ?>
+			</div>
+			<div class="ligne_form">
+				<?php echo $form['email2']->renderError() ?>
+				<?php echo $form['email2']->renderLabel() ?>
+				<?php echo $form['email2']->render() ?>
+			</div>	
 			<div class="ligne_form">
 				<?php echo $form['telephone']->renderError() ?>
 				<?php echo $form['telephone']->renderLabel() ?>

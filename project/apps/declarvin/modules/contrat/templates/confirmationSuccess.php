@@ -9,7 +9,7 @@ function updateCompte() {
 		<?php if ($sf_user->hasFlash('success')) : ?>
 		    <p class="flash_message"><?php echo $sf_user->getFlash('success'); ?></p>
 		<?php endif; ?>
-		<p>Merci,<br />Vous allez recevoir un e-mail à l'adresse <strong><?php echo $compte->email ?></strong> contenant votre contrat en pièce jointe.</p>
+		<p>Merci,<br />Vous allez recevoir un e-mail à l'adresse <strong><?php echo $contrat->email ?></strong> contenant votre contrat en pièce jointe.</p>
 		<p>Si vous n'avez pas reçu d'email</p>
 		<ul>
 			<li>Vérifiez vos spams</li>
