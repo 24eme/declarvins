@@ -45,16 +45,16 @@ class ConfigurationClient extends acCouchdbClient {
               ->endkey(array("produits", array()))->getView('configuration', 'produits');
   }
 
-  public function findProduitsAppellationsByCertification($certif, $interpro, $departement = null) {
+  public function findProduitsAppellationsByCertification($certif, $interpro, $departement) {
 
-    return $this->startkey(array("appellations", $certif, $interpro))
-              ->endkey(array("appellations", $certif, $interpro, array()))->getView('configuration', 'produits');
+    return $this->startkey(array("appellations", $certif, $interpro, $departement))
+              ->endkey(array("appellations", $certif, $interpro, $departement, array()))->getView('configuration', 'produits');
   }
 
-  public function findProduitsByCertification($certif, $interpro, $departement = null) {
+  public function findProduitsByCertification($certif, $interpro, $departement) {
 
-    return $this->startkey(array("produits", $certif, $interpro))
-              ->endkey(array("produits", $certif, $interpro, array()))->getView('configuration', 'produits');
+    return $this->startkey(array("produits", $certif, $interpro, $departement))
+              ->endkey(array("produits", $certif, $interpro, $departement, array()))->getView('configuration', 'produits');
   }
 
   public function findProduitsByAppellation($certif, $interpro, $departement, $appellation) {

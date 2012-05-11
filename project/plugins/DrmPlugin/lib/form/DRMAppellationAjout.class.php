@@ -34,9 +34,9 @@ class DRMAppellationAjoutForm extends acCouchdbFormDocumentJson {
             $this->_choices_appellation = array("" => "");
             foreach($produits as $hash => $libelles)  {
                 $libelle = implode(' ', array_filter($libelles));
-                preg_match('|declaration/certifications/.+/appellations/(.+)|', $hash, $matches);
-                $appellation_key = $matches[1];
-                $this->_choices_appellation[$appellation_key] = $libelle;
+                /*preg_match('|declaration/certifications/.+/appellations/(.+)|', $hash, $matches);
+                $appellation_key = $matches[1];*/
+                $this->_choices_appellation[$hash] = $libelle;
             }
         }
 
@@ -44,13 +44,17 @@ class DRMAppellationAjoutForm extends acCouchdbFormDocumentJson {
     }
 
     public function doUpdateObject($values) {
-        $this->getObject()->add($values['appellation']);
-        $this->getObject()->getDeclaration()->appellations->add($values['appellation']);
+        $appellation = $this->getDelaration();
+        $this->getObject()->getDocument()->produits->get($appellation->getGenre()->getCertification()->getKey())
+                                                   ->add($appellation->getGenre()->getKey())
+                                                   ->add($appellation->getKey());
+        //print_r($this->getObject()->getDocument()->toJson());
+        //exit;
     }
 
-    public function getAppellation() {
-        if ($this->isValid()) {
-            return $this->getObject()->get($this->values['appellation']);
+    public function getDelaration() {
+        if($this->isValid()) {
+            return $this->getObject()->getDocument()->getOrAdd($this->values['appellation']);
         }
 
         return null;

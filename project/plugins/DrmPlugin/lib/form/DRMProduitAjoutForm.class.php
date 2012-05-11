@@ -110,6 +110,7 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
                                                              ->getConfig()
                                                              ->getProduits($this->_interpro, $this->getObject()->getDocument()->getDepartement());
             } else {
+
                 $this->_choices_produits = ConfigurationClient::getCurrent()->declaration
                                                              ->certifications
                                                              ->get($this->getObject()->getCertification()->getKey())
