@@ -5,10 +5,20 @@
  */
 
 class DRMGenre extends BaseDRMGenre {
-  public function getLibelle() {
-    return '';
-  }
-  public function getCode() {
-    return '';
-  }
+
+	/**
+     *
+     * @return DRMGenre
+     */
+    public function getCertification() {
+        return $this->getParent()->getParent();
+    }
+    
+    public function sommeLignes($lines) {
+      $sum = 0;
+      foreach($this->appellations as $appellation) {
+		$sum += $appellation->sommeLignes($lines);
+      }
+      return $sum;
+    }
 }

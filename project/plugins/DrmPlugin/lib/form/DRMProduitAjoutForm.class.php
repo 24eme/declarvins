@@ -52,7 +52,10 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
     public function doUpdateObject($values) {
         parent::doUpdateObject($values);
         if (!$this->hasAppellation()) {
-            $this->getObject()->getCertification()->moveAndClean($this->getObject()->getAppellation()->getKey().'/'.$this->getObject()->getKey(), $this->getAppellation().'/'.$this->getObject()->getParent()->getParent()->add($this->getAppellation())->count());
+            $this->getObject()->getCertification()->moveAndClean(
+                $this->getObject()->getAppellation()->getGenre()->getKey().'/'.$this->getObject()->getAppellation()->getKey().'/'.$this->getObject()->getKey(),                                             
+                $this->getGenre().'/'.$this->getAppellation().'/'.$this->getObject()->getParent()->getParent()->add($this->getAppellation())->count()
+            );
         }
         $this->getObject()->getDocument()->synchroniseDeclaration();
         if ($values['disponible']) {
@@ -79,6 +82,16 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
         return $this->getObject()->getAppellation()->getKey() != DRM::NOEUD_TEMPORAIRE;
     }
 
+    public function getGenre() {
+        if ($this->hasAppellation()) {
+
+            return $this->getObject()->getGenre()->getKey();  
+        } else {
+
+            return ConfigurationClient::getCurrent()->get($this->getValue('hashref'))->getGenre()->getKey();
+        } 
+    }
+
     public function getAppellation() {
         if ($this->hasAppellation()) {
 
@@ -92,11 +105,9 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
     public function getProduits() {
         if (is_null($this->_choices_produits)) {
             if ($this->hasAppellation()) {
-                $this->_choices_produits = ConfigurationClient::getCurrent()->declaration
-                                                             ->certifications
-                                                             ->get($this->getObject()->getCertification()->getKey())
-                                                             ->appellations
-                                                             ->get($this->getObject()->getAppellation()->getKey())
+                $this->_choices_produits = $this->getObject()->getAppellation()
+                                                             ->getDeclaration()
+                                                             ->getConfig()
                                                              ->getProduits($this->_interpro, $this->getObject()->getDocument()->getDepartement());
             } else {
                 $this->_choices_produits = ConfigurationClient::getCurrent()->declaration

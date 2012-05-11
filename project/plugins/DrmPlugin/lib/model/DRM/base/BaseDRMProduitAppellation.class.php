@@ -8,7 +8,7 @@
  
  */
 
-abstract class BaseDRMProduitAppellation extends acCouchdbDocumentTree {
+abstract class BaseDRMProduitAppellation extends _DRMProduit {
                 
     public function configureTree() {
        $this->_root_class_name = 'DRM';

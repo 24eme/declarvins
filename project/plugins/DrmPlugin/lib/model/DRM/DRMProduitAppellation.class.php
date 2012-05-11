@@ -5,35 +5,19 @@
  */
 
 class DRMProduitAppellation extends BaseDRMProduitAppellation {
+	public function getGenre()
+	{
+		return $this->getParent();
+	}
 	
 
 	public function getCertification()
 	{
-		
-		return $this->getParent();
+		return $this->getGenre()->getCertification();
 	}
 
 	public function getDeclaration() {
 
-		return $this->getCertification()->getDeclaration()->appellations->get($this->getKey());
-	}
-
-	public function getConfig() {
-
-		return $this->getDeclaration()->getConfig();
-	}
-	
-	/*
-	 * Fonction basée sur le flag 
-	 */
-	public function hasMouvement() {
-		foreach($this as $produit) {
-			if (!$produit->pas_de_mouvement) {
-
-				return true;
-			}
-		}
-
-		return false;
+		return $this->getGenre()->getDeclaration()->appellations->get($this->getKey());
 	}
 }

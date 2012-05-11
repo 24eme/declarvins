@@ -7,7 +7,11 @@
 class DRMProduit extends BaseDRMProduit {
 	
     public function getCertification() {
-        return $this->getAppellation()->getParent();
+        return $this->getGenre()->getCertification();
+    }
+
+    public function getGenre() {
+        return $this->getAppellation()->getGenre();
     }
     
     public function getAppellation() {
@@ -56,6 +60,11 @@ class DRMProduit extends BaseDRMProduit {
     public function existDetail() {
 
     	return $this->getDocument()->exist($this->getHashDetail());        
+    }
+
+    public function hasMouvement() {
+
+        return !$this->pas_de_mouvement;
     }
     
     public function updateDetail() {

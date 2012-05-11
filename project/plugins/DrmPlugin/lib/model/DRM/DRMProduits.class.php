@@ -5,17 +5,8 @@
  */
 
 class DRMProduits extends BaseDRMProduits {
-	
-	public function hasMouvement() {
+	public function getDeclaration() {
 		
-		foreach($this as $certification) {
-			if ($certification->hasMouvement()) {
-
-				return true;
-			}
-		}
-
-		return false;
-	}
-	
+		return $this->getDocument()->declaration;
+	}	
 }

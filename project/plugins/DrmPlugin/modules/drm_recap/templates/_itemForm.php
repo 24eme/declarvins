@@ -11,9 +11,6 @@
             <?php if($config_appellation->hasCepage()): ?>
             <p class="cepage"><?php echo $form->getObject()->getCepage()->getConfig()->libelle ?></p>
             <?php endif; ?>
-            <?php if($config_appellation->hasMillesime()): ?>
-            <p class="millesime"><?php echo $form->getObject()->getMillesime()->getConfig()->libelle ?></p>
-            <?php endif; ?>
             <p class="label">
                 <?php echo labelsLibelles($form->getObject()->getLabelLibelles()) ?><br />
                             <?php echo $form->getObject()->label_supplementaire ?></p>

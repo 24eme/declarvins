@@ -8,40 +8,25 @@ class DRMDetail extends BaseDRMDetail {
     
     public function getLibelles() {
 
-        return $this->getMillesime()->getConfig()->getLibelles();
+        return $this->getCepage()->getConfig()->getLibelles();
     }
 
     public function getCodes() {
 
-        return $this->getMillesime()->getConfig()->getCodes();
+        return $this->getCepage()->getConfig()->getCodes();
     }
     
     public function getConfig() {
     	return ConfigurationClient::getCurrent()->declaration->certifications->get($this->getCertification()->getKey())->detail;
     }
     
-    public function getCertification() {
-    	return $this->getAppellation()->getCertification();
-    }
-
-    public function getGenre() {
-      return new DRMGenre($this->getDocument()->getDefinition(), $this->getDocument(), '');
-    }
-
-    /**
-     *
-     * @return DRMMillesime
-     */
-    public function getMillesime() {
-        return $this->getParent()->getParent();
-    }
-
     /**
      *
      * @return DRMCepage
      */
     public function getCepage() {
-        return $this->getMillesime()->getCepage();
+
+        return $this->getParent()->getParent();
     }
 
     /**
@@ -49,6 +34,7 @@ class DRMDetail extends BaseDRMDetail {
      * @return DRMCouleur
      */
     public function getCouleur() {
+
         return $this->getCepage()->getCouleur();
     }
 
@@ -57,6 +43,7 @@ class DRMDetail extends BaseDRMDetail {
      * @return DRMLieu
      */
     public function getLieu() {
+
         return $this->getCouleur()->getLieu();
     }
 
@@ -65,7 +52,18 @@ class DRMDetail extends BaseDRMDetail {
      * @return DRMAppellation
      */
     public function getAppellation() {
+
         return $this->getLieu()->getAppellation();
+    }
+
+
+    public function getGenre() {
+      return $this->getAppellation()->getGenre();
+    }
+
+
+    public function getCertification() {
+      return $this->getGenre()->getCertification();
     }
 
     public function getLabelKeyFromValues($values) {

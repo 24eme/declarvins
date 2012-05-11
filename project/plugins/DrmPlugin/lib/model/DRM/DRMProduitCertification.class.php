@@ -8,7 +8,7 @@ class DRMProduitCertification extends BaseDRMProduitCertification {
 
 	public function getDeclaration() {
 
-		return $this->getDocument()->declaration->certifications->get($this->getKey());
+		return $this->getParent()->getDeclaration()->certifications->get($this->getKey());
 	}
 
 	public function getConfig() {
@@ -16,15 +16,5 @@ class DRMProduitCertification extends BaseDRMProduitCertification {
 		return $this->getDeclaration()->getConfig();
 	}
 
-	public function hasMouvement() {
 		
-		foreach($this as $appellation) {
-			if ($appellation->hasMouvement()) {
-
-				return true;
-			}
-		}
-
-		return false;
-	}	
 }

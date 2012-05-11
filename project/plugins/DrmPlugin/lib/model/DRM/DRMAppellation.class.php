@@ -9,12 +9,20 @@ class DRMAppellation extends BaseDRMAppellation {
      *
      * @return DRMCertification
      */
-    public function getCertification() {
+    public function getGenre() {
         return $this->getParent()->getParent();
+    }
+
+     /**
+     *
+     * @return DRMGenre
+     */
+    public function getCertification() {
+        return $this->getGenre()->getParent()->getParent();
     }
     
     public function getProduits() {
-      return $this->getDocument()->produits->get($this->getCertification()->getKey())->get($this->getKey());
+      return $this->getDocument()->produits->get($this->getCertification()->getKey())->get($this->getGenre()->getKey())->get($this->getKey());
     }
 
     public function updateDroits($droits) {

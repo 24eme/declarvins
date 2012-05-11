@@ -29,10 +29,12 @@ class DRM extends BaseDRM {
 
     public function synchroniseDeclaration() {
         foreach ($this->produits as $certification) {
-            foreach ($certification as $appellation) {
-            	foreach ($appellation as $item) {
-                	$item->updateDetail();
-            	}
+            foreach ($certification as $genre) {
+                foreach ($genre as $appellation) {
+                	foreach ($appellation as $item) {
+                    	$item->updateDetail();
+                	}
+                }
             }
         }
     }
@@ -317,7 +319,7 @@ class DRM extends BaseDRM {
     }
 
     protected function replicateDetail(&$drm, $key, $value, $hash_match, $hash_replication) {
-        if (preg_match('|^(/declaration/certifications/.+/appellations/.+/lieux/.+/couleurs/.+/cepages/.+/millesimes/.+/details/.+)/'.$hash_match.'$|', $key, $match)) {
+        if (preg_match('|^(/declaration/certifications/.+/appellations/.+/lieux/.+/couleurs/.+/cepages/.+/details/.+)/'.$hash_match.'$|', $key, $match)) {
             $detail = $this->get($match[1]);
             if (!$drm->exist($detail->getHash())) {
                 $drm->addProduit($detail->getMillesime()->getHash(), $detail->label->toArray());

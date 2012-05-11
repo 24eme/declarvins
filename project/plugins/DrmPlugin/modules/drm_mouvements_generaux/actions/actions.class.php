@@ -14,10 +14,12 @@ class drm_mouvements_generauxActions extends sfActions
 				$this->certificationLibelle[$certification] = $item->libelle;
 			}
 			if ($this->drm->produits->exist($certification)) {
-				foreach ($this->drm->produits->get($certification) as $appellation) {
-					foreach ($appellation as $produit) {
-						$this->forms[$certification][] = new DRMMouvementsGenerauxProduitForm($produit);
-					}
+				foreach ($this->drm->produits->get($certification) as $genre) {
+                    foreach ($genre as $appellation) {
+    					foreach ($appellation as $produit) {
+    						$this->forms[$certification][] = new DRMMouvementsGenerauxProduitForm($produit);
+    					}
+                    }
 				}
 			}
 		}
@@ -92,7 +94,7 @@ class drm_mouvements_generauxActions extends sfActions
     	$certification = $request->getParameter('certification');
 
         $form = new DRMProduitAjoutForm(
-            $drm->produits->add($certification)->add(DRM::NOEUD_TEMPORAIRE)->add(),
+            $drm->produits->add($certification)->add(DRM::NOEUD_TEMPORAIRE)->add(DRM::NOEUD_TEMPORAIRE)->add(),
             $this->getUser()->getTiers()->interpro
             );
         if ($request->isMethod(sfWebRequest::POST)) {
