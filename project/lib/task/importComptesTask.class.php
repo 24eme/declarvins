@@ -109,7 +109,7 @@ EOF;
     $e->no_accises  = "FR9200000000";
     $e->no_tva_intracommunautaire = "FR9200000000";
     $e->nom = "Garage d'Actualys";
-    $e->siege = array("adresse" => "1 rue Garnier", "code_postal" => "92200", "commune" => "Neuilly");
+    $e->siege = array("adresse" => "1 rue Garnier", "code_postal" => "84200", "commune" => "Neuilly");
     $e->statut = "ACTIF";
     $e->save();
 
