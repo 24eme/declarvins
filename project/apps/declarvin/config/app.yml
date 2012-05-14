@@ -3,6 +3,10 @@
 
 # default values
 all:
+  inscription:
+    from_email: "ne_pas_repondre@declarvins.fr"
+    from_name:  "Webmaster DéclarVins"
+    subject:    "DéclarVins - Votre contrat"
   etablissements:
     familles:
       "Producteur": ["Producteur cave particulière", "Producteur cave coopérative"]

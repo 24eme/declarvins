@@ -7,8 +7,8 @@ homepage:
   param: { module: contrat, action: index }
 
 compte_nouveau:
-  url:   /compte/nouveau
-  param: { module: acVinCompte, action: nouveau }
+  url:   /compte/nouveau/:nocontrat
+  param: { module: acVinCompte, action: nouveau, nocontrat: null }
 contrat_nouveau:
   url:   /contrat/nouveau/:nocontrat
   param: { module: contrat, action: nouveau, nocontrat: null }
