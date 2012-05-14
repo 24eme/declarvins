@@ -67,11 +67,29 @@
 	 ******************************************/
 	$.ctrl = function(key, callback, args)
 	{
+		$(document).keydown(function(e)
+		{
+			if(!args) args = [];
+			
+			if(e.keyCode == key && e.ctrlKey)
+			{
+				callback.apply(this, args);
+				return false;
+			}
+		});
+	};
+	
+	/**
+	 * Gère les raccourcis clavier du type Shift+Touche
+	 * $.shift(key, callback, args);
+	 ******************************************/
+	$.shift = function(key, callback, args)
+	{
     	$(document).keydown(function(e)
 		{
-        	if(!args) args = []; // IE barks when args is null
-			//if(e.keyCode == key.charCodeAt(0) && e.ctrlKey) callback.apply(this, args);
-            if(e.keyCode == key && e.ctrlKey)
+        	if(!args) args = []; 
+			
+            if(e.keyCode == key && e.shiftKey)
 			{
 				callback.apply(this, args);
             	return false;
@@ -107,16 +125,16 @@
 				// !backspace && !null && !point && !virgule && !chiffre
 				if(touche != 8 && touche != 0 && touche != 46 && touche != 44 && !chiffre) return false;  	
 				// point déjà présent
-				if(touche == 46 && ponctuationPresente) return false; 
+				if(touche == 46 && ponctuationPresente) e.preventDefault(); 
 				// virgule déjà présente
-				if(touche == 44 && ponctuationPresente) return false; 
+				if(touche == 44 && ponctuationPresente) e.preventDefault(); 
 				// 2 décimales
-				if(val.match(/[\.\,][0-9][0-9]/) && chiffre && e.currentTarget && e.currentTarget.selectionStart > val.length - 3) return false;
+				if(val.match(/[\.\,][0-9][0-9]/) && chiffre && e.currentTarget && e.currentTarget.selectionStart > val.length - 3) e.preventDefault();
 			}
 			// Champ nombre entier
 			else
 			{
-				if(touche != 8 && touche != 0 && !chiffre) return false;
+				if(touche != 8 && touche != 0 && !chiffre) e.preventDefault();
 			}
 			
 			if(callbackKeypress) callbackKeypress();
@@ -132,7 +150,7 @@
 			if(touche == 8)
 			{
 				if(callbackKeypress) callbackKeypress(); 
-				return e
+				return e;
 			}
 		});
 		

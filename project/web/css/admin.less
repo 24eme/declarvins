@@ -1,0 +1,43 @@
+@charset "utf-8";
+/**
+ * Fichier : admin.less
+ * Description : styles spécifiques au formulaire d'inscription
+ * Auteur : Charlotte de VICHET - cdevichet[at]actualys.com
+ * Version : 1.0.0
+ ******************************************/
+
+/**
+ * Admin - mon compte
+ ******************************************/
+#mon_compte{
+
+    span, label {
+	display: inline-block;
+	width: 170px;
+    }
+
+    .btn_valider {
+        
+        .btn_violet;
+        background-position: right -52px;
+        background-repeat: no-repeat;
+        color: #FFFFFF;
+        display: inline-block;
+        padding: 0 23px 0 15px;
+        text-transform: uppercase;
+        height: @hauteur_btn;
+    }
+
+    input[type="text"] {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D3D2CD;
+        border-radius: 2px 2px 2px 2px;
+        font-size: 100%;
+        position: relative;
+        vertical-align: middle;
+        height: 18px;
+        padding: 0 4px;
+        width: 220px;
+    }
+
+}
