@@ -350,7 +350,6 @@
 			champs.each(function()
 			{
 				var champ = $(this);
-				
 				var valDefaut = champ.attr('data-val-defaut');
 				
 				// Focus sur la colonne courante s'il n'y pas de colonne active
@@ -359,7 +358,6 @@
 				{
 					if(!colActive && !colonne.hasClass('col_focus')) $.majColFocus(colonne, true);
 				});
-				
 				
 				// Sélectionne le texte du champ au clic
 				if(champ.is(':text') && !champ.attr('readonly'))
@@ -370,6 +368,15 @@
 						e.preventDefault();
 					});
 				}
+				/*
+				champ.keydown(function(e)
+				{
+					if(e.keyCode == 9 && e.shiftKey)
+					{
+						console.log(e.keyCode);
+						e.preventDefault();
+					}
+				});*/
 				
 				if(champ.is('select'))
 				{
@@ -744,33 +751,33 @@
 					if(groupe.hasClass('groupe_ouvert')) groupe.trigger('fermer');
 					else groupe.trigger('ouvrir');
 				});
-				
 			}
-				// Parcours de tous les champs associés aux intitulés
-				gpeAssocieIntitules.find('input').focus(function()
+			
+			// Parcours de tous les champs associés aux intitulés
+			gpeAssocieIntitules.find('input').focus(function()
+			{
+				var champ = $(this);
+				var champSuivant = champ.parents('.groupe').find('ul input:first');
+				
+				// Si le groupe est fermé ou si c'est groupe bloqué et ouvert
+				if(!groupe.hasClass('groupe_ouvert') || (groupe.hasClass('bloque') && groupe.hasClass('demarrage-ouvert')))
 				{
-					var champ = $(this);
-					var champSuivant = champ.parents('.groupe').find('ul input:first');
-					
-					// Si le groupe est fermé ou si c'est groupe bloqué et ouvert
-					if(!groupe.hasClass('groupe_ouvert') || (groupe.hasClass('bloque') && groupe.hasClass('demarrage-ouvert')))
+					// Fermeture de tous les autres groupes
+					// sauf les groupes bloqués
+					groupesIntitules.each(function()
 					{
-						// Fermeture de tous les autres groupes
-						// sauf les groupes bloqués
-						groupesIntitules.each(function()
-						{
-							var gpeInt = $(this);
-							
-							if(gpeInt.hasClass('groupe_ouvert') && !gpeInt.hasClass('bloque')) gpeInt.trigger('fermer');
-						});
+						var gpeInt = $(this);
 						
-						// Ouverture du groupe courant
-						groupe.trigger('ouvrir');
-						
-						// Focus sur le champ suivant si le champ courant n'est pas éditable 
-						if(champ.attr('readonly')) champSuivant.focus();
-					}
-				});
+						if(gpeInt.hasClass('groupe_ouvert') && !gpeInt.hasClass('bloque')) gpeInt.trigger('fermer');
+					});
+					
+					// Ouverture du groupe courant
+					groupe.trigger('ouvrir');
+					
+					// Focus sur le champ suivant si le champ courant n'est pas éditable 
+					if(champ.attr('readonly')) champSuivant.focus();
+				}
+			});
 
 			// Groupe ouvert par défaut
 			if(groupe.hasClass('demarrage-ouvert'))
