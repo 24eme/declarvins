@@ -157,8 +157,8 @@ button span { position:relative; }
 pre, code, kbd, samp { font-family:monospace, sans-serif; }
 .error_list, .flash_error {
   background:#ffdddd;
-  border:1px solid #494949;
-  color:#494949;
+  border:1px solid #820608;
+  color:#820608;
   font-weight:bold;
   margin:0 0 10px;
   padding:5px 10px;
@@ -253,7 +253,7 @@ pre, code, kbd, samp { font-family:monospace, sans-serif; }
   background:url(../images/boutons/btn_majeur.png) 0 0 no-repeat;
   color:#ffffff;
   display:inline-block;
-  font-size:15px;
+  font-size:13px;
   line-height:26px;
 }
 .btn_prec:hover, .btn_suiv:hover { text-decoration:none; }
@@ -363,7 +363,7 @@ a.msg_aide:hover {
 }
 #message_ie6 p { font-size:12px; }
 #message_ie6 p strong {
-  font-size:16px;
+  font-size:12px;
   display:block;
   margin:0 0 5px;
 }
@@ -371,7 +371,7 @@ body {
   background:#989898;
   color:#494949;
   font-family:Arial, Calibri, Verdana, Geneva, sans-serif;
-  font-size:14px;
+  font-size:12px;
   line-height:1.2;
 }
 a {
@@ -463,13 +463,13 @@ a:hover { text-decoration:underline; }
 }
 #footer:after { clear:both; }
 #header #logo {
-  margin:0 0 40px;
+  margin:0;
   padding:25px 0 0;
 }
 #header #logo h1 { margin:0 0 12px; }
 #header #logo p {
   color:#ffffff;
-  font-size:16px;
+  font-size:14px;
 }
 #header nav {
   float:right;
@@ -530,7 +530,7 @@ a:hover { text-decoration:underline; }
 #barre_navigation #nav_principale {
   float:left;
   line-height:35px;
-  font-size:16px;
+  font-size:14px;
   margin:0 0 -10px;
   top:-10px;
   position:relative;
@@ -700,7 +700,7 @@ a:hover { text-decoration:underline; }
 .ui-dialog .ui-dialog-titlebar .ui-dialog-title {
   color:#494949;
   display:block;
-  font-size:22px;
+  font-size:20px;
   font-weight:normal;
   padding:0 20px 0 0;
 }
@@ -736,7 +736,7 @@ a:hover { text-decoration:underline; }
 .popup_form .ligne_form input[type=text], .popup_form .ligne_form select {
   background:#ffffff;
   border:1px solid #d3d2cd;
-  font-size:14px;
+  font-size:12px;
   vertical-align:top;
 }
 .popup_form .ligne_form input[type=text] {
@@ -779,7 +779,7 @@ a:hover { text-decoration:underline; }
 .popup_form .ligne_form input[type=text], .popup_form .ligne_form select {
   background:#ffffff;
   border:1px solid #d3d2cd;
-  font-size:14px;
+  font-size:12px;
   vertical-align:top;
 }
 .popup_form .ligne_form input[type=text] {
@@ -799,7 +799,7 @@ a:hover { text-decoration:underline; }
   background:#ffffff;
   border:1px solid #d3d2cd;
   color:#494949;
-  font-size:14px;
+  font-size:12px;
   height:18px;
   padding:2px 4px 0;
   width:190px !important;
@@ -883,7 +883,7 @@ a:hover { text-decoration:underline; }
 }
 #popup_msg_aide #btn_popup_msg_aide a:hover, #popup_msg_aide #btn_popup_msg_aide a:focus { background-color:#99af00; }
 #creation_compte h1 {
-  font-size:23px;
+  font-size:21px;
   font-weight:normal;
   margin:0 0 25px;
 }
@@ -965,7 +965,7 @@ a:hover { text-decoration:underline; }
   background:url(../images/boutons/btn_majeur.png) 0 0 no-repeat;
   color:#ffffff;
   display:inline-block;
-  font-size:15px;
+  font-size:13px;
   line-height:26px;
   background-position:right -52px !important;
   float:right;
@@ -1084,7 +1084,7 @@ a:hover { text-decoration:underline; }
 #creation_compte #recapitulatif .recap_etablissement .adresse_comptabilite { margin:20px 0 0; }
 #creation_compte #recapitulatif .ligne_btn { text-align:right; }
 p#date_drm {
-  font-size:16px;
+  font-size:14px;
   font-style:italic;
   margin:20px 0;
 }
@@ -1154,7 +1154,7 @@ p#date_drm {
 }
 #statut_declaration #etat_avancement p strong {
   color:#86005b;
-  font-size:24px;
+  font-size:22px;
   margin:0 0 0 5px;
 }
 #statut_declaration #etat_avancement p strong span { font-size:12px; }
@@ -1336,10 +1336,10 @@ p#date_drm {
 #principal #nav_drm_annees li strong {
   background:url(../images/fonds/bg_nav_drm_annees.png) 0 center no-repeat;
   color:#86005b;
-  font-size:16px;
+  font-size:14px;
 }
 #principal #drm_informations form {
-  font-size:16px;
+  font-size:12px;
   margin:0px 0 0 70px;
 }
 #principal #drm_informations form .ligne_form { margin:0 0 20px; }
@@ -1358,9 +1358,9 @@ p#date_drm {
 }
 #principal .tableau_ajouts_liquidations { margin:0 0 25px; }
 #principal .tableau_ajouts_liquidations h2 {
-  font-size:16px;
+  font-size:14px;
   font-weight:normal;
-  margin:0 0 10px;
+  margin:0 0 5px;
 }
 #principal .tableau_ajouts_liquidations .recap_produit { position:relative; }
 #principal .tableau_ajouts_liquidations .recap_produit .btn { text-align:right; }
@@ -1642,7 +1642,7 @@ p#date_drm {
 #colonnes_dr .col_recolte.col_envoi .col_cont .col_btn { background:url(../images/visuels/ajax_loader.gif) center center no-repeat; }
 #colonnes_dr .col_recolte.col_envoi .col_cont .col_btn button { visibility:hidden; }
 #colonnes_dr .btn_ajouter {
-  font-size:14px;
+  font-size:12px;
   height:22px;
   line-height:22px;
 }
@@ -1769,22 +1769,29 @@ p#date_drm {
 #declaratif_info .error_daa { float:left; }
 #declaratif_info #organisme { display:none; }
 #principal .btn_passer_etape {
+  background:url("../images/boutons/etape-suivante.png") no-repeat scroll 0 0 transparent;
+  color:#ffffff;
+  float:right;
+  font-size:11px;
+  font-weight:bold;
+  height:22px;
+  line-height:21px;
+  margin:0 0 0 15px;
+  padding:1px 7px 0 30px;
+  text-transform:uppercase;
+  width:114px;
+}
+#principal .btn_passer_etape:hover { text-decoration:none; }
+#ajouts_liquidations #stock_epuise {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
   display:inline-block;
   background-color:#a0a0a0;
   border-color:#c0c0c0;
-  float:right;
-  font-size:12px;
-  font-weight:bold;
-  line-height:20px;
-  margin:0 0 0 15px;
-  padding:0 23px 0 10px;
-  text-transform:uppercase;
+  padding:1px 10px;
 }
-#principal .btn_passer_etape:hover, #principal .btn_passer_etape:focus { background-color:#494949; }
-#principal .btn_passer_etape:hover { text-decoration:none; }
+#ajouts_liquidations #stock_epuise:hover, #ajouts_liquidations #stock_epuise:focus { background-color:#494949; }
 #btn_etape_dr {
   position:relative;
   text-transform:uppercase;
