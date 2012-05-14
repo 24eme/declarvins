@@ -2,7 +2,7 @@
 @charset "utf-8";
 @charset "utf-8";
 @charset "utf-8";
-@charset "utf-8";
+@import url("admin.less");
 .gabarit {
   margin:0 auto;
   width:940px;
@@ -638,23 +638,23 @@ a:hover { text-decoration:underline; }
   margin:0 0 15px;
   padding:18px;
 }
-#principal #contenu_onglet .notice {
+.notice {
   background:#ffffff;
   border:1px solid #dbdbdb;
   margin:0 0 15px;
   padding:15px;
   zoom:1;
 }
-#principal #contenu_onglet .notice:before, #principal #contenu_onglet .notice:after {
+.notice:before, .notice:after {
   content:"\0020";
   display:block;
   font-size:0;
   height:0;
   visibility:hidden;
 }
-#principal #contenu_onglet .notice:after { clear:both; }
-#principal #contenu_onglet .notice h2, #principal #contenu_onglet .notice ul li { margin:0 0 10px; }
-#principal #contenu_onglet .notice kbd {
+.notice:after { clear:both; }
+.notice h2, .notice ul li { margin:0 0 10px; }
+.notice kbd {
   background:#ffffff;
   border:1px solid #dbdbdb;
   border-width:1px 2px 2px 1px;
@@ -1712,33 +1712,6 @@ p#date_drm {
   margin:0 0 15px;
   padding:18px;
 }
-#declaratif_info .contenu_onglet_declaratif .notice {
-  background:#ffffff;
-  border:1px solid #dbdbdb;
-  margin:0 0 15px;
-  padding:15px;
-  zoom:1;
-}
-#declaratif_info .contenu_onglet_declaratif .notice:before, #declaratif_info .contenu_onglet_declaratif .notice:after {
-  content:"\0020";
-  display:block;
-  font-size:0;
-  height:0;
-  visibility:hidden;
-}
-#declaratif_info .contenu_onglet_declaratif .notice:after { clear:both; }
-#declaratif_info .contenu_onglet_declaratif .notice h2, #declaratif_info .contenu_onglet_declaratif .notice ul li { margin:0 0 10px; }
-#declaratif_info .contenu_onglet_declaratif .notice kbd {
-  background:#ffffff;
-  border:1px solid #dbdbdb;
-  border-width:1px 2px 2px 1px;
-  -webkit-border-radius:3px;
-  -moz-border-radius:3px;
-  border-radius:3px;
-  display:inline-block;
-  padding:3px;
-  vertical-align:middle;
-}
 #declaratif_info .contenu_onglet_declaratif.alignes { padding-left:249px; }
 #declaratif_info .contenu_onglet_declaratif .col {
   display:inline-block;
@@ -1809,34 +1782,3 @@ p#date_drm {
 #btn_etape_dr:after { clear:both; }
 .inactif { visibility:hidden; }
 #saving_notification, #error_notification { z-index:999; }
-#mon_compte span, #mon_compte label {
-  display:inline-block;
-  width:170px;
-}
-#mon_compte .btn_valider {
-  background-repeat:no-repeat;
-  border:1px solid;
-  color:#ffffff;
-  display:inline-block;
-  background-color:#86005b;
-  border-color:#494949;
-  background-position:right -52px;
-  background-repeat:no-repeat;
-  color:#ffffff;
-  display:inline-block;
-  padding:0 23px 0 15px;
-  text-transform:uppercase;
-  height:;
-}
-#mon_compte .btn_valider:hover, #mon_compte .btn_valider:focus { background-color:#494949; }
-#mon_compte input[type="text"] {
-  background:none repeat scroll 0 0 #ffffff;
-  border:1px solid #d3d2cd;
-  border-radius:2px 2px 2px 2px;
-  font-size:100%;
-  position:relative;
-  vertical-align:middle;
-  height:18px;
-  padding:0 4px;
-  width:220px;
-}
