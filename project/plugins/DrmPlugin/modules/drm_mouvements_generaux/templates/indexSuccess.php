@@ -20,11 +20,11 @@
 		        			<table class="tableau_recap">
 								<tbody>
 								<tr class="alt">
-									<td style="width: 684px;" colspan="2">
+									<td style="width: 694px;" colspan="2">
 										<label for="<?php echo $form['pas_de_mouvement']->renderId() ?>">Pas de mouvement pour l'ensemble des produits <a href="" class="msg_aide" data-msg="help_popup_mouvgen_pasdemouvement_global" title="Message aide"></a>
 										</label>
 									</td>
-									<td style="width: 150px" align="center">
+									<td style="width: 140px" align="center">
 										<?php echo $form->renderHiddenFields() ?>
 										<?php echo $form['pas_de_mouvement']->render() ?>
 									</td>
