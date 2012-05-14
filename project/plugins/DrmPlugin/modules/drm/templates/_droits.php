@@ -1,4 +1,4 @@
-<?php foreach ($drm->getDroits() as $typedroit => $droits) : ?>
+<?php foreach ($drm->getDroits() as $typedroit => $droits) if (count($drm->droits->{$typedroit})): ?>
     <div class="tableau_ajouts_liquidations">
     <h2>Droits <?php echo $typedroit; ?> <a href="" class="msg_aide" data-msg="help_popup_validation_droit_<?php echo $typedroit; ?>" title="Message aide"></a></h2>
     	<table class="tableau_recap">
@@ -35,4 +35,4 @@
             </tbody>
     	</table>
     </div>
-<?php endforeach; ?>
+<?php endif; ?>
