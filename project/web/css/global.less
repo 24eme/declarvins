@@ -73,7 +73,7 @@ hgroup, nav, section { display: block; }
 .ui-autocomplete { .box-shadow(0 2px 10px #ccc); background: #fff; border: 1px solid #d3d2cd; max-height: 300px; overflow-y: auto; overflow-x: hidden; position: absolute; width: 250px; }
 .ui-autocomplete .ui-menu-item a { background: #fff; color: @couleur-a1; cursor: pointer; display: block; padding: 2px; text-decoration: none; }
 .ui-autocomplete .ui-menu-item a.ui-state-hover,
-.ui-autocomplete .ui-menu-item a.ui-state-active { background: #dcdfa9; }
+.ui-autocomplete .ui-menu-item a.ui-state-active { background: #E9E9E9; }
 
 
 /**
@@ -111,8 +111,8 @@ pre, code, kbd, samp { font-family: monospace, sans-serif; }
 .error_list, .flash_error
 {
 	background: #fdd;
-	.border(@couleur-e1);
-	color: @couleur-e1;
+	.border(@couleur-b2);
+	color: @couleur-b2;
 	font-weight: bold;
 	margin: 0 0 10px;
 	padding: 5px 10px;
@@ -172,12 +172,12 @@ pre, code, kbd, samp { font-family: monospace, sans-serif; }
 	&:hover, &:focus { background-color: @couleur-c2; }
 }
 
-.btn_rose
+.btn_violet
 {
 	.btn_majeur;
 	background-color: @couleur-b3;
-	border-color: @couleur-b4;
-	&:hover, &:focus { background-color: @couleur-b2; }
+	border-color: @couleur-b1;
+	&:hover, &:focus { background-color: @couleur-b1; }
 }
 
 .btn_bordeaux
@@ -202,8 +202,8 @@ pre, code, kbd, samp { font-family: monospace, sans-serif; }
 {
 	.btn_majeur;
 	background-color: @couleur-b1;
-	border-color: @couleur-b4;
-	&:hover, &:focus { background-color: @couleur-b4; }
+	border-color: @couleur-b1;
+	&:hover, &:focus { background-color: @couleur-b1; }
 }
 
 .btn_gris
@@ -282,6 +282,8 @@ button.btn_suiv span { height: 26px; }
 		padding: 0 10px 0 18px;
 	}
 }
+
+.btn_telecharger { .btn_violet; }
  
 a.msg_aide
 {
@@ -430,9 +432,6 @@ a
 	background: #fff;
 	padding: 25px 20px 70px;
 	.clearfix;
-
-
-        
 	
 	#principal
 	{
@@ -658,7 +657,7 @@ a
 	
 	h1
 	{
-		color: @couleur-b2;
+		color: @couleur-b3;
 		font-size: 22px;
 		font-weight: normal;
 		margin: 0 0 20px;
@@ -799,7 +798,7 @@ a
 .ui-dialog .ui-dialog-titlebar { margin: 0 0 15px; overflow: hidden; position: relative; width: 100%; }
 .ui-dialog .ui-dialog-titlebar .ui-dialog-title 
 {
-	color: @couleur-b2;
+	color: @couleur-b3;
 	display: block;
 	font-size: 20px;
 	font-weight: normal;
@@ -888,7 +887,7 @@ a
 				border-left: 0;
 				vertical-align: top;
 			
-				&:hover { background-color: #dcdfa9; }
+				&:hover { background-color: #E9E9E9; }
 			
 				.ui-icon
 				{
@@ -990,9 +989,14 @@ a
 			margin: 0 0 0 5px;
 			padding: 0 10px;
 			text-transform: uppercase;
+                        font-size:12px;
 		
-			&.btn_annuler { .btn_rose; }
-			&.btn_valider { .btn_vert; }
+			&.btn_annuler { 
+                    
+                            .btn_gris; 
+                            &:hover{ text-decoration: none; }
+                        }
+			&.btn_valider { .btn_violet; }
 		}
 	}
 }
@@ -1025,12 +1029,14 @@ a
 
     	a
 		{
-			.btn_vert;
+			.btn_violet;
 			height: 28px;
 			line-height: 28px;
 			margin: 0 0 0 5px;
 			padding: 0 10px;
 			text-transform: uppercase;
 		}
+
+       a:hover { text-decoration : none; }
     }
 }

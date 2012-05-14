@@ -97,7 +97,21 @@ class validationActions extends sfActions {
         } else {
             $this->compte->interpro->get($interpro_id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
         }
-        $this->compte->setStatut(_Compte::STATUT_ACTIVE);
+        $valide = true;
+        foreach ($this->compte->interpro as $interpro) {
+        	if ($interpro->statut != _Compte::STATUT_VALIDATION_VALIDE) {
+        		$valide = false;
+        		break;
+        	}
+        }
+        if ($valide) {
+        	$this->compte->setStatut(_Compte::STATUT_ACTIVE);
+        	if (!$this->compte->login) {
+        		//$this->sendRegistration($this->compte);
+        	}
+        } else {
+        	$this->compte->setStatut(_Compte::STATUT_INACTIVE);
+        }
         $this->compte->save();
 
 		$ldap = new Ldap();
@@ -107,6 +121,29 @@ class validationActions extends sfActions {
         $this->redirect('@validation_fiche');
 
         $this->setTemplate('fiche');
+    }
+    
+    private function sendRegistration($compte = null) {
+    	$this->forward404Unless($compte);
+    	$numeroContrat = explode('-', $compte->contrat);
+    	$numeroContrat = $numeroContrat[1];
+    	
+    	$mess = 'Bonjour '.$compte->nom.' '.$compte->prenom.',
+    	
+Votre contrat numéro '.$numeroContrat.' à été validé.
+
+Vous devez créer votre compte en suivant le lien suivant : <a href="'.$this->getController()->genUrl(array('sf_route' => 'compte_nouveau', 'nocontrat' => $numeroContrat), false).'">Création de mon compte</a>
+
+Cordialement,
+
+DéclarVins';
+        $message = Swift_Message::newInstance()
+                ->setFrom(array(sfConfig::get('app_inscription_from_email') => sfConfig::get('app_inscription_from_name')))
+                ->setTo($this->getUser()->getCompte()->email)
+                ->setSubject(sfConfig::get('app_inscription_subject'))
+                ->setBody($mess);        
+        $this->getMailer()->send($message);
+        
     }
 
     public function executeArchiver(sfWebRequest $request) {
