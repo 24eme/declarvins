@@ -16,15 +16,22 @@ class acVinCompteActions extends BaseacVinCompteActions {
      * @param sfRequest $request A request object
      */
     public function executeNouveau(sfWebRequest $request) {
-        $this->forward404Unless($this->contrat = $this->getUser()->getContrat());
-        $this->form = new CompteTiersAjoutForm(new CompteTiers(), array('contrat' => $this->contrat));
+        $this->forward404Unless($this->contrat = ContratClient::getInstance()->find('CONTRAT-'.$request->getParameter('nocontrat')));
+        $this->form = new CompteTiersAjoutForm(_CompteClient::getInstance()->find('COMPTE-'.$request->getParameter('nocontrat')), array('contrat' => $this->contrat));
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
                 $compteTiers = $this->form->save();
-                $this->contrat->setCompte($compteTiers->get('_id'));
+                $newCompteTiers = clone $compteTiers;
+                $compteTiers->delete();
+                $newCompteTiers->_id = 'COMPTE-'.$newCompteTiers->login;
+                //$newCompteTiers->statut = _Compte::STATUT_ACTIVE;
+                $newCompteTiers->save();
+                $this->contrat->setCompte($newCompteTiers->get('_id'));
                 $this->contrat->save();
-                $this->redirect('@contrat_etablissement_recapitulatif');
+                $this->getUser()->signOut();
+                $this->getUser()->signIn($newCompteTiers->login);
+	  			$this->redirect('@tiers');
             }
         }
     }
