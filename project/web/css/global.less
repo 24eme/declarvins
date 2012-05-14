@@ -172,7 +172,7 @@ pre, code, kbd, samp { font-family: monospace, sans-serif; }
 	&:hover, &:focus { background-color: @couleur-c2; }
 }
 
-.btn_rose
+.btn_violet
 {
 	.btn_majeur;
 	background-color: @couleur-b3;
@@ -282,6 +282,8 @@ button.btn_suiv span { height: 26px; }
 		padding: 0 10px 0 18px;
 	}
 }
+
+.btn_telecharger { .btn_violet; }
  
 a.msg_aide
 {
@@ -430,9 +432,6 @@ a
 	background: #fff;
 	padding: 25px 20px 70px;
 	.clearfix;
-
-
-        
 	
 	#principal
 	{
@@ -658,7 +657,7 @@ a
 	
 	h1
 	{
-		color: @couleur-b1;
+		color: @couleur-b3;
 		font-size: 22px;
 		font-weight: normal;
 		margin: 0 0 20px;
@@ -799,7 +798,7 @@ a
 .ui-dialog .ui-dialog-titlebar { margin: 0 0 15px; overflow: hidden; position: relative; width: 100%; }
 .ui-dialog .ui-dialog-titlebar .ui-dialog-title 
 {
-	color: @couleur-b1;
+	color: @couleur-b3;
 	display: block;
 	font-size: 20px;
 	font-weight: normal;
@@ -992,8 +991,12 @@ a
 			text-transform: uppercase;
                         font-size:12px;
 		
-			&.btn_annuler { .btn_rose; }
-			&.btn_valider { .btn_vert; }
+			&.btn_annuler { 
+                    
+                            .btn_gris; 
+                            &:hover{ text-decoration: none; }
+                        }
+			&.btn_valider { .btn_violet; }
 		}
 	}
 }
@@ -1026,12 +1029,14 @@ a
 
     	a
 		{
-			.btn_vert;
+			.btn_violet;
 			height: 28px;
 			line-height: 28px;
 			margin: 0 0 0 5px;
 			padding: 0 10px;
 			text-transform: uppercase;
 		}
+
+       a:hover { text-decoration : none; }
     }
 }
