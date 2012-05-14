@@ -73,7 +73,7 @@ hgroup, nav, section { display: block; }
 .ui-autocomplete { .box-shadow(0 2px 10px #ccc); background: #fff; border: 1px solid #d3d2cd; max-height: 300px; overflow-y: auto; overflow-x: hidden; position: absolute; width: 250px; }
 .ui-autocomplete .ui-menu-item a { background: #fff; color: @couleur-a1; cursor: pointer; display: block; padding: 2px; text-decoration: none; }
 .ui-autocomplete .ui-menu-item a.ui-state-hover,
-.ui-autocomplete .ui-menu-item a.ui-state-active { background: #dcdfa9; }
+.ui-autocomplete .ui-menu-item a.ui-state-active { background: #E9E9E9; }
 
 
 /**
@@ -176,8 +176,8 @@ pre, code, kbd, samp { font-family: monospace, sans-serif; }
 {
 	.btn_majeur;
 	background-color: @couleur-b3;
-	border-color: @couleur-b4;
-	&:hover, &:focus { background-color: @couleur-b2; }
+	border-color: @couleur-b1;
+	&:hover, &:focus { background-color: @couleur-b1; }
 }
 
 .btn_bordeaux
@@ -202,8 +202,8 @@ pre, code, kbd, samp { font-family: monospace, sans-serif; }
 {
 	.btn_majeur;
 	background-color: @couleur-b1;
-	border-color: @couleur-b4;
-	&:hover, &:focus { background-color: @couleur-b4; }
+	border-color: @couleur-b1;
+	&:hover, &:focus { background-color: @couleur-b1; }
 }
 
 .btn_gris
@@ -221,7 +221,7 @@ pre, code, kbd, samp { font-family: monospace, sans-serif; }
 	background: url(../images/boutons/btn_majeur.png) 0 0 no-repeat;
 	color: #fff;
 	display: inline-block;
-	font-size : 15px;
+	font-size : 13px;
 	line-height: 26px;
 
 	&:hover { text-decoration: none; }
@@ -377,7 +377,7 @@ a.msg_aide
 		font-size: 12px;
 		strong
 		{
-			font-size: 16px;
+			font-size: 12px;
 			display: block;
 			margin: 0 0 5px;
 		}
@@ -392,7 +392,7 @@ body
 	background: #989898;
 	color: @couleur-a1;
 	font-family: @ff-Calibri;
-	font-size: 14px;
+	font-size: 12px;
 	line-height: 1.2;
 }
 
@@ -476,7 +476,7 @@ a
 	/* Logo */
 	#logo
 	{
-		margin: 0 0 40px;
+		margin: 0;
 		padding: 25px 0 0;
 				
 		h1
@@ -488,7 +488,7 @@ a
 		p
 		{
 			color: #fff;
-			font-size: 16px;
+			font-size: 14px;
 		}
 	}
 	
@@ -573,7 +573,7 @@ a
 	{
 		float: left;
 		line-height: 35px;
-		font-size: 16px;
+		font-size: 14px;
 		margin: 0 0 -10px;
 		top: -10px;
 		position: relative;
@@ -658,7 +658,7 @@ a
 	
 	h1
 	{
-		color: @couleur-b2;
+		color: @couleur-b1;
 		font-size: 22px;
 		font-weight: normal;
 		margin: 0 0 20px;
@@ -799,9 +799,9 @@ a
 .ui-dialog .ui-dialog-titlebar { margin: 0 0 15px; overflow: hidden; position: relative; width: 100%; }
 .ui-dialog .ui-dialog-titlebar .ui-dialog-title 
 {
-	color: @couleur-b2;
+	color: @couleur-b1;
 	display: block;
-	font-size: 22px;
+	font-size: 20px;
 	font-weight: normal;
 	padding: 0 20px 0 0;
 }
@@ -835,7 +835,7 @@ a
 		{
 			background: #fff;
 			border: 1px solid #d3d2cd;
-			font-size: 14px;
+			font-size: 12px;
 			vertical-align: top;
 		}
 		
@@ -888,7 +888,7 @@ a
 				border-left: 0;
 				vertical-align: top;
 			
-				&:hover { background-color: #dcdfa9; }
+				&:hover { background-color: #E9E9E9; }
 			
 				.ui-icon
 				{
@@ -903,7 +903,7 @@ a
 		{
 			background: #fff;
 			border: 1px solid #d3d2cd;
-			font-size: 14px;
+			font-size: 12px;
 			vertical-align: top;
 		}
 		
@@ -931,7 +931,7 @@ a
 				background: #fff;
 				border: 1px solid #d3d2cd;
 				color: @couleur-a1;
-				font-size: 14px;
+				font-size: 12px;
 				height: 18px;
 				padding: 2px 4px 0;
 				width: 190px !important;
@@ -990,6 +990,7 @@ a
 			margin: 0 0 0 5px;
 			padding: 0 10px;
 			text-transform: uppercase;
+                        font-size:12px;
 		
 			&.btn_annuler { .btn_rose; }
 			&.btn_valider { .btn_vert; }
