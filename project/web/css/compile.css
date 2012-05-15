@@ -1757,20 +1757,30 @@ p#date_drm {
 #declaratif_info #btn_etape_dr .btn_suiv span { text-transform:uppercase; }
 #declaratif_info .error_daa { float:left; }
 #declaratif_info #organisme { display:none; }
-#principal .btn_passer_etape {
-  background:url("../images/boutons/etape-suivante.png") no-repeat scroll 0 0 transparent;
+.btn_passer_etape {
+  background:url("../images/boutons/btn_fleche.png") no-repeat scroll 0 0 #86005b;
+  border:1px solid #d9d9d9;
   color:#ffffff;
   float:right;
   font-size:11px;
   font-weight:bold;
-  height:22px;
+  height:23px;
   line-height:21px;
   margin:0 0 0 15px;
-  padding:1px 7px 0 30px;
+  padding:0 7px 0 30px;
   text-transform:uppercase;
-  width:114px;
+  zoom:1;
 }
-#principal .btn_passer_etape:hover { text-decoration:none; }
+.btn_passer_etape:before, .btn_passer_etape:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+.btn_passer_etape:after { clear:both; }
+.btn_passer_etape.rectificative { margin:-30px 0 0 15px; }
+.btn_passer_etape:hover { text-decoration:none; }
 #ajouts_liquidations #stock_epuise {
   background-repeat:no-repeat;
   border:1px solid;
@@ -1796,6 +1806,14 @@ p#date_drm {
 #btn_etape_dr:after { clear:both; }
 .inactif { visibility:hidden; }
 #saving_notification, #error_notification { z-index:999; }
+#telecharger_pdf {
+  background:url("../images/boutons/btn_pdf.png") no-repeat scroll 0 0 #9e9e9e;
+  border:1px solid #646464;
+  color:#ffffff;
+  margin-left:365px;
+  padding:7px 5px 3px 28px;
+}
+#telecharger_pdf.hover { text-decoration:none; }
 #mon_compte span, #mon_compte label {
   display:inline-block;
   width:170px;

@@ -8,7 +8,9 @@
 		<div id="application_dr">
 			<div id="contenu_onglet">
 				<?php if($first_certification): ?>
-				<a href="<?php echo url_for('drm_recap', $first_certification) ?>" class="btn_passer_etape">Passer cette étape</a>	
+                                <form method="post" action="<?php echo url_for('drm_recap', $first_certification) ?>">
+                                    <button class="btn_passer_etape" type="submit">Passer cette étape</button>
+                                </form>
 				<?php endif; ?>
 				<p class="intro">Au cours du mois écoulé, avez-vous connu des changements de structure particuliers ?</p>
         		

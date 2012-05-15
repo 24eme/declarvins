@@ -1039,21 +1039,26 @@ p#date_drm
 /**
  * Boutons étape
  ******************************************/
-#principal .btn_passer_etape
+.btn_passer_etape
 {
-	background: url("../images/boutons/etape-suivante.png") no-repeat scroll 0 0 transparent;
+	background: url("../images/boutons/btn_fleche.png") no-repeat scroll 0 0 #86005b;
+        border: 1px solid #d9d9d9;
         color: #FFFFFF;
         float: right;
         font-size: 11px;
         font-weight: bold;
-        height: 22px;
+        height: 23px;
         line-height: 21px;
         margin: 0 0 0 15px;
-        padding: 1px 7px 0 30px;
+        padding: 0 7px 0 30px;
         text-transform: uppercase;
-        width: 114px;
-	
+
+        .clearfix;
+
+        &.rectificative { margin: -30px 0 0 15px; }
+
 	&:hover { text-decoration: none; }
+
 }
 
 #ajouts_liquidations #stock_epuise{
@@ -1072,3 +1077,13 @@ p#date_drm
 .inactif { visibility: hidden; }
 
 #saving_notification, #error_notification{ z-index:999;}
+
+#telecharger_pdf{
+        background: url("../images/boutons/btn_pdf.png") no-repeat scroll 0 0 #9E9E9E;
+        border: 1px solid #646464;
+        color: #FFFFFF;
+        margin-left: 365px;
+        padding: 7px 5px 3px 28px;
+
+        &.hover{ text-decoration:none; }
+}
