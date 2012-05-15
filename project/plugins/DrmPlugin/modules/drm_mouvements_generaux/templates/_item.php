@@ -8,7 +8,7 @@
     	<?php echo produitLibelleFromDetail($form->getObject()->getDetail()); ?>
     </td>
 	<td>
-		<?php echo $form->getObject()->getDetail()->total_debut_mois ?> HL
+            <span class="unite"> <?php echo $form->getObject()->getDetail()->total_debut_mois ?> hl </span>
 	</td>
 	<td>
 		<form class="updateProduct" action="<?php echo url_for('drm_mouvements_generaux_produit_update', $form->getObject()) ?>" method="post">
