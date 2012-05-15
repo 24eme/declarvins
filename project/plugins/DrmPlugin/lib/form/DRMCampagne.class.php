@@ -17,10 +17,14 @@ class DRMCampagne extends sfForm
     }
     
     public function getMonths() {
+        
+            $dateFormat = new sfDateFormat('fr_FR');
 	    $results = array('' => '');
 	    for ($i = 1; $i <= 12; $i++)
-	    {
-	      $results[$i] = sprintf('%02d', $i);
+	    { 
+              
+              $month = $dateFormat->format(date('Y').'-'.$i.'-01', 'MMMM');
+	      $results[$i] = $month;//strftime("%A %d %B",time()); //sprintf('%02d', $i);
 	    }
 	    return $results;
     }
