@@ -8,7 +8,7 @@
 
 p#date_drm
 {
-	font-size: 16px;
+	font-size: 14px;
 	font-style: italic;
 	margin: 20px 0;
 }
@@ -133,7 +133,7 @@ p#date_drm
 			strong
 			{
 				color: @couleur-b3;
-				font-size: 24px;
+				font-size: 22px;
 				margin: 0 0 0 5px;
 				span { font-size: 12px; }
 			}
@@ -445,7 +445,7 @@ p#date_drm
 		{
 			background: url(../images/fonds/bg_nav_drm_annees.png) 0 center no-repeat;
 			color: @couleur-b3;
-			font-size: 16px;
+			font-size: 14px;
 		}
 	}
 	
@@ -459,7 +459,7 @@ p#date_drm
 {
 	form
 	{
-		font-size: 16px;
+		font-size: 12px;
 		margin: 0px 0 0 70px;
 
 		.ligne_form
@@ -498,9 +498,9 @@ p#date_drm
 	
 	h2
 	{
-		font-size: 16px;
+		font-size: 14px;
 		font-weight: normal;
-		margin: 0 0 10px;
+		margin: 0 0 5px;
 	}
 	
 	.recap_produit
@@ -615,8 +615,8 @@ p#date_drm
 		{
 			text-align: right;
 			
-			.btn_annuler { .btn_rose; }
-			.btn_valider { .btn_vert; }
+			.btn_annuler { .btn_gris; }
+			.btn_valider { .btn_violet; }
 			
 			.btn_annuler, .btn_valider
 			{
@@ -850,8 +850,8 @@ p#date_drm
 				}
 				
 				.btn_modifier,
-				.btn_reinitialiser { .btn_rose; }
-				.btn_valider { .btn_vert; }
+				.btn_reinitialiser { .btn_gris; }
+				.btn_valider { .btn_violet; }
 				.btn_supprimer { .btn_rouge; }
 			}
 		}
@@ -923,7 +923,7 @@ p#date_drm
 	
 	.btn_ajouter
 	{
-		font-size: 14px;
+		font-size: 12px;
 		height: 22px;
 		line-height: 22px;
 	}
@@ -1041,20 +1041,26 @@ p#date_drm
  ******************************************/
 #principal .btn_passer_etape
 {
-	.btn_gris;
-	
-	
-	float: right;
-	font-size: 12px;
-	font-weight: bold;
-	line-height: 20px;
-	margin: 0 0 0 15px;
-	padding: 0 23px 0 10px;
-	text-transform: uppercase;
+	background: url("../images/boutons/etape-suivante.png") no-repeat scroll 0 0 transparent;
+        color: #FFFFFF;
+        float: right;
+        font-size: 11px;
+        font-weight: bold;
+        height: 22px;
+        line-height: 21px;
+        margin: 0 0 0 15px;
+        padding: 1px 7px 0 30px;
+        text-transform: uppercase;
+        width: 114px;
 	
 	&:hover { text-decoration: none; }
 }
 
+#ajouts_liquidations #stock_epuise{
+    
+        .btn_gris;
+        padding : 1px 10px;
+}
 
 #btn_etape_dr
 {

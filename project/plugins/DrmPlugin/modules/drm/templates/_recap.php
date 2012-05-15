@@ -23,10 +23,10 @@
 						<?php $detail = $produit->getDetail(); ?>
 						<tr <?php if($i%2!=0) echo ' class="alt"'; ?>>
 							<td><?php echo produitLibelleFromDetail($detail) ?></td>
-							<td class="<?php echo isRectifierCssClass($detail, 'total_debut_mois') ?>"><strong><?php echoFloat($detail->total_debut_mois) ?></strong></td>
-							<td class="<?php echo isRectifierCssClass($detail, 'total_entrees') ?>"><?php echoFloat($detail->total_entrees) ?></td>
-							<td class="<?php echo isRectifierCssClass($detail, 'total_sorties') ?>"><?php echoFloat($detail->total_sorties) ?></td>
-							<td class="<?php echo isRectifierCssClass($detail, 'total') ?>"><strong><?php echoFloat($detail->total) ?></strong></td>
+                                                        <td class="<?php echo isRectifierCssClass($detail, 'total_debut_mois') ?>"><strong><?php echoFloat($detail->total_debut_mois) ?></strong>&nbsp;<span class="unite">hl</span></td>
+							<td class="<?php echo isRectifierCssClass($detail, 'total_entrees') ?>"><?php echoFloat($detail->total_entrees) ?>&nbsp;<span class="unite">hl</span></td>
+							<td class="<?php echo isRectifierCssClass($detail, 'total_sorties') ?>"><?php echoFloat($detail->total_sorties) ?>&nbsp;<span class="unite">hl</span></td>
+							<td class="<?php echo isRectifierCssClass($detail, 'total') ?>"><strong><?php echoFloat($detail->total) ?></strong>&nbsp;<span class="unite">hl</span></td>
 						</tr>
 					<?php endforeach; ?>
 			<?php endforeach; ?>
