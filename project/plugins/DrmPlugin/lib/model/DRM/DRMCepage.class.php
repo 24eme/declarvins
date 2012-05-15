@@ -11,16 +11,20 @@ class DRMCepage extends BaseDRMCepage {
      */
   public function getCouleur() {
    
-    return $this->getParent()->getParent();
+    return $this->getParentNode();
   }
 
-  public function sommeLignes($lines) {
-    $sum = 0;
-    foreach($this->details as $detail) {
-      $sum += $detail->sommeLignes($lines);
+  public function getProduits() {
+        $produits = array();
+        foreach($this->getChildrenNode() as $key => $item) {
+            $produits[$item->getHash()] = $item;
+        }
+
+        return $produits;
     }
-    return $sum;
-  }
 
-  
+  public function getChildrenNode() {
+
+    return $this->details;
+  }
 }

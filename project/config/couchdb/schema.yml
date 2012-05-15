@@ -714,46 +714,6 @@ DRM:
       campagne: {  }
       precedente: {  }
       rectificative: { type: integer, required: false }
-      produits:
-        class: DRMProduits
-        inheritance: _DRMProduit
-        type: collection
-        definition:
-          fields:
-            '*':
-              # CERTIFICATION
-              class: DRMProduitCertification
-              inheritance: _DRMProduit
-              type: collection
-              definition:
-                fields:
-                  '*':
-                     # GENRE
-                    class: DRMProduitGenre
-                    inheritance: _DRMProduit
-                    type: collection
-                    definition:
-                      fields:
-                        '*':
-                          # APPELLATION
-                          class: DRMProduitAppellation
-                          inheritance: _DRMProduit
-                          type: array_collection
-                          definition:
-                            fields:
-                              '*':
-                                class: DRMProduit
-                                type: collection
-                                definition:
-                                  fields:
-                                    hashref: {  }
-                                    label:
-                                      type: array_collection
-                                      definition:
-                                        fields:
-                                          '*': {  }
-                                    label_supplementaire: {  }
-                                    pas_de_mouvement: {  }
       droits:
         type: collection
         definition:
@@ -894,6 +854,7 @@ DRM:
                                                                                     total: { type: float }
                                                                                     details:
                                                                                       type: collection
+                                                                                      class: DRMDetails
                                                                                       definition:
                                                                                         fields:
                                                                                           '*':
@@ -901,6 +862,7 @@ DRM:
                                                                                             type: collection
                                                                                             definition:
                                                                                               fields:
+                                                                                                pas_de_mouvement_check: { type: integer }
                                                                                                 total_debut_mois: { type: float }
                                                                                                 total_entrees: { type: float }
                                                                                                 total_sorties: { type: float }

@@ -2,13 +2,13 @@
 
 <tr>
     <td>
-    	<?php if (!$form->getObject()->getDetail()->total_debut_mois && !$form->getObject()->getDetail()->hasStockFinDeMoisDrmPrecedente()): ?>
+    	<?php if (!$form->getObject()->total_debut_mois && !$form->getObject()->hasStockFinDeMoisDrmPrecedente()): ?>
     	<a href="<?php echo url_for('drm_mouvements_generaux_produit_delete', $form->getObject()) ?>" class="supprimer">Supprimer</a>
     	<?php endif; ?>
-    	<?php echo produitLibelleFromDetail($form->getObject()->getDetail()); ?>
+    	<?php echo produitLibelleFromDetail($form->getObject()); ?>
     </td>
 	<td>
-		<?php echo $form->getObject()->getDetail()->total_debut_mois ?> HL
+		<?php echo $form->getObject()->total_debut_mois ?> HL
 	</td>
 	<td>
 		<form class="updateProduct" action="<?php echo url_for('drm_mouvements_generaux_produit_update', $form->getObject()) ?>" method="post">

@@ -7,14 +7,22 @@
 abstract class _DRMTotal extends acCouchdbDocumentTree {
     
     public function getConfig() {
+
         return ConfigurationClient::getCurrent()->get($this->getHash());
     }
 
+    public function getParentNode() {
+
+        return $this->getParent()->getParent();
+    }
+
     public function getLibelle() {
+
       return $this->getConfig()->getLibelle();
     }
 
     public function getCode() {
+
       return $this->getConfig()->getCode();
     }
 
@@ -49,17 +57,49 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     	}
     	return $sum;
     }
+
 	/*
 	 * Fonction calculée
 	 */
-    public function hasPasDeMouvement() {
+    public function hasMouvement() {
 
-        return $this->total_entrees == 0 && $this->total_sorties == 0;
+        return $this->total_entrees > 0 || $this->total_sorties > 0;
     }
 
     public function hasStockEpuise() {
 
-        return$this->total_debut_mois == 0 && $this->hasPasDeMouvement();
+        return$this->total_debut_mois == 0 && !$this->hasMouvement();
     }
-    
+
+
+    public function sommeLignes($lines) {
+        $sum = 0;
+        foreach($this->getChildrenNode() as $item) {
+            $sum += $item->sommeLignes($lines);
+        }
+        
+        return $sum;
+    }
+
+    public function hasMouvementCheck() {
+        foreach($this->getChildrenNode() as $item) {
+            if(!$item->hasMouvementCheck()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function getProduits() {
+        $produits = array();
+        foreach($this->getChildrenNode() as $key => $item) {
+            $produits = array_merge($produits, $item->getProduits());
+        }
+
+        return $produits;
+    }
+  
+    abstract public function getChildrenNode();
+
 }

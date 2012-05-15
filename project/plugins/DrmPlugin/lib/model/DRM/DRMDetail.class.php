@@ -196,13 +196,18 @@ class DRMDetail extends BaseDRMDetail {
 	/*
 	 * Fonction calculée
 	 */
-    public function hasPasDeMouvement() {
+    public function hasMouvement() {
 
-        return $this->total_entrees == 0 && $this->total_sorties == 0;
+        return $this->total_entrees > 0 || $this->total_sorties > 0;
     }
 
     public function hasStockEpuise() {
 
-        return$this->total_debut_mois == 0 && $this->hasPasDeMouvement();
+        return $this->total_debut_mois == 0 && !$this->hasMouvement();
+    }
+
+    public function hasMouvementCheck() {
+
+        return !$this->pas_de_mouvement_check;
     }
 }

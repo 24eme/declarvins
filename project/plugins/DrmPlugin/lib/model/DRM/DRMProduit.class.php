@@ -30,7 +30,7 @@ class DRMProduit extends BaseDRMProduit {
            $key = implode('-', $labels);
         }
         
-        return ($key)? $key : DRM::DEFAULT_KEY;
+        return ($key) ? $key : DRM::DEFAULT_KEY;
     }
 
     public function getLabelKey() {

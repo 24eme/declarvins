@@ -11,14 +11,14 @@ class DRMGenre extends BaseDRMGenre {
      * @return DRMGenre
      */
     public function getCertification() {
-        return $this->getParent()->getParent();
+
+        return $this->getParentNode();
     }
     
-    public function sommeLignes($lines) {
-      $sum = 0;
-      foreach($this->appellations as $appellation) {
-		$sum += $appellation->sommeLignes($lines);
-      }
-      return $sum;
+
+    public function getChildrenNode() {
+
+        return $this->appellations;
     }
+
 }

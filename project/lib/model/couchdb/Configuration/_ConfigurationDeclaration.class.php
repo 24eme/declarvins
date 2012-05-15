@@ -120,9 +120,19 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
     	return floatval(str_replace(',', '.', $float));
     }
 
-	public abstract function setDonneesCsv($datas);
+    public function getProduits($interpro, $departement) {
+       
+      throw new sfException("The method \"getProduits\" is not defined");
+    }
+
+    public function getLabels($interpro) {
+      
+      throw new sfException("The method \"getLabels\" is not defined");
+    }
+
+    public abstract function setDonneesCsv($datas);
   	public abstract function hasDepartements();
- 	public abstract function hasDroits();
+ 	  public abstract function hasDroits();
   	public abstract function hasLabels();
   	public abstract function hasDetails();
   	public abstract function getTypeNoeud();

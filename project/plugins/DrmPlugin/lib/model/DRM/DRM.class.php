@@ -27,49 +27,23 @@ class DRM extends BaseDRM {
         return DRMClient::getInstance()->getCampagneAndRectificative($this->campagne, $rectificative);
     }
 
-    public function synchroniseDeclaration() {
-        foreach ($this->produits as $certification) {
-            foreach ($certification as $genre) {
-                foreach ($genre as $appellation) {
-                	foreach ($appellation as $item) {
-                    	$item->updateDetail();
-                	}
-                }
-            }
-        }
-    }
-
     public function getProduit($hash, $labels = array()) {
-      $hashes = $this->interpretHash($hash);
-      sort($labels);
-      try {
-    	if ($produits = $this->getProduits()->get($hashes['certification'])->get($hashes['appellation'])) {
-    	  foreach ($produits as $p) {
-    	    $leslabels = $p->label->toArray();
-    	    sort($leslabels);
-    	    if (!count(array_diff($leslabels,$labels)) &&  $p->hashref == $hash) {
-    	      return $p;
-    	    }
-    	  }
-    	}
-      }catch(Exception $e) {
-      }
-      return false;
+        if (!$this->exist($hash)) {
+
+            return false;
+        }
+
+        return $details->getProduit($labels);
     }
 
     public function addProduit($hash, $labels = array()) {
       if ($p = $this->getProduit($hash, $labels)) {
-	    return $p;
+        return $p;
       }
-      $hashes = $this->interpretHash($hash);
-      $produit = $this->produits->add($hashes['certification'])->add($hashes['appellation'])->add();
-      $produit->setLabel($labels);
-      $produit->setHashref($hash);
-
-      $this->synchroniseDeclaration();
       
-      return $produit;
-
+      $detail = $this->getOrAdd($hash)->details->addProduit($labels);
+      
+      return $detail;
     }
 
     public function getDepartement() {

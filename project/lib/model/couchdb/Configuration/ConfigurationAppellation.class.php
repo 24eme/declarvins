@@ -76,10 +76,15 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
         return $produits;
     }
 
+    public function getLabels($interpro) {
+
+        return $this->getCertification()->getLabels($interpro);
+    }
+
     public function getLibelle() {
       $libelle = $this->_get('libelle');
       if ($libelle)
-	return $libelle;
+	     return $libelle;
       return 'Total';
     }
     
