@@ -2,7 +2,7 @@
 	<?php if($sf_user->hasFlash('notice')) : ?>
 	<p class="flash_message"><?php echo $sf_user->getFlash('notice'); ?></p>
 	<?php endif; ?>
-	<form id="creation_compte" method="post" action="<?php echo url_for('@compte_nouveau') ?>">
+	<form id="creation_compte" method="post" action="<?php echo url_for('compte_nouveau', array('nocontrat' => $contrat->no_contrat)) ?>">
 		<?php echo $form->renderHiddenFields(); ?>
 		<?php echo $form->renderGlobalErrors(); ?>
 		<h1>Étape 3 : <strong>Création de compte</strong></h1>
@@ -24,16 +24,6 @@
 			</div>
 		</div>
 		<div class="col">
-			<div class="ligne_form">
-				<?php echo $form['email']->renderError() ?>
-				<?php echo $form['email']->renderLabel() ?>
-				<?php echo $form['email']->render() ?>
-			</div>
-			<div class="ligne_form">
-				<?php echo $form['email2']->renderError() ?>
-				<?php echo $form['email2']->renderLabel() ?>
-				<?php echo $form['email2']->render() ?>
-			</div>	
 			<div class="ligne_btn">
 				<button type="submit" class="btn_valider">Valider</button>
 			</div>
