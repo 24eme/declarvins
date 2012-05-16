@@ -381,9 +381,7 @@ abstract class acCouchdbJsonFields {
     }
 
     private function addNumeric($key) {
-        if ($key === null) {
-            $this->loadData();
-        }
+        $this->loadData();
         
         if ($key !== null && $this->_exist($key)) {
 
