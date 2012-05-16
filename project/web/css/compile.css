@@ -183,9 +183,8 @@ pre, code, kbd, samp { font-family:monospace, sans-serif; }
 .btn_ajouter {
   background:url(../images/pictos/pi_ajouter.png) 0 center no-repeat;
   color:#494949;
-  font-weight:bold;
   height:23px;
-  padding:0 0 0 15px;
+  padding:0 0 0 17px;
 }
 .btn_ajouter:hover, .btn_ajouter:focus { text-decoration:underline; }
 .btn_ajouter.btn_chargement {
@@ -639,9 +638,8 @@ a:hover { text-decoration:underline; }
 #principal #onglets_principal li.ajouter a {
   background:url(../images/pictos/pi_ajouter.png) 0 center no-repeat;
   color:#494949;
-  font-weight:bold;
   height:23px;
-  padding:0 0 0 15px;
+  padding:0 0 0 17px;
 }
 #principal #onglets_principal li.ajouter a:hover, #principal #onglets_principal li.ajouter a:focus { text-decoration:underline; }
 #principal #contenu_onglet {
@@ -1513,6 +1511,7 @@ p#date_drm {
   padding:10px 9px 0 0;
 }
 #colonnes_dr #colonne_intitules .groupe ul li { margin:0 0 10px; }
+#colonnes_dr #colonne_intitules .groupe ul li .unite { font-size:10px; }
 #colonnes_dr #colonne_intitules .totaux { padding:20px 0 0; }
 #colonnes_dr #colonne_intitules .totaux p {
   background:#494949;
@@ -1703,9 +1702,8 @@ p#date_drm {
 #declaratif_info .onglets_declaratif li.ajouter a {
   background:url(../images/pictos/pi_ajouter.png) 0 center no-repeat;
   color:#494949;
-  font-weight:bold;
   height:23px;
-  padding:0 0 0 15px;
+  padding:0 0 0 17px;
 }
 #declaratif_info .onglets_declaratif li.ajouter a:hover, #declaratif_info .onglets_declaratif li.ajouter a:focus { text-decoration:underline; }
 #declaratif_info .onglets_declaratif strong { padding-right:5px !important; }
@@ -1846,4 +1844,14 @@ p#date_drm {
   height:18px;
   padding:0 4px;
   width:220px;
+}
+.etablissement_courant_admin a {
+  background:url(../images/boutons/btn_etablissement_courant_admin.png) right 0 no-repeat;
+  color:#86005b;
+  padding:0 20px 0 0;
+}
+.etablissement_courant_admin a span {
+  background:url(../images/boutons/btn_etablissement_courant_admin.png) 0 0 no-repeat;
+  float:left;
+  padding:0 0 0 27px;
 }

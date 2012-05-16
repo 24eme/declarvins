@@ -694,7 +694,13 @@ p#date_drm
 				font-size: 12px;
 				padding: 10px 9px 0 0;
 				
-				li { margin: 0 0 10px; }
+				li 
+                                { 
+                                        margin: 0 0 10px; 
+                                        
+                                        .unite{ font-size: 10px; }
+
+                                }
 			}
 		}
 		
@@ -708,6 +714,7 @@ p#date_drm
 				font-weight: bold;
 			}
 		}
+                
 	}
 	
 	/* Colonne des saisies */
@@ -1041,7 +1048,7 @@ p#date_drm
  ******************************************/
 .btn_passer_etape
 {
-	background: url("../images/boutons/btn_fleche.png") no-repeat scroll 0 0 #86005b;
+	background: url("../images/boutons/btn_fleche.png") no-repeat scroll 0 0 @couleur-b3;
         border: 1px solid #d9d9d9;
         color: #FFFFFF;
         float: right;
