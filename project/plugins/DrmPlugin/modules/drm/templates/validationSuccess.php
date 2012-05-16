@@ -11,6 +11,11 @@
             <?php echo $form->renderGlobalErrors() ?>
             <?php echo $form->renderHiddenFields() ?>
             <div id="application_dr">
+               
+                <div id="validation_intro">
+                    <h2>Validation</h2>
+                    <p>Vous êtes sur le point de valider votre DRM. Merci de vérifier vos données.</p>
+                </div>
                 
                 <?php if ($drmValidation->hasErrors() || $drmValidation->hasWarnings()) { ?>
                 <div id="contenu_onglet">
@@ -20,8 +25,6 @@
                         if ($drmValidation->hasErrors()) {
                             include_partial('erreurs', array('drm' => $drm, 'drmValidation' => $drmValidation));
                         }
-                        ?>
-                        <?php
                         if ($drmValidation->hasWarnings()) {
                             include_partial('vigilances', array('drm' => $drm, 'drmValidation' => $drmValidation));
                         }
@@ -30,13 +33,12 @@
                 </div>
                 <?php } ?>
                 
+                <?php if ($drmValidation->hasEngagements()) { ?>
                 <div id="contenu_onglet" class="tableau_ajouts_liquidations">
-                    <?php
-                    if ($drmValidation->hasEngagements()) {
-                        include_partial('engagements', array('drm' => $drm, 'drmValidation' => $drmValidation, 'form' => $form));
-                    }
-                    ?>
+                    <?php include_partial('engagements', array('drm' => $drm, 'drmValidation' => $drmValidation, 'form' => $form)); ?>                    
                 </div>
+                <?php } ?>
+                
                 <div id="contenu_onglet">
                     <?php if($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()):  ?>
                         <?php include_partial('drm/recap', array('drm' => $drm)) ?>
@@ -46,6 +48,7 @@
                 </div>
             </div>
             <div id="btn_etape_dr">
+                <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', array('campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
                 <a href="<?php echo url_for('drm_declaratif', $drm) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>

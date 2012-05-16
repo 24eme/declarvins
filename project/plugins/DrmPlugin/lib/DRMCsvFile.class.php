@@ -71,6 +71,24 @@ class DRMCsvFile extends CsvFile
   const CSV_COL_DETAIL_IDDRMDECLARVIN = 61;
   const CSV_COL_DETAIL_ID_ETABLISSEMENT_INTERNE = 62;
 
+  public static function datize($str) {
+    if (preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/', $str)) {
+      return $str;
+    }
+    if (preg_match('/^\d{4}-\d{2}-\d{2}[^T]/', $str)) {
+      return $str.'T00:00:00Z';
+    }
+    if (preg_match('/\//', $str)) {
+      $str = preg_replace('/(\d{2})\/(\d{2})\/(\d{4})/', '\3-\2-\1', $str);
+      return $str.'T00:00:00Z' ;
+    }
+    if (preg_match('/2012$/', $str)) {
+      $str = preg_replace('/(\d{2})(\d{2})2012/', '2012-\2-\1', $str);
+      return $str.'T00:00:00Z' ;
+    }
+    throw new sfException("Wrong date format $str");
+  }
+
   public static function createFromArray($array) {
     $csv = new DRMCsvFile();
     $csv->csvdata = $array;
@@ -137,7 +155,7 @@ class DRMCsvFile extends CsvFile
       $line[self::CSV_COL_DETAIL_CVO_VOLUME] = $d->getDroitVolume(DrmDroits::DROIT_CVO);
       $line[self::CSV_COL_DETAIL_CVO_PRIX] = $line[self::CSV_COL_DETAIL_CVO_TAUX] * $line[self::CSV_COL_DETAIL_CVO_VOLUME];
       $line[self::CSV_COL_DETAIL_DATEDESAISIE] = $d->getDocument()->valide->date_saisie;
-      $line[self::CSV_COL_DETAIL_DATEDESIGNATURE] = $d->getDocument()->valide->date_signature;
+      $line[self::CSV_COL_DETAIL_DATEDESIGNATURE] = $d->getDocument()->valide->date_signee;
       $line[self::CSV_COL_DETAIL_MODEDESAISIE] = $d->getDocument()->mode_de_saisie;
       $line[self::CSV_COL_DETAIL_IDDRMDECLARVIN] = $d->getDocument()->_id;
       $line[self::CSV_COL_DETAIL_ID_ETABLISSEMENT_INTERNE] = $d->getDocument()->getEtablissement()->num_interne;
@@ -230,6 +248,8 @@ class DRMCsvFile extends CsvFile
 	      throw new sfException("L'établissement $etablissement n'est pas accessible depuis votre compte");
 	  }
 	  $this->drm = DRMClient::getInstance()->retrieveOrCreateByIdentifiantAndCampagne($etablissement, $line[self::CSV_COL_ANNEE], $line[self::CSV_COL_MOIS]);
+	  $this->drm->valide->date_signee = self::datize($line[self::CSV_COL_DETAIL_DATEDESIGNATURE]);
+	  $this->drm->valide->date_saisie = self::datize($line[self::CSV_COL_DETAIL_DATEDESAISIE]);
 	}
 	switch($line[self::CSV_COL_TYPE]) {
 	case 'DETAIL':
@@ -255,6 +275,11 @@ class DRMCsvFile extends CsvFile
     if (count($this->errors)) {
       throw new sfException('errors (cf. DRMCsvFile->errors)');
     }
+
+    if ($this->drm->valide->date_signee && $this->drm->valide->date_saisie) {
+      $this->drm->validate($options);
+    }
+
     return $this->drm;
   }
 

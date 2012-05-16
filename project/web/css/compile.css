@@ -183,9 +183,8 @@ pre, code, kbd, samp { font-family:monospace, sans-serif; }
 .btn_ajouter {
   background:url(../images/pictos/pi_ajouter.png) 0 center no-repeat;
   color:#494949;
-  font-weight:bold;
   height:23px;
-  padding:0 0 0 15px;
+  padding:0 0 0 17px;
 }
 .btn_ajouter:hover, .btn_ajouter:focus { text-decoration:underline; }
 .btn_ajouter.btn_chargement {
@@ -639,9 +638,8 @@ a:hover { text-decoration:underline; }
 #principal #onglets_principal li.ajouter a {
   background:url(../images/pictos/pi_ajouter.png) 0 center no-repeat;
   color:#494949;
-  font-weight:bold;
   height:23px;
-  padding:0 0 0 15px;
+  padding:0 0 0 17px;
 }
 #principal #onglets_principal li.ajouter a:hover, #principal #onglets_principal li.ajouter a:focus { text-decoration:underline; }
 #principal #contenu_onglet {
@@ -1461,6 +1459,13 @@ p#date_drm {
   margin:0 0 0 5px;
   padding:0 5px;
 }
+#validation_intro { margin:0 0 20px; }
+#validation_intro h2 {
+  color:#494949;
+  font-size:18px;
+  font-weight:normal;
+  margin:0 0 10px;
+}
 #colonnes_dr {
   zoom:1;
   border:1px solid #dbdbdb;
@@ -1513,6 +1518,7 @@ p#date_drm {
   padding:10px 9px 0 0;
 }
 #colonnes_dr #colonne_intitules .groupe ul li { margin:0 0 10px; }
+#colonnes_dr #colonne_intitules .groupe ul li .unite { font-size:10px; }
 #colonnes_dr #colonne_intitules .totaux { padding:20px 0 0; }
 #colonnes_dr #colonne_intitules .totaux p {
   background:#494949;
@@ -1703,9 +1709,8 @@ p#date_drm {
 #declaratif_info .onglets_declaratif li.ajouter a {
   background:url(../images/pictos/pi_ajouter.png) 0 center no-repeat;
   color:#494949;
-  font-weight:bold;
   height:23px;
-  padding:0 0 0 15px;
+  padding:0 0 0 17px;
 }
 #declaratif_info .onglets_declaratif li.ajouter a:hover, #declaratif_info .onglets_declaratif li.ajouter a:focus { text-decoration:underline; }
 #declaratif_info .onglets_declaratif strong { padding-right:5px !important; }
@@ -1757,20 +1762,30 @@ p#date_drm {
 #declaratif_info #btn_etape_dr .btn_suiv span { text-transform:uppercase; }
 #declaratif_info .error_daa { float:left; }
 #declaratif_info #organisme { display:none; }
-#principal .btn_passer_etape {
-  background:url("../images/boutons/etape-suivante.png") no-repeat scroll 0 0 transparent;
+.btn_passer_etape {
+  background:url("../images/boutons/btn_fleche.png") no-repeat scroll 0 0 #86005b;
+  border:1px solid #d9d9d9;
   color:#ffffff;
   float:right;
   font-size:11px;
   font-weight:bold;
-  height:22px;
+  height:23px;
   line-height:21px;
   margin:0 0 0 15px;
-  padding:1px 7px 0 30px;
+  padding:0 7px 0 30px;
   text-transform:uppercase;
-  width:114px;
+  zoom:1;
 }
-#principal .btn_passer_etape:hover { text-decoration:none; }
+.btn_passer_etape:before, .btn_passer_etape:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+.btn_passer_etape:after { clear:both; }
+.btn_passer_etape.rectificative { margin:-30px 0 0 15px; }
+.btn_passer_etape:hover { text-decoration:none; }
 #ajouts_liquidations #stock_epuise {
   background-repeat:no-repeat;
   border:1px solid;
@@ -1796,6 +1811,17 @@ p#date_drm {
 #btn_etape_dr:after { clear:both; }
 .inactif { visibility:hidden; }
 #saving_notification, #error_notification { z-index:999; }
+#telecharger_pdf {
+  background:url("../images/boutons/btn_pdf.png") no-repeat scroll 0 0 #9e9e9e;
+  border:1px solid #646464;
+  color:#ffffff;
+  float:left;
+  margin-left:275px;
+  padding:7px 5px 3px 28px;
+  position:absolute;
+  text-transform:none;
+}
+#telecharger_pdf:hover { text-decoration:none; }
 #mon_compte span, #mon_compte label {
   display:inline-block;
   width:170px;
@@ -1826,4 +1852,14 @@ p#date_drm {
   height:18px;
   padding:0 4px;
   width:220px;
+}
+.etablissement_courant_admin a {
+  background:url(../images/boutons/btn_etablissement_courant_admin.png) right 0 no-repeat;
+  color:#86005b;
+  padding:0 20px 0 0;
+}
+.etablissement_courant_admin a span {
+  background:url(../images/boutons/btn_etablissement_courant_admin.png) 0 0 no-repeat;
+  float:left;
+  padding:0 0 0 27px;
 }
