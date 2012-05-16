@@ -8,15 +8,15 @@ class drm_mouvements_generauxActions extends sfActions
         $this->form = new DRMMouvementsGenerauxProduitsForm($this->drm);
 		$this->forms = array();
 		$this->certificationLibelle = array();
-		foreach ($this->drm->getDeclaration()->certifications as $certification => $item) {
-			if (!isset($this->forms[$certification])) {
-				$this->forms[$certification] = array();
-				$this->certificationLibelle[$certification] = $item->libelle;
+		foreach (ConfigurationClient::getCurrent()->declaration->certifications as $certification_key => $certification_config) {
+            if (!isset($this->forms[$certification_key])) {
+				$this->forms[$certification_key] = array();
+				$this->certificationLibelle[$certification_key] = $certification_config->libelle;
 			}
-			if ($this->drm->declaration->certifications->exist($certification)) {
-                $details = $this->drm->declaration->certifications->get($certification)->getProduits();
+			if ($this->drm->declaration->certifications->exist($certification_key)) {
+                $details = $this->drm->declaration->certifications->get($certification_key)->getProduits();
 				foreach ($details as $detail) {
-					$this->forms[$certification][] = new DRMMouvementsGenerauxProduitForm($detail);
+					$this->forms[$certification_key][] = new DRMMouvementsGenerauxProduitForm($detail);
 				}
 			}
 		}
