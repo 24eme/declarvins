@@ -33,7 +33,7 @@ class DRM extends BaseDRM {
             return false;
         }
 
-        return $details->getProduit($labels);
+        return $this->get($hash)->details->getProduit($labels);
     }
 
     public function addProduit($hash, $labels = array()) {
@@ -55,23 +55,8 @@ class DRM extends BaseDRM {
     }
 
     public function getDetails() {
-        $details = array();
-        foreach ($this->declaration->certifications as $certifications) {
-            foreach ($certifications->appellations as $appellation) {
-                foreach ($appellation->lieux as $lieu) {
-                    foreach ($lieu->couleurs as $couleur) {
-                    	foreach ($couleur->cepages as $cepage) {
-    	                    foreach ($cepage->millesimes as $millesime) {
-                                foreach ($millesime->details as $detail) {
-				                    $details[] = $detail;
-                                }
-    	                    }
-                    	}
-                    }
-                }
-            }
-        }
-        return $details;
+        
+        return $this->declaration->getProduits();
     }
 
     public function getDetailsAvecVrac() {

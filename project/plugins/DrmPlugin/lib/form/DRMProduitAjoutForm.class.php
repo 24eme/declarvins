@@ -37,7 +37,7 @@ class DRMProduitAjoutForm extends BaseForm
             'disponible' => new sfValidatorNumber(array('required' => false)),
         ));
 
-        //$this->validatorSchema->setPostValidator(new DRMProduitValidator(null, array('object' => $this->getObject())));
+        $this->validatorSchema->setPostValidator(new DRMProduitValidator(null, array('drm' => $this->_drm)));
         $this->widgetSchema->setNameFormat('produit_'.$this->_config->getKey().'[%s]');
     }
 

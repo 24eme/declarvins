@@ -8,13 +8,14 @@ class drm_mouvements_generauxActions extends sfActions
         $this->form = new DRMMouvementsGenerauxProduitsForm($this->drm);
 		$this->forms = array();
 		$this->certificationLibelle = array();
-		foreach (ConfigurationClient::getCurrent()->declaration->certifications as $certification => $item) {
+		foreach ($this->drm->getDeclaration()->certifications as $certification => $item) {
 			if (!isset($this->forms[$certification])) {
 				$this->forms[$certification] = array();
 				$this->certificationLibelle[$certification] = $item->libelle;
 			}
 			if ($this->drm->declaration->certifications->exist($certification)) {
-				foreach ($this->drm->declaration->certifications->get($certification)->getProduits() as $detail) {
+                $details = $this->drm->declaration->certifications->get($certification)->getProduits();
+				foreach ($details as $detail) {
 					$this->forms[$certification][] = new DRMMouvementsGenerauxProduitForm($detail);
 				}
 			}
@@ -25,7 +26,7 @@ class drm_mouvements_generauxActions extends sfActions
         }
         if ($request->isMethod(sfWebRequest::POST)) {
 
-            if($this->drm->produits->hasMouvement()) {
+            if($this->drm->declaration->hasMouvementCheck()) {
         	   $this->drm->setCurrentEtapeRouting('recapitulatif');
         	   $this->redirect('drm_recap', $this->first_certification);
             } else {

@@ -3,7 +3,7 @@ class DRMProduitValidator extends sfValidatorSchema
 {
     public function configure($options = array(), $messages = array()) 
     {
-        $this->addRequiredOption('object');
+        $this->addRequiredOption('drm');
         $this->addMessage('exist', 'Ce produit existe déjà !');
     }
 
@@ -18,14 +18,15 @@ class DRMProduitValidator extends sfValidatorSchema
             unset($values['label'][$index_autre]);
         }
 
-        if($this->getObject()->getDocument()->exist($this->getObject()->getHashDetailFromValues($values['hashref'], $values['label']))) {
+        if ($this->getDrm()->getProduit($values['hashref'], $values['label'])) {
             throw new sfValidatorError($this, 'exist');
         }
+
         return $values;
     }
 
-    protected function getObject() 
+    protected function getDrm() 
     {
-        return $this->getOption('object');
+        return $this->getOption('drm');
     }
 }

@@ -1,13 +1,17 @@
 <?php
 
-class DRMAppellationAjoutForm extends acCouchdbFormDocumentJson {
+class DRMAppellationAjoutForm extends BaseForm {
 
     protected $_interpro = null;
+    protected $_drm = null;
+    protected $_config = null;
     protected $_choices_appellation = null;
 
-    public function __construct(acCouchdbJson $object, $interpro, $options = array(), $CSRFSecret = null) {
-        $this->_interpro = $interpro;
-        parent::__construct($object, $options, $CSRFSecret);
+    public function __construct(DRM $drm, _ConfigurationDeclaration $config, $CSRFSecret = null) {
+        $this->_drm = $drm;
+        $this->_interpro = $drm->getInterpro();
+        $defaults = array();
+        parent::__construct($defaults, $options, $CSRFSecret);
     }
 
     public function setup() {

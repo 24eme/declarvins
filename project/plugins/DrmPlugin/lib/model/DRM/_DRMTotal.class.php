@@ -58,17 +58,9 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     	return $sum;
     }
 
-	/*
-	 * Fonction calculée
-	 */
-    public function hasMouvement() {
-
-        return $this->total_entrees > 0 || $this->total_sorties > 0;
-    }
-
     public function hasStockEpuise() {
 
-        return$this->total_debut_mois == 0 && !$this->hasMouvement();
+        return $this->total_debut_mois == 0 && !$this->hasMouvement();
     }
 
 
@@ -81,6 +73,11 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
         return $sum;
     }
 
+    public function hasMouvement() {
+
+        return $this->total_entrees > 0 || $this->total_sorties > 0;
+    }
+
     public function hasMouvementCheck() {
         foreach($this->getChildrenNode() as $item) {
             if(!$item->hasMouvementCheck()) {
@@ -89,6 +86,48 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
         }
 
         return true;
+    }
+
+    public function nbComplete() {
+        $nb = 0;
+        foreach($this->getChildrenNode() as $item) {
+            if($item->isComplete()) {
+                $nb++;
+            }
+        }
+
+        return $nb;
+    }
+
+    public function nbToComplete() {
+        $nb = 0;
+        foreach($this->getChildrenNode() as $item) {
+            if($item->hasMouvementCheck()) {
+                $nb++;
+            }
+        }
+
+        return $nb;
+    }
+
+    public function isComplete() {
+        foreach($this->getChildrenNode() as $item) {
+            if(!$item->isComplete()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function getPreviousSisterWithMouvementCheck() {
+
+        return $this->getPreviousSister();
+    }
+
+    public function getNextSisterWithMouvementCheck() {
+
+        return $this->getNextSister();
     }
 
     public function getProduits() {

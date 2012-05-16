@@ -5,15 +5,13 @@ class drmComponents extends sfComponents {
     public function executeEtapes() {
         $this->config_certifications = ConfigurationClient::getCurrent()->declaration->certifications;
         $this->certifications = array();
-        $this->certificationsLibelle = array();
         
         $i = 3;
-        foreach ($this->config_certifications as $certification => $produit) {
-            if ($this->drm->produits->exist($certification)) {
-            	$certif = $this->drm->produits->get($certification);
-            	if ($certif->hasMouvement()) {
-	                $this->certifications[$i] = $certification;
-	                $this->certificationsLibelle[$i] = ConfigurationClient::getCurrent()->declaration->certifications->get($certification)->libelle;
+        foreach ($this->config_certifications as $certification_config) {
+            if ($this->drm->exist($certification_config->getHash())) {
+            	$certification = $this->drm->get($certification_config->getHash());
+            	if ($certification->hasMouvement()) {
+	                $this->certifications[$i] = $this->drm->get($certification_config->getHash());
 	                $i++;
             	}
             }
@@ -38,12 +36,13 @@ class drmComponents extends sfComponents {
         $this->numero_validation = $this->numeros['validation'];
 
         if ($this->etape == 'recapitulatif') {
-            foreach ($this->config_certifications as $certification => $produit) {
-                if ($this->drm->produits->exist($certification))
-                    if ($certification == $this->certification) {
+            foreach ($this->config_certifications as $certification_config) {
+                if ($this->drm->exist($certification_config->getHash())) {
+                    if ($certification->getKey() == $certification_config->getKey()) {
                         break;
                     }
-                $this->numero++;
+                    $this->numero++;
+                }
             }
         }
     }
