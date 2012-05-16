@@ -7,39 +7,43 @@
 
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
 
+    <form method="post" action="<?php echo url_for('drm_rectificative', array('campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">
+        <button class="btn_passer_etape rectificative" type="submit">Soumettre une DRM rectificative</button>
+    </form>
+
     <!-- #principal -->
     <section id="principal">
-    
-    	<?php if($drm_suivante && $drm_suivante->isRectificative() && !$drm_suivante->isValidee()): ?>
-    	<div class="vigilance_list">
-		    <ul>
-		    	<li><?php echo MessagesClient::getInstance()->getMessage('msg_rectificatif_suivante') ?></li>
-		    </ul>
-		</div>
-    	<?php endif; ?>
+
+        <?php if ($drm_suivante && $drm_suivante->isRectificative() && !$drm_suivante->isValidee()): ?>
+            <div class="vigilance_list">
+                <ul>
+                    <li><?php echo MessagesClient::getInstance()->getMessage('msg_rectificatif_suivante') ?></li>
+                </ul>
+            </div>
+        <?php endif; ?>
         <div id="contenu_onglet">
 
-            <?php if(!$drm->declaration->hasPasDeMouvement() && !$drm->declaration->hasStockEpuise()):  ?>
+            <?php if (!$drm->declaration->hasPasDeMouvement() && !$drm->declaration->hasStockEpuise()): ?>
                 <?php include_partial('drm/recap', array('drm' => $drm)) ?>
                 <?php include_partial('drm/droits', array('drm' => $drm)) ?>
             <?php else: ?>
                 <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
             <?php endif; ?>
 
-    	    <a href="<?php echo url_for('drm_pdf', array('campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
-			<br />
-			<a href="<?php echo url_for('drm_rectificative', array('campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Soumettre une DRM rectificative</a>
+            
+            
             <div id="btn_etape_dr">
-                <?php if($drm_suivante && $drm_suivante->isRectificative()): ?>
-                <a href="<?php echo url_for('drm_init', array('campagne_rectificative' => $drm_suivante->getCampagneAndRectificative())) ?>" class="btn_suiv">
-                    <span>Passer à la DRM suivante</span>
-                </a>
+                <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', array('campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
+                <?php if ($drm_suivante && $drm_suivante->isRectificative()): ?>
+                    <a href="<?php echo url_for('drm_init', array('campagne_rectificative' => $drm_suivante->getCampagneAndRectificative())) ?>" class="btn_suiv">
+                        <span>Passer à la DRM suivante</span>
+                    </a>
                 <?php else: ?>
-                <a href="<?php echo url_for('drm_mon_espace') ?>" class="btn_suiv">
-                    <span>Retour à mon espace</span>
-                </a>
+                    <a href="<?php echo url_for('drm_mon_espace') ?>" class="btn_suiv">
+                        <span>Retour à mon espace</span>
+                    </a>
                 <?php endif; ?>
             </div>
-     </div>    
+        </div>    
     </section>
 </section>

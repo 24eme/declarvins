@@ -169,13 +169,13 @@
 		}
 
 		if (!href) {
-			if($(id_popup).size() == 0)
+			if($(id_popup).exists())
 			{
-				$.initPopupTemps(id_popup, config, titre, href);
+				$.initPopup(id_popup, config, titre, href);
 			}
 			$(id_popup).dialog('open');
 		} else {
-			if($(id_popup).size() == 0)
+			if(!$(id_popup).exists())
 			{
 				onload();
 				$.get(href, function(reponse)

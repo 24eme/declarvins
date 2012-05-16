@@ -35,7 +35,8 @@ all:
 
     # Enable the database manager
     use_database:           true
-
+    default_culture:        fr_FR
+    
   .actions:
     login_module:           acVinCompte
     login_action:           acVinCompteLogin
