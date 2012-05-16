@@ -23,7 +23,7 @@
         <?php endif; ?>
         <div id="contenu_onglet">
 
-            <?php if (!$drm->declaration->hasPasDeMouvement() && !$drm->declaration->hasStockEpuise()): ?>
+            <?php if ($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()): ?>
                 <?php include_partial('drm/recap', array('drm' => $drm)) ?>
                 <?php include_partial('drm/droits', array('drm' => $drm)) ?>
             <?php else: ?>

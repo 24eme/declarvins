@@ -161,9 +161,11 @@ class DRM extends BaseDRM {
         $this->remove('droits');
         $this->add('droits');
         foreach ($this->declaration->certifications as $certification) {
-	        foreach ($certification->appellations as $appellation) {
-                $appellation->updateDroits($this->droits);
-	        }
+            foreach ($certification->genres as $genre) {
+    	        foreach ($genre->appellations as $appellation) {
+                    $appellation->updateDroits($this->droits);
+    	        }
+            }
         }
     }
 
