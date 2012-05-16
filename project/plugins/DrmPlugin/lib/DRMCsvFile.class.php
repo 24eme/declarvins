@@ -78,6 +78,10 @@ class DRMCsvFile extends CsvFile
     if (preg_match('/^\d{4}-\d{2}-\d{2}[^T]/', $str)) {
       return $str.'T00:00:00Z';
     }
+    if (preg_match('/\//', $str)) {
+      $str = preg_replace('/(\d{2})\/(\d{2})\/(\d{4})/', '\3-\2-\1', $str);
+      return $str.'T00:00:00Z' ;
+    }
     if (preg_match('/2012$/', $str)) {
       $str = preg_replace('/(\d{2})(\d{2})2012/', '2012-\2-\1', $str);
       return $str.'T00:00:00Z' ;
