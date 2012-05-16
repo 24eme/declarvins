@@ -30,10 +30,10 @@ EOF;
       return ;
     $csvDRM = DRMCsvFile::createFromArray($csv);
     try {
-      $drm = $csvDRM->importDRM(array('no_vrac' => 1, 'init_line' => $this->line));
+      $drm = $csvDRM->importDRM(array('no_droits'=>1,'no_vrac' => 1, 'init_line' => $this->line));
     }catch(Exception $e) {
       print_r($csvDRM->errors);
-      throw new Exception();
+      throw new Exception("errors $e");
     }
     $this->line += count($csv);
     $drm->save();

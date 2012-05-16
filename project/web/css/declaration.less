@@ -628,6 +628,19 @@ p#date_drm
 	}
 }
 
+#validation_intro{
+    
+        margin: 0 0 20px;
+
+        h2{
+                  color: @couleur-b1;
+                  font-size: 18px;
+                  font-weight: normal;
+                  margin: 0 0 10px;
+        }
+    
+}
+
 
 /**
  * Etape 3 -> Colonnes déclaration
@@ -694,7 +707,13 @@ p#date_drm
 				font-size: 12px;
 				padding: 10px 9px 0 0;
 				
-				li { margin: 0 0 10px; }
+				li 
+                                { 
+                                        margin: 0 0 10px; 
+                                        
+                                        .unite{ font-size: 10px; }
+
+                                }
 			}
 		}
 		
@@ -708,6 +727,7 @@ p#date_drm
 				font-weight: bold;
 			}
 		}
+                
 	}
 	
 	/* Colonne des saisies */
@@ -1041,7 +1061,7 @@ p#date_drm
  ******************************************/
 .btn_passer_etape
 {
-	background: url("../images/boutons/btn_fleche.png") no-repeat scroll 0 0 #86005b;
+	background: url("../images/boutons/btn_fleche.png") no-repeat scroll 0 0 @couleur-b3;
         border: 1px solid #d9d9d9;
         color: #FFFFFF;
         float: right;
@@ -1082,8 +1102,11 @@ p#date_drm
         background: url("../images/boutons/btn_pdf.png") no-repeat scroll 0 0 #9E9E9E;
         border: 1px solid #646464;
         color: #FFFFFF;
-        margin-left: 365px;
+        float: left;
+        margin-left: 275px;
         padding: 7px 5px 3px 28px;
+        position: absolute;
+        text-transform: none;
 
-        &.hover{ text-decoration:none; }
+        &:hover{ text-decoration:none; }
 }

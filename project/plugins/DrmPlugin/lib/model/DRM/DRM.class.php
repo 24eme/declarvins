@@ -371,14 +371,21 @@ class DRM extends BaseDRM {
       return ($this->valide->date_saisie);
     }
 
-    public function validate($identifiant = null) {
-      $this->valide->add('date_saisie', date('c'));
+    public function validate($options = null) {
+      $identifiant = null;
+      if (count($options)) {
+	if (isset($options['identifiant']))
+	  $identifiant = $options['identifiant'];
+      } 
+      if (! $this->valide->date_saisie)
+	$this->valide->add('date_saisie', date('c'));
       if (! $this->valide->date_signee)
 	$this->valide->add('date_signee', date('c'));
       if (!$identifiant)
 	$identifiant = $this->identifiant;
       $this->valide->identifiant = $identifiant;
-      $this->setDroits();
+      if (!isset($options['no_droits']) || !$options['no_droits'])
+	$this->setDroits();
       $this->setInterpros();
     }
 
