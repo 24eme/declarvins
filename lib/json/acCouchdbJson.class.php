@@ -113,14 +113,6 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
         return $this->_remove($key_or_hash);
     }
 
-    public function clear() {
-        if ($this->_is_array) {
-            foreach ($this->_fields as $key => $field) {
-                $this->_remove($key);
-            }
-        }
-    }
-
     public function add($key = null, $item = null) {
         return $this->_add($key, $item);
     }
@@ -169,10 +161,15 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
 	        	if ($this->fieldIsCollection($key) && !$value) {
 	        		$value = array();
 	        	}
+                        
 	        	if($this->fieldIsCollection($key)) {
-	        		$this->add($key)->fromArray($value);
+                                $item = $this->add($key);
+                                if($item->isArray()) {
+                                   $item->clear();
+                                }
+	        		$item->fromArray($value);
 	        	} else {
-                	$this->add($key, $value);
+                            $this->add($key, $value);  
 	        	}
             }
         }

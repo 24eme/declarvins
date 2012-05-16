@@ -162,18 +162,16 @@ abstract class acCouchdbJsonFields {
             throw new acCouchdbException(sprintf("Definition error : %s (%s)", $key, $this->getHash()));
         }
         if ($this->_is_array) {
-            $ret = $this->addNumeric($key);
+            $key = $this->addNumeric($key);
+            $field = $this->getField($key);
         } else {
-            $ret = $this->addNormal($key);
+            $field = $this->addNormal($key);
         }
+        
         if (!is_null($item)) {
-            if ($this->_is_array) {
-                $this->set(count($this->_fields) - 1, $item);
-            } else {
-                $this->set($key, $item);
-            }
+            $this->set($key, $item);
         }
-        return $ret;
+        return $field;
     }
 
     protected function _set($key, $value) {
@@ -382,19 +380,17 @@ abstract class acCouchdbJsonFields {
 
     private function addNumeric($key) {
         if ($key === null) {
-            $this->loadData();
+           $this->loadData(); 
+        }
+        if ($key !== null && $this->_exist($key)) {
+            
+            return $key;
         }
         
-        if ($key !== null && $this->_exist($key)) {
-
-            return $this->getField($key);
-        } 
-        
         $field = $this->getDefinition()->get('*')->getDefaultValue($this->_document, $this->_hash . '/' . count($this->_fields));
-        //$field = $this->getDefinition()->getJsonField(null, true, $this->_document, $this->_hash . '/' . count($this->_fields));
         $this->_fields[] = $field;
-
-        return $field;
+        
+        return count($this->_fields)-1;
     }
 
     /**
@@ -426,6 +422,14 @@ abstract class acCouchdbJsonFields {
         }
 
         return $field;
+    }
+    
+    public function clear() {
+        if (!$this->_is_array) {
+            throw new acCouchdbException("You can only clear an array collection");
+        }
+        
+        $this->_fields = array();
     }
 
     private function removeNormal($key) {
