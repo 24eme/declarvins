@@ -1847,3 +1847,13 @@ p#date_drm {
   padding:0 4px;
   width:220px;
 }
+.etablissement_courant_admin a {
+  background:url(../images/boutons/btn_etablissement_courant_admin.png) right 0 no-repeat;
+  color:#86005b;
+  padding:0 20px 0 0;
+}
+.etablissement_courant_admin a span {
+  background:url(../images/boutons/btn_etablissement_courant_admin.png) 0 0 no-repeat;
+  float:left;
+  padding:0 0 0 27px;
+}
