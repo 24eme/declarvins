@@ -190,9 +190,9 @@
 	</table>
 
 	
+<? if ($drm->valide->date_saisie): ?>
 	<?php while($pager_droits_douane->getPage() <= $pager_droits_douane->getLastPage()): ?>
 		<?php $colonnes = $pager_droits_douane->getResults(); ?>
-
 		<h2>Droits de circulation et de consommation</h2>
 		<table class="recap droits_douane bloc_bottom">
 	    <?php include_partial('drm_export/pdfLine', array('libelle' => '',
@@ -245,7 +245,6 @@
 		</table>
 		<?php $pager_droits_douane->gotoNextPage(); ?>
 	<?php endwhile; ?>
-
 	<div class="bloc_bottom">
 		<h2>Paiement des droits de circulation</h2>
 		<p><strong>Echéance de paiement</strong> : <?php echo $drm->declaratif->paiement->douane->frequence ?></p>
@@ -267,6 +266,7 @@
 		</tr>
 	</table>
 
+<?php endif; //si pas validée ?>
 	<hr />
 	<div class="legende">
 	<?php foreach($drm->declaration->certifications as $certification_key => $certification): ?>
