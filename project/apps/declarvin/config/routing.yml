@@ -101,6 +101,16 @@ etablissement_login:
   url: /admin/etablissements
   param: {module: admin, action: etablissementLogin}
   
+  
+## Administration des Comptes
+admin_comptes:
+  url:   /admin/comptes
+  param: { module: acVinCompteAdmin, action: index }
+  
+compte:
+  url:   /admin/compte/:login
+  param: { module: acVinCompteAdmin, action: compte }
+
 # generic rules
 # please, remove them by adding more specific rules
 default_index:
