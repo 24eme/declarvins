@@ -1459,6 +1459,13 @@ p#date_drm {
   margin:0 0 0 5px;
   padding:0 5px;
 }
+#validation_intro { margin:0 0 20px; }
+#validation_intro h2 {
+  color:#494949;
+  font-size:18px;
+  font-weight:normal;
+  margin:0 0 10px;
+}
 #colonnes_dr {
   zoom:1;
   border:1px solid #dbdbdb;
@@ -1809,8 +1816,9 @@ p#date_drm {
   border:1px solid #646464;
   color:#ffffff;
   float:left;
-  margin-left:365px;
+  margin-left:275px;
   padding:7px 5px 3px 28px;
+  position:absolute;
   text-transform:none;
 }
 #telecharger_pdf:hover { text-decoration:none; }
