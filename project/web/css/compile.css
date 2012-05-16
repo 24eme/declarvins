@@ -1511,6 +1511,7 @@ p#date_drm {
   padding:10px 9px 0 0;
 }
 #colonnes_dr #colonne_intitules .groupe ul li { margin:0 0 10px; }
+#colonnes_dr #colonne_intitules .groupe ul li .unite { font-size:10px; }
 #colonnes_dr #colonne_intitules .totaux { padding:20px 0 0; }
 #colonnes_dr #colonne_intitules .totaux p {
   background:#494949;
