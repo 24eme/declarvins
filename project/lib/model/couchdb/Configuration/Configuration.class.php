@@ -85,8 +85,8 @@ class Configuration extends BaseConfiguration {
       return array('obj' => $obj_obj, 'next_libelles' => $next_libelles);
     }
 
-    public function identifyNodeProduct($certification, $appellation, $lieu = 'DEFAUT', $couleur = 'DEFAUT', $cepage = 'DEFAUT', $millesime = 'DEFAUT') {
-      $hash = $this->identifyProduct($certification, $appellation, $lieu, $couleur, $cepage, $millesime);
+    public function identifyNodeProduct($certification, $genre, $appellation, $lieu = 'DEFAUT', $couleur = 'DEFAUT', $cepage = 'DEFAUT', $millesime = null) {
+      $hash = $this->identifyProduct($certification, $genre, $appellation, $lieu, $couleur, $cepage, $millesime);
       $rwhash = ' ';
       while ($rwhash != $hash && $rwhash) {
 	if ($rwhash != ' ')
@@ -95,16 +95,17 @@ class Configuration extends BaseConfiguration {
       }
       return $hash;
     }
-    public function identifyProduct($certification, $appellation, $lieu = 'DEFAUT', $couleur = 'DEFAUT', $cepage = 'DEFAUT', $millesime = 'DEFAUT') {
+
+    public function identifyProduct($certification, $genre, $appellation, $lieu = 'DEFAUT', $couleur = 'DEFAUT', $cepage = 'DEFAUT', $millesime = null) {
       try {
 	$res = $this->getObjectByLibelle($this->declaration->getCertifications(), $certification);
+	$res = $this->getObjectByLibelle($res['obj']->getGenres(), $genre, $res['next_libelles']);
 	$res = $this->getObjectByLibelle($res['obj']->getAppellations(), $appellation, $res['next_libelles']);
 	$res = $this->getObjectByLibelle($res['obj']->getLieux(), $lieu, $res['next_libelles']);
 	$res = $this->getObjectByLibelle($res['obj']->getCouleurs(), $couleur, $res['next_libelles']);
 	$res = $this->getObjectByLibelle($res['obj']->getCepages(), $cepage, $res['next_libelles']);
-	$res = $this->getObjectByLibelle($res['obj']->getMillesimes(), $millesime, $res['next_libelles']);
       }catch(Exception $e) {
-	throw new sfException("Impossible d'indentifier le produit (".$e->getMessage()." $certification / $appellation / $lieu / $couleur / $cepage / $millesime )");
+	throw new sfException("Impossible d'indentifier le produit (".$e->getMessage()." [$certification / $genre / $appellation / $lieu / $couleur / $cepage / $millesime] )");
       }
       return $res['obj']->getHash();
     }
