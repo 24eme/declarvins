@@ -81,7 +81,7 @@ class acCouchdbJsonArrayIterator extends ArrayIterator {
         }
     }
     
-    public function getNext() {
+    public function getNextSister() {
     	$this->next();
     	if($this->valid()){
     		return $this->current();
@@ -89,21 +89,11 @@ class acCouchdbJsonArrayIterator extends ArrayIterator {
     		return null;
     	}
     }
-    public function getNextKey() {
-        $this->next();
-    	if($this->valid()){
-    		return $this->key();
-    	} else {
-    		return null;
-    	}
-    }
-	public function getPrevious() {
+
+	public function getPreviousSister() {
 		return ($this->_previous)? $this->_json->get($this->_previous) : null;
     }
-	public function getPreviousKey() {
-    	return $this->_previous;
-    }
-
+    
     public function current() {
         return $this->_json->get($this->key());
     }
