@@ -65,7 +65,7 @@
 			?>
 		</div>
 		<div class="ligne_btn">
-			<button type="submit" class="btn_valider">Valider</button>
+			<button type="submit" class="btn_valider"><span>Valider</span></button>
 		</div>
 	</form>
 </section>

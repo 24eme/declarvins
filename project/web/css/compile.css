@@ -962,7 +962,6 @@ a:hover { text-decoration:underline; }
 }
 #creation_compte .ligne_btn { margin:30px 0 0; }
 #creation_compte .ligne_btn button, #creation_compte .ligne_btn a {
-  height:28px;
   line-height:28px;
   font-size:15px;
   font-weight:normal;
@@ -970,12 +969,6 @@ a:hover { text-decoration:underline; }
 }
 #creation_compte .ligne_btn button:hover, #creation_compte .ligne_btn a:hover { text-decoration:none; }
 #creation_compte .ligne_btn .btn_valider {
-  background-repeat:no-repeat;
-  border:1px solid;
-  color:#ffffff;
-  display:inline-block;
-  background-color:#494949;
-  border-color:#494949;
   background:url(../images/boutons/btn_majeur.png) 0 0 no-repeat;
   color:#ffffff;
   display:inline-block;
@@ -984,9 +977,8 @@ a:hover { text-decoration:underline; }
   background-position:right -52px !important;
   float:right;
   padding:0 18px 0 0;
-  padding:0 23px 0 15px;
+  padding:0 17px 0 15px;
 }
-#creation_compte .ligne_btn .btn_valider:hover, #creation_compte .ligne_btn .btn_valider:focus { background-color:#494949; }
 #creation_compte .ligne_btn .btn_valider:hover { text-decoration:none; }
 #creation_compte .ligne_btn .btn_valider span {
   background:url(../images/boutons/btn_majeur.png) 0 0 no-repeat;
