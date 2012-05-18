@@ -184,12 +184,12 @@ class DRMCsvFile extends CsvFile
       throw new sfException("Incoherence dans l'identifiant de l'établissement DRM");
     
     $hash = $this->config->identifyProduct($line[self::CSV_COL_CERTIFICATION], 
+					   $line[self::CSV_COL_GENRE], 
 					   $line[self::CSV_COL_APPELLATION], 
 					   $line[self::CSV_COL_LIEU], 
 					   $line[self::CSV_COL_COULEUR], 
-					   $line[self::CSV_COL_CEPAGE], 
-					   $line[self::CSV_COL_MILLESIME]);
-    $detail = $this->drm->addProduit($hash, $this->config->identifyLabels($line[self::CSV_COL_LABELS]))->getDetail();
+					   $line[self::CSV_COL_CEPAGE]);
+    $detail = $this->drm->addProduit($hash, $this->config->identifyLabels($line[self::CSV_COL_LABELS]));
     if ($line[self::CSV_COL_MENTION])
       $detail->label_supplementaire = $line[self::CSV_COL_MENTION];
     return $detail;
@@ -262,6 +262,7 @@ class DRMCsvFile extends CsvFile
       }
     }catch(sfException $e){
       $this->errors[] = array('line'=> $this->numline, 'message'=>$e->getMessage());
+      throw $e;
     }
 
     $validator = new DRMValidation($this->drm, $options);

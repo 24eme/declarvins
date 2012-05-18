@@ -6,7 +6,7 @@
 
 class DRMGenre extends BaseDRMGenre {
 
-	/**
+    /**
      *
      * @return DRMGenre
      */
