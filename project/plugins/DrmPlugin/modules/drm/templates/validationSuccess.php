@@ -47,8 +47,9 @@
                     <?php endif; ?>
                 </div>
             </div>
+            <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', array('campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
+                
             <div id="btn_etape_dr">
-                <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', array('campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
                 <a href="<?php echo url_for('drm_declaratif', $drm) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>
