@@ -100,7 +100,7 @@
                         <?php echo $form['caution']->render() ?>
                     </div>
 
-                    <div class="ligne_form alignes" id="organisme" style="display:<?php echo ($form['caution']->getValue()) ? 'none' : 'block' ?>;">
+                    <div class="ligne_form alignes" id="organisme" style="display:<?php echo (!$form['caution']->getValue()) ? 'none' : 'block' ?>;">
                         <?php echo $form['organisme']->renderError() ?>
                         <?php echo $form['organisme']->renderLabel() ?>
                         <?php echo $form['organisme']->render() ?>

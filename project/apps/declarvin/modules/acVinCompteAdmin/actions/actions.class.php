@@ -23,22 +23,58 @@ class acVinCompteAdminActions extends sfActions
   /*
    * 
    */
-  public function executeCompte(sfWebRequest $request)
+  public function executeCompteModification(sfWebRequest $request)
   {
+     $this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login'));
+      
      $this->forward404Unless($this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
-     $this->form = new CompteModificationDroitForm($this->compte);
-  
-  //   print_r($request->getParameterHolder()->getAll());
      
+     $this->form = new CompteModificationDroitForm($this->compte);       
      if($request->isMethod(sfWebRequest::POST))
      {
      $this->form->bind($request->getParameter($this->form->getName()));
      if($this->form->isValid())
         {
          $this->form->save();
-         $this->redirect(array('sf_route' => 'compte', 'login' => $this->compte->login));
+         $this->redirect(array('sf_route' => 'compte_modification', 'login' => $this->compte->login));
         }
      }
   }
   
+  /**
+   *
+   * @param sfWebRequest $request 
+   */
+  public function executeCompteAjout(sfWebRequest $request) 
+    {
+      $this->compte = new CompteVirtuel(); 
+      $this->form = new CompteModificationDroitForm($this->compte);
+      if($request->isMethod(sfWebRequest::POST))
+        {           
+           $this->form->bind($request->getParameter($this->form->getName()));
+           if($this->form->isValid())
+           {
+           $this->form->save();
+           $this->redirect(array('sf_route' => 'compte_modification', 'login' => $this->compte->login));
+           }
+        }                  
+    }
+   /*
+    public function executeCompteRecap(sfWebRequest $request)
+    {
+        $this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login'));
+        $this->forward404Unless($this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
+        $this->form = new CompteRecapForm($this->compte);       
+        if($request->isMethod(sfWebRequest::POST))
+        {
+        $this->form->bind($request->getParameter($this->form->getName()));
+        if($this->form->isValid())
+            {
+            $this->form->save();
+            $this->redirect(array('sf_route' => 'compte_modification', 'login' => $this->compte->login));
+            }
+        
+        }
+    }    
+    */
 }

@@ -962,7 +962,6 @@ a:hover { text-decoration:underline; }
 }
 #creation_compte .ligne_btn { margin:30px 0 0; }
 #creation_compte .ligne_btn button, #creation_compte .ligne_btn a {
-  height:28px;
   line-height:28px;
   font-size:15px;
   font-weight:normal;
@@ -970,12 +969,6 @@ a:hover { text-decoration:underline; }
 }
 #creation_compte .ligne_btn button:hover, #creation_compte .ligne_btn a:hover { text-decoration:none; }
 #creation_compte .ligne_btn .btn_valider {
-  background-repeat:no-repeat;
-  border:1px solid;
-  color:#ffffff;
-  display:inline-block;
-  background-color:#494949;
-  border-color:#494949;
   background:url(../images/boutons/btn_majeur.png) 0 0 no-repeat;
   color:#ffffff;
   display:inline-block;
@@ -984,9 +977,8 @@ a:hover { text-decoration:underline; }
   background-position:right -52px !important;
   float:right;
   padding:0 18px 0 0;
-  padding:0 23px 0 15px;
+  padding:0 17px 0 15px;
 }
-#creation_compte .ligne_btn .btn_valider:hover, #creation_compte .ligne_btn .btn_valider:focus { background-color:#494949; }
 #creation_compte .ligne_btn .btn_valider:hover { text-decoration:none; }
 #creation_compte .ligne_btn .btn_valider span {
   background:url(../images/boutons/btn_majeur.png) 0 0 no-repeat;
@@ -1816,17 +1808,17 @@ p#date_drm {
   border:1px solid #646464;
   color:#ffffff;
   float:left;
-  margin-left:275px;
+  margin-left:370px;
   padding:7px 5px 3px 28px;
   position:absolute;
   text-transform:none;
 }
 #telecharger_pdf:hover { text-decoration:none; }
-#mon_compte span, #mon_compte label {
+#mon_compte span, #mon_compte label, #compteModification span, #compteModification label, #compteAjout span, #compteAjout label {
   display:inline-block;
   width:170px;
 }
-#mon_compte .btn_valider {
+#mon_compte .btn_valider, #compteModification .btn_valider, #compteAjout .btn_valider {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
@@ -1841,8 +1833,8 @@ p#date_drm {
   text-transform:uppercase;
   height:;
 }
-#mon_compte .btn_valider:hover, #mon_compte .btn_valider:focus { background-color:#494949; }
-#mon_compte input[type="text"] {
+#mon_compte .btn_valider:hover, #mon_compte .btn_valider:focus, #compteModification .btn_valider:hover, #compteModification .btn_valider:focus, #compteAjout .btn_valider:hover, #compteAjout .btn_valider:focus { background-color:#494949; }
+#mon_compte input[type="text"], #compteModification input[type="text"], #compteAjout input[type="text"] {
   background:none repeat scroll 0 0 #ffffff;
   border:1px solid #d3d2cd;
   border-radius:2px 2px 2px 2px;
