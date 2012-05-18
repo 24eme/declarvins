@@ -14,10 +14,20 @@ class DRMLieu extends BaseDRMLieu {
 
         return $this->getParentNode();
     }
+
+    public function getCertification() {
+        
+        return $this->getAppellation()->getCertification();
+    }
 	
     public function getChildrenNode() {
 
         return $this->couleurs;
+    }
+
+    public function getLieux() {
+
+        return null;
     }
 
 }

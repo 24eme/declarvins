@@ -15,8 +15,14 @@ class ConfigurationCertification extends BaseConfigurationCertification {
 
     protected function getLibellesAbstract() {
 
-        return array($this->getKey() => $this->libelle);
+        return array($this->libelle);
     }
+
+    protected function getCodesAbstract() {
+      
+        return $this->code;
+    }
+
 
     public function getProduits($interpro, $departement) {
         $produits = array();
@@ -39,13 +45,13 @@ class ConfigurationCertification extends BaseConfigurationCertification {
         return $produits;
     }
 
-    public function getProduitsAppellations($interpro, $departement) {
+    public function getProduitsLieux($interpro, $departement) {
         $produits = array();
 
-        $results = ConfigurationClient::getInstance()->findProduitsAppellationsByCertification($this->getKey(), $interpro, '')->rows;
+        $results = ConfigurationClient::getInstance()->findProduitsLieuxByCertification($this->getKey(), $interpro, '')->rows;
 
         if ($departement) {
-          $results = array_merge($results, ConfigurationClient::getInstance()->findProduitsAppellationsByCertification($this->getKey(), $interpro, $departement)->rows);
+          $results = array_merge($results, ConfigurationClient::getInstance()->findProduitsLieuxByCertification($this->getKey(), $interpro, $departement)->rows);
         }
 
         foreach($results as $item) {

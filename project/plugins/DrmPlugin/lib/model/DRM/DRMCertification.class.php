@@ -20,4 +20,5 @@ class DRMCertification extends BaseDRMCertification {
 
 		return $this->genres;
 	}
+
 }

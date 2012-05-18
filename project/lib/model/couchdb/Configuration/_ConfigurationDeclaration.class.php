@@ -17,7 +17,6 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
 	protected function getLibellesAbstract() {
 		$libelle = $this->getDocument()->getProduitLibelles($this->getHash());
 		if ($libelle !== null) {
-
 			return $libelle;
 		} else {
 

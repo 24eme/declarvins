@@ -19,6 +19,14 @@ class DRMAppellation extends BaseDRMAppellation {
         return $this->lieux;
     }
 
+    public function getLieuxArray() {
+      $lieux = array();
+      foreach($this->lieux as $lieu) {
+        $lieux[$lieu->getHash()] = $lieu;
+      }
+      return $lieux;
+    }
+
      /**
      *
      * @return DRMGenre

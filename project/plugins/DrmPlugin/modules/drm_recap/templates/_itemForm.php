@@ -8,7 +8,7 @@
         <a href="#" class="col_curseur" data-curseur="<?php echo $form->getObject()->getKey() ?>"></a>
         <h2><?php echo $form->getObject()->getCouleur()->getConfig()->libelle ?></h2>
         <div class="col_cont">
-            <?php if($config_appellation->hasCepage()): ?>
+            <?php if($config_lieu->hasCepage()): ?>
             <p class="cepage"><?php echo $form->getObject()->getCepage()->getConfig()->libelle ?></p>
             <?php endif; ?>
             <p class="label">
