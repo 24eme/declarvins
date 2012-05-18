@@ -13,24 +13,24 @@ class drm_recapComponents extends sfComponents {
     }
     
     public function executeOnglets() {
-        $this->appellations = array();
+        $this->items = $this->drm_appellation->getParentNode()->getChildrenNode();
+
+        /*$this->appellations = array();
         $this->appellations_updated = array();
 
-        foreach($this->drm_appellation->getCertification()->getProduits() as $appellation_key => $appellation) {
-        	foreach ($appellation as $produit) {
-	            if (!array_key_exists($produit->getAppellation()->getKey(), $this->appellations)) {
-	                $this->appellations[$appellation_key] = 0;
-	                $this->appellations_updated[$appellation_key] = 0;
-	            }
-	            if (!$produit->pas_de_mouvement) {
-	                $this->appellations[$appellation_key] += 1;
-	                if ($produit->getDetail()->isComplete()) {
-        				$this->appellations_updated[$appellation_key] += 1;
-        			}
-	            }
-        	}
+        foreach($this->drm_appellation->getParentNode()->getChildrenNode() as $item) {
+            if (!array_key_exists($item->getKey(), $this->appellations)) {
+                $this->appellations[$appellation->getHash()] = 0;
+                $this->appellations_updated[$appellation->getHash()] = 0;
+            }
+            if (!$produit->pas_de_mouvement) {
+                $this->appellations[$appellation->getHash()] += 1;
+                if ($produit->getDetail()->isComplete()) {
+    				$this->appellations_updated[$appellation->getHash()] += 1;
+    			}
+            }
         }
-        $this->appellation_keys = array_keys($this->appellations);
+        $this->appellation_keys = array_keys($this->appellations);*/
     }
 
 }

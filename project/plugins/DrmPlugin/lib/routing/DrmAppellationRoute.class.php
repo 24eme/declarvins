@@ -22,15 +22,16 @@ class DrmAppellationRoute extends DrmCertificationRoute {
 
         if (!array_key_exists('appellation', $parameters)) {
 
-        	return $drm_certification->getProduits()->getFirst()->getDeclaration();
+        	return $drm_certification->genres->getFirst()->appellations->getFirst();
         }
 
-        return $drm_certification->appellations->get($parameters['appellation']);
+        return $drm_certification->genres->get($parameters['genre'])->appellations->get($parameters['appellation']);
     }
 
     protected function doConvertObjectToArray($object) {
-        if ($object->getDefinition()->getHash() == "/declaration/certifications/*/appellations/*") {
+        if ($object->getDefinition()->getHash() == "/declaration/certifications/*/genres/*/appellations/*") {
             $parameters = parent::doConvertObjectToArray($object->getCertification());
+            $parameters['genre'] = $object->getGenre()->getKey();
             $parameters['appellation'] = $object->getKey();
         } elseif($object->getDefinition()->getHash() == "/declaration/certifications/*") {
             $parameters = parent::doConvertObjectToArray($object);

@@ -1,7 +1,7 @@
 <?php
 class ConfigurationProduit
 {
-	protected static $arborescence = array('certifications', 'appellations', 'lieux', 'couleurs', 'cepages', 'millesimes');
+	protected static $arborescence = array('certifications', 'appellations', 'lieux', 'couleurs', 'cepages');
 	protected static $certifications = array('' => '', 'AOP' => 'AOP', 'IGP' => 'IGP', 'VINSSANSIG' => 'SANS IG', 'LIE' => 'LIE');
 	protected static $couleurs = array('' => '', 'Rouge' => 'Rouge', 'Blanc' => 'Blanc', 'Rosé' => 'Rosé');
 	protected static $codeCouleurs = array('Rouge' => 'rouge', 'Blanc' => 'blanc', 'Rosé' => 'rose');
@@ -10,19 +10,16 @@ class ConfigurationProduit
 	protected $appellations;
 	protected $lieux;
 	protected $cepages;
-	protected $millesimes;
 	
 	const APPELLATION_KEY = 4;
 	const LIEU_KEY = 6;
 	const CEPAGE_KEY = 10;
-	const MILLESIME_KEY = 12;
 	
 	public function __construct($interpro) {
 		$this->datas = ConfigurationClient::getInstance()->findProduitsForAdmin($interpro);
 		$this->appellations = array('' => '');
 		$this->lieux = array('' => '');
 		$this->cepages = array('' => '');
-		$this->millesimes = array('' => '');
 		$this->loadDatas();
 	}
 	
@@ -35,8 +32,6 @@ class ConfigurationProduit
     			$this->lieux[$this->getKey($hash, self::LIEU_KEY)] = $produit->key[3];
     		if ($this->getKey($hash, self::CEPAGE_KEY) != Configuration::DEFAULT_KEY)
     			$this->cepages[$this->getKey($hash, self::CEPAGE_KEY)] = $produit->key[5];
-    		if ($this->getKey($hash, self::MILLESIME_KEY) != Configuration::DEFAULT_KEY)
-    			$this->millesimes[$this->getKey($hash, self::MILLESIME_KEY)] = $produit->key[6];
     	}
     }
     private function getKey($hash, $codeKey) {
@@ -57,9 +52,6 @@ class ConfigurationProduit
     }
     public function getCepages() {
     	return $this->cepages;
-    }
-    public function getMillesimes() {
-    	return $this->millesimes;
     }
     public static function getArborescence() {
     	return self::$arborescence;

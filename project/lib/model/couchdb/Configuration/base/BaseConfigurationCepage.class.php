@@ -6,14 +6,11 @@
 
  * @property string $libelle
  * @property string $code
- * @property acCouchdbJson $millesimes
 
  * @method string getLibelle()
  * @method string setLibelle()
  * @method string getCode()
  * @method string setCode()
- * @method acCouchdbJson getMillesimes()
- * @method acCouchdbJson setMillesimes()
  
  */
 

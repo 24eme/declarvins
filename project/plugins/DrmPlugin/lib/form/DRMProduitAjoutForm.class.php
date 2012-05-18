@@ -1,15 +1,19 @@
 <?php
 
-class DRMProduitAjoutForm extends acCouchdbFormDocumentJson 
+class DRMProduitAjoutForm extends BaseForm 
 {
 	protected $_choices_produits;
 	protected $_label_choices;
-    protected $_interpro = null;
+    protected $_drm = null;
+    protected $_config = null;
     const LABEL_AUTRE_KEY = "AUTRE";
 
-    public function __construct(acCouchdbJson $object, $interpro, $options = array(), $CSRFSecret = null) {
-		$this->_interpro = $interpro;
-        parent::__construct($object, $options, $CSRFSecret);
+    public function __construct(DRM $drm, _ConfigurationDeclaration $config, $options = array(), $CSRFSecret = null) {
+		$this->_drm = $drm;
+        $this->_interpro = $drm->getInterpro();
+        $this->_config = $config;
+        $defaults = array();
+        parent::__construct($defaults, $options, $CSRFSecret);
     }
     
     public function configure() 
@@ -33,79 +37,28 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
             'disponible' => new sfValidatorNumber(array('required' => false)),
         ));
 
-        $this->validatorSchema->setPostValidator(new DRMProduitValidator(null, array('object' => $this->getObject())));
-        $this->widgetSchema->setNameFormat('produit_'.$this->getObject()->getCertification()->getKey().'[%s]');
+        $this->validatorSchema->setPostValidator(new DRMProduitValidator(null, array('drm' => $this->_drm)));
+        $this->widgetSchema->setNameFormat('produit_'.$this->_config->getKey().'[%s]');
     }
 
-    protected function updateDefaultsFromObject() {
-        parent::updateDefaultsFromObject();
+    public function getDrm() {
 
-        $defaults = $this->getDefaults();
-
-        if ($this->object->label_supplementaire) {
-            $defaults['label'][] = self::LABEL_AUTRE_KEY;
-        }
-
-        $this->setDefaults($defaults);
+        return $this->_drm;
     }
 
-    public function doUpdateObject($values) {
-        parent::doUpdateObject($values);
-        if (!$this->hasAppellation()) {
-            $this->getObject()->getCertification()->moveAndClean($this->getObject()->getAppellation()->getKey().'/'.$this->getObject()->getKey(), $this->getAppellation().'/'.$this->getObject()->getParent()->getParent()->add($this->getAppellation())->count());
-        }
-        $this->getObject()->getDocument()->synchroniseDeclaration();
-        if ($values['disponible']) {
-            $this->getObject()->getDetail()->total_debut_mois = $values['disponible'];
-            $this->getObject()->getDocument()->update();
-        } else {
-            $this->getObject()->getDetail()->total_debut_mois = 0;
-        }
-    }
-    
     public function getLabels() 
     {
-        $labels = ConfigurationClient::getCurrent()->declaration
-                                                         ->certifications
-                                                         ->get($this->getObject()->getCertification()->getKey())
-                                                         ->getLabels($this->_interpro);
+        $labels = $this->_config->getLabels($this->_interpro);
         $labels[self::LABEL_AUTRE_KEY] = "Autre";
 
         return $labels;
     }
-
-    public function hasAppellation() {
-
-        return $this->getObject()->getAppellation()->getKey() != DRM::NOEUD_TEMPORAIRE;
-    }
-
-    public function getAppellation() {
-        if ($this->hasAppellation()) {
-
-            return $this->getObject()->getAppellation()->getKey();  
-        } else {
-
-            return ConfigurationClient::getCurrent()->get($this->getValue('hashref'))->getAppellation()->getKey();
-        } 
-    }
     
     public function getProduits() {
         if (is_null($this->_choices_produits)) {
-            if ($this->hasAppellation()) {
-                $this->_choices_produits = ConfigurationClient::getCurrent()->declaration
-                                                             ->certifications
-                                                             ->get($this->getObject()->getCertification()->getKey())
-                                                             ->appellations
-                                                             ->get($this->getObject()->getAppellation()->getKey())
-                                                             ->getProduits($this->_interpro, $this->getObject()->getDocument()->getDepartement());
-            } else {
-                $this->_choices_produits = ConfigurationClient::getCurrent()->declaration
-                                                             ->certifications
-                                                             ->get($this->getObject()->getCertification()->getKey())
-                                                             ->getProduits($this->_interpro, $this->getObject()->getDocument()->getDepartement());
-            }
-
+            $this->_choices_produits = $this->_config->getProduits($this->_interpro->get('_id'), $this->_drm->getDepartement());
             $this->_choices_produits = array_merge(array("" => ""), array_map(array($this, 'formatProduit'), $this->_choices_produits));
+
         }
 
         return $this->_choices_produits;
@@ -115,4 +68,20 @@ class DRMProduitAjoutForm extends acCouchdbFormDocumentJson
 
         return implode(' ', array_filter($libelles));
     }
+
+    public function addProduit() {
+        if (!$this->isValid()) {
+            throw $this->getErrorSchema();
+        }
+
+        $detail = $this->_drm->addProduit($this->values['hashref'], $this->values['label']);
+        $detail->label_supplementaire = $this->values['label_supplementaire'];
+        $detail->total_debut_mois = 0;
+        if ($this->values['disponible']) {
+            $detail->total_debut_mois = $this->values['disponible'];
+        }
+
+        return $detail;
+    }
+
 }

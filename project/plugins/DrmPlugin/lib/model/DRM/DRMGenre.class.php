@@ -5,10 +5,20 @@
  */
 
 class DRMGenre extends BaseDRMGenre {
-  public function getLibelle() {
-    return '';
-  }
-  public function getCode() {
-    return '';
-  }
+
+    /**
+     *
+     * @return DRMGenre
+     */
+    public function getCertification() {
+
+        return $this->getParentNode();
+    }
+    
+
+    public function getChildrenNode() {
+
+        return $this->appellations;
+    }
+
 }

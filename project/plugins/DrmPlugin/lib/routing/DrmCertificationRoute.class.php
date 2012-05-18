@@ -33,4 +33,9 @@ class DrmCertificationRoute extends DrmRoute {
         return $parameters;
     }
 
+    public function getChildrenNode() {
+
+        return $this->genres;
+    }
+
 }

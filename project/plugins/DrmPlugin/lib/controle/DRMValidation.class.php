@@ -45,31 +45,22 @@ class DRMValidation
 			}
 			$totalEntreeRepli = 0;
 			$totalSortiRepli = 0;
-			foreach ($certification->appellations as $appellation) {
-				foreach($appellation->lieux as $lieu) {
-					foreach ($lieu->couleurs as $couleur) {
-						foreach ($couleur->cepages as $cepage) {
-							foreach ($cepage->millesimes as $millesime) {
-								foreach($millesime->details as $detail) {
-										$this->controleEngagements($detail);
-										$this->controleErrors($detail);
-										$this->controleWarnings($detail);
-										$totalEntreeRepli += $detail->entrees->repli;
-										$totalSortiRepli += $detail->sorties->repli;
-										$totalSortiDeclassement += $detail->sorties->declassement;
-										if ($certification->getKey() == self::AOP_KEY && $detail->sorties->repli) {
-											$this->engagements['odg'] = new DRMControleEngagement('odg');
-										}
-										if ($certification->getKey() == self::IGP_KEY && $detail->entrees->declassement) {
-											$this->engagements['odg'] = new DRMControleEngagement('odg');
-										}
-										if ($certification->getKey() == self::VINSSANSIG_KEY) {
-											$totalEntreeDeclassement += $detail->entrees->declassement;
-										}
-								}
-							}
-						}
-					}
+			$details = $certification->getProduits();
+			foreach ($details as $detail) {
+				$this->controleEngagements($detail);
+				$this->controleErrors($detail);
+				$this->controleWarnings($detail);
+				$totalEntreeRepli += $detail->entrees->repli;
+				$totalSortiRepli += $detail->sorties->repli;
+				$totalSortiDeclassement += $detail->sorties->declassement;
+				if ($certification->getKey() == self::AOP_KEY && $detail->sorties->repli) {
+					$this->engagements['odg'] = new DRMControleEngagement('odg');
+				}
+				if ($certification->getKey() == self::IGP_KEY && $detail->entrees->declassement) {
+					$this->engagements['odg'] = new DRMControleEngagement('odg');
+				}
+				if ($certification->getKey() == self::VINSSANSIG_KEY) {
+					$totalEntreeDeclassement += $detail->entrees->declassement;
 				}
 			}
 			if ($totalEntreeRepli != $totalSortiRepli) {

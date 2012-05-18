@@ -9,17 +9,22 @@ class DRMCepage extends BaseDRMCepage {
      *
      * @return DRMCouleur
      */
-    public function getCouleur() {
-    	
-        return $this->getParent()->getParent();
+  public function getCouleur() {
+   
+    return $this->getParentNode();
+  }
+
+  public function getProduits() {
+        $produits = array();
+        foreach($this->getChildrenNode() as $key => $item) {
+            $produits[$item->getHash()] = $item;
+        }
+
+        return $produits;
     }
 
-    public function sommeLignes($lines) {
-      $sum = 0;
-      foreach($this->millesimes as $mille) {
-	$sum += $mille->sommeLignes($lines);
-      }
-      return $sum;
-    }
-	
+  public function getChildrenNode() {
+
+    return $this->details;
+  }
 }

@@ -1,5 +1,5 @@
 <form  class="popup_form" id="form_ajout" action="<?php echo url_for(array('sf_route' => 'drm_mouvements_generaux_product_form', 
-																		   'sf_subject' => $form->getObject()->getDocument(),
+																		   'sf_subject' => $form->getDrm(),
 																		   'certification' => $certification)) ?>" method="post">
 	<?php echo $form->renderGlobalErrors() ?>
 	<?php echo $form->renderHiddenFields() ?>

@@ -19,7 +19,6 @@ class DrmDetailRoute extends DrmAppellationRoute {
                                   ->lieux->add($parameters['lieu'])
                                   ->couleurs->add($parameters['couleur'])
                                   ->cepages->add($parameters['cepage'])
-                                  ->millesimes->add($parameters['millesime'])
                                   ->details->get($parameters['detail']);
 
         return $drm_detail;
@@ -30,7 +29,6 @@ class DrmDetailRoute extends DrmAppellationRoute {
         $parameters['lieu'] = $object->getLieu()->getKey();
         $parameters['couleur'] = $object->getCouleur()->getKey();
         $parameters['cepage'] = $object->getCepage()->getKey();
-        $parameters['millesime'] = $object->getMillesime()->getKey();
         $parameters['detail'] = $object->getKey();
         
         return $parameters;

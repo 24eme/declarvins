@@ -23,7 +23,7 @@
         <?php endif; ?>
         <div id="contenu_onglet">
 
-            <?php if (!$drm->declaration->hasPasDeMouvement() && !$drm->declaration->hasStockEpuise()): ?>
+            <?php if ($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()): ?>
                 <?php include_partial('drm/recap', array('drm' => $drm)) ?>
                 <?php include_partial('drm/droits', array('drm' => $drm)) ?>
             <?php else: ?>
@@ -31,9 +31,9 @@
             <?php endif; ?>
 
             
-            
+            <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', array('campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
+                
             <div id="btn_etape_dr">
-                <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', array('campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
                 <?php if ($drm_suivante && $drm_suivante->isRectificative()): ?>
                     <a href="<?php echo url_for('drm_init', array('campagne_rectificative' => $drm_suivante->getCampagneAndRectificative())) ?>" class="btn_suiv">
                         <span>Passer à la DRM suivante</span>

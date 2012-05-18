@@ -14,8 +14,14 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
         $this->hasMillesime();
     }
 
+    public function getGenre() {
+
+      return $this->getParentNode();
+    }
+
     public function getCertification() {
-        return $this->getParentNode();
+
+        return $this->getGenre()->getCertification();
     }
 
     public function getCepagesChoices(array $exclude_key = array())
@@ -36,10 +42,6 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
         return $this->store('has_cepage', array($this, 'hasCepageStore'));
     }
 
-    public function hasMillesime() {
-        return $this->store('has_millesime', array($this, 'hasMillesimeStore'));
-    }
-
     public function hasCepageStore() {
         foreach($this->lieux as $lieu) {
             foreach($lieu->couleurs as $couleur) {
@@ -51,19 +53,7 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
 
         return false;
     }
-
-    public function hasMillesimeStore() {
-        foreach($this->lieux as $lieu) {
-            foreach($lieu->couleurs as $couleur) {
-                if ($couleur->hasMillesime()) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
+    
     public function getProduits($interpro, $departement) {
         $produits = array();
 
@@ -86,34 +76,20 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
         return $produits;
     }
 
+    public function getLabels($interpro) {
+
+        return $this->getCertification()->getLabels($interpro);
+    }
+
     public function getLibelle() {
       $libelle = $this->_get('libelle');
       if ($libelle)
-	return $libelle;
+	     return $libelle;
       return 'Total';
-    }
-
-    public function getDroits($interpro) {
-      return $this->interpro->getOrAdd($interpro)->droits;
-    }
-    
-    public function setLabelCsv($datas) {
-    	$this->getCertification()->setLabelCsv($datas);
-    	$labels = $this->interpro->getOrAdd('INTERPRO-'.strtolower($datas[LabelCsvFile::CSV_LABEL_INTERPRO]))->labels;
-    	$canInsert = true;
-    	foreach ($labels as $label) {
-    		if ($label == $datas[LabelCsvFile::CSV_LABEL_CODE]) {
-    			$canInsert = false;
-    			break;
-    		}
-    	}
-    	if ($canInsert) {
-	    	$labels->add(null, $datas[LabelCsvFile::CSV_LABEL_CODE]);
-    	}
     }
     
     public function setDonneesCsv($datas) {
-    	$this->getCertification()->setDonneesCsv($datas);
+    	$this->getGenre()->setDonneesCsv($datas);
     	$this->libelle = ($datas[ProduitCsvFile::CSV_PRODUIT_DENOMINATION_LIBELLE])? $datas[ProduitCsvFile::CSV_PRODUIT_DENOMINATION_LIBELLE] : null;
     	$this->code = ($datas[ProduitCsvFile::CSV_PRODUIT_DENOMINATION_CODE])? $datas[ProduitCsvFile::CSV_PRODUIT_DENOMINATION_CODE] : null;
     	if (ProduitCsvFile::CSV_PRODUIT_DENOMINATION_CODE_APPLICATIF_DROIT == $datas[ProduitCsvFile::CSV_PRODUIT_DOUANE_NOEUD]) {
@@ -122,50 +98,6 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
     	if (ProduitCsvFile::CSV_PRODUIT_DENOMINATION_CODE_APPLICATIF_DROIT == $datas[ProduitCsvFile::CSV_PRODUIT_CVO_NOEUD]) {
     		$this->setDroitCvoCsv($datas);
     	}
-    }
-    
-    private function setDroitDouaneCsv($datas) {
-    	$droits = $this->getDroits('INTERPRO-'.strtolower($datas[ProduitCsvFile::CSV_PRODUIT_INTERPRO]));
-    	$date = ($datas[ProduitCsvFile::CSV_PRODUIT_DOUANE_DATE])? $datas[ProduitCsvFile::CSV_PRODUIT_DOUANE_DATE] : '1900-01-01';
-    	$taux = ($datas[ProduitCsvFile::CSV_PRODUIT_DOUANE_TAXE])? $this->castFloat($datas[ProduitCsvFile::CSV_PRODUIT_DOUANE_TAXE]) : null;
-    	$code = ($datas[ProduitCsvFile::CSV_PRODUIT_DOUANE_CODE])? $datas[ProduitCsvFile::CSV_PRODUIT_DOUANE_CODE] : null;
-    	$canInsert = true;
-    	foreach ($droits->douane as $droit) {
-    		if ($droit->date == $date && $droit->taux == $taux && $droit->code == $code) {
-    			$canInsert = false;
-    			break;
-    		}
-    	}
-    	if ($canInsert) {
-	    	$droits = $droits->douane->add();
-	    	$droits->date = $date;
-	    	$droits->taux = $taux;
-	    	$droits->code = $code;
-    	}
-    }
-    
-    private function setDroitCvoCsv($datas) {
-    	$droits = $this->getDroits('INTERPRO-'.strtolower($datas[ProduitCsvFile::CSV_PRODUIT_INTERPRO]));
-    	$date = ($datas[ProduitCsvFile::CSV_PRODUIT_CVO_DATE])? $datas[ProduitCsvFile::CSV_PRODUIT_CVO_DATE] : '1900-01-01';
-    	$taux = ($datas[ProduitCsvFile::CSV_PRODUIT_CVO_TAXE])? $this->castFloat($datas[ProduitCsvFile::CSV_PRODUIT_CVO_TAXE]) : null;
-    	$code = ConfigurationDroits::CODE_CVO;
-    	$canInsert = true;
-    	foreach ($droits->cvo as $droit) {
-    		if ($droit->date == $date && $droit->taux == $taux && $droit->code == $code) {
-    			$canInsert = false;
-    			break;
-    		}
-    	}
-    	if ($canInsert) {
-	    	$droits = $droits->cvo->add();
-	    	$droits->date = $date;
-	    	$droits->taux = $taux;
-	    	$droits->code = $code;
-    	}
-    }
-    
-    private function castFloat($float) {
-    	return floatval(str_replace(',', '.', $float));
     }
     
   	public function hasDepartements() {
@@ -184,20 +116,4 @@ class ConfigurationAppellation extends BaseConfigurationAppellation {
   	public function getTypeNoeud() {
   		return self::TYPE_NOEUD;
   	}
-  	
-  	public function getDetailConfiguration() {
-  		$details = $this->getCertification()->getDetailConfiguration();
-  		if ($this->exist('detail')) {
-  			foreach ($this->detail as $type => $detail) {
-  				foreach ($detail as $noeud => $droits) {
-  					if ($droits->readable !== null)
-  						$details->get($type)->get($noeud)->readable = $droits->readable;
-  					if ($droits->writable !== null)
-  						$details->get($type)->get($noeud)->writable = $droits->writable;
-  				}
-  			}
-  		}
-  		return $details;
-  	}
-    
 }

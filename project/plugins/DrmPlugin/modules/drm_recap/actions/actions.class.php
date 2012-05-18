@@ -12,6 +12,7 @@ class drm_recapActions extends sfActions
         }
         $this->setTemplate('appellation');
     }
+    
     public function executeRedirectIndex(sfWebRequest $request) {
     	$drm = $this->getRoute()->getDrm();
     	$first_certification = null;
@@ -27,15 +28,14 @@ class drm_recapActions extends sfActions
         $this->certification = $this->getRoute()->getObject();
         $this->drm = $this->getRoute()->getDrm();
 
-        $this->form = new DRMAppellationAjoutForm($this->drm->produits->add($this->certification->getKey()),
-                                                  $this->getUser()->getTiers()->interpro);
+        $this->form = new DRMAppellationAjoutForm($this->drm, $this->certification->getConfig());
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
                 $this->form->save();
                 return $this->renderText(json_encode(array("success" => true,
                                                            "ajax" => true,
-                                                           "url" => $this->generateUrl('drm_recap_ajout_ajax', $this->certification->appellations->get($this->form->getAppellation()->getKey())))));
+                                                           "url" => $this->generateUrl('drm_recap_ajout_ajax', $this->form->getDelaration()))));
             }
 
             return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('drm_recap/formAppellationAjout', array('certification' => $this->certification, 'form' => $this->form)))));
@@ -53,22 +53,23 @@ class drm_recapActions extends sfActions
         $this->init();
         $this->forward404Unless($request->isXmlHttpRequest());
 
-        $form = new DRMProduitAjoutForm($this->drm_appellation->getProduits()->add(),
-                                        $this->getUser()->getTiers()->interpro);
+        $form = new DRMProduitAjoutForm($this->drm,
+                                        $this->config_appellation);
 
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->getResponse()->setContentType('text/json');
             $form->bind($request->getParameter($form->getName()));
             if ($form->isValid()) {
-                $form->save();
+                $form->addProduit();
+                $this->drm->save();
                 $this->getUser()->setFlash("notice", 'Le produit a été ajouté avec succès.');
                 return $this->renderText(json_encode(array("success" => true, 
                                                            "url" => $this->generateUrl('drm_recap_appellation', $this->drm_appellation))));
             }
             return $this->renderText(json_encode(array("success" => false, 
-                                                       "content" => $this->getPartial('formAjout', array('form' => $form)))));
+                                                       "content" => $this->getPartial('formAjout', array('form' => $form, 'drm_appellation' => $this->drm_appellation)))));
         }
-        return $this->renderPartial('popupAjout', array('form' => $form));
+        return $this->renderPartial('popupAjout', array('form' => $form, 'drm_appellation' => $this->drm_appellation));
     }
     
     public function executeDetail(sfWebRequest $request) {
@@ -103,21 +104,22 @@ class drm_recapActions extends sfActions
         $this->drm = $this->getRoute()->getDrm();
         $this->config_appellation = $this->getRoute()->getConfigAppellation();
         $this->drm_appellation = $this->getRoute()->getDrmAppellation();
-        $this->previous = null;
-        $this->next = null;
-        $previous = $this->drm_appellation->getProduits()->getPrevious();
+        $this->produits = $this->drm_appellation->getProduits();
+        $this->previous = $this->drm_appellation->getPreviousSisterWithMouvementCheck();
+        $this->next = $this->drm_appellation->getNextSisterWithMouvementCheck();
+        /*$previous = $this->drm_appellation->getPrevious();
         while (!$this->previous && $previous) {
-        	if ($previous->hasMouvement()) {
-        		$this->previous = $previous->getDeclaration();
+        	if ($previous->hasMouvementCheck()) {
+        		$this->previous = $previous;
         	}
         	$previous = $previous->getPrevious();
         }
-        $previous = $this->drm_appellation->getCertification()->getProduits()->getPrevious();
+        $previous = $this->drm_appellation->getCertification()->getPrevious();
         while (!$this->previous && $previous) {
-        	if ($previous->hasMouvement()) {
-        		$this->previous = $previous->getLast()->getDeclaration();
-        	}
         	$previous = $previous->getPrevious();
+            if ($previous->hasMouvement()) {
+                $this->previous = $previous->getPrevious();
+            }
         }
         $next = $this->drm_appellation->getProduits()->getNext();
         while (!$this->next && $next) {
@@ -132,7 +134,7 @@ class drm_recapActions extends sfActions
         		$this->next = $next->getFirst()->getDeclaration();
         	}
         	$next = $next->getNext();
-        }
+        }*/
     }
     
 }

@@ -15,7 +15,7 @@ class DRMMouvementsGenerauxProduitForm extends acCouchdbFormDocumentJson {
         ));
 
 
-        if (!$this->getObject()->getDetail()->hasPasDeMouvement()) {
+        if (!$this->getObject()->hasMouvementCheck()) {
             $this->getWidget('pas_de_mouvement')->setAttribute('disabled', 'disabled');
         }
 

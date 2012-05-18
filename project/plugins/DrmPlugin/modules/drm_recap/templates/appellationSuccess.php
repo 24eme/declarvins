@@ -9,14 +9,18 @@
     <section id="principal">
         <div id="application_dr">
             
-            <?php include_component('drm_recap', 'onglets', array('config_appellation' => $config_appellation, 'drm_appellation' => $drm_appellation)) ?>
+            <?php include_component('drm_recap', 'onglets', array('config_appellation' => $config_appellation, 
+                                                                  'drm_appellation' => $drm_appellation)) ?>
             <div id="contenu_onglet">
             
             	<a href="" data-popup="#raccourci_clavier" class="btn_popup" data-popup-config="configDefaut">Raccourcis clavier</a>
             
                 <?php include_partial('shortcutKeys') ?>
 
-                <?php include_component('drm_recap', 'list', array('drm_appellation' => $drm_appellation, 'config_appellation' => $config_appellation, 'form' => $form)); ?>
+                <?php include_component('drm_recap', 'list', array('drm_appellation' => $drm_appellation, 
+                                                                   'config_appellation' => $config_appellation,
+                                                                   'produits' => $produits,
+                                                                   'form' => $form)); ?>
                 
                 <div id="btn_suiv_prec">
                     <?php if ($previous): ?>

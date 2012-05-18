@@ -7,9 +7,15 @@
 class ConfigurationCepage extends BaseConfigurationCepage {
 	
 	const TYPE_NOEUD = 'cepage';
-	
-	public function hasMillesime() {
-    	return (count($this->millesimes) > 1 || (count($this->millesimes) == 1 && $this->millesimes->getFirst()->getKey() != Configuration::DEFAULT_KEY));
+
+    public function getAppellation() {
+
+      return $this->getCouleur()->getLieu()->getAppellation();
+    }
+
+    public function getGenre() {
+
+      return $this->getAppellation()->getGenre();
     }
 
     public function getCouleur() {
@@ -33,13 +39,9 @@ class ConfigurationCepage extends BaseConfigurationCepage {
   	}
   	public function hasDetails() {
   		return false;
-  	}
-	
+  	}	
   	public function getTypeNoeud() {
   		return self::TYPE_NOEUD;
   	}
-  	
-  	public function getDetailConfiguration() {
-  		return $this->getCouleur()->getDetailConfiguration();
-  	}
+    
 }

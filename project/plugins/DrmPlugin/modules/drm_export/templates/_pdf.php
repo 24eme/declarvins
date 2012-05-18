@@ -127,7 +127,7 @@
 	
 	
 		
-	<?php if(!$drm->declaration->hasPasDeMouvement() && !$drm->declaration->hasStockEpuise()): ?>
+	<?php if($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()): ?>
 	<?php else: ?>
 		<div class="bloc_bottom">
 			<h2>Suivi des vins</h2>
@@ -190,7 +190,7 @@
 	</table>
 
 	
-<? if ($drm->valide->date_saisie): ?>
+<?php if ($drm->valide->date_saisie): ?>
 	<?php while($pager_droits_douane->getPage() <= $pager_droits_douane->getLastPage()): ?>
 		<?php $colonnes = $pager_droits_douane->getResults(); ?>
 		<h2>Droits de circulation et de consommation</h2>
