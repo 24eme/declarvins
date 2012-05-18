@@ -150,7 +150,7 @@ class DrmRouting {
                         array('model' => 'DRM',
                               'type' => 'object')));
 
-        $r->prependRoute('drm_mouvements_generaux_produit_delete', new DrmProduitRoute('/drm-edition/:campagne_rectificative/mouvements-generaux/:certification/:genre/:appellation/delete/:indice',
+        $r->prependRoute('drm_mouvements_generaux_produit_delete', new DrmDetailRoute('/drm-edition/:campagne_rectificative/mouvements-generaux/:certification/:genre/:appellation/:lieu/:couleur/:cepage/:detail/delete',
                         array('module' => 'drm_mouvements_generaux',
                             'action' => 'deleteAjax'),
                         array('sf_method' => array('post')),
