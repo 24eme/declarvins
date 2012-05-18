@@ -19,6 +19,12 @@ class CompteModificationDroitForm extends CompteModificationForm {
      public function configure() 
      {
          parent::configure();
+         
+         $this->setWidget('login', new sfWidgetFormInputText());
+         $this->getWidget('login')->setLabel('login*: ');
+         $this->setValidator('login', new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')));
+         
+         
          $choices = _CompteClient::getInstance()->getDroits();
          $this->setWidget('droits',  new sfWidgetFormChoice(array('choices' => $choices, 'expanded' => true, 'multiple' => true)));
          $this->getWidget('droits')->setLabel('droits*: ');
@@ -29,8 +35,12 @@ class CompteModificationDroitForm extends CompteModificationForm {
      public function doUpdateObject($values) {
 		parent::doUpdateObject($values);
 		if (!$this->getObject()->isNew()) {
-			$this->getObject()->setMotDePasseSSHA($values['mdp1']);
+                        if($this->getObject()->get('_id')!='COMPTE-'.$this->getObject()->login)
+                        {
+                            throw new sfException("You can not modify this login.");
+                        }
 		}
+                if($values['mdp1']) $this->getObject()->setMotDePasseSSHA($values['mdp1']);
 	}
 }
 

@@ -1822,11 +1822,11 @@ p#date_drm {
   text-transform:none;
 }
 #telecharger_pdf:hover { text-decoration:none; }
-#mon_compte span, #mon_compte label {
+#mon_compte span, #mon_compte label, #compteModification span, #compteModification label, #compteAjout span, #compteAjout label {
   display:inline-block;
   width:170px;
 }
-#mon_compte .btn_valider {
+#mon_compte .btn_valider, #compteModification .btn_valider, #compteAjout .btn_valider {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
@@ -1841,8 +1841,8 @@ p#date_drm {
   text-transform:uppercase;
   height:;
 }
-#mon_compte .btn_valider:hover, #mon_compte .btn_valider:focus { background-color:#494949; }
-#mon_compte input[type="text"] {
+#mon_compte .btn_valider:hover, #mon_compte .btn_valider:focus, #compteModification .btn_valider:hover, #compteModification .btn_valider:focus, #compteAjout .btn_valider:hover, #compteAjout .btn_valider:focus { background-color:#494949; }
+#mon_compte input[type="text"], #compteModification input[type="text"], #compteAjout input[type="text"] {
   background:none repeat scroll 0 0 #ffffff;
   border:1px solid #d3d2cd;
   border-radius:2px 2px 2px 2px;

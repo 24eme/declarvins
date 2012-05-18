@@ -107,9 +107,17 @@ admin_comptes:
   url:   /admin/comptes
   param: { module: acVinCompteAdmin, action: index }
   
-compte:
-  url:   /admin/compte/:login
-  param: { module: acVinCompteAdmin, action: compte }
+compte_ajout:
+  url:   /admin/compte-ajout
+  param: { module: acVinCompteAdmin, action: compteAjout }
+  
+compte_recap:
+  url:   /admin/compte-recap/:login
+  param: { module: acVinCompteAdmin, action: compteRecap }
+  
+compte_modification:
+  url:   /admin/compte-modification/:login
+  param: { module: acVinCompteAdmin, action: compteModification }
 
 # generic rules
 # please, remove them by adding more specific rules
