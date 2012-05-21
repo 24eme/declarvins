@@ -16,6 +16,9 @@
  * @property string $commune
  * @property string $code_postal
  * @property string $interpro
+ * @property string $prenom
+ * @property string $telephone
+ * @property string $fax
 
  * @method string getLogin()
  * @method string setLogin()
@@ -41,6 +44,12 @@
  * @method string setCodePostal()
  * @method string getInterpro()
  * @method string setInterpro()
+ * @method string getPrenom()
+ * @method string setPrenom()
+ * @method string getTelephone()
+ * @method string setTelephone()
+ * @method string getFax()
+ * @method string setFax()
  
  */
  

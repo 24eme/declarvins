@@ -21,6 +21,11 @@ class CompteModificationDroitForm extends CompteModificationForm {
          parent::configure();
          
          $this->setWidget('login', new sfWidgetFormInputText());
+         if(!$this->getObject()->isNew())
+         {
+             $this->getWidget('login')->setAttribute('disabled','disabled');
+         }
+         
          $this->getWidget('login')->setLabel('login*: ');
          $this->setValidator('login', new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')));
          
