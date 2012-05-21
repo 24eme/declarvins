@@ -26,12 +26,12 @@
                                                                    'form' => $form)); ?>
                 <div id="btn_suiv_prec">
                     <?php if ($previous): ?>
-                        <a href="<?php echo url_for('drm_recap_appellation', $previous) ?>" class="btn_prec">
+                        <a href="<?php echo url_for('drm_recap_lieu', $previous) ?>" class="btn_prec">
                             <span>Produit précédent</span>
                         </a>
                     <?php endif; ?>
                     <?php if ($next): ?>
-                        <a href="<?php echo url_for('drm_recap_appellation', $next) ?>" class="btn_suiv">
+                        <a href="<?php echo url_for('drm_recap_lieu', $next) ?>" class="btn_suiv">
                             <span>Produit suivant</span>
                         </a>
                     <?php endif; ?>

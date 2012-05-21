@@ -121,13 +121,51 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     }
 
     public function getPreviousSisterWithMouvementCheck() {
+        $item = $this->getPreviousSister();
+        $sister = null;
 
-        return $this->getPreviousSister();
+        if ($item) {
+            $sister = $item;
+        }
+
+        if (!$sister) {
+            $item = $this->getParentNode()->getPreviousSisterWithMouvementCheck();
+            if ($item) {
+               
+               $sister = $item->getChildrenNode()->getLast();
+            }
+        }
+
+        if ($sister && !$sister->hasMouvementCheck()) {
+
+            return $sister->getPreviousSisterWithMouvementCheck();
+        }
+
+        return $sister; 
     }
 
     public function getNextSisterWithMouvementCheck() {
+        $item = $this->getNextSister();
+        $sister = null;
 
-        return $this->getNextSister();
+        if ($item) {
+            $sister = $item;
+        }
+
+        if (!$sister) {
+            $item = $this->getParentNode()->getNextSisterWithMouvementCheck();
+            if ($item) {
+               
+               $sister = $item->getChildrenNode()->getFirst();
+            }
+        }
+
+        if ($sister && !$sister->hasMouvementCheck()) {
+
+            return $sister->getNextSisterWithMouvementCheck();
+        }
+
+        return $sister;
     }
 
     public function getProduits() {

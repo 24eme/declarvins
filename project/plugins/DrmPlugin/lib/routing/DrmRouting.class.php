@@ -129,7 +129,7 @@ class DrmRouting {
                                                           array('model' => 'DRM',
                                                                 'type' => 'object')));
 
-        $r->prependRoute('drm_mouvements_generaux_produit_update', new DrmProduitRoute('/drm-edition/:campagne_rectificative/mouvements-generaux/:certification/:genre/:appellation/update/:indice',
+        $r->prependRoute('drm_mouvements_generaux_produit_update', new DrmDetailRoute('/drm-edition/:campagne_rectificative/mouvements-generaux/:certification/:genre/:appellation/:lieu/:couleur/:cepage/:detail/update',
                         array('module' => 'drm_mouvements_generaux',
                             'action' => 'updateAjax'),
                         array('sf_method' => array('post')),

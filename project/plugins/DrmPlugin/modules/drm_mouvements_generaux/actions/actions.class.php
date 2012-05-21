@@ -42,8 +42,8 @@ class drm_mouvements_generauxActions extends sfActions
         $this->forward404Unless($request->isXmlHttpRequest());
         $this->getResponse()->setContentType('text/json');
         $drm = $this->getRoute()->getDrm();
-        $detail = $this->getRoute()->getObject()->getDetail();
-        $this->forward404Unless($detail->hasPasDeMouvement());
+        $detail = $this->getRoute()->getObject();
+        $this->forward404Unless(!$detail->hasMouvement());
 		$form = new DRMMouvementsGenerauxProduitForm($this->getRoute()->getObject());
     	$form->bind($request->getParameter($form->getName()));
         if ($form->isValid()) {
