@@ -64,9 +64,7 @@
 			                        </tbody>
 			                    </table>
 			                    <div class="btn">
-									<a href="<?php echo url_for(array('sf_route' => 'drm_mouvements_generaux_product_form', 
-																	  'sf_subject' => $drm, 
-																	  'certification' => $certification)) ?>" class="btn_ajouter btn_popup" data-popup="#popup_ajout_produit_<?php echo $certification ?>" data-popup-config="configForm">Ajouter un nouveau produit</a>
+									<a href="<?php echo url_for('drm_mouvements_generaux_product_ajout', $drm->declaration->certifications->add($certification)) ?>" class="btn_ajouter btn_popup" data-popup="#popup_ajout_produit_<?php echo $certification ?>" data-popup-config="configForm">Ajouter un nouveau produit</a>
 								</div>
 		                    </div>
 		            </div>

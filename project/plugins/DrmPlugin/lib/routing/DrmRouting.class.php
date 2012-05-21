@@ -157,12 +157,13 @@ class DrmRouting {
                         array('model' => 'DRMProduit',
                               'type' => 'object')));  
 
-        $r->prependRoute('drm_mouvements_generaux_product_form', new DrmRoute('/drm-edition/:campagne_rectificative/mouvements-generaux/ajout/:certification',
+        $r->prependRoute('drm_mouvements_generaux_product_ajout', new DrmCertificationRoute('/drm-edition/:campagne_rectificative/mouvements-generaux/ajout/:certification',
                         array('module' => 'drm_mouvements_generaux',
                             'action' => 'ajoutAjax'),
                         array('sf_method' => array('get','post')),
-                        array('model' => 'DRMProduit',
-                              'type' => 'object')));
+                        array('model' => 'DRMCertification',
+                              'type' => 'object',
+                              'add_noeud' => true,)));
 
         $r->prependRoute('drm_recap', new DrmLieuRoute('/drm-edition/:campagne_rectificative/recapitulatif/:certification',
                         array('module' => 'drm_recap',

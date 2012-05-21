@@ -105,7 +105,7 @@ class drm_mouvements_generauxActions extends sfActions
     {
         $this->forward404Unless($request->isXmlHttpRequest());
     	$drm = $this->getRoute()->getDrm();
-    	$this->forward404Unless($certification_config = ConfigurationClient::getCurrent()->declaration->certifications->get($request->getParameter('certification')));
+        $certification_config = $this->getRoute()->getConfigCertification();
 
         $form = new DRMProduitAjoutForm($drm, $certification_config);
         if ($request->isMethod(sfWebRequest::POST)) {
@@ -117,10 +117,10 @@ class drm_mouvements_generauxActions extends sfActions
 				$this->getUser()->setFlash("notice", 'Le produit a été ajouté avec succès.');
 				return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_mouvements_generaux', $drm))));
 			} else {
-				return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form, 'certification' => $certification_config->getKey())))));
+				return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form, 'certification_config' => $certification_config->getKey())))));
 			}
         }
 
-        return $this->renderText($this->getPartial('popupAjout', array('form' => $form, 'certification' => $certification_config->getKey())));
+        return $this->renderText($this->getPartial('popupAjout', array('form' => $form, 'certification_config' => $certification_config)));
     }
 }

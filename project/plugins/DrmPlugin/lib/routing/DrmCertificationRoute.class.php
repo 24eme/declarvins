@@ -20,7 +20,11 @@ class DrmCertificationRoute extends DrmRoute {
         }
         
         if ($this->getDRMConfiguration()->declaration->certifications->exist($parameters['certification'])) {
+            
             return $this->getDrm()->declaration->certifications->get($parameters['certification']);
+        } elseif(isset($this->options['add_noeud']) && $this->options['add_noeud'] === true) {
+
+            return $this->getDrm()->declaration->certifications->add($parameters['certification']);
         }
         
         return null;
