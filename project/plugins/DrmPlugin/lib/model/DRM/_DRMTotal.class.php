@@ -138,6 +138,15 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
 
         return $produits;
     }
+
+    public function getLieuxArray() {
+        $lieux = array();
+        foreach($this->getChildrenNode() as $key => $item) {
+            $lieux = array_merge($lieux, $item->getLieuxArray());
+        }
+
+        return $lieux;
+    }
   
     abstract public function getChildrenNode();
 

@@ -2,19 +2,19 @@
 
 class DrmRecapRoute extends DrmRoute {
 
-    public function getConfigAppellation() {
+    public function getConfigLieu() {
         
-        return $this->getDrmAppellation()->getConfig();
+        return $this->getDrmLieu()->getConfig();
     }
 
-    public function getDrmAppellation() {
+    public function getDrmLieu() {
 
         return $this->getObject();
     }
 
     public function getConfigCertification() {
 
-        return $this->getConfigAppellation()->getCertification();
+        return $this->getConfigLieu()->getCertification();
     }
 
     protected function getObjectForParameters($parameters) {

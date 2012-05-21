@@ -45,10 +45,10 @@ class ConfigurationClient extends acCouchdbClient {
               ->endkey(array("produits", array()))->getView('configuration', 'produits');
   }
 
-  public function findProduitsAppellationsByCertification($certif, $interpro, $departement) {
+  public function findProduitsLieuxByCertification($certif, $interpro, $departement) {
 
-    return $this->startkey(array("appellations", $certif, $interpro, $departement))
-              ->endkey(array("appellations", $certif, $interpro, $departement, array()))->getView('configuration', 'produits');
+    return $this->startkey(array("lieux", $certif, $interpro, $departement))
+              ->endkey(array("lieux", $certif, $interpro, $departement, array()))->getView('configuration', 'produits');
   }
 
   public function findProduitsByCertification($certif, $interpro, $departement) {
@@ -57,10 +57,14 @@ class ConfigurationClient extends acCouchdbClient {
               ->endkey(array("produits", $certif, $interpro, $departement, array()))->getView('configuration', 'produits');
   }
 
-  public function findProduitsByAppellation($certif, $interpro, $departement, $appellation) {
+  public function findProduitsByLieu($certif, $interpro, $departement, $hash_lieu) {
 
-    return $this->startkey(array("produits", $certif, $interpro, $departement, $appellation))
-              ->endkey(array("produits", $certif, $interpro, $departement, $appellation, array()))->getView('configuration', 'produits');
+    if (substr($hash_lieu, 0,1) == "/") {
+      $hash_lieu = substr($hash_lieu, 1,strlen($hash_lieu)-1);
+    }
+
+    return $this->startkey(array("produits", $certif, $interpro, $departement, $hash_lieu))
+              ->endkey(array("produits", $certif, $interpro, $departement, $hash_lieu, array()))->getView('configuration', 'produits');
   }
 
   public function findLabelsByCertification($certif, $interpro) {

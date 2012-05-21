@@ -280,7 +280,7 @@
 				<?php if($item): ?>
 				<td>
 					<strong><?php echo strtoupper($item->getConfig()->getCodes()) ?></strong>
-		   			<span><?php echo produitLibelle($item->getConfig()->getLibelles(), array(), "%a% %l% %co% %ce% %m%") ?></span>
+		   			<span><?php echo produitLibelle($item->getConfig()->getLibelles(), array(), "%g% %a% %l% %co% %ce%") ?></span>
 				</td>
 				<?php endif; ?>
 				<?php endforeach; ?>

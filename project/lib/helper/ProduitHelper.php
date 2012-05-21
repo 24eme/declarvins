@@ -1,12 +1,12 @@
 <?php
 
-function produitLibelle($libelles, $libelles_labels = array(), $format = "%a% %l% %co% %ce% %m% %la%", $label_separator = ", ") {
+function produitLibelle($libelles, $libelles_labels = array(), $format = "%g% %a% %l% %co% %ce% %la%", $label_separator = ", ") {
 	$format_index = array('%c%' => 0,
-						  '%a%' => 1,
-						  '%l%' => 2,
-						  '%co%' => 3,
-						  '%ce%' => 4,
-						  '%m%' => 5);
+						  '%g%' => 1,
+						  '%a%' => 2,
+						  '%l%' => 3,
+						  '%co%' => 4,
+						  '%ce%' => 5);
 
 	$libelle = $format;
 
@@ -24,7 +24,7 @@ function labelsLibelles($libelles, $format = "%la%", $label_separator = ", ") {
 	return str_replace("%la%", implode($label_separator, $libelles), $format);
 }
 
-function produitLibelleFromDetail($detail, $format = "%a% %l% %co% %ce% %m% %la%", $label_separator = ", ") {
+function produitLibelleFromDetail($detail, $format = "%a% %l% %co% %ce% %la%", $label_separator = ", ") {
 
 	if ($detail instanceof sfOutputEscaperIteratorDecorator) {
 		$detail = $detail->getRawValue();
