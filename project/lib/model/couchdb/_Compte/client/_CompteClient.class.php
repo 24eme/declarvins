@@ -12,5 +12,10 @@ class _CompteClient extends acVinCompteClient
   public static function getInstance() {
       return acCouchdbManager::getClient("_COMPTE");
   }
-
+  
+  
+  public function getDroits()
+  {
+      return $this->droits;
+  }
 }

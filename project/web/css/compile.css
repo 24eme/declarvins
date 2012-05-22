@@ -1560,6 +1560,10 @@ p#date_drm {
   font-weight:bold;
 }
 #colonnes_dr .col_recolte input.somme:hover, #colonnes_dr .col_recolte input.somme:focus, #colonnes_dr .col_recolte input.somme_groupe:hover, #colonnes_dr .col_recolte input.somme_groupe:focus, #colonnes_dr .col_recolte input.somme_stock_debut:hover, #colonnes_dr .col_recolte input.somme_stock_debut:focus, #colonnes_dr .col_recolte input.somme_stock_fin:hover, #colonnes_dr .col_recolte input.somme_stock_fin:focus { border-color:#777777; }
+#colonnes_dr .col_recolte input[readonly] {
+  background:#f1f1f1;
+  color:#888888;
+}
 #colonnes_dr .col_recolte select {
   height:18px;
   width:88px;

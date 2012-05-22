@@ -84,6 +84,9 @@ CompteVirtuel:
   definition:
     fields:
       interpro: {  }
+      prenom: {  }
+      telephone: {  }
+      fax: {  }
 
 Interpro:
   inheritance: _Tiers

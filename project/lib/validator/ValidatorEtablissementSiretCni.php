@@ -13,10 +13,10 @@ class ValidatorEtablissementSiretCni extends sfValidatorSchema {
         if ($siret_cni = $values['siret_cni']) {
             $size = strlen($siret_cni);
             if ($size == 14) {
-            	$values['type_numero'] = 'siret';
+                $values['siret'] = $values['siret_cni'];
             	return $values;
             } elseif($size == 12) {
-            	$values['type_numero'] = 'cni';
+                $values['cni'] = $values['siret_cni'];
             	return $values;
             }
         }

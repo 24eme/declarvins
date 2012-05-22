@@ -15,10 +15,10 @@ class ContratEtablissementModificationForm extends acCouchdbFormDocumentJson {
 	   $sousFamilleValidators = $this->getSousFamilleValidators();
 	   
 	   $this->setWidgets(array(
-		   'raison_sociale' => new sfWidgetFormInputText(),
-	   		'nom' => new sfWidgetFormInputText(),
-	       'siret' => new sfWidgetFormInputText(),
-	       'cni' => new sfWidgetFormInputText(),
+               'raison_sociale' => new sfWidgetFormInputText(),
+               'nom' => new sfWidgetFormInputText(),
+	       'siret' => new sfWidgetFormInputText(array(), array('maxlength' => 14)),
+	       'cni' => new sfWidgetFormInputText(array(), array('maxlength' => 12)),
 	       'cvi' => new sfWidgetFormInputText(),
 	       'no_accises' => new sfWidgetFormInputText(),
 	       'no_tva_intracommunautaire' => new sfWidgetFormInputText(),
@@ -36,8 +36,8 @@ class ContratEtablissementModificationForm extends acCouchdbFormDocumentJson {
 	       'service_douane' => new sfWidgetFormChoice(array('choices' => $douaneChoices))
 	   ));
        $this->widgetSchema->setLabels(array(
-       	   'raison_sociale' => 'Raison sociale*: ',
-       	   'nom' => 'Nom commercial*: ',
+               'raison_sociale' => 'Raison sociale*: ',
+               'nom' => 'Nom commercial*: ',
 	       'siret' => 'SIRET: ',
 	       'cni' => 'CNI: ',
 	       'cvi' => 'CVI: ',
@@ -57,10 +57,10 @@ class ContratEtablissementModificationForm extends acCouchdbFormDocumentJson {
 	       'service_douane' => 'Service douane*: '
        ));
        $this->setValidators(array(
-       	   'raison_sociale' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
-       	   'nom' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
-	       'siret' => new sfValidatorString(array('required' => false, 'max_length' => 15, 'min_length' => 13)),
-	       'cni' => new sfValidatorString(array('required' => false, 'max_length' => 13, 'min_length' => 11)),
+       	       'raison_sociale' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
+       	       'nom' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
+	       'siret' => new ValidatorSiret(array('required' => false)),
+	       'cni' => new ValidatorCni(array('required' => false)),
 	       'cvi' => new sfValidatorString(array('required' => false, 'max_length' => 11, 'min_length' => 9)),
 	       'no_accises' => new sfValidatorString(array('required' => false)),
 	       'no_tva_intracommunautaire' => new sfValidatorString(array('required' => false)),
@@ -77,9 +77,14 @@ class ContratEtablissementModificationForm extends acCouchdbFormDocumentJson {
 	       'comptabilite_commune' => new sfValidatorString(array('required' => false)),
 	       'service_douane' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($douaneChoices)))
        ));
-       $this->mergePostValidator(new ValidatorXorSiretCni());
-		$this->widgetSchema->setNameFormat('contratetablissement[%s]');
-    }
+       
+       $xorValidator = new ValidatorXor(null, array('field0' => 'siret', 'field1' => 'cni'),
+               array('both' => 'LE SIRET est renseigné, vous ne pouvez pas fournir de CNI',
+                     'none' => 'Vous devez renseigner obligatoirement le Siret ou le Cni'));
+       
+       $this->mergePostValidator($xorValidator);
+       $this->widgetSchema->setNameFormat('contratetablissement[%s]');
+       }
     
     /**
      * 
