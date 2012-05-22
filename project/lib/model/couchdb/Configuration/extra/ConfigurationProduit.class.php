@@ -12,9 +12,9 @@ class ConfigurationProduit
 	protected $lieux;
 	protected $cepages;
 	
-	const APPELLATION_KEY = 4;
-	const LIEU_KEY = 6;
-	const CEPAGE_KEY = 10;
+	const APPELLATION_KEY = 6;
+	const LIEU_KEY = 8;
+	const CEPAGE_KEY = 12;
 	
 	public function __construct($interpro) {
 		$this->datas = ConfigurationClient::getInstance()->findProduitsForAdmin($interpro);
@@ -28,11 +28,11 @@ class ConfigurationProduit
     	foreach ($this->datas->rows as $produit) {
     		$hash = $produit->key[7];
     		if ($this->getKey($hash, self::APPELLATION_KEY) != Configuration::DEFAULT_KEY)
-    			$this->appellations[$this->getKey($hash, self::APPELLATION_KEY)] = $produit->key[2];
+    			$this->appellations[$this->getKey($hash, self::APPELLATION_KEY)] = $produit->key[3];
     		if ($this->getKey($hash, self::LIEU_KEY) != Configuration::DEFAULT_KEY)
-    			$this->lieux[$this->getKey($hash, self::LIEU_KEY)] = $produit->key[3];
+    			$this->lieux[$this->getKey($hash, self::LIEU_KEY)] = $produit->key[4];
     		if ($this->getKey($hash, self::CEPAGE_KEY) != Configuration::DEFAULT_KEY)
-    			$this->cepages[$this->getKey($hash, self::CEPAGE_KEY)] = $produit->key[5];
+    			$this->cepages[$this->getKey($hash, self::CEPAGE_KEY)] = $produit->key[6];
     	}
     }
     private function getKey($hash, $codeKey) {

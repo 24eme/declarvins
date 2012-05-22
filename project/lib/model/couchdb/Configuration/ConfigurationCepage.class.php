@@ -23,6 +23,16 @@ class ConfigurationCepage extends BaseConfigurationCepage {
       return $this->getAppellation()->getGenre();
     }
 
+    public function getLieu() {
+
+      return $this->getCouleur()->getLieu();
+    }
+
+    public function getCepage() {
+
+      return $this;
+    }
+
     public function getCouleur() {
     	return $this->getParentNode();
     }
