@@ -55,13 +55,6 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
     }
 
 	public function setLabelCsv($datas) {
-		try {
-			$parent_node = $this->getParentNode();
-		} catch (Exception $e) {
-			return;
-		}
-
-    	$parent_node->setLabelCsv($datas);
     	$labels = $this->interpro->getOrAdd('INTERPRO-'.strtolower($datas[LabelCsvFile::CSV_LABEL_INTERPRO]))->labels;
     	$canInsert = true;
     	foreach ($labels as $label) {

@@ -3,7 +3,7 @@ class ProduitNouveauForm extends sfForm {
 	
 	protected $configuration;
 	protected $configurationProduit;
-	protected static $configurationNoeud = array('certifications' => 'certification', 'appellations' => 'appellation', 'lieux' => 'lieu', 'couleurs' => 'couleur', 'cepages' => 'cepage', 'millesimes' => 'millesime'); 
+	protected static $configurationNoeud = array('certifications' => 'certification', 'genres' => 'genre', 'appellations' => 'appellation', 'lieux' => 'lieu', 'couleurs' => 'couleur', 'cepages' => 'cepage', 'millesimes' => 'millesime'); 
 	
 	
 	public function __construct($configuration, $interpro, $defaults = array(), $options = array(), $CSRFSecret = null) {
@@ -15,27 +15,27 @@ class ProduitNouveauForm extends sfForm {
     public function configure() {
     	$this->setWidgets(array(
 			'certifications' => new sfWidgetFormChoice(array('choices' => $this->configurationProduit->getCertifications())),
+    		'genres' => new sfWidgetFormChoice(array('choices' => $this->configurationProduit->getGenres())),
 			'appellations' => new sfWidgetFormChoice(array('choices' => $this->configurationProduit->getAppellations())), 	
 			'lieux' => new sfWidgetFormChoice(array('choices' => $this->configurationProduit->getLieux())), 	
 			'couleurs' => new sfWidgetFormChoice(array('choices' => $this->configurationProduit->getCouleurs())),
-			'cepages' => new sfWidgetFormChoice(array('choices' => $this->configurationProduit->getCepages())),
-			'millesimes' => new sfWidgetFormChoice(array('choices' => $this->configurationProduit->getMillesimes()))
+			'cepages' => new sfWidgetFormChoice(array('choices' => $this->configurationProduit->getCepages()))
     	));
 		$this->widgetSchema->setLabels(array(
 			'certifications' => 'Catégorie: ',
+			'genres' => 'Genre: ',
 			'appellations' => 'Dénomination: ', 	
 			'lieux' => 'Lieu: ', 	
 			'couleurs' => 'Couleur: ', 
-			'cepages' => 'Cépage: ', 
-			'millesimes' => 'Millésime: '
+			'cepages' => 'Cépage: '
 		));
 		$this->setValidators(array(
 			'certifications' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->configurationProduit->getCertifications()))),
+			'genres' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->configurationProduit->getGenres()))),
 			'appellations' => new sfValidatorString(array('required' => false)),
 			'lieux' => new sfValidatorString(array('required' => false)),
 			'couleurs' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->configurationProduit->getCouleurs()))),
-			'cepages' => new sfValidatorString(array('required' => false)),
-			'millesimes' => new sfValidatorString(array('required' => false))
+			'cepages' => new sfValidatorString(array('required' => false))
 		));
 		
         $this->widgetSchema->setNameFormat('produit[%s]');

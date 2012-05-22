@@ -19,9 +19,13 @@ class LabelCsvFile extends CsvFile
 
   private function getLabelNoeud($line) 
   {
-  	if ($line[self::CSV_LABEL_DENOMINATION_CODE] && $line[self::CSV_LABEL_CATEGORIE_CODE]) {
+  	if ($line[self::CSV_LABEL_GENRE_CODE] && $line[self::CSV_LABEL_DENOMINATION_CODE] && $line[self::CSV_LABEL_CATEGORIE_CODE]) {
   		$hash = 'certifications/'.$this->getKey($line[self::CSV_LABEL_CATEGORIE_CODE]).
+  				'/genres/'.$this->getKey($line[self::CSV_LABEL_GENRE_CODE]).
                 '/appellations/'.$this->getKey($line[self::CSV_LABEL_DENOMINATION_CODE]);
+  	} elseif ($line[self::CSV_LABEL_CATEGORIE_CODE] && $line[self::CSV_LABEL_GENRE_CODE]) {
+  		$hash = 'certifications/'.$this->getKey($line[self::CSV_LABEL_CATEGORIE_CODE]).
+  				'/genres/'.$this->getKey($line[self::CSV_LABEL_GENRE_CODE]);		
   	} elseif ($line[self::CSV_LABEL_CATEGORIE_CODE]) {
   		$hash = 'certifications/'.$this->getKey($line[self::CSV_LABEL_CATEGORIE_CODE]);  		
   	} else {

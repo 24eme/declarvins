@@ -7,6 +7,11 @@
 		<?php echo $form['certifications']->render() ?>
 	</div>
 	<div class="ligne_form">
+		<span class="error"><?php echo $form['genres']->renderError() ?></span>
+		<?php echo $form['genres']->renderLabel() ?>
+		<?php echo $form['genres']->render() ?>
+	</div>
+	<div class="ligne_form">
 		<span class="error"><?php echo $form['appellations']->renderError() ?></span>
 		<?php echo $form['appellations']->renderLabel() ?>
 		<?php echo $form['appellations']->render(array('class' => 'permissif')) ?>
@@ -26,11 +31,6 @@
 		<?php echo $form['cepages']->renderLabel() ?>
 		<?php echo $form['cepages']->render(array('class' => 'permissif')) ?>
 	</div>
-	<div class="ligne_form">
-		<span class="error"><?php echo $form['millesimes']->renderError() ?></span>
-		<?php echo $form['millesimes']->renderLabel() ?>
-		<?php echo $form['millesimes']->render(array('class' => 'permissif')) ?>
-	</div>
 	<div class="ligne_form_btn">
 		<!-- <button name="annuler" class="btn_annuler btn_fermer" type="reset">Annuler</button> -->
 		<a name="annuler" class="btn_annuler btn_fermer" href="<?php echo url_for('produits') ?>">Annuler</a>
@@ -42,6 +42,5 @@ $(document).ready(function () {
 	$( "#<?php echo $form['appellations']->renderId() ?>" ).combobox();
 	$( "#<?php echo $form['lieux']->renderId() ?>" ).combobox();
 	$( "#<?php echo $form['cepages']->renderId() ?>" ).combobox();
-	$( "#<?php echo $form['millesimes']->renderId() ?>" ).combobox();
 });
 </script>

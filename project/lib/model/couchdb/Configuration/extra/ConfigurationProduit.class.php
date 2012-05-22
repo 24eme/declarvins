@@ -1,9 +1,10 @@
 <?php
 class ConfigurationProduit
 {
-	protected static $arborescence = array('certifications', 'appellations', 'lieux', 'couleurs', 'cepages');
+	protected static $arborescence = array('certifications', 'genres', 'appellations', 'lieux', 'couleurs', 'cepages');
 	protected static $certifications = array('' => '', 'AOP' => 'AOP', 'IGP' => 'IGP', 'VINSSANSIG' => 'SANS IG', 'LIE' => 'LIE');
 	protected static $couleurs = array('' => '', 'Rouge' => 'Rouge', 'Blanc' => 'Blanc', 'Rosé' => 'Rosé');
+	protected static $genres = array('' => '', 'EFF' => 'Effervescent', 'TRANQ' => 'Tranquilles', 'VDN' => 'Vin doux naturel');
 	protected static $codeCouleurs = array('Rouge' => 'rouge', 'Blanc' => 'blanc', 'Rosé' => 'rose');
 	
 	protected $datas;
@@ -46,6 +47,9 @@ class ConfigurationProduit
     }
     public function getLieux() {
     	return $this->lieux;
+    }
+    public function getGenres() {
+    	return self::$genres;
     }
     public function getCouleurs() {
     	return self::$couleurs;

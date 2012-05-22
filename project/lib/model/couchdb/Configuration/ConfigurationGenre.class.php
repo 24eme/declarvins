@@ -5,7 +5,7 @@
  */
 
 class ConfigurationGenre extends BaseConfigurationGenre {
-
+	const TYPE_NOEUD = 'genre';
 	public function getCertification() {
 
 		return $this->getParentNode();
