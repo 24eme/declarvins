@@ -5,15 +5,30 @@
  */
 
 class DRMCertification extends BaseDRMCertification {
-    
-	public function getProduits() {
-		return $this->getDocument()->produits->get($this->getKey());
-	}
+
 	public function getLibelle() {
-	  return $this->getConfig()->getLibelle();
+
+	  	return $this->getConfig()->getLibelle();
 	}
+	
 	public function getCode() {
-	  return $this->getConfig()->getCode();
+	  
+	  	return $this->getConfig()->getCode();
+	}
+
+	public function getPreviousSisterWithMouvementCheck() {
+		
+		return null;
+	}
+
+	public function getNextSisterWithMouvementCheck() {
+
+		return null;
+	}
+
+	public function getChildrenNode() {
+
+		return $this->genres;
 	}
 
 }

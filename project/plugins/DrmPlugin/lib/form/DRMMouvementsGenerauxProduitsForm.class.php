@@ -3,7 +3,7 @@
 class DRMMouvementsGenerauxProduitsForm extends sfForm {
 
         public function __construct(DRM $drm) {
-                $defaults = array("pas_de_mouvement" => !$drm->produits->hasMouvement());
+                $defaults = array("pas_de_mouvement" => !$drm->declaration->hasMouvementCheck());
                 parent::__construct($defaults, array(), null);
         }
 

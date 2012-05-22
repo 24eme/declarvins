@@ -27,47 +27,23 @@ class DRM extends BaseDRM {
         return DRMClient::getInstance()->getCampagneAndRectificative($this->campagne, $rectificative);
     }
 
-    public function synchroniseDeclaration() {
-        foreach ($this->produits as $certification) {
-            foreach ($certification as $appellation) {
-            	foreach ($appellation as $item) {
-                	$item->updateDetail();
-            	}
-            }
-        }
-    }
-
     public function getProduit($hash, $labels = array()) {
-      $hashes = $this->interpretHash($hash);
-      sort($labels);
-      try {
-    	if ($produits = $this->getProduits()->get($hashes['certification'])->get($hashes['appellation'])) {
-    	  foreach ($produits as $p) {
-    	    $leslabels = $p->label->toArray();
-    	    sort($leslabels);
-    	    if (!count(array_diff($leslabels,$labels)) &&  $p->hashref == $hash) {
-    	      return $p;
-    	    }
-    	  }
-    	}
-      }catch(Exception $e) {
-      }
-      return false;
+        if (!$this->exist($hash)) {
+
+            return false;
+        }
+
+        return $this->get($hash)->details->getProduit($labels);
     }
 
     public function addProduit($hash, $labels = array()) {
       if ($p = $this->getProduit($hash, $labels)) {
-	    return $p;
+        return $p;
       }
-      $hashes = $this->interpretHash($hash);
-      $produit = $this->produits->add($hashes['certification'])->add($hashes['appellation'])->add();
-      $produit->setLabel($labels);
-      $produit->setHashref($hash);
-
-      $this->synchroniseDeclaration();
       
-      return $produit;
-
+      $detail = $this->getOrAdd($hash)->details->addProduit($labels);
+      
+      return $detail;
     }
 
     public function getDepartement() {
@@ -79,23 +55,8 @@ class DRM extends BaseDRM {
     }
 
     public function getDetails() {
-        $details = array();
-        foreach ($this->declaration->certifications as $certifications) {
-            foreach ($certifications->appellations as $appellation) {
-                foreach ($appellation->lieux as $lieu) {
-                    foreach ($lieu->couleurs as $couleur) {
-                    	foreach ($couleur->cepages as $cepage) {
-    	                    foreach ($cepage->millesimes as $millesime) {
-                                foreach ($millesime->details as $detail) {
-				                    $details[] = $detail;
-                                }
-    	                    }
-                    	}
-                    }
-                }
-            }
-        }
-        return $details;
+        
+        return $this->declaration->getProduits();
     }
 
     public function getDetailsAvecVrac() {
@@ -200,9 +161,11 @@ class DRM extends BaseDRM {
         $this->remove('droits');
         $this->add('droits');
         foreach ($this->declaration->certifications as $certification) {
-	        foreach ($certification->appellations as $appellation) {
-                $appellation->updateDroits($this->droits);
-	        }
+            foreach ($certification->genres as $genre) {
+    	        foreach ($genre->appellations as $appellation) {
+                    $appellation->updateDroits($this->droits);
+    	        }
+            }
         }
     }
 
@@ -327,7 +290,7 @@ class DRM extends BaseDRM {
     }
 
     protected function replicateDetail(&$drm, $key, $value, $hash_match, $hash_replication) {
-        if (preg_match('|^(/declaration/certifications/.+/appellations/.+/lieux/.+/couleurs/.+/cepages/.+/millesimes/.+/details/.+)/'.$hash_match.'$|', $key, $match)) {
+        if (preg_match('|^(/declaration/certifications/.+/appellations/.+/lieux/.+/couleurs/.+/cepages/.+/details/.+)/'.$hash_match.'$|', $key, $match)) {
             $detail = $this->get($match[1]);
             if (!$drm->exist($detail->getHash())) {
                 $drm->addProduit($detail->getMillesime()->getHash(), $detail->label->toArray());
@@ -371,14 +334,21 @@ class DRM extends BaseDRM {
       return ($this->valide->date_saisie);
     }
 
-    public function validate($identifiant = null) {
-      $this->valide->add('date_saisie', date('c'));
+    public function validate($options = null) {
+      $identifiant = null;
+      if (count($options)) {
+	if (isset($options['identifiant']))
+	  $identifiant = $options['identifiant'];
+      } 
+      if (! $this->valide->date_saisie)
+	$this->valide->add('date_saisie', date('c'));
       if (! $this->valide->date_signee)
 	$this->valide->add('date_signee', date('c'));
       if (!$identifiant)
 	$identifiant = $this->identifiant;
       $this->valide->identifiant = $identifiant;
-      $this->setDroits();
+      if (!isset($options['no_droits']) || !$options['no_droits'])
+	$this->setDroits();
       $this->setInterpros();
     }
 

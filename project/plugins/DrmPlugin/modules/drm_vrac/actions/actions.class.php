@@ -8,9 +8,9 @@ class drm_vracActions extends sfActions
     	$this->details = $this->drm->getDetailsAvecVrac();
 
     	if (count($this->details)==0) {
-	  if($request->hasParameter('precedent')) {
-	    return $this->redirect('drm_recap_appellation', $this->drm->produits->getLast()->getLast()->getDeclaration());
-	  }
+    	  if($request->hasParameter('precedent')) {
+    	    return $this->redirect('drm_recap', $this->drm->declaration->certifications->getLast());
+	    }
 	  $this->drm->setCurrentEtapeRouting('declaratif');
 	  return $this->redirect('drm_declaratif', $this->drm);
     	}
@@ -50,12 +50,14 @@ class drm_vracActions extends sfActions
       $this->forward404Unless($request->isXmlHttpRequest());
       $form = new VracAjoutContratForm($this->getRoute()->getObject());
       if (!$request->isMethod(sfWebRequest::POST)) {
-	return $this->renderText($this->getPartial('ajoutContratForm', array('form' => $form)));
+	       
+        return $this->renderText($this->getPartial('ajoutContratForm', array('form' => $form)));
       }
       $this->getResponse()->setContentType('text/json');
       $form->bind($request->getParameter($form->getName()));
       if (!$form->isValid()) {
-	return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form)))));
+	      
+        return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form)))));
       }
       $form->save();
       $this->getUser()->setFlash("notice", 'Le contrat a été ajouté avec success.');
@@ -64,12 +66,12 @@ class drm_vracActions extends sfActions
     
     public function executeUpdateVolume(sfWebRequest $request) {
       if ($request->isMethod(sfWebRequest::POST)) {
-	$form = new VracDetailModificationForm($this->getRoute()->getObject());
-	$form->bind($request->getParameter($form->getName()));
-	if ($form->isValid()) {
-	  $form->save();
-	}
-      } 
-      $this->redirect('drm_vrac', $this->getRoute()->getDrm());
+      	$form = new VracDetailModificationForm($this->getRoute()->getObject());
+      	$form->bind($request->getParameter($form->getName()));
+      	if ($form->isValid()) {
+      	  $form->save();
+          $this->redirect('drm_vrac', $this->getRoute()->getDrm());
+      	}
+      }
     }
 }

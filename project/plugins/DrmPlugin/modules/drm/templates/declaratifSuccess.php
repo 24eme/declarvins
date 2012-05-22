@@ -100,7 +100,7 @@
                         <?php echo $form['caution']->render() ?>
                     </div>
 
-                    <div class="ligne_form alignes" id="organisme" style="display:<?php echo ($form['caution']->getValue()) ? 'none' : 'block' ?>;">
+                    <div class="ligne_form alignes" id="organisme" style="display:<?php echo (!$form['caution']->getValue()) ? 'none' : 'block' ?>;">
                         <?php echo $form['organisme']->renderError() ?>
                         <?php echo $form['organisme']->renderLabel() ?>
                         <?php echo $form['organisme']->render() ?>
@@ -141,7 +141,7 @@
                 </div>
 
                 <div id="btn_etape_dr">
-                	<?php if ($drm->declaration->hasPasDeMouvement()): ?>
+                	<?php if (!$drm->declaration->hasMouvementCheck()): ?>
                 	<a href="<?php echo url_for('drm_mouvements_generaux', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
                 	<?php else: ?>
                     <a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec"><span>Précédent</span></a>

@@ -8,16 +8,15 @@ class drm_mouvements_generauxActions extends sfActions
         $this->form = new DRMMouvementsGenerauxProduitsForm($this->drm);
 		$this->forms = array();
 		$this->certificationLibelle = array();
-		foreach (ConfigurationClient::getCurrent()->declaration->certifications as $certification => $item) {
-			if (!isset($this->forms[$certification])) {
-				$this->forms[$certification] = array();
-				$this->certificationLibelle[$certification] = $item->libelle;
+		foreach (ConfigurationClient::getCurrent()->declaration->certifications as $certification_key => $certification_config) {
+            if (!isset($this->forms[$certification_key])) {
+				$this->forms[$certification_key] = array();
+				$this->certificationLibelle[$certification_key] = $certification_config->libelle;
 			}
-			if ($this->drm->produits->exist($certification)) {
-				foreach ($this->drm->produits->get($certification) as $appellation) {
-					foreach ($appellation as $produit) {
-						$this->forms[$certification][] = new DRMMouvementsGenerauxProduitForm($produit);
-					}
+			if ($this->drm->declaration->certifications->exist($certification_key)) {
+                $details = $this->drm->declaration->certifications->get($certification_key)->getProduits();
+				foreach ($details as $detail) {
+					$this->forms[$certification_key][] = new DRMMouvementsGenerauxProduitForm($detail);
 				}
 			}
 		}
@@ -27,7 +26,7 @@ class drm_mouvements_generauxActions extends sfActions
         }
         if ($request->isMethod(sfWebRequest::POST)) {
 
-            if($this->drm->produits->hasMouvement()) {
+            if($this->drm->declaration->hasMouvementCheck()) {
         	   $this->drm->setCurrentEtapeRouting('recapitulatif');
         	   $this->redirect('drm_recap', $this->first_certification);
             } else {
@@ -43,8 +42,8 @@ class drm_mouvements_generauxActions extends sfActions
         $this->forward404Unless($request->isXmlHttpRequest());
         $this->getResponse()->setContentType('text/json');
         $drm = $this->getRoute()->getDrm();
-        $detail = $this->getRoute()->getObject()->getDetail();
-        $this->forward404Unless($detail->hasPasDeMouvement());
+        $detail = $this->getRoute()->getObject();
+        $this->forward404Unless(!$detail->hasMouvement());
 		$form = new DRMMouvementsGenerauxProduitForm($this->getRoute()->getObject());
     	$form->bind($request->getParameter($form->getName()));
         if ($form->isValid()) {
@@ -106,24 +105,22 @@ class drm_mouvements_generauxActions extends sfActions
     {
         $this->forward404Unless($request->isXmlHttpRequest());
     	$drm = $this->getRoute()->getDrm();
-    	$certification = $request->getParameter('certification');
+        $certification_config = $this->getRoute()->getConfigCertification();
 
-        $form = new DRMProduitAjoutForm(
-            $drm->produits->add($certification)->add(DRM::NOEUD_TEMPORAIRE)->add(),
-            $this->getUser()->getTiers()->interpro
-            );
+        $form = new DRMProduitAjoutForm($drm, $certification_config);
         if ($request->isMethod(sfWebRequest::POST)) {
     		$this->getResponse()->setContentType('text/json');
             $form->bind($request->getParameter($form->getName()));
 			if ($form->isValid()) {
-				$form->save();
+                $form->addProduit();
+				$drm->save();
 				$this->getUser()->setFlash("notice", 'Le produit a été ajouté avec succès.');
 				return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_mouvements_generaux', $drm))));
 			} else {
-				return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form, 'certification' => $certification)))));
+				return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form, 'certification_config' => $certification_config->getKey())))));
 			}
         }
 
-        return $this->renderText($this->getPartial('popupAjout', array('form' => $form, 'certification' => $certification)));
+        return $this->renderText($this->getPartial('popupAjout', array('form' => $form, 'certification_config' => $certification_config)));
     }
 }

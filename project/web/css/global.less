@@ -143,9 +143,8 @@ pre, code, kbd, samp { font-family: monospace, sans-serif; }
 {
 	background: url(../images/pictos/pi_ajouter.png) 0 center no-repeat;
 	color: @couleur-a1;
-	font-weight: bold;
 	height: 23px;
-	padding: 0 0 0 15px;
+	padding: 0 0 0 17px;
 	
 	&:hover, &:focus { text-decoration: underline; }
 }
@@ -518,10 +517,17 @@ a
 			
 			&.profil
 			{
-				background-position: 0 -41px;
-				border-color: #8a0808;
+				background:@couleur-b3;
+				border-color: #5f0141;
 				a { color: #fff; }
 			}
+                        
+                        &.backend
+                        {
+                                background:#c582af;
+                                border-color: #a55d8d;
+                                a { color: @couleur-b3; }
+                        }
 
 		}
 	}
@@ -545,12 +551,7 @@ a
                 }
 	}
 
-        .backend
-        {
-                background: url(../images/fonds/bg_btn_backend.png) 0 0 repeat-x;
-                border-color: #8a0808;
-                a { color: #fff; }
-        }
+        
 
         
 }
@@ -614,8 +615,11 @@ a
 
                         &.backend
                         {
-                                background: url(../images/fonds/bg_btn_backend.png) 0 0 repeat-x;
-                                a { color: #fff; }
+                                background: #c582af;
+                                border: 1px solid #a55d8d;
+                                a { color: @couleur-b3; }
+                                height : 25px;
+                                line-height: 25px;
                                 padding: 0 10px;
                         }
 

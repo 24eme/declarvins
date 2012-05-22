@@ -84,6 +84,9 @@ CompteVirtuel:
   definition:
     fields:
       interpro: {  }
+      prenom: {  }
+      telephone: {  }
+      fax: {  }
 
 Interpro:
   inheritance: _Tiers
@@ -320,13 +323,13 @@ Configuration:
                                                       date: {  }
                                                       taux: { type: float }
                                                       code: {  }
-                        appellations:
+                        genres:
                           type: collection
                           definition:
                             fields:
                               '*':
-                                # APPELLATION
-                                class: ConfigurationAppellation
+                                # GENRE
+                                class: ConfigurationGenre
                                 inheritance: _ConfigurationDeclaration
                                 type: collection
                                 definition:
@@ -399,7 +402,7 @@ Configuration:
                                                   type: array_collection
                                                   definition:
                                                     fields:
-                                                      '*': {  }     
+                                                      '*': {  }
                                                 droits:
                                                   type: collection
                                                   definition:
@@ -435,24 +438,19 @@ Configuration:
                                       definition:
                                         fields:
                                           '*': {  }
-                                    lieux:
+                                    appellations:
                                       type: collection
                                       definition:
                                         fields:
                                           '*':
-                                            # LIEU
-                                            class: ConfigurationLieu
+                                            # APPELLATION
+                                            class: ConfigurationAppellation
                                             inheritance: _ConfigurationDeclaration
                                             type: collection
                                             definition:
                                               fields:
                                                 libelle: {  }
                                                 code: {  }
-                                                departements:
-                                                  type: array_collection
-                                                  definition:
-                                                    fields:
-                                                      '*': {  }
                                                 detail:
                                                   required: false
                                                   class: ConfigurationDetail
@@ -507,18 +505,61 @@ Configuration:
                                                                 fields:
                                                                   readable: {  }
                                                                   writable: {  }
-                                                            departements:
-                                                              type: array_collection
-                                                              definition:
-                                                                fields:
-                                                                  '*': {  }
-                                                couleurs: 
+                                                interpro:
                                                   type: collection
                                                   definition:
                                                     fields:
                                                       '*':
-                                                        # COULEUR
-                                                        class: ConfigurationCouleur
+                                                        type: collection
+                                                        definition:
+                                                          fields:
+                                                            labels:
+                                                              type: array_collection
+                                                              definition:
+                                                                fields:
+                                                                  '*': {  }
+                                                            droits:
+                                                              type: collection
+                                                              definition:
+                                                                fields:
+                                                                  douane:
+                                                                    class: ConfigurationDroits
+                                                                    type: array_collection
+                                                                    definition:
+                                                                      fields:
+                                                                        '*':
+                                                                          class: ConfigurationDroit
+                                                                          type: collection
+                                                                          definition:
+                                                                            fields:
+                                                                              date: {  }
+                                                                              taux: { type: float }
+                                                                              code: {  }
+                                                                  cvo:
+                                                                    class: ConfigurationDroits
+                                                                    type: array_collection
+                                                                    definition:
+                                                                      fields:
+                                                                        '*':
+                                                                          class: ConfigurationDroit
+                                                                          type: collection
+                                                                          definition:
+                                                                            fields:
+                                                                              date: {  }
+                                                                              taux: { type: float }
+                                                                              code: {  }
+                                                departements:
+                                                  type: array_collection
+                                                  definition:
+                                                    fields:
+                                                      '*': {  }
+                                                lieux:
+                                                  type: collection
+                                                  definition:
+                                                    fields:
+                                                      '*':
+                                                        # LIEU
+                                                        class: ConfigurationLieu
                                                         inheritance: _ConfigurationDeclaration
                                                         type: collection
                                                         definition:
@@ -530,26 +571,85 @@ Configuration:
                                                               definition:
                                                                 fields:
                                                                   '*': {  }
-                                                            cepages: 
+                                                            detail:
+                                                              required: false
+                                                              class: ConfigurationDetail
+                                                              type: collection
+                                                              definition:
+                                                                fields:
+                                                                  stocks_debut:
+                                                                    required: false
+                                                                    type: collection
+                                                                    definition:
+                                                                      fields:
+                                                                        '*':
+                                                                          class: ConfigurationDetailLigne
+                                                                          type: collection
+                                                                          definition:
+                                                                            fields:
+                                                                              readable: {  }
+                                                                              writable: {  }
+                                                                  entrees:
+                                                                    required: false
+                                                                    type: collection
+                                                                    definition:
+                                                                      fields:
+                                                                        '*':
+                                                                          class: ConfigurationDetailLigne
+                                                                          type: collection
+                                                                          definition:
+                                                                            fields:
+                                                                              readable: {  }
+                                                                              writable: {  }
+                                                                  sorties:
+                                                                    required: false
+                                                                    type: collection
+                                                                    definition:
+                                                                      fields:
+                                                                        '*':
+                                                                          class: ConfigurationDetailLigne
+                                                                          type: collection
+                                                                          definition:
+                                                                            fields:
+                                                                              readable: {  }
+                                                                              writable: {  }
+                                                                  stocks_fin:
+                                                                    required: false
+                                                                    type: collection
+                                                                    definition:
+                                                                      fields:
+                                                                        '*':
+                                                                          class: ConfigurationDetailLigne
+                                                                          type: collection
+                                                                          definition:
+                                                                            fields:
+                                                                              readable: {  }
+                                                                              writable: {  }
+                                                                        departements:
+                                                                          type: array_collection
+                                                                          definition:
+                                                                            fields:
+                                                                              '*': {  }
+                                                            couleurs: 
                                                               type: collection
                                                               definition:
                                                                 fields:
                                                                   '*':
-                                                                    # CEPAGE
-                                                                    class: ConfigurationCepage
+                                                                    # COULEUR
+                                                                    class: ConfigurationCouleur
                                                                     inheritance: _ConfigurationDeclaration
                                                                     type: collection
                                                                     definition:
                                                                       fields:
                                                                         libelle: {  }
                                                                         code: {  }
-                                                                        millesimes: 
+                                                                        cepages: 
                                                                           type: collection
                                                                           definition:
                                                                             fields:
                                                                               '*':
-                                                                                # MILLESIME
-                                                                                class: ConfigurationMillesime
+                                                                                # CEPAGE
+                                                                                class: ConfigurationCepage
                                                                                 inheritance: _ConfigurationDeclaration
                                                                                 type: collection
                                                                                 definition:
@@ -617,36 +717,6 @@ DRM:
       campagne: {  }
       precedente: {  }
       rectificative: { type: integer, required: false }
-      produits:
-        class: DRMProduits
-        type: collection
-        definition:
-          fields:
-            '*':
-              # CERTIFICATION
-              class: DRMProduitCertification
-              type: collection
-              definition:
-                fields:
-                  '*':
-                    # APPELLATION
-                    class: DRMProduitAppellation
-                    type: array_collection
-                    definition:
-                      fields:
-                        '*':
-                          class: DRMProduit
-                          type: collection
-                          definition:
-                            fields:
-                              hashref: {  }
-                              label:
-                                type: array_collection
-                                definition:
-                                  fields:
-                                    '*': {  }
-                              label_supplementaire: {  }
-                              pas_de_mouvement: {  }
       droits:
         type: collection
         definition:
@@ -700,7 +770,7 @@ DRM:
               definition:
                 fields:
                   '*':
-                    # LABEL
+                    # CERTIFICATION
                     class: DRMCertification
                     inheritance: _DRMTotal
                     type: collection
@@ -710,13 +780,13 @@ DRM:
                         total_entrees: { type: float }
                         total_sorties: { type: float }
                         total: { type: float }
-                        appellations:
+                        genres:
                           type: collection
                           definition:
                             fields:
                               '*':
-                                # APPELLATION
-                                class: DRMAppellation
+                                # GENRE
+                                class: DRMGenre
                                 inheritance: _DRMTotal
                                 type: collection
                                 definition:
@@ -725,13 +795,13 @@ DRM:
                                     total_entrees: { type: float }
                                     total_sorties: { type: float }
                                     total: { type: float }
-                                    lieux:
+                                    appellations:
                                       type: collection
                                       definition:
                                         fields:
                                           '*':
-                                            # LIEU
-                                            class: DRMLieu
+                                            # APPELLATION
+                                            class: DRMAppellation
                                             inheritance: _DRMTotal
                                             type: collection
                                             definition:
@@ -740,13 +810,13 @@ DRM:
                                                 total_entrees: { type: float }
                                                 total_sorties: { type: float }
                                                 total: { type: float }
-                                                couleurs:
+                                                lieux:
                                                   type: collection
                                                   definition:
                                                     fields:
                                                       '*':
-                                                        # COULEUR
-                                                        class: DRMCouleur
+                                                        # LIEU
+                                                        class: DRMLieu
                                                         inheritance: _DRMTotal
                                                         type: collection
                                                         definition:
@@ -755,13 +825,13 @@ DRM:
                                                             total_entrees: { type: float }
                                                             total_sorties: { type: float }
                                                             total: { type: float }
-                                                            cepages:
+                                                            couleurs:
                                                               type: collection
                                                               definition:
                                                                 fields:
                                                                   '*':
-                                                                    # CEPAGE
-                                                                    class: DRMCepage
+                                                                    # COULEUR
+                                                                    class: DRMCouleur
                                                                     inheritance: _DRMTotal
                                                                     type: collection
                                                                     definition:
@@ -770,13 +840,13 @@ DRM:
                                                                         total_entrees: { type: float }
                                                                         total_sorties: { type: float }
                                                                         total: { type: float }
-                                                                        millesimes:
+                                                                        cepages:
                                                                           type: collection
                                                                           definition:
                                                                             fields:
                                                                               '*':
-                                                                                # MILLESIME
-                                                                                class: DRMMillesime
+                                                                                # CEPAGE
+                                                                                class: DRMCepage
                                                                                 inheritance: _DRMTotal
                                                                                 type: collection
                                                                                 definition:
@@ -787,6 +857,7 @@ DRM:
                                                                                     total: { type: float }
                                                                                     details:
                                                                                       type: collection
+                                                                                      class: DRMDetails
                                                                                       definition:
                                                                                         fields:
                                                                                           '*':
@@ -794,6 +865,7 @@ DRM:
                                                                                             type: collection
                                                                                             definition:
                                                                                               fields:
+                                                                                                pas_de_mouvement_check: { type: integer }
                                                                                                 total_debut_mois: { type: float }
                                                                                                 total_entrees: { type: float }
                                                                                                 total_sorties: { type: float }
@@ -813,6 +885,11 @@ DRM:
                                                                                                         definition:
                                                                                                           fields:
                                                                                                             volume: { type: float }
+                                                                                                millesimes:
+                                                                                                  type: array_collection
+                                                                                                  definition:
+                                                                                                    fields:
+                                                                                                      '*': {  }
                                                                                                 stocks_debut:
                                                                                                   type: collection
                                                                                                   class: DRMDetailNoeud

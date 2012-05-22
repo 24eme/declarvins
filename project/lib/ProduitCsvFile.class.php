@@ -8,6 +8,7 @@ class ProduitCsvFile extends CsvFile
   const CSV_PRODUIT_CATEGORIE_CODE_APPLICATIF_DROIT = 'C';
   const CSV_PRODUIT_GENRE_LIBELLE = 3;
   const CSV_PRODUIT_GENRE_CODE = 4;
+  const CSV_PRODUIT_GENRE_CODE_APPLICATIF_DROIT = 'G';
   const CSV_PRODUIT_DENOMINATION_LIBELLE = 5; //DENOMINATION == APPELLATION
   const CSV_PRODUIT_DENOMINATION_CODE = 6;    //DENOMINATION == APPELLATION
   const CSV_PRODUIT_DENOMINATION_CODE_APPLICATIF_DROIT = 'A';
@@ -43,11 +44,11 @@ class ProduitCsvFile extends CsvFile
   private function getProduit($line) 
   {
   	$hash = 'certifications/'.$this->getKey($line[self::CSV_PRODUIT_CATEGORIE_CODE]).
+                '/genres/'.$this->getKey($line[self::CSV_PRODUIT_GENRE_CODE], true).
                 '/appellations/'.$this->getKey($line[self::CSV_PRODUIT_DENOMINATION_CODE], true).
                 '/lieux/'.$this->getKey($line[self::CSV_PRODUIT_LIEU_CODE], true).
                 '/couleurs/'.strtolower($this->couleurKeyToCode($line[self::CSV_PRODUIT_COULEUR_CODE])).
-                '/cepages/'.$this->getKey($line[self::CSV_PRODUIT_CEPAGE_CODE], true).
-                '/millesimes/'.$this->getKey($line[self::CSV_PRODUIT_MILLESIME_CODE], true);
+                '/cepages/'.$this->getKey($line[self::CSV_PRODUIT_CEPAGE_CODE], true);
     return $this->config->declaration->getOrAdd($hash);
   }
   

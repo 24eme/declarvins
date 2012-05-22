@@ -6,15 +6,12 @@
 
  * @property string $libelle
  * @property string $code
- * @property acCouchdbJson $departements
  * @property acCouchdbJson $cepages
 
  * @method string getLibelle()
  * @method string setLibelle()
  * @method string getCode()
  * @method string setCode()
- * @method acCouchdbJson getDepartements()
- * @method acCouchdbJson setDepartements()
  * @method acCouchdbJson getCepages()
  * @method acCouchdbJson setCepages()
  

@@ -1,3 +1,6 @@
+<?php
+use_helper('Text');
+?>
 <nav id="barre_navigation">
     <ul id="nav_principale">
         <li>
@@ -25,7 +28,7 @@
 
     <ul id="actions_etablissement">
         <?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?><li class="backend"><a href="<?php echo url_for('@admin'); ?>">Gestion</a></li><?php  endif; ?>
-        <li class="etablissement_courant"><a href=""><span><?php echo $sf_user->getTiers()->nom ?></span></a></li>
+        <li class="etablissement_courant"><a href="" title="<?=$sf_user->getTiers()->nom?>"><span><?php echo truncate_text($sf_user->getTiers()->nom,28); ?></span></a></li>
         <li class="quitter"><a href="<?php echo url_for('@ac_vin_logout'); ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
     </ul>
 </nav>

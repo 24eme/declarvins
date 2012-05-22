@@ -11,6 +11,7 @@
  * @property acCouchdbJson $label
  * @property string $label_supplementaire
  * @property acCouchdbJson $vrac
+ * @property acCouchdbJson $millesimes
  * @property DRMDetailNoeud $stocks_debut
  * @property DRMDetailNoeud $entrees
  * @property DRMDetailNoeud $sorties
@@ -30,6 +31,8 @@
  * @method string setLabelSupplementaire()
  * @method acCouchdbJson getVrac()
  * @method acCouchdbJson setVrac()
+ * @method acCouchdbJson getMillesimes()
+ * @method acCouchdbJson setMillesimes()
  * @method DRMDetailNoeud getStocksDebut()
  * @method DRMDetailNoeud setStocksDebut()
  * @method DRMDetailNoeud getEntrees()

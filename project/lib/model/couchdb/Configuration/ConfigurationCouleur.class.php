@@ -19,16 +19,6 @@ class ConfigurationCouleur extends BaseConfigurationCouleur {
     public function hasCepage() {
     	return (count($this->cepages) > 1 || (count($this->cepages) == 1 && $this->cepages->getFirst()->getKey() != Configuration::DEFAULT_KEY));
     }
-
-    public function hasMillesime() {
-    	foreach($this->cepages as $cepage) {
-    		if ($cepage->hasMillesime()) {
-    			return true;
-    		}
-    	}
-
-    	return false;
-    }
     
     public function setDonneesCsv($datas) {
     	$this->getLieu()->setDonneesCsv($datas);
@@ -48,12 +38,7 @@ class ConfigurationCouleur extends BaseConfigurationCouleur {
   	public function hasDetails() {
   		return false;
   	}
-	
   	public function getTypeNoeud() {
   		return self::TYPE_NOEUD;
-  	}
-  	
-  	public function getDetailConfiguration() {
-  		return $this->getLieu()->getDetailConfiguration();
   	}
 }

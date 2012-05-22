@@ -9,14 +9,32 @@ class DRMAppellation extends BaseDRMAppellation {
      *
      * @return DRMCertification
      */
-    public function getCertification() {
-        return $this->getParent()->getParent();
-    }
-    
-    public function getProduits() {
-      return $this->getDocument()->produits->get($this->getCertification()->getKey())->get($this->getKey());
+    public function getGenre() {
+
+        return $this->getParentNode();
     }
 
+    public function getChildrenNode() {
+
+        return $this->lieux;
+    }
+
+    public function getLieuxArray() {
+      $lieux = array();
+      foreach($this->lieux as $lieu) {
+        $lieux[$lieu->getHash()] = $lieu;
+      }
+      return $lieux;
+    }
+
+     /**
+     *
+     * @return DRMGenre
+     */
+    public function getCertification() {
+        return $this->getGenre()->getParent()->getParent();
+    }
+    
     public function updateDroits($droits) {
     	foreach ($this->getDroits() as $typedroits => $droit) {
     		$droits->add($typedroits)->add($droit->code)->integreVolume($this->sommeLignes(DRMDroits::getDroitSorties()), $this->sommeLignes(DRMDroits::getDroitEntrees()), $droit->taux, $this->getReportByDroit($droit));

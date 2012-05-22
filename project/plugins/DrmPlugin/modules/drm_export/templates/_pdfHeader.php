@@ -1,5 +1,9 @@
 <div id="header">
-   <center><h1>Déclaration récapitulative mensuelle en droit suspendus de <?php echo $drm->getHumanDate(); ?> 
+   <center>
+<h1>
+<?php if (!$drm->valide->date_saisie) {
+   echo '<span class="rectificative">Brouillon&nbsp;: </span> ';
+ }?>Déclaration récapitulative mensuelle en droits suspendus de <?php echo $drm->getHumanDate(); ?> 
 <?php if($drm->isRectificative()): ?>
  - <span class="rectificative">Rectificative <?php echo sprintf('%02d', $drm->rectificative) ?></span>
 <?php endif; ?>

@@ -1,9 +1,6 @@
-<form  class="popup_form" id="form_ajout" action="<?php echo url_for(array('sf_route' => 'drm_mouvements_generaux_product_form', 
-																		   'sf_subject' => $form->getObject()->getDocument(),
-																		   'certification' => $certification)) ?>" method="post">
+<form  class="popup_form" id="form_ajout" action="<?php echo url_for('drm_mouvements_generaux_product_ajout', $form->getDrm()->getOrAdd($certification_config->getHash())) ?>" method="post">
 	<?php echo $form->renderGlobalErrors() ?>
 	<?php echo $form->renderHiddenFields() ?>
-	<input type="hidden" name="certification" value="<?php echo $certification ?>" />
 	<div class="ligne_form">
 		<span class="error"><?php echo $form['hashref']->renderError() ?></span>
 		<?php echo $form['hashref']->renderLabel() ?>
@@ -52,8 +49,8 @@ $(document).ready(function () {
 		$('#lien_<?php echo $form['disponible']->renderId() ?>').click(function() {
 	    	$(this).hide();
 	    	$('#ligne_<?php echo $form['disponible']->renderId() ?>').show();
-		$('#produit_<?php echo $certification; ?>_disponible.num_float').saisieNum(true);
-		$('#produit_<?php echo $certification; ?>_disponible.num_float').nettoyageChamps();
+		$('#produit_<?php echo $certification_config->getKey(); ?>_disponible.num_float').saisieNum(true);
+		$('#produit_<?php echo $certification_config->getKey(); ?>_disponible.num_float').nettoyageChamps();
 		return false;
 	    }); 
 });

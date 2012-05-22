@@ -18,11 +18,11 @@
                                                                'cssclass' => null)); ?>
             <?php foreach($certifications as $key => $certification): ?>
                  <?php include_partial('drm/etapeItem', array('drm' => $drm,
-                                                               'libelle' => $certificationsLibelle[$key],
+                                                               'libelle' => $certification->getConfig()->getLibelle(),
                                                                'numero' => $key,
                                                                'numero_courant' => $numero,
                                                                'numero_autorise' => $numero_autorise,
-                                                               'url' => url_for('drm_recap', $drm->declaration->certifications->get($certification)),
+                                                               'url' => url_for('drm_recap', $certification),
                                                                'cssclass' => null)); ?>
             <?php endforeach; ?>
             <?php include_partial('drm/etapeItem', array('drm' => $drm,

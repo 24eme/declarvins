@@ -3,29 +3,35 @@
 <section id="contenu">
 
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
-    <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'recapitulatif', 'certification' => $config_appellation->getCertification()->getKey(), 'pourcentage' => '30')); ?>
+    <?php include_component('drm', 'etapes', array('drm' => $drm, 
+                                                   'etape' => 'recapitulatif', 
+                                                   'certification' => $config_lieu->getCertification()->getKey(), 
+                                                   'pourcentage' => '30')); ?>
     <?php include_partial('drm/controlMessage'); ?>
     <!-- #principal -->
     <section id="principal">
         <div id="application_dr">
             
-            <?php include_component('drm_recap', 'onglets', array('config_appellation' => $config_appellation, 'drm_appellation' => $drm_appellation)) ?>
+            <?php include_component('drm_recap', 'onglets', array('config_lieu' => $config_lieu, 
+                                                                  'drm_lieu' => $drm_lieu)) ?>
             <div id="contenu_onglet">
             
             	<a href="" data-popup="#raccourci_clavier" class="btn_popup" data-popup-config="configDefaut">Raccourcis clavier</a>
             
                 <?php include_partial('shortcutKeys') ?>
 
-                <?php include_component('drm_recap', 'list', array('drm_appellation' => $drm_appellation, 'config_appellation' => $config_appellation, 'form' => $form)); ?>
-                
+                <?php include_component('drm_recap', 'list', array('drm_lieu' => $drm_lieu, 
+                                                                   'config_lieu' => $config_lieu,
+                                                                   'produits' => $produits,
+                                                                   'form' => $form)); ?>
                 <div id="btn_suiv_prec">
                     <?php if ($previous): ?>
-                        <a href="<?php echo url_for('drm_recap_appellation', $previous) ?>" class="btn_prec">
+                        <a href="<?php echo url_for('drm_recap_lieu', $previous) ?>" class="btn_prec">
                             <span>Produit précédent</span>
                         </a>
                     <?php endif; ?>
                     <?php if ($next): ?>
-                        <a href="<?php echo url_for('drm_recap_appellation', $next) ?>" class="btn_suiv">
+                        <a href="<?php echo url_for('drm_recap_lieu', $next) ?>" class="btn_suiv">
                             <span>Produit suivant</span>
                         </a>
                     <?php endif; ?>

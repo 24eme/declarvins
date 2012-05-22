@@ -1,14 +1,14 @@
 <?php
 /**
- * BaseDRMMillesime
+ * BaseDRMGenre
  * 
- * Base model for DRMMillesime
+ * Base model for DRMGenre
 
  * @property float $total_debut_mois
  * @property float $total_entrees
  * @property float $total_sorties
  * @property float $total
- * @property acCouchdbJson $details
+ * @property acCouchdbJson $appellations
 
  * @method float getTotalDebutMois()
  * @method float setTotalDebutMois()
@@ -18,16 +18,16 @@
  * @method float setTotalSorties()
  * @method float getTotal()
  * @method float setTotal()
- * @method acCouchdbJson getDetails()
- * @method acCouchdbJson setDetails()
+ * @method acCouchdbJson getAppellations()
+ * @method acCouchdbJson setAppellations()
  
  */
 
-abstract class BaseDRMMillesime extends _DRMTotal {
+abstract class BaseDRMGenre extends _DRMTotal {
                 
     public function configureTree() {
        $this->_root_class_name = 'DRM';
-       $this->_tree_class_name = 'DRMMillesime';
+       $this->_tree_class_name = 'DRMGenre';
     }
                 
 }

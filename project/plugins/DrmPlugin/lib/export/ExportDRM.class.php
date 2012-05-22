@@ -62,21 +62,19 @@ class ExportDRM
         $this->pagers_vrac = array();
         
 
-    	foreach($this->drm->produits as $certification) {
+    	foreach($this->drm->declaration->certifications as $certification) {
             $details_pour_volume = array();
             $details_pour_vrac = array();
             $codes = array();
-    		foreach($certification as $appellation) {
-    			foreach($appellation as $produit) {
-	    			$detail = $produit->getDetail();
-    				if (!$detail->hasStockEpuise()) {
-	    				$details_pour_volume[] = $detail;
-	                    foreach($detail->vrac as $vrac) {
-	                        $details_pour_vrac[] = $vrac;
-	                    }
-	                    $codes[$detail->getCodes()] = $detail->getMillesime();
-    				}
-    			}
+            $details = $certification->getProduits();
+    		foreach($details as $detail) {
+				if (!$detail->hasStockEpuise()) {
+    				$details_pour_volume[] = $detail;
+                    foreach($detail->vrac as $vrac) {
+                        $details_pour_vrac[] = $vrac;
+                    }
+                    $codes[$detail->getCodes()] = $detail->getCepage();
+				}
     		}
             $this->pagers_volume[$certification->getKey()] = $this->makePager($details_pour_volume);
             $this->pagers_vrac[$certification->getKey()] = $this->makePager($details_pour_vrac);

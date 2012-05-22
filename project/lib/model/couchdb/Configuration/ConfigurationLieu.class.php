@@ -6,13 +6,65 @@
 
 class ConfigurationLieu extends BaseConfigurationLieu {
 	
-	const TYPE_NOEUD = 'lieu';
+	  const TYPE_NOEUD = 'lieu';
+
+    protected function loadAllData() {
+        parent::loadAllData();
+        $this->hasCepage();
+    }
+
 	/**
      *
      * @return ConfigurationAppellation
      */
     public function getAppellation() {
         return $this->getParentNode();
+    }
+
+    public function getCertification() {
+
+        return $this->getAppellation()->getCertification();
+    }
+    
+    public function getLabels($interpro) {
+
+        return $this->getCertification()->getLabels($interpro);
+    }
+
+    public function hasCepage() {
+        return $this->store('has_cepage', array($this, 'hasCepageStore'));
+    }
+
+    public function hasCepageStore() {
+        foreach($this->couleurs as $couleur) {
+            if ($couleur->hasCepage()) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    public function getProduits($interpro, $departement) {
+        $produits = array();
+
+        $results = ConfigurationClient::getInstance()->findProduitsByLieu($this->getCertification()->getKey(), $interpro, '', $this->getHash())->rows;
+
+        if ($departement) {
+          $results = array_merge($results, ConfigurationClient::getInstance()->findProduitsByLieu($this->getCertification()->getKey(), $interpro, $departement, $this->getHash())->rows);
+        }
+
+        foreach($results as $item) {
+            $libelles = $item->value;
+            unset($libelles[0]);
+            unset($libelles[1]);
+            $libelles[] = '('.$item->key[6].')';
+            $produits[$item->key[5]] = $libelles;
+        }
+
+        ksort($produits);
+
+        return $produits;
     }
     
     public function setDonneesCsv($datas) {
@@ -34,23 +86,7 @@ class ConfigurationLieu extends BaseConfigurationLieu {
   	public function hasDetails() {
   		return true;
   	}
-	
   	public function getTypeNoeud() {
   		return self::TYPE_NOEUD;
-  	}
-  	
-  	public function getDetailConfiguration() {
-  		$details = $this->getAppellation()->getDetailConfiguration();
-  		if ($this->exist('detail')) {
-  			foreach ($this->detail as $type => $detail) {
-  				foreach ($detail as $noeud => $droits) {
-  					if ($droits->readable !== null)
-  						$details->get($type)->get($noeud)->readable = $droits->readable;
-  					if ($droits->writable !== null)
-  						$details->get($type)->get($noeud)->writable = $droits->writable;
-  				}
-  			}
-  		}
-  		return $details;
   	}
 }

@@ -11,15 +11,23 @@ class DRMLieu extends BaseDRMLieu {
      * @return DRMLieu
      */
     public function getAppellation() {
-        return $this->getParent()->getParent();
+
+        return $this->getParentNode();
     }
 
-    public function sommeLignes($lines) {
-      $sum = 0;
-      foreach($this->couleurs as $couleur) {
-	$sum += $couleur->sommeLignes($lines);
-      }
-      return $sum;
+    public function getCertification() {
+        
+        return $this->getAppellation()->getCertification();
     }
 	
+    public function getChildrenNode() {
+
+        return $this->couleurs;
+    }
+
+    public function getLieux() {
+
+        return null;
+    }
+
 }

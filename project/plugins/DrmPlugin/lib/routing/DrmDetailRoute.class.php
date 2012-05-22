@@ -1,36 +1,32 @@
 <?php
 
-class DrmDetailRoute extends DrmAppellationRoute {
+class DrmDetailRoute extends DrmLieuRoute {
 
     public function getDRMDetail() {
         
         return $this->getObject();
     }
     
-    public function getDRMAppellation() {
+    public function getDRMLieu() {
 
-        return $this->getDRMDetail()->getAppellation();
+        return $this->getDRMDetail()->getLieu();
     }
     
     protected function getObjectForParameters($parameters) {
-        $config_appellation = parent::getObjectForParameters($parameters);
+        $config_lieu = parent::getObjectForParameters($parameters);
         
-        $drm_detail = $this->getDrm()->get($config_appellation->getHash())
-                                  ->lieux->add($parameters['lieu'])
-                                  ->couleurs->add($parameters['couleur'])
-                                  ->cepages->add($parameters['cepage'])
-                                  ->millesimes->add($parameters['millesime'])
-                                  ->details->get($parameters['detail']);
+        $drm_detail = $this->getDrm()->get($config_lieu->getHash())
+                                     ->couleurs->add($parameters['couleur'])
+                                     ->cepages->add($parameters['cepage'])
+                                     ->details->get($parameters['detail']);
 
         return $drm_detail;
     }
 
     protected function doConvertObjectToArray($object) {
-        $parameters = parent::doConvertObjectToArray($object->getAppellation());
-        $parameters['lieu'] = $object->getLieu()->getKey();
+        $parameters = parent::doConvertObjectToArray($object->getLieu());
         $parameters['couleur'] = $object->getCouleur()->getKey();
         $parameters['cepage'] = $object->getCepage()->getKey();
-        $parameters['millesime'] = $object->getMillesime()->getKey();
         $parameters['detail'] = $object->getKey();
         
         return $parameters;

@@ -8,13 +8,15 @@
 		<div id="application_dr">
 			<div id="contenu_onglet">
 				<?php if($first_certification): ?>
-				<a href="<?php echo url_for('drm_recap', $first_certification) ?>" class="btn_passer_etape">Passer cette étape</a>	
+                                <form method="post" action="<?php echo url_for('drm_recap', $first_certification) ?>">
+                                    <button class="btn_passer_etape" type="submit">Passer cette étape</button>
+                                </form>
 				<?php endif; ?>
 				<p class="intro">Au cours du mois écoulé, avez-vous connu des changements de structure particuliers ?</p>
         		
         		<div id="ajouts_liquidations">
         			
-        			<?php if($drm->declaration->hasPasDeMouvement()): ?>
+        			<?php if(!$drm->declaration->hasMouvement()): ?>
         			<div id="form" style="padding:15px 0 0 0; margin:0 0 15px 0;" class="tableau_ajouts_liquidations">
         				<form class="updateProduct" action="<?php echo url_for('drm_mouvements_generaux_produits_update', $drm) ?>" method="post">
 		        			<table class="tableau_recap">
@@ -54,20 +56,15 @@
 									<tbody>
 			                        <?php
 			                        if ($tabForm):
-			                            foreach ($tabForm as $form):
-                                                   
-			                                ?>
+			                            foreach ($tabForm as $form): ?>
 			                                <?php include_partial('item', array('form' => $form)) ?>
-			                                <?php
-			                            endforeach;
+			                            <?php endforeach;
 			                        endif;
 			                        ?>
 			                        </tbody>
 			                    </table>
 			                    <div class="btn">
-									<a href="<?php echo url_for(array('sf_route' => 'drm_mouvements_generaux_product_form', 
-																	  'sf_subject' => $drm, 
-																	  'certification' => $certification)) ?>" class="btn_ajouter btn_popup" data-popup="#popup_ajout_produit_<?php echo $certification ?>" data-popup-config="configForm">Ajouter un nouveau produit</a>
+									<a href="<?php echo url_for('drm_mouvements_generaux_product_ajout', $drm->declaration->certifications->add($certification)) ?>" class="btn_ajouter btn_popup" data-popup="#popup_ajout_produit_<?php echo $certification ?>" data-popup-config="configForm">Ajouter un nouveau produit</a>
 								</div>
 		                    </div>
 		            </div>

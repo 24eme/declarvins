@@ -1,9 +1,11 @@
-<form  class="popup_form" id="form_ajout" action="<?php echo url_for('drm_recap_ajout_ajax', $form->getObject()->getAppellation()->getDeclaration()) ?>" method="post" >
+<?php use_helper('Lieu'); ?>
+
+<form class="popup_form" id="form_ajout" action="<?php echo url_for('drm_recap_ajout_ajax', $drm_lieu) ?>" method="post" >
 	<?php echo $form->renderGlobalErrors() ?>
 	<?php echo $form->renderHiddenFields() ?>
 	<div class="ligne_form">
 		<label>Appellation:</label>
-		<?php echo $form->getObject()->getAppellation()->getDeclaration()->getConfig()->libelle ?>
+		<?php echo lieuLibelleFromLieu($drm_lieu) ?>
 	</div>
 	<div class="ligne_form">
 		<span class="error"><?php echo $form['hashref']->renderError() ?></span>
