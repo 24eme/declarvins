@@ -17,6 +17,9 @@
 		
 		$.inputPlaceholder();
 		$('img.rollover').survolImg();
+                
+                $('.flash_notice').delay(1000).fadeOut(500);
+                
 	});
 	
 	
