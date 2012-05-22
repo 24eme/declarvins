@@ -360,7 +360,6 @@
 				var champDernier = champ.hasClass('dernier');
 				var champDernierGroupePrec = groupeChampsPrec.find('input.dernier');
 				
-				
 				// Focus sur la colonne courante s'il n'y pas de colonne active
 				// et si la colonne courante n'a pas déjà le focus
 				champ.focus(function()
@@ -388,8 +387,6 @@
 						// Et s'il y a un groupe précédent 
 						if(groupePrec.exists() && champPremier)
 						{
-							
-							console.log(i+1 + ' ' +champPremier);
 							champ.blur();
 							
 							// Si le groupe n'était pas ouvert ni bloqué au démarrage
@@ -439,13 +436,20 @@
 		// Colonne au focus par défaut
 		colFocus = $('#col_recolte_'+colFocusNum);
 		colFocus.addClass('col_focus');
+		
 		//colCurseur = colFocus.find('a.col_curseur');
-		colCurseur = colFocus.find('#'+colFocus.attr('data-input-focus'));
-		if (colCurseur.length == 0) {
+		colCurseur = colFocus.find(colFocus.attr('data-input-focus'));
+		
+		if (colCurseur.length == 0)
+		{
 			colCurseur = colFocus.find('a.col_curseur');
 		}
+		/*else if(colCurseur.is('input'))
+		{
+		}*/
 
 		colCurseur.focus();
+		colCurseur.select();
 		
 		// Positionnement du scroll
 		$.majColSaisiesScroll();
@@ -785,9 +789,11 @@
 			gpeAssocieIntitules.find('input').focus(function()
 			{
 				var champ = $(this);
+				
+				
 				var champSuivant = champ.parents('.groupe').find('ul input.premier');
 				
-				// Si le groupe est fermé ou si c'est groupe bloqué et ouvert
+				// Si le groupe est fermé ou si c'est un groupe bloqué et ouvert
 				if(!groupe.hasClass('groupe_ouvert') || (groupe.hasClass('bloque') && groupe.hasClass('demarrage-ouvert')))
 				{
 					// Fermeture de tous les autres groupes
