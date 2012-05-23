@@ -13,10 +13,11 @@ function updateCompte() {
 		<p>Si vous n'avez pas reçu d'email</p>
 		<ul>
 			<li>Vérifiez vos spams</li>
-			<li>Vous vous êtes trompé dans vôtre adresse email : <a href="javascript:updateCompte()">Modifiez la</a></li>
+			<li>Vous vous êtes trompé dans vôtre adresse email : <a href="javascript:updateCompte()">Veuillez cliquer ici afin de la modifier.</a></li>
 		</ul>
-		<div id="form" style="display: <?php echo ($showForm)? 'block' : 'none'; ?>;" >
+		<div id="form" style="margin-top:20px; display: <?php echo ($showForm)? 'block' : 'none'; ?>;" >
 		<form id="creation_compte" method="post" action="<?php echo url_for('contrat_etablissement_confirmation') ?>">
+                    <h2>Modification de votre adresse email :</h2>
 			<div class="col">
 				<div class="ligne_form">
 				<?php echo $form->renderHiddenFields(); ?>
@@ -37,7 +38,7 @@ function updateCompte() {
 		</form>
 		</div>
 	<div class="ligne_btn" style="text-align:left;">
-		<a href="<?php echo url_for('contrat_pdf') ?>" class="button btn_valider">Pdf</a>
+		<a href="<?php echo url_for('contrat_pdf') ?>" class="button btn_valider"><span>Pdf</span></a>
 	</div>
 	</div>
 </section>

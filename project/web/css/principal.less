@@ -17,7 +17,7 @@
 		font-weight: normal;
 		margin: 0 0 25px;
 		
-		strong { color: @couleur-b1; }
+		strong { color: @couleur-b3; }
 	}
 	
 	h2
@@ -30,7 +30,7 @@
 	{
 		display: inline-block;
 		vertical-align: top;
-		width: 430px;
+		width: 425px;
 		
 		.ielt8 & { .inline-block-ie; }
 	}
@@ -107,12 +107,12 @@
 	
 	.ligne_btn 
 	{
-		margin: 30px 0 0;
+		margin: 34px 0 0;
+                right: 23px;
 		
 		button, a
 		{
-			line-height: 28px;
-			font-size: 15px;
+			line-height: 24px;
 			font-weight: normal;
 			text-transform: uppercase;
 			&:hover { text-decoration: none; }
@@ -126,57 +126,32 @@
 		
 		.btn_ajouter
 		{
-			.btn_vert;
+			.btn_violet;
 			background-image: url(../images/boutons/btn_ajouter.png);
 			background-position: 7px center;
 			margin: 0 10px 0 0;
 			padding: 0 10px 0 30px;
 		}
-		
+
 		.btn_supprimer
 		{
-			.btn_violet;
+			.btn_gris;
 			background-image: url(../images/boutons/btn_supprimer.png);
 			background-position: 7px center;
 			padding: 0 10px 0 30px;
+                        margin-right:20px;
+                        text-transform: none;
 		}
 	}
 	
 	/* Ajout d'établissements */
 	#infos_etablissements
 	{
-		margin: 40px 0 0;
+		margin: 15px 0 0;
 		position: relative;
-		padding: 0 150px 0 0;
-		width: 600px;
-		
-		h2 { }
-		
-		a#btn_ajouter_etablissement
-		{
-			.btn_vert;
-			background-image: url(../images/boutons/btn_ajouter.png);
-			background-position: 10px center;
-			font-size: 15px;
-			line-height: 1;
-			position: absolute;
-			padding: 4px 10px 4px 32px;
-			font-size: 15px;
-			right: 0;
-			text-transform: uppercase;
-			
-			&:hover { text-decoration: none; }
-			
-			span
-			{
-				color: #494949;
-				display: block;
-				font-size: 14px;
-				font-weight: bold;
-				text-transform: none;
-			}
-		}
-		
+		padding: 0;
+		width: 895px;
+				
 		.etablissement
 		{
 			.border(@couleur-a3);
@@ -205,6 +180,42 @@
 		}
 	}
 
+        a.btn_ajouter_etab
+        {
+                .btn_gris;
+                background-image: url(../images/boutons/btn_ajouter.png);
+                background-position: 7px center;
+                margin: 0 10px 0 0;
+                padding: 5px 10px 6px 30px;
+                position: absolute;
+                right: 127px;
+                text-transform : none;
+        }
+
+        a#btn_ajouter_etablissement
+        {
+                .btn_gris;
+                background-image: url(../images/boutons/btn_ajouter.png);
+                background-position: 10px center;
+                font-size: 15px;
+                line-height: 1;
+                position: absolute;
+                padding: 4px 10px 4px 32px;
+                font-size: 15px;
+                text-transform: uppercase;
+
+                &:hover { text-decoration: none; }
+
+                span
+                {
+                        color: #fff;
+                        display: block;
+                        font-size: 14px;
+                        font-weight: bold;
+                        text-transform: none;
+                }
+        }
+
 	/* Récapitulatif */
 	#recapitulatif
 	{
@@ -224,20 +235,38 @@
 					font-weight: normal;
 				}
 			}
-		}
-
-		.recap_etablissement
-		{
-			.border(@couleur-a3);
-			background: @couleur-a4;
-			padding: 15px;
-
+		
 			.adresse_comptabilite
 			{
 				margin: 20px 0 0;
-			}
+			} 
+
+                        .btn_ajouter
+                        {
+                                .btn_violet;
+                                background-image: url(../images/boutons/btn_ajouter.png);
+                                background-position: 7px center;
+                                margin: 0 10px 0 0;
+                                padding: 0 10px 0 30px;
+                        }
+
+                        .btn_supprimer
+                        {
+                                .btn_gris;
+                                background-image: url(../images/boutons/btn_supprimer.png);
+                                background-position: 7px center;
+                                padding: 0 10px 0 30px;
+                                margin-right:20px;
+                                text-transform: none;
+                        }
 		}
 
-		.ligne_btn { text-align: right; }
+		.ligne_btn 
+                { 
+                        text-align: right; 
+                        margin:0;
+                }
+
+                
 	}
 }
