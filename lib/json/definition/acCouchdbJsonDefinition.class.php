@@ -5,6 +5,7 @@ class acCouchdbJsonDefinition {
     private $_fields = null;
     private $_hash = null;
     private $_model = null;
+    private $_inheritance = null;
 
 
     public function __construct($model, $hash) {
@@ -19,6 +20,16 @@ class acCouchdbJsonDefinition {
 
     public function getHash() {
         return $this->_hash;
+    }
+
+    public function getInheritance() {
+        
+        return $this->_inheritance;
+    }
+
+    public function setInheritance($inheritance) {
+
+        return $this->_inheritance = $inheritance;
     }
 
     public function add(acCouchdbJsonDefinitionField $field) {

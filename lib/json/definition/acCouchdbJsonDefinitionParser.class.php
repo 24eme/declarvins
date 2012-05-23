@@ -10,6 +10,7 @@ class acCouchdbJsonDefinitionParser {
     protected static function parseInheritance($model, $schema, $definition) {
         $inheritance_model = self::getValue($schema[$model], "inheritance", false);
         if ($inheritance_model !== false) {
+            $definition->setInheritance($inheritance_model);
             return self::parse($inheritance_model, $schema, $definition);
         } else {
             return $definition;
@@ -17,11 +18,8 @@ class acCouchdbJsonDefinitionParser {
     }
     
     protected static function parseDefinition($definition, $data_definition) {
-        if (self::getValue($data_definition, 'free') === true) {
-            $definition->setIsFree(true);
-        } else {
-            self::parseFields($definition, self::getValueRequired($data_definition, 'fields'));
-        }
+        self::parseFields($definition, self::getValueRequired($data_definition, 'fields'));
+        
         return $definition;
     }
 

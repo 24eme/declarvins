@@ -49,7 +49,7 @@ EOF;
         $filename = $model . ".class.php";
         file_put_contents($base_dir . '/' . $base_filename, $this->getFileContentBaseDocument(array("%MODEL_NAME%" => $model,
                     "%PROPERTIES%" => $this->generateProperties($definition),
-                    "%EXTENDS%" => 'acCouchdbDocument',
+                    "%EXTENDS%" => ($definition->getInheritance()) ? $definition->getInheritance() : 'acCouchdbDocument',
                     "%METHODS%" => $this->generateMethods($definition),
                 )));
         $this->logSection("base document class generated", $base_dir . '/' . $base_filename);
