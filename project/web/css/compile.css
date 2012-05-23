@@ -598,51 +598,51 @@ a:hover { text-decoration:underline; }
   margin:0 0 20px;
 }
 #contenu .intro { margin:0 0 20px; }
-#principal #onglets_principal {
+#principal #onglets_principal, #principal .onglets_principal {
   line-height:23px;
   zoom:1;
 }
-#principal #onglets_principal:before, #principal #onglets_principal:after {
+#principal #onglets_principal:before, #principal #onglets_principal:after, #principal .onglets_principal:before, #principal .onglets_principal:after {
   content:"\0020";
   display:block;
   font-size:0;
   height:0;
   visibility:hidden;
 }
-#principal #onglets_principal:after { clear:both; }
-#principal #onglets_principal li {
+#principal #onglets_principal:after, #principal .onglets_principal:after { clear:both; }
+#principal #onglets_principal li, #principal .onglets_principal li {
   background:#e9e9e9;
   float:left;
   margin:0 6px 0 0;
 }
-#principal #onglets_principal li.actif, #principal #onglets_principal li a:hover, #principal #onglets_principal li a:focus {
+#principal #onglets_principal li.actif, #principal #onglets_principal li a:hover, #principal #onglets_principal li a:focus, #principal .onglets_principal li.actif, #principal .onglets_principal li a:hover, #principal .onglets_principal li a:focus {
   background:#494949;
   color:#ffffff;
 }
-#principal #onglets_principal li.actif strong, #principal #onglets_principal li a:hover strong, #principal #onglets_principal li a:focus strong { font-weight:normal; }
-#principal #onglets_principal li a, #principal #onglets_principal li strong {
+#principal #onglets_principal li.actif strong, #principal #onglets_principal li a:hover strong, #principal #onglets_principal li a:focus strong, #principal .onglets_principal li.actif strong, #principal .onglets_principal li a:hover strong, #principal .onglets_principal li a:focus strong { font-weight:normal; }
+#principal #onglets_principal li a, #principal #onglets_principal li strong, #principal .onglets_principal li a, #principal .onglets_principal li strong {
   float:left;
   padding:0 15px;
 }
-#principal #onglets_principal li a:hover { text-decoration:none; }
-#principal #onglets_principal li .completion {
+#principal #onglets_principal li a:hover, #principal .onglets_principal li a:hover { text-decoration:none; }
+#principal #onglets_principal li .completion, #principal .onglets_principal li .completion {
   color:#ff9f00;
   font-weight:bold;
   margin:0 0 0 5px;
 }
-#principal #onglets_principal li .completion.completion_validee { color:#b1cb00; }
-#principal #onglets_principal li.ajouter {
+#principal #onglets_principal li .completion.completion_validee, #principal .onglets_principal li .completion.completion_validee { color:#b1cb00; }
+#principal #onglets_principal li.ajouter, #principal .onglets_principal li.ajouter {
   background:0;
   margin:0 0 0 10px;
 }
-#principal #onglets_principal li.ajouter a {
+#principal #onglets_principal li.ajouter a, #principal .onglets_principal li.ajouter a {
   background:url(../images/pictos/pi_ajouter.png) 0 center no-repeat;
   color:#494949;
   height:23px;
   padding:0 0 0 17px;
 }
-#principal #onglets_principal li.ajouter a:hover, #principal #onglets_principal li.ajouter a:focus { text-decoration:underline; }
-#principal #contenu_onglet {
+#principal #onglets_principal li.ajouter a:hover, #principal #onglets_principal li.ajouter a:focus, #principal .onglets_principal li.ajouter a:hover, #principal .onglets_principal li.ajouter a:focus { text-decoration:underline; }
+#principal #contenu_onglet, #principal .contenu_onglet {
   background:#f1f1f1;
   border:1px solid #e9e9e9;
   margin:0 0 15px;
@@ -901,7 +901,7 @@ a:hover { text-decoration:underline; }
   font-weight:normal;
   margin:0 0 25px;
 }
-#creation_compte h1 strong { color:#494949; }
+#creation_compte h1 strong { color:#86005b; }
 #creation_compte h2 {
   font-size:16px;
   margin:0 0 15px;
@@ -909,7 +909,7 @@ a:hover { text-decoration:underline; }
 #creation_compte .col {
   display:inline-block;
   vertical-align:top;
-  width:430px;
+  width:425px;
 }
 .ielt8 #creation_compte .col {
   display:inline;
@@ -960,10 +960,12 @@ a:hover { text-decoration:underline; }
   margin:0 5px 0 0;
   vertical-align:middle;
 }
-#creation_compte .ligne_btn { margin:30px 0 0; }
+#creation_compte .ligne_btn {
+  margin:34px 0 0;
+  right:23px;
+}
 #creation_compte .ligne_btn button, #creation_compte .ligne_btn a {
-  line-height:28px;
-  font-size:15px;
+  line-height:24px;
   font-weight:normal;
   text-transform:uppercase;
 }
@@ -994,57 +996,33 @@ a:hover { text-decoration:underline; }
   border:1px solid;
   color:#ffffff;
   display:inline-block;
-  background-color:#b1cb00;
-  border-color:#99af00;
+  background-color:#86005b;
+  border-color:#494949;
   background-image:url(../images/boutons/btn_ajouter.png);
   background-position:7px center;
   margin:0 10px 0 0;
   padding:0 10px 0 30px;
 }
-#creation_compte .ligne_btn .btn_ajouter:hover, #creation_compte .ligne_btn .btn_ajouter:focus { background-color:#99af00; }
+#creation_compte .ligne_btn .btn_ajouter:hover, #creation_compte .ligne_btn .btn_ajouter:focus { background-color:#494949; }
 #creation_compte .ligne_btn .btn_supprimer {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
   display:inline-block;
-  background-color:#86005b;
-  border-color:#494949;
+  background-color:#a0a0a0;
+  border-color:#c0c0c0;
   background-image:url(../images/boutons/btn_supprimer.png);
   background-position:7px center;
   padding:0 10px 0 30px;
+  margin-right:20px;
+  text-transform:none;
 }
 #creation_compte .ligne_btn .btn_supprimer:hover, #creation_compte .ligne_btn .btn_supprimer:focus { background-color:#494949; }
 #creation_compte #infos_etablissements {
-  margin:40px 0 0;
+  margin:15px 0 0;
   position:relative;
-  padding:0 150px 0 0;
-  width:600px;
-}
-#creation_compte #infos_etablissements a#btn_ajouter_etablissement {
-  background-repeat:no-repeat;
-  border:1px solid;
-  color:#ffffff;
-  display:inline-block;
-  background-color:#b1cb00;
-  border-color:#99af00;
-  background-image:url(../images/boutons/btn_ajouter.png);
-  background-position:10px center;
-  font-size:15px;
-  line-height:1;
-  position:absolute;
-  padding:4px 10px 4px 32px;
-  font-size:15px;
-  right:0;
-  text-transform:uppercase;
-}
-#creation_compte #infos_etablissements a#btn_ajouter_etablissement:hover, #creation_compte #infos_etablissements a#btn_ajouter_etablissement:focus { background-color:#99af00; }
-#creation_compte #infos_etablissements a#btn_ajouter_etablissement:hover { text-decoration:none; }
-#creation_compte #infos_etablissements a#btn_ajouter_etablissement span {
-  color:#494949;
-  display:block;
-  font-size:14px;
-  font-weight:bold;
-  text-transform:none;
+  padding:0;
+  width:895px;
 }
 #creation_compte #infos_etablissements .etablissement {
   border:1px solid #e9e9e9;
@@ -1074,6 +1052,47 @@ a:hover { text-decoration:underline; }
   display:inline-block;
   text-indent:-9999px;
 }
+#creation_compte a.btn_ajouter_etab {
+  background-repeat:no-repeat;
+  border:1px solid;
+  color:#ffffff;
+  display:inline-block;
+  background-color:#a0a0a0;
+  border-color:#c0c0c0;
+  background-image:url(../images/boutons/btn_ajouter.png);
+  background-position:7px center;
+  margin:0 10px 0 0;
+  padding:5px 10px 6px 30px;
+  position:absolute;
+  right:127px;
+  text-transform:none;
+}
+#creation_compte a.btn_ajouter_etab:hover, #creation_compte a.btn_ajouter_etab:focus { background-color:#494949; }
+#creation_compte a#btn_ajouter_etablissement {
+  background-repeat:no-repeat;
+  border:1px solid;
+  color:#ffffff;
+  display:inline-block;
+  background-color:#a0a0a0;
+  border-color:#c0c0c0;
+  background-image:url(../images/boutons/btn_ajouter.png);
+  background-position:10px center;
+  font-size:15px;
+  line-height:1;
+  position:absolute;
+  padding:4px 10px 4px 32px;
+  font-size:15px;
+  text-transform:uppercase;
+}
+#creation_compte a#btn_ajouter_etablissement:hover, #creation_compte a#btn_ajouter_etablissement:focus { background-color:#494949; }
+#creation_compte a#btn_ajouter_etablissement:hover { text-decoration:none; }
+#creation_compte a#btn_ajouter_etablissement span {
+  color:#ffffff;
+  display:block;
+  font-size:14px;
+  font-weight:bold;
+  text-transform:none;
+}
 #creation_compte #recapitulatif .recap_perso, #creation_compte #recapitulatif .recap_etablissement { margin:0 0 20px; }
 #creation_compte #recapitulatif .recap_perso p, #creation_compte #recapitulatif .recap_etablissement p { margin:5px 0; }
 #creation_compte #recapitulatif .recap_perso p span, #creation_compte #recapitulatif .recap_etablissement p span { font-weight:bold; }
@@ -1082,13 +1101,38 @@ a:hover { text-decoration:underline; }
   font-style:italic;
   font-weight:normal;
 }
-#creation_compte #recapitulatif .recap_etablissement {
-  border:1px solid #e9e9e9;
-  background:#f1f1f1;
-  padding:15px;
+#creation_compte #recapitulatif .recap_perso .adresse_comptabilite, #creation_compte #recapitulatif .recap_etablissement .adresse_comptabilite { margin:20px 0 0; }
+#creation_compte #recapitulatif .recap_perso .btn_ajouter, #creation_compte #recapitulatif .recap_etablissement .btn_ajouter {
+  background-repeat:no-repeat;
+  border:1px solid;
+  color:#ffffff;
+  display:inline-block;
+  background-color:#86005b;
+  border-color:#494949;
+  background-image:url(../images/boutons/btn_ajouter.png);
+  background-position:7px center;
+  margin:0 10px 0 0;
+  padding:0 10px 0 30px;
 }
-#creation_compte #recapitulatif .recap_etablissement .adresse_comptabilite { margin:20px 0 0; }
-#creation_compte #recapitulatif .ligne_btn { text-align:right; }
+#creation_compte #recapitulatif .recap_perso .btn_ajouter:hover, #creation_compte #recapitulatif .recap_perso .btn_ajouter:focus, #creation_compte #recapitulatif .recap_etablissement .btn_ajouter:hover, #creation_compte #recapitulatif .recap_etablissement .btn_ajouter:focus { background-color:#494949; }
+#creation_compte #recapitulatif .recap_perso .btn_supprimer, #creation_compte #recapitulatif .recap_etablissement .btn_supprimer {
+  background-repeat:no-repeat;
+  border:1px solid;
+  color:#ffffff;
+  display:inline-block;
+  background-color:#a0a0a0;
+  border-color:#c0c0c0;
+  background-image:url(../images/boutons/btn_supprimer.png);
+  background-position:7px center;
+  padding:0 10px 0 30px;
+  margin-right:20px;
+  text-transform:none;
+}
+#creation_compte #recapitulatif .recap_perso .btn_supprimer:hover, #creation_compte #recapitulatif .recap_perso .btn_supprimer:focus, #creation_compte #recapitulatif .recap_etablissement .btn_supprimer:hover, #creation_compte #recapitulatif .recap_etablissement .btn_supprimer:focus { background-color:#494949; }
+#creation_compte #recapitulatif .ligne_btn {
+  text-align:right;
+  margin:0;
+}
 p#date_drm {
   font-size:14px;
   font-style:italic;
@@ -1241,9 +1285,6 @@ p#date_drm {
 }
 #principal #etablissements_drm #etablissements_infos {
   margin:0 0 20px;
-  border:1px solid #e9e9e9;
-  background:#f1f1f1;
-  padding:15px;
   padding:55px 0 15px 20px;
 }
 #principal #etablissements_drm #etablissements_infos p { margin:5px 0; }
@@ -1254,6 +1295,33 @@ p#date_drm {
   font-weight:normal;
 }
 #principal #etablissements_drm #etablissements_infos .adresse_comptabilite { margin:20px 0 0; }
+#principal #etablissements_drm #etablissements_infos .btn_ajouter {
+  background-repeat:no-repeat;
+  border:1px solid;
+  color:#ffffff;
+  display:inline-block;
+  background-color:#86005b;
+  border-color:#494949;
+  background-image:url(../images/boutons/btn_ajouter.png);
+  background-position:7px center;
+  margin:0 10px 0 0;
+  padding:0 10px 0 30px;
+}
+#principal #etablissements_drm #etablissements_infos .btn_ajouter:hover, #principal #etablissements_drm #etablissements_infos .btn_ajouter:focus { background-color:#494949; }
+#principal #etablissements_drm #etablissements_infos .btn_supprimer {
+  background-repeat:no-repeat;
+  border:1px solid;
+  color:#ffffff;
+  display:inline-block;
+  background-color:#a0a0a0;
+  border-color:#c0c0c0;
+  background-image:url(../images/boutons/btn_supprimer.png);
+  background-position:7px center;
+  padding:0 10px 0 30px;
+  margin-right:20px;
+  text-transform:none;
+}
+#principal #etablissements_drm #etablissements_infos .btn_supprimer:hover, #principal #etablissements_drm #etablissements_infos .btn_supprimer:focus { background-color:#494949; }
 #principal #etablissements_drm #etablissements_infos table { width:100%; }
 #principal #etablissements_drm #etablissements_infos table colgroup #titres { width:95px; }
 #principal #etablissements_drm #etablissements_infos table colgroup #echeance { width:260px; }
@@ -1793,8 +1861,8 @@ p#date_drm {
 }
 #ajouts_liquidations #stock_epuise:hover, #ajouts_liquidations #stock_epuise:focus { background-color:#494949; }
 #btn_etape_dr {
-  position:relative;
   text-transform:uppercase;
+  z-index:1;
   zoom:1;
 }
 #btn_etape_dr:before, #btn_etape_dr:after {

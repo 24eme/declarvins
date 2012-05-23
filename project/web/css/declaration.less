@@ -275,31 +275,30 @@ p#date_drm
 				}
 			}
 			
-            tbody td,
-			tbody th
+            tbody td, tbody th
             {
-				padding: 0 20px 0 0;
+		padding: 0 20px 0 0;
                 text-align: left;
 				
                 &.derniers
-				{
-					padding: 0;
-				}
+                {
+                        padding: 0;
+                }
+
+                .masque_case
+                {
+                        background: url(../images/fonds/bg_etabs_table_td.png) left bottom repeat-x;
+                        display: block;
+                        padding: 7px 0 9px 0;
+                }
 				
-				.masque_case
-				{
-					background: url(../images/fonds/bg_etabs_table_td.png) left bottom repeat-x;
-					display: block;
-					padding: 7px 0 9px 0;
-				}
-				
-				a
-				{
-					&.btn_accueil_drm
-					{
-						margin-right: 15px;
-					}
-				}
+                a
+                {
+                        &.btn_accueil_drm
+                        {
+                                margin-right: 15px;
+                        }
+                }
             }
         }
     }
@@ -1095,8 +1094,9 @@ p#date_drm
 
 #btn_etape_dr
 {
-	position: relative;
+	
 	text-transform: uppercase;
+        z-index:1;
 	.clearfix;
 }
 

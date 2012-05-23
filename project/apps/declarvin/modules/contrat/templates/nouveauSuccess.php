@@ -6,7 +6,8 @@
 		<?php echo $form->renderHiddenFields(); ?>
 		<?php echo $form->renderGlobalErrors(); ?>
 		<input id="contrat_nb_etablissement" type="hidden" name="nb_etablissement" value="<?php echo $nbEtablissement ?>" />
-		<h1>Étape 1 : <strong>Création de compte</strong></h1>
+		<h1><strong>Étape 1 :</strong> Création de compte</h1>
+                <p class="intro">Afin de créer votre compte veuillez remplir les champs suivants :</p>
 		<div class="col">
 			<div class="ligne_form">
 				<?php echo $form['nom']->renderError() ?>
@@ -48,10 +49,8 @@
 		</div>
 		
 		<div id="infos_etablissements">
-			<h2>Etablissement</h2>
-			
-			<a href="#" id="btn_ajouter_etablissement">Ajouter <span>un établissement</span></a>
-
+			<h1>Etablissement</h1>
+			<p class="intro">Veuillez ajouter vos établissements</p>
 			<?php 
 				include_partial('templateEtablissement');
 				include_partial('etablissement', array('indice' => 0, 'form' => $form['etablissements'][0], 'supprimer' => false));
@@ -63,8 +62,12 @@
 					$i++; 
 				}
 			?>
+                       
 		</div>
+                
+                 
 		<div class="ligne_btn">
+                        <a href="#" id="btn_ajouter_etablissement">Ajouter <span>un établissement</span></a>
 			<button type="submit" class="btn_valider"><span>Valider</span></button>
 		</div>
 	</form>
