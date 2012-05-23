@@ -1,4 +1,4 @@
-<?php include_partial('global/navBack', array('active' => 'admin')); ?>
+<?php include_component('global', 'navBack', array('active' => 'admin')); ?>
 <section id="contenu">
 <div class="clearfix" id="application_dr">
     <h1>Connexion</h1>

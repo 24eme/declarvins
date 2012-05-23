@@ -25,9 +25,38 @@ class EtablissementSelectionForm extends sfForm {
     	$etablissements = EtablissementClient::getInstance()->findByInterpro($this->interpro);
     	$result = array('' => '');
     	foreach ($etablissements->rows as $etablissement) {
-    		$result[$etablissement->key[1]] = $etablissement->key[2].' - '.$etablissement->key[3]; 
+    		
+    		$result[$etablissement->key[1]] = $this->makeLibelle($etablissement->key); 
     	}
     	return $result;
+    }
+    
+    public function setName($name)
+    {
+    	$name = ($name)? $name : 'etablissement_selection';
+    	$this->widgetSchema->setNameFormat($name.'[%s]');
+    }
+    
+    private function makeLibelle($datas) {
+    	$etablissementLibelle = '';
+    	if ($nom = $datas[2]) {
+    		$etablissementLibelle .= $nom;
+    	}
+    	if ($rs = $datas[4]) {
+    		if ($etablissementLibelle) {
+    			$etablissementLibelle .= ' / ';
+    		}
+    		$etablissementLibelle .= $rs;
+    	}
+    	$etablissementLibelle .= ' ('.$datas[3];
+    	if ($siret = $datas[5]) {
+    		$etablissementLibelle .= ' / '.$siret;
+    	}
+    	if ($cvi = $datas[6]) {
+    		$etablissementLibelle .= ' / '.$cvi;
+    	}
+    	$etablissementLibelle .= ') '.$datas[7].' '.$datas[8];
+    	return trim($etablissementLibelle);
     }
     
 }

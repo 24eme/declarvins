@@ -1,4 +1,4 @@
-<?php include_partial('global/navBack', array('active' => 'produits')); ?>
+<?php include_component('global', 'navBack', array('active' => 'produits')); ?>
 <section id="contenu">
 	<?php if ($sf_user->hasFlash('notice')){ ?>
     <div id="flash_message">

@@ -26,7 +26,7 @@ input[type="text"] {
     width: 220px;
 }
 </style>
-<?php include_partial('global/navBack', array('active' => 'contrat')); ?>
+<?php include_component('global', 'navBack', array('active' => 'contrat')); ?>
 <section id="contenu">
 <div class="clearfix" id="application_dr">
     <h1>Contrat</h1>

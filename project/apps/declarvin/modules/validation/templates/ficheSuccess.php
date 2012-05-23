@@ -102,7 +102,7 @@ var formModificationCompte = function()
 };
 </script>
 <!-- #principal -->
-<?php include_partial('global/navBack', array('active' => 'contrat')); ?>
+<?php include_component('global', 'navBack', array('active' => 'contrat')); ?>
 <section id="contenu">
 <!-- #application_dr -->
 <div class="tools" style="text-align: right;">
