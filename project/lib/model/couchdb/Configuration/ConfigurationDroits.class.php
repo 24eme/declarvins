@@ -8,11 +8,12 @@ class ConfigurationDroits extends BaseConfigurationDroits {
 	
 	const CODE_CVO = 'CVO';
 	
-	public function addDroit($date, $taux, $code) {
+	public function addDroit($date, $taux, $code, $libelle) {
 	  $value = $this->add();
 	  $value->date = $date;
 	  $value->taux = $taux;
 	  $value->code = $code;
+	  $value->libelle = $libelle;
 	}
 	
 	public function getCurrentDroit($campagne) {

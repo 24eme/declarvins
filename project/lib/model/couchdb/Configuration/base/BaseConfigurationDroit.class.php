@@ -7,6 +7,7 @@
  * @property string $date
  * @property float $taux
  * @property string $code
+ * @property string $libelle
 
  * @method string getDate()
  * @method string setDate()
@@ -14,6 +15,8 @@
  * @method float setTaux()
  * @method string getCode()
  * @method string setCode()
+ * @method string getLibelle()
+ * @method string setLibelle()
  
  */
 

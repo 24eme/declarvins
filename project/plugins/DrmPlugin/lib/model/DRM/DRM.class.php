@@ -405,6 +405,7 @@ class DRM extends BaseDRM {
         $droit = $appellation->droits->get($type);
         $droit->ratio = $configurationDroits->ratio;
         $droit->code = $configurationDroits->code;
+        $droit->libelle = $configurationDroits->libelle;
     }
     
     public function isPaiementAnnualise() {

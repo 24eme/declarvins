@@ -21,6 +21,7 @@
 	</ul>
 	
 	<ul id="actions_etablissement">
+		<?php if ($recherche): ?>
 		<li class="popup_form">
 			<form method="post" action="<?php echo url_for('@etablissement_login') ?>">
 		        <?php echo $form->renderHiddenFields(); ?>
@@ -29,14 +30,14 @@
 			    <input type="submit" value="Ok" />
 		        </div>
 			</form>
+			<script type="text/javascript">
+			$(document).ready(function () {
+				$( "#<?php echo $form['etablissement']->renderId() ?>" ).combobox();
+			});
+			</script>
 		</li>
+		<?php endif; ?>
 		<li class="etablissement_courant_admin"><a href="#"><span><?php if ($sf_user->hasAttribute('interpro_id')): ?><?php echo $sf_user->getInterpro()->nom ?><?php else: ?>Connexion<?php endif; ?></span></a></li>
 		<li class="quitter"><a href="#"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
 	</ul>
 </nav>
-
-<script type="text/javascript">
-$(document).ready(function () {
-	$( "#<?php echo $form['etablissement']->renderId() ?>" ).combobox();
-});
-</script>

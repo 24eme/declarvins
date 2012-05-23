@@ -9,7 +9,6 @@ class DRMDroit extends BaseDRMDroit {
   private $virtual = 0;
   private $payable_total = 0;
   private $cumulable_total = 0;
-  private $libelles = array('L423' => 'AOC VDN', 'L385' => 'Vins mousseux', 'L387' => 'Vins Tranquilles', 'L387_AOP' => 'Vins Tranquilles / AOC', 'L387_IGP' => 'Vins Tranquilles / IGP', 'L387_SSIG' => 'Vins Tranquilles / Sans IG');
 
   public function setTaux($taux) {
     if ($taux <= 0) {
@@ -20,12 +19,15 @@ class DRMDroit extends BaseDRMDroit {
 
   public function integreVirtualVolume($drmdroit) {
     $this->virtual = 1;
-    $this->integreVolume($drmdroit->volume_taxe, $drmdroit->volume_reintegre, '', $drmdroit->report);
+    $this->integreVolume($drmdroit->volume_taxe, $drmdroit->volume_reintegre, '', $drmdroit->report, '');
     $this->payable_total += $drmdroit->getPayable();
     $this->cumulable_total += $drmdroit->getCumulable();
   }
 
-  public function integreVolume($volume_taxable, $volume_reintegre, $taux, $report) {
+  public function integreVolume($volume_taxable, $volume_reintegre, $taux, $report, $libelle) {
+  	if (!$this->libelle && $libelle) {
+      $this->libelle = $libelle;
+    }
     if (!$this->taux && $taux) {
       $this->taux = $taux;
     }
@@ -55,9 +57,6 @@ class DRMDroit extends BaseDRMDroit {
   }
   public function isVirtual() {
     return ($this->virtual);
-  }
-  public function getLibelle() {
-    return isset($this->libelles[$this->code]) ? $this->libelles[$this->code] : $this->code;
   }
   public function isReportable() {
   	return ($this->getPaiement()->isAnnuelle() && $this->isDroit('douane'))? true : false;

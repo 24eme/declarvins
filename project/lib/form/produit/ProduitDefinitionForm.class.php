@@ -98,10 +98,11 @@ class ProduitDefinitionForm extends acCouchdbFormDocumentJson {
     	$label = $labels->add($code, $libelle);
     }
     
-    private function setDroit($droit, $date, $taux, $code) {
+    private function setDroit($droit, $date, $taux, $code, $libelle) {
     	$droit->date = $date;
     	$droit->taux = $taux;
     	$droit->code = $code;
+    	$droit->libelle = $libelle;
     }
     
     private function replaceKey($hash, $key) {
@@ -134,11 +135,11 @@ class ProduitDefinitionForm extends acCouchdbFormDocumentJson {
     	if ($object->hasDroits()) {
     		$this->getNoeudInterpro($object)->droits->remove('douane');
     		foreach ($values['droit_douane'] as $value) {
-    			$this->setDroit($this->getNoeudDroit('douane', $object)->add(), $value['date'], $value['taux'], $value['code']);
+    			$this->setDroit($this->getNoeudDroit('douane', $object)->add(), $value['date'], $value['taux'], $value['code'], $value['libelle']);
     		}
     		$this->getNoeudInterpro()->droits->remove('cvo');
     		foreach ($values['droit_cvo'] as $value) {
-    			$this->setDroit($this->getNoeudDroit('cvo', $object)->add(), $value['date'], $value['taux'], $value['code']);
+    			$this->setDroit($this->getNoeudDroit('cvo', $object)->add(), $value['date'], $value['taux'], $value['code'], $value['libelle']);
     		}
     	}
     	if ($object->hasLabels()) {

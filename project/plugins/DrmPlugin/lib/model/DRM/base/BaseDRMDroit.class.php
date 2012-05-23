@@ -8,6 +8,7 @@
  * @property integer $volume_reintegre
  * @property float $taux
  * @property string $code
+ * @property string libelle
  * @property float $total
  * @property float $report
  * @property float $cumul
@@ -20,6 +21,8 @@
  * @method float setTaux()
  * @method string getCode()
  * @method string setCode()
+ * @method string getLibelle()
+ * @method string setLibelle()
  * @method float getTotal()
  * @method float setTotal()
  * @method float getReport()
