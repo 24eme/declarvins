@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 
-		<?php if ($form->getObject()->hasVrac()): ?>
+		<?php if (1==1)://$form->getObject()->hasVrac()): ?>
                 <ul class="onglets_declaratif">
                     <li class="actif"><strong>Mouvements au cours du mois</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_mouvement" title="Message aide"></a></li>
                 </ul>
