@@ -73,6 +73,7 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
     	$date = ($datas[ProduitCsvFile::CSV_PRODUIT_DOUANE_DATE])? $datas[ProduitCsvFile::CSV_PRODUIT_DOUANE_DATE] : '1900-01-01';
     	$taux = ($datas[ProduitCsvFile::CSV_PRODUIT_DOUANE_TAXE])? $this->castFloat($datas[ProduitCsvFile::CSV_PRODUIT_DOUANE_TAXE]) : null;
     	$code = ($datas[ProduitCsvFile::CSV_PRODUIT_DOUANE_CODE])? $datas[ProduitCsvFile::CSV_PRODUIT_DOUANE_CODE] : null;
+    	$libelle = ($datas[ProduitCsvFile::CSV_PRODUIT_DOUANE_LIBELLE])? $datas[ProduitCsvFile::CSV_PRODUIT_DOUANE_LIBELLE] : null;
     	$canInsert = true;
     	foreach ($droits->douane as $droit) {
     		if ($droit->date == $date && $droit->taux == $taux && $droit->code == $code) {
@@ -85,6 +86,7 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
 	    	$droits->date = $date;
 	    	$droits->taux = $taux;
 	    	$droits->code = $code;
+	    	$droits->libelle = $libelle;
     	}
     }
     
@@ -93,6 +95,7 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
     	$date = ($datas[ProduitCsvFile::CSV_PRODUIT_CVO_DATE])? $datas[ProduitCsvFile::CSV_PRODUIT_CVO_DATE] : '1900-01-01';
     	$taux = ($datas[ProduitCsvFile::CSV_PRODUIT_CVO_TAXE])? $this->castFloat($datas[ProduitCsvFile::CSV_PRODUIT_CVO_TAXE]) : null;
     	$code = ConfigurationDroits::CODE_CVO;
+    	$libelle = ConfigurationDroits::LIBELLE_CVO;
     	$canInsert = true;
     	foreach ($droits->cvo as $droit) {
     		if ($droit->date == $date && $droit->taux == $taux && $droit->code == $code) {
@@ -105,6 +108,7 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
 	    	$droits->date = $date;
 	    	$droits->taux = $taux;
 	    	$droits->code = $code;
+	    	$droits->libelle = $libelle;
     	}
     }
     
