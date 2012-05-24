@@ -26,7 +26,9 @@ class contratActions extends sfActions
      * @param sfRequest $request A request object
      */
     public function executeNouveau(sfWebRequest $request) {
+    	$new = true;
     	if ($contrat = $request->getParameter('nocontrat')) {
+    		$new = false;
     		$object = ContratClient::getInstance()->find('CONTRAT-'.$contrat);
     	} else {
     		$object = new Contrat();
@@ -37,10 +39,12 @@ class contratActions extends sfActions
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
                 $contrat = $this->form->save();
-                $compte = new CompteTiers();
-                $compte->generateByContrat($contrat);
-                $compte->save();
-                $contrat->setCompte($compte->get('_id'));
+                if ($new) {
+	                $compte = new CompteTiers();
+	                $compte->generateByContrat($contrat);
+	                $compte->save();
+                	$contrat->setCompte($compte->get('_id'));
+                }
                 $contrat->save();
                 $this->getUser()->setAttribute('contrat_id', $contrat->get('_id'));
                 $this->redirect('contrat_etablissement_modification', array('indice' => 0));
