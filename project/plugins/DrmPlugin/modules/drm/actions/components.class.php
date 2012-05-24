@@ -10,7 +10,7 @@ class drmComponents extends sfComponents {
         foreach ($this->config_certifications as $certification_config) {
             if ($this->drm->exist($certification_config->getHash())) {
             	$certification = $this->drm->get($certification_config->getHash());
-            	if ($certification->hasMouvement()) {
+            	if ($certification->hasMouvementCheck()) {
 	                $this->certifications[$i] = $this->drm->get($certification_config->getHash());
 	                $i++;
             	}
