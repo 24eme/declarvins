@@ -118,7 +118,7 @@ class contratActions extends sfActions
   		if ($this->recapitulatif)
   			$this->redirect('@contrat_etablissement_recapitulatif');
   		else
-  			$this->redirect('@compte_nouveau');
+  			$this->redirect('contrat_nouveau', array('nocontrat' => $this->contrat->no_contrat));
   	}
   }
  /**
