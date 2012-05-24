@@ -9,6 +9,7 @@
  * @property string $type
  * @property string $campagne
  * @property acCouchdbJson $labels
+ * @property acCouchdbJson $droits
  * @property acCouchdbJson $libelle_detail_ligne
  * @property acCouchdbJson $declaration
 
@@ -22,6 +23,8 @@
  * @method string setCampagne()
  * @method acCouchdbJson getLabels()
  * @method acCouchdbJson setLabels()
+ * @method acCouchdbJson getDroits()
+ * @method acCouchdbJson setDroits()
  * @method acCouchdbJson getLibelleDetailLigne()
  * @method acCouchdbJson setLibelleDetailLigne()
  * @method acCouchdbJson getDeclaration()

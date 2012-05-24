@@ -14,8 +14,11 @@
 		<li<?php if ($active == 'contrat'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@validation_login') ?>">Contrat</a>
 		</li>
-                <li<?php if ($active == 'comptes'): ?> class="actif"<?php endif; ?>>
+        <li<?php if ($active == 'comptes'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@admin_comptes') ?>">Comptes</a>
+		</li>
+        <li<?php if ($active == 'libelles'): ?> class="actif"<?php endif; ?>>
+			<a href="<?php echo url_for('@admin_libelles') ?>">Libellés</a>
 		</li>
 		<?php endif; ?>
 	</ul>

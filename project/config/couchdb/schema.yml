@@ -234,6 +234,11 @@ Configuration:
         definition:
           fields:
             '*': {  }
+      droits:
+        type: collection
+        definition:
+          fields:
+            '*': {  }
       libelle_detail_ligne:
         type: collection
         definition:
@@ -741,6 +746,7 @@ DRM:
                         volume_reintegre: { type: integer }
                         taux: { type: float }
                         code: {  }
+                        libelle: {  }
                         total: { type: float }
                         report: { type: float }
                         cumul: { type: float }
@@ -758,6 +764,7 @@ DRM:
                         volume_reintegre: { type: integer }
                         taux: { type: float }
                         code: {  }
+                        libelle: {  }
                         total: { type: float }
                         report: { type: float }
                         cumul: { type: float }

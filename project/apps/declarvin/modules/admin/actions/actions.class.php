@@ -56,4 +56,37 @@ class adminActions extends sfActions
         }
   	
   }
+ /**
+  * Executes libelles action
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeLibelles(sfWebRequest $request)
+  {
+	$this->messages = MessagesClient::getInstance()->findAll(); 
+    $this->droits = ConfigurationClient::getCurrent()->droits;
+    $this->labels = ConfigurationClient::getCurrent()->labels;
+  }
+  public function executeLibelleModification(sfWebRequest $request)
+  {
+  	$this->forward404Unless($this->key = $request->getParameter('key'));
+  	$this->forward404Unless($this->type = $request->getParameter('type'));
+  	if ($this->type == 'messages') {
+  		$object = MessagesClient::getInstance()->retrieveMessages();
+  	} elseif ($this->type == 'droits') {
+  		$object = ConfigurationClient::getCurrent()->droits;
+  	} elseif ($this->type == 'labels') {
+  		$object = ConfigurationClient::getCurrent()->labels;
+  	} else {
+  		throw new sfException('type unknow');
+  	}
+  	$this->form = new LibelleAdminForm($object, $this->key);
+  	if ($request->isMethod(sfWebRequest::POST)) {
+  		$this->form->bind($request->getParameter($this->form->getName()));
+  		if ($this->form->isValid()) {
+  			$this->form->save();
+  			$this->redirect('admin_libelles');
+  		}
+  	}
+  }
 }

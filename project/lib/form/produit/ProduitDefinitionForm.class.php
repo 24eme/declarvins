@@ -92,13 +92,24 @@ class ProduitDefinitionForm extends acCouchdbFormDocumentJson {
     
     private function setLabel($code, $libelle) {
     	$labels = $this->getObject()->getDocument()->labels;
-    	if ($labels->exist($code)) {
-    		$labels->remove($code);
+    	if (!$labels->exist($code)) {
+    		$label = $labels->add($code, $libelle);
     	}
-    	$label = $labels->add($code, $libelle);
     }
     
-    private function setDroit($droit, $date, $taux, $code, $libelle) {
+    private function setDroit($code, $libelle) {
+    	$droits = $this->getObject()->getDocument()->droits;
+    	if (!$droits->exist($code)) {
+    		$droit = $droits->add($code, $libelle);
+    		if (preg_match('/^([^_]+)_/', $code, $m)) {
+				if (!$droits->exist($m[1])) {
+					$droit = $droits->add($m[1], null);
+				}
+			}
+    	}
+    }
+    
+    private function setNodeDroit($droit, $date, $taux, $code, $libelle) {
     	$droit->date = $date;
     	$droit->taux = $taux;
     	$droit->code = $code;
@@ -135,11 +146,13 @@ class ProduitDefinitionForm extends acCouchdbFormDocumentJson {
     	if ($object->hasDroits()) {
     		$this->getNoeudInterpro($object)->droits->remove('douane');
     		foreach ($values['droit_douane'] as $value) {
-    			$this->setDroit($this->getNoeudDroit('douane', $object)->add(), $value['date'], $value['taux'], $value['code'], $value['libelle']);
+    			$this->setDroit($value['code'], $value['libelle']);
+    			$this->setNodeDroit($this->getNoeudDroit('douane', $object)->add(), $value['date'], $value['taux'], $value['code'], $value['libelle']);
     		}
     		$this->getNoeudInterpro()->droits->remove('cvo');
     		foreach ($values['droit_cvo'] as $value) {
-    			$this->setDroit($this->getNoeudDroit('cvo', $object)->add(), $value['date'], $value['taux'], $value['code'], $value['libelle']);
+    			$this->setDroit($value['code'], $value['libelle']);
+    			$this->setNodeDroit($this->getNoeudDroit('cvo', $object)->add(), $value['date'], $value['taux'], $value['code'], $value['libelle']);
     		}
     	}
     	if ($object->hasLabels()) {

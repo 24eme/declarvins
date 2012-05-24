@@ -12,6 +12,14 @@ class MessagesClient extends acCouchdbClient {
       self::$messages = parent::retrieveDocumentById('MESSAGES');
     return self::$messages;
   }
+  
+  public function findAll() {
+  	$messages = $this->retrieveMessages();
+  	unset($messages['_id']);
+  	unset($messages['_rev']);
+  	unset($messages['type']);
+  	return $messages;
+  }
 
   public function getMessage($id) {
     try {

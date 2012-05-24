@@ -83,6 +83,12 @@ logout:
 admin:
   url: /admin
   param: { module: admin, action: index }
+admin_libelles:
+  url: /admin/libelles
+  param: { module: admin, action: libelles }
+admin_libelles_edit:
+  url: /admin/libelles/:type/modification/:key
+  param: { module: admin, action: libelleModification, key: null, type: null }
 ## Produit routing
 produits:
   url: /admin/produits
