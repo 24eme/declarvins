@@ -4,7 +4,7 @@
 </script>
 
 <section id="contenu">
-    <h1><strong>Étape 2 :</strong> Création de compte</h1>
+    <h1><strong>Étape 2 :</strong> Informations relatives à vos établissements</h1>
     <?php $intro = (count($contrat->etablissements) > 1) ? "vos établissements" : "votre établissement" ; ?>
     <p class="intro">Veuillez remplir les informations concernant <?php echo $intro; ?>  :</p>
     
