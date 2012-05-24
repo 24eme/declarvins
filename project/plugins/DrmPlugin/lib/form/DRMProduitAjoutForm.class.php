@@ -48,7 +48,7 @@ class DRMProduitAjoutForm extends BaseForm
 
     public function getLabels() 
     {
-        $labels = $this->_config->getLabels($this->_interpro);
+        $labels = $this->_config->getLabels($this->_interpro->get('_id'));
         $labels[self::LABEL_AUTRE_KEY] = "Autre";
 
         return $labels;

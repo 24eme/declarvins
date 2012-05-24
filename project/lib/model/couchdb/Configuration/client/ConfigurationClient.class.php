@@ -68,7 +68,6 @@ class ConfigurationClient extends acCouchdbClient {
   }
 
   public function findLabelsByCertification($certif, $interpro) {
-
     return $this->startkey(array("labels", $certif, $interpro))
               ->endkey(array("labels", $certif, $interpro, array()))->getView('configuration', 'produits');
   }
