@@ -173,7 +173,7 @@
 		</div>
 		
 		
-		<div id="formulaire" class="page_break">
+		<div id="formulaire">
 			
 			<div id="declarant">
 				<h2>D&Eacute;CLARANT</h2>
@@ -219,10 +219,12 @@
 					Dépend du service des douanes de : <strong><?php echo $etablissement->service_douane ?></strong>
 				</p>
 			</div>
-                        <?php endforeach; ?>
-			
+			<?php if (count($contrat->etablissements) == $i+1): ?>
 			<p>Le cas échéant, logiciel utilisé pour la gestion de cave et transmission (DTI) des informations à « Déclarations Web » : <strong>Logiciels</strong><br />
 			(lister les logiciels testés et validés)</p>
+			<?php endif; ?>
+			<div class="page_break">&nbsp;</div>
+                        <?php endforeach; ?>
 		</div>
 		
 		<div class="important">
