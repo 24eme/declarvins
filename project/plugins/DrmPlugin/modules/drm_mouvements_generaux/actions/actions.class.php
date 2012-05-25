@@ -66,7 +66,7 @@ class drm_mouvements_generauxActions extends sfActions
             foreach($drm->produits as $certification_produit) {
                 foreach($certification_produit as $appellation_produit) {
                     foreach($appellation_produit as $produit) {
-                        $produit->pas_de_mouvement = $form->getValue('pas_de_mouvement');
+                        $produit->pas_de_mouvement_check = $form->getValue('pas_de_mouvement_check');
                     }
                 }
             }
@@ -85,7 +85,7 @@ class drm_mouvements_generauxActions extends sfActions
     	foreach($drm->produits as $certification_produit) {
     		foreach($certification_produit as $appellation_produit) {
     			foreach($appellation_produit as $produit) {
-    				$produit->pas_de_mouvement = 1;
+    				$produit->pas_de_mouvement_check = 1;
     			}
     		}
     	}

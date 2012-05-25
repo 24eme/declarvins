@@ -4,19 +4,19 @@ class DRMMouvementsGenerauxProduitForm extends acCouchdbFormDocumentJson {
 
 	public function configure() {
         $this->setWidgets(array(
-        		'pas_de_mouvement' => new sfWidgetFormInputCheckbox()
+        		'pas_de_mouvement_check' => new sfWidgetFormInputCheckbox()
         ));
         $this->widgetSchema->setLabels(array(
-        		'pas_de_mouvement' => 'Pas de mouvement '
+        		'pas_de_mouvement_check' => 'Pas de mouvement '
         ));
 
         $this->setValidators(array(
-        		'pas_de_mouvement' => new sfValidatorBoolean(array('required' => false))
+        		'pas_de_mouvement_check' => new ValidatorBoolean(array('required' => false))
         ));
 
 
         if ($this->getObject()->hasMouvement()) {
-            $this->getWidget('pas_de_mouvement')->setAttribute('disabled', 'disabled');
+            $this->getWidget('pas_de_mouvement_check')->setAttribute('disabled', 'disabled');
         }
 
 		$this->widgetSchema->setNameFormat('produit_'.$this->getObject()->getKey().'[%s]');
