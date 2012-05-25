@@ -590,6 +590,12 @@ a:hover { text-decoration:underline; }
   float:left;
 }
 #barre_navigation #actions_etablissement li img { display:block; }
+#barre_navigation #actions_etablissement .popup_form {
+  position:relative;
+  right:3px;
+  top:3px;
+}
+#barre_navigation #actions_etablissement .popup_form button, #barre_navigation #actions_etablissement .popup_form input { margin-top:2px; }
 #contenu { position:relative; }
 #contenu h1 {
   color:#86005b;
@@ -1886,7 +1892,7 @@ p#date_drm {
   text-transform:none;
 }
 #telecharger_pdf:hover { text-decoration:none; }
-#mon_compte span, #mon_compte label, #compteModification span, #compteModification label, #compteAjout span, #compteAjout label {
+#mon_compte label, #compteModification label, #compteAjout label {
   display:inline-block;
   width:170px;
 }
@@ -1904,6 +1910,7 @@ p#date_drm {
   padding:0 23px 0 15px;
   text-transform:uppercase;
   height:;
+  margin-left:170px;
 }
 #mon_compte .btn_valider:hover, #mon_compte .btn_valider:focus, #compteModification .btn_valider:hover, #compteModification .btn_valider:focus, #compteAjout .btn_valider:hover, #compteAjout .btn_valider:focus { background-color:#494949; }
 #mon_compte input[type="text"], #compteModification input[type="text"], #compteAjout input[type="text"] {
@@ -1913,10 +1920,11 @@ p#date_drm {
   font-size:100%;
   position:relative;
   vertical-align:middle;
-  height:18px;
+  height:20px;
   padding:0 4px;
   width:220px;
 }
+#mon_compte button, #compteModification button, #compteAjout button { margin-top:1px; }
 .etablissement_courant_admin a {
   background:url(../images/boutons/btn_etablissement_courant_admin.png) right 0 no-repeat;
   color:#86005b;

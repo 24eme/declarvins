@@ -11,7 +11,7 @@
  ******************************************/
 #mon_compte, #compteModification, #compteAjout {
 
-    span, label {
+    label {
 	display: inline-block;
 	width: 170px;
     }
@@ -26,6 +26,7 @@
         padding: 0 23px 0 15px;
         text-transform: uppercase;
         height: @hauteur_btn;
+        margin-left:170px;
     }
 
     input[type="text"] {
@@ -35,9 +36,13 @@
         font-size: 100%;
         position: relative;
         vertical-align: middle;
-        height: 18px;
+        height: 20px;
         padding: 0 4px;
         width: 220px;
+    }
+
+    button{
+        margin-top:1px;
     }
 
 }
