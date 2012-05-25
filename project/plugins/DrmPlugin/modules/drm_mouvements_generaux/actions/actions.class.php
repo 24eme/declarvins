@@ -96,7 +96,8 @@ class drm_mouvements_generauxActions extends sfActions
     public function executeDeleteAjax(sfWebRequest $request) 
     {
         $this->forward404Unless($request->isXmlHttpRequest());
-		$this->getRoute()->getObject()->delete();
+		$objectToDelete = $this->getRoute()->getObject()->cascadingDelete();
+		$objectToDelete->delete();
 		$this->getRoute()->getObject()->getDocument()->save();
         return sfView::NONE;
     }
