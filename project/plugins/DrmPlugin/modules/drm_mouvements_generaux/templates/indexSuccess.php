@@ -55,8 +55,9 @@
 									</thead>
 									<tbody>
 			                        <?php
+			                        $hasItem = 0;
 			                        if ($tabForm):
-			                            foreach ($tabForm as $form): ?>
+			                            foreach ($tabForm as $form): $hasItem++ ?>
 			                                <?php include_partial('item', array('form' => $form)) ?>
 			                            <?php endforeach;
 			                        endif;
@@ -64,7 +65,13 @@
 			                        </tbody>
 			                    </table>
 			                    <div class="btn">
+			                    	<?php if ($certifs[$certification]): ?>
+				                    	<?php if (!$hasItem): ?>
+				                    	<a href="<?php echo url_for('drm_mouvements_generaux_product_add', $drm->declaration->certifications->add($certification)) ?>" class="btn_ajouter">Ajouter un nouveau produit</a>
+				                    	<?php endif; ?>
+			                    	<?php else: ?>
 									<a href="<?php echo url_for('drm_mouvements_generaux_product_ajout', $drm->declaration->certifications->add($certification)) ?>" class="btn_ajouter btn_popup" data-popup="#popup_ajout_produit_<?php echo $certification ?>" data-popup-config="configForm">Ajouter un nouveau produit</a>
+									<?php endif; ?>
 								</div>
 		                    </div>
 		            </div>

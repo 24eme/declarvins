@@ -7,16 +7,23 @@ class drm_mouvements_generauxActions extends sfActions
 		$this->drm = $this->getRoute()->getDrm();
         $this->form = new DRMMouvementsGenerauxProduitsForm($this->drm);
 		$this->forms = array();
+		$this->certifs = array();
 		$this->certificationLibelle = array();
-		foreach (ConfigurationClient::getCurrent()->declaration->certifications as $certification_key => $certification_config) {
-            if (!isset($this->forms[$certification_key])) {
-				$this->forms[$certification_key] = array();
-				$this->certificationLibelle[$certification_key] = $certification_config->libelle;
-			}
-			if ($this->drm->declaration->certifications->exist($certification_key)) {
-                $details = $this->drm->declaration->certifications->get($certification_key)->getProduits();
-				foreach ($details as $detail) {
-					$this->forms[$certification_key][] = new DRMMouvementsGenerauxProduitForm($detail);
+		$configuration = ConfigurationClient::getCurrent();
+		foreach ($configuration->declaration->certifications as $certification_key => $certification_config) {
+			if ($certification_config->hasProduit($this->drm->getInterpro()->get('_id'))) {
+	            if (!isset($this->certifs[$certification_key])) {
+					$this->certifs[$certification_key] = $certification_config->hasUniqProduit($this->drm->getInterpro()->get('_id'));
+				}
+	            if (!isset($this->forms[$certification_key])) {
+					$this->forms[$certification_key] = array();
+					$this->certificationLibelle[$certification_key] = $certification_config->libelle;
+				}
+				if ($this->drm->declaration->certifications->exist($certification_key)) {
+	                $details = $this->drm->declaration->certifications->get($certification_key)->getProduits();
+					foreach ($details as $detail) {
+						$this->forms[$certification_key][] = new DRMMouvementsGenerauxProduitForm($detail);
+					}
 				}
 			}
 		}
@@ -123,5 +130,17 @@ class drm_mouvements_generauxActions extends sfActions
         }
 
         return $this->renderText($this->getPartial('popupAjout', array('form' => $form, 'certification_config' => $certification_config)));
+    }
+    
+    public function executeAdd(sfWebRequest $request) 
+    {
+    	$drm = $this->getRoute()->getDrm();
+    	$certification_config = $this->getRoute()->getConfigCertification();
+    	$hash = $certification_config->hasUniqProduit($drm->getInterpro()->get('_id'));
+    	$drm->addProduit($hash);
+		$drm->save();
+		$this->getUser()->setFlash("notice", 'Le produit a été ajouté avec succès.');
+		$this->redirect('drm_mouvements_generaux', $drm);
+
     }
 }

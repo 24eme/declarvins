@@ -165,6 +165,14 @@ class DrmRouting {
                               'type' => 'object',
                               'add_noeud' => true,)));
 
+        $r->prependRoute('drm_mouvements_generaux_product_add', new DrmCertificationRoute('/drm-edition/:campagne_rectificative/mouvements-generaux/add/:certification',
+                        array('module' => 'drm_mouvements_generaux',
+                            'action' => 'add'),
+                        array('sf_method' => array('get','post')),
+                        array('model' => 'DRMCertification',
+                              'type' => 'object',
+                              'add_noeud' => true,)));
+
         $r->prependRoute('drm_recap', new DrmLieuRoute('/drm-edition/:campagne_rectificative/recapitulatif/:certification',
                         array('module' => 'drm_recap',
                             'action' => 'index'),

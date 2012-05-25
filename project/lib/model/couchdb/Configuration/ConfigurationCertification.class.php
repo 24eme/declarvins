@@ -104,5 +104,32 @@ class ConfigurationCertification extends BaseConfigurationCertification {
   	public function getTypeNoeud() {
   		return self::TYPE_NOEUD;
   	}
+  	
+  	public function hasUniqProduit($interp) {
+  		if ($interpros = $this->get('interpro')) {
+  			if ($interpros->exist($interp)) {
+  				if (count($interpros->get($interp)->labels) > 0) {
+  					return false;
+  				}
+  			}
+  		}
+  		$produits = ConfigurationClient::getInstance()->findProduitsByCertificationAndInterpro($interp, $this->getKey());
+  		if (count($produits->rows) == 1) {
+  			foreach ($produits->rows as $produit) {
+  				return $produit->key[7];
+  			}
+  		} else {
+  			return false;
+  		}  		
+  	}
+  	
+  	public function hasProduit($interp) {
+  		$produits = ConfigurationClient::getInstance()->findProduitsByCertificationAndInterpro($interp, $this->getKey());
+  		if (count($produits->rows) == 0) {
+  			return false;
+  		} else {
+  			return true;
+  		}  		
+  	}
 
 }
