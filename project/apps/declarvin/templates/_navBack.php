@@ -26,17 +26,16 @@
 	<ul id="actions_etablissement">
 		<?php if ($recherche): ?>
 		<li class="popup_form">
-			<form method="post" action="<?php echo url_for('@etablissement_login') ?>">
-		        <?php echo $form->renderHiddenFields(); ?>
+			<form method="post" action="<?php echo url_for('@etablissement_login') ?>" id="select_etablissement" >
+                                <?php echo $form->renderHiddenFields(); ?>
 				<div class="ligne_form ligne_form_label">
-		        <?php echo $form['etablissement']->render() ?>
-			    <input type="submit" value="Ok" />
-		        </div>
-			</form>
+                                <?php echo $form['etablissement']->render() ?>
+                                <input type="submit" value="Ok" />
+		        </form>
 			<script type="text/javascript">
 			$(document).ready(function () {
 				$( "#<?php echo $form['etablissement']->renderId() ?>" ).combobox();
-			});
+                        });
 			</script>
 		</li>
 		<?php endif; ?>
