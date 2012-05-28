@@ -6,11 +6,11 @@
 <section id="contenu">
 
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
-
+	<?php if (!$hide_rectificative): ?>
     <form method="GET" action="<?php echo url_for(array('sf_route' => 'drm_rectificative', 'campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">
         <button class="btn_passer_etape rectificative" type="submit">Soumettre une DRM rectificative</button>
     </form>
-
+	<?php endif; ?>
     <!-- #principal -->
     <section id="principal">
 

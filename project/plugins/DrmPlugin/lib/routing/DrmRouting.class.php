@@ -111,9 +111,10 @@ class DrmRouting {
                                                           array('model' => 'DRM',
                                                                 'type' => 'object')));
 
-        $r->prependRoute('drm_visualisation', new DrmLightRoute('/drm/visualisation/:campagne_rectificative', 
+        $r->prependRoute('drm_visualisation', new DrmLightRoute('/drm/visualisation/:campagne_rectificative/:hide_rectificative', 
                                                           array('module' => 'drm', 
-                                                                'action' => 'visualisation'),
+                                                                'action' => 'visualisation',
+                                                          		'hide_rectificative' => null),
                                                           array('sf_method' => array('get'))));
 
         $r->prependRoute('drm_pdf', new DrmLightRoute('/drm/pdf/:campagne_rectificative.:format', 

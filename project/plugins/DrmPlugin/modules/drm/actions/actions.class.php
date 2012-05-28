@@ -175,7 +175,7 @@ class drmActions extends sfActions
 	    }
 	  }
 
-	  $this->redirect('drm_visualisation', array('campagne_rectificative' => $this->drm->getCampagneAndRectificative()));
+	  $this->redirect('drm_visualisation', array('campagne_rectificative' => $this->drm->getCampagneAndRectificative(), 'hide_rectificative' => 1));
     	}
     }
   }
@@ -198,6 +198,7 @@ class drmActions extends sfActions
   public function executeVisualisation(sfWebRequest $request)
   {
     $this->drm = $this->getRoute()->getDrm();
+    $this->hide_rectificative = $request->getParameter('hide_rectificative');
     $this->drm_suivante = $this->drm->getSuivante();
   }
 
