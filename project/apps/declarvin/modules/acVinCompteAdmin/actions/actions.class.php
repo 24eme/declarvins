@@ -26,6 +26,12 @@ class acVinCompteAdminActions extends sfActions
   public function executeCompteModification(sfWebRequest $request)
   {
      $this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login'));
+     
+     if ($contrat = $this->compte->contrat) {
+     	$this->getUser()->setAttribute('contrat_id', $contrat);
+        $this->redirect('@validation_fiche');
+     }
+     
       
      $this->forward404Unless($this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
      

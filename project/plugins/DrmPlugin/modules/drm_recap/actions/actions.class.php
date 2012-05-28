@@ -6,7 +6,6 @@ class drm_recapActions extends sfActions
     public function executeIndex(sfWebRequest $request) {
         $this->init();
     	$find = false;
-    	$this->prev_certif = null;
         $next_certif = null;
         $certif = $this->config_lieu->getCertification()->getKey();
         $config_certifications = ConfigurationClient::getCurrent()->declaration->certifications;
@@ -96,6 +95,7 @@ class drm_recapActions extends sfActions
     
     public function executeDetail(sfWebRequest $request) {
         $this->init();
+        $this->light_detail = $this->getRoute()->getDRMDetail();
         $this->setTemplate('index');
     }
     
@@ -129,6 +129,8 @@ class drm_recapActions extends sfActions
         $this->produits = $this->drm_lieu->getProduits();
         $this->previous = $this->drm_lieu->getPreviousSisterWithMouvementCheck();
         $this->next = $this->drm_lieu->getNextSisterWithMouvementCheck();
+    	$this->prev_certif = null;
+    	$this->light_detail = null;
     }
     
 }
