@@ -38,16 +38,21 @@
                 </div>
             </div>
             <div id="btn_etape_dr">
+            	<?php if ($prev_certif): ?>
+                <a href="<?php echo url_for('drm_recap', $drm->declaration->certifications->get($prev_certif)) ?>" class="btn_prec">
+                    <span>Précédent</span>
+                </a>
+                <?php else: ?>
                 <a href="<?php echo url_for('drm_mouvements_generaux', $drm) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>
-                <form action="<?php echo url_for('drm_recap', $drm->declaration->certifications->getFirst()) ?>" method="post">
+                <?php endif; ?>
+                <form action="<?php echo url_for('drm_recap', $drm->declaration->certifications->get($config_lieu->getCertification()->getKey())) ?>" method="post">
                     <button type="submit" class="btn_suiv"><span>Suivant</span></button>
                 </form>
             </div>
         </div>
     </section>
 </section>
-<?php //$run->end(); ?>
 
 

@@ -5,10 +5,31 @@ class drm_recapActions extends sfActions
     
     public function executeIndex(sfWebRequest $request) {
         $this->init();
-
+    	$find = false;
+    	$this->prev_certif = null;
+        $next_certif = null;
+        $certif = $this->config_lieu->getCertification()->getKey();
+        $config_certifications = ConfigurationClient::getCurrent()->declaration->certifications;
+        foreach ($config_certifications as $certification_config) {
+        	if ($this->drm->exist($certification_config->getHash())) {
+            	if ($find) {
+                	$next_certif = $certification_config->getKey();
+                	break;
+                }
+                if ($certif == $certification_config->getKey()) {
+                	$find = true;
+                } else {
+                	$this->prev_certif = $certification_config->getKey();
+                }
+            }
+        }
         if ($request->isMethod(sfWebRequest::POST)) {
-        	$this->drm->setCurrentEtapeRouting('vrac');
-        	$this->redirect('drm_vrac', $this->drm);
+            if ($next_certif) {
+        		$this->redirect('drm_recap', $this->drm->declaration->certifications->get($next_certif));
+            } else {
+        		$this->drm->setCurrentEtapeRouting('vrac');
+        		$this->redirect('drm_vrac', $this->drm);
+            }
         }
         $this->setTemplate('index');
     }
