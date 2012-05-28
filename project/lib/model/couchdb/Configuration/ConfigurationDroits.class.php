@@ -33,12 +33,13 @@ class ConfigurationDroits extends BaseConfigurationDroits {
 		}
 		if ($currentDroit) {
 			return $currentDroit;
-		}
-		try {
-		  $parent = $this->getInterpro()->getParent()->getParent()->getParentNode();
-		  return $parent->interpro->get($this->getInterpro()->getKey())->droits->get($this->getKey())->getCurrentDroit($campagne);
-		} catch (sfException $e) {
-		  throw new sfException('Aucuns droits pour la campagne spécifiée');
+		} else {
+			try {
+			  $parent = $this->getInterpro()->getParent()->getParent()->getParentNode();
+			  return $parent->interpro->getOrAdd($this->getInterpro()->getKey())->droits->getOrAdd($this->getKey())->getCurrentDroit($campagne);
+			} catch (sfException $e) {
+			  throw new sfException('Aucun droit spécifié');
+			}
 		}
 	}
 	

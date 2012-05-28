@@ -39,6 +39,7 @@ EOF;
     
     $civp = new Interpro();
     $civp->set('_id', 'INTERPRO-civp');
+    $this->identifiant = 'civp';
     $civp->nom = 'CIVP';
     $civp->save();
 
@@ -48,6 +49,7 @@ EOF;
     
     $ir = new Interpro();
     $ir->set('_id', 'INTERPRO-inter-rhone');
+    $this->identifiant = 'inter-rhone';
     $ir->nom = 'InterRhône';
     $ir->save();
 
@@ -57,6 +59,7 @@ EOF;
     
     $ise = new Interpro();
     $ise->set('_id', 'INTERPRO-intervins-sud-est');
+    $this->identifiant = 'intervins-sud-est';
     $ise->nom = "Intervins Sud-Est";
     $ise->save();
   }

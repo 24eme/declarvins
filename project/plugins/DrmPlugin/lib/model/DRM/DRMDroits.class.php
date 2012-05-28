@@ -8,8 +8,12 @@ class DRMDroits extends BaseDRMDroits {
     return self::$droit_entrees;
   }
   static $droit_sorties = array('sorties/crd','sorties/factures');
-  public static function getDroitSorties() {
-    return self::$droit_sorties;
+  public static function getDroitSorties($merge = array()) {
+    return array_merge(self::$droit_sorties, $merge);
+  }
+  static $droit_sorties_inter_rhone = array('sorties/vrac');
+  public static function getDroitSortiesInterRhone() {
+    return self::$droit_sorties_inter_rhone;
   }
 
   private $res = array();

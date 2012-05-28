@@ -36,8 +36,12 @@ class DRMAppellation extends BaseDRMAppellation {
     }
     
     public function updateDroits($droits) {
+    	$merge = array();
+    	if ($this->getDocument()->getInterpro()->identifiant == Interpro::INTER_RHONE_ID) {
+    		$merge = DRMDroits::getDroitSortiesInterRhone();
+    	}
     	foreach ($this->getDroits() as $typedroits => $droit) {
-    		$droits->add($typedroits)->add($droit->code)->integreVolume($this->sommeLignes(DRMDroits::getDroitSorties()), $this->sommeLignes(DRMDroits::getDroitEntrees()), $droit->taux, $this->getReportByDroit($droit), $droit->libelle);
+    		$droits->add($typedroits)->add($droit->code)->integreVolume($this->sommeLignes(DRMDroits::getDroitSorties($merge)), $this->sommeLignes(DRMDroits::getDroitEntrees()), $droit->taux, $this->getReportByDroit($droit), $droit->libelle);
     	}
     }
 
