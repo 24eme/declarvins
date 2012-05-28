@@ -9,8 +9,8 @@ class drmComponents extends sfComponents {
         $i = 3;
         foreach ($this->config_certifications as $certification_config) {
             if ($this->drm->exist($certification_config->getHash())) {
-            	$certification = $this->drm->get($certification_config->getHash());
-            	if ($certification->hasMouvementCheck()) {
+            	$certif = $this->drm->get($certification_config->getHash());
+            	if ($certif->hasMouvementCheck()) {
 	                $this->certifications[$i] = $this->drm->get($certification_config->getHash());
 	                $i++;
             	}
@@ -38,7 +38,7 @@ class drmComponents extends sfComponents {
         if ($this->etape == 'recapitulatif') {
             foreach ($this->config_certifications as $certification_config) {
                 if ($this->drm->exist($certification_config->getHash())) {
-                    if ($certification->getKey() == $certification_config->getKey()) {
+                    if ($this->certification == $certification_config->getKey()) {
                         break;
                     }
                     $this->numero++;
