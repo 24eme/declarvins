@@ -58,7 +58,7 @@ EOF;
     
     $vrac = new Vrac();
     $vrac->_id = 'VRAC-123457';
-    $vrac->produit = '/declaration/certifications/IGP/appellations';
+    $vrac->produit = '/declaration/certifications/IGP/genres';
     $vrac->numero = '123457';
     $vrac->acheteur->nom = "Acheteur test";
     $vrac->etablissement = '9223700100';
