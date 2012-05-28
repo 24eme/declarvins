@@ -18,6 +18,7 @@
 	var colSaisiesRecolte = colSaisiesCont.find('.col_recolte');
 	var colTotal = $('#colonne_total');
 	
+	var colActiveDefaut = colSaisiesRecolte.filter('.col_active');
 	var colActive;
 	var colEditee;
 	
@@ -85,7 +86,8 @@
 		
 		$.initMasqueColActive();
 		
-		
+		// Colonne active par défaut
+		if(colActiveDefaut.exists()) colActiveDefaut.majColActive();
 	};
 	
 	/**

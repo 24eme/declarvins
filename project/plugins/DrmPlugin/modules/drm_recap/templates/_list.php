@@ -28,6 +28,7 @@
                     include_component('drm_recap', 'itemForm', array('produit' => $produit,
                         'config_lieu' => $config_lieu,
                         'detail' => $produit,
+                    	'light_detail' => $light_detail,
                         'form' => $form));
                     ?>
                 <?php endif; ?>

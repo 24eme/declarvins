@@ -2,7 +2,7 @@
 <?php use_helper('Produit'); ?>
 <?php use_helper('Rectificative'); ?>
 
-<div id="col_recolte_<?php echo $form->getObject()->getKey() ?>" class="col_recolte" data-input-focus="#drm_detail_entrees_achat" data-cssclass-rectif="<?php echo ($form->getObject()->getDocument()->isRectificative()) ? rectifierCssClass() : '' ?>">
+<div id="col_recolte_<?php echo $form->getObject()->getKey() ?>" class="col_recolte<?php if ($light_detail && $light_detail->getHash() == $form->getObject()->getHash()): ?> col_active<?php endif; ?>" data-input-focus="#drm_detail_entrees_achat" data-cssclass-rectif="<?php echo ($form->getObject()->getDocument()->isRectificative()) ? rectifierCssClass() : '' ?>">
     <form action="<?php echo url_for('drm_recap_update', $form->getObject()) ?>" method="post">
         <?php echo $form->renderHiddenFields(); ?>
         <a href="#" class="col_curseur" data-curseur="<?php echo $form->getObject()->getKey() ?>"></a>
