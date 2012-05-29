@@ -121,8 +121,8 @@ class DRMCsvFile extends CsvFile
       $line[self::CSV_COL_COULEUR_CODE] = $d->getCouleur()->getCode();
       $line[self::CSV_COL_CEPAGE] = $d->getCepage()->getLibelle();
       $line[self::CSV_COL_CEPAGE_CODE] = $d->getCepage()->getCode();
-      $line[self::CSV_COL_MILLESIME] = $d->getMillesime()->getLibelle();
-      $line[self::CSV_COL_MILLESIME_CODE] = $d->getMillesime()->getCode();
+      $line[self::CSV_COL_MILLESIME] = '';
+      $line[self::CSV_COL_MILLESIME_CODE] = '';
       $line[self::CSV_COL_LABELS] = $d->getLabelLibellesString();
       $line[self::CSV_COL_LABELS_CODE] = $d->getLabelKeyString();
       $line[self::CSV_COL_MENTION] = $d->label_supplementaire;
@@ -197,6 +197,12 @@ class DRMCsvFile extends CsvFile
 
   private function parseContrat($line) {
     $detail = $this->getProduit($line);
+    $contrat = VracClient::getInstance()->retrieveById($line[self::CSV_COL_CONTRAT_IDENTIFIANT]);
+    $contratVol = $line[self::CSV_COL_CONTRAT_VOLUME];
+    if ($contrat && $contratVol && !$contrat->actif) {
+    	$contrat->actif = 1;
+    	$contrat->save();
+    }
     $detail->addVrac($line[self::CSV_COL_CONTRAT_IDENTIFIANT], $line[self::CSV_COL_CONTRAT_VOLUME]);
     $this->drm->update();
   }

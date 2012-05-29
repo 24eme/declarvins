@@ -76,6 +76,17 @@ class VracClient extends acCouchdbClient {
       }
       return $contrats;
     }
+
+    public function retrieveActifFromEtablissements($etablissement, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
+      $contrats = array();
+      foreach ($this->startkey(array($etablissement))
+	       ->endkey(array($etablissement, array()))->getView('vrac', 'all', $hydrate)->rows as $c) {
+	       	$contrat = $this->retrieveById($c->key[1]);
+	       	if ($contrat->actif)
+				$contrats[] = $contrat;
+      }
+      return $contrats;
+    }
     
 
 }

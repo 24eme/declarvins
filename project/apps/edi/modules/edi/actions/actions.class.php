@@ -59,7 +59,6 @@ class ediActions extends sfActions
   {
     $this->setLayout(false);
     $this->response->setContentType('text/plain');
-
     $this->drm = DRMClient::getInstance()->findByIdentifiantCampagneAndRectificative($request->getParameter('identifiant'), $request->getParameter('annee').'-'.$request->getParameter('mois'), $request->getParameter('rectificative'));
     $this->forward404Unless($this->drm);
   }
@@ -87,7 +86,7 @@ class ediActions extends sfActions
     
     $this->contrats = array();
     foreach ($this->getUser()->getCompte()->getTiersCollection() as $tiers) {
-      $this->contrats = array_merge($this->contrats, VracClient::getInstance()->retrieveFromEtablissements($tiers->identifiant));
+      	$this->contrats = array_merge($this->contrats, VracClient::getInstance()->retrieveActifFromEtablissements($tiers->identifiant));
     }
   }
 }

@@ -210,7 +210,7 @@ class DRMDetail extends BaseDRMDetail {
 
         return !$this->pas_de_mouvement_check;
     }
-    
+
     public function cascadingDelete() {
     	$cepage = $this->getCepage();
     	$couleur = $this->getCouleur();
