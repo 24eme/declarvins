@@ -14,7 +14,6 @@
 }
 .popup_form h2 {
     padding-top: 20px;
-    text-transform: uppercase;
 }
 .popup_form table {
    display: inline;
@@ -64,35 +63,40 @@ $(document).ready( function() {
 <form class="popup_form" id="form_ajout" action="<?php echo url_for('produit_modification', array('noeud' => $form->getObject()->getTypeNoeud(), 'hash' => str_replace('/', '-', $form->getHash()))) ?>" method="post">
 	<?php echo $form->renderGlobalErrors() ?>
 	<?php echo $form->renderHiddenFields() ?>
-	<div class="ligne_form">
-		<span class="error"><?php echo $form['libelle']->renderError() ?></span>
-		<?php echo $form['libelle']->renderLabel() ?>
-		<?php echo $form['libelle']->render() ?>
-	</div>
-	<div class="ligne_form">
-		<span class="error"><?php echo $form['code']->renderError() ?></span>
-		<?php echo $form['code']->renderLabel() ?>
-		<?php echo $form['code']->render() ?>
-	</div>
+        <div class="contenu_onglet">
+            <div class="ligne_form ">
+                    <?php if($form['libelle']->hasError()) {?><span class="error"><?php echo $form['libelle']->renderError() ?></span><?php } ?>
+                    <?php echo $form['libelle']->renderLabel() ?>
+                    <?php echo $form['libelle']->render() ?>
+            </div>
+            <br />
+            <div class="ligne_form">
+                    <?php if($form['code']->hasError()){ ?><span class="error"><?php echo $form['code']->renderError() ?></span><?php } ?>
+                    <?php echo $form['code']->renderLabel() ?>
+                    <?php echo $form['code']->render() ?>
+            </div>
+        </div>
 	<?php if ($form->getObject()->hasDepartements()): ?>
-		<h2>Départements&nbsp;<a href="javascript:void(0)" class="addForm">+</a></h2>
-		<div class="subForm" id="formsDepartement">
+                <h2>Départements&nbsp;&nbsp;<a href="javascript:void(0)" class="addForm btn_ajouter"></a></h2>
+                <div class="subForm contenu_onglet" id="formsDepartement">
+                    <p>Liste des départements :</p><br />
 		<?php foreach ($form['secteurs'] as $subform): ?>
-		  <?php include_partial('produit/subformDepartement', array('form' => $subform))?>
+		  <?php include_partial('produit/subformDepartement', array('form' => $subform))?><br />
 		<?php endforeach; ?>
 		</div>
 		<input class="counteur" type="hidden" name="nb_departement" value="<?php echo count($form['secteurs']) ?>" />
 	<?php endif; ?>
 	<?php if ($form->getObject()->hasDroits()): ?>
-		<h2>Droits douane&nbsp;<a href="javascript:void(0)" class="addForm">+</a></h2>
-		<div class="subForm" id="formsDouane">
+                <h2>Droits douane&nbsp;&nbsp;<a href="javascript:void(0)" class="addForm btn_ajouter"></a></strong></h2>
+		<div class="subForm contenu_onglet" id="formsDouane">
 		<?php foreach ($form['droit_douane'] as $subform): ?>
 		  <?php include_partial('produit/subformDroits', array('form' => $subform))?>
 		<?php endforeach; ?>
 		</div>
 		<input class="counteur" type="hidden" name="nb_douane" value="<?php echo count($form['droit_douane']) ?>" />
-		<h2>Droits CVO&nbsp;<a href="javascript:void(0)" class="addForm">+</a></h2>
-		<div class="subForm" id="formsCvo">
+		
+                <h2>Droits CVO&nbsp;&nbsp;<a href="javascript:void(0)" class="addForm btn_ajouter"></a></h2>
+                <div class="subForm contenu_onglet" id="formsCvo">
 		<?php foreach ($form['droit_cvo'] as $subform): ?>
 		  <?php include_partial('produit/subformDroits', array('form' => $subform))?>
 		<?php endforeach; ?>
@@ -100,8 +104,8 @@ $(document).ready( function() {
 		<input class="counteur" type="hidden" name="nb_cvo" value="<?php echo count($form['droit_cvo']) ?>" />
 	<?php endif; ?>
 	<?php if ($form->getObject()->hasLabels()): ?>
-		<h2>Labels&nbsp;<a href="javascript:void(0)" class="addForm">+</a></h2>
-		<div class="subForm" id="formsLabel">
+                <h2>Labels&nbsp;&nbsp;<a href="javascript:void(0)" class="addForm btn_ajouter"></a></h2>
+		<div class="subForm contenu_onglet" id="formsLabel">
 		<?php foreach ($form['labels'] as $subform): ?>
 		  <?php include_partial('produit/subformLabel', array('form' => $subform))?>
 		<?php endforeach; ?>
@@ -110,15 +114,15 @@ $(document).ready( function() {
 	<?php endif; ?>
 	<?php if ($form->getObject()->hasDetails()): ?>
 		<h2>Activation des lignes</h2>
-		<div class="subForm" id="!">
+		<div class="subForm contenu_onglet" id="!">
 			<?php foreach ($form['detail'] as $detail): ?>
 			<?php foreach ($detail as $type): ?>
 			<div class="ligne_form">
-				<span class="error"><?php echo $type['readable']->renderError() ?></span>
-				<?php echo $type['readable']->renderLabel() ?>
+				<?php if($type['readable']->hasError()){ ?><span class="error"><?php echo $type['readable']->renderError() ?></span><?php } ?>				<?php echo $type['readable']->renderLabel() ?>
 				<?php echo $type['readable']->render() ?>
 				<?php echo $type['writable']->render() ?>
 			</div>
+                        <br />
 			<?php endforeach; ?>
 			<?php endforeach; ?>
 		</div>

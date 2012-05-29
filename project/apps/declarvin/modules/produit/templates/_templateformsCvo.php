@@ -77,7 +77,7 @@
 				</td>
 				<td>
 					<br>
-					<a class="removeForm" href="#">X</a>
+					&nbsp;<a class="removeForm btn_suppr" href="#"></a>
 				</td>
 			</tr>
 		</tbody>
