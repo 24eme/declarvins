@@ -39,6 +39,6 @@ all:
     
   .actions:
     login_module:           acVinCompte
-    login_action:           acVinCompteLogin
+    login_action:           login
     secure_module:          global
     secure_action:          secure

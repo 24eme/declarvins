@@ -36,7 +36,7 @@ class acVinCompteActions extends BaseacVinCompteActions {
         }
     }
 
-    public function executeAcVinCompteLogin(sfWebRequest $request) {
+    public function executeLogin(sfWebRequest $request) {
         if ($this->getUser()->isAuthenticated() && $this->getUser()->hasCredential("compte")) {
 	  $this->redirect('@tiers');
         } elseif ($request->getParameter('ticket')) {
