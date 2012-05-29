@@ -187,6 +187,13 @@ pre, code, kbd, samp { font-family:monospace, sans-serif; }
   padding:0 0 0 17px;
 }
 .btn_ajouter:hover, .btn_ajouter:focus { text-decoration:underline; }
+.btn_edit {
+  background:url(../images/pictos/pi_edit.png) 0 center no-repeat;
+  color:#494949;
+  height:9px;
+  padding:0 0 0 12px;
+}
+.btn_edit:hover, .btn_edit:focus { text-decoration:underline; }
 .btn_ajouter.btn_chargement {
   background-image:url(../images/pictos/pi_loader.gif);
   padding-left:20px;
@@ -334,7 +341,7 @@ a.msg_aide:hover {
   width:1px !important;
 }
 .clear { clear:both; }
-.center { text-align:center; }
+.center { text-align:center !important; }
 .f_left {
   display:inline;
   float:left;
@@ -1972,3 +1979,12 @@ p#date_drm {
   float:left;
   padding:0 0 0 27px;
 }
+#contenu .produit .tableau_recap { border-spacing:0px; }
+#contenu .produit .tableau_recap th { border-color:#dbdbdb; }
+#contenu .produit .tableau_recap td {
+  font-size:11px;
+  padding:0 6px;
+  text-align:left;
+}
+#contenu .produit .tableau_recap #cat { width:50px; }
+#contenu .produit .tableau_recap #dep, #contenu .produit .tableau_recap #labels, #contenu .produit .tableau_recap #douane, #contenu .produit .tableau_recap #cvo, #contenu .produit .tableau_recap #replis, #contenu .produit .tableau_recap #declas { width:25px; }
