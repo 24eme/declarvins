@@ -34,14 +34,14 @@ class acVinRouting
   static public function listenToRoutingLoadConfigurationEvent(sfEvent $event)
   {
     $r = $event->getSubject();
-    $r->prependRoute('ac_vin_login', new sfRoute('/', array('module' => 'acVinCompte', 'action' => 'acVinCompteLogin')));
-    $r->prependRoute('ac_vin_logout', new sfRoute('/logout', array('module' => 'acVinCompte', 'action' => 'acVinCompteLogout')));
-    $r->prependRoute('ac_vin_compte', new sfRoute('/compte', array('module' => 'acVinCompte', 'action' => 'acVinCompteFirst')));
-    $r->prependRoute('ac_vin_compte_creation', new sfRoute('/compte/creation', array('module' => 'acVinCompte', 'action' => 'acVinCompteCreation')));
-    $r->prependRoute('ac_vin_compte_modification_oublie', new sfRoute('/compte/mot_de_passe_oublie', array('module' => 'acVinCompte', 'action' => 'acVinCompteModificationOublie')));
-    $r->prependRoute('ac_vin_compte_modification', new sfRoute('/mon_compte', array('module' => 'acVinCompte', 'action' => 'acVinCompteModification')));
-    $r->prependRoute('ac_vin_compte_mot_de_passe_oublie_login', new sfRoute('/mot_de_passe_oublie/login/:login/:mdp', array('module' => 'acVinCompte', 'action' => 'acVinCompteMotDePasseOublieLogin')));
-    $r->prependRoute('ac_vin_compte_mot_de_passe_oublie', new sfRoute('/mot_de_passe_oublie', array('module' => 'acVinCompte', 'action' => 'acVinCompteMotDePasseOublie')));
-    $r->prependRoute('ac_vin_compte_mot_de_passe_oublie_confirm', new sfRoute('/mot_de_passe_oublie/confirm', array('module' => 'acVinCompte', 'action' => 'acVinCompteMotDePasseOublieConfirm')));
+    $r->prependRoute('ac_vin_login', new sfRoute('/', array('module' => 'acVinCompte', 'action' => 'login')));
+    $r->prependRoute('ac_vin_logout', new sfRoute('/logout', array('module' => 'acVinCompte', 'action' => 'logout')));
+    $r->prependRoute('ac_vin_compte', new sfRoute('/compte', array('module' => 'acVinCompte', 'action' => 'first')));
+    $r->prependRoute('ac_vin_compte_creation', new sfRoute('/compte/creation', array('module' => 'acVinCompte', 'action' => 'creation')));
+    $r->prependRoute('ac_vin_compte_modification_oublie', new sfRoute('/compte/mot_de_passe_oublie', array('module' => 'acVinCompte', 'action' => 'modificationOublie')));
+    $r->prependRoute('ac_vin_compte_modification', new sfRoute('/mon_compte', array('module' => 'acVinCompte', 'action' => 'modification')));
+    $r->prependRoute('ac_vin_compte_mot_de_passe_oublie_login', new sfRoute('/mot_de_passe_oublie/login/:login/:mdp', array('module' => 'acVinCompte', 'action' => 'motDePasseOublieLogin')));
+    $r->prependRoute('ac_vin_compte_mot_de_passe_oublie', new sfRoute('/mot_de_passe_oublie', array('module' => 'acVinCompte', 'action' => 'motDePasseOublie')));
+    $r->prependRoute('ac_vin_compte_mot_de_passe_oublie_confirm', new sfRoute('/mot_de_passe_oublie/confirm', array('module' => 'acVinCompte', 'action' => 'motDePasseOublieConfirm')));
   }
 }

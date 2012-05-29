@@ -29,7 +29,7 @@ class BaseacVinCompteActions extends sfActions
      *
      * @param sfWebRequest $request
      */
-    public function executeAcVinCompteLogin(sfWebRequest $request) 
+    public function executeLogin(sfWebRequest $request) 
     {
         if ($this->getUser()->isAuthenticated() && $this->getUser()->hasCredential("compte")) {
             $this->redirect(sfConfig::get('app_ac_vin_compte_login_redirect'));
@@ -55,7 +55,7 @@ class BaseacVinCompteActions extends sfActions
      *
      * @param sfWebRequest $request 
      */
-    public function executeAcVinCompteLogout(sfWebRequest $request) 
+    public function executeLogout(sfWebRequest $request) 
     {
         require_once(sfConfig::get('sf_lib_dir').'/vendor/phpCAS/CAS.class.php');
         $this->getUser()->signOut();
@@ -71,7 +71,7 @@ class BaseacVinCompteActions extends sfActions
      *
      * @param sfRequest $request A request object
      */
-    public function executeAcVinCompteFirst(sfWebRequest $request) 
+    public function executeFirst(sfWebRequest $request) 
     {
         $this->form = new CompteLoginFirstForm();
         if ($request->isMethod(sfWebRequest::POST)) {
@@ -87,7 +87,7 @@ class BaseacVinCompteActions extends sfActions
      *
      * @param sfWebRequest $request 
      */
-    public function executeAcVinCompteCreation(sfWebRequest $request) 
+    public function executeCreation(sfWebRequest $request) 
     {
         $this->compte = $this->getUser()->getCompte();
         $this->forward404Unless($this->compte->getStatut() == _Compte::STATUT_NOUVEAU);
@@ -100,7 +100,7 @@ class BaseacVinCompteActions extends sfActions
                 $this->compte = $this->form->save();
                 try {
                 	$infos = sfConfig::get('app_ac_vin_compte_creation_email');
-                    $message = $this->getMailer()->composeAndSend(array($infos['from_email'] => $infos['from_name']), $this->compte->email, $infos['subject'], $this->getPartial('acVinCompte/acVinCompteCreationEmail', array('compte' => $this->compte)));
+                    $message = $this->getMailer()->composeAndSend(array($infos['from_email'] => $infos['from_name']), $this->compte->email, $infos['subject'], $this->getPartial('acVinCompte/creationEmail', array('compte' => $this->compte)));
                     $this->getUser()->setFlash('confirmation', "Votre compte a bien été créé.");
                 } catch (Exception $e) {
                     $this->getUser()->setFlash('error', "Problème de configuration : l'email n'a pu être envoyé");
@@ -114,7 +114,7 @@ class BaseacVinCompteActions extends sfActions
      *
      * @param sfWebRequest $request 
      */
-    public function executeAcVinCompteModificationOublie(sfWebRequest $request) 
+    public function executeModificationOublie(sfWebRequest $request) 
     {
         $this->compte = $this->getUser()->getCompte();
         $this->forward404Unless($this->compte->getStatut() == _Compte::STATUT_MOT_DE_PASSE_OUBLIE);
@@ -127,7 +127,7 @@ class BaseacVinCompteActions extends sfActions
                 $this->compte = $this->form->save();
                 try {
                 	$infos = sfConfig::get('app_ac_vin_compte_modification_oublie_email');
-                    $message = $this->getMailer()->composeAndSend(array($infos['from_email'] => $infos['from_name']), $this->compte->email, $infos['subject'], $this->getPartial('acVinCompte/acVinCompteModificationOublieEmail', array('compte' => $this->compte)));
+                    $message = $this->getMailer()->composeAndSend(array($infos['from_email'] => $infos['from_name']), $this->compte->email, $infos['subject'], $this->getPartial('acVinCompte/modificationOublieEmail', array('compte' => $this->compte)));
                     $this->getUser()->setFlash('confirmation', "Votre mot de passe a bien été modifié.");
                 } catch (Exception $e) {
                     $this->getUser()->setFlash('error', "Problème de configuration : l'email n'a pu être envoyé");
@@ -141,7 +141,7 @@ class BaseacVinCompteActions extends sfActions
      *
      * @param sfWebRequest $request 
      */
-    public function executeAcVinCompteModification(sfWebRequest $request) 
+    public function executeModification(sfWebRequest $request) 
     {
         $this->compte = $this->getUser()->getCompte();
         $this->forward404Unless(in_array($this->compte->getStatut(), array(_Compte::STATUT_MOT_DE_PASSE_OUBLIE, _Compte::STATUT_INSCRIT)));
@@ -158,7 +158,7 @@ class BaseacVinCompteActions extends sfActions
         }
     }
 
-    public function executeAcVinCompteMotDePasseOublieLogin(sfWebRequest $request) 
+    public function executeMotDePasseOublieLogin(sfWebRequest $request) 
     {
         $this->forward404Unless($compte = acCouchdbManager::getClient('_Compte')->retrieveByLogin($request->getParameter('login', null)));
         $this->forward404Unless($compte->mot_de_passe == '{OUBLIE}' . $request->getParameter('mdp', null));
@@ -166,7 +166,7 @@ class BaseacVinCompteActions extends sfActions
         $this->redirect('@ac_vin_compte_modification_oublie');
     }
 
-    public function executeAcVinCompteMotDePasseOublie(sfWebRequest $request) 
+    public function executeMotDePasseOublie(sfWebRequest $request) 
     {
         $this->form = new CompteMotDePasseOublieForm();
         if ($request->isMethod(sfWebRequest::POST)) {
@@ -178,7 +178,7 @@ class BaseacVinCompteActions extends sfActions
                 	
                 	
                 	$infos = sfConfig::get('app_ac_vin_compte_mot_de_passe_oublie_email');
-                    $message = $this->getMailer()->composeAndSend(array($infos['from_email'] => $infos['from_name']), $compte->email, $infos['subject'], $this->getPartial('acVinCompte/acVinCompteMotDePasseOublieEmail', array('compte' => $this->compte, 'lien' => $lien)));
+                    $message = $this->getMailer()->composeAndSend(array($infos['from_email'] => $infos['from_name']), $compte->email, $infos['subject'], $this->getPartial('acVinCompte/motDePasseOublieEmail', array('compte' => $this->compte, 'lien' => $lien)));
                 } catch (Exception $e) {
                     $this->getUser()->setFlash('error', "Problème de configuration : l'email n'a pu être envoyé");
                 }
@@ -187,7 +187,7 @@ class BaseacVinCompteActions extends sfActions
         }
     }
     
-    public function executeAcVinCompteMotDePasseOublieConfirm(sfWebRequest $request) 
+    public function executeMotDePasseOublieConfirm(sfWebRequest $request) 
     {
         
     }
