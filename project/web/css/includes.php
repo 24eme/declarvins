@@ -6,3 +6,4 @@
 @import 'global.less';
 @import 'principal.less';
 @import 'declaration.less';
+@import 'admin.less';
