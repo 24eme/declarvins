@@ -48,7 +48,13 @@ class DRM extends BaseDRM {
 
     public function getDepartement() {
         if($this->declarant->siege->code_postal) {
-            return substr($this->declarant->siege->code_postal, 0, 2);
+        	if (is_numeric($this->declarant->siege->code_postal)) {
+            	return substr($this->declarant->siege->code_postal, 0, 2);
+        	} else {
+        		if ($this->declarant->siege->commune && is_numeric($this->declarant->siege->commune)) {
+            		return substr($this->declarant->siege->commune, 0, 2);
+        		}
+        	}
         }
 
         return null;
