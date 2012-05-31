@@ -1,6 +1,6 @@
 <?php
 
-class importDRMTask extends sfBaseTask
+class debugDRMTask extends sfBaseTask
 {
   protected function configure()
   {
