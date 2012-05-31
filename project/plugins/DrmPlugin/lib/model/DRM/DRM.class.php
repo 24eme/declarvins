@@ -50,10 +50,6 @@ class DRM extends BaseDRM {
         if($this->declarant->siege->code_postal) {
         	if (is_numeric($this->declarant->siege->code_postal)) {
             	return substr($this->declarant->siege->code_postal, 0, 2);
-        	} else {
-        		if ($this->declarant->siege->commune && is_numeric($this->declarant->siege->commune)) {
-            		return substr($this->declarant->siege->commune, 0, 2);
-        		}
         	}
         }
 
