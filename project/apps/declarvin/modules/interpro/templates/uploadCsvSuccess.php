@@ -36,7 +36,7 @@
     text-transform: uppercase;
 }
 </style>
-<?php include_component('global', 'navBack', array('active' => 'contrat')); ?>
+<?php include_component('global', 'navBack', array('active' => 'etablissement')); ?>
 <section id="contenu">
 
 
