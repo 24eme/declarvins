@@ -82,9 +82,9 @@
 				},
 				select: function( event, ui ) {
 					ui.item.option.selected = true;
-					console.log(ui.item.value);
-					console.log(ui);
-					console.log(this);
+					//console.log(ui.item.value);
+					//console.log(ui);
+					//console.log(this);
 					self._trigger( "selected", event, {
 						item: ui.item.option
 					});
