@@ -1,16 +1,7 @@
 <style>
 
-.btn_valider {
-    background-color: #820608;
-    background-position: right -52px;
-    background-repeat: no-repeat;
-    border: 1px solid #A12929;
-    color: #FFFFFF;
-    display: inline-block;
-    padding: 0 23px 0 15px;
-    text-transform: uppercase;
-    height: 20px;
-    margin: 10px 0 0 0;
+#mon_compte .btn_valider {
+    margin-left: 0px;
 }
 .error_list {    
 	display: inline-block;
@@ -40,7 +31,7 @@
 <section id="contenu">
 
 
-<div class="clearfix" id="application_dr">
+<div class="clearfix" id="mon_compte">
     <h1>Import des établissements</h1>
     <?php if ($sf_user->hasFlash('notification_general')) : ?>
     <p class="flash_message"><i><?php echo $sf_user->getFlash('notification_general'); ?></i></p><br /><br />
