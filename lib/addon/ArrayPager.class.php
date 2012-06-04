@@ -50,8 +50,6 @@ class ArrayPager extends sfPager
 	protected function prepareResults() {
 		$offset = ($this->getPage() - 1) * $this->getMaxPerPage();
 		$this->results = array_slice($this->array, $offset, $this->getMaxPerPage());
-      	$offset = ($this->getPage() - 1) * $this->getMaxPerPage();
-	    $this->results = array_slice($this->array, $offset, $this->getMaxPerPage());
 	    if ($this->getFillWithMax() && count($this->results) > 0 && count($this->results) < $this->getMaxPerPage()) {
 	      	for($i = count($this->results); $i < $this->getMaxPerPage(); $i++) {
 					$this->results[] = null;
