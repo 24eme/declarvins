@@ -270,25 +270,33 @@
 	<hr />
 	<div class="legende">
 	<?php foreach($drm->declaration->certifications as $certification_key => $certification): ?>
-		<h2>Codes produit - <?php echo $certification->getConfig()->libelle ?></h2>
-		<table class="codes_produit">
-		<?php while($pagers_code[$certification_key]->getPage() <= $pagers_code[$certification_key]->getLastPage()): ?>
+		<?php $i = 1; while($pagers_code[$certification_key]->getPage() <= $pagers_code[$certification_key]->getLastPage()): ?>
 		<?php $colonnes = $pagers_code[$certification_key]->getResults(); ?>
 		<?php if(count($colonnes) > 0): ?>
-			<tr>
-				<?php foreach($colonnes as $item): ?>
-				<?php if($item): ?>
-				<td>
-					<strong><?php echo strtoupper($item->getConfig()->getCodes()) ?></strong>
-		   			<span><?php echo produitLibelle($item->getConfig()->getLibelles(), array(), "%g% %a% %l% %co% %ce%") ?></span>
-				</td>
-				<?php endif; ?>
-				<?php endforeach; ?>
-			</tr>
-		<?php endif; ?>
+			<h2>Codes produit - <?php echo $certification->getConfig()->libelle ?></h2>
+			<table>
+				<?php $counter=0; foreach($colonnes as $key => $item): ?>
+					<?php if($item): ?>
+					<?php if ($counter == 0): ?>
+					<tr>
+					<?php elseif ($counter == ExportDRM::NB_COL_CODES): $counter = 0;?>
+					</tr>
+					<tr>
+					<?php endif; ?>
+					<td>
+						<strong><?php echo strtoupper($item->getConfig()->getCodes()) ?></strong>
+			   			<span><?php echo produitLibelle($item->getConfig()->getLibelles(), array(), "%g% %a% %l% %co% %ce%") ?></span>
+					</td>
+					<?php endif; ?>
+				<?php $counter++; endforeach; ?>
+				</tr>
+			</table>
+			<?php if ($pagers_code[$certification_key]->getPage() != $pagers_code[$certification_key]->getLastPage()): ?>
+			<hr />
+			<?php endif; ?>
+		<?php endif; $i++; ?>
 		<?php $pagers_code[$certification_key]->gotoNextPage(); ?>
 		<?php endwhile; ?>
-		</table>
 	<?php endforeach; ?>
 	</div>
 </body>
