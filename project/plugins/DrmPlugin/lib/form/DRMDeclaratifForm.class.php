@@ -106,7 +106,7 @@ class DRMDeclaratifForm extends BaseForm {
         ));
 
         $this->validatorSchema['apurement']->setMessage('required', 'Vous n\'avez pas selectionné de défaut d\'apurement.');
-        $this->validatorSchema['caution']->setMessage('required', 'Vous n\'avez pas préciser si vous bénéficier d\'une caution.');
+        $this->validatorSchema['caution']->setMessage('required', 'Vous n\'avez pas précisé si vous bénéficier d\'une caution.');
         $this->validatorSchema['organisme']->setMessage('required', 'Veuillez préciser l\'organisme.');
         $this->validatorSchema['moyen_paiement']->setMessage('required', 'Vous n\'avez pas selectionné de moyen de paiement.');
         $this->validatorSchema['frequence']->setMessage('required', 'Vous n\'avez pas selectionné de type d\'échéance.');
