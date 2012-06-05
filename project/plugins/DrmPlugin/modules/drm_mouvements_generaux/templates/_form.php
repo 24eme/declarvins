@@ -18,7 +18,7 @@
 		<?php echo $form['label_supplementaire']->render() ?>
 	</div>
 	<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) || $certification_config->getKey() == DRMValidation::VINSSANSIG_KEY): ?>
-	<a href="#" id="lien_<?php echo $form['disponible']->renderId() ?>" style="font-size: 12px">Je souhaite déclarer un stock initial</a>
+	<a href="#" id="lien_<?php echo $form['disponible']->renderId() ?>" style="font-size: 12px">Je souhaite déclarer un stock disponible</a>
 	<?php endif; ?>
 	<div id="ligne_<?php echo $form['disponible']->renderId() ?>" class="ligne_form" style="display: none">
 		<span class="error"><?php echo $form['disponible']->renderError() ?></span>
