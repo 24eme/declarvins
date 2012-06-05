@@ -143,7 +143,7 @@ class DrmRouting {
                                                                 'action' => 'pdf',
                                                                 'format' => 'pdf'),
                                                           array('sf_method' => array('get'), 'format' => '(html|pdf)'),
-                                                          array('must_be_valid' => true,
+                                                          array('must_be_valid' => false,
                               									'must_be_not_valid' => false)));
 
         $r->prependRoute('drm_mouvements_generaux', new DrmRoute('/drm-edition/:campagne_rectificative/mouvements-generaux', 
