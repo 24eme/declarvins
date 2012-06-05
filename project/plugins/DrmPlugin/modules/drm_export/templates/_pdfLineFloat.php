@@ -1,4 +1,5 @@
 <?php include_partial('drm_export/pdfLine', array('libelle' => $libelle,
+						  'counter' => isset($counter) ? $counter : null,
 						  'colonnes' => $colonnes,
 						  'hash' => $hash,
 						  'partial' => 'drm_export/pdfLineItemFloat',
