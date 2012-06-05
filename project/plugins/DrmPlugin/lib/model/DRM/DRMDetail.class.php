@@ -71,15 +71,15 @@ class DRMDetail extends BaseDRMDetail {
     }
     
     public function getLabelKeyString() {
-      if ($this->label) {
-	return implode('|', $this->label->toArray());
+      if ($this->labels) {
+	return implode('|', $this->labels->toArray());
       }
       return '';
     }
     public function getLabelKey() {
     	$key = null;
-    	if ($this->label) {
-    		$key = implode('-', $this->label->toArray());
+    	if ($this->labels) {
+    		$key = implode('-', $this->labels->toArray());
     	}
     	return ($key) ? $key : DRM::DEFAULT_KEY;
     }
@@ -90,7 +90,7 @@ class DRMDetail extends BaseDRMDetail {
     
     public function getLabelLibelles() {
         $libelles = array(); 
-        foreach($this->label as $key) {
+        foreach($this->labels as $key) {
             $libelles[] = ConfigurationClient::getCurrent()->labels[$key];
         }
 

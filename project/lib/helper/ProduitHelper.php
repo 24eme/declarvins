@@ -1,6 +1,6 @@
 <?php
 
-function produitLibelle($libelles, $libelles_labels = array(), $format = "%g% %a% %l% %co% %ce% %la%", $label_separator = ", ") {
+function produitLibelle($libelles, $libelles_labels = array(), $format = "%g% %a% %l% %co% %ce% <span class=\"labels\">%la%</span>", $label_separator = ", ") {
 	$format_index = array('%c%' => 0,
 						  '%g%' => 1,
 						  '%a%' => 2,
@@ -24,7 +24,7 @@ function labelsLibelles($libelles, $format = "%la%", $label_separator = ", ") {
 	return str_replace("%la%", implode($label_separator, $libelles), $format);
 }
 
-function produitLibelleFromDetail($detail, $format = "%a% %l% %co% %ce% %la%", $label_separator = ", ") {
+function produitLibelleFromDetail($detail, $format = "%g% %a% %l% %co% %ce% <span class=\"labels\">%la%</span>", $label_separator = ", ") {
 
 	if ($detail instanceof sfOutputEscaperIteratorDecorator) {
 		$detail = $detail->getRawValue();
@@ -33,6 +33,5 @@ function produitLibelleFromDetail($detail, $format = "%a% %l% %co% %ce% %la%", $
 	if (!($detail instanceof DRMDetail)) {
 		throw new sfRenderException("detail is not instanceof DRMDetail");
 	}
-
 	return produitLibelle($detail->getLibelles(), $detail->getLabelLibelles(), $format, $label_separator);
 }

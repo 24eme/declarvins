@@ -1294,6 +1294,10 @@ p#date_drm {
   margin:-10px 0 35px;
 }
 #contenu #nombre_etabs b { font-weight:bold; }
+#principal span.labels {
+  font-size:11px;
+  color:#808080;
+}
 #principal #etablissements_drm {
   padding-top:8px;
   position:relative;
@@ -1477,7 +1481,6 @@ p#date_drm {
   vertical-align:top;
 }
 #principal #drm_informations form .ligne_form label {
-  font-weight:bold;
   margin:0 10px 0 0;
   width:350px;
 }
@@ -1705,7 +1708,6 @@ p#date_drm {
   padding:10px 6px;
 }
 #colonnes_dr .col_recolte .col_cont p {
-  font-weight:bold;
   height:20px;
   text-align:right;
   padding:1px 0;

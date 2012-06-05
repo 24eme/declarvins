@@ -17,7 +17,9 @@ class DRMDetails extends BaseDRMDetails {
 	}
 
 	public function addProduit($labels = array()) {
-		return $this->add($this->slugifyLabels($labels));
+		$detail = $this->add($this->slugifyLabels($labels));
+		$detail->labels = $labels;
+		return $detail;
 	}
 
 	protected function slugifyLabels($labels) {
