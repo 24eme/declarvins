@@ -175,6 +175,18 @@
 	table.codes_produit tr td {
 		width: 361px;
 	}
+	
+
+	table.recap tr td.counter {
+		width: 12px;
+		font-size:8pt;
+		text-align: right;
+	}
+	
+
+	table.recap tr td.counterNone {
+		border: none;
+	}
 
 	.case_a_cocher_container {
 		position: relative;

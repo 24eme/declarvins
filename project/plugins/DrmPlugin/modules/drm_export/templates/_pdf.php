@@ -40,23 +40,27 @@
 			<h2>Suivi des vins - <?php echo $certification->getConfig()->libelle ?></h2>
 			<table class="recap volumes bloc_bottom">
 				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Code produit',
+	    						  								  'counter' => 1,
 																  'colonnes' => $colonnes,
 																  'cssclass_value' => 'libelle',
 																  'partial' => 'drm_export/pdfLineVolumeItemProduitLibelle')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total début de mois',
 																	   'unite' => 'hl',
+	    						  								       'counter' => 2,
 																	   'cssclass_libelle' => 'total',
 																       'cssclass_value' => 'total',
 																       'colonnes' => $colonnes,
 																       'hash' => 'total_debut_mois')) ?>
 
 				<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
+	    						  								        'counter' => 2,
 																		'colonnes' => $colonnes,
 																  		'hash' => 'stocks_debut')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total entrées',
 																	   'unite' => 'hl',
+	    						  								       'counter' => 3,
 																	   'cssclass_libelle' => 'total',
 																  	   'cssclass_value' => 'total',
 																	   'colonnes' => $colonnes,
@@ -64,28 +68,33 @@
 
 
 				<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
+	    						  								        'counter' => 3,
 																		'colonnes' => $colonnes,
 																  		'hash' => 'entrees')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total sorties',
 																	   'unite' => 'hl',
+	    						  								       'counter' => 4,
 																	   'colonnes' => $colonnes,
 																	   'cssclass_libelle' => 'total',
 																	   'cssclass_value' => 'total',
 																	   'hash' => 'total_sorties')) ?>
 
 				<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
+	    						  								        'counter' => 4,
 																		'colonnes' => $colonnes,
 																  		'hash' => 'sorties')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total fin de mois',
 																	   'unite' => 'hl',
+	    						  								       'counter' => 5,
 																	   'cssclass_libelle' => 'total',
 																  	   'cssclass_value' => 'total',
 																  	   'colonnes' => $colonnes,
 																  	   'hash' => 'total')) ?>
 
 				<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
+	    						  								        'counter' => 5,
 																		'colonnes' => $colonnes,
 																  		'hash' => 'stocks_fin')) ?>
 
@@ -196,6 +205,8 @@
 		<h2>Droits de circulation et de consommation</h2>
 		<table class="recap droits_douane bloc_bottom">
 	    <?php include_partial('drm_export/pdfLine', array('libelle' => '',
+	    						  'counter' => '&nbsp;',
+	    						  'cssclass_counter' => 'counterNone',
 							      'colonnes' => $colonnes,
 							      'cssclass_libelle' => 'vide',
 							      'cssclass_value' => 'libelle',
@@ -203,6 +214,7 @@
 							      'method' => 'getLibelle')) ?>
 	    
 	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume réintégré',
+	    						   'counter' => 'a',
 								   'colonnes' => $colonnes,
 								   'unite' => 'hl',
 								   'cssclass_libelle' => 'detail',
@@ -210,6 +222,7 @@
 								   'hash' => 'volume_reintegre')) ?>
 	    
 	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume taxé',
+	    						   'counter' => 'b',
 								   'colonnes' => $colonnes,
 								   'unite' => 'hl',
 								   'cssclass_libelle' => 'detail',
@@ -217,6 +230,7 @@
 								   'hash' => 'volume_taxe')) ?>
 	    
 	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Taux des droits en vigueur',
+	    						   'counter' => 'c',
 								   'colonnes' => $colonnes,
 								   'unite' => '€/hl',
 								   'cssclass_libelle' => 'detail',
@@ -224,6 +238,7 @@
 								   'hash' => 'taux')) ?>
 	    
 	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Droits à payer',
+	    						   'counter' => 'd',
 								   'colonnes' => $colonnes,
 								   'unite' => '€',
 								   'cssclass_libelle' => 'total',
@@ -232,11 +247,13 @@
 
 	    <?php if ($drm->isPaiementAnnualise()): ?>
 			<?php include_partial('drm_export/pdfLine', array('libelle' => 'Report du mois précédent',
+	    						   								   'counter' => 'e',
 																   'colonnes' => $colonnes,
 																   'cssclass_libelle' => 'total',
 																   'cssclass_value' => 'total',
 																   'partial' => 'drm_export/pdfLineReport')) ?>
 			<?php include_partial('drm_export/pdfLine', array('libelle' => 'Total cumulé à reporter ou à solder',
+	    						   								   'counter' => 'f',
 																   'colonnes' => $colonnes,
 																   'cssclass_libelle' => 'total',
 																   'cssclass_value' => 'total',
@@ -270,25 +287,33 @@
 	<hr />
 	<div class="legende">
 	<?php foreach($drm->declaration->certifications as $certification_key => $certification): ?>
-		<h2>Codes produit - <?php echo $certification->getConfig()->libelle ?></h2>
-		<table class="codes_produit">
-		<?php while($pagers_code[$certification_key]->getPage() <= $pagers_code[$certification_key]->getLastPage()): ?>
+		<?php $i = 1; while($pagers_code[$certification_key]->getPage() <= $pagers_code[$certification_key]->getLastPage()): ?>
 		<?php $colonnes = $pagers_code[$certification_key]->getResults(); ?>
 		<?php if(count($colonnes) > 0): ?>
-			<tr>
-				<?php foreach($colonnes as $item): ?>
-				<?php if($item): ?>
-				<td>
-					<strong><?php echo strtoupper($item->getConfig()->getCodes()) ?></strong>
-		   			<span><?php echo produitLibelle($item->getConfig()->getLibelles(), array(), "%g% %a% %l% %co% %ce%") ?></span>
-				</td>
-				<?php endif; ?>
-				<?php endforeach; ?>
-			</tr>
-		<?php endif; ?>
+			<h2>Codes produit - <?php echo $certification->getConfig()->libelle ?></h2>
+			<table>
+				<?php $counter=0; foreach($colonnes as $key => $item): ?>
+					<?php if($item): ?>
+					<?php if ($counter == 0): ?>
+					<tr>
+					<?php elseif ($counter == ExportDRM::NB_COL_CODES): $counter = 0;?>
+					</tr>
+					<tr>
+					<?php endif; ?>
+					<td>
+						<strong><?php echo strtoupper($item->getConfig()->getCodes()) ?></strong>
+			   			<span><?php echo produitLibelle($item->getConfig()->getLibelles(), array(), "%g% %a% %l% %co% %ce%") ?></span>
+					</td>
+					<?php endif; ?>
+				<?php $counter++; endforeach; ?>
+				</tr>
+			</table>
+			<?php if ($pagers_code[$certification_key]->getPage() != $pagers_code[$certification_key]->getLastPage()): ?>
+			<hr />
+			<?php endif; ?>
+		<?php endif; $i++; ?>
 		<?php $pagers_code[$certification_key]->gotoNextPage(); ?>
 		<?php endwhile; ?>
-		</table>
 	<?php endforeach; ?>
 	</div>
 </body>

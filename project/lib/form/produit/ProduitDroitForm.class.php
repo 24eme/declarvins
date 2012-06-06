@@ -3,7 +3,7 @@ class ProduitDroitForm extends sfForm {
 
     public function configure() {
     	$this->setWidgets(array(
-			'date' => new sfWidgetFormInputText(),
+			'date' => new sfWidgetFormInputText( array('default' => ''), array('class' => 'datepicker') ),
 			'code' => new sfWidgetFormInputText(),
 			'libelle' => new sfWidgetFormInputText(),
 			'taux' => new sfWidgetFormInputFloat()  		
@@ -14,6 +14,8 @@ class ProduitDroitForm extends sfForm {
 			'libelle' => 'Libelle: ',
 			'taux' => 'Taux: '
 		));
+                
+               
 		$this->setValidators(array(
 			'date' => new sfValidatorString(array('required' => false)),
 			'code' => new sfValidatorString(array('required' => false)),

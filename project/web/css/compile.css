@@ -194,6 +194,18 @@ pre, code, kbd, samp { font-family:monospace, sans-serif; }
   padding:0 0 0 17px;
 }
 .btn_ajouter:hover, .btn_ajouter:focus { text-decoration:underline; }
+.btn_edit {
+  background:url(../images/pictos/pi_edit.png) 0 center no-repeat;
+  height:9px;
+  padding:0 0 0 12px;
+}
+.btn_edit:hover, .btn_edit:focus { text-decoration:underline; }
+.btn_suppr {
+  background:url(../images/pictos/pi_supprimer.png) 0 center no-repeat;
+  height:13px;
+  padding:0 0 0 14px;
+}
+.btn_suppr:hover, .btn_suppr:focus { text-decoration:underline; }
 .btn_ajouter.btn_chargement {
   background-image:url(../images/pictos/pi_loader.gif);
   padding-left:20px;
@@ -341,7 +353,7 @@ a.msg_aide:hover {
   width:1px !important;
 }
 .clear { clear:both; }
-.center { text-align:center; }
+.center { text-align:center !important; }
 .f_left {
   display:inline;
   float:left;
@@ -1289,6 +1301,10 @@ p#date_drm {
   margin:-10px 0 35px;
 }
 #contenu #nombre_etabs b { font-weight:bold; }
+#principal span.labels {
+  font-size:11px;
+  color:#808080;
+}
 #principal #etablissements_drm {
   padding-top:8px;
   position:relative;
@@ -1472,7 +1488,6 @@ p#date_drm {
   vertical-align:top;
 }
 #principal #drm_informations form .ligne_form label {
-  font-weight:bold;
   margin:0 10px 0 0;
   width:350px;
 }
@@ -1700,7 +1715,6 @@ p#date_drm {
   padding:10px 6px;
 }
 #colonnes_dr .col_recolte .col_cont p {
-  font-weight:bold;
   height:20px;
   text-align:right;
   padding:1px 0;
@@ -1978,4 +1992,21 @@ p#date_drm {
   background:url(../images/boutons/btn_etablissement_courant_admin.png) 0 0 no-repeat;
   float:left;
   padding:0 0 0 27px;
+}
+#contenu .produit .tableau_recap { border-spacing:0px; }
+#contenu .produit .tableau_recap th { border-color:#dbdbdb; }
+#contenu .produit .tableau_recap td {
+  font-size:11px;
+  padding:0 6px;
+  text-align:left;
+}
+#contenu .produit .tableau_recap #cat { width:50px; }
+#contenu .produit .tableau_recap #dep, #contenu .produit .tableau_recap #labels, #contenu .produit .tableau_recap #douane, #contenu .produit .tableau_recap #cvo, #contenu .produit .tableau_recap #replis, #contenu .produit .tableau_recap #declas { width:25px; }
+#contenu #popup_produit h2 {
+  background:none repeat scroll 0 0 #494949;
+  color:#ffffff;
+  font-weight:normal;
+  display:block;
+  padding:3px 10px;
+  width:120px;
 }

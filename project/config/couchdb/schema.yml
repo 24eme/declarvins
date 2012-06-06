@@ -883,7 +883,7 @@ DRM:
                                                                                                 total_entrees: { type: float }
                                                                                                 total_sorties: { type: float }
                                                                                                 total: { type: float }
-                                                                                                label:
+                                                                                                labels:
                                                                                                   type: array_collection
                                                                                                   definition:
                                                                                                     fields:

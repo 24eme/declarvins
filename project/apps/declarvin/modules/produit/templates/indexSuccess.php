@@ -1,8 +1,8 @@
 <?php include_component('global', 'navBack', array('active' => 'produits')); ?>
 <section id="contenu">
-	<section id="principal">
+	<section id="principal"  class="produit">
 	<div class="clearfix" id="application_dr">
-	    <h1>Produits <a href="<?php echo url_for('produit_nouveau') ?>">+</a></h1>
+	    <h1>Produits &nbsp;<a href="<?php echo url_for('produit_nouveau') ?>" class="btn_ajouter"></a></h1>
 	    <div class="tableau_ajouts_liquidations">
 	    <table class="tableau_recap">
             <thead>

@@ -1,4 +1,7 @@
 <tr>
+	<?php if (isset($counter)): ?>
+	<td class="counter<?php if (isset($cssclass_counter)): ?> <?php echo $cssclass_counter ?><?php endif; ?>"><?php echo $counter ?></td>
+	<?php endif; ?>
 	<th class="<?php echo ((isset($cssclass_libelle)) ? $cssclass_libelle : null) ?>"><?php echo $libelle ?></th>
 	<?php foreach($colonnes as $col_key => $item): ?>
 	<?php if(!is_null($item)): ?>

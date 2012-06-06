@@ -61,7 +61,7 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#formValidation").submit(function(){
-			return confirm("Une fois votre déclaration validée, vous ne pourrez plus la modifier.\n\nConfirmer vous la validation de votre déclaration de récolte ?");
+			return confirm("Une fois votre déclaration validée, vous ne pourrez plus la modifier.\n\nConfirmer vous la validation de votre DRM ?");
 		});
 	});
 </script>

@@ -220,6 +220,8 @@ class drmActions extends sfActions
   */
   public function executePdf(sfWebRequest $request)
   {
+  	
+    ini_set('memory_limit', '512M');
     $this->drm = $this->getRoute()->getDrm();
   	$pdf = new ExportDRMPdf($this->drm);
 

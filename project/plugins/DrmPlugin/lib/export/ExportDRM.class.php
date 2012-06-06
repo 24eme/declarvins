@@ -9,6 +9,7 @@ class ExportDRM
 
 	const NB_COL = 8;
     const NB_COL_CODES = 3;
+    const MAX_PER_COL = 31;
 
 	public function __construct($drm)
 	{
@@ -78,15 +79,22 @@ class ExportDRM
     		}
             $this->pagers_volume[$certification->getKey()] = $this->makePager($details_pour_volume);
             $this->pagers_vrac[$certification->getKey()] = $this->makePager($details_pour_vrac);
-            ksort($codes);
-            $this->pagers_code[$certification->getKey()] = $this->makePager($codes, self::NB_COL_CODES);
+            //ksort($codes);
+            $this->pagers_code[$certification->getKey()] = $this->makeColPager($codes, self::NB_COL_CODES, self::MAX_PER_COL);
     	}
-
         $this->pager_droits_douane = $this->makePager($this->drm->droits->douane->getDroitsWithVirtual());
     }
 
     protected function makePager($array, $nb_col = self::NB_COL, $fill_with_max = true) {
         $pager = new ArrayPager($nb_col, $fill_with_max);
+        $pager->setArray($array);
+        $pager->init();
+
+        return $pager;
+    }
+
+    protected function makeColPager($array, $nb_col = self::NB_COL_CODES, $max_per_col = self::MAX_PER_COL, $fill_with_max = true) {
+        $pager = new ArrayColPager($nb_col, $max_per_col, $fill_with_max);
         $pager->setArray($array);
         $pager->init();
 
