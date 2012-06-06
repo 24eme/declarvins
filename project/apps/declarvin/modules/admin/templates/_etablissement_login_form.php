@@ -17,6 +17,7 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function () {
-	$( "#<?php echo $form['etablissement']->renderId() ?>" ).combobox();
+    $("#bloc_admin_etablissement_choice").hide();
+	$("#<?php echo $form['etablissement']->renderId() ?>").combobox();
 });
 </script>

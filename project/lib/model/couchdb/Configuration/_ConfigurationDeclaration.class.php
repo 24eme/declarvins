@@ -8,7 +8,7 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
 
 	protected function loadAllData() {
 		parent::loadAllData();
-    }
+  }
 
 	public function getLibelles() {
 		return $this->store('libelles', array($this, 'getLibellesAbstract'));

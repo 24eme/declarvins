@@ -25,7 +25,7 @@
 	
 	<ul id="actions_etablissement">
 		<?php if ($recherche): ?>
-		<li class="popup_form">
+		<li id="bloc_admin_etablissement_choice" class="popup_form">
 			<form method="post" action="<?php echo url_for('@etablissement_login') ?>" id="select_etablissement" >
                                 <?php echo $form->renderHiddenFields(); ?>
 				<div class="ligne_form ligne_form_label">
