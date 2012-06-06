@@ -18,7 +18,21 @@
 		$.inputPlaceholder();
 		$('img.rollover').survolImg();
                 
-                $('.flash_notice').delay(1000).fadeOut(500);
+		$('.flash_notice').delay(1000).fadeOut(500);
+				
+		$('form').submit(function(e)
+		{
+			var form = this;
+			var $form = $(form);
+			
+			e.preventDefault();
+			
+			window.setTimeout( function()
+			{
+				console.log('df');
+				form.submit();
+			}, 500);
+		});
                 
 	});
 	

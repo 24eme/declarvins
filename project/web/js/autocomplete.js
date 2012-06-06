@@ -115,6 +115,7 @@
 					}));
 				},
 				select: function( event, ui ) {
+					console.log('select');
 					ui.item.option.selected = true;
 					self._trigger( "selected", event, {
 						item: ui.item.option
@@ -123,6 +124,8 @@
 					return false;
 				},
 				change: function( event, ui ) {
+					console.log('change');
+					
 					if ( !ui.item ) {
 						var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( $(this).val() ) + "$", "i" ),
 						valid = false;
@@ -190,8 +193,6 @@
 						input.autocomplete( "search", $(input).val());
 						input.focus();
 					});
-
-					console.log(select.children("option").length);
 
 					$(input).parent().find('button').button( "option", "disabled", url_ajax && (select.children("option").length == 1 || select.children("option").length > limit));
 					},
