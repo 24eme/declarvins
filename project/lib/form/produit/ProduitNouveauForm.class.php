@@ -16,7 +16,8 @@ class ProduitNouveauForm extends sfForm {
     	$this->setWidgets(array(
 			'certifications' => new sfWidgetFormChoice(array('choices' => $this->configurationProduit->getCertifications())),
     		'genres' => new sfWidgetFormChoice(array('choices' => $this->configurationProduit->getGenres())),
-			'appellations' => new sfWidgetFormChoice(array('choices' => $this->configurationProduit->getAppellations())), 	
+			'appellations' => new sfWidgetFormChoice(array('choices' => $this->configurationProduit->getAppellations())),  	
+			'mentions' => new sfWidgetFormInputHidden(), 	
 			'lieux' => new sfWidgetFormChoice(array('choices' => $this->configurationProduit->getLieux())), 	
 			'couleurs' => new sfWidgetFormChoice(array('choices' => $this->configurationProduit->getCouleurs())),
 			'cepages' => new sfWidgetFormChoice(array('choices' => $this->configurationProduit->getCepages()))
@@ -24,7 +25,8 @@ class ProduitNouveauForm extends sfForm {
 		$this->widgetSchema->setLabels(array(
 			'certifications' => 'Catégorie: ',
 			'genres' => 'Genre: ',
-			'appellations' => 'Dénomination: ', 	
+			'appellations' => 'Dénomination: ',  	
+			'mentions' => 'Mention: ', 		
 			'lieux' => 'Lieu: ', 	
 			'couleurs' => 'Couleur: ', 
 			'cepages' => 'Cépage: '
@@ -33,6 +35,7 @@ class ProduitNouveauForm extends sfForm {
 			'certifications' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->configurationProduit->getCertifications()))),
 			'genres' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->configurationProduit->getGenres()))),
 			'appellations' => new sfValidatorString(array('required' => false)),
+			'mentions' => new sfValidatorPass(),
 			'lieux' => new sfValidatorString(array('required' => false)),
 			'couleurs' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->configurationProduit->getCouleurs()))),
 			'cepages' => new sfValidatorString(array('required' => false))

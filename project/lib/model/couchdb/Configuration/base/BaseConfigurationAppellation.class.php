@@ -9,7 +9,7 @@
  * @property ConfigurationDetail $detail
  * @property acCouchdbJson $interpro
  * @property acCouchdbJson $departements
- * @property acCouchdbJson $lieux
+ * @property acCouchdbJson $mentions
 
  * @method string getLibelle()
  * @method string setLibelle()
@@ -21,8 +21,8 @@
  * @method acCouchdbJson setInterpro()
  * @method acCouchdbJson getDepartements()
  * @method acCouchdbJson setDepartements()
- * @method acCouchdbJson getLieux()
- * @method acCouchdbJson setLieux()
+ * @method acCouchdbJson getMentions()
+ * @method acCouchdbJson setMentions()
  
  */
 

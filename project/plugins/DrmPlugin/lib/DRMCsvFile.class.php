@@ -20,19 +20,21 @@ class DRMCsvFile extends CsvFile
   const CSV_COL_GENRE_CODE = 12;
   const CSV_COL_APPELLATION = 13;
   const CSV_COL_APPELLATION_CODE = 14;
-  const CSV_COL_LIEU = 15;
-  const CSV_COL_LIEU_CODE = 16;
-  const CSV_COL_COULEUR = 17;
-  const CSV_COL_COULEUR_CODE = 18;
-  const CSV_COL_CEPAGE = 19;
-  const CSV_COL_CEPAGE_CODE = 20;
-  const CSV_COL_MILLESIME = 21;
-  const CSV_COL_MILLESIME_CODE = 22;
-  const CSV_COL_LABELS = 23;
-  const CSV_COL_LABELS_CODE = 24;
-  const CSV_COL_MENTION = 25;
-  const CSV_COL_CONTRAT_IDENTIFIANT = 26;
-  const CSV_COL_CONTRAT_VOLUME = 27;
+  const CSV_COL_MENTION = 15;
+  const CSV_COL_MENTION_CODE = 16;
+  const CSV_COL_LIEU = 17;
+  const CSV_COL_LIEU_CODE = 18;
+  const CSV_COL_COULEUR = 19;
+  const CSV_COL_COULEUR_CODE = 20;
+  const CSV_COL_CEPAGE = 21;
+  const CSV_COL_CEPAGE_CODE = 22;
+  const CSV_COL_MILLESIME = 23;
+  const CSV_COL_MILLESIME_CODE = 24;
+  const CSV_COL_LABELS = 25;
+  const CSV_COL_LABELS_CODE = 26;
+  const CSV_COL_MENTION = 27;
+  const CSV_COL_CONTRAT_IDENTIFIANT = 28;
+  const CSV_COL_CONTRAT_VOLUME = 29;
   const CSV_COL_DETAIL_TOTAL_DEBUT_MOIS = 26;
   const CSV_COL_DETAIL_STOCKDEB_BLOQUE = 27;
   const CSV_COL_DETAIL_STOCKDEB_WARRANTE = 28;
@@ -115,6 +117,8 @@ class DRMCsvFile extends CsvFile
       $line[self::CSV_COL_GENRE_CODE] = $d->getGenre()->getCode();
       $line[self::CSV_COL_APPELLATION] = $d->getAppellation()->getLibelle();
       $line[self::CSV_COL_APPELLATION_CODE] = $d->getAppellation()->getCode();
+      $line[self::CSV_COL_MENTION] = $d->getMention()->getLibelle();
+      $line[self::CSV_COL_MENTION_CODE] = $d->getMention()->getCode();
       $line[self::CSV_COL_LIEU] = $d->getLieu()->getLibelle();
       $line[self::CSV_COL_LIEU_CODE] = $d->getLieu()->getCode();
       $line[self::CSV_COL_COULEUR] = $d->getCouleur()->getLibelle();
@@ -186,6 +190,7 @@ class DRMCsvFile extends CsvFile
     $hash = $this->config->identifyProduct($line[self::CSV_COL_CERTIFICATION], 
 					   $line[self::CSV_COL_GENRE], 
 					   $line[self::CSV_COL_APPELLATION], 
+					   $line[self::CSV_COL_MENTION], 
 					   $line[self::CSV_COL_LIEU], 
 					   $line[self::CSV_COL_COULEUR], 
 					   $line[self::CSV_COL_CEPAGE]);

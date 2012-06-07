@@ -290,7 +290,7 @@ class DRM extends BaseDRM {
     }
 
     protected function replicateDetail(&$drm, $key, $value, $hash_match, $hash_replication) {
-        if (preg_match('|^(/declaration/certifications/.+/appellations/.+/lieux/.+/couleurs/.+/cepages/.+/details/.+)/'.$hash_match.'$|', $key, $match)) {
+        if (preg_match('|^(/declaration/certifications/.+/appellations/.+/mentions/.+/lieux/.+/couleurs/.+/cepages/.+/details/.+)/'.$hash_match.'$|', $key, $match)) {
             $detail = $this->get($match[1]);
             if (!$drm->exist($detail->getHash())) {
                 $drm->addProduit($detail->getMillesime()->getHash(), $detail->label->toArray());

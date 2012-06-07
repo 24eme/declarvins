@@ -10,9 +10,13 @@ class DRMLieu extends BaseDRMLieu {
      *
      * @return DRMLieu
      */
-    public function getAppellation() {
+    public function getMention() {
 
         return $this->getParentNode();
+    }
+    public function getAppellation() {
+
+        return $this->getMention()->getAppellation();
     }
 
     public function getCertification() {
