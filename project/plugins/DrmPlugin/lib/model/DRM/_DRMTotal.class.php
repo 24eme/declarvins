@@ -80,12 +80,12 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
 
     public function hasMouvementCheck() {
         foreach($this->getChildrenNode() as $item) {
-            if(!$item->hasMouvementCheck()) {
-                return false;
+            if($item->hasMouvementCheck()) {
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     public function nbComplete() {
