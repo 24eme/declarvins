@@ -34,6 +34,26 @@ class EtablissementClient extends acCouchdbClient {
               ->endkey(array($interpro, array()))->getView('etablissement', 'all');
   	}
     
-    
+    public function makeLibelle($datas) {
+        $etablissementLibelle = '';
+        if ($nom = $datas[2]) {
+            $etablissementLibelle .= $nom;
+        }
+        if ($rs = $datas[4]) {
+            if ($etablissementLibelle) {
+                $etablissementLibelle .= ' / ';
+            }
+            $etablissementLibelle .= $rs;
+        }
+        $etablissementLibelle .= ' ('.$datas[3];
+        if ($siret = $datas[5]) {
+            $etablissementLibelle .= ' / '.$siret;
+        }
+        if ($cvi = $datas[6]) {
+            $etablissementLibelle .= ' / '.$cvi;
+        }
+        $etablissementLibelle .= ') '.$datas[7].' '.$datas[8];
+        return trim($etablissementLibelle);
+    }
 
 }

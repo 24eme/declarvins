@@ -61,14 +61,48 @@
 			select.append(newValueOption);
 			
 			var newValueAllowed  = select.hasClass('permissif');
-			
+			var url_ajax = select.attr('data-ajax');
+			var limit = 20;
+			var prev_term = "";
+			var minLength = (url_ajax) ? 1 : 0;
+			var delay = (url_ajax) ? 300 : 200;
+
 			var input = this.input = $( "<input type='text'>" )
 			.insertAfter( select )
 			.val( value )
 			.autocomplete({
-				delay: 0,
-				minLength: 0,
+				delay: delay,
+				minLength: minLength,
 				source: function( request, response ) {
+					prev_term_matcher = new RegExp("^"+prev_term);
+					if(url_ajax && (prev_term == "" || (!prev_term_matcher.test(request.term) || select.children("option").length > limit))) {
+						prev_term = request.term;
+						$.getJSON(url_ajax, {q:request.term,limit:limit+1}, function(data) {
+							if (prev_term != request.term) {
+								return ;
+							}
+							var inner_select = '';
+							for(hash in data) {
+							 	inner_select += '<option value="'+hash+'">'+data[hash]+'</option>';
+							}
+							select.html(inner_select);
+						  	response( select.children("option").map(function() {
+								var text = $(this).text();
+								var text_highlight = search(text, request.term);
+								if (this.value && (!request.term || text_highlight != false))
+									return {
+										label: text_highlight,
+										value: text,
+										option: this
+									};
+						    }));
+
+							$(input).parent().find('button').button( "option", "disabled", select.children("option").length > limit);
+						});
+
+						return;
+					} 
+
 					response( select.children("option").map(function() {
 						var text = $(this).text();
 						var text_highlight = search(text, request.term);
@@ -78,9 +112,10 @@
 								value: text,
 								option: this
 							};
-						}) );
+					}));
 				},
 				select: function( event, ui ) {
+					console.log('select');
 					ui.item.option.selected = true;
 					self._trigger( "selected", event, {
 						item: ui.item.option
@@ -89,6 +124,8 @@
 					return false;
 				},
 				change: function( event, ui ) {
+					console.log('change');
+					
 					if ( !ui.item ) {
 						var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( $(this).val() ) + "$", "i" ),
 						valid = false;
@@ -120,6 +157,7 @@
 							}
 						}
 					});
+
 					//.addClass( "ui-widget ui-widget-content ui-corner-left" );
 
 					input.data( "autocomplete" )._renderItem = function( ul, item ) {
@@ -140,7 +178,7 @@
 						text: false
 					})
 					.removeClass( "ui-corner-all" )
-					.addClass( "ui-corner-right ui-button-icon" )
+					.addClass( "ui-corner-right ui-button-icon button-autocomplete" )
 					.click(function() {
 						// close if already visible
 						if ( input.autocomplete( "widget" ).is( ":visible" ) ) {
@@ -152,10 +190,12 @@
 						$( this ).blur();
 
 						// pass empty string as value to search for, displaying all results
-						input.autocomplete( "search", "" );
+						input.autocomplete( "search", $(input).val());
 						input.focus();
 					});
-				},
+
+					$(input).parent().find('button').button( "option", "disabled", url_ajax && (select.children("option").length == 1 || select.children("option").length > limit));
+					},
 
 				destroy: function() {
 					this.input.remove();
@@ -164,4 +204,5 @@
 					$.Widget.prototype.destroy.call( this );
 				}
 			});
+
 })(jQuery);
