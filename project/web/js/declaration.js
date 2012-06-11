@@ -297,7 +297,7 @@
 					var cond = /^drm_detail\[(entrees|sorties)\]/;
 					var totalCol = 0;
 					for (var i in donneesCol) {
-						if ((donneesCol[i].name).match(cond) && !isNaN(donneesCol[i].value)) {
+						if ((donneesCol[i].name).match(cond) && !isNaN(donneesCol[i].value) && donneesCol[i].value) {
 							totalCol += parseFloat(donneesCol[i].value);
 						}
 					}
