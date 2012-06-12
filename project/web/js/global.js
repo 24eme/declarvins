@@ -33,7 +33,9 @@
 				form.submit();
 			}, 500);
 		});
-                
+
+               $(".datepicker").datepicker('change',{dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"], monthNames: ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aout","Septembre","Octobre","Novembre","Décembre"], dateFormat: 'dd-mm-yy', firstDay:1 }); 
+               
 	});
 	
 	

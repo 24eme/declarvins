@@ -7,3 +7,5 @@
 @import 'principal.less';
 @import 'declaration.less';
 @import 'admin.less';
+@import 'datepicker.less';
+@import 'jquery.ui.theme.css';
