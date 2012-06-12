@@ -26,7 +26,7 @@
 			minHeight: 0,
 			create: function(event, ui) {},
 			open: function(event, ui) {},
-			close: function(event, ui) {},
+			close: function(event, ui) {}
 		},
 
 		/* Configuration de form */
@@ -59,12 +59,21 @@
 		var parent = popup.parent();
 		var formBtn = form.find('button');
 		var btnFermer = popup.find('.btn_fermer');
+		var formBtnSubmit = formBtn.filter(':submit');
+		
+		formBtnSubmit.click(function()
+		{
+			form.submit();
+			return false;
+		});
 		
 		form.find('input:visible', 'select').eq(0).focus();
 
 		// Soumission
 		form.live('submit', function()
 		{
+			//console.log('ok');
+			
 			popup.addClass('popup_chargement');
 			formBtn.attr('disabled', 'disabled');
 			
@@ -100,7 +109,14 @@
 					form = popup.find('form');
 					formBtn = form.find('button');
 					formBtn.removeAttr('disabled');
+					formBtnSubmit = formBtn.filter(':submit');
 					popup.removeClass('popup_chargement');
+					
+					formBtnSubmit.click(function()
+					{
+						form.submit();
+						return false;
+					});
 				}
 			}, "json");
 

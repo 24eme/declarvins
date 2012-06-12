@@ -1,10 +1,11 @@
 <?php
 class ConfigurationProduit
 {
-	protected static $arborescence = array('certifications', 'genres', 'appellations', 'lieux', 'couleurs', 'cepages');
+	protected static $arborescence = array('certifications', 'genres', 'appellations', 'mentions', 'lieux', 'couleurs', 'cepages');
 	protected static $certifications = array('' => '', 'AOP' => 'AOP', 'IGP' => 'IGP', 'VINSSANSIG' => 'SANS IG', 'LIE' => 'LIE');
 	protected static $couleurs = array('' => '', 'Rouge' => 'Rouge', 'Blanc' => 'Blanc', 'Rosé' => 'Rosé');
 	protected static $genres = array('' => '', 'EFF' => 'Effervescent', 'TRANQ' => 'Tranquilles', 'VDN' => 'Vin doux naturel');
+	protected static $mentions = array('' => '');
 	protected static $codeCouleurs = array('Rouge' => 'rouge', 'Blanc' => 'blanc', 'Rosé' => 'rose');
 	
 	protected $datas;
@@ -26,13 +27,13 @@ class ConfigurationProduit
 	
 	private function loadDatas() {
     	foreach ($this->datas->rows as $produit) {
-    		$hash = $produit->key[7];
+    		$hash = $produit->key[8];
     		if ($this->getKey($hash, self::APPELLATION_KEY) != Configuration::DEFAULT_KEY)
     			$this->appellations[$this->getKey($hash, self::APPELLATION_KEY)] = $produit->key[3];
     		if ($this->getKey($hash, self::LIEU_KEY) != Configuration::DEFAULT_KEY)
-    			$this->lieux[$this->getKey($hash, self::LIEU_KEY)] = $produit->key[4];
+    			$this->lieux[$this->getKey($hash, self::LIEU_KEY)] = $produit->key[5];
     		if ($this->getKey($hash, self::CEPAGE_KEY) != Configuration::DEFAULT_KEY)
-    			$this->cepages[$this->getKey($hash, self::CEPAGE_KEY)] = $produit->key[6];
+    			$this->cepages[$this->getKey($hash, self::CEPAGE_KEY)] = $produit->key[7];
     	}
     }
     private function getKey($hash, $codeKey) {
@@ -50,6 +51,9 @@ class ConfigurationProduit
     }
     public function getGenres() {
     	return self::$genres;
+    }
+    public function getMentions() {
+    	return self::$mentions;
     }
     public function getCouleurs() {
     	return self::$couleurs;

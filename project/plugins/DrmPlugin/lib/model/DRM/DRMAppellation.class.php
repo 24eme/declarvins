@@ -16,15 +16,7 @@ class DRMAppellation extends BaseDRMAppellation {
 
     public function getChildrenNode() {
 
-        return $this->lieux;
-    }
-
-    public function getLieuxArray() {
-      $lieux = array();
-      foreach($this->lieux as $lieu) {
-        $lieux[$lieu->getHash()] = $lieu;
-      }
-      return $lieux;
+        return $this->mentions;
     }
 
      /**
@@ -61,8 +53,8 @@ class DRMAppellation extends BaseDRMAppellation {
 
     public function sommeLignes($lines) {
       $sum = 0;
-      foreach($this->lieux as $lieu) {
-	$sum += $lieu->sommeLignes($lines);
+      foreach($this->mentions as $mention) {
+	$sum += $mention->sommeLignes($lines);
       }
       return $sum;
     }

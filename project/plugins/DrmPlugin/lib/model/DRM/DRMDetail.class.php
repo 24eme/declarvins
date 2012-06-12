@@ -49,6 +49,15 @@ class DRMDetail extends BaseDRMDetail {
 
     /**
      *
+     * @return DRMMention
+     */
+    public function getMention() {
+
+        return $this->getLieu()->getMention();
+    }
+
+    /**
+     *
      * @return DRMAppellation
      */
     public function getAppellation() {
@@ -71,15 +80,15 @@ class DRMDetail extends BaseDRMDetail {
     }
     
     public function getLabelKeyString() {
-      if ($this->label) {
-	return implode('|', $this->label->toArray());
+      if ($this->labels) {
+	return implode('|', $this->labels->toArray());
       }
       return '';
     }
     public function getLabelKey() {
     	$key = null;
-    	if ($this->label) {
-    		$key = implode('-', $this->label->toArray());
+    	if ($this->labels) {
+    		$key = implode('-', $this->labels->toArray());
     	}
     	return ($key) ? $key : DRM::DEFAULT_KEY;
     }
@@ -90,7 +99,7 @@ class DRMDetail extends BaseDRMDetail {
     
     public function getLabelLibelles() {
         $libelles = array(); 
-        foreach($this->label as $key) {
+        foreach($this->labels as $key) {
             $libelles[] = ConfigurationClient::getCurrent()->labels[$key];
         }
 
@@ -215,6 +224,7 @@ class DRMDetail extends BaseDRMDetail {
     	$cepage = $this->getCepage();
     	$couleur = $this->getCouleur();
     	$lieu = $this->getLieu();
+    	$mention = $this->getMention();
     	$appellation = $this->getAppellation();
     	$genre = $this->getGenre();
     	$certification = $this->getCertification();
@@ -225,14 +235,17 @@ class DRMDetail extends BaseDRMDetail {
     			$objectToDelete = $couleur;
     			if ($lieu->couleurs->count() == 1 && $lieu->couleurs->exist($couleur->getKey())) {
     				$objectToDelete = $lieu;
-    				if ($appellation->lieux->count() == 1 && $appellation->lieux->exist($lieu->getKey())) {
-    					$objectToDelete = $appellation;
-						if ($genre->appellations->count() == 1 && $genre->appellations->exist($appellation->getKey())) {
-    						$objectToDelete = $genre;
-							if ($certification->genres->count() == 1 && $certification->genres->exist($genre->getKey())) {
-    							$objectToDelete = $certification;
+    				if ($mention->lieux->count() == 1 && $mention->lieux->exist($lieu->getKey())) {
+    					$objectToDelete = $mention;
+	    				if ($appellation->mentions->count() == 1 && $appellation->mentions->exist($mention->getKey())) {
+	    					$objectToDelete = $appellation;
+							if ($genre->appellations->count() == 1 && $genre->appellations->exist($appellation->getKey())) {
+	    						$objectToDelete = $genre;
+								if ($certification->genres->count() == 1 && $certification->genres->exist($genre->getKey())) {
+	    							$objectToDelete = $certification;
+								}
 							}
-						}
+	    				}
     				}
     			}
     		}

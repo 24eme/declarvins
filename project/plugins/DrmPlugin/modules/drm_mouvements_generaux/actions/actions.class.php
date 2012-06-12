@@ -66,16 +66,11 @@ class drm_mouvements_generauxActions extends sfActions
         $this->forward404Unless($request->isXmlHttpRequest());
         $this->getResponse()->setContentType('text/json');
         $drm = $this->getRoute()->getDrm();
-        $this->forward404Unless($drm->declaration->hasPasDeMouvement());
         $form = new DRMMouvementsGenerauxProduitsForm($drm);
         $form->bind($request->getParameter($form->getName()));
         if ($form->isValid()) {
-            foreach($drm->produits as $certification_produit) {
-                foreach($certification_produit as $appellation_produit) {
-                    foreach($appellation_produit as $produit) {
-                        $produit->pas_de_mouvement_check = $form->getValue('pas_de_mouvement_check');
-                    }
-                }
+            foreach($drm->declaration->getProduits() as $produit) {
+            	$produit->pas_de_mouvement_check = ($form->getValue('pas_de_mouvement'))? 1 : 0;
             }
             $drm->save();
             return $this->renderText(json_encode(array("success" => true)));
@@ -86,16 +81,10 @@ class drm_mouvements_generauxActions extends sfActions
     public function executeStockEpuise(sfWebRequest $request) 
     {
     	$drm = $this->getRoute()->getDrm();
-    	$this->forward404Unless($drm->declaration->hasPasDeMouvement());
     	$this->forward404Unless($drm->declaration->hasStockEpuise());
-
-    	foreach($drm->produits as $certification_produit) {
-    		foreach($certification_produit as $appellation_produit) {
-    			foreach($appellation_produit as $produit) {
-    				$produit->pas_de_mouvement_check = 1;
-    			}
-    		}
-    	}
+        foreach($drm->declaration->getProduits() as $produit) {
+        	$produit->pas_de_mouvement_check = 1;
+        }
         $drm->setCurrentEtapeRouting('declaratif');
         $this->redirect('drm_declaratif', $drm);
     }
@@ -125,7 +114,7 @@ class drm_mouvements_generauxActions extends sfActions
 				$this->getUser()->setFlash("notice", 'Le produit a été ajouté avec succès.');
 				return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_mouvements_generaux', $drm))));
 			} else {
-				return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form, 'certification_config' => $certification_config->getKey())))));
+				return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form, 'certification_config' => $certification_config)))));
 			}
         }
 

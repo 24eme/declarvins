@@ -48,13 +48,7 @@ class DRM extends BaseDRM {
 
     public function getDepartement() {
         if($this->declarant->siege->code_postal) {
-        	if (is_numeric($this->declarant->siege->code_postal)) {
-            	return substr($this->declarant->siege->code_postal, 0, 2);
-        	} else {
-        		if ($this->declarant->siege->commune && is_numeric($this->declarant->siege->commune)) {
-            		return substr($this->declarant->siege->commune, 0, 2);
-        		}
-        	}
+          return substr($this->declarant->siege->code_postal, 0, 2);
         }
 
         return null;
@@ -296,7 +290,7 @@ class DRM extends BaseDRM {
     }
 
     protected function replicateDetail(&$drm, $key, $value, $hash_match, $hash_replication) {
-        if (preg_match('|^(/declaration/certifications/.+/appellations/.+/lieux/.+/couleurs/.+/cepages/.+/details/.+)/'.$hash_match.'$|', $key, $match)) {
+        if (preg_match('|^(/declaration/certifications/.+/appellations/.+/mentions/.+/lieux/.+/couleurs/.+/cepages/.+/details/.+)/'.$hash_match.'$|', $key, $match)) {
             $detail = $this->get($match[1]);
             if (!$drm->exist($detail->getHash())) {
                 $drm->addProduit($detail->getMillesime()->getHash(), $detail->label->toArray());

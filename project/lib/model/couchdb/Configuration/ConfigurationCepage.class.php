@@ -28,6 +28,11 @@ class ConfigurationCepage extends BaseConfigurationCepage {
       return $this->getCouleur()->getLieu();
     }
 
+    public function getMention() {
+
+      return $this->getLieu()->getMention();
+    }
+
     public function getCepage() {
 
       return $this;

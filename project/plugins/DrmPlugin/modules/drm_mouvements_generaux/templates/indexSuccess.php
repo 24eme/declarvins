@@ -8,7 +8,7 @@
 		<div id="application_dr">
 			<div id="contenu_onglet">
 				<?php if($first_certification): ?>
-                                <form method="post" action="<?php echo url_for('drm_recap', $first_certification) ?>">
+                                <form method="post" action="<?php echo url_for('drm_mouvements_generaux', $drm) ?>">
                                     <button class="btn_passer_etape" type="submit">Passer cette étape</button>
                                 </form>
 				<?php endif; ?>

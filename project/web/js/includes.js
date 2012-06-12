@@ -36,7 +36,7 @@
 	 * Inclusions
 	 ******************************************/
 	// Librairies
-	$.fn.includeJS(jsPath, 'lib/jquery-ui-1.8.1.min.js');
+	$.fn.includeJS(jsPath, 'lib/jquery-ui-1.8.21.min.js');
 	
 	// Plugins
 	$.fn.includeJS(jsPath, 'plugins/selectivizr-min.js', {condition: true, operateur: 'lte', version: 'IE 8'});

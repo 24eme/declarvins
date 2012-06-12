@@ -4,7 +4,7 @@ class DRMMouvementsGenerauxProduitForm extends acCouchdbFormDocumentJson {
 
 	public function configure() {
         $this->setWidgets(array(
-        		'pas_de_mouvement_check' => new sfWidgetFormInputCheckbox()
+        		'pas_de_mouvement_check' => new WidgetFormInputCheckbox()
         ));
         $this->widgetSchema->setLabels(array(
         		'pas_de_mouvement_check' => 'Pas de mouvement '
@@ -23,7 +23,9 @@ class DRMMouvementsGenerauxProduitForm extends acCouchdbFormDocumentJson {
     }
     
     public function doUpdateObject($values) {
-
+    	if (isset($values['pas_de_mouvement_check']) && !$values['pas_de_mouvement_check']) {
+    		$values['pas_de_mouvement_check'] = 0;
+    	}
         parent::doUpdateObject($values);
     }
 
