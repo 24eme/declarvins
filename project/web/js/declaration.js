@@ -10,6 +10,7 @@
  ******************************************/
 (function($)
 {
+	var anchorIds = {"entrees" : 2, "sorties" : 3}
 	// Variables globales 
 	var colonnesDR = $('#colonnes_dr');
 	var colIntitules = $('#colonne_intitules');
@@ -814,10 +815,12 @@
 					if(champ.attr('readonly')) champSuivant.focus();
 				}
 			});
-
-			// Groupe ouvert par défaut
-			if(groupe.hasClass('demarrage-ouvert'))
-			{
+			if(window.location.hash) {
+				var anchor = window.location.hash.substring(1);
+				if (anchorIds[anchor] == groupe.attr('data-groupe-id')) {
+					groupe.trigger('ouvrir');
+				}
+			} else if(groupe.hasClass('demarrage-ouvert')) {
 				groupe.trigger('ouvrir');
 			}
 		});
