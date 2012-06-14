@@ -1,11 +1,8 @@
 <?php
 class DRMControleWarning extends DRMControle
 {
+	const TYPE = 'warning';
 	public function __construct($code, $lien) {
-		$messages = array(
-			'mouvement' => "Attention ... mouvement",
-			'declassement' => "Attention ... declassement",
-		);
-		parent::__construct('warning', $code, $lien, $messages);
+		parent::__construct(self::TYPE, self::TYPE.'_'.$code, $lien);
 	}
 }

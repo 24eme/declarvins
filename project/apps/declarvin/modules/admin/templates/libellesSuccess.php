@@ -8,6 +8,8 @@
     		<?php include_partial('tableLibelles', array('object' => $droits, 'type' => 'droits')) ?>
     		<h1>Labels</h1>
     		<?php include_partial('tableLibelles', array('object' => $labels, 'type' => 'labels')) ?>
+    		<h1>Controles</h1>
+    		<?php include_partial('tableLibelles', array('object' => $controles, 'type' => 'controles')) ?>
 		</div>
 	</section>
 </section>

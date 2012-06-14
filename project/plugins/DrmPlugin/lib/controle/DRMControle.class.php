@@ -6,11 +6,11 @@ abstract class DRMControle
 	protected $lien;
 	protected $messages;
 
-	public function __construct($type, $code, $lien, $messages) {
+	public function __construct($type, $code, $lien) {
 		$this->setType($type);
 		$this->setCode($code);
 		$this->setLien($lien);
-		$this->setMessages($messages);
+		$this->setMessages(ControlesClient::getInstance()->findAll()->getFields());
 	}
 
 	public function getType()

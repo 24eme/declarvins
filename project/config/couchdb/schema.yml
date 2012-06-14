@@ -1079,3 +1079,10 @@ Messages:
       _rev: {  }
       type: {}
       '*': {}
+Controles:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {}
+      '*': {}
