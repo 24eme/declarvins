@@ -70,7 +70,7 @@ class ConfigurationCertification extends BaseConfigurationCertification {
         $labels = array();
         $results = ConfigurationClient::getInstance()->findLabelsByCertification($this->getKey(), $interpro);
         foreach($results->rows as $item) {
-            $labels[$item->key[3]] = $item->value;
+            $labels[$item->key[4]] = $item->value;
         }
 
         return $labels;
@@ -123,13 +123,12 @@ class ConfigurationCertification extends BaseConfigurationCertification {
   		}  		
   	}
   	
-  	public function hasProduit($interp) {
-  		$produits = ConfigurationClient::getInstance()->findProduitsByCertificationAndInterpro($interp, $this->getKey());
-  		if (count($produits->rows) == 0) {
-  			return false;
-  		} else {
+  	public function hasProduit($interp, $dep) {
+  		$produits = ConfigurationClient::getInstance()->nbProduitsByCertificationDepAndInterpro($dep, $interp, $this->getKey());
+  		if (isset($produits->rows[0]) && $produits->rows[0]->value > 0)
   			return true;
-  		}  		
+  		else 
+  			return false;	
   	}
 
 }
