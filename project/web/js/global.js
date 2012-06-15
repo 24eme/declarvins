@@ -20,13 +20,12 @@
                 
 		$('.flash_notice').delay(1000).fadeOut(500);
 				
-		$('form').submit(function(e)
+		$('.form_delay').submit(function(e)
 		{
 			var form = this;
 			var $form = $(form);
 			
 			e.preventDefault();
-			
 			window.setTimeout( function()
 			{
 				form.submit();

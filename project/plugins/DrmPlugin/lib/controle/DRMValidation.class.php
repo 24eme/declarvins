@@ -104,8 +104,10 @@ class DRMValidation
 		  foreach ($detail->vrac as $contrat) {
 		    $totalVolume += $contrat->volume;
 		  }
-		  if ($totalVolume != $detail->sorties->vrac) {
-		    $this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm));
+		  if ($totalVolume < $detail->sorties->vrac) {
+		    $this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_recap_detail', $detail).'#sorties');
+		  } elseif ($totalVolume > $detail->sorties->vrac) {
+		  	$this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm).'#sorties');
 		  }
 		}
 		if ($detail->total < 0) {
@@ -119,7 +121,7 @@ class DRMValidation
 	private function controleWarnings($detail)
 	{
 		if ($detail->sorties->mouvement > 0) {
-			$this->warnings['mouvement_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mouvement', $this->generateUrl('drm_recap_detail', $detail));
+			$this->warnings['mouvement_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mouvement', $this->generateUrl('drm_recap_detail', $detail).'#sorties');
 		}
 	}
 	
