@@ -92,9 +92,7 @@ article, aside, figure, footer, header, hgroup, nav, section { display:block; }
   background-repeat:no-repeat;
 }
 .ui-widget-overlay {
-  background:#000000;
-  opacity:.2;
-  filter:1;
+  background:url('../images/fonds/overlay.png') 0 0 repeat;
   position:absolute;
   top:0;
   left:0;

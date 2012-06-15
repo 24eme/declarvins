@@ -29,7 +29,6 @@
 			
 			window.setTimeout( function()
 			{
-				console.log('df');
 				form.submit();
 			}, 500);
 		});

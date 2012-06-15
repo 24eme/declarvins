@@ -115,7 +115,7 @@
 					}));
 				},
 				select: function( event, ui ) {
-					console.log('select');
+					//console.log('select');
 					ui.item.option.selected = true;
 					self._trigger( "selected", event, {
 						item: ui.item.option
@@ -124,7 +124,7 @@
 					return false;
 				},
 				change: function( event, ui ) {
-					console.log('change');
+					//console.log('change');
 					
 					if ( !ui.item ) {
 						var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( $(this).val() ) + "$", "i" ),
