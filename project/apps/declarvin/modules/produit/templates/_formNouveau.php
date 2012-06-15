@@ -1,4 +1,4 @@
-<form class="popup_form" id="form_ajout" action="<?php echo url_for('produit_nouveau') ?>" method="post">
+<form class="popup_form form_delay" id="form_ajout" action="<?php echo url_for('produit_nouveau') ?>" method="post">
 	<?php echo $form->renderGlobalErrors() ?>
 	<?php echo $form->renderHiddenFields() ?>
 	<div class="ligne_form">
