@@ -47,4 +47,10 @@ class Etablissement extends BaseEtablissement {
 	$this->_set('telephone', $this->cleanPhone($phone));
     }
     
+    public function getDenomination() {
+    	if (!$this->nom)
+    		return $this->raison_sociale;
+    	return parent::getDenomination();
+    }
+    
 }
