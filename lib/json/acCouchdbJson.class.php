@@ -169,7 +169,8 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
                                 }
 	        		$item->fromArray($value);
 	        	} else {
-                            $this->add($key, $value);  
+                            $this->add($key);
+                            $this->set($key, $value);  
 	        	}
             }
         }
