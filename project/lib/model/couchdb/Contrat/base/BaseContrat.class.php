@@ -14,6 +14,7 @@
  * @property string $telephone
  * @property string $fax
  * @property string $compte
+ * @property string $email
  * @property acCouchdbJson $etablissements
 
  * @method string get_id()
@@ -36,6 +37,8 @@
  * @method string setFax()
  * @method string getCompte()
  * @method string setCompte()
+ * @method string getEmail()
+ * @method string setEmail()
  * @method acCouchdbJson getEtablissements()
  * @method acCouchdbJson setEtablissements()
  

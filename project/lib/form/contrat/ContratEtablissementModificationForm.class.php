@@ -33,7 +33,12 @@ class ContratEtablissementModificationForm extends acCouchdbFormDocumentJson {
 	       'comptabilite_adresse' => new sfWidgetFormInputText(),
 	       'comptabilite_code_postal' => new sfWidgetFormInputText(),
 	       'comptabilite_commune' => new sfWidgetFormInputText(),
-	       'service_douane' => new sfWidgetFormChoice(array('choices' => $douaneChoices))
+	       'service_douane' => new sfWidgetFormChoice(array('choices' => $douaneChoices)),
+           'edi' => new sfWidgetFormChoice(array('choices' => array(1 => "Oui", 0 => "Non"),
+                                                 'multiple' => false, 'expanded' => true,
+                                                      'renderer_options' => array('formatter' => array($this, 'formatter'))
+                                                      )),
+
 	   ));
        $this->widgetSchema->setLabels(array(
                'raison_sociale' => 'Raison sociale*: ',
@@ -54,8 +59,8 @@ class ContratEtablissementModificationForm extends acCouchdbFormDocumentJson {
 	       'comptabilite_adresse' => 'Adresse: ',
 	       'comptabilite_code_postal' => 'Code postal: ',
 	       'comptabilite_commune' => 'Commune: ',
-	       'service_douane' => 'Service douane*: '
-       ));
+	       'service_douane' => 'Service douane*: ',
+           'edi' => 'Provenance EDI'));
        $this->setValidators(array(
        	       'raison_sociale' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
        	       'nom' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
@@ -75,7 +80,8 @@ class ContratEtablissementModificationForm extends acCouchdbFormDocumentJson {
 	       'comptabilite_adresse' => new sfValidatorString(array('required' => false)),
 	       'comptabilite_code_postal' => new sfValidatorString(array('required' => false)),
 	       'comptabilite_commune' => new sfValidatorString(array('required' => false)),
-	       'service_douane' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($douaneChoices)))
+	       'service_douane' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($douaneChoices))),
+           'edi' => new ValidatorBoolean(array('required' => true))
        ));
        
        $xorValidator = new ValidatorXor(null, array('field0' => 'siret', 'field1' => 'cni'),
@@ -165,5 +171,14 @@ class ContratEtablissementModificationForm extends acCouchdbFormDocumentJson {
         }
         return $validators;
     }
-	
+
+    // on surcharge le template par defaut du widget edi (radio)
+    public function formatter($widget, $inputs) {
+        $rows = array();
+        foreach ($inputs as $input) {
+            $rows[] = $widget->renderContentTag('span', $input['input'] . $this->getOption('label_separator') . $input['label']);
+        }
+
+        return!$rows ? '' : implode($widget->getOption('separator'), $rows);
+    }
 }
