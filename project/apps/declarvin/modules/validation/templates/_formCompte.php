@@ -19,7 +19,7 @@
 
     <div class="modification clearfix"<?php if (!$form->hasErrors()) echo ' style="display:none;"'; ?>>
 
-        <form method="post" action="<?php echo url_for('@validation_compte') ?>">
+        <form method="post" action="<?php echo url_for('validation_compte', array('num_contrat' => $contrat->no_contrat)) ?>">
             <div class="ligne_form ligne_form_label">
                 <?php echo $form->renderHiddenFields(); ?>
                 <?php echo $form->renderGlobalErrors(); ?>

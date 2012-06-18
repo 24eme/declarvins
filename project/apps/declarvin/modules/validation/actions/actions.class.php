@@ -22,18 +22,23 @@ class validationActions extends sfActions {
             $this->formLogin->bind($request->getParameter($this->formLogin->getName()));
             if ($this->formLogin->isValid()) {
                 $values = $this->formLogin->getValues();
-                $this->getUser()->setAttribute('contrat_id', 'CONTRAT-' . $values['contrat']);
-                $this->redirect('@validation_fiche');
+                $this->redirect('validation_fiche', array('num_contrat' => $values['contrat']));
             }
         }
     }
 
-    public function init() {
-        $this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
-        $this->forward404Unless($this->contrat = $this->getUser()->getContrat());
-         $this->forward404Unless($this->compte = $this->contrat->getCompteObject());
-        $import = new ImportEtablissementsCsv($this->interpro);
+    /**
+     *
+     *
+     * @param sfRequest $request A request object
+     */
+    public function executeFiche(sfWebRequest $request) {
+    	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
+    	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
         
+        $this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
+        $import = new ImportEtablissementsCsv($this->interpro);
+        $this->compte = $this->contrat->getCompteObject();
         $this->etablissements = $this->compte->getTiersCollection();
         $this->etablissementsCsv = array_diff_key($import->getEtablissementsByContrat($this->contrat), $this->compte->tiers->toArray());
 
@@ -50,24 +55,34 @@ class validationActions extends sfActions {
         $this->compte_active = ($this->compte->getStatut() == _Compte::STATUT_ACTIVE);
     }
 
-    /**
-     *
-     *
-     * @param sfRequest $request A request object
-     */
-    public function executeFiche(sfWebRequest $request) {
-        $this->init();
-    }
-
     public function executeCompte(sfWebRequest $request) {
         $this->forward404Unless($request->isMethod(sfWebRequest::POST));
-        $this->init();
+        
+        $this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
+        $import = new ImportEtablissementsCsv($this->interpro);
+    	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
+    	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
+        $this->compte = $this->contrat->getCompteObject();
+        $this->etablissements = $this->compte->getTiersCollection();
+        $this->etablissementsCsv = array_diff_key($import->getEtablissementsByContrat($this->contrat), $this->compte->tiers->toArray());
+
+        $this->formCompte = new CompteModificationForm($this->compte);
+        $this->formUploadCsv = new UploadCSVForm();
+        $this->formLiaison = new LiaisonInterproForm($this->compte);
+        $this->valide_interpro = false;
+        if ($this->compte->interpro->exist($this->interpro->get('_id'))) {
+            $interpro = $this->compte->interpro->get($this->interpro->get('_id'));
+            if ($interpro->getStatut() != _Compte::STATUT_VALIDATION_ATTENTE) {
+                $this->valide_interpro = true;
+            }
+        }
+        $this->compte_active = ($this->compte->getStatut() == _Compte::STATUT_ACTIVE);
 
         $this->formCompte->bind($request->getParameter($this->formCompte->getName()));
         if ($this->formCompte->isValid()) {
             $this->compte = $this->formCompte->save();
             $this->getUser()->setFlash('notification_compte', 'Les identifiants ont bien été mis à jour.');
-            $this->redirect('@validation_fiche');
+            $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
         }
 
         $this->setTemplate('fiche');
@@ -75,13 +90,32 @@ class validationActions extends sfActions {
 
     public function executeLiaison(sfWebRequest $request) {
         $this->forward404Unless($request->isMethod(sfWebRequest::POST));
-        $this->init();
+        
+        $this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
+        $import = new ImportEtablissementsCsv($this->interpro);
+    	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
+    	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
+        $this->compte = $this->contrat->getCompteObject();
+        $this->etablissements = $this->compte->getTiersCollection();
+        $this->etablissementsCsv = array_diff_key($import->getEtablissementsByContrat($this->contrat), $this->compte->tiers->toArray());
+
+        $this->formCompte = new CompteModificationForm($this->compte);
+        $this->formUploadCsv = new UploadCSVForm();
+        $this->formLiaison = new LiaisonInterproForm($this->compte);
+        $this->valide_interpro = false;
+        if ($this->compte->interpro->exist($this->interpro->get('_id'))) {
+            $interpro = $this->compte->interpro->get($this->interpro->get('_id'));
+            if ($interpro->getStatut() != _Compte::STATUT_VALIDATION_ATTENTE) {
+                $this->valide_interpro = true;
+            }
+        }
+        $this->compte_active = ($this->compte->getStatut() == _Compte::STATUT_ACTIVE);
         if ($request->isMethod(sfWebRequest::POST) && $request->getParameter($this->formLiaison->getName())) {
             $this->formLiaison->bind($request->getParameter($this->formLiaison->getName()));
             if ($this->formLiaison->isValid()) {
                 $this->formLiaison->save();
                 $this->getUser()->setFlash('notification_general', 'Liaisons interpro faites');
-                $this->redirect('@validation_fiche');
+            	$this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
             }
         }
         $this->setTemplate('fiche');
@@ -90,7 +124,26 @@ class validationActions extends sfActions {
     public function executeValidation(sfWebRequest $request) {
         $this->forward404Unless($request->isMethod(sfWebRequest::POST));
         $this->forward404Unless($interpro_id = $request->getParameter('interpro_id'));
-        $this->init();
+        
+        $this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
+        $import = new ImportEtablissementsCsv($this->interpro);
+    	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
+    	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
+        $this->compte = $this->contrat->getCompteObject();
+        $this->etablissements = $this->compte->getTiersCollection();
+        $this->etablissementsCsv = array_diff_key($import->getEtablissementsByContrat($this->contrat), $this->compte->tiers->toArray());
+
+        $this->formCompte = new CompteModificationForm($this->compte);
+        $this->formUploadCsv = new UploadCSVForm();
+        $this->formLiaison = new LiaisonInterproForm($this->compte);
+        $this->valide_interpro = false;
+        if ($this->compte->interpro->exist($this->interpro->get('_id'))) {
+            $interpro = $this->compte->interpro->get($this->interpro->get('_id'));
+            if ($interpro->getStatut() != _Compte::STATUT_VALIDATION_ATTENTE) {
+                $this->valide_interpro = true;
+            }
+        }
+        $this->compte_active = ($this->compte->getStatut() == _Compte::STATUT_ACTIVE);
 
         if (!$this->compte->interpro->exist($interpro_id)) {
             $this->compte->interpro->add($interpro_id)->setStatut(_Compte::STATUT_VALIDATION_VALIDE);
@@ -118,7 +171,8 @@ class validationActions extends sfActions {
 		$ldap->saveCompte($this->compte);
 
         $this->getUser()->setFlash('notification_general', 'Compte validé');
-        $this->redirect('@validation_fiche');
+        
+        $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
 
         $this->setTemplate('fiche');
     }
@@ -148,24 +202,30 @@ DéclarVins';
 
     public function executeArchiver(sfWebRequest $request) {
         $this->forward404Unless($etablissement = EtablissementClient::getInstance()->retrieveById($request->getParameter("etablissement")));
+    	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
+    	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
         $etablissement->statut = _Tiers::STATUT_ARCHIVER;
         $etablissement->save();
         $this->getUser()->setFlash('notification_general', "L'établissement a bien été archivé");
-        $this->redirect('@validation_fiche');
+        $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
     }
     
     public function executeDesarchiver(sfWebRequest $request) {
         $this->forward404Unless($etablissement = EtablissementClient::getInstance()->retrieveById($request->getParameter("etablissement")));
         $this->forward404Unless($etablissement->statut == _Tiers::STATUT_ARCHIVER);
+    	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
+    	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
         $etablissement->statut = _Tiers::STATUT_ACTIF;
         $etablissement->save();
         $this->getUser()->setFlash('notification_general', "L'établissement a bien été désarchiver");
-        $this->redirect('@validation_fiche');
+        $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
     }
 
     public function executeLier(sfWebRequest $request) {
         $this->forward404Unless($etablissement = $request->getParameter("etablissement"));
-        $this->forward404Unless($compte = $this->getUser()->getContrat()->getCompteObject());
+    	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
+    	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
+        $this->forward404Unless($compte = $this->contrat->getCompteObject());
     	$this->forward404Unless($interpro = $this->getUser()->getInterpro());
     	$import = new ImportEtablissementsCsv($interpro);
     	$etablissement = $import->getEtablissementByIdentifiant($etablissement);
@@ -175,14 +235,16 @@ DéclarVins';
         $compte->interpro->add($interpro->get('_id'))->setStatut(_Compte::STATUT_VALIDATION_ATTENTE);
         $compte->save();
         $this->getUser()->setFlash('notification_general', "L'établissement a bien été lié");
-        $this->redirect('@validation_fiche');
+        $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
     }
 
     public function executeDelier(sfWebRequest $request) {
         $this->forward404Unless($etablissement = EtablissementClient::getInstance()->retrieveById($request->getParameter("etablissement")));
     	$this->forward404Unless($interpro = $this->getUser()->getInterpro());
+    	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
+    	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
         $etablissement->delete();
-        $compte = $this->getUser()->getContrat()->getCompteObject();
+        $compte = $this->contrat->getCompteObject();
         $compte->tiers->remove($etablissement->get('_id'));
         if ($compte->tiers->count() == 0) {
         	if ($compte->interpro->exist($interpro->get('_id'))) {
@@ -192,7 +254,7 @@ DéclarVins';
         }
         $compte->save();
         $this->getUser()->setFlash('notification_general', "L'établissement a bien été délié");
-        $this->redirect('@validation_fiche');
+        $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
     }
 
 }

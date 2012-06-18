@@ -13,7 +13,7 @@ if (!$compte_active) {
  }
 ?></i></p><br />
 <?php if (!$valide_interpro && !$compte_active): ?>
-<form method="post" action="<?php echo url_for('@validation_validation') ?>">
+<form method="post" action="<?php echo url_for('validation_validation', array('num_contrat' => $contrat->no_contrat)) ?>">
 <input type="hidden" name="interpro_id" value="<?php echo $interpro->get('_id') ?>" />
 <div class="btn">
     <input class="btn_valider" type="submit" value="Valider" />
