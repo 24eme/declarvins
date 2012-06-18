@@ -24,7 +24,7 @@
 	</ul>
 	
 	<ul id="actions_etablissement">
-		<?php if ($recherche): ?>
+		<?php if ($recherche && 1==2): // on masque la recherche intensionnellement ?>
 		<li id="bloc_admin_etablissement_choice" class="popup_form">
 			<form method="post" action="<?php echo url_for('@etablissement_login') ?>" id="select_etablissement" >
                                 <?php echo $form->renderHiddenFields(); ?>

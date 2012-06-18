@@ -11,7 +11,7 @@ class drm_mouvements_generauxActions extends sfActions
 		$this->certificationLibelle = array();
 		$configuration = ConfigurationClient::getCurrent();
 		foreach ($configuration->declaration->certifications as $certification_key => $certification_config) {
-			if ($certification_config->hasProduit($this->drm->getInterpro()->get('_id'))) {
+			if ($certification_config->hasProduit($this->drm->getInterpro()->get('_id'), $this->drm->getDepartement())) {
 	            if (!isset($this->certifs[$certification_key])) {
 					$this->certifs[$certification_key] = $certification_config->hasUniqProduit($this->drm->getInterpro()->get('_id'));
 				}
@@ -94,6 +94,7 @@ class drm_mouvements_generauxActions extends sfActions
         $this->forward404Unless($request->isXmlHttpRequest());
 		$objectToDelete = $this->getRoute()->getObject()->cascadingDelete();
 		$objectToDelete->delete();
+		$this->getRoute()->getObject()->getDocument()->update();
 		$this->getRoute()->getObject()->getDocument()->save();
         return sfView::NONE;
     }

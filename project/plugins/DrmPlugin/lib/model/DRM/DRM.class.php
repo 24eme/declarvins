@@ -482,5 +482,8 @@ class DRM extends BaseDRM {
     		return false;
     	}
     }
+    public function hasProduits() {
+    	return (count($this->declaration->getProduits()) > 0)? true : false;
+    }
     
 }

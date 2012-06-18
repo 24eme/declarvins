@@ -15,7 +15,7 @@
 				<p class="intro">Au cours du mois écoulé, avez-vous connu des changements de structure particuliers ?</p>
         		
         		<div id="ajouts_liquidations">
-        			
+        			<?php if ($drm->hasProduits()): ?>
         			<?php if(!$drm->declaration->hasMouvement()): ?>
         			<div id="form" style="padding:15px 0 0 0; margin:0 0 15px 0;" class="tableau_ajouts_liquidations">
         				<form class="updateProduct" action="<?php echo url_for('drm_mouvements_generaux_produits_update', $drm) ?>" method="post">
@@ -40,7 +40,7 @@
         			<?php if($drm->declaration->hasStockEpuise()): ?>
         			<a href="<?php echo url_for('drm_mouvements_generaux_stock_epuise', $drm) ?>" id="stock_epuise" style="float:none; margin: 0 0 15px 0;">Stock épuisé</a>
 	        		<?php endif; ?>
-	        		
+	        		<?php endif; ?>
         			<?php foreach ($forms as $certification => $tabForm): ?>
 		            <div id="tableau_<?php echo strtolower($certificationLibelle[$certification]) ?>" class="tableau_ajouts_liquidations">
 		                    <h2><?php echo $certificationLibelle[$certification] ?></h2>
