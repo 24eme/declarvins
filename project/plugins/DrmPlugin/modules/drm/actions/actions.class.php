@@ -89,7 +89,8 @@ class drmActions extends sfActions
   {
     $this->drm = $this->getRoute()->getDrm();
     $this->tiers = $this->getUser()->getTiers();
-    $this->form = new DRMInformationsForm();
+    $isAdmin = $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN);
+    $this->form = new DRMInformationsForm(array(), array('is_admin' => $isAdmin));
 
     if ($request->isMethod(sfWebRequest::POST)) {
     	$this->form->bind($request->getParameter($this->form->getName()));
