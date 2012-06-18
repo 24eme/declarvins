@@ -17,7 +17,15 @@ class acVinCompteAdminActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {      
-      $this->setTemplate('index');
+  	$this->form = new CompteSelectionForm();
+  	if ($request->isMethod(sfWebRequest::POST)) {
+  		$this->form->bind($request->getParameter($this->form->getName()));
+  		if ($this->form->isValid()) {
+  			$values = $this->form->getValues();
+  			$login = $values['compte'];
+  			return $this->redirect("compte_modification", array('login' => $login));
+  		}
+  	}
   }
   
   /*
@@ -25,15 +33,12 @@ class acVinCompteAdminActions extends sfActions
    */
   public function executeCompteModification(sfWebRequest $request)
   {
-     $this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login'));
+     $this->forward404Unless($this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
      
      if ($contrat = $this->compte->contrat) {
      	$this->getUser()->setAttribute('contrat_id', $contrat);
         $this->redirect('@validation_fiche');
      }
-     
-      
-     $this->forward404Unless($this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
      
      $this->form = new CompteModificationDroitForm($this->compte);       
      if($request->isMethod(sfWebRequest::POST))
@@ -83,4 +88,23 @@ class acVinCompteAdminActions extends sfActions
         }
     }    
     */
+
+  public function executeCompteAutocomplete(sfWebRequest $request) {
+    $comptes = _CompteClient::getInstance()->findAll()->rows;
+    $json = array();
+    $limit = $request->getParameter('limit', 100);
+    foreach($comptes as $key => $compte) {
+      $text = _CompteClient::getInstance()->makeLibelle($compte->key);
+     
+      if (Search::matchTerm($request->getParameter('q'), $text)) {
+        $json[$compte->key[3]] = _CompteClient::getInstance()->makeLibelle($compte->key);
+      }
+
+      if (count($json) >= $limit) {
+        break;
+      }
+    }
+
+    return $this->renderText(json_encode($json));
+  }
 }

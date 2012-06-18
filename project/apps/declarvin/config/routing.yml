@@ -129,6 +129,10 @@ compte_modification:
   url:   /admin/compte-modification/:login
   param: { module: acVinCompteAdmin, action: compteModification }
 
+compte_autocomplete:
+  url: /admin/comptes-autocomplete
+  param: {module: acVinCompteAdmin, action: compteAutocomplete}
+
 # generic rules
 # please, remove them by adding more specific rules
 default_index:
