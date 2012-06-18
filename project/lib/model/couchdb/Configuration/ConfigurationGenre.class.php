@@ -13,14 +13,14 @@ class ConfigurationGenre extends BaseConfigurationGenre {
     
     public function setDonneesCsv($datas) {
     	$this->getCertification()->setDonneesCsv($datas);
-    	$this->libelle = ($datas[ProduitCsvFile::CSV_PRODUIT_GENRE_LIBELLE])? $datas[ProduitCsvFile::CSV_PRODUIT_GENRE_LIBELLE] : null;
+    	/*$this->libelle = ($datas[ProduitCsvFile::CSV_PRODUIT_GENRE_LIBELLE])? $datas[ProduitCsvFile::CSV_PRODUIT_GENRE_LIBELLE] : null;
     	$this->code = ($datas[ProduitCsvFile::CSV_PRODUIT_GENRE_CODE])? $datas[ProduitCsvFile::CSV_PRODUIT_GENRE_CODE] : null;
     	if (ProduitCsvFile::CSV_PRODUIT_GENRE_CODE_APPLICATIF_DROIT == $datas[ProduitCsvFile::CSV_PRODUIT_DOUANE_NOEUD]) {
     		$this->setDroitDouaneCsv($datas);
     	}
     	if (ProduitCsvFile::CSV_PRODUIT_GENRE_CODE_APPLICATIF_DROIT == $datas[ProduitCsvFile::CSV_PRODUIT_CVO_NOEUD]) {
     		$this->setDroitCvoCsv($datas);
-    	}
+    	}*/
     }
     
   	public function hasDepartements() {
