@@ -28,8 +28,8 @@ contrat_etablissement_confirmation:
   url:   /contrat/confirmation
   param: { module: contrat, action: confirmation }
 contrat_pdf:
-  url:   /contrat/pdf
-  param: { module: contrat, action: pdf }
+  url:   /contrat/pdf.:format
+  param: { module: contrat, action: pdf, format: (html|pdf) }
 
 # Validation routing
 validation_login:

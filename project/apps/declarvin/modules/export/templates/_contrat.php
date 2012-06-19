@@ -133,7 +133,7 @@
 		#formulaire #declarant { margin: 0 0 30px; }
 		#formulaire #declarant h2 {  }
 		#formulaire #declarant p { margin: 0; }
-		#formulaire .societe { margin: 0 0 40px; }
+		#formulaire .societe { margin: 0 0 10px; }
 		
 		/**
 		 * Interprofessions
@@ -203,9 +203,11 @@
 					fax : <strong><?php echo $etablissement->fax ?></strong><br />
 					email : <strong><?php echo $etablissement->email ?></strong>
 				</p>
-				<p>Famille : <strong><?php echo $etablissement->famille ?></strong></p>
-				<p>Sous-famille : <strong><?php echo $etablissement->sous_famille ?></strong></p>
-				
+				<p>Famille : <strong><?php echo $etablissement->famille ?></strong><br />
+				   Sous-famille : <strong><?php echo $etablissement->sous_famille ?></strong>
+                </p>
+                <p>Provenance EDI : <strong><?php echo ($etablissement->edi) ? "Oui" : "Non" ?></strong></p>
+
                                 <?php if ($etablissement->comptabilite_adresse): ?>
 				<p>
 					Lieu où est tenue la comptabilité matière (si différente de l'adresse du chai) :<br />
@@ -214,7 +216,7 @@
 					ville : <strong><?php echo $etablissement->comptabilite_commune ?></strong>
 				</p>
                                 <?php endif; ?>
-				
+
 				<p>
 					Dépend du service des douanes de : <strong><?php echo $etablissement->service_douane ?></strong>
 				</p>

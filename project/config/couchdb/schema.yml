@@ -186,6 +186,7 @@ Contrat:
                   comptabilite_code_postal: {  }
                   comptabilite_commune: {  }
                   service_douane: {  }
+                  edi: {  }
 
 Vrac:
   definition:
