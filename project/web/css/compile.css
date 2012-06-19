@@ -787,8 +787,8 @@ a:hover { text-decoration:underline; }
 .popup_form .ligne_form ul.checkbox_list {
   height:135px;
   padding:0 4px;
-  width:190px;
-  overflow:auto;
+  width:210px;
+  overflow:scroll;
   display:inline-block;
 }
 .popup_form .ligne_form ul.checkbox_list label { display:inline; }
@@ -1992,6 +1992,10 @@ p#date_drm {
   background:url(../images/boutons/btn_etablissement_courant_admin.png) 0 0 no-repeat;
   float:left;
   padding:0 0 0 27px;
+}
+.etablissement_courant_admin .quitter a {
+  padding:0;
+  background:none !important;
 }
 #contenu .produit .tableau_recap { border-spacing:0px; }
 #contenu .produit .tableau_recap th { border-color:#dbdbdb; }
