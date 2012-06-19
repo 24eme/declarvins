@@ -785,11 +785,14 @@ a:hover { text-decoration:underline; }
   padding-top:2px;
 }
 .popup_form .ligne_form ul.checkbox_list {
-  height:135px;
-  padding:0 4px;
-  width:210px;
-  overflow:scroll;
   display:inline-block;
+  float:left;
+  height:155px;
+  margin-left:200px;
+  margin-top:-20px;
+  overflow:auto;
+  padding:0 4px;
+  width:250px;
 }
 .popup_form .ligne_form ul.checkbox_list label { display:inline; }
 .popup_form .ligne_form input[type=checkbox], .popup_form .ligne_form input[type=radio] {
@@ -805,11 +808,13 @@ a:hover { text-decoration:underline; }
   border:1px solid #d3d2cd;
   border-left:0;
   vertical-align:top;
+  !margin-top:1px;
 }
 .popup_form .ligne_form input.ui-autocomplete-input + button:hover { background-color:#e9e9e9; }
 .popup_form .ligne_form input.ui-autocomplete-input + button .ui-icon {
   background:url(../images/pictos/pi_desc.png) center center no-repeat;
   height:20px;
+  !height:16px;
   width:20px;
 }
 .popup_form .ligne_form input[type=text], .popup_form .ligne_form select {

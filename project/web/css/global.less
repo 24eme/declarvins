@@ -891,11 +891,14 @@ a
 		
 		ul.checkbox_list
 		{
-		    height:135px;
-		    padding:0 4px;
-		    width:210px;
-		    overflow: scroll;
 		    display: inline-block;
+                    float: left;
+                    height: 155px;
+                    margin-left: 200px;
+                    margin-top: -20px;
+                    overflow: auto;
+                    padding: 0 4px;
+                    width: 250px;
 		    
 		    label 
 		    {
@@ -924,6 +927,7 @@ a
 				border: 1px solid #d3d2cd;
 				border-left: 0;
 				vertical-align: top;
+                                !margin-top:1px;
 			
 				&:hover { background-color: #E9E9E9; }
 			
@@ -931,6 +935,7 @@ a
 				{
 					background: url(../images/pictos/pi_desc.png) center center no-repeat;
 					height: 20px;
+                                        !height : 16px;
 					width: 20px;				
 				}
 			}
