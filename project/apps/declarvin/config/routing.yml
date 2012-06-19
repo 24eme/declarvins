@@ -9,6 +9,9 @@ homepage:
 compte_nouveau:
   url:   /compte/nouveau/:nocontrat
   param: { module: acVinCompte, action: nouveau, nocontrat: null }
+compte_password:
+  url:   /compte/mot-de-passe/:login
+  param: { module: acVinCompte, action: redefinitionPassword, login: null }
 contrat_nouveau:
   url:   /contrat/nouveau/:nocontrat
   param: { module: contrat, action: nouveau, nocontrat: null }
@@ -132,6 +135,10 @@ compte_modification:
 compte_autocomplete:
   url: /admin/comptes-autocomplete
   param: {module: acVinCompteAdmin, action: compteAutocomplete}
+  
+admin_compte_password:
+  url:   /admin/compte-password/:login
+  param: { module: acVinCompteAdmin, action: redefinitionPassword }
 
 # generic rules
 # please, remove them by adding more specific rules

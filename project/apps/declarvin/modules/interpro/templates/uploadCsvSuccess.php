@@ -33,9 +33,6 @@
 
 <div class="clearfix" id="mon_compte">
     <h1>Import des établissements</h1>
-    <?php if ($sf_user->hasFlash('notification_general')) : ?>
-    <p class="flash_message"><i><?php echo $sf_user->getFlash('notification_general'); ?></i></p><br /><br />
-	<?php endif; ?>
     <?php if (@file_get_contents($interpro->getAttachmentUri('etablissements.csv'))): ?>
         <p>
             <i>Fichier prêt pour l'import (<a href="<?php echo $interpro->getAttachmentUri('etablissements.csv'); ?>">télécharger le fichier</a>)</i><br />

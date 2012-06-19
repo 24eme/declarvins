@@ -111,9 +111,6 @@ var formModificationCompte = function()
         interproLocked.push("<?php echo $id ?>");
 <?php endforeach; ?>
 </script>
-<?php if ($sf_user->hasFlash('notification_general')) : ?>
-    <p class="flash_message"><?php echo $sf_user->getFlash('notification_general'); ?></p>
-<?php endif; ?>
 <div class="clearfix" id="application_dr">
     <h1>Informations du compte</h1>
     <!-- #exploitation_administratif -->

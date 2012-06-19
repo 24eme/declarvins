@@ -43,3 +43,15 @@
 		<li class="quitter"><a href="#"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
 	</ul>
 </nav>
+
+<?php if ($sf_user->hasFlash('notice')){ ?>
+    <div id="flash_message">
+        <div class="flash_notice"><?php echo $sf_user->getFlash('notice'); ?></div>
+    </div>
+<?php } ?>
+
+<?php if ($sf_user->hasFlash('error')){ ?>
+    <div id="flash_message">
+        <div class="flash_error"><?php echo $sf_user->getFlash('error'); ?></div>
+    </div>
+<?php } ?>
