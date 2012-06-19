@@ -105,9 +105,6 @@ var formModificationCompte = function()
 <?php include_component('global', 'navBack', array('active' => 'contrat')); ?>
 <section id="contenu">
 <!-- #application_dr -->
-<div class="tools" style="text-align: right;">
-    <span>Vous êtes loggué en tant que <strong><?php echo $interpro; ?></strong></span>&nbsp; | &nbsp;<span><a href="<?php echo url_for('@validation_login') ?>">Déconnexion</a></span>
-</div>
 <script type="text/javascript">
     var interproLocked = new Array();
 <?php foreach ($compte->getNbEtablissementByInterproId() as $id => $nb): ?>

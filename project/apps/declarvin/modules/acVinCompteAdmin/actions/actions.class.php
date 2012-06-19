@@ -35,7 +35,7 @@ class acVinCompteAdminActions extends sfActions
   {
      $this->forward404Unless($this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
      
-     if ($contrat = $this->compte->getContratObject()) {
+     if ($contrat = $this->compte->contrat) {
         $this->redirect('validation_fiche', array('num_contrat' => $contrat->no_contrat));
      }
      
