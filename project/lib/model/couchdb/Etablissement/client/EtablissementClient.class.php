@@ -39,20 +39,24 @@ class EtablissementClient extends acCouchdbClient {
         if ($nom = $datas[2]) {
             $etablissementLibelle .= $nom;
         }
-        if ($rs = $datas[4]) {
+        if (isset($datas[4]) && $rs = $datas[4]) {
             if ($etablissementLibelle) {
                 $etablissementLibelle .= ' / ';
             }
             $etablissementLibelle .= $rs;
         }
         $etablissementLibelle .= ' ('.$datas[3];
-        if ($siret = $datas[5]) {
+        if (isset($datas[5]) && $siret = $datas[5]) {
             $etablissementLibelle .= ' / '.$siret;
         }
-        if ($cvi = $datas[6]) {
+        if (isset($datas[6]) && $cvi = $datas[6]) {
             $etablissementLibelle .= ' / '.$cvi;
         }
-        $etablissementLibelle .= ') '.$datas[7].' '.$datas[8];
+        $etablissementLibelle .= ') ';
+	if (isset($datas[7]))
+	  $etablissementLibelle .= $datas[7];
+	if (isset($datas[8]))
+	  $etablissementLibelle .= ' '.$datas[8];
         return trim($etablissementLibelle);
     }
 
