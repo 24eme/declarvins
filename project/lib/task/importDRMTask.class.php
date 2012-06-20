@@ -59,7 +59,7 @@ EOF;
 	  $csv = array();
 	}
 	$oldid = $match[1];
-	$csv[] = split(';', $l);
+	$csv[] = explode(';', $l);
       }
     }
     $this->CSV2DRM($csv);
