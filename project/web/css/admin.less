@@ -9,7 +9,11 @@
 /**
  * Admin - mon compte
  ******************************************/
-#mon_compte, #compteModification, #compteAjout {
+#mon_compte, #compteModification, #compteAjout, #validationFiche {
+
+    .ligne_form{
+        margin: 0 0 15px;
+    }
 
     label {
 	display: inline-block;
@@ -113,4 +117,36 @@
 
 }
 
- 
+#validationFiche {
+
+        #modification_compte{
+
+                p{
+                        margin : 0 0 15px;
+                }
+
+        }
+
+        .ligne_btn{
+                .btn_annuler{
+                        .btn_gris;
+                        color: #FFFFFF;
+                        display: inline-block;
+                        padding: 0 23px 0 15px;
+                        text-transform: uppercase;
+                        height: @hauteur_btn;
+                        height: 27px;
+                        line-height: 27px;
+                        margin-left: 0;
+                        vertical-align:middle;
+                }
+                .btn_valider{
+                        height: 28px;
+                        line-height: 28px;
+                        margin-left: 0;
+                        vertical-align:middle;
+                }
+
+        }
+
+}
