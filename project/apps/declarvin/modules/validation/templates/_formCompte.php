@@ -1,9 +1,6 @@
 <div id="modification_compte">
 
     <div class="presentation clearfix"<?php if ($form->hasErrors()) echo ' style="display:none;"'; ?>>
-        <?php if($sf_user->hasFlash('notification_compte')) : ?>
-            <p class="flash_message"><?php echo $sf_user->getFlash('notification_compte'); ?></p>
-        <?php endif; ?>
         <p><span>Nom:</span> <?php echo $compte->nom; ?></p>
         <p><span>Prénom:</span> <?php echo $compte->prenom; ?></p>
         <p><span>Téléphone:</span> <?php echo $compte->telephone; ?></p>
@@ -11,15 +8,15 @@
         <p><span>Adresse e-mail:</span> <?php echo $compte->email; ?></p>
         <p><span>Mot de passe:</span> ****** </p>
         <div class="btn">
-        	<span>&nbsp;</span>
-            <a href="javascript:void(0)" class="modifier btn_valider">Modifier</a>
+            <a href="javascript:void(0)" class="modifier btn_valider" style="margin-left:200px">Modifier</a>
+        	&nbsp;&nbsp;<a href="<?php echo url_for('admin_compte_password', array('login' => $compte->login)) ?>" class="">Lancer une procédure de redéfinition du mot de passe</a>
         </div>
     </div>
 
 
     <div class="modification clearfix"<?php if (!$form->hasErrors()) echo ' style="display:none;"'; ?>>
 
-        <form method="post" action="<?php echo url_for('@validation_compte') ?>">
+        <form method="post" action="<?php echo url_for('validation_compte', array('num_contrat' => $contrat->no_contrat)) ?>">
             <div class="ligne_form ligne_form_label">
                 <?php echo $form->renderHiddenFields(); ?>
                 <?php echo $form->renderGlobalErrors(); ?>

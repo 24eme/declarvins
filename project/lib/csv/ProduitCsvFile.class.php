@@ -12,27 +12,27 @@ class ProduitCsvFile extends CsvFile
   const CSV_PRODUIT_DENOMINATION_LIBELLE = 5; //DENOMINATION == APPELLATION
   const CSV_PRODUIT_DENOMINATION_CODE = 6;    //DENOMINATION == APPELLATION
   const CSV_PRODUIT_DENOMINATION_CODE_APPLICATIF_DROIT = 'A';
-  const CSV_PRODUIT_MENTION_LIBELLE = 7;
-  const CSV_PRODUIT_MENTION_CODE = 8;
-  const CSV_PRODUIT_LIEU_LIBELLE = 9;
-  const CSV_PRODUIT_LIEU_CODE = 10;
-  const CSV_PRODUIT_COULEUR_LIBELLE = 11;
-  const CSV_PRODUIT_COULEUR_CODE = 12;
-  const CSV_PRODUIT_CEPAGE_LIBELLE = 13;
-  const CSV_PRODUIT_CEPAGE_CODE = 14;
-  const CSV_PRODUIT_DEPARTEMENTS = 15;
-  const CSV_PRODUIT_DOUANE_CODE = 16;
-  const CSV_PRODUIT_DOUANE_LIBELLE = 17;
-  const CSV_PRODUIT_DOUANE_TAXE = 18;
-  const CSV_PRODUIT_DOUANE_DATE = 19;
-  const CSV_PRODUIT_DOUANE_NOEUD = 20;
-  const CSV_PRODUIT_CVO_TAXE = 21;
-  const CSV_PRODUIT_CVO_DATE = 22;
-  const CSV_PRODUIT_CVO_NOEUD = 23;
-  const CSV_PRODUIT_REPLI_ENTREE = 24;
-  const CSV_PRODUIT_REPLI_SORTI = 25;
-  const CSV_PRODUIT_DECLASSEMENT_ENTREE = 26;
-  const CSV_PRODUIT_DECLASSEMENT_SORTI = 27;
+  /*const CSV_PRODUIT_MENTION_LIBELLE = 7;
+  const CSV_PRODUIT_MENTION_CODE = 8;*/
+  const CSV_PRODUIT_LIEU_LIBELLE = 7;
+  const CSV_PRODUIT_LIEU_CODE = 8;
+  const CSV_PRODUIT_COULEUR_LIBELLE = 9;
+  const CSV_PRODUIT_COULEUR_CODE = 10;
+  const CSV_PRODUIT_CEPAGE_LIBELLE = 11;
+  const CSV_PRODUIT_CEPAGE_CODE = 12;
+  const CSV_PRODUIT_DEPARTEMENTS = 13;
+  const CSV_PRODUIT_DOUANE_CODE = 14;
+  const CSV_PRODUIT_DOUANE_LIBELLE = 15;
+  const CSV_PRODUIT_DOUANE_TAXE = 16;
+  const CSV_PRODUIT_DOUANE_DATE = 17;
+  const CSV_PRODUIT_DOUANE_NOEUD = 18;
+  const CSV_PRODUIT_CVO_TAXE = 19;
+  const CSV_PRODUIT_CVO_DATE = 20;
+  const CSV_PRODUIT_CVO_NOEUD = 21;
+  const CSV_PRODUIT_REPLI_ENTREE = 22;
+  const CSV_PRODUIT_REPLI_SORTI = 23;
+  const CSV_PRODUIT_DECLASSEMENT_ENTREE = 24;
+  const CSV_PRODUIT_DECLASSEMENT_SORTI = 25;
   
   protected $config;
   protected $errors;
@@ -47,7 +47,7 @@ class ProduitCsvFile extends CsvFile
   	$hash = 'certifications/'.$this->getKey($line[self::CSV_PRODUIT_CATEGORIE_CODE]).
                 '/genres/'.$this->getKey($line[self::CSV_PRODUIT_GENRE_CODE], true).
                 '/appellations/'.$this->getKey($line[self::CSV_PRODUIT_DENOMINATION_CODE], true).
-                '/mentions/'.$this->getKey($line[self::CSV_PRODUIT_MENTION_CODE], true).
+                '/mentions/'.Configuration::DEFAULT_KEY.
                 '/lieux/'.$this->getKey($line[self::CSV_PRODUIT_LIEU_CODE], true).
                 '/couleurs/'.strtolower($this->couleurKeyToCode($line[self::CSV_PRODUIT_COULEUR_CODE])).
                 '/cepages/'.$this->getKey($line[self::CSV_PRODUIT_CEPAGE_CODE], true);

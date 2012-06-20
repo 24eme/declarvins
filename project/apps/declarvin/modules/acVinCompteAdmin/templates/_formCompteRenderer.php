@@ -43,3 +43,8 @@
     <?php echo $form['mdp2']->renderError() ?>
 </div>
 <br />
+<div class="ligne_form ligne_form_label">
+	<label>&nbsp;</label>
+	<a href="<?php echo url_for('admin_compte_password', array('login' => $form->getObject()->login)) ?>" class="">Lancer une procédure de redéfinition du mot de passe</a>
+</div>
+<br />

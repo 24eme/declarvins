@@ -15,6 +15,6 @@
         <h1><a href="#" title="Declarvin - Retour à l'accueil"><img src="/images/visuels/logo_declarvins.png" alt="Declarvin" /></a></h1>
         <p>La plateforme déclarative des vins du Rhône, de Provence et du Sud Est</p>
     </div>
-    <p class="deconnexion"><?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?><a href="<?php echo url_for('@admin'); ?>" class="backend_link">Interface de Gestion</a> - <?php  endif; ?><a href="<?php echo url_for('@ac_vin_logout'); ?>">Se deconnecter</a></p>
+    <p class="deconnexion"><a href="<?php echo url_for('@ac_vin_logout'); ?>">Se deconnecter</a></p>
 </header>
 <!-- fin #header -->
