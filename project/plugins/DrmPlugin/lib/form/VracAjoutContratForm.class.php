@@ -1,6 +1,6 @@
 <?php
 
-class VracAjoutContratForm extends acCouchdbFormDocumentJson 
+class VracAjoutContratForm extends acCouchdbObjectForm 
 {
 	protected $_contrat_choices;
 	

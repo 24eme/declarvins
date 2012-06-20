@@ -1,5 +1,5 @@
 <?php
-class ProduitTypeDetailForm extends acCouchdbFormDocumentJson {
+class ProduitTypeDetailForm extends acCouchdbObjectForm {
 
     public function configure() { 
     	$this->embedForm(

@@ -1,5 +1,5 @@
 <?php
-class ContratEtablissementNouveauForm extends acCouchdbFormDocumentJson {
+class ContratEtablissementNouveauForm extends acCouchdbObjectForm {
 	
     public function configure() {
         
