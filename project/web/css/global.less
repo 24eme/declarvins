@@ -68,7 +68,7 @@ hgroup, nav, section { display: block; }
 .ui-helper-zfix { width: 100%; height: 100%; top: 0; left: 0; position: absolute; opacity: 0; filter:Alpha(Opacity=0); }
 .ui-state-disabled { cursor: default !important; }
 .ui-icon { display: block; text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; }
-.ui-widget-overlay {background: #000; opacity: .2; filter:Alpha(Opacity=20); position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.ui-widget-overlay {background: url('../images/fonds/overlay.png') 0 0 repeat; position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
 .ui-autocomplete { .box-shadow(0 2px 10px #ccc); background: #fff; border: 1px solid #d3d2cd; max-height: 300px; overflow-y: auto; overflow-x: hidden; position: absolute; width: 250px; }
 .ui-autocomplete .ui-menu-item a { background: #fff; color: @couleur-a1; cursor: pointer; display: block; padding: 2px; text-decoration: none; }
@@ -891,11 +891,14 @@ a
 		
 		ul.checkbox_list
 		{
-		    height:135px;
-		    padding:0 4px;
-		    width:190px;
-		    overflow: auto;
 		    display: inline-block;
+                    float: left;
+                    height: 155px;
+                    margin-left: 200px;
+                    margin-top: -20px;
+                    overflow: auto;
+                    padding: 0 4px;
+                    width: 250px;
 		    
 		    label 
 		    {
@@ -924,6 +927,7 @@ a
 				border: 1px solid #d3d2cd;
 				border-left: 0;
 				vertical-align: top;
+                                !margin-top:1px;
 			
 				&:hover { background-color: #E9E9E9; }
 			
@@ -931,6 +935,7 @@ a
 				{
 					background: url(../images/pictos/pi_desc.png) center center no-repeat;
 					height: 20px;
+                                        !height : 16px;
 					width: 20px;				
 				}
 			}

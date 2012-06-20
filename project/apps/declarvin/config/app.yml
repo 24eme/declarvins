@@ -7,6 +7,10 @@ all:
     from_email: "ne_pas_repondre@declarvins.fr"
     from_name:  "Webmaster DéclarVins"
     subject:    "DéclarVins - Votre contrat"
+  password:
+    from_email: "ne_pas_repondre@declarvins.fr"
+    from_name:  "Webmaster DéclarVins"
+    subject:    "DéclarVins - Redéfinition de votre mot de passe"
   etablissements:
     familles:
       "Producteur": ["Producteur cave particulière", "Producteur cave coopérative"]

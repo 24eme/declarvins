@@ -105,23 +105,17 @@ var formModificationCompte = function()
 <?php include_component('global', 'navBack', array('active' => 'contrat')); ?>
 <section id="contenu">
 <!-- #application_dr -->
-<div class="tools" style="text-align: right;">
-    <span>Vous êtes loggué en tant que <strong><?php echo $interpro; ?></strong></span>&nbsp; | &nbsp;<span><a href="<?php echo url_for('@validation_login') ?>">Déconnexion</a></span>
-</div>
 <script type="text/javascript">
     var interproLocked = new Array();
 <?php foreach ($compte->getNbEtablissementByInterproId() as $id => $nb): ?>
         interproLocked.push("<?php echo $id ?>");
 <?php endforeach; ?>
 </script>
-<?php if ($sf_user->hasFlash('notification_general')) : ?>
-    <p class="flash_message"><?php echo $sf_user->getFlash('notification_general'); ?></p>
-<?php endif; ?>
 <div class="clearfix" id="application_dr">
     <h1>Informations du compte</h1>
     <!-- #exploitation_administratif -->
     <div id="mon_compte">
-        <?php include_partial('validation/formCompte', array('form' => $formCompte, 'compte' => $compte)) ?>
+        <?php include_partial('validation/formCompte', array('form' => $formCompte, 'compte' => $compte, 'contrat' => $contrat)) ?>
     </div>
     
     <h1>Etablissements associés</h1>
@@ -129,12 +123,12 @@ var formModificationCompte = function()
         <ul class="chais">
             <?php foreach ($etablissements as $etablissement): ?>
                 <li class="presentation"<?php if ($etablissement->statut == _Tiers::STATUT_ARCHIVER): ?> style="opacity:0.5;"<?php endif; ?>>
-                    <?php include_partial('viewEtablissement', array('etablissement' => $etablissement, 'interpro' => $interpro)) ?>
+                    <?php include_partial('viewEtablissement', array('etablissement' => $etablissement, 'interpro' => $interpro, 'contrat' => $contrat)) ?>
                 </li>
             <?php endforeach; ?>
             <?php foreach ($etablissementsCsv as $etablissementCsv): ?>
                 <li class="presentation" style="border:1px dashed #C7C9C8;">
-                    <?php include_partial('viewCsvEtablissement', array('etablissement' => $etablissementCsv, 'interpro' => $interpro)) ?>
+                    <?php include_partial('viewCsvEtablissement', array('etablissement' => $etablissementCsv, 'interpro' => $interpro, 'contrat' => $contrat)) ?>
                 </li>
             <?php endforeach; ?>
         </ul>
@@ -143,9 +137,9 @@ var formModificationCompte = function()
     <?php endif; ?>
 
     <h1>Liaison interpro</h1>
-    <?php include_partial('validation/formLiaisonInterpro', array('form' => $formLiaison)) ?>
+    <?php include_partial('validation/formLiaisonInterpro', array('form' => $formLiaison, 'contrat' => $contrat)) ?>
     <h1>Validation</h1>
-    <?php include_partial('validation/validation', array('valide_interpro' => $valide_interpro, 'compte_active' => $compte_active, 'interpro' => $interpro)) ?>
+    <?php include_partial('validation/validation', array('valide_interpro' => $valide_interpro, 'compte_active' => $compte_active, 'interpro' => $interpro, 'contrat' => $contrat)) ?>
 
 </div>
 <!-- fin #exploitation_administratif -->

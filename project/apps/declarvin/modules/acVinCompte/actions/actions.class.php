@@ -31,6 +31,22 @@ class acVinCompteActions extends BaseacVinCompteActions {
                 $this->contrat->save();
                 $this->getUser()->signOut();
                 $this->getUser()->signIn($newCompteTiers->login);
+                $this->getUser()->setFlash('notice', 'Création de compte validée');
+	  			$this->redirect('@tiers');
+            }
+        }
+    }
+    public function executeRedefinitionPassword(sfWebRequest $request) {
+    	$this->forward404Unless($login = $request->getParameter('login'));
+        $this->forward404Unless($this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
+        $this->form = new CompteTiersPasswordForm($this->compte);
+        if ($request->isMethod(sfWebRequest::POST)) {
+            $this->form->bind($request->getParameter($this->form->getName()));
+            if ($this->form->isValid()) {
+                $compteTiers = $this->form->save();
+                $this->getUser()->signOut();
+                $this->getUser()->signIn($compteTiers->login);
+                $this->getUser()->setFlash('notice', 'Redéfinition du mot de passe effectuée');
 	  			$this->redirect('@tiers');
             }
         }

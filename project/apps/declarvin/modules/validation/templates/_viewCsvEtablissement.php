@@ -26,6 +26,6 @@
 <br /><br />
 <?php if ($interpro->get('_id') == $etablissement->getInterpro()): ?>
     <div class="btn">
-        <a class="btn_valider" href="<?php echo url_for('validation_lier', array('etablissement' => $etablissement->getIdentifiant())) ?>" class="modifier">Lier</a>
+        <a class="btn_valider" href="<?php echo url_for('validation_lier', array('etablissement' => $etablissement->getIdentifiant(), 'num_contrat' => $contrat->no_contrat)) ?>" class="modifier">Lier</a>
     </div>
 <?php endif; ?>
