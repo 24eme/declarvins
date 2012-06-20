@@ -89,4 +89,33 @@ class ediActions extends sfActions
       	$this->contrats = array_merge($this->contrats, VracClient::getInstance()->retrieveActifFromEtablissements($tiers->identifiant));
     }
   }
+
+  public function executeUploadEtablissements(sfWebRequest $request) {  
+    $id = $request->getParameter('id');
+    if (!$id) {
+      return $this->redirect('edi/uploadEtablissements?id=INTERPRO');
+    }
+    $this->forward404Unless($this->interpro = InterproClient::getInstance()->getById($id));
+    $this->formUploadCsv = new UploadCSVForm();
+    echo $this->formUploadCsv->getName();
+    if ($request->isMethod(sfWebRequest::POST)) {
+      $this->formUploadCsv->bind($request->getParameter('csv'), $request->getFiles('csv'));
+      if ($this->formUploadCsv->isValid()) {
+	$file = $this->formUploadCsv->getValue('file');
+	$this->interpro->storeAttachment($file->getSavedName(), 'text/csv', 'etablissements.csv');
+	unlink($file->getSavedName());
+	$this->getUser()->setFlash('notification_general', "Le fichier csv d'import a bien été uploadé");
+	$this->redirect('edi/updateEtablissements?id='. $this->interpro->get('_id'));
+      } 
+    }
+    $this->setTemplate('file');
+  }
+  
+  public function executeUpdateEtablissements(sfWebRequest $request) {
+    $this->forward404Unless($this->interpro = InterproClient::getInstance()->getById($request->getParameter("id")));
+    $import = new ImportEtablissementsCsv($this->interpro);
+    $this->nb = $import->updateOrCreate();
+    $this->setLayout(false);
+    $this->response->setContentType('text/plain');
+  }
 }
