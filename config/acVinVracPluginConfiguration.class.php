@@ -1,6 +1,6 @@
 <?php
 
-class VracPluginConfiguration extends sfPluginConfiguration
+class acVinVracPluginConfiguration extends sfPluginConfiguration
 {
   public function initialize()
   {
