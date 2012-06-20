@@ -2,12 +2,39 @@
 
 abstract class acCouchdbForm extends sfFormObject {
 
+    const FIELDNAME_REVISION = '_revision';
+
     public function getConnection() {
         return null;
     }
 
+    public function __construct($defaults = array(), $options = array(), $CSRFSecret = null)
+    {
+        parent::__construct($defaults = array(), $options = array(), $CSRFSecret = null);
+        $this->addRevision();
+    }
+
     protected function doUpdateObject($values) {
+        $this->updateRevision($values);
         $this->getObject()->fromArray($values);
+    }
+
+    protected function addRevision() {
+        $this->validatorSchema[self::FIELDNAME_REVISION] = new sfValidatorPass(array('required' => true));
+        $this->widgetSchema[self::FIELDNAME_REVISION] = new sfWidgetFormInputHidden();
+        $this->setDefault(self::FIELDNAME_REVISION, $this->getObject()->getDocument()->get('_rev'));
+    }
+
+    public function removeRevision() {
+        unset($this->validatorSchema[self::FIELDNAME_REVISION]);
+        unset($this->widgetSchema[self::FIELDNAME_REVISION]);
+        unset($this->defaults[self::FIELDNAME_REVISION]);
+    }
+
+    protected function updateRevision($values) {
+        if (isset($values[self::FIELDNAME_REVISION])) {
+            $this->getObject()->getDocument()->set('_rev', $values[self::FIELDNAME_REVISION]);
+        }
     }
 
     public function processValues($values) {
@@ -31,6 +58,13 @@ abstract class acCouchdbForm extends sfFormObject {
         }
 
         return $values;
+    }
+
+    public function embedForm($name, sfForm $form, $decorator = null)
+    {
+        $form->removeRevision();
+        parent::embedForm($name, $form, $decorator);
+        
     }
 
     protected function updateDefaultsFromObject() {
