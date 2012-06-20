@@ -23,7 +23,7 @@
  * @author     Jean-Baptiste Le Metayer <lemetayer.jb@gmail.com>
  * @version    0.1
  */
-class acVinCompteForm extends acCouchdbFormDocumentJson 
+class acVinCompteForm extends acCouchdbObjectForm 
 {
     public function configure() 
     {
