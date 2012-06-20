@@ -70,7 +70,7 @@ DéclarVins';
                 ->setTo($this->getUser()->getCompte()->email)
                 ->setSubject(sfConfig::get('app_password_subject'))
                 ->setBody($mess);        
-        //$this->getMailer()->send($message);
+        $this->getMailer()->send($message);
         $this->getUser()->setFlash('notice', 'Demande de redéfinition du mot de passe envoyée');
         $this->redirect(array('sf_route' => 'compte_modification', 'login' => $compte->login));
   }

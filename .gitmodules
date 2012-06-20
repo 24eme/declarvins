@@ -22,3 +22,6 @@
 [submodule "project/plugins/acVinImportPlugin"]
 	path = project/plugins/acVinImportPlugin
 	url = git@gitorious.org:acvin/acvinimportplugin.git
+[submodule "project/plugins/acVinVracPlugin"]
+	path = project/plugins/acVinVracPlugin
+	url = git@gitorious.org:acvin/acvinvracplugin.git
