@@ -1,6 +1,6 @@
 <?php
 
-class DRMLieuAjoutForm extends BaseForm {
+class DRMLieuAjoutForm extends acCouchdbForm {
 
     protected $_interpro = null;
     protected $_drm = null;
@@ -12,7 +12,7 @@ class DRMLieuAjoutForm extends BaseForm {
         $this->_interpro = $drm->getInterpro();
         $this->_config = $config;
         $defaults = array();
-        parent::__construct($defaults, $options, $CSRFSecret);
+        parent::__construct($drm, $defaults, $options, $CSRFSecret);
     }
 
     public function setup() {

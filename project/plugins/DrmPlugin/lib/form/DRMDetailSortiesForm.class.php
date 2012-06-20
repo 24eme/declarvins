@@ -1,6 +1,6 @@
 <?php
 
-class DRMDetailSortiesForm  extends acCouchdbFormDocumentJson {
+class DRMDetailSortiesForm  extends acCouchdbObjectForm {
 
     public function configure() {
     	$configurationDetail = $this->getObject()->getParent()->getConfig();

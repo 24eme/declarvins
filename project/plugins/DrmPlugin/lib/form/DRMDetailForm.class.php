@@ -1,6 +1,6 @@
 <?php
 
-class DRMDetailForm extends acCouchdbFormDocumentJson {
+class DRMDetailForm extends acCouchdbObjectForm {
 	protected $_label_choices;
 
     public function configure() {

@@ -1,5 +1,5 @@
 <?php
-class ProduitDetailForm extends acCouchdbFormDocumentJson {
+class ProduitDetailForm extends acCouchdbObjectForm {
 
     public function configure() {    	
     	$choices = array(1 => 'oui', 0 => 'non', '' => 'Non défini');

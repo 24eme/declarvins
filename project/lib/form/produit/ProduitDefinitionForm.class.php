@@ -1,5 +1,5 @@
 <?php
-class ProduitDefinitionForm extends acCouchdbFormDocumentJson {
+class ProduitDefinitionForm extends acCouchdbObjectForm {
 	
 	public $hash = null;
 

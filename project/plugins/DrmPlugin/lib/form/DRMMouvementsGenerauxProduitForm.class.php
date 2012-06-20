@@ -1,6 +1,6 @@
 <?php
 
-class DRMMouvementsGenerauxProduitForm extends acCouchdbFormDocumentJson {
+class DRMMouvementsGenerauxProduitForm extends acCouchdbObjectForm {
 
 	public function configure() {
         $this->setWidgets(array(

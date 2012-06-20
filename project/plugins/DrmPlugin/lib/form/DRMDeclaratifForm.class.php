@@ -1,6 +1,6 @@
 <?php
 
-class DRMDeclaratifForm extends BaseForm {
+class DRMDeclaratifForm extends acCouchdbForm {
 
     private $_drm = null;
 
@@ -12,7 +12,7 @@ class DRMDeclaratifForm extends BaseForm {
      */
     public function __construct(DRM $drm, $options = array(), $CSRFSecret = null) {
         $this->_drm = $drm;
-        parent::__construct($this->getDefaultValues(), $options, $CSRFSecret);
+        parent::__construct($drm, $this->getDefaultValues(), $options, $CSRFSecret);
     }
 
     public function getDefaultValues() {

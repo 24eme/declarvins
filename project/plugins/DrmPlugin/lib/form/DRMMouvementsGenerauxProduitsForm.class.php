@@ -1,10 +1,10 @@
 <?php
 
-class DRMMouvementsGenerauxProduitsForm extends sfForm {
+class DRMMouvementsGenerauxProduitsForm extends acCouchdbForm {
 
         public function __construct(DRM $drm) {
                 $defaults = array("pas_de_mouvement" => !$drm->declaration->hasMouvementCheck());
-                parent::__construct($defaults, array(), null);
+                parent::__construct($drm, $defaults, array(), null);
         }
 
 	public function configure() {
