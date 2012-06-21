@@ -13,6 +13,12 @@ upload_contrat:
 uploadContratView:
   url: /edi/contrat/csv/:md5
   param: {module: edi, action: csvContratView}
+upload_etablissements:
+  url: /edi/etablissements/csv
+  param: {module: edi, action: uploadEtablissements}
+update_etablissements:
+  url: /edi/etablissements/update/:id
+  param: {module: edi, action: updateEtablissements}
 listDRMEdi:
   url: /edi/drm/list
   param: {module: edi, action: listDRM}

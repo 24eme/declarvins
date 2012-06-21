@@ -1,6 +1,6 @@
 <?php
 
-class DRMProduitAjoutForm extends BaseForm 
+class DRMProduitAjoutForm extends acCouchdbForm 
 {
 	protected $_choices_produits;
 	protected $_label_choices;
@@ -13,7 +13,7 @@ class DRMProduitAjoutForm extends BaseForm
         $this->_interpro = $drm->getInterpro();
         $this->_config = $config;
         $defaults = array();
-        parent::__construct($defaults, $options, $CSRFSecret);
+        parent::__construct($drm, $defaults, $options, $CSRFSecret);
     }
     
     public function configure() 

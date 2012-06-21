@@ -1,6 +1,6 @@
 <?php
 
-class VracDetailModificationForm extends acCouchdbFormDocumentJson {
+class VracDetailModificationForm extends acCouchdbObjectForm {
 
 	public function configure() {
         $this->setWidgets(array(

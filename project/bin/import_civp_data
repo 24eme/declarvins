@@ -1,0 +1,28 @@
+. bin/download_redmine_file https://clients.intra.actualys.fr/attachments/download/3559/CIVP_Data.zip /tmp/CIVP_Data.zip
+SYMFODIR=$(pwd);
+{
+mkdir /tmp/CIVP_DATA 2> /dev/null ; cd  /tmp/CIVP_DATA ; rm -rf * 2>/dev/null
+unzip /tmp/CIVP_Data.zip
+cd CIVP_Data
+DATADIR=$(pwd);
+if false ; then
+	echo "Import des établissements";
+
+	recode ISO88591..UTF8 etablissement.csv
+	cat etablissement.csv | sed 's/^\([^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;\)/\1;/' | sed 's/nom;;RaisonSociale/nom;RaisonSociale/' > etablissement.csv.tmp
+	mv etablissement.csv.tmp etablissement.csv
+	curl -s -c /tmp/cookie.txt http://autologin:bonjour@declaration.dev.declarvin.com/edi.php/edi/etablissements/csv > /dev/null
+	curl -s -L -b /tmp/cookie.txt -X POST -u autologin:bonjour -F "csv[file]=@etablissement.csv"  "http://declaration.dev.declarvin.com/edi.php/edi/etablissements/csv?id=INTERPRO-civp"
+	echo
+fi
+
+echo "Import des DRM";
+DRM="DRm export.csv"
+recode ISO88591..UTF8 "$DRM" 
+#25/09/2007
+cat "$DRM" | sed 's|\([0-9][0-9]\)/\([0-9][0-9]\)/\([0-9][0-9][0-9][0-9]\)|\3-\2-\1;\3-\2-\1/|' > "$DRM.tmp"
+mv "$DRM.tmp" "$DRM";
+cd $SYMFODIR
+php symfony import:DRM --file="$DATADIR/$DRM"
+
+}

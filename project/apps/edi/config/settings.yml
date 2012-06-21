@@ -26,7 +26,7 @@ all:
   .settings:
     enabled_modules:        [default, acVinCompte, drm, drm_login, drm_recap, drm_mouvements_generaux, drm_vrac, drm_export, User]
     # Form security secret (CSRF protection)
-    csrf_secret:            ff4c1c71ea0acbf70633905333679c7e0897fe44
+    csrf_secret:            false
 
     # Output escaping settings
     escaping_strategy:      true
