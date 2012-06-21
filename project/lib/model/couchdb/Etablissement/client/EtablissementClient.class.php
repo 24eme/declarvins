@@ -2,6 +2,10 @@
 
 class EtablissementClient extends acCouchdbClient {
    
+    const FAMILLE_NEGOCE = 'Negociant';
+    const FAMILLE_VITICULTEUR = 'Viticulteur';
+    const FAMILLE_COURTIER = 'Courtier';
+   
     /**
      *
      * @return EtablissementClient
@@ -54,6 +58,16 @@ class EtablissementClient extends acCouchdbClient {
         }
         $etablissementLibelle .= ') '.$datas[7].' '.$datas[8];
         return trim($etablissementLibelle);
+    }
+    public function findByIdentifiant($identifiant, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
+
+        return self::retrieveById($identifiant, $hydrate);
+    }
+
+    public function findByFamille($famille) {
+        
+        return $this->startkey(array($famille))
+              ->endkey(array($famille, array()))->limit(100)->getView('etablissement', 'tous');
     }
 
 }

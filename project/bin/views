@@ -126,8 +126,55 @@ cat <<EOF > $TMPFILE
    "views": {
    "all": {
        "map": "function(doc) {\n  if (doc.type == \"Etablissement\") {\n  emit([doc.interpro, doc._id, doc.nom, doc.identifiant, doc.raison_sociale, doc.siret, doc.cvi, doc.siege.commune, doc.siege.code_postal], null);\n }\n}"
+        },
+       "tous": {
+           "map": "function(doc) {\n\n\tif (doc.type != \"Etablissement\") {\n      \t\treturn ;     \n    \t}     \n\n  \temit([doc.famille, doc.commune, doc.code_postal, doc.cvi, doc.nom, doc.identifiant], 1);\n}"
+       }
+    }
+}
+EOF
+
+curl -s -X PUT -d "@$TMPFILE" $COUCHDBURL/_design/$design
+
+curl -s $COUCHDBURL/_design/$design/_view/all > /dev/null &
+sleep 1
+kill %1
+
+design=compte
+curl -s -X DELETE "$COUCHDBURL/_design/$design?rev=$(curl --stderr /dev/null $COUCHDBURL/_design/$design | sed 's/.*_rev":"//' | sed 's/",".*//' 2> /dev/null)" > /dev/null 2>&1
+
+cat <<EOF > $TMPFILE
+{
+   "_id": "_design/compte",
+   "language": "javascript",
+   "views": {
+   "all": {
+       "map": "function(doc) {\n  var r = new RegExp('\\^COMPTE-');\n  if (doc._id.match(r)) {\n  emit([doc.type, doc.nom, doc.prenom, doc.login, doc.email, doc.telephone], null);\n }\n}"
         }
     }
+}
+EOF
+
+curl -s -X PUT -d "@$TMPFILE" $COUCHDBURL/_design/$design
+
+curl -s $COUCHDBURL/_design/$design/_view/all > /dev/null &
+sleep 1
+kill %1
+
+design=vrac
+curl -s -X DELETE "$COUCHDBURL/_design/$design?rev=$(curl --stderr /dev/null $COUCHDBURL/_design/$design | sed 's/.*_rev":"//' | sed 's/",".*//' 2> /dev/null)" > /dev/null 2>&1
+
+cat <<EOF > $TMPFILE
+{
+   "language": "javascript",
+   "views": {
+       "history": {
+           "map": "function(doc) {\n  if (doc.type != \"Vrac\")\n     return;\n  emit([doc._id], [doc.status, doc._id, doc.acheteur_identifiant, doc.acheteur.nom, doc.vendeur_identifiant, doc.vendeur.nom,\n\t           doc.mandataire_identifiant,doc.mandataire.nom, doc.type_transaction, doc.produit, doc.volume_consomme, doc.volume_enleve]);\n}"
+       },
+       "soussigneidentifiant": {
+           "map": "function(doc) {\n  if (doc.type != \"Vrac\")\n     return;\n  emit([doc.mandataire_identifiant, doc._id],  [doc.status, doc._id, doc.acheteur_identifiant, doc.acheteur.nom, doc.vendeur_identifiant, doc.vendeur.nom, doc.mandataire_identifiant,doc.mandataire.nom, doc.type_transaction, doc.produit, doc.volume_consomme, doc.volume_enleve]);\n  emit([doc.acheteur_identifiant, doc._id], [doc.status, doc._id, doc.acheteur_identifiant, doc.acheteur.nom, doc.vendeur_identifiant, doc.vendeur.nom, doc.mandataire_identifiant,doc.mandataire.nom, doc.type_transaction, doc.produit, doc.volume_consomme, doc.volume_enleve]);\n  emit([doc.vendeur_identifiant, doc._id], [doc.status, doc._id, doc.acheteur_identifiant, doc.acheteur.nom, doc.vendeur_identifiant, doc.vendeur.nom, doc.mandataire_identifiant,doc.mandataire.nom, doc.type_transaction, doc.produit, doc.volume_consomme, doc.volume_enleve]);\n}"
+       }
+   }
 }
 EOF
 

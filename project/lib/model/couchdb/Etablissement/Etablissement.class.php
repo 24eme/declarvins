@@ -52,5 +52,12 @@ class Etablissement extends BaseEtablissement {
     		return $this->raison_sociale;
     	return parent::getDenomination();
     }
-    
+        
+    public function getFamilleType()
+    {
+    	$familleType = array('Negociant' => 'acheteur',
+                                 'Viticulteur' => 'vendeur',
+                                 'Courtier' => 'mandataire');
+    	return $familleType[$this->famille];
+    }
 }
