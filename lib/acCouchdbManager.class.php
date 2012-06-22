@@ -7,6 +7,8 @@ class acCouchdbManager {
     protected $_client = null;
     protected $_clients_model = array();
 
+    protected $_views = array();
+
     protected $_definition = array();
     protected $_definition_tree_hash = array();
     protected $_definition_hash = array();
@@ -30,9 +32,10 @@ class acCouchdbManager {
 
     public static function initializeClient($dsn, $dbname) {
         self::getInstance()->_client = new acCouchdbClient($dsn, $dbname);
-	if (!self::getInstance()->_client->databaseExists())
-	  throw new Exception($dbname." does not exist");
-	return self::getInstance()->_client;
+		if (!self::getInstance()->_client->databaseExists())
+	  		throw new Exception($dbname." does not exist");
+		
+		return self::getInstance()->_client;
     }
 
     /**
@@ -59,6 +62,20 @@ class acCouchdbManager {
         }
 
         return self::getInstance()->_clients_model[$model];
+    }
+
+    public static function getView($design, $view, $model = null) {
+    	$key = sfInflector::camelize($design.'_'.$view.'_'.$model);
+    	if (!isset(self::getInstance()->_views[$key])) {
+    		$class_name = sfInflector::camelize($design.'_'.$view).'View';
+    		if (class_exists($class_name)) {
+                self::getInstance()->_views[$key] = new $class_name(self::getClient($model), $design, $view);
+            } else {
+                throw new acCouchdbException(sprintf("This view class doesn't exist : %s", $class_name));
+            }
+    	}
+
+    	return self::getInstance()->_views[$key];
     }
     
     public static function getSchema() {
