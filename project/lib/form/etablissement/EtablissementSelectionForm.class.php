@@ -26,7 +26,7 @@ class EtablissementSelectionForm extends sfForm {
     	$result = array('' => '');
     	foreach ($etablissements->rows as $etablissement) {
     		
-    		$result[$etablissement->key[1]] = EtablissementClient::getInstance()->makeLibelle($etablissement->key); 
+    		$result[$etablissement->key[1]] = EtablissementAllView::getInstance()->makeLibelle($etablissement->key); 
     	}
     	return $result;
     }
@@ -39,7 +39,7 @@ class EtablissementSelectionForm extends sfForm {
 
     public function getUrlAutocomplete() {
 
-        return sfContext::getInstance()->getRouting()->generate('etablissement_autocomplete');
+        return sfContext::getInstance()->getRouting()->generate('etablissement_autocomplete_all');
     }
     
 }
