@@ -183,7 +183,7 @@ class DRMCsvFile extends CsvFile
     if($this->drm->getAnnee() != $line[self::CSV_COL_ANNEE])
       throw new sfException("Incoherence dans l'année de la DRM");
     if($this->drm->getMois() != $line[self::CSV_COL_MOIS])
-      throw new sfException("Incoherence dans le mois de la DRM");
+      throw new sfException("Incoherence dans le mois de la DRM (".$this->drm->getMois().' <> '.$line[self::CSV_COL_MOIS].')');
     if($this->drm->identifiant != $line[self::CSV_COL_IDENTIFIANT_DECLARANT])
       throw new sfException("Incoherence dans l'identifiant de l'établissement DRM");
     
