@@ -188,32 +188,137 @@ Contrat:
                   service_douane: {  }
                   edi: {  }
 
+#Vrac:
+#  definition:
+#    fields:
+#      _id: {  }
+#      _rev: {  }
+#      type: {  }
+#      produit: {  }
+#      numero: {  }
+#      actif: {  }
+#      date_creation: {  }
+#      annee: {  }
+#      mois: {  }
+#      acheteur:
+#        type: collection
+#        definition:
+#          fields:
+#            nom: {  }
+#      courtier:
+#        type: collection
+#        definition:
+#          fields:
+#            nom: {  }
+#      etablissement: {  }
+#      prix: { type: float }
+#      volume_promis: { type: float }
+#      volume_realise: { type: float }
+# Vrac pour les contrats
 Vrac:
   definition:
     fields:
       _id: {  }
-      _rev: {  }
-      type: {  }
-      produit: {  }
-      numero: {  }
-      actif: {  }
-      date_creation: {  }
-      annee: {  }
-      mois: {  }
+      _rev: { }
+      type: { }
+      numero_contrat: {  }
+      etape: { type: integer }
+            
+#Soussigné (Part 1)
+      vendeur_identifiant: {  }      
+      vendeur:        
+        type: collection
+        definition:
+          fields:            
+            nom: {  }
+            cvi: {  }
+            num_accise: {   }
+            num_tva_intracomm: {    }
+            adresse: {  }
+            commune: {  }
+            code_postal: {   }
+            departement: {   }
+      acheteur_identifiant: {  }     
       acheteur:
         type: collection
         definition:
           fields:
             nom: {  }
-      courtier:
+            cvi: {  }
+            num_accise: {   }
+            num_tva_intracomm: {    }
+            adresse: {  }
+            commune: {  }
+            code_postal: {   }
+            departement: {   }
+      mandataire_exist: {   }
+      mandatant: 
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
+      mandataire_identifiant: {  }     
+      mandataire:
         type: collection
         definition:
           fields:
             nom: {  }
-      etablissement: {  }
-      prix: { type: float }
-      volume_promis: { type: float }
-      volume_realise: { type: float }
+            carte_pro: {  }
+            adresse: {  }
+                
+#Marché (Part 2)
+          
+      original: { type: integer }            
+      type_transaction: {  }
+      produit: {   }
+      millesime: { type: integer }
+      domaine: {  }
+      label:
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
+       
+      #Pour le raisin (en kg)
+      raisin_quantite: { type: float }
+
+      #Pour les mouts et pour le vin en vrac (en hl)
+      jus_quantite: { type: float }
+
+      #Pour le vin en bouteilles (nb bouteille)
+      bouteilles_quantite: { type: float }
+      bouteilles_contenance: { type: integer }
+
+      prix_unitaire: { type: float }
+      prix_total: { type: float }
+          
+#Conditions (Part 3)
+          
+      type_contrat: {   }
+      prix_variable: { type: integer }
+
+      # prix_variable = true
+      part_variable: { type: float }
+      taux_variation: { type: float }
+      cvo_nature: { }
+      #cvo_repartition float ou string? "50/50" ou 0.5
+      cvo_repartition: { }
+         
+#Validations
+      date_stats: { }
+      date_signature: { }
+
+      volume_consomme: { type: float }
+      volume_enleve: { type: float }
+      
+      valide:
+        type: collection
+        definition:
+          fields:
+            # les vues de date_stats/date_signature dans part3
+            date_saisie: {  }
+            identifiant: {  }
+            statut: { }
 
 Current:
   definition:
