@@ -6,7 +6,7 @@ class etablissement_autocompleteActions extends sfActions
   	public function executeAll(sfWebRequest $request) {
 	    $interpro = $this->getUser()->getInterpro();
 
-	    $json = $this->matchEtablissements(EtablissementClient::getInstance()->findByInterpro($interpro)->rows,
+	    $json = $this->matchEtablissements(EtablissementClient::getInstance()->findByInterpro($interpro->get('_id'))->rows,
 	    								   $request->getParameter('q'),
 	    								   $request->getParameter('limit', 100));
 
@@ -26,7 +26,7 @@ class etablissement_autocompleteActions extends sfActions
 
     protected function matchEtablissements($etablissements, $term, $limit) {
     	$json = array();
-	  	
+
 	  	foreach($etablissements as $key => $etablissement) {
 	      $text = EtablissementAllView::getInstance()->makeLibelle($etablissement->key);
 	     
