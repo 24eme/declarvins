@@ -115,12 +115,11 @@
 					}));
 				},
 				select: function( event, ui ) {
-					//console.log('select');
 					ui.item.option.selected = true;
 					self._trigger( "selected", event, {
 						item: ui.item.option
 					});
-					$(this).val(ui.item.value.replace(new RegExp("[ ]*\\(.+\\)[ ]*"), ""));
+					$(this).val(ui.item.value.replace(new RegExp("[ ]*\\(.+\\)[ ]*"), " "));
 					return false;
 				},
 				change: function( event, ui ) {

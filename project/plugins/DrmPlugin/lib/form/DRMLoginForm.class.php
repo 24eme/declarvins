@@ -26,7 +26,6 @@ class DRMLoginForm extends BaseForm {
 
     /**
      * 
-     * @return _Tiers;
      */
     public function process() {
         if ($this->isValid()) {

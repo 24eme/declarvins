@@ -19,15 +19,6 @@ _Compte:
     fields:
       login: { }
 
-_Tiers:
-  type: abstract
-  definition:
-    fields:
-      identifiant: { }
-      nom: { }
-      type: {  }
-      statut: {  }
-
 acVinCompteTiers:
   inheritance: _Compte
   definition:
@@ -89,18 +80,24 @@ CompteVirtuel:
       fax: {  }
 
 Interpro:
-  inheritance: _Tiers
   definition:
     fields:
       _id: {  }
       _rev: {  }
+      identifiant: { }
+      nom: { }
+      type: {  }
+      statut: {  }
 
 Etablissement:
-  inheritance: _Tiers
   definition:
     fields:
       _id: {  }
       _rev: {  }
+      identifiant: { }
+      nom: { }
+      type: {  }
+      statut: {  }
       interpro: {  }
       compte: {  }
       droits:
@@ -138,11 +135,14 @@ Etablissement:
       service_douane: {  }
 
 Douane:
-  inheritance: _Tiers
   definition:
     fields:
       _id: {  }
       _rev: {  }
+      identifiant: { }
+      nom: { }
+      type: {  }
+      statut: {  }
       email: {  }
 
 Contrat:

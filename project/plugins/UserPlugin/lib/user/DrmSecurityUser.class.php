@@ -158,7 +158,7 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
     
     /**
      *
-     * @param _Tiers $tiers 
+     * @param Etablissement $tiers 
      */
     public function signInTiers($tiers) {
         parent::signInTiers($tiers);

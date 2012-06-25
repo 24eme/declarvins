@@ -109,11 +109,6 @@ produit_suppression:
 etablissement_login:
   url: /admin/etablissements
   param: {module: admin, action: etablissementLogin}
-
-etablissement_autocomplete:
-  url: /admin/etablissements-autocomplete
-  param: {module: admin, action: etablissementAutocomplete}
-  
   
 ## Administration des Comptes
 admin_comptes:

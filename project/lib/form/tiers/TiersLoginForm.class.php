@@ -38,7 +38,7 @@ class TiersLoginForm extends BaseForm {
 
     /**
      * 
-     * @return _Tiers;
+     * @return Etablissement;
      */
     public function process() {
         if ($this->isValid()) {

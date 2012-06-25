@@ -122,7 +122,7 @@ var formModificationCompte = function()
     <?php if (count($etablissements) > 0 || count($etablissementsCsv) > 0): ?>
         <ul class="chais">
             <?php foreach ($etablissements as $etablissement): ?>
-                <li class="presentation"<?php if ($etablissement->statut == _Tiers::STATUT_ARCHIVER): ?> style="opacity:0.5;"<?php endif; ?>>
+                <li class="presentation"<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVER): ?> style="opacity:0.5;"<?php endif; ?>>
                     <?php include_partial('viewEtablissement', array('etablissement' => $etablissement, 'interpro' => $interpro, 'contrat' => $contrat)) ?>
                 </li>
             <?php endforeach; ?>
