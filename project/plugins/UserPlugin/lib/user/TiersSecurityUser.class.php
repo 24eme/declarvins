@@ -37,7 +37,7 @@ abstract class TiersSecurityUser extends acVinCompteSecurityUser {
 
     /**
      *
-     * @param _Tiers $tiers 
+     * @param Etablissement $tiers 
      */
     public function signInTiers($tiers) {
         $this->requireCompte();
@@ -71,7 +71,7 @@ abstract class TiersSecurityUser extends acVinCompteSecurityUser {
     }
 
     /**
-     * @return _Tiers
+     * @return Etablissement
      */
     public function getTiers($type = null) {
         $this->requireTiers();

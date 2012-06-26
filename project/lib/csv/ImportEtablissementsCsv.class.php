@@ -80,7 +80,7 @@ class ImportEtablissementsCsv {
 	                $etab->set('_id', 'ETABLISSEMENT-' . $line[EtablissementCsv::COL_ID]);
 	            	$etab->interpro = $this->_interpro->get('_id');
 		            $etab = $this->bind($etab, $line);
-		            $etab->statut = _Tiers::STATUT_CSV;
+		            $etab->statut = Etablissement::STATUT_CSV;
 	            }
 	            $etablissements[$etab->get('_id')] = $etab;
     		}

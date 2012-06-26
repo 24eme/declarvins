@@ -26,7 +26,7 @@
 <br /><br />
 <?php if ($interpro->get('_id') == $etablissement->getInterpro()): ?>
     <div class="btn">
-        <?php if ($etablissement->statut != _Tiers::STATUT_ARCHIVER): ?>
+        <?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVER): ?>
             <a class="btn_valider" href="<?php echo url_for('validation_archiver', array('etablissement' => $etablissement->getIdentifiant(), 'num_contrat' => $contrat->no_contrat)) ?>" class="modifier">Archiver</a> 
         <?php else: ?>
             <a class="btn_valider" href="<?php echo url_for('validation_desarchiver', array('etablissement' => $etablissement->getIdentifiant(), 'num_contrat' => $contrat->no_contrat)) ?>" class="modifier">Désarchiver</a> 

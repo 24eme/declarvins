@@ -111,7 +111,7 @@ class Configuration extends BaseConfiguration {
       return $hash;
     }
 
-    public function identifyProduct($certification, $genre, $appellation, $mention, $lieu = 'DEFAUT', $couleur = 'DEFAUT', $cepage = 'DEFAUT', $millesime = null) {
+    public function identifyProduct($certification, $genre, $appellation, $mention = 'DEFAULT', $lieu = 'DEFAUT', $couleur = 'DEFAUT', $cepage = 'DEFAUT', $millesime = null) {
       try {
 	$res = $this->getObjectByLibelle($this->declaration->getCertifications(), $certification);
 	$res = $this->getObjectByLibelle($res['obj']->getGenres(), $genre, $res['next_libelles']);
