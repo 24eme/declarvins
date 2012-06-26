@@ -38,6 +38,7 @@ else
 ?>
 <?php include_partial('global/navTop', array('active' => 'vrac')); ?>
 <section id="contenu">
+	<?php include_partial('headerVrac', array('vrac' => $form->getObject(),'actif' => 1)); ?>
 	<form id="vrac_soussigne" class="popup_form" method="post"
 		action="<?php echo ($form->getObject()->isNew())? url_for('vrac_nouveau') : url_for('vrac_soussigne',$vrac); ?>">
 		<?php echo $form->renderHiddenFields() ?>

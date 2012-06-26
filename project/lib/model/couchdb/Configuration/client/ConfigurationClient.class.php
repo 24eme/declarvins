@@ -45,7 +45,7 @@ class ConfigurationClient extends acCouchdbClient {
               ->endkey(array($interpro, $certif, array()))->getView('configuration', 'produits_admin');
   }
   
-  public function nbProduitsByCertificationDepAndInterpro($dep, $interpro, $certif) {
+  public function nbProduitsByCertificationDepAndInterpro($interpro, $certif, $dep = "") {
     return $this->startkey(array("produits", $interpro, $dep, $certif))
                 ->endkey(array("produits", $interpro, $dep, $certif, array()))
     		    ->reduce(true)
@@ -64,8 +64,12 @@ class ConfigurationClient extends acCouchdbClient {
               ->endkey(array("lieux", $interpro, $departement, $certif, array()))->reduce(false)->getView('configuration', 'produits');
   }
 
-  public function findProduitsByCertification($certif, $interpro, $departement) {
+  public function findProduitsByInterAndDep($interpro, $departement) {
+    return $this->startkey(array("produits", $interpro, $departement))
+              ->endkey(array("produits", $interpro, $departement, array()))->reduce(false)->getView('configuration', 'produits');
+  }
 
+  public function findProduitsByCertification($certif, $interpro, $departement) {
     return $this->startkey(array("produits", $interpro, $departement, $certif))
               ->endkey(array("produits", $interpro, $departement, $certif, array()))->reduce(false)->getView('configuration', 'produits');
   }
@@ -84,5 +88,12 @@ class ConfigurationClient extends acCouchdbClient {
     return $this->startkey(array("labels", $interpro, "", $certif))
               ->endkey(array("labels", $interpro, "", $certif, array()))->reduce(false)->getView('configuration', 'produits');
   }
+  
+   public static function getMillesimes() {
+        $lastMillesime =  date('Y');
+        $result = array();
+        for($i=$lastMillesime;$i>=1991;$i--) $result[$i] = $i;
+        return $result;
+    }
   
 }
