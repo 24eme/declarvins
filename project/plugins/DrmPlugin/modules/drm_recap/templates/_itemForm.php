@@ -36,7 +36,7 @@
                     <?php $nbItem = count($form['entrees']); $i=0; foreach($form['entrees'] as $key => $subform): $i++; ?>
                     <?php $class = 'num num_float'; if ($i==1) $class .= ' premier'; if ($i==$nbItem) $class .= ' dernier';?>
                     <li class="<?php echo isRectifierCssClass($form->getObject()->entrees, $key) ?>">
-                        <?php echo $form['entrees'][$key]->render(array('data-val-defaut' => sprintFloat($form['entrees'][$key]->getValue()),
+                        <?php echo $form['entrees'][$key]->render(array('data-val-defaut' => $form['entrees'][$key]->getValue(),
                                                                         'class' => $class)) ?>
                     </li>
                     <?php endforeach; ?>
@@ -51,7 +51,7 @@
                     <?php  $nbItem = count($form['sorties']); $i=0; foreach($form['sorties'] as $key => $subform): $i++; ?>
                     <?php $class = 'num num_float'; if ($i==1) $class .= ' premier'; if ($i==$nbItem) $class .= ' dernier';?>
                     <li class="<?php echo isRectifierCssClass($form->getObject()->sorties, $key) ?>">
-                        <?php echo $form['sorties'][$key]->render(array('data-val-defaut' => sprintFloat($form['sorties'][$key]->getValue()),
+                        <?php echo $form['sorties'][$key]->render(array('data-val-defaut' => $form['sorties'][$key]->getValue(),
                                                                         'class' => $class)) ?>
                     </li>
                     <?php endforeach; ?>
@@ -67,7 +67,7 @@
                     <?php $nbItem = count($form['stocks_fin']); $i=0; foreach($form['stocks_fin'] as $key => $subform): $i++; ?>
                     <?php $class = 'num num_float'; if ($i==1) $class .= ' premier'; if ($i==$nbItem) $class .= ' dernier';?>
                     <li class="<?php echo isRectifierCssClass($form->getObject()->stocks_fin, $key) ?>">
-                        <?php echo $form['stocks_fin'][$key]->render(array('data-val-defaut' => sprintFloat($form['stocks_fin'][$key]->getValue()),
+                        <?php echo $form['stocks_fin'][$key]->render(array('data-val-defaut' => $form['stocks_fin'][$key]->getValue(),
                                                                         'class' => $class)) ?>
                     </li>
                     <?php endforeach; ?>
