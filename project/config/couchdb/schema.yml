@@ -335,6 +335,16 @@ Configuration:
       _rev: {  }
       type: {  }
       campagne: {  }
+      vrac_transactions:
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
+      contenances:
+        type: collection
+        definition:
+          fields:
+            '*': {  }
       labels:
         type: collection
         definition:
@@ -846,6 +856,18 @@ DRM:
       _id: {  }
       _rev: {  }
       type: {  }
+      editeurs:
+        type: array_collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  compte: {  }
+                  nom: {  }
+                  prenom: {  }
+                  date_modification: {  }
       apurement_possible: {  }
       raison_rectificative: {  }
       etape: {  }

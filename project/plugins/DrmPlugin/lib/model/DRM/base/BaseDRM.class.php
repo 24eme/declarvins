@@ -22,6 +22,7 @@
  * @property acCouchdbJson $interpros
  * @property acCouchdbJson $valide
  * @property acCouchdbJson $douane
+ * @property acCouchdbJson $editeurs
 
  * @method string get_id()
  * @method string set_id()
@@ -59,6 +60,8 @@
  * @method acCouchdbJson setValide()
  * @method acCouchdbJson getDouane()
  * @method acCouchdbJson setDouane()
+ * @method acCouchdbJson getEditeurs()
+ * @method acCouchdbJson setEditeurs()
  
  */
  

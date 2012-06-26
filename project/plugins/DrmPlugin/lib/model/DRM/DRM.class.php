@@ -360,6 +360,21 @@ class DRM extends BaseDRM {
         if (!preg_match('/^2\d{3}-[01][0-9]$/', $this->campagne)) {
             throw new sfException('Wrong format for campagne ('.$this->campagne.')');
         }
+        if ($user = $this->getUser()) {
+        	if ($user->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+        		$compte = $user->getCompte();
+        		$canInsertEditeur = true;
+        		if ($lastEditeur = $this->getLastEditeur()) {
+        			$diff = Date::diff($lastEditeur->date_modification, date('c'), 'i');
+        			if ($diff < 25) {
+        				$canInsertEditeur = false;
+        			}
+        		}
+        		if ($canInsertEditeur) {
+        			$this->addEditeur($compte);
+        		}
+        	}
+        }
 
         return parent::save();
     }
@@ -484,6 +499,31 @@ class DRM extends BaseDRM {
     }
     public function hasProduits() {
     	return (count($this->declaration->getProduits()) > 0)? true : false;
+    }
+    
+    public function hasEditeurs() {
+    	return (count($this->editeurs) > 0);
+    }
+    
+    public function getLastEditeur() {
+    	if ($this->hasEditeurs()) {
+    		$editeurs = $this->editeurs->toArray();
+    		return array_pop($editeurs);
+    	} else {
+    		return null;
+    	}
+    }
+    
+    public function getUser() {
+    	return sfContext::getInstance()->getUser();
+    }
+    
+    public function addEditeur($compte) {
+    	$editeur = $this->editeurs->add();
+    	$editeur->compte = $compte->_id;
+    	$editeur->nom = $compte->nom;
+    	$editeur->prenom = $compte->prenom;
+    	$editeur->date_modification = date('c');
     }
     
 }
