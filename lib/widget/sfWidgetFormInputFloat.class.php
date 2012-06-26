@@ -9,10 +9,14 @@ class sfWidgetFormInputFloat extends sfWidgetFormInputText
     $attributes['autocomplete'] = 'off';
     if (!isset($attributes['class']))
       $attributes['class'] = '';
-    //$attributes['class'] = ' num num_float';
     if (!($value*1)) 
       $attributes['class'] .= ' num_light';
 
     return parent::render($name, $value, $attributes, $errors);
+  }
+
+  protected function attributesToHtmlCallback($k, $v)
+  {
+    return false === $v || ('' === $v && 'value' != $k) ? '' : sprintf(' %s="%s"', $k, $this->escapeOnce($v));
   }
 }
