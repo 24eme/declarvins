@@ -176,6 +176,7 @@ class DRM extends BaseDRM {
     
     public function getInterpro() {
     	
+      if ($this->getEtablissement())
         return $this->getEtablissement()->getInterproObject();
     }
     
