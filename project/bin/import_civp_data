@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. bin/confic.inc
+
 #. bin/download_redmine_file https://clients.actualys.com/attachments/download/3559/CIVP_Data.zip /tmp/CIVP_Data.zip
 SYMFODIR=$(pwd);
 {
@@ -14,8 +16,8 @@ if false ; then
     recode ISO88591..UTF8 etablissement.csv
     cat etablissement.csv | sed 's/^\([^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;\)/\1;/' | sed 's/nom;;RaisonSociale/nom;RaisonSociale/' > etablissement.csv.tmp
     mv etablissement.csv.tmp etablissement.csv
-    curl -s -c /tmp/cookie.txt http://autologin:bonjour@declaration.dev.declarvin.com/edi.php/edi/etablissements/csv > /dev/null
-    curl -s -L -b /tmp/cookie.txt -X POST -u autologin:bonjour -F "csv[file]=@etablissement.csv"  "http://declaration.dev.declarvin.com/edi.php/edi/etablissements/csv?id=INTERPRO-civp"
+    curl -s -c /tmp/cookie.txt $EDI_AUTH $EDI_PREFIX/edi/etablissements/csv > /dev/null
+    curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@etablissement.csv"  "$EDI_PREFIX/edi/etablissements/csv?id=INTERPRO-civp"
     echo
 fi
 
