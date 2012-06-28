@@ -1,6 +1,6 @@
 <?php
 
-class myUser extends DrmSecurityUser
+class myUser extends DRMSecurityUser
 {
 	/**
 	 * Récupération du contrat

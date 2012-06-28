@@ -186,7 +186,7 @@
 		//$.ctrl(46, function() { colFocus.find('.btn_supprimer').trigger('click'); });
 		
 		// Ctrl + Z ==> Réinitialisation colonne active
-		$.ctrl(90, function() { colFocus.find('.btn_reinitialiser').trigger('click'); });
+		$.echap(function() { colFocus.find('.btn_reinitialiser').trigger('click'); });
 		
 		// Ctrl + Entrée ==> Validation de la colonne active
 		$.ctrl(13, function() { colFocus.find('.btn_valider').trigger('click'); });

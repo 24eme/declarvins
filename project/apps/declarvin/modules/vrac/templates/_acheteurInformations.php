@@ -26,31 +26,31 @@ use_helper('Display');
 </script>
 <table class="vendeur_infos">
 	<tr>
-		<td class="bold">Nom de l'acheteur*:</td>
+		<td class="bold">Nom de l'acheteur*:&nbsp;</td>
 		<td><?php display_field($acheteur,'nom'); ?></td>
 	</tr>
 	<tr>
-		<td class="bold">Adresse*:</td>
-		<td><?php  display_field($acheteur,'adresse');  ?></td>
+		<td class="bold">Adresse*:&nbsp;</td>
+		<td><?php  if($acheteur) display_field($acheteur->siege,'adresse');  ?></td>
 	</tr>
 	<tr>
-		<td class="bold">N° CVI:</td>
+		<td class="bold">N° CVI:&nbsp;</td>
 		<td><?php display_field($acheteur,'cvi'); ?></td>
 	</tr>
 	<tr>
-		<td class="bold">CP*:</td>
-		<td><?php  display_field($acheteur,'code_postal');  ?></td>
+		<td class="bold">CP*:&nbsp;</td>
+		<td><?php  if($acheteur) display_field($acheteur->siege,'code_postal');  ?></td>
 	</tr>
 	<tr>
-		<td class="bold">N° ACCISE:</td>
-		<td><?php display_field($acheteur,'num_accise'); ?></td>
+		<td class="bold">N° ACCISE:&nbsp;</td>
+		<td><?php display_field($acheteur,'no_accises'); ?></td>
 	</tr>
 	<tr>
-		<td class="bold">Ville*:</td>
-		<td><?php  display_field($acheteur,'commune');  ?></td>
+		<td class="bold">Ville*:&nbsp;</td>
+		<td><?php  if($acheteur) display_field($acheteur->siege,'commune');  ?></td>
 	</tr>
 	<tr>
-		<td class="bold">TVA Intracomm.:</td>
-		<td><?php display_field($acheteur,'num_tva_intracomm'); ?></td>
+		<td class="bold">TVA Intracomm.:&nbsp;</td>
+		<td><?php display_field($acheteur,'no_tva_intracommunautaire'); ?></td>
 	</tr>
 </table>

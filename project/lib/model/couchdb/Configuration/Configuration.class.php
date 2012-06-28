@@ -12,6 +12,21 @@ class Configuration extends BaseConfiguration {
         $this->set('_id', "CONFIGURATION");
     }
 
+    public function getProduits($interpro = '', $departement = '', $produits = null) {
+      $results = ConfigurationClient::getInstance()->findProduitsByInterAndDep($interpro, $departement)->rows;
+      $produits = array();
+      foreach($results as $item) {
+            $libelles = $item->value;
+            unset($libelles[0]);
+            $libelles[] = '('.$item->key[6].')';
+            $produits[$item->key[5]] = $libelles;
+        }
+
+        ksort($produits);
+
+        return $produits;
+    }
+
     public function getProduitLibelles($hash) {
     	$libelles = $this->store('produits_libelles', array($this, 'getProduitsLibelleAbstract'));
     	if(array_key_exists($hash, $libelles)) {

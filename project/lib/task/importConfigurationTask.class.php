@@ -54,135 +54,7 @@ EOF;
     $csv = new LabelCsvFile($configuration, $import_dir.'/labels.csv');
     $configuration = $csv->importLabels();
 
-    /*$certifications = array();
-    foreach (file($import_dir.'/certifications') as $line) {
-      $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
-      $certifications[$datas[0]] = $datas[1];
-    }
-
-    $appellations = array();
-    foreach (file($import_dir.'/appellations') as $line) {
-      $datas = explode(';', preg_replace('/"/', '', str_replace("\n", "", $line)));
-      $appellations[$datas[0]][$datas[1]] = $datas[2];
-    }
     
-    $couleurs = array();
-    foreach (file($import_dir.'/couleurs') as $line) {
-      $datas = explode(';', preg_replace('/"/', '', str_replace("\n", "", $line)));
-      $couleurs[$datas[0]] = $datas[1];
-    }
-
-    foreach (file($import_dir.'/produits') as $line) {
-        $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
-
-        foreach($datas as $key => $value) {
-          if (!$value) {
-            $datas[$key] = "DEFAUT";
-          }
-        }
-
-        $hash = 'certifications/'.$datas[0].
-                '/appellations/'.$datas[1].
-                '/lieux/'.$datas[2].
-                '/couleurs/'.$datas[3].
-                '/cepages/'.$datas[4].
-                '/millesimes/'.$datas[5];
-
-        $configuration->declaration->getOrAdd($hash);
-    }
-
-    foreach($configuration->declaration->certifications as $certification) {
-      if(array_key_exists($certification->getKey(), $certifications)) {
-        $certification->libelle = $certifications[$certification->getKey()];
-      } else {
-        throw new sfCommandException("Libelle not found");
-      }
-      foreach($certification->appellations as $appellation) {
-        if(array_key_exists($certification->getKey(), $appellations) && array_key_exists($appellation->getKey(), $appellations[$certification->getKey()])) {
-          $appellation->libelle = $appellations[$certification->getKey()][$appellation->getKey()];
-          $appellation->code = $appellation->getKey();
-        } elseif($appellation->getKey() != "DEFAUT") {
-          throw new sfCommandException(sprintf("Libelle not found : %s", $appellation->getHash()));
-        }
-        foreach($appellation->lieux->get('DEFAUT')->couleurs as $couleur) {
-          if(array_key_exists($couleur->getKey(), $couleurs)) {
-            $couleur->libelle = $couleurs[$couleur->getKey()];
-            $couleur->code = $this->couleurkeytocode($couleur->getKey());
-          } elseif($couleur->getKey() != "DEFAUT") {
-            throw new sfCommandException("Libelle not found");
-          }
-        }
-      }
-    }
-
-    foreach (file($import_dir.'/appellations_interpros') as $line) {
-        $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
-
-        foreach($datas as $key => $value) {
-          if (!$value) {
-            $datas[$key] = "DEFAUT";
-          }
-        }
-
-        $hash = 'certifications/'.$datas[0].
-                '/appellations/'.$datas[1];
-
-        $configuration->declaration->get($hash)->interpro->add('INTERPRO-'.$datas[2], null);
-    }
-
-    foreach (file($import_dir.'/appellations_departements') as $line) {
-        $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
-
-        foreach($datas as $key => $value) {
-          if (!$value) {
-            $datas[$key] = "DEFAUT";
-          }
-        }
-
-        $hash = 'certifications/'.$datas[0].
-                '/appellations/'.$datas[1];
-
-        $configuration->declaration->get($hash)->departements->add(null, $datas[2]);
-    }
-
-    foreach (file($import_dir.'/labels') as $line) {
-      $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
-      
-      $configuration->labels->add($datas[0], $datas[1]);
-    }
-
-    foreach (file($import_dir.'/labels_certif_interpros') as $line) {
-      $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
-      $hash = 'certifications/'.$datas[0];
-
-      $configuration->declaration->get($hash)->interpro->add('INTERPRO-'.$datas[1])->labels->add(null, $datas[2]);
-    }
-
-    foreach (file($import_dir.'/details') as $line) {
-        $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
-        $detail = $configuration->declaration->certifications->get($datas[0])->detail->get($datas[1])->add($datas[2]);
-        $detail->readable = $datas[3];
-        $detail->writable = $datas[4];
-    }
-    
-    foreach (file($import_dir.'/libelle_detail_ligne') as $line) {
-        $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
-        $detail = $configuration->libelle_detail_ligne->get($datas[0])->add($datas[1], $datas[2]);
-    }
-    
-    foreach (file($import_dir.'/droits') as $line) {
-        $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
-        
-        $droit = $configuration->declaration->certifications->get($datas[0]);
-        if ($datas[1]) {
-        	$droit = $droit->appellations->get($datas[1]);
-        }
-        $interpro = $droit->interpro->add("INTERPRO-".$datas[2]);
-        $interpro->droits->get($datas[3])->addDroit($datas[4], (float)$datas[5], $datas[6]);
-    }*/
-	/*
-	 * En attendant de voir avec Tangui pour le probleme CSV et noeud Certif / Millesime
-	 */
     foreach (file($import_dir.'/details.csv') as $line) {
         $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
         if ($detail = $configuration->declaration->certifications->exist($datas[0])) {
@@ -190,12 +62,19 @@ EOF;
 	        $detail->readable = $datas[3];
 	        $detail->writable = $datas[4];
         }
-    } // Fin
+    }
     
   	foreach (file($import_dir.'/libelle_detail_ligne.csv') as $line) {
         $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
         $detail = $configuration->libelle_detail_ligne->get($datas[0])->add($datas[1], $datas[2]);
     }
+    
+    $contenances = array('75 cl' => 0.0075,
+                         '1 L' => 0.01,
+                         '1.5 L'=> 0.015,
+                         '3 L' => 0.03,
+                         '6 L' => 0.06);
+    $configurationContenances = $configuration->add('contenances', $contenances);   
 
   	$configuration->save();
   }

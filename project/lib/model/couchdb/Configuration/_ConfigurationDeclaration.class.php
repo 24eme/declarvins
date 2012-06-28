@@ -116,7 +116,7 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
     	return floatval(str_replace(',', '.', $float));
     }
 
-    public function getProduits($interpro, $departement) {
+    public function getProduits($interpro, $departement, $produits) {
        
       throw new sfException("The method \"getProduits\" is not defined");
     }

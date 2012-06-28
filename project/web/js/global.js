@@ -95,6 +95,23 @@
 			}
 		});
 	};
+	/**
+	 * Gère le raccourci clavier Echap
+	 * $.echap(callback, args);
+	 ******************************************/
+	$.echap = function(callback, args)
+	{
+		$(document).keydown(function(e)
+		{
+			if(!args) args = [];
+			
+			if(e.keyCode == 27)
+			{
+				callback.apply(this, args);
+				return false;
+			}
+		});
+	};
 	
 	/**
 	 * Gère les raccourcis clavier du type Shift+Touche

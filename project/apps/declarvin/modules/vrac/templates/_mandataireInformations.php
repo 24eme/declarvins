@@ -26,23 +26,23 @@ use_helper('Display');
 </script>
 <table class="mandataire_infos">
 	<tr>
-		<td class="bold">Nom du mandataire*:</td>
+		<td class="bold">Nom du mandataire*:&nbsp;</td>
 		<td><?php display_field($mandataire,'nom'); ?></td>
 	</tr>
 	<tr>
-		<td class="bold">N° carte professionnelle:</td>
-		<td><?php display_field($mandataire,'carte_pro'); ?></td>
+		<td class="bold">N° carte professionnelle:&nbsp;</td>
+		<td><?php //display_field($mandataire,'carte_pro'); VOIR AVEC TANGUI ?></td>
 	</tr>
 	<tr>
-		<td class="bold">Adresse:</td>
-		<td><?php  display_field($mandataire,'adresse');  ?></td>
+		<td class="bold">Adresse:&nbsp;</td>
+		<td><?php  if($mandataire) display_field($mandataire->siege,'adresse');  ?></td>
 	</tr>
 	<tr>
-		<td class="bold">CP:</td>
-		<td><?php  display_field($mandataire,'code_postal');  ?></td>
+		<td class="bold">CP:&nbsp;</td>
+		<td><?php  if($mandataire) display_field($mandataire->siege,'code_postal');  ?></td>
 	</tr>
 	<tr>
-		<td class="bold">Ville:</td>
-		<td><?php  display_field($mandataire,'commune');  ?></td>
+		<td class="bold">Ville:&nbsp;</td>
+		<td><?php  if($mandataire) display_field($mandataire->siege,'commune');  ?></td>
 	</tr>
 </table>
