@@ -8,22 +8,16 @@
  * Description of class VracSoussigneForm
  * @author mathurin
  */
-class VracConditionForm extends acCouchdbFormDocumentJson {
-   
-     private $types_contrat = array(VracClient::TYPE_CONTRAT_SPOT => 'Spot',
-                                    VracClient::TYPE_CONTRAT_PLURIANNUEL => 'Pluriannuel');
+class VracConditionForm extends acCouchdbObjectForm {
     
      private $prix_variable = array('1' => 'Oui',
                                     '0' => 'Non');
-
-     private $cvo_nature = array(VracClient::CVO_NATURE_MARCHE_DEFINITIF => 'Marché définitif',
-                                 VracClient::CVO_NATURE_COMPENSATION => 'Compensation',
-                                 VracClient::CVO_NATURE_NON_FINANCIERE => 'Non financière',
-                                 VracClient::CVO_NATURE_VINAIGRERIE => 'Vinaigrerie');
-
-     private $cvo_repartition = array('50' => '50/50',
-                                      '100' => '100% viticulteur',
-                                      '0' => 'Vinaigrerie');
+    protected $config;
+    
+	public function __construct(Configuration $config, acCouchdbJson $object, $options = array(), $CSRFSecret = null) {
+        $this->config = $config;
+        parent::__construct($object, $options, $CSRFSecret);
+    }
      
     public function configure()
     {
@@ -74,7 +68,7 @@ class VracConditionForm extends acCouchdbFormDocumentJson {
     
     public function getTypesContrat()
     {
-        return $this->types_contrat;
+        return $this->config->getVracTypesContrat();
     }
     
     public function getPrixVariable() 
@@ -84,12 +78,12 @@ class VracConditionForm extends acCouchdbFormDocumentJson {
 
     public function getCvoNature()
     {
-        return $this->cvo_nature;    
+        return $this->config->getVracNaturesCvo();    
     }
 
     public function getCvoRepartition() 
     {
-        return $this->cvo_repartition;    
+        return $this->config->getVracRepartitionsCvo();    
     }
     
     public function doUpdateObject($values) 

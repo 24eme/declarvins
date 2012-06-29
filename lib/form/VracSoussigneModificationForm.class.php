@@ -9,7 +9,7 @@
  * Description of class VracSoussigneModificationForm
  * @author mathurin
  */
-class VracSoussigneModificationForm extends acCouchdbFormDocumentJson {
+class VracSoussigneModificationForm extends acCouchdbObjectForm {
     
    private $type = null;
    
@@ -20,39 +20,45 @@ class VracSoussigneModificationForm extends acCouchdbFormDocumentJson {
         if($this->type == "Viticulteur") $this->configureAcheteurVendeur('vendeur');
         if($this->type == "Negociant") $this->configureAcheteurVendeur('acheteur');
         if($this->type == "Courtier") $this->configureMandataire();
+        
+        $this->setDefault('adresse', $this->getObject()->siege->adresse);
+        $this->setDefault('code_postal', $this->getObject()->siege->code_postal);
+        $this->setDefault('commune', $this->getObject()->siege->commune);
     }
     
     public function doUpdateObject($values) {
         parent::doUpdateObject($values);
-        //$this->getObject()->setInformations();
+        $this->getObject()->siege->adresse = $values['adresse'];
+        $this->getObject()->siege->code_postal = $values['code_postal'];
+        $this->getObject()->siege->commune = $values['commune'];
     }
     
     private function configureAcheteurVendeur($label)
     {    
         $this->setWidget('cvi', new sfWidgetFormInput());        
-        $this->setWidget('num_accise', new sfWidgetFormInput());        
+        $this->setWidget('no_accises', new sfWidgetFormInput());        
         $this->setWidget('adresse', new sfWidgetFormInput());        
         $this->setWidget('code_postal', new sfWidgetFormInput());   
         $this->setWidget('commune', new sfWidgetFormInput());
-        $this->setWidget('num_tva_intracomm', new sfWidgetFormInput());
+        $this->setWidget('no_tva_intracommunautaire', new sfWidgetFormInput());
         
         
         $this->widgetSchema->setLabels(array(
             'cvi' => 'N° CVI',
-            'num_accise' => 'N° ACCISE',
+            'no_accises' => 'N° ACCISE',
             'adresse' => 'Adresse*',
             'code_postal' => 'CP',
             'commune' => 'Ville*',
-            'num_tva_intracomm' => 'TVA Intracomm.'
+            'no_tva_intracommunautaire' => 'TVA Intracomm.'
         ));
                 
         $this->setValidators(array(
             'cvi' => new sfValidatorNumber(array('required' => false)),
-            'num_accise' => new sfValidatorString(array('required' => false)),
+            'no_accises' => new sfValidatorString(array('required' => false)),
             'adresse' => new sfValidatorString(array('required' => true, 'min_length' => 5)),
             'code_postal' => new sfValidatorString(array('required' => false, 'min_length' => 5,'max_length' => 5)),
             'commune' => new sfValidatorString(array('required' => true, 'min_length' => 2)),
-            'num_tva_intracomm' => new sfValidatorString(array('required' => false))
+            'no_tva_intracommunautaire' => new sfValidatorString(array('required' => false))
             ));
         
         $this->widgetSchema->setNameFormat('vrac[%s]');    
@@ -67,7 +73,7 @@ class VracSoussigneModificationForm extends acCouchdbFormDocumentJson {
         
         $this->widgetSchema->setLabels(array(
             'carte_pro' => 'N° carte professionnelle',
-            'adresse' => 'Adresse',
+            'adresse' => 'Adresse*',
             'code_postal' => 'CP',
             'commune' => 'Ville'
         ));

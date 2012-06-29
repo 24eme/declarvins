@@ -6,18 +6,6 @@ class VracClient extends acCouchdbClient {
     const TYPE_TRANSACTION_MOUTS = 'mouts';
     const TYPE_TRANSACTION_VIN_VRAC = 'vin_vrac';
     const TYPE_TRANSACTION_VIN_BOUTEILLE = 'vin_bouteille';
-
-    const TYPE_CONTRAT_SPOT = 'spot';
-    const TYPE_CONTRAT_PLURIANNUEL = 'pluriannuel';
-
-    const CVO_NATURE_MARCHE_DEFINITIF = 'marche_definitif';
-    const CVO_NATURE_COMPENSATION = 'compensation';
-    const CVO_NATURE_NON_FINANCIERE = 'non_financiere';
-    const CVO_NATURE_VINAIGRERIE = 'vinaigrerie';
-    
-    const STATUS_CONTRAT_SOLDE = 'SOLDE';
-    const STATUS_CONTRAT_ANNULE = 'ANNULE';
-    const STATUS_CONTRAT_NONSOLDE = 'NONSOLDE';
     
 
     /**

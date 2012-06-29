@@ -67,8 +67,8 @@ class Vrac extends BaseVrac {
        $acheteurObj = $this->getAcheteurObject();
        $this->acheteur->nom = $acheteurObj->nom;
        $this->acheteur->cvi = $acheteurObj->cvi;
-       $this->acheteur->commune = $acheteurObj->commune;
-       $this->acheteur->code_postal = $acheteurObj->code_postal;
+       $this->acheteur->commune = $acheteurObj->siege->commune;
+       $this->acheteur->code_postal = $acheteurObj->siege->code_postal;
     }
     
     private function setMandataireInformations() 
@@ -77,7 +77,7 @@ class Vrac extends BaseVrac {
        $this->mandataire->nom = $mandataireObj->nom;
        //TODO : surement à changer
        $this->mandataire->carte_pro = $mandataireObj->identifiant;
-       $this->mandataire->adresse = $mandataireObj->commune.'  '.$mandataireObj->code_postal;
+       $this->mandataire->adresse = $mandataireObj->siege->commune.'  '.$mandataireObj->siege->code_postal;
     }
     
     private function setVendeurInformations() 
@@ -85,8 +85,8 @@ class Vrac extends BaseVrac {
        $vendeurObj = $this->getVendeurObject();
        $this->vendeur->nom = $vendeurObj->nom;
        $this->vendeur->cvi = $vendeurObj->cvi;
-       $this->vendeur->commune = $vendeurObj->commune;
-       $this->vendeur->code_postal = $vendeurObj->code_postal;       
+       $this->vendeur->commune = $vendeurObj->siege->commune;
+       $this->vendeur->code_postal = $vendeurObj->siege->code_postal;       
     }
 
     public function getProduitObject() 
@@ -112,6 +112,19 @@ class Vrac extends BaseVrac {
     public function getSoussigneObjectById($soussigneId) 
     {
         return EtablissementClient::getInstance()->find($soussigneId,acCouchdbClient::HYDRATE_DOCUMENT);
+    }
+    public function getVendeurDepartement()
+    {
+    	if($this->vendeur->code_postal) {
+          return substr($this->vendeur->code_postal, 0, 2);
+        }
+
+        return null;
+    }
+    
+    public function getVendeurInterpro() {
+    	print_r($this->getVendeurObject());exit;
+        return $this->getVendeurObject()->interpro;
     }
        
 }

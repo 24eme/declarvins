@@ -94,7 +94,7 @@ class vracActions extends sfActions
   {
         $this->getResponse()->setTitle(sprintf('Contrat N° %d - Marché', $request["numero_contrat"]));
         $this->vrac = $this->getRoute()->getVrac();
-        $this->form = new VracMarcheForm($this->vrac);
+        $this->form = new VracMarcheForm(ConfigurationClient::getCurrent(), $this->vrac);
         if ($request->isMethod(sfWebRequest::POST)) 
         {
             $this->form->bind($request->getParameter($this->form->getName()));
@@ -111,7 +111,7 @@ class vracActions extends sfActions
   {
       $this->getResponse()->setTitle(sprintf('Contrat N° %d - Conditions', $request["numero_contrat"]));
       $this->vrac = $this->getRoute()->getVrac();
-      $this->form = new VracConditionForm($this->vrac);
+      $this->form = new VracConditionForm(ConfigurationClient::getCurrent(), $this->vrac);
         if ($request->isMethod(sfWebRequest::POST)) 
         {
             $this->form->bind($request->getParameter($this->form->getName()));
@@ -128,10 +128,11 @@ class vracActions extends sfActions
   {
       $this->getResponse()->setTitle(sprintf('Contrat N° %d - Validation', $request["numero_contrat"]));
       $this->vrac = $this->getRoute()->getVrac();
+      $config = ConfigurationClient::getCurrent();
         if ($request->isMethod(sfWebRequest::POST)) 
         {
             $this->maj_etape(4);
-            $this->maj_valide(null,null,VracClient::STATUS_CONTRAT_NONSOLDE);
+            $this->maj_valide(null,null,$config->getVracStatutNonSolde());
             $this->vrac->save();
             $this->redirect('vrac_termine', $this->vrac);
         }
@@ -167,7 +168,7 @@ class vracActions extends sfActions
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid())
             {
-                $this->form->save();      
+                $this->form->save();  
                 return $this->renderPartialInformations($etablissement,$nouveau);
             }
         }
@@ -195,7 +196,7 @@ class vracActions extends sfActions
         if(!$date_saisie) $date_saisie = date('d/m/Y');
         $this->vrac->valide->date_saisie = $date_saisie;
         $this->vrac->valide->identifiant = $identifiant;
-        $this->vrac->valide->status = $status;
+        $this->vrac->valide->statut = $status;
     }
   
 }
