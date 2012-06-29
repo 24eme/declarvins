@@ -9,8 +9,10 @@
  * @property string $type
  * @property string $numero_contrat
  * @property integer $etape
+ * @property string $vendeur_famille
  * @property string $vendeur_identifiant
  * @property acCouchdbJson $vendeur
+ * @property string $acheteur_famille
  * @property string $acheteur_identifiant
  * @property acCouchdbJson $acheteur
  * @property string $mandataire_exist
