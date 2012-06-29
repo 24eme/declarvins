@@ -1,0 +1,10 @@
+#!/bin/bash
+. bin/config.inc
+. bin/download_redmine_file https://clients.actualys.com/attachments/download/3935/20120619102241-ExportEtablissements.csv /tmp/etablissements_ir.csv
+
+SYMFODIR=$(pwd);
+DATADIR=$(pwd);
+
+echo "Import des établissements";
+curl -s -c /tmp/cookie.txt $EDI_AUTH $EDI_PREFIX/edi/etablissements/csv > /dev/null
+curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@/tmp/etablissements_ir.csv" "$EDI_PREFIX/edi/etablissements/csv?id=INTERPRO-inter-rhone"
