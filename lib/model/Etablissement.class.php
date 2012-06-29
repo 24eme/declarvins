@@ -56,5 +56,20 @@ class Etablissement extends BaseEtablissement {
 
     	return ($this->nom) ? $this->nom : $this->raison_sociale;
     }
+        
+        public function getFamilleType() 
+        {
+            $familleType = array('Negociant' => 'acheteur',
+                                 'Viticulteur' => 'vendeur',
+                                 'Courtier' => 'mandataire');
+            return $familleType[$this->famille];
+        }
+	public function getDepartement()
+	{
+		if ($this->siege->code_postal) {
+			return substr($this->siege->code_postal, 0, 2);
+		}
+		return null;
+	}
     
 }

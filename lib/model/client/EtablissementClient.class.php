@@ -7,12 +7,10 @@ class EtablissementClient extends acCouchdbClient {
      * @return EtablissementClient
      */
     public static function getInstance() {
-
         return acCouchdbManager::getClient("Etablissement");
     }
 
     public function getViewClient($view) {
-
         return acCouchdbManager::getView("etablissement", $view, 'Etablissement');
     }
     
@@ -46,6 +44,11 @@ class EtablissementClient extends acCouchdbClient {
   	public function findByInterproAndFamilles($interpro, array $familles) {
     	
         return $this->getViewClient("all")->findByInterproAndFamilles($interpro, $familles);
+  	}
+
+  	public function findByFamille($famille) {
+    	
+        return $this->getViewClient("familles")->findByFamille($famille);
   	}
 
 }
