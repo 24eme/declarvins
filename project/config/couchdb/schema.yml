@@ -225,6 +225,7 @@ Vrac:
       etape: { type: integer }
             
 #Soussigné (Part 1)
+      vendeur_famille: {  }  
       vendeur_identifiant: {  }      
       vendeur:        
         type: collection
@@ -238,6 +239,7 @@ Vrac:
             commune: {  }
             code_postal: {   }
             departement: {   }
+      acheteur_famille: {  } 
       acheteur_identifiant: {  }     
       acheteur:
         type: collection
@@ -287,7 +289,7 @@ Vrac:
 
       #Pour le vin en bouteilles (nb bouteille)
       bouteilles_quantite: { type: float }
-      bouteilles_contenance: { type: integer }
+      bouteilles_contenance: { type: float }
 
       prix_unitaire: { type: float }
       prix_total: { type: float }

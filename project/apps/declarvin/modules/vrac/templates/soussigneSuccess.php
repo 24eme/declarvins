@@ -47,6 +47,7 @@ else
 		<section id="vendeur">
 			<section id="vendeur_choice">
 				<?php echo $form['vendeur_identifiant']->renderError(); ?>
+					<?php echo $form['vendeur_famille']->render() ?>
 				<h1>
 					<strong><?php echo $form['vendeur_identifiant']->renderLabel() ?></strong>
 					<?php echo $form['vendeur_identifiant']->render() ?>
@@ -69,6 +70,7 @@ else
 		<section id="acheteur">
 			<section id="acheteur_choice">
 				<?php echo $form['acheteur_identifiant']->renderError(); ?>
+				<?php echo $form['acheteur_famille']->render() ?>
 				<h1>
 					<strong><?php echo $form['acheteur_identifiant']->renderLabel() ?></strong>
 					<?php echo $form['acheteur_identifiant']->render() ?>
