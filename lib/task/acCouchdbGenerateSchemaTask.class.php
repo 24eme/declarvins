@@ -57,17 +57,17 @@ EOF;
 
     protected function generateDefinition($definition, $data, $multiple = false) {
         $definition['definition'] = array();
-        $this->generateFields(&$definition['definition'], $data, $multiple);
+        $this->generateFields($definition['definition'], $data, $multiple);
         return $definition;
     }
 
     protected function generateFields($definition, $data_fields, $multiple = false) {
         foreach ($data_fields as $key => $data_field) {
             if ($multiple) {
-                $this->generateField(&$definition['fields'], '*', $data_field);
+                $this->generateField($definition['fields'], '*', $data_field);
                 break;
             } else {
-                $this->generateField(&$definition['fields'], $key, $data_field);
+                $this->generateField($definition['fields'], $key, $data_field);
             }
         }
         return $definition;
@@ -86,10 +86,10 @@ EOF;
                     $array_keys_data_field = array_keys((array) $data_field_sub);
                 }
             }
-            $this->generateDefinition(&$definition[$key], $data_field, $multiple);
+            $this->generateDefinition($definition[$key], $data_field, $multiple);
         } elseif (is_array($data_field)) {
             $definition[$key] = array('type' => 'array_collection');
-            $this->generateDefinition(&$definition[$key], $data_field, true);
+            $this->generateDefinition($definition[$key], $data_field, true);
         } elseif (is_float($data_field)) {
             $definition[$key] = array('type' => 'float');
         } elseif (is_int($data_field)) {
