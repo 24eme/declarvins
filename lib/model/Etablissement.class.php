@@ -29,7 +29,7 @@ class Etablissement extends BaseEtablissement {
                                             ->getView("drm", "all");
     }
 
-    private function cleanPhone($phone) {
+    private function cleanPhone($phone, $idcompte) {
         $phone = preg_replace('/[^0-9\+]+/', '', $phone);
         $phone = preg_replace('/^00/', '+', $phone);
         $phone = preg_replace('/^0/', '+33', $phone);
@@ -38,7 +38,7 @@ class Etablissement extends BaseEtablissement {
         	$phone = '+33'.$phone;
 
         if (!preg_match('/^\+/', $phone) || (strlen($phone) != 12 && preg_match('/^\+33/', $phone)))
-        	echo("$phone n'est pas un téléphone correct ");
+        	echo("$phone n'est pas un téléphone correct pour ".$this->_id."\n");
         
         return $phone;
     }
@@ -47,7 +47,7 @@ class Etablissement extends BaseEtablissement {
         if ($fax)
             $this->_set('fax', $this->cleanPhone($fax));
     }
-    public function setTelephone($phone) {
+    public function setTelephone($phone, $idcompte = null) {
         if ($phone)
             $this->_set('telephone', $this->cleanPhone($phone));
     }
