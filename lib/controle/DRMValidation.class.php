@@ -8,6 +8,7 @@ class DRMValidation
 	const VINSSANSIG_KEY = 'VINSSANSIG';
 	const AOP_KEY = 'AOP';
 	const IGP_KEY = 'IGP';
+	const NO_LINK = '#';
 	
 	public function __construct($drm, $options = null)
 	{
@@ -72,7 +73,7 @@ class DRMValidation
 		}
 		if ($drmSuivante = $this->drm->getSuivante()) {
 			if ($this->drm->declaration->total != $drmSuivante->declaration->total_debut_mois) {
-				$this->errors['stock'] = new DRMControleError('stock', '#');
+				$this->errors['stock'] = new DRMControleError('stock', self::NO_LINK);
 			}
 		}
 	}
