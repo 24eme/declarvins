@@ -55,6 +55,7 @@ EOF;
     // initialize the database connection
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
+    sfContext::createInstance($this->configuration);
     $lignes = file($options['file']);
     $csv = array();
     $oldid = '';
