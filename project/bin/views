@@ -127,7 +127,7 @@ cat <<EOF > $TMPFILE
    "all": {
        "map": "function(doc) {\n  if (doc.type == \"Etablissement\") {\n  emit([doc.interpro, doc._id, doc.nom, doc.identifiant, doc.raison_sociale, doc.siret, doc.cvi, doc.siege.commune, doc.siege.code_postal], null);\n }\n}"
         },
-       "tous": {
+       "familles": {
            "map": "function(doc) {\n\n\tif (doc.type != \"Etablissement\") {\n      \t\treturn ;     \n    \t}     \n\n  \temit([doc.famille, doc.commune, doc.code_postal, doc.cvi, doc.nom, doc.identifiant], 1);\n}"
        }
     }

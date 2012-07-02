@@ -6,14 +6,30 @@
 
 class Configuration extends BaseConfiguration {
 
-  const DEFAULT_KEY = 'DEFAUT';
+  	const DEFAULT_KEY = 'DEFAUT';
+  
+	/*
+	 * VRAC CONST
+	 */
+    const TYPE_CONTRAT_SPOT = 'spot';
+    const TYPE_CONTRAT_PLURIANNUEL = 'pluriannuel';
+
+    const CVO_NATURE_MARCHE_DEFINITIF = 'marche_definitif';
+    const CVO_NATURE_COMPENSATION = 'compensation';
+    const CVO_NATURE_NON_FINANCIERE = 'non_financiere';
+    const CVO_NATURE_VINAIGRERIE = 'vinaigrerie';
+    
+    const STATUT_CONTRAT_SOLDE = 'SOLDE';
+    const STATUT_CONTRAT_ANNULE = 'ANNULE';
+    const STATUT_CONTRAT_NONSOLDE = 'NONSOLDE';
 
     public function constructId() {
         $this->set('_id', "CONFIGURATION");
     }
 
     public function getProduits($interpro = '', $departement = '', $produits = null) {
-      $results = ConfigurationClient::getInstance()->findProduitsByInterAndDep($interpro, $departement)->rows;
+      //$results = ConfigurationClient::getInstance()->findProduitsByInterAndDep($interpro, $departement)->rows;
+      $results = ConfigurationClient::getInstance()->findProduits()->rows;
       $produits = array();
       foreach($results as $item) {
             $libelles = $item->value;
@@ -149,6 +165,58 @@ class Configuration extends BaseConfiguration {
     	if ($datas[LabelCsvFile::CSV_LABEL_CODE] && !$this->labels->exist($datas[LabelCsvFile::CSV_LABEL_CODE])) {
     		$this->labels->add($datas[LabelCsvFile::CSV_LABEL_CODE], $datas[LabelCsvFile::CSV_LABEL_LIBELLE]);
     	}
+    }
+  
+   public function getMillesimes() {
+        $lastMillesime =  date('Y');
+        $result = array();
+        for($i=$lastMillesime;$i>=1991;$i--) $result[$i] = $i;
+        return $result;
+    }
+
+
+    public function formatLabelsLibelle($labels, $format = "%la%", $separator = ", ") {
+      $libelles = $this->getLabelsLibelles($labels);
+      
+      return str_replace("%la%", implode($separator, $libelles), $format);
+    }
+
+    public function getLabelsLibelles($labels) {
+        $libelles = array(); 
+        foreach($labels as $key) {
+            $libelles[$key] = ConfigurationClient::getCurrent()->labels[$key];
+        }
+
+        return $libelles;
+    }
+    
+    /*
+     * FONCTIONS VRAC
+     */
+
+    public function getVracNaturesCvo() {
+    	return array(self::CVO_NATURE_MARCHE_DEFINITIF => 'Marché définitif',
+                     self::CVO_NATURE_COMPENSATION => 'Compensation',
+                     self::CVO_NATURE_NON_FINANCIERE => 'Non financière',
+                     self::CVO_NATURE_VINAIGRERIE => 'Vinaigrerie');
+    }
+    public function getVracRepartitionsCvo() {
+    	return array('50' => '50/50',
+                     '100' => '100% viticulteur',
+                     '0' => 'Vinaigrerie');
+    }
+    public function getVracTypesContrat() {
+    	return array(self::TYPE_CONTRAT_SPOT => 'Spot',
+                     self::TYPE_CONTRAT_PLURIANNUEL => 'Pluriannuel');
+    }
+    public function getVracStatutAnnule() {
+    	return self::STATUT_CONTRAT_ANNULE;
+    }
+    public function getVracStatutNonSolde() {
+    	return self::STATUT_CONTRAT_NONSOLDE;
+    }
+    public function getVracStatutSolde() {
+    	return self::STATUT_CONTRAT_SOLDE;	
     }
 
 }

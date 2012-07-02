@@ -7,24 +7,13 @@
  * Derniere date de modification : 28-05-12
  */
 ?>
-<div id="contenu">
-    <div id="rub_contrats">
-        <section id="principal">
-        <?php include_partial('headerVrac', array('vrac' => $vrac,'actif' => 4)); ?>        
-            <section id="contenu_etape"> 
-                <form id="vrac_validation" method="post" action="<?php echo url_for('vrac_validation',$vrac) ?>">
-
-                    <h2>Récapitulatif de la saisie</h2>
-
-                    <?php include_partial('showContrat', array('vrac' => $vrac)); ?>
-                    <div class="btnValidation">
-                        <span>&nbsp;</span>
-                        <button class="btn_majeur btn_gris" type="submit">Saisir un nouveau contrat</button>                            
-                    </div>
-
-                </form>
-            </section>
-        </section>
-        <?php include_partial('colonne', array('vrac' => $vrac)); ?>
-    </div>
-</div>
+<?php include_partial('global/navTop', array('active' => 'vrac')); ?>
+<section id="contenu"> <?php include_partial('headerVrac', array('vrac' => $vrac,'actif' => 4)); ?> 
+ 	<form id="vrac_validation" method="post" action="<?php echo url_for('vrac_validation',$vrac) ?>" class="popup_form">
+		<h1>Récapitulatif de la saisie</h1>
+		<?php include_partial('showContrat', array('vrac' => $vrac)); ?>
+		<div class="ligne_form_btn">
+			<button class="btn_valider" type="submit">Valider le contrat</button>
+		</div>
+	</form>
+</section>

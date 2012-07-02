@@ -29,7 +29,7 @@
 	margin: 0 0 10px 0;
 }
 .btn .btn_valider {
-    background-color: #820608;
+    background-color: #86005B;
     background-position: right -52px;
     background-repeat: no-repeat;
     border: 1px solid #A12929;
