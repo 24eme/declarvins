@@ -354,7 +354,9 @@ class DRM extends BaseDRM {
     }
 
     public function setInterpros() {
-      $this->interpros->add(0,$this->getInterpro()->getKey());
+      $i = $this->getInterpro();
+      if ($i)
+	$this->interpros->add(0,$i->getKey());
     }
 
     public function save() {
