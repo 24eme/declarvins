@@ -146,8 +146,8 @@ else
     	$('input.famille"').change(function() {
     		select = $('#'+$(this).attr('data-autocomplete'));		
     		select.attr('data-ajax', select.attr('data-ajax-structure').replace('%25familles%25', $(this).val()));
-    		select.parent().find('.ui-autocomplete-input').val("");
-    		select.html("<option value=''></option>");
+    		//select.parent().find('.ui-autocomplete-input').val("");
+    		//select.html("<option value=''></option>");
     	});
 	});
 </script>
