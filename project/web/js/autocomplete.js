@@ -75,7 +75,15 @@
 				minLength: minLength,
 				source: function( request, response ) {
 					prev_term_matcher = new RegExp("^"+prev_term);
-					if(url_ajax && (prev_term == "" || (!prev_term_matcher.test(request.term) || select.children("option").length > limit))) {
+					var new_url_ajax = select.attr('data-ajax');
+					if (new_url_ajax != url_ajax) {
+						url_ajax = new_url_ajax;
+						prev_term = "";
+					}
+
+					if((url_ajax && (prev_term == "" || (!prev_term_matcher.test(request.term) || select.children("option").length > limit)))
+					  ) {
+					  	
 						prev_term = request.term;
 						$.getJSON(url_ajax, {q:request.term,limit:limit+1}, function(data) {
 							if (prev_term != request.term) {
@@ -102,6 +110,7 @@
 
 						return;
 					} 
+
 
 					response( select.children("option").map(function() {
 						var text = $(this).text();
