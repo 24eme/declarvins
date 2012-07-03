@@ -17,7 +17,10 @@ class adminActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-        $this->formLogin = new LoginForm();
+  		$this->getUser()->setAttribute('interpro_id', $this->getUser()->getCompte()->getInterpro());
+  		$this->redirect('@etablissement_login');
+
+        /*$this->formLogin = new LoginForm();
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->formLogin->bind($request->getParameter($this->formLogin->getName()));
             if ($this->formLogin->isValid()) {
@@ -28,7 +31,7 @@ class adminActions extends sfActions
   	 			$this->getUser()->signIn('admin-'.$interpro);
                 $this->redirect('@etablissement_login');
             }
-        }
+        }*/
   	
   }
  /**
