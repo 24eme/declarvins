@@ -143,9 +143,9 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function hasContratVrac() {
-      $etablissement = $this->getDocument()->identifiant;
-      foreach (VracClient::getInstance()->getAll() as $contrat) {
-      	if ($contrat->actif && $contrat->etablissement == $etablissement && (strpos($this->getHash(), $contrat->produit) !== false) && !$this->vrac->exist($contrat->numero)) {
+      $etablissement = 'ETABLISSEMENT-'.$this->getDocument()->identifiant;
+      foreach (VracClient::getInstance()->retrieveFromEtablissements($etablissement) as $contrat) {
+      	if ($contrat->valide->statut == Configuration::STATUT_CONTRAT_NONSOLDE && (strpos($this->getHash(), $contrat->produit) !== false) && !$this->vrac->exist($contrat->numero_contrat)) {
       	  return true;
       	}
       }
@@ -153,7 +153,7 @@ class DRMDetail extends BaseDRMDetail {
     }
     
     public function getContratsVrac() {
-    	$etablissement = $this->getDocument()->identifiant;
+    	$etablissement = 'ETABLISSEMENT-'.$this->getDocument()->identifiant;
     	return VracClient::getInstance()->retrieveFromEtablissementsAndHash($etablissement, $this->getHash());
     }
 

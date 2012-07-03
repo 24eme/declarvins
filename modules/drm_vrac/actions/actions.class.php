@@ -21,8 +21,8 @@ class drm_vracActions extends sfActions
     	foreach ($this->details as $detail) {
     	  $contrats = $detail->getContratsVrac();
     	  if (count($contrats)==1) {
-    	  	$vol = ($contrats[0]->volume_promis < $detail->sorties->vrac)? $contrats[0]->volume_promis : $detail->sorties->vrac;
-    	    $contratVrac = $detail->addVrac($contrats[0]->numero, $vol);
+    	  	$vol = ($contrats[0]->volume_propose < $detail->sorties->vrac)? $contrats[0]->volume_propose : $detail->sorties->vrac;
+    	    $contratVrac = $detail->addVrac($contrats[0]->numero_contrat, $vol);
     	    $detail->getDocument()->save();
     	  }
 	  if (!count($contrats)) {

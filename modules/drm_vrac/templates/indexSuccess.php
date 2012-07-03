@@ -1,4 +1,5 @@
 <?php include_partial('global/navTop', array('active' => 'drm')); ?>
+<?php use_helper('Produit'); ?>
 <section id="contenu">
 
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
@@ -20,10 +21,12 @@
 					<tbody>
 				   <?php 
 				   foreach ($details as $detail) {
-      include_partial('addContrat', array('detail' => $detail));
+      
       if (isset($noContrats[$detail->getIdentifiantHTML()]) && $noContrats[$detail->getIdentifiantHTML()]) {
-	echo '<tr><td></td><td colspan=4>Pas de contrat défini pour ce produit.<br/>Merci de contacter votre interpro</td></tr>';
-	continue;
+	echo '<tr><td>'.produitLibelleFromDetail($detail).'</td><td>Pas de contrat défini pour ce produit.<br/>Merci de contacter votre interpro</td><td></td></tr>';
+
+      } else {
+      	include_partial('addContrat', array('detail' => $detail));
       }
       if (isset($forms[$detail->getIdentifiantHTML()])) { 
 	foreach ($forms[$detail->getIdentifiantHTML()] as $form) {
