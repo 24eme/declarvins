@@ -25,6 +25,7 @@
                                                                'url' => url_for('drm_recap', $certification),
                                                                'cssclass' => null)); ?>
             <?php endforeach; ?>
+            <?php if ($numero_vrac): ?>
             <?php include_partial('drm/etapeItem', array('drm' => $drm,
                                                                'libelle' => 'Vrac',
                                                                'numero' => $numero_vrac,
@@ -32,6 +33,7 @@
                                                                'numero_autorise' => $numero_autorise,
                                                                'url' => url_for('drm_vrac', $drm),
                                                                'cssclass' => null)); ?>
+            <?php endif; ?>
 
             <?php include_partial('drm/etapeItem', array('drm' => $drm,
                                                                'libelle' => 'Déclaratif',

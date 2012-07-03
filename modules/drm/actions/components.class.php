@@ -17,21 +17,31 @@ class drmComponents extends sfComponents {
             }
         }
         $nbCertifs = count($this->certifications);
-        $this->numeros = array(
-            'informations' => 1,
-            'ajouts_liquidations' => 2,
-            'recapitulatif' => 3,
-            'vrac' => 3 + $nbCertifs,
-            'declaratif' => 4 + $nbCertifs,
-            'validation' => 5 + $nbCertifs,
-        );
+        if (count($this->drm->getDetailsAvecVrac()) > 0) {
+	        $this->numeros = array(
+	            'informations' => 1,
+	            'ajouts_liquidations' => 2,
+	            'recapitulatif' => 3,
+	            'vrac' => 3 + $nbCertifs,
+	            'declaratif' => 4 + $nbCertifs,
+	            'validation' => 5 + $nbCertifs,
+	        );
+        } else {
+	        $this->numeros = array(
+	            'informations' => 1,
+	            'ajouts_liquidations' => 2,
+	            'recapitulatif' => 3,
+	            'declaratif' => 3 + $nbCertifs,
+	            'validation' => 4 + $nbCertifs,
+	        );        	
+        }
         
         $this->numero = $this->numeros[$this->etape];
         if(isset($this->numeros[$this->drm->etape])) 
             $this->numero_autorise = $this->numeros[$this->drm->etape];
         else 
             $this->numero_autorise = '';
-        $this->numero_vrac = $this->numeros['vrac'];
+        $this->numero_vrac = (isset($this->numeros['vrac']))? $this->numeros['vrac'] : null;
         $this->numero_declaratif = $this->numeros['declaratif'];
         $this->numero_validation = $this->numeros['validation'];
 
