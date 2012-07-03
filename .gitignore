@@ -3,4 +3,5 @@
 .settings/
 nbproject/
 .idea/
+project/bin/config.inc
 *~

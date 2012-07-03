@@ -44,7 +44,7 @@ rm *tmp *orig;
 cd $SYMFODIR
 echo DRM  >> $LOGDATE 2>&1
 echo "===========================" >> $LOGDATE 2>&1
-#php symfony import:DRM --file="$DATADIR/$DRM" >> $LOGDATE 2>&1
+php symfony import:DRM --file="$DATADIR/$DRM" >> $LOGDATE 2>&1
 
 cd -
 
