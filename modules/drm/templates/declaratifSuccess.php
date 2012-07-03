@@ -108,7 +108,7 @@
                 </div>
 
                 <ul class="onglets_declaratif">
-                    <li class="actif"><strong>Paiement</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_paiement" title="Message aide"></a></li>
+                    <li class="actif"><strong>Paiement des droits de circulation</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_paiement" title="Message aide"></a></li>
                 </ul>
                 <div class="contenu_onglet_declaratif">
                     
