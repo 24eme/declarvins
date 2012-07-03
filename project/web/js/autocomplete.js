@@ -54,8 +54,9 @@
 		_create: function() {
 			var self = this,
 			select = this.element.hide(),
-			selected = select.children( ":selected" ),
-			value = selected.val() ? selected.text() : "";
+			selected = select.find( "option:selected" );
+
+			value = selected.text() ? selected.text() : "";
 			
 			var newValueOption = $('<option class="new_value" value=""></option>');
 			select.append(newValueOption);
