@@ -30,7 +30,8 @@ class vracActions extends sfActions
   {      
       $this->getResponse()->setTitle('Contrat - Nouveau');
       $this->vrac = new Vrac();
-      $this->form = new VracSoussigneForm($this->vrac);
+      $this->interpro = $this->getUser()->getTiers()->getInterpro();
+      $this->form = new VracSoussigneForm($this->vrac, array('interpro' => $this->interpro));
  
       $this->init_soussigne($request,$this->form);
       
@@ -78,7 +79,7 @@ class vracActions extends sfActions
   {
       $this->getResponse()->setTitle(sprintf('Contrat N° %d - Soussignés', $request["numero_contrat"]));
       $this->vrac = $this->getRoute()->getVrac();
-      $this->interpro = $this->getTiers()->getInterpro();
+      $this->interpro = $this->getUser()->getTiers()->getInterpro();
       $this->form = new VracSoussigneForm($this->vrac, array('interpro' => $this->interpro));
       
       $this->init_soussigne($request,$this->form);

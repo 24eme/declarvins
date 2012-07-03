@@ -32,7 +32,7 @@ class VracSoussigneForm extends acCouchdbObjectForm {
         $this->setWidget('vendeur_famille',new sfWidgetFormChoice(array('choices' => $this->vendeur_famille,'expanded' => true), array('data-autocomplete' => $this['vendeur_identifiant']->renderId())));
 
        
-        $this->setWidget('acheteur_identifiant', new sfWidgetFormChoice(array('choices' => array()), 																						array('class' => 'autocomplete', 
+        $this->setWidget('acheteur_identifiant', new sfWidgetFormChoice(array('choices' => array($this->getVendeurs())), 																						array('class' => 'autocomplete', 
         																				 'data-ajax-structure' => $this->getUrlAutocompleteStructure())));
 
         $this->setWidget('acheteur_famille',new sfWidgetFormChoice(array('choices' => $this->acheteur_famille,'expanded' => true),array('data-autocomplete' => $this['acheteur_identifiant']->renderId())));        
@@ -69,21 +69,23 @@ class VracSoussigneForm extends acCouchdbObjectForm {
     protected function updateDefaultsFromObject() {
     	parent::updateDefaultsFromObject();
 
-    	if (!$this->getObject()->vendeur_famille)
-        	$this->getWidget('vendeur_famille')->setDefault('Producteur');
-        if (!$this->getObject()->acheteur_famille)
-        	$this->getWidget('acheteur_famille')->setDefault('Negociant');
+    	if (!$this->getObject()->vendeur_famille) {
+        	$this->defaults['vendeur_famille'] = 'Producteur';
+        }
+        if (!$this->getObject()->acheteur_famille) {
+        	$this->defaults['acheteur_famille'] = 'Negociant';
+        }
 
-        $this->getWidget('vendeur_identifiant')->setAttribute('data-ajax', $this->getUrlAutocomplete($this->getWidget('vendeur_famille')->getDefault()));
+        $this->getWidget('vendeur_identifiant')->setAttribute('data-ajax', $this->getUrlAutocomplete($this->defaults['vendeur_famille']));
         
-        $this->getWidget('acheteur_identifiant')->setAttribute('data-ajax', $this->getUrlAutocomplete($this->getWidget('acheteur_famille')->getDefault()));
+        $this->getWidget('acheteur_identifiant')->setAttribute('data-ajax', $this->getUrlAutocomplete($this->defaults['acheteur_famille']));
 
     }
     
     public function getVendeurs()
     {
         if (is_null($this->vendeurs)) {
-            $this->vendeurs = $this->getEtablissements('Viticulteur');
+            $this->vendeurs = $this->getEtablissements();
         }
 
         return $this->vendeurs;
@@ -92,7 +94,7 @@ class VracSoussigneForm extends acCouchdbObjectForm {
     public function getAcheteurs()
     {
         if (is_null($this->acheteurs)) {
-            $this->acheteurs = $this->getEtablissements('Negociant');
+            $this->acheteurs = $this->getEtablissements();
         }
 
         return $this->acheteurs;
@@ -101,16 +103,25 @@ class VracSoussigneForm extends acCouchdbObjectForm {
     public function getMandataires()
     {
         if (is_null($this->mandataires)) {
-            $this->mandataires = $this->getEtablissements('Courtier');
+            $this->mandataires = $this->getEtablissementsByFamille('Courtier');
         }
 
         return $this->mandataires;
     }
 
-    public function getEtablissements($famille) {
-        $etablissements = array('' => '');
-        $datas = EtablissementAllView::getInstance()->findByInterproAndFamille($this->getInterpro(), $famille)->rows;
-        foreach($datas as $data) {
+    public function getEtablissements() {
+
+    	return $this->formatEtablissements(EtablissementAllView::getInstance()->findByInterpro($this->getInterpro())->rows);
+    }
+
+    public function getEtablissementsByFamille($famille) {        
+
+    	return $this->formatEtablissements(EtablissementAllView::getInstance()->findByInterproAndFamille($this->getInterpro(), $famille)->rows);
+    }
+
+    protected function formatEtablissements($datas) {
+    	$etablissements = array('' => '');
+    	foreach($datas as $data) {
             $labels = array($data->key[4], $data->key[3], $data->key[1]);
             $etablissements[$data->id] = implode(', ', array_filter($labels));
         }
