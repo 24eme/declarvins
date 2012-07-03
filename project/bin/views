@@ -75,23 +75,6 @@ curl -s $COUCHDBURL/_design/$design/_view/all > /dev/null &
 sleep 1
 kill %1
 
-design=vrac
-curl -s -X DELETE "$COUCHDBURL/_design/$design?rev=$(curl --stderr /dev/null $COUCHDBURL/_design/$design | sed 's/.*_rev":"//' | sed 's/",".*//' 2> /dev/null)" > /dev/null 2>&1
-
-cat <<EOF > $TMPFILE
-{
-   "_id": "_design/vrac",
-   "language": "javascript",
-   "views": {
-       "all": {
-           "map": "function(doc) {\n\tif (doc.type == 'Vrac')\n  \t\temit([doc.etablissement, doc.numero, doc.actif, doc.annee, doc.mois, doc.date_creation, doc.produit, doc.volume_promis, doc.acheteur.nom, doc.courtier.nom], 1);\n}"
-       }
-    }
-}
-EOF
-
-curl -s -X PUT -d "@$TMPFILE" $COUCHDBURL/_design/$design
-
 design=configuration
 curl -s -X DELETE "$COUCHDBURL/_design/$design?rev=$(curl --stderr /dev/null $COUCHDBURL/_design/$design | sed 's/.*_rev":"//' | sed 's/",".*//' 2> /dev/null)" > /dev/null 2>&1
 
@@ -125,11 +108,8 @@ cat <<EOF > $TMPFILE
    "language": "javascript",
    "views": {
    "all": {
-       "map": "function(doc) {\n  if (doc.type == \"Etablissement\") {\n  emit([doc.interpro, doc._id, doc.nom, doc.identifiant, doc.raison_sociale, doc.siret, doc.cvi, doc.siege.commune, doc.siege.code_postal], null);\n }\n}"
-        },
-       "familles": {
-           "map": "function(doc) {\n\n\tif (doc.type != \"Etablissement\") {\n      \t\treturn ;     \n    \t}     \n\n  \temit([doc.famille, doc.commune, doc.code_postal, doc.cvi, doc.nom, doc.identifiant], 1);\n}"
-       }
+       "map": "function(doc) {\n  if (doc.type == \"Etablissement\") {\n  emit([doc.interpro, doc.famille, doc._id, doc.nom, doc.identifiant, doc.raison_sociale, doc.siret, doc.cvi, doc.siege.commune, doc.siege.code_postal], null);\n }\n}"
+        }
     }
 }
 EOF
@@ -173,6 +153,9 @@ cat <<EOF > $TMPFILE
        },
        "soussigneidentifiant": {
            "map": "function(doc) {\n  if (doc.type != \"Vrac\")\n     return;\n  emit([doc.mandataire_identifiant, doc._id],  [doc.status, doc._id, doc.acheteur_identifiant, doc.acheteur.nom, doc.vendeur_identifiant, doc.vendeur.nom, doc.mandataire_identifiant,doc.mandataire.nom, doc.type_transaction, doc.produit, doc.volume_consomme, doc.volume_enleve]);\n  emit([doc.acheteur_identifiant, doc._id], [doc.status, doc._id, doc.acheteur_identifiant, doc.acheteur.nom, doc.vendeur_identifiant, doc.vendeur.nom, doc.mandataire_identifiant,doc.mandataire.nom, doc.type_transaction, doc.produit, doc.volume_consomme, doc.volume_enleve]);\n  emit([doc.vendeur_identifiant, doc._id], [doc.status, doc._id, doc.acheteur_identifiant, doc.acheteur.nom, doc.vendeur_identifiant, doc.vendeur.nom, doc.mandataire_identifiant,doc.mandataire.nom, doc.type_transaction, doc.produit, doc.volume_consomme, doc.volume_enleve]);\n}"
+       },
+       "all": {
+           "map": "function(doc) {\n\tif (doc.type == 'Vrac')\n  \t\temit([doc.vendeur_identifiant, doc.produit, doc._id, doc.valide.statut], 1);\n}"
        }
    }
 }

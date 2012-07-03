@@ -9,7 +9,7 @@ use_helper('Display');
         if(!isset($numero_contrat))
         {
         ?>
-        ajaxifyGet('modification','#vrac_acheteur_identifiant','#acheteur_modification_btn','#acheteur_informations');
+        ajaxifyGet('modification',{field_0 : '#vrac_acheteur_identifiant', 'type': 'acheteur'},'#acheteur_modification_btn','#acheteur_informations');
         <?php
         }
         else

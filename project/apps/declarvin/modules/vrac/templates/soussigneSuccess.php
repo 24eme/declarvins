@@ -15,7 +15,16 @@ if($nouveau)
 <script type="text/javascript">
     $(document).ready(function() 
     {
-        init_ajax_nouveau();
+         ajaxifyAutocompleteGet('getInfos',{autocomplete : '#vendeur_choice'},'#vendeur_informations');
+		 ajaxifyAutocompleteGet('getInfos',{autocomplete : '#acheteur_choice'},'#acheteur_informations'); 
+	     ajaxifyAutocompleteGet('getInfos',{autocomplete : '#mandataire_choice'},'#mandataire_informations');
+		 $('section#has_mandataire input').attr('checked', 'checked');    
+		 $('#vrac_mandatant_vendeur').attr('checked','checked');
+		    
+		 majAutocompleteInteractions('vendeur');
+		 majAutocompleteInteractions('acheteur');
+		 majAutocompleteInteractions('mandataire');
+    majMandatairePanel();
     });                        
 </script>
 <?php
@@ -45,9 +54,9 @@ else
 		<?php echo $form->renderGlobalErrors() ?>
 	
 		<section id="vendeur">
+			<?php echo $form['vendeur_identifiant']->renderError(); ?>
+			<?php echo $form['vendeur_famille']->render(array('class' => 'famille')) ?>
 			<section id="vendeur_choice">
-				<?php echo $form['vendeur_identifiant']->renderError(); ?>
-					<?php echo $form['vendeur_famille']->render() ?>
 				<h1>
 					<strong><?php echo $form['vendeur_identifiant']->renderLabel() ?></strong>
 					<?php echo $form['vendeur_identifiant']->render() ?>
@@ -70,7 +79,7 @@ else
 		<section id="acheteur">
 			<section id="acheteur_choice">
 				<?php echo $form['acheteur_identifiant']->renderError(); ?>
-				<?php echo $form['acheteur_famille']->render() ?>
+				<?php echo $form['acheteur_famille']->render(array('class' => 'famille')) ?>
 				<h1>
 					<strong><?php echo $form['acheteur_identifiant']->renderLabel() ?></strong>
 					<?php echo $form['acheteur_identifiant']->render() ?>
@@ -131,3 +140,14 @@ else
 		</div>
 	</form>
 </section>
+<script type="text/javascript">
+	$(document).ready(function()  {
+    	$('.autocomplete').combobox();
+    	$('input.famille"').change(function() {
+    		select = $('#'+$(this).attr('data-autocomplete'));		
+    		select.attr('data-ajax', select.attr('data-ajax-structure').replace('%25familles%25', $(this).val()));
+    		//select.parent().find('.ui-autocomplete-input').val("");
+    		//select.html("<option value=''></option>");
+    	});
+	});
+</script>

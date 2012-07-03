@@ -22,11 +22,11 @@ class EtablissementSelectionForm extends sfForm {
     }
     
     private function getEtablissements() {
-    	$etablissements = EtablissementClient::getInstance()->findByInterpro($this->interpro);
+    	$etablissements = EtablissementAllView::getInstance()->findByInterpro($this->interpro);
     	$result = array('' => '');
     	foreach ($etablissements->rows as $etablissement) {
     		
-    		$result[$etablissement->key[1]] = EtablissementAllView::getInstance()->makeLibelle($etablissement->key); 
+    		$result[$etablissement->key[2]] = EtablissementAllView::getInstance()->makeLibelle($etablissement->key); 
     	}
     	return $result;
     }
