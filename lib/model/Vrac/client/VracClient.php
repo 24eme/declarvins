@@ -63,6 +63,8 @@ class VracClient extends acCouchdbClient {
 
     public function retrieveFromEtablissementsAndHash($etablissement, $hash, $mustActive = true, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
       $contrats = array();
+      $hash = preg_replace('|(couleurs/[^/]*/).*|', '\1', $hash);
+      $etablissement = preg_replace('/ETABLISSEMENT-/', '', $etablissement);
       foreach ($this->startkey(array($etablissement))
 	       ->endkey(array($etablissement, array()))->getView('vrac', 'all', $hydrate)->rows as $c) {
 	       	if (strpos($hash, $c->key[1]) !== false) {
