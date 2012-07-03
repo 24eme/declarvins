@@ -74,7 +74,8 @@ class vracActions extends sfActions
   {
       $this->getResponse()->setTitle(sprintf('Contrat N° %d - Soussignés', $request["numero_contrat"]));
       $this->vrac = $this->getRoute()->getVrac();
-      $this->form = new VracSoussigneForm($this->vrac);
+      $this->interpro = $this->getTiers()->getInterpro();
+      $this->form = new VracSoussigneForm($this->vrac, array('interpro' => $this->interpro));
       
       $this->init_soussigne($request,$this->form);
       
@@ -173,9 +174,9 @@ class vracActions extends sfActions
             }
         }
         
-        $familleType = $etablissement->getFamilleType();
-        if($familleType == 'vendeur' || $familleType == 'acheteur') $familleType = 'vendeurAcheteur';
-        return $this->renderPartial($familleType.'Modification', array('form' => $this->form));
+        $familleType = $etablissement->famille;
+        if($familleType == 'Producteur' || $familleType == 'Negociant') $familleType = 'vendeurAcheteur';
+        return $this->renderPartial($familleType.'Modification', array('form' => $this->form, 'type' => $request->getParameter('type')));
   }
   
   private function renderPartialInformations($etablissement,$nouveau) {

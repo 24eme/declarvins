@@ -17,7 +17,7 @@ class VracSoussigneModificationForm extends acCouchdbObjectForm {
     {
         $this->type = $this->getObject()->famille;
         
-        if($this->type == "Viticulteur") $this->configureAcheteurVendeur('vendeur');
+        if($this->type == "Producteur") $this->configureAcheteurVendeur('vendeur');
         if($this->type == "Negociant") $this->configureAcheteurVendeur('acheteur');
         if($this->type == "Courtier") $this->configureMandataire();
         
