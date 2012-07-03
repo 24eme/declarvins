@@ -6,7 +6,7 @@
 
 
 var initAutoComplete = function() {
-    $('.autocomplete').combobox();
+    //$('.autocomplete').combobox();
 }
 
 var initConditions = function()
@@ -180,23 +180,6 @@ var majTotal = function(quantiteField,unite,prixParUnite){
     }
 }
 
-
-var init_ajax_nouveau = function()
-{
-    ajaxifyAutocompleteGet('getInfos','#vendeur_choice','#vendeur_informations');
-    ajaxifyAutocompleteGet('getInfos','#acheteur_choice','#acheteur_informations'); 
-    ajaxifyAutocompleteGet('getInfos','#mandataire_choice','#mandataire_informations');
-    $('section#has_mandataire input').attr('checked', 'checked');    
-    $('#vrac_mandatant_vendeur').attr('checked','checked');
-    
-    majAutocompleteInteractions('vendeur');
-    majAutocompleteInteractions('acheteur');
-    majAutocompleteInteractions('mandataire');
-    majMandatairePanel();
-    
-    
-}
-
 var majAutocompleteInteractions = function(type)
 {
     $('#'+type+'_choice div input').live( "autocompleteselect", function(event, ui)
@@ -261,7 +244,7 @@ var init_ajax_modification = function(type)
     $("#"+type+"_choice button").attr('disabled','disabled');
     $('div.btnValidation button').attr('disabled','disabled');
     var params = {id : $("#vrac_"+type+"_identifiant").val(), 'div' : '#'+type+'_informations'};  
-    ajaxifyPost('modification?id='+$("#vrac_"+type+"_identifiant").val(),params,'#'+type+'_modification_btn','#'+type+'_informations');
+    ajaxifyPost('modification?type='+type+'&id='+$("#vrac_"+type+"_identifiant").val(),params,'#'+type+'_modification_btn','#'+type+'_informations');
 }
 
 
