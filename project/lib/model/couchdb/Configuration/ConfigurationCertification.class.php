@@ -24,8 +24,9 @@ class ConfigurationCertification extends BaseConfigurationCertification {
     }
 
 
-    public function getProduits($interpro, $departement) {
-        $produits = array();
+    public function getProduits($interpro, $departement, $produits = null) {
+      	if (!$produits)
+        	$produits = array();
 
         $results = ConfigurationClient::getInstance()->findProduitsByCertification($this->getKey(), $interpro, '')->rows;
 
@@ -124,11 +125,14 @@ class ConfigurationCertification extends BaseConfigurationCertification {
   	}
   	
   	public function hasProduit($interp, $dep) {
-  		$produits = ConfigurationClient::getInstance()->nbProduitsByCertificationDepAndInterpro($dep, $interp, $this->getKey());
+  		$produits = ConfigurationClient::getInstance()->nbProduitsByCertificationDepAndInterpro($interp, $this->getKey(), $dep);
+  		$produitsDefaut = ConfigurationClient::getInstance()->nbProduitsByCertificationDepAndInterpro($interp, $this->getKey());
+  		$total = 0;
   		if (isset($produits->rows[0]) && $produits->rows[0]->value > 0)
-  			return true;
-  		else 
-  			return false;	
+  			$total += $produits->rows[0]->value;
+  		if (isset($produitsDefaut->rows[0]) && $produitsDefaut->rows[0]->value > 0)
+  			$total += $produitsDefaut->rows[0]->value;
+  		return ($total > 0);
   	}
 
 }

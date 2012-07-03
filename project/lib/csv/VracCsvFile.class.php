@@ -23,8 +23,8 @@ class VracCsvFile extends CsvFile
   const CSV_VRAC_MILLESIME_CODE = 18;
   const CSV_VRAC_LABELS = 19;
   const CSV_VRAC_LABELS_CODE = 20;
-  const CSV_VRAC_MENTION = 21;
-  const CSV_VRAC_MENTION_CODE = 22;
+  const CSV_VRAC_MENTION_EXTRA = 21;
+  const CSV_VRAC_MENTION_EXTRA_CODE = 22;
   const CSV_VRAC_ACHETEUR_IDENTIFIANT = 23;
   const CSV_VRAC_ACHETEUR_NOM = 24;
   const CSV_VRAC_COURTIER_IDENTIFIANT = 25;
@@ -32,9 +32,10 @@ class VracCsvFile extends CsvFile
   const CSV_VRAC_CONTRAT_DATE = 27;
   const CSV_VRAC_CONTRAT_VOLUME_PROMIS = 28;
   const CSV_VRAC_CONTRAT_VOLUME_REALISE = 29;
+  const CSV_VRAC_CONTRAT_VOLUME_PRIX = 29;
 
   private function verifyCsvLine($line) {
-    if (!preg_match('/[^ ]+/', $line[self::CSV_VRAC_CONTRAT_NUMERO]))
+    if (!preg_match('/[0-9]/', $line[self::CSV_VRAC_CONTRAT_NUMERO]))
       throw new Exception('Numero de contrat nécessaire : '.$line[self::CSV_VRAC_CONTRAT_NUMERO]);
     if (! $line[self::CSV_VRAC_CONTRAT_VOLUME_PROMIS]*1)
       throw new Exception('Volume promis nécessaire : '.$line[self::CSV_VRAC_CONTRAT_VOLUME_PROMIS]);
@@ -46,6 +47,7 @@ class VracCsvFile extends CsvFile
 
   private function getProduit($line) {
     return $this->config->identifyNodeProduct($line[self::CSV_VRAC_CERTIFICATION], 
+					  $line[self::CSV_VRAC_GENRE], 
 					  $line[self::CSV_VRAC_APPELLATION], 
 					  $line[self::CSV_VRAC_MENTION], 
 					  $line[self::CSV_VRAC_LIEU], 
@@ -60,21 +62,26 @@ class VracCsvFile extends CsvFile
     $this->numline = 0;
     $contrats = array();
     $csvs = $this->getCsv();
-    try {
-      foreach ($csvs as $line) {
+    $ligne = 0;
+    foreach ($csvs as $line) {
+      $ligne++;
+      array_splice($line, self::CSV_VRAC_MENTION, 0, array('', ''));
+      if (!$line[0])
+	continue;
+      try {
 	$this->verifyCsvLine($line);
 	$hash = $this->getProduit($line);
 	$c = VracClient::getInstance()->retrieveByNumeroAndEtablissementAndHashOrCreateIt($line[self::CSV_VRAC_CONTRAT_NUMERO], 
-											     $line[self::CSV_VRAC_DECLARANT_IDENTIFIANT],
-											     $hash);
+											  $line[self::CSV_VRAC_DECLARANT_IDENTIFIANT],
+											  $hash);
 	$c->add('acheteur')->add('nom', $line[self::CSV_VRAC_ACHETEUR_NOM]);
-	$c->add('volume_promis', $line[self::CSV_VRAC_CONTRAT_VOLUME_PROMIS]*1);
-	if (!$c->volume_realise)
-	  $c->add('volume_realise', $line[self::CSV_VRAC_CONTRAT_VOLUME_REALISE]*1);
+	$c->add('volume_propose', $line[self::CSV_VRAC_CONTRAT_VOLUME_PROMIS]*1);
+	if (!$c->volume_enleve)
+	  $c->add('volume_enleve', $line[self::CSV_VRAC_CONTRAT_VOLUME_REALISE]*1);
 	$contrats[] = $c;
+      }catch(Exception $e) {
+	$this->errors[] = array('ligne' => $ligne, 'message' => $e->getMessage());
       }
-    }catch(Execption $e) {
-      $this->error[] = $e->getMessage();
     }
     return $contrats;
   }

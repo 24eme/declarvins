@@ -1,3 +1,12 @@
+[submodule "project/plugins/acVinVracPlugin"]
+	path = project/plugins/acVinVracPlugin
+	url = git@gitorious.org:acvin/acvinvracplugin.git
+[submodule "project/plugins/acVinEtablissementPlugin"]
+	path = project/plugins/acVinEtablissementPlugin
+	url = git@gitorious.org:acvin/acvinetablissementplugin.giti
+[submodule "project/plugins/acVinLibPlugin"]
+	path = project/plugins/acVinLibPlugin
+	url = git@gitorious.org:acvin/acvinlibplugin.git
 [submodule "project/plugins/acCouchdbPlugin"]
 	path = project/plugins/acCouchdbPlugin
 	url = git@gitorious.org:accouchdbplugin/accouchdbplugin.git
@@ -16,9 +25,9 @@
 [submodule "project/plugins/acLessphpPlugin"]
 	path = project/plugins/acLessphpPlugin
 	url = git@gitorious.org:aclessphpplugin/aclessphpplugin.git
-[submodule "project/plugins/acVinLibPlugin"]
-	path = project/plugins/acVinLibPlugin
-	url = git@gitorious.org:acvin/acvinlibplugin.git
 [submodule "project/plugins/acVinImportPlugin"]
 	path = project/plugins/acVinImportPlugin
 	url = git@gitorious.org:acvin/acvinimportplugin.git
+[submodule "project/plugins/acVinDRMPlugin"]
+	path = project/plugins/acVinDRMPlugin
+	url = git@gitorious.org:acvin/acvindrmplugin.git

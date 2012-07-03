@@ -48,8 +48,9 @@ class ConfigurationLieu extends BaseConfigurationLieu {
         return false;
     }
 
-    public function getProduits($interpro, $departement) {
-        $produits = array();
+    public function getProduits($interpro, $departement, $produits = null) {
+      	if (!$produits)
+        	$produits = array();
 
         $results = ConfigurationClient::getInstance()->findProduitsByLieu($this->getCertification()->getKey(), $interpro, '', $this->getHash())->rows;
 

@@ -57,27 +57,6 @@ class adminActions extends sfActions
   	
   }
 
-  public function executeEtablissementAutocomplete(sfWebRequest $request) {
-    $this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
-
-    $etablissements = EtablissementClient::getInstance()->findByInterpro($this->interpro->_id)->rows;
-    $json = array();
-    $limit = $request->getParameter('limit', 100);
-    foreach($etablissements as $key => $etablissement) {
-      $text = EtablissementClient::getInstance()->makeLibelle($etablissement->key);
-     
-      if (Search::matchTerm($request->getParameter('q'), $text)) {
-        $json[$etablissement->id] = EtablissementClient::getInstance()->makeLibelle($etablissement->key);
-      }
-
-      if (count($json) >= $limit) {
-        break;
-      }
-    }
-
-    return $this->renderText(json_encode($json));
-  }
-
  /**
   * Executes libelles action
   *

@@ -1,6 +1,6 @@
 <?php
 
-abstract class DrmSecurityUser extends TiersSecurityUser {
+abstract class DRMSecurityUser extends TiersSecurityUser {
 
     const CREDENTIAL_DRM_EN_COURS = 'drm_en_cours';
     const CREDENTIAL_DRM_VALIDE = 'drm_valide';
@@ -22,14 +22,14 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
         
         if (!$this->isAuthenticated())
         {
-            $this->signOutDrm();
+            $this->signOutDRM();
         }
     }
     
     /**
     * 
     */
-    protected function clearCredentialsDrm() {
+    protected function clearCredentialsDRM() {
         foreach($this->_credentials_drm as $credential) {
             $this->removeCredential($credential);
         }
@@ -38,30 +38,30 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
     /**
      * 
      */
-    public function signOutDrm() {
+    public function signOutDRM() {
         $this->_drm = null;
-        $this->clearCredentialsDrm();
+        $this->clearCredentialsDRM();
     }
     
     /**
      * @return DR
      */
-    public function getDrm() {
-    	$this->requireDrm();
+    public function getDRM() {
+    	$this->requireDRM();
     	$this->requireTiers();
     	if (is_null($this->_drm)) {
-    		$lastDrm = $this->getDrmHistorique()->getLastDrm();
+    		$lastDRM = $this->getDRMHistorique()->getLastDRM();
 
-    		if ($lastDrm && $drm = DRMClient::getInstance()->find(key($lastDrm))) {
+    		if ($lastDRM && $drm = DRMClient::getInstance()->find(key($lastDRM))) {
     			if (!$drm->isValidee()) {
     				$this->_drm = $drm;
     			} else {
-    				$this->_drm = $drm->generateSuivante($this->getCampagneDrm());
+    				$this->_drm = $drm->generateSuivante($this->getCampagneDRM());
     			}
     		} else {
     			$this->_drm = new DRM();
     			$this->_drm->identifiant = $this->getTiers()->identifiant;
-    			$this->_drm->campagne = $this->getCampagneDrm();
+    			$this->_drm->campagne = $this->getCampagneDRM();
     		}
     	}
     	return $this->_drm;
@@ -70,7 +70,7 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
     /**
      * @return DR
      */
-    public function createDrmByCampagne($campagne = null) {
+    public function createDRMByCampagne($campagne = null) {
     	if (!$campagne) {
     		$campagne = date('Y-m');
     	}
@@ -82,8 +82,8 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
        	if ($prev_drm) {
            $this->_drm = $prev_drm->generateSuivante($campagne);
        	} else {
-       		$lastDrm = $this->getDrmHistorique()->getLastDrm();
-    		if ($lastDrm && $drm = DRMClient::getInstance()->find(key($lastDrm))) {
+       		$lastDRM = $this->getDRMHistorique()->getLastDRM();
+    		if ($lastDRM && $drm = DRMClient::getInstance()->find(key($lastDRM))) {
     			$this->_drm = $drm->generateSuivante($campagne, false);
     		} else {
 		    	$this->_drm = new DRM();
@@ -96,9 +96,9 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
     /**
      * @return DR
      */
-    public function getLastDrmValide() {
-        $lastDrm = $this->getDrmHistorique()->getLastDrm();
-        if ($lastDrm && $drm = DRMClient::getInstance()->find(key($lastDrm))) {
+    public function getLastDRMValide() {
+        $lastDRM = $this->getDRMHistorique()->getLastDRM();
+        if ($lastDRM && $drm = DRMClient::getInstance()->find(key($lastDRM))) {
 	  if ($drm->isValidee()) {
 	    return $drm;
 	  }
@@ -109,7 +109,7 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
     /**
      * 
      */
-    public function getDrmHistorique() {
+    public function getDRMHistorique() {
     	if (is_null($this->_historique)) {
         	$this->_historique = new DRMHistorique($this->getTiers()->identifiant);
     	}
@@ -119,29 +119,29 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
     /**
      * @return string
      */
-    public function getCampagneDrm() {
+    public function getCampagneDRM() {
       return CurrentClient::getCurrent()->campagne;
     }
     /**
      * returns true if editable
      */
-    public function isDrmEditable() {
+    public function isDRMEditable() {
     	return true;
     }
 
     /**
      * 
      */
-    public function initCredentialsDrm() {
-        $this->requireDrm();
-        $drm = $this->getDrm();
-        $this->clearCredentialsDrm();
-        /*if ($this->isDrmEditable()) {
+    public function initCredentialsDRM() {
+        $this->requireDRM();
+        $drm = $this->getDRM();
+        $this->clearCredentialsDRM();
+        /*if ($this->isDRMEditable()) {
             if ($drm->isValideeTiers() || $drm->isValideeCiva()) {
                 $this->addCredential(self::CREDENTIAL_DECLARATION_VALIDE);
             } else {
                 $this->addCredential(self::CREDENTIAL_DECLARATION_EN_COURS);
-                $this->addCredentialsEtapeDrm();
+                $this->addCredentialsEtapeDRM();
             }
         }*/
     }
@@ -149,7 +149,7 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
     /**
      * 
      */
-    protected function requireDrm() {
+    protected function requireDRM() {
         $this->requireTiers();
         if (!$this->hasCredential(self::CREDENTIAL_DROIT_DRM)) {
             throw new sfException("you must be logged in with a tiers");
@@ -158,12 +158,12 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
     
     /**
      *
-     * @param _Tiers $tiers 
+     * @param Etablissement $tiers 
      */
     public function signInTiers($tiers) {
         parent::signInTiers($tiers);
         if($this->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_DRM)) {
-            $this->initCredentialsDrm();
+            $this->initCredentialsDRM();
         }
     }
 
@@ -172,7 +172,7 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
      * @param string $namespace 
      */
     public function signOutCompte($namespace) {
-        $this->signOutDrm();
+        $this->signOutDRM();
         parent::signOutCompte($namespace);
     }
 
@@ -180,13 +180,13 @@ abstract class DrmSecurityUser extends TiersSecurityUser {
      * 
      */
     public function signOutTiers() {
-        $this->signOutDrm();
+        $this->signOutDRM();
         parent::signOutTiers();
     }
     
-    public function removeDrm() {
-    	$this->getDrm()->delete();
-        $this->signOutDrm();
-        $this->initCredentialsDrm();
+    public function removeDRM() {
+    	$this->getDRM()->delete();
+        $this->signOutDRM();
+        $this->initCredentialsDRM();
     }
 }

@@ -1,0 +1,62 @@
+#!/bin/bash
+
+. bin/config.inc
+
+if ! test "$1"; then
+    . bin/download_redmine_file https://clients.actualys.com/attachments/download/3559/CIVP_Data.zip /tmp/CIVP_Data.zip
+fi
+
+SYMFODIR=$(pwd);
+
+LOGDATE=$SYMFODIR/$(date +%Y%m%d%H%M%S_import_civp_data.log)
+
+{
+mkdir /tmp/CIVP_DATA 2> /dev/null ; cd  /tmp/CIVP_DATA ; rm -rf * 2>/dev/null
+unzip /tmp/CIVP_Data.zip
+
+cd CIVP_Data
+DATADIR=$(pwd);
+
+echo "Import des établissements";
+    
+recode ISO88591..UTF8 etablissement.csv
+cat etablissement.csv | sed 's/^\([^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;\)/\1;/' | sed 's/nom;;RaisonSociale/nom;RaisonSociale/' | sed 's/;ADHERENT;/;Producteur;/' > etablissement.csv.tmp
+mv etablissement.csv.tmp etablissement.csv
+curl -s -c /tmp/cookie.txt $EDI_AUTH $EDI_PREFIX/edi/etablissements/csv > /dev/null
+echo ETABLISSEMENTS  >> $LOGDATE 2>&1
+echo "===========================" >> $LOGDATE 2>&1
+curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@etablissement.csv"  "$EDI_PREFIX/edi/etablissements/csv?id=INTERPRO-civp" >> $LOGDATE 2>&1
+echo
+    
+echo "Import des DRM";
+
+DRM="DRm export.csv"
+recode ISO88591..UTF8 "$DRM"
+cp "$DRM" "$DRM.orig"
+    
+cat "$DRM.orig" | sed 's|\([0-9][0-9]\)/\([0-9][0-9]\)/\([0-9][0-9][0-9][0-9]\)|\3-\2-\1;\3-\2-\1|' | sed 's/,/./g' | sed 's/2088;11/2008;11/' | sed 's/2066;9/2006;9/' | sed 's/\r//' > "$DRM.1.tmp"
+cat "$DRM.1.tmp" | sed 's/;VDP;83;VDP83/;VDP;Var;VDP83/' | grep -v "CAP; *; *;Blanc;1"  > "$DRM.2.tmp"
+cat "$DRM.2.tmp" | awk -F ';' '{ZERO = "" ; if ($5 < 10) ZERO = "0" ; print $1";"$2";"$3"___"$4"___"ZERO $5";"$6";"$7";"$8";"$9";"$10";"$11";"$12";"$13";"$14";"$15";"$16";"$17";"$18";"$19";"$20";"$21";"$22";"$23";"$24";"$25";"$26";"$27";0;0;0;0;"$33+$34+$35+$36+$37+$38";"$33";"$34";"$35";"$36";"$37";"$38";"$40+$41+$42+$43+$44+$45+$46+$47+$48+$49+$50";"$40";"$41";"$42";"$43";"$44";"$45";"$46";"$47";"$48";"$49";"$50";"$27+$33+$34+$35+$36+$37+$38-$40-$41-$42-$43-$44-$45-$46-$47-$48-$49-$50";0;0;0;0;"$56";"$57";"$58";"$59";"$60";"$61";"$62";"}' | sort -t ';' -k 3  > "$DRM.3.tmp"
+cat "$DRM.3.tmp" | sed 's/___/;/g' > "$DRM.4.tmp"
+cp "$DRM.4.tmp" "$DRM"
+
+rm *tmp *orig;
+cd $SYMFODIR
+echo DRM  >> $LOGDATE 2>&1
+echo "===========================" >> $LOGDATE 2>&1
+#php symfony import:DRM --file="$DATADIR/$DRM" >> $LOGDATE 2>&1
+
+cd -
+
+echo "Import des contrats vracs"
+
+VRAC="export contrat vrac.csv"
+recode ISO88591..UTF8 "$VRAC"
+cat "$VRAC" | sed 's/[^0-9]*$/;/g' > "$VRAC.1.csv"
+echo "CSV_VRAC_DECLARANT_IDENTIFIANT;CSV_VRAC_DECLARANT_NOM;CSV_VRAC_CONTRAT_NUMERO;CSV_VRAC_CERTIFICATION;CSV_VRAC_CERTIFICATION_CODE;CSV_VRAC_GENRE;CSV_VRAC_GENRE_CODE;CSV_VRAC_APPELLATION;CSV_VRAC_APPELLATION_CODE;CSV_VRAC_LIEU;CSV_VRAC_LIEU_CODE;CSV_VRAC_COULEUR;CSV_VRAC_COULEUR_CODE;CSV_VRAC_CEPAGE;CSV_VRAC_CEPAGE_CODE;CSV_VRAC_MILLESIME;CSV_VRAC_MILLESIME_CODE;CSV_VRAC_LABELS;CSV_VRAC_LABELS_CODE;CSV_VRAC_MENTION_EXTRA;CSV_VRAC_MENTION_EXTRA_CODE;CSV_VRAC_ACHETEUR_IDENTIFIANT;CSV_VRAC_ACHETEUR_NOM;CSV_VRAC_COURTIER_IDENTIFIANT;CSV_VRAC_COURTIER_NOM;CSV_VRAC_CONTRAT_DATE;CSV_VRAC_CONTRAT_VOLUME_PROMIS;CSV_VRAC_CONTRAT_VOLUME_REALISE;CSV_VRAC_CONTRAT_VOLUME_PRIX;" > "$VRAC.2.csv"
+cat "$VRAC.1.csv" | sed 's/ ;/;/g' | awk -F ';' '{print $1";"$2";"$3";"$4";"$5";"$6";"$7";"$8";"$9";"$10";"$11";"$12";"$13";"$14";"$15";"$16";"$17";"$18";"$19";"$20";;"$21";"$22";"$23";"$24";;"$25";"$26";"$27";"$28}' >> "$VRAC.2.csv"
+echo VRAC  >> $LOGDATE 2>&1
+echo "===========================" >> $LOGDATE 2>&1
+curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@$VRAC.2.csv" "$EDI_PREFIX/edi/contrat/csv?id=INTERPRO-civp" >> $LOGDATE 2>&1
+echo
+}

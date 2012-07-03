@@ -18,7 +18,7 @@
 		$.inputPlaceholder();
 		$('img.rollover').survolImg();
                 
-		$('.flash_notice').delay(1000).fadeOut(500);
+		$('.flash_notice').delay(2500).fadeOut(1000);
 				
 		$('.form_delay').submit(function(e)
 		{
@@ -89,6 +89,23 @@
 			if(!args) args = [];
 			
 			if(e.keyCode == key && e.ctrlKey)
+			{
+				callback.apply(this, args);
+				return false;
+			}
+		});
+	};
+	/**
+	 * Gère le raccourci clavier Echap
+	 * $.echap(callback, args);
+	 ******************************************/
+	$.echap = function(callback, args)
+	{
+		$(document).keydown(function(e)
+		{
+			if(!args) args = [];
+			
+			if(e.keyCode == 27)
 			{
 				callback.apply(this, args);
 				return false;

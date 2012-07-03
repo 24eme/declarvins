@@ -7,7 +7,7 @@ function closeCompte() {
 }
 </script>
 <section id="contenu">
-	<div id="creation_compte">
+	<div id="creation_compte" class="popup_form">
 		<h1>Confirmation</h1>
 		<?php if ($sf_user->hasFlash('success')) : ?>
 		    <p class="flash_notice"><?php echo $sf_user->getFlash('success'); ?></p>
@@ -45,8 +45,8 @@ function closeCompte() {
                     </form>
                     <a href="javascript:closeCompte()" class="supprimer">Supprimer</a>
 		</div>
-	<div class="ligne_btn" style="text-align:left;">
-		<a href="<?php echo url_for('contrat_pdf') ?>" class="button btn_valider"><span>Pdf</span></a>
+	<div class="ligne_form_btn" style="text-align:left;">
+		<a href="<?php echo url_for('contrat_pdf') ?>" class="btn_valider">Pdf</a>
 	</div>
 	</div>
 </section>
