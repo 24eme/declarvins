@@ -97,15 +97,4 @@ class VracClient extends acCouchdbClient {
 	throw new sfException('Le hash du produit ne correpond pas au hash initial ('.$vrac->produit.'<->'.$hash.')');
       return $vrac;
     }
-    
-    /**
-     *
-     * @param string $id
-     * @param integer $hydrate
-     * @return Vrac 
-     */
-    public function retrieveById($id, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
-        return parent::retrieveDocumentById('VRAC-'.$id, $hydrate);
-    }
-    
  }
