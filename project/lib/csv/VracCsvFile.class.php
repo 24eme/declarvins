@@ -78,6 +78,11 @@ class VracCsvFile extends CsvFile
 	$c->add('volume_propose', $line[self::CSV_VRAC_CONTRAT_VOLUME_PROMIS]*1);
 	if (!$c->volume_enleve)
 	  $c->add('volume_enleve', $line[self::CSV_VRAC_CONTRAT_VOLUME_REALISE]*1);
+	if ($c->volume_enleve < $c->volume_propose) {
+	  $c->valide->statut = "NONSOLDE";
+	}else{
+	  $c->valide->statut = "SOLDE";
+	}
 	$contrats[] = $c;
       }catch(Exception $e) {
 	$this->errors[] = array('ligne' => $ligne, 'message' => $e->getMessage());
