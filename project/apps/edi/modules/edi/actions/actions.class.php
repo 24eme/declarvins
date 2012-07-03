@@ -50,6 +50,8 @@ class ediActions extends sfActions
     set_time_limit(600);
     $csv = new VracCsvFile(sfConfig::get('sf_data_dir') . '/upload/' . $md5);
     $contrats = $csv->importContrats();
+    $this->nb = count($contrats);
+    $this->errors = $csv->getErrors();
     foreach($contrats as $c) {
       $c->save();
     }
