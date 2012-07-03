@@ -36,19 +36,4 @@ class EtablissementClient extends acCouchdbClient {
 	    return $etab;
     }
 
-  	public function findByInterpro($interpro) {
-    	
-        return $this->getViewClient("all")->findByInterpro($interpro);
-  	}
-
-  	public function findByInterproAndFamilles($interpro, array $familles) {
-    	
-        return $this->getViewClient("all")->findByInterproAndFamilles($interpro, $familles);
-  	}
-
-  	public function findByFamille($famille) {
-    	
-        return $this->getViewClient("familles")->findByFamille($famille);
-  	}
-
 }

@@ -3,14 +3,15 @@
 class EtablissementAllView extends acCouchdbView
 {
 	const KEY_INTERPRO_ID = 0;
-	const KEY_ETABLISSEMENT_ID = 1;
-	const KEY_NOM = 2;
-	const KEY_IDENTIFIANT = 3;
-	const KEY_RAISON_SOCIALE = 4;
-	const KEY_SIRET = 5;
-	const KEY_CVI = 6;
-	const KEY_COMMUNE = 7;
-	const KEY_CODE_POSTAL = 8;
+	const KEY_FAMILLE = 1;
+	const KEY_ETABLISSEMENT_ID = 2;
+	const KEY_NOM = 3;
+	const KEY_IDENTIFIANT = 4;
+	const KEY_RAISON_SOCIALE = 5;
+	const KEY_SIRET = 6;
+	const KEY_CVI = 7;
+	const KEY_COMMUNE = 8;
+	const KEY_CODE_POSTAL = 9;
 
 	public static function getInstance() {
 
@@ -27,7 +28,7 @@ class EtablissementAllView extends acCouchdbView
     public function findByInterproAndFamilles($interpro, array $familles) {
     	$etablissements = array();
     	foreach($familles as $famille) {
-    		$etablissement = array_merge($etablissements, $this->findByInterproAndFamille($interpro, $famille));
+    		$etablissements = array_merge($etablissements, $this->findByInterproAndFamille($interpro, $famille)->rows);
     	}
 
     	return $etablissements;
@@ -36,7 +37,7 @@ class EtablissementAllView extends acCouchdbView
     public function findByInterproAndFamille($interpro, $famille) {
 
     	return $this->client->startkey(array($interpro, $famille))
-                    		->endkey(array($interpro, $familles, array()))
+                    		->endkey(array($interpro, $famille, array()))
                     		->getView($this->design, $this->view);
     }
 
