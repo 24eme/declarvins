@@ -13,7 +13,7 @@ use_helper('Vrac');
 		            <th><strong>Mandataire</strong></th>
 		            <th><strong>Type</strong></th>
 		            <th><strong>Produit</strong></th>
-		            <th><strong>Vol. com.</strong></th>
+		            <th><strong>Vol. prop.</strong></th>
 		            <th><strong>Vol. enlv.</strong></th>
 		        </tr>
 		    </thead>

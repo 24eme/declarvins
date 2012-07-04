@@ -33,4 +33,8 @@
 		</div>
 	</form>
 </section>
-
+<script type="text/javascript">
+	$(document).ready(function()  {
+    	$('.autocomplete').combobox();
+	});
+</script>
