@@ -35,7 +35,7 @@ class acCouchdbFormDocable
 
 	public function updateRevision() {
 		if ($this->form->getValue(self::FIELDNAME_REVISION)) {
-			$this->doc->set('_rev', $this->form->getValue(self::FIELDNAME_REVISION));
+			//$this->doc->set('_rev', $this->form->getValue(self::FIELDNAME_REVISION));
 		}
 	}	
 
