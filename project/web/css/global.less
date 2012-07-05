@@ -712,12 +712,15 @@ a
 	/* Onglets */
 	#onglets_principal, .onglets_principal
 	{
+	    .clearfix;
+	    
 		line-height: 23px;
-		.clearfix;
+		position: relative;
+		top: 1px;
 		
 		li
 		{
-			background: @couleur-a3;
+			background: @couleur-b1;
 			float: left;
 			margin: 0 6px 0 0;
 			
@@ -725,10 +728,15 @@ a
 			a:hover,
 			a:focus
 			{
-				background: @couleur-b1;
-				color: #fff;
+				background: @couleur-a4;
+				color: @couleur-a1;
 				strong { font-weight: normal; }
 			}
+			
+			a
+            {
+                color: #fff;
+            }
 			
 			a, strong
 			{
