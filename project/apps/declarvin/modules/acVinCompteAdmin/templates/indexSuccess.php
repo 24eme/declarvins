@@ -5,5 +5,6 @@
     <div id="mon_compte">
         <?php include_partial('compte_recherche_form', array('form' => $form))?>
     </div>
+    <a href="<?php echo url_for("compte_ajout") ?>">Nouveau</a>
 </div>
 </section>
