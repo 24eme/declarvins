@@ -5,34 +5,10 @@ class drm_recapActions extends sfActions
     
     public function executeIndex(sfWebRequest $request) {
         $this->init();
-    	$find = false;
-        $next_certif = null;
-        $certif = $this->config_lieu->getCertification()->getKey();
-        $config_certifications = ConfigurationClient::getCurrent()->declaration->certifications;
-        foreach ($config_certifications as $certification_config) {
-        	if ($this->drm->exist($certification_config->getHash())) {
-            	if ($find) {
-                	$next_certif = $certification_config->getKey();
-                	break;
-                }
-                if ($certif == $certification_config->getKey()) {
-                	$find = true;
-                } else {
-                	$this->prev_certif = $certification_config->getKey();
-                }
-            }
-        }
-        if ($request->isMethod(sfWebRequest::POST)) {
-            if ($next_certif) {
-        		$this->redirect('drm_recap', $this->drm->declaration->certifications->get($next_certif));
-            } else {
-        		$this->drm->setCurrentEtapeRouting('vrac');
-        		$this->redirect('drm_vrac', $this->drm);
-            }
-        }
+
         $this->setTemplate('index');
     }
-    
+
     public function executeRedirectIndex(sfWebRequest $request) {
     	$drm = $this->getRoute()->getDRM();
     	$first_certification = null;
@@ -71,7 +47,10 @@ class drm_recapActions extends sfActions
 
     public function executeAjoutAjax(sfWebRequest $request) 
     {
-        $this->init();
+        $this->drm = $this->getRoute()->getDRM();
+        $this->config_lieu = $this->getRoute()->getConfigLieu();
+        $this->drm_lieu = $this->getRoute()->getDRMLieu();
+
         $this->forward404Unless($request->isXmlHttpRequest());
 
         $form = new DRMProduitAjoutForm($this->drm,
@@ -95,7 +74,7 @@ class drm_recapActions extends sfActions
     
     public function executeDetail(sfWebRequest $request) {
         $this->init();
-        $this->light_detail = $this->getRoute()->getDRMDetail();
+        $this->detail = $this->getRoute()->getDRMDetail();
         $this->setTemplate('index');
     }
     
@@ -123,14 +102,28 @@ class drm_recapActions extends sfActions
     
     protected function init() {
         $this->form = null;
+        $this->detail = null;
         $this->drm = $this->getRoute()->getDRM();
         $this->config_lieu = $this->getRoute()->getConfigLieu();
         $this->drm_lieu = $this->getRoute()->getDRMLieu();
         $this->produits = $this->drm_lieu->getProduits();
         $this->previous = $this->drm_lieu->getPreviousSisterWithMouvementCheck();
         $this->next = $this->drm_lieu->getNextSisterWithMouvementCheck();
-    	$this->prev_certif = null;
-    	$this->light_detail = null;
+    	$this->previous_certif = $this->drm_lieu->getCertification()->getPreviousSisterWithMouvementCheck();
+    	$this->next_certif = $this->drm_lieu->getCertification()->getNextSisterWithMouvementCheck();
+
+    	$this->redirectIfNoMouvementCheck();
     }
-    
+
+    protected function redirectIfNoMouvementCheck() {    	
+    	if (!$this->drm_lieu->hasMouvementCheck()) {
+	    	if ($this->next) {
+	        	$this->redirect('drm_recap_lieu', $this->next);
+	        } elseif (!$this->next && $this->next_certif) {
+	        	$this->redirect('drm_recap', $this->next_certif);
+	        } else  {
+	        	$this->redirect('drm_vrac', $this->drm);
+	        }
+    	}
+    }
 }
