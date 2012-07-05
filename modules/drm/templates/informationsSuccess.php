@@ -17,6 +17,14 @@
 						<?php echo $form['confirmation']->renderError() ?>
 					</div>
 					<div class="ligne_form">
+						<label for="champ_4">Raison sociale :</label>
+						<span class="valeur valeur_2"><?php echo $tiers->raison_sociale ?></span>
+					</div>
+					<div class="ligne_form">
+						<label for="champ_4">Nom commercial :</label>
+						<span class="valeur valeur_2"><?php echo $tiers->nom ?></span>
+					</div>
+					<div class="ligne_form">
 						<label for="champ_1">CVI :</label>
 						<span class="valeur"><?php echo $tiers->cvi ?></span>
 					</div>
@@ -27,14 +35,6 @@
 					<div class="ligne_form">
 						<label for="champ_3">N° entrepositaire agréé :</label>
 						<span class="valeur"><?php echo $tiers->no_tva_intracommunautaire ?></span>
-					</div>
-					<div class="ligne_form">
-						<label for="champ_4">Nom commercial :</label>
-						<span class="valeur valeur_2"><?php echo $tiers->nom ?></span>
-					</div>
-					<div class="ligne_form">
-						<label for="champ_4">Raison sociale :</label>
-						<span class="valeur valeur_2"><?php echo $tiers->raison_sociale ?></span>
 					</div>
 					<div class="ligne_form">
 						<label for="champ_6">Adresse du chai :</label>
