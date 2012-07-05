@@ -87,7 +87,7 @@ $(document).ready( function() {
 		<input class="counteur" type="hidden" name="nb_departement" value="<?php echo count($form['secteurs']) ?>" />
 	<?php endif; ?>
 	<?php if ($form->getObject()->hasDroits()): ?>
-                <h2>Droits douane&nbsp;&nbsp;<a href="javascript:void(0)" class="addForm btn_ajouter"></a></strong></h2>
+                <h2>Droits circulation&nbsp;&nbsp;<a href="javascript:void(0)" class="addForm btn_ajouter"></a></strong></h2>
 		<div class="subForm contenu_onglet" id="formsDouane">
 		<?php foreach ($form['droit_douane'] as $subform): ?>
 		  <?php include_partial('produit/subformDroits', array('form' => $subform))?>
@@ -95,7 +95,7 @@ $(document).ready( function() {
 		</div>
 		<input class="counteur" type="hidden" name="nb_douane" value="<?php echo count($form['droit_douane']) ?>" />
 		
-                <h2>Droits CVO&nbsp;&nbsp;<a href="javascript:void(0)" class="addForm btn_ajouter"></a></h2>
+                <h2>Cotisations interprofessionnelles&nbsp;&nbsp;<a href="javascript:void(0)" class="addForm btn_ajouter"></a></h2>
                 <div class="subForm contenu_onglet" id="formsCvo">
 		<?php foreach ($form['droit_cvo'] as $subform): ?>
 		  <?php include_partial('produit/subformDroits', array('form' => $subform))?>
