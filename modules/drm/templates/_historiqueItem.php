@@ -1,8 +1,3 @@
-<?php 
-	$drm = $drm->getRawValue(); 
-	$drm = DRMClient::getInstance()->find('DRM-'.$drm[0].'-'.$drm[1].'-'.$drm[2]);
-
-?>
 <tr class="<?php if($alt): ?>alt<?php endif; ?>">
 <td>
 	<?php if($derniere): ?>

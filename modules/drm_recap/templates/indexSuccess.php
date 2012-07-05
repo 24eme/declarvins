@@ -24,7 +24,7 @@
                                                                    'config_lieu' => $config_lieu,
                                                                    'produits' => $produits,
                                                                    'form' => $form,
-                												   'light_detail' => $light_detail)); ?>
+                												   'detail' => $detail)); ?>
                 <div id="btn_suiv_prec">
                     <?php if ($previous): ?>
                         <a href="<?php echo url_for('drm_recap_lieu', $previous) ?>" class="btn_prec">
@@ -39,8 +39,8 @@
                 </div>
             </div>
             <div id="btn_etape_dr">
-            	<?php if ($prev_certif): ?>
-                <a href="<?php echo url_for('drm_recap', $drm->declaration->certifications->get($prev_certif)) ?>" class="btn_prec">
+            	<?php if ($previous_certif): ?>
+                <a href="<?php echo url_for('drm_recap', $drm->declaration->certifications->get($previous_certif)) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>
                 <?php else: ?>
@@ -48,9 +48,17 @@
                     <span>Précédent</span>
                 </a>
                 <?php endif; ?>
-                <form action="<?php echo url_for('drm_recap', $drm->declaration->certifications->get($config_lieu->getCertification()->getKey())) ?>" method="post">
-                    <button type="submit" class="btn_suiv"><span>Suivant</span></button>
-                </form>
+
+                <?php if ($next_certif): ?>
+                <a href="<?php echo url_for('drm_recap', $drm->declaration->certifications->get($next_certif)) ?>" class="btn_suiv">
+                    <span>Suivant</span>
+                </a>
+                <?php else: ?>
+                <a href="<?php echo url_for('drm_vrac', $drm) ?>" class="btn_suiv">
+                    <span>Suivant</span>
+                </a>
+            	<?php endif; ?>
+            	
             </div>
         </div>
     </section>

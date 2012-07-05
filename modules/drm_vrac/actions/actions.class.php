@@ -8,15 +8,18 @@ class drm_vracActions extends sfActions
     	$this->details = $this->drm->getDetailsAvecVrac();
 
     	if (count($this->details)==0) {
-    	  if($request->hasParameter('precedent')) {
-    	    return $this->redirect('drm_recap', $this->drm->declaration->certifications->getLast());
-	    }
-	  $this->drm->setCurrentEtapeRouting('declaratif');
-	  return $this->redirect('drm_declaratif', $this->drm);
+    	  	if($request->hasParameter('precedent')) {
+    	    	
+    	    	return $this->redirect('drm_recap', $this->drm->declaration->certifications->getLast());
+	    	}
+	  		
+	  		return $this->redirect('drm_declaratif', $this->drm);
     	}
 
+    	$this->drm->setCurrentEtapeRouting('vrac');
+
     	$this->forms = array();
-	$this->noContrats = array();
+		$this->noContrats = array();
 
     	foreach ($this->details as $detail) {
     	  $contrats = $detail->getContratsVrac();

@@ -28,7 +28,7 @@
                     include_component('drm_recap', 'itemForm', array('produit' => $produit,
                         'config_lieu' => $config_lieu,
                         'detail' => $produit,
-                    	'light_detail' => $light_detail,
+                    	'active' => ($detail && $detail->getHash() == $form->getObject()),
                         'form' => $form));
                     ?>
                 <?php endif; ?>
