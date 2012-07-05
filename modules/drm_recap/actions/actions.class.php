@@ -47,7 +47,10 @@ class drm_recapActions extends sfActions
 
     public function executeAjoutAjax(sfWebRequest $request) 
     {
-        $this->init();
+        $this->drm = $this->getRoute()->getDRM();
+        $this->config_lieu = $this->getRoute()->getConfigLieu();
+        $this->drm_lieu = $this->getRoute()->getDRMLieu();
+
         $this->forward404Unless($request->isXmlHttpRequest());
 
         $form = new DRMProduitAjoutForm($this->drm,
@@ -119,5 +122,4 @@ class drm_recapActions extends sfActions
 	        }
     	}
     }
-    
 }
