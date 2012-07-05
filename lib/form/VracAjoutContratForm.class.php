@@ -28,9 +28,9 @@ class VracAjoutContratForm extends acCouchdbObjectForm
     public function getContratChoices() 
     {
       if (is_null($this->_contrat_choices)) {
-	$etablissement = $this->getObject()->getDocument()->vendeur_identifiant;
+	$etablissement = $this->getObject()->getDocument()->identifiant;
 	$this->_contrat_choices = array();
-	foreach (VracClient::getInstance()->retrieveFromEtablissementsAndHash($etablissement, $this->getObject()->getHash()) as $contrat) {
+	foreach (VracClient::getInstance()->retrieveFromEtablissementsAndHash('ETABLISSEMENT-'.$etablissement, $this->getObject()->getHash()) as $contrat) {
 	  if (!$this->getObject()->vrac->exist($contrat->numero_contrat))
 	    $this->_contrat_choices[$contrat->numero_contrat] = $contrat->numero_contrat;
 	}
