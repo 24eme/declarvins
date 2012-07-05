@@ -112,6 +112,10 @@ class drm_recapActions extends sfActions
     	$this->previous_certif = $this->drm_lieu->getCertification()->getPreviousSisterWithMouvementCheck();
     	$this->next_certif = $this->drm_lieu->getCertification()->getNextSisterWithMouvementCheck();
 
+    	$this->redirectIfNoMouvementCheck();
+    }
+
+    protected function redirectIfNoMouvementCheck() {    	
     	if (!$this->drm_lieu->hasMouvementCheck()) {
 	    	if ($this->next) {
 	        	$this->redirect('drm_recap_lieu', $this->next);
