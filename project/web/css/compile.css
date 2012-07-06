@@ -639,6 +639,7 @@ a:hover { text-decoration:underline; }
 #principal #onglets_principal:after, #principal .onglets_principal:after { clear:both; }
 #principal #onglets_principal li, #principal .onglets_principal li {
   background:#494949;
+  color:#ffffff;
   float:left;
   margin:0 6px 0 0;
 }
@@ -646,8 +647,8 @@ a:hover { text-decoration:underline; }
   background:#f1f1f1;
   color:#494949;
 }
-#principal #onglets_principal li.actif strong, #principal #onglets_principal li a:hover strong, #principal #onglets_principal li a:focus strong, #principal .onglets_principal li.actif strong, #principal .onglets_principal li a:hover strong, #principal .onglets_principal li a:focus strong { font-weight:normal; }
 #principal #onglets_principal li a, #principal .onglets_principal li a { color:#ffffff; }
+#principal #onglets_principal li strong, #principal .onglets_principal li strong { font-weight:normal; }
 #principal #onglets_principal li a, #principal #onglets_principal li strong, #principal .onglets_principal li a, #principal .onglets_principal li strong {
   float:left;
   padding:0 15px;
@@ -1848,6 +1849,7 @@ p#date_drm {
 #declaratif_info .onglets_declaratif:after { clear:both; }
 #declaratif_info .onglets_declaratif li {
   background:#494949;
+  color:#ffffff;
   float:left;
   margin:0 6px 0 0;
 }
@@ -1855,8 +1857,8 @@ p#date_drm {
   background:#f1f1f1;
   color:#494949;
 }
-#declaratif_info .onglets_declaratif li.actif strong, #declaratif_info .onglets_declaratif li a:hover strong, #declaratif_info .onglets_declaratif li a:focus strong { font-weight:normal; }
 #declaratif_info .onglets_declaratif li a { color:#ffffff; }
+#declaratif_info .onglets_declaratif li strong { font-weight:normal; }
 #declaratif_info .onglets_declaratif li a, #declaratif_info .onglets_declaratif li strong {
   float:left;
   padding:0 15px;

@@ -710,7 +710,8 @@ a
 #principal
 {
 	/* Onglets */
-	#onglets_principal, .onglets_principal
+	#onglets_principal,
+    .onglets_principal
 	{
 	    .clearfix;
 	    
@@ -721,6 +722,7 @@ a
 		li
 		{
 			background: @couleur-b1;
+			color: #fff;
 			float: left;
 			margin: 0 6px 0 0;
 			
@@ -730,13 +732,14 @@ a
 			{
 				background: @couleur-a4;
 				color: @couleur-a1;
-				strong { font-weight: normal; }
 			}
 			
 			a
             {
                 color: #fff;
             }
+			
+			strong { font-weight: normal; }
 			
 			a, strong
 			{
