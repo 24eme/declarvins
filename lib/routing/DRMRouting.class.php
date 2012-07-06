@@ -42,9 +42,10 @@ class DRMRouting {
                                                                                        'action' => 'historique', 
                                                                                        'campagne' => null)));
 
-        $r->prependRoute('drm_nouvelle', new DRMLightRoute('/drm/nouvelle', 
+        $r->prependRoute('drm_nouvelle', new DRMLightRoute('/drm/nouvelle/:campagne', 
                                                 array('module' => 'drm', 
-                                                      'action' => 'nouvelle'),
+                                                      'action' => 'nouvelle',
+                                                	  'campagne' => null),
                                                 array('sf_method' => array('get')),
                                                 array('must_be_valid' => false, 'must_be_not_valid' => false)));
 

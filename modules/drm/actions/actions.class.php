@@ -16,7 +16,11 @@ class drmActions extends sfActions
    * @param sfWebRequest $request 
    */
   public function executeNouvelle(sfWebRequest $request) {
-      $drm = $this->getUser()->getDRM();
+  	  if ($campagne = $request->getParameter('campagne')) {
+  	  	$drm = $this->getUser()->createDRMByCampagne($campagne);
+  	  } else  {
+      	$drm = $this->getUser()->getDRM();
+  	  }
       $drm->save();
       $this->redirect('drm_informations', $drm);
   }
