@@ -91,9 +91,7 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     public function nbComplete() {
         $nb = 0;
         foreach($this->getChildrenNode() as $item) {
-            if($item->isComplete()) {
-                $nb++;
-            }
+        	$nb += $item->nbComplete();
         }
 
         return $nb;
@@ -102,9 +100,7 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     public function nbToComplete() {
         $nb = 0;
         foreach($this->getChildrenNode() as $item) {
-            if($item->hasMouvementCheck()) {
-                $nb++;
-            }
+        	$nb += $item->nbToComplete();
         }
 
         return $nb;

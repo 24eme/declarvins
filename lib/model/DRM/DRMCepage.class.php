@@ -27,4 +27,12 @@ class DRMCepage extends BaseDRMCepage {
 
     return $this->details;
   }
+
+    public function getDetailsArray() {
+      $details = array();
+      foreach($this->details as $detail) {
+        $details[$detail->getHash()] = $detail;
+      }
+      return $details;
+    }
 }

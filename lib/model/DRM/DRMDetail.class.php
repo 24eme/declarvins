@@ -129,6 +129,14 @@ class DRMDetail extends BaseDRMDetail {
         }
     }
 
+    public function nbToComplete() {
+    	return $this->hasMouvementCheck();
+    }
+
+    public function nbComplete() {
+    	return $this->isComplete();
+    }
+    
     public function isComplete() {
         return $this->total_entrees > 0 || $this->total_sorties > 0;
     }
@@ -252,4 +260,6 @@ class DRMDetail extends BaseDRMDetail {
     	}
     	return $objectToDelete;
     }
+    
+    
 }
