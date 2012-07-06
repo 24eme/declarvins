@@ -1130,3 +1130,22 @@ input.ui-autocomplete-input
        a:hover { text-decoration : none; }
     }
 }
+
+#ajax_form_progress_notification, #ajax_form_error_notification {
+	display: none; 
+	position: fixed; 
+	top: 0; 
+	left: 50%;
+	color: #fff;
+	padding: 5px;
+}
+
+#ajax_form_progress_notification {
+	background: #114C8D;
+	z-index:999;
+}
+
+#ajax_form_error_notification {
+	z-index:1000;
+	background: #900000
+}
