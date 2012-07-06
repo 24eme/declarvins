@@ -48,31 +48,31 @@ EOF;
     $compte->email = 'mcouderc@provencewines.com';
     $compte->mot_de_passe = "admin";
     $compte->droits->add(null, 'admin');
-    $compte->interpro = "INTERPRO-civp";
+    $compte->interpro = "INTERPRO-CIVP";
     $compte->save();
     
-    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin-inter-rhone')) {
+    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin-ir')) {
         $compte->delete();
     }
     $compte = new CompteVirtuel();
     $compte->nom = "Inter-Rhône";
-    $compte->login = 'admin-inter-rhone';
+    $compte->login = 'admin-ir';
     $compte->email = 'beymard@inter-rhone.com';
     $compte->mot_de_passe = "admin";
     $compte->droits->add(null, 'admin');
-    $compte->interpro = "INTERPRO-inter-rhone";
+    $compte->interpro = "INTERPRO-IR";
     $compte->save();
     
-    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin-intervins-sud-est')) {
+    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin-ivse')) {
         $compte->delete();
     }
     $compte = new CompteVirtuel();
     $compte->nom = "Intervins Sud-Est";
-    $compte->login = 'admin-intervins-sud-est';
+    $compte->login = 'admin-ivse';
     $compte->email = 'marie.de-monte@intervins-sudest.org';
     $compte->mot_de_passe = "admin";
     $compte->droits->add(null, 'admin');
-    $compte->interpro = "INTERPRO-intervins-sud-est";
+    $compte->interpro = "INTERPRO-IVSE";
     $compte->save();
     
     /*
@@ -93,7 +93,7 @@ EOF;
     $compte->nom = "Login";
     $compte->prenom = "Auto";
     $compte->login = 'autologin';
-    $compte->interpro = array('INTERPRO-inter-rhone' => array('statut' => 'VALIDE'));
+    $compte->interpro = array('INTERPRO-IR' => array('statut' => 'VALIDE'));
     $compte->email = 'autologin@example.org';
     $compte->save();
 
@@ -104,7 +104,7 @@ EOF;
     $e = new Etablissement();
     $e->cvi = "9223700100";
     $e->email = "test@example.org";
-    $e->interpro = 'INTERPRO-inter-rhone';
+    $e->interpro = 'INTERPRO-IR';
     $e->identifiant = "9223700100";
     $e->no_accises  = "FR9200000000";
     $e->no_tva_intracommunautaire = "FR9200000000";

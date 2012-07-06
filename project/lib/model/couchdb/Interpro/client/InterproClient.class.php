@@ -37,7 +37,7 @@ class InterproClient extends acCouchdbClient {
      * @todo remplacer la fonction par une vue
      */
     public function getAll($hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
-        return $this->keys(array('INTERPRO-civp', 'INTERPRO-inter-rhone', 'INTERPRO-intervins-sud-est'))->execute($hydrate);
+        return $this->keys(array('INTERPRO-CIVP', 'INTERPRO-IR', 'INTERPRO-IVSE'))->execute($hydrate);
     }
     
 

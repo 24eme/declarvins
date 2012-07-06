@@ -33,33 +33,33 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-    if ($civp = acCouchdbManager::getClient()->retrieveDocumentById('INTERPRO-civp')) {
+    if ($civp = acCouchdbManager::getClient()->retrieveDocumentById('INTERPRO-CIVP')) {
         $civp->delete();
     }
     
     $civp = new Interpro();
-    $civp->set('_id', 'INTERPRO-civp');
-    $this->identifiant = 'civp';
+    $civp->set('_id', 'INTERPRO-CIVP');
+    $this->identifiant = 'CIVP';
     $civp->nom = 'CIVP';
     $civp->save();
 
-    if ($ir = acCouchdbManager::getClient()->retrieveDocumentById('INTERPRO-inter-rhone')) {
+    if ($ir = acCouchdbManager::getClient()->retrieveDocumentById('INTERPRO-IR')) {
         $ir->delete();
     }
     
     $ir = new Interpro();
-    $ir->set('_id', 'INTERPRO-inter-rhone');
-    $this->identifiant = 'inter-rhone';
+    $ir->set('_id', 'INTERPRO-IR');
+    $this->identifiant = 'IR';
     $ir->nom = 'InterRhône';
     $ir->save();
 
-    if ($ise = acCouchdbManager::getClient()->retrieveDocumentById('INTERPRO-intervins-sud-est')) {
+    if ($ise = acCouchdbManager::getClient()->retrieveDocumentById('INTERPRO-IVSE')) {
         $ise->delete();
     }
     
     $ise = new Interpro();
-    $ise->set('_id', 'INTERPRO-intervins-sud-est');
-    $this->identifiant = 'intervins-sud-est';
+    $ise->set('_id', 'INTERPRO-IVSE');
+    $this->identifiant = 'IVSE';
     $ise->nom = "Intervins Sud-Est";
     $ise->save();
   }
