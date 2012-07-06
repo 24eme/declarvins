@@ -19,37 +19,42 @@ class acCouchdbFormDocable
 	}
 
 	public function init() {
-		$this->addRevision();
+		$this->add();
 	}
-
-	public function addRevision() {
-		$this->form->setWidget(self::FIELDNAME_REVISION, new sfWidgetFormInputHidden());
-		$this->form->setValidator(self::FIELDNAME_REVISION, new sfValidatorPass(array('required' => true)));
-		$this->form->setDefault(self::FIELDNAME_REVISION, $this->doc->get('_rev'));
-	}
-
-	public function removeRevision()
-	{
-		unset($this->form[self::FIELDNAME_REVISION]);
-	}
-
-	public function updateRevision() {
-		if ($this->form->getValue(self::FIELDNAME_REVISION)) {
-			//$this->doc->set('_rev', $this->form->getValue(self::FIELDNAME_REVISION));
-		}
-	}	
 
 	public function beforeEmbedForm($name, sfForm $form, $decorator = null)
 	{
 		if ($form instanceof acCouchdbFormDocableInterface) {
-			$form->getDocable()->removeRevision();
+			$form->getDocable()->remove();
 		}
 	}
 
 	public function postBind(array $taintedValues = null, array $taintedFiles = null)
 	{
 		if ($this->form->isValid()) {
-			$this->updateRevision();
+			$this->update();
 		}
 	}
+	
+	protected function add() {
+		$this->form->setWidget(self::FIELDNAME_REVISION, new sfWidgetFormInputHidden(array(), 
+																					 array('data-id' => $this->doc->get('_id'))
+																					));
+		$this->form->setValidator(self::FIELDNAME_REVISION, new sfValidatorString(array('required' => !$this->doc->isNew())));
+		$this->form->setDefault(self::FIELDNAME_REVISION, $this->doc->get('_rev'));
+	}
+
+	protected function remove()
+	{
+		unset($this->form[self::FIELDNAME_REVISION]);
+	}
+
+	protected function update() 
+	{
+		if ($this->form->getValue(self::FIELDNAME_REVISION)) {
+			$this->doc->set('_rev', $this->form->getValue(self::FIELDNAME_REVISION));
+		}
+	}	
+
 }
+
