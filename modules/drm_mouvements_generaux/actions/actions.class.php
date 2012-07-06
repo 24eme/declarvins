@@ -55,7 +55,10 @@ class drm_mouvements_generauxActions extends sfActions
     	$form->bind($request->getParameter($form->getName()));
         if ($form->isValid()) {
        		$form->save();
-       		return $this->renderText(json_encode(array("success" => true)));
+       		return $this->renderText(json_encode(array("success" => true,
+            										   "document" => array("id" => $drm->get('_id'),
+                										   				   "revision" => $drm->get('_rev'))
+                									  )));
         }
         
         return $this->renderText(json_encode(array("success" => false)));
@@ -73,7 +76,10 @@ class drm_mouvements_generauxActions extends sfActions
             	$produit->pas_de_mouvement_check = ($form->getValue('pas_de_mouvement'))? 1 : 0;
             }
             $drm->save();
-            return $this->renderText(json_encode(array("success" => true)));
+            return $this->renderText(json_encode(array("success" => true,
+            										   "document" => array("id" => $drm->get('_id'),
+                										   				   "revision" => $drm->get('_rev'))
+                									  )));
         } 
         return $this->renderText(json_encode(array("success" => false)));
     }

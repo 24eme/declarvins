@@ -61,7 +61,10 @@ class drm_vracActions extends sfActions
       $form->bind($request->getParameter($form->getName()));
       if (!$form->isValid()) {
 	      
-        return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form)))));
+        return $this->renderText(json_encode(array("success" => false, 
+        										   "content" => $this->getPartial('form', array('form' => $form)),
+        										   "document" => array("id" => $this->drm->get('_id'),
+                										   			  "revision" => $this->drm->get('_rev')))));
       }
       $form->save();
       $this->getUser()->setFlash("notice", 'Le contrat a été ajouté avec success.');

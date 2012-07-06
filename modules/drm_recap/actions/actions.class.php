@@ -85,9 +85,14 @@ class drm_recapActions extends sfActions
         $this->form->bind($request->getParameter($this->form->getName()));
         
         if($this->form->isValid()) {
-            $this->form->save();
+        	$this->form->save();
             if ($request->isXmlHttpRequest()) {
-                return $this->renderText(json_encode(array("success" => true, "content" => "")));
+				         		
+                return $this->renderText(json_encode(array("success" => true,
+                										   "content" => "",
+                										   "document" => array("id" => $this->drm->get('_id'),
+                										   					   "revision" => $this->drm->get('_rev'))
+                										   )));
             } else {
                 $this->redirect('drm_recap_lieu', $this->config_lieu);
             }
