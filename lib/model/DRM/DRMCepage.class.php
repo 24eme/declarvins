@@ -38,7 +38,7 @@ class DRMCepage extends BaseDRMCepage {
       	return $details;
     }
 
-  	publsic function getChildrenNode() {
+  	public function getChildrenNode() {
 
     	return $this->details;
   	}
