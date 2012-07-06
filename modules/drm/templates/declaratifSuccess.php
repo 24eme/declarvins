@@ -12,7 +12,7 @@
                 <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
                 <?php if ($form->getObject()->isRectificative()): ?>
                 <ul class="onglets_declaratif">
-                    <li class="actif"><strong>Administrateur</strong></li>
+                    <li><strong>Administrateur</strong></li>
                 </ul>
 
                 <div class="contenu_onglet_declaratif ">
@@ -25,7 +25,7 @@
                 <?php endif; ?>
                 <?php if ($form->getObject()->isValidee()): ?>
                 <ul class="onglets_declaratif">
-                    <li class="actif"><strong>Date signature</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_date_signature" title="Message aide"></a></li>
+                    <li><strong>Date signature</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_date_signature" title="Message aide"></a></li>
                 </ul>
 
                 <div class="contenu_onglet_declaratif ">
@@ -39,7 +39,7 @@
                 <?php endif; ?>
                 
                 <ul class="onglets_declaratif">
-                    <li class="actif"><strong>Défaut d'apurement</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_defaut_apurement" title="Message aide"></a></li>
+                    <li><strong>Défaut d'apurement</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_defaut_apurement" title="Message aide"></a></li>
                 </ul>
 
                 <div class="contenu_onglet_declaratif ">
@@ -54,7 +54,7 @@
                 
 		<?php if ($form->getObject()->hasVrac()): ?>
                 <ul class="onglets_declaratif">
-                    <li class="actif"><strong>Mouvements au cours du mois</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_mouvement" title="Message aide"></a></li>
+                    <li><strong>Mouvements au cours du mois</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_mouvement" title="Message aide"></a></li>
                 </ul>
 
                 <div class="contenu_onglet_declaratif">
@@ -90,7 +90,7 @@
                 <?php endif; ?>
 
                 <ul class="onglets_declaratif">
-                    <li class="actif"><strong>Caution</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_caution" title="Message aide"></a></li>
+                    <li><strong>Caution</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_caution" title="Message aide"></a></li>
                 </ul>
 
                 <div class="contenu_onglet_declaratif">
@@ -108,7 +108,7 @@
                 </div>
 
                 <ul class="onglets_declaratif">
-                    <li class="actif"><strong>Paiement des droits de circulation</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_paiement" title="Message aide"></a></li>
+                    <li><strong>Paiement des droits de circulation</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_paiement" title="Message aide"></a></li>
                 </ul>
                 <div class="contenu_onglet_declaratif">
                     
