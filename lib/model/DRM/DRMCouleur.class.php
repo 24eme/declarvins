@@ -19,5 +19,10 @@ class DRMCouleur extends BaseDRMCouleur {
 
         return $this->cepages;
     }
+
+    public function getLieuxArray() {
+
+  		throw new sfException('this function need to call before lieu tree');
+  	}
 	
 }

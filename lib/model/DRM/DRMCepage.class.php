@@ -23,8 +23,9 @@ class DRMCepage extends BaseDRMCepage {
         return $produits;
     }
 
-  public function getChildrenNode() {
+  	public function getLieuxArray() {
 
+<<<<<<< Updated upstream
     return $this->details;
   }
 
@@ -35,4 +36,13 @@ class DRMCepage extends BaseDRMCepage {
       }
       return $details;
     }
+=======
+  		throw new sfException('this function need to call before lieu tree');
+  	}
+
+  	public function getChildrenNode() {
+
+    	return $this->details;
+  	}
+>>>>>>> Stashed changes
 }

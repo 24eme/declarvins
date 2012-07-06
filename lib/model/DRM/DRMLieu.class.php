@@ -29,9 +29,9 @@ class DRMLieu extends BaseDRMLieu {
         return $this->couleurs;
     }
 
-    public function getLieux() {
+    public function getLieuxArray() {
 
-        return null;
-    }
+  		throw new sfException('this function need to call before lieu tree');
+  	}
 
 }
