@@ -12,13 +12,14 @@ function(doc) {
             interpros.push(interpro_key);
             for(label_index in doc.declaration.certifications[c].interpro[interpro_key].labels) {
                 label_key = doc.declaration.certifications[c].interpro[interpro_key].labels[label_index];
-                emit(["labels", interpro_key, "", c, label_key], doc.labels[label_key]);
+                emit(["labels", interpro_key, c, "", "", label_key], doc.labels[label_key], "");
             }
         }
         inter.unshift(interpros);
         dep.unshift(doc.declaration.certifications[c].departements);
         libelles.push(doc.declaration.certifications[c].libelle);
-        codes.push(doc.declaration.certifications[c].code);
+        // codes.push(doc.declaration.certifications[c].code);
+        codes.push('');
         for (g in doc.declaration.certifications[c].genres) {
             var interpros = new Array();
             for(interpro_key in doc.declaration.certifications[c].genres[g].interpro) {
@@ -27,7 +28,8 @@ function(doc) {
             inter.unshift(interpros);
             dep.unshift(doc.declaration.certifications[c].genres[g].departements);
             libelles.push(doc.declaration.certifications[c].genres[g].libelle);
-            codes.push(doc.declaration.certifications[c].genres[g].code);
+            // codes.push(doc.declaration.certifications[c].genres[g].code);
+            codes.push('');
             for (a in doc.declaration.certifications[c].genres[g].appellations) {
                 var interpros = new Array();
                 for(interpro_key in doc.declaration.certifications[c].genres[g].appellations[a].interpro) {
@@ -53,7 +55,7 @@ function(doc) {
 	                                for(array_dep_key in dep) {
 	                                    if (dep[array_dep_key].length > 0) {
 	                                        for(d in dep[array_dep_key]) {
-	                                            emit(["lieux", inter[i][array_intepro_key], dep[array_dep_key][d], c, hash, codes.join('')], libes);
+	                                            emit(["lieux", inter[i][array_intepro_key], c, dep[array_dep_key][d], "", hash, codes.join('')], libes);
 	                                        }
 	                                        break;
 	                                    }
@@ -78,7 +80,7 @@ function(doc) {
 	                                        for(array_dep_key in dep) {
 	                                            if (dep[array_dep_key].length > 0) {
 	                                                for(d in dep[array_dep_key]) {
-	                                                    emit(["produits", inter[i][array_intepro_key], dep[array_dep_key][d], c, hash_lieu, hash, codes.join('')], libes);
+	                                                    emit(["produits", inter[i][array_intepro_key], c, dep[array_dep_key][d], hash_lieu, hash, codes.join('')], libes);
 	                                                }
 	                                                break;
 	                                            }
