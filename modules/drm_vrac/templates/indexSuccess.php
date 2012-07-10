@@ -23,7 +23,7 @@
 				   foreach ($details as $detail) {
       
       if (isset($noContrats[$detail->getIdentifiantHTML()]) && $noContrats[$detail->getIdentifiantHTML()]) {
-	echo '<tr><td>'.$detail->getLibelle().'</td><td>Pas de contrat défini pour ce produit.<br/>Merci de contacter votre interpro</td><td></td></tr>';
+	echo '<tr><td>'.$detail->getLibelle()->getRawValue().'</td><td>Pas de contrat défini pour ce produit.<br/>Merci de contacter votre interpro</td><td></td></tr>';
 
       } else {
       	include_partial('addContrat', array('detail' => $detail));

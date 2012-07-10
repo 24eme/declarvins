@@ -1,5 +1,5 @@
 <tr>
-	<td><?php echo $detail->getLibelle(); ?></td>
+	<td><?php echo $detail->getLibelle(ESC_RAW); ?></td>
 	<td align="center" colspan="2">
 		<?php if ($detail->hasContratVrac()): ?>
                     <div class="btn">
