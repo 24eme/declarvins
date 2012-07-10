@@ -23,142 +23,123 @@ class Configuration extends BaseConfiguration {
     const STATUT_CONTRAT_ANNULE = 'ANNULE';
     const STATUT_CONTRAT_NONSOLDE = 'NONSOLDE';
 
+    protected $produits_libelle = null;
+    protected $produits_code = null;
+
     public function constructId() {
         $this->set('_id', "CONFIGURATION");
     }
 
-    public function getProduits($interpro = '', $departement = '', $produits = null) {
-      //$results = ConfigurationClient::getInstance()->findProduitsByInterAndDep($interpro, $departement)->rows;
-      $results = ConfigurationClient::getInstance()->findProduits()->rows;
-      $produits = array();
-      foreach($results as $item) {
-            $libelles = $item->value;
-            unset($libelles[0]);
-            $libelles[] = '('.$item->key[6].')';
-            $produits[$item->key[5]] = $libelles;
-        }
-
-        ksort($produits);
-
-        return $produits;
+    public function getProduits() {
+      	
+      	return ConfigurationProduitsView::getInstance()->findProduits()->rows;
     }
 
-    public function getProduitLibelles($hash) {
-    	$libelles = $this->store('produits_libelles', array($this, 'getProduitsLibelleAbstract'));
-    	if(array_key_exists($hash, $libelles)) {
+    public function formatProduits($format = "%g% %a% %l% %co% %ce%") {
 
-    		return $libelles[$hash];
-    	} else {
-    		
-    		return null;
-    	}
+    	return ConfigurationProduitsView::getInstance()->formatProduits($this->getProduits(), $format);
     }
 
-    public function getProduitCodes($hash) {
-      $libelles = $this->store('produits_codes', array($this, 'getProduitsCodeAbstract'));
-      if(array_key_exists($hash, $libelles)) {
-
-        return $libelles[$hash];
-      } else {
-        
-        return null;
-      }
-    }
-
-    protected function getProduitsLibelleAbstract() {
-    	$results = ConfigurationClient::getInstance()->findProduits();
-    	$libelles = array();
-
-    	foreach($results->rows as $item) {
-    		$libelles['/'.$item->key[5]] = $item->value;
+    public function getProduitLibelleByHash($hash) {
+    	if(is_null($this->produits_libelle)) {
+    		$this->produits_libelle = ConfigurationProduitsView::getInstance()->getProduitsLibelles();
     	}
 
-    	return $libelles;
+    	return (array_key_exists($hash, $this->produits_libelle)) ? $this->produits_libelle[$hash] : null;
     }
 
-    protected function getProduitsCodeAbstract() {
-      $results = ConfigurationClient::getInstance()->findProduits();
-      $codes = array();
+    public function getProduitCodeByHash($hash) {
+    	if(is_null($this->produits_code)) {
+    		$this->produits_code = ConfigurationProduitsView::getInstance()->getProduitsCodes();
+    	}
 
-      foreach($results->rows as $item) {
-        $codes['/'.$item->key[5]] = $item->key[6];
-      }
-
-      return $codes;
+    	return (array_key_exists($hash, $this->produits_code)) ? $this->produits_code[$hash] : null;
     }
 
     private static function normalizeLibelle($libelle) {
-      $libelle = str_ireplace('SAINT-', 'saint ', $libelle);
-      $libelle = preg_replace('/&nbsp;/', ' ', strtolower($libelle));
-      if (!preg_match('/&[^;]+;/', $libelle)) {
-	$libelle = html_entity_decode(preg_replace('/&([^;#])[^;]*;/', '\1', htmlentities($libelle, ENT_NOQUOTES, 'UTF-8')));
-      }
-      $libelle = str_replace(array('é', 'è', 'ê'), 'e', $libelle);
-      $libelle = preg_replace('/[^a-z ]/', '', preg_replace('/  */', ' ', preg_replace('/&([a-z])[^;]+;/i', '\1', $libelle)));
-      $libelle = preg_replace('/^\s+/', '', preg_replace('/\s+$/', '', $libelle));
-      return $libelle;
+      	$libelle = str_ireplace('SAINT-', 'saint ', $libelle);
+      	$libelle = preg_replace('/&nbsp;/', ' ', strtolower($libelle));
+      	if (!preg_match('/&[^;]+;/', $libelle)) {
+			$libelle = html_entity_decode(preg_replace('/&([^;#])[^;]*;/', '\1', htmlentities($libelle, ENT_NOQUOTES, 'UTF-8')));
+     	}
+      	$libelle = str_replace(array('é', 'è', 'ê'), 'e', $libelle);
+      	$libelle = preg_replace('/[^a-z ]/', '', preg_replace('/  */', ' ', preg_replace('/&([a-z])[^;]+;/i', '\1', $libelle)));
+     	$libelle = preg_replace('/^\s+/', '', preg_replace('/\s+$/', '', $libelle));
+
+      	return $libelle;
     }
 
     private function getObjectByLibelle($parent, $libelle, $previous_libelles = null) {
-      $libelle = ($libelle) ? self::normalizeLibelle($libelle) : 'DEFAUT';
-      $obj_id = 'DEFAUT';
-      foreach ( $parent as $obj_key => $obj_obj) {
-	if ($libelle == self::normalizeLibelle($obj_obj->getLibelle())) {
-	  $obj_id = $obj_key;
-	  break;
-	}
-      }
-      $next_libelles = $libelle;
-      if ($previous_libelles)
-	$next_libelles = $previous_libelles.' / '.$libelle;
-      if (!$parent->exist($obj_id))
-	  throw new Exception($next_libelles);
-      return array('obj' => $obj_obj, 'next_libelles' => $next_libelles);
+      	$libelle = ($libelle) ? self::normalizeLibelle($libelle) : 'DEFAUT';
+      	$obj_id = 'DEFAUT';
+      	foreach ( $parent as $obj_key => $obj_obj) {
+			if ($libelle == self::normalizeLibelle($obj_obj->getLibelle())) {
+  				$obj_id = $obj_key;
+
+			  	break;
+			}
+      	}
+      	$next_libelles = $libelle;
+      	if ($previous_libelles) {
+			$next_libelles = $previous_libelles.' / '.$libelle;
+      	}
+      	if (!$parent->exist($obj_id)) {
+		  	throw new Exception($next_libelles);
+		}
+
+      	return array('obj' => $obj_obj, 'next_libelles' => $next_libelles);
     }
 
     public function identifyNodeProduct($certification, $genre, $appellation, $mention, $lieu = 'DEFAUT', $couleur = 'DEFAUT', $cepage = 'DEFAUT', $millesime = null) {
-      $hash = $this->identifyProduct($certification, $genre, $appellation, $mention, $lieu, $couleur, $cepage, $millesime);
-      $rwhash = ' ';
-      while ($rwhash != $hash && $rwhash) {
-	if ($rwhash != ' ')
-	  $hash = $rwhash;
-	$rwhash = preg_replace('/[^\/]*\/DEFAUT\/?$/', '', $hash);
-      }
-      return $hash;
+      	$hash = $this->identifyProduct($certification, $genre, $appellation, $mention, $lieu, $couleur, $cepage, $millesime);
+      	$rwhash = ' ';
+      	while ($rwhash != $hash && $rwhash) {
+			if ($rwhash != ' ') {
+	  			$hash = $rwhash;
+	  		}
+			$rwhash = preg_replace('/[^\/]*\/DEFAUT\/?$/', '', $hash);
+      	}
+
+      	return $hash;
     }
 
     public function identifyProduct($certification, $genre, $appellation, $mention = 'DEFAULT', $lieu = 'DEFAUT', $couleur = 'DEFAUT', $cepage = 'DEFAUT', $millesime = null) {
-      try {
-	$res = $this->getObjectByLibelle($this->declaration->getCertifications(), $certification);
-	$res = $this->getObjectByLibelle($res['obj']->getGenres(), $genre, $res['next_libelles']);
-	$res = $this->getObjectByLibelle($res['obj']->getAppellations(), $appellation, $res['next_libelles']);
-	$res = $this->getObjectByLibelle($res['obj']->getMentions(), $mention, $res['next_libelles']);
-	$res = $this->getObjectByLibelle($res['obj']->getLieux(), $lieu, $res['next_libelles']);
-	$res = $this->getObjectByLibelle($res['obj']->getCouleurs(), $couleur, $res['next_libelles']);
-	$res = $this->getObjectByLibelle($res['obj']->getCepages(), $cepage, $res['next_libelles']);
-      }catch(Exception $e) {
-	throw new sfException("Impossible d'indentifier le produit (".$e->getMessage()." [$certification / $genre / $appellation / $mention / $lieu / $couleur / $cepage / $millesime] )");
-      }
-      return $res['obj']->getHash();
+      	try {
+		$res = $this->getObjectByLibelle($this->declaration->getCertifications(), $certification);
+		$res = $this->getObjectByLibelle($res['obj']->getGenres(), $genre, $res['next_libelles']);
+		$res = $this->getObjectByLibelle($res['obj']->getAppellations(), $appellation, $res['next_libelles']);
+		$res = $this->getObjectByLibelle($res['obj']->getMentions(), $mention, $res['next_libelles']);
+		$res = $this->getObjectByLibelle($res['obj']->getLieux(), $lieu, $res['next_libelles']);
+		$res = $this->getObjectByLibelle($res['obj']->getCouleurs(), $couleur, $res['next_libelles']);
+		$res = $this->getObjectByLibelle($res['obj']->getCepages(), $cepage, $res['next_libelles']);
+		} catch(Exception $e) {		
+			throw new sfException("Impossible d'indentifier le produit (".$e->getMessage()." [$certification / $genre / $appellation / $mention / $lieu / $couleur / $cepage / $millesime] )");
+		}
+
+		return $res['obj']->getHash();
     }
 
     public function identifyLabels($labels, $separateur = '|') {
-      $label_keys = array();
-      foreach(explode($separateur, $labels) as $l) {
-	if ($k = $this->identifyLabel($l)) {
-	  $label_keys[] = $k;
-	}
-      }
-      return $label_keys;
+      	$label_keys = array();
+      	foreach(explode($separateur, $labels) as $l) {
+			if ($k = $this->identifyLabel($l)) {
+				$label_keys[] = $k;
+			}
+      	}
+      
+      	return $label_keys;
     }
 
     public function identifyLabel($label) {
-      $label = self::normalizeLibelle($label);
-      foreach ($this->labels as $k => $l) {
-	if ($label == self::normalizeLibelle($l))
-	  return $k;
-      }
-      return false;
+      	$label = self::normalizeLibelle($label);
+      	foreach ($this->labels as $k => $l) {
+			if ($label == self::normalizeLibelle($l)) {
+	  			
+	  			return $k;
+	  		}
+      	}
+      	
+      	return false;
     }
     
     public function setLabelCsv($datas) {
@@ -171,6 +152,7 @@ class Configuration extends BaseConfiguration {
         $lastMillesime =  date('Y');
         $result = array();
         for($i=$lastMillesime;$i>=1991;$i--) $result[$i] = $i;
+
         return $result;
     }
 
@@ -195,27 +177,33 @@ class Configuration extends BaseConfiguration {
      */
 
     public function getVracNaturesCvo() {
+
     	return array(self::CVO_NATURE_MARCHE_DEFINITIF => 'Marché définitif',
                      self::CVO_NATURE_COMPENSATION => 'Compensation',
                      self::CVO_NATURE_NON_FINANCIERE => 'Non financière',
                      self::CVO_NATURE_VINAIGRERIE => 'Vinaigrerie');
     }
     public function getVracRepartitionsCvo() {
+
     	return array('50' => '50/50',
                      '100' => '100% viticulteur',
                      '0' => 'Vinaigrerie');
     }
     public function getVracTypesContrat() {
+
     	return array(self::TYPE_CONTRAT_SPOT => 'Spot',
                      self::TYPE_CONTRAT_PLURIANNUEL => 'Pluriannuel');
     }
     public function getVracStatutAnnule() {
+
     	return self::STATUT_CONTRAT_ANNULE;
     }
     public function getVracStatutNonSolde() {
+
     	return self::STATUT_CONTRAT_NONSOLDE;
     }
     public function getVracStatutSolde() {
+
     	return self::STATUT_CONTRAT_SOLDE;	
     }
 

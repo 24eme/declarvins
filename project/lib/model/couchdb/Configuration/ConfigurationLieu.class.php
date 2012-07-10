@@ -48,29 +48,28 @@ class ConfigurationLieu extends BaseConfigurationLieu {
         return false;
     }
 
-    public function getProduits($interpro, $departement, $produits = null) {
-      	if (!$produits)
-        	$produits = array();
-
-        $results = ConfigurationClient::getInstance()->findProduitsByLieu($this->getCertification()->getKey(), $interpro, '', $this->getHash())->rows;
+    public function getProduits($interpro, $departement) {
+        $produits = ConfigurationProduitsView::getInstance()->findProduitsByLieu($interpro, 
+        																		$this->getCertification()->getKey(), 
+        																		'', 
+        																		$this->getHash())->rows;
 
         if ($departement) {
-          $results = array_merge($results, ConfigurationClient::getInstance()->findProduitsByLieu($this->getCertification()->getKey(), $interpro, $departement, $this->getHash())->rows);
+          $produits = array_merge($produits, 
+          						 ConfigurationProduitsView::getInstance()->findProduitsByLieu($interpro, 
+          																				      $this->getCertification()->getKey(), 
+          																				      $departement, 
+          																				      $this->getHash())->rows);
         }
-
-        foreach($results as $item) {
-            $libelles = $item->value;
-            unset($libelles[0]);
-            unset($libelles[1]);
-            $libelles[] = '('.$item->key[6].')';
-            $produits[$item->key[5]] = $libelles;
-        }
-
-        ksort($produits);
 
         return $produits;
     }
     
+    public function formatProduits($interpro, $departement, $format = "%co% %ce%") {
+
+    	return ConfigurationProduitsView::getInstance()->formatProduits($this->getProduits($interpro, $departement), $format);
+    }
+
     public function setDonneesCsv($datas) {
     	$this->getAppellation()->setDonneesCsv($datas);
     	$this->libelle = ($datas[ProduitCsvFile::CSV_PRODUIT_LIEU_LIBELLE])? $datas[ProduitCsvFile::CSV_PRODUIT_LIEU_LIBELLE] : null;

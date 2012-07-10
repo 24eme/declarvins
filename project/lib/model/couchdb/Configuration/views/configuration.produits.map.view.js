@@ -12,7 +12,7 @@ function(doc) {
             interpros.push(interpro_key);
             for(label_index in doc.declaration.certifications[c].interpro[interpro_key].labels) {
                 label_key = doc.declaration.certifications[c].interpro[interpro_key].labels[label_index];
-                emit(["labels", interpro_key, "", c, label_key], doc.labels[label_key]);
+                emit(["labels", interpro_key, c, "", "", label_key], doc.labels[label_key], "");
             }
         }
         inter.unshift(interpros);
@@ -46,6 +46,7 @@ function(doc) {
 	                    libelles.push(doc.declaration.certifications[c].genres[g].appellations[a].mentions[m].lieux[l].libelle);
 	                    codes.push(doc.declaration.certifications[c].genres[g].appellations[a].mentions[m].lieux[l].code);
 	                    var libes = libelles.slice();
+	                    var codesv = codes.slice();
 	                    var hash = "declaration/certifications/"+c+"/genres/"+g+"/appellations/"+a+"/mentions/"+m+"/lieux/"+l;
 	                    for(i in inter) {
 	                        if (inter[i].length > 0) {
@@ -53,7 +54,7 @@ function(doc) {
 	                                for(array_dep_key in dep) {
 	                                    if (dep[array_dep_key].length > 0) {
 	                                        for(d in dep[array_dep_key]) {
-	                                            emit(["lieux", inter[i][array_intepro_key], dep[array_dep_key][d], c, hash, codes.join('')], libes);
+	                                            emit(["lieux", inter[i][array_intepro_key], c, dep[array_dep_key][d], "", hash, codes.join('')], {libelles: libes, codes: codesv});
 	                                        }
 	                                        break;
 	                                    }
@@ -70,6 +71,7 @@ function(doc) {
 	                            libelles.push(doc.declaration.certifications[c].genres[g].appellations[a].mentions[m].lieux[l].couleurs[co].cepages[ce].libelle);
 	                            codes.push(doc.declaration.certifications[c].genres[g].appellations[a].mentions[m].lieux[l].couleurs[co].cepages[ce].code);        
 	                            var libes = libelles.slice();
+	                            var codesv = codes.slice();
 	                            var hash = "declaration/certifications/"+c+"/genres/"+g+"/appellations/"+a+"/mentions/"+m+"/lieux/"+l+"/couleurs/"+co+"/cepages/"+ce;
 	                            var hash_lieu = "declaration/certifications/"+c+"/genres/"+g+"/appellations/"+a+"/mentions/"+m+"/lieux/"+l;
 	                            for(i in inter) {
@@ -78,7 +80,7 @@ function(doc) {
 	                                        for(array_dep_key in dep) {
 	                                            if (dep[array_dep_key].length > 0) {
 	                                                for(d in dep[array_dep_key]) {
-	                                                    emit(["produits", inter[i][array_intepro_key], dep[array_dep_key][d], c, hash_lieu, hash, codes.join('')], libes);
+	                                                    emit(["produits", inter[i][array_intepro_key], c, dep[array_dep_key][d], hash_lieu, hash, codes.join('')], {libelles: libes, codes: codesv});
 	                                                }
 	                                                break;
 	                                            }
