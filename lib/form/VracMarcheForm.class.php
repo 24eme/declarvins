@@ -76,15 +76,13 @@ class VracMarcheForm extends acCouchdbObjectForm {
     {
     	return $this->config->getMillesimes();
     }
-    private function getProduits()
+    
+    protected function getProduits()
     {
-    	$produits = $this->config->getProduits($this->getVendeur()->interpro, $this->getVendeur()->getDepartement());
-    	$result = array(''=>'');
-		foreach ($produits as $k => $v) {
-		  array_shift($v);
-		  $result[$k] = implode(' ', array_filter($v));
-		}
-    	return $result;
+    	return array(
+    		array(''=>''),
+    		$this->config->formatProduits()
+    	);
     }
     
     private function getContenances()
