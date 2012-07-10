@@ -6,51 +6,68 @@
 
 abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
 
+	protected $libelles = null;
+	protected $codes = null;
+
 	protected function loadAllData() {
 		parent::loadAllData();
-  }
+  	}
 
-	public function getLibelles() {
-		return $this->store('libelles', array($this, 'getLibellesAbstract'));
-	}
-
-	protected function getLibellesAbstract() {
-		$libelle = $this->getDocument()->getProduitLibelles($this->getHash());
-		if ($libelle !== null) {
-			return $libelle;
-		} else {
-
-			return array_merge($this->getParentNode()->getLibelles(), 
-						   array($this->libelle));
-		}
-	}
-
-	public function getCodes() {
-
-		return $this->store('codes', array($this, 'getCodesAbstract'));
-	}
-
-	protected function getCodesAbstract() {
-		$codes = $this->getDocument()->getProduitCodes($this->getHash());
-		if ($codes !== null) {
-
-			return $codes;
-		} else {
-
-			return $this->getParentNode()->getCodes().$this->getCode();
-		}
-	}
-
-	public function getParentNode() {
+  	public function getParentNode() {
 		$parent = $this->getParent()->getParent();
 		if ($parent->getKey() == 'declaration') {
+
 			throw new sfException('Noeud racine atteint');
 		} else {
+
 			return $this->getParent()->getParent();
 		}
 	}
 
+	public function getLibelles() {
+		if(is_null($this->libelles)) {
+			$libelles = $this->getDocument()->getProduitLibelleByHash($this->getHash());
+			if ($libelles !== null) {
+				$this->libelles = $libelles;
+			} else {
+
+				$this->libelles = array_merge($this->getParentNode()->getLibelles(), 
+							   	  array($this->libelle));
+			}
+		}
+
+		return $this->libelles;
+	}
+
+	public function getCodes() {
+		if(is_null($this->codes)) {
+			$codes = $this->getDocument()->getProduitCodeByHash($this->getHash());
+			if ($codes !== null) {
+				$this->codes = $codes;
+			} else {
+
+				$this->codes = array_merge($this->getParentNode()->getCodes(), 
+							   	  array($this->code));
+			}
+		}
+
+		return $this->codes;
+	}
+
+	public function getLibelleFormat($labels = array(), $format = "%g% %a% %l% %co% %ce% <span class=\"labels\">%la%</span>", $label_separator = ", ") {
+    	$libelle = ConfigurationProduitsView::getInstance()->formatLibelles($this->getLibelles(), $format);
+    	$libelle = $this->getDocument()->formatLabelsLibelle($labels, $libelle, $label_separator);
+
+    	return $libelle;
+  	}
+
+  	public function getCodeFormat($format = "%g%%a%%l%%co%%ce%") {
+
+  		return ConfigurationProduitsView::getInstance()->formatCodes($this->getCodes(), $format);
+  	}
+
     public function getDroits($interpro) {
+
       return $this->interpro->getOrAdd($interpro)->droits;
     }
 
@@ -116,7 +133,7 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
     	return floatval(str_replace(',', '.', $float));
     }
 
-    public function getProduits($interpro, $departement, $produits) {
+    public function getProduits($interpro, $departement) {
        
       throw new sfException("The method \"getProduits\" is not defined");
     }
@@ -128,7 +145,7 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
 
     public abstract function setDonneesCsv($datas);
   	public abstract function hasDepartements();
- 	  public abstract function hasDroits();
+ 	public abstract function hasDroits();
   	public abstract function hasLabels();
   	public abstract function hasDetails();
   	public abstract function getTypeNoeud();
@@ -153,33 +170,5 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
   		}
   		return $details;
   	}
-	public function libelleProduit($labels = array(), $format = "%g% %a% %l% %co% %ce% <span class=\"labels\">%la%</span>", $label_separator = ", ") {
-    	$libelle = $this->formatLibelles($format);
-    	$libelle = $this->getDocument()->formatLabelsLibelle($labels, $libelle, $label_separator);
 
-    	return $libelle;
-  	}
-
-  public function formatLibelles($format = "%g% %a% %l% %co% %ce%") {
-    $libelles = $this->getLibelles();
-
-    $format_index = array('%c%' => 0,
-                          '%g%' => 1,
-                          '%a%' => 2,
-                          '%l%' => 3,
-                          '%co%' => 4,
-                          '%ce%' => 5);
-
-    $libelle = $format;
-
-    foreach($format_index as $key => $item) {
-      if (isset($libelles[$item])) {
-        $libelle = str_replace($key, $libelles[$item], $libelle);
-      } else {
-        $libelle = str_replace($key, "", $libelle);
-      }
-    }
-
-    return $libelle;
-  }
 }

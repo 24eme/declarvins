@@ -18,8 +18,7 @@ function(doc) {
         inter.unshift(interpros);
         dep.unshift(doc.declaration.certifications[c].departements);
         libelles.push(doc.declaration.certifications[c].libelle);
-        // codes.push(doc.declaration.certifications[c].code);
-        codes.push('');
+        codes.push(doc.declaration.certifications[c].code);
         for (g in doc.declaration.certifications[c].genres) {
             var interpros = new Array();
             for(interpro_key in doc.declaration.certifications[c].genres[g].interpro) {
@@ -28,8 +27,7 @@ function(doc) {
             inter.unshift(interpros);
             dep.unshift(doc.declaration.certifications[c].genres[g].departements);
             libelles.push(doc.declaration.certifications[c].genres[g].libelle);
-            // codes.push(doc.declaration.certifications[c].genres[g].code);
-            codes.push('');
+            codes.push(doc.declaration.certifications[c].genres[g].code);
             for (a in doc.declaration.certifications[c].genres[g].appellations) {
                 var interpros = new Array();
                 for(interpro_key in doc.declaration.certifications[c].genres[g].appellations[a].interpro) {
@@ -48,6 +46,7 @@ function(doc) {
 	                    libelles.push(doc.declaration.certifications[c].genres[g].appellations[a].mentions[m].lieux[l].libelle);
 	                    codes.push(doc.declaration.certifications[c].genres[g].appellations[a].mentions[m].lieux[l].code);
 	                    var libes = libelles.slice();
+	                    var codesv = codes.slice();
 	                    var hash = "declaration/certifications/"+c+"/genres/"+g+"/appellations/"+a+"/mentions/"+m+"/lieux/"+l;
 	                    for(i in inter) {
 	                        if (inter[i].length > 0) {
@@ -55,7 +54,7 @@ function(doc) {
 	                                for(array_dep_key in dep) {
 	                                    if (dep[array_dep_key].length > 0) {
 	                                        for(d in dep[array_dep_key]) {
-	                                            emit(["lieux", inter[i][array_intepro_key], c, dep[array_dep_key][d], "", hash, codes.join('')], libes);
+	                                            emit(["lieux", inter[i][array_intepro_key], c, dep[array_dep_key][d], "", hash, codes.join('')], {libelles: libes, codes: codesv});
 	                                        }
 	                                        break;
 	                                    }
@@ -72,6 +71,7 @@ function(doc) {
 	                            libelles.push(doc.declaration.certifications[c].genres[g].appellations[a].mentions[m].lieux[l].couleurs[co].cepages[ce].libelle);
 	                            codes.push(doc.declaration.certifications[c].genres[g].appellations[a].mentions[m].lieux[l].couleurs[co].cepages[ce].code);        
 	                            var libes = libelles.slice();
+	                            var codesv = codes.slice();
 	                            var hash = "declaration/certifications/"+c+"/genres/"+g+"/appellations/"+a+"/mentions/"+m+"/lieux/"+l+"/couleurs/"+co+"/cepages/"+ce;
 	                            var hash_lieu = "declaration/certifications/"+c+"/genres/"+g+"/appellations/"+a+"/mentions/"+m+"/lieux/"+l;
 	                            for(i in inter) {
@@ -80,7 +80,7 @@ function(doc) {
 	                                        for(array_dep_key in dep) {
 	                                            if (dep[array_dep_key].length > 0) {
 	                                                for(d in dep[array_dep_key]) {
-	                                                    emit(["produits", inter[i][array_intepro_key], c, dep[array_dep_key][d], hash_lieu, hash, codes.join('')], libes);
+	                                                    emit(["produits", inter[i][array_intepro_key], c, dep[array_dep_key][d], hash_lieu, hash, codes.join('')], {libelles: libes, codes: codesv});
 	                                                }
 	                                                break;
 	                                            }
