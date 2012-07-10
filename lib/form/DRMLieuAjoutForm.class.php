@@ -34,7 +34,7 @@ class DRMLieuAjoutForm extends acCouchdbForm {
 
             $lieux_existant = $this->_drm->get($this->_config->getHash())->getLieuxArray();
 
-            $this->_choices_produits = $this->_config->getProduitsLieux($this->_interpro->get('_id'), 
+            $this->_choices_produits = $this->_config->formatProduitsLieux($this->_interpro->get('_id'), 
                                                                         $this->_drm->getDepartement());
             foreach($lieux_existant as $lieu) {
                 $hash = substr($lieu->getHash(), 1, strlen($lieu->getHash())-1);
@@ -45,17 +45,12 @@ class DRMLieuAjoutForm extends acCouchdbForm {
             }
 
             $this->_choices_produits = array_merge(array("" => ""), 
-                                                   array_map(array($this, 'formatProduit'), $this->_choices_produits));
+                                                   $this->_choices_produits);
         }
 
         return $this->_choices_produits;
     }
-
-    public function formatProduit($libelles) {
-
-        return implode(' ', array_filter($libelles));
-    }
-
+    
     public function addLieu() {
 
         return $this->_drm->getOrAdd($this->values['hash']);
