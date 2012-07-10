@@ -1,1 +1,1 @@
-<?php echo strtoupper($item->getParent()->getParent()->getCode()) ?>
+<?php echo strtoupper($item->getCode()) ?>

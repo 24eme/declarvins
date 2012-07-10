@@ -1,1 +1,1 @@
-<?php echo $item->getCode(); ?>
+<?php echo $item->getParent()->getParent()->getCode(); ?>
