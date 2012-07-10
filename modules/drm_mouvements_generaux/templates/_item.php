@@ -1,11 +1,9 @@
-<?php use_helper('Produit'); ?>
-
 <tr>
     <td>
     	<?php if (!$form->getObject()->total_debut_mois && !$form->getObject()->hasStockFinDeMoisDRMPrecedente()): ?>
     	<a href="<?php echo url_for('drm_mouvements_generaux_produit_delete', $form->getObject()) ?>" class="supprimer">Supprimer</a>
     	<?php endif; ?>
-    	<?php echo produitLibelleFromDetail($form->getObject()); ?>
+    	<?php echo $form->getObject()->getLibelle(); ?>
     </td>
 	<td>
         <?php echo $form->getObject()->total_debut_mois ?> <span class="unite">hl </span>

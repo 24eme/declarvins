@@ -1,5 +1,3 @@
-<?php use_helper('Produit'); ?>
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" class="no-js">
 <head>
@@ -301,8 +299,8 @@
 					<tr>
 					<?php endif; ?>
 					<td>
-						<strong><?php echo strtoupper($item->getConfig()->getCodes()) ?></strong>
-			   			<span><?php echo produitLibelle($item->getConfig()->getLibelles(), array(), "%g% %a% %l% %co% %ce%") ?></span>
+						<strong><?php echo strtoupper($item->getCode()) ?></strong>
+			   			<span><?php echo $item->getConfig()->getLibelleFormat(array(), "%g% %a% %l% %co% %ce%") ?></span>
 					</td>
 					<?php endif; ?>
 				<?php $counter++; endforeach; ?>

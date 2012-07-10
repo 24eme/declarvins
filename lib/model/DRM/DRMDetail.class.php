@@ -6,18 +6,19 @@
  */
 class DRMDetail extends BaseDRMDetail {
     
-    public function getLibelles() {
-
-        return $this->getCepage()->getConfig()->getLibelles();
-    }
-
-    public function getCodes() {
-
-        return $this->getCepage()->getConfig()->getCodes();
-    }
-    
     public function getConfig() {
+    	
     	return ConfigurationClient::getCurrent()->declaration->certifications->get($this->getCertification()->getKey())->detail;
+    }
+
+    public function getLibelle($format = "%g% %a% %l% %co% %ce% <span class=\"labels\">%la%</span>", $label_separator = ", ") {
+
+    	return $this->getCepage()->getConfig()->getLibelleFormat($this->labels->toArray(), $format, $label_separator);
+    }
+
+    public function getCode($format = "%g%%a%%l%%co%%ce%") {
+
+    	return $this->getCepage()->getConfig()->getCodeFormat($format);
     }
     
     /**
@@ -75,16 +76,15 @@ class DRMDetail extends BaseDRMDetail {
       return $this->getGenre()->getCertification();
     }
 
-    public function getLabelKeyFromValues($values) {
-        
-    }
     
     public function getLabelKeyString() {
-      if ($this->labels) {
-	return implode('|', $this->labels->toArray());
-      }
-      return '';
+      	if ($this->labels) {
+			return implode('|', $this->labels->toArray());
+      	}
+
+      	return '';
     }
+
     public function getLabelKey() {
     	$key = null;
     	if ($this->labels) {
@@ -93,18 +93,11 @@ class DRMDetail extends BaseDRMDetail {
     	return ($key) ? $key : DRM::DEFAULT_KEY;
     }
 
-    public function getLabelLibellesString() {
-      return implode('|', $this->getLabelLibelles());
-    }
-    
-    public function getLabelLibelles() {
-        $libelles = array(); 
-        foreach($this->labels as $key) {
-            $libelles[] = ConfigurationClient::getCurrent()->labels[$key];
-        }
+	public function getLabelsLibelle($format = "%la%", $label_separator = ", ") {
+        
+        return $this->getConfig()->getDocument()->formatLabelsLibelle($this->labels->toArray(), $format, $label_separator);
+    } 
 
-        return $libelles;
-    }
     
     protected function update($params = array()) {
         parent::update($params);

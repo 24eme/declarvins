@@ -16,14 +16,14 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
         return $this->getParent()->getParent();
     }
 
-    public function getLibelle() {
+    public function getLibelle($format = "%g% %a% %l% %co% %ce%") {
 
-      return $this->getConfig()->getLibelle();
+      return $this->getConfig()->getLibelleFormat(array(), $format);
     }
 
-    public function getCode() {
+   	public function getCode($format = "%g%%a%%l%%co%%ce%") {
 
-      return $this->getConfig()->getCode();
+      return $this->getConfig()->getCodeFormat();
     }
 
     protected function init($params = array()) {

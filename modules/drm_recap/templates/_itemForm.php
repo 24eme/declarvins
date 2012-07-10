@@ -1,5 +1,4 @@
 <?php use_helper('Float'); ?>
-<?php use_helper('Produit'); ?>
 <?php use_helper('Rectificative'); ?>
 
 <div id="col_recolte_<?php echo $form->getObject()->getKey() ?>" class="col_recolte<?php if ($active): ?> col_active<?php endif; ?>" data-input-focus="#drm_detail_entrees_achat" data-cssclass-rectif="<?php echo ($form->getObject()->getDocument()->isRectificative()) ? rectifierCssClass() : '' ?>">
@@ -11,9 +10,10 @@
             <?php if($config_lieu->hasCepage()): ?>
             <p class="cepage"><?php echo $form->getObject()->getCepage()->getConfig()->libelle ?></p>
             <?php endif; ?>
-            <p class="label">
-                <?php echo labelsLibelles($form->getObject()->getLabelLibelles()) ?><br />
-                            <?php echo $form->getObject()->label_supplementaire ?></p>
+            <p class="label" style="font-size: 12px; text-align: center;">
+                <?php echo $form->getObject()->getLabelsLibelle() ?><br />
+                <?php echo $form->getObject()->label_supplementaire ?>
+            </p>
             <div class="groupe" data-groupe-id="1">
                 <p class="<?php echo isRectifierCssClass($form->getObject(), 'total_debut_mois') ?>">
                     <?php echo $form['total_debut_mois']->render(array('data-val-defaut' => sprintFloat($form->getObject()->total_debut_mois), 'class' => 'num num_float somme_stock_debut test')) ?>

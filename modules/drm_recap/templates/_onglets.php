@@ -1,4 +1,3 @@
-<?php use_helper('Lieu') ?>
 
 <ul id="onglets_principal">
  <div id="msg_aide_drm">
@@ -9,7 +8,7 @@
             <?php if ($item->getHash() == $drm_lieu->getHash()): ?>
                 <li class="actif">
                     <strong>
-                        <?php echo lieuLibelleFromLieu($item) ?> 
+                        <?php echo $item->getLibelle(ESC_RAW) ?> 
                         <span class="completion<?php if($item->isComplete()): ?> completion_validee<?php endif; ?>">
                             (<span class="appellation_produit_saisie"><?php echo $item->nbComplete() ?></span>/<span class="appellation_produit_total"><?php echo $item->nbToComplete() ?></span>)
                         </span>
@@ -17,8 +16,8 @@
                 </li>
             <?php else: ?>
                 <li>
-                    <a title="<?php echo lieuLibelleFromLieu($item) ?> " href="<?php echo url_for('drm_recap_lieu', $item) ?>">
-                        <?php echo $item->getConfig()->getCodes() ?> 
+                    <a title="<?php echo $item->getLibelle(ESC_RAW) ?>" href="<?php echo url_for('drm_recap_lieu', $item) ?>">
+                        <?php echo $item->getConfig()->getCodeFormat("%a%%l%") ?> 
                         <span class="completion<?php if($item->isComplete()): ?> completion_validee<?php endif; ?>">
                             (<span class="appellation_produit_saisie"><?php echo $item->nbComplete() ?></span>/<span class="appellation_produit_total"><?php echo $item->nbToComplete() ?></span>)
                         </span>

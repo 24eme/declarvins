@@ -74,7 +74,7 @@ class ExportDRM
                     foreach($detail->vrac as $vrac) {
                         $details_pour_vrac[] = $vrac;
                     }
-                    $codes[$detail->getCodes()] = $detail->getCepage();
+                    $codes[$detail->getCode()] = $detail->getCepage();
 				}
     		}
             $this->pagers_volume[$certification->getKey()] = $this->makePager($details_pour_volume);

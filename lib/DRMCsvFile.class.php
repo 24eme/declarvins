@@ -127,7 +127,7 @@ class DRMCsvFile extends CsvFile
       $line[self::CSV_COL_CEPAGE_CODE] = $d->getCepage()->getCode();
       $line[self::CSV_COL_MILLESIME] = '';
       $line[self::CSV_COL_MILLESIME_CODE] = '';
-      $line[self::CSV_COL_LABELS] = $d->getLabelLibellesString();
+      $line[self::CSV_COL_LABELS] = $d->getLabelsLibelle("%la%", "|");
       $line[self::CSV_COL_LABELS_CODE] = $d->getLabelKeyString();
       $line[self::CSV_COL_MENTION] = $d->label_supplementaire;
       $line[self::CSV_COL_DETAIL_TOTAL_DEBUT_MOIS] = $d->total_debut_mois;
