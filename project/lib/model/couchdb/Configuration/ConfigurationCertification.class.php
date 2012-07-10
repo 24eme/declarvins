@@ -31,8 +31,8 @@ class ConfigurationCertification extends BaseConfigurationCertification {
 
         if ($departement) {
           	$produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findProduitsByCertification($interpro, 
-          																										  $this->getKey(), 
-          																										  $departement)->rows);
+   				 $this->getKey(), 
+          		 $departement)->rows);
         }
 
         return $produits;
@@ -44,24 +44,19 @@ class ConfigurationCertification extends BaseConfigurationCertification {
     }
 
     public function getProduitsLieux($interpro, $departement) {
-        $produits = array();
 
-        $results = ConfigurationProduitsView::getInstance()->findLieuxByCertification($interpro, $this->getKey(), '')->rows;
+        $produits = ConfigurationProduitsView::getInstance()->findLieuxByCertification($interpro, $this->getKey(), '')->rows;
 
         if ($departement) {
-          $results = array_merge($results, ConfigurationProduitsView::getInstance()->findLieuxByCertification($interpro, $this->getKey(), $departement)->rows);
+          $produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findLieuxByCertification($interpro, $this->getKey(), $departement)->rows);
         }
-
-        foreach($results as $item) {
-            $libelles = $item->value;
-            unset($libelles[0]);
-            $libelles[] = '('.$item->key[6].')';
-            $produits[$item->key[5]] = $libelles;
-        }
-
-        ksort($produits);
 
         return $produits;
+    }
+
+    public function formatProduitsLieux($interpro, $departement, $format = "%g% %a% %l% %co% %ce%") {
+
+    	return ConfigurationProduitsView::getInstance()->formatProduits($this->getProduitsLieux($interpro, $departement), $format);
     }
 
     public function getLabels($interpro) {
