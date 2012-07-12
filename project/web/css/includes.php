@@ -6,6 +6,7 @@
 @import 'global.less';
 @import 'principal.less';
 @import 'declaration.less';
+@import 'vracs.less';
 @import 'admin.less';
 @import 'datepicker.less';
 @import 'jquery.ui.theme.css';

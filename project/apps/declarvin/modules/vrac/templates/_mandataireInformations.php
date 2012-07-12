@@ -24,25 +24,36 @@ use_helper('Display');
        ?>
     });
 </script>
-<table class="mandataire_infos">
-	<tr>
-		<td class="bold">Nom du mandataire*:&nbsp;</td>
-		<td><?php display_field($mandataire,'nom'); ?></td>
-	</tr>
-	<tr>
-		<td class="bold">N° carte professionnelle:&nbsp;</td>
-		<td><?php //display_field($mandataire,'carte_pro'); VOIR AVEC TANGUI ?></td>
-	</tr>
-	<tr>
-		<td class="bold">Adresse:&nbsp;</td>
-		<td><?php  if($mandataire) display_field($mandataire->siege,'adresse');  ?></td>
-	</tr>
-	<tr>
-		<td class="bold">CP:&nbsp;</td>
-		<td><?php  if($mandataire) display_field($mandataire->siege,'code_postal');  ?></td>
-	</tr>
-	<tr>
-		<td class="bold">Ville:&nbsp;</td>
-		<td><?php  if($mandataire) display_field($mandataire->siege,'commune');  ?></td>
-	</tr>
-</table>
+
+<div class="mandataire_infos bloc_form">
+    <div class="vracs_ligne_form">
+        <span>
+            <label>Nom du mandataire :</label>
+            <?php display_field($mandataire,'nom'); ?>
+        </span>
+    </div>
+    <div class="vracs_ligne_form vracs_ligne_form_alt">    
+        <span>
+            <label>N° carte professionnelle : </label>
+            <?php //display_field($mandataire,'carte_pro'); VOIR AVEC TANGUI ?>
+        </span>
+    </div>
+    <div class="vracs_ligne_form">       
+        <span>
+            <label>Adresse :</label>
+            <?php  if($mandataire) display_field($mandataire->siege,'adresse');  ?>
+        </span>
+    </div>
+    <div class="vracs_ligne_form vracs_ligne_form_alt"> 
+        <span>
+            <label>CP :</label>
+            <?php  if($mandataire) display_field($mandataire->siege,'code_postal');  ?>
+        </span>
+    </div>
+    <div class="vracs_ligne_form ">      
+        <span>
+            <label>Ville :</label>
+            <?php  if($mandataire) display_field($mandataire->siege,'commune');  ?>
+        </span>
+    </div>
+</div>

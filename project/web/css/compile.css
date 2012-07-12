@@ -957,22 +957,28 @@ input.ui-autocomplete-input + button .ui-icon {
 }
 #popup_msg_aide #btn_popup_msg_aide a:hover, #popup_msg_aide #btn_popup_msg_aide a:focus { background-color:#494949; }
 #popup_msg_aide #btn_popup_msg_aide a:hover { text-decoration:none; }
+#ajax_notifications {
+  position:fixed;
+  width:100%;
+  top:0;
+  z-index:1199;
+}
 #ajax_form_progress_notification, #ajax_form_error_notification {
   display:none;
-  position:fixed;
-  top:0;
-  left:50%;
+  margin:2px auto;
   color:#ffffff;
   padding:5px;
   text-align:center;
 }
 #ajax_form_progress_notification {
   background:#114c8d;
-  z-index:999;
+  z-index:1200;
+  width:150px;
 }
 #ajax_form_error_notification {
-  z-index:1000;
+  z-index:1201;
   background:#900000;
+  width:400px;
 }
 #creation_compte h1 {
   font-size:21px;
@@ -2006,11 +2012,168 @@ p#date_drm {
   text-transform:none;
 }
 #telecharger_pdf:hover { text-decoration:none; }
-#mon_compte label, #compteModification label, #compteAjout label {
+.vracs #vrac_soussigne .section_label_maj >  label:first-child {
+  width:310px;
+  text-transform:uppercase;
+  float:left;
+}
+.vracs #vrac_soussigne .section_label_maj .radio_list { float:left; }
+.vracs #vrac_soussigne .section_label_maj .ui-autocomplete-input {
+  zoom:1;
+  float:right;
+  width:250px;
+}
+.vracs #vrac_soussigne .section_label_maj .ui-autocomplete-input:before, .vracs #vrac_soussigne .section_label_maj .ui-autocomplete-input:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+.vracs #vrac_soussigne .section_label_maj .ui-autocomplete-input:after { clear:both; }
+.vracs #vrac_soussigne #vendeur_infos, .vracs #vrac_soussigne .vendeur_infos {
+  display:block;
+  height:176px;
+  width:897px;
+}
+.vracs #vrac_soussigne #vendeur_choice, .vracs #vrac_soussigne #acheteur_choice { zoom:1; }
+.vracs #vrac_soussigne #vendeur_choice:before, .vracs #vrac_soussigne #vendeur_choice:after, .vracs #vrac_soussigne #acheteur_choice:before, .vracs #vrac_soussigne #acheteur_choice:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+.vracs #vrac_soussigne #vendeur_choice:after, .vracs #vrac_soussigne #acheteur_choice:after { clear:both; }
+.vracs #vrac_soussigne .mandataire_infos { clear:both; }
+.vracs #vrac_soussigne #acheteur { padding-top:40px; }
+.vracs #vrac_soussigne #has_mandataire { padding:20px 0 0 10px; }
+.vracs #vrac_soussigne #mandataire {
+  zoom:1;
+  padding:0 0 0 10px;
+}
+.vracs #vrac_soussigne #mandataire:before, .vracs #vrac_soussigne #mandataire:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+.vracs #vrac_soussigne #mandataire:after { clear:both; }
+.vracs #vrac_soussigne #mandatant { padding:10px 0 0 0px; }
+.vracs #vrac_soussigne #mandatant .checkbox_list {
+  float:right;
+  margin-right:460px;
+}
+.vracs #vrac_soussigne #mandatant .checkbox_list li {
+  display:inline;
+  float:left;
+  width:150px;
+}
+.vracs #vrac_soussigne .btnModification {
+  zoom:1;
+  margin-top:10px;
+}
+.vracs #vrac_soussigne .btnModification:before, .vracs #vrac_soussigne .btnModification:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+.vracs #vrac_soussigne .btnModification:after { clear:both; }
+.vracs #vrac_soussigne .error_list {
+  padding:0 10px;
+  float:right;
+  color:red;
+}
+.vracs .section_label_maj >  label:first-child {
+  display:inline-block;
+  font-size:15px;
+  font-weight:bold;
+  height:35px;
+  padding-top:4px;
+}
+.vracs .section_label_strong label:first-child {
+  display:inline-block;
+  font-weight:bold;
+}
+.vracs .bloc_form {
+  -webkit-border-radius:5px 5px 5px 5px;
+  -moz-border-radius:5px 5px 5px 5px;
+  border-radius:5px 5px 5px 5px;
+  border:1px solid #e3e2e2;
+}
+.vracs .bloc_form .vracs_ligne_form { padding:4px 0 10px 10px; }
+.vracs .bloc_form .vracs_ligne_form label {
+  display:inline-block;
+  font-weight:bold;
+  width:150px;
+}
+.vracs .bloc_form .vracs_ligne_form span {
+  height:30px;
+  line-height:30px;
+  vertical-align:middle;
+}
+.vracs .bloc_form .vracs_ligne_form_alt { background:#e3e2e2; }
+.vracs .bloc_form .col {
+  float:left;
+  vertical-align:top;
+  width:448px;
+}
+.vracs .bloc_form .col:first-child { border-right:1px solid #e3e2e2; }
+.vracs .bloc_form .col:first-child .vracs_ligne_form:first-child {
+  -webkit-border-radius:5px 0 0 0;
+  -moz-border-radius:5px 0 0 0;
+  border-radius:5px 0 0 0;
+}
+.vracs .bloc_form .col:first-child .vracs_ligne_form:last-child {
+  -webkit-border-radius:0 0 0 5px;
+  -moz-border-radius:0 0 0 5px;
+  border-radius:0 0 0 5px;
+}
+.vracs .bloc_form .col:last-child .vracs_ligne_form:first-child {
+  -webkit-border-radius:0 5px 0 0;
+  -moz-border-radius:0 5px 0 0;
+  border-radius:0 5px 0 0;
+}
+.vracs .bloc_form .col:last-child .vracs_ligne_form:last-child {
+  -webkit-border-radius:0 0 5px 0;
+  -moz-border-radius:0 0 5px 0;
+  border-radius:0 0 5px 0;
+}
+.vracs #ligne_btn {
+  display:block;
+  margin:10px 0;
+}
+.vracs #ligne_btn .btnAnnulation { float:left; }
+.vracs #ligne_btn .btnValidation { float:right; }
+.vracs ul.radio_list { zoom:1; }
+.vracs ul.radio_list:before, .vracs ul.radio_list:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+.vracs ul.radio_list:after { clear:both; }
+.vracs ul.radio_list li {
+  display:block;
+  float:left;
+  width:165px;
+}
+.vracs ul.radio_list li label { font-weight:normal !important; }
+.vracs .champ_datepicker { padding-top:10px; }
+.vracs .champ_datepicker img {
+  position:absolute;
+  margin-left:5px;
+}
+#mon_compte .ligne_form, #compteModification .ligne_form, #compteAjout .ligne_form, #validationFiche .ligne_form { margin:0 0 15px; }
+#mon_compte label, #compteModification label, #compteAjout label, #validationFiche label {
   display:inline-block;
   width:170px;
 }
-#mon_compte .btn_valider, #compteModification .btn_valider, #compteAjout .btn_valider {
+#mon_compte .btn_valider, #compteModification .btn_valider, #compteAjout .btn_valider, #validationFiche .btn_valider {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
@@ -2026,8 +2189,8 @@ p#date_drm {
   height:;
   margin-left:170px;
 }
-#mon_compte .btn_valider:hover, #mon_compte .btn_valider:focus, #compteModification .btn_valider:hover, #compteModification .btn_valider:focus, #compteAjout .btn_valider:hover, #compteAjout .btn_valider:focus { background-color:#494949; }
-#mon_compte input[type="text"], #compteModification input[type="text"], #compteAjout input[type="text"] {
+#mon_compte .btn_valider:hover, #mon_compte .btn_valider:focus, #compteModification .btn_valider:hover, #compteModification .btn_valider:focus, #compteAjout .btn_valider:hover, #compteAjout .btn_valider:focus, #validationFiche .btn_valider:hover, #validationFiche .btn_valider:focus { background-color:#494949; }
+#mon_compte input[type="text"], #compteModification input[type="text"], #compteAjout input[type="text"], #validationFiche input[type="text"] {
   background:none repeat scroll 0 0 #ffffff;
   border:1px solid #d3d2cd;
   border-radius:2px 2px 2px 2px;
@@ -2038,7 +2201,7 @@ p#date_drm {
   padding:0 4px;
   width:220px;
 }
-#mon_compte button, #compteModification button, #compteAjout button { margin-top:1px; }
+#mon_compte button, #compteModification button, #compteAjout button, #validationFiche button { margin-top:1px; }
 .etablissement_courant_admin a {
   background:url(../images/boutons/btn_etablissement_courant_admin.png) right 0 no-repeat;
   color:#86005b;
@@ -2069,4 +2232,29 @@ p#date_drm {
   display:block;
   padding:3px 10px;
   width:120px;
+}
+#validationFiche #modification_compte p { margin:0 0 15px; }
+#validationFiche .ligne_btn .btn_annuler {
+  background-repeat:no-repeat;
+  border:1px solid;
+  color:#ffffff;
+  display:inline-block;
+  background-color:#a0a0a0;
+  border-color:#c0c0c0;
+  color:#ffffff;
+  display:inline-block;
+  padding:0 23px 0 15px;
+  text-transform:uppercase;
+  height:;
+  height:27px;
+  line-height:27px;
+  margin-left:0;
+  vertical-align:middle;
+}
+#validationFiche .ligne_btn .btn_annuler:hover, #validationFiche .ligne_btn .btn_annuler:focus { background-color:#494949; }
+#validationFiche .ligne_btn .btn_valider {
+  height:28px;
+  line-height:28px;
+  margin-left:0;
+  vertical-align:middle;
 }

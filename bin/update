@@ -9,3 +9,6 @@ git submodule foreach git checkout master
 cd project/plugins/acVinVracPlugin
 git checkout vrac_declarvin
 cd ../../..
+cd project/plugins/acVinConfigurationPlugin
+git checkout declarvin
+cd ../../..

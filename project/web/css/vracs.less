@@ -1,0 +1,166 @@
+/**
+ * VRACS
+ ******************************************/
+
+.vracs
+{
+
+        #vrac_soussigne{
+                
+                .section_label_maj{
+                    & >  label:first-child{
+                            width : 310px; 
+                            text-transform:uppercase;
+                            float:left;
+                    }
+
+                    .radio_list{
+                            float:left;
+                    }
+                    
+                    .ui-autocomplete-input{
+                            .clearfix;
+                            float:right;
+                            width:250px;
+                    }
+                    
+                }
+
+                #vendeur_infos, .vendeur_infos{ 
+                    display:block;
+                    height: 176px;
+                    width: 897px;
+                }
+
+                #vendeur_choice, #acheteur_choice{
+                    .clearfix;
+                }
+                
+                .mandataire_infos{
+                    clear: both;
+                }
+
+                #acheteur { padding-top : 40px; }
+
+                #has_mandataire{ padding : 20px 0 0 10px;}
+
+                #mandataire{ 
+                        .clearfix; 
+                        padding : 0 0 0 10px;
+                } 
+
+                #mandatant{ 
+                        padding : 10px 0 0 0px;
+                        .checkbox_list{ 
+                                float: right;
+                                margin-right: 460px;
+                                li{ 
+                                        display:inline; 
+                                        float : left;
+                                        width : 150px; 
+                                }
+                        }     
+                }
+
+                .btnModification{ .clearfix; margin-top : 10px;}
+
+                .error_list
+                {
+                    padding: 0 10px;
+                    float : right;
+                    color : red;
+                }
+        }
+
+
+        
+        .section_label_maj{
+               & >  label:first-child{
+                        display: inline-block;
+                        .majuscules;
+                        font-size: 15px;
+                        font-weight: bold;
+                        height: 35px;
+                        padding-top:4px;
+            }
+        }
+
+        .section_label_strong{
+            label{
+                 &:first-child{
+                        display: inline-block;
+                        font-weight: bold;
+                }
+            }
+        }
+        
+        .bloc_form{
+                .border-radius(5px 5px 5px 5px);
+                .border(#e3e2e2);
+
+                .vracs_ligne_form {
+
+                        padding: 4px 0 10px 10px;
+
+                        label {
+                                display: inline-block;
+                                font-weight:bold;
+                                width: 150px;
+                        }
+                        span{
+                                height:30px;
+                                line-height:30px;
+                                vertical-align:middle;
+                        }            
+                }
+
+                .vracs_ligne_form_alt{ background : @couleur-a7;  }
+
+                .col{
+
+                        float: left;
+                        vertical-align: top;
+                        width: 448px;    
+                        
+                        &:first-child{
+                                border-right: 1px solid #e3e2e2;
+                                .vracs_ligne_form{
+                                        &:first-child{ .border-radius(5px 0 0 0)}
+                                        &:last-child{ .border-radius(0 0 0 5px) }
+                                }
+                        }
+                        &:last-child{     
+                                .vracs_ligne_form{
+                                        &:first-child{ .border-radius(0 5px 0 0)  }
+                                        &:last-child{ .border-radius(0 0 5px 0)  }
+                                }
+                        }
+                }
+       }
+
+        #ligne_btn{ 
+                display:block;
+                .btnAnnulation{ float:left; }
+                .btnValidation{ float:right; }
+                margin: 10px 0;
+        }
+
+        ul.radio_list{
+                .clearfix;
+                li{
+                    display:block;
+                    float:left;
+                    label{ font-weight:normal !important; }
+                    width:165px;
+                }
+        }
+      
+        .champ_datepicker{
+                padding-top:10px;
+                img{
+                        position: absolute;
+                        margin-left:5px;
+                }
+        }
+
+}
