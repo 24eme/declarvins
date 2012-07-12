@@ -15,7 +15,16 @@ if($nouveau)
 <script type="text/javascript">
     $(document).ready(function() 
     {
-        init_ajax_nouveau();
+         ajaxifyAutocompleteGet('getInfos',{autocomplete : '#vendeur_choice'},'#vendeur_informations');
+		 ajaxifyAutocompleteGet('getInfos',{autocomplete : '#acheteur_choice'},'#acheteur_informations'); 
+	     ajaxifyAutocompleteGet('getInfos',{autocomplete : '#mandataire_choice'},'#mandataire_informations');
+		 $('section#has_mandataire input').attr('checked', 'checked');    
+		 $('#vrac_mandatant_vendeur').attr('checked','checked');
+		    
+		 majAutocompleteInteractions('vendeur');
+		 majAutocompleteInteractions('acheteur');
+		 majAutocompleteInteractions('mandataire');
+    majMandatairePanel();
     });                        
 </script>
 <?php
@@ -43,15 +52,13 @@ else
 		action="<?php echo ($form->getObject()->isNew())? url_for('vrac_nouveau') : url_for('vrac_soussigne',$vrac); ?>">
 		<?php echo $form->renderHiddenFields() ?>
 		<?php echo $form->renderGlobalErrors() ?>
-	
+
 		<div id="vendeur">
 			<div id="vendeur_choice" class="section_label_maj">
-                                
-				<?php echo $form['vendeur_identifiant']->renderLabel() ?>
-                                <?php echo $form['vendeur_famille']->render() ?>
-                                
-                                <?php echo $form['vendeur_identifiant']->render() ?>
                                 <?php echo $form['vendeur_identifiant']->renderError(); ?>
+				<?php echo $form['vendeur_identifiant']->renderLabel() ?>
+                                <?php echo $form['vendeur_famille']->render(array('class' => 'famille')) ?>
+                                <?php echo $form['vendeur_identifiant']->render() ?>
 			</div>
 			<div id="vendeur_informations"> 
 			<?php   
@@ -65,15 +72,12 @@ else
 				<a id="vendeur_modification_btn" class="btn_valider" style="cursor: pointer;">Modifier</a>
 			</div>
 		</div>
-	
-
 		<div id="acheteur">
 			<div id="acheteur_choice" class="section_label_maj">
+                                <?php echo $form['acheteur_identifiant']->renderError(); ?>
                                 <?php echo $form['acheteur_identifiant']->renderLabel() ?>
-				<?php echo $form['acheteur_famille']->render() ?>
-				
+				<?php echo $form['acheteur_famille']->render(array('class' => 'famille')) ?>
                                 <?php echo $form['acheteur_identifiant']->render() ?>
-				<?php echo $form['acheteur_identifiant']->renderError(); ?>
 			</div> <!--  Affichage des informations sur l'acheteur sélectionné AJAXIFIED -->
 			<div id="acheteur_informations">
 			<?php
@@ -126,3 +130,14 @@ else
 		</div>
 	</form>
 </section>
+<script type="text/javascript">
+	$(document).ready(function()  {
+    	$('.autocomplete').combobox();
+    	$('input.famille"').change(function() {
+    		select = $('#'+$(this).attr('data-autocomplete'));		
+    		select.attr('data-ajax', select.attr('data-ajax-structure').replace('%25familles%25', $(this).val()));
+    		//select.parent().find('.ui-autocomplete-input').val("");
+    		//select.html("<option value=''></option>");
+    	});
+	});
+</script>

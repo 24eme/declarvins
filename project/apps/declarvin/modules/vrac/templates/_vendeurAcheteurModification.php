@@ -2,8 +2,6 @@
 use_helper('Display');
 echo $form->renderHiddenFields();
 echo $form->renderGlobalErrors();
-
-$type = $form->getObject()->getFamilleType();
 ?>
 <script type="text/javascript">
     $(document).ready(function() {

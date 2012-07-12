@@ -1,8 +1,8 @@
 <?php
 class Interpro extends BaseInterpro {
-	const INTER_RHONE_ID = 'inter-rhone';
-	const CIVP_ID = 'civp';
-	const INTERVINS_SUD_EST_ID = 'intervins-sud-est';
+	const INTER_RHONE_ID = 'IR';
+	const CIVP_ID = 'CIVP';
+	const INTERVINS_SUD_EST_ID = 'IVSE';
   public function __toString() {
     return $this->nom;
   }

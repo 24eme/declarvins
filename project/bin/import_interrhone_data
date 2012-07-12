@@ -5,20 +5,18 @@ if ! test "$1"; then
 fi
 
 SYMFODIR=$(pwd);
-DATADIR=$(pwd);
 LOGDATE=$SYMFODIR/$(date +%Y%m%d%H%M%S_import_interrhone_data.log)
-
-if false ; then
 
 echo "Import des établissements";
 curl -s -c /tmp/cookie.txt $EDI_AUTH $EDI_PREFIX/edi/etablissements/csv > /dev/null
-curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@/tmp/etablissements_ir.csv" "$EDI_PREFIX/edi/etablissements/csv?id=INTERPRO-inter-rhone"
-
-fi
+echo "ETABLISSEMENT" >> $LOGDATE 2>&1
+echo "==============" >> $LOGDATE
+curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@/tmp/etablissements_ir.csv" "$EDI_PREFIX/edi/etablissements/csv?id=INTERPRO-IR"  >> $LOGDATE 2>&1
 
 if ! test "$1" ; then
 . bin/download_redmine_file https://clients.actualys.com/attachments/download/3819/IR_Data.zip /tmp/IR_Data.zip
 fi
+
 
 mkdir /tmp/IR_DATA
 cd /tmp/IR_DATA
@@ -26,8 +24,19 @@ rm -rf * 2> /dev/null
 unzip /tmp/IR_Data.zip
 cd IR_Data
 DATADIR=$(pwd);
+
 DRMFILE="120523 ExportDRM IR.csv"
 recode ISO88591..UTF8 "$DRMFILE"
-cat "$DRMFILE" | sed 's/Tranquilles/Tranquille/' | sed 's/VDN;VDN /VDN;/' | sed 's/CdR Villages sans NG/Côtes du Rhône Village sans NG/i' | sed 's/CdR Villages avec NG/Côtes du Rhône Village/i' | sed 's/Côtes du Rhône Village;CVG;;;/Côtes du Rhône Village sans NG;CVG;;;/' | sed 's/VDN/Vin doux naturel/' | sed 's/\([0-9][0-9][0-9][0-9]\)\([0-9][0-9]\)\([0-9][0-9]\);\([0-9][0-9][0-9][0-9]\)\([0-9][0-9]\)\([0-9][0-9]\);PAPIER/\1-\2-\3;\1-\2-\3;PAPIER/' | awk -F ';' '{print $1";"$2";"$4";"$5";"$6";"$8";"$9";"$10";"$11";"$13";"$14";"$15";"$16";"$17";"$18";"$19";"$20";"$21";"$22";"$23";"$24";"$25";"$26";"$27";"$28";"$29";"$30";"$31";"$32";"$33";"$34";"$35";"$36";"$37";"$38";"$39";"$40";"$41";"$42";"$43";"$44";"$45";"$46";"$47";"$48";"$49";"$50";"$51";"$52";"$53";"$54";"$55";"$56";"$57";"$58";"$60";"$59";"$61";"$62";"$63";"$64";"$65";"$3'} > "$DRMFILE.2.csv"
+cat "$DRMFILE" | sed 's/VDN;VDN /VDN;/' | sed 's/CdR Villages sans NG/Côtes du Rhône Village sans NG/i' | sed 's/CdR Villages avec NG/Côtes du Rhône Village/i' | sed 's/Côtes du Rhône Village;CVG;;;/Côtes du Rhône Village sans NG;CVG;;;/' | sed 's/VDN/Vin doux naturel/' | sed 's/\([0-9][0-9][0-9][0-9]\)\([0-9][0-9]\)\([0-9][0-9]\);\([0-9][0-9][0-9][0-9]\)\([0-9][0-9]\)\([0-9][0-9]\);PAPIER/\1-\2-\3;\1-\2-\3;PAPIER/' | awk -F ';' '{print $1";"$2";"$4";"$5";"$6";"$8";"$9";"$10";"$11";"$13";"$14";"$15";"$16";"$17";"$18";"$19";"$20";"$21";"$22";"$23";"$24";"$25";"$26";"$27";"$28";"$29";"$30";"$31";"$32";"$33";"$34";"$35";"$36";"$37";"$38";"$39";"$40";"$41";"$42";"$43";"$44";"$45";"$46";"$47";"$48";"$49";"$50";"$51";"$52";"$53";"$54";"$55";"$56";"$57";"$58";"$60";"$59";"$61";"$62";"$63";"$64";"$65";"$3'} > "$DRMFILE.2.csv"
 cd $SYMFODIR
-php symfony import:DRM --file="$DATADIR/$DRMFILE.2.csv" --trace
+echo "DRM"  >> $LOGDATE 2>&1
+echo "================"  >> $LOGDATE 2>&1
+php symfony import:DRM --file="$DATADIR/$DRMFILE.2.csv" --trace  >> $LOGDATE 2>&1
+
+cd $DATADIR
+VRAC="120523-ExportCONTRATS IR.csv"
+cat "$VRAC" | sed 's/VDN;VDN /VDN;/'| sed 's/CdR Villages sans NG/Côtes du Rhône Village sans NG/i' | sed 's/CdR Villages avec NG/Côtes du Rhône Village/i' | sed 's/Côtes du Rhône Village;CVG;;;/Côtes du Rhône Village sans NG;CVG;;;/' | sed 's/VDN/Vin doux naturel/' > "$VRAC.2.csv"
+echo "VRACS"  >> $LOGDATE 2>&1
+echo ===============  >> $LOGDATE 2>&1
+curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@$VRAC.2.csv" "$EDI_PREFIX/edi/contrat/csv?id=INTERPRO-IR"  >> $LOGDATE 2>&1
+

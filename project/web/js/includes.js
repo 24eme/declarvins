@@ -46,6 +46,7 @@
 	// Fonctions personnalisées)
 	$.fn.includeJS(jsPath, 'global.js');
 	$.fn.includeJS(jsPath, 'popups.js');
+	$.fn.includeJS(jsPath, 'form.js');
 	$.fn.includeJS(jsPath, 'autocomplete.js');
 	$.fn.includeJS(jsPath, 'contrat.js');
 	$.fn.includeJS(jsPath, 'drm.js');

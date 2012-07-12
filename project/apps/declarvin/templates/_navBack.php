@@ -6,13 +6,13 @@
 		</li>
 		<?php else: ?>
 		<li<?php if ($active == 'etablissement'): ?> class="actif"<?php endif; ?>>
-			<a href="<?php echo url_for('@etablissement_login') ?>">Etablissement</a>
+			<a href="<?php echo url_for('@etablissement_login') ?>">Etablissements</a>
 		</li>
 		<li<?php if ($active == 'produits'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@produits') ?>">Produits</a>
 		</li>
 		<li<?php if ($active == 'contrat'): ?> class="actif"<?php endif; ?>>
-			<a href="<?php echo url_for('@validation_login') ?>">Contrat</a>
+			<a href="<?php echo url_for('@validation_login') ?>">Contrat mandat</a>
 		</li>
         <li<?php if ($active == 'comptes'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@admin_comptes') ?>">Comptes</a>
@@ -22,7 +22,6 @@
 		</li>
 		<?php endif; ?>
 	</ul>
-	
 	<ul id="actions_etablissement">
 		<?php if ($recherche && 1==2): // on masque la recherche intensionnellement ?>
 		<li id="bloc_admin_etablissement_choice" class="popup_form">

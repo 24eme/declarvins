@@ -31,12 +31,12 @@
                         </ul>
                         <div class="contenu_onglet">
                             <div class="col">
+                                <p><span>Raison Sociale :</span> <strong><?php echo $etablissement->raison_sociale ?></strong></p>
+                                <p><span>Nom commercial :</span> <strong><?php echo $etablissement->nom ?></strong></p>
                                 <p><span>N° RCS / SIRET:</span> <strong><?php echo $etablissement->siret ?></strong></p>
                                 <p><span>N° CNI :</span> <strong><?php echo $etablissement->cni ?></strong></p>
                                 <p><span>N° CVI :</span> <strong><?php echo $etablissement->cvi ?></strong></p>
                                 <p><span>N° accises :</span> <strong><?php echo $etablissement->no_accises ?></strong></p>
-                                <p><span>Raison Sociale :</span> <strong><?php echo $etablissement->raison_sociale ?></strong></p>
-                                <p><span>Nom commercial :</span> <strong><?php echo $etablissement->nom ?></strong></p>
                                 <p><span>Adresse :</span> <strong><?php echo $etablissement->adresse ?></strong></p>
                                 <p><span>CP :</span> <strong><?php echo $etablissement->code_postal ?></strong></p>
                                 <p><span>ville :</span> <strong><?php echo $etablissement->commune ?></strong></p>

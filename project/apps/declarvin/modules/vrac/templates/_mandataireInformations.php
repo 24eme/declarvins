@@ -9,7 +9,7 @@ use_helper('Display');
         if(!isset($numero_contrat))
         {
        ?>
-        ajaxifyGet('modification','#vrac_mandataire_identifiant','#mandataire_modification_btn','#mandataire_informations'); 
+        ajaxifyGet('modification',{field_0 : '#vrac_mandataire_identifiant', 'type': 'mandataire'},'#mandataire_modification_btn','#mandataire_informations'); 
        <?php
         }
         else

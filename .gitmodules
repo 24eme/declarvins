@@ -3,7 +3,7 @@
 	url = git@gitorious.org:acvin/acvinvracplugin.git
 [submodule "project/plugins/acVinEtablissementPlugin"]
 	path = project/plugins/acVinEtablissementPlugin
-	url = git@gitorious.org:acvin/acvinetablissementplugin.giti
+	url = git@gitorious.org:acvin/acvinetablissementplugin.git
 [submodule "project/plugins/acVinLibPlugin"]
 	path = project/plugins/acVinLibPlugin
 	url = git@gitorious.org:acvin/acvinlibplugin.git
@@ -31,3 +31,6 @@
 [submodule "project/plugins/acVinDRMPlugin"]
 	path = project/plugins/acVinDRMPlugin
 	url = git@gitorious.org:acvin/acvindrmplugin.git
+[submodule "wiki"]
+	path = wiki
+	url = git@gitorious.org:declarvin/declarvin-gitorious-wiki.git

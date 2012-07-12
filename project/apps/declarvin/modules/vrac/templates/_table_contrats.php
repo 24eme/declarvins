@@ -13,7 +13,7 @@ use_helper('Vrac');
 		            <th><strong>Mandataire</strong></th>
 		            <th><strong>Type</strong></th>
 		            <th><strong>Produit</strong></th>
-		            <th><strong>Vol. com.</strong></th>
+		            <th><strong>Vol. prop.</strong></th>
 		            <th><strong>Vol. enlv.</strong></th>
 		        </tr>
 		    </thead>
@@ -38,7 +38,7 @@ use_helper('Vrac');
 			      <td><?php echo ($elt[4]) ? link_to($elt[5], 'vrac/rechercheSoussigne?identifiant='.preg_replace('/ETABLISSEMENT-/', '', $elt[4])) : ''; ?></td>
 			      <td><?php echo ($elt[6]) ? link_to($elt[7], 'vrac/rechercheSoussigne?identifiant='.preg_replace('/ETABLISSEMENT-/', '', $elt[6])) : ''; ?></td>
 		          <td><?php echo ($elt[8])? typeProduit($elt[8]) : ''; ?></td>
-			      <td><?php echo ($elt[9])? ConfigurationClient::getCurrent()->get($elt[9])->libelleProduit() : ''; ?></td>
+			      <td><?php echo ($elt[9])? ConfigurationClient::getCurrent()->get($elt[9])->getLibelleFormat() : ''; ?></td>
 			      <td><?php echo $elt[10]; ?></td>
 			      <td><?php echo $elt[11]; ?></td>
 		        </tr>
