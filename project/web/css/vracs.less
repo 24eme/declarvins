@@ -70,9 +70,63 @@
                     float : right;
                     color : red;
                 }
+
+                .ui-button{
+                    position: absolute;
+                    right: 20px;
+                }
+
         }
 
+        #vrac_marche{
 
+                .section_label_maj{
+                    & >  label:first-child{
+                            width : 310px; 
+                            text-transform:uppercase;
+                    }
+                    
+                }
+                
+                #original, #produit, #millesime, #type, #label, #prixUnitaire, #domaine{
+
+                        .clearfix;
+                        margin : 20px 0; 
+
+                        label{
+                                &:first-child{
+                                        display:block;
+                                        float:left;
+                                        width:230px !important;
+                                }
+                        }
+                }   
+
+                #vrac_marche_volumePropose{
+                        label:first-child{
+                                width:215px;
+                        }
+                }
+
+                #label .checkbox_list{
+                        display: block;
+                        float: left;
+                }
+
+                #prixTotal{
+                        label{
+                                width:215px;
+                        }
+                }
+
+                #prixUnitaire{
+                        label{
+                                width:230px;
+                        }
+                }
+
+                
+        }
         
         .section_label_maj{
                & >  label:first-child{
@@ -162,5 +216,7 @@
                         margin-left:5px;
                 }
         }
-
+        .error_list{
+                margin-top:15px;
+        }
 }

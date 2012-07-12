@@ -2087,6 +2087,38 @@ p#date_drm {
   float:right;
   color:red;
 }
+.vracs #vrac_soussigne .ui-button {
+  position:absolute;
+  right:20px;
+}
+.vracs #vrac_marche .section_label_maj >  label:first-child {
+  width:310px;
+  text-transform:uppercase;
+}
+.vracs #vrac_marche #original, .vracs #vrac_marche #produit, .vracs #vrac_marche #millesime, .vracs #vrac_marche #type, .vracs #vrac_marche #label, .vracs #vrac_marche #prixUnitaire, .vracs #vrac_marche #domaine {
+  zoom:1;
+  margin:20px 0;
+}
+.vracs #vrac_marche #original:before, .vracs #vrac_marche #original:after, .vracs #vrac_marche #produit:before, .vracs #vrac_marche #produit:after, .vracs #vrac_marche #millesime:before, .vracs #vrac_marche #millesime:after, .vracs #vrac_marche #type:before, .vracs #vrac_marche #type:after, .vracs #vrac_marche #label:before, .vracs #vrac_marche #label:after, .vracs #vrac_marche #prixUnitaire:before, .vracs #vrac_marche #prixUnitaire:after, .vracs #vrac_marche #domaine:before, .vracs #vrac_marche #domaine:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+.vracs #vrac_marche #original:after, .vracs #vrac_marche #produit:after, .vracs #vrac_marche #millesime:after, .vracs #vrac_marche #type:after, .vracs #vrac_marche #label:after, .vracs #vrac_marche #prixUnitaire:after, .vracs #vrac_marche #domaine:after { clear:both; }
+.vracs #vrac_marche #original label:first-child, .vracs #vrac_marche #produit label:first-child, .vracs #vrac_marche #millesime label:first-child, .vracs #vrac_marche #type label:first-child, .vracs #vrac_marche #label label:first-child, .vracs #vrac_marche #prixUnitaire label:first-child, .vracs #vrac_marche #domaine label:first-child {
+  display:block;
+  float:left;
+  width:230px !important;
+}
+.vracs #vrac_marche #vrac_marche_volumePropose label:first-child { width:215px; }
+.vracs #vrac_marche #label .checkbox_list {
+  display:block;
+  float:left;
+}
+.vracs #vrac_marche #prixTotal label { width:215px; }
+.vracs #vrac_marche #prixUnitaire label { width:230px; }
 .vracs .section_label_maj >  label:first-child {
   display:inline-block;
   font-size:15px;
@@ -2168,6 +2200,7 @@ p#date_drm {
   position:absolute;
   margin-left:5px;
 }
+.vracs .error_list { margin-top:15px; }
 #mon_compte .ligne_form, #compteModification .ligne_form, #compteAjout .ligne_form, #validationFiche .ligne_form { margin:0 0 15px; }
 #mon_compte label, #compteModification label, #compteAjout label, #validationFiche label {
   display:inline-block;
