@@ -3,7 +3,7 @@ class VracForm extends acCouchdbObjectForm
 {
 	protected $configuration;
     
-	public function __construct(Configuration $configuration, acCouchdbJson $object, $options = array(), $CSRFSecret = null) 
+	public function __construct(ConfigurationVrac $configuration, acCouchdbJson $object, $options = array(), $CSRFSecret = null) 
 	{
         $this->setConfiguration($configuration);
         parent::__construct($object, $options, $CSRFSecret);
