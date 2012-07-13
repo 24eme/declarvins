@@ -206,5 +206,11 @@ class Configuration extends BaseConfiguration {
 
     	return self::STATUT_CONTRAT_SOLDE;	
     }
+    
+    public function getConfigurationVracByInterpro($interpro) {
+    	if (!$this->vrac->interpro->exist($interpro))
+    		throw new sfException('The configuration object has no vrac configuration for this interpro');
+    	return $this->vrac->interpro->get($interpro);
+    }
 
 }
