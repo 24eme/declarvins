@@ -388,7 +388,7 @@ abstract class acCouchdbJsonFields {
         }
         
         $field = $this->getDefinition()->get('*')->getDefaultValue($this->_document, $this->_hash . '/' . count($this->_fields));
-        $this->_fields[] = $field;
+        $this->_fields[count($this->_fields)] = $field;
         
         return count($this->_fields)-1;
     }
