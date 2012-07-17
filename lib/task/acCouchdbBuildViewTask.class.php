@@ -40,7 +40,7 @@ EOF;
     		$design = isset($designs[$name]) ? $designs[$name] : $this->getDesign($name);
     		$content = file_get_contents($file);
     		if ($content) {
-    			$design->views->{$matches[2]}->{$matches[3]} = $content;
+    			@$design->views->{$matches[2]}->{$matches[3]} = $content;
     		}
     		$designs[$name] = $design;
     	}
