@@ -469,5 +469,3 @@ abstract class acCouchdbJsonFields {
     }
 
 }
-
-?>
