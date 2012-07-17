@@ -55,13 +55,13 @@ EOF;
         // add your code here
     }
 
-    protected function generateDefinition($definition, $data, $multiple = false) {
+    protected function generateDefinition(&$definition, $data, $multiple = false) {
         $definition['definition'] = array();
         $this->generateFields($definition['definition'], $data, $multiple);
         return $definition;
     }
 
-    protected function generateFields($definition, $data_fields, $multiple = false) {
+    protected function generateFields(&$definition, $data_fields, $multiple = false) {
         foreach ($data_fields as $key => $data_field) {
             if ($multiple) {
                 $this->generateField($definition['fields'], '*', $data_field);
@@ -73,7 +73,7 @@ EOF;
         return $definition;
     }
 
-    protected function generateField($definition, $key, $data_field) {
+    protected function generateField(&$definition, $key, $data_field) {
         if ($data_field instanceof stdClass) {
             $definition[$key] = array('type' => 'collection');
             $array_keys_data_field = null;
