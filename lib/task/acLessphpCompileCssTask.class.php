@@ -42,7 +42,7 @@ EOF;
 	    lessc::ccompile($lessFile, $cssFile);
 	    $this->logSection('compile', 'done', null, 'INFO');
 	} catch (Exception $e) {
-	    exit('lessc fatal error:<br />'.$ex->getMessage());
+	    exit('lessc fatal error:<br />'.$e->getMessage());
 	}
   }
 
