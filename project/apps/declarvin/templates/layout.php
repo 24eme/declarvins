@@ -50,6 +50,7 @@
         </div>
         <!-- fin #global -->
         <?php include_partial('global/initMessageAide') ?>
+        <?php include_partial('global/ajaxNotification') ?> 
         <!-- ####### A REPRENDRE ABSOLUMENT ####### -->
         <!--[if lte IE 9 ]> </div> <![endif]-->
         <!-- ####### A REPRENDRE ABSOLUMENT ####### -->

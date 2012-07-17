@@ -7,5 +7,8 @@ git submodule init
 git submodule update
 git submodule foreach git checkout master
 cd project/plugins/acVinVracPlugin
-git checkout vrac_declarvin
+git checkout declarvin_config
+cd ../../..
+cd project/plugins/acVinConfigurationPlugin
+git checkout declarvin
 cd ../../..

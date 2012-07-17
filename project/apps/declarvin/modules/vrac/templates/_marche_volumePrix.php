@@ -8,56 +8,62 @@
  */
  ?>
 
-<br>
-<h2>Volumes proposés</h2>
-
-
 <!--  Affichage des contenances disponibles (seulement s'il s'agit de vins en bouteilles)  -->
-<section id="contenance" class="bouteilles_contenance">
-       <?php echo $form['bouteilles_contenance']->renderError() ?>
-       <?php echo $form['bouteilles_contenance']->renderLabel() ?>
-        <?php echo $form['bouteilles_contenance']->render() ?>
-</section>
-
-<!--  Affichage des volumes disponibles variables selon le type de transaction choisi  -->
-<section id="volume">
-        <div class="bouteilles_quantite">
-        <?php echo $form['bouteilles_quantite']->renderError() ?>
-            <strong> <?php echo $form['bouteilles_quantite']->renderLabel() ?></strong>
-        <?php echo $form['bouteilles_quantite']->render() ?>
-            <span id="volume_unite_total" class="unite"></span>
+<div id="vrac_marche_volumePropose" class="section_label_maj">
+    <label>Volumes proposés</label>
+    <div class="bloc_form" >
+        <div id="contenance" class="bouteilles_contenance vracs_ligne_form " >
+            <span>
+                <?php echo $form['bouteilles_contenance']->renderLabel() ?>
+                <?php echo $form['bouteilles_contenance']->render() ?>
+                <?php echo $form['bouteilles_contenance']->renderError() ?>
+            </span>
         </div>
-        <div class="jus_quantite">
-        <?php echo $form['jus_quantite']->renderError() ?>
-            <strong>  <?php echo $form['jus_quantite']->renderLabel() ?></strong>
-        <?php echo $form['jus_quantite']->render() ?>
-            <span id="volume_unite_total" class="unite"></span>
+
+        <!--  Affichage des volumes disponibles variables selon le type de transaction choisi  -->
+        <div id="volume" class="vracs_ligne_form vracs_ligne_form_alt">
+            <span>
+                <div class="bouteilles_quantite">
+                    <strong> <?php echo $form['bouteilles_quantite']->renderLabel() ?></strong>
+                    <?php echo $form['bouteilles_quantite']->render() ?>
+                    <span id="volume_unite_total" class="unite"></span>
+                    <?php echo $form['bouteilles_quantite']->renderError() ?>
+                </div>
+                <div class="jus_quantite">
+                    <strong>  <?php echo $form['jus_quantite']->renderLabel() ?></strong>
+                    <?php echo $form['jus_quantite']->render() ?>
+                    <span id="volume_unite_total" class="unite"></span>
+                    <?php echo $form['jus_quantite']->renderError() ?>
+                </div>
+                <div class="raisin_quantite">
+                    <strong>  <?php echo $form['raisin_quantite']->renderLabel() ?></strong>
+                    <?php echo $form['raisin_quantite']->render() ?>
+                    <span id="volume_unite_total" class="unite"></span>
+                    <?php echo $form['raisin_quantite']->renderError() ?>
+                </div>  
+            </span>
         </div>
-        <div class="raisin_quantite">
-        <?php echo $form['raisin_quantite']->renderError() ?>
-            <strong>  <?php echo $form['raisin_quantite']->renderLabel() ?></strong>
-        <?php echo $form['raisin_quantite']->render() ?>
-            <span id="volume_unite_total" class="unite"></span>
-        </div>    
-</section>
-
-<!--  Affichage du prix unitaire variables selon le type de transaction choisi -->
-<section id="prixUnitaire">
-   <?php echo $form['prix_unitaire']->renderError(); ?>
-       <h2>
-           <?php echo $form['prix_unitaire']->renderLabel() ?>
-           <?php echo $form['prix_unitaire']->render() ?>
-       </h2>        
-       <span id="prix_unitaire_unite" class="unite"></span>
-       <span id="prix_unitaire_hl" class="small"></span>
-</section>
-                
-
-<!--  Affichage du prix total (quantité x nbproduit)  -->
-<section id="prixTotal">
-    <span id="vrac_prix_total_label"><strong>Prix total</strong></span>
-    <span id="vrac_prix_total" class="unite"></span>
-    <span id="prix_unite" class="small">€</span>
-       
-</section>
+    </div>
+    
+    <!--  Affichage du prix unitaire variables selon le type de transaction choisi -->
+    <div id="prixUnitaire" class="section_label_maj">
+        <?php echo $form['prix_unitaire']->renderLabel() ?>
+        <?php echo $form['prix_unitaire']->render() ?>        
+        <span id="prix_unitaire_unite" class="unite"></span>
+        <span id="prix_unitaire_hl" class="small"></span>
+        <?php echo $form['prix_unitaire']->renderError(); ?>
+    </div>
+    
+    <!--  Affichage du prix total (quantité x nbproduit)  -->
+    <div class="bloc_form" >
+        <div id="prixTotal" class="vracs_ligne_form vracs_ligne_form_alt">
+            <span>
+                <label id="vrac_prix_total_label">Prix total</label>
+                <span id="vrac_prix_total" class="unite"></span>
+                <span id="prix_unite" class="small">€</span> 
+            </span>
+        </div>
+    </div>
+</div>
+            
                 

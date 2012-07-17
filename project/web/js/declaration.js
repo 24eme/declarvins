@@ -33,9 +33,6 @@
 
 	var masqueColActive;
 	
-	var notificationErreur = $('#error_notification');
-	var notificationSauv = $('#saving_notification');
-
 	$(document).ready( function()
 	{
 		if(colonnesDR.exists())
@@ -273,11 +270,7 @@
 			
 			$.post(form.attr('action'), donneesCol, function (data)
 			{
-				notificationSauv.hide();
-				
-				if(!data.success) {  notificationErreur.show(); }
-				
-				else
+				if(data.success)
 				{
 					var champs = colActive.find('input:text, select');
 					
@@ -332,8 +325,6 @@
 				$.enleverColActive();
 			}, "json");
 			
-			notificationErreur.hide();
-			notificationSauv.show();
 		}
 	};
 	

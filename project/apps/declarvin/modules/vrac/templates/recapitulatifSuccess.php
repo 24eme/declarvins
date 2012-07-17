@@ -14,6 +14,7 @@
 		<h2>N° d'enregistrement du contrat : <span><?php echo $vrac['numero_contrat']; ?></span></h2>
 		<br /><br />
 		<?php include_partial('showContrat', array('vrac' => $vrac)); ?>
+		<a href="<?php echo url_for("vrac") ?>">Retour</a>
 		<div class="ligne_form_btn">
 			<button class="btn_valider" type="submit">Saisir un nouveau contrat</button>
 		</div>

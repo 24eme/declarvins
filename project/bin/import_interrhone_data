@@ -11,7 +11,7 @@ echo "Import des établissements";
 curl -s -c /tmp/cookie.txt $EDI_AUTH $EDI_PREFIX/edi/etablissements/csv > /dev/null
 echo "ETABLISSEMENT" >> $LOGDATE 2>&1
 echo "==============" >> $LOGDATE
-curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@/tmp/etablissements_ir.csv" "$EDI_PREFIX/edi/etablissements/csv?id=INTERPRO-inter-rhone"  >> $LOGDATE 2>&1
+curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@/tmp/etablissements_ir.csv" "$EDI_PREFIX/edi/etablissements/csv?id=INTERPRO-IR"  >> $LOGDATE 2>&1
 
 if ! test "$1" ; then
 . bin/download_redmine_file https://clients.actualys.com/attachments/download/3819/IR_Data.zip /tmp/IR_Data.zip
@@ -38,5 +38,5 @@ VRAC="120523-ExportCONTRATS IR.csv"
 cat "$VRAC" | sed 's/VDN;VDN /VDN;/'| sed 's/CdR Villages sans NG/Côtes du Rhône Village sans NG/i' | sed 's/CdR Villages avec NG/Côtes du Rhône Village/i' | sed 's/Côtes du Rhône Village;CVG;;;/Côtes du Rhône Village sans NG;CVG;;;/' | sed 's/VDN/Vin doux naturel/' > "$VRAC.2.csv"
 echo "VRACS"  >> $LOGDATE 2>&1
 echo ===============  >> $LOGDATE 2>&1
-curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@$VRAC.2.csv" "$EDI_PREFIX/edi/contrat/csv?id=INTERPRO-inter-rhone"  >> $LOGDATE 2>&1
+curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@$VRAC.2.csv" "$EDI_PREFIX/edi/contrat/csv?id=INTERPRO-IR"  >> $LOGDATE 2>&1
 

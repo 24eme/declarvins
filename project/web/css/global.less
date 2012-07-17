@@ -710,14 +710,19 @@ a
 #principal
 {
 	/* Onglets */
-	#onglets_principal, .onglets_principal
+	#onglets_principal,
+    .onglets_principal
 	{
+	    .clearfix;
+	    
 		line-height: 23px;
-		.clearfix;
+		position: relative;
+		top: 1px;
 		
 		li
 		{
-			background: @couleur-a3;
+			background: @couleur-b1;
+			color: #fff;
 			float: left;
 			margin: 0 6px 0 0;
 			
@@ -725,10 +730,16 @@ a
 			a:hover,
 			a:focus
 			{
-				background: @couleur-b1;
-				color: #fff;
-				strong { font-weight: normal; }
+				background: @couleur-a4;
+				color: @couleur-a1;
 			}
+			
+			a
+            {
+                color: #fff;
+            }
+			
+			strong { font-weight: normal; }
 			
 			a, strong
 			{
@@ -1118,4 +1129,32 @@ input.ui-autocomplete-input
 
        a:hover { text-decoration : none; }
     }
+}
+
+#ajax_notifications {
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 1199;
+}
+
+#ajax_form_progress_notification, #ajax_form_error_notification {
+	display: none;  
+	margin: 2px auto;
+	color: #fff;
+	padding: 5px;
+	text-align: center;
+	// .opacite(0.9);
+}
+
+#ajax_form_progress_notification {
+	background: #114C8D;
+	z-index: 1200;
+	width: 150px;
+}
+
+#ajax_form_error_notification {
+	z-index: 1201;
+	background: #900000;
+	width: 400px;
 }
