@@ -80,7 +80,7 @@ class acCouchdbManager {
     
     public static function getSchema() {
         if (is_null(self::getInstance()->_schema)) {
-            self::getInstance()->_schema = sfYaml::load(sfConfig::get('sf_config_dir').'/couchdb/schema.yml');
+            self::getInstance()->_schema = sfYaml::load(self::getInstance()->getSchemaYaml());
         }
 
         return self::getInstance()->_schema;
@@ -114,5 +114,16 @@ class acCouchdbManager {
         }
         
         return self::getInstance()->_definition_tree_hash[$class_tree];
+    }
+
+    protected function getSchemaYaml() {
+    	$yaml = "";
+    	$files = sfFinder::type('file')->name('/^schema\.yml$/')->in(array(sfConfig::get('sf_config_dir'), sfConfig::get('sf_plugins_dir')));
+
+    	foreach($files as $file) {
+    		$yaml .= file_get_contents($file);
+    	}
+
+    	return $yaml;
     }
 }
