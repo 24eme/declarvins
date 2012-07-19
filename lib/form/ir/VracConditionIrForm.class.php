@@ -23,6 +23,9 @@ class VracConditionIrForm extends VracForm
 		   'retiraisons',
 		   'paiements'
 		));
+		$this->getWidget('type_prix')->setOption('expanded', true);
+		$this->getWidget('conditions_paiement')->setOption('expanded', true);
+		$this->getWidget('delai_paiement')->setOption('expanded', true);
 		$this->widgetSchema->setNameFormat('vrac_condition[%s]');
     }
 }
