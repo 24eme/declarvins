@@ -69,12 +69,10 @@ EOF;
         $detail = $configuration->libelle_detail_ligne->get($datas[0])->add($datas[1], $datas[2]);
     }
     
-    $contenances = array('75 cl' => 0.0075,
-                         '1 L' => 0.01,
-                         '1.5 L'=> 0.015,
-                         '3 L' => 0.03,
-                         '6 L' => 0.06);
-    $configurationContenances = $configuration->add('contenances', $contenances);   
+    
+    
+    $csv = new VracConfigurationCsvFile($configuration, $import_dir.'/vrac.csv');
+    $configuration = $csv->importConfigurationVrac();
 
   	$configuration->save();
   }
