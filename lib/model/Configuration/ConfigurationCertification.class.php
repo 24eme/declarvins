@@ -25,12 +25,12 @@ class ConfigurationCertification extends BaseConfigurationCertification {
 
 
     public function getProduits($interpro, $departement) {
-        $produits = ConfigurationProduitsView::getInstance()->findProduitsByCertification($interpro, 
+        $produits = ConfigurationProduitsView::getInstance()->findProduitsByCertificationByDepartement($interpro, 
         																				  $this->getKey(), 
         																				  '')->rows;
 
         if ($departement) {
-          	$produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findProduitsByCertification($interpro, 
+          	$produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findProduitsByCertificationByDepartement($interpro, 
    				 $this->getKey(), 
           		 $departement)->rows);
         }
@@ -73,12 +73,9 @@ class ConfigurationCertification extends BaseConfigurationCertification {
     public function setDonneesCsv($datas) {
     	$this->libelle = ($datas[ProduitCsvFile::CSV_PRODUIT_CATEGORIE_LIBELLE])? $datas[ProduitCsvFile::CSV_PRODUIT_CATEGORIE_LIBELLE] : null;
     	$this->code = ($datas[ProduitCsvFile::CSV_PRODUIT_CATEGORIE_CODE])? $datas[ProduitCsvFile::CSV_PRODUIT_CATEGORIE_CODE] : null;
-    	if (ProduitCsvFile::CSV_PRODUIT_CATEGORIE_CODE_APPLICATIF_DROIT == $datas[ProduitCsvFile::CSV_PRODUIT_DOUANE_NOEUD]) {
-    		$this->setDroitDouaneCsv($datas);
-    	}
-    	if (ProduitCsvFile::CSV_PRODUIT_CATEGORIE_CODE_APPLICATIF_DROIT == $datas[ProduitCsvFile::CSV_PRODUIT_CVO_NOEUD]) {
-    		$this->setDroitCvoCsv($datas);
-    	}
+
+    	$this->setDroitDouaneCsv($datas, ProduitCsvFile::CSV_PRODUIT_CATEGORIE_CODE_APPLICATIF_DROIT);
+    	$this->setDroitCvoCsv($datas, ProduitCsvFile::CSV_PRODUIT_CATEGORIE_CODE_APPLICATIF_DROIT);
     }
     
   	public function hasDepartements() {
@@ -125,8 +122,8 @@ class ConfigurationCertification extends BaseConfigurationCertification {
   	}
   	
   	public function hasProduit($interpro, $departement) {
-  		$produits = ConfigurationProduitsView::getInstance()->nbProduitsByCertification($interpro, $this->getKey(), $departement);
-  		$produitsDefaut = ConfigurationProduitsView::getInstance()->nbProduitsByCertification($interpro, $this->getKey(), '');
+  		$produits = ConfigurationProduitsView::getInstance()->nbProduitsByCertificationByDepartement($interpro, $this->getKey(), $departement);
+  		$produitsDefaut = ConfigurationProduitsView::getInstance()->nbProduitsByCertificationByDepartement($interpro, $this->getKey(), '');
   		$total = 0;
   		if (isset($produits->rows[0]) && $produits->rows[0]->value > 0)
   			$total += $produits->rows[0]->value;
