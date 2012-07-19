@@ -1,3 +1,4 @@
+
 Current:
   definition:
     fields:
@@ -26,6 +27,12 @@ Configuration:
                     type: collection
                     definition:
                       fields:
+                        etapes:
+                          class: ConfigurationVracEtapes
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
                         vendeur_types:
                           type: collection
                           definition:
@@ -91,6 +98,16 @@ Configuration:
                           definition:
                             fields:
                               '*': {  }
+                        contenances:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+      labels:
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
       droits:
         type: collection
         definition:

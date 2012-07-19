@@ -4,6 +4,7 @@
  * 
  * Base model for ConfigurationVrac
 
+ * @property ConfigurationVracEtapes $etapes
  * @property acCouchdbJson $vendeur_types
  * @property acCouchdbJson $acheteur_types
  * @property acCouchdbJson $types_transaction
@@ -17,7 +18,10 @@
  * @property acCouchdbJson $natures_document
  * @property acCouchdbJson $types_domaine
  * @property acCouchdbJson $delais_paiement
+ * @property acCouchdbJson $contenances
 
+ * @method ConfigurationVracEtapes getEtapes()
+ * @method ConfigurationVracEtapes setEtapes()
  * @method acCouchdbJson getVendeurTypes()
  * @method acCouchdbJson setVendeurTypes()
  * @method acCouchdbJson getAcheteurTypes()
@@ -44,6 +48,8 @@
  * @method acCouchdbJson setTypesDomaine()
  * @method acCouchdbJson getDelaisPaiement()
  * @method acCouchdbJson setDelaisPaiement()
+ * @method acCouchdbJson getContenances()
+ * @method acCouchdbJson setContenances()
  
  */
 
