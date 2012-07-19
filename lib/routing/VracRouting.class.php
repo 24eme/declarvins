@@ -18,7 +18,11 @@ class VracRouting {
                                                             'action' => 'rechercheSoussigne', 'identifiant' => null)));
         $r->prependRoute('vrac_nouveau', new sfRoute('/vrac/nouveau', array('module' => 'vrac',
                                                             'action' => 'nouveau')));
-        $r->prependRoute('vrac_soussigne', new VracRoute('/vrac/:numero_contrat/soussigne',
+        $r->prependRoute('vrac_etape', new VracRoute('/vrac/:numero_contrat/etape/:step',
+                                                        array('module' => 'vrac','action' => 'etape', 'step' => null),
+                                                        array('sf_method' => array('get','post')),
+                                                        array('model' => 'Vrac', 'type' => 'object')));
+        /*$r->prependRoute('vrac_soussigne', new VracRoute('/vrac/:numero_contrat/soussigne',
                                                         array('module' => 'vrac','action' => 'soussigne'),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object')));       
@@ -29,7 +33,7 @@ class VracRouting {
         $r->prependRoute('vrac_condition', new VracRoute('/vrac/:numero_contrat/condition',
                                                         array('module' => 'vrac','action' => 'condition'),
                                                         array('sf_method' => array('get','post')),
-                                                        array('model' => 'Vrac', 'type' => 'object')));
+                                                        array('model' => 'Vrac', 'type' => 'object')));*/
         $r->prependRoute('vrac_validation', new VracRoute('/vrac/:numero_contrat/validation',
                                                         array('module' => 'vrac','action' => 'validation'),
                                                         array('sf_method' => array('get','post')),

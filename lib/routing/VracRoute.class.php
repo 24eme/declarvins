@@ -22,7 +22,6 @@ class VracRoute extends sfObjectRoute {
 
     protected function doConvertObjectToArray($object) {  
         $parameters = array("numero_contrat" => $object->numero_contrat);
-        
         return $parameters;
     }
 

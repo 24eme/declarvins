@@ -3,6 +3,7 @@ class VracMandataireForm extends VracEtablissementForm
 {
 	public function configure()
 	{
+		parent::configure();
 		$this->useFields(array(
            'raison_sociale',
            'nom',

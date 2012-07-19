@@ -1,35 +1,7 @@
-<?php
-    if($vrac->etape==null) $vrac->etape=0;
-    $pourcentage = ($vrac->etape) * 25;
-?>
-    <ol id="rail_etapes">
-        <?php include_partial('etapeItem',array('num_etape' => 0,
-                                                 'vrac' => $vrac,
-                                                 'actif' => $actif,
-                                                 'label' => 'Soussignés',
-                                                 'url_etape' => 'vrac_soussigne'
-                                                )); ?>
-        
-        <?php include_partial('etapeItem',array('num_etape' => 1,
-                                                 'vrac' => $vrac,
-                                                 'actif' => $actif,
-                                                 'label' => 'Marché',
-                                                 'url_etape' => 'vrac_marche'
-                                                )); ?>
-        
-        <?php include_partial('etapeItem',array('num_etape' => 2,
-                                                 'vrac' => $vrac,
-                                                 'actif' => $actif,
-                                                 'label' => 'Conditions',
-                                                 'url_etape' => 'vrac_condition'
-                                                )); ?>
-        
-        <?php include_partial('etapeItem',array('num_etape' => 3,
-                                                 'vrac' => $vrac,
-                                                 'actif' => $actif,
-                                                 'label' => 'Validation',
-                                                 'url_etape' => 'vrac_validation'
-                                                )); ?>
-        
-        
-    </ol>
+<ol id="rail_etapes">
+	<?php 
+		foreach ($etapes as $etape => $etapeLibelle) {
+			include_partial('etapeItem',array('vrac' => $vrac, 'actif' => $actif, 'etape' => $etape, 'label' => $etapeLibelle, 'isActive' => ($actif == $etape), 'isLink' => !$configurationVracEtapes->hasSup($etape, $actif)));
+		}	
+	?>  
+</ol>
