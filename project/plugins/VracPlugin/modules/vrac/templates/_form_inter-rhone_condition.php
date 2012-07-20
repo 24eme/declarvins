@@ -114,7 +114,8 @@
 				<?php echo $form['echeancier_paiement']->render() ?>
 			</div>
 			<div> 
-				<?php foreach ($form['paiements'] as $formPaiement): ?>
+				<?php foreach ($form['paiements'] as $key => $formPaiement): ?>
+				<?php print_r($key) ?>
 				<table>
 					<tr>
 						<td>
