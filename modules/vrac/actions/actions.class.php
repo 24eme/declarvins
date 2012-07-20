@@ -19,7 +19,7 @@ class vracActions extends sfActions
 	
 	public function executeIndex(sfWebRequest $request)
 	{
-		$this->vracs = VracClient::getInstance()->retrieveLastDocs();
+		$this->vracs = VracHistoryView::getInstance()->retrieveLastDocs();
 	}
 
 	public function executeNouveau(sfWebRequest $request)

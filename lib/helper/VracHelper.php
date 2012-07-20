@@ -1,35 +1,52 @@
 <?php
 
-function statusImg($status)
+function getCvoLabels($label)
 {
-    $imgObj = new stdClass();
-    $imgObj->alt = '';
-    $imgObj->src = '/images/icons/';
+   $cvo_nature = array(VracClient::CVO_NATURE_MARCHE_DEFINITIF => 'Marché définitif',
+                       VracClient::CVO_NATURE_COMPENSATION => 'Compensation',
+                       VracClient::CVO_NATURE_NON_FINANCIERE => 'Non financière',
+                       VracClient::CVO_NATURE_VINAIGRERIE => 'Vinaigrerie');
+   return $cvo_nature[$label];
+}
+
+function dateCampagneViticolePresent()
+{
+    $date = date('mY');
+    $mois = substr($date, 0,2);
+    $annee = substr($date, 2,6);
+    $campagne = ($mois<8)? ($annee-1).'/'.$annee : $annee.'/'.($annee+1);
+    return $campagne;
+}
+
+function dateCampagneViticole($date)
+{
+    $date_exploded = explode("/", $date);
+    $mois = $date_exploded[1];
+    $annee = $date_exploded[2];
+    $campagne = ($mois<8)? ($annee-1).'/'.$annee : $annee.'/'.($annee+1);
+    return $campagne;
+}
+ 
+function isARechercheParam($actif,$label)
+{
+    return $actif==$label;
+}
+
+function statusColor($status)
+{
     
-    if(is_null($status)) return $imgObj;
+    if(is_null($status)) return '';
     
     switch ($status)
     {
         case VracClient::STATUS_CONTRAT_ANNULE:
-        {
-            $imgObj->alt = 'annulé';
-            $imgObj->src .= 'annule';
-            return $imgObj;
-        }
-        case VracClient::STATUS_CONTRAT_SOLDE:            
-        {
-            $imgObj->alt = 'soldé';
-            $imgObj->src .= 'solde';
-            return $imgObj;
-        }
+            return 'statut_annule';
+        case VracClient::STATUS_CONTRAT_SOLDE:
+            return 'statut_solde';
         case VracClient::STATUS_CONTRAT_NONSOLDE:
-        {
-            $imgObj->alt = 'non soldé';
-            $imgObj->src .= 'nonsolde';
-            return $imgObj;
-        }
+            return 'statut_non-solde';
         default :
-            return $imgObj;
+            return '';
     }
 }
 
@@ -43,28 +60,47 @@ function showRecapPrixUnitaire($vrac)
             case 'mouts': return $vrac->prix_unitaire.' €/hl';
             case 'vin_vrac': return $vrac->prix_unitaire.' €/hl';                   
             case 'vin_bouteille': 
-                if ($vrac->bouteilles_quantite == 0 || $vrac->bouteilles_contenance == 0) {
+                if ($vrac->bouteilles_quantite == 0 || $vrac->bouteilles_contenance_volume == 0) {
                     return 0;
                 }
                 return $vrac->prix_unitaire.' €/btle, soit '.
-                    $vrac->prix_total/($vrac->bouteilles_quantite*($vrac->bouteilles_contenance/10000)).' €/hl';
+                    $vrac->prix_total/($vrac->bouteilles_quantite*($vrac->bouteilles_contenance_volume)).' €/hl';
         }
     }    
     return '';
 }
 
-function showRecapVolume($vrac)
+function showType($vrac)
+{
+    if($type = $vrac->type_transaction)
+    {
+        return showTypeFromLabel($type);
+    }    
+    return '';
+}
+
+function showTypeFromLabel($type)
+{
+    switch ($type)
+        {
+            case 'vin_vrac': return 'vin vrac';                   
+            case 'vin_bouteille': return 'vin conditionné';
+            default: return $type;
+        }
+}
+
+function showRecapVolumePropose($vrac)
 {
     if($type = $vrac->type_transaction)
     {
         switch ($type)
         {
-            case 'raisins': return $vrac->raisin_quantite.' kg (raisins)';
-            case 'mouts': return $vrac->jus_quantite.' hl (moûts)';
-            case 'vin_vrac': return $vrac->jus_quantite.' hl (vin vrac)';                   
+            case 'raisins': return $vrac->raisin_quantite.' kg (raisins), soit '.$vrac->volume_propose.' hl';
+            case 'mouts': return $vrac->volume_propose.' hl (moûts)';
+            case 'vin_vrac': return $vrac->volume_propose.' hl (vin vrac)';                   
             case 'vin_bouteille': 
                 return $vrac->bouteilles_quantite.
-                    ' bouteilles, soit '.$vrac->bouteilles_quantite*($vrac->bouteilles_contenance/10000).' hl';
+                    ' bouteilles, soit '.$vrac->volume_propose.' hl';
         }
     }    
     return '';
@@ -90,13 +126,13 @@ function typeProduit($type)
 {
     switch ($type) {
         case VracClient::TYPE_TRANSACTION_VIN_BOUTEILLE :
-            return 'bouteilles';
+            return 'Btl';
         case VracClient::TYPE_TRANSACTION_VIN_VRAC :
-            return 'vracs';
+            return 'V';
         case VracClient::TYPE_TRANSACTION_MOUTS :
-            return 'moûts';
+            return 'M';
         case VracClient::TYPE_TRANSACTION_RAISINS :
-            return 'raisins';
+            return 'R';
     }
     return '';
 }   

@@ -1,15 +1,21 @@
 <?php
 class VracPaiementCollectionForm extends acCouchdbObjectForm implements FormBindableInterface
 {
+	
+	protected $virgin_object = null;
+	
 	public function configure()
 	{
-		$key = 0;
+		if (count($this->getObject()) == 0) {
+			$this->virgin_object = $this->getObject()->add();
+		}
+		
 		foreach ($this->getObject() as $key => $object) {
 			$this->embedForm ($key, new VracPaiementForm($object));
 		}
-		$this->embedForm (($key+1), new VracPaiementForm($this->getObject()->add()));
+		
 	}
-
+	
 	public function bind(array $taintedValues = null, array $taintedFiles = null)
 	{
 		foreach ($this->embeddedForms as $key => $form) {
@@ -21,7 +27,7 @@ class VracPaiementCollectionForm extends acCouchdbObjectForm implements FormBind
 			if(!is_array($values) || array_key_exists($key, $this->embeddedForms)) {
 				continue;
 			}
-			print_r($this->getObject()->toArray());exit;
+
 			$this->embedForm($key, new VracPaiementForm($this->getObject()->add()));
 		}
 		parent::bind($taintedValues, $taintedFiles);
@@ -34,4 +40,12 @@ class VracPaiementCollectionForm extends acCouchdbObjectForm implements FormBind
 		unset($this->embeddedForms[$key]);
 		$this->getObject()->remove($key);
 	}
+	
+	
+	public function offsetUnset($offset) {
+		parent::offsetUnset($offset);
+		if (!is_null($this->virgin_object)) {
+			$this->virgin_object->delete();
+		}
+    }
 }
