@@ -21,17 +21,18 @@ class VracForm extends acCouchdbObjectForm
     
 	public function configure()
     {
+
         $this->setWidgets(array(
         	'numero_contrat' => new sfWidgetFormInputText(),
         	'etape' => new sfWidgetFormInputText(),
-        	'vendeur_type' => new sfWidgetFormChoice(array('choices' => $this->getVendeurTypes())),
+        	'vendeur_type' => new sfWidgetFormChoice(array('choices' => $this->getVendeurTypes(), 'expanded', true)),
         	'vendeur_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getVendeurs())),
         	'vendeur_assujetti_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
-        	'acheteur_type' => new sfWidgetFormChoice(array('choices' => $this->getAcheteurTypes())),
+        	'acheteur_type' => new sfWidgetFormChoice(array('choices' => $this->getAcheteurTypes(), 'expanded', true)),
         	'acheteur_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getAcheteurs())),
         	'acheteur_assujetti_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'mandatants' => new sfWidgetFormChoice(array('choices' => $this->getMandatants(), 'multiple' => true)),
-        	'mandataire_exist' => new sfWidgetFormInputCheckbox(),
+        	'mandataire_exist' => new sfWidgetFormInputCheckbox(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'mandataire_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getMandataires())),
         	'premiere_mise_en_marche' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'production_otna' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
@@ -89,7 +90,7 @@ class VracForm extends acCouchdbObjectForm
         	'acheteur_identifiant' => 'Acheteur:',
         	'acheteur_assujetti_tva' => 'Assujetti à la TVA',
         	'mandatants' => 'Mandatants:',
-        	'mandataire_exist' => 'Présence d\'un mandataire?',
+        	'mandataire_exist' => 'Transaction avec un courtier',
         	'mandataire_identifiant' => 'Mandataire:',
         	'premiere_mise_en_marche' => 'Première mise en marché:',
         	'production_otna' => 'Contrat entre producteurs 5% ou OTNA:',
@@ -147,7 +148,7 @@ class VracForm extends acCouchdbObjectForm
         	'acheteur_identifiant' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getAcheteurs()))),
         	'acheteur_assujetti_tva' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'mandatants' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getMandatants()), 'multiple' => true)),
-        	'mandataire_exist' => new sfValidatorPass(),
+        	'mandataire_exist' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'mandataire_identifiant' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getMandataires()))),
         	'premiere_mise_en_marche' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'production_otna' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
