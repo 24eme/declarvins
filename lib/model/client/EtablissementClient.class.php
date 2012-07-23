@@ -2,6 +2,11 @@
 
 class EtablissementClient extends acCouchdbClient {
    
+    const FAMILLE_PRODUCTEUR = "Producteur";
+    const FAMILLE_NEGOCIANT = "Negociant";
+    const FAMILLE_VITICULTEUR = "Viticulteur";
+    const FAMILLE_COURTIER = "Courtier";
+
     /**
      *
      * @return EtablissementClient
