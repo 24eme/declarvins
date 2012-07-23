@@ -6,8 +6,8 @@
 
 class ConfigurationVrac extends BaseConfigurationVrac {
 	
-	const FAMILLE_VENDEUR = 'Viticulteur';
-	const FAMILLE_ACHETEUR = 'Négociant';
+	const FAMILLE_VENDEUR = 'Producteur';
+	const FAMILLE_ACHETEUR = 'Negociant';
 	const FAMILLE_MANDATAIRE = 'Courtier';
 	
 	/*
