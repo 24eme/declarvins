@@ -93,6 +93,12 @@ class Vrac extends BaseVrac {
     {
       return ConfigurationClient::getCurrent()->get($this->produit);
     }
+    
+    public function getLibelleProduit($format = "%g% %a% %l% %co% %ce%")
+    {
+    	$produit = $this->getProduitObject();
+    	return $produit->getLibelleFormat(array(), $format);
+    }
 
     public function getVendeurObject() 
     {

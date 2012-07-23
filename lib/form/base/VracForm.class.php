@@ -38,6 +38,7 @@ class VracForm extends acCouchdbObjectForm
         	'apport_union' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'cession_interne' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'original' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
+        	'has_transaction' => new sfWidgetFormInputCheckbox(),
         	'type_transaction' => new sfWidgetFormChoice(array('choices' => $this->getTypesTransaction())),
         	'produit' => new sfWidgetFormChoice(array('choices' => $this->getProduits())),
         	'type_domaine' => new sfWidgetFormChoice(array('choices' => $this->getTypesDomaine())),
@@ -95,6 +96,7 @@ class VracForm extends acCouchdbObjectForm
         	'apport_union' => 'Apport contractuel à une union:',
         	'cession_interne' => 'Contrat interne entre deux filiales:',
         	'original' => 'En attente de l\'original:',
+        	'has_transaction' => 'Je souhaite associer une déclaration de transaction',
         	'type_transaction' => 'Type de transaction:',
         	'produit' => 'Produit:',
         	'type_domaine' => 'Type de domaine:',
@@ -152,6 +154,7 @@ class VracForm extends acCouchdbObjectForm
         	'apport_union' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'cession_interne' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'original' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
+        	'has_transaction' => new sfValidatorPass(),
         	'type_transaction' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getTypesTransaction()))),
         	'produit' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getProduits()))),
         	'type_domaine' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getTypesDomaine()))),
@@ -216,7 +219,7 @@ class VracForm extends acCouchdbObjectForm
         $retiraisons = new VracRetiraisonCollectionForm($this->getObject()->retiraisons);
         $this->embedForm('retiraisons', $retiraisons);
         
-        $lots = new VracLotCollectionForm($this->getObject()->lots);
+        $lots = new VracLotCollectionForm($this->getConfiguration(), $this->getObject()->lots);
         $this->embedForm('lots', $lots);
         
         $this->widgetSchema->setNameFormat('vrac[%s]');

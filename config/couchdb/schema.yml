@@ -4,6 +4,7 @@ Vrac:
       _id: {  }
       _rev: {  }
       type: {  }
+      has_transaction: {  }
       numero_contrat: {  }
       etape: {  }
       vendeur_type: {  }  

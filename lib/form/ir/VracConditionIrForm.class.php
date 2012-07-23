@@ -5,12 +5,11 @@ class VracConditionIrForm extends VracForm
     {
 		parent::configure();
 		$this->useFields(array(
-           'prix_unitaire',
+		   'annexe',
            'type_prix',
 	       'date_limite_retiraison',
            'commentaires_conditions',
            'part_cvo',
-           'prix_total',
            'conditions_paiement',
 	       'vin_livre',
            'date_debut_retiraison',
