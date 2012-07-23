@@ -10,6 +10,7 @@ abstract class TiersSecurityUser extends acVinCompteSecurityUser {
     const CREDENTIAL_ETABLISSEMENT = 'etablissement';
     
     const CREDENTIAL_DROIT_DRM = 'drm';
+    const CREDENTIAL_DROIT_VRAC = 'vrac';
 
     protected $_credentials_tiers = array(
         self::CREDENTIAL_TIERS,
@@ -18,7 +19,8 @@ abstract class TiersSecurityUser extends acVinCompteSecurityUser {
         );
     
     protected $_credentials_droits = array(
-        self::CREDENTIAL_DROIT_DRM
+        self::CREDENTIAL_DROIT_DRM,
+        self::CREDENTIAL_DROIT_VRAC
         );
 
     /**
@@ -47,7 +49,9 @@ abstract class TiersSecurityUser extends acVinCompteSecurityUser {
         	$this->addCredential(self::CREDENTIAL_INTERPRO);
         } elseif ($tiers->type == "Etablissement") {
         	$this->addCredential(self::CREDENTIAL_ETABLISSEMENT);
-            $this->addCredential(self::CREDENTIAL_DROIT_DRM);
+            foreach ($tiers->getDroits() as $credential) {
+                $this->addCredential($credential);
+            }
         }
         $this->setAttribute(self::SESSION_TIERS, $tiers->_id, self::NAMESPACE_TIERS);
     }
@@ -61,6 +65,12 @@ abstract class TiersSecurityUser extends acVinCompteSecurityUser {
         }
     }
 
+    protected function clearCredentialsDroits() {
+        foreach ($this->_credentials_droits as $credential) {
+            $this->removeCredential($credential);
+        }
+    }
+
     /**
      * 
      */
@@ -68,6 +78,7 @@ abstract class TiersSecurityUser extends acVinCompteSecurityUser {
         $this->_tiers = null;
         $this->getAttributeHolder()->removeNamespace(self::NAMESPACE_TIERS);
         $this->clearCredentialsTiers();
+        $this->clearCredentialsDroits();
     }
 
     /**

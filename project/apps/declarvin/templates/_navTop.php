@@ -3,15 +3,21 @@ use_helper('Text');
 ?>
 <nav id="barre_navigation">
     <ul id="nav_principale">
-        <li>
+        <!--<li>
             <a href="#">Accueil</a>
-        </li>
+        </li>-->
+        <?php if($sf_user->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_DRM)): ?>
         <li<?php if ($active == 'drm'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('@drm_mon_espace') ?>">DRM</a>
         </li>
+        <?php endif; ?>
+
+        <?php if($sf_user->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_VRAC)): ?>
         <li<?php if ($active == 'vrac'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('@vrac') ?>">Contrat interprofessionnel</a>
         </li>
+        <?php endif; ?>
+        
         <li>
             <a href="#">Profil</a>
         </li>

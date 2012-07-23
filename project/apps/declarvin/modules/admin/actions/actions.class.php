@@ -41,6 +41,7 @@ class adminActions extends sfActions
   */
   public function executeEtablissementLogin(sfWebRequest $request)
   {
+    $this->getUser()->signOutTiers();
   	$this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
         $this->form = new EtablissementSelectionForm($this->interpro->_id);
         if ($request->isMethod(sfWebRequest::POST)) {
@@ -54,7 +55,7 @@ class adminActions extends sfActions
                 $etablissement = $values['etablissement'];
                 $this->getUser()->signOutTiers();
                 $this->getUser()->signInTiers(acCouchdbManager::getClient()->retrieveDocumentById($etablissement));
-				return $this->redirect("@drm_mon_espace");
+				return $this->redirect("@tiers_mon_espace");
             }
         }
   	
