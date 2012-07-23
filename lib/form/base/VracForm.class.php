@@ -332,15 +332,49 @@ class VracForm extends acCouchdbObjectForm
         }
         return $etablissements;
     }
+
+
+    protected function doUpdateObject($values) {
+        
+        $this->getObject()->fromArray($values);
+
+    }
     
 	public function bind(array $taintedValues = null, array $taintedFiles = null)
     {
         foreach ($this->embeddedForms as $key => $form) {
             if($form instanceof FormBindableInterface) {
                 $form->bind($taintedValues[$key], $taintedFiles[$key]);
+                $this->updateEmbedForm($key, $form);
             }
-        }       
+        }
+
         parent::bind($taintedValues, $taintedFiles);
+    }
+
+    public function updateEmbedForm($name, $form) {
+        $this->validatorSchema[$name] = $form->getValidatorSchema();
+    }
+
+    public function getFormTemplate($field, $form_item_class) {
+        $form = new VracCollectionTemplateForm($this, $field, $form_item_class);
+        
+        return $form->getFormTemplate();
+    }
+
+    public function getFormTemplateRetiraisons() {
+
+        return $this->getFormTemplate('retiraisons', 'VracRetiraisonForm');
+    }
+
+    public function getFormTemplatePaiements() {
+
+        return $this->getFormTemplate('paiements', 'VracPaiementForm');
+    }
+
+    public function getFormTemplateLots() {
+
+        return $this->getFormTemplate('paiements', 'VracLotForm');
     }
     
 }

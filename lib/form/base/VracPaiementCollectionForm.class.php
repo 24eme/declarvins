@@ -26,7 +26,8 @@ class VracPaiementCollectionForm extends acCouchdbObjectForm implements FormBind
 			}
 			$this->embedForm($key, new VracPaiementForm($this->getObject()->add()));
 		}
-		parent::bind($taintedValues, $taintedFiles);
+		
+        //parent::bind($taintedValues, $taintedFiles);
 	}
 
 	public function unEmbedForm($key)

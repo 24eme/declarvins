@@ -12,7 +12,7 @@ class vracActions extends sfActions
 	public function init()
 	{
 		$this->interpro = $this->getInterpro();
-		$this->interpro_name = $this->getInterproLibelle($this->interpro->_id);
+		$this->interpro_name = strtolower($this->getInterproLibelle($this->interpro->_id));
 		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
 		$this->configurationVracEtapes = $this->configurationVrac->getEtapes();
 	}
@@ -42,6 +42,7 @@ class vracActions extends sfActions
 			$this->form->bind($request->getParameter($this->form->getName()));
 			if ($this->form->isValid()) {
 				$vrac = $this->form->save();
+
 				if (!$this->configurationVracEtapes->next($vrac->etape)) {
 					$this->redirectAfterEtapes($vrac);
 				} else {

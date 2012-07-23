@@ -23,7 +23,7 @@ class VracFormFactory
 				default:
 					throw new sfException ('Fabrique : Etape "'.$step.'" non gérée');
 			}
-		} elseif ($interpro == 'INTERPRO-inter-rhone') {
+		} elseif ($interpro == 'INTERPRO-IR') {
 			switch ($step){
 				case 'soussigne':
 					$form = new VracSoussigneIrForm($configurationVrac, $object);

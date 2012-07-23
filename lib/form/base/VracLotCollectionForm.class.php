@@ -41,9 +41,11 @@ class VracLotCollectionForm extends acCouchdbObjectForm implements FormBindableI
 			if(!is_array($values) || array_key_exists($key, $this->embeddedForms)) {
 				continue;
 			}
+
 			$this->embedForm($key, new VracLotForm($this->getObject()->add()));
 		}
-		parent::bind($taintedValues, $taintedFiles);
+
+		//parent::bind($taintedValues, $taintedFiles);
 	}
 
 	public function unEmbedForm($key)
