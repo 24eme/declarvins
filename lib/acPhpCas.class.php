@@ -18,6 +18,10 @@
 class acPhpCas
 {	
 
+	public static function setReporting() {
+	  return error_reporting(E_ALL ^ E_STRICT);
+	}
+
 	/**
 	 * phpCAS client initializer.
 	 * @note Only one of the phpCAS::client() and phpCAS::proxy functions should be
@@ -34,7 +38,7 @@ class acPhpCas
 	 */
 	public static function client($start_session = false) 
 	{
-	  error_reporting(E_ALL & !E_STRICT);
+	  acPhpCas::setReporting();
 	  phpCAS::client(CAS_VERSION_2_0, sfConfig::get('app_ac_php_cas_domain'), sfConfig::get('app_ac_php_cas_port'), sfConfig::get('app_ac_php_cas_path'), $start_session);
 	}
 
@@ -54,7 +58,7 @@ class acPhpCas
 	 */
 	public static function proxy($start_session = false) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::proxy(CAS_VERSION_2_0, sfConfig::get('app_ac_php_cas_domain'), sfConfig::get('app_ac_php_cas_port'), sfConfig::get('app_ac_php_cas_path'), $start_session);		
 	}
 
@@ -65,7 +69,7 @@ class acPhpCas
 	 */
 	public static function setDebug($filename = '') 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setDebug($filename);
 	}
 
@@ -75,7 +79,7 @@ class acPhpCas
 	 */
 	public static function backtrace() 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		return phpCAS::backtrace();
 	}
 
@@ -88,7 +92,7 @@ class acPhpCas
 	 */
 	public static function log($str) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::log($str);
 	}
 
@@ -102,7 +106,7 @@ class acPhpCas
 	 */
 	public static function error($msg) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::error($msg);		
 	}
 
@@ -111,7 +115,7 @@ class acPhpCas
 	 */
 	public static function trace($str) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::trace($str);		
 	}
 
@@ -120,7 +124,7 @@ class acPhpCas
 	 */
 	public static function traceBegin() 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::traceBegin();		
 	}
 
@@ -131,7 +135,7 @@ class acPhpCas
 	 */
 	public static function traceEnd($res = '') 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::traceEnd($res = '');		
 	}
 
@@ -140,7 +144,7 @@ class acPhpCas
 	 */
 	public static function traceExit() 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::traceExit();		
 	}
 
@@ -154,7 +158,7 @@ class acPhpCas
 	 */
 	public static function setLang($lang) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setLang($lang);		
 	}
 
@@ -165,7 +169,7 @@ class acPhpCas
 	 */
 	public static function getVersion() 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		return phpCAS::getVersion();		
 	}
 
@@ -176,7 +180,7 @@ class acPhpCas
 	 */
 	public static function setHTMLHeader($header) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setHTMLHeader($header);		
 	}
 
@@ -187,7 +191,7 @@ class acPhpCas
 	 */
 	public static function setHTMLFooter($footer) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setHTMLFooter($footer);		
 	}
 
@@ -200,7 +204,7 @@ class acPhpCas
 	 */
 	public static function setPGTStorageFile($format = '', $path = '') 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setPGTStorageFile($format, $path);		
 	}
 
@@ -221,7 +225,7 @@ class acPhpCas
 	 */
 	public static function setPGTStorageDB($user, $password, $database_type = '', $hostname = '', $port = 0, $database = '', $table = '') 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setPGTStorageDB($user, $password, $database_type, $hostname, $port, $database, $table);
 	}
 
@@ -240,7 +244,7 @@ class acPhpCas
 	 */
 	public static function serviceWeb($url, & $err_code, & $output) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		return phpCAS::serviceWeb($url, $err_code, $output);		
 	}
 
@@ -263,7 +267,7 @@ class acPhpCas
 	 */
 	public static function serviceMail($url, $service, $flags, & $err_code, & $err_msg, & $pt) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		return phpCAS::serviceMail($url, $service, $flags, $err_code, $err_msg, $pt);		
 	}
 
@@ -277,7 +281,7 @@ class acPhpCas
 	 */
 	public static function setCacheTimesForAuthRecheck($n) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setCacheTimesForAuthRecheck($n);		
 	}
 
@@ -287,7 +291,7 @@ class acPhpCas
 	 */
 	public static function checkAuthentication() 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		return phpCAS::checkAuthentication();		
 	}
 
@@ -298,7 +302,7 @@ class acPhpCas
 	 */
 	public static function forceAuthentication() 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		return phpCAS::forceAuthentication();		
 	}
 
@@ -307,7 +311,7 @@ class acPhpCas
 	 **/
 	public static function renewAuthentication() 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::renewAuthentication();		
 	}
 
@@ -316,7 +320,7 @@ class acPhpCas
 	 */
 	public static function authenticate() 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::authenticate();		
 	}
 
@@ -328,7 +332,7 @@ class acPhpCas
 	 */
 	public static function isAuthenticated() 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		return phpCAS::isAuthenticated();		
 	}
 
@@ -339,7 +343,7 @@ class acPhpCas
 	 */
 	public static function isSessionAuthenticated() 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		return phpCAS::isSessionAuthenticated();		
 	}
 
@@ -352,7 +356,7 @@ class acPhpCas
 	 */
 	public static function getUser() 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		return phpCAS::getUser();		
 	}
 
@@ -365,7 +369,7 @@ class acPhpCas
 	 */
 	public static function getAttributes() 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		return phpCAS::getAttributes();		
 	}
 	
@@ -374,7 +378,7 @@ class acPhpCas
 	 */
 	public static function handleLogoutRequests($check_client = true, $allowed_clients = false) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		return phpCAS::handleLogoutRequests($check_client, $allowed_clients);		
 	}
 
@@ -386,7 +390,7 @@ class acPhpCas
 	 */
 	public static function getServerLoginURL() 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		return phpCAS::getServerLoginURL();		
 	}
 
@@ -396,7 +400,7 @@ class acPhpCas
 	 */
 	public static function setServerLoginURL($url = '') 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setServerLoginURL($url);		
 	}
 
@@ -407,7 +411,7 @@ class acPhpCas
 	 */
 	public static function setServerServiceValidateURL($url = '') 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setServerServiceValidateURL($url);		
 	}
 
@@ -418,7 +422,7 @@ class acPhpCas
 	 */
 	public static function setServerProxyValidateURL($url = '') 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setServerProxyValidateURL($url);		
 	}
 
@@ -428,7 +432,7 @@ class acPhpCas
 	 */
 	public static function setServerSamlValidateURL($url = '') 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setServerSamlValidateURL($url);		
 	}
 
@@ -440,7 +444,7 @@ class acPhpCas
 	 */
 	public static function getServerLogoutURL() 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		return phpCAS::getServerLogoutURL();		
 	}
 
@@ -450,7 +454,7 @@ class acPhpCas
 	 */
 	public static function setServerLogoutURL($url = '') 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setServerLogoutURL($url);		
 	}
 
@@ -461,7 +465,7 @@ class acPhpCas
 	 */
 	public static function logout($params = "") 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::logout($params);		
 	}
 
@@ -471,7 +475,7 @@ class acPhpCas
 	 */
 	public static function logoutWithRedirectService($service) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::logoutWithRedirectService($service);		
 	}
 
@@ -481,7 +485,7 @@ class acPhpCas
 	 */
 	public static function logoutWithUrl($url) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::logoutWithUrl($url);		
 	}
 
@@ -492,7 +496,7 @@ class acPhpCas
 	 */
 	public static function logoutWithRedirectServiceAndUrl($service, $url) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::logoutWithRedirectServiceAndUrl($service, $url);		
 	}
 
@@ -504,7 +508,7 @@ class acPhpCas
 	 */
 	public static function setFixedCallbackURL($url = '') 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setFixedCallbackURL($url);
 		
 	}
@@ -517,7 +521,7 @@ class acPhpCas
 	 */
 	public static function setFixedServiceURL($url) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setFixedServiceURL($url);		
 	}
 
@@ -526,7 +530,7 @@ class acPhpCas
 	 */
 	public static function getServiceURL() 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		return phpCAS::getServiceURL();
 	}
 
@@ -535,7 +539,7 @@ class acPhpCas
 	 */
 	public static function retrievePT($target_service, & $err_code, & $err_msg) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		return phpCAS::retrievePT($target_service, $err_code, $err_msg);
 	}
 
@@ -546,7 +550,7 @@ class acPhpCas
 	 */
 	public static function setCasServerCert($cert) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setCasServerCert($cert);
 	}
 
@@ -557,7 +561,7 @@ class acPhpCas
 	 */
 	public static function setCasServerCACert($cert) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setCasServerCACert($cert);		
 	}
 
@@ -566,7 +570,7 @@ class acPhpCas
 	 */
 	public static function setNoCasServerValidation() 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setNoCasServerValidation();		
 	}
 
@@ -578,7 +582,7 @@ class acPhpCas
 	 */
 	public static function setExtraCurlOption($key, $value) 
 	{
-		error_reporting(E_ALL & !E_STRICT);
+		acPhpCas::setReporting();
 		phpCAS::setExtraCurlOption($key, $value);		
 	}
 }
