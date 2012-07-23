@@ -1,5 +1,5 @@
 <?php
-class VracSoussigneIrForm extends VracForm 
+class VracSoussigneIvseForm extends VracForm 
 {
    	public function configure()
     {
