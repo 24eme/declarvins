@@ -115,7 +115,6 @@
 			</div>
 			<div> 
 				<?php foreach ($form['paiements'] as $key => $formPaiement): ?>
-				<?php print_r($key) ?>
 				<table>
 					<tr>
 						<td>
