@@ -791,7 +791,7 @@ a:hover { text-decoration:underline; }
 .popup_form .ligne_form ul.checkbox_list {
   display:inline-block;
   float:left;
-  height:155px;
+  height:96px;
   margin-left:200px;
   margin-top:-20px;
   overflow:auto;
