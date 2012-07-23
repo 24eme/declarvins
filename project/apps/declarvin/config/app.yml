@@ -17,13 +17,3 @@ all:
       "Negociant": ["Négociant régional", "Négociant hors région"]
       "Vinificateur": ["Vinificateur"]
       "Courtier": ["Courtier"]
-  ac_php_cas:
-    domain: login.declarvins.net
-    port: 443
-    path: cas
-    url : "https://login.declarvins.net/cas/login"
-  cas:
-    domain: login.declarvins.net
-    port: 443
-    path: cas
-    url : "https://login.declarvins.net/cas/login"
