@@ -721,8 +721,8 @@ a
 		
 		li
 		{
-			background: @couleur-b1;
-			color: #fff;
+			background: #fff;
+			color: @couleur-b1;
 			float: left;
 			margin: 0 6px 0 0;
 			
@@ -732,11 +732,14 @@ a
 			{
 				background: @couleur-a4;
 				color: @couleur-a1;
+                border-bottom: 1px solid @couleur-a4;
 			}
 			
 			a
             {
-                color: #fff;
+                color: @couleur-b1;
+                border: 1px solid @couleur-a4;
+                border-bottom: 1px solid @couleur-a3;
             }
 			
 			strong { font-weight: normal; }
@@ -762,10 +765,14 @@ a
 			{
 				background: 0;
 				margin: 0 0 0 10px;
-
-				a { .btn_ajouter; }
+				a { .btn_ajouter;
+                    border: none; }
 			} 
 		}
+
+        li.actif strong {
+            border-bottom: 1px solid @couleur-a4;
+        }
 	}
 	
 	/* Contenu onglet */
