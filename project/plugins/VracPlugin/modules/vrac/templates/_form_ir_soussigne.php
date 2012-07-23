@@ -18,7 +18,7 @@
 				<?php echo $form['vendeur_identifiant']->renderLabel() ?>
 				<?php echo $form['vendeur_identifiant']->render() ?>
 			</div>
-			<div> 
+			<!--<div> 
 				<table>
 					<tr>
 						<td>
@@ -89,7 +89,7 @@
 						<td></td>
 					</tr>
 				</table>
-			</div>
+			</div>-->
 			<p>Précision de l'adresse de stockage (si différente)</p>
 			<div> 
 				<table>
@@ -131,7 +131,7 @@
 				<?php echo $form['acheteur_identifiant']->renderLabel() ?>
 				<?php echo $form['acheteur_identifiant']->render() ?>
 			</div>
-			<div> 
+			<!--<div> 
 				<table>
 					<tr>
 						<td>
@@ -202,7 +202,7 @@
 						<td></td>
 					</tr>
 				</table>
-			</div>
+			</div>-->
 			<p>Précision de l'adresse de livraison (si différente)</p>
 			<div> 
 				<table>
@@ -245,7 +245,7 @@
 				<?php echo $form['mandataire_identifiant']->renderLabel() ?>
 				<?php echo $form['mandataire_identifiant']->render() ?>
 			</div>
-			<div> 
+			<!--<div> 
 				<table>
 					<tr>
 						<td>
@@ -308,7 +308,7 @@
 						</td>
 					</tr>
 				</table>
-			</div>
+			</div>-->
 		</div>
 		<hr />
 		<h2>Type de contrat</h2>
