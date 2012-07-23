@@ -2,7 +2,7 @@
 
 <section id="contenu">
     
-    <h1>Déclaration Récapitulative Mensuelle <a href="" class="msg_aide" data-msg="help_popup_monespace" data-doc="notice.pdf" title="Message aide"></a></h1>
+    <h1>Déclaration Récapitulative Mensuelle <a href="" class="msg_aide" data-msg="help_popup_monespace" data-doc="<?php echo url_for('drm_notice') ?>" title="Message aide"></a></h1>
     
     <p class="intro">Bienvenue sur votre espace DRM. Que voulez-vous faire ?</p>
     

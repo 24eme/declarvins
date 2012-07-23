@@ -12,7 +12,7 @@
 <table>
 <tr>
 	<td class="premier"><strong>Nom / Raison sociale : <?php echo $drm->declarant->nom ?></strong></td>
-   <td>n° DRM : <?php echo preg_replace('/DRM-/', '', $drm->_id); ?> (validée le <?php echo $drm->getEuValideDate(); ?>)</td>
+   <td>n° DRM : <?php echo preg_replace('/DRM-/', '', $drm->_id); ?><?php if($drm->isValidee()): ?> (validée le <?php echo $drm->getEuValideDate(); ?>)<?php endif; ?></td>
 </tr>
 <tr>
 	<td class="premier" >Lieu où est tenue la comptabilité matière :
