@@ -3,7 +3,7 @@ class VracFormFactory
 {
 	public static function create($interpro, $step, $configurationVrac, $object) {
 		$form = null;
-		if ($interpro == 'INTERPRO-civp') {
+		if ($interpro == 'INTERPRO-CIVP') {
 			switch ($step){
 				case 'soussigne':
 					$form = new VracSoussigneCivpForm($configurationVrac, $object);
@@ -43,7 +43,7 @@ class VracFormFactory
 				default:
 					throw new sfException ('Fabrique : Etape "'.$step.'" non gérée');
 			}
-		} elseif ($interpro == 'INTERPRO-intervins-sud-est') {
+		} elseif ($interpro == 'INTERPRO-IVSE') {
 			switch ($step){
 				case 'soussigne':
 					$form = new VracSoussigneIvseForm($configurationVrac, $object);
