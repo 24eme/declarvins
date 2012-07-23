@@ -48,25 +48,13 @@
 				<?php echo $form['echeancier_paiement']->renderLabel() ?>
 				<?php echo $form['echeancier_paiement']->render() ?>
 			</div>
-			<div> 
-				<?php foreach ($form['paiements'] as $key => $formPaiement): ?>
-				<table>
-					<tr>
-						<td>
-							<?php echo $formPaiement['date']->renderError() ?>
-							<?php echo $formPaiement['date']->renderLabel() ?>
-							<?php echo $formPaiement['date']->render() ?>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<?php echo $formPaiement['montant']->renderError() ?>
-							<?php echo $formPaiement['montant']->renderLabel() ?>
-							<?php echo $formPaiement['montant']->render() ?>
-						</td>
-					</tr>
-				</table>
-				<?php endforeach; ?>
+			<div>
+                <table id="table_paiements">
+                <?php foreach ($form['paiements'] as $formPaiement): ?>
+                    <?php include_partial('form_paiements_item', array('form' => $formPaiement)) ?>
+                <?php endforeach; ?>
+                </table>
+                <a class="btn_ajouter_ligne_template" data-container="#table_paiements" data-template="#template_form_paiements_item" href="#">Ajouter</a> 
 			</div>
 		</div>
 		<hr />
@@ -94,38 +82,12 @@
 				<?php echo $form['calendrier_retiraison']->render() ?>
 			</div>
 			<div> 
+                <table id="table_retiraisons">
 				<?php foreach ($form['retiraisons'] as $formRetiraison): ?>
-				<table>
-					<tr>
-						<td>
-							<?php echo $formRetiraison['lot_cuve']->renderError() ?>
-							<?php echo $formRetiraison['lot_cuve']->renderLabel() ?>
-							<?php echo $formRetiraison['lot_cuve']->render() ?>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<?php echo $formRetiraison['date_retiraison']->renderError() ?>
-							<?php echo $formRetiraison['date_retiraison']->renderLabel() ?>
-							<?php echo $formRetiraison['date_retiraison']->render() ?>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<?php echo $formRetiraison['volume_retire']->renderError() ?>
-							<?php echo $formRetiraison['volume_retire']->renderLabel() ?>
-							<?php echo $formRetiraison['volume_retire']->render() ?>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<?php echo $formRetiraison['montant_paiement']->renderError() ?>
-							<?php echo $formRetiraison['montant_paiement']->renderLabel() ?>
-							<?php echo $formRetiraison['montant_paiement']->render() ?>
-						</td>
-					</tr>
-				</table>
+                    <?php include_partial('form_retiraisons_item', array('form' => $formRetiraison)) ?>
 				<?php endforeach; ?>
+                </table>
+                <a class="btn_ajouter_ligne_template" data-container="#table_retiraisons" data-template="#template_form_retiraisons_item" href="#">Ajouter</a>
 			</div>
 			<div>
                 <?php echo $form['clause_reserve_retiraison']->renderError() ?>
@@ -143,3 +105,9 @@
 		</div>
 	</form>
 </section>
+
+<?php include_partial('form_collection_template', array('partial' => 'form_retiraisons_item', 
+                                                        'form' => $form->getFormTemplateRetiraisons())); ?>
+
+<?php include_partial('form_collection_template', array('partial' => 'form_paiements_item', 
+                                                        'form' => $form->getFormTemplatePaiements())); ?>
