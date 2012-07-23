@@ -35,10 +35,18 @@ class drm_mouvements_generauxActions extends sfActions
 
             if($this->drm->declaration->hasMouvementCheck()) {
         	   $this->drm->setCurrentEtapeRouting('recapitulatif');
-        	   $this->redirect('drm_recap', $this->first_certification);
+        	   
+               return $this->redirect('drm_recap', $this->first_certification);
             } else {
+               if ($this->drm->mode_de_saisie == DRM::MODE_DE_SAISIE_PAPIER) {
+                   $this->drm->setCurrentEtapeRouting('validation');
+                   
+                   return $this->redirect('drm_validation', $this->drm); 
+               }
+
                $this->drm->setCurrentEtapeRouting('declaratif');
-               $this->redirect('drm_declaratif', $this->drm);
+               
+               return $this->redirect('drm_declaratif', $this->drm);
             }
 
         }
@@ -55,7 +63,8 @@ class drm_mouvements_generauxActions extends sfActions
     	$form->bind($request->getParameter($form->getName()));
         if ($form->isValid()) {
        		$form->save();
-       		return $this->renderText(json_encode(array("success" => true,
+       		
+            return $this->renderText(json_encode(array("success" => true,
             										   "document" => array("id" => $drm->get('_id'),
                 										   				   "revision" => $drm->get('_rev'))
                 									  )));
@@ -76,11 +85,13 @@ class drm_mouvements_generauxActions extends sfActions
             	$produit->pas_de_mouvement_check = ($form->getValue('pas_de_mouvement'))? 1 : 0;
             }
             $drm->save();
+            
             return $this->renderText(json_encode(array("success" => true,
             										   "document" => array("id" => $drm->get('_id'),
                 										   				   "revision" => $drm->get('_rev'))
                 									  )));
-        } 
+        }
+
         return $this->renderText(json_encode(array("success" => false)));
     }
 
@@ -91,8 +102,16 @@ class drm_mouvements_generauxActions extends sfActions
         foreach($drm->declaration->getProduits() as $produit) {
         	$produit->pas_de_mouvement_check = 1;
         }
+
+        if ($this->drm->mode_de_saisie == DRM::MODE_DE_SAISIE_PAPIER) {
+            $drm->setCurrentEtapeRouting('validation');
+        
+            return $this->redirect('drm_validation', $drm);
+        }
+
         $drm->setCurrentEtapeRouting('declaratif');
-        $this->redirect('drm_declaratif', $drm);
+        
+        return $this->redirect('drm_declaratif', $drm);
     }
     
     public function executeDeleteAjax(sfWebRequest $request) 

@@ -13,6 +13,11 @@ class drm_vracActions extends sfActions
     	    	return $this->redirect('drm_recap', $this->drm->declaration->certifications->getLast());
 	    	}
 	  		
+            if ($this->drm->mode_de_saisie == DRM::MODE_DE_SAISIE_PAPIER) {
+
+                return $this->redirect('drm_validation', $this->drm);
+            }
+
 	  		return $this->redirect('drm_declaratif', $this->drm);
     	}
 

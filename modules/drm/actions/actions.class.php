@@ -21,6 +21,13 @@ class drmActions extends sfActions
   	  } else  {
       	$drm = $this->getUser()->getDRM();
   	  }
+
+      $drm->mode_de_saisie =  DRM::MODE_DE_SAISIE_DTI;
+
+      if($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+        $drm->mode_de_saisie = DRM::MODE_DE_SAISIE_PAPIER;
+      }
+
       $drm->save();
       $this->redirect('drm_informations', $drm);
   }

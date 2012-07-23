@@ -50,9 +50,15 @@
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', array('campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
                 
             <div id="btn_etape_dr">
+                <?php if ($drm->mode_de_saisie == DRM::MODE_DE_SAISIE_PAPIER): ?>
+                <a href="<?php echo url_for('drm_vrac', array("sf_subject" => $drm, "precedent" => true))?>" class="btn_prec">
+                    <span>Précédent</span>
+                </a>
+                <?php else: ?>
                 <a href="<?php echo url_for('drm_declaratif', $drm) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>
+                <?php endif; ?>
                 <button type="submit" class="btn_suiv"<?php if ($drmValidation->hasErrors()): ?> disabled="disabled"<?php endif; ?>><span>Valider</span></button>
             </div>
         </form>
