@@ -13,16 +13,7 @@ use_helper('Text');
             <a href="<?php echo url_for('@vrac') ?>">Contrat interprofessionnel</a>
         </li>
         <li>
-            <a href="#">DAI/DS</a>
-        </li>
-        <li>
-            <a href="#">DR</a>
-        </li>
-        <li>
             <a href="#">Profil</a>
-        </li>
-        <li>
-            <a href="#">Divers</a>
         </li>
     </ul>
 
