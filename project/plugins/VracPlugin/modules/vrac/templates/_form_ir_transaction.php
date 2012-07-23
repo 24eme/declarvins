@@ -32,5 +32,5 @@
 	</form>
 </section>
 
-<?php /*include_partial('form_collection_template', array('partial' => 'form_lots_item', 
-                                                        'form' => $form->getFormTemplateLots()));*/?>
+<?php include_partial('form_collection_template', array('partial' => 'form_lots_item', 
+                                                        'form' => $form->getFormTemplateLots())); ?>

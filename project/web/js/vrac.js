@@ -6,7 +6,7 @@
 
 
 var initAutoComplete = function() {
-    //$('.autocomplete').combobox();
+    $('.autocomplete').combobox();
 }
 
 var initConditions = function()
