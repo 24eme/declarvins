@@ -16,7 +16,7 @@ class acVinCompteAdminActions extends sfActions
   * @param sfRequest $request A request object
   */
   public function executeIndex(sfWebRequest $request)
-  {      
+  {
   	$this->form = new CompteSelectionForm();
   	if ($request->isMethod(sfWebRequest::POST)) {
   		$this->form->bind($request->getParameter($this->form->getName()));
