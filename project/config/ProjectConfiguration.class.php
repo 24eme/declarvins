@@ -21,6 +21,7 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('acLessphpPlugin');
     $this->enablePlugins('MessagesPlugin');
     $this->enablePlugins('UserPlugin');
+    $this->enablePlugins('VracPlugin');
     $this->enablePlugins('acVinVracPlugin');
   }
 }
