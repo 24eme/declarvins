@@ -4,6 +4,6 @@ php symfony import:interpro --trace
 php symfony import:douane --trace
 php symfony import:configuration --trace
 php symfony import:comptes --trace
-php symfony import:vrac --trace
+#php symfony import:vrac --trace
 php symfony import:messages data/import/messages/messages.csv --trace
 php symfony import:controles data/import/controles/controles.csv --trace
