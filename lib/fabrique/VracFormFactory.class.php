@@ -17,8 +17,11 @@ class VracFormFactory
 				case 'transaction':
 					$form = new VracTransactionCivpForm($configurationVrac, $object);
 					break;
+				case 'validation':
+					$form = new VracValidationCivpForm($configurationVrac, $object);
+					break;
 				default:
-					throw new sfException ('Etape "'.$step.'" non gérée');
+					throw new sfException ('Fabrique : Etape "'.$step.'" non gérée');
 			}
 		} elseif ($interpro == 'INTERPRO-inter-rhone') {
 			switch ($step){
@@ -34,8 +37,11 @@ class VracFormFactory
 				case 'transaction':
 					$form = new VracTransactionIrForm($configurationVrac, $object);
 					break;
+				case 'validation':
+					$form = new VracValidationIrForm($configurationVrac, $object);
+					break;
 				default:
-					throw new sfException ('Etape "'.$step.'" non gérée');
+					throw new sfException ('Fabrique : Etape "'.$step.'" non gérée');
 			}
 		} elseif ($interpro == 'INTERPRO-intervins-sud-est') {
 			switch ($step){
@@ -51,8 +57,11 @@ class VracFormFactory
 				case 'transaction':
 					$form = new VracTransactionIvseForm($configurationVrac, $object);
 					break;
+				case 'validation':
+					$form = new VracValidationIvseForm($configurationVrac, $object);
+					break;
 				default:
-					throw new sfException ('Etape "'.$step.'" non gérée');
+					throw new sfException ('Fabrique : Etape "'.$step.'" non gérée');
 			}
 		} else {
 			throw new sfException ('Interpro "'.$interpro.'" non gérée');

@@ -22,27 +22,13 @@ class VracRouting {
                                                         array('module' => 'vrac','action' => 'etape', 'step' => null),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object')));
-        /*$r->prependRoute('vrac_soussigne', new VracRoute('/vrac/:numero_contrat/soussigne',
-                                                        array('module' => 'vrac','action' => 'soussigne'),
-                                                        array('sf_method' => array('get','post')),
-                                                        array('model' => 'Vrac', 'type' => 'object')));       
-        $r->prependRoute('vrac_marche', new VracRoute('/vrac/:numero_contrat/marche',
-                                                        array('module' => 'vrac','action' => 'marche'),
-                                                        array('sf_method' => array('get','post')),
-                                                        array('model' => 'Vrac', 'type' => 'object')));       
-        $r->prependRoute('vrac_condition', new VracRoute('/vrac/:numero_contrat/condition',
-                                                        array('module' => 'vrac','action' => 'condition'),
-                                                        array('sf_method' => array('get','post')),
-                                                        array('model' => 'Vrac', 'type' => 'object')));*/
-        $r->prependRoute('vrac_validation', new VracRoute('/vrac/:numero_contrat/validation',
-                                                        array('module' => 'vrac','action' => 'validation'),
-                                                        array('sf_method' => array('get','post')),
-                                                        array('model' => 'Vrac', 'type' => 'object')));
         $r->prependRoute('vrac_termine', new VracRoute('/vrac/:numero_contrat/recapitulatif',
                                                         array('module' => 'vrac','action' => 'recapitulatif'),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object'))); 
-        
+        /*
+         * BAZAR A MATHURIN ->
+         */
         $r->prependRoute('vrac_nouveau_getinfos', new VracRoute('/vrac/getInfos',
                                                         array('module' => 'vrac','action' => 'getInformations'),
                                                         array('sf_method' => array('get')),

@@ -1,13 +1,16 @@
 <?php
 class VracLotCollectionForm extends acCouchdbObjectForm implements FormBindableInterface
 {
+	public $virgin_object = null;
+	
 	public function configure()
 	{
-		$key = 0;
+		if (count($this->getObject()) == 0) {
+			$this->virgin_object = $this->getObject()->add();
+		}
 		foreach ($this->getObject() as $key => $object) {
 			$this->embedForm ($key, new VracLotForm($object));
 		}
-		$this->embedForm (($key+1), new VracLotForm($this->getObject()->add()));
 	}
 
 	public function bind(array $taintedValues = null, array $taintedFiles = null)
@@ -33,4 +36,11 @@ class VracLotCollectionForm extends acCouchdbObjectForm implements FormBindableI
 		unset($this->embeddedForms[$key]);
 		$this->getObject()->remove($key);
 	}
+	
+	public function offsetUnset($offset) {
+		parent::offsetUnset($offset);
+		if (!is_null($this->virgin_object)) {
+			$this->virgin_object->delete();
+		}
+    }
 }

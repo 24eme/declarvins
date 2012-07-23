@@ -42,9 +42,22 @@ class vracActions extends sfActions
 			$this->form->bind($request->getParameter($this->form->getName()));
 			if ($this->form->isValid()) {
 				$vrac = $this->form->save();
-				$this->redirect(array('sf_route' => 'vrac_etape', 'sf_subject' => $vrac, 'step' => $this->configurationVracEtapes->next($vrac->etape)));
+				if (!$this->configurationVracEtapes->next($vrac->etape)) {
+					$this->redirectAfterEtapes($vrac);
+				} else {
+					$this->redirect(array('sf_route' => 'vrac_etape', 'sf_subject' => $vrac, 'step' => $this->configurationVracEtapes->next($vrac->etape)));
+				}
 			}
 		}
+	}
+	public function executeRecapitulatif(sfWebRequest $request)
+	{
+		$this->vrac = $this->getRoute()->getVrac();
+	}
+	
+	public function redirectAfterEtapes($object)
+	{
+		$this->redirect('vrac_termine', $object);
 	}
 	
 	public function getNumeroContrat()
@@ -94,7 +107,7 @@ class vracActions extends sfActions
 	}
 
 
-	public function executeRecapitulatif(sfWebRequest $request)
+	/*public function executeRecapitulatif(sfWebRequest $request)
 	{
 		$this->getResponse()->setTitle(sprintf('Contrat N° %d - Récapitulation', $request["numero_contrat"]));
 		$this->vrac = $this->getRoute()->getVrac();
@@ -102,7 +115,7 @@ class vracActions extends sfActions
 		{
 			$this->redirect('vrac_soussigne');
 		}
-	}
+	}*/
 
 	public function executeGetInformations(sfWebRequest $request)
 	{

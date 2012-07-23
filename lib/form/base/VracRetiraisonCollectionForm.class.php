@@ -1,13 +1,16 @@
 <?php
 class VracRetiraisonCollectionForm extends acCouchdbObjectForm implements FormBindableInterface
 {
+	public $virgin_object = null;
+	
 	public function configure()
 	{
-		$key = 0;
+		if (count($this->getObject()) == 0) {
+			$this->virgin_object = $this->getObject()->add();
+		}
 		foreach ($this->getObject() as $key => $object) {
 			$this->embedForm ($key, new VracRetiraisonForm($object));
 		}
-		$this->embedForm (($key+1), new VracRetiraisonForm($this->getObject()->add()));
 	}
 
 	public function bind(array $taintedValues = null, array $taintedFiles = null)
@@ -32,5 +35,12 @@ class VracRetiraisonCollectionForm extends acCouchdbObjectForm implements FormBi
         unset($this->validatorSchema[$key]);
         unset($this->embeddedForms[$key]);
         $this->getObject()->remove($key);
+    }
+	
+	public function offsetUnset($offset) {
+		parent::offsetUnset($offset);
+		if (!is_null($this->virgin_object)) {
+			$this->virgin_object->delete();
+		}
     }
 }

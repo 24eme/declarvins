@@ -1,4 +1,3 @@
-<?php $isValidation = ($vrac->etape==4); ?>
 <ul>
         <li>
             <h2>
