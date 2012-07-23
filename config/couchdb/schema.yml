@@ -110,7 +110,7 @@ Configuration:
                             fields:
                               '*': {  }
       labels:
-        type: array_collection
+        type: collection
         definition:
           fields:
             '*': {  }
