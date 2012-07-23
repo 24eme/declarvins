@@ -1,6 +1,12 @@
 <?php include_partial('global/navTop', array('active' => 'vrac')); ?>
 <section id="contenu" class="vracs">
-	<table id="tableau_contrat">    
+	<div id="principal" class="produit">
+	<h1>
+	Contrat Vrac &nbsp;
+	<a class="btn_ajouter" href="<?php echo url_for('vrac_nouveau') ?>"></a>
+	</h1>
+	<div class="tableau_ajouts_liquidations">
+	<table id="tableau_recap">    
 	    <thead>
 	        <tr>
 	            <th class="type">Type</th>
@@ -54,4 +60,6 @@
 	        ?>
 	    </tbody>
 	</table>
+	</div>
+	</div>
 </section>
