@@ -32,7 +32,7 @@ class VracCsvFile extends CsvFile
   const CSV_VRAC_CONTRAT_DATE = 27;
   const CSV_VRAC_CONTRAT_VOLUME_PROMIS = 28;
   const CSV_VRAC_CONTRAT_VOLUME_REALISE = 29;
-  const CSV_VRAC_CONTRAT_VOLUME_PRIX = 29;
+  const CSV_VRAC_CONTRAT_VOLUME_PRIX = 30;
 
   private function verifyCsvLine($line) {
     if (!preg_match('/[0-9]/', $line[self::CSV_VRAC_CONTRAT_NUMERO]))
