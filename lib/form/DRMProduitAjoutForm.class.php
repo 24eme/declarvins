@@ -21,19 +21,17 @@ class DRMProduitAjoutForm extends acCouchdbForm
         $this->setWidgets(array(
             'hashref' => new sfWidgetFormChoice(array('choices' => $this->getProduits())),
             'label' => new sfWidgetFormChoice(array('expanded' => true, 'multiple' => true,'choices' => $this->getLabels())),
-            'label_supplementaire' => new sfWidgetFormInputText(),
             'disponible' => new sfWidgetFormInputFloat(),
         ));
         $this->widgetSchema->setLabels(array(
             'hashref' => 'Produit*: ',
             'label' => 'Label: ',
-            'label_supplementaire' => 'Label supplémentaire: ',
+            //'label_supplementaire' => 'Label supplémentaire: ',
         ));
 
         $this->setValidators(array(
             'hashref' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getProduits())),array('required' => "Aucun produit n'a été saisi !")),
             'label' => new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($this->getLabels()))),
-            'label_supplementaire' => new sfValidatorString(array('required' => false)),
             'disponible' => new sfValidatorNumber(array('required' => false)),
         ));
 
@@ -49,9 +47,13 @@ class DRMProduitAjoutForm extends acCouchdbForm
     public function getLabels() 
     {
         $labels = $this->_config->getLabels($this->_interpro->get('_id'));
-        $labels[self::LABEL_AUTRE_KEY] = "Autre";
 
         return $labels;
+    }
+
+    public function hasLabel() {
+        
+        return count($this->getLabels()) > 0;
     }
     
     public function getProduits() {
@@ -70,7 +72,6 @@ class DRMProduitAjoutForm extends acCouchdbForm
         }
 
         $detail = $this->_drm->addProduit($this->values['hashref'], $this->values['label']);
-        $detail->label_supplementaire = $this->values['label_supplementaire'];
         $detail->total_debut_mois = 0;
         if ($this->values['disponible']) {
             $detail->total_debut_mois = $this->values['disponible'];
