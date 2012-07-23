@@ -261,10 +261,27 @@ var init_informations = function(type)
     $('div.btnValidation button').removeAttr('disabled');
 }
     
+var initCollectionTemplate = function()
+{
+    $('.btn_ajouter_ligne_template').click(function()
+    {
+        $($(this).attr('data-container')).append($($(this).attr('data-template')).html().replace(/var---nbItem---/g, UUID.generate()));
+
+        return false;
+    });
+
+    $('.btn_supprimer_ligne_template').live('click',function()
+    {
+        $(this).parent().parent().remove();
+
+        return false;
+    });
+}
 
 $(document).ready(function()
 {
      initMarche();
      initConditions();
      initAutoComplete();
+     initCollectionTemplate();
 });
