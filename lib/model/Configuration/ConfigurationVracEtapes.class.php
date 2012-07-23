@@ -6,7 +6,6 @@
 
 class ConfigurationVracEtapes extends BaseConfigurationVracEtapes 
 {
-	
 	public function getTabEtapes()
 	{
 		return $this->toArray();
