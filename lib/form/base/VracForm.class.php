@@ -26,14 +26,14 @@ class VracForm extends acCouchdbObjectForm
         	'numero_contrat' => new sfWidgetFormInputText(),
         	'etape' => new sfWidgetFormInputText(),
         	'vendeur_type' => new sfWidgetFormChoice(array('choices' => $this->getVendeurTypes(), 'expanded', true)),
-        	'vendeur_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getVendeurs())),
+        	'vendeur_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getVendeurs(), array('class' => 'autocomplete')),
         	'vendeur_assujetti_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'acheteur_type' => new sfWidgetFormChoice(array('choices' => $this->getAcheteurTypes(), 'expanded', true)),
-        	'acheteur_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getAcheteurs())),
+        	'acheteur_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getAcheteurs()),array('class' => 'autocomplete'),
         	'acheteur_assujetti_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'mandatants' => new sfWidgetFormChoice(array('choices' => $this->getMandatants(), 'multiple' => true)),
         	'mandataire_exist' => new sfWidgetFormInputCheckbox(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
-        	'mandataire_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getMandataires())),
+        	'mandataire_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getMandataires()), array('class' => 'autocomplete')),
         	'premiere_mise_en_marche' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'production_otna' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'apport_union' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
@@ -41,7 +41,7 @@ class VracForm extends acCouchdbObjectForm
         	'original' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'has_transaction' => new sfWidgetFormInputCheckbox(),
         	'type_transaction' => new sfWidgetFormChoice(array('choices' => $this->getTypesTransaction())),
-        	'produit' => new sfWidgetFormChoice(array('choices' => $this->getProduits())),
+        	'produit' => new sfWidgetFormChoice(array('choices' => $this->getProduits()), array('class' => 'autocomplete')),
         	'type_domaine' => new sfWidgetFormChoice(array('choices' => $this->getTypesDomaine())),
         	'domaine' => new sfWidgetFormInputText(),
         	'labels' => new sfWidgetFormChoice(array('choices' => $this->getLabels(), 'multiple' => true)),
@@ -358,7 +358,9 @@ class VracForm extends acCouchdbObjectForm
     }
 
     public function getFormTemplate($field, $form_item_class) {
-        $form = new VracCollectionTemplateForm($this, $field, $form_item_class);
+        $vrac = new Vrac();
+        $form_embed = new $form_item_class($vrac->get($field)->add());
+        $form = new VracCollectionTemplateForm($this, $field, $form_embed);
         
         return $form->getFormTemplate();
     }
@@ -374,8 +376,11 @@ class VracForm extends acCouchdbObjectForm
     }
 
     public function getFormTemplateLots() {
+        $vrac = new Vrac();
+        $form_embed = new VracLotForm($this->getConfiguration(), $vrac->lots->add());
+        $form = new VracCollectionTemplateForm($this, 'lots', $form_embed);
 
-        return $this->getFormTemplate('paiements', 'VracLotForm');
+        return $form->getFormTemplate();
     }
     
 }
