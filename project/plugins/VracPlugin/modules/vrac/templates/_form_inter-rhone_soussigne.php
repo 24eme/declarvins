@@ -4,7 +4,9 @@
 	<form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape)) ?>">
 		<?php echo $form->renderHiddenFields() ?>
 		<?php echo $form->renderGlobalErrors() ?>
-
+		<hr />
+		<h2>Vendeur</h2>
+		<hr />
 		<div id="vendeur">
 			<div>
                 <?php echo $form['vendeur_type']->renderError() ?>
@@ -115,7 +117,9 @@
 				</table>
 			</div>
 		</div>
-		
+		<hr />
+		<h2>Acheteur</h2>
+		<hr />
 		<div id="acheteur">
 			<div>
                 <?php echo $form['acheteur_type']->renderError() ?>
@@ -226,7 +230,9 @@
 				</table>
 			</div>
 		</div>
-	
+		<hr />
+		<h2>Mandataire</h2>
+		<hr />
 		<div>
 			<?php echo $form['mandataire_exist']->renderError() ?>
 			<?php echo $form['mandataire_exist']->renderLabel() ?>
@@ -304,7 +310,9 @@
 				</table>
 			</div>
 		</div>
-		
+		<hr />
+		<h2>Type de contrat</h2>
+		<hr />
 		<div id="contrat">
 			<div>
                 <?php echo $form['premiere_mise_en_marche']->renderError() ?>

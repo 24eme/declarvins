@@ -27,14 +27,24 @@
                 <?php echo $form['mentions']->render() ?>
 			</div>
 			<div>
+                <?php echo $form['prix_unitaire']->renderError() ?>
+				<?php echo $form['prix_unitaire']->renderLabel() ?>
+                <?php echo $form['prix_unitaire']->render() ?>
+			</div>
+			<div>
                 <?php echo $form['volume_propose']->renderError() ?>
 				<?php echo $form['volume_propose']->renderLabel() ?>
 				<?php echo $form['volume_propose']->render() ?>
 			</div>
 			<div>
-                <?php echo $form['annexe']->renderError() ?>
-				<?php echo $form['annexe']->renderLabel() ?>
-				<?php echo $form['annexe']->render() ?>
+                <?php echo $form['prix_total']->renderError() ?>
+				<?php echo $form['prix_total']->renderLabel() ?>
+				<?php echo $form['prix_total']->render() ?>
+			</div>
+			<div>
+                <?php echo $form['has_transaction']->renderError() ?>
+				<?php echo $form['has_transaction']->renderLabel() ?>
+				<?php echo $form['has_transaction']->render() ?>
 			</div>
 			
 		</div>

@@ -5,7 +5,7 @@
 		<?php echo $form->renderHiddenFields() ?>
 		<?php echo $form->renderGlobalErrors() ?>
 		<h2>Récapitulatif de la saisie</h2>
-		 <?php //include_partial('showContrat', array('vrac' => $form->getObject())); ?>
+		 <?php include_partial('showContrat', array('vrac' => $form->getObject())); ?>
 		<div class="ligne_form_btn">
 			<button class="btn_valider" type="submit">Valider</button>
 		</div>
