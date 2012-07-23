@@ -138,7 +138,7 @@
 	<?php else: ?>
 		<div class="bloc_bottom">
 			<h2>Suivi des vins</h2>
-			<?php if($drm->declaration->hasPasDeMouvement()): ?>
+			<?php if($drm->declaration->hasMouvement()): ?>
 	            <p>Pas de mouvement pour l'ensemble des produits</p>
 	        <?php endif; ?>
 	        <?php if($drm->declaration->hasStockEpuise()): ?>
