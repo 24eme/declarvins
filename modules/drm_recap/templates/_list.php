@@ -22,7 +22,7 @@
                     include_component('drm_recap', 'itemForm', array('produit' => $produit,
                         'config_lieu' => $config_lieu,
                         'detail' => $produit,
-                    	'active' => ($detail && $detail->getHash() == $form->getObject()),
+                    	'active' => ($detail && $detail->getHash() == $produit->getHash()),
                         'form' => $form));
                     ?>
                 <?php endif; ?>
