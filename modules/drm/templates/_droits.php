@@ -1,5 +1,5 @@
 <?php $libelles = array("douane" => "Droits de circulation de consommation",
-                        "cvo" => "Contribution volontaire obligatoire"
+                        "cvo" => "Cotisations interprofessionnelles"
                         ) ?>
 
 <?php foreach ($drm->getDroits() as $typedroit => $droits) if (count($drm->droits->{$typedroit})): ?>
