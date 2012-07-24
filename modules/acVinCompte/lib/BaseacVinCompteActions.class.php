@@ -37,7 +37,7 @@ class BaseacVinCompteActions extends sfActions
             /** CAS * */
             error_reporting(E_ALL);
             require_once(sfConfig::get('sf_lib_dir') . '/vendor/phpCAS/CAS.class.php');
-            phpCAS::client(CAS_VERSION_2_0, sfConfig::get('app_cas_domain'), sfConfig::get('app_cas_port'), sfConfig::get('app_cas_path'), false);
+            phpCAS::client(CAS_VERSION_2_0, sfConfig::get('app_ac_php_cas_domain'), sfConfig::get('app_ac_php_cas_port'), sfConfig::get('app_ac_php_cas_path'), false);
             phpCAS::setNoCasServerValidation();
             $this->getContext()->getLogger()->debug('{sfCASRequiredFilter} about to force auth');
             phpCAS::forceAuthentication();
@@ -46,7 +46,7 @@ class BaseacVinCompteActions extends sfActions
             $this->getUser()->signIn(phpCAS::getUser());
             $this->redirect(sfConfig::get('app_ac_vin_compte_login_redirect'));
         } else {
-            $url = sfConfig::get('app_cas_url') . '/login?service=' . $request->getUri();
+            $url = sfConfig::get('app_ac_php_cas_url') . '/login?service=' . $request->getUri();
             $this->redirect($url);
         }
     }
@@ -61,7 +61,7 @@ class BaseacVinCompteActions extends sfActions
         $this->getUser()->signOut();
         $url = 'http://'.$request->getHost();
         error_reporting(E_ALL);
-        phpCAS::client(CAS_VERSION_2_0,sfConfig::get('app_cas_domain'), sfConfig::get('app_cas_port'), sfConfig::get('app_cas_path'), false);
+        phpCAS::client(CAS_VERSION_2_0,sfConfig::get('app_ac_php_cas_domain'), sfConfig::get('app_ac_php_cas_port'), sfConfig::get('app_ac_php_cas_path'), false);
         phpCAS::logoutWithRedirectService($url);
         $this->redirect($url);
     }
