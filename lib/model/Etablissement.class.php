@@ -60,9 +60,8 @@ class Etablissement extends BaseEtablissement {
     public function getFamilleType() 
     {
         $familleType = array(EtablissementClient::FAMILLE_PRODUCTEUR => 'acheteur',
-                             EtablissementClient::FAMILLE_VITICULTEUR => 'vendeur',
-                             EtablissementClient::FAMILLE_PRODUCTEUR => 'vendeur',
-                             EtablissementClient::FAMILLE_MANDATAIRE => 'mandataire');
+                             EtablissementClient::FAMILLE_NEGOCIANT => 'vendeur',
+                             EtablissementClient::FAMILLE_COURTIER => 'mandataire');
         return $familleType[$this->famille];
     }
 
@@ -77,8 +76,7 @@ class Etablissement extends BaseEtablissement {
     public function getDroits() {
         $droits = array();
 
-        if (in_array($this->famille, array(EtablissementClient::FAMILLE_PRODUCTEUR, 
-                                           EtablissementClient::FAMILLE_VITICULTEUR))) {
+        if (in_array($this->famille, array(EtablissementClient::FAMILLE_PRODUCTEUR))) {
             $droits[] = TiersSecurityUser::CREDENTIAL_DROIT_DRM;
         }
         
