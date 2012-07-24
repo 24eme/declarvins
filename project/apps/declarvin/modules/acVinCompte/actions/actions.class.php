@@ -73,7 +73,7 @@ class acVinCompteActions extends BaseacVinCompteActions {
                return $this->redirect('@tiers');
             }
 
-	  		$url = sfConfig::get('app_cas_url') . '/login?service=' . $request->getUri();
+	  		$url = sfConfig::get('app_ac_php_cas_url') . '/login?service=' . $request->getUri();
 	  		
             return $this->redirect($url);
         }

@@ -7,11 +7,6 @@ all:
     port: 443
     path: cas
     url : "https://declarweb.site.com/cas/login"
-  cas:
-    domain: declarweb.site.com
-    port: 443
-    path: cas
-    url : "https://declarweb.site.com/cas/login"
   ldap:
     serveur: "declarweb.intra.actualys.fr"
     dn: "cn=admin,dc=site,dc=com"
