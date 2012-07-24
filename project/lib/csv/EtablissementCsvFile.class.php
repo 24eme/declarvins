@@ -63,7 +63,7 @@ class EtablissementCsvFile extends CsvFile
   public function convertTypeInFamille($type) {
 
     $types_familles = array(
-      self::CSV_TYPE_PARTENAIRE_VITICULTEUR => EtablissementClient::FAMILLE_VITICULTEUR,
+      self::CSV_TYPE_PARTENAIRE_VITICULTEUR => EtablissementClient::FAMILLE_NEGOCE,
       self::CSV_TYPE_PARTENAIRE_NEGOCE => EtablissementClient::FAMILLE_NEGOCE,
       self::CSV_TYPE_PARTENAIRE_COURTIER => EtablissementClient::FAMILLE_COURTIER,
     );

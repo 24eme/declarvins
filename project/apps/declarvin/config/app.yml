@@ -13,7 +13,6 @@ all:
     subject:    "DéclarVins - Redéfinition de votre mot de passe"
   etablissements:
     familles:
-      "Producteur": ["Producteur cave particulière", "Producteur cave coopérative"]
-      "Negociant": ["Négociant régional", "Négociant hors région"]
-      "Vinificateur": ["Vinificateur"]
-      "Courtier": ["Courtier"]
+      "Producteur": ["Cave particulière", "Cave coopérative"]
+      "Negociant": ["Régional", "Extérieur", "Union", "Etranger", "Vinificateur"]
+      "Courtier": []
