@@ -1,6 +1,12 @@
 all:
   base_url : http://declaration.dev.vinsalsace.pro
   tomcat_dir : /var/lib/tomcat6/webapps/cas
+  autologin: false
+  ac_php_cas:
+    domain: declarweb.site.com
+    port: 443
+    path: cas
+    url : "https://declarweb.site.com/cas/login"
   cas:
     domain: declarweb.site.com
     port: 443

@@ -64,12 +64,18 @@ class acVinCompteActions extends BaseacVinCompteActions {
 			$this->getContext()->getLogger()->debug('{sfCASRequiredFilter} auth is good');
 			/** ***** */
 			$this->getUser()->signIn(phpCAS::getUser());
-			$this->redirect('@tiers');
+			
+            return $this->redirect('@tiers');
         } else {
-        	//$this->getUser()->signIn('autologin');
-	        //$this->redirect('@tiers');
+            if(sfConfig::has('app_autologin') && sfConfig::get('app_autologin')) {
+        	   $this->getUser()->signIn(sfConfig::get('app_autologin'));
+	           
+               return $this->redirect('@tiers');
+            }
+
 	  		$url = sfConfig::get('app_cas_url') . '/login?service=' . $request->getUri();
-	  		$this->redirect($url);
+	  		
+            return $this->redirect($url);
         }
     }
     
@@ -78,11 +84,18 @@ class acVinCompteActions extends BaseacVinCompteActions {
      * @param sfWebRequest $request 
      */
     public function executeLogout(sfWebRequest $request) {
-      $this->getUser()->signOut();
-      $url = 'http://'.$request->getHost();
-      acPhpCas::client();
-      phpCAS::logoutWithRedirectService($url);
-      $this->redirect($url);
+        $this->getUser()->signOut();
+        
+        if(sfConfig::has('app_autologin') && sfConfig::get('app_autologin')) {
+            
+            return $this->redirect('login');
+        }
+
+        $url = 'http://'.$request->getHost();
+        acPhpCas::client();
+        phpCAS::logoutWithRedirectService($url);
+        
+        return $this->redirect($url);
     }
     
 
