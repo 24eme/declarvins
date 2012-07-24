@@ -18,9 +18,9 @@
 				<?php echo $form['vendeur_identifiant']->renderLabel() ?>
 				<?php echo $form['vendeur_identifiant']->render() ?>
 			</div>
-			<!--<div> 
+			<div> 
 				<table>
-					<tr>
+					<!--<tr>
 						<td>
 							<?php echo $form['vendeur']['raison_sociale']->renderError() ?>
 							<?php echo $form['vendeur']['raison_sociale']->renderLabel() ?>
@@ -79,7 +79,7 @@
 							<?php echo $form['vendeur']['email']->renderLabel() ?>
 							<?php echo $form['vendeur']['email']->render() ?>
 						</td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td>
 							<?php echo $form['vendeur_assujetti_tva']->renderError() ?>
@@ -89,7 +89,7 @@
 						<td></td>
 					</tr>
 				</table>
-			</div>-->
+			</div>
 			<p>Précision de l'adresse de stockage (si différente)</p>
 			<div> 
 				<table>
@@ -131,8 +131,8 @@
 				<?php echo $form['acheteur_identifiant']->renderLabel() ?>
 				<?php echo $form['acheteur_identifiant']->render() ?>
 			</div>
-			<!--<div> 
-				<table>
+			<div> 
+				<!--<table>
 					<tr>
 						<td>
 							<?php echo $form['acheteur']['raison_sociale']->renderError() ?>
@@ -192,7 +192,7 @@
 							<?php echo $form['acheteur']['email']->renderLabel() ?>
 							<?php echo $form['acheteur']['email']->render() ?>
 						</td>
-					</tr>
+					</tr>-->
 					<tr>
 						<td>
 							<?php echo $form['acheteur_assujetti_tva']->renderError() ?>
@@ -202,7 +202,7 @@
 						<td></td>
 					</tr>
 				</table>
-			</div>-->
+			</div>
 			<p>Précision de l'adresse de livraison (si différente)</p>
 			<div> 
 				<table>
@@ -335,8 +335,8 @@
 				<?php echo $form['cession_interne']->render() ?>
 			</div>
 		</div>
-	
-		<div class="ligne_form_btn">
+		
+        <div class="ligne_form_btn">
 			<button class="btn_valider" type="submit">Etape Suivante</button>
 		</div>
 	</form>
