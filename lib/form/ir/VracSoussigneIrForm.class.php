@@ -23,5 +23,6 @@ class VracSoussigneIrForm extends VracForm
 		   'adresse_stockage',
 		   'adresse_livraison',
 		));
+		$this->widgetSchema->setNameFormat('vrac_soussigne[%s]');
     }
 }
