@@ -15,18 +15,21 @@ class VracRetiraisonCollectionForm extends acCouchdbObjectForm implements FormBi
 
 	public function bind(array $taintedValues = null, array $taintedFiles = null)
 	{
-		foreach ($this->embeddedForms as $key => $form) {
-			if(!array_key_exists($key, $taintedValues)) {
-				$this->unEmbedForm($key);
-			}
-		}
+        foreach ($this->embeddedForms as $key => $form) {
+            if(!array_key_exists($key, $taintedValues)) {
+                $this->unEmbedForm($key);
+            }
+        }
+
 		foreach($taintedValues as $key => $values) {
 			if(!is_array($values) || array_key_exists($key, $this->embeddedForms)) {
 				continue;
-			}
-			$this->embedForm($key, new VracRetiraisonForm($this->getObject()->add()));
+			};
+
+			$this->embedForm ($key, new VracRetiraisonForm($this->getObject()->add()));
 		}
-		parent::bind($taintedValues, $taintedFiles);
+
+		//parent::bind($taintedValues, $taintedFiles);
 	}
     
     public function unEmbedForm($key) 
@@ -42,5 +45,10 @@ class VracRetiraisonCollectionForm extends acCouchdbObjectForm implements FormBi
 		if (!is_null($this->virgin_object)) {
 			$this->virgin_object->delete();
 		}
+    }
+
+    public function getFormTemplate() {
+        $form = new DRMDetailVracTemplateForm($this->drm_sorties_vrac_details);
+        return $form->getFormTemplate();
     }
 }

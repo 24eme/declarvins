@@ -2,6 +2,23 @@
 class VracLotCollectionForm extends acCouchdbObjectForm implements FormBindableInterface
 {
 	public $virgin_object = null;
+	protected $configuration;
+    
+	public function __construct(ConfigurationVrac $configuration, acCouchdbJson $object, $options = array(), $CSRFSecret = null) 
+	{
+        $this->setConfiguration($configuration);
+        parent::__construct($object, $options, $CSRFSecret);
+    }
+    
+    public function getConfiguration()
+    {
+    	return $this->configuration;
+    }
+    
+    public function setConfiguration($configuration)
+    {
+    	$this->configuration = $configuration;
+    }
 	
 	public function configure()
 	{
@@ -9,7 +26,7 @@ class VracLotCollectionForm extends acCouchdbObjectForm implements FormBindableI
 			$this->virgin_object = $this->getObject()->add();
 		}
 		foreach ($this->getObject() as $key => $object) {
-			$this->embedForm ($key, new VracLotForm($object));
+			$this->embedForm ($key, new VracLotForm($this->getConfiguration(), $object));
 		}
 	}
 
@@ -24,9 +41,11 @@ class VracLotCollectionForm extends acCouchdbObjectForm implements FormBindableI
 			if(!is_array($values) || array_key_exists($key, $this->embeddedForms)) {
 				continue;
 			}
+
 			$this->embedForm($key, new VracLotForm($this->getObject()->add()));
 		}
-		parent::bind($taintedValues, $taintedFiles);
+
+		//parent::bind($taintedValues, $taintedFiles);
 	}
 
 	public function unEmbedForm($key)

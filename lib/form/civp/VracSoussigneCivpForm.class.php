@@ -17,12 +17,11 @@ class VracSoussigneCivpForm extends VracForm
 	       'production_otna',
 	       'apport_union',
 	       'cession_interne',
-	       'vendeur',
-	       'acheteur',
-	       'mandataire',
-	       'adresse_stockage',
-	       'adresse_livraison'
+		   'vendeur',
+		   'acheteur',
+		   'mandataire',
+		   'adresse_stockage',
+		   'adresse_livraison',
 		));
-		$this->widgetSchema->setNameFormat('vrac_soussigne[%s]');
     }
 }

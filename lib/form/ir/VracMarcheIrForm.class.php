@@ -9,8 +9,10 @@ class VracMarcheIrForm extends VracForm
            'produit',
 	       'labels',
            'mentions',
+		   'prix_unitaire',
            'volume_propose',
-	       'annexe'
+		   'prix_total',
+		   'has_transaction'
 		));
 		$this->getWidget('type_transaction')->setOption('expanded', true);
 		$this->getWidget('labels')->setOption('expanded', true);

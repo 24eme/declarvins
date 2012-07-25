@@ -21,25 +21,27 @@ class VracForm extends acCouchdbObjectForm
     
 	public function configure()
     {
+
         $this->setWidgets(array(
         	'numero_contrat' => new sfWidgetFormInputText(),
         	'etape' => new sfWidgetFormInputText(),
-        	'vendeur_type' => new sfWidgetFormChoice(array('choices' => $this->getVendeurTypes())),
-        	'vendeur_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getVendeurs())),
-        	'vendeur_assujetti_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
-        	'acheteur_type' => new sfWidgetFormChoice(array('choices' => $this->getAcheteurTypes())),
-        	'acheteur_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getAcheteurs())),
+                'vendeur_type' => new sfWidgetFormChoice(array('choices' => $this->getVendeurTypes(), 'expanded' => true)),
+                'vendeur_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getVendeurs()), array('class' => 'autocomplete')),
+                'vendeur_assujetti_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(), 'expanded' => true)),
+                'acheteur_type' => new sfWidgetFormChoice(array('choices' => $this->getAcheteurTypes(), 'expanded'=> true)),
+                'acheteur_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getAcheteurs()),array('class' => 'autocomplete')),
         	'acheteur_assujetti_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'mandatants' => new sfWidgetFormChoice(array('choices' => $this->getMandatants(), 'multiple' => true)),
-        	'mandataire_exist' => new sfWidgetFormInputCheckbox(),
-        	'mandataire_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getMandataires())),
+                'mandataire_exist' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
+        	'mandataire_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getMandataires()), array('class' => 'autocomplete')),
         	'premiere_mise_en_marche' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'production_otna' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'apport_union' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'cession_interne' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'original' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
+        	'has_transaction' => new sfWidgetFormInputCheckbox(),
         	'type_transaction' => new sfWidgetFormChoice(array('choices' => $this->getTypesTransaction())),
-        	'produit' => new sfWidgetFormChoice(array('choices' => $this->getProduits())),
+        	'produit' => new sfWidgetFormChoice(array('choices' => $this->getProduits()), array('class' => 'autocomplete')),
         	'type_domaine' => new sfWidgetFormChoice(array('choices' => $this->getTypesDomaine())),
         	'domaine' => new sfWidgetFormInputText(),
         	'labels' => new sfWidgetFormChoice(array('choices' => $this->getLabels(), 'multiple' => true)),
@@ -88,13 +90,14 @@ class VracForm extends acCouchdbObjectForm
         	'acheteur_identifiant' => 'Acheteur:',
         	'acheteur_assujetti_tva' => 'Assujetti à la TVA',
         	'mandatants' => 'Mandatants:',
-        	'mandataire_exist' => 'Présence d\'un mandataire?',
+        	'mandataire_exist' => 'Transaction avec un courtier',
         	'mandataire_identifiant' => 'Mandataire:',
         	'premiere_mise_en_marche' => 'Première mise en marché:',
         	'production_otna' => 'Contrat entre producteurs 5% ou OTNA:',
         	'apport_union' => 'Apport contractuel à une union:',
         	'cession_interne' => 'Contrat interne entre deux filiales:',
         	'original' => 'En attente de l\'original:',
+        	'has_transaction' => 'Je souhaite associer une déclaration de transaction',
         	'type_transaction' => 'Type de transaction:',
         	'produit' => 'Produit:',
         	'type_domaine' => 'Type de domaine:',
@@ -145,13 +148,14 @@ class VracForm extends acCouchdbObjectForm
         	'acheteur_identifiant' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getAcheteurs()))),
         	'acheteur_assujetti_tva' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'mandatants' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getMandatants()), 'multiple' => true)),
-        	'mandataire_exist' => new sfValidatorPass(),
+        	'mandataire_exist' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'mandataire_identifiant' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getMandataires()))),
         	'premiere_mise_en_marche' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'production_otna' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'apport_union' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'cession_interne' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'original' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
+        	'has_transaction' => new sfValidatorPass(),
         	'type_transaction' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getTypesTransaction()))),
         	'produit' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getProduits()))),
         	'type_domaine' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getTypesDomaine()))),
@@ -216,7 +220,7 @@ class VracForm extends acCouchdbObjectForm
         $retiraisons = new VracRetiraisonCollectionForm($this->getObject()->retiraisons);
         $this->embedForm('retiraisons', $retiraisons);
         
-        $lots = new VracLotCollectionForm($this->getObject()->lots);
+        $lots = new VracLotCollectionForm($this->getConfiguration(), $this->getObject()->lots);
         $this->embedForm('lots', $lots);
         
         $this->widgetSchema->setNameFormat('vrac[%s]');
@@ -329,15 +333,54 @@ class VracForm extends acCouchdbObjectForm
         }
         return $etablissements;
     }
+
+
+    protected function doUpdateObject($values) {
+        
+        $this->getObject()->fromArray($values);
+
+    }
     
 	public function bind(array $taintedValues = null, array $taintedFiles = null)
     {
         foreach ($this->embeddedForms as $key => $form) {
             if($form instanceof FormBindableInterface) {
                 $form->bind($taintedValues[$key], $taintedFiles[$key]);
+                $this->updateEmbedForm($key, $form);
             }
-        }       
+        }
+
         parent::bind($taintedValues, $taintedFiles);
+    }
+
+    public function updateEmbedForm($name, $form) {
+        $this->validatorSchema[$name] = $form->getValidatorSchema();
+    }
+
+    public function getFormTemplate($field, $form_item_class) {
+        $vrac = new Vrac();
+        $form_embed = new $form_item_class($vrac->get($field)->add());
+        $form = new VracCollectionTemplateForm($this, $field, $form_embed);
+        
+        return $form->getFormTemplate();
+    }
+
+    public function getFormTemplateRetiraisons() {
+
+        return $this->getFormTemplate('retiraisons', 'VracRetiraisonForm');
+    }
+
+    public function getFormTemplatePaiements() {
+
+        return $this->getFormTemplate('paiements', 'VracPaiementForm');
+    }
+
+    public function getFormTemplateLots() {
+        $vrac = new Vrac();
+        $form_embed = new VracLotForm($this->getConfiguration(), $vrac->lots->add());
+        $form = new VracCollectionTemplateForm($this, 'lots', $form_embed);
+
+        return $form->getFormTemplate();
     }
     
 }
