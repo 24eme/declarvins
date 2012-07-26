@@ -987,6 +987,11 @@ input.ui-autocomplete-input + button .ui-icon {
   background:#900000;
   width:400px;
 }
+#ajax_form_error_notification a {
+  color:#ffffff;
+  text-decoration:underline;
+}
+#ajax_form_error_notification a:hover { text-decoration:none; }
 #creation_compte h1 {
   font-size:21px;
   font-weight:normal;
