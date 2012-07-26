@@ -51,6 +51,8 @@ class drmActions extends sfActions
    */
   public function executeDelete(sfWebRequest $request) {
       $drm = $this->getRoute()->getDRM();
+      if ($drm->isValidee())
+        throw new sfException('Vous ne pouvez pas supprimer une DRM validée');
       if ($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) && !$drm->isEnvoyee()) {
       	$drm->delete();
       } elseif (!$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) && !$drm->isValidee()) {
