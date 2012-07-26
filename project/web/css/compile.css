@@ -2026,26 +2026,159 @@ p#date_drm {
   text-transform:none;
 }
 #telecharger_pdf:hover { text-decoration:none; }
-.vracs #vrac_soussigne .section_label_maj >  label:first-child {
-  width:310px;
+.vracs { color:#3e3e3e; }
+.vracs input[type=text] {
+  border:0;
+  -webkit-border-radius:3px;
+  -moz-border-radius:3px;
+  border-radius:3px;
+  -webkit-box-shadow:0px 1px 3px rgba(0,0,0,0.4) inset;
+  -moz-box-shadow:0px 1px 3px rgba(0,0,0,0.4) inset;
+  box-shadow:0px 1px 3px rgba(0,0,0,0.4) inset;
+  -webkit-box-shadow:0px 1px 3px rgba(0,0,0,0.4) inset;
+  -moz-box-shadow:0px 1px 3px rgba(0,0,0,0.4) inset;
+  box-shadow:0px 1px 3px rgba(0,0,0,0.4) inset;
+  padding:5px;
+}
+.vracs .ui-autocomplete-input {
+  background:url("../images/pictos/pi_recherche.png") no-repeat scroll 5px 7px #ffffff;
+  font-size:12px;
+  height:14px;
+  padding:5px 5px 5px 25px !important;
+  width:330px;
+}
+.vracs .ui-button { display:none; }
+.vracs h2 {
+  font-size:15px;
+  font-weight:bold;
+  height:35px;
+  padding-top:4px;
   text-transform:uppercase;
+}
+.vracs #contrats_etapes {
+  background:url(../images/fonds/bg_etapes_declaration.png) 0 0 no-repeat;
+  color:#ffffff;
   float:left;
-}
-.vracs #vrac_soussigne .section_label_maj .radio_list { float:left; }
-.vracs #vrac_soussigne .section_label_maj .ui-autocomplete-input {
+  padding:11px 0 11px 6px;
+  margin-bottom:35px;
+  float:none;
   zoom:1;
-  float:right;
-  width:250px;
 }
-.vracs #vrac_soussigne .section_label_maj .ui-autocomplete-input:before, .vracs #vrac_soussigne .section_label_maj .ui-autocomplete-input:after {
+.vracs #contrats_etapes ol {
+  line-height:21px;
+  list-style:none;
+}
+.vracs #contrats_etapes ol * { float:left; }
+.vracs #contrats_etapes ol li { background:url(../images/fonds/bg_etapes_declaration.png) 0 -43px repeat-x; }
+.vracs #contrats_etapes ol li > * {
+  background:url(../images/fonds/bg_etapes_declaration.png) 0 -106px no-repeat;
+  padding:0 15px 0 20px;
+}
+.vracs #contrats_etapes ol li a { color:#ffffff; }
+.vracs #contrats_etapes ol li a:hover { text-decoration:none; }
+.vracs #contrats_etapes ol li.premier { background-position:0 -64px; }
+.vracs #contrats_etapes ol li.premier > * {
+  background:0;
+  padding-left:10px;
+}
+.vracs #contrats_etapes ol li.dernier > * { padding-right:0; }
+.vracs #contrats_etapes ol li.dernier > * span {
+  background:url(../images/fonds/bg_etapes_declaration.png) right -148px no-repeat;
+  padding-right:20px;
+}
+.vracs #contrats_etapes ol li.dernier.actif > * span { background-position:right -169px; }
+.vracs #contrats_etapes ol li.passe, .vracs #contrats_etapes ol li.actif { background-position:0 -64px; }
+.vracs #contrats_etapes ol li.passe > *, .vracs #contrats_etapes ol li.actif > * { background-position:0 -127px; }
+.vracs #contrats_etapes ol li.actif { font-weight:bold; }
+.vracs #contrats_etapes ol li.actif + li > * { background-position:0 -85px; }
+.vracs #contrats_etapes:before, .vracs #contrats_etapes:after {
   content:"\0020";
   display:block;
   font-size:0;
   height:0;
   visibility:hidden;
 }
-.vracs #vrac_soussigne .section_label_maj .ui-autocomplete-input:after { clear:both; }
-.vracs #vrac_soussigne #vendeur_infos, .vracs #vrac_soussigne .vendeur_infos {
+.vracs #contrats_etapes:after { clear:both; }
+.vracs .radio_list, .vracs .checkbox_list { display:inline; }
+.vracs .radio_list li, .vracs .checkbox_list li { display:inline-block; }
+.vracs .radio_list li label, .vracs .checkbox_list li label { font-weight:normal !important; }
+.vracs .checkbox_list li { width:200px; }
+.vracs .vracs_ligne_form ul.radio_list label { width:60px !important; }
+.vracs .section_label_maj >  label:first-child {
+  width:310px;
+  text-transform:uppercase;
+  float:left;
+}
+.vracs .section_label_maj .radio_list { float:left; }
+.vracs .section_label_maj .radio_list label { width:100px !important; }
+.vracs .section_label_maj .ui-autocomplete-input {
+  zoom:1;
+  float:right;
+  width:250px;
+}
+.vracs .section_label_maj .ui-autocomplete-input:before, .vracs .section_label_maj .ui-autocomplete-input:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+.vracs .section_label_maj .ui-autocomplete-input:after { clear:both; }
+.vracs .section_label_strong { margin:20px 0; }
+.vracs .section_label_strong label:first-child {
+  display:inline-block;
+  font-weight:bold;
+  text-transform:none;
+  width:210px;
+}
+.vracs .section_label_strong .radio_list li { width:200px !important; }
+.vracs .contenu_onglet {
+  border:1px solid #e9e9e9;
+  background:#f1f1f1;
+  margin:20px 0;
+  padding:10px 0;
+  text-align:center;
+}
+.vracs .contenu_onglet label#label_acheteur { margin:0 95px 0 45px; }
+.vracs .contenu_onglet label input[type="radio"] { margin-right:7px; }
+.vracs #acheteur, .vracs #mandataire, .vracs #contrat { padding-top:20px; }
+.vracs .ligne_form_btn {
+  margin:30px 0 0;
+  text-align:right;
+}
+.vracs .ligne_form_btn button, .vracs .ligne_form_btn a {
+  height:28px;
+  line-height:28px;
+  margin:0 0 0 5px;
+  padding:0 10px;
+  text-transform:uppercase;
+  font-size:12px;
+}
+.vracs .ligne_form_btn button.btn_annuler, .vracs .ligne_form_btn a.btn_annuler {
+  background-repeat:no-repeat;
+  border:1px solid;
+  color:#ffffff;
+  display:inline-block;
+  background-color:#a0a0a0;
+  border-color:#c0c0c0;
+}
+.vracs .ligne_form_btn button.btn_annuler:hover, .vracs .ligne_form_btn button.btn_annuler:focus, .vracs .ligne_form_btn a.btn_annuler:hover, .vracs .ligne_form_btn a.btn_annuler:focus { background-color:#494949; }
+.vracs .ligne_form_btn button.btn_annuler:hover, .vracs .ligne_form_btn a.btn_annuler:hover { text-decoration:none; }
+.vracs .ligne_form_btn button.btn_valider, .vracs .ligne_form_btn a.btn_valider {
+  background-repeat:no-repeat;
+  border:1px solid;
+  color:#ffffff;
+  display:inline-block;
+  background-color:#86005b;
+  border-color:#494949;
+}
+.vracs .ligne_form_btn button.btn_valider:hover, .vracs .ligne_form_btn button.btn_valider:focus, .vracs .ligne_form_btn a.btn_valider:hover, .vracs .ligne_form_btn a.btn_valider:focus { background-color:#494949; }
+.vracs #vrac_soussigne {
+  clear:both;
+  font-size:14px;
+}
+.vracs #vrac_soussigne h3 { margin-bottom:20px; }
+.vracs #vrac_soussigne #vendeur, .vracs #vrac_soussigne .vendeur {
   display:block;
   height:176px;
   width:897px;
@@ -2105,10 +2238,6 @@ p#date_drm {
   position:absolute;
   right:20px;
 }
-.vracs #vrac_marche .section_label_maj >  label:first-child {
-  width:310px;
-  text-transform:uppercase;
-}
 .vracs #vrac_marche #original, .vracs #vrac_marche #produit, .vracs #vrac_marche #millesime, .vracs #vrac_marche #type, .vracs #vrac_marche #label, .vracs #vrac_marche #prixUnitaire, .vracs #vrac_marche #domaine {
   zoom:1;
   margin:20px 0;
@@ -2140,10 +2269,6 @@ p#date_drm {
   height:35px;
   padding-top:4px;
 }
-.vracs .section_label_strong label:first-child {
-  display:inline-block;
-  font-weight:bold;
-}
 .vracs .bloc_form {
   -webkit-border-radius:5px 5px 5px 5px;
   -moz-border-radius:5px 5px 5px 5px;
@@ -2154,13 +2279,14 @@ p#date_drm {
 .vracs .bloc_form .vracs_ligne_form label {
   display:inline-block;
   font-weight:bold;
-  width:150px;
+  width:200px;
 }
 .vracs .bloc_form .vracs_ligne_form span {
   height:30px;
   line-height:30px;
   vertical-align:middle;
 }
+.vracs .bloc_form .vracs_ligne_form input[type=text] { width:200px; }
 .vracs .bloc_form .vracs_ligne_form_alt { background:#e3e2e2; }
 .vracs .bloc_form .col {
   float:left;
@@ -2188,33 +2314,23 @@ p#date_drm {
   -moz-border-radius:0 0 5px 0;
   border-radius:0 0 5px 0;
 }
+.vracs #vendeur .bloc_form, .vracs #acheteur .bloc_form { height:264px; }
+.vracs #mandataire .bloc_form { height:220px; }
+.vracs .adresse_livraion .bloc_form { height:130px !important; }
+.vracs .adresse_livraion .section_label_strong label { width:500px; }
 .vracs #ligne_btn {
   display:block;
   margin:10px 0;
 }
 .vracs #ligne_btn .btnAnnulation { float:left; }
 .vracs #ligne_btn .btnValidation { float:right; }
-.vracs ul.radio_list { zoom:1; }
-.vracs ul.radio_list:before, .vracs ul.radio_list:after {
-  content:"\0020";
-  display:block;
-  font-size:0;
-  height:0;
-  visibility:hidden;
-}
-.vracs ul.radio_list:after { clear:both; }
-.vracs ul.radio_list li {
-  display:block;
-  float:left;
-  width:165px;
-}
-.vracs ul.radio_list li label { font-weight:normal !important; }
 .vracs .champ_datepicker { padding-top:10px; }
 .vracs .champ_datepicker img {
   position:absolute;
   margin-left:5px;
 }
 .vracs .error_list { margin-top:15px; }
+.vracs #contrat .section_label_strong label { width:300px; }
 #mon_compte .ligne_form, #compteModification .ligne_form, #compteAjout .ligne_form, #validationFiche .ligne_form { margin:0 0 15px; }
 #mon_compte label, #compteModification label, #compteAjout label, #validationFiche label {
   display:inline-block;

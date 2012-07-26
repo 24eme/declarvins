@@ -50,6 +50,9 @@ var initMarche = function()
         $('#vrac_marche #type_transaction input[value="vin_vrac"]').attr('checked','checked');       
    updatePanelsAndUnitLabels();    
    $('#vrac_marche #type_transaction input').click(updatePanelsAndUnitLabels);
+   
+   var tableau = $('#vrac_soussigne').find('table');
+   tableau.find('tr:even').addClass('impair');
 }
 
 
