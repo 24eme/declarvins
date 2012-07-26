@@ -98,7 +98,7 @@
 
 			</table>
 		<?php endif; ?>
-
+		
 		<?php $colonnes = $pagers_vrac[$certification_key]->getResults(); ?>
 		<?php if(count($colonnes) > 0): ?>
 			<h2>Contrats vrac - <?php echo $certification->getConfig()->libelle ?></h2>
@@ -133,7 +133,7 @@
 	<?php endforeach; ?>
 	
 	
-		
+	<?php if ($drm->mode_de_saisie != DRM::MODE_DE_SAISIE_PAPIER): ?>	
 	<?php if($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()): ?>
 	<?php else: ?>
 		<div class="bloc_bottom">
@@ -283,6 +283,7 @@
 
 <?php endif; //si pas validée ?>
 	<hr />
+	<?php endif; ?>
 	<div class="legende">
 	<?php foreach($drm->declaration->certifications as $certification_key => $certification): ?>
 		<?php $i = 1; while($pagers_code[$certification_key]->getPage() <= $pagers_code[$certification_key]->getLastPage()): ?>
