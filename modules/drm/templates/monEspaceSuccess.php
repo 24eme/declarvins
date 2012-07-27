@@ -15,7 +15,7 @@
     </section>
     <a href="<?php echo url_for('@drm_historique') ?>">Votre historique complet &raquo;</a>
     
-        <?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
+        <?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && !$hasDrmEnCours): ?>
         <br /><br />
         <h1>Espace Admin <a href="" class="msg_aide" data-msg="help_popup_monespace_admin" data-doc="notice.pdf" title="Message aide"></a></h1>
     	<p class="intro">Saisir une DRM d'un mois différent.</p>
