@@ -71,11 +71,6 @@ class DRMValidation
 		if ($totalEntreeDeclassement > $totalSortiDeclassement) {
 			$this->warnings['declassement_'.$certificationVinssansig->getKey()] = new DRMControleWarning('declassement', $this->generateUrl('drm_recap', $certificationVinssansig));
 		}
-		if ($drmSuivante = $this->drm->getSuivante()) {
-			if ($this->drm->declaration->total != $drmSuivante->declaration->total_debut_mois) {
-				$this->errors['stock'] = new DRMControleError('stock', self::NO_LINK);
-			}
-		}
 	}
 	
 	public function isValide() {
@@ -105,10 +100,12 @@ class DRMValidation
 		  foreach ($detail->vrac as $contrat) {
 		    $totalVolume += $contrat->volume;
 		  }
-		  if ($totalVolume < $detail->sorties->vrac) {
-		    $this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_recap_detail', $detail).'#sorties');
-		  } elseif ($totalVolume > $detail->sorties->vrac) {
-		  	$this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm).'#sorties');
+		  if ($detail->hasCvo()) {
+			  if ($totalVolume < $detail->sorties->vrac) {
+			    $this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_recap_detail', $detail).'#sorties');
+			  } elseif ($totalVolume > $detail->sorties->vrac) {
+			  	$this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm).'#sorties');
+			  }
 		  }
 		}
 		if ($detail->total < 0) {
@@ -116,6 +113,14 @@ class DRMValidation
 		}
 		if ($detail->total < ($detail->stocks_fin->bloque + $detail->stocks_fin->instance)) {
 			$this->errors['total_stocks_'.$detail->getIdentifiantHTML()] = new DRMControleError('total_stocks', $this->generateUrl('drm_recap_detail', $detail));
+		}
+		if ($drmSuivante = $this->drm->getSuivante()) {
+			if ($drmSuivante->exist($detail->getHash())) {
+				$d = $drmSuivante->get($detail->getHash());
+				if ($d->total_debut_mois != $detail->total) {
+					$this->errors['stock_'.$detail->getIdentifiantHTML()] = new DRMControleError('stock', $this->generateUrl('drm_recap_detail', $detail));
+				}
+			}
 		}
 	}
 	
