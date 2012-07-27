@@ -6,7 +6,7 @@
 <section id="contenu">
 
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
-	<?php var_dump($hasDrmEnCours); if (!$hide_rectificative && !$hasDrmEnCours): ?>
+	<?php if (!$hide_rectificative && !$hasDrmEnCours): ?>
     <form method="GET" action="<?php echo url_for(array('sf_route' => 'drm_rectificative', 'campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">
         <button class="btn_passer_etape rectificative" type="submit">Soumettre une DRM rectificative</button>
     </form>
