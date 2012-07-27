@@ -77,4 +77,15 @@ class DRMAppellation extends BaseDRMAppellation {
     public function getCampagne() {
       return $this->getDocument()->getCampagne();
     }
+    
+    public function hasDetailLigne($ligne)
+    {
+    	if ($configurationDetail = $this->getConfig()->exist('detail')) {
+    		$line = $configurationDetail->get($ligne);
+    		if (!is_null($line->readable)) {
+    			return $line->readable;
+    		}
+    	}
+    	return $this->getGenre()->hasDetailLigne($ligne);
+    }
 }

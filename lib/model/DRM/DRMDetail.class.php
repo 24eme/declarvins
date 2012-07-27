@@ -177,6 +177,11 @@ class DRMDetail extends BaseDRMDetail {
     	$cvo = $this->getDroit(ConfigurationDroits::CODE_CVO);
     	return !$cvo->isEmpty();
     }
+    
+    public function hasDetailLigne($ligne)
+    {
+    	return $this->getLieu()->hasDetailLigne($ligne);
+    }
 
     protected function init($params = array()) {
       parent::init($params);

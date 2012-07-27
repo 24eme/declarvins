@@ -20,5 +20,16 @@ class DRMCertification extends BaseDRMCertification {
 
 		return $this->genres;
 	}
+    
+    public function hasDetailLigne($ligne)
+    {
+    	if ($configurationDetail = $this->getConfig()->exist('detail')) {
+    		$line = $configurationDetail->get($ligne);
+    		if (!is_null($line->readable)) {
+    			return $line->readable;
+    		}
+    	}
+    	return false;
+    }
 
 }
