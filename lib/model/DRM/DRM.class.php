@@ -66,7 +66,7 @@ class DRM extends BaseDRM {
     public function getDetailsAvecVrac() {
       $details = array();
       foreach ($this->getDetails() as $d) {
-	if ($d->sorties->vrac)
+	if ($d->sorties->vrac && $d->hasCvo())
 	  $details[] = $d;
       }
       return $details;

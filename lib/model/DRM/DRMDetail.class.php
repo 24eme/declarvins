@@ -171,6 +171,12 @@ class DRMDetail extends BaseDRMDetail {
     public function getDroit($type) {
       return $this->getAppellation()->getDroit($type);
     }
+    
+    public function hasCvo()
+    {
+    	$cvo = $this->getDroit(ConfigurationDroits::CODE_CVO);
+    	return !$cvo->isEmpty();
+    }
 
     protected function init($params = array()) {
       parent::init($params);
