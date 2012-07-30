@@ -36,7 +36,7 @@ else
 <?php
 }
 ?>
-<div id="contenu">
+<div id="contenu" class="vracs">
     <div id="rub_contrats">
         <section id="principal">
         <?php include_partial('headerVrac', array('vrac' => $form->getObject(),'actif' => 1)); ?>
