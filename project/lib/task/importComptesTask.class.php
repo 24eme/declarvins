@@ -101,11 +101,16 @@ EOF;
         $e->delete();
     }
 
+    if ($e = acCouchdbManager::getClient()->retrieveDocumentById('ETABLISSEMENT-9223700101')) {
+        $e->delete();
+    }
+
     $e = new Etablissement();
     $e->cvi = "9223700100";
     $e->email = "test@example.org";
     $e->interpro = 'INTERPRO-IR';
     $e->identifiant = "9223700100";
+    $e->famille = "Producteur";
     $e->no_accises  = "FR9200000000";
     $e->no_tva_intracommunautaire = "FR9200000000";
     $e->nom = "Garage d'Actualys";
@@ -118,6 +123,7 @@ EOF;
     $e->email = "test@example.org";
     $e->interpro = 'INTERPRO-CIVP';
     $e->identifiant = "9223700101";
+    $e->famille = "Producteur";
     $e->no_accises  = "FR9200000000";
     $e->no_tva_intracommunautaire = "FR9200000000";
     $e->nom = "Garage d'Actualys";
