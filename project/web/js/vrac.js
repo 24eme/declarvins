@@ -268,7 +268,7 @@ var initCollectionTemplate = function()
 {
     $('.btn_ajouter_ligne_template').click(function()
     {
-        $($(this).attr('data-container')).append($($(this).attr('data-template')).html().replace(/var---nbItem---/g, UUID.generate()));
+        $($(this).attr('data-container')).find('tbody').append($($(this).attr('data-template')).html().replace(/var---nbItem---/g, UUID.generate()));
 
         return false;
     });

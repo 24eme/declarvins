@@ -15,8 +15,7 @@
         <?php echo $form['montant_paiement']->renderError() ?>
         <?php echo $form['montant_paiement']->render() ?>
     </td>
-    <td>
-        <br />
+    <td class="dernier">
         <a class="btn_supprimer_ligne_template" href="#">X</a>
     </td>
 </tr>

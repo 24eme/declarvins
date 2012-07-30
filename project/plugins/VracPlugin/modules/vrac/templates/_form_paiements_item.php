@@ -7,7 +7,7 @@
         <?php echo $form['montant']->renderError() ?>
         <?php echo $form['montant']->render() ?>
     </td>
-    <td>
+    <td class="dernier">
         <a class="btn_supprimer_ligne_template" href="#">X</a>
     </td>
 </tr>

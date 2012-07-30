@@ -206,6 +206,7 @@ pre, code, kbd, samp { font-family:monospace, sans-serif; }
   padding:0 0 0 14px;
 }
 .btn_suppr:hover, .btn_suppr:focus { text-decoration:underline; }
+.ielt8 .btn_suppr { height:15px; }
 .btn_ajouter.btn_chargement {
   background-image:url(../images/pictos/pi_loader.gif);
   padding-left:20px;
@@ -361,6 +362,11 @@ a.msg_aide:hover {
 .f_right {
   display:inline;
   float:right;
+}
+.txt-rpl {
+  text-indent:100%;
+  white-space:nowrap;
+  overflow:hidden;
 }
 .z1 { zoom:1; }
 .clearfix { zoom:1; }
@@ -2027,8 +2033,78 @@ p#date_drm {
 }
 #telecharger_pdf:hover { text-decoration:none; }
 .vracs { color:#3e3e3e; }
+.vracs .popup_form .table_container { zoom:1; }
+.vracs .popup_form .table_container:before, .vracs .popup_form .table_container:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+.vracs .popup_form .table_container:after { clear:both; }
+.vracs .popup_form .table_container #table_paiements, .vracs .popup_form .table_container #table_retiraisons {
+  float:right;
+  width:545px;
+}
+.vracs .popup_form .table_container #table_paiements thead th, .vracs .popup_form .table_container #table_retiraisons thead th {
+  border:1px solid #e5e4e4;
+  background-color:#ecebeb;
+  font-size:14px;
+  height:35px;
+  padding:0 13px;
+  vertical-align:middle;
+}
+.vracs .popup_form .table_container #table_paiements thead th + th, .vracs .popup_form .table_container #table_retiraisons thead th + th { border-left:0 none; }
+.vracs .popup_form .table_container #table_paiements thead th.dernier, .vracs .popup_form .table_container #table_retiraisons thead th.dernier {
+  background-color:transparent;
+  border-bottom:1px solid #ffffff;
+  border-right:1px solid #ffffff;
+  border-top:1px solid #ffffff;
+}
+.vracs .popup_form .table_container #table_paiements tbody, .vracs .popup_form .table_container #table_retiraisons tbody { text-align:left; }
+.vracs .popup_form .table_container #table_paiements tbody tr td, .vracs .popup_form .table_container #table_retiraisons tbody tr td {
+  border-bottom:1px solid #e5e4e4;
+  border-left:1px solid #e5e4e4;
+  border-right:1px solid #e5e4e4;
+  height:35px;
+  padding:0 13px;
+  vertical-align:middle;
+}
+.vracs .popup_form .table_container #table_paiements tbody tr td + td, .vracs .popup_form .table_container #table_retiraisons tbody tr td + td { border-left:0 none; }
+.vracs .popup_form .table_container #table_paiements tbody tr td.dernier, .vracs .popup_form .table_container #table_retiraisons tbody tr td.dernier {
+  border-bottom:1px solid #ffffff;
+  border-right:1px solid #ffffff;
+}
+.vracs .popup_form .table_container #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template, .vracs .popup_form .table_container #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template {
+  background:url(../images/pictos/pi_supprimer.png) 0 center no-repeat;
+  height:13px;
+  padding:0 0 0 14px;
+  text-indent:100%;
+  white-space:nowrap;
+  overflow:hidden;
+  display:block;
+  padding-left:0;
+  width:14px;
+}
+.vracs .popup_form .table_container #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template:hover, .vracs .popup_form .table_container #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template:focus, .vracs .popup_form .table_container #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template:hover, .vracs .popup_form .table_container #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template:focus { text-decoration:underline; }
+.ielt8 .vracs .popup_form .table_container #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template, .ielt8 .vracs .popup_form .table_container #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template { height:15px; }
+.vracs .popup_form .table_container #table_paiements tfoot th, .vracs .popup_form .table_container #table_retiraisons tfoot th {
+  border:1px solid #ffffff;
+  padding-top:17px;
+  text-align:right;
+}
+.ielt8 .vracs .popup_form .table_container #table_paiements tfoot th, .ielt8 .vracs .popup_form .table_container #table_retiraisons tfoot th { border-top:0 none; }
+.vracs .popup_form .table_container #table_paiements tfoot th + th, .vracs .popup_form .table_container #table_retiraisons tfoot th + th { border-left:0 none; }
+.vracs .popup_form .table_container #table_paiements tfoot th .btn_ajouter_ligne_template, .vracs .popup_form .table_container #table_retiraisons tfoot th .btn_ajouter_ligne_template {
+  background:url(../images/pictos/pi_ajouter.png) 0 center no-repeat;
+  color:#494949;
+  height:23px;
+  padding:0 0 0 17px;
+}
+.vracs .popup_form .table_container #table_paiements tfoot th .btn_ajouter_ligne_template:hover, .vracs .popup_form .table_container #table_paiements tfoot th .btn_ajouter_ligne_template:focus, .vracs .popup_form .table_container #table_retiraisons tfoot th .btn_ajouter_ligne_template:hover, .vracs .popup_form .table_container #table_retiraisons tfoot th .btn_ajouter_ligne_template:focus { text-decoration:underline; }
+.vracs .popup_form .table_container #table_paiements tfoot th .btn_ajouter_ligne_template span, .vracs .popup_form .table_container #table_retiraisons tfoot th .btn_ajouter_ligne_template span { text-decoration:underline; }
+.vracs .popup_form .table_container #table_retiraisons thead th:first-child { text-align:left; }
 .vracs input[type=text] {
-  border:0;
   -webkit-border-radius:3px;
   -moz-border-radius:3px;
   border-radius:3px;
@@ -2038,7 +2114,12 @@ p#date_drm {
   -webkit-box-shadow:0px 1px 3px rgba(0,0,0,0.4) inset;
   -moz-box-shadow:0px 1px 3px rgba(0,0,0,0.4) inset;
   box-shadow:0px 1px 3px rgba(0,0,0,0.4) inset;
+  border:0;
   padding:5px;
+}
+.ielt9 .vracs input[type=text] {
+  background:url(../images/fonds/bg_inputs_contrats.png) 0 0 no-repeat;
+  width:129px;
 }
 .vracs .ui-autocomplete-input {
   background:url("../images/pictos/pi_recherche.png") no-repeat scroll 5px 7px #ffffff;
@@ -2060,9 +2141,9 @@ p#date_drm {
   color:#ffffff;
   float:left;
   padding:11px 0 11px 6px;
+  zoom:1;
   margin-bottom:35px;
   float:none;
-  zoom:1;
 }
 .vracs #contrats_etapes ol {
   line-height:21px;
@@ -2099,17 +2180,24 @@ p#date_drm {
   visibility:hidden;
 }
 .vracs #contrats_etapes:after { clear:both; }
-.vracs .radio_list, .vracs .checkbox_list { display:inline; }
+.vracs .radio_list, .vracs .checkbox_list { display:inline-block; }
+.ielt8 .vracs .radio_list, .ielt8 .vracs .checkbox_list {
+  display:inline;
+  zoom:1;
+}
 .vracs .radio_list li, .vracs .checkbox_list li { display:inline-block; }
+.ielt8 .vracs .radio_list li, .ielt8 .vracs .checkbox_list li {
+  display:inline;
+  zoom:1;
+}
 .vracs .radio_list li label, .vracs .checkbox_list li label { font-weight:normal !important; }
 .vracs .checkbox_list li { width:200px; }
 .vracs .vracs_ligne_form ul.radio_list label { width:60px !important; }
+.vracs .section_label_maj >  label:first-child, .vracs .section_label_maj .radio_list { float:left; }
 .vracs .section_label_maj >  label:first-child {
-  width:310px;
   text-transform:uppercase;
-  float:left;
+  width:310px;
 }
-.vracs .section_label_maj .radio_list { float:left; }
 .vracs .section_label_maj .radio_list label { width:100px !important; }
 .vracs .section_label_maj .ui-autocomplete-input {
   zoom:1;
@@ -2147,12 +2235,12 @@ p#date_drm {
   text-align:right;
 }
 .vracs .ligne_form_btn button, .vracs .ligne_form_btn a {
+  font-size:12px;
   height:28px;
   line-height:28px;
   margin:0 0 0 5px;
   padding:0 10px;
   text-transform:uppercase;
-  font-size:12px;
 }
 .vracs .ligne_form_btn button.btn_annuler, .vracs .ligne_form_btn a.btn_annuler {
   background-repeat:no-repeat;
@@ -2230,9 +2318,9 @@ p#date_drm {
 }
 .vracs #vrac_soussigne .btnModification:after { clear:both; }
 .vracs #vrac_soussigne .error_list {
-  padding:0 10px;
-  float:right;
   color:red;
+  float:right;
+  padding:0 10px;
 }
 .vracs #vrac_soussigne .ui-button {
   position:absolute;
@@ -2251,18 +2339,14 @@ p#date_drm {
 }
 .vracs #vrac_marche #original:after, .vracs #vrac_marche #produit:after, .vracs #vrac_marche #millesime:after, .vracs #vrac_marche #type:after, .vracs #vrac_marche #label:after, .vracs #vrac_marche #prixUnitaire:after, .vracs #vrac_marche #domaine:after { clear:both; }
 .vracs #vrac_marche #original label:first-child, .vracs #vrac_marche #produit label:first-child, .vracs #vrac_marche #millesime label:first-child, .vracs #vrac_marche #type label:first-child, .vracs #vrac_marche #label label:first-child, .vracs #vrac_marche #prixUnitaire label:first-child, .vracs #vrac_marche #domaine label:first-child {
-  display:block;
   float:left;
   width:230px !important;
 }
 .vracs #vrac_marche #vrac_marche_volumePropose label:first-child { width:215px; }
-.vracs #vrac_marche #label .checkbox_list {
-  display:block;
-  float:left;
-}
+.vracs #vrac_marche #label .checkbox_list { float:left; }
 .vracs #vrac_marche #prixTotal label { width:215px; }
 .vracs #vrac_marche #prixUnitaire label { width:230px; }
-.vracs .section_label_maj >  label:first-child {
+.vracs .section_label_maj > label:first-child {
   display:inline-block;
   font-size:15px;
   font-weight:bold;

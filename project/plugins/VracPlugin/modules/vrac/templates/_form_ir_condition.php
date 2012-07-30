@@ -46,13 +46,13 @@
                 <?php echo $form['echeancier_paiement']->renderLabel() ?>
                 <?php echo $form['echeancier_paiement']->render() ?>
             </div>
-            <div>
+            <div class="table_container">
                 <table id="table_paiements">
                     <thead>
                         <tr>
                             <th>Date</th>
                             <th>Montant</th>
-                            <th></th>
+                            <th class="dernier"></th>
                         </tr>
                     </thead>
                     </tr>
@@ -61,7 +61,8 @@
                     <?php endforeach; ?>
                     <tfoot>
                         <tr>
-                            <th><a class="btn_ajouter_ligne_template" data-container="#table_paiements" data-template="#template_form_paiements_item" href="#">Ajouter</a> </th>
+                            <th colspan="2"><a class="btn_ajouter_ligne_template" data-container="#table_paiements" data-template="#template_form_paiements_item" href="#"><span>Ajouter</span></a></th>
+                            <th class="dernier"></th>
                         </tr>
                     </tfoot>
                 </table>
@@ -90,7 +91,7 @@
                 <?php echo $form['calendrier_retiraison']->renderLabel() ?>
                 <?php echo $form['calendrier_retiraison']->render() ?>
             </div>
-            <div> 
+            <div class="table_container"> 
                 <table id="table_retiraisons">
                     <thead>
                         <tr>
@@ -98,7 +99,7 @@
                             <th>Date de retiraison</th>
                             <th>Volume retiré</th>
                             <th>Montant</th>
-                            <th></th>
+                            <th class="dernier"></th>
                         </tr>
                     </thead>
                     <?php foreach ($form['retiraisons'] as $formRetiraison): ?>
@@ -106,7 +107,8 @@
                     <?php endforeach; ?>
                     <tfoot>
                         <tr>
-                            <th><a class="btn_ajouter_ligne_template" data-container="#table_retiraisons" data-template="#template_form_retiraisons_item" href="#">Ajouter</a></th>
+                            <th colspan="4"><a class="btn_ajouter_ligne_template" data-container="#table_retiraisons" data-template="#template_form_retiraisons_item" href="#"><span>Ajouter</span></a></th>
+                            <th class="dernier"></th>
                         </tr>
                     </tfoot>
                 </table> 
