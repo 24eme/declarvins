@@ -245,7 +245,6 @@ class DRM extends BaseDRM {
 
     public function getPrecedente() {
         if ($this->exist('precedente') && $this->_get('precedente')) {
-	        
             return DRMClient::getInstance()->find($this->_get('precedente'));
         } else {
             
