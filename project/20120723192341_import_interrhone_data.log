@@ -1,407 +1,0 @@
-ETABLISSEMENT
-==============
-DRM
-================
->> sfPatternRouting Connect sfRoute "etablissement_autocomplete_all" (/etablissement/autocomplete/tous)
->> sfPatternRouting Connect sfRoute "etablissement_autocomplete_byfamilles" (/etablissement/autocomplete/familles/:familles)
->> sfPatternRouting Connect sfRoute "ac_vin_login" (/)
->> sfPatternRouting Connect sfRoute "ac_vin_logout" (/logout)
->> sfPatternRouting Connect sfRoute "ac_vin_compte" (/compte)
->> sfPatternRouting Connect sfRoute "ac_vin_compte_creation" (/compte/creation)
->> sfPatternRouting Connect sfRoute "ac_vin_compte_modification_oublie" (/compte/mot_de_passe_oublie)
->> sfPatternRouting Connect sfRoute "ac_vin_compte_modification" (/mon_compte)
->> sfPatternRouting Connect sfRoute "ac_vin_compte_mot_de_passe_oublie_login" (/mot_de_passe_oublie/login/:login/:mdp)
->> sfPatternRouting Connect sfRoute "ac_vin_compte_mot_de_passe_oublie" (/mot_de_passe_oublie)
->> sfPatternRouting Connect sfRoute "ac_vin_compte_mot_de_passe_oublie_confirm" (/mot_de_passe_oublie/confirm)
->> sfPatternRouting Connect sfRoute "drm_notice" (/drm/notice)
->> sfPatternRouting Connect sfRoute "drm_mon_espace" (/drm/mon-espace)
->> sfPatternRouting Connect sfRoute "drm_historique" (/drm/historique/:campagne)
->> sfPatternRouting Connect DRMLightRoute "drm_nouvelle" (/drm/nouvelle/:campagne)
->> sfPatternRouting Connect DRMLightRoute "drm_delete" (/drm/delete/:campagne_rectificative)
->> sfPatternRouting Connect DRMLightRoute "drm_init" (/drm/initialiser/:campagne_rectificative)
->> sfPatternRouting Connect DRMLightRoute "drm_rectificative" (/drm/rectifier/:campagne_rectificative)
->> sfPatternRouting Connect DRMRoute "drm_informations" (/drm-edition/:campagne_rectificative/informations)
->> sfPatternRouting Connect DRMRoute "drm_modif_infos" (/drm-edition/:campagne_rectificative/modification-informations)
->> sfPatternRouting Connect DRMRoute "drm_stock_debut_mois" (/drm-edition/:campagne_rectificative/stock)
->> sfPatternRouting Connect DRMRoute "drm_declaratif" (/drm-edition/:campagne_rectificative/declaratif)
->> sfPatternRouting Connect DRMRoute "drm_declaratif_frequence_form" (/drm-edition/:campagne_rectificative/declaratif/frequence-paiement)
->> sfPatternRouting Connect DRMRoute "drm_validation" (/drm-edition/:campagne_rectificative/validation)
->> sfPatternRouting Connect DRMRoute "drm_show_error" (/drm-edition/:campagne_rectificative/voir-erreur/:type/:identifiant)
->> sfPatternRouting Connect DRMLightRoute "drm_visualisation" (/drm/visualisation/:campagne_rectificative/:hide_rectificative)
->> sfPatternRouting Connect DRMLightRoute "drm_pdf" (/drm/pdf/:campagne_rectificative.:format)
->> sfPatternRouting Connect DRMRoute "drm_mouvements_generaux" (/drm-edition/:campagne_rectificative/mouvements-generaux)
->> sfPatternRouting Connect DRMDetailRoute "drm_mouvements_generaux_produit_update" (/drm-edition/:campagne_rectificative/mouvements-generaux/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/update)
->> sfPatternRouting Connect DRMRoute "drm_mouvements_generaux_stock_epuise" (/drm-edition/:campagne_rectificative/mouvements-generaux/stock-epuise)
->> sfPatternRouting Connect DRMRoute "drm_mouvements_generaux_produits_update" (/drm-edition/:campagne_rectificative/mouvements-generaux/update_produits)
->> sfPatternRouting Connect DRMDetailRoute "drm_mouvements_generaux_produit_delete" (/drm-edition/:campagne_rectificative/mouvements-generaux/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/delete)
->> sfPatternRouting Connect DRMCertificationRoute "drm_mouvements_generaux_product_ajout" (/drm-edition/:campagne_rectificative/mouvements-generaux/ajout/:certification)
->> sfPatternRouting Connect DRMCertificationRoute "drm_mouvements_generaux_product_add" (/drm-edition/:campagne_rectificative/mouvements-generaux/add/:certification)
->> sfPatternRouting Connect DRMLieuRoute "drm_recap" (/drm-edition/:campagne_rectificative/recapitulatif/:certification)
->> sfPatternRouting Connect DRMRoute "drm_recap_redirect" (/drm-edition/:campagne_rectificative/recapitulatif)
->> sfPatternRouting Connect DRMCertificationRoute "drm_recap_lieu_ajout_ajax" (/drm-edition/:campagne_rectificative/recapitulatif-appellation-ajout/:certification)
->> sfPatternRouting Connect DRMLieuRoute "drm_recap_lieu" (/drm-edition/:campagne_rectificative/recapitulatif/:certification/:genre/:appellation/:mention/:lieu)
->> sfPatternRouting Connect DRMDetailRoute "drm_recap_detail" (/drm-edition/:campagne_rectificative/recapitulatif/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail)
->> sfPatternRouting Connect DRMLieuRoute "drm_recap_ajout_ajax" (/drm-edition/:campagne_rectificative/recapitulatif/:certification/:genre/:appellation/:mention/:lieu/ajout-ajax)
->> sfPatternRouting Connect DRMDetailRoute "drm_recap_update" (/drm-edition/:campagne_rectificative/recapitulatif/update/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail)
->> sfPatternRouting Connect DRMRoute "drm_vrac" (/drm-edition/:campagne_rectificative/vrac)
->> sfPatternRouting Connect DRMDetailRoute "drm_vrac_ajout_contrat" (/drm-edition/:campagne_rectificative/vrac/contrat/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/ajout/:detail)
->> sfPatternRouting Connect DRMVracDetailRoute "drm_vrac_update_volume" (/drm-edition/:campagne_rectificative/vrac/update/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/volume/:contrat)
->> sfPatternRouting Connect DRMVracDetailRoute "drm_delete_vrac" (/drm-edition/:campagne_rectificative/vrac/update/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/delete/:contrat)
->> sfPatternRouting Connect sfRoute "messages" (/messages)
->> sfPatternRouting Connect sfRoute "vrac" (/vrac)
->> sfPatternRouting Connect sfRoute "vrac_recherche" (/vrac/recherche)
->> sfPatternRouting Connect sfRoute "vrac_recherche_soussigne" (/vrac/recherche-soussigne/:identifiant)
->> sfPatternRouting Connect sfRoute "vrac_nouveau" (/vrac/nouveau)
->> sfPatternRouting Connect VracRoute "vrac_etape" (/vrac/:numero_contrat/etape/:step)
->> sfPatternRouting Connect VracRoute "vrac_termine" (/vrac/:numero_contrat/recapitulatif)
->> sfPatternRouting Connect VracRoute "vrac_nouveau_getinfos" (/vrac/getInfos)
->> sfPatternRouting Connect VracRoute "vrac_soussigne_getinfos" (/vrac/:numero_contrat/getInfos)
->> sfPatternRouting Connect VracRoute "vrac_nouveau_modification" (/vrac/modification)
->> sfPatternRouting Connect VracRoute "vrac_soussigne_modification" (/vrac/:numero_contrat/modification)
->> sfPatternRouting Connect sfRoute "etablissement_autocomplete_all" (/etablissement/autocomplete/tous)
->> sfPatternRouting Connect sfRoute "etablissement_autocomplete_byfamilles" (/etablissement/autocomplete/familles/:familles)
->> sfPatternRouting Connect sfRoute "ac_vin_login" (/)
->> sfPatternRouting Connect sfRoute "ac_vin_logout" (/logout)
->> sfPatternRouting Connect sfRoute "ac_vin_compte" (/compte)
->> sfPatternRouting Connect sfRoute "ac_vin_compte_creation" (/compte/creation)
->> sfPatternRouting Connect sfRoute "ac_vin_compte_modification_oublie" (/compte/mot_de_passe_oublie)
->> sfPatternRouting Connect sfRoute "ac_vin_compte_modification" (/mon_compte)
->> sfPatternRouting Connect sfRoute "ac_vin_compte_mot_de_passe_oublie_login" (/mot_de_passe_oublie/login/:login/:mdp)
->> sfPatternRouting Connect sfRoute "ac_vin_compte_mot_de_passe_oublie" (/mot_de_passe_oublie)
->> sfPatternRouting Connect sfRoute "ac_vin_compte_mot_de_passe_oublie_confirm" (/mot_de_passe_oublie/confirm)
->> sfPatternRouting Connect sfRoute "drm_notice" (/drm/notice)
->> sfPatternRouting Connect sfRoute "drm_mon_espace" (/drm/mon-espace)
->> sfPatternRouting Connect sfRoute "drm_historique" (/drm/historique/:campagne)
->> sfPatternRouting Connect DRMLightRoute "drm_nouvelle" (/drm/nouvelle/:campagne)
->> sfPatternRouting Connect DRMLightRoute "drm_delete" (/drm/delete/:campagne_rectificative)
->> sfPatternRouting Connect DRMLightRoute "drm_init" (/drm/initialiser/:campagne_rectificative)
->> sfPatternRouting Connect DRMLightRoute "drm_rectificative" (/drm/rectifier/:campagne_rectificative)
->> sfPatternRouting Connect DRMRoute "drm_informations" (/drm-edition/:campagne_rectificative/informations)
->> sfPatternRouting Connect DRMRoute "drm_modif_infos" (/drm-edition/:campagne_rectificative/modification-informations)
->> sfPatternRouting Connect DRMRoute "drm_stock_debut_mois" (/drm-edition/:campagne_rectificative/stock)
->> sfPatternRouting Connect DRMRoute "drm_declaratif" (/drm-edition/:campagne_rectificative/declaratif)
->> sfPatternRouting Connect DRMRoute "drm_declaratif_frequence_form" (/drm-edition/:campagne_rectificative/declaratif/frequence-paiement)
->> sfPatternRouting Connect DRMRoute "drm_validation" (/drm-edition/:campagne_rectificative/validation)
->> sfPatternRouting Connect DRMRoute "drm_show_error" (/drm-edition/:campagne_rectificative/voir-erreur/:type/:identifiant)
->> sfPatternRouting Connect DRMLightRoute "drm_visualisation" (/drm/visualisation/:campagne_rectificative/:hide_rectificative)
->> sfPatternRouting Connect DRMLightRoute "drm_pdf" (/drm/pdf/:campagne_rectificative.:format)
->> sfPatternRouting Connect DRMRoute "drm_mouvements_generaux" (/drm-edition/:campagne_rectificative/mouvements-generaux)
->> sfPatternRouting Connect DRMDetailRoute "drm_mouvements_generaux_produit_update" (/drm-edition/:campagne_rectificative/mouvements-generaux/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/update)
->> sfPatternRouting Connect DRMRoute "drm_mouvements_generaux_stock_epuise" (/drm-edition/:campagne_rectificative/mouvements-generaux/stock-epuise)
->> sfPatternRouting Connect DRMRoute "drm_mouvements_generaux_produits_update" (/drm-edition/:campagne_rectificative/mouvements-generaux/update_produits)
->> sfPatternRouting Connect DRMDetailRoute "drm_mouvements_generaux_produit_delete" (/drm-edition/:campagne_rectificative/mouvements-generaux/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/delete)
->> sfPatternRouting Connect DRMCertificationRoute "drm_mouvements_generaux_product_ajout" (/drm-edition/:campagne_rectificative/mouvements-generaux/ajout/:certification)
->> sfPatternRouting Connect DRMCertificationRoute "drm_mouvements_generaux_product_add" (/drm-edition/:campagne_rectificative/mouvements-generaux/add/:certification)
->> sfPatternRouting Connect DRMLieuRoute "drm_recap" (/drm-edition/:campagne_rectificative/recapitulatif/:certification)
->> sfPatternRouting Connect DRMRoute "drm_recap_redirect" (/drm-edition/:campagne_rectificative/recapitulatif)
->> sfPatternRouting Connect DRMCertificationRoute "drm_recap_lieu_ajout_ajax" (/drm-edition/:campagne_rectificative/recapitulatif-appellation-ajout/:certification)
->> sfPatternRouting Connect DRMLieuRoute "drm_recap_lieu" (/drm-edition/:campagne_rectificative/recapitulatif/:certification/:genre/:appellation/:mention/:lieu)
->> sfPatternRouting Connect DRMDetailRoute "drm_recap_detail" (/drm-edition/:campagne_rectificative/recapitulatif/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail)
->> sfPatternRouting Connect DRMLieuRoute "drm_recap_ajout_ajax" (/drm-edition/:campagne_rectificative/recapitulatif/:certification/:genre/:appellation/:mention/:lieu/ajout-ajax)
->> sfPatternRouting Connect DRMDetailRoute "drm_recap_update" (/drm-edition/:campagne_rectificative/recapitulatif/update/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail)
->> sfPatternRouting Connect DRMRoute "drm_vrac" (/drm-edition/:campagne_rectificative/vrac)
->> sfPatternRouting Connect DRMDetailRoute "drm_vrac_ajout_contrat" (/drm-edition/:campagne_rectificative/vrac/contrat/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/ajout/:detail)
->> sfPatternRouting Connect DRMVracDetailRoute "drm_vrac_update_volume" (/drm-edition/:campagne_rectificative/vrac/update/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/volume/:contrat)
->> sfPatternRouting Connect DRMVracDetailRoute "drm_delete_vrac" (/drm-edition/:campagne_rectificative/vrac/update/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/delete/:contrat)
->> sfPatternRouting Connect sfRoute "messages" (/messages)
->> sfPatternRouting Connect sfRoute "vrac" (/vrac)
->> sfPatternRouting Connect sfRoute "vrac_recherche" (/vrac/recherche)
->> sfPatternRouting Connect sfRoute "vrac_recherche_soussigne" (/vrac/recherche-soussigne/:identifiant)
->> sfPatternRouting Connect sfRoute "vrac_nouveau" (/vrac/nouveau)
->> sfPatternRouting Connect VracRoute "vrac_etape" (/vrac/:numero_contrat/etape/:step)
->> sfPatternRouting Connect VracRoute "vrac_termine" (/vrac/:numero_contrat/recapitulatif)
->> sfPatternRouting Connect VracRoute "vrac_nouveau_getinfos" (/vrac/getInfos)
->> sfPatternRouting Connect VracRoute "vrac_soussigne_getinfos" (/vrac/:numero_contrat/getInfos)
->> sfPatternRouting Connect VracRoute "vrac_nouveau_modification" (/vrac/modification)
->> sfPatternRouting Connect VracRoute "vrac_soussigne_modification" (/vrac/:numero_contrat/modification)
->> sfPatternRouting Match route "ac_vin_login" (/) for / with parameters array (  'module' => 'acVinCompte',  'action' => 'login',)
->> myUser User is not authenticated
-ERROR: [ligne 6] la somme des entrees (0) n'est pas en accord avec les informations du csv (290)
-DEBUG: [ligne 6] DETAIL;C0002;SCA LES COTEAUX;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;19046.12;0;0;0;0;290;0;0;0;0;0;0;958.34;230.12;76.3;0;606.81;0;0;45.11;0;0;0;0;18377.78;0;0;0;0;2012-02-16;2012-02-16;PAPIER;0;0;0;11-déc;C0002
-
-ERROR: [ligne 15] la somme des entrees (0) n'est pas en accord avec les informations du csv (960)
-DEBUG: [ligne 15] DETAIL;C0004;SCA LAUDUN CHUSCLAN VIGNERONS;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;81928.93;0;0;0;0;960;0;0;0;0;0;0;3556.73;2906.22;130.85;43.47;475.69;0.5;0;0;0;0;0;0;79332.2;0;0;0;0;2012-03-13;2012-03-13;PAPIER;0;0;0;11-déc;C0004
-
-ERROR: [ligne 28] Impossible d'indentifier le produit (aop / vin doux naturel / rasteau / DEFAUT / DEFAUT / rose [AOP / Vin doux naturel / Rasteau /  /  / Rose /  / ] )
-DEBUG: [ligne 28] DETAIL;C0005;EARL CHARAVIN ROBERT;2012;1;;0;0;;AOP;AOP;Vin doux naturel;VDN;Rasteau;VDR;;;Rose;2;;;0;0;;;;45.89;0;0;0;0;0;0;0;0;0;0;0;0.07;0;0;0;0.07;0;0;0;0;0;0;0;45.82;0;0;0;0;2012-02-23;2012-02-23;PAPIER;0;0;0;11-déc;C0005
-
-ERROR: [ligne 44] Impossible d'indentifier le produit (aop / vin doux naturel / rasteau / DEFAUT / DEFAUT / rose [AOP / Vin doux naturel / Rasteau /  /  / Rose /  / ] )
-DEBUG: [ligne 44] DETAIL;C0011;CAVE DE RASTEAU;2012;1;;0;0;;AOP;AOP;Vin doux naturel;VDN;Rasteau;VDR;;;Rose;2;;;0;0;;;;1329.3;0;0;0;0;0;0;0;0;0;0;0;22.06;0;2.36;3.25;16.12;0.33;0;0;0;0;0;0;1307.24;0;0;0;0;2012-02-16;2012-02-16;PAPIER;0;0;0;11-déc;C0011
-
-ERROR: [ligne 75] la somme des entrees (0) n'est pas en accord avec les informations du csv (299)
-DEBUG: [ligne 75] DETAIL;C0018;SCA LES VIGNERONS REUNIS;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Village sans NG;CVS;;;Rouge;1;;;0;0;;;;2462.7;0;0;0;0;299;0;0;0;0;0;0;297.24;260;28.35;4.64;4.25;0;0;0;0;0;0;0;2464.46;0;0;0;0;2012-02-20;2012-02-20;PAPIER;0;0;0;11-déc;C0018
-
-ERROR: [ligne 110] Impossible d'indentifier le produit (aop / tranquilles / beaumes de venise [AOP / Tranquilles / Beaumes de Venise /  /  / Rouge /  / ] )
-DEBUG: [ligne 110] DETAIL;C0038;Cave de VACQUEYRAS;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Beaumes de Venise;BEA;;;Rouge;1;;;0;0;;;;912.4;0;0;0;0;0;0;0;0;0;0;0;6.3;0;6.3;0;0;0;0;0;0;0;0;0;906.1;0;0;0;0;2012-02-20;2012-02-20;PAPIER;0;0;0;11-déc;C0038
-
-ERROR: [ligne 136] la somme des entrees (0) n'est pas en accord avec les informations du csv (118.3)
-DEBUG: [ligne 136] DETAIL;C0046;CAVE DE ST PANTALEON;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Village sans NG;CVG;;;Rose;2;;;0;0;;;;121.98;0;0;0;0;118.3;0;0;0;0;0;0;121.04;0;0;0;1.04;0;0;0;0;120;0;0;119.24;0;0;0;0;2012-03-13;2012-03-13;PAPIER;0;0;0;11-déc;C0046
-
-ERROR: [ligne 160] Impossible d'indentifier le produit (aop / vin doux naturel / rasteau / DEFAUT / DEFAUT / rose [AOP / Vin doux naturel / Rasteau /  /  / Rose /  / ] )
-DEBUG: [ligne 160] DETAIL;C0055;SCEA ROGER BISCARRAT;2012;1;;0;0;;AOP;AOP;Vin doux naturel;VDN;Rasteau;VDR;;;Rose;2;;;0;0;;;;27.55;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;27.55;0;0;0;0;2012-02-17;2012-02-17;PAPIER;0;0;0;11-déc;C0055
-
-ERROR: [ligne 173] la somme des entrees (0) n'est pas en accord avec les informations du csv (0.02)
-DEBUG: [ligne 173] DETAIL;C0061;CAVE  DE TAIN L'HERMITAGE;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Hermitage;HER;;;Rouge;1;;;0;0;;;;3820.3;0;0;0;0;0.02;0;0;0;0;0;0;42.99;0;0.6;2.61;39.62;0.14;0;0.02;0;0;0;0;3777.33;0;0;0;0;2012-03-02;2012-03-02;PAPIER;0;0;0;11-déc;C0061
-
-ERROR: [ligne 199] Impossible d'indentifier le produit (aop / vin doux naturel / rasteau / DEFAUT / DEFAUT / rose [AOP / Vin doux naturel / Rasteau /  /  / Rose /  / ] )
-DEBUG: [ligne 199] DETAIL;C0068;MASSON MARIE-FRANCE;2012;1;;0;0;;AOP;AOP;Vin doux naturel;VDN;Rasteau;VDR;;;Rose;2;;;0;0;;;;90.43;0;0;0;0;0;0;0;0;0;0;0;1.22;0;0;0.3;0.85;0.07;0;0;0;0;0;0;89.21;0;0;0;0;2012-02-23;2012-02-23;PAPIER;0;0;0;11-déc;C0068
-
-ERROR: [ligne 205] la somme des entrees (0) n'est pas en accord avec les informations du csv (350)
-DEBUG: [ligne 205] DETAIL;C0075;SCA DOMAINE DE LA MORDOREE;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;2.62;0;0;0;0;350;0;0;0;0;0;0;0.16;0;0.16;0;0;0;0;0;0;0;0;0;352.46;0;0;0;0;2012-02-28;2012-02-28;PAPIER;0;0;0;11-déc;C0075
-
-ERROR: [ligne 212] la somme des entrees (0) n'est pas en accord avec les informations du csv (816)
-DEBUG: [ligne 212] DETAIL;C0077;EARL DU SABLAS;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;47.53;0;0;0;0;816;0;0;0;0;0;0;0.23;0;0;0;0.23;0;0;0;0;0;0;0;863.3;0;0;0;0;2012-03-02;2012-03-02;PAPIER;0;0;0;11-déc;C0077
-
-ERROR: [ligne 246] la somme des entrees (0) n'est pas en accord avec les informations du csv (260)
-DEBUG: [ligne 246] DETAIL;C0108;CAVE DE PUYMERAS;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;43429.42;0;0;0;0;260;0;0;0;0;0;0;2051.56;2049;0;2.21;0;0.35;0;0;0;0;0;0;41637.86;0;0;0;0;2012-02-23;2012-02-23;PAPIER;0;0;0;11-déc;C0108
-
-ERROR: [ligne 264] la somme des entrees (0) n'est pas en accord avec les informations du csv (333)
-DEBUG: [ligne 264] DETAIL;C0115;SARL DOMAINE DES ROMARINS;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;173.52;0;0;0;0;333;0;0;0;0;0;0;15.7;0;13.96;0;1.74;0;0;0;0;0;0;0;490.82;0;0;0;0;2012-02-28;2012-02-28;PAPIER;0;0;0;11-déc;C0115
-
-ERROR: [ligne 281] Impossible d'indentifier le produit (aop / vin doux naturel / rasteau / DEFAUT / DEFAUT / rose [AOP / Vin doux naturel / Rasteau /  /  / Rose /  / ] )
-DEBUG: [ligne 281] DETAIL;C0123;DOMAINE DES ESCARAVAILLES;2012;1;;0;0;;AOP;AOP;Vin doux naturel;VDN;Rasteau;VDR;;;Rose;2;;;0;0;;;;93.24;0;0;0;0;0;0;0;0;0;0;0;1.54;0;1.35;0;0.19;0;0;0;0;0;0;0;91.7;0;0;0;0;2012-02-20;2012-02-20;PAPIER;0;0;0;11-déc;C0123
-
-ERROR: [ligne 303] la somme des entrees (0) n'est pas en accord avec les informations du csv (23.22)
-DEBUG: [ligne 303] DETAIL;C0134;SCEA DOMAINE DE LA CITADELLE;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Luberon;LUB;;;Rouge;1;;;0;0;;;;1864.11;0;0;0;0;23.22;0;0;0;0;0;0;33.92;0;6.66;0;26.08;1.18;0;0;0;0;0;0;1853.41;0;0;0;0;2012-02-29;2012-02-29;PAPIER;0;0;0;11-déc;C0134
-
-ERROR: [ligne 338] la somme des entrees (0) n'est pas en accord avec les informations du csv (46)
-DEBUG: [ligne 338] DETAIL;C0154;SA CHATEAU MONT REDON;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;1102.33;0;0;0;0;46;0;0;0;0;0;0;29.34;0;10.17;0;19.17;0;0;0;0;0;0;0;1118.99;0;0;0;0;2012-02-29;2012-02-29;PAPIER;0;0;0;11-déc;C0154
-
-ERROR: [ligne 364] la somme des entrees (0) n'est pas en accord avec les informations du csv (374.5)
-DEBUG: [ligne 364] DETAIL;C0165;SCEA DOMAINE MABY;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;102.57;0;0;0;0;374.5;0;0;0;0;0;0;3.6;0;0.75;0;2.85;0;0;0;0;0;0;0;473.47;0;0;0;0;2012-03-01;2012-03-01;PAPIER;0;0;0;11-déc;C0165
-
->> sfWebDebugLogger  Notice at /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 36 (Undefined index: line)
-PHP Notice:  Undefined index: line in /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 36
-PHP Stack trace:
-PHP   1. {main}() /home/jb/public_html/declarvin/project/symfony:0
-PHP   2. include() /home/jb/public_html/declarvin/project/symfony:37
-PHP   3. sfSymfonyCommandApplication->run() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php:20
-PHP   4. sfTask->runFromCLI() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/sfSymfonyCommandApplication.class.php:76
-PHP   5. sfBaseTask->doRun() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfTask.class.php:97
-PHP   6. importDRMTask->execute() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfBaseTask.class.php:68
-PHP   7. importDRMTask->CSV2DRM() /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php:69
-
-Notice: Undefined index: line in /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 36
-
-Call Stack:
-    0.0185     642912   1. {main}() /home/jb/public_html/declarvin/project/symfony:0
-    0.0572    1074152   2. include('/home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php') /home/jb/public_html/declarvin/project/symfony:37
-    0.1351    8930584   3. sfSymfonyCommandApplication->run() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php:20
-    0.1372    8934480   4. sfTask->runFromCLI() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/sfSymfonyCommandApplication.class.php:76
-    0.1373    8935072   5. sfBaseTask->doRun() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfTask.class.php:97
-    0.1570   10611320   6. importDRMTask->execute() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfBaseTask.class.php:68
-   61.7749   38001992   7. importDRMTask->CSV2DRM() /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php:69
-
->> sfWebDebugLogger  Notice at /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 37 (Undefined index: line)
-PHP Notice:  Undefined index: line in /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 37
-PHP Stack trace:
-PHP   1. {main}() /home/jb/public_html/declarvin/project/symfony:0
-PHP   2. include() /home/jb/public_html/declarvin/project/symfony:37
-PHP   3. sfSymfonyCommandApplication->run() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php:20
-PHP   4. sfTask->runFromCLI() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/sfSymfonyCommandApplication.class.php:76
-PHP   5. sfBaseTask->doRun() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfTask.class.php:97
-PHP   6. importDRMTask->execute() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfBaseTask.class.php:68
-PHP   7. importDRMTask->CSV2DRM() /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php:69
-
-Notice: Undefined index: line in /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 37
-
-Call Stack:
-    0.0185     642912   1. {main}() /home/jb/public_html/declarvin/project/symfony:0
-    0.0572    1074152   2. include('/home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php') /home/jb/public_html/declarvin/project/symfony:37
-    0.1351    8930584   3. sfSymfonyCommandApplication->run() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php:20
-    0.1372    8934480   4. sfTask->runFromCLI() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/sfSymfonyCommandApplication.class.php:76
-    0.1373    8935072   5. sfBaseTask->doRun() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfTask.class.php:97
-    0.1570   10611320   6. importDRMTask->execute() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfBaseTask.class.php:68
-   61.7749   38001992   7. importDRMTask->CSV2DRM() /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php:69
-
-ERROR: [ligne ] Erreur... le total est négatif
->> sfWebDebugLogger  Notice at /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 38 (Undefined index: line)
-PHP Notice:  Undefined index: line in /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 38
-PHP Stack trace:
-PHP   1. {main}() /home/jb/public_html/declarvin/project/symfony:0
-PHP   2. include() /home/jb/public_html/declarvin/project/symfony:37
-PHP   3. sfSymfonyCommandApplication->run() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php:20
-PHP   4. sfTask->runFromCLI() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/sfSymfonyCommandApplication.class.php:76
-PHP   5. sfBaseTask->doRun() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfTask.class.php:97
-PHP   6. importDRMTask->execute() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfBaseTask.class.php:68
-PHP   7. importDRMTask->CSV2DRM() /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php:69
-
-Notice: Undefined index: line in /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 38
-
-Call Stack:
-    0.0185     642912   1. {main}() /home/jb/public_html/declarvin/project/symfony:0
-    0.0572    1074152   2. include('/home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php') /home/jb/public_html/declarvin/project/symfony:37
-    0.1351    8930584   3. sfSymfonyCommandApplication->run() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php:20
-    0.1372    8934480   4. sfTask->runFromCLI() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/sfSymfonyCommandApplication.class.php:76
-    0.1373    8935072   5. sfBaseTask->doRun() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfTask.class.php:97
-    0.1570   10611320   6. importDRMTask->execute() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfBaseTask.class.php:68
-   61.7749   38001992   7. importDRMTask->CSV2DRM() /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php:69
-
->> sfWebDebugLogger  Notice at /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 38 (Undefined index: line)
-PHP Notice:  Undefined index: line in /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 38
-PHP Stack trace:
-PHP   1. {main}() /home/jb/public_html/declarvin/project/symfony:0
-PHP   2. include() /home/jb/public_html/declarvin/project/symfony:37
-PHP   3. sfSymfonyCommandApplication->run() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php:20
-PHP   4. sfTask->runFromCLI() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/sfSymfonyCommandApplication.class.php:76
-PHP   5. sfBaseTask->doRun() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfTask.class.php:97
-PHP   6. importDRMTask->execute() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfBaseTask.class.php:68
-PHP   7. importDRMTask->CSV2DRM() /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php:69
-
-Notice: Undefined index: line in /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 38
-
-Call Stack:
-    0.0185     642912   1. {main}() /home/jb/public_html/declarvin/project/symfony:0
-    0.0572    1074152   2. include('/home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php') /home/jb/public_html/declarvin/project/symfony:37
-    0.1351    8930584   3. sfSymfonyCommandApplication->run() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php:20
-    0.1372    8934480   4. sfTask->runFromCLI() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/sfSymfonyCommandApplication.class.php:76
-    0.1373    8935072   5. sfBaseTask->doRun() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfTask.class.php:97
-    0.1570   10611320   6. importDRMTask->execute() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfBaseTask.class.php:68
-   61.7749   38001992   7. importDRMTask->CSV2DRM() /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php:69
-
->> sfWebDebugLogger  Notice at /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 38 (Undefined offset: -377)
-PHP Notice:  Undefined offset: -377 in /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 38
-PHP Stack trace:
-PHP   1. {main}() /home/jb/public_html/declarvin/project/symfony:0
-PHP   2. include() /home/jb/public_html/declarvin/project/symfony:37
-PHP   3. sfSymfonyCommandApplication->run() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php:20
-PHP   4. sfTask->runFromCLI() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/sfSymfonyCommandApplication.class.php:76
-PHP   5. sfBaseTask->doRun() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfTask.class.php:97
-PHP   6. importDRMTask->execute() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfBaseTask.class.php:68
-PHP   7. importDRMTask->CSV2DRM() /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php:69
-
-Notice: Undefined offset: -377 in /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 38
-
-Call Stack:
-    0.0185     642912   1. {main}() /home/jb/public_html/declarvin/project/symfony:0
-    0.0572    1074152   2. include('/home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php') /home/jb/public_html/declarvin/project/symfony:37
-    0.1351    8930584   3. sfSymfonyCommandApplication->run() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php:20
-    0.1372    8934480   4. sfTask->runFromCLI() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/sfSymfonyCommandApplication.class.php:76
-    0.1373    8935072   5. sfBaseTask->doRun() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfTask.class.php:97
-    0.1570   10611320   6. importDRMTask->execute() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfBaseTask.class.php:68
-   61.7749   38001992   7. importDRMTask->CSV2DRM() /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php:69
-
->> sfWebDebugLogger  Warning at /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 38 (implode(): Invalid arguments passed)
-PHP Warning:  implode(): Invalid arguments passed in /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 38
-PHP Stack trace:
-PHP   1. {main}() /home/jb/public_html/declarvin/project/symfony:0
-PHP   2. include() /home/jb/public_html/declarvin/project/symfony:37
-PHP   3. sfSymfonyCommandApplication->run() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php:20
-PHP   4. sfTask->runFromCLI() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/sfSymfonyCommandApplication.class.php:76
-PHP   5. sfBaseTask->doRun() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfTask.class.php:97
-PHP   6. importDRMTask->execute() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfBaseTask.class.php:68
-PHP   7. importDRMTask->CSV2DRM() /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php:69
-PHP   8. implode() /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php:38
-
-Warning: implode(): Invalid arguments passed in /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php on line 38
-
-Call Stack:
-    0.0185     642912   1. {main}() /home/jb/public_html/declarvin/project/symfony:0
-    0.0572    1074152   2. include('/home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php') /home/jb/public_html/declarvin/project/symfony:37
-    0.1351    8930584   3. sfSymfonyCommandApplication->run() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/cli.php:20
-    0.1372    8934480   4. sfTask->runFromCLI() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/command/sfSymfonyCommandApplication.class.php:76
-    0.1373    8935072   5. sfBaseTask->doRun() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfTask.class.php:97
-    0.1570   10611320   6. importDRMTask->execute() /home/jb/public_html/declarvin/project/lib/vendor/symfony/lib/task/sfBaseTask.class.php:68
-   61.7749   38001992   7. importDRMTask->CSV2DRM() /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php:69
-   62.4457   38761472   8. implode() /home/jb/public_html/declarvin/project/lib/task/importDRMTask.class.php:38
-
-DEBUG: [ligne ] 
-ERROR: [ligne 393] Impossible d'indentifier le produit (aop / vin doux naturel / rasteau / DEFAUT / DEFAUT / rose [AOP / Vin doux naturel / Rasteau /  /  / Rose /  / ] )
-DEBUG: [ligne 393] DETAIL;C0179;EARL DU GRAND JAS;2012;1;;0;0;;AOP;AOP;Vin doux naturel;VDN;Rasteau;VDR;;;Rose;2;;;0;0;;;;110.97;0;0;0;0;0;0;0;0;0;0;0;1.41;0;0;0.71;0.45;0;0.25;0;0;0;0;0;109.56;0;0;0;0;2012-02-16;2012-02-16;PAPIER;0;0;0;11-déc;C0179
-
-ERROR: [ligne 408] la somme des entrees (0) n'est pas en accord avec les informations du csv (0.18)
-DEBUG: [ligne 408] DETAIL;C0183;EARL DOMAINE JAUME;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rose;2;;;0;0;;;;157.37;0;0;0;0;0.18;0;0;0;0;0;0;0.82;0;0;0;0.82;0;0;0;0;0;0;0;156.73;0;0;0;0;2012-03-20;2012-03-20;PAPIER;0;0;0;11-déc;C0183
-
-ERROR: [ligne 420] Impossible d'indentifier le produit (aop / vin doux naturel / rasteau / DEFAUT / DEFAUT / rose [AOP / Vin doux naturel / Rasteau /  /  / Rose /  / ] )
-DEBUG: [ligne 420] DETAIL;C0190;EARL NICOLET-LEYRAUD;2012;1;;0;0;;AOP;AOP;Vin doux naturel;VDN;Rasteau;VDR;;;Rose;2;;;0;0;;;;26.45;0;0;0;0;0;0;0;0;0;0;0;0.48;0;0;0.4;0.08;0;0;0;0;0;0;0;25.97;0;0;0;0;2012-02-23;2012-02-23;PAPIER;0;0;0;11-déc;C0190
-
-ERROR: [ligne 424] Impossible d'indentifier le produit (aop / effervescent / saint peray effervescents [AOP / Effervescent / Saint Peray Effervescents /  /  / Blanc /  / ] )
-DEBUG: [ligne 424] DETAIL;C0191;EARL DOMAINE DARONA;2012;1;;0;0;;AOP;AOP;Effervescent;EFF;Saint Peray Effervescents;SPE;;;Blanc;3;;;0;0;;;;0.64;0;0;0;0;0;0;0;0;0;0;0;0.09;0;0;0;0;0.09;0;0;0;0;0;0;0.55;0;0;0;0;2012-03-01;2012-03-01;PAPIER;0;0;0;11-déc;C0191
-
-ERROR: [ligne 427] la somme des entrees (0) n'est pas en accord avec les informations du csv (69)
-DEBUG: [ligne 427] DETAIL;C0193;SCA  JEAN OLIVIER;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;235.03;0;0;0;0;69;0;0;0;0;0;0;6.38;0;3.06;0;3.32;0;0;0;0;0;0;0;297.65;0;0;0;0;2012-02-29;2012-02-29;PAPIER;0;0;0;11-déc;C0193
-
-ERROR: [ligne 478] la somme des entrees (0) n'est pas en accord avec les informations du csv (337)
-DEBUG: [ligne 478] DETAIL;C0224;SCEA DOMAINE BASTIDE;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;1042;0;0;0;0;337;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1379;0;0;0;0;2012-02-28;2012-02-28;PAPIER;0;0;0;11-déc;C0224
-
-ERROR: [ligne 496] la somme des entrees (0) n'est pas en accord avec les informations du csv (4.56)
-DEBUG: [ligne 496] DETAIL;C0234;SCEA VIGNOBLES DU TRIGNON-QUIOT;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Gigondas;GIG;;;Rouge;1;;;0;0;;;;1897.3;0;0;0;0;4.56;0;0;0;0;0;0;22.8;0;9.12;0;0;0;0;0;0;13.68;0;0;1879.06;0;0;0;0;2012-02-24;2012-02-24;PAPIER;0;0;0;11-déc;C0234
-
-ERROR: [ligne 538] la somme des entrees (0) n'est pas en accord avec les informations du csv (4.68)
-DEBUG: [ligne 538] DETAIL;C0261;SARL CHATEAU ST ROCH;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Blanc;3;;;0;0;;;;0.08;0;0;0;0;4.68;0;0;0;0;0;0;3.83;0;0;0;3.82;0.01;0;0;0;0;0;0;0.93;0;0;0;0;2012-03-12;2012-03-12;PAPIER;0;0;0;11-déc;C0261
-
-ERROR: [ligne 555] Impossible d'indentifier le produit (aop / vin doux naturel / rasteau / DEFAUT / DEFAUT / rose [AOP / Vin doux naturel / Rasteau /  /  / Rose /  / ] )
-DEBUG: [ligne 555] DETAIL;C0266;EARL CHAMFORT BERNARD;2012;1;;0;0;;AOP;AOP;Vin doux naturel;VDN;Rasteau;VDR;;;Rose;2;;;0;0;;;;13.3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;13.3;0;0;0;0;2012-02-20;2012-02-20;PAPIER;0;0;0;11-déc;C0266
-
-ERROR: [ligne 586] la somme des entrees (0) n'est pas en accord avec les informations du csv (18)
-DEBUG: [ligne 586] DETAIL;C0285;SA DOMAINE BRUSSET;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;1335.02;0;0;0;0;18;0;0;0;0;0;0;36.11;0;25.11;0;10.63;0.37;0;0;0;0;0;0;1316.91;0;0;0;0;2012-02-16;2012-02-16;PAPIER;0;0;0;11-déc;C0285
-
-ERROR: [ligne 613] la somme des entrees (0) n'est pas en accord avec les informations du csv (1)
-DEBUG: [ligne 613] DETAIL;C0297;SCA CELLIER ST VALENTIN;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;7766.29;0;0;0;0;1;0;0;0;0;0;0;730.84;650;8.74;16.24;55.76;0.1;0;0;0;0;0;0;7036.45;0;0;0;0;2012-02-27;2012-02-27;PAPIER;0;0;0;11-déc;C0297
-
-ERROR: [ligne 628] Impossible d'indentifier le produit (aop / vin doux naturel / rasteau / DEFAUT / DEFAUT / rose [AOP / Vin doux naturel / Rasteau /  /  / Rose /  / ] )
-DEBUG: [ligne 628] DETAIL;C0298;EARL BEAU MISTRAL;2012;1;;0;0;;AOP;AOP;Vin doux naturel;VDN;Rasteau;VDR;;;Rose;2;;;0;0;;;;63.64;0;0;0;0;0;0;0;0;0;0;0;0.58;0;0;0.05;0.5;0.03;0;0;0;0;0;0;63.06;0;0;0;0;2012-02-15;2012-02-15;PAPIER;0;0;0;11-déc;C0298
-
-ERROR: [ligne 632] la somme des entrees (0) n'est pas en accord avec les informations du csv (0.78)
-DEBUG: [ligne 632] DETAIL;C0299;EARL DUSEIGNEUR FRERES;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;0;0;0;0;0;0.78;0;0;0;0;0;0;0.78;0;0.78;0;0;0;0;0;0;0;0;0;0;0;0;0;0;2012-02-28;2012-02-28;PAPIER;0;0;0;11-déc;C0299
-
-ERROR: [ligne 643] la somme des entrees (0) n'est pas en accord avec les informations du csv (100)
-DEBUG: [ligne 643] DETAIL;C0304;SCEA CLOS PETITE BELLANE;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Village sans NG;CVS;;;Rouge;1;;;0;0;;;;0;0;0;0;0;100;0;0;0;0;0;0;100;100;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;2012-02-20;2012-02-20;PAPIER;0;0;0;11-déc;C0304
-
-ERROR: [ligne 724] la somme des entrees (0) n'est pas en accord avec les informations du csv (39)
-DEBUG: [ligne 724] DETAIL;C0332;EARL ROUSSEL;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;0;0;0;0;0;39;0;0;0;0;0;0;0.16;0;0;0;0.11;0.05;0;0;0;0;0;0;38.84;0;0;0;0;2012-02-28;2012-02-28;PAPIER;0;0;0;11-déc;C0332
-
-ERROR: [ligne 744] Impossible d'indentifier le produit (aop / tranquilles / beaumes de venise [AOP / Tranquilles / Beaumes de Venise /  /  / Rouge /  / ] )
-DEBUG: [ligne 744] DETAIL;C0349;SCEA DOMAINE DE VAUBELLE;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Beaumes de Venise;BEA;;;Rouge;1;;;0;0;;;;686.32;0;0;0;0;0;0;0;0;0;0;0;28.29;28;0;0;0.29;0;0;0;0;0;0;0;658.03;0;0;0;0;2012-02-23;2012-02-23;PAPIER;0;0;0;11-déc;C0349
-
-ERROR: [ligne 753] la somme des entrees (0) n'est pas en accord avec les informations du csv (500)
-DEBUG: [ligne 753] DETAIL;C0356;CAVE DES VIGNERONS DE ROCHEGUDE;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Village sans NG;CVS;;;Rouge;1;;;0;0;;;;118.15;0;0;0;0;500;0;0;0;0;0;0;277.88;270;0;7.88;0;0;0;0;0;0;0;0;340.27;0;0;0;0;2012-02-27;2012-02-27;PAPIER;0;0;0;11-déc;C0356
-
-ERROR: [ligne 790] la somme des entrees (0) n'est pas en accord avec les informations du csv (2.25)
-DEBUG: [ligne 790] DETAIL;C0374;DURAND PERE ET FILS;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;RASTEAU;RTA;;;Rouge;1;;;0;0;;;;1101.07;0;0;0;0;2.25;0;0;0;0;0;0;127.3;125;2.25;0;0.05;0;0;0;0;0;0;0;976.02;0;0;0;0;2012-02-20;2012-02-20;PAPIER;0;0;0;11-déc;C0374
-
-ERROR: [ligne 804] Impossible d'indentifier le produit (aop / tranquilles / beaumes de venise [AOP / Tranquilles / Beaumes de Venise /  /  / Rouge /  / ] )
-DEBUG: [ligne 804] DETAIL;C0387;SCEA JEAN PIERRE CARTIER;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Beaumes de Venise;BEA;;;Rouge;1;;;0;0;;;;296.23;0;0;0;0;0;0;0;0;0;0;0;9.78;0;0;0;2.75;0.03;7;0;0;0;0;0;286.45;0;0;0;0;2012-02-23;2012-02-23;PAPIER;0;0;0;11-déc;C0387
-
-ERROR: [ligne 840] la somme des entrees (0) n'est pas en accord avec les informations du csv (397)
-DEBUG: [ligne 840] DETAIL;C0410;CAVE LA VINSOBRAISE;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;57361.32;0;0;0;0;397;0;0;0;0;0;0;5221.77;5054.92;25.87;11.36;129.42;0.2;0;0;0;0;0;0;52536.55;0;0;0;0;2012-02-29;2012-02-29;PAPIER;0;0;0;11-déc;C0410
-
-ERROR: [ligne 850] Impossible d'indentifier le produit (aop / tranquilles / beaumes de venise [AOP / Tranquilles / Beaumes de Venise /  /  / Rouge /  / ] )
-DEBUG: [ligne 850] DETAIL;C0411;CAVE DE GIGONDAS;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Beaumes de Venise;BEA;;;Rouge;1;;;0;0;;;;820.32;0;0;0;0;0;0;0;0;0;0;0;20.52;0;7.02;0;13.5;0;0;0;0;0;0;0;799.8;0;0;0;0;2012-02-15;2012-02-15;PAPIER;0;0;0;11-déc;C0411
-
-ERROR: [ligne 862] Vous ne pouvez pas importer une DRM déjà existante (DRM-C0416-2012-01).
-DEBUG: [ligne 862] DETAIL;C0416;EARL VIGNOBLES GUY MOUSSET & FILS;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;443.15;0;0;0;0;0;0;0;0;0;0;0;3.83;0;2.25;0;1.58;0;0;0;0;0;0;0;439.32;0;0;0;0;2012-02-21;2012-02-21;PAPIER;0;0;0;11-déc;C0416
-
-ERROR: [ligne 865] Vous ne pouvez pas importer une DRM déjà existante (DRM-C0416-2012-01).
-DEBUG: [ligne 865] DETAIL;C0416;VIGNOBLE G. MOUSSET;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;296.38;0;0;0;0;1.58;0;0;0;0;0;0;6.16;0;0;0;6.16;0;0;0;0;0;0;0;291.8;0;0;0;0;2012-02-28;2012-02-28;PAPIER;0;0;0;11-déc;C0416
-
-ERROR: [ligne 867] Vous ne pouvez pas importer une DRM déjà existante (DRM-C0416-2012-01).
-DEBUG: [ligne 867] DETAIL;C0416;EARL VIGNOBLES GUY MOUSSET & FILS;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Blanc;3;;;0;0;;;;0;0;0;0;0;15;0;0;0;0;0;0;0.55;0;0;0;0;0;0.55;0;0;0;0;0;14.45;0;0;0;0;2012-02-21;2012-02-21;PAPIER;0;0;0;11-déc;C0416
-
-ERROR: [ligne 891] Impossible d'indentifier le produit (aop / tranquilles / beaumes de venise [AOP / Tranquilles / Beaumes de Venise /  /  / Rouge /  / ] )
-DEBUG: [ligne 891] DETAIL;C0435;EARL  JULLIEN GUY;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Beaumes de Venise;BEA;;;Rouge;1;;;0;0;;;;699.11;0;0;0;0;0;0;0;0;0;0;0;23.74;0;0.95;0;22.54;0.25;0;0;0;0;0;0;675.37;0;0;0;0;2012-02-17;2012-02-17;PAPIER;0;0;0;11-déc;C0435
-
-ERROR: [ligne 925] Impossible d'indentifier le produit (aop / tranquilles / beaumes de venise [AOP / Tranquilles / Beaumes de Venise /  /  / Rouge /  / ] )
-DEBUG: [ligne 925] DETAIL;C0461;SCA Vignerons de Balma Vénitia;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Beaumes de Venise;BEA;;;Rouge;1;;;0;0;;;;19022.8;0;0;0;0;0;0;0;0;0;0;0;990.24;0;66.34;0.18;923.72;0;0;0;0;0;0;0;18032.56;0;0;0;0;2012-02-17;2012-02-17;PAPIER;0;0;0;11-déc;C0461
-
-ERROR: [ligne 934] Impossible d'indentifier le produit (aop / tranquilles / beaumes de venise [AOP / Tranquilles / Beaumes de Venise /  /  / Rouge /  / ] )
-DEBUG: [ligne 934] DETAIL;C0467;SCEA LEYDIER ET FILS;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Beaumes de Venise;BEA;;;Rouge;1;;;0;0;;;;1313.01;0;0;0;0;0;0;0;0;0;0;0;9.56;0;5.83;0;3.73;0;0;0;0;0;0;0;1303.45;0;0;0;0;2012-02-23;2012-02-23;PAPIER;0;0;0;11-déc;C0467
-
-ERROR: [ligne 992] Impossible d'indentifier le produit (aop / tranquilles / beaumes de venise [AOP / Tranquilles / Beaumes de Venise /  /  / Rouge /  / ] )
-DEBUG: [ligne 992] DETAIL;C0502;EARL LES HERITIERS DE MARCEL REY;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Beaumes de Venise;BEA;;;Rouge;1;;;0;0;;;;114.86;0;0;0;0;0;0;0;0;0;0;0;0.17;0;0;0;0.17;0;0;0;0;0;0;0;114.69;0;0;0;0;2012-02-23;2012-02-23;PAPIER;0;0;0;11-déc;C0502
-
-ERROR: [ligne 1027] la somme des entrees (0) n'est pas en accord avec les informations du csv (0.13)
-DEBUG: [ligne 1027] DETAIL;C0521;LYCEE VITICOLE D'ORANGE;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Blanc;3;;;0;0;;;;19.08;0;0;0;0;0.13;0;0;0;0;0;0;0.02;0;0;0;0;0.02;0;0;0;0;0;0;19.19;0;0;0;0;2012-02-16;2012-02-16;PAPIER;0;0;0;11-déc;C0521
-
-ERROR: [ligne 1055] la somme des entrees (0) n'est pas en accord avec les informations du csv (127)
-DEBUG: [ligne 1055] DETAIL;C0550;SCEA LES RENE;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Village sans NG;CVS;;;Rouge;1;;;0;0;;;;110.24;0;0;0;0;127;0;0;0;0;0;0;230.65;0;230.22;0;0.43;0;0;0;0;0;0;0;6.59;0;0;0;0;2012-02-21;2012-02-21;PAPIER;0;0;0;11-déc;C0550
-
-ERROR: [ligne 1059] Impossible d'indentifier le produit (aop / tranquilles / beaumes de venise [AOP / Tranquilles / Beaumes de Venise /  /  / Rouge /  / ] )
-DEBUG: [ligne 1059] DETAIL;C0552;ST CHRISTOPHE;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Beaumes de Venise;BEA;;;Rouge;1;;;0;0;;;;1086.56;0;0;0;0;0;0;0;0;0;0;0;32.84;0;6.93;0;25.91;0;0;0;0;0;0;0;1053.72;0;0;0;0;2012-02-15;2012-02-15;PAPIER;0;0;0;11-déc;C0552
-
-ERROR: [ligne 1102] la somme des entrees (0) n'est pas en accord avec les informations du csv (6)
-DEBUG: [ligne 1102] DETAIL;C0598;EARL VIGNOBLES BOUCHE ET FILS;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Régional;CDR;;;Rouge;1;;;0;0;;;;197.1;0;0;0;0;6;0;0;0;0;0;0;16.8;0;14.94;0;1.86;0;0;0;0;0;0;0;186.3;0;0;0;0;2012-02-24;2012-02-24;PAPIER;0;0;0;11-déc;C0598
-
-ERROR: [ligne 1115] la somme des entrees (0) n'est pas en accord avec les informations du csv (120)
-DEBUG: [ligne 1115] DETAIL;C0618;BONNEFOY LAURENCE;2012;1;;0;0;;AOP;AOP;Tranquilles;TRANQ;Côtes du Rhône Village sans NG;CVS;;;Rouge;1;;;0;0;;;;0;0;0;0;0;120;0;0;0;0;0;0;120;120;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;2012-02-24;2012-02-24;PAPIER;0;0;0;11-déc;C0618
-

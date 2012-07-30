@@ -116,6 +116,20 @@ abstract class DRMSecurityUser extends TiersSecurityUser {
     	return $this->_historique;
     }
     
+    public function hasDrmEnCours() 
+    {
+    	$historique = $this->getDRMHistorique();
+    	$drms = $historique->getDRMs();
+    	$hasDrmEnCours = false;
+    	foreach ($drms as $drm) {
+    		if (!($drm[DRMHistorique::VIEW_INDEX_STATUS] > 0)) {
+    			$hasDrmEnCours = true;
+    			break;
+    		}
+    	}
+    	return $hasDrmEnCours;
+    }
+    
     /**
      * @return string
      */
