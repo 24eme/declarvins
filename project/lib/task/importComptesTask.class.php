@@ -105,6 +105,14 @@ EOF;
         $e->delete();
     }
 
+    if ($e = acCouchdbManager::getClient()->retrieveDocumentById('ETABLISSEMENT-9223700102')) {
+        $e->delete();
+    }
+
+    if ($e = acCouchdbManager::getClient()->retrieveDocumentById('ETABLISSEMENT-9223700103')) {
+        $e->delete();
+    }
+
     $e = new Etablissement();
     $e->cvi = "9223700100";
     $e->email = "test@example.org";
@@ -127,6 +135,32 @@ EOF;
     $e->no_accises  = "FR9200000000";
     $e->no_tva_intracommunautaire = "FR9200000000";
     $e->nom = "Garage d'Actualys";
+    $e->siege = array("adresse" => "1 rue Garnier", "code_postal" => "13200", "commune" => "Neuilly");
+    $e->statut = "ACTIF";
+    $e->save();
+    
+    $e = new Etablissement();
+    $e->cvi = "9223700102";
+    $e->email = "test@example.org";
+    $e->interpro = 'INTERPRO-CIVP';
+    $e->identifiant = "9223700102";
+    $e->famille = "Producteur";
+    $e->no_accises  = "FR9200000000";
+    $e->no_tva_intracommunautaire = "FR9200000000";
+    $e->nom = "Château Corinne";
+    $e->siege = array("adresse" => "1 rue Garnier", "code_postal" => "13200", "commune" => "Neuilly");
+    $e->statut = "ACTIF";
+    $e->save();
+    
+    $e = new Etablissement();
+    $e->cvi = "9223700103";
+    $e->email = "test@example.org";
+    $e->interpro = 'INTERPRO-CIVP';
+    $e->identifiant = "9223700103";
+    $e->famille = "Producteur";
+    $e->no_accises  = "FR9200000000";
+    $e->no_tva_intracommunautaire = "FR9200000000";
+    $e->nom = "Château Frederic";
     $e->siege = array("adresse" => "1 rue Garnier", "code_postal" => "13200", "commune" => "Neuilly");
     $e->statut = "ACTIF";
     $e->save();
