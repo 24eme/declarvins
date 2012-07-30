@@ -20,19 +20,6 @@
             .rectifier {
                 outline: 1px dotted #ff0000 !important;
             }
-            /* TEMP */
-            .vracs form div {
-                margin: 10px 0;
-            }
-            .vracs form tr td {
-                padding: 4px 0;
-            }
-
-            .vracs form table#table_lots input {
-                width: 80px;
-            }
-
-            /* FIN TEMP */
         </style>
 
         <?php include_stylesheets() ?>

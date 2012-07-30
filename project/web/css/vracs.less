@@ -4,219 +4,475 @@
 
 .vracs
 {
+    color: @couleur-e1;
 
-        #vrac_soussigne{
-                
-                .section_label_maj{
-                    & >  label:first-child{
-                            width : 310px; 
-                            text-transform:uppercase;
-                            float:left;
-                    }
+    .popup_form
+    {
+        .table_container
+        {
+            .clearfix;
 
-                    .radio_list{
-                            float:left;
-                    }
-                    
-                    .ui-autocomplete-input{
-                            .clearfix;
-                            float:right;
-                            width:250px;
-                    }
-                    
-                }
+            #table_paiements,
+            #table_retiraisons
+            {
+                float: right;
+                width: 545px;
 
-                #vendeur_infos, .vendeur_infos{ 
-                    display:block;
-                    height: 176px;
-                    width: 897px;
-                }
-
-                #vendeur_choice, #acheteur_choice{
-                    .clearfix;
-                }
-                
-                .mandataire_infos{
-                    clear: both;
-                }
-
-                #acheteur { padding-top : 40px; }
-
-                #has_mandataire{ padding : 20px 0 0 10px;}
-
-                #mandataire{ 
-                        .clearfix; 
-                        padding : 0 0 0 10px;
-                } 
-
-                #mandatant{ 
-                        padding : 10px 0 0 0px;
-                        .checkbox_list{ 
-                                float: right;
-                                margin-right: 460px;
-                                li{ 
-                                        display:inline; 
-                                        float : left;
-                                        width : 150px; 
-                                }
-                        }     
-                }
-
-                .btnModification{ .clearfix; margin-top : 10px;}
-
-                .error_list
+                thead
                 {
-                    padding: 0 10px;
-                    float : right;
-                    color : red;
-                }
-
-                .ui-button{
-                    position: absolute;
-                    right: 20px;
-                }
-
-        }
-
-        #vrac_marche{
-
-                .section_label_maj{
-                    & >  label:first-child{
-                            width : 310px; 
-                            text-transform:uppercase;
-                    }
-                    
-                }
-                
-                #original, #produit, #millesime, #type, #label, #prixUnitaire, #domaine{
-
-                        .clearfix;
-                        margin : 20px 0; 
-
-                        label{
-                                &:first-child{
-                                        display:block;
-                                        float:left;
-                                        width:230px !important;
-                                }
-                        }
-                }   
-
-                #vrac_marche_volumePropose{
-                        label:first-child{
-                                width:215px;
-                        }
-                }
-
-                #label .checkbox_list{
-                        display: block;
-                        float: left;
-                }
-
-                #prixTotal{
-                        label{
-                                width:215px;
-                        }
-                }
-
-                #prixUnitaire{
-                        label{
-                                width:230px;
-                        }
-                }
-
-                
-        }
-        
-        .section_label_maj{
-               & >  label:first-child{
-                        display: inline-block;
-                        .majuscules;
-                        font-size: 15px;
-                        font-weight: bold;
+                    th
+                    {
+                        .border(@couleur-a10);
+                        background-color: @couleur-a11;
+                        font-size: 14px;
                         height: 35px;
-                        padding-top:4px;
+                        padding: 0 13px;
+                        vertical-align: middle;
+
+                        & + th { border-left: 0 none; }
+
+                        &.dernier
+                        {
+                            background-color: transparent;
+                            border-bottom: 1px solid @couleur-e2;
+                            border-right: 1px solid @couleur-e2;
+                            border-top: 1px solid @couleur-e2;
+                        }
+                    }
+                }
+
+                tbody
+                {
+                    text-align: left;
+
+                    tr
+                    {
+                        td
+                        {
+                            border-bottom: 1px solid @couleur-a10;
+                            border-left: 1px solid @couleur-a10;
+                            border-right: 1px solid @couleur-a10;
+                            height: 35px;
+                            padding: 0 13px;
+                            vertical-align: middle;
+
+                            & + td { border-left: 0 none; }
+
+                            &.dernier
+                            {
+                                border-bottom: 1px solid @couleur-e2;
+                                border-right: 1px solid @couleur-e2;
+
+                                .btn_supprimer_ligne_template
+                                {
+                                    .btn_suppr;
+                                    .txt-rpl;
+
+                                    display: block;
+                                    padding-left: 0;
+                                    width: 14px;
+                                }
+                            }
+                        } 
+                    }
+                }
+
+                tfoot
+                {
+                    th
+                    {
+                        .border(@couleur-e2);
+                        padding-top: 17px;
+                        text-align: right;
+
+                        .ielt8 & { border-top: 0 none; }
+
+                        & + th { border-left: 0 none; }
+
+                        .btn_ajouter_ligne_template
+                        {
+                            .btn_ajouter;
+
+                            span { text-decoration: underline; }
+                        }
+                    }
+                }
+            }
+
+            #table_retiraisons
+            {
+                thead
+                {
+                    th:first-child { text-align: left; }
+                }
+            }
+        }
+    }
+
+    input[type=text]
+    {    
+        .border-radius(3px);
+        .box-shadow(0px 1px 3px rgba(0, 0, 0, 0.4) inset);
+
+        border: 0;
+        padding: 5px;
+
+        .ielt9 &
+        {
+            background: url(../images/fonds/bg_inputs_contrats.png) 0 0 no-repeat;
+            width: 129px;
+        }
+    }
+
+    .ui-autocomplete-input
+    {
+        background: url("../images/pictos/pi_recherche.png") no-repeat scroll 5px 7px #FFFFFF;
+        font-size: 12px;
+        height: 14px;
+        padding: 5px 5px 5px 25px !important;
+        width: 330px;
+    }
+
+    .ui-button { display: none; }
+
+    h2{
+        font-size: 15px;
+        font-weight: bold;
+        height: 35px;
+        padding-top: 4px;
+        text-transform: uppercase;
+    }
+
+    #contrats_etapes
+    {
+        #statut_declaration > #declaration_etapes;
+        .clearfix;
+        margin-bottom: 35px;
+        float: none;
+    }
+
+    .radio_list, .checkbox_list
+    {
+        display: inline-block;
+        .ielt8 & { .inline-block-ie }
+
+        li
+        {
+            display: inline-block;
+            .ielt8 & { .inline-block-ie }
+
+            label { 
+                font-weight: normal !important;
+            }
+        }
+    }
+
+    .checkbox_list li
+    {
+        width: 200px;
+    }
+
+    .vracs_ligne_form
+    {
+        ul.radio_list
+        { 
+            label { width: 60px !important; } 
+        }   
+    }
+
+    .section_label_maj
+    {
+        & >  label:first-child,
+        .radio_list { float: left; }
+
+        & >  label:first-child
+        {
+            text-transform: uppercase;
+            width : 310px;
+        }
+
+        .radio_list
+        {
+            label { width: 100px !important; } 
+        }
+
+        .ui-autocomplete-input
+        {
+            .clearfix;
+            float: right;
+            width: 250px;
+        }
+    }
+
+    .section_label_strong
+    {
+        margin : 20px 0;
+
+        label
+        {
+            &:first-child
+            {
+                display: inline-block;
+                font-weight: bold;
+                text-transform: none;
+                width : 210px; 
             }
         }
 
-        .section_label_strong{
-            label{
-                 &:first-child{
-                        display: inline-block;
-                        font-weight: bold;
-                }
+        .radio_list
+        {
+            li { width : 200px !important; }
+        }
+    }
+    
+    .contenu_onglet
+    {
+        .border(@couleur-a3);
+        background: @couleur-a4;
+        margin: 20px 0;
+        padding: 10px 0;
+        text-align: center;
+
+        label
+        {
+            &#label_acheteur { margin: 0 95px 0 45px; }
+
+            input[type="radio"] { margin-right: 7px; }
+        }
+    }
+
+    #acheteur, #mandataire, #contrat { padding-top: 20px; }
+
+    .ligne_form_btn 
+	{
+		margin: 30px 0 0;
+		text-align: right;
+		
+		button, a
+		{
+            font-size: 12px;
+			height: 28px;
+			line-height: 28px;
+			margin: 0 0 0 5px;
+			padding: 0 10px;
+			text-transform: uppercase;
+		
+			&.btn_annuler
+            {        
+                .btn_gris; 
+                &:hover { text-decoration: none; }
             }
+
+			&.btn_valider { .btn_violet; }
+		}
+	}
+
+    #vrac_soussigne
+    {
+        .clear;
+        font-size: 14px;
+        
+        h3 { margin-bottom: 20px; }
+
+        #vendeur, .vendeur
+        { 
+            display: block;
+            height: 176px;
+            width: 897px;
+        }
+
+        
+
+        #vendeur_choice, #acheteur_choice{
+            .clearfix;
         }
         
-        .bloc_form{
-                .border-radius(5px 5px 5px 5px);
-                .border(#e3e2e2);
+        .mandataire_infos{
+            clear: both;
+        }
 
-                .vracs_ligne_form {
+        #acheteur { padding-top : 40px; }
 
-                        padding: 4px 0 10px 10px;
+        #has_mandataire{ padding : 20px 0 0 10px;}
 
-                        label {
-                                display: inline-block;
-                                font-weight:bold;
-                                width: 150px;
+        #mandataire{ 
+                .clearfix; 
+                padding : 0 0 0 10px;
+        } 
+
+        #mandatant{ 
+                padding : 10px 0 0 0px;
+                .checkbox_list{ 
+                        float: right;
+                        margin-right: 460px;
+                        li{ 
+                                display:inline; 
+                                float : left;
+                                width : 150px; 
                         }
-                        span{
-                                height:30px;
-                                line-height:30px;
-                                vertical-align:middle;
-                        }            
-                }
-
-                .vracs_ligne_form_alt{ background : @couleur-a7;  }
-
-                .col{
-
-                        float: left;
-                        vertical-align: top;
-                        width: 448px;    
-                        
-                        &:first-child{
-                                border-right: 1px solid #e3e2e2;
-                                .vracs_ligne_form{
-                                        &:first-child{ .border-radius(5px 0 0 0)}
-                                        &:last-child{ .border-radius(0 0 0 5px) }
-                                }
-                        }
-                        &:last-child{     
-                                .vracs_ligne_form{
-                                        &:first-child{ .border-radius(0 5px 0 0)  }
-                                        &:last-child{ .border-radius(0 0 5px 0)  }
-                                }
-                        }
-                }
-       }
-
-        #ligne_btn{ 
-                display:block;
-                .btnAnnulation{ float:left; }
-                .btnValidation{ float:right; }
-                margin: 10px 0;
+                }     
         }
 
-        ul.radio_list{
-                .clearfix;
-                li{
-                    display:block;
-                    float:left;
-                    label{ font-weight:normal !important; }
-                    width:165px;
+        .btnModification
+        {
+            .clearfix;
+            margin-top: 10px;
+        }
+
+        .error_list
+        {
+            color: red;
+            float: right;
+            padding: 0 10px;
+        }
+
+        .ui-button{
+            position: absolute;
+            right: 20px;
+        }
+    }
+
+    #vrac_marche
+    {
+        #original, #produit, #millesime, #type, #label, #prixUnitaire, #domaine
+        {
+            .clearfix;
+            margin: 20px 0; 
+
+            label
+            {
+                &:first-child
+                {
+                    float: left;
+                    width: 230px !important;
                 }
+            }
+        }   
+
+        #vrac_marche_volumePropose
+        {
+            label:first-child { width: 215px; }
         }
-      
-        .champ_datepicker{
-                padding-top:10px;
-                img{
-                        position: absolute;
-                        margin-left:5px;
+
+        #label .checkbox_list { float: left; }
+
+        #prixTotal
+        {
+            label { width: 215px; }
+        }
+
+        #prixUnitaire
+        {
+            label { width: 230px; }
+        }
+            
+    }
+    
+    .section_label_maj
+    {
+       & > label:first-child
+       {
+            .majuscules;
+            display: inline-block;
+            font-size: 15px;
+            font-weight: bold;
+            height: 35px;
+            padding-top: 4px;
+        }
+    }
+
+    
+    .bloc_form
+    {
+        .border-radius(5px 5px 5px 5px);
+        .border(#e3e2e2);
+
+        .vracs_ligne_form
+        {
+            padding: 4px 0 10px 10px;
+
+            label
+            {
+                    display: inline-block;
+                    font-weight: bold;
+                    width: 200px;
+            }
+
+            span
+            {
+                    height: 30px;
+                    line-height: 30px;
+                    vertical-align: middle;
+            }  
+
+            input[type=text] { width: 200px; }
+        }
+
+        .vracs_ligne_form_alt { background: @couleur-a7; }
+
+        .col
+        {
+
+            float: left;
+            vertical-align: top;
+            width: 448px;    
+            
+            &:first-child
+            {
+                border-right: 1px solid #e3e2e2;
+                .vracs_ligne_form
+                {
+                    &:first-child { .border-radius(5px 0 0 0) }
+                    &:last-child { .border-radius(0 0 0 5px) }
                 }
+            }
+
+            &:last-child
+            {     
+                .vracs_ligne_form
+                {
+                    &:first-child { .border-radius(0 5px 0 0) }
+                    &:last-child { .border-radius(0 0 5px 0) }
+                }
+            }
         }
-        .error_list{
-                margin-top:15px;
+   }
+
+   #vendeur .bloc_form, #acheteur .bloc_form { height: 264px; }
+   #mandataire .bloc_form { height: 220px; }
+
+   .adresse_livraion
+   {
+        .bloc_form { height: 130px !important; }
+        .section_label_strong label { width: 500px; }  
+    }
+
+    #ligne_btn
+    { 
+        display: block;
+        .btnAnnulation { float: left; }
+        .btnValidation { float: right; }
+        margin: 10px 0;
+    }
+
+  
+    .champ_datepicker
+    {
+        padding-top: 10px;
+
+        img
+        {
+            position: absolute;
+            margin-left: 5px;
         }
+    }
+    .error_list { margin-top: 15px; }
+
+    #contrat
+    {
+        .section_label_strong
+        {
+            label { width : 300px }
+        }
+    }
 }
