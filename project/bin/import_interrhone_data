@@ -14,7 +14,7 @@ echo "==============" >> $LOGDATE
 curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@/tmp/etablissements_ir.csv" "$EDI_PREFIX/edi/etablissements/csv?id=INTERPRO-IR"  >> $LOGDATE 2>&1
 
 if ! test "$1" ; then
-. bin/download_redmine_file https://clients.actualys.com/attachments/download/3819/IR_Data.zip /tmp/IR_Data.zip
+. bin/download_redmine_file https://clients.actualys.com/attachments/download/4039/IR_Data.zip /tmp/IR_Data.zip
 fi
 
 

@@ -3,7 +3,7 @@
 . bin/config.inc
 
 if ! test "$1"; then
-    . bin/download_redmine_file https://clients.actualys.com/attachments/download/3559/CIVP_Data.zip /tmp/CIVP_Data.zip
+    . bin/download_redmine_file https://clients.actualys.com/attachments/download/4038/CIVP_Data.zip /tmp/CIVP_Data.zip
 fi
 
 SYMFODIR=$(pwd);
