@@ -55,7 +55,7 @@ class drmActions extends sfActions
       } elseif (!$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) && !$drm->isValidee()) {
       	$drm->delete();
       }
-      $this->redirect('drm/monEspace');
+      $this->redirect('drm_mon_espace', $this->getUser()->getEtablissement());
   }
   
  /**
