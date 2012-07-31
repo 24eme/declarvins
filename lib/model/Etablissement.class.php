@@ -74,7 +74,7 @@ class Etablissement extends BaseEtablissement {
 	}
 
     public function getDroits() {
-        $droits = array();
+        /*$droits = array();
 
         if (in_array($this->famille, array(EtablissementClient::FAMILLE_PRODUCTEUR))) {
             $droits[] = TiersSecurityUser::CREDENTIAL_DROIT_DRM;
@@ -82,7 +82,8 @@ class Etablissement extends BaseEtablissement {
         
         $droits[] = TiersSecurityUser::CREDENTIAL_DROIT_VRAC;
 
-        return $droits;
+        return $droits;*/
+    	return EtablissementFamilles::getDroitsByFamilleAndSousFamille($this->famille, $this->sous_famille);
     }   
     
 }
