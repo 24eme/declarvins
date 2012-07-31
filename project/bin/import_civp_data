@@ -25,6 +25,8 @@ mv etablissement.csv.tmp etablissement.csv
 curl -s -c /tmp/cookie.txt $EDI_AUTH $EDI_PREFIX/edi/etablissements/csv > /dev/null
 echo ETABLISSEMENTS  >> $LOGDATE 2>&1
 echo "===========================" >> $LOGDATE 2>&1
+cat etablissement.csv | sed 's/;NEGOCIANT EXTERIEUR;/;regional;/' | sed 's/;NEGOCIANT;/;regional;/' > etablissement.corrige.csv
+mv etablissement.corrige.csv etablissement.csv
 curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@etablissement.csv"  "$EDI_PREFIX/edi/etablissements/csv?id=INTERPRO-CIVP" >> $LOGDATE 2>&1
 echo
     

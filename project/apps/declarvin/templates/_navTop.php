@@ -6,7 +6,7 @@ use_helper('Text');
         <!--<li>
             <a href="#">Accueil</a>
         </li>-->
-        <?php if($sf_user->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_DRM)): ?>
+        <?php if(($sf_user->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_DRM_DTI)) || ($sf_user->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_DRM_PAPIER) && $sf_user->hasCredential(myUser::CREDENTIAL_ADMIN))): ?>
         <li<?php if ($active == 'drm'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('@drm_mon_espace') ?>">DRM</a>
         </li>
