@@ -200,7 +200,7 @@ class drmActions extends sfActions
 	      $drm_rectificative_suivante->save();
 	    }
 	  }
-	  $this->redirect('drm_visualisation', array('campagne_rectificative' => $this->drm->getCampagneAndRectificative(), 'hide_rectificative' => 1));
+	  $this->redirect('drm_visualisation', array('identifiant' => $this->getUser()->getTiers()->identifiant, 'campagne_rectificative' => $this->drm->getCampagneAndRectificative(), 'hide_rectificative' => 1));
     	}
     }
   }
@@ -240,7 +240,7 @@ class drmActions extends sfActions
     $drm_rectificative = $drm->generateRectificative();
     $drm_rectificative->save();
 
-    return $this->redirect('drm_init', array('campagne_rectificative' => $drm_rectificative->getCampagneAndRectificative()));
+    return $this->redirect('drm_init', array('identifiant' => $this->getUser()->getTiers()->identifiant, 'campagne_rectificative' => $drm_rectificative->getCampagneAndRectificative()));
   }
 
 
