@@ -8,7 +8,7 @@ use_helper('Text');
         </li>-->
         <?php if($sf_user->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_DRM)): ?>
         <li<?php if ($active == 'drm'): ?> class="actif"<?php endif; ?>>
-            <a href="<?php echo url_for('@drm_mon_espace') ?>">DRM</a>
+            <a href="<?php echo url_for('drm_mon_espace', $sf_user->getEtablissement()) ?>">DRM</a>
         </li>
         <?php endif; ?>
 

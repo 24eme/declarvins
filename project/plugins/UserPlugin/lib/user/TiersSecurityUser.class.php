@@ -101,6 +101,9 @@ abstract class TiersSecurityUser extends acVinCompteSecurityUser {
         return $this->_tiers;
     }
 
+    public function getEtablissement($type = null) {
+	return $this->getTiers($type);
+    }
     /**
      * 
      */

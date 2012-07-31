@@ -47,7 +47,7 @@ class tiersActions extends sfActions
   {
     if ($this->getUser()->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_DRM)) {
 
-        return $this->redirect("@drm_mon_espace");
+        return $this->redirect("drm_mon_espace", $this->getUser()->getEtablissement());
     }
 
     if ($this->getUser()->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_VRAC)) {
