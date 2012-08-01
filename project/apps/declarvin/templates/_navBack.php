@@ -14,6 +14,9 @@
 		<li<?php if ($active == 'contrat'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@validation_login') ?>">Contrat mandat</a>
 		</li>
+		<li>
+			<a href="<?php echo url_for('@vrac') ?>">Contrat vrac</a>
+		</li>
         <li<?php if ($active == 'comptes'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@admin_comptes') ?>">Comptes</a>
 		</li>

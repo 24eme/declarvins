@@ -12,7 +12,7 @@ use_helper('Text');
         </li>
         <?php endif; ?>
 
-        <?php if($sf_user->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_VRAC)): ?>
+        <?php if($sf_user->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_VRAC) || $sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
         <li<?php if ($active == 'vrac'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('@vrac') ?>">Contrat interprofessionnel</a>
         </li>
@@ -25,7 +25,7 @@ use_helper('Text');
 
     <ul id="actions_etablissement">
         <?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?><li class="backend"><a href="<?php echo url_for('@admin'); ?>"><?php echo $sf_user->getInterpro()->nom ?></a></li><?php  endif; ?>
-        <li class="etablissement_courant"><a href="" title="<?php echo $sf_user->getTiers()->getDenomination();?> (<?php echo $sf_user->getTiers()->getRaisonSociale(); ?> <?php echo $sf_user->getTiers()->getIdentifiant();?>)"><span><?php echo truncate_text($sf_user->getTiers()->getDenomination(),20); ?></span></a></li>
+        <li class="etablissement_courant"><?php if ($sf_user->hasCredential(TiersSecurityUser::CREDENTIAL_ETABLISSEMENT)): ?><a href="" title="<?php echo $sf_user->getTiers()->getDenomination();?> (<?php echo $sf_user->getTiers()->getRaisonSociale(); ?> <?php echo $sf_user->getTiers()->getIdentifiant();?>)"><span><?php echo truncate_text($sf_user->getTiers()->getDenomination(),20); ?></span></a><?php else: ?><a href="" title="Aucun établissement sélectionné"><span>Aucun établissement</span></a><?php endif; ?></li>
         <li class="quitter"><a href="<?php echo url_for('@ac_vin_logout'); ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
     </ul>
 </nav>
