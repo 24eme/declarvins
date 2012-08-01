@@ -203,8 +203,8 @@
 					fax : <strong><?php echo $etablissement->fax ?></strong><br />
 					email : <strong><?php echo $etablissement->email ?></strong>
 				</p>
-				<p>Famille : <strong><?php echo $etablissement->famille ?></strong><br />
-				   Sous-famille : <strong><?php echo $etablissement->sous_famille ?></strong>
+				<p>Famille : <strong><?php echo EtablissementFamilles::getFamilleLibelle($etablissement->famille) ?></strong><br />
+				   Sous-famille : <strong><?php echo EtablissementFamilles::getSousFamilleLibelle($etablissement->famille, $etablissement->sous_famille) ?></strong>
                 </p>
                 <p>Provenance EDI : <strong><?php echo ($etablissement->edi) ? "Oui" : "Non" ?></strong></p>
 

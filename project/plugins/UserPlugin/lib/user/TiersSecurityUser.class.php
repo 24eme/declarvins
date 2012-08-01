@@ -9,7 +9,8 @@ abstract class TiersSecurityUser extends acVinCompteSecurityUser {
     const CREDENTIAL_INTERPRO = 'interpro';
     const CREDENTIAL_ETABLISSEMENT = 'etablissement';
     
-    const CREDENTIAL_DROIT_DRM = 'drm';
+    const CREDENTIAL_DROIT_DRM_PAPIER = 'drm_papier';
+    const CREDENTIAL_DROIT_DRM_DTI = 'drm_dti';
     const CREDENTIAL_DROIT_VRAC = 'vrac';
 
     protected $_credentials_tiers = array(
@@ -19,7 +20,8 @@ abstract class TiersSecurityUser extends acVinCompteSecurityUser {
         );
     
     protected $_credentials_droits = array(
-        self::CREDENTIAL_DROIT_DRM,
+        self::CREDENTIAL_DROIT_DRM_PAPIER,
+        self::CREDENTIAL_DROIT_DRM_DTI,
         self::CREDENTIAL_DROIT_VRAC
         );
 
@@ -101,6 +103,9 @@ abstract class TiersSecurityUser extends acVinCompteSecurityUser {
         return $this->_tiers;
     }
 
+    public function getEtablissement($type = null) {
+	return $this->getTiers($type);
+    }
     /**
      * 
      */

@@ -45,8 +45,8 @@
                                 <p><span>email :</span> <strong><?php echo $etablissement->email ?></strong></p>
                             </div>
                             <div class="col">
-                                <p><span>Famille :</span> <strong><?php echo $etablissement->famille ?></strong></p>
-                                <p><span>Sous-famille :</span> <strong><?php echo $etablissement->sous_famille ?></strong></p>
+                                <p><span>Famille :</span> <strong><?php echo EtablissementFamilles::getFamilleLibelle($etablissement->famille) ?></strong></p>
+                                <p><span>Sous-famille :</span> <strong><?php echo EtablissementFamilles::getSousFamilleLibelle($etablissement->famille, $etablissement->sous_famille) ?></strong></p>
                                 <p><span>Provenance EDI :</span> <strong><?php echo  ($etablissement->edi) ? "Oui" : "Non" ?></strong></p>
                                 <?php if ($etablissement->comptabilite_adresse): ?>
                                     <div class="adresse_comptabilite">

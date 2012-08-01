@@ -45,9 +45,9 @@ class tiersActions extends sfActions
 
   public function executeMonEspace(sfWebRequest $request) 
   {
-    if ($this->getUser()->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_DRM)) {
+  	if(($this->getUser()->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_DRM_DTI)) || ($this->getUser()->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_DRM_PAPIER) && $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN))) {
 
-        return $this->redirect("@drm_mon_espace");
+        return $this->redirect("drm_mon_espace", $this->getUser()->getEtablissement());
     }
 
     if ($this->getUser()->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_VRAC)) {

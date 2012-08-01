@@ -11,7 +11,7 @@
         <meta name="author" content="Actualys" />
         <meta name="Description" content="" /> 
         <meta name="Keywords" content="" />
-        <meta name="robots" content="index,follow" />
+        <meta name="robots" content="noindex,nofollow" />
         <meta name="Content-Language" content="fr-FR" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="copyright" content="DéclarVins - 2011" />

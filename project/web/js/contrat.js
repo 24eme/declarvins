@@ -200,7 +200,7 @@ objContrat = {};
 		// Parcours des sous-familles
 		for(var i in objContrat.tabSousFamilles)
 		{
-			objTemplate = { value: objContrat.tabSousFamilles[i] };
+			objTemplate = { value: objContrat.tabSousFamilles[i], key: i };
 			
 			// Si l'éléments courant doit être sélectionné
 			if(objContrat.champSousFamillesVal == objContrat.tabSousFamilles[i])

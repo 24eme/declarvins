@@ -11,8 +11,3 @@ all:
     from_email: "ne_pas_repondre@declarvins.fr"
     from_name:  "Webmaster DéclarVins"
     subject:    "DéclarVins - Redéfinition de votre mot de passe"
-  etablissements:
-    familles:
-      "Producteur": ["Cave particulière", "Cave coopérative"]
-      "Negociant": ["Régional", "Extérieur", "Union", "Etranger", "Vinificateur"]
-      "Courtier": []

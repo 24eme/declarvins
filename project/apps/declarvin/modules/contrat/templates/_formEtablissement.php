@@ -79,7 +79,7 @@
         <?php echo $form['sous_famille']->renderLabel() ?>
         <?php echo $form['sous_famille']->render() ?>
         <script id="template_options_sous_famille" type="text/x-jquery-tmpl">
-            <option value="${value}" {{if selected}}selected="selected"{{/if}} >${value}</option>
+            <option value="${key}" {{if selected}}selected="selected"{{/if}} >${value}</option>
         </script>
     </div>
     <div class="ligne_form">

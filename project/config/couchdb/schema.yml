@@ -89,51 +89,6 @@ Interpro:
       type: {  }
       statut: {  }
 
-Etablissement:
-  definition:
-    fields:
-      _id: {  }
-      _rev: {  }
-      identifiant: { }
-      nom: { }
-      type: {  }
-      statut: {  }
-      interpro: {  }
-      compte: {  }
-      droits:
-        type: array_collection
-        definition:
-          fields:
-            '*': {  }
-      num_interne: {  }
-      siret: {  }
-      raison_sociale: {  }
-      nom: {  }
-      cni: {  }
-      cvi: {  }
-      no_accises: {  }
-      no_tva_intracommunautaire: {  }
-      famille: {  }
-      sous_famille: {  }
-      email: {  }
-      telephone: {  }
-      fax: {  }
-      siege:
-          type: collection
-          definition:
-            fields:
-              adresse: {  }
-              code_postal: {  }
-              commune: {  }
-      comptabilite:
-          type: collection
-          definition:
-            fields:
-              adresse: {  }
-              code_postal: {  }
-              commune: {  }
-      service_douane: {  }
-
 Douane:
   definition:
     fields:
