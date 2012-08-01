@@ -65,8 +65,11 @@ class EtablissementAllView extends acCouchdbView
         }
         $libelle .= ') ';
 
+    	if (isset($datas[self::KEY_FAMILLE]))
+    	  	$libelle .= $datas[self::KEY_FAMILLE];
+
     	if (isset($datas[self::KEY_COMMUNE]))
-    	  	$libelle .= $datas[self::KEY_COMMUNE];
+    	  	$libelle .= ' '.$datas[self::KEY_COMMUNE];
 
     	if (isset($datas[$datas[self::KEY_CODE_POSTAL]]))
     	  	$libelle .= ' '.$datas[$datas[self::KEY_CODE_POSTAL]];
