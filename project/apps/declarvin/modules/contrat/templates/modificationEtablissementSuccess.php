@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    var familles = '<?php echo json_encode(sfConfig::get('app_etablissements_familles')) ?>';
+    var familles = '<?php echo json_encode(EtablissementFamilles::getFamillesForJs()) ?>';
     var sousFamilleSelected = '<?php echo $form['sous_famille']->getValue() ?>';
 </script>
 

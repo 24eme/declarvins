@@ -11,8 +11,7 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
 	   if (!$this->getObject()->getAdresse())
 	   	$sousFamilleChoices = $this->getFamilleSousFamilleChoices();
 	   else
-	   	$sousFamilleChoices = $this->getSousFamilleChoicesByFamille($this->getObject()->getFamille()); 
-	   $sousFamilleValidators = $this->getSousFamilleValidators();
+	   	$sousFamilleChoices = $this->getSousFamilleChoicesByFamille($this->getObject()->getFamille());
 	   
 	   $this->setWidgets(array(
                'raison_sociale' => new sfWidgetFormInputText(),
@@ -60,7 +59,7 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
 	       'comptabilite_code_postal' => 'Code postal: ',
 	       'comptabilite_commune' => 'Commune: ',
 	       'service_douane' => 'Service douane*: ',
-           'edi' => 'Provenance EDI'));
+           'edi' => 'Provenance EDI*'));
        $this->setValidators(array(
        	       'raison_sociale' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
        	       'nom' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
@@ -76,7 +75,7 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
 	       'fax' => new sfValidatorString(array('required' => false)),
 	       'email' => new sfValidatorString(array('required' => false)),
 	       'famille' => new sfValidatorChoice(array('choices' => array_keys($familleChoices))),
-	       'sous_famille' => new sfValidatorChoice(array('choices' => $sousFamilleValidators)),
+	       'sous_famille' => new sfValidatorChoice(array('required' => false, 'choices' => $this->getSousFamilles())),
 	       'comptabilite_adresse' => new sfValidatorString(array('required' => false)),
 	       'comptabilite_code_postal' => new sfValidatorString(array('required' => false)),
 	       'comptabilite_commune' => new sfValidatorString(array('required' => false)),
@@ -120,12 +119,23 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
      * 
      */
     protected function getFamilleChoices() {
-        $familles = array_keys($this->getFamillesSousFamilles());
+        $familles = EtablissementFamilles::getFamilles();
         $choices = array('' => '');
-        foreach ($familles as $famille) {
-            $choices[$famille] = $famille;
+        foreach ($familles as $key => $famille) {
+            $choices[$key] = $famille;
         }
         return $choices;
+    }
+    
+    protected function getSousFamilles() {
+    	$sousFamilles =  EtablissementFamilles::getSousFamilles();	
+    	$result = array();
+    	foreach ($sousFamilles as $sousFamillesByFamille) {
+    		foreach ($sousFamillesByFamille as $sousFamille => $value) {
+    			$result[] = $sousFamille;
+    		}
+    	}
+    	return $result;
     }
     
     /**
@@ -139,37 +149,12 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
      * 
      */
     protected function getSousFamilleChoicesByFamille($famille) {
-        $famillesSousFamilles = $this->getFamillesSousFamilles();
-        $famillesSousFamilles = $famillesSousFamilles[$famille];
+        $famillesSousFamilles = EtablissementFamilles::getSousFamillesByFamille($famille);
         $choices = array('' => '');
-        foreach ($famillesSousFamilles as $sousFamilles) {
-            $choices[$sousFamilles] = $sousFamilles;
+        foreach ($famillesSousFamilles as $key => $sousFamilles) {
+            $choices[$key] = $sousFamilles;
         }
         return $choices;
-    }
-    
-    /**
-     * 
-     */
-    protected function getFamillesSousFamilles() {
-        if (!$this->_familleCollection) {
-            return $this->_familleCollection = sfConfig::get('app_etablissements_familles');
-        }
-        else {
-            return $this->_familleCollection;
-        }
-    }
-    
-    /**
-     * 
-     */
-    protected function getSousFamilleValidators() {
-        $famillesSousFamilles = $this->getFamillesSousFamilles();
-        $validators = array();
-        foreach ($famillesSousFamilles as $famille => $sousFamilles) {
-            $validators = array_merge($validators, $this->getSousFamilleChoicesByFamille($famille));
-        }
-        return $validators;
     }
 
     // on surcharge le template par defaut du widget edi (radio)
