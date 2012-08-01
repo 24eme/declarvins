@@ -133,9 +133,9 @@ class ProduitDefinitionForm extends acCouchdbObjectForm {
     public function save($con = null) {
     	$object = parent::save($con);
     	$values = $this->getValues();
-    	if (!empty($values['code']) && $object->getKey() != $values['code']) {
+    	/*if (!empty($values['code']) && $object->getKey() != $values['code']) {
     		$object = $object->getDocument()->moveAndClean($object->getHash(), $this->replaceKey($object->getHash(), $this->normalizeKey($values['code'], (($object->getTypeNoeud() == ConfigurationCouleur::TYPE_NOEUD)? false : true))));
-    	}
+    	}*/
     	if ($object->hasDepartements()) {
     		$object->remove('departements');
     		$departements = $this->getNoeudDepartement($object);
