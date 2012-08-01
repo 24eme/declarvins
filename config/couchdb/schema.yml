@@ -9,11 +9,6 @@ Etablissement:
       statut: {  }
       interpro: {  }
       compte: {  }
-      droits:
-        type: array_collection
-        definition:
-          fields:
-            '*': {  }
       num_interne: {  }
       siret: {  }
       raison_sociale: {  }
@@ -21,6 +16,7 @@ Etablissement:
       cni: {  }
       cvi: {  }
       no_accises: {  }
+      carte_pro: {  }
       no_tva_intracommunautaire: {  }
       famille: {  }
       sous_famille: {  }

@@ -1,16 +1,35 @@
 <?php
 class EtablissementFamilles 
 {
+
+    const FAMILLE_PRODUCTEUR = "producteur";
+    const FAMILLE_NEGOCIANT = "negociant";
+    const FAMILLE_COURTIER = "courtier";
+
+    const SOUS_FAMILLE_CAVE_PARTICULIERE = "cave_particuliere";
+    const SOUS_FAMILLE_CAVE_COOPERATIVE = "cave_cooperative";
+    const SOUS_FAMILLE_REGIONAL = "regional";
+    const SOUS_FAMILLE_EXTERIEUR = "exterieur";
+    const SOUS_FAMILLE_ETRANGER = "etranger";
+    const SOUS_FAMILLE_UNION = "union";
+    const SOUS_FAMILLE_VINIFICATEUR = "vinificateur";
+
     protected static $familles = array (
-    	"producteur" => "Producteur",
-    	"negociant" => "Négociant",
-    	"courtier" => "Courtier"
+    	self::FAMILLE_PRODUCTEUR => "Producteur",
+    	self::FAMILLE_NEGOCIANT => "Négociant",
+    	self::FAMILLE_COURTIER => "Courtier"
     );
     protected static $sous_familles = array (
-    	"producteur" => array("cave_particuliere" => "Cave particulière", "cave_cooperative" => "Cave coopérative"),
-    	"negociant" => array("regional" => "Régional", "exterieur" => "Extérieur", "etranger" => "Etranger", "union" => "Union", "vinificateur" => "Vinificateur"),
-    	"courtier" => array()
+    	self::FAMILLE_PRODUCTEUR => array(self::SOUS_FAMILLE_CAVE_PARTICULIERE => "Cave particulière", 
+                                          self::SOUS_FAMILLE_CAVE_COOPERATIVE => "Cave coopérative"),
+    	self::FAMILLE_NEGOCIANT => array(self::SOUS_FAMILLE_REGIONAL => "Régional", 
+                                         self::SOUS_FAMILLE_EXTERIEUR => "Extérieur", 
+                                         self::SOUS_FAMILLE_ETRANGER => "Etranger", 
+                                         self::SOUS_FAMILLE_UNION => "Union", 
+                                         self::SOUS_FAMILLE_VINIFICATEUR => "Vinificateur"),
+    	self::FAMILLE_COURTIER => array()
     );
+    
     protected static $droits = array (
     	"producteur_cave_particuliere" => array(TiersSecurityUser::CREDENTIAL_DROIT_DRM_DTI, TiersSecurityUser::CREDENTIAL_DROIT_DRM_PAPIER, TiersSecurityUser::CREDENTIAL_DROIT_VRAC),
     	"producteur_cave_cooperative" => array(TiersSecurityUser::CREDENTIAL_DROIT_DRM_DTI, TiersSecurityUser::CREDENTIAL_DROIT_DRM_PAPIER, TiersSecurityUser::CREDENTIAL_DROIT_VRAC),

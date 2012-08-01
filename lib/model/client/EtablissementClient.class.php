@@ -2,9 +2,9 @@
 
 class EtablissementClient extends acCouchdbClient {
    
-    const FAMILLE_PRODUCTEUR = "Producteur";
-    const FAMILLE_NEGOCIANT = "Negociant";
-    const FAMILLE_COURTIER = "Courtier";
+    const FAMILLE_PRODUCTEUR = "producteur";
+    const FAMILLE_NEGOCIANT = "negociant";
+    const FAMILLE_COURTIER = "courtier";
 
     /**
      *
@@ -29,6 +29,11 @@ class EtablissementClient extends acCouchdbClient {
         return parent::find('ETABLISSEMENT-'.$id, $hydrate);
     }
 
+    public function findByIdentifiant($identifiant, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
+
+        return parent::find('ETABLISSEMENT-'.$identifiant, $hydrate);
+    }
+
     public function retrieveOrCreateById($id, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         $etab =  parent::find('ETABLISSEMENT-'.$id, $hydrate);
     	
@@ -38,6 +43,18 @@ class EtablissementClient extends acCouchdbClient {
     	}
 
 	    return $etab;
+    }
+
+    public function findByFamille($famille) {
+        
+        return $this->startkey(array($famille))
+              ->endkey(array($famille, array()))->limit(100)->getView('etablissement', 'tous');
+    }
+    
+    public function findAll() 
+    {
+        
+        return $this->limit(100)->getView('etablissement', 'tous');
     }
 
 }
