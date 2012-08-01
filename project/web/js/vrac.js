@@ -52,6 +52,9 @@ var initMarche = function()
    $('#vrac_marche #type_transaction input').click(updatePanelsAndUnitLabels);
    
    var tableau = $('#vrac_soussigne').find('table');
+   var listStyleTableau = $('#recap_saisie').find('ol li');
+
+   listStyleTableau.find('li:even').addClass('impair');
    tableau.find('tr:even').addClass('impair');
 }
 

@@ -307,6 +307,47 @@ button.btn_prec, button.btn_prec span, button.btn_suiv, button.btn_suiv span { h
   background-position:0 -26px !important;
   padding:0 10px 0 18px;
 }
+.btn_remise, .btn_etape_prec, .btn_etape_suiv {
+  color:#ffffff;
+  display:inline-block;
+  font:bold 14px/22px Calibri, Arial, sans-serif;
+  height:22px;
+}
+.btn_etape_prec, .btn_etape_suiv {
+  background-image:url(../images/boutons/btn_etape.png);
+  background-repeat:no-repeat;
+}
+.btn_etape_prec span, .btn_etape_suiv span {
+  background-image:url(../images/boutons/btn_etape.png);
+  background-repeat:no-repeat;
+  display:inline-block;
+}
+.btn_etape_prec {
+  background-position:right -66px;
+  padding:0 13px 0 0;
+}
+.btn_etape_prec span {
+  background-position:0 -44px;
+  padding:0 7px 0 37px;
+}
+.btn_remise {
+  border:1px solid #343434;
+  background:#494949 url(../images/boutons/btn_supprimer.png) 7px center no-repeat;
+  padding:0 5px 0 27px;
+  text-transform:uppercase;
+}
+.btn_etape_suiv {
+  background-position:right -22px;
+  padding:0 9px 0 0;
+}
+.btn_etape_suiv span {
+  background-position:0 0;
+  padding:0 10px 0 41px;
+}
+.ielt8 .btn_etape_suiv span {
+  margin:0;
+  white-space:nowrap;
+}
 .btn_telecharger {
   background-repeat:no-repeat;
   border:1px solid;
@@ -2109,6 +2150,66 @@ p#date_drm {
 .vracs .popup_form .table_container #table_paiements tfoot th .btn_ajouter_ligne_template:hover, .vracs .popup_form .table_container #table_paiements tfoot th .btn_ajouter_ligne_template:focus, .vracs .popup_form .table_container #table_retiraisons tfoot th .btn_ajouter_ligne_template:hover, .vracs .popup_form .table_container #table_retiraisons tfoot th .btn_ajouter_ligne_template:focus { text-decoration:underline; }
 .vracs .popup_form .table_container #table_paiements tfoot th .btn_ajouter_ligne_template span, .vracs .popup_form .table_container #table_retiraisons tfoot th .btn_ajouter_ligne_template span { text-decoration:underline; }
 .vracs .popup_form .table_container #table_retiraisons thead th:first-child { text-align:left; }
+.vracs .popup_form#recap_saisie h2 {
+  border:1px solid #e5e4e4;
+  background-color:#f1f1f1;
+  font-size:18px;
+  height:42px;
+  line-height:42px;
+  margin-bottom:30px;
+  padding:0;
+  text-align:center;
+}
+.vracs .popup_form#recap_saisie ol { font-family:Calibri, Arial, sans-serif; }
+.vracs .popup_form#recap_saisie ol li {
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:45px;
+}
+.ielt8 .vracs .popup_form#recap_saisie ol li { vertical-align:top; }
+.vracs .popup_form#recap_saisie ol li h3 {
+  display:inline-block;
+  margin-bottom:13px;
+  text-transform:uppercase;
+}
+.ielt8 .vracs .popup_form#recap_saisie ol li h3 {
+  display:inline;
+  zoom:1;
+}
+.ie8 .vracs .popup_form#recap_saisie ol li h3, .ie9 .vracs .popup_form#recap_saisie ol li h3, .opera .vracs .popup_form#recap_saisie ol li h3 { position:relative; }
+.ie8 .vracs .popup_form#recap_saisie ol li h3, .ie9 .vracs .popup_form#recap_saisie ol li h3 { left:-10px; }
+.opera .vracs .popup_form#recap_saisie ol li h3 { left:-5px; }
+.vracs .popup_form#recap_saisie ol li ul {
+  border:1px solid #e5e4e4;
+  margin-bottom:10px;
+}
+.vracs .popup_form#recap_saisie ol li ul li {
+  font-size:14px;
+  margin-bottom:0;
+  padding:10px;
+}
+.ielt8 .vracs .popup_form#recap_saisie ol li ul li { padding-left:0; }
+.vracs .popup_form#recap_saisie ol li ul li + li { border-top:1px solid #e5e4e4; }
+.vracs .popup_form#recap_saisie ol li ul li.impair { background-color:#ecebeb; }
+.vracs .popup_form#recap_saisie ol li ul li span:first-child {
+  display:inline-block;
+  width:280px;
+}
+.vracs .popup_form#recap_saisie ol li ul li span + span { font-weight:normal; }
+.vracs .popup_form#recap_saisie ol li p {
+  font-size:13px;
+  text-align:right;
+}
+.vracs .popup_form#recap_saisie ol li p .modifier {
+  border:1px solid #d68500;
+  background:#ff9f00 url(../images/pictos/pi_modifier.png) 7px center no-repeat;
+  color:#ffffff;
+  display:inline-block;
+  height:21px;
+  line-height:21px;
+  padding:0 7px 0 30px;
+  text-transform:uppercase;
+}
 .vracs input[type=text] {
   -webkit-border-radius:3px;
   -moz-border-radius:3px;
@@ -2257,15 +2358,63 @@ p#date_drm {
 }
 .vracs .ligne_form_btn button.btn_annuler:hover, .vracs .ligne_form_btn button.btn_annuler:focus, .vracs .ligne_form_btn a.btn_annuler:hover, .vracs .ligne_form_btn a.btn_annuler:focus { background-color:#494949; }
 .vracs .ligne_form_btn button.btn_annuler:hover, .vracs .ligne_form_btn a.btn_annuler:hover { text-decoration:none; }
-.vracs .ligne_form_btn button.btn_valider, .vracs .ligne_form_btn a.btn_valider {
-  background-repeat:no-repeat;
-  border:1px solid;
+.vracs .ligne_form_btn button.etape_prec, .vracs .ligne_form_btn a.etape_prec {
   color:#ffffff;
   display:inline-block;
-  background-color:#86005b;
-  border-color:#494949;
+  font:bold 14px/22px Calibri, Arial, sans-serif;
+  height:22px;
+  background-image:url(../images/boutons/btn_etape.png);
+  background-repeat:no-repeat;
+  background-position:right -66px;
+  padding:0 13px 0 0;
 }
-.vracs .ligne_form_btn button.btn_valider:hover, .vracs .ligne_form_btn button.btn_valider:focus, .vracs .ligne_form_btn a.btn_valider:hover, .vracs .ligne_form_btn a.btn_valider:focus { background-color:#494949; }
+.vracs .ligne_form_btn button.etape_prec span, .vracs .ligne_form_btn a.etape_prec span {
+  background-image:url(../images/boutons/btn_etape.png);
+  background-repeat:no-repeat;
+  display:inline-block;
+}
+.vracs .ligne_form_btn button.etape_prec span, .vracs .ligne_form_btn a.etape_prec span {
+  background-position:0 -44px;
+  padding:0 7px 0 37px;
+}
+.vracs .ligne_form_btn button.valider_etape, .vracs .ligne_form_btn a.valider_etape {
+  color:#ffffff;
+  display:inline-block;
+  font:bold 14px/22px Calibri, Arial, sans-serif;
+  height:22px;
+  color:#ffffff;
+  display:inline-block;
+  font:bold 14px/22px Calibri, Arial, sans-serif;
+  height:22px;
+  background-image:url(../images/boutons/btn_etape.png);
+  background-repeat:no-repeat;
+  background-position:right -22px;
+  padding:0 9px 0 0;
+}
+.vracs .ligne_form_btn button.valider_etape span, .vracs .ligne_form_btn a.valider_etape span {
+  background-image:url(../images/boutons/btn_etape.png);
+  background-repeat:no-repeat;
+  display:inline-block;
+}
+.vracs .ligne_form_btn button.valider_etape span, .vracs .ligne_form_btn a.valider_etape span {
+  background-position:0 0;
+  padding:0 10px 0 41px;
+}
+.ielt8 .vracs .ligne_form_btn button.valider_etape span, .ielt8 .vracs .ligne_form_btn a.valider_etape span {
+  margin:0;
+  white-space:nowrap;
+}
+.vracs .ligne_form_btn button.etape_prec, .vracs .ligne_form_btn button.annuler_saisie, .vracs .ligne_form_btn a.etape_prec, .vracs .ligne_form_btn a.annuler_saisie { float:left; }
+.vracs .ligne_form_btn button.annuler_saisie, .vracs .ligne_form_btn a.annuler_saisie {
+  color:#ffffff;
+  display:inline-block;
+  font:bold 14px/22px Calibri, Arial, sans-serif;
+  height:22px;
+  border:1px solid #343434;
+  background:#494949 url(../images/boutons/btn_supprimer.png) 7px center no-repeat;
+  padding:0 5px 0 27px;
+  text-transform:uppercase;
+}
 .vracs #vrac_soussigne {
   clear:both;
   font-size:14px;

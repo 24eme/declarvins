@@ -107,6 +107,95 @@
                 }
             }
         }
+
+        &#recap_saisie
+        {
+            h2
+            {
+                .border(@couleur-a10);
+                background-color: @couleur-a4;
+                font-size: 18px;
+                height: 42px;
+                line-height: 42px;
+                margin-bottom: 30px;
+                padding: 0;
+                text-align: center;
+            }
+
+            ol
+            {
+                font-family: Calibri, Arial, sans-serif;
+
+                li
+                {
+                    .ielt8 & { vertical-align: top; }
+
+                    font-size: 18px;
+                    font-weight: bold;
+                    margin-bottom: 45px;
+
+                    h3
+                    {
+                        .ielt8 & { .inline-block-ie }
+                        .ie8 &, .ie9 &, .opera & { position: relative; }
+                        .ie8 &, .ie9 & { left: -10px; }
+                        .opera & { left: -5px; }
+
+                        display: inline-block;
+                        margin-bottom: 13px;
+                        text-transform: uppercase;
+                    }
+
+                    ul
+                    {
+                        .border(@couleur-a10);
+                        margin-bottom: 10px;
+
+                        li
+                        {
+                            font-size: 14px;
+                            margin-bottom: 0;
+                            padding: 10px;
+
+                            .ielt8 & { padding-left: 0; }
+
+                            & + li { border-top: 1px solid @couleur-a10 }
+
+                            &.impair { background-color: @couleur-a11; }
+
+                            span
+                            {
+                                &:first-child
+                                {
+                                    display: inline-block;
+                                    width: 280px;
+                                }
+
+                                & + span { font-weight: normal }
+                            }
+                        }
+                    }
+
+                    p
+                    {
+                        font-size: 13px;
+                        text-align: right;
+
+                        .modifier
+                        {
+                            .border(@couleur-d2);
+                            background: @couleur-d1 url(../images/pictos/pi_modifier.png) 7px center no-repeat;
+                            color: @couleur-e2;
+                            display: inline-block;
+                            height: 21px;
+                            line-height: 21px;
+                            padding:0 7px 0 30px;
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     input[type=text]
@@ -135,7 +224,8 @@
 
     .ui-button { display: none; }
 
-    h2{
+    h2
+    {
         font-size: 15px;
         font-weight: bold;
         height: 35px;
@@ -263,7 +353,14 @@
                 &:hover { text-decoration: none; }
             }
 
-			&.btn_valider { .btn_violet; }
+            &.etape_prec { .btn_etape_prec }
+
+			&.valider_etape { .btn_etape_suiv }
+
+            &.etape_prec,
+            &.annuler_saisie { float: left; }
+
+            &.annuler_saisie { .btn_remise; }
 		}
 	}
 

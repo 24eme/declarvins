@@ -303,6 +303,67 @@ button.btn_suiv span { height: 26px; }
 	}
 }
 
+.btn_remise,
+.btn_etape_prec,
+.btn_etape_suiv
+{
+	color: @couleur-e2;
+	display: inline-block;
+	font: bold 14px/22px Calibri, Arial, sans-serif;
+	height: 22px;
+}
+
+
+.btn_etape_prec,
+.btn_etape_suiv
+{
+	background-image: url(../images/boutons/btn_etape.png);
+	background-repeat: no-repeat;
+
+	span{
+		background-image: url(../images/boutons/btn_etape.png);
+		background-repeat: no-repeat;
+		display: inline-block;
+	}
+}
+
+.btn_etape_prec
+{
+	background-position: right -66px;
+	padding: 0 13px 0 0;
+
+	span{
+		background-position: 0 -44px;
+		padding: 0 7px 0 37px;
+	}
+}
+
+.btn_remise
+{
+	.border(@couleur-a6);
+    background: @couleur-a1 url(../images/boutons/btn_supprimer.png) 7px center no-repeat;
+    padding:0 5px 0 27px;
+    text-transform: uppercase;
+}
+
+.btn_etape_suiv
+{
+	background-position: right -22px;
+	padding:0 9px 0 0;
+
+	span
+	{
+		background-position: 0 0;
+		padding: 0 10px 0 41px;
+
+		.ielt8 &
+		{
+			margin: 0;
+			white-space: nowrap;
+		}
+	}
+}
+
 .btn_telecharger { .btn_violet; }
  
 a.msg_aide

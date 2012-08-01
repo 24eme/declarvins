@@ -125,7 +125,7 @@
             </div>
         </div>
         <div class="ligne_form_btn">
-            <button class="btn_valider" type="submit">Etape Suivante</button>
+            <button class="valider_etape" type="submit"><span>Etape Suivante</span></button>
         </div>
     </form>
 </section>

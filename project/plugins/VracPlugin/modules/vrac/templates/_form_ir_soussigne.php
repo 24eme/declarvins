@@ -17,7 +17,7 @@
             </div>
             <div class="section_label_strong">
                 <?php echo $form['vendeur_identifiant']->renderError() ?>
-                <label>Nom :</label>
+                <label for="">Nom :</label>
                 <?php echo $form['vendeur_identifiant']->render() ?>
             </div>
             <div  class="bloc_form"> 
@@ -111,7 +111,7 @@
                 </div>
             </div>
             <div class="adresse_livraion">
-                <div id="type" class="section_label_strong"><label>Précision de l'adresse de stockage (si différente)</label></div>
+                <div id="type" class="section_label_strong"><label for="">Précision de l'adresse de stockage (si différente)</label></div>
                 <div class="bloc_form"> 
                     <div class="vracs_ligne_form ">
                         <span>
@@ -149,7 +149,7 @@
             </div>
             <div class="section_label_strong">
                 <?php echo $form['acheteur_identifiant']->renderError() ?>
-                <label>Nom :</label>
+                <label for="">Nom :</label>
                 <?php echo $form['acheteur_identifiant']->render() ?>
             </div>
 
@@ -281,7 +281,7 @@
             <h2>Sélectionner un mandataire :</h2>
             <div class="section_label_strong">
                 <?php echo $form['mandataire_identifiant']->renderError() ?>
-                <label>Nom :</label>
+                <label for="">Nom :</label>
                 <?php echo $form['mandataire_identifiant']->render() ?>
             </div>
             <div  class="bloc_form"> 
@@ -389,7 +389,8 @@
         </div>
 
         <div class="ligne_form_btn">
-            <button class="btn_valider" type="submit">Etape Suivante</button>
+            <button class="annuler_saisie" type="reset">annuler la saisie</button>
+            <button class="valider_etape" type="submit"><span>Etape Suivante</span></button>
         </div>
         
     </form>
