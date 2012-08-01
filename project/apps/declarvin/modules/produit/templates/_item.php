@@ -17,7 +17,7 @@
 	<td class="center"><?php echo implode(', ', $departements) ?></td>
 	<td class="center"><?php echo implode(', ', $labels) ?></td>
 	<td class="center"><?php if ($douane) {echo ($douane->taux)? $douane->taux.'<br />('.$douane->code.')' : null;} ?></td>
-	<td class="center"><?php if ($cvo) {echo ($cvo->taux)? $cvo->taux : null;} ?></td>	
+	<td class="center"><?php if ($cvo) {echo ($cvo->taux)? $cvo->taux.'<br />('.$cvo->code.')' : null;} ?></td>	
 	<td class="center"><?php if ($entrees) {echo ($entrees->repli)? 'E' : null;} ?><?php if ($sorties) {echo ($sorties->repli)? 'S' : null;} ?></td>
 	<td class="center"><?php if ($entrees) {echo ($entrees->declassement)? 'E' : null;} ?><?php if ($sorties) {echo ($sorties->declassement)? 'S' : null;} ?></td>		
 </tr>
