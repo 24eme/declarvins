@@ -78,6 +78,7 @@ CompteVirtuel:
       prenom: {  }
       telephone: {  }
       fax: {  }
+      contrat: {  }
 
 Interpro:
   definition:
