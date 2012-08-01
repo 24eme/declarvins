@@ -7,7 +7,7 @@ class EtablissementFamilles
     	"courtier" => "Courtier"
     );
     protected static $sous_familles = array (
-    	"producteur" => array("cave_particuliere" => "Cave particulière", "cave_cooperative" => "Cave cooperative"),
+    	"producteur" => array("cave_particuliere" => "Cave particulière", "cave_cooperative" => "Cave coopérative"),
     	"negociant" => array("regional" => "Régional", "exterieur" => "Extérieur", "etranger" => "Etranger", "union" => "Union", "vinificateur" => "Vinificateur"),
     	"courtier" => array()
     );
@@ -25,6 +25,16 @@ class EtablissementFamilles
     public static function getFamilles() 
     {
     	return self::$familles;
+    }
+
+    public static function getFamillesForJs() 
+    {
+    	$sousFamilles =  self::getSousFamilles();
+    	$result = array();
+    	foreach ($sousFamilles as $key => $value) {
+    		$result[$key] = $value;
+    	}
+    	return $result;
     }
 
     public static function getSousFamilles() 
@@ -63,5 +73,24 @@ class EtablissementFamilles
     		throw new sfException('Aucun droit défini pour la famille "'.$famille.'" et la sous famille "'.$sousFamille.'"');
     	}
     	return $droits[$index];
+    }
+    
+    public static function getFamilleLibelle($famille = null)
+    {
+    	$familles = self::getFamilles();
+    	if (!in_array($famille, array_keys($familles))) {
+    		throw new sfException('La clé famille "'.$famille.'" n\'existe pas');
+    	}
+    	return $familles[$famille];
+    }
+
+    
+    public static function getSousFamilleLibelle($famille = null, $sousFamille = null)
+    {
+    	$sousFamilles = self::getSousFamillesByFamille($famille);
+    	if (!in_array($sousFamille, array_keys($sousFamilles))) {
+    		throw new sfException('La clé sous famille "'.$sousFamille.'" n\'existe pas');
+    	}
+    	return $sousFamilles[$sousFamille];
     }
 }
