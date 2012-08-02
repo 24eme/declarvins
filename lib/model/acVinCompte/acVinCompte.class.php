@@ -46,4 +46,12 @@ abstract class acVinCompte extends BaseacVinCompte
     {
         $this->set('_id', sfConfig::get('app_ac_vin_compte_couchdb_prefix').$this->login);
     }
+    
+	public static function getMotDePasseSSHA($mot_de_passe) 
+    {
+        mt_srand((double)microtime()*1000000);
+        $salt = pack("CCCC", mt_rand(), mt_rand(), mt_rand(), mt_rand());
+        $hash = "{SSHA}" . base64_encode(pack("H*", sha1($mot_de_passe . $salt)) . $salt);        
+        return $hash;
+    }
 }
