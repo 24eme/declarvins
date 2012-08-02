@@ -90,16 +90,7 @@ Interpro:
       type: {  }
       statut: {  }
 
-Douane:
-  definition:
-    fields:
-      _id: {  }
-      _rev: {  }
-      identifiant: { }
-      nom: { }
-      type: {  }
-      statut: {  }
-      email: {  }
+
 
 Contrat:
   definition:

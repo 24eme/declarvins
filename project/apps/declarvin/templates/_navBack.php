@@ -20,6 +20,9 @@
         <li<?php if ($active == 'comptes'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@admin_comptes') ?>">Comptes</a>
 		</li>
+        <li<?php if ($active == 'douanes'): ?> class="actif"<?php endif; ?>>
+			<a href="<?php echo url_for('@admin_douanes') ?>">Douanes</a>
+		</li>
         <li<?php if ($active == 'libelles'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@admin_libelles') ?>">Libellés</a>
 		</li>
