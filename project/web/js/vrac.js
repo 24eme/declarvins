@@ -51,6 +51,91 @@ var initMarche = function()
    updatePanelsAndUnitLabels();    
    $('#vrac_marche #type_transaction input').click(updatePanelsAndUnitLabels);
    
+    if($('.vrac_soussigne').exists())
+    {
+        var parentBloc = $('.popup_form');
+        var parentInputs = parentBloc.find('.contenu_onglet:has(.radio_list)');
+        var blocAdresse = parentBloc.find('.adresse_livraison');
+
+        var checkUncheck = function(cibleInput, cibleBloc, voisins)
+        {
+            cibleInput.change(function()
+            {
+                if($(this).is('!:checked'))
+                {
+                   if(voisins) voisins.hide();
+                    cibleBloc.toggle();
+                }else{
+                    cibleBloc.toggle();
+                }
+            });
+        }
+
+        parentInputs.each(function()
+        {
+            var compteur = 0;
+            var $this = $(this);
+            var cible = $this.attr('data-cible');
+            var listRadio = $this.find('.radio_list');
+            var labelInput = listRadio.find('input:radio');
+
+            labelInput.each(function()
+            {
+                var $thisInput = $(this);
+                var thisIndex = $thisInput.index();
+                var thisId = $thisInput.attr('id');
+                var thisLabel = listRadio.find('label[for='+thisId+']');
+                var cibles = $('.'+cible+'');
+                var eqCible = cibles.eq(compteur);
+
+                compteur++;
+
+                checkUncheck($thisInput, cibles, eqCible);
+            });
+        });
+
+        blocAdresse.each(function()
+        {
+            var $this = $(this);
+            var infos = $this.find('.bloc_form');
+            var blocCheck = $this.find('.section_label_strong :checkbox');
+
+            checkUncheck(blocCheck, infos);
+
+            infos.hide();
+        });
+
+        $('#acheteur,#vendeur, #mandataire').hide();
+    };
+
+    if($('.vrac_marche').exists())
+    {
+
+        var sommeEuros = function(val1, val2, total)
+        {
+            val1.keyup(function()
+            {
+                var thisVal = parseInt($(this).val());
+                var otherVal = parseInt(val2.val());
+
+                if(!isNaN(thisVal) && isNaN(otherVal))
+                {
+                    total.val(thisVal);
+                }else if(isNaN(thisVal) && !isNaN(otherVal))
+                {
+                    total.val(otherVal);
+                }else{ total.val(thisVal + otherVal); }
+            });
+        }
+
+        var volume = $('#vrac_marche_volume_propose');
+        var prix = $('#vrac_marche_prix_unitaire');
+        var totalSomme = $('#vrac_marche_prix_total');
+
+        sommeEuros(volume, prix, totalSomme);
+        sommeEuros(prix, volume, totalSomme);
+    }
+
    var tableau = $('#vrac_soussigne').find('table');
    var listStyleTableau = $('#recap_saisie').find('ol li');
 

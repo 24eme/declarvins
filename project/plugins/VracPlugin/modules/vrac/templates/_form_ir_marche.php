@@ -1,5 +1,5 @@
 <?php include_partial('global/navTop', array('active' => 'vrac')); ?>
-<section id="contenu" class="vracs">
+<section id="contenu" class="vracs vrac_marche">
     <?php include_component('vrac', 'etapes', array('vrac' => $form->getObject(), 'actif' => $etape)); ?>
     <form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape)) ?>">
         <?php echo $form->renderHiddenFields() ?>
@@ -44,7 +44,7 @@
             <div class="section_label_strong">
                 <?php echo $form['prix_total']->renderError() ?>
                 <?php echo $form['prix_total']->renderLabel() ?>
-                <?php echo $form['prix_total']->render() ?> €
+                <?php echo $form['prix_total']->render(array('disabled' => 'disabled')) ?> €
             </div>
             <div class="section_label_strong">
                 <label>Part CVO acheteur :</label>

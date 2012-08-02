@@ -2554,8 +2554,9 @@ p#date_drm {
 }
 .vracs #vendeur .bloc_form, .vracs #acheteur .bloc_form { height:264px; }
 .vracs #mandataire .bloc_form { height:220px; }
-.vracs .adresse_livraion .bloc_form { height:130px !important; }
-.vracs .adresse_livraion .section_label_strong label { width:500px; }
+.vracs .adresse_livraison .bloc_form { height:130px !important; }
+.vracs .adresse_livraison .section_label_strong label { width:500px; }
+.vracs .adresse_livraison label input[type="checkbox"] { margin:0 0 0 5px; }
 .vracs #ligne_btn {
   display:block;
   margin:10px 0;

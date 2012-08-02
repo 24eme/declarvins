@@ -1,13 +1,23 @@
 <?php include_partial('global/navTop', array('active' => 'vrac')); ?>
-<section id="contenu" class="vracs">
+<section id="contenu" class="vracs vrac_soussigne">
     <?php include_component('vrac', 'etapes', array('vrac' => $form->getObject(), 'actif' => $etape)); ?>
 
     <form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape)) ?>">
         <?php echo $form->renderHiddenFields() ?>
         <?php echo $form->renderGlobalErrors() ?>
 
-
-        <div id="vendeur">
+        <div class="contenu_onglet" data-cible="vrac_vendeur_acheteur">
+            <label for="">Vous êtes: </label>
+            <ul class="radio_list">
+                <li>
+                    <input name="vrac_acheteur_vendeur" type="radio" id="vrac_vendeur">&nbsp;<label for="vrac_vendeur">vendeur</label>
+                </li>
+                <li>
+                    <input name="vrac_acheteur_vendeur" type="radio" id="vrac_acheteur">&nbsp;<label for="vrac_acheteur">acheteur</label>
+                </li>
+            </ul>
+        </div>
+        <div id="vendeur" class="vrac_vendeur_acheteur">
             <h1>Vendeur</h1>
             <h2>Sélectionner un vendeur :</h2>
             <div id="type" class="section_label_strong">
@@ -110,8 +120,8 @@
                     </div>
                 </div>
             </div>
-            <div class="adresse_livraion">
-                <div id="type" class="section_label_strong"><label for="">Précision de l'adresse de stockage (si différente)</label></div>
+            <div class="adresse_livraison">
+                <div id="type" class="section_label_strong"><label for="dif_adr_stock">Précision de l'adresse de stockage (si différente) <input type="checkbox" name="dif_adr_stock" id="dif_adr_stock"></label></div>
                 <div class="bloc_form"> 
                     <div class="vracs_ligne_form ">
                         <span>
@@ -138,7 +148,7 @@
             </div>
         </div>
 
-        <div id="acheteur">
+        <div id="acheteur" class="vrac_vendeur_acheteur">
             <h1>Acheteur</h1>
             <h2>Sélectionner un acheteur :</h2>
 
@@ -243,8 +253,10 @@
                     </div>
                 </div>
             </div>
-            <div class="adresse_livraion">
-                <div id="type" class="section_label_strong"><label>Précision de l'adresse de livraison (si différente)</label></div>
+            <div class="adresse_livraison">
+                <div id="type" class="section_label_strong">
+                    <label for="dif_adr_livr">Précision de l'adresse de livraison (si différente) <input type="checkbox" name="dif_adr_livr" id="dif_adr_livr"></label>
+                </div>
                 <div class="bloc_form"> 
                     <div class="vracs_ligne_form ">
                         <span>
@@ -271,12 +283,12 @@
             </div>
         </div>
         
-        <div id="mandataire">
-            <div class="contenu_onglet">
-                <?php echo $form['mandataire_exist']->renderError() ?>
-                <?php echo $form['mandataire_exist']->renderLabel() ?>
-                <?php echo $form['mandataire_exist']->render() ?>
-            </div>
+        <div class="contenu_onglet" data-cible="vrac_mandataire">
+            <?php echo $form['mandataire_exist']->renderError() ?>
+            <?php echo $form['mandataire_exist']->renderLabel() ?>
+            <?php echo $form['mandataire_exist']->render() ?>
+        </div>
+        <div id="mandataire" class="vrac_mandataire">
             <h1>Mandataire</h1>
             <h2>Sélectionner un mandataire :</h2>
             <div class="section_label_strong">
