@@ -14,7 +14,7 @@ class etablissement_autocompleteActions extends sfActions
   	}
 
  	public function executeByFamilles(sfWebRequest $request) {
-	    $interpro = $this->getUser()->getTiers()->getInterproObject()->get('_id');
+	    $interpro = $this->getUser()->getInterpro()->get('_id');
 		$familles = $request->getParameter('familles');
 		
 	    $json = $this->matchEtablissements(
