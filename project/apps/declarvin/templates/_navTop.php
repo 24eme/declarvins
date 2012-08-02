@@ -18,8 +18,8 @@ use_helper('Text');
         </li>
         <?php endif; ?>
         
-        <li>
-            <a href="#">Profil</a>
+        <li<?php if ($active == 'profil'): ?> class="actif"<?php endif; ?>>
+            <a href="<?php echo url_for('@profil') ?>">Profil</a>
         </li>
     </ul>
 

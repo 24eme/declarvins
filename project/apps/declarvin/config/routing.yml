@@ -78,6 +78,9 @@ tiers_mon_espace:
 tiers:
   url: /tiers
   param: { module: tiers, action: login }
+profil:
+  url: /profil
+  param: { module: tiers, action: profil }
 login:
   url: /login
   param: {module: acVinCompte, action: login}
