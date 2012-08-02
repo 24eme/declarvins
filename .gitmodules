@@ -37,3 +37,6 @@
 [submodule "wiki"]
 	path = wiki
 	url = git@gitorious.org:declarvin/declarvin-gitorious-wiki.git
+[submodule "project/plugins/acVinDouanePlugin"]
+	path = project/plugins/acVinDouanePlugin
+	url = git@gitorious.org:acvin/acvindouaneplugin.git
