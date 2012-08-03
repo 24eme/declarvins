@@ -144,7 +144,6 @@ abstract class acCouchdbJsonFields {
 
         $data = $this->_unloaded_data;
         $this->_unloaded_data = null;
-
         foreach ($data as $key => $item) {
             if (!$this->_exist($key)) {
                 $this->_add($key);
@@ -159,7 +158,7 @@ abstract class acCouchdbJsonFields {
 
     protected function _add($key = null, $item = null) {
         if (!$this->getDefinition()->exist($key)) {
-            throw new acCouchdbException(sprintf("Definition error : %s (%s)", $key, $this->getHash()));
+            throw new acCouchdbException(sprintf("The field \"%s\" does not exist in the schema.yml definition in the document \"%s\". Please remove it asshole !", $this->getHash()."/".$key, $this->getDocument()->get('_id')));
         }
         if ($this->_is_array) {
             $key = $this->addNumeric($key);
