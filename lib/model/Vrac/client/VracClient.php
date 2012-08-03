@@ -72,12 +72,12 @@ class VracClient extends acCouchdbClient {
     public function retrieveFromEtablissementsAndHash($etablissement, $hash, $mustActive = true, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
       $contrats = array();
       $hash = preg_replace('|(couleurs/[^/]*/).*|', '\1', $hash);
-      foreach ($this->startkey(array($etablissement))
-	       ->endkey(array($etablissement, array()))->getView('vrac', 'all', $hydrate)->rows as $c) {
-	       	if (strpos($hash, $c->key[1]) !== false) {
-      	if ($mustActive && $c->key[3] == Configuration::STATUT_CONTRAT_NONSOLDE) {
-      		$contrats[] = parent::retrieveDocumentById($c->key[2]);
-      	}
+      $vracs = VracAllView::getInstance()->findByEtablissement($etablissement);
+      foreach ($vracs->rows as $c) {
+	       	if (strpos('/'.$c->key[VracAllView::VRAC_VIEW_PRODUIT], $hash) !== false) {
+		      	if ($mustActive && $c->key[VracAllView::VRAC_VIEW_STATUT] == Configuration::STATUT_CONTRAT_NONSOLDE) {
+		      		$contrats[] = parent::retrieveDocumentById($c->key[VracAllView::VRAC_VIEW_ID]);
+		      	}
 	       	}
       }
       return $contrats;
@@ -86,8 +86,8 @@ class VracClient extends acCouchdbClient {
     public function retrieveFromEtablissements($etablissement, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
       $contrats = array();
       foreach ($this->startkey(array($etablissement))
-	       ->endkey(array($etablissement, array()))->getView('vrac', 'all', $hydrate)->rows as $c) {
-	$contrats[] = parent::retrieveDocumentById($c->key[2]);
+	       ->endkey(array($etablissement, array()))->getView('vrac', 'all')->rows as $c) {
+	$contrats[] = parent::retrieveDocumentById($c->key[2], $hydrate);
       }
       return $contrats;
     }
