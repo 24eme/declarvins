@@ -123,6 +123,13 @@
             <div class="adresse_livraison">
                 <div id="type" class="section_label_strong"><label for="dif_adr_stock">Précision de l'adresse de stockage (si différente) <input type="checkbox" name="dif_adr_stock" id="dif_adr_stock"></label></div>
                 <div class="bloc_form"> 
+                    <div class="vracs_ligne_form vracs_ligne_form_alt">
+                        <span>
+                            <?php echo $form['adresse_stockage']['libelle']->renderError() ?>
+                            <?php echo $form['adresse_stockage']['libelle']->renderLabel() ?>
+                            <?php echo $form['adresse_stockage']['libelle']->render() ?>
+                        </span>
+                    </div>
                     <div class="vracs_ligne_form ">
                         <span>
                             <?php echo $form['adresse_stockage']['adresse']->renderError() ?>
@@ -258,6 +265,13 @@
                     <label for="dif_adr_livr">Précision de l'adresse de livraison (si différente) <input type="checkbox" name="dif_adr_livr" id="dif_adr_livr"></label>
                 </div>
                 <div class="bloc_form"> 
+                    <div class="vracs_ligne_form vracs_ligne_form_alt">
+                        <span>
+                            <?php echo $form['adresse_livraison']['libelle']->renderError() ?>
+                            <?php echo $form['adresse_livraison']['libelle']->renderLabel() ?>
+                            <?php echo $form['adresse_livraison']['libelle']->render() ?>
+                        </span>
+                    </div>
                     <div class="vracs_ligne_form ">
                         <span>
                             <?php echo $form['adresse_livraison']['adresse']->renderError() ?>
