@@ -1,5 +1,5 @@
 <?php
-class VracConditionIvseForm extends VracConditionForm 
+class VracConditionCivpForm extends VracConditionForm 
 {
 
 }
