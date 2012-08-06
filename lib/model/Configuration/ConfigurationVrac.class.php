@@ -10,21 +10,16 @@ class ConfigurationVrac extends BaseConfigurationVrac {
 	const FAMILLE_ACHETEUR = 'Negociant';
 	const FAMILLE_MANDATAIRE = 'Courtier';
 	
-	/*
-     * @todo 
-     */
+	const CAS_PARTICULIER_DEFAULT_KEY = 'aucun';
+	
     public function getVendeurs() {
     	return EtablissementAllView::getInstance()->findByInterproAndFamille($this->getKey(), self::FAMILLE_VENDEUR)->rows;
     }
-    /*
-     * @todo 
-     */
+    
     public function getAcheteurs() {
     	return EtablissementAllView::getInstance()->findByInterproAndFamille($this->getKey(), self::FAMILLE_ACHETEUR)->rows;
     }
-    /*
-     * @todo 
-     */
+    
     public function getMandataires() {
     	return EtablissementAllView::getInstance()->findByInterproAndFamille($this->getKey(), self::FAMILLE_MANDATAIRE)->rows;
     }
@@ -34,9 +29,7 @@ class ConfigurationVrac extends BaseConfigurationVrac {
     public function getMandatants() {
     	return array();
     }
-    /*
-     * @todo 
-     */
+    
     public function getConfig() {
     	return $this->getDocument();
     }
@@ -79,6 +72,11 @@ class ConfigurationVrac extends BaseConfigurationVrac {
     public function formatCommentairesLotLibelle($commentaires, $format = "%com%", $separator = ", ") {
       $libelles = $this->getLibelles($commentaires, 'commentaires_lot');
       return str_replace("%com%", implode($separator, $libelles), $format);
+    }
+
+    public function formatCasParticulierLibelle($cas, $format = "%ca%", $separator = ", ") {
+      $libelles = $this->getLibelles($cas, 'cas_particulier');
+      return str_replace("%ca%", implode($separator, $libelles), $format);
     }
 
     public function getLibelles($collection, $node) {

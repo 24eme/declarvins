@@ -109,6 +109,11 @@ Configuration:
                           definition:
                             fields:
                               '*': {  }
+                        cas_particulier:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
       labels:
         type: collection
         definition:
