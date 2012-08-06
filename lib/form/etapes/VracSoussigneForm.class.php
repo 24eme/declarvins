@@ -27,5 +27,6 @@ class VracSoussigneForm extends VracForm
     public function setDefaultValues() 
     {
     	$this->getWidget('cas_particulier')->setDefault((($this->getObject()->cas_particulier)? $this->getObject()->cas_particulier : ConfigurationVrac::CAS_PARTICULIER_DEFAULT_KEY));
+    	$this->getWidget('premiere_mise_en_marche')->setDefault(true);
     }
 }
