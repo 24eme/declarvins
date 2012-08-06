@@ -1,5 +1,5 @@
 <?php
-class VracMarcheIvseForm extends VracForm 
+class VracMarcheForm extends VracForm 
 {
    	public function configure()
     {
@@ -9,8 +9,10 @@ class VracMarcheIvseForm extends VracForm
            'produit',
 	       'labels',
            'mentions',
+		   'prix_unitaire',
            'volume_propose',
-	       'annexe'
+		   'prix_total',
+		   'has_transaction'
 		));
 		$this->widgetSchema->setNameFormat('vrac_marche[%s]');
     }

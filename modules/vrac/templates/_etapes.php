@@ -7,7 +7,6 @@
                     foreach ($etapes as $etape => $etapeLibelle) {
                             $counter++;
                             include_partial('etapeItem',array('vrac' => $vrac, 'actif' => $actif, 'etape' => $etape, 'label' => $etapeLibelle, 'isActive' => ($actif == $etape), 'isLink' => !$configurationVracEtapes->hasSup($etape, $actif), 'last' => ($nbEtapes == $counter), 'first' => $first));
-                            
                             if ($first) {
                                 $first = false;
                             }

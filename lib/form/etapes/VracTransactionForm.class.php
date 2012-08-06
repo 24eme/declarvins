@@ -1,5 +1,5 @@
 <?php
-class VracTransactionIvseForm extends VracForm 
+class VracTransactionForm extends VracForm 
 {
    	public function configure()
     {

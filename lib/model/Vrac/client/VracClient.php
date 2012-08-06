@@ -3,7 +3,7 @@
 class VracClient extends acCouchdbClient {
    
 	/*
-	 * @todo Rendre generique les constantes
+	 * @todo Rendre generique les constantes de transaction
 	 */
     const TYPE_TRANSACTION_RAISINS = 'raisins';
     const TYPE_TRANSACTION_MOUTS = 'mouts';
@@ -44,66 +44,24 @@ class VracClient extends acCouchdbClient {
         return $id;
     }
     
-    public function getAtDate($date, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
+    public function getAtDate($date, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) 
+    {
         return $this->startkey('VRAC-'.$date.'000')->endkey('VRAC-'.$date.'999')->execute($hydrate);        
     }
     
-    public function findByNumContrat($num_contrat) {
+    public function findByNumContrat($num_contrat) 
+    {
       return $this->find($this->getId($num_contrat));
     }
     
-    public function retrieveLastDocs() {
+    public function retrieveLastDocs() 
+    {
       return $this->descending(true)->limit(300)->getView('vrac', 'history');
     }
     
-    public function retrieveBySoussigne($soussigneParam) {
+    public function retrieveBySoussigne($soussigneParam) 
+    {
       return $this->startkey(array($soussigneParam))
               ->endkey(array($soussigneParam, array()))->limit(300)->getView('vrac', 'soussigneidentifiant');
-    }
-    /*
-     * Methodes de l'ancien plugin
-     */
-
-    public function retrieveById($id, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
-        return parent::retrieveDocumentById('VRAC-'.$id, $hydrate);
-    }
-    
-
-    public function retrieveFromEtablissementsAndHash($etablissement, $hash, $mustActive = true, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
-      $contrats = array();
-      $hash = preg_replace('|(couleurs/[^/]*/).*|', '\1', $hash);
-      $vracs = VracAllView::getInstance()->findByEtablissement($etablissement);
-      foreach ($vracs->rows as $c) {
-	       	if (strpos('/'.$c->key[VracAllView::VRAC_VIEW_PRODUIT], $hash) !== false) {
-		      	if ($mustActive && $c->key[VracAllView::VRAC_VIEW_STATUT] == Configuration::STATUT_CONTRAT_NONSOLDE) {
-		      		$contrats[] = parent::retrieveDocumentById($c->key[VracAllView::VRAC_VIEW_ID]);
-		      	}
-	       	}
-      }
-      return $contrats;
-    }
-
-    public function retrieveFromEtablissements($etablissement, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
-      $contrats = array();
-      foreach ($this->startkey(array($etablissement))
-	       ->endkey(array($etablissement, array()))->getView('vrac', 'all')->rows as $c) {
-	$contrats[] = parent::retrieveDocumentById($c->key[2], $hydrate);
-      }
-      return $contrats;
-    }
-    
-    public function retrieveByNumeroAndEtablissementAndHashOrCreateIt($id, $etablissement, $hash, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
-      $vrac = $this->retrieveById($id);
-      if (!$vrac) {
-	$vrac = new Vrac();
-	$vrac->vendeur_identifiant = "ETABLISSEMENT-".$etablissement;
-	$vrac->numero_contrat = $id;
-	$vrac->produit = $hash;
-      }
-      if ($etablissement != $vrac->vendeur_identifiant)
-	throw new sfException('le vendeur ne correpond pas à l\'établissement initial');
-      if (!preg_match("|^$hash|", $vrac->produit))
-	throw new sfException('Le hash du produit ne correpond pas au hash initial ('.$vrac->produit.'<->'.$hash.')');
-      return $vrac;
     }
  }
