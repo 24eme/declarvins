@@ -398,19 +398,9 @@
                 <?php echo $form['premiere_mise_en_marche']->render() ?>
             </div>
             <div class="section_label_strong">
-                <?php echo $form['production_otna']->renderError() ?>
-                <?php echo $form['production_otna']->renderLabel() ?>
-                <?php echo $form['production_otna']->render() ?>
-            </div>
-            <div class="section_label_strong">
-                <?php echo $form['apport_union']->renderError() ?>
-                <?php echo $form['apport_union']->renderLabel() ?>
-                <?php echo $form['apport_union']->render() ?>
-            </div>
-            <div class="section_label_strong">
-                <?php echo $form['cession_interne']->renderError() ?>
-                <?php echo $form['cession_interne']->renderLabel() ?>
-                <?php echo $form['cession_interne']->render() ?>
+                <?php echo $form['cas_particulier']->renderError() ?>
+                <?php echo $form['cas_particulier']->renderLabel() ?>
+                <?php echo $form['cas_particulier']->render() ?>
             </div>
         </div>
 

@@ -14,14 +14,18 @@ class VracSoussigneForm extends VracForm
 	       'mandataire_exist',
 	       'mandataire_identifiant',
 	       'premiere_mise_en_marche',
-	       'production_otna',
-	       'apport_union',
-	       'cession_interne',
+	       'cas_particulier',
 		   'vendeur',
 		   'acheteur',
 		   'mandataire',
 		   'adresse_stockage',
 		   'adresse_livraison',
 		));
+		$this->setDefaultValues();
+    }
+
+    public function setDefaultValues() 
+    {
+    	$this->getWidget('cas_particulier')->setDefault((($this->getObject()->cas_particulier)? $this->getObject()->cas_particulier : ConfigurationVrac::CAS_PARTICULIER_DEFAULT_KEY));
     }
 }

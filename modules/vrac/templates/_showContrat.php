@@ -33,16 +33,8 @@
 				<span><?php echo ($vrac->premiere_mise_en_marche)? 'Oui' : 'Non'; ?></span>
 			</li>
 			<li>
-				<span>Contrat entre producteurs 5% ou OTNA :</span>
-				<span><?php echo ($vrac->production_otna)? 'Oui' : 'Non'; ?></span>
-			</li>
-			<li>
-				<span>Apport contractuel à une union :</span>
-				<span><?php echo ($vrac->apport_union)? 'Oui' : 'Non'; ?></span>
-			</li>
-			<li>
-				<span>Contrat interne entre deux filiales :</span>
-				<span><?php echo ($vrac->cession_interne)? 'Oui' : 'Non'; ?></span>
+				<span>Cas particulier :</span>
+				<span><?php echo $configurationVrac->formatCasParticulierLibelle(array($vrac->cas_particulier)); ?></span>
 			</li>
     	</ul>
     	<p><a href="" class="modifier">modifier</a></p>

@@ -35,9 +35,7 @@ class VracForm extends acCouchdbObjectForm
                 'mandataire_exist' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'mandataire_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getMandataires()), array('class' => 'autocomplete')),
         	'premiere_mise_en_marche' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
-        	'production_otna' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
-        	'apport_union' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
-        	'cession_interne' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
+        	'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier())),
         	'original' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'has_transaction' => new sfWidgetFormInputCheckbox(),
         	'type_transaction' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getTypesTransaction())),
@@ -93,9 +91,7 @@ class VracForm extends acCouchdbObjectForm
         	'mandataire_exist' => 'Transaction avec un courtier',
         	'mandataire_identifiant' => 'Mandataire:',
         	'premiere_mise_en_marche' => 'Première mise en marché:',
-        	'production_otna' => 'Contrat entre producteurs 5% ou OTNA:',
-        	'apport_union' => 'Apport contractuel à une union:',
-        	'cession_interne' => 'Contrat interne entre deux filiales:',
+        	'cas_particulier' => 'Cas particulier:',
         	'original' => 'En attente de l\'original:',
         	'has_transaction' => 'Je souhaite associer une déclaration de transaction',
         	'type_transaction' => 'Type de transaction:',
@@ -151,9 +147,7 @@ class VracForm extends acCouchdbObjectForm
         	'mandataire_exist' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'mandataire_identifiant' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getMandataires()))),
         	'premiere_mise_en_marche' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
-        	'production_otna' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
-        	'apport_union' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
-        	'cession_interne' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
+        	'cas_particulier' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCasParticulier()))),
         	'original' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'has_transaction' => new sfValidatorPass(),
         	'type_transaction' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getTypesTransaction()))),
@@ -261,9 +255,15 @@ class VracForm extends acCouchdbObjectForm
     {
     	return $this->formatEtablissements($this->getConfiguration()->getMandataires());
     }
+
     public function getTypesTransaction()
     {
     	return $this->getConfiguration()->getTypesTransaction()->toArray();
+    }
+    
+    public function getCasParticulier()
+    {
+    	return $this->getConfiguration()->getCasParticulier()->toArray();
     }
     
     public function getProduits()
