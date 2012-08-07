@@ -7,6 +7,7 @@ class VracMarcheForm extends VracForm
 		$this->useFields(array(
            'type_transaction',
            'produit',
+		   'millesime'
 	       'labels',
            'mentions',
 		   'prix_unitaire',

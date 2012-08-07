@@ -87,6 +87,7 @@ Vrac:
       original: {  }
       type_transaction: {  }
       produit: {  }
+      millesime: {  }
       contient_domaine: {  }
       domaine: {  }
       labels:

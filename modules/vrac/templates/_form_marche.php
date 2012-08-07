@@ -16,6 +16,11 @@
                 <?php echo $form['produit']->renderLabel() ?>
                 <?php echo $form['produit']->render() ?>
             </div>
+            <div  class="section_label_strong">
+                <?php echo $form['millesime']->renderError() ?>
+                <?php echo $form['millesime']->renderLabel() ?>
+                <?php echo $form['millesime']->render() ?>
+            </div>
             <div class="section_label_strong">
                 <?php echo $form['labels']->renderError() ?>
                 <?php echo $form['labels']->renderLabel() ?>
