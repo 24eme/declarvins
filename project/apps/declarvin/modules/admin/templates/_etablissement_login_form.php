@@ -4,9 +4,9 @@
         <?php echo $form->renderHiddenFields(); ?>
         <?php echo $form->renderGlobalErrors(); ?>
 
-        <?php echo $form['etablissement']->renderLabel() ?>
-        <?php echo $form['etablissement']->render() ?>
-        <?php echo $form['etablissement']->renderError() ?>
+        <?php echo $form['identifiant']->renderLabel() ?>
+        <?php echo $form['identifiant']->render() ?>
+        <?php echo $form['identifiant']->renderError() ?>
     </div>
 	<br />
     <div class="btnValidation">
@@ -18,6 +18,6 @@
 <script type="text/javascript">
 $(document).ready(function () {
     $("#bloc_admin_etablissement_choice").hide();
-	$("#<?php echo $form['etablissement']->renderId() ?>").combobox();
+	$("#<?php echo $form['identifiant']->renderId() ?>").combobox();
 });
 </script>

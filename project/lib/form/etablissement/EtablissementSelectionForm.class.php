@@ -1,45 +1,16 @@
 <?php
-class EtablissementSelectionForm extends sfForm {
+class EtablissementSelectionForm extends EtablissementChoiceForm {
 	
-	protected $interpro;
-	
-	public function __construct($interpro, $defaults = array(), $options = array(), $CSRFSecret = null)
-  	{
-  		$this->interpro = $interpro;
-  		parent::__construct($defaults = array(), $options = array(), $CSRFSecret = null);
-  	}
+
 	public function configure() {
-    	$this->setWidgets(array(
-			'etablissement' => new sfWidgetFormChoice(array('choices' => array()), array('data-ajax' => $this->getUrlAutocomplete())) 		
-    	));
-		$this->widgetSchema->setLabels(array(
-			'etablissement' => 'Etablissement*: ',
-		));
-		$this->setValidators(array(
-			'etablissement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getEtablissements()))),
-		));
-        $this->widgetSchema->setNameFormat('etablissement_selection[%s]');
+    	parent::configure();
+        $this->getWidget('identifiant')->setLabel('Etablissement :');
     }
-    
-    private function getEtablissements() {
-    	$etablissements = EtablissementAllView::getInstance()->findByInterpro($this->interpro);
-    	$result = array('' => '');
-    	foreach ($etablissements->rows as $etablissement) {
-    		
-    		$result[$etablissement->key[2]] = EtablissementAllView::getInstance()->makeLibelle($etablissement->key); 
-    	}
-    	return $result;
-    }
-    
+
     public function setName($name)
     {
     	$name = ($name)? $name : 'etablissement_selection';
     	$this->widgetSchema->setNameFormat($name.'[%s]');
     }
 
-    public function getUrlAutocomplete() {
-
-        return sfContext::getInstance()->getRouting()->generate('etablissement_autocomplete_all');
-    }
-    
 }
