@@ -55,20 +55,25 @@ var initMarche = function()
         var parentBloc = $('.popup_form');
         var parentInputs = parentBloc.find('.contenu_onglet:has(.radio_list)');
         var blocAdresse = parentBloc.find('.adresse_livraison');
+        var blocVendeurAcheteur = parentBloc.find('.vrac_vendeur_acheteur');
 
         var checkUncheck = function(cibleInput, cibleBloc, voisins)
         {
-            cibleInput.change(function()
+            cibleInput.click(function()
             {
-                if($(this).is('!:checked'))
+                if($(this).is(':checked'))
                 {
-                   if(voisins) voisins.hide();
+                    if(voisins){
+                        voisins.hide();
+                        voisins.find(':input').val('').removeAttr('checked');
+                    }
                     cibleBloc.toggle();
                 }else{
                     cibleBloc.toggle();
                 }
             });
         }
+
         parentInputs.each(function()
         {
             var compteur = 0;
@@ -91,9 +96,18 @@ var initMarche = function()
                     eqCible.show();
                 }else{ eqCible.hide(); }
                 
-                checkUncheck($thisInput, cibles, eqCible);
+                checkUncheck($thisInput, eqCible, cibles);
 
                 compteur++;
+            });
+        });
+
+        blocVendeurAcheteur.each(function(){
+            var $this = $(this);
+            var inputReset = $this.find('.modif_info :radio');
+            var blocPourReset = $this.find('.bloc_form:first');
+            inputReset.change(function(){
+                blocPourReset.find(':input').val('').removeAttr('checked');
             });
         });
 
@@ -103,7 +117,7 @@ var initMarche = function()
             var infos = $this.find('.bloc_form');
             var blocCheck = $this.find('.section_label_strong :checkbox');
 
-            checkUncheck(blocCheck, infos);
+            checkUncheck(blocCheck, infos, infos);
 
             infos.hide();
         });
