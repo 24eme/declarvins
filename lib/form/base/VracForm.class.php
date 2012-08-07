@@ -268,7 +268,8 @@ class VracForm extends acCouchdbObjectForm
     
     public function getProduits()
     {
-    	$produits = $this->getConfiguration()->getConfig()->formatProduits();
+    	$vracConfiguration = $this->getConfiguration();
+    	$produits = $vracConfiguration->getConfig()->formatProduitsByInterpro($vracConfiguration->getInterproId());
     	$produits[''] = '';
     	ksort($produits);
     	return $produits;

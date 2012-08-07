@@ -10,10 +10,10 @@
             <label for="">Vous êtes: </label>
             <ul class="radio_list">
                 <li>
-                    <input name="vrac_acheteur_vendeur" type="radio" id="vrac_vendeur">&nbsp;<label for="vrac_vendeur">vendeur</label>
+                    <input name="vrac_acheteur_vendeur" type="radio" id="vrac_vendeur" value="vendeur"<?php if ($form->getObject()->acheteur_identifiant): ?> checked="checked"<?php endif; ?> />&nbsp;<label for="vrac_vendeur">vendeur</label>
                 </li>
                 <li>
-                    <input name="vrac_acheteur_vendeur" type="radio" id="vrac_acheteur">&nbsp;<label for="vrac_acheteur">acheteur</label>
+                    <input name="vrac_acheteur_vendeur" type="radio" id="vrac_acheteur" value="acheteur"<?php if ($form->getObject()->vendeur_identifiant): ?> checked="checked"<?php endif; ?> />&nbsp;<label for="vrac_acheteur">acheteur</label>
                 </li>
             </ul>
         </div>
