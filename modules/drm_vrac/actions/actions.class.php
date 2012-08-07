@@ -36,7 +36,6 @@ class drm_vracActions extends sfActions
 	  if (!count($contrats)) {
 	    $this->noContrats[$detail->getIdentifiantHTML()] = true;
 	  }
-
     	  foreach ($detail->getVrac() as $vrac) {
     	    $this->forms[$detail->getIdentifiantHTML()][$vrac->getKey()] = new VracDetailModificationForm($vrac);
     	  }
