@@ -35,6 +35,14 @@ class ConfigurationProduitsView extends acCouchdbView
         return acCouchdbManager::getView('configuration', 'produits', 'Configuration');
     }
 
+    public function findProduitsByInterpro($interpro) {
+
+    	return $this->client->startkey(array(self::TYPE_LINE_PRODUITS, $interpro))
+              				->endkey(array(self::TYPE_LINE_PRODUITS, $interpro, array()))
+              				->reduce(false)
+              				->getView($this->design, $this->view);
+  	}
+
     public function findProduits() {
 
     	return $this->client->startkey(array(self::TYPE_LINE_PRODUITS))
