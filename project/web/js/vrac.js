@@ -69,7 +69,6 @@ var initMarche = function()
                 }
             });
         }
-
         parentInputs.each(function()
         {
             var compteur = 0;
