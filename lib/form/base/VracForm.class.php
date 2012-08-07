@@ -42,7 +42,7 @@ class VracForm extends acCouchdbObjectForm
         	'produit' => new sfWidgetFormChoice(array('choices' => $this->getProduits()), array('class' => 'autocomplete')),
         	'type_domaine' => new sfWidgetFormChoice(array('choices' => $this->getTypesDomaine())),
         	'domaine' => new sfWidgetFormInputText(),
-        	'labels' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getLabels(), 'multiple' => true)),
+        	'labels' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getLabels(), 'multiple' => false)),
         	'mentions' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getMentions(), 'multiple' => true)),
         	'volume_propose' => new sfWidgetFormInputFloat(),
         	'annexe' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
