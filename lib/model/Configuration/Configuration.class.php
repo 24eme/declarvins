@@ -35,8 +35,17 @@ class Configuration extends BaseConfiguration {
       	return ConfigurationProduitsView::getInstance()->findProduits()->rows;
     }
 
+    public function getProduitsByInterpro($interpro) {
+      	
+      	return ConfigurationProduitsView::getInstance()->findProduitsByInterpro($interpro)->rows;
+    }
+
     public function formatProduits($format = "%g% %a% %l% %co% %ce%") {
     	return ConfigurationProduitsView::getInstance()->formatProduits($this->getProduits(), $format);
+    }
+
+    public function formatProduitsByInterpro($interpro, $format = "%g% %a% %l% %co% %ce%") {
+    	return ConfigurationProduitsView::getInstance()->formatProduits($this->getProduitsByInterpro($interpro), $format);
     }
 
     public function getProduitLibelleByHash($hash) {

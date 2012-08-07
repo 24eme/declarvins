@@ -87,5 +87,10 @@ class ConfigurationVrac extends BaseConfigurationVrac {
         }
         return $libelles;
     }
+    
+    public function getInterproId()
+    {
+    	return $this->getKey();
+    }
 
 }
