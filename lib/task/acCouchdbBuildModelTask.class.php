@@ -41,6 +41,7 @@ EOF;
         @mkdir($dir);
         $base_dir = $dir.'/base';
         @mkdir($base_dir);
+        @mkdir($dir.'/client');
         sfToolkit::clearDirectory($base_dir);
 
        
@@ -57,6 +58,12 @@ EOF;
         if (!is_file($dir . '/' . $filename)) {
             file_put_contents($dir . '/' . $filename, $this->getFileContentDocument(array("%MODEL_NAME%" => $model)));
             $this->logSection("class document generated", $dir . '/' . $filename);
+        }
+
+        $client_path_filename = $dir . '/client/' . $model."Client.class.php";
+        if (!is_file($client_path_filename)) {
+            file_put_contents($client_path_filename, $this->getFileContentClient(array("%MODEL_NAME%" => $model)));
+            $this->logSection("client class generated", $client_path_filename);
         }
 
         $this->generateTreeClasses($dir, $base_dir, $definition);
@@ -128,6 +135,18 @@ EOF;
             }
         }
         return $methods;
+    }
+
+    protected function getFileContentClient($values) {
+	return str_replace(array_keys($values), array_values($values), "<?php
+
+class %MODEL_NAME%Client extends acCouchdbClient {
+    public static function getInstance()
+    {
+      return acCouchdbManager::getClient(\"%MODEL_NAME%\");
+    }  
+}
+");
     }
 
     protected function getFileContentBaseDocument($values) {
