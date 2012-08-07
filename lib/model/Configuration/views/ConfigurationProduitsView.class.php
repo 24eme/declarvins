@@ -131,11 +131,13 @@ class ConfigurationProduitsView extends acCouchdbView
 
 		foreach($format_index as $key => $item) {
 		  if (isset($libelles[$item])) {
-		    $libelle = trim(str_replace($key, $libelles[$item], $libelle));
+		    $libelle = str_replace($key, $libelles[$item], $libelle);
 		  } else {
-		    $libelle = trim(str_replace($key, "", $libelle));
+		    $libelle = str_replace($key, "", $libelle);
 		  }
 		}
+
+        $libelle = preg_replace('/ +/', ' ', $libelle);
 
 		return $libelle;
   	}
@@ -153,11 +155,13 @@ class ConfigurationProduitsView extends acCouchdbView
 
 		foreach($format_index as $key => $item) {
 		  if (isset($codes[$item])) {
-		    $code = trim(str_replace($key, $codes[$item], $code));
+		    $code = str_replace($key, $codes[$item], $code);
 		  } else {
-		    $code = trim(str_replace($key, "", $code));
+		    $code = str_replace($key, "", $code);
 		  }
 		}
+
+        $code = preg_replace('/ +/', ' ', $code);
 
 		return $code;
   	}
