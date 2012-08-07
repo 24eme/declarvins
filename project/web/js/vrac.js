@@ -37,7 +37,6 @@ var updatePanelsConditions = function()
         else
         {
             $('section#prix_variable').show();
-
         }
     }
 }
@@ -88,9 +87,14 @@ var initMarche = function()
                 var cibles = $('.'+cible+'');
                 var eqCible = cibles.eq(compteur);
 
-                compteur++;
-
+                if($thisInput.is(':checked'))
+                {
+                    eqCible.show();
+                }else{ eqCible.hide(); }
+                
                 checkUncheck($thisInput, cibles, eqCible);
+
+                compteur++;
             });
         });
 
@@ -104,8 +108,6 @@ var initMarche = function()
 
             infos.hide();
         });
-
-        $('#acheteur,#vendeur, #mandataire').hide();
     };
 
     if($('.vrac_marche').exists())
