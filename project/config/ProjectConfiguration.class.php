@@ -23,5 +23,6 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('UserPlugin');
     $this->enablePlugins('VracPlugin');
     $this->enablePlugins('acVinVracPlugin');
+    $this->enablePlugins('acVinDouanePlugin');
   }
 }

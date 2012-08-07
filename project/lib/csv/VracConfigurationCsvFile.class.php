@@ -19,6 +19,7 @@ class VracConfigurationCsvFile extends CsvFile
   const CSV_VRAC_CONFIGURATION_CONTENANCES = 14;
   const CSV_VRAC_CONFIGURATION_ETAPES = 15;
   const CSV_VRAC_CONFIGURATION_COMMENTAIRES_LOT = 16;
+  const CSV_VRAC_CONFIGURATION_CAS_PARTICULIER = 17;
   private static $nodes = array(
     'etapes',
   	'vendeur_types',
@@ -35,7 +36,8 @@ class VracConfigurationCsvFile extends CsvFile
   	'types_domaine',
   	'delais_paiement',
   	'contenances',
-  	'commentaires_lot'
+  	'commentaires_lot',
+  	'cas_particulier'
   );
   
   protected $config;

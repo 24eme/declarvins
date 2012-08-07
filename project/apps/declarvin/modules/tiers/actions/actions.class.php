@@ -55,4 +55,17 @@ class tiersActions extends sfActions
         return $this->redirect("@vrac");
     }
   }
+  
+  public function executeProfil(sfWebRequest $request) 
+  {
+  	  $this->form = new CompteProfilForm($this->getUser()->getCompte());
+      if ($request->isMethod(sfWebRequest::POST)) {
+      	$this->form->bind($request->getParameter($this->form->getName()));
+      	if ($this->form->isValid()) {
+      		$this->form->save();
+      		$this->getUser()->setFlash('notice', 'Modifications effectuées avec succès');
+      		$this->redirect('@profil');
+      	}
+      }
+  }
 }

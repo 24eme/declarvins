@@ -126,7 +126,7 @@ var initMarche = function()
                 }else if(isNaN(thisVal) && !isNaN(otherVal))
                 {
                     total.val(otherVal);
-                }else{ total.val(thisVal + otherVal); }
+                }else{ total.val(thisVal * otherVal); }
             });
         }
 

@@ -2335,7 +2335,7 @@ p#date_drm {
 }
 .vracs .contenu_onglet label#label_acheteur { margin:0 95px 0 45px; }
 .vracs .contenu_onglet label input[type="radio"] { margin-right:7px; }
-.vracs #acheteur, .vracs #mandataire, .vracs #contrat { padding-top:20px; }
+.vracs #mandataire, .vracs #contrat { padding-top:20px; }
 .vracs .ligne_form_btn {
   margin:30px 0 0;
   text-align:right;
@@ -2435,7 +2435,6 @@ p#date_drm {
 }
 .vracs #vrac_soussigne #vendeur_choice:after, .vracs #vrac_soussigne #acheteur_choice:after { clear:both; }
 .vracs #vrac_soussigne .mandataire_infos { clear:both; }
-.vracs #vrac_soussigne #acheteur { padding-top:40px; }
 .vracs #vrac_soussigne #has_mandataire { padding:20px 0 0 10px; }
 .vracs #vrac_soussigne #mandataire {
   zoom:1;
@@ -2554,7 +2553,7 @@ p#date_drm {
 }
 .vracs #vendeur .bloc_form, .vracs #acheteur .bloc_form { height:264px; }
 .vracs #mandataire .bloc_form { height:220px; }
-.vracs .adresse_livraison .bloc_form { height:130px !important; }
+.vracs .adresse_livraison .bloc_form { height:175px !important; }
 .vracs .adresse_livraison .section_label_strong label { width:500px; }
 .vracs .adresse_livraison label input[type="checkbox"] { margin:0 0 0 5px; }
 .vracs #ligne_btn {
