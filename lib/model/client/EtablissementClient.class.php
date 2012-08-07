@@ -23,12 +23,36 @@ class EtablissementClient extends acCouchdbClient {
      * @param string $login
      * @param integer $hydrate
      * @return Etablissement 
+     * @deprecated find()
      */
     public function retrieveById($id, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
 
         return parent::find('ETABLISSEMENT-'.$id, $hydrate);
     }
 
+    public function find($id_or_identifiant, $hydrate = self::HYDRATE_DOCUMENT) {
+
+        return parent::find($this->getId($id_or_identifiant), $hydrate);
+    }
+
+    public function getId($id_or_identifiant) {
+        $id = $id_or_identifiant;
+        if(strpos('ETABLISSEMENT-', $id_or_identifiant) === false) {
+            $id = 'ETABLISSEMENT-'.$id;
+        }
+
+        return $id;
+    }
+
+    public function getIdentifiant($id_or_identifiant) {
+
+        return $identifiant = str_replace('ETABLISSEMENT-', '', $id_or_identifiant);
+    }
+
+    /**
+     * 
+     * @deprecated find()
+     */
     public function findByIdentifiant($identifiant, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
 
         return parent::find('ETABLISSEMENT-'.$identifiant, $hydrate);

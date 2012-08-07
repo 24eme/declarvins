@@ -33,7 +33,7 @@ class etablissement_autocompleteActions extends sfActions
 	      $text = EtablissementAllView::getInstance()->makeLibelle($etablissement->key);
 	     
 	      if (Search::matchTerm($term, $text)) {
-	        $json[$etablissement->id] = $text;
+	        $json[EtablissementClient::getInstance()->getIdentifiant($etablissement->id)] = $text;
 	      }
 
 	      if (count($json) >= $limit) {
