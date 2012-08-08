@@ -1,10 +1,6 @@
 <?php
 
 class EtablissementClient extends acCouchdbClient {
-   
-    const FAMILLE_PRODUCTEUR = "producteur";
-    const FAMILLE_NEGOCIANT = "negociant";
-    const FAMILLE_COURTIER = "courtier";
 
     /**
      *

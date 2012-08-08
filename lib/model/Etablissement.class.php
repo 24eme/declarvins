@@ -74,16 +74,16 @@ class Etablissement extends BaseEtablissement {
 	}
 
     public function getDroits() {
-        /*$droits = array();
-
-        if (in_array($this->famille, array(EtablissementClient::FAMILLE_PRODUCTEUR))) {
-            $droits[] = TiersSecurityUser::CREDENTIAL_DROIT_DRM;
-        }
-        
-        $droits[] = TiersSecurityUser::CREDENTIAL_DROIT_VRAC;
-
-        return $droits;*/
     	return EtablissementFamilles::getDroitsByFamilleAndSousFamille($this->famille, $this->sous_famille);
     }   
+    public function save() {
+    	if (!$this->famille) {
+    		$this->famille = EtablissementFamilles::FAMILLE_PRODUCTEUR;
+    	}
+    	if (!$this->sous_famille) {
+    		$this->sous_famille = EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE;
+    	}
+    	parent::save();
+    }
     
 }
