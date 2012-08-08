@@ -6,7 +6,7 @@ class globalComponents extends sfComponents {
     	$this->recherche = false;
         if ($this->interpro = $this->getUser()->getInterpro()) {
         	$this->recherche = true;
-        	$this->form = new EtablissementSelectionForm($this->interpro->_id);
+        	$this->form = new EtablissementSelectionForm();
         	$this->form->setName('etablissement_selection_nav');
         }
     }

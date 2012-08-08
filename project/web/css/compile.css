@@ -194,6 +194,14 @@ pre, code, kbd, samp { font-family:monospace, sans-serif; }
   padding:0 0 0 17px;
 }
 .btn_ajouter:hover, .btn_ajouter:focus { text-decoration:underline; }
+.btn_ajouter_ligne_template {
+  background:url(../images/pictos/pi_ajouter.png) 0 center no-repeat;
+  color:#494949;
+  height:23px;
+  padding:0 0 0 17px;
+}
+.btn_ajouter_ligne_template:hover, .btn_ajouter_ligne_template:focus { text-decoration:underline; }
+.btn_ajouter_ligne_template span { text-decoration:underline; }
 .btn_edit {
   background:url(../images/pictos/pi_edit.png) 0 center no-repeat;
   height:9px;
@@ -2141,14 +2149,6 @@ p#date_drm {
 }
 .ielt8 .vracs .popup_form .table_container #table_paiements tfoot th, .ielt8 .vracs .popup_form .table_container #table_retiraisons tfoot th { border-top:0 none; }
 .vracs .popup_form .table_container #table_paiements tfoot th + th, .vracs .popup_form .table_container #table_retiraisons tfoot th + th { border-left:0 none; }
-.vracs .popup_form .table_container #table_paiements tfoot th .btn_ajouter_ligne_template, .vracs .popup_form .table_container #table_retiraisons tfoot th .btn_ajouter_ligne_template {
-  background:url(../images/pictos/pi_ajouter.png) 0 center no-repeat;
-  color:#494949;
-  height:23px;
-  padding:0 0 0 17px;
-}
-.vracs .popup_form .table_container #table_paiements tfoot th .btn_ajouter_ligne_template:hover, .vracs .popup_form .table_container #table_paiements tfoot th .btn_ajouter_ligne_template:focus, .vracs .popup_form .table_container #table_retiraisons tfoot th .btn_ajouter_ligne_template:hover, .vracs .popup_form .table_container #table_retiraisons tfoot th .btn_ajouter_ligne_template:focus { text-decoration:underline; }
-.vracs .popup_form .table_container #table_paiements tfoot th .btn_ajouter_ligne_template span, .vracs .popup_form .table_container #table_retiraisons tfoot th .btn_ajouter_ligne_template span { text-decoration:underline; }
 .vracs .popup_form .table_container #table_retiraisons thead th:first-child { text-align:left; }
 .vracs .popup_form#recap_saisie h2 {
   border:1px solid #e5e4e4;

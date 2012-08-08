@@ -43,7 +43,7 @@ class adminActions extends sfActions
   {
     $this->getUser()->signOutTiers();
   	$this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
-        $this->form = new EtablissementSelectionForm($this->interpro->_id);
+        $this->form = new EtablissementSelectionForm();
         if ($request->isMethod(sfWebRequest::POST)) {
         	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
         		$this->form->bind($request->getParameter('etablissement_selection_nav'));
@@ -51,10 +51,8 @@ class adminActions extends sfActions
             	$this->form->bind($request->getParameter($this->form->getName()));
         	}
             if ($this->form->isValid()) {
-                $values = $this->form->getValues();
-                $etablissement = $values['etablissement'];
                 $this->getUser()->signOutTiers();
-                $this->getUser()->signInTiers(acCouchdbManager::getClient()->retrieveDocumentById($etablissement));
+                $this->getUser()->signInTiers($this->form->getEtablissement());
 				return $this->redirect("@tiers_mon_espace");
             }
         }
