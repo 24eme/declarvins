@@ -3,7 +3,9 @@
 . bin/config.inc
 
 if ! test "$1"; then
+    echo download data
     . bin/download_redmine_file https://clients.actualys.com/attachments/download/4040/CIVP_Data.zip /tmp/CIVP_Data.zip
+    echo donwload DONE
 fi
 
 SYMFODIR=$(pwd);
@@ -13,21 +15,19 @@ LOGDATE=$SYMFODIR/$(date +%Y%m%d%H%M%S_import_civp_data.log)
 {
 mkdir /tmp/CIVP_DATA 2> /dev/null ; cd  /tmp/CIVP_DATA ; rm -rf * 2>/dev/null
 unzip /tmp/CIVP_Data.zip
-
+echo "unziped"
 cd CIVP_Data
 DATADIR=$(pwd);
 
 echo "Import des établissements";
     
 recode ISO88591..UTF8 etablissement.csv
-cat etablissement.csv | sed 's/^\([^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;[^;]*;\)/\1;/' | sed 's/nom;;RaisonSociale/nom;RaisonSociale/' | sed 's/;ADHERENT;/;Producteur;/' > etablissement.csv.tmp
-mv etablissement.csv.tmp etablissement.csv
+cat etablissement.csv | sed 's/;ADHERENT;/;Producteur;/' > etablissement.v2.csv
 curl -s -c /tmp/cookie.txt $EDI_AUTH $EDI_PREFIX/edi/etablissements/csv > /dev/null
 echo ETABLISSEMENTS  >> $LOGDATE 2>&1
 echo "===========================" >> $LOGDATE 2>&1
-cat etablissement.csv | sed 's/;NEGOCIANT EXTERIEUR;/;regional;/' | sed 's/;NEGOCIANT;/;regional;/' > etablissement.corrige.csv
-mv etablissement.corrige.csv etablissement.csv
-curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@etablissement.csv"  "$EDI_PREFIX/edi/etablissements/csv?id=INTERPRO-CIVP" >> $LOGDATE 2>&1
+cat etablissement.v2.csv | sed 's/;NEGOCIANT EXTERIEUR;/;regional;/' | sed 's/;NEGOCIANT;/;regional;/' > etablissement.corrige.csv
+curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@etablissement.corrige.csv"  "$EDI_PREFIX/edi/etablissements/csv?id=INTERPRO-CIVP" >> $LOGDATE 2>&1
 echo
     
 echo "Import des DRM";
