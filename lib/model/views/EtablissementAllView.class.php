@@ -41,6 +41,19 @@ class EtablissementAllView extends acCouchdbView
                     		->getView($this->design, $this->view);
     }
 
+    public function findByEtablissement($identifiant) {
+        $etablissement = $this->client->find($identifiant, acCouchdbClient::HYDRATE_JSON);
+
+        if(!$etablissement) {
+            return null;
+        }
+
+        return $this->client->startkey(array($etablissement->interpro, $etablissement->famille, $etablissement->_id))
+                            ->endkey(array($etablissement->interpro, $etablissement->famille, $etablissement->_id, array()))
+                            ->getView($this->design, $this->view);
+        
+    }
+
     public static function makeLibelle($datas) {
         $libelle = '';
 
