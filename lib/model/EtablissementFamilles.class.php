@@ -63,6 +63,7 @@ class EtablissementFamilles
 
     public static function getSousFamillesByFamille($famille) 
     {
+    	$famille = self::getKey($famille);
     	if (!in_array($famille, array_keys(self::getFamilles()))) {
     		throw new sfException('La clé famille "'.$famille.'" n\'existe pas');
     	}
@@ -77,6 +78,8 @@ class EtablissementFamilles
 
     public static function getDroitsByFamilleAndSousFamille($famille, $sousFamille = null) 
     {
+    	$famille = self::getKey($famille);
+    	$sousFamille = self::getKey($sousFamille);
     	if (!in_array($famille, array_keys(self::getFamilles()))) {
     		throw new sfException('La clé famille "'.$famille.'" n\'existe pas');
     	}
@@ -96,6 +99,7 @@ class EtablissementFamilles
     
     public static function getFamilleLibelle($famille = null)
     {
+    	$famille = self::getKey($famille);
     	$familles = self::getFamilles();
     	if (!in_array($famille, array_keys($familles))) {
     		throw new sfException('La clé famille "'.$famille.'" n\'existe pas');
@@ -106,10 +110,17 @@ class EtablissementFamilles
     
     public static function getSousFamilleLibelle($famille = null, $sousFamille = null)
     {
+    	$famille = self::getKey($famille);
+    	$sousFamille = self::getKey($sousFamille);
     	$sousFamilles = self::getSousFamillesByFamille($famille);
     	if (!in_array($sousFamille, array_keys($sousFamilles))) {
     		throw new sfException('La clé sous famille "'.$sousFamille.'" n\'existe pas');
     	}
     	return $sousFamilles[$sousFamille];
+    }
+    
+    public static function getKey($libelle)
+    {
+    	return KeyInflector::slugify($libelle);
     }
 }
