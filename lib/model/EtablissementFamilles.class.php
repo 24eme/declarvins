@@ -121,6 +121,6 @@ class EtablissementFamilles
     
     public static function getKey($libelle)
     {
-    	return KeyInflector::slugify($libelle);
+    	return strtolower(KeyInflector::slugify($libelle));
     }
 }
