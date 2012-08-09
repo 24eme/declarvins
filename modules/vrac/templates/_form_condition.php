@@ -1,6 +1,4 @@
-<?php include_partial('global/navTop', array('active' => 'vrac')); ?>
-<section id="contenu" class="vracs">
-    <?php include_component('vrac', 'etapes', array('vrac' => $form->getObject(), 'actif' => $etape)); ?>
+
     <form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape)) ?>">
         <?php echo $form->renderHiddenFields() ?>
         <?php echo $form->renderGlobalErrors() ?>
@@ -87,33 +85,6 @@
                 <?php echo $form['date_limite_retiraison']->render() ?>
             </div>
             <div class="section_label_strong">
-                <?php echo $form['calendrier_retiraison']->renderError() ?>
-                <?php echo $form['calendrier_retiraison']->renderLabel() ?>
-                <?php echo $form['calendrier_retiraison']->render() ?>
-            </div>
-            <div class="table_container"> 
-                <table id="table_retiraisons">
-                    <thead>
-                        <tr>
-                            <th>Lot/Cuve</th>
-                            <th>Date de retiraison</th>
-                            <th>Volume retiré</th>
-                            <th>Montant</th>
-                            <th class="dernier"></th>
-                        </tr>
-                    </thead>
-                    <?php foreach ($form['retiraisons'] as $formRetiraison): ?>
-                        <?php include_partial('form_retiraisons_item', array('form' => $formRetiraison)) ?>
-                    <?php endforeach; ?>
-                    <tfoot>
-                        <tr>
-                            <th colspan="4"><a class="btn_ajouter_ligne_template" data-container="#table_retiraisons" data-template="#template_form_retiraisons_item" href="#"><span>Ajouter</span></a></th>
-                            <th class="dernier"></th>
-                        </tr>
-                    </tfoot>
-                </table> 
-            </div>
-            <div class="section_label_strong">
                 <?php echo $form['clause_reserve_retiraison']->renderError() ?>
                 <?php echo $form['clause_reserve_retiraison']->renderLabel() ?>
                 <?php echo $form['clause_reserve_retiraison']->render() ?>
@@ -128,11 +99,6 @@
             <button class="valider_etape" type="submit"><span>Etape Suivante</span></button>
         </div>
     </form>
-</section>
-
-<?php include_partial('form_collection_template', array('partial' => 'form_retiraisons_item',
-    'form' => $form->getFormTemplateRetiraisons()));
-?>
 
 <?php include_partial('form_collection_template', array('partial' => 'form_paiements_item',
     'form' => $form->getFormTemplatePaiements()));

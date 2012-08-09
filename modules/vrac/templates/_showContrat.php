@@ -198,34 +198,6 @@
 				<span><?php echo $vrac->date_limite_retiraison ?></span>
 			</li>
 			<li>
-				<span>Calendrier de retiraison :</span>
-				<span><?php echo ($vrac->calendrier_retiraison)? 'Oui' : 'Non'; ?></span>
-			</li>
-			<?php if ($vrac->calendrier_retiraison): ?>
-			<li>
-				<?php foreach ($vrac->retiraisons as $retiraison): ?>
-				<div>
-					<div>
-						<span>Lot / Cuve :</span>
-						<span><?php echo $retiraison->lot_cuve ?></span>
-					</div>
-					<div>
-						<span>Date de retiraison :</span>
-						<span><?php echo $retiraison->date_retiraison ?></span>
-					</div>
-					<div>
-						<span>Volume retiré :</span>
-						<span><?php echo $retiraison->volume_retire ?></span>
-					</div>
-					<div>
-						<span>Montant du montant :</span>
-						<span><?php echo $retiraison->montant_paiement ?> €</span>
-					</div>
-				</div>
-				<?php endforeach; ?>
-			</li>
-			<?php endif; ?>
-			<li>
 				<span>Commentaire :</span>
 				<span><?php echo $vrac->commentaires_conditions ?></span>
 			</li>

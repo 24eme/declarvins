@@ -13,13 +13,11 @@ class VracConditionForm extends VracForm
            'conditions_paiement',
 	       'vin_livre',
            'date_debut_retiraison',
-           'calendrier_retiraison',
            'contrat_pluriannuel',
            'reference_contrat_pluriannuel',
 	       'delai_paiement',
            'echeancier_paiement',
            'clause_reserve_retiraison',
-		   'retiraisons',
 		   'paiements'
 		));
 		$this->widgetSchema->setNameFormat('vrac_condition[%s]');

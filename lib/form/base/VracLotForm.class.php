@@ -23,57 +23,73 @@ class VracLotForm extends acCouchdbObjectForm
 	{
 		$this->setWidgets(array(
 	       'numero' => new sfWidgetFormInputText(),
-	       'contenance_cuve' => new sfWidgetFormInputFloat(),
-	       'millesime' => new sfWidgetFormInputText(),
-		   'pourcentage_annee' => new sfWidgetFormInputFloat(),
-	       'degre' => new sfWidgetFormInputFloat(),
-	       'presence_allergenes' => new sfWidgetFormInputCheckbox(),
-	       'raisin_quantite' => new sfWidgetFormInputFloat(),
-		   'jus_quantite' => new sfWidgetFormInputFloat(),
-	       'bouteilles_quantite' => new sfWidgetFormInputFloat(),
-	       'bouteilles_contenance_volume' => new sfWidgetFormInputText(),
-	       'bouteilles_contenance_libelle' => new sfWidgetFormInputText(),
 		   'volume' => new sfWidgetFormInputFloat(),
+	       'cuve' => new sfWidgetFormInputText(),
+		   'assemblage' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(), 'expanded' => true)),
+	       'degre' => new sfWidgetFormInputFloat(),
+	       'presence_allergenes' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(), 'expanded' => true)),
+	       'metayage' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(), 'expanded' => true)),
+		   'bailleur' => new sfWidgetFormInputText(),
 	       'date_retiraison' => new sfWidgetFormInputText(),
-	       'commentaires' => new sfWidgetFormChoice(array('choices' => $this->getCommentaires()))
+	       'montant' => new sfWidgetFormInputFloat()
 		));
 		$this->widgetSchema->setLabels(array(
 	       'numero' => 'Numéro du lot:',
-	       'contenance_cuve' => 'Contenance de la cuve:',
-	       'millesime' => 'Millésime:',
-		   'pourcentage_annee' => 'Pourcentage du millésime:',
-	       'degre' => 'Degré:',
-	       'presence_allergenes' => 'Présence d\'allergènes?',
-	       'raisin_quantite' => 'Quantité de raisin:',
-		   'jus_quantite' => 'Quantité de jus:',
-	       'bouteilles_quantite' => 'Quantité de bouteille:',
-	       'bouteilles_contenance_volume' => 'Contenance de bouteille:',
-	       'bouteilles_contenance_libelle' => 'Libellé de bouteille:',
 		   'volume' => 'Volume:',
+	       'cuve' => 'Cuve(s):',
+	       'assemblage' => 'Assemblage:',
+	       'degre' => 'Degrés:',
+	       'presence_allergenes' => 'Allergènes:',
+	       'metayage' => 'Métayage:',
+		   'bailleur' => 'Nom du bailleur:',
 	       'date_retiraison' => 'date de retiraison:',
-	       'commentaires' => 'Commentaires:'
+	       'montant' => 'Montant:'
 		));
 		$this->setValidators(array(
 	       'numero' => new sfValidatorString(array('required' => false)),
-	       'contenance_cuve' => new sfValidatorNumber(array('required' => false)),
-	       'millesime' => new sfValidatorString(array('required' => false)),
-		   'pourcentage_annee' => new sfValidatorNumber(array('required' => false)),
+	       'volume' => new sfValidatorNumber(array('required' => false)),
+	       'cuve' => new sfValidatorString(array('required' => false)),
+	       'assemblage' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
 	       'degre' => new sfValidatorNumber(array('required' => false)),
-	       'presence_allergenes' => new sfValidatorPass(),
-	       'raisin_quantite' => new sfValidatorNumber(array('required' => false)),
-		   'jus_quantite' => new sfValidatorNumber(array('required' => false)),
-	       'bouteilles_quantite' => new sfValidatorNumber(array('required' => false)),
-	       'bouteilles_contenance_volume' => new sfValidatorString(array('required' => false)),
-	       'bouteilles_contenance_libelle' => new sfValidatorString(array('required' => false)),
-		   'volume' => new sfValidatorNumber(array('required' => false)),
+	       'presence_allergenes' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
+	       'metayage' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
+		   'bailleur' => new sfValidatorString(array('required' => false)),
 	       'date_retiraison' => new sfValidatorString(array('required' => false)),
-	       'commentaires' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCommentaires()))),
+	       'montant' => new sfValidatorNumber(array('required' => false)),
 		));
+        
+        $millesimes = new VracLotMillesimeCollectionForm($this->getObject()->millesimes);
+        $this->embedForm('millesimes', $millesimes);
+        
 		$this->widgetSchema->setNameFormat('lot[%s]');
 	}
     
-    public function getCommentaires()
+    public function getChoixOuiNon()
     {
-    	return $this->getConfiguration()->getCommentairesLot()->toArray();
+    	return array('1' => 'Oui', '0' =>'Non'); 
     }
+
+    public function getFormTemplateLotMillesimes() {
+        $vrac = new Vrac();
+        $lot = $vrac->lots->add();
+        $form_embed = new VracLotMillesimeForm($this->getConfiguration(), $lot->millesimes->add());
+        $form = new VracCollectionTemplateForm($this, 'millesimes', $form_embed);
+
+        return $form->getFormTemplate();
+    }
+    
+	public function bind(array $taintedValues = null, array $taintedFiles = null)
+    {
+        foreach ($this->embeddedForms as $key => $form) {
+            if($form instanceof FormBindableInterface) {
+                $form->bind($taintedValues[$key], $taintedFiles[$key]);
+                $this->updateEmbedForm($key, $form);
+            }
+        }
+    }
+    
+    public function updateEmbedForm($name, $form) {
+        $this->validatorSchema[$name] = $form->getValidatorSchema();
+    }
+  
 }
