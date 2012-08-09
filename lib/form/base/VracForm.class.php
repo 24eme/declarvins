@@ -22,7 +22,7 @@ class VracForm extends acCouchdbObjectForm
 	public function configure()
     {
 
-        $this->setWidgets(array(
+    	$this->setWidgets(array(
         	'numero_contrat' => new sfWidgetFormInputText(),
         	'etape' => new sfWidgetFormInputText(),
                 'vendeur_type' => new sfWidgetFormChoice(array('choices' => $this->getVendeurTypes(), 'expanded' => true)),
@@ -35,34 +35,33 @@ class VracForm extends acCouchdbObjectForm
                 'mandataire_exist' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'mandataire_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getMandataires()), array('class' => 'autocomplete')),
         	'premiere_mise_en_marche' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
-        	'production_otna' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
-        	'apport_union' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
-        	'cession_interne' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
+        	'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier())),
         	'original' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'has_transaction' => new sfWidgetFormInputCheckbox(),
-        	'type_transaction' => new sfWidgetFormChoice(array('choices' => $this->getTypesTransaction())),
+        	'type_transaction' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getTypesTransaction())),
         	'produit' => new sfWidgetFormChoice(array('choices' => $this->getProduits()), array('class' => 'autocomplete')),
+        	'millesime' => new sfWidgetFormInputText(),
         	'type_domaine' => new sfWidgetFormChoice(array('choices' => $this->getTypesDomaine())),
         	'domaine' => new sfWidgetFormInputText(),
-        	'labels' => new sfWidgetFormChoice(array('choices' => $this->getLabels(), 'multiple' => true)),
-        	'mentions' => new sfWidgetFormChoice(array('choices' => $this->getMentions(), 'multiple' => true)),
+        	'labels' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getLabels(), 'multiple' => false)),
+        	'mentions' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getMentions(), 'multiple' => true)),
         	'volume_propose' => new sfWidgetFormInputFloat(),
         	'annexe' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'prix_unitaire' => new sfWidgetFormInputFloat(),
-        	'type_prix' => new sfWidgetFormChoice(array('choices' => $this->getTypesPrix())),
+        	'type_prix' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getTypesPrix())),
         	'determination_prix' => new sfWidgetFormInputText(),
         	'date_limite_retiraison' => new sfWidgetFormInputText(),
         	'commentaires_conditions' => new sfWidgetFormTextarea(),
         	'part_cvo' => new sfWidgetFormInputText(),
         	'prix_total' => new sfWidgetFormInputFloat(),
-        	'conditions_paiement' => new sfWidgetFormChoice(array('choices' => $this->getConditionsPaiement(), 'multiple' => true)),
+        	'conditions_paiement' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getConditionsPaiement(), 'multiple' => true)),
         	'type_echeancier_paiement' => new sfWidgetFormInputText(),
         	'vin_livre' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'date_debut_retiraison' => new sfWidgetFormInputText(),
         	'calendrier_retiraison' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'contrat_pluriannuel' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'reference_contrat_pluriannuel' => new sfWidgetFormInputText(),
-        	'delai_paiement' => new sfWidgetFormChoice(array('choices' => $this->getDelaisPaiement())),
+        	'delai_paiement' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getDelaisPaiement())),
         	'echeancier_paiement' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'clause_reserve_retiraison' => new sfWidgetFormInputCheckbox(),
         	'export' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
@@ -79,7 +78,7 @@ class VracForm extends acCouchdbObjectForm
         	'date_signature_acheteur' => new sfWidgetFormInputText(),
         	'date_signature_mandataire' => new sfWidgetFormInputText(),
         	'commentaires' => new sfWidgetFormTextarea()
-        ));
+    	));
         $this->widgetSchema->setLabels(array(
             'numero_contrat' => 'Numéro du contrat: ',
         	'etape' => 'Etape:',
@@ -93,13 +92,12 @@ class VracForm extends acCouchdbObjectForm
         	'mandataire_exist' => 'Transaction avec un courtier',
         	'mandataire_identifiant' => 'Mandataire:',
         	'premiere_mise_en_marche' => 'Première mise en marché:',
-        	'production_otna' => 'Contrat entre producteurs 5% ou OTNA:',
-        	'apport_union' => 'Apport contractuel à une union:',
-        	'cession_interne' => 'Contrat interne entre deux filiales:',
+        	'cas_particulier' => 'Cas particulier:',
         	'original' => 'En attente de l\'original:',
         	'has_transaction' => 'Je souhaite associer une déclaration de transaction',
         	'type_transaction' => 'Type de transaction:',
         	'produit' => 'Produit:',
+        	'millesime' => 'Millesime:',
         	'type_domaine' => 'Type de domaine:',
         	'domaine' => 'Domaine:',
         	'labels' => 'Labels:',
@@ -151,13 +149,12 @@ class VracForm extends acCouchdbObjectForm
         	'mandataire_exist' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'mandataire_identifiant' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getMandataires()))),
         	'premiere_mise_en_marche' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
-        	'production_otna' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
-        	'apport_union' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
-        	'cession_interne' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
+        	'cas_particulier' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCasParticulier()))),
         	'original' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'has_transaction' => new sfValidatorPass(),
         	'type_transaction' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getTypesTransaction()))),
         	'produit' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getProduits()))),
+        	'millesime' => new sfValidatorString(array('required' => false)),
         	'type_domaine' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getTypesDomaine()))),
         	'domaine' => new sfValidatorString(array('required' => false)),
         	'labels' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getLabels()), 'multiple' => true)),
@@ -261,14 +258,21 @@ class VracForm extends acCouchdbObjectForm
     {
     	return $this->formatEtablissements($this->getConfiguration()->getMandataires());
     }
+
     public function getTypesTransaction()
     {
     	return $this->getConfiguration()->getTypesTransaction()->toArray();
     }
     
+    public function getCasParticulier()
+    {
+    	return $this->getConfiguration()->getCasParticulier()->toArray();
+    }
+    
     public function getProduits()
     {
-    	$produits = $this->getConfiguration()->getConfig()->formatProduits();
+    	$vracConfiguration = $this->getConfiguration();
+    	$produits = $vracConfiguration->getConfig()->formatProduitsByInterpro($vracConfiguration->getInterproId());
     	$produits[''] = '';
     	ksort($produits);
     	return $produits;

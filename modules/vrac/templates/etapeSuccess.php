@@ -1,1 +1,1 @@
-<?php include_partial('form_'.$interpro_name.'_'.$etape, array('form' => $form, 'etape' => $etape, 'configurationVrac' => $configurationVrac)) ?>
+<?php include_partial('form_'.$etape, array('form' => $form, 'etape' => $etape, 'configurationVrac' => $configurationVrac)) ?>

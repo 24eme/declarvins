@@ -1,16 +1,15 @@
 <?php
-class VracConditionCivpForm extends VracForm 
+class VracConditionForm extends VracForm 
 {
    	public function configure()
     {
 		parent::configure();
 		$this->useFields(array(
-           'prix_unitaire',
+		   'annexe',
            'type_prix',
 	       'date_limite_retiraison',
            'commentaires_conditions',
            'part_cvo',
-           'prix_total',
            'conditions_paiement',
 	       'vin_livre',
            'date_debut_retiraison',
@@ -20,8 +19,8 @@ class VracConditionCivpForm extends VracForm
 	       'delai_paiement',
            'echeancier_paiement',
            'clause_reserve_retiraison',
-           'retiraisons',
-           'paiements'
+		   'retiraisons',
+		   'paiements'
 		));
 		$this->widgetSchema->setNameFormat('vrac_condition[%s]');
     }

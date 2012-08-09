@@ -4,10 +4,13 @@
                     $nbEtapes = count($etapes);
                     $counter = 0;
                     $first = true;
+                    $isPrev = true;
                     foreach ($etapes as $etape => $etapeLibelle) {
                             $counter++;
-                            include_partial('etapeItem',array('vrac' => $vrac, 'actif' => $actif, 'etape' => $etape, 'label' => $etapeLibelle, 'isActive' => ($actif == $etape), 'isLink' => !$configurationVracEtapes->hasSup($etape, $actif), 'last' => ($nbEtapes == $counter), 'first' => $first));
-                            
+                            if ($actif == $etape) {
+                            	$isPrev = false;
+                            }
+                            include_partial('etapeItem',array('vrac' => $vrac, 'actif' => $actif, 'etape' => $etape, 'label' => $etapeLibelle, 'isActive' => ($actif == $etape), 'isLink' => !$configurationVracEtapes->hasSup($etape, $actif), 'last' => ($nbEtapes == $counter), 'first' => $first, 'isPrev' => $isPrev));
                             if ($first) {
                                 $first = false;
                             }

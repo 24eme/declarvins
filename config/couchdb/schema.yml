@@ -30,6 +30,7 @@ Vrac:
         type: collection
         definition:
           fields:
+            libelle: {  }
             adresse: {  }
             code_postal: {  }
             commune: {  }
@@ -56,6 +57,7 @@ Vrac:
         type: collection
         definition:
           fields:
+            libelle: {  }
             adresse: {  }
             code_postal: {  }
             commune: {  }
@@ -81,12 +83,11 @@ Vrac:
             fax: {  }
             email: {  }
       premiere_mise_en_marche: {  }
-      production_otna: {  }
-      apport_union: {  }
-      cession_interne: {  }
+      cas_particulier: {  }
       original: {  }
       type_transaction: {  }
       produit: {  }
+      millesime: {  }
       contient_domaine: {  }
       domaine: {  }
       labels:
