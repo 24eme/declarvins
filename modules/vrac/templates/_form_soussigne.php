@@ -18,7 +18,7 @@
             <h1>Acheteur</h1>
             <h2>Sélectionner un acheteur :</h2>
 
-            <div id="type" class="section_label_strong etablissement_famille_choice">
+            <div class="section_label_strong etablissement_famille_choice">
                 <?php echo $form['acheteur_type']->renderLabel() ?>
                 <?php echo $form['acheteur_type']->renderError() ?>
                 <?php echo $form['acheteur_type']->render(array('class' => 'famille', 'data-template' => '#template_url_etablissement', 'data-container' => '#'.$form['acheteur_identifiant']->renderId())) ?>
@@ -29,7 +29,7 @@
                 <?php echo $form['acheteur_identifiant']->render() ?>
             </div>
 
-            <div  class="bloc_form"> 
+            <div class="bloc_form"> 
                 <div class="col">
                     <div class="vracs_ligne_form ">
                         <span>
@@ -120,7 +120,7 @@
                 </div>
             </div>
             <div class="adresse_livraison">
-                <div id="type" class="section_label_strong">
+                <div class="section_label_strong">
                     <label for="dif_adr_livr">Précision de l'adresse de livraison (si différente) <input type="checkbox" name="dif_adr_livr" id="dif_adr_livr"></label>
                 </div>
                 <div class="bloc_form"> 
@@ -159,7 +159,8 @@
         <div id="vendeur" class="vrac_vendeur_acheteur">
             <h1>Vendeur</h1>
             <h2>Sélectionner un vendeur :</h2>
-            <div id="type" class="section_label_strong etablissement_famille_choice">
+
+            <div class="section_label_strong etablissement_famille_choice">
                 <?php echo $form['vendeur_type']->renderLabel() ?>
                 <?php echo $form['vendeur_type']->renderError() ?>
                 <?php echo $form['vendeur_type']->render(array('class' => 'famille', 'data-template' => '#template_url_etablissement', 'data-container' => '#'.$form['vendeur_identifiant']->renderId())) ?>
@@ -260,7 +261,7 @@
                 </div>
             </div>
             <div class="adresse_livraison">
-                <div id="type" class="section_label_strong"><label for="dif_adr_stock">Précision de l'adresse de stockage (si différente) <input type="checkbox" name="dif_adr_stock" id="dif_adr_stock"></label></div>
+                <div class="section_label_strong"><label for="dif_adr_stock">Précision de l'adresse de stockage (si différente) <input type="checkbox" name="dif_adr_stock" id="dif_adr_stock"></label></div>
                 <div class="bloc_form"> 
                     <div class="vracs_ligne_form vracs_ligne_form_alt">
                         <span>
