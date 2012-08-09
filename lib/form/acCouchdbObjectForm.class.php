@@ -186,6 +186,12 @@ abstract class acCouchdbObjectForm extends sfFormObject implements acCouchdbForm
 
         return ;
     }
+    
+    public function updateObjectEmbeddedForms($values, $forms = null)
+  	{
+  		
+  		return ;
+  	}
 
     public function getConnection() {
 
