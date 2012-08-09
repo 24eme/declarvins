@@ -97,6 +97,11 @@ class acCouchdbJsonDefinition {
         }
     }
 
+    public function getDefinitionByClassName($class_name) {
+        
+        return $this->getDefinitionByHash($this->findHashByClassName($class_name));
+    }
+
     public function findHashByClassName($class_name) {
         foreach($this->_fields as $field) {
             if ($field instanceof acCouchdbJsonDefinitionFieldCollection) {

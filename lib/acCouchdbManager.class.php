@@ -110,7 +110,7 @@ class acCouchdbManager {
 
     public static function getDefinitionHashTree($model, $class_tree) {
         if (!isset(self::getInstance()->_definition_tree_hash[$class_tree])) {
-            self::getInstance()->_definition_tree_hash[$class_tree] = self::getDefinition($model)->findHashByClassName($class_tree);
+            self::getInstance()->_definition_tree_hash[$class_tree] = self::getDefinition($model)->getDefinitionByClassName($class_tree);
         }
         
         return self::getInstance()->_definition_tree_hash[$class_tree];
