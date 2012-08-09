@@ -18,10 +18,10 @@
             <h1>Acheteur</h1>
             <h2>Sélectionner un acheteur :</h2>
 
-            <div id="type" class="section_label_strong">
+            <div id="type" class="section_label_strong etablissement_famille_choice">
                 <?php echo $form['acheteur_type']->renderLabel() ?>
                 <?php echo $form['acheteur_type']->renderError() ?>
-                <?php echo $form['acheteur_type']->render(array('class' => 'famille')) ?>
+                <?php echo $form['acheteur_type']->render(array('class' => 'famille', 'data-template' => '#template_url_etablissement', 'data-container' => '#'.$form['acheteur_identifiant']->renderId())) ?>
             </div>
             <div class="section_label_strong">
                 <?php echo $form['acheteur_identifiant']->renderError() ?>
@@ -159,10 +159,10 @@
         <div id="vendeur" class="vrac_vendeur_acheteur">
             <h1>Vendeur</h1>
             <h2>Sélectionner un vendeur :</h2>
-            <div id="type" class="section_label_strong">
+            <div id="type" class="section_label_strong etablissement_famille_choice">
                 <?php echo $form['vendeur_type']->renderLabel() ?>
                 <?php echo $form['vendeur_type']->renderError() ?>
-                <?php echo $form['vendeur_type']->render(array('class' => 'famille')) ?>
+                <?php echo $form['vendeur_type']->render(array('class' => 'famille', 'data-template' => '#template_url_etablissement', 'data-container' => '#'.$form['vendeur_identifiant']->renderId())) ?>
             </div>
             <div class="section_label_strong">
                 <?php echo $form['vendeur_identifiant']->renderError() ?>
@@ -409,3 +409,4 @@
         </div>
         
     </form>
+    <?php include_partial('url_etablissement_template'); ?>
