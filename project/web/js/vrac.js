@@ -67,7 +67,7 @@
 	                {
 	                    if(voisins){
 	                        voisins.hide();
-	                        voisins.find(':input').val('').removeAttr('checked');
+	                        voisins.find(':input').removeAttr('checked');
 	                    }
 	                    cibleBloc.toggle();
 	                }else{
@@ -109,7 +109,7 @@
 	            var inputReset = $this.find('.modif_info :radio');
 	            var blocPourReset = $this.find('.bloc_form:first');
 	            inputReset.change(function(){
-	                blocPourReset.find(':input').val('').removeAttr('checked');
+	                blocPourReset.find(':input').removeAttr('checked');
 	            });
 	        });
 	
