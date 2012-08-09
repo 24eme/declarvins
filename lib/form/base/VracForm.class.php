@@ -58,7 +58,6 @@ class VracForm extends acCouchdbObjectForm
         	'type_echeancier_paiement' => new sfWidgetFormInputText(),
         	'vin_livre' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'date_debut_retiraison' => new sfWidgetFormInputText(),
-        	'calendrier_retiraison' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'contrat_pluriannuel' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'reference_contrat_pluriannuel' => new sfWidgetFormInputText(),
         	'delai_paiement' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getDelaisPaiement())),
@@ -115,7 +114,6 @@ class VracForm extends acCouchdbObjectForm
         	'type_echeancier_paiement' => 'Echéancier de paiement:',
         	'vin_livre' => 'Le vin sera livré:',
         	'date_debut_retiraison' => 'Date de début de retiraison:',
-        	'calendrier_retiraison' => 'Calendrier de retiraison:',
         	'contrat_pluriannuel' => 'Contrat pluriannuel écrit:',
         	'reference_contrat_pluriannuel' => 'Référence contrat pluriannuel:',
         	'delai_paiement' => 'Delai de paiement:',
@@ -172,7 +170,6 @@ class VracForm extends acCouchdbObjectForm
         	'type_echeancier_paiement' => new sfValidatorString(array('required' => false)),
         	'vin_livre' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'date_debut_retiraison' => new sfValidatorString(array('required' => false)),
-        	'calendrier_retiraison' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'contrat_pluriannuel' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'reference_contrat_pluriannuel' => new sfValidatorString(array('required' => false)),
         	'delai_paiement' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getDelaisPaiement()))),
@@ -213,9 +210,6 @@ class VracForm extends acCouchdbObjectForm
         
         $paiements = new VracPaiementCollectionForm($this->getObject()->paiements);
         $this->embedForm('paiements', $paiements);
-        
-        $retiraisons = new VracRetiraisonCollectionForm($this->getObject()->retiraisons);
-        $this->embedForm('retiraisons', $retiraisons);
         
         $lots = new VracLotCollectionForm($this->getConfiguration(), $this->getObject()->lots);
         $this->embedForm('lots', $lots);
@@ -342,7 +336,6 @@ class VracForm extends acCouchdbObjectForm
     protected function doUpdateObject($values) {
         
         $this->getObject()->fromArray($values);
-
     }
     
 	public function bind(array $taintedValues = null, array $taintedFiles = null)
@@ -369,11 +362,6 @@ class VracForm extends acCouchdbObjectForm
         return $form->getFormTemplate();
     }
 
-    public function getFormTemplateRetiraisons() {
-
-        return $this->getFormTemplate('retiraisons', 'VracRetiraisonForm');
-    }
-
     public function getFormTemplatePaiements() {
 
         return $this->getFormTemplate('paiements', 'VracPaiementForm');
@@ -386,5 +374,14 @@ class VracForm extends acCouchdbObjectForm
 
         return $form->getFormTemplate();
     }
+
+    public function getFormTemplateLotMillesimes($key) {
+        $vrac = new Vrac();
+        $form_embed = new VracLotMillesimeForm($this->getConfiguration(), $vrac->lots->add($key)->millesimes->add());
+        $form = new VracCollectionTemplateForm($this, 'lots]['.$key.'][millesimes', $form_embed, 'var---nbItem---');
+
+        return $form->getFormTemplate();
+    }
     
 }
+

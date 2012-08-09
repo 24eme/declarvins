@@ -7,6 +7,9 @@ class vracComponents extends sfComponents
 		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
 		$this->configurationVracEtapes = $this->configurationVrac->getEtapes();
 		$this->etapes = $this->configurationVracEtapes->getTabEtapes();
+		if (!$this->vrac->has_transaction && isset($this->etapes['transaction'])) {
+			unset($this->etapes['transaction']);
+		}
     }
 	
 	public function getInterpro()

@@ -117,19 +117,6 @@ Vrac:
       type_echeancier_paiement: {  }
       vin_livre: {  }
       date_debut_retiraison: {  }
-      calendrier_retiraison: {  }
-      retiraisons:
-        type: array_collection
-        definition:
-          fields:
-            '*':
-              type: collection
-              definition:
-                fields:
-                  lot_cuve: {  }
-                  date_retiraison: {  }
-                  volume_retire: {  }
-                  montant_paiement: {  }
       contrat_pluriannuel: {  }
       reference_contrat_pluriannuel: {  }
       delai_paiement: {  }
@@ -155,25 +142,25 @@ Vrac:
               definition:
                 fields:
                   numero: {  }
-                  contenance_cuve: {  }
-                  millesime: {  }
-                  pourcentage_annee: {  }
-                  degre: {  }
-                  presence_allergenes: {  }
-                  raisin_quantite: {  }
-                  jus_quantite: {  }
-                  bouteilles_quantite: {  }
-                  bouteilles_contenance_volume: {  }
-                  bouteilles_contenance_libelle: {  }
                   volume: {  }
-                  date_retiraison: {  }
-                  commentaires: {  }
-                  metayage:
-                    type: collection
+                  cuve: {  }
+                  assemblage: {  }
+                  millesimes:
+                    type: array_collection
                     definition:
                       fields:
-                        bailleur: {  }
-                        volume_ventillation: {  }
+                        '*':
+                          type: collection
+                          definition:
+                            fields:
+                              annee: {  }
+                              pourcentage: {  }
+                  degre: {  }
+                  presence_allergenes: {  }
+                  metayage: {  }
+                  bailleur: {  }
+                  date_retiraison: {  }
+                  montant: {  }
       type_contrat: {  }
       prix_variable: {  }
       part_variable: {  }

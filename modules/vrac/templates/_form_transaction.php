@@ -1,6 +1,4 @@
-<?php include_partial('global/navTop', array('active' => 'vrac')); ?>
-<section id="contenu" class="vracs">
-	<?php include_component('vrac', 'etapes', array('vrac' => $form->getObject(), 'actif' => $etape)); ?>
+
 	<form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape)) ?>">
 		<?php echo $form->renderHiddenFields() ?>
 		<?php echo $form->renderGlobalErrors() ?>
@@ -12,13 +10,13 @@
                 <?php echo $form['export']->render() ?>
 			</div>
 			<div> 
+				<div id="table_lots">
 				<?php foreach ($form['lots'] as $formLot): ?>
-				<table id="table_lots">
-					<?php include_partial('form_lots_item', array('form' => $formLot)) ?>
-				</table>
+					<?php include_partial('form_lots_item', array('form' => $formLot, 'form_parent' => $form)) ?>
 				<?php endforeach; ?>
+				</div>
                 </table>
-                <a class="btn_ajouter_ligne_template" data-container="#table_lots" data-template="#template_form_lots_item" href="#">Ajouter</a>
+                <a class="btn_ajouter_ligne_template" data-container="#table_lots" data-template="#template_form_lots_item" href="#"><span>Ajouter</span></a>
 			</div>
 			<div>
                 <?php echo $form['commentaires']->renderError() ?>
@@ -30,7 +28,7 @@
 			<button class="btn_valider" type="submit">Etape Suivante</button>
 		</div>
 	</form>
-</section>
 
-<?php include_partial('form_collection_template', array('partial' => 'form_lots_item', 
-                                                        'form' => $form->getFormTemplateLots())); ?>
+<script id="template_form_lots_item" class="template_form" type="text/x-jquery-tmpl">
+    <?php echo include_partial('form_lots_item' , array('form' => $form->getFormTemplateLots(), 'form_parent' => $form)); ?>
+</script>

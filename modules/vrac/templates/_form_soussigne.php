@@ -1,7 +1,3 @@
-<?php include_partial('global/navTop', array('active' => 'vrac')); ?>
-<section id="contenu" class="vracs vrac_soussigne">
-    <?php include_component('vrac', 'etapes', array('vrac' => $form->getObject(), 'actif' => $etape)); ?>
-
     <form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape)) ?>">
         <?php echo $form->renderHiddenFields() ?>
         <?php echo $form->renderGlobalErrors() ?>
@@ -413,4 +409,3 @@
         </div>
         
     </form>
-</section>
