@@ -2087,6 +2087,7 @@ p#date_drm {
 }
 #telecharger_pdf:hover { text-decoration:none; }
 .vracs { color:#3e3e3e; }
+.vracs .disabled { background-color:#cdcdcd; }
 .vracs .popup_form .table_container { zoom:1; }
 .vracs .popup_form .table_container:before, .vracs .popup_form .table_container:after {
   content:"\0020";

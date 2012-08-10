@@ -351,6 +351,9 @@
 	    $("#"+type+"_choice input").attr('disabled','disabled');
 	    $("#"+type+"_choice button").attr('disabled','disabled');
 	    $('div.btnValidation button').attr('disabled','disabled');
+	    $("#"+type+"_choice input").addClass('disabled');
+	    $("#"+type+"_choice button").addClass('disabled');
+	    $('div.btnValidation button').addClass('disabled');
 	    var params = {id : $("#vrac_"+type+"_identifiant").val(), 'div' : '#'+type+'_informations'};  
 	    ajaxifyPost('modification?type='+type+'&id='+$("#vrac_"+type+"_identifiant").val(),params,'#'+type+'_modification_btn','#'+type+'_informations');
 	}
@@ -390,6 +393,7 @@
 	    	var template = $($(this).attr('data-template'));
 	    	if (targetAutoComplete.attr('disabled')) {
 	    		targetAutoComplete.removeAttr('disabled');
+	    		targetAutoComplete.removeClass('disabled');
 	    	}
 	    	target.attr('data-ajax', template.text().replace(regexp_replace, $(this).val()));
 	    });
@@ -417,6 +421,26 @@
 	        return false;
 	    });
 	}
+	
+	var initChoicesListener = function()
+	{
+		ajaxifyAutocomplete('#listener_acheteur_choice', 'acheteur', '#template_url_informations');
+		ajaxifyAutocomplete('#listener_vendeur_choice', 'vendeur', '#template_url_informations');
+		ajaxifyAutocomplete('#listener_mandataire_choice', 'mandataire', '#template_url_informations');
+	}
+	
+	var ajaxifyAutocomplete = function(listenerChoice, type, templateUrl)
+	{
+		var select = $(listenerChoice+' select');
+		var input = $(listenerChoice+' input');
+		input.live( "autocompleteselect", function(event, ui) {  
+			var url = $(templateUrl).text().replace(/var---etablissement---/g, select.val());
+			var url = url.replace(/var---type---/g, type);
+			$.post(url, function(data){
+				$('#etablissement_'+type).html(data);
+			});
+		});
+	}
 
 	$(document).ready(function()
 	{
@@ -424,6 +448,7 @@
 	     initConditions();
 	     initAutoComplete();
 	     initEtablissements();
+	     initChoicesListener();
 	     initCollectionAddTemplate('.btn_ajouter_ligne_template', /var---nbItem---/g);
 	     initCollectionAddTemplate('.btn_ajouter_ligne_template_sub', /var---nbSubItem---/g);
 	     initFamilleEtablissementTemplate('.famille', /var---famille---/g);
