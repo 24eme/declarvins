@@ -33,8 +33,8 @@ class EtablissementClient extends acCouchdbClient {
 
     public function getId($id_or_identifiant) {
         $id = $id_or_identifiant;
-        if(strpos('ETABLISSEMENT-', $id_or_identifiant) === false) {
-            $id = 'ETABLISSEMENT-'.$id;
+        if(strpos($id_or_identifiant, 'ETABLISSEMENT-') === false) {
+            $id = 'ETABLISSEMENT-'.$id_or_identifiant;
         }
 
         return $id;

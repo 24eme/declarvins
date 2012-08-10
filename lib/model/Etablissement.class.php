@@ -86,4 +86,9 @@ class Etablissement extends BaseEtablissement {
     	parent::save();
     }
     
+
+    public function __toString() {
+
+        return sprintf('%s (%s)', $this->nom, $this->identifiant);
+    }
 }
