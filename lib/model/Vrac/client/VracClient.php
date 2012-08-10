@@ -100,7 +100,7 @@ class VracClient extends acCouchdbClient {
 	$vrac->numero_contrat = $id;
 	$vrac->produit = $hash;
       }
-      if ($etablissement != $vrac->vendeur_identifiant)
+      if ($etablissement != str_replace('ETABLISSEMENT-', '', $vrac->vendeur_identifiant))
 	throw new sfException('le vendeur ne correpond pas à l\'établissement initial');
       if (!preg_match("|^$hash|", $vrac->produit))
 	throw new sfException('Le hash du produit ne correpond pas au hash initial ('.$vrac->produit.'<->'.$hash.')');
