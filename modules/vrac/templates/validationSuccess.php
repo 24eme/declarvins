@@ -9,9 +9,9 @@
 ?>
 <div id="contenu">
     <div id="rub_contrats">
-        <section id="principal">
+        <div id="principal">
         <?php include_partial('headerVrac', array('vrac' => $vrac,'actif' => 4)); ?>        
-            <section id="contenu_etape"> 
+            <div id="contenu_etape"> 
                 <form id="vrac_validation" method="post" action="<?php echo url_for('vrac_validation',$vrac) ?>">
 
                     <h2>Récapitulatif de la saisie</h2>
@@ -23,8 +23,8 @@
                     </div>
 
                 </form>
-            </section>
-        </section>
+            </div>
+        </div>
         <?php include_partial('colonne', array('vrac' => $vrac)); ?>
     </div>
 </div>

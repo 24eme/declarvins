@@ -42,11 +42,20 @@ class VracLotCollectionForm extends acCouchdbObjectForm implements FormBindableI
 				continue;
 			}
 
-			$this->embedForm($key, new VracLotForm($this->getObject()->add()));
+			$this->embedForm($key, new VracLotForm($this->getConfiguration(), $this->getObject()->add()));
 		}
+		
+		foreach ($this->embeddedForms as $key => $form) {
+            $form->bind($taintedValues[$key], $taintedFiles[$key]);
+            $this->updateEmbedForm($key, $form);
+        }
 
 		//parent::bind($taintedValues, $taintedFiles);
 	}
+	
+	public function updateEmbedForm($name, $form) {
+        $this->validatorSchema[$name] = $form->getValidatorSchema();
+    }
 
 	public function unEmbedForm($key)
 	{

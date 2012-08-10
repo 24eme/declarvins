@@ -1,5 +1,5 @@
 <?php
-class VracValidationIrForm extends VracForm 
+class VracValidationForm extends VracForm 
 {
 	public function configure()
     {

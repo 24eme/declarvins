@@ -10,44 +10,44 @@
 
 <div id="contenu">
     <div id="rub_contrats">
-        <section id="principal">
+        <div id="principal">
         <?php include_partial('headerVrac', array('vrac' => $form->getObject(),'actif' => 2)); ?>
-            <section id="contenu_etape">  
+            <div id="contenu_etape">  
             <form id="vrac_marche" method="post" action="<?php echo url_for('vrac_marche',$vrac) ?>">    
                 <?php echo $form->renderHiddenFields() ?>
                 <?php echo $form->renderGlobalErrors() ?>
-            <section id="marche">
+            <div id="marche">
 
                 <!--  Affichage des l'option original  -->
-                <section id="original" class="original">
+                <div id="original" class="original">
                 <?php echo $form['original']->renderError(); ?>
                     <strong> <?php echo $form['original']->renderLabel() ?> </strong>
                     <?php echo $form['original']->render() ?>        
-                </section>
+                </div>
 
                 <!--  Affichage des transactions disponibles  -->
-                <section id="type_transaction" class="type_transaction">
+                <div id="type_transaction" class="type_transaction">
                 <h2>   <?php echo $form['type_transaction']->renderLabel() ?> </h2>
                 <?php echo $form['type_transaction']->renderError(); ?>                    
                 <?php echo $form['type_transaction']->render() ?>        
-                </section>
+                </div>
 
             <!--  Affichage des produits, des labels et du stock disponible  -->
-                <section id="vrac_marche_produitLabel">
+                <div id="vrac_marche_produitLabel">
                     <?php
                 include_partial('marche_produitLabel', array('form' => $form));
                 ?>
-                </section>
+                </div>
 
             <!--  Affichage des volumes et des prix correspondant  -->
-                <section id="vrac_marche_volumePrix">
+                <div id="vrac_marche_volumePrix">
                 <?php
                 include_partial('marche_volumePrix', array('form' => $form));
                 ?>
-                </section>
+                </div>
 
             <br>
-            </section>
+            </div>
                 <div id="btn_etape_dr">
                     
                     <div class="btnAnnulation">
@@ -59,8 +59,8 @@
                     </div>       
                 </div>
             </form>
-            </section>      
-        </section>
+            </div>      
+        </div>
         <?php include_partial('colonne', array('vrac' => $form->getObject())); ?>
     </div>
 </div>
