@@ -23,102 +23,21 @@
                 <?php echo $form['acheteur_type']->renderError() ?>
                 <?php echo $form['acheteur_type']->render(array('class' => 'famille', 'data-template' => '#template_url_etablissement', 'data-container' => '#'.$form['acheteur_identifiant']->renderId())) ?>
             </div>
-            <div class="section_label_strong">
+            <div class="section_label_strong" id="listener_acheteur_choice">
                 <?php echo $form['acheteur_identifiant']->renderError() ?>
                 <label for="">Nom :</label>
                 <?php echo $form['acheteur_identifiant']->render() ?>
             </div>
 
-            <div class="bloc_form"> 
-                <div class="col">
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['acheteur']['raison_sociale']->renderError() ?>
-                            <?php echo $form['acheteur']['raison_sociale']->renderLabel() ?>
-                            <?php echo $form['acheteur']['raison_sociale']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form vracs_ligne_form_alt">
-                        <span>
-                            <?php echo $form['acheteur']['siret']->renderError() ?>
-                            <?php echo $form['acheteur']['siret']->renderLabel() ?>
-                            <?php echo $form['acheteur']['siret']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['acheteur']['adresse']->renderError() ?>
-                            <?php echo $form['acheteur']['adresse']->renderLabel() ?>
-                            <?php echo $form['acheteur']['adresse']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form vracs_ligne_form_alt">
-                        <span>
-                            <?php echo $form['acheteur']['commune']->renderError() ?>
-                            <?php echo $form['acheteur']['commune']->renderLabel() ?>
-                            <?php echo $form['acheteur']['commune']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['acheteur']['code_postal']->renderError() ?>
-                            <?php echo $form['acheteur']['code_postal']->renderLabel() ?>
-                            <?php echo $form['acheteur']['code_postal']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form vracs_ligne_form_alt">
-                        <span>
-                            <?php echo $form['acheteur']['telephone']->renderError() ?>
-                            <?php echo $form['acheteur']['telephone']->renderLabel() ?>
-                            <?php echo $form['acheteur']['telephone']->render() ?>
-                        </span>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['acheteur']['nom']->renderError() ?>
-                            <?php echo $form['acheteur']['nom']->renderLabel() ?>
-                            <?php echo $form['acheteur']['nom']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form vracs_ligne_form_alt">
-                        <span>
-                            <?php echo $form['acheteur']['cvi']->renderError() ?>
-                            <?php echo $form['acheteur']['cvi']->renderLabel() ?>
-                            <?php echo $form['acheteur']['cvi']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['acheteur']['telephone']->renderError() ?>
-                            <?php echo $form['acheteur']['telephone']->renderLabel() ?>
-                            <?php echo $form['acheteur']['telephone']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form vracs_ligne_form_alt">
-                        <span>
-                            <?php echo $form['acheteur']['fax']->renderError() ?>
-                            <?php echo $form['acheteur']['fax']->renderLabel() ?>
-                            <?php echo $form['acheteur']['fax']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['acheteur']['email']->renderError() ?>
-                            <?php echo $form['acheteur']['email']->renderLabel() ?>
-                            <?php echo $form['acheteur']['email']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form vracs_ligne_form_alt">
-                        <span>
-                            <?php echo $form['acheteur_assujetti_tva']->renderError() ?>
-                            <?php echo $form['acheteur_assujetti_tva']->renderLabel() ?>
-                            <?php echo $form['acheteur_assujetti_tva']->render() ?>
-                        </span>
-                    </div>
-                </div>
+            <div class="bloc_form" id="etablissement_acheteur"> 
+                <?php include_partial('form_etablissement', array('form' => $form['acheteur'])); ?>
             </div>
+
+			<div class="section_label_strong">
+				<span> <?php echo $form['acheteur_assujetti_tva']->renderError() ?> <?php echo $form['acheteur_assujetti_tva']->renderLabel() ?>
+				<?php echo $form['acheteur_assujetti_tva']->render() ?> </span>
+			</div>
+			
             <div class="adresse_livraison">
                 <div class="section_label_strong">
                     <label for="dif_adr_livr">Précision de l'adresse de livraison (si différente) <input type="checkbox" name="dif_adr_livr" id="dif_adr_livr"></label>
@@ -165,101 +84,22 @@
                 <?php echo $form['vendeur_type']->renderError() ?>
                 <?php echo $form['vendeur_type']->render(array('class' => 'famille', 'data-template' => '#template_url_etablissement', 'data-container' => '#'.$form['vendeur_identifiant']->renderId())) ?>
             </div>
-            <div class="section_label_strong">
+            <div class="section_label_strong" id="listener_vendeur_choice">
                 <?php echo $form['vendeur_identifiant']->renderError() ?>
                 <label for="">Nom :</label>
                 <?php echo $form['vendeur_identifiant']->render() ?>
             </div>
-            <div  class="bloc_form"> 
-                <div class="col">
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['vendeur']['raison_sociale']->renderError() ?>
-                            <?php echo $form['vendeur']['raison_sociale']->renderLabel() ?>
-                            <?php echo $form['vendeur']['raison_sociale']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form vracs_ligne_form_alt">
-                        <span>
-                            <?php echo $form['vendeur']['siret']->renderError() ?>
-                            <?php echo $form['vendeur']['siret']->renderLabel() ?>
-                            <?php echo $form['vendeur']['siret']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['vendeur']['adresse']->renderError() ?>
-                            <?php echo $form['vendeur']['adresse']->renderLabel() ?>
-                            <?php echo $form['vendeur']['adresse']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form vracs_ligne_form_alt">
-                        <span>
-                            <?php echo $form['vendeur']['commune']->renderError() ?>
-                            <?php echo $form['vendeur']['commune']->renderLabel() ?>
-                            <?php echo $form['vendeur']['commune']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['vendeur']['code_postal']->renderError() ?>
-                            <?php echo $form['vendeur']['code_postal']->renderLabel() ?>
-                            <?php echo $form['vendeur']['code_postal']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form vracs_ligne_form_alt">
-                        <span>
-                            <?php echo $form['vendeur']['telephone']->renderError() ?>
-                            <?php echo $form['vendeur']['telephone']->renderLabel() ?>
-                            <?php echo $form['vendeur']['telephone']->render() ?>
-                        </span>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['vendeur']['nom']->renderError() ?>
-                            <?php echo $form['vendeur']['nom']->renderLabel() ?>
-                            <?php echo $form['vendeur']['nom']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form vracs_ligne_form_alt">
-                        <span>
-                            <?php echo $form['vendeur']['cvi']->renderError() ?>
-                            <?php echo $form['vendeur']['cvi']->renderLabel() ?>
-                            <?php echo $form['vendeur']['cvi']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['vendeur']['telephone']->renderError() ?>
-                            <?php echo $form['vendeur']['telephone']->renderLabel() ?>
-                            <?php echo $form['vendeur']['telephone']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form vracs_ligne_form_alt">
-                        <span>
-                            <?php echo $form['vendeur']['fax']->renderError() ?>
-                            <?php echo $form['vendeur']['fax']->renderLabel() ?>
-                            <?php echo $form['vendeur']['fax']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['vendeur']['email']->renderError() ?>
-                            <?php echo $form['vendeur']['email']->renderLabel() ?>
-                            <?php echo $form['vendeur']['email']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form vracs_ligne_form_alt">
-                        <span>
-                            <?php echo $form['vendeur_assujetti_tva']->renderError() ?>
-                            <?php echo $form['vendeur_assujetti_tva']->renderLabel() ?>
-                            <?php echo $form['vendeur_assujetti_tva']->render() ?>
-                        </span>
-                    </div>
-                </div>
+            <div  class="bloc_form" id="etablissement_vendeur"> 
+                <?php include_partial('form_etablissement', array('form' => $form['vendeur'])); ?>
             </div>
+
+			<div class="section_label_strong">
+				<span>
+                	<?php echo $form['vendeur_assujetti_tva']->renderError() ?>
+					<?php echo $form['vendeur_assujetti_tva']->renderLabel() ?>
+					<?php echo $form['vendeur_assujetti_tva']->render() ?>
+				</span>
+			</div>
             <div class="adresse_livraison">
                 <div class="section_label_strong"><label for="dif_adr_stock">Précision de l'adresse de stockage (si différente) <input type="checkbox" name="dif_adr_stock" id="dif_adr_stock"></label></div>
                 <div class="bloc_form"> 
@@ -305,87 +145,13 @@
         <div id="mandataire" class="vrac_mandataire">
             <h1>Mandataire</h1>
             <h2>Sélectionner un mandataire :</h2>
-            <div class="section_label_strong">
+            <div class="section_label_strong" id="listener_mandataire_choice">
                 <?php echo $form['mandataire_identifiant']->renderError() ?>
                 <label for="">Nom :</label>
                 <?php echo $form['mandataire_identifiant']->render() ?>
             </div>
-            <div  class="bloc_form"> 
-                <div class="col">
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['mandataire']['raison_sociale']->renderError() ?>
-                            <?php echo $form['mandataire']['raison_sociale']->renderLabel() ?>
-                            <?php echo $form['mandataire']['raison_sociale']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form vracs_ligne_form_alt">
-                        <span>
-                            <?php echo $form['mandataire']['siret']->renderError() ?>
-                            <?php echo $form['mandataire']['siret']->renderLabel() ?>
-                            <?php echo $form['mandataire']['siret']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['mandataire']['adresse']->renderError() ?>
-                            <?php echo $form['mandataire']['adresse']->renderLabel() ?>
-                            <?php echo $form['mandataire']['adresse']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form vracs_ligne_form_alt">
-                        <span>
-                            <?php echo $form['mandataire']['commune']->renderError() ?>
-                            <?php echo $form['mandataire']['commune']->renderLabel() ?>
-                            <?php echo $form['mandataire']['commune']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['mandataire']['code_postal']->renderError() ?>
-                            <?php echo $form['mandataire']['code_postal']->renderLabel() ?>
-                            <?php echo $form['mandataire']['code_postal']->render() ?>
-                        </span>
-                    </div>
-
-                </div>
-                <div class="col">
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['mandataire']['nom']->renderError() ?>
-                            <?php echo $form['mandataire']['nom']->renderLabel() ?>
-                            <?php echo $form['mandataire']['nom']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form vracs_ligne_form_alt">
-                        <span>
-                            <?php echo $form['mandataire']['carte_pro']->renderError() ?>
-                            <?php echo $form['mandataire']['carte_pro']->renderLabel() ?>
-                            <?php echo $form['mandataire']['carte_pro']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['mandataire']['telephone']->renderError() ?>
-                            <?php echo $form['mandataire']['telephone']->renderLabel() ?>
-                            <?php echo $form['mandataire']['telephone']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form vracs_ligne_form_alt">
-                        <span>
-                            <?php echo $form['mandataire']['fax']->renderError() ?>
-                            <?php echo $form['mandataire']['fax']->renderLabel() ?>
-                            <?php echo $form['mandataire']['fax']->render() ?>
-                        </span>
-                    </div>
-                    <div class="vracs_ligne_form ">
-                        <span>
-                            <?php echo $form['mandataire']['email']->renderError() ?>
-                            <?php echo $form['mandataire']['email']->renderLabel() ?>
-                            <?php echo $form['mandataire']['email']->render() ?>
-                        </span>
-                    </div>
-                </div>
+            <div  class="bloc_form" id="etablissement_mandataire"> 
+                <?php include_partial('form_mandataire', array('form' => $form['mandataire'])); ?>
             </div>
         </div>
 
@@ -411,3 +177,4 @@
         
     </form>
     <?php include_partial('url_etablissement_template'); ?>
+    <?php include_partial('url_informations_template', array('vrac' => $form->getObject(), 'etape' => $etape)); ?>

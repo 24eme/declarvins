@@ -47,6 +47,37 @@ class acVinVracActions extends sfActions
 			}
 		}
 	}
+
+
+  public function executeSetEtablissementInformations(sfWebRequest $request)
+  {
+      $this->vrac = $this->getRoute()->getVrac();
+      $this->etablissement = $request->getParameter('etablissement', null);
+      $this->type = $request->getParameter('type', null);
+      $this->etape = $request->getParameter('step', null);
+      if (!$this->etablissement) {
+      	throw new sfException('Numéro d\'établissement requis');
+      }
+      if (!$this->type) {
+      	throw new sfException('Type requis');
+      }
+      if (!$this->etape) {
+      	throw new sfException('Etape requis');
+      }
+	  $this->init();
+      $this->etablissement = EtablissementClient::getInstance()->find('ETABLISSEMENT-'.$this->etablissement);
+      if ($this->vrac->exist($this->type)) {
+      	$this->vrac->setInformations($this->type,$this->etablissement);
+		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->vrac);
+		if ($this->type != 'mandataire') {
+			return $this->renderPartial('form_etablissement', array('form' => $this->form[$this->type]));
+		} else {
+			return $this->renderPartial('form_mandataire', array('form' => $this->form[$this->type]));
+		}
+      } else {
+      	throw new sfException('Type '.$this->type.' n\'existe pas');
+      }
+  }
 	public function executeRecapitulatif(sfWebRequest $request)
 	{
 		$this->init();

@@ -55,4 +55,21 @@ class Vrac extends BaseVrac
     {
         return $this->getVendeurObject()->interpro;
     }   
+
+    public function setInformations($type, $etablissement) 
+    {        
+    	$informations = $this->get($type);
+        if ($informations->exist('nom')) $informations->nom = $etablissement->nom;
+      	if ($informations->exist('raison_sociale')) $informations->raison_sociale = $etablissement->raison_sociale;
+      	if ($informations->exist('siret')) $informations->siret = $etablissement->siret;
+      	if ($informations->exist('cvi')) $informations->cvi = $etablissement->cvi;
+      	if ($informations->exist('num_accise')) $informations->num_accise = $etablissement->no_accises;
+      	if ($informations->exist('num_tva_intracomm')) $informations->num_tva_intracomm = $etablissement->no_tva_intracommunautaire;
+      	if ($informations->exist('adresse')) $informations->adresse = $etablissement->siege->adresse;
+      	if ($informations->exist('code_postal')) $informations->code_postal = $etablissement->siege->code_postal;
+      	if ($informations->exist('commune')) $informations->commune = $etablissement->siege->commune;
+      	if ($informations->exist('telephone')) $informations->telephone = $etablissement->telephone;
+      	if ($informations->exist('fax')) $informations->fax = $etablissement->fax;
+      	if ($informations->exist('email')) $informations->email = $etablissement->email;
+    }
 }
