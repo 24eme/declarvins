@@ -1,6 +1,6 @@
 <?php
 
-class EtablissementRoute extends sfObjectRoute {
+class EtablissementRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
 
     protected $etablissement = null;
     

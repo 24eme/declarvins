@@ -31,14 +31,14 @@ class EtablissementFamilles
     );
     
     protected static $droits = array (
-    	"producteur_cave_particuliere" => array(TiersSecurityUser::CREDENTIAL_DROIT_DRM_DTI, TiersSecurityUser::CREDENTIAL_DROIT_DRM_PAPIER, TiersSecurityUser::CREDENTIAL_DROIT_VRAC),
-    	"producteur_cave_cooperative" => array(TiersSecurityUser::CREDENTIAL_DROIT_DRM_DTI, TiersSecurityUser::CREDENTIAL_DROIT_DRM_PAPIER, TiersSecurityUser::CREDENTIAL_DROIT_VRAC),
-    	"negociant_regional" => array(TiersSecurityUser::CREDENTIAL_DROIT_DRM_PAPIER, TiersSecurityUser::CREDENTIAL_DROIT_VRAC),
-    	"negociant_exterieur" => array(TiersSecurityUser::CREDENTIAL_DROIT_DRM_PAPIER, TiersSecurityUser::CREDENTIAL_DROIT_VRAC),
-    	"negociant_etranger" => array(TiersSecurityUser::CREDENTIAL_DROIT_DRM_PAPIER, TiersSecurityUser::CREDENTIAL_DROIT_VRAC),
-    	"negociant_union" => array(TiersSecurityUser::CREDENTIAL_DROIT_DRM_PAPIER, TiersSecurityUser::CREDENTIAL_DROIT_VRAC),
-    	"negociant_vinificateur" => array(TiersSecurityUser::CREDENTIAL_DROIT_DRM_DTI, TiersSecurityUser::CREDENTIAL_DROIT_DRM_PAPIER, TiersSecurityUser::CREDENTIAL_DROIT_VRAC),
-    	"courtier" => array(TiersSecurityUser::CREDENTIAL_DROIT_VRAC)
+    	"producteur_cave_particuliere" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
+    	"producteur_cave_cooperative" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
+    	"negociant_regional" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
+    	"negociant_exterieur" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
+    	"negociant_etranger" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
+    	"negociant_union" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
+    	"negociant_vinificateur" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
+    	"courtier" => array(EtablissementDroit::DROIT_VRAC)
     );
 
     public static function getFamilles() 

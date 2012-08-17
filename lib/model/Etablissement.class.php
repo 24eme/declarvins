@@ -2,6 +2,7 @@
 class Etablissement extends BaseEtablissement {
 
     protected $_interpro = null;
+    protected $droit = null;
 
     const STATUT_ACTIF = "ACTIF";
     const STATUT_ARCHIVER = "ARCHIVER";
@@ -73,9 +74,25 @@ class Etablissement extends BaseEtablissement {
 		return null;
 	}
 
+    public function getDroit() {
+        if (is_null($this->droit)) {
+
+            $this->droit = new EtablissementDroit($this);
+        }
+
+        return $this->droit;
+    }
+
+    public function hasDroit($droit)
+    {
+        
+        return $this->getDroit()->has($droit);
+    }
+
     public function getDroits() {
     	return EtablissementFamilles::getDroitsByFamilleAndSousFamille($this->famille, $this->sous_famille);
-    }   
+    }
+
     public function save() {
     	if (!$this->famille) {
     		$this->famille = EtablissementFamilles::FAMILLE_PRODUCTEUR;
