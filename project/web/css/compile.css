@@ -2570,6 +2570,63 @@ p#date_drm {
 }
 .vracs .error_list { margin-top:15px; }
 .vracs #contrat .section_label_strong label { width:300px; }
+.vracs .lot {
+  float:left;
+  margin:0 15px 10px 0;
+  width:433px;
+}
+.vracs #millesime label {
+  width:190px;
+  vertical-align:top;
+}
+.vracs #millesime table { display:inline-block; }
+.vracs #millesime table input {
+  width:70px;
+  margin-left:10px;
+}
+.vracs #millesime .btn_ajouter_ligne_template {
+  display:inline;
+  font-weight:bold;
+  margin-left:200px;
+}
+.vracs #millesime .btn_ajouter_ligne_template span { line-height:23px !important; }
+.vracs #millesime .btn_ajouter_ligne_template span:hover { text-decoration:none; }
+.vracs #millesime .btn_ajouter_ligne_template:hover { text-decoration:none; }
+.vracs #millesime .dernier {
+  border-bottom:1px solid #ffffff;
+  border-right:1px solid #ffffff;
+}
+.vracs #millesime .dernier .btn_supprimer_ligne_template {
+  background:url(../images/pictos/pi_supprimer.png) 0 center no-repeat;
+  height:13px;
+  padding:0 0 0 14px;
+  text-indent:100%;
+  white-space:nowrap;
+  overflow:hidden;
+  display:inline-block;
+  padding-left:0;
+  margin:10px 0 0;
+  width:14px;
+}
+.vracs #millesime .dernier .btn_supprimer_ligne_template:hover, .vracs #millesime .dernier .btn_supprimer_ligne_template:focus { text-decoration:underline; }
+.ielt8 .vracs #millesime .dernier .btn_supprimer_ligne_template { height:15px; }
+.vracs .bloc_form_commentaire .vracs_ligne_form label {
+  display:block;
+  padding:10px 0;
+  vertical-align:middle;
+}
+.vracs .bloc_form_commentaire textarea { width:872px; }
+.vracs .btn_ajouter_transaction { margin-bottom:15px; }
+.vracs .btn_ajouter_transaction .btn_ajouter_ligne_template { display:inline; }
+.vracs .btn_supprimer_ligne_template {
+  background:url("../images/pictos/pi_supprimer.png") no-repeat scroll 0 center transparent;
+  display:inline-block;
+  font-weight:bold;
+  margin:10px 0 0 104px;
+  padding:0 0 0 20px;
+  text-align:center;
+  text-decoration:underline;
+}
 #mon_compte .ligne_form, #compteModification .ligne_form, #compteAjout .ligne_form, #validationFiche .ligne_form { margin:0 0 15px; }
 #mon_compte label, #compteModification label, #compteAjout label, #validationFiche label {
   display:inline-block;
