@@ -130,7 +130,7 @@ class DRMRouting {
                               									'must_be_valid' => false,
                               									'must_be_not_valid' => true)));
 
-        $r->prependRoute('drm_show_error', new DRMRoute('/drm/:identifiant/edition/:campagne_rectificative/voir-erreur/:type/:id', 
+        $r->prependRoute('drm_show_error', new DRMRoute('/drm/:identifiant/edition/:campagne_rectificative/voir-erreur/:type/:identifiant_controle', 
                                                           array('module' => 'drm', 
                                                                 'action' => 'showError'),
                                                           array('sf_method' => array('get')),

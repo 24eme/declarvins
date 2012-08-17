@@ -208,7 +208,7 @@ class drmActions extends sfActions
   public function executeShowError(sfWebRequest $request) {
     $drm = $this->getRoute()->getDRM();
     $drmValidation = new DRMValidation($drm);
-    $controle = $drmValidation->find($request->getParameter('type'), $request->getParameter('identifiant'));
+    $controle = $drmValidation->find($request->getParameter('type'), $request->getParameter('identifiant_controle'));
     $this->forward404Unless($controle);
     $this->getUser()->setFlash('control_message', $controle->getMessage());
     $this->getUser()->setFlash('control_css', "flash_".$controle->getType());
