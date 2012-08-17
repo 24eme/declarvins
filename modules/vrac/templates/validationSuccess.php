@@ -1,12 +1,3 @@
-<?php
-/* Fichier : validationSuccess.php
- * Description : Fichier php correspondant à la vue de vrac/XXXXXXXXXXX/validation
- * Formulaire d'enregistrement de la partie validation d'un contrat donnant le récapitulatif
- * Auteur : Petit Mathurin - mpetit[at]actualys.com
- * Version : 1.0.0 
- * Derniere date de modification : 28-05-12
- */
-?>
 <div id="contenu">
     <div id="rub_contrats">
         <div id="principal">
