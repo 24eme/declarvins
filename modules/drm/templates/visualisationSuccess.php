@@ -1,13 +1,13 @@
 <?php use_helper('Float'); ?>
 <?php use_helper('Rectificative'); ?>
-<?php include_partial('global/navTop', array('active' => 'drm')); ?>
+<?php include_partial('global/navTop', array('active' => 'drm', 'etablissement' => $etablissement)); ?>
 
 
 <section id="contenu">
 
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
 	<?php if (!$hide_rectificative && !$hasDrmEnCours): ?>
-    <form method="GET" action="<?php echo url_for(array('sf_route' => 'drm_rectificative', 'identifiant' => $sf_user->getTiers()->identifiant, 'campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">
+    <form method="GET" action="<?php echo url_for(array('sf_route' => 'drm_rectificative', 'identifiant' => $etablissement->identifiant, 'campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">
         <button class="btn_passer_etape rectificative" type="submit">Soumettre une DRM rectificative</button>
     </form>
 	<?php endif; ?>
@@ -31,15 +31,15 @@
             <?php endif; ?>
 
             
-            <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', array('identifiant' => $sf_user->getTiers()->identifiant, 'campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
+            <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', array('identifiant' => $etablissement->identifiant, 'campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
                 
             <div id="btn_etape_dr">
                 <?php if ($drm_suivante && $drm_suivante->isRectificative()): ?>
-                    <a href="<?php echo url_for('drm_init', array('identifiant' => $sf_user->getTiers()->identifiant, 'campagne_rectificative' => $drm_suivante->getCampagneAndRectificative())) ?>" class="btn_suiv">
+                    <a href="<?php echo url_for('drm_init', array('identifiant' => $etablissement->identifiant, 'campagne_rectificative' => $drm_suivante->getCampagneAndRectificative())) ?>" class="btn_suiv">
                         <span>Passer à la DRM suivante</span>
                     </a>
                 <?php else: ?>
-                    <a href="<?php echo url_for('drm_mon_espace', $sf_user->getEtablissement()) ?>" class="btn_suiv">
+                    <a href="<?php echo url_for('drm_mon_espace', $etablissement) ?>" class="btn_suiv">
                         <span>Retour à mon espace</span>
                     </a>
                 <?php endif; ?>

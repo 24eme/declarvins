@@ -34,15 +34,16 @@ class DRMRouting {
     static public function listenToRoutingLoadConfigurationEvent(sfEvent $event) {
         $r = $event->getSubject();
         
-	$r->prependRoute('drm_notice', new sfRoute('/drm/notice', array('module' => 'drm', 
+	      $r->prependRoute('drm_notice', new sfRoute('/drm/notice', array('module' => 'drm', 
 									'action' => 'downloadNotice')));
-        $r->prependRoute('drm_mon_espace', new EtablissementSessionRoute('/drm/:identifiant/mon-espace', array('module' => 'drm', 
+        
+        $r->prependRoute('drm_mon_espace', new EtablissementRoute('/drm/:identifiant', array('module' => 'drm', 
 													'action' => 'monEspace'),
 								  array('sf_method' => array('get','post')),
 								  array('model' => 'Etablissement',
 									'type' => "object")));
 
-        $r->prependRoute('drm_historique', new EtablissementSessionRoute('/drm/:identifiant/historique/:campagne', array('module' => 'drm', 
+        $r->prependRoute('drm_historique', new EtablissementRoute('/drm/:identifiant/historique/:campagne', array('module' => 'drm', 
 														  'action' => 'historique', 
 														  'campagne' => null),
 								  array('sf_method' => array('get','post')),

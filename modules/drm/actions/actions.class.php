@@ -16,16 +16,23 @@ class drmActions extends sfActions
    * @param sfWebRequest $request 
    */
   public function executeNouvelle(sfWebRequest $request) {
-  	  $historique = new DRMHistorique($this->getUser()->getTiers()->identifiant);
-	  if ($historique->hasDRMInProcess()) {
-	  	throw new sfException('Une DRM est déjà en cours de saisie.');
-	  }
-	  $drm = DRMClient::getInstance()->createDoc($historique->etablissement, $request->getParameter('campagne'));
+      $this->etablissement = $this->getRoute()->getEtablissement();
+
+  	  $historique = new DRMHistorique($this->etablissement->identifiant);
+	    if ($historique->hasDRMInProcess()) {
+	  	  
+        throw new sfException('Une DRM est déjà en cours de saisie.');
+	    }
+	   
+      $drm = DRMClient::getInstance()->createDoc($historique->etablissement, $request->getParameter('campagne'));
+      
       $drm->mode_de_saisie =  DRM::MODE_DE_SAISIE_DTI;
+      
       if($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN)) {
         $drm->mode_de_saisie = DRM::MODE_DE_SAISIE_PAPIER;
       }
       $drm->save();
+      
       $this->redirect('drm_informations', $drm);
   }
   
@@ -47,6 +54,7 @@ class drmActions extends sfActions
    * @param sfWebRequest $request 
    */
   public function executeDelete(sfWebRequest $request) {
+      $etablissement = $this->getRoute()->getEtablissement();
       $drm = $this->getRoute()->getDRM();
       if ($drm->isValidee())
         throw new sfException('Vous ne pouvez pas supprimer une DRM validée');
@@ -55,7 +63,7 @@ class drmActions extends sfActions
       } elseif (!$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) && !$drm->isValidee()) {
       	$drm->delete();
       }
-      $this->redirect('drm_mon_espace', $this->getUser()->getEtablissement());
+      $this->redirect('drm_mon_espace', $etablissement);
   }
   
  /**
@@ -65,8 +73,9 @@ class drmActions extends sfActions
   */
   public function executeMonEspace(sfWebRequest $request)
   {
-      $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant);
-      $this->formCampagne = new DRMCampagne();
+      $this->etablissement = $this->getRoute()->getEtablissement();
+      $this->historique = new DRMHistorique ($this->etablissement->identifiant);
+      $this->formCampagne = new DRMCampagneForm($this->identifiant);
       $this->hasDrmEnCours = $this->historique->hasDRMInProcess();
       if ($request->isMethod(sfWebRequest::POST)) {
 	  	if ($this->hasDrmEnCours) {
@@ -91,8 +100,9 @@ class drmActions extends sfActions
   */
   public function executeHistorique(sfWebRequest $request)
   {
+    $this->etablissement = $this->getRoute()->getEtablissement();
     $this->campagne = $request->getParameter('campagne');
-    $this->historique = new DRMHistorique ($this->getUser()->getTiers()->identifiant, $this->campagne);
+    $this->historique = new DRMHistorique ($this->etablissement->identifiant, $this->campagne);
   }
 
  /**
@@ -103,7 +113,7 @@ class drmActions extends sfActions
   public function executeInformations(sfWebRequest $request)
   {
     $this->drm = $this->getRoute()->getDRM();
-    $this->tiers = $this->getUser()->getTiers();
+    $this->etablissement = $this->getRoute()->getEtablissement();
     $isAdmin = $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN);
     $this->form = new DRMInformationsForm(array(), array('is_admin' => $isAdmin));
 
@@ -115,20 +125,20 @@ class drmActions extends sfActions
                         if ($values['confirmation'] == "modification"){
                             $this->redirect('drm_modif_infos', $this->drm);
                         }elseif ($values['confirmation']) {
-  				$this->drm->declarant->nom = $this->tiers->nom;
-  				$this->drm->declarant->raison_sociale = $this->tiers->raison_sociale;
-  				$this->drm->declarant->siret = $this->tiers->siret;
-  				$this->drm->declarant->cni = $this->tiers->cni;
-  				$this->drm->declarant->cvi = $this->tiers->cvi;
-  				$this->drm->declarant->siege->adresse = $this->tiers->siege->adresse;
-  				$this->drm->declarant->siege->code_postal = $this->tiers->siege->code_postal;
-  				$this->drm->declarant->siege->commune = $this->tiers->siege->commune;
-  				$this->drm->declarant->comptabilite->adresse = $this->tiers->comptabilite->adresse;
-  				$this->drm->declarant->comptabilite->code_postal = $this->tiers->comptabilite->code_postal;
-  				$this->drm->declarant->comptabilite->commune = $this->tiers->comptabilite->commune;
-  				$this->drm->declarant->no_accises = $this->tiers->no_accises;
-  				$this->drm->declarant->no_tva_intracommunautaire = $this->tiers->no_tva_intracommunautaire;
-  				$this->drm->declarant->service_douane = $this->tiers->service_douane;		
+  				$this->drm->declarant->nom = $this->etablissement->nom;
+  				$this->drm->declarant->raison_sociale = $this->etablissement->raison_sociale;
+  				$this->drm->declarant->siret = $this->etablissement->siret;
+  				$this->drm->declarant->cni = $this->etablissement->cni;
+  				$this->drm->declarant->cvi = $this->etablissement->cvi;
+  				$this->drm->declarant->siege->adresse = $this->etablissement->siege->adresse;
+  				$this->drm->declarant->siege->code_postal = $this->etablissement->siege->code_postal;
+  				$this->drm->declarant->siege->commune = $this->etablissement->siege->commune;
+  				$this->drm->declarant->comptabilite->adresse = $this->etablissement->comptabilite->adresse;
+  				$this->drm->declarant->comptabilite->code_postal = $this->etablissement->comptabilite->code_postal;
+  				$this->drm->declarant->comptabilite->commune = $this->etablissement->comptabilite->commune;
+  				$this->drm->declarant->no_accises = $this->etablissement->no_accises;
+  				$this->drm->declarant->no_tva_intracommunautaire = $this->etablissement->no_tva_intracommunautaire;
+  				$this->drm->declarant->service_douane = $this->etablissement->service_douane;		
   				$this->drm->save();
 	  		}
 			$this->drm->setCurrentEtapeRouting('ajouts_liquidations');		
@@ -172,6 +182,7 @@ class drmActions extends sfActions
   */
   public function executeValidation(sfWebRequest $request)
   {
+    $this->etablissement = $this->getRoute()->getEtablissement();
     $this->drm = $this->getRoute()->getDRM();
     $this->drmValidation = new DRMValidation($this->drm);
     $this->form = new DRMValidationForm(array(), array('engagements' => $this->drmValidation->getEngagements()));
@@ -184,7 +195,7 @@ class drmActions extends sfActions
 	  $this->drm->validate();
 	  $this->drm->save();
 	  
-	  $historique = new DRMHistorique($this->getUser()->getTiers()->identifiant);
+	  $historique = new DRMHistorique($this->etablissement->identifiant);
 	  $next_drm = $historique->getNextByCampagne($this->drm->campagne);
 	  if ($next_drm) {
 	  	$next_drm = DRMClient::getInstance()->find($next_drm[DRMHistorique::VIEW_INDEX_ID]);
@@ -200,7 +211,7 @@ class drmActions extends sfActions
 	      $drm_rectificative_suivante->save();
 	    }
 	  }
-	  $this->redirect('drm_visualisation', array('identifiant' => $this->getUser()->getTiers()->identifiant, 'campagne_rectificative' => $this->drm->getCampagneAndRectificative(), 'hide_rectificative' => 1));
+	  $this->redirect('drm_visualisation', array('identifiant' => $this->etablissement->identifiant, 'campagne_rectificative' => $this->drm->getCampagneAndRectificative(), 'hide_rectificative' => 1));
     	}
     }
   }
@@ -223,15 +234,17 @@ class drmActions extends sfActions
   public function executeVisualisation(sfWebRequest $request)
   {
     $this->drm = $this->getRoute()->getDRM();
+    $this->etablissement = $this->getRoute()->getEtablissement();
     $this->hide_rectificative = $request->getParameter('hide_rectificative');
     $this->drm_suivante = $this->drm->getSuivante();
-  	$historique = new DRMHistorique($this->getUser()->getTiers()->identifiant);
+  	$historique = new DRMHistorique($this->drm->identifiant);
     $this->hasDrmEnCours = $historique->hasDRMInProcess();
   }
 
   public function executeRectificative(sfWebRequest $request)
   {
-  	$historique = new DRMHistorique($this->getUser()->getTiers()->identifiant);
+    $this->etablissement = $this->getRoute()->getEtablissement();
+  	$historique = new DRMHistorique($this->etablissement->identifiant);
 	if ($historique->hasDRMInProcess()) {
 		throw new sfException('Une DRM est déjà en cours de saisie.');
 	}
@@ -240,7 +253,7 @@ class drmActions extends sfActions
     $drm_rectificative = $drm->generateRectificative();
     $drm_rectificative->save();
 
-    return $this->redirect('drm_init', array('identifiant' => $this->getUser()->getTiers()->identifiant, 'campagne_rectificative' => $drm_rectificative->getCampagneAndRectificative()));
+    return $this->redirect('drm_init', array('identifiant' => $this->etablissement->identifiant, 'campagne_rectificative' => $drm_rectificative->getCampagneAndRectificative()));
   }
 
 

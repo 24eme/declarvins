@@ -1,4 +1,4 @@
-<?php include_partial('global/navTop', array('active' => 'drm')); ?>
+<?php include_component('global', 'navTop', array('active' => 'drm')); ?>
 
 <section id="contenu">
     
@@ -9,11 +9,13 @@
     <section id="principal">
         <div id="recap_drm">
             <div id="drm_annee_courante" >
-                <?php include_component('drm', 'historiqueList', array('historique' => $historique, 'limit' => 12)) ?>
+                <?php include_component('drm', 'historiqueList', array('etablissement' => $etablissement,
+                                                                       'historique' => $historique, 
+                                                                       'limit' => 12)) ?>
             </div>
         </div>
     </section>
-    <a href="<?php echo url_for('drm_historique', $sf_user->getEtablissement()) ?>">Votre historique complet &raquo;</a>
+    <a href="<?php echo url_for('drm_historique', $etablissement) ?>">Votre historique complet &raquo;</a>
     
         <?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && !$hasDrmEnCours): ?>
         <br /><br />
@@ -21,7 +23,8 @@
     	<p class="intro">Saisir une DRM d'un mois différent.</p>
         <div id="espace_admin" style="float: left; width: 670px;">
             <div class="contenu clearfix">
-            	<?php include_partial('formCampagne', array('form' => $formCampagne)) ?>
+            	<?php include_partial('formCampagne', array('etablissement' => $etablissement,
+                                                            'form' => $formCampagne)) ?>
             </div>
         </div>
         <?php endif; ?>

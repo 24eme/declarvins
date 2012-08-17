@@ -1,4 +1,4 @@
-<?php include_partial('global/navTop', array('active' => 'drm')); ?>
+<?php include_component('global', 'navTop', array('active' => 'drm')); ?>
 
 <section id="contenu">
 
@@ -18,35 +18,35 @@
 					</div>
 					<div class="ligne_form">
 						<label for="champ_4">Raison sociale :</label>
-						<span class="valeur valeur_2"><?php echo $tiers->raison_sociale ?></span>
+						<span class="valeur valeur_2"><?php echo $etablissement->raison_sociale ?></span>
 					</div>
 					<div class="ligne_form">
 						<label for="champ_4">Nom commercial :</label>
-						<span class="valeur valeur_2"><?php echo $tiers->nom ?></span>
+						<span class="valeur valeur_2"><?php echo $etablissement->nom ?></span>
 					</div>
 					<div class="ligne_form">
 						<label for="champ_1">CVI :</label>
-						<span class="valeur"><?php echo $tiers->cvi ?></span>
+						<span class="valeur"><?php echo $etablissement->cvi ?></span>
 					</div>
 					<div class="ligne_form">
 						<label for="champ_2">N° SIRET :</label>
-						<span class="valeur"><?php echo $tiers->siret ?></span>
+						<span class="valeur"><?php echo $etablissement->siret ?></span>
 					</div>
 					<div class="ligne_form">
 						<label for="champ_3">N° entrepositaire agréé :</label>
-						<span class="valeur"><?php echo $tiers->no_tva_intracommunautaire ?></span>
+						<span class="valeur"><?php echo $etablissement->no_tva_intracommunautaire ?></span>
 					</div>
 					<div class="ligne_form">
 						<label for="champ_6">Adresse du chai :</label>
-						<span class="valeur"><?php echo $tiers->siege->adresse ?><br /><?php echo $tiers->siege->code_postal ?> <?php echo $tiers->siege->commune ?></span>
+						<span class="valeur"><?php echo $etablissement->siege->adresse ?><br /><?php echo $etablissement->siege->code_postal ?> <?php echo $etablissement->siege->commune ?></span>
 					</div>
 					<div class="ligne_form">
 						<label for="champ_7">Lieu ou est tenue la comptabilité matière :</label>
-						<span class="valeur"><?php if (!$tiers->comptabilite->adresse): ?>IDEM<?php else: ?><?php echo $tiers->comptabilite->adresse ?><br /><?php echo $tiers->comptabilite->code_postal ?> <?php echo $tiers->comptabilite->commune ?><?php endif; ?></span>
+						<span class="valeur"><?php if (!$etablissement->comptabilite->adresse): ?>IDEM<?php else: ?><?php echo $etablissement->comptabilite->adresse ?><br /><?php echo $etablissement->comptabilite->code_postal ?> <?php echo $etablissement->comptabilite->commune ?><?php endif; ?></span>
 					</div>
 					<div class="ligne_form">
 						<label for="champ_8">Service des douanes :</label>
-						<span class="valeur"><?php echo $tiers->service_douane ?></span>
+						<span class="valeur"><?php echo $etablissement->service_douane ?></span>
 					</div>
 					<div class="ligne_form">
 						<label for="champ_9">Numéro d’Accise :</label>

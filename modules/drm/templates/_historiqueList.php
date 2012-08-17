@@ -15,12 +15,14 @@
 			      <td><?php echo $futurDRM[DRMHistorique::VIEW_INDEX_ANNEE].'-'.$futurDRM[DRMHistorique::VIEW_INDEX_MOIS] ?></td>
 			<td>NOUVELLE</td>
 			<td>
-				<a href="<?php echo url_for('drm_nouvelle', array('identifiant' => $sf_user->getTiers()->identifiant, 'campagne' => $futurDRM[DRMHistorique::VIEW_INDEX_ANNEE].'-'.$futurDRM[DRMHistorique::VIEW_INDEX_MOIS])) ?>">Démarrer la DRM</a><br />
+				<a href="<?php echo url_for('drm_nouvelle', array('identifiant' => $etablissement->identifiant, 'campagne' => $futurDRM[DRMHistorique::VIEW_INDEX_ANNEE].'-'.$futurDRM[DRMHistorique::VIEW_INDEX_MOIS])) ?>">Démarrer la DRM</a><br />
 			</td>
 		</tr>
 		<?php endif; ?>
 		<?php $i=0; foreach ($list as $drm_id => $drm): ?>
-		<?php include_component('drm', 'historiqueItem', array('alt' => $i%2 == 0, 'drm' => $drm)) ?>
+		<?php include_component('drm', 'historiqueItem', array('alt' => $i%2 == 0, 
+															   'drm' => $drm,
+															   'etablissement' => $etablissement)) ?>
 		<?php $i++; if (isset($limit) && $limit == $i) break; endforeach; ?>
 	</tbody>
 </table>

@@ -1,4 +1,4 @@
-<?php include_partial('global/navTop', array('active' => 'drm')); ?>
+<?php include_component('global', 'navTop', array('active' => 'drm')); ?>
 
 <section id="contenu">
 
@@ -47,7 +47,7 @@
                     <?php endif; ?>
                 </div>
             </div>
-            <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', array('identifiant' => $sf_user->getTiers()->identifiant, 'campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
+            <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', array('identifiant' => $etablissement->identifiant, 'campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
                 
             <div id="btn_etape_dr">
                 <?php if ($drm->mode_de_saisie == DRM::MODE_DE_SAISIE_PAPIER): ?>

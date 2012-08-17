@@ -6,6 +6,7 @@ class DRMCampagneValidator extends sfValidatorBase {
         $this->addMessage('impossible', "Vous ne pouvez pas créer une DRM future.");
         $this->setMessage('invalid', "Cette DRM existe déjà.");
         $this->setMessage('required', "Champs obligatoires.");
+        $this->addRequiredOption('etablissement');
     }
 
     protected function doClean($values) {
@@ -20,9 +21,8 @@ class DRMCampagneValidator extends sfValidatorBase {
         	throw new sfValidatorErrorSchema($this, array($this->getOption('years') => new sfValidatorError($this, 'impossible')));
         }
         $campagne = sprintf('%04d-%02d', $values['years'], $values['months']);
-        $tiers = sfContext::getInstance()->getUser()->getTiers();
         
-        $drm = DRMClient::getInstance()->findByIdentifiantCampagneAndRectificative($tiers->identifiant, $campagne);
+        $drm = DRMClient::getInstance()->findByIdentifiantCampagneAndRectificative($this->getOption('etablissement'), $campagne);
 		
         if ($drm) {
             throw new sfValidatorErrorSchema($this, array($this->getOption('months') => new sfValidatorError($this, 'invalid')));

@@ -1,6 +1,6 @@
 <?php
 
-class DRMRoute extends sfObjectRoute {
+class DRMRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
 
     protected $drm = null;
     
@@ -49,4 +49,8 @@ class DRMRoute extends sfObjectRoute {
         return $this->drm;
     }
 
+    public function getEtablissement() {
+
+        return $this->getDRM()->getEtablissement();
+    }
 }
