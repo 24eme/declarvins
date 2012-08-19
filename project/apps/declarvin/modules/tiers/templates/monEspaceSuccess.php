@@ -1,4 +1,4 @@
-<?php include_partial('global/navTop', array('active' => 'drm')); ?>
+<?php include_component('global', 'navTop', array('active' => 'drm')); ?>
 
 <section id="contenu">
     <div id="mon_espace" style="width:70%; float: left;">
