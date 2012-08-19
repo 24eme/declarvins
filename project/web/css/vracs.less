@@ -564,9 +564,195 @@
 
     #contrat
     {
-        .section_label_strong
-        {
-            label { width : 300px }
-        }
+            .section_label_strong
+            {
+                    label { width : 300px }
+            }
     }
+    
+    .vrac_transaction{
+            
+    }
+
+    .lot{
+        float: left;
+        margin: 0 15px 10px 0;
+        width: 433px;
+    }
+
+    #millesime{
+            label{ 
+                    width : 190px ;
+                    vertical-align: top; 
+            }
+            table{
+                    display: inline-block;
+                    input{ 
+                        width : 70px;
+                        margin-left:10px;
+                    }
+            }
+            .btn_ajouter_ligne_template{
+                    display:inline;
+                    font-weight:bold;
+                    margin-left:200px;
+
+                    span { 
+                            line-height : 23px !important;
+                            &:hover{ text-decoration :none; }
+                    }
+
+                    &:hover{ text-decoration :none; }
+
+            }
+
+            .dernier
+            {
+                border-bottom: 1px solid @couleur-e2;
+                border-right: 1px solid @couleur-e2;
+
+                .btn_supprimer_ligne_template
+                {
+                    .btn_suppr;
+                    .txt-rpl;
+
+                    display: inline-block;
+                    padding-left: 0;
+                    margin: 10px 0 0;
+                    width: 14px;
+                }
+            }
+
+    }
+
+    .bloc_form_commentaire{
+        
+             .vracs_ligne_form label {
+                    display: block;
+                    padding: 10px 0;
+                    vertical-align: middle;
+             }
+
+             textarea{
+                    width : 872px;
+             }
+    
+    }
+
+    .btn_ajouter_transaction{
+            margin-bottom:15px;
+            .btn_ajouter_ligne_template {
+                    display: inline;
+             }
+    }
+
+    .btn_supprimer_ligne_template{
+            background: url("../images/pictos/pi_supprimer.png") no-repeat scroll 0 center transparent;
+            display: inline-block;
+            font-weight: bold;
+            margin: 10px 0 0 104px;
+            padding: 0 0 0 20px;
+            text-align: center;
+            text-decoration: underline;
+    }
+
+    .visualisation_contrat{
+
+            #titre {
+                background-color: #E3E2E2;
+                padding: 10px;
+                text-align: center;
+
+                    .style_label {
+                        font-size: 15px;
+                        font-weight: bold;
+                        padding: 10px 0;
+                        text-transform: uppercase;
+                    }
+
+            }
+
+            #ss_titre {
+                background-color: #E3E2E2;
+                margin-top: 10px;
+                padding: 10px;
+
+                .style_label {
+                    font-size: 15px;
+                    font-weight: bold;
+                    padding: 10px 0;
+                    text-transform: uppercase;
+                }
+
+            }
+
+            #vrac_condition{ margin-bottom:20px;}
+
+
+            .legende div {
+                display: block;
+                margin: 15px 0 0;
+
+                .legende_statut_texte {
+                    margin: 2px 0 0 10px;
+                    position: absolute;
+                }
+            }
+
+
+            .statut
+            {
+                -webkit-border-radius:50%;
+                -moz-border-radius:50%;
+                border-radius:50%;
+                -webkit-border-radius:50%;
+                -moz-border-radius:50%;
+                border-radius:50%;
+                height:20px;
+                width:20px;
+                display:inline-block;
+                vertical-align:middle;
+            }
+            .statut_solde { background-color:#a2df46; }
+            .statut_non-solde { background-color:#faa804; }
+            .statut_annule { background-color:#e42c2c; }
+
+            #btn_annuler_contrat{
+                 background: url("../images/boutons/btn_supprimer.png") no-repeat scroll 7px center #494949;
+                border: 1px solid #343434;
+                color: #FFFFFF;
+                display: inline-block;
+                font: bold 14px/22px Calibri,Arial,sans-serif;
+                height: 22px;
+                padding: 0 5px 0 27px;
+                text-transform: uppercase;
+            }
+
+            .modifier {
+                background: url("../images/pictos/pi_modifier.png") no-repeat scroll 7px center #FF9F00;
+                border: 1px solid #D68500;
+                color: #FFFFFF;
+                display: inline-block;
+                height: 21px;
+                line-height: 21px;
+                padding: 0 7px 0 30px;
+                text-transform: uppercase;
+                font-weight:bold;
+                float:right;
+            }
+
+            #solder_contrat{
+                .btn_vert; 
+                .f_right;
+                height: 21px;
+                line-height: 21px;
+                padding: 0 7px;
+                text-transform: uppercase;
+                font-weight:bold;
+            }
+    
+    }
+
+    
+
 }

@@ -2570,6 +2570,147 @@ p#date_drm {
 }
 .vracs .error_list { margin-top:15px; }
 .vracs #contrat .section_label_strong label { width:300px; }
+.vracs .lot {
+  float:left;
+  margin:0 15px 10px 0;
+  width:433px;
+}
+.vracs #millesime label {
+  width:190px;
+  vertical-align:top;
+}
+.vracs #millesime table { display:inline-block; }
+.vracs #millesime table input {
+  width:70px;
+  margin-left:10px;
+}
+.vracs #millesime .btn_ajouter_ligne_template {
+  display:inline;
+  font-weight:bold;
+  margin-left:200px;
+}
+.vracs #millesime .btn_ajouter_ligne_template span { line-height:23px !important; }
+.vracs #millesime .btn_ajouter_ligne_template span:hover { text-decoration:none; }
+.vracs #millesime .btn_ajouter_ligne_template:hover { text-decoration:none; }
+.vracs #millesime .dernier {
+  border-bottom:1px solid #ffffff;
+  border-right:1px solid #ffffff;
+}
+.vracs #millesime .dernier .btn_supprimer_ligne_template {
+  background:url(../images/pictos/pi_supprimer.png) 0 center no-repeat;
+  height:13px;
+  padding:0 0 0 14px;
+  text-indent:100%;
+  white-space:nowrap;
+  overflow:hidden;
+  display:inline-block;
+  padding-left:0;
+  margin:10px 0 0;
+  width:14px;
+}
+.vracs #millesime .dernier .btn_supprimer_ligne_template:hover, .vracs #millesime .dernier .btn_supprimer_ligne_template:focus { text-decoration:underline; }
+.ielt8 .vracs #millesime .dernier .btn_supprimer_ligne_template { height:15px; }
+.vracs .bloc_form_commentaire .vracs_ligne_form label {
+  display:block;
+  padding:10px 0;
+  vertical-align:middle;
+}
+.vracs .bloc_form_commentaire textarea { width:872px; }
+.vracs .btn_ajouter_transaction { margin-bottom:15px; }
+.vracs .btn_ajouter_transaction .btn_ajouter_ligne_template { display:inline; }
+.vracs .btn_supprimer_ligne_template {
+  background:url("../images/pictos/pi_supprimer.png") no-repeat scroll 0 center transparent;
+  display:inline-block;
+  font-weight:bold;
+  margin:10px 0 0 104px;
+  padding:0 0 0 20px;
+  text-align:center;
+  text-decoration:underline;
+}
+.vracs .visualisation_contrat #titre {
+  background-color:#e3e2e2;
+  padding:10px;
+  text-align:center;
+}
+.vracs .visualisation_contrat #titre .style_label {
+  font-size:15px;
+  font-weight:bold;
+  padding:10px 0;
+  text-transform:uppercase;
+}
+.vracs .visualisation_contrat #ss_titre {
+  background-color:#e3e2e2;
+  margin-top:10px;
+  padding:10px;
+}
+.vracs .visualisation_contrat #ss_titre .style_label {
+  font-size:15px;
+  font-weight:bold;
+  padding:10px 0;
+  text-transform:uppercase;
+}
+.vracs .visualisation_contrat #vrac_condition { margin-bottom:20px; }
+.vracs .visualisation_contrat .legende div {
+  display:block;
+  margin:15px 0 0;
+}
+.vracs .visualisation_contrat .legende div .legende_statut_texte {
+  margin:2px 0 0 10px;
+  position:absolute;
+}
+.vracs .visualisation_contrat .statut {
+  -webkit-border-radius:50%;
+  -moz-border-radius:50%;
+  border-radius:50%;
+  -webkit-border-radius:50%;
+  -moz-border-radius:50%;
+  border-radius:50%;
+  height:20px;
+  width:20px;
+  display:inline-block;
+  vertical-align:middle;
+}
+.vracs .visualisation_contrat .statut_solde { background-color:#a2df46; }
+.vracs .visualisation_contrat .statut_non-solde { background-color:#faa804; }
+.vracs .visualisation_contrat .statut_annule { background-color:#e42c2c; }
+.vracs .visualisation_contrat #btn_annuler_contrat {
+  background:url("../images/boutons/btn_supprimer.png") no-repeat scroll 7px center #494949;
+  border:1px solid #343434;
+  color:#ffffff;
+  display:inline-block;
+  font:bold 14px/22px Calibri, Arial, sans-serif;
+  height:22px;
+  padding:0 5px 0 27px;
+  text-transform:uppercase;
+}
+.vracs .visualisation_contrat .modifier {
+  background:url("../images/pictos/pi_modifier.png") no-repeat scroll 7px center #ff9f00;
+  border:1px solid #d68500;
+  color:#ffffff;
+  display:inline-block;
+  height:21px;
+  line-height:21px;
+  padding:0 7px 0 30px;
+  text-transform:uppercase;
+  font-weight:bold;
+  float:right;
+}
+.vracs .visualisation_contrat #solder_contrat {
+  background-repeat:no-repeat;
+  border:1px solid;
+  color:#ffffff;
+  display:inline-block;
+  background-color:#b1cb00;
+  border-color:#99af00;
+  display:inline;
+  float:right;
+  height:21px;
+  line-height:21px;
+  padding:0 7px;
+  text-transform:uppercase;
+  font-weight:bold;
+}
+.vracs .visualisation_contrat #solder_contrat:hover, .vracs .visualisation_contrat #solder_contrat:focus { background-color:#99af00; }
 #mon_compte .ligne_form, #compteModification .ligne_form, #compteAjout .ligne_form, #validationFiche .ligne_form { margin:0 0 15px; }
 #mon_compte label, #compteModification label, #compteAjout label, #validationFiche label {
   display:inline-block;
