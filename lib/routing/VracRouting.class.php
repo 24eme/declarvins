@@ -16,8 +16,8 @@ class VracRouting {
                                                     array('sf_method' => array('get'))
                                                         )); 
         
-        $r->prependRoute('vrac', new EtablissementRoute('/vrac/:identifiant', 
-                                                        array('module' => 'vrac', 'action' => 'index'),
+        $r->prependRoute('vrac_etablissement', new EtablissementRoute('/vrac/:identifiant', 
+                                                        array('module' => 'vrac', 'action' => 'etablissement'),
                                                         array('sf_method' => array('get')),
                                                         array('model' => 'Etablissement', 'type' => 'object'))); 
 
@@ -35,7 +35,7 @@ class VracRouting {
                                                         array('module' => 'vrac','action' => 'etape', 'step' => null),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object')));
-        $r->prependRoute('vrac_termine', new VracRoute('/vrac/:identifiant/:numero_contrat/recapitulatif',
+        $r->prependRoute('vrac_visualisation', new VracRoute('/vrac/:identifiant/:numero_contrat/visualisation',
                                                         array('module' => 'vrac','action' => 'recapitulatif'),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object'))); 

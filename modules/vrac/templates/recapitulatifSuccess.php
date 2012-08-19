@@ -9,9 +9,9 @@
 				<div class="btnValidation">
 					<span>&nbsp;</span>
 					<?php if($etablissement): ?>
-					<a href="<?php echo url_for('vrac', $etablissement) ?>" class="btn_majeur btn_gris">Retour à la liste des contrats</a>
+						<a href="<?php echo url_for('vrac_etablissement', $etablissement) ?>" class="btn_majeur btn_gris">Retour à la liste des contrats</a>
 					<?php else: ?>
-					<a href="<?php echo url_for('vrac_admin') ?>" class="btn_majeur btn_gris">Retour à la liste des contrats</a>		
+						<a href="<?php echo url_for('vrac_admin') ?>" class="btn_majeur btn_gris">Retour à la liste des contrats</a>		
 					<?php endif; ?>
 				</div>
 			</div>

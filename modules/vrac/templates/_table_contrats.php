@@ -14,33 +14,43 @@
 	        <?php 
 	        foreach ($vracs->rows as $value):   
 	            $elt = $value->getRawValue()->value;
-	            if(!is_null($elt[VracHistoryView::VRAC_VIEW_STATUT])):
-	                $statusColor = statusColor($elt[VracHistoryView::VRAC_VIEW_STATUT]);
-	                $vracid = preg_replace('/VRAC-/', '', $elt[VracHistoryView::VRAC_VIEW_NUMCONTRAT]);
+                $statusColor = statusColor($elt[VracHistoryView::VRAC_VIEW_STATUT]);
+                $vracid = preg_replace('/VRAC-/', '', $elt[VracHistoryView::VRAC_VIEW_NUMCONTRAT]);
 	        ?>
 	        <tr class="<?php echo $statusColor; ?>" >
-	            <td class="type" ><span class="type_<?php echo $elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT]; ?>"><?php echo ($elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT])? typeProduit($elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT]) : ''; ?></span></td>
-		    	<td id="num_contrat"><?php echo substr($vracid,0,8)."&nbsp;".substr($vracid,8,  strlen($vracid)-1); ?></td>
+	            <td class="type" >
+	            	<span class="type_<?php echo $elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT]; ?>">
+	            		<?php echo ($elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT])? typeProduit($elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT]) : ''; ?>
+	            	</span>
+	            </td>
+		    	<td id="num_contrat">
+		    		<a href="<?php echo url_for("vrac_visualisation", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>"><?php echo substr($vracid,0,8)."&nbsp;".substr($vracid,8,  strlen($vracid)-1); ?></a>
+		    	</td>
 	            <td>
 	                  <ul>  
 	                    <li>
-	                      <?php echo ($elt[VracHistoryView::VRAC_VIEW_VENDEUR_ID])? 
-	                                    'Vendeur : '.$elt[VracHistoryView::VRAC_VIEW_VENDEUR_NOM]
-	                                  : ''; ?>
+	                      <?php if($elt[VracHistoryView::VRAC_VIEW_VENDEUR_ID]): ?>
+	                      Vendeur :
+		                      <a href="<?php echo url_for('vrac_etablissement', array('identifiant' => $elt[VracHistoryView::VRAC_VIEW_VENDEUR_ID])) ?>"><?php echo $elt[VracHistoryView::VRAC_VIEW_VENDEUR_NOM] ?></a>
+		                  <?php endif; ?>
 	                    </li>
 	                    <li>
-	                      <?php echo ($elt[VracHistoryView::VRAC_VIEW_ACHETEUR_ID])?
-	                                    'Acheteur : '.$elt[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM]
-	                                : ''; ?>
+	                      <?php if($elt[VracHistoryView::VRAC_VIEW_ACHETEUR_ID]): ?>
+	                      Acheteur :
+		                      <a href="<?php echo url_for('vrac_etablissement', array('identifiant' => $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_ID])) ?>"><?php echo $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM] ?></a>
+		                  <?php endif; ?>
 	                    </li>
 	                    <li>
-	                      <?php echo ($elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_ID]) ? 
-	                                    'Mandataire : '.$elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_NOM]
-	                                 : ''; ?>
+	                      <?php if($elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_ID]): ?>
+	                      Acheteur :
+		                      <a href="<?php echo url_for('vrac_etablissement', array('identifiant' => $elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_ID])) ?>"><?php echo $elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_NOM] ?></a>
+		                  <?php endif; ?>
 	                    </li>
 	                 </ul>
 	              </td>              
-	              <td><?php echo ($elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID])? ConfigurationClient::getCurrent()->get($elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID])->getLibelleFormat() : ''; ?></td>
+	              <td>
+	              	<?php echo ($elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID])? ConfigurationClient::getCurrent()->get($elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID])->getLibelleFormat() : ''; ?>
+	              </td>
 	              <td>           
 	                  <?php echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLENLEVE]))? $elt[VracHistoryView::VRAC_VIEW_VOLENLEVE] : '0';
 	                        echo ' / ';
@@ -49,7 +59,6 @@
 	              </td>
 	        </tr>
 	        <?php
-	            endif;
 	        endforeach;
 	        ?>
 	    </tbody>

@@ -10,13 +10,17 @@ class acVinVracActions extends sfActions
 	}
 	
 	public function executeIndex(sfWebRequest $request)
-	{
+    {
         $this->etablissement = null;
-        if ($this->getRoute() instanceof InterfaceEtablissementRoute) {
-            $this->etablissement = $this->getRoute()->getEtablissement();
-        }
+        $this->vracs = VracHistoryView::getInstance()->findLast();
+    }
 
-		$this->vracs = VracHistoryView::getInstance()->retrieveLastDocs();
+    public function executeEtablissement(sfWebRequest $request)
+	{
+        $this->etablissement = $this->getRoute()->getEtablissement();
+		$this->vracs = VracSoussigneIdentifiantView::getInstance()->findByEtablissement($this->etablissement->identifiant);
+
+        $this->setTemplate('index');
 	}
 
 	public function executeNouveau(sfWebRequest $request)
@@ -47,7 +51,7 @@ class acVinVracActions extends sfActions
 
 				if (!$this->configurationVracEtapes->next($this->vrac->etape)) {
     
-			        return $this->redirect('vrac_termine', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
+			        return $this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
 				}
 
 				if (!$this->vrac->has_transaction && $this->configurationVracEtapes->next($this->vrac->etape) == 'transaction') {
