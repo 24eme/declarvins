@@ -66,6 +66,7 @@ EOF;
     if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin-ivse')) {
         $compte->delete();
     }
+
     $compte = new CompteVirtuel();
     $compte->nom = "Intervins Sud-Est";
     $compte->login = 'admin-ivse';
@@ -74,6 +75,24 @@ EOF;
     $compte->droits->add(null, 'admin');
     $compte->interpro = "INTERPRO-IVSE";
     $compte->save();
+
+    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-actualys')) {
+        $compte->delete();
+    }
+
+    $compte = new CompteTiers();
+    $compte->nom = "Garage d'actualys";
+    $compte->login = 'actualys';
+    $compte->email = 'jblemetayer@actualys.com';
+    $compte->interpro = array("INTERPRO-IR" => array("statut" => "VALIDE"), 
+                              "INTERPRO-CIVP" => array("statut" => "VALIDE"), 
+                              "INTERPRO-IVSE" => array("statut" => "VALIDE"));
+    $compte->tiers = array("ETABLISSEMENT-9223700100" => array("id" => "ETABLISSEMENT-9223700100",
+                                                               "type" => "Etablissement",
+                                                               "nom" => "Garage d'Actualys",
+                                                               "interpro" => "INTERPRO-IR"));
+    $compte->save();
+
     
     /*
      * FIN COMPTE VIRTUEL ADMIN
