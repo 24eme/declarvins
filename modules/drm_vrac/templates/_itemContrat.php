@@ -1,5 +1,5 @@
 <?php
-$contrat = VracClient::getInstance()->retrieveById($form->getObject()->getKey());
+$contrat = VracClient::getInstance()->findByNumContrat($form->getObject()->getKey());
 
 ?><tr>
         <td></td>

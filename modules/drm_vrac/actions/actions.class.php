@@ -41,8 +41,14 @@ class drm_vracActions extends sfActions
     	  }
     	}
     	if ($request->isMethod(sfWebRequest::POST)) {
-			$this->drm->setCurrentEtapeRouting('declaratif');
-			$this->redirect('drm_declaratif', $this->drm);
+			  $this->drm->setCurrentEtapeRouting('declaratif');
+
+        if ($this->drm->mode_de_saisie == DRM::MODE_DE_SAISIE_PAPIER) {
+
+          return $this->redirect('drm_validation', $this->drm);
+        }
+			  
+        return $this->redirect('drm_declaratif', $this->drm);
     	}
     }
     
