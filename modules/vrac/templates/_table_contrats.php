@@ -1,11 +1,5 @@
-<?php include_partial('global/navTop', array('active' => 'vrac')); ?>
-<section id="contenu" class="vracs">
-	<div id="principal" class="produit">
-	<h1>
-	Contrat Vrac &nbsp;
-	<a class="btn_ajouter" href="<?php echo url_for('vrac_nouveau') ?>"></a>
-	</h1>
-	<div class="tableau_ajouts_liquidations">
+<?php use_helper('Vrac'); ?>
+<div class="tableau_ajouts_liquidations">
 	<table id="tableau_recap">    
 	    <thead>
 	        <tr>
@@ -60,6 +54,4 @@
 	        ?>
 	    </tbody>
 	</table>
-	</div>
-	</div>
-</section>
+</div>

@@ -1,4 +1,4 @@
-    <form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape)) ?>">
+    <form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>">
         <?php echo $form->renderHiddenFields() ?>
         <?php echo $form->renderGlobalErrors() ?>
 
@@ -177,4 +177,4 @@
         
     </form>
     <?php include_partial('url_etablissement_template'); ?>
-    <?php include_partial('url_informations_template', array('vrac' => $form->getObject(), 'etape' => $etape)); ?>
+    <?php include_partial('url_informations_template', array('vrac' => $form->getObject(), 'etablissement' => $etablissement, 'etape' => $etape)); ?>

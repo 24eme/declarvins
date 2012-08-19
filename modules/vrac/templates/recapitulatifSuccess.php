@@ -8,7 +8,11 @@
 			<div id="btn_etape_dr">
 				<div class="btnValidation">
 					<span>&nbsp;</span>
-					<a href="<?php echo url_for('vrac') ?>" class="btn_majeur btn_gris">Retour à la liste des contrats</a>
+					<?php if($etablissement): ?>
+					<a href="<?php echo url_for('vrac', $etablissement) ?>" class="btn_majeur btn_gris">Retour à la liste des contrats</a>
+					<?php else: ?>
+					<a href="<?php echo url_for('vrac_admin') ?>" class="btn_majeur btn_gris">Retour à la liste des contrats</a>		
+					<?php endif; ?>
 				</div>
 			</div>
 			</section> 
