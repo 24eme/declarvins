@@ -22,3 +22,8 @@ function echoFloatFr($float)
 {
   echo sprintFloatFr($float);
 }
+
+function echoSignedFloat($float) 
+{
+  echo ($float>0)? '+'.sprintFloat($float) : sprintFloat($float);
+}
