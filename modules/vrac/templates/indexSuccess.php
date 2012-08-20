@@ -5,6 +5,6 @@
             Contrat Vrac &nbsp;
             <a class="btn_ajouter" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>"></a>
         </h1>
-        <?php include_partial('table_contrats', array('vracs' => $vracs, 'etablissement' => $etablissement)); ?>
+        <?php include_partial('list', array('vracs' => $vracs, 'etablissement' => $etablissement)); ?>
     </div>
 </section>

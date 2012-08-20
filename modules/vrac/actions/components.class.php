@@ -11,6 +11,12 @@ class vracComponents extends sfComponents
 			unset($this->etapes['transaction']);
 		}
     }
+
+    public function executeListItem() {
+    	$this->elt = $this->value->value;
+	    $this->statusColor = statusColor($this->elt[VracHistoryView::VRAC_VIEW_STATUT]);
+		$this->vracid = preg_replace('/VRAC-/', '', $this->elt[VracHistoryView::VRAC_VIEW_NUMCONTRAT]); 
+    }
 	
 	public function getInterpro()
 	{
