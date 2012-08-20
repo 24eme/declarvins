@@ -19,20 +19,6 @@ class adminActions extends sfActions
   {
   		$this->getUser()->setAttribute('interpro_id', $this->getUser()->getCompte()->getInterpro());
   		$this->redirect('@etablissement_login');
-
-        /*$this->formLogin = new LoginForm();
-        if ($request->isMethod(sfWebRequest::POST)) {
-            $this->formLogin->bind($request->getParameter($this->formLogin->getName()));
-            if ($this->formLogin->isValid()) {
-                $values = $this->formLogin->getValues();
-                $this->getUser()->setAttribute('interpro_id', $values['interpro']);
-                $this->getUser()->signOut();
-                $interpro = strtolower(str_replace('INTERPRO-', '', $values['interpro']));
-  	 			$this->getUser()->signIn('admin-'.$interpro);
-                $this->redirect('@etablissement_login');
-            }
-        }*/
-  	
   }
  /**
   * Executes index action
@@ -41,24 +27,20 @@ class adminActions extends sfActions
   */
   public function executeEtablissementLogin(sfWebRequest $request)
   {
-    $this->getUser()->signOutTiers();
   	$this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
-        $this->form = new EtablissementSelectionForm($this->interpro->_id);
-        if ($request->isMethod(sfWebRequest::POST)) {
-        	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
-        		$this->form->bind($request->getParameter('etablissement_selection_nav'));
-        	} else {
-            	$this->form->bind($request->getParameter($this->form->getName()));
-        	}
-            if ($this->form->isValid()) {
-                $values = $this->form->getValues();
-                $etablissement = $values['etablissement'];
-                $this->getUser()->signOutTiers();
-                $this->getUser()->signInTiers(acCouchdbManager::getClient()->retrieveDocumentById($etablissement));
-				return $this->redirect("@tiers_mon_espace");
-            }
-        }
-  	
+    $this->form = new EtablissementSelectionForm();
+    if ($request->isMethod(sfWebRequest::POST)) {
+    	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
+    		$this->form->bind($request->getParameter('etablissement_selection_nav'));
+    	} else {
+      	$this->form->bind($request->getParameter($this->form->getName()));
+    	}
+      
+      if ($this->form->isValid()) {
+        
+        	return $this->redirect("tiers_mon_espace", $this->form->getEtablissement());
+      }
+    }
   }
 
  /**

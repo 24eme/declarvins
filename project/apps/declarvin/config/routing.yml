@@ -73,8 +73,12 @@ interpro_upload_csv:
 
 # Rush II : DRM routing
 tiers_mon_espace:
-  url: /tiers/mon_espace
-  param: {module: tiers, action: monEspace}
+  class: EtablissementRoute
+  url: /etablissement/:identifiant
+  param: { module: tiers, action: monEspace }
+  requirements: { method: ['get'] }
+  options: { model: Etablissement, type: object }
+
 tiers:
   url: /tiers
   param: { module: tiers, action: login }

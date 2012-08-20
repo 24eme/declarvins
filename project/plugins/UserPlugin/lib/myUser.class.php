@@ -1,6 +1,6 @@
 <?php
 
-class myUser extends DRMSecurityUser
+class myUser extends acVinCompteSecurityUser
 {
 	/**
 	 * Récupération du contrat

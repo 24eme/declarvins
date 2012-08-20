@@ -12,7 +12,7 @@
 {
 	$(document).ready( function()
 	{
-		$.metadata.setType('html5');
+		//$.metadata.setType('html5');
 		$.detectTerminal();
 		
 		$.inputPlaceholder();

@@ -17,14 +17,9 @@ class tiersActions extends sfActions
   */
   public function executeLogin(sfWebRequest $request) 
   {
-  	if ($this->getUser()->hasCredential(myUser::CREDENTIAL_TIERS)) {
-  		
-        return $this->redirect("@tiers_mon_espace");
-  	} elseif ($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN)) {
-  		
-        return $this->redirect("@admin");	
-  	}
 
+    return $this->redirect("@admin"); 
+    
     $this->getUser()->signOutTiers();
 	
 	$this->compte = $this->getUser()->getCompte();
@@ -45,14 +40,16 @@ class tiersActions extends sfActions
 
   public function executeMonEspace(sfWebRequest $request) 
   {
-  	if(($this->getUser()->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_DRM_DTI)) || ($this->getUser()->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_DRM_PAPIER) && $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN))) {
+    $this->etablissement = $this->getRoute()->getEtablissement();
 
-        return $this->redirect("drm_mon_espace", $this->getUser()->getEtablissement());
+  	if(($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN))) {
+
+        return $this->redirect("drm_mon_espace", $this->etablissement);
     }
 
-    if ($this->getUser()->hasCredential(TiersSecurityUser::CREDENTIAL_DROIT_VRAC)) {
+    if ($this->etablissement->hasDroit(EtablissementDroit::DROIT_VRAC)) {
 
-        return $this->redirect("@vrac");
+        return $this->redirect("vrac", $this->etablissement);
     }
   }
   
