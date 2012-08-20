@@ -16,7 +16,7 @@
 		<?php if ($etablissement): ?>
 			<a href="<?php echo url_for("vrac_etablissement", array('identifiant' => $etablissement->identifiant)) ?>" class="etape_prec"><span>Retour à liste des contrats</span></a>
 		<?php else: ?>
-			<a href="<?php echo url_for("vrac_admin") ?>?>" class="etape_prec"><span>Retour à liste des contrats</span></a>
+			<a href="<?php echo url_for("vrac_admin") ?>" class="etape_prec"><span>Retour à liste des contrats</span></a>
 		<?php endif; ?>
 	</div>
 </section>
