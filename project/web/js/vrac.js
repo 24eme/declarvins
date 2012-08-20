@@ -58,7 +58,7 @@
 	        var parentInputs = parentBloc.find('.contenu_onglet:has(.radio_list)');
 	        var blocAdresse = parentBloc.find('.adresse_livraison');
 	        var blocVendeurAcheteur = parentBloc.find('.vrac_vendeur_acheteur');
-	
+
 	        var checkUncheck = function(cibleInput, cibleBloc, voisins)
 	        {
 	            cibleInput.click(function()
@@ -67,7 +67,10 @@
 	                {
 	                    if(voisins){
 	                        voisins.hide();
-	                        voisins.find(':input').removeAttr('checked');
+	                        voisins.find('input[type=radio]').removeAttr('checked');
+	                        voisins.find('input[type=checkbox]').removeAttr('checked');
+	                        voisins.find('input[type=text]').val('')
+	                        voisins.find('select').removeAttr('selected');
 	                    }
 	                    cibleBloc.toggle();
 	                }else{
@@ -92,11 +95,13 @@
 	                var thisLabel = listRadio.find('label[for='+thisId+']');
 	                var cibles = $('.'+cible+'');
 	                var eqCible = cibles.eq(compteur);
-	
+
 	                if($thisInput.is(':checked'))
 	                {
 	                    eqCible.show();
-	                }else{ eqCible.hide(); }
+	                }else{ 
+	                	eqCible.hide(); 
+	                }
 	                
 	                checkUncheck($thisInput, eqCible, cibles);
 	
