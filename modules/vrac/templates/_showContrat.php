@@ -37,7 +37,7 @@
 				<span><?php echo $configurationVrac->formatCasParticulierLibelle(array($vrac->cas_particulier)); ?></span>
 			</li>
     	</ul>
-    	<p><a href="" class="modifier">modifier</a></p>
+    	<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'soussigne', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
     </li>
 	<li>
 	    <h3>Marché</h3>
@@ -71,7 +71,7 @@
 				<span><?php echo $vrac->prix_total ?> €</span>
 			</li>
 		</ul>
-		<p><a href="" class="modifier">modifier</a></p>
+		<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'marche', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
     </li>
     <li>
 		<h3>Conditions</h3>
@@ -143,7 +143,7 @@
 				<span><?php echo $vrac->commentaires_conditions ?></span>
 			</li>
 		</ul>
-		<p><a href="" class="modifier">modifier</a></p>
+		<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'condition', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
     </li>
 	<?php if ($vrac->has_transaction): ?>
     <li>
@@ -200,7 +200,7 @@
 				<span><?php echo $vrac->commentaires ?></span>
 			</li>
 		</ul>
-		<p><a href="" class="modifier">modifier</a></p>
+		<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'transaction', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
 	</li>
     <?php endif; ?>
 </ol>

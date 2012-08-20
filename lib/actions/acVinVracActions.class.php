@@ -50,7 +50,7 @@ class acVinVracActions extends sfActions
 				$this->form->save();
 
 				if (!$this->configurationVracEtapes->next($this->vrac->etape)) {
-    
+                    $this->getUser()->setFlash('termine', true);
 			        return $this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
 				}
 
@@ -104,7 +104,7 @@ class acVinVracActions extends sfActions
 		
     	return $this->renderPartial('form_mandataire', array('form' => $this->form[$this->type]));	
   }
-	public function executeRecapitulatif(sfWebRequest $request)
+	public function executeVisualisation(sfWebRequest $request)
 	{
 		$this->init();
 		$this->vrac = $this->getRoute()->getVrac();

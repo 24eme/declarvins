@@ -36,7 +36,7 @@ class VracRouting {
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object')));
         $r->prependRoute('vrac_visualisation', new VracRoute('/vrac/:identifiant/:numero_contrat/visualisation',
-                                                        array('module' => 'vrac','action' => 'recapitulatif'),
+                                                        array('module' => 'vrac','action' => 'visualisation'),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object'))); 
         /*
