@@ -43,7 +43,7 @@ class acVinVracActions extends sfActions
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->vrac = $this->getRoute()->getVrac();
 		$this->vrac->setEtape($this->etape);
-		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->vrac);
+		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->etablissement, $this->vrac);
 		if ($request->isMethod(sfWebRequest::POST)) {
 			$this->form->bind($request->getParameter($this->form->getName()));
 			if ($this->form->isValid()) {
@@ -95,8 +95,8 @@ class acVinVracActions extends sfActions
             throw new sfException('Type '.$this->type.' n\'existe pas');
         }
   	
-        $this->vrac->setInformations($this->type, $this->soussigne);
-		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->vrac);
+        $this->vrac->storeSoussigneInformations($this->type, $this->soussigne);
+		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->etablissement, $this->vrac);
 		
         if ($this->type != 'mandataire') {
 			return $this->renderPartial('form_etablissement', array('form' => $this->form[$this->type]));
@@ -111,9 +111,9 @@ class acVinVracActions extends sfActions
         $this->etablissement = $this->getRoute()->getEtablissement();
 	}
 	
-	public function getForm($interproId, $etape, $configurationVrac, $vrac)
+	public function getForm($interproId, $etape, $configurationVrac, $etablissement, $vrac)
 	{
-		return VracFormFactory::create($etape, $configurationVrac, $vrac);
+		return VracFormFactory::create($etape, $configurationVrac, $etablissement, $vrac);
 	}
 	
 	public function getNumeroContrat()

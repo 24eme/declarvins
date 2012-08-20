@@ -2,17 +2,22 @@
         <?php echo $form->renderHiddenFields() ?>
         <?php echo $form->renderGlobalErrors() ?>
 
+        <?php if(isset($form['vous_etes'])): ?>
         <div class="contenu_onglet" data-cible="vrac_vendeur_acheteur">
-            <label for="">Vous êtes: </label>
+            <?php echo $form['vous_etes']->renderError(); ?>
+            <?php echo $form['vous_etes']->renderLabel(); ?>
+            <?php echo $form['vous_etes']->render(); ?>
+            <!--<label for="">Vous êtes: </label>
             <ul class="radio_list">
                 <li>
-                    <input name="vrac_acheteur_vendeur" type="radio" id="vrac_vendeur" value="vendeur"<?php if ($form->getObject()->acheteur_identifiant): ?> checked="checked"<?php endif; ?> />&nbsp;<label for="vrac_vendeur">vendeur</label>
+                    <input name="vrac_acheteur_vendeur" type="radio" id="vrac_vendeur" value="vendeur"<?php if ($form->getObject()->acheteur_identifiant == $etablissement->identifiant): ?> checked="checked"<?php endif; ?> />&nbsp;<label for="vrac_vendeur">vendeur</label>
                 </li>
                 <li>
-                    <input name="vrac_acheteur_vendeur" type="radio" id="vrac_acheteur" value="acheteur"<?php if ($form->getObject()->vendeur_identifiant): ?> checked="checked"<?php endif; ?> />&nbsp;<label for="vrac_acheteur">acheteur</label>
+                    <input data-cible="#<?php echo $form['acheteur_identifiant']->renderId() ?>" data-value="<?php echo $etablissement->identifiant ?>" name="vrac_acheteur_vendeur" type="radio" id="vrac_acheteur" value="acheteur"<?php if ($form->getObject()->vendeur_identifiant == $etablissement->identifiant): ?> checked="checked"<?php endif; ?> />&nbsp;<label for="vrac_acheteur">acheteur</label>
                 </li>
-            </ul>
+            </ul>-->
         </div>
+        <?php endif; ?>
         
         <div id="acheteur" class="vrac_vendeur_acheteur">
             <h1>Acheteur</h1>

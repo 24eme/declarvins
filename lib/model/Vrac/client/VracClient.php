@@ -32,21 +32,27 @@ class VracClient extends acCouchdbClient {
 
     public function getNextNoContrat()
     {   
-        $id = '';
+      $numero = 1;
     	$date = date('Ymd');
-    	$contrats = self::getAtDate($date, acCouchdbClient::HYDRATE_ON_DEMAND)->getIds();
-        if (count($contrats) > 0) {
-            $id .= ((double)str_replace('VRAC-', '', max($contrats)) - 1);
-        } else {
-            $id.= $date.'001';
-        }
+    	$vrac = $this->findLastByDate($date, acCouchdbClient::HYDRATE_JSON);
+      if ($vrac) {
+        $numero += (int) str_replace($date, '', $vrac->numero_contrat);
+      }
 
-        return $id;
+      return sprintf('%s%03d', $date, $numero);
     }
     
-    public function getAtDate($date, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) 
+    public function findLastByDate($date, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) 
     {
-        return $this->startkey('VRAC-'.$date.'000')->endkey('VRAC-'.$date.'999')->execute($hydrate);        
+        $vracs = $this->startkey('VRAC-'.$date.'000')->endkey('VRAC-'.$date.'999')->execute($hydrate)->getDocs();
+        krsort($vracs);
+
+        foreach($vracs as $vrac) {
+          
+          return $vrac;
+        }        
+
+        return null;
     }
     
     public function findByNumContrat($num_contrat) 
@@ -54,17 +60,6 @@ class VracClient extends acCouchdbClient {
       return $this->find($this->getId($num_contrat));
     }
     
-    public function retrieveLastDocs() 
-    {
-      return $this->descending(true)->limit(300)->getView('vrac', 'history');
-    }
-    
-    public function retrieveBySoussigne($soussigneParam) 
-    {
-      return $this->startkey(array($soussigneParam))
-              ->endkey(array($soussigneParam, array()))->limit(300)->getView('vrac', 'soussigneidentifiant');
-    }
-
     public function retrieveFromEtablissementsAndHash($etablissement, $hash, $mustActive = true, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         $contrats = array();
         $hash = preg_replace('|(couleurs/[^/]*/).*|', '\1', $hash);

@@ -54,11 +54,23 @@ class Vrac extends BaseVrac
     public function getVendeurInterpro() 
     {
         return $this->getVendeurObject()->interpro;
-    }   
+    }
 
-    public function setInformations($type, $etablissement) 
+    public function storeSoussignesInformations() {
+      $this->storeSoussigneInformations('acheteur', $this->getAcheteurObject());
+      $this->storeSoussigneInformations('vendeur', $this->getVendeurObject());
+      $this->storeSoussigneInformations('mandataire', $this->getMandataireObject());
+    }
+
+    public function storeSoussigneInformations($type, $etablissement) 
     {        
-    	$informations = $this->get($type);
+    	   $informations = $this->get($type);
+
+         if(!$etablissement) {
+
+          return null;
+         }
+         
         if ($informations->exist('nom')) $informations->nom = $etablissement->nom;
       	if ($informations->exist('raison_sociale')) $informations->raison_sociale = $etablissement->raison_sociale;
       	if ($informations->exist('siret')) $informations->siret = $etablissement->siret;
