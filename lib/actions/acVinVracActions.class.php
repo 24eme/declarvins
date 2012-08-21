@@ -10,40 +10,56 @@ class acVinVracActions extends sfActions
 	}
 	
 	public function executeIndex(sfWebRequest $request)
+    {
+        $this->etablissement = null;
+        $this->vracs = VracHistoryView::getInstance()->findLast();
+    }
+
+    public function executeEtablissement(sfWebRequest $request)
 	{
-		$this->vracs = VracHistoryView::getInstance()->retrieveLastDocs();
+        $this->etablissement = $this->getRoute()->getEtablissement();
+		$this->vracs = VracSoussigneIdentifiantView::getInstance()->findByEtablissement($this->etablissement->identifiant);
+
+        $this->setTemplate('index');
 	}
 
 	public function executeNouveau(sfWebRequest $request)
 	{
+        $this->etablissement = $this->getRoute()->getEtablissement();
 		$this->init();
 		$vrac = new Vrac();
 		$vrac->numero_contrat = $this->getNumeroContrat();
 		$vrac->save();
-		$this->redirect(array('sf_route' => 'vrac_etape', 'sf_subject' => $vrac, 'step' => $this->configurationVracEtapes->next($vrac->etape)));
+		$this->redirect(array('sf_route' => 'vrac_etape', 
+                              'sf_subject' => $vrac, 
+                              'step' => $this->configurationVracEtapes->next($vrac->etape), 
+                              'etablissement' => $this->etablissement));
 	}
 
 	public function executeEtape(sfWebRequest $request)
 	{
 		$this->forward404Unless($this->etape = $request->getParameter('step'));
 		$this->init();
-		$this->vrac = $this->getRoute()->getVrac();
+        $this->etablissement = $this->getRoute()->getEtablissement();
+        $this->vrac = $this->getRoute()->getVrac();
 		$this->vrac->setEtape($this->etape);
-		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->vrac);
+		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->etablissement, $this->vrac);
 		if ($request->isMethod(sfWebRequest::POST)) {
 			$this->form->bind($request->getParameter($this->form->getName()));
 			if ($this->form->isValid()) {
-				$vrac = $this->form->save();
+				$this->form->save();
 
-				if (!$this->configurationVracEtapes->next($vrac->etape)) {
-					$this->redirectAfterEtapes($vrac);
-				} else {
-					if (!$vrac->has_transaction && $this->configurationVracEtapes->next($vrac->etape) == 'transaction') {
-						$this->redirect(array('sf_route' => 'vrac_etape', 'sf_subject' => $vrac, 'step' => $this->configurationVracEtapes->next('transaction')));
-					} else {
-						$this->redirect(array('sf_route' => 'vrac_etape', 'sf_subject' => $vrac, 'step' => $this->configurationVracEtapes->next($vrac->etape)));
-					}
+				if (!$this->configurationVracEtapes->next($this->vrac->etape)) {
+                    $this->getUser()->setFlash('termine', true);
+			        return $this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
 				}
+
+				if (!$this->vrac->has_transaction && $this->configurationVracEtapes->next($this->vrac->etape) == 'transaction') {
+					
+                    return $this->redirect(array('sf_route' => 'vrac_etape', 'sf_subject' => $this->vrac, 'step' => $this->configurationVracEtapes->next('transaction'), 'etablissement' => $this->etablissement));
+				}
+				
+                return $this->redirect(array('sf_route' => 'vrac_etape', 'sf_subject' => $this->vrac, 'step' => $this->configurationVracEtapes->next($this->vrac->etape), 'etablissement' => $this->etablissement));
 			}
 		}
 	}
@@ -51,47 +67,53 @@ class acVinVracActions extends sfActions
 
   public function executeSetEtablissementInformations(sfWebRequest $request)
   {
-      $this->vrac = $this->getRoute()->getVrac();
-      $this->etablissement = $request->getParameter('etablissement', null);
-      $this->type = $request->getParameter('type', null);
-      $this->etape = $request->getParameter('step', null);
-      if (!$this->etablissement) {
-      	throw new sfException('Numéro d\'établissement requis');
-      }
-      if (!$this->type) {
-      	throw new sfException('Type requis');
-      }
-      if (!$this->etape) {
-      	throw new sfException('Etape requis');
-      }
-	  $this->init();
-      $this->etablissement = EtablissementClient::getInstance()->find('ETABLISSEMENT-'.$this->etablissement);
-      if ($this->vrac->exist($this->type)) {
-      	$this->vrac->setInformations($this->type,$this->etablissement);
-		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->vrac);
-		if ($this->type != 'mandataire') {
+        $this->vrac = $this->getRoute()->getVrac();
+        $this->etablissement = $this->getRoute()->getEtablissement();   
+        $this->soussigne = $request->getParameter('soussigne', null);
+        $this->type = $request->getParameter('type', null);
+        $this->etape = $request->getParameter('step', null);
+
+        if (!$this->soussigne) {
+
+        	throw new sfException('Numéro d\'établissement du soussigne requis');
+        }
+
+        if (!$this->type) {
+
+        	throw new sfException('Type requis');
+        }
+
+        if (!$this->etape) {
+
+        	throw new sfException('Etape requis');
+        }
+
+        $this->init();
+        $this->soussigne = EtablissementClient::getInstance()->find($this->soussigne);
+        if (!$this->vrac->exist($this->type)) {
+
+            throw new sfException('Type '.$this->type.' n\'existe pas');
+        }
+  	
+        $this->vrac->storeSoussigneInformations($this->type, $this->soussigne);
+		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->etablissement, $this->vrac);
+		
+        if ($this->type != 'mandataire') {
 			return $this->renderPartial('form_etablissement', array('form' => $this->form[$this->type]));
-		} else {
-			return $this->renderPartial('form_mandataire', array('form' => $this->form[$this->type]));
 		}
-      } else {
-      	throw new sfException('Type '.$this->type.' n\'existe pas');
-      }
+		
+    	return $this->renderPartial('form_mandataire', array('form' => $this->form[$this->type]));	
   }
-	public function executeRecapitulatif(sfWebRequest $request)
+	public function executeVisualisation(sfWebRequest $request)
 	{
 		$this->init();
 		$this->vrac = $this->getRoute()->getVrac();
+        $this->etablissement = $this->getRoute()->getEtablissement();
 	}
 	
-	public function getForm($interproId, $etape, $configurationVrac, $vrac)
+	public function getForm($interproId, $etape, $configurationVrac, $etablissement, $vrac)
 	{
-		return VracFormFactory::create($etape, $configurationVrac, $vrac);
-	}
-	
-	public function redirectAfterEtapes($object)
-	{
-		$this->redirect('vrac_termine', $object);
+		return VracFormFactory::create($etape, $configurationVrac, $etablissement, $vrac);
 	}
 	
 	public function getNumeroContrat()

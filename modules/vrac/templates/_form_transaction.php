@@ -1,8 +1,6 @@
-
-<form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape)) ?>">
-    <?php echo $form->renderHiddenFields() ?>
-    <?php echo $form->renderGlobalErrors() ?>
-
+	<form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>">
+		<?php echo $form->renderHiddenFields() ?>
+		<?php echo $form->renderGlobalErrors() ?>
     <div>
         <div class="section_label_strong">
             <?php echo $form['export']->renderError() ?>

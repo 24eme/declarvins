@@ -11,8 +11,11 @@ class VracAllView extends acCouchdbView
 
         return acCouchdbManager::getView('vrac', 'all', 'Vrac');
     }
-	public function findByEtablissement($etablissement) {
-		return $this->client->startkey(array($etablissement))->endkey(array($etablissement, array()))->getView($this->design, $this->view);
+    
+	public function findByEtablissement($identifiant) {
+		$identifiant = EtablissementClient::getInstance()->getIdentifiant($identifiant);
+
+        return $this->client->startkey(array($identifiant))->endkey(array($identifiant, array()))->getView($this->design, $this->view);
     }
 
 }  
