@@ -21,8 +21,6 @@ if ! test "$1" ; then
 . bin/download_redmine_file https://clients.actualys.com/attachments/download/4039/IR_Data.zip /tmp/IR_Data.zip
 fi
 
-exit; 
-
 
 mkdir /tmp/IR_DATA
 cd /tmp/IR_DATA
