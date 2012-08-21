@@ -10,6 +10,57 @@
 	var initAutoComplete = function() {
 	    $('.autocomplete').combobox();
 	}
+
+	var checkUncheck = function(cibleInput, cibleBloc, voisins)
+    {
+	            cibleInput.click(function()
+	            {
+	                if($(this).is(':checked'))
+	                {
+	                    if(voisins){
+	                        voisins.hide();
+	                        voisins.find('input[type=radio]').removeAttr('checked');
+	                        voisins.find('input[type=checkbox]').removeAttr('checked');
+	                        voisins.find('input[type=text]').val('')
+	                        voisins.find('select').removeAttr('selected');
+	                    }
+	                    cibleBloc.toggle();
+	                }else{
+	                    cibleBloc.toggle();
+	                }
+	            });
+	}
+
+	var initBlocCondition = function () {
+		checkUncheckCondition($('.bloc_condition'));
+	}
+
+	var checkUncheckCondition = function(blocCondition)
+    {
+    	var input = blocCondition.find('input');
+    	var bloc = $(blocCondition.attr('data-condition-cible'));
+    	var value = bloc.attr('data-condition-value');
+
+    	var traitement = function(input, bloc, value) {
+    		if(input.is(':checked'))
+            {
+               if (value == input.val()) {
+               		bloc.show();
+               } else {
+               		bloc.hide();
+               }
+            }
+    	}
+
+    	input.each(function() {
+    		traitement($(this), bloc, value);
+    	});
+
+        input.click(function()
+        {
+            traitement($(this), bloc, value);
+        });
+	}
 	
 	var initConditions = function()
 	{
@@ -59,26 +110,6 @@
 	        var blocAdresse = parentBloc.find('.adresse_livraison');
 	        var blocVendeurAcheteur = parentBloc.find('.vrac_vendeur_acheteur');
 
-	        var checkUncheck = function(cibleInput, cibleBloc, voisins)
-	        {
-	            cibleInput.click(function()
-	            {
-	                if($(this).is(':checked'))
-	                {
-	                    if(voisins){
-	                        voisins.hide();
-	                        voisins.find('input[type=radio]').removeAttr('checked');
-	                        voisins.find('input[type=checkbox]').removeAttr('checked');
-	                        voisins.find('input[type=text]').val('')
-	                        voisins.find('select').removeAttr('selected');
-	                    }
-	                    cibleBloc.toggle();
-	                }else{
-	                    cibleBloc.toggle();
-	                }
-	            });
-	        }
-	
 	        parentInputs.each(function()
 	        {
 	            var compteur = 0;
@@ -156,6 +187,11 @@
 	
 	        sommeEuros(volume, prix, totalSomme);
 	        sommeEuros(prix, volume, totalSomme);
+	    }
+
+	    if($('.vrac_condition').exists())
+	    {
+	    	checkUncheck($('#vrac_echeancier_paiements').find('input:radio'), $('#vrac_paiements'), null);
 	    }
 	
 	   var tableau = $('#vrac_soussigne').find('table');
@@ -449,6 +485,7 @@
 
 	$(document).ready(function()
 	{
+		 initBlocCondition();
 	     initMarche();
 	     initConditions();
 	     initAutoComplete();
