@@ -73,16 +73,16 @@ class Etablissement extends BaseEtablissement {
 	if (preg_match('/n.*gociant/i', $f)) {
                 return $this->_set('famille', EtablissementFamilles::FAMILLE_NEGOCIANT);
         }
-	if (preg_match('/courtier/', $f)) {
+	if (preg_match('/courtier/i', $f)) {
                 return $this->_set('famille', EtablissementFamilles::FAMILLE_COURTIER);
         }
-	throw new sfException("La famille «$f» doit être soit producteur soit negociant soit courtier (".$this->identifiant.")");
+	throw new sfException("La famille $f doit être soit producteur soit negociant soit courtier (".$this->identifiant.")");
     }
 
     public function setSousFamille($f) {
 	$ss = array(EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE, EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE,EtablissementFamilles::SOUS_FAMILLE_REGIONAL,EtablissementFamilles::SOUS_FAMILLE_EXTERIEUR,EtablissementFamilles::SOUS_FAMILLE_ETRANGER,EtablissementFamilles::SOUS_FAMILLE_UNION,EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR);
 	foreach ($ss as $s) {
-		if (preg_match('/'.$d.'/i', $f)) {
+		if (preg_match('/'.preg_replace('/[^A-Z]/', '.*', $s).'/i', $f)) {
 			return $this->_set('sous_famille', $s);
 		}
 	}
