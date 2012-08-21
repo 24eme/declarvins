@@ -121,7 +121,6 @@ class VracClient extends acCouchdbClient {
       }
       return $contrats;
     }
-*/
 
     public function retrieveFromEtablissements($etablissement, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
       $contrats = array();
@@ -146,4 +145,7 @@ class VracClient extends acCouchdbClient {
 	throw new sfException('Le hash du produit ne correpond pas au hash initial ('.$vrac->produit.'<->'.$hash.')');
       return $vrac;
     }
+
+*/
+
  }
