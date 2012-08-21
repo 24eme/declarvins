@@ -52,8 +52,22 @@ class DRMDroit extends BaseDRMDroit {
     }
     return $this->cumul;
   }
+
+  public function getLibelle() {
+	$l = $this->_get('libelle');
+	if  (!$l) {
+		$l = $this->getCode();
+	}
+	return $l;
+  }
+
   public function isTotal() {
-    return ($this->virtual) || !preg_match('/_/', $this->code);
+   if ($this->virtual)
+	return true;
+    if (preg_match('/^(.*)_/', $this->code, $m) && $this->parent->exist($m[1])) {
+	return false;
+    }
+    return true;
   }
   public function isVirtual() {
     return ($this->virtual);
@@ -66,5 +80,11 @@ class DRMDroit extends BaseDRMDroit {
   }
   public function getPaiement() {
   	return $this->getDocument()->get('declaratif')->get('paiement')->get($this->getParent()->getKey());
+  }
+  public function getTaux() {
+	$t = $this->_get('taux');
+	if ($t)
+		return $t;
+	return 0.0;
   }
 }
