@@ -4,21 +4,6 @@
         <?php echo $form->renderGlobalErrors() ?>
         <h1>Paiement</h1>
         <div>
-            <div  class="section_label_strong">
-                <?php echo $form['annexe']->renderError() ?>
-                <?php echo $form['annexe']->renderLabel() ?>
-                <?php echo $form['annexe']->render() ?>
-            </div>
-            <div class="section_label_strong">
-                <?php echo $form['type_prix']->renderError() ?>
-                <?php echo $form['type_prix']->renderLabel() ?>
-                <?php echo $form['type_prix']->render() ?>
-            </div>
-            <div class="section_label_strong">
-                <?php echo $form['part_cvo']->renderError() ?>
-                <?php echo $form['part_cvo']->renderLabel() ?>
-                <?php echo $form['part_cvo']->render() ?>
-            </div>
             <div class="section_label_strong">
                 <?php echo $form['conditions_paiement']->renderError() ?>
                 <?php echo $form['conditions_paiement']->renderLabel() ?>
@@ -39,12 +24,14 @@
                 <?php echo $form['delai_paiement']->renderLabel() ?>
                 <?php echo $form['delai_paiement']->render() ?>
             </div>
-            <div class="section_label_strong">
+            <div class="section_label_strong bloc_condition" data-condition-cible="#vrac_paiements">
                 <?php echo $form['echeancier_paiement']->renderError() ?>
                 <?php echo $form['echeancier_paiement']->renderLabel() ?>
-                <?php echo $form['echeancier_paiement']->render() ?>
+                <?php if($form->isEcheanchierPaiementOptionnel()): ?>
+                    <?php echo $form['echeancier_paiement']->render() ?>
+                <?php endif; ?>
             </div>
-            <div class="table_container">
+            <div id="vrac_paiements" class="table_container vrac_paiements" data-condition-value="1">
                 <table id="table_paiements">
                     <thead>
                         <tr>
@@ -75,11 +62,6 @@
                 <?php echo $form['vin_livre']->render() ?>
             </div>
             <div class="section_label_strong">
-                <?php echo $form['date_debut_retiraison']->renderError() ?>
-                <?php echo $form['date_debut_retiraison']->renderLabel() ?>
-                <?php echo $form['date_debut_retiraison']->render() ?>
-            </div>
-            <div class="section_label_strong">
                 <?php echo $form['date_limite_retiraison']->renderError() ?>
                 <?php echo $form['date_limite_retiraison']->renderLabel() ?>
                 <?php echo $form['date_limite_retiraison']->render() ?>
@@ -96,6 +78,7 @@
             </div>
         </div>
         <div class="ligne_form_btn">
+            <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'marche', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a> 
             <button class="valider_etape" type="submit"><span>Etape Suivante</span></button>
         </div>
     </form>

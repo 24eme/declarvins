@@ -14,6 +14,9 @@ class VracClient extends acCouchdbClient {
     const STATUS_CONTRAT_SOLDE = 'SOLDE';
     const STATUS_CONTRAT_ANNULE = 'ANNULE';
     const STATUS_CONTRAT_NONSOLDE = 'NONSOLDE';
+
+    const STATUS_VIN_RETIRE = 'retire';
+    const STATUS_VIN_LIVRE = 'livre';
     
 
     /**

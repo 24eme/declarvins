@@ -37,7 +37,9 @@
 				<span><?php echo $configurationVrac->formatCasParticulierLibelle(array($vrac->cas_particulier)); ?></span>
 			</li>
     	</ul>
+    	<?php if($editer_etape): ?>
     	<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'soussigne', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
+   		<?php endif; ?>
     </li>
 	<li>
 	    <h3>Marché</h3>
@@ -71,7 +73,9 @@
 				<span><?php echo $vrac->prix_total ?> €</span>
 			</li>
 		</ul>
+		<?php if($editer_etape): ?>
 		<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'marche', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
+		<?php endif; ?>
     </li>
     <li>
 		<h3>Conditions</h3>
@@ -143,7 +147,9 @@
 				<span><?php echo $vrac->commentaires_conditions ?></span>
 			</li>
 		</ul>
-		<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'condition', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
+		<?php if($editer_etape): ?>
+			<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'condition', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
+		<?php endif; ?>
     </li>
 	<?php if ($vrac->has_transaction): ?>
     <li>
@@ -162,15 +168,15 @@
 					</div>
 					<div>
 						<span>Contenance de la cuve :</span>
-						<span><?php echo $lot->contenance_cuve ?></span>
+						<span><?php //echo $lot->contenance_cuve ?></span>
 					</div>
 					<div>
 						<span>Millésime :</span>
-						<span><?php echo $lot->millesime ?></span>
+						<span><?php //echo $lot->millesime ?></span>
 					</div>
 					<div>
 						<span>Pourcentage du millésime :</span>
-						<span><?php echo $lot->pourcentage_annee ?></span>
+						<span><?php //echo $lot->pourcentage_annee ?></span>
 					</div>
 					<div>
 						<span>Degré :</span>
@@ -190,7 +196,7 @@
 					</div>
 					<div>
 						<span>Commentaire :</span>
-						<span><?php echo $configurationVrac->formatCommentairesLotLibelle(array($lot->commentaires)) ?></span>
+						<span><?php //echo $configurationVrac->formatCommentairesLotLibelle(array($lot->commentaires)) ?></span>
 					</div>
 				</div>
 				<?php endforeach; ?>
@@ -200,7 +206,9 @@
 				<span><?php echo $vrac->commentaires ?></span>
 			</li>
 		</ul>
-		<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'transaction', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
+		<?php if($editer_etape): ?>
+			<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'transaction', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
+		<?php endif; ?>
 	</li>
     <?php endif; ?>
 </ol>

@@ -64,12 +64,10 @@ class VracForm extends acCouchdbObjectForm
         	'determination_prix' => new sfWidgetFormInputText(),
         	'date_limite_retiraison' => new sfWidgetFormInputText(),
         	'commentaires_conditions' => new sfWidgetFormTextarea(),
-        	'part_cvo' => new sfWidgetFormInputText(),
         	'prix_total' => new sfWidgetFormInputFloat(),
         	'conditions_paiement' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getConditionsPaiement(), 'multiple' => true)),
         	'type_echeancier_paiement' => new sfWidgetFormInputText(),
-        	'vin_livre' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
-        	'date_debut_retiraison' => new sfWidgetFormInputText(),
+        	'vin_livre' => new sfWidgetFormChoice(array('choices' => $this->getChoixVinLivre(),'expanded' => true)),
         	'contrat_pluriannuel' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'reference_contrat_pluriannuel' => new sfWidgetFormInputText(),
         	'delai_paiement' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getDelaisPaiement())),
@@ -114,18 +112,16 @@ class VracForm extends acCouchdbObjectForm
         	'labels' => 'Labels:',
         	'mentions' => 'Mentions:',
         	'volume_propose' => 'Volume proposé:',
-        	'annexe' => 'Présence d\'une annexe:',
-        	'prix_unitaire' => 'Prix:',
+        	'annexe' => 'Présence d\'une annexe (cahier des charges techniques):',
+        	'prix_unitaire' => 'Prix unitaire net HT hors cotisation:',
         	'type_prix' => 'Type de prix:',
         	'determination_prix' => 'Mode de détermination du prix définitif:',
         	'date_limite_retiraison' => 'Date limite de retiraison:',
         	'commentaires_conditions' => 'Commentaires:',
-        	'part_cvo' => 'Part CVO payé par l\'acheteur:',
-        	'prix_total' => 'Prix total:',
+        	'prix_total' => 'Prix total HT:',
         	'conditions_paiement' => 'Conditions générales de paiement:',
         	'type_echeancier_paiement' => 'Echéancier de paiement:',
-        	'vin_livre' => 'Le vin sera livré:',
-        	'date_debut_retiraison' => 'Date de début de retiraison:',
+        	'vin_livre' => 'Le vin sera:',
         	'contrat_pluriannuel' => 'Contrat pluriannuel écrit:',
         	'reference_contrat_pluriannuel' => 'Référence contrat pluriannuel:',
         	'delai_paiement' => 'Delai de paiement:',
@@ -176,12 +172,10 @@ class VracForm extends acCouchdbObjectForm
         	'determination_prix' => new sfValidatorString(array('required' => false)),
         	'date_limite_retiraison' => new sfValidatorString(array('required' => false)),
         	'commentaires_conditions' => new sfValidatorString(array('required' => false)),
-        	'part_cvo' => new sfValidatorString(array('required' => false)),
         	'prix_total' => new sfValidatorNumber(array('required' => false)),
         	'conditions_paiement' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getConditionsPaiement()), 'multiple' => true)),
         	'type_echeancier_paiement' => new sfValidatorString(array('required' => false)),
-        	'vin_livre' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
-        	'date_debut_retiraison' => new sfValidatorString(array('required' => false)),
+        	'vin_livre' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixVinLivre()))),
         	'contrat_pluriannuel' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'reference_contrat_pluriannuel' => new sfValidatorString(array('required' => false)),
         	'delai_paiement' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getDelaisPaiement()))),
@@ -233,6 +227,12 @@ class VracForm extends acCouchdbObjectForm
     public function getChoixOuiNon()
     {
     	return array('1' => 'Oui', '0' =>'Non'); 
+    }
+
+    public function getChoixVinLivre()
+    {
+        return array(VracClient::STATUS_VIN_RETIRE => 'Retiré', 
+                     VracClient::STATUS_VIN_LIVRE => 'Livré'); 
     }
     
     public function getVendeurTypes()

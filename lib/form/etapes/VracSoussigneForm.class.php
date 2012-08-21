@@ -45,7 +45,6 @@ class VracSoussigneForm extends VracForm
           $this->setDefault('vous_etes', 'vendeur');
         }
       }
-
     }
 
     protected function doUpdateObject($values) {
