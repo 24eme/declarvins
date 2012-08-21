@@ -151,7 +151,7 @@ class VracCsvFile extends CsvFile
 
         $v->cvo_nature = $this->convertCvoNature($line[self::CSV_TYPE_CONTRAT]);
 
-        $v->setInformations();
+        $v->storeSoussignesInformations();
 
         $v->update(); 
 

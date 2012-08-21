@@ -10,20 +10,33 @@ class VracRouting {
      */
     static public function listenToRoutingLoadConfigurationEvent(sfEvent $event) {
         $r = $event->getSubject();
-        $r->prependRoute('vrac', new sfRoute('/vrac', array('module' => 'vrac',
-                                                            'action' => 'index')));
-        $r->prependRoute('vrac_recherche', new sfRoute('/vrac/recherche', array('module' => 'vrac',
-                                                            'action' => 'recherche')));
-        $r->prependRoute('vrac_recherche_soussigne', new sfRoute('/vrac/recherche-soussigne/:identifiant', array('module' => 'vrac',
-                                                            'action' => 'rechercheSoussigne', 'identifiant' => null)));
-        $r->prependRoute('vrac_nouveau', new sfRoute('/vrac/nouveau', array('module' => 'vrac',
-                                                            'action' => 'nouveau')));
-        $r->prependRoute('vrac_etape', new VracRoute('/vrac/:numero_contrat/etape/:step',
+
+        $r->prependRoute('vrac_admin', new sfRoute('/vrac',
+                                                    array('module' => 'vrac', 'action' => 'index'),
+                                                    array('sf_method' => array('get'))
+                                                        )); 
+        
+        $r->prependRoute('vrac_etablissement', new EtablissementRoute('/vrac/:identifiant', 
+                                                        array('module' => 'vrac', 'action' => 'etablissement'),
+                                                        array('sf_method' => array('get')),
+                                                        array('model' => 'Etablissement', 'type' => 'object'))); 
+
+        // $r->prependRoute('vrac_recherche', new sfRoute('/vrac/recherche', array('module' => 'vrac',
+        //                                                     'action' => 'recherche')));
+        // $r->prependRoute('vrac_recherche_soussigne', new sfRoute('/vrac/recherche-soussigne/:identifiant', array('module' => 'vrac',
+        //                                                     'action' => 'rechercheSoussigne', 'identifiant' => null)));
+        
+        $r->prependRoute('vrac_nouveau', new VracRoute('/vrac/:identifiant/nouveau',  
+                                                        array('module' => 'vrac', 'action' => 'nouveau'),
+                                                        array('sf_method' => array('get')),
+                                                        array('model' => 'Etablissement', 'type' => 'object'))); 
+
+        $r->prependRoute('vrac_etape', new VracRoute('/vrac/:identifiant/:numero_contrat/etape/:step',
                                                         array('module' => 'vrac','action' => 'etape', 'step' => null),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object')));
-        $r->prependRoute('vrac_termine', new VracRoute('/vrac/:numero_contrat/recapitulatif',
-                                                        array('module' => 'vrac','action' => 'recapitulatif'),
+        $r->prependRoute('vrac_visualisation', new VracRoute('/vrac/:identifiant/:numero_contrat/visualisation',
+                                                        array('module' => 'vrac','action' => 'visualisation'),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object'))); 
         /*
@@ -49,7 +62,8 @@ class VracRouting {
                                                         array('module' => 'vrac','action' => 'getModifications'),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object')));
-        $r->prependRoute('vrac_etablissement_informations', new VracRoute('/vrac/:numero_contrat/etape/:step/informations/:etablissement/:type',
+
+        $r->prependRoute('vrac_etablissement_informations', new VracRoute('/vrac/:identifiant/:numero_contrat/etape/:step/informations/:soussigne/:type',
                                                         array('module' => 'vrac','action' => 'setEtablissementInformations'),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object')));

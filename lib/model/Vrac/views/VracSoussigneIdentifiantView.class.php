@@ -1,8 +1,8 @@
 <?php
 
-class VracHistoryView extends acCouchdbView
+class VracSoussigneIdentifiantView extends acCouchdbView
 {
-	const VRAC_VIEW_STATUT = 0;
+    const VRAC_VIEW_STATUT = 0;
     const VRAC_VIEW_NUMCONTRAT = 1;
     const VRAC_VIEW_ACHETEUR_ID = 2;
     const VRAC_VIEW_ACHETEUR_NOM = 3;
@@ -18,15 +18,15 @@ class VracHistoryView extends acCouchdbView
     const VRAC_VIEW_VOLPROP = 13;
     const VRAC_VIEW_VOLENLEVE = 14;
 
-	public static function getInstance() {
+    public static function getInstance() {
 
-        return acCouchdbManager::getView('vrac', 'history', 'Vrac');
+        return acCouchdbManager::getView('vrac', 'soussigneidentifiant', 'Vrac');
     }
 
-	public function findLast() {
+    public function findByEtablissement($identifiant) {
       
-        return $this->client->descending(true)
-                            ->limit(300)
+        return $this->client->startkey(array($identifiant))
+                            ->endkey(array($identifiant, array()))
                             ->getView($this->design, $this->view);
     }
     

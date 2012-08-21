@@ -2,21 +2,33 @@
 class VracForm extends acCouchdbObjectForm 
 {
 	protected $configuration;
+    protected $etablissement;
     
-	public function __construct(ConfigurationVrac $configuration, acCouchdbJson $object, $options = array(), $CSRFSecret = null) 
+	public function __construct(ConfigurationVrac $configuration, $etablissement, acCouchdbJson $object, $options = array(), $CSRFSecret = null) 
 	{
         $this->setConfiguration($configuration);
+        $this->setEtablissement($etablissement);
         parent::__construct($object, $options, $CSRFSecret);
     }
     
     public function getConfiguration()
     {
-    	return $this->configuration;
+        return $this->configuration;
     }
     
     public function setConfiguration($configuration)
     {
-    	$this->configuration = $configuration;
+        $this->configuration = $configuration;
+    }
+
+    public function getEtablissement()
+    {
+    	return $this->etablissement;
+    }
+    
+    public function setEtablissement($etablissement)
+    {
+    	$this->etablissement = $etablissement;
     }
     
 	public function configure()
@@ -25,15 +37,15 @@ class VracForm extends acCouchdbObjectForm
     	$this->setWidgets(array(
         	'numero_contrat' => new sfWidgetFormInputText(),
         	'etape' => new sfWidgetFormInputText(),
-                'vendeur_type' => new sfWidgetFormChoice(array('choices' => $this->getVendeurTypes(), 'expanded' => true)),
-                'vendeur_identifiant' => new WidgetEtablissement(),
-                'vendeur_assujetti_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(), 'expanded' => true)),
-                'acheteur_type' => new sfWidgetFormChoice(array('choices' => $this->getAcheteurTypes(), 'expanded'=> true)),
-                'acheteur_identifiant' => new WidgetEtablissement(),
+            'vendeur_type' => new sfWidgetFormChoice(array('choices' => $this->getVendeurTypes(), 'expanded' => true)),
+            'vendeur_identifiant' => new WidgetEtablissement(),
+            'vendeur_assujetti_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(), 'expanded' => true)),
+            'acheteur_type' => new sfWidgetFormChoice(array('choices' => $this->getAcheteurTypes(), 'expanded'=> true)),
+            'acheteur_identifiant' => new WidgetEtablissement(),
         	'acheteur_assujetti_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'mandatants' => new sfWidgetFormChoice(array('choices' => $this->getMandatants(), 'multiple' => true)),
-                'mandataire_exist' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
-        	'mandataire_identifiant' => new sfWidgetFormChoice(array('choices' => $this->getMandataires()), array('class' => 'autocomplete')),
+            'mandataire_exist' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
+        	'mandataire_identifiant' => new WidgetEtablissement(array('familles' => EtablissementFamilles::FAMILLE_COURTIER)),
         	'premiere_mise_en_marche' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier())),
         	'original' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
@@ -145,7 +157,7 @@ class VracForm extends acCouchdbObjectForm
         	'acheteur_assujetti_tva' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'mandatants' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getMandatants()), 'multiple' => true)),
         	'mandataire_exist' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
-        	'mandataire_identifiant' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getMandataires()))),
+        	'mandataire_identifiant' => new ValidatorEtablissement(array('required' => false, 'familles' => EtablissementFamilles::FAMILLE_COURTIER)),
         	'premiere_mise_en_marche' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'cas_particulier' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCasParticulier()))),
         	'original' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
@@ -233,26 +245,11 @@ class VracForm extends acCouchdbObjectForm
     	return $this->getConfiguration()->getAcheteurTypes()->toArray();
     }
     
-    public function getVendeurs()
-    {
-    	return $this->formatEtablissements($this->getConfiguration()->getVendeurs());
-    }
-    
-    public function getAcheteurs()
-    {
-    	return $this->formatEtablissements($this->getConfiguration()->getAcheteurs());
-    }
-    
     public function getMandatants()
     {
     	return $this->getConfiguration()->getMandatants();
     }
     
-    public function getMandataires()
-    {
-    	return $this->formatEtablissements($this->getConfiguration()->getMandataires());
-    }
-
     public function getTypesTransaction()
     {
     	return $this->getConfiguration()->getTypesTransaction()->toArray();
