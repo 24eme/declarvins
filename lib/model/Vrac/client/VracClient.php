@@ -107,10 +107,10 @@ class VracClient extends acCouchdbClient {
         return parent::retrieveDocumentById('VRAC-'.$id, $hydrate);
     }
     
-
+/*
     public function retrieveFromEtablissementsAndHash($etablissement, $hash, $mustActive = true, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
       $contrats = array();
-      $hash = preg_replace('|(couleurs/[^/]*/).*|', '\1', $hash);
+      $hash = preg_replace('|(couleurs/[^/]*\/).*|', '\1', $hash);
       foreach ($this->startkey(array($etablissement))
 	       ->endkey(array($etablissement, array()))->getView('vrac', 'all', $hydrate)->rows as $c) {
 	       	if (strpos($hash, $c->key[1]) !== false) {
@@ -121,6 +121,7 @@ class VracClient extends acCouchdbClient {
       }
       return $contrats;
     }
+*/
 
     public function retrieveFromEtablissements($etablissement, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
       $contrats = array();
