@@ -1,16 +1,17 @@
-<?php $libelles = array("douane" => "Droits de circulation de consommation",
+<?php $libelles = array("douane" => "Droits de circulation et de consommation",
                         "cvo" => "Cotisations interprofessionnelles"
                         ) ?>
 
 <?php foreach ($drm->getDroits() as $typedroit => $droits) if (count($drm->droits->{$typedroit})): ?>
+    <?php if ($drm->mode_de_saisie == DRM::MODE_DE_SAISIE_PAPIER && $typedroit == "douane") {continue;} ?>       
     <div class="tableau_ajouts_liquidations">
     <h2><?php echo $libelles[$typedroit] ?> <a href="" class="msg_aide" data-msg="help_popup_validation_droit_<?php echo $typedroit; ?>" title="Message aide"></a></h2>
     	<table class="tableau_recap">
             <thead>
     		<tr>
     			<th><strong>Code</strong></th>
-    			<th><strong>Volume taxe</strong></th>
-    			<th><strong>Volume réintégré</strong></th>
+    			<th><strong>Volumes "sortie"</strong></th>
+    			<th><strong>Volumes réintégrés</strong></th>
     			<th><strong>Taux</strong></th>
     			<th><strong>Droits à payer</strong></th>
     			<?php if ($drm->isPaiementAnnualise()): ?>

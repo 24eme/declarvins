@@ -7,5 +7,6 @@
 		- <strong style="color: #ff0000; text-transform: uppercase;">
 			Rectificative n° <?php echo sprintf('%02d', $drm->rectificative) ?>
 		</strong>
-	<?php endif; ?>
+        <?php endif; ?>
+<small>(saisie <?php echo $drm->mode_de_saisie; ?>)</small>
 </p>
