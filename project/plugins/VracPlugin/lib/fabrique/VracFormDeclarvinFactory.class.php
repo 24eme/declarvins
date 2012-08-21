@@ -1,24 +1,24 @@
 <?php
 class VracFormDeclarvinFactory 
 {
-public static function create($interpro, $step, $configurationVrac, $object) {
+public static function create($interpro, $step, $configurationVrac, $etablissement, $vrac) {
 		$form = null;
 		if ($interpro == 'INTERPRO-CIVP') {
 			switch ($step){
 				case 'soussigne':
-					$form = new VracSoussigneCivpForm($configurationVrac, $object);
+					$form = new VracSoussigneCivpForm($configurationVrac, $etablissement, $vrac);
 					break;
 				case 'marche':
-					$form = new VracMarcheCivpForm($configurationVrac, $object);
+					$form = new VracMarcheCivpForm($configurationVrac, $etablissement, $vrac);
 					break;
 				case 'condition':
-					$form = new VracConditionCivpForm($configurationVrac, $object);
+					$form = new VracConditionCivpForm($configurationVrac, $etablissement, $vrac);
 					break;
 				case 'transaction':
-					$form = new VracTransactionCivpForm($configurationVrac, $object);
+					$form = new VracTransactionCivpForm($configurationVrac, $etablissement, $vrac);
 					break;
 				case 'validation':
-					$form = new VracValidationCivpForm($configurationVrac, $object);
+					$form = new VracValidationCivpForm($configurationVrac, $etablissement, $vrac);
 					break;
 				default:
 					throw new sfException ('Fabrique : Etape "'.$step.'" non gérée');
@@ -26,19 +26,19 @@ public static function create($interpro, $step, $configurationVrac, $object) {
 		} elseif ($interpro == 'INTERPRO-IR') {
 			switch ($step){
 				case 'soussigne':
-					$form = new VracSoussigneIrForm($configurationVrac, $object);
+					$form = new VracSoussigneIrForm($configurationVrac, $etablissement, $vrac);
 					break;
 				case 'marche':
-					$form = new VracMarcheIrForm($configurationVrac, $object);
+					$form = new VracMarcheIrForm($configurationVrac, $etablissement, $vrac);
 					break;
 				case 'condition':
-					$form = new VracConditionIrForm($configurationVrac, $object);
+					$form = new VracConditionIrForm($configurationVrac, $etablissement, $vrac);
 					break;
 				case 'transaction':
-					$form = new VracTransactionIrForm($configurationVrac, $object);
+					$form = new VracTransactionIrForm($configurationVrac, $etablissement, $vrac);
 					break;
 				case 'validation':
-					$form = new VracValidationIrForm($configurationVrac, $object);
+					$form = new VracValidationIrForm($configurationVrac, $etablissement, $vrac);
 					break;
 				default:
 					throw new sfException ('Fabrique : Etape "'.$step.'" non gérée');
@@ -46,19 +46,19 @@ public static function create($interpro, $step, $configurationVrac, $object) {
 		} elseif ($interpro == 'INTERPRO-IVSE') {
 			switch ($step){
 				case 'soussigne':
-					$form = new VracSoussigneIvseForm($configurationVrac, $object);
+					$form = new VracSoussigneIvseForm($configurationVrac, $etablissement, $vrac);
 					break;
 				case 'marche':
-					$form = new VracMarcheIvseForm($configurationVrac, $object);
+					$form = new VracMarcheIvseForm($configurationVrac, $etablissement, $vrac);
 					break;
 				case 'condition':
-					$form = new VracConditionIvseForm($configurationVrac, $object);
+					$form = new VracConditionIvseForm($configurationVrac, $etablissement, $vrac);
 					break;
 				case 'transaction':
-					$form = new VracTransactionIvseForm($configurationVrac, $object);
+					$form = new VracTransactionIvseForm($configurationVrac, $etablissement, $vrac);
 					break;
 				case 'validation':
-					$form = new VracValidationIvseForm($configurationVrac, $object);
+					$form = new VracValidationIvseForm($configurationVrac, $etablissement, $vrac);
 					break;
 				default:
 					throw new sfException ('Fabrique : Etape "'.$step.'" non gérée');
