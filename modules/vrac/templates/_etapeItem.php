@@ -3,7 +3,9 @@
         <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => $etape, 'etablissement' => $etablissement)) ?>"><?php echo $label ?></a>    
     <?php else: ?>
         <?php if($isActive): ?>
-            <strong><?php echo $label ?></strong>
+            <?php if ($last): ?><span><?php endif; ?>
+            <span><strong><?php echo $label ?></strong></span>
+            <?php if ($last): ?></span><?php endif; ?>
         <?php else: ?>
             <?php if ($last): ?><span><?php endif; ?>
             <span><?php echo $label ?></span>

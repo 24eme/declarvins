@@ -3,6 +3,7 @@
 	<table id="tableau_recap">    
 	    <thead>
 	        <tr>
+	        	<th style="width: auto;">Statut</th>
 	            <th class="type">Type</th>
 	            <th>N° Contrat</th>
 	            <th>Soussignés</th>   

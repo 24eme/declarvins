@@ -1,4 +1,7 @@
 <tr class="<?php echo $statusColor; ?>" >
+  <td>
+    <?php echo $elt[VracHistoryView::VRAC_VIEW_STATUT]; ?>
+  </td>
   <td class="type" >
       <!--<span class="type_<?php echo $elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT]; ?>">
           <?php echo ($elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT])? typeProduit($elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT]) : ''; ?>

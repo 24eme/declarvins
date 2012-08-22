@@ -4,7 +4,13 @@
         <ul>
 			<li>
 				<span>Vendeur :</span>
-				<span><?php echo $vrac->vendeur->nom ?></span>
+				<span>
+					<?php if($vrac->vendeur->nom): ?>
+						<?php echo $vrac->vendeur->nom ?>
+					<?php else: ?>
+						<?php echo $vrac->vendeur->raison_sociale ?>
+					<?php endif; ?>
+				</span>
 			</li>
 			<li>
 				<span>Assujetti à la TVA :</span>
@@ -12,7 +18,13 @@
 			</li>
 			<li>
 				<span>Acheteur :</span>
-				<span><?php echo $vrac->acheteur->nom ?></span>
+				<span>
+					<?php if($vrac->acheteur->nom): ?>
+						<?php echo $vrac->acheteur->nom ?>
+					<?php else: ?>
+						<?php echo $vrac->acheteur->raison_sociale ?>
+					<?php endif; ?>
+				</span>
 			</li>
 			<li>
 				<span>Assujetti à la TVA :</span>
@@ -80,36 +92,32 @@
     <li>
 		<h3>Conditions</h3>
         <ul>
+        	<?php if(!is_null($vrac->annexe)): ?>
 			<li>
 				<span>Présence d'une annexe :</span>
 				<span><?php echo ($vrac->annexe)? 'Oui' : 'Non'; ?></span>
 			</li>
+			<?php endif; ?>
 			<li>
 				<span>Présence d'un contrat pluriannuel :</span>
 				<span><?php echo ($vrac->contrat_pluriannuel)? 'Oui' : 'Non'; ?></span>
 			</li>
-			<?php if ($vrac->contrat_pluriannuel): ?>
+			<?php if (!is_null($vrac->reference_contrat_pluriannuel)): ?>
 			<li>
-				<span>Référence contrat pluriannuel: :</span>
+				<span>Référence contrat pluriannuel :</span>
 				<span><?php echo $vrac->reference_contrat_pluriannuel ?></span>
 			</li>
 			<?php endif; ?>
 			<li>
-				<span>Part CVO payé par l'acheteur :</span>
-				<span><?php echo $vrac->part_cvo ?></span>
-			</li>
-			<li>
 				<span>Conditions générales de paiement :</span>
 				<span><?php echo $configurationVrac->formatConditionsPaiementLibelle($vrac->conditions_paiement->getRawValue()->toArray()) ?></span>
 			</li>
+			<?php if(!is_null($vrac->delai_paiement)): ?>
 			<li>
 				<span>Delai de paiement :</span>
 				<span><?php echo $configurationVrac->formatDelaisPaiementLibelle(array($vrac->delai_paiement)) ?></span>
 			</li>
-			<li>
-				<span>Echeancier de paiement :</span>
-				<span><?php echo ($vrac->echeancier_paiement)? 'Oui' : 'Non'; ?></span>
-			</li>
+			<?php endif; ?>
 			<?php if ($vrac->echeancier_paiement): ?>
 			<li>
 				<?php foreach ($vrac->paiements as $paiement): ?>
@@ -126,25 +134,19 @@
 				<?php endforeach; ?>
 			</li>
 			<?php endif; ?>
+			<?php if(!is_null($vrac->clause_reserve_retiraison)): ?>
 			<li>
 				<span>Clause de reserve de propriété :</span>
 				<span><?php echo ($vrac->clause_reserve_retiraison)? 'Oui' : 'Non'; ?></span>
 			</li>
+			<?php endif; ?>
 			<li>
-				<span>Le vin sera livré :</span>
-				<span><?php echo ($vrac->vin_livre)? 'Oui' : 'Non'; ?></span>
-			</li>
-			<li>
-				<span>Date de début de retiraison :</span>
-				<span><?php echo $vrac->date_debut_retiraison ?></span>
+				<span>Le vin sera :</span>
+				<span><?php echo $vrac->vin_livre ?></span>
 			</li>
 			<li>
 				<span>Date limite de retiraison :</span>
 				<span><?php echo $vrac->date_limite_retiraison ?></span>
-			</li>
-			<li>
-				<span>Commentaire :</span>
-				<span><?php echo $vrac->commentaires_conditions ?></span>
 			</li>
 		</ul>
 		<?php if($editer_etape): ?>
@@ -167,24 +169,28 @@
 						<span><?php echo $lot->numero ?></span>
 					</div>
 					<div>
-						<span>Contenance de la cuve :</span>
-						<span><?php //echo $lot->contenance_cuve ?></span>
+						<span>Cuve :</span>
+						<span><?php echo $lot->cuve ?></span>
 					</div>
+					<?php foreach ($lot->millesimes as $millesime): ?>
 					<div>
-						<span>Millésime :</span>
-						<span><?php //echo $lot->millesime ?></span>
+						<div>
+							<span>Année :</span>
+							<span><?php echo $millesime->annee ?></span>
+						</div>
+						<div>
+							<span>Pourcentage :</span>
+							<span><?php echo $millesime->pourcentage ?> €</span>
+						</div>
 					</div>
-					<div>
-						<span>Pourcentage du millésime :</span>
-						<span><?php //echo $lot->pourcentage_annee ?></span>
-					</div>
+					<?php endforeach; ?>
 					<div>
 						<span>Degré :</span>
 						<span><?php echo $lot->degre ?></span>
 					</div>
 					<div>
 						<span>Présence d'allergènes :</span>
-						<span><?php echo ($lot->presence_allergenes)? 'oui' : 'non'; ?></span>
+						<span><?php echo ($lot->presence_allergenes)? 'Oui' : 'Non'; ?></span>
 					</div>
 					<div>
 						<span>Volume :</span>
@@ -194,16 +200,8 @@
 						<span>Date de retiraison :</span>
 						<span><?php echo $lot->date_retiraison ?></span>
 					</div>
-					<div>
-						<span>Commentaire :</span>
-						<span><?php //echo $configurationVrac->formatCommentairesLotLibelle(array($lot->commentaires)) ?></span>
-					</div>
 				</div>
 				<?php endforeach; ?>
-			</li>
-			<li>
-				<span>Commentaire :</span>
-				<span><?php echo $vrac->commentaires ?></span>
 			</li>
 		</ul>
 		<?php if($editer_etape): ?>

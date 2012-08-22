@@ -3,21 +3,22 @@ class VracMarcheForm extends VracForm
 {
    	public function configure()
     {
-		parent::configure();
-		$this->useFields(array(
-           'type_transaction',
-           'produit',
-		   'millesime',
-	       'labels',
-           'mentions',
-		   'prix_unitaire',
-           'volume_propose',
-		   'prix_total',
-       'type_prix',
-		   'has_transaction',
-       'annexe'
-		));
-		$this->widgetSchema->setNameFormat('vrac_marche[%s]');
+    		parent::configure();
+    		$this->useFields(array(
+               'type_transaction',
+               'produit',
+    		   'millesime',
+    	       'labels',
+               'mentions',
+    		   'prix_unitaire',
+               'volume_propose',
+    		   'prix_total',
+           'type_prix',
+           'determination_prix',
+    		   'has_transaction',
+           'annexe'
+    		));
+    		$this->widgetSchema->setNameFormat('vrac_marche[%s]');
 
         if (count($this->getTypesTransaction()) < 2) {
             unset($this['type_transaction']);
@@ -33,5 +34,16 @@ class VracMarcheForm extends VracForm
                 $this->getObject()->type_transaction = $key;
             }
         }
+
+        if (!in_array($this->getObject()->type_prix, $this->getTypePrixNeedDetermination())) {
+          $this->getObject()->determination_prix = null;
+        }
+
+        $this->getObject()->update();
+    }
+
+    public function getTypePrixNeedDetermination() {
+
+      return array("objectif", "acompte");
     }
 }

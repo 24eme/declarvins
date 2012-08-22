@@ -30,11 +30,11 @@
     <div id="millesime" class="vracs_ligne_form ">
         <span>
             <label>Millésimes: </label>
+            <table id="table_lot_millesimes_<?php echo $form->getName() ?>">
             <?php foreach ($form['millesimes'] as $formMillesime): ?>
-                <table id="table_lot_millesimes_<?php echo $form->getName() ?>">
-                    <?php include_partial('form_lot_millesimes_item', array('form' => $formMillesime)) ?>
-                </table>
+                <?php include_partial('form_lot_millesimes_item', array('form' => $formMillesime)) ?>
             <?php endforeach; ?>
+            </table>
             <a class="btn_ajouter_ligne_template" data-container="#table_lot_millesimes_<?php echo $form->getName() ?>" data-template="#template_form_lot_millesimes_item_<?php echo $form->getName() ?>" href="#"><span>Ajouter un millésime</span></a>
         </span>
     </div>
@@ -82,7 +82,7 @@
     </div>
     <div class="vracs_ligne_form vracs_ligne_form_alt">
          <span>
-            <a class="btn_supprimer_ligne_template" href="#">Supprimer cette transaction</a>
+            <a class="btn_supprimer_ligne_template" data-container=".lot" href="#">Supprimer cette transaction</a>
          </span>
     </div>
 </div>

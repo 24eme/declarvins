@@ -5,8 +5,14 @@ class VracValidationForm extends VracForm
     {
     	parent::configure();
 		$this->useFields(array(
-           'valide'
+           'valide',
+           'commentaires'
 		));
         $this->widgetSchema->setNameFormat('vrac_validation[%s]');
+    }
+
+    protected function doUpdateObject($values) {
+
+        $this->getObject()->validate();
     }
 }

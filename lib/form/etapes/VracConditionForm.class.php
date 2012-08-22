@@ -6,15 +6,14 @@ class VracConditionForm extends VracForm
   		parent::configure();
   		$this->useFields(array(
   	       'date_limite_retiraison',
-             'commentaires_conditions',
-             'conditions_paiement',
+           'conditions_paiement',
   	       'vin_livre',
-             'contrat_pluriannuel',
-             'reference_contrat_pluriannuel',
+           'contrat_pluriannuel',
+           'reference_contrat_pluriannuel',
   	       'delai_paiement',
-             'echeancier_paiement',
-             'clause_reserve_retiraison',
-  		   'paiements'
+           'echeancier_paiement',
+           'clause_reserve_retiraison',
+  		     'paiements'
   		));
   		$this->widgetSchema->setNameFormat('vrac_condition[%s]');
     }

@@ -7,10 +7,10 @@ class VracSoussigneForm extends VracForm
 		$this->useFields(array(
            'vendeur_type',
            'vendeur_identifiant',
-	       'vendeur_assujetti_tva',
+	       'vendeur_tva',
            'acheteur_type',
            'acheteur_identifiant',
-	       'acheteur_assujetti_tva',
+	       'acheteur_tva',
 	       'mandataire_exist',
 	       'mandataire_identifiant',
 	       'premiere_mise_en_marche',
@@ -24,7 +24,7 @@ class VracSoussigneForm extends VracForm
 
       if ($this->getEtablissement()) {
         $this->setWidget('vous_etes', new sfWidgetFormChoice(array('choices' => $this->getVousEtes(), 'expanded' => true)));
-        $this->setValidator('vous_etes', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getVousEtes()))));
+        $this->setValidator('vous_etes', new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getVousEtes()))));
 
         $this->getWidget('vous_etes')->setLabel("Vous êtes:");
       }
@@ -53,7 +53,7 @@ class VracSoussigneForm extends VracForm
           unset($values[$etablissement_type]);
           unset($values[$etablissement_type."_type"]);
           unset($values[$etablissement_type."_identifiant"]);
-          unset($values[$etablissement_type."_assujetti_tva"]);
+          unset($values[$etablissement_type."_tva"]);
           $this->getObject()->set($etablissement_type."_type", $this->getEtablissement()->famille);
           $this->getObject()->set($etablissement_type."_identifiant", $this->getEtablissement()->identifiant);
         }

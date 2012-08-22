@@ -110,7 +110,7 @@ class acVinVracActions extends sfActions
 		$this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
 	}
-	
+
 	public function getForm($interproId, $etape, $configurationVrac, $etablissement, $vrac)
 	{
 		return VracFormFactory::create($etape, $configurationVrac, $etablissement, $vrac);

@@ -84,4 +84,17 @@ class Vrac extends BaseVrac
       	if ($informations->exist('fax')) $informations->fax = $etablissement->fax;
       	if ($informations->exist('email')) $informations->email = $etablissement->email;
     }
+
+    public function update($params = array()) {
+      parent::update($params);
+
+      $this->prix_total = round($this->prix_unitaire * $this->volume_propose, 2);
+    }
+
+    public function validate() {
+      $this->update();
+      $this->storeSoussignesInformations();
+      $this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
+      $this->valide->date_saisie = date('Y-m-d');
+    }
 }

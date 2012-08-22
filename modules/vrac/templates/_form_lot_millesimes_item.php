@@ -10,6 +10,6 @@
     </td>
     <td class="dernier">
     	&nbsp;&nbsp;
-        <a class="btn_supprimer_ligne_template" href="#">X</a>
+        <a class="btn_supprimer_ligne_template" data-container="tr" href="#">X</a>
     </td>
 </tr>

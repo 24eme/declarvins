@@ -14,7 +14,7 @@
                     <div class="legende" id="ss_titre"><span class="style_label">Etat du contrat</span>
                         <a id="solder_contrat" href="">Solder le contrat</a>
                         <div>
-                            <span class="statut statut_non-solde"></span><span class="legende_statut_texte">NONSOLDE</span>
+                            <span class="statut statut_non-solde"></span><span class="legende_statut_texte"><?php echo $vrac->valide->statut ?></span>
                         </div>                            
                     </div>
                     <div id="ligne_btn">

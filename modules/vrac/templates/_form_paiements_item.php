@@ -8,6 +8,6 @@
         <?php echo $form['montant']->render() ?>
     </td>
     <td class="dernier">
-        <a class="btn_supprimer_ligne_template" href="#">X</a>
+        <a class="btn_supprimer_ligne_template" data-container="tr" href="#">X</a>
     </td>
 </tr>
