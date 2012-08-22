@@ -18,8 +18,8 @@
             #table_paiements,
             #table_retiraisons
             {
-                float: right;
-                width: 545px;
+                margin-left: 210px;
+                width: 530px;
 
                 thead
                 {
@@ -40,6 +40,7 @@
                             border-bottom: 1px solid @couleur-e2;
                             border-right: 1px solid @couleur-e2;
                             border-top: 1px solid @couleur-e2;
+                            width: 30px;
                         }
                     }
                 }
@@ -70,7 +71,7 @@
                                 {
                                     .btn_suppr;
                                     .txt-rpl;
-
+                                    margin-left: 10px;
                                     display: block;
                                     padding-left: 0;
                                     width: 14px;
@@ -294,21 +295,42 @@
     {
         margin : 20px 0;
 
-        label
+        & > label
         {
-            &:first-child
-            {
-                display: inline-block;
-                font-weight: bold;
-                text-transform: none;
-                width : 210px; 
-            }
+            display: inline-block;
+            font-weight: bold;
+            text-transform: none;
+            width : 210px; 
+            
         }
 
         .radio_list
         {
             li { width : 200px !important; }
         }
+    }
+
+    .section_label_strong_bloc {
+        margin : 20px 0;
+
+        & > label
+        {
+            display: inline-block;
+            font-weight: bold;
+            text-transform: none;
+            width : 210px; 
+            vertical-align: top;
+        }
+
+       .radio_list
+        {
+            li {
+                display: block;
+                float: none; 
+                width : auto !important; 
+                padding: 2px 0;
+            }
+        } 
     }
     
     .contenu_onglet

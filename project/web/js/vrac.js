@@ -12,27 +12,25 @@
 	}
 
 	var checkUncheck = function(cibleInput, cibleBloc, voisins)
-    {
-	            cibleInput.click(function()
-	            {
-	                if($(this).is(':checked'))
-	                {
-	                    if(voisins){
-	                        voisins.hide();
-	                        voisins.find('input[type=radio]').removeAttr('checked');
-	                        voisins.find('input[type=checkbox]').removeAttr('checked');
-	                        voisins.find('input[type=text]').val('')
-	                        voisins.find('select').removeAttr('selected');
-	                    }
-	                    cibleBloc.toggle();
-	                }else{
-	                    cibleBloc.toggle();
-	                }
-	            });
+    {	
+        cibleInput.click(function()
+        {
+            if($(this).is(':checked'))
+            {
+                if(voisins){
+                    voisins.hide();
+                }
+                cibleBloc.toggle();
+            }else{
+                cibleBloc.toggle();
+            }
+        });
 	}
 
 	var initBlocCondition = function () {
-		checkUncheckCondition($('.bloc_condition'));
+		$('.bloc_condition').each(function() {
+			checkUncheckCondition($(this));
+		});
 	}
 
 	var checkUncheckCondition = function(blocCondition)
@@ -44,20 +42,28 @@
     	var traitement = function(input, bloc, value) {
     		if(input.is(':checked'))
             {
-               if (value == input.val()) {
-               		bloc.show();
-               } else {
-               		bloc.hide();
-               }
+               values = value.split('|');
+               for(key in values) {
+	               if (values[key] == input.val()) {
+               			bloc.show();
+
+               			return ;
+               		}
+           	   }
             }
     	}
-
+    	if(input.length == 0) {
+    		bloc.show();
+    	} else {
+    		bloc.hide();
+    	}
     	input.each(function() {
     		traitement($(this), bloc, value);
     	});
 
         input.click(function()
         {
+        	bloc.hide();
             traitement($(this), bloc, value);
         });
 	}
@@ -130,7 +136,8 @@
 	                if($thisInput.is(':checked'))
 	                {
 	                    eqCible.show();
-	                }else{ 
+	                }else{
+    					resetEtablissement(eqCible, true);
 	                	eqCible.hide(); 
 	                }
 	                
@@ -156,8 +163,10 @@
 	            var blocCheck = $this.find('.section_label_strong :checkbox');
 	
 	            checkUncheck(blocCheck, infos, infos);
-	
-	            infos.hide();
+		
+				if(!blocCheck.is(':checked')) {
+	            	infos.hide();
+	        	}
 	        });
 	    };
 	
@@ -429,6 +438,7 @@
 		
 	    $(element).live('change', function()
 	    {
+	    	resetEtablissement($(this).parents('.vrac_vendeur_acheteur'), false);
 	    	var target = $($(this).attr('data-container'));
 	    	var targetAutoComplete = target.next(".ui-autocomplete-input");
 	    	var template = $($(this).attr('data-template'));
@@ -444,20 +454,44 @@
 	{
 	    $('.vrac_vendeur_acheteur').each(function()
 	    {
-	    	var radioButton =  $($('#'+$(this).attr('id')+' :radio').eq(0));
-	    	var target = $(radioButton.attr('data-container')).next(".ui-autocomplete-input");
-	    	var nbChecked = $('#'+$(this).attr('id')+' :radio:checked').length;
-	    	if (!nbChecked) {
-	    		target.attr("disabled","disabled");
-	    	}
+	    	initEtablissement($(this));
 	    });
+	}
+
+	var resetEtablissement = function (bloc, resetFamille) {
+		var select = bloc.find('.etablissement_choice select');
+		var input_autcomplete = bloc.find('.etablissement_choice input');
+		var etablissement_informations = bloc.find('.etablissement_informations');
+
+		if(resetFamille) {
+			var inputs_famille = bloc.find('.etablissement_famille_choice input');
+			inputs_famille.removeAttr('checked');
+		}
+
+		select.html('');
+		input_autcomplete.val('');
+		etablissement_informations.find('textarea').html('');
+		etablissement_informations.find('input:text').val('');
+		etablissement_informations.find('input:checkbox').removeAttr('checked');
+		etablissement_informations.find('input:radio').removeAttr('checked');
+		etablissement_informations.find('select').html('');
+	}
+
+	var initEtablissement = function (bloc) {
+		var radioButton =  $($('#'+bloc.attr('id')+' :radio').eq(0));
+    	var target = $(radioButton.attr('data-container')).next(".ui-autocomplete-input");
+    	var nbChecked = $('#'+bloc.attr('id')+' :radio:checked').length;
+    	if (!nbChecked) {
+    		target.attr("disabled","disabled");
+    	}
 	}
 	
 	var initCollectionDeleteTemplate = function()
 	{
 		$('.btn_supprimer_ligne_template').live('click',function()
 	    {
-	        $(this).parent().parent().remove();
+	    	var element = $(this).attr('data-container');
+	        $(this).parents(element).remove();
 	
 	        return false;
 	    });
@@ -474,10 +508,10 @@
 	{
 		var select = $(listenerChoice+' select');
 		var input = $(listenerChoice+' input');
-		input.live( "autocompleteselect", function(event, ui) {  
-			var url = $(templateUrl).text().replace(/var---etablissement---/g, select.val());
+		input.live( "autocompleteselect", function(event, ui) {
+			var url = $(templateUrl).text().replace(/var---etablissement---/g, $(ui.item.option).val());
 			var url = url.replace(/var---type---/g, type);
-			$.post(url, function(data){
+			$.get(url, function(data){
 				$('#etablissement_'+type).html(data);
 			});
 		});

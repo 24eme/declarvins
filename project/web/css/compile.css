@@ -1047,6 +1047,7 @@ input.ui-autocomplete-input + button .ui-icon {
   text-decoration:underline;
 }
 #ajax_form_error_notification a:hover { text-decoration:none; }
+.bloc_conditionner { display:none; }
 #creation_compte h1 {
   font-size:21px;
   font-weight:normal;
@@ -2098,8 +2099,8 @@ p#date_drm {
 }
 .vracs .popup_form .table_container:after { clear:both; }
 .vracs .popup_form .table_container #table_paiements, .vracs .popup_form .table_container #table_retiraisons {
-  float:right;
-  width:545px;
+  margin-left:210px;
+  width:530px;
 }
 .vracs .popup_form .table_container #table_paiements thead th, .vracs .popup_form .table_container #table_retiraisons thead th {
   border:1px solid #e5e4e4;
@@ -2115,6 +2116,7 @@ p#date_drm {
   border-bottom:1px solid #ffffff;
   border-right:1px solid #ffffff;
   border-top:1px solid #ffffff;
+  width:30px;
 }
 .vracs .popup_form .table_container #table_paiements tbody, .vracs .popup_form .table_container #table_retiraisons tbody { text-align:left; }
 .vracs .popup_form .table_container #table_paiements tbody tr td, .vracs .popup_form .table_container #table_retiraisons tbody tr td {
@@ -2137,6 +2139,7 @@ p#date_drm {
   text-indent:100%;
   white-space:nowrap;
   overflow:hidden;
+  margin-left:10px;
   display:block;
   padding-left:0;
   width:14px;
@@ -2320,13 +2323,27 @@ p#date_drm {
 }
 .vracs .section_label_maj .ui-autocomplete-input:after { clear:both; }
 .vracs .section_label_strong { margin:20px 0; }
-.vracs .section_label_strong label:first-child {
+.vracs .section_label_strong > label {
   display:inline-block;
   font-weight:bold;
   text-transform:none;
   width:210px;
 }
 .vracs .section_label_strong .radio_list li { width:200px !important; }
+.vracs .section_label_strong_bloc { margin:20px 0; }
+.vracs .section_label_strong_bloc > label {
+  display:inline-block;
+  font-weight:bold;
+  text-transform:none;
+  width:210px;
+  vertical-align:top;
+}
+.vracs .section_label_strong_bloc .radio_list li {
+  display:block;
+  float:none;
+  width:auto !important;
+  padding:2px 0;
+}
 .vracs .contenu_onglet {
   border:1px solid #e9e9e9;
   background:#f1f1f1;
