@@ -84,7 +84,7 @@ class drmActions extends sfActions
     	$this->formCampagne->bind($request->getParameter($this->formCampagne->getName()));
   	  	if ($this->formCampagne->isValid()) {
   	  		$values = $this->formCampagne->getValues();
-  	  		$drm = DRMClient::getInstance()->createDoc($this->etablissement, $values['campagne']);
+  	  		$drm = DRMClient::getInstance()->createDoc($this->etablissement->identifiant, $values['campagne']);
   	  		$drm->mode_de_saisie = DRM::MODE_DE_SAISIE_PAPIER;
       		$drm->save();
       		$this->redirect('drm_informations', $drm);
