@@ -23,7 +23,7 @@ class CompteModificationDroitForm extends CompteModificationForm {
          $this->setWidget('login', new sfWidgetFormInputText());
          if(!$this->getObject()->isNew())
          {
-             $this->getWidget('login')->setAttribute('disabled','disabled');
+             $this->getWidget('login')->setAttribute('readonly','readonly');
          }
          
          $this->getWidget('login')->setLabel('login*: ');
