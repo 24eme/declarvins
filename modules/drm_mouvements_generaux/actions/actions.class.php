@@ -136,6 +136,7 @@ class drm_mouvements_generauxActions extends sfActions
             $form->bind($request->getParameter($form->getName()));
 			if ($form->isValid()) {
                 $form->addProduit();
+                $drm->update();
 				$drm->save();
 				$this->getUser()->setFlash("notice", 'Le produit a été ajouté avec succès.');
 				return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_mouvements_generaux', $drm))));
