@@ -5,7 +5,7 @@
     <section id="principal">
 	    <div id="recap_drm">
 			<div id="drm_annee_courante">
-				<?php include_component('drm', 'historiqueList', array('historique' => $historique)) ?>
+				<?php include_component('drm', 'historiqueList', array('historique' => $historique, 'etablissement' => $etablissement)) ?>
 			</div>
 		</div>
 		
@@ -14,7 +14,7 @@
 				<?php if ($campagne == $historique->getCampagneCourante()): ?>
 					<li class="actif"><strong>DRM <?php echo $campagne ?></strong></li>
 				<?php else: ?>
-					<li><a href="<?php echo url_for('drm_historique', array('campagne' => $campagne, 'Etablissement' => $sf_user->getEtablissement()))?>">DRM <?php echo $campagne ?></a></li>
+					<li><a href="<?php echo url_for('drm_historique', array('campagne' => $campagne, 'etablissement' => $etablissement))?>">DRM <?php echo $campagne ?></a></li>
 				<?php endif; ?>
 			<?php endforeach; ?>
 		</ul>
