@@ -75,7 +75,7 @@ class drmActions extends sfActions
   {
       $this->etablissement = $this->getRoute()->getEtablissement();
       $this->historique = new DRMHistorique ($this->etablissement->identifiant);
-      $this->formCampagne = new DRMCampagneForm($this->identifiant);
+      $this->formCampagne = new DRMCampagneForm($this->etablissement->identifiant);
       $this->hasDrmEnCours = $this->historique->hasDRMInProcess();
       if ($request->isMethod(sfWebRequest::POST)) {
 	  	if ($this->hasDrmEnCours) {
@@ -84,7 +84,7 @@ class drmActions extends sfActions
     	$this->formCampagne->bind($request->getParameter($this->formCampagne->getName()));
   	  	if ($this->formCampagne->isValid()) {
   	  		$values = $this->formCampagne->getValues();
-  	  		$drm = DRMClient::getInstance()->createDoc($this->historique->etablissement, $values['campagne']);
+  	  		$drm = DRMClient::getInstance()->createDoc($this->etablissement, $values['campagne']);
   	  		$drm->mode_de_saisie = DRM::MODE_DE_SAISIE_PAPIER;
       		$drm->save();
       		$this->redirect('drm_informations', $drm);

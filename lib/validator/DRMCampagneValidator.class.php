@@ -23,7 +23,6 @@ class DRMCampagneValidator extends sfValidatorBase {
         $campagne = sprintf('%04d-%02d', $values['years'], $values['months']);
         
         $drm = DRMClient::getInstance()->findByIdentifiantCampagneAndRectificative($this->getOption('etablissement'), $campagne);
-		
         if ($drm) {
             throw new sfValidatorErrorSchema($this, array($this->getOption('months') => new sfValidatorError($this, 'invalid')));
         }       
