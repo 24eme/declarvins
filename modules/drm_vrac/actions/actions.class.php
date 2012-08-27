@@ -14,10 +14,9 @@ class drm_vracActions extends sfActions
 	    	}
 	  		
             if ($this->drm->mode_de_saisie == DRM::MODE_DE_SAISIE_PAPIER) {
-
+    			$this->drm->setCurrentEtapeRouting('validation');
                 return $this->redirect('drm_validation', $this->drm);
             }
-
 	  		return $this->redirect('drm_declaratif', $this->drm);
     	}
 

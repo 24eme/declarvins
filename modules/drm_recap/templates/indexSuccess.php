@@ -40,7 +40,7 @@
             </div>
             <div id="btn_etape_dr">
             	<?php if ($previous_certif): ?>
-                <a href="<?php echo url_for('drm_recap', $drm->declaration->certifications->get($previous_certif)) ?>" class="btn_prec">
+                <a href="<?php echo url_for('drm_recap', $previous_certif) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>
                 <?php else: ?>
@@ -50,7 +50,7 @@
                 <?php endif; ?>
 
                 <?php if ($next_certif): ?>
-                <a href="<?php echo url_for('drm_recap', $drm->declaration->certifications->get($next_certif)) ?>" class="btn_suiv">
+                <a href="<?php echo url_for('drm_recap', $next_certif) ?>" class="btn_suiv">
                     <span>Suivant</span>
                 </a>
                 <?php else: ?>

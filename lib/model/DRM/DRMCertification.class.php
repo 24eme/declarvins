@@ -7,13 +7,35 @@
 class DRMCertification extends BaseDRMCertification {
 
 	public function getPreviousSisterWithMouvementCheck() {
-		
-		return null;
+        $item = $this->getPreviousSister();
+        $sister = null;
+
+        if ($item) {
+            $sister = $item;
+        }
+
+        if ($sister && !$sister->hasMouvementCheck()) {
+
+            return $sister->getPreviousSisterWithMouvementCheck();
+        }
+
+        return $sister;
 	}
 
 	public function getNextSisterWithMouvementCheck() {
+		$item = $this->getNextSister();
+        $sister = null;
 
-		return null;
+        if ($item) {
+            $sister = $item;
+        }
+
+        if ($sister && !$sister->hasMouvementCheck()) {
+
+            return $sister->getNextSisterWithMouvementCheck();
+        }
+
+        return $sister;
 	}
 
 	public function getChildrenNode() {
