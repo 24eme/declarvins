@@ -117,7 +117,7 @@ class DRMValidation
 		if ($drmSuivante = $this->drm->getSuivante()) {
 			if ($drmSuivante->exist($detail->getHash())) {
 				$d = $drmSuivante->get($detail->getHash());
-				if ($d->total_debut_mois != $detail->total) {
+				if ($d->total_debut_mois != $detail->total && !$this->drm->isRectificative()) {
 					$this->errors['stock_'.$detail->getIdentifiantHTML()] = new DRMControleError('stock', $this->generateUrl('drm_recap_detail', $detail));
 				}
 			}
