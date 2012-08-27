@@ -15,10 +15,29 @@ class DRM extends BaseDRM {
     const MODE_DE_SAISIE_PAPIER = 'PAPIER';
     const MODE_DE_SAISIE_DTI = 'DTI';
     const MODE_DE_SAISIE_EDI = 'EDI';
+    const MODE_DE_SAISIE_PAPIER_LIBELLE = 'par l\'interprofession (papier)';
+    const MODE_DE_SAISIE_DTI_LIBELLE = 'via Declarvins (DTI)';
+    const MODE_DE_SAISIE_EDI_LIBELLE = 'via votre logiciel (EDI)';
 
 
 
-
+    public function getModeDeSaisieLibelle()
+    {
+    	switch ($this->mode_de_saisie) {
+    		case self::MODE_DE_SAISIE_DTI:
+    			return self::MODE_DE_SAISIE_DTI_LIBELLE;
+    			break;
+    		case self::MODE_DE_SAISIE_EDI:
+    			return self::MODE_DE_SAISIE_EDI_LIBELLE;
+    			break;
+    		case self::MODE_DE_SAISIE_PAPIER:
+    			return self::MODE_DE_SAISIE_PAPIER_LIBELLE;
+    			break;
+    		default:
+    			return 'NR';
+    			break;
+    	}
+    }
     public function constructId() {
         $rectificative = ($this->exist('rectificative')) ? $this->rectificative : null;
 

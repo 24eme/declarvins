@@ -8,5 +8,5 @@
 			Rectificative n° <?php echo sprintf('%02d', $drm->rectificative) ?>
 		</strong>
         <?php endif; ?>
-<small>(saisie <?php echo $drm->mode_de_saisie; ?>)</small>
+<small>(saisie <?php echo $drm->getModeDeSaisieLibelle(); ?>)</small>
 </p>

@@ -9,7 +9,7 @@
 <?php if (!$valide): ?>
 	<td>En cours</td>
     <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
-        <td><?php echo $drm->mode_de_saisie ?></td>
+        <td><?php echo $drm->getModeDeSaisieLibelle() ?></td>
     <?php endif; ?>
     <td>
 		<a href="<?php echo url_for('drm_init', array('identifiant' => $etablissement->identifiant, 'campagne_rectificative' => $campagne_rectificative)); ?>">Accéder à la déclaration en cours</a><br />
@@ -20,7 +20,7 @@
 <?php else: ?>
 	<td>OK</td>
     <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
-        <td><?php echo $drm->mode_de_saisie ?></td>
+        <td><?php echo $drm->getModeDeSaisieLibelle() ?></td>
     <?php endif; ?>
 	<td>
 			<a href="<?php echo url_for('drm_visualisation', array('identifiant' => $etablissement->identifiant, 'campagne_rectificative' => $campagne_rectificative)) ?>" class="btn_reinitialiser"><span>Visualiser</span></a>
