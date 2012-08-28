@@ -274,6 +274,14 @@ class drmActions extends sfActions
 	public function executeDownloadNotice() {
         return $this->renderPdf(sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR . "docs/notice.pdf", "notice.pdf");
     }
+    
+	public function executeValidee() {
+        $this->etablissement = $this->getRoute()->getEtablissement();
+    }
+    
+	public function executeNonValidee() {
+        $this->etablissement = $this->getRoute()->getEtablissement();
+    }
 
 
     protected function renderPdf($path, $filename) {

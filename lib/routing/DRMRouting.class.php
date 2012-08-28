@@ -34,8 +34,26 @@ class DRMRouting {
     static public function listenToRoutingLoadConfigurationEvent(sfEvent $event) {
         $r = $event->getSubject();
         
-	      $r->prependRoute('drm_notice', new sfRoute('/drm/notice', array('module' => 'drm', 
+	      $r->prependRoute('drm_notice', new sfRoute('/drm/document/notice', array('module' => 'drm', 
 									'action' => 'downloadNotice')));
+	      
+	      $r->prependRoute('drm_validated', new DRMRoute('/drm/:identifiant/erreur/:campagne_rectificative/validee', 
+                                                          array('module' => 'drm', 
+                                                                'action' => 'validee'),
+                                                          array('sf_method' => array('get','post')),
+                                                          array('model' => 'DRM',
+                                                                'type' => 'object',
+                              									'must_be_valid' => false,
+                              									'must_be_not_valid' => false)));
+	      
+	      $r->prependRoute('drm_not_validated', new DRMRoute('/drm/:identifiant/erreur/:campagne_rectificative/non-validee', 
+                                                          array('module' => 'drm', 
+                                                                'action' => 'nonValidee'),
+                                                          array('sf_method' => array('get','post')),
+                                                          array('model' => 'DRM',
+                                                                'type' => 'object',
+                              									'must_be_valid' => false,
+                              									'must_be_not_valid' => false)));
         
         $r->prependRoute('drm_mon_espace', new EtablissementRoute('/drm/:identifiant', array('module' => 'drm', 
 													'action' => 'monEspace'),
