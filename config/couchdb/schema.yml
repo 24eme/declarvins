@@ -467,6 +467,51 @@ Configuration:
                                                               definition:
                                                                 fields:
                                                                   '*': {  }
+                                                            interpro:
+                                                              type: collection
+                                                              definition:
+                                                                fields:
+                                                                  '*':
+                                                                    type: collection
+                                                                    definition:
+                                                                      fields:
+                                                                        labels:
+                                                                          type: array_collection
+                                                                          definition:
+                                                                            fields:
+                                                                              '*': {  }
+                                                                        droits:
+                                                                          type: collection
+                                                                          definition:
+                                                                            fields:
+                                                                              douane:
+                                                                                class: ConfigurationDroits
+                                                                                type: array_collection
+                                                                                definition:
+                                                                                  fields:
+                                                                                    '*':
+                                                                                      class: ConfigurationDroit
+                                                                                      type: collection
+                                                                                      definition:
+                                                                                        fields:
+                                                                                          date: {  }
+                                                                                          taux: { type: float }
+                                                                                          code: {  }
+                                                                                          libelle: {  }
+                                                                              cvo:
+                                                                                class: ConfigurationDroits
+                                                                                type: array_collection
+                                                                                definition:
+                                                                                  fields:
+                                                                                    '*':
+                                                                                      class: ConfigurationDroit
+                                                                                      type: collection
+                                                                                      definition:
+                                                                                        fields:
+                                                                                          date: {  }
+                                                                                          taux: { type: float }
+                                                                                          code: {  }
+                                                                                          libelle: {  }
                                                             lieux:
                                                               type: collection
                                                               definition:
@@ -485,6 +530,51 @@ Configuration:
                                                                           definition:
                                                                             fields:
                                                                               '*': {  }
+                                                                        interpro:
+                                                                          type: collection
+                                                                          definition:
+                                                                            fields:
+                                                                              '*':
+                                                                                type: collection
+                                                                                definition:
+                                                                                  fields:
+                                                                                    labels:
+                                                                                      type: array_collection
+                                                                                      definition:
+                                                                                        fields:
+                                                                                          '*': {  }
+                                                                                    droits:
+                                                                                      type: collection
+                                                                                      definition:
+                                                                                        fields:
+                                                                                          douane:
+                                                                                            class: ConfigurationDroits
+                                                                                            type: array_collection
+                                                                                            definition:
+                                                                                              fields:
+                                                                                                '*':
+                                                                                                  class: ConfigurationDroit
+                                                                                                  type: collection
+                                                                                                  definition:
+                                                                                                    fields:
+                                                                                                      date: {  }
+                                                                                                      taux: { type: float }
+                                                                                                      code: {  }
+                                                                                                      libelle: {  }
+                                                                                          cvo:
+                                                                                            class: ConfigurationDroits
+                                                                                            type: array_collection
+                                                                                            definition:
+                                                                                              fields:
+                                                                                                '*':
+                                                                                                  class: ConfigurationDroit
+                                                                                                  type: collection
+                                                                                                  definition:
+                                                                                                    fields:
+                                                                                                      date: {  }
+                                                                                                      taux: { type: float }
+                                                                                                      code: {  }
+                                                                                                      libelle: {  }
                                                                         detail:
                                                                           required: false
                                                                           class: ConfigurationDetail
