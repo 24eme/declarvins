@@ -134,8 +134,8 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
     	$droits = $this->getDroits('INTERPRO-'.$datas[ProduitCsvFile::CSV_PRODUIT_INTERPRO]);
     	$date = ($datas[ProduitCsvFile::CSV_PRODUIT_CVO_DATE])? $datas[ProduitCsvFile::CSV_PRODUIT_CVO_DATE] : '1900-01-01';
     	$taux = ($datas[ProduitCsvFile::CSV_PRODUIT_CVO_TAXE])? $this->castFloat($datas[ProduitCsvFile::CSV_PRODUIT_CVO_TAXE]) : null;
-    	$code = ConfigurationDroits::CODE_CVO;
-    	$libelle = ConfigurationDroits::LIBELLE_CVO;
+    	$code = ($datas[ProduitCsvFile::CSV_PRODUIT_CVO_CODE])? $datas[ProduitCsvFile::CSV_PRODUIT_CVO_CODE] : ConfigurationDroits::CODE_CVO;
+    	$libelle = ($datas[ProduitCsvFile::CSV_PRODUIT_CVO_LIBELLE])? $datas[ProduitCsvFile::CSV_PRODUIT_CVO_LIBELLE] : ConfigurationDroits::LIBELLE_CVO;
     	$canInsert = true;
     	foreach ($droits->cvo as $droit) {
     		if ($droit->date == $date && $droit->taux == $taux && $droit->code == $code) {
