@@ -175,8 +175,14 @@ class DRMDetail extends BaseDRMDetail {
     
     public function hasCvo()
     {
-    	$cvo = $this->getDroit(ConfigurationDroits::CODE_CVO);
+    	$cvo = $this->getDroit('cvo');
     	return !$cvo->isEmpty();
+    }
+    
+    public function hasDouane()
+    {
+    	$douane = $this->getDroit('douane');
+    	return !$douane->isEmpty();
     }
     
     public function hasDetailLigne($ligne)

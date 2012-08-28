@@ -122,6 +122,9 @@ class DRMValidation
 				}
 			}
 		}
+		if (!$detail->hasCvo() || !$detail->hasDouane()) {
+			$this->errors['droits_'.$detail->getIdentifiantHTML()] = new DRMControleError('droits', self::NO_LINK);
+		}
 	}
 	
 	private function controleWarnings($detail)
