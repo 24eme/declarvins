@@ -5,6 +5,7 @@
 "error_total_stocks";"Erreur... le total est inférieur aux stocks bloqué et en instance"
 "error_repli";"Erreur... la somme des replis en entrée est différente de celle en sortie"
 "error_stock";"Erreur... le stock théorique fin de mois est différent du stock théorique début de mois de la DRM suivante"
+"error_droits";"Erreur... Aucun droit pour le produit"
 "engagement_export";"Je m'engage à... pour l'export"
 "engagement_declassement";"Je m'engage à... pour le déclassement"
 "engagement_repli";"Je m'engage à... pour le repli"
