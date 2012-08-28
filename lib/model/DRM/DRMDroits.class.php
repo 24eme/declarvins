@@ -48,7 +48,7 @@ class DRMDroits extends BaseDRMDroits {
 	$this->res['Total'] = $this->res['ZZZZTotal'];
 	unset(	$this->res['ZZZZTotal'] );
 	$this->res['Total']->code = 'Total';
-	$this->res['Total']->libelle	 = 'Total';
+	$this->res['Total']->libelle	 = 'Total HT';
     }
     return $this->res;
   }
