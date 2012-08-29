@@ -19,7 +19,7 @@
             	<a href="" data-popup="#raccourci_clavier" class="btn_popup" data-popup-config="configDefaut">Raccourcis clavier</a>
             
                 <?php include_partial('shortcutKeys') ?>
-
+                
                 <?php include_component('drm_recap', 'list', array('drm_lieu' => $drm_lieu, 
                                                                    'config_lieu' => $config_lieu,
                                                                    'produits' => $produits,

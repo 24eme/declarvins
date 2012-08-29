@@ -16,7 +16,7 @@
         </script>
 
         <div id="col_saisies_cont">
-            <?php foreach ($produits as $produit): ?>
+            <?php $produits = $produits->getRawValue(); krsort($produits); foreach ($produits as $produit): ?>
                 <?php if ($produit->hasMouvementCheck()): ?>
                     <?php
                     include_component('drm_recap', 'itemForm', array('produit' => $produit,

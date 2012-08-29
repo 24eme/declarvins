@@ -57,6 +57,7 @@
 			                        <?php
 			                        $hasItem = 0;
 			                        if ($tabForm):
+			                        	$tabForm = $tabForm->getRawValue(); krsort($tabForm); 
 			                            foreach ($tabForm as $form): $hasItem++ ?>
 			                                <?php include_partial('item', array('form' => $form)) ?>
 			                            <?php endforeach;

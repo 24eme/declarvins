@@ -20,7 +20,6 @@ class DRMCepage extends BaseDRMCepage {
         foreach($this->getChildrenNode() as $key => $item) {
             $produits[$item->getHash()] = $item;
         }
-
         return $produits;
     }
 

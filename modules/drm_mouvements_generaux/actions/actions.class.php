@@ -22,7 +22,7 @@ class drm_mouvements_generauxActions extends sfActions
 				if ($this->drm->declaration->certifications->exist($certification_key)) {
 	                $details = $this->drm->declaration->certifications->get($certification_key)->getProduits();
 					foreach ($details as $detail) {
-						$this->forms[$certification_key][] = new DRMMouvementsGenerauxProduitForm($detail);
+						$this->forms[$certification_key][$detail->getHash()] = new DRMMouvementsGenerauxProduitForm($detail);
 					}
 				}
 			}
