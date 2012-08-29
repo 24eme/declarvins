@@ -40,9 +40,9 @@ class DRMAppellation extends BaseDRMAppellation {
 
     public function getReportByDroit($droit) {
     	$drmPrecedente = $this->getDocument()->getPrecedente();
-    	if ($drmPrecedente->isNew()) {
+    	if ($drmPrecedente && $drmPrecedente->isNew()) {
     		return 0;
-    	} else {
+    	} elseif($drmPrecedente) {
     		if ($drmPrecedente->get('droits')->get('douane')->exist($droit->code)) {
     			return $drmPrecedente->get('droits')->get('douane')->get($droit->code)->cumul;
     		} else {

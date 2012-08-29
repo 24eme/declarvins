@@ -514,7 +514,7 @@ class DRM extends BaseDRM {
      * Pour les users administrateur
      */
     public function canSetStockDebutMois() {
-    	if ($this->getPrecedente()->isNew()) {
+    	if ($this->getPrecedente() && $this->getPrecedente()->isNew()) {
     		return true;
     	} elseif ($this->isDebutCampagne()) {
     		return true;

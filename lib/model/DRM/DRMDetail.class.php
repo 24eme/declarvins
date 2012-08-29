@@ -212,7 +212,7 @@ class DRMDetail extends BaseDRMDetail {
     public function hasStockFinDeMoisDRMPrecedente() {
     	$result = false;
     	$drmPrecedente = $this->getDocument()->getPrecedente();
-    	if (!$drmPrecedente->isNew()) {
+    	if ($drmPrecedente && !$drmPrecedente->isNew()) {
     		if ($drmPrecedente->exist($this->getHash())) {
     			if ($drmPrecedente->get($this->getHash())->total) {
     				$result = true;
