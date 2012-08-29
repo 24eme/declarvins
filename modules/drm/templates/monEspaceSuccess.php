@@ -14,8 +14,13 @@
                                                                        'limit' => 12)) ?>
             </div>
         </div>
+        <ul id="nav_drm_annees">
+			<li class="actif"><strong>dernières DRM</strong></li>
+			<?php foreach ($historique->getCampagnes() as $campagne): ?>
+				<li><a href="<?php echo url_for('drm_historique', array('campagne' => $campagne, 'identifiant' => $etablissement->identifiant))?>">DRM <?php echo $campagne ?></a></li>
+			<?php endforeach; ?>
+		</ul>
     </section>
-    <a href="<?php echo url_for('drm_historique', $etablissement) ?>">Votre historique complet &raquo;</a>
     
         <?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && !$hasDrmEnCours): ?>
         <br /><br />

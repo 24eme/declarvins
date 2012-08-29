@@ -10,6 +10,7 @@
 		</div>
 		
 		<ul id="nav_drm_annees">
+			<li><a href="<?php echo url_for('drm_mon_espace', $etablissement) ?>">dernières DRM</a></li>
 			<?php foreach ($historique->getCampagnes() as $campagne): ?>
 				<?php if ($campagne == $historique->getCampagneCourante()): ?>
 					<li class="actif"><strong>DRM <?php echo $campagne ?></strong></li>
