@@ -37,7 +37,7 @@
 		
         <div class="adresse_livraison">
             <div class="section_label_strong">
-                <label for="dif_adr_livr">Précision de l'adresse de livraison (si différente) <input type="checkbox" name="dif_adr_livr" id="dif_adr_livr" <?php if($form->getObject()->adresse_livraison->adresse): echo 'checked="checked"'; endif; ?>></label>
+                <label for="dif_adr_livr"><input type="checkbox" name="dif_adr_livr" id="dif_adr_livr" <?php if($form->getObject()->adresse_livraison->adresse): echo 'checked="checked"'; endif; ?>> Adresse de livraison différente</label>
             </div>
             <div class="bloc_form"> 
                 <div class="vracs_ligne_form vracs_ligne_form_alt">
@@ -96,7 +96,7 @@
 			<?php echo $form['vendeur_tva']->render() ?>
 		</div>
         <div class="adresse_livraison">
-            <div class="section_label_strong"><label for="dif_adr_stock">Précision de l'adresse de stockage (si différente) <input type="checkbox" name="dif_adr_stock" id="dif_adr_stock" <?php if($form->getObject()->adresse_stockage->adresse): echo 'checked="checked"'; endif; ?>></label></div>
+            <div class="section_label_strong"><label for="dif_adr_stock"> <input type="checkbox" name="dif_adr_stock" id="dif_adr_stock" <?php if($form->getObject()->adresse_stockage->adresse): echo 'checked="checked"'; endif; ?>> Adresse de stockage différente</label></div>
             <div class="bloc_form"> 
                 <div class="vracs_ligne_form vracs_ligne_form_alt">
                     <span>

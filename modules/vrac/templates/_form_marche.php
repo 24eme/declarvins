@@ -44,11 +44,7 @@
             <div class="section_label_strong">
                 <?php echo $form['prix_total']->renderError() ?>
                 <?php echo $form['prix_total']->renderLabel() ?>
-                <?php echo $form['prix_total']->render(array('disabled' => 'disabled')) ?> €
-            </div>
-            <div class="section_label_strong">
-                <label>Part CVO acheteur :</label>
-                xxx €
+                <?php echo $form['prix_total']->render(array('disabled' => 'disabled')) ?> € (dont xxx € de cotisation interprofessionnelle acheteur).
             </div>
             <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_determination_prix">
                 <?php echo $form['type_prix']->renderError() ?>
@@ -70,8 +66,8 @@
             <?php if (isset($form['has_transaction'])): ?>
             <div class="contenu_onglet">
                 <?php echo $form['has_transaction']->renderError() ?>
-                <?php echo $form['has_transaction']->renderLabel() ?>
                 <?php echo $form['has_transaction']->render() ?> 
+                <?php echo $form['has_transaction']->renderLabel() ?>
             </div>
             <?php endif; ?>
         </div>
