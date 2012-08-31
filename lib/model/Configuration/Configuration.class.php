@@ -48,6 +48,10 @@ class Configuration extends BaseConfiguration {
     	return ConfigurationProduitsView::getInstance()->formatProduits($this->getProduitsByInterpro($interpro), $format);
     }
 
+    public function formatVracProduitsByInterpro($interpro, $format = "%g% %a% %l% %co% %ce%") {
+    	return ConfigurationProduitsView::getInstance()->formatVracProduits($this->getProduitsByInterpro($interpro), $format);
+    }
+
     public function getProduitLibelleByHash($hash) {
     	if(is_null($this->produits_libelle)) {
     		$this->produits_libelle = ConfigurationProduitsView::getInstance()->getProduitsLibelles();

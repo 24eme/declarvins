@@ -184,6 +184,17 @@ class ConfigurationProduitsView extends acCouchdbView
         return $produits_format;
   	}
 
+  	public function formatVracProduits($produits, $format = "%g% %a% %l% %co% %ce% (%code%)") {
+  		$produits_format = array();
+  		foreach($produits as $produit) {
+  			if (isset($produit->value->cvo) && !is_null($produit->value->cvo->taux))
+  				$produits_format[$produit->key[self::KEY_HASH]] = $this->formatProduit($produit, $format);
+        }
+        ksort($produits_format);
+
+        return $produits_format;
+  	}
+
   	protected function formatProduit($produit, $format = "%g% %a% %l% %co% %ce%") {
   		
         return $this->formatLibelles($produit->value->libelles, $format).' ('.$produit->key[self::KEY_CODE].')';
