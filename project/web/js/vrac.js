@@ -173,29 +173,36 @@
 	    if($('.vrac_marche').exists())
 	    {
 	
-	        var sommeEuros = function(val1, val2, total)
+	        var sommeEuros = function(val1, val2, total, cotisation, val3, val4)
 	        {
 	            val1.keyup(function()
 	            {
-	                var thisVal = parseInt($(this).val());
-	                var otherVal = parseInt(val2.val());
+	                var thisVal = parseFloat($(this).val());
+	                var otherVal = parseFloat(val2.val());
+	                var tauxRepartition = parseFloat(val3.val());
+	                var tauxCVO = parseFloat(val4.val()) / 100;
 	
 	                if(!isNaN(thisVal) && isNaN(otherVal))
 	                {
 	                    total.val(thisVal);
+	                    cotisation.text(thisVal * tauxRepartition * tauxCVO);
 	                }else if(isNaN(thisVal) && !isNaN(otherVal))
 	                {
 	                    total.val(otherVal);
-	                }else{ total.val(thisVal * otherVal); }
+	                    cotisation.text(otherVal * tauxRepartition * tauxCVO);
+	                }else{ total.val(thisVal * otherVal); cotisation.text(thisVal * otherVal * tauxRepartition * tauxCVO); }
 	            });
 	        }
 	
 	        var volume = $('#vrac_marche_volume_propose');
 	        var prix = $('#vrac_marche_prix_unitaire');
 	        var totalSomme = $('#vrac_marche_prix_total');
+	        var cotisation = $('#vrac_cotisation_interpro');
+	        var tauxRepartition = $('#vrac_marche_repartition_cvo_acheteur');
+	        var tauxCVO = $('#vrac_marche_part_cvo');
 	
-	        sommeEuros(volume, prix, totalSomme);
-	        sommeEuros(prix, volume, totalSomme);
+	        sommeEuros(volume, prix, totalSomme, cotisation, tauxRepartition, tauxCVO);
+	        sommeEuros(prix, volume, totalSomme, cotisation, tauxRepartition, tauxCVO);
 	    }
 
 	    if($('.vrac_condition').exists())
@@ -504,6 +511,11 @@
 		ajaxifyAutocomplete('#listener_mandataire_choice', 'mandataire', '#template_url_informations');
 	}
 	
+	var initProductListener = function()
+	{
+		ajaxifyProductAutocomplete('#listener_product', '#template_url_product');
+	}
+	
 	var ajaxifyAutocomplete = function(listenerChoice, type, templateUrl)
 	{
 		var select = $(listenerChoice+' select');
@@ -516,6 +528,20 @@
 			});
 		});
 	}
+	
+	var ajaxifyProductAutocomplete = function(listenerChoice, templateUrl)
+	{
+		var select = $(listenerChoice+' select');
+		var input = $(listenerChoice+' input');
+		input.live( "autocompleteselect", function(event, ui) {
+			var hash = $(ui.item.option).val();
+			hash = hash.replace(/\//g, "-");
+			var url = $(templateUrl).text().replace(/var---product---/g, hash);
+			$.get(url, function(data){
+				$('#vrac_marche_part_cvo').val(data);
+			});
+		});
+	}
 
 	$(document).ready(function()
 	{
@@ -525,6 +551,7 @@
 	     initAutoComplete();
 	     initEtablissements();
 	     initChoicesListener();
+	     initProductListener();
 	     initCollectionAddTemplate('.btn_ajouter_ligne_template', /var---nbItem---/g);
 	     initCollectionAddTemplate('.btn_ajouter_ligne_template_sub', /var---nbSubItem---/g);
 	     initFamilleEtablissementTemplate('.famille', /var---famille---/g);
