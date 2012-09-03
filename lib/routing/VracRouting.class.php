@@ -67,6 +67,11 @@ class VracRouting {
                                                         array('module' => 'vrac','action' => 'setEtablissementInformations'),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object')));
+
+        $r->prependRoute('vrac_produit_cvo', new VracRoute('/vrac/:identifiant/:numero_contrat/produit/:hash/cvo',
+                                                        array('module' => 'vrac','action' => 'getCvo'),
+                                                        array('sf_method' => array('get','post')),
+                                                        array('model' => 'Vrac', 'type' => 'object')));
  
 //        $r->prependRoute('vrac_nouveau_modificationPost', new VracRoute('/vrac/modificationPost',
 //                                                        array('module' => 'vrac','action' => 'modificationPost'),

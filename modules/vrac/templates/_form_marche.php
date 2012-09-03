@@ -11,7 +11,7 @@
                 <?php echo $form['type_transaction']->render() ?>
             </div>
             <?php endif; ?>
-            <div  class="section_label_strong">
+            <div  id="listener_product" class="section_label_strong">
                 <?php echo $form['produit']->renderError() ?>
                 <?php echo $form['produit']->renderLabel() ?>
                 <?php echo $form['produit']->render() ?>
@@ -44,7 +44,7 @@
             <div class="section_label_strong">
                 <?php echo $form['prix_total']->renderError() ?>
                 <?php echo $form['prix_total']->renderLabel() ?>
-                <?php echo $form['prix_total']->render(array('disabled' => 'disabled')) ?> € (dont xxx € de cotisation interprofessionnelle acheteur).
+                <?php echo $form['prix_total']->render(array('disabled' => 'disabled')) ?> € (dont <span id="vrac_cotisation_interpro"><?php echo ($form->getObject()->getPrixTotal() && $form->getObject()->getPartCvo())? ($form->getObject()->getPrixTotal() * $form->getObject()->getPartCvo() / 100 * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) : 0;?></span> € de cotisation interprofessionnelle acheteur).
             </div>
             <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_determination_prix">
                 <?php echo $form['type_prix']->renderError() ?>
@@ -77,3 +77,4 @@
             <button class="valider_etape" type="submit"><span>Etape Suivante</span></button>
         </div>
     </form>
+    <?php include_partial('url_product_template', array('vrac' => $form->getObject(), 'etablissement' => $etablissement)); ?>

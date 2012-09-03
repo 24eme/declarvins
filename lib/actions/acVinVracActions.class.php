@@ -104,6 +104,27 @@ class acVinVracActions extends sfActions
 		
     	return $this->renderPartial('form_mandataire', array('form' => $this->form[$this->type]));	
   }
+  
+  public function executeGetCvo(sfWebRequest $request)
+  {
+        $this->vrac = $this->getRoute()->getVrac();
+        $this->etablissement = $this->getRoute()->getEtablissement();   
+        $this->hash = $request->getParameter('hash', null);
+        if (!$this->hash) {
+
+        	throw new sfException('Hash produit requis');
+        }
+        $this->hash = str_replace('-', '/', $this->hash);
+        $result = ConfigurationClient::getInstance()->findDroitsByHash($this->hash)->rows;
+        if (count($result) == 0) {
+        	throw new sfException('Aucun résultat pour le produit '.$this->hash);
+        }
+        $result = $result[0];
+        $droits = $result->value;
+        $cvo = $droits->cvo;
+        echo $cvo->taux;
+		return sfView::NONE;
+  }
 	public function executeVisualisation(sfWebRequest $request)
 	{
 		$this->init();

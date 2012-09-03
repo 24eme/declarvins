@@ -13,10 +13,12 @@ class VracMarcheForm extends VracForm
     		   'prix_unitaire',
                'volume_propose',
     		   'prix_total',
-           'type_prix',
-           'determination_prix',
+    		   'part_cvo',
+    		   'repartition_cvo_acheteur',
+               'type_prix',
+               'determination_prix',
     		   'has_transaction',
-           'annexe'
+               'annexe'
     		));
     		$this->widgetSchema->setNameFormat('vrac_marche[%s]');
 
