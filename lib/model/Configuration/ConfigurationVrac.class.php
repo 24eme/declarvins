@@ -10,6 +10,8 @@ class ConfigurationVrac extends BaseConfigurationVrac {
 	const FAMILLE_ACHETEUR = 'Negociant';
 	const FAMILLE_MANDATAIRE = 'Courtier';
 	
+	const REPARTITION_CVO_ACHETEUR = 0.5;
+	
 	const CAS_PARTICULIER_DEFAULT_KEY = 'aucun';
 	
     public function getVendeurs() {
