@@ -5,7 +5,7 @@ class VracConditionIrForm extends VracConditionForm
         parent::configure();
 
         unset($this['delai_paiement']);
-        unset($this['reference_contrat_pluriannuel']);
+        //unset($this['reference_contrat_pluriannuel']);
         unset($this['clause_reserve_retiraison']);
     }
 }
