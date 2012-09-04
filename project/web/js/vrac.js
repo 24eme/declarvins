@@ -173,7 +173,7 @@
 	    if($('.vrac_marche').exists())
 	    {
 	
-	        var sommeEuros = function(val1, val2, total, cotisation, val3, val4)
+	        var sommeEuros = function(val1, val2, total, cotisation, val3, val4, hasCotisationCvo)
 	        {
 	            val1.keyup(function()
 	            {
@@ -184,25 +184,62 @@
 	
 	                if(!isNaN(thisVal) && isNaN(otherVal))
 	                {
-	                    total.val(thisVal);
-	                    cotisation.text(thisVal * tauxRepartition * tauxCVO);
-	                }else if(isNaN(thisVal) && !isNaN(otherVal))
+	                    if (hasCotisationCvo == 0) {
+	                    	total.val((thisVal).toFixed(2)); 
+	                	} else {
+	                		var cvo = thisVal * tauxRepartition * tauxCVO;
+	                		if (!isNaN(cvo)) {
+	                			total.val((thisVal + cvo).toFixed(2));
+	                			cotisation.text((cvo).toFixed(2)); 
+	                		} else {
+	                			total.val((thisVal).toFixed(2));
+	                		}
+	                	}
+	                }
+	                else if(isNaN(thisVal) && !isNaN(otherVal))
 	                {
-	                    total.val(otherVal);
-	                    cotisation.text(otherVal * tauxRepartition * tauxCVO);
-	                }else{ total.val(thisVal * otherVal); cotisation.text(thisVal * otherVal * tauxRepartition * tauxCVO); }
+	                    if (hasCotisationCvo == 0) {
+	                    	total.val((otherVal).toFixed(2)); 
+	                	} else {
+	                		var cvo = otherVal * tauxRepartition * tauxCVO;
+	                		if (!isNaN(cvo)) {
+	                			total.val((otherVal + cvo).toFixed(2));
+	                			cotisation.text((cvo).toFixed(2)); 
+	                		} else {
+	                			total.val((otherVal).toFixed(2));
+	                		}
+	                	}
+	                }
+	                else if(isNaN(thisVal) && isNaN(otherVal))
+                	{
+                	
+                	}
+	                else
+	                { 
+	                	if (hasCotisationCvo == 0) {
+	                		total.val((thisVal * otherVal).toFixed(2)); 
+	                	} else {
+	                		var cvo = thisVal * otherVal * tauxRepartition * tauxCVO;
+	                		if (!isNaN(cvo)) {
+	                			total.val((thisVal * otherVal + cvo).toFixed(2));
+	                			cotisation.text((cvo).toFixed(2)); 
+	                		} else {
+	                			total.val((thisVal * otherVal).toFixed(2));
+	                		}
+	                	}
+	                }
 	            });
 	        }
-	
 	        var volume = $('#vrac_marche_volume_propose');
 	        var prix = $('#vrac_marche_prix_unitaire');
 	        var totalSomme = $('#vrac_marche_prix_total');
+	        var hasCotisationCvo = $('#vrac_marche_has_cotisation_cvo').val();
 	        var cotisation = $('#vrac_cotisation_interpro');
 	        var tauxRepartition = $('#vrac_marche_repartition_cvo_acheteur');
 	        var tauxCVO = $('#vrac_marche_part_cvo');
 	
-	        sommeEuros(volume, prix, totalSomme, cotisation, tauxRepartition, tauxCVO);
-	        sommeEuros(prix, volume, totalSomme, cotisation, tauxRepartition, tauxCVO);
+	        sommeEuros(volume, prix, totalSomme, cotisation, tauxRepartition, tauxCVO, hasCotisationCvo);
+	        sommeEuros(prix, volume, totalSomme, cotisation, tauxRepartition, tauxCVO, hasCotisationCvo);
 	    }
 
 	    if($('.vrac_condition').exists())
@@ -539,6 +576,70 @@
 			var url = $(templateUrl).text().replace(/var---product---/g, hash);
 			$.get(url, function(data){
 				$('#vrac_marche_part_cvo').val(data);
+				var sommeEuros = function(val1, val2, total, cotisation, val3, val4, hasCotisationCvo)
+		        {
+		                var thisVal = parseFloat(val1.val());
+		                var otherVal = parseFloat(val2.val());
+		                var tauxRepartition = parseFloat(val3.val());
+		                var tauxCVO = parseFloat(val4.val()) / 100;
+		
+		                if(!isNaN(thisVal) && isNaN(otherVal))
+		                {
+		                    if (hasCotisationCvo == 0) {
+		                    	total.val((thisVal).toFixed(2)); 
+		                	} else {
+		                		var cvo = thisVal * tauxRepartition * tauxCVO;
+		                		if (!isNaN(cvo)) {
+		                			total.val((thisVal + cvo).toFixed(2));
+		                			cotisation.text((cvo).toFixed(2)); 
+		                		} else {
+		                			total.val((thisVal).toFixed(2));
+		                		}
+		                	}
+		                }
+		                else if(isNaN(thisVal) && !isNaN(otherVal))
+		                {
+		                    if (hasCotisationCvo == 0) {
+		                    	total.val((otherVal).toFixed(2)); 
+		                	} else {
+		                		var cvo = otherVal * tauxRepartition * tauxCVO;
+		                		if (!isNaN(cvo)) {
+		                			total.val((otherVal + cvo).toFixed(2));
+		                			cotisation.text((cvo).toFixed(2)); 
+		                		} else {
+		                			total.val((otherVal).toFixed(2));
+		                		}
+		                	}
+		                }
+		                else if(isNaN(thisVal) && isNaN(otherVal))
+		                	{
+		                	
+		                	}
+		                else
+		                { 
+		                	if (hasCotisationCvo == 0) {
+		                		total.val((thisVal * otherVal).toFixed(2)); 
+		                	} else {
+		                		var cvo = thisVal * otherVal * tauxRepartition * tauxCVO;
+		                		if (!isNaN(cvo)) {
+		                			total.val((thisVal * otherVal + cvo).toFixed(2));
+		                			cotisation.text((cvo).toFixed(2)); 
+		                		} else {
+		                			total.val((thisVal * otherVal).toFixed(2));
+		                		}
+		                	}
+		                }
+		        }
+		        var volume = $('#vrac_marche_volume_propose');
+		        var prix = $('#vrac_marche_prix_unitaire');
+		        var totalSomme = $('#vrac_marche_prix_total');
+		        var hasCotisationCvo = $('#vrac_marche_has_cotisation_cvo').val();
+		        var cotisation = $('#vrac_cotisation_interpro');
+		        var tauxRepartition = $('#vrac_marche_repartition_cvo_acheteur');
+		        var tauxCVO = $('#vrac_marche_part_cvo');
+		        if (hasCotisationCvo != 0) {
+		        	sommeEuros(volume, prix, totalSomme, cotisation, tauxRepartition, tauxCVO, hasCotisationCvo);
+		        }
 			});
 		});
 	}
