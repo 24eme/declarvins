@@ -1,4 +1,3 @@
-
     <form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>">
         <?php echo $form->renderHiddenFields() ?>
         <?php echo $form->renderGlobalErrors() ?>
@@ -9,18 +8,16 @@
                 <?php echo $form['conditions_paiement']->renderLabel() ?>
                 <?php echo $form['conditions_paiement']->render() ?>
             </div>
-            <div class="section_label_strong">
+            <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_reference_contrat_pluriannuel">
                 <?php echo $form['contrat_pluriannuel']->renderError() ?>
                 <?php echo $form['contrat_pluriannuel']->renderLabel() ?>
                 <?php echo $form['contrat_pluriannuel']->render() ?>
             </div>
-            <?php if(isset($form['reference_contrat_pluriannuel'])): ?>
-            <div class="section_label_strong">
+            <div id="bloc_vrac_reference_contrat_pluriannuel" class="section_label_strong bloc_conditionner" data-condition-value="1">
                 <?php echo $form['reference_contrat_pluriannuel']->renderError() ?>
                 <?php echo $form['reference_contrat_pluriannuel']->renderLabel() ?>
                 <?php echo $form['reference_contrat_pluriannuel']->render() ?>
             </div>
-            <?php endif; ?>
             <?php if(isset($form['delai_paiement'])): ?>
             <div class="section_label_strong">
                 <?php echo $form['delai_paiement']->renderError() ?>
@@ -59,7 +56,7 @@
                 
             </div>
         </div>
-        <h1>Livraison</h1>
+        <h1>Retiraison / Enlèvement</h1>
         <div class="contenu_onglet bloc_condition" data-condition-cible="#bloc_retiraison">
             <?php echo $form['vin_livre']->renderError() ?>
             <?php echo $form['vin_livre']->renderLabel() ?>

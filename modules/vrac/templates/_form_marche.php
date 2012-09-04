@@ -31,6 +31,11 @@
                 <?php echo $form['mentions']->renderLabel() ?>
                 <?php echo $form['mentions']->render() ?>
             </div>
+        	<div class="section_label_strong">
+            	<?php echo $form['export']->renderError() ?>
+            	<?php echo $form['export']->renderLabel() ?>
+            	<?php echo $form['export']->render() ?>
+        	</div>
             <div class="section_label_strong">
                 <?php echo $form['volume_propose']->renderError() ?>
                 <?php echo $form['volume_propose']->renderLabel() ?>

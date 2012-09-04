@@ -1,9 +1,16 @@
 <div class="lot bloc_form">
-    <div class="vracs_ligne_form ">
+    <div class="vracs_ligne_form vracs_ligne_form_alt">
         <span>
         <?php echo $form['numero']->renderError() ?>
         <?php echo $form['numero']->renderLabel() ?>
         <?php echo $form['numero']->render() ?>
+        </span>
+    </div>
+    <div class="vracs_ligne_form">
+        <span>
+            <?php echo $form['cuve']->renderError() ?>
+            <?php echo $form['cuve']->renderLabel() ?>
+            <?php echo $form['cuve']->render() ?>
         </span>
     </div>
     <div class="vracs_ligne_form vracs_ligne_form_alt">
@@ -15,9 +22,9 @@
     </div>
     <div class="vracs_ligne_form">
         <span>
-            <?php echo $form['cuve']->renderError() ?>
-            <?php echo $form['cuve']->renderLabel() ?>
-            <?php echo $form['cuve']->render() ?>
+        <?php echo $form['date_retiraison']->renderError() ?>
+        <?php echo $form['date_retiraison']->renderLabel() ?>
+        <?php echo $form['date_retiraison']->render() ?>
         </span>
     </div>
     <div class="vracs_ligne_form vracs_ligne_form_alt">
@@ -68,19 +75,12 @@
     </div>
     <div class="vracs_ligne_form vracs_ligne_form_alt">
         <span>
-        <?php echo $form['date_retiraison']->renderError() ?>
-        <?php echo $form['date_retiraison']->renderLabel() ?>
-        <?php echo $form['date_retiraison']->render() ?>
-        </span>
-    </div>
-    <div class="vracs_ligne_form">
-        <span>
         <?php echo $form['montant']->renderError() ?>
         <?php echo $form['montant']->renderLabel() ?>
         <?php echo $form['montant']->render() ?>
         </span>
     </div>
-    <div class="vracs_ligne_form vracs_ligne_form_alt">
+    <div class="vracs_ligne_form">
          <span>
             <a class="btn_supprimer_ligne_template" data-container=".lot" href="#">Supprimer cette transaction</a>
          </span>

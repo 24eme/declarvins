@@ -37,7 +37,7 @@ class VracLotForm extends acCouchdbObjectForm
 	       'numero' => 'Numéro du lot:',
 		   'volume' => 'Volume:',
 	       'cuve' => 'Cuve(s):',
-	       'assemblage' => 'Assemblage:',
+	       'assemblage' => 'Assemblage de millésimes:',
 	       'degre' => 'Degrés:',
 	       'presence_allergenes' => 'Allergènes:',
 	       'metayage' => 'Métayage:',

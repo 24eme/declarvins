@@ -37,6 +37,9 @@ class VracConditionForm extends VracForm
       if (is_null($this->getObject()->echeancier_paiement)) {
         $this->setDefault('echeancier_paiement', 1);
       }  
+      if (is_null($this->getObject()->vin_livre)) {
+        $this->setDefault('vin_livre', VracClient::STATUS_VIN_RETIRE);
+      }  
     }
 
     public function isEcheanchierPaiementOptionnel() {

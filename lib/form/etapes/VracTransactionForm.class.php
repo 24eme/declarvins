@@ -5,7 +5,6 @@ class VracTransactionForm extends VracForm
     {
 		parent::configure();
 		$this->useFields(array(
-           'export',
            'commentaires',
            'lots'
 		));

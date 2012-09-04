@@ -2,11 +2,6 @@
 		<?php echo $form->renderHiddenFields() ?>
 		<?php echo $form->renderGlobalErrors() ?>
     <div>
-        <div class="section_label_strong">
-            <?php echo $form['export']->renderError() ?>
-            <?php echo $form['export']->renderLabel() ?>
-            <?php echo $form['export']->render() ?>
-        </div>
         <div> 
             <div class="clearfix">
                 <div id="table_lots">
@@ -16,7 +11,7 @@
                 </div>
                 </table>
                 <div class="btn_ajouter_transaction"> 
-                    <a class="btn_ajouter_ligne_template" data-container="#table_lots" data-template="#template_form_lots_item" href="#"><span>Ajouter une transaction</span></a>
+                    <a class="btn_ajouter_ligne_template" data-container="#table_lots" data-template="#template_form_lots_item" href="#"><span>Ajouter un lot</span></a>
                 </div>
             </div>
         </div>

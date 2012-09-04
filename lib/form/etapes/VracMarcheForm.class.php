@@ -10,6 +10,7 @@ class VracMarcheForm extends VracForm
     		   'millesime',
     	       'labels',
                'mentions',
+    		   'export',
     		   'prix_unitaire',
                'volume_propose',
     		   'prix_total',
