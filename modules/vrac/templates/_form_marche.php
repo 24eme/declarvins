@@ -44,12 +44,12 @@
             <div class="section_label_strong">
                 <?php echo $form['prix_unitaire']->renderError() ?>
                 <?php echo $form['prix_unitaire']->renderLabel() ?>
-                <?php echo $form['prix_unitaire']->render() ?> €/hl
+                <?php echo $form['prix_unitaire']->render() ?> €/hl<?php if ($form->getWidget('has_cotisation_cvo')->getDefault()): ?>&nbsp;+&nbsp;<span id="vrac_cotisation_interpro"><?php echo ($form->getObject()->getPrixTotal() && $form->getObject()->getPartCvo())? ($form->getObject()->getPrixTotal() * $form->getObject()->getPartCvo() / 100 * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) : 0;?></span>&nbsp;€ de cotisation interprofessionnelle acheteur.<?php endif; ?>
             </div>
             <div class="section_label_strong">
                 <?php echo $form['prix_total']->renderError() ?>
                 <?php echo $form['prix_total']->renderLabel() ?>
-                <?php echo $form['prix_total']->render(array('disabled' => 'disabled')) ?> € (dont <span id="vrac_cotisation_interpro"><?php echo ($form->getObject()->getPrixTotal() && $form->getObject()->getPartCvo())? ($form->getObject()->getPrixTotal() * $form->getObject()->getPartCvo() / 100 * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) : 0;?></span> € de cotisation interprofessionnelle acheteur).
+                <?php echo $form['prix_total']->render(array('disabled' => 'disabled')) ?> €
             </div>
             <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_determination_prix">
                 <?php echo $form['type_prix']->renderError() ?>

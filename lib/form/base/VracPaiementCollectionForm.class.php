@@ -2,14 +2,32 @@
 class VracPaiementCollectionForm extends acCouchdbObjectForm implements FormBindableInterface
 {
 	public $virgin_object = null;
+	protected $embed_form_name;
+	
+	public function __construct($embedFormName, acCouchdbJson $object, $options = array(), $CSRFSecret = null) 
+	{
+        $this->setEmbedFormName($embedFormName);
+        parent::__construct($object, $options, $CSRFSecret);
+    }
+    
+    public function getEmbedFormName()
+    {
+    	return $this->embed_form_name;
+    }
+    
+    public function setEmbedFormName($embedFormName)
+    {
+    	$this->embed_form_name = $embedFormName;
+    }
 	
 	public function configure()
 	{
 		if (count($this->getObject()) == 0) {
 			$this->virgin_object = $this->getObject()->add();
 		}
+		$embedFormName = $this->getEmbedFormName();
 		foreach ($this->getObject() as $key => $object) {
-			$this->embedForm ($key, new VracPaiementForm($object));
+			$this->embedForm ($key, new $embedFormName($object));
 		}
 	}
 	
@@ -20,11 +38,12 @@ class VracPaiementCollectionForm extends acCouchdbObjectForm implements FormBind
 				$this->unEmbedForm($key);
 			}
 		}
+		$embedFormName = $this->getEmbedFormName();
 		foreach($taintedValues as $key => $values) {
 			if(!is_array($values) || array_key_exists($key, $this->embeddedForms)) {
 				continue;
 			}
-			$this->embedForm($key, new VracPaiementForm($this->getObject()->add()));
+			$this->embedForm($key, new $embedFormName($this->getObject()->add()));
 		}
 		
         //parent::bind($taintedValues, $taintedFiles);

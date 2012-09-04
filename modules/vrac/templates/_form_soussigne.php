@@ -166,7 +166,7 @@
     </div>
 
     <div class="ligne_form_btn">
-        <button class="annuler_saisie" type="reset">annuler la saisie</button>
+        <a href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $form->getObject(), 'etablissement' => $etablissement)) ?>" class="annuler_saisie"><span>annuler la saisie</span></a>
         <button class="valider_etape" type="submit"><span>Etape Suivante</span></button>
     </div>
     

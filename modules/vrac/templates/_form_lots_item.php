@@ -82,7 +82,7 @@
     </div>
     <div class="vracs_ligne_form">
          <span>
-            <a class="btn_supprimer_ligne_template" data-container=".lot" href="#">Supprimer cette transaction</a>
+            <a class="btn_supprimer_ligne_template" data-container=".lot" href="#">Supprimer ce lot</a>
          </span>
     </div>
 </div>

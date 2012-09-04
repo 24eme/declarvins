@@ -4,6 +4,15 @@ class VracForm extends acCouchdbObjectForm
 	protected $configuration;
     protected $etablissement;
     
+    const VRAC_VENDEUR_FORM = 'VracVendeurForm';
+    const VRAC_ACHETEUR_FORM = 'VracAcheteurForm';
+    const VRAC_MANDATAIRE_FORM = 'VracMandataireForm';
+    const VRAC_STOCKAGE_FORM = 'VracStockageForm';
+    const VRAC_LIVRAISON_FORM = 'VracLivraisonForm';
+    const VRAC_VALIDE_FORM = 'VracValideForm';
+    const VRAC_PAIEMENT_FORM = 'VracPaiementForm';
+    const VRAC_LOT_FORM = 'VracLotForm';
+    
 	public function __construct(ConfigurationVrac $configuration, $etablissement, acCouchdbJson $object, $options = array(), $CSRFSecret = null) 
 	{
         $this->setConfiguration($configuration);
@@ -202,28 +211,32 @@ class VracForm extends acCouchdbObjectForm
         	'date_signature_mandataire' => new sfValidatorString(array('required' => false)),
         	'commentaires' => new sfValidatorString(array('required' => false))
                 ));
-         
-    	$vendeur = new VracVendeurForm($this->getObject()->vendeur);
+    
+        $vracVendeurFormName = $this->vracVendeurFormName();
+    	$vendeur = new $vracVendeurFormName($this->getObject()->vendeur);
         $this->embedForm('vendeur', $vendeur);
-        $acheteur = new VracAcheteurForm($this->getObject()->acheteur);
+        $vracAcheteurFormName = $this->vracAcheteurFormName();
+        $acheteur = new $vracAcheteurFormName($this->getObject()->acheteur);
         $this->embedForm('acheteur', $acheteur);
+        $vracMandataireFormName = $this->vracMandataireFormName();
         $mandataire = new VracMandataireForm($this->getObject()->mandataire);
         $this->embedForm('mandataire', $mandataire);
         
-        
-        $stockage = new VracStockageForm($this->getObject()->adresse_stockage);
+        $vracStockageFormName = $this->vracStockageFormName();
+        $stockage = new $vracStockageFormName($this->getObject()->adresse_stockage);
         $this->embedForm('adresse_stockage', $stockage);
+        $vracLivraisonFormName = $this->vracLivraisonFormName();
         $livraison = new VracLivraisonForm($this->getObject()->adresse_livraison);
         $this->embedForm('adresse_livraison', $livraison);
         
-        
+        $vracValideFormName = $this->vracValideFormName();
         $valide = new VracValideForm($this->getObject()->valide);
         $this->embedForm('valide', $valide);
         
-        $paiements = new VracPaiementCollectionForm($this->getObject()->paiements);
+        $paiements = new VracPaiementCollectionForm($this->vracPaiementFormName(), $this->getObject()->paiements);
         $this->embedForm('paiements', $paiements);
         
-        $lots = new VracLotCollectionForm($this->getConfiguration(), $this->getObject()->lots);
+        $lots = new VracLotCollectionForm($this->vracLotFormName(), $this->getConfiguration(), $this->getObject()->lots);
         $this->embedForm('lots', $lots);
         
         $this->widgetSchema->setNameFormat('vrac[%s]');
@@ -385,6 +398,15 @@ class VracForm extends acCouchdbObjectForm
 
         return $form->getFormTemplate();
     }
+    
+    public function vracVendeurFormName() { return self::VRAC_VENDEUR_FORM; }
+	public function vracAcheteurFormName() { return self::VRAC_ACHETEUR_FORM; }
+	public function vracMandataireFormName() { return self::VRAC_MANDATAIRE_FORM; }
+	public function vracStockageFormName() { return self::VRAC_STOCKAGE_FORM; }
+	public function vracLivraisonFormName() { return self::VRAC_LIVRAISON_FORM; }
+	public function vracValideFormName() { return self::VRAC_VALIDE_FORM; }
+	public function vracPaiementFormName() { return self::VRAC_PAIEMENT_FORM; }
+	public function vracLotFormName() { return self::VRAC_LOT_FORM; }
     
 }
 

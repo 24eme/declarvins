@@ -36,6 +36,14 @@ class acVinVracActions extends sfActions
                               'etablissement' => $this->etablissement));
 	}
 
+	public function executeSupprimer(sfWebRequest $request)
+	{
+        $this->vrac = $this->getRoute()->getVrac();
+        $this->vrac->delete();
+        exit;
+		$this->redirect('vrac_admin');
+	}
+
 	public function executeEtape(sfWebRequest $request)
 	{
 		$this->forward404Unless($this->etape = $request->getParameter('step'));

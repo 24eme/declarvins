@@ -21,13 +21,14 @@ class VracMarcheForm extends VracForm
     		   'has_transaction',
                'annexe'
     		));
+    		$this->setWidget('has_cotisation_cvo', new sfWidgetFormInputHidden(array('default' => 1)));
+    		$this->setValidator('has_cotisation_cvo', new sfValidatorPass());
     		$this->widgetSchema->setNameFormat('vrac_marche[%s]');
 
         if (count($this->getTypesTransaction()) < 2) {
             unset($this['type_transaction']);
         }
     }
-
     protected function doUpdateObject($values) {
         parent::doUpdateObject($values);
 
