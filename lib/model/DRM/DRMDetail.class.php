@@ -143,16 +143,17 @@ class DRMDetail extends BaseDRMDetail {
       $contratVrac->volume = $volume*1 ;
     }
 
-    public function hasContratVrac() {
-      $etablissement = 'ETABLISSEMENT-'.$this->getDocument()->identifiant;
-      foreach (VracClient::getInstance()->retrieveFromEtablissements($etablissement) as $contrat) {
-      	if ($contrat->valide->statut == Configuration::STATUT_CONTRAT_NONSOLDE && (strpos($this->getHash(), $contrat->produit) !== false) && !$this->vrac->exist($contrat->numero_contrat)) {
-      	  return true;
-      	}
+    public function getContratsVracNonUtilises() {
+      $vracs_non_utilises = array();
+      $vracs = $this->getContratsVrac();
+      foreach ($vracs as $vrac) {
+        if (!$this->vrac->exist($vrac->numero_contrat))
+          $vracs_non_utilises[$vrac->numero_contrat] = $vrac->numero_contrat;
       }
-      return false;
+
+      return $vracs_non_utilises;
     }
-    
+
     public function getContratsVrac() {
     	$etablissement = 'ETABLISSEMENT-'.$this->getDocument()->identifiant;
 
