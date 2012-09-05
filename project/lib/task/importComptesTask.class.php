@@ -57,7 +57,7 @@ EOF;
         $compte->delete();
     }
     $compte = new CompteVirtuel();
-    $compte->nom = "Inter-Rhône";
+    $compte->nom = "Inter-Rhone";
     $compte->login = 'admin-ir';
     $compte->email = 'beymard@inter-rhone.com';
     $compte->mot_de_passe = "actualys";
@@ -87,7 +87,7 @@ EOF;
     }
 
     $compte = new CompteTiers();
-    $compte->nom = "Château";
+    $compte->nom = "Chateau";
     $compte->prenom = "Corinne";
     $compte->login = 'civp-corinne';
     $compte->email = 'test@example.org';
