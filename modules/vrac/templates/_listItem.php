@@ -48,4 +48,7 @@
               echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLPROP]))? $elt[VracHistoryView::VRAC_VIEW_VOLPROP] : '0';
          ?>
     </td>
+    <td>           
+        <?php echo (isset($elt[VracHistoryView::VRAC_VIEW_PRIXTOTAL]))? $elt[VracHistoryView::VRAC_VIEW_PRIXTOTAL] : '0'; ?> €
+    </td>
 </tr>

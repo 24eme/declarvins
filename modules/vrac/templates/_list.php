@@ -9,6 +9,7 @@
 	            <th>Soussignés</th>   
 	            <th>Produit</th>
 	            <th>Vol. enlevé. / Vol. prop.</th>
+	            <th>Prix total</th>
 	        </tr>
 	    </thead>
 	    <tbody>
