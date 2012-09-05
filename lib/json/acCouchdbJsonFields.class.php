@@ -399,28 +399,27 @@ abstract class acCouchdbJsonFields {
      * @return mixed 
      */
     private function setFromDataOrObject($key, $data_or_object) {
-        if ($data_or_object instanceof acCouchdbJson) {
+        if($data_or_object instanceof acCouchdbJson || $data_or_object instanceof stdClass || is_array($data_or_object)) {
             $field = $this->_get($key);
-            $field->load($data_or_object->getData());
-        } elseif ($data_or_object instanceof stdClass) {
-            $field = $this->_get($key);
-            $field->load($data_or_object);
-        } elseif (is_array($data_or_object)) {
-            $field = $this->_get($key);
-            $field->load($data_or_object);
-        } else {
-            if (!$this->exist($key)) {
-                throw new acCouchdbException(sprintf('field inexistant : %s (%s%s)', $key, $this->_definition_model, $this->getHash()));
+	    if(!is_object($field)) {
+		throw new acCouchdbException('Wrong value for '.$key.' key');
+	    }
+            if ($data_or_object instanceof acCouchdbJson) {
+            	$field->load($data_or_object->getData());
+	    }else{
+		$field->load($data_or_object);
             }
-            if ($this->isArray()) {
-                $this->_fields[$key] = $data_or_object;
-            } else {
-                $this->_fields[$this->formatFieldKey($key)] = $data_or_object;
-            }
-            return $data_or_object;
+	    return $field;
         }
-
-        return $field;
+        if (!$this->exist($key)) {
+           throw new acCouchdbException(sprintf('field inexistant : %s (%s%s)', $key, $this->_definition_model, $this->getHash()));
+        }
+        if ($this->isArray()) {
+            $this->_fields[$key] = $data_or_object;
+        } else {
+            $this->_fields[$this->formatFieldKey($key)] = $data_or_object;
+        }
+        return $data_or_object;
     }
     
     public function clear() {
