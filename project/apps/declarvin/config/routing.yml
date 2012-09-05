@@ -119,20 +119,20 @@ produit_suppression:
 etablissement_login:
   url: /admin/etablissements
   param: {module: admin, action: etablissementLogin}
-  
+
 ## Administration des Comptes
 admin_comptes:
   url:   /admin/comptes
   param: { module: acVinCompteAdmin, action: index }
-  
+
 compte_ajout:
   url:   /admin/compte-ajout
   param: { module: acVinCompteAdmin, action: compteAjout }
-  
+
 compte_recap:
   url:   /admin/compte-recap/:login
   param: { module: acVinCompteAdmin, action: compteRecap }
-  
+
 compte_modification:
   url:   /admin/compte-modification/:login
   param: { module: acVinCompteAdmin, action: compteModification }
@@ -140,7 +140,7 @@ compte_modification:
 compte_autocomplete:
   url: /admin/comptes-autocomplete
   param: {module: acVinCompteAdmin, action: compteAutocomplete}
-  
+
 admin_compte_password:
   url:   /admin/compte-password/:login
   param: { module: acVinCompteAdmin, action: redefinitionPassword }

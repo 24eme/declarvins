@@ -18,24 +18,21 @@ class tiersActions extends sfActions
   public function executeLogin(sfWebRequest $request) 
   {
 
-    return $this->redirect("@admin"); 
-    
-    $this->getUser()->signOutTiers();
+	  $this->compte = $this->getUser()->getCompte();
+
+    if (count($this->compte->tiers) == 1) {
+      
+      return $this->redirect("tiers_mon_espace", EtablissementClient::getInstance()->find($this->compte->tiers->getFirst()->id));
+    }
+
+  	$this->form = new TiersLoginForm($this->compte, true);
 	
-	$this->compte = $this->getUser()->getCompte();
-	$this->form = new TiersLoginForm($this->compte, true);
-	if (count($this->compte->tiers) == 1) {
-		$this->getUser()->signInTiers(acCouchdbManager::getClient()->retrieveDocumentById($this->compte->tiers->getFirst()->id));
-		
-        return $this->redirect("@tiers_mon_espace");
-	}
   	if ($request->isMethod(sfWebRequest::POST)) {
     	$this->form->bind($request->getParameter($this->form->getName()));
     	$tiers = $this->form->process();
-    	$this->getUser()->signInTiers($tiers);
 		
-        return $this->redirect("@tiers_mon_espace");
-	}
+      return $this->redirect("tiers_mon_espace", $tiers);
+	  }
   }
 
   public function executeMonEspace(sfWebRequest $request) 
