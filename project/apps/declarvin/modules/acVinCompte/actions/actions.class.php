@@ -75,7 +75,7 @@ class acVinCompteActions extends BaseacVinCompteActions {
 
 	  		$url = sfConfig::get('app_ac_php_cas_url') . '/login?service=' . $request->getUri();
 	  		
-            return $this->redirectAfterLogin();
+            return $this->redirect($url);
         }
     }
 
