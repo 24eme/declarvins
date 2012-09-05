@@ -14,7 +14,7 @@ class Etablissement extends BaseEtablissement {
      */
     public function getInterproObject() {
         if (is_null($this->_interpro)) {
-            $this->_interpro = InterproClient::getInstance()->getById($this->interpro);
+            $this->_interpro = InterproClient::getInstance()->find($this->interpro);
         }
         
         return $this->_interpro;
