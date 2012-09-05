@@ -17,6 +17,7 @@ class VracSoussigneIdentifiantView extends acCouchdbView
     const VRAC_VIEW_PRODUIT_ID = 12;
     const VRAC_VIEW_VOLPROP = 13;
     const VRAC_VIEW_VOLENLEVE = 14;
+    const VRAC_VIEW_PRIXTOTAL = 15;
 
     public static function getInstance() {
 
