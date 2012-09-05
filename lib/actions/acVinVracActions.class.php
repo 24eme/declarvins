@@ -39,9 +39,9 @@ class acVinVracActions extends sfActions
 	public function executeSupprimer(sfWebRequest $request)
 	{
         $this->vrac = $this->getRoute()->getVrac();
+        $this->etablissement = $this->getRoute()->getEtablissement();
         $this->vrac->delete();
-        exit;
-		$this->redirect('vrac_admin');
+		$this->redirect('vrac_etablissement', array('sf_subject' => $this->etablissement));
 	}
 
 	public function executeEtape(sfWebRequest $request)

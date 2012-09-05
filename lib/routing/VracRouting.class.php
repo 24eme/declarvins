@@ -31,7 +31,7 @@ class VracRouting {
                                                         array('sf_method' => array('get')),
                                                         array('model' => 'Etablissement', 'type' => 'object')));
                                                          
-        $r->prependRoute('vrac_supprimer', new VracRoute('/vrac/:identifiant/supprimer',  
+        $r->prependRoute('vrac_supprimer', new VracRoute('/vrac/:identifiant/:numero_contrat/supprimer',  
                                                         array('module' => 'vrac', 'action' => 'supprimer'),
                                                         array('sf_method' => array('get')),
                                                         array('model' => 'Vrac', 'type' => 'object'))); 

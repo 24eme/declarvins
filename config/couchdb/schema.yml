@@ -157,6 +157,7 @@ Vrac:
                               pourcentage: {  }
                   degre: {  }
                   presence_allergenes: {  }
+                  allergenes: {  }
                   metayage: {  }
                   bailleur: {  }
                   date_retiraison: {  }
