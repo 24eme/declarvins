@@ -81,16 +81,14 @@ EOF;
     }
 
     $compte = new CompteTiers();
-    $compte->nom = "Garage d'actualys";
-    $compte->login = 'actualys';
-    $compte->email = 'jblemetayer@actualys.com';
-    $compte->interpro = array("INTERPRO-IR" => array("statut" => "VALIDE"), 
-                              "INTERPRO-CIVP" => array("statut" => "VALIDE"), 
-                              "INTERPRO-IVSE" => array("statut" => "VALIDE"));
-    $compte->tiers = array("ETABLISSEMENT-9223700100" => array("id" => "ETABLISSEMENT-9223700100",
+    $compte->nom = "Château Corinne";
+    $compte->login = 'corinne';
+    $compte->email = 'test@example.org';
+    $compte->interpro = array("INTERPRO-CIVP" => array("statut" => "VALIDE"));
+    $compte->tiers = array("ETABLISSEMENT-9223700102" => array("id" => "ETABLISSEMENT-9223700102",
                                                                "type" => "Etablissement",
-                                                               "nom" => "Garage d'Actualys",
-                                                               "interpro" => "INTERPRO-IR"));
+                                                               "nom" => "Château Corinne",
+                                                               "interpro" => "INTERPRO-CIVP"));
     $compte->save();
 
     

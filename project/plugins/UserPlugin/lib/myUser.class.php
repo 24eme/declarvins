@@ -16,6 +16,6 @@ class myUser extends acVinCompteSecurityUser
 	 */
 	public function getInterpro()
 	{
-		return ($this->hasAttribute('interpro_id'))? acCouchdbManager::getClient('Interpro')->getById($this->getAttribute('interpro_id')) : null;
+		return ($this->hasAttribute('interpro_id'))? acCouchdbManager::getClient('Interpro')->find($this->getAttribute('interpro_id')) : null;
 	}
 }
