@@ -3,20 +3,13 @@
         <?php echo $form->renderGlobalErrors() ?>
         <h1>Paiement</h1>
         <div>
-            <div class="section_label_strong">
+            <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_paiements|#bloc_vrac_reference_contrat_pluriannuel">
                 <?php echo $form['conditions_paiement']->renderError() ?>
                 <?php echo $form['conditions_paiement']->renderLabel() ?>
                 <?php echo $form['conditions_paiement']->render() ?>
             </div>
-            <?php if(isset($form['contrat_pluriannuel'])): ?>
-            <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_reference_contrat_pluriannuel">
-                <?php echo $form['contrat_pluriannuel']->renderError() ?>
-                <?php echo $form['contrat_pluriannuel']->renderLabel() ?>
-                <?php echo $form['contrat_pluriannuel']->render() ?>
-            </div>
-            <?php endif; ?>
             <?php if(isset($form['reference_contrat_pluriannuel'])): ?>
-            <div id="bloc_vrac_reference_contrat_pluriannuel" class="section_label_strong bloc_conditionner" data-condition-value="1">
+            <div id="bloc_vrac_reference_contrat_pluriannuel" class="section_label_strong bloc_conditionner" data-condition-value="<?php echo $form->getCgpContratNeedDetermination() ?>">
                 <?php echo $form['reference_contrat_pluriannuel']->renderError() ?>
                 <?php echo $form['reference_contrat_pluriannuel']->renderLabel() ?>
                 <?php echo $form['reference_contrat_pluriannuel']->render() ?>
@@ -29,14 +22,7 @@
                 <?php echo $form['delai_paiement']->render() ?>
             </div>
             <?php endif; ?>
-            <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_paiements">
-                <?php echo $form['echeancier_paiement']->renderError() ?>
-                <?php echo $form['echeancier_paiement']->renderLabel() ?>
-                <?php if($form->isEcheanchierPaiementOptionnel()): ?>
-                    <?php echo $form['echeancier_paiement']->render() ?>
-                <?php endif; ?>
-            </div>
-            <div id="bloc_vrac_paiements" class="table_container bloc_conditionner" data-condition-value="1">
+            <div id="bloc_vrac_paiements" class="table_container bloc_conditionner" data-condition-value="<?php echo $form->getCgpEcheancierNeedDetermination() ?>">
                 <table id="table_paiements">
                     <thead>
                         <tr>

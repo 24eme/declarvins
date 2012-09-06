@@ -11,7 +11,6 @@ class VracConditionForm extends VracForm
            'contrat_pluriannuel',
            'reference_contrat_pluriannuel',
   	       'delai_paiement',
-           'echeancier_paiement',
            'clause_reserve_retiraison',
   		     'paiements'
   		));
@@ -26,24 +25,21 @@ class VracConditionForm extends VracForm
       }
 
       parent::doUpdateObject($values); 
-
-      if (!$this->isEcheanchierPaiementOptionnel()) {
-        $this->getObject()->echeancier_paiement = 1;
-      }
     }
 
     protected function updateDefaultsFromObject() {
       parent::updateDefaultsFromObject();    
-      if (is_null($this->getObject()->echeancier_paiement)) {
-        $this->setDefault('echeancier_paiement', 1);
-      }  
       if (is_null($this->getObject()->vin_livre)) {
         $this->setDefault('vin_livre', VracClient::STATUS_VIN_RETIRE);
       }  
     }
 
-    public function isEcheanchierPaiementOptionnel() {
 
-        return true;
+    public function getCgpEcheancierNeedDetermination() {
+      return 'echeancier_paiement';
+    }
+
+    public function getCgpContratNeedDetermination() {
+      return 'contrat_pluriannuel';
     }
 }
