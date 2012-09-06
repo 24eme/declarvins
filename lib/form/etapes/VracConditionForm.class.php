@@ -8,7 +8,6 @@ class VracConditionForm extends VracForm
   	       'date_limite_retiraison',
            'conditions_paiement',
   	       'vin_livre',
-           'contrat_pluriannuel',
            'reference_contrat_pluriannuel',
   	       'delai_paiement',
            'clause_reserve_retiraison',
