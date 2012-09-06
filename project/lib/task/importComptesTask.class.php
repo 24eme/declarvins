@@ -46,22 +46,26 @@ EOF;
     $compte->nom = "CIVP";
     $compte->login = 'admin-civp';
     $compte->email = 'mcouderc@provencewines.com';
-    $compte->mot_de_passe = "admin";
+    $compte->mot_de_passe = "actualys";
     $compte->droits->add(null, 'admin');
     $compte->interpro = "INTERPRO-CIVP";
     $compte->save();
+    $ldap = new Ldap();
+    $ldap->saveCompte($compte);
     
     if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin-ir')) {
         $compte->delete();
     }
     $compte = new CompteVirtuel();
-    $compte->nom = "Inter-Rhône";
+    $compte->nom = "Inter-Rhone";
     $compte->login = 'admin-ir';
     $compte->email = 'beymard@inter-rhone.com';
-    $compte->mot_de_passe = "admin";
+    $compte->mot_de_passe = "actualys";
     $compte->droits->add(null, 'admin');
     $compte->interpro = "INTERPRO-IR";
     $compte->save();
+    $ldap = new Ldap();
+    $ldap->saveCompte($compte);
     
     if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin-ivse')) {
         $compte->delete();
@@ -71,29 +75,51 @@ EOF;
     $compte->nom = "Intervins Sud-Est";
     $compte->login = 'admin-ivse';
     $compte->email = 'marie.de-monte@intervins-sudest.org';
-    $compte->mot_de_passe = "admin";
+    $compte->mot_de_passe = "actualys";
     $compte->droits->add(null, 'admin');
     $compte->interpro = "INTERPRO-IVSE";
     $compte->save();
+    $ldap = new Ldap();
+    $ldap->saveCompte($compte);
 
-    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-actualys')) {
+    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-civp-corinne')) {
         $compte->delete();
     }
 
     $compte = new CompteTiers();
-    $compte->nom = "Garage d'actualys";
-    $compte->login = 'actualys';
-    $compte->email = 'jblemetayer@actualys.com';
-    $compte->interpro = array("INTERPRO-IR" => array("statut" => "VALIDE"), 
-                              "INTERPRO-CIVP" => array("statut" => "VALIDE"), 
-                              "INTERPRO-IVSE" => array("statut" => "VALIDE"));
-    $compte->tiers = array("ETABLISSEMENT-9223700100" => array("id" => "ETABLISSEMENT-9223700100",
+    $compte->nom = "Chateau";
+    $compte->prenom = "Corinne";
+    $compte->login = 'civp-corinne';
+    $compte->email = 'test@example.org';
+    $compte->mot_de_passe = "actualys";
+    $compte->interpro = array("INTERPRO-CIVP" => array("statut" => "VALIDE"));
+    $compte->tiers = array("ETABLISSEMENT-9223700102" => array("id" => "ETABLISSEMENT-9223700102",
                                                                "type" => "Etablissement",
-                                                               "nom" => "Garage d'Actualys",
-                                                               "interpro" => "INTERPRO-IR"));
+                                                               "nom" => "Château Corinne",
+                                                               "interpro" => "INTERPRO-CIVP"));
     $compte->save();
+    $ldap = new Ldap();
+    $ldap->saveCompte($compte);
 
-    
+    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-civp-thierry')) {
+        $compte->delete();
+    }
+
+    $compte = new CompteTiers();
+    $compte->nom = "Gigon";
+    $compte->prenom = "Thierry";
+    $compte->login = 'civp-thierry';
+    $compte->email = 'tgigon@provencewines.com';
+    $compte->mot_de_passe = "actualys";
+    $compte->interpro = array("INTERPRO-CIVP" => array("statut" => "VALIDE"));
+    $compte->tiers = array("ETABLISSEMENT-9223700103" => array("id" => "ETABLISSEMENT-9223700103",
+                                                               "type" => "Etablissement",
+                                                               "nom" => "Château Thierry",
+                                                               "interpro" => "INTERPRO-CIVP"));
+    $compte->save();
+    $ldap = new Ldap();
+    $ldap->saveCompte($compte);
+   
     /*
      * FIN COMPTE VIRTUEL ADMIN
      */
@@ -183,7 +209,7 @@ EOF;
     $e->sous_famille = "cave_particuliere";
     $e->no_accises  = "FR9200000000";
     $e->no_tva_intracommunautaire = "FR9200000000";
-    $e->nom = "Château Frederic";
+    $e->nom = "Château Thierry";
     $e->siege = array("adresse" => "1 rue Garnier", "code_postal" => "13200", "commune" => "Neuilly");
     $e->statut = "ACTIF";
     $e->save();

@@ -45,6 +45,8 @@ class acVinCompteAdminActions extends sfActions
      if($this->form->isValid())
         {
          $this->form->save();
+         $ldap = new Ldap();
+         $ldap->saveCompte($this->compte);
          $this->redirect(array('sf_route' => 'compte_modification', 'login' => $this->compte->login));
         }
      }
@@ -89,6 +91,8 @@ DéclarVins';
            if($this->form->isValid())
            {
            $this->form->save();
+           $ldap = new Ldap();
+           $ldap->saveCompte($this->compte);
            $this->redirect(array('sf_route' => 'compte_modification', 'login' => $this->compte->login));
            }
         }                  
