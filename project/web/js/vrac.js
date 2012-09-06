@@ -36,35 +36,47 @@
 	var checkUncheckCondition = function(blocCondition)
     {
     	var input = blocCondition.find('input');
-    	var bloc = $(blocCondition.attr('data-condition-cible'));
-    	var value = bloc.attr('data-condition-value');
-
-    	var traitement = function(input, bloc, value) {
+    	var blocs = blocCondition.attr('data-condition-cible').split('|');
+    	var traitement = function(input, blocs) {
     		if(input.is(':checked'))
             {
-               values = value.split('|');
-               for(key in values) {
-	               if (values[key] == input.val()) {
-               			bloc.show();
-
-               			return ;
-               		}
-           	   }
+        	   for (bloc in blocs) {
+        		   if ($(blocs[bloc]).exists()) {
+            		   var values = $(blocs[bloc]).attr('data-condition-value').split('|');
+            		   for(key in values) {
+            			   if (values[key] == input.val()) {
+            				   $(blocs[bloc]).show();
+            			   }
+            		   }
+        		   }
+        	   }
             }
     	}
     	if(input.length == 0) {
-    		bloc.show();
+     	   for (bloc in blocs) {
+  				$(blocs[bloc]).show();
+     	   }	
     	} else {
-    		bloc.hide();
+     	   for (bloc in blocs) {
+  				$(blocs[bloc]).hide();
+     	   }
     	}
     	input.each(function() {
-    		traitement($(this), bloc, value);
+    		traitement($(this), blocs);
     	});
 
         input.click(function()
         {
-        	bloc.hide();
-            traitement($(this), bloc, value);
+      	   for (bloc in blocs) {
+ 				$(blocs[bloc]).hide();
+    	   }
+      	   if($(this).is(':checkbox')) {
+          	   $(this).parents('ul').find('input').each(function() {
+	        	   traitement($(this), blocs);
+          	   });
+      	   } else {
+      		   traitement($(this), blocs);
+      	   }
         });
 	}
 	
