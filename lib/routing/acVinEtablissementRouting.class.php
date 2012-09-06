@@ -11,11 +11,12 @@ class acVinEtablissementRouting {
     static public function listenToRoutingLoadConfigurationEvent(sfEvent $event) {
         $r = $event->getSubject();
 
-        $r->prependRoute('etablissement_autocomplete_all', new sfRoute('/etablissement/autocomplete/tous', 
+        $r->prependRoute('etablissement_autocomplete_all', new sfRoute('/etablissement/autocomplete/:interpro_id/tous', 
         															   array('module' => 'etablissement_autocomplete', 
                                                                              'action' => 'all')));
+        															   
 		
-		$r->prependRoute('etablissement_autocomplete_byfamilles', new sfRoute('/etablissement/autocomplete/familles/:familles', 
+		$r->prependRoute('etablissement_autocomplete_byfamilles', new sfRoute('/etablissement/autocomplete/:interpro_id/familles/:familles', 
         															   array('module' => 'etablissement_autocomplete', 
                                                                              'action' => 'byFamilles')));
 
