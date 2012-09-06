@@ -47,14 +47,14 @@ class VracForm extends acCouchdbObjectForm
         	'numero_contrat' => new sfWidgetFormInputText(),
         	'etape' => new sfWidgetFormInputText(),
             'vendeur_type' => new sfWidgetFormChoice(array('choices' => $this->getVendeurTypes(), 'expanded' => true)),
-            'vendeur_identifiant' => new WidgetEtablissement(),
+            'vendeur_identifiant' => new WidgetEtablissement(array('interpro_id' => $this->getInterpro())),
             'vendeur_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(), 'expanded' => true)),
             'acheteur_type' => new sfWidgetFormChoice(array('choices' => $this->getAcheteurTypes(), 'expanded'=> true)),
-            'acheteur_identifiant' => new WidgetEtablissement(),
+            'acheteur_identifiant' => new WidgetEtablissement(array('interpro_id' => $this->getInterpro())),
         	'acheteur_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'mandatants' => new sfWidgetFormChoice(array('choices' => $this->getMandatants(), 'multiple' => true)),
             'mandataire_exist' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
-        	'mandataire_identifiant' => new WidgetEtablissement(array('familles' => EtablissementFamilles::FAMILLE_COURTIER)),
+        	'mandataire_identifiant' => new WidgetEtablissement(array('interpro_id' => $this->getInterpro(), 'familles' => EtablissementFamilles::FAMILLE_COURTIER)),
         	'premiere_mise_en_marche' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier())),
         	'original' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
@@ -407,6 +407,11 @@ class VracForm extends acCouchdbObjectForm
 	public function vracValideFormName() { return self::VRAC_VALIDE_FORM; }
 	public function vracPaiementFormName() { return self::VRAC_PAIEMENT_FORM; }
 	public function vracLotFormName() { return self::VRAC_LOT_FORM; }
+	
+	public function getInterpro() 
+	{
+		return $this->getEtablissement()->interpro;
+	}
     
 }
 

@@ -171,5 +171,5 @@
     </div>
     
 </form>
-<?php include_partial('url_etablissement_template'); ?>
+<?php include_partial('url_etablissement_template', array('etablissement' => $etablissement)); ?>
 <?php include_partial('url_informations_template', array('vrac' => $form->getObject(), 'etablissement' => $etablissement, 'etape' => $etape)); ?>
