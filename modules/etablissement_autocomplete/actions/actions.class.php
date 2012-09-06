@@ -4,7 +4,11 @@ class etablissement_autocompleteActions extends sfActions
 {
 
   	public function executeAll(sfWebRequest $request) {
-	    $interpro = $this->getUser()->getInterpro();
+  		if($this->getUser()->getInterpro()) {
+	    	$interpro = $this->getUser()->getInterpro()->get('_id');
+	    } else {
+	    	$interpro = 'INTERPRO-CIVP';
+	    }
 
 	    $json = $this->matchEtablissements(EtablissementAllView::getInstance()->findByInterpro($interpro->get('_id'))->rows,
 	    								   $request->getParameter('q'),
@@ -14,7 +18,12 @@ class etablissement_autocompleteActions extends sfActions
   	}
 
  	public function executeByFamilles(sfWebRequest $request) {
-	    $interpro = $this->getUser()->getInterpro()->get('_id');
+	    
+	    if($this->getUser()->getInterpro()) {
+	    	$interpro = $this->getUser()->getInterpro()->get('_id');
+	    } else {
+	    	$interpro = 'INTERPRO-CIVP';
+	    }
 		$familles = $request->getParameter('familles');
 		
 	    $json = $this->matchEtablissements(
