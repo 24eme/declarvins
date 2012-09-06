@@ -1024,22 +1024,30 @@ p#date_drm
 		
 		margin-top:15px ;
 
-                strong
-                {
-                    padding-right: 5px !important;
-                }
+		li
+		{
+			.border(@couleur-a3);
+			background: @couleur-a4;
+			border-bottom-color: @couleur-a4;
+			color: @couleur-a1;
+		}
 
-                a.msg_aide
-                {
-                    float:none;
-                    padding:0 5px;
-                }
+		strong
+		{
+			padding-right: 5px !important;
+		}
 
-                a.msg_aide:hover
-                {
-                    .opacite(1);
-                    background: url(../images/pictos/pi_aide.png) 0 0 no-repeat;
-                }
+		a.msg_aide
+		{
+			float:none;
+			padding:0 5px;
+		}
+
+		a.msg_aide:hover
+		{
+			.opacite(1);
+			background: url(../images/pictos/pi_aide.png) 0 0 no-repeat;
+		}
 	}
 	
 	.contenu_onglet_declaratif
