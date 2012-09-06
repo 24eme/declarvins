@@ -3,7 +3,7 @@ class vracComponents extends sfComponents
 {
     public function executeEtapes() 
     {
-    	$this->interpro = $this->getInterpro();
+    	$this->interpro = $this->getInterpro($this->etablissement);
 		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
 		$this->configurationVracEtapes = $this->configurationVrac->getEtapes();
 		$this->etapes = $this->configurationVracEtapes->getTabEtapes();
@@ -18,9 +18,14 @@ class vracComponents extends sfComponents
 		$this->vracid = preg_replace('/VRAC-/', '', $this->elt[VracHistoryView::VRAC_VIEW_NUMCONTRAT]); 
     }
 	
-	public function getInterpro()
+	public function getInterpro($etablissement)
 	{
-		return $this->getUser()->getInterpro();
+        if($etablissement) {
+            
+            return $etablissement->getInterproObject();
+        }
+		
+        return $this->getUser()->getInterpro();
 	}
 	
 	public function getConfigurationVrac($interpro_id = null)
