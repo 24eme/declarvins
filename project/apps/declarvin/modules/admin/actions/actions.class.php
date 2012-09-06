@@ -28,7 +28,7 @@ class adminActions extends sfActions
   public function executeEtablissementLogin(sfWebRequest $request)
   {
   	$this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
-    $this->form = new EtablissementSelectionForm();
+    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
     if ($request->isMethod(sfWebRequest::POST)) {
     	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
     		$this->form->bind($request->getParameter('etablissement_selection_nav'));
