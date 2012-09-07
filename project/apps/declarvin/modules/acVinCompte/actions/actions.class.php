@@ -27,6 +27,8 @@ class acVinCompteActions extends BaseacVinCompteActions {
                 $newCompteTiers->_id = 'COMPTE-'.$newCompteTiers->login;
                 //$newCompteTiers->statut = _Compte::STATUT_ACTIVE;
                 $newCompteTiers->save();
+           		$ldap = new Ldap();
+           		$ldap->saveCompte($newCompteTiers);
                 $this->contrat->setCompte($newCompteTiers->get('_id'));
                 $this->contrat->save();
                 $this->getUser()->signOut();
@@ -44,6 +46,8 @@ class acVinCompteActions extends BaseacVinCompteActions {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
                 $compteTiers = $this->form->save();
+           		$ldap = new Ldap();
+           		$ldap->saveCompte($compteTiers);
                 $this->getUser()->signOut();
                 $this->getUser()->signIn($compteTiers->login);
                 $this->getUser()->setFlash('notice', 'Redéfinition du mot de passe effectuée');
