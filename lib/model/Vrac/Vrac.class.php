@@ -92,9 +92,16 @@ class Vrac extends BaseVrac
     }
 
     public function validate() {
-      $this->update();
-      $this->storeSoussignesInformations();
       $this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
       $this->valide->date_saisie = date('Y-m-d');
+    }
+    
+    public function getStatutCssClass() {
+    	$statuts = VracClient::getInstance()->getStatusContratCssClass();
+    	if ($this->valide->statut && isset($statuts[$this->valide->statut])) {
+    		return $statuts[$this->valide->statut];
+    	} else {
+    		return null;
+    	}
     }
 }

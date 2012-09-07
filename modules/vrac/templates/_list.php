@@ -1,6 +1,6 @@
 <?php use_helper('Vrac'); ?>
 <div class="tableau_ajouts_liquidations">
-	<table id="tableau_recap">    
+	<table id="tableau_recap" class="visualisation_contrat">    
 	    <thead>
 	        <tr>
 	        	<th style="width: auto;">Statut</th>

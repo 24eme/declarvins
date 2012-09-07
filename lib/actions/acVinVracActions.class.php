@@ -57,6 +57,8 @@ class acVinVracActions extends sfActions
 				$this->form->save();
 
 				if (!$this->configurationVracEtapes->next($this->vrac->etape)) {
+					$this->vrac->validate();
+					$this->vrac->save();
                     $this->getUser()->setFlash('termine', true);
 			        return $this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
 				}
