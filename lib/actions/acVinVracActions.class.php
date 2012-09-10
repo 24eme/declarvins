@@ -43,12 +43,37 @@ class acVinVracActions extends sfActions
 		$this->redirect('vrac_etablissement', array('sf_subject' => $this->etablissement));
 	}
 
+	public function executeStatut(sfWebRequest $request)
+	{
+        $this->vrac = $this->getRoute()->getVrac();
+        $this->etablissement = $this->getRoute()->getEtablissement();
+        if ($this->statut = $request->getParameter('statut')) {
+        	$statuts = VracClient::getInstance()->getStatusContrat();
+        	if (in_array($this->statut, $statuts)) {
+        		$statut_credentials = VracClient::getInstance()->getStatusContratCredentials();
+        		$statut_credentials = $statut_credentials[$this->vrac->valide->statut];
+        		if (in_array($this->statut, $statut_credentials)) {
+        			$this->vrac->valide->statut = $this->statut;
+        			$this->vrac->save();
+					$this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
+        		}
+        	} else {
+        		throw new sfException('Unknown status');	
+        	}
+        } else {
+        	throw new sfException('Status needed');
+        }
+	}
+
 	public function executeEtape(sfWebRequest $request)
 	{
 		$this->forward404Unless($this->etape = $request->getParameter('step'));
         $this->etablissement = $this->getRoute()->getEtablissement();
 		$this->init($this->etablissement);
         $this->vrac = $this->getRoute()->getVrac();
+        if ($this->vrac->valide->statut && $this->vrac->valide->statut != VracClient::STATUS_CONTRAT_NONSOLDE) {
+        	throw new sfException('Ce contrat ne peut pas être modifié - statut '.$this->vrac->valide->statut);
+        }
 		$this->vrac->setEtape($this->etape);
 		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->etablissement, $this->vrac);
 		if ($request->isMethod(sfWebRequest::POST)) {
@@ -57,8 +82,6 @@ class acVinVracActions extends sfActions
 				$this->form->save();
 
 				if (!$this->configurationVracEtapes->next($this->vrac->etape)) {
-					$this->vrac->validate();
-					$this->vrac->save();
                     $this->getUser()->setFlash('termine', true);
 			        return $this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
 				}

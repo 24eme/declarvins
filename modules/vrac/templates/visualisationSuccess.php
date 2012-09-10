@@ -12,15 +12,21 @@
                 </div>    
                 <form action="" method="post" id="vrac_condition">  
                     <div class="legende" id="ss_titre"><span class="style_label">Etat du contrat</span>
-                        <a id="solder_contrat" href="">Solder le contrat</a>
+                    	<?php if ($vrac->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE): ?>
+                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_SOLDE, 'etablissement' => $etablissement)) ?>" id="solder_contrat">Solder le contrat</a>
+                        <?php elseif ($vrac->valide->statut == VracClient::STATUS_CONTRAT_SOLDE): ?>
+                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_NONSOLDE, 'etablissement' => $etablissement)) ?>" id="solder_contrat">Désolder le contrat</a>
+                        <?php endif; ?>
                         <div>
                             <span class="statut statut_<?php echo $vrac->getStatutCssClass() ?>"></span><span class="legende_statut_texte"><?php echo $vrac->valide->statut ?></span>
                         </div>                            
                     </div>
+                    <?php if ($vrac->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE): ?>
                     <div id="ligne_btn">
                             <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'soussigne', 'etablissement' => $etablissement)) ?>" id="btn_editer_contrat"  class="modifier"> Editer le contrat</a>
-                            <button type="submit" id="btn_annuler_contrat">Annuler le contrat</button>                                
+                            <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat"> Annuler le contrat</a>                             
                     </div>
+                    <?php endif; ?>
                 </form>
             
                 <?php include_partial('showContrat', array('configurationVrac' => $configurationVrac, 'etablissement' => $etablissement, 'vrac' => $vrac, 'editer_etape' => false)); ?>

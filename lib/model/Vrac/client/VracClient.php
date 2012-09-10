@@ -15,6 +15,14 @@ class VracClient extends acCouchdbClient {
     const STATUS_CONTRAT_ANNULE = 'ANNULE';
     const STATUS_CONTRAT_NONSOLDE = 'NONSOLDE';
     
+    protected $_status_contrat = array(self::STATUS_CONTRAT_SOLDE, 
+                                                   self::STATUS_CONTRAT_ANNULE,
+                                                   self::STATUS_CONTRAT_NONSOLDE);
+    
+    protected $_status_contrat_credentials = array(self::STATUS_CONTRAT_SOLDE => array(self::STATUS_CONTRAT_NONSOLDE), 
+                                                   self::STATUS_CONTRAT_ANNULE => array(),
+                                                   self::STATUS_CONTRAT_NONSOLDE => array(self::STATUS_CONTRAT_SOLDE, self::STATUS_CONTRAT_ANNULE));
+    
     protected $_status_contrat_css_class = array(self::STATUS_CONTRAT_SOLDE => 'solde', 
                                                    self::STATUS_CONTRAT_ANNULE => 'annule',
                                                    self::STATUS_CONTRAT_NONSOLDE => 'non-solde');
@@ -110,6 +118,14 @@ class VracClient extends acCouchdbClient {
 
     public function getStatusContratCssClass() {
     	return $this->_status_contrat_css_class;
+    }
+
+    public function getStatusContrat() {
+    	return $this->_status_contrat;
+    }
+
+    public function getStatusContratCredentials() {
+    	return $this->_status_contrat_credentials;
     }
     /*
      * Methodes de l'ancien plugin
