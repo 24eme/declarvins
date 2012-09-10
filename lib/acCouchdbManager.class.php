@@ -64,10 +64,12 @@ class acCouchdbManager {
         return self::getInstance()->_clients_model[$model];
     }
 
-    public static function getView($design, $view, $model = null) {
+    public static function getView($design, $view, $model = null, $class_name = null) {
     	$key = sfInflector::camelize($design.'_'.$view.'_'.$model);
     	if (!isset(self::getInstance()->_views[$key])) {
-    		$class_name = sfInflector::camelize($design.'_'.$view).'View';
+            if ($class_name == null) {
+    		  $class_name = sfInflector::camelize($design.'_'.$view).'View';
+            }
     		if (class_exists($class_name)) {
                 self::getInstance()->_views[$key] = new $class_name(self::getClient($model), $design, $view);
             } else {
