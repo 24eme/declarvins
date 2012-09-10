@@ -139,7 +139,7 @@ class VracForm extends acCouchdbObjectForm
         	'reference_contrat_pluriannuel' => 'Référence contrat pluriannuel:',
         	'delai_paiement' => 'Delai de paiement:',
         	'echeancier_paiement' => 'Echeancier de paiement:',
-        	'clause_reserve_retiraison' => 'Clause de reserve de propriété: ',
+        	'clause_reserve_retiraison' => 'Clause de reserve de propriété (si réserve, recours possible jusqu\'au paiement complet): ',
         	'export' => 'Expédition export:',
         	'type_contrat' => 'Type de contrat:',
         	'prix_variable' => 'Partie de prix variable:',
