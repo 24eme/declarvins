@@ -402,7 +402,7 @@ abstract class acCouchdbJsonFields {
         if($data_or_object instanceof acCouchdbJson || $data_or_object instanceof stdClass || is_array($data_or_object)) {
             $field = $this->_get($key);
 	    if(!is_object($field)) {
-		throw new acCouchdbException('Wrong value for '.$key.' key');
+		throw new acCouchdbException(sprintf('Wrong value : %s for %s key', $data_or_object, $key));
 	    }
             if ($data_or_object instanceof acCouchdbJson) {
             	$field->load($data_or_object->getData());
