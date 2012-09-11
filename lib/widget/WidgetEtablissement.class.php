@@ -18,7 +18,7 @@ class WidgetEtablissement extends sfWidgetFormChoice
 
         $this->setOption('choices', array());
         $this->addOption('familles', array());
-        $this->addOption('interpro_id', null);
+        $this->addRequiredOption('interpro_id', null);
         $this->setAttribute('class', 'autocomplete'); 
     }
 
