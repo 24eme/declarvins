@@ -80,10 +80,12 @@
 				<span>Volume :</span>
 				<span><?php echo $vrac->volume_propose ?> HL</span>
 			</li>
+			<?php if ($vrac->part_cvo > 0): ?>
 			<li>
-				<span>Prix total :</span>
-				<span><?php echo $vrac->prix_total ?> €</span>
+				<span>Cotisation interprofessionnelle :</span>
+				<span><?php echo round($vrac->prix_unitaire * $vrac->volume_propose * $vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR / 100, 2); ?> €</span>
 			</li>
+			<?php endif; ?>
 		</ul>
 		<?php if($editer_etape): ?>
 		<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'marche', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>

@@ -18,6 +18,8 @@ class VracHistoryView extends acCouchdbView
     const VRAC_VIEW_VOLPROP = 13;
     const VRAC_VIEW_VOLENLEVE = 14;
     const VRAC_VIEW_PRIXTOTAL = 15;
+    const VRAC_VIEW_PRIXUNITAIRE = 16;
+    const VRAC_VIEW_PARTCVO = 17;
 
 	public static function getInstance() {
 

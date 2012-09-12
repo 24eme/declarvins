@@ -87,8 +87,11 @@ class Vrac extends BaseVrac
 
     public function update($params = array()) {
       parent::update($params);
-
-      $this->prix_total = round($this->prix_unitaire * $this->volume_propose, 2);
+	  if ($this->part_cvo > 0) {
+	  	$this->prix_total = round($this->prix_unitaire * $this->volume_propose + $this->prix_unitaire * $this->volume_propose * $this->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR / 100, 2);
+	  } else {
+      	$this->prix_total = round($this->prix_unitaire * $this->volume_propose, 2);
+	  }
     }
 
     public function validate() {

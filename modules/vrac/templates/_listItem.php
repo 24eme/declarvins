@@ -49,6 +49,9 @@
          ?>
     </td>
     <td>           
-        <?php echo (isset($elt[VracHistoryView::VRAC_VIEW_PRIXTOTAL]))? $elt[VracHistoryView::VRAC_VIEW_PRIXTOTAL] : '0'; ?> €
+        <?php echo (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]))? $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE] : '0'; ?>&nbsp;€/HL<br />
+        <?php if (isset($elt[VracHistoryView::VRAC_VIEW_PARTCVO]) && ($elt[VracHistoryView::VRAC_VIEW_PARTCVO]) > 0): ?>
+        <?php echo (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]) && isset($elt[VracHistoryView::VRAC_VIEW_VOLPROP]))? $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE] * $elt[VracHistoryView::VRAC_VIEW_VOLPROP] * $elt[VracHistoryView::VRAC_VIEW_PARTCVO] * ConfigurationVrac::REPARTITION_CVO_ACHETEUR / 100 : '0'; ?>&nbsp;€<br />(cotisation&nbsp;interprofessionnelle)
+        <?php endif; ?>
     </td>
 </tr>
