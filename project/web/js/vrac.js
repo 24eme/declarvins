@@ -196,31 +196,17 @@
 	
 	                if(!isNaN(thisVal) && isNaN(otherVal))
 	                {
-	                    if (hasCotisationCvo == 0) {
-	                    	total.val((thisVal).toFixed(2)); 
-	                	} else {
+	                    if (hasCotisationCvo != 0) {
 	                		var cvo = thisVal * tauxRepartition * tauxCVO;
 	                		if (!isNaN(cvo)) {
 	                			total.val((thisVal + cvo).toFixed(2));
 	                			cotisation.text((cvo).toFixed(2)); 
-	                		} else {
-	                			total.val((thisVal).toFixed(2));
 	                		}
 	                	}
 	                }
 	                else if(isNaN(thisVal) && !isNaN(otherVal))
 	                {
-	                    if (hasCotisationCvo == 0) {
-	                    	total.val((otherVal).toFixed(2)); 
-	                	} else {
-	                		var cvo = otherVal * tauxRepartition * tauxCVO;
-	                		if (!isNaN(cvo)) {
-	                			total.val((otherVal + cvo).toFixed(2));
-	                			cotisation.text((cvo).toFixed(2)); 
-	                		} else {
-	                			total.val((otherVal).toFixed(2));
-	                		}
-	                	}
+	                    
 	                }
 	                else if(isNaN(thisVal) && isNaN(otherVal))
                 	{
@@ -228,15 +214,11 @@
                 	}
 	                else
 	                { 
-	                	if (hasCotisationCvo == 0) {
-	                		total.val((thisVal * otherVal).toFixed(2)); 
-	                	} else {
-	                		var cvo = thisVal * otherVal * tauxRepartition * tauxCVO;
+	                	if (hasCotisationCvo != 0) {
+	                		var cvo = thisVal * tauxRepartition * tauxCVO;
 	                		if (!isNaN(cvo)) {
-	                			total.val((thisVal * otherVal + cvo).toFixed(2));
+	                			total.val((thisVal + cvo).toFixed(2));
 	                			cotisation.text((cvo).toFixed(2)); 
-	                		} else {
-	                			total.val((thisVal * otherVal).toFixed(2));
 	                		}
 	                	}
 	                }
@@ -244,13 +226,11 @@
 	        }
 	        var volume = $('#vrac_marche_volume_propose');
 	        var prix = $('#vrac_marche_prix_unitaire');
-	        var totalSomme = $('#vrac_marche_prix_total');
+	        var totalSomme = $('#vrac_marche_prix_total_unitaire');
 	        var hasCotisationCvo = $('#vrac_marche_has_cotisation_cvo').val();
 	        var cotisation = $('#vrac_cotisation_interpro');
 	        var tauxRepartition = $('#vrac_marche_repartition_cvo_acheteur');
 	        var tauxCVO = $('#vrac_marche_part_cvo');
-	
-	        sommeEuros(volume, prix, totalSomme, cotisation, tauxRepartition, tauxCVO, hasCotisationCvo);
 	        sommeEuros(prix, volume, totalSomme, cotisation, tauxRepartition, tauxCVO, hasCotisationCvo);
 	    }
 
