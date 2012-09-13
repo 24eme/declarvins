@@ -80,10 +80,14 @@
 				<span>Volume :</span>
 				<span><?php echo $vrac->volume_propose ?> HL</span>
 			</li>
-			<?php if ($vrac->part_cvo > 0): ?>
+			<?php if ($vrac->has_cotisation_cvo && $vrac->part_cvo > 0): ?>
 			<li>
 				<span>Cotisation interprofessionnelle :</span>
-				<span><?php echo round($vrac->prix_unitaire * $vrac->volume_propose * $vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR / 100, 2); ?> €</span>
+				<span><?php echo $vrac->getCvoUnitaire() ?> €/HL</span>
+			</li>
+			<li>
+				<span>Prix total unitaire :</span>
+				<span><?php echo $vrac->getTotalUnitaire() ?> €/HL</span>
 			</li>
 			<?php endif; ?>
 		</ul>
@@ -112,7 +116,7 @@
 			<?php endif; ?>
 			<li>
 				<span>Conditions générales de paiement :</span>
-				<span><?php echo $configurationVrac->formatConditionsPaiementLibelle($vrac->conditions_paiement->getRawValue()->toArray()) ?></span>
+				<span><?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></span>
 			</li>
 			<?php if(!is_null($vrac->delai_paiement)): ?>
 			<li>
@@ -182,7 +186,7 @@
 						</div>
 						<div>
 							<span>Pourcentage :</span>
-							<span><?php echo $millesime->pourcentage ?> €</span>
+							<span><?php echo $millesime->pourcentage ?> %</span>
 						</div>
 					</div>
 					<?php endforeach; ?>

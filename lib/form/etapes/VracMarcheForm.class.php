@@ -19,10 +19,10 @@ class VracMarcheForm extends VracForm
                'type_prix',
                'determination_prix',
     		   'has_transaction',
+    		   'has_cotisation_cvo',
                'annexe'
     		));
-    		$this->setWidget('has_cotisation_cvo', new sfWidgetFormInputHidden(array('default' => 1)));
-    		$this->setValidator('has_cotisation_cvo', new sfValidatorPass());
+		    $this->getObject()->has_cotisation_cvo = 1;
     		$this->widgetSchema->setNameFormat('vrac_marche[%s]');
 
         if (count($this->getTypesTransaction()) < 2) {
@@ -42,7 +42,6 @@ class VracMarcheForm extends VracForm
         if (!in_array($this->getObject()->type_prix, $this->getTypePrixNeedDetermination())) {
           $this->getObject()->determination_prix = null;
         }
-
         $this->getObject()->update();
     }
 

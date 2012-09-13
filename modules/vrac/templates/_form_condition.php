@@ -15,13 +15,6 @@
                 <?php echo $form['reference_contrat_pluriannuel']->render() ?>
             </div>
             <?php endif; ?>
-            <?php if(isset($form['delai_paiement'])): ?>
-            <div class="section_label_strong">
-                <?php echo $form['delai_paiement']->renderError() ?>
-                <?php echo $form['delai_paiement']->renderLabel() ?>
-                <?php echo $form['delai_paiement']->render() ?>
-            </div>
-            <?php endif; ?>
             <div id="bloc_vrac_paiements" class="table_container bloc_conditionner" data-condition-value="<?php echo $form->getCgpEcheancierNeedDetermination() ?>">
                 <table id="table_paiements">
                     <thead>
@@ -45,14 +38,20 @@
                 </table>
                 
             </div>
+            <?php if(isset($form['delai_paiement'])): ?>
+            <div class="section_label_strong">
+                <?php echo $form['delai_paiement']->renderError() ?>
+                <?php echo $form['delai_paiement']->renderLabel() ?>
+                <?php echo $form['delai_paiement']->render() ?>
+            </div>
+            <?php endif; ?>
         </div>
         <h1>Retiraison / Enlèvement</h1>
-        <div class="contenu_onglet bloc_condition" data-condition-cible="#bloc_retiraison">
+        <div class="contenu_onglet bloc_condition">
             <?php echo $form['vin_livre']->renderError() ?>
             <?php echo $form['vin_livre']->renderLabel() ?>
             <?php echo $form['vin_livre']->render() ?>
         </div>
-        <div id="bloc_retiraison" class="bloc_conditionner" data-condition-value="<?php echo VracClient::STATUS_VIN_RETIRE ?>">
             <div class="section_label_strong">
                 <?php echo $form['date_limite_retiraison']->renderError() ?>
                 <?php echo $form['date_limite_retiraison']->renderLabel() ?>
@@ -65,7 +64,6 @@
                 <?php echo $form['clause_reserve_retiraison']->render() ?>
             </div>
             <?php endif; ?>
-        </div>
         <div class="ligne_form_btn">
             <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'marche', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a> 
             <button class="valider_etape" type="submit"><span>Etape Suivante</span></button>

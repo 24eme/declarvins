@@ -84,11 +84,19 @@ class Vrac extends BaseVrac
       	if ($informations->exist('fax')) $informations->fax = $etablissement->fax;
       	if ($informations->exist('email')) $informations->email = $etablissement->email;
     }
+    
+    public function getCvoUnitaire() {
+    	return round($this->prix_unitaire * $this->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR / 100, 2);
+    }
+    
+    public function getTotalUnitaire() {
+    	return round($this->prix_unitaire + $this->prix_unitaire * $this->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR / 100, 2);
+    }
 
     public function update($params = array()) {
       parent::update($params);
-	  if ($this->part_cvo > 0) {
-	  	$this->prix_total = round($this->prix_unitaire * $this->volume_propose + $this->prix_unitaire * $this->volume_propose * $this->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR / 100, 2);
+	  if ($this->has_cotisation_cvo && $this->part_cvo > 0) {
+	  	$this->prix_total = round($this->volume_propose * $this->getTotalUnitaire(), 2);
 	  } else {
       	$this->prix_total = round($this->prix_unitaire * $this->volume_propose, 2);
 	  }
@@ -106,5 +114,16 @@ class Vrac extends BaseVrac
     	} else {
     		return null;
     	}
+    }
+    public function getEuSaisieDate() {
+		return strftime('%d/%m/%Y', strtotime($this->valide->date_saisie));
+    }
+    
+    public function hasAdresseLivraison() {
+    	return ($this->adresse_livraison->adresse || $this->adresse_livraison->code_postal || $this->adresse_livraison->commune);
+    }
+    
+    public function hasAdresseStockage() {
+    	return ($this->adresse_stockage->adresse || $this->adresse_stockage->code_postal || $this->adresse_stockage->commune);
     }
 }

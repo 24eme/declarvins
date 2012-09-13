@@ -137,6 +137,17 @@ class acVinVracActions extends sfActions
     	return $this->renderPartial('form_mandataire', array('form' => $this->form[$this->type]));	
   }
   
+  public function executePdf(sfWebRequest $request)
+  {
+    	ini_set('memory_limit', '512M');
+    	$this->interpro = $this->getInterpro($this->getRoute()->getEtablissement());
+		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
+        $this->vrac = $this->getRoute()->getVrac();
+        $this->etablissement = $this->getRoute()->getEtablissement();
+  		$pdf = new ExportVracPdf($this->vrac, $this->configurationVrac);
+    	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
+  }
+  
   public function executeGetCvo(sfWebRequest $request)
   {
         $this->vrac = $this->getRoute()->getVrac();

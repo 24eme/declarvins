@@ -17,12 +17,11 @@ class VracConditionForm extends VracForm
     }
 
     protected function doUpdateObject($values) {
-      if (!$values['echeancier_paiement']) {
+      if (!isset($values['echeancier_paiement']) || !$values['echeancier_paiement']) {
         $values['paiements'] = array();
         $this->getObject()->remove('paiements');
         $this->getObject()->add('paiements');
       }
-
       parent::doUpdateObject($values); 
     }
 

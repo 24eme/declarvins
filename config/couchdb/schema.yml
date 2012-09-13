@@ -5,6 +5,7 @@ Vrac:
       _rev: {  }
       type: {  }
       has_transaction: {  }
+      has_cotisation_cvo: {  }
       numero_contrat: {  }
       etape: {  }
       vendeur_type: {  }  
@@ -109,11 +110,7 @@ Vrac:
       commentaires_conditions: {  }
       part_cvo: {  }
       prix_total: {  }
-      conditions_paiement:
-        type: array_collection
-        definition:
-          fields:
-            '*': {  }
+      conditions_paiement: {  }
       type_echeancier_paiement: {  }
       vin_livre: {  }
       date_debut_retiraison: {  }
