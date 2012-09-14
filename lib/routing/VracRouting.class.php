@@ -53,6 +53,11 @@ class VracRouting {
                                                           array('module' => 'vrac', 'action' => 'pdf', 'format' => 'pdf'),
                                                           array('sf_method' => array('get'), 'format' => '(html|pdf)'),
                                                           array('model' => 'Vrac', 'type' => 'object')));
+
+        $r->prependRoute('vrac_pdf_transaction', new VracRoute('/vrac/:identifiant/:numero_contrat/pdf-transaction.:format', 
+                                                          array('module' => 'vrac', 'action' => 'pdfTransaction', 'format' => 'pdf'),
+                                                          array('sf_method' => array('get'), 'format' => '(html|pdf)'),
+                                                          array('model' => 'Vrac', 'type' => 'object')));
         /*
          * BAZAR A MATHURIN ->
          */
