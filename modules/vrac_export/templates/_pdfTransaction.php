@@ -82,16 +82,18 @@
 		</tr>
 	</table>
 	<h2>Produit</h2>
-	<p><?php echo ($vrac->produit)? $vrac->getLibelleProduit("%a% %l% %co% %ce%") : null; ?></p>
-	<p>
-		<?php echo ($vrac->millesime)? 'Millésime : '.$vrac->millesime.'&nbsp;&nbsp;' : ''; ?>
-		<?php echo (count($vrac->labels) > 0)? 'Label : '.$configurationVrac->formatLabelsLibelle($vrac->labels).'&nbsp;&nbsp;' : ''; ?>
-		<?php echo (count($vrac->mentions) > 0)? 'Mentions : '.$configurationVrac->formatMentionsLibelle($vrac->mentions) : ''; ?>
-	</p>
-	<h2>Volume</h2>
-	<p>
-		Volume total : <?php echo $vrac->volume_propose ?>&nbsp;HL
-	</p>
+	<table>
+		<tr>
+			<td><?php echo ($vrac->produit)? $vrac->getLibelleProduit("%a% %l% %co% %ce%") : null; ?></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><?php echo ($vrac->millesime)? $vrac->millesime.'&nbsp;&nbsp;' : ''; ?></td>
+			<td></td>
+			<td>Expédition export : <?php echo ($vrac->export)? 'Oui' : 'Non'; ?></td>
+		</tr>
+	</table>
 	<?php if ($vrac->has_transaction): ?>
 	<h2>Descriptif des lots</h2>
 	<p>
@@ -131,7 +133,9 @@
 		</table>
 	</p>
 	<?php endif; ?>
+	<p>Volume total : <?php echo $vrac->volume_propose ?>&nbsp;HL</p>
+	<p>Observations : <?php echo $vrac->commentaires ?></p>
 	<h2>Informations complémentaires</h2>
-	<p>En attente des informations complémentaires</p>
+	<?php echo $configurationVrac->getInformationsComplementaires(ESC_RAW) ?>
 </body>
 </html>

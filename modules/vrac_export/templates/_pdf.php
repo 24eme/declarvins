@@ -82,51 +82,60 @@
 		</tr>
 	</table>
 	<h2>Produit</h2>
-	<p><?php echo ($vrac->produit)? $vrac->getLibelleProduit("%a% %l% %co% %ce%") : null; ?></p>
-	<p>
-		<?php echo ($vrac->millesime)? 'Millésime : '.$vrac->millesime.'&nbsp;&nbsp;' : ''; ?>
-		<?php echo (count($vrac->labels) > 0)? 'Label : '.$configurationVrac->formatLabelsLibelle($vrac->labels).'&nbsp;&nbsp;' : ''; ?>
-		<?php echo (count($vrac->mentions) > 0)? 'Mentions : '.$configurationVrac->formatMentionsLibelle($vrac->mentions) : ''; ?>
-	</p>
+	<table>
+		<tr>
+			<td><?php echo ($vrac->produit)? $vrac->getLibelleProduit("%a% %l% %co% %ce%") : null; ?></td>
+			<td><?php echo $configurationVrac->formatTypesTransactionLibelle(array($vrac->type_transaction)); ?></td>
+			<td>Annexe technique : <?php echo ($vrac->annexe)? 'Oui' : 'Non'; ?></td>
+		</tr>
+		<tr>
+			<td><?php echo ($vrac->millesime)? $vrac->millesime.'&nbsp;&nbsp;' : ''; ?><?php echo (count($vrac->labels) > 0)? 'Label : '.$configurationVrac->formatLabelsLibelle($vrac->labels).'&nbsp;&nbsp;' : ''; ?><?php echo (count($vrac->mentions) > 0)? 'Mentions : '.$configurationVrac->formatMentionsLibelle($vrac->mentions) : ''; ?></td>
+			<td></td>
+			<td>Export : <?php echo ($vrac->export)? 'Oui' : 'Non'; ?><br />Cession Interne : <?php echo $configurationVrac->formatCasParticulierLibelle(array($vrac->cas_particulier)); ?></td>
+		</tr>
+	</table>
 	<h2>Volume / Prix</h2>
-	<p>
-		Volume total : <?php echo $vrac->volume_propose ?>&nbsp;HL&nbsp;&nbsp;Prix unitaire net HT hors cotisation <?php echo $vrac->prix_unitaire ?>&nbsp;€/HL
-	</p>
+	<table>
+		<tr>
+			<td>Volume total : <?php echo $vrac->volume_propose ?>&nbsp;HL</td>
+			<td>Prix <?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)); ?></td>
+		</tr>
+		<tr>
+			<td>Prix unitaire net HT hors cotisation <?php echo $vrac->prix_unitaire ?>&nbsp;€/HL</td>
+			<td><?php if ($vrac->determination_prix): ?>Mode de determination : <?php echo $vrac->determination_prix ?><?php endif; ?></td>
+		</tr>
+	</table>
 	<h2>Conditions</h2>
-	<p>
-		Conditions Générales de Paiement : <?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?>&nbsp;&nbsp;<?php echo ($vrac->reference_contrat_pluriannuel)? $vrac->reference_contrat_pluriannuel : ''; ?><br />
-		Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?>&nbsp;&nbsp;<?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_RETIRE)? 'Date limite : '.$vrac->date_limite_retiraison : ''; ?><br />
-		Autres observations : <?php echo $vrac->commentaires ?>
-	</p>
+	<table>
+		<tr>
+			<td>
+				<p>
+					<?php if(!is_null($vrac->clause_reserve_retiraison)): ?>Propriété (réserve)<br /><?php endif; ?>
+					Conditions Générales de Paiement : <?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?>&nbsp;&nbsp;<?php echo ($vrac->reference_contrat_pluriannuel)? $vrac->reference_contrat_pluriannuel : ''; ?><br />
+					Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?>&nbsp;&nbsp;<?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_RETIRE)? 'Date limite : '.$vrac->date_limite_retiraison : ''; ?><br />
+					Autres observations : <?php echo $vrac->commentaires ?>
+				</p>
+			</td>
+			<td>
+				<p>
+					Présence d'un contrat pluriannuel : <?php echo ($vrac->contrat_pluriannuel)? 'Oui' : 'Non'; ?><br />
+					<?php if(!is_null($vrac->delai_paiement)): ?>
+					Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array($vrac->delai_paiement)) ?>
+					<?php endif; ?>
+				</p>
+			</td>
+		</tr>
+	</table>
 	<h2>Clauses</h2>
-	<p>Le prix s'entend Net : Hors Taxe, hors cotisations, hors transport, hors frais divers et hors courtage éventuels qui seront à régler séparément.</p>
-	<p>Si une partie demande renégociation du contrat, elle devra payer à la date de constitution du nouvel accord une avance de 15% à 10 jours du montant total du contrat (ou du montant relatif aux quantités restant à retirer).</p>
-	<p>La partie constituée en faute (rupture ou non réalisation) sera redevable d'une indemnité de 15% du montant total du contrat (ou du montant relatif aux quantités restant à payer).</p>
-	<p>Le vendeur confirme avoir reçu une proposition écrite de l'acheteur dans les mêmes termes avant la signature de ce contrat.</p>
+	<?php echo $configurationVrac->getClauses(ESC_RAW) ?>
 	<hr />
 	<?php if ($vrac->echeancier_paiement): ?>
 	<h2>Calendrier de retiraison</h2>
 	<p><?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_RETIRE)? 'Date limite de retiraison : '.$vrac->date_limite_retiraison : ''; ?></p>
-	<p>
-		<table>
-			<tr>
-				<td></td>
-				<td>
-					<table>
-						<tr>
-							<td>Date</td>
-							<td>Montant</td>
-						</tr>
-						<?php foreach ($vrac->paiements as $paiement): ?>
-						<tr>
-							<td><?php echo $paiement->date ?></td>
-							<td><?php echo $paiement->montant ?>&nbsp;€</td>
-						</tr>
-						<?php endforeach; ?>
-					</table>
-				</td>
-			</tr>
-		</table>
+	<p>Echéancier de facture : 
+	<?php foreach ($vrac->paiements as $paiement): ?>
+	<?php echo $paiement->date ?> : <?php echo $paiement->montant ?>&nbsp;€;&nbsp;&nbsp;
+	<?php endforeach; ?>
 	</p>
 	<?php endif; ?>
 	<?php if ($vrac->has_transaction): ?>
@@ -171,6 +180,6 @@
 	</p>
 	<?php endif; ?>
 	<h2>Informations complémentaires</h2>
-	<p>En attente des informations complémentaires</p>
+	<?php echo $configurationVrac->getInformationsComplementaires(ESC_RAW) ?>
 </body>
 </html>
