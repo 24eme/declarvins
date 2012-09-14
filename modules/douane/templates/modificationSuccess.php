@@ -1,4 +1,4 @@
-<?php include_component('global', 'navBack', array('active' => 'douanes')); ?>
+<?php include_component('global', 'navBack', array('active' => 'parametrage', 'subactive' => 'douanes')); ?>
 <section id="contenu">
 	<section id="principal"  class="produit">
 	<div class="clearfix" id="application_dr">
