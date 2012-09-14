@@ -27,6 +27,8 @@ Configuration:
                     type: collection
                     definition:
                       fields:
+                        clauses: {  }
+                        informations_complementaires: {  }
                         has_transaction: {  }
                         etapes:
                           class: ConfigurationVracEtapes
