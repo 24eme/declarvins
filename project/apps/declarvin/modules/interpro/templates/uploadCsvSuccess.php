@@ -27,7 +27,7 @@
     text-transform: uppercase;
 }
 </style>
-<?php include_component('global', 'navBack', array('active' => 'etablissement')); ?>
+<?php include_component('global', 'navBack', array('active' => 'operateurs', 'subactive' => 'etablissement')); ?>
 <section id="contenu">
 
 

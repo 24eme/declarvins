@@ -1,4 +1,4 @@
-<?php include_component('global', 'navBack', array('active' => 'libelles')); ?>
+<?php include_component('global', 'navBack', array('active' => 'parametrage', 'subactive' => 'libelles')); ?>
 <section id="contenu">
 	<form method="post" action="<?php echo url_for('admin_libelles_edit', array('type' => $type, 'key' => $key)) ?>">
 	    <div class="ligne_form ligne_form_label">

@@ -5,26 +5,14 @@
 			<a href="<?php echo url_for('@admin') ?>">Accueil</a>
 		</li>
 		<?php else: ?>
-		<li<?php if ($active == 'etablissement'): ?> class="actif"<?php endif; ?>>
-			<a href="<?php echo url_for('@etablissement_login') ?>">Etablissements</a>
+		<li<?php if ($active == 'operateurs'): ?> class="actif"<?php endif; ?>>
+			<a href="<?php echo url_for('@etablissement_login') ?>">Opérateurs</a>
 		</li>
-		<li<?php if ($active == 'produits'): ?> class="actif"<?php endif; ?>>
-			<a href="<?php echo url_for('@produits') ?>">Produits</a>
-		</li>
-		<li<?php if ($active == 'contrat'): ?> class="actif"<?php endif; ?>>
-			<a href="<?php echo url_for('@validation_login') ?>">Contrat mandat</a>
-		</li>
-		<li<?php if ($active == 'vrac'): ?> class="actif"<?php endif; ?>>
-			<a href="<?php echo url_for('vrac_admin') ?>">Contrat vrac</a>
+		<li<?php if ($active == 'parametrage'): ?> class="actif"<?php endif; ?>>
+			<a href="<?php echo url_for('@produits') ?>">Paramétrage</a>
 		</li>
         <li<?php if ($active == 'comptes'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@admin_comptes') ?>">Comptes</a>
-		</li>
-        <li<?php if ($active == 'douanes'): ?> class="actif"<?php endif; ?>>
-			<a href="<?php echo url_for('@admin_douanes') ?>">Douanes</a>
-		</li>
-        <li<?php if ($active == 'libelles'): ?> class="actif"<?php endif; ?>>
-			<a href="<?php echo url_for('@admin_libelles') ?>">Libellés</a>
 		</li>
 		<?php endif; ?>
 	</ul>
@@ -48,7 +36,73 @@
 		<li class="quitter"><a href="<?php echo url_for('@ac_vin_logout'); ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
 	</ul>
 </nav>
+<style>
+#barre_sub_navigation:after {
+    clear: both;
+}
+#barre_sub_navigation:before, #barre_sub_navigation:after {
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+}
+#barre_sub_navigation:before, #barre_sub_navigation:after {
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+}
+#barre_sub_navigation {
+    background: none repeat scroll 0 0 #F1F1F1;
+    border-bottom: 1px solid #E1E1E0;
+    padding: 4px 4px 0;
+}
 
+
+#sub_nav {
+    float: left;
+    font-size: 14px;
+    line-height: 35px;
+    margin: 0 0 -10px;
+    position: relative;
+    text-align: center;
+    top: -10px;
+}
+#sub_nav li {
+    float: left;
+    margin: 0 4px 0 0;
+}
+#sub_nav li.actif {
+    font-weight: bold;
+}
+</style>
+<nav id="barre_sub_navigation">
+	<ul id="sub_nav">
+		<?php if ($active == 'operateurs'): ?>
+			<li<?php if ($subactive == 'etablissement'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('@etablissement_login') ?>">Etablissements</a>
+			</li>
+			<li<?php if ($subactive == 'vrac'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('vrac_admin') ?>">Contrat vrac</a>
+			</li>
+		<?php elseif ($active == 'parametrage'): ?>
+			<li<?php if ($subactive == 'produits'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('@produits') ?>">Produits</a>
+			</li>
+			<li<?php if ($subactive == 'contrat'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('@validation_login') ?>">Contrat mandat</a>
+			</li>
+	        <li<?php if ($subactive == 'douanes'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('@admin_douanes') ?>">Douanes</a>
+			</li>
+	        <li<?php if ($subactive == 'libelles'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('@admin_libelles') ?>">Libellés</a>
+			</li>		
+		<?php endif; ?>
+	</ul>
+</nav>
 <?php if ($sf_user->hasFlash('notice')){ ?>
     <div id="flash_message">
         <div class="flash_notice"><?php echo $sf_user->getFlash('notice'); ?></div>

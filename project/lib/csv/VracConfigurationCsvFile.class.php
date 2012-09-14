@@ -20,6 +20,9 @@ class VracConfigurationCsvFile extends CsvFile
   const CSV_VRAC_CONFIGURATION_ETAPES = 15;
   const CSV_VRAC_CONFIGURATION_COMMENTAIRES_LOT = 16;
   const CSV_VRAC_CONFIGURATION_CAS_PARTICULIER = 17;
+  const CSV_VRAC_CONFIGURATION_CLAUSES = 18;
+  const CSV_VRAC_CONFIGURATION_INFORMATIONS_COMPLEMENTAIRES = 19;
+  
   private static $nodes = array(
     'etapes',
   	'vendeur_types',
@@ -37,7 +40,14 @@ class VracConfigurationCsvFile extends CsvFile
   	'delais_paiement',
   	'contenances',
   	'commentaires_lot',
-  	'cas_particulier'
+  	'cas_particulier',
+    'clauses',
+    'informations_complementaires'
+  );
+  
+  private static $simpleDatas = array(
+    'clauses',
+    'informations_complementaires'
   );
   
   protected $config;
@@ -63,7 +73,11 @@ class VracConfigurationCsvFile extends CsvFile
       $configurationVrac = $this->config->vrac->interpro->getOrAdd('INTERPRO-'.$line[self::CSV_VRAC_CONFIGURATION_INTERPRO]);
       try {
       	foreach ($this->getNodes() as $node) {
-      		$configurationVrac = $this->setDatas($configurationVrac, $node, $this->getArrayCsvValue($line[$this->getConst($node)]));
+      		if (in_array($node, $this->getSimpleDatas())) {
+      			$configurationVrac = $this->setDatas($configurationVrac, $node, $line[$this->getConst($node)]);
+      		} else {
+      			$configurationVrac = $this->setTabDatas($configurationVrac, $node, $this->getArrayCsvValue($line[$this->getConst($node)]));
+      		}
       	}
 		
       }catch(Exception $e) {
@@ -74,6 +88,11 @@ class VracConfigurationCsvFile extends CsvFile
   }
   
   private function setDatas($config, $node, $datas) {
+    $config->{$node} = $datas;
+    return $config;
+  }
+  
+  private function setTabDatas($config, $node, $datas) {
 	foreach ($datas as $key => $val) {
     	$config->{$node}->add($key, $val);
     }
@@ -104,6 +123,11 @@ class VracConfigurationCsvFile extends CsvFile
   public function getNodes()
   {
   	return self::$nodes;
+  }
+  
+  public function getSimpleDatas()
+  {
+  	return self::$simpleDatas;
   }
 
   public function getErrors() {

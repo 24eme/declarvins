@@ -53,7 +53,8 @@ class adminActions extends sfActions
 	$this->messages = MessagesClient::getInstance()->findAll(); 
     $this->droits = ConfigurationClient::getCurrent()->droits;
     $this->labels = ConfigurationClient::getCurrent()->labels;
-    $this->controles = ControlesClient::getInstance()->findAll(); 
+    $this->controles = ControlesClient::getInstance()->findAll();
+    $this->configurationVrac = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($this->getUser()->getCompte()->getInterpro());
   }
   public function executeLibelleModification(sfWebRequest $request)
   {
@@ -67,6 +68,8 @@ class adminActions extends sfActions
   		$object = ConfigurationClient::getCurrent()->labels;
   	} elseif ($this->type == 'controles') {
   		$object = ControlesClient::getInstance()->retrieveControles();
+  	} elseif ($this->type == 'vrac') {
+  		$object = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($this->getUser()->getCompte()->getInterpro());
   	} else {
   		throw new sfException('type unknow');
   	}
