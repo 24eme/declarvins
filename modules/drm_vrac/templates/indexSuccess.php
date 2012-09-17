@@ -18,12 +18,23 @@
                             <?php
 
                             if (isset($noContrats[$detail->getIdentifiantHTML()]) && $noContrats[$detail->getIdentifiantHTML()]) {
-                                echo '<tr>
+                            	if($etablissement->hasDroit(EtablissementDroit::DROIT_VRAC) || $sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+                                	echo '<tr>
+                                        <td class="libelle">' . $detail->getLibelle(ESC_RAW) . '</td>
+                                      </tr>
+                                      <tr class="contenu">
+                                        <td align="center" >Pas de contrat défini pour ce produit.<br/>Merci de contacter votre interpro.<br /><br /><a href="'.url_for('vrac_etablissement', $etablissement).'">Saisir un contrat interprofessionnel</a></td>
+                                      </tr>';
+                            		
+                            	} else {
+                                	echo '<tr>
                                         <td class="libelle">' . $detail->getLibelle(ESC_RAW) . '</td>
                                       </tr>
                                       <tr class="contenu">
                                         <td align="center" >Pas de contrat défini pour ce produit.<br/>Merci de contacter votre interpro</td>
                                       </tr>';
+                            		
+                            	}
                             } else {
                                 include_partial('addContrat', array('detail' => $detail));
                             }

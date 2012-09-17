@@ -5,6 +5,7 @@ class drm_vracActions extends sfActions
     
     public function executeIndex(sfWebRequest $request) {
         $this->drm = $this->getRoute()->getDRM();
+        $this->etablissement = $this->getRoute()->getEtablissement();
     	$this->details = $this->drm->getDetailsAvecVrac();
 
     	if (count($this->details)==0) {

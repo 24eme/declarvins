@@ -6,7 +6,7 @@
 			<li><kbd>Ctrl</kbd> + <kbd>Droite</kbd> : Aller à la colonne de droite</li>
 			<li><kbd>Ctrl</kbd> + <kbd>M</kbd> : Commencer la saisie de la colonne courante</li>
 			<li><kbd>Echap</kbd> : Réinitialiser les valeurs de la colonne courante</li>
-			<li><kbd>Ctrl</kbd> + <kbd>Entrée</kbd> : Valider la colonne courante</li>
+			<li><kbd>Entrée</kbd> : Valider la colonne courante</li>
 		</ul>
 	</div>
 </div>
