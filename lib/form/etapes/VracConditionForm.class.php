@@ -13,6 +13,7 @@ class VracConditionForm extends VracForm
            'clause_reserve_retiraison',
   		     'paiements'
   		));
+  		$this->validatorSchema->setPostValidator(new VracDateLimiteValidator());
   		$this->widgetSchema->setNameFormat('vrac_condition[%s]');
     }
 
