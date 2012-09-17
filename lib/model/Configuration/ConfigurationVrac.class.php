@@ -95,4 +95,9 @@ class ConfigurationVrac extends BaseConfigurationVrac {
     	return $this->getKey();
     }
 
+    public function formatVracProduitsByInterpro() {
+
+      return $this->getConfig()->formatVracProduitsByInterpro($this->getInterproId());
+    }
+
 }
