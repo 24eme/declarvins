@@ -401,6 +401,14 @@ class VracForm extends acCouchdbObjectForm
 
         return $form->getFormTemplate();
     }
+
+    public function getFormTemplateLotCuves($key) {
+        $vrac = new Vrac();
+        $form_embed = new VracLotCuveForm($this->getConfiguration(), $vrac->lots->add($key)->cuves->add());
+        $form = new VracCollectionTemplateForm($this, 'lots]['.$key.'][cuves', $form_embed, 'var---nbItem---');
+
+        return $form->getFormTemplate();
+    }
     
     public function vracVendeurFormName() { return self::VRAC_VENDEUR_FORM; }
 	public function vracAcheteurFormName() { return self::VRAC_ACHETEUR_FORM; }

@@ -139,9 +139,18 @@ Vrac:
               definition:
                 fields:
                   numero: {  }
-                  volume: {  }
-                  cuve: {  }
                   assemblage: {  }
+                  cuves:
+                    type: array_collection
+                    definition:
+                      fields:
+                        '*':
+                          type: collection
+                          definition:
+                            fields:
+                              numero: {  }
+                              volume: {  }
+                              date: {  }
                   millesimes:
                     type: array_collection
                     definition:
@@ -157,7 +166,6 @@ Vrac:
                   allergenes: {  }
                   metayage: {  }
                   bailleur: {  }
-                  date_retiraison: {  }
                   montant: {  }
       type_contrat: {  }
       prix_variable: {  }

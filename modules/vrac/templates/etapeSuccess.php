@@ -1,4 +1,4 @@
-<?php include_component('global', 'nav', array('active' => 'operateurs', 'subactive' => 'vrac')); ?>
+<?php include_component('global', 'nav', array('active' => 'vrac', 'subactive' => 'vrac')); ?>
 
 <section id="contenu" class="vracs vrac_<?php echo $etape ?>">
     <?php include_component('vrac', 'etapes', array('vrac' => $form->getObject(), 'actif' => $etape, 'etablissement' => $etablissement)); ?>

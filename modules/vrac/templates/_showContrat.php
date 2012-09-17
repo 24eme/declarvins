@@ -174,10 +174,22 @@
 						<span>Numéro du lot :</span>
 						<span><?php echo $lot->numero ?></span>
 					</div>
+					<?php foreach ($lot->cuves as $cuve): ?>
 					<div>
-						<span>Cuve :</span>
-						<span><?php echo $lot->cuve ?></span>
+						<div>
+							<span>Cuve :</span>
+							<span><?php echo $cuve->numero ?></span>
+						</div>
+						<div>
+							<span>Volume :</span>
+							<span><?php echo $cuve->volume ?> HL</span>
+						</div>
+						<div>
+							<span>Date :</span>
+							<span><?php echo $cuve->date ?></span>
+						</div>
 					</div>
+					<?php endforeach; ?>
 					<?php foreach ($lot->millesimes as $millesime): ?>
 					<div>
 						<div>
@@ -197,14 +209,6 @@
 					<div>
 						<span>Présence d'allergènes :</span>
 						<span><?php echo ($lot->presence_allergenes)? 'Oui' : 'Non'; ?></span>
-					</div>
-					<div>
-						<span>Volume :</span>
-						<span><?php echo $lot->volume ?> HL</span>
-					</div>
-					<div>
-						<span>Date de retiraison :</span>
-						<span><?php echo $lot->date_retiraison ?></span>
 					</div>
 				</div>
 				<?php endforeach; ?>

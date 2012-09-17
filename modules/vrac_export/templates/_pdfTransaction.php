@@ -110,9 +110,15 @@
 			<?php foreach ($vrac->lots as $lot): ?>
 			<tr>
 				<td><?php echo $lot->numero ?></td>
-				<td><?php echo $lot->cuve ?></td>
-				<td><?php echo $lot->volume ?>&nbsp;HL</td>
-				<td><?php echo $lot->date_retiraison ?></td>
+				<td>
+					<ul>
+					<?php foreach ($lot->cuves as $cuve): ?>
+					<li>
+						<?php echo $cuve->numero ?> - <?php echo $cuve->volume ?>&nbsp;HL - <?php echo $cuve->date ?>
+					</li>
+					<?php endforeach; ?>
+					</ul>
+				</td>
 				<td>
 					<?php if($lot->assemblage): ?>
 					<ul>
