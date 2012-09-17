@@ -56,6 +56,7 @@
                 <?php echo $form['date_limite_retiraison']->renderError() ?>
                 <?php echo $form['date_limite_retiraison']->renderLabel() ?>
                 <?php echo $form['date_limite_retiraison']->render() ?>
+                &nbsp;(jj/mm/aaaa)
             </div>
             <?php if(isset($form['clause_reserve_retiraison'])): ?>
             <div class="section_label_strong">
