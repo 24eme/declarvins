@@ -6,6 +6,7 @@ class VracMarcheIvseForm extends VracMarcheForm
 		$this->setWidget('prix_total_unitaire', new sfWidgetFormInputFloat());
 		$this->setValidator('prix_total_unitaire', new sfValidatorNumber(array('required' => false)));
 		$this->getWidget('prix_total_unitaire')->setLabel('Prix total unitaire:');
+		$this->getWidget('prix_total_unitaire')->setDefault($this->getObject()->getTotalUnitaire());
         unset($this['annexe']);
     }
 }
