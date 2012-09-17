@@ -23,46 +23,40 @@ class VracLotForm extends acCouchdbObjectForm
 	{
 		$this->setWidgets(array(
 	       'numero' => new sfWidgetFormInputText(),
-		   'volume' => new sfWidgetFormInputFloat(),
-	       'cuve' => new sfWidgetFormInputText(),
 		   'assemblage' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(), 'expanded' => true)),
 	       'degre' => new sfWidgetFormInputFloat(),
 	       'presence_allergenes' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(), 'expanded' => true)),
 		   'allergenes' => new sfWidgetFormInputText(),
 	       'metayage' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(), 'expanded' => true)),
 		   'bailleur' => new sfWidgetFormInputText(),
-	       'date_retiraison' => new sfWidgetFormInputText(),
 	       'montant' => new sfWidgetFormInputFloat()
 		));
 		$this->widgetSchema->setLabels(array(
 	       'numero' => 'Numéro du lot:',
-		   'volume' => 'Volume:',
-	       'cuve' => 'Cuve(s):',
 	       'assemblage' => 'Assemblage de millésimes:',
 	       'degre' => 'Degrés:',
 	       'presence_allergenes' => 'Allergènes:',
 	       'allergenes' => '&nbsp;',
 	       'metayage' => 'Métayage:',
 		   'bailleur' => 'Nom du bailleur:',
-	       'date_retiraison' => 'date de retiraison:',
 	       'montant' => 'Montant:'
 		));
 		$this->setValidators(array(
 	       'numero' => new sfValidatorString(array('required' => false)),
-	       'volume' => new sfValidatorNumber(array('required' => false)),
-	       'cuve' => new sfValidatorString(array('required' => false)),
 	       'assemblage' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
 	       'degre' => new sfValidatorNumber(array('required' => false)),
 	       'presence_allergenes' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
 	       'allergenes' => new sfValidatorString(array('required' => false)),
 	       'metayage' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
 		   'bailleur' => new sfValidatorString(array('required' => false)),
-	       'date_retiraison' => new sfValidatorString(array('required' => false)),
 	       'montant' => new sfValidatorNumber(array('required' => false)),
 		));
         
         $millesimes = new VracLotMillesimeCollectionForm($this->getObject()->millesimes);
         $this->embedForm('millesimes', $millesimes);
+        
+        $cuves = new VracLotCuveCollectionForm($this->getObject()->cuves);
+        $this->embedForm('cuves', $cuves);
         
 		$this->widgetSchema->setNameFormat('lot[%s]');
 	}
@@ -77,6 +71,15 @@ class VracLotForm extends acCouchdbObjectForm
         $lot = $vrac->lots->add();
         $form_embed = new VracLotMillesimeForm($this->getConfiguration(), $lot->millesimes->add());
         $form = new VracCollectionTemplateForm($this, 'millesimes', $form_embed);
+
+        return $form->getFormTemplate();
+    }
+
+    public function getFormTemplateLotCuves() {
+        $vrac = new Vrac();
+        $lot = $vrac->lots->add();
+        $form_embed = new VracLotCuveForm($this->getConfiguration(), $lot->cuves->add());
+        $form = new VracCollectionTemplateForm($this, 'cuves', $form_embed);
 
         return $form->getFormTemplate();
     }
