@@ -388,7 +388,8 @@ class VracForm extends acCouchdbObjectForm
 
     public function getFormTemplateLots() {
         $vrac = new Vrac();
-        $form_embed = new VracLotForm($this->getConfiguration(), $vrac->lots->add());
+        $form_dynamique = $this->vracLotFormName();
+        $form_embed = new $form_dynamique($this->getConfiguration(), $vrac->lots->add());
         $form = new VracCollectionTemplateForm($this, 'lots', $form_embed);
 
         return $form->getFormTemplate();

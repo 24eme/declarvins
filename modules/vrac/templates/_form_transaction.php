@@ -11,7 +11,7 @@
                 </div>
                 </table>
                 <div class="btn_ajouter_transaction"> 
-                    <a class="btn_ajouter_ligne_template" data-container="#table_lots" data-template="#template_form_lots_item" href="#"><span>Ajouter un lot <?php echo get_class($form) ?></span></a>
+                    <a class="btn_ajouter_ligne_template" data-container="#table_lots" data-template="#template_form_lots_item" href="#"><span>Ajouter un lot</span></a>
                 </div>
             </div>
         </div>
