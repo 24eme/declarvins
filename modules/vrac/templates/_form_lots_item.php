@@ -27,14 +27,14 @@
         <?php echo $form['date_retiraison']->render() ?>
         </span>
     </div>
-    <div class="vracs_ligne_form bloc_condition" data-condition-cible="#millesime">
+    <div class="vracs_ligne_form bloc_condition" data-condition-cible=".millesime_<?php echo $form->getName() ?>"">
         <span>
             <?php echo $form['assemblage']->renderError() ?>
             <?php echo $form['assemblage']->renderLabel() ?>
             <?php echo $form['assemblage']->render() ?>
         </span>
     </div>
-    <div id="millesime" class="vracs_ligne_form bloc_conditionner" data-condition-value="1">
+    <div id="millesime" class="vracs_ligne_form bloc_conditionner millesime_<?php echo $form->getName() ?>" data-condition-value="1">
         <span>
             <label>Millésimes: </label>
             <table id="table_lot_millesimes_<?php echo $form->getName() ?>">
@@ -53,7 +53,7 @@
         </span>
     </div>
     <?php if(isset($form['presence_allergenes'])): ?>
-    <div class="vracs_ligne_form bloc_condition" data-condition-cible="#bloc_lot_allergenes">
+    <div class="vracs_ligne_form bloc_condition" data-condition-cible="#bloc_lot_allergenes_<?php echo $form->getName() ?>">
         <span>
         <?php echo $form['presence_allergenes']->renderError() ?>
         <?php echo $form['presence_allergenes']->renderLabel() ?>
@@ -61,7 +61,7 @@
         </span>
     </div>
     <?php if(isset($form['allergenes'])): ?>
-    <div id="bloc_lot_allergenes" class="vracs_ligne_form bloc_conditionner" data-condition-value="1">
+    <div id="bloc_lot_allergenes_<?php echo $form->getName() ?>" class="vracs_ligne_form bloc_conditionner" data-condition-value="1">
         <span>
         <?php echo $form['allergenes']->renderError() ?>
         <?php echo $form['allergenes']->renderLabel() ?>
@@ -71,7 +71,7 @@
     <?php endif; ?>
     <?php endif; ?>
     <?php if(isset($form['metayage'])): ?>
-    <div class="vracs_ligne_form bloc_condition" data-condition-cible="#bloc_lot_bailleur">
+    <div class="vracs_ligne_form bloc_condition" data-condition-cible="#bloc_lot_bailleur_<?php echo $form->getName() ?>">
         <span>
         <?php echo $form['metayage']->renderError() ?>
         <?php echo $form['metayage']->renderLabel() ?>
@@ -79,7 +79,7 @@
         </span>
     </div>
     <?php if(isset($form['bailleur'])): ?>
-    <div id="bloc_lot_bailleur" class="vracs_ligne_form bloc_conditionner" data-condition-value="1">
+    <div id="bloc_lot_bailleur_<?php echo $form->getName() ?>" class="vracs_ligne_form bloc_conditionner" data-condition-value="1">
         <span>
         <?php echo $form['bailleur']->renderError() ?>
         <?php echo $form['bailleur']->renderLabel() ?>
