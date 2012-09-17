@@ -7,5 +7,6 @@ class VracLotIvseForm extends VracLotForm
 		unset($this['metayage']);
 		unset($this['bailleur']);
 		unset($this['presence_allergenes']);
+		unset($this['allergenes']);
 	}
 }
