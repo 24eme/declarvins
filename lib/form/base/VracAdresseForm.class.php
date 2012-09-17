@@ -10,7 +10,7 @@ class VracAdresseForm extends acCouchdbObjectForm
 	       'commune' => new sfWidgetFormInputText()
 		));
 		$this->widgetSchema->setLabels(array(
-		   'libelle' => 'Libellé:',
+		   'libelle' => 'Nom commercial:',
 	       'adresse' => 'Adresse:',
 	       'code_postal' => 'Code postal:',
 	       'commune' => 'Commune:'

@@ -38,6 +38,12 @@
         <span>
             <label>Millésimes: </label>
             <table id="table_lot_millesimes_<?php echo $form->getName() ?>">
+            	<thead>
+            	<tr>
+            		<th>Année</th>
+            		<th>Pourcentage</th>
+            	</tr>
+                </thead>
             <?php foreach ($form['millesimes'] as $formMillesime): ?>
                 <?php include_partial('form_lot_millesimes_item', array('form' => $formMillesime)) ?>
             <?php endforeach; ?>

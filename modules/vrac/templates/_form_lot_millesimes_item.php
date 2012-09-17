@@ -6,7 +6,6 @@
     <td>
         <?php echo $form['pourcentage']->renderError() ?>
         <?php echo $form['pourcentage']->render() ?>
-        %
     </td>
     <td class="dernier">
     	&nbsp;&nbsp;
