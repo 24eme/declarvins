@@ -53,7 +53,7 @@ class VracSoussigneForm extends VracForm
           unset($values[$etablissement_type]);
           unset($values[$etablissement_type."_type"]);
           unset($values[$etablissement_type."_identifiant"]);
-          unset($values[$etablissement_type."_tva"]);
+          //unset($values[$etablissement_type."_tva"]);
           $this->getObject()->set($etablissement_type."_type", $this->getEtablissement()->famille);
           $this->getObject()->set($etablissement_type."_identifiant", $this->getEtablissement()->identifiant);
         }

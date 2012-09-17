@@ -47,14 +47,14 @@ class VracForm extends acCouchdbObjectForm
         	'numero_contrat' => new sfWidgetFormInputText(),
         	'etape' => new sfWidgetFormInputText(),
             'vendeur_type' => new sfWidgetFormChoice(array('choices' => $this->getVendeurTypes(), 'expanded' => true)),
-            'vendeur_identifiant' => new WidgetEtablissement(array('interpro_id' => $this->getInterpro())),
+            'vendeur_identifiant' => new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'))),
             'vendeur_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(), 'expanded' => true)),
             'acheteur_type' => new sfWidgetFormChoice(array('choices' => $this->getAcheteurTypes(), 'expanded'=> true)),
-            'acheteur_identifiant' => new WidgetEtablissement(array('interpro_id' => $this->getInterpro())),
+            'acheteur_identifiant' => new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'))),
         	'acheteur_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'mandatants' => new sfWidgetFormChoice(array('choices' => $this->getMandatants(), 'multiple' => true)),
             'mandataire_exist' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
-        	'mandataire_identifiant' => new WidgetEtablissement(array('interpro_id' => $this->getInterpro(), 'familles' => EtablissementFamilles::FAMILLE_COURTIER)),
+        	'mandataire_identifiant' => new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'familles' => EtablissementFamilles::FAMILLE_COURTIER)),
         	'premiere_mise_en_marche' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier())),
         	'original' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
@@ -284,8 +284,7 @@ class VracForm extends acCouchdbObjectForm
     
     public function getProduits()
     {
-    	$vracConfiguration = $this->getConfiguration();
-    	$produits = $vracConfiguration->getConfig()->formatVracProduitsByInterpro($vracConfiguration->getInterproId());
+    	$produits = $this->getConfiguration()->formatVracProduitsByInterpro();
     	$produits[''] = '';
     	ksort($produits);
     	return $produits;
@@ -414,7 +413,11 @@ class VracForm extends acCouchdbObjectForm
 	
 	public function getInterpro() 
 	{
-		return $this->getEtablissement()->interpro;
+        if ($this->getEtablissement()) {
+        	return $this->getEtablissement()->getInterproObject();
+        } else {
+            return sfContext::getInstance()->getUser()->getInterpro();
+        }
 	}
     
 }

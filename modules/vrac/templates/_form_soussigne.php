@@ -3,153 +3,27 @@
     <?php echo $form->renderGlobalErrors() ?>
 
     <?php if(isset($form['vous_etes'])): ?>
-    <div class="contenu_onglet" data-cible="vrac_vendeur_acheteur">
+    <!--<div class="contenu_onglet" data-cible="vrac_vendeur_acheteur">-->
+    <div class="contenu_onglet bloc_condition" data-condition-cible="#bloc_acheteur_choice|#bloc_vendeur_choice|#bloc_acheteur_vous|#bloc_vendeur_vous">
         <?php echo $form['vous_etes']->renderError(); ?>
         <?php echo $form['vous_etes']->renderLabel(); ?>
         <?php echo $form['vous_etes']->render(); ?>
     </div>
     <?php endif; ?>
     
-    <div id="acheteur" class="vrac_vendeur_acheteur">
-        <h1>Acheteur</h1>
-        <h2>Sélectionner un acheteur :</h2>
+    <?php include_partial('vrac/form_soussigne_item', array('form' => $form,
+                                                            'titre' => 'Acheteur',
+                                                            'famille' => 'acheteur', 
+                                                            'famille_autre' => 'vendeur', 
+                                                            'sous_titre' => 'Séléctionner un acheteur')) ?>
 
-        <div class="section_label_strong etablissement_famille_choice">
-            <?php echo $form['acheteur_type']->renderLabel() ?>
-            <?php echo $form['acheteur_type']->renderError() ?>
-            <?php echo $form['acheteur_type']->render(array('class' => 'famille', 'data-template' => '#template_url_etablissement', 'data-container' => '#'.$form['acheteur_identifiant']->renderId())) ?>
-        </div>
-        <div class="section_label_strong etablissement_choice" id="listener_acheteur_choice">
-            <?php echo $form['acheteur_identifiant']->renderError() ?>
-            <label for="">Nom :</label>
-            <?php echo $form['acheteur_identifiant']->render() ?>
-        </div>
 
-        <div class="bloc_form etablissement_informations" id="etablissement_acheteur"> 
-            <?php include_partial('form_etablissement', array('form' => $form['acheteur'])); ?>
-        </div>
-
-		<div class="section_label_strong">
-            <?php echo $form['acheteur_tva']->renderError() ?> 
-            <?php echo $form['acheteur_tva']->renderLabel() ?>
-		    <?php echo $form['acheteur_tva']->render() ?>
-		</div>
-		
-        <div class="adresse_livraison">
-            <div class="section_label_strong">
-                <label for="dif_adr_livr"><input type="checkbox" name="dif_adr_livr" id="dif_adr_livr" <?php if($form->getObject()->adresse_livraison->adresse): echo 'checked="checked"'; endif; ?>> Adresse de livraison différente</label>
-            </div>
-            <div class="bloc_form"> 
-                <div class="vracs_ligne_form vracs_ligne_form_alt">
-                    <span>
-                        <?php echo $form['adresse_livraison']['libelle']->renderError() ?>
-                        <?php echo $form['adresse_livraison']['libelle']->renderLabel() ?>
-                        <?php echo $form['adresse_livraison']['libelle']->render() ?>
-                    </span>
-                </div>
-                <div class="vracs_ligne_form ">
-                    <span>
-                        <?php echo $form['adresse_livraison']['adresse']->renderError() ?>
-                        <?php echo $form['adresse_livraison']['adresse']->renderLabel() ?>
-                        <?php echo $form['adresse_livraison']['adresse']->render() ?>
-                    </span>
-                </div>
-                <div class="vracs_ligne_form vracs_ligne_form_alt">
-                    <span>
-                        <?php echo $form['adresse_livraison']['code_postal']->renderError() ?>
-                        <?php echo $form['adresse_livraison']['code_postal']->renderLabel() ?>
-                        <?php echo $form['adresse_livraison']['code_postal']->render() ?>
-                    </span>
-                </div>
-                <div class="vracs_ligne_form ">
-                    <span>
-                        <?php echo $form['adresse_livraison']['commune']->renderError() ?>
-                        <?php echo $form['adresse_livraison']['commune']->renderLabel() ?>
-                        <?php echo $form['adresse_livraison']['commune']->render() ?>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div id="vendeur" class="vrac_vendeur_acheteur">
-        <h1>Vendeur</h1>
-        <h2>Sélectionner un vendeur :</h2>
-
-        <div class="section_label_strong etablissement_famille_choice">
-            <?php echo $form['vendeur_type']->renderLabel() ?>
-            <?php echo $form['vendeur_type']->renderError() ?>
-            <?php echo $form['vendeur_type']->render(array('class' => 'famille', 'data-template' => '#template_url_etablissement', 'data-container' => '#'.$form['vendeur_identifiant']->renderId())) ?>
-        </div>
-        <div class="section_label_strong etablissement_choice" id="listener_vendeur_choice">
-            <?php echo $form['vendeur_identifiant']->renderError() ?>
-            <label for="">Nom :</label>
-            <?php echo $form['vendeur_identifiant']->render() ?>
-        </div>
-        <div  class="bloc_form etablissement_informations" id="etablissement_vendeur"> 
-            <?php include_partial('form_etablissement', array('form' => $form['vendeur'])); ?>
-        </div>
-
-		<div class="section_label_strong">
-        	<?php echo $form['vendeur_tva']->renderError() ?>
-			<?php echo $form['vendeur_tva']->renderLabel() ?>
-			<?php echo $form['vendeur_tva']->render() ?>
-		</div>
-        <div class="adresse_livraison">
-            <div class="section_label_strong"><label for="dif_adr_stock"> <input type="checkbox" name="dif_adr_stock" id="dif_adr_stock" <?php if($form->getObject()->adresse_stockage->adresse): echo 'checked="checked"'; endif; ?>> Adresse de stockage différente</label></div>
-            <div class="bloc_form"> 
-                <div class="vracs_ligne_form vracs_ligne_form_alt">
-                    <span>
-                        <?php echo $form['adresse_stockage']['libelle']->renderError() ?>
-                        <?php echo $form['adresse_stockage']['libelle']->renderLabel() ?>
-                        <?php echo $form['adresse_stockage']['libelle']->render() ?>
-                    </span>
-                </div>
-                <div class="vracs_ligne_form ">
-                    <span>
-                        <?php echo $form['adresse_stockage']['adresse']->renderError() ?>
-                        <?php echo $form['adresse_stockage']['adresse']->renderLabel() ?>
-                        <?php echo $form['adresse_stockage']['adresse']->render() ?>
-                    </span>
-                </div>
-                <div class="vracs_ligne_form vracs_ligne_form_alt">
-                    <span>
-                        <?php echo $form['adresse_stockage']['code_postal']->renderError() ?>
-                        <?php echo $form['adresse_stockage']['code_postal']->renderLabel() ?>
-                        <?php echo $form['adresse_stockage']['code_postal']->render() ?>
-                    </span>
-                </div>
-                <div class="vracs_ligne_form ">
-                    <span>
-                        <?php echo $form['adresse_stockage']['commune']->renderError() ?>
-                        <?php echo $form['adresse_stockage']['commune']->renderLabel() ?>
-                        <?php echo $form['adresse_stockage']['commune']->render() ?>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    
-    
-    <div class="contenu_onglet" data-cible="vrac_mandataire">
-        <?php echo $form['mandataire_exist']->renderError() ?>
-        <?php echo $form['mandataire_exist']->renderLabel() ?>
-        <?php echo $form['mandataire_exist']->render() ?>
-    </div>
-    <div id="mandataire" class="vrac_mandataire">
-        <h1>Courtier</h1>
-        <h2>Sélectionner un courtier :</h2>
-        <div class="section_label_strong" id="listener_mandataire_choice">
-            <?php echo $form['mandataire_identifiant']->renderError() ?>
-            <label for="">Nom :</label>
-            <?php echo $form['mandataire_identifiant']->render() ?>
-        </div>
-        <div  class="bloc_form" id="etablissement_mandataire"> 
-            <?php include_partial('form_mandataire', array('form' => $form['mandataire'])); ?>
-        </div>
-    </div>
-
+    <?php include_partial('vrac/form_soussigne_item', array('form' => $form,
+                                                            'titre' => 'Vendeur',
+                                                            'famille' => 'vendeur', 
+                                                            'famille_autre' => 'acheteur', 
+                                                            'sous_titre' => 'Séléctionner un vendeur')) ?>                                                                                                              
+    <?php include_partial('vrac/form_soussigne_item_mandataire', array('form' => $form)) ?>
 
     <div id="contrat">
         <h1>Type de contrat</h1>
@@ -171,5 +45,5 @@
     </div>
     
 </form>
-<?php include_partial('url_etablissement_template', array('etablissement' => $etablissement)); ?>
+<?php include_partial('url_etablissement_template', array('interpro' => $form->getInterpro())); ?>
 <?php include_partial('url_informations_template', array('vrac' => $form->getObject(), 'etablissement' => $etablissement, 'etape' => $etape)); ?>
