@@ -1048,6 +1048,7 @@ input.ui-autocomplete-input + button .ui-icon {
 }
 #ajax_form_error_notification a:hover { text-decoration:none; }
 .bloc_conditionner { display:none; }
+.template_form { display:none; }
 #creation_compte h1 {
   font-size:21px;
   font-weight:normal;
@@ -2624,28 +2625,28 @@ p#date_drm {
   margin:0 15px 10px 0;
   width:433px;
 }
-.vracs #millesime label {
+.vracs #millesime label, .vracs #cuve label {
   width:190px;
   vertical-align:top;
 }
-.vracs #millesime table { display:inline-block; }
-.vracs #millesime table input {
+.vracs #millesime table, .vracs #cuve table { display:inline-block; }
+.vracs #millesime table input, .vracs #cuve table input {
   width:70px;
   margin-left:10px;
 }
-.vracs #millesime .btn_ajouter_ligne_template {
+.vracs #millesime .btn_ajouter_ligne_template, .vracs #cuve .btn_ajouter_ligne_template {
   display:inline;
   font-weight:bold;
   margin-left:200px;
 }
-.vracs #millesime .btn_ajouter_ligne_template span { line-height:23px !important; }
-.vracs #millesime .btn_ajouter_ligne_template span:hover { text-decoration:none; }
-.vracs #millesime .btn_ajouter_ligne_template:hover { text-decoration:none; }
-.vracs #millesime .dernier {
+.vracs #millesime .btn_ajouter_ligne_template span, .vracs #cuve .btn_ajouter_ligne_template span { line-height:23px !important; }
+.vracs #millesime .btn_ajouter_ligne_template span:hover, .vracs #cuve .btn_ajouter_ligne_template span:hover { text-decoration:none; }
+.vracs #millesime .btn_ajouter_ligne_template:hover, .vracs #cuve .btn_ajouter_ligne_template:hover { text-decoration:none; }
+.vracs #millesime .dernier, .vracs #cuve .dernier {
   border-bottom:1px solid #ffffff;
   border-right:1px solid #ffffff;
 }
-.vracs #millesime .dernier .btn_supprimer_ligne_template {
+.vracs #millesime .dernier .btn_supprimer_ligne_template, .vracs #cuve .dernier .btn_supprimer_ligne_template {
   background:url(../images/pictos/pi_supprimer.png) 0 center no-repeat;
   height:13px;
   padding:0 0 0 14px;
@@ -2657,8 +2658,8 @@ p#date_drm {
   margin:10px 0 0;
   width:14px;
 }
-.vracs #millesime .dernier .btn_supprimer_ligne_template:hover, .vracs #millesime .dernier .btn_supprimer_ligne_template:focus { text-decoration:underline; }
-.ielt8 .vracs #millesime .dernier .btn_supprimer_ligne_template { height:15px; }
+.vracs #millesime .dernier .btn_supprimer_ligne_template:hover, .vracs #millesime .dernier .btn_supprimer_ligne_template:focus, .vracs #cuve .dernier .btn_supprimer_ligne_template:hover, .vracs #cuve .dernier .btn_supprimer_ligne_template:focus { text-decoration:underline; }
+.ielt8 .vracs #millesime .dernier .btn_supprimer_ligne_template, .ielt8 .vracs #cuve .dernier .btn_supprimer_ligne_template { height:15px; }
 .vracs .bloc_form_commentaire .vracs_ligne_form label {
   display:block;
   padding:10px 0;
