@@ -138,8 +138,8 @@
         <?php echo $form['mandataire_exist']->render() ?>
     </div>
     <div id="mandataire" class="vrac_mandataire">
-        <h1>Mandataire</h1>
-        <h2>Sélectionner un mandataire :</h2>
+        <h1>Courtier</h1>
+        <h2>Sélectionner un courtier :</h2>
         <div class="section_label_strong" id="listener_mandataire_choice">
             <?php echo $form['mandataire_identifiant']->renderError() ?>
             <label for="">Nom :</label>
