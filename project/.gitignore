@@ -6,3 +6,4 @@ web/declarvin_dev.php
 web/edi_dev.php
 bin/config.inc
 data/upload
+*.log
