@@ -5,14 +5,17 @@ class VracPaiementForm extends acCouchdbObjectForm
 	{
 		$this->setWidgets(array(
 	       'date' => new sfWidgetFormInputText(),
+		   'volume' => new sfWidgetFormInputFloat(),
 		   'montant' => new sfWidgetFormInputFloat()
 		));
 		$this->widgetSchema->setLabels(array(
-	       'date' => 'Date du paiement:',
-	       'montant' => 'Montant du paiement:'
+	       'date' => 'Date du paiement :',
+	       'volume' => 'Volume :',
+	       'montant' => 'Montant :'
 		));
 		$this->setValidators(array(
 	       'date' => new sfValidatorString(array('required' => false)),
+	       'volume' => new sfValidatorNumber(array('required' => false)),
 	       'montant' => new sfValidatorNumber(array('required' => false))
 		));
 		$this->widgetSchema->setNameFormat('paiement[%s]');

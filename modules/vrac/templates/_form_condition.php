@@ -20,6 +20,7 @@
                     <thead>
                         <tr>
                             <th>Date</th>
+                            <th>Volume</th>
                             <th>Montant</th>
                             <th class="dernier"></th>
                         </tr>
@@ -47,7 +48,7 @@
             <?php endif; ?>
         </div>
         <h1>Retiraison / Enlèvement</h1>
-        <div class="contenu_onglet bloc_condition">
+        <div class="section_label_strong">
             <?php echo $form['vin_livre']->renderError() ?>
             <?php echo $form['vin_livre']->renderLabel() ?>
             <?php echo $form['vin_livre']->render() ?>

@@ -4,7 +4,7 @@
 
     <?php if(isset($form['vous_etes'])): ?>
     <!--<div class="contenu_onglet" data-cible="vrac_vendeur_acheteur">-->
-    <div class="contenu_onglet bloc_condition" data-condition-cible="#bloc_acheteur_choice|#bloc_vendeur_choice|#bloc_acheteur_vous|#bloc_vendeur_vous">
+    <div id="bloc_vous_etes" class="contenu_onglet bloc_condition" data-condition-cible="#bloc_acheteur_choice|#bloc_vendeur_choice|#bloc_acheteur_vous|#bloc_vendeur_vous">
         <?php echo $form['vous_etes']->renderError(); ?>
         <?php echo $form['vous_etes']->renderLabel(); ?>
         <?php echo $form['vous_etes']->render(); ?>
@@ -15,16 +15,24 @@
                                                             'titre' => 'Acheteur',
                                                             'famille' => 'acheteur', 
                                                             'famille_autre' => 'vendeur', 
-                                                            'sous_titre' => 'Séléctionner un acheteur')) ?>
+                                                            'sous_titre' => 'Séléctionner un acheteur',
+                                                            'sous_titre_vous' => "Vous êtes l'acheteur",
+                                                            'field_adresse' => 'adresse_livraison',
+                                                            'label_adresse' => 'Adresse de livraison différente')) ?>
 
+    <br />
 
     <?php include_partial('vrac/form_soussigne_item', array('form' => $form,
                                                             'titre' => 'Vendeur',
                                                             'famille' => 'vendeur', 
                                                             'famille_autre' => 'acheteur', 
-                                                            'sous_titre' => 'Séléctionner un vendeur')) ?>                                                                                                              
+                                                            'sous_titre' => 'Séléctionner un vendeur',
+                                                            'sous_titre_vous' => "Vous êtes le vendeur",
+                                                            'field_adresse' => 'adresse_stockage',
+                                                            'label_adresse' => 'Adresse de stockage différente')) ?>                                                                                                              
     <?php include_partial('vrac/form_soussigne_item_mandataire', array('form' => $form)) ?>
-
+    <br />
+    <br />
     <div id="contrat">
         <h1>Type de contrat</h1>
         <div class="section_label_strong">

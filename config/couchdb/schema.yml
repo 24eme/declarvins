@@ -127,6 +127,7 @@ Vrac:
               definition:
                 fields:
                   date: {  }
+                  volume: {  }
                   montant: {  }
       clause_reserve_retiraison: {  }
       export: {  }

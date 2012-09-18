@@ -229,7 +229,7 @@ class VracForm extends acCouchdbObjectForm
         $stockage = new $vracStockageFormName($this->getObject()->adresse_stockage);
         $this->embedForm('adresse_stockage', $stockage);
         $vracLivraisonFormName = $this->vracLivraisonFormName();
-        $livraison = new VracLivraisonForm($this->getObject()->adresse_livraison);
+        $livraison = new $vracLivraisonFormName($this->getObject()->adresse_livraison);
         $this->embedForm('adresse_livraison', $livraison);
         
         $vracValideFormName = $this->vracValideFormName();
