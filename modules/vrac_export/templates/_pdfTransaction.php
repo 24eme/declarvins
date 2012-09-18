@@ -28,7 +28,7 @@
 	<?php include_partial('vrac_export/pdfTransactionHeader', array('vrac' => $vrac)); ?>
 	<?php include_partial('vrac_export/pdfFooter'); ?>
 	<h2>Soussignes</h2>
-	<?php if($vrac->mandataire_exist) $w = '33%'; else $w = '50%'; ?>
+	<?php  $w = '50%'; ?>
 	<table class="bloc_bottom" width="100%">
 		<tr>
 			<td width="<?php echo $w ?>">
@@ -49,18 +49,6 @@
 				<p>Commune : <?php echo $vrac->adresse_stockage->commune ?></p>
 				<?php endif; ?>
 			</td>
-			<?php if($vrac->mandataire_exist): ?>
-			<td width="<?php echo $w ?>">
-				<h2>Courtier</h2>
-				<p>Raison sociale : <?php echo ($vrac->mandataire->raison_sociale)? $vrac->mandataire->raison_sociale : $vrac->mandataire->nom; ?></p>
-				<p>N° Carte professionnelle : <?php echo $vrac->mandataire->carte_pro ?></p>
-				<p>N° RCS/SIRET : <?php echo $vrac->mandataire->siret ?></p>
-				<p>Adresse : <?php echo $vrac->mandataire->adresse ?></p>
-				<p>Code postal : <?php echo $vrac->mandataire->code_postal ?></p>
-				<p>Commune : <?php echo $vrac->mandataire->commune ?></p>
-				<p>Tel : <?php echo $vrac->mandataire->telephone ?>&nbsp;&nbsp;&nbsp;Fax : <?php echo $vrac->mandataire->fax ?></p>
-			</td>
-			<?php endif; ?>
 			<td width="<?php echo $w ?>">
 				<h2>Acheteur</h2>
 				<p>Type : <?php echo $vrac->acheteur_type ?></p>
