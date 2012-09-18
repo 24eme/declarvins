@@ -46,7 +46,7 @@ class tiersActions extends sfActions
 
     if ($this->etablissement->hasDroit(EtablissementDroit::DROIT_VRAC)) {
 
-        return $this->redirect("vrac", $this->etablissement);
+        return $this->redirect("vrac_etablissement", $this->etablissement);
     }
   }
   
