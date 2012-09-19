@@ -112,6 +112,12 @@ abstract class acCouchdbJsonFields {
     public function getHash() {
         return $this->_hash;
     }
+    
+    
+  public function getHashForKey() {
+      return str_replace('/', '-', $this->_hash);
+  }
+  
 
     /**
      * Permet de savoir si l'objet est en mode tableau
