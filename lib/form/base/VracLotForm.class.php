@@ -28,18 +28,16 @@ class VracLotForm extends acCouchdbObjectForm
 	       'presence_allergenes' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(), 'expanded' => true)),
 		   'allergenes' => new sfWidgetFormInputText(),
 	       'metayage' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(), 'expanded' => true)),
-		   'bailleur' => new sfWidgetFormInputText(),
-	       'montant' => new sfWidgetFormInputFloat()
+		   'bailleur' => new sfWidgetFormInputText()
 		));
 		$this->widgetSchema->setLabels(array(
 	       'numero' => 'Numéro du lot:',
 	       'assemblage' => 'Assemblage de millésimes:',
-	       'degre' => 'Degrés:',
+	       'degre' => 'Degré:',
 	       'presence_allergenes' => 'Allergènes:',
 	       'allergenes' => '&nbsp;',
 	       'metayage' => 'Métayage:',
-		   'bailleur' => 'Nom du bailleur:',
-	       'montant' => 'Montant:'
+		   'bailleur' => 'Nom du bailleur et volumes:'
 		));
 		$this->setValidators(array(
 	       'numero' => new sfValidatorString(array('required' => false)),
@@ -48,8 +46,7 @@ class VracLotForm extends acCouchdbObjectForm
 	       'presence_allergenes' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
 	       'allergenes' => new sfValidatorString(array('required' => false)),
 	       'metayage' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
-		   'bailleur' => new sfValidatorString(array('required' => false)),
-	       'montant' => new sfValidatorNumber(array('required' => false)),
+		   'bailleur' => new sfValidatorString(array('required' => false))
 		));
         
         $millesimes = new VracLotMillesimeCollectionForm($this->getObject()->millesimes);
@@ -96,6 +93,14 @@ class VracLotForm extends acCouchdbObjectForm
     
     public function updateEmbedForm($name, $form) {
         $this->validatorSchema[$name] = $form->getValidatorSchema();
+    }
+
+    protected function updateDefaultsFromObject() {
+      parent::updateDefaultsFromObject();    
+      if (is_null($this->getObject()->presence_allergenes)) {
+        $this->setDefault('presence_allergenes', 0);
+        $this->getObject()->set('presence_allergenes', 0);
+      }  
     }
   
 }

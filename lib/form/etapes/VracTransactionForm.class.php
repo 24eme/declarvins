@@ -6,8 +6,12 @@ class VracTransactionForm extends VracForm
 		parent::configure();
 		$this->useFields(array(
            'commentaires',
-           'lots'
+           'lots',
+		   'volume_propose'
 		));
+		$this->setWidget('volume_propose', new sfWidgetFormInputHidden());
+		$this->setValidator('volume_propose', new sfValidatorPass());
+  		$this->validatorSchema->setPostValidator(new VracVolumesValidator());
 		$this->widgetSchema->setNameFormat('vrac_transaction[%s]');
     }
 }

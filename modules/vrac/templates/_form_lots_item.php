@@ -8,20 +8,20 @@
     </div>
     <div id="cuve" class="vracs_ligne_form">
         <span>
-            <label>Cuves: </label>
+            <label>Détail des cuves / contenants: </label>
             <table id="table_lot_cuves_<?php echo $form->getName() ?>">
             	<thead>
             	<tr>
-            		<th>Numéro</th>
+            		<th>Numéro(s)</th>
             		<th>Volume</th>
-            		<th>Date</th>
+            		<th>Date retiraison</th>
             	</tr>
                 </thead>
             <?php foreach ($form['cuves'] as $formCuve): ?>
                 <?php include_partial('form_lot_cuves_item', array('form' => $formCuve)) ?>
             <?php endforeach; ?>
             </table>
-            <a class="btn_ajouter_ligne_template" data-container="#table_lot_cuves_<?php echo $form->getName() ?>" data-template="#template_form_lot_cuves_item_<?php echo $form->getName() ?>" href="#"><span>Ajouter une cuve</span></a>
+            <a class="btn_ajouter_ligne_template" data-container="#table_lot_cuves_<?php echo $form->getName() ?>" data-template="#template_form_lot_cuves_item_<?php echo $form->getName() ?>" href="#"><span>Ajouter une cuve / un contenant</span></a>
         </span>
     </div>
     <div class="vracs_ligne_form bloc_condition" data-condition-cible=".millesime_<?php echo $form->getName() ?>"">
@@ -33,11 +33,11 @@
     </div>
     <div id="millesime" class="vracs_ligne_form bloc_conditionner millesime_<?php echo $form->getName() ?>" data-condition-value="1">
         <span>
-            <label>Millésimes: </label>
+            <label>&nbsp;</label>
             <table id="table_lot_millesimes_<?php echo $form->getName() ?>">
             	<thead>
             	<tr>
-            		<th>Année</th>
+            		<th>Millésime</th>
             		<th>Pourcentage</th>
             	</tr>
                 </thead>
@@ -48,6 +48,7 @@
             <a class="btn_ajouter_ligne_template" data-container="#table_lot_millesimes_<?php echo $form->getName() ?>" data-template="#template_form_lot_millesimes_item_<?php echo $form->getName() ?>" href="#"><span>Ajouter un millésime</span></a>
         </span>
     </div>
+    <?php if(isset($form['degre'])): ?>
     <div class="vracs_ligne_form">
         <span>
             <?php echo $form['degre']->renderError() ?>
@@ -55,6 +56,7 @@
             <?php echo $form['degre']->render() ?>
         </span>
     </div>
+    <?php endif; ?>
     <?php if(isset($form['presence_allergenes'])): ?>
     <div class="vracs_ligne_form bloc_condition" data-condition-cible="#bloc_lot_allergenes_<?php echo $form->getName() ?>">
         <span>
@@ -91,13 +93,6 @@
     </div>
     <?php endif; ?>
     <?php endif; ?>
-    <div class="vracs_ligne_form">
-        <span>
-        <?php echo $form['montant']->renderError() ?>
-        <?php echo $form['montant']->renderLabel() ?>
-        <?php echo $form['montant']->render() ?>
-        </span>
-    </div>
     <div class="vracs_ligne_form vracs_ligne_form_alt">
          <span>
             <a class="btn_supprimer_ligne_template" data-container=".lot" href="#">Supprimer ce lot</a>

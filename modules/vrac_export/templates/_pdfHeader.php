@@ -11,5 +11,9 @@
 		<td width="50%">Saisie le <?php echo $vrac->getEuSaisieDate(); ?></td>
 		<td width="50%" style="text-align: right;">N° de Visa du contrat : <?php echo $vrac->numero_contrat ?></td>
 	</tr>
+	<tr>
+		<td width="50%">Cession Interne : <?php echo $configurationVrac->formatCasParticulierLibelle(array($vrac->cas_particulier)); ?></td>
+		<td width="50%">&nbsp;</td>
+	</tr>
 </table>
 </div>

@@ -23,6 +23,7 @@ class VracMarcheForm extends VracForm
                'annexe'
     		));
 		    $this->getObject()->has_cotisation_cvo = 1;
+  		    $this->validatorSchema->setPostValidator(new VracModeDeterminationPrixValidator());
     		$this->widgetSchema->setNameFormat('vrac_marche[%s]');
 
         if (count($this->getTypesTransaction()) < 2) {
@@ -43,6 +44,21 @@ class VracMarcheForm extends VracForm
           $this->getObject()->determination_prix = null;
         }
         $this->getObject()->update();
+    }
+    protected function updateDefaultsFromObject() {
+      parent::updateDefaultsFromObject();    
+      if (is_null($this->getObject()->type_transaction)) {
+        $this->setDefault('type_transaction', VracClient::TRANSACTION_DEFAUT);
+      }   
+      if (is_null($this->getObject()->export)) {
+        $this->setDefault('export', 0);
+      }   
+      if (is_null($this->getObject()->annexe)) {
+        $this->setDefault('annexe', 0);
+      }   
+      if (is_null($this->getObject()->labels)) {
+        $this->setDefault('labels', VracClient::LABEL_DEFAUT);
+      }   
     }
 
     public function getTypePrixNeedDetermination() {

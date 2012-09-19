@@ -66,7 +66,7 @@
 			</li>
 			<li>
 				<span>Labels :</span>
-				<span><?php echo $configurationVrac->formatLabelsLibelle($vrac->labels->getRawValue()->toArray()) ?></span>
+				<span><?php echo $configurationVrac->formatLabelsLibelle(array($vrac->labels)) ?></span>
 			</li>
 			<li>
 				<span>Mentions :</span>
@@ -74,7 +74,7 @@
 			</li>
 			<li>
 				<span>Prix :</span>
-				<span><?php echo $vrac->prix_unitaire ?> €/HL</span>
+				<span><?php echo $vrac->prix_unitaire ?> € HT/HL</span>
 			</li>
 			<li>
 				<span>Volume :</span>
@@ -83,11 +83,11 @@
 			<?php if ($vrac->has_cotisation_cvo && $vrac->part_cvo > 0): ?>
 			<li>
 				<span>Cotisation interprofessionnelle :</span>
-				<span><?php echo $vrac->getCvoUnitaire() ?> €/HL</span>
+				<span><?php echo $vrac->getCvoUnitaire() ?> € HT/HL</span>
 			</li>
 			<li>
 				<span>Prix total unitaire :</span>
-				<span><?php echo $vrac->getTotalUnitaire() ?> €/HL</span>
+				<span><?php echo $vrac->getTotalUnitaire() ?> € HT/HL</span>
 			</li>
 			<?php endif; ?>
 		</ul>

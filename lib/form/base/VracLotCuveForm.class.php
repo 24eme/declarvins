@@ -11,7 +11,7 @@ class VracLotCuveForm extends acCouchdbObjectForm
 		$this->widgetSchema->setLabels(array(
 	       'numero' => 'Année:',
 	       'volume' => 'Pourcentage:',
-	       'date' => 'Pourcentage:'
+	       'date' => 'Date retiraison:'
 		));
 		$this->setValidators(array(
 	       'volume' => new sfValidatorNumber(array('required' => false)),
