@@ -10,19 +10,20 @@
         <?php echo $form['vous_etes']->render(); ?>
     </div>
     <?php endif; ?>
-    
-    <?php include_partial('vrac/form_soussigne_item', array('form' => $form,
-                                                            'titre' => 'Acheteur',
-                                                            'famille' => 'acheteur', 
-                                                            'famille_autre' => 'vendeur', 
-                                                            'sous_titre' => 'Séléctionner un acheteur')) ?>
 
 
     <?php include_partial('vrac/form_soussigne_item', array('form' => $form,
                                                             'titre' => 'Vendeur',
                                                             'famille' => 'vendeur', 
                                                             'famille_autre' => 'acheteur', 
-                                                            'sous_titre' => 'Séléctionner un vendeur')) ?>                                                                                                              
+                                                            'sous_titre' => 'Séléctionner un vendeur')) ?>  
+    
+    <?php include_partial('vrac/form_soussigne_item', array('form' => $form,
+                                                            'titre' => 'Acheteur',
+                                                            'famille' => 'acheteur', 
+                                                            'famille_autre' => 'vendeur', 
+                                                            'sous_titre' => 'Séléctionner un acheteur')) ?>     
+                                                                                                                                                                   
     <?php include_partial('vrac/form_soussigne_item_mandataire', array('form' => $form)) ?>
 
     <div id="contrat">
