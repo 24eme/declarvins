@@ -126,4 +126,8 @@ class Vrac extends BaseVrac
     public function hasAdresseStockage() {
     	return ($this->adresse_stockage->adresse || $this->adresse_stockage->code_postal || $this->adresse_stockage->commune);
     }
+    
+    public function integreVolumeEnleve($volume) {
+    	$this->volume_enleve = $this->volume_enleve + $volume;
+    }
 }
