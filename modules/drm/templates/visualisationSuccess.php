@@ -35,7 +35,7 @@
                 
             <div id="btn_etape_dr">
                 <?php if ($drm_suivante && $drm_suivante->isRectificative()): ?>
-                    <a href="<?php echo url_for('drm_init', array('identifiant' => $etablissement->identifiant, 'campagne_rectificative' => $drm_suivante->getCampagneAndRectificative())) ?>" class="btn_suiv">
+                    <a href="<?php echo url_for('drm_init', array('identifiant' => $etablissement->identifiant, 'reinit_etape' => 1, 'campagne_rectificative' => $drm_suivante->getCampagneAndRectificative())) ?>" class="btn_suiv">
                         <span>Passer à la DRM suivante</span>
                     </a>
                 <?php else: ?>

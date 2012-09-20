@@ -10,7 +10,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<?php if ($hasNewDRM): ?>
+		<?php if ($hasNewDRM && $new_drm): ?>
 		<tr class="alt">
 			      <td><?php echo $futurDRM[DRMHistorique::VIEW_INDEX_ANNEE].'-'.$futurDRM[DRMHistorique::VIEW_INDEX_MOIS] ?></td>
 			<td>NOUVELLE</td>

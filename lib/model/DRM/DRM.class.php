@@ -341,7 +341,7 @@ class DRM extends BaseDRM {
 
             return false;
         }
-        $hash = ($hash_or_object instanceof acCouhdbJson) ? $hash_or_object->getHash() : $hash_or_object;
+        $hash = ($hash_or_object instanceof acCouchdbJson) ? $hash_or_object->getHash() : $hash_or_object;
         $hash .= ($key) ? "/".$key : null;
 
         return array_key_exists($hash, $this->getDiffWithMasterDRM());
@@ -373,6 +373,30 @@ class DRM extends BaseDRM {
       if (!isset($options['no_droits']) || !$options['no_droits'])
 	$this->setDroits();
       $this->setInterpros();
+      $this->updateVrac();
+    }
+
+    public function updateVrac() {
+    	foreach ($this->getDetails() as $detail) {
+			foreach ($detail->vrac as $numero => $vrac) {
+				$volume = $vrac->volume;
+				if ($this->isRectificative() && !$this->isModifiedMasterDRM($vrac, 'volume')) {
+					continue;
+					
+				}
+				
+				if ($this->isRectificative() && $this->getDRMMaster()->exist($vrac->getHash())) {
+					$volume = $volume - $this->getDRMMaster()->get($vrac->getHash())->volume;
+				}
+				
+				if ($volume == 0) {
+					continue;
+				}
+				$contrat = VracClient::getInstance()->findByNumContrat($numero);
+				$contrat->integreVolumeEnleve($volume);
+				$contrat->save();
+			}
+      	}
     }
 
     public function setInterpros() {
@@ -514,7 +538,9 @@ class DRM extends BaseDRM {
      * Pour les users administrateur
      */
     public function canSetStockDebutMois() {
-    	if ($this->getPrecedente() && $this->getPrecedente()->isNew()) {
+    	if (!$this->getPrecedente()) {
+    		return true;
+    	} elseif ($this->getPrecedente() && $this->getPrecedente()->isNew()) {
     		return true;
     	} elseif ($this->isDebutCampagne()) {
     		return true;

@@ -82,9 +82,10 @@ class DRMRouting {
                                                 array('sf_method' => array('get')),
                                                 array('must_be_valid' => false, 'must_be_not_valid' => false)));
 
-        $r->prependRoute('drm_init', new DRMLightRoute('/drm/:identifiant/initialiser/:campagne_rectificative', 
+        $r->prependRoute('drm_init', new DRMLightRoute('/drm/:identifiant/initialiser/:campagne_rectificative/:reinit_etape', 
                                                 array('module' => 'drm', 
-                                                      'action' => 'init'),
+                                                      'action' => 'init',
+                                                	  'reinit_etape' => null),
                                                 array('sf_method' => array('get')),
                                                 array('must_be_valid' => false, 'must_be_not_valid' => false)));
 

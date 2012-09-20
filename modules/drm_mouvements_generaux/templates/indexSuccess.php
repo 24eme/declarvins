@@ -12,7 +12,7 @@
                                     <button class="btn_passer_etape" type="submit">Passer cette étape</button>
                                 </form>
 				<?php endif; ?>
-				<p class="intro">Au cours du mois écoulé, avez-vous connu des changements de structure particuliers ?</p>
+				<p class="intro">Afin de préparer le détail de la DRM, vous pouvez préciser ici vos stocks épuisés ou l'absence de mouvements pour tout ou partie des produits.</p>
         		
         		<div id="ajouts_liquidations">
         			<?php if ($drm->hasProduits()): ?>

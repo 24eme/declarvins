@@ -42,7 +42,11 @@ class drmActions extends sfActions
    */
   public function executeInit(sfWebRequest $request) {
       $drm = $this->getRoute()->getDRM();
-      if ($etape = $drm->etape) {
+      $reinit_etape = $request->getParameter('reinit_etape', 0);
+      if ($reinit_etape) {
+		$drm->setCurrentEtapeRouting('recapitulatif');
+      	$this->redirect($drm->getCurrentEtapeRouting(), $drm);
+      } elseif ($etape = $drm->etape) {
       	$this->redirect($drm->getCurrentEtapeRouting(), $drm);
       } else {
 		$drm->setCurrentEtapeRouting('ajouts_liquidations');
@@ -150,6 +154,7 @@ class drmActions extends sfActions
   public function executeModificationInfos(sfWebRequest $request)
   {
       $this->drm = $this->getRoute()->getDRM();
+      $this->etablissement = $this->getRoute()->getEtablissement();
   }
 
   public function executeDeclaratif(sfWebRequest $request)
@@ -252,7 +257,6 @@ class drmActions extends sfActions
 
     $drm_rectificative = $drm->generateRectificative();
     $drm_rectificative->save();
-
     return $this->redirect('drm_init', array('identifiant' => $this->etablissement->identifiant, 'campagne_rectificative' => $drm_rectificative->getCampagneAndRectificative()));
   }
 

@@ -9,16 +9,18 @@
     <section id="principal">
         <div id="recap_drm">
             <div id="drm_annee_courante" >
-                <?php include_component('drm', 'historiqueList', array('etablissement' => $etablissement,
-                                                                       'historique' => $historique, 
-                                                                       'limit' => 12)) ?>
+                <?php include_component('drm', 'historiqueList', array('new_drm' => true, 'etablissement' => $etablissement,
+                                                                       'historique' => $historique)) ?>
             </div>
         </div>
         <ul id="nav_drm_annees">
-			<li class="actif"><strong>dernières DRM</strong></li>
-			<?php foreach ($historique->getCampagnes() as $campagne): ?>
+			<?php $first = true; foreach ($historique->getCampagnes() as $campagne): ?>
+				<?php if($first): ?>
+				<li class="actif"><strong>DRM <?php echo $campagne ?></strong></li>
+				<?php else: ?>
 				<li><a href="<?php echo url_for('drm_historique', array('campagne' => $campagne, 'identifiant' => $etablissement->identifiant))?>">DRM <?php echo $campagne ?></a></li>
-			<?php endforeach; ?>
+				<?php endif; ?>
+			<?php $first = false; endforeach; ?>
 		</ul>
     </section>
     

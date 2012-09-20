@@ -10,7 +10,7 @@
             <thead>
     		<tr>
     			<th><strong>Code</strong></th>
-    			<th><strong>Volumes "sortie"</strong></th>
+    			<th><strong>Volumes "sortie" facturable</strong></th>
     			<th><strong>Volumes réintégrés</strong></th>
     			<th><strong>Taux</strong></th>
     			<th><strong>Droits à payer</strong></th>
