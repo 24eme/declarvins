@@ -6,5 +6,6 @@ class VracLotIrForm extends VracLotForm
 		parent::configure();
 		unset($this['presence_allergenes']);
 		unset($this['allergenes']);
+		unset($this['degre']);
 	}
 }
