@@ -2,10 +2,10 @@
 
 class VracAllView extends acCouchdbView
 {
-	const VRAC_VIEW_ETABLISSEMENT = 0;
-    const VRAC_VIEW_PRODUIT = 1;
-    const VRAC_VIEW_ID = 2;
-    const VRAC_VIEW_STATUT = 3;
+	const VRAC_VIEW_ETABLISSEMENT = 1;
+    const VRAC_VIEW_PRODUIT = 2;
+    const VRAC_VIEW_ID = 3;
+    const VRAC_VIEW_STATUT = 0;
 
 	public static function getInstance() {
 
@@ -15,7 +15,7 @@ class VracAllView extends acCouchdbView
 	public function findByEtablissement($identifiant) {
 		$identifiant = EtablissementClient::getInstance()->getIdentifiant($identifiant);
 
-        return $this->client->startkey(array($identifiant))->endkey(array($identifiant, array()))->getView($this->design, $this->view);
+        return $this->client->startkey(array(VracClient::STATUS_CONTRAT_NONSOLDE,$identifiant))->endkey(array(VracClient::STATUS_CONTRAT_NONSOLDE,$identifiant, array()))->getView($this->design, $this->view);
     }
 
 }  

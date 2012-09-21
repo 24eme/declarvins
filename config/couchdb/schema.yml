@@ -91,11 +91,7 @@ Vrac:
       millesime: {  }
       contient_domaine: {  }
       domaine: {  }
-      labels:
-        type: array_collection
-        definition:
-          fields:
-            '*': {  }
+      labels: {  }
       mentions:
         type: array_collection
         definition:
@@ -106,6 +102,7 @@ Vrac:
       prix_unitaire: {  }
       type_prix: {  }
       determination_prix: {  }
+      date_debut_retiraison: {  }
       date_limite_retiraison: {  }
       commentaires_conditions: {  }
       part_cvo: {  }

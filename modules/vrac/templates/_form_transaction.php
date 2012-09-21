@@ -3,6 +3,14 @@
 		<?php echo $form->renderGlobalErrors() ?>
     <div>
         <div> 
+        	<?php if ($form->getObject()->date_debut_retiraison || $form->getObject()->date_limite_retiraison): ?>
+        	<div class="clearfix">
+        		<h2>Rappel des dates de retiraisons:</h2>
+        		<?php if ($form->getObject()->date_debut_retiraison): ?><p>Date de début de retiraison : <?php echo $form->getObject()->date_debut_retiraison ?></p><?php endif; ?>
+        		<?php if ($form->getObject()->date_limite_retiraison): ?><p>Date limite de retiraison : <?php echo $form->getObject()->date_limite_retiraison ?></p><?php endif; ?>
+        		<br /><br />
+        	</div>
+        	<?php endif; ?>
             <div class="clearfix">
                 <div id="table_lots">
                     <?php foreach ($form['lots'] as $formLot): ?>

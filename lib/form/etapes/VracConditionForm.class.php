@@ -5,6 +5,7 @@ class VracConditionForm extends VracForm
     {
   		parent::configure();
   		$this->useFields(array(
+  	       'date_debut_retiraison',
   	       'date_limite_retiraison',
            'conditions_paiement',
   	       'vin_livre',
@@ -40,5 +41,10 @@ class VracConditionForm extends VracForm
 
     public function getCgpContratNeedDetermination() {
       return 'contrat_pluriannuel';
+    }
+
+
+    public function conditionneReferenceContrat() {
+      return true;
     }
 }

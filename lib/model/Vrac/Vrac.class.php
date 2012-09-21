@@ -86,11 +86,11 @@ class Vrac extends BaseVrac
     }
     
     public function getCvoUnitaire() {
-    	return round($this->prix_unitaire * $this->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR / 100, 2);
+    	return round($this->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2);
     }
     
     public function getTotalUnitaire() {
-    	return round($this->prix_unitaire + $this->prix_unitaire * $this->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR / 100, 2);
+    	return round($this->prix_unitaire + $this->getCvoUnitaire(), 2);
     }
 
     public function update($params = array()) {
@@ -125,5 +125,9 @@ class Vrac extends BaseVrac
     
     public function hasAdresseStockage() {
     	return ($this->adresse_stockage->adresse || $this->adresse_stockage->code_postal || $this->adresse_stockage->commune);
+    }
+    
+    public function integreVolumeEnleve($volume) {
+    	$this->volume_enleve = $this->volume_enleve + $volume;
     }
 }

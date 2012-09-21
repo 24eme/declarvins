@@ -10,6 +10,17 @@
         <?php echo $form['vous_etes']->render(); ?>
     </div>
     <?php endif; ?>
+
+    <?php include_partial('vrac/form_soussigne_item', array('form' => $form,
+                                                            'titre' => 'Vendeur',
+                                                            'famille' => 'vendeur', 
+                                                            'famille_autre' => 'acheteur', 
+                                                            'sous_titre' => 'Séléctionner un vendeur',
+                                                            'sous_titre_vous' => "Vous êtes le vendeur",
+                                                            'field_adresse' => 'adresse_stockage',
+                                                            'label_adresse' => 'Adresse de stockage différente')) ?>
+
+    <br />
     
     <?php include_partial('vrac/form_soussigne_item', array('form' => $form,
                                                             'titre' => 'Acheteur',
@@ -20,16 +31,6 @@
                                                             'field_adresse' => 'adresse_livraison',
                                                             'label_adresse' => 'Adresse de livraison différente')) ?>
 
-    <br />
-
-    <?php include_partial('vrac/form_soussigne_item', array('form' => $form,
-                                                            'titre' => 'Vendeur',
-                                                            'famille' => 'vendeur', 
-                                                            'famille_autre' => 'acheteur', 
-                                                            'sous_titre' => 'Séléctionner un vendeur',
-                                                            'sous_titre_vous' => "Vous êtes le vendeur",
-                                                            'field_adresse' => 'adresse_stockage',
-                                                            'label_adresse' => 'Adresse de stockage différente')) ?>                                                                                                              
     <?php include_partial('vrac/form_soussigne_item_mandataire', array('form' => $form)) ?>
     <br />
     <br />

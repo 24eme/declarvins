@@ -3,7 +3,6 @@
 		<?php echo $form->renderHiddenFields() ?>
 		<?php echo $form->renderGlobalErrors() ?>
 		<h2>Récapitulatif de la saisie</h2>
-		 <?php include_partial('showContrat', array('configurationVrac' => $configurationVrac,'etablissement' => $etablissement, 'vrac' => $form->getObject(), 'editer_etape' => true)); ?>
 		<div class="bloc_form_commentaire bloc_form ">
 	        <div class="vracs_ligne_form vracs_ligne_form_alt">
 	            <?php echo $form['commentaires']->renderError() ?>
@@ -11,6 +10,8 @@
 	            <?php echo $form['commentaires']->render() ?>
 	        </div>
 	    </div>
+	    <br />
+	    <?php include_partial('showContrat', array('configurationVrac' => $configurationVrac,'etablissement' => $etablissement, 'vrac' => $form->getObject(), 'editer_etape' => true)); ?>
 		<div class="ligne_form_btn">
 			<?php if($form->getObject()->has_transaction): ?>
 				<a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'transaction', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a>
