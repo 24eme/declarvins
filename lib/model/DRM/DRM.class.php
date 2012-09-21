@@ -286,22 +286,17 @@ class DRM extends BaseDRM {
     }
 
     public function generateRectificativeSuivante() {
-        if (!$this->isRectificative()) {
-
-            throw new sfException('This drm is not a rectificative');
-        }
-
         $next_drm = $this->getSuivante();
 
         if ($next_drm) {
             $next_drm_rectificative = $next_drm->generateRectificative();
             $next_drm_rectificative->etape = 'validation';
-            foreach($this->getDiffWithMasterDRM() as $key => $value) {
-                $this->replicateDetail($next_drm_rectificative, $key, $value, 'total', 'total_debut_mois');
-                $this->replicateDetail($next_drm_rectificative, $key, $value, 'stocks_fin/bloque', 'stocks_debut/bloque');
-                $this->replicateDetail($next_drm_rectificative, $key, $value, 'stocks_fin/warrante', 'stocks_debut/warrante');
-                $this->replicateDetail($next_drm_rectificative, $key, $value, 'stocks_fin/instance', 'stocks_debut/instance');
-                $this->replicateDetail($next_drm_rectificative, $key, $value, 'stocks_fin/commercialisable', 'stocks_debut/commercialisable');
+            foreach($this->getDetails() as $detail) {
+                $this->replicateDetail($next_drm_rectificative, $detail, 'total', 'total_debut_mois');
+                $this->replicateDetail($next_drm_rectificative, $detail, 'stocks_fin/bloque', 'stocks_debut/bloque');
+                $this->replicateDetail($next_drm_rectificative, $detail, 'stocks_fin/warrante', 'stocks_debut/warrante');
+                $this->replicateDetail($next_drm_rectificative, $detail, 'stocks_fin/instance', 'stocks_debut/instance');
+                $this->replicateDetail($next_drm_rectificative, $detail, 'stocks_fin/commercialisable', 'stocks_debut/commercialisable');
             }
             $next_drm_rectificative->devalide();
             $next_drm_rectificative->update();
@@ -311,15 +306,12 @@ class DRM extends BaseDRM {
             return null;
         }
     }
-
-    protected function replicateDetail(&$drm, $key, $value, $hash_match, $hash_replication) {
-        if (preg_match('|^(/declaration/certifications/.+/appellations/.+/mentions/.+/lieux/.+/couleurs/.+/cepages/.+/details/.+)/'.$hash_match.'$|', $key, $match)) {
-            $detail = $this->get($match[1]);
+    
+    protected function replicateDetail(&$drm, $detail, $hash, $hash_replication) {
             if (!$drm->exist($detail->getHash())) {
                 $drm->addProduit($detail->getCepage()->getHash(), $detail->labels->toArray());
             }
-            $drm->get($detail->getHash())->set($hash_replication, $value);
-        }
+            $drm->get($detail->getHash())->set($hash_replication, $detail->get($hash));
     }
 
     public function getDRMMaster($hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {

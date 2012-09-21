@@ -59,7 +59,11 @@
                     <span>Précédent</span>
                 </a>
                 <?php endif; ?>
+                <?php if ($drmValidation->hasError('stock') && $sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
+                <button type="submit" class="btn_suiv"><span>Générer rectificative suivante</span></button>
+                <?php else: ?>
                 <button type="submit" class="btn_suiv"<?php if ($drmValidation->hasErrors()): ?> disabled="disabled"<?php endif; ?>><span>Valider</span></button>
+                <?php endif; ?>
             </div>
         </form>
     </section>

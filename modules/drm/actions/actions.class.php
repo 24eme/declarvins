@@ -210,7 +210,7 @@ class drmActions extends sfActions
 	  	}
 	  }
 	  
-	  if ($this->drm->needNextRectificative()) {
+	  if ($this->drm->needNextRectificative() || $this->drmValidation->hasErrors()) {
 	    $drm_rectificative_suivante = $this->drm->generateRectificativeSuivante();
 	    if ($drm_rectificative_suivante) {
 	      $drm_rectificative_suivante->save();
