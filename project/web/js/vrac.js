@@ -6,17 +6,17 @@
 
 (function($)
 {
+	
+	 var init = function() {
+		var tableau = $('#vrac_soussigne').find('table');
+		var listStyleTableau = $('#recap_saisie').find('ol li');
+		
+		listStyleTableau.find('li:even').addClass('impair');
+		tableau.find('tr:even').addClass('impair');
+	}
 
 	var initAutoComplete = function() {
 	    $('.autocomplete').combobox();
-	}
-
-	var init = function() {
-	   var tableau = $('#vrac_soussigne').find('table');
-	   var listStyleTableau = $('#recap_saisie').find('ol li');
-	
-	   listStyleTableau.find('li:even').addClass('impair');
-	   tableau.find('tr:even').addClass('impair');
 	}
 
 	$.fn.initBlocCondition = function()
@@ -73,14 +73,22 @@
         });
 	}
 	
+	var initSoussigne = function() {
+	   if($('.vrac_soussigne').exists())
+	   {
+	       return;
+	   }
+	};
+	
 	var initConditions = function()
 	{
-       	if($('.vrac_condition').exists())
-	    {
+	     if($('.vrac_condition').exists())
+	     {
+	    	 
+	    	 return;
+	     }
 
-	    	return;
-	    }
-
+		
 	    if($('#vrac_condition #type_contrat input:checked').length == 0)
 	        $('#vrac_condition #type_contrat input[value="spot"]').attr('checked','checked');
 	    if($('#vrac_condition #prix_isVariable input:checked').length == 0)
@@ -88,6 +96,7 @@
 	    updatePanelsConditions();
 	    $('#vrac_condition #type_contrat input').click(updatePanelsConditions);
 	    $('#vrac_condition #prix_isVariable input').click(updatePanelsConditions);
+	    
 	}
 	
 	
@@ -110,136 +119,51 @@
 	        }
 	    }
 	}
-
-	var initSoussigne = function() {
-		if($('.vrac_soussigne').exists())
-	    {
-	    	return;
-	    }
-
-        /*var parentBloc = $('.popup_form');
-        var parentInputs = parentBloc.find('.contenu_onglet:has(.radio_list)');
-        var blocAdresse = parentBloc.find('.adresse_livraison');
-        var blocVendeurAcheteur = parentBloc.find('.vrac_vendeur_acheteur');
-
-        parentInputs.each(function()
-        {
-            var compteur = 0;
-            var $this = $(this);
-            var cible = $this.attr('data-cible');
-            var listRadio = $this.find('.radio_list');
-            var labelInput = listRadio.find('input:radio');
-
-            labelInput.each(function()
-            {
-                var $thisInput = $(this);
-                var thisIndex = $thisInput.index();
-                var thisId = $thisInput.attr('id');
-                var thisLabel = listRadio.find('label[for='+thisId+']');
-                var cibles = $('.'+cible+'');
-                var eqCible = cibles.eq(compteur);
-
-                if($thisInput.is(':checked'))
-                {
-                    eqCible.show();
-                }else{
-					resetEtablissement(eqCible, true);
-                	eqCible.hide(); 
-                }
-                
-                checkUncheck($thisInput, eqCible, cibles);
-
-                compteur++;
-            });
-        });*/
-
-        /*blocVendeurAcheteur.each(function(){
-            var $this = $(this);
-            var inputReset = $this.find('.modif_info :radio');
-            var blocPourReset = $this.find('.bloc_form:first');
-            inputReset.change(function(){
-                blocPourReset.find(':input').removeAttr('checked');
-            });
-        });
-
-        blocAdresse.each(function()
-        {
-            var $this = $(this);
-            var infos = $this.find('.bloc_form');
-            var blocCheck = $this.find('.section_label_strong :checkbox');
-
-            checkUncheck(blocCheck, infos, infos);
-	
-			if(!blocCheck.is(':checked')) {
-            	infos.hide();
-        	}
-        });*/
-    };
 	
 	var initMarche = function()
 	{
-	    if(!$('.vrac_marche').exists())
+		
+		if(!$('.vrac_marche').exists())
 	    {
-
-	    	return;
+			
+			return;
 	    }
-
+		
 	    if($('#vrac_marche #original input:checked').length == 0)
 	        $('#vrac_marche #original input[value="1"]').attr('checked','checked');
 	    if($('#vrac_marche #type_transaction input:checked').length == 0)
 	        $('#vrac_marche #type_transaction input[value="vin_vrac"]').attr('checked','checked');       
-	   	updatePanelsAndUnitLabels();
-
-	   	$('#vrac_marche #type_transaction input').click(updatePanelsAndUnitLabels);
-	   
-        var sommeEuros = function(val1, val2, total, cotisation, val3, val4, hasCotisationCvo)
+	   updatePanelsAndUnitLabels();    
+	   $('#vrac_marche #type_transaction input').click(updatePanelsAndUnitLabels);
+	
+        var sommeEuros = function(val1, total, cotisation, val3, val4, hasCotisationCvo)
         {
             val1.keyup(function()
             {
                 var thisVal = parseFloat($(this).val());
-                var otherVal = parseFloat(val2.val());
                 var tauxRepartition = parseFloat(val3.val());
-                var tauxCVO = parseFloat(val4.val()) / 100;
+                var tauxCVO = parseFloat(val4.val());
 
-                if(!isNaN(thisVal) && isNaN(otherVal))
+                if(!isNaN(thisVal))
                 {
                     if (hasCotisationCvo != 0) {
-                		var cvo = thisVal * tauxRepartition * tauxCVO;
-                		if (!isNaN(cvo)) {
-                			total.val((thisVal + cvo).toFixed(2));
-                			cotisation.text((cvo).toFixed(2)); 
+                		var cvo = parseFloat((tauxRepartition * tauxCVO).toFixed(2));
+                		var t = thisVal + cvo;
+                		if (!isNaN(t)) {
+                			total.val(t); 
                 		}
                 	}
                 }
-                else if(isNaN(thisVal) && !isNaN(otherVal))
-                {
-                    
-                }
-                else if(isNaN(thisVal) && isNaN(otherVal))
-            	{
-            	
-            	}
-                else
-                { 
-                	if (hasCotisationCvo != 0) {
-                		var cvo = thisVal * tauxRepartition * tauxCVO;
-                		if (!isNaN(cvo)) {
-                			total.val((thisVal + cvo).toFixed(2));
-                			cotisation.text((cvo).toFixed(2)); 
-                		}
-                	}
-                }
-        	});
+            });
         }
-
-        var volume = $('#vrac_marche_volume_propose');
         var prix = $('#vrac_marche_prix_unitaire');
         var totalSomme = $('#vrac_marche_prix_total_unitaire');
         var hasCotisationCvo = $('#vrac_marche_has_cotisation_cvo').val();
         var cotisation = $('#vrac_cotisation_interpro');
         var tauxRepartition = $('#vrac_marche_repartition_cvo_acheteur');
         var tauxCVO = $('#vrac_marche_part_cvo');
-        sommeEuros(prix, volume, totalSomme, cotisation, tauxRepartition, tauxCVO, hasCotisationCvo);
+        sommeEuros(prix, totalSomme, cotisation, tauxRepartition, tauxCVO, hasCotisationCvo);
+	    
 	}
 	
 	
@@ -369,6 +293,90 @@
 	        }
 	    }
 	}
+	
+	var majAutocompleteInteractions = function(type)
+	{
+	    $('#'+type+'_choice div input').live( "autocompleteselect", function(event, ui)
+	    {
+	        $('#'+type+'_modification_btn').removeAttr('disabled');
+	        $('#'+type+'_modification_btn').css('cursor','pointer');        
+	    });
+	}
+	
+	var majModificationsButton = function(type)
+	{
+	    if($('section#'+type+'_choice input.ui-autocomplete-input').val()=="") $('#'+type+'_modification_btn').attr('disable','disable');
+	    else $('#'+type+'_modification_btn').removeAttr('disable');
+	}
+	
+	
+	var majMandatairePanel = function()
+	{
+	    if($('section#has_mandataire input').attr('checked')) {$('section#mandataire').show();}
+	    else{$('section#mandataire').hide();}
+	    
+	    $('section#has_mandataire input').click(function()
+	    {
+	        if($(this).attr('checked'))
+	        {
+	            $('section#mandataire').show();
+	            $('#vrac_mandatant_vendeur').attr('checked','checked');            
+	        }
+	        else
+	        {
+	            $('section#mandataire').hide();
+	            $('section#mandataire input').each(function()
+	            {
+	                
+	                if($(this).attr('type')=='checkbox') $(this).attr('checked',false);
+	                else 
+	                {
+	                    if($(this).attr('type')!='button') $(this).val('');
+	                }
+	            });
+	        }
+	    });
+	    
+	    $('#vrac_mandatant_vendeur').click(function()
+	    {
+	        if(($('#mandatant input:checked').length == 0) && ($('#vrac_mandatant_vendeur:checked'))) $('#vrac_mandatant_vendeur').attr('checked','checked');
+	    });
+	    $('#vrac_mandatant_acheteur').change(function()
+	    {
+	        if(($('#mandatant input:checked').length == 0) && ($('#vrac_mandatant_acheteur:checked'))) $('#vrac_mandatant_acheteur').attr('checked','checked');
+	    });
+	    
+	}
+	
+	var init_ajax_modification = function(type)
+	{
+	    $('a#'+type+'_modification_btn').html('Valider');
+	    $('a#'+type+'_modification_btn').removeClass('btn_orange').addClass('btn_vert');
+	    $('a#'+type+'_modification_btn').css('cursor','pointer');
+	    
+	    $("#"+type+"_choice input").attr('disabled','disabled');
+	    $("#"+type+"_choice button").attr('disabled','disabled');
+	    $('div.btnValidation button').attr('disabled','disabled');
+	    $("#"+type+"_choice input").addClass('disabled');
+	    $("#"+type+"_choice button").addClass('disabled');
+	    $('div.btnValidation button').addClass('disabled');
+	    var params = {id : $("#vrac_"+type+"_identifiant").val(), 'div' : '#'+type+'_informations'};  
+	    ajaxifyPost('modification?type='+type+'&id='+$("#vrac_"+type+"_identifiant").val(),params,'#'+type+'_modification_btn','#'+type+'_informations');
+	}
+	
+	
+	var init_informations = function(type)
+	{
+	    $("#"+type+"_choice input").removeAttr('disabled');
+	    $("#"+type+"_choice button").removeAttr('disabled');
+	    
+	    $("a#"+type+"_modification_btn").html("Modifier");
+	    $("a#"+type+"_modification_btn").removeClass('btn_vert').addClass('btn_orange');
+	    
+	    
+	    $("#"+type+"_modification_btn").unbind();
+	    $('div.btnValidation button').removeAttr('disabled');
+	}
 	    
 	var initCollectionAddTemplate = function(element, regexp_replace, callback)
 	{
@@ -406,13 +414,13 @@
 	    {
 	    	initEtablissement($(this));
 	    });
-
-		var radio_vous_etes = $('#bloc_vous_etes input:radio');
+	    
+	    var radio_vous_etes = $('#bloc_vous_etes input:radio');
 	    radio_vous_etes.click(function () {
-	    	$('.soussigne_form_choice').each(function() {
-	    		resetEtablissement($(this), true);
-	    	})
-    	});
+		    $('.soussigne_form_choice').each(function() {
+		    	resetEtablissement($(this), true);
+		    })
+	    });
 	}
 
 	var resetEtablissement = function (bloc, resetFamille) {
@@ -554,6 +562,7 @@
 	     initEtablissements();
 	     initChoicesListener();
 	     initProductListener();
+
 	     initCollectionAddTemplate('.btn_ajouter_ligne_template', /var---nbItem---/g, callbackAddTemplate);
 	     initCollectionAddTemplate('.btn_ajouter_ligne_template_sub', /var---nbSubItem---/g, callbackAddTemplate);
 	     initFamilleEtablissementTemplate('.famille', /var---famille---/g);
