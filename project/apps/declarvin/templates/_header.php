@@ -6,8 +6,6 @@
             <li class="backend"><a href="<?php echo url_for('@admin'); ?>">Interface de Gestion</a></li>
             <?php  endif; ?>
             <li><a href="#">Contact</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li class="profil"><a href="#">Mon profil</a></li>
         </ul>
     </nav>
 

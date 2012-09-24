@@ -53,15 +53,19 @@ class tiersActions extends sfActions
   public function executeProfil(sfWebRequest $request) 
   {
   	  $this->etablissement = $this->getRoute()->getEtablissement();
-  	  echo 'todo';exit;
-  	  $this->form = new CompteProfilForm($this->getUser()->getCompte());
-      if ($request->isMethod(sfWebRequest::POST)) {
-      	$this->form->bind($request->getParameter($this->form->getName()));
-      	if ($this->form->isValid()) {
-      		$this->form->save();
-      		$this->getUser()->setFlash('notice', 'Modifications effectuées avec succès');
-      		$this->redirect('@profil');
-      	}
-      }
+  	  $this->hasCompte = false;
+  	  if ($this->compte_id = $this->etablissement->compte) {
+  	    $this->hasCompte = true;
+  	  	$this->compte = acCouchdbManager::getClient('_Compte')->find($this->compte_id);
+  	  	$this->form = new CompteProfilForm($this->compte);
+	      if ($request->isMethod(sfWebRequest::POST)) {
+	      	$this->form->bind($request->getParameter($this->form->getName()));
+	      	if ($this->form->isValid()) {
+	      		$this->form->save();
+	      		$this->getUser()->setFlash('notice', 'Modifications effectuées avec succès');
+	      		$this->redirect('profil', array('identifiant' => $this->etablissement->identifiant));
+	      	}
+	      }
+  	  }
   }
 }
