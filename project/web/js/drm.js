@@ -20,12 +20,14 @@ var objAjoutsLiquidations = {};
 		if(ajoutsLiquidations.exists()) $.initAjoutsLiquidations();
 		
 		 $('#ajouts_liquidations :checkbox').change(function() {
+			 $.toggleCheckbox();
             $(this).parents('form').submit();
         });
 		
         $('.updateProduct').submit(function() {
         	var form = $(this);
         	$.post($(this).attr('action'), $(this).serializeArray(), function (data) {
+        		$.toggleCheckbox();
         	});
         	return false;
         });
@@ -34,6 +36,23 @@ var objAjoutsLiquidations = {};
 
 		$(".flash_temporaire").delay(6000).fadeTo(1000, 0);
 	});
+	/**
+	 * Empeche les bugs si l'utilisateur
+	 * clique trop rapidement sur les
+	 * checkbox
+	 * $.toggleCheckbox();
+	 ************************************************/
+	$.toggleCheckbox = function ()
+    {
+    	$('#ajouts_liquidations :checkbox').each(function() {
+        	var checkbox = $(this);
+        	if (checkbox.attr('readonly')) {
+        		checkbox.removeAttr('readonly');
+        	} else {
+        		checkbox.attr('readonly', 'readonly');
+        	}
+    	});
+    };
 	
 	/**
 	 * Initialise les fonctions de l'étape
