@@ -8,16 +8,17 @@ class VracEcheancierVolumesValidator extends sfValidatorBase {
     
     protected function doClean($values) {
     	$total = 0;
-    	foreach ($values['paiements'] as $paiement) {
-    			if ($paiement['volume']) {
-    				$total += $paiement['volume'];
-    			}
+    	if ($values['conditions_paiement'] == VracClient::ECHEANCIER_PAIEMENT) {
+	    	foreach ($values['paiements'] as $paiement) {
+	    			if ($paiement['volume']) {
+	    				$total += $paiement['volume'];
+	    			}
+	    	}
+	
+	        if ($total != $values['volume_propose']) {
+	        	throw new sfValidatorErrorSchema($this, array($this->getOption('paiements') => new sfValidatorError($this, 'impossible')));
+	        }
     	}
-
-        if ($total != $values['volume_propose']) {
-        	throw new sfValidatorErrorSchema($this, array($this->getOption('paiements') => new sfValidatorError($this, 'impossible')));
-        }
-        
         return $values;
     }
 
