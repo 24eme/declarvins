@@ -99,6 +99,8 @@ class DRM extends BaseDRM {
         $drm_suivante->campagne = $campagne;
 	$drm_suivante->precedente = $this->_id;
         $drm_suivante->devalide();
+	    $drm_suivante->remove('editeurs'); 
+	    $drm_suivante->add('editeurs'); 
        
 	foreach ($drm_suivante->getDetails() as $detail) {
 	  $drm_suivante->get($detail->getHash())->remove('vrac');
@@ -257,6 +259,8 @@ class DRM extends BaseDRM {
 
         $drm_rectificative->rectificative += 1;
 	    $drm_rectificative->devalide();
+	    $drm_rectificative->remove('editeurs'); 
+	    $drm_rectificative->add('editeurs'); 
         $drm_rectificative->etape = 'ajouts_liquidations';
 
         return $drm_rectificative;
@@ -567,6 +571,17 @@ class DRM extends BaseDRM {
     	$editeur->nom = $compte->nom;
     	$editeur->prenom = $compte->prenom;
     	$editeur->date_modification = date('c');
+    }
+    
+    public function isRectificativeEnCascade() {
+    	if (!$this->isRectificative()) {
+    		return false;
+    	}
+    	if ($master = $this->getDRMMaster()) {
+    		return ($master->getPrecedente()->_id != $this->getPrecedente()->_id)? true : false;
+    	} else {
+    		return false;
+    	}
     }
     
 }
