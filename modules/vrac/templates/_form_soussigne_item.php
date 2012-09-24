@@ -15,7 +15,7 @@
         </div>
 
         <div class="bloc_form etablissement_informations" id="etablissement_informations_<?php echo $famille ?>"> 
-            <?php include_partial('form_etablissement', array('form' => $form[$famille])); ?>
+            <?php include_partial('form_etablissement', array('etablissement' => $form->getEtablissement(), 'form' => $form[$famille])); ?>
         </div>
     </div>
 
@@ -32,7 +32,7 @@
         </div>
 
         <div class="bloc_form etablissement_informations"> 
-            <?php include_partial('form_etablissement', array('form' => $form[$famille])); ?>
+            <?php include_partial('form_etablissement', array('etablissement' => $form->getEtablissement(), 'form' => $form[$famille])); ?>
         </div>
     </div>
     <?php endif; ?>
