@@ -102,7 +102,7 @@ var formModificationCompte = function()
 };
 </script>
 <!-- #principal -->
-<?php include_component('global', 'navBack', array('active' => 'parametrage', 'subactive' => 'contrat')); ?>
+<?php include_component('global', 'navBack', array('active' => 'comptes', 'subactive' => 'contrat')); ?>
 <section id="contenu">
 <!-- #application_dr -->
 <script type="text/javascript">

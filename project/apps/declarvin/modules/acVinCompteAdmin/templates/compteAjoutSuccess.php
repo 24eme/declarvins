@@ -1,4 +1,4 @@
-<?php include_component('global', 'navBack', array('active' => 'comptes')); ?>
+<?php include_component('global', 'navBack', array('active' => 'comptes', 'subactive' => 'comptes')); ?>
 
 <section id="contenu">
 <div class="clearfix" id="application_dr">

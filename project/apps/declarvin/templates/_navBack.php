@@ -82,23 +82,30 @@
 	<ul id="sub_nav">
 		<?php if ($active == 'operateurs'): ?>
 			<li<?php if ($subactive == 'etablissement'): ?> class="actif"<?php endif; ?>>
-				<a href="<?php echo url_for('@etablissement_login') ?>">Etablissements</a>
+				<a href="<?php echo url_for('@etablissement_login') ?>">DRM</a>
 			</li>
 			<li<?php if ($subactive == 'vrac'): ?> class="actif"<?php endif; ?>>
-				<a href="<?php echo url_for('vrac_admin') ?>">Contrat vrac</a>
+				<a href="<?php echo url_for('vrac_admin') ?>">Contrat interprofessionnel</a>
+			</li>
+			<li<?php if ($subactive == 'profil'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('@etablissement_profil_login') ?>">Profil</a>
 			</li>
 		<?php elseif ($active == 'parametrage'): ?>
 			<li<?php if ($subactive == 'produits'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@produits') ?>">Produits</a>
-			</li>
-			<li<?php if ($subactive == 'contrat'): ?> class="actif"<?php endif; ?>>
-				<a href="<?php echo url_for('@validation_login') ?>">Contrat mandat</a>
 			</li>
 	        <li<?php if ($subactive == 'douanes'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@admin_douanes') ?>">Douanes</a>
 			</li>
 	        <li<?php if ($subactive == 'libelles'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@admin_libelles') ?>">Libellés</a>
+			</li>		
+		<?php elseif ($active == 'comptes'): ?>
+			<li<?php if ($subactive == 'comptes'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('@admin_comptes') ?>">Tous les comptes</a>
+			</li>	
+			<li<?php if ($subactive == 'contrat'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('@validation_login') ?>">Contrat mandat</a>
 			</li>		
 		<?php endif; ?>
 	</ul>

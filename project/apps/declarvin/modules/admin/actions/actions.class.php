@@ -42,6 +42,28 @@ class adminActions extends sfActions
       }
     }
   }
+ /**
+  * Executes index action
+  *
+  * @param sfRequest $request A request object
+  */
+  public function executeEtablissementProfilLogin(sfWebRequest $request)
+  {
+  	$this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
+    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
+    if ($request->isMethod(sfWebRequest::POST)) {
+    	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
+    		$this->form->bind($request->getParameter('etablissement_selection_nav'));
+    	} else {
+      	$this->form->bind($request->getParameter($this->form->getName()));
+    	}
+      
+      if ($this->form->isValid()) {
+        
+        	//return $this->redirect("tiers_mon_espace", $this->form->getEtablissement());
+      }
+    }
+  }
 
  /**
   * Executes libelles action

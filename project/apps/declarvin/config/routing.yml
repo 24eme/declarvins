@@ -83,8 +83,11 @@ tiers:
   url: /tiers
   param: { module: tiers, action: login }
 profil:
-  url: /profil
+  class: EtablissementRoute
+  url: /profil/:identifiant
   param: { module: tiers, action: profil }
+  requirements: { method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
 login:
   url: /login
   param: {module: acVinCompte, action: login}
@@ -119,6 +122,9 @@ produit_suppression:
 etablissement_login:
   url: /admin/etablissements
   param: {module: admin, action: etablissementLogin}
+etablissement_profil_login:
+  url: /admin/etablissements-profil
+  param: {module: admin, action: etablissementProfilLogin}
 
 ## Administration des Comptes
 admin_comptes:
