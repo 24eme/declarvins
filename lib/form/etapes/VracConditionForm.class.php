@@ -12,9 +12,13 @@ class VracConditionForm extends VracForm
            'reference_contrat_pluriannuel',
   	       'delai_paiement',
            'clause_reserve_retiraison',
-  		     'paiements'
+  		     'paiements',
+		   'volume_propose'
   		));
+		$this->setWidget('volume_propose', new sfWidgetFormInputHidden());
+		$this->setValidator('volume_propose', new sfValidatorPass());
   		$this->validatorSchema->setPostValidator(new VracDateLimiteValidator());
+  		$this->validatorSchema->setPostValidator(new VracEcheancierVolumesValidator());
   		$this->widgetSchema->setNameFormat('vrac_condition[%s]');
     }
 
