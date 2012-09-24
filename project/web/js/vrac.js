@@ -518,12 +518,9 @@
 		                		var cvo = parseFloat((tauxRepartition * tauxCVO).toFixed(2));
 		                		var t = thisVal + cvo;
 		                		if (!isNaN(t)) {
-									console.log(t);
 		                			total.val(t); 
 		                		}
 		                	}
-		                } else {
-							console.log('fuck');
 		                }
 		        }
 		        var prix = $('#vrac_marche_prix_unitaire');
