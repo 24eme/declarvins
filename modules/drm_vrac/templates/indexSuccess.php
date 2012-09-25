@@ -51,6 +51,9 @@
                     
                 <?php endif; ?>
             <br />
+            
+			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && $drm->mode_de_saisie == DRM::MODE_DE_SAISIE_DTI): ?>
+			<?php else: ?>
             <div id="btn_etape_dr">
                 <a href="<?php echo url_for('drm_recap_redirect', $drm) ?>" class="btn_prec">
                     <span>Précédent</span>
@@ -61,6 +64,7 @@
                     </form>
                 <?php endif; ?>
             </div>
+            <?php endif; ?>
         </div>
     </section>
 </section>

@@ -139,7 +139,9 @@
                         <?php echo $form['moyen_paiement']->render() ?>
                     </div>
                 </div>
-
+				
+				<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && $drm->mode_de_saisie == DRM::MODE_DE_SAISIE_DTI): ?>
+				<?php else: ?>
                 <div id="btn_etape_dr">
                 	<?php if (!$drm->declaration->hasMouvementCheck()): ?>
                 	<a href="<?php echo url_for('drm_mouvements_generaux', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
@@ -148,6 +150,7 @@
                     <?php endif; ?>
                     <button type="submit" class="btn_suiv"><span>suivant</span></button>
                 </div>
+                <?php endif; ?>
             </form>
         </div>
     </section>

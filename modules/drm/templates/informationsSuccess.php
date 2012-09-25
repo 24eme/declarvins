@@ -55,10 +55,13 @@
 					<?php if(!$sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
 					<?php echo $form['confirmation']->render() ?>
 					<?php endif; ?>
+					<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && $drm->mode_de_saisie == DRM::MODE_DE_SAISIE_DTI): ?>
+					<?php else: ?>
 					<div class="ligne_btn">
 						<button type="submit" class="btn_suiv"><span>VALIDER</span></button>
 						<a href="#" class="btn_popup btn_popup_trigger" data-popup="#popup_confirm_modif_infos" data-popup-config="configConfirmModifInfos" data-popup-titre="Etes-vous sûr de vouloir modifier ces informations ?"></a>
 					</div>
+					<?php endif; ?>
 		        </form>
 			</div>
 	    </div>

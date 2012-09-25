@@ -32,7 +32,9 @@
 
             
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', array('identifiant' => $etablissement->identifiant, 'campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
-                
+            
+			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && $drm->mode_de_saisie == DRM::MODE_DE_SAISIE_DTI): ?>
+			<?php else: ?>
             <div id="btn_etape_dr">
                 <?php if ($drm_suivante && $drm_suivante->isRectificative()): ?>
                     <a href="<?php echo url_for('drm_init', array('identifiant' => $etablissement->identifiant, 'reinit_etape' => 1, 'campagne_rectificative' => $drm_suivante->getCampagneAndRectificative())) ?>" class="btn_suiv">
@@ -44,6 +46,7 @@
                     </a>
                 <?php endif; ?>
             </div>
+            <?php endif; ?>
         </div>    
     </section>
 </section>
