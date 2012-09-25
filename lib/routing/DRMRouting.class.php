@@ -332,7 +332,7 @@ class DRMRouting {
         $r->prependRoute('drm_vrac_update_volume', new DRMVracDetailRoute('/drm/:identifiant/edition/:campagne_rectificative/vrac/update/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/volume/:contrat',
                         array('module' => 'drm_vrac',
                             'action' => 'updateVolume'),
-                        array('sf_method' => array('post')),
+                        array('sf_method' => array('post', 'get')),
                         array('model' => 'acCouchdbJson',
                             'type' => 'object',
                             'must_be_valid' => false,

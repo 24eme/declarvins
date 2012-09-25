@@ -38,9 +38,9 @@
                             } else {
                                 include_partial('addContrat', array('detail' => $detail));
                             }
-                            if (isset($forms[$detail->getIdentifiantHTML()])) {
-                                foreach ($forms[$detail->getIdentifiantHTML()] as $form) {
-                                    include_partial('itemContrat', array('form' => $form));
+                            if (isset($vracs[$detail->getIdentifiantHTML()])) {
+                                foreach ($vracs[$detail->getIdentifiantHTML()] as $vrac) {
+                                    include_partial('itemContrat', array('vrac' => $vrac));
                                 }
                             }
                             ?>

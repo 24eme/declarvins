@@ -147,8 +147,17 @@ class DRMDetail extends BaseDRMDetail {
       $vracs_non_utilises = array();
       $vracs = $this->getContratsVrac();
       foreach ($vracs as $vrac) {
+      	
+    	$acheteur = '';
+      	if ($vrac->acheteur->raison_sociale) {
+      		$acheteur .= $vrac->acheteur->raison_sociale; 
+	      	if ($vrac->acheteur->nom) 
+	      		$acheteur .=  ' ('.$vrac->acheteur->nom.')'; 
+      	} else
+      		$acheteur .= $vrac->acheteur->nom;
+
         if (!$this->vrac->exist($vrac->numero_contrat))
-          $vracs_non_utilises[$vrac->numero_contrat] = $vrac->numero_contrat;
+          $vracs_non_utilises[$vrac->numero_contrat] = $acheteur.' - '.$vrac->numero_contrat.' - '.($vrac->volume_propose - $vrac->volume_enleve).'HL restant';
       }
 
       return $vracs_non_utilises;

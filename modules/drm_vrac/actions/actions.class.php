@@ -23,7 +23,7 @@ class drm_vracActions extends sfActions
 
     	$this->drm->setCurrentEtapeRouting('vrac');
 
-    	$this->forms = array();
+    	$this->vracs = array();
 		$this->noContrats = array();
 
     	foreach ($this->details as $detail) {
@@ -33,11 +33,11 @@ class drm_vracActions extends sfActions
     	    $contratVrac = $detail->addVrac($contrats[0]->numero_contrat, $vol);
     	    $detail->getDocument()->save();
     	  }
-	  if (!count($contrats)) {
-	    $this->noContrats[$detail->getIdentifiantHTML()] = true;
-	  }
+	  	  if (!count($contrats)) {
+	    	$this->noContrats[$detail->getIdentifiantHTML()] = true;
+	      } 
     	  foreach ($detail->getVrac() as $vrac) {
-    	    $this->forms[$detail->getIdentifiantHTML()][$vrac->getKey()] = new VracDetailModificationForm($vrac);
+    	    $this->vracs[$detail->getIdentifiantHTML()][$vrac->getKey()] = $vrac;
     	  }
     	}
     	if ($request->isMethod(sfWebRequest::POST)) {
@@ -82,13 +82,18 @@ class drm_vracActions extends sfActions
     }
     
     public function executeUpdateVolume(sfWebRequest $request) {
+      $this->forward404Unless($request->isXmlHttpRequest());
+      $form = new VracDetailModificationForm($this->getRoute()->getObject());
+      $contrat = VracClient::getInstance()->findByNumContrat($this->getRoute()->getObject()->getKey());
       if ($request->isMethod(sfWebRequest::POST)) {
-      	$form = new VracDetailModificationForm($this->getRoute()->getObject());
       	$form->bind($request->getParameter($form->getName()));
       	if ($form->isValid()) {
       	  $form->save();
-          $this->redirect('drm_vrac', $this->getRoute()->getDRM());
+          return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_vrac', $this->getRoute()->getDRM()))));
+      	} else {
+      		return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('formModification', array('contrat' => $contrat, 'form' => $form)))));
       	}
       }
+      return $this->renderText($this->getPartial('popupModification', array('contrat' => $contrat, 'form' => $form)));
     }
 }
