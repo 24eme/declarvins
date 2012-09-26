@@ -20,4 +20,3 @@ class ValidatorCni extends sfValidatorRegex {
     
 }
 
-?>

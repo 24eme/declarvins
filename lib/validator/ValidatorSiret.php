@@ -20,4 +20,3 @@ class ValidatorSiret extends sfValidatorRegex {
     
 }
 
-?>

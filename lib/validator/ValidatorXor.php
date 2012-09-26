@@ -88,4 +88,3 @@ class ValidatorXor extends sfValidatorSchema {
     }
 
 }
-?>
