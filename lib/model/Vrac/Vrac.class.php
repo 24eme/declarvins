@@ -107,6 +107,10 @@ class Vrac extends BaseVrac
       $this->valide->date_saisie = date('Y-m-d');
     }
     
+    public function isValide() {
+    	return ($this->valide->statut)? true : false;
+    }
+    
     public function getStatutCssClass() {
     	$statuts = VracClient::getInstance()->getStatusContratCssClass();
     	if ($this->valide->statut && isset($statuts[$this->valide->statut])) {

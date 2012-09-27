@@ -71,6 +71,9 @@ class acVinVracActions extends sfActions
         $this->etablissement = $this->getRoute()->getEtablissement();
 		$this->init($this->etablissement);
         $this->vrac = $this->getRoute()->getVrac();
+        if ($this->vrac->isValide()) {
+        	throw new sfException('Le contrat vrac n°'.$this->vrac->numero_contrat.' est validé');
+        }
         if ($this->vrac->valide->statut && $this->vrac->valide->statut != VracClient::STATUS_CONTRAT_NONSOLDE) {
         	throw new sfException('Ce contrat ne peut pas être modifié - statut '.$this->vrac->valide->statut);
         }
