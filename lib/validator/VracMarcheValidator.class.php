@@ -1,6 +1,6 @@
 <?php
 
-class VracModeDeterminationPrixValidator extends sfValidatorBase {
+class VracMarcheValidator extends sfValidatorBase {
 
     public function configure($options = array(), $messages = array()) {
         $this->addOption('determination_prix_field', 'determination_prix');

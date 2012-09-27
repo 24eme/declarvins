@@ -40,7 +40,7 @@ class VracLotForm extends acCouchdbObjectForm
 		   'bailleur' => 'Nom du bailleur et volumes:'
 		));
 		$this->setValidators(array(
-	       'numero' => new sfValidatorString(array('required' => false)),
+	       'numero' => new sfValidatorString(array('required' => true)),
 	       'assemblage' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
 	       'degre' => new sfValidatorNumber(array('required' => false)),
 	       'presence_allergenes' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
@@ -54,6 +54,8 @@ class VracLotForm extends acCouchdbObjectForm
         
         $cuves = new VracLotCuveCollectionForm($this->getObject()->cuves);
         $this->embedForm('cuves', $cuves);
+        
+  		$this->validatorSchema->setPostValidator(new VracLotValidator());
         
 		$this->widgetSchema->setNameFormat('lot[%s]');
 	}
@@ -89,9 +91,11 @@ class VracLotForm extends acCouchdbObjectForm
                 $this->updateEmbedForm($key, $form);
             }
         }
+        parent::bind($taintedValues, $taintedFiles);
     }
     
     public function updateEmbedForm($name, $form) {
+    	$this->widgetSchema[$name] = $form->getWidgetSchema();
         $this->validatorSchema[$name] = $form->getValidatorSchema();
     }
 
@@ -101,6 +105,18 @@ class VracLotForm extends acCouchdbObjectForm
         $this->setDefault('presence_allergenes', 0);
         $this->getObject()->set('presence_allergenes', 0);
       }  
+    }
+
+    protected function doUpdateObject($values) {
+      parent::doUpdateObject($values); 
+      if (!$this->getObject()->metayage) {
+          $this->getObject()->bailleur = '';
+      }
+      if (!$this->getObject()->assemblage) {
+        $values['millesimes'] = array();
+        $this->getObject()->remove('millesimes');
+        $this->getObject()->add('millesimes');
+      }
     }
   
 }

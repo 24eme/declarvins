@@ -1,11 +1,14 @@
-	<form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>">
+<form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>">
 		<?php echo $form->renderHiddenFields() ?>
 		<?php echo $form->renderGlobalErrors() ?>
     <div>
         <div> 
         	<?php if ($form->getObject()->date_debut_retiraison || $form->getObject()->date_limite_retiraison): ?>
         	<div class="clearfix">
-        		<h2>Rappel des dates de retiraisons:</h2>
+        		<h3>Rappel du volume total proposé:</h3>
+        		<p><?php echo $form->getObject()->volume_propose ?>&nbsp;HL</p>
+        		<br />
+        		<h3>Rappel des dates de retiraisons:</h3>
         		<?php if ($form->getObject()->date_debut_retiraison): ?><p>Date de début de retiraison : <?php echo $form->getObject()->date_debut_retiraison ?></p><?php endif; ?>
         		<?php if ($form->getObject()->date_limite_retiraison): ?><p>Date limite de retiraison : <?php echo $form->getObject()->date_limite_retiraison ?></p><?php endif; ?>
         		<br /><br />
@@ -33,3 +36,13 @@
 <script id="template_form_lots_item" class="template_form" type="text/x-jquery-tmpl">
     <?php echo include_partial('form_lots_item', array('form' => $form->getFormTemplateLots(), 'form_parent' => $form)); ?>
 </script>
+
+<?php foreach ($form['lots'] as $formLot): ?>
+<script id="template_form_lot_millesimes_item_<?php echo $formLot->getName() ?>" class="template_form" type="text/x-jquery-tmpl">
+    <?php echo include_partial('form_lot_millesimes_item', array('form' => $form->getFormTemplateLotMillesimes($formLot->getName()))); ?>
+</script>
+
+<script id="template_form_lot_cuves_item_<?php echo $formLot->getName() ?>" class="template_form" type="text/x-jquery-tmpl">
+    <?php echo include_partial('form_lot_cuves_item', array('form' => $form->getFormTemplateLotCuves($formLot->getName()))); ?>
+</script>
+<?php endforeach; ?>

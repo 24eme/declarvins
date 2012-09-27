@@ -68,6 +68,7 @@ class VracLotCollectionForm extends acCouchdbObjectForm implements FormBindableI
 	}
 	
 	public function updateEmbedForm($name, $form) {
+    	$this->widgetSchema[$name] = $form->getWidgetSchema();
         $this->validatorSchema[$name] = $form->getValidatorSchema();
     }
 

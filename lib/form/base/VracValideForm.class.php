@@ -14,7 +14,7 @@ class VracValideForm extends acCouchdbObjectForm
 	       'statut' => 'Statut:'
 		));
 		$this->setValidators(array(
-	       'date_saisie' => new sfValidatorString(array('required' => false)),
+	       'date_saisie' => new sfValidatorDate(array('date_output' => 'd/m/Y', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false), array('invalid' => 'Format valide : dd/mm/aaaa')),
 	       'identifiant' => new sfValidatorString(array('required' => false)),
 	       'statut' => new sfValidatorString(array('required' => false))
 		));

@@ -17,17 +17,16 @@ class VracConditionForm extends VracForm
   		));
 		$this->setWidget('volume_propose', new sfWidgetFormInputHidden());
 		$this->setValidator('volume_propose', new sfValidatorPass());
-  		$this->validatorSchema->setPostValidator(new VracDateLimiteValidator());
-  		$this->validatorSchema->setPostValidator(new VracEcheancierVolumesValidator());
+  		$this->validatorSchema->setPostValidator(new VracConditionValidator());
   		$this->widgetSchema->setNameFormat('vrac_condition[%s]');
     }
 
     protected function doUpdateObject($values) {
-      /*if (!isset($values['echeancier_paiement']) || !$values['echeancier_paiement']) {
+      if ($values['conditions_paiement'] != VracClient::ECHEANCIER_PAIEMENT) {
         $values['paiements'] = array();
         $this->getObject()->remove('paiements');
         $this->getObject()->add('paiements');
-      }*/
+      }
       parent::doUpdateObject($values); 
     }
 

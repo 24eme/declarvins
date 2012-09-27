@@ -9,6 +9,7 @@
                 <?php echo $form['conditions_paiement']->render() ?>
             </div>
             <div id="bloc_vrac_paiements" class="table_container bloc_conditionner" data-condition-value="<?php echo $form->getCgpEcheancierNeedDetermination() ?>">
+            	<p>Rappel du volume total proposé : <strong><?php echo $form->getObject()->volume_propose ?>&nbsp;HL</strong></p>
                 <table id="table_paiements">
                     <thead>
                         <tr>

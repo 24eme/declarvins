@@ -24,7 +24,6 @@ class VracLotCuveCollectionForm extends acCouchdbObjectForm implements FormBinda
 			if(!is_array($values) || array_key_exists($key, $this->embeddedForms)) {
 				continue;
 			};
-
 			$this->embedForm ($key, new VracLotCuveForm($this->getObject()->add()));
 		}
 	}

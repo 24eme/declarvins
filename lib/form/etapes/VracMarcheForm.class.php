@@ -23,7 +23,7 @@ class VracMarcheForm extends VracForm
                'annexe'
     		));
 		    $this->getObject()->has_cotisation_cvo = 1;
-  		    $this->validatorSchema->setPostValidator(new VracModeDeterminationPrixValidator());
+  		    $this->validatorSchema->setPostValidator(new VracMarcheValidator());
     		$this->widgetSchema->setNameFormat('vrac_marche[%s]');
 
         if (count($this->getTypesTransaction()) < 2) {

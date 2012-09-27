@@ -11,7 +11,7 @@ class VracTransactionForm extends VracForm
 		));
 		$this->setWidget('volume_propose', new sfWidgetFormInputHidden());
 		$this->setValidator('volume_propose', new sfValidatorPass());
-  		$this->validatorSchema->setPostValidator(new VracVolumesValidator());
+  		//$this->validatorSchema->setPostValidator(new VracTransactionValidator());
 		$this->widgetSchema->setNameFormat('vrac_transaction[%s]');
     }
 }

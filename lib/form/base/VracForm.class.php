@@ -188,18 +188,18 @@ class VracForm extends acCouchdbObjectForm
         	'prix_unitaire' => new sfValidatorNumber(array('required' => true)),
         	'type_prix' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getTypesPrix()))),
         	'determination_prix' => new sfValidatorString(array('required' => false)),
-        	'date_debut_retiraison' => new sfValidatorString(array('required' => true)),
-        	'date_limite_retiraison' => new sfValidatorString(array('required' => true)),
+        	'date_debut_retiraison' => new sfValidatorDate(array('date_output' => 'd/m/Y', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
+        	'date_limite_retiraison' => new sfValidatorDate(array('date_output' => 'd/m/Y', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
         	'commentaires_conditions' => new sfValidatorString(array('required' => false)),
         	'prix_total' => new sfValidatorNumber(array('required' => false)),
 	        'part_cvo' => new sfValidatorPass(),
 	        'repartition_cvo_acheteur' => new sfValidatorPass(),
-        	'conditions_paiement' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getConditionsPaiement()), 'multiple' => false)),
+        	'conditions_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getConditionsPaiement()), 'multiple' => false)),
         	'type_echeancier_paiement' => new sfValidatorString(array('required' => false)),
         	'vin_livre' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixVinLivre()))),
         	'contrat_pluriannuel' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'reference_contrat_pluriannuel' => new sfValidatorString(array('required' => false)),
-        	'delai_paiement' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getDelaisPaiement()))),
+        	'delai_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getDelaisPaiement()))),
         	'echeancier_paiement' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'clause_reserve_retiraison' => new sfValidatorPass(),
         	'export' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixOuiNon()))),
@@ -208,13 +208,13 @@ class VracForm extends acCouchdbObjectForm
         	'part_variable' => new sfValidatorString(array('required' => false)),
         	'cvo_nature' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCvoNatures()))),
         	'cvo_repartition' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCvoRepartitions()))),
-        	'date_stats' => new sfValidatorString(array('required' => false)),
-        	'date_signature' => new sfValidatorString(array('required' => false)),
+        	'date_stats' => new sfValidatorDate(array('date_output' => 'd/m/Y', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
+        	'date_signature' => new sfValidatorDate(array('date_output' => 'd/m/Y', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
         	'volume_enleve' => new sfValidatorNumber(array('required' => false)),
         	'nature_document' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getNaturesDocument()))),
-        	'date_signature_vendeur' => new sfValidatorString(array('required' => false)),
-        	'date_signature_acheteur' => new sfValidatorString(array('required' => false)),
-        	'date_signature_mandataire' => new sfValidatorString(array('required' => false)),
+        	'date_signature_vendeur' => new sfValidatorDate(array('date_output' => 'd/m/Y', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
+        	'date_signature_acheteur' => new sfValidatorDate(array('date_output' => 'd/m/Y', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
+        	'date_signature_mandataire' => new sfValidatorDate(array('date_output' => 'd/m/Y', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
         	'commentaires' => new sfValidatorString(array('required' => false))
                 ));
     
@@ -367,11 +367,11 @@ class VracForm extends acCouchdbObjectForm
                 $this->updateEmbedForm($key, $form);
             }
         }
-
         parent::bind($taintedValues, $taintedFiles);
     }
 
     public function updateEmbedForm($name, $form) {
+    	$this->widgetSchema[$name] = $form->getWidgetSchema();
         $this->validatorSchema[$name] = $form->getValidatorSchema();
     }
 

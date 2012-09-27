@@ -1,4 +1,5 @@
 <div class="lot bloc_form">
+	<?php echo $form->renderError() ?>
     <div class="vracs_ligne_form">
         <span>
         <?php echo $form['numero']->renderError() ?>
@@ -38,7 +39,7 @@
             	<thead>
             	<tr>
             		<th>Millésime</th>
-            		<th>Pourcentage</th>
+            		<th>Pourcentage (%)</th>
             	</tr>
                 </thead>
             <?php foreach ($form['millesimes'] as $formMillesime): ?>
@@ -100,10 +101,3 @@
     </div>
 </div>
 
-<table id="template_form_lot_millesimes_item_<?php echo $form->getName() ?>" class="template_form">
-    <?php echo include_partial('form_lot_millesimes_item', array('form' => $form_parent->getFormTemplateLotMillesimes($form->getName()))); ?>
-</table>
-
-<table id="template_form_lot_cuves_item_<?php echo $form->getName() ?>" class="template_form">
-    <?php echo include_partial('form_lot_cuves_item', array('form' => $form_parent->getFormTemplateLotCuves($form->getName()))); ?>
-</table>
