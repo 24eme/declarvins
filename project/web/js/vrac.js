@@ -74,10 +74,18 @@
 	}
 	
 	var initSoussigne = function() {
-	   if($('.vrac_soussigne').exists())
+	   if(!$('.vrac_soussigne').exists())
 	   {
 	       return;
 	   }
+	   $('.bloc_adresse input[type=checkbox]').change(function() {
+		   var checkbox = $(this);
+		   if (!checkbox.attr('checked')) {
+			   checkbox.parents('.bloc_adresse').find('input[type=text]').each(function() {
+				   $(this).val('');
+			   });
+		   }
+	   });
 	};
 	
 	var initConditions = function()
@@ -552,6 +560,7 @@
 	{
 		 $(this).initBlocCondition();
 		 init();
+	     initSoussigne();
 	     initMarche();
 	     initConditions();
 	     initTransactions();
@@ -561,7 +570,7 @@
 	     initProductListener();
 
 	     initCollectionAddTemplate('.btn_ajouter_ligne_template', /var---nbItem---/g, callbackAddTemplate);
-	     initCollectionAddTemplate('.btn_ajouter_ligne_template_sub', /var---nbSubItem---/g, callbackAddTemplate);
+	     initCollectionAddTemplate('.btn_ajouter_ligne_template_sub', /var---nbItem---/g, callbackAddTemplate);
 	     initFamilleEtablissementTemplate('.famille', /var---famille---/g);
 	     initCollectionDeleteTemplate();
 	});
