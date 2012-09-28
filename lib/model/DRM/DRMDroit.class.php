@@ -37,9 +37,9 @@ class DRMDroit extends BaseDRMDroit {
     $this->volume_taxe += $volume_taxable;
     $this->volume_reintegre += $volume_reintegre;
     $this->report += $report;
-    if ($this->key == ConfigurationDroits::CODE_CVO)
+    /*if ($this->key == ConfigurationDroits::CODE_CVO)
     	$this->total = ($this->volume_taxe) * $this->taux;
-    else
+    else*/
   		$this->total = ($this->volume_taxe - $this->volume_reintegre) * $this->taux;
   	$this->cumul = $this->total + $this->report;
   }

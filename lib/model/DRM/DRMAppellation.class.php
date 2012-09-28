@@ -28,12 +28,14 @@ class DRMAppellation extends BaseDRMAppellation {
     }
     
     public function updateDroits($droits) {
-    	$merge = array();
-    	if ($this->getDocument()->getInterpro()->identifiant == Interpro::INTER_RHONE_ID) {
-    		$merge = DRMDroits::getDroitSortiesInterRhone();
+    	$mergeSorties = array();
+    	$mergeEntrees = array();
+    	if ($this->getDocument()->getInterpro()->getKey() == Interpro::INTERPRO_KEY.Interpro::INTER_RHONE_ID) {
+    		$mergeSorties = DRMDroits::getDroitSortiesInterRhone();
+    		$mergeEntrees = DRMDroits::getDroitEntreesInterRhone();
     	}
     	foreach ($this->getDroits() as $typedroits => $droit) {
-    		$droits->add($typedroits)->add($droit->code)->integreVolume($this->sommeLignes(DRMDroits::getDroitSorties($merge)), $this->sommeLignes(DRMDroits::getDroitEntrees()), $droit->taux, $this->getReportByDroit($droit), $droit->libelle);
+    		$droits->add($typedroits)->add($droit->code)->integreVolume($this->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)), $this->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droit->taux, $this->getReportByDroit($droit), $droit->libelle);
     	}
     }
 
@@ -49,14 +51,6 @@ class DRMAppellation extends BaseDRMAppellation {
     			return 0;
     		}
     	}
-    }
-
-    public function sommeLignes($lines) {
-      $sum = 0;
-      foreach($this->mentions as $mention) {
-	$sum += $mention->sommeLignes($lines);
-      }
-      return $sum;
     }
     
     public function getDroit($type) {

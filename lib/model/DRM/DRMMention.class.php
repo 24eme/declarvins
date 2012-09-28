@@ -29,12 +29,4 @@ class DRMMention extends BaseDRMMention {
       return $lieux;
     }
 
-    public function sommeLignes($lines) {
-      $sum = 0;
-      foreach($this->lieux as $lieu) {
-	$sum += $lieu->sommeLignes($lines);
-      }
-      return $sum;
-    }
-
 }

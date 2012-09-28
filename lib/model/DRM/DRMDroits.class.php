@@ -3,15 +3,19 @@ class DRMDroits extends BaseDRMDroits {
   const DROIT_CVO = 'CVO';
   const DROIT_DOUANE = 'Douane';
 
-  static $droit_entrees = array('entrees/crd');
-  public static function getDroitEntrees() {
-    return self::$droit_entrees;
+  static $droit_entrees = array();
+  public static function getDroitEntrees($merge = array()) {
+    return array_merge(self::$droit_entrees, $merge);
   }
-  static $droit_sorties = array('sorties/crd','sorties/factures');
+  static $droit_entrees_inter_rhone = array('entrees/mouvement');
+  public static function getDroitEntreesInterRhone() {
+    return self::$droit_entrees_inter_rhone;
+  }
+  static $droit_sorties = array('sorties/vrac', 'sorties/export', 'sorties/factures', 'sorties/crd');
   public static function getDroitSorties($merge = array()) {
     return array_merge(self::$droit_sorties, $merge);
   }
-  static $droit_sorties_inter_rhone = array('sorties/vrac');
+  static $droit_sorties_inter_rhone = array('sorties/mouvement');
   public static function getDroitSortiesInterRhone() {
     return self::$droit_sorties_inter_rhone;
   }
