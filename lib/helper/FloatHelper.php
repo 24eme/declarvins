@@ -31,3 +31,7 @@ function echoSignedFloat($float)
 function echoArialFloat($float) {
     echo number_format($float, 2, '.', ' ');
 }
+
+function getArialFloat($float) {
+    return number_format($float, 2, '.', ' ');
+}
