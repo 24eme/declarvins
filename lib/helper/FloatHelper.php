@@ -27,3 +27,7 @@ function echoSignedFloat($float)
 {
   echo ($float>0)? '+'.sprintFloat($float) : sprintFloat($float);
 }
+
+function echoArialFloat($float) {
+    echo number_format($float, 2, '.', ' ');
+}
