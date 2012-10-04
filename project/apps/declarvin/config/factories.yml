@@ -7,6 +7,11 @@ prod:
     param:
       level:   err
       loggers: ~
+  mailer:
+    param:
+      delivery_strategy: realtime
+      transport:
+        class: Swift_SmtpTransport
 
 test:
   storage:
@@ -22,13 +27,21 @@ test:
   mailer:
     param:
       delivery_strategy: none
+      transport:
+        class:  Swift_MailTransport
 
 dev:
   mailer:
     param:
       delivery_strategy: none
+      transport:
+        class:  Swift_MailTransport
 
 all:
+  mailer:
+    param:
+      transport:
+        class:  Swift_MailTransport
   routing:
     class: sfPatternRouting
     param:

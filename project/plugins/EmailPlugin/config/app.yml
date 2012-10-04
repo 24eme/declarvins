@@ -1,0 +1,4 @@
+all:
+  email_plugin:
+    from_adresse: contact@declarvins.net
+    from_name: "Declarvins"
