@@ -103,12 +103,39 @@ class Vrac extends BaseVrac
     }
 
     public function validate() {
-      $this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
-      $this->valide->date_saisie = date('Y-m-d');
+      $this->valide->statut = VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION;
+      $this->valide->date_saisie = date('c');
+      $acteurs = VracClient::getInstance()->getActeurs();
+      if ($this->vous_etes && in_array($this->vous_etes, $acteurs)) {
+      	$validateur = 'date_validation_'.$this->vous_etes;
+      	$this->valide->{$validateur} = date('c');
+      }
+    }
+    
+    public function updateStatut() {
+      $acteurs = VracClient::getInstance()->getActeurs();
+      if (!$this->mandataire_exist) {
+      	unset($acteurs[array_search(VracClient::VRAC_TYPE_COURTIER, $acteurs)]);
+      }
+      $statut_valide = true;
+      foreach ($acteurs as $acteur) {
+      	$validateur = 'date_validation_'.$acteur;
+      	if (!$this->valide->get($validateur)) {
+      		$statut_valide = false;
+      		break;
+      	}
+      }
+      if ($statut_valide) {
+      	$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
+      }
     }
     
     public function isValide() {
-    	return ($this->valide->statut)? true : false;
+    	return ($this->valide->statut && $this->valide->statut != VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION)? true : false;
+    }
+    
+    public function isModifiable() {
+    	return ($this->valide->statut)? false : true;
     }
     
     public function getStatutCssClass() {

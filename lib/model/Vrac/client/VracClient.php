@@ -14,18 +14,24 @@ class VracClient extends acCouchdbClient {
     const STATUS_CONTRAT_SOLDE = 'SOLDE';
     const STATUS_CONTRAT_ANNULE = 'ANNULE';
     const STATUS_CONTRAT_NONSOLDE = 'NONSOLDE';
+    const STATUS_CONTRAT_ATTENTE_VALIDATION = 'ATTENTE_VALIDATION';
+    
+    protected $_acteurs = array(self::VRAC_TYPE_VENDEUR, self::VRAC_TYPE_ACHETEUR, self::VRAC_TYPE_COURTIER);
     
     protected $_status_contrat = array(self::STATUS_CONTRAT_SOLDE, 
                                                    self::STATUS_CONTRAT_ANNULE,
-                                                   self::STATUS_CONTRAT_NONSOLDE);
+                                                   self::STATUS_CONTRAT_NONSOLDE,
+                                                   self::STATUS_CONTRAT_ATTENTE_VALIDATION);
     
     protected $_status_contrat_credentials = array(self::STATUS_CONTRAT_SOLDE => array(self::STATUS_CONTRAT_NONSOLDE), 
                                                    self::STATUS_CONTRAT_ANNULE => array(),
-                                                   self::STATUS_CONTRAT_NONSOLDE => array(self::STATUS_CONTRAT_SOLDE, self::STATUS_CONTRAT_ANNULE));
+                                                   self::STATUS_CONTRAT_NONSOLDE => array(self::STATUS_CONTRAT_SOLDE, self::STATUS_CONTRAT_ANNULE),
+                                                   self::STATUS_CONTRAT_ATTENTE_VALIDATION => array(self::STATUS_CONTRAT_NONSOLDE));
     
     protected $_status_contrat_css_class = array(self::STATUS_CONTRAT_SOLDE => 'solde', 
                                                    self::STATUS_CONTRAT_ANNULE => 'annule',
-                                                   self::STATUS_CONTRAT_NONSOLDE => 'non-solde');
+                                                   self::STATUS_CONTRAT_NONSOLDE => 'non-solde',
+                                                   self::STATUS_CONTRAT_ATTENTE_VALIDATION => 'attente-validation');
     
 
     const STATUS_VIN_RETIRE = 'retire';
@@ -35,7 +41,7 @@ class VracClient extends acCouchdbClient {
     const ECHEANCIER_PAIEMENT = 'echeancier_paiement';
     const VRAC_TYPE_VENDEUR = 'vendeur';
     const VRAC_TYPE_ACHETEUR = 'acheteur';
-    const VRAC_TYPE_COURTIER = 'courtier';
+    const VRAC_TYPE_COURTIER = 'mandataire';
     
 
     /**
@@ -141,4 +147,7 @@ class VracClient extends acCouchdbClient {
         return parent::retrieveDocumentById('VRAC-'.$id, $hydrate);
     }
 
+    public function getActeurs() {
+		return $this->_acteurs;
+    }
  }

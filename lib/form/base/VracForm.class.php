@@ -44,6 +44,7 @@ class VracForm extends acCouchdbObjectForm
     {
 
     	$this->setWidgets(array(
+    		'vous_etes' => new sfWidgetFormChoice(array('choices' => $this->getVousEtes(), 'expanded' => true)),
         	'numero_contrat' => new sfWidgetFormInputText(),
         	'etape' => new sfWidgetFormInputText(),
             'vendeur_type' => new sfWidgetFormChoice(array('choices' => $this->getVendeurTypes(), 'expanded' => true)),
@@ -102,6 +103,7 @@ class VracForm extends acCouchdbObjectForm
         	'commentaires' => new sfWidgetFormTextarea()
     	));
         $this->widgetSchema->setLabels(array(
+        	'vous_etes' => 'Vous êtes: ',
             'numero_contrat' => 'Numéro du contrat: ',
         	'etape' => 'Etape:',
         	'vendeur_type' => 'Type:',
@@ -160,6 +162,7 @@ class VracForm extends acCouchdbObjectForm
         	'commentaires' => 'Commentaires:'
         ));
         $this->setValidators(array(
+            'vous_etes' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getVousEtes()))),
             'numero_contrat' => new sfValidatorString(array('required' => false)),
         	'etape' => new sfValidatorString(array('required' => false)),
         	'vendeur_type' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getVendeurTypes()))),
@@ -430,6 +433,10 @@ class VracForm extends acCouchdbObjectForm
             return sfContext::getInstance()->getUser()->getInterpro();
         }
 	}
-    
+
+    protected function getVousEtes() {
+
+      return array('vendeur' => "Vendeur", 'acheteur' => "Acheteur");
+    }
 }
 

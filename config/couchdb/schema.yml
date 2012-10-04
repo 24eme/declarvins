@@ -8,6 +8,7 @@ Vrac:
       has_cotisation_cvo: {  }
       numero_contrat: {  }
       etape: {  }
+      vous_etes: {  }
       vendeur_type: {  }  
       vendeur_identifiant: {  }      
       vendeur:        
@@ -178,6 +179,9 @@ Vrac:
         definition:
           fields:
             date_saisie: {  }
+            date_validation_vendeur: {  }
+            date_validation_acheteur: {  }
+            date_validation_courtier: {  }
             identifiant: {  }
             statut: { }
       nature_document: {  }

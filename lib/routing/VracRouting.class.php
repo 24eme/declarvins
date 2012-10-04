@@ -44,6 +44,12 @@ class VracRouting {
                                                         array('module' => 'vrac','action' => 'visualisation'),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object'))); 
+                                                        
+        $r->prependRoute('vrac_validation', new VracRoute('/vrac/:identifiant/:numero_contrat/validation/:acteur',
+                                                        array('module' => 'vrac','action' => 'validation', 'acteur' => null),
+                                                        array('sf_method' => array('get','post')),
+                                                        array('model' => 'Vrac', 'type' => 'object')));
+                                                        
         $r->prependRoute('vrac_statut', new VracRoute('/vrac/:identifiant/:numero_contrat/statut/:statut',
                                                         array('module' => 'vrac','action' => 'statut'),
                                                         array('sf_method' => array('get','post')),

@@ -5,6 +5,7 @@ class VracSoussigneForm extends VracForm
     {
 		parent::configure();
 		$this->useFields(array(
+		   'vous_etes',
            'vendeur_type',
            'vendeur_identifiant',
 	       'vendeur_tva',
@@ -22,11 +23,8 @@ class VracSoussigneForm extends VracForm
 		   'adresse_livraison',
 		));
 
-      if ($this->etablissementIsVendeurOrAcheteur()) {
-        $this->setWidget('vous_etes', new sfWidgetFormChoice(array('choices' => $this->getVousEtes(), 'expanded' => true)));
-        $this->setValidator('vous_etes', new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getVousEtes()))));
-
-        $this->getWidget('vous_etes')->setLabel("Vous êtes:");
+      if (!$this->etablissementIsVendeurOrAcheteur()) {
+        unset($this['vous_etes']);
       }
 
       if ($this->etablissementIsCourtier()) {
@@ -72,11 +70,6 @@ class VracSoussigneForm extends VracForm
         parent::doUpdateObject($values);
 
         $this->getObject()->storeSoussignesInformations();
-    }
-
-    protected function getVousEtes() {
-
-      return array('vendeur' => "Vendeur", 'acheteur' => "Acheteur");
     }
 
     public function etablissementIsVendeurOrAcheteur() {
