@@ -11,7 +11,7 @@ class vracActions extends acVinVracActions
 		$saisisseur = $vrac->vous_etes;
 		if ($saisisseur && in_array($saisisseur, $acteurs)) {
 			if ($email = $vrac->get($saisisseur)->email) {
-				$etablissement = EtablissementClient::getInstance()->find($saisisseur.'_identifiant');
+				$etablissement = EtablissementClient::getInstance()->find($vrac->get($saisisseur.'_identifiant'));
 				Email::getInstance()->vracSaisieTerminee($vrac, $etablissement, $email);
 			}
 		}
@@ -21,7 +21,7 @@ class vracActions extends acVinVracActions
 		}
 		foreach ($acteurs as $acteur) {
 			if ($email = $vrac->get($acteur)->email) {
-				$etablissement = EtablissementClient::getInstance()->find($acteur.'_identifiant');
+				$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
 				Email::getInstance()->vracDemandeValidation($vrac, $etablissement, $email);
 			}
 		}
@@ -34,7 +34,7 @@ class vracActions extends acVinVracActions
 		}
 		foreach ($acteurs as $acteur) {
 			if ($email = $vrac->get($acteur)->email) {
-				$etablissement = EtablissementClient::getInstance()->find($acteur.'_identifiant');
+				$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
 				Email::getInstance()->vracContratValide($vrac, $etablissement, $email);
 			}
 		}
@@ -46,7 +46,7 @@ class vracActions extends acVinVracActions
         	throw new sfException('Acteur '.$acteur.' invalide!');
       	}
 		if ($email = $vrac->get($acteur)->email) {
-			$etablissement = EtablissementClient::getInstance()->find($acteur.'_identifiant');
+			$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
 			Email::getInstance()->vracContratValidation($vrac, $etablissement, $email);
 		}
 	}

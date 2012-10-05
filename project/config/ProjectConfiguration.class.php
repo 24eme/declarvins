@@ -29,7 +29,7 @@ class ProjectConfiguration extends sfProjectConfiguration
 		$this->enablePlugins('EmailPlugin');
 	}
 	
-	public static function getRouting()
+	public static function getAppRouting()
 	{
 		if (null !== self::$routing) {
 			return self::$routing;
