@@ -23,7 +23,7 @@ function closeCompte() {
                     <li>Vous vous êtes trompé dans vôtre adresse email : <a href="javascript:updateCompte()">Veuillez cliquer ici afin de la modifier.</a></li>
 		</ul>
 		<div id="modification-adresse-form" style="display: <?php echo ($showForm)? 'block' : 'none'; ?>;" >
-                    <form id="creation_compte" method="post" action="<?php echo url_for('contrat_etablissement_confirmation') ?>">
+                    <form id="creation_compte" method="post" action="<?php echo url_for('contrat_etablissement_confirmation', array('send' => 'sended')) ?>">
                         <h2>Modification de votre adresse email :</h2>
                             <div class="col">
                                     <div class="ligne_form">

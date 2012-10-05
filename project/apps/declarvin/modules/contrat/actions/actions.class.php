@@ -148,7 +148,10 @@ class contratActions extends sfActions
   public function executeConfirmation(sfWebRequest $request)
   {
   	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
-  	$this->sendContratMandat($this->contrat);
+  	if (!$request->getParameter('send', null)) {
+  		$this->sendContratMandat($this->contrat);
+  		$this->redirect('contrat_etablissement_confirmation', array('send' => 'sended'));
+  	}
   	$this->form = new CompteModificationEmailForm($this->contrat);
   	$this->showForm = false;
     if ($request->isMethod(sfWebRequest::POST)) {
@@ -167,7 +170,7 @@ class contratActions extends sfActions
   protected function sendContratMandat($contrat) {
   	$pdf = new ExportContratPdf($contrat);
   	$pdf->generate();
-	return Email::getInstance()->sendContratMandat($contrat, $contrat->email);
+	print_r(Email::getInstance()->sendContratMandat($contrat, $contrat->email));exit;
   }
  /**
   * 

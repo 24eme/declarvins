@@ -28,8 +28,8 @@ contrat_etablissement_recapitulatif:
   url:   /contrat/recapitulatif
   param: { module: contrat, action: recapitulatif }
 contrat_etablissement_confirmation:
-  url:   /contrat/confirmation
-  param: { module: contrat, action: confirmation }
+  url:   /contrat/confirmation/:send
+  param: { module: contrat, action: confirmation, send: null }
 contrat_pdf:
   url:   /contrat/pdf.:format
   param: { module: contrat, action: pdf, format: (html|pdf) }
