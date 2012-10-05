@@ -148,6 +148,7 @@ class contratActions extends sfActions
   public function executeConfirmation(sfWebRequest $request)
   {
   	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
+  	$this->sendContratMandat($this->contrat);
   	$this->form = new CompteModificationEmailForm($this->contrat);
   	$this->showForm = false;
     if ($request->isMethod(sfWebRequest::POST)) {
@@ -161,6 +162,10 @@ class contratActions extends sfActions
         	$this->showForm = true;
         }
     }
+  }
+  
+  protected function sendContratMandat($contrat) {
+	return Email::getInstance()->sendContratMandat($contrat, $contrat->email);
   }
  /**
   * 

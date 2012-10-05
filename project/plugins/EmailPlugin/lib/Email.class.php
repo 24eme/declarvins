@@ -57,6 +57,22 @@ class Email {
 
         return self::getMailer()->send($message);
     }
+    
+    public function sendContratMandat($contrat, $destinataire) 
+    {
+        $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
+        $to = array($destinataire);
+        $subject = 'Votre inscription a bien été prise en compte';
+        $body = self::getBodyFromPartial('send_contrat_mandat', array('contrat' => $contrat));
+        $message = Swift_Message::newInstance()
+  					->setFrom($from)
+  					->setTo($to)
+  					->setSubject($subject)
+  					->setBody($body)
+  					->setContentType('text/html')
+  					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$contrat->get('_id').'.pdf'));
+		return self::getMailer()->send($message);
+    }
 
     protected static function getMailer() 
     {

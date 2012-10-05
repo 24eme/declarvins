@@ -45,8 +45,5 @@ function closeCompte() {
                     </form>
                     <a href="javascript:closeCompte()" class="supprimer">Supprimer</a>
 		</div>
-	<div class="ligne_form_btn" style="text-align:left;">
-		<a href="<?php echo url_for('contrat_pdf') ?>" class="btn_valider">Pdf</a>
-	</div>
 	</div>
 </section>
