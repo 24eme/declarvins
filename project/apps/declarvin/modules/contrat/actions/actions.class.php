@@ -166,7 +166,7 @@ class contratActions extends sfActions
   
   protected function sendContratMandat($contrat) {
   	$pdf = new ExportContratPdf($contrat);
-	$this->renderText($pdf->render($this->getResponse()));
+  	$pdf->generate();
 	return Email::getInstance()->sendContratMandat($contrat, $contrat->email);
   }
  /**
