@@ -27,7 +27,6 @@ class EtablissementClient extends acCouchdbClient {
     }
 
     public function find($id_or_identifiant, $hydrate = self::HYDRATE_DOCUMENT) {
-
         return parent::find($this->getId($id_or_identifiant), $hydrate);
     }
 
