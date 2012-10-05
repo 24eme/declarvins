@@ -22,6 +22,7 @@ class ExportContratPdf extends ExportContrat
 		$contrat = $this->getContrat();
 		$compte = $contrat->getCompteObject();
 		$document->addHtml($this->getPartial('contrat', array('contrat' => $contrat, 'compte' => $compte)));
+		$output = $document->output();
 	}
 	
 }
