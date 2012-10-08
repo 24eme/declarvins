@@ -17,6 +17,14 @@ class VracMarcheValidator extends sfValidatorBase {
     			throw new sfValidatorErrorSchema($this, array($this->getOption('determination_prix_field') => new sfValidatorError($this, 'required')));
     		}
     	}
+    	if (isset($values['millesime'])) {
+    		if (!preg_match('/[0-9]{4}/', $values['millesime'])) {
+    			throw new sfValidatorErrorSchema($this, array('millesime' => new sfValidatorError($this, 'invalid')));
+    		}
+    		if ($values['millesime'] > date('Y')) {
+    			throw new sfValidatorErrorSchema($this, array('millesime' => new sfValidatorError($this, 'invalid')));
+    		}
+    	}
         return $values;
     }
 

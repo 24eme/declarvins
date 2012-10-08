@@ -8,15 +8,15 @@ class VracLotValidator extends sfValidatorBase {
     
     protected function doClean($values) {	
     	$pourcentage = 0;
-        if (is_array($values['millesimes'])) {
+        if (is_array($values['millesimes']) && $values['assemblage']) {
     		foreach ($values['millesimes'] as $millesime) {
     			if ($millesime['pourcentage']) {
     				$pourcentage += $millesime['pourcentage'];
     			}
     		}
-        }
-        if ($pourcentage != 100) {
-        	throw new sfValidatorErrorSchema($this, array(new sfValidatorError($this, 'impossible_millesime')));
+	        if ($pourcentage != 100) {
+	        	throw new sfValidatorErrorSchema($this, array(new sfValidatorError($this, 'impossible_millesime')));
+	        }
         }
         if (isset($values['presence_allergenes']) && $values['presence_allergenes']) {
         	if (isset($values['allergenes']) && !$values['allergenes']) {
