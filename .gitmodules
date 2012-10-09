@@ -40,3 +40,9 @@
 [submodule "project/plugins/acVinDouanePlugin"]
 	path = project/plugins/acVinDouanePlugin
 	url = git@gitorious.org:acvin/acvindouaneplugin.git
+[submodule "acVinDouanePlugin"]
+	path = acVinDouanePlugin
+	url = /var/www/declarvinhamza/project/plugins/acVinDouanePlugin/
+[submodule "acVinVracPlugin"]
+	path = acVinVracPlugin
+	url = /var/www/declarvinhamza/project/plugins/acVinVracPlugin/

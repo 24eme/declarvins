@@ -7,14 +7,14 @@
         <?php echo $form['login']->render() ?>
         <?php echo $form['login']->renderError() ?>
     </div>
-    <br />
+
     <div class="ligne_form ligne_entiere ecart_check">
         <?php echo $form['droits']->renderLabel() ?>
         <?php echo $form['droits']->render() ?>
         <?php echo $form['droits']->renderError() ?>
     </div>
-    <br />
-        <div class="btnValidation">
-            <input class="btn_valider" type="submit" value="Ajouter"/>
-        </div>
+    
+    <div class="btnValidation">
+        <input class="btn_valider" type="submit" value="Ajouter"/>
+    </div>
 </form>

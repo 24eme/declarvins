@@ -9,100 +9,109 @@
     {
         background-color: #cdcdcd;
     }
+
+
+    #table_paiements,
+    #table_retiraisons,
+    #table_lots table
+    {
+        /*margin-left: 210px;*/
+        margin: 15px 0 0;
+        width: 530px;
+
+        thead
+        {
+            th
+            {
+                .border(@couleur-a10);
+                background-color: @couleur-a11;
+                font-size: 14px;
+                height: 35px;
+                padding: 0 13px;
+                vertical-align: middle;
+
+                & + th { border-left: 0 none; }
+
+                &.dernier
+                {
+                    background-color: transparent;
+                    border-bottom: 1px solid @couleur-e2;
+                    border-right: 1px solid @couleur-e2;
+                    border-top: 1px solid @couleur-e2;
+                    width: 30px;
+                }
+            }
+        }
+
+        tbody
+        {
+            text-align: left;
+
+            tr
+            {
+                td
+                {
+                    border-bottom: 1px solid @couleur-a10;
+                    border-left: 1px solid @couleur-a10;
+                    border-right: 1px solid @couleur-a10;
+                    height: 35px;
+                    padding: 0 13px;
+                    vertical-align: middle;
+                    text-align: center;
+
+                    & + td { border-left: 0 none; }
+
+                    &.dernier
+                    {
+                        border-bottom: 1px solid @couleur-e2;
+                        border-right: 1px solid @couleur-e2;
+
+                        .btn_supprimer_ligne_template
+                        {
+                            .btn_suppr;
+                            .txt-rpl;
+                            margin: 0;
+                            display: block;
+                            width: 14px;
+                        }
+                    }
+                } 
+            }
+        }
+
+        tfoot
+        {
+            td
+            {
+                border: 0;
+                padding-top: 5px;
+                text-align: right;
+
+                .ielt8 & { border-top: 0 none; }
+
+                & + th { border-left: 0 none; }
+            }
+        }
+    }
+
+    #table_retiraisons
+    {
+        thead
+        {
+            th:first-child { text-align: left; }
+        }
+    }
+
+    #table_lots .lot table
+    {
+        width: auto;
+    }
+
     .popup_form
     {
         .table_container
         {
             .clearfix;
-
-            #table_paiements,
-            #table_retiraisons
-            {
-                margin-left: 210px;
-                width: 530px;
-
-                thead
-                {
-                    th
-                    {
-                        .border(@couleur-a10);
-                        background-color: @couleur-a11;
-                        font-size: 14px;
-                        height: 35px;
-                        padding: 0 13px;
-                        vertical-align: middle;
-
-                        & + th { border-left: 0 none; }
-
-                        &.dernier
-                        {
-                            background-color: transparent;
-                            border-bottom: 1px solid @couleur-e2;
-                            border-right: 1px solid @couleur-e2;
-                            border-top: 1px solid @couleur-e2;
-                            width: 30px;
-                        }
-                    }
-                }
-
-                tbody
-                {
-                    text-align: left;
-
-                    tr
-                    {
-                        td
-                        {
-                            border-bottom: 1px solid @couleur-a10;
-                            border-left: 1px solid @couleur-a10;
-                            border-right: 1px solid @couleur-a10;
-                            height: 35px;
-                            padding: 0 13px;
-                            vertical-align: middle;
-
-                            & + td { border-left: 0 none; }
-
-                            &.dernier
-                            {
-                                border-bottom: 1px solid @couleur-e2;
-                                border-right: 1px solid @couleur-e2;
-
-                                .btn_supprimer_ligne_template
-                                {
-                                    .btn_suppr;
-                                    .txt-rpl;
-                                    margin-left: 10px;
-                                    display: block;
-                                    padding-left: 0;
-                                    width: 14px;
-                                }
-                            }
-                        } 
-                    }
-                }
-
-                tfoot
-                {
-                    th
-                    {
-                        .border(@couleur-e2);
-                        padding-top: 17px;
-                        text-align: right;
-
-                        .ielt8 & { border-top: 0 none; }
-
-                        & + th { border-left: 0 none; }
-                    }
-                }
-            }
-
-            #table_retiraisons
-            {
-                thead
-                {
-                    th:first-child { text-align: left; }
-                }
-            }
         }
 
         &#recap_saisie
@@ -243,7 +252,8 @@
         float: none;
     }
 
-    .radio_list, .checkbox_list
+    .radio_list,
+    .checkbox_list
     {
         display: inline-block;
         .ielt8 & { .inline-block-ie }
@@ -251,9 +261,21 @@
         li
         {
             display: inline-block;
+            vertical-align: top;
             .ielt8 & { .inline-block-ie }
 
-            label { 
+            padding: 0 0 0 20px;
+            position: relative;
+
+            input
+            {
+                position: absolute;
+                left: 0;
+                margin: 0;
+            }
+
+            label
+            { 
                 font-weight: normal !important;
             }
         }
@@ -601,55 +623,73 @@
             
     }
 
-    .lot{
-        float: left;
-        margin: 0 15px 10px 0;
-        width: 433px;
+    .lot
+    {
+        display: inline-block;
+        margin: 5px;
+        vertical-align: top;
+        width: 430px;
+        
+        .ielt8 & { .inline-block-ie; }
     }
 
-    #millesime, #cuve {
-            label{ 
-                    width : 190px ;
-                    vertical-align: top; 
-            }
-            table{
-                    display: inline-block;
-                    input{ 
-                        width : 70px;
-                        margin-left:10px;
-                    }
-            }
-            .btn_ajouter_ligne_template{
-                    display:inline;
-                    font-weight:bold;
-                    margin-left:200px;
+    #millesime,
+    #cuve
+    {
+        text-align: right;
 
-                    span { 
-                            line-height : 23px !important;
-                            &:hover{ text-decoration :none; }
-                    }
+        & > label
+        {
+            display: block;
+            text-align: left;
+        }
 
+        table{
+            display: inline-block;
+            input{ 
+                width : 70px;
+            }
+        }
+        .btn_ajouter_ligne_template{
+            display:inline;
+            font-weight:bold;
+
+            span { 
+                    line-height : 23px;
                     &:hover{ text-decoration :none; }
-
             }
 
-            .dernier
+            &:hover{ text-decoration :none; }
+
+        }
+
+        .dernier
+        {
+            border-bottom: 1px solid @couleur-e2;
+            border-right: 1px solid @couleur-e2;
+            vertical-align: middle;
+
+            .btn_supprimer_ligne_template
             {
-                border-bottom: 1px solid @couleur-e2;
-                border-right: 1px solid @couleur-e2;
+                .btn_suppr;
+                .txt-rpl;
 
-                .btn_supprimer_ligne_template
-                {
-                    .btn_suppr;
-                    .txt-rpl;
-
-                    display: inline-block;
-                    padding-left: 0;
-                    margin: 10px 0 0;
-                    width: 14px;
-                }
+                display: inline-block;
+                padding-left: 0;
+                width: 14px;
             }
+        }
 
+    }
+
+
+
+    #millesime
+    {
+        table
+        {
+            margin: 0 !important;
+        }
     }
     
     
@@ -668,11 +708,11 @@
     
     }
 
-    .btn_ajouter_transaction{
-            margin-bottom:15px;
-            .btn_ajouter_ligne_template {
-                    display: inline;
-             }
+    .btn_ajouter_transaction
+    {
+            margin:15px 0;
+            
+            .btn_ajouter_ligne_template { display: inline; }
     }
 
     .btn_supprimer_ligne_template{
