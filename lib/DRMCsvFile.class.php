@@ -155,14 +155,22 @@ class DRMCsvFile extends CsvFile
       $line[self::CSV_COL_DETAIL_STOCKFIN_WARRANTE] = $d->stocks_fin->warrante;
       $line[self::CSV_COL_DETAIL_STOCKFIN_INSTANCE] = $d->stocks_fin->instance;
       $line[self::CSV_COL_DETAIL_STOCKFIN_COMMERCIALISABLE] = $d->stocks_fin->commercialisable;
-      $line[self::CSV_COL_DETAIL_CVO_TAUX] = $d->getDroit(DRMDroits::DROIT_CVO)->getTaux();
+      try {
+        $line[self::CSV_COL_DETAIL_CVO_TAUX] = $d->getDroit(DRMDroits::DROIT_CVO)->getTaux();
+      }catch(Exception $e) {
+        $line[self::CSV_COL_DETAIL_CVO_TAUX] = "droits non definis";
+      }
       $line[self::CSV_COL_DETAIL_CVO_VOLUME] = $d->getDroitVolume(DRMDroits::DROIT_CVO);
       $line[self::CSV_COL_DETAIL_CVO_PRIX] = $line[self::CSV_COL_DETAIL_CVO_TAUX] * $line[self::CSV_COL_DETAIL_CVO_VOLUME];
       $line[self::CSV_COL_DETAIL_DATEDESAISIE] = $d->getDocument()->valide->date_saisie;
       $line[self::CSV_COL_DETAIL_DATEDESIGNATURE] = $d->getDocument()->valide->date_signee;
       $line[self::CSV_COL_DETAIL_MODEDESAISIE] = $d->getDocument()->mode_de_saisie;
       $line[self::CSV_COL_DETAIL_IDDRMDECLARVIN] = $d->getDocument()->_id;
-      $line[self::CSV_COL_DETAIL_ID_ETABLISSEMENT_INTERNE] = $d->getDocument()->getEtablissement()->num_interne;
+      try {
+        $line[self::CSV_COL_DETAIL_ID_ETABLISSEMENT_INTERNE] = $d->getDocument()->getEtablissement()->num_interne;
+      }catch(Exception $e) {
+	$line[self::CSV_COL_DETAIL_ID_ETABLISSEMENT_INTERNE] = '';
+      }
       $csv->csvdata[] = $line;
     }
     return $csv;

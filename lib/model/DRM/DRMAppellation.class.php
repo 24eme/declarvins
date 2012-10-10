@@ -66,6 +66,8 @@ class DRMAppellation extends BaseDRMAppellation {
       return $droits;
     }
     public function getInterproKey() {
+      if (!$this->getDocument()->getInterpro())
+	return array();
       return $this->getDocument()->getInterpro()->get('_id');
     }
     public function getCampagne() {
