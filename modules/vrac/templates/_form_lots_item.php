@@ -8,46 +8,57 @@
         </span>
     </div>
     <div id="cuve" class="vracs_ligne_form">
-        <span>
-            <label>Détail des cuves / contenants: </label>
-            <table id="table_lot_cuves_<?php echo $form->getName() ?>">
-            	<thead>
+        <label>Détail des cuves / contenants: </label>
+        <table id="table_lot_cuves_<?php echo $form->getName() ?>">
+        	<thead>
             	<tr>
             		<th>Numéro(s)</th>
             		<th>Volume</th>
             		<th>Date retiraison</th>
+                    <th class="dernier"></th>
             	</tr>
-                </thead>
-            <?php foreach ($form['cuves'] as $formCuve): ?>
-                <?php include_partial('form_lot_cuves_item', array('form' => $formCuve)) ?>
-            <?php endforeach; ?>
-            </table>
-            <a class="btn_ajouter_ligne_template" data-container="#table_lot_cuves_<?php echo $form->getName() ?>" data-template="#template_form_lot_cuves_item_<?php echo $form->getName() ?>" href="#"><span>Ajouter une cuve / un contenant</span></a>
-        </span>
+            </thead>
+            <tbody>
+                <?php foreach ($form['cuves'] as $formCuve): ?>
+                    <?php include_partial('form_lot_cuves_item', array('form' => $formCuve)) ?>
+                <?php endforeach; ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"><a class="btn_ajouter_ligne_template" data-container="#table_lot_cuves_<?php echo $form->getName() ?> tbody" data-template="#template_form_lot_cuves_item_<?php echo $form->getName() ?>" href="#"><span>Ajouter une cuve / un contenant</span></a></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+        
     </div>
-    <div class="vracs_ligne_form bloc_condition" data-condition-cible=".millesime_<?php echo $form->getName() ?>"">
-        <span>
-            <?php echo $form['assemblage']->renderError() ?>
-            <?php echo $form['assemblage']->renderLabel() ?>
-            <?php echo $form['assemblage']->render() ?>
-        </span>
+    <div class="vracs_ligne_form bloc_condition" data-condition-cible=".millesime_<?php echo $form->getName() ?>">
+        <?php echo $form['assemblage']->renderError() ?>
+        <?php echo $form['assemblage']->renderLabel() ?>
+        <?php echo $form['assemblage']->render() ?>
     </div>
     <div id="millesime" class="vracs_ligne_form bloc_conditionner millesime_<?php echo $form->getName() ?>" data-condition-value="1">
-        <span>
-            <label>&nbsp;</label>
-            <table id="table_lot_millesimes_<?php echo $form->getName() ?>">
-            	<thead>
+        <table id="table_lot_millesimes_<?php echo $form->getName() ?>">
+        	<thead>
             	<tr>
             		<th>Millésime</th>
             		<th>Pourcentage (%)</th>
+                    <th class="dernier"></th>
             	</tr>
-                </thead>
+            </thead>
+            <tbody>
             <?php foreach ($form['millesimes'] as $formMillesime): ?>
                 <?php include_partial('form_lot_millesimes_item', array('form' => $formMillesime)) ?>
             <?php endforeach; ?>
-            </table>
-            <a class="btn_ajouter_ligne_template" data-container="#table_lot_millesimes_<?php echo $form->getName() ?>" data-template="#template_form_lot_millesimes_item_<?php echo $form->getName() ?>" href="#"><span>Ajouter un millésime</span></a>
-        </span>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"><a class="btn_ajouter_ligne_template" data-container="#table_lot_millesimes_<?php echo $form->getName() ?>  tbody" data-template="#template_form_lot_millesimes_item_<?php echo $form->getName() ?>" href="#"><span>Ajouter un millésime</span></a></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+        
     </div>
     <?php if(isset($form['degre'])): ?>
     <div class="vracs_ligne_form">
@@ -78,11 +89,9 @@
     <?php endif; ?>
     <?php if(isset($form['metayage'])): ?>
     <div class="vracs_ligne_form bloc_condition" data-condition-cible="#bloc_lot_bailleur_<?php echo $form->getName() ?>">
-        <span>
         <?php echo $form['metayage']->renderError() ?>
         <?php echo $form['metayage']->renderLabel() ?>
         <?php echo $form['metayage']->render() ?>
-        </span>
     </div>
     <?php if(isset($form['bailleur'])): ?>
     <div id="bloc_lot_bailleur_<?php echo $form->getName() ?>" class="vracs_ligne_form bloc_conditionner" data-condition-value="1">

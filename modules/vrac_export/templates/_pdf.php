@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="copyright" content="Vins de Provence - 2011" />
 
-	<?php include_partial('drm_export/pdfCss') ?>
+	<?php include_partial('vrac_export/pdfCss') ?>
 </head>
 
 <body>
@@ -123,48 +123,73 @@
 	<?php endif; ?>
 	<?php if ($vrac->has_transaction): ?>
 	<h2>Descriptif des lots</h2>
-	<p>
+
+	<div id="lots">
+
+
 		<table>
-			<tr>
-				<td>Numéro</td>
-				<td>Cuve(s)</td>
-				<td>Volume</td>
-				<td>Date de retiraison</td>
-				<td>Assemblage</td>
-				<td>Degré</td>
-				<td>Allergènes</td>
-			</tr>
 			<?php foreach ($vrac->lots as $lot): ?>
+			<?php
+				$nb_cuves = sizeof($lot->cuves);
+				$nb_millesimes = 0;
+				if($lot->assemblage) $nb_millesimes = sizeof($lot->millesimes);
+			?>
+			<?php $nb_lignes = 3 + $nb_cuves ?>
+			<?php if($nb_millesimes > 0) $nb_lignes += 1 + $nb_millesimes; ?>
 			<tr>
-				<td><?php echo $lot->numero ?></td>
-				<td>
-					<ul>
-					<?php foreach ($lot->cuves as $cuve): ?>
-					<li>
-						<?php echo $cuve->numero ?> - <?php echo $cuve->volume ?>&nbsp;HL - <?php echo $cuve->date ?>
-					</li>
-					<?php endforeach; ?>
-					</ul>
-				</td>
-				<td>
-					<?php if($lot->assemblage): ?>
-					<ul>
-					<?php foreach ($lot->millesimes as $millesime): ?>
-					<li>
-						<?php echo $millesime->annee ?> - <?php echo $millesime->pourcentage ?>&nbsp;%
-					</li>
-					<?php endforeach; ?>
-					</ul>
-					<?php else: ?>
-					Pas d'assemblage
-					<?php endif; ?>
-				</td>
+				<th rowspan="<? echo $nb_lignes; ?>" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
+				<th rowspan="<?php echo 1 + $nb_cuves; ?>" class="cuves">Cuves</th>
+				<th>N°</th>
+				<th>Volume</th>
+				<th>Date de retiraison</th>
+			</tr>
+
+			<?php $i=1; ?>
+			<?php foreach ($lot->cuves as $cuve): ?>
+			<tr class="<?php if($i==$nb_cuves) echo 'der_cat'; ?>">
+				<td><?php echo $cuve->numero ?></td>
+				<td><?php echo $cuve->volume ?> HL</td>
+				<td><?php echo $cuve->date ?></td>
+			</tr>
+			<?php $i++; ?>
+			<?php endforeach; ?>
+
+			<?php if($lot->assemblage): ?>
+			<tr>
+				<th rowspan="<?php echo 1 + $nb_millesimes ?>" class="millesimes">Assemblage de millésimes</th>
+				<th>Année</th>
+				<th class="pourcentage">Pourcentage</th>
+				<th></th>
+			</tr>
+
+			<?php foreach ($lot->millesimes as $millesime): ?>
+			<?php $i=1; ?>
+			<tr class="<?php if($i==$nb_millesimes) echo 'der_cat'; ?>">
+				<td><?php echo $millesime->annee ?></td>
+				<td class="pourcentage"><?php echo $millesime->pourcentage ?> %</td>
+				<td></td>
+			</tr>
+			<?php $i++; ?>
+			<?php endforeach; ?>
+
+			<?php else: ?>
+				Pas d'assemblage
+			<?php endif; ?>
+
+			<tr class="der_cat">
+				<th class="degre">Degré</th>
 				<td><?php echo $lot->degre ?></td>
+				<td colspan="2"></td>
+			</tr>
+			<tr class="dernier">
+				<th class="allergenes">Allergènes</th>
 				<td><?php echo ($lot->presence_allergenes)? 'Oui' : 'Non'; ?></td>
+				<td colspan="2"></td>
 			</tr>
 			<?php endforeach; ?>
 		</table>
-	</p>
+
+	</div>
 	<?php endif; ?>
 	<h2>Informations complémentaires</h2>
 	<?php echo $configurationVrac->getInformationsComplementaires(ESC_RAW) ?>

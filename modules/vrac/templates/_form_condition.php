@@ -26,8 +26,8 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="2"><a class="btn_ajouter_ligne_template" data-container="#table_paiements tbody" data-template="#template_form_paiements_item" href="#"><span>Ajouter</span></a></th>
-                            <th class="dernier"></th>
+                            <td colspan="3"><a class="btn_ajouter_ligne_template" data-container="#table_paiements tbody" data-template="#template_form_paiements_item" href="#"><span>Ajouter</span></a></td>
+                            <td></td>
                         </tr>
                     </tfoot>
                 </table>
