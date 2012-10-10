@@ -13,7 +13,8 @@
 
     #table_paiements,
     #table_retiraisons,
-    #table_lots table
+    #table_lots table,
+    #recap_transaction .lot table
     {
         /*margin-left: 210px;*/
         margin: 15px 0 0;
@@ -355,7 +356,7 @@
                 display: block;
                 float: none; 
                 width : auto !important; 
-                padding: 2px 0;
+                padding: 2px 0 2px 20px;
             }
         } 
     }
@@ -525,7 +526,7 @@
     
     .bloc_form
     {
-        .border-radius(5px 5px 5px 5px);
+        .border-radius(5px);
         .border(#e3e2e2);
 
         .vracs_ligne_form
@@ -771,12 +772,7 @@
 
             .statut
             {
-                -webkit-border-radius:50%;
-                -moz-border-radius:50%;
-                border-radius:50%;
-                -webkit-border-radius:50%;
-                -moz-border-radius:50%;
-                border-radius:50%;
+                .border-radius(50%);
                 height:20px;
                 width:20px;
                 display:inline-block;
@@ -785,6 +781,7 @@
             .statut_solde { background-color:#a2df46; }
             .statut_non-solde { background-color:#faa804; }
             .statut_annule { background-color:#e42c2c; }
+            .statut_attente-validation { background-color:#999; }
 
             #btn_annuler_contrat{
                  background: url("../images/boutons/btn_supprimer.png") no-repeat scroll 7px center #494949;
@@ -822,6 +819,45 @@
     
     }
 
+    /* Recap transaction */
+    #recap_saisie #recap_transaction
+    {
+        .lots
+        {
+            font-size: 14px;
+            font-weight: normal;
+            
+            .lot
+            {
+                .border-radius(5px);
+                .border(#e3e2e2);
+                padding: 10px;
+                width: 400px;
+
+                table
+                {
+                    margin: 0 0 15px;
+                    width: 100%;
+
+                    th { text-align: center; }
+                }
+
+                p
+                {
+                    font-size: 14px;
+                    margin: 0 0 10px;
+                    text-align: left;
+
+                    span
+                    {
+                        font-weight: bold;
+                        width: 265px;
+                    }
+                }
+
+            }
+        }
+    }
     
 
 }
