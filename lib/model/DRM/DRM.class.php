@@ -195,8 +195,13 @@ class DRM extends BaseDRM {
     }
 
     public function getEtablissement() {
-    	
-        return EtablissementClient::getInstance()->retrieveById($this->identifiant);
+    	if (!$this->identifiant)
+		throw new Exception('pas d\'établissement saisi pour '.$this->_id);	
+        $e = EtablissementClient::getInstance()->retrieveById($this->identifiant);
+	if (!$e) {
+		throw new Exception('pas d\'établissement correspondant à '.$this->identifiant);
+	}
+	return $e;
     }
     
     public function getInterpro() {
