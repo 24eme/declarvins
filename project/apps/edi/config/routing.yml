@@ -26,8 +26,14 @@ listContratEdi:
   url: /edi/contrat/list
   param: {module: edi, action: listContrat}
 streamDRMEdi:
-  url: /edi/drm/:interpro/:date
+  url: /edi/drm/:interpro/:datedebut
   param: {module: edi, action: streamDRM}
 viewDRMEdi:
   url: /edi/drm/:identifiant/:annee/:mois/:rectificative
   param: {module: edi, action: viewDRM, rectificative: ''}
+redirect_stream:
+  url: /edi/drm/stream
+  param: {module: edi, action: redirect, destination: 'streamDRMEdi'}
+redirect_view:
+  url: /edi/drm/view
+  param: {module: edi, action: redirect, destination: "viewDRMEdi"}
