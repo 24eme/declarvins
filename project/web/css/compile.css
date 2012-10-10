@@ -4,7 +4,6 @@
 @charset "utf-8";
 @charset "utf-8";
 @import url("jquery.ui.theme.css");
-@import url("datepicker.css");
 .gabarit {
   margin:0 auto;
   width:940px;
@@ -2122,11 +2121,11 @@ p#date_drm {
 #telecharger_pdf:hover { text-decoration:none; }
 .vracs { color:#3e3e3e; }
 .vracs .disabled { background-color:#cdcdcd; }
-.vracs #table_paiements, .vracs #table_retiraisons, .vracs #table_lots table {
+.vracs #table_paiements, .vracs #table_retiraisons, .vracs #table_lots table, .vracs #recap_transaction .lot table {
   margin:15px 0 0;
   width:530px;
 }
-.vracs #table_paiements thead th, .vracs #table_retiraisons thead th, .vracs #table_lots table thead th {
+.vracs #table_paiements thead th, .vracs #table_retiraisons thead th, .vracs #table_lots table thead th, .vracs #recap_transaction .lot table thead th {
   border:1px solid #e5e4e4;
   background-color:#ecebeb;
   font-size:14px;
@@ -2134,16 +2133,16 @@ p#date_drm {
   padding:0 13px;
   vertical-align:middle;
 }
-.vracs #table_paiements thead th + th, .vracs #table_retiraisons thead th + th, .vracs #table_lots table thead th + th { border-left:0 none; }
-.vracs #table_paiements thead th.dernier, .vracs #table_retiraisons thead th.dernier, .vracs #table_lots table thead th.dernier {
+.vracs #table_paiements thead th + th, .vracs #table_retiraisons thead th + th, .vracs #table_lots table thead th + th, .vracs #recap_transaction .lot table thead th + th { border-left:0 none; }
+.vracs #table_paiements thead th.dernier, .vracs #table_retiraisons thead th.dernier, .vracs #table_lots table thead th.dernier, .vracs #recap_transaction .lot table thead th.dernier {
   background-color:transparent;
   border-bottom:1px solid #ffffff;
   border-right:1px solid #ffffff;
   border-top:1px solid #ffffff;
   width:30px;
 }
-.vracs #table_paiements tbody, .vracs #table_retiraisons tbody, .vracs #table_lots table tbody { text-align:left; }
-.vracs #table_paiements tbody tr td, .vracs #table_retiraisons tbody tr td, .vracs #table_lots table tbody tr td {
+.vracs #table_paiements tbody, .vracs #table_retiraisons tbody, .vracs #table_lots table tbody, .vracs #recap_transaction .lot table tbody { text-align:left; }
+.vracs #table_paiements tbody tr td, .vracs #table_retiraisons tbody tr td, .vracs #table_lots table tbody tr td, .vracs #recap_transaction .lot table tbody tr td {
   border-bottom:1px solid #e5e4e4;
   border-left:1px solid #e5e4e4;
   border-right:1px solid #e5e4e4;
@@ -2152,12 +2151,12 @@ p#date_drm {
   vertical-align:middle;
   text-align:center;
 }
-.vracs #table_paiements tbody tr td + td, .vracs #table_retiraisons tbody tr td + td, .vracs #table_lots table tbody tr td + td { border-left:0 none; }
-.vracs #table_paiements tbody tr td.dernier, .vracs #table_retiraisons tbody tr td.dernier, .vracs #table_lots table tbody tr td.dernier {
+.vracs #table_paiements tbody tr td + td, .vracs #table_retiraisons tbody tr td + td, .vracs #table_lots table tbody tr td + td, .vracs #recap_transaction .lot table tbody tr td + td { border-left:0 none; }
+.vracs #table_paiements tbody tr td.dernier, .vracs #table_retiraisons tbody tr td.dernier, .vracs #table_lots table tbody tr td.dernier, .vracs #recap_transaction .lot table tbody tr td.dernier {
   border-bottom:1px solid #ffffff;
   border-right:1px solid #ffffff;
 }
-.vracs #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template, .vracs #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template, .vracs #table_lots table tbody tr td.dernier .btn_supprimer_ligne_template {
+.vracs #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template, .vracs #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template, .vracs #table_lots table tbody tr td.dernier .btn_supprimer_ligne_template, .vracs #recap_transaction .lot table tbody tr td.dernier .btn_supprimer_ligne_template {
   background:url(../images/pictos/pi_supprimer.png) 0 center no-repeat;
   height:13px;
   padding:0 0 0 14px;
@@ -2168,15 +2167,15 @@ p#date_drm {
   display:block;
   width:14px;
 }
-.vracs #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template:hover, .vracs #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template:focus, .vracs #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template:hover, .vracs #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template:focus, .vracs #table_lots table tbody tr td.dernier .btn_supprimer_ligne_template:hover, .vracs #table_lots table tbody tr td.dernier .btn_supprimer_ligne_template:focus { text-decoration:underline; }
-.ielt8 .vracs #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template, .ielt8 .vracs #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template, .ielt8 .vracs #table_lots table tbody tr td.dernier .btn_supprimer_ligne_template { height:15px; }
-.vracs #table_paiements tfoot td, .vracs #table_retiraisons tfoot td, .vracs #table_lots table tfoot td {
+.vracs #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template:hover, .vracs #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template:focus, .vracs #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template:hover, .vracs #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template:focus, .vracs #table_lots table tbody tr td.dernier .btn_supprimer_ligne_template:hover, .vracs #table_lots table tbody tr td.dernier .btn_supprimer_ligne_template:focus, .vracs #recap_transaction .lot table tbody tr td.dernier .btn_supprimer_ligne_template:hover, .vracs #recap_transaction .lot table tbody tr td.dernier .btn_supprimer_ligne_template:focus { text-decoration:underline; }
+.ielt8 .vracs #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template, .ielt8 .vracs #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template, .ielt8 .vracs #table_lots table tbody tr td.dernier .btn_supprimer_ligne_template, .ielt8 .vracs #recap_transaction .lot table tbody tr td.dernier .btn_supprimer_ligne_template { height:15px; }
+.vracs #table_paiements tfoot td, .vracs #table_retiraisons tfoot td, .vracs #table_lots table tfoot td, .vracs #recap_transaction .lot table tfoot td {
   border:0;
   padding-top:5px;
   text-align:right;
 }
-.ielt8 .vracs #table_paiements tfoot td, .ielt8 .vracs #table_retiraisons tfoot td, .ielt8 .vracs #table_lots table tfoot td { border-top:0 none; }
-.vracs #table_paiements tfoot td + th, .vracs #table_retiraisons tfoot td + th, .vracs #table_lots table tfoot td + th { border-left:0 none; }
+.ielt8 .vracs #table_paiements tfoot td, .ielt8 .vracs #table_retiraisons tfoot td, .ielt8 .vracs #table_lots table tfoot td, .ielt8 .vracs #recap_transaction .lot table tfoot td { border-top:0 none; }
+.vracs #table_paiements tfoot td + th, .vracs #table_retiraisons tfoot td + th, .vracs #table_lots table tfoot td + th, .vracs #recap_transaction .lot table tfoot td + th { border-left:0 none; }
 .vracs #table_retiraisons thead th:first-child { text-align:left; }
 .vracs #table_lots .lot table { width:auto; }
 .vracs .popup_form .table_container { zoom:1; }
@@ -2390,7 +2389,7 @@ p#date_drm {
   display:block;
   float:none;
   width:auto !important;
-  padding:2px 0;
+  padding:2px 0 2px 20px;
 }
 .vracs .contenu_onglet {
   border:1px solid #e9e9e9;
@@ -2573,9 +2572,9 @@ p#date_drm {
   padding-top:4px;
 }
 .vracs .bloc_form {
-  -webkit-border-radius:5px 5px 5px 5px;
-  -moz-border-radius:5px 5px 5px 5px;
-  border-radius:5px 5px 5px 5px;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
   border:1px solid #e3e2e2;
 }
 .vracs .bloc_form .vracs_ligne_form { padding:4px 0 10px 10px; }
@@ -2729,9 +2728,6 @@ p#date_drm {
   -webkit-border-radius:50%;
   -moz-border-radius:50%;
   border-radius:50%;
-  -webkit-border-radius:50%;
-  -moz-border-radius:50%;
-  border-radius:50%;
   height:20px;
   width:20px;
   display:inline-block;
@@ -2740,6 +2736,7 @@ p#date_drm {
 .vracs .visualisation_contrat .statut_solde { background-color:#a2df46; }
 .vracs .visualisation_contrat .statut_non-solde { background-color:#faa804; }
 .vracs .visualisation_contrat .statut_annule { background-color:#e42c2c; }
+.vracs .visualisation_contrat .statut_attente-validation { background-color:#999999; }
 .vracs .visualisation_contrat #btn_annuler_contrat {
   background:url("../images/boutons/btn_supprimer.png") no-repeat scroll 7px center #494949;
   border:1px solid #343434;
@@ -2778,6 +2775,32 @@ p#date_drm {
   font-weight:bold;
 }
 .vracs .visualisation_contrat #solder_contrat:hover, .vracs .visualisation_contrat #solder_contrat:focus { background-color:#99af00; }
+.vracs #recap_saisie #recap_transaction .lots {
+  font-size:14px;
+  font-weight:normal;
+}
+.vracs #recap_saisie #recap_transaction .lots .lot {
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  border:1px solid #e3e2e2;
+  padding:10px;
+  width:400px;
+}
+.vracs #recap_saisie #recap_transaction .lots .lot table {
+  margin:0 0 15px;
+  width:100%;
+}
+.vracs #recap_saisie #recap_transaction .lots .lot table th { text-align:center; }
+.vracs #recap_saisie #recap_transaction .lots .lot p {
+  font-size:14px;
+  margin:0 0 10px;
+  text-align:left;
+}
+.vracs #recap_saisie #recap_transaction .lots .lot p span {
+  font-weight:bold;
+  width:265px;
+}
 #mon_compte .ligne_form, #compteModification .ligne_form, #compteAjout .ligne_form, #validationFiche .ligne_form, #libelleModification .ligne_form { margin:0 0 15px; }
 #mon_compte .ligne_form > *, #compteModification .ligne_form > *, #compteAjout .ligne_form > *, #validationFiche .ligne_form > *, #libelleModification .ligne_form > * {
   display:inline-block;

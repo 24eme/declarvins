@@ -57,19 +57,53 @@ class ediActions extends sfActions
     }
     $this->setLayout(false);
   }
+
+  private function renderCsvDRMs($drms, $date = null) {
+    $this->setLayout(false);
+    $csv_file = '';
+    $lastdate = $date;
+    foreach ($drms as $drm) {
+      $csv_file .= $this->getComponent('edi', 'viewDRM', array('drm' => $drm));
+      $lastdate = $drm->valide->date_saisie;
+    }
+    if (!$csv_file) {
+	$this->response->setStatusCode(204);
+	return $this->renderText(null);
+    }
+    $this->response->setContentType('text/csv');
+    $this->response->setHttpHeader('md5', md5($csv_file));
+    $this->response->setHttpHeader('LastDocDate', $lastdate);
+    $this->response->setHttpHeader('Last-Modified', date('r', strtotime($lastdate)));
+    return $this->renderText($csv_file);
+  }
+
   public function executeViewDRM(sfWebRequest $request) 
   {
-    $this->setLayout(false);
-    $this->response->setContentType('text/plain');
-    $this->drm = DRMClient::getInstance()->findByIdentifiantCampagneAndRectificative($request->getParameter('identifiant'), $request->getParameter('annee').'-'.$request->getParameter('mois'), $request->getParameter('rectificative'));
-    $this->forward404Unless($this->drm);
+    $drm = DRMClient::getInstance()->findByIdentifiantCampagneAndRectificative($request->getParameter('identifiant'), $request->getParameter('annee').'-'.$request->getParameter('mois'), $request->getParameter('rectificative'));
+    return $this->renderCsvDRMs(array($drm));
   }
 
   public function executeStreamDRM(sfWebRequest $request) {
-    $this->setLayout(false);
-    $this->response->setContentType('text/plain');
-    $this->drms = DRMClient::getInstance()->findByInterproDate($request->getParameter('interpro'), $request->getParameter('date'));
-    $this->forward404Unless($this->drms);
+    $date = $request->getParameter('datedebut');
+    if (!$date) {
+	return $this->renderText("Pas de date définie");
+    }
+    if (preg_match('/^(.*T[0-9][0-9]:[0-9][0-9]:[0-9])([0-9])(.*)$/', $date, $match)) {
+	$match[2] += 1;
+	$date = $match[1].$match[2].$match[3];
+    }
+    $interpro = $request->getParameter('interpro');
+    if (!preg_match('/^INTERPRO-/', $interpro)) {
+	$interpro = 'INTERPRO-'.$interpro;
+    }
+    $drms = DRMClient::getInstance()->findByInterproDate($interpro, $date);
+    return $this->renderCsvDRMs($drms, $date);
+  }
+
+  public function executeRedirect(sfWebRequest $request) {
+	$param = $request->getGetParameters();
+	unset($param['destination']);
+	return $this->redirect(array_merge(array("sf_route" => $request->getParameter('destination')), $param));
   }
 
   public function executeListDRM(sfWebRequest $request) 
