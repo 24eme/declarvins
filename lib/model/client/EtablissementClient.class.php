@@ -64,10 +64,13 @@ class EtablissementClient extends acCouchdbClient {
 	    return $etab;
     }
 
-    public function findByFamille($famille) {
-        
+    public function findByFamille($famille,$limit=100) {
+        if($limit==null){            
+            return $this->startkey(array($famille))
+              ->endkey(array($famille, array()))->getView('etablissement', 'tous');
+        }
         return $this->startkey(array($famille))
-              ->endkey(array($famille, array()))->limit(100)->getView('etablissement', 'tous');
+              ->endkey(array($famille, array()))->limit($limit)->getView('etablissement', 'tous');
     }
     
     public function findAll() 
