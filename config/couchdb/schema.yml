@@ -1,0 +1,19 @@
+Alerte:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {  }
+      etablissement_identifiant: {  }
+      alertes:
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  detail: {  }
+                  commentaire: {  }
+                  statut: {  }
+      derniere_detection: {  }
