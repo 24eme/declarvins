@@ -44,6 +44,7 @@ abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
         
         $this->definitionValidation();
         if ($this->isModified()) {
+        	$this->doSave();
             $ret = acCouchdbManager::getClient()->save($this);
             $this->_rev = $ret->rev;
             $this->_serialize_loaded_json = serialize(new acCouchdbJsonNative($this->getData()));
@@ -53,6 +54,10 @@ abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
     }
     
     public function constructId() {
+        
+    }
+    
+    public function doSave() {
         
     }
 
