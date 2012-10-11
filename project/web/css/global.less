@@ -53,29 +53,16 @@ hgroup, nav, section { display: block; }
 
 
 /**
- * Eléments jQuery UI
+ * jQuery Autocomplete
  ******************************************/
- 
-.ui-helper-hidden { display: none; }
-.ui-helper-hidden-accessible { position: absolute; left: -99999999px; }
-.ui-helper-reset {/* margin: 0; padding: 0;*/ border: 0; outline: 0; text-decoration: none; font-size: 100%; list-style: none; }
-.ui-helper-clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
-.ui-helper-clearfix { display: inline-block; }
-/* required comment for clearfix to work in Opera \*/
-* html .ui-helper-clearfix { height:1%; }
-.ui-helper-clearfix { display:block; }
-/* end clearfix */
-.ui-helper-zfix { width: 100%; height: 100%; top: 0; left: 0; position: absolute; opacity: 0; filter:Alpha(Opacity=0); }
-.ui-state-disabled { cursor: default !important; }
-.ui-icon { display: block; text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; }
-.ui-widget-overlay {background: url('../images/fonds/overlay.png') 0 0 repeat; position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-.ui-autocomplete { .box-shadow(0 2px 10px #ccc); background: #fff; border: 1px solid #d3d2cd; max-height: 300px; overflow-y: auto; overflow-x: hidden; position: absolute; width: 250px; }
+.ui-autocomplete { .box-shadow(0 2px 10px #ccc); .border-radius(0); background: #fff; border: 1px solid #d3d2cd; max-height: 300px; overflow-y: auto; overflow-x: hidden; position: absolute; width: 250px; }
 .ui-autocomplete .ui-menu-item a { background: #fff; color: @couleur-a1; cursor: pointer; display: block; padding: 2px; text-decoration: none; }
 .ui-autocomplete .ui-menu-item a.ui-state-hover,
-.ui-autocomplete .ui-menu-item a.ui-state-active { background: #E9E9E9; }
+.ui-autocomplete .ui-menu-item a.ui-state-active { background: #E9E9E9; border: 0; }
 .button-autocomplete.ui-state-disabled { opacity: 0.5; -moz-opacity: 0.5; filter:alpha(opacity=5); background: #fff; };
 .ui-autocomplete-loading { background: #fff url('../images/pictos/pi_loader.gif') right center no-repeat !important; }
+
 
 /**
  * Eléments génériques
@@ -765,6 +752,44 @@ a
 }
 
 /**
+ * Barre sub nav
+ ******************************************/
+#barre_sub_navigation
+{
+	background: #f1f1f1;
+	border-bottom: 1px solid #e1e1e0;
+	line-height: 30px;
+	font-weight: bold;
+	padding: 0 15px;
+	.clearfix;
+
+	ul
+	{
+		li
+		{
+			float: left;
+
+			a
+			{
+				float: left;
+				padding: 0 15px;
+			}
+
+			&.actif
+			{
+				a
+				{
+					background: #86005b;
+					color: #fff;
+					text-decoration: none;
+				}
+			}
+		}
+	}
+}
+
+
+/**
  * Contenu
  ******************************************/
 #contenu
@@ -871,30 +896,30 @@ a
 
 
 /* Notice */
-        .notice
-        {
-            background: #fff;
-            .border(#dbdbdb);
-            margin: 0 0 15px;
-            padding: 15px;
-            .clearfix;
-            
-            h2, ul li
-            {
-                margin: 0 0 10px;
-            }
-            
-            kbd
-            {
-                background: #fff;
-                .border(#dbdbdb);
-                border-width: 1px 2px 2px 1px;
-                .border-radius(3px);
-                display: inline-block;
-                padding: 3px;
-                vertical-align: middle;
-            }
-        }
+.notice
+{
+    background: #fff;
+    .border(#dbdbdb);
+    margin: 0 0 15px;
+    padding: 15px;
+    .clearfix;
+    
+    h2, ul li
+    {
+        margin: 0 0 10px;
+    }
+    
+    kbd
+    {
+        background: #fff;
+        .border(#dbdbdb);
+        border-width: 1px 2px 2px 1px;
+        .border-radius(3px);
+        display: inline-block;
+        padding: 3px;
+        vertical-align: middle;
+    }
+}
 
 /**
  * Footer
@@ -1085,9 +1110,9 @@ a
 		
 			&.btn_annuler { 
                     
-                            .btn_gris; 
-                            &:hover{ text-decoration: none; }
-                        }
+                .btn_gris; 
+                &:hover{ text-decoration: none; }
+            }
 			&.btn_valider { .btn_violet; }
 		}
 	}

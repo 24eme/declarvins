@@ -36,48 +36,7 @@
 		<li class="quitter"><a href="<?php echo url_for('@ac_vin_logout'); ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
 	</ul>
 </nav>
-<style>
-#barre_sub_navigation:after {
-    clear: both;
-}
-#barre_sub_navigation:before, #barre_sub_navigation:after {
-    content: " ";
-    display: block;
-    font-size: 0;
-    height: 0;
-    visibility: hidden;
-}
-#barre_sub_navigation:before, #barre_sub_navigation:after {
-    content: " ";
-    display: block;
-    font-size: 0;
-    height: 0;
-    visibility: hidden;
-}
-#barre_sub_navigation {
-    background: none repeat scroll 0 0 #F1F1F1;
-    border-bottom: 1px solid #E1E1E0;
-    padding: 4px 4px 0;
-}
 
-
-#sub_nav {
-    float: left;
-    font-size: 14px;
-    line-height: 35px;
-    margin: 0 0 -10px;
-    position: relative;
-    text-align: center;
-    top: -10px;
-}
-#sub_nav li {
-    float: left;
-    margin: 0 4px 0 0;
-}
-#sub_nav li.actif {
-    font-weight: bold;
-}
-</style>
 <nav id="barre_sub_navigation">
 	<ul id="sub_nav">
 		<?php if ($active == 'operateurs'): ?>

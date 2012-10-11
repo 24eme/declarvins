@@ -4,7 +4,6 @@
 @charset "utf-8";
 @charset "utf-8";
 @import url("jquery.ui.theme.css");
-@import url("datepicker.css");
 .gabarit {
   margin:0 auto;
   width:940px;
@@ -53,52 +52,6 @@ hr {
 }
 input, select { vertical-align:middle; }
 article, aside, figure, footer, header, hgroup, nav, section { display:block; }
-.ui-helper-hidden { display:none; }
-.ui-helper-hidden-accessible {
-  position:absolute;
-  left:-99999999px;
-}
-.ui-helper-reset {
-  border:0;
-  outline:0;
-  text-decoration:none;
-  font-size:100%;
-  list-style:none;
-}
-.ui-helper-clearfix:after {
-  content:".";
-  display:block;
-  height:0;
-  clear:both;
-  visibility:hidden;
-}
-.ui-helper-clearfix { display:inline-block; }
-* html .ui-helper-clearfix { height:1%; }
-.ui-helper-clearfix { display:block; }
-.ui-helper-zfix {
-  width:100%;
-  height:100%;
-  top:0;
-  left:0;
-  position:absolute;
-  opacity:0;
-  filter:1;
-}
-.ui-state-disabled { cursor:default !important; }
-.ui-icon {
-  display:block;
-  text-indent:-99999px;
-  overflow:hidden;
-  background-repeat:no-repeat;
-}
-.ui-widget-overlay {
-  background:url('../images/fonds/overlay.png') 0 0 repeat;
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-}
 .ui-autocomplete {
   -webkit-box-shadow:0 2px 10px #cccccc;
   -moz-box-shadow:0 2px 10px #cccccc;
@@ -106,6 +59,9 @@ article, aside, figure, footer, header, hgroup, nav, section { display:block; }
   -webkit-box-shadow:0 2px 10px #cccccc;
   -moz-box-shadow:0 2px 10px #cccccc;
   box-shadow:0 2px 10px #cccccc;
+  -webkit-border-radius:0;
+  -moz-border-radius:0;
+  border-radius:0;
   background:#ffffff;
   border:1px solid #d3d2cd;
   max-height:300px;
@@ -122,7 +78,10 @@ article, aside, figure, footer, header, hgroup, nav, section { display:block; }
   padding:2px;
   text-decoration:none;
 }
-.ui-autocomplete .ui-menu-item a.ui-state-hover, .ui-autocomplete .ui-menu-item a.ui-state-active { background:#e9e9e9; }
+.ui-autocomplete .ui-menu-item a.ui-state-hover, .ui-autocomplete .ui-menu-item a.ui-state-active {
+  background:#e9e9e9;
+  border:0;
+}
 .button-autocomplete.ui-state-disabled {
   opacity:0.5;
   -moz-opacity:0.5;
@@ -671,6 +630,32 @@ a:hover { text-decoration:underline; }
   top:3px;
 }
 #barre_navigation #actions_etablissement .popup_form button, #barre_navigation #actions_etablissement .popup_form input { margin-top:2px; }
+#barre_sub_navigation {
+  background:#f1f1f1;
+  border-bottom:1px solid #e1e1e0;
+  line-height:30px;
+  font-weight:bold;
+  padding:0 15px;
+  zoom:1;
+}
+#barre_sub_navigation:before, #barre_sub_navigation:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+#barre_sub_navigation:after { clear:both; }
+#barre_sub_navigation ul li { float:left; }
+#barre_sub_navigation ul li a {
+  float:left;
+  padding:0 15px;
+}
+#barre_sub_navigation ul li.actif a {
+  background:#86005b;
+  color:#ffffff;
+  text-decoration:none;
+}
 #contenu { position:relative; }
 #contenu h1 {
   color:#86005b;
@@ -1324,6 +1309,18 @@ input.ui-autocomplete-input + button .ui-icon {
   display:inline-block;
   text-indent:-9999px;
 }
+.tableau_recap .actions a {
+  background:0 50% no-repeat;
+  display:inline-block;
+  height:auto;
+  margin:0 10px 0 0;
+  padding:0 0 0 15px;
+}
+.tableau_recap .actions a.btn_activer, .tableau_recap .actions a.btn_desactiver { padding-left:20px; }
+.tableau_recap .actions a.btn_etablissement { background-image:url(../images/pictos/pi_etablissement_2.png); }
+.tableau_recap .actions a.btn_activer { background-image:url(../images/pictos/pi_actif.png); }
+.tableau_recap .actions a.btn_desactiver { background-image:url(../images/pictos/pi_inactif.png); }
+.tableau_recap .actions a.btn_modifier { background-image:url(../images/pictos/pi_edit.png); }
 p#date_drm {
   font-size:14px;
   font-style:italic;
@@ -2124,6 +2121,63 @@ p#date_drm {
 #telecharger_pdf:hover { text-decoration:none; }
 .vracs { color:#3e3e3e; }
 .vracs .disabled { background-color:#cdcdcd; }
+.vracs #table_paiements, .vracs #table_retiraisons, .vracs #table_lots table, .vracs #recap_transaction .lot table {
+  margin:15px 0 0;
+  width:530px;
+}
+.vracs #table_paiements thead th, .vracs #table_retiraisons thead th, .vracs #table_lots table thead th, .vracs #recap_transaction .lot table thead th {
+  border:1px solid #e5e4e4;
+  background-color:#ecebeb;
+  font-size:14px;
+  height:35px;
+  padding:0 13px;
+  vertical-align:middle;
+}
+.vracs #table_paiements thead th + th, .vracs #table_retiraisons thead th + th, .vracs #table_lots table thead th + th, .vracs #recap_transaction .lot table thead th + th { border-left:0 none; }
+.vracs #table_paiements thead th.dernier, .vracs #table_retiraisons thead th.dernier, .vracs #table_lots table thead th.dernier, .vracs #recap_transaction .lot table thead th.dernier {
+  background-color:transparent;
+  border-bottom:1px solid #ffffff;
+  border-right:1px solid #ffffff;
+  border-top:1px solid #ffffff;
+  width:30px;
+}
+.vracs #table_paiements tbody, .vracs #table_retiraisons tbody, .vracs #table_lots table tbody, .vracs #recap_transaction .lot table tbody { text-align:left; }
+.vracs #table_paiements tbody tr td, .vracs #table_retiraisons tbody tr td, .vracs #table_lots table tbody tr td, .vracs #recap_transaction .lot table tbody tr td {
+  border-bottom:1px solid #e5e4e4;
+  border-left:1px solid #e5e4e4;
+  border-right:1px solid #e5e4e4;
+  height:35px;
+  padding:0 13px;
+  vertical-align:middle;
+  text-align:center;
+}
+.vracs #table_paiements tbody tr td + td, .vracs #table_retiraisons tbody tr td + td, .vracs #table_lots table tbody tr td + td, .vracs #recap_transaction .lot table tbody tr td + td { border-left:0 none; }
+.vracs #table_paiements tbody tr td.dernier, .vracs #table_retiraisons tbody tr td.dernier, .vracs #table_lots table tbody tr td.dernier, .vracs #recap_transaction .lot table tbody tr td.dernier {
+  border-bottom:1px solid #ffffff;
+  border-right:1px solid #ffffff;
+}
+.vracs #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template, .vracs #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template, .vracs #table_lots table tbody tr td.dernier .btn_supprimer_ligne_template, .vracs #recap_transaction .lot table tbody tr td.dernier .btn_supprimer_ligne_template {
+  background:url(../images/pictos/pi_supprimer.png) 0 center no-repeat;
+  height:13px;
+  padding:0 0 0 14px;
+  text-indent:100%;
+  white-space:nowrap;
+  overflow:hidden;
+  margin:0;
+  display:block;
+  width:14px;
+}
+.vracs #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template:hover, .vracs #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template:focus, .vracs #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template:hover, .vracs #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template:focus, .vracs #table_lots table tbody tr td.dernier .btn_supprimer_ligne_template:hover, .vracs #table_lots table tbody tr td.dernier .btn_supprimer_ligne_template:focus, .vracs #recap_transaction .lot table tbody tr td.dernier .btn_supprimer_ligne_template:hover, .vracs #recap_transaction .lot table tbody tr td.dernier .btn_supprimer_ligne_template:focus { text-decoration:underline; }
+.ielt8 .vracs #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template, .ielt8 .vracs #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template, .ielt8 .vracs #table_lots table tbody tr td.dernier .btn_supprimer_ligne_template, .ielt8 .vracs #recap_transaction .lot table tbody tr td.dernier .btn_supprimer_ligne_template { height:15px; }
+.vracs #table_paiements tfoot td, .vracs #table_retiraisons tfoot td, .vracs #table_lots table tfoot td, .vracs #recap_transaction .lot table tfoot td {
+  border:0;
+  padding-top:5px;
+  text-align:right;
+}
+.ielt8 .vracs #table_paiements tfoot td, .ielt8 .vracs #table_retiraisons tfoot td, .ielt8 .vracs #table_lots table tfoot td, .ielt8 .vracs #recap_transaction .lot table tfoot td { border-top:0 none; }
+.vracs #table_paiements tfoot td + th, .vracs #table_retiraisons tfoot td + th, .vracs #table_lots table tfoot td + th, .vracs #recap_transaction .lot table tfoot td + th { border-left:0 none; }
+.vracs #table_retiraisons thead th:first-child { text-align:left; }
+.vracs #table_lots .lot table { width:auto; }
 .vracs .popup_form .table_container { zoom:1; }
 .vracs .popup_form .table_container:before, .vracs .popup_form .table_container:after {
   content:"\0020";
@@ -2133,62 +2187,6 @@ p#date_drm {
   visibility:hidden;
 }
 .vracs .popup_form .table_container:after { clear:both; }
-.vracs .popup_form .table_container #table_paiements, .vracs .popup_form .table_container #table_retiraisons {
-  margin-left:210px;
-  width:530px;
-}
-.vracs .popup_form .table_container #table_paiements thead th, .vracs .popup_form .table_container #table_retiraisons thead th {
-  border:1px solid #e5e4e4;
-  background-color:#ecebeb;
-  font-size:14px;
-  height:35px;
-  padding:0 13px;
-  vertical-align:middle;
-}
-.vracs .popup_form .table_container #table_paiements thead th + th, .vracs .popup_form .table_container #table_retiraisons thead th + th { border-left:0 none; }
-.vracs .popup_form .table_container #table_paiements thead th.dernier, .vracs .popup_form .table_container #table_retiraisons thead th.dernier {
-  background-color:transparent;
-  border-bottom:1px solid #ffffff;
-  border-right:1px solid #ffffff;
-  border-top:1px solid #ffffff;
-  width:30px;
-}
-.vracs .popup_form .table_container #table_paiements tbody, .vracs .popup_form .table_container #table_retiraisons tbody { text-align:left; }
-.vracs .popup_form .table_container #table_paiements tbody tr td, .vracs .popup_form .table_container #table_retiraisons tbody tr td {
-  border-bottom:1px solid #e5e4e4;
-  border-left:1px solid #e5e4e4;
-  border-right:1px solid #e5e4e4;
-  height:35px;
-  padding:0 13px;
-  vertical-align:middle;
-}
-.vracs .popup_form .table_container #table_paiements tbody tr td + td, .vracs .popup_form .table_container #table_retiraisons tbody tr td + td { border-left:0 none; }
-.vracs .popup_form .table_container #table_paiements tbody tr td.dernier, .vracs .popup_form .table_container #table_retiraisons tbody tr td.dernier {
-  border-bottom:1px solid #ffffff;
-  border-right:1px solid #ffffff;
-}
-.vracs .popup_form .table_container #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template, .vracs .popup_form .table_container #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template {
-  background:url(../images/pictos/pi_supprimer.png) 0 center no-repeat;
-  height:13px;
-  padding:0 0 0 14px;
-  text-indent:100%;
-  white-space:nowrap;
-  overflow:hidden;
-  margin-left:10px;
-  display:block;
-  padding-left:0;
-  width:14px;
-}
-.vracs .popup_form .table_container #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template:hover, .vracs .popup_form .table_container #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template:focus, .vracs .popup_form .table_container #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template:hover, .vracs .popup_form .table_container #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template:focus { text-decoration:underline; }
-.ielt8 .vracs .popup_form .table_container #table_paiements tbody tr td.dernier .btn_supprimer_ligne_template, .ielt8 .vracs .popup_form .table_container #table_retiraisons tbody tr td.dernier .btn_supprimer_ligne_template { height:15px; }
-.vracs .popup_form .table_container #table_paiements tfoot th, .vracs .popup_form .table_container #table_retiraisons tfoot th {
-  border:1px solid #ffffff;
-  padding-top:17px;
-  text-align:right;
-}
-.ielt8 .vracs .popup_form .table_container #table_paiements tfoot th, .ielt8 .vracs .popup_form .table_container #table_retiraisons tfoot th { border-top:0 none; }
-.vracs .popup_form .table_container #table_paiements tfoot th + th, .vracs .popup_form .table_container #table_retiraisons tfoot th + th { border-left:0 none; }
-.vracs .popup_form .table_container #table_retiraisons thead th:first-child { text-align:left; }
 .vracs .popup_form#recap_saisie h2 {
   border:1px solid #e5e4e4;
   background-color:#f1f1f1;
@@ -2334,10 +2332,20 @@ p#date_drm {
   display:inline;
   zoom:1;
 }
-.vracs .radio_list li, .vracs .checkbox_list li { display:inline-block; }
+.vracs .radio_list li, .vracs .checkbox_list li {
+  display:inline-block;
+  vertical-align:top;
+  padding:0 0 0 20px;
+  position:relative;
+}
 .ielt8 .vracs .radio_list li, .ielt8 .vracs .checkbox_list li {
   display:inline;
   zoom:1;
+}
+.vracs .radio_list li input, .vracs .checkbox_list li input {
+  position:absolute;
+  left:0;
+  margin:0;
 }
 .vracs .radio_list li label, .vracs .checkbox_list li label { font-weight:normal !important; }
 .vracs .checkbox_list li { width:200px; }
@@ -2381,7 +2389,7 @@ p#date_drm {
   display:block;
   float:none;
   width:auto !important;
-  padding:2px 0;
+  padding:2px 0 2px 20px;
 }
 .vracs .contenu_onglet {
   border:1px solid #e9e9e9;
@@ -2564,9 +2572,9 @@ p#date_drm {
   padding-top:4px;
 }
 .vracs .bloc_form {
-  -webkit-border-radius:5px 5px 5px 5px;
-  -moz-border-radius:5px 5px 5px 5px;
-  border-radius:5px 5px 5px 5px;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
   border:1px solid #e3e2e2;
 }
 .vracs .bloc_form .vracs_ligne_form { padding:4px 0 10px 10px; }
@@ -2626,30 +2634,33 @@ p#date_drm {
 }
 .vracs .error_list { margin-top:15px; }
 .vracs .lot {
-  float:left;
-  margin:0 15px 10px 0;
-  width:433px;
-}
-.vracs #millesime label, .vracs #cuve label {
-  width:190px;
+  display:inline-block;
+  margin:5px;
   vertical-align:top;
+  width:430px;
+}
+.ielt8 .vracs .lot {
+  display:inline;
+  zoom:1;
+}
+.vracs #millesime, .vracs #cuve { text-align:right; }
+.vracs #millesime > label, .vracs #cuve > label {
+  display:block;
+  text-align:left;
 }
 .vracs #millesime table, .vracs #cuve table { display:inline-block; }
-.vracs #millesime table input, .vracs #cuve table input {
-  width:70px;
-  margin-left:10px;
-}
+.vracs #millesime table input, .vracs #cuve table input { width:70px; }
 .vracs #millesime .btn_ajouter_ligne_template, .vracs #cuve .btn_ajouter_ligne_template {
   display:inline;
   font-weight:bold;
-  margin-left:200px;
 }
-.vracs #millesime .btn_ajouter_ligne_template span, .vracs #cuve .btn_ajouter_ligne_template span { line-height:23px !important; }
+.vracs #millesime .btn_ajouter_ligne_template span, .vracs #cuve .btn_ajouter_ligne_template span { line-height:23px; }
 .vracs #millesime .btn_ajouter_ligne_template span:hover, .vracs #cuve .btn_ajouter_ligne_template span:hover { text-decoration:none; }
 .vracs #millesime .btn_ajouter_ligne_template:hover, .vracs #cuve .btn_ajouter_ligne_template:hover { text-decoration:none; }
 .vracs #millesime .dernier, .vracs #cuve .dernier {
   border-bottom:1px solid #ffffff;
   border-right:1px solid #ffffff;
+  vertical-align:middle;
 }
 .vracs #millesime .dernier .btn_supprimer_ligne_template, .vracs #cuve .dernier .btn_supprimer_ligne_template {
   background:url(../images/pictos/pi_supprimer.png) 0 center no-repeat;
@@ -2660,18 +2671,18 @@ p#date_drm {
   overflow:hidden;
   display:inline-block;
   padding-left:0;
-  margin:10px 0 0;
   width:14px;
 }
 .vracs #millesime .dernier .btn_supprimer_ligne_template:hover, .vracs #millesime .dernier .btn_supprimer_ligne_template:focus, .vracs #cuve .dernier .btn_supprimer_ligne_template:hover, .vracs #cuve .dernier .btn_supprimer_ligne_template:focus { text-decoration:underline; }
 .ielt8 .vracs #millesime .dernier .btn_supprimer_ligne_template, .ielt8 .vracs #cuve .dernier .btn_supprimer_ligne_template { height:15px; }
+.vracs #millesime table { margin:0 !important; }
 .vracs .bloc_form_commentaire .vracs_ligne_form label {
   display:block;
   padding:10px 0;
   vertical-align:middle;
 }
 .vracs .bloc_form_commentaire textarea { width:872px; }
-.vracs .btn_ajouter_transaction { margin-bottom:15px; }
+.vracs .btn_ajouter_transaction { margin:15px 0; }
 .vracs .btn_ajouter_transaction .btn_ajouter_ligne_template { display:inline; }
 .vracs .btn_supprimer_ligne_template {
   background:url("../images/pictos/pi_supprimer.png") no-repeat scroll 0 center transparent;
@@ -2717,9 +2728,6 @@ p#date_drm {
   -webkit-border-radius:50%;
   -moz-border-radius:50%;
   border-radius:50%;
-  -webkit-border-radius:50%;
-  -moz-border-radius:50%;
-  border-radius:50%;
   height:20px;
   width:20px;
   display:inline-block;
@@ -2728,6 +2736,7 @@ p#date_drm {
 .vracs .visualisation_contrat .statut_solde { background-color:#a2df46; }
 .vracs .visualisation_contrat .statut_non-solde { background-color:#faa804; }
 .vracs .visualisation_contrat .statut_annule { background-color:#e42c2c; }
+.vracs .visualisation_contrat .statut_attente-validation { background-color:#999999; }
 .vracs .visualisation_contrat #btn_annuler_contrat {
   background:url("../images/boutons/btn_supprimer.png") no-repeat scroll 7px center #494949;
   border:1px solid #343434;
@@ -2766,12 +2775,62 @@ p#date_drm {
   font-weight:bold;
 }
 .vracs .visualisation_contrat #solder_contrat:hover, .vracs .visualisation_contrat #solder_contrat:focus { background-color:#99af00; }
-#mon_compte .ligne_form, #compteModification .ligne_form, #compteAjout .ligne_form, #validationFiche .ligne_form { margin:0 0 15px; }
-#mon_compte label, #compteModification label, #compteAjout label, #validationFiche label {
-  display:inline-block;
-  width:170px;
+.vracs #recap_saisie #recap_transaction .lots {
+  font-size:14px;
+  font-weight:normal;
 }
-#mon_compte .btn_valider, #compteModification .btn_valider, #compteAjout .btn_valider, #validationFiche .btn_valider {
+.vracs #recap_saisie #recap_transaction .lots .lot {
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  border:1px solid #e3e2e2;
+  padding:10px;
+  width:400px;
+}
+.vracs #recap_saisie #recap_transaction .lots .lot table {
+  margin:0 0 15px;
+  width:100%;
+}
+.vracs #recap_saisie #recap_transaction .lots .lot table th { text-align:center; }
+.vracs #recap_saisie #recap_transaction .lots .lot p {
+  font-size:14px;
+  margin:0 0 10px;
+  text-align:left;
+}
+.vracs #recap_saisie #recap_transaction .lots .lot p span {
+  font-weight:bold;
+  width:265px;
+}
+#mon_compte .ligne_form, #compteModification .ligne_form, #compteAjout .ligne_form, #validationFiche .ligne_form, #libelleModification .ligne_form { margin:0 0 15px; }
+#mon_compte .ligne_form > *, #compteModification .ligne_form > *, #compteAjout .ligne_form > *, #validationFiche .ligne_form > *, #libelleModification .ligne_form > * {
+  display:inline-block;
+  vertical-align:middle;
+}
+#mon_compte .ligne_form label, #compteModification .ligne_form label, #compteAjout .ligne_form label, #validationFiche .ligne_form label, #libelleModification .ligne_form label { width:170px; }
+#mon_compte .ligne_form input[type="text"], #mon_compte .ligne_form input[type="password"], #mon_compte .ligne_form textarea, #compteModification .ligne_form input[type="text"], #compteModification .ligne_form input[type="password"], #compteModification .ligne_form textarea, #compteAjout .ligne_form input[type="text"], #compteAjout .ligne_form input[type="password"], #compteAjout .ligne_form textarea, #validationFiche .ligne_form input[type="text"], #validationFiche .ligne_form input[type="password"], #validationFiche .ligne_form textarea, #libelleModification .ligne_form input[type="text"], #libelleModification .ligne_form input[type="password"], #libelleModification .ligne_form textarea {
+  background:#ffffff;
+  border:1px solid #d3d2cd;
+  font-size:12px;
+  height:20px;
+  padding:0 4px;
+  width:220px;
+}
+#mon_compte .ligne_form textarea, #compteModification .ligne_form textarea, #compteAjout .ligne_form textarea, #validationFiche .ligne_form textarea, #libelleModification .ligne_form textarea {
+  height:100px;
+  width:350px;
+  vertical-align:top;
+}
+#mon_compte .ligne_form ul, #compteModification .ligne_form ul, #compteAjout .ligne_form ul, #validationFiche .ligne_form ul, #libelleModification .ligne_form ul { vertical-align:top; }
+#mon_compte .ligne_form ul li, #compteModification .ligne_form ul li, #compteAjout .ligne_form ul li, #validationFiche .ligne_form ul li, #libelleModification .ligne_form ul li { margin:0 0 5px; }
+#mon_compte .ligne_form ul li input, #compteModification .ligne_form ul li input, #compteAjout .ligne_form ul li input, #validationFiche .ligne_form ul li input, #libelleModification .ligne_form ul li input {
+  margin:0 5px 0 0;
+  vertical-align:middle;
+}
+#mon_compte .ligne_form ul li label, #compteModification .ligne_form ul li label, #compteAjout .ligne_form ul li label, #validationFiche .ligne_form ul li label, #libelleModification .ligne_form ul li label { width:auto; }
+#mon_compte .reinit_mdp, #compteModification .reinit_mdp, #compteAjout .reinit_mdp, #validationFiche .reinit_mdp, #libelleModification .reinit_mdp { margin-left:170px; }
+#mon_compte button, #compteModification button, #compteAjout button, #validationFiche button, #libelleModification button { margin-top:1px; }
+#mon_compte .btnValidation, #compteModification .btnValidation, #compteAjout .btnValidation, #validationFiche .btnValidation, #libelleModification .btnValidation { margin-left:170px; }
+#mon_compte .btn_valider, #compteModification .btn_valider, #compteAjout .btn_valider, #validationFiche .btn_valider, #libelleModification .btn_valider {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
@@ -2784,22 +2843,8 @@ p#date_drm {
   display:inline-block;
   padding:0 23px 0 15px;
   text-transform:uppercase;
-  height:;
-  margin-left:170px;
 }
-#mon_compte .btn_valider:hover, #mon_compte .btn_valider:focus, #compteModification .btn_valider:hover, #compteModification .btn_valider:focus, #compteAjout .btn_valider:hover, #compteAjout .btn_valider:focus, #validationFiche .btn_valider:hover, #validationFiche .btn_valider:focus { background-color:#494949; }
-#mon_compte input[type="text"], #compteModification input[type="text"], #compteAjout input[type="text"], #validationFiche input[type="text"] {
-  background:none repeat scroll 0 0 #ffffff;
-  border:1px solid #d3d2cd;
-  border-radius:2px 2px 2px 2px;
-  font-size:100%;
-  position:relative;
-  vertical-align:middle;
-  height:20px;
-  padding:0 4px;
-  width:220px;
-}
-#mon_compte button, #compteModification button, #compteAjout button, #validationFiche button { margin-top:1px; }
+#mon_compte .btn_valider:hover, #mon_compte .btn_valider:focus, #compteModification .btn_valider:hover, #compteModification .btn_valider:focus, #compteAjout .btn_valider:hover, #compteAjout .btn_valider:focus, #validationFiche .btn_valider:hover, #validationFiche .btn_valider:focus, #libelleModification .btn_valider:hover, #libelleModification .btn_valider:focus { background-color:#494949; }
 .etablissement_courant_admin a {
   background:url(../images/boutons/btn_etablissement_courant_admin.png) right 0 no-repeat;
   color:#86005b;
@@ -2814,8 +2859,8 @@ p#date_drm {
   padding:0;
   background:none !important;
 }
-#contenu .produit .tableau_recap { border-spacing:0px; }
-#contenu .produit .tableau_recap th { border-color:#dbdbdb; }
+#compteModification .societe ul { margin:0 0 20px; }
+#compteModification .societe ul li { margin:5px 0; }
 #contenu .produit .tableau_recap td {
   font-size:11px;
   padding:0 6px;

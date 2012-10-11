@@ -9,44 +9,91 @@
 /**
  * Admin - mon compte
  ******************************************/
-#mon_compte, #compteModification, #compteAjout, #validationFiche {
+#mon_compte,
+#compteModification,
+#compteAjout,
+#validationFiche,
+#libelleModification {
 
-    .ligne_form{
+    .ligne_form
+    {
         margin: 0 0 15px;
+
+        & > *
+        {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        label
+        {
+          
+           width: 170px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        textarea
+        {
+            .box-radius(2px);
+            background: #fff;
+            border: 1px solid #D3D2CD;
+            font-size: 12px;
+            height: 20px;
+            padding: 0 4px;
+            width: 220px;
+        }
+
+        textarea
+        {
+            height: 100px;
+            width: 350px;
+            vertical-align: top;
+        }
+
+
+
+        ul
+        {
+            vertical-align: top;
+
+            li
+            {
+                margin: 0 0 5px;
+
+                input
+                {
+                    margin: 0 5px 0 0;
+                    vertical-align: middle;
+                }
+
+                label { width: auto; }
+            }
+        }
     }
 
-    label {
-	display: inline-block;
-	width: 170px;
+    .reinit_mdp
+    {
+        margin-left: 170px;
     }
 
-    .btn_valider {
-        
+
+    button
+    {
+        margin-top:1px;
+    }
+
+    .btnValidation { margin-left:170px; }
+
+    .btn_valider
+    { 
         .btn_violet;
         background-position: right -52px;
         background-repeat: no-repeat;
-        color: #FFFFFF;
+        color: #fff;
         display: inline-block;
         padding: 0 23px 0 15px;
         text-transform: uppercase;
-        height: @hauteur_btn;
-        margin-left:170px;
-    }
-
-    input[type="text"] {
-        background: none repeat scroll 0 0 #FFFFFF;
-        border: 1px solid #D3D2CD;
-        border-radius: 2px 2px 2px 2px;
-        font-size: 100%;
-        position: relative;
-        vertical-align: middle;
-        height: 20px;
-        padding: 0 4px;
-        width: 220px;
-    }
-
-    button{
-        margin-top:1px;
     }
 
 }
@@ -54,99 +101,117 @@
 
 .etablissement_courant_admin
 {
-        a
+    a
+    {
+        background: url(../images/boutons/btn_etablissement_courant_admin.png) right 0 no-repeat;
+        color : @couleur-b3;
+        padding: 0 20px 0 0;
+
+        span
         {
-                background: url(../images/boutons/btn_etablissement_courant_admin.png) right 0 no-repeat;
-                color : @couleur-b3;
-                padding: 0 20px 0 0;
-
-                span
-                {
-                        background: url(../images/boutons/btn_etablissement_courant_admin.png) 0 0 no-repeat;
-                        float: left;
-                        padding: 0 0 0 27px;
-                }
+            background: url(../images/boutons/btn_etablissement_courant_admin.png) 0 0 no-repeat;
+            float: left;
+            padding: 0 0 0 27px;
         }
+    }
 
-        .quitter a{
-                padding: 0;
-                background: none !important;
-        }
+    .quitter a
+    {
+        padding: 0;
+        background: none !important;
+    }
 }
 
 
-
-
-
-#contenu{
-        .produit
+/* Information du compte */
+#compteModification
+{
+    .societe
+    {
+        ul
         {
-                .tableau_recap
-                {
-                        border-spacing: 0px;
-                        
-                        th{ border-color : #DBDBDB; }
-
-                        td
-                        { 
-                                font-size: 11px;
-                                padding : 0 6px; 
-                                text-align: left;
-                        }
-
-                        #cat { width : 50px; }
-
-                        #dep, #labels, #douane, #cvo, #replis, #declas{ width: 25px;}
+            margin: 0 0 20px;
+            
+            li
+            {
+                margin: 5px 0;
+            }
+        }
+    }
+}
 
 
-                }
-         }
+#contenu
+{
+    .produit
+    {
+        .tableau_recap
+        {
+            td
+            { 
+                font-size: 11px;
+                padding : 0 6px; 
+                text-align: left;
+            }
 
-         #popup_produit
-         {
-                h2
-                {
-                        background: none repeat scroll 0 0 #494949;
-                        color : #fff;
-                        font-weight : normal;
-                        display : block;
-                        padding : 3px 10px;
-                        width : 120px;
-                }
-         }
+            #cat { width : 50px; }
+
+            #dep, #labels, #douane, #cvo, #replis, #declas{ width: 25px;}
+        }
+     }
+
+    #popup_produit
+    {
+        h2
+        {
+            background: none repeat scroll 0 0 #494949;
+            color : #fff;
+            font-weight : normal;
+            display : block;
+            padding : 3px 10px;
+            width : 120px;
+        }
+    }
 
 }
 
-#validationFiche {
+#validationFiche
+{
 
-        #modification_compte{
+    #modification_compte
+    {
 
-                p{
-                        margin : 0 0 15px;
-                }
-
+        p
+        {
+            margin : 0 0 15px;
         }
 
-        .ligne_btn{
-                .btn_annuler{
-                        .btn_gris;
-                        color: #FFFFFF;
-                        display: inline-block;
-                        padding: 0 23px 0 15px;
-                        text-transform: uppercase;
-                        height: @hauteur_btn;
-                        height: 27px;
-                        line-height: 27px;
-                        margin-left: 0;
-                        vertical-align:middle;
-                }
-                .btn_valider{
-                        height: 28px;
-                        line-height: 28px;
-                        margin-left: 0;
-                        vertical-align:middle;
-                }
+    }
 
+    .ligne_btn
+    {
+        .btn_annuler
+        {
+            .btn_gris;
+            color: #FFFFFF;
+            display: inline-block;
+            padding: 0 23px 0 15px;
+            text-transform: uppercase;
+            height: @hauteur_btn;
+            height: 27px;
+            line-height: 27px;
+            margin-left: 0;
+            vertical-align:middle;
         }
+
+        .btn_valider
+        {
+            height: 28px;
+            line-height: 28px;
+            margin-left: 0;
+            vertical-align:middle;
+        }
+
+    }
 
 }

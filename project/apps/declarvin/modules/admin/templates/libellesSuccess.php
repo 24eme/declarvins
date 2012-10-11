@@ -24,14 +24,14 @@
 					<tr>
 						<td>Clauses</td>
 						<td><?php echo $configurationVrac->clauses; ?></td>
-						<td><a
+						<td class="actions"><a class="btn_modifier"
 							href="<?php echo url_for('admin_libelles_edit', array('type' => 'vrac', 'key' => 'clauses')) ?>">Edit</a>
 						</td>
 					</tr>
 					<tr class="alt">
 						<td>Informations complémentaires</td>
 						<td><?php echo $configurationVrac->informations_complementaires; ?></td>
-						<td><a
+						<td class="actions"><a class="btn_modifier"
 							href="<?php echo url_for('admin_libelles_edit', array('type' => 'vrac', 'key' => 'informations_complementaires')) ?>">Edit</a>
 						</td>
 					</tr>
