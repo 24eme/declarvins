@@ -40,3 +40,6 @@
 [submodule "project/plugins/acVinDouanePlugin"]
 	path = project/plugins/acVinDouanePlugin
 	url = git@gitorious.org:acvin/acvindouaneplugin.git
+[submodule "project/plugins/acVinAlertePlugin"]
+	path = project/plugins/acVinAlertePlugin
+	url = git@gitorious.org:acvin/acvinalerteplugin.git
