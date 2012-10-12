@@ -13,8 +13,8 @@
         	<thead>
             	<tr>
             		<th>Numéro(s)</th>
-            		<th>Volume</th>
-            		<th>Date retiraison</th>
+            		<th>Volume (hl)</th>
+            		<th>Date retiraison (jj/mm/aaaa)</th>
                     <th class="dernier"></th>
             	</tr>
             </thead>
