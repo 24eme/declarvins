@@ -13,9 +13,9 @@
                 <table id="table_paiements">
                     <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Volume</th>
-                            <th>Montant</th>
+                            <th>Date (jj/mm/aaaa)</th>
+                            <th>Volume (hl)</th>
+                            <th>Montant HT</th>
                             <th class="dernier"></th>
                         </tr>
                     </thead>
