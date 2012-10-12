@@ -10,11 +10,8 @@
 					<?php else: ?>
 						<?php echo $vrac->vendeur->raison_sociale ?>
 					<?php endif; ?>
+					<?php echo ($vrac->vendeur_tva)? '(Assujetti à la TVA)' : ''; ?>
 				</span>
-			</li>
-			<li>
-				<span>Assujetti à la TVA :</span>
-				<span><?php echo ($vrac->vendeur_tva)? 'oui' : 'non'; ?></span>
 			</li>
 			<li>
 				<span>Acheteur :</span>
@@ -24,20 +21,13 @@
 					<?php else: ?>
 						<?php echo $vrac->acheteur->raison_sociale ?>
 					<?php endif; ?>
+					<?php echo ($vrac->acheteur_tva)? '(Assujetti à la TVA)' : ''; ?>
 				</span>
-			</li>
-			<li>
-				<span>Assujetti à la TVA :</span>
-				<span><?php echo ($vrac->acheteur_tva)? 'oui' : 'non'; ?></span>
 			</li>
 			<?php if($vrac->mandataire_exist): ?>
 			<li>
-				<span>Mandataire :</span>
+				<span>Courtier :</span>
 				<span><?php echo $vrac->mandataire->nom ?></span>
-			</li>
-			<?php else: ?>
-			<li>
-				<span>Ce contrat ne possède pas de mandataire</span>
 			</li>
 			<?php endif; ?>
 			<li>
@@ -45,7 +35,7 @@
 				<span><?php echo ($vrac->premiere_mise_en_marche)? 'Oui' : 'Non'; ?></span>
 			</li>
 			<li>
-				<span>Cas particulier :</span>
+				<span>Condition particulière :</span>
 				<span><?php echo $configurationVrac->formatCasParticulierLibelle(array($vrac->cas_particulier)); ?></span>
 			</li>
     	</ul>

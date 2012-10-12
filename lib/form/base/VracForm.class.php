@@ -116,7 +116,7 @@ class VracForm extends acCouchdbObjectForm
         	'mandataire_exist' => 'Transaction avec un courtier',
         	'mandataire_identifiant' => 'Mandataire:',
         	'premiere_mise_en_marche' => 'Première mise en marché:',
-        	'cas_particulier' => 'Cession interne:',
+        	'cas_particulier' => 'Condition particulère:',
         	'original' => 'En attente de l\'original:',
         	'has_transaction' => 'Je souhaite associer une déclaration de transaction',
         	'has_cvo' => 'Cvo',

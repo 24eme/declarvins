@@ -11,20 +11,13 @@ class VracConditionValidator extends sfValidatorBase {
     protected function doClean($values) {
         
     	if ($values['conditions_paiement'] == VracClient::ECHEANCIER_PAIEMENT) {
-    		$total = 0;
     		if (is_array($values['paiements'])) {
 		    	foreach ($values['paiements'] as $key => $paiement) {
-		    		if ($paiement['volume']) {
-		    			$total += $paiement['volume'];
-		    		}
 		    		if (!$paiement['date']) {
 	        			throw new sfValidatorErrorSchema($this, array(new sfValidatorError($this, 'echeancier_date')));
 		    		}
 		    	}
     		}
-	        if ($total != $values['volume_propose']) {
-	        	throw new sfValidatorErrorSchema($this, array(new sfValidatorError($this, 'impossible_volume')));
-	        }
     	}
     	$isDateSup = false;
     	if (isset($values['date_limite_retiraison']) && $values['date_limite_retiraison']) {
