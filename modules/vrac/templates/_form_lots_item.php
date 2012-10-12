@@ -25,7 +25,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3"><a class="btn_ajouter_ligne_template" data-container="#table_lot_cuves_<?php echo $form->getName() ?> tbody" data-template="#template_form_lot_cuves_item_<?php echo $form->getName() ?>" href="#"><span>Ajouter une cuve / un contenant</span></a></td>
+                    <td colspan="3"><a class="btn_ajouter_ligne_template" data-container="#table_lot_cuves_<?php echo $form->getName() ?> tbody" data-template="#template_form_lot_cuves_item" data-template-params='<?php echo json_encode(array('var---nbItemLot---' => $form->getName())) ?>' href="#"><span>Ajouter une cuve / un contenant</span></a></td>
                     <td></td>
                 </tr>
             </tfoot>
@@ -53,7 +53,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="2"><a class="btn_ajouter_ligne_template" data-container="#table_lot_millesimes_<?php echo $form->getName() ?>  tbody" data-template="#template_form_lot_millesimes_item_<?php echo $form->getName() ?>" href="#"><span>Ajouter un millésime</span></a></td>
+                    <td colspan="2"><a class="btn_ajouter_ligne_template" data-container="#table_lot_millesimes_<?php echo $form->getName() ?>  tbody" data-template="#template_form_lot_millesimes_item" data-template-params='<?php echo json_encode(array('var---nbItemLot---' => $form->getName())) ?>' href="#"><span>Ajouter un millésime</span></a></td>
                     <td></td>
                 </tr>
             </tfoot>
