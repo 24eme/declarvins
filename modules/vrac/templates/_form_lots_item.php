@@ -14,8 +14,8 @@
             	<thead>
             	<tr>
             		<th>Numéro(s)</th>
-            		<th>Volume</th>
-            		<th>Date retiraison</th>
+            		<th>Volume (HL)</th>
+            		<th>Date retiraison (jj/mm/aaaa)</th>
             	</tr>
                 </thead>
             <?php foreach ($form['cuves'] as $formCuve): ?>
