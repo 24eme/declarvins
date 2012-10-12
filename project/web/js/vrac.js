@@ -391,7 +391,20 @@
 		
 	    $(element).live('click', function()
 	    {
-	        var bloc = $($(this).attr('data-container')).append($($(this).attr('data-template')).html().replace(regexp_replace, UUID.generate()));
+	        var bloc_html = $($(this).attr('data-template')).html().replace(regexp_replace, UUID.generate());
+
+	        try {
+				var params = jQuery.parseJSON($(this).attr('data-template-params'));
+			} catch (err) {
+
+	        }
+
+			for(key in params) {
+				bloc_html = bloc_html.replace(new RegExp(key, "g"), params[key]);
+			}
+
+	        var bloc = $($(this).attr('data-container')).append(bloc_html);
+
 	        if(callback) {
 	        	callback(bloc);
 	        }
