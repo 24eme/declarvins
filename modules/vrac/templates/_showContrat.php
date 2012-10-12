@@ -150,56 +150,69 @@
 		<?php endif; ?>
     </li>
 	<?php if ($vrac->has_transaction): ?>
-    <li>
+    <li id="recap_transaction">
 		<h3>Transaction</h3>
         <ul>
 			<li>
 				<span>Expédition export :</span>
 				<span><?php echo ($vrac->export)? 'Oui' : 'Non'; ?></span>
 			</li>
-			<li>
+			<li class="lots">
 				<?php foreach ($vrac->lots as $lot): ?>
-				<div>
-					<div>
-						<span>Numéro du lot :</span>
-						<span><?php echo $lot->numero ?></span>
+				<div class="lot">
+
+					<p><span>Numéro du lot :</span> <?php echo $lot->numero ?></p>
+					
+					<?php if($lot->cuves): ?>
+					<div class="cuves">
+						<p><span>Détail des cuves / contenants :</span></p>
+						<table>
+							<thead>
+								<tr>
+									<th>Cuve</th>
+									<th>Volume</th>
+									<th>Date</th>
+				            	</tr>
+				            </thead>
+				            <tbody>
+								<?php foreach ($lot->cuves as $cuve): ?>
+								<tr>
+									<td><?php echo $cuve->numero ?></td>
+									<td><?php echo $cuve->volume ?></td>
+									<td><?php echo $cuve->date ?></td>
+								</tr>
+								<?php endforeach; ?>
+				            </tbody>
+				        </table>
 					</div>
-					<?php foreach ($lot->cuves as $cuve): ?>
-					<div>
-						<div>
-							<span>Cuve :</span>
-							<span><?php echo $cuve->numero ?></span>
-						</div>
-						<div>
-							<span>Volume :</span>
-							<span><?php echo $cuve->volume ?> HL</span>
-						</div>
-						<div>
-							<span>Date :</span>
-							<span><?php echo $cuve->date ?></span>
-						</div>
+					<?php endif; ?>
+
+					<?php if($lot->millesimes): ?>
+					<div class="millesimes">
+						<p><span>Assemblage de millésimes :</span></p>
+
+						<table>
+							<thead>
+								<tr>
+									<th>Année</th>
+									<th>Pourcentage</th>
+				            	</tr>
+				            </thead>
+				            <tbody>
+								<?php foreach ($lot->millesimes as $millesime): ?>
+								<tr>
+									<td><?php echo $millesime->annee ?></td>
+									<td><?php echo $millesime->pourcentage ?></td>
+								</tr>
+								<?php endforeach; ?>
+				            </tbody>
+				        </table>
 					</div>
-					<?php endforeach; ?>
-					<?php foreach ($lot->millesimes as $millesime): ?>
-					<div>
-						<div>
-							<span>Année :</span>
-							<span><?php echo $millesime->annee ?></span>
-						</div>
-						<div>
-							<span>Pourcentage :</span>
-							<span><?php echo $millesime->pourcentage ?> %</span>
-						</div>
-					</div>
-					<?php endforeach; ?>
-					<div>
-						<span>Degré :</span>
-						<span><?php echo $lot->degre ?></span>
-					</div>
-					<div>
-						<span>Présence d'allergènes :</span>
-						<span><?php echo ($lot->presence_allergenes)? 'Oui' : 'Non'; ?></span>
-					</div>
+					<?php endif; ?>
+
+					<p><span>Degré :</span> <?php echo $lot->degre ?></p>
+					<p><span>Présence d'allergènes :</span> <?php echo ($lot->presence_allergenes)? 'Oui' : 'Non'; ?></p>
+				
 				</div>
 				<?php endforeach; ?>
 			</li>
