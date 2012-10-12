@@ -208,9 +208,14 @@ class acVinVracActions extends sfActions
 			$this->form->bind($request->getParameter($this->form->getName()));
 			if ($this->form->isValid()) {
 				$this->form->save();
-				$this->contratValidation($this->vrac, $this->acteur);
-				if ($this->vrac->isValide()) {
+				if ($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+					$this->vrac->
 					$this->contratValide($this->vrac);
+				} else {
+					$this->contratValidation($this->vrac, $this->acteur);
+					if ($this->vrac->isValide()) {
+						$this->contratValide($this->vrac);
+					}
 				}
 			}
 		}

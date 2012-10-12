@@ -28,7 +28,7 @@
 	<?php include_partial('vrac_export/pdfTransactionHeader', array('vrac' => $vrac)); ?>
 	<?php include_partial('vrac_export/pdfFooter'); ?>
 	<h2>Soussignes</h2>
-	<?php  $w = '50%'; ?>
+	<?php  if ($configurationVrac->transaction_has_acheteur) $w = '50%'; else $w = '100%'; ?>
 	<table class="bloc_bottom" width="100%">
 		<tr>
 			<td width="<?php echo $w ?>">
@@ -49,6 +49,7 @@
 				<p>Commune : <?php echo $vrac->adresse_stockage->commune ?></p>
 				<?php endif; ?>
 			</td>
+			<?php if ($configurationVrac->transaction_has_acheteur): ?>
 			<td width="<?php echo $w ?>">
 				<h2>Acheteur</h2>
 				<p>Type : <?php echo $vrac->acheteur_type ?></p>
@@ -67,6 +68,7 @@
 				<p>Commune : <?php echo $vrac->adresse_livraison->commune ?></p>
 				<?php endif; ?>
 			</td>
+			<?php endif; ?>
 		</tr>
 	</table>
 	<h2>Produit</h2>

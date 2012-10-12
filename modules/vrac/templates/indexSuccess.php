@@ -2,7 +2,7 @@
 <section id="contenu" class="vracs">
     <div id="principal" class="produit">
         <h1>
-            Contrat Vrac &nbsp;
+            Contrats interprofessionnel<?php if(!$etablissement): ?> en cours de saisis<?php endif; ?> &nbsp;
             <a class="btn_ajouter" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>"></a>
         </h1>
         <?php include_partial('list', array('vracs' => $vracs, 'etablissement' => $etablissement)); ?>

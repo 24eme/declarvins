@@ -259,8 +259,7 @@ class VracForm extends acCouchdbObjectForm
 
     public function getChoixVinLivre()
     {
-        return array(VracClient::STATUS_VIN_RETIRE => 'Retiré', 
-                     VracClient::STATUS_VIN_LIVRE => 'Livré'); 
+        return VracClient::getInstance()->getStatutsVin(); 
     }
     
     public function getVendeurTypes()

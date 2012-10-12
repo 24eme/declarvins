@@ -89,39 +89,30 @@
 	<p>Volume total : <?php echo $vrac->volume_propose ?>&nbsp;HL&nbsp;Prix unitaire net HT hors cotisation : <?php echo $vrac->prix_unitaire ?>&nbsp;€/HL&nbsp;Prix <?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)); ?></p>
 	<p><?php if ($vrac->determination_prix): ?>Mode de determination : <?php echo $vrac->determination_prix ?><?php endif; ?></p>
 	<h2>Conditions</h2>
-	<table>
-		<tr>
-			<td>
-				<p>
-					<?php if(!is_null($vrac->clause_reserve_retiraison)): ?>Propriété (réserve)<br /><?php endif; ?>
-					Conditions Générales de Vente : <?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?>&nbsp;&nbsp;<?php echo ($vrac->reference_contrat_pluriannuel)? 'Référence contrat : '.$vrac->reference_contrat_pluriannuel : ''; ?><br />
-					Autres observations : <?php echo $vrac->commentaires ?>
-				</p>
-			</td>
-			<td>
-				<p>
-					<?php if(!is_null($vrac->delai_paiement)): ?>
-					Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array($vrac->delai_paiement)) ?><br />
-					<?php endif; ?>
-					Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?>&nbsp;&nbsp;
-				</p>
-			</td>
-		</tr>
-	</table>
-	<h2>Clauses</h2>
-	<?php echo $configurationVrac->getClauses(ESC_RAW) ?>
-	<hr />
-	<h2>Calendrier de retiraison</h2>
 	<p><?php echo ($vrac->date_debut_retiraison)? 'Date de début de retiraison : '.$vrac->date_debut_retiraison.'&nbsp;&nbsp;' : ''; ?><?php echo ($vrac->date_limite_retiraison)? 'Date limite de retiraison : '.$vrac->date_limite_retiraison : ''; ?></p>
 	<?php if (count($vrac->paiements) > 0): ?>
-	<p>Echéancier de facture : </p>
+	<p>Echéancier : </p>
 	<p>
 	<?php $i = 0; foreach ($vrac->paiements as $paiement): $i++; ?>
 		<?php echo $paiement->date ?>&nbsp;<?php echo $paiement->volume ?>HL;&nbsp;<?php echo $paiement->montant ?>€;&nbsp;<?php if ($i < count($vrac->paiements)): ?>, <?php endif; ?>
 	<?php endforeach; ?>
 	</p>
 	<?php endif; ?>
+	<p>
+		<?php if(!is_null($vrac->clause_reserve_retiraison)): ?>Propriété (réserve)<br /><?php endif; ?>
+		Conditions Générales de Vente : <?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?>&nbsp;&nbsp;<?php echo ($vrac->reference_contrat_pluriannuel)? 'Référence contrat : '.$vrac->reference_contrat_pluriannuel : ''; ?><br />
+		Autres observations : <?php echo $vrac->commentaires ?>
+	</p>
+	<p>
+		<?php if(!is_null($vrac->delai_paiement)): ?>
+		Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array($vrac->delai_paiement)) ?><br />
+		<?php endif; ?>
+		Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?>&nbsp;&nbsp;
+	</p>
+	<h2>Clauses</h2>
+	<?php echo $configurationVrac->getClauses(ESC_RAW) ?>
 	<?php if ($vrac->has_transaction): ?>
+	<hr />
 	<h2>Descriptif des lots</h2>
 
 	<div id="lots">
@@ -190,8 +181,8 @@
 		</table>
 
 	</div>
-	<?php endif; ?>
 	<h2>Informations complémentaires</h2>
 	<?php echo $configurationVrac->getInformationsComplementaires(ESC_RAW) ?>
+	<?php endif; ?>
 </body>
 </html>
