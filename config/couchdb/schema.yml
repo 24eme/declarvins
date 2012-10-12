@@ -27,6 +27,7 @@ Configuration:
                     type: collection
                     definition:
                       fields:
+                        transaction_has_acheteur: {  }
                         clauses: {  }
                         informations_complementaires: {  }
                         has_transaction: {  }

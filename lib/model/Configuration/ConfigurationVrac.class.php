@@ -13,6 +13,7 @@ class ConfigurationVrac extends BaseConfigurationVrac {
 	const REPARTITION_CVO_ACHETEUR = 0.5;
 	
 	const CAS_PARTICULIER_DEFAULT_KEY = 'aucune';
+	const CONDITION_PAIEMENT_ECHEANCIER = 'echeancier_paiement';
 	
     public function getVendeurs() {
     	return EtablissementAllView::getInstance()->findByInterproAndFamille($this->getKey(), self::FAMILLE_VENDEUR)->rows;
