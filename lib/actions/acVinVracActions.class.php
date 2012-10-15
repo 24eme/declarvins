@@ -233,7 +233,7 @@ class acVinVracActions extends sfActions
             return $etablissement->getInterproObject();
         }
 		
-        return $this->getUser()->getInterpro();
+        return $this->getUser()->getCompte()->getGerantInterpro();
 	}
 	
 	public function getConfigurationVrac($interpro_id = null)
