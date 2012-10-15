@@ -55,12 +55,20 @@
 				<span><?php echo ($vrac->produit)? $vrac->getLibelleProduit() : null; ?></span>
 			</li>
 			<li>
-				<span>Labels :</span>
-				<span><?php echo $configurationVrac->formatLabelsLibelle(array($vrac->labels)) ?></span>
+				<span>Millésime :</span>
+				<span><?php echo ($vrac->millesime)? $vrac->millesime : 'Non millésimé'; ?></span>
 			</li>
 			<li>
-				<span>Mentions :</span>
-				<span><?php echo $configurationVrac->formatMentionsLibelle($vrac->mentions->getRawValue()->toArray()) ?></span>
+				<span>Label :</span>
+				<span><?php echo $configurationVrac->formatLabelsLibelle(array($vrac->labels)) ?></span>				
+			</li>
+			<li>
+				<span>Mention(s) :</span>
+				<span><?php echo $configurationVrac->formatMentionsLibelle($vrac->mentions->getRawValue()->toArray()) ?></span>				
+			</li>
+			<li>
+				<span>Expédition export :</span>
+				<span><?php echo ($vrac->export)? 'Oui' : 'Non'; ?></span>
 			</li>
 			<li>
 				<span>Prix :</span>
@@ -80,6 +88,23 @@
 				<span><?php echo $vrac->getTotalUnitaire() ?> € HT/HL</span>
 			</li>
 			<?php endif; ?>
+			<li>
+				<span>Type de prix :</span>
+				<span><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)) ?></span>
+			</li>
+			<?php if ($vrac->determination_prix): ?>
+			<li>
+				<span>Mode de détermination du prix définitif :</span>
+				<span><?php echo $vrac->determination_prix ?></span>
+			</li>
+			<?php endif; ?>
+			<?php if ($vrac->annexe): ?>
+			<li>
+				<span>Présence d'une annexe :</span>
+				<span>Oui</span>
+			</li>
+			<?php endif; ?>
+			
 		</ul>
 		<?php if($editer_etape): ?>
 		<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'marche', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
@@ -88,39 +113,27 @@
     <li>
 		<h3>Conditions</h3>
         <ul>
-        	<?php if(!is_null($vrac->annexe)): ?>
 			<li>
-				<span>Présence d'une annexe :</span>
-				<span><?php echo ($vrac->annexe)? 'Oui' : 'Non'; ?></span>
+				<span>Conditions générales de paiement :</span>
+				<span><?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></span>
 			</li>
-			<?php endif; ?>
-			<li>
-				<span>Présence d'un contrat pluriannuel :</span>
-				<span><?php echo ($vrac->contrat_pluriannuel)? 'Oui' : 'Non'; ?></span>
-			</li>
-			<?php if (!is_null($vrac->reference_contrat_pluriannuel)): ?>
+			<?php if ($vrac->reference_contrat_pluriannuel): ?>
 			<li>
 				<span>Référence contrat pluriannuel :</span>
 				<span><?php echo $vrac->reference_contrat_pluriannuel ?></span>
 			</li>
 			<?php endif; ?>
-			<li>
-				<span>Conditions générales de paiement :</span>
-				<span><?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></span>
-			</li>
-			<?php if(!is_null($vrac->delai_paiement)): ?>
-			<li>
-				<span>Delai de paiement :</span>
-				<span><?php echo $configurationVrac->formatDelaisPaiementLibelle(array($vrac->delai_paiement)) ?></span>
-			</li>
-			<?php endif; ?>
-			<?php if ($vrac->echeancier_paiement): ?>
+			<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_ECHEANCIER): ?>
 			<li>
 				<?php foreach ($vrac->paiements as $paiement): ?>
 				<div>
 					<div>
 						<span>Date :</span>
 						<span><?php echo $paiement->date ?></span>
+					</div>
+					<div>
+						<span>Volume :</span>
+						<span><?php echo $paiement->volume ?> €</span>
 					</div>
 					<div>
 						<span>Montant :</span>
@@ -130,20 +143,32 @@
 				<?php endforeach; ?>
 			</li>
 			<?php endif; ?>
+			<?php if(!is_null($vrac->delai_paiement)): ?>
+			<li>
+				<span>Delai de paiement :</span>
+				<span><?php echo $configurationVrac->formatDelaisPaiementLibelle(array($vrac->delai_paiement)) ?></span>
+			</li>
+			<?php endif; ?>
+			<li>
+				<span>Le vin sera :</span>
+				<span><?php $statut = VracClient::getInstance()->getStatutsVin(); echo $statut[$vrac->vin_livre] ?></span>
+			</li>
+			<?php if($vrac->date_debut_retiraison): ?>
+			<li>
+				<span>Date de début de retiraison :</span>
+				<span><?php echo $vrac->date_debut_retiraison ?></span>
+			</li>
+			<?php endif; ?>
+			<li>
+				<span>Date limite de retiraison :</span>
+				<span><?php echo $vrac->date_limite_retiraison ?></span>
+			</li>
 			<?php if(!is_null($vrac->clause_reserve_retiraison)): ?>
 			<li>
 				<span>Clause de reserve de propriété :</span>
 				<span><?php echo ($vrac->clause_reserve_retiraison)? 'Oui' : 'Non'; ?></span>
 			</li>
 			<?php endif; ?>
-			<li>
-				<span>Le vin sera :</span>
-				<span><?php echo $vrac->vin_livre ?></span>
-			</li>
-			<li>
-				<span>Date limite de retiraison :</span>
-				<span><?php echo $vrac->date_limite_retiraison ?></span>
-			</li>
 		</ul>
 		<?php if($editer_etape): ?>
 			<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'condition', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
@@ -153,10 +178,6 @@
     <li id="recap_transaction">
 		<h3>Transaction</h3>
         <ul>
-			<li>
-				<span>Expédition export :</span>
-				<span><?php echo ($vrac->export)? 'Oui' : 'Non'; ?></span>
-			</li>
 			<li class="lots">
 				<?php foreach ($vrac->lots as $lot): ?>
 				<div class="lot">
@@ -209,9 +230,17 @@
 				        </table>
 					</div>
 					<?php endif; ?>
-
+					
+					<?php if (!is_null($lot->metayage)): ?>
+					<p><span>Métayage :</span> <?php echo ($vrac->metayage)? 'Oui' : 'Non'; ?></p>
+					<p><span>Nom du bailleur et volumes :</span> <?php echo $lot->bailleur ?></p>	
+					<?php endif; ?>
+					<?php if ($lot->degre): ?>
 					<p><span>Degré :</span> <?php echo $lot->degre ?></p>
+					<?php endif; ?>
+					<?php if (!is_null($lot->presence_allergenes)): ?>
 					<p><span>Présence d'allergènes :</span> <?php echo ($lot->presence_allergenes)? 'Oui' : 'Non'; ?></p>
+					<?php endif; ?>
 				
 				</div>
 				<?php endforeach; ?>

@@ -8,7 +8,7 @@
 	            <th>N° Contrat</th>
 	            <th>Soussignés</th>   
 	            <th>Produit</th>
-	            <th>Vol. enlevé. / Vol. prop. (hl)</th>
+	            <th>Vol. enlevé. / Vol. prop.</th>
 	            <th>Prix HT</th>
 	        </tr>
 	    </thead>

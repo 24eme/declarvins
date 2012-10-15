@@ -31,7 +31,7 @@
 	<?php if($vrac->mandataire_exist) $w = '33%'; else $w = '50%'; ?>
 	<table class="bloc_bottom" width="100%">
 		<tr>
-			<td width="<?php echo $w ?>">
+			<td width="<?php echo $w ?>" valign="top">
 				<h2>Vendeur</h2>
 				<p>Type : <?php echo $vrac->vendeur_type ?></p>
 				<p>Raison sociale : <?php echo ($vrac->vendeur->raison_sociale)? $vrac->vendeur->raison_sociale : $vrac->vendeur->nom; ?></p>
@@ -48,9 +48,13 @@
 				<p>Code postal : <?php echo $vrac->adresse_stockage->code_postal ?></p>
 				<p>Commune : <?php echo $vrac->adresse_stockage->commune ?></p>
 				<?php endif; ?>
+				<?php if ($vrac->valide->date_validation_vendeur): ?>
+				<br />
+				<p>Signé le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_validation_vendeur)); ?>, sur Déclarvins</p>
+				<?php endif; ?>
 			</td>
 			<?php if($vrac->mandataire_exist): ?>
-			<td width="<?php echo $w ?>">
+			<td width="<?php echo $w ?>" valign="top">
 				<h2>Courtier</h2>
 				<p>Raison sociale : <?php echo ($vrac->mandataire->raison_sociale)? $vrac->mandataire->raison_sociale : $vrac->mandataire->nom; ?></p>
 				<p>N° Carte professionnelle : <?php echo $vrac->mandataire->carte_pro ?></p>
@@ -59,9 +63,13 @@
 				<p>Code postal : <?php echo $vrac->mandataire->code_postal ?></p>
 				<p>Commune : <?php echo $vrac->mandataire->commune ?></p>
 				<p>Tel : <?php echo $vrac->mandataire->telephone ?>&nbsp;&nbsp;&nbsp;Fax : <?php echo $vrac->mandataire->fax ?></p>
+				<?php if ($vrac->valide->date_validation_courtier): ?>
+				<br />
+				<p>Signé le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_validation_courtier)); ?>, sur Déclarvins</p>
+				<?php endif; ?>
 			</td>
 			<?php endif; ?>
-			<td width="<?php echo $w ?>">
+			<td width="<?php echo $w ?>" valign="top">
 				<h2>Acheteur</h2>
 				<p>Type : <?php echo $vrac->acheteur_type ?></p>
 				<p>Raison sociale : <?php echo ($vrac->acheteur->raison_sociale)? $vrac->acheteur->raison_sociale : $vrac->acheteur->nom; ?></p>
@@ -78,6 +86,10 @@
 				<p>Code postal : <?php echo $vrac->adresse_livraison->code_postal ?></p>
 				<p>Commune : <?php echo $vrac->adresse_livraison->commune ?></p>
 				<?php endif; ?>
+				<?php if ($vrac->valide->date_validation_acheteur): ?>
+				<br />
+				<p>Signé le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_validation_acheteur)); ?>, sur Déclarvins</p>
+				<?php endif; ?>
 			</td>
 		</tr>
 	</table>
@@ -89,39 +101,30 @@
 	<p>Volume total : <?php echo $vrac->volume_propose ?>&nbsp;HL&nbsp;Prix unitaire net HT hors cotisation : <?php echo $vrac->prix_unitaire ?>&nbsp;€/HL&nbsp;Prix <?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)); ?></p>
 	<p><?php if ($vrac->determination_prix): ?>Mode de determination : <?php echo $vrac->determination_prix ?><?php endif; ?></p>
 	<h2>Conditions</h2>
-	<table>
-		<tr>
-			<td>
-				<p>
-					<?php if(!is_null($vrac->clause_reserve_retiraison)): ?>Propriété (réserve)<br /><?php endif; ?>
-					Conditions Générales de Vente : <?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?>&nbsp;&nbsp;<?php echo ($vrac->reference_contrat_pluriannuel)? 'Référence contrat : '.$vrac->reference_contrat_pluriannuel : ''; ?><br />
-					Autres observations : <?php echo $vrac->commentaires ?>
-				</p>
-			</td>
-			<td>
-				<p>
-					<?php if(!is_null($vrac->delai_paiement)): ?>
-					Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array($vrac->delai_paiement)) ?><br />
-					<?php endif; ?>
-					Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?>&nbsp;&nbsp;
-				</p>
-			</td>
-		</tr>
-	</table>
-	<h2>Clauses</h2>
-	<?php echo $configurationVrac->getClauses(ESC_RAW) ?>
-	<hr />
-	<h2>Calendrier de retiraison</h2>
 	<p><?php echo ($vrac->date_debut_retiraison)? 'Date de début de retiraison : '.$vrac->date_debut_retiraison.'&nbsp;&nbsp;' : ''; ?><?php echo ($vrac->date_limite_retiraison)? 'Date limite de retiraison : '.$vrac->date_limite_retiraison : ''; ?></p>
 	<?php if (count($vrac->paiements) > 0): ?>
-	<p>Echéancier de facture : </p>
+	<p>Echéancier : </p>
 	<p>
 	<?php $i = 0; foreach ($vrac->paiements as $paiement): $i++; ?>
 		<?php echo $paiement->date ?>&nbsp;<?php echo $paiement->volume ?>HL;&nbsp;<?php echo $paiement->montant ?>€;&nbsp;<?php if ($i < count($vrac->paiements)): ?>, <?php endif; ?>
 	<?php endforeach; ?>
 	</p>
 	<?php endif; ?>
+	<p>
+		<?php if(!is_null($vrac->clause_reserve_retiraison)): ?>Propriété (réserve)<br /><?php endif; ?>
+		Conditions Générales de Vente : <?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?>&nbsp;&nbsp;<?php echo ($vrac->reference_contrat_pluriannuel)? 'Référence contrat : '.$vrac->reference_contrat_pluriannuel : ''; ?><br />
+		Autres observations : <?php echo $vrac->commentaires ?>
+	</p>
+	<p>
+		<?php if(!is_null($vrac->delai_paiement)): ?>
+		Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array($vrac->delai_paiement)) ?><br />
+		<?php endif; ?>
+		Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?>&nbsp;&nbsp;
+	</p>
+	<h2>Clauses</h2>
+	<?php echo $configurationVrac->getClauses(ESC_RAW) ?>
 	<?php if ($vrac->has_transaction): ?>
+	<hr />
 	<h2>Descriptif des lots</h2>
 
 	<div id="lots">
@@ -190,8 +193,8 @@
 		</table>
 
 	</div>
-	<?php endif; ?>
 	<h2>Informations complémentaires</h2>
 	<?php echo $configurationVrac->getInformationsComplementaires(ESC_RAW) ?>
+	<?php endif; ?>
 </body>
 </html>

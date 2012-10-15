@@ -13,6 +13,6 @@ class VracValidationForm extends VracForm
 
     protected function doUpdateObject($values) {
     	parent::doUpdateObject($values);
-        $this->getObject()->getDocument()->validate();
+        $this->getObject()->getDocument()->validate($this->user);
     }
 }

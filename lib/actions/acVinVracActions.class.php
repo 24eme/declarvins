@@ -12,6 +12,19 @@ class acVinVracActions extends sfActions
     {
         $this->etablissement = null;
         $this->vracs = VracHistoryView::getInstance()->findLast();
+        $this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
+        $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
+	    if ($request->isMethod(sfWebRequest::POST)) {
+	    	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
+	    		$this->form->bind($request->getParameter('etablissement_selection_nav'));
+	    	} else {
+	      	$this->form->bind($request->getParameter($this->form->getName()));
+	    	}
+	      
+	      if ($this->form->isValid()) {
+	        return $this->redirect("vrac_etablissement", $this->form->getEtablissement());
+	      }
+	    }
     }
 
     public function executeEtablissement(sfWebRequest $request)
@@ -68,6 +81,9 @@ class acVinVracActions extends sfActions
 	public function executeEtape(sfWebRequest $request)
 	{
 		$this->forward404Unless($this->etape = $request->getParameter('step'));
+		if (!$this->getUser()->getCompte()) {
+			throw new sfException('Compte required');
+		}
         $this->etablissement = $this->getRoute()->getEtablissement();
 		$this->init($this->etablissement);
         $this->vrac = $this->getRoute()->getVrac();
@@ -75,7 +91,7 @@ class acVinVracActions extends sfActions
         	throw new sfException('Le contrat vrac n°'.$this->vrac->numero_contrat.' n\'est pas modifiable');
         }
 		$this->vrac->setEtape($this->etape);
-		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->etablissement, $this->vrac);
+		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->etablissement, $this->getUser(), $this->vrac);
 		if ($request->isMethod(sfWebRequest::POST)) {
 			$this->form->bind($request->getParameter($this->form->getName()));
 			if ($this->form->isValid()) {
@@ -83,7 +99,11 @@ class acVinVracActions extends sfActions
 
 				if (!$this->configurationVracEtapes->next($this->vrac->etape)) {
                     $this->getUser()->setFlash('termine', true);
-                    $this->saisieTerminee($this->vrac);
+                    if ($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+                    	$this->contratValide($this->vrac);
+                    } else {
+                    	$this->saisieTerminee($this->vrac);
+                    }
 			        return $this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
 				}
 
@@ -100,6 +120,9 @@ class acVinVracActions extends sfActions
 
   public function executeSetEtablissementInformations(sfWebRequest $request)
   {
+		if (!$this->getUser()->getCompte()) {
+			throw new sfException('Compte required');
+		}
         $this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();   
         $this->soussigne = $request->getParameter('soussigne', null);
@@ -129,7 +152,7 @@ class acVinVracActions extends sfActions
         }
   	
         $this->vrac->storeSoussigneInformations($this->type, $this->soussigne);
-		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->etablissement, $this->vrac);
+		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->etablissement, $this->getUser(), $this->vrac);
 		
         if ($this->type != 'mandataire') {
 			return $this->renderPartial('form_etablissement', array('form' => $this->form[$this->type]));
@@ -216,9 +239,9 @@ class acVinVracActions extends sfActions
 		}
 	}
 
-	public function getForm($interproId, $etape, $configurationVrac, $etablissement, $vrac)
+	public function getForm($interproId, $etape, $configurationVrac, $etablissement, $user, $vrac)
 	{
-		return VracFormFactory::create($etape, $configurationVrac, $etablissement, $vrac);
+		return VracFormFactory::create($etape, $configurationVrac, $etablissement, $user, $vrac);
 	}
 	
 	public function getNumeroContrat()

@@ -1,6 +1,10 @@
 <?php
 class Vrac extends BaseVrac 
 {
+	const MODE_DE_SAISIE_PAPIER = 'PAPIER';
+    const MODE_DE_SAISIE_DTI = 'DTI';
+    const MODE_DE_SAISIE_EDI = 'EDI';
+    
     public function constructId() 
     {
         $this->set('_id', 'VRAC-'.$this->numero_contrat);
@@ -102,14 +106,30 @@ class Vrac extends BaseVrac
 	  }
     }
 
-    public function validate() {
-      $this->valide->statut = VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION;
-      $this->valide->date_saisie = date('c');
-      $acteurs = VracClient::getInstance()->getActeurs();
-      if ($this->vous_etes && in_array($this->vous_etes, $acteurs)) {
-      	$validateur = 'date_validation_'.$this->vous_etes;
-      	$this->valide->{$validateur} = date('c');
-      }
+    public function validate($user) {
+    	$this->valide->statut = VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION;
+    	$this->valide->date_saisie = date('c');
+    	$this->valide->identifiant = $user->getCompte()->_id;
+    	$acteurs = VracClient::getInstance()->getActeurs();
+      	if (!$this->mandataire_exist) {
+      		unset($acteurs[array_search(VracClient::VRAC_TYPE_COURTIER, $acteurs)]);
+      	}
+    	if ($user->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+    		$this->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
+    		foreach ($acteurs as $acteur) {
+    			$validateur = 'date_validation_'.$acteur;
+    			if (!$this->valide->get($validateur)) {
+    				$this->valide->{$validateur} = date('c');
+    			}
+    		}
+    		$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
+    	} else {
+    		$this->mode_de_saisie = self::MODE_DE_SAISIE_DTI;
+    		if ($this->vous_etes && in_array($this->vous_etes, $acteurs)) {
+    			$validateur = 'date_validation_'.$this->vous_etes;
+    			$this->valide->{$validateur} = date('c');
+    		}
+    	}
     }
     
     public function updateStatut() {
