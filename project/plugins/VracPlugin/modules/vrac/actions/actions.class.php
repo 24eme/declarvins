@@ -1,9 +1,9 @@
 <?php
 class vracActions extends acVinVracActions
 {
-	public function getForm($interproId, $etape, $configurationVrac, $etablissement, $vrac)
+	public function getForm($interproId, $etape, $configurationVrac, $etablissement, $compte, $vrac)
 	{
-		return VracFormDeclarvinFactory::create($interproId, $etape, $configurationVrac, $etablissement, $vrac);
+		return VracFormDeclarvinFactory::create($interproId, $etape, $configurationVrac, $etablissement, $compte, $vrac);
 	}
 	
 	protected function saisieTerminee($vrac) {

@@ -22,6 +22,7 @@ class VracConfigurationCsvFile extends CsvFile
   const CSV_VRAC_CONFIGURATION_CAS_PARTICULIER = 17;
   const CSV_VRAC_CONFIGURATION_CLAUSES = 18;
   const CSV_VRAC_CONFIGURATION_INFORMATIONS_COMPLEMENTAIRES = 19;
+  const CSV_VRAC_CONFIGURATION_TRANSACTION_HAS_ACHETEUR = 20;
   
   private static $nodes = array(
     'etapes',
@@ -42,12 +43,14 @@ class VracConfigurationCsvFile extends CsvFile
   	'commentaires_lot',
   	'cas_particulier',
     'clauses',
-    'informations_complementaires'
+    'informations_complementaires',
+    'transaction_has_acheteur'
   );
   
   private static $simpleDatas = array(
     'clauses',
-    'informations_complementaires'
+    'informations_complementaires',
+    'transaction_has_acheteur'
   );
   
   protected $config;
