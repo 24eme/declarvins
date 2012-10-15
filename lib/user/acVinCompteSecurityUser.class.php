@@ -36,6 +36,7 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
     const CREDENTIAL_COMPTE_PROXY = 'compte_proxy';
     const CREDENTIAL_COMPTE_VIRTUEL = 'compte_virtuel';
     const CREDENTIAL_ADMIN = 'admin';
+    const CREDENTIAL_OPERATEUR = 'operateur';
 
     protected $_couchdb_type_namespace_compte= array("CompteTiers" => self::NAMESPACE_COMPTE_TIERS, 
                                                      "CompteProxy" => self::NAMESPACE_COMPTE_PROXY, 
@@ -52,8 +53,9 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
     protected $_credentials_compte = array(self::CREDENTIAL_COMPTE, 
                                            self::CREDENTIAL_COMPTE_TIERS, 
                                            self::CREDENTIAL_COMPTE_PROXY, 
-                                           self::CREDENTIAL_COMPTE_VIRTUEL, 
-                                           self::CREDENTIAL_ADMIN);
+                                           self::CREDENTIAL_COMPTE_VIRTUEL,
+                                           self::CREDENTIAL_ADMIN,
+                                           self::CREDENTIAL_OPERATEUR);
 
     /**
      *
@@ -120,6 +122,9 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
         foreach ($compte->droits as $credential) {
                 $this->addCredential($credential);
         }
+        if ($this->hasCredential(self::CREDENTIAL_ADMIN)) {
+            $this->addCredential(self::CREDENTIAL_OPERATEUR);
+        }
         if ($compte->type == 'CompteProxy') {
             $this->signInCompte(acCouchdbManager::getClient()->retrieveDocumentById($compte->compte_reference));
         }
@@ -175,4 +180,5 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
 	  		throw new sfException("you must be logged with a tiers");
         }
     }
+
 }
