@@ -439,15 +439,22 @@ class VracForm extends acCouchdbObjectForm
 	public function getInterpro() 
 	{
         if ($this->getEtablissement()) {
-        	return $this->getEtablissement()->getInterproObject();
+        	
+            return $this->getEtablissement()->getInterproObject();
         } else {
-            return sfContext::getInstance()->getUser()->getInterpro();
+            
+            return $this->getUser()->getCompte()->getGerantInterpro();
         }
 	}
 
     protected function getVousEtes() {
 
       return array('vendeur' => "Vendeur", 'acheteur' => "Acheteur");
+    }
+
+    protected function getUser() {
+
+        return sfContext::getInstance()->getUser();
     }
 }
 
