@@ -28,7 +28,7 @@ class drmActions extends sfActions
       
       $drm->mode_de_saisie =  DRM::MODE_DE_SAISIE_DTI;
       
-      if($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+      if($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
         $drm->mode_de_saisie = DRM::MODE_DE_SAISIE_PAPIER;
       }
       $drm->save();
@@ -62,9 +62,9 @@ class drmActions extends sfActions
       $drm = $this->getRoute()->getDRM();
       if ($drm->isValidee())
         throw new sfException('Vous ne pouvez pas supprimer une DRM validée');
-      if ($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) && !$drm->isEnvoyee()) {
+      if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$drm->isEnvoyee()) {
       	$drm->delete();
-      } elseif (!$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) && !$drm->isValidee()) {
+      } elseif (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$drm->isValidee()) {
       	$drm->delete();
       }
       $this->redirect('drm_mon_espace', $etablissement);
@@ -118,7 +118,7 @@ class drmActions extends sfActions
   {
     $this->drm = $this->getRoute()->getDRM();
     $this->etablissement = $this->getRoute()->getEtablissement();
-    $isAdmin = $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN);
+    $isAdmin = $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR);
     $this->form = new DRMInformationsForm(array(), array('is_admin' => $isAdmin));
 
     if ($request->isMethod(sfWebRequest::POST)) {

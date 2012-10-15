@@ -49,7 +49,7 @@
             </div>
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', array('identifiant' => $etablissement->identifiant, 'campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
             
-			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && $drm->mode_de_saisie == DRM::MODE_DE_SAISIE_DTI): ?>
+			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->mode_de_saisie == DRM::MODE_DE_SAISIE_DTI): ?>
 			<?php else: ?>
             <div id="btn_etape_dr">
                 <?php if ($drm->mode_de_saisie == DRM::MODE_DE_SAISIE_PAPIER): ?>
@@ -61,7 +61,7 @@
                     <span>Précédent</span>
                 </a>
                 <?php endif; ?>
-                <?php if ($drmValidation->hasError('stock') && $sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
+                <?php if ($drmValidation->hasError('stock') && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <button type="submit" class="btn_suiv"><span>Générer rectificative suivante</span></button>
                 <?php else: ?>
                 <button type="submit" class="btn_suiv"<?php if ($drmValidation->hasErrors()): ?> disabled="disabled"<?php endif; ?>><span>Valider</span></button>

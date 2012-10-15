@@ -80,7 +80,7 @@
             	</div>
         	</div>
         	
-			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && $drm->mode_de_saisie == DRM::MODE_DE_SAISIE_DTI): ?>
+			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->mode_de_saisie == DRM::MODE_DE_SAISIE_DTI): ?>
 			<?php else: ?>
 	        <div id="btn_etape_dr">
 	            <a href="<?php echo url_for('drm_informations', $drm) ?>" class="btn_prec">

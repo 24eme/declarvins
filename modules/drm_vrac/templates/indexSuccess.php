@@ -18,7 +18,7 @@
                             <?php
 
                             if (isset($noContrats[$detail->getIdentifiantHTML()]) && $noContrats[$detail->getIdentifiantHTML()]) {
-                            	if($etablissement->hasDroit(EtablissementDroit::DROIT_VRAC) || $sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+                            	if($etablissement->hasDroit(EtablissementDroit::DROIT_VRAC) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
                                 	echo '<tr>
                                         <td class="libelle">' . $detail->getLibelle(ESC_RAW) . '</td>
                                       </tr>
@@ -52,7 +52,7 @@
                 <?php endif; ?>
             <br />
             
-			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && $drm->mode_de_saisie == DRM::MODE_DE_SAISIE_DTI): ?>
+			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->mode_de_saisie == DRM::MODE_DE_SAISIE_DTI): ?>
 			<?php else: ?>
             <div id="btn_etape_dr">
                 <a href="<?php echo url_for('drm_recap_redirect', $drm) ?>" class="btn_prec">

@@ -52,10 +52,10 @@
 						<label for="champ_9">Numéro d’Accise :</label>
 						<span class="valeur">1654546764</span>
 					</div>
-					<?php if(!$sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
+					<?php if(!$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 					<?php echo $form['confirmation']->render() ?>
 					<?php endif; ?>
-					<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && $drm->mode_de_saisie == DRM::MODE_DE_SAISIE_DTI): ?>
+					<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->mode_de_saisie == DRM::MODE_DE_SAISIE_DTI): ?>
 					<?php else: ?>
 					<div class="ligne_btn">
 						<button type="submit" class="btn_suiv"><span>VALIDER</span></button>

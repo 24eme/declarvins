@@ -24,7 +24,7 @@
 		</ul>
     </section>
     
-        <?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && !$hasDrmEnCours): ?>
+        <?php if($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$hasDrmEnCours): ?>
         <br /><br />
         <h1>Espace Admin <a href="" class="msg_aide" data-msg="help_popup_monespace_admin" data-doc="notice.pdf" title="Message aide"></a></h1>
     	<p class="intro">Saisir une DRM d'un mois différent.</p>

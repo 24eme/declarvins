@@ -411,7 +411,7 @@ class DRM extends BaseDRM {
             throw new sfException('Wrong format for campagne ('.$this->campagne.')');
         }
         if ($user = $this->getUser()) {
-        	if ($user->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+        	if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
         		$compte = $user->getCompte();
         		$canInsertEditeur = true;
         		if ($lastEditeur = $this->getLastEditeur()) {

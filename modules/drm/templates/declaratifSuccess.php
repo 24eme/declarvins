@@ -9,7 +9,7 @@
             <form id="declaratif_info" action="<?php echo url_for('drm_declaratif', $drm) ?>" method="post">
                 <?php echo $form->renderHiddenFields() ?>
                 
-                <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
+                <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <?php if ($form->getObject()->isRectificative()): ?>
                 <ul class="onglets_declaratif">
                     <li><strong>Administrateur</strong></li>
@@ -140,7 +140,7 @@
                     </div>
                 </div>
 				
-				<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && $drm->mode_de_saisie == DRM::MODE_DE_SAISIE_DTI): ?>
+				<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->mode_de_saisie == DRM::MODE_DE_SAISIE_DTI): ?>
 				<?php else: ?>
                 <div id="btn_etape_dr">
                 	<?php if (!$drm->declaration->hasMouvementCheck()): ?>
