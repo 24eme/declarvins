@@ -56,7 +56,7 @@ abstract class DRMSecurityUser extends TiersSecurityUser {
      */
     protected function requireDRM() {
         $this->requireTiers();
-        if(!($this->hasCredential(self::CREDENTIAL_DROIT_DRM_DTI)) || !($this->hasCredential(self::CREDENTIAL_DROIT_DRM_PAPIER) && $this->hasCredential(myUser::CREDENTIAL_ADMIN))) {
+        if(!($this->hasCredential(self::CREDENTIAL_DROIT_DRM_DTI)) || !($this->hasCredential(self::CREDENTIAL_DROIT_DRM_PAPIER) && $this->hasCredential(myUser::CREDENTIAL_OPERATEUR))) {
             throw new sfException("you must be logged in with a tiers");
         }
     }

@@ -54,4 +54,11 @@ class CompteTiers extends BaseCompteTiers {
     	$this->email = $contrat->email;
     }
 
+    public function __toString() {
+        if ($this->prenom) {
+            return sprintf('%s. %s', $this->prenom, strtoupper(substr($this->nom, 0, 1)));
+        }
+        
+        return sprintf('%s', $this->nom);
+    }
 }

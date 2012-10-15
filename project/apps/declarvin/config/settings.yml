@@ -41,5 +41,5 @@ all:
   .actions:
     login_module:           acVinCompte
     login_action:           login
-    secure_module:          global
-    secure_action:          secure
+    #secure_module:          global
+    #secure_action:          secure

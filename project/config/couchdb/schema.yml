@@ -11,6 +11,15 @@ acVinCompte:
         definition:
           fields:
             '*': { }
+      interpro: 
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  statut: {  }
 
 _Compte:
   inheritance: acVinCompte
@@ -60,21 +69,11 @@ CompteTiers:
       fax: {  }
       type: {  }
       contrat: {  }
-      interpro: 
-        type: collection
-        definition:
-          fields:
-            '*':
-              type: collection
-              definition:
-                fields:
-                  statut: {  }
 
 CompteVirtuel:
   inheritance: acVinCompteVirtuel
   definition:
     fields:
-      interpro: {  }
       prenom: {  }
       telephone: {  }
       fax: {  }
@@ -149,4 +148,3 @@ Controles:
       _rev: {  }
       type: {}
       '*': {}
-      

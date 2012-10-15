@@ -39,22 +39,23 @@ EOF;
      * COMPTE VIRTUEL ADMIN
      */
 
-    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin-civp')) {
-        $compte->delete();
+    if ($compte = acCouchdbManager::getClient()->find('COMPTE-admin-civp', acCouchdbClient::HYDRATE_JSON)) {
+        acCouchdbManager::getClient()->deleteDoc($compte);
     }
+
     $compte = new CompteVirtuel();
     $compte->nom = "CIVP";
     $compte->login = 'admin-civp';
     $compte->email = 'mcouderc@provencewines.com';
     $compte->mot_de_passe = "actualys";
     $compte->droits->add(null, 'admin');
-    $compte->interpro = "INTERPRO-CIVP";
+    $compte->interpro = array("INTERPRO-CIVP" => array('statut' => _Compte::STATUT_VALIDATION_VALIDE));
     $compte->save();
     $ldap = new Ldap();
     $ldap->saveCompte($compte);
     
-    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin-ir')) {
-        $compte->delete();
+    if ($compte = acCouchdbManager::getClient()->find('COMPTE-admin-ir', acCouchdbClient::HYDRATE_JSON)) {
+        acCouchdbManager::getClient()->deleteDoc($compte);
     }
     $compte = new CompteVirtuel();
     $compte->nom = "Inter-Rhone";
@@ -62,13 +63,13 @@ EOF;
     $compte->email = 'beymard@inter-rhone.com';
     $compte->mot_de_passe = "actualys";
     $compte->droits->add(null, 'admin');
-    $compte->interpro = "INTERPRO-IR";
+    $compte->interpro = array("INTERPRO-IR" => array('statut' => _Compte::STATUT_VALIDATION_VALIDE));
     $compte->save();
     $ldap = new Ldap();
     $ldap->saveCompte($compte);
     
-    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-admin-ivse')) {
-        $compte->delete();
+    if ($compte = acCouchdbManager::getClient()->find('COMPTE-admin-ivse', acCouchdbClient::HYDRATE_JSON)) {
+        acCouchdbManager::getClient()->deleteDoc($compte);
     }
 
     $compte = new CompteVirtuel();
@@ -77,13 +78,13 @@ EOF;
     $compte->email = 'marie.de-monte@intervins-sudest.org';
     $compte->mot_de_passe = "actualys";
     $compte->droits->add(null, 'admin');
-    $compte->interpro = "INTERPRO-IVSE";
+    $compte->interpro = array("INTERPRO-IVSE" => array('statut' => _Compte::STATUT_VALIDATION_VALIDE));
     $compte->save();
     $ldap = new Ldap();
     $ldap->saveCompte($compte);
 
-    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-civp-corinne')) {
-        $compte->delete();
+    if ($compte = acCouchdbManager::getClient()->find('COMPTE-civp-corinne', acCouchdbClient::HYDRATE_JSON)) {
+        acCouchdbManager::getClient()->deleteDoc($compte);
     }
 
     $compte = new CompteTiers();
@@ -92,7 +93,7 @@ EOF;
     $compte->login = 'civp-corinne';
     $compte->email = 'test@example.org';
     $compte->mot_de_passe = "actualys";
-    $compte->interpro = array("INTERPRO-CIVP" => array("statut" => "VALIDE"));
+    $compte->interpro = array("INTERPRO-CIVP" => array('statut' => _Compte::STATUT_VALIDATION_VALIDE));
     $compte->tiers = array("ETABLISSEMENT-9223700102" => array("id" => "ETABLISSEMENT-9223700102",
                                                                "type" => "Etablissement",
                                                                "nom" => "Château Corinne",
@@ -101,8 +102,8 @@ EOF;
     $ldap = new Ldap();
     $ldap->saveCompte($compte);
 
-    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-civp-thierry')) {
-        $compte->delete();
+    if ($compte = acCouchdbManager::getClient()->find('COMPTE-civp-thierry', acCouchdbClient::HYDRATE_JSON)) {
+        acCouchdbManager::getClient()->deleteDoc($compte);
     }
 
     $compte = new CompteTiers();
@@ -111,7 +112,7 @@ EOF;
     $compte->login = 'civp-thierry';
     $compte->email = 'tgigon@provencewines.com';
     $compte->mot_de_passe = "actualys";
-    $compte->interpro = array("INTERPRO-CIVP" => array("statut" => "VALIDE"));
+    $compte->interpro = array("INTERPRO-CIVP" => array("statut" => _Compte::STATUT_VALIDATION_VALIDE));
     $compte->tiers = array("ETABLISSEMENT-9223700103" => array("id" => "ETABLISSEMENT-9223700103",
                                                                "type" => "Etablissement",
                                                                "nom" => "Château Thierry",
@@ -130,32 +131,32 @@ EOF;
       $ldap->delete($compte);
     $ldap->saveCompte($compte);*/
 
-    if ($compte = acCouchdbManager::getClient()->retrieveDocumentById('COMPTE-autologin')) {
-        $compte->delete();
+    if ($compte = acCouchdbManager::getClient()->find('COMPTE-autologin', acCouchdbClient::HYDRATE_JSON)) {
+        acCouchdbManager::getClient()->deleteDoc($compte);
     }
 
     $compte = new CompteTiers();
     $compte->nom = "Login";
     $compte->prenom = "Auto";
     $compte->login = 'autologin';
-    $compte->interpro = array('INTERPRO-IR' => array('statut' => 'VALIDE'));
+    $compte->interpro = array('INTERPRO-IR' => array('statut' => _Compte::STATUT_VALIDATION_VALIDE));
     $compte->email = 'autologin@example.org';
     $compte->save();
 
-    if ($e = acCouchdbManager::getClient()->retrieveDocumentById('ETABLISSEMENT-9223700100')) {
-        $e->delete();
+    if ($e = acCouchdbManager::getClient()->find('ETABLISSEMENT-9223700100', acCouchdbClient::HYDRATE_JSON)) {
+        acCouchdbManager::getClient()->deleteDoc($e);
     }
 
-    if ($e = acCouchdbManager::getClient()->retrieveDocumentById('ETABLISSEMENT-9223700101')) {
-        $e->delete();
+    if ($e = acCouchdbManager::getClient()->find('ETABLISSEMENT-9223700101', acCouchdbClient::HYDRATE_JSON)) {
+        acCouchdbManager::getClient()->deleteDoc($e);
     }
 
-    if ($e = acCouchdbManager::getClient()->retrieveDocumentById('ETABLISSEMENT-9223700102')) {
-        $e->delete();
+    if ($e = acCouchdbManager::getClient()->find('ETABLISSEMENT-9223700102', acCouchdbClient::HYDRATE_JSON)) {
+        acCouchdbManager::getClient()->deleteDoc($e);
     }
 
-    if ($e = acCouchdbManager::getClient()->retrieveDocumentById('ETABLISSEMENT-9223700103')) {
-        $e->delete();
+    if ($e = acCouchdbManager::getClient()->find('ETABLISSEMENT-9223700103', acCouchdbClient::HYDRATE_JSON)) {
+        acCouchdbManager::getClient()->deleteDoc($e);
     }
 
     $e = new Etablissement();

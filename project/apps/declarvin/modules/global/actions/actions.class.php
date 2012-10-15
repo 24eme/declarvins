@@ -10,8 +10,8 @@
  */
 class globalActions extends sfActions
 {
-  public function executeSecure() {
-	
-		return $this->redirect("@tiers");
-  }
+    public function executeSecure() {
+        //if ($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN))
+        //return $this->redirect("@tiers");
+    }
 }

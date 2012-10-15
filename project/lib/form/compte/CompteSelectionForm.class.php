@@ -9,18 +9,9 @@ class CompteSelectionForm extends sfForm {
 			'compte' => 'Compte*: ',
 		));
 		$this->setValidators(array(
-			'compte' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getComptes()))),
+			'compte' => new sfValidatorPass(),
 		));
         $this->widgetSchema->setNameFormat('compte_selection[%s]');
-    }
-    
-    private function getComptes() {
-    	$comptes = _CompteClient::getInstance()->findAll();
-    	$result = array('' => '');
-    	foreach ($comptes->rows as $compte) {
-    		$result[$compte->key[3]] = _CompteClient::getInstance()->makeLibelle($compte->key); 
-    	}
-    	return $result;
     }
     
     public function setName($name)

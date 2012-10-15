@@ -17,9 +17,9 @@ class produitActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-  	$this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
-	$this->produits = ConfigurationClient::getInstance()->findProduitsForAdmin($this->interpro->_id);
-	$this->produitsNonSupprimables = DRMClient::getInstance()->getAllProduits();
+  	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
+	  $this->produits = ConfigurationClient::getInstance()->findProduitsForAdmin($this->interpro->_id);
+	  $this->produitsNonSupprimables = DRMClient::getInstance()->getAllProduits();
   }
   public function executeModification(sfWebRequest $request)
   {
@@ -115,7 +115,7 @@ class produitActions extends sfActions
   }
   public function executeNouveau(sfWebRequest $request)
   {
-  	$this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
+  	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
   	$configuration = ConfigurationClient::getCurrent();
   	$this->form = new ProduitNouveauForm($configuration, $this->interpro->_id);
   	if ($request->isMethod(sfWebRequest::POST)) {

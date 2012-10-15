@@ -39,7 +39,7 @@ class tiersActions extends sfActions
   {
     $this->etablissement = $this->getRoute()->getEtablissement();
 
-  	if(($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN))) {
+  	if(($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR))) {
 
         return $this->redirect("drm_mon_espace", $this->etablissement);
     }

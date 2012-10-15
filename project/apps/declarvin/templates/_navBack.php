@@ -1,16 +1,14 @@
 <nav id="barre_navigation">
 	<ul id="nav_principale">
-		<?php if (!$sf_user->hasAttribute('interpro_id')): ?>
-		<li<?php if ($active == 'admin'): ?> class="actif"<?php endif; ?>>
-			<a href="<?php echo url_for('@admin') ?>">Accueil</a>
-		</li>
-		<?php else: ?>
 		<li<?php if ($active == 'operateurs'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@etablissement_login') ?>">Opérateurs</a>
 		</li>
+		<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
 		<li<?php if ($active == 'parametrage'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@produits') ?>">Paramétrage</a>
 		</li>
+		<?php endif; ?>
+		<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
         <li<?php if ($active == 'comptes'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@admin_comptes') ?>">Comptes</a>
 		</li>
@@ -32,7 +30,7 @@
 			</script>
 		</li>
 		<?php endif; ?>
-		<li class="etablissement_courant_admin"><a href="<?php echo url_for('@admin'); ?>"><span><?php if ($sf_user->hasAttribute('interpro_id')): ?><?php echo $sf_user->getInterpro()->nom ?><?php else: ?>Connexion<?php endif; ?></span></a></li>
+		<li class="etablissement_courant_admin"><a href="<?php echo url_for('@admin'); ?>"><span><?php echo $sf_user->getCompte() ?></span></a></li>
 		<li class="quitter"><a href="<?php echo url_for('@ac_vin_logout'); ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
 	</ul>
 </nav>

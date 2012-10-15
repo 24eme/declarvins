@@ -84,7 +84,7 @@ class acVinCompteActions extends BaseacVinCompteActions {
     }
 
     protected function redirectAfterLogin() {
-        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
 
             return $this->redirect('@admin');
         }

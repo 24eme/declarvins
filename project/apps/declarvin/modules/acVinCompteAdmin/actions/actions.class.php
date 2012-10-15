@@ -84,6 +84,7 @@ DéclarVins';
   public function executeCompteAjout(sfWebRequest $request) 
     {
       $this->compte = new CompteVirtuel(); 
+      $this->compte->interpro = $this->getUser()->getCompte()->interpro;
       $this->form = new CompteModificationDroitForm($this->compte);
       if($request->isMethod(sfWebRequest::POST))
         {           
@@ -117,14 +118,14 @@ DéclarVins';
     */
 
   public function executeCompteAutocomplete(sfWebRequest $request) {
-    $comptes = _CompteClient::getInstance()->findAll()->rows;
+    $comptes = _CompteClient::getInstance()->findAllByInterpo($this->getUser()->getCompte()->getGerantInterpro()->get('_id'))->rows;
     $json = array();
     $limit = $request->getParameter('limit', 100);
     foreach($comptes as $key => $compte) {
       $text = _CompteClient::getInstance()->makeLibelle($compte->key);
      
       if (Search::matchTerm($request->getParameter('q'), $text)) {
-        $json[$compte->key[3]] = _CompteClient::getInstance()->makeLibelle($compte->key);
+        $json[$compte->key[_CompteClient::KEY_LOGIN]] = _CompteClient::getInstance()->makeLibelle($compte->key);
       }
 
       if (count($json) >= $limit) {

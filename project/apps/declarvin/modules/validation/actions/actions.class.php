@@ -16,7 +16,7 @@ class validationActions extends sfActions {
      * @param sfRequest $request A request object
      */
     public function executeLogin(sfWebRequest $request) {
-    	$this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
+    	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
         $this->formLogin = new LoginContratForm();
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->formLogin->bind($request->getParameter($this->formLogin->getName()));
@@ -36,7 +36,7 @@ class validationActions extends sfActions {
     	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
     	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
         
-        $this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
+        $this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
         $import = new ImportEtablissementsCsv($this->interpro);
         $this->compte = $this->contrat->getCompteObject();
         $this->etablissements = $this->compte->getTiersCollection();
@@ -58,7 +58,7 @@ class validationActions extends sfActions {
     public function executeCompte(sfWebRequest $request) {
         $this->forward404Unless($request->isMethod(sfWebRequest::POST));
         
-        $this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
+        $this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
         $import = new ImportEtablissementsCsv($this->interpro);
     	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
     	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
@@ -91,7 +91,7 @@ class validationActions extends sfActions {
     public function executeLiaison(sfWebRequest $request) {
         $this->forward404Unless($request->isMethod(sfWebRequest::POST));
         
-        $this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
+        $this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
         $import = new ImportEtablissementsCsv($this->interpro);
     	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
     	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
@@ -125,7 +125,7 @@ class validationActions extends sfActions {
         $this->forward404Unless($request->isMethod(sfWebRequest::POST));
         $this->forward404Unless($interpro_id = $request->getParameter('interpro_id'));
         
-        $this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
+        $this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
         $import = new ImportEtablissementsCsv($this->interpro);
     	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
     	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
@@ -226,7 +226,7 @@ DéclarVins';
     	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
     	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
         $this->forward404Unless($compte = $this->contrat->getCompteObject());
-    	$this->forward404Unless($interpro = $this->getUser()->getInterpro());
+    	$interpro = $this->getUser()->getCompte()->getGerantInterpro();
     	$import = new ImportEtablissementsCsv($interpro);
     	$etablissement = $import->getEtablissementByIdentifiant($etablissement);
         $etablissement->statut = Etablissement::STATUT_ACTIF;
@@ -240,7 +240,7 @@ DéclarVins';
 
     public function executeDelier(sfWebRequest $request) {
         $this->forward404Unless($etablissement = EtablissementClient::getInstance()->retrieveById($request->getParameter("etablissement")));
-    	$this->forward404Unless($interpro = $this->getUser()->getInterpro());
+    	$interpro = $this->getUser()->getCompte()->getGerantInterpro();
     	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
     	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
         $etablissement->delete();

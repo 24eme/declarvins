@@ -17,7 +17,6 @@ class adminActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-  		$this->getUser()->setAttribute('interpro_id', $this->getUser()->getCompte()->getInterpro());
   		$this->redirect('@etablissement_login');
   }
  /**
@@ -27,7 +26,7 @@ class adminActions extends sfActions
   */
   public function executeEtablissementLogin(sfWebRequest $request)
   {
-  	$this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
+  	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
     $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
     if ($request->isMethod(sfWebRequest::POST)) {
     	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
@@ -49,7 +48,7 @@ class adminActions extends sfActions
   */
   public function executeEtablissementProfilLogin(sfWebRequest $request)
   {
-  	$this->forward404Unless($this->interpro = $this->getUser()->getInterpro());
+  	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
     $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
     if ($request->isMethod(sfWebRequest::POST)) {
     	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {

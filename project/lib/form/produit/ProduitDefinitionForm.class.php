@@ -63,7 +63,7 @@ class ProduitDefinitionForm extends acCouchdbObjectForm {
     	if (!$object) {
     		$object = $this->getObject();
     	}
-    	return $object->interpro->getOrAdd(sfContext::getInstance()->getUser()->getInterpro()->_id);
+    	return $object->interpro->getOrAdd($this->getUser()->getCompte()->getGerantInterpro()->_id);
     }
     
     private function getNoeudDepartement($object = null)
@@ -165,5 +165,10 @@ class ProduitDefinitionForm extends acCouchdbObjectForm {
     	}
     	$object->getDocument()->save();
     	return $object;    	
+    }
+
+    protected function getUser() {
+
+        return sfContext::getInstance()->getUser();
     }
 }

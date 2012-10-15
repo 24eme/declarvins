@@ -20,4 +20,9 @@ abstract class _Compte extends acVinCompte {
         $hash = "{SSHA}" . base64_encode(pack("H*", sha1($mot_de_passe . $salt)) . $salt);
         $this->_set('mot_de_passe', $hash);
     }
+
+    public function __toString() {
+
+      return $this->login;
+    }
 }
