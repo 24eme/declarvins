@@ -114,7 +114,7 @@ class Vrac extends BaseVrac
       	if (!$this->mandataire_exist) {
       		unset($acteurs[array_search(VracClient::VRAC_TYPE_COURTIER, $acteurs)]);
       	}
-    	if ($user->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+    	if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
     		$this->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
     		foreach ($acteurs as $acteur) {
     			$validateur = 'date_validation_'.$acteur;

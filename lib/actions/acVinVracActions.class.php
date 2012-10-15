@@ -99,7 +99,7 @@ class acVinVracActions extends sfActions
 
 				if (!$this->configurationVracEtapes->next($this->vrac->etape)) {
                     $this->getUser()->setFlash('termine', true);
-                    if ($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+                    if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
                     	$this->contratValide($this->vrac);
                     } else {
                     	$this->saisieTerminee($this->vrac);
