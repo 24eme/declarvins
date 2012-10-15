@@ -451,10 +451,5 @@ class VracForm extends acCouchdbObjectForm
 
       return array('vendeur' => "Vendeur", 'acheteur' => "Acheteur");
     }
-
-    protected function getUser() {
-
-        return sfContext::getInstance()->getUser();
-    }
 }
 
