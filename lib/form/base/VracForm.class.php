@@ -3,6 +3,7 @@ class VracForm extends acCouchdbObjectForm
 {
 	protected $configuration;
     protected $etablissement;
+    protected $user;
     
     const VRAC_VENDEUR_FORM = 'VracVendeurForm';
     const VRAC_ACHETEUR_FORM = 'VracAcheteurForm';
@@ -13,10 +14,11 @@ class VracForm extends acCouchdbObjectForm
     const VRAC_PAIEMENT_FORM = 'VracPaiementForm';
     const VRAC_LOT_FORM = 'VracLotForm';
     
-	public function __construct(ConfigurationVrac $configuration, $etablissement, acCouchdbJson $object, $options = array(), $CSRFSecret = null) 
+	public function __construct(ConfigurationVrac $configuration, $etablissement, $user, acCouchdbJson $object, $options = array(), $CSRFSecret = null) 
 	{
         $this->setConfiguration($configuration);
         $this->setEtablissement($etablissement);
+        $this->setUser($user);
         parent::__construct($object, $options, $CSRFSecret);
     }
     
@@ -38,6 +40,16 @@ class VracForm extends acCouchdbObjectForm
     public function setEtablissement($etablissement)
     {
     	$this->etablissement = $etablissement;
+    }
+
+    public function getUser()
+    {
+    	return $this->user;
+    }
+    
+    public function setUser($user)
+    {
+    	$this->user = $user;
     }
     
 	public function configure()

@@ -41,17 +41,16 @@
     </td>              
     <td>
       <?php echo ($elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID])? ConfigurationClient::getCurrent()->get($elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID])->getLibelleFormat() : ''; ?>
+      <br />
+      <?php echo $elt[VracHistoryView::VRAC_VIEW_MILLESIME] ?> <?php echo $elt[VracHistoryView::VRAC_VIEW_LABELS] ?>
     </td>
     <td>           
         <?php echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLENLEVE]))? $elt[VracHistoryView::VRAC_VIEW_VOLENLEVE] : '0';
-              echo ' / ';
-              echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLPROP]))? $elt[VracHistoryView::VRAC_VIEW_VOLPROP] : '0';
+              echo ' hl / ';
+              echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLPROP]))? $elt[VracHistoryView::VRAC_VIEW_VOLPROP].' hl' : '0 hl';
          ?>
     </td>
     <td>           
-        <?php echo (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]))? $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE] : '0'; ?>&nbsp;€/HL<br />
-        <?php if (isset($elt[VracHistoryView::VRAC_VIEW_PARTCVO]) && ($elt[VracHistoryView::VRAC_VIEW_PARTCVO]) > 0): ?>
-        <?php echo (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]) && isset($elt[VracHistoryView::VRAC_VIEW_VOLPROP]))? $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE] * $elt[VracHistoryView::VRAC_VIEW_VOLPROP] * $elt[VracHistoryView::VRAC_VIEW_PARTCVO] * ConfigurationVrac::REPARTITION_CVO_ACHETEUR / 100 : '0'; ?>&nbsp;€<br />(cotisation&nbsp;interprofessionnelle)
-        <?php endif; ?>
+        <?php echo (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]))? $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE] : '0'; ?>&nbsp;€/HL Hors cotisations<br />
     </td>
 </tr>

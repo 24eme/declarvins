@@ -31,7 +31,7 @@
 	<?php if($vrac->mandataire_exist) $w = '33%'; else $w = '50%'; ?>
 	<table class="bloc_bottom" width="100%">
 		<tr>
-			<td width="<?php echo $w ?>">
+			<td width="<?php echo $w ?>" valign="top">
 				<h2>Vendeur</h2>
 				<p>Type : <?php echo $vrac->vendeur_type ?></p>
 				<p>Raison sociale : <?php echo ($vrac->vendeur->raison_sociale)? $vrac->vendeur->raison_sociale : $vrac->vendeur->nom; ?></p>
@@ -48,9 +48,13 @@
 				<p>Code postal : <?php echo $vrac->adresse_stockage->code_postal ?></p>
 				<p>Commune : <?php echo $vrac->adresse_stockage->commune ?></p>
 				<?php endif; ?>
+				<?php if ($vrac->valide->date_validation_vendeur): ?>
+				<br />
+				<p>Signé le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_validation_vendeur)); ?>, sur Déclarvins</p>
+				<?php endif; ?>
 			</td>
 			<?php if($vrac->mandataire_exist): ?>
-			<td width="<?php echo $w ?>">
+			<td width="<?php echo $w ?>" valign="top">
 				<h2>Courtier</h2>
 				<p>Raison sociale : <?php echo ($vrac->mandataire->raison_sociale)? $vrac->mandataire->raison_sociale : $vrac->mandataire->nom; ?></p>
 				<p>N° Carte professionnelle : <?php echo $vrac->mandataire->carte_pro ?></p>
@@ -59,9 +63,13 @@
 				<p>Code postal : <?php echo $vrac->mandataire->code_postal ?></p>
 				<p>Commune : <?php echo $vrac->mandataire->commune ?></p>
 				<p>Tel : <?php echo $vrac->mandataire->telephone ?>&nbsp;&nbsp;&nbsp;Fax : <?php echo $vrac->mandataire->fax ?></p>
+				<?php if ($vrac->valide->date_validation_courtier): ?>
+				<br />
+				<p>Signé le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_validation_courtier)); ?>, sur Déclarvins</p>
+				<?php endif; ?>
 			</td>
 			<?php endif; ?>
-			<td width="<?php echo $w ?>">
+			<td width="<?php echo $w ?>" valign="top">
 				<h2>Acheteur</h2>
 				<p>Type : <?php echo $vrac->acheteur_type ?></p>
 				<p>Raison sociale : <?php echo ($vrac->acheteur->raison_sociale)? $vrac->acheteur->raison_sociale : $vrac->acheteur->nom; ?></p>
@@ -77,6 +85,10 @@
 				<p>Adresse : <?php echo $vrac->adresse_livraison->adresse ?></p>
 				<p>Code postal : <?php echo $vrac->adresse_livraison->code_postal ?></p>
 				<p>Commune : <?php echo $vrac->adresse_livraison->commune ?></p>
+				<?php endif; ?>
+				<?php if ($vrac->valide->date_validation_acheteur): ?>
+				<br />
+				<p>Signé le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_validation_acheteur)); ?>, sur Déclarvins</p>
 				<?php endif; ?>
 			</td>
 		</tr>

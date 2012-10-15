@@ -31,7 +31,7 @@
 	<?php  if ($configurationVrac->transaction_has_acheteur) $w = '50%'; else $w = '100%'; ?>
 	<table class="bloc_bottom" width="100%">
 		<tr>
-			<td width="<?php echo $w ?>">
+			<td width="<?php echo $w ?>" valign="top">
 				<h2>Vendeur</h2>
 				<p>Type : <?php echo $vrac->vendeur_type ?></p>
 				<p>Raison sociale : <?php echo ($vrac->vendeur->raison_sociale)? $vrac->vendeur->raison_sociale : $vrac->vendeur->nom; ?></p>
@@ -48,9 +48,13 @@
 				<p>Code postal : <?php echo $vrac->adresse_stockage->code_postal ?></p>
 				<p>Commune : <?php echo $vrac->adresse_stockage->commune ?></p>
 				<?php endif; ?>
+				<?php if ($vrac->valide->date_validation_vendeur): ?>
+				<br />
+				<p>Signé le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_validation_vendeur)); ?>, sur Déclarvins</p>
+				<?php endif; ?>
 			</td>
 			<?php if ($configurationVrac->transaction_has_acheteur): ?>
-			<td width="<?php echo $w ?>">
+			<td width="<?php echo $w ?>" valign="top">
 				<h2>Acheteur</h2>
 				<p>Type : <?php echo $vrac->acheteur_type ?></p>
 				<p>Raison sociale : <?php echo ($vrac->acheteur->raison_sociale)? $vrac->acheteur->raison_sociale : $vrac->acheteur->nom; ?></p>
@@ -66,6 +70,10 @@
 				<p>Adresse : <?php echo $vrac->adresse_livraison->adresse ?></p>
 				<p>Code postal : <?php echo $vrac->adresse_livraison->code_postal ?></p>
 				<p>Commune : <?php echo $vrac->adresse_livraison->commune ?></p>
+				<?php endif; ?>
+				<?php if ($vrac->valide->date_validation_acheteur): ?>
+				<br />
+				<p>Signé le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_validation_acheteur)); ?>, sur Déclarvins</p>
 				<?php endif; ?>
 			</td>
 			<?php endif; ?>

@@ -20,6 +20,9 @@ class VracHistoryView extends acCouchdbView
     const VRAC_VIEW_PRIXTOTAL = 15;
     const VRAC_VIEW_PRIXUNITAIRE = 16;
     const VRAC_VIEW_PARTCVO = 17;
+    const VRAC_VIEW_MILLESIME = 18;
+    const VRAC_VIEW_LABELS = 19;
+    const VRAC_VIEW_MENTIONS = 20;
 
 	public static function getInstance() {
 
@@ -28,8 +31,8 @@ class VracHistoryView extends acCouchdbView
 
 	public function findLast() {
       
-        return $this->client->descending(true)
-                            ->limit(300)
+        return $this->client->startkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION))
+                    		->endkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, array()))
                             ->getView($this->design, $this->view);
     }
     
