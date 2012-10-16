@@ -12,7 +12,7 @@ class acVinVracActions extends sfActions
     {
         $this->etablissement = null;
         $this->vracs = VracHistoryView::getInstance()->findLast();
-        $this->forward404Unless($this->interpro = $this->getCompte()->getGerantInterpro());
+        $this->forward404Unless($this->interpro = $this->getUser()->getCompte()->getGerantInterpro());
         $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
 	    if ($request->isMethod(sfWebRequest::POST)) {
 	    	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
