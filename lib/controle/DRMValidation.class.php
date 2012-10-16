@@ -102,9 +102,9 @@ class DRMValidation
 		  }
 		  if ($detail->hasCvo()) {
 			  if ($totalVolume < $detail->sorties->vrac) {
-			    $this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_recap_detail', $detail).'#sorties');
+			    $this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm));
 			  } elseif ($totalVolume > $detail->sorties->vrac) {
-			  	$this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm).'#sorties');
+			  	$this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm));
 			  }
 		  }
 		}

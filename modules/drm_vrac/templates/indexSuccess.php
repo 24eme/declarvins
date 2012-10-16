@@ -6,6 +6,8 @@
     <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'vrac', 'pourcentage' => '30')); ?>
 
     <section id="principal">
+    	<p>Vous avez indiqué des sorties vrac, veuillez indiquer ci-dessous les contrats interprofessionnels ainsi que les volumes concernés.<br />Si le contrat auquel vous souhaitez faire référence n'est pas présent, veuillez vous rendre sur l'interface de saisie des <a href="<?php echo url_for('vrac_etablissement', array('sf_subject' => $etablissement)) ?>">contrats interprofessionnels</a></p>
+    	<br /><br />
         <div id="application_dr">
             
                 <?php if ($details->count() > 0): ?>
