@@ -5,6 +5,11 @@ class Vrac extends BaseVrac
     const MODE_DE_SAISIE_DTI = 'DTI';
     const MODE_DE_SAISIE_EDI = 'EDI';
     
+    protected $_mode_de_saisie_libelles = array (
+    									MODE_DE_SAISIE_PAPIER_LIBELLE => 'par l\'interprofession (papier)',
+    									MODE_DE_SAISIE_DTI_LIBELLE => 'via Declarvins (DTI)',
+    									MODE_DE_SAISIE_EDI_LIBELLE => 'via votre logiciel (EDI)');
+    
     public function constructId() 
     {
         $this->set('_id', 'VRAC-'.$this->numero_contrat);
@@ -114,7 +119,7 @@ class Vrac extends BaseVrac
       	if (!$this->mandataire_exist) {
       		unset($acteurs[array_search(VracClient::VRAC_TYPE_COURTIER, $acteurs)]);
       	}
-    	if ($user->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+    	if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
     		$this->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
     		foreach ($acteurs as $acteur) {
     			$validateur = 'date_validation_'.$acteur;
@@ -180,5 +185,10 @@ class Vrac extends BaseVrac
     
     public function integreVolumeEnleve($volume) {
     	$this->volume_enleve = $this->volume_enleve + $volume;
+    }
+
+
+    public static function getModeDeSaisieLibelles() {
+		return $this->_mode_de_saisie_libelles;
     }
 }

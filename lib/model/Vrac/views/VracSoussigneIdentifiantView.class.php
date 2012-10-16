@@ -23,6 +23,7 @@ class VracSoussigneIdentifiantView extends acCouchdbView
     const VRAC_VIEW_MILLESIME = 18;
     const VRAC_VIEW_LABELS = 19;
     const VRAC_VIEW_MENTIONS = 20;
+    const VRAC_VIEW_MODEDESAISIE = 21;
 
     public static function getInstance() {
 
