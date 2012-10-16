@@ -4,6 +4,9 @@
 	    <thead>
 	        <tr>
 	        	<th style="width: auto;">Statut</th>
+	        	<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+                <th>Mode de saisie</th>
+                <?php endif; ?>
 	            <th class="type">Type</th>
 	            <th>N° Contrat</th>
 	            <th>Soussignés</th>   
