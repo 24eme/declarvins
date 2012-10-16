@@ -44,6 +44,7 @@
         <div class="section_label_strong_bloc">
             <?php echo $form['cas_particulier']->renderError() ?>
             <?php echo $form['cas_particulier']->renderLabel() ?>
+            <a class="msg_aide" title="Message aide" data-msg="help_popup_vrac_condition_particuliere" href=""></a>
             <?php echo $form['cas_particulier']->render() ?>
         </div>
     </div>
