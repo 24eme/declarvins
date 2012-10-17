@@ -17,13 +17,7 @@ class contratActions extends sfActions
      * @param sfRequest $request A request object
      */
     public function executeIndex(sfWebRequest $request) {
-      $html = '<html><head><title></title></head><body><p>123</p></body></html>';
-    $dompdf = new DOMPDF();
-    $dompdf->load_html($html);
-    $dompdf->render();
-    $dompdf->stream('sample.pdf', array('Attachment' => 0, 'compress' => 0));
 
-    	
     }
 
     /**
