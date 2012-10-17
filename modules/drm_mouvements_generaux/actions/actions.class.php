@@ -5,25 +5,15 @@ class drm_mouvements_generauxActions extends sfActions
 	public function executeIndex(sfWebRequest $request) 
 	{
 		$this->drm = $this->getRoute()->getDRM();
-        $this->form = new DRMMouvementsGenerauxProduitsForm($this->drm);
-		$this->forms = array();
 		$this->certifs = array();
 		$this->certificationLibelle = array();
 		$configuration = ConfigurationClient::getCurrent();
+		$this->form = new DRMMouvementsGenerauxForm($configuration, $this->drm);
 		foreach ($configuration->declaration->certifications as $certification_key => $certification_config) {
 			if ($certification_config->hasProduit($this->drm->getInterpro()->get('_id'), $this->drm->getDepartement())) {
 	            if (!isset($this->certifs[$certification_key])) {
 					$this->certifs[$certification_key] = $certification_config->hasUniqProduit($this->drm->getInterpro()->get('_id'));
-				}
-	            if (!isset($this->forms[$certification_key])) {
-					$this->forms[$certification_key] = array();
 					$this->certificationLibelle[$certification_key] = $certification_config->libelle;
-				}
-				if ($this->drm->declaration->certifications->exist($certification_key)) {
-	                $details = $this->drm->declaration->certifications->get($certification_key)->getProduits();
-					foreach ($details as $detail) {
-						$this->forms[$certification_key][$detail->getHash()] = new DRMMouvementsGenerauxProduitForm($detail);
-					}
 				}
 			}
 		}
@@ -32,67 +22,22 @@ class drm_mouvements_generauxActions extends sfActions
             $this->first_certification = $this->drm->declaration->certifications->getFirst();
         }
         if ($request->isMethod(sfWebRequest::POST)) {
-
-            if($this->drm->declaration->hasMouvementCheck()) {
-        	   $this->drm->setCurrentEtapeRouting('recapitulatif');
-        	   
-               return $this->redirect('drm_recap', $this->first_certification);
-            } else {
-               if ($this->drm->mode_de_saisie == DRM::MODE_DE_SAISIE_PAPIER) {
-                   $this->drm->setCurrentEtapeRouting('validation');
-                   
-                   return $this->redirect('drm_validation', $this->drm); 
-               }
-
-               $this->drm->setCurrentEtapeRouting('declaratif');
-               
-               return $this->redirect('drm_declaratif', $this->drm);
-            }
-
+        	$this->form->bind($request->getParameter($this->form->getName()));
+        	if ($this->form->isValid()) {
+       			$this->form->save();
+	            if($this->drm->declaration->hasMouvementCheck()) {
+	        	   $this->drm->setCurrentEtapeRouting('recapitulatif');
+	               return $this->redirect('drm_recap', $this->first_certification);
+	            } else {
+	               if ($this->drm->mode_de_saisie == DRM::MODE_DE_SAISIE_PAPIER) {
+	                   $this->drm->setCurrentEtapeRouting('validation');
+	                   return $this->redirect('drm_validation', $this->drm); 
+	               }
+	               $this->drm->setCurrentEtapeRouting('declaratif');
+	               return $this->redirect('drm_declaratif', $this->drm);
+	            }
+        	}
         }
-    }
-    
-    public function executeUpdateAjax(sfWebRequest $request) 
-    {
-        $this->forward404Unless($request->isXmlHttpRequest());
-        $this->getResponse()->setContentType('text/json');
-        $drm = $this->getRoute()->getDRM();
-        $detail = $this->getRoute()->getObject();
-        $this->forward404Unless(!$detail->hasMouvement());
-		$form = new DRMMouvementsGenerauxProduitForm($this->getRoute()->getObject());
-    	$form->bind($request->getParameter($form->getName()));
-        if ($form->isValid()) {
-       		$form->save();
-       		
-            return $this->renderText(json_encode(array("success" => true,
-            										   "document" => array("id" => $drm->get('_id'),
-                										   				   "revision" => $drm->get('_rev'))
-                									  )));
-        }
-        
-        return $this->renderText(json_encode(array("success" => false)));
-    }
-
-    public function executeUpdateProduitsAjax(sfWebRequest $request) 
-    {
-        $this->forward404Unless($request->isXmlHttpRequest());
-        $this->getResponse()->setContentType('text/json');
-        $drm = $this->getRoute()->getDRM();
-        $form = new DRMMouvementsGenerauxProduitsForm($drm);
-        $form->bind($request->getParameter($form->getName()));
-        if ($form->isValid()) {
-            foreach($drm->declaration->getProduits() as $produit) {
-            	$produit->pas_de_mouvement_check = ($form->getValue('pas_de_mouvement'))? 1 : 0;
-            }
-            $drm->save();
-            
-            return $this->renderText(json_encode(array("success" => true,
-            										   "document" => array("id" => $drm->get('_id'),
-                										   				   "revision" => $drm->get('_rev'))
-                									  )));
-        }
-
-        return $this->renderText(json_encode(array("success" => false)));
     }
 
     public function executeStockEpuise(sfWebRequest $request) 
@@ -114,14 +59,14 @@ class drm_mouvements_generauxActions extends sfActions
         return $this->redirect('drm_declaratif', $drm);
     }
     
-    public function executeDeleteAjax(sfWebRequest $request) 
+    public function executeDelete(sfWebRequest $request) 
     {
-        $this->forward404Unless($request->isXmlHttpRequest());
 		$objectToDelete = $this->getRoute()->getObject()->cascadingDelete();
 		$objectToDelete->delete();
-		$this->getRoute()->getObject()->getDocument()->update();
-		$this->getRoute()->getObject()->getDocument()->save();
-        return sfView::NONE;
+		$drm = $this->getRoute()->getObject()->getDocument();
+		$drm->update();
+		$drm->save();
+		$this->redirect('drm_mouvements_generaux', $drm);
     }
     
     public function executeAjoutAjax(sfWebRequest $request) 
@@ -146,17 +91,5 @@ class drm_mouvements_generauxActions extends sfActions
         }
 
         return $this->renderText($this->getPartial('popupAjout', array('form' => $form, 'certification_config' => $certification_config)));
-    }
-    
-    public function executeAdd(sfWebRequest $request) 
-    {
-    	$drm = $this->getRoute()->getDRM();
-    	$certification_config = $this->getRoute()->getConfigCertification();
-    	$hash = $certification_config->hasUniqProduit($drm->getInterpro()->get('_id'));
-    	$drm->addProduit($hash);
-		$drm->save();
-		$this->getUser()->setFlash("notice", 'Le produit a été ajouté avec succès.');
-		$this->redirect('drm_mouvements_generaux', $drm);
-
     }
 }

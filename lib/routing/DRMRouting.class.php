@@ -183,15 +183,6 @@ class DRMRouting {
                                                                 'type' => 'object',
                               									'must_be_valid' => false,
                               									'must_be_not_valid' => true)));
-
-        $r->prependRoute('drm_mouvements_generaux_produit_update', new DRMDetailRoute('/drm/:identifiant/edition/:campagne_rectificative/mouvements-generaux/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/update',
-                        array('module' => 'drm_mouvements_generaux',
-                            'action' => 'updateAjax'),
-                        array('sf_method' => array('post')),
-                        array('model' => 'DRMProduit',
-                              'type' => 'object',
-                              'must_be_valid' => false,
-                              'must_be_not_valid' => true)));
                         
         $r->prependRoute('drm_mouvements_generaux_stock_epuise', new DRMRoute('/drm/:identifiant/edition/:campagne_rectificative/mouvements-generaux/stock-epuise',
                         array('module' => 'drm_mouvements_generaux',
@@ -202,19 +193,10 @@ class DRMRouting {
                               'must_be_valid' => false,
                               'must_be_not_valid' => true)));
 
-        $r->prependRoute('drm_mouvements_generaux_produits_update', new DRMRoute('/drm/:identifiant/edition/:campagne_rectificative/mouvements-generaux/update_produits',
-                        array('module' => 'drm_mouvements_generaux',
-                            'action' => 'updateProduitsAjax'),
-                        array('sf_method' => array('post')),
-                        array('model' => 'DRM',
-                              'type' => 'object',
-                              'must_be_valid' => false,
-                              'must_be_not_valid' => true)));
-
         $r->prependRoute('drm_mouvements_generaux_produit_delete', new DRMDetailRoute('/drm/:identifiant/edition/:campagne_rectificative/mouvements-generaux/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/delete',
                         array('module' => 'drm_mouvements_generaux',
-                            'action' => 'deleteAjax'),
-                        array('sf_method' => array('post')),
+                            'action' => 'delete'),
+                        array('sf_method' => array('post', 'get')),
                         array('model' => 'DRMProduit',
                               'type' => 'object',
                               'must_be_valid' => false,
