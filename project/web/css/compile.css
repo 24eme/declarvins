@@ -1947,6 +1947,10 @@ p#date_drm {
   width:50px;
   text-align:right;
 }
+.drm_vracs .contrat_vracs .contenu td input.ui-autocomplete-input {
+  width:650px;
+  text-align:right;
+}
 .drm_vracs .contrat_vracs .contenu .ligne_form { float:left; }
 .drm_vracs .contrat_vracs .contenu .ligne_form_btn { float:right; }
 #declaratif_info .onglets_declaratif {
