@@ -59,7 +59,7 @@ abstract class acCouchdbObjectForm extends sfFormObject implements acCouchdbForm
         }
 
         foreach ($this->embeddedForms as $name => $form) {
-            if ($form instanceof sfFormDoctrine) {
+            if ($form instanceof acCouchdbObjectForm) {
                 $form->updateDefaultsFromObject();
                 $defaults[$name] = $form->getDefaults();
             }
