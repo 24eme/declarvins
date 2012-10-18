@@ -300,36 +300,6 @@ class DRMRouting {
                                                                 'type' => 'object',
 									                            'must_be_valid' => false,
 									                            'must_be_not_valid' => true)));
-
-        $r->prependRoute('drm_vrac_ajout_contrat', new DRMDetailRoute('/drm/:identifiant/edition/:campagne_rectificative/vrac/contrat/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/ajout/:detail',
-                        array('module' => 'drm_vrac',
-                            'action' => 'nouveauContrat',
-                            'detail' => null),
-                        array('sf_method' => array('post', 'get')),
-                        array('model' => 'DRMDetail',
-                            'type' => 'object',
-                            'must_be_valid' => false,
-                            'must_be_not_valid' => true
-                )));
-        $r->prependRoute('drm_vrac_update_volume', new DRMVracDetailRoute('/drm/:identifiant/edition/:campagne_rectificative/vrac/update/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/volume/:contrat',
-                        array('module' => 'drm_vrac',
-                            'action' => 'updateVolume'),
-                        array('sf_method' => array('post', 'get')),
-                        array('model' => 'acCouchdbJson',
-                            'type' => 'object',
-                            'must_be_valid' => false,
-                            'must_be_not_valid' => true
-                )));
-
-        $r->prependRoute('drm_delete_vrac', new DRMVracDetailRoute('/drm/:identifiant/edition/:campagne_rectificative/vrac/update/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/delete/:contrat',
-                        array('module' => 'drm_vrac',
-                            'action' => 'deleteVrac'),
-                        array('sf_method' => array('post', 'get')),
-                        array('model' => 'acCouchdbJson',
-                            'type' => 'object',
-                            'must_be_valid' => false,
-                            'must_be_not_valid' => true
-                )));
         
     }
 

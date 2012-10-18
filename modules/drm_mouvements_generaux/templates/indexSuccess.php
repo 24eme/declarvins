@@ -52,9 +52,11 @@
 											</tr>
 										</thead>
 										<tbody>
+										<?php if(isset($form[$certification])): ?>
 				                        <?php foreach ($form[$certification] as $key => $embedForm): ?>
-				                                <?php include_partial('item', array('detail' => $form->getObject()->get($key), 'form' => $embedForm)) ?>
-				                            <?php endforeach; ?>
+				                        	<?php include_partial('item', array('detail' => $form->getObject()->get($key), 'form' => $embedForm)) ?>
+				                        <?php endforeach; ?>
+				                        <?php endif; ?>
 				                        </tbody>
 				                    </table>
 				                    <div class="btn">
