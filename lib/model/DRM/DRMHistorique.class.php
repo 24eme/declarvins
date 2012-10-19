@@ -1,191 +1,131 @@
 <?php
-class DRMHistorique
-{
-	const VIEW_INDEX_ETABLISSEMENT = 0;
-	const VIEW_INDEX_ANNEE = 1;
-	const VIEW_INDEX_MOIS = 2;
-	const VIEW_INDEX_RECTIFICATIVE = 3;
-	const VIEW_INDEX_STATUS = 4;
-	const VIEW_INDEX_STATUS_DOUANE_ENVOI = 5;
-	const VIEW_INDEX_STATUS_DOUANE_ACCUSE = 6;
-	const VIEW_INDEX_ID = 7; 
-	const DERNIERE = 'derniere';
-	const CAMPAGNE = 'campagne';
-	const REGEXP_CAMPAGNE = '#^[0-9]{4}-[0-9]{2}$#';
 
-	public $etablissement;
-	public $campagneCourante;
-	private $drms;
-	private $campagnes;
-	
-	public function __construct($etablissement, $campagneCourante = null)
-	{
-		$this->etablissement = $etablissement;
-		$this->campagneCourante = $campagneCourante;
-	}
-	
-	public function getSliceDRMs($limit = 0) {
-		return array_slice($this->getDRMs(), 0, $limit);
-	}
-	
-	public function getDRMs($limite = 0)
-	{
-		if (!$this->drms) {
-			$this->loadDRMs();
-		}
-		return $this->drms;
-	}
-	
-	private function loadDRMs()
-	{
-		$drms = acCouchdbManager::getClient()
-		
-						->startkey(array($this->etablissement, null))
-    					->endkey(array($this->etablissement, array()))
-    					->reduce(false)
-    					->getView("drm", "all")
-    					->rows;
+class DRMHistorique {
 
-		$result = array();
-		foreach ($drms as $drm) {
-		  $result[$drm->id] = $drm->key;
-		}
-		krsort($result);
+    protected $identifiant = null;
+    protected $drms = null;
 
-		$campagne = null;
-		foreach($result as $key => $item) {
-			$result[$key][self::CAMPAGNE] = $this->makeCampagne($item[self::VIEW_INDEX_ANNEE], $item[self::VIEW_INDEX_MOIS]);
-			if ($item[self::VIEW_INDEX_ANNEE].'-'.$item[self::VIEW_INDEX_MOIS] != $campagne) {
-				$result[$key][self::DERNIERE] = true;
-				$campagne = $item[self::VIEW_INDEX_ANNEE].'-'.$item[self::VIEW_INDEX_MOIS];
-			} else {
-				$result[$key][self::DERNIERE] = false;
-			}
-		}
-		$this->drms = $result;
-	}
-	
-	public function getCampagnes()
-	{
-		if (!$this->campagnes) {
-			$campagnes = array();
-			$drms = $this->getDRMs();
-	    	foreach ($drms as $drm) {
-		  	if (!in_array($drm[self::CAMPAGNE], $campagnes)) {
-	  				$campagnes[] = $drm[self::CAMPAGNE];
-	    		}
-	  		}
-	  		rsort($campagnes);
-	  		$this->campagnes = $campagnes;
-		}
-		return $this->campagnes;
-	}
-	
-	private function makeCampagne($annee, $mois) {
-		if ($annee.$mois < $annee.'08') {
-			return ($annee-1).'-'.$annee;
-		} else {
-			return $annee.'-'.($annee+1);
-		}
-	}
-	
-	public function getDRMsParCampagneCourante()
-	{
-		$drmsCampagne = array();
-		$campagneCourante = $this->getCampagneCourante();
-		$drms = $this->getDRMs();
-		foreach ($drms as $id => $drm) {
-			if ($drm[self::CAMPAGNE] == $campagneCourante) {
-				$drmsCampagne[$id] = $drm;
-			}
-		}
-		return $drmsCampagne;
-	}
-	
-	public function getCampagneCourante()
-	{
-		if (!$this->campagneCourante) {
-			if($campagnes = $this->getCampagnes()) {
-				$this->campagneCourante = $campagnes[0];
-			}
-		}
-		return $this->campagneCourante;
-	}
-	
-	public function getFutureDRM()
-	{
-		$lastDRM = current($this->getLastDRM());
-		if (!$lastDRM) {
-		  return array('DRM-'.$this->etablissement.'-'.date('Y').'-'.date('m') => array($this->etablissement, date('Y'), sprintf("%02d", date('m')), 0, null, null));
-		}
-		$nextMonth = $lastDRM[self::VIEW_INDEX_MOIS] + 1;
-		$nextYear = $lastDRM[self::VIEW_INDEX_ANNEE];
-		if ($nextMonth > 12) {
-			$nextMonth = '01';
-			$nextYear++;
-		}
-	        $nextMonth = sprintf("%02d", $nextMonth);
-		return array('DRM-'.$this->etablissement.'-'.$nextYear.'-'.$nextMonth => array($this->etablissement, $nextYear, $nextMonth, 0, null, null));
-	}
+    const VIEW_INDEX_ETABLISSEMENT = 0;
+    const VIEW_CAMPAGNE = 1;
+    const VIEW_PERIODE = 2;
+    const VIEW_VERSION = 3;
+    const VIEW_MODE_DE_DAISIE = 4;
+    const VIEW_STATUT = 5;
+    const VIEW_STATUT_DOUANE_ENVOI = 6;
+    const VIEW_STATUT_DOUANE_ACCUSE = 7;
 
-	public function getLastDRM()
-	{
-		return $this->getSliceDRMs(1);
-	}
-	
-	public function hasDRMInProcess()
-	{
-		$result = false;
-		$drms = $this->getDRMs();
-		foreach ($drms as $drm) {
-			if (!$drm[self::VIEW_INDEX_STATUS]) {
-				$result = true;
-				break;
-			}
-		}
-		return $result;
-	}
-	
-	public function getNextByCampagne($campagne)
-	{
-		$drms = $this->getDRMs();
-		$dateCampagne = $this->getDateObjectByCampagne($campagne);
-		$nextDrm = null;
-		foreach ($drms as $drm) {
-			if ($drm[self::VIEW_INDEX_ANNEE].$drm[self::VIEW_INDEX_MOIS] <= $dateCampagne->format('Ym') && is_null($drm[self::VIEW_INDEX_RECTIFICATIVE])) {
-				break;
-			} elseif (is_null($drm[self::VIEW_INDEX_RECTIFICATIVE])) {
-				$nextDrm = $drm;
-			}
-		}
-		return $nextDrm;
-	}
-	
-	public function getPrevByCampagne($campagne)
-	{
-		$drms = $this->getDRMs();
-		$dateCampagne = $this->getDateObjectByCampagne($campagne);
-		$prevDrm = null;
-		foreach ($drms as $drm) {
-			if ($drm[self::VIEW_INDEX_ANNEE].$drm[self::VIEW_INDEX_MOIS] < $dateCampagne->format('Ym') && is_null($drm[self::VIEW_INDEX_RECTIFICATIVE])) {
-				$prevDrm = $drm;
-				break;
-			}
-		}
-		return $prevDrm;
-	}
-	
-	public function getDateObjectByCampagne($campagne)
-	{
-		$this->checkCampagneFormat($campagne);
-		$campagneTab = explode('-', $campagne);
-		return new DateTime($campagneTab[0].'-'.$campagneTab[1].'-01');
-	}
-	
-	public function checkCampagneFormat($campagne)
-	{
-		if (!preg_match(self::REGEXP_CAMPAGNE, $campagne)) {
-			throw new sfException('La campagne doit être au format AAAA-MM');
-		}
-	}
+    public function __construct($identifiant)
+    {
+        $this->identifiant = $identifiant;
+
+        $this->loadDRMs();
+    }
+
+    public function hasDRMInProcess() {
+
+        return false;
+    }
+
+    public function getLastDRM() {
+        foreach($this->drms as $drm) {
+            
+            return DRMClient::getInstance()->find($drm->_id);
+        }
+    }
+
+    public function getPreviousDRM($periode) {
+        foreach($this->drms as $drm) {
+            if ($drm->periode < $periode) {
+                
+                return DRMClient::getInstance()->find($drm->_id);
+            }
+        }
+    }
+
+    public function getNextDRM($periode) {
+        $next_drm = new stdClass();
+        $next_drm->periode = '9999-99';
+        foreach($this->drms as $drm) {
+            if ($drm->periode < $next_drm->periode) {
+                $next_drm = $drm;
+            }
+
+            if($drm->periode == $periode) {
+                return DRMClient::getInstance()->find($next_drm->_id);
+            }
+        }
+
+        return null;
+    }
+
+    protected function loadDRMs() {
+        $this->drms = array();
+
+        $drms = DRMClient::getInstance()->viewByIdentifiant($this->identifiant);
+
+        foreach($drms as $drm) {
+            $key = $drm[self::VIEW_PERIODE].DRMClient::getInstance()->getRectificative($drm[self::VIEW_VERSION]);
+
+            if (array_key_exists($key, $this->drms)) {
+                
+                continue;
+            }
+
+            $this->drms[$key] = $this->build($drm);
+        }
+    }
+
+    protected function build($ligne) {
+        $drm = new stdClass();
+        $drm->identifiant = $ligne[self::VIEW_INDEX_ETABLISSEMENT];
+        $drm->campagne = $ligne[self::VIEW_CAMPAGNE];
+        $drm->periode = $ligne[self::VIEW_PERIODE];
+        $drm->version = $ligne[self::VIEW_VERSION];
+        $drm->mode_de_saisie = $ligne[self::VIEW_MODE_DE_DAISIE];
+        $drm->valide = new stdClass();
+        $drm->valide->date_saisie = $ligne[self::VIEW_STATUT_DOUANE_ENVOI];
+        $drm->douane = new stdClass();
+        $drm->douane->envoi = $ligne[self::VIEW_STATUT_DOUANE_ENVOI];
+        $drm->douane->accuse = $ligne[self::VIEW_STATUT_DOUANE_ACCUSE];
+        $drm->_id = DRMClient::getInstance()->buildId($drm->identifiant, $drm->periode, $drm->version);
+
+        return $drm;
+    }
+
+    public function getDRMs() {
+
+        return $this->drms;
+    }
+
+    public function getDRMsByCampagne($campagne) {
+        $drms = array();
+        foreach($this->getDRMs() as $drm) {
+            if ($drm->campagne == $campagne) {
+                $drms[$drm->_id] = $drm;
+            }
+        }
+        return $drms;
+    }
+
+    public function getCampagnes() {
+        $campagnes = array();
+        foreach($this->getDRMs() as $drm) {
+            if (!in_array($drm->campagne, $campagnes)) {
+                $campagnes[] = $drm->campagne;
+            }
+        }
+        return $campagnes;
+    }
+
+    public function getIdentifiant() {
+
+        return $this->identifiant;
+    }
+
+    public function getPeriodes() {
+
+        return $this->periodes;
+    }
+
 }
+

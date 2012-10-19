@@ -4,50 +4,49 @@
  * Model for DRM
  *
  */
-class DRM extends BaseDRM {
+class DRM extends BaseDRM implements InterfaceVersionDocument {
 
     const NOEUD_TEMPORAIRE = 'TMP';
     const DEFAULT_KEY = 'DEFAUT';
-    const VALIDE_STATUS_EN_COURS = '';
-    const VALIDE_STATUS_VALIDEE_ENATTENTE = 'VALIDEE';
-    const VALIDE_STATUS_VALIDEE_ENVOYEE = 'ENVOYEE';
-    const VALIDE_STATUS_VALIDEE_RECUE = 'RECUE';
-    const MODE_DE_SAISIE_PAPIER = 'PAPIER';
-    const MODE_DE_SAISIE_DTI = 'DTI';
-    const MODE_DE_SAISIE_EDI = 'EDI';
-    const MODE_DE_SAISIE_PAPIER_LIBELLE = 'par l\'interprofession (papier)';
-    const MODE_DE_SAISIE_DTI_LIBELLE = 'via Declarvins (DTI)';
-    const MODE_DE_SAISIE_EDI_LIBELLE = 'via votre logiciel (EDI)';
 
+    protected $version_document = null;
 
-
-    public function getModeDeSaisieLibelle()
-    {
-    	switch ($this->mode_de_saisie) {
-    		case self::MODE_DE_SAISIE_DTI:
-    			return self::MODE_DE_SAISIE_DTI_LIBELLE;
-    			break;
-    		case self::MODE_DE_SAISIE_EDI:
-    			return self::MODE_DE_SAISIE_EDI_LIBELLE;
-    			break;
-    		case self::MODE_DE_SAISIE_PAPIER:
-    			return self::MODE_DE_SAISIE_PAPIER_LIBELLE;
-    			break;
-    		default:
-    			return 'NR';
-    			break;
-    	}
+    public function  __construct() {
+        parent::__construct();   
+        $this->version_document = new VersionDocument($this);
     }
+
     public function constructId() {
-        $rectificative = ($this->exist('rectificative')) ? $this->rectificative : null;
 
-        $this->set('_id', DRMClient::getInstance()->getId($this->identifiant, $this->campagne, $rectificative));
+        $this->set('_id', DRMClient::getInstance()->buildId($this->identifiant, 
+                                                            $this->periode, 
+                                                            $this->version));
     }
 
-    public function getCampagneAndRectificative() {
-        $rectificative = ($this->exist('rectificative')) ? $this->rectificative : null;
+    public function getPeriodeAndVersion() {
 
-        return DRMClient::getInstance()->getCampagneAndRectificative($this->campagne, $rectificative);
+        return DRMClient::getInstance()->buildPeriodeAndVersion($this->periode, $this->version);
+    }
+
+    public function getMois() {
+        
+        return DRMClient::getInstance()->getMois($this->periode);
+    }
+
+    public function getAnnee() {
+        
+        return DRMClient::getInstance()->getAnnee($this->periode);
+    }
+
+    public function getDate() {
+        
+        return DRMClient::getInstance()->buildDate($this->periode);
+    }
+
+    public function setPeriode($periode) {
+        $this->campagne = DRMClient::getInstance()->buildCampagne($periode);
+
+        return $this->_set('periode', $periode);
     }
 
     public function getProduit($hash, $labels = array()) {
@@ -77,47 +76,57 @@ class DRM extends BaseDRM {
         return null;
     }
 
+    public function getModeDeSaisieLibelle()
+    {
+        
+        return DRMClient::getInstance()->getModeDeSaisieLibelle($this->mode_de_saisie);
+    }
+
     public function getDetails() {
         
         return $this->declaration->getProduits();
     }
 
     public function getDetailsAvecVrac() {
-      $details = array();
-      foreach ($this->getDetails() as $d) {
-	if ($d->sorties->vrac && $d->hasCvo())
-	  $details[] = $d;
-      }
-      return $details;
+        $details = array();
+        foreach ($this->getDetails() as $d) {
+	        if ($d->sorties->vrac && $d->hasCvo()) {
+	           $details[] = $d;
+            }
+        }
+        
+        return $details;
     }
 
-    public function generateSuivante($campagne, $keepStock = true) 
+    public function generateSuivante($periode, $keepStock = true) 
     {
         $drm_suivante = clone $this;
     	$drm_suivante->init(array('keepStock' => $keepStock));
         $drm_suivante->update();
-        $drm_suivante->campagne = $campagne;
-	$drm_suivante->precedente = $this->_id;
+        $drm_suivante->periode = $periode;
+        $drm_suivante->precedente = $this->_id;
         $drm_suivante->devalide();
 	    $drm_suivante->remove('editeurs'); 
 	    $drm_suivante->add('editeurs'); 
        
-	foreach ($drm_suivante->getDetails() as $detail) {
-	  $drm_suivante->get($detail->getHash())->remove('vrac');
-	}
+	    foreach ($drm_suivante->getDetails() as $detail) {
+	       $drm_suivante->get($detail->getHash())->remove('vrac');
+	    }
 
         return $drm_suivante;
     }
+    
     public function init($params = array()) {
       	parent::init($params);
       	$keepStock = isset($params['keepStock']) ? $params['keepStock'] : true;
-		$this->remove('rectificative');
         $this->remove('douane');
         $this->add('douane');
         $this->remove('declarant');
         $this->add('declarant');
+        $this->version = null;
         $this->raison_rectificative = null;
         $this->etape = null;
+
         if (!$keepStock) {
         	$this->declaratif->adhesion_emcs_gamma = null;
         	$this->declaratif->paiement->douane->frequence = null;
@@ -133,55 +142,7 @@ class DRM extends BaseDRM {
         $this->declaratif->dsa->debut = null;
         $this->declaratif->dsa->fin = null;
     }
-    
-    public function getNextCertification($currentCertification)
-    {
-    	$findCertification = false;
-    	$nextCertification = null;
-    	$config_certifications = ConfigurationClient::getCurrent()->declaration->certifications;
-    	foreach ($config_certifications as $certification => $produit) {
-            if ($this->produits->exist($certification)) {
-            	if ($findCertification) {
-            		$nextCertification = $this->declaration->certifications->get($certification);
-            		break;
-            	}
-                if ($certification == $currentCertification->getKey()) {
-                	$findCertification = true;
-                }
-            }
-        }
-        return $nextCertification;
-    }
 
-    public function setCampagneMoisAnnee($mois, $annee) {
-      $this->campagne = sprintf("%04d-%02d", $annee, $mois);
-    }
-
-    public function setMois($mois) {
-      $annee = $this->getAnnee();
-      $this->setCampagneMoisAnnee($mois, $annee);
-    }
-
-    public function setAnnee($annee) {
-      $mois = $this->getMois();
-      $this->setCampagneMoisAnnee($mois, $annee);
-    }
-
-    public function getMois() {
-        
-        return preg_replace('/.*-/', '', $this->campagne)*1;
-    }
-
-    public function getAnnee() {
-        
-        return preg_replace('/-.*/', '', $this->campagne)*1;
-    }
-
-    public function getRectificative() {
-
-        return $this->exist('rectificative') ? $this->_get('rectificative') : 0;
-    }
-    
     public function setDroits() {
         $this->remove('droits');
         $this->add('droits');
@@ -195,84 +156,33 @@ class DRM extends BaseDRM {
     }
 
     public function getEtablissement() {
-    	if (!$this->identifiant)
-		throw new Exception('pas d\'établissement saisi pour '.$this->_id);	
+    	if (!$this->identifiant) {
+		    throw new Exception('pas d\'établissement saisi pour '.$this->_id);
+        }
+        
         $e = EtablissementClient::getInstance()->retrieveById($this->identifiant);
-	if (!$e) {
-		throw new Exception('pas d\'établissement correspondant à '.$this->identifiant);
-	}
-	return $e;
+	    
+        if (!$e) {
+	       throw new Exception('pas d\'établissement correspondant à '.$this->identifiant);
+	    }
+	   
+        return $e;
     }
     
     public function getInterpro() {
     	
-      if ($this->getEtablissement())
-        return $this->getEtablissement()->getInterproObject();
+        if ($this->getEtablissement())
+            return $this->getEtablissement()->getInterproObject();
     }
     
-    public function getDRMHistorique() {
+    public function getHistorique() {
 
-        return $this->store('drm_historique', array($this, 'getDRMHistoriqueAbstract'));
-    }
-
-    public function isRectificative() {
-
-        return $this->exist('rectificative') && $this->rectificative > 0;
-    }
-
-    public function isRectificable() {
-        if (!$this->isValidee()) {
-	       
-           return false;
-        }
-
-        if ($drm = DRMClient::getInstance()->findLastByIdentifiantAndCampagne($this->identifiant, $this->campagne, acCouchdbClient::HYDRATE_JSON)) {
-
-            return $drm->_id == $this->get('_id');
-        }
-
-        return false;
-    }
-
-    public function needNextRectificative() {
-      if (!$this->isRectificative()) {
-	return false;
-      }
-      if ($this->declaration->total != $this->getDRMMaster()->declaration->total) {
-	return true;
-      }
-      if (count($this->getDetails()) != count($this->getDRMMaster()->getDetails())) {
-	return true;
-      }
-      if ($this->droits->douane->getCumul() != $this->getDRMMaster()->droits->douane->getCumul()) {
-	return true;
-      }
-        return false;
-    }
-
-    public function generateRectificative() {
-        $drm_rectificative = clone $this;
-
-        if(!$this->isRectificable()) {
-
-            throw new sfException('This DRM is not rectificable, maybe she was already rectificate');
-        }
-
-        if(!$drm_rectificative->exist('rectificative')) {
-            $drm_rectificative->add('rectificative', 0);
-        }
-
-        $drm_rectificative->rectificative += 1;
-	    $drm_rectificative->devalide();
-	    $drm_rectificative->remove('editeurs'); 
-	    $drm_rectificative->add('editeurs'); 
-        $drm_rectificative->etape = 'ajouts_liquidations';
-
-        return $drm_rectificative;
+        return $this->store('historique', array($this, 'getHistoriqueAbstract'));
     }
 
     public function getPrecedente() {
         if ($this->exist('precedente') && $this->_get('precedente')) {
+            
             return DRMClient::getInstance()->find($this->_get('precedente'));
         } else {
             
@@ -281,100 +191,72 @@ class DRM extends BaseDRM {
     }
 
     public function getSuivante() {
-       $date_campagne = new DateTime($this->getAnnee().'-'.$this->getMois().'-01');
-       $date_campagne->modify('+1 month');
-       $next_campagne = DRMClient::getInstance()->getCampagne($date_campagne->format('Y'), $date_campagne->format('m'));
+       $periode = DRMClient::getInstance()->getPeriodeSuivante($this->periode);
 
-       $next_drm = DRMClient::getInstance()->findLastByIdentifiantAndCampagne($this->identifiant, $next_campagne);
+       $next_drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($this->identifiant, $periode);
        if (!$next_drm) {
+
            return null;
        }
-       $next_drm->set('precedente', $this->get('_id'));
-
+       
        return $next_drm;
     }
 
-    public function generateRectificativeSuivante() {
-        $next_drm = $this->getSuivante();
-
-        if ($next_drm) {
-            $next_drm_rectificative = $next_drm->generateRectificative();
-            $next_drm_rectificative->etape = 'validation';
-            foreach($this->getDetails() as $detail) {
-                $this->replicateDetail($next_drm_rectificative, $detail, 'total', 'total_debut_mois');
-                $this->replicateDetail($next_drm_rectificative, $detail, 'stocks_fin/bloque', 'stocks_debut/bloque');
-                $this->replicateDetail($next_drm_rectificative, $detail, 'stocks_fin/warrante', 'stocks_debut/warrante');
-                $this->replicateDetail($next_drm_rectificative, $detail, 'stocks_fin/instance', 'stocks_debut/instance');
-                $this->replicateDetail($next_drm_rectificative, $detail, 'stocks_fin/commercialisable', 'stocks_debut/commercialisable');
-            }
-            $next_drm_rectificative->devalide();
-            $next_drm_rectificative->update();
-
-            return $next_drm_rectificative;
-        } else {
-            return null;
-        }
-    }
-    
-    protected function replicateDetail(&$drm, $detail, $hash, $hash_replication) {
-            if (!$drm->exist($detail->getHash())) {
-                $drm->addProduit($detail->getCepage()->getHash(), $detail->labels->toArray());
-            }
-            $drm->get($detail->getHash())->set($hash_replication, $detail->get($hash));
-    }
-
-    public function getDRMMaster($hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
-        if (!$this->isRectificative()) {
-
-            throw new sfException("You can not recover the master of a non rectificative drm");
-        }
-
-        return DRMClient::getInstance()->findByIdentifiantCampagneAndRectificative($this->identifiant, $this->campagne, $this->rectificative - 1, $hydrate);    
-    }
-
-    public function getDiffWithMasterDRM() {
-
-        return $this->store('diff_with_master_drm', array($this, 'getDiffWithMasterDRMAbstract'));
-    }
-
-    public function isModifiedMasterDRM($hash_or_object, $key = null) {
-        if(!$this->isRectificative()) {
-
-            return false;
-        }
-        $hash = ($hash_or_object instanceof acCouchdbJson) ? $hash_or_object->getHash() : $hash_or_object;
-        $hash .= ($key) ? "/".$key : null;
-
-        return array_key_exists($hash, $this->getDiffWithMasterDRM());
-    }
-
     public function devalide() {
-      $this->valide->identifiant = '';
-      $this->valide->date_saisie = '';
-      $this->valide->date_signee = '';
+        $this->etape = null;
+        $this->valide->identifiant = '';
+        $this->valide->date_saisie = '';
+        $this->valide->date_signee = '';
     }
 
     public function isValidee() {
-      return ($this->valide->date_saisie);
+
+        return ($this->valide->date_saisie);
     }
 
     public function validate($options = null) {
-      $identifiant = null;
-      if (count($options)) {
-	if (isset($options['identifiant']))
-	  $identifiant = $options['identifiant'];
-      } 
-      if (! $this->valide->date_saisie)
-	$this->valide->add('date_saisie', date('c'));
-      if (! $this->valide->date_signee)
-	$this->valide->add('date_signee', date('c'));
-      if (!$identifiant)
-	$identifiant = $this->identifiant;
-      $this->valide->identifiant = $identifiant;
-      if (!isset($options['no_droits']) || !$options['no_droits'])
-	$this->setDroits();
-      $this->setInterpros();
-      $this->updateVrac();
+        if ($this->hasApurementPossible()) {
+            $this->apurement_possible = 1;
+        }
+
+        if ($next_drm = $this->getSuivante()) {
+            $next_drm->precedente = $this->_id;
+            $next_drm->save();
+        }
+    
+        $this->storeIdentifiant($options);
+        $this->storeDates();
+        $this->storeDroits($options);
+        $this->setInterpros();
+        $this->updateVrac();
+    }
+
+    public function storeDroits($options) {
+        if (!isset($options['no_droits']) || !$options['no_droits']) {
+           $this->setDroits();
+        }
+    }
+
+    public function storeIdentifiant($options) {
+        $identifiant = $this->identifiant;
+
+        if ($options && is_array($options)) {
+            if (isset($options['identifiant']))
+                $identifiant = $options['identifiant'];
+        }
+
+        $this->valide->identifiant = $identifiant;
+    }
+
+    public function storeDates() {
+        if (!$this->valide->date_saisie) {
+           $this->valide->add('date_saisie', date('c'));
+        }
+
+        if (!$this->valide->date_signee) {
+           $this->valide->add('date_signee', date('c'));
+        }
+
     }
 
     public function updateVrac() {
@@ -401,14 +283,15 @@ class DRM extends BaseDRM {
     }
 
     public function setInterpros() {
-      $i = $this->getInterpro();
-      if ($i)
-	$this->interpros->add(0,$i->getKey());
+        $i = $this->getInterpro();
+        if ($i) {
+	        $this->interpros->add(0,$i->getKey());
+        }
     }
 
     public function save() {
-        if (!preg_match('/^2\d{3}-[01][0-9]$/', $this->campagne)) {
-            throw new sfException('Wrong format for campagne ('.$this->campagne.')');
+        if (!preg_match('/^2\d{3}-[01][0-9]$/', $this->periode)) {
+            throw new sfException('Wrong format for periode ('.$this->periode.')');
         }
         if ($user = $this->getUser()) {
         	if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
@@ -429,21 +312,9 @@ class DRM extends BaseDRM {
         return parent::save();
     }
 
-    protected function getDiffWithAnotherDRM(stdClass $drm) {
-        $other_json = new acCouchdbJsonNative($drm);
-        $current_json = new acCouchdbJsonNative($this->getData());
-
-        return $current_json->diff($other_json);
-    }
-
-    protected function getDiffWithMasterDRMAbstract() {
-        $drm_master = $this->getDRMMaster(acCouchdbClient::HYDRATE_JSON)->getData();
-
-        return $this->getDiffWithAnotherDRM($drm_master);
-    }
-
-    protected function getDRMHistoriqueAbstract() {
-        return new DRMHistorique($this->identifiant, $this->campagne);
+    protected function getHistoriqueAbstract() {
+        
+        return DRMClient::getInstance()->getDRMHistorique($this->identifiant);
     }
 
     private function getTotalDroit($type) {
@@ -453,6 +324,7 @@ class DRM extends BaseDRM {
                 $total += $appellation->get('total_'.$type);
             }
         }
+        
         return $total;  
     }
 
@@ -466,7 +338,7 @@ class DRM extends BaseDRM {
     }
 
     private function setDroit($type, $appellation) {
-        $configurationDroits = $appellation->getConfig()->interpro->get($this->getInterpro()->get('_id'))->droits->get($type)->getCurrentDroit($this->campagne);
+        $configurationDroits = $appellation->getConfig()->interpro->get($this->getInterpro()->get('_id'))->droits->get($type)->getCurrentDroit($this->periode);
         $droit = $appellation->droits->get($type);
         $droit->ratio = $configurationDroits->ratio;
         $droit->code = $configurationDroits->code;
@@ -474,30 +346,38 @@ class DRM extends BaseDRM {
     }
     
     public function isPaiementAnnualise() {
-    	return $this->declaratif->paiement->douane->isAnnuelle();
+    	
+        return $this->declaratif->paiement->douane->isAnnuelle();
     }
 
     public function getHumanDate() {
-	setlocale (LC_TIME, 'fr_FR.utf8','fra'); 
-	return strftime('%B %Y', strtotime($this->campagne.'-01'));
+	   setlocale (LC_TIME, 'fr_FR.utf8','fra'); 
+	   
+       return strftime('%B %Y', strtotime($this->periode.'-01'));
     }
     public function getEuValideDate() {
-	return strftime('%d/%m/%Y', strtotime($this->valide->date_signee));
+	   
+       return strftime('%d/%m/%Y', strtotime($this->valide->date_signee));
     }
     
     public function isDebutCampagne() {
-    	return DRMPaiement::isDebutCampagne((int)$this->getMois());
+    	
+        return DRMPaiement::isDebutCampagne((int)$this->getMois());
     }
+
     public function getCurrentEtapeRouting() {
     	$etape = sfConfig::get('app_drm_etapes_'.$this->etape);
-    	return $etape['url'];
+    	
+        return $etape['url'];
     }
+
     public function setCurrentEtapeRouting($etape) {
     	if (!$this->isValidee()) {
     		$this->etape = $etape;
     		$this->getDocument()->save();
     	}
     }
+
     public function hasApurementPossible() {
     	if (
     		$this->declaratif->daa->debut ||
@@ -506,21 +386,26 @@ class DRM extends BaseDRM {
     		$this->declaratif->dsa->debut ||
     		$this->declaratif->adhesion_emcs_gamma
     	) {
-    		return true;
+    		
+            return true;
     	} else {
-    		return false;
+    		
+            return false;
     	}
     }
     public function hasVrac() {
     	$detailsVrac = $this->getDetailsAvecVrac();
-    	return (count($detailsVrac) > 0) ;
+    	
+        return (count($detailsVrac) > 0) ;
     }
     
     public function hasConditionneExport() {
+      
       return ($this->declaration->getTotalByKey('sorties/export') > 0);
     }
 
     public function hasMouvementAuCoursDuMois() {
+      
       return $this->hasVrac() || $this->hasConditionneExport();
     }
 
@@ -529,7 +414,7 @@ class DRM extends BaseDRM {
     		return false;
     	if (!$this->valide->exist('status'))
     		return false;
-    	if ($this->valide->status != self::VALIDE_STATUS_VALIDEE_ENVOYEE && $this->valide->status != self::VALIDE_STATUS_VALIDEE_RECUE) {
+    	if ($this->valide->status != DRMClient::VALIDE_STATUS_VALIDEE_ENVOYEE && $this->valide->status != DRMClient::VALIDE_STATUS_VALIDEE_RECUE) {
     		return false;
     	} else {
     		return true;
@@ -588,5 +473,207 @@ class DRM extends BaseDRM {
     		return false;
     	}
     }
+
+    public function isSupprimable() {
+
+        return !$this->isValidee() && !$this->isRectificativeEnCascade();
+    }
+
+    public function isSupprimableOperateur() {
+
+        return !$this->isEnvoyee() && !$this->isRectificativeEnCascade();
+    }
+
+    /**** VERSION ****/
+
+    public static function buildVersion($rectificative, $modificative) {
+
+        return VersionDocument::buildVersion($rectificative, $modificative);
+    }
+
+    public static function buildRectificative($version) {
+
+        return VersionDocument::buildRectificative($version);
+    }
+
+    public static function buildModificative($version) {
+
+        return VersionDocument::buildModificative($version);
+    }
+
+    public function getVersion() {
+
+        return $this->_get('version');
+    }
+
+    public function hasVersion() {
+
+        return $this->version_document->hasVersion();
+    }
+
+    public function isVersionnable() {
+        if (!$this->isValidee()) {
+           
+           return false;
+        }
+
+        return $this->version_document->isVersionnable();
+    }
+
+    public function getRectificative() {
+
+        return $this->version_document->getRectificative();
+    }
+
+    public function isRectificative() {
+
+        return $this->version_document->isRectificative();
+    }
+
+    public function isRectifiable() {
+        
+        return false;
+    }
+
+    public function getModificative() {
+
+        return $this->version_document->getModificative();
+    }
+
+    public function isModificative() {
+
+        return $this->version_document->isModificative();
+    }
+
+    public function isModifiable() {
+
+        return $this->version_document->isModifiable();
+    }
+
+    public function getPreviousVersion() {
+
+       return $this->version_document->getPreviousVersion();
+    }
+
+    public function getMasterVersionOfRectificative() {
+        return DRMClient::getInstance()->getMasterVersionOfRectificative($this->identifiant, 
+                                                                 $this->periode, 
+                                                                 self::buildVersion($this->getRectificative() - 1, 0));
+    }
+
+    public function needNextVersion() {
+
+       return $this->version_document->needNextVersion();      
+    }
+
+    public function getMaster() {
+
+        return $this->version_document->getMaster();
+    }
+
+    public function isMaster() {
+
+        return $this->version_document->isMaster();
+    }
+
+    public function findMaster() {
+
+        return DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($this->identifiant, $this->periode);
+    }
+
+    public function findDocumentByVersion($version) {
+
+        return DRMClient::getInstance()->find(DRMClient::getInstance()->buildId($this->identifiant, $this->periode, $version));
+    }
+
+    public function getMother() {
+
+        return $this->version_document->getMother();   
+    }
+
+    public function motherGet($hash) {
+
+        return $this->version_document->motherGet($hash);
+    }
+
+    public function motherExist($hash) {
+
+        return $this->version_document->motherExist($hash);
+    }
+
+    public function motherHasChanged() {
+        if ($this->declaration->total != $this->getMother()->declaration->total) {
+           
+           return true;
+        }
+
+        if (count($this->getDetails()) != count($this->getMother()->getDetails())) {
+           
+           return true;
+        }
+
+        if ($this->droits->douane->getCumul() != $this->getMother()->droits->douane->getCumul()) {
+           
+           return true;
+        }
+
+        return false;
+    }
+
+    public function getDiffWithMother() {
+
+        return $this->version_document->getDiffWithMother();
+    }
+
+    public function isModifiedMother($hash_or_object, $key = null) {
+        
+        return $this->version_document->isModifiedMother($hash_or_object, $key);
+    }
+
+    public function generateRectificative() {
+
+        return $this->version_document->generateRectificative();
+    }
+
+    public function generateModificative() {
+
+        return $this->version_document->generateModificative();
+    }
+
+    public function generateNextVersion() {
+
+        return $this->version_document->generateNextVersion();
+    }
+
+    public function listenerGenerateVersion($document) {
+        $document->devalide();
+    }
+
+    public function listenerGenerateNextVersion($document) {
+        $this->replicate($document);
+        $document->update();
+        $document->devalide();
+    }
+
+    protected function replicate($drm) {
+        foreach($this->getDiffWithMother() as $key => $value) {
+            $this->replicateDetail($drm, $key, $value, 'total', 'total_debut_mois');
+            $this->replicateDetail($drm, $key, $value, 'stocks_fin/bloque', 'stocks_debut/bloque');
+            $this->replicateDetail($drm, $key, $value, 'stocks_fin/warrante', 'stocks_debut/warrante');
+            $this->replicateDetail($drm, $key, $value, 'stocks_fin/instance', 'stocks_debut/instance');
+            $this->replicateDetail($drm, $key, $value, 'stocks_fin/commercialisable', 'stocks_debut/commercialisable');
+        }
+    }
+
+    protected function replicateDetail(&$drm, $key, $value, $hash_match, $hash_replication) {
+        if (preg_match('|^(/declaration/certifications/.+/appellations/.+/mentions/.+/lieux/.+/couleurs/.+/cepages/.+/details/.+)/'.$hash_match.'$|', $key, $match)) {
+            $detail = $this->get($match[1]);
+            if (!$drm->exist($detail->getHash())) {
+                $drm->addProduit($detail->getCepage()->getHash(), $detail->labels->toArray());
+            }
+            $drm->get($detail->getHash())->set($hash_replication, $value);
+        }
+    }
+    /**** FIN DE VERSION ****/
     
 }
