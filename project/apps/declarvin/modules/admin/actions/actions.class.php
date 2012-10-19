@@ -36,7 +36,7 @@ class adminActions extends sfActions
     	}
       
       if ($this->form->isValid()) {
-        	return $this->redirect("vrac_etablissement", $this->form->getEtablissement());
+        	return $this->redirect("drm_mon_espace", $this->form->getEtablissement());
       }
     }
   }
