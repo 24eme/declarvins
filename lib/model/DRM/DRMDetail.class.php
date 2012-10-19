@@ -143,29 +143,36 @@ class DRMDetail extends BaseDRMDetail {
       $contratVrac->volume = $volume*1 ;
     }
 
-    public function getContratsVracNonUtilises() {
-      $vracs_non_utilises = array();
+    public function getContratsVracAutocomplete() {
+      $vracs_autocomplete = array();
       $vracs = $this->getContratsVrac();
       foreach ($vracs as $vrac) {
-      	
     	$acheteur = '';
-      	if ($vrac->acheteur->raison_sociale) {
-      		$acheteur .= $vrac->acheteur->raison_sociale; 
-	      	if ($vrac->acheteur->nom) 
-	      		$acheteur .=  ' ('.$vrac->acheteur->nom.')'; 
-      	} else
-      		$acheteur .= $vrac->acheteur->nom;
-
-        if (!$this->vrac->exist($vrac->numero_contrat))
-          $vracs_non_utilises[$vrac->numero_contrat] = $acheteur.' - '.$vrac->numero_contrat.' - '.($vrac->volume_propose - $vrac->volume_enleve).'HL restant';
+      	if ($vrac->acheteur->nom) {
+      		$acheteur .= $vrac->acheteur->nom; 
+	      	if ($vrac->acheteur->raison_sociale) 
+	      		$acheteur .=  ' ('.$vrac->acheteur->raison_sociale.')'; 
+      	} else {
+      		$acheteur .= $vrac->acheteur->raison_sociale;
+      	}
+      	$millesime = ($vrac->millesime)? $vrac->millesime : 'Non millésimé';
+      	$courtier = '';
+      	if ($vrac->mandataire_exist) {
+	      	if ($vrac->mandataire->nom) {
+	      		$courtier .= $vrac->mandataire->nom; 
+		      	if ($vrac->mandataire->raison_sociale) 
+		      		$courtier .=  ' ('.$vrac->mandataire->raison_sociale.')'; 
+	      	} else {
+	      		$courtier .= $vrac->mandataire->raison_sociale;
+	      	}
+      	}
+        $vracs_autocomplete[$vrac->numero_contrat] = $acheteur.' '.$vrac->numero_contrat.' ('.$vrac->volume_propose.' hl proposés, '.($vrac->volume_propose - $vrac->volume_enleve).' hl restants à '.$vrac->prix_unitaire.'€ ht/hl) '.$millesime.' '.$courtier;
       }
-
-      return $vracs_non_utilises;
+      return $vracs_autocomplete;
     }
 
     public function getContratsVrac() {
     	$etablissement = 'ETABLISSEMENT-'.$this->getDocument()->identifiant;
-
     	return VracClient::getInstance()->retrieveFromEtablissementsAndHash($etablissement, $this->getHash());
     }
 

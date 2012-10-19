@@ -6,50 +6,46 @@
     <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'vrac', 'pourcentage' => '30')); ?>
 
     <section id="principal">
+    	<p>Vous avez indiqué des sorties vrac, veuillez indiquer ci-dessous les contrats interprofessionnels ainsi que les volumes concernés.<br />Si le contrat auquel vous souhaitez faire référence n'est pas présent, veuillez vous rendre sur l'interface de saisie des <a href="<?php echo url_for('vrac_etablissement', array('sf_subject' => $etablissement)) ?>">contrats interprofessionnels</a></p>
+    	<br /><br />
+    	
         <div id="application_dr">
+            <form action="<?php echo url_for('drm_vrac', $drm) ?>" method="post">
+            <?php echo $form->renderHiddenFields(); ?>
+            <?php echo $form->renderGlobalErrors(); ?>
+			<?php 
+				$nbDetailSansContrat = 0;
+				foreach ($form as $detailHash => $formDetail):
+				if ($drm->exist($detailHash)):
+					$detail = $drm->get($detailHash);
+			?>
+            <table width="100%" class="contrat_vracs" id="contrats<?php echo $detail->getIdentifiantHTML() ?>">
+            	<tbody>
+	            	<?php include_partial('add_contrat', array('detail' => $detail, 'hasContrat' => count($detail->getContratsVrac()))); ?>
+	            	<?php 
+	            		if (!count($detail->getContratsVrac())): 
+	            			$nbDetailSansContrat++;
+	            	?>
+					<tr class="contenu">
+						<td colspan="3">Pas de contrat défini pour ce produit. Merci de contacter votre interpro</td>
+					</tr>
+					<?php else: ?>
+	                <?php foreach ($formDetail as $formContrats): ?>
+	                <?php foreach ($formContrats as $k => $formContrat): ?>
+	                <?php include_partial('form_contrat_item', array('form' => $formContrat)); ?>
+	                <?php endforeach; ?>
+	                <?php endforeach; ?>
+	                <?php endif; ?>
+                </tbody>
+            </table>
+            <script id="template_form_detail_contrats_item<?php echo $detail->getIdentifiantHTML() ?>" class="template_form" type="text/x-jquery-tmpl">
+    			<?php echo include_partial('form_contrat_item', array('form' => $form->getFormTemplateDetailContrats($detail->getHash()))); ?>
+			</script>
+			<?php
+				endif; 
+				endforeach;
+			?>
             
-                <?php if ($details->count() > 0): ?>
-                    
-                        <?php
-                        foreach ($details as $detail) {
-                            
-                            ?>
-                            <table width="100%" class="contrat_vracs">
-                            <?php
-
-                            if (isset($noContrats[$detail->getIdentifiantHTML()]) && $noContrats[$detail->getIdentifiantHTML()]) {
-                            	if($etablissement->hasDroit(EtablissementDroit::DROIT_VRAC) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-                                	echo '<tr>
-                                        <td class="libelle">' . $detail->getLibelle(ESC_RAW) . '</td>
-                                      </tr>
-                                      <tr class="contenu">
-                                        <td align="center" >Pas de contrat défini pour ce produit.<br/>Merci de contacter votre interpro.<br /><br /><a href="'.url_for('vrac_etablissement', $etablissement).'">Saisir un contrat interprofessionnel</a></td>
-                                      </tr>';
-                            		
-                            	} else {
-                                	echo '<tr>
-                                        <td class="libelle">' . $detail->getLibelle(ESC_RAW) . '</td>
-                                      </tr>
-                                      <tr class="contenu">
-                                        <td align="center" >Pas de contrat défini pour ce produit.<br/>Merci de contacter votre interpro</td>
-                                      </tr>';
-                            		
-                            	}
-                            } else {
-                                include_partial('addContrat', array('detail' => $detail));
-                            }
-                            if (isset($vracs[$detail->getIdentifiantHTML()])) {
-                                foreach ($vracs[$detail->getIdentifiantHTML()] as $vrac) {
-                                    include_partial('itemContrat', array('vrac' => $vrac));
-                                }
-                            }
-                            ?>
-                            </table>
-                            <?php
-                        }
-                        ?>
-                    
-                <?php endif; ?>
             <br />
             
 			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI): ?>
@@ -58,13 +54,17 @@
                 <a href="<?php echo url_for('drm_recap_redirect', $drm) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>
-                <?php if (!count($noContrats)) : ?>
-                    <form action="<?php echo url_for('drm_vrac', $drm) ?>" method="post">
-                        <button type="submit" class="btn_suiv"><span>Suivant</span></button>
-                    </form>
+                <?php if ($nbDetailSansContrat == 0) : ?>
+                	<button type="submit" class="btn_suiv"><span>Suivant</span></button>
                 <?php endif; ?>
             </div>
             <?php endif; ?>
+            </form>
         </div>
     </section>
 </section>
+<script type="text/javascript">
+$(document).ready(function () {
+		$(".drm_vrac_contrats").combobox(); 
+});
+</script>

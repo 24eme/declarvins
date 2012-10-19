@@ -201,14 +201,6 @@ class DRMRouting {
                               									'must_be_valid' => false,
                               									'must_be_not_valid' => true)));
 
-        $r->prependRoute('drm_mouvements_generaux_produit_update', new DRMDetailRoute('/drm/:identifiant/edition/:periode_version/mouvements-generaux/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/update',
-                        array('module' => 'drm_mouvements_generaux',
-                            'action' => 'updateAjax'),
-                        array('sf_method' => array('post')),
-                        array('model' => 'DRMProduit',
-                              'type' => 'object',
-                              'must_be_valid' => false,
-                              'must_be_not_valid' => true)));
                         
         $r->prependRoute('drm_mouvements_generaux_stock_epuise', new DRMRoute('/drm/:identifiant/edition/:periode_version/mouvements-generaux/stock-epuise',
                         array('module' => 'drm_mouvements_generaux',
@@ -219,19 +211,10 @@ class DRMRouting {
                               'must_be_valid' => false,
                               'must_be_not_valid' => true)));
 
-        $r->prependRoute('drm_mouvements_generaux_produits_update', new DRMRoute('/drm/:identifiant/edition/:periode_version/mouvements-generaux/update_produits',
+        $r->prependRoute('drm_mouvements_generaux_produit_delete', new DRMDetailRoute('/drm/:identifiant/edition/:campagne_rectificative/mouvements-generaux/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/delete',
                         array('module' => 'drm_mouvements_generaux',
-                            'action' => 'updateProduitsAjax'),
-                        array('sf_method' => array('post')),
-                        array('model' => 'DRM',
-                              'type' => 'object',
-                              'must_be_valid' => false,
-                              'must_be_not_valid' => true)));
-
-        $r->prependRoute('drm_mouvements_generaux_produit_delete', new DRMDetailRoute('/drm/:identifiant/edition/:periode_version/mouvements-generaux/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/delete',
-                        array('module' => 'drm_mouvements_generaux',
-                            'action' => 'deleteAjax'),
-                        array('sf_method' => array('post')),
+                            'action' => 'delete'),
+                        array('sf_method' => array('post', 'get')),
                         array('model' => 'DRMProduit',
                               'type' => 'object',
                               'must_be_valid' => false,
@@ -266,6 +249,7 @@ class DRMRouting {
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
                 )));
+        
         $r->prependRoute('drm_recap_redirect', new DRMRoute('/drm/:identifiant/edition/:periode_version/recapitulatif',
                         array('module' => 'drm_recap',
                             'action' => 'redirectIndex'),
@@ -334,38 +318,7 @@ class DRMRouting {
                                                           array('model' => 'DRM',
                                                                 'type' => 'object',
 									                            'must_be_valid' => false,
-									                            'must_be_not_valid' => true)));
-
-        $r->prependRoute('drm_vrac_ajout_contrat', new DRMDetailRoute('/drm/:identifiant/edition/:periode_version/vrac/contrat/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/ajout/:detail',
-                        array('module' => 'drm_vrac',
-                            'action' => 'nouveauContrat',
-                            'detail' => null),
-                        array('sf_method' => array('post', 'get')),
-                        array('model' => 'DRMDetail',
-                            'type' => 'object',
-                            'must_be_valid' => false,
-                            'must_be_not_valid' => true
-                )));
-        $r->prependRoute('drm_vrac_update_volume', new DRMVracDetailRoute('/drm/:identifiant/edition/:periode_version/vrac/update/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/volume/:contrat',
-                        array('module' => 'drm_vrac',
-                            'action' => 'updateVolume'),
-                        array('sf_method' => array('post', 'get')),
-                        array('model' => 'acCouchdbJson',
-                            'type' => 'object',
-                            'must_be_valid' => false,
-                            'must_be_not_valid' => true
-                )));
-
-        $r->prependRoute('drm_delete_vrac', new DRMVracDetailRoute('/drm/:identifiant/edition/:periode_version/vrac/update/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/delete/:contrat',
-                        array('module' => 'drm_vrac',
-                            'action' => 'deleteVrac'),
-                        array('sf_method' => array('post', 'get')),
-                        array('model' => 'acCouchdbJson',
-                            'type' => 'object',
-                            'must_be_valid' => false,
-                            'must_be_not_valid' => true
-                )));
-        
+									                            'must_be_not_valid' => true)));      
     }
 
 }

@@ -1,17 +1,14 @@
 <tr>
     <td>
-    	<?php if (!$form->getObject()->total_debut_mois && !$form->getObject()->hasStockFinDeMoisDRMPrecedente()): ?>
-    	<a href="<?php echo url_for('drm_mouvements_generaux_produit_delete', $form->getObject()) ?>" class="supprimer">Supprimer</a>
+    	<?php if (!$detail->total_debut_mois && !$detail->hasStockFinDeMoisDRMPrecedente()): ?>
+    	<a href="<?php echo url_for('drm_mouvements_generaux_produit_delete', $detail) ?>" class="supprimer">Supprimer</a>
     	<?php endif; ?>
-    	<?php echo $form->getObject()->getLibelle(); ?>
+    	<?php echo $detail->getLibelle(ESC_RAW); ?>
     </td>
 	<td>
-        <?php echo $form->getObject()->total_debut_mois ?> <span class="unite">hl </span>
+        <?php echo $detail->total_debut_mois ?> <span class="unite">hl </span>
 	</td>
 	<td>
-		<form class="updateProduct" action="<?php echo url_for('drm_mouvements_generaux_produit_update', $form->getObject()) ?>" method="post">
-			<?php echo $form->renderHiddenFields() ?>
-			<?php echo $form['pas_de_mouvement_check']->render(array("class" => "pas_de_mouvement")) ?>
-		</form>
+		<?php echo $form['pas_de_mouvement_check']->render(array("class" => "pas_de_mouvement")) ?>
 	</td>
 </tr>
