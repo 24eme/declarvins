@@ -49,6 +49,7 @@ class ProduitCsvFile extends CsvFile
 
   private function getProduit($line) 
   {
+  	try {
   	$hash = 'certifications/'.$this->getKey($line[self::CSV_PRODUIT_CATEGORIE_CODE]).
                 '/genres/'.$this->getKey($line[self::CSV_PRODUIT_GENRE_CODE], true).
                 '/appellations/'.$this->getKey($line[self::CSV_PRODUIT_DENOMINATION_CODE], true).
@@ -56,7 +57,12 @@ class ProduitCsvFile extends CsvFile
                 '/lieux/'.$this->getKey($line[self::CSV_PRODUIT_LIEU_CODE], true).
                 '/couleurs/'.strtolower($this->couleurKeyToCode($line[self::CSV_PRODUIT_COULEUR_CODE])).
                 '/cepages/'.$this->getKey($line[self::CSV_PRODUIT_CEPAGE_CODE], true);
+  	
     return $this->config->declaration->getOrAdd($hash);
+  	} catch (Exception $e) {
+  		print_r($line);
+  		echo "\n";
+  	}
   }
   
   private function couleurKeyToCode($key) {

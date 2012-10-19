@@ -19,40 +19,11 @@ var objAjoutsLiquidations = {};
 	{
 		if(ajoutsLiquidations.exists()) $.initAjoutsLiquidations();
 		
-		 $('#ajouts_liquidations :checkbox').change(function() {
-			 $.toggleCheckbox();
-            $(this).parents('form').submit();
-        });
-		
-        $('.updateProduct').submit(function() {
-        	var form = $(this);
-        	$.post($(this).attr('action'), $(this).serializeArray(), function (data) {
-        		$.toggleCheckbox();
-        	});
-        	return false;
-        });
-		
 		if($('#declaratif_info').size()) $.choixCaution();
 
 		$(".flash_temporaire").delay(6000).fadeTo(1000, 0);
 	});
-	/**
-	 * Empeche les bugs si l'utilisateur
-	 * clique trop rapidement sur les
-	 * checkbox
-	 * $.toggleCheckbox();
-	 ************************************************/
-	$.toggleCheckbox = function ()
-    {
-    	$('#ajouts_liquidations :checkbox').each(function() {
-        	var checkbox = $(this);
-        	if (checkbox.attr('readonly')) {
-        		checkbox.removeAttr('readonly');
-        	} else {
-        		checkbox.attr('readonly', 'readonly');
-        	}
-    	});
-    };
+
 	
 	/**
 	 * Initialise les fonctions de l'étape
@@ -79,6 +50,23 @@ var objAjoutsLiquidations = {};
 			$.verifCoherenceStock(i);
 			$.stylesTableaux(i);
 			$.initSupressionProduit(i);
+		});
+		
+
+		$("#mouvements_generaux_pas_de_mouvement").change(function() {
+			if ($("#mouvements_generaux_pas_de_mouvement:checked").length > 0) {
+				$("#ajouts_liquidations input.pas_de_mouvement[type=checkbox]").attr('checked', 'checked');
+			} else {
+				$("#ajouts_liquidations input.pas_de_mouvement[type=checkbox]").removeAttr('checked');
+			}
+		});
+
+		$("#ajouts_liquidations input.pas_de_mouvement[type=checkbox]").click(function() {
+			if ($("#ajouts_liquidations input.pas_de_mouvement[type=checkbox]:checked").length == $("#ajouts_liquidations input.pas_de_mouvement[type=checkbox]").length) {
+				$("#mouvements_generaux_pas_de_mouvement").attr('checked', 'checked');
+			} else {
+				$("#mouvements_generaux_pas_de_mouvement").removeAttr('checked');
+			}
 		});
 		
 	};
@@ -162,8 +150,8 @@ var objAjoutsLiquidations = {};
 			
                          var confirm = window.confirm('Confirmez-vous la suppression de ce produit ?');
                          
-                         if(confirm){
-                                $.post(url, function()
+                         if(!confirm){
+                                /*$.post(url, function()
                                 {
                                         // suppression
                                         btn.parents('tr').remove();
@@ -171,12 +159,13 @@ var objAjoutsLiquidations = {};
                                         // application des styles
                                         tabSection.tableauRecapLignes = tabSection.tableauRecap.find('tbody tr');
                                         $.stylesTableaux(i);
-                                });
+                                });*/
+                        	 	return false;
                          }
                         
 			
 			
-        	return false;
+        	//return false;
 		});
 	};
 	
