@@ -29,6 +29,24 @@ class VersionDocument
         return null;
     }
 
+    public static function buildRectificative($version) {
+        if (preg_match('/^R([0-9]{2})/', $version, $matches)) {
+
+            return (int) $matches[1];
+        }
+
+        return 0;
+    }
+
+    public static function buildModificative($version) {
+        if (preg_match('/M([0-9]{2})$/', $version, $matches)) {
+
+            return (int) $matches[1];
+        }
+
+        return 0;
+    }
+
     protected function buildVersionDocument($rectificative, $modificative) {
         $class = get_class($this->document);
 
@@ -36,12 +54,9 @@ class VersionDocument
     }
 
     public function getRectificative() {
-        if (preg_match('/^R([0-9]{2})/', $this->document->version, $matches)) {
-
-            return (int) $matches[1];
-        }
-
-        return 0;
+        $class = get_class($this->document);
+        
+        return $class::buildRectificative($this->document->version);
     }
 
     public function hasVersion() {
@@ -55,12 +70,9 @@ class VersionDocument
     }
 
     public function getModificative() {
-        if (preg_match('/M([0-9]{2})$/', $this->document->version, $matches)) {
-
-            return (int) $matches[1];
-        }
-
-        return 0;
+        $class = get_class($this->document);
+        
+        return $class::buildModificative($this->document->version);
     }
 
     public function isModificative() {

@@ -3,6 +3,8 @@
 interface InterfaceVersionDocument
 {
     public static function buildVersion($rectificative, $modificative);
+    public static function buildRectificative($version);
+    public static function buildModificative($version);
     
     public function getVersion();
     public function hasVersion();
