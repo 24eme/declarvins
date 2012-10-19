@@ -1,13 +1,13 @@
 <?php use_helper('Float'); ?>
-<?php use_helper('Rectificative'); ?>
+<?php use_helper('Version'); ?>
 <?php include_partial('global/navTop', array('active' => 'drm', 'etablissement' => $etablissement)); ?>
 
 
 <section id="contenu">
 
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
-	<?php if (!$hide_rectificative && !$hasDrmEnCours && $drm->isRectificable()): ?>
-    <form method="GET" action="<?php echo url_for(array('sf_route' => 'drm_rectificative', 'identifiant' => $etablissement->identifiant, 'campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">
+	<?php if (!$hide_rectificative && !$drm->getHistorique()->hasDRMInProcess() && $drm->isRectifiable()): ?>
+    <form method="get" action="<?php echo url_for('drm_rectificative', $drm) ?>">
         <button class="btn_passer_etape rectificative" type="submit">Soumettre une DRM rectificative</button>
     </form>
 	<?php endif; ?>
@@ -31,13 +31,13 @@
             <?php endif; ?>
 
             
-            <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', array('identifiant' => $etablissement->identifiant, 'campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
+            <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
             
-			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->mode_de_saisie == DRM::MODE_DE_SAISIE_DTI): ?>
+			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI): ?>
 			<?php else: ?>
             <div id="btn_etape_dr">
                 <?php if ($drm_suivante && $drm_suivante->isRectificative()): ?>
-                    <a href="<?php echo url_for('drm_init', array('identifiant' => $etablissement->identifiant, 'reinit_etape' => 1, 'campagne_rectificative' => $drm_suivante->getCampagneAndRectificative())) ?>" class="btn_suiv">
+                    <a href="<?php echo url_for('drm_init', array('sf_subject' => $drm, 'reinit_etape' => 1)) ?>" class="btn_suiv">
                         <span>Passer à la DRM suivante</span>
                     </a>
                 <?php else: ?>

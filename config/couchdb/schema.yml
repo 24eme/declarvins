@@ -20,6 +20,8 @@ DRM:
       raison_rectificative: {  }
       etape: {  }
       campagne: {  }
+      periode: {  }
+      version: {  }
       precedente: {  }
       rectificative: { type: integer, required: false }
       droits:

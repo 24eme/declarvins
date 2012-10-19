@@ -3,7 +3,7 @@
                         ) ?>
 
 <?php foreach ($drm->getDroits() as $typedroit => $droits) if (count($drm->droits->{$typedroit})): ?>
-    <?php if ($drm->mode_de_saisie == DRM::MODE_DE_SAISIE_PAPIER && $typedroit == "douane") {continue;} ?>       
+    <?php if ($drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER && $typedroit == "douane") {continue;} ?>       
     <div class="tableau_ajouts_liquidations">
     <h2><?php echo $libelles[$typedroit] ?> <a href="" class="msg_aide" data-msg="help_popup_validation_droit_<?php echo $typedroit; ?>" title="Message aide"></a></h2>
     	<table class="tableau_recap">
@@ -27,8 +27,8 @@
 ?>
             <tr <?php if($i%2!=0) echo ' class="alt"'; ?>>
                     <td><?php echo $strong.$droit->getLibelle().$estrong; ?></td>
-        	<td class="<?php echo isRectifierCssClass($droit, 'volume_taxe') ?>"><?php echo $strong ; echoFloat($droit->volume_taxe); echo $estrong;?>&nbsp;<span class="unite">hl</span></td>
-        	<td class="<?php echo isRectifierCssClass($droit, 'volume_reintegre') ?>"><?php echo $strong; echoFloat($droit->volume_reintegre); echo $estrong; ?>&nbsp;<span class="unite">hl</span></td>
+        	<td class="<?php echo isVersionnerCssClass($droit, 'volume_taxe') ?>"><?php echo $strong ; echoFloat($droit->volume_taxe); echo $estrong;?>&nbsp;<span class="unite">hl</span></td>
+        	<td class="<?php echo isVersionnerCssClass($droit, 'volume_reintegre') ?>"><?php echo $strong; echoFloat($droit->volume_reintegre); echo $estrong; ?>&nbsp;<span class="unite">hl</span></td>
         	<td class=""><?php          if (!$droit->isVirtual()){
                                             echo $strong;
                                             echoFloat($droit->taux);
@@ -39,12 +39,12 @@
                             } ?>
                                             
                 </td>
-        	<td class="<?php echo (isRectifier($droit, 'volume_taxe') || isRectifier($droit, 'volume_reintegre')) ? rectifierCssClass() : null ?>"><strong><?php echoFloat($droit->payable); ?>&nbsp;</strong>&nbsp;<span class="unite">€</span></td>
+        	<td class="<?php echo (isVersionner($droit, 'volume_taxe') || isVersionner($droit, 'volume_reintegre')) ? rectifierCssClass() : null ?>"><strong><?php echoFloat($droit->payable); ?>&nbsp;</strong>&nbsp;<span class="unite">€</span></td>
         			<?php if ($drm->isPaiementAnnualise()): ?>
-        	<td class="<?php echo (isRectifier($droit, 'volume_taxe') || isRectifier($droit, 'volume_reintegre')) ? rectifierCssClass() : null ?>">
+        	<td class="<?php echo (isVersionner($droit, 'volume_taxe') || isVersionner($droit, 'volume_reintegre')) ? rectifierCssClass() : null ?>">
                     <?php if($droit->isTotal()): ?><strong><?php echoFloat($droit->report); ?>&nbsp;</strong><span class="unite">€</span><?php endif; ?>
                     </td>
-                    <td class="<?php echo (isRectifier($droit, 'volume_taxe') || isRectifier($droit, 'volume_reintegre')) ? rectifierCssClass() : null ?>"><?php if($droit->isTotal()): ?><strong><?php echoFloat($droit->cumulable); ?></strong>&nbsp;<span class="unite">€</span><?php endif; ?>&nbsp;</td>
+                    <td class="<?php echo (isVersionner($droit, 'volume_taxe') || isVersionner($droit, 'volume_reintegre')) ? rectifierCssClass() : null ?>"><?php if($droit->isTotal()): ?><strong><?php echoFloat($droit->cumulable); ?></strong>&nbsp;<span class="unite">€</span><?php endif; ?>&nbsp;</td>
         			<?php endif; ?>
         		</tr>
         		<?php endforeach; ?>

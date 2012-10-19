@@ -9,19 +9,10 @@
     <section id="principal">
         <div id="recap_drm">
             <div id="drm_annee_courante" >
-                <?php include_component('drm', 'historiqueList', array('new_drm' => true, 'etablissement' => $etablissement,
-                                                                       'historique' => $historique)) ?>
+                <?php include_component('drm', 'historiqueList', array('etablissement' => $etablissement)) ?>
             </div>
         </div>
-        <ul id="nav_drm_annees">
-			<?php $first = true; foreach ($historique->getCampagnes() as $campagne): ?>
-				<?php if($first): ?>
-				<li class="actif"><strong>DRM <?php echo $campagne ?></strong></li>
-				<?php else: ?>
-				<li><a href="<?php echo url_for('drm_historique', array('campagne' => $campagne, 'identifiant' => $etablissement->identifiant))?>">DRM <?php echo $campagne ?></a></li>
-				<?php endif; ?>
-			<?php $first = false; endforeach; ?>
-		</ul>
+        <?php include_component('drm', 'campagnes', array('etablissement' => $etablissement)); ?>
     </section>
     
         <?php if($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$hasDrmEnCours): ?>

@@ -14,7 +14,7 @@ class drm_vracActions extends sfActions
     	    	return $this->redirect('drm_recap', $this->drm->declaration->certifications->getLast());
 	    	}
 	  		
-            if ($this->drm->mode_de_saisie == DRM::MODE_DE_SAISIE_PAPIER) {
+            if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) {
     			$this->drm->setCurrentEtapeRouting('validation');
                 return $this->redirect('drm_validation', $this->drm);
             }
@@ -43,7 +43,7 @@ class drm_vracActions extends sfActions
     	if ($request->isMethod(sfWebRequest::POST)) {
 			  $this->drm->setCurrentEtapeRouting('declaratif');
 
-        if ($this->drm->mode_de_saisie == DRM::MODE_DE_SAISIE_PAPIER) {
+        if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) {
 
           return $this->redirect('drm_validation', $this->drm);
         }

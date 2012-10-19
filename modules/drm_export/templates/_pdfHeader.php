@@ -3,7 +3,7 @@
 <h1>
 <?php if (!$drm->valide->date_saisie) {
    echo '<span class="rectificative">Brouillon&nbsp;: </span> ';
- }?><?php if ($drm->mode_de_saisie == DRM::MODE_DE_SAISIE_PAPIER): ?>Extrait de la d<?php else: ?>D<?php endif; ?>éclaration récapitulative mensuelle en droits suspendus de <?php echo $drm->getHumanDate(); ?> 
+ }?><?php if ($drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER): ?>Extrait de la d<?php else: ?>D<?php endif; ?>éclaration récapitulative mensuelle en droits suspendus de <?php echo $drm->getHumanDate(); ?> 
 <?php if($drm->isRectificative()): ?>
  - <span class="rectificative">Rectificative <?php echo sprintf('%02d', $drm->rectificative) ?></span>
 <?php endif; ?>
@@ -12,7 +12,7 @@
 <table>
 <tr>
 	<td class="premier"><strong>Nom / Raison sociale : <?php echo $drm->declarant->nom ?></strong></td>
-   <td>n° DRM : <?php echo preg_replace('/DRM-/', '', $drm->_id); ?><?php if($drm->isValidee()): ?> (<?php if ($drm->mode_de_saisie == DRM::MODE_DE_SAISIE_PAPIER): ?>saisie interne le<?php else: ?>validée le<?php endif;?> <?php echo $drm->getEuValideDate(); ?>)<?php endif; ?></td>
+   <td>n° DRM : <?php echo preg_replace('/DRM-/', '', $drm->_id); ?><?php if($drm->isValidee()): ?> (<?php if ($drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER): ?>saisie interne le<?php else: ?>validée le<?php endif;?> <?php echo $drm->getEuValideDate(); ?>)<?php endif; ?></td>
 </tr>
 <tr>
 	<td class="premier" >Lieu où est tenue la comptabilité matière :

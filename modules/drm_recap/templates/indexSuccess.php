@@ -39,7 +39,7 @@
                 </div>
             </div>
             
-			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->mode_de_saisie == DRM::MODE_DE_SAISIE_DTI): ?>
+			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI): ?>
 			<?php else: ?>
             <div id="btn_etape_dr">
             	<?php if ($previous_certif): ?>

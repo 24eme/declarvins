@@ -10,19 +10,17 @@
 		</tr>
 	</thead>
 	<tbody>
-		<?php if ($hasNewDRM && $new_drm): ?>
-		<tr class="alt">
-			      <td><?php echo $futurDRM[DRMHistorique::VIEW_INDEX_ANNEE].'-'.$futurDRM[DRMHistorique::VIEW_INDEX_MOIS] ?></td>
-			<td>NOUVELLE</td>
-			<td>
-				<a href="<?php echo url_for('drm_nouvelle', array('identifiant' => $etablissement->identifiant, 'campagne' => $futurDRM[DRMHistorique::VIEW_INDEX_ANNEE].'-'.$futurDRM[DRMHistorique::VIEW_INDEX_MOIS])) ?>">Démarrer la DRM</a><br />
-			</td>
-		</tr>
+		<?php $i=0; ?>
+		<?php if($new_drm): ?>
+		<?php include_partial('drm/historiqueItem', array('alt' => $i%2 == 0, 
+															   'drm' => $new_drm,
+															   'etablissement' => $etablissement)); $i++; ?>
 		<?php endif; ?>
-		<?php $i=0; foreach ($list as $drm_id => $drm): ?>
-		<?php include_component('drm', 'historiqueItem', array('alt' => $i%2 == 0, 
+		<?php foreach ($drms as $drm): ?>
+			<?php include_partial('drm/historiqueItem', array('alt' => $i%2 == 0, 
 															   'drm' => $drm,
 															   'etablissement' => $etablissement)) ?>
-		<?php $i++; if (isset($limit) && $limit == $i) break; endforeach; ?>
+		<?php $i++; if (isset($limit) && $limit == $i) break; 
+		endforeach; ?>
 	</tbody>
 </table>

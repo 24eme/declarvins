@@ -47,12 +47,12 @@
                     <?php endif; ?>
                 </div>
             </div>
-            <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', array('identifiant' => $etablissement->identifiant, 'campagne_rectificative' => $drm->getCampagneAndRectificative())) ?>">Télécharger le PDF</a>
+            <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
             
-			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->mode_de_saisie == DRM::MODE_DE_SAISIE_DTI): ?>
+			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI): ?>
 			<?php else: ?>
             <div id="btn_etape_dr">
-                <?php if ($drm->mode_de_saisie == DRM::MODE_DE_SAISIE_PAPIER): ?>
+                <?php if ($drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER): ?>
                 <a href="<?php echo url_for('drm_vrac', array("sf_subject" => $drm, "precedent" => true))?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>

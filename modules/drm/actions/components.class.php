@@ -57,31 +57,59 @@ class drmComponents extends sfComponents {
         }
     }
 
-    public function executeHistoriqueItem() {
-        $this->campagne_rectificative = DRMClient::getInstance()->getCampagneAndRectificative($this->drm[DRMHistorique::VIEW_INDEX_ANNEE].'-'.$this->drm[DRMHistorique::VIEW_INDEX_MOIS], $this->drm[DRMHistorique::VIEW_INDEX_RECTIFICATIVE]);
-        $this->valide = $this->drm[DRMHistorique::VIEW_INDEX_STATUS] && $this->drm[DRMHistorique::VIEW_INDEX_STATUS] > 0;
-        $this->titre = $this->drm[DRMHistorique::VIEW_INDEX_ANNEE].'-'.$this->drm[DRMHistorique::VIEW_INDEX_MOIS];
-        if($this->drm[DRMHistorique::VIEW_INDEX_RECTIFICATIVE]) {
-            $this->titre .= ' R'.$this->drm[DRMHistorique::VIEW_INDEX_RECTIFICATIVE];
+    protected function getNewDRM($identifiant) {
+        $drm = DRMClient::getInstance()->createDoc($identifiant);
+
+        if($drm && $drm->periode > DRMClient::getInstance()->getCurrentPeriode()) {
+
+            $drm = null;
         }
-        $this->derniere = $this->drm[DRMHistorique::DERNIERE];
-		$this->drm = DRMClient::getInstance()->find($this->drm[7]);
+
+        if ($drm && DRMClient::getInstance()->getDRMHistorique($identifiant)->hasDRMInProcess()) {
+        
+            $drm = null;
+        }
+
+        if(isset($this->campagne) && $drm->campagne != $this->campagne) {
+
+            $drm = null;
+        }
+
+        return $drm;
     }
 
     public function executeHistoriqueList() {
-        if (isset($this->limit)) {
-            $this->list = $this->historique->getSliceDRMs($this->limit);
-        } else {
-            $this->list = $this->historique->getDRMsParCampagneCourante();   
+        $this->drms = array();
+        $historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
+
+        $this->new_drm = $this->getNewDRM($this->etablissement->identifiant);
+
+        if (!isset($this->campagne) && $this->new_drm) {
+            $this->campagne = $this->new_drm->campagne;
+        } elseif(!isset($this->campagne)) {
+            $campagnes = $historique->getCampagnes();
+            $this->campagne = $campagnes[0];
         }
-        $this->futurDRM = current($this->historique->getFutureDRM());
-        //var_dump($this->futurDRM);exit;
-        $this->hasNewDRM = false;
-        if (CurrentClient::getCurrent()->campagne >= ($this->futurDRM[1].'-'.$this->futurDRM[2]) && !$this->historique->hasDRMInProcess()) {
-            $this->hasNewDRM = true;
-            if (isset($this->limit)) {
-                $this->limit--;
-            }
+
+        foreach($historique->getDRMsByCampagne($this->campagne) as $key => $drm) {
+            $this->drms[$key] = DRMClient::getInstance()->find($drm->_id);;
+        }
+
+    }
+
+    public function executeCampagnes() {
+        $this->historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
+
+        $new_drm = $this->getNewDRM($this->etablissement->identifiant);
+
+        $this->campagnes = $this->historique->getCampagnes();
+
+        if ($new_drm && !in_array($new_drm->campagne, $this->campagnes)) {
+            $this->campagnes = array_merge(array($new_drm->campagne), $this->campagnes);
+        }
+
+        if (!isset($this->campagne)) {
+            $this->campagne = $this->campagnes[0];
         }
     }
 
