@@ -74,7 +74,7 @@ class adminActions extends sfActions
     $this->droits = ConfigurationClient::getCurrent()->droits;
     $this->labels = ConfigurationClient::getCurrent()->labels;
     $this->controles = ControlesClient::getInstance()->findAll();
-    $this->configurationVrac = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($this->getUser()->getCompte()->getInterpro());
+    $this->configurationVrac = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($this->getUser()->getCompte()->getGerantInterpro()->getKey());
   }
   public function executeLibelleModification(sfWebRequest $request)
   {

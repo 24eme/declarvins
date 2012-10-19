@@ -19,7 +19,7 @@ use_helper('Text');
         <?php endif; ?>
         
         <li<?php if ($active == 'profil'): ?> class="actif"<?php endif; ?>>
-            <a href="<?php //echo url_for('@profil') ?>">Profil</a>
+            <a href="<?php echo url_for('profil', $etablissement) ?>">Profil</a>
         </li>
     </ul>
 
