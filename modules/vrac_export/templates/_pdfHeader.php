@@ -9,7 +9,11 @@
 	</tr>
 	<tr>
 		<td width="50%">Saisie le <?php echo $vrac->getEuSaisieDate(); ?></td>
+		<?php if ($vrac->isValide()): ?>
 		<td width="50%" style="text-align: right;">N° de Visa du contrat : <?php echo $vrac->numero_contrat ?></td>
+		<?php else: ?>
+		<td width="50%" style="text-align: right;">&nbsp;</td>
+		<?php endif; ?>
 	</tr>
 	<?php if ($vrac->cas_particulier != ConfigurationVrac::CAS_PARTICULIER_DEFAULT_KEY): ?>
 	<tr>

@@ -232,7 +232,7 @@
 					<?php endif; ?>
 					
 					<?php if (!is_null($lot->metayage)): ?>
-					<p><span>Métayage :</span> <?php echo ($vrac->metayage)? 'Oui' : 'Non'; ?></p>
+					<p><span>Métayage :</span> <?php echo ($lot->metayage)? 'Oui' : 'Non'; ?></p>
 					<p><span>Nom du bailleur et volumes :</span> <?php echo $lot->bailleur ?></p>	
 					<?php endif; ?>
 					<?php if ($lot->degre): ?>
