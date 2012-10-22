@@ -27,6 +27,9 @@
     </head>
 
     <body>
+    
+    	
+		<?php include_partial('global/konami'); ?>
 
         <!-- ####### A REPRENDRE ABSOLUMENT ####### -->
         <!--[if lte IE 6 ]> <div class="ie6 ielt7 ielt8 ielt9"> <![endif]-->
@@ -37,7 +40,6 @@
 
         <!-- #global -->
         <div id="global">
-
             <?php include_partial('global/header'); ?>
 
             <!-- fin #header -->

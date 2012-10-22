@@ -44,6 +44,7 @@
 	$.fn.includeJS(jsPath, 'plugins/ui.dropdownchecklist-1.3-min.js');
 		
 	// Fonctions personnalisées)
+	$.fn.includeJS(jsPath, 'konami.js');
 	$.fn.includeJS(jsPath, 'global.js');
 	$.fn.includeJS(jsPath, 'popups.js');
 	$.fn.includeJS(jsPath, 'form.js');
