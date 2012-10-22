@@ -36,6 +36,17 @@ class Email {
         return self::getMailer()->send($message);
     }
     
+    public function vracDemandeValidationInterpro($vrac, $etablissement, $destinataire) 
+    {
+        $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
+        $to = array($destinataire);
+        $subject = 'Demande de validation du contrat vrac n°'.$vrac->numero_contrat;
+        $body = self::getBodyFromPartial('vrac_demande_validation_interpro', array('vrac' => $vrac, 'etablissement' => $etablissement));
+        $message = self::getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+
+        return self::getMailer()->send($message);
+    }
+    
     public function vracContratValide($vrac, $etablissement, $destinataire) 
     {
         $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));

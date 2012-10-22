@@ -6,7 +6,7 @@ class vracActions extends acVinVracActions
 		return VracFormDeclarvinFactory::create($interproId, $etape, $configurationVrac, $etablissement, $compte, $vrac);
 	}
 	
-	protected function saisieTerminee($vrac) {
+	protected function saisieTerminee($vrac, $interpro) {
 		$acteurs = VracClient::getInstance()->getActeurs();
 		$saisisseur = $vrac->vous_etes;
 		if ($saisisseur && in_array($saisisseur, $acteurs)) {
@@ -23,6 +23,10 @@ class vracActions extends acVinVracActions
 			if ($email = $vrac->get($acteur)->email) {
 				$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
 				Email::getInstance()->vracDemandeValidation($vrac, $etablissement, $email);
+			} else {
+				if ($email = $interpro->email_contrat_vrac) {
+					Email::getInstance()->vracDemandeValidationInterpro($vrac, $etablissement, $email);
+				}
 			}
 		}
 	}
