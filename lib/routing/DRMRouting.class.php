@@ -211,7 +211,7 @@ class DRMRouting {
                               'must_be_valid' => false,
                               'must_be_not_valid' => true)));
 
-        $r->prependRoute('drm_mouvements_generaux_produit_delete', new DRMDetailRoute('/drm/:identifiant/edition/:campagne_rectificative/mouvements-generaux/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/delete',
+        $r->prependRoute('drm_mouvements_generaux_produit_delete', new DRMDetailRoute('/drm/:identifiant/edition/:periode_version/mouvements-generaux/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/delete',
                         array('module' => 'drm_mouvements_generaux',
                             'action' => 'delete'),
                         array('sf_method' => array('post', 'get')),

@@ -36,7 +36,7 @@
 		        			<?php endif; ?>
 	        			
 	        				<?php if($drm->declaration->hasStockEpuise()): ?>
-	        				<a href="<?php echo url_for('drm_mouvements_generaux_stock_epuise', $drm) ?>" id="stock_epuise" style="float:none; margin: 0 0 15px 0;">Stock épuisé</a>
+	        				<a href="<?php echo url_for('drm_mouvements_generaux_stock_epuise', $drm) ?>" id="stock_epuise" style="float:none; margin: 0 0 15px 0;">Stock épuisé</a>&nbsp;<a href="" class="msg_aide" data-msg="help_popup_mouvgen_stock_epuise" title="Message aide"></a>
 		        			<?php endif; ?>
 	        			<?php endif; ?>
 	        				<?php foreach ($certifs as $certification => $val): ?>
