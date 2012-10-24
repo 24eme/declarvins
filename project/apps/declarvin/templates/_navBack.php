@@ -15,7 +15,7 @@
 		<?php endif; ?>
 		<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
         <li<?php if ($active == 'alertes'): ?> class="actif"<?php endif; ?>>
-			<a href="<?php echo url_for('@alertes') ?>">Alertes</a>
+			<a href="<?php echo url_for('@alertes?reset_filters=true') ?>">Alertes</a>
 		</li>
 		<?php endif; ?>
 	</ul>

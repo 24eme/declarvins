@@ -108,7 +108,10 @@ admin_libelles_edit:
 ## Alerte routing
 alertes:
   url: /admin/alertes
-  param: {module: alerte, action: drmManquante}
+  param: {module: alerte, action: alertes}
+alerte_edit:
+  url: /admin/alertes/:id/modification/:campagne/:etablissement
+  param: { module: alerte, action: alerteModification, id: null, campagne: null, etablissement: null }
 ## Produit routing
 produits:
   url: /admin/produits
