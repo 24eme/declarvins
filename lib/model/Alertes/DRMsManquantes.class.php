@@ -13,10 +13,6 @@ class DRMsManquantes
 	const END_MONTH_CAMPAGNE = '07';
 	
 	const ALERTE_DOC_ID = 'DRMMANQUANTE';
-	const STATUT_ACTIF = 'ACTIVE';
-	const STATUT_TRAITE = 'TRAITE';
-	const STATUT_RESOLU = 'RESOLU';
-	const STATUT_REJETE = 'REJETE';
 	
 	public function __construct($campagne = null)
 	{
@@ -78,18 +74,18 @@ class DRMsManquantes
 		$docId = self::ALERTE_DOC_ID.'-'.$identifiant.'-'.$campagne;
 		$alerte = AlerteClient::getInstance()->find($docId);
 		if (!$alerte) {
-			$alerte = new Alerte($docId);
+			$alerte = new Alerte($docId, $campagne);
 			$alerte->interpro = $etablissement->value;
 			$alerte->etablissement_identifiant = $identifiant;
 			$alerte->sous_type = self::ALERTE_DOC_ID;
 			$newAlerte = $alerte->alertes->getOrAdd(date('c'));
-			$newAlerte->statut = self::STATUT_ACTIF;
+			$newAlerte->statut = Alerte::STATUT_ACTIF;
 			$newAlerte->detail = 'DRM-'.$identifiant.'-'.$campagne.' manquante';
 		} else {
 			$lastAlerte = $alerte->getLastAlerte();
-			if ($lastAlerte->statut != self::STATUT_ACTIF) {
+			if ($lastAlerte->statut != Alerte::STATUT_ACTIF) {
 				$newAlerte = $alerte->alertes->getOrAdd(date('c'));
-				$newAlerte->statut = self::STATUT_ACTIF;
+				$newAlerte->statut = Alerte::STATUT_ACTIF;
 				$newAlerte->detail = 'DRM-'.$identifiant.'-'.$campagne.' manquante';
 			}
 		}
