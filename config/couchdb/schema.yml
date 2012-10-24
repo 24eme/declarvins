@@ -1,9 +1,12 @@
+
 Alerte:
   definition:
     fields:
       _id: {  }
       _rev: {  }
       type: {  }
+      sous_type: {  }
+      interpro: {  }
       etablissement_identifiant: {  }
       alertes:
         type: collection

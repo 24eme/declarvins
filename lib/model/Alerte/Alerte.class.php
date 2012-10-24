@@ -1,22 +1,27 @@
 <?php
 class Alerte extends BaseAlerte 
 {
-	protected $_id;
+	protected $id;
 	
-	public function __construct($id) 
+	public function __construct($id = null) 
 	{
         parent::__construct();
-        $this->_id = $id;
+        $this->id = $id;
     }
     
     public function constructId() 
     {
-        $this->set('_id', $this->_id);
+        $this->set('_id', $this->id);
     }
     
-    public function doSave() 
+    public function save() 
     {
         $this->derniere_detection = date('c');
+        parent::save();
+    }
+    
+    public function getLastAlerte() {
+    	return $this->alertes->getLast();
     }
 
 }
