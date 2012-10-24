@@ -16,7 +16,7 @@
 															   'drm' => $new_drm,
 															   'etablissement' => $etablissement)); $i++; ?>
 		<?php endif; ?>
-		<?php foreach ($drms as $drm): ?>
+		<?php foreach ($drms as $key => $drm): ?>
 			<?php include_partial('drm/historiqueItem', array('alt' => $i%2 == 0, 
 															   'drm' => $drm,
 															   'etablissement' => $etablissement)) ?>

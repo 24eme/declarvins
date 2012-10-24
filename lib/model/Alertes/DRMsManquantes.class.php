@@ -12,7 +12,7 @@ class DRMsManquantes
 	const START_MONTH_CAMPAGNE = '08';
 	const END_MONTH_CAMPAGNE = '07';
 	
-	const ALERTE_DOC_ID = 'DRMMANQUANTE-';
+	const ALERTE_DOC_ID = 'DRMMANQUANTE';
 	const STATUT_ACTIF = 'ACTIVE';
 	const STATUT_TRAITE = 'TRAITE';
 	const STATUT_RESOLU = 'RESOLU';
@@ -42,15 +42,14 @@ class DRMsManquantes
 		$this->campagne_month_end = self::END_MONTH_CAMPAGNE;
 	}
 	
-	public function showDrms()
+	public function getAlertes()
 	{
-		$etablissementSansDrms = array();
+		$alertes = array();
 		$campagnesCompletes = $this->getCampagnesCompletes($this->campagne_year_start, $this->campagne_month_start, $this->campagne_year_end, $this->campagne_month_end);
 		foreach ($this->etablissements->rows as $etablissement) {
 			$identifiant = $etablissement->key[AlertesEtablissementsView::KEY_IDENTIFIANT];
 			$drms = AlertesDrmsView::getInstance()->findByCampagneAndEtablissement($this->campagne_year_start, $this->campagne_month_start, $this->campagne_year_end, $this->campagne_month_end, $identifiant);
-			$nbDrms = count($drms->rows);
-			if ($nbDrms > 0) {
+			if (count($drms->rows) > 0) {
 				$campagnes = array();
 				foreach ($drms->rows as $drm) {
 					$campagne = $drm->key[AlertesDrmsView::KEY_CAMPAGNE_ANNEE].$drm->key[AlertesDrmsView::KEY_CAMPAGNE_MOIS];
@@ -59,27 +58,42 @@ class DRMsManquantes
 				rsort($campagnes);
 				$drmsManquantes = $this->getDrmsManquantes($campagnesCompletes, $campagnes);
 				foreach ($drmsManquantes as $drmsManquante) {
-					$this->genereAlerte($identifiant, $this->makeCampagne($drmsManquante));
+					$alertes[] = $this->genereAlerte($etablissement, $this->makeCampagne($drmsManquante));
 				}
 			} else {
-				$etablissementSansDrms[] = $identifiant;
+				foreach ($campagnesCompletes as $campagneManquante) {
+					$alertes[] = $this->genereAlerte($etablissement, $this->makeCampagne($campagneManquante));
+				}
 			}
 		}
+		return $alertes;
 	}
 	
 	private function makeCampagne($campagne) {
 		return substr($campagne, 0, 4).'-'.substr($campagne, -2); 
 	}
 	
-	private function genereAlerte($identifiant, $campagne) {
-		$docId = self::ALERTE_DOC_ID.$identifiant.'-'.$campagne;
-		// Check
-		$alerte = new Alerte($docId);
-		$alerte->etablissement_identifiant = $identifiant;
-		$newAlerte = $alerte->alertes->getOrAdd(date('c'));
-		$newAlerte->statut = self::STATUT_ACTIF;
-		$newAlerte->detail = 'DRM-'.$identifiant.'-'.$campagne.' manquante';
-		$alerte->save();
+	private function genereAlerte($etablissement, $campagne) {
+		$identifiant = $etablissement->key[AlertesEtablissementsView::KEY_IDENTIFIANT];
+		$docId = self::ALERTE_DOC_ID.'-'.$identifiant.'-'.$campagne;
+		$alerte = AlerteClient::getInstance()->find($docId);
+		if (!$alerte) {
+			$alerte = new Alerte($docId);
+			$alerte->interpro = $etablissement->value;
+			$alerte->etablissement_identifiant = $identifiant;
+			$alerte->sous_type = self::ALERTE_DOC_ID;
+			$newAlerte = $alerte->alertes->getOrAdd(date('c'));
+			$newAlerte->statut = self::STATUT_ACTIF;
+			$newAlerte->detail = 'DRM-'.$identifiant.'-'.$campagne.' manquante';
+		} else {
+			$lastAlerte = $alerte->getLastAlerte();
+			if ($lastAlerte->statut != self::STATUT_ACTIF) {
+				$newAlerte = $alerte->alertes->getOrAdd(date('c'));
+				$newAlerte->statut = self::STATUT_ACTIF;
+				$newAlerte->detail = 'DRM-'.$identifiant.'-'.$campagne.' manquante';
+			}
+		}
+		return $alerte;
 	}
 	
 	private function getCampagnesCompletes($year_start, $month_start, $year_end, $month_end)

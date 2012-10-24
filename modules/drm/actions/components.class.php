@@ -92,7 +92,7 @@ class drmComponents extends sfComponents {
         }
 
         foreach($historique->getDRMsByCampagne($this->campagne) as $key => $drm) {
-            $this->drms[$key] = DRMClient::getInstance()->find($drm->_id);;
+            $this->drms[$key] = DRMClient::getInstance()->find($key);
         }
 
     }
