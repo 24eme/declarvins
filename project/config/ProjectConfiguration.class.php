@@ -28,6 +28,7 @@ class ProjectConfiguration extends sfProjectConfiguration
 		$this->enablePlugins('acVinDouanePlugin');
 		$this->enablePlugins('EmailPlugin');
 		$this->enablePlugins('acVinDocumentPlugin');
+		$this->enablePlugins('acVinAlertePlugin');
 	}
 	
 	public static function getAppRouting()

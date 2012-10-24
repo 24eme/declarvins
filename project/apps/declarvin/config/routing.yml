@@ -105,6 +105,10 @@ admin_libelles:
 admin_libelles_edit:
   url: /admin/libelles/:type/modification/:key
   param: { module: admin, action: libelleModification, key: null, type: null }
+## Alerte routing
+alertes:
+  url: /admin/alertes
+  param: {module: alerte, action: drmManquante}
 ## Produit routing
 produits:
   url: /admin/produits

@@ -13,6 +13,11 @@
 			<a href="<?php echo url_for('@admin_comptes') ?>">Comptes</a>
 		</li>
 		<?php endif; ?>
+		<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
+        <li<?php if ($active == 'alertes'): ?> class="actif"<?php endif; ?>>
+			<a href="<?php echo url_for('@alertes') ?>">Alertes</a>
+		</li>
+		<?php endif; ?>
 	</ul>
 	<ul id="actions_etablissement">
 		<?php if ($recherche && 1==2): // on masque la recherche intensionnellement ?>

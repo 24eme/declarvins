@@ -31,10 +31,13 @@ EOF;
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         
-        /* Mise a jour des messages si un csv est passé en argument */
         if (isset($arguments['campagne']) && !empty($arguments['campagne'])) {
 			$drmsManquantes = new DRMsManquantes($arguments['campagne']);
-			$drmsManquantes->showDrms();
+			$alertes = $drmsManquantes->getAlertes();
+			foreach ($alertes as $alerte) {
+				$alerte->save();
+				$this->logSection('drm_manquante', $alerte->_id.' was created');
+			}
     	}
     }
 
