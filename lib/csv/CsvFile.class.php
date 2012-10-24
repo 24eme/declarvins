@@ -30,10 +30,14 @@ class CsvFile
     if (!$buffer) {
       throw new Exception('invalid_file');
     }
+
     $virgule = explode(',', $buffer);
     $ptvirgule = explode(';', $buffer);
-    if (count($virgule) > count($ptvirgule))
+    $tabulation = explode('\t', $buffer);
+    if (count($virgule) > count($ptvirgule) && count($virgule) > count($tabulation))
       $this->separator = ',';
+    else if (count($tabulation) > count($ptvirgule))
+      $this->separator = '\t';
   }
 
   public function getCsv() {
