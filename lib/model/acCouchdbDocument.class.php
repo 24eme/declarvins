@@ -41,6 +41,8 @@ abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
         if ($this->isNew() && !$this->get('_id')) {
             $this->constructId();
         }
+
+        $this->preSave();
         
         $this->definitionValidation();
         if ($this->isModified()) {
@@ -53,11 +55,15 @@ abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
         return false;
     }
     
-    public function constructId() {
+    protected function constructId() {
+        
+    }
+
+    protected function preSave() {
         
     }
     
-    public function doSave() {
+    protected function doSave() {
         
     }
 
