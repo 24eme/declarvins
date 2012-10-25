@@ -24,4 +24,9 @@ class AlertesDrmsView extends acCouchdbView
                     		->endkey(array($identifiant, $end_year, $end_month, array()))
                     		->getView($this->design, $this->view);
     }
+
+    public function findAll() {
+
+    	return $this->client->getView($this->design, $this->view);
+    }
 }  
