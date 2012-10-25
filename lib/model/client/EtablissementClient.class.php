@@ -29,6 +29,16 @@ class EtablissementClient extends acCouchdbClient {
     public function find($id_or_identifiant, $hydrate = self::HYDRATE_DOCUMENT) {
         return parent::find($this->getId($id_or_identifiant), $hydrate);
     }
+    
+    public function findByCvi($cvi) {
+        $rows = EtablissementFindByCviView::getInstance()->findByCvi($cvi);
+        
+        if(!count($rows)) {
+            return null;
+        }
+        
+        return $this->find($rows[0]->id);
+    }
 
     public function getId($id_or_identifiant) {
         $id = $id_or_identifiant;
