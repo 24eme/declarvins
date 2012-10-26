@@ -4,7 +4,7 @@
 	}
 	body {
 		font-family: sans-serif;
-		margin: 110px 0 20px 0;
+		margin: 0;
 		font-size: 9pt;
 	}
 
@@ -24,18 +24,15 @@
 
 	#header,
 	#footer {
-		position: fixed;
-		left: 0;
-		right: 0;
 	}
+
 	#header {
-		top: 0;
 		color: #000;
-		border-bottom: 1px solid #000;
+		padding: 0 0 30px;
 	}
 
 	#header h1 {
-		font-size: 11pt;
+		font-size: 13pt;
 		margin: 0;
 	}
 
@@ -72,8 +69,6 @@
 	}
 
 	#footer {
-		bottom: 0;
-		border-top: 1px solid #000;
 	}
 	#footer table {
 		width: 100%;
@@ -247,5 +242,73 @@
 	hr {
 		page-break-after: always;
 		border: 0;
+	}
+
+	#lots { padding: 15px; }
+
+	#lots table
+	{
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	#lots table th,
+	#lots table td
+	{
+		border: 1px solid #333;
+		padding: 5px;
+		text-align: center;
+	}
+
+	#lots table th
+	{
+		background: #eee;
+	}
+
+	#lots table th.vide
+	{
+		background: #fff;
+	}
+
+	#lots table th.num_lot
+	{
+		background: #666;
+		color: #fff;
+		width: 25%;	
+	}
+
+	#lots table th.cuves,
+	#lots table th.millesimes,
+	#lots table th.degre,
+	#lots table th.allergenes
+	{
+		background: #ccc;
+		text-align: left;
+		width: 25%;
+	}
+
+	#lots table th.pourcentage
+	{
+		border-right-color: #eee;
+	}
+
+	#lots table th.degre + td,
+	#lots table th.allergenes + td,
+	#lots table td.pourcentage
+	{
+		border-right-color: #fff;
+	}
+
+	#lots table th.cuves,
+	#lots table th.millesimes,
+	#lots table .der_cat > *
+	{
+		border-bottom-width: 2px;
+	}
+
+	#lots table th.num_lot,
+	#lots table .dernier > *
+	{
+		border-bottom-width: 3px;
 	}
 </style>
