@@ -334,3 +334,80 @@
     width: 200px; /*must have*/
     height: 200px; /*must have*/
 }
+
+
+/*!
+ * jQuery UI Dialog 1.8.20
+ *
+ * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Dialog#theming
+ */
+
+.ui-dialog
+{
+	background: #f4f4f4;
+	border: 10px solid #fff;
+	-webkit-box-shadow: 0 0 5px #000;
+	   -moz-box-shadow: 0 0 5px #000;
+	        box-shadow: 0 0 5px #000;
+	-webkit-border-radius: 0;
+	   -moz-border-radius: 0;
+	        border-radius: 0;
+	padding: 15px;
+}
+
+.ui-dialog .ui-state-hover,
+.ui-dialog .ui-dialog-titlebar,
+.ui-dialog .ui-widget-content .ui-state-hover,
+.ui-dialog .ui-widget-header .ui-state-hover,
+.ui-dialog .ui-state-focus,
+.ui-dialog .ui-dialog-content,
+.ui-dialog .ui-widget-content .ui-state-focus,
+.ui-dialog .ui-widget-header .ui-state-focus
+{
+	border:0 ;
+	background: 0;
+}
+
+.ui-dialog .ui-dialog-titlebar
+{
+	-webkit-border-radius: 0;
+	   -moz-border-radius: 0;
+	        border-radius: 0;
+	margin: 0 0 15px;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+}
+
+.ui-dialog .ui-dialog-titlebar .ui-dialog-title 
+{
+	color: #86005b;
+	display: block;
+	font-size: 20px;
+	font-weight: normal;
+	padding: 0 20px 0 0;
+}
+
+.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close
+{
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close .ui-icon
+{
+	background: url(../images/boutons/btn_fermer_popup.png) 0 0 no-repeat;
+	height: 14px;
+	width: 13px;
+}
+
+.ui-dialog .ui-dialog-content
+{
+	color: #494949;
+	zoom: 1;
+}

@@ -663,6 +663,11 @@ a:hover { text-decoration:underline; }
   font-weight:normal;
   margin:0 0 20px;
 }
+#contenu h1 .btn_ajouter {
+  font-size:14px;
+  font-weight:none;
+  margin:0 0 0 30px;
+}
 #contenu .intro { margin:0 0 20px; }
 #principal #onglets_principal, #principal .onglets_principal {
   zoom:1;
@@ -768,41 +773,6 @@ a:hover { text-decoration:underline; }
   clip:rect(1px,1px,1px,1px);
   position:absolute !important;
 }
-.ui-dialog {
-  background:#f4f4f4;
-  border:10px solid #ffffff;
-  -webkit-box-shadow:0 0 5px #000000;
-  -moz-box-shadow:0 0 5px #000000;
-  box-shadow:0 0 5px #000000;
-  -webkit-box-shadow:0 0 5px #000000;
-  -moz-box-shadow:0 0 5px #000000;
-  box-shadow:0 0 5px #000000;
-  padding:15px;
-}
-.ui-dialog .ui-dialog-titlebar {
-  margin:0 0 15px;
-  overflow:hidden;
-  position:relative;
-  width:100%;
-}
-.ui-dialog .ui-dialog-titlebar .ui-dialog-title {
-  color:#86005b;
-  display:block;
-  font-size:20px;
-  font-weight:normal;
-  padding:0 20px 0 0;
-}
-.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close {
-  position:absolute;
-  right:0;
-  top:0;
-}
-.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close .ui-icon {
-  background:url(../images/boutons/btn_fermer_popup.png) 0 0 no-repeat;
-  height:14px;
-  width:13px;
-}
-.ui-dialog .ui-dialog-content { zoom:1; }
 .popup_form .ligne_form {
   zoom:1;
   line-height:22px;
@@ -921,6 +891,15 @@ a:hover { text-decoration:underline; }
 }
 .popup_form .ligne_form_btn button.btn_valider:hover, .popup_form .ligne_form_btn button.btn_valider:focus, .popup_form .ligne_form_btn a.btn_valider:hover, .popup_form .ligne_form_btn a.btn_valider:focus { background-color:#494949; }
 input.ui-autocomplete-input {
+  -webkit-box-shadow:none !important;
+  -moz-box-shadow:none !important;
+  box-shadow:none !important;
+  -webkit-box-shadow:none !important;
+  -moz-box-shadow:none !important;
+  box-shadow:none !important;
+  -webkit-border-radius:0 !important;
+  -moz-border-radius:0 !important;
+  border-radius:0 !important;
   background:#ffffff;
   border:1px solid #d3d2cd;
   font-size:12px;
@@ -2136,6 +2115,7 @@ p#date_drm {
   height:35px;
   padding:0 13px;
   vertical-align:middle;
+  text-align:center;
 }
 .vracs #table_paiements thead th + th, .vracs #table_retiraisons thead th + th, .vracs #table_lots table thead th + th, .vracs #recap_transaction .lot table thead th + th { border-left:0 none; }
 .vracs #table_paiements thead th.dernier, .vracs #table_retiraisons thead th.dernier, .vracs #table_lots table thead th.dernier, .vracs #recap_transaction .lot table thead th.dernier {
@@ -2151,6 +2131,7 @@ p#date_drm {
   border-left:1px solid #e5e4e4;
   border-right:1px solid #e5e4e4;
   height:35px;
+  font-weight:normal;
   padding:0 13px;
   vertical-align:middle;
   text-align:center;
@@ -2180,6 +2161,7 @@ p#date_drm {
 }
 .ielt8 .vracs #table_paiements tfoot td, .ielt8 .vracs #table_retiraisons tfoot td, .ielt8 .vracs #table_lots table tfoot td, .ielt8 .vracs #recap_transaction .lot table tfoot td { border-top:0 none; }
 .vracs #table_paiements tfoot td + th, .vracs #table_retiraisons tfoot td + th, .vracs #table_lots table tfoot td + th, .vracs #recap_transaction .lot table tfoot td + th { border-left:0 none; }
+.vracs li #table_paiements { margin-top:0; }
 .vracs #table_retiraisons thead th:first-child { text-align:left; }
 .vracs #table_lots .lot table { width:auto; }
 .vracs .popup_form .table_container { zoom:1; }
@@ -2278,6 +2260,10 @@ p#date_drm {
   height:14px;
   padding:5px 5px 5px 25px !important;
   width:330px;
+}
+.vracs #mon_compte .ui-autocomplete-input {
+  padding:0 4px;
+  width:220px;
 }
 .vracs .ui-button { display:none; }
 .vracs h2 {
@@ -2387,6 +2373,10 @@ p#date_drm {
   font-weight:bold;
   text-transform:none;
   width:210px;
+  vertical-align:top;
+}
+.vracs .section_label_strong_bloc > label + .msg_aide {
+  margin:0 10px 0 -30px;
   vertical-align:top;
 }
 .vracs .section_label_strong_bloc .radio_list li {
@@ -2780,6 +2770,7 @@ p#date_drm {
 }
 .vracs .visualisation_contrat #solder_contrat:hover, .vracs .visualisation_contrat #solder_contrat:focus { background-color:#99af00; }
 .vracs #recap_saisie #recap_transaction .lots {
+  background:#ffffff;
   font-size:14px;
   font-weight:normal;
 }

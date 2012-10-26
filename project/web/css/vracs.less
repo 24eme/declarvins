@@ -20,6 +20,7 @@
         margin: 15px 0 0;
         width: 530px;
 
+
         thead
         {
             th
@@ -30,6 +31,7 @@
                 height: 35px;
                 padding: 0 13px;
                 vertical-align: middle;
+                text-align: center;
 
                 & + th { border-left: 0 none; }
 
@@ -56,6 +58,7 @@
                     border-left: 1px solid @couleur-a10;
                     border-right: 1px solid @couleur-a10;
                     height: 35px;
+                    font-weight: normal;
                     padding: 0 13px;
                     vertical-align: middle;
                     text-align: center;
@@ -94,6 +97,8 @@
             }
         }
     }
+
+    li #table_paiements { margin-top: 0; }
 
     #table_retiraisons
     {
@@ -234,6 +239,12 @@
         width: 330px;
     }
 
+    #mon_compte .ui-autocomplete-input
+    {
+        padding: 0 4px;
+        width: 220px;
+    }
+
     .ui-button { display: none; }
 
     h2
@@ -348,6 +359,12 @@
             text-transform: none;
             width : 210px; 
             vertical-align: top;
+
+            & + .msg_aide
+            { 
+                margin: 0 10px 0 -30px;
+                vertical-align: top;
+            }
         }
 
        .radio_list
@@ -824,6 +841,7 @@
     {
         .lots
         {
+            background: @couleur-e2;
             font-size: 14px;
             font-weight: normal;
             

@@ -802,6 +802,13 @@ a
 		font-size: 22px;
 		font-weight: normal;
 		margin: 0 0 20px;
+
+		.btn_ajouter
+		{
+			font-size: 14px;
+			font-weight: none;
+			margin: 0 0 0 30px;
+		}
 	}
 	
 	.intro
@@ -955,25 +962,6 @@ a
 .btn_popup_trigger { .invisible; }
 
 
-/* Dialog */
-.ui-dialog { background: #f4f4f4; border: 10px solid #fff; .box-shadow(0 0 5px #000); padding: 15px; }
-.ui-dialog .ui-dialog-titlebar { margin: 0 0 15px; overflow: hidden; position: relative; width: 100%; }
-.ui-dialog .ui-dialog-titlebar .ui-dialog-title 
-{
-	color: @couleur-b3;
-	display: block;
-	font-size: 20px;
-	font-weight: normal;
-	padding: 0 20px 0 0;
-}
-.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close
-{
-	position: absolute;
-	right: 0;
-	top: 0;
-}
-.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close .ui-icon { background: url(../images/boutons/btn_fermer_popup.png) 0 0 no-repeat; height: 14px; width: 13px; }
-.ui-dialog .ui-dialog-content { zoom: 1; }
 
 /* Formulaire */
 .popup_form
@@ -1121,6 +1109,8 @@ a
 	
 input.ui-autocomplete-input
 {
+	.box-shadow(none !important);
+	.border-radius(0 !important);
 	background: #fff;
 	border: 1px solid #d3d2cd;
 	font-size: 12px;

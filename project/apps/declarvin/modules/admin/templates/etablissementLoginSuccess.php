@@ -1,4 +1,4 @@
-<?php include_component('global', 'navBack', array('active' => 'operateurs', 'subactive' => 'etablissement')); ?>
+ <?php include_component('global', 'navBack', array('active' => 'operateurs', 'subactive' => 'etablissement')); ?>
 <section id="contenu">
 <div class="clearfix" id="application_dr">
 	<h1>Connexion</h1>

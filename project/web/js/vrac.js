@@ -567,6 +567,7 @@
     var callbackAddTemplate = function(bloc) 
     {
    	 	bloc.initBlocCondition();
+   	 	bloc.find('.datepicker').datepicker(dpConfig); 
     }
 
 	$(document).ready(function()

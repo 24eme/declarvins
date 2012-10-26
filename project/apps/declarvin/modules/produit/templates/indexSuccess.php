@@ -2,7 +2,7 @@
 <section id="contenu">
 	<section id="principal"  class="produit">
 	<div class="clearfix" id="application_dr">
-	    <h1>Produits &nbsp;<a href="<?php echo url_for('produit_nouveau') ?>" class="btn_ajouter"></a></h1>
+	    <h1>Produits &nbsp;<a href="<?php echo url_for('produit_nouveau') ?>" class="btn_ajouter">Ajouter</a></h1>
 	    <div class="tableau_ajouts_liquidations">
 	    <table class="tableau_recap">
             <thead>
