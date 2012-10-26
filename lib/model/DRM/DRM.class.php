@@ -308,6 +308,10 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         		}
         	}
         }
+        if ($this->isNew()) {
+        	$etablissement = $this->getEtablissement();
+        	$this->etablissement_num_interne = $etablissement->num_interne;
+        }
 
         return parent::save();
     }

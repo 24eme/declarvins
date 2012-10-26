@@ -11,12 +11,12 @@ class DRMDetail extends BaseDRMDetail {
     	return ConfigurationClient::getCurrent()->declaration->certifications->get($this->getCertification()->getKey())->detail;
     }
 
-    public function getLibelle($format = "%g% %a% %l% %co% %ce% <span class=\"labels\">%la%</span>", $label_separator = ", ") {
+    public function getFormattedLibelle($format = "%g% %a% %l% %co% %ce% <span class=\"labels\">%la%</span>", $label_separator = ", ") {
 
     	return $this->getCepage()->getConfig()->getLibelleFormat($this->labels->toArray(), $format, $label_separator);
     }
 
-    public function getCode($format = "%g%%a%%l%%co%%ce%") {
+    public function getFormattedCode($format = "%g%%a%%l%%co%%ce%") {
 
     	return $this->getCepage()->getConfig()->getCodeFormat($format);
     }
@@ -93,9 +93,8 @@ class DRMDetail extends BaseDRMDetail {
     	return ($key) ? $key : DRM::DEFAULT_KEY;
     }
 
-	public function getLabelsLibelle($format = "%la%", $label_separator = ", ") {
-        
-        return $this->getConfig()->getDocument()->formatLabelsLibelle($this->labels->toArray(), $format, $label_separator);
+	public function getLabelsLibelle($format = "%la%", $separator = ", ") {
+      	return str_replace("%la%", implode($separator, $this->libelles_label), $format);
     } 
 
     
@@ -104,6 +103,13 @@ class DRMDetail extends BaseDRMDetail {
         $this->total_entrees = $this->getTotalByKey('entrees');
         $this->total_sorties = $this->getTotalByKey('sorties');
         $this->total = $this->total_debut_mois + $this->total_entrees - $this->total_sorties;
+        $this->code = $this->getFormattedCode();
+        $this->libelle = $this->getFormattedLibelle("%g% %a% %l% %co% %ce%");
+        $labelLibelles = $this->getConfig()->getDocument()->getLabelsLibelles($this->labels->toArray());
+        foreach ($labelLibelles as $label => $libelle) {
+        	$this->libelles_label->add($label, $libelle);
+        }
+        $this->cvo->taux = $this->getDroit(DRMDroits::DROIT_CVO)->getTaux();
     }
     
     private function getTotalByKey($key) {
