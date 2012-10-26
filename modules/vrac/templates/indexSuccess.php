@@ -3,7 +3,7 @@
     <div id="principal" class="produit">
         <h1>
             Contrats interprofessionnel<?php if(!$etablissement): ?> en cours de saisis<?php endif; ?> &nbsp;
-            <a class="btn_ajouter" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>"></a>
+            <a class="btn_ajouter" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>">Ajouter</a>
         </h1>
         <?php if (!$etablissement): ?>
     	<div id="mon_compte">

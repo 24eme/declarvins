@@ -1,5 +1,10 @@
 <div id="header">
-   <center>
+	<div id="logo">
+		<img src="/images/visuels/logo_inter_rhone.png" alt="Inter Rhône" />
+		<img src="/images/visuels/logo_inter_vins.png" alt="Inter Vins" />
+		<img src="/images/visuels/logo_vins_provence.png" alt="Vins de Provence" />
+	</div>
+	<center>
 		<h1>Déclaration de transaction</h1>
 	</center>
 	<table>

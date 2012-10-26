@@ -125,22 +125,24 @@
 			<?php endif; ?>
 			<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_ECHEANCIER): ?>
 			<li>
-				<?php foreach ($vrac->paiements as $paiement): ?>
-				<div>
-					<div>
-						<span>Date :</span>
-						<span><?php echo $paiement->date ?></span>
-					</div>
-					<div>
-						<span>Volume :</span>
-						<span><?php echo $paiement->volume ?> €</span>
-					</div>
-					<div>
-						<span>Montant :</span>
-						<span><?php echo $paiement->montant ?> €</span>
-					</div>
-				</div>
-				<?php endforeach; ?>
+				<table id="table_paiements">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Volume</th>
+							<th>Montant</th>
+		            	</tr>
+		            </thead>
+		            <tbody>
+						<?php foreach ($vrac->paiements as $paiement): ?>
+						<tr>
+							<td><?php echo $paiement->date ?></td>
+							<td><?php echo $paiement->volume ?> HL</td>
+							<td><?php echo $paiement->montant ?> €</td>
+						</tr>
+						<?php endforeach; ?>
+		            </tbody>
+		        </table>
 			</li>
 			<?php endif; ?>
 			<?php if(!is_null($vrac->delai_paiement)): ?>
@@ -208,7 +210,7 @@
 					</div>
 					<?php endif; ?>
 
-					<?php if($lot->millesimes): ?>
+					<?php if($lot->millesimes[0]->annee): ?>
 					<div class="millesimes">
 						<p><span>Assemblage de millésimes :</span></p>
 
@@ -233,11 +235,15 @@
 					
 					<?php if (!is_null($lot->metayage)): ?>
 					<p><span>Métayage :</span> <?php echo ($lot->metayage)? 'Oui' : 'Non'; ?></p>
-					<p><span>Nom du bailleur et volumes :</span> <?php echo $lot->bailleur ?></p>	
+						<?php if($lot->bailleur): ?>	
+						<p><span>Nom du bailleur et volumes :</span> <?php echo $lot->bailleur ?></p>	
+						<?php endif; ?>
 					<?php endif; ?>
+					
 					<?php if ($lot->degre): ?>
 					<p><span>Degré :</span> <?php echo $lot->degre ?></p>
 					<?php endif; ?>
+					
 					<?php if (!is_null($lot->presence_allergenes)): ?>
 					<p><span>Présence d'allergènes :</span> <?php echo ($lot->presence_allergenes)? 'Oui' : 'Non'; ?></p>
 					<?php endif; ?>

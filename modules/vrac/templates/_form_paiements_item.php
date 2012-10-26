@@ -1,7 +1,7 @@
 <tr>
     <td>
         <?php echo $form['date']->renderError() ?>
-        <?php echo $form['date']->render() ?>
+        <?php echo $form['date']->render(array('class' => 'datepicker')) ?>
     </td>
     <td>
         <?php echo $form['volume']->renderError() ?>

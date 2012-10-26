@@ -62,14 +62,14 @@
             <div class="section_label_strong">
                 <?php echo $form['date_debut_retiraison']->renderError() ?>
                 <?php echo $form['date_debut_retiraison']->renderLabel() ?>
-                <?php echo $form['date_debut_retiraison']->render() ?>
+                <?php echo $form['date_debut_retiraison']->render(array('class' => 'datepicker')) ?>
                 &nbsp;(jj/mm/aaaa)
             </div>
             <?php endif; ?>
             <div class="section_label_strong">
                 <?php echo $form['date_limite_retiraison']->renderError() ?>
                 <?php echo $form['date_limite_retiraison']->renderLabel() ?>
-                <?php echo $form['date_limite_retiraison']->render() ?>
+                <?php echo $form['date_limite_retiraison']->render(array('class' => 'datepicker')) ?>
                 &nbsp;(jj/mm/aaaa)
             </div>
             <?php if(isset($form['clause_reserve_retiraison'])): ?>

@@ -4,7 +4,7 @@
 	}
 	body {
 		font-family: sans-serif;
-		margin: 110px 0 20px 0;
+		margin: 0;
 		font-size: 9pt;
 	}
 
@@ -24,18 +24,15 @@
 
 	#header,
 	#footer {
-		position: fixed;
-		left: 0;
-		right: 0;
+	
 	}
 	#header {
-		top: 0;
 		color: #000;
-		border-bottom: 1px solid #000;
+		padding: 0 0 30px;
 	}
 
 	#header h1 {
-		font-size: 11pt;
+		font-size: 13pt;
 		margin: 0;
 	}
 
@@ -68,8 +65,6 @@
 	
 
 	#footer {
-		bottom: 0;
-		border-top: 1px solid #000;
 	}
 	#footer table {
 		width: 100%;
@@ -245,6 +240,27 @@
 		border: 0;
 	}
 
+	/* Tableau simple */
+	.tableau_simple
+	{
+		border-collapse: collapse;
+		margin: 15px 0;
+	}
+
+	.tableau_simple th,
+	.tableau_simple td
+	{
+		border: 1px solid #333;
+		padding: 5px 10px;
+		text-align: center;
+	}
+
+	.tableau_simple th
+	{
+		background: #eee;
+	}
+
+	/* Lots */
 	#lots { padding: 15px; }
 
 	#lots table
