@@ -4,7 +4,7 @@ class alertesDrmsManquantesTask extends sfBaseTask {
 
     protected function configure() {
         $this->addArguments(array(
-            new sfCommandArgument('campagne', sfCommandArgument::REQUIRED, 'Campagne au format AAAA-AAAA'),
+            new sfCommandArgument('campagne', sfCommandArgument::OPTIONAL, 'Campagne au format AAAA-AAAA'),
         ));
         $this->addOptions(array(
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name'),
@@ -30,15 +30,16 @@ EOF;
         // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-        
+        $campagne = null;
         if (isset($arguments['campagne']) && !empty($arguments['campagne'])) {
-			$drmsManquantes = new DRMsManquantes($arguments['campagne']);
-			$alertes = $drmsManquantes->getAlertes();
-			foreach ($alertes as $alerte) {
-				$alerte->save();
-				$this->logSection('drm_manquante', $alerte->_id.' was created');
-			}
-    	}
+        	$campagne = $arguments['campagne'];
+        }
+		$drmsManquantes = new DRMsManquantes();
+		$alertes = $drmsManquantes->getAlertes($campagne);
+		foreach ($alertes as $alerte) {
+			$alerte->save();
+			$this->logSection('drm_manquante', $alerte->_id.' was created');
+		}
     }
 
 }
