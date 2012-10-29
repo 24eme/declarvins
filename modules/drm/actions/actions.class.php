@@ -203,7 +203,7 @@ class drmActions extends sfActions
 	  $this->drm->save();
 
     if ($this->drm->needNextVersion() || $this->drmValidation->hasErrors()) {
-      $drm_rectificative_suivante = $this->drm->generateVersionSuivante();
+      $drm_rectificative_suivante = $this->drm->generateNextVersion();
       if ($drm_rectificative_suivante) {
           $drm_rectificative_suivante->save();
       }
@@ -247,7 +247,7 @@ class drmActions extends sfActions
     $drm_rectificative = $drm->generateRectificative();
     $drm_rectificative->save();
 
-    return $this->redirect('drm_init', $drm);
+    return $this->redirect('drm_init', $drm_rectificative);
   }
 
 

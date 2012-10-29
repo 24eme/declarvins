@@ -471,8 +471,8 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     	if (!$this->isRectificative()) {
     		return false;
     	}
-    	if ($master = $this->getDRMMaster()) {
-    		return ($master->getPrecedente()->_id != $this->getPrecedente()->_id)? true : false;
+    	if ($mother = $this->getMother()) {
+    		return ($mother->getPrecedente()->_id != $this->getPrecedente()->_id)? true : false;
     	} else {
     		return false;
     	}
@@ -536,7 +536,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
 
     public function isRectifiable() {
         
-        return false;
+        return $this->version_document->isRectifiable();
     }
 
     public function getModificative() {

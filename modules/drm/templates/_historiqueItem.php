@@ -1,6 +1,10 @@
 <tr class="<?php if($alt): ?>alt<?php endif; ?>">
     <td>
-        <?php echo $drm->periode ?>
+        <?php if($drm->isMaster()): ?>
+        <strong><?php echo sprintf('%s %s', $drm->periode, $drm->version) ?></strong>
+        <?php else: ?>
+        <?php echo sprintf('%s %s', $drm->periode, $drm->version) ?>
+        <?php endif; ?>
     </td>
     <td>
     <?php if ($drm->isNew()): ?>

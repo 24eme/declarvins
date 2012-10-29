@@ -93,8 +93,9 @@ class DRMDetail extends BaseDRMDetail {
     	return ($key) ? $key : DRM::DEFAULT_KEY;
     }
 
-	public function getLabelsLibelle($format = "%la%", $separator = ", ") {
-      	return str_replace("%la%", implode($separator, $this->libelles_label), $format);
+	  public function getLabelsLibelle($format = "%la%", $separator = ", ") {
+
+      	return str_replace("%la%", implode($separator, $this->libelles_label->toArray()), $format);
     } 
 
     
