@@ -264,7 +264,7 @@ class VersionDocument
         }
         
         $next_document_rectificative = $next_document->generateRectificative();
-        $this->document->listenerGenerateNextVersion();
+        $this->document->listenerGenerateNextVersion($next_document_rectificative);
 
         return $next_document_rectificative;
     }
@@ -283,7 +283,7 @@ class VersionDocument
         }
         
         $next_document_modificative = $next_document->generateModificative();
-        $this->document->listenerGenerateNextVersion();
+        $this->document->listenerGenerateNextVersion($next_document_modificative);
 
         return $next_document_modificative;
     }
