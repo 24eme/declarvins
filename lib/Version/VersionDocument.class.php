@@ -36,7 +36,7 @@ class VersionDocument
             return (int) $matches[1];
         }
 
-        return 0;
+        return null;
     }
 
     public static function buildModificative($version) {
@@ -45,7 +45,7 @@ class VersionDocument
             return (int) $matches[1];
         }
 
-        return 0;
+        return null;
     }
 
     protected function buildVersionDocument($rectificative, $modificative) {
