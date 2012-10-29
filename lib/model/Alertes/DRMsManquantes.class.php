@@ -17,7 +17,7 @@ class DRMsManquantes
 	{
 		if (!preg_match(self::REGEXP_CAMPAGNE, $campagne)) {
 			throw new sfException('La campagne doit être au format AAAA-AAAA');
-		}
+		}	
 		$explosedCampagne = explode(self::CAMPAGNE_DELIMITER, $campagne);
 		if (($explosedCampagne[0] + 1) != $explosedCampagne[1]) {
 			throw new sfException('La campagne n\'est pas valide');
@@ -85,6 +85,10 @@ class DRMsManquantes
 		$campagne_year_end = $years[1];
 		$campagne_month_start = self::START_MONTH_CAMPAGNE;
 		$campagne_month_end = self::END_MONTH_CAMPAGNE;
+		if ($campagne_year_end.$campagne_month_end > date('Ym')) {
+			$campagne_month_end = date('m');
+			$campagne_year_end = date('Y');
+		}
 		$alertes = array();
 		$campagnesCompletes = $this->getCampagnesCompletes($campagne_year_start, $campagne_month_start, $campagne_year_end, $campagne_month_end);
 		foreach ($this->etablissements->rows as $etablissement) {
@@ -143,14 +147,22 @@ class DRMsManquantes
 	
 	private function getCampagnesCompletes($year_start, $month_start, $year_end, $month_end)
 	{
+		 
 		$campagnes = array();
-		for ($i = $month_start; $i <= 12; $i++) {
-			$month = sprintf('%02d', $i);
-			$campagnes[] = $year_start.$month;
-		}
-		for ($i = 1; $i <= $month_end; $i++) {
-			$month = sprintf('%02d', $i);
-			$campagnes[] = $year_end.$month;
+		if ($year_end == $year_start) {
+			for ($i = $month_start; $i <= $month_end; $i++) {
+				$month = sprintf('%02d', $i);
+				$campagnes[] = $year_start.$month;
+			}
+		} else {
+			for ($i = $month_start; $i <= 12; $i++) {
+				$month = sprintf('%02d', $i);
+				$campagnes[] = $year_start.$month;
+			}
+			for ($i = 1; $i <= $month_end; $i++) {
+				$month = sprintf('%02d', $i);
+				$campagnes[] = $year_end.$month;
+			}
 		}
 		rsort($campagnes);
 		return $campagnes;
