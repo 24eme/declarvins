@@ -239,12 +239,12 @@ class VersionDocument
     {
         if($this->document->isModificative()) {
 
-            return $this->document->generateModificativeSuivante();
+            return $this->generateModificativeSuivante();
         }
 
         if($this->document->isRectificative()) {
 
-            return $this->document->generateRectificativeSuivante();
+            return $this->generateRectificativeSuivante();
         }
 
         return false;
