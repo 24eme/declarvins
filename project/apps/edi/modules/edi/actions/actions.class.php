@@ -79,7 +79,14 @@ class ediActions extends sfActions
 
   public function executeViewDRM(sfWebRequest $request) 
   {
-    $drm = DRMClient::getInstance()->findByIdentifiantCampagneAndRectificative($request->getParameter('identifiant'), $request->getParameter('annee').'-'.$request->getParameter('mois'), $request->getParameter('rectificative'));
+    $drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriodeAndRectificative(
+        $request->getParameter('identifiant'), 
+        DRMClient::getInstance()->buildPeriode($request->getParameter('annee'), $request->getParameter('mois')), 
+        $request->getParameter('rectificative')
+    );
+
+    $this->forward404Unless($drm);
+
     return $this->renderCsvDRMs(array($drm));
   }
 
@@ -112,7 +119,7 @@ class ediActions extends sfActions
     $this->response->setContentType('text/plain');
     $this->historiques = array();
     foreach($this->getUser()->getCompte()->getTiersCollection() as $tiers) {
-      $this->historiques[] = new DRMHistorique ($tiers->identifiant);
+      $this->historiques[] = new DRMHistorique($tiers->identifiant);
     }
   }
   public function executeListContrat(sfWebRequest $request) 
