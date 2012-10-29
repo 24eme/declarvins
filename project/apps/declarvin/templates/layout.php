@@ -20,6 +20,9 @@
             .rectifier {
                 outline: 1px dotted #ff0000 !important;
             }
+            .versionner {
+                outline: 1px dotted #ff0000 !important;
+            }
         </style>
 
         <?php include_stylesheets() ?>
