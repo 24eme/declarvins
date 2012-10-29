@@ -16,17 +16,17 @@ class DRMCampagneValidator extends sfValidatorBase {
         if (!$values['years']) {
         	throw new sfValidatorErrorSchema($this, array($this->getOption('years') => new sfValidatorError($this, 'required')));
         }
-        $campagne = sprintf('%04d%02d', $values['years'], $values['months']);
-        if ($campagne > date('Ym')) {
+        $periode = sprintf('%04d%02d', $values['years'], $values['months']);
+        if ($periode > date('Ym')) {
         	throw new sfValidatorErrorSchema($this, array($this->getOption('years') => new sfValidatorError($this, 'impossible')));
         }
-        $campagne = sprintf('%04d-%02d', $values['years'], $values['months']);
+        $periode = sprintf('%04d-%02d', $values['years'], $values['months']);
         
-        $drm = DRMClient::getInstance()->findByIdentifiantCampagneAndRectificative($this->getOption('etablissement'), $campagne);
+        $drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($this->getOption('etablissement'), $periode);
         if ($drm) {
             throw new sfValidatorErrorSchema($this, array($this->getOption('months') => new sfValidatorError($this, 'invalid')));
         }       
-        $values['campagne'] = $campagne;
+        $values['campagne'] = $periode;
         return $values;
     }
 

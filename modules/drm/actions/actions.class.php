@@ -57,14 +57,12 @@ class drmActions extends sfActions
   public function executeDelete(sfWebRequest $request) {
       $etablissement = $this->getRoute()->getEtablissement();
       $drm = $this->getRoute()->getDRM();
-      if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$drm->isSupprimableOperateur()) {
-        throw new sfException('Vous ne pouvez pas supprimer cette DRM');
-      } elseif(!$drm->isSupprimable()) {
-        throw new sfException('Vous ne pouvez pas supprimer cette DRM');
+      if (!$drm->isNew() && ($drm->isSupprimable() || ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->isSupprimableOperateur()))) {
+      	$drm->delete();
+      	$this->redirect('drm_mon_espace', $etablissement);
       }
-      
-      $drm->delete();
-      $this->redirect('drm_mon_espace', $etablissement);
+      throw new sfException('Vous ne pouvez pas supprimer cette DRM');
+    
   }
   
  /**
@@ -77,7 +75,7 @@ class drmActions extends sfActions
       $this->etablissement = $this->getRoute()->getEtablissement();
       $this->historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
       $this->formCampagne = new DRMCampagneForm($this->etablissement->identifiant);
-      $this->hasDrmEnCours = false;
+      $this->hasDrmEnCours = $this->historique->hasDRMInProcess();
       if ($request->isMethod(sfWebRequest::POST)) {
 	  	if ($this->hasDrmEnCours) {
 	  		throw new sfException('Une DRM est déjà en cours de saisie.');
