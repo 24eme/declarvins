@@ -154,7 +154,9 @@ class VersionDocument
     }
 
     public function isMaster() {
-
+		if (is_null($this->document->getMaster())) {
+			return true;
+		}
         return $this->document->getMaster()->get('_id') == $this->document->get('_id');
     }
 
