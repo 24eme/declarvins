@@ -4,6 +4,7 @@ class DRMHistorique {
 
     protected $identifiant = null;
     protected $drms = null;
+    protected $has_drm_process = null;
 
     const VIEW_INDEX_ETABLISSEMENT = 0;
     const VIEW_CAMPAGNE = 1;
@@ -22,8 +23,8 @@ class DRMHistorique {
     }
 
     public function hasDRMInProcess() {
-
-        return false;
+        
+        return $this->has_drm_process;
     }
 
     public function getLastDRM() {
@@ -63,6 +64,8 @@ class DRMHistorique {
 
         $drms = DRMClient::getInstance()->viewByIdentifiant($this->identifiant);
 
+        $this->has_drm_process = false;
+
         foreach($drms as $drm) {
             $key = $drm[self::VIEW_PERIODE].DRMClient::getInstance()->getRectificative($drm[self::VIEW_VERSION]);
 
@@ -72,6 +75,11 @@ class DRMHistorique {
             }
 
             $this->drms[$key] = $this->build($drm);
+
+            if (!$this->drms[$key]->valide->date_saisie) {
+                var_dump($this->drms[$key]->valide->date_saisie);
+                $this->has_drm_process = true;
+            }
         }
     }
 
@@ -83,7 +91,7 @@ class DRMHistorique {
         $drm->version = $ligne[self::VIEW_VERSION];
         $drm->mode_de_saisie = $ligne[self::VIEW_MODE_DE_DAISIE];
         $drm->valide = new stdClass();
-        $drm->valide->date_saisie = $ligne[self::VIEW_STATUT_DOUANE_ENVOI];
+        $drm->valide->date_saisie = $ligne[self::VIEW_STATUT];
         $drm->douane = new stdClass();
         $drm->douane->envoi = $ligne[self::VIEW_STATUT_DOUANE_ENVOI];
         $drm->douane->accuse = $ligne[self::VIEW_STATUT_DOUANE_ACCUSE];
