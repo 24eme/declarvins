@@ -562,7 +562,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     public function getMasterVersionOfRectificative() {
         return DRMClient::getInstance()->getMasterVersionOfRectificative($this->identifiant, 
                                                                  $this->periode, 
-                                                                 self::buildVersion($this->getRectificative() - 1, 0));
+                                                                 $this->getRectificative() - 1);
     }
 
     public function needNextVersion() {
