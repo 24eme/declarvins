@@ -5,6 +5,7 @@ class VersionDocument
     protected $document;
     protected $mother = null;
     protected $diff_with_mother = null;
+    protected $master = null;
 
     public function __construct(acCouchdbDocument $document) {
         $this->document = $document;
@@ -145,8 +146,11 @@ class VersionDocument
     }
 
     public function getMaster() {
+        if(is_null($this->master)) {
+            $this->master = $this->document->findMaster();
+        }
 
-        return $this->document->findMaster();
+        return $this->master;
     }
 
     public function isMaster() {
@@ -172,12 +176,12 @@ class VersionDocument
     public function needNextVersion() {
         if($this->document->isModificative()) {
 
-            return $this->document->needNextModificative();
+            return $this->needNextModificative();
         }
 
         if($this->document->isRectificative()) {
 
-            return $this->document->needNextRectificative();
+            return $this->needNextRectificative();
         }
 
         return false;      
