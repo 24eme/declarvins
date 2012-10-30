@@ -183,7 +183,7 @@
 			<?php $nb_lignes = 3 + $nb_cuves ?>
 			<?php if($nb_millesimes > 0) $nb_lignes += 1 + $nb_millesimes; ?>
 			<tr>
-				<th rowspan="<? echo $nb_lignes; ?>" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
+				<th rowspan="<?php echo $nb_lignes; ?>" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
 				<th rowspan="<?php echo 1 + $nb_cuves; ?>" class="cuves">Cuves</th>
 				<th>N°</th>
 				<th>Volume</th>
