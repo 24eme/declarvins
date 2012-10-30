@@ -221,7 +221,6 @@ class Configuration extends BaseConfiguration {
     
     public function getConfigurationVracByInterpro($interpro) {
     	if (!$this->vrac->interpro->exist($interpro)) {
-    		//var_dump($interpro);exit;
     		throw new sfException('The configuration object has no vrac configuration for this interpro');
     	}
     	return $this->vrac->interpro->get($interpro);
