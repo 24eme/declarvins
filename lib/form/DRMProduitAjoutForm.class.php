@@ -76,7 +76,7 @@ class DRMProduitAjoutForm extends acCouchdbForm
         if ($this->values['disponible']) {
             $detail->total_debut_mois = $this->values['disponible'];
         }
-
+		$this->_drm->update();
         return $detail;
     }
 

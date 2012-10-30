@@ -308,6 +308,10 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         		}
         	}
         }
+        if ($this->isNew()) {
+        	$etablissement = $this->getEtablissement();
+        	$this->etablissement_num_interne = $etablissement->num_interne;
+        }
 
         return parent::save();
     }
@@ -467,8 +471,8 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     	if (!$this->isRectificative()) {
     		return false;
     	}
-    	if ($master = $this->getDRMMaster()) {
-    		return ($master->getPrecedente()->_id != $this->getPrecedente()->_id)? true : false;
+    	if ($mother = $this->getMother()) {
+    		return ($mother->getPrecedente()->_id != $this->getPrecedente()->_id)? true : false;
     	} else {
     		return false;
     	}
@@ -532,7 +536,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
 
     public function isRectifiable() {
         
-        return false;
+        return $this->version_document->isRectifiable();
     }
 
     public function getModificative() {
@@ -558,7 +562,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     public function getMasterVersionOfRectificative() {
         return DRMClient::getInstance()->getMasterVersionOfRectificative($this->identifiant, 
                                                                  $this->periode, 
-                                                                 self::buildVersion($this->getRectificative() - 1, 0));
+                                                                 $this->getRectificative() - 1);
     }
 
     public function needNextVersion() {

@@ -85,6 +85,8 @@ DRM:
                     type: collection
                     definition:
                       fields:
+                        code: {  }
+                        libelle: {  }
                         total_debut_mois: { type: float }
                         total_entrees: { type: float }
                         total_sorties: { type: float }
@@ -100,6 +102,8 @@ DRM:
                                 type: collection
                                 definition:
                                   fields:
+                                    code: {  }
+                                    libelle: {  }
                                     total_debut_mois: { type: float }
                                     total_entrees: { type: float }
                                     total_sorties: { type: float }
@@ -115,6 +119,8 @@ DRM:
                                             type: collection
                                             definition:
                                               fields:
+                                                code: {  }
+                                                libelle: {  }
                                                 total_debut_mois: { type: float }
                                                 total_entrees: { type: float }
                                                 total_sorties: { type: float }
@@ -130,6 +136,8 @@ DRM:
                                                         type: collection
                                                         definition:
                                                           fields:
+                                                            code: {  }
+                                                            libelle: {  }
                                                             total_debut_mois: { type: float }
                                                             total_entrees: { type: float }
                                                             total_sorties: { type: float }
@@ -145,6 +153,8 @@ DRM:
                                                                     type: collection
                                                                     definition:
                                                                       fields:
+                                                                        code: {  }
+                                                                        libelle: {  }
                                                                         total_debut_mois: { type: float }
                                                                         total_entrees: { type: float }
                                                                         total_sorties: { type: float }
@@ -160,6 +170,8 @@ DRM:
                                                                                 type: collection
                                                                                 definition:
                                                                                   fields:
+                                                                                    code: {  }
+                                                                                    libelle: {  }
                                                                                     total_debut_mois: { type: float }
                                                                                     total_entrees: { type: float }
                                                                                     total_sorties: { type: float }
@@ -175,6 +187,8 @@ DRM:
                                                                                             type: collection
                                                                                             definition:
                                                                                               fields:
+                                                                                                code: {  }
+                                                                                                libelle: {  }
                                                                                                 total_debut_mois: { type: float }
                                                                                                 total_entrees: { type: float }
                                                                                                 total_sorties: { type: float }
@@ -189,6 +203,8 @@ DRM:
                                                                                                         type: collection
                                                                                                         definition:
                                                                                                           fields:
+                                                                                                            code: {  }
+                                                                                                            libelle: {  }
                                                                                                             pas_de_mouvement_check: { type: integer }
                                                                                                             total_debut_mois: { type: float }
                                                                                                             total_entrees: { type: float }
@@ -199,6 +215,16 @@ DRM:
                                                                                                               definition:
                                                                                                                 fields:
                                                                                                                   '*': {  }
+                                                                                                            libelles_label:
+                                                                                                              type: collection
+                                                                                                              definition:
+                                                                                                                fields:
+                                                                                                                  '*': {  }
+                                                                                                            cvo:
+                                                                                                              type: collection
+                                                                                                              definition:
+                                                                                                                fields:
+                                                                                                                  taux: { type: float }
                                                                                                             label_supplementaire: {  }
                                                                                                             vrac:
                                                                                                               type: collection
@@ -329,6 +355,7 @@ DRM:
                   dispense: { type: integer }
                   organisme: {  }
       identifiant: {  }
+      etablissement_num_interne: {  }
       mode_de_saisie: {  }
       interpros:
         type: array_collection

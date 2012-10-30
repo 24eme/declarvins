@@ -16,13 +16,12 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
         return $this->getParent()->getParent();
     }
 
-    public function getLibelle($format = "%g% %a% %l% %co% %ce%") {
+    public function getFormattedLibelle($format = "%g% %a% %l% %co% %ce%") {
 
       return $this->getConfig()->getLibelleFormat(array(), $format);
     }
 
-   	public function getCode($format = "%g%%a%%l%%co%%ce%") {
-
+   	public function getFormattedCode($format = "%g%%a%%l%%co%%ce%") {
       return $this->getConfig()->getCodeFormat();
     }
 
@@ -40,6 +39,10 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
         $this->total_entrees = $this->getTotalByKey('total_entrees');
         $this->total_sorties = $this->getTotalByKey('total_sorties');
         $this->total = $this->get('total_debut_mois') + $this->get('total_entrees') - $this->get('total_sorties');
+        if ($this->exist('code') && $this->exist('libelle')) {
+        	$this->code = $this->getFormattedCode();
+        	$this->libelle = $this->getFormattedLibelle();
+        }
     }
     
     private function getTotalByKey($key) {
