@@ -89,7 +89,7 @@ class adminActions extends sfActions
   	} elseif ($this->type == 'controles') {
   		$object = ControlesClient::getInstance()->retrieveControles();
   	} elseif ($this->type == 'vrac') {
-  		$object = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($this->getUser()->getCompte()->getInterpro());
+  		$object = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($this->getUser()->getCompte()->getGerantInterpro()->getKey());
   	} else {
   		throw new sfException('type unknow');
   	}
