@@ -25,7 +25,7 @@
 			$pdf->page_text($w / 2 - 4, $h - 13, "f {PAGE_NUM} / {PAGE_COUNT}", $font, 8, array(0,0,0));
 		}
 	</script>
-	<?php include_partial('vrac_export/pdfTransactionHeader', array('vrac' => $vrac)); ?>
+	<?php include_partial('vrac_export/pdfTransactionHeader', array('vrac' => $vrac, 'configurationVrac' => $configurationVrac)); ?>
 	<?php include_partial('vrac_export/pdfFooter'); ?>
 	<h2>Soussignes</h2>
 	<?php  if ($configurationVrac->transaction_has_acheteur) $w = '50%'; else $w = '100%'; ?>
