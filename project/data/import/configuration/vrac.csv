@@ -21,4 +21,77 @@ Pour faire application des dispositions de l'article 1587 de code civil, il est 
 Une fois cette double formalité effectuée, la vente du vin est considérée comme parfaite en vertu des dispositions des articles 1583, 1585 et 1587 du code civil.</li>
 </ol>";0
 "IVSE";"producteur:Producteur|negociant:Négoce / Union";"producteur:Producteur|negociant:Négoce / Union";"vrac:Vrac";"bio_certifie:Bio certifié|bio_conversion:Bio en conversion|conventionnel:Conventionnel";"primeurs:Primeurs|chateau_domaine:Château ou domaine";"definitif:Définitif|objectif:D'objectif|acompte:D'acompte";"contrat_pluriannuel:Contrat pluriannuel écrit|echeancier_paiement:Echéancier de paiement|cadre_reglementaire:Cadre règlementaire général";;;;"dti:DTI|papier:Papier|autre:Autre";;"45_jours:45 jours fin de mois|60_jours:60 jours édition facture";;"soussigne:Soussignés|marche:Marché|condition:Conditions|transaction:Transactions / Lots|validation:Validation";"observation_1:Observation 1|observation_2:Observation 2";"aucune:Aucune|producteur_otna:Producteurs 5 %, OTNA ou dérogation|union:Apport contractuel à une union|interne:Contrat interne entre deux filiales";"<p>Le prix s'entend Net : Hors Taxe, hors cotisations, hors transport, hors frais divers et hors courtage éventuels qui seront à régler séparément.</p><p>Si une partie demande renégociation du contrat, elle devra payer à la date de constitution du nouvel accord une avance de 15% à 10 jours du montant total du contrat (ou du montant relatif aux quantités restant à retirer).</p><p>La partie constituée en faute (rupture ou non réalisation) sera redevable d'une indemnité de 15% du montant total du contrat (ou du montant relatif aux quantités restant à payer).</p><p>Le vendeur confirme avoir reçu une proposition écrite de l'acheteur dans les mêmes termes avant la signature de ce contrat.</p>";"<p>En attente des informations complémentaires</p>";1
-"CIVP";"producteur:Producteur|negociant:Négoce / Union";"producteur:Producteur|negociant:Négoce / Union";"vrac:Vrac|raisin:Raisin|mout:Moût";"bio_certifie:Bio certifié|conventionnel:Conventionnel";"château_domaine:Château ou domaine";"definitif:Définitif|objectif:D'objectif|acompte:D'acompte";"echeancier_paiement:Echéancier de facture|cadre_reglementaire:Cadre règlementaire général (acompte 15%)";;;;"dti:DTI|papier:Papier|autre:Autre";;"45_jours:45 jours fin de mois|60_jours:60 jours édition facture";;"soussigne:Soussignés|marche:Marché|condition:Conditions|transaction:Transactions / Lots|validation:Validation";"observation_1:Observation 1|observation_2:Observation 2";"aucune:Aucune|producteur_otna:Producteurs 5 %, OTNA ou dérogation|union:Apport contractuel à une union|interne:Contrat interne entre deux filiales";"<p>Le prix s'entend Net : Hors Taxe, hors cotisations, hors transport, hors frais divers et hors courtage éventuels qui seront à régler séparément.</p><p>Si une partie demande renégociation du contrat, elle devra payer à la date de constitution du nouvel accord une avance de 15% à 10 jours du montant total du contrat (ou du montant relatif aux quantités restant à retirer).</p><p>La partie constituée en faute (rupture ou non réalisation) sera redevable d'une indemnité de 15% du montant total du contrat (ou du montant relatif aux quantités restant à payer).</p><p>Le vendeur confirme avoir reçu une proposition écrite de l'acheteur dans les mêmes termes avant la signature de ce contrat.</p>";"<p>En attente des informations complémentaires</p>";1
+"CIVP";"producteur:Producteur|negociant:Négoce / Union";"producteur:Producteur|negociant:Négoce / Union";"vrac:Vrac|raisin:Raisin|mout:Moût";"bio_certifie:Bio certifié|conventionnel:Conventionnel";"château_domaine:Château ou domaine";"definitif:Définitif|objectif:D'objectif|acompte:D'acompte";"echeancier_paiement:Echéancier de facture|cadre_reglementaire:Cadre règlementaire général (acompte 15%)";;;;"dti:DTI|papier:Papier|autre:Autre";;"45_jours:45 jours fin de mois|60_jours:60 jours édition facture";;"soussigne:Soussignés|marche:Marché|condition:Conditions|transaction:Transactions / Lots|validation:Validation";"observation_1:Observation 1|observation_2:Observation 2";"aucune:Aucune|producteur_otna:Producteurs 5 %, OTNA ou dérogation|union:Apport contractuel à une union|interne:Contrat interne entre deux filiales";"<p>Le prix s'entend Net : Hors Taxe, hors cotisations, hors transport, hors frais divers et hors courtage éventuels qui seront à régler séparément.</p><p>Si une partie demande renégociation du contrat, elle devra payer à la date de constitution du nouvel accord une avance de 15% à 10 jours du montant total du contrat (ou du montant relatif aux quantités restant à retirer).</p><p>La partie constituée en faute (rupture ou non réalisation) sera redevable d'une indemnité de 15% du montant total du contrat (ou du montant relatif aux quantités restant à payer).</p><p>Le vendeur confirme avoir reçu une proposition écrite de l'acheteur dans les mêmes termes avant la signature de ce contrat.</p>";"<table width=""100%"" border=""1"">
+	<tr>
+		<th width=""20%"" align=""left"">Risques</th>
+		<td colspan=""4"">Transfert des risques avec la propriété, sinon au plus tard au 31 août de l'année suivant la récolte, si contrat signé avant cette date, 15 jours après signature si contrat signé après cette date.</td>
+	</tr>
+	<tr>
+		<th width=""20%"" align=""left"">Re-négociation du contrat</th>
+		<td colspan=""4"">Si une partie demande renégociation du contrat, elle devra payer à la date de constitution du nouvel accord une avance de 15 % à 10 jours du montant total du contrat (ou du montant relatif aux quantités restant à retirer).</td>
+	</tr>
+	<tr>
+		<th width=""20%"" align=""left"">Proposition écrite</th>
+		<td colspan=""4"">Le vendeur confirme avoir reçu une proposition écrite de l'acheteur dans les mêmes termes avant la signature de ce contrat.</td>
+	</tr>
+	<tr>
+		<th width=""20%"" align=""left"">CVO (ht)</th>
+		<td align=""center"">CPL<br />6,10 €/hl</td>
+		<td align=""center"">CPSV<br />4,10 €/hl</td>
+		<td align=""center"">CP et CPF<br />3,10 €/hl</td>
+		<td align=""center"">CAP et CVP<br />2,30 €/hl</td>
+	</tr>
+	<tr>
+		<td colspan=""5"" align=""right"">La CVO est payée en totalité par le producteur, facturée à partir des DRM par le CIVP (Hors Taxe, TVA applicable). Le producteur en refacture la moitié au négociant, conformément aux accords interprofessionnels.</td>
+	</tr>
+</table>
+<br /><br />
+<table width=""100%"" border=""1"">
+	<tr>
+		<th align=""left"">Produit</th>
+		<th align=""left"">Code</th>
+		<th align=""left"">Délai d'information à l'OI de la transaction</th>
+		<th align=""left"">Délais minimum  après réception OI avant délivrance France</th>
+		<th align=""left"">Délais minimum  après réception OI avant délivrance Export</th>
+		<th align=""left"">Délai déclaration de mouvement supplémentaire avant délivrance de vin ROSE (les 3 couleurs pour les CAP) si elle intervient après un délai</th>
+	</tr>
+	<tr>
+		<td>Côtes de Provence</td>
+		<td>CP</td>
+		<td rowspan=""4"">Non demandé</td>
+		<td rowspan=""4"">8 jours ouvrés</td>
+		<td rowspan=""4"">8 jours ouvrés</td>
+		<td rowspan=""4"">8 jours ouvrés si délivrance plus de 12 mois après première déclaration à OI</td>
+	</tr>
+	<tr>
+		<td>Côtes de Provence Fréjus</td>
+		<td>CPF</td>
+	</tr>
+	<tr>
+		<td>Côtes de Provence La Londe</td>
+		<td>CPL</td>
+	</tr>
+	<tr>
+		<td>Côtes de Provence Sainte Victoire</td>
+		<td>CPS</td>
+	</tr>
+	<tr>
+		<td>Coteaux Varois en Provence</td>
+		<td>CVP</td>
+		<td>Non demandé</td>
+		<td>8 jours ouvrés</td>
+		<td>8 jours ouvrés</td>
+		<td>8 jours ouvrés pour vins non conditionnés si délivrance après le 30/06 de la deuxième année suivant la récolte</td>
+	</tr>
+	<tr>
+		<td>Coteaux d'Aix-en-Provence</td>
+		<td>CAP</td>
+		<td>2 jours ouvrés</td>
+		<td>2 jours ouvrés</td>
+		<td>15 jours ouvrés</td>
+		<td>7 jours ouvrés si délivrance plus de 6 mois après première déclaration à OI</td>
+	</tr>
+	<tr>
+		<td colspan=""6"" align=""right"">Un modèle de certificat d'enregistrement de contrat est à transmettre dans les 2 jours ouvrés au CIVP (article 7.2 des Accords Interporfessionnels)</td>
+	</tr>
+</table>";1

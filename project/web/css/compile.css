@@ -891,15 +891,15 @@ a:hover { text-decoration:underline; }
 }
 .popup_form .ligne_form_btn button.btn_valider:hover, .popup_form .ligne_form_btn button.btn_valider:focus, .popup_form .ligne_form_btn a.btn_valider:hover, .popup_form .ligne_form_btn a.btn_valider:focus { background-color:#494949; }
 input.ui-autocomplete-input {
-  -webkit-box-shadow:none !important;
-  -moz-box-shadow:none !important;
-  box-shadow:none !important;
-  -webkit-box-shadow:none !important;
-  -moz-box-shadow:none !important;
-  box-shadow:none !important;
-  -webkit-border-radius:0 !important;
-  -moz-border-radius:0 !important;
-  border-radius:0 !important;
+  -webkit-box-shadow:none;
+  -moz-box-shadow:none;
+  box-shadow:none;
+  -webkit-box-shadow:none;
+  -moz-box-shadow:none;
+  box-shadow:none;
+  -webkit-border-radius:0;
+  -moz-border-radius:0;
+  border-radius:0;
   background:#ffffff;
   border:1px solid #d3d2cd;
   font-size:12px;
@@ -2263,6 +2263,21 @@ p#date_drm {
 }
 .vracs #mon_compte .ui-autocomplete-input {
   padding:0 4px;
+  width:220px;
+}
+.vracs #mon_compte .popup_form .ui-autocomplete-input {
+  -webkit-box-shadow:none;
+  -moz-box-shadow:none;
+  box-shadow:none;
+  -webkit-box-shadow:none;
+  -moz-box-shadow:none;
+  box-shadow:none;
+  -webkit-border-radius:0;
+  -moz-border-radius:0;
+  border-radius:0;
+  font-size:12px;
+  height:20px;
+  padding:0 4px !important;
   width:220px;
 }
 .vracs .ui-button { display:none; }

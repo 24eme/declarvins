@@ -239,10 +239,23 @@
         width: 330px;
     }
 
-    #mon_compte .ui-autocomplete-input
+    #mon_compte 
     {
-        padding: 0 4px;
-        width: 220px;
+        .ui-autocomplete-input
+        {
+            padding: 0 4px;
+            width: 220px;
+        }
+        
+        .popup_form .ui-autocomplete-input
+        {
+            .box-shadow(none);
+            .border-radius(0);
+            font-size: 12px;
+            height: 20px;
+            padding: 0 4px !important;
+            width: 220px;
+        }
     }
 
     .ui-button { display: none; }
