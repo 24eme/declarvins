@@ -160,7 +160,7 @@ class validationActions extends sfActions {
         if ($valide) {
         	$this->compte->setStatut(_Compte::STATUT_ACTIVE);
         	if (!$this->compte->login) {
-        		$this->sendRegistration($this->compte);
+        		var_dump($this->sendRegistration($this->compte));exit;
         	}
         } else {
         	$this->compte->setStatut(_Compte::STATUT_INACTIVE);
