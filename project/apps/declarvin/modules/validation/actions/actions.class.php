@@ -160,7 +160,7 @@ class validationActions extends sfActions {
         if ($valide) {
         	$this->compte->setStatut(_Compte::STATUT_ACTIVE);
         	if (!$this->compte->login) {
-        		var_dump($this->sendRegistration($this->compte));exit;
+        		$this->sendRegistration($this->compte);
         	}
         } else {
         	$this->compte->setStatut(_Compte::STATUT_INACTIVE);
@@ -179,6 +179,7 @@ class validationActions extends sfActions {
     
     private function sendRegistration($compte = null) {
     	$this->forward404Unless($compte);
+    	echo $this->getUser()->getCompte()->email;exit;
     	return Email::getInstance()->sendCompteRegistration($compte, $this->getUser()->getCompte()->email);
     }
 
