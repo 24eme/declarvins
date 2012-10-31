@@ -179,8 +179,7 @@ class validationActions extends sfActions {
     
     private function sendRegistration($compte = null) {
     	$this->forward404Unless($compte);
-    	echo $this->getUser()->getCompte()->email;exit;
-    	return Email::getInstance()->sendCompteRegistration($compte, $this->getUser()->getCompte()->email);
+    	return Email::getInstance()->sendCompteRegistration($compte, $compte->email);
     }
 
     public function executeArchiver(sfWebRequest $request) {
