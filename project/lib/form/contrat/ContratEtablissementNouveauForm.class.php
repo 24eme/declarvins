@@ -28,15 +28,6 @@ class ContratEtablissementNouveauForm extends acCouchdbObjectForm {
     
     public function doUpdateObject($values) {
         parent::doUpdateObject($values);
-        /*if (isset($values['type_numero'])) {
-        	if ($values['type_numero'] == 'siret') {
-        		$this->getObject()->setSiret($values['siret_cni']);
-        	} elseif($values['type_numero'] == 'cni') {
-        		$this->getObject()->setCni($values['siret_cni']);
-                        //var_dump($values['siret_cni']);
- var_dump($this->getObject()->toJson()); exit;
-        	}
-        }*/
     }
 	
 }

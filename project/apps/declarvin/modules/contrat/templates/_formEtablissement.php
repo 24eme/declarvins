@@ -91,6 +91,7 @@
 
         <?php echo $form['edi']->renderError() ?>
         <?php echo $form['edi']->renderLabel() ?>
+        <a class="msg_aide" title="Message aide" data-msg="help_popup_mandat_edi" href=""></a>
         <div class="champ_form champ_form_radio_cb" style="display: inline-block">
             <?php echo $form['edi']->render() ?>
         </div>

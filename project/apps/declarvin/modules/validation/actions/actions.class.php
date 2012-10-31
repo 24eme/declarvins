@@ -160,7 +160,7 @@ class validationActions extends sfActions {
         if ($valide) {
         	$this->compte->setStatut(_Compte::STATUT_ACTIVE);
         	if (!$this->compte->login) {
-        		//$this->sendRegistration($this->compte);
+        		$this->sendRegistration($this->compte);
         	}
         } else {
         	$this->compte->setStatut(_Compte::STATUT_INACTIVE);
@@ -179,25 +179,7 @@ class validationActions extends sfActions {
     
     private function sendRegistration($compte = null) {
     	$this->forward404Unless($compte);
-    	$numeroContrat = explode('-', $compte->contrat);
-    	$numeroContrat = $numeroContrat[1];
-    	
-    	$mess = 'Bonjour '.$compte->nom.' '.$compte->prenom.',
-    	
-Votre contrat numéro '.$numeroContrat.' à été validé.
-
-Vous devez créer votre compte en suivant le lien suivant : <a href="'.$this->getController()->genUrl(array('sf_route' => 'compte_nouveau', 'nocontrat' => $numeroContrat), false).'">Création de mon compte</a>
-
-Cordialement,
-
-DéclarVins';
-        $message = Swift_Message::newInstance()
-                ->setFrom(array(sfConfig::get('app_inscription_from_email') => sfConfig::get('app_inscription_from_name')))
-                ->setTo($this->getUser()->getCompte()->email)
-                ->setSubject(sfConfig::get('app_inscription_subject'))
-                ->setBody($mess);        
-        $this->getMailer()->send($message);
-        
+    	return Email::getInstance()->sendCompteRegistration($compte, $this->getUser()->getCompte()->email);
     }
 
     public function executeArchiver(sfWebRequest $request) {

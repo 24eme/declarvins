@@ -84,6 +84,19 @@ class Email {
   					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$contrat->get('_id').'.pdf'));
 		return self::getMailer()->send($message);
     }
+    
+    public function sendCompteRegistration($compte, $destinataire) 
+    {
+        $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
+        $to = array($destinataire);
+        $subject = 'Validation de votre contrat';
+    	$numeroContrat = explode('-', $compte->contrat);
+    	$numeroContrat = $numeroContrat[1];
+        $body = self::getBodyFromPartial('send_compte_registration', array('numero_contrat' => $numeroContrat));
+        $message = self::getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+
+        return self::getMailer()->send($message);
+    }
 
     protected static function getMailer() 
     {

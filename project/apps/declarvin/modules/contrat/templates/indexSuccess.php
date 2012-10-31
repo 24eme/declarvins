@@ -1,7 +1,7 @@
 <section id="contenu">
     <div id="creation_compte">
         <h1>Création de compte</h1>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut arcu sit amet eros pharetra condimentum. Mauris pretium est quis dolor suscipit tristique. Cras sit amet sodales ligula. Suspendisse purus magna, posuere et rhoncus a, lacinia id massa. Proin facilisis dapibus metus. Nunc bibendum, metus laoreet auctor aliquam, orci metus placerat massa, ac tristique elit dui id nisi. Pellentesque et neque in diam sagittis euismod at id purus. Quisque gravida sollicitudin convallis. Integer lectus felis, feugiat vel pulvinar ac, commodo vitae ante. Curabitur tristique ullamcorper nisl vitae mollis. </p>
+		<p>Bienvenue sur Declarvins, la plate forme de saisie commune au CIVP, à Intervins SE à Inter Rhône.<br />Afin de pouvoir profiter des services de la plateforme et de saisir vos documents en ligne, vous devez vous inscrire en suivant les prochaines étapes.<br />Une fois votre inscription terminée, vous recevrez par mail un ‘contrat mandat’ résumant les informations que vous nous avez transmises ainsi que les services et obligations liés à la plateforme Declarvins.<br />Vous devez le signer et le renvoyer à votre interprofession par courrier, fax ou email pouir valider définitivement votre accès à la plateforme.<br />Nos équipes se tiennent à votre disposition pour toute question.<br /><br />Bonne navigation</p>
         <div class="ligne_btn">
 			<a href="<?php echo url_for('@contrat_nouveau') ?>" class="btn_valider"><span>Valider</span></a>
 		</div>

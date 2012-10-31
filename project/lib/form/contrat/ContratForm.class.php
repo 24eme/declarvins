@@ -36,8 +36,7 @@ class ContratForm extends acCouchdbObjectForm {
                                                                              array(),
                                                                              array('invalid' => 'Les adresses e-mail doivent être identique')));
 		
-		$formEtablissements = new ContratEtablissementCollectionForm(null, array(
-	    	'contrat' => $this->getObject(),
+		$formEtablissements = new ContratEtablissementCollectionForm($this->getObject(), array(), array(
 	    	'nbEtablissement'    => $this->getOption('nbEtablissement', 1)
 	  	));
   		$this->embedForm('etablissements', $formEtablissements);
@@ -55,6 +54,18 @@ class ContratForm extends acCouchdbObjectForm {
             $this->getObject()->set('_id', 'CONTRAT-'.$noContrat);
             $this->getObject()->setNoContrat($noContrat);
         }
+    }
+    
+    protected function updateDefaultsFromObject() {
+		parent::updateDefaultsFromObject();
+		$defaults = $this->getDefaults();
+		$defaults['email2'] = $defaults['email'];
+		$etablissements = $defaults['etablissements'];
+		foreach ($etablissements as $key => $value) {
+			$value['siret_cni'] = ($value['siret'])? $value['siret'] : $value['cni'];
+			$defaults['etablissements'][$key] = $value;
+		}
+		$this->setDefaults($defaults);
     }
 
 }

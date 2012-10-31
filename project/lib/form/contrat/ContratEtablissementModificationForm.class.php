@@ -82,7 +82,6 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
 	       'service_douane' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($douaneChoices))),
            'edi' => new ValidatorBoolean(array('required' => true))
        ));
-       
        $xorValidator = new ValidatorXor(null, array('field0' => 'siret', 'field1' => 'cni'),
                array('both' => 'LE SIRET est renseigné, vous ne pouvez pas fournir de CNI',
                      'none' => 'Vous devez renseigner obligatoirement le Siret ou le Cni'));
@@ -90,6 +89,13 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
        $this->mergePostValidator($xorValidator);
        $this->widgetSchema->setNameFormat('contratetablissement[%s]');
        }
+
+
+    protected function updateDefaultsFromObject() {
+       parent::updateDefaultsFromObject();
+       $this->setDefault('telephone', $this->getObject()->getDocument()->getTelephone());
+       $this->setDefault('fax', $this->getObject()->getDocument()->getFax());
+    }
     
     /**
      * 
