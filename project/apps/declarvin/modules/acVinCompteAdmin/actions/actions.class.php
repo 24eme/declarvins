@@ -58,23 +58,9 @@ class acVinCompteAdminActions extends sfActions
   public function executeRedefinitionPassword(sfWebRequest $request)
   {
      $this->forward404Unless($compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
-     $mess = 'Bonjour '.$compte->nom.' '.$compte->prenom.',
-    	
-Une procédure de redéfinition de mot de passe pour votre compte a été demandée.
-
-Vous pouvez le modifier en suivant le lien suivant : <a href="'.$this->getController()->genUrl(array('sf_route' => 'compte_password', 'login' => $compte->login), false).'">Redéfinition de mon mot de passe</a>
-
-Cordialement,
-
-DéclarVins';
-        $message = Swift_Message::newInstance()
-                ->setFrom(array(sfConfig::get('app_password_from_email') => sfConfig::get('app_password_from_name')))
-                ->setTo($this->getUser()->getCompte()->email)
-                ->setSubject(sfConfig::get('app_password_subject'))
-                ->setBody($mess);        
-        $this->getMailer()->send($message);
-        $this->getUser()->setFlash('notice', 'Demande de redéfinition du mot de passe envoyée');
-        $this->redirect(array('sf_route' => 'compte_modification', 'login' => $compte->login));
+     Email::getInstance()->sendRedefinitionMotDePasse($compte, $compte->email);
+     $this->getUser()->setFlash('notice', 'Demande de redéfinition du mot de passe envoyée');
+     $this->redirect(array('sf_route' => 'compte_modification', 'login' => $compte->login));
   }
   
   /**
