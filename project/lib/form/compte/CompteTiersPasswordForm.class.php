@@ -1,5 +1,5 @@
 <?php
-class CompteTiersPasswordForm extends acCouchdbFormDocumentJson {
+class CompteTiersPasswordForm extends acCouchdbObjectForm {
 	
 	public function configure() {
         $this->setWidgets(array(
