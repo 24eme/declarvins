@@ -1,9 +1,17 @@
 <tr class="<?php if($alt): ?>alt<?php endif; ?>">
     <td>
-        <?php if($drm->isMaster()): ?>
-        <strong><?php echo sprintf('%s %s', $drm->periode, $drm->version) ?></strong>
+        <?php if($drm->isMaster()): ?><strong><?php endif; ?>
+
+        <?php if($drm->getRectificative() > 0): ?>
+            <?php echo sprintf('%s R%02d', $drm->periode, $drm->getRectificative()) ?>
         <?php else: ?>
-        <?php echo sprintf('%s %s', $drm->periode, $drm->version) ?>
+            <?php echo sprintf('%s', $drm->periode) ?>
+        <?php endif; ?>
+
+        <?php if($drm->isMaster()): ?></strong><?php endif; ?>
+
+        <?php if($drm->getModificative() > 0): ?>
+            <?php echo sprintf('(M%02d)', $drm->getModificative()) ?>
         <?php endif; ?>
     </td>
     <td>

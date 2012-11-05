@@ -201,9 +201,9 @@ class drmActions extends sfActions
 	  $this->drm->save();
 
     if ($this->drm->needNextVersion() || $this->drmValidation->hasErrors()) {
-      $drm_rectificative_suivante = $this->drm->generateNextVersion();
-      if ($drm_rectificative_suivante) {
-          $drm_rectificative_suivante->save();
+      $drm_version_suivante = $this->drm->generateNextVersion();
+      if ($drm_version_suivante) {
+          $drm_version_suivante->save();
       }
     }
 	  
@@ -246,6 +246,21 @@ class drmActions extends sfActions
     $drm_rectificative->save();
 
     return $this->redirect('drm_init', $drm_rectificative);
+  }
+
+  public function executeModificative(sfWebRequest $request)
+  {
+    $this->etablissement = $this->getRoute()->getEtablissement();
+    $drm = $this->getRoute()->getDRM();
+
+    if ($drm->getHistorique()->hasDRMInProcess()) {
+      throw new sfException('Une DRM est déjà en cours de saisie.');
+    }
+
+    $drm_modificative = $drm->generateModificative();
+    $drm_modificative->save();
+
+    return $this->redirect('drm_init', $drm_modificative);
   }
 
 

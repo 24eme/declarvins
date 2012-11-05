@@ -77,7 +77,6 @@ class DRMHistorique {
             $this->drms[$key] = $this->build($drm);
 
             if (!$this->drms[$key]->valide->date_saisie) {
-                var_dump($this->drms[$key]->valide->date_saisie);
                 $this->has_drm_process = true;
             }
         }

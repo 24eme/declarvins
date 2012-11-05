@@ -6,13 +6,7 @@ class DRMRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
     
     protected function getObjectForParameters($parameters) {
 
-        if (preg_match('/^[0-9]{4}-[0-9]{2}$/', $parameters['periode_version'])) {
-            $campagne = $parameters['periode_version'];
-            $rectificative = null;
-        } elseif(preg_match('/^([0-9]{4}-[0-9]{2})-R([0-9]{2})$/', $parameters['periode_version'], $matches)) {
-            $campagne = $matches[1];
-            $rectificative = $matches[2];
-        } else {
+        if (!preg_match('/^[0-9]{4}-[0-9]{2}/', $parameters['periode_version'])) {
             throw new InvalidArgumentException(sprintf('The "%s" route has an invalid parameter "%s" value "%s".', $this->pattern, 'periode_version', $parameters['periode_version']));
         }
 
@@ -23,7 +17,7 @@ class DRMRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
         }
 
         if (!$this->drm) {
-            throw new sfError404Exception(sprintf('No DRM found for this campagne-rectificative "%s".',  $parameters['periode_version']));
+            throw new sfError404Exception(sprintf('No DRM found for this periode/version "%s".',  $parameters['periode_version']));
         }
 		if (isset($this->options['must_be_valid']) && $this->options['must_be_valid'] === true && !$this->drm->isValidee()) {
 			//throw new sfError404Exception('DRM must be validated');

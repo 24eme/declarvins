@@ -13,7 +13,16 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
 
     public function  __construct() {
         parent::__construct();   
-        $this->version_document = new VersionDocument($this);
+        $this->initDocuments();
+    }
+
+    public function __clone() {
+        parent::__clone();
+        $this->initDocuments();
+    }   
+
+    protected function initDocuments() {
+       $this->version_document = new VersionDocument($this); 
     }
 
     public function constructId() {
@@ -679,5 +688,4 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         }
     }
     /**** FIN DE VERSION ****/
-    
 }

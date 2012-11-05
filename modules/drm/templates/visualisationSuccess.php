@@ -17,7 +17,7 @@
         <?php if ($drm_suivante && $drm_suivante->isRectificative() && !$drm_suivante->isValidee()): ?>
             <div class="vigilance_list">
                 <ul>
-                    <li><?php echo MessagesClient::getInstance()->getMessage('msg_rectificatif_suivante') ?></li>
+                    <li><?php echo MessagesClient::getInstance()->getMessage('msg_version_suivante') ?></li>
                 </ul>
             </div>
         <?php endif; ?>
@@ -33,10 +33,10 @@
             
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
             
-			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI): ?>
-			<?php else: ?>
+			<?php /*if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI): ?>
+			<?php else:*/ ?>
             <div id="btn_etape_dr">
-                <?php if ($drm_suivante && $drm_suivante->isRectificative()): ?>
+                <?php if ($drm_suivante && $drm_suivante->hasVersion() && !$drm_suivante->isValidee()): ?>
                     <a href="<?php echo url_for('drm_init', array('sf_subject' => $drm_suivante, 'reinit_etape' => 1)) ?>" class="btn_suiv">
                         <span>Passer à la DRM suivante</span>
                     </a>
@@ -46,7 +46,12 @@
                     </a>
                 <?php endif; ?>
             </div>
-            <?php endif; ?>
+            <?php /*endif;*/ ?>
         </div>    
     </section>
+    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$drm->getHistorique()->hasDRMInProcess() && $drm->isModifiable()): ?>
+    <form method="get" action="<?php echo url_for('drm_modificative', $drm) ?>">
+        <button style="float:left;" class="btn_passer_etape modificative" type="submit">Corriger la DRM</button>
+    </form>
+    <?php endif; ?>
 </section>
