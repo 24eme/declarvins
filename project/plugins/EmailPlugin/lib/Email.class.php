@@ -103,7 +103,7 @@ class Email {
         $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
         $to = array($destinataire);
         $subject = 'Redefinition de votre mot de passe Declarvins';
-        $body = self::getBodyFromPartial('send_redefinition_mot_de_passes', array('compte' => $compte));
+        $body = self::getBodyFromPartial('send_redefinition_mot_de_passe', array('compte' => $compte));
         $message = self::getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
         return self::getMailer()->send($message);
