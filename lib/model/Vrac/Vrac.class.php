@@ -5,10 +5,10 @@ class Vrac extends BaseVrac
     const MODE_DE_SAISIE_DTI = 'DTI';
     const MODE_DE_SAISIE_EDI = 'EDI';
     
-    protected $_mode_de_saisie_libelles = array (
-    									MODE_DE_SAISIE_PAPIER_LIBELLE => 'par l\'interprofession (papier)',
-    									MODE_DE_SAISIE_DTI_LIBELLE => 'via Declarvins (DTI)',
-    									MODE_DE_SAISIE_EDI_LIBELLE => 'via votre logiciel (EDI)');
+    protected static $_mode_de_saisie_libelles = array (
+    									self::MODE_DE_SAISIE_PAPIER => 'par l\'interprofession (papier)',
+    									self::MODE_DE_SAISIE_DTI => 'via Declarvins (DTI)',
+    									self::MODE_DE_SAISIE_EDI => 'via votre logiciel (EDI)');
     
     public function constructId() 
     {
@@ -189,6 +189,6 @@ class Vrac extends BaseVrac
 
 
     public static function getModeDeSaisieLibelles() {
-		return $this->_mode_de_saisie_libelles;
+		return self::$_mode_de_saisie_libelles;
     }
 }

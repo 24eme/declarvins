@@ -97,18 +97,61 @@
 	<p><?php echo ($vrac->produit)? $vrac->getLibelleProduit("%a% %l% %co% %ce%") : null; ?>&nbsp;<?php echo ($vrac->millesime)? $vrac->millesime.'&nbsp;' : ''; ?>&nbsp;<?php echo $configurationVrac->formatTypesTransactionLibelle(array($vrac->type_transaction)); ?><p>
 	<p><?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)).'&nbsp;' : ''; ?><?php echo (count($vrac->mentions) > 0)? $configurationVrac->formatMentionsLibelle($vrac->mentions) : ''; ?></p>
 	<p>Annexe technique : <?php echo ($vrac->annexe)? 'Oui' : 'Non'; ?>, Export : <?php echo ($vrac->export)? 'Oui' : 'Non'; ?></p>
+	
+
+
 	<h2>Volume / Prix</h2>
-	<p>Volume total : <?php echo $vrac->volume_propose ?>&nbsp;HL&nbsp;Prix unitaire net HT hors cotisation : <?php echo $vrac->prix_unitaire ?>&nbsp;€/HL&nbsp;Prix <?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)); ?></p>
-	<p><?php if ($vrac->determination_prix): ?>Mode de determination : <?php echo $vrac->determination_prix ?><?php endif; ?></p>
+	
+	<table class="tableau_simple">
+		<thead>
+			<tr>
+				<th>Volume total</th>
+				<th>Prix unitaire net HT hors cotisation</th>
+				<th>Prix</th>
+        	</tr>
+        </thead>
+        <tbody>
+			<tr>
+				<td><?php echo $vrac->volume_propose ?> HL</td>
+				<td><?php echo $vrac->prix_unitaire ?> €/HL</td>
+				<td><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)); ?></td>
+			</tr>
+        </tbody>
+    </table>
+
+	<?php if ($vrac->determination_prix): ?><p>Mode de determination : <?php echo $vrac->determination_prix ?></p><?php endif; ?>
+	
+
 	<h2>Conditions</h2>
-	<p><?php echo ($vrac->date_debut_retiraison)? 'Date de début de retiraison : '.$vrac->date_debut_retiraison.'&nbsp;&nbsp;' : ''; ?><?php echo ($vrac->date_limite_retiraison)? 'Date limite de retiraison : '.$vrac->date_limite_retiraison : ''; ?></p>
+	
+	<p>
+		<?php echo ($vrac->date_debut_retiraison)? 'Date de début de retiraison : '.$vrac->date_debut_retiraison.'&nbsp;&nbsp;' : ''; ?>
+		<?php echo ($vrac->date_limite_retiraison)? 'Date limite de retiraison : '.$vrac->date_limite_retiraison : ''; ?>
+	</p>
+
+
 	<?php if (count($vrac->paiements) > 0): ?>
 	<p>Echéancier : </p>
-	<p>
-	<?php $i = 0; foreach ($vrac->paiements as $paiement): $i++; ?>
-		<?php echo $paiement->date ?>&nbsp;<?php echo $paiement->volume ?>HL;&nbsp;<?php echo $paiement->montant ?>€;&nbsp;<?php if ($i < count($vrac->paiements)): ?>, <?php endif; ?>
-	<?php endforeach; ?>
-	</p>
+	
+	<table class="tableau_simple">
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Volume</th>
+				<th>Montant</th>
+        	</tr>
+        </thead>
+        <tbody>
+			<?php foreach ($vrac->paiements as $paiement): ?>
+			<tr>
+				<td><?php echo $paiement->date ?></td>
+				<td><?php echo $paiement->volume ?> HL</td>
+				<td><?php echo $paiement->montant ?> €</td>
+			</tr>
+			<?php endforeach; ?>
+        </tbody>
+    </table>
+
 	<?php endif; ?>
 	<p>
 		<?php if(!is_null($vrac->clause_reserve_retiraison)): ?>Propriété (réserve)<br /><?php endif; ?>
@@ -140,7 +183,7 @@
 			<?php $nb_lignes = 3 + $nb_cuves ?>
 			<?php if($nb_millesimes > 0) $nb_lignes += 1 + $nb_millesimes; ?>
 			<tr>
-				<th rowspan="<? echo $nb_lignes; ?>" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
+				<th rowspan="<?php echo $nb_lignes; ?>" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
 				<th rowspan="<?php echo 1 + $nb_cuves; ?>" class="cuves">Cuves</th>
 				<th>N°</th>
 				<th>Volume</th>
@@ -165,8 +208,8 @@
 				<th></th>
 			</tr>
 
-			<?php foreach ($lot->millesimes as $millesime): ?>
 			<?php $i=1; ?>
+			<?php foreach ($lot->millesimes as $millesime): ?>
 			<tr class="<?php if($i==$nb_millesimes) echo 'der_cat'; ?>">
 				<td><?php echo $millesime->annee ?></td>
 				<td class="pourcentage"><?php echo $millesime->pourcentage ?> %</td>
@@ -175,8 +218,6 @@
 			<?php $i++; ?>
 			<?php endforeach; ?>
 
-			<?php else: ?>
-				Pas d'assemblage
 			<?php endif; ?>
 
 			<tr class="der_cat">

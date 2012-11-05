@@ -25,7 +25,7 @@
 			$pdf->page_text($w / 2 - 4, $h - 13, "f {PAGE_NUM} / {PAGE_COUNT}", $font, 8, array(0,0,0));
 		}
 	</script>
-	<?php include_partial('vrac_export/pdfTransactionHeader', array('vrac' => $vrac)); ?>
+	<?php include_partial('vrac_export/pdfTransactionHeader', array('vrac' => $vrac, 'configurationVrac' => $configurationVrac)); ?>
 	<?php include_partial('vrac_export/pdfFooter'); ?>
 	<h2>Soussignes</h2>
 	<?php  if ($configurationVrac->transaction_has_acheteur) $w = '50%'; else $w = '100%'; ?>
@@ -94,48 +94,69 @@
 	</table>
 	<?php if ($vrac->has_transaction): ?>
 	<h2>Descriptif des lots</h2>
-	<p>
+	<div id="lots">
+
 		<table>
-			<tr>
-				<td>Numéro</td>
-				<td>Cuve(s)</td>
-				<td>Volume</td>
-				<td>Date de retiraison</td>
-				<td>Assemblage</td>
-				<td>Degrés</td>
-				<td>Allergènes</td>
-			</tr>
 			<?php foreach ($vrac->lots as $lot): ?>
+			<?php
+				$nb_cuves = sizeof($lot->cuves);
+				$nb_millesimes = 0;
+				if($lot->assemblage) $nb_millesimes = sizeof($lot->millesimes);
+			?>
+			<?php $nb_lignes = 3 + $nb_cuves ?>
+			<?php if($nb_millesimes > 0) $nb_lignes += 1 + $nb_millesimes; ?>
 			<tr>
-				<td><?php echo $lot->numero ?></td>
-				<td>
-					<ul>
-					<?php foreach ($lot->cuves as $cuve): ?>
-					<li>
-						<?php echo $cuve->numero ?> - <?php echo $cuve->volume ?>&nbsp;HL - <?php echo $cuve->date ?>
-					</li>
-					<?php endforeach; ?>
-					</ul>
-				</td>
-				<td>
-					<?php if($lot->assemblage): ?>
-					<ul>
-					<?php foreach ($lot->millesimes as $millesime): ?>
-					<li>
-						<?php echo $millesime->annee ?> - <?php echo $millesime->pourcentage ?>&nbsp;%
-					</li>
-					<?php endforeach; ?>
-					</ul>
-					<?php else: ?>
-					Pas d'assemblage
-					<?php endif; ?>
-				</td>
+				<th rowspan="<? echo $nb_lignes; ?>" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
+				<th rowspan="<?php echo 1 + $nb_cuves; ?>" class="cuves">Cuves</th>
+				<th>N°</th>
+				<th>Volume</th>
+				<th>Date de retiraison</th>
+			</tr>
+
+			<?php $i=1; ?>
+			<?php foreach ($lot->cuves as $cuve): ?>
+			<tr class="<?php if($i==$nb_cuves) echo 'der_cat'; ?>">
+				<td><?php echo $cuve->numero ?></td>
+				<td><?php echo $cuve->volume ?> HL</td>
+				<td><?php echo $cuve->date ?></td>
+			</tr>
+			<?php $i++; ?>
+			<?php endforeach; ?>
+
+			<?php if($lot->assemblage): ?>
+			<tr>
+				<th rowspan="<?php echo 1 + $nb_millesimes ?>" class="millesimes">Assemblage de millésimes</th>
+				<th>Année</th>
+				<th class="pourcentage">Pourcentage</th>
+				<th></th>
+			</tr>
+
+			<?php $i=1; ?>
+			<?php foreach ($lot->millesimes as $millesime): ?>
+			<tr class="<?php if($i==$nb_millesimes) echo 'der_cat'; ?>">
+				<td><?php echo $millesime->annee ?></td>
+				<td class="pourcentage"><?php echo $millesime->pourcentage ?> %</td>
+				<td></td>
+			</tr>
+			<?php $i++; ?>
+			<?php endforeach; ?>
+
+			<?php endif; ?>
+
+			<tr class="der_cat">
+				<th class="degre">Degré</th>
 				<td><?php echo $lot->degre ?></td>
+				<td colspan="2"></td>
+			</tr>
+			<tr class="dernier">
+				<th class="allergenes">Allergènes</th>
 				<td><?php echo ($lot->presence_allergenes)? 'Oui' : 'Non'; ?></td>
+				<td colspan="2"></td>
 			</tr>
 			<?php endforeach; ?>
 		</table>
-	</p>
+
+	</div>
 	<?php endif; ?>
 	<p>Volume total : <?php echo $vrac->volume_propose ?>&nbsp;HL</p>
 	<p>Observations : <?php echo $vrac->commentaires ?></p>

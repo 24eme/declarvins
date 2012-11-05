@@ -12,7 +12,7 @@ class acVinVracActions extends sfActions
     {
         $this->etablissement = null;
         $this->vracs = VracHistoryView::getInstance()->findLast();
-        $this->forward404Unless($this->interpro = $this->getCompte()->getGerantInterpro());
+        $this->forward404Unless($this->interpro = $this->getUser()->getCompte()->getGerantInterpro());
         $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
 	    if ($request->isMethod(sfWebRequest::POST)) {
 	    	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
@@ -102,7 +102,7 @@ class acVinVracActions extends sfActions
                     if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
                     	$this->contratValide($this->vrac);
                     } else {
-                    	$this->saisieTerminee($this->vrac);
+                    	$this->saisieTerminee($this->vrac, $this->interpro);
                     }
 			        return $this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
 				}
@@ -167,9 +167,6 @@ class acVinVracActions extends sfActions
     	$this->interpro = $this->getInterpro($this->getRoute()->getEtablissement());
 		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
         $this->vrac = $this->getRoute()->getVrac();
-        if (!$this->vrac->isValide()) {
-        	throw new sfException('Le contrat vrac n°'.$this->vrac->numero_contrat.' n\'est pas validé');
-        }
         $this->etablissement = $this->getRoute()->getEtablissement();
   		$pdf = new ExportVracPdf($this->vrac, $this->configurationVrac);
     	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
@@ -264,7 +261,7 @@ class acVinVracActions extends sfActions
 		return ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro_id);
 	}
 	
-	protected function saisieTerminee($vrac) {
+	protected function saisieTerminee($vrac, $interpro) {
 		return;
 	}
 	
