@@ -158,7 +158,7 @@ class DRMDetail extends BaseDRMDetail {
       	if ($vrac->acheteur->nom) {
       		$acheteur .= $vrac->acheteur->nom; 
 	      	if ($vrac->acheteur->raison_sociale) 
-	      		$acheteur .=  ' ('.$vrac->acheteur->raison_sociale.')'; 
+	      		$acheteur .=  ' '.$vrac->acheteur->raison_sociale.''; 
       	} else {
       		$acheteur .= $vrac->acheteur->raison_sociale;
       	}
@@ -168,7 +168,7 @@ class DRMDetail extends BaseDRMDetail {
 	      	if ($vrac->mandataire->nom) {
 	      		$courtier .= $vrac->mandataire->nom; 
 		      	if ($vrac->mandataire->raison_sociale) 
-		      		$courtier .=  ' ('.$vrac->mandataire->raison_sociale.')'; 
+		      		$courtier .=  ' '.$vrac->mandataire->raison_sociale.''; 
 	      	} else {
 	      		$courtier .= $vrac->mandataire->raison_sociale;
 	      	}
