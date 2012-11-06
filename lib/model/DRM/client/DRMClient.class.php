@@ -336,8 +336,14 @@ class DRMClient extends acCouchdbClient {
   }
 
   public function getCurrentPeriode() {
-
-    return sprintf('%s-%02d', date('Y'), date('m'));
+    if(date('d') > 10) {
+      
+      return sprintf('%s-%02d', date('Y'), date('m'));
+    } else {
+      $timestamp = strtotime('-1 month');
+      
+      return sprintf('%s-%02d', date('Y', $timestamp), date('m', $timestamp));
+    }
   }
     
   public function getUser() {
