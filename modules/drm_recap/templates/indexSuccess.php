@@ -39,8 +39,6 @@
                 </div>
             </div>
             
-			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI): ?>
-			<?php else: ?>
             <div id="btn_etape_dr">
             	<?php if ($previous_certif): ?>
                 <a href="<?php echo url_for('drm_recap', $previous_certif) ?>" class="btn_prec">
@@ -63,7 +61,7 @@
             	<?php endif; ?>
             	
             </div>
-            <?php endif; ?>
+
         </div>
     </section>
 </section>

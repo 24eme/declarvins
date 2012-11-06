@@ -67,9 +67,7 @@
 		            	<?php endforeach; ?>
 	            		</div>
 	        		</div>
-	        	
-					<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI): ?>
-					<?php else: ?>
+
 			        <div id="btn_etape_dr">
 			            <a href="<?php echo url_for('drm_informations', $drm) ?>" class="btn_prec">
 			            	<span>Précédent</span>
@@ -79,7 +77,7 @@
 			            </form>
 		                <?php endif; ?>
 			        </div>
-			        <?php endif; ?>
+
 	      		</form>
 			</div>
     </section>

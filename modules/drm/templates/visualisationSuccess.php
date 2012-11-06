@@ -33,8 +33,6 @@
             
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
             
-			<?php /*if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI): ?>
-			<?php else:*/ ?>
             <div id="btn_etape_dr">
                 <?php if ($drm_suivante && $drm_suivante->hasVersion() && !$drm_suivante->isValidee()): ?>
                     <a href="<?php echo url_for('drm_init', array('sf_subject' => $drm_suivante, 'reinit_etape' => 1)) ?>" class="btn_suiv">
@@ -46,7 +44,7 @@
                     </a>
                 <?php endif; ?>
             </div>
-            <?php /*endif;*/ ?>
+
         </div>    
     </section>
     <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$drm->getHistorique()->hasDRMInProcess() && $drm->isModifiable()): ?>
