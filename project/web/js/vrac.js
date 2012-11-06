@@ -568,6 +568,9 @@
     {
    	 	bloc.initBlocCondition();
    	 	bloc.find('.datepicker').datepicker(dpConfig); 
+   	 	if ($(".drm_vrac_contrats").length > 0) {
+   	 		$(".drm_vrac_contrats").combobox(); 
+   	 	}
     }
 
 	$(document).ready(function()

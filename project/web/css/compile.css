@@ -2111,7 +2111,7 @@ p#date_drm {
 .vracs #table_paiements thead th, .vracs #table_retiraisons thead th, .vracs #table_lots table thead th, .vracs #recap_transaction .lot table thead th {
   border:1px solid #e5e4e4;
   background-color:#ecebeb;
-  font-size:14px;
+  font-size:11px;
   height:35px;
   padding:0 13px;
   vertical-align:middle;
