@@ -120,6 +120,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
        
 	    foreach ($drm_suivante->getDetails() as $detail) {
 	       $drm_suivante->get($detail->getHash())->remove('vrac');
+           $drm_suivante->get($detail->getHash())->add('vrac');
 	    }
 
         return $drm_suivante;

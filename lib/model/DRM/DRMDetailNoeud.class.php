@@ -36,6 +36,7 @@ class DRMDetailNoeud extends BaseDRMDetailNoeud {
 
     if ($key == 'vrac' && !$value) {
       $this->getParent()->remove('vrac');
+      $this->getParent()->add('vrac');
     }
     parent::set($key, $value);
   }
