@@ -72,7 +72,7 @@
 			</li>
 			<li>
 				<span>Prix :</span>
-				<span><?php echo $vrac->prix_unitaire ?> € HT/hl</span>
+				<span><?php echo $vrac->prix_unitaire ?> €(HT)/hl</span>
 			</li>
 			<li>
 				<span>Volume :</span>
@@ -81,11 +81,11 @@
 			<?php if ($vrac->has_cotisation_cvo && $vrac->part_cvo > 0): ?>
 			<li>
 				<span>Cotisation interprofessionnelle :</span>
-				<span><?php echo $vrac->getCvoUnitaire() ?> € HT/hl</span>
+				<span><?php echo $vrac->getCvoUnitaire() ?> €(HT)/hl</span>
 			</li>
 			<li>
 				<span>Prix total unitaire :</span>
-				<span><?php echo $vrac->getTotalUnitaire() ?> € HT/hl</span>
+				<span><?php echo $vrac->getTotalUnitaire() ?> €(HT)/hl</span>
 			</li>
 			<?php endif; ?>
 			<li>
@@ -157,17 +157,17 @@
 			</li>
 			<?php if($vrac->date_debut_retiraison): ?>
 			<li>
-				<span>Date de début de retiraison :</span>
+				<span>Date de début de retiraison:</span>
 				<span><?php echo $vrac->date_debut_retiraison ?></span>
 			</li>
 			<?php endif; ?>
 			<li>
-				<span>Date limite de retiraison :</span>
+				<span>Date limite de retiraison:</span>
 				<span><?php echo $vrac->date_limite_retiraison ?></span>
 			</li>
 			<?php if(!is_null($vrac->clause_reserve_retiraison)): ?>
 			<li>
-				<span>Clause de reserve de propriété :</span>
+				<span>Clause de reserve de propriété:</span>
 				<span><?php echo ($vrac->clause_reserve_retiraison)? 'Oui' : 'Non'; ?></span>
 			</li>
 			<?php endif; ?>
