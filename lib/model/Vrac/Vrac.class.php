@@ -162,6 +162,10 @@ class Vrac extends BaseVrac
     public function isModifiable() {
     	return ($this->valide->statut)? false : true;
     }
+
+    public function isVisualisable() {
+      return ($this->valide->statut)? true : false;
+    }
     
     public function getStatutCssClass() {
     	$statuts = VracClient::getInstance()->getStatusContratCssClass();

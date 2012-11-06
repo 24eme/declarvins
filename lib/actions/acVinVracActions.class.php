@@ -78,6 +78,18 @@ class acVinVracActions extends sfActions
         }
 	}
 
+    public function executeEdition(sfWebRequest $request) {
+        $this->etablissement = $this->getRoute()->getEtablissement();
+        $this->init($this->etablissement);
+        $this->vrac = $this->getRoute()->getVrac();
+        $this->etape = $this->configurationVracEtapes->getFirst();
+        if($this->vrac->etape) {
+            $this->etape = $this->vrac->etape;
+        }
+
+         return $this->redirect(array('sf_route' => 'vrac_etape', 'sf_subject' => $this->vrac, 'step' => $this->etape, 'etablissement' => $this->etablissement));
+    }
+
 	public function executeEtape(sfWebRequest $request)
 	{
 		$this->forward404Unless($this->etape = $request->getParameter('step'));
@@ -209,6 +221,9 @@ class acVinVracActions extends sfActions
 	public function executeVisualisation(sfWebRequest $request)
 	{
 		$this->vrac = $this->getRoute()->getVrac();
+        if ($this->vrac->isModifiable()) {
+            throw new sfException("Le contrat vrac n°".$this->vrac->numero_contrat." n'est pas validé");
+        }
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->init($this->etablissement);
 	}
