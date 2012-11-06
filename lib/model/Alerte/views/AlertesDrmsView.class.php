@@ -25,6 +25,13 @@ class AlertesDrmsView extends acCouchdbView
                     		->getView($this->design, $this->view);
     }
 
+    public function findAllByEtablissement($identifiant) {
+
+    	return $this->client->startkey(array($identifiant))
+                    		->endkey(array($identifiant, array()))
+                    		->getView($this->design, $this->view);
+    }
+
     public function findAll() {
 
     	return $this->client->getView($this->design, $this->view);
