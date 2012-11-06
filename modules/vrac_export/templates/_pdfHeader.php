@@ -1,6 +1,6 @@
 <div id="header">
 	<div id="logo">
-		<img src="/images/visuels/logo_<?php echo strtolower($configurationVrac->getInterproId()) ?>.png" alt="<?php echo $configurationVrac->getInterproId() ?>" />
+		<img src="<?php echo sfConfig::get('sf_web_dir')?>/images/visuels/logo_<?php echo strtolower($configurationVrac->getInterproId()) ?>.png" alt="<?php echo $configurationVrac->getInterproId() ?>" />
 	</div>
 	<center>
 		<h1>Contrat d'achat interprofessionnel</h1>

@@ -21,4 +21,7 @@
 			<?php endif; ?>
 			<button class="valider_etape" type="submit"><span>Terminer la saisie</span></button>
 		</div>
+        <div class="ligne_form_btn">
+            <a href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $form->getObject(), 'etablissement' => $etablissement)) ?>" class="annuler_saisie"><span>annuler la saisie</span></a>
+        </div> 
 	</form>

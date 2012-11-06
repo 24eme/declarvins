@@ -88,7 +88,10 @@ class acVinVracActions extends sfActions
 		$this->init($this->etablissement);
         $this->vrac = $this->getRoute()->getVrac();
         if (!$this->vrac->isModifiable()) {
-        	throw new sfException('Le contrat vrac n°'.$this->vrac->numero_contrat.' n\'est pas modifiable');
+        	if ($this->etablissement)
+        		$this->redirect('vrac_valide', array('identifiant' => $this->etablissement->identifiant));
+        	else 
+        		$this->redirect('vrac_valide_admin');
         }
 		$this->vrac->setEtape($this->etape);
 		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->etablissement, $this->getUser(), $this->vrac);
@@ -221,7 +224,10 @@ class acVinVracActions extends sfActions
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->init($this->etablissement);
         if ($this->vrac->isValide()) {
-        	throw new sfException('Le contrat vrac n°'.$this->vrac->numero_contrat.' est déjà validé');
+        	if ($this->etablissement)
+        		$this->redirect('vrac_valide', array('identifiant' => $this->etablissement->identifiant));
+        	else 
+        		$this->redirect('vrac_valide_admin');
         }
         $this->form = new VracSignatureForm($this->vrac->valide, $this->acteur);
 		if ($request->isMethod(sfWebRequest::POST)) {
@@ -235,6 +241,15 @@ class acVinVracActions extends sfActions
 			}
 		}
 	}
+	
+	public function executeValide(sfWebRequest $request) {
+		$this->etablissement = $this->getRoute()->getEtablissement();
+    }
+	
+	public function executeValideAdmin(sfWebRequest $request) {
+		$this->etablissement = null;
+		$this->setTemplate('valide');
+    }
 
 	public function getForm($interproId, $etape, $configurationVrac, $etablissement, $user, $vrac)
 	{

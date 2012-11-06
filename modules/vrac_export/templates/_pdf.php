@@ -94,7 +94,7 @@
 		</tr>
 	</table>
 	<h2>Produit</h2>
-	<p><?php echo ($vrac->produit)? $vrac->getLibelleProduit("%a% %l% %co% %ce%") : null; ?>&nbsp;<?php echo ($vrac->millesime)? $vrac->millesime.'&nbsp;' : ''; ?>&nbsp;<?php echo $configurationVrac->formatTypesTransactionLibelle(array($vrac->type_transaction)); ?><p>
+	<p><?php echo $configurationVrac->formatTypesTransactionLibelle(array($vrac->type_transaction)); ?>, <?php echo ($vrac->produit)? $vrac->getLibelleProduit("%a% %l% %co% %ce%") : null; ?>&nbsp;<?php echo ($vrac->millesime)? $vrac->millesime.'&nbsp;' : ''; ?><p>
 	<p><?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)).'&nbsp;' : ''; ?><?php echo (count($vrac->mentions) > 0)? $configurationVrac->formatMentionsLibelle($vrac->mentions) : ''; ?></p>
 	<p>Annexe technique : <?php echo ($vrac->annexe)? 'Oui' : 'Non'; ?>, Export : <?php echo ($vrac->export)? 'Oui' : 'Non'; ?></p>
 	
@@ -105,15 +105,15 @@
 	<table class="tableau_simple">
 		<thead>
 			<tr>
-				<th>Volume total</th>
+				<th>Volume total (hl)</th>
 				<th>Prix unitaire net HT hors cotisation</th>
-				<th>Prix</th>
+				<th>Prix (HT)</th>
         	</tr>
         </thead>
         <tbody>
 			<tr>
-				<td><?php echo $vrac->volume_propose ?> HL</td>
-				<td><?php echo $vrac->prix_unitaire ?> €/HL</td>
+				<td><?php echo $vrac->volume_propose ?> hl</td>
+				<td><?php echo $vrac->prix_unitaire ?> €/hl</td>
 				<td><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)); ?></td>
 			</tr>
         </tbody>
@@ -137,15 +137,15 @@
 		<thead>
 			<tr>
 				<th>Date</th>
-				<th>Volume</th>
-				<th>Montant</th>
+				<th>Volume (hl)</th>
+				<th>Montant (HT)</th>
         	</tr>
         </thead>
         <tbody>
 			<?php foreach ($vrac->paiements as $paiement): ?>
 			<tr>
 				<td><?php echo $paiement->date ?></td>
-				<td><?php echo $paiement->volume ?> HL</td>
+				<td><?php echo $paiement->volume ?> hl</td>
 				<td><?php echo $paiement->montant ?> €</td>
 			</tr>
 			<?php endforeach; ?>
@@ -186,7 +186,7 @@
 				<th rowspan="<?php echo $nb_lignes; ?>" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
 				<th rowspan="<?php echo 1 + $nb_cuves; ?>" class="cuves">Cuves</th>
 				<th>N°</th>
-				<th>Volume</th>
+				<th>Volume (hl)</th>
 				<th>Date de retiraison</th>
 			</tr>
 
@@ -194,7 +194,7 @@
 			<?php foreach ($lot->cuves as $cuve): ?>
 			<tr class="<?php if($i==$nb_cuves) echo 'der_cat'; ?>">
 				<td><?php echo $cuve->numero ?></td>
-				<td><?php echo $cuve->volume ?> HL</td>
+				<td><?php echo $cuve->volume ?> hl</td>
 				<td><?php echo $cuve->date ?></td>
 			</tr>
 			<?php $i++; ?>

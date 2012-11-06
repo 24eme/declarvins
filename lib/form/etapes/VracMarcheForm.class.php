@@ -49,7 +49,10 @@ class VracMarcheForm extends VracForm
       parent::updateDefaultsFromObject();    
       if (is_null($this->getObject()->type_transaction)) {
         $this->setDefault('type_transaction', VracClient::TRANSACTION_DEFAUT);
-      }   
+      }      
+      if (is_null($this->getObject()->type_prix)) {
+        $this->setDefault('type_prix', VracClient::PRIX_DEFAUT);
+      }  
       if (is_null($this->getObject()->export)) {
         $this->setDefault('export', 0);
       }   

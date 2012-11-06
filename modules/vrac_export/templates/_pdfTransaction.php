@@ -80,18 +80,9 @@
 		</tr>
 	</table>
 	<h2>Produit</h2>
-	<table>
-		<tr>
-			<td><?php echo ($vrac->produit)? $vrac->getLibelleProduit("%a% %l% %co% %ce%") : null; ?></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><?php echo ($vrac->millesime)? $vrac->millesime.'&nbsp;&nbsp;' : ''; ?></td>
-			<td></td>
-			<td>Expédition export : <?php echo ($vrac->export)? 'Oui' : 'Non'; ?></td>
-		</tr>
-	</table>
+	<p><?php echo $configurationVrac->formatTypesTransactionLibelle(array($vrac->type_transaction)); ?>, <?php echo ($vrac->produit)? $vrac->getLibelleProduit("%a% %l% %co% %ce%") : null; ?>&nbsp;<?php echo ($vrac->millesime)? $vrac->millesime.'&nbsp;' : ''; ?><p>
+	<p><?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)).'&nbsp;' : ''; ?><?php echo (count($vrac->mentions) > 0)? $configurationVrac->formatMentionsLibelle($vrac->mentions) : ''; ?></p>
+	<p>Annexe technique : <?php echo ($vrac->annexe)? 'Oui' : 'Non'; ?>, Export : <?php echo ($vrac->export)? 'Oui' : 'Non'; ?></p>
 	<?php if ($vrac->has_transaction): ?>
 	<h2>Descriptif des lots</h2>
 	<div id="lots">
@@ -109,7 +100,7 @@
 				<th rowspan="<? echo $nb_lignes; ?>" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
 				<th rowspan="<?php echo 1 + $nb_cuves; ?>" class="cuves">Cuves</th>
 				<th>N°</th>
-				<th>Volume</th>
+				<th>Volume (hl)</th>
 				<th>Date de retiraison</th>
 			</tr>
 
@@ -117,7 +108,7 @@
 			<?php foreach ($lot->cuves as $cuve): ?>
 			<tr class="<?php if($i==$nb_cuves) echo 'der_cat'; ?>">
 				<td><?php echo $cuve->numero ?></td>
-				<td><?php echo $cuve->volume ?> HL</td>
+				<td><?php echo $cuve->volume ?> hl</td>
 				<td><?php echo $cuve->date ?></td>
 			</tr>
 			<?php $i++; ?>
@@ -126,8 +117,8 @@
 			<?php if($lot->assemblage): ?>
 			<tr>
 				<th rowspan="<?php echo 1 + $nb_millesimes ?>" class="millesimes">Assemblage de millésimes</th>
-				<th>Année</th>
-				<th class="pourcentage">Pourcentage</th>
+				<th>Millésime</th>
+				<th class="pourcentage">Pourcentage (%)</th>
 				<th></th>
 			</tr>
 
@@ -158,7 +149,7 @@
 
 	</div>
 	<?php endif; ?>
-	<p>Volume total : <?php echo $vrac->volume_propose ?>&nbsp;HL</p>
+	<p>Volume total : <?php echo $vrac->volume_propose ?>&nbsp;hl</p>
 	<p>Observations : <?php echo $vrac->commentaires ?></p>
 	<h2>Informations complémentaires</h2>
 	<?php echo $configurationVrac->getInformationsComplementaires(ESC_RAW) ?>

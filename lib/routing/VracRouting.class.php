@@ -20,12 +20,17 @@ class VracRouting {
                                                         array('module' => 'vrac', 'action' => 'etablissement'),
                                                         array('sf_method' => array('get')),
                                                         array('model' => 'Etablissement', 'type' => 'object'))); 
-
-        // $r->prependRoute('vrac_recherche', new sfRoute('/vrac/recherche', array('module' => 'vrac',
-        //                                                     'action' => 'recherche')));
-        // $r->prependRoute('vrac_recherche_soussigne', new sfRoute('/vrac/recherche-soussigne/:identifiant', array('module' => 'vrac',
-        //                                                     'action' => 'rechercheSoussigne', 'identifiant' => null)));
         
+        $r->prependRoute('vrac_valide_admin', new sfRoute('/vrac-erreur',
+                                                    array('module' => 'vrac', 'action' => 'valideAdmin'),
+                                                    array('sf_method' => array('get'))
+                                                        )); 
+        
+        $r->prependRoute('vrac_valide', new EtablissementRoute('/vrac-erreur/:identifiant', 
+                                                        array('module' => 'vrac', 'action' => 'valide'),
+                                                        array('sf_method' => array('get')),
+                                                        array('model' => 'Etablissement', 'type' => 'object'))); 
+
         $r->prependRoute('vrac_nouveau', new VracRoute('/vrac/:identifiant/nouveau',  
                                                         array('module' => 'vrac', 'action' => 'nouveau'),
                                                         array('sf_method' => array('get')),

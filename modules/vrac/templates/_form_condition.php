@@ -9,13 +9,13 @@
                 <?php echo $form['conditions_paiement']->render() ?>
             </div>
             <div id="bloc_vrac_paiements" class="table_container bloc_conditionner" data-condition-value="<?php echo $form->getCgpEcheancierNeedDetermination() ?>">
-            	<p>Rappel du volume total proposé : <strong><?php echo $form->getObject()->volume_propose ?>&nbsp;HL</strong></p>
+            	<p>Rappel du volume total proposé : <strong><?php echo $form->getObject()->volume_propose ?>&nbsp;hl</strong></p>
                 <table id="table_paiements">
                     <thead>
                         <tr>
                             <th>Date (jj/mm/aaaa)</th>
                             <th>Volume (hl)</th>
-                            <th>Montant HT</th>
+                            <th>Montant (HT)</th>
                             <th class="dernier"></th>
                         </tr>
                     </thead>
@@ -83,6 +83,10 @@
             <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'marche', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a> 
             <button class="valider_etape" type="submit"><span>Etape Suivante</span></button>
         </div>
+        
+        <div class="ligne_form_btn">
+            <a href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $form->getObject(), 'etablissement' => $etablissement)) ?>" class="annuler_saisie"><span>annuler la saisie</span></a>
+        </div> 
     </form>
 
 <?php include_partial('form_collection_template', array('partial' => 'form_paiements_item',

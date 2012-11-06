@@ -72,20 +72,20 @@
 			</li>
 			<li>
 				<span>Prix :</span>
-				<span><?php echo $vrac->prix_unitaire ?> € HT/HL</span>
+				<span><?php echo $vrac->prix_unitaire ?> € HT/hl</span>
 			</li>
 			<li>
 				<span>Volume :</span>
-				<span><?php echo $vrac->volume_propose ?> HL</span>
+				<span><?php echo $vrac->volume_propose ?> hl</span>
 			</li>
 			<?php if ($vrac->has_cotisation_cvo && $vrac->part_cvo > 0): ?>
 			<li>
 				<span>Cotisation interprofessionnelle :</span>
-				<span><?php echo $vrac->getCvoUnitaire() ?> € HT/HL</span>
+				<span><?php echo $vrac->getCvoUnitaire() ?> € HT/hl</span>
 			</li>
 			<li>
 				<span>Prix total unitaire :</span>
-				<span><?php echo $vrac->getTotalUnitaire() ?> € HT/HL</span>
+				<span><?php echo $vrac->getTotalUnitaire() ?> € HT/hl</span>
 			</li>
 			<?php endif; ?>
 			<li>
@@ -129,15 +129,15 @@
 					<thead>
 						<tr>
 							<th>Date</th>
-							<th>Volume</th>
-							<th>Montant</th>
+							<th>Volume (hl)</th>
+							<th>Montant (HT)</th>
 		            	</tr>
 		            </thead>
 		            <tbody>
 						<?php foreach ($vrac->paiements as $paiement): ?>
 						<tr>
 							<td><?php echo $paiement->date ?></td>
-							<td><?php echo $paiement->volume ?> HL</td>
+							<td><?php echo $paiement->volume ?> hl</td>
 							<td><?php echo $paiement->montant ?> €</td>
 						</tr>
 						<?php endforeach; ?>
@@ -192,8 +192,8 @@
 						<table>
 							<thead>
 								<tr>
-									<th>Cuve</th>
-									<th>Volume</th>
+									<th>Numéro(s)</th>
+									<th>Volume (hl)</th>
 									<th>Date</th>
 				            	</tr>
 				            </thead>
@@ -217,8 +217,8 @@
 						<table>
 							<thead>
 								<tr>
-									<th>Année</th>
-									<th>Pourcentage</th>
+									<th>Millésime</th>
+									<th>Pourcentage (%)</th>
 				            	</tr>
 				            </thead>
 				            <tbody>
