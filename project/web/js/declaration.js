@@ -279,13 +279,13 @@
 						var champ = $(this);
 						var val = champ.val();
 						var val_defaut = champ.attr('data-val-defaut');
-						if (val && val_defaut) {
-							if (parseFloat(val_defaut) != parseFloat(val)) {
-								if (colActive.attr('data-cssclass-rectif')) {
-									champ.parent().addClass(colActive.attr('data-cssclass-rectif'));
-								}
+
+						if (val_defaut != val) {
+							if (colActive.attr('data-cssclass-rectif')) {
+								champ.parent().addClass(colActive.attr('data-cssclass-rectif'));
 							}
 						}
+						
 						champ.attr('data-val-defaut', val);
 					});
 
