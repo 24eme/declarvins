@@ -272,13 +272,13 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     	foreach ($this->getDetails() as $detail) {
 			foreach ($detail->vrac as $numero => $vrac) {
 				$volume = $vrac->volume;
-				if ($this->isRectificative() && !$this->isModifiedMasterDRM($vrac, 'volume')) {
+				if ($this->hasVersion() && !$this->isModifiedMother($vrac, 'volume')) {
 					continue;
 					
 				}
 				
-				if ($this->isRectificative() && $this->getDRMMaster()->exist($vrac->getHash())) {
-					$volume = $volume - $this->getDRMMaster()->get($vrac->getHash())->volume;
+				if ($this->hasVersion() && $this->getMother()->exist($vrac->getHash())) {
+					$volume = $volume - $this->getMother()->get($vrac->getHash())->volume;
 				}
 				
 				if ($volume == 0) {
