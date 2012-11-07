@@ -90,6 +90,7 @@ class drmActions extends sfActions
   	  		$drm = DRMClient::getInstance()->createDoc($this->etablissement->identifiant, $values['campagne']);
   	  		$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_PAPIER;
       		$drm->save();
+          
       		$this->redirect('drm_informations', $drm);
   	  	}
       }

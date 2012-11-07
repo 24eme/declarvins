@@ -45,18 +45,23 @@ class DRMHistorique {
 
     public function getNextDRM($periode) {
         $next_drm = new stdClass();
+        $next_drm->_id = null;
         $next_drm->periode = '9999-99';
         foreach($this->drms as $drm) {
             if ($drm->periode < $next_drm->periode) {
                 $next_drm = $drm;
             }
 
-            if($drm->periode == $periode) {
-                return DRMClient::getInstance()->find($next_drm->_id);
+            if($drm->periode <= $periode) {
+                break;
             }
         }
 
-        return null;
+        if(!$next_drm->_id) {
+            return null;
+        }
+
+        return DRMClient::getInstance()->find($next_drm->_id);
     }
 
     protected function loadDRMs() {
