@@ -31,7 +31,7 @@ class ImportEtablissementsCsv {
         $etab->cvi = $line[EtablissementCsv::COL_CVI];
         $etab->no_accises = $line[EtablissementCsv::COL_NO_ASSICES];
         $etab->no_tva_intracommunautaire = $line[EtablissementCsv::COL_NO_TVA_INTRACOMMUNAUTAIRE];
-        $etab->famille = KeyInflector::slugify($line[EtablissementCsv::COL_FAMILLE]);
+        $etab->famille = EtablissementClient::getInstance()->matchFamille(KeyInflector::slugify($line[EtablissementCsv::COL_FAMILLE]));
         $etab->sous_famille = EtablissementClient::getInstance()->matchSousFamille($line[EtablissementCsv::COL_SOUS_FAMILLE]);
         $etab->nom = $line[EtablissementCsv::COL_NOM];
         $etab->raison_sociale = $line[EtablissementCsv::COL_RAISON_SOCIALE];
