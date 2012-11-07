@@ -80,9 +80,9 @@ class Etablissement extends BaseEtablissement {
     }
 
     public function setSousFamille($f) {
-	$ss = array(EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE, EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE,EtablissementFamilles::SOUS_FAMILLE_REGIONAL,EtablissementFamilles::SOUS_FAMILLE_EXTERIEUR,EtablissementFamilles::SOUS_FAMILLE_ETRANGER,EtablissementFamilles::SOUS_FAMILLE_UNION,EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR);
+	$ss = array(EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE, EtablissementFamilles::SOUS_FAMILLE_REGIONAL,EtablissementFamilles::SOUS_FAMILLE_EXTERIEUR,EtablissementFamilles::SOUS_FAMILLE_ETRANGER,EtablissementFamilles::SOUS_FAMILLE_UNION,EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR);
 	foreach ($ss as $s) {
-		if (preg_match('/'.preg_replace('/[^A-Z]/', '.*', $s).'/i', $f)) {
+		if (preg_match('/'.preg_replace('/[^a-z]/', '.*', preg_replace('/[^A-Z]/', '.*', $s)).'/i', $f)) {
 			return $this->_set('sous_famille', $s);
 		}
 	}
