@@ -66,19 +66,6 @@ class Etablissement extends BaseEtablissement {
         return $familleType[$this->famille];
     }
 
-    public function setFamille($f) {
-	if (preg_match('/producteur/i', $f)) {
-		return $this->_set('famille', EtablissementFamilles::FAMILLE_PRODUCTEUR);
-	}
-	if (preg_match('/n.*gociant/i', $f)) {
-                return $this->_set('famille', EtablissementFamilles::FAMILLE_NEGOCIANT);
-        }
-	if (preg_match('/courtier/i', $f)) {
-                return $this->_set('famille', EtablissementFamilles::FAMILLE_COURTIER);
-        }
-	throw new sfException("La famille $f doit être soit producteur soit negociant soit courtier (".$this->identifiant.")");
-    }
-
 	public function getDepartement()
 	{
 		if ($this->siege->code_postal) {
