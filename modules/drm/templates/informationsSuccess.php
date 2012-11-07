@@ -59,6 +59,9 @@
 						<button type="submit" class="btn_suiv"><span>VALIDER</span></button>
 						<a href="#" class="btn_popup btn_popup_trigger" data-popup="#popup_confirm_modif_infos" data-popup-config="configConfirmModifInfos" data-popup-titre="Etes-vous sûr de vouloir modifier ces informations ?"></a>
 					</div>
+					<div class="ligne_btn">
+           				<a href="<?php echo url_for('drm_delete', $drm) ?>" class="annuler_saisie btn_remise"><span>annuler la saisie</span></a>
+        			</div>
 		        </form>
 			</div>
 	    </div>

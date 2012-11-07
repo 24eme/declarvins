@@ -62,6 +62,10 @@
             	
             </div>
 
+            <div class="ligne_btn" style="margin-top: 30px;">
+                <a href="<?php echo url_for('drm_delete', $drm) ?>" class="annuler_saisie btn_remise"><span>annuler la saisie</span></a>
+            </div>
+
         </div>
     </section>
 </section>
