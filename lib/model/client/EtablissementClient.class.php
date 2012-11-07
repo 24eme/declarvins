@@ -99,12 +99,12 @@ class EtablissementClient extends acCouchdbClient {
                          "vinificateur" => EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR);
       foreach ($matches as $match => $s) {
         if (preg_match('/'.$match.'/i', $sf)) {
-          return $this->_set('sous_famille', $s);
+          return $s;
         }
       }
 
       if (!$sf) {
-        return $this->_set('sous_famille', EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE);
+        return EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE;
       }
 
       throw new sfException('Sous Famille "'.$sf.'" inconnue');
