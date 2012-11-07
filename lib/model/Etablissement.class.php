@@ -80,13 +80,18 @@ class Etablissement extends BaseEtablissement {
     }
 
     public function setSousFamille($f) {
-	$ss = array(EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE, EtablissementFamilles::SOUS_FAMILLE_REGIONAL,EtablissementFamilles::SOUS_FAMILLE_EXTERIEUR,EtablissementFamilles::SOUS_FAMILLE_ETRANGER,EtablissementFamilles::SOUS_FAMILLE_UNION,EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR);
-	foreach ($ss as $s) {
-		if (preg_match('/'.preg_replace('/[^a-z]/', '.*', preg_replace('/[^A-Z]/', '.*', $s)).'/i', $f)) {
-			return $this->_set('sous_famille', $s);
-		}
-	}
-	throw new sfException('Sous Famille "'.$f.'" inconnue ('.$this->identifiant.')');
+    	$matches = array("particuliere" => EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE,
+                         "regional" => EtablissementFamilles::SOUS_FAMILLE_REGIONAL,
+                         "exterieur" => EtablissementFamilles::SOUS_FAMILLE_EXTERIEUR,
+                         "etranger" =>  EtablissementFamilles::SOUS_FAMILLE_ETRANGER,
+                         "union" => EtablissementFamilles::SOUS_FAMILLE_UNION,
+                         "vinificateur" => EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR);
+    	foreach ($matches as $match => $s) {
+    		if (preg_match('/'.$match.'/i', $f)) {
+    			return $this->_set('sous_famille', $s);
+    		}
+    	}
+	   throw new sfException('Sous Famille "'.$f.'" inconnue ('.$this->identifiant.')');
     }
 
 	public function getDepartement()
