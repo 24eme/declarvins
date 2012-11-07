@@ -79,21 +79,6 @@ class Etablissement extends BaseEtablissement {
 	throw new sfException("La famille $f doit être soit producteur soit negociant soit courtier (".$this->identifiant.")");
     }
 
-    public function setSousFamille($f) {
-    	$matches = array("particuliere" => EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE,
-                         "regional" => EtablissementFamilles::SOUS_FAMILLE_REGIONAL,
-                         "exterieur" => EtablissementFamilles::SOUS_FAMILLE_EXTERIEUR,
-                         "etranger" =>  EtablissementFamilles::SOUS_FAMILLE_ETRANGER,
-                         "union" => EtablissementFamilles::SOUS_FAMILLE_UNION,
-                         "vinificateur" => EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR);
-    	foreach ($matches as $match => $s) {
-    		if (preg_match('/'.$match.'/i', $f)) {
-    			return $this->_set('sous_famille', $s);
-    		}
-    	}
-	   throw new sfException('Sous Famille "'.$f.'" inconnue ('.$this->identifiant.')');
-    }
-
 	public function getDepartement()
 	{
 		if ($this->siege->code_postal) {

@@ -89,4 +89,25 @@ class EtablissementClient extends acCouchdbClient {
         return $this->limit(100)->getView('etablissement', 'tous');
     }
 
+    public function matchSousFamille($sf) {
+      $sf = KeyInflector::slugify($sf);
+      $matches = array("(particuliere|cooperative)" => EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE,
+                         "regional" => EtablissementFamilles::SOUS_FAMILLE_REGIONAL,
+                         "exterieur" => EtablissementFamilles::SOUS_FAMILLE_EXTERIEUR,
+                         "etranger" =>  EtablissementFamilles::SOUS_FAMILLE_ETRANGER,
+                         "union" => EtablissementFamilles::SOUS_FAMILLE_UNION,
+                         "vinificateur" => EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR);
+      foreach ($matches as $match => $s) {
+        if (preg_match('/'.$match.'/i', $sf)) {
+          return $this->_set('sous_famille', $s);
+        }
+      }
+
+      if (!$sf) {
+        return $this->_set('sous_famille', EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE);
+      }
+
+      throw new sfException('Sous Famille "'.$sf.'" inconnue');
+    }
+
 }
