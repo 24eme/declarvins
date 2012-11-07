@@ -121,7 +121,7 @@ class VracClient extends acCouchdbClient {
       $vrac = $this->retrieveById($id);
       if (!$vrac) {
        $vrac = new Vrac();
-       $vrac->vendeur_identifiant = "ETABLISSEMENT-".$etablissement;
+       $vrac->vendeur_identifiant = $etablissement;
        $vrac->numero_contrat = $id;
        $vrac->produit = $hash;
       }
