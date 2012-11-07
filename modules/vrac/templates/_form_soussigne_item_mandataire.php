@@ -8,7 +8,7 @@
 
 <div id="bloc_mandataire" class="vrac_mandataire <?php if (isset($form['mandataire_exist'])): ?>bloc_conditionner<?php endif; ?>" data-condition-value="1">
     <h1>Courtier</h1>
-    <?php if($form->etablissementIsVendeurOrAcheteur()): ?>
+    <?php if(!$form->etablissementIsCourtier()): ?>
     <div>
         <h2>Sélectionner un courtier :</h2>
         <div class="section_label_strong" id="listener_mandataire_choice">

@@ -53,6 +53,11 @@ class acVinVracActions extends sfActions
         $this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->vrac->delete();
+
+        if(!$this->etablissement) {
+            $this->redirect('vrac_admin');
+        }
+
 		$this->redirect('vrac_etablissement', array('sf_subject' => $this->etablissement));
 	}
 
