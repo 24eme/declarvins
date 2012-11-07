@@ -147,6 +147,16 @@ class DRMClient extends acCouchdbClient {
       return $this->find($this->buildId($identifiant, $periode, $version));
     }
 
+    public function findByIdentifiantAndPeriodeAndRectificative($identifiant, $periode, $rectificative, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
+      $drms = array();
+      $rows = $this->viewByIdentifiantPeriodeAndVersion($identifiant, $periode, $rectificative);
+      foreach($rows as $id => $row) {
+        $drms[$id] = $this->find($id); 
+      }
+
+      return $drms;
+    }
+
     public function getMasterVersionOfRectificative($identifiant, $periode, $version_rectificative) {
       $drms = $this->viewByIdentifiantPeriodeAndVersion($identifiant, $periode, $version_rectificative);
 
