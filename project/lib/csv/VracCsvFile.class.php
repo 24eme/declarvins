@@ -75,7 +75,7 @@ class VracCsvFile extends CsvFile
 											  $line[self::CSV_VRAC_DECLARANT_IDENTIFIANT],
 											  $hash);
 	$c->vendeur->nom = $line[self::CSV_VRAC_ACHETEUR_NOM];
-	$c->acheteur_identifiant = 'ETABLISSEMENT-'.$line[self::CSV_VRAC_DECLARANT_IDENTIFIANT];
+	$c->acheteur_identifiant = $line[self::CSV_VRAC_DECLARANT_IDENTIFIANT];
 	$c->acheteur->nom = $line[self::CSV_VRAC_DECLARANT_NOM];
 	$c->add('acheteur')->add('nom', $line[self::CSV_VRAC_ACHETEUR_NOM]);
 	$c->add('volume_propose', $line[self::CSV_VRAC_CONTRAT_VOLUME_PROMIS]*1);

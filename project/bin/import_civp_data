@@ -37,7 +37,7 @@ echo
 
 echo "Import des DRM";
 
-DRM="DRm_export.maj.txt"
+DRM="DRm_export.txt"
 cp "$DRM" "$DRM.orig.csv"
     
 cat "$DRM.orig.csv" | sed 's/\t/;/g' | sed 's/  *;/;/g' | sed 's/;Tranquille;/;Tranquilles;/' | sed 's/Vin de Pays;VDP;Var;VDP83;/Var;D83;;/' | sed 's/Vin de Pays;VDP;83;VDP83/Var;D83;;/' | head -n 1000 > "$DRM.csv"
