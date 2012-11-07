@@ -108,7 +108,7 @@ class VersionDocument
     public function getMother() {
         if (!$this->document->hasVersion()) {
 
-            throw new sfException("You can't get the mother of a non version document");
+            return null;
         }
 
         if(is_null($this->mother)) {
@@ -120,7 +120,11 @@ class VersionDocument
 
     public function getDiffWithMother() {
         if (is_null($this->diff_with_mother)) {
-            $this->diff_with_mother = $this->getDiffWithAnotherDocument($this->getMother()->getData());
+            $mother = $this->getMother();
+            if (!$this->getMother()) {
+                $mother = new DRM();
+            }
+            $this->diff_with_mother = $this->getDiffWithAnotherDocument($mother->getData());
         }
 
         return $this->diff_with_mother;
@@ -176,6 +180,11 @@ class VersionDocument
     }
 
     public function needNextVersion() {
+        if (!$this->document->getSuivante()) {
+
+            return false;
+        }
+
         if($this->document->isModificative()) {
 
             return $this->needNextModificative();
@@ -250,12 +259,7 @@ class VersionDocument
         return false;
     }
 
-    protected function generateRectificativeSuivante() {
-        if (!$this->document->isRectificative()) {
-
-            throw new sfException('This document %s is not a rectificative', $this->document->get('_id'));
-        }
-
+    public function generateRectificativeSuivante() {
         $next_document = $this->document->getSuivante();
 
         if(!$next_document) {
@@ -269,12 +273,7 @@ class VersionDocument
         return $next_document_rectificative;
     }
 
-    protected function generateModificativeSuivante() {
-        if (!$this->document->isModificative()) {
-
-            throw new sfException(sprintf('This document %s is not a modificative', $this->document->get('_id')));
-        }
-
+    public function generateModificativeSuivante() {
         $next_document = $this->document->getSuivante();
 
         if(!$next_document) {
