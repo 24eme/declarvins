@@ -25,14 +25,14 @@ bash bin/delete_from_view.sh "http://localhost:5984/declarvin/_design/etablissem
 
 cd $DATADIR
 echo "Import des établissements";
-curl -s -c /tmp/cookie.txt $EDI_AUTH $EDI_PREFIX/edi/etablissements/csv > /dev/null
+curl -s -c /tmp/cookie.txt $EDI_AUTH_CIVP $EDI_PREFIX/edi/etablissements/csv > /dev/null
 echo ETABLISSEMENTS  >> $LOGDATE 2>&1
 echo "===========================" >> $LOGDATE 2>&1
 cat etablissement.txt | sed 's/\t/;/g' > etablissement.v2.csv
 cat etablissement.v2.csv | grep -i producteur > etablissement.v3.csv
 cat etablissement.v2.csv | grep -i ourtier >> etablissement.v3.csv
 cat etablissement.v2.csv | grep -i gociant | grep -v CIVP8035 >> etablissement.v3.csv
-curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@etablissement.v3.csv"  "$EDI_PREFIX/edi/etablissements/csv?id=INTERPRO-CIVP" >> $LOGDATE 2>&1
+curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH_CIVP -F "csv[file]=@etablissement.v3.csv"  "$EDI_PREFIX/edi/etablissements/csv?id=INTERPRO-CIVP" >> $LOGDATE 2>&1
 echo
 
 echo "Import des DRM";
@@ -56,6 +56,6 @@ VRAC="contrat_vrac.txt"
 cat "$VRAC" | sed 's/\t/;/g' | sed 's/  *;/;/g'  | sed 's/;Tranquille;/;Tranquilles;/'  > "$VRAC.csv"
 echo VRAC  >> $LOGDATE 2>&1
 echo "===========================" >> $LOGDATE 2>&1
-curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@$VRAC.csv" "$EDI_PREFIX/edi/contrat/csv?id=INTERPRO-CIVP" >> $LOGDATE 2>&1
+curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH_CIVP -F "csv[file]=@$VRAC.csv" "$EDI_PREFIX/edi/contrat/csv?id=INTERPRO-CIVP" >> $LOGDATE 2>&1
 echo
 }

@@ -11,11 +11,11 @@ echo DELETE Etablissements
 bash bin/delete_from_view.sh "http://localhost:5984/declarvin/_design/etablissement/_view/all?startkey=%5B%22INTERPRO-IR%22%5D&endkey=%5B%22INTERPRO-IR%22,%5B%5D%5D" >> $LOGDATE 2>&1
 
 echo "Import des établissements";
-curl -s -c /tmp/cookie.txt $EDI_AUTH $EDI_PREFIX/edi/etablissements/csv > /dev/null
+curl -s -c /tmp/cookie.txt $EDI_AUTH_IR $EDI_PREFIX/edi/etablissements/csv > /dev/null
 echo "ETABLISSEMENT" >> $LOGDATE 2>&1
 echo "==============" >> $LOGDATE
 cat /tmp/etablissements_ir.csv | grep FAM | sed 's/;SFAM1;/;cave particuliere;/' | sed 's/;SFAM2;/;cave cooperative;/' | sed 's/;Negociant;;/;Negociant;regional;/' > /tmp/etablissements_ir.corrige.csv
-curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@/tmp/etablissements_ir.corrige.csv" "$EDI_PREFIX/edi/etablissements/csv?id=INTERPRO-IR"  >> $LOGDATE 2>&1
+curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH_IR -F "csv[file]=@/tmp/etablissements_ir.corrige.csv" "$EDI_PREFIX/edi/etablissements/csv?id=INTERPRO-IR"  >> $LOGDATE 2>&1
 
 if ! test "$1" ; then
 . bin/download_redmine_file https://clients.actualys.com/attachments/download/4039/IR_Data.zip /tmp/IR_Data.zip
@@ -44,5 +44,5 @@ VRAC="120523-ExportCONTRATS IR.csv"
 cat "$VRAC" | sed 's/VDN;VDN /VDN;/'| sed 's/CdR Villages avec NG;CVG;;;/CdR Villages sans NG;CVG;;;/' | sed 's/VDN/Vin doux naturel/' > "$VRAC.2.csv"
 echo "VRACS"  >> $LOGDATE 2>&1
 echo ===============  >> $LOGDATE 2>&1
-curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH -F "csv[file]=@$VRAC.2.csv" "$EDI_PREFIX/edi/contrat/csv?id=INTERPRO-IR"  >> $LOGDATE 2>&1
+curl -s -L -b /tmp/cookie.txt -X POST $EDI_AUTH_IR -F "csv[file]=@$VRAC.2.csv" "$EDI_PREFIX/edi/contrat/csv?id=INTERPRO-IR"  >> $LOGDATE 2>&1
 
