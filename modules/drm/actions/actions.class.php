@@ -90,7 +90,7 @@ class drmActions extends sfActions
   	  		$drm = DRMClient::getInstance()->createDoc($this->etablissement->identifiant, $values['campagne']);
   	  		$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_PAPIER;
       		$drm->save();
-          
+
       		$this->redirect('drm_informations', $drm);
   	  	}
       }
@@ -189,7 +189,7 @@ class drmActions extends sfActions
   {
     $this->etablissement = $this->getRoute()->getEtablissement();
     $this->drm = $this->getRoute()->getDRM();
-    $this->drmValidation = new DRMValidation($this->drm);
+    $this->drmValidation = $this->drm->validation(array('stock' => 'warning'));
     $this->form = new DRMValidationForm(array(), array('engagements' => $this->drmValidation->getEngagements()));
     if (!$request->isMethod(sfWebRequest::POST)) {
       
@@ -197,7 +197,7 @@ class drmActions extends sfActions
     }
     
     $this->form->bind($request->getParameter($this->form->getName()));
-	  if (!$this->form->isValid()) {
+	  if (!$this->form->isValid() || !$this->drmValidation->isValide()) {
 
       return sfView::SUCCESS;
     }
@@ -205,11 +205,9 @@ class drmActions extends sfActions
 	  $this->drm->validate();
 	  $this->drm->save();
 
-    if ($this->drm->needNextVersion() || $this->drmValidation->hasErrors()) {
+    if ($this->drm->needNextVersion()) {
       $drm_version_suivante = $this->drm->generateNextVersion();
-      if ($drm_version_suivante) {
-          $drm_version_suivante->save();
-      }
+      $drm_version_suivante->save();
     }
 	  
     $this->redirect('drm_visualisation', array('sf_subject' => $this->drm, 'hide_rectificative' => 1));

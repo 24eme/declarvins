@@ -59,11 +59,13 @@
                     <span>Précédent</span>
                 </a>
                 <?php endif; ?>
-                <?php if ($drmValidation->hasError('stock') && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-                <button type="submit" class="btn_suiv"><span>Générer rectificative suivante</span></button>
-                <?php else: ?>
-                <button type="submit" class="btn_suiv"<?php if ($drmValidation->hasErrors()): ?> disabled="disabled"<?php endif; ?>><span>Valider</span></button>
-                <?php endif; ?>
+                <button type="submit" class="btn_suiv"<?php if ($drmValidation->hasErrors()): ?> disabled="disabled"<?php endif; ?>><span>
+                    Valider
+                    <?php if ($drm->needNextVersion() && $drm->getSuivante()): ?>
+                        <small style="font-size: 10px;">et réctifier la DRM suivante</small>
+                    <?php endif; ?>
+                    </span>
+                </button>
             </div>
 
         </form>

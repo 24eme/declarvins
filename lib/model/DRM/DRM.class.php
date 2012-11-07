@@ -498,6 +498,11 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         return !$this->isEnvoyee() && !$this->isRectificativeEnCascade();
     }
 
+    public function validation($options = null) { 
+
+        return new DRMValidation($this, $options);
+    }
+
     /**** VERSION ****/
 
     public static function buildVersion($rectificative, $modificative) {
@@ -577,7 +582,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
 
     public function needNextVersion() {
 
-       return $this->version_document->needNextVersion();      
+       return $this->version_document->needNextVersion() || $this->validation()->hasError('stock');      
     }
 
     public function getMaster() {
@@ -655,6 +660,10 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     }
 
     public function generateNextVersion() {
+        if (!$this->hasVersion()) {
+
+            return $this->version_document->generateRectificativeSuivante();
+        }
 
         return $this->version_document->generateNextVersion();
     }

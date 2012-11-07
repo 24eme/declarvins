@@ -117,8 +117,12 @@ class DRMValidation
 		if ($drmSuivante = $this->drm->getSuivante()) {
 			if ($drmSuivante->exist($detail->getHash())) {
 				$d = $drmSuivante->get($detail->getHash());
-				if ($d->total_debut_mois != $detail->total && !$this->drm->isRectificative()) {
-					$this->errors['stock_'.$detail->getIdentifiantHTML()] = new DRMControleError('stock', $this->generateUrl('drm_recap_detail', $detail));
+				if ($d->total_debut_mois != $detail->total && !$this->drm->hasVersion()) {
+					if(isset($this->options['stock']) && $this->options['stock'] == 'warning') {
+						$this->warnings['stock_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('stock', $this->generateUrl('drm_recap_detail', $detail));
+					} else {
+						$this->errors['stock_'.$detail->getIdentifiantHTML()] = new DRMControleError('stock', $this->generateUrl('drm_recap_detail', $detail));
+					}
 				}
 			}
 		}
