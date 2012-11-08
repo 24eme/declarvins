@@ -61,13 +61,15 @@
 
 			value = selected.text() ? selected.text() : "";
 			
-			var newValueOption = $('<option class="new_value" value=""></option>');
-			select.append(newValueOption);
-			
 			var newValueAllowed  = select.hasClass('permissif');
+			if(newValueAllowed) {
+				var newValueOption = $('<option class="new_value" value=""></option>');
+				select.append(newValueOption);
+			}
+			
 			var url_ajax = select.attr('data-ajax');
 			var limit = 20;
-			var prev_term = "";
+			//var prev_term = "";
 			var minLength = (url_ajax) ? 1 : 0;
 			var delay = (url_ajax) ? 300 : 200;
 
@@ -78,21 +80,20 @@
 				delay: delay,
 				minLength: minLength,
 				source: function( request, response ) {
-					prev_term_matcher = new RegExp("^"+prev_term);
+					//prev_term_matcher = new RegExp("^"+prev_term);
 					var new_url_ajax = select.attr('data-ajax');
 					if (new_url_ajax != url_ajax) {
 						url_ajax = new_url_ajax;
-						prev_term = "";
+						//prev_term = "";
 					}
 
-					if((url_ajax && (prev_term == "" || (!prev_term_matcher.test(request.term) || select.children("option").length > limit)))
-					  ) {
+					if(url_ajax) {
 					  	
-						prev_term = request.term;
+						//prev_term = request.term;
 						$.getJSON(url_ajax, {q:request.term,limit:limit+1}, function(data) {
-							if (prev_term != request.term) {
-								return ;
-							}
+							//if (prev_term != request.term) {
+							//	return ;
+							//}
 							var inner_select = '';
 							for(hash in data) {
 							 	inner_select += '<option value="'+hash+'">'+data[hash]+'</option>';
@@ -114,7 +115,15 @@
 
 						return;
 					} 
-
+					if ($(input).val()) {
+						$(input).parent().find('button').hide();
+						$(input).parent().find('a.remove_autocomplete').show();
+					} else {
+						if (url_ajax || (select.children("option").length == 1 || select.children("option").length > limit)) {
+							$(input).parent().find('button').show();
+						}
+						$(input).parent().find('a.remove_autocomplete').hide();
+					}
 
 					response( select.children("option").map(function() {
 						var text = $(this).text();
@@ -150,7 +159,10 @@
 						if ( !valid ) {
 							
 							select.val('');
-							
+							$(input).parent().find('a.remove_autocomplete').hide();
+							if (url_ajax || (select.children("option").length == 1 || select.children("option").length > limit)) {
+								$(input).parent().find('button').show();
+							}
 							// remove invalid value, as it didn't match anything
 							if(newValueAllowed)
 							{
@@ -169,7 +181,19 @@
 							}
 						}
 					});
+					var removeLink  = $( "<a href=\"#\" class=\"remove_autocomplete\">X</a>" ).insertAfter(input);
+					removeLink.click(function() {
+						select.val("");
+						input.val("");
+						$(this).hide();
 
+
+
+						if (url_ajax || (select.children("option").length == 1 || select.children("option").length > limit)) {
+							$(input).parent().find('button').show();
+						}
+						return false;
+					});
 					//.addClass( "ui-widget ui-widget-content ui-corner-left" );
 
 					input.data( "autocomplete" )._renderItem = function( ul, item ) {
@@ -205,8 +229,12 @@
 						input.autocomplete( "search", $(input).val());
 						input.focus();
 					});
-
-					$(input).parent().find('button').button( "option", "disabled", url_ajax && (select.children("option").length == 1 || select.children("option").length > limit));
+						$(input).parent().find('button').button( "option", "disabled", url_ajax && (select.children("option").length == 1 || select.children("option").length > limit));
+						if (select.val()) {
+							$(input).parent().find('button').hide();
+						} else {
+							$(input).parent().find('a.remove_autocomplete').hide();
+						}
 					},
 
 				destroy: function() {

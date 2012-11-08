@@ -12,6 +12,8 @@ class VracMarcheCivpForm extends VracMarcheForm
 
     protected function doUpdateObject($values) {
         parent::doUpdateObject($values);
-        $this->getObject()->has_transaction = 1;
+        if (!sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        	$this->getObject()->has_transaction = 1;
+        }
     }
 }
