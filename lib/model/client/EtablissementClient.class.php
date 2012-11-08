@@ -89,4 +89,42 @@ class EtablissementClient extends acCouchdbClient {
         return $this->limit(100)->getView('etablissement', 'tous');
     }
 
+    public function matchFamille($f) {
+      if (preg_match('/producteur/i', $f)) {
+        
+        return EtablissementFamilles::FAMILLE_PRODUCTEUR;
+      }
+      if (preg_match('/n.*gociant/i', $f)) {
+        
+        return EtablissementFamilles::FAMILLE_NEGOCIANT;
+      }
+      if (preg_match('/courtier/i', $f)) {
+        
+        return EtablissementFamilles::FAMILLE_COURTIER;
+      }
+
+      throw new sfException("La famille $f doit être soit producteur soit negociant soit courtier");
+    }
+
+    public function matchSousFamille($sf) {
+      $sf = KeyInflector::slugify($sf);
+      $matches = array("(particuliere|cooperative)" => EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE,
+                         "regional" => EtablissementFamilles::SOUS_FAMILLE_REGIONAL,
+                         "exterieur" => EtablissementFamilles::SOUS_FAMILLE_EXTERIEUR,
+                         "etranger" =>  EtablissementFamilles::SOUS_FAMILLE_ETRANGER,
+                         "union" => EtablissementFamilles::SOUS_FAMILLE_UNION,
+                         "vinificateur" => EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR);
+      foreach ($matches as $match => $s) {
+        if (preg_match('/'.$match.'/i', $sf)) {
+          return $s;
+        }
+      }
+
+      if (!$sf) {
+        return EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE;
+      }
+
+      throw new sfException('Sous Famille "'.$sf.'" inconnue');
+    }
+
 }
