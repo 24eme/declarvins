@@ -25,7 +25,9 @@
                     </div>
                     <?php if ($vrac->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE): ?>
                     <div id="ligne_btn">
-                        <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'soussigne', 'etablissement' => $etablissement)) ?>" id="btn_editer_contrat"  class="modifier"> Editer le contrat</a>
+                    	<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$vrac->volume_enleve): ?>
+                        <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'soussigne', 'etablissement' => $etablissement)) ?>" id="btn_editer_contrat"  class="modifier"> Modifier le contrat</a>
+                        <?php endif; ?>
                         <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat"> Annuler le contrat</a>                             
                     </div>
                     <?php endif; ?>
@@ -39,7 +41,7 @@
 					<?php else: ?>
 						<a href="<?php echo url_for("vrac_admin") ?>" class="etape_prec"><span>Retour à liste des contrats</span></a>
 					<?php endif; ?>
-					<?php if ($vrac->has_transaction && $vrac->mode_de_saisie != Vrac::MODE_DE_SAISIE_PAPIER): ?>
+					<?php if ($vrac->has_transaction): ?>
 					<a class="valider_etape" href="<?php echo url_for('vrac_pdf_transaction', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>"><span>PDF Transaction</span></a>
 					<?php endif; ?>
 					<a class="valider_etape" href="<?php echo url_for('vrac_pdf', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>"><span>PDF Contrat</span></a>
