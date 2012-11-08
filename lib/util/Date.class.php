@@ -8,8 +8,14 @@ class Date {
 	    $diff = $date1->diff($date2);
 	    return $diff->{$retour};
   	}
+        
+        public static function supEqual($date1, $date2) {
+            $date1 = new DateTime($date1);
+            $date2 = new DateTime($date2);
+            return $date1 >= $date2;
+        }
 
-        public static function getIsoDateFinDeMoisISO($date,$nb_mois) 
+          public static function getIsoDateFinDeMoisISO($date,$nb_mois) 
         {
             preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/', $date, $matches);
             $annee = $matches[1];
@@ -18,6 +24,12 @@ class Date {
             return date('Y-m-d', $lastdaymonth);
         }
         
+        public static function addDelaiToDate($delai,$date=null) {
+            if(!$date) $date = date('Y-m-d');
+           return date('Y-m-d', strtotime($delai, strtotime($date)));
+        }
+
+
         public static function getIsoDateFromFrenchDate($french_date) 
         {
             $matches = array();
