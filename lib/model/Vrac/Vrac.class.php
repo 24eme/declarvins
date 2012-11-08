@@ -178,6 +178,10 @@ class Vrac extends BaseVrac
     public function getEuSaisieDate() {
 		return strftime('%d/%m/%Y', strtotime($this->valide->date_saisie));
     }
+    public function getModeDeSaisieLibelle() {
+    	$libelles = self::getModeDeSaisieLibelles();
+    	return (isset($libelles[$this->mode_de_saisie]))? $libelles[$this->mode_de_saisie] : null;
+    }
     
     public function hasAdresseLivraison() {
     	return ($this->adresse_livraison->adresse || $this->adresse_livraison->code_postal || $this->adresse_livraison->commune);

@@ -9,7 +9,7 @@
 	<table>
 		<tr>
 			<td width="50%"><?php if ($vrac->premiere_mise_en_marche): ?>Première mise en marché<?php endif; ?></td>
-	   		<td width="50%" style="text-align: right;">Mode de saisie : DTI</td>
+	   		<td width="50%" style="text-align: right;">Saisie <?php echo $vrac->getModeDeSaisieLibelle() ?></td>
 		</tr>
 		<tr>
 			<td width="50%">Saisie le <?php echo $vrac->getEuSaisieDate(); ?></td>

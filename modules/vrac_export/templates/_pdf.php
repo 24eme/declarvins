@@ -138,7 +138,7 @@
 			<tr>
 				<th>Date</th>
 				<th>Volume (hl)</th>
-				<th>Montant (HT)</th>
+				<th>Montant (€ HT)</th>
         	</tr>
         </thead>
         <tbody>
