@@ -9,7 +9,7 @@ abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
         if (!is_null($this->_serialize_loaded_json)) {
             throw new acCouchdbException("data already load");
         }
-    	if (isset($data->_attachments)) {
+    	if (isset($data->_attachments) && !$this->getDefinition()->exist('_attachments')) {
     	  unset($data->_attachments);
         }
 
@@ -90,10 +90,13 @@ abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
     }
 
     public function storeAttachment($file, $content_type = 'application/octet-stream', $filename = null) { 
-
+        
         $ret = acCouchdbManager::getClient()->storeAttachment($this, $file, $content_type, $filename);
         $this->postSave($ret);
+        $json = acCouchdbManager::getClient()->find($this->_id, acCouchdbClient::HYDRATE_JSON);
         
+        $this->_attachments = $json->_attachments;
+
         return $ret;
     }
     
