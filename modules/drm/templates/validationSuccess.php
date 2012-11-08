@@ -47,7 +47,7 @@
                     <?php endif; ?>
                 </div>
             </div>
-            <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Visualisez le brouille de DRM en PDF</a>
+            <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Visualisez le brouillon de DRM en PDF</a>
             
             <div id="btn_etape_dr">
                 <?php if ($drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER): ?>
