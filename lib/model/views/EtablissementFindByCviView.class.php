@@ -7,7 +7,8 @@ class EtablissementFindByCviView extends acCouchdbView
 {
 	const KEY_ETABLISSEMENT_CVI = 0;
         const VALUE_ETABLISSEMENT_ID = 0;
-        const VALUE_ETABLISSEMENT_NOM = 1;
+        const VALUE_ETABLISSEMENT_NOM = 1;        
+        const VALUE_ETABLISSEMENT_COMMUNE = 2;
 
     public static function getInstance() {
 
