@@ -3,7 +3,7 @@
 class DRMVracValidator extends sfValidatorBase {
 
     public function configure($options = array(), $messages = array()) {
-        $this->setMessage('invalid', "Vous ne pouvez pas sélectionner des contrats interprofessionnels pour un même produit.");
+        $this->setMessage('invalid', "vous ne pouvez pas, pour un même produit, sélectionner plusieurs fois le même contrat.");
     }
 
     protected function doClean($values) {
