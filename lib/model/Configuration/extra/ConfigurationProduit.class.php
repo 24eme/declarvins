@@ -7,6 +7,15 @@ class ConfigurationProduit
 	protected static $genres = array('' => '', 'EFF' => 'Effervescent', 'TRANQ' => 'Tranquilles', 'VDN' => 'Vin doux naturel');
 	protected static $mentions = array('' => '');
 	protected static $codeCouleurs = array('Rouge' => 'rouge', 'Blanc' => 'blanc', 'Rosé' => 'rose');
+	protected static $libellesNoeud = array (
+    	'certification' => 'Catégorie',
+	    'genre' => 'Genre', 
+	    'appellation' => 'Dénomination',
+	    'mention' => 'Mention', 
+	    'lieu' => 'Lieu', 
+	    'couleur' => 'Couleur', 
+	    'cepage' => 'Cépage'
+    );
 	
 	protected $datas;
 	protected $appellations;
@@ -66,5 +75,12 @@ class ConfigurationProduit
     }
     public static function getCodeCouleurs() {
     	return self::$codeCouleurs;
+    }
+    public static function getLibellesNoeud() {
+    	return self::$libellesNoeud;
+    }
+    public static function getLibelleNoeud($noeud) {
+    	$libelles = self::getLibellesNoeud();
+    	return (isset($libelles[$noeud]))? $libelles[$noeud] : $noeud;
     }
 }

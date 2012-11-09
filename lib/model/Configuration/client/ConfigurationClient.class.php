@@ -6,6 +6,8 @@ class ConfigurationClient extends acCouchdbClient {
 
     const CAMPAGNE_DATE_DEBUT = '%s-08-01';
     const CAMPAGNE_DATE_FIN = '%s-07-31';
+    
+    
 
 	/**
 	*
