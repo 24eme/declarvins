@@ -34,9 +34,9 @@ class acVinCompteForm extends acCouchdbObjectForm
         ));
 
         $this->widgetSchema->setLabels(array(
-                'email' => 'Adresse e-mail: ',
-                'mdp1'  => 'Mot de passe: ',
-                'mdp2'  => 'Vérification du mot de passe: '
+                'email' => 'Adresse e-mail*: ',
+                'mdp1'  => 'Mot de passe*: ',
+                'mdp2'  => 'Vérification du mot de passe*: '
         ));
 
         $this->widgetSchema->setNameFormat('ac_vin_compte[%s]');
@@ -51,6 +51,6 @@ class acVinCompteForm extends acCouchdbObjectForm
                                                                              sfValidatorSchemaCompare::EQUAL, 
                                                                              'mdp2',
                                                                              array(),
-                                                                             array('invalid' => 'The passwords must match')));
+                                                                             array('invalid' => 'Les mots de passe doivent être identique.')));
     }
 }

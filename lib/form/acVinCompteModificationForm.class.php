@@ -32,6 +32,9 @@ class acVinCompteModificationForm extends acVinCompteForm
     public function configure() 
     {
         parent::configure();
+        
+    	$this->getWidget('mdp1')->setLabel('Mot de passe: ');
+    	$this->getWidget('mdp2')->setLabel('Vérification du mot de passe: ');
         $this->getValidator('mdp1')->setOption('required', false);
         $this->getValidator('mdp2')->setOption('required', false);
     }
