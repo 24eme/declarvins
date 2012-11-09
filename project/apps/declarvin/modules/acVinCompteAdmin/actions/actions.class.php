@@ -34,10 +34,6 @@ class acVinCompteAdminActions extends sfActions
   public function executeCompteModification(sfWebRequest $request)
   {
      $this->forward404Unless($this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
-     if ($contrat = $this->compte->contrat) {
-        //$this->redirect('validation_fiche', array('num_contrat' => $this->compte->getContratObject()->no_contrat));
-     }
-     
      $this->form = new CompteModificationDroitForm($this->compte);       
      if($request->isMethod(sfWebRequest::POST))
      {
@@ -47,6 +43,7 @@ class acVinCompteAdminActions extends sfActions
          $this->form->save();
          $ldap = new Ldap();
          $ldap->saveCompte($this->compte);
+         $this->getUser()->setFlash('notice', 'Modifications effectuées avec succès');
          $this->redirect(array('sf_route' => 'compte_modification', 'login' => $this->compte->login));
         }
      }
@@ -80,28 +77,12 @@ class acVinCompteAdminActions extends sfActions
            $this->form->save();
            $ldap = new Ldap();
            $ldap->saveCompte($this->compte);
+           $this->getUser()->setFlash('notice', 'Création de compte validée');
            $this->redirect(array('sf_route' => 'compte_modification', 'login' => $this->compte->login));
            }
         }                  
     }
-   /*
-    public function executeCompteRecap(sfWebRequest $request)
-    {
-        $this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login'));
-        $this->forward404Unless($this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
-        $this->form = new CompteRecapForm($this->compte);       
-        if($request->isMethod(sfWebRequest::POST))
-        {
-        $this->form->bind($request->getParameter($this->form->getName()));
-        if($this->form->isValid())
-            {
-            $this->form->save();
-            $this->redirect(array('sf_route' => 'compte_modification', 'login' => $this->compte->login));
-            }
-        
-        }
-    }    
-    */
+
 
   public function executeCompteAutocomplete(sfWebRequest $request) {
     $comptes = _CompteClient::getInstance()->findAllByInterpo($this->getUser()->getCompte()->getGerantInterpro()->get('_id'))->rows;

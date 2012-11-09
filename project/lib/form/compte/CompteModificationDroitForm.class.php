@@ -42,10 +42,6 @@ class CompteModificationDroitForm extends CompteModificationForm {
                             throw new sfException("You can not modify this login.");
                         }
 		}
-
-        if($values['mdp1']) {
-            $this->getObject()->setMotDePasseSSHA($values['mdp1']);
-        }
 	}
 }
 
