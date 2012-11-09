@@ -40,7 +40,7 @@ class acVinCompteModificationForm extends acVinCompteForm
     
 	public function doUpdateObject($values) {
 		parent::doUpdateObject($values);
-		if (!$this->getObject()->isNew()) {
+		if (!$this->getObject()->isNew() && isset($values['mdp1']) && !empty($values['mdp1'])) {
 			$this->getObject()->setMotDePasseSSHA($values['mdp1']);
 		}
 	}
