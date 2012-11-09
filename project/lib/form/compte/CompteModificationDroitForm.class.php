@@ -28,8 +28,9 @@ class CompteModificationDroitForm extends CompteModificationForm {
          
          $choices = _CompteClient::getInstance()->getDroits();
          $this->setWidget('droits',  new sfWidgetFormChoice(array('choices' => $choices, 'expanded' => true, 'multiple' => true)));
-         $this->getWidget('droits')->setLabel('droits*: ');
+         $this->getWidget('droits')->setLabel('droits: ');
          $this->setValidator('droits', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($choices),'multiple' => true)));
+         $this->mergePostValidator(new ValidatorLoginCompte());
          
      }
      

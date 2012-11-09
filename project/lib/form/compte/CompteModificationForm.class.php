@@ -12,7 +12,7 @@ class CompteModificationForm extends acVinCompteModificationForm {
     	$this->setWidget('fax', new sfWidgetFormInputText());
     	
     	$this->getWidget('nom')->setLabel('Nom*: ');
-    	$this->getWidget('prenom')->setLabel('Prénom*: ');
+    	$this->getWidget('prenom')->setLabel('Prénom: ');
     	$this->getWidget('telephone')->setLabel('Téléphone: ');
     	$this->getWidget('fax')->setLabel('Fax: ');
     	

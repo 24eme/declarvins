@@ -66,8 +66,8 @@ class acVinCompteAdminActions extends sfActions
    */
   public function executeCompteAjout(sfWebRequest $request) 
     {
-      $this->compte = new CompteVirtuel(); 
-      $this->compte->interpro = $this->getUser()->getCompte()->interpro;
+      $this->compte = new CompteVirtuel();
+   	  $this->compte->interpro = array($this->getUser()->getCompte()->getGerantInterpro()->_id => array('statut' => _Compte::STATUT_VALIDATION_VALIDE));
       $this->form = new CompteModificationDroitForm($this->compte);
       if($request->isMethod(sfWebRequest::POST))
         {           
