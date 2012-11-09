@@ -30,13 +30,13 @@ class VracTransactionValidator extends sfValidatorBase {
 		    		}
 		        }
 	    	}
+	        if ($isDateSup) {
+	        	throw new sfValidatorErrorSchema($this, array(new sfValidatorError($this, 'impossible_date')));
+	        }
+	        if ($total != $values['volume_propose']) {
+	        	throw new sfValidatorErrorSchema($this, array(new sfValidatorError($this, 'impossible_volume')));
+	        }
     	}
-        if ($isDateSup) {
-        	throw new sfValidatorErrorSchema($this, array(new sfValidatorError($this, 'impossible_date')));
-        }
-        if ($total != $values['volume_propose']) {
-        	throw new sfValidatorErrorSchema($this, array(new sfValidatorError($this, 'impossible_volume')));
-        }
         
         return $values;
     }

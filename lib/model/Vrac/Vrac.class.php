@@ -160,7 +160,7 @@ class Vrac extends BaseVrac
     }
     
     public function isModifiable() {
-    	return ($this->valide->statut)? false : true;
+    	return (!$this->valide->statut || !$this->volume_enleve)? true : false;
     }
 
     public function isVisualisable() {
