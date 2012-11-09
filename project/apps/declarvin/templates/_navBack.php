@@ -64,10 +64,10 @@
 			</li>		
 		<?php elseif ($active == 'comptes'): ?>
 			<li<?php if ($subactive == 'comptes'): ?> class="actif"<?php endif; ?>>
-				<a href="<?php echo url_for('@admin_comptes') ?>">Tous les comptes</a>
+				<a href="<?php echo url_for('@admin_comptes') ?>">Opérateurs</a>
 			</li>	
 			<li<?php if ($subactive == 'contrat'): ?> class="actif"<?php endif; ?>>
-				<a href="<?php echo url_for('@validation_login') ?>">Contrat mandat</a>
+				<a href="<?php echo url_for('@validation_login') ?>">Déclarants / Contrats mandat</a>
 			</li>		
 		<?php endif; ?>
 	</ul>

@@ -41,6 +41,9 @@ validation_login:
 validation_fiche:
   url:   /validation/fiche/:num_contrat
   param: { module: validation, action: fiche, num_contrat: null }
+validation_pdf:
+  url:   /validation/:num_contrat/pdf
+  param: { module: validation, action: pdf, num_contrat: null }
 validation_compte:
   url:   /validation/:num_contrat/compte
   param: { module: validation, action: compte, num_contrat: null }
@@ -145,6 +148,10 @@ compte_ajout:
 compte_recap:
   url:   /admin/compte-recap/:login
   param: { module: acVinCompteAdmin, action: compteRecap }
+  
+compte_suppression:
+  url:   /admin/compte-supprimer/:login
+  param: { module: acVinCompteAdmin, action: compteSuppression }
 
 compte_modification:
   url:   /admin/compte-modification/:login

@@ -35,7 +35,6 @@ class validationActions extends sfActions {
     public function executeFiche(sfWebRequest $request) {
     	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
     	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
-        
         $this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
         $import = new ImportEtablissementsCsv($this->interpro);
         $this->compte = $this->contrat->getCompteObject();
@@ -81,7 +80,9 @@ class validationActions extends sfActions {
         $this->formCompte->bind($request->getParameter($this->formCompte->getName()));
         if ($this->formCompte->isValid()) {
             $this->compte = $this->formCompte->save();
-            $this->getUser()->setFlash('notification_compte', 'Les identifiants ont bien été mis à jour.');
+         	$ldap = new Ldap();
+         	$ldap->saveCompte($this->compte);
+            $this->getUser()->setFlash('notice', 'Modifications effectuées avec succes.');
             $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
         }
 
@@ -237,6 +238,14 @@ class validationActions extends sfActions {
         $compte->save();
         $this->getUser()->setFlash('notification_general', "L'établissement a bien été délié");
         $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
+    }
+    
+    public function executePdf(sfWebRequest $request)
+    {
+    	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
+    	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
+  		$pdf = new ExportContratPdf($this->contrat);
+		return $this->renderText($pdf->render($this->getResponse()));
     }
 
 }

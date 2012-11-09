@@ -13,3 +13,8 @@
         <input class="btn_valider" type="submit" value="Valider" />
     </div>
 </form>
+<script type="text/javascript">
+$(document).ready(function () {
+	$( "#<?php echo $form['contrat']->renderId() ?>" ).combobox(); 
+});
+</script>

@@ -17,14 +17,22 @@ class acVinCompteAdminActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-  	$this->form = new CompteSelectionForm();
-  	if ($request->isMethod(sfWebRequest::POST)) {
-  		$this->form->bind($request->getParameter($this->form->getName()));
-  		if ($this->form->isValid()) {
-  			$values = $this->form->getValues();
-  			$login = $values['compte'];
-  			return $this->redirect("compte_modification", array('login' => $login));
-  		}
+  	$this->comptes = _CompteClient::getInstance()->findAllOperateurByInterpo($this->getUser()->getCompte()->getGerantInterpro()->_id);
+  }
+  
+  public function executeCompteSuppression(sfWebRequest $request)
+  {
+  	$this->forward404Unless($compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
+  	$login = $compte->login;
+  	$loginInSession = $this->getUser()->getCompte()->login;
+  	$ldap = new Ldap();
+  	$ldap->deleteCompte($compte);
+  	$compte->delete();
+  	$this->getUser()->setFlash('notice', 'Compte supprimé avec succès');
+  	if ($login == $loginInSession) {
+  		$this->redirect("@logout");
+  	} else {
+  		$this->redirect("@admin_comptes");
   	}
   }
   

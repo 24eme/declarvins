@@ -5,7 +5,7 @@
 	<form id="creation_compte" method="post" action="<?php echo url_for('compte_nouveau', array('nocontrat' => $contrat->no_contrat)) ?>">
 		<?php echo $form->renderHiddenFields(); ?>
 		<?php echo $form->renderGlobalErrors(); ?>
-		<h1>Étape 3 : <strong>Création de compte</strong></h1>
+		<h1><strong>Création de compte</strong></h1>
 		<div class="col">
 			<div class="ligne_form">			
 				<?php echo $form['login']->renderError() ?>

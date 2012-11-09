@@ -44,6 +44,14 @@ class _CompteClient extends acVinCompteClient
                     ->getView('compte', 'all');
     }
 
+    public function findAllOperateurByInterpo($interpro_id)
+    {
+
+        return $this->startkey(array($interpro_id, 'CompteVirtuel'))
+                    ->endkey(array($interpro_id, 'CompteVirtuel', array()))
+                    ->getView('compte', 'all');
+    }
+
   	public function makeLibelle($datas) {
         $compteLibelle = '';
         if ($nom = $datas[self::KEY_NOM]) {

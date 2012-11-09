@@ -112,6 +112,9 @@ var formModificationCompte = function()
 <?php endforeach; ?>
 </script>
 <div class="clearfix" id="application_dr">
+    <h1>Contrat mandat</h1>
+    <a href="<?php echo url_for("validation_pdf", array("num_contrat" => $contrat->no_contrat)) ?>">Télécharger le pdf du contrat mandat n°<?php echo $contrat->no_contrat ?></a>
+    <br /><br />
     <h1>Informations du compte</h1>
     <!-- #exploitation_administratif -->
     <div id="mon_compte">
