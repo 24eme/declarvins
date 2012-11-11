@@ -2,6 +2,8 @@
 
 abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
 
+    const BIG_DOCUMENT_SIZE = 50000;
+
     protected $_is_new = true;
     protected $_serialize_loaded_json = null;
 
@@ -129,6 +131,11 @@ abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
     }
 
     public function isModified() {
+        if(strlen($this->_serialize_loaded_json) > self::BIG_DOCUMENT_SIZE) {
+
+            return true;
+        };
+
         $native_json = unserialize($this->_serialize_loaded_json);
         $final_json = new acCouchdbJsonNative($this->getData());
         return $this->isNew() || (!$native_json->equal($final_json));
