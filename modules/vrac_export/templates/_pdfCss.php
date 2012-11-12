@@ -27,12 +27,13 @@
 	
 	}
 	#header {
+		font-size: 11pt;
 		color: #000;
 		padding: 0 0 30px;
 	}
 
 	#header h1 {
-		font-size: 13pt;
+		font-size: 16pt;
 		margin: 0;
 	}
 
