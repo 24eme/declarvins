@@ -31,7 +31,7 @@
     	var input = blocCondition.find('input');
     	var blocs = blocCondition.attr('data-condition-cible').split('|');
     	var traitement = function(input, blocs) {
-    		if(input.is(':checked'))
+		if(input.is(':checked'))
             {
         	   for (bloc in blocs) {
         		   if ($(blocs[bloc]).exists()) {
@@ -39,6 +39,8 @@
             		   for(key in values) {
             			   if (values[key] == input.val()) {
             				   $(blocs[bloc]).show();
+
+     	  					 $(blocs[bloc]).initBlocsFormCol();	
             			   }
             		   }
         		   }
@@ -48,7 +50,7 @@
     	if(input.length == 0) {
      	   for (bloc in blocs) {
   				$(blocs[bloc]).show();
-     	   }	
+     	   }
     	} else {
      	   for (bloc in blocs) {
   				$(blocs[bloc]).hide();
@@ -72,6 +74,27 @@
       	   }
         });
 	}
+
+	/* Egalisation des lignes pour les champs en 2 colonnes */
+	$.fn.initBlocsFormCol = function()
+	{
+		var blocsForm = $(this);
+
+		blocsForm.each(function()
+		{
+			var blocForm = $(this);
+			var cols = blocForm.find('.col');
+			var lignes = cols.eq(0).find('.vracs_ligne_form');
+			var nbLignes = lignes.size();
+
+			for(var i=0; i<nbLignes; i++)
+			{
+				cols.find('.vracs_ligne_form:nth-child('+i+')').hauteurEgale();
+			}
+		});
+	}
+
+
 	
 	var initSoussigne = function() {
 	   if(!$('.vrac_soussigne').exists())
@@ -576,6 +599,8 @@
 	$(document).ready(function()
 	{
 		 $(this).initBlocCondition();
+		 $('.bloc_form').has('.col').initBlocsFormCol();
+
 		 init();
 	     initSoussigne();
 	     initMarche();

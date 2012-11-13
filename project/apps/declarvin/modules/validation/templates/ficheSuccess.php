@@ -1,65 +1,3 @@
-<style>
-#modification_compte span,
-#modification_compte label {
-	display: inline-block;
-	width: 200px;
-	padding: 5px 0;
-}
-#modification_compte input[type="text"],
-#modification_compte input[type="password"],
-#modification_compte select {
-	background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #D3D2CD;
-    border-radius: 2px 2px 2px 2px;
-    font-size: 100%;
-    position: relative;
-    vertical-align: middle;
-    height: 18px;
-    padding: 0 4px;
-    width: 220px;
-}
-#liaisonInterpro {
-	margin: 0 0 10px 0;
-}
-#formLiaisonInterpro .btn span {
-	display: inline-block;
-	width: 21px;
-}
-#formLiaisonInterpro {
-	margin: 0 0 10px 0;
-}
-.btn .btn_valider {
-    background-color: #86005B;
-    background-position: right -52px;
-    background-repeat: no-repeat;
-    border: 1px solid #A12929;
-    color: #FFFFFF;
-    display: inline-block;
-    padding: 0 23px 0 15px;
-    text-transform: uppercase;
-    height: 20px;
-}
-#modification_compte {
-	height: 215px;
-	margin: 0 0 10px 0;
-}
-#modification_compte .error_list {    
-	display: inline-block;
-	width: 200px;
-    font-size: 100%;
-    font-weight: normal;
-    height: 16px;
-    padding: 1px;
-    margin: 0;
-	
-}
-.chais li {
-	width: 275px;
-	padding: 10px;
-	display: inline-block;
-
-}
-</style>
 <script type="text/javascript">
 $(document).ready( function()
 {
@@ -75,9 +13,10 @@ var formModificationCompte = function()
 
     var presentation_infos = bloc.find('.presentation');
     var modification_infos = bloc.find('.modification');
-    var btn = bloc.find('.btn');
-    var btn_modifier = btn.find('a.modifier');
-    var btn_annuler = btn.find('a.annuler');
+    var btn_modifier = presentation_infos.find('.btn_modifier');
+    var btn_annuler = modification_infos.find('.btn_annuler');
+
+    alert(btn_annuler.size());
 
     // modification_infos.hide();
 
@@ -85,7 +24,6 @@ var formModificationCompte = function()
     {
         presentation_infos.hide();
         modification_infos.show();
-        $("a.modifier").hide();
         bloc.addClass('edition');
         return false;
     });
@@ -94,7 +32,6 @@ var formModificationCompte = function()
     {
         presentation_infos.show();
         modification_infos.hide();
-        $("a.modifier").show();
         bloc.removeClass('edition');
         return false;
     });
@@ -111,38 +48,53 @@ var formModificationCompte = function()
         interproLocked.push("<?php echo $id ?>");
 <?php endforeach; ?>
 </script>
+
+
+
 <div class="clearfix" id="application_dr">
-    <h1>Contrat mandat</h1>
-    <a href="<?php echo url_for("validation_pdf", array("num_contrat" => $contrat->no_contrat)) ?>">Télécharger le pdf du contrat mandat n°<?php echo $contrat->no_contrat ?></a>
-    <br /><br />
-    <h1>Informations du compte</h1>
-    <!-- #exploitation_administratif -->
-    <div id="mon_compte">
+
+    <div id="contrat_mandat">
+
+        <h1>Contrat mandat</h1>
+       
+        <a href="<?php echo url_for("validation_pdf", array("num_contrat" => $contrat->no_contrat)) ?>" class="btn_suiv"><span>Télécharger le pdf du contrat mandat n°<?php echo $contrat->no_contrat ?></span></a>
+        
+        
+        <h1>Informations du compte</h1>
+        
+        <!-- #exploitation_administratif -->
+        <div id="mon_compte">
         <?php include_partial('validation/formCompte', array('form' => $formCompte, 'compte' => $compte, 'contrat' => $contrat)) ?>
-    </div>
-    
-    <h1>Etablissements associés</h1>
-    <?php if (count($etablissements) > 0 || count($etablissementsCsv) > 0): ?>
+        </div>
+
+        <h1>Etablissements associés</h1>
+        
+        <?php if (count($etablissements) > 0 || count($etablissementsCsv) > 0): ?>
         <ul class="chais">
             <?php foreach ($etablissements as $etablissement): ?>
-                <li class="presentation"<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVER): ?> style="opacity:0.5;"<?php endif; ?>>
-                    <?php include_partial('viewEtablissement', array('etablissement' => $etablissement, 'interpro' => $interpro, 'contrat' => $contrat)) ?>
-                </li>
+            <li class="presentation"<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVER): ?> style="opacity:0.5;"<?php endif; ?>>
+                <?php include_partial('viewEtablissement', array('etablissement' => $etablissement, 'interpro' => $interpro, 'contrat' => $contrat)) ?>
+            </li>
             <?php endforeach; ?>
+        
             <?php foreach ($etablissementsCsv as $etablissementCsv): ?>
-                <li class="presentation" style="border:1px dashed #C7C9C8;">
-                    <?php include_partial('viewCsvEtablissement', array('etablissement' => $etablissementCsv, 'interpro' => $interpro, 'contrat' => $contrat)) ?>
-                </li>
+            <li class="presentation" style="border:1px dashed #C7C9C8;">
+                <?php include_partial('viewCsvEtablissement', array('etablissement' => $etablissementCsv, 'interpro' => $interpro, 'contrat' => $contrat)) ?>
+            </li>
             <?php endforeach; ?>
         </ul>
-    <?php else: ?>
-        <p><i>Aucun établissement importé à ce jour</i></p>
-    <?php endif; ?>
 
-    <h1>Liaison interpro</h1>
-    <?php include_partial('validation/formLiaisonInterpro', array('form' => $formLiaison, 'contrat' => $contrat)) ?>
-    <h1>Validation</h1>
-    <?php include_partial('validation/validation', array('valide_interpro' => $valide_interpro, 'compte_active' => $compte_active, 'interpro' => $interpro, 'contrat' => $contrat)) ?>
+        <?php else: ?>
+        <p><i>Aucun établissement importé à ce jour</i></p>
+        <?php endif; ?>
+
+        <h1>Liaison interpro</h1>
+        <?php include_partial('validation/formLiaisonInterpro', array('form' => $formLiaison, 'contrat' => $contrat)) ?>
+
+        <h1>Validation</h1>
+        <?php include_partial('validation/validation', array('valide_interpro' => $valide_interpro, 'compte_active' => $compte_active, 'interpro' => $interpro, 'contrat' => $contrat)) ?>
+
+    </div>
 
 </div>
 <!-- fin #exploitation_administratif -->

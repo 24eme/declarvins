@@ -16,7 +16,7 @@ if (!$compte_active) {
 <form method="post" action="<?php echo url_for('validation_validation', array('num_contrat' => $contrat->no_contrat)) ?>">
 <input type="hidden" name="interpro_id" value="<?php echo $interpro->get('_id') ?>" />
 <div class="ligne_form_btn">
-    <input class="btn_valider" type="submit" value="Valider" />
+	<button type="submit" class=" btn_suiv"><span>Valider</span></button>
 </div>
 </form>
 <?php endif; ?>

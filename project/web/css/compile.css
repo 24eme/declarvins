@@ -184,34 +184,46 @@ pre, code, kbd, samp { font-family:monospace, sans-serif; }
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
 }
+.btn_majeur:hover, .btn_majeur:focus { text-decoration:none; }
 .btn_vert {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#b1cb00;
   border-color:#99af00;
 }
+.btn_vert:hover, .btn_vert:focus { text-decoration:none; }
 .btn_vert:hover, .btn_vert:focus { background-color:#99af00; }
 .btn_violet {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#86005b;
   border-color:#494949;
 }
+.btn_violet:hover, .btn_violet:focus { text-decoration:none; }
 .btn_violet:hover, .btn_violet:focus { background-color:#494949; }
 .btn_bordeaux {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background:#494949 url(../images/fonds/bg_drm_actions.png) left top repeat-x;
   border:none;
   height:21px;
 }
+.btn_bordeaux:hover, .btn_bordeaux:focus { text-decoration:none; }
 .btn_bordeaux span {
   background-image:url(../images/pictos/pi_drm_actions.png);
   background-repeat:no-repeat;
@@ -224,18 +236,24 @@ pre, code, kbd, samp { font-family:monospace, sans-serif; }
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#494949;
   border-color:#494949;
 }
+.btn_rouge:hover, .btn_rouge:focus { text-decoration:none; }
 .btn_rouge:hover, .btn_rouge:focus { background-color:#494949; }
 .btn_gris {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#a0a0a0;
   border-color:#c0c0c0;
 }
+.btn_gris:hover, .btn_gris:focus { text-decoration:none; }
 .btn_gris:hover, .btn_gris:focus { background-color:#494949; }
 .btn_prec, .btn_suiv {
   background:url(../images/boutons/btn_majeur.png) 0 0 no-repeat;
@@ -321,9 +339,12 @@ button.btn_prec, button.btn_prec span, button.btn_suiv, button.btn_suiv span { h
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#86005b;
   border-color:#494949;
 }
+.btn_telecharger:hover, .btn_telecharger:focus { text-decoration:none; }
 .btn_telecharger:hover, .btn_telecharger:focus { background-color:#494949; }
 a.msg_aide {
   -webkit-opacity:0.5;
@@ -876,9 +897,12 @@ a:hover { text-decoration:underline; }
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#a0a0a0;
   border-color:#c0c0c0;
 }
+.popup_form .ligne_form_btn button.btn_annuler:hover, .popup_form .ligne_form_btn button.btn_annuler:focus, .popup_form .ligne_form_btn a.btn_annuler:hover, .popup_form .ligne_form_btn a.btn_annuler:focus { text-decoration:none; }
 .popup_form .ligne_form_btn button.btn_annuler:hover, .popup_form .ligne_form_btn button.btn_annuler:focus, .popup_form .ligne_form_btn a.btn_annuler:hover, .popup_form .ligne_form_btn a.btn_annuler:focus { background-color:#494949; }
 .popup_form .ligne_form_btn button.btn_annuler:hover, .popup_form .ligne_form_btn a.btn_annuler:hover { text-decoration:none; }
 .popup_form .ligne_form_btn button.btn_valider, .popup_form .ligne_form_btn a.btn_valider {
@@ -886,9 +910,12 @@ a:hover { text-decoration:underline; }
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#86005b;
   border-color:#494949;
 }
+.popup_form .ligne_form_btn button.btn_valider:hover, .popup_form .ligne_form_btn button.btn_valider:focus, .popup_form .ligne_form_btn a.btn_valider:hover, .popup_form .ligne_form_btn a.btn_valider:focus { text-decoration:none; }
 .popup_form .ligne_form_btn button.btn_valider:hover, .popup_form .ligne_form_btn button.btn_valider:focus, .popup_form .ligne_form_btn a.btn_valider:hover, .popup_form .ligne_form_btn a.btn_valider:focus { background-color:#494949; }
 input.ui-autocomplete-input {
   -webkit-box-shadow:none;
@@ -974,6 +1001,8 @@ input.ui-autocomplete-input + button .ui-icon {
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#86005b;
   border-color:#494949;
   height:28px;
@@ -982,6 +1011,7 @@ input.ui-autocomplete-input + button .ui-icon {
   padding:0 10px;
   text-transform:uppercase;
 }
+#popup_msg_aide #btn_popup_msg_aide a:hover, #popup_msg_aide #btn_popup_msg_aide a:focus { text-decoration:none; }
 #popup_msg_aide #btn_popup_msg_aide a:hover, #popup_msg_aide #btn_popup_msg_aide a:focus { background-color:#494949; }
 #popup_msg_aide #btn_popup_msg_aide a:hover { text-decoration:none; }
 #ajax_notifications {
@@ -1121,6 +1151,8 @@ input.ui-autocomplete-input + button .ui-icon {
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#86005b;
   border-color:#494949;
   background-image:url(../images/boutons/btn_ajouter.png);
@@ -1128,12 +1160,15 @@ input.ui-autocomplete-input + button .ui-icon {
   margin:0 10px 0 0;
   padding:0 10px 0 30px;
 }
+#creation_compte .ligne_btn .btn_ajouter:hover, #creation_compte .ligne_btn .btn_ajouter:focus { text-decoration:none; }
 #creation_compte .ligne_btn .btn_ajouter:hover, #creation_compte .ligne_btn .btn_ajouter:focus { background-color:#494949; }
 #creation_compte .ligne_btn .btn_supprimer {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#a0a0a0;
   border-color:#c0c0c0;
   background-image:url(../images/boutons/btn_supprimer.png);
@@ -1142,6 +1177,7 @@ input.ui-autocomplete-input + button .ui-icon {
   margin-right:20px;
   text-transform:none;
 }
+#creation_compte .ligne_btn .btn_supprimer:hover, #creation_compte .ligne_btn .btn_supprimer:focus { text-decoration:none; }
 #creation_compte .ligne_btn .btn_supprimer:hover, #creation_compte .ligne_btn .btn_supprimer:focus { background-color:#494949; }
 #creation_compte #infos_etablissements {
   margin:15px 0 0;
@@ -1182,6 +1218,8 @@ input.ui-autocomplete-input + button .ui-icon {
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#a0a0a0;
   border-color:#c0c0c0;
   background-image:url(../images/boutons/btn_ajouter.png);
@@ -1192,12 +1230,15 @@ input.ui-autocomplete-input + button .ui-icon {
   right:127px;
   text-transform:none;
 }
+#creation_compte a.btn_ajouter_etab:hover, #creation_compte a.btn_ajouter_etab:focus { text-decoration:none; }
 #creation_compte a.btn_ajouter_etab:hover, #creation_compte a.btn_ajouter_etab:focus { background-color:#494949; }
 #creation_compte a#btn_ajouter_etablissement {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#a0a0a0;
   border-color:#c0c0c0;
   background-image:url(../images/boutons/btn_ajouter.png);
@@ -1209,6 +1250,7 @@ input.ui-autocomplete-input + button .ui-icon {
   font-size:15px;
   text-transform:uppercase;
 }
+#creation_compte a#btn_ajouter_etablissement:hover, #creation_compte a#btn_ajouter_etablissement:focus { text-decoration:none; }
 #creation_compte a#btn_ajouter_etablissement:hover, #creation_compte a#btn_ajouter_etablissement:focus { background-color:#494949; }
 #creation_compte a#btn_ajouter_etablissement:hover { text-decoration:none; }
 #creation_compte a#btn_ajouter_etablissement span {
@@ -1232,6 +1274,8 @@ input.ui-autocomplete-input + button .ui-icon {
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#86005b;
   border-color:#494949;
   background-image:url(../images/boutons/btn_ajouter.png);
@@ -1239,12 +1283,15 @@ input.ui-autocomplete-input + button .ui-icon {
   margin:0 10px 0 0;
   padding:0 10px 0 30px;
 }
+#creation_compte #recapitulatif .recap_perso .btn_ajouter:hover, #creation_compte #recapitulatif .recap_perso .btn_ajouter:focus, #creation_compte #recapitulatif .recap_etablissement .btn_ajouter:hover, #creation_compte #recapitulatif .recap_etablissement .btn_ajouter:focus { text-decoration:none; }
 #creation_compte #recapitulatif .recap_perso .btn_ajouter:hover, #creation_compte #recapitulatif .recap_perso .btn_ajouter:focus, #creation_compte #recapitulatif .recap_etablissement .btn_ajouter:hover, #creation_compte #recapitulatif .recap_etablissement .btn_ajouter:focus { background-color:#494949; }
 #creation_compte #recapitulatif .recap_perso .btn_supprimer, #creation_compte #recapitulatif .recap_etablissement .btn_supprimer {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#a0a0a0;
   border-color:#c0c0c0;
   background-image:url(../images/boutons/btn_supprimer.png);
@@ -1253,6 +1300,7 @@ input.ui-autocomplete-input + button .ui-icon {
   margin-right:20px;
   text-transform:none;
 }
+#creation_compte #recapitulatif .recap_perso .btn_supprimer:hover, #creation_compte #recapitulatif .recap_perso .btn_supprimer:focus, #creation_compte #recapitulatif .recap_etablissement .btn_supprimer:hover, #creation_compte #recapitulatif .recap_etablissement .btn_supprimer:focus { text-decoration:none; }
 #creation_compte #recapitulatif .recap_perso .btn_supprimer:hover, #creation_compte #recapitulatif .recap_perso .btn_supprimer:focus, #creation_compte #recapitulatif .recap_etablissement .btn_supprimer:hover, #creation_compte #recapitulatif .recap_etablissement .btn_supprimer:focus { background-color:#494949; }
 #creation_compte #recapitulatif .ligne_btn {
   text-align:right;
@@ -1300,6 +1348,57 @@ input.ui-autocomplete-input + button .ui-icon {
 .tableau_recap .actions a.btn_activer { background-image:url(../images/pictos/pi_actif.png); }
 .tableau_recap .actions a.btn_desactiver { background-image:url(../images/pictos/pi_inactif.png); }
 .tableau_recap .actions a.btn_modifier { background-image:url(../images/pictos/pi_edit.png); }
+#contrat_mandat h1 { margin:25px 0 15px; }
+#contrat_mandat .bloc_form {
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  border:1px solid #e3e2e2;
+  margin:0 0 15px;
+}
+#contrat_mandat .bloc_form .ligne_form {
+  margin:0;
+  padding:10px 0 10px 10px;
+}
+#contrat_mandat .bloc_form .ligne_form label {
+  display:inline-block;
+  font-weight:bold;
+  width:200px;
+}
+#contrat_mandat .bloc_form .ligne_form input[type=text] { width:200px; }
+#contrat_mandat .bloc_form .ligne_form_alt { background:#e3e2e2; }
+#contrat_mandat .bloc_form .col {
+  float:left;
+  vertical-align:top;
+  width:448px;
+}
+#contrat_mandat .bloc_form .col:first-child { border-right:1px solid #e3e2e2; }
+#contrat_mandat .bloc_form .col:first-child .ligne_form:first-child {
+  -webkit-border-radius:5px 0 0 0;
+  -moz-border-radius:5px 0 0 0;
+  border-radius:5px 0 0 0;
+}
+#contrat_mandat .bloc_form .col:first-child .ligne_form:last-child {
+  -webkit-border-radius:0 0 0 5px;
+  -moz-border-radius:0 0 0 5px;
+  border-radius:0 0 0 5px;
+}
+#contrat_mandat .bloc_form .col:last-child .ligne_form:first-child {
+  -webkit-border-radius:0 5px 0 0;
+  -moz-border-radius:0 5px 0 0;
+  border-radius:0 5px 0 0;
+}
+#contrat_mandat .bloc_form .col:last-child .ligne_form:last-child {
+  -webkit-border-radius:0 0 5px 0;
+  -moz-border-radius:0 0 5px 0;
+  border-radius:0 0 5px 0;
+}
+#contrat_mandat .presentation .btn_valider, #contrat_mandat .modification .btn_valider { margin:0 10px 0 0; }
+#contrat_mandat .presentation .btn_mdp, #contrat_mandat .presentation .btn_annuler, #contrat_mandat .modification .btn_mdp, #contrat_mandat .modification .btn_annuler {
+  color:#86005b;
+  text-decoration:underline;
+}
+#contrat_mandat .btn_suiv { float:none; }
 p#date_drm {
   font-size:14px;
   font-style:italic;
@@ -1471,6 +1570,8 @@ p#date_drm {
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#86005b;
   border-color:#494949;
   background-image:url(../images/boutons/btn_ajouter.png);
@@ -1478,12 +1579,15 @@ p#date_drm {
   margin:0 10px 0 0;
   padding:0 10px 0 30px;
 }
+#principal #etablissements_drm #etablissements_infos .btn_ajouter:hover, #principal #etablissements_drm #etablissements_infos .btn_ajouter:focus { text-decoration:none; }
 #principal #etablissements_drm #etablissements_infos .btn_ajouter:hover, #principal #etablissements_drm #etablissements_infos .btn_ajouter:focus { background-color:#494949; }
 #principal #etablissements_drm #etablissements_infos .btn_supprimer {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#a0a0a0;
   border-color:#c0c0c0;
   background-image:url(../images/boutons/btn_supprimer.png);
@@ -1492,6 +1596,7 @@ p#date_drm {
   margin-right:20px;
   text-transform:none;
 }
+#principal #etablissements_drm #etablissements_infos .btn_supprimer:hover, #principal #etablissements_drm #etablissements_infos .btn_supprimer:focus { text-decoration:none; }
 #principal #etablissements_drm #etablissements_infos .btn_supprimer:hover, #principal #etablissements_drm #etablissements_infos .btn_supprimer:focus { background-color:#494949; }
 #principal #etablissements_drm #etablissements_infos table { width:100%; }
 #principal #etablissements_drm #etablissements_infos table colgroup #titres { width:95px; }
@@ -1671,18 +1776,24 @@ p#date_drm {
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#a0a0a0;
   border-color:#c0c0c0;
 }
+#principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_annuler:hover, #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_annuler:focus { text-decoration:none; }
 #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_annuler:hover, #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_annuler:focus { background-color:#494949; }
 #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#86005b;
   border-color:#494949;
 }
+#principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider:hover, #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider:focus { text-decoration:none; }
 #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider:hover, #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider:focus { background-color:#494949; }
 #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_annuler, #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider {
   line-height:20px;
@@ -1857,27 +1968,36 @@ p#date_drm {
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#a0a0a0;
   border-color:#c0c0c0;
 }
+#colonnes_dr .col_recolte .col_cont .col_btn .btn_modifier:hover, #colonnes_dr .col_recolte .col_cont .col_btn .btn_modifier:focus, #colonnes_dr .col_recolte .col_cont .col_btn .btn_reinitialiser:hover, #colonnes_dr .col_recolte .col_cont .col_btn .btn_reinitialiser:focus { text-decoration:none; }
 #colonnes_dr .col_recolte .col_cont .col_btn .btn_modifier:hover, #colonnes_dr .col_recolte .col_cont .col_btn .btn_modifier:focus, #colonnes_dr .col_recolte .col_cont .col_btn .btn_reinitialiser:hover, #colonnes_dr .col_recolte .col_cont .col_btn .btn_reinitialiser:focus { background-color:#494949; }
 #colonnes_dr .col_recolte .col_cont .col_btn .btn_valider {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#86005b;
   border-color:#494949;
 }
+#colonnes_dr .col_recolte .col_cont .col_btn .btn_valider:hover, #colonnes_dr .col_recolte .col_cont .col_btn .btn_valider:focus { text-decoration:none; }
 #colonnes_dr .col_recolte .col_cont .col_btn .btn_valider:hover, #colonnes_dr .col_recolte .col_cont .col_btn .btn_valider:focus { background-color:#494949; }
 #colonnes_dr .col_recolte .col_cont .col_btn .btn_supprimer {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#494949;
   border-color:#494949;
 }
+#colonnes_dr .col_recolte .col_cont .col_btn .btn_supprimer:hover, #colonnes_dr .col_recolte .col_cont .col_btn .btn_supprimer:focus { text-decoration:none; }
 #colonnes_dr .col_recolte .col_cont .col_btn .btn_supprimer:hover, #colonnes_dr .col_recolte .col_cont .col_btn .btn_supprimer:focus { background-color:#494949; }
 #colonnes_dr .col_recolte .col_masque {
   bottom:0;
@@ -2072,10 +2192,13 @@ p#date_drm {
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#a0a0a0;
   border-color:#c0c0c0;
   padding:1px 10px;
 }
+#ajouts_liquidations #stock_epuise:hover, #ajouts_liquidations #stock_epuise:focus { text-decoration:none; }
 #ajouts_liquidations #stock_epuise:hover, #ajouts_liquidations #stock_epuise:focus { background-color:#494949; }
 #btn_etape_dr {
   text-transform:uppercase;
@@ -2409,6 +2532,8 @@ p#date_drm {
 }
 .vracs .contenu_onglet label#label_acheteur { margin:0 95px 0 45px; }
 .vracs .contenu_onglet label input[type="radio"] { margin-right:7px; }
+.vracs .bloc_condition .radio_list { margin:0 0 0 20px; }
+.vracs .bloc_condition .radio_list li { margin:0 15px 0 0; }
 .vracs #mandataire, .vracs #contrat { padding-top:20px; }
 .vracs .ligne_form_btn {
   margin:30px 0 0;
@@ -2427,9 +2552,12 @@ p#date_drm {
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#a0a0a0;
   border-color:#c0c0c0;
 }
+.vracs .ligne_form_btn button.btn_annuler:hover, .vracs .ligne_form_btn button.btn_annuler:focus, .vracs .ligne_form_btn a.btn_annuler:hover, .vracs .ligne_form_btn a.btn_annuler:focus { text-decoration:none; }
 .vracs .ligne_form_btn button.btn_annuler:hover, .vracs .ligne_form_btn button.btn_annuler:focus, .vracs .ligne_form_btn a.btn_annuler:hover, .vracs .ligne_form_btn a.btn_annuler:focus { background-color:#494949; }
 .vracs .ligne_form_btn button.btn_annuler:hover, .vracs .ligne_form_btn a.btn_annuler:hover { text-decoration:none; }
 .vracs .ligne_form_btn button.etape_prec, .vracs .ligne_form_btn a.etape_prec {
@@ -2592,11 +2720,7 @@ p#date_drm {
   font-weight:bold;
   width:200px;
 }
-.vracs .bloc_form .vracs_ligne_form span {
-  height:30px;
-  line-height:30px;
-  vertical-align:middle;
-}
+.vracs .bloc_form .vracs_ligne_form span { vertical-align:middle; }
 .vracs .bloc_form .vracs_ligne_form input[type=text] { width:200px; }
 .vracs .bloc_form .vracs_ligne_form_alt { background:#e3e2e2; }
 .vracs .bloc_form .col {
@@ -2773,6 +2897,8 @@ p#date_drm {
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#b1cb00;
   border-color:#99af00;
   display:inline;
@@ -2783,6 +2909,7 @@ p#date_drm {
   text-transform:uppercase;
   font-weight:bold;
 }
+.vracs .visualisation_contrat #solder_contrat:hover, .vracs .visualisation_contrat #solder_contrat:focus { text-decoration:none; }
 .vracs .visualisation_contrat #solder_contrat:hover, .vracs .visualisation_contrat #solder_contrat:focus { background-color:#99af00; }
 .vracs #recap_saisie #recap_transaction .lots {
   background:#ffffff;
@@ -2811,13 +2938,13 @@ p#date_drm {
   font-weight:bold;
   width:265px;
 }
-#mon_compte .ligne_form, #compteModification .ligne_form, #compteAjout .ligne_form, #validationFiche .ligne_form, #libelleModification .ligne_form { margin:0 0 15px; }
-#mon_compte .ligne_form > *, #compteModification .ligne_form > *, #compteAjout .ligne_form > *, #validationFiche .ligne_form > *, #libelleModification .ligne_form > * {
+#mon_compte .ligne_form, #compteModification .ligne_form, #compteAjout .ligne_form, #validationFiche .ligne_form, #libelleModification .ligne_form, #formLiaisonInterpro .ligne_form { margin:0 0 15px; }
+#mon_compte .ligne_form > *, #compteModification .ligne_form > *, #compteAjout .ligne_form > *, #validationFiche .ligne_form > *, #libelleModification .ligne_form > *, #formLiaisonInterpro .ligne_form > * {
   display:inline-block;
   vertical-align:middle;
 }
-#mon_compte .ligne_form label, #compteModification .ligne_form label, #compteAjout .ligne_form label, #validationFiche .ligne_form label, #libelleModification .ligne_form label { width:170px; }
-#mon_compte .ligne_form input[type="text"], #mon_compte .ligne_form input[type="password"], #mon_compte .ligne_form textarea, #compteModification .ligne_form input[type="text"], #compteModification .ligne_form input[type="password"], #compteModification .ligne_form textarea, #compteAjout .ligne_form input[type="text"], #compteAjout .ligne_form input[type="password"], #compteAjout .ligne_form textarea, #validationFiche .ligne_form input[type="text"], #validationFiche .ligne_form input[type="password"], #validationFiche .ligne_form textarea, #libelleModification .ligne_form input[type="text"], #libelleModification .ligne_form input[type="password"], #libelleModification .ligne_form textarea {
+#mon_compte .ligne_form label, #compteModification .ligne_form label, #compteAjout .ligne_form label, #validationFiche .ligne_form label, #libelleModification .ligne_form label, #formLiaisonInterpro .ligne_form label { width:170px; }
+#mon_compte .ligne_form input[type="text"], #mon_compte .ligne_form input[type="password"], #mon_compte .ligne_form textarea, #compteModification .ligne_form input[type="text"], #compteModification .ligne_form input[type="password"], #compteModification .ligne_form textarea, #compteAjout .ligne_form input[type="text"], #compteAjout .ligne_form input[type="password"], #compteAjout .ligne_form textarea, #validationFiche .ligne_form input[type="text"], #validationFiche .ligne_form input[type="password"], #validationFiche .ligne_form textarea, #libelleModification .ligne_form input[type="text"], #libelleModification .ligne_form input[type="password"], #libelleModification .ligne_form textarea, #formLiaisonInterpro .ligne_form input[type="text"], #formLiaisonInterpro .ligne_form input[type="password"], #formLiaisonInterpro .ligne_form textarea {
   background:#ffffff;
   border:1px solid #d3d2cd;
   font-size:12px;
@@ -2825,26 +2952,28 @@ p#date_drm {
   padding:0 4px;
   width:220px;
 }
-#mon_compte .ligne_form textarea, #compteModification .ligne_form textarea, #compteAjout .ligne_form textarea, #validationFiche .ligne_form textarea, #libelleModification .ligne_form textarea {
+#mon_compte .ligne_form textarea, #compteModification .ligne_form textarea, #compteAjout .ligne_form textarea, #validationFiche .ligne_form textarea, #libelleModification .ligne_form textarea, #formLiaisonInterpro .ligne_form textarea {
   height:100px;
   width:350px;
   vertical-align:top;
 }
-#mon_compte .ligne_form ul, #compteModification .ligne_form ul, #compteAjout .ligne_form ul, #validationFiche .ligne_form ul, #libelleModification .ligne_form ul { vertical-align:top; }
-#mon_compte .ligne_form ul li, #compteModification .ligne_form ul li, #compteAjout .ligne_form ul li, #validationFiche .ligne_form ul li, #libelleModification .ligne_form ul li { margin:0 0 5px; }
-#mon_compte .ligne_form ul li input, #compteModification .ligne_form ul li input, #compteAjout .ligne_form ul li input, #validationFiche .ligne_form ul li input, #libelleModification .ligne_form ul li input {
+#mon_compte .ligne_form ul, #compteModification .ligne_form ul, #compteAjout .ligne_form ul, #validationFiche .ligne_form ul, #libelleModification .ligne_form ul, #formLiaisonInterpro .ligne_form ul { vertical-align:top; }
+#mon_compte .ligne_form ul li, #compteModification .ligne_form ul li, #compteAjout .ligne_form ul li, #validationFiche .ligne_form ul li, #libelleModification .ligne_form ul li, #formLiaisonInterpro .ligne_form ul li { margin:0 0 5px; }
+#mon_compte .ligne_form ul li input, #compteModification .ligne_form ul li input, #compteAjout .ligne_form ul li input, #validationFiche .ligne_form ul li input, #libelleModification .ligne_form ul li input, #formLiaisonInterpro .ligne_form ul li input {
   margin:0 5px 0 0;
   vertical-align:middle;
 }
-#mon_compte .ligne_form ul li label, #compteModification .ligne_form ul li label, #compteAjout .ligne_form ul li label, #validationFiche .ligne_form ul li label, #libelleModification .ligne_form ul li label { width:auto; }
-#mon_compte .reinit_mdp, #compteModification .reinit_mdp, #compteAjout .reinit_mdp, #validationFiche .reinit_mdp, #libelleModification .reinit_mdp { margin-left:170px; }
-#mon_compte button, #compteModification button, #compteAjout button, #validationFiche button, #libelleModification button { margin-top:1px; }
-#mon_compte .btnValidation, #compteModification .btnValidation, #compteAjout .btnValidation, #validationFiche .btnValidation, #libelleModification .btnValidation { margin-left:170px; }
-#mon_compte .btn_valider, #compteModification .btn_valider, #compteAjout .btn_valider, #validationFiche .btn_valider, #libelleModification .btn_valider {
+#mon_compte .ligne_form ul li label, #compteModification .ligne_form ul li label, #compteAjout .ligne_form ul li label, #validationFiche .ligne_form ul li label, #libelleModification .ligne_form ul li label, #formLiaisonInterpro .ligne_form ul li label { width:auto; }
+#mon_compte .reinit_mdp, #compteModification .reinit_mdp, #compteAjout .reinit_mdp, #validationFiche .reinit_mdp, #libelleModification .reinit_mdp, #formLiaisonInterpro .reinit_mdp { margin-left:170px; }
+#mon_compte button, #compteModification button, #compteAjout button, #validationFiche button, #libelleModification button, #formLiaisonInterpro button { margin-top:1px; }
+#mon_compte .btnValidation, #compteModification .btnValidation, #compteAjout .btnValidation, #validationFiche .btnValidation, #libelleModification .btnValidation, #formLiaisonInterpro .btnValidation { margin-left:170px; }
+#mon_compte .btn_valider, #compteModification .btn_valider, #compteAjout .btn_valider, #validationFiche .btn_valider, #libelleModification .btn_valider, #formLiaisonInterpro .btn_valider {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#86005b;
   border-color:#494949;
   background-position:right -52px;
@@ -2854,7 +2983,8 @@ p#date_drm {
   padding:0 23px 0 15px;
   text-transform:uppercase;
 }
-#mon_compte .btn_valider:hover, #mon_compte .btn_valider:focus, #compteModification .btn_valider:hover, #compteModification .btn_valider:focus, #compteAjout .btn_valider:hover, #compteAjout .btn_valider:focus, #validationFiche .btn_valider:hover, #validationFiche .btn_valider:focus, #libelleModification .btn_valider:hover, #libelleModification .btn_valider:focus { background-color:#494949; }
+#mon_compte .btn_valider:hover, #mon_compte .btn_valider:focus, #compteModification .btn_valider:hover, #compteModification .btn_valider:focus, #compteAjout .btn_valider:hover, #compteAjout .btn_valider:focus, #validationFiche .btn_valider:hover, #validationFiche .btn_valider:focus, #libelleModification .btn_valider:hover, #libelleModification .btn_valider:focus, #formLiaisonInterpro .btn_valider:hover, #formLiaisonInterpro .btn_valider:focus { text-decoration:none; }
+#mon_compte .btn_valider:hover, #mon_compte .btn_valider:focus, #compteModification .btn_valider:hover, #compteModification .btn_valider:focus, #compteAjout .btn_valider:hover, #compteAjout .btn_valider:focus, #validationFiche .btn_valider:hover, #validationFiche .btn_valider:focus, #libelleModification .btn_valider:hover, #libelleModification .btn_valider:focus, #formLiaisonInterpro .btn_valider:hover, #formLiaisonInterpro .btn_valider:focus { background-color:#494949; }
 .etablissement_courant_admin a {
   background:url(../images/boutons/btn_etablissement_courant_admin.png) right 0 no-repeat;
   color:#86005b;
@@ -2892,6 +3022,8 @@ p#date_drm {
   border:1px solid;
   color:#ffffff;
   display:inline-block;
+  height:26px;
+  line-height:26px;
   background-color:#a0a0a0;
   border-color:#c0c0c0;
   color:#ffffff;
@@ -2904,6 +3036,7 @@ p#date_drm {
   margin-left:0;
   vertical-align:middle;
 }
+#validationFiche .ligne_btn .btn_annuler:hover, #validationFiche .ligne_btn .btn_annuler:focus { text-decoration:none; }
 #validationFiche .ligne_btn .btn_annuler:hover, #validationFiche .ligne_btn .btn_annuler:focus { background-color:#494949; }
 #validationFiche .ligne_btn .btn_valider {
   height:28px;
