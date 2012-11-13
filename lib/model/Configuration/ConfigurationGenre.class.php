@@ -15,7 +15,7 @@ class ConfigurationGenre extends BaseConfigurationGenre {
     	$this->getCertification()->setDonneesCsv($datas);
     	$this->libelle = ($datas[ProduitCsvFile::CSV_PRODUIT_GENRE_LIBELLE])? $datas[ProduitCsvFile::CSV_PRODUIT_GENRE_LIBELLE] : null;
     	$this->code = ($datas[ProduitCsvFile::CSV_PRODUIT_GENRE_CODE])? $datas[ProduitCsvFile::CSV_PRODUIT_GENRE_CODE] : null;
-    	
+    	$this->interpro->getOrAdd('INTERPRO-'.$datas[ProduitCsvFile::CSV_PRODUIT_INTERPRO]);
     	$this->setDroitDouaneCsv($datas, ProduitCsvFile::CSV_PRODUIT_GENRE_CODE_APPLICATIF_DROIT);
     	$this->setDroitCvoCsv($datas, ProduitCsvFile::CSV_PRODUIT_GENRE_CODE_APPLICATIF_DROIT);
     }
