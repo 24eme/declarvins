@@ -338,3 +338,80 @@
         }
     }
 }
+
+
+
+/**
+ * Contrat mandat
+ ******************************************/
+#contrat_mandat
+{
+	h1
+	{
+		margin: 25px 0 15px;
+	}
+
+	.bloc_form
+    {
+        .border-radius(5px);
+        .border(#e3e2e2);
+        margin: 0 0 15px; 
+
+        .ligne_form
+        {
+        	margin: 0;
+            padding: 10px 0 10px 10px;
+
+            label
+            {
+                    display: inline-block;
+                    font-weight: bold;
+                    width: 200px;
+            }
+
+            input[type=text] { width: 200px; }
+        }
+
+        .ligne_form_alt { background: @couleur-a7; }
+
+        .col
+        {
+
+            float: left;
+            vertical-align: top;
+            width: 448px;    
+            
+            &:first-child
+            {
+                border-right: 1px solid #e3e2e2;
+                .ligne_form
+                {
+                    &:first-child { .border-radius(5px 0 0 0) }
+                    &:last-child { .border-radius(0 0 0 5px) }
+                }
+            }
+
+            &:last-child
+            {     
+                .ligne_form
+                {
+                    &:first-child { .border-radius(0 5px 0 0) }
+                    &:last-child { .border-radius(0 0 5px 0) }
+                }
+            }
+        }
+	}
+
+	.presentation,
+	.modification
+	{
+		.btn_valider { margin: 0 10px 0 0;}
+		.btn_mdp, .btn_annuler
+		{
+			color: @couleur-b3;
+			text-decoration: underline;
+		}
+	}
+
+	.btn_suiv { float: none; }
+}
