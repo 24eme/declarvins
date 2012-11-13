@@ -17,7 +17,7 @@
         <span>
             <?php echo $form['adresse']->renderError() ?>
             <?php echo $form['adresse']->renderLabel() ?>
-            <?php echo $form['adresse']->render(array('value' => $etablissement->siege->adresse, 'class' => 'disabled', 'readonly' => 'readonly')) ?>
+        	<textarea id="<?php echo $form['adresse']->renderId() ?>" readonly="readonly" class="disabled" name="<?php echo $form['adresse']->renderName() ?>" cols="30" rows="4"><?php echo $etablissement->siege->adresse ?></textarea>
         </span>
     </div>
     <div class="vracs_ligne_form vracs_ligne_form_alt">

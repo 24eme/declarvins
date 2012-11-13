@@ -11,7 +11,7 @@ class VracEtablissementForm extends acCouchdbObjectForm
 	       'num_accise' => new sfWidgetFormInputText(),
 	       'num_tva_intracomm' => new sfWidgetFormInputText(),
 		   'carte_pro' => new sfWidgetFormInputText(),
-	       'adresse' => new sfWidgetFormInputText(),
+	       'adresse' => new sfWidgetFormTextarea(),
 	       'code_postal' => new sfWidgetFormInputText(),
 	       'commune' => new sfWidgetFormInputText(),
 	       'telephone' => new sfWidgetFormInputText(),
