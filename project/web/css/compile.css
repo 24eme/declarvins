@@ -2714,6 +2714,7 @@ p#date_drm {
   border-radius:5px;
   border:1px solid #e3e2e2;
 }
+.vracs .bloc_form textarea { width:403px; }
 .vracs .bloc_form .vracs_ligne_form { padding:4px 0 10px 10px; }
 .vracs .bloc_form .vracs_ligne_form label {
   display:inline-block;
