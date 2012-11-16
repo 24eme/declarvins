@@ -1,0 +1,291 @@
+DAIDS:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {  }
+      editeurs:
+        type: array_collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  compte: {  }
+                  nom: {  }
+                  prenom: {  }
+                  date_modification: {  }
+      raison_rectificative: {  }
+      etape: {  }
+      campagne: {  }
+      periode: {  }
+      version: {  }
+      precedente: {  }
+      rectificative: { type: integer, required: false }
+      declaration:
+        class: DAIDSDeclaration
+        inheritance: _DAIDSTotal
+        type: collection
+        definition:
+          fields:
+            total_manquants_excedents: { type: float }
+            total_pertes_autorisees: { type: float }
+            total_manquants_taxables: { type: float }
+            total_droits: { type: float }
+            certifications:
+              type: collection
+              definition:
+                fields:
+                  '*':
+                    # CERTIFICATION
+                    class: DAIDSCertification
+                    inheritance: _DAIDSTotal
+                    type: collection
+                    definition:
+                      fields:
+                        code: {  }
+                        libelle: {  }
+                        total_manquants_excedents: { type: float }
+                        total_entrees: { type: float }
+                        total_manquants_taxables: { type: float }
+                        total_droits: { type: float }
+                        genres:
+                          type: collection
+                          definition:
+                            fields:
+                              '*':
+                                # GENRE
+                                class: DAIDSGenre
+                                inheritance: _DAIDSTotal
+                                type: collection
+                                definition:
+                                  fields:
+                                    code: {  }
+                                    libelle: {  }
+                                    total_manquants_excedents: { type: float }
+                                    total_entrees: { type: float }
+                                    total_manquants_taxables: { type: float }
+                                    total_droits: { type: float }
+                                    appellations:
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          '*':
+                                            # APPELLATION
+                                            class: DAIDSAppellation
+                                            inheritance: _DAIDSTotal
+                                            type: collection
+                                            definition:
+                                              fields:
+                                                code: {  }
+                                                libelle: {  }
+                                                total_manquants_excedents: { type: float }
+                                                total_pertes_autorisees: { type: float }
+                                                total_manquants_taxables: { type: float }
+                                                total_droits: { type: float }
+                                                mentions:
+                                                  type: collection
+                                                  definition:
+                                                    fields:
+                                                      '*':
+                                                        # MENTION
+                                                        class: DAIDSMention
+                                                        inheritance: _DAIDSTotal
+                                                        type: collection
+                                                        definition:
+                                                          fields:
+                                                            code: {  }
+                                                            libelle: {  }
+                                                            total_manquants_excedents: { type: float }
+                                                            total_pertes_autorisees: { type: float }
+                                                            total_manquants_taxables: { type: float }
+                                                            total_droits: { type: float }
+                                                            lieux:
+                                                              type: collection
+                                                              definition:
+                                                                fields:
+                                                                  '*':
+                                                                    # LIEU
+                                                                    class: DAIDSLieu
+                                                                    inheritance: _DAIDSTotal
+                                                                    type: collection
+                                                                    definition:
+                                                                      fields:
+                                                                        code: {  }
+                                                                        libelle: {  }
+                                                                        total_manquants_excedents: { type: float }
+                                                                        total_pertes_autorisees: { type: float }
+                                                                        total_manquants_taxables: { type: float }
+                                                                        total_droits: { type: float }
+                                                                        couleurs:
+                                                                          type: collection
+                                                                          definition:
+                                                                            fields:
+                                                                              '*':
+                                                                                # COULEUR
+                                                                                class: DAIDSCouleur
+                                                                                inheritance: _DAIDSTotal
+                                                                                type: collection
+                                                                                definition:
+                                                                                  fields:
+                                                                                    code: {  }
+                                                                                    libelle: {  }
+                                                                                    total_manquants_excedents: { type: float }
+                                                                                    total_pertes_autorisees: { type: float }
+                                                                                    total_manquants_taxables: { type: float }
+                                                                                    total_droits: { type: float }
+                                                                                    cepages:
+                                                                                      type: collection
+                                                                                      definition:
+                                                                                        fields:
+                                                                                          '*':
+                                                                                            # CEPAGE
+                                                                                            class: DAIDSCepage
+                                                                                            inheritance: _DAIDSTotal
+                                                                                            type: collection
+                                                                                            definition:
+                                                                                              fields:
+                                                                                                code: {  }
+                                                                                                libelle: {  }
+                                                                                                total_manquants_excedents: { type: float }
+                                                                                                total_pertes_autorisees: { type: float }
+                                                                                                total_manquants_taxables: { type: float }
+                                                                                                total_droits: { type: float }
+                                                                                                details:
+                                                                                                  type: collection
+                                                                                                  class: DAIDSDetails
+                                                                                                  definition:
+                                                                                                    fields:
+                                                                                                      '*':
+                                                                                                        class: DAIDSDetail
+                                                                                                        type: collection
+                                                                                                        definition:
+                                                                                                          fields:
+                                                                                                            code: {  }
+                                                                                                            libelle: {  }
+                                                                                                            labels:
+                                                                                                              type: array_collection
+                                                                                                              definition:
+                                                                                                                fields:
+                                                                                                                  '*': {  }
+                                                                                                            libelles_label:
+                                                                                                              type: collection
+                                                                                                              definition:
+                                                                                                                fields:
+                                                                                                                  '*': {  }
+                                                                                                            label_supplementaire: {  }
+                                                                                                            millesimes:
+                                                                                                              type: array_collection
+                                                                                                              definition:
+                                                                                                                fields:
+                                                                                                                  '*': {  }
+                                                                                                            douane:
+                                                                                                              type: collection
+                                                                                                              definition:
+                                                                                                                fields:
+                                                                                                                  taux: { type: float }
+                                                                                                            total_manquants_excedents: { type: float }
+                                                                                                            total_pertes_autorisees: { type: float }
+                                                                                                            total_manquants_taxables: { type: float }
+                                                                                                            total_droits: { type: float }
+                                                                                                            stock_theorique: { type: float }
+                                                                                                            stocks:
+                                                                                                              type: collection
+                                                                                                              class: DAIDSDetailStocks
+                                                                                                              definition:
+                                                                                                                fields:
+                                                                                                                  chais: { type: float }
+                                                                                                                  propriete_tiers: { type: float }
+                                                                                                                  tiers: { type: float }
+                                                                                                            stock_chais: { type: float }
+                                                                                                            stock_propriete: { type: float }
+                                                                                                            stock_propriete_details:
+                                                                                                              type: collection
+                                                                                                              class: DAIDSDetailStockProprieteDetails
+                                                                                                              definition:
+                                                                                                                fields:
+                                                                                                                  reserve: { type: float }
+                                                                                                                  vrac_vendu: { type: float }
+                                                                                                                  vrac_libre: { type: float }
+                                                                                                                  conditionne: { type: float }
+                                                                                                            stock_mensuel_theorique: { type: float }
+                                                                                                            stocks_moyen:
+                                                                                                              type: collection
+                                                                                                              class: DAIDSStocksMoyen
+                                                                                                              definition:
+                                                                                                                fields:
+                                                                                                                  vinifie:
+                                                                                                                    type: collection
+                                                                                                                    class: DAIDSStockMoyen
+                                                                                                                    definition:
+                                                                                                                      fields:
+                                                                                                                        taux: { type: float }
+                                                                                                                        volume: { type: float }
+                                                                                                                        total: { type; float }
+                                                                                                                  non_vinifie:
+                                                                                                                    type: collection
+                                                                                                                    class: DAIDSStockMoyen
+                                                                                                                    definition:
+                                                                                                                      fields:
+                                                                                                                        taux: { type: float }
+                                                                                                                        volume: { type: float }
+                                                                                                                        total: { type; float }
+                                                                                                                  conditionne:
+                                                                                                                    type: collection
+                                                                                                                    class: DAIDSStockMoyen
+                                                                                                                    definition:
+                                                                                                                      fields:
+                                                                                                                        taux: { type: float }
+                                                                                                                        volume: { type: float }
+                                                                                                                        total: { type; float }
+      declarant:
+        type: collection
+        class: DAIDSDeclarant
+        definition:
+          fields:
+            nom: {  }
+            raison_sociale: {  }
+            siret: {  }
+            cni: {  }
+            cvi: {  }
+            no_accises: {  }
+            no_tva_intracommunautaire: {  }
+            siege:
+                type: collection
+                definition:
+                  fields:
+                    adresse: {  }
+                    code_postal: {  }
+                    commune: {  }
+            comptabilite:
+                type: collection
+                definition:
+                  fields:
+                    adresse: {  }
+                    code_postal: {  }
+                    commune: {  }
+            service_douane: {  }
+      identifiant: {  }
+      etablissement_num_interne: {  }
+      mode_de_saisie: {  }
+      interpros:
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
+      valide:
+        type: collection
+        definition:
+          fields:
+            date_saisie: {  }
+            date_signee: {  }
+            identifiant: {  }
+            status: {  }
+      douane:
+        type: collection
+        definition:
+          fields:
+            service: {  }
+            envoi: {  }
+            accuse: {  }

@@ -18,6 +18,12 @@ use_helper('Text');
         </li>
         <?php endif; ?>
         
+        <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
+        <li<?php if ($active == 'daids'): ?> class="actif"<?php endif; ?>>
+            <a href="<?php echo url_for('daids_mon_espace', $etablissement) ?>">DAI/DS</a>
+        </li>
+        <?php endif; ?>
+        
         <li<?php if ($active == 'profil'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('profil', $etablissement) ?>">Profil</a>
         </li>
