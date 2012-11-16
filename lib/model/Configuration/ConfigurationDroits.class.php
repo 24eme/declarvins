@@ -35,12 +35,7 @@ class ConfigurationDroits extends BaseConfigurationDroits {
 		if ($currentDroit) {
 			return $currentDroit;
 		} else {
-			try {
-			  $parent = $this->getInterpro()->getParent()->getParent()->getParentNode();
-			  return $parent->interpro->getOrAdd($this->getInterpro()->getKey())->droits->getOrAdd($this->getKey())->getCurrentDroit($periode);
-			} catch (sfException $e) {
-			  throw new sfException('Aucun droit spécifié');
-			}
+			return null;
 		}
 	}
 	
