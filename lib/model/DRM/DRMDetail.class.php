@@ -194,7 +194,24 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function getDroit($type) {
-      return $this->getAppellation()->getDroit($type);
+    	if ($droit = $this->getCouleur()->getDroit($type)) {
+    		return $droit;
+    	}
+    	if ($droit = $this->getLieu()->getDroit($type)) {
+    		return $droit;
+    	}
+    	if ($droit = $this->getAppellation()->getDroit($type)) {
+    		return $droit;
+    	}
+    	if ($droit = $this->getGenre()->getDroit($type)) {
+    		return $droit;
+    	}
+    	if ($droit = $this->getCertification()->getDroit($type)) {
+    		return $droit;
+    	}
+    	if (!$droit) {
+    		throw new sfException('Aucun droit spécifié');
+    	}
     }
     
     public function hasCvo()

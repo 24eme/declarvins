@@ -70,7 +70,7 @@ class drmComponents extends sfComponents {
             $drm = null;
         }
 
-        if(isset($this->campagne) && $drm->campagne != $this->campagne) {
+        if(isset($this->campagne) && $drm && $drm->campagne != $this->campagne) {
 
             $drm = null;
         }

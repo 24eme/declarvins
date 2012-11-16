@@ -481,11 +481,11 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     	if (!$this->isRectificative()) {
     		return false;
     	}
-    	if ($mother = $this->getMother()) {
+    	$mother = $this->getMother();
+    	if ($mother && $mother->getPrecedente() && $this->getPrecedente()) {
     		return ($mother->getPrecedente()->_id != $this->getPrecedente()->_id)? true : false;
-    	} else {
-    		return false;
-    	}
+    	} 
+    	return false;
     }
 
     public function isSupprimable() {

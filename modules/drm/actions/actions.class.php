@@ -58,7 +58,6 @@ class drmActions extends sfActions
       $etablissement = $this->getRoute()->getEtablissement();
       $drm = $this->getRoute()->getDRM();
       if (!$drm->isNew() && ($drm->isSupprimable() || ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->isSupprimableOperateur()))) {
-      	//$drm->delete();
         $drms = DRMClient::getInstance()->findByIdentifiantAndPeriodeAndRectificative($drm->identifiant, $drm->periode, $drm->getRectificative());
         foreach($drms as $drm) {
           $drm->delete();

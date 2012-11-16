@@ -149,7 +149,7 @@ class DRMClient extends acCouchdbClient {
 
     public function findByIdentifiantAndPeriodeAndRectificative($identifiant, $periode, $rectificative, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
       $drms = array();
-      $rows = $this->viewByIdentifiantPeriodeAndVersion($identifiant, $periode, $rectificative);
+      $rows = $this->viewByIdentifiantPeriodeAndRectificative($identifiant, $periode, $rectificative);
       foreach($rows as $id => $row) {
         $drms[$id] = $this->find($id); 
       }
@@ -157,8 +157,8 @@ class DRMClient extends acCouchdbClient {
       return $drms;
     }
 
-    public function getMasterVersionOfRectificative($identifiant, $periode, $version_rectificative) {
-      $drms = $this->viewByIdentifiantPeriodeAndVersion($identifiant, $periode, $version_rectificative);
+    public function getMasterVersionOfRectificative($identifiant, $periode, $rectificative) {
+      $drms = $this->viewByIdentifiantPeriodeAndRectificative($identifiant, $periode, $rectificative);
 
       foreach($drms as $id => $drm) {
 
@@ -263,12 +263,13 @@ class DRMClient extends acCouchdbClient {
       return $drms;
     }
 
-    protected function viewByIdentifiantPeriodeAndVersion($identifiant, $periode, $version_rectificative) {
+    protected function viewByIdentifiantPeriodeAndRectificative($identifiant, $periode, $rectificative) {
       $campagne = $this->buildCampagne($periode);
-
+      $beginVersion = $this->buildVersion($rectificative, 0);
+      $endVersion = ($beginVersion)? $this->buildVersion($rectificative, 99) : null;
       $rows = acCouchdbManager::getClient()
-            ->startkey(array($identifiant, $campagne, $periode, $version_rectificative))
-              ->endkey(array($identifiant, $campagne, $periode, $this->buildVersion($version_rectificative, 99)))
+            ->startkey(array($identifiant, $campagne, $periode, $beginVersion))
+              ->endkey(array($identifiant, $campagne, $periode, $endVersion, array()))
               ->reduce(false)
               ->getView("drm", "all")
               ->rows;
@@ -346,7 +347,7 @@ class DRMClient extends acCouchdbClient {
   }
 
   public function getCurrentPeriode() {
-    if(date('d') > 10) {
+    if(date('d') >= 10) {
       
       return sprintf('%s-%02d', date('Y'), date('m'));
     } else {
