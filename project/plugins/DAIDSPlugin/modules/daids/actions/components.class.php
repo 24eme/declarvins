@@ -1,12 +1,14 @@
 <?php
 
-class daidsComponents extends sfComponents {
+class daidsComponents extends sfComponents 
+{
 
-    public function executeEtapes() {
+    public function executeEtapes() 
+    {
         $this->config_certifications = ConfigurationClient::getCurrent()->declaration->certifications;
         $this->certifications = array();
         
-        $i = 3;
+        $i = 2;
         foreach ($this->config_certifications as $certification_config) {
             if ($this->daids->exist($certification_config->getHash())) {
             	$certif = $this->daids->get($certification_config->getHash());
@@ -17,10 +19,8 @@ class daidsComponents extends sfComponents {
         $nbCertifs = count($this->certifications);
 	    $this->numeros = array(
 	            'informations' => 1,
-	            'ajouts_liquidations' => 2,
-	            'recapitulatif' => 3,
-	            'declaratif' => 3 + $nbCertifs,
-	            'validation' => 4 + $nbCertifs,
+	            'recapitulatif' => 2,
+	            'validation' => 2 + $nbCertifs,
 	    ); 
         
         $this->numero = $this->numeros[$this->etape];
@@ -28,7 +28,6 @@ class daidsComponents extends sfComponents {
             $this->numero_autorise = $this->numeros[$this->daids->etape];
         else 
             $this->numero_autorise = '';
-        $this->numero_declaratif = $this->numeros['declaratif'];
         $this->numero_validation = $this->numeros['validation'];
 
         if ($this->etape == 'recapitulatif') {
@@ -43,16 +42,19 @@ class daidsComponents extends sfComponents {
         }
     }
 
-    protected function getNewDRM($identifiant) 
+    protected function getNewDAIDS($identifiant) 
     {
         $daids = DAIDSClient::getInstance()->createDoc($identifiant);
+        if (count($daids->getDetails()) == 0) {
+        	$daids = null;
+        }
         if($daids && $daids->periode > DAIDSClient::getInstance()->getCurrentPeriode()) {
             $daids = null;
         }
         if ($daids && DAIDSClient::getInstance()->getDAIDSHistorique($identifiant)->hasDAIDSInProcess()) {
             $daids = null;
         }
-        if(isset($this->campagne) && $daids->campagne != $this->campagne) {
+        if(isset($this->campagne) && $daids && $daids->campagne != $this->campagne) {
             $daids = null;
         }
         return $daids;
@@ -62,15 +64,9 @@ class daidsComponents extends sfComponents {
     {
         $this->daids = array();
         $historique = DAIDSClient::getInstance()->getDAIDSHistorique($this->etablissement->identifiant);
-        $this->new_daids = $this->getNewDRM($this->etablissement->identifiant);
-        if (!isset($this->campagne) && $this->new_daids) {
-            $this->campagne = $this->new_daids->campagne;
-        } elseif(!isset($this->campagne)) {
-            $campagnes = $historique->getCampagnes();
-            $this->campagne = $campagnes[0];
-        }
-        foreach($historique->getDAIDSsByCampagne($this->campagne) as $key => $d) {
-            $this->daids[$key] = DAIDSClient::getInstance()->find($key);
+        $this->new_daids = $this->getNewDAIDS($this->etablissement->identifiant);
+        foreach($historique->getDAIDSs() as $key => $d) {
+            $this->daids[$key] = DAIDSClient::getInstance()->find($d->_id);
         }
 
     }

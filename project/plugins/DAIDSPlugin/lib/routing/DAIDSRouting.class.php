@@ -114,12 +114,32 @@ class DAIDSRouting {
         /*
          * RECAP
          */
-        $r->prependRoute('drm_recap', new DAIDSLieuRoute('/daids/:identifiant/edition/:periode_version/recapitulatif/:certification',
-                        array('module' => 'drm_recap',
+        $r->prependRoute('daids_recap', new DAIDSLieuRoute('/daids/:identifiant/edition/:periode_version/recapitulatif/:certification',
+                        array('module' => 'daids_recap',
                             'action' => 'index'),
                         array('sf_method' => array('get', 'post')),
-                        array('model' => 'DRMLieu',
+                        array('model' => 'DAIDSLieu',
                             'type' => 'object',
+                            'must_be_valid' => false,
+                            'must_be_not_valid' => true
+                )));
+        
+        $r->prependRoute('daids_recap_redirect', new DAIDSRoute('/daids/:identifiant/edition/:periode_version/recapitulatif',
+                        array('module' => 'daids_recap',
+                            'action' => 'redirectIndex'),
+                        array('sf_method' => array('get', 'post')),
+                        array('model' => 'DAIDS',
+                            'type' => 'object',
+                            'must_be_valid' => false,
+                            'must_be_not_valid' => true
+                )));
+                
+        $r->prependRoute('daids_recap_lieu', new DAIDSLieuRoute('/daids/:identifiant/edition/:periode_version/recapitulatif/:certification/:genre/:appellation/:mention/:lieu',
+                        array('module' => 'daids_recap',
+                            'action' => 'lieu'),
+                        array('sf_method' => array('get')),
+                        array('model' => 'DAIDSAppellation',
+                             'type' => 'object',
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
                 )));

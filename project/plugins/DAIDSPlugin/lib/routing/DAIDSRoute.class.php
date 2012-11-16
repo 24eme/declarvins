@@ -53,4 +53,8 @@ class DAIDSRoute extends sfObjectRoute implements InterfaceEtablissementRoute
 		sfContext::getInstance()->getController()->redirect($url, 0, $statusCode);
 		throw new sfStopException();
 	}
+    
+    public function getDAIDSConfiguration() {
+        return ConfigurationClient::getCurrent();
+    }
 }

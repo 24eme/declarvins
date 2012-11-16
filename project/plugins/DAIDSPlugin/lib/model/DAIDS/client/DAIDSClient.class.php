@@ -70,6 +70,8 @@ class DAIDSClient extends acCouchdbClient
         $daids = new DAIDS();
         $daids->identifiant = $identifiant;
         $daids->periode = $periode;
+        $daids->campagne = $periode;
+        $daids->initProduits();
        }
        $daids->mode_de_saisie =  self::MODE_DE_SAISIE_DTI;
        if($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
@@ -92,7 +94,7 @@ class DAIDSClient extends acCouchdbClient
 
     public function getCurrentPeriode() 
     {
-      if(date('m') >= 8) {
+      if(date('m') == 8 && date('d') >= 10) {
       	return sprintf('%s-%s', date('Y'), date('Y') + 1);
       } else {
       	return sprintf('%s-%s', date('Y') - 1, date('Y'));
@@ -117,7 +119,7 @@ class DAIDSClient extends acCouchdbClient
     public function findByIdentifiantAndPeriodeAndRectificative($identifiant, $periode, $rectificative, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) 
     {
       $daids = array();
-      $rows = DAIDSAllView::getInstance()->viewByIdentifiantPeriodeAndVersion($identifiant, $periode, $rectificative);
+      $rows = DAIDSAllView::getInstance()->viewByIdentifiantPeriodeAndRectificative($identifiant, $periode, $rectificative);
       foreach($rows as $id => $row) {
         $daids[$id] = $this->find($id); 
       }
@@ -143,9 +145,9 @@ class DAIDSClient extends acCouchdbClient
       }
     }
 
-    public function getMasterVersionOfRectificative($identifiant, $periode, $version_rectificative) 
+    public function getMasterVersionOfRectificative($identifiant, $periode, $rectificative) 
     {
-      $rows = DAIDSAllView::getInstance()->viewByIdentifiantPeriodeAndVersion($identifiant, $periode, $version_rectificative);
+      $rows = DAIDSAllView::getInstance()->viewByIdentifiantPeriodeAndRectificative($identifiant, $periode, $rectificative);
       foreach($rows as $id => $d) {
         return $d[DAIDSAllView::KEY_VERSION];
       }

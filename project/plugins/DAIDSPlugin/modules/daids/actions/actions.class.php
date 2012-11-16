@@ -107,8 +107,8 @@ class daidsActions extends sfActions
             	$this->daids->setDeclarantInformations($this->etablissement);		
   				$this->daids->save();
 	  		}
-			//$this->drm->setCurrentEtapeRouting('ajouts_liquidations');		
-        	//$this->redirect('drm_mouvements_generaux', $this->drm);
+	        $this->daids->setCurrentEtapeRouting('recapitulatif');
+	        return $this->redirect('daids_recap', $this->daids->declaration->certifications->getFirst());
     	}
     }
   }

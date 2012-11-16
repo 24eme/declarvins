@@ -24,6 +24,16 @@ class DAIDS extends BaseDAIDS
     protected function initDocuments() 
     {
        $this->version_document = new VersionDocument($this); 
+    }  
+
+    public function initProduits() 
+    {
+       $drmsHistorique = new DRMHistorique($this->identifiant);
+       if ($lastDrm = $drmsHistorique->getLastDRMByCampagne($this->periode)) {
+       	foreach ($lastDrm->getDetails() as $detail) {
+       		$this->getDocument()->getOrAdd($detail->getHash());
+       	}
+       }
     }
 
     public function constructId() 
@@ -40,7 +50,7 @@ class DAIDS extends BaseDAIDS
 
     protected function getHistoriqueAbstract() 
     {
-        return DRMClient::getInstance()->getDRMHistorique($this->identifiant);
+        return DAIDSClient::getInstance()->getDAIDSHistorique($this->identifiant);
     }
 
     public function getPeriodeAndVersion() 
@@ -74,7 +84,7 @@ class DAIDS extends BaseDAIDS
        
 	    foreach ($daids_suivante->getDetails() as $detail) {
 	    	$daids_suivante->remove($detail->getHash()); 
-	    	$daids_suivante->add($detail->getHash());
+	    	$daids_suivante->getOrAdd($detail->getHash());
 	    }
 
         return $daids_suivante;
@@ -207,7 +217,7 @@ class DAIDS extends BaseDAIDS
     
     public function getMasterVersionOfRectificative() 
     {
-        return DRMClient::getInstance()->getMasterVersionOfRectificative($this->identifiant, 
+        return DAIDSClient::getInstance()->getMasterVersionOfRectificative($this->identifiant, 
                                                                  $this->periode, 
                                                                  $this->getRectificative() - 1);
     }
@@ -240,5 +250,11 @@ class DAIDS extends BaseDAIDS
     public static function buildModificative($version) 
     {
         return VersionDocument::buildModificative($version);
+    }
+
+    public function getCurrentEtapeRouting() 
+    {
+    	$etape = sfConfig::get('app_daids_etapes_'.$this->etape);
+        return $etape['url'];
     }
 }

@@ -10,5 +10,10 @@ class DAIDSGenre extends BaseDAIDSGenre
     {
         return $this->appellations;
     }
+    
+    public function getCertification() 
+    {
+        return $this->getParentNode();
+    }
 
 }

@@ -11,5 +11,15 @@ class DAIDSAppellation extends BaseDAIDSAppellation
     {
         return $this->mentions;
     }
+    
+    public function getGenre() 
+    {
+        return $this->getParentNode();
+    }
+    
+    public function getCertification() 
+    {
+        return $this->getGenre()->getCertification();
+    }
 
 }

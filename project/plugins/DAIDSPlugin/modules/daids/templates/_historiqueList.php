@@ -20,7 +20,6 @@
 			<?php include_partial('daids/historiqueItem', array('alt' => $i%2 == 0, 
 															   'daids' => $d,
 															   'etablissement' => $etablissement)) ?>
-		<?php $i++; if (isset($limit) && $limit == $i) break; 
-		endforeach; ?>
+		<?php $i++; endforeach; ?>
 	</tbody>
 </table>

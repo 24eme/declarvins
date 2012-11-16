@@ -19,5 +19,15 @@ class DAIDSCepage extends BaseDAIDSCepage
   	{
     	return $this->details;
   	}
+  	
+  	public function getCouleur() 
+  	{
+    	return $this->getParentNode();
+  	}
+
+  	public function getLieuxArray() 
+  	{
+  		throw new sfException('this function need to call before lieu tree');
+  	}
 
 }

@@ -85,7 +85,7 @@ class DAIDSHistorique {
         $daids->_id = DAIDSClient::getInstance()->buildId($daids->identifiant, $daids->periode, $daids->version);
         return $daids;
     }
-
+    
     public function getDAIDSs() {
         return $this->daids;
     }

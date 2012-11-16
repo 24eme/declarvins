@@ -3,74 +3,47 @@
 class daids_recapActions extends sfActions
 {
     
-    public function executeIndex(sfWebRequest $request) {
-        $this->init();
-
-        $this->setTemplate('index');
-    }
-
-    public function executeRedirectIndex(sfWebRequest $request) {
-    	$drm = $this->getRoute()->getDRM();
-    	$first_certification = null;
-        if(count($drm->declaration->certifications) > 0) {
-            $first_certification = $drm->declaration->certifications->getFirst();
-        }
-        $this->redirect('drm_recap', $first_certification);
-    }
-    
-    public function executeLieuAjoutAjax(sfWebRequest $request) {
-        $this->forward404Unless($request->isXmlHttpRequest());
-        $this->getResponse()->setContentType('text/json');
-        $this->certification = $this->getRoute()->getObject();
-        $this->drm = $this->getRoute()->getDRM();
-
-        $this->form = new DRMLieuAjoutForm($this->drm, $this->certification->getConfig());
-        if ($request->isMethod(sfWebRequest::POST)) {
-            $this->form->bind($request->getParameter($this->form->getName()));
-            if ($this->form->isValid()) {
-                $lieu = $this->form->addLieu();
-                return $this->renderText(json_encode(array("success" => true,
-                                                           "ajax" => true,
-                                                           "url" => $this->generateUrl('drm_recap_ajout_ajax', $lieu))));
-            }
-
-            return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('drm_recap/formLieuAjout', array('certification' => $this->certification, 'form' => $this->form)))));
-        }
-		
-        return $this->renderText($this->getPartial('drm_recap/popupLieuAjout', array('certification' => $this->certification, 'form' => $this->form)));
-    }
-    
-    public function executeLieu(sfWebRequest $request) {
-        $this->init();
-        $this->setTemplate('index');
-    }
-
-    public function executeAjoutAjax(sfWebRequest $request) 
+    public function executeIndex(sfWebRequest $request) 
     {
-        $this->drm = $this->getRoute()->getDRM();
-        $this->config_lieu = $this->getRoute()->getConfigLieu();
-        $this->drm_lieu = $this->getRoute()->getDRMLieu();
-
-        $this->forward404Unless($request->isXmlHttpRequest());
-
-        $form = new DRMProduitAjoutForm($this->drm,
-                                        $this->config_lieu);
-
-        if ($request->isMethod(sfWebRequest::POST)) {
-            $this->getResponse()->setContentType('text/json');
-            $form->bind($request->getParameter($form->getName()));
-            if ($form->isValid()) {
-                $form->addProduit();
-                $this->drm->save();
-                $this->getUser()->setFlash("notice", 'Le produit a été ajouté avec succès.');
-                return $this->renderText(json_encode(array("success" => true, 
-                                                           "url" => $this->generateUrl('drm_recap_lieu', $this->drm_lieu))));
-            }
-            return $this->renderText(json_encode(array("success" => false, 
-                                                       "content" => $this->getPartial('formAjout', array('form' => $form, 'drm_lieu' => $this->drm_lieu)))));
-        }
-        return $this->renderPartial('popupAjout', array('form' => $form, 'drm_lieu' => $this->drm_lieu));
+        $this->init();
+        $this->setTemplate('index');
     }
+
+    public function executeRedirectIndex(sfWebRequest $request) 
+    {
+    	$daids = $this->getRoute()->getDAIDS();
+    	$first_certification = null;
+        if(count($daids->declaration->certifications) > 0) {
+            $first_certification = $daids->declaration->certifications->getFirst();
+        }
+        $this->redirect('daids_recap', $first_certification);
+    }
+    
+    protected function init() 
+    {
+        $this->form = null;
+        $this->detail = null;
+        $this->daids = $this->getRoute()->getDAIDS();
+        $this->config_lieu = $this->getRoute()->getConfigLieu();
+        $this->daids_lieu = $this->getRoute()->getDAIDSLieu();
+        $this->produits = $this->daids_lieu->getProduits();
+        $this->previous = $this->daids_lieu->getPreviousSister();
+        $this->next = $this->daids_lieu->getNextSister();
+    	$this->previous_certif = $this->daids_lieu->getCertification()->getPreviousSister();
+    	$this->next_certif = $this->daids_lieu->getCertification()->getNextSister();
+    }
+    
+    public function executeLieu(sfWebRequest $request) 
+    {
+        $this->init();
+        $this->setTemplate('index');
+    }
+    
+    /*
+     * A REVOIR
+     */
+    
+    
     
     public function executeDetail(sfWebRequest $request) {
         $this->init();
@@ -103,18 +76,5 @@ class daids_recapActions extends sfActions
         } else {
             $this->setTemplate('index');
         }
-    }
-    
-    protected function init() {
-        $this->form = null;
-        $this->detail = null;
-        $this->daids = $this->getRoute()->getDAIDS();
-        $this->config_lieu = $this->getRoute()->getConfigLieu();
-        $this->drm_lieu = $this->getRoute()->getDRMLieu();
-        $this->produits = $this->drm_lieu->getProduits();
-        $this->previous = $this->drm_lieu->getPreviousSister();
-        $this->next = $this->drm_lieu->getNextSister();
-    	$this->previous_certif = $this->drm_lieu->getCertification()->getPreviousSister();
-    	$this->next_certif = $this->drm_lieu->getCertification()->getNextSister();
     }
 }

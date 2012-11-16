@@ -33,10 +33,12 @@ class DAIDSAllView extends acCouchdbView
                     		->getView($this->design, $this->view);
     }
 
-    public function findByIdentifiantPeriodeAndVersion($identifiant, $periode, $version_rectificative) 
+    public function viewByIdentifiantPeriodeAndRectificative($identifiant, $periode, $rectificative) 
     {
-    	return $this->client->startkey(array($identifiant, $periode, $periode, $version_rectificative))
-                    		->endkey(array($identifiant, $periode, $periode, $this->buildVersion($version_rectificative, 99), array()))
+        $beginVersion = $this->buildVersion($rectificative, 0);
+        $endVersion = ($beginVersion)? $this->buildVersion($rectificative, 99) : null;
+    	return $this->client->startkey(array($identifiant, $periode, $periode, $beginVersion))
+                    		->endkey(array($identifiant, $periode, $periode, $endVersion, array()))
                     		->reduce(false)
                     		->getView($this->design, $this->view);
     }
@@ -64,7 +66,6 @@ class DAIDSAllView extends acCouchdbView
     }
 
     public function viewByIdentifiantPeriodeAndVersion($identifiant, $periode, $version_rectificative) {
-      $campagne = $this->buildCampagne($periode);
 	  $rows = $this->findByIdentifiantPeriode($identifiant, $periode, $version_rectificative);
       $daids = array();
       foreach($rows->rows as $row) {

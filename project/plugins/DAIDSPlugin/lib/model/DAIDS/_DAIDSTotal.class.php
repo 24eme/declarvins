@@ -22,4 +22,50 @@ abstract class _DAIDSTotal extends acCouchdbDocumentTree
 	{
         return ConfigurationClient::getCurrent()->get($this->getHash());
     }
+
+    public function getParentNode() 
+    {
+        return $this->getParent()->getParent();
+    }
+    
+    public function getLieuxArray() 
+    {
+        $lieux = array();
+        foreach($this->getChildrenNode() as $key => $item) {
+            $lieux = array_merge($lieux, $item->getLieuxArray());
+        }
+
+        return $lieux;
+    }
+
+    public function nbComplete() 
+    {
+        $nb = 0;
+        foreach($this->getChildrenNode() as $item) {
+        	$nb += $item->nbComplete();
+        }
+
+        return $nb;
+    }
+
+    public function nbToComplete() 
+    {
+        $nb = 0;
+        foreach($this->getChildrenNode() as $item) {
+        	$nb += $item->nbToComplete();
+        }
+
+        return $nb;
+    }
+
+    public function isComplete() 
+    {
+        foreach($this->getChildrenNode() as $item) {
+            if(!$item->isComplete()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

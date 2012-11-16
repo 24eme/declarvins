@@ -13,7 +13,7 @@ class daids_recapComponents extends sfComponents {
     }
     
     public function executeOnglets() {
-        $this->items = $this->drm_lieu->getCertification()->getLieuxArray();
+        $this->items = $this->daids_lieu->getCertification()->getLieuxArray();
     }
 
 }

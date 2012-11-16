@@ -1,44 +1,43 @@
 <?php
 
-class DAIDSCertificationRoute extends DAIDSRoute {
+class DAIDSCertificationRoute extends DAIDSRoute 
+{
     
-    public function getConfigCertification() {
-        
-        return $this->getDRMCertification()->getConfig();
+    public function getConfigCertification() 
+    {
+        return $this->getDAIDSCertification()->getConfig();
     }
     
-    public function getDRMCertification() {
-        
+    public function getDAIDSCertification() 
+    {
         return $this->getObject();
     }
     
-    protected function getObjectForParameters($parameters) {
+    protected function getObjectForParameters($parameters) 
+    {
         parent::getObjectForParameters($parameters);
-
         if (!array_key_exists('certification', $parameters)) {
-            return $this->getDRM()->declaration->certifications->getFirst();
+            return $this->getDAIDS()->declaration->certifications->getFirst();
         }
-        
-        if ($this->getDRMConfiguration()->declaration->certifications->exist($parameters['certification'])) {
+        if ($this->getDAIDSConfiguration()->declaration->certifications->exist($parameters['certification'])) {
             if (isset($this->options['add_noeud']) && $this->options['add_noeud'] === true) {
-                return $this->getDRM()->declaration->certifications->add($parameters['certification']);
+                return $this->getDAIDS()->declaration->certifications->add($parameters['certification']);
             } else {
-                return $this->getDRM()->declaration->certifications->get($parameters['certification']);
+                return $this->getDAIDS()->declaration->certifications->get($parameters['certification']);
             }
         }
-        
         return null;
     }
 
-    protected function doConvertObjectToArray($object) {
+    protected function doConvertObjectToArray($object) 
+    {
         $parameters = parent::doConvertObjectToArray($object->getDocument());
         $parameters["certification"] = $object->getKey();
-        
         return $parameters;
     }
 
-    public function getChildrenNode() {
-
+    public function getChildrenNode() 
+    {
         return $this->genres;
     }
 
