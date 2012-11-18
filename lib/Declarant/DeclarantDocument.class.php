@@ -3,6 +3,7 @@
 class DeclarantDocument
 {
     protected $document;
+    protected $etablissement = null;
 
     public function __construct(acCouchdbDocument $document)
     {
@@ -20,12 +21,20 @@ class DeclarantDocument
     }
     
     public function getEtablissementObject() {
-        return EtablissementClient::getInstance()->findByIdentifiant($this->getIdentifiant());
+        if(is_null($this->etablissement)) {
+            $this->etablissement = EtablissementClient::getInstance()->findByIdentifiant($this->getIdentifiant());
+        }
+
+        return $this->etablissement;
     }
 
     public function storeDeclarant()
     {
         $etb = $this->getEtablissementObject();
+        if (!$etb) {
+
+            throw new sfException(sprintf("L'etablissement %s n'existe pas", $this->getIdentifiant()));
+        }
         $declarant = $this->getDeclarant();
         $declarant->nom = $etb->nom;
         $declarant->cvi = $etb->cvi;
