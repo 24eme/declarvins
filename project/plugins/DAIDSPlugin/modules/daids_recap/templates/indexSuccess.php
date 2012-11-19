@@ -20,11 +20,11 @@
             
                 <?php include_partial('shortcutKeys') ?>
                 
-                <?php /*include_component('drm_recap', 'list', array('drm_lieu' => $drm_lieu, 
+                <?php include_component('daids_recap', 'list', array('daids_lieu' => $daids_lieu, 
                                                                    'config_lieu' => $config_lieu,
                                                                    'produits' => $produits,
                                                                    'form' => $form,
-                												   'detail' => $detail)); */ ?>
+                												   'detail' => $detail)); ?>
                 <div id="btn_suiv_prec">
                     <?php if ($previous): ?>
                         <a href="<?php echo url_for('drm_recap_lieu', $previous) ?>" class="btn_prec">

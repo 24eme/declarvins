@@ -83,6 +83,11 @@ class DAIDSDetail extends BaseDAIDSDetail {
         parent::update($params);
         $this->code = $this->getFormattedCode();
         $this->libelle = $this->getFormattedLibelle("%g% %a% %l% %co% %ce%");
+	
+        $labelLibelles = $this->getConfig()->getDocument()->getLabelsLibelles($this->labels->toArray());
+        foreach ($labelLibelles as $label => $libelle) {
+        	$this->libelles_label->add($label, $libelle);
+        }
     }
 
     public function nbToComplete() {
