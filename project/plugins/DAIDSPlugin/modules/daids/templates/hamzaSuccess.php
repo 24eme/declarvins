@@ -221,7 +221,7 @@
 											<ul>
 												<li>
 													<input id="champ_1-19-1" type="hidden" value="0.01">
-													<input id="champ_1-19-2" data-calcul="produit" data-champs="#champ_1-17;#champ_1-18-1" type="text" value="0" class="texte" readonly="readonly">
+													<input id="champ_1-19-2" data-calcul="produit" data-champs="#champ_1-18;#champ_1-19-1" type="text" value="0" class="texte" readonly="readonly">
 												</li>
 											</ul>
 										</div>
@@ -233,22 +233,22 @@
 											<ul>
 												<li>
 													<input id="champ_1-21-1" type="hidden" value="0.01">
-													<input id="champ_1-21-2" data-calcul="produit" data-champs="#champ_1-19;#champ_1-20-1" type="text" value="0" class="texte" readonly="readonly">
+													<input id="champ_1-21-2" data-calcul="produit" data-champs="#champ_1-20;#champ_1-21-1" type="text" value="0" class="texte" readonly="readonly">
 												</li>
 											</ul>
 										</div>
 
 
 										<p>
-											<input id="champ_1-22" data-calcul="somme" data-champs="#champ_1-16;#champ_1-18-2;champ_1-20-2" type="text" value="0" class="texte" readonly="readonly">
+											<input id="champ_1-22" data-calcul="somme" data-champs="#champ_1-17;#champ_1-19-2;#champ_1-21-2" type="text" value="0" class="texte" readonly="readonly">
 										</p>
 										<p>
-											<input id="champ_1-23" data-calcul="diff" data-champs="#champ_1-21;#champ_1-11" type="text" value="0" class="texte" readonly="readonly">
+											<input id="champ_1-23" data-calcul="diff" data-champs="#champ_1-22;#champ_1-11" type="text" value="0" class="texte" readonly="readonly">
 										</p>
 										<p>
 											<!-- Taux douane -->
 											<input id="champ_1-24-1" type="hidden" value="0.05">
-											<input id="champ_1-24-2" data-calcul="produit" data-champs="#champ_1-22;#champ_1-23" type="text" value="0" class="texte" readonly="readonly">
+											<input id="champ_1-24-2" data-calcul="produit" data-champs="#champ_1-23;#champ_1-24-1" type="text" value="0" class="texte" readonly="readonly">
 										</p>
 										<p>
 											<input id="champ_1-25" type="text" value="0.00" class="num num_float" autocomplete="off">
