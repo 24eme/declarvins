@@ -222,7 +222,7 @@ DAIDS:
                                                                                                                       fields:
                                                                                                                         taux: { type: float }
                                                                                                                         volume: { type: float }
-                                                                                                                        total: { type; float }
+                                                                                                                        total: { type: float }
                                                                                                                   non_vinifie:
                                                                                                                     type: collection
                                                                                                                     class: DAIDSStockMoyen
@@ -230,7 +230,7 @@ DAIDS:
                                                                                                                       fields:
                                                                                                                         taux: { type: float }
                                                                                                                         volume: { type: float }
-                                                                                                                        total: { type; float }
+                                                                                                                        total: { type: float }
                                                                                                                   conditionne:
                                                                                                                     type: collection
                                                                                                                     class: DAIDSStockMoyen
@@ -238,7 +238,7 @@ DAIDS:
                                                                                                                       fields:
                                                                                                                         taux: { type: float }
                                                                                                                         volume: { type: float }
-                                                                                                                        total: { type; float }
+                                                                                                                        total: { type: float }
       declarant:
         type: collection
         class: DAIDSDeclarant

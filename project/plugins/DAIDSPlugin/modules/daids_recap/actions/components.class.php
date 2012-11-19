@@ -2,17 +2,20 @@
 
 class daids_recapComponents extends sfComponents {
 
-    public function executeList() {
-        $this->produits = $this->drm_lieu->getProduits();
+    public function executeList() 
+    {
+        $this->produits = $this->daids_lieu->getProduits();
     }
     
-    public function executeItemForm() {
+    public function executeItemForm() 
+    {
         if (is_null($this->form)) {
-            $this->form = new DRMDetailForm($this->detail);
+            $this->form = new DAIDSDetailForm($this->detail);
         }
     }
     
-    public function executeOnglets() {
+    public function executeOnglets() 
+    {
         $this->items = $this->daids_lieu->getCertification()->getLieuxArray();
     }
 

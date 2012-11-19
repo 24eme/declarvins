@@ -31,7 +31,17 @@ class DAIDS extends BaseDAIDS
        $drmsHistorique = new DRMHistorique($this->identifiant);
        if ($lastDrm = $drmsHistorique->getLastDRMByCampagne($this->periode)) {
        	foreach ($lastDrm->getDetails() as $detail) {
-       		$this->getDocument()->getOrAdd($detail->getHash());
+       		$d = $this->getDocument()->getOrAdd($detail->getHash());
+       		$d->label_supplementaire = $detail->label_supplementaire;
+       		$d->douane->taux = $detail->douane->taux;
+       		$d->stock_theorique = $detail->total;
+       		$d->stock_mensuel_theorique = $detail->getStockTheoriqueMensuelByCampagne($this->periode);
+       		foreach ($detail->labels as $label) {
+       			$d->labels->add($label);
+       		}
+       		foreach ($detail->millesimes as $millesime) {
+       			$d->millesimes->add($millesime);
+       		}
        	}
        	$this->getDocument()->update();
        }
