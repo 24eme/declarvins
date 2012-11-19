@@ -35,7 +35,9 @@ class DRMAppellation extends BaseDRMAppellation {
     		$mergeEntrees = DRMDroits::getDroitEntreesInterRhone();
     	}
     	foreach ($this->getDroits() as $typedroits => $droit) {
-    		$droits->add($typedroits)->add($droit->code)->integreVolume($this->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)), $this->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droit->taux, $this->getReportByDroit($droit), $droit->libelle);
+    		if ($droit) {
+    			$droits->add($typedroits)->add($droit->code)->integreVolume($this->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)), $this->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droit->taux, $this->getReportByDroit($droit), $droit->libelle);
+    		}
     	}
     }
 

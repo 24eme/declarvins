@@ -225,6 +225,11 @@ DRM:
                                                                                                               definition:
                                                                                                                 fields:
                                                                                                                   taux: { type: float }
+                                                                                                            douane:
+                                                                                                              type: collection
+                                                                                                              definition:
+                                                                                                                fields:
+                                                                                                                  taux: { type: float }
                                                                                                             label_supplementaire: {  }
                                                                                                             vrac:
                                                                                                               type: collection
