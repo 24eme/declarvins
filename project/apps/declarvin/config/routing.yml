@@ -130,8 +130,11 @@ produit_suppression:
   param: {module: produit, action: suppression, hash: null, noeud: null}
 ## Etablissement routing
 etablissement_login:
-  url: /admin/etablissements
-  param: {module: admin, action: etablissementLogin}
+  url: /admin/etablissements/drm
+  param: {module: admin, action: etablissementDRMLogin}
+etablissement_login_daids:
+  url: /admin/etablissements/daids
+  param: {module: admin, action: etablissementDAIDSLogin}
 etablissement_profil_login:
   url: /admin/etablissements-profil
   param: {module: admin, action: etablissementProfilLogin}

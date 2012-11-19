@@ -46,6 +46,9 @@
 			<li<?php if ($subactive == 'etablissement'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@etablissement_login') ?>">DRM</a>
 			</li>
+			<li<?php if ($subactive == 'daids'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('@etablissement_login_daids') ?>">DAI/DS</a>
+			</li>
 			<li<?php if ($subactive == 'vrac'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('vrac_admin') ?>">Contrat interprofessionnel</a>
 			</li>

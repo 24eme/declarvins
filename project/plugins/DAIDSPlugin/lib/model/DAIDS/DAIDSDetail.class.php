@@ -77,6 +77,13 @@ class DAIDSDetail extends BaseDAIDSDetail {
 	{
       	return str_replace("%la%", implode($separator, $this->libelles_label->toArray()), $format);
     } 
+    
+	protected function update($params = array()) 
+	{
+        parent::update($params);
+        $this->code = $this->getFormattedCode();
+        $this->libelle = $this->getFormattedLibelle("%g% %a% %l% %co% %ce%");
+    }
 
     public function nbToComplete() {
     	return 0; // A FAIRE

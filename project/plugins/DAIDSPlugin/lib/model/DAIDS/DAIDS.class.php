@@ -33,6 +33,7 @@ class DAIDS extends BaseDAIDS
        	foreach ($lastDrm->getDetails() as $detail) {
        		$this->getDocument()->getOrAdd($detail->getHash());
        	}
+       	$this->getDocument()->update();
        }
     }
 

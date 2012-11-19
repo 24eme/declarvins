@@ -68,4 +68,24 @@ abstract class _DAIDSTotal extends acCouchdbDocumentTree
 
         return true;
     }
+    
+    protected function update($params = array()) 
+    {
+        parent::update($params);
+        if ($this->exist('code') && $this->exist('libelle')) {
+        	$this->code = $this->getFormattedCode();
+        	$this->libelle = $this->getFormattedLibelle();
+        }
+    }
+
+    public function getFormattedLibelle($format = "%g% %a% %l% %co% %ce%") 
+    {
+
+      return $this->getConfig()->getLibelleFormat(array(), $format);
+    }
+
+   	public function getFormattedCode($format = "%g%%a%%l%%co%%ce%") 
+   	{
+      return $this->getConfig()->getCodeFormat();
+    }
 }
