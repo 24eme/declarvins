@@ -190,14 +190,14 @@
 			        					</p>
 
 							            <p class="stock_th stock_th_mensuel">
-		        							<input id="champ_1-12" type="text" value="0" class="texte stock_th stock_th_mensuel" readonly="readonly">
+		        							<input id="champ_1-12" type="text" value="10" class="texte stock_th stock_th_mensuel" readonly="readonly">
 			        					</p>
 
 										<div class="groupe" data-groupe-id="2">
 											<p>
 												<input id="champ_1-13" type="text" value="0.00" data-val-defaut="0.00" class="num num_float" autocomplete="off">
 											</p>
-											<ul class="choix_unique" data-resultat="champ_1-17">
+											<ul class="choix_radio" data-observe="#champ_1-13" data-resultat="#champ_1-17">
 												<li>
 													<input checked="checked" id="champ_1-14-1" type="radio" value="0.025" name="stock_moy_vol_vinifie_solde" />
 													<input id="champ_1-14-2" data-calcul="produit" data-champs="#champ_1-13;#champ_1-14-1" type="text" value="0" class="texte" readonly="readonly">

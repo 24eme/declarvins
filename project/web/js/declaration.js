@@ -40,7 +40,9 @@
 			$.initColonnes();
 			$.verifierChampsNombre();
 			$.calculerSommesChamps();
+			$.calculerChampsInterdependants();
 			$.toggleGroupesChamps();
+			$.initChoixRadio();
 		}
 	});
 	
@@ -256,6 +258,7 @@
 		if(colActive)
 		{
 			$.calculerSommesChamps();
+			$.calculerChampsInterdependants();
 			
 			
 			var form = colActive.find('form');
@@ -610,7 +613,11 @@
 			(
 				float,
 				function(){ colonne.majColActive(false); },
-				function(){ $.calculerSommesChamps(); }
+				function()
+				{
+					$.calculerSommesChamps();
+					$.calculerChampsInterdependants();
+				}
 			);
 		});
 	};
@@ -693,6 +700,99 @@
 			});
 		});
 	};
+
+
+	/**
+	 * Calcul des valeurs des champs interdépendants
+	 * $.calculerChampsInterdependants();
+	 ******************************************/
+	$.calculerChampsInterdependants = function()
+	{
+		if(colActive)
+		{
+			var champsCalcul = colActive.find('input[data-calcul]');
+			
+			// Parcours des champs à calcul automatique
+			champsCalcul.each(function()
+			{
+				var champCalcul = $(this);
+				var type = champCalcul.attr('data-calcul');
+				var tabChamps = champCalcul.attr('data-champs').split(';');
+				var resultat=0;
+				var val = 0;
+
+				champCalcul.removeClass('positif').removeClass('negatif');
+				
+
+				// Parcours des champs concernés
+				for(var i = 0; i < tabChamps.length; i++)
+				{
+					val = parseFloat($(tabChamps[i]).val());
+					if (!val) val = 0;
+
+					if(i == 0) resultat = val;
+					else
+					{
+						if(type == 'somme') resultat += val;
+						else if(type == 'diff') resultat -= val;
+						else if(type == 'produit') resultat *= val;
+					}
+				}
+
+				resultat = resultat.toFixed(2);
+
+				champCalcul.val(resultat);
+
+				if(resultat > 0) champCalcul.addClass('positif');
+				else if(resultat < 0)  champCalcul.addClass('negatif'); 
+			});
+		}
+	};
+
+	/**
+	 * Choix par boutons radio
+	 * $.initChoixRadio();
+	 ******************************************/
+	$.initChoixRadio = function()
+	{
+		var listes = colSaisies.find('.choix_radio');
+
+		// Parcours de toutes les listes de choix
+		listes.each(function()
+		{
+			var liste = $(this);
+			var radios = liste.find('input:radio');
+			var champObserve = $(liste.attr('data-observe'));
+			var champResultat = $(liste.attr('data-resultat'));
+			
+
+			// Parcours des boutons radio
+			radios.each(function()
+			{
+				var radio = $(this);
+				var champ = radio.next('input:text');
+				
+				// Récupération et attribution de la valeur sélectionnée
+				// Mise à jour des calculs
+				radio.change(function()
+				{
+					champResultat.val(champ.val());
+					$.calculerChampsInterdependants();
+				});
+			});
+
+
+			// Comportement du champ à observer
+			if(champObserve.exists())
+			{
+				champObserve.blur(function()
+				{
+					radios.filter(':checked').trigger('change');
+				});
+			}
+		});
+	};
+
 	
 	/**
 	 * Affiche/Masque les groupes de champs
@@ -727,7 +827,7 @@
 		groupesIntitules.each(function()
 		{
 			var groupe = $(this);
-			var gpeId = groupe.attr('data-groupe-id');	
+			var gpeId = groupe.attr('data-groupe-id');
 			var titre = groupe.children('p');
 			var listeIntitules = groupe.children('ul');
 			var intitules = listeIntitules.children();
