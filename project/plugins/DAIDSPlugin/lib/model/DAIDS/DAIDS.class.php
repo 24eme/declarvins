@@ -42,6 +42,10 @@ class DAIDS extends BaseDAIDS
        		foreach ($detail->millesimes as $millesime) {
        			$d->millesimes->add($millesime);
        		}
+       		$labelLibelles = ConfigurationClient::getCurrent()->getLabelsLibelles($detail->labels->toArray());
+        	foreach ($labelLibelles as $label => $libelle) {
+        		$d->libelles_label->add($label, $libelle);
+        	}
        	}
        	$this->getDocument()->update();
        }

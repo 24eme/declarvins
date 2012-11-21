@@ -83,11 +83,11 @@ class DAIDSDetail extends BaseDAIDSDetail {
         parent::update($params);
         $this->code = $this->getFormattedCode();
         $this->libelle = $this->getFormattedLibelle("%g% %a% %l% %co% %ce%");
-	
-        $labelLibelles = $this->getConfig()->getDocument()->getLabelsLibelles($this->labels->toArray());
-        foreach ($labelLibelles as $label => $libelle) {
-        	$this->libelles_label->add($label, $libelle);
-        }
+		
+        $this->stock_chais = $this->stocks->chais + $this->stocks->propriete_tiers;
+        $this->stock_propriete = $this->stocks->chais + $this->stocks->tiers;
+        $this->total_manquants_excedents = $this->stock_chais - $this->stock_theorique;
+       
     }
 
     public function nbToComplete() {
