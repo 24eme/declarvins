@@ -681,6 +681,15 @@ p#date_drm
 			
 			/*&.couleur { padding: 4px 8px; }*/
 			&.label { /*margin-bottom: 40px;*/ }
+
+			&.stock_th
+			{
+				.majuscules;
+				background-color: @couleur-c2;
+				color: @couleur-e2;
+				font-weight: bold;
+				padding: 5px 8px;
+			}
 		}
 		
 		.groupe
@@ -696,6 +705,8 @@ p#date_drm
 				font-weight: bold;
 				padding-left: 20px;
 			}
+
+			&.bloque p { cursor: default; }
 			
 			&.groupe_ouvert p
 			{
@@ -711,12 +722,12 @@ p#date_drm
 				padding: 10px 9px 0 0;
 				
 				li 
-                                { 
-                                        margin: 0 0 10px; 
-                                        
-                                        .unite{ font-size: 10px; }
+                { 
+                    margin: 0 0 10px; 
+                    
+                    .unite{ font-size: 10px; }
 
-                                }
+                }
 			}
 		}
 		
@@ -757,7 +768,7 @@ p#date_drm
 		position: relative;
 		width: @largeur-col-saisie;
 		
-		input, select
+		input[type=text], select
 		{
 			background: #fff;
 			.border(@couleur-a5);
@@ -767,7 +778,7 @@ p#date_drm
 			&:hover, &:focus { border-color: #777; }
 		}
 		
-		input
+		input[type=text]
 		{
 			height: 16px;
 			padding: 2px 5px 0;
@@ -791,6 +802,27 @@ p#date_drm
 				background: #f1f1f1;
 				color: #888;
 			}
+
+			&.texte
+			{
+				background: #f1f1f1;
+				border-color: #f1f1f1;
+				color: @couleur-a1;
+			}
+
+			&.stock_th
+			{
+				font-weight: bold;
+			}
+
+			&.positif { color: @couleur-c2; }
+			&.negatif { color: @couleur-b2; }
+		}
+
+		input[type=radio] + input.texte
+		{
+			text-align: left;
+			width: @largeur-col-saisie - 60px;
 		}
 		
 		select
@@ -831,7 +863,14 @@ p#date_drm
 				&.label
 				{
 					height: auto;
+					text-align: center;
 					span { display: block; }
+				}
+
+
+				&.stock_th
+				{
+					padding: 6px 0;
 				}
 			}
 			
