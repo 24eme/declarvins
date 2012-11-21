@@ -91,6 +91,7 @@ class ediActions extends sfActions
   }
 
   public function executeStreamDRM(sfWebRequest $request) {
+  	ini_set('memory_limit', '512M');
     $date = $request->getParameter('datedebut');
     if (!$date) {
 	return $this->renderText("Pas de date définie");
