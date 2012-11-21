@@ -117,6 +117,53 @@ Configuration:
                           definition:
                             fields:
                               '*': {  }
+      daids:
+        type: collection
+        definition:
+          fields:
+            interpro:
+              type: collection
+              definition:
+                fields:
+                  '*':
+                    class: ConfigurationDAIDS
+                    type: collection
+                    definition:
+                      fields:
+                        stocks_moyen:
+                          type: collection
+                          definition:
+                            fields:
+                              vinifie:
+                                type: collection
+                                definition:
+                                  fields:
+                                    '*':
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          libelle: {  }
+                                          taux: {  }
+                              non_vinifie:
+                                type: collection
+                                definition:
+                                  fields:
+                                    '*':
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          libelle: {  }
+                                          taux: {  }
+                              conditionne:
+                                type: collection
+                                definition:
+                                  fields:
+                                    '*':
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          libelle: {  }
+                                          taux: {  }
       labels:
         type: collection
         definition:

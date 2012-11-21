@@ -225,5 +225,12 @@ class Configuration extends BaseConfiguration {
     	}
     	return $this->vrac->interpro->get($interpro);
     }
+    
+    public function getConfigurationDAIDSByInterpro($interpro) {
+    	if (!$this->daids->interpro->exist($interpro)) {
+    		throw new sfException('The configuration object has no daids configuration for this interpro');
+    	}
+    	return $this->daids->interpro->get($interpro);
+    }
 
 }
