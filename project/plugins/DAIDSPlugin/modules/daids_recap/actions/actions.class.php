@@ -5,7 +5,7 @@ class daids_recapActions extends sfActions
     
     public function executeIndex(sfWebRequest $request) 
     {
-        $this->init();
+        $this->init($this->getRoute()->getEtablissement());
         $this->setTemplate('index');
     }
 
@@ -19,7 +19,7 @@ class daids_recapActions extends sfActions
         $this->redirect('daids_recap', $first_certification);
     }
     
-    protected function init() 
+    protected function init($etablissement = null) 
     {
         $this->form = null;
         $this->detail = null;
@@ -31,14 +31,29 @@ class daids_recapActions extends sfActions
         $this->next = $this->daids_lieu->getNextSister();
     	$this->previous_certif = $this->daids_lieu->getCertification()->getPreviousSister();
     	$this->next_certif = $this->daids_lieu->getCertification()->getNextSister();
+    	$this->interpro = $this->getInterpro($etablissement);
+		$this->configurationDAIDS = $this->getConfigurationDAIDS($this->interpro->_id);
     }
     
     public function executeLieu(sfWebRequest $request) 
     {
-        $this->init();
+        $this->init($this->getRoute()->getEtablissement());
         $this->setTemplate('index');
     }
-    
+	
+	public function getInterpro($etablissement = null)
+	{
+        if($etablissement) {
+            return $etablissement->getInterproObject();
+        }
+        return $this->getUser()->getCompte()->getGerantInterpro();
+	}
+
+	
+	public function getConfigurationDAIDS($interpro_id = null)
+	{
+		return ConfigurationClient::getCurrent()->getConfigurationDAIDSByInterpro($interpro_id);
+	}
     /*
      * A REVOIR
      */

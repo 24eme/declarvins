@@ -72,10 +72,35 @@ abstract class _DAIDSTotal extends acCouchdbDocumentTree
     protected function update($params = array()) 
     {
         parent::update($params);
+    
+        $this->total_manquants_excedents = $this->getTotalByKey('total_manquants_excedents');
+        $this->total_pertes_autorisees = $this->getTotalByKey('total_pertes_autorisees');
+        $this->total_manquants_taxables = $this->getTotalByKey('total_manquants_taxables');
+        $this->total_droits = $this->getTotalByKey('total_droits');
+        $this->total_regulation = $this->getTotalByKey('total_regulation');
+        $this->total_droits_regulation = $this->getTotalByKey('total_droits_regulation');
+        
         if ($this->exist('code') && $this->exist('libelle')) {
         	$this->code = $this->getFormattedCode();
         	$this->libelle = $this->getFormattedLibelle();
         }
+    }
+    
+    private function getTotalByKey($key) 
+    {
+    	$sum = 0;
+    	foreach ($this->getFields() as $field => $k) {
+    		if ($this->fieldIsCollection($field)) {
+    			foreach ($this->get($field) as $f => $v) {
+    				if ($this->get($field)->fieldIsCollection($f)) {
+    					if ($v->exist($key)) {
+		    				$sum += $v->get($key);
+    					}
+    				}
+    			}
+    		}
+    	}
+    	return $sum;
     }
 
     public function getFormattedLibelle($format = "%g% %a% %l% %co% %ce%") 
@@ -88,28 +113,4 @@ abstract class _DAIDSTotal extends acCouchdbDocumentTree
    	{
       return $this->getConfig()->getCodeFormat();
     }
-    
-    /*public function getDroit($type) 
-    {
-      return $this->getConfig()->getDroits($this->getInterproKey())->get($type)->getCurrentDroit($this->getPeriode());
-    }
-
-    public function getDroits() {
-      $conf = $this->getConfig();
-      $droits = array();
-      foreach ($conf->getDroits($this->getInterproKey()) as $key => $droit) {
-	$droits[$key] = $droit->getCurrentDroit($this->getPeriode());
-      }
-      return $droits;
-    }
-    public function getInterproKey() 
-    {
-      if (!$this->getDocument()->getInterpro())
-			return array();
-      return $this->getDocument()->getInterpro()->get('_id');
-    }
-    public function getPeriode() 
-    {
-      return $this->getDocument()->getPeriode();
-    }*/
 }

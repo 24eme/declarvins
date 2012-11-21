@@ -73,6 +73,9 @@ EOF;
     
     $csv = new VracConfigurationCsvFile($configuration, $import_dir.'/vrac.csv');
     $configuration = $csv->importConfigurationVrac();
+    
+    $csv = new DAIDSConfigurationCsvFile($configuration, $import_dir.'/daids.csv');
+    $configuration = $csv->importConfigurationDAIDS();
 
   	$configuration->save();
   }

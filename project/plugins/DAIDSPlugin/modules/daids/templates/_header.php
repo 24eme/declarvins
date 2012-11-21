@@ -1,4 +1,4 @@
-<h1>DAI/DS</h1>
+<h1>Déclaration Annuelle d'Inventaire / Déclaration de Stocks</h1>
 <p id="date_drm">
 	DAI/DS <?php echo $daids->periode ?>
 	<?php if($daids->isRectificative()): ?>

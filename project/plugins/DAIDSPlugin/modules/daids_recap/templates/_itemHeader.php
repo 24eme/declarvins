@@ -1,42 +1,67 @@
 <div id="colonne_intitules">
 	<p class="couleur">Couleur</p>
+	
 	<?php if($config_lieu->hasCepage()): ?>
 	<p class="cepage">Cépage</p>
 	<?php endif; ?>
+
 	<p class="label">Labels</p>
 	
+	<p class="stock_th">Stock théorique au 31 Juillet - DRM <span class="unite">(hl)</span></p>
 
-	<p>Stock théorique</p>
-	<p>Vins logés dans votre chais</p>
-	<p>Vins logés en propriété pour un tiers</p>
-	<p>Vins logés chez un tiers</p>
-	<p>Stock dans votre chais</p>
+	<p>Vins de la propriété dans votre chais (<span class="unite">hl</span>)</p>
+	<p>Vins logés dans votre chais pour un tiers (<span class="unite">hl</span>)</p>
+	<p>Vins logés chez un tiers (<span class="unite">hl</span>)</p>
 	
-	<div class="groupe demarrage-ouvert" data-groupe-id="1">
-		<p>Stock de votre propriété</p>
+	<p>Total vins logés dans votre chais (<span class="unite">hl</span>)</p>
+
+	<div class="groupe demarrage-ouvert bloque" data-groupe-id="1">
+		<p>Total Stock de votre propriété (<span class="unite">hl</span>)</p>
 		<ul>
-			<li>Dont réserve bloqué</li>
-			<li>Dont vrac vendu non retiré</li>
-			<li>Dont vrac libre à la vente</li>
-			<li>Dont conditionné</li>
+			<li>Dont Réserve Bloquée</li>
+			<li>Dont Vrac Vendu non retiré</li>
+			<li>Dont Vrac libre à la vente</li>
+			<li>Dont Conditionné</li>
 		</ul>
 	</div>
-	
-	<p>Total des manquants ou excédents</p>
-	
-	<div class="groupe demarrage-ouvert" data-groupe-id="2">
-		<p>Stock mensuel théorique</p>
+
+	<p class="total_manq_exce">Total Manquants ou Excédents (<span class="unite">hl</span>)</p>
+
+	<p class="stock_th">Stock mensuel théorique</p>
+
+	<div class="groupe demarrage-ouvert bloque" data-groupe-id="2">
+		<p>dont Stock moyen volume vinifié et soldé dans l'année</p>
 		<ul>
-			<li>Dont stock moyen de volume vinifié et stocké dans l'année</li>
-			<li>&nbsp;</li>
-			<li>Dont stock moyen de volume stocké non vinifié dans l'année</li>
-			<li>&nbsp;</li>
-			<li>Précisez le stock moyen de volume conditionné dans l'année</li>
-			<li>&nbsp;</li>
+			<?php foreach ($configurationDAIDS->stocks_moyen->vinifie as $node): ?>
+			<li><?php echo $node->libelle ?> (<?php echo $node->taux ?>%)</li>
+			<?php endforeach; ?>
 		</ul>
 	</div>
-	
-	<p>Total des pertes autorisées</p>
-	<p>Manquants taxables éventuels</p>
-	<p>Total des droits à payer</p>
+
+	<div class="groupe demarrage-ouvert bloque" data-groupe-id="3">
+		<p>dont Stock moyen volume stocké non vinifié</p>
+		<ul>
+			<?php foreach ($configurationDAIDS->stocks_moyen->non_vinifie as $node): ?>
+			<li><?php echo $node->libelle ?> (<?php echo $node->taux ?>%)</li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+
+	<div class="groupe demarrage-ouvert bloque" data-groupe-id="4">
+		<p>Stock moyen volume conditionné dans l'année</p>
+		<ul>
+			<?php foreach ($configurationDAIDS->stocks_moyen->conditionne as $node): ?>
+			<li><?php echo $node->libelle ?> (<?php echo $node->taux ?>%)</li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+
+	<p class="total_pertes">Total Pertes Autorisée (<span class="unite">hl</span>)</p>
+
+	<p class="manquants_taxables">Manquants taxables éventuels (<span class="unite">hl</span>)</p>
+
+	<p>Total Droits à payer (avant régulation)</p>
+	<p>Régulation, correction ou avoir</p>
+
+	<p class="total_droits_final">Total droits à payer</p>
 </div>

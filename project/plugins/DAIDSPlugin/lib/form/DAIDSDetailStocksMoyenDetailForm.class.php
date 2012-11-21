@@ -1,14 +1,57 @@
 <?php
 class DAIDSDetailStocksMoyenDetailForm extends acCouchdbObjectForm
 {
+	protected $_configurationDAIDS;
+	
+	public function __construct(acCouchdbJson $object, $configurationDAIDS, $options = array(), $CSRFSecret = null) 
+	{
+		$this->_configurationDAIDS = $configurationDAIDS;
+        parent::__construct($object, $options, $CSRFSecret);
+    }
+    
 	public function configure() 
     {
-    	$this->setWidget('taux', new sfWidgetFormInputFloat());
+    	if ($this->hasMultiTaux()) {
+    		$this->setWidget('taux', new sfWidgetFormChoice(array('renderer_options' => array('formatter' => array($this, 'formatter')), 'expanded' => true, 'choices' => $this->getTaux())));
+    		$this->setValidator('taux', new sfValidatorChoice(array('choices' => array_keys($this->getTaux()))));
+    	} else {
+    		$this->setWidget('taux', new sfWidgetFormInputHidden());
+    		$this->setDefault('taux', $this->getTaux());
+    		$this->setValidator('taux', new sfValidatorPass());
+    		
+    	}
+    	$this->setWidget('total', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
+    	$this->setValidator('total', new sfValidatorNumber(array('required' => false)));
     	$this->setWidget('volume', new sfWidgetFormInputFloat());
-    	$this->setValidator('taux', new sfValidatorNumber(array('required' => false)));
     	$this->setValidator('volume', new sfValidatorNumber(array('required' => false)));
     		    		
         $this->widgetSchema->setNameFormat('[%s]');
         $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+    }
+    
+    protected function hasMultiTaux() 
+    {
+    	return (count($this->_configurationDAIDS->stocks_moyen->get($this->getObject()->getKey())) > 1)? true : false;
+    }
+    
+    protected function getTaux() 
+    {
+    	$taux = array();
+    	$valeurTaux = null;
+    	foreach ($this->_configurationDAIDS->stocks_moyen->get($this->getObject()->getKey()) as $node) {
+    		$taux[$node->taux] = $node->taux;
+    		$valeurTaux = $node->taux;
+    	}
+    	return (count($taux) > 1)? $taux : $valeurTaux;
+    }
+
+    public function formatter($widget, $inputs)
+    {
+      $rows = array();
+      foreach ($inputs as $input) {
+      	$rows[] = $widget->renderContentTag('li', $input['input'].$this->getOption('label_separator').$input['label']);
+      }
+
+      return !$rows ? '' : $widget->renderContentTag('ul', implode($this->getOption('separator'), $rows), array('class' => 'choix_radio'));
     }
 }

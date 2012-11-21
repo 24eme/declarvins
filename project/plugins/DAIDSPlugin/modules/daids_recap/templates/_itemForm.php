@@ -2,7 +2,7 @@
 <?php use_helper('Version'); ?>
 
 <div id="col_recolte_<?php echo $form->getObject()->getKey() ?>" class="col_recolte<?php if ($active): ?> col_active<?php endif; ?>" data-input-focus="#drm_detail_entrees_achat" data-cssclass-rectif="<?php echo ($form->getObject()->getDocument()->isRectificative()) ? versionnerCssClass() : '' ?>">
-    <form action="<?php echo url_for('drm_recap_update', $form->getObject()) ?>" method="post">
+    <form action="<?php echo url_for('drm_recap_update', $form->getObject()) ?>" method="post"> <!-- !! URL !! -->
         <?php echo $form->renderHiddenFields(); ?>
         <a href="#" class="col_curseur" data-curseur="<?php echo $form->getObject()->getKey() ?>"></a>
         <h2><?php echo $form->getObject()->getCouleur()->getConfig()->libelle ?></h2>
@@ -15,74 +15,94 @@
                 <?php echo $form->getObject()->label_supplementaire ?>
             </p>
             
-            
-            <p><?php echo $form['stock_theorique']->render(array('data-val-defaut' => sprintFloat($form->getObject()->total_debut_mois), 'class' => 'num num_float somme_stock_debut test')) ?></p>
-			<p>Vins logés dans votre chais</p>
-			<p>Vins logés en propriété pour un tiers</p>
-			<p>Vins logés chez un tiers</p>
-			<p>Stock dans votre chais</p>
-            
-            
-            
-            <div class="groupe" data-groupe-id="1">
-                <p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_debut_mois') ?>">
-                    <?php echo $form['total_debut_mois']->render(array('data-val-defaut' => sprintFloat($form->getObject()->total_debut_mois), 'class' => 'num num_float somme_stock_debut test')) ?>
-                </p>
-                <ul>
-                    <?php $nbItem = count($form['stocks_debut']); $i=0; foreach($form['stocks_debut'] as $key => $subform): $i++; ?>
-                    <?php $class = 'num num_float'; if ($i==1) $class .= ' premier'; if ($i==$nbItem) $class .= ' dernier';?>
-                    <li class="<?php echo isVersionnerCssClass($form->getObject()->stocks_debut, $key) ?>">
-    <?php echo $form['stocks_debut'][$key]->render(array('data-val-defaut' => sprintFloat($form['stocks_debut'][$key]->getValue()), 'class' => $class)) ?>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+            <p class="stock_th stock_th_drm  <?php echo isVersionnerCssClass($form->getObject(), 'stock_theorique') ?>">
+				<?php echo $form['stock_theorique']->render(array('class' => 'texte stock_th stock_th_drm')) ?>
+			</p>
 
-            <div class="groupe" data-groupe-id="2">
-                <p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_entrees') ?>">
-                    <input type="text" value="<?php echo $form->getObject()->total_entrees ?>" class="num num_float somme_groupe somme_entrees" data-val-defaut="<?php echo $form->getObject()->total_entrees ?>" readonly="readonly" />
-                </p>
-                <ul>
-                    <?php $nbItem = count($form['entrees']); $i=0; foreach($form['entrees'] as $key => $subform): $i++; ?>
-                    <?php $class = 'num num_float'; if ($i==1) $class .= ' premier'; if ($i==$nbItem) $class .= ' dernier';?>
-                    <li class="<?php echo isVersionnerCssClass($form->getObject()->entrees, $key) ?>">
-                        <?php echo $form['entrees'][$key]->render(array('data-val-defaut' => $form['entrees'][$key]->getValue(),
-                                                                        'class' => $class)) ?>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+			<p class="<?php echo isVersionnerCssClass($form->getObject()->stocks, 'chais') ?>">
+				<?php echo $form['stocks']['chais']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->getObject()->stocks->chais))) ?>
+			</p>
+			<p class="<?php echo isVersionnerCssClass($form->getObject()->stocks, 'propriete_tiers') ?>">
+				<?php echo $form['stocks']['propriete_tiers']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->getObject()->stocks->propriete_tiers))) ?>
+			</p>
+			<p class="<?php echo isVersionnerCssClass($form->getObject()->stocks, 'tiers') ?>">
+				<?php echo $form['stocks']['tiers']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->getObject()->stocks->tiers))) ?>
+			</p>
 
-            <div class="groupe" data-groupe-id="3">
-                <p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_sorties') ?>">
-                    <input type="text" value="<?php echo $form->getObject()->total_sorties ?>" class="num num_float somme_groupe somme_sorties" data-val-defaut="<?php echo $form->getObject()->total_sorties ?>" readonly="readonly" />
-                </p>
-                <ul>
-                    <?php  $nbItem = count($form['sorties']); $i=0; foreach($form['sorties'] as $key => $subform): $i++; ?>
-                    <?php $class = 'num num_float'; if ($i==1) $class .= ' premier'; if ($i==$nbItem) $class .= ' dernier';?>
-                    <li class="<?php echo isVersionnerCssClass($form->getObject()->sorties, $key) ?>">
-                        <?php echo $form['sorties'][$key]->render(array('data-val-defaut' => $form['sorties'][$key]->getValue(),
-                                                                        'class' => $class)) ?>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+			<p class="total_chais <?php echo isVersionnerCssClass($form->getObject(), 'stock_chais') ?>">
+				<?php echo $form['stock_chais']->render(array('class' => 'texte total_chais', 'data-champs' => $form['stocks']['chais']->renderId().';'.$form['stocks']['propriete_tiers']->renderId(), 'data-calcul' => 'somme')) ?>
+        	</p>
 
-            <!-- <p><input type="text" value="0" class="num num_float somme_stock_fin" readonly="readonly" /></p>  -->
-            <div class="groupe" data-groupe-id="4">
-                <p class="<?php echo isVersionnerCssClass($form->getObject(), 'total') ?>">
-                    <input type="text" value="<?php echo $form->getObject()->total ?>" class="num num_float somme_stock_fin" readonly="readonly" data-val-defaut="<?php echo sprintFloat($form->getObject()->total) ?>" />
-                </p>
-                <ul>
-                    <?php $nbItem = count($form['stocks_fin']); $i=0; foreach($form['stocks_fin'] as $key => $subform): $i++; ?>
-                    <?php $class = 'num num_float'; if ($i==1) $class .= ' premier'; if ($i==$nbItem) $class .= ' dernier';?>
-                    <li class="<?php echo isVersionnerCssClass($form->getObject()->stocks_fin, $key) ?>">
-                        <?php echo $form['stocks_fin'][$key]->render(array('data-val-defaut' => $form['stocks_fin'][$key]->getValue(),
-                                                                        'class' => $class)) ?>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+			<div class="groupe" data-groupe-id="1">
+				<p class="total_propriete <?php echo isVersionnerCssClass($form->getObject(), 'stock_chais') ?>">
+					<?php echo $form['stock_chais']->render(array('class' => 'texte total_propriete', 'data-champs' => $form['stocks']['chais']->renderId().';'.$form['stocks']['tiers']->renderId(), 'data-calcul' => 'somme')) ?>
+				</p>
+				<ul>
+					<li class="<?php echo isVersionnerCssClass($form->getObject()->stock_propriete_details, 'reserve') ?>"><?php echo $form['stock_propriete_details']['reserve']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->stock_propriete_details->getObject()->reserve))) ?></li>
+					<li class="<?php echo isVersionnerCssClass($form->getObject()->stock_propriete_details, 'vrac_vendu') ?>"><?php echo $form['stock_propriete_details']['vrac_vendu']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->stock_propriete_details->getObject()->vrac_vendu))) ?></li>
+					<li class="<?php echo isVersionnerCssClass($form->getObject()->stock_propriete_details, 'vrac_libre') ?>"><?php echo $form['stock_propriete_details']['vrac_libre']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->stock_propriete_details->getObject()->vrac_libre))) ?></li>
+					<li class="<?php echo isVersionnerCssClass($form->getObject()->stock_propriete_details, 'conditionne') ?>"><?php echo $form['stock_propriete_details']['conditionne']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->stock_propriete_details->getObject()->conditionne))) ?></li>
+				</ul>
+			</div>
+
+			<p class="total_manq_exce <?php echo isVersionnerCssClass($form->getObject(), 'total_manquants_excedents') ?>">
+				<?php echo $form['total_manquants_excedents']->render(array('class' => 'texte total_manq_exce', 'data-champs' => $form['stock_chais']->renderId().';'.$form['stock_theorique']->renderId(), 'data-calcul' => 'diff')) ?>
+	        </p>
+
+			<p class="stock_th stock_th_mensuel <?php echo isVersionnerCssClass($form->getObject(), 'stock_mensuel_theorique') ?>">
+				<?php echo $form['stock_mensuel_theorique']->render(array('class' => 'texte stock_th stock_th_mensuel')) ?>
+	        </p>
+
+			<div class="groupe" data-groupe-id="2">
+				<p class="<?php echo isVersionnerCssClass($form->getObject()->stocks_moyen->vinifie, 'volume') ?>">
+					<?php echo $form['stocks_moyen']['vinifie']['volume']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->getObject()->stocks_moyen->vinifie->volume))) ?>
+				</p>
+				
+				<?php echo $form['stocks_moyen']['vinifie']['taux']->render() ?>
+				
+				<?php echo $form['stocks_moyen']['vinifie']['total']->render(array('class' => 'texte', 'data-calcul' => 'produit', 'data-champs' => '')) ?>
+			</div>
+
+			<div class="groupe" data-groupe-id="3">
+				<p class="<?php echo isVersionnerCssClass($form->getObject()->stocks_moyen->non_vinifie, 'volume') ?>">
+					<?php echo $form['stocks_moyen']['non_vinifie']['volume']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->getObject()->stocks_moyen->non_vinifie->volume))) ?>
+				</p>
+				<ul>
+					<li class="<?php echo isVersionnerCssClass($form->getObject()->stocks_moyen->non_vinifie, 'total') ?>">
+						<?php echo $form['stocks_moyen']['non_vinifie']['taux']->render() ?>
+						<?php echo $form['stocks_moyen']['non_vinifie']['total']->render(array('class' => 'texte', 'data-calcul' => 'produit', 'data-champs' => '')) ?>
+					</li>
+				</ul>
+			</div>
+
+			<div class="groupe" data-groupe-id="4">
+				<p class="<?php echo isVersionnerCssClass($form->getObject()->stocks_moyen->conditionne, 'volume') ?>">
+					<?php echo $form['stocks_moyen']['conditionne']['volume']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->getObject()->stocks_moyen->conditionne->volume))) ?>
+				</p>
+				<ul>
+					<li class="<?php echo isVersionnerCssClass($form->getObject()->stocks_moyen->conditionne, 'total') ?>">
+						<?php echo $form['stocks_moyen']['conditionne']['taux']->render() ?>
+						<?php echo $form['stocks_moyen']['conditionne']['total']->render(array('class' => 'texte', 'data-calcul' => 'produit', 'data-champs' => '')) ?>
+					</li>
+				</ul>
+			</div>
+			
+			<p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_pertes_autorisees') ?>">
+				<?php echo $form['total_pertes_autorisees']->render(array('class' => 'texte', 'data-champs' => '', 'data-calcul' => 'somme')) ?>
+			</p>
+			<p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_manquants_taxables') ?>">
+				<?php echo $form['total_manquants_taxables']->render(array('class' => 'texte', 'data-champs' => $form['total_pertes_autorisees']->renderId().';'.$form['total_manquants_excedents']->renderId(), 'data-calcul' => 'diff')) ?>
+			</p>
+			<p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_droits') ?>">
+				<?php echo $form['total_droits']->render(array('class' => 'texte', 'data-champs' => '', 'data-calcul' => 'produit')) ?>
+			</p>
+			<p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_regulation') ?>">
+				<?php echo $form['total_regulation']->render(array('class' => 'num num_float', 'autocomplete' => 'off')) ?>
+			</p>
+
+			<p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_droits_regulation') ?>">
+				<?php echo $form['total_droits_regulation']->render(array('class' => 'texte', 'data-champs' => '', 'data-calcul' => 'diff')) ?>
+			</p>
 
             <div class="col_btn">
                 <button class="btn_valider" type="submit">Valider</button>

@@ -3,7 +3,7 @@
 </div>
 
 <div id="colonnes_dr">
-    <?php include_partial('daids_recap/itemHeader', array('config_lieu' => $config_lieu)); ?>    
+    <?php include_partial('daids_recap/itemHeader', array('config_lieu' => $config_lieu, 'configurationDAIDS' => $configurationDAIDS)); ?>    
     <div id="col_saisies">
         <script type="text/javascript">
             /* Colonne avec le focus par défaut */
@@ -17,6 +17,7 @@
                         'config_lieu' => $config_lieu,
                         'detail' => $produit,
                     	'active' => ($detail && $detail->getHash() == $produit->getHash()),
+                		'configurationDAIDS' => $configurationDAIDS,
                         'form' => $form));
                     ?>
             <?php endforeach; ?>

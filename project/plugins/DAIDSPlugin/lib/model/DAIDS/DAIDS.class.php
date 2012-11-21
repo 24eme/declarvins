@@ -272,4 +272,20 @@ class DAIDS extends BaseDAIDS
     	$etape = sfConfig::get('app_daids_etapes_'.$this->etape);
         return $etape['url'];
     }
+
+    public function isModifiedMother($hash_or_object, $key = null) 
+    {
+        return $this->version_document->isModifiedMother($hash_or_object, $key);
+    }
+
+    public function hasVersion() 
+    {
+        return $this->version_document->hasVersion();
+    }
+
+
+    public function isModificative() 
+    {
+        return $this->version_document->isModificative();
+    }
 }

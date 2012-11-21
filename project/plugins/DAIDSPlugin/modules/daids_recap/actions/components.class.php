@@ -10,7 +10,7 @@ class daids_recapComponents extends sfComponents {
     public function executeItemForm() 
     {
         if (is_null($this->form)) {
-            $this->form = new DAIDSDetailForm($this->detail);
+            $this->form = new DAIDSDetailForm($this->detail, $this->configurationDAIDS);
         }
     }
     

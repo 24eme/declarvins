@@ -3,10 +3,12 @@
 <section id="contenu">
 
     <?php include_partial('daids/header', array('daids' => $daids)); ?>
+    
     <?php include_component('daids', 'etapes', array('daids' => $daids, 
                                                    'etape' => 'recapitulatif', 
                                                    'certification' => $config_lieu->getCertification()->getKey(), 
                                                    'pourcentage' => '30')); ?>
+                                                   
     <?php include_partial('daids/controlMessage'); ?>
     <!-- #principal -->
     <section id="principal">
@@ -18,12 +20,13 @@
             
             	<a href="" data-popup="#raccourci_clavier" class="btn_popup" data-popup-config="configDefaut">Raccourcis clavier</a>
             
-                <?php include_partial('shortcutKeys') ?>
+                <?php include_partial('daids_recap/shortcutKeys') ?>
                 
                 <?php include_component('daids_recap', 'list', array('daids_lieu' => $daids_lieu, 
                                                                    'config_lieu' => $config_lieu,
                                                                    'produits' => $produits,
                                                                    'form' => $form,
+                												   'configurationDAIDS' => $configurationDAIDS,
                 												   'detail' => $detail)); ?>
                 <div id="btn_suiv_prec">
                     <?php if ($previous): ?>
@@ -55,7 +58,7 @@
                     <span>Suivant</span>
                 </a>
                 <?php else: ?>
-                <a href="#" class="btn_suiv"> <!-- NEXT ETAPE -->
+                <a href="#" class="btn_suiv">
                     <span>Suivant</span>
                 </a>
             	<?php endif; ?>

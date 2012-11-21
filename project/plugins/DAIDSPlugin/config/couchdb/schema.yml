@@ -152,6 +152,8 @@ DAIDS:
                                                                                                 total_pertes_autorisees: { type: float }
                                                                                                 total_manquants_taxables: { type: float }
                                                                                                 total_droits: { type: float }
+                                                                                                total_regulation: { type: float }
+                                                                                                total_droits_regulation: { type: float }
                                                                                                 details:
                                                                                                   type: collection
                                                                                                   class: DAIDSDetails
@@ -189,6 +191,8 @@ DAIDS:
                                                                                                             total_pertes_autorisees: { type: float }
                                                                                                             total_manquants_taxables: { type: float }
                                                                                                             total_droits: { type: float }
+                                                                                                            total_regulation: { type: float }
+                                                                                                            total_droits_regulation: { type: float }
                                                                                                             stock_theorique: { type: float }
                                                                                                             stocks:
                                                                                                               type: collection

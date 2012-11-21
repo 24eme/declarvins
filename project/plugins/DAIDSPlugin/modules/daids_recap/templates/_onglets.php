@@ -1,8 +1,4 @@
-
 <ul id="onglets_principal">
- <div id="msg_aide_drm">
-        <a href="" class="msg_aide" data-msg="help_popup_drm_global" data-doc="notice.pdf" title="Message aide"></a>
- </div>
     <?php foreach ($items as $item): ?>
             <?php if ($item->getHash() == $daids_lieu->getHash()): ?>
                 <li class="actif">
