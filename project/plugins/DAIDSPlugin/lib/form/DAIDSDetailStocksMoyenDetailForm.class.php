@@ -13,10 +13,10 @@ class DAIDSDetailStocksMoyenDetailForm extends acCouchdbObjectForm
     {
     	if ($this->hasMultiTaux()) {
     		$this->setWidget('taux', new sfWidgetFormChoice(array('renderer_options' => array('formatter' => array($this, 'formatter')), 'expanded' => true, 'choices' => $this->getTaux())));
-    		$this->setValidator('taux', new sfValidatorChoice(array('choices' => array_keys($this->getTaux()))));
+    		$this->setValidator('taux', new sfValidatorNumber(array('required' => false)));
     	} else {
     		$this->setWidget('taux', new sfWidgetFormInputHidden());
-    		$this->setValidator('taux', new sfValidatorPass());
+    		$this->setValidator('taux', new sfValidatorNumber(array('required' => false)));
     		
     	}
     	$this->setWidget('total', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
@@ -47,8 +47,9 @@ class DAIDSDetailStocksMoyenDetailForm extends acCouchdbObjectForm
     	$taux = array();
     	$valeurTaux = null;
     	foreach ($this->_configurationDAIDS->stocks_moyen->get($this->getObject()->getKey()) as $node) {
-    		$taux[$node->taux] = $node->taux;
-    		$valeurTaux = $node->taux;
+    		$t = $node->taux;
+    		$taux[$t] = $t;
+    		$valeurTaux = $t / 100;
     	}
     	return (count($taux) > 1)? $taux : $valeurTaux;
     }
@@ -60,6 +61,6 @@ class DAIDSDetailStocksMoyenDetailForm extends acCouchdbObjectForm
       	$rows[] = $widget->renderContentTag('li', $input['input']);
       }
 
-      return !$rows ? '' : $widget->renderContentTag('ul', implode($this->getOption('separator'), $rows), array('class' => 'choix_radio'));
+      return !$rows ? '' : implode($this->getOption('separator'), $rows);
     }
 }

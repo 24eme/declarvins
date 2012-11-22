@@ -57,8 +57,12 @@
 				<p class="<?php echo isVersionnerCssClass($form->getObject()->stocks_moyen->vinifie, 'volume') ?>">
 					<?php echo $form['stocks_moyen']['vinifie']['volume']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->getObject()->stocks_moyen->vinifie->volume))) ?>
 				</p>
-				<?php echo $form['stocks_moyen']['vinifie']['taux']->render() ?>
-				<?php echo $form['stocks_moyen']['vinifie']['total']->render(array('class' => 'texte', 'data-calcul' => 'produit', 'data-champs' => '#1;#2')) ?>
+				<ul id="choix_radio_<?php echo $form->getObject()->renderId() ?>_1" class="choix_radio">
+					<?php echo $form['stocks_moyen']['vinifie']['taux']->render() ?>
+					<li class="resultat">
+						<?php echo $form['stocks_moyen']['vinifie']['total']->render(array('data-radio-name' => '#choix_radio_'.$form->getObject()->renderId().'_1', 'class' => 'texte', 'data-calcul' => 'produit_radio', 'data-champs' => '#'.$form['stocks_moyen']['vinifie']['volume']->renderId())) ?>
+					</li>
+				</ul>
 			</div>
 
 			<div class="groupe" data-groupe-id="3">

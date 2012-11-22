@@ -6,6 +6,11 @@
 
 class DAIDSDetail extends BaseDAIDSDetail {
 	
+	public function renderId()
+	{
+		return str_replace('/', '_', $this->getHash());
+	}
+	
 	public function getConfig() 
 	{
     	return ConfigurationClient::getCurrent()->declaration->certifications->get($this->getCertification()->getKey())->detail;
@@ -87,7 +92,7 @@ class DAIDSDetail extends BaseDAIDSDetail {
         $this->stock_chais = $this->stocks->chais + $this->stocks->propriete_tiers;
         $this->stock_propriete = $this->stocks->chais + $this->stocks->tiers;
         $this->total_manquants_excedents = $this->stock_chais - $this->stock_theorique;
-        $this->stocks_moyen->vinifie->total = $this->stocks_moyen->vinifie->taux * $this->stocks_moyen->vinifie->volume;
+        $this->stocks_moyen->vinifie->total = $this->stocks_moyen->vinifie->taux * $this->stocks_moyen->vinifie->volume * 0.01;
         $this->stocks_moyen->non_vinifie->total = $this->stocks_moyen->non_vinifie->taux * $this->stocks_moyen->non_vinifie->volume;
         $this->stocks_moyen->conditionne->total = $this->stocks_moyen->conditionne->taux * $this->stocks_moyen->conditionne->volume;
         $this->total_pertes_autorisees = $this->stocks_moyen->vinifie->total + $this->stocks_moyen->non_vinifie->total + $this->stocks_moyen->conditionne->total;

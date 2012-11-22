@@ -742,7 +742,8 @@
 
 				if(type == 'produit_radio')
 				{
-					resultat *= $('input[name='+radioName+']:checked').val();
+					resultat *= parseFloat($(radioName+' input:radio:checked').val());
+					resultat *= 0.01;
 				}
 
 				resultat = resultat.toFixed(2);
