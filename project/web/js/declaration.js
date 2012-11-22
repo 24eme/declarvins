@@ -718,6 +718,7 @@
 				var champCalcul = $(this);
 				var type = champCalcul.attr('data-calcul');
 				var tabChamps = champCalcul.attr('data-champs').split(';');
+				var radioName = champCalcul.attr('data-radio-name');
 				var resultat=0;
 				var val = 0;
 
@@ -735,8 +736,13 @@
 					{
 						if(type == 'somme') resultat += val;
 						else if(type == 'diff') resultat -= val;
-						else if(type == 'produit') resultat *= val;
+						else if(type == 'produit' || type == 'produit_radio') resultat *= val;
 					}
+				}
+
+				if(type == 'produit_radio')
+				{
+					resultat *= $('input[name='+radioName+']:checked').val();
 				}
 
 				resultat = resultat.toFixed(2);
@@ -762,34 +768,24 @@
 		{
 			var liste = $(this);
 			var radios = liste.find('input:radio');
-			var champObserve = $(liste.attr('data-observe'));
-			var champResultat = $(liste.attr('data-resultat'));
-			
+			/*var champObserve = $(liste.attr('data-observe'));
+			var champResultat = liste.find('.resultat input');
+			*/
 
-			// Parcours des boutons radio
-			radios.each(function()
+			// Mise à jour des calculs
+			radios.change(function()
 			{
-				var radio = $(this);
-				var champ = radio.next('input:text');
-				
-				// Récupération et attribution de la valeur sélectionnée
-				// Mise à jour des calculs
-				radio.change(function()
-				{
-					champResultat.val(champ.val());
-					$.calculerChampsInterdependants();
-				});
+				$.calculerChampsInterdependants();
 			});
 
-
-			// Comportement du champ à observer
-			if(champObserve.exists())
+			// Mise à jour de la valeur Lorsque le champ à observer
+			/*if(champObserve.exists())
 			{
 				champObserve.blur(function()
 				{
 					radios.filter(':checked').trigger('change');
 				});
-			}
+			}*/
 		});
 	};
 

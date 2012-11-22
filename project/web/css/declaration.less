@@ -819,10 +819,11 @@ p#date_drm
 			&.negatif { color: @couleur-b2; }
 		}
 
-		input[type=radio] + input.texte
+		input[type=radio] + input.texte,
+		.resultat input.texte
 		{
 			text-align: left;
-			width: @largeur-col-saisie - 60px;
+			width: @largeur-col-saisie - 50px;
 		}
 		
 		select
@@ -891,6 +892,20 @@ p#date_drm
 						margin: 0 0 10px;
 						overflow: hidden;
 						zoom: 1;
+					}
+
+					&.choix_radio
+					{
+						position: relative;
+
+						li.resultat
+						{
+							height: auto;
+							margin: 0;
+							position: absolute;
+							top: 10px;
+							right: 0;
+						}
 					}
 				}
 			}

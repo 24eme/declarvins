@@ -1941,9 +1941,9 @@ p#date_drm {
 #colonnes_dr .col_recolte input[type=text].stock_th { font-weight:bold; }
 #colonnes_dr .col_recolte input[type=text].positif { color:#99af00; }
 #colonnes_dr .col_recolte input[type=text].negatif { color:#820608; }
-#colonnes_dr .col_recolte input[type=radio] + input.texte {
+#colonnes_dr .col_recolte input[type=radio] + input.texte, #colonnes_dr .col_recolte .resultat input.texte {
   text-align:left;
-  width:42px;
+  width:52px;
 }
 #colonnes_dr .col_recolte select {
   height:18px;
@@ -1985,6 +1985,14 @@ p#date_drm {
   margin:0 0 10px;
   overflow:hidden;
   zoom:1;
+}
+#colonnes_dr .col_recolte .col_cont .groupe ul.choix_radio { position:relative; }
+#colonnes_dr .col_recolte .col_cont .groupe ul.choix_radio li.resultat {
+  height:auto;
+  margin:0;
+  position:absolute;
+  top:10px;
+  right:0;
 }
 #colonnes_dr .col_recolte .col_cont .totaux {
   color:#494949;
