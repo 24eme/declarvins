@@ -54,40 +54,28 @@ class daids_recapActions extends sfActions
 	{
 		return ConfigurationClient::getCurrent()->getConfigurationDAIDSByInterpro($interpro_id);
 	}
-    /*
-     * A REVOIR
-     */
     
-    
-    
-    public function executeDetail(sfWebRequest $request) {
-        $this->init();
-        $this->detail = $this->getRoute()->getDRMDetail();
-        $this->setTemplate('index');
-    }
-    
-    public function executeUpdate(sfWebRequest $request) {
+    public function executeUpdate(sfWebRequest $request)
+    {
         $this->init();
   
-        $this->form = new DRMDetailForm($this->getRoute()->getDRMDetail());
+        $this->form = new DAIDSDetailForm($this->getRoute()->getDAIDSDetail(), $this->configurationDAIDS);
         $this->form->bind($request->getParameter($this->form->getName()));
-        
         if($this->form->isValid()) {
         	$this->form->save();
             if ($request->isXmlHttpRequest()) {
-				         		
                 return $this->renderText(json_encode(array("success" => true,
                 										   "content" => "",
-                										   "document" => array("id" => $this->drm->get('_id'),
-                										   					   "revision" => $this->drm->get('_rev'))
+                										   "document" => array("id" => $this->daids->get('_id'),
+                										   					   "revision" => $this->daids->get('_rev'))
                 										   )));
             } else {
-                $this->redirect('drm_recap_lieu', $this->config_lieu);
+                $this->redirect('daids_recap_lieu', $this->config_lieu);
             }
         }
         
         if ($request->isXmlHttpRequest()) {
-            return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('drm_recap/itemFormErrors', array('form' => $this->form)))));
+            return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('daids_recap/itemFormErrors', array('form' => $this->form)))));
         } else {
             $this->setTemplate('index');
         }

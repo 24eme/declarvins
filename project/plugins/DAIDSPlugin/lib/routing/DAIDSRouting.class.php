@@ -143,6 +143,16 @@ class DAIDSRouting {
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
                 )));
+        
+        $r->prependRoute('daids_recap_update', new DAIDSDetailRoute('/daids/:identifiant/edition/:periode_version/recapitulatif/update/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail',
+                        array('module' => 'daids_recap',
+                            'action' => 'update'),
+                        array('sf_method' => array('post')),
+                        array('model' => 'DAIDSDetail',
+                              'type' => 'object',
+                            'must_be_valid' => false,
+                            'must_be_not_valid' => true
+                )));
     }
 
 }
