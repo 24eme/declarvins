@@ -97,7 +97,7 @@ class DAIDSDetail extends BaseDAIDSDetail {
     }
 
     public function nbToComplete() {
-    	return 0; // A FAIRE
+    	return 1;
     }
 
     public function nbComplete() {
@@ -105,6 +105,6 @@ class DAIDSDetail extends BaseDAIDSDetail {
     }
     
     public function isComplete() {
-        return 0; // A FAIRE
+        return $this->stocks->chais > 0 || $this->stocks->propriete_tiers > 0 || $this->stocks->tiers > 0;
     }
 }

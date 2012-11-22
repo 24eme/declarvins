@@ -16,7 +16,6 @@ class DAIDSDetailStocksMoyenDetailForm extends acCouchdbObjectForm
     		$this->setValidator('taux', new sfValidatorChoice(array('choices' => array_keys($this->getTaux()))));
     	} else {
     		$this->setWidget('taux', new sfWidgetFormInputHidden());
-    		$this->setDefault('taux', $this->getTaux());
     		$this->setValidator('taux', new sfValidatorPass());
     		
     	}
@@ -27,6 +26,15 @@ class DAIDSDetailStocksMoyenDetailForm extends acCouchdbObjectForm
     		    		
         $this->widgetSchema->setNameFormat('[%s]');
         $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+    }
+
+
+    protected function updateDefaultsFromObject() 
+    {
+      parent::updateDefaultsFromObject();  
+      $tauxDefaut = (!$this->hasMultiTaux())? $this->getTaux() : $this->_configurationDAIDS->stocks_moyen->get($this->getObject()->getKey())->getFirst()->taux;
+      $this->setDefault('taux', $tauxDefaut);
+      $this->getObject()->set('taux', $tauxDefaut);
     }
     
     protected function hasMultiTaux() 
@@ -49,7 +57,7 @@ class DAIDSDetailStocksMoyenDetailForm extends acCouchdbObjectForm
     {
       $rows = array();
       foreach ($inputs as $input) {
-      	$rows[] = $widget->renderContentTag('li', $input['input'].$this->getOption('label_separator').$input['label']);
+      	$rows[] = $widget->renderContentTag('li', $input['input']);
       }
 
       return !$rows ? '' : $widget->renderContentTag('ul', implode($this->getOption('separator'), $rows), array('class' => 'choix_radio'));
