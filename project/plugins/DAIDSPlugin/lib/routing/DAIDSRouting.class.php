@@ -111,9 +111,64 @@ class DAIDSRouting {
 								  array('sf_method' => array('get','post')),
 								  array('model' => 'Etablissement',
 									'type' => "object")));
-        /*
-         * RECAP
-         */
+		
+
+        $r->prependRoute('daids_validation', new DAIDSRoute('/daids/:identifiant/edition/:periode_version/validation', 
+                                                          array('module' => 'daids', 
+                                                                'action' => 'validation'),
+                                                          array('sf_method' => array('get','post')),
+                                                          array('model' => 'DAIDS',
+                                                                'type' => 'object',
+                              									'must_be_valid' => false,
+                              									'must_be_not_valid' => true)));
+
+        $r->prependRoute('daids_show_error', new DAIDSRoute('/daids/:identifiant/edition/:periode_version/voir-erreur/:type/:identifiant_controle', 
+                                                          array('module' => 'daids', 
+                                                                'action' => 'showError'),
+                                                          array('sf_method' => array('get')),
+                                                          array('model' => 'DAIDS',
+                                                                'type' => 'object',
+                              									'must_be_valid' => false,
+                              									'must_be_not_valid' => true)));
+
+        $r->prependRoute('daids_visualisation', new DAIDSRoute('/daids/:identifiant/visualisation/:periode_version/:hide_rectificative', 
+                                                          array('module' => 'daids', 
+                                                                'action' => 'visualisation',
+                                                          		'hide_rectificative' => null),
+                                                          array('sf_method' => array('get')),
+                                                          array('model' => 'DAIDS',
+                                                                'type' => 'object',
+                                                          'must_be_valid' => true,
+                                                          'must_be_not_valid' => false)));
+
+        $r->prependRoute('daids_rectificative', new DAIDSRoute('/daids/:identifiant/rectifier/:periode_version', 
+                                                          array('module' => 'daids', 
+                                                               'action' => 'rectificative'),
+                                                          array(),
+                                                		  array('model' => 'DAIDS',
+                                                            'type' => 'object',
+                                                            'must_be_valid' => true, 
+                                                            'must_be_not_valid' => false)));
+
+        $r->prependRoute('daids_modificative', new DAIDSRoute('/daids/:identifiant/modifier/:periode_version', 
+                                                          array('module' => 'daids', 
+                                                               'action' => 'modificative'),
+                                                          array(),
+                                                      array('model' => 'DAIDS',
+                                                            'type' => 'object',
+                                                            'must_be_valid' => true, 
+                                                            'must_be_not_valid' => false)));
+
+        $r->prependRoute('daids_pdf', new DAIDSRoute('/daids/:identifiant/pdf/:periode_version.:format', 
+                                                          array('module' => 'daids', 
+                                                                'action' => 'pdf',
+                                                                'format' => 'pdf'),
+                                                          array('sf_method' => array('get'), 'format' => '(html|pdf)'),
+                                                          array('model' => 'DAIDS',
+                                                                'type' => 'object',
+                                                                'must_be_valid' => false,
+                              									                'must_be_not_valid' => false)));
+
         $r->prependRoute('daids_recap', new DAIDSLieuRoute('/daids/:identifiant/edition/:periode_version/recapitulatif/:certification',
                         array('module' => 'daids_recap',
                             'action' => 'index'),
@@ -150,6 +205,15 @@ class DAIDSRouting {
                         array('sf_method' => array('post')),
                         array('model' => 'DAIDSDetail',
                               'type' => 'object',
+                            'must_be_valid' => false,
+                            'must_be_not_valid' => true
+                )));
+        $r->prependRoute('daids_recap_detail', new DAIDSDetailRoute('/daids/:identifiant/edition/:periode_version/recapitulatif/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail',
+                        array('module' => 'daids_recap',
+                            'action' => 'detail'),
+                        array('sf_method' => array('get')),
+                        array('model' => 'DAIDSDetail',
+                            'type' => 'object',
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
                 )));

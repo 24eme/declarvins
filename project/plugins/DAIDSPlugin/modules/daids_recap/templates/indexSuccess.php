@@ -58,7 +58,7 @@
                     <span>Suivant</span>
                 </a>
                 <?php else: ?>
-                <a href="#" class="btn_suiv">
+                <a href="<?php echo url_for('daids_validation', $daids) ?>" class="btn_suiv">
                     <span>Suivant</span>
                 </a>
             	<?php endif; ?>

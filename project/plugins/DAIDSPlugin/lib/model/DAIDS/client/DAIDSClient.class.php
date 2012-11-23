@@ -84,7 +84,7 @@ class DAIDSClient extends acCouchdbClient
     public function getPeriodeSuivante($periode) 
     {
     	$campagne = explode('-', $periode);      
-      	return $this->buildPeriode($campagne[0], $campagne[1]);
+      	return $this->buildPeriode($campagne[0] + 1, $campagne[1] + 1);
     }
 
     public function buildPeriode($annee1, $annee2) 

@@ -80,4 +80,11 @@ class daids_recapActions extends sfActions
             $this->setTemplate('index');
         }
     }
+    
+    public function executeDetail(sfWebRequest $request) 
+    {
+        $this->init();
+        $this->detail = $this->getRoute()->getDAIDSDetail();
+        $this->setTemplate('index');
+    }
 }

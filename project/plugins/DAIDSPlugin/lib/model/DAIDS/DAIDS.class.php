@@ -288,4 +288,132 @@ class DAIDS extends BaseDAIDS
     {
         return $this->version_document->isModificative();
     }
+
+    public function validation($options = null) 
+    { 
+        return new DAIDSValidation($this, $options);
+    }
+
+    public function getSuivante() 
+    {
+       $periode = DAIDSClient::getInstance()->getPeriodeSuivante($this->periode);
+       $next_daids = DAIDSClient::getInstance()->findMasterByIdentifiantAndPeriode($this->identifiant, $periode);
+       if (!$next_daids) {
+           return null;
+       }
+       
+       return $next_daids;
+    }
+
+    public function storeIdentifiant($options) 
+    {
+        $identifiant = $this->identifiant;
+        if ($options && is_array($options)) {
+            if (isset($options['identifiant']))
+                $identifiant = $options['identifiant'];
+        }
+        $this->valide->identifiant = $identifiant;
+    }
+
+    public function storeDates() 
+    {
+        if (!$this->valide->date_saisie) {
+           $this->valide->add('date_saisie', date('c'));
+        }
+        if (!$this->valide->date_signee) {
+           $this->valide->add('date_signee', date('c'));
+        }
+    }
+    
+    public function getInterpro() 
+    {
+        if ($this->getEtablissement())
+            return $this->getEtablissement()->getInterproObject();
+    }
+
+    public function setInterpros() 
+    {
+        $i = $this->getInterpro();
+        if ($i) {
+	        $this->interpros->add(0,$i->getKey());
+        }
+    }
+
+    public function validate($options = null) 
+    {
+
+        if ($next_daids = $this->getSuivante()) {
+            $next_daids->precedente = $this->_id;
+            $next_daids->save();
+        }
+        $this->storeIdentifiant($options);
+        $this->storeDates();
+        $this->setInterpros();
+    }
+
+    public function needNextVersion() 
+    {
+       return $this->version_document->needNextVersion();      
+    }
+
+    public function generateNextVersion() 
+    {
+        if (!$this->hasVersion()) {
+            return $this->version_document->generateRectificativeSuivante();
+        }
+        return $this->version_document->generateNextVersion();
+    }
+
+    public function isRectifiable() 
+    {
+        return $this->version_document->isRectifiable();
+    }
+
+    public function isModifiable() 
+    {
+        return $this->version_document->isModifiable();
+    }
+
+    public function isVersionnable() 
+    {
+        if (!$this->isValidee()) {
+           return false;
+        }
+        return $this->version_document->isVersionnable();
+    }
+
+    public function generateRectificative() 
+    {
+        return $this->version_document->generateRectificative();
+    }
+
+    public function generateModificative() 
+    {
+        return $this->version_document->generateModificative();
+    }
+
+    public function listenerGenerateVersion($document) 
+    {
+        $document->devalide();
+    }
+
+    public function getDiffWithMother() 
+    {
+        return $this->version_document->getDiffWithMother();
+    }
+
+    public function getPreviousVersion() 
+    {
+       return $this->version_document->getPreviousVersion();
+    }
+
+    public function findDocumentByVersion($version) 
+    {
+        return DAIDSClient::getInstance()->find(DAIDSClient::getInstance()->buildId($this->identifiant, $this->periode, $version));
+    }
+
+    public function getEuValideDate() 
+    {
+       return strftime('%d/%m/%Y', strtotime($this->valide->date_signee));
+    }
 }

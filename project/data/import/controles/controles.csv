@@ -12,3 +12,4 @@
 "engagement_repli";"Je m'engage à... pour le repli"
 "engagement_pertes";"Je m'engage à... pour les pertes exceptionnelles"
 "engagement_odg";"Je m'engage à... pour l'odg"
+"error_stock_propriete";"Erreur... La somme des stocks de votre propriété doit être égale au total"

@@ -8,7 +8,7 @@ class DAIDSDetail extends BaseDAIDSDetail {
 	
 	public function renderId()
 	{
-		return str_replace('/', '_', $this->getHash());
+		return strtolower(str_replace($this->getDocument()->declaration->getHash(), '', str_replace('/', '_', preg_replace('|\/[^\/]+\/DEFAUT|', '', $this->getHash()))));
 	}
 	
 	public function getConfig() 

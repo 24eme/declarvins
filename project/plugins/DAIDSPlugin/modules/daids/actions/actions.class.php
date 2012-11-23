@@ -78,19 +78,14 @@ class daidsActions extends sfActions
       $daids = $this->getRoute()->getDAIDS();
       if (!$daids->isNew() && ($daids->isSupprimable() || ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $daids->isSupprimableOperateur()))) {
         $daidsList = DAIDSClient::getInstance()->findByIdentifiantAndPeriodeAndRectificative($daids->identifiant, $daids->periode, $daids->getRectificative());
-        foreach($daidsList as $d) {
+        foreach($daidsList->rows as $d) {
           $d->delete();
         }
       	$this->redirect('daids_mon_espace', $etablissement);
       }
       throw new sfException('Vous ne pouvez pas supprimer cette DAIDS');
   }
-
- /**
-  * Executes informations action
-  *
-  * @param sfRequest $request A request object
-  */
+  
   public function executeInformations(sfWebRequest $request)
   {
     $this->daids = $this->getRoute()->getDAIDS();
@@ -133,5 +128,86 @@ class daidsActions extends sfActions
 	{
 		
 	}
+    
+    public function executeDetail(sfWebRequest $request) 
+    {
+        $this->init();
+        $this->detail = $this->getRoute()->getDAIDSDetail();
+        $this->setTemplate('index');
+    }
+
+    public function executeValidation(sfWebRequest $request)
+    {
+	    $this->etablissement = $this->getRoute()->getEtablissement();
+	    $this->daids = $this->getRoute()->getDAIDS();
+	    $this->daidsValidation = $this->daids->validation();
+	    $this->form = new DAIDSValidationForm(array(), array('engagements' => $this->daidsValidation->getEngagements()));
+	    if (!$request->isMethod(sfWebRequest::POST)) {
+	      return sfView::SUCCESS;
+	    }
+	    $this->form->bind($request->getParameter($this->form->getName()));
+		if (!$this->form->isValid() || !$this->daidsValidation->isValide()) {
+	      return sfView::SUCCESS;
+	    }
+		$this->daids->validate();
+		$this->daids->save();
+	    if ($this->daids->needNextVersion()) {
+	      $daids_version_suivante = $this->daids->generateNextVersion();
+	      $daids_version_suivante->save();
+	    }
+	    $this->redirect('daids_visualisation', array('sf_subject' => $this->daids, 'hide_rectificative' => 1));
+    }
+    
+  public function executeVisualisation(sfWebRequest $request)
+  {
+    $this->daids = $this->getRoute()->getDAIDS();
+    $this->etablissement = $this->getRoute()->getEtablissement();
+    $this->hide_rectificative = $request->getParameter('hide_rectificative');
+    $this->daids_suivante = $this->daids->getSuivante();
+  }
+
+  public function executeShowError(sfWebRequest $request) 
+  {
+    $this->daids = $this->getRoute()->getDAIDS();
+    $daidsValidation = $this->daids->validation();
+    $controle = $daidsValidation->find($request->getParameter('type'), $request->getParameter('identifiant_controle'));
+    $this->forward404Unless($controle);
+    $this->getUser()->setFlash('control_message', $controle->getMessage());
+    $this->getUser()->setFlash('control_css', "flash_".$controle->getType());
+    $this->redirect($controle->getLien());
+  }
+
+  public function executeRectificative(sfWebRequest $request)
+  {
+    $this->etablissement = $this->getRoute()->getEtablissement();
+    $daids = $this->getRoute()->getDAIDS();
+    if ($daids->getHistorique()->hasDAIDSInProcess()) {
+      throw new sfException('Une DAI/DS est déjà en cours de saisie.');
+    }
+    $daids_rectificative = $daids->generateRectificative();
+    $daids_rectificative->save();
+    return $this->redirect('daids_init', $daids_rectificative);
+  }
+
+  public function executeModificative(sfWebRequest $request)
+  {
+    $this->etablissement = $this->getRoute()->getEtablissement();
+    $daids = $this->getRoute()->getDAIDS();
+    if ($daids->getHistorique()->hasDAIDSInProcess()) {
+      throw new sfException('Une DAI/DS est déjà en cours de saisie.');
+    }
+    $daids_modificative = $daids->generateModificative();
+    $daids_modificative->save();
+    return $this->redirect('daids_init', $daids_modificative);
+  }
+  
+  public function executePdf(sfWebRequest $request)
+  {
+    ini_set('memory_limit', '512M');
+    $this->daids = $this->getRoute()->getDAIDS();
+  	$pdf = new ExportDAIDSPdf($this->daids);
+
+    return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
+  }
   
 }
