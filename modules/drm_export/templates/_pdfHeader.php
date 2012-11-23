@@ -39,7 +39,7 @@
 	<td>Accises : <?php echo $drm->declarant->no_accises ?></td>
 </tr>
 <tr>
-	<td class="premier">Service des douanes de : Orange</td>
+	<td class="premier">Service des douanes de : <?php echo $drm->declarant->service_douane ?></td>
 	<td>CVI : <?php echo $drm->declarant->cvi ?></td>
 </tr>
 </table>
