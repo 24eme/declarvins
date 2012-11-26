@@ -293,13 +293,18 @@
 					});
 
 					var cond = /^drm_detail\[(entrees|sorties)\]/;
+					var condDaids = /^daids_detail\[stocks\]\[(chais|propriete_tiers|tiers)\]/;
 					var totalCol = 0;
+					var totalColDaids = 0;
 					for (var i in donneesCol) {
 						if ((donneesCol[i].name).match(cond) && !isNaN(donneesCol[i].value) && donneesCol[i].value) {
 							totalCol += parseFloat(donneesCol[i].value);
 						}
+						if ((donneesCol[i].name).match(condDaids) && !isNaN(donneesCol[i].value) && donneesCol[i].value) {
+							totalColDaids += parseFloat(donneesCol[i].value);
+						}
 					}
-					if (totalCol > 0) {
+					if (totalCol > 0 || totalColDaids > 0) {
 						var appellation_produit_saisie = parseInt($('#onglets_principal li.actif .appellation_produit_saisie').text());
 						var appellation_produit_total = parseInt($('#onglets_principal li.actif .appellation_produit_total').text());
 						if (appellation_produit_saisie < appellation_produit_total) {

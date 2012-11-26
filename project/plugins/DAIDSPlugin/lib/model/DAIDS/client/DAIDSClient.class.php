@@ -120,8 +120,8 @@ class DAIDSClient extends acCouchdbClient
     {
       $daids = array();
       $rows = DAIDSAllView::getInstance()->viewByIdentifiantPeriodeAndRectificative($identifiant, $periode, $rectificative);
-      foreach($rows as $id => $row) {
-        $daids[$id] = $this->find($id); 
+      foreach($rows->rows as $id => $row) {
+        $daids[$row->id] = $this->find($row->id); 
       }
 
       return $daids;

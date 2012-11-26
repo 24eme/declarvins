@@ -78,9 +78,19 @@ class daidsActions extends sfActions
       $daids = $this->getRoute()->getDAIDS();
       if (!$daids->isNew() && ($daids->isSupprimable() || ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $daids->isSupprimableOperateur()))) {
         $daidsList = DAIDSClient::getInstance()->findByIdentifiantAndPeriodeAndRectificative($daids->identifiant, $daids->periode, $daids->getRectificative());
-        foreach($daidsList->rows as $d) {
+        foreach($daidsList as $d) {
           $d->delete();
         }
+      	$this->redirect('daids_mon_espace', $etablissement);
+      }
+      throw new sfException('Vous ne pouvez pas supprimer cette DAIDS');
+  }
+  
+  public function executeDeleteOne(sfWebRequest $request) {
+      $etablissement = $this->getRoute()->getEtablissement();
+      $daids = $this->getRoute()->getDAIDS();
+      if (!$daids->isNew() && ($daids->isSupprimable() || ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $daids->isSupprimableOperateur()))) {
+        $daids->delete();
       	$this->redirect('daids_mon_espace', $etablissement);
       }
       throw new sfException('Vous ne pouvez pas supprimer cette DAIDS');

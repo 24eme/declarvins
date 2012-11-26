@@ -60,6 +60,15 @@ class DAIDSRouting {
                                                       'must_be_valid' => false,
                                                       'must_be_not_valid' => false)));
 
+        $r->prependRoute('daids_delete_one', new DAIDSRoute('/daids/:identifiant/delete-one/:periode_version', 
+                                                array('module' => 'daids', 
+                                                      'action' => 'deleteOne'),
+                                                array('sf_method' => array('get')),
+                                                array('model' => 'DAIDS',
+                                                      'type' => 'object',
+                                                      'must_be_valid' => false,
+                                                      'must_be_not_valid' => false)));
+
         $r->prependRoute('daids_init', new DAIDSRoute('/daids/:identifiant/initialiser/:periode_version/:reinit_etape', 
                                                 array('module' => 'daids', 
                                                       'action' => 'init',
