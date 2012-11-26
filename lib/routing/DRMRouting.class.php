@@ -89,6 +89,15 @@ class DRMRouting {
                                                       'must_be_valid' => false,
                                                       'must_be_not_valid' => false)));
 
+        $r->prependRoute('drm_delete_one', new DRMRoute('/drm/:identifiant/delete-one/:periode_version', 
+                                                array('module' => 'drm', 
+                                                      'action' => 'deleteOne'),
+                                                array('sf_method' => array('get')),
+                                                array('model' => 'DRM',
+                                                      'type' => 'object',
+                                                      'must_be_valid' => false,
+                                                      'must_be_not_valid' => false)));
+
         $r->prependRoute('drm_init', new DRMRoute('/drm/:identifiant/initialiser/:periode_version/:reinit_etape', 
                                                 array('module' => 'drm', 
                                                       'action' => 'init',

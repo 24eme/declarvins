@@ -68,6 +68,17 @@ class drmActions extends sfActions
     
   }
   
+  public function executeDeleteOne(sfWebRequest $request) {
+      $etablissement = $this->getRoute()->getEtablissement();
+      $drm = $this->getRoute()->getDRM();
+      if (!$drm->isNew() && ($drm->isSupprimable() || ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->isSupprimableOperateur()))) {
+        $drm->delete();
+      	$this->redirect('drm_mon_espace', $etablissement);
+      }
+      throw new sfException('Vous ne pouvez pas supprimer cette DRM');
+    
+  }
+  
  /**
   * Executes mon espace action
   *
