@@ -20,7 +20,7 @@ class DRMMouvementsGenerauxForm extends acCouchdbObjectForm
         	'pas_de_mouvement' => new sfValidatorBoolean(array('required' => false))
         ));
 		foreach ($this->configuration->declaration->certifications as $certification_key => $certification_config) {
-			if ($certification_config->hasProduit($this->getObject()->getInterpro()->get('_id'), $this->getObject()->getDepartement())) {
+			if ($certification_config->hasProduit($this->getObject()->getDepartement())) {
 				if ($this->getObject()->declaration->certifications->exist($certification_key)) {
 	                $details = $this->getObject()->declaration->certifications->get($certification_key)->getProduits();
 	                $this->embedForm($certification_key, new DRMMouvementsGenerauxCollectionProduitForm($details));

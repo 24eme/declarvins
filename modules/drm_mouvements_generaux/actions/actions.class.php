@@ -10,9 +10,9 @@ class drm_mouvements_generauxActions extends sfActions
 		$configuration = ConfigurationClient::getCurrent();
 		$this->form = new DRMMouvementsGenerauxForm($configuration, $this->drm);
 		foreach ($configuration->declaration->certifications as $certification_key => $certification_config) {
-			if ($certification_config->hasProduit($this->drm->getInterpro()->get('_id'), $this->drm->getDepartement())) {
+			if ($certification_config->hasProduit($this->drm->getDepartement())) {
 	            if (!isset($this->certifs[$certification_key])) {
-					$this->certifs[$certification_key] = $certification_config->hasUniqProduit($this->drm->getInterpro()->get('_id'));
+					$this->certifs[$certification_key] = $certification_config->libelle;//$certification_config->hasUniqProduit($this->drm->getInterpro()->get('_id'));
 					$this->certificationLibelle[$certification_key] = $certification_config->libelle;
 				}
 			}
