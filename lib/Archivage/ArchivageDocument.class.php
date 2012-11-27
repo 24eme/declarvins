@@ -10,6 +10,10 @@ class ArchivageDocument
         $this->document = $document;
         $this->format = $format;
     }
+
+    public function reset() {
+        $this->document->numero_archive = null;
+    }
     
     public function preSave() {
         if ($this->document->isArchivageCanBeSet()) {
@@ -22,16 +26,9 @@ class ArchivageDocument
             return;
         }
 
-        $this->document->date_archivage = $this->calculDateArchivage();
         $type = $this->document->toJson()->type;
-        $last_numero = ArchivageAllView::getInstance()->getLastNumeroArchiveByTypeAndDate($type, $this->document->getDateArchivageLimite());
+        
+        $last_numero = ArchivageAllView::getInstance()->getLastNumeroArchiveByTypeAndCampagne($type, $this->document->campagne);
         $this->document->numero_archive = sprintf($this->format, $last_numero+1);
     }
-
-    public function calculDateArchivage() {
-
-        return date('Y-m-d');
-    }
-
-
 }
