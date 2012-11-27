@@ -46,3 +46,6 @@
 [submodule "project/plugins/acVinDocumentPlugin"]
 	path = project/plugins/acVinDocumentPlugin
 	url = git@gitorious.org:acvin/acvindocumentplugin.git
+[submodule "project/plugins/acExceptionNotifierPlugin"]
+	path = project/plugins/acExceptionNotifierPlugin
+	url = git@gitorious.org:acexceptionnotifierplugin/acexceptionnotifierplugin.git

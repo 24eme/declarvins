@@ -12,3 +12,10 @@ all:
     dn: "cn=admin,dc=site,dc=com"
     dc: "dc=site,dc=com"
     pass: "**********"
+  ac_exception_notifier:
+    enabled: false
+    email:
+      from: "ne_pas_repondre@civa.fr"
+      from_name: "acExceptionNotifierPlugin"
+      to: ["vlaurent@actualys.com", "jblemetayer@actualys.com", "jthomas@actualys.com"]   
+      subject: "[declaration.declarvins.net] 500 | Internal Server Error | Exception :-)"
