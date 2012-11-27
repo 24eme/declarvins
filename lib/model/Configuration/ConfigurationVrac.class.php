@@ -95,10 +95,15 @@ class ConfigurationVrac extends BaseConfigurationVrac {
     {
     	return $this->getKey();
     }
+    
+    public function getInterpro()
+    {
+    	return InterproClient::getInstance()->find($this->getKey());
+    }
 
-    public function formatVracProduitsByInterpro() {
+    public function formatVracProduitsByDepartement() {
 
-      return $this->getConfig()->formatVracProduitsByInterpro($this->getInterproId());
+      return $this->getConfig()->formatVracProduitsByDepartement($this->getInterpro()->departements->toArray());
     }
 
 }
