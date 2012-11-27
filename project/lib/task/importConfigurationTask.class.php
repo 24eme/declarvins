@@ -50,6 +50,13 @@ EOF;
     
     $csv = new ProduitCsvFile($configuration, $import_dir.'/produits.csv');
     $configuration = $csv->importProduits();
+    $interpros = $csv->getInterprosObject();
+    foreach ($interpros as $interpro) {
+	    if ($inter = acCouchdbManager::getClient()->retrieveDocumentById($interpro->get('_id'))) {
+	        $inter->delete();
+	    }
+	    $interpro->save();
+    }
     
     $csv = new LabelCsvFile($configuration, $import_dir.'/labels.csv');
     $configuration = $csv->importLabels();

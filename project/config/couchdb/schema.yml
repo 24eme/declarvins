@@ -84,10 +84,27 @@ Interpro:
     fields:
       _id: {  }
       _rev: {  }
+      _attachments:
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  content_type: { }
+                  revpos: { }
+                  length: { }
+                  stub: { } 
       identifiant: { }
       nom: { }
       type: {  }
       statut: {  }
+      departements:
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
       email_contrat_vrac: {  }
 
 
