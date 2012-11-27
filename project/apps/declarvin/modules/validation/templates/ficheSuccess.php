@@ -16,8 +16,6 @@ var formModificationCompte = function()
     var btn_modifier = presentation_infos.find('.btn_modifier');
     var btn_annuler = modification_infos.find('.btn_annuler');
 
-    alert(btn_annuler.size());
-
     // modification_infos.hide();
 
     btn_modifier.click(function()

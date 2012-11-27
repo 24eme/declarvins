@@ -41,10 +41,12 @@ class ProduitCsvFile extends CsvFile
   
   protected $config;
   protected $errors;
+  protected $interpros;
   
   public function __construct($config, $file) {
     parent::__construct($file);
     $this->config = $config;
+    $this->interpros = array();
   }
 
   private function getProduit($line) 
@@ -92,6 +94,7 @@ class ProduitCsvFile extends CsvFile
 		foreach ($csv as $line) {
 			$produit = $this->getProduit($line);
 			$produit->setDonneesCsv($line);
+			$this->setDepartementsInterpros($line);
       	}
     } catch(Execption $e) {
     	$this->errors[] = $e->getMessage();
@@ -102,5 +105,43 @@ class ProduitCsvFile extends CsvFile
   public function getErrors() 
   {
     return $this->errors;
+  }
+
+  public function getInterpros() 
+  {
+    return $this->interpros;
+  }
+
+  public function getInterprosObject() 
+  {
+  	$interpros = array();
+  	foreach ($this->interpros as $interpro => $departement) {
+	  	$inter = new Interpro();
+	    $inter->set('_id', 'INTERPRO-'.$interpro);
+	    $inter->identifiant = $interpro;
+	    $inter->nom = $interpro;
+	    $inter->departements = $departement;
+	    $interpros[] = $inter;
+  	}
+    return $interpros;
+  }
+  
+  private function setDepartementsInterpros($datas)
+  {
+  	$interpros = $this->interpros;
+  	$interpro = strtoupper($datas[self::CSV_PRODUIT_INTERPRO]);
+  	$departements = $datas[self::CSV_PRODUIT_DEPARTEMENTS];
+  	if (!$departements) {
+  		$departements = array();
+  	} else {
+  		$departements = str_replace(' ', '', $departements);
+  		$departements = explode(',', $departements);
+  	}
+  	if (!isset($interpros[$interpro])) {
+  		$interpros[$interpro] = array();
+  	}
+  	$newTab = array_merge($interpros[$interpro], $departements);
+  	$interpros[$interpro] = array_unique($newTab);
+  	$this->interpros = $interpros;
   }
 }
