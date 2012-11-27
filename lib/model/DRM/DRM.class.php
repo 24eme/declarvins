@@ -10,6 +10,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     const DEFAULT_KEY = 'DEFAUT';
 
     protected $version_document = null;
+    protected $suivante = null;
 
     public function  __construct() {
         parent::__construct();   
@@ -107,21 +108,25 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         return $details;
     }
 
-    public function generateSuivante($periode, $keepStock = true) 
+    public function generateSuivante() 
     {
+
+        return $this->generateSuivanteByPeriode(DRMClient::getInstance()->getPeriodeSuivante($this->periode));
+    }
+
+    public function generateSuivanteByPeriode($periode) 
+    {
+        $is_just_the_next_periode = (DRMClient::getInstance()->getPeriodeSuivante($this->periode) == $periode);
+        $keepStock = ($periode > $this->periode);
+
         $drm_suivante = clone $this;
     	$drm_suivante->init(array('keepStock' => $keepStock));
         $drm_suivante->update();
         $drm_suivante->periode = $periode;
-        $drm_suivante->precedente = $this->_id;
-        $drm_suivante->devalide();
-	    $drm_suivante->remove('editeurs'); 
-	    $drm_suivante->add('editeurs'); 
-       
-	    foreach ($drm_suivante->getDetails() as $detail) {
-	       $drm_suivante->get($detail->getHash())->remove('vrac');
-           $drm_suivante->get($detail->getHash())->add('vrac');
-	    }
+
+        if ($is_just_the_next_periode) {
+            $drm_suivante->precedente = $this->_id;
+        }
 
         return $drm_suivante;
     }
@@ -133,9 +138,13 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         $this->add('douane');
         $this->remove('declarant');
         $this->add('declarant');
+        $this->remove('editeurs'); 
+        $this->add('editeurs'); 
+
         $this->version = null;
         $this->raison_rectificative = null;
         $this->etape = null;
+        $this->precedente = null;
 
         if (!$keepStock) {
         	$this->declaratif->adhesion_emcs_gamma = null;
@@ -151,6 +160,8 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         $this->declaratif->daa->fin = null;
         $this->declaratif->dsa->debut = null;
         $this->declaratif->dsa->fin = null;
+                
+        $this->devalide();
     }
 
     public function setDroits() {
@@ -201,15 +212,33 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     }
 
     public function getSuivante() {
-       $periode = DRMClient::getInstance()->getPeriodeSuivante($this->periode);
+        if(is_null($this->suivante)) {
+            $periode = DRMClient::getInstance()->getPeriodeSuivante($this->periode);
+            $this->suivante = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($this->identifiant, $periode);
+        }
+      
+       return $this->suivante;
+    }
 
-       $next_drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($this->identifiant, $periode);
-       if (!$next_drm) {
+    public function isSuivanteCoherente() {
+        $drm_suivante = $this->getSuivante();
 
-           return null;
-       }
-       
-       return $next_drm;
+        if(!$drm_suivante) {
+
+            return true;
+        }
+
+        if ($this->validation()->hasError('stock')) {
+
+           return false;
+        }
+        
+        if ($this->droits->douane->getCumul() != $drm_suivante->droits->douane->getCumul()) {
+
+           return false;
+        }
+
+        return false;        
     }
 
     public function devalide() {
@@ -225,6 +254,8 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     }
 
     public function validate($options = null) {
+        $this->update();
+                
         if ($this->hasApurementPossible()) {
             $this->apurement_possible = 1;
         }
@@ -239,6 +270,11 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         $this->storeDroits($options);
         $this->setInterpros();
         $this->updateVrac();
+
+        if($this->getSuivante() && $this->isSuivanteCoherente()) {
+            $this->getSuivante()->precedente = $this->get('_id');
+            $this->getSuivante()->save();
+        }
     }
 
     public function storeDroits($options) {
@@ -448,6 +484,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     		return false;
     	}
     }
+    
     public function hasProduits() {
     	return (count($this->declaration->getProduits()) > 0)? true : false;
     }
@@ -582,7 +619,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
 
     public function needNextVersion() {
 
-       return $this->version_document->needNextVersion() || $this->validation()->hasError('stock');      
+       return $this->version_document->needNextVersion() || !$this->isSuivanteCoherente();      
     }
 
     public function getMaster() {
@@ -675,7 +712,6 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     public function listenerGenerateNextVersion($document) {
         $this->replicate($document);
         $document->update();
-        $document->devalide();
     }
 
     protected function replicate($drm) {

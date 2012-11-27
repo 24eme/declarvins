@@ -241,7 +241,9 @@ class DRMDetail extends BaseDRMDetail {
       $this->total_entrees = null;
       $this->total_sorties = null;
       $this->total = null;
-      
+
+      $this->remove('vrac');
+      $this->add('vrac');
     }
 
     public function sommeLignes($lines) {
