@@ -33,7 +33,12 @@ class MouvementsConsultationView extends acCouchdbView
                             ->getView($this->design, $this->view);
     }
 
-
+    public function findByTypeEtablissementAndCampagne($type, $id_or_identifiant, $campagne) {
+        $identifiant = EtablissementClient::getInstance()->getIdentifiant($id_or_identifiant);
+        return $this->client->startkey(array($type, $identifiant, $campagne))
+                            ->endkey(array($type, $identifiant, $campagne, array()))
+                            ->getView($this->design, $this->view);
+    }
 
     public function findByTypeEtablissementAndPeriode($type, $id_or_identifiant, $campagne, $periode) {
         $identifiant = EtablissementClient::getInstance()->getIdentifiant($id_or_identifiant);
@@ -53,6 +58,8 @@ class MouvementsConsultationView extends acCouchdbView
 
     protected function buildMouvement($row) {
         $mouvement = new stdClass();
+        $mouvement->doc_libelle = sprintf("%s %s", $row->key[self::KEY_TYPE], $row->key[self::KEY_PERIODE]);
+        $mouvement->doc_id = $row->key[self::KEY_ID];
         $mouvement->produit_libelle = $row->value[self::VALUE_PRODUIT_LIBELLE];
         $mouvement->type_libelle = $row->value[self::VALUE_TYPE_LIBELLE];
         $mouvement->volume = $row->value[self::VALUE_VOLUME];
