@@ -219,7 +219,8 @@ class drmActions extends sfActions
       $drm_version_suivante = $this->drm->generateNextVersion();
       $drm_version_suivante->save();
     }
-    $this->redirect('drm_visualisation', array('sf_subject' => $this->drm, 'hide_rectificative' => 1));
+
+    return $this->redirect('drm_visualisation', array('sf_subject' => $this->drm, 'hide_rectificative' => 1));
   }
 
   public function executeShowError(sfWebRequest $request) {
