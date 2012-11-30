@@ -9,6 +9,7 @@ Etablissement:
       statut: {  }
       interpro: {  }
       compte: {  }
+      societe: {  }
       num_interne: {  }
       siret: {  }
       raison_sociale: {  }

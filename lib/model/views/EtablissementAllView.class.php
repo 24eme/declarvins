@@ -3,15 +3,16 @@
 class EtablissementAllView extends acCouchdbView
 {
 	const KEY_INTERPRO_ID = 0;
-	const KEY_FAMILLE = 1;
-	const KEY_ETABLISSEMENT_ID = 2;
-	const KEY_NOM = 3;
-	const KEY_IDENTIFIANT = 4;
-	const KEY_RAISON_SOCIALE = 5;
-	const KEY_SIRET = 6;
-	const KEY_CVI = 7;
-	const KEY_COMMUNE = 8;
-	const KEY_CODE_POSTAL = 9;
+    const KEY_FAMILLE = 1;
+    const KEY_SOCIETE = 2;
+	const KEY_ETABLISSEMENT_ID = 3;
+	const KEY_NOM = 4;
+	const KEY_IDENTIFIANT = 5;
+	const KEY_RAISON_SOCIALE = 6;
+	const KEY_SIRET = 7;
+	const KEY_CVI = 8;
+	const KEY_COMMUNE = 9;
+	const KEY_CODE_POSTAL = 10;
 
 	public static function getInstance() {
 
@@ -48,8 +49,8 @@ class EtablissementAllView extends acCouchdbView
             return null;
         }
 
-        return $this->client->startkey(array($etablissement->interpro, $etablissement->famille, $etablissement->_id))
-                            ->endkey(array($etablissement->interpro, $etablissement->famille, $etablissement->_id, array()))
+        return $this->client->startkey(array($etablissement->interpro, $etablissement->famille, $etablissement->societe, $etablissement->_id))
+                            ->endkey(array($etablissement->interpro, $etablissement->famille, $etablissement->societe, $etablissement->_id, array()))
                             ->getView($this->design, $this->view);
         
     }
