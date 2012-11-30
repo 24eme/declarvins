@@ -25,13 +25,15 @@
 
         <div class="ligne_btn btn">
             <a href="#" class="btn_modifier btn_valider">Modifier</a>
+            <?php if ($compte->login): ?>
             <a href="<?php echo url_for('admin_compte_password', array('login' => $compte->login)) ?>" class="btn_mdp">Lancer une procédure de redéfinition du mot de passe</a>
+            <?php endif; ?>
         </div>
     </div>
         
     <div class="modification"<?php if (!$form->hasErrors()) echo ' style="display:none;"'; ?>>
+    	<form method="post" action="<?php echo url_for('validation_compte', array('num_contrat' => $contrat->no_contrat)) ?>">
         <div class="bloc_form">
-            <form method="post" action="<?php echo url_for('validation_compte', array('num_contrat' => $contrat->no_contrat)) ?>">
                 <div class="ligne_form ">
                     <?php echo $form->renderHiddenFields(); ?>
                     <?php echo $form->renderGlobalErrors(); ?>
@@ -70,11 +72,11 @@
                     <?php echo $form['mdp2']->render() ?>
                     <?php echo $form['mdp2']->renderError() ?>
                 </div>
-            </form>
         </div>
         <div class="ligne_btn btn">
             <button class="btn_valider" type="submit"><span>Valider</span></button>
             <a href="#" class="btn_annuler">Annuler</a>
         </div>
+        </form>
     </div>
 </div>

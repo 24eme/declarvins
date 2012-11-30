@@ -41,10 +41,12 @@ class contratActions extends sfActions
                 $contrat = $this->form->save();
                 if ($new) {
 	                $compte = new CompteTiers();
-	                $compte->generateByContrat($contrat);
-	                $compte->save();
-                	$contrat->setCompte($compte->get('_id'));
+                } else {
+                	$compte = _CompteClient::getInstance()->find($contrat->compte);
                 }
+	            $compte->generateByContrat($contrat);
+	            $compte->save();
+                $contrat->setCompte($compte->get('_id'));
                 $contrat->save();
                 $this->getUser()->setAttribute('contrat_id', $contrat->get('_id'));
                 $this->redirect('contrat_etablissement_modification', array('indice' => 0));
@@ -68,6 +70,7 @@ class contratActions extends sfActions
         $this->form->bind($request->getParameter($this->form->getName()));
         if ($this->form->isValid()) {
             $this->form->save();
+  		    $this->updateCompteByContrat($this->contrat);
             if ($this->contrat->etablissements->exist($nextIndice)) {
             	if ($this->recapitulatif)
             		$this->redirect('@contrat_etablissement_recapitulatif');
@@ -94,6 +97,7 @@ class contratActions extends sfActions
         $this->form->bind($request->getParameter($this->form->getName()));
         if ($this->form->isValid()) {
            $this->form->save();
+  		   $this->updateCompteByContrat($this->contrat);
            $this->redirect('@contrat_etablissement_recapitulatif');
         }
     }
@@ -112,6 +116,7 @@ class contratActions extends sfActions
   	$nextIndice = $indice + 1;
   	$this->contrat->etablissements->remove($indice);
   	$this->contrat->save();
+  	$this->updateCompteByContrat($this->contrat);
   	if ($this->contrat->etablissements->exist($nextIndice)) {
   		if ($this->recapitulatif)
   			$this->redirect('@contrat_etablissement_recapitulatif');
@@ -176,5 +181,26 @@ class contratActions extends sfActions
   	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
   	$pdf = new ExportContratPdf($this->contrat);
 	return $this->renderText($pdf->render($this->getResponse()));
+  }
+  
+  protected function updateCompteByContrat($contrat)
+  {
+  	if ($contrat->compte)
+  	{
+  		$compte = _CompteClient::getInstance()->find($contrat->compte);
+  		$interpros = InterproClient::getInstance()->getAll();
+  		$compte->remove('interpro');
+  		$compte->add('interpro');
+  		foreach ($interpros as $interpro) {
+  			$dep = $interpro->departements->toArray();
+  			foreach ($contrat->etablissements as $etablissement) {
+	  			if (in_array(substr($etablissement->code_postal, 0, 2), $dep)) {
+	  				$i = $compte->interpro->getOrAdd($interpro->get('_id'));
+	  				$i->statut = _Compte::STATUT_VALIDATION_ATTENTE;
+	  			}
+  			}
+  		}
+  		$compte->save();
+  	}
   }
 }

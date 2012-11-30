@@ -3,6 +3,6 @@ function(doc) {
         return;
     }
     var numero_contrat = doc.contrat.replace("CONTRAT-", "");
-    emit([numero_contrat, doc.nom, doc.prenom, doc.login, doc.email], null);
+    emit([numero_contrat, doc.nom, doc.prenom, doc.login, doc.email, doc.raison_sociale], null);
 
 }

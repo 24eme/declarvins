@@ -69,6 +69,7 @@ CompteTiers:
       fax: {  }
       type: {  }
       contrat: {  }
+      raison_sociale: {  }
 
 CompteVirtuel:
   inheritance: acVinCompteVirtuel

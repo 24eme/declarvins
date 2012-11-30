@@ -87,7 +87,7 @@ var formModificationCompte = function()
         <?php endif; ?>
 
         <h1>Liaison interpro</h1>
-        <?php include_partial('validation/formLiaisonInterpro', array('form' => $formLiaison, 'contrat' => $contrat)) ?>
+        <?php include_partial('validation/liaisonInterpro', array('compte' => $compte)) ?>
 
         <h1>Validation</h1>
         <?php include_partial('validation/validation', array('valide_interpro' => $valide_interpro, 'compte_active' => $compte_active, 'interpro' => $interpro, 'contrat' => $contrat)) ?>

@@ -47,9 +47,6 @@ validation_pdf:
 validation_compte:
   url:   /validation/:num_contrat/compte
   param: { module: validation, action: compte, num_contrat: null }
-validation_liaison:
-  url:   /validation/:num_contrat/liaison
-  param: { module: validation, action: liaison, num_contrat: null }
 validation_validation:
   url:   /validation/:num_contrat/validation
   param: { module: validation, action: validation, num_contrat: null }

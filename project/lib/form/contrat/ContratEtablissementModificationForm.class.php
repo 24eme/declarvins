@@ -54,7 +54,7 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
 	       'fax' => 'Fax établissement: ',
 	       'email' => 'Email établissement: ',
 	       'famille' => 'Famille*: ',
-	       'sous_famille' => 'Sous famille*: ',
+	       'sous_famille' => 'Sous famille: ',
 	       'comptabilite_adresse' => 'Adresse: ',
 	       'comptabilite_code_postal' => 'Code postal: ',
 	       'comptabilite_commune' => 'Commune: ',

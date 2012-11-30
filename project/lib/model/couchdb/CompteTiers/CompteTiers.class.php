@@ -52,6 +52,8 @@ class CompteTiers extends BaseCompteTiers {
     	$this->telephone = $contrat->telephone;
     	$this->fax = $contrat->fax;
     	$this->email = $contrat->email;
+    	$etablissement = $contrat->etablissements->getFirst();
+    	$this->raison_sociale = $etablissement->raison_sociale;
     }
 
     public function __toString() {
