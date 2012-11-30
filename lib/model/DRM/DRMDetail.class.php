@@ -6,78 +6,58 @@
  */
 class DRMDetail extends BaseDRMDetail {
     
-    public function getConfig() {
-    	
+    public function getConfig() 
+    {
     	return ConfigurationClient::getCurrent()->declaration->certifications->get($this->getCertification()->getKey())->detail;
     }
 
-    public function getFormattedLibelle($format = "%g% %a% %l% %co% %ce% <span class=\"labels\">%la%</span>", $label_separator = ", ") {
-
+    public function getFormattedLibelle($format = "%g% %a% %l% %co% %ce% <span class=\"labels\">%la%</span>", $label_separator = ", ") 
+    {
     	return $this->getCepage()->getConfig()->getLibelleFormat($this->labels->toArray(), $format, $label_separator);
     }
 
-    public function getFormattedCode($format = "%g%%a%%l%%co%%ce%") {
-
+    public function getFormattedCode($format = "%g%%a%%l%%co%%ce%") 
+    {
     	return $this->getCepage()->getConfig()->getCodeFormat($format);
     }
     
-    /**
-     *
-     * @return DRMCepage
-     */
-    public function getCepage() {
-
+    public function getCepage() 
+    {
         return $this->getParent()->getParent();
     }
-
-    /**
-     *
-     * @return DRMCouleur
-     */
-    public function getCouleur() {
-
+    
+    public function getCouleur() 
+    {
         return $this->getCepage()->getCouleur();
     }
-
-    /**
-     *
-     * @return DRMLieu
-     */
-    public function getLieu() {
-
+    
+    public function getLieu() 
+    {
         return $this->getCouleur()->getLieu();
     }
-
-    /**
-     *
-     * @return DRMMention
-     */
-    public function getMention() {
-
+    
+    public function getMention() 
+    {
         return $this->getLieu()->getMention();
     }
-
-    /**
-     *
-     * @return DRMAppellation
-     */
-    public function getAppellation() {
-
+    
+    public function getAppellation() 
+    {
         return $this->getLieu()->getAppellation();
     }
 
-
-    public function getGenre() {
+    public function getGenre()
+    {
       return $this->getAppellation()->getGenre();
     }
 
-
-    public function getCertification() {
+    public function getCertification() 
+    {
       return $this->getGenre()->getCertification();
     }
-
     
-    public function getLabelKeyString() {
+    public function getLabelKeyString() 
+    {
       	if ($this->labels) {
 			return implode('|', $this->labels->toArray());
       	}
@@ -85,7 +65,8 @@ class DRMDetail extends BaseDRMDetail {
       	return '';
     }
 
-    public function getLabelKey() {
+    public function getLabelKey() 
+    {
     	$key = null;
     	if ($this->labels) {
     		$key = implode('-', $this->labels->toArray());
@@ -93,10 +74,33 @@ class DRMDetail extends BaseDRMDetail {
     	return ($key) ? $key : DRM::DEFAULT_KEY;
     }
 
-	  public function getLabelsLibelle($format = "%la%", $separator = ", ") {
-
+	public function getLabelsLibelle($format = "%la%", $separator = ", ") 
+	{
       	return str_replace("%la%", implode($separator, $this->libelles_label->toArray()), $format);
     } 
+    
+    private function getTotalByKey($key) 
+    {
+    	$sum = 0;
+    	foreach ($this->get($key, true) as $k) {
+    		$sum += $k;
+    	}
+    	return $sum;
+    }
+
+    public function getTotalDebutMois() 
+    {
+        if (is_null($this->_get('total_debut_mois'))) {
+            return 0;
+        } else {
+            return $this->_get('total_debut_mois');
+        }
+    }
+    
+    public function getIdentifiantHTML() 
+    {
+      return strtolower(str_replace($this->getDocument()->declaration->getHash(), '', str_replace('/', '_', preg_replace('|\/[^\/]+\/DEFAUT|', '', $this->getHash()))));
+    }	
 
     
     protected function update($params = array()) {
@@ -110,24 +114,21 @@ class DRMDetail extends BaseDRMDetail {
         foreach ($labelLibelles as $label => $libelle) {
         	$this->libelles_label->add($label, $libelle);
         }
-        $this->cvo->taux = $this->getDroit(DRMDroits::DROIT_CVO)->getTaux();
-        $this->douane->taux = $this->getDroit(DRMDroits::DROIT_DOUANE)->getTaux();
+        $this->cvo->taux = $this->getDroit(strtolower(DRMDroits::DROIT_CVO))->getTaux();
+        $this->cvo->volume_taxable = $this->getVolumeTaxable();
+        $this->douane->taux = $this->getDroit(strtolower(DRMDroits::DROIT_DOUANE))->getTaux();
+        $this->douane->volume_taxable = $this->getVolumeTaxable();
     }
     
-    private function getTotalByKey($key) {
-    	$sum = 0;
-    	foreach ($this->get($key, true) as $k) {
-    		$sum += $k;
+    public function getVolumeTaxable()
+    {
+    	$mergeSorties = array();
+    	$mergeEntrees = array();
+    	if ($this->getDocument()->getInterpro()->getKey() == Interpro::INTERPRO_KEY.Interpro::INTER_RHONE_ID) {
+    		$mergeSorties = DRMDroits::getDroitSortiesInterRhone();
+    		$mergeEntrees = DRMDroits::getDroitEntreesInterRhone();
     	}
-    	return $sum;
-    }
-
-    public function getTotalDebutMois() {
-        if (is_null($this->_get('total_debut_mois'))) {
-            return 0;
-        } else {
-            return $this->_get('total_debut_mois');
-        }
+    	return ($this->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)) - $this->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)));
     }
 
     public function nbToComplete() {
@@ -141,10 +142,6 @@ class DRMDetail extends BaseDRMDetail {
     public function isComplete() {
         return $this->total_entrees > 0 || $this->total_sorties > 0;
     }
-    
-    public function getIdentifiantHTML() {
-      return strtolower(str_replace($this->getDocument()->declaration->getHash(), '', str_replace('/', '_', preg_replace('|\/[^\/]+\/DEFAUT|', '', $this->getHash()))));
-    }	
     
     public function addVrac($contrat_numero, $volume) {
       $contratVrac = $this->vrac->add($contrat_numero."");
@@ -189,30 +186,8 @@ class DRMDetail extends BaseDRMDetail {
       return $this->getDocument()->isModifiedMasterDRM($this->getHash(), $key);
     }
 
-
-    public function getDroitVolume($type) {
-      return $this->sommeLignes(DRMDroits::getDroitSorties()) - $this->sommeLignes(DRMDroits::getDroitEntrees());
-    }
-
     public function getDroit($type) {
-    	if ($droit = $this->getCouleur()->getDroit($type)) {
-    		return $droit;
-    	}
-    	if ($droit = $this->getLieu()->getDroit($type)) {
-    		return $droit;
-    	}
-    	if ($droit = $this->getAppellation()->getDroit($type)) {
-    		return $droit;
-    	}
-    	if ($droit = $this->getGenre()->getDroit($type)) {
-    		return $droit;
-    	}
-    	if ($droit = $this->getCertification()->getDroit($type)) {
-    		return $droit;
-    	}
-    	if (!$droit) {
-    		throw new sfException('Aucun droit spécifié');
-    	}
+    	return $this->getCepage()->getDroit($type);
     }
     
     public function hasCvo()

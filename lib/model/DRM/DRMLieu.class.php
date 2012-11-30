@@ -45,25 +45,5 @@ class DRMLieu extends BaseDRMLieu {
     	return $this->getAppellation()->hasDetailLigne($ligne);
     }
     
-    public function getDroit($type) {
-      return $this->getConfig()->getDroits($this->getInterproKey())->get($type)->getCurrentDroit($this->getPeriode());
-    }
-
-    public function getDroits() {
-      $conf = $this->getConfig();
-      $droits = array();
-      foreach ($conf->getDroits($this->getInterproKey()) as $key => $droit) {
-	$droits[$key] = $droit->getCurrentDroit($this->getPeriode());
-      }
-      return $droits;
-    }
-    public function getInterproKey() {
-      if (!$this->getDocument()->getInterpro())
-	return array();
-      return $this->getDocument()->getInterpro()->get('_id');
-    }
-    public function getPeriode() {
-      return $this->getDocument()->getPeriode();
-    }
 
 }

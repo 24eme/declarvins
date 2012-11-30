@@ -164,16 +164,33 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         $this->devalide();
     }
 
-    public function setDroits() {
+    public function setDroits() 
+    {
         $this->remove('droits');
         $this->add('droits');
-        foreach ($this->declaration->certifications as $certification) {
-            foreach ($certification->genres as $genre) {
-    	        foreach ($genre->appellations as $appellation) {
-                    $appellation->updateDroits($this->droits);
-    	        }
-            }
+    	$mergeSorties = array();
+    	$mergeEntrees = array();
+    	if ($this->getInterpro()->getKey() == Interpro::INTERPRO_KEY.Interpro::INTER_RHONE_ID) {
+    		$mergeSorties = DRMDroits::getDroitSortiesInterRhone();
+    		$mergeEntrees = DRMDroits::getDroitEntreesInterRhone();
+    	}
+        foreach ($this->getDetails() as $detail) {
+        	$droitCvo = $detail->getDroit(strtolower(DRMDroits::DROIT_CVO));
+        	$droitDouane = $detail->getDroit(strtolower(DRMDroits::DROIT_DOUANE));
+        	$this->droits->getOrAdd(strtolower(DRMDroits::DROIT_CVO))->getOrAdd($droitCvo->getCode())->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitCvo->taux, 0, $droitCvo->libelle);
+        	$this->droits->getOrAdd(strtolower(DRMDroits::DROIT_DOUANE))->getOrAdd($droitCvo->getCode())->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitDouane->taux, $this->getReportByDroit(strtolower(DRMDroits::DROIT_DOUANE), $droitDouane), $droitDouane->libelle);
         }
+    }
+    
+    public function getReportByDroit($type, $droit) 
+    {
+    	$drmPrecedente = $this->getPrecedente();
+    	if ($drmPrecedente && !$drmPrecedente->isNew()) {
+    		if ($drmPrecedente->droits->get($type)->exist($droit->code)) {
+    			return $drmPrecedente->droits->get($type)->get($droit->code)->cumul;
+    		}
+    	}
+    	return 0;
     }
 
     public function getEtablissement() {

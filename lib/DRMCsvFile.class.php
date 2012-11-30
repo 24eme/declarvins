@@ -157,11 +157,13 @@ class DRMCsvFile extends CsvFile
       $line[self::CSV_COL_DETAIL_STOCKFIN_COMMERCIALISABLE] = $d->stocks_fin->commercialisable;
       if ($d->exist('cvo') && $d->cvo->exist('taux') && $d->cvo->taux) {
         $line[self::CSV_COL_DETAIL_CVO_TAUX] = $d->cvo->taux;
+      $line[self::CSV_COL_DETAIL_CVO_VOLUME] = $d->cvo->volume_taxable;
+      $line[self::CSV_COL_DETAIL_CVO_PRIX] = $line[self::CSV_COL_DETAIL_CVO_TAUX] * $line[self::CSV_COL_DETAIL_CVO_VOLUME];
       } else {
         $line[self::CSV_COL_DETAIL_CVO_TAUX] = "droits non definis";
+      $line[self::CSV_COL_DETAIL_CVO_VOLUME] = null;
+      $line[self::CSV_COL_DETAIL_CVO_PRIX] = null;
       }
-      $line[self::CSV_COL_DETAIL_CVO_VOLUME] = $d->getDroitVolume(DRMDroits::DROIT_CVO);
-      $line[self::CSV_COL_DETAIL_CVO_PRIX] = $line[self::CSV_COL_DETAIL_CVO_TAUX] * $line[self::CSV_COL_DETAIL_CVO_VOLUME];
       $line[self::CSV_COL_DETAIL_DATEDESAISIE] = $d->getDocument()->valide->date_saisie;
       $line[self::CSV_COL_DETAIL_DATEDESIGNATURE] = $d->getDocument()->valide->date_signee;
       $line[self::CSV_COL_DETAIL_MODEDESAISIE] = $d->getDocument()->mode_de_saisie;

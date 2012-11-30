@@ -66,16 +66,6 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
         return $this->total_debut_mois == 0 && !$this->hasMouvement();
     }
 
-
-    public function sommeLignes($lines) {
-        $sum = 0;
-        foreach($this->getChildrenNode() as $item) {
-            $sum += $item->sommeLignes($lines);
-        }
-        
-        return $sum;
-    }
-
     public function hasMouvement() {
 
         return $this->total_entrees > 0 || $this->total_sorties > 0;
@@ -186,5 +176,43 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     }
   
     abstract public function getChildrenNode();
+    
+    
+    /*
+     * DROITS
+     */
+    public function getDroit($type) 
+    {
+    	if ($this->getConfig()->hasDroits()) {
+    		if (count($this->getConfig()->getDroits($this->getInterproKey())->get($type)) > 0) {
+    			return $this->getConfig()->getDroits($this->getInterproKey())->get($type)->getCurrentDroit($this->getPeriode());
+    		}
+    	}
+      	return $this->getParentNode()->getDroit($type);
+    }
+    
+	public function getDroits() 
+	{
+    	$droits = array();
+    	if ($this->getConfig()->hasDroits()) {
+      		foreach ($this->getConfig()->getDroits($this->getInterproKey()) as $key => $droit) {
+				$droits[$key] = $droit->getCurrentDroit($this->getPeriode());
+      		}
+    	}
+      	return $droits;
+    }
+    
+    public function getInterproKey() 
+    {
+		if (!$this->getDocument()->getInterpro()) {
+			return array();
+		}
+      	return $this->getDocument()->getInterpro()->get('_id');
+    }
+    
+    public function getPeriode() 
+    {
+		return $this->getDocument()->getPeriode();
+    }
 
 }
