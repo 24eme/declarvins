@@ -1065,7 +1065,7 @@ a
 				border: 1px solid #d3d2cd;
 				border-left: 0;
 				vertical-align: top;
-                                !margin-top:1px;
+                !margin-top:1px;
 			
 				&:hover { background-color: #E9E9E9; }
 			
@@ -1073,10 +1073,25 @@ a
 				{
 					background: url(../images/pictos/pi_desc.png) center center no-repeat;
 					height: 20px;
-                                        !height : 16px;
+                    !height : 16px;
 					width: 20px;				
 				}
 			}
+		}
+
+		a.remove_autocomplete
+		{
+			.border-radius(0 4px 4px 0);
+			background: #fff url(../images/pictos/pi_supprimer.png) center center no-repeat;
+			border: 1px solid #d3d2cd;
+			border-left: 0;
+			display: inline-block;
+			height: 20px;
+			width: 20px;
+			text-indent: -9999px;
+			vertical-align: top;
+
+			&:hover { background-color: #E9E9E9; }
 		}
 		
 		input[type=text], select
