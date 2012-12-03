@@ -113,6 +113,9 @@ class EtablissementFamilles
     	$famille = self::getKey($famille);
     	$sousFamille = self::getKey($sousFamille);
     	$sousFamilles = self::getSousFamillesByFamille($famille);
+    	if (!$sousFamilles) {
+    		return null;
+    	}
     	if (!in_array($sousFamille, array_keys($sousFamilles))) {
     		throw new sfException('La clé sous famille "'.$sousFamille.'" n\'existe pas');
     	}

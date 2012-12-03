@@ -94,7 +94,7 @@ class EtablissementClient extends acCouchdbClient {
         
         return EtablissementFamilles::FAMILLE_PRODUCTEUR;
       }
-      if (preg_match('/n.*gociant/i', $f)) {
+      if (preg_match('/n.{1}gociant/i', $f)) {
         
         return EtablissementFamilles::FAMILLE_NEGOCIANT;
       }
@@ -108,10 +108,11 @@ class EtablissementClient extends acCouchdbClient {
 
     public function matchSousFamille($sf) {
       $sf = KeyInflector::slugify($sf);
-      $matches = array("(particuliere|cooperative)" => EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE,
-                         "regional" => EtablissementFamilles::SOUS_FAMILLE_REGIONAL,
-                         "exterieur" => EtablissementFamilles::SOUS_FAMILLE_EXTERIEUR,
-                         "etranger" =>  EtablissementFamilles::SOUS_FAMILLE_ETRANGER,
+      $matches = array("particuli.{1}re" => EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE,
+      					 "coop.{1}rative" => EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE,
+                         "r.{1}gional" => EtablissementFamilles::SOUS_FAMILLE_REGIONAL,
+                         "ext.{1}rieur" => EtablissementFamilles::SOUS_FAMILLE_EXTERIEUR,
+                         ".{1}tranger" =>  EtablissementFamilles::SOUS_FAMILLE_ETRANGER,
                          "union" => EtablissementFamilles::SOUS_FAMILLE_UNION,
                          "vinificateur" => EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR);
       foreach ($matches as $match => $s) {
