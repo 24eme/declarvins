@@ -101,9 +101,13 @@ class ConfigurationVrac extends BaseConfigurationVrac {
     	return InterproClient::getInstance()->find($this->getKey());
     }
 
-    public function formatVracProduitsByDepartement() {
-
-      return $this->getConfig()->formatVracProduitsByDepartement($this->getInterpro()->departements->toArray());
+    public function formatVracProduitsByDepartement($departements = null) {
+		if (!$departements) {
+			$departements = $this->getInterpro()->departements->toArray();
+		} elseif (!is_array($departements)) {
+			$departements = array($departements);
+		}
+      return $this->getConfig()->formatVracProduitsByDepartement($departements);
     }
 
 }
