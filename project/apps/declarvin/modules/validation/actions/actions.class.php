@@ -17,7 +17,7 @@ class validationActions extends sfActions {
      */
     public function executeLogin(sfWebRequest $request) {
     	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
-        $this->formLogin = new LoginContratForm($this->interpro->get('_id'));
+        $this->formLogin = new LoginContratForm();
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->formLogin->bind($request->getParameter($this->formLogin->getName()));
             if ($this->formLogin->isValid()) {
@@ -35,6 +35,7 @@ class validationActions extends sfActions {
     public function executeFiche(sfWebRequest $request) {
     	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
     	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
+        
         $this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
         $import = new ImportEtablissementsCsv($this->interpro);
         $this->compte = $this->contrat->getCompteObject();
@@ -43,6 +44,7 @@ class validationActions extends sfActions {
 
         $this->formCompte = new CompteModificationForm($this->compte);
         $this->formUploadCsv = new UploadCSVForm();
+        $this->formLiaison = new LiaisonInterproForm($this->compte);
         $this->valide_interpro = false;
         if ($this->compte->interpro->exist($this->interpro->get('_id'))) {
             $interpro = $this->compte->interpro->get($this->interpro->get('_id'));
@@ -66,6 +68,7 @@ class validationActions extends sfActions {
 
         $this->formCompte = new CompteModificationForm($this->compte);
         $this->formUploadCsv = new UploadCSVForm();
+        $this->formLiaison = new LiaisonInterproForm($this->compte);
         $this->valide_interpro = false;
         if ($this->compte->interpro->exist($this->interpro->get('_id'))) {
             $interpro = $this->compte->interpro->get($this->interpro->get('_id'));
@@ -78,12 +81,43 @@ class validationActions extends sfActions {
         $this->formCompte->bind($request->getParameter($this->formCompte->getName()));
         if ($this->formCompte->isValid()) {
             $this->compte = $this->formCompte->save();
-         	$ldap = new Ldap();
-         	$ldap->saveCompte($this->compte);
-            $this->getUser()->setFlash('notice', 'Modifications effectuées avec succes.');
+            $this->getUser()->setFlash('notification_compte', 'Les identifiants ont bien été mis à jour.');
             $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
         }
 
+        $this->setTemplate('fiche');
+    }
+
+    public function executeLiaison(sfWebRequest $request) {
+        $this->forward404Unless($request->isMethod(sfWebRequest::POST));
+        
+        $this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
+        $import = new ImportEtablissementsCsv($this->interpro);
+    	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
+    	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
+        $this->compte = $this->contrat->getCompteObject();
+        $this->etablissements = $this->compte->getTiersCollection();
+        $this->etablissementsCsv = array_diff_key($import->getEtablissementsByContrat($this->contrat), $this->compte->tiers->toArray());
+
+        $this->formCompte = new CompteModificationForm($this->compte);
+        $this->formUploadCsv = new UploadCSVForm();
+        $this->formLiaison = new LiaisonInterproForm($this->compte);
+        $this->valide_interpro = false;
+        if ($this->compte->interpro->exist($this->interpro->get('_id'))) {
+            $interpro = $this->compte->interpro->get($this->interpro->get('_id'));
+            if ($interpro->getStatut() != _Compte::STATUT_VALIDATION_ATTENTE) {
+                $this->valide_interpro = true;
+            }
+        }
+        $this->compte_active = ($this->compte->getStatut() == _Compte::STATUT_ACTIVE);
+        if ($request->isMethod(sfWebRequest::POST) && $request->getParameter($this->formLiaison->getName())) {
+            $this->formLiaison->bind($request->getParameter($this->formLiaison->getName()));
+            if ($this->formLiaison->isValid()) {
+                $this->formLiaison->save();
+                $this->getUser()->setFlash('notification_general', 'Liaisons interpro faites');
+            	$this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
+            }
+        }
         $this->setTemplate('fiche');
     }
 
@@ -101,6 +135,7 @@ class validationActions extends sfActions {
 
         $this->formCompte = new CompteModificationForm($this->compte);
         $this->formUploadCsv = new UploadCSVForm();
+        $this->formLiaison = new LiaisonInterproForm($this->compte);
         $this->valide_interpro = false;
         if ($this->compte->interpro->exist($this->interpro->get('_id'))) {
             $interpro = $this->compte->interpro->get($this->interpro->get('_id'));
@@ -202,14 +237,6 @@ class validationActions extends sfActions {
         $compte->save();
         $this->getUser()->setFlash('notification_general', "L'établissement a bien été délié");
         $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
-    }
-    
-    public function executePdf(sfWebRequest $request)
-    {
-    	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
-    	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
-  		$pdf = new ExportContratPdf($this->contrat);
-		return $this->renderText($pdf->render($this->getResponse()));
     }
 
 }

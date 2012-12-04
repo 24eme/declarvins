@@ -8,6 +8,9 @@ public static function create($interpro, $step, $configurationVrac, $etablisseme
 				case 'soussigne':
 					$form = new VracSoussigneCivpForm($configurationVrac, $etablissement, $user, $vrac);
 					break;
+				case 'produit':
+					$form = new VracProduitCivpForm($configurationVrac, $etablissement, $user, $vrac);
+					break;
 				case 'marche':
 					$form = new VracMarcheCivpForm($configurationVrac, $etablissement, $user, $vrac);
 					break;
@@ -28,6 +31,9 @@ public static function create($interpro, $step, $configurationVrac, $etablisseme
 				case 'soussigne':
 					$form = new VracSoussigneIrForm($configurationVrac, $etablissement, $user, $vrac);
 					break;
+				case 'produit':
+					$form = new VracProduitIrForm($configurationVrac, $etablissement, $user, $vrac);
+					break;
 				case 'marche':
 					$form = new VracMarcheIrForm($configurationVrac, $etablissement, $user, $vrac);
 					break;
@@ -47,6 +53,9 @@ public static function create($interpro, $step, $configurationVrac, $etablisseme
 			switch ($step){
 				case 'soussigne':
 					$form = new VracSoussigneIvseForm($configurationVrac, $etablissement, $user, $vrac);
+					break;
+				case 'produit':
+					$form = new VracProduitIvseForm($configurationVrac, $etablissement, $user, $vrac);
 					break;
 				case 'marche':
 					$form = new VracMarcheIvseForm($configurationVrac, $etablissement, $user, $vrac);

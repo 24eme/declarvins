@@ -1,13 +1,11 @@
 <?php
 class CompteDeclarantsView extends acCouchdbView
 {
-	const KEY_INTERPRO = 0;
-	const KEY_NUMERO_CONTRAT = 1;
-	const KEY_NOM = 2;
-	const KEY_PRENOM = 3;
-	const KEY_LOGIN = 4;
-	const KEY_EMAIL = 5;
-	const KEY_RAISON_SOCIALE = 6;
+	const KEY_NUMERO_CONTRAT = 0;
+	const KEY_NOM = 1;
+	const KEY_PRENOM = 2;
+	const KEY_LOGIN = 3;
+	const KEY_EMAIL = 4;
 
 	public static function getInstance() 
 	{
@@ -18,19 +16,11 @@ class CompteDeclarantsView extends acCouchdbView
     {
     	return $this->client->getView($this->design, $this->view);
   	}
-
-    public function findByInterpro($interpro) 
-    {
-    	return $this->client
-                                 ->startkey(array($interpro))
-                                 ->endkey(array($interpro, array()))
-                                 ->getView($this->design, $this->view);
-  	}
   	
-	public function formatComptes($interpro, $format = "%n% %p% %r% (%l% %e% %m%)") 
+	public function formatComptes($format = "%n% %p% (%l% %e% %m%)") 
 	{
   		$comptes_format = array();
-  		$comptes = $this->findByInterpro($interpro);
+  		$comptes = $this->findAll();
   		foreach($comptes->rows as $compte) {
   			$comptes_format[$compte->key[self::KEY_NUMERO_CONTRAT]] = $this->formatCompte($compte->key, $format);
         }
@@ -39,11 +29,10 @@ class CompteDeclarantsView extends acCouchdbView
         return $comptes_format;
   	}
 
-  	protected function formatCompte($compte, $format = "%n% %p% %r% (%l% %e% %m%)") {
+  	protected function formatCompte($compte, $format = "%n% %p% (%l% %e% %m%)") {
   		
         $format_index = array('%n%' => self::KEY_NOM,
 		                      '%p%' => self::KEY_PRENOM,
-		                      '%r%' => self::KEY_RAISON_SOCIALE,
 		                      '%l%' => self::KEY_LOGIN,
 		                      '%e%' => self::KEY_EMAIL,
 		                      '%m%' => self::KEY_NUMERO_CONTRAT);

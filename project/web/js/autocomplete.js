@@ -119,7 +119,7 @@
 						$(input).parent().find('button').hide();
 						$(input).parent().find('a.remove_autocomplete').show();
 					} else {
-						if (url_ajax || (select.children("option").length == 1 || select.children("option").length > limit)) {
+						if (url_ajax || (select.children("option").length > 1)) {
 							$(input).parent().find('button').show();
 						}
 						$(input).parent().find('a.remove_autocomplete').hide();
@@ -142,6 +142,8 @@
 						item: ui.item.option
 					});
 					$(this).val(ui.item.value.replace(new RegExp("[ ]*\\(.+\\)[ ]*"), " "));
+					$(input).parent().find('button').hide();
+					$(input).parent().find('a.remove_autocomplete').show();
 					return false;
 				},
 				change: function( event, ui ) {
@@ -160,7 +162,7 @@
 							
 							select.val('');
 							$(input).parent().find('a.remove_autocomplete').hide();
-							if (url_ajax || (select.children("option").length == 1 || select.children("option").length > limit)) {
+							if (url_ajax || (select.children("option").length > 1)) {
 								$(input).parent().find('button').show();
 							}
 							// remove invalid value, as it didn't match anything
@@ -187,9 +189,7 @@
 						input.val("");
 						$(this).hide();
 
-
-
-						if (url_ajax || (select.children("option").length == 1 || select.children("option").length > limit)) {
+						if (url_ajax || (select.children("option").length > 1)) {
 							$(input).parent().find('button').show();
 						}
 						return false;
@@ -229,7 +229,7 @@
 						input.autocomplete( "search", $(input).val());
 						input.focus();
 					});
-						$(input).parent().find('button').button( "option", "disabled", url_ajax && (select.children("option").length == 1 || select.children("option").length > limit));
+						$(input).parent().find('button').button( "option", "disabled", url_ajax && (select.children("option").length > 1));
 						if (select.val()) {
 							$(input).parent().find('button').hide();
 						} else {

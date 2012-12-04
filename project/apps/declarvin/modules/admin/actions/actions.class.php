@@ -27,7 +27,7 @@ class adminActions extends sfActions
   public function executeEtablissementDRMLogin(sfWebRequest $request)
   {
   	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
-    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
+    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'), array(), array('sous_familles' => array("producteur" => null, "negociant" => "vinificateur")));
     if ($request->isMethod(sfWebRequest::POST)) {
     	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
     		$this->form->bind($request->getParameter('etablissement_selection_nav'));
@@ -48,7 +48,7 @@ class adminActions extends sfActions
   public function executeEtablissementDAIDSLogin(sfWebRequest $request)
   {
   	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
-    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
+    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'), array(), array('sous_familles' => array("producteur" => null, "negociant" => "vinificateur")));
     if ($request->isMethod(sfWebRequest::POST)) {
     	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
     		$this->form->bind($request->getParameter('etablissement_selection_nav'));
