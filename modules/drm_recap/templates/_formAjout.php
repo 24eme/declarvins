@@ -4,7 +4,7 @@
 	<?php echo $form->renderHiddenFields() ?>
 	<div class="ligne_form">
 		<label>Appellation:</label>
-		<?php echo $drm_lieu->getLibelle(ESC_RAW) ?>
+		<?php echo ($drm_lieu->getLibelle(ESC_RAW))? $drm_lieu->getLibelle(ESC_RAW) : $drm_lieu->getFormattedLibelle(); ?>
 	</div>
 	<div class="ligne_form">
 		<span class="error"><?php echo $form['hashref']->renderError() ?></span>

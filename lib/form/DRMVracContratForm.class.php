@@ -40,7 +40,9 @@ class DRMVracContratForm extends acCouchdbObjectForm
     public function getContratChoices() 
     {
       if (is_null($this->_contrat_choices)) {
-	   $this->_contrat_choices = array_merge(array('' => ''), $this->getObject()->getParent()->getParent()->getContratsVracAutocomplete());
+	   $this->_contrat_choices = $this->getObject()->getParent()->getParent()->getContratsVracAutocomplete();
+	   $this->_contrat_choices[''] = '';
+	   ksort($this->_contrat_choices);
       }
       return $this->_contrat_choices;
     }

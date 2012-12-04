@@ -50,7 +50,7 @@ class drm_recapActions extends sfActions
         $this->drm = $this->getRoute()->getDRM();
         $this->config_lieu = $this->getRoute()->getConfigLieu();
         $this->drm_lieu = $this->getRoute()->getDRMLieu();
-
+        
         $this->forward404Unless($request->isXmlHttpRequest());
 
         $form = new DRMProduitAjoutForm($this->drm,

@@ -29,6 +29,10 @@ class DRMDetailForm extends acCouchdbObjectForm {
     
     public function doUpdateObject($values) {
     	parent::doUpdateObject($values);
+    	if (isset($values["sorties"]["vrac"]) && !$values["sorties"]["vrac"]) {
+    		$this->getObject()->remove('vrac');
+    		$this->getObject()->add('vrac');
+    	}
         $this->getObject()->getDocument()->update();
     }
 
