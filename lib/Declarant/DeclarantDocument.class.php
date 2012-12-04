@@ -43,6 +43,7 @@ class DeclarantDocument
         $declarant->adresse = $etb->siege->adresse;        
         $declarant->commune = $etb->siege->commune;
         $declarant->code_postal = $etb->siege->code_postal;
+        $declarant->pays = $etb->siege->pays;
         $declarant->num_chai = 'NUM CHAI 0000';
         $declarant->raison_sociale = $etb->raison_sociale;
     }
