@@ -5,14 +5,15 @@ class EtablissementAllView extends acCouchdbView
 	const KEY_INTERPRO_ID = 0;
 	const KEY_FAMILLE = 1;
 	const KEY_SOUS_FAMILLE = 2;
-	const KEY_ETABLISSEMENT_ID = 3;
-	const KEY_NOM = 4;
-	const KEY_IDENTIFIANT = 5;
-	const KEY_RAISON_SOCIALE = 6;
-	const KEY_SIRET = 7;
-	const KEY_CVI = 8;
-	const KEY_COMMUNE = 9;
-	const KEY_CODE_POSTAL = 10;
+	const KEY_SOCIETE = 3;
+	const KEY_ETABLISSEMENT_ID = 4;
+	const KEY_NOM = 5;
+	const KEY_IDENTIFIANT = 6;
+	const KEY_RAISON_SOCIALE = 7;
+	const KEY_SIRET = 8;
+	const KEY_CVI = 9;
+	const KEY_COMMUNE = 10;
+	const KEY_CODE_POSTAL = 11;
 
 	public static function getInstance() {
 
