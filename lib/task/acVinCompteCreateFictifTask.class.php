@@ -34,6 +34,7 @@ class acVinCompteCreateVirtuelTask extends sfBaseTask
         new sfCommandArgument('email', sfCommandArgument::REQUIRED, 'Email'),
         new sfCommandArgument('commune', sfCommandArgument::REQUIRED, 'Commune'),
         new sfCommandArgument('code_postal', sfCommandArgument::REQUIRED, 'Code Postal'),
+        new sfCommandArgument('pays', sfCommandArgument::REQUIRED, 'Pays'),
         new sfCommandArgument('droits', sfCommandArgument::IS_ARRAY, 'Droits'),
      ));
 
@@ -71,6 +72,7 @@ EOF;
     $compte->nom = $arguments['nom'];
     $compte->commune = $arguments['commune'];
     $compte->code_postal = $arguments['code_postal'];
+    $compte->pays = $arguments['pays'];
     $compte->droits = $arguments['droits'];
     $compte->save();
     

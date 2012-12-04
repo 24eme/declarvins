@@ -152,6 +152,7 @@ EOF;
                             "adresse" => $adresse->adresse,
                             "code postal" => $adresse->code_postal,
                             "commune" => $adresse->commune,
+                            "pays" => $adresse->pays,
                             "sexe de l'exploitant" => $t->exploitant->sexe,
                             "nom de l'exploitant" => $t->exploitant->nom,
                                 ), $validation);
