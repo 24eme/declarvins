@@ -34,6 +34,13 @@
                             <?php echo $form['code_postal']->render(array('class' => 'disabled', 'readonly' => 'readonly')) ?>
                         </span>
                     </div>
+                    <div class="vracs_ligne_form ">
+                        <span>
+                            <?php echo $form['pays']->renderError() ?>
+                            <?php echo $form['pays']->renderLabel() ?>
+                            <?php echo $form['pays']->render(array('class' => 'disabled', 'readonly' => 'readonly')) ?>
+                        </span>
+                    </div>
 
                 </div>
                 <div class="col">
@@ -71,5 +78,8 @@
                             <?php echo $form['email']->renderLabel() ?>
                             <?php echo $form['email']->render(array('class' => 'disabled', 'readonly' => 'readonly')) ?>
                         </span>
+                    </div>
+                    <div class="vracs_ligne_form ">
+                        <span>&nbsp;</span>
                     </div>
                 </div>

@@ -12,6 +12,7 @@ class VracMandataireForm extends VracEtablissementForm
 	       'adresse',
 	       'code_postal',
 	       'commune',
+	       'pays',
 	       'telephone',
 	       'fax',
 	       'email'

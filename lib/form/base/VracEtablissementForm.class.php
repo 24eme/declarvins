@@ -14,6 +14,7 @@ class VracEtablissementForm extends acCouchdbObjectForm
 	       'adresse' => new sfWidgetFormTextarea(),
 	       'code_postal' => new sfWidgetFormInputText(),
 	       'commune' => new sfWidgetFormInputText(),
+	       'pays' => new sfWidgetFormInputText(),
 	       'telephone' => new sfWidgetFormInputText(),
 	       'fax' => new sfWidgetFormInputText(),
 	       'email' => new sfWidgetFormInputText()
@@ -29,6 +30,7 @@ class VracEtablissementForm extends acCouchdbObjectForm
 	       'adresse' => 'Adresse:',
 	       'code_postal' => 'Code postal:',
 	       'commune' => 'Commune:',
+	       'pays' => 'Pays:',
 	       'telephone' => 'Téléphone:',
 	       'fax' => 'Fax:',
 	       'email' => 'Email:'
@@ -44,6 +46,7 @@ class VracEtablissementForm extends acCouchdbObjectForm
 	       'adresse' => new sfValidatorString(array('required' => false)),
 	       'code_postal' => new sfValidatorString(array('required' => false)),
 	       'commune' => new sfValidatorString(array('required' => false)),
+	       'pays' => new sfValidatorString(array('required' => false)),
 	       'telephone' => new sfValidatorString(array('required' => false)),
 	       'fax' => new sfValidatorString(array('required' => false)),
 	       'email' => new sfValidatorString(array('required' => false))

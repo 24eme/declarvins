@@ -40,6 +40,7 @@
 				<p>Adresse : <?php echo $vrac->vendeur->adresse ?></p>
 				<p>Code postal : <?php echo $vrac->vendeur->code_postal ?></p>
 				<p>Commune : <?php echo $vrac->vendeur->commune ?></p>
+				<p>Pays : <?php echo $vrac->vendeur->pays ?></p>
 				<p>Tel : <?php echo $vrac->vendeur->telephone ?>&nbsp;&nbsp;&nbsp;Fax : <?php echo $vrac->vendeur->fax ?></p>
 				<?php if ($vrac->hasAdresseStockage()): ?>
 				<br />
@@ -47,6 +48,7 @@
 				<p>Adresse : <?php echo $vrac->adresse_stockage->adresse ?></p>
 				<p>Code postal : <?php echo $vrac->adresse_stockage->code_postal ?></p>
 				<p>Commune : <?php echo $vrac->adresse_stockage->commune ?></p>
+				<p>Pays : <?php echo $vrac->adresse_stockage->pays ?></p>
 				<?php endif; ?>
 				<?php if ($vrac->valide->date_validation_vendeur): ?>
 				<br />
@@ -63,6 +65,7 @@
 				<p>Adresse : <?php echo $vrac->acheteur->adresse ?></p>
 				<p>Code postal : <?php echo $vrac->acheteur->code_postal ?></p>
 				<p>Commune : <?php echo $vrac->acheteur->commune ?></p>
+				<p>Pays : <?php echo $vrac->acheteur->pays ?></p>
 				<p>Tel : <?php echo $vrac->acheteur->telephone ?>&nbsp;&nbsp;&nbsp;Fax : <?php echo $vrac->acheteur->fax ?></p>
 				<?php if ($vrac->hasAdresseLivraison()): ?>
 				<br />
@@ -70,6 +73,7 @@
 				<p>Adresse : <?php echo $vrac->adresse_livraison->adresse ?></p>
 				<p>Code postal : <?php echo $vrac->adresse_livraison->code_postal ?></p>
 				<p>Commune : <?php echo $vrac->adresse_livraison->commune ?></p>
+				<p>Pays : <?php echo $vrac->adresse_livraison->pays ?></p>
 				<?php endif; ?>
 				<?php if ($vrac->valide->date_validation_acheteur): ?>
 				<br />

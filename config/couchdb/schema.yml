@@ -24,6 +24,7 @@ Vrac:
             adresse: {  }
             code_postal: {  }
             commune: {  }
+            pays: {  }
             telephone: {  }
             fax: {  }
             email: {   }
@@ -36,6 +37,7 @@ Vrac:
             adresse: {  }
             code_postal: {  }
             commune: {  }
+            pays: {  }
       acheteur_type: {  }  
       acheteur_identifiant: {  }      
       acheteur:        
@@ -51,6 +53,7 @@ Vrac:
             adresse: {  }
             code_postal: {  }
             commune: {  }
+            pays: {  }
             telephone: {  }
             fax: {  }
             email: {   }
@@ -63,6 +66,7 @@ Vrac:
             adresse: {  }
             code_postal: {  }
             commune: {  }
+            pays: {  }
       mandataire_exist: {  }
       mandatant: 
         type: array_collection
@@ -81,6 +85,7 @@ Vrac:
             adresse: {  }
             code_postal: {  }
             commune: {  }
+            pays: {  }
             telephone: {  }
             fax: {  }
             email: {  }

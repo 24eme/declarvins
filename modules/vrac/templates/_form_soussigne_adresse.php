@@ -34,5 +34,12 @@
                 <?php echo $form[$field]['commune']->render() ?>
             </span>
         </div>
+        <div class="vracs_ligne_form ">
+            <span>
+                <?php echo $form[$field]['pays']->renderError() ?>
+                <?php echo $form[$field]['pays']->renderLabel() ?>
+                <?php echo $form[$field]['pays']->render() ?>
+            </span>
+        </div>
     </div>
 </div>

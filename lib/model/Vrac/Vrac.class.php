@@ -98,6 +98,7 @@ class Vrac extends BaseVrac
       	if ($informations->exist('adresse')) $informations->adresse = $etablissement->siege->adresse;
       	if ($informations->exist('code_postal')) $informations->code_postal = $etablissement->siege->code_postal;
       	if ($informations->exist('commune')) $informations->commune = $etablissement->siege->commune;
+      	if ($informations->exist('pays')) $informations->pays = $etablissement->siege->pays;
       	if ($informations->exist('telephone')) $informations->telephone = $etablissement->telephone;
       	if ($informations->exist('fax')) $informations->fax = $etablissement->fax;
       	if ($informations->exist('email')) $informations->email = $etablissement->email;
