@@ -12,13 +12,14 @@ class MouvementsConsultationView extends acCouchdbView
     const KEY_VRAC_NUMERO = 7;
     const KEY_DETAIL_LIBELLE = 8;
 
-    const VALUE_PRODUIT_LIBELLE = 0;
-    const VALUE_TYPE_LIBELLE = 1;
-    const VALUE_VOLUME = 2;
-    const VALUE_VRAC_DESTINATAIRE = 3;
-    const VALUE_DETAIL_LIBELLE = 4;
-    const VALUE_DATE_VERSION = 5;
-    const VALUE_VERSION = 6;
+    const VALUE_ETABLISSEMENT_NOM = 0;
+    const VALUE_PRODUIT_LIBELLE = 1;
+    const VALUE_TYPE_LIBELLE = 2;
+    const VALUE_VOLUME = 3;
+    const VALUE_VRAC_DESTINATAIRE = 4;
+    const VALUE_DETAIL_LIBELLE = 5;
+    const VALUE_DATE_VERSION = 6;
+    const VALUE_VERSION = 7;
 
     public static function getInstance() {
 
@@ -60,6 +61,7 @@ class MouvementsConsultationView extends acCouchdbView
         $mouvement = new stdClass();
         $mouvement->doc_libelle = sprintf("%s %s", $row->key[self::KEY_TYPE], $row->key[self::KEY_PERIODE]);
         $mouvement->doc_id = $row->key[self::KEY_ID];
+        $mouvement->etablissement_nom = $row->value[self::VALUE_ETABLISSEMENT_NOM];
         $mouvement->produit_libelle = $row->value[self::VALUE_PRODUIT_LIBELLE];
         $mouvement->type_libelle = $row->value[self::VALUE_TYPE_LIBELLE];
         $mouvement->volume = $row->value[self::VALUE_VOLUME];
