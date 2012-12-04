@@ -11,6 +11,7 @@ class EtablissementDouaneView extends acCouchdbView
 	const VALUE_FAMILLE = 6;
 	const VALUE_COMMUNE = 7;
 	const VALUE_CODE_POSTAL = 8;
+	const VALUE_PAYS = 9;
 
 	public static function getInstance() {
 
@@ -56,6 +57,9 @@ class EtablissementDouaneView extends acCouchdbView
 
     	if (isset($datas[$datas[self::VALUE_CODE_POSTAL]]))
     	  	$libelle .= ' '.$datas[$datas[self::VALUE_CODE_POSTAL]];
+
+    	if (isset($datas[$datas[self::VALUE_PAYS]]))
+    	  	$libelle .= ' '.$datas[$datas[self::VALUE_PAYS]];
         
         return trim($libelle);
     }

@@ -75,7 +75,6 @@ class WidgetEtablissement extends sfWidgetFormChoice
     public function render($name, $value = null, $attributes = array(), $errors = array())
     {
         $this->identifiant = $value;
-
         return parent::render($name, $value, $attributes, $errors);
     }
 

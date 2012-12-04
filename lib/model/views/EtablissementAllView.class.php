@@ -14,6 +14,7 @@ class EtablissementAllView extends acCouchdbView
 	const KEY_CVI = 9;
 	const KEY_COMMUNE = 10;
 	const KEY_CODE_POSTAL = 11;
+	const KEY_PAYS = 12;
 
 	public static function getInstance() {
 
@@ -68,8 +69,8 @@ class EtablissementAllView extends acCouchdbView
             return null;
         }
 
-        return $this->client->startkey(array($etablissement->interpro, $etablissement->famille, $etablissement->sous_famille, $etablissement->_id))
-                            ->endkey(array($etablissement->interpro, $etablissement->famille, $etablissement->sous_famille, $etablissement->_id, array()))
+        return $this->client->startkey(array($etablissement->interpro, $etablissement->famille, $etablissement->sous_famille, $etablissement->societe, $etablissement->_id))
+                            ->endkey(array($etablissement->interpro, $etablissement->famille, $etablissement->sous_famille, $etablissement->societe, $etablissement->_id, array()))
                             ->getView($this->design, $this->view);
         
     }
@@ -106,6 +107,9 @@ class EtablissementAllView extends acCouchdbView
 
     	if (isset($datas[$datas[self::KEY_CODE_POSTAL]]))
     	  	$libelle .= ' '.$datas[$datas[self::KEY_CODE_POSTAL]];
+
+    	if (isset($datas[$datas[self::KEY_PAYS]]))
+    	  	$libelle .= ' '.$datas[$datas[self::KEY_PAYS]];
         
         return trim($libelle);
     }
