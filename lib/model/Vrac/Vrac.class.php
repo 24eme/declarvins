@@ -65,6 +65,15 @@ class Vrac extends BaseVrac
         return $this->getVendeurObject()->interpro;
     }
 
+    public function getProduitInterpro() 
+    {
+    	if ($this->produit) {
+    		$produit = $this->getProduitObject();
+      		return $produit->getGerantInterpro();
+    	}
+    	return null;
+    }
+
     public function storeSoussignesInformations() {
       $this->storeSoussigneInformations('acheteur', $this->getAcheteurObject());
       $this->storeSoussigneInformations('vendeur', $this->getVendeurObject());

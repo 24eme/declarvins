@@ -8,6 +8,9 @@ class VracFormFactory
 			case 'soussigne':
 				$form = new VracSoussigneForm($configurationVrac, $etablissement, $user, $vrac);
 				break;
+			case 'produit':
+				$form = new VracProduitForm($configurationVrac, $etablissement, $user, $vrac);
+				break;
 			case 'marche':
 				$form = new VracMarcheForm($configurationVrac, $etablissement, $user, $vrac);
 				break;

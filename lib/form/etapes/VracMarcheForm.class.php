@@ -6,8 +6,6 @@ class VracMarcheForm extends VracForm
     		parent::configure();
     		$this->useFields(array(
                'type_transaction',
-               'produit',
-    		   'millesime',
     	       'labels',
                'mentions',
     		   'export',

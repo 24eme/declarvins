@@ -11,15 +11,10 @@
                 <?php echo $form['type_transaction']->render() ?>
             </div>
             <?php endif; ?>
-            <div  id="listener_product" class="section_label_strong">
-                <?php echo $form['produit']->renderError() ?>
-                <?php echo $form['produit']->renderLabel() ?>
-                <?php echo $form['produit']->render() ?>
-            </div>
-            <div  class="section_label_strong">
-                <?php echo $form['millesime']->renderError() ?>
-                <?php echo $form['millesime']->renderLabel() ?>
-                <?php echo $form['millesime']->render() ?>
+            <div class="section_label_strong">
+            	<label>Produit: </label>
+            	<?php $form->getObject()->getProduitInterpro() ?>
+                <?php echo ($form->getObject()->produit)? $form->getObject()->getLibelleProduit() : null; ?> <?php echo ($form->getObject()->millesime)? $form->getObject()->millesime : 'Non millésimé'; ?>
             </div>
             <div class="section_label_strong">
                 <?php echo $form['labels']->renderError() ?>
@@ -50,7 +45,7 @@
             <div class="section_label_strong">
                 <?php echo $form['prix_total_unitaire']->renderError() ?>
                 <?php echo $form['prix_total_unitaire']->renderLabel() ?>
-                <?php echo $form['prix_total_unitaire']->render(array('disabled' => 'disabled')) ?> € HT
+                <?php echo $form['prix_total_unitaire']->render(array('disabled' => 'disabled')) ?> € HT/hl
             </div>
             <?php endif; ?>
             <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_determination_prix">
@@ -80,11 +75,10 @@
         </div>
 
         <div class="ligne_form_btn">
-            <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'soussigne', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a>
+            <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'produit', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a>
             <button class="valider_etape" type="submit"><span>Etape Suivante</span></button>
         </div>
         <div class="ligne_form_btn">
             <a href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $form->getObject(), 'etablissement' => $etablissement)) ?>" class="annuler_saisie"><span>annuler la saisie</span></a>
         </div> 
     </form>
-    <?php include_partial('url_product_template', array('vrac' => $form->getObject(), 'etablissement' => $etablissement)); ?>

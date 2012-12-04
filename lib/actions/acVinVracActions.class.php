@@ -1,9 +1,9 @@
 <?php
 class acVinVracActions extends sfActions
 {
-	public function init($etablissement)
+	public function init($vrac, $etablissement)
 	{
-		$this->interpro = $this->getInterpro($etablissement);
+		$this->interpro = $this->getInterpro($vrac, $etablissement);
 		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
 		$this->configurationVracEtapes = $this->configurationVrac->getEtapes();
 	}
@@ -38,8 +38,8 @@ class acVinVracActions extends sfActions
 	public function executeNouveau(sfWebRequest $request)
 	{
         $this->etablissement = $this->getRoute()->getEtablissement();
-		$this->init($this->etablissement);
 		$vrac = new Vrac();
+		$this->init($vrac, $this->etablissement);
 		$vrac->numero_contrat = $this->getNumeroContrat();
 		$vrac->save();
 		$this->redirect(array('sf_route' => 'vrac_etape', 
@@ -85,8 +85,8 @@ class acVinVracActions extends sfActions
 
     public function executeEdition(sfWebRequest $request) {
         $this->etablissement = $this->getRoute()->getEtablissement();
-        $this->init($this->etablissement);
         $this->vrac = $this->getRoute()->getVrac();
+        $this->init($this->vrac, $this->etablissement);
         $this->etape = $this->configurationVracEtapes->getFirst();
         if($this->vrac->etape) {
             $this->etape = $this->vrac->etape;
@@ -102,8 +102,8 @@ class acVinVracActions extends sfActions
 			throw new sfException('Compte required');
 		}
         $this->etablissement = $this->getRoute()->getEtablissement();
-		$this->init($this->etablissement);
         $this->vrac = $this->getRoute()->getVrac();
+		$this->init($this->vrac, $this->etablissement);
         if (!$this->vrac->isModifiable()) {
         	if ($this->etablissement)
         		$this->redirect('vrac_valide', array('identifiant' => $this->etablissement->identifiant));
@@ -164,7 +164,7 @@ class acVinVracActions extends sfActions
         	throw new sfException('Etape requis');
         }
 
-        $this->init($this->etablissement);
+        $this->init($this->vrac, $this->etablissement);
         $this->soussigne = EtablissementClient::getInstance()->find($this->soussigne);
         if (!$this->vrac->exist($this->type)) {
 
@@ -184,9 +184,9 @@ class acVinVracActions extends sfActions
   public function executePdf(sfWebRequest $request)
   {
     	ini_set('memory_limit', '512M');
-    	$this->interpro = $this->getInterpro($this->getRoute()->getEtablissement());
-		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
         $this->vrac = $this->getRoute()->getVrac();
+    	$this->interpro = $this->getInterpro($this->vrac, $this->getRoute()->getEtablissement());
+		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
         $this->etablissement = $this->getRoute()->getEtablissement();
   		$pdf = new ExportVracPdf($this->vrac, $this->configurationVrac);
     	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
@@ -195,9 +195,9 @@ class acVinVracActions extends sfActions
   public function executePdfTransaction(sfWebRequest $request)
   {
     	ini_set('memory_limit', '512M');
-    	$this->interpro = $this->getInterpro($this->getRoute()->getEtablissement());
-		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
         $this->vrac = $this->getRoute()->getVrac();
+    	$this->interpro = $this->getInterpro($this->interpro, $this->getRoute()->getEtablissement());
+		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
         $this->etablissement = $this->getRoute()->getEtablissement();
   		$pdf = new ExportVracPdfTransaction($this->vrac, $this->configurationVrac);
     	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
@@ -230,7 +230,7 @@ class acVinVracActions extends sfActions
             throw new sfException("Le contrat vrac n°".$this->vrac->numero_contrat." n'est pas validé");
         }
         $this->etablissement = $this->getRoute()->getEtablissement();
-        $this->init($this->etablissement);
+        $this->init($this->vrac, $this->etablissement);
 	}
 	
 	public function executeValidation(sfWebRequest $request)
@@ -242,7 +242,7 @@ class acVinVracActions extends sfActions
       	}
 		$this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
-        $this->init($this->etablissement);
+        $this->init($this->vrac, $this->etablissement);
         if ($this->vrac->isValide()) {
         	if ($this->etablissement)
         		$this->redirect('vrac_valide', array('identifiant' => $this->etablissement->identifiant));
@@ -281,13 +281,14 @@ class acVinVracActions extends sfActions
 		return VracClient::getInstance()->getNextNoContrat();
 	}
 	
-	public function getInterpro($etablissement)
+	public function getInterpro($vrac, $etablissement = null)
 	{
+		if ($interpro = $vrac->getProduitInterpro()) {
+			return $interpro;
+		}
         if($etablissement) {
-            
             return $etablissement->getInterproObject();
         }
-		
         return $this->getUser()->getCompte()->getGerantInterpro();
 	}
 	

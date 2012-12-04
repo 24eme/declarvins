@@ -100,7 +100,7 @@ class VracClient extends acCouchdbClient {
             if (strpos('/'.$c->key[VracAllView::VRAC_VIEW_PRODUIT], $hash) === false) {
                 continue;
             }
-            if ($mustActive && $c->key[VracAllView::VRAC_VIEW_STATUT] == Configuration::STATUT_CONTRAT_NONSOLDE) {
+            if ($mustActive && $c->key[VracAllView::VRAC_VIEW_STATUT] == self::STATUS_CONTRAT_NONSOLDE) {
                $contrats[] = parent::retrieveDocumentById($c->key[VracAllView::VRAC_VIEW_ID]);
            }
             
