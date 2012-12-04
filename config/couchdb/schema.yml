@@ -311,6 +311,7 @@ DRM:
                     adresse: {  }
                     code_postal: {  }
                     commune: {  }
+                    pays: {  }
             comptabilite:
                 type: collection
                 definition:
@@ -318,6 +319,7 @@ DRM:
                     adresse: {  }
                     code_postal: {  }
                     commune: {  }
+                    pays: {  }
             service_douane: {  }
       declaratif:
         type: collection

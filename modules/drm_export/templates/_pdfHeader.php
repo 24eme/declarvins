@@ -17,9 +17,9 @@
 <tr>
 	<td class="premier" >Lieu où est tenue la comptabilité matière :
 		<?php if ($drm->declarant->comptabilite->adresse): ?>
-		<?php echo $drm->declarant->comptabilite->adresse ?>, <?php echo $drm->declarant->comptabilite->code_postal ?> <?php echo $drm->declarant->comptabilite->commune ?>
+		<?php echo $drm->declarant->comptabilite->adresse ?>, <?php echo $drm->declarant->comptabilite->code_postal ?> <?php echo $drm->declarant->comptabilite->commune ?> <?php echo $drm->declarant->comptabilite->pays ?>
 		<?php else: ?>
-		<?php echo $drm->declarant->siege->adresse ?>, <?php echo $drm->declarant->siege->code_postal ?> <?php echo $drm->declarant->siege->commune ?>
+		<?php echo $drm->declarant->siege->adresse ?>, <?php echo $drm->declarant->siege->code_postal ?> <?php echo $drm->declarant->siege->commune ?> <?php echo $drm->declarant->siege->pays ?>
 		<?php endif; ?>
 	</td>
 	<td>
@@ -34,7 +34,7 @@
 </tr>
 <tr>
 	<td class="premier">Adresse et n° d'EA du chai : 
-		<?php echo $drm->declarant->siege->adresse ?>, <?php echo $drm->declarant->siege->code_postal ?> <?php echo $drm->declarant->siege->commune ?>
+		<?php echo $drm->declarant->siege->adresse ?>, <?php echo $drm->declarant->siege->code_postal ?> <?php echo $drm->declarant->siege->commune ?> <?php echo $drm->declarant->siege->pays ?>
 	</td>
 	<td>Accises : <?php echo $drm->declarant->no_accises ?></td>
 </tr>

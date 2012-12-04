@@ -147,9 +147,11 @@ class drmActions extends sfActions
   				$this->drm->declarant->siege->adresse = $this->etablissement->siege->adresse;
   				$this->drm->declarant->siege->code_postal = $this->etablissement->siege->code_postal;
   				$this->drm->declarant->siege->commune = $this->etablissement->siege->commune;
+  				$this->drm->declarant->siege->pays = $this->etablissement->siege->pays;
   				$this->drm->declarant->comptabilite->adresse = $this->etablissement->comptabilite->adresse;
   				$this->drm->declarant->comptabilite->code_postal = $this->etablissement->comptabilite->code_postal;
   				$this->drm->declarant->comptabilite->commune = $this->etablissement->comptabilite->commune;
+  				$this->drm->declarant->comptabilite->pays = $this->etablissement->comptabilite->pays;
   				$this->drm->declarant->no_accises = $this->etablissement->no_accises;
   				$this->drm->declarant->no_tva_intracommunautaire = $this->etablissement->no_tva_intracommunautaire;
   				$this->drm->declarant->service_douane = $this->etablissement->service_douane;		

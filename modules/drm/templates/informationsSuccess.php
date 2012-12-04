@@ -38,11 +38,11 @@
 					</div>
 					<div class="ligne_form">
 						<label for="champ_6">Adresse du chai :</label>
-						<span class="valeur"><?php echo $etablissement->siege->adresse ?><br /><?php echo $etablissement->siege->code_postal ?> <?php echo $etablissement->siege->commune ?></span>
+						<span class="valeur"><?php echo $etablissement->siege->adresse ?><br /><?php echo $etablissement->siege->code_postal ?> <?php echo $etablissement->siege->commune ?> <?php echo $etablissement->siege->pays ?></span>
 					</div>
 					<div class="ligne_form">
 						<label for="champ_7">Lieu ou est tenue la comptabilité matière :</label>
-						<span class="valeur"><?php if (!$etablissement->comptabilite->adresse): ?>IDEM<?php else: ?><?php echo $etablissement->comptabilite->adresse ?><br /><?php echo $etablissement->comptabilite->code_postal ?> <?php echo $etablissement->comptabilite->commune ?><?php endif; ?></span>
+						<span class="valeur"><?php if (!$etablissement->comptabilite->adresse): ?>IDEM<?php else: ?><?php echo $etablissement->comptabilite->adresse ?><br /><?php echo $etablissement->comptabilite->code_postal ?> <?php echo $etablissement->comptabilite->commune ?> <?php echo $etablissement->comptabilite->pays ?><?php endif; ?></span>
 					</div>
 					<div class="ligne_form">
 						<label for="champ_8">Service des douanes :</label>
