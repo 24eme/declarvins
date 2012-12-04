@@ -140,9 +140,11 @@ class DAIDS extends BaseDAIDS
 		$this->declarant->siege->adresse = $etablissement->siege->adresse;
 		$this->declarant->siege->code_postal = $etablissement->siege->code_postal;
 		$this->declarant->siege->commune = $etablissement->siege->commune;
+		$this->declarant->siege->pays = $etablissement->siege->pays;
 		$this->declarant->comptabilite->adresse = $etablissement->comptabilite->adresse;
 		$this->declarant->comptabilite->code_postal = $etablissement->comptabilite->code_postal;
 		$this->declarant->comptabilite->commune = $etablissement->comptabilite->commune;
+		$this->declarant->comptabilite->pays = $etablissement->comptabilite->pays;
 		$this->declarant->no_accises = $etablissement->no_accises;
 		$this->declarant->no_tva_intracommunautaire = $etablissement->no_tva_intracommunautaire;
 		$this->declarant->service_douane = $etablissement->service_douane;

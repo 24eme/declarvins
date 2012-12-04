@@ -18,12 +18,14 @@ class EtablissementCsv {
     const COL_ADRESSE = 14;
     const COL_COMMUNE = 15;
     const COL_CODE_POSTAL = 16;
-    const COL_FAMILLE = 17;
-    const COL_SOUS_FAMILLE = 18;
-    const COL_COMPTA_ADRESSE = 19;
-    const COL_COMPTA_COMMUNE = 20;
-    const COL_COMPTA_CODE_POSTAL = 21;
-    const COL_SERVICE_DOUANE = 22;
-    const COL_CHAMPS_COMPLEMENTAIRES = 23;
+    const COL_PAYS = 17;
+    const COL_FAMILLE = 18;
+    const COL_SOUS_FAMILLE = 19;
+    const COL_COMPTA_ADRESSE = 20;
+    const COL_COMPTA_COMMUNE = 21;
+    const COL_COMPTA_CODE_POSTAL = 22;
+    const COL_COMPTA_PAYS = 23;
+    const COL_SERVICE_DOUANE = 24;
+    const COL_CHAMPS_COMPLEMENTAIRES = 25;
 }
 

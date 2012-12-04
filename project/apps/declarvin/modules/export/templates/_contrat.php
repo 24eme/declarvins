@@ -199,6 +199,7 @@
 					Adresse : <strong><?php echo $etablissement->adresse ?></strong><br />
 					CP : <strong><?php echo $etablissement->code_postal ?></strong><br />
 					ville : <strong><?php echo $etablissement->commune ?></strong><br />
+					Pays : <strong><?php echo $etablissement->pays ?></strong><br />
 					tel : <strong><?php echo $etablissement->telephone ?></strong><br />
 					fax : <strong><?php echo $etablissement->fax ?></strong><br />
 					email : <strong><?php echo $etablissement->email ?></strong>
@@ -213,7 +214,8 @@
 					Lieu où est tenue la comptabilité matière (si différente de l'adresse du chai) :<br />
 					Adresse : <strong><?php echo $etablissement->comptabilite_adresse ?></strong><br />
 					CP : <strong><?php echo $etablissement->comptabilite_code_postal ?></strong><br />
-					ville : <strong><?php echo $etablissement->comptabilite_commune ?></strong>
+					ville : <strong><?php echo $etablissement->comptabilite_commune ?></strong><br />
+					Pays : <strong><?php echo $etablissement->comptabilite_pays ?></strong>
 				</p>
                                 <?php endif; ?>
 

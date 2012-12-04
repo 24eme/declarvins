@@ -142,6 +142,7 @@ Contrat:
                   adresse: {  }
                   code_postal: {  }
                   commune: {  }
+                  pays: {  }
                   telephone: {  }
                   fax: {  }
                   email: {  }
@@ -150,6 +151,7 @@ Contrat:
                   comptabilite_adresse: {  }
                   comptabilite_code_postal: {  }
                   comptabilite_commune: {  }
+                  comptabilite_pays: {  }
                   service_douane: {  }
                   edi: {  }
 

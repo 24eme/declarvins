@@ -40,6 +40,7 @@
                                 <p><span>Adresse :</span> <strong><?php echo $etablissement->adresse ?></strong></p>
                                 <p><span>CP :</span> <strong><?php echo $etablissement->code_postal ?></strong></p>
                                 <p><span>ville :</span> <strong><?php echo $etablissement->commune ?></strong></p>
+                                <p><span>Pays :</span> <strong><?php echo $etablissement->pays ?></strong></p>
                                 <p><span>tel :</span> <strong><?php echo $etablissement->telephone ?></strong></p>
                                 <p><span>fax :</span> <strong><?php echo $etablissement->fax ?></strong></p>
                                 <p><span>email :</span> <strong><?php echo $etablissement->email ?></strong></p>
@@ -54,6 +55,7 @@
                                         <p><span>Adresse :</span> <strong><?php echo $etablissement->comptabilite_adresse ?></strong></p>
                                         <p><span>CP :</span> <strong><?php echo $etablissement->comptabilite_code_postal ?></strong></p>
                                         <p><span>ville :</span> <strong><?php echo $etablissement->comptabilite_commune ?></strong></p>	
+                                        <p><span>Pays :</span> <strong><?php echo $etablissement->comptabilite_pays ?></strong></p>
                                     </div>
                                 <?php endif; ?>
                             </div>

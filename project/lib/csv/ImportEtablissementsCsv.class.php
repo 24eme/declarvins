@@ -41,9 +41,11 @@ class ImportEtablissementsCsv {
         $etab->siege->adresse = $line[EtablissementCsv::COL_ADRESSE];
         $etab->siege->code_postal = $line[EtablissementCsv::COL_CODE_POSTAL];
         $etab->siege->commune = $line[EtablissementCsv::COL_COMMUNE];
+        $etab->siege->pays = $line[EtablissementCsv::COL_PAYS];
         $etab->comptabilite->adresse = $line[EtablissementCsv::COL_COMPTA_ADRESSE];
         $etab->comptabilite->code_postal = $line[EtablissementCsv::COL_COMPTA_CODE_POSTAL];
         $etab->comptabilite->commune = $line[EtablissementCsv::COL_COMPTA_CODE_POSTAL];
+        $etab->comptabilite->pays = $line[EtablissementCsv::COL_COMPTA_PAYS];
         $etab->service_douane = $line[EtablissementCsv::COL_SERVICE_DOUANE];
 	$etab->interpro = $this->_interpro->get('_id');
 

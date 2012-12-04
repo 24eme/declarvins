@@ -5,9 +5,11 @@
         <br /><br />
         <?php echo $etablissement->siege->adresse ?>
         <br />
-        <?php echo $etablissement->siege->code_postal ?> 
+        <?php echo $etablissement->siege->code_postal ?>&nbsp;<?php echo $etablissement->siege->commune ?>
+        <br />
+        <?php echo $etablissement->siege->pays ?>
     <?php endif; ?>
-    <?php echo $etablissement->siege->commune ?>
+    
     <br /><br />
     Familles : <?php echo $etablissement->famille ?> / <?php echo $etablissement->sous_famille ?>
     <br />
@@ -20,6 +22,8 @@
             <?php echo $etablissement->comptabilite->adresse ?>
             <br />
             <?php echo $etablissement->comptabilite->code_postal ?> <?php echo $etablissement->comptabilite->commune ?>
+            <br />
+            <?php echo $etablissement->comptabilite->pays ?>
         <?php endif; ?>
     <?php endif; ?>
 <?php endif; ?>

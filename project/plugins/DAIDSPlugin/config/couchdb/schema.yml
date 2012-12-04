@@ -276,6 +276,7 @@ DAIDS:
                     adresse: {  }
                     code_postal: {  }
                     commune: {  }
+                    pays: {  }
             comptabilite:
                 type: collection
                 definition:
@@ -283,6 +284,7 @@ DAIDS:
                     adresse: {  }
                     code_postal: {  }
                     commune: {  }
+                    pays: {  }
             service_douane: {  }
       identifiant: {  }
       etablissement_num_interne: {  }

@@ -8,7 +8,8 @@ class EtablissementCsvFile extends CsvFile
   const CSV_TYPE_PARTENAIRE = 4;
   const CSV_PARTENAIRE_COMMUNE = 14;
   const CSV_PARTENAIRE_CODE_POSTAL = 13;
-  const CSV_CVI = 25;
+  const CSV_PARTENAIRE_PAYS = 15;
+  const CSV_CVI = 26;
   
   const CSV_TYPE_PARTENAIRE_VITICULTEUR = 'V';
   const CSV_TYPE_PARTENAIRE_NEGOCE = 'N';
@@ -45,6 +46,7 @@ class EtablissementCsvFile extends CsvFile
         $e->cvi = isset($line[self::CSV_CVI]) ? $line[self::CSV_CVI] : null;
         $e->siege->commune = $line[self::CSV_PARTENAIRE_COMMUNE];
         $e->siege->code_postal = $line[self::CSV_PARTENAIRE_CODE_POSTAL];
+        $e->siege->pays = $line[self::CSV_PARTENAIRE_PAYS];
         $e->famille = $famille;
         
 

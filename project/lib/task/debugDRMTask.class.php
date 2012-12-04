@@ -39,6 +39,7 @@ EOF;
       	if($drm->declarant->siege->code_postal && $drm->declarant->siege->commune && !is_numeric($drm->declarant->siege->code_postal) && is_numeric($drm->declarant->siege->commune)) {
           $drm->declarant->siege->code_postal = $drm->declarant->siege->commune;
           $drm->declarant->siege->commune = $drm->declarant->siege->adresse;
+          $drm->declarant->siege->pays = $drm->declarant->siege->pays;
           $drm->save();
           $this->logSection("debug", $drm->get('_id'), null, 'SUCCESS');
         }

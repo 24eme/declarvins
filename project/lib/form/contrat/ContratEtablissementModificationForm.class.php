@@ -24,6 +24,7 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
 	       'adresse' => new sfWidgetFormInputText(),
 	       'code_postal' => new sfWidgetFormInputText(),
 	       'commune' => new sfWidgetFormInputText(),
+	       'pays' => new sfWidgetFormInputText(),
 	       'telephone' => new sfWidgetFormInputText(),
 	       'fax' => new sfWidgetFormInputText(),
 	       'email' => new sfWidgetFormInputText(),
@@ -32,6 +33,7 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
 	       'comptabilite_adresse' => new sfWidgetFormInputText(),
 	       'comptabilite_code_postal' => new sfWidgetFormInputText(),
 	       'comptabilite_commune' => new sfWidgetFormInputText(),
+	       'comptabilite_pays' => new sfWidgetFormInputText(),
 	       'service_douane' => new sfWidgetFormChoice(array('choices' => $douaneChoices)),
            'edi' => new sfWidgetFormChoice(array('choices' => array(1 => "Oui", 0 => "Non"),
                                                  'multiple' => false, 'expanded' => true,
@@ -50,6 +52,7 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
 	       'adresse' => 'Adresse*: ',
 	       'code_postal' => 'Code postal*: ',
 	       'commune' => 'Commune*: ',
+	       'pays' => 'Pays*: ',
 	       'telephone' => 'Téléphone établissement: ',
 	       'fax' => 'Fax établissement: ',
 	       'email' => 'Email établissement: ',
@@ -58,6 +61,7 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
 	       'comptabilite_adresse' => 'Adresse: ',
 	       'comptabilite_code_postal' => 'Code postal: ',
 	       'comptabilite_commune' => 'Commune: ',
+	       'comptabilite_pays' => 'Pays: ',
 	       'service_douane' => 'Service douane*: ',
            'edi' => 'Provenance EDI*'));
        $this->setValidators(array(
@@ -71,6 +75,7 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
 	       'adresse' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
 	       'code_postal' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
 	       'commune' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
+	       'pays' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
 	       'telephone' => new sfValidatorString(array('required' => false)),
 	       'fax' => new sfValidatorString(array('required' => false)),
 	       'email' => new sfValidatorString(array('required' => false)),
@@ -79,6 +84,7 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
 	       'comptabilite_adresse' => new sfValidatorString(array('required' => false)),
 	       'comptabilite_code_postal' => new sfValidatorString(array('required' => false)),
 	       'comptabilite_commune' => new sfValidatorString(array('required' => false)),
+	       'comptabilite_pays' => new sfValidatorString(array('required' => false)),
 	       'service_douane' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($douaneChoices))),
            'edi' => new ValidatorBoolean(array('required' => true))
        ));

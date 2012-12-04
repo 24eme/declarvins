@@ -51,6 +51,11 @@
         <?php echo $form['commune']->renderLabel() ?>
         <?php echo $form['commune']->render() ?>
     </div>
+    <div class="ligne_form">
+        <?php echo $form['pays']->renderError() ?>
+        <?php echo $form['pays']->renderLabel() ?>
+        <?php echo $form['pays']->render() ?>
+    </div>
 </div>
 
 <div class="col">
@@ -121,6 +126,11 @@
             <?php echo $form['comptabilite_commune']->renderError() ?>
             <?php echo $form['comptabilite_commune']->renderLabel() ?>
             <?php echo $form['comptabilite_commune']->render() ?>
+        </div>
+        <div class="ligne_form">
+            <?php echo $form['comptabilite_pays']->renderError() ?>
+            <?php echo $form['comptabilite_pays']->renderLabel() ?>
+            <?php echo $form['comptabilite_pays']->render() ?>
         </div>
     </div>
 </div>

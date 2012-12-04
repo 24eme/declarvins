@@ -13,6 +13,7 @@
 				<li>Adresse : <strong><?php echo $etablissement->siege->adresse ?></strong></li>
 				<li>CP : <strong><?php echo $etablissement->siege->code_postal ?></strong></li>
 				<li>ville : <strong><?php echo $etablissement->siege->commune ?></strong></li>
+				<li>Pays : <strong><?php echo $etablissement->siege->pays ?></strong></li>
 				<li>tel : <strong><?php echo $etablissement->telephone ?></strong></li>
 				<li>fax : <strong><?php echo $etablissement->fax ?></strong></li>
 				<li>email : <strong><?php echo $etablissement->email ?></strong></li>
@@ -27,6 +28,7 @@
 				<?php if($etablissement->comptabilite->adresse): ?><li>Adresse : <strong><?php echo $etablissement->comptabilite->adresse ?></strong></li><?php endif; ?>
 				<?php if($etablissement->comptabilite->code_postal): ?><li>CP : <strong><?php echo $etablissement->comptabilite->code_postal ?></strong></li><?php endif; ?>
 				<?php if($etablissement->comptabilite->commune): ?><li>ville : <strong><?php echo $etablissement->comptabilite->commune ?></strong></li><?php endif; ?>
+				<?php if($etablissement->comptabilite->pays): ?><li>Pays : <strong><?php echo $etablissement->comptabilite->pays ?></strong></li><?php endif; ?>
 			</ul>
             <?php endif; ?>
 			<ul>
