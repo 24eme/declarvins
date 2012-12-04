@@ -26,6 +26,23 @@ class etablissement_autocompleteActions extends sfActions
  		$this->setTemplate('index');	
   	}
 
+ 	public function executeBySousFamilles(sfWebRequest $request) {
+	    $interpro = $request->getParameter('interpro_id');
+		$famille = explode('|', $request->getParameter('familles'));
+		$sous_famille = explode('|', $request->getParameter('sous_familles'));
+		$result = array();
+		for ($i=0, $nb = count($famille); $i<$nb; $i++) {
+			$result[$famille[$i]] = $sous_famille[$i];
+		}
+	    $this->json = $this->matchEtablissements(
+	    	EtablissementAllView::getInstance()->findByInterproAndSousFamilles($interpro, $result),
+		    $request->getParameter('q'),
+		   	$request->getParameter('limit', 100)
+		);
+
+ 		$this->setTemplate('index');	
+  	}
+
     protected function matchEtablissements($etablissements, $term, $limit) {
     	$json = array();
 

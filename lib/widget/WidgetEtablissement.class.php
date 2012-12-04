@@ -18,6 +18,7 @@ class WidgetEtablissement extends sfWidgetFormChoice
 
         $this->setOption('choices', array());
         $this->addOption('familles', array());
+        $this->addOption('sous_familles', array());
         $this->addRequiredOption('interpro_id', null);
         $this->setAttribute('class', 'autocomplete'); 
     }
@@ -34,6 +35,7 @@ class WidgetEtablissement extends sfWidgetFormChoice
 
     public function getUrlAutocomplete() {
         $familles = $this->getOption('familles');
+        $sous_familles = $this->getOption('sous_familles');
 		$interpro_id = $this->getOption('interpro_id');
         if (!is_array($familles) && $familles) {
             $familles = array($familles);
@@ -42,6 +44,10 @@ class WidgetEtablissement extends sfWidgetFormChoice
         if (is_array($familles) && count($familles) > 0) {
             
             return sfContext::getInstance()->getRouting()->generate('etablissement_autocomplete_byfamilles', array('interpro_id' => $interpro_id, 'familles' => implode("|",$familles)));
+        }
+
+        if (is_array($sous_familles) && count($sous_familles) > 0) {
+            return sfContext::getInstance()->getRouting()->generate('etablissement_autocomplete_bysousfamilles', array('interpro_id' => $interpro_id, 'familles' => implode("|",array_keys($sous_familles)), 'sous_familles' => implode("|",$sous_familles)));
         }
 
         return sfContext::getInstance()->getRouting()->generate('etablissement_autocomplete_all', array('interpro_id' => $interpro_id));
