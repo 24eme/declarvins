@@ -126,5 +126,10 @@ class ConfigurationCertification extends BaseConfigurationCertification
 
         return $labels;
     }
+    
+    public function getGerantInterpro() 
+  	{
+  		return null;	
+  	}
 
 }

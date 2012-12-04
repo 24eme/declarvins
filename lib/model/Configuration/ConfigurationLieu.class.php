@@ -100,6 +100,6 @@ class ConfigurationLieu extends BaseConfigurationLieu
     
     public function formatProduits($departement, $format = "%co% %ce%") 
     {
-    	return ConfigurationProduitsView::getInstance()->formatProduits($this->getProduitsByDepartement($this->getCertification()->getKey(), $departement), $format);
+    	return ConfigurationProduitsView::getInstance()->formatProduits($this->getProduitsByDepartement($departement), $format);
     }
 }

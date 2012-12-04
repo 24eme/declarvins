@@ -39,6 +39,19 @@ class Configuration extends BaseConfiguration
       	return $produits;
     }
 
+    public function getProduitsVracByDepartement($departement) 
+    {
+    	$produits = array();
+        if (!is_array($departement)) {
+        	$departement = array($departement);
+        }
+        foreach ($departement as $dep) {
+        	$produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findProduitsByCertificationAndDepartement(self::CERTIFICATION_AOP, $dep)->rows);
+        	$produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findProduitsByCertificationAndDepartement(self::CERTIFICATION_VINSSANSIG, $dep)->rows);
+        }
+      	return $produits;
+    }
+
     public function formatProduits($departement, $format = "%g% %a% %l% %co% %ce%") 
     {
     	return ConfigurationProduitsView::getInstance()->formatProduits($this->getProduitsByDepartement($departement), $format);
@@ -46,7 +59,7 @@ class Configuration extends BaseConfiguration
     
     public function formatVracProduitsByDepartement($departement, $format = "%g% %a% %l% %co% %ce%") 
     {
-    	return ConfigurationProduitsView::getInstance()->formatVracProduits($this->getProduitsByDepartement($departement), $format);
+    	return ConfigurationProduitsView::getInstance()->formatVracProduits($this->getProduitsVracByDepartement($departement), $format);
     }
 
     public function getProduitLibelleByHash($hash) 

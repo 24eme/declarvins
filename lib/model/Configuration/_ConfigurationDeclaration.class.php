@@ -193,5 +193,21 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
   		}
   		return $details;
   	}
+  	
+  	public function getGerantInterpro() 
+  	{
+  		if ($this->exist('interpro')) {
+  			foreach ($this->interpro as $interpro => $i) {
+  				if ($i->exist('droits')) {
+  					if ($i->droits->exist('cvo')) {
+  						if (count($i->droits->cvo) > 0) {
+  							return InterproClient::getInstance()->find($interpro);
+  						}
+  					}
+  				}
+  			}
+  		}
+  		return $this->getParentNode()->getGerantInterpro();
+  	}
 
 }
