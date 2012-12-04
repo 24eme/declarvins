@@ -57,6 +57,7 @@ acVinCompteVirtuel:
       nom: {  }
       commune: {  }
       code_postal: {  }
+      pays: {  }
 
 CompteTiers:
   inheritance: acVinCompteTiers
