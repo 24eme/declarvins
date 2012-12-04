@@ -1,6 +1,8 @@
 <?php
 
 class InterproClient extends acCouchdbClient {
+	
+	protected static $_base_interpros = array('INTERPRO-CIVP', 'INTERPRO-IR', 'INTERPRO-IVSE');
     
     /**
      *
@@ -37,8 +39,10 @@ class InterproClient extends acCouchdbClient {
      * @todo remplacer la fonction par une vue
      */
     public function getAll($hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
-        return $this->keys(array('INTERPRO-CIVP', 'INTERPRO-IR', 'INTERPRO-IVSE'))->execute($hydrate);
+        return $this->keys($this->getInterpros())->execute($hydrate);
     }
-    
+    public function getInterpros() {
+    	return self::$_base_interpros;
+    }
 
 }
