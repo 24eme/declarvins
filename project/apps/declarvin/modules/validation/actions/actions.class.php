@@ -186,7 +186,7 @@ class validationActions extends sfActions {
         $this->forward404Unless($etablissement = EtablissementClient::getInstance()->retrieveById($request->getParameter("etablissement")));
     	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
     	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
-        $etablissement->statut = Etablissement::STATUT_ARCHIVER;
+        $etablissement->statut = Etablissement::STATUT_ARCHIVE;
         $etablissement->save();
         $this->getUser()->setFlash('notification_general', "L'établissement a bien été archivé");
         $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
@@ -194,7 +194,7 @@ class validationActions extends sfActions {
     
     public function executeDesarchiver(sfWebRequest $request) {
         $this->forward404Unless($etablissement = EtablissementClient::getInstance()->retrieveById($request->getParameter("etablissement")));
-        $this->forward404Unless($etablissement->statut == Etablissement::STATUT_ARCHIVER);
+        $this->forward404Unless($etablissement->statut == Etablissement::STATUT_ARCHIVE);
     	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
     	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
         $etablissement->statut = Etablissement::STATUT_ACTIF;

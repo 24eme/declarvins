@@ -6,6 +6,7 @@ class CompteDeclarantsView extends acCouchdbView
 	const KEY_PRENOM = 2;
 	const KEY_LOGIN = 3;
 	const KEY_EMAIL = 4;
+	const KEY_RAISON_SOCIALE = 5;
 
 	public static function getInstance() 
 	{
@@ -17,7 +18,7 @@ class CompteDeclarantsView extends acCouchdbView
     	return $this->client->getView($this->design, $this->view);
   	}
   	
-	public function formatComptes($format = "%n% %p% (%l% %e% %m%)") 
+	public function formatComptes($format = "%n% %p% %rs% (%l% %e% %m%)") 
 	{
   		$comptes_format = array();
   		$comptes = $this->findAll();
@@ -29,13 +30,14 @@ class CompteDeclarantsView extends acCouchdbView
         return $comptes_format;
   	}
 
-  	protected function formatCompte($compte, $format = "%n% %p% (%l% %e% %m%)") {
+  	protected function formatCompte($compte, $format = "%n% %p% %rs% (%l% %e% %m%)") {
   		
         $format_index = array('%n%' => self::KEY_NOM,
 		                      '%p%' => self::KEY_PRENOM,
 		                      '%l%' => self::KEY_LOGIN,
 		                      '%e%' => self::KEY_EMAIL,
-		                      '%m%' => self::KEY_NUMERO_CONTRAT);
+		                      '%m%' => self::KEY_NUMERO_CONTRAT,
+		                      '%rs%' => self::KEY_RAISON_SOCIALE);
 
 		$libelle = $format;
 
