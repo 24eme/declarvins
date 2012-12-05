@@ -39,18 +39,18 @@ class Etablissement extends BaseEtablissement {
         	$phone = '+33'.$phone;
 
         if (!preg_match('/^\+/', $phone) || (strlen($phone) != 12 && preg_match('/^\+33/', $phone)))
-        	echo("$phone n'est pas un téléphone correct pour ".$this->_id."\n");
+        	echo("$phone n'est pas un téléphone correct pour ".$idcompte."\n");
         
         return $phone;
     }
 
-    public function setFax($fax) {
+    public function setFax($fax, $idcompte = null) {
         if ($fax)
-            $this->_set('fax', $this->cleanPhone($fax));
+            $this->_set('fax', $this->cleanPhone($fax, $idcompte));
     }
     public function setTelephone($phone, $idcompte = null) {
         if ($phone)
-            $this->_set('telephone', $this->cleanPhone($phone));
+            $this->_set('telephone', $this->cleanPhone($phone, $idcompte));
     }
     
     public function getDenomination() {
