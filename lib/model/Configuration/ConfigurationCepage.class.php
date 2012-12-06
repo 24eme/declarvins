@@ -48,6 +48,11 @@ class ConfigurationCepage extends BaseConfigurationCepage {
     	$this->code = ($datas[ProduitCsvFile::CSV_PRODUIT_CEPAGE_CODE])? $datas[ProduitCsvFile::CSV_PRODUIT_CEPAGE_CODE] : null;
     }
     
+    public function addInterpro($interpro) 
+  	{
+  		return $this->getParentNode()->addInterpro($interpro);
+  	}
+  	
   	public function hasDepartements() {
   		return false;
   	}

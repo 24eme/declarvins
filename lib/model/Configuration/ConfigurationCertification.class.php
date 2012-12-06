@@ -131,5 +131,22 @@ class ConfigurationCertification extends BaseConfigurationCertification
   	{
   		return null;	
   	}
+    
+    public function addInterpro($interpro) 
+  	{
+  		return null;	
+  	}
+    
+    public function getInterpros() 
+    {
+    	$interpros = array();
+    	if ($this->exist('interpro')) 
+    	{
+    		foreach ($this->interpro as $interpro_id => $inter) {
+    			$interpros[] = $interpro_id;
+    		}
+    	}
+    	return $interpros;
+    }
 
 }
