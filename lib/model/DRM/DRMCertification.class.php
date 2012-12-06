@@ -61,7 +61,7 @@ class DRMCertification extends BaseDRMCertification {
     			return $this->getConfig()->getDroits($this->getInterproKey())->get($type)->getCurrentDroit($this->getPeriode());
     		}
     	}
-      	throw new sfException('Les droits '.$type.' ne sont pas définis');
+      	return null;
     }
 
 }

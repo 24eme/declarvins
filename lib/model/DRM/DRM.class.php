@@ -177,8 +177,12 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         foreach ($this->getDetails() as $detail) {
         	$droitCvo = $detail->getDroit(strtolower(DRMDroits::DROIT_CVO));
         	$droitDouane = $detail->getDroit(strtolower(DRMDroits::DROIT_DOUANE));
-        	$this->droits->getOrAdd(strtolower(DRMDroits::DROIT_CVO))->getOrAdd($droitCvo->getCode())->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitCvo->taux, 0, $droitCvo->libelle);
-        	$this->droits->getOrAdd(strtolower(DRMDroits::DROIT_DOUANE))->getOrAdd($droitCvo->getCode())->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitDouane->taux, $this->getReportByDroit(strtolower(DRMDroits::DROIT_DOUANE), $droitDouane), $droitDouane->libelle);
+        	if ($droitCvo) {
+        		$this->droits->getOrAdd(strtolower(DRMDroits::DROIT_CVO))->getOrAdd($droitCvo->getCode())->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitCvo->taux, 0, $droitCvo->libelle);
+        	}
+        	if ($droitDouane) {
+        		$this->droits->getOrAdd(strtolower(DRMDroits::DROIT_DOUANE))->getOrAdd($droitDouane->getCode())->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitDouane->taux, $this->getReportByDroit(strtolower(DRMDroits::DROIT_DOUANE), $droitDouane), $droitDouane->libelle);
+        	}
         }
     }
     

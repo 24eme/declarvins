@@ -114,10 +114,19 @@ class DRMDetail extends BaseDRMDetail {
         foreach ($labelLibelles as $label => $libelle) {
         	$this->libelles_label->add($label, $libelle);
         }
-        $this->cvo->taux = $this->getDroit(strtolower(DRMDroits::DROIT_CVO))->getTaux();
-        $this->cvo->volume_taxable = $this->getVolumeTaxable();
-        $this->douane->taux = $this->getDroit(strtolower(DRMDroits::DROIT_DOUANE))->getTaux();
-        $this->douane->volume_taxable = $this->getVolumeTaxable();
+        $droitCvo = $this->getDroit(strtolower(DRMDroits::DROIT_CVO));
+        $droitDouane = $this->getDroit(strtolower(DRMDroits::DROIT_DOUANE));
+        if ($droitCvo) {
+        	$this->cvo->taux = $droitCvo->getTaux();
+        } else {
+        	$this->cvo->taux = 0;
+        }
+        if ($droitDouane) {
+        	$this->douane->taux = $droitDouane->getTaux();
+        } else {
+        	$this->douane->taux = 0;
+        }
+        $this->cvo->volume_taxable = $this->douane->volume_taxable = $this->getVolumeTaxable();
     }
     
     public function getVolumeTaxable()
@@ -193,12 +202,18 @@ class DRMDetail extends BaseDRMDetail {
     public function hasCvo()
     {
     	$cvo = $this->getDroit('cvo');
+    	if (!$cvo) {
+    		return false;
+    	}
     	return !$cvo->isEmpty();
     }
     
     public function hasDouane()
     {
     	$douane = $this->getDroit('douane');
+    	if (!$douane) {
+    		return false;
+    	}
     	return !$douane->isEmpty();
     }
     
