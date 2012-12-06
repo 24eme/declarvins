@@ -102,7 +102,9 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
     	$object = $this->getDocument()->get($key_or_hash);
     	if ($object->count() == 0) {
     		$object->delete();
+    		return true;
     	}
+    	return false;
     }
     
     public function delete() {
