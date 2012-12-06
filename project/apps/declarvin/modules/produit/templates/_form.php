@@ -38,8 +38,9 @@ $(document).ready( function() {
 		var counteur = form.next();
 		var template = $('#template'+form.attr('id'));
 		addLink.click(function() {
-			var subForms = form.children();
+			var subForms = form.children(".ligne_form");
 			var lastIndex = parseInt(subForms.last().attr('data-key'));
+			console.log(lastIndex);
 			template.tmpl({index: (lastIndex + 1)}).appendTo(form);
 			counteur.val(parseInt(counteur.val()) + 1);
 		});

@@ -9,12 +9,12 @@ class ProduitDefinitionForm extends acCouchdbObjectForm {
 			'code' => new sfWidgetFormInputText()  		
     	));
 		$this->widgetSchema->setLabels(array(
-			'libelle' => 'Libellé*: ',
-			'code' => 'Code*: '
+			'libelle' => 'Libellé: ',
+			'code' => 'Code: '
 		));
 		$this->setValidators(array(
-			'libelle' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')),
-			'code' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire'))
+			'libelle' => new sfValidatorString(array('required' => false), array('required' => 'Champ obligatoire')),
+			'code' => new sfValidatorString(array('required' => false), array('required' => 'Champ obligatoire'))
 		));
 		if ($this->getObject()->hasDepartements()) {
 			$this->embedForm(
@@ -133,9 +133,9 @@ class ProduitDefinitionForm extends acCouchdbObjectForm {
     public function save($con = null) {
     	$object = parent::save($con);
     	$values = $this->getValues();
-    	/*if (!empty($values['code']) && $object->getKey() != $values['code']) {
+    	if (!empty($values['code']) && $object->getKey() != $values['code']) {
     		$object = $object->getDocument()->moveAndClean($object->getHash(), $this->replaceKey($object->getHash(), $this->normalizeKey($values['code'], (($object->getTypeNoeud() == ConfigurationCouleur::TYPE_NOEUD)? false : true))));
-    	}*/
+    	}
     	if ($object->hasDepartements()) {
     		$object->remove('departements');
     		$departements = $this->getNoeudDepartement($object);
@@ -146,13 +146,27 @@ class ProduitDefinitionForm extends acCouchdbObjectForm {
     	if ($object->hasDroits()) {
     		$this->getNoeudInterpro($object)->droits->remove('douane');
     		foreach ($values['droit_douane'] as $value) {
-    			$this->setDroit($value['code'], $value['libelle']);
-    			$this->setNodeDroit($this->getNoeudDroit('douane', $object)->add(), $value['date'], $value['taux'], $value['code'], $value['libelle']);
+    			if ($value['taux'] > 0) {
+    				$this->setDroit($value['code'], $value['libelle']);
+    				$date = $value['date'];
+    				if ($date) {
+    					$date = explode('/', $date);
+    					$date = new DateTime($date[2].'-'.$date[1].'-'.$date[0]);
+    				}
+    				$this->setNodeDroit($this->getNoeudDroit('douane', $object)->add(), $date->format('c'), $value['taux'], $value['code'], $value['libelle']);
+    			}
     		}
     		$this->getNoeudInterpro()->droits->remove('cvo');
     		foreach ($values['droit_cvo'] as $value) {
-    			$this->setDroit($value['code'], $value['libelle']);
-    			$this->setNodeDroit($this->getNoeudDroit('cvo', $object)->add(), $value['date'], $value['taux'], $value['code'], $value['libelle']);
+    			if ($value['taux'] > 0) {
+    				$this->setDroit($value['code'], $value['libelle']);
+    				$date = $value['date'];
+    				if ($date) {
+    					$date = explode('/', $date);
+    					$date = new DateTime($date[2].'-'.$date[1].'-'.$date[0]);
+    				}
+    				$this->setNodeDroit($this->getNoeudDroit('cvo', $object)->add(), $date->format('c'), $value['taux'], $value['code'], $value['libelle']);
+    			}
     		}
     	}
     	if ($object->hasLabels()) {

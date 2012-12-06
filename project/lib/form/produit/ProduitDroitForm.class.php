@@ -23,13 +23,14 @@ class ProduitDroitForm extends sfForm {
 			'taux' => new sfValidatorNumber(array('required' => false))
 		));
 		if ($droit = $this->getOption('droit')) {
+			$date = new DateTime($droit->date);
 			$this->setDefaults(array(
-	    		'date' => $droit->date,
+	    		'date' => $date->format('d/m/Y'),
 	    		'code' => $droit->code,
 	    		'libelle' => $droit->libelle,
 	    		'taux' => $droit->taux
 	    	));
-		}
+		}		
         $this->widgetSchema->setNameFormat('produit_droit[%s]');
     }
 }

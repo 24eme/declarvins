@@ -29,8 +29,11 @@ class produitActions extends sfActions
   	$this->nbDouane = $request->getParameter('nb_douane', null);
   	$this->nbCvo = $request->getParameter('nb_cvo', null);
   	$this->nbLabel = $request->getParameter('nb_label', null);
+  	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
   	$hash = str_replace('-', '/', $hash);
   	$object = ConfigurationClient::getCurrent()->getOrAdd($hash);
+  	$object->addInterpro($this->interpro->_id);
+  	$object->updateInterpros();
   	$object = $object->__get($noeud);
   	if ($pile = $this->getUser()->hasAttribute('pile_noeud') && !$request->isMethod(sfWebRequest::POST)) {
   		$pile = $this->getUser()->getAttribute('pile_noeud');
