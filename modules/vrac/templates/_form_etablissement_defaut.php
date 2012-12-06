@@ -34,7 +34,7 @@
             <?php echo $form['code_postal']->render(array('value' => $etablissement->siege->code_postal, 'class' => 'disabled', 'readonly' => 'readonly')) ?>
         </span>
     </div>
-    <div class="vracs_ligne_form ">
+    <div class="vracs_ligne_form vracs_ligne_form_alt">
         <span>
             <?php echo $form['pays']->renderError() ?>
             <?php echo $form['pays']->renderLabel() ?>
@@ -78,7 +78,7 @@
             <?php echo $form['email']->render(array('value' => $etablissement->email, 'class' => 'disabled', 'readonly' => 'readonly')) ?>
         </span>
     </div>
-    <div class="vracs_ligne_form ">
+    <div class="vracs_ligne_form vracs_ligne_form_alt">
         <span>&nbsp;</span>
     </div>
 </div>

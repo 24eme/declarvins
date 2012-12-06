@@ -34,7 +34,7 @@
                 <?php echo $form[$field]['commune']->render() ?>
             </span>
         </div>
-        <div class="vracs_ligne_form ">
+        <div class="vracs_ligne_form vracs_ligne_form_alt">
             <span>
                 <?php echo $form[$field]['pays']->renderError() ?>
                 <?php echo $form[$field]['pays']->renderLabel() ?>
