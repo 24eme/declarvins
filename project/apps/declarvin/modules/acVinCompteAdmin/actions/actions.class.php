@@ -27,13 +27,25 @@ class acVinCompteAdminActions extends sfActions
   	$loginInSession = $this->getUser()->getCompte()->login;
   	$ldap = new Ldap();
   	$ldap->deleteCompte($compte);
-  	$compte->delete();
+  	$compte->statut = _Compte::STATUT_INACTIF;
+  	$compte->save();
   	$this->getUser()->setFlash('notice', 'Compte supprimé avec succès');
   	if ($login == $loginInSession) {
   		$this->redirect("@logout");
   	} else {
   		$this->redirect("@admin_comptes");
   	}
+  }
+  
+  public function executeCompteCreation(sfWebRequest $request)
+  {
+  	$this->forward404Unless($compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
+  	$ldap = new Ldap();
+  	$ldap->saveCompte($compte);
+  	$compte->statut = _Compte::STATUT_ACTIF;
+  	$compte->save();
+  	$this->getUser()->setFlash('notice', 'Compte activé avec succès');
+  	$this->redirect("@admin_comptes");
   }
   
   /*

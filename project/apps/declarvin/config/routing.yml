@@ -155,6 +155,10 @@ compte_recap:
 compte_suppression:
   url:   /admin/compte-supprimer/:login
   param: { module: acVinCompteAdmin, action: compteSuppression }
+  
+compte_creation:
+  url:   /admin/compte-creer/:login
+  param: { module: acVinCompteAdmin, action: compteCreation }
 
 compte_modification:
   url:   /admin/compte-modification/:login

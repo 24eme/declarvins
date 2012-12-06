@@ -27,7 +27,7 @@
 
 	<p class="total_manq_exce">Total Manquants ou Excédents (<span class="unite">hl</span>)</p>
 
-	<p class="stock_th">Stock mensuel théorique</p>
+	<p class="stock_th">Stock moyen mensuel</p>
 
 	<div class="groupe demarrage-ouvert bloque" data-groupe-id="2">
 		<p>dont Stock moyen volume vinifié et soldé dans l'année</p>

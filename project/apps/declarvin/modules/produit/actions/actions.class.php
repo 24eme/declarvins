@@ -33,7 +33,6 @@ class produitActions extends sfActions
   	$hash = str_replace('-', '/', $hash);
   	$object = ConfigurationClient::getCurrent()->getOrAdd($hash);
   	$object->addInterpro($this->interpro->_id);
-  	$object->updateInterpros();
   	$object = $object->__get($noeud);
   	if ($pile = $this->getUser()->hasAttribute('pile_noeud') && !$request->isMethod(sfWebRequest::POST)) {
   		$pile = $this->getUser()->getAttribute('pile_noeud');
@@ -97,8 +96,12 @@ class produitActions extends sfActions
   	$this->nbLabel = $request->getParameter('nb_label', null);
   	$hash = str_replace('-', '/', $hash);
   	$object = ConfigurationClient::getCurrent()->getOrAdd($hash);
+  	while ($object->getParent()->count() == 1) {
+  		$object = $object->getParentNode();
+  	}
+  	$doc = $object->getDocument();
   	$object->delete();
-  	$object->getDocument()->save();
+  	$doc->save();
 	$this->redirect('produits');
   }
   private function getNextHash($object) {

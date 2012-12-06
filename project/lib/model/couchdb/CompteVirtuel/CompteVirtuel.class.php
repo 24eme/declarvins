@@ -13,6 +13,7 @@ class CompteVirtuel extends BaseCompteVirtuel {
     const VIEW_KEY_LOGIN = 4;
     const VIEW_KEY_EMAIl = 5;
     const VIEW_KEY_TELEPHONE = 6;
+    const VIEW_KEY_STATUT = 7;
 
 
     public function getGerantInterpro() {

@@ -41,7 +41,7 @@ use_helper('Text');
                 <span><?php echo truncate_text($etablissement->getDenomination(),20); ?></span>
             </a>
         </li>
-        <li class="quitter"><a href="<?php echo url_for('@ac_vin_logout'); ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
+        <li class="quitter"><a href="<?php echo ($sf_user->getCompte()->exist('tiers') && count($sf_user->getCompte()->tiers) > 1)? url_for('@tiers') : url_for('@ac_vin_logout'); ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
     </ul>
 </nav>
 

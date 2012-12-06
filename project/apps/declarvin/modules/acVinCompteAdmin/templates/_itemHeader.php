@@ -1,4 +1,5 @@
 <tr>
+	<th><strong>Statut</strong></th>
 	<th><strong>Login</strong></th>
 	<th><strong>Nom</strong></th>
 	<th><strong>Prénom</strong></th>

@@ -19,7 +19,7 @@ class tiersActions extends sfActions
   {
 
 	  $this->compte = $this->getUser()->getCompte();
-
+	  
     if (count($this->compte->tiers) == 1) {
       
       return $this->redirect("tiers_mon_espace", EtablissementClient::getInstance()->find($this->compte->tiers->getFirst()->id));

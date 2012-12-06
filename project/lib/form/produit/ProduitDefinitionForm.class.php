@@ -6,7 +6,7 @@ class ProduitDefinitionForm extends acCouchdbObjectForm {
     public function configure() {
     	$this->setWidgets(array(
 			'libelle' => new sfWidgetFormInputText(),
-			'code' => new sfWidgetFormInputText()  		
+			'code' => new sfWidgetFormInputText()
     	));
 		$this->widgetSchema->setLabels(array(
 			'libelle' => 'Libellé: ',
@@ -16,6 +16,7 @@ class ProduitDefinitionForm extends acCouchdbObjectForm {
 			'libelle' => new sfValidatorString(array('required' => false), array('required' => 'Champ obligatoire')),
 			'code' => new sfValidatorString(array('required' => false), array('required' => 'Champ obligatoire'))
 		));
+		
 		if ($this->getObject()->hasDepartements()) {
 			$this->embedForm(
 				'secteurs', 
@@ -47,7 +48,7 @@ class ProduitDefinitionForm extends acCouchdbObjectForm {
 			);
 		}
         $this->widgetSchema->setNameFormat('produit_definition[%s]');
-        $this->mergePostValidator(new ProduitDefinitionValidatorSchema());
+        $this->mergePostValidator(new ProduitDefinitionValidatorSchema($this->getObject()));
     }
     
     public function getHash() {
