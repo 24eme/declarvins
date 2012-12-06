@@ -28,6 +28,7 @@ abstract class acVinCompte extends BaseacVinCompte
     const STATUT_NOUVEAU = 'NOUVEAU';
     const STATUT_INSCRIT = 'INSCRIT';
     const STATUT_INACTIF = 'INACTIF';
+    const STATUT_ACTIF = 'ACTIF';
     const STATUT_MOT_DE_PASSE_OUBLIE = 'MOT_DE_PASSE_OUBLIE';
     
 	/**
