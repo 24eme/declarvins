@@ -91,6 +91,9 @@ class DRMValidation
 		if ($detail->sorties->pertes > 0) {
 			$this->engagements['pertes'] = new DRMControleEngagement('pertes');
 		}
+		if (!$detail->hasCvo() || !$detail->hasDouane()) {
+			$this->errors['droits_'.$detail->getIdentifiantHTML()] = new DRMControleEngagement('droits');
+		}
 	}
 	
 	private function controleErrors($detail)
@@ -126,9 +129,6 @@ class DRMValidation
 				}
 			}
 		}
-		/*if (!$detail->hasCvo() || !$detail->hasDouane()) {
-			$this->errors['droits_'.$detail->getIdentifiantHTML()] = new DRMControleError('droits', self::NO_LINK);
-		}*/
 	}
 	
 	private function controleWarnings($detail)
