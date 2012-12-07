@@ -108,8 +108,8 @@ class EtablissementClient extends acCouchdbClient {
 
     public function matchSousFamille($sf) {
       $sf = KeyInflector::slugify($sf);
-      $matches = array("particuli.{1}re" => EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE,
-      					 "coop.{1}rative" => EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE,
+      $matches = array("cave.{1}particuli.{1}re" => EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE,
+      					 "cave.{1}coop.{1}rative" => EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE,
                          "r.{1}gional" => EtablissementFamilles::SOUS_FAMILLE_REGIONAL,
                          "ext.{1}rieur" => EtablissementFamilles::SOUS_FAMILLE_EXTERIEUR,
                          ".{1}tranger" =>  EtablissementFamilles::SOUS_FAMILLE_ETRANGER,
