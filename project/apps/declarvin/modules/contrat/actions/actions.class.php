@@ -153,7 +153,10 @@ class contratActions extends sfActions
     if ($request->isMethod(sfWebRequest::POST)) {
         $this->form->bind($request->getParameter($this->form->getName()));
         if ($this->form->isValid()) {
-           $this->form->save();
+           $contrat = $this->form->save();
+           $compte = $contrat->getCompteObject();
+           $compte->email = $contrat->email;
+           $compte->save();
            $this->getUser()->setFlash('success', 'Modification prise en compte, vous devriez recevoir un nouvel email');
            $this->redirect('@contrat_etablissement_confirmation');
         }

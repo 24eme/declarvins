@@ -47,7 +47,7 @@ class ImportEtablissementsCsv {
         $etab->comptabilite->commune = $line[EtablissementCsv::COL_COMPTA_CODE_POSTAL];
         $etab->comptabilite->pays = $line[EtablissementCsv::COL_COMPTA_PAYS];
         $etab->service_douane = $line[EtablissementCsv::COL_SERVICE_DOUANE];
-	$etab->interpro = $this->_interpro->get('_id');
+		$etab->interpro = $line[EtablissementCsv::COL_INTERPRO];
 
         return $etab;
     }
@@ -94,20 +94,33 @@ class ImportEtablissementsCsv {
       return $this->updateOrCreate(true);
     }  
 
-    public function updateOrCreate($dontcreate = false) {
-      $cpt = 0;
-      foreach ($this->_csv as $line) {
-	if (!$dontcreate)
-	  $etab = EtablissementClient::getInstance()->retrieveOrCreateById($line[EtablissementCsv::COL_ID]);
-	else
-	  $etab = EtablissementClient::getInstance()->retrieveById($line[EtablissementCsv::COL_ID]);
-	if ($etab) {
-	  $etab = $this->bind($etab, $line);
-	  $etab->save();
-	  $cpt++;
-	}
-      }
-      return $cpt;
+	public function updateOrCreate($dontcreate = false) 
+    {
+    	$cpt = 0;
+      	foreach ($this->_csv as $line) {
+			if (!$dontcreate)
+	  			$etab = EtablissementClient::getInstance()->retrieveOrCreateById($line[EtablissementCsv::COL_ID]);
+			else
+	  			$etab = EtablissementClient::getInstance()->retrieveById($line[EtablissementCsv::COL_ID]);
+			if ($etab) {
+	  			$etab = $this->bind($etab, $line);
+	  			$etab->save();
+	  			$this->updateCompte($line);
+	  			$cpt++;
+			}
+      	}
+      	return $cpt;
     }  
+    
+    private function updateCompte($line) 
+    {
+    	$contrat = ContratClient::getInstance()->retrieveById($line[EtablissementCsv::COL_NUMERO_CONTRAT]);
+    	$compte = $contrat->getCompteObject();
+    	if (!$compte->interpro->exist($line[EtablissementCsv::COL_INTERPRO])) {
+    		$interpro = $compte->interpro->add($line[EtablissementCsv::COL_INTERPRO]);
+    		$interpro->statut = _Compte::STATUT_VALIDATION_ATTENTE;
+    		$compte->save();
+    	}
+    }
 }
 

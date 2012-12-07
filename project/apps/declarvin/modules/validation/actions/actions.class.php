@@ -114,7 +114,27 @@ class validationActions extends sfActions {
             $this->formLiaison->bind($request->getParameter($this->formLiaison->getName()));
             if ($this->formLiaison->isValid()) {
                 $this->formLiaison->save();
-                $this->getUser()->setFlash('notification_general', 'Liaisons interpro faites');
+                
+                
+                $valide = true;
+        		foreach ($this->compte->interpro as $interpro) {
+        			if ($interpro->statut != _Compte::STATUT_VALIDATION_VALIDE) {
+        				$valide = false;
+        				break;
+        			}
+        		}
+        		if ($this->compte->statut == _Compte::STATUT_INACTIVE && $valide) {
+        			$this->compte->setStatut(_Compte::STATUT_ACTIVE);
+        			if (!$this->compte->login) {
+        				$this->sendRegistration($this->compte);
+        			}
+        			$this->compte->save();
+					$ldap = new Ldap();
+					$ldap->saveCompte($this->compte);
+        			$this->getUser()->setFlash('notification_general', 'Compte validé');
+        		} else {
+        			 $this->getUser()->setFlash('notification_general', 'Liaisons interpro faites');
+        		}               
             	$this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
             }
         }
@@ -214,8 +234,10 @@ class validationActions extends sfActions {
         $etablissement->statut = Etablissement::STATUT_ACTIF;
         $etablissement->save();
 		$compte->addEtablissement($etablissement);
-        $compte->interpro->add($interpro->get('_id'))->setStatut(_Compte::STATUT_VALIDATION_ATTENTE);
-        $compte->save();
+		if (!$compte->interpro->exist($interpro->get('_id'))) {
+        	$compte->interpro->add($interpro->get('_id'))->setStatut(_Compte::STATUT_VALIDATION_ATTENTE);
+		}
+		$compte->save();
         $this->getUser()->setFlash('notification_general', "L'établissement a bien été lié");
         $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
     }
@@ -230,9 +252,12 @@ class validationActions extends sfActions {
         $compte->tiers->remove($etablissement->get('_id'));
         if ($compte->tiers->count() == 0) {
         	if ($compte->interpro->exist($interpro->get('_id'))) {
-        		$compte->interpro->remove($interpro->get('_id'));
+        		$interpro = $compte->interpro->get($interpro->get('_id'));
+        		$interpro->statut = _Compte::STATUT_VALIDATION_ATTENTE;
         	}
-        	$compte->setStatut(_Compte::STATUT_INACTIVE);
+        	if ($compte->interpro->count() == 0) {
+        		$compte->setStatut(_Compte::STATUT_INACTIVE);
+        	}
         }
         $compte->save();
         $this->getUser()->setFlash('notification_general', "L'établissement a bien été délié");

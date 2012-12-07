@@ -35,8 +35,11 @@ class PrintablePDF extends PrintableOutput {
     }
 
     public function removeCache() {
-        if (file_exists($this->pdf_file))
-            return unlink($this->pdf_file);
+        if (file_exists($this->pdf_file)) {
+            $unlink =  unlink($this->pdf_file);
+        	$this->init();
+        	return $unlink;
+        }
         return true;
     }
 

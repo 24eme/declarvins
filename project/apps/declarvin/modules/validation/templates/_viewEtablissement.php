@@ -11,7 +11,7 @@
     <?php endif; ?>
     
     <br /><br />
-    Familles : <?php echo $etablissement->famille ?> / <?php echo $etablissement->sous_famille ?>
+    Familles : <?php echo EtablissementFamilles::getFamilleLibelle($etablissement->famille) ?> / <?php echo EtablissementFamilles::getSousFamilleLibelle($etablissement->famille, $etablissement->sous_famille) ?>
     <br />
     Douane : <?php echo $etablissement->service_douane ?>
     <?php if ($interpro->get('_id') == $etablissement->getInterpro()): ?>

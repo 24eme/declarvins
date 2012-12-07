@@ -17,7 +17,7 @@ class ContratClient extends acCouchdbClient {
      * @return Contrat 
      */
     public function retrieveById($id, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
-        return parent::retrieveDocumentById('CONTRAT-'.$id, $hydrate);
+        return parent::find('CONTRAT-'.$id, $hydrate);
     }
     
     /**
