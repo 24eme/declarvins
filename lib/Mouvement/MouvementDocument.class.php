@@ -22,6 +22,14 @@ class MouvementDocument
         $this->document->set($this->hash, $this->document->getMouvementsCalcule());
     }
 
+    public function facturerMouvements() {
+        foreach($this->document->getMouvements() as $mouvements) {
+            foreach($mouvements as $mouvement) {
+                $mouvement->facturer();
+            }
+        }
+    }
+
     public function findMouvement($cle_mouvement){
         foreach($this->document->getMouvements() as $identifiant => $mouvements) {
             if (array_key_exists($cle_mouvement, $mouvements->toArray())) {
