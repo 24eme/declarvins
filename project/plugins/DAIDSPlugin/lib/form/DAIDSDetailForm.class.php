@@ -16,8 +16,6 @@ class DAIDSDetailForm extends acCouchdbObjectForm
     	$this->setWidget('total_pertes_autorisees', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
     	$this->setWidget('total_manquants_taxables', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
     	$this->setWidget('total_droits', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
-    	$this->setWidget('total_regulation', new sfWidgetFormInputFloat());
-    	$this->setWidget('total_droits_regulation', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
     	$this->setWidget('stock_theorique', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
     	$this->setWidget('stock_chais', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
     	$this->setWidget('stock_propriete', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
@@ -27,8 +25,6 @@ class DAIDSDetailForm extends acCouchdbObjectForm
     	$this->setValidator('total_pertes_autorisees', new sfValidatorNumber(array('required' => false)));
     	$this->setValidator('total_manquants_taxables', new sfValidatorNumber(array('required' => false)));
     	$this->setValidator('total_droits', new sfValidatorNumber(array('required' => false)));
-    	$this->setValidator('total_regulation', new sfValidatorNumber(array('required' => false)));
-    	$this->setValidator('total_droits_regulation', new sfValidatorNumber(array('required' => false)));
     	$this->setValidator('stock_theorique', new sfValidatorNumber(array('required' => false)));
     	$this->setValidator('stock_chais', new sfValidatorNumber(array('required' => false)));
     	$this->setValidator('stock_propriete', new sfValidatorNumber(array('required' => false)));
@@ -40,7 +36,7 @@ class DAIDSDetailForm extends acCouchdbObjectForm
         $this->stocks = new DAIDSDetailStocksForm($this->getObject()->stocks);
         $this->embedForm('stocks', $this->stocks);
             
-        $this->stock_propriete_details = new DAIDSDetailStockProprieteDetailsForm($this->getObject()->stock_propriete_details);
+        $this->stock_propriete_details = new DAIDSDetailStockProprieteDetailsForm($this->getObject()->stock_propriete_details, $this->_configurationDAIDS);
         $this->embedForm('stock_propriete_details', $this->stock_propriete_details);
 
         $this->stocks_moyen = new DAIDSDetailStocksMoyenForm($this->getObject()->stocks_moyen, $this->_configurationDAIDS);

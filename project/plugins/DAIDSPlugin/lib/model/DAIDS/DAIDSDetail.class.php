@@ -92,13 +92,17 @@ class DAIDSDetail extends BaseDAIDSDetail {
         $this->stock_chais = $this->stocks->chais + $this->stocks->propriete_tiers;
         $this->stock_propriete = $this->stocks->chais + $this->stocks->tiers;
         $this->total_manquants_excedents = $this->stock_chais - $this->stock_theorique;
+        $this->stock_propriete_details->vrac_libre = $this->stock_propriete_details->conditionne - $this->stock_propriete_details->vrac_vendu;
         $this->stocks_moyen->vinifie->total = $this->stocks_moyen->vinifie->taux * $this->stocks_moyen->vinifie->volume * 0.01;
         $this->stocks_moyen->non_vinifie->total = $this->stocks_moyen->non_vinifie->taux * $this->stocks_moyen->non_vinifie->volume;
         $this->stocks_moyen->conditionne->total = $this->stocks_moyen->conditionne->taux * $this->stocks_moyen->conditionne->volume;
+        $this->stock_propriete_details->reserve = $this->stock_propriete_details->taux_reserve_bloque * $this->stock_propriete;
         $this->total_pertes_autorisees = $this->stocks_moyen->vinifie->total + $this->stocks_moyen->non_vinifie->total + $this->stocks_moyen->conditionne->total;
-        $this->total_manquants_taxables = $this->total_pertes_autorisees - $this->total_manquants_excedents;
+        $this->total_manquants_taxables = $this->total_manquants_excedents - $this->total_pertes_autorisees;
+        if ($this->total_manquants_taxables < 0) {
+        	$this->total_manquants_taxables = 0;
+        }
         $this->total_droits = $this->douane->taux * $this->total_manquants_taxables;
-        $this->total_droits_regulation = $this->total_droits - $this->total_regulation;
     }
 
     public function nbToComplete() {

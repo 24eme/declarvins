@@ -15,8 +15,6 @@
  * @property float $total_pertes_autorisees
  * @property float $total_manquants_taxables
  * @property float $total_droits
- * @property float $regulation
- * @property float $total_droits_regulation
  * @property float $stock_theorique
  * @property DAIDSDetailStocks $stocks
  * @property float $stock_chais
@@ -47,10 +45,6 @@
  * @method float setTotalManquantsTaxables()
  * @method float getTotalDroits()
  * @method float setTotalDroits()
- * @method float getTotalRegulation()
- * @method float setTotalRegulation()
- * @method float getTotalDroitsRegulation()
- * @method float setTotalDroitsRegulation()
  * @method float getStockTheorique()
  * @method float setStockTheorique()
  * @method DAIDSDetailStocks getStocks()

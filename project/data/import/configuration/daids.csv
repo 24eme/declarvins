@@ -1,4 +1,4 @@
-"#Interpro";"stocks moyen vinifié";"sotcks moyen non vinifié";"stocks moyen conditionné"
-"IR";"forfaitaire_general:Taux forfaitaire général&2.5|forfaitaire_optionnel:Taux forfaitaire optionnel&6|forfaitaire_effervescent:Taux forfaitaire effervescent&4";"forfaitaire:Taux forfaitaire&1";"forfaitaire:Taux forfaitaire&1"
-"IVSE";"forfaitaire_general:Taux forfaitaire général&2.5|forfaitaire_optionnel:Taux forfaitaire optionnel&6|forfaitaire_effervescent:Taux forfaitaire effervescent&4";"forfaitaire:Taux forfaitaire&1";"forfaitaire:Taux forfaitaire&1"
-"CIVP";"forfaitaire_x:Taux X&5|forfaitaire_y:Taux Y&7";"forfaitaire:Taux forfaitaire&1";"forfaitaire:Taux forfaitaire&1"
+"#Interpro";"stocks moyen vinifié";"sotcks moyen non vinifié";"stocks moyen conditionné";"reserve bloqué"
+"IR";"forfaitaire_general:Volume forfaitaire général&2.5|forfaitaire_optionnel:Volume forfaitaire optionnel (bois, VDN, petit volume)&6|forfaitaire_effervescent:Volume forfaitaire effervescent&4";"forfaitaire:Volume CGI&100";"forfaitaire:Volume forfaitaire&1";"taux:5"
+"IVSE";"forfaitaire_general:Volume forfaitaire général&2.5|forfaitaire_optionnel:Volume forfaitaire optionnel (bois, VDN, petit volume)&6|forfaitaire_effervescent:Volume forfaitaire effervescent&4";"forfaitaire:Volume CGI&100";"forfaitaire:Volume forfaitaire&1";"taux:5"
+"CIVP";"forfaitaire_x:Volume X&5|forfaitaire_y:Volume Y&7";"forfaitaire:Volume CGI&100";"forfaitaire:Volume forfaitaire&1";"taux:5"

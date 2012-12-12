@@ -33,8 +33,6 @@ DAIDS:
             total_pertes_autorisees: { type: float }
             total_manquants_taxables: { type: float }
             total_droits: { type: float }
-            total_regulation: { type: float }
-            total_droits_regulation: { type: float }
             certifications:
               type: collection
               definition:
@@ -52,8 +50,6 @@ DAIDS:
                         total_pertes_autorisees: { type: float }
                         total_manquants_taxables: { type: float }
                         total_droits: { type: float }
-                        total_regulation: { type: float }
-                        total_droits_regulation: { type: float }
                         genres:
                           type: collection
                           definition:
@@ -71,8 +67,6 @@ DAIDS:
                                     total_pertes_autorisees: { type: float }
                                     total_manquants_taxables: { type: float }
                                     total_droits: { type: float }
-                                    total_regulation: { type: float }
-                                    total_droits_regulation: { type: float }
                                     appellations:
                                       type: collection
                                       definition:
@@ -90,8 +84,6 @@ DAIDS:
                                                 total_pertes_autorisees: { type: float }
                                                 total_manquants_taxables: { type: float }
                                                 total_droits: { type: float }
-                                                total_regulation: { type: float }
-                                                total_droits_regulation: { type: float }
                                                 mentions:
                                                   type: collection
                                                   definition:
@@ -109,8 +101,6 @@ DAIDS:
                                                             total_pertes_autorisees: { type: float }
                                                             total_manquants_taxables: { type: float }
                                                             total_droits: { type: float }
-                                                            total_regulation: { type: float }
-                                                            total_droits_regulation: { type: float }
                                                             lieux:
                                                               type: collection
                                                               definition:
@@ -128,8 +118,6 @@ DAIDS:
                                                                         total_pertes_autorisees: { type: float }
                                                                         total_manquants_taxables: { type: float }
                                                                         total_droits: { type: float }
-                                                                        total_regulation: { type: float }
-                                                                        total_droits_regulation: { type: float }
                                                                         couleurs:
                                                                           type: collection
                                                                           definition:
@@ -147,8 +135,6 @@ DAIDS:
                                                                                     total_pertes_autorisees: { type: float }
                                                                                     total_manquants_taxables: { type: float }
                                                                                     total_droits: { type: float }
-                                                                                    total_regulation: { type: float }
-                                                                                    total_droits_regulation: { type: float }
                                                                                     cepages:
                                                                                       type: collection
                                                                                       definition:
@@ -166,8 +152,6 @@ DAIDS:
                                                                                                 total_pertes_autorisees: { type: float }
                                                                                                 total_manquants_taxables: { type: float }
                                                                                                 total_droits: { type: float }
-                                                                                                total_regulation: { type: float }
-                                                                                                total_droits_regulation: { type: float }
                                                                                                 details:
                                                                                                   type: collection
                                                                                                   class: DAIDSDetails
@@ -205,8 +189,6 @@ DAIDS:
                                                                                                             total_pertes_autorisees: { type: float }
                                                                                                             total_manquants_taxables: { type: float }
                                                                                                             total_droits: { type: float }
-                                                                                                            total_regulation: { type: float }
-                                                                                                            total_droits_regulation: { type: float }
                                                                                                             stock_theorique: { type: float }
                                                                                                             stocks:
                                                                                                               type: collection
@@ -223,6 +205,7 @@ DAIDS:
                                                                                                               class: DAIDSDetailStockProprieteDetails
                                                                                                               definition:
                                                                                                                 fields:
+                                                                                                                  taux_reserve_bloque: { type: float }
                                                                                                                   reserve: { type: float }
                                                                                                                   vrac_vendu: { type: float }
                                                                                                                   vrac_libre: { type: float }

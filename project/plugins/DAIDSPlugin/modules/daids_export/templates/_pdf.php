@@ -90,21 +90,13 @@
 																	   'colonnes' => $colonnes,
 																	   'hash' => 'total_manquants_taxables')) ?>
 
-				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Régulation, correction ou avoir',
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Total droits à payer',
 																	   'unite' => '€',
 	    						  								       'counter' => 8,
 																	   'cssclass_libelle' => 'total',
 																  	   'cssclass_value' => 'total',
 																	   'colonnes' => $colonnes,
-																	   'hash' => 'total_regulation')) ?>
-
-				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Total droits à payer',
-																	   'unite' => '€',
-	    						  								       'counter' => 9,
-																	   'cssclass_libelle' => 'total',
-																  	   'cssclass_value' => 'total',
-																	   'colonnes' => $colonnes,
-																	   'hash' => 'total_droits_regulation')) ?>
+																	   'hash' => 'total_droits')) ?>
 
 			</table>
 		<?php endif; ?>

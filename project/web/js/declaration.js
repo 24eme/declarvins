@@ -41,6 +41,7 @@
 			$.verifierChampsNombre();
 			$.calculerSommesChamps();
 			$.calculerChampsInterdependants();
+			$.liaisonChampsInterdependants();
 			$.toggleGroupesChamps();
 			$.initChoixRadio();
 		}
@@ -259,7 +260,7 @@
 		{
 			$.calculerSommesChamps();
 			$.calculerChampsInterdependants();
-			
+			$.liaisonChampsInterdependants();
 			
 			var form = colActive.find('form');
 			var donneesCol = form.serializeArray();
@@ -622,6 +623,7 @@
 				{
 					$.calculerSommesChamps();
 					$.calculerChampsInterdependants();
+					$.liaisonChampsInterdependants();
 				}
 			);
 		});
@@ -751,8 +753,11 @@
 					resultat *= 0.01;
 				}
 
+				if (champsCalcul.hasClass('not_null_value') && resultat < 0) {
+					resultat = 0;
+				}
+				
 				resultat = resultat.toFixed(2);
-
 				champCalcul.val(resultat);
 
 				if(resultat > 0) champCalcul.addClass('positif');
@@ -761,6 +766,37 @@
 		}
 	};
 
+
+	/**
+	 * Liaison des champs interdépendants
+	 * $.liaisonChampsInterdependants();
+	 ******************************************/
+	$.liaisonChampsInterdependants = function()
+	{
+		if(colActive)
+		{
+			var champsLiaison = colActive.find('input[data-liaison]');
+			
+			// Parcours des champs à liaison automatique
+			champsLiaison.each(function()
+			{
+				var champLiaison = $(this);
+				var tabChamps = champLiaison.attr('data-liaison').split(';');
+				champLiaison.removeClass('positif').removeClass('negatif');
+				
+				// Parcours des champs concernés
+				for(var i = 0; i < tabChamps.length; i++)
+				{
+					if (champLiaison.val()) {
+						val = parseFloat(champLiaison.val());
+						$(tabChamps[i]).val(val.toFixed(2));
+					}
+					
+				} 
+			});
+			$.calculerChampsInterdependants();
+		}
+	};
 	/**
 	 * Choix par boutons radio
 	 * $.initChoixRadio();
