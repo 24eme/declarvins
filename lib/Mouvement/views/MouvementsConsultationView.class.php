@@ -20,6 +20,8 @@ class MouvementsConsultationView extends acCouchdbView
     const VALUE_DETAIL_LIBELLE = 5;
     const VALUE_DATE_VERSION = 6;
     const VALUE_VERSION = 7;
+    const VALUE_CVO = 8;
+    const VALUE_FACTURABLE = 9;
 
     public static function getInstance() {
 
@@ -70,6 +72,8 @@ class MouvementsConsultationView extends acCouchdbView
         $mouvement->version = $row->value[self::VALUE_VERSION];
         $mouvement->vrac_numero =  $row->key[self::KEY_VRAC_NUMERO];
         $mouvement->vrac_destinataire =  $row->value[self::VALUE_VRAC_DESTINATAIRE];
+        $mouvement->cvo =  $row->value[self::VALUE_CVO];
+        $mouvement->facturable =  $row->value[self::VALUE_FACTURABLE];
 
         return $mouvement;
     }

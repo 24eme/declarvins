@@ -27,7 +27,7 @@ class MouvementFacturationView extends acCouchdbView
 
     public static function getInstance() {
 
-        return acCouchdbManager::getView('mouvement', 'facturation');
+        return acCouchdbManager::getView('mouvementfacture', 'facturation');
     }
     
     public function getMouvementsByEtablissement($etablissement,$facturee, $facturable) {        
