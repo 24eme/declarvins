@@ -263,5 +263,12 @@ class validationActions extends sfActions {
         $this->getUser()->setFlash('notification_general', "L'établissement a bien été délié");
         $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
     }
+	  public function executePdf(sfWebRequest $request)
+	  {
+    	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
+    	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
+	  	$pdf = new ExportContratPdf($this->contrat);
+		return $this->renderText($pdf->render($this->getResponse()));
+	  }
 
 }
