@@ -1,6 +1,6 @@
 <?php
 
-class MouvementFacturationView extends acCouchdbView
+class MouvementfactureFacturationView extends acCouchdbView
 {
     
     const KEYS_FACTURE = 0;
