@@ -36,8 +36,9 @@ class CompteModificationDroitForm extends CompteModificationForm {
      
      public function doUpdateObject($values) {
 		parent::doUpdateObject($values);
-		
         if (!$this->getObject()->isNew()) {
+		
+			$this->getObject()->setMotDePasseSSHA($values['mdp1']);
                         if($this->getObject()->get('_id')!='COMPTE-'.$this->getObject()->login)
                         {
                             throw new sfException("You can not modify this login.");
