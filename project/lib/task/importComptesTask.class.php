@@ -49,7 +49,7 @@ EOF;
     $compte->email = 'mcouderc@provencewines.com';
     $compte->mot_de_passe = "actualys";
     $compte->droits->add(null, 'admin');
-    $compte->interpro = array("INTERPRO-CIVP" => array('statut' => _Compte::STATUT_VALIDATION_VALIDE));
+    $compte->interpro = array("INTERPRO-CIVP" => array('statut' => "VALIDE"));
     $compte->save();
     $ldap = new Ldap();
     $ldap->saveCompte($compte);
@@ -63,7 +63,7 @@ EOF;
     $compte->email = 'beymard@inter-rhone.com';
     $compte->mot_de_passe = "actualys";
     $compte->droits->add(null, 'admin');
-    $compte->interpro = array("INTERPRO-IR" => array('statut' => _Compte::STATUT_VALIDATION_VALIDE));
+    $compte->interpro = array("INTERPRO-IR" => array('statut' => "VALIDE"));
     $compte->save();
     $ldap = new Ldap();
     $ldap->saveCompte($compte);
@@ -78,7 +78,7 @@ EOF;
     $compte->email = 'marie.de-monte@intervins-sudest.org';
     $compte->mot_de_passe = "actualys";
     $compte->droits->add(null, 'admin');
-    $compte->interpro = array("INTERPRO-IVSE" => array('statut' => _Compte::STATUT_VALIDATION_VALIDE));
+    $compte->interpro = array("INTERPRO-IVSE" => array('statut' => "VALIDE"));
     $compte->save();
     $ldap = new Ldap();
     $ldap->saveCompte($compte);
@@ -93,7 +93,7 @@ EOF;
     $compte->login = 'civp-corinne';
     $compte->email = 'test@example.org';
     $compte->mot_de_passe = "actualys";
-    $compte->interpro = array("INTERPRO-CIVP" => array('statut' => _Compte::STATUT_VALIDATION_VALIDE));
+    $compte->interpro = array("INTERPRO-CIVP" => array('statut' => "VALIDE"));
     $compte->tiers = array("ETABLISSEMENT-9223700102" => array("id" => "ETABLISSEMENT-9223700102",
                                                                "type" => "Etablissement",
                                                                "nom" => "Château Corinne",
@@ -112,7 +112,7 @@ EOF;
     $compte->login = 'civp-thierry';
     $compte->email = 'tgigon@provencewines.com';
     $compte->mot_de_passe = "actualys";
-    $compte->interpro = array("INTERPRO-CIVP" => array("statut" => _Compte::STATUT_VALIDATION_VALIDE));
+    $compte->interpro = array("INTERPRO-CIVP" => array("statut" => "VALIDE"));
     $compte->tiers = array("ETABLISSEMENT-9223700103" => array("id" => "ETABLISSEMENT-9223700103",
                                                                "type" => "Etablissement",
                                                                "nom" => "Château Thierry",
@@ -139,7 +139,7 @@ EOF;
     $compte->nom = "Login";
     $compte->prenom = "Auto";
     $compte->login = 'autologin';
-    $compte->interpro = array('INTERPRO-IR' => array('statut' => _Compte::STATUT_VALIDATION_VALIDE));
+    $compte->interpro = array('INTERPRO-IR' => array('statut' => "VALIDE"));
     $compte->email = 'autologin@example.org';
     $compte->save();
 
