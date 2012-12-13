@@ -114,12 +114,16 @@ class ImportEtablissementsCsv {
     
     private function updateCompte($line) 
     {
-    	$contrat = ContratClient::getInstance()->retrieveById($line[EtablissementCsv::COL_NUMERO_CONTRAT]);
-    	$compte = $contrat->getCompteObject();
-    	if (!$compte->interpro->exist($line[EtablissementCsv::COL_INTERPRO])) {
-    		$interpro = $compte->interpro->add($line[EtablissementCsv::COL_INTERPRO]);
-    		$interpro->statut = _Compte::STATUT_VALIDATION_ATTENTE;
-    		$compte->save();
+    	if ($line[EtablissementCsv::COL_NUMERO_CONTRAT]) {
+	    	$contrat = ContratClient::getInstance()->retrieveById($line[EtablissementCsv::COL_NUMERO_CONTRAT]);
+	    	if ($contrat) {
+		    	$compte = $contrat->getCompteObject();
+		    	if (!$compte->interpro->exist($line[EtablissementCsv::COL_INTERPRO])) {
+		    		$interpro = $compte->interpro->add($line[EtablissementCsv::COL_INTERPRO]);
+		    		$interpro->statut = _Compte::STATUT_VALIDATION_ATTENTE;
+		    		$compte->save();
+		    	}
+	    	}
     	}
     }
 }
