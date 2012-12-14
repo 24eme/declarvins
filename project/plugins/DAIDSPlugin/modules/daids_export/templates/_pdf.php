@@ -90,13 +90,21 @@
 																	   'colonnes' => $colonnes,
 																	   'hash' => 'total_manquants_taxables')) ?>
 
-				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Total droits à payer',
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Total droits de circulation à payer',
 																	   'unite' => '€',
 	    						  								       'counter' => 8,
 																	   'cssclass_libelle' => 'total',
 																  	   'cssclass_value' => 'total',
 																	   'colonnes' => $colonnes,
-																	   'hash' => 'total_droits')) ?>
+																	   'hash' => 'total_douane')) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Total cotisations interprofessionnelles à payer',
+																	   'unite' => '€',
+	    						  								       'counter' => 9,
+																	   'cssclass_libelle' => 'total',
+																  	   'cssclass_value' => 'total',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'total_cvo')) ?>
 
 			</table>
 		<?php endif; ?>

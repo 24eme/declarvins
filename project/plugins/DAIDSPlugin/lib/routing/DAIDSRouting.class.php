@@ -226,6 +226,12 @@ class DAIDSRouting {
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
                 )));
+                
+        $r->prependRoute('admin_daids', new sfRoute('/admin/daids', array('module' => 'daids_admin', 
+									'action' => 'index')));
+                
+        $r->prependRoute('admin_daids_edit', new sfRoute('/admin/daids/edit-taux', array('module' => 'daids_admin', 
+									'action' => 'editTaux')));
     }
 
 }

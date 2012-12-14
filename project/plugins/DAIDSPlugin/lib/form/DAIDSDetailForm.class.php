@@ -15,7 +15,7 @@ class DAIDSDetailForm extends acCouchdbObjectForm
     	$this->setWidget('total_manquants_excedents', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
     	$this->setWidget('total_pertes_autorisees', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
     	$this->setWidget('total_manquants_taxables', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
-    	$this->setWidget('total_droits', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
+    	$this->setWidget('total_douane', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
     	$this->setWidget('stock_theorique', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
     	$this->setWidget('stock_chais', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
     	$this->setWidget('stock_propriete', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
@@ -24,7 +24,7 @@ class DAIDSDetailForm extends acCouchdbObjectForm
     	$this->setValidator('total_manquants_excedents', new sfValidatorNumber(array('required' => false)));
     	$this->setValidator('total_pertes_autorisees', new sfValidatorNumber(array('required' => false)));
     	$this->setValidator('total_manquants_taxables', new sfValidatorNumber(array('required' => false)));
-    	$this->setValidator('total_droits', new sfValidatorNumber(array('required' => false)));
+    	$this->setValidator('total_douane', new sfValidatorNumber(array('required' => false)));
     	$this->setValidator('stock_theorique', new sfValidatorNumber(array('required' => false)));
     	$this->setValidator('stock_chais', new sfValidatorNumber(array('required' => false)));
     	$this->setValidator('stock_propriete', new sfValidatorNumber(array('required' => false)));

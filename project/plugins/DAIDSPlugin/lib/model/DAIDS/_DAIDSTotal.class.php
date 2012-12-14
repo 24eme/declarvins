@@ -76,7 +76,8 @@ abstract class _DAIDSTotal extends acCouchdbDocumentTree
         $this->total_manquants_excedents = $this->getTotalByKey('total_manquants_excedents');
         $this->total_pertes_autorisees = $this->getTotalByKey('total_pertes_autorisees');
         $this->total_manquants_taxables = $this->getTotalByKey('total_manquants_taxables');
-        $this->total_droits = $this->getTotalByKey('total_droits');
+        $this->total_douane = $this->getTotalByKey('total_douane');
+        $this->total_cvo = $this->getTotalByKey('total_cvo');
         
         if ($this->exist('code') && $this->exist('libelle')) {
         	$this->code = $this->getFormattedCode();

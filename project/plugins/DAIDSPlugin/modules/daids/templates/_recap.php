@@ -13,7 +13,8 @@
 					<th style="font-weight: bold; border: none;">Total Manquants ou Excédents</th>
 					<th style="font-weight: bold; border: none;">Total Pertes Autorisée</th>
 					<th style="font-weight: bold; border: none;">Manquants taxables éventuels</th>
-					<th style="font-weight: bold; border: none;">Total droits à payer</th>
+					<th style="font-weight: bold; border: none;">Total droits de circulation à payer</th>
+					<th style="font-weight: bold; border: none;">Total cotisations interprofessionnelles à payer</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,7 +31,8 @@
 							<td class="<?php echo isVersionnerCssClass($detail, 'total_manquants_excedents') ?>"><strong><?php if ($detail->total_manquants_excedents) echoFloat($detail->total_manquants_excedents); else echoFloat(0); ?></strong>&nbsp;<span class="unite">hl</span></td>
 							<td class="<?php echo isVersionnerCssClass($detail, 'total_pertes_autorisees') ?>"><strong><?php if ($detail->total_pertes_autorisees) echoFloat($detail->total_pertes_autorisees); else echoFloat(0); ?></strong>&nbsp;<span class="unite">hl</span></td>
 							<td class="<?php echo isVersionnerCssClass($detail, 'total_manquants_taxables') ?>"><strong><?php if ($detail->total_manquants_taxables) echoFloat($detail->total_manquants_taxables); else echoFloat(0); ?></strong>&nbsp;<span class="unite">hl</span></td>
-							<td class="<?php echo isVersionnerCssClass($detail, 'total_droits') ?>"><strong><?php if ($detail->total_droits) echoFloat($detail->total_droits); else echoFloat(0); ?></strong>&nbsp;<span class="unite">€</span></td>
+							<td class="<?php echo isVersionnerCssClass($detail, 'total_douane') ?>"><strong><?php if ($detail->total_douane) echoFloat($detail->total_douane); else echoFloat(0); ?></strong>&nbsp;<span class="unite">€</span></td>
+							<td class="<?php echo isVersionnerCssClass($detail, 'total_cvo') ?>"><strong><?php if ($detail->total_cvo) echoFloat($detail->total_cvo); else echoFloat(0); ?></strong>&nbsp;<span class="unite">€</span></td>
 						</tr>
 			<?php endforeach; ?>
 		</tbody>

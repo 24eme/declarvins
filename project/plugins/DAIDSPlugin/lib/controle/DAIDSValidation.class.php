@@ -40,7 +40,7 @@ class DAIDSValidation
 		foreach ($this->daids->declaration->certifications as $certification) {
 			$details = $certification->getProduits();
 			foreach ($details as $detail) {
-				$this->controleErrors($detail);
+				//$this->controleErrors($detail);
 			}
 		}
 	}

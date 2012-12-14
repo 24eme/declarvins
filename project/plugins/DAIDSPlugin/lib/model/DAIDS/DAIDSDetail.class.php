@@ -102,7 +102,8 @@ class DAIDSDetail extends BaseDAIDSDetail {
         if ($this->total_manquants_taxables < 0) {
         	$this->total_manquants_taxables = 0;
         }
-        $this->total_droits = $this->douane->taux * $this->total_manquants_taxables;
+        $this->total_douane = $this->douane->taux * $this->total_manquants_taxables;
+        $this->total_cvo = $this->cvo->taux * $this->total_manquants_taxables;
     }
 
     public function nbToComplete() {

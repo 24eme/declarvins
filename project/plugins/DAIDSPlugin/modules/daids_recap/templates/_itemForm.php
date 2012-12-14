@@ -85,13 +85,13 @@
 			</div>
 			
 			<p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_pertes_autorisees') ?>">
-				<?php echo $form['total_pertes_autorisees']->render(array('class' => 'texte', 'data-champs' => '#'.$form['stocks_moyen']['vinifie']['total']->renderId().';#'.$form['stocks_moyen']['non_vinifie']['total']->renderId().';#'.$form['stocks_moyen']['conditionne']['total']->renderId(), 'data-calcul' => 'somme', 'data-val-defaut' => sprintFloat($form->getObject()->total_pertes_autorisees))) ?>
+				<?php echo $form['total_pertes_autorisees']->render(array('class' => 'texte', 'data-champs' => '#'.$form['stocks_moyen']['vinifie']['total']->renderId().';#'.$form['stocks_moyen']['non_vinifie']['volume']->renderId().';#'.$form['stocks_moyen']['conditionne']['total']->renderId(), 'data-calcul' => 'somme', 'data-val-defaut' => sprintFloat($form->getObject()->total_pertes_autorisees))) ?>
 			</p>
 			<p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_manquants_taxables') ?>">
 				<?php echo $form['total_manquants_taxables']->render(array('class' => 'texte not_null_value', 'data-champs' => '#'.$form['total_manquants_excedents']->renderId().';#'.$form['total_pertes_autorisees']->renderId(), 'data-calcul' => 'diff', 'data-val-defaut' => sprintFloat($form->getObject()->total_manquants_taxables))) ?>
 			</p>
-			<p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_droits') ?>">
-				<?php echo $form['total_droits']->render(array('class' => 'texte', 'data-champs' => '#'.$form['total_manquants_taxables']->renderId().';#'.$form['douane']['taux']->renderId(), 'data-calcul' => 'produit', 'data-val-defaut' => sprintFloat($form->getObject()->total_droits))) ?>
+			<p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_douane') ?>">
+				<?php echo $form['total_douane']->render(array('class' => 'texte', 'data-champs' => '#'.$form['total_manquants_taxables']->renderId().';#'.$form['douane']['taux']->renderId(), 'data-calcul' => 'produit', 'data-val-defaut' => sprintFloat($form->getObject()->total_douane))) ?>
 			</p>
 
             <div class="col_btn">

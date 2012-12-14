@@ -41,7 +41,6 @@
 			$.verifierChampsNombre();
 			$.calculerSommesChamps();
 			$.calculerChampsInterdependants();
-			$.liaisonChampsInterdependants();
 			$.toggleGroupesChamps();
 			$.initChoixRadio();
 		}
@@ -260,7 +259,6 @@
 		{
 			$.calculerSommesChamps();
 			$.calculerChampsInterdependants();
-			$.liaisonChampsInterdependants();
 			
 			var form = colActive.find('form');
 			var donneesCol = form.serializeArray();
@@ -536,6 +534,7 @@
 		masqueColActive.show();
 		
 		$.majColSaisiesScroll();
+		$.liaisonChampsInterdependants();
 	};
 	
 	
@@ -623,7 +622,6 @@
 				{
 					$.calculerSommesChamps();
 					$.calculerChampsInterdependants();
-					$.liaisonChampsInterdependants();
 				}
 			);
 		});
@@ -752,11 +750,10 @@
 					resultat *= parseFloat($(radioName+' input:radio:checked').val());
 					resultat *= 0.01;
 				}
-
-				if (champsCalcul.hasClass('not_null_value') && resultat < 0) {
+				var classes = champsCalcul.attr('class').split(' '); // Tout ca parce que hasClass ne fonctionne pas ?!
+				if (jQuery.inArray("not_null_value", classes) != -1 && resultat < 0) {
 					resultat = 0;
 				}
-				
 				resultat = resultat.toFixed(2);
 				champCalcul.val(resultat);
 
@@ -776,25 +773,23 @@
 		if(colActive)
 		{
 			var champsLiaison = colActive.find('input[data-liaison]');
-			
-			// Parcours des champs à liaison automatique
 			champsLiaison.each(function()
 			{
 				var champLiaison = $(this);
-				var tabChamps = champLiaison.attr('data-liaison').split(';');
-				champLiaison.removeClass('positif').removeClass('negatif');
-				
-				// Parcours des champs concernés
-				for(var i = 0; i < tabChamps.length; i++)
-				{
-					if (champLiaison.val()) {
-						val = parseFloat(champLiaison.val());
-						$(tabChamps[i]).val(val.toFixed(2));
+				champLiaison.blur(function() {
+					var tabChamps = champLiaison.attr('data-liaison').split(';');
+					champLiaison.removeClass('positif').removeClass('negatif');
+					for(var i = 0; i < tabChamps.length; i++)
+					{
+						if (champLiaison.val()) {
+							val = parseFloat(champLiaison.val());
+							$(tabChamps[i]).val(val.toFixed(2));
+						}
+						
 					}
-					
-				} 
+					$.calculerChampsInterdependants();
+				});
 			});
-			$.calculerChampsInterdependants();
 		}
 	};
 	/**

@@ -32,7 +32,8 @@ DAIDS:
             total_manquants_excedents: { type: float }
             total_pertes_autorisees: { type: float }
             total_manquants_taxables: { type: float }
-            total_droits: { type: float }
+            total_douane: { type: float }
+            total_cvo: { type: float }
             certifications:
               type: collection
               definition:
@@ -49,7 +50,8 @@ DAIDS:
                         total_manquants_excedents: { type: float }
                         total_pertes_autorisees: { type: float }
                         total_manquants_taxables: { type: float }
-                        total_droits: { type: float }
+                        total_douane: { type: float }
+                        total_cvo: { type: float }
                         genres:
                           type: collection
                           definition:
@@ -66,7 +68,8 @@ DAIDS:
                                     total_manquants_excedents: { type: float }
                                     total_pertes_autorisees: { type: float }
                                     total_manquants_taxables: { type: float }
-                                    total_droits: { type: float }
+                                    total_douane: { type: float }
+                                    total_cvo: { type: float }
                                     appellations:
                                       type: collection
                                       definition:
@@ -83,7 +86,8 @@ DAIDS:
                                                 total_manquants_excedents: { type: float }
                                                 total_pertes_autorisees: { type: float }
                                                 total_manquants_taxables: { type: float }
-                                                total_droits: { type: float }
+                                                total_douane: { type: float }
+                                                total_cvo: { type: float }
                                                 mentions:
                                                   type: collection
                                                   definition:
@@ -100,7 +104,8 @@ DAIDS:
                                                             total_manquants_excedents: { type: float }
                                                             total_pertes_autorisees: { type: float }
                                                             total_manquants_taxables: { type: float }
-                                                            total_droits: { type: float }
+                                                            total_douane: { type: float }
+                                                            total_cvo: { type: float }
                                                             lieux:
                                                               type: collection
                                                               definition:
@@ -117,7 +122,8 @@ DAIDS:
                                                                         total_manquants_excedents: { type: float }
                                                                         total_pertes_autorisees: { type: float }
                                                                         total_manquants_taxables: { type: float }
-                                                                        total_droits: { type: float }
+                                                                        total_douane: { type: float }
+                                                                        total_cvo: { type: float }
                                                                         couleurs:
                                                                           type: collection
                                                                           definition:
@@ -134,7 +140,8 @@ DAIDS:
                                                                                     total_manquants_excedents: { type: float }
                                                                                     total_pertes_autorisees: { type: float }
                                                                                     total_manquants_taxables: { type: float }
-                                                                                    total_droits: { type: float }
+                                                                                    total_douane: { type: float }
+                                                                                    total_cvo: { type: float }
                                                                                     cepages:
                                                                                       type: collection
                                                                                       definition:
@@ -151,7 +158,8 @@ DAIDS:
                                                                                                 total_manquants_excedents: { type: float }
                                                                                                 total_pertes_autorisees: { type: float }
                                                                                                 total_manquants_taxables: { type: float }
-                                                                                                total_droits: { type: float }
+                                                                                                total_douane: { type: float }
+                                                                                                total_cvo: { type: float }
                                                                                                 details:
                                                                                                   type: collection
                                                                                                   class: DAIDSDetails
@@ -180,6 +188,11 @@ DAIDS:
                                                                                                               definition:
                                                                                                                 fields:
                                                                                                                   '*': {  }
+                                                                                                            cvo:
+                                                                                                              type: collection
+                                                                                                              definition:
+                                                                                                                fields:
+                                                                                                                  taux: { type: float }
                                                                                                             douane:
                                                                                                               type: collection
                                                                                                               definition:
@@ -188,7 +201,8 @@ DAIDS:
                                                                                                             total_manquants_excedents: { type: float }
                                                                                                             total_pertes_autorisees: { type: float }
                                                                                                             total_manquants_taxables: { type: float }
-                                                                                                            total_droits: { type: float }
+                                                                                                            total_douane: { type: float }
+                                                                                                            total_cvo: { type: float }
                                                                                                             stock_theorique: { type: float }
                                                                                                             stocks:
                                                                                                               type: collection

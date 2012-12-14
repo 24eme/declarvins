@@ -34,6 +34,7 @@ class DAIDS extends BaseDAIDS
        		$d = $this->getDocument()->getOrAdd($detail->getHash());
        		$d->label_supplementaire = $detail->label_supplementaire;
        		$d->douane->taux = $detail->douane->taux;
+       		$d->cvo->taux = $detail->cvo->taux;
        		$d->stock_theorique = $detail->total;
        		$d->stock_mensuel_theorique = $detail->getStockTheoriqueMensuelByCampagne($this->periode);
        		foreach ($detail->labels as $label) {

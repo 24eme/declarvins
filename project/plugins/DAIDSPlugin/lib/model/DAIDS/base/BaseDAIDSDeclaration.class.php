@@ -7,7 +7,8 @@
  * @property float $total_manquants_excedents
  * @property float $total_pertes_autorisees
  * @property float $total_manquants_taxables
- * @property float $total_droits
+ * @property float $total_douane
+ * @property float $total_cvo
  * @property acCouchdbJson $certifications
 
  * @method float getTotalManquantsExcedents()
@@ -16,8 +17,10 @@
  * @method float setTotalPertesAutorisees()
  * @method float getTotalManquantsTaxables()
  * @method float setTotalManquantsTaxables()
- * @method float getTotalDroits()
- * @method float setTotalDroits()
+ * @method float getTotalDouane()
+ * @method float setTotalDouane()
+ * @method float getTotalCvo()
+ * @method float setTotalCvo()
  * @method acCouchdbJson getCertifications()
  * @method acCouchdbJson setCertifications()
  

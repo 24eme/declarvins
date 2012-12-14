@@ -62,6 +62,9 @@
 	        <li<?php if ($subactive == 'douanes'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@admin_douanes') ?>">Douanes</a>
 			</li>
+	        <li<?php if ($subactive == 'daids'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('@admin_daids') ?>">DAI/DS</a>
+			</li>
 	        <li<?php if ($subactive == 'libelles'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@admin_libelles') ?>">Libellés</a>
 			</li>		
