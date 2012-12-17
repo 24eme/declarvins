@@ -107,6 +107,8 @@ class ImportEtablissementsCsv {
 	  			$etab->save();
 	  			$this->updateCompte($line);
 	  			$cpt++;
+			} else {
+				echo "probeme";exit;
 			}
       	}
       	return $cpt;
@@ -123,13 +125,13 @@ class ImportEtablissementsCsv {
 		    		$interpro->statut = _Compte::STATUT_VALIDATION_ATTENTE;
 		    		$compte->save();
 		    	}else {
-		    		echo "chelou3";
+		    		echo "chelou3";exit;
 		    	}
 	    	}else {
-	    		echo "chelou2";
+	    		echo "chelou2";exit;
 	    	}
     	} else {
-    		echo "chelou";
+    		echo "chelou";exit;
     	}
     }
 }
