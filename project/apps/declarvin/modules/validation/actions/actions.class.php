@@ -40,7 +40,7 @@ class validationActions extends sfActions {
         $import = new ImportEtablissementsCsv($this->interpro);
         $this->compte = $this->contrat->getCompteObject();
         $this->etablissements = $this->compte->getTiersCollection();
-        print_r(array_keys($import->getEtablissementsByContrat($this->contrat)));exit;
+        print_r($this->contrat->_id);exit;
         $this->etablissementsCsv = array_diff_key($import->getEtablissementsByContrat($this->contrat), $this->compte->tiers->toArray());
 
         $this->formCompte = new CompteModificationForm($this->compte);
