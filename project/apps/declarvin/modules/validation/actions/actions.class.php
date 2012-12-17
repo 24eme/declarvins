@@ -41,7 +41,6 @@ class validationActions extends sfActions {
         $this->compte = $this->contrat->getCompteObject();
         $this->etablissements = $this->compte->getTiersCollection();
         $this->etablissementsCsv = array_diff_key($import->getEtablissementsByContrat($this->contrat), $this->compte->tiers->toArray());
-
         $this->formCompte = new CompteModificationForm($this->compte);
         $this->formUploadCsv = new UploadCSVForm();
         $this->formLiaison = new LiaisonInterproForm($this->compte);

@@ -56,7 +56,6 @@ class ImportEtablissementsCsv {
     {
     	$etab = new Etablissement();
     	foreach ($this->_csv as $line) {
-    		echo "yep<br />";
     		if (trim($line[EtablissementCsv::COL_ID]) == $identifiant) {
 	    		$etab = EtablissementClient::getInstance()->retrieveById(trim($line[EtablissementCsv::COL_ID]));
 	            if (!$etab) {
@@ -68,7 +67,6 @@ class ImportEtablissementsCsv {
 	            break;
     		}
     	}
-    	exit;
     	return $etab;
     }
     
@@ -76,7 +74,8 @@ class ImportEtablissementsCsv {
     public function getEtablissementsByContrat(Contrat $contrat)
     {
     	$etablissements = array();
-    	foreach ($this->_csv as $line) {
+    	foreach ($this->_csv as $line) {    		
+    		echo "yep<br />";
     		if (trim($line[EtablissementCsv::COL_NUMERO_CONTRAT]) == $contrat->no_contrat) {
     			$etab = EtablissementClient::getInstance()->retrieveById(trim($line[EtablissementCsv::COL_ID]));
 	            if (!$etab) {
@@ -89,6 +88,7 @@ class ImportEtablissementsCsv {
 	            $etablissements[$etab->get('_id')] = $etab;
     		}
     	}
+    	exit;
     	return $etablissements;
     }
 
