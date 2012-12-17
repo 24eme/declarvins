@@ -118,6 +118,7 @@ class ImportEtablissementsCsv {
     {
     	if ($line[EtablissementCsv::COL_NUMERO_CONTRAT]) {
 	    	$contrat = ContratClient::getInstance()->retrieveById($line[EtablissementCsv::COL_NUMERO_CONTRAT]);
+	    	var_dump($contrat);
 	    	if ($contrat) {
 		    	$compte = $contrat->getCompteObject();
 		    	if (!$compte->interpro->exist($line[EtablissementCsv::COL_INTERPRO])) {
@@ -128,7 +129,7 @@ class ImportEtablissementsCsv {
 		    		echo "chelou3";exit;
 		    	}
 	    	}else {
-	    		echo get_class($contrat);exit;
+	    		echo "<br />CONTRAT-".$line[EtablissementCsv::COL_NUMERO_CONTRAT];exit;
 	    	}
     	} else {
     		echo "chelou";exit;
