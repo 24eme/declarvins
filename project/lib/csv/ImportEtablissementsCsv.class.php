@@ -128,7 +128,7 @@ class ImportEtablissementsCsv {
 		    		echo "chelou3";exit;
 		    	}
 	    	}else {
-	    		echo "CONTRAT-".$line[EtablissementCsv::COL_NUMERO_CONTRAT];exit;
+	    		echo get_class($contrat);exit;
 	    	}
     	} else {
     		echo "chelou";exit;
