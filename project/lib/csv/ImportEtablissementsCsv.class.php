@@ -122,8 +122,14 @@ class ImportEtablissementsCsv {
 		    		$interpro = $compte->interpro->add($line[EtablissementCsv::COL_INTERPRO]);
 		    		$interpro->statut = _Compte::STATUT_VALIDATION_ATTENTE;
 		    		$compte->save();
+		    	}else {
+		    		echo "chelou3";
 		    	}
+	    	}else {
+	    		echo "chelou2";
 	    	}
+    	} else {
+    		echo "chelou";
     	}
     }
 }
