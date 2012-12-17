@@ -117,7 +117,7 @@ class ImportEtablissementsCsv {
     private function updateCompte($line) 
     {
     	if ($line[EtablissementCsv::COL_NUMERO_CONTRAT]) {
-	    	$contrat = ContratClient::getInstance()->retrieveById($line[EtablissementCsv::COL_NUMERO_CONTRAT]);
+	    	$contrat = ContratClient::getInstance()->find("CONTRAT-".$line[EtablissementCsv::COL_NUMERO_CONTRAT]);
 	    	var_dump($contrat);
 	    	if ($contrat) {
 		    	$compte = $contrat->getCompteObject();
