@@ -56,6 +56,7 @@ class ImportEtablissementsCsv {
     {
     	$etab = new Etablissement();
     	foreach ($this->_csv as $line) {
+    		echo "yep<br />";
     		if (trim($line[EtablissementCsv::COL_ID]) == $identifiant) {
 	    		$etab = EtablissementClient::getInstance()->retrieveById(trim($line[EtablissementCsv::COL_ID]));
 	            if (!$etab) {
@@ -67,6 +68,7 @@ class ImportEtablissementsCsv {
 	            break;
     		}
     	}
+    	exit;
     	return $etab;
     }
     
