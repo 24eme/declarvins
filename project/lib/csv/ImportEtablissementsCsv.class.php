@@ -118,7 +118,7 @@ class ImportEtablissementsCsv {
     {
     	if ($line[EtablissementCsv::COL_NUMERO_CONTRAT]) {
 	    	$contrat = ContratClient::getInstance()->find("CONTRAT-".$line[EtablissementCsv::COL_NUMERO_CONTRAT]);
-	    	var_dump($contrat);
+	    	var_dump($line[EtablissementCsv::COL_NUMERO_CONTRAT]);
 	    	if ($contrat) {
 		    	$compte = $contrat->getCompteObject();
 		    	if (!$compte->interpro->exist($line[EtablissementCsv::COL_INTERPRO])) {
