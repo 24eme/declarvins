@@ -17,5 +17,12 @@ class DouaneAllView extends acCouchdbView
       return $this->client->getView($this->design, $this->view);
     }
 
+	public function findActives() 
+	{
+      return $this->client->startkey(array(Douane::STATUT_ACTIF))
+                    	  ->endkey(array(Douane::STATUT_ACTIF, array()))
+      				      ->getView($this->design, $this->view);
+    }
+
 
 }  

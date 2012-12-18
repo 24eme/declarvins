@@ -1,6 +1,6 @@
 <?php 
 	$value = $douane->value;
-	$key = $douane->key;
+	$key = $douane->id;
 ?>
 <tr <?php if($alt): ?>class="alt"<?php endif; ?>>
 	<td><?php echo $value[DouaneAllView::VALUE_DOUANE_NOM] ?></td>
