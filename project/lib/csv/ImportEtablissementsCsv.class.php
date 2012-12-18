@@ -44,7 +44,7 @@ class ImportEtablissementsCsv {
         $etab->siege->pays = trim($line[EtablissementCsv::COL_PAYS]);
         $etab->comptabilite->adresse = trim($line[EtablissementCsv::COL_COMPTA_ADRESSE]);
         $etab->comptabilite->code_postal = trim($line[EtablissementCsv::COL_COMPTA_CODE_POSTAL]);
-        $etab->comptabilite->commune = trim($line[EtablissementCsv::COL_COMPTA_CODE_POSTAL]);
+        $etab->comptabilite->commune = trim($line[EtablissementCsv::COL_COMPTA_COMMUNE]);
         $etab->comptabilite->pays = trim($line[EtablissementCsv::COL_COMPTA_PAYS]);
         $etab->service_douane = trim($line[EtablissementCsv::COL_SERVICE_DOUANE]);
 		$etab->interpro = trim($line[EtablissementCsv::COL_INTERPRO]);

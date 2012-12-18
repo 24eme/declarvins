@@ -63,4 +63,8 @@ class CompteTiers extends BaseCompteTiers {
         
         return sprintf('%s', $this->nom);
     }
+    
+    public function isVirtuel() {
+    	return false;
+    }
 }

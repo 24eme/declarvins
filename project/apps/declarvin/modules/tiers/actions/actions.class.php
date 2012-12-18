@@ -19,7 +19,9 @@ class tiersActions extends sfActions
   {
 
 	  $this->compte = $this->getUser()->getCompte();
-	  
+	  if ($this->compte->isVirtuel()) {
+	  	return $this->redirect("admin");
+	  }
     if (count($this->compte->tiers) == 1) {
       
       return $this->redirect("tiers_mon_espace", EtablissementClient::getInstance()->find($this->compte->tiers->getFirst()->id));
@@ -62,8 +64,10 @@ class tiersActions extends sfActions
 	      	$this->form->bind($request->getParameter($this->form->getName()));
 	      	if ($this->form->isValid()) {
 	      		$this->form->save();
+           		$ldap = new Ldap();
+           		$ldap->saveCompte($this->compte);
 	      		$this->getUser()->setFlash('notice', 'Modifications effectuées avec succès');
-	      		$this->redirect('profil', array('identifiant' => $this->etablissement->identifiant));
+	      		$this->redirect('profil', $this->etablissement);
 	      	}
 	      }
   	  }

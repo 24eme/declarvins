@@ -110,7 +110,8 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
         $douanes = $this->getDouanes();
         $choices = array('' => '');
         foreach ($douanes as $douane) {
-            $choices[$douane->getNom()] = $douane->getNom();
+        	$value = $douane->value;
+            $choices[$value[DouaneAllView::VALUE_DOUANE_NOM]] = $value[DouaneAllView::VALUE_DOUANE_NOM];
         }
         return $choices;
     }
@@ -120,7 +121,7 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
      */
     protected function getDouanes() {
         if (!$this->_douaneCollection) {
-            return $this->_douaneCollection = acCouchdbManager::getClient('Douane')->getAll();
+            return $this->_douaneCollection = DouaneAllView::getInstance()->findActives()->rows;
         }
         else {
             return $this->_douaneCollection;

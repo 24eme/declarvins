@@ -1,7 +1,7 @@
 <div id="application_dr" class="clearfix">
 	<h1>Compte</h1>
 	<div id="compteModification">
-		<form method="post" action="<?php echo url_for('profil', array('identifiant' => $etablissement->identifiant)); ?>">
+		<form method="post" action="<?php echo url_for('profil', $etablissement); ?>">
 		    <?php echo $form->renderHiddenFields(); ?>
 		    <?php echo $form->renderGlobalErrors(); ?>
 			<div class="ligne_form">

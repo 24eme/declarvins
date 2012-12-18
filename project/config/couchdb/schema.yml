@@ -125,6 +125,7 @@ Contrat:
       fax: {  }
       compte: {  }
       email: {  }
+      valide: {  }
       etablissements:
         type: array_collection
         definition:

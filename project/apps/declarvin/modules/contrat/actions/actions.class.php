@@ -19,6 +19,11 @@ class contratActions extends sfActions
     public function executeIndex(sfWebRequest $request) {
 
     }
+    
+    public function executeValide(sfWebRequest $request) {
+    	$nocontrat = $request->getParameter('nocontrat');
+    	$this->contrat = ContratClient::getInstance()->retrieveById($nocontrat);
+    }
 
     /**
      * 
@@ -28,10 +33,14 @@ class contratActions extends sfActions
     public function executeNouveau(sfWebRequest $request) {
     	$new = true;
     	if ($contrat = $request->getParameter('nocontrat')) {
+    		if ($contrat->valide) {
+    			return $this->redirect("contrat_valide");
+    		}
     		$new = false;
-    		$object = ContratClient::getInstance()->find('CONTRAT-'.$contrat);
+    		$object = ContratClient::getInstance()->retrieveById($contrat);
     	} else {
     		$object = new Contrat();
+    		$object->valide = 0;
     	}
         $this->nbEtablissement = $request->getParameter('nb_etablissement', 1);
         $this->form = new ContratForm($object, array('nbEtablissement' => $this->nbEtablissement));
@@ -63,6 +72,9 @@ class contratActions extends sfActions
   	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
   	$this->forward404Unless($request->hasParameter('indice'));
   	$this->recapitulatif = $request->getParameter('recapitulatif');
+    if ($this->contrat->valide) {
+    	return $this->redirect("contrat_valide");
+    }
   	$indice = $request->getParameter('indice');
   	$nextIndice = $indice + 1;
     $this->form = new ContratEtablissementModificationForm($this->contrat->etablissements->get($indice));
@@ -91,6 +103,9 @@ class contratActions extends sfActions
   public function executeNouveauEtablissement(sfWebRequest $request)
   {
   	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
+    if ($this->contrat->valide) {
+    	return $this->redirect("contrat_valide");
+    }
     $this->form = new ContratEtablissementModificationForm($this->contrat->etablissements->add());
     if ($request->isMethod(sfWebRequest::POST)) {
         $this->form->bind($request->getParameter($this->form->getName()));
@@ -109,6 +124,9 @@ class contratActions extends sfActions
   {
   	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
   	$this->forward404Unless($request->hasParameter('indice'));
+    if ($this->contrat->valide) {
+    	return $this->redirect("contrat_valide");
+    }
   	$this->recapitulatif = $request->getParameter('recapitulatif');
   	$indice = $request->getParameter('indice');
   	$nextIndice = $indice + 1;
@@ -135,6 +153,9 @@ class contratActions extends sfActions
   public function executeRecapitulatif(sfWebRequest $request)
   {
   	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
+    if ($this->contrat->valide) {
+    	return $this->redirect("contrat_valide");
+    }
   }
  /**
   * 

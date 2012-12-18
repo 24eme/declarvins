@@ -87,6 +87,7 @@ class acVinCompteAdminActions extends sfActions
   public function executeCompteAjout(sfWebRequest $request) 
     {
       $this->compte = new CompteVirtuel();
+      $this->compte->statut = _Compte::STATUT_ACTIF;
    	  $this->compte->interpro = array($this->getUser()->getCompte()->getGerantInterpro()->_id => array('statut' => _Compte::STATUT_VALIDATION_VALIDE));
       $this->form = new CompteModificationDroitForm($this->compte);
       if($request->isMethod(sfWebRequest::POST))
@@ -94,11 +95,11 @@ class acVinCompteAdminActions extends sfActions
            $this->form->bind($request->getParameter($this->form->getName()));
            if($this->form->isValid())
            {
-           $this->form->save();
-           $ldap = new Ldap();
-           $ldap->saveCompte($this->compte);
-           $this->getUser()->setFlash('notice', 'Création de compte validée');
-           $this->redirect(array('sf_route' => 'compte_modification', 'login' => $this->compte->login));
+           	$this->form->save();
+           	$ldap = new Ldap();
+           	$ldap->saveCompte($this->compte);
+           	$this->getUser()->setFlash('notice', 'Création de compte validée');
+           	$this->redirect(array('sf_route' => 'compte_modification', 'login' => $this->compte->login));
            }
         }                  
     }

@@ -5,7 +5,9 @@
 homepage:
   url:   /contrat
   param: { module: contrat, action: index }
-
+contrat_valide:
+  url:   /contrat/valide
+  param: { module: contrat, action: valide }
 compte_nouveau:
   url:   /compte/nouveau/:nocontrat
   param: { module: acVinCompte, action: nouveau, nocontrat: null }
@@ -65,6 +67,9 @@ validation_delier:
 validation_lier:
   url:   /validation/:num_contrat/lier/:etablissement
   param: { module: validation, action: lier, etablissement: null, num_contrat: null }
+validation_compte_password:
+  url:   /validation/compte-password/:login
+  param: { module: validation, action: redefinitionPassword }
 
 # Interpro routing
 interpro_import:
@@ -79,7 +84,7 @@ tiers_mon_espace:
   class: EtablissementRoute
   url: /etablissement/:identifiant
   param: { module: tiers, action: monEspace }
-  requirements: { method: ['get'] }
+  requirements: { sf_method: ['get'] }
   options: { model: Etablissement, type: object }
 
 tiers:
@@ -89,7 +94,7 @@ profil:
   class: EtablissementRoute
   url: /profil/:identifiant
   param: { module: tiers, action: profil }
-  requirements: { method: ['get', 'post'] }
+  requirements: { sf_method: ['get', 'post'] }
   options: { model: Etablissement, type: object }
 login:
   url: /login

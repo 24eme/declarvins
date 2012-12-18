@@ -79,7 +79,9 @@ class validationActions extends sfActions {
 
         $this->formCompte->bind($request->getParameter($this->formCompte->getName()));
         if ($this->formCompte->isValid()) {
-            $this->compte = $this->formCompte->save();
+            $this->compte = $this->formCompte->save();  	
+            $ldap = new Ldap();
+  			$ldap->saveCompte($this->compte);
             $this->getUser()->setFlash('notification_compte', 'Les identifiants ont bien été mis à jour.');
             $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
         }
@@ -127,7 +129,7 @@ class validationActions extends sfActions {
         			if (!$this->compte->login) {
         				$this->sendRegistration($this->compte);
         			}
-        			$this->compte->save();
+        			$this->compte->save();        			
 					$ldap = new Ldap();
 					$ldap->saveCompte($this->compte);
         			$this->getUser()->setFlash('notification_general', 'Compte validé');
@@ -269,5 +271,18 @@ class validationActions extends sfActions {
 	  	$pdf = new ExportContratPdf($this->contrat);
 		return $this->renderText($pdf->render($this->getResponse()));
 	  }
+  
+  public function executeRedefinitionPassword(sfWebRequest $request)
+  {
+     $this->forward404Unless($compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
+     Email::getInstance()->sendRedefinitionMotDePasse($compte, $compte->email);
+     $this->getUser()->setFlash('notice', 'Demande de redéfinition du mot de passe envoyée');
+     if ($compte->exist('contrat')) {
+     	if ($contrat = ContratClient::getInstance()->find($compte->contrat)) {
+     		$this->redirect('validation_fiche', array('num_contrat' => $contrat->no_contrat));
+     	}
+     }
+     $this->redirect(array('sf_route' => 'compte_modification', 'login' => $compte->login));
+  }
 
 }

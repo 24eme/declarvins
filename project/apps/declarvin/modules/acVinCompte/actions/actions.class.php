@@ -25,8 +25,12 @@ class acVinCompteActions extends BaseacVinCompteActions {
                 $newCompteTiers = clone $compteTiers;
                 $compteTiers->delete();
                 $newCompteTiers->_id = 'COMPTE-'.$newCompteTiers->login;
-                //$newCompteTiers->statut = _Compte::STATUT_ACTIVE;
                 $newCompteTiers->save();
+                foreach ($newCompteTiers->tiers as $etablissement_id => $values) {
+                	$etablissement = EtablissementClient::getInstance()->find($etablissement_id);
+                	$etablissement->compte = 'COMPTE-'.$newCompteTiers->login;
+                	$etablissement->save();
+                }
            		$ldap = new Ldap();
            		$ldap->saveCompte($newCompteTiers);
                 $this->contrat->setCompte($newCompteTiers->get('_id'));

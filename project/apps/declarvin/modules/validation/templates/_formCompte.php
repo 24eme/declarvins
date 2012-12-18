@@ -26,7 +26,7 @@
         <div class="ligne_btn btn">
             <a href="#" class="btn_modifier btn_valider">Modifier</a>
             <?php if ($compte->login): ?>
-            <a href="<?php echo url_for('admin_compte_password', array('login' => $compte->login)) ?>" class="btn_mdp">Lancer une procédure de redéfinition du mot de passe</a>
+            <a href="<?php echo url_for('validation_compte_password', array('login' => $compte->login)) ?>" class="btn_mdp">Lancer une procédure de redéfinition du mot de passe</a>
             <?php endif; ?>
         </div>
     </div>

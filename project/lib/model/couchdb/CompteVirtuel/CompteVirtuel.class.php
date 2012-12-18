@@ -35,4 +35,8 @@ class CompteVirtuel extends BaseCompteVirtuel {
         
         return sprintf('%s', $this->nom);
     }
+    
+    public function isVirtuel() {
+    	return true;
+    }
 }
