@@ -134,7 +134,7 @@ class DRMValidation
 			$this->warnings['mouvement_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mouvement', $this->generateUrl('drm_recap_detail', $detail).'#sorties');
 		}
 		if (!$detail->hasCvo() || !$detail->hasDouane()) {
-			$this->errors['droits_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('droits', self::NO_LINK);
+			$this->warnings['droits_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('droits', $this->generateUrl('drm_recap_detail', $detail));
 		}
 	}
 	
