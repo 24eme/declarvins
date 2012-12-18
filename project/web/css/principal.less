@@ -131,7 +131,11 @@
 		
 		.btn_valider
 		{
-			.btn_suiv;
+			background: url(../images/boutons/btn_majeur.png) 0 0 no-repeat;
+			color: #fff;
+			display: inline-block;
+			font-size : 13px;
+			line-height: 26px;
 			padding: 0 17px 0 15px;
 		}
 		
@@ -230,6 +234,18 @@
 	/* Récapitulatif */
 	#recapitulatif
 	{
+
+		li
+		{
+			list-syle-type: none;
+		}
+
+		h2
+		{
+			font-size: 12px;
+			margin: 0;
+		}
+		
 		.recap_perso,
 		.recap_etablissement
 		{
@@ -252,31 +268,31 @@
 				margin: 20px 0 0;
 			} 
 
-                        .btn_ajouter
-                        {
-                                .btn_violet;
-                                background-image: url(../images/boutons/btn_ajouter.png);
-                                background-position: 7px center;
-                                margin: 0 10px 0 0;
-                                padding: 0 10px 0 30px;
-                        }
+			.btn_ajouter
+			{
+					.btn_violet;
+					background-image: url(../images/boutons/btn_ajouter.png);
+					background-position: 7px center;
+					margin: 0 10px 0 0;
+					padding: 0 10px 0 30px;
+			}
 
-                        .btn_supprimer
-                        {
-                                .btn_gris;
-                                background-image: url(../images/boutons/btn_supprimer.png);
-                                background-position: 7px center;
-                                padding: 0 10px 0 30px;
-                                margin-right:20px;
-                                text-transform: none;
-                        }
+			.btn_supprimer
+			{
+					.btn_gris;
+					background-image: url(../images/boutons/btn_supprimer.png);
+					background-position: 7px center;
+					padding: 0 10px 0 30px;
+					margin-right:20px;
+					text-transform: none;
+			}
 		}
 
 		.ligne_btn 
-                { 
-                        text-align: right; 
-                        margin:0;
-                }
+		{ 
+			text-align: right; 
+			margin:0;
+		}
 
                 
 	}
@@ -400,6 +416,17 @@
                 }
             }
         }
+	}
+
+	.chais
+	{
+		.clearfix;
+
+		li
+		{
+			float: left;
+			padding-right: 10px;
+		}
 	}
 
 	.presentation,
