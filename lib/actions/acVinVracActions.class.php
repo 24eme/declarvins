@@ -213,14 +213,13 @@ class acVinVracActions extends sfActions
         	throw new sfException('Hash produit requis');
         }
         $this->hash = str_replace('-', '/', $this->hash);
-        $result = ConfigurationClient::getInstance()->findDroitsByHash($this->hash)->rows;
+        $result = ConfigurationClient::getInstance()->findDroitsByHashAndType($this->hash, ConfigurationDroits::CODE_CVO)->rows;
         if (count($result) == 0) {
         	throw new sfException('Aucun résultat pour le produit '.$this->hash);
         }
         $result = $result[0];
         $droits = $result->value;
-        $cvo = $droits->cvo;
-        echo $cvo->taux;
+        echo $droits->taux;
 		return sfView::NONE;
   }
 	public function executeVisualisation(sfWebRequest $request)
