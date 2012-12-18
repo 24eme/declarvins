@@ -10,4 +10,12 @@ class ConfigurationDroit extends BaseConfigurationDroit
 	{
 		return is_null($this->taux);
 	}
+	
+	public function getBaseConfLibelle()
+	{
+		if ($this->getDocument()->droits->exist($this->getCode())) {
+			return $this->getDocument()->droits->get($this->getCode());
+		}
+		return $this->getLibelle();
+	}
 }

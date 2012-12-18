@@ -121,6 +121,9 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
 	    	$droits->taux = $taux;
 	    	$droits->code = $code;
 	    	$droits->libelle = $libelle;
+	    	if ($taux > 0) {
+	    		$this->setDroit($code, $libelle);
+	    	}
     	}
     }
     
@@ -149,6 +152,23 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
 	    	$droits->taux = $taux;
 	    	$droits->code = $code;
 	    	$droits->libelle = $libelle;
+	    	if ($taux > 0) {
+	    		$this->setDroit($code, $libelle);
+	    	}
+    	}
+    }
+    
+
+    
+    private function setDroit($code, $libelle) {
+    	$droits = $this->getDocument()->droits;
+    	if (!$droits->exist($code)) {
+    		$droit = $droits->add($code, $libelle);
+    		if (preg_match('/^([^_]+)_/', $code, $m)) {
+				if (!$droits->exist($m[1])) {
+					$droit = $droits->add($m[1], null);
+				}
+			}
     	}
     }
     
