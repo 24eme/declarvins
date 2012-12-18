@@ -5,6 +5,7 @@ class DRMHistorique {
     protected $identifiant = null;
     protected $drms = null;
     protected $has_drm_process = null;
+    protected $last_drm = null;
 
     const VIEW_INDEX_ETABLISSEMENT = 0;
     const VIEW_CAMPAGNE = 1;
@@ -28,11 +29,33 @@ class DRMHistorique {
     }
 
     public function getLastDRM() {
-        foreach($this->drms as $drm) {
-            
-            return DRMClient::getInstance()->find($drm->_id);
-        }
+    	if (!$this->last_drm) {
+	        foreach($this->drms as $drm) {
+	            $this->last_drm = DRMClient::getInstance()->find($drm->_id);
+	            break;
+	        }
+    	}
+    	return $this->last_drm;
     }
+    
+    public function getLastPeriode() {
+    	$lastDrm = $this->getLastDRM();
+    	if ($lastDrm) {
+    		return $lastDrm->periode;
+    	}
+    	return $this->getCurrentPeriode();
+    }
+    
+	public function getCurrentPeriode() {
+	    if(date('d') >= 10) {
+	      
+	      return sprintf('%s-%02d', date('Y'), date('m'));
+	    } else {
+	      $timestamp = strtotime('-1 month');
+	      
+	      return sprintf('%s-%02d', date('Y', $timestamp), date('m', $timestamp));
+	    }
+  	}
 
     public function getPreviousDRM($periode) {
         foreach($this->drms as $drm) {

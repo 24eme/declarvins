@@ -6,9 +6,14 @@
  */
 class DRMDetail extends BaseDRMDetail {
     
+	protected $_config = null;
+	
     public function getConfig() 
     {
-    	return ConfigurationClient::getCurrent()->declaration->certifications->get($this->getCertification()->getKey())->detail;
+    	if (!$this->_config) {
+    		$this->_config = ConfigurationClient::getCurrent()->declaration->certifications->get($this->getCertification()->getKey())->detail;
+    	}
+    	return $this->_config;
     }
 
     public function getFormattedLibelle($format = "%g% %a% %l% %co% %ce% <span class=\"labels\">%la%</span>", $label_separator = ", ") 
@@ -108,23 +113,31 @@ class DRMDetail extends BaseDRMDetail {
         $this->total_entrees = $this->getTotalByKey('entrees');
         $this->total_sorties = $this->getTotalByKey('sorties');
         $this->total = $this->total_debut_mois + $this->total_entrees - $this->total_sorties;
-        $this->code = $this->getFormattedCode();
-        $this->libelle = $this->getFormattedLibelle("%g% %a% %l% %co% %ce%");
+        if (!$this->code) {
+        	$this->code = $this->getFormattedCode();
+        }
+        if (!$this->libelle) {
+        	$this->libelle = $this->getFormattedLibelle("%g% %a% %l% %co% %ce%");
+        }
         $labelLibelles = $this->getConfig()->getDocument()->getLabelsLibelles($this->labels->toArray());
         foreach ($labelLibelles as $label => $libelle) {
         	$this->libelles_label->add($label, $libelle);
         }
-        $droitCvo = $this->getDroit(strtolower(DRMDroits::DROIT_CVO));
-        $droitDouane = $this->getDroit(strtolower(DRMDroits::DROIT_DOUANE));
-        if ($droitCvo) {
-        	$this->cvo->taux = $droitCvo->getTaux();
-        } else {
-        	$this->cvo->taux = 0;
+        if (!$this->cvo->taux) {
+        	$droitCvo = $this->getDroit(DRMDroits::DROIT_CVO);
+	        if ($droitCvo) {
+	        	$this->cvo->taux = $droitCvo->taux;
+	        } else {
+	        	$this->cvo->taux = 0;
+	        }
         }
-        if ($droitDouane) {
-        	$this->douane->taux = $droitDouane->getTaux();
-        } else {
-        	$this->douane->taux = 0;
+        if (!$this->douane->taux) {
+        	$droitDouane = $this->getDroit(DRMDroits::DROIT_DOUANE);
+	        if ($droitDouane) {
+	        	$this->douane->taux = $droitDouane->taux;
+	        } else {
+	        	$this->douane->taux = 0;
+	        }
         }
         $this->cvo->volume_taxable = $this->douane->volume_taxable = $this->getVolumeTaxable();
     }
@@ -196,25 +209,23 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function getDroit($type) {
-    	return $this->getCepage()->getDroit($type);
+    	$result = ConfigurationClient::getInstance()->findDroitsByHashAndType($this->hash, ConfigurationDroits::CODE_CVO)->rows;
+        if (count($result) == 0) {
+        	return null;
+        }
+        $result = $result[0];
+        $droits = $result->value;
+    	return $droits;//$this->getCepage()->getDroit($type);
     }
     
     public function hasCvo()
     {
-    	$cvo = $this->getDroit('cvo');
-    	if (!$cvo) {
-    		return false;
-    	}
-    	return !$cvo->isEmpty();
+    	return ($this->getDroit(DRMDroits::DROIT_CVO))? true : false;
     }
     
     public function hasDouane()
     {
-    	$douane = $this->getDroit('douane');
-    	if (!$douane) {
-    		return false;
-    	}
-    	return !$douane->isEmpty();
+    	return ($this->getDroit(DRMDroits::DROIT_DOUANE))? true : false;
     }
     
     public function hasDetailLigne($ligne)
@@ -231,6 +242,8 @@ class DRMDetail extends BaseDRMDetail {
       $this->total_entrees = null;
       $this->total_sorties = null;
       $this->total = null;
+      $this->cvo->taux = null;
+      $this->douane->taux = null;
 
       $this->remove('vrac');
       $this->add('vrac');

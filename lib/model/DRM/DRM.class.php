@@ -127,7 +127,6 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         if ($is_just_the_next_periode) {
             $drm_suivante->precedente = $this->_id;
         }
-
         return $drm_suivante;
     }
     
@@ -175,13 +174,13 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     		$mergeEntrees = DRMDroits::getDroitEntreesInterRhone();
     	}
         foreach ($this->getDetails() as $detail) {
-        	$droitCvo = $detail->getDroit(strtolower(DRMDroits::DROIT_CVO));
-        	$droitDouane = $detail->getDroit(strtolower(DRMDroits::DROIT_DOUANE));
+        	$droitCvo = $detail->getDroit(DRMDroits::DROIT_CVO);
+        	$droitDouane = $detail->getDroit(DRMDroits::DROIT_DOUANE);
         	if ($droitCvo) {
-        		$this->droits->getOrAdd(strtolower(DRMDroits::DROIT_CVO))->getOrAdd($droitCvo->getCode())->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitCvo->taux, 0, $droitCvo->libelle);
+        		$this->droits->getOrAdd(DRMDroits::DROIT_CVO)->getOrAdd($droitCvo->code)->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitCvo->taux, 0, $droitCvo->libelle);
         	}
         	if ($droitDouane) {
-        		$this->droits->getOrAdd(strtolower(DRMDroits::DROIT_DOUANE))->getOrAdd($droitDouane->getCode())->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitDouane->taux, $this->getReportByDroit(strtolower(DRMDroits::DROIT_DOUANE), $droitDouane), $droitDouane->libelle);
+        		$this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($droitDouane->code)->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitDouane->taux, $this->getReportByDroit(DRMDroits::DROIT_DOUANE, $droitDouane), $droitDouane->libelle);
         	}
         }
     }

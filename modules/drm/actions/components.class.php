@@ -57,32 +57,30 @@ class drmComponents extends sfComponents {
         }
     }
 
-    protected function getNewDRM($identifiant) {
-        $drm = DRMClient::getInstance()->createDoc($identifiant);
-
-        if($drm && $drm->periode > DRMClient::getInstance()->getCurrentPeriode()) {
-
-            $drm = null;
+    protected function getNewDRM($historique, $identifiant) {
+        if ($this->hasNewDRM($historique, $identifiant)) {
+        	return DRMClient::getInstance()->createDoc($identifiant);
         }
+        return null;
+    }
 
-        if ($drm && DRMClient::getInstance()->getDRMHistorique($identifiant)->hasDRMInProcess()) {
-        
-            $drm = null;
+    protected function hasNewDRM($historique, $identifiant) {
+        if($historique->getLastPeriode() > $historique->getCurrentPeriode()) {
+            return false;
         }
-
-        if(isset($this->campagne) && $drm && $drm->campagne != $this->campagne) {
-
-            $drm = null;
+        if ($historique->hasDRMInProcess()) {
+            return false;
         }
-
-        return $drm;
+        if(isset($this->campagne) && DRMClient::getInstance()->buildCampagne($historique->getLastPeriode()) != $this->campagne) {
+            return false;
+        }
+        return true;
     }
 
     public function executeHistoriqueList() {
         $this->drms = array();
         $historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
-
-        $this->new_drm = $this->getNewDRM($this->etablissement->identifiant);
+        $this->new_drm = $this->getNewDRM($historique, $this->etablissement->identifiant);
 
         if (!isset($this->campagne) && $this->new_drm) {
             $this->campagne = $this->new_drm->campagne;
@@ -100,12 +98,13 @@ class drmComponents extends sfComponents {
     public function executeCampagnes() {
         $this->historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
 
-        $new_drm = $this->getNewDRM($this->etablissement->identifiant);
+        $new_drm = $this->hasNewDRM($this->historique, $this->etablissement->identifiant);
 
         $this->campagnes = $this->historique->getCampagnes();
-
-        if ($new_drm && !in_array($new_drm->campagne, $this->campagnes)) {
-            $this->campagnes = array_merge(array($new_drm->campagne), $this->campagnes);
+		$lastCampagne = DRMClient::getInstance()->buildCampagne($this->historique->getLastPeriode());
+		
+        if ($new_drm && !in_array($lastCampagne, $this->campagnes)) {
+            $this->campagnes = array_merge(array($lastCampagne), $this->campagnes);
         }
 
         if (!isset($this->campagne)) {

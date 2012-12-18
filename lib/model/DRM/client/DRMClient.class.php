@@ -308,7 +308,7 @@ class DRMClient extends acCouchdbClient {
     return $this->drm_historiques[$identifiant];
   }
 
-	public function createDoc($identifiant, $periode = null) {
+  public function createDoc($identifiant, $periode = null) {
     if (!$periode) {
       $periode = $this->getCurrentPeriode();
       $last_drm = $this->getDRMHistorique($identifiant)->getLastDRM();
@@ -319,28 +319,34 @@ class DRMClient extends acCouchdbClient {
 
     return $this->createDocByPeriode($identifiant, $periode);
   }
+  
+  public function getLastPeriode($identifiant) {
+  	$periode = $this->getCurrentPeriode();
+    $last_drm = $this->getDRMHistorique($identifiant)->getLastDRM();
+    if ($last_drm) {
+    	$periode = $this->getPeriodeSuivante($last_drm->periode);
+    }
+  }
 
   public function createDocByPeriode($identifiant, $periode)
   {
      	$prev_drm = $this->getDRMHistorique($identifiant)->getPreviousDRM($periode);
-     	$next_drm = $this->getDRMHistorique($identifiant)->getNextDRM($periode);
-
      	if ($prev_drm) {
-        $drm = $prev_drm->generateSuivanteByPeriode($periode);
-     	} elseif ($next_drm) {
-        $drm = $next_drm->generateSuivanteByPeriode($periode);
+        	$drm = $prev_drm->generateSuivanteByPeriode($periode);
      	} else {
-        $drm = new DRM();
-        $drm->identifiant = $identifiant;
-     		$drm->periode = $periode;
-      }
-
-      $drm->mode_de_saisie = self::MODE_DE_SAISIE_DTI;
-      
-      if($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-        $drm->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
-      }
-
+	     	$next_drm = $this->getDRMHistorique($identifiant)->getNextDRM($periode);
+	     	if ($next_drm) {
+	        	$drm = $next_drm->generateSuivanteByPeriode($periode);
+	     	} else {
+	        	$drm = new DRM();
+	        	$drm->identifiant = $identifiant;
+	     		$drm->periode = $periode;
+	      	}
+     	}
+      	$drm->mode_de_saisie = self::MODE_DE_SAISIE_DTI;      
+      	if($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        	$drm->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
+      	}
      	return $drm;
   }
 

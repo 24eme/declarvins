@@ -54,7 +54,7 @@ class DRMCertification extends BaseDRMCertification {
     	return false;
     }
     
-    public function getDroit($type) 
+    /*public function getDroit($type) 
     {
     	if ($this->getConfig()->hasDroits()) {
     		if (count($this->getConfig()->getDroits($this->getInterproKey())->get($type)) > 0) {
@@ -62,6 +62,6 @@ class DRMCertification extends BaseDRMCertification {
     		}
     	}
       	return null;
-    }
+    }*/
 
 }

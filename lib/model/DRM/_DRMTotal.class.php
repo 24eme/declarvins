@@ -6,9 +6,13 @@
 
 abstract class _DRMTotal extends acCouchdbDocumentTree {
     
+	protected $_config = null;
+	
     public function getConfig() {
-
-        return ConfigurationClient::getCurrent()->get($this->getHash());
+		if (!$this->_config) {
+			$this->_config = ConfigurationClient::getCurrent()->get($this->getHash());
+		}
+        return $this->_config;
     }
 
     public function getParentNode() {
@@ -35,13 +39,39 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     
 	protected function update($params = array()) {
         parent::update($params);
-        $this->total_debut_mois = $this->getTotalByKey('total_debut_mois');
-        $this->total_entrees = $this->getTotalByKey('total_entrees');
-        $this->total_sorties = $this->getTotalByKey('total_sorties');
-        $this->total = $this->get('total_debut_mois') + $this->get('total_entrees') - $this->get('total_sorties');
+		$sumTotalDebutMois = 0;
+		$sumTotalEntrees = 0;
+		$sumTotalSorties = 0;
+		$fields = $this->getFields();
+    	foreach ($fields as $field => $k) {
+    		if ($this->fieldIsCollection($field)) {
+    			$noeud = $this->get($field);
+    			foreach ($noeud as $f => $v) {
+    				if ($noeud->fieldIsCollection($f)) {
+    					if ($v->exist('total_debut_mois')) {
+		    				$sumTotalDebutMois += $v->get('total_debut_mois');
+    					}
+    					if ($v->exist('total_entrees')) {
+		    				$sumTotalEntrees += $v->get('total_entrees');
+    					}
+    					if ($v->exist('total_sorties')) {
+		    				$sumTotalSorties += $v->get('total_sorties');
+    					}
+    				}
+    			}
+    		}
+    	}
+        $this->total_debut_mois = $sumTotalDebutMois;
+        $this->total_entrees = $sumTotalEntrees;
+        $this->total_sorties = $sumTotalSorties;
+        $this->total = $sumTotalDebutMois + $sumTotalEntrees - $sumTotalSorties;
         if ($this->exist('code') && $this->exist('libelle')) {
-        	$this->code = $this->getFormattedCode();
-        	$this->libelle = $this->getFormattedLibelle();
+        	if (!$this->code) {
+        		$this->code = $this->getFormattedCode();
+        	}
+        	if (!$this->libelle) {
+        		$this->libelle = $this->getFormattedLibelle();
+        	}
         }
     }
     
@@ -181,7 +211,7 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     /*
      * DROITS
      */
-    public function getDroit($type) 
+    /*public function getDroit($type) 
     {
     	if ($this->getConfig()->hasDroits()) {
     		if (count($this->getConfig()->getDroits($this->getInterproKey())->get($type)) > 0) {
@@ -189,7 +219,7 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     		}
     	}
       	return $this->getParentNode()->getDroit($type);
-    }
+    }*/
     
 	public function getDroits() 
 	{
