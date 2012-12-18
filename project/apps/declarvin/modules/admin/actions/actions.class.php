@@ -92,7 +92,7 @@ class adminActions extends sfActions
   public function executeLibelles(sfWebRequest $request)
   {
 	$this->messages = MessagesClient::getInstance()->findAll(); 
-    $this->droits = ConfigurationClient::getCurrent()->droits;
+    //$this->droits = ConfigurationClient::getCurrent()->droits;
     $this->labels = ConfigurationClient::getCurrent()->labels;
     $this->controles = ControlesClient::getInstance()->findAll();
     $this->configurationVrac = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($this->getUser()->getCompte()->getGerantInterpro()->getKey());
