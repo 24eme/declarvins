@@ -4,9 +4,7 @@
             <h1>Récapitulatif</h1>
             <div id="recapitulatif">
                 <div class="recap_perso">
-                    <ul class="onglets_principal">
-                        <li class="actif"><strong>Coordonnées</strong></li>
-                    </ul>
+                    <h2>Coordonnées</h2>
                     <div id="contenu_onglet">
                         <div class="col">
                             <p><span>Nom :</span> <strong><?php echo $contrat->getNom() ?></strong></p>
@@ -26,9 +24,8 @@
                     <?php
                     foreach ($contrat->etablissements as $etablissement):
                         ?>
-                        <ul class="onglets_principal">
-                            <li class="actif"><strong>Etablissement <?php echo $etablissement->getKey() + 1; ?></strong></li>
-                        </ul>
+					
+                        <h2>Etablissement <?php echo $etablissement->getKey() + 1; ?></h2>
                         <div class="contenu_onglet">
                             <div class="col">
                                 <p><span>Raison Sociale :</span> <strong><?php echo $etablissement->raison_sociale ?></strong></p>
