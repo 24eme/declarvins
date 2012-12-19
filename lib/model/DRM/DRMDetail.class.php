@@ -209,7 +209,7 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function getDroit($type) {
-    	$result = ConfigurationClient::getInstance()->findDroitsByHashAndType($this->hash, ConfigurationDroits::CODE_CVO)->rows;
+    	$result = ConfigurationClient::getInstance()->findDroitsByHashAndType($this->getCepage()->getHash(), $type)->rows;
         if (count($result) == 0) {
         	return null;
         }

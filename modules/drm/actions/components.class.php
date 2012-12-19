@@ -65,13 +65,13 @@ class drmComponents extends sfComponents {
     }
 
     protected function hasNewDRM($historique, $identifiant) {
-        if($historique->getLastPeriode() > $historique->getCurrentPeriode()) {
+        if($historique->getLastPeriode(false) >= $historique->getCurrentPeriode()) {
             return false;
         }
         if ($historique->hasDRMInProcess()) {
             return false;
         }
-        if(isset($this->campagne) && DRMClient::getInstance()->buildCampagne($historique->getLastPeriode()) != $this->campagne) {
+        if(isset($this->campagne) && $this->campagne && DRMClient::getInstance()->buildCampagne($historique->getLastPeriode()) != $this->campagne) {
             return false;
         }
         return true;
@@ -79,16 +79,18 @@ class drmComponents extends sfComponents {
 
     public function executeHistoriqueList() {
         $this->drms = array();
+        $this->campagne = null;
         $historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
         $this->new_drm = $this->getNewDRM($historique, $this->etablissement->identifiant);
-
+		
         if (!isset($this->campagne) && $this->new_drm) {
             $this->campagne = $this->new_drm->campagne;
-        } elseif(!isset($this->campagne)) {
+        } elseif(!isset($this->campagne) || !$this->campagne) {
             $campagnes = $historique->getCampagnes();
-            $this->campagne = $campagnes[0];
+            if ($campagnes) {
+            	$this->campagne = $campagnes[0];
+            }
         }
-
         foreach($historique->getDRMsByCampagne($this->campagne) as $key => $drm) {
             $this->drms[$key] = DRMClient::getInstance()->find($key);
         }
@@ -107,7 +109,7 @@ class drmComponents extends sfComponents {
             $this->campagnes = array_merge(array($lastCampagne), $this->campagnes);
         }
 
-        if (!isset($this->campagne)) {
+        if (!isset($this->campagne) && $this->campagnes) {
             $this->campagne = $this->campagnes[0];
         }
     }

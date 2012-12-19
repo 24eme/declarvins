@@ -38,12 +38,12 @@ class DRMHistorique {
     	return $this->last_drm;
     }
     
-    public function getLastPeriode() {
+    public function getLastPeriode($with_current = true) {
     	$lastDrm = $this->getLastDRM();
     	if ($lastDrm) {
     		return $lastDrm->periode;
     	}
-    	return $this->getCurrentPeriode();
+    	return ($with_current)? $this->getCurrentPeriode() : null;
     }
     
 	public function getCurrentPeriode() {
