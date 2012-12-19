@@ -13,6 +13,13 @@ class VracProduitForm extends VracForm
     }
     protected function doUpdateObject($values) {
         parent::doUpdateObject($values);
+        $result = ConfigurationClient::getInstance()->findDroitsByHashAndType('/'.$this->getObject()->produit, DRMDroits::DROIT_CVO)->rows;
+        if (count($result) == 0) {
+        	throw new sfException('Aucun résultat pour le produit '.$this->getObject()->produit);
+        }
+        $result = $result[0];
+        $droits = $result->value;
+        $this->getObject()->part_cvo = $droits->taux;
         $this->getObject()->update();
     }
 }

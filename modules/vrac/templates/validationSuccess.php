@@ -11,12 +11,15 @@
                 <?php include_partial('showContrat', array('configurationVrac' => $configurationVrac, 'etablissement' => $etablissement, 'vrac' => $vrac, 'editer_etape' => false)); ?>
                 
                 <div class="ligne_form_btn">
-					<?php if (!$vrac->isValide()): ?>
+					<?php if (!$vrac->isValide() && !$dateValidationActeur): ?>
                 	<form action="<?php echo url_for('vrac_validation', array('sf_subject' => $vrac, 'acteur' => $acteur)) ?>" method="post" id="vrac_condition">
 						<?php echo $form->renderHiddenFields() ?>
 						<?php echo $form->renderGlobalErrors() ?>
 						<input class="valider_etape" type="submit" value="Valider"  />
 					</form>
+					<?php endif; ?>
+					<?php if ($dateValidationActeur): ?>
+					<p>Vous avez validé ce contrat le <?php echo strftime('%d/%m/%Y à %Hh%M', strtotime($dateValidationActeur)); ?></p>
 					<?php endif; ?>
 				</div>
                 

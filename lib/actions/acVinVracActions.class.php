@@ -121,10 +121,12 @@ class acVinVracActions extends sfActions
                     $this->getUser()->setFlash('termine', true);
                     if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
                     	$this->contratValide($this->vrac);
+                    	return $this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
                     } else {
                     	$this->saisieTerminee($this->vrac, $this->interpro);
+                    	return $this->redirect('vrac_validation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement, 'acteur' => $this->vrac->vous_etes));
                     }
-			        return $this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
+			        
 				}
 
 				if (!$this->vrac->has_transaction && $this->configurationVracEtapes->next($this->vrac->etape) == 'transaction') {
@@ -203,25 +205,6 @@ class acVinVracActions extends sfActions
     	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
   }
   
-  public function executeGetCvo(sfWebRequest $request)
-  {
-        $this->vrac = $this->getRoute()->getVrac();
-        $this->etablissement = $this->getRoute()->getEtablissement();   
-        $this->hash = $request->getParameter('hash', null);
-        if (!$this->hash) {
-
-        	throw new sfException('Hash produit requis');
-        }
-        $this->hash = str_replace('-', '/', $this->hash);
-        $result = ConfigurationClient::getInstance()->findDroitsByHashAndType($this->hash, ConfigurationDroits::CODE_CVO)->rows;
-        if (count($result) == 0) {
-        	throw new sfException('Aucun résultat pour le produit '.$this->hash);
-        }
-        $result = $result[0];
-        $droits = $result->value;
-        echo $droits->taux;
-		return sfView::NONE;
-  }
 	public function executeVisualisation(sfWebRequest $request)
 	{
 		$this->vrac = $this->getRoute()->getVrac();
@@ -242,6 +225,8 @@ class acVinVracActions extends sfActions
 		$this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->init($this->vrac, $this->etablissement);
+        $validationActeur = 'date_validation_'.$this->acteur;
+        $this->dateValidationActeur = $this->vrac->valide->{$validationActeur};
         if ($this->vrac->isValide()) {
         	if ($this->etablissement)
         		$this->redirect('vrac_valide', array('identifiant' => $this->etablissement->identifiant));

@@ -24,4 +24,3 @@
             <a href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $form->getObject(), 'etablissement' => $etablissement)) ?>" class="annuler_saisie"><span>annuler la saisie</span></a>
         </div> 
     </form>
-    <?php include_partial('url_product_template', array('vrac' => $form->getObject(), 'etablissement' => $etablissement)); ?>
