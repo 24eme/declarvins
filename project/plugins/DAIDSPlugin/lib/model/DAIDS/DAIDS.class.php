@@ -49,8 +49,6 @@ class DAIDS extends BaseDAIDS
         	}
        	}
        	$this->getDocument()->update();
-       } else {
-       	var_dump($this->identifiant, $this->periode);exit;
        }
     }
 
