@@ -49,6 +49,8 @@ class DAIDS extends BaseDAIDS
         	}
        	}
        	$this->getDocument()->update();
+       } else {
+       	echo "probeme";exit;
        }
     }
 
