@@ -22,10 +22,10 @@ class vracActions extends acVinVracActions
 		foreach ($acteurs as $acteur) {
 			if ($email = $vrac->get($acteur)->email) {
 				$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
-				Email::getInstance()->vracDemandeValidation($vrac, $etablissement, $email);
+				Email::getInstance()->vracDemandeValidation($vrac, $etablissement, $email, $acteur);
 			} else {
 				if ($email = $interpro->email_contrat_vrac) {
-					Email::getInstance()->vracDemandeValidationInterpro($vrac, $etablissement, $email);
+					Email::getInstance()->vracDemandeValidationInterpro($vrac, $email, $acteur);
 				}
 			}
 		}
