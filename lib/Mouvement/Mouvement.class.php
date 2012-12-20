@@ -23,9 +23,26 @@ abstract class Mouvement extends acCouchdbDocumentTree
         return md5($key);
     }
 
-    public function isFacturable() {
-        
+    public function isFacturable() {        
         return $this->facturable;
+    }
+
+    public function setVolume($v) {
+      if ($this->volume === 0 && $v) {
+	throw new sfException('PB Facturable : plus capable de savoir si le mouvement est facturable ou non');
+      }
+      if (!$v)
+	$this->facturable = 0;
+      return $this->_set('volume', $v);
+    }
+
+    public function setCVO($cvo) {
+      if ($this->cvo === 0 && $cvo) {
+	throw new sfException('PB Facturable : plus capable de savoir si le mouvement est facturable ou non');
+      }
+      if (!$cvo)
+	$this->facturable = 0;
+      return $this->_set('cvo', $cvo);
     }
 
     public function isVrac() {
