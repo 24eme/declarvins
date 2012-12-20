@@ -85,7 +85,7 @@ EOF;
                         )));
                 $this->logSection("base tree class generated", $base_dir . '/' . $base_filename);
                 
-                if ($field->getCollectionInheritance()) {
+                /*if ($field->getCollectionInheritance()) {
                     $filename_inheritance = $field->getCollectionInheritance().".class.php";
                     if (!is_file($dir . '/' . $filename_inheritance)) {
                         file_put_contents($dir . '/' . $filename_inheritance, $this->getFileContentTreeInheritance(array("%MODEL_NAME%" => $definition->getModel(),
@@ -93,7 +93,7 @@ EOF;
                         )));
                         $this->logSection("inheritance tree class generated", $dir . '/' . $filename_inheritance);
                     } 
-                }
+                }*/
 
                 if (!is_file($dir . '/' . $filename)) {
                     file_put_contents($dir . '/' . $filename, $this->getFileContentTree(array("%TREE_MODEL_NAME%" => $model)));
