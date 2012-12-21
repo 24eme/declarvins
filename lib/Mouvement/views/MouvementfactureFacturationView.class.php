@@ -32,19 +32,41 @@ class MouvementfactureFacturationView extends acCouchdbView
     
     public function getMouvementsByEtablissement($etablissement,$facturee, $facturable) {        
         return $this->client
-            ->startkey(array($facturee,$facturable,'tours',$etablissement->identifiant))
-            ->endkey(array($facturee,$facturable,'tours',$etablissement->identifiant, array()))
+            ->startkey(array($facturee,$facturable,$etablissement->region_viticole,$etablissement->identifiant))
+            ->endkey(array($facturee,$facturable,$etablissement->region_viticole,$etablissement->identifiant, array()))
             ->reduce(false)
             ->getView($this->design, $this->view)->rows;
     }
     
+    public function getMouvementsBySociete($societe,$facturee, $facturable) {        
+	return $this->client
+	  ->startkey(array($facturee,$facturable,$societe->getRegionViticole(),$societe->identifiant.'00'))
+	  ->endkey(array($facturee,$facturable,$societe->getRegionViticole(),$societe->identifiant.'99', array()))
+	  ->reduce(false)
+	  ->getView($this->design, $this->view)->rows;
+    }
+    
+    public function getMouvementsBySocieteWithReduce($societe,$facturee, $facturable,$level)
+    {
+        return $this->client
+	  ->startkey(array($facturee,$facturable,$societe->getRegionViticole(),$societe->identifiant.'00'))
+	  ->endkey(array($facturee,$facturable,$societe->getRegionViticole(),$societe->identifiant.'99', array()))
+	  ->reduce(true)->group_level($level)
+	  ->getView($this->design, $this->view)->rows;
+    }
+
+
     public function getMouvementsByEtablissementWithReduce($etablissement,$facturee, $facturable,$level)
     {
         return $this->client
-            ->startkey(array($facturee,$facturable,'tours',$etablissement->identifiant))
-            ->endkey(array($facturee,$facturable,'tours',$etablissement->identifiant, array()))
+            ->startkey(array($facturee,$facturable,$etablissement->region_viticole,$etablissement->identifiant))
+            ->endkey(array($facturee,$facturable,$etablissement->region_viticole,$etablissement->identifiant, array()))
             ->reduce(true)->group_level($level)
             ->getView($this->design, $this->view)->rows;
+    }
+
+    public function getMouvementsNonFacturesBySociete($societe) {
+      return $this->buildMouvements($this->getMouvementsBySociete($societe, 0, 1));
     }
 
 
