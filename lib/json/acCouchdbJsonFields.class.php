@@ -164,7 +164,7 @@ abstract class acCouchdbJsonFields {
 
     protected function _add($key = null, $item = null) {
         if (!$this->getDefinition()->exist($key)) {
-            throw new acCouchdbException(sprintf("The field \"%s\" does not exist in the schema.yml definition in the document \"%s\". Please remove it asshole !", $this->getHash()."/".$key, $this->getDocument()->get('_id')));
+            throw new acCouchdbException(sprintf("The field \"%s\" does not exist in the schema.yml definition in the document \"%s\". Please remove it cute little dev !", $this->getHash()."/".$key, $this->getDocument()->get('_id')));
         }
         if ($this->_is_array) {
             $key = $this->addNumeric($key);
