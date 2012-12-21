@@ -38,7 +38,7 @@ class MouvementfactureFacturationView extends acCouchdbView
             ->getView($this->design, $this->view)->rows;
     }
     
-    public function getMouvementsBySociete($societe,$facturee, $facturable) {        
+    public function getMouvementsBySociete($societe,$facturee, $facturable) {
 	return $this->client
 	  ->startkey(array($facturee,$facturable,$societe->getRegionViticole(),$societe->identifiant.'00'))
 	  ->endkey(array($facturee,$facturable,$societe->getRegionViticole(),$societe->identifiant.'99', array()))
