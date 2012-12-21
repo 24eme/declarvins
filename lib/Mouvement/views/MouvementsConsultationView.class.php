@@ -10,7 +10,7 @@ class MouvementsConsultationView extends acCouchdbView
     const KEY_PRODUIT_HASH = 5;
     const KEY_TYPE_HASH = 6;
     const KEY_VRAC_NUMERO = 7;
-    const KEY_DETAIL_LIBELLE = 8;
+    const KEY_DETAIL_IDENTIFIANT = 8;
 
     const VALUE_ETABLISSEMENT_NOM = 0;
     const VALUE_PRODUIT_LIBELLE = 1;
@@ -22,6 +22,7 @@ class MouvementsConsultationView extends acCouchdbView
     const VALUE_VERSION = 7;
     const VALUE_CVO = 8;
     const VALUE_FACTURABLE = 9;
+    const VALUE_MOUVEMENT_ID = 10;
 
     public static function getInstance() {
 
@@ -63,10 +64,13 @@ class MouvementsConsultationView extends acCouchdbView
         $mouvement = new stdClass();
         $mouvement->doc_libelle = sprintf("%s %s", $row->key[self::KEY_TYPE], $row->key[self::KEY_PERIODE]);
         $mouvement->doc_id = $row->key[self::KEY_ID];
+        $mouvement->type_hash = $row->key[self::KEY_TYPE_HASH];
         $mouvement->etablissement_nom = $row->value[self::VALUE_ETABLISSEMENT_NOM];
+        $mouvement->produit_hash = $row->value[self::KEY_PRODUIT_HASH];
         $mouvement->produit_libelle = $row->value[self::VALUE_PRODUIT_LIBELLE];
         $mouvement->type_libelle = $row->value[self::VALUE_TYPE_LIBELLE];
         $mouvement->volume = $row->value[self::VALUE_VOLUME];
+        $mouvement->detail_identifiant = $row->key[self::KEY_DETAIL_IDENTIFIANT];
         $mouvement->detail_libelle = $row->value[self::VALUE_DETAIL_LIBELLE];        
         $mouvement->date_version =  $row->value[self::VALUE_DATE_VERSION];
         $mouvement->version = $row->value[self::VALUE_VERSION];
@@ -74,8 +78,23 @@ class MouvementsConsultationView extends acCouchdbView
         $mouvement->vrac_destinataire =  $row->value[self::VALUE_VRAC_DESTINATAIRE];
         $mouvement->cvo =  $row->value[self::VALUE_CVO];
         $mouvement->facturable =  $row->value[self::VALUE_FACTURABLE];
+        $mouvement->id = $row->value[self::VALUE_MOUVEMENT_ID];
 
         return $mouvement;
+    }
+
+    public function getWords($mouvements) {
+        $words = array();
+        
+        foreach($mouvements as $mouvement) {
+            $words[] = $this->getWord($mouvement);
+        }
+
+        return $words;
+    }
+
+    protected function getWord($mouvement) {
+
     }
 
 }  
