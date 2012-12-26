@@ -27,5 +27,6 @@ class EtablissementCsv {
     const COL_COMPTA_PAYS = 23;
     const COL_SERVICE_DOUANE = 24;
     const COL_CHAMPS_COMPLEMENTAIRES = 25;
+    const COL_CHAMPS_STATUT = 26;
 }
 

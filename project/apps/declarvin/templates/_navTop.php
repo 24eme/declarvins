@@ -38,7 +38,7 @@ use_helper('Text');
         
         <li class="etablissement_courant">
             <a href="" title="<?php echo $etablissement->getDenomination();?> (<?php echo $etablissement->getRaisonSociale(); ?> <?php echo $etablissement->getIdentifiant();?>)">
-                <span><?php echo truncate_text($etablissement->getDenomination(),20); ?></span>
+                <span<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVE): ?> style="color: grey;"<?php endif; ?>><?php echo truncate_text($etablissement->getDenomination(),20); ?></span>
             </a>
         </li>
         <li class="quitter"><a href="<?php echo ($sf_user->getCompte()->exist('tiers') && count($sf_user->getCompte()->tiers) > 1)? url_for('@tiers') : url_for('@ac_vin_logout'); ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>

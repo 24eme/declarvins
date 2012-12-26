@@ -55,12 +55,6 @@ validation_liaison:
 validation_validation:
   url:   /validation/:num_contrat/validation
   param: { module: validation, action: validation, num_contrat: null }
-validation_archiver:
-  url:   /validation/:num_contrat/archiver/:etablissement
-  param: { module: validation, action: archiver, etablissement: null, num_contrat: null }
-validation_desarchiver:
-  url:   /validation/:num_contrat/desarchiver/:etablissement
-  param: { module: validation, action: desarchiver, etablissement: null, num_contrat: null }
 validation_delier:
   url:   /validation/:num_contrat/delier/:etablissement
   param: { module: validation, action: delier, etablissement: null, num_contrat: null }
@@ -72,9 +66,6 @@ validation_compte_password:
   param: { module: validation, action: redefinitionPassword }
 
 # Interpro routing
-interpro_import:
-  url:   /interpro/:id/update_etablissements
-  param: { module: interpro, action: updateEtablissements, id: null }
 interpro_upload_csv:
   url:   /interpro/:id/upload_csv
   param: { module: interpro, action: uploadCsv, id: null }
@@ -94,6 +85,12 @@ profil:
   class: EtablissementRoute
   url: /profil/:identifiant
   param: { module: tiers, action: profil }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
+profil_statut:
+  class: EtablissementRoute
+  url: /profil/:identifiant/statut
+  param: { module: tiers, action: statut }
   requirements: { sf_method: ['get', 'post'] }
   options: { model: Etablissement, type: object }
 login:

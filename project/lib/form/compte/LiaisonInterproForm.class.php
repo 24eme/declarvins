@@ -84,7 +84,7 @@ class LiaisonInterproForm extends BaseForm {
         $interprosId = ($values['interpro'])? $values['interpro'] : array();
         foreach ($interprosId as $interproId) {
             if (!in_array($interproId, $existingInterprosId)) {
-                $this->_compte->interpro->add($interproId)->setStatut(_Compte::STATUT_VALIDATION_ATTENTE);
+                $this->_compte->interpro->add($interproId)->setStatut(_Compte::STATUT_ATTENTE);
                 $this->_compte->save();
             }
         }

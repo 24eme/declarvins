@@ -3,6 +3,9 @@
     <div class="presentation" <?php if ($form->hasErrors()) echo ' style="display:none;"'; ?>>
 
         <div class="bloc_form">
+            <div class="ligne_form ligne_form_alt">
+                <label>Statut:</label> <?php echo $compte->statut; ?>
+            </div>
             <div class="ligne_form ">
                 <label>Nom:</label> <?php echo $compte->nom; ?>
             </div>
@@ -18,9 +21,11 @@
             <div class="ligne_form ">
                 <label>Adresse e-mail:</label> <?php echo $compte->email; ?>
             </div>
+            <?php if ($compte->login): ?>
             <div class="ligne_form  ligne_form_alt">
                <label>Mot de passe:</label> ******
             </div>
+            <?php endif; ?>
         </div>
 
         <div class="ligne_btn btn">

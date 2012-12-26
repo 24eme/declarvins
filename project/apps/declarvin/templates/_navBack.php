@@ -3,21 +3,15 @@
 		<li<?php if ($active == 'operateurs'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@etablissement_login') ?>">Opérateurs</a>
 		</li>
-		<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
 		<li<?php if ($active == 'parametrage'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@produits') ?>">Paramétrage</a>
 		</li>
-		<?php endif; ?>
-		<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
         <li<?php if ($active == 'comptes'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@admin_comptes') ?>">Comptes</a>
 		</li>
-		<?php endif; ?>
-		<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
         <li<?php if ($active == 'alertes'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@alertes?reset_filters=true') ?>">Alertes</a>
 		</li>
-		<?php endif; ?>
 	</ul>
 	<ul id="actions_etablissement">
 		<?php if ($recherche && 1==2): // on masque la recherche intensionnellement ?>
@@ -69,9 +63,11 @@
 				<a href="<?php echo url_for('@admin_libelles') ?>">Libellés</a>
 			</li>		
 		<?php elseif ($active == 'comptes'): ?>
+			<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
 			<li<?php if ($subactive == 'comptes'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@admin_comptes') ?>">Opérateurs</a>
 			</li>	
+			<?php endif; ?>
 			<li<?php if ($subactive == 'contrat'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@validation_login') ?>">Déclarants / Contrats mandat</a>
 			</li>		

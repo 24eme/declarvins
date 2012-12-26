@@ -44,7 +44,7 @@ acVinCompteTiers:
                 fields:
                   id: {  }
                   type: {  }
-                  nom: {  }
+                  raison_sociale: {  }
                   interpro: {  }
 
 acVinCompteVirtuel:

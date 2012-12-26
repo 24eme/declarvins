@@ -17,6 +17,9 @@ class acVinCompteAdminActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
+  	if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+  		return $this->redirect('validation_login');
+  	}
   	$this->comptes = _CompteClient::getInstance()->findAllOperateurByInterpo($this->getUser()->getCompte()->getGerantInterpro()->_id);
   }
   
@@ -27,7 +30,7 @@ class acVinCompteAdminActions extends sfActions
   	$loginInSession = $this->getUser()->getCompte()->login;
   	$ldap = new Ldap();
   	$ldap->deleteCompte($compte);
-  	$compte->statut = _Compte::STATUT_INACTIF;
+  	$compte->statut = _Compte::STATUT_ARCHIVE;
   	$compte->save();
   	$this->getUser()->setFlash('notice', 'Compte supprimé avec succès');
   	if ($login == $loginInSession) {
@@ -88,7 +91,7 @@ class acVinCompteAdminActions extends sfActions
     {
       $this->compte = new CompteVirtuel();
       $this->compte->statut = _Compte::STATUT_ACTIF;
-   	  $this->compte->interpro = array($this->getUser()->getCompte()->getGerantInterpro()->_id => array('statut' => _Compte::STATUT_VALIDATION_VALIDE));
+   	  $this->compte->interpro = array($this->getUser()->getCompte()->getGerantInterpro()->_id => array('statut' => _Compte::STATUT_VALIDE));
       $this->form = new CompteModificationDroitForm($this->compte);
       if($request->isMethod(sfWebRequest::POST))
         {           

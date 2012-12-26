@@ -33,18 +33,8 @@
 
 <div class="clearfix" id="mon_compte">
     <h1>Import des établissements</h1>
-    <?php if (@file_get_contents($interpro->getAttachmentUri('etablissements.csv'))): ?>
-        <p>
-            <i>Fichier prêt pour l'import (<a href="<?php echo $interpro->getAttachmentUri('etablissements.csv'); ?>">télécharger le fichier</a>)</i><br />
-            <a class="btn_valider" href="<?php echo url_for("interpro_import", array('id' => $interpro->get('_id'))) ?>">Lancer l'update</a>
-        </p> 
-        <br />
-    <?php else: ?>
-        <p>
-        <i>Vous n'avez pas encore chargé de fichier d'import.</i>
-        </p>
-        <br />
-    <?php endif; ?>
+    <p>Merci de fournir le fichier le vos établissements au format <strong><u>CSV</u></strong>.</p>
+    <br />
     <?php include_partial('interpro/formUploadCsv', array('form' => $formUploadCsv, 'interpro' => $interpro)) ?>
 </div>
 </section>

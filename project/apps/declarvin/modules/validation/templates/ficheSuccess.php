@@ -67,17 +67,11 @@ var formModificationCompte = function()
 
         <h1>Etablissements associés</h1>
         
-        <?php if (count($etablissements) > 0 || count($etablissementsCsv) > 0): ?>
+        <?php if (count($etablissements) > 0): ?>
         <ul class="chais">
             <?php foreach ($etablissements as $etablissement): ?>
-            <li class="presentation"<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVE): ?> style="opacity:0.5;"<?php endif; ?>>
-                <?php include_partial('viewEtablissement', array('etablissement' => $etablissement, 'interpro' => $interpro, 'contrat' => $contrat)) ?>
-            </li>
-            <?php endforeach; ?>
-        
-            <?php foreach ($etablissementsCsv as $etablissementCsv): ?>
-            <li class="presentation" style="border:1px dashed #C7C9C8;">
-                <?php include_partial('viewCsvEtablissement', array('etablissement' => $etablissementCsv, 'interpro' => $interpro, 'contrat' => $contrat)) ?>
+            <li class="presentation" style="<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVE): ?>opacity:0.5;<?php endif; ?>">
+                <?php include_partial('viewEtablissement', array('etablissement' => $etablissement, 'interpro' => $interpro, 'contrat' => $contrat, 'compte' => $compte)) ?>
             </li>
             <?php endforeach; ?>
         </ul>

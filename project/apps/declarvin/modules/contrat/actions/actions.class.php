@@ -54,6 +54,7 @@ class contratActions extends sfActions
                 	$compte = _CompteClient::getInstance()->find($contrat->compte);
                 }
 	            $compte->generateByContrat($contrat);
+           		$compte->statut = _Compte::STATUT_FICTIF;
 	            $compte->save();
                 $contrat->setCompte($compte->get('_id'));
                 $contrat->save();

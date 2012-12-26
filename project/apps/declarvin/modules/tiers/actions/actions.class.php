@@ -23,8 +23,12 @@ class tiersActions extends sfActions
 	  	return $this->redirect("admin");
 	  }
     if (count($this->compte->tiers) == 1) {
-      
-      return $this->redirect("tiers_mon_espace", EtablissementClient::getInstance()->find($this->compte->tiers->getFirst()->id));
+    	$etablissement = EtablissementClient::getInstance()->find($this->compte->tiers->getFirst()->id);
+    	if ($etablissement->statut == Etablissement::STATUT_ACTIF) {
+    		return $this->redirect("tiers_mon_espace", $etablissement);
+    	} else {
+      		throw new sfException('Aucun établissement actif pour ce compte');
+    	}
     }
 
   	$this->form = new TiersLoginForm($this->compte, true);
@@ -71,5 +75,20 @@ class tiersActions extends sfActions
 	      	}
 	      }
   	  }
+  }
+  
+  public function executeStatut(sfWebRequest $request) 
+  {
+  	  $this->etablissement = $this->getRoute()->getEtablissement();
+  	  if ($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+  	  	if ($this->etablissement->statut == Etablissement::STATUT_ARCHIVE) {
+  	  		$this->etablissement->statut = Etablissement::STATUT_ACTIF;
+  	  	} else {
+  	  		$this->etablissement->statut = Etablissement::STATUT_ARCHIVE;
+  	  	}
+  	  	$this->etablissement->save();
+  	  	$this->getUser()->setFlash('notice', 'Modifications effectuées avec succès');
+  	  }
+  	  $this->redirect('profil', $this->etablissement);
   }
 }

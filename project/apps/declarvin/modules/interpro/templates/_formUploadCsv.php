@@ -5,7 +5,7 @@
     <?php echo $form['file']->render() ?>
     <?php echo $form['file']->renderError() ?>
 
-        <div class="btn">
-                <button class="btn_valider" type="submit">Envoyer</button>
-            </div>
+	<div class="btn">
+		<button class="btn_valider" type="submit">Mettre à jour</button>
+	</div>
 </form>

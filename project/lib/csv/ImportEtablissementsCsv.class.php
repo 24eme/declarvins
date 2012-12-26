@@ -48,6 +48,12 @@ class ImportEtablissementsCsv {
         $etab->comptabilite->pays = trim($line[EtablissementCsv::COL_COMPTA_PAYS]);
         $etab->service_douane = trim($line[EtablissementCsv::COL_SERVICE_DOUANE]);
 		$etab->interpro = trim($line[EtablissementCsv::COL_INTERPRO]);
+		$etab->contrat_mandat = 'CONTRAT-'.trim($line[EtablissementCsv::COL_NUMERO_CONTRAT]);
+		if (isset($line[EtablissementCsv::COL_CHAMPS_STATUT]) && trim($line[EtablissementCsv::COL_CHAMPS_STATUT])) {
+			$etab->statut = trim($line[EtablissementCsv::COL_CHAMPS_STATUT]);
+		} else {
+			$etab->statut = Etablissement::STATUT_ACTIF;
+		}
 
         return $etab;
     }
@@ -73,57 +79,44 @@ class ImportEtablissementsCsv {
     
     public function getEtablissementsByContrat(Contrat $contrat)
     {
-    	$etablissements = array();
-    	foreach ($this->_csv as $line) {
-    		if (trim($line[EtablissementCsv::COL_NUMERO_CONTRAT]) == $contrat->no_contrat) {
-    			$etab = EtablissementClient::getInstance()->retrieveById(trim($line[EtablissementCsv::COL_ID]));
-	            if (!$etab) {
-	                $etab = new Etablissement();
-	                $etab->set('_id', 'ETABLISSEMENT-' . trim($line[EtablissementCsv::COL_ID]));
-	            	$etab->interpro = $this->_interpro->get('_id');
-		            $etab = $this->bind($etab, $line);
-		            $etab->statut = Etablissement::STATUT_CSV;
-	            }
-	            $etablissements[$etab->get('_id')] = $etab;
-    		}
-    	}
-    	return $etablissements;
+    	return EtablissementClient::getInstance()->getEtablissementsByContrat($contrat->_id);
     }
 
     public function update() {
-      return $this->updateOrCreate(true);
+      return $this->updateOrCreate();
     }  
 
-	public function updateOrCreate($dontcreate = false) 
+	public function updateOrCreate() 
     {
     	$cpt = 0;
       	foreach ($this->_csv as $line) {
-			if (!$dontcreate)
-	  			$etab = EtablissementClient::getInstance()->retrieveOrCreateById(trim($line[EtablissementCsv::COL_ID]));
-			else
-	  			$etab = EtablissementClient::getInstance()->retrieveById(trim($line[EtablissementCsv::COL_ID]));
+	  		$etab = EtablissementClient::getInstance()->retrieveOrCreateById(trim($line[EtablissementCsv::COL_ID]));
+	  		$contrat = (trim($line[EtablissementCsv::COL_NUMERO_CONTRAT]))? ContratClient::getInstance()->retrieveById(trim($line[EtablissementCsv::COL_NUMERO_CONTRAT])) : null;
 			if ($etab) {
 	  			$etab = $this->bind($etab, $line);
+	  			if ($contrat) {
+	  				$etab->compte = $contrat->compte;
+	  			}
 	  			$etab->save();
-	  			$this->updateCompte($line);
+	  			$this->updateCompte($line, $etab, $contrat);
 	  			$cpt++;
 			}
       	}
       	return $cpt;
     }  
     
-    private function updateCompte($line) 
+    private function updateCompte($line, $etablissement, $contrat) 
     {
-    	if (trim($line[EtablissementCsv::COL_NUMERO_CONTRAT])) {
-	    	$contrat = ContratClient::getInstance()->retrieveById(trim($line[EtablissementCsv::COL_NUMERO_CONTRAT]));
-	    	if ($contrat) {
-		    	$compte = $contrat->getCompteObject();
-		    	if (!$compte->interpro->exist(trim($line[EtablissementCsv::COL_INTERPRO]))) {
-		    		$interpro = $compte->interpro->add(trim($line[EtablissementCsv::COL_INTERPRO]));
-		    		$interpro->statut = _Compte::STATUT_VALIDATION_ATTENTE;
-		    		$compte->save();
-		    	}
+    	if ($contrat) {
+	    	$compte = $contrat->getCompteObject();
+	    	if (!$compte->interpro->exist(trim($line[EtablissementCsv::COL_INTERPRO]))) {
+	    		$interpro = $compte->interpro->add(trim($line[EtablissementCsv::COL_INTERPRO]));
+	    		$interpro->statut = _Compte::STATUT_ATTENTE;
 	    	}
+	    	if (!$compte->tiers->exist($etablissement->get('_id'))) {
+	    		$compte->addEtablissement($etablissement);
+	    	}
+	    	$compte->save();
     	}
     }
 }

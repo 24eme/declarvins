@@ -1,5 +1,5 @@
 <div id="application_dr" class="clearfix">
-	<h1>Compte</h1>
+	<h1>Votre compte</h1>
 	<div id="compteModification">
 		<form method="post" action="<?php echo url_for('profil', $etablissement); ?>">
 		    <?php echo $form->renderHiddenFields(); ?>

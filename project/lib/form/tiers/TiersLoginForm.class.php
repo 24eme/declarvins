@@ -51,7 +51,10 @@ class TiersLoginForm extends BaseForm {
     public function getChoiceTiers() {
         $choices = array();
         foreach($this->_compte->tiers as $tiers) {
-            $choices[$tiers->id] = $tiers->nom;
+        	$etablissement = EtablissementClient::getInstance()->find($tiers->id);
+        	if ($etablissement->statut == Etablissement::STATUT_ACTIF) {
+            	$choices[$tiers->id] = $tiers->raison_sociale;
+        	}
         }
         return $choices;
     }

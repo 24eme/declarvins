@@ -1,5 +1,5 @@
 <div id="application_dr" class="clearfix">
-	<h1>Informations relatives à votre établissement</h1>
+	<h1>Votre établissement<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVE): ?> (archivé)<?php endif; ?></h1>
 	<div id="compteModification">
 		<div class="societe">
 			<ul>
