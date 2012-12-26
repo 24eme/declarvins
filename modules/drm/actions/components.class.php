@@ -79,11 +79,10 @@ class drmComponents extends sfComponents {
 
     public function executeHistoriqueList() {
         $this->drms = array();
-        $this->campagne = null;
         $historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
         $this->new_drm = $this->getNewDRM($historique, $this->etablissement->identifiant);
 		
-        if (!isset($this->campagne) && $this->new_drm) {
+        if ((!isset($this->campagne) || !$this->campagne) && $this->new_drm) {
             $this->campagne = $this->new_drm->campagne;
         } elseif(!isset($this->campagne) || !$this->campagne) {
             $campagnes = $historique->getCampagnes();

@@ -115,7 +115,6 @@ class drmActions extends sfActions
   public function executeHistorique(sfWebRequest $request)
   {
     $this->etablissement = $this->getRoute()->getEtablissement();
-    $this->historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
     $this->campagne = $request->getParameter('campagne');
   }
 
