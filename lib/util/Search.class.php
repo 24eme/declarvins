@@ -69,7 +69,7 @@ class Search {
         $words = array();
         $expressions = preg_split('/([,; \|()])/', $value);
         foreach($expressions as $exp) {
-            if(preg_match('/\w{3,}/', $exp)) {
+            if(preg_match('/[\wû]{3,}/', $exp)) {
                 $words[] = strtolower($exp);
             }
         }
