@@ -67,10 +67,10 @@ class Search {
 
     public static function getWords($value) {
         $words = array();
-        $expressions = preg_split('/(,| )/', $value);
+        $expressions = preg_split('/([,; \|()])/', $value);
         foreach($expressions as $exp) {
             if(preg_match('/\w{3,}/', $exp)) {
-                $words[] = $exp;
+                $words[] = strtolower($exp);
             }
         }
         return $words;
