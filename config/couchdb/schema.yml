@@ -8,6 +8,7 @@ Etablissement:
       type: {  }
       statut: {  }
       interpro: {  }
+      contrat_mandat: {  }
       compte: {  }
       societe: {  }
       num_interne: {  }

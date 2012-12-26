@@ -15,6 +15,7 @@ class EtablissementAllView extends acCouchdbView
 	const KEY_COMMUNE = 10;
 	const KEY_CODE_POSTAL = 11;
 	const KEY_PAYS = 12;
+	const KEY_STATUT = 13;
 
 	public static function getInstance() {
 

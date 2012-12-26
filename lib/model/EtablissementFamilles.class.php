@@ -22,7 +22,8 @@ class EtablissementFamilles
     protected static $sous_familles = array (
     	self::FAMILLE_PRODUCTEUR => array(self::SOUS_FAMILLE_CAVE_PARTICULIERE => "Cave particulière", 
                                           self::SOUS_FAMILLE_CAVE_COOPERATIVE => "Cave coopérative"),
-    	self::FAMILLE_NEGOCIANT => array(self::SOUS_FAMILLE_REGIONAL => "Régional", 
+    	self::FAMILLE_NEGOCIANT => array(null => null,
+    									 self::SOUS_FAMILLE_REGIONAL => "Régional", 
                                          self::SOUS_FAMILLE_EXTERIEUR => "Extérieur", 
                                          self::SOUS_FAMILLE_ETRANGER => "Etranger", 
                                          self::SOUS_FAMILLE_UNION => "Union", 

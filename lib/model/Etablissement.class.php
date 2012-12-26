@@ -94,10 +94,8 @@ class Etablissement extends BaseEtablissement {
     }
 
     public function save() {
-    	if (!$this->famille) {
+    	if (!$this->famille && !$this->sous_famille) {
     		$this->famille = EtablissementFamilles::FAMILLE_PRODUCTEUR;
-    	}
-    	if (!$this->sous_famille) {
     		$this->sous_famille = EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE;
     	}
     	parent::save();

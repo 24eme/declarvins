@@ -122,10 +122,19 @@ class EtablissementClient extends acCouchdbClient {
       }
 
       if (!$sf) {
-        return EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE;
+        return null;
       }
 
       throw new sfException('Sous Famille "'.$sf.'" inconnue');
+    }
+
+    public function getEtablissementsByContrat($contrat) {
+    	$etablissements = array();
+    	$result = EtablissementContratView::getInstance()->findByContrat($contrat)->rows;
+    	foreach ($result as $etab) {
+    		$etablissements[$etab->value[EtablissementContratView::CONTRAT_NUMERO]] = $this->find($etab->value[EtablissementContratView::CONTRAT_NUMERO]);
+    	}
+    	return $etablissements;
     }
 
 }
