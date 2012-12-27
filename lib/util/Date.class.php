@@ -15,6 +15,12 @@ class Date {
             return $date1 >= $date2;
         }
 
+        public static function sup($date1, $date2) {
+            $date1 = new DateTime($date1);
+            $date2 = new DateTime($date2);
+            return $date1 > $date2;
+        }
+
           public static function getIsoDateFinDeMoisISO($date,$nb_mois) 
         {
             preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/', $date, $matches);
