@@ -9,7 +9,7 @@
  * @property acCouchdbJson $labels
  * @property acCouchdbJson $libelles_label
  * @property string $label_supplementaire
- * @property acCouchdbJson $millesimes
+ * @property string $millesime
  * @property acCouchdbJson $douane
  * @property float $total_manquants_excedents
  * @property float $total_pertes_autorisees
@@ -34,8 +34,8 @@
  * @method acCouchdbJson setLibellesLabel()
  * @method string getLabelSupplementaire()
  * @method string setLabelSupplementaire()
- * @method acCouchdbJson getMillesimes()
- * @method acCouchdbJson setMillesimes()
+ * @method string getMillesime()
+ * @method string setMillesime()
  * @method acCouchdbJson getDouane()
  * @method acCouchdbJson setDouane()
  * @method float getTotalManquantsExcedents()

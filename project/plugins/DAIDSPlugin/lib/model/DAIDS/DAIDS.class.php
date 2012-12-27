@@ -40,9 +40,7 @@ class DAIDS extends BaseDAIDS
        		foreach ($detail->labels as $label) {
        			$d->labels->add($label);
        		}
-       		foreach ($detail->millesimes as $millesime) {
-       			$d->millesimes->add($millesime);
-       		}
+       		$d->millesime = $detail->millesime;
        		$labelLibelles = ConfigurationClient::getCurrent()->getLabelsLibelles($detail->labels->toArray());
         	foreach ($labelLibelles as $label => $libelle) {
         		$d->libelles_label->add($label, $libelle);

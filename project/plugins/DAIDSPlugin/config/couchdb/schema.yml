@@ -183,11 +183,7 @@ DAIDS:
                                                                                                                 fields:
                                                                                                                   '*': {  }
                                                                                                             label_supplementaire: {  }
-                                                                                                            millesimes:
-                                                                                                              type: array_collection
-                                                                                                              definition:
-                                                                                                                fields:
-                                                                                                                  '*': {  }
+                                                                                                            millesime: {  }
                                                                                                             cvo:
                                                                                                               type: collection
                                                                                                               definition:

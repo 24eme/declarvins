@@ -3,7 +3,7 @@ class ProduitNouveauForm extends sfForm {
 	
 	protected $configuration;
 	protected $configurationProduit;
-	protected static $configurationNoeud = array('certifications' => 'certification', 'genres' => 'genre', 'appellations' => 'appellation', 'lieux' => 'lieu', 'couleurs' => 'couleur', 'cepages' => 'cepage', 'millesimes' => 'millesime'); 
+	protected static $configurationNoeud = array('certifications' => 'certification', 'genres' => 'genre', 'appellations' => 'appellation', 'lieux' => 'lieu', 'couleurs' => 'couleur', 'cepages' => 'cepage'); 
 	
 	
 	public function __construct($configuration, $interpro, $defaults = array(), $options = array(), $CSRFSecret = null) {

@@ -1,36 +1,42 @@
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 
+
+  
+
 upload_drm:
   url: /edi/drm/csv
   param: {module: edi, action: file, csvViewer: csvDRMView}
 uploadDRMView:
   url: /edi/drm/csv/:md5
   param: {module: edi, action: csvDRMView}
+listDRMEdi:
+  url: /edi/drm/list
+  param: {module: edi, action: listDRM}
+
 upload_contrat:
   url: /edi/contrat/csv
   param: {module: edi, action: file, csvViewer: csvContratView}
 uploadContratView:
   url: /edi/contrat/csv/:md5
   param: {module: edi, action: csvContratView}
-upload_etablissements:
-  url: /edi/etablissements/csv
-  param: {module: edi, action: uploadEtablissements}
-update_etablissements:
-  url: /edi/etablissements/update/:id
-  param: {module: edi, action: updateEtablissements}
-listDRMEdi:
-  url: /edi/drm/list
-  param: {module: edi, action: listDRM}
 listContratEdi:
   url: /edi/contrat/list
   param: {module: edi, action: listContrat}
+
+# A TESTER
+upload_etablissements:
+  url: /edi/etablissements/csv/:id
+  param: {module: edi, action: uploadEtablissements}
+# OK
 streamDRMEdi:
   url: /edi/drm/:interpro/:datedebut
   param: {module: edi, action: streamDRM}
+# OK
 viewDRMEdi:
   url: /edi/drm/:identifiant/:annee/:mois/:rectificative
   param: {module: edi, action: viewDRM, rectificative: ''}
+# POURQUOI ?
 redirect_stream:
   url: /edi/drm/stream
   param: {module: edi, action: redirect, destination: 'streamDRMEdi'}
