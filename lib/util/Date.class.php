@@ -39,17 +39,13 @@ class Date {
         public static function getIsoDateFromFrenchDate($french_date) 
         {
             $matches = array();
-            try{
-            preg_match('/^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/', $french_date, $matches);
-            $jours = $matches[1];
-            $mois = $matches[2];
-            $annee = $matches[3];
-            }
-             catch (Exception $e)
-            {
-                throw new sfException("The date $french_date cannot be transformed");
-            }
-            return date('Y-m-d',mktime(0,0,0,$mois,$jours,$annee));
+	    if (preg_match('/^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/', $french_date, $matches)) {
+	      $jours = $matches[1];
+	      $mois = $matches[2];
+	      $annee = $matches[3];
+	      return date('Y-m-d',mktime(0,0,0,$mois,$jours,$annee));
+	    }
+	    return $french_date;
         }
        
 }
