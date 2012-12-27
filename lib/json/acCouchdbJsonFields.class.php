@@ -188,7 +188,7 @@ abstract class acCouchdbJsonFields {
      * @param string $key
      * @return mixed 
      */
-    protected function _get($key) {
+    public function _get($key) {
         return $this->getField($key);
     }
 
