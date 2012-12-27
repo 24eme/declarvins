@@ -126,16 +126,20 @@ class DRMDetail extends BaseDRMDetail {
         if (!$this->cvo->taux) {
         	$droitCvo = $this->getDroit(DRMDroits::DROIT_CVO);
 	        if ($droitCvo) {
+	        	$this->cvo->code = $droitCvo->code;
 	        	$this->cvo->taux = $droitCvo->taux;
 	        } else {
+	        	$this->cvo->code = null;
 	        	$this->cvo->taux = 0;
 	        }
         }
         if (!$this->douane->taux) {
         	$droitDouane = $this->getDroit(DRMDroits::DROIT_DOUANE);
 	        if ($droitDouane) {
+	        	$this->douane->code = $droitDouane->code;
 	        	$this->douane->taux = $droitDouane->taux;
 	        } else {
+	        	$this->douane->code = null;
 	        	$this->douane->taux = 0;
 	        }
         }

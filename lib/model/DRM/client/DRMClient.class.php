@@ -100,6 +100,30 @@ class DRMClient extends acCouchdbClient {
       return preg_replace('/([0-9]{4})-([0-9]{2})/', '$2', $periode);
     }
 
+    public function getAnneeByDRMId($drm_id) {
+      $tab = explode('-', $drm_id);
+      if (isset($tab[2])) {
+      	return $tab[2];
+      }
+      return null;
+    }
+
+    public function getMoisByDRMId($drm_id) {
+      $tab = explode('-', $drm_id);
+      if (isset($tab[3])) {
+      	return $tab[3];
+      }
+      return null;
+    }
+
+    public function getVersionByDRMId($drm_id) {
+      $tab = explode('-', $drm_id);
+      if (isset($tab[4])) {
+      	return $tab[4];
+      }
+      return null;
+    }
+
     public function getPeriodeSuivante($periode) {
       $nextMonth = $this->getMois($periode) + 1;
       $nextYear = $this->getAnnee($periode);
@@ -178,30 +202,6 @@ class DRMClient extends acCouchdbClient {
       $obj->periode = $periode;
       
       return $obj;
-    }
-
-    public function findByInterproDate($interpro, $date, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
-      $drm = array();
-      foreach ($this->viewByInterproDate($interpro, $date) as $id => $key) {
-        $drm[] = $this->find($id);
-      }
-      return $drm;
-    }
-
-    public function viewByInterproDate($interpro, $date) {
-      $rows = acCouchdbManager::getClient()
-        ->startkey(array($interpro, $date))
-        ->endkey(array($interpro, array()))
-        ->getView("drm", "date")
-        ->rows;
-
-      $drms = array();
-
-      foreach($rows as $row) {
-        $drms[$row->id] = $row->key;
-      }
-
-      return $drms;
     }
 
     public function viewByIdentifiant($identifiant) {

@@ -224,12 +224,14 @@ DRM:
                                                                                                               type: collection
                                                                                                               definition:
                                                                                                                 fields:
+                                                                                                                  code: {  }
                                                                                                                   taux: { type: float }
                                                                                                                   volume_taxable: { type: float }
                                                                                                             douane:
                                                                                                               type: collection
                                                                                                               definition:
                                                                                                                 fields:
+                                                                                                                  code: {  }
                                                                                                                   taux: { type: float }
                                                                                                                   volume_taxable: { type: float }
                                                                                                             label_supplementaire: {  }
@@ -242,11 +244,7 @@ DRM:
                                                                                                                     definition:
                                                                                                                       fields:
                                                                                                                         volume: { type: float }
-                                                                                                            millesimes:
-                                                                                                              type: array_collection
-                                                                                                              definition:
-                                                                                                                fields:
-                                                                                                                  '*': {  }
+                                                                                                            millesime: {  }
                                                                                                             stocks_debut:
                                                                                                               type: collection
                                                                                                               class: DRMDetailNoeud
