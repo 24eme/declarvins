@@ -6,7 +6,7 @@ interface InterfaceMouvementDocument
     public function getMouvementsCalcule();
     public function getMouvementsCalculeByIdentifiant($identifiant);
     public function generateMouvements();
-    public function findMouvement($cle);
+    public function findMouvement($cle, $id = null);
     public function facturerMouvements();
     public function clearMouvements();
 }

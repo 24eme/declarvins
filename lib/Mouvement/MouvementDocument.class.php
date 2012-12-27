@@ -30,10 +30,9 @@ class MouvementDocument
         }
     }
 
-    public function findMouvement($cle_mouvement){
+    public function findMouvement($cle_mouvement, $part_idetablissement = null){
         foreach($this->document->getMouvements() as $identifiant => $mouvements) {
-            if (array_key_exists($cle_mouvement, $mouvements->toArray())) {
-                
+	  if ((!$part_idetablissement || preg_match('/^'.$part_idetablissement.'/', $identifiant)) && array_key_exists($cle_mouvement, $mouvements->toArray())) {
                 return $mouvements[$cle_mouvement];
             }
         }        
