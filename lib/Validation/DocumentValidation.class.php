@@ -44,11 +44,10 @@ abstract class DocumentValidation
         return $this->controles[sprintf("%s-%s", $type, $code)];
     }
 
-    public function addPoint($type, $code, $info, $lien) {
+    public function addPoint($type, $code, $info, $lien = null) {
         $controle = $this->findControle($type, $code);
 
         if(!$controle) {
-            
             throw new sfException(sprintf("Le controle de type '%s' pour le code '%s' n'existe pas", $type, $code));
         }
 
@@ -105,11 +104,7 @@ abstract class DocumentValidation
 
     protected function generateUrl($route, $params = array(), $absolute = false)
     {
-      try {
-        return sfContext::getInstance()->getRouting()->generate($route, $params, $absolute);
-      }catch(Exception $e) {
-        return;
-      }
+      return sfContext::getInstance()->getRouting()->generate($route, $params, $absolute);
     }
 
     protected function isTypeExist($type) {
