@@ -750,8 +750,14 @@
 					resultat *= parseFloat($(radioName+' input:radio:checked').val());
 					resultat *= 0.01;
 				}
-				var classes = champsCalcul.attr('class').split(' '); // Tout ca parce que hasClass ne fonctionne pas ?!
+				var classes = champCalcul.attr('class').split(' '); // Tout ca parce que hasClass ne fonctionne pas ?!
+				if (jQuery.inArray("inverse_value", classes) != -1) {
+					resultat = resultat * (-1);
+				}
 				if (jQuery.inArray("not_null_value", classes) != -1 && resultat < 0) {
+					resultat = 0;
+				}
+				if (jQuery.inArray("not_pos_value", classes) != -1 && resultat > 0) {
 					resultat = 0;
 				}
 				resultat = resultat.toFixed(2);

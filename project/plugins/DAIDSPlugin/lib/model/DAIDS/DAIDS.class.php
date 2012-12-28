@@ -8,11 +8,17 @@ class DAIDS extends BaseDAIDS
 {
 
     protected $version_document = null;
+   	protected static $entrepots = array(
+   		'entrepot_a' => 'Entreprot A',
+   		'entrepot_b' => 'Entreprot B',
+   		'entrepot_c' => 'Entreprot C'
+   	);
 
     public function  __construct() 
     {
         parent::__construct();   
         $this->initDocuments();
+        $this->initEntrepots();
     }
 
     public function __clone() 
@@ -24,6 +30,14 @@ class DAIDS extends BaseDAIDS
     protected function initDocuments() 
     {
        $this->version_document = new VersionDocument($this); 
+    }  
+
+    protected function initEntrepots() 
+    {
+       foreach (self::$entrepots as $entrepot_id => $entrepot_libelle) {
+       	$entrepot = $this->entrepots->add($entrepot_id);
+       	$entrepot->libelle = $entrepot_libelle;
+       } 
     }  
 
     public function initProduits() 

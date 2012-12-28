@@ -13,6 +13,8 @@
 		        <form action="<?php echo url_for('daids_informations', $daids) ?>" method="post">
 			        <?php echo $form->renderGlobalErrors() ?>
 					<?php echo $form->renderHiddenFields() ?>
+			        <?php echo $formEntrepots->renderGlobalErrors() ?>
+					<?php echo $formEntrepots->renderHiddenFields() ?>
                                         <div class="ligne_form">
 						<?php echo $form['confirmation']->renderError() ?>
 					</div>
@@ -52,6 +54,20 @@
 						<label for="champ_9">Numéro d’Accise :</label>
 						<span class="valeur">1654546764</span>
 					</div>
+					<table>
+						<tr>
+							<th>Entrepots</th>
+							<th>Commentaires</th>
+							<th>Principal</th>
+						</tr>
+						<?php foreach ($formEntrepots['entrepots'] as $key => $formEntrepot): ?>
+						<tr>
+							<td><?php echo $daids->entrepots->get($key)->libelle; ?></td>
+							<td><span class="erreur"><?php echo $formEntrepots['entrepots'][$key]['commentaires']->renderError(); ?></span><?php echo $formEntrepots['entrepots'][$key]['commentaires']->render(); ?></td>
+							<td><span class="erreur"><?php echo $formEntrepots['entrepots'][$key]['principal']->renderError(); ?></span><?php echo $formEntrepots['entrepots'][$key]['principal']->render(); ?></td>
+						</tr>
+						<?php endforeach; ?>
+					</table>
 					<?php if(!$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 					<?php echo $form['confirmation']->render() ?>
 					<?php endif; ?>

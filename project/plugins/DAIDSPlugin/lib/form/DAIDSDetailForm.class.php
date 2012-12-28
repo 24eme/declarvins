@@ -38,6 +38,9 @@ class DAIDSDetailForm extends acCouchdbObjectForm
             
         $this->stock_propriete_details = new DAIDSDetailStockProprieteDetailsForm($this->getObject()->stock_propriete_details, $this->_configurationDAIDS);
         $this->embedForm('stock_propriete_details', $this->stock_propriete_details);
+        
+        $this->chais_details = new DAIDSDetailChaisDetailsForm($this->getObject()->chais_details, $this->_configurationDAIDS);
+        $this->embedForm('chais_details', $this->chais_details);
 
         $this->stocks_moyen = new DAIDSDetailStocksMoyenForm($this->getObject()->stocks_moyen, $this->_configurationDAIDS);
         $this->embedForm('stocks_moyen', $this->stocks_moyen);

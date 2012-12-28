@@ -16,6 +16,17 @@ DAIDS:
                   nom: {  }
                   prenom: {  }
                   date_modification: {  }
+      entrepots:
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  libelle: {  }
+                  commentaires: {  }
+                  principal: {  }
       raison_rectificative: {  }
       etape: {  }
       campagne: {  }
@@ -220,6 +231,13 @@ DAIDS:
                                                                                                                   vrac_vendu: { type: float }
                                                                                                                   vrac_libre: { type: float }
                                                                                                                   conditionne: { type: float }
+                                                                                                            chais_details:
+                                                                                                              type: collection
+                                                                                                              definition:
+                                                                                                                fields:
+                                                                                                                  entrepot_a: { type: float }
+                                                                                                                  entrepot_b: { type: float }
+                                                                                                                  entrepot_c: { type: float }
                                                                                                             stock_mensuel_theorique: { type: float }
                                                                                                             stocks_moyen:
                                                                                                               type: collection

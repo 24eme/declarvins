@@ -102,14 +102,17 @@ class daidsActions extends sfActions
     $this->etablissement = $this->getRoute()->getEtablissement();
     $isAdmin = $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR);
     $this->form = new DAIDSInformationsForm(array(), array('is_admin' => $isAdmin));
+    $this->formEntrepots = new DAIDSEntrepotsForm($this->daids);
     if ($request->isMethod(sfWebRequest::POST)) {
     	$this->form->bind($request->getParameter($this->form->getName()));
-  	  if ($this->form->isValid()) {
+    	$this->formEntrepots->bind($request->getParameter($this->formEntrepots->getName()));
+  	  	if ($this->form->isValid() && $this->formEntrepots->isValid()) {
 	  		$values = $this->form->getValues();
             if ($values['confirmation'] == "modification") {
             	$this->redirect('daids_modif_infos', $this->daids);
-            } elseif ($values['confirmation']) {
-            	$this->daids->setDeclarantInformations($this->etablissement);		
+            } elseif ($values['confirmation']) {	
+            	$this->formEntrepots->save();	
+            	$this->daids->setDeclarantInformations($this->etablissement);
   				$this->daids->save();
 	  		}
 	        $this->daids->setCurrentEtapeRouting('recapitulatif');

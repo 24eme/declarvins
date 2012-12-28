@@ -6,7 +6,7 @@ class DAIDSConfigurationCsvFile extends CsvFile
   const CSV_DAIDS_CONFIGURATION_STOCKS_MOYEN_VINIFIE = 1;
   const CSV_DAIDS_CONFIGURATION_STOCKS_MOYEN_NON_VINIFIE = 2;
   const CSV_DAIDS_CONFIGURATION_STOCKS_MOYEN_CONDITIONNE = 3;
-  const CSV_DAIDS_CONFIGURATION_RESERVE_BLOQUE = 4;
+  const CSV_DAIDS_CONFIGURATION_VOLUME_CONDITIONNE = 4;
   
   const DAIDS_CONFIGURATION_LIBELLE = 'libelle';
   const DAIDS_CONFIGURATION_TAUX = 'taux';
@@ -43,7 +43,7 @@ class DAIDSConfigurationCsvFile extends CsvFile
       	foreach ($this->getNodes() as $node) {
       		$configurationDAIDS = $this->setStocksMoyenDatas($configurationDAIDS, $node, $this->getArrayCsvValue($line[$this->getStocksMoyenConst($node)]));
       	}
-		$configurationDAIDS = $this->setReserveBloqueDatas($configurationDAIDS, 'reserve_bloque', $this->getArrayCsvSimpleValue($line[self::CSV_DAIDS_CONFIGURATION_RESERVE_BLOQUE]));
+		$configurationDAIDS->volume_conditionne = $line[self::CSV_DAIDS_CONFIGURATION_VOLUME_CONDITIONNE];
       }catch(Exception $e) {
 			$this->errors[] = array('ligne' => $ligne, 'message' => $e->getMessage());
       }
@@ -60,15 +60,7 @@ class DAIDSConfigurationCsvFile extends CsvFile
     }
     return $config;
   }
-
   
-  private function setReserveBloqueDatas($config, $node, $datas) {
-	foreach ($datas as $key => $val) {
-    		$detail = $config->{$node};
-    		$detail->{$key} = $val;
-    }
-    return $config;
-  }
   private function getStocksMoyenConst($node) {
   	return constant('DAIDSConfigurationCsvFile::CSV_DAIDS_CONFIGURATION_STOCKS_MOYEN_'.strtoupper($node));
   }
@@ -88,16 +80,6 @@ class DAIDSConfigurationCsvFile extends CsvFile
 	  			}
 	  		}
   		}
-  	}
-  	return $tab;
-  }
-  
-  private function getArrayCsvSimpleValue($value)
-  {
-  	$tab = array();
-  	$values = explode(':', $value);
-  	if (isset($values[0]) && isset($values[1])) {
-  		$tab[$values[0]] = $values[1];
   	}
   	return $tab;
   }

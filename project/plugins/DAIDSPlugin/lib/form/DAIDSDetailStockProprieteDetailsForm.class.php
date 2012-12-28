@@ -29,8 +29,8 @@ class DAIDSDetailStockProprieteDetailsForm  extends acCouchdbObjectForm
     protected function updateDefaultsFromObject() 
     {
       parent::updateDefaultsFromObject();  
-      $tauxDefaut = $this->_configurationDAIDS->reserve_bloque->taux * 0.01;
+      /*$tauxDefaut = $this->_configurationDAIDS->reserve_bloque->taux * 0.01;
       $this->setDefault('taux_reserve_bloque', $tauxDefaut);
-      $this->getObject()->set('taux_reserve_bloque', $tauxDefaut);
+      $this->getObject()->set('taux_reserve_bloque', $tauxDefaut);*/
     }
 }
