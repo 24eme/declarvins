@@ -180,7 +180,9 @@ class Configuration extends BaseConfiguration
     {
         $libelles = array(); 
         foreach($labels as $key) {
-            $libelles[$key] = ConfigurationClient::getCurrent()->labels[$key];
+        	if ($key) {
+            	$libelles[$key] = ConfigurationClient::getCurrent()->labels->$key;
+        	}
         }
         return $libelles;
     }

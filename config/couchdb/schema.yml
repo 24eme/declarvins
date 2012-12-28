@@ -130,11 +130,7 @@ Configuration:
                     type: collection
                     definition:
                       fields:
-                        reserve_bloque:
-                          type: collection
-                          definition:
-                            fields:
-                              taux: {  }
+                        volume_conditionne: {  }
                         stocks_moyen:
                           type: collection
                           definition:
