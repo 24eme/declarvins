@@ -92,8 +92,9 @@ abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
     }
 
     public function storeAttachment($file, $content_type = 'application/octet-stream', $filename = null) { 
-        
         $ret = acCouchdbManager::getClient()->storeAttachment($this, $file, $content_type, $filename);
+	if (isset($ret->error))
+	  throw new sfException($ret->reason);
         $this->postSave($ret);
         $json = acCouchdbManager::getClient()->find($this->_id, acCouchdbClient::HYDRATE_JSON);
         
