@@ -414,6 +414,8 @@
 	    {
 	        var bloc_html = $($(this).attr('data-template')).html().replace(regexp_replace, UUID.generate());
 
+	        
+
 	        try {
 				var params = jQuery.parseJSON($(this).attr('data-template-params'));
 			} catch (err) {

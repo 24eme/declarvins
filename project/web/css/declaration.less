@@ -1018,55 +1018,79 @@ p#date_drm
 
 .drm_vracs{
 
-    .contrat_vracs{
 
-        border-collapse: separate;
-        border-spacing: 2px;
-        margin-bottom:5px; 
+	.contrat_vracs
+	{
+		border-collapse: separate;
+		border-spacing: 2px;
+		width: 100%;
+		
+		th, td
+		{
+			border: 1px solid;
+			font-weight: normal;
+			line-height: 18px;
+			padding: 0 10px;
+			vertical-align: middle;
+		}
+		
+		thead
+		{
+			th
+			{
+				background: @couleur-b1;
+				border-color: @couleur-b1;
+				color: #fff;
 
-        .libelle{
+				&.libelle { text-align: left; }
+			}
+		}
+		
+		tbody
+		{
+			td
+			{
+				background: @couleur-a3;
+				border-color: @couleur-a5;
+				text-align: center;
+				
+				 .unite, .error {vertical-align: middle;}
 
-                background: none repeat scroll 0 0 #494949;
-                border-color: #494949;
-                color: #FFFFFF;
-                font-weight:bold;
-                padding : 3px;
-
-               .btn{ 
-                    float:right; 
-               }
-
-        }
-
-        .contenu{
-                background: none repeat scroll 0 0 #E9E9E9;
-                border-color: #DBDBDB;
-
-                td{ 
-                    padding: 5px;
-                    
-                    span{ vertical-align:super; }
-                    img{margin-top:3px;}
-
-                    .unite, .error {vertical-align: middle;}
-
-                    input{ 
-                            width:50px; 
-                            text-align:right;
-                    }
-
-                    input.ui-autocomplete-input{ 
-                            width:650px; 
-                            text-align:right;
-                    }
-                    
+                input
+                { 
+	                width:50px; 
+	                text-align:right;
                 }
 
-                .ligne_form{ float:left;}
-                .ligne_form_btn{ float:right;}
-        }
-    }
+                input.ui-autocomplete-input
+                { 
+                    width:650px;
+                }
+				
+				&.supprimer
+				{
+					text-align: center;
 
+					* { vertical-align: middle; }
+				}
+				
+			}
+		}
+
+		tfoot
+		{
+			td
+			{
+				border: 0;
+				padding: 0;
+
+				.btn
+				{
+					text-align: right;
+				}
+			}
+		}
+	}
 }
 
 

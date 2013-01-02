@@ -7,7 +7,7 @@
 					<span class="error"></span>
 					<label for="produit_definition_droit_cvo_${index}_date">Date: </label>
 					<br>
-					<input id="produit_definition_droit_cvo_${index}_date" class="datepicker hasDatepicker" type="text" name="produit_definition[droit_cvo][${index}][date]">
+					<input id="produit_definition_droit_cvo_${index}_date" class="datepicker" type="text" name="produit_definition[droit_cvo][${index}][date]">
 				</td>
 				<td>
 					<span class="error"></span>

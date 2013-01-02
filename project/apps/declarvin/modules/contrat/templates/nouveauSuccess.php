@@ -67,7 +67,9 @@
                 
                  
 		<div class="ligne_btn">
-                        <a href="#" id="btn_ajouter_etablissement">Ajouter <span>un établissement</span></a>
+            <a href="#" id="btn_ajouter_etablissement">Ajouter <span>un établissement</span></a>
+		</div>
+		<div class="ligne_btn">
 			<button type="submit" class="btn_valider"><span>Valider</span></button>
 		</div>
 	</form>

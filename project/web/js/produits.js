@@ -117,4 +117,37 @@ $(function(){
         });
     };
 
+$(document).ready( function() {
+
+    $('#form_ajout h2').each(function() {
+        var title = $(this);
+        var addLink = title.children();
+        var form = title.next();
+        var counteur = form.next();
+        var template = $('#template'+form.attr('id'));
+        addLink.click(function() {
+            var subForms = form.children(".ligne_form");
+            var lastIndex = parseInt(subForms.last().attr('data-key'));
+            var bloc = $(template.tmpl({index: (lastIndex + 1)}));
+            
+            bloc.appendTo(form);
+            bloc.find('.datepicker').datepicker(dpConfig); 
+            counteur.val(parseInt(counteur.val()) + 1);
+        });
+    });
+
+    $('#form_ajout .removeForm').live("click", function(){
+        var form = $(this).parents('.ligne_form');
+        var forms = form.parents('.subForm');
+        var nbForm = forms.children().length;
+        if (nbForm > 1) {
+            form.remove();
+        } else {
+            form.find('input:text, select').each(function () {
+                $(this).val('');
+            });
+        }
+    });
+});
+
 })(jQuery);

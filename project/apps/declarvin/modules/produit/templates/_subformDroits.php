@@ -9,9 +9,3 @@
 		</tr>
 	</table>
 </div>
-
-<script language="javascript">
-     $(document).ready(function() {
-            $( ".datepicker" ).datepicker();
-     });
-</script>

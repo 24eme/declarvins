@@ -28,38 +28,7 @@
 }
 -->
 </style>
-<script type="text/javascript">
-<!--
-$(document).ready( function() {
-	$('h2').each(function() {
-		var title = $(this);
-		var addLink = title.children();
-		var form = title.next();
-		var counteur = form.next();
-		var template = $('#template'+form.attr('id'));
-		addLink.click(function() {
-			var subForms = form.children(".ligne_form");
-			var lastIndex = parseInt(subForms.last().attr('data-key'));
-			console.log(lastIndex);
-			template.tmpl({index: (lastIndex + 1)}).appendTo(form);
-			counteur.val(parseInt(counteur.val()) + 1);
-		});
-	});
-	$('.removeForm').live("click", function(){
-		var form = $(this).parents('.ligne_form');
-		var forms = form.parents('.subForm');
-		var nbForm = forms.children().length;
-		if (nbForm > 1) {
-			form.remove();
-		} else {
-			form.find('input:text, select').each(function () {
-				$(this).val('');
-			});
-		}
-    });
-});
-//-->
-</script>
+
 
 <form class="popup_form" id="form_ajout" action="<?php echo url_for('produit_modification', array('noeud' => $form->getObject()->getTypeNoeud(), 'hash' => str_replace('/', '-', $form->getHash()))) ?>" method="post">
 	<?php echo $form->renderGlobalErrors() ?>
