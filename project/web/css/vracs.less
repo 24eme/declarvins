@@ -229,14 +229,21 @@
         width: 500px;
         height: 40px;
     }
-    
-    .ui-autocomplete-input
+
+
+    input.ui-autocomplete-input
     {
-        background: url("../images/pictos/pi_recherche.png") no-repeat scroll 5px 7px #FFFFFF;
+        .box-shadow(none);
+        .border-radius(0);
+        background: #fff;
+        border: 1px solid #d3d2cd;
         font-size: 12px;
-        height: 14px;
-        padding: 5px 5px 5px 25px !important;
+        height: 20px;
+        padding: 0 4px;
         width: 330px;
+
+
+        &[disabled] { background: @couleur-a5; }
     }
 
     #mon_compte 
@@ -249,12 +256,7 @@
         
         .popup_form .ui-autocomplete-input
         {
-            .box-shadow(none);
-            .border-radius(0);
-            font-size: 12px;
             height: 20px;
-            padding: 0 4px !important;
-            width: 220px;
         }
     }
 

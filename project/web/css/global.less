@@ -64,6 +64,62 @@ hgroup, nav, section { display: block; }
 .ui-autocomplete-loading { background: #fff url('../images/pictos/pi_loader.gif') right center no-repeat !important; }
 
 
+input.ui-autocomplete-input
+{
+	.box-shadow(none);
+	.border-radius(0);
+	background: #fff;
+	border: 1px solid #d3d2cd;
+	font-size: 12px;
+	vertical-align: top;
+
+	height: 20px;
+	padding: 0 4px;
+	width: 190px;
+
+	&[disabled] { background: @couleur-a5; }
+	
+	.ielt9 &
+	{
+		height: 18px;
+		padding-top: 2px;
+	}
+
+	& + button
+	{
+		background: #fff;
+		border: 1px solid #d3d2cd;
+		border-left: 0;
+		vertical-align: top;
+        !margin-top:1px;
+	
+		&:hover { background-color: #E9E9E9; }
+	
+		.ui-icon
+		{
+			background: url(../images/pictos/pi_desc.png) center center no-repeat;
+			height: 20px;
+            !height : 16px;
+			width: 20px;				
+		}
+	}
+}
+
+a.remove_autocomplete
+{
+	.border-radius(0 4px 4px 0);
+	background: #fff url(../images/pictos/pi_supprimer.png) center center no-repeat;
+	border: 1px solid #d3d2cd;
+	border-left: 0;
+	display: inline-block;
+	height: 20px;
+	width: 20px;
+	text-indent: -9999px;
+	vertical-align: top;
+
+	&:hover { background-color: #E9E9E9; }
+}
+
 /**
  * Eléments génériques
  ******************************************/
@@ -1036,13 +1092,13 @@ a
 		ul.checkbox_list
 		{
 		    display: inline-block;
-                    float: left;
-                    height: 96px;
-                    margin-left: 200px;
-                    margin-top: -20px;
-                    overflow: auto;
-                    padding: 0 4px;
-                    width: 250px;
+            float: left;
+            height: 96px;
+            margin-left: 200px;
+            margin-top: -20px;
+            overflow: auto;
+            padding: 0 4px;
+            width: 250px;
 		    
 		    label 
 		    {
@@ -1065,63 +1121,8 @@ a
 		
 		input.ui-autocomplete-input
 		{
-		  
-		
-			& + button
-			{
-				background: #fff;
-				border: 1px solid #d3d2cd;
-				border-left: 0;
-				vertical-align: top;
-                !margin-top:1px;
-			
-				&:hover { background-color: #E9E9E9; }
-			
-				.ui-icon
-				{
-					background: url(../images/pictos/pi_desc.png) center center no-repeat;
-					height: 20px;
-                    !height : 16px;
-					width: 20px;				
-				}
-			}
 		}
 
-		a.remove_autocomplete
-		{
-			.border-radius(0 4px 4px 0);
-			background: #fff url(../images/pictos/pi_supprimer.png) center center no-repeat;
-			border: 1px solid #d3d2cd;
-			border-left: 0;
-			display: inline-block;
-			height: 20px;
-			width: 20px;
-			text-indent: -9999px;
-			vertical-align: top;
-
-			&:hover { background-color: #E9E9E9; }
-		}
-		
-		input[type=text], select
-		{
-			background: #fff;
-			border: 1px solid #d3d2cd;
-			font-size: 12px;
-			vertical-align: top;
-		}
-		
-		input[type=text]
-		{
-			height: 20px;
-			padding: 0 4px;
-			width: 190px;
-			
-			.ielt9 &
-			{
-				height: 18px;
-				padding-top: 2px;
-			}
-		}
 		
 		.error
 		{
@@ -1156,44 +1157,7 @@ a
 }
 
 	
-input.ui-autocomplete-input
-{
-	.box-shadow(none);
-	.border-radius(0);
-	background: #fff;
-	border: 1px solid #d3d2cd;
-	font-size: 12px;
-	vertical-align: top;
 
-	height: 20px;
-	padding: 0 4px;
-	width: 190px;
-	
-	.ielt9 &
-	{
-		height: 18px;
-		padding-top: 2px;
-	}
-
-	& + button
-	{
-		background: #fff;
-		border: 1px solid #d3d2cd;
-		border-left: 0;
-		vertical-align: top;
-                        !margin-top:1px;
-	
-		&:hover { background-color: #E9E9E9; }
-	
-		.ui-icon
-		{
-			background: url(../images/pictos/pi_desc.png) center center no-repeat;
-			height: 20px;
-                                !height : 16px;
-			width: 20px;				
-		}
-	}
-}
 
 .ui-dropdownchecklist-selector-wrapper,
 .ui-dropdownchecklist-selector
