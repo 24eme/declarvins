@@ -39,4 +39,10 @@ class acElasticaManager {
       return self::getInstance()->_client->getDefaultIndex();
     }
 
+    public static function getType($type) {
+      if (!isset(self::getInstance()->_client)) 
+	throw new sfException('ElasticSearch not reacheable');
+      return self::getInstance()->_client->getDefaultIndex()->getType($type);
+    }
+
 }
