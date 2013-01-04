@@ -22,13 +22,13 @@ class CsvFile
     $this->file = $file;
     $handle = fopen($this->file, 'r');
     if (!$handle) {
-      throw new Exception('invalid_file');
+      throw new sfException('unable to open file: '.$this->file);
     }
     $buffer = fread($handle, 500);
     fclose($handle);
     $buffer = preg_replace('/$[^\n]*\n/', '', $buffer);
     if (!$buffer) {
-      throw new Exception('invalid_file');
+      throw new Exception('invalid csv file; '.$this->file);
     }
 
     $virgule = explode(',', $buffer);
