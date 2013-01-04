@@ -12,8 +12,9 @@ class MouvementfactureFacturationView extends acCouchdbView
     const KEYS_PRODUIT_ID = 6;
     const KEYS_PERIODE = 7;
     const KEYS_CONTRAT_ID = 8;
-    const KEYS_MVT_TYPE = 9;
-    const KEYS_DETAIL_ID = 10;
+    const KEYS_VRAC_DEST = 9;
+    const KEYS_MVT_TYPE = 10;
+    const KEYS_DETAIL_ID = 11;
                     
     const VALUE_PRODUIT_LIBELLE = 0;
     const VALUE_TYPE_LIBELLE = 1;
