@@ -65,6 +65,13 @@ abstract class acCouchdbJsonFields {
         $this->initializeDefinition();
     }
 
+    protected function reset($document) {
+        $this->_fields = array();
+        $this->_fields_name = array();
+        $this->_unloaded_data = null;
+        $this->_document = $document;
+    }
+
     /**
      * Retourne la définition du modèle associé
      * 
@@ -471,5 +478,4 @@ abstract class acCouchdbJsonFields {
             $this->_add($field_definition->getKey(), null);
         }
     }
-
 }

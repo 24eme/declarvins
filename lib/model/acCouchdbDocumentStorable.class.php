@@ -14,4 +14,9 @@ class acCouchdbDocumentStorable extends acCouchdbJson
         }
         return $this->_storage[$key];
    }
+
+   protected function reset($document) {
+        parent::reset($this);
+        $this->_storage = array();
+    }
 }

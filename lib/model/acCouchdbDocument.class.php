@@ -142,9 +142,17 @@ abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
         return $this->isNew() || (!$native_json->equal($final_json));
     }
 
+    protected function reset($document) {
+        parent::reset($this);
+        $this->_is_new = true;
+        $this->_serialize_loaded_json = null;
+    }
+
     public function __clone() {
+        $data = $this->getData();
+        $this->reset($this);
+        $this->loadFromCouchdb($data);
         $this->_rev = null;
         $this->_id = null;
     }
-
 }
