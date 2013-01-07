@@ -12,13 +12,12 @@ class ArchivageAllView extends acCouchdbView
         return acCouchdbManager::getView('archivage', 'all');
     }
     
-    public function getLastNumeroArchiveByTypeAndCampagne($type, $campagne) {  
-        $rows = $this->client
-            ->startkey(array($type, $campagne))
-            ->endkey(array($type, $campagne, array()))   
-            ->reduce(true)
-            ->group_level(self::KEYS_CAMPAGNE)      
-            ->getView($this->design, $this->view)->rows;
+    public function getLastNumeroArchiveByTypeAndCampagne($type, $campagne, $fourchette_basse = 0, $fourchette_haute = 99999, $format = "%05d") {  
+
+        $rows = $this->getViewByTypeAndCampagne($type, $campagne, $fourchette_basse, $fourchette_haute, $format)
+                     ->reduce(true)
+                     ->group_level(self::KEYS_CAMPAGNE)      
+                     ->getView($this->design, $this->view)->rows;
 
         $nb_docs = 0;
 
@@ -28,16 +27,14 @@ class ArchivageAllView extends acCouchdbView
 
         if($nb_docs == 0) {
 
-            return 0;  
+            return $fourchette_basse;
         }
 
-        $rows = $this->client
-            ->startkey(array($type, $campagne))
-            ->endkey(array($type, $campagne, array()))
-            ->reduce(false)
-            ->skip($nb_docs - 1)
-            ->limit(1)
-            ->getView($this->design, $this->view)->rows;
+        $rows = $this->getViewByTypeAndCampagne($type, $campagne, $fourchette_basse, $fourchette_haute, $format)
+                     ->reduce(false)
+                     ->skip($nb_docs - 1)
+                     ->limit(1)
+                     ->getView($this->design, $this->view)->rows;
 
         foreach($rows as $row) {
 
@@ -45,6 +42,13 @@ class ArchivageAllView extends acCouchdbView
         }
 
         return 0;
+    }
+
+    protected function getViewByTypeAndCampagne($type, $campagne, $fourchette_basse = 0, $fourchette_haute = 99999, $format) {
+
+            return $this->client
+                        ->startkey(array($type, $campagne, sprintf($format, $fourchette_basse)))
+                        ->endkey(array($type, $campagne, sprintf($format, $fourchette_haute), array()));
     }
     
 }  
