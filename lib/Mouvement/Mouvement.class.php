@@ -2,6 +2,10 @@
 
 abstract class Mouvement extends acCouchdbDocumentTree
 {
+    const TYPE_HASH_CONTRAT_VRAC = 'vrac_details';
+    const TYPE_HASH_CONTRAT_RAISIN = VracClient::TYPE_TRANSACTION_RAISINS;
+    const TYPE_HASH_CONTRAT_MOUT = VracClient::TYPE_TRANSACTION_MOUTS;
+
     public function setProduitHash($value) {
         $this->_set('produit_hash',  $value);
         $this->produit_libelle = $this->getProduitConfig()->getLibelleFormat(array(), "%g% %a% %m% %l% %co% %ce%");
@@ -75,4 +79,9 @@ abstract class Mouvement extends acCouchdbDocumentTree
 
         return $this->getDocument()->_id.'/mouvements/'.$this->getKey();
     }
+
+    public function getType() {
+
+        return $this->getDocument()->getType();
+    } 
 }

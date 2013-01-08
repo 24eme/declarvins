@@ -24,9 +24,24 @@ class MouvementsConsultationView extends acCouchdbView
     const VALUE_FACTURABLE = 9;
     const VALUE_MOUVEMENT_ID = 10;
 
+    public static $types_document = array("DRM", "SV12");
+
+
     public static function getInstance() {
 
         return acCouchdbManager::getView('mouvement', 'consultation');
+    }
+
+    public function getByIdentifiantAndCampagne($id_or_identifiant, $campagne) {
+        $identifiant = EtablissementClient::getInstance()->getIdentifiant($id_or_identifiant);
+        $mouvements = array();
+        foreach(self::$types_document as $type) {
+            $mouvements = array_merge($mouvements, $this->buildMouvements($this->findByTypeEtablissementAndCampagne($type, $identifiant, $campagne)->rows));
+        }
+
+        ksort($mouvements);
+
+        return $mouvements;
     }
 
     public function findByTypeAndEtablissement($type, $id_or_identifiant) {
@@ -46,6 +61,7 @@ class MouvementsConsultationView extends acCouchdbView
 
     public function findByTypeEtablissementAndPeriode($type, $id_or_identifiant, $campagne, $periode) {
         $identifiant = EtablissementClient::getInstance()->getIdentifiant($id_or_identifiant);
+
         return $this->client->startkey(array($type, $identifiant, $campagne, $periode))
                             ->endkey(array($type, $identifiant, $campagne, $periode, array()))
                             ->getView($this->design, $this->view);
@@ -54,7 +70,9 @@ class MouvementsConsultationView extends acCouchdbView
     protected function buildMouvements($rows) {
         $mouvements = array();
         foreach($rows as $row) {
-            $mouvements[] = $this->buildMouvement($row);
+            $mouvement = $this->buildMouvement($row);
+            $mouvement_sort = sprintf('%02d', str_replace('M', '', $mouvement->version)*1);
+            $mouvements[$mouvement->date_version.$mouvement->type.$mouvement_sort.$mouvement->doc_id.$mouvement->id] = $mouvement;
         }
 
         return $mouvements;
@@ -62,11 +80,11 @@ class MouvementsConsultationView extends acCouchdbView
 
     protected function buildMouvement($row) {
         $mouvement = new stdClass();
-        $mouvement->doc_libelle = sprintf("%s %s", $row->key[self::KEY_TYPE], $row->key[self::KEY_PERIODE]);
+        $mouvement->type = $row->key[self::KEY_TYPE];
         $mouvement->doc_id = $row->key[self::KEY_ID];
         $mouvement->type_hash = $row->key[self::KEY_TYPE_HASH];
         $mouvement->etablissement_nom = $row->value[self::VALUE_ETABLISSEMENT_NOM];
-        $mouvement->produit_hash = $row->value[self::KEY_PRODUIT_HASH];
+        $mouvement->produit_hash = $row->key[self::KEY_PRODUIT_HASH];
         $mouvement->produit_libelle = $row->value[self::VALUE_PRODUIT_LIBELLE];
         $mouvement->type_libelle = $row->value[self::VALUE_TYPE_LIBELLE];
         $mouvement->volume = $row->value[self::VALUE_VOLUME];
