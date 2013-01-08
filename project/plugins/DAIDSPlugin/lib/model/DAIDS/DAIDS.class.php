@@ -48,7 +48,19 @@ class DAIDS extends BaseDAIDS
        		$d = $this->getDocument()->getOrAdd($detail->getHash());
        		$d->label_supplementaire = $detail->label_supplementaire;
        		$d->douane->taux = $detail->douane->taux;
+       		$d->douane->code = $detail->douane->code;
+       		if ($lastDrm->droits->exist(DAIDSDroits::DROIT_DOUANE) && $lastDrm->droits->get(DAIDSDroits::DROIT_DOUANE)->exist($detail->douane->code)) {
+       			$d->douane->libelle = $lastDrm->droits->get(DAIDSDroits::DROIT_DOUANE)->get($detail->douane->code)->libelle;
+       		} else {
+       			$d->douane->libelle = $detail->douane->code;
+       		}
        		$d->cvo->taux = $detail->cvo->taux;
+       		$d->cvo->code = $detail->cvo->code;
+       		if ($lastDrm->droits->exist(DAIDSDroits::DROIT_CVO) && $lastDrm->droits->get(DAIDSDroits::DROIT_CVO)->exist($detail->cvo->code)) {
+       			$d->cvo->libelle = $lastDrm->droits->get(DAIDSDroits::DROIT_CVO)->get($detail->cvo->code)->libelle;
+       		} else {
+       			$d->cvo->libelle = $detail->cvo->code;
+       		}
        		$d->stock_theorique = $detail->total;
        		$d->stock_mensuel_theorique = $detail->getStockTheoriqueMensuelByCampagne($this->periode);
        		foreach ($detail->labels as $label) {
@@ -161,6 +173,16 @@ class DAIDS extends BaseDAIDS
 		$this->declarant->no_accises = $etablissement->no_accises;
 		$this->declarant->no_tva_intracommunautaire = $etablissement->no_tva_intracommunautaire;
 		$this->declarant->service_douane = $etablissement->service_douane;
+    }
+
+    public function setDroits() 
+    {
+        $this->remove('droits');
+        $this->add('droits');
+        foreach ($this->getDetails() as $detail) {
+        	$this->droits->getOrAdd(DAIDSDroits::DROIT_CVO)->getOrAdd($detail->get(DAIDSDroits::DROIT_CVO)->code)->integreVolume(($detail->total_manquants_taxables * -1), $detail->get(DAIDSDroits::DROIT_CVO)->taux, $detail->get(DAIDSDroits::DROIT_CVO)->libelle);
+        	$this->droits->getOrAdd(DAIDSDroits::DROIT_DOUANE)->getOrAdd($detail->get(DAIDSDroits::DROIT_DOUANE)->code)->integreVolume(($detail->total_manquants_taxables * -1), $detail->get(DAIDSDroits::DROIT_DOUANE)->taux, $detail->get(DAIDSDroits::DROIT_DOUANE)->libelle);
+        }
     }
 
     public function setCurrentEtapeRouting($etape) 
@@ -363,7 +385,15 @@ class DAIDS extends BaseDAIDS
         }
         $this->storeIdentifiant($options);
         $this->storeDates();
+        $this->storeDroits($options);
         $this->setInterpros();
+    }
+
+    public function storeDroits($options) 
+    {
+        if (!isset($options['no_droits']) || !$options['no_droits']) {
+           $this->setDroits();
+        }
     }
 
     public function needNextVersion() 

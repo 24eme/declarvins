@@ -28,6 +28,7 @@ class ExportDAIDSPdf extends ExportDAIDS
 		return $this->getPartial('pdf', array('daids' => $this->getDAIDS(), 
 											  'pagers_volume' => $this->getPagersVolume(),
 											  'pagers_code' => $this->getPagersCode(),
+											  'pager_droits_douane' => $this->getPagerDroitsDouane()
 											  ));
 	}
 }

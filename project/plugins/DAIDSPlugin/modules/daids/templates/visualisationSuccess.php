@@ -24,7 +24,7 @@
         <div id="contenu_onglet">
 
             <?php include_partial('daids/recap', array('daids' => $daids)) ?>
-
+			<?php include_partial('daids/droits', array('daids' => $daids)) ?>
             
             <a id="telecharger_pdf" href="<?php echo url_for('daids_pdf', $daids) ?>">Télécharger le PDF</a>
             

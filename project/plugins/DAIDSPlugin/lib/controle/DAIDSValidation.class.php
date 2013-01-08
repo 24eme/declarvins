@@ -40,7 +40,7 @@ class DAIDSValidation
 		foreach ($this->daids->declaration->certifications as $certification) {
 			$details = $certification->getProduits();
 			foreach ($details as $detail) {
-				//$this->controleErrors($detail);
+				$this->controleErrors($detail);
 			}
 		}
 	}
@@ -57,8 +57,17 @@ class DAIDSValidation
 			$totalProprieteDetails += $stockProprieteDetailValue;
 		}
 		if ($totalProprieteDetails != $totalPropriete) {
-			$this->errors['total_negatif_'.$detail->renderId()] = new DAIDSControleError('stock_propriete', $this->generateUrl('daids_recap_detail', $detail));
+			$this->errors['total_diff_propriete_'.$detail->renderId()] = new DAIDSControleError('stock_propriete', $this->generateUrl('daids_recap_detail', $detail));
 		}
+		$totalChais = $detail->stocks->chais;
+		$totalEntrepots = 0;
+		foreach ($detail->chais_details as $entrepotsKey => $entrepotsValue) {
+			$totalEntrepots += $entrepotsValue;
+		}
+		if ($totalEntrepots != $totalChais) {
+			$this->errors['total_diff_entrepots_'.$detail->renderId()] = new DAIDSControleError('stock_entrepots', $this->generateUrl('daids_recap_detail', $detail));
+		}
+		
 	}
 	
 	public function hasEngagements()

@@ -15,10 +15,10 @@ class DAIDSDetailStocksMoyenForm extends acCouchdbObjectForm
         
         $this->non_vinifie = new DAIDSDetailStocksMoyenDetailForm($this->getObject()->non_vinifie, $this->_configurationDAIDS);
         $this->embedForm('non_vinifie', $this->non_vinifie);
-        
-        $this->conditionne = new DAIDSDetailStocksMoyenDetailForm($this->getObject()->conditionne, $this->_configurationDAIDS);
-        $this->embedForm('conditionne', $this->conditionne);
-    		    		
+        if ($this->_configurationDAIDS->hasVolumeConditionne()) {
+        	$this->conditionne = new DAIDSDetailStocksMoyenDetailForm($this->getObject()->conditionne, $this->_configurationDAIDS);
+        	$this->embedForm('conditionne', $this->conditionne);
+        }
         $this->widgetSchema->setNameFormat('stocks_moyen[%s]');
         $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
     }

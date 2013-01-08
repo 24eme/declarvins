@@ -4,6 +4,7 @@ class ExportDAIDS
 	protected $daids;
 	protected $pagers_volume;
     protected $pagers_code;
+    protected $pager_droits_douane;
 
 	const NB_COL = 8;
     const NB_COL_CODES = 3;
@@ -32,6 +33,12 @@ class ExportDAIDS
         return $this->pagers_code;
     }
 
+    public function getPagerDroitsDouane()
+    {
+        
+        return $this->pager_droits_douane;
+    }
+
 	public function setDAIDS($daids)
 	{
 
@@ -57,6 +64,7 @@ class ExportDAIDS
             $this->pagers_volume[$certification->getKey()] = $this->makePager($details_pour_volume);
             $this->pagers_code[$certification->getKey()] = $this->makeColPager($codes, self::NB_COL_CODES, self::MAX_PER_COL);
     	}
+    	$this->pager_droits_douane = $this->makePager($this->daids->droits->douane->getDroitsWithVirtual());
     }
 
     protected function makePager($array, $nb_col = self::NB_COL, $fill_with_max = true) {

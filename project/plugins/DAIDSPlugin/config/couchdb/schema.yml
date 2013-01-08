@@ -34,6 +34,40 @@ DAIDS:
       version: {  }
       precedente: {  }
       rectificative: { type: integer, required: false }
+      droits:
+        type: collection
+        definition:
+          fields:
+            douane:
+              class: DAIDSDroits
+              type: collection
+              definition:
+                fields:
+                  '*':
+                    class: DAIDSDroit
+                    type: collection
+                    definition:
+                      fields:
+                        volume_taxe: { type: float }
+                        taux: { type: float }
+                        code: {  }
+                        libelle: {  }
+                        total: { type: float }
+            cvo:
+              class: DAIDSDroits
+              type: collection
+              definition:
+                fields:
+                  '*':
+                    class: DAIDSDroit
+                    type: collection
+                    definition:
+                      fields:
+                        volume_taxe: { type: float }
+                        taux: { type: float }
+                        code: {  }
+                        libelle: {  }
+                        total: { type: float }
       declaration:
         class: DAIDSDeclaration
         inheritance: _DAIDSTotal
@@ -199,11 +233,15 @@ DAIDS:
                                                                                                               type: collection
                                                                                                               definition:
                                                                                                                 fields:
+                                                                                                                  code: {  }
+                                                                                                                  libelle: {  }
                                                                                                                   taux: { type: float }
                                                                                                             douane:
                                                                                                               type: collection
                                                                                                               definition:
                                                                                                                 fields:
+                                                                                                                  code: {  }
+                                                                                                                  libelle: {  }
                                                                                                                   taux: { type: float }
                                                                                                             total_manquants_excedents: { type: float }
                                                                                                             total_pertes_autorisees: { type: float }
@@ -226,7 +264,6 @@ DAIDS:
                                                                                                               class: DAIDSDetailStockProprieteDetails
                                                                                                               definition:
                                                                                                                 fields:
-                                                                                                                  taux_reserve_bloque: { type: float }
                                                                                                                   reserve: { type: float }
                                                                                                                   vrac_vendu: { type: float }
                                                                                                                   vrac_libre: { type: float }

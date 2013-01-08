@@ -60,7 +60,7 @@
 			<li>Pertes autorisées</li>
 		</ul>
 	</div>
-
+	<?php if ($configurationDAIDS->hasVolumeConditionne()): ?>
 	<div class="groupe demarrage-ouvert bloque" data-groupe-id="6">
 		<p>Volume conditionné dans l'année</p>
 		<ul>
@@ -72,7 +72,7 @@
 			<?php endif; ?>
 		</ul>
 	</div>
-
+	<?php endif; ?>
 	<p class="total_pertes">Total Pertes Autorisée (<span class="unite">hl</span>)</p>
 
 	<p class="manquants_taxables">Volume Manquants taxables (<span class="unite">hl</span>)</p>

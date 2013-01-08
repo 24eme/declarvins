@@ -98,14 +98,6 @@
 																	   'colonnes' => $colonnes,
 																	   'hash' => 'total_douane')) ?>
 
-				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Total cotisations interprofessionnelles à payer',
-																	   'unite' => '€',
-	    						  								       'counter' => 9,
-																	   'cssclass_libelle' => 'total',
-																  	   'cssclass_value' => 'total',
-																	   'colonnes' => $colonnes,
-																	   'hash' => 'total_cvo')) ?>
-
 			</table>
 		<?php endif; ?>
 
@@ -113,6 +105,83 @@
 		<hr />
 		<?php endwhile; ?>
 	<?php endforeach; ?>
+	<h2>Vins de la propriété</h2>
+	<table class="triple_col bloc_bottom">
+		<tr>
+			<td class="col_left">
+				<h2><?php echo $daids->entrepots->entrepot_a->libelle ?><?php if ($daids->entrepots->entrepot_a->principal):?> (principal)<?php endif; ?></h2>
+				<p><?php echo $daids->entrepots->entrepot_a->commentaires ?><br /></p>
+			</td>
+			<td class="col_center">
+				<h2><?php echo $daids->entrepots->entrepot_b->libelle ?><?php if ($daids->entrepots->entrepot_b->principal):?> (principal)<?php endif; ?></h2>
+				<p><?php echo $daids->entrepots->entrepot_b->commentaires ?></p>
+			</td>
+			<td class="col_right">
+				<h2><?php echo $daids->entrepots->entrepot_c->libelle ?><?php if ($daids->entrepots->entrepot_c->principal):?> (principal)<?php endif; ?></h2>
+				<p><?php echo $daids->entrepots->entrepot_c->commentaires ?></p>
+			</td>
+		</tr>
+	</table>
+	<hr />
+	<?php if ($daids->valide->date_saisie): ?>
+	<?php while($pager_droits_douane->getPage() <= $pager_droits_douane->getLastPage()): ?>
+		<?php $colonnes = $pager_droits_douane->getResults(); ?>
+		<h2>Droits de circulation et de consommation</h2>
+		<table class="recap droits_douane bloc_bottom">
+	    <?php include_partial('drm_export/pdfLine', array('libelle' => '',
+	    						  'counter' => '&nbsp;',
+	    						  'cssclass_counter' => 'counterNone',
+							      'colonnes' => $colonnes,
+							      'cssclass_libelle' => 'vide',
+							      'cssclass_value' => 'libelle',
+							      'partial_cssclass_value' => 'daids_export/pdfLineDroitsDouaneItemIsTotalCss',
+							      'method' => 'getLibelle')) ?>
+	    
+	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume taxé',
+	    						   'counter' => 'b',
+								   'colonnes' => $colonnes,
+								   'unite' => 'hl',
+								   'cssclass_libelle' => 'detail',
+								   'partial_cssclass_value' => 'daids_export/pdfLineDroitsDouaneItemIsTotalCss',
+								   'hash' => 'volume_taxe')) ?>
+	    
+	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Taux des droits en vigueur',
+	    						   'counter' => 'c',
+								   'colonnes' => $colonnes,
+								   'unite' => '€/hl',
+								   'cssclass_libelle' => 'detail',
+								   'partial_cssclass_value' => 'daids_export/pdfLineDroitsDouaneItemIsTotalCss',
+								   'hash' => 'taux')) ?>
+	    
+	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Droits à payer',
+	    						   'counter' => 'd',
+								   'colonnes' => $colonnes,
+								   'unite' => '€',
+								   'cssclass_libelle' => 'total',
+								   'cssclass_value' => 'total',
+								   'hash' => 'payable')) ?>
+  
+		</table>
+		<?php $pager_droits_douane->gotoNextPage(); ?>
+	<?php endwhile; ?>
+
+	<table class="double_col bloc_bottom">
+		<tr>
+			<td class="col_left">
+				<h2>Cadre reservé à l'administration des douanes</h2>
+				<p>Date de récéption / Cachet dateur : <br /><br/><br/>
+				<p>N° de déclaration GILDA : <br /><br/><br/></p>
+			</td>
+			<td class="col_right">
+				<h2>Déclaration établie </h2>
+				<p><strong>le : <?php echo $daids->getEuValideDate(); ?></strong></p>
+				<p>via l'application Déclarvin</p>
+			</td>
+		</tr>
+	</table>
+
+	<?php endif; ?>
+	<hr />
 	<div class="legende">
 	<?php foreach($daids->declaration->certifications as $certification_key => $certification): ?>
 		<?php $i = 1; while($pagers_code[$certification_key]->getPage() <= $pagers_code[$certification_key]->getLastPage()): ?>
@@ -124,7 +193,7 @@
 					<?php if($item): ?>
 					<?php if ($counter == 0): ?>
 					<tr>
-					<?php elseif ($counter == DAIDSDRM::NB_COL_CODES): $counter = 0;?>
+					<?php elseif ($counter == ExportDAIDS::NB_COL_CODES): $counter = 0;?>
 					</tr>
 					<tr>
 					<?php endif; ?>

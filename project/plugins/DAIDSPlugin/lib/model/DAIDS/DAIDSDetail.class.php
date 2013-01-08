@@ -96,14 +96,14 @@ class DAIDSDetail extends BaseDAIDSDetail {
         $this->stocks_moyen->vinifie->total = $this->stocks_moyen->vinifie->taux * $this->stocks_moyen->vinifie->volume * 0.01;
         $this->stocks_moyen->non_vinifie->volume = $this->stock_mensuel_theorique - $this->stocks_moyen->vinifie->volume;
         $this->stocks_moyen->conditionne->total = $this->stocks_moyen->conditionne->taux * $this->stocks_moyen->conditionne->volume;
-        $this->stock_propriete_details->reserve = $this->stock_propriete_details->taux_reserve_bloque * $this->stock_propriete;
+        //$this->stock_propriete_details->reserve = $this->stock_propriete_details->taux_reserve_bloque * $this->stock_propriete;
         $this->total_pertes_autorisees = $this->stocks_moyen->vinifie->total + $this->stocks_moyen->non_vinifie->total + $this->stocks_moyen->conditionne->total;
         $this->total_manquants_taxables = (-1 * $this->total_manquants_excedents) - $this->total_pertes_autorisees;
         if ($this->total_manquants_taxables > 0) {
         	$this->total_manquants_taxables = 0;
         }
-        $this->total_douane = $this->douane->taux * $this->total_manquants_taxables;
-        $this->total_cvo = $this->cvo->taux * $this->total_manquants_taxables;
+        $this->total_douane = $this->douane->taux * $this->total_manquants_taxables * -1;
+        $this->total_cvo = $this->cvo->taux * $this->total_manquants_taxables * -1;
     }
 
     public function nbToComplete() {

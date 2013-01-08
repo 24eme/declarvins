@@ -45,7 +45,7 @@
 			<div class="groupe" data-groupe-id="3">
 				<p class="total_propriete"></p>
 				<ul>
-					<li class="<?php echo isVersionnerCssClass($form->getObject()->stock_propriete_details, 'reserve') ?>"><?php echo $form['stock_propriete_details']['reserve']->render(array('class' => 'texte', 'data-calcul' => 'produit', 'data-champs' => '#'.$form['stock_propriete']->renderId().';#'.$form['stock_propriete_details']['taux_reserve_bloque']->renderId(), 'data-val-defaut' => sprintFloat($form->stock_propriete_details->getObject()->reserve))) ?></li>
+					<li class="<?php echo isVersionnerCssClass($form->getObject()->stock_propriete_details, 'reserve') ?>"><?php echo $form['stock_propriete_details']['reserve']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->stock_propriete_details->getObject()->reserve))) ?></li>
 					<li class="<?php echo isVersionnerCssClass($form->getObject()->stock_propriete_details, 'vrac_vendu') ?>"><?php echo $form['stock_propriete_details']['vrac_vendu']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->stock_propriete_details->getObject()->vrac_vendu))) ?></li>
 					<li class="<?php echo isVersionnerCssClass($form->getObject()->stock_propriete_details, 'conditionne') ?>"><?php echo $form['stock_propriete_details']['conditionne']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->stock_propriete_details->getObject()->conditionne))) ?></li>
 					<li class="<?php echo isVersionnerCssClass($form->getObject()->stock_propriete_details, 'vrac_libre') ?>"><?php echo $form['stock_propriete_details']['vrac_libre']->render(array('data-champs' => '#'.$form['stock_propriete']->renderId().';#'.$form['stock_propriete_details']['reserve']->renderId().';#'.$form['stock_propriete_details']['vrac_vendu']->renderId().';#'.$form['stock_propriete_details']['conditionne']->renderId(), 'data-calcul' => 'diff', 'class' => 'texte', 'data-val-defaut' => sprintFloat($form->stock_propriete_details->getObject()->vrac_libre))) ?></li>
@@ -82,7 +82,7 @@
 					</li>
 				</ul>
 			</div>
-			
+			<?php if (isset($form['stocks_moyen']['conditionne'])): ?>
 			<div class="groupe" data-groupe-id="6">
 				<p class="<?php echo isVersionnerCssClass($form->getObject()->stocks_moyen->conditionne, 'volume') ?>">
 					<?php echo $form['stocks_moyen']['conditionne']['volume']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->getObject()->stocks_moyen->conditionne->volume))) ?>
@@ -93,9 +93,10 @@
 					</li>
 				</ul>
 			</div>
-			
+			<?php endif; ?>
 			<p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_pertes_autorisees') ?>">
-				<?php echo $form['total_pertes_autorisees']->render(array('class' => 'texte', 'data-champs' => '#'.$form['stocks_moyen']['vinifie']['total']->renderId().';#'.$form['stocks_moyen']['non_vinifie']['volume']->renderId().';#'.$form['stocks_moyen']['conditionne']['total']->renderId(), 'data-calcul' => 'somme', 'data-val-defaut' => sprintFloat($form->getObject()->total_pertes_autorisees))) ?>
+				<?php $dataChamps = (isset($form['stocks_moyen']['conditionne']))? '#'.$form['stocks_moyen']['vinifie']['total']->renderId().';#'.$form['stocks_moyen']['non_vinifie']['total']->renderId().';#'.$form['stocks_moyen']['conditionne']['total']->renderId() : '#'.$form['stocks_moyen']['vinifie']['total']->renderId().';#'.$form['stocks_moyen']['total']['volume']->renderId(); ?>
+				<?php echo $form['total_pertes_autorisees']->render(array('class' => 'texte', 'data-champs' => $dataChamps, 'data-calcul' => 'somme', 'data-val-defaut' => sprintFloat($form->getObject()->total_pertes_autorisees))) ?>
 			</p>
 			<p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_manquants_taxables') ?>">
 				<?php echo $form['total_manquants_taxables']->render(array('class' => 'texte inverse_value not_pos_value', 'data-champs' => '#'.$form['total_manquants_excedents']->renderId().';#'.$form['total_pertes_autorisees']->renderId(), 'data-calcul' => 'somme', 'data-val-defaut' => sprintFloat($form->getObject()->total_manquants_taxables))) ?>
