@@ -186,7 +186,7 @@ abstract class acCouchdbJsonFields {
         return $field;
     }
 
-    protected function _set($key, $value) {
+    public function _set($key, $value) {
         return $this->setFromDataOrObject($key, $value);
     }
 
