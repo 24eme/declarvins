@@ -28,3 +28,15 @@ function display_latex_string($string, $sep = '', $limit = null) {
     }  
     return $disp;
 }
+
+function cut_latex_string($string, $limit) {
+    $disp = "";
+    $disp = str_replace("&#039;", "'", $string);
+    $disp = str_replace("&amp;", "\&", $disp);
+    
+    $len = strlen($disp);
+    if ($len > $limit) {
+        $disp = substr($disp, 0, $limit-3).'...';
+    }  
+    return $disp;
+}
