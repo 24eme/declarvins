@@ -26,6 +26,11 @@ class CsvFile
     }
     $buffer = fread($handle, 500);
     fclose($handle);
+    
+    $charset = $this->getCharset($file);
+    if($charset != 'utf-8'){
+        exec('recode '.$charset.'..utf-8 '.$file);
+    }
     $buffer = preg_replace('/$[^\n]*\n/', '', $buffer);
     if (!$buffer) {
       throw new Exception('invalid csv file; '.$this->file);
@@ -58,5 +63,11 @@ class CsvFile
     /*if ($this->ignore && !preg_match('/^\d{10}$/', $this->csvdata[0][0]))
       array_shift($this->csvdata);*/
     return $this->csvdata;
+  }
+  
+  private function getCharset($file) {
+    $ret = exec('file -i '.$file);
+    $charset = substr($ret, strpos($ret,'charset='));
+    return str_replace('charset=','',$charset);
   }
 }
