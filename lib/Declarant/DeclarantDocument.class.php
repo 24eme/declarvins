@@ -30,20 +30,19 @@ class DeclarantDocument
 
     public function storeDeclarant()
     {
-        $etabissement = $this->getEtablissementObject();
-        if (!$etabissement) {
+        $etablissement = $this->getEtablissementObject();
+        if (!$etablissement) {
 
             throw new sfException(sprintf("L'etablissement %s n'existe pas", $this->getIdentifiant()));
         }
         $declarant = $this->getDeclarant();
-        $declarant->nom = $etabissement->nom;
-        $declarant->cvi = $etabissement->cvi;
-        $declarant->num_accise = $etabissement->no_accises;
-        $declarant->num_tva_intracomm = $etabissement->no_tva_intracommunautaire;
-        $declarant->adresse = $etabissement->siege->adresse;        
-        $declarant->commune = $etabissement->siege->commune;
-        $declarant->code_postal = $etabissement->siege->code_postal;
-        $declarant->raison_sociale = $etabissement->raison_sociale;
-        $declarant->region = $etabissement->region;
+        $declarant->nom = $etablissement->nom;
+        $declarant->raison_sociale = $etablissement->raison_sociale;
+        $declarant->cvi = $etablissement->cvi;
+        $declarant->no_accises = $etablissement->no_accises;
+        $declarant->adresse = $etablissement->siege->adresse;        
+        $declarant->commune = $etablissement->siege->commune;
+        $declarant->code_postal = $etablissement->siege->code_postal;
+        $declarant->region = $etablissement->region;
     }
 }
