@@ -27,8 +27,8 @@ class daids_recapActions extends sfActions
         $this->config_lieu = $this->getRoute()->getConfigLieu();
         $this->daids_lieu = $this->getRoute()->getDAIDSLieu();
         $this->produits = $this->daids_lieu->getProduits();
-        $this->previous = $this->daids_lieu->getPreviousSister();
-        $this->next = $this->daids_lieu->getNextSister();
+        $this->previous = $this->daids_lieu->getPreviousSisterWithParent();
+        $this->next = $this->daids_lieu->getNextSisterWithParent();
     	$this->previous_certif = $this->daids_lieu->getCertification()->getPreviousSister();
     	$this->next_certif = $this->daids_lieu->getCertification()->getNextSister();
     	$this->interpro = $this->getInterpro($etablissement);

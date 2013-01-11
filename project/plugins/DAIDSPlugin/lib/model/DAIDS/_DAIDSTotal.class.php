@@ -112,4 +112,36 @@ abstract class _DAIDSTotal extends acCouchdbDocumentTree
    	{
       return $this->getConfig()->getCodeFormat();
     }
+
+    public function getPreviousSisterWithParent() 
+    {
+        $item = $this->getPreviousSister();
+        $sister = null;
+        if ($item) {
+            $sister = $item;
+        }
+        if (!$sister) {
+            $item = $this->getParentNode()->getPreviousSisterWithParent();
+            if ($item) {
+               $sister = $item->getChildrenNode()->getLast();
+            }
+        }
+        return $sister; 
+    }
+
+    public function getNextSisterWithParent() 
+    {
+        $item = $this->getNextSister();
+        $sister = null;
+        if ($item) {
+            $sister = $item;
+        }
+        if (!$sister) {
+            $item = $this->getParentNode()->getNextSisterWithParent();
+            if ($item) {
+               $sister = $item->getChildrenNode()->getFirst();
+            }
+        }
+        return $sister;
+    }
 }

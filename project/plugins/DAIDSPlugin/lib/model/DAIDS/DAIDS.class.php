@@ -121,11 +121,14 @@ class DAIDS extends BaseDAIDS
         $daids_suivante->devalide();
 	    $daids_suivante->remove('editeurs'); 
 	    $daids_suivante->add('editeurs'); 
+	    $daids_suivante->remove('entrepots'); 
+	    $daids_suivante->add('entrepots');
        
 	    foreach ($daids_suivante->getDetails() as $detail) {
 	    	$daids_suivante->remove($detail->getHash()); 
-	    	$daids_suivante->getOrAdd($detail->getHash());
+	    	//$daids_suivante->getOrAdd($detail->getHash());
 	    }
+	    $daids_suivante->initProduits();
 
         return $daids_suivante;
     }

@@ -11,5 +11,24 @@ class DAIDSCertification extends BaseDAIDSCertification
 	{
 		return $this->genres;
 	}
+	public function getPreviousSisterWithParent() 
+	{
+        $item = $this->getPreviousSister();
+        $sister = null;
+        if ($item) {
+            $sister = $item;
+        }
+        return $sister;
+	}
+
+	public function getNextSisterWithParent() 
+	{
+		$item = $this->getNextSister();
+        $sister = null;
+        if ($item) {
+            $sister = $item;
+        }
+        return $sister;
+	}
 
 }

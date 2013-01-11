@@ -66,9 +66,14 @@ class daidsActions extends sfActions
   	  	if ($this->formCampagne->isValid()) {
   	  		$values = $this->formCampagne->getValues();
   	  		$daids = DAIDSClient::getInstance()->createDoc($this->etablissement->identifiant, $values['campagne']);
-  	  		$daids->mode_de_saisie = DAIDSClient::MODE_DE_SAISIE_PAPIER;
-      		$daids->save();
-      		$this->redirect('daids_informations', $daids);
+  	  		if (count($daids->getDetails()) != 0) {
+  	  			$daids->mode_de_saisie = DAIDSClient::MODE_DE_SAISIE_PAPIER;
+      			$daids->save();
+      			$this->redirect('daids_informations', $daids);
+  	  		} else {
+  	  			$this->getUser()->setFlash('error_campagne', 'Il n\'y a aucune DRM saisie pour la campagne '.$values['campagne']);
+  	  			$this->redirect('daids_mon_espace', $this->etablissement);
+  	  		}
   	  	}
       }
   }
