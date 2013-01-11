@@ -217,9 +217,16 @@ class DRMDetail extends BaseDRMDetail {
         if (count($result) == 0) {
         	return null;
         }
-        $result = $result[0];
-        $droits = $result->value;
-    	return $droits;//$this->getCepage()->getDroit($type);
+        $tmp = null;
+        foreach ($result as $droit) {
+        	if (!$tmp) {
+        		$tmp = $droit->value;
+        	}
+        	if ($tmp->date < $droit->value->date) {
+        		$tmp = $droit->value;
+        	}
+        } 
+    	return $tmp;
     }
     
     public function hasCvo()
