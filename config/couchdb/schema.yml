@@ -3,6 +3,15 @@ Etablissement:
     fields:
       _id: {  }
       _rev: {  }
+      produits:
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  volume_bloque: { type: float }
       identifiant: { }
       nom: { }
       type: {  }
