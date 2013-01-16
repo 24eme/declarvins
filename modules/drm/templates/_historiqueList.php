@@ -11,7 +11,7 @@
 	</thead>
 	<tbody>
 		<?php $i=0; ?>
-		<?php if($new_drm): ?>
+		<?php if($new_drm && !$historique): ?>
 		<?php include_partial('drm/historiqueItem', array('alt' => $i%2 == 0, 
 															   'drm' => $new_drm,
 															   'etablissement' => $etablissement)); $i++; ?>

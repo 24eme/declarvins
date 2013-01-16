@@ -99,11 +99,15 @@ class drmComponents extends sfComponents {
     public function executeCampagnes() {
         $this->historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
 
-        $new_drm = $this->hasNewDRM($this->historique, $this->etablissement->identifiant);
+        $new_drm = $this->getNewDRM($this->historique, $this->etablissement->identifiant);
 
         $this->campagnes = $this->historique->getCampagnes();
-		$lastCampagne = DRMClient::getInstance()->buildCampagne($this->historique->getLastPeriode());
-		
+        if ($new_drm) {
+        	$lastCampagne = $new_drm->campagne;
+        } else {
+			$lastCampagne = DRMClient::getInstance()->buildCampagne($this->historique->getLastPeriode());
+        }
+        
         if ($new_drm && !in_array($lastCampagne, $this->campagnes)) {
             $this->campagnes = array_merge(array($lastCampagne), $this->campagnes);
         }

@@ -9,7 +9,7 @@
     <section id="principal">
         <div id="recap_drm">
             <div id="drm_annee_courante" >
-                <?php include_component('drm', 'historiqueList', array('etablissement' => $etablissement)) ?>
+                <?php include_component('drm', 'historiqueList', array('etablissement' => $etablissement, 'historique' => false)) ?>
             </div>
         </div>
         <?php include_component('drm', 'campagnes', array('etablissement' => $etablissement)); ?>

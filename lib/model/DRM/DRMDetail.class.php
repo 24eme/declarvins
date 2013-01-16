@@ -222,7 +222,7 @@ class DRMDetail extends BaseDRMDetail {
         	if (!$tmp) {
         		$tmp = $droit->value;
         	}
-        	if ($tmp->date < $droit->value->date) {
+        	if ($droit->value && $tmp->date < $droit->value->date) {
         		$tmp = $droit->value;
         	}
         } 
@@ -255,9 +255,11 @@ class DRMDetail extends BaseDRMDetail {
       $this->total = null;
       $this->cvo->taux = null;
       $this->douane->taux = null;
-
+	  
       $this->remove('vrac');
       $this->add('vrac');
+      
+      $this->updateVolumeBloque();
     }
 
     public function sommeLignes($lines) {
@@ -347,5 +349,14 @@ class DRMDetail extends BaseDRMDetail {
     	return ($nbDrm > 0)? ($total / $nbDrm) : 0;
     }
     
+    public function updateVolumeBloque()
+    {
+    	$produitHash =  str_replace('/declaration/', '', $this->getCepage()->getHash());
+      	$produitHash = str_replace('/', '_', $produitHash);
+      	$etablissement = $this->getDocument()->getEtablissement();
+      	if ($etablissement->produits->exist($produitHash)) {
+      		$this->stocks_debut->bloque = $etablissement->produits->get($produitHash)->volume_bloque;
+      	}
+    }
     
 }

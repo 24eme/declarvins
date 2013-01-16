@@ -72,9 +72,8 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
       if ($p = $this->getProduit($hash, $labels)) {
         return $p;
       }
-      
       $detail = $this->getOrAdd($hash)->details->addProduit($labels);
-      
+      $detail->updateVolumeBloque();
       return $detail;
     }
 
