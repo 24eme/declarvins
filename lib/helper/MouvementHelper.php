@@ -16,7 +16,8 @@ function mouvement_get_word($mouvement) {
         Search::getWords($mouvement->type_libelle),
         Search::getWords($mouvement->detail_libelle),
         Search::getWords($mouvement->vrac_numero),
-        Search::getWords($mouvement->vrac_destinataire)
+        Search::getWords($mouvement->vrac_destinataire),
+	array(str_replace(' ', '_', $mouvement->produit_libelle))
     );
 }
 
