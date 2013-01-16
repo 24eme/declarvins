@@ -89,5 +89,13 @@ abstract class Mouvement extends acCouchdbDocumentTree
     public function getType() {
 
         return $this->getDocument()->getType();
-    } 
+    }
+
+    public function getNumeroArchive() {
+        if(!$this->isVrac()) {
+            return;
+        }
+
+        return $this->detail_libelle;
+    }
 }
