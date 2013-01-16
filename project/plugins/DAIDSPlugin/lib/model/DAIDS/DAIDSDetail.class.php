@@ -103,7 +103,19 @@ class DAIDSDetail extends BaseDAIDSDetail {
         	$this->total_manquants_taxables = 0;
         }
         $this->total_douane = $this->douane->taux * $this->total_manquants_taxables * -1;
-        $this->total_cvo = $this->cvo->taux * $this->total_manquants_taxables * -1;
+        if (!isset($params['cvo_manuel']) || !$params['cvo_manuel']) {
+        	$this->total_cvo = $this->cvo->taux * $this->total_manquants_taxables * -1;
+        }
+    }
+    
+    public function getCvoCalcul()
+    {
+    	return ($this->cvo->taux * $this->total_manquants_taxables * -1);
+    }
+    
+    public function isUpdatedCvo()
+    {
+    	return ($this->total_cvo == $this->getCvoCalcul())? false : true;
     }
 
     public function nbToComplete() {
@@ -116,5 +128,16 @@ class DAIDSDetail extends BaseDAIDSDetail {
     
     public function isComplete() {
         return $this->stocks->chais > 0 || $this->stocks->propriete_tiers > 0 || $this->stocks->tiers > 0;
+    }
+
+    
+    public function updateVolumeBloque()
+    {
+    	$produitHash =  str_replace('/declaration/', '', $this->getCepage()->getHash());
+      	$produitHash = str_replace('/', '_', $produitHash);
+      	$etablissement = $this->getDocument()->getEtablissement();
+      	if ($etablissement->produits->exist($produitHash)) {
+      		$this->stock_propriete_details->reserve = $etablissement->produits->get($produitHash)->volume_bloque;
+      	}
     }
 }

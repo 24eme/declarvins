@@ -33,8 +33,8 @@
 
 <div class="clearfix" id="mon_compte">
     <h1>Import des établissements</h1>
-    <p>Merci de fournir le fichier le vos établissements au format <strong><u>CSV</u></strong>.</p>
+    <p>Merci de fournir le fichier de vos établissements au format <strong><u>CSV</u></strong>.</p>
     <br />
-    <?php include_partial('interpro/formUploadCsv', array('form' => $formUploadCsv, 'interpro' => $interpro)) ?>
+    <?php include_partial('interpro/formUploadCsv', array('form' => $formUploadCsv, 'interpro' => $interpro, 'url' => url_for('interpro_upload_csv', array('id' => $interpro->get('_id'))))) ?>
 </div>
 </section>

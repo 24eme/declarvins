@@ -33,7 +33,14 @@
 							<td class="<?php echo isVersionnerCssClass($detail, 'total_manquants_taxables') ?>"><strong><?php if ($detail->total_manquants_taxables) echoFloat($detail->total_manquants_taxables); else echoFloat(0); ?></strong>&nbsp;<span class="unite">hl</span></td>
 							<td class="<?php echo isVersionnerCssClass($detail, 'total_douane') ?>"><strong><?php if ($detail->total_douane) echoFloat($detail->total_douane); else echoFloat(0); ?></strong>&nbsp;<span class="unite">€</span></td>
 							<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-							<td class="<?php echo isVersionnerCssClass($detail, 'total_cvo') ?>"><strong><?php if ($detail->total_cvo) echoFloat($detail->total_cvo); else echoFloat(0); ?></strong>&nbsp;<span class="unite">€</span></td>
+							<td class="<?php echo isVersionnerCssClass($detail, 'total_cvo') ?>">
+								<?php if ($daids->isValidee()): ?>
+									<a class="btn_edit btn_popup" data-popup-config="configForm" data-popup="#popup_update_cvo_<?php echo $detail->renderId() ?>" href="<?php echo url_for('daids_visualisation_update_cvo', $detail) ?>" title="Modifier"><strong><?php if ($detail->total_cvo) echoFloat($detail->total_cvo); else echoFloat(0); ?></strong>&nbsp;<span class="unite">€</span></a>
+									<?php if ($detail->isUpdatedCvo()): ?>(<strike><?php echo $detail->getCvoCalcul() ?></strike>)<?php endif; ?>
+								<?php else: ?>
+									<strong><?php if ($detail->total_cvo) echoFloat($detail->total_cvo); else echoFloat(0); ?></strong>&nbsp;<span class="unite">€</span>
+								<?php endif; ?>
+							</td>
 							<?php endif; ?>
 						</tr>
 			<?php endforeach; ?>

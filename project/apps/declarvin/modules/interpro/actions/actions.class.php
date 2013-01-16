@@ -28,4 +28,22 @@ class interproActions extends sfActions
             }
         }
     }
+    
+	public function executeUploadCsvVolumesBloques(sfWebRequest $request) {  
+    	$this->forward404Unless($this->interpro = $this->getUser()->getCompte()->getGerantInterpro());     
+        $this->formUploadCsv = new UploadCSVForm();
+
+        if ($request->isMethod(sfWebRequest::POST) && $request->getFiles('csv')) {
+	        $this->formUploadCsv->bind($request->getParameter('csv'), $request->getFiles('csv'));
+	          if ($this->formUploadCsv->isValid()) {
+	            $file = $this->formUploadCsv->getValue('file');
+	            $this->interpro->storeAttachment($file->getSavedName(), 'text/csv', 'volumes-bloques.csv');
+	            unlink($file->getSavedName());
+	            $import = new ImportVolumesBloquesCsv($this->interpro);
+	            $nb = $import->updateOrCreate();
+        		$this->getUser()->setFlash('notice', "$nb établissements ont été importés");
+	            $this->redirect('interpro_upload_csv_volumes_bloques');
+            }
+        }
+    }
 }

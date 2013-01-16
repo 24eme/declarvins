@@ -46,6 +46,7 @@ class DAIDS extends BaseDAIDS
        if ($lastDrm = $drmsHistorique->getLastDRMByCampagne($this->periode)) {
        	foreach ($lastDrm->getDetails() as $detail) {
        		$d = $this->getDocument()->getOrAdd($detail->getHash());
+       		$d->updateVolumeBloque();
        		$d->label_supplementaire = $detail->label_supplementaire;
        		$d->douane->taux = $detail->douane->taux;
        		$d->douane->code = $detail->douane->code;

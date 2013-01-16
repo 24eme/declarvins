@@ -1,5 +1,16 @@
 <?php include_component('global', 'navTop', array('active' => 'daids')); ?>
-
+<script type="text/javascript">
+$(document).ready(function() {
+	$("input[type=checkbox]").change(function() {
+		var activeCheckbox = $(this);
+		$("input[type=checkbox]").each(function() {
+			if ($(this).attr('id') != activeCheckbox.attr('id')) {
+				$(this).removeAttr('checked');
+			}
+		});
+	});
+});
+</script>
 <section id="contenu">
 
     <?php include_partial('daids/header', array('daids' => $daids)); ?>

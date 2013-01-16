@@ -175,6 +175,26 @@ class daidsActions extends sfActions
 	    }
 	    $this->redirect('daids_visualisation', array('sf_subject' => $this->daids, 'hide_rectificative' => 1));
     }
+
+    public function executeUpdateCvo(sfWebRequest $request)
+    {
+    	$this->forward404Unless($request->isXmlHttpRequest());
+    	$this->detail = $this->getRoute()->getDAIDSDetail();
+    	$this->daids = $this->getRoute()->getDAIDS();
+        $this->form = new DAIDSDetailCvoForm($this->detail);
+        if ($request->isMethod(sfWebRequest::POST)) {
+        	$this->getResponse()->setContentType('text/json');
+        	$this->form->bind($request->getParameter($this->form->getName()));
+        	if($this->form->isValid()) {
+        		$this->form->save();
+        		$this->getUser()->setFlash("notice", 'Cotisations interprofessionnelles mises à jour avec succès.');
+            	return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('daids_visualisation', $this->daids))));
+        	} else {
+        		return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('formCvo', array('form' => $this->form)))));
+        	}
+        }
+        return $this->renderText($this->getPartial('popupUpdateCvo', array('form' => $this->form)));
+    }
     
   public function executeVisualisation(sfWebRequest $request)
   {

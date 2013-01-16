@@ -1,4 +1,4 @@
-<form action="<?php echo url_for('interpro_upload_csv', array('id' => $interpro->get('_id'))) ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo $url ?>" method="post" enctype="multipart/form-data">
     <?php echo $form->renderHiddenFields(); ?>
     <?php echo $form->renderGlobalErrors(); ?>
 

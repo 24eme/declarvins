@@ -69,6 +69,9 @@ validation_compte_password:
 interpro_upload_csv:
   url:   /interpro/:id/upload_csv
   param: { module: interpro, action: uploadCsv, id: null }
+interpro_upload_csv_volumes_bloques:
+  url:   /interpro/upload_csv_volumes_bloques
+  param: { module: interpro, action: uploadCsvVolumesBloques }
 
 # Rush II : DRM routing
 tiers_mon_espace:

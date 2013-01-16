@@ -62,6 +62,9 @@
 	        <li<?php if ($subactive == 'libelles'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@admin_libelles') ?>">Libellés</a>
 			</li>		
+	        <li<?php if ($subactive == 'volumes'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('@interpro_upload_csv_volumes_bloques') ?>">Volumes bloqués</a>
+			</li>	
 		<?php elseif ($active == 'comptes'): ?>
 			<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
 			<li<?php if ($subactive == 'comptes'): ?> class="actif"<?php endif; ?>>

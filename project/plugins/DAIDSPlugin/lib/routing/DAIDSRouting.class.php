@@ -149,6 +149,16 @@ class DAIDSRouting {
                                                                 'type' => 'object',
                                                           'must_be_valid' => true,
                                                           'must_be_not_valid' => false)));
+                                                          
+        
+        $r->prependRoute('daids_visualisation_update_cvo', new DAIDSDetailRoute('/daids/:identifiant/visualisation/:periode_version/cvo/update/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail',
+                        array('module' => 'daids',
+                            'action' => 'updateCvo'),
+                        array('sf_method' => array('get', 'post')),
+                        array('model' => 'DAIDSDetail',
+                              'type' => 'object',
+                            'must_be_valid' => true,
+                            'must_be_not_valid' => false)));
 
         $r->prependRoute('daids_rectificative', new DAIDSRoute('/daids/:identifiant/rectifier/:periode_version', 
                                                           array('module' => 'daids', 
