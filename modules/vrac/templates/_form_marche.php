@@ -41,13 +41,6 @@
                 <?php echo $form['prix_unitaire']->renderLabel() ?>
                 <?php echo $form['prix_unitaire']->render() ?> € HT/hl<?php if ($form->getWidget('has_cotisation_cvo')->getDefault()): ?>&nbsp;+&nbsp;<span id="vrac_cotisation_interpro"><?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?></span>&nbsp;€ HT/hl de cotisation interprofessionnelle acheteur (<?php echo (ConfigurationVrac::REPARTITION_CVO_ACHETEUR)? ConfigurationVrac::REPARTITION_CVO_ACHETEUR*100 : 0; ?>%).<?php endif; ?>
             </div>
-            <?php if (isset($form['prix_total_unitaire'])): ?>
-            <div class="section_label_strong">
-                <?php echo $form['prix_total_unitaire']->renderError() ?>
-                <?php echo $form['prix_total_unitaire']->renderLabel() ?>
-                <?php echo $form['prix_total_unitaire']->render(array('disabled' => 'disabled')) ?> € HT/hl
-            </div>
-            <?php endif; ?>
             <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_determination_prix">
                 <?php echo $form['type_prix']->renderError() ?>
                 <?php echo $form['type_prix']->renderLabel() ?>
