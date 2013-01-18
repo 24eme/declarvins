@@ -6,17 +6,16 @@ class ValidatorImportCsv extends sfValidatorFile
   {
     $this->addRequiredOption('file_path');
     $this->addMessage('invalid_file', "Le fichier fourni ne peut être lu");
-    $this->addMessage('invalid_csv_file', "Le fichier fourni n'est pas un CSV");
-    $options['mime_types'] = array('text/plain');
     $options['required'] = true;
-
-    return parent::configure($options, $messages);
+    parent::configure($options, $messages);
+    $this->setMessage('mime_types', "Le fichier fourni doit être un CSV");
+    $this->options['mime_types'] = array('text/plain', 'text/csv','text/comma-separated-values','application/csv');
 
   }
 
   protected function doClean($value)
   { 
-
+	parent::doClean($value);
     $csvValidated = new CsvValidatedFile($value['name'], 'text/csv', $value['tmp_name'], $value['size'], $this->getOption('file_path'));
     
     $errorSchema = new sfValidatorErrorSchema($this);
