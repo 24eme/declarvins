@@ -7,7 +7,6 @@ class VracMarcheCivpForm extends VracMarcheForm
 		$this->getObject()->has_cotisation_cvo = 0;
 		$this->getWidget('has_cotisation_cvo')->setDefault(0);
 		$this->widgetSchema->setLabel('type_transaction', 'Type de produit:');
-		$this->getWidget('prix_total_unitaire')->setLabel('Prix unitaire HT:');
         unset($this['has_transaction']);
     }
 

@@ -14,17 +14,22 @@ class interproActions extends sfActions
     public function executeUploadCsv(sfWebRequest $request) {  
     	$this->forward404Unless($this->interpro = InterproClient::getInstance()->getById($request->getParameter("id")));     
         $this->formUploadCsv = new UploadCSVForm();
-
+		$this->hasErrors = false;
         if ($request->isMethod(sfWebRequest::POST) && $request->getFiles('csv')) {
 	        $this->formUploadCsv->bind($request->getParameter('csv'), $request->getFiles('csv'));
 	          if ($this->formUploadCsv->isValid()) {
 	            $file = $this->formUploadCsv->getValue('file');
 	            $this->interpro->storeAttachment($file->getSavedName(), 'text/csv', 'etablissements.csv');
 	            unlink($file->getSavedName());
-	            $import = new ImportEtablissementsCsv($this->interpro);
-	            $nb = $import->updateOrCreate();
-        		$this->getUser()->setFlash('notice', "$nb établissements ont été importés");
-	            $this->redirect('interpro_upload_csv', array('id' => $this->interpro->get('_id')));
+	            $this->import = new ImportEtablissementsCsv($this->interpro);
+	            
+	            try {
+	            	$nb = $this->import->updateOrCreate();
+        			$this->getUser()->setFlash('notice', "$nb établissements ont été importés");
+	            	$this->redirect('interpro_upload_csv', array('id' => $this->interpro->get('_id')));
+	            } catch (Exception $e) {
+	            	$this->hasErrors = true;
+	            }
             }
         }
     }
@@ -32,17 +37,21 @@ class interproActions extends sfActions
 	public function executeUploadCsvVolumesBloques(sfWebRequest $request) {  
     	$this->forward404Unless($this->interpro = $this->getUser()->getCompte()->getGerantInterpro());     
         $this->formUploadCsv = new UploadCSVForm();
-
+		$this->hasErrors = false;
         if ($request->isMethod(sfWebRequest::POST) && $request->getFiles('csv')) {
 	        $this->formUploadCsv->bind($request->getParameter('csv'), $request->getFiles('csv'));
 	          if ($this->formUploadCsv->isValid()) {
 	            $file = $this->formUploadCsv->getValue('file');
 	            $this->interpro->storeAttachment($file->getSavedName(), 'text/csv', 'volumes-bloques.csv');
 	            unlink($file->getSavedName());
-	            $import = new ImportVolumesBloquesCsv($this->interpro);
-	            $nb = $import->updateOrCreate();
-        		$this->getUser()->setFlash('notice', "$nb établissements ont été importés");
-	            $this->redirect('interpro_upload_csv_volumes_bloques');
+	            $this->import = new ImportVolumesBloquesCsv($this->interpro);
+	            try {
+		            $nb = $this->import->updateOrCreate();
+	        		$this->getUser()->setFlash('notice', "$nb établissements ont été importés");
+		            $this->redirect('interpro_upload_csv_volumes_bloques');
+	          	} catch (Exception $e) {
+	            	$this->hasErrors = true;
+	            }
             }
         }
     }

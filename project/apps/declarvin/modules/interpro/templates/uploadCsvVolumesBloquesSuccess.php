@@ -45,6 +45,33 @@
     </p>
     <?php endif; ?>
     <br />
+    
+    <?php if ($hasErrors): ?>
+    <div id="flash_message">
+		<div class="flash_error">
+			<table width="100%">
+				<tr height="25px">
+					<th width="150px" align="left">Ligne</th>
+					<th align="left">Detail</th>
+				</tr>
+				<?php foreach ($import->getErrors() as $k => $v): ?>
+				<tr style="padding-bottom: 15px;">
+					<td><?php echo $k ?></td>
+					<td>
+						<ul>
+						<?php foreach ($v as $message): ?>
+							<li><?php echo $message ?></li>
+						<?php endforeach; ?>
+						</ul>
+						<br /><br />
+					</td>
+				</tr>
+				<?php endforeach; ?>
+			</table>
+		</div>
+	</div>
+    <?php endif; ?>
+    <br />
     <?php include_partial('interpro/formUploadCsv', array('form' => $formUploadCsv, 'interpro' => $interpro, 'url' => url_for('interpro_upload_csv_volumes_bloques'))) ?>
 </div>
 </section>

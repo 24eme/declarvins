@@ -32,8 +32,8 @@
 		<p>Répartition des stocks physiques de la propriété (<span class="unite">hl</span>)</p>
 		<ul>
 			<li>Dont Réserve Bloquée</li>
-			<li>Dont Vrac Vendu non retiré</li>
 			<li>Dont Conditionné</li>
+			<li>Dont Vrac Vendu non retiré</li>
 			<li>Dont Vrac libre à la vente</li>
 		</ul>
 	</div>
@@ -55,9 +55,9 @@
 	</div>
 	
 	<div class="groupe demarrage-ouvert bloque" data-groupe-id="5">
-		<p>dont Stock moyen volume stocké non vinifié (CGI)</p>
+		<p>dont Stock moyen volume stocké non vinifié (CGI) <a class="msg_aide" title="Message aide" data-msg="help_popup_daids_cgi" href=""></a></p>
 		<ul>
-			<li>Pertes autorisées</li>
+			<li>Pertes autorisées volume stocké</li>
 		</ul>
 	</div>
 	<?php if ($configurationDAIDS->hasVolumeConditionne()): ?>

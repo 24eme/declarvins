@@ -64,7 +64,7 @@ class DAIDSValidation
 		foreach ($detail->chais_details as $entrepotsKey => $entrepotsValue) {
 			$totalEntrepots += $entrepotsValue;
 		}
-		if ($totalEntrepots != $totalChais) {
+		if ($totalEntrepots > $totalChais) {
 			$this->errors['total_diff_entrepots_'.$detail->renderId()] = new DAIDSControleError('stock_entrepots', $this->generateUrl('daids_recap_detail', $detail));
 		}
 		

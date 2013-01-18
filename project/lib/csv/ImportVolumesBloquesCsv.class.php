@@ -15,6 +15,7 @@ class ImportVolumesBloquesCsv
 
     protected $_interpro = null;
     protected $_csv = array();
+    protected $_errors = array();
 
     public function __construct(Interpro $interpro) {
         $file_uri = $interpro->getAttachmentUri("volumes-bloques.csv");
@@ -32,6 +33,46 @@ class ImportVolumesBloquesCsv
 	        }
 	        fclose($handler);
     	}
+    }
+    
+    public function getErrors() {
+    	return $this->_errors;
+    }
+    
+    protected function existLine($ligne, $line)
+    {
+    	$errors = array();
+   		if (!isset($line[self::COL_ETABLISSEMENT_IDENTIFIANT])) {
+   			$errors[] = ('Colonne (indice '.(self::COL_ETABLISSEMENT_IDENTIFIANT + 1).') "identifiant" manquante');
+   		}
+    	if (!isset($line[self::COL_ETABLISSEMENT_RAISONSOCIALE])) {
+   			$errors[] = ('Colonne (indice '.(self::COL_ETABLISSEMENT_RAISONSOCIALE + 1).') "raison sociale" manquante');
+   		}
+    	if (!isset($line[self::COL_PRODUIT_CATEGORIE])) {
+   			$errors[] = ('Colonne (indice '.(self::COL_PRODUIT_CATEGORIE + 1).') "categorie" manquante');
+   		}
+    	if (!isset($line[self::COL_PRODUIT_GENRE])) {
+   			$errors[] = ('Colonne (indice '.(self::COL_PRODUIT_GENRE + 1).') "genre" manquante');
+   		}
+    	if (!isset($line[self::COL_PRODUIT_DENOMINATION])) {
+   			$errors[] = ('Colonne (indice '.(self::COL_PRODUIT_DENOMINATION + 1).') "denomination" manquante');
+   		}
+    	if (!isset($line[self::COL_PRODUIT_LIEU])) {
+   			$errors[] = ('Colonne (indice '.(self::COL_PRODUIT_LIEU + 1).') "lieu" manquante');
+   		}
+    	if (!isset($line[self::COL_PRODUIT_COULEUR])) {
+   			$errors[] = ('Colonne (indice '.(self::COL_PRODUIT_COULEUR + 1).') "couleur" manquante');
+   		}
+    	if (!isset($line[self::COL_PRODUIT_CEPAGE])) {
+   			$errors[] = ('Colonne (indice '.(self::COL_PRODUIT_CEPAGE + 1).') "cepage" manquante');
+   		}
+    	if (!isset($line[self::COL_PRODUIT_VOLUMEBLOQUE])) {
+   			$errors[] = ('Colonne (indice '.(self::COL_PRODUIT_VOLUMEBLOQUE + 1).') "volume bloqué" manquante');
+   		}
+   		if (count($errors) > 0) {
+   			$this->_errors[$ligne] = $errors;
+   			throw new sfException('has errors');
+   		}
     }
     
 	private function getProduitHashKey($line) 
@@ -77,7 +118,14 @@ class ImportVolumesBloquesCsv
     	$cpt = 0;
     	$etabTmp = null;
     	$etab = null;
+    	$ligne = 1;
       	foreach ($this->_csv as $line) {
+      		$ligne++;
+      		try {
+      			$this->existLine($ligne, $line);
+      		} catch (sfException $e) {
+      			continue;
+      		}
       		if (!$etabTmp || trim($line[self::COL_ETABLISSEMENT_IDENTIFIANT]) != $etab->identifiant) {
 	  			if ($etab) {
 	  				$etab->save();
@@ -93,6 +141,9 @@ class ImportVolumesBloquesCsv
 					$p->volume_bloque = null;
 				}
 			}
+      	}
+      	if (count($this->_errors) > 0) {
+      		throw new sfException("has errors");
       	}
   		if ($etab) {
   			$etab->save();

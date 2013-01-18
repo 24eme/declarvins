@@ -2,7 +2,7 @@
 	<thead>
 		<tr>
 			<th>DAI/DS</th>
-			<th>Etat <a href="" class="msg_aide" data-msg="help_popup_monespace_etat" title="Message aide"></a></th>
+			<th>Etat <a href="" class="msg_aide" data-msg="help_popup_daids_monespace_etat" title="Message aide"></a></th>
             <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                  <th>Mode de saisie</th>
             <?php endif; ?>

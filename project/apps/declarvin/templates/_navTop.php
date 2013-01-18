@@ -53,6 +53,6 @@ use_helper('Text');
 
 <?php if ($sf_user->hasFlash('error')){ ?>
     <div id="flash_message">
-        <div class="flash_error"><?php echo $sf_user->getFlash('error'); ?></div>
+        <div class="flash_error"><?php echo esc_entities($sf_user->getFlash('error')); ?></div>
     </div>
 <?php } ?>
