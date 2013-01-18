@@ -9,7 +9,7 @@
     <section id="principal">
         <div id="application_dr">
             <div id="drm_informations">
-                <p><?php echo acCouchdbManager::getClient('Messages')->getMessage('msg_modification_infos'); ?></p>
+                <p>Si vous souhaitez modifier vos informations de structure, merci de prendre contact avec votre Interpro.</p>
                 <br /><br />
                 <a href="<?php echo url_for('drm_mon_espace', $etablissement) ?>" class="btn_suiv">
                     <span>Retour à mon espace</span>
