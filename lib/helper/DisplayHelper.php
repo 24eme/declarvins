@@ -40,3 +40,11 @@ function cut_latex_string($string, $limit) {
     }  
     return $disp;
 }
+   
+function enteteDs($ds,$date_echeance){
+    if($ds->getEtablissement()->isNegociant())
+        return 'Cet imprimé doit \^{e}tre obligatoirement rempli \underline{\textbf{avant le '.$date_echeance.'}} au plus\\\\tard par tous les négociants, \textbf{détenant des \underline{stocks de vins d\'appellation}}\\\\ \textbf{\underline{d\'origine}} (revendiqués et/ou agrées) \textbf{et quels que soient leurs lieux}\\\\ \textbf{d\'entreposage} selon la liste proposée ci-après conformément à l\'Accord\\\\ Interprofessionnel d\'InterLoire en vigueur.';
+    else
+        return 'Cet imprimé doit \^{e}tre obligatoirement rempli \textsl{\textbf{avant le '.$date_echeance.'}} au plus tard\\\\par tous les propriétaires, fermiers, métayers, groupements de producteurs\\\\ \textbf{détenant des \textsl{stocks de vins d\'appellation d\'origine}} (revendiqués et/ou agrées)\\\\ \textbf{et quels que soient leurs lieux d\'entreposage} selon la liste proposée ci-après\\\\conformément à l\'Accord Interprofessionnel d\'InterLoire en vigueur.';
+}
+
