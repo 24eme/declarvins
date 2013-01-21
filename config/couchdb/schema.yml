@@ -38,8 +38,8 @@ DRM:
                     type: collection
                     definition:
                       fields:
-                        volume_taxe: { type: integer }
-                        volume_reintegre: { type: integer }
+                        volume_taxe: { type: float }
+                        volume_reintegre: { type: float }
                         taux: { type: float }
                         code: {  }
                         libelle: {  }
@@ -56,8 +56,8 @@ DRM:
                     type: collection
                     definition:
                       fields:
-                        volume_taxe: { type: integer }
-                        volume_reintegre: { type: integer }
+                        volume_taxe: { type: float }
+                        volume_reintegre: { type: float }
                         taux: { type: float }
                         code: {  }
                         libelle: {  }
