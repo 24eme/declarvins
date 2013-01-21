@@ -18,7 +18,7 @@ class Email {
     {
         $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
         $to = array($destinataire);
-        $subject = 'Création du contrat vrac n°'.$vrac->numero_contrat;
+        $subject = 'Confirmation de votre saisie d\'un contrat interprofessionnel vrac';
         $body = self::getBodyFromPartial('vrac_saisie_terminee', array('vrac' => $vrac, 'etablissement' => $etablissement));
         $message = self::getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
@@ -29,7 +29,7 @@ class Email {
     {
         $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
         $to = array($destinataire);
-        $subject = 'Demande de validation du contrat vrac n°'.$vrac->numero_contrat;
+        $subject = 'Demande de validation d\'un contrat interprofessionnel vrac';
         $body = self::getBodyFromPartial('vrac_demande_validation', array('vrac' => $vrac, 'etablissement' => $etablissement));
         $message = self::getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
@@ -40,7 +40,7 @@ class Email {
     {
         $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
         $to = array($destinataire);
-        $subject = 'Demande de validation du contrat vrac n°'.$vrac->numero_contrat;
+        $subject = 'Demande de validation d\'un contrat interprofessionnel vrac';
         $body = self::getBodyFromPartial('vrac_demande_validation_interpro', array('vrac' => $vrac, 'acteur' => $acteur));
         $message = self::getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
@@ -51,10 +51,17 @@ class Email {
     {
         $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
         $to = array($destinataire);
-        $subject = 'Le contrat vrac n°'.$vrac->numero_contrat.' est validé';
+        $subject = 'Validation du contrat interprofessionnel vrac';
         $body = self::getBodyFromPartial('vrac_contrat_valide', array('vrac' => $vrac, 'etablissement' => $etablissement));
         $message = self::getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
-
+		$message = Swift_Message::newInstance()
+  					->setFrom($from)
+  					->setTo($to)
+  					->setSubject($subject)
+  					->setBody($body)
+  					->setContentType('text/html')
+  					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$vrac->get('_id').'.pdf'));
+		
         return self::getMailer()->send($message);
     }
     
@@ -62,7 +69,7 @@ class Email {
     {
         $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
         $to = array($destinataire);
-        $subject = 'Vous avez bien validé le contrat vrac n°'.$vrac->numero_contrat;
+        $subject = 'Votre validation a bien été prise en compte';
         $body = self::getBodyFromPartial('vrac_contrat_validation', array('vrac' => $vrac, 'etablissement' => $etablissement));
         $message = self::getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
@@ -73,7 +80,7 @@ class Email {
     {
         $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
         $to = array($destinataire);
-        $subject = 'Votre inscription a bien été prise en compte';
+        $subject = 'Inscription prise en compte sur Declarvins.net';
         $body = self::getBodyFromPartial('send_contrat_mandat', array('contrat' => $contrat));
         $message = Swift_Message::newInstance()
   					->setFrom($from)
@@ -89,7 +96,7 @@ class Email {
     {
         $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
         $to = array($destinataire);
-        $subject = 'Validation de votre contrat';
+        $subject = 'Activation de votre compte sur Declarvins.net';
     	$numeroContrat = explode('-', $compte->contrat);
     	$numeroContrat = $numeroContrat[1];
         $body = self::getBodyFromPartial('send_compte_registration', array('numero_contrat' => $numeroContrat));
@@ -102,7 +109,7 @@ class Email {
     {
         $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
         $to = array($destinataire);
-        $subject = 'Redefinition de votre mot de passe Declarvins';
+        $subject = 'Redefinition de votre mot de passe sur Declarvins.net';
         $body = self::getBodyFromPartial('send_redefinition_mot_de_passe', array('compte' => $compte));
         $message = self::getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 

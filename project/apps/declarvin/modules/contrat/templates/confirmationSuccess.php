@@ -14,13 +14,12 @@ function closeCompte() {
                     <br />
 		<?php endif; ?>
 		<p class="txt-espace">
-                    Merci,<br />
-                    Vous allez recevoir un e-mail à l'adresse <strong><?php echo $contrat->email ?></strong> contenant votre contrat en pièce jointe.<br />
-                    Si vous n'avez pas reçu d'email :
-                </p>
+		Vous allez recevoir un email à l'adresse : <strong><?php echo $contrat->email ?></strong> contenant un contrat mandat à signer et à retourner par courrier à votre interprofession.<br />
+		Dès que votre interprofession aura mis à jour vos données et votre compte, vous recevrez un second mail afin de créer votre identifiant et votre mot de passe et d'activer définitivement votre compte.<br /><br />
+		Si vous n’avez pas reçu d’email :
 		<ul>
-                    <li>Vérifiez vos spams</li>
-                    <li>Vous vous êtes trompé dans votre adresse email : <a href="javascript:updateCompte()">Veuillez cliquer ici afin de la modifier.</a></li>
+        	<li>Vérifiez vos spams</li>
+            <li>L'adresse mail indiqué plus haut est peut-être erronée, <a href="javascript:updateCompte()">Veuillez cliquer ici pour la modifier.</a></li>
 		</ul>
 		<div id="modification-adresse-form" style="display: <?php echo ($showForm)? 'block' : 'none'; ?>;" >
                     <form id="creation_compte" method="post" action="<?php echo url_for('contrat_etablissement_confirmation', array('send' => 'sended')) ?>">

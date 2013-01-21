@@ -1,7 +1,8 @@
 <section id="contenu">
 	<?php if($sf_user->hasFlash('notice')) : ?>
-	<p class="flash_message"><?php echo $sf_user->getFlash('notice'); ?></p>
+	<p class="flash_message"><?php echo $sf_user->getFlash('notice'); ?></p><br />
 	<?php endif; ?>
+	<p></p>
 	<form id="creation_compte" method="post" action="<?php echo url_for('compte_password', array('login' => $compte->login)) ?>">
 		<?php echo $form->renderHiddenFields(); ?>
 		<?php echo $form->renderGlobalErrors(); ?>

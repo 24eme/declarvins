@@ -39,6 +39,10 @@ class vracActions extends acVinVracActions
 		foreach ($acteurs as $acteur) {
 			if ($email = $vrac->get($acteur)->email) {
 				$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
+				$interpro = $this->getInterpro($vrac, $etablissement);
+				$configurationVrac = $this->getConfigurationVrac($interpro->_id);
+				$pdf = new ExportVracPdf($vrac, $configurationVrac);
+    			$pdf->generate();
 				Email::getInstance()->vracContratValide($vrac, $etablissement, $email);
 			}
 		}

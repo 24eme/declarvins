@@ -84,7 +84,7 @@ class validationActions extends sfActions {
         		}
         	}
         	if ($this->compte->statut == _Compte::STATUT_FICTIF && $valide) {
-        		$this->compte->setStatut(_Compte::STATUT_ATTENTE);
+        		$this->compte->setStatut(_Compte::STATUT_ACTIF);
         		if (!$this->compte->login) {
         			$this->sendRegistration($this->compte);
         		}

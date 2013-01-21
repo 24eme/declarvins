@@ -11,6 +11,9 @@ contrat_valide:
 compte_nouveau:
   url:   /compte/nouveau/:nocontrat
   param: { module: acVinCompte, action: nouveau, nocontrat: null }
+compte_valide:
+  url:   /compte/valide
+  param: { module: acVinCompte, action: valide }
 compte_password:
   url:   /compte/mot-de-passe/:login
   param: { module: acVinCompte, action: redefinitionPassword, login: null }

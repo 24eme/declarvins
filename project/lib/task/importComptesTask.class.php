@@ -96,7 +96,7 @@ EOF;
     $compte->interpro = array("INTERPRO-CIVP" => array('statut' => "VALIDE"));
     $compte->tiers = array("ETABLISSEMENT-9223700102" => array("id" => "ETABLISSEMENT-9223700102",
                                                                "type" => "Etablissement",
-                                                               "nom" => "Château Corinne",
+                                                               "raison_sociale" => "Château Corinne",
                                                                "interpro" => "INTERPRO-CIVP"));
     $compte->save();
     $ldap = new Ldap();
@@ -115,7 +115,7 @@ EOF;
     $compte->interpro = array("INTERPRO-CIVP" => array("statut" => "VALIDE"));
     $compte->tiers = array("ETABLISSEMENT-9223700103" => array("id" => "ETABLISSEMENT-9223700103",
                                                                "type" => "Etablissement",
-                                                               "nom" => "Château Thierry",
+                                                               "raison_sociale" => "Château Thierry",
                                                                "interpro" => "INTERPRO-CIVP"));
     $compte->save();
     $ldap = new Ldap();

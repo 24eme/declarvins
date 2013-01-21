@@ -37,11 +37,13 @@ class acVinCompteActions extends BaseacVinCompteActions {
                 $this->contrat->setCompte($newCompteTiers->get('_id'));
                 $this->contrat->save();
                 $this->getUser()->signOut();
-                $this->getUser()->signIn($newCompteTiers->login);
                 $this->getUser()->setFlash('notice', 'Création de compte validée');
-	  			$this->redirect('@tiers');
+	  			$this->redirect('compte_valide');
             }
         }
+    }
+    public function executeValide(sfWebRequest $request) {
+    	
     }
     public function executeRedefinitionPassword(sfWebRequest $request) {
     	$this->forward404Unless($login = $request->getParameter('login'));
