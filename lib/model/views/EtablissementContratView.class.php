@@ -12,6 +12,7 @@ class EtablissementContratView extends acCouchdbView
 
     	return $this->client->startkey(array($contrat))
                     		->endkey(array($contrat, array()))
+                    		->reduce(false)
                     		->getView($this->design, $this->view);
     }
 
