@@ -23,6 +23,16 @@ class ExportVracPdf extends ExportVrac
 
 		return $content;
 	}
+	
+	public function generate($debug = false)
+	{
+		$targetClass = ($debug)? 'PrintableHTML' : 'PrintablePDF';
+		$document = new $targetClass($this->vrac->get('_id').'.pdf');
+		$document->removeCache();
+		$document->setPaper(PrintableOutput::FORMAT_A4, PrintableOutput::ORIENTATION_PORTRAIT);
+		$document->addHtml($this->getContent());
+		$output = $document->output();
+	}
 
 	public function getContent() {
 		return $this->getPartial('pdf', array('vrac' => $this->getVrac(), 'configurationVrac' => $this->getConfigurationVrac()));

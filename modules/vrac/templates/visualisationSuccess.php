@@ -6,6 +6,12 @@
             <div id="recap_saisie" class="popup_form visualisation_contrat">
                 <?php if ($sf_user->hasFlash('termine')): ?>
 					<h2>La saisie est terminée !</h2>
+					<p id="titre" style="text-align: left; margin-bottom: 30px;">
+					Votre contrat a bien été enregistré. Il va être envoyé aux autres parties concernées pour validation.<br />
+					Vous recevrez une version du contrat en .pdf avec le numéro de contrat lorsque toutes les parties auront validé le contrat.<br />
+					Le contrat ne pourra être considéré comme valable que lorsque vous aurez reçu cette version faisant figurer le numéro de contrat.<br /><br />
+					Attention si le contrat n’est pas validé d'ici 10 jours par vos partenaires, il sera automatiquement supprimé et non valable.
+					</p>
 				<?php endif; ?>
                 <div id="titre">
                     <span class="style_label">N° d'enregistrement du contrat : <?php echo $vrac->numero_contrat ?></span>
