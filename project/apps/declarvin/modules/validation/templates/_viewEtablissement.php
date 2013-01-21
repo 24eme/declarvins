@@ -1,4 +1,4 @@
-<strong><?php //echo $etablissement->getInterproObject()->_id; ?></strong><br />
+<strong><?php echo $etablissement->getInterproObject()->_id; ?></strong><br />
 <?php echo $etablissement->raison_sociale ?> <?php if ($etablissement->siret): ?>(<?php echo $etablissement->siret ?>)<?php endif; ?>
 <?php if ($interpro->get('_id') == $etablissement->getInterpro()): ?>
     <?php if ($etablissement->siege->adresse): ?>
