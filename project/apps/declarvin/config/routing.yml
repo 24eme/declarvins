@@ -11,6 +11,9 @@ contrat_valide:
 compte_nouveau:
   url:   /compte/nouveau/:nocontrat
   param: { module: acVinCompte, action: nouveau, nocontrat: null }
+compte_inexistant:
+  url:   /compte/erreur/:login
+  param: { module: acVinCompte, action: compteInexistant, login: null }
 compte_valide:
   url:   /compte/valide
   param: { module: acVinCompte, action: valide }
