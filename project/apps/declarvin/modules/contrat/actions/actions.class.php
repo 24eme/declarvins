@@ -32,17 +32,17 @@ class contratActions extends sfActions
      */
     public function executeNouveau(sfWebRequest $request) {
     	$new = true;
-    	if ($contrat = $request->getParameter('nocontrat')) {
-    		if ($contrat->valide) {
+    	if ($object = ContratClient::getInstance()->retrieveById($request->getParameter('nocontrat'))) {
+    		if ($object->valide) {
     			return $this->redirect("contrat_valide");
     		}
     		$new = false;
-    		$object = ContratClient::getInstance()->retrieveById($contrat);
+        	$this->nbEtablissement = count($object->etablissements);
     	} else {
     		$object = new Contrat();
     		$object->valide = 0;
+        	$this->nbEtablissement = $request->getParameter('nb_etablissement', 1);
     	}
-        $this->nbEtablissement = $request->getParameter('nb_etablissement', 1);
         $this->form = new ContratForm($object, array('nbEtablissement' => $this->nbEtablissement));
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
@@ -76,7 +76,7 @@ class contratActions extends sfActions
     if ($this->contrat->valide) {
     	return $this->redirect("contrat_valide");
     }
-  	$indice = $request->getParameter('indice');
+  	$this->indice = $indice = $request->getParameter('indice');
   	$nextIndice = $indice + 1;
     $this->form = new ContratEtablissementModificationForm($this->contrat->etablissements->get($indice));
     if ($request->isMethod(sfWebRequest::POST)) {

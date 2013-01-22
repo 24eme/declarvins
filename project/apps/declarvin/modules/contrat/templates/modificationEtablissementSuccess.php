@@ -43,6 +43,10 @@
         
     </div>
     <div id="btn_etape_dr">
+    	<?php if ($indice > 0): ?>
+    	<a href="<?php echo url_for('contrat_etablissement_modification', array('indice' => $indice - 1)) ?>" class="btn_prec"><span>Précédent</span></a>
+    	<?php else: ?>
         <a href="<?php echo url_for('contrat_nouveau', array('nocontrat' => $contrat->no_contrat)) ?>" class="btn_prec"><span>Précédent</span></a>
+        <?php endif; ?>
     </div>
 </section>
