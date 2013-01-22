@@ -230,7 +230,7 @@
                         text-transform: none;
                 }
         }
-
+		
 	/* Récapitulatif */
 	#recapitulatif
 	{
@@ -441,4 +441,41 @@
 	}
 
 	.btn_suiv { float: none; }
+}
+
+/**
+ * Profil
+ ******************************************/
+
+#profil
+{
+	a#btn_archiver_etablissement { padding: 0 10px; }
+
+	#etablissement_archive
+	{
+		background: @couleur-a1;
+		color: @couleur-e2;
+		font-size: 16px;
+		height: 30px;
+		line-height: 30px;
+		margin: 0 0 25px;
+		text-align: center;
+	}
+
+	#formulaire_profil
+	{
+		float: left;
+	}
+
+	#visualisation_profil
+	{
+		overflow: hidden;
+		padding-left: 15px;
+	}
+}
+
+#erreur_connexion,
+#indications_vrac
+{
+	a { text-decoration: underline; }
 }
