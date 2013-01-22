@@ -45,6 +45,9 @@ class acVinCompteActions extends BaseacVinCompteActions {
     public function executeValide(sfWebRequest $request) {
     	
     }
+    public function executeCompteInexistant(sfWebRequest $request) {
+    	$this->compte = $request->getParameter('login', null);
+    }
     public function executeRedefinitionPassword(sfWebRequest $request) {
     	$this->forward404Unless($login = $request->getParameter('login'));
         $this->forward404Unless($this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
@@ -74,7 +77,11 @@ class acVinCompteActions extends BaseacVinCompteActions {
 			acPhpCas::forceAuthentication();
 			$this->getContext()->getLogger()->debug('{sfCASRequiredFilter} auth is good');
 			/** ***** */
-			$this->getUser()->signIn(phpCAS::getUser());
+			try {
+				$this->getUser()->signIn(phpCAS::getUser());
+			} catch (sfException $e) {
+				$this->redirect('compte_inexistant', array('login' => phpCAS::getUser()));
+			}
 			
             return $this->redirectAfterLogin();
         } else {
