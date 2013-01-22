@@ -11,7 +11,12 @@ class acVinVracActions extends sfActions
 	public function executeIndex(sfWebRequest $request)
     {
         $this->etablissement = null;
-        $this->vracs = VracHistoryView::getInstance()->findLast();
+        $this->vracs = array();
+        $lasts = VracHistoryView::getInstance()->findLast();
+        foreach ($lasts->rows as $last) {
+        	$this->vracs[$last->id] = $last;
+        }
+        krsort($this->vracs);
         $this->forward404Unless($this->interpro = $this->getUser()->getCompte()->getGerantInterpro());
         $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
 	    if ($request->isMethod(sfWebRequest::POST)) {
@@ -30,8 +35,12 @@ class acVinVracActions extends sfActions
     public function executeEtablissement(sfWebRequest $request)
 	{
         $this->etablissement = $this->getRoute()->getEtablissement();
-		$this->vracs = VracSoussigneIdentifiantView::getInstance()->findByEtablissement($this->etablissement->identifiant);
-
+		$this->vracs = array();
+        $contrats = VracSoussigneIdentifiantView::getInstance()->findByEtablissement($this->etablissement->identifiant);
+        foreach ($contrats->rows as $contrat) {
+        	$this->vracs[$contrat->id] = $contrat;
+        }
+        krsort($this->vracs);
         $this->setTemplate('index');
 	}
 

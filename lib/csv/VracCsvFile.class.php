@@ -114,7 +114,7 @@ class VracCsvFile extends CsvFile
           $v->mandataire_identifiant   = 'ETABLISSEMENT-'.$line[self::CSV_CODE_COURTIER];
         }
 
-        $v->produit = 'declaration/certifications/AOC';
+        $v->produit = 'declaration/certifications/AOP';
 
         if (!$v->getVendeurObject() || !$v->getAcheteurObject()) {
           echo "Les etablissements n'existes pas \n";

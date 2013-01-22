@@ -16,7 +16,7 @@
 	        </tr>
 	    </thead>
 	    <tbody>
-	        <?php foreach ($vracs->rows as $value): ?>
+	        <?php foreach ($vracs as $value): ?>
 	        	<?php include_component('vrac', 'listItem', array('value' => $value->getRawValue(), 'etablissement' => $etablissement)) ?>
 	        <?php endforeach; ?>
 	    </tbody>
