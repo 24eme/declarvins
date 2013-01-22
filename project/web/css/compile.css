@@ -1425,6 +1425,7 @@ a:hover { text-decoration:underline; }
   margin:0 0 25px;
   text-align:center;
 }
+#erreur_connexion a, #indications_vrac a { text-decoration:underline; }
 p#date_drm {
   font-size:14px;
   font-style:italic;
