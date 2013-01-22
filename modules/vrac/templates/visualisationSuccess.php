@@ -50,7 +50,9 @@
 					<?php if ($vrac->has_transaction): ?>
 					<a class="valider_etape" href="<?php echo url_for('vrac_pdf_transaction', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>"><span>PDF Transaction</span></a>
 					<?php endif; ?>
+					<?php if ($vrac->isValide()): ?>
 					<a class="valider_etape" href="<?php echo url_for('vrac_pdf', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>"><span>PDF Contrat</span></a>
+					<?php endif; ?>
 				</div>
                 
             </div> 

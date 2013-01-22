@@ -217,9 +217,9 @@ class acVinVracActions extends sfActions
 	public function executeVisualisation(sfWebRequest $request)
 	{
 		$this->vrac = $this->getRoute()->getVrac();
-        if (!$this->vrac->isValide()) {
+        /*if (!$this->vrac->isValide()) {
             throw new sfException("Le contrat vrac n°".$this->vrac->numero_contrat." n'est pas validé");
-        }
+        }*/
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->init($this->vrac, $this->etablissement);
 	}
