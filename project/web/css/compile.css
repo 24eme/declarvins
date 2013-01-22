@@ -1425,6 +1425,11 @@ a:hover { text-decoration:underline; }
   margin:0 0 25px;
   text-align:center;
 }
+#profil #formulaire_profil { float:left; }
+#profil #visualisation_profil {
+  overflow:hidden;
+  padding-left:15px;
+}
 #erreur_connexion a, #indications_vrac a { text-decoration:underline; }
 p#date_drm {
   font-size:14px;
