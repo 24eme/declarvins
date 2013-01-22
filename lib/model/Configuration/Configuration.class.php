@@ -11,6 +11,7 @@ class Configuration extends BaseConfiguration
   	const CERTIFICATION_AOP = 'AOP';
   	const CERTIFICATION_IGP = 'IGP';
   	const CERTIFICATION_VINSSANSIG = 'VINSSANSIG';
+  	const CERTIFICATION_MOUTS = 'MOUTS';
 
     protected $produits_libelle = null;
     protected $produits_code = null;
@@ -35,6 +36,7 @@ class Configuration extends BaseConfiguration
         	$produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findProduitsByCertificationAndDepartement(self::CERTIFICATION_AOP, $dep)->rows);
         	$produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findProduitsByCertificationAndDepartement(self::CERTIFICATION_IGP, $dep)->rows);
         	$produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findProduitsByCertificationAndDepartement(self::CERTIFICATION_VINSSANSIG, $dep)->rows);
+        	$produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findProduitsByCertificationAndDepartement(self::CERTIFICATION_MOUTS, $dep)->rows);
         }
       	return $produits;
     }
@@ -49,6 +51,7 @@ class Configuration extends BaseConfiguration
         	$produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findProduitsByCertificationAndDepartement(self::CERTIFICATION_AOP, $dep)->rows);
         	$produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findProduitsByCertificationAndDepartement(self::CERTIFICATION_IGP, $dep)->rows);
         	$produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findProduitsByCertificationAndDepartement(self::CERTIFICATION_VINSSANSIG, $dep)->rows);
+        	$produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findProduitsByCertificationAndDepartement(self::CERTIFICATION_MOUTS, $dep)->rows);
         }
       	return $produits;
     }
