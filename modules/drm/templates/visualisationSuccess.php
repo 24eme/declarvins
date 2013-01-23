@@ -17,7 +17,7 @@
         <?php if ($drm_suivante && $drm_suivante->isRectificative() && !$drm_suivante->isValidee()): ?>
             <div class="vigilance_list">
                 <ul>
-                    <li><?php echo MessagesClient::getInstance()->getMessage('msg_version_suivante') ?></li>
+                    <li>Vous devez rectifier la DRM du mois suivant</li>
                 </ul>
             </div>
         <?php endif; ?>
