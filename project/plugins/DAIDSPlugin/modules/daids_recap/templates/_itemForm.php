@@ -95,7 +95,7 @@
 			</div>
 			<?php endif; ?>
 			<p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_pertes_autorisees') ?>">
-				<?php $dataChamps = (isset($form['stocks_moyen']['conditionne']))? '#'.$form['stocks_moyen']['vinifie']['total']->renderId().';#'.$form['stocks_moyen']['non_vinifie']['total']->renderId().';#'.$form['stocks_moyen']['conditionne']['total']->renderId() : '#'.$form['stocks_moyen']['vinifie']['total']->renderId().';#'.$form['stocks_moyen']['total']['volume']->renderId(); ?>
+				<?php $dataChamps = (isset($form['stocks_moyen']['conditionne']))? '#'.$form['stocks_moyen']['vinifie']['total']->renderId().';#'.$form['stocks_moyen']['non_vinifie']['total']->renderId().';#'.$form['stocks_moyen']['conditionne']['total']->renderId() : '#'.$form['stocks_moyen']['vinifie']['total']->renderId().';#'.$form['stocks_moyen']['non_vinifie']['total']->renderId(); ?>
 				<?php echo $form['total_pertes_autorisees']->render(array('class' => 'texte', 'data-champs' => $dataChamps, 'data-calcul' => 'somme', 'data-val-defaut' => sprintFloat($form->getObject()->total_pertes_autorisees))) ?>
 			</p>
 			<p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_manquants_taxables') ?>">
