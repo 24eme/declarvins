@@ -144,6 +144,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         $this->raison_rectificative = null;
         $this->etape = null;
         $this->precedente = null;
+        var_dump($params, $prevCampagne, $this->campagne);exit;
         if (!$keepStock || ($prevCampagne != $this->campagne)) {
         	$this->declaratif->adhesion_emcs_gamma = null;
         	$this->declaratif->paiement->douane->frequence = null;
