@@ -111,8 +111,7 @@
                     <li><strong>Paiement des droits de circulation</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_paiement" title="Message aide"></a></li>
                 </ul>
                 <div class="contenu_onglet_declaratif">
-                    <?php var_dump(DRMPaiement::isDebutCampagne()); ?>
-                    <?php if ($hasFrequencePaiement && !DRMPaiement::isDebutCampagne()): ?>
+                    <?php if ($hasFrequencePaiement && !DRMPaiement::isDebutCampagne($drm->getMois())): ?>
                             <div class="ligne_form alignes">
                                 Vous payez par échéance <strong><?php echo strtolower($drm->declaratif->paiement->douane->frequence) ?></strong>
                                 - <a href="<?php echo url_for('drm_declaratif_frequence_form', $drm) ?>" class="btn_popup" data-popup="#popup_ajout_frequence" data-popup-config="configForm">Modifier l'échéance de paiement</a>

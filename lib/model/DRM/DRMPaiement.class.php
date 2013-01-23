@@ -20,7 +20,6 @@ class DRMPaiement extends BaseDRMPaiement
   	if (!$numeroMois) {
   		$numeroMois = date('m');
   	}
-  	var_dump($numeroMois, self::NUM_MOIS_DEBUT_CAMPAGNE);exit;
   	return ($numeroMois == self::NUM_MOIS_DEBUT_CAMPAGNE)? true : false;
   }
 
