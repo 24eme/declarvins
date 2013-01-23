@@ -162,7 +162,7 @@ class DRMDeclaratifForm extends acCouchdbForm {
     }
 
     private function hasWidgetFrequence() {
-        return ($this->_drm->declaratif->paiement->douane->frequence && !DRMPaiement::isDebutCampagne()) ? false : true;
+        return ($this->_drm->declaratif->paiement->douane->frequence && !DRMPaiement::isDebutCampagne($this->_drm->getMois())) ? false : true;
     }
     
     public function getObject() {
