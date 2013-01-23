@@ -5,7 +5,7 @@ class drm_recapActions extends sfActions
     
     public function executeIndex(sfWebRequest $request) {
         $this->init();
-
+		
         $this->setTemplate('index');
     }
 

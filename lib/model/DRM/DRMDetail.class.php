@@ -248,7 +248,7 @@ class DRMDetail extends BaseDRMDetail {
       parent::init($params);
       
       $keepStock = isset($params['keepStock']) ? $params['keepStock'] : true;
-	  $prevCampagne = isset($params['prev_campagne']) ? $params['prev_campagne'] : $this->getDocument()->campagne;
+	  $nextCampagne = isset($params['next_campagne']) ? $params['next_campagne'] : $this->getDocument()->campagne;
 	  
       $this->total_debut_mois = ($keepStock)? $this->total : null;
       $this->total_entrees = null;
@@ -257,7 +257,7 @@ class DRMDetail extends BaseDRMDetail {
       $this->cvo->taux = null;
       $this->douane->taux = null;
       
-       if ($prevCampagne != $this->getDocument()->campagne) {
+       if ($nextCampagne != $this->getDocument()->campagne) {
        	$this->pas_de_mouvement_check = 0;
        }
 	  

@@ -11,10 +11,10 @@ class drm_vracActions extends sfActions
     	/*
     	 * Si il n'y a pas de sortie vrac declaree, on redirige sur l'etape suivante
     	 */
-    	if (count($this->details)==0) {
     	  	if($request->hasParameter('precedent')) {
-    	    	return $this->redirect('drm_recap', $this->drm->declaration->certifications->getLast());
+    	    	$this->redirectIfNoMouvementCheck();
 	    	}
+    	if (count($this->details)==0) {
 
             if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) {
     			$this->drm->setCurrentEtapeRouting('validation');
@@ -38,5 +38,13 @@ class drm_vracActions extends sfActions
 	        	return $this->redirect('drm_declaratif', $this->drm);
         	}
     	}
+    }
+
+
+    protected function redirectIfNoMouvementCheck() {    	
+    	if (!$this->drm->detailHasMouvementCheck()) {
+	    	return $this->redirect('drm_mouvements_generaux', $this->drm);
+    	}
+    	return $this->redirect('drm_recap', $this->drm->declaration->certifications->getLast());
     }
 }
