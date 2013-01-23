@@ -165,6 +165,14 @@ class Vrac extends BaseVrac
       }
     }
     
+
+
+    protected function preSave() {
+        if ($this->volume_enleve == $this->volume_propose && $this->valide->statut != VracClient::STATUS_CONTRAT_SOLDE) {
+        	$this->valide->statut = VracClient::STATUS_CONTRAT_SOLDE;
+        }
+    }
+    
     public function isValide() {
     	return ($this->valide->statut && $this->valide->statut != VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION)? true : false;
     }
