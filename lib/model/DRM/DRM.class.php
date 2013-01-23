@@ -119,7 +119,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         $keepStock = ($periode > $this->periode);
 
         $drm_suivante = clone $this;
-    	$drm_suivante->init(array('keepStock' => $keepStock));
+    	$drm_suivante->init(array('keepStock' => $keepStock, 'prev_campagne' => $this->campagne));
         $drm_suivante->update();
         $drm_suivante->periode = $periode;
 
@@ -132,6 +132,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     public function init($params = array()) {
       	parent::init($params);
       	$keepStock = isset($params['keepStock']) ? $params['keepStock'] : true;
+      	$prevCampagne = isset($params['prev_campagne']) ? $params['prev_campagne'] : $this->campagne;
         $this->remove('douane');
         $this->add('douane');
         $this->remove('declarant');
@@ -143,8 +144,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         $this->raison_rectificative = null;
         $this->etape = null;
         $this->precedente = null;
-
-        if (!$keepStock) {
+        if (!$keepStock || ($prevCampagne != $this->campagne)) {
         	$this->declaratif->adhesion_emcs_gamma = null;
         	$this->declaratif->paiement->douane->frequence = null;
         	$this->declaratif->paiement->douane->moyen = null;
