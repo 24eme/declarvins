@@ -22,6 +22,11 @@ class acCouchdbForm extends BaseForm implements acCouchdbFormDocableInterface
         
     return $this->docable;
   }
+  
+   public function disabledRevisionVerification() {
+        
+        $this->docable->disabledRevisionVerification();
+   }
 
   public function embedForm($name, sfForm $form, $decorator = null) {
     $this->docable->beforeEmbedForm($name, $form, $decorator);

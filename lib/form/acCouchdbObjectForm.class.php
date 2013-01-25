@@ -24,6 +24,11 @@ abstract class acCouchdbObjectForm extends sfFormObject implements acCouchdbForm
 
         return $this->docable;
     }
+    
+    public function disabledRevisionVerification() {
+        
+        $this->docable->disabledRevisionVerification();
+    }
 
     public function processValues($values) {
         // see if the user has overridden some column setter

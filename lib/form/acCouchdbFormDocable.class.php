@@ -10,6 +10,7 @@ class acCouchdbFormDocable
 {
 	protected $form = null;
 	protected $doc = null;
+        protected $disabled_revision_verification = false;
 	const FIELDNAME_REVISION = '_revision';
 
 	public function __construct(sfForm $form, acCouchdbDocument $doc)
@@ -51,10 +52,20 @@ class acCouchdbFormDocable
 
 	protected function update() 
 	{
+                if($this->disabled_revision_verification) {
+                    
+                    return;
+                }
+                
 		if ($this->form->getValue(self::FIELDNAME_REVISION)) {
 			$this->doc->set('_rev', $this->form->getValue(self::FIELDNAME_REVISION));
 		}
-	}	
+	}
+        
+        public function disabledRevisionVerification() {
+            
+            $this->disabled_revision_verification = true;
+        }
 
 }
 
