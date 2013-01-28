@@ -246,7 +246,6 @@ class DRMDetail extends BaseDRMDetail {
 
     protected function init($params = array()) {
       parent::init($params);
-      
       $keepStock = isset($params['keepStock']) ? $params['keepStock'] : true;
 	  $nextCampagne = isset($params['next_campagne']) ? $params['next_campagne'] : $this->getDocument()->campagne;
 	  
@@ -256,8 +255,14 @@ class DRMDetail extends BaseDRMDetail {
       $this->total = null;
       $this->cvo->taux = null;
       $this->douane->taux = null;
-      
        if ($nextCampagne != $this->getDocument()->campagne) {
+       	$daids = DAIDSClient::getInstance()->findMasterByIdentifiantAndPeriode($this->getDocument()->identifiant, $this->getDocument()->campagne);
+       	if ($daids) {
+       		if ($daids->exist($this->getHash())) {
+       			$detailDAIDS = $daids->get($this->getHash());
+       			$this->total_debut_mois = $detailDAIDS->stock_chais;
+       		}
+       	}
        	$this->pas_de_mouvement_check = 0;
        }
 	  
