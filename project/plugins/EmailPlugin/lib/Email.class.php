@@ -25,12 +25,12 @@ class Email {
         return self::getMailer()->send($message);
     }
     
-    public function vracDemandeValidation($vrac, $etablissement, $destinataire) 
+    public function vracDemandeValidation($vrac, $etablissement, $destinataire, $acteur) 
     {
         $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
         $to = array($destinataire);
         $subject = 'Demande de validation d\'un contrat interprofessionnel vrac';
-        $body = self::getBodyFromPartial('vrac_demande_validation', array('vrac' => $vrac, 'etablissement' => $etablissement));
+        $body = self::getBodyFromPartial('vrac_demande_validation', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur));
         $message = self::getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
         return self::getMailer()->send($message);

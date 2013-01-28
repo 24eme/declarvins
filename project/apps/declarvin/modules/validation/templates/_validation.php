@@ -5,7 +5,7 @@ if (!$valide_interpro) {
   echo "Vous avez validé ce compte pour votre interpro.";
  }
 ?></i></p><br />
-<?php if (!$valide_interpro && !$compte_active): ?>
+<?php if (!$valide_interpro && !$compte_active && $nbEtablissement != 0): ?>
 <form method="post" action="<?php echo url_for('validation_validation', array('num_contrat' => $contrat->no_contrat)) ?>">
 <input type="hidden" name="interpro_id" value="<?php echo $interpro->get('_id') ?>" />
 <div class="ligne_form_btn">

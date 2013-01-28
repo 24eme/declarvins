@@ -68,7 +68,7 @@ class acVinCompteActions extends BaseacVinCompteActions {
 
     public function executeLogin(sfWebRequest $request) {
         if ($this->getUser()->isAuthenticated() && $this->getUser()->hasCredential("compte")) {
-	  		$this->redirectAfterLogin();
+	  		$this->redirectAfterLogin($request->getReferer());
         } elseif ($request->getParameter('ticket')) {
 			/** CAS * */
 			acPhpCas::client();
@@ -83,12 +83,12 @@ class acVinCompteActions extends BaseacVinCompteActions {
 				$this->redirect('compte_inexistant', array('login' => phpCAS::getUser()));
 			}
 			
-            return $this->redirectAfterLogin();
+            return $this->redirectAfterLogin($request->getReferer());
         } else {
             if(sfConfig::has('app_autologin') && sfConfig::get('app_autologin')) {
         	   $this->getUser()->signIn(sfConfig::get('app_autologin'));
 	           
-               return $this->redirectAfterLogin();
+               return $this->redirectAfterLogin($request->getReferer());
             }
 
 	  		$url = sfConfig::get('app_ac_php_cas_url') . '/login?service=' . $request->getUri();
@@ -97,12 +97,13 @@ class acVinCompteActions extends BaseacVinCompteActions {
         }
     }
 
-    protected function redirectAfterLogin() {
+    protected function redirectAfterLogin($referer = null) {
+    	if ($referer) {
+    		return $this->redirect($referer);
+    	}
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-
             return $this->redirect('@admin');
         }
-
         return $this->redirect('@tiers');
     }
     
