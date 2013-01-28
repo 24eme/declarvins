@@ -250,6 +250,7 @@ class acVinVracActions extends sfActions
 				$this->contratValidation($this->vrac, $this->acteur);
 				if ($this->vrac->isValide()) {
 					$this->contratValide($this->vrac);
+					$this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
 				}
 			}
 		}
