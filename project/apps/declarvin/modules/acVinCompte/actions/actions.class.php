@@ -98,7 +98,7 @@ class acVinCompteActions extends BaseacVinCompteActions {
     }
 
     protected function redirectAfterLogin($referer = null) {
-    	if ($referer) {
+    	if ($referer && strpos($referer, sfConfig::get('app_ac_php_cas_url')) === false) {
     		return $this->redirect($referer);
     	}
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
