@@ -8,15 +8,21 @@ function display_field($object, $fieldName) {
     echo (!is_null($object->$fieldName)) ? $object->$fieldName : '';
 }
 
-function display_latex_string($string, $sep = '', $limit = null) {
-    $disp = "";
+function escape_string_for_latex($string) {
     $disp = str_replace("&#039;", "'", $string);
     $disp = str_replace("&amp;", "\&", $disp);
+    $disp = str_replace("&", "\&", $disp);
+    $disp = str_replace("%", "\%", $disp);
+    return $disp;
+}
+
+function display_latex_string($string, $sep = '', $limit = null) {
+    $disp = escape_string_for_latex($string);
     
     if (!$limit && $sep == '')
         return $disp;
     
-    if ($sep != '')
+    if (!$sep)
         $disp = str_replace($sep, "\\\\", $disp);
     $len = strlen($disp);
     if ($limit!=null && $len > $limit) {
@@ -30,9 +36,7 @@ function display_latex_string($string, $sep = '', $limit = null) {
 }
 
 function cut_latex_string($string, $limit) {
-    $disp = "";
-    $disp = str_replace("&#039;", "'", $string);
-    $disp = str_replace("&amp;", "\&", $disp);
+    $disp = escape_string_for_latex($string);
     
     $len = strlen($disp);
     if ($len > $limit) {
