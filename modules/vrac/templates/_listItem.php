@@ -1,15 +1,15 @@
 <?php 
 $acteur = null;
 $validated = true;
-if ($etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_ACHETEURID]) {
+if ($etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_ACHETEURID]) {
 	$acteur = VracClient::VRAC_TYPE_ACHETEUR;
 	$const = VracHistoryView::VRAC_VIEW_ACHETEURVAL;
 }
-if ($etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_MANDATAIREID]) {
+if ($etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_MANDATAIREID]) {
 	$acteur = VracClient::VRAC_TYPE_COURTIER;
 	$const = VracHistoryView::VRAC_VIEW_MANDATAIREVAL;
 }
-if ($etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_VENDEURID]) {
+if ($etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_VENDEURID]) {
 	$acteur = VracClient::VRAC_TYPE_VENDEUR;
 	$const = VracHistoryView::VRAC_VIEW_VENDEURVAL;
 }
@@ -38,10 +38,14 @@ if ($acteur) {
     	<?php if ($validated): ?>
       		<a href="<?php echo url_for("vrac_visualisation", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>"><?php echo substr($vracid,0,8)."&nbsp;".substr($vracid,8,  strlen($vracid)-1); ?></a>
     	<?php else: ?>
-    		<a href="<?php echo url_for('vrac_validation', array('numero_contrat' => $vracid, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>"><?php echo substr($vracid,0,8)."&nbsp;".substr($vracid,8,  strlen($vracid)-1); ?></a>
+			<?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
+    		<a href="<?php echo url_for('vrac_validation', array('numero_contrat' => $vracid, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>">Brouillon</a>
+			<?php endif; ?>
     	<?php endif; ?>
     <?php else: ?>
-      <a href="<?php echo url_for("vrac_edition", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>"><?php echo substr($vracid,0,8)."&nbsp;".substr($vracid,8,  strlen($vracid)-1); ?></a>
+    	<?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
+      	<a href="<?php echo url_for("vrac_edition", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Brouillon</a>
+      	<?php endif; ?>
     <?php endif; ?>
       
   </td>

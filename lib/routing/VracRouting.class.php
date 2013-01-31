@@ -34,20 +34,20 @@ class VracRouting {
         $r->prependRoute('vrac_nouveau', new VracRoute('/vrac/:identifiant/nouveau',  
                                                         array('module' => 'vrac', 'action' => 'nouveau'),
                                                         array('sf_method' => array('get')),
-                                                        array('model' => 'Etablissement', 'type' => 'object')));
+                                                        array('model' => 'Etablissement', 'type' => 'object', 'no_archive' => true)));
                                                          
         $r->prependRoute('vrac_supprimer', new VracRoute('/vrac/:identifiant/:numero_contrat/supprimer',  
                                                         array('module' => 'vrac', 'action' => 'supprimer'),
                                                         array('sf_method' => array('get')),
-                                                        array('model' => 'Vrac', 'type' => 'object')));
+                                                        array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true)));
         $r->prependRoute('vrac_edition', new VracRoute('/vrac/:identifiant/:numero_contrat/edition',
                                                         array('module' => 'vrac','action' => 'edition'),
                                                         array('sf_method' => array('get','post')),
-                                                        array('model' => 'Vrac', 'type' => 'object')));
+                                                        array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true)));
         $r->prependRoute('vrac_etape', new VracRoute('/vrac/:identifiant/:numero_contrat/etape/:step',
                                                         array('module' => 'vrac','action' => 'etape', 'step' => null),
                                                         array('sf_method' => array('get','post')),
-                                                        array('model' => 'Vrac', 'type' => 'object')));
+                                                        array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true)));
         $r->prependRoute('vrac_visualisation', new VracRoute('/vrac/:identifiant/:numero_contrat/visualisation',
                                                         array('module' => 'vrac','action' => 'visualisation'),
                                                         array('sf_method' => array('get','post')),
@@ -56,12 +56,12 @@ class VracRouting {
         $r->prependRoute('vrac_validation', new VracRoute('/vrac/:identifiant/:numero_contrat/validation/:acteur',
                                                         array('module' => 'vrac','action' => 'validation', 'acteur' => null),
                                                         array('sf_method' => array('get','post')),
-                                                        array('model' => 'Vrac', 'type' => 'object')));
+                                                        array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true)));
                                                         
         $r->prependRoute('vrac_statut', new VracRoute('/vrac/:identifiant/:numero_contrat/statut/:statut',
                                                         array('module' => 'vrac','action' => 'statut'),
                                                         array('sf_method' => array('get','post')),
-                                                        array('model' => 'Vrac', 'type' => 'object'))); 
+                                                        array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true))); 
 
         $r->prependRoute('vrac_pdf', new VracRoute('/vrac/:identifiant/:numero_contrat/pdf.:format', 
                                                           array('module' => 'vrac', 'action' => 'pdf', 'format' => 'pdf'),

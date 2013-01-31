@@ -12,17 +12,22 @@ class VracRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
         if(isset($parameters['numero_contrat'])) {
             $this->vrac = VracClient::getInstance()->findByNumContrat($parameters['numero_contrat']);
         }
-        
         if (!$this->vrac) 
         {
             $this->vrac = new Vrac();
         }
-
+		
         if ($parameters['identifiant'] != self::ETABLISSEMENT_IDENTIFIANT_ADMIN) {
             $this->etablissement = EtablissementClient::getInstance()->find($parameters['identifiant']);
         } else {
             $this->etablissement = false;
         }
+        
+    	if ($this->getEtablissement()) {
+			if (isset($this->options['no_archive']) && $this->options['no_archive'] === true && ($this->getEtablissement()->statut == Etablissement::STATUT_ARCHIVE)) {
+				$this->redirect('vrac_etablissement', array('identifiant' => $this->getEtablissement()->identifiant));
+			}
+    	}
 
         return $this->vrac;
     }
@@ -67,10 +72,6 @@ class VracRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
     }
 
     public function getEtablissement() {
-        if (is_null($this->etablissement)) {
-            $this->getObject();
-        }
-
         return $this->etablissement;
     }
     

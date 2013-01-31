@@ -3,7 +3,9 @@
     <div id="principal" class="produit">
         <h1>
             Contrats interprofessionnels<?php if(!$etablissement): ?> en attente de validation<?php endif; ?> &nbsp;
+            <?php if (!$etablissement || $etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
             <a class="btn_ajouter" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>">Ajouter</a>
+        	<?php endif; ?>
         </h1>
         <?php if (!$etablissement): ?>
     	<div id="mon_compte">

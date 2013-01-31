@@ -8,7 +8,7 @@
                 <th>Mode de saisie</th>
                 <?php endif; ?>
 	            <th class="type">Type</th>
-	            <th>N° Contrat</th>
+	            <th>N° de Visa</th>
 	            <th>Soussignés</th>   
 	            <th>Produit</th>
 	            <th>Vol. enlevé. / Vol. prop.</th>
