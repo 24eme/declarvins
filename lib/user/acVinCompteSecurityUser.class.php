@@ -31,29 +31,35 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
     const NAMESPACE_COMPTE_TIERS = "CompteSecurityUser_Tiers";
     const NAMESPACE_COMPTE_PROXY = "CompteSecurityUser_Proxy";
     const NAMESPACE_COMPTE_VIRTUEL = "CompteSecurityUser_Virtuel";
+    const NAMESPACE_COMPTE_PARTENAIRE = "CompteSecurityUser_Partenaire";
     const CREDENTIAL_COMPTE = 'compte';
     const CREDENTIAL_COMPTE_TIERS = 'compte_tiers';
     const CREDENTIAL_COMPTE_PROXY = 'compte_proxy';
     const CREDENTIAL_COMPTE_VIRTUEL = 'compte_virtuel';
+    const CREDENTIAL_COMPTE_PARTENAIRE = 'compte_partenaire';
     const CREDENTIAL_ADMIN = 'admin';
     const CREDENTIAL_OPERATEUR = 'operateur';
 
     protected $_couchdb_type_namespace_compte= array("CompteTiers" => self::NAMESPACE_COMPTE_TIERS, 
                                                      "CompteProxy" => self::NAMESPACE_COMPTE_PROXY, 
-                                                     "CompteVirtuel" => self::NAMESPACE_COMPTE_VIRTUEL);
+                                                     "CompteVirtuel" => self::NAMESPACE_COMPTE_VIRTUEL,
+    												 "ComptePartenaire" => self::NAMESPACE_COMPTE_PARTENAIRE);
     
     protected $_namespace_credential_compte = array(self::NAMESPACE_COMPTE_TIERS => self::CREDENTIAL_COMPTE_TIERS, 
                                                    self::NAMESPACE_COMPTE_PROXY => self::CREDENTIAL_COMPTE_PROXY,
-                                                   self::NAMESPACE_COMPTE_VIRTUEL => self::CREDENTIAL_COMPTE_VIRTUEL);
+                                                   self::NAMESPACE_COMPTE_VIRTUEL => self::CREDENTIAL_COMPTE_VIRTUEL,
+                                                   self::NAMESPACE_COMPTE_PARTENAIRE => self::CREDENTIAL_COMPTE_PARTENAIRE);
     
     protected $_namespaces_compte = array(self::NAMESPACE_COMPTE_TIERS, 
                                           self::NAMESPACE_COMPTE_PROXY, 
-                                          self::NAMESPACE_COMPTE_VIRTUEL);
+                                          self::NAMESPACE_COMPTE_VIRTUEL,
+    									  self::NAMESPACE_COMPTE_PARTENAIRE);
     
     protected $_credentials_compte = array(self::CREDENTIAL_COMPTE, 
                                            self::CREDENTIAL_COMPTE_TIERS, 
                                            self::CREDENTIAL_COMPTE_PROXY, 
                                            self::CREDENTIAL_COMPTE_VIRTUEL,
+                                           self::CREDENTIAL_COMPTE_PARTENAIRE,
                                            self::CREDENTIAL_ADMIN,
                                            self::CREDENTIAL_OPERATEUR);
 
@@ -166,6 +172,8 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
             return self::NAMESPACE_COMPTE_TIERS;
         } elseif($this->hasCredential(self::CREDENTIAL_COMPTE_VIRTUEL)) {
             return self::NAMESPACE_COMPTE_VIRTUEL;
+        } elseif($this->hasCredential(self::CREDENTIAL_COMPTE_PARTENAIRE)) {
+            return self::NAMESPACE_COMPTE_PARTENAIRE;
         } else {
             throw new sfException("no namespace existing");
         }
