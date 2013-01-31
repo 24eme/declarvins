@@ -14,17 +14,17 @@
         </div>
         <?php include_component('drm', 'campagnes', array('etablissement' => $etablissement)); ?>
     </section>
-    
-        <?php if($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$hasDrmEnCours): ?>
-        <br /><br />
-        <h1>Espace Admin <a href="" class="msg_aide" data-msg="help_popup_monespace_admin" data-doc="notice.pdf" title="Message aide"></a></h1>
-    	<p class="intro">Saisir une DRM d'un mois différent.</p>
-        <div id="espace_admin" style="float: left; width: 670px;">
-            <div class="contenu clearfix">
-            	<?php include_partial('formCampagne', array('etablissement' => $etablissement,
-                                                            'form' => $formCampagne)) ?>
-            </div>
-        </div>
-        <?php endif; ?>
-
+    	<?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
+	        <?php if($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$hasDrmEnCours): ?>
+	        <br /><br />
+	        <h1>Espace Admin <a href="" class="msg_aide" data-msg="help_popup_monespace_admin" data-doc="notice.pdf" title="Message aide"></a></h1>
+	    	<p class="intro">Saisir une DRM d'un mois différent.</p>
+	        <div id="espace_admin" style="float: left; width: 670px;">
+	            <div class="contenu clearfix">
+	            	<?php include_partial('formCampagne', array('etablissement' => $etablissement,
+	                                                            'form' => $formCampagne)) ?>
+	            </div>
+	        </div>
+	        <?php endif; ?>
+		<?php endif; ?>
 </section>

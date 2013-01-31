@@ -77,6 +77,7 @@ class DRMRouting {
                                                 array('model' => 'DRM',
                                                       'type' => 'object',
                                                       'creation' => true,
+                            						  'no_archive' => true,
                                                       'must_be_valid' => false,
                                                       'must_be_not_valid' => false)));
 
@@ -114,6 +115,7 @@ class DRMRouting {
                                                           array(),
                                                 		  array('model' => 'DRM',
                                                             'type' => 'object',
+                            						  		'no_archive' => true,
                                                             'must_be_valid' => true, 
                                                             'must_be_not_valid' => false)));
 
@@ -123,6 +125,7 @@ class DRMRouting {
                                                           array(),
                                                       array('model' => 'DRM',
                                                             'type' => 'object',
+                            						  		'no_archive' => true,
                                                             'must_be_valid' => true, 
                                                             'must_be_not_valid' => false)));
 
@@ -132,6 +135,7 @@ class DRMRouting {
                                                           array('sf_method' => array('get','post')),
                                                           array('model' => 'DRM',
                                                                 'type' => 'object',
+                            						  			'no_archive' => true,
                               									'must_be_valid' => false,
                               									'must_be_not_valid' => true)));
         
@@ -141,6 +145,7 @@ class DRMRouting {
                                                           array('sf_method' => array('get','post')),
                                                           array('model' => 'DRM',
                                                                 'type' => 'object',
+                            						  			'no_archive' => true,
                               									'must_be_valid' => false,
                               									'must_be_not_valid' => true)));
 
@@ -150,6 +155,7 @@ class DRMRouting {
                                                           array('sf_method' => array('get','post')),
                                                           array('model' => 'DRM',
                                                                 'type' => 'object',
+                            						  			'no_archive' => true,
                               									'must_be_valid' => false,
                               									'must_be_not_valid' => true)));
 
@@ -159,6 +165,7 @@ class DRMRouting {
                                                           array('sf_method' => array('get','post')),
                                                           array('model' => 'DRM',
                                                                 'type' => 'object',
+                            						  			'no_archive' => true,
                               									'must_be_valid' => false,
                               									'must_be_not_valid' => true)));
         
@@ -169,6 +176,7 @@ class DRMRouting {
                                                           array('sf_method' => array('get','post')),
                                                           array('model' => 'DRM',
                                                                 'type' => 'object',
+                            						  			'no_archive' => true,
                               									'must_be_valid' => false,
                               									'must_be_not_valid' => true)));
 
@@ -178,6 +186,7 @@ class DRMRouting {
                                                           array('sf_method' => array('get','post')),
                                                           array('model' => 'DRM',
                                                                 'type' => 'object',
+                            						  			'no_archive' => true,
                               									'must_be_valid' => false,
                               									'must_be_not_valid' => true)));
 
@@ -187,6 +196,7 @@ class DRMRouting {
                                                           array('sf_method' => array('get')),
                                                           array('model' => 'DRM',
                                                                 'type' => 'object',
+                            						  			'no_archive' => true,
                               									'must_be_valid' => false,
                               									'must_be_not_valid' => true)));
 
@@ -216,6 +226,7 @@ class DRMRouting {
                                                           array('sf_method' => array('get','post')),
                                                           array('model' => 'DRM',
                                                                 'type' => 'object',
+                            						  			'no_archive' => true,
                               									'must_be_valid' => false,
                               									'must_be_not_valid' => true)));
 
@@ -226,6 +237,7 @@ class DRMRouting {
                         array('sf_method' => array('post', 'get')),
                         array('model' => 'DRM',
                               'type' => 'object',
+                              'no_archive' => true,
                               'must_be_valid' => false,
                               'must_be_not_valid' => true)));
 
@@ -235,6 +247,7 @@ class DRMRouting {
                         array('sf_method' => array('post', 'get')),
                         array('model' => 'DRMProduit',
                               'type' => 'object',
+                              'no_archive' => true,
                               'must_be_valid' => false,
                               'must_be_not_valid' => true)));  
 
@@ -244,6 +257,7 @@ class DRMRouting {
                         array('sf_method' => array('get','post')),
                         array('model' => 'DRMCertification',
                               'type' => 'object',
+                              'no_archive' => true,
                               'add_noeud' => true,
                               'must_be_valid' => false,
                               'must_be_not_valid' => true)));
@@ -254,6 +268,7 @@ class DRMRouting {
                         array('sf_method' => array('get','post')),
                         array('model' => 'DRMCertification',
                               'type' => 'object',
+                              'no_archive' => true,
                               'add_noeud' => true,
                               'must_be_valid' => false,
                               'must_be_not_valid' => true)));
@@ -264,6 +279,7 @@ class DRMRouting {
                         array('sf_method' => array('get', 'post')),
                         array('model' => 'DRMLieu',
                             'type' => 'object',
+                            'no_archive' => true,
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
                 )));
@@ -274,6 +290,7 @@ class DRMRouting {
                         array('sf_method' => array('get', 'post')),
                         array('model' => 'DRM',
                             'type' => 'object',
+                            'no_archive' => true,
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
                 )));
@@ -284,6 +301,7 @@ class DRMRouting {
                         array('sf_method' => array('get','post')),
                         array('model' => 'DRMCertification',
                             'type' => 'object',
+                            'no_archive' => true,
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
                 )));
@@ -294,6 +312,7 @@ class DRMRouting {
                         array('sf_method' => array('get')),
                         array('model' => 'DRMAppellation',
                              'type' => 'object',
+                            'no_archive' => true,
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
                 )));
@@ -304,6 +323,7 @@ class DRMRouting {
                         array('sf_method' => array('get')),
                         array('model' => 'DRMDetail',
                             'type' => 'object',
+                            'no_archive' => true,
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
                 )));
@@ -314,6 +334,7 @@ class DRMRouting {
                         array('sf_method' => array('get', 'post')),
                         array('model' => 'DRMAppellation',
                             'type' => 'object',
+                            'no_archive' => true,
                             'add_noeud' => true,
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
@@ -325,6 +346,7 @@ class DRMRouting {
                         array('sf_method' => array('post')),
                         array('model' => 'DRMDetail',
                               'type' => 'object',
+                            'no_archive' => true,
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
                 )));
@@ -335,6 +357,7 @@ class DRMRouting {
                                                           array('sf_method' => array('get','post')),
                                                           array('model' => 'DRM',
                                                                 'type' => 'object',
+                              									'no_archive' => true,
 									                            'must_be_valid' => false,
 									                            'must_be_not_valid' => true)));      
     }

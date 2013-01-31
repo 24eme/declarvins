@@ -136,6 +136,14 @@ class DRMValidation
 		if (!$detail->hasCvo() || !$detail->hasDouane()) {
 			$this->warnings['droits_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('droits', $this->generateUrl('drm_recap_detail', $detail));
 		}
+		if (
+			$detail->total_debut_mois < $detail->stocks_debut->bloque ||
+			$detail->total_debut_mois < $detail->stocks_debut->warrante ||
+			$detail->total_debut_mois < $detail->stocks_debut->instance ||
+			$detail->total_debut_mois < $detail->stocks_debut->commercialisable
+		) {
+			$this->warnings['stocksdebut_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('stocksdebut', $this->generateUrl('drm_recap_detail', $detail));
+		}
 	}
 	
 	public function hasEngagements()
