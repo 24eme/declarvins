@@ -103,7 +103,10 @@ class acVinCompteActions extends BaseacVinCompteActions {
 				$this->getUser()->signOut();
 				$this->redirect('@compte_partenaire');
 			}
-            return $this->redirect($ticket);//$this->redirectAfterLogin();
+			if ($service = $request->getParameter('service')) {
+				return $this->redirect($service);
+			}
+            return $this->redirectAfterLogin();
         } else {
             if(sfConfig::has('app_autologin') && sfConfig::get('app_autologin')) {
         	   $this->getUser()->signIn(sfConfig::get('app_autologin'));
