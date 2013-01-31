@@ -168,7 +168,7 @@ class BaseacVinCompteActions extends sfActions
 
     public function executeMotDePasseOublie(sfWebRequest $request) 
     {
-        $this->form = new CompteMotDePasseOublieForm();
+        $this->form = new acVinCompteMotDePasseOublieForm();
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {

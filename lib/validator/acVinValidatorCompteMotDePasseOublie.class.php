@@ -23,7 +23,7 @@
  * @author     Jean-Baptiste Le Metayer <lemetayer.jb@gmail.com>
  * @version    0.1
  */
-class ValidatorCompteMotDePasseOublie extends sfValidatorBase 
+class acVinValidatorCompteMotDePasseOublie extends sfValidatorBase 
 {
 
     public function configure($options = array(), $messages = array()) 
