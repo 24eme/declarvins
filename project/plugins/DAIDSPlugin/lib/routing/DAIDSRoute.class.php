@@ -16,6 +16,9 @@ class DAIDSRoute extends sfObjectRoute implements InterfaceEtablissementRoute
         if (!$this->daids) {
             throw new sfError404Exception(sprintf('No DAIDS found for this periode/version "%s".',  $parameters['periode_version']));
         }
+		if (isset($this->options['no_archive']) && $this->options['no_archive'] === true && ($this->getEtablissement()->statut == Etablissement::STATUT_ARCHIVE)) {
+			$this->redirect('daids_mon_espace', array('identifiant' => $this->getEtablissement()->identifiant));
+		}
 		if (isset($this->options['must_be_valid']) && $this->options['must_be_valid'] === true && !$this->daids->isValidee()) {
 			$this->redirect('daids_not_validated', array('identifiant' => $this->getEtablissement()->identifiant, 'periode_version' => $this->getDAIDS()->getPeriodeAndVersion()));
 		}

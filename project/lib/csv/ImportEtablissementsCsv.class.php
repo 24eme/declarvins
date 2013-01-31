@@ -109,6 +109,24 @@ class ImportEtablissementsCsv {
     	if (!isset($line[EtablissementCsv::COL_CHAMPS_STATUT])) {
    			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_CHAMPS_STATUT + 1).') "statut" manquante');
    		}
+    	if (!isset($line[EtablissementCsv::COL_CHAMPS_COMPTE_NOM])) {
+   			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_CHAMPS_COMPTE_NOM + 1).') "compte nom" manquante');
+   		}
+    	if (!isset($line[EtablissementCsv::COL_CHAMPS_COMPTE_PRENOM])) {
+   			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_CHAMPS_COMPTE_PRENOM + 1).') "compte prenom" manquante');
+   		}
+    	if (!isset($line[EtablissementCsv::COL_CHAMPS_COMPTE_FONCTION])) {
+   			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_CHAMPS_COMPTE_FONCTION + 1).') "compte fonction" manquante');
+   		}
+    	if (!isset($line[EtablissementCsv::COL_CHAMPS_COMPTE_EMAIL])) {
+   			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_CHAMPS_COMPTE_EMAIL + 1).') "compte email" manquante');
+   		}
+    	if (!isset($line[EtablissementCsv::COL_CHAMPS_COMPTE_TELEPHONE])) {
+   			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_CHAMPS_COMPTE_TELEPHONE + 1).') "compte telephone" manquante');
+   		}
+    	if (!isset($line[EtablissementCsv::COL_CHAMPS_COMPTE_FAX])) {
+   			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_CHAMPS_COMPTE_FAX + 1).') "compte fax" manquante');
+   		}
    		if (count($errors) > 0) {
    			$this->_errors[$ligne] = $errors;
    			throw new sfException('has errors');
@@ -224,6 +242,7 @@ class ImportEtablissementsCsv {
     {
     	if ($contrat) {
 	    	$compte = $contrat->getCompteObject();
+	    	$compte = $this->bindCompte($line, $compte);
 	    	if (!$compte->interpro->exist(trim($line[EtablissementCsv::COL_INTERPRO]))) {
 	    		$interpro = $compte->interpro->add(trim($line[EtablissementCsv::COL_INTERPRO]));
 	    		$interpro->statut = _Compte::STATUT_ATTENTE;
@@ -233,6 +252,16 @@ class ImportEtablissementsCsv {
 	    	}
 	    	$compte->save();
     	}
+    }
+
+    protected function bindCompte($line, $compte) {
+    	$compte->nom = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_NOM]);
+        $compte->prenom = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_PRENOM]);
+        $compte->fonction = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_FONCTION]);
+        $compte->email = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_EMAIL]);
+        $compte->telephone = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_TELEPHONE]);
+        $compte->fax = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_FAX]);
+        return $compte;
     }
 }
 

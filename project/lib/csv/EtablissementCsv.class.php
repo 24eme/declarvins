@@ -28,5 +28,11 @@ class EtablissementCsv {
     const COL_SERVICE_DOUANE = 24;
     const COL_CHAMPS_COMPLEMENTAIRES = 25;
     const COL_CHAMPS_STATUT = 26;
+    const COL_CHAMPS_COMPTE_NOM = 27;
+    const COL_CHAMPS_COMPTE_PRENOM = 28;
+    const COL_CHAMPS_COMPTE_FONCTION = 29;
+    const COL_CHAMPS_COMPTE_EMAIL = 30;
+    const COL_CHAMPS_COMPTE_TELEPHONE = 31;
+    const COL_CHAMPS_COMPTE_FAX = 32;
 }
 

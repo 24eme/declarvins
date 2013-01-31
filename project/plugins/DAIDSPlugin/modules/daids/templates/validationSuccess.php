@@ -39,7 +39,7 @@
                 <?php endif; ?>
                 
                 <div id="contenu_onglet">
-                	<?php include_partial('daids/recap', array('daids' => $daids)) ?>
+                	<?php include_partial('daids/recap', array('daids' => $daids, 'etablissement' => $etablissement)) ?>
                 </div>
             </div>
             <a id="telecharger_pdf" href="<?php echo url_for('daids_pdf', $daids) ?>">Visualisez le brouillon de DAI/DS en PDF</a>

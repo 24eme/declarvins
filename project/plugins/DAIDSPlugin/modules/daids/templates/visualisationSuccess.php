@@ -6,10 +6,12 @@
 <section id="contenu">
 
     <?php include_partial('daids/header', array('daids' => $daids)); ?>
-	<?php if (!$hide_rectificative && !$daids->getHistorique()->hasDAIDSInProcess() && $daids->isRectifiable()): ?>
-    <form method="get" action="<?php echo url_for('daids_rectificative', $daids) ?>">
-        <button class="btn_passer_etape rectificative" type="submit">Soumettre une DAI/DS rectificative</button>
-    </form>
+    <?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
+		<?php if (!$hide_rectificative && !$daids->getHistorique()->hasDAIDSInProcess() && $daids->isRectifiable()): ?>
+	    <form method="get" action="<?php echo url_for('daids_rectificative', $daids) ?>">
+	        <button class="btn_passer_etape rectificative" type="submit">Soumettre une DAI/DS rectificative</button>
+	    </form>
+		<?php endif; ?>
 	<?php endif; ?>
     <!-- #principal -->
     <section id="principal">
@@ -23,7 +25,7 @@
         <?php endif; ?>
         <div id="contenu_onglet">
 
-            <?php include_partial('daids/recap', array('daids' => $daids)) ?>
+            <?php include_partial('daids/recap', array('daids' => $daids, 'etablissement' => $etablissement)) ?>
 			<?php include_partial('daids/droits', array('daids' => $daids)) ?>
             
             <a id="telecharger_pdf" href="<?php echo url_for('daids_pdf', $daids) ?>">Télécharger le PDF</a>
@@ -42,9 +44,11 @@
 
         </div>    
     </section>
-    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$daids->getHistorique()->hasDAIDSInProcess() && $daids->isModifiable()): ?>
-    <form method="get" action="<?php echo url_for('daids_modificative', $daids) ?>">
-        <button style="float:left;" class="btn_passer_etape modificative" type="submit">Corriger la DAI/DS</button>
-    </form>
+    <?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
+	    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$daids->getHistorique()->hasDAIDSInProcess() && $daids->isModifiable()): ?>
+	    <form method="get" action="<?php echo url_for('daids_modificative', $daids) ?>">
+	        <button style="float:left;" class="btn_passer_etape modificative" type="submit">Corriger la DAI/DS</button>
+	    </form>
+	    <?php endif; ?>
     <?php endif; ?>
 </section>

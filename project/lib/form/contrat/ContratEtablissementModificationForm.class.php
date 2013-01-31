@@ -63,7 +63,7 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
 	       'comptabilite_commune' => 'Commune: ',
 	       'comptabilite_pays' => 'Pays: ',
 	       'service_douane' => 'Service douane*: ',
-           'edi' => 'Provenance EDI*'));
+           'edi' => 'J\'utilise un logiciel agréé EDI Declarvins pour déclarer mes DRM et DAI/DS*'));
        $this->setValidators(array(
        	       'raison_sociale' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),
        	       'nom' => new sfValidatorString(array('required' => true),array('required' => 'Champ obligatoire')),

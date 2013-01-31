@@ -22,7 +22,16 @@ class vracActions extends acVinVracActions
 		foreach ($acteurs as $acteur) {
 			if ($email = $vrac->get($acteur)->email) {
 				$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
-				Email::getInstance()->vracDemandeValidation($vrac, $etablissement, $email, $acteur);
+				if ($etablissement->compte) {
+					if ($compte = _CompteClient::getInstance()->find($etablissement->compte)) {
+						if ($compte->statut == _Compte::STATUT_ARCHIVE) {
+							if ($interpro->email_contrat_vrac) {
+								Email::getInstance()->vracDemandeValidationInterpro($vrac, $interpro->email_contrat_vrac, $acteur);
+							}
+						} 
+					} 
+				} 
+				Email::getInstance()->vracDemandeValidationInterpro($vrac, $email, $acteur);
 			} else {
 				if ($email = $interpro->email_contrat_vrac) {
 					Email::getInstance()->vracDemandeValidationInterpro($vrac, $email, $acteur);
@@ -43,6 +52,15 @@ class vracActions extends acVinVracActions
 				$configurationVrac = $this->getConfigurationVrac($interpro->_id);
 				$pdf = new ExportVracPdf($vrac, $configurationVrac);
     			$pdf->generate();
+				if ($etablissement->compte) {
+					if ($compte = _CompteClient::getInstance()->find($etablissement->compte)) {
+						if ($compte->statut == _Compte::STATUT_ARCHIVE) {
+							if ($interpro->email_contrat_vrac) {
+								Email::getInstance()->vracContratValide($vrac, $etablissement, $interpro->email_contrat_vrac);
+							}
+						}
+					}
+				}
 				Email::getInstance()->vracContratValide($vrac, $etablissement, $email);
 			}
 		}
@@ -55,8 +73,42 @@ class vracActions extends acVinVracActions
       	}
 		if ($email = $vrac->get($acteur)->email) {
 			$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
+			if ($etablissement->compte) {
+				if ($compte = _CompteClient::getInstance()->find($etablissement->compte)) {
+					if ($compte->statut == _Compte::STATUT_ARCHIVE) {
+						if ($interpro->email_contrat_vrac) {
+							Email::getInstance()->vracContratValidation($vrac, $etablissement, $interpro->email_contrat_vrac);
+						}
+					}
+				}
+			}
 			Email::getInstance()->vracContratValidation($vrac, $etablissement, $email);
 		}
+	}
+	
+	protected function contratAnnulation($vrac, $etab = null) {
+		$acteurs = VracClient::getInstance()->getActeurs();
+		foreach ($acteurs as $acteur) {
+			if ($email = $vrac->get($acteur)->email) {
+				$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
+	    		$send_mail = true;
+				if ($etab && $etab->get('_id') == $etablissement->get('_id')) {
+					$send_mail = false;
+				}
+				if ($etablissement->compte) {
+					if ($compte = _CompteClient::getInstance()->find($etablissement->compte)) {
+						if ($compte->statut == _Compte::STATUT_ARCHIVE) {
+							if ($interpro->email_contrat_vrac) {
+								if ($send_mail)
+									Email::getInstance()->vracContratAnnulation($vrac, $etab, $interpro->email_contrat_vrac);
+							}
+						}
+					}
+				}
+				if ($send_mail)
+					Email::getInstance()->vracContratAnnulation($vrac, $etab, $email);
+			}
+		}	
 	}
 
 }

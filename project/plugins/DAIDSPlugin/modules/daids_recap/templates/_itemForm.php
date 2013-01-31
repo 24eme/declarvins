@@ -53,7 +53,7 @@
 			</div>
 
 			<p class="total_manq_exce <?php echo isVersionnerCssClass($form->getObject(), 'total_manquants_excedents') ?>">
-				<?php echo $form['total_manquants_excedents']->render(array('class' => 'texte total_manq_exce', 'data-champs' => '#'.$form['stock_theorique']->renderId().';#'.$form['stock_chais']->renderId(), 'data-calcul' => 'diff', 'data-val-defaut' => sprintFloat($form->getObject()->total_manquants_excedents))) ?>
+				<?php echo $form['total_manquants_excedents']->render(array('class' => 'texte total_manq_exce', 'data-champs' => '#'.$form['stock_chais']->renderId().';#'.$form['stock_theorique']->renderId(), 'data-calcul' => 'diff', 'data-val-defaut' => sprintFloat($form->getObject()->total_manquants_excedents))) ?>
 	        </p>
 
 			<p class="stock_th stock_th_mensuel <?php echo isVersionnerCssClass($form->getObject(), 'stock_mensuel_theorique') ?>">
@@ -99,7 +99,7 @@
 				<?php echo $form['total_pertes_autorisees']->render(array('class' => 'texte', 'data-champs' => $dataChamps, 'data-calcul' => 'somme', 'data-val-defaut' => sprintFloat($form->getObject()->total_pertes_autorisees))) ?>
 			</p>
 			<p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_manquants_taxables') ?>">
-				<?php echo $form['total_manquants_taxables']->render(array('class' => 'texte inverse_value not_pos_value', 'data-champs' => '#'.$form['total_manquants_excedents']->renderId().';#'.$form['total_pertes_autorisees']->renderId(), 'data-calcul' => 'somme', 'data-val-defaut' => sprintFloat($form->getObject()->total_manquants_taxables))) ?>
+				<?php echo $form['total_manquants_taxables']->render(array('class' => 'texte not_null_value', 'data-champs' => '#'.$form['total_manquants_excedents']->renderId().';#'.$form['total_pertes_autorisees']->renderId(), 'data-calcul' => 'diff', 'data-val-defaut' => sprintFloat($form->getObject()->total_manquants_taxables))) ?>
 			</p>
 
             <div class="col_btn">

@@ -13,9 +13,9 @@
 		<p>Inventaire des vins logés dans vos chais (<span class="unite">hl</span>)</p>
 		<ul>
 			<li>Vins de la propriété (<span class="unite">hl</span>)</li>
-			<li>Entrepot A (<span class="unite">hl</span>)</li>
-			<li>Entrepot B (<span class="unite">hl</span>)</li>
-			<li>Entrepot C (<span class="unite">hl</span>)</li>
+			<li>dont entrepot A (<span class="unite">hl</span>)</li>
+			<li>dont entrepot B (<span class="unite">hl</span>)</li>
+			<li>dont entrepot C (<span class="unite">hl</span>)</li>
 			<li>Vins logés <u>pour</u> un tiers (<span class="unite">hl</span>)</li>
 		</ul>
 	</div>
@@ -40,7 +40,7 @@
 
 	<p class="total_manq_exce">Total Manquants ( - ) ou Excédents ( + ) (<span class="unite">hl</span>)</p>
 
-	<p class="stock_th">Stock moyen mensuel</p>
+	<p class="stock_th">Stock moyen mensuel <a class="msg_aide" title="Message aide" data-msg="help_popup_daids_stockmoyen" href=""></a></p>
 
 	<div class="groupe demarrage-ouvert bloque" data-groupe-id="4">
 		<p>dont Stock moyen volume vinifié et stocké dans l'année</p>

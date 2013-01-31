@@ -56,9 +56,6 @@
 	        <li<?php if ($subactive == 'douanes'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@admin_douanes') ?>">Douanes</a>
 			</li>
-	        <li<?php if ($subactive == 'daids'): ?> class="actif"<?php endif; ?>>
-				<a href="<?php echo url_for('@admin_daids') ?>">DAI/DS</a>
-			</li>
 	        <li<?php if ($subactive == 'libelles'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@admin_libelles') ?>">Libellés</a>
 			</li>		
@@ -73,6 +70,9 @@
 			<?php endif; ?>
 			<li<?php if ($subactive == 'contrat'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@validation_login') ?>">Déclarants / Contrats mandat</a>
+			</li>		
+			<li<?php if ($subactive == 'partenaires'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('@partenaire_comptes') ?>">Partenaires</a>
 			</li>		
 		<?php endif; ?>
 	</ul>

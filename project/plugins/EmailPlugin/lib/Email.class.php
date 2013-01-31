@@ -76,6 +76,17 @@ class Email {
         return self::getMailer()->send($message);
     }
     
+    public function vracContratAnnulation($vrac, $etablissement, $destinataire) 
+    {
+        $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
+        $to = array($destinataire);
+        $subject = 'Rejet d\'un contrat d\'achat vrac';
+        $body = self::getBodyFromPartial('vrac_contrat_annulation', array('vrac' => $vrac, 'etablissement' => $etablissement));
+        $message = self::getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+
+        return self::getMailer()->send($message);
+    }
+    
     public function sendContratMandat($contrat, $destinataire) 
     {
         $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));

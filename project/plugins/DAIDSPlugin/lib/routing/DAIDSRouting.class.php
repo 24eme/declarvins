@@ -48,6 +48,7 @@ class DAIDSRouting {
                                                 array('model' => 'DAIDS',
                                                       'type' => 'object',
                                                       'creation' => true,
+                                                      'no_archive' => true,
                                                       'must_be_valid' => false,
                                                       'must_be_not_valid' => false)));
 
@@ -85,6 +86,7 @@ class DAIDSRouting {
                                                           array('sf_method' => array('get','post')),
                                                           array('model' => 'DAIDS',
                                                                 'type' => 'object',
+                                                     			'no_archive' => true,
                               									'must_be_valid' => false,
                               									'must_be_not_valid' => true)));        
 	      
@@ -112,14 +114,9 @@ class DAIDSRouting {
                                                           array('sf_method' => array('get','post')),
                                                           array('model' => 'DAIDS',
                                                                 'type' => 'object',
+                                                      			'no_archive' => true,
                               									'must_be_valid' => false,
                               									'must_be_not_valid' => true)));  
-        
-        $r->prependRoute('daids_hamza', new EtablissementRoute('/daids/:identifiant/hamza', array('module' => 'daids', 
-													'action' => 'hamza'),
-								  array('sf_method' => array('get','post')),
-								  array('model' => 'Etablissement',
-									'type' => "object")));
 		
 
         $r->prependRoute('daids_validation', new DAIDSRoute('/daids/:identifiant/edition/:periode_version/validation', 
@@ -128,6 +125,7 @@ class DAIDSRouting {
                                                           array('sf_method' => array('get','post')),
                                                           array('model' => 'DAIDS',
                                                                 'type' => 'object',
+                                                      			'no_archive' => true,
                               									'must_be_valid' => false,
                               									'must_be_not_valid' => true)));
 
@@ -137,6 +135,7 @@ class DAIDSRouting {
                                                           array('sf_method' => array('get')),
                                                           array('model' => 'DAIDS',
                                                                 'type' => 'object',
+                                                      			'no_archive' => true,
                               									'must_be_valid' => false,
                               									'must_be_not_valid' => true)));
 
@@ -157,6 +156,8 @@ class DAIDSRouting {
                         array('sf_method' => array('get', 'post')),
                         array('model' => 'DAIDSDetail',
                               'type' => 'object',
+                        	
+                            'no_archive' => true,
                             'must_be_valid' => true,
                             'must_be_not_valid' => false)));
 
@@ -166,6 +167,7 @@ class DAIDSRouting {
                                                           array(),
                                                 		  array('model' => 'DAIDS',
                                                             'type' => 'object',
+                                                      		'no_archive' => true,
                                                             'must_be_valid' => true, 
                                                             'must_be_not_valid' => false)));
 
@@ -175,6 +177,7 @@ class DAIDSRouting {
                                                           array(),
                                                       array('model' => 'DAIDS',
                                                             'type' => 'object',
+                                                      		'no_archive' => true,
                                                             'must_be_valid' => true, 
                                                             'must_be_not_valid' => false)));
 
@@ -194,6 +197,7 @@ class DAIDSRouting {
                         array('sf_method' => array('get', 'post')),
                         array('model' => 'DAIDSLieu',
                             'type' => 'object',
+                            'no_archive' => true,
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
                 )));
@@ -204,6 +208,7 @@ class DAIDSRouting {
                         array('sf_method' => array('get', 'post')),
                         array('model' => 'DAIDS',
                             'type' => 'object',
+                        	'no_archive' => true,
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
                 )));
@@ -214,6 +219,7 @@ class DAIDSRouting {
                         array('sf_method' => array('get')),
                         array('model' => 'DAIDSAppellation',
                              'type' => 'object',
+                             'no_archive' => true,
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
                 )));
@@ -224,6 +230,7 @@ class DAIDSRouting {
                         array('sf_method' => array('post')),
                         array('model' => 'DAIDSDetail',
                               'type' => 'object',
+                            'no_archive' => true,
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
                 )));
@@ -233,15 +240,10 @@ class DAIDSRouting {
                         array('sf_method' => array('get')),
                         array('model' => 'DAIDSDetail',
                             'type' => 'object',
+                            'no_archive' => true,
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
                 )));
-                
-        $r->prependRoute('admin_daids', new sfRoute('/admin/daids', array('module' => 'daids_admin', 
-									'action' => 'index')));
-                
-        $r->prependRoute('admin_daids_edit', new sfRoute('/admin/daids/edit-taux', array('module' => 'daids_admin', 
-									'action' => 'editTaux')));
     }
 
 }

@@ -14,12 +14,18 @@ compte_nouveau:
 compte_inexistant:
   url:   /compte/erreur/:login
   param: { module: acVinCompte, action: compteInexistant, login: null }
+compte_partenaire:
+  url:   /partenaire/erreur
+  param: { module: acVinCompte, action: comptePartenaire }
 compte_valide:
   url:   /compte/valide
   param: { module: acVinCompte, action: valide }
 compte_password:
   url:   /compte/mot-de-passe/:login
   param: { module: acVinCompte, action: redefinitionPassword, login: null }
+compte_lost_password:
+  url:   /compte/mot-de-passe-oublie
+  param: { module: acVinCompte, action: lostPassword }
 contrat_nouveau:
   url:   /contrat/nouveau/:nocontrat
   param: { module: contrat, action: nouveau, nocontrat: null }
@@ -182,6 +188,30 @@ compte_autocomplete:
 admin_compte_password:
   url:   /admin/compte-password/:login
   param: { module: acVinCompteAdmin, action: redefinitionPassword }
+  
+partenaire_comptes:
+  url:   /partenaire/comptes
+  param: { module: ComptePartenaire, action: index }
+
+compte_partenaire_ajout:
+  url:   /partenaire/compte-ajout
+  param: { module: ComptePartenaire, action: compteAjout }
+  
+compte_partenaire_suppression:
+  url:   /partenaire/compte-supprimer/:login
+  param: { module: ComptePartenaire, action: compteSuppression }
+  
+compte_partenaire_creation:
+  url:   /partenaire/compte-creer/:login
+  param: { module: ComptePartenaire, action: compteCreation }
+
+compte_partenaire_modification:
+  url:   /partenaire/compte-modification/:login
+  param: { module: ComptePartenaire, action: compteModification }
+
+partenaire_compte_password:
+  url:   /partenaire/compte-password/:login
+  param: { module: ComptePartenaire, action: redefinitionPassword }
 
 # generic rules
 # please, remove them by adding more specific rules

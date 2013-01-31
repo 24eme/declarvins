@@ -13,7 +13,11 @@
 		</div>
 
 		<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-		<a href="<?php echo url_for('profil_statut', $etablissement) ?>" id="btn_archiver_etablissement" class="btn_violet">Archiver l'etablissement</a>
+		<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVE): ?>
+			<a href="<?php echo url_for('profil_statut', $etablissement) ?>" id="btn_archiver_etablissement" class="btn_violet">Activer l'etablissement</a>
+		<?php else: ?>
+			<a href="<?php echo url_for('profil_statut', $etablissement) ?>" id="btn_archiver_etablissement" class="btn_violet">Archiver l'etablissement</a>
+		<?php endif; ?>
 		<?php endif; ?>
 	</div>
 

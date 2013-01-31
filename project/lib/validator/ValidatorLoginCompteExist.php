@@ -1,18 +1,18 @@
 <?php
 
-class ValidatorLoginCompte extends sfValidatorSchema {
+class ValidatorLoginCompteExist extends sfValidatorSchema {
 
     public function configure($options = array(), $messages = array()) {
         $this->addOption('login_field', 'login');
         $this->addOption('throw_global_error', false);
 
-        $this->setMessage('invalid', 'Cet identifiant n\'est pas disponible');
+        $this->setMessage('invalid', 'Cet identifiant n\'existe pas');
     }
 
     protected function doClean($values) {
-        if (isset($values['login']) && !empty($values['login'])) {
+    	if (isset($values['login']) && !empty($values['login'])) {
             $compte = acCouchdbManager::getClient('_Compte')->retrieveByLogin($values['login']);
-            if (!$compte)
+            if ($compte)
                 return $values;
         }
         else {

@@ -81,6 +81,11 @@ CompteVirtuel:
       fax: {  }
       contrat: {  }
 
+ComptePartenaire:
+  inheritance: CompteVirtuel
+  definition:
+    fields: {  }
+
 Interpro:
   definition:
     fields:

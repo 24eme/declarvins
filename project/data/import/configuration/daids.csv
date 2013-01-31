@@ -1,4 +1,4 @@
 "#Interpro";"stocks moyen vinifié";"sotcks moyen non vinifié";"stocks moyen conditionné";"volume conditionne"
-"IR";"forfaitaire_general:Volume forfaitaire général&2.5|forfaitaire_optionnel:Volume forfaitaire optionnel (bois, VDN, petit volume)&6|forfaitaire_effervescent:Volume forfaitaire effervescent&4";"forfaitaire:Volume CGI&100";"forfaitaire:Pertes autorisées conditionné&1";1
-"IVSE";"forfaitaire_general:Volume forfaitaire général&2.5|forfaitaire_optionnel:Volume forfaitaire optionnel (bois, VDN, petit volume)&6|forfaitaire_effervescent:Volume forfaitaire effervescent&4";"forfaitaire:Volume CGI&100";"forfaitaire:Pertes autorisées conditionné&1";1
-"CIVP";"forfaitaire_x:Volume X&5|forfaitaire_y:Volume Y&7";"forfaitaire:Volume CGI&100";"forfaitaire:Pertes autorisées conditionné&1";0
+"IR";"forfaitaire_general:Taux forfaitaire général&2.5|forfaitaire_optionnel:Taux forfaitaire optionnel (bois, VDN, petit volume)&6|forfaitaire_effervescent:Taux forfaitaire effervescent&4";"forfaitaire:Volume CGI&100";"forfaitaire:Pertes autorisées conditionné&1";1
+"IVSE";"forfaitaire_general:Taux forfaitaire général&2.5|forfaitaire_optionnel:Taux forfaitaire optionnel (bois, VDN, petit volume)&6|forfaitaire_effervescent:Taux forfaitaire effervescent&4";"forfaitaire:Volume CGI&100";"forfaitaire:Pertes autorisées conditionné&1";1
+"CIVP";"forfaitaire_general:Taux général&5|forfaitaire_optionnel:Taux optionnel si bois&7";"forfaitaire:Volume CGI&100";"forfaitaire:Pertes autorisées conditionné&1";0

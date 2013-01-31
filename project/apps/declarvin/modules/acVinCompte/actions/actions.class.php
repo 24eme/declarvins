@@ -48,6 +48,9 @@ class acVinCompteActions extends BaseacVinCompteActions {
     public function executeCompteInexistant(sfWebRequest $request) {
     	$this->compte = $request->getParameter('login', null);
     }
+    public function executeComptePartenaire(sfWebRequest $request) {
+    	
+    }
     public function executeRedefinitionPassword(sfWebRequest $request) {
     	$this->forward404Unless($login = $request->getParameter('login'));
         $this->forward404Unless($this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
@@ -65,11 +68,25 @@ class acVinCompteActions extends BaseacVinCompteActions {
             }
         }
     }
+    
+    public function executeLostPassword(sfWebRequest $request) {
+        $this->form = new CompteLostPasswordForm();
+        if ($request->isMethod(sfWebRequest::POST)) {
+            $this->form->bind($request->getParameter($this->form->getName()));
+            if ($this->form->isValid()) {
+                $login = $this->form->getValue('login');
+                $compte = _CompteClient::getInstance()->retrieveByLogin($login);
+     			Email::getInstance()->sendRedefinitionMotDePasse($compte, $compte->email);
+     			$this->getUser()->setFlash('notice', 'Une demande de redéfinition de votre mot de passe vous a été envoyé');
+     			$this->redirect('@compte_lost_password');
+            }
+        }
+    }
 
     public function executeLogin(sfWebRequest $request) {
         if ($this->getUser()->isAuthenticated() && $this->getUser()->hasCredential("compte")) {
-	  		$this->redirectAfterLogin($request->getReferer());
-        } elseif ($request->getParameter('ticket')) {
+	  		$this->redirectAfterLogin();
+        } elseif ($ticket = $request->getParameter('ticket')) {
 			/** CAS * */
 			acPhpCas::client();
 			acPhpCas::setNoCasServerValidation();
@@ -82,13 +99,16 @@ class acVinCompteActions extends BaseacVinCompteActions {
 			} catch (sfException $e) {
 				$this->redirect('compte_inexistant', array('login' => phpCAS::getUser()));
 			}
-			
-            return $this->redirectAfterLogin($request->getReferer());
+			if ($this->getUser()->getCompte()->type == ComptePartenaire::COMPTE_TYPE_PARTENAIRE) {
+				$this->getUser()->signOut();
+				$this->redirect('@compte_partenaire');
+			}
+            return $this->redirect($ticket);//$this->redirectAfterLogin();
         } else {
             if(sfConfig::has('app_autologin') && sfConfig::get('app_autologin')) {
         	   $this->getUser()->signIn(sfConfig::get('app_autologin'));
 	           
-               return $this->redirectAfterLogin($request->getReferer());
+               return $this->redirectAfterLogin();
             }
 
 	  		$url = sfConfig::get('app_ac_php_cas_url') . '/login?service=' . $request->getUri();
@@ -97,10 +117,7 @@ class acVinCompteActions extends BaseacVinCompteActions {
         }
     }
 
-    protected function redirectAfterLogin($referer = null) {
-    	if ($referer && strpos($referer, sfConfig::get('app_ac_php_cas_url')) === false) {
-    		return $this->redirect($referer);
-    	}
+    protected function redirectAfterLogin() {
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
             return $this->redirect('@admin');
         }

@@ -25,4 +25,16 @@ abstract class _Compte extends acVinCompte {
 
       return $this->login;
     }
+
+
+    public function getGerantInterpro() {
+        if(is_null($this->gerant_interpro)) {
+            foreach($this->interpro as $interpro_id => $interpro) {
+                $this->gerant_interpro = acCouchdbManager::getClient('Interpro')->find($interpro_id);
+                break;
+            }
+        }
+
+        return $this->gerant_interpro;
+    }
 }

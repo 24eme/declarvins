@@ -34,12 +34,14 @@
         <?php elseif ($daids->isValidee()): ?>
             <a href="<?php echo url_for('daids_visualisation', $daids) ?>" class="btn_reinitialiser"><span>Visualiser</span></a>
         <?php else: ?>
+        	<?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
 		    <a href="<?php echo url_for('daids_init', $daids); ?>">Accéder à la déclaration en cours</a><br />
+		    <?php endif; ?>
         <?php endif; ?>
 	</td>
 	<?php if (!$daids->isNew() && ($daids->isSupprimable() || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $daids->isSupprimableOperateur()))): ?>	
 	<td style="border: 0px; padding-left: 0px;background-color: #ffffff;">
 		<a href="<?php echo url_for('daids_delete', $daids); ?>" class="btn_reinitialiser"><span><img src="/images/pictos/pi_supprimer.png"/></span></a>
 	</td>
-	<?php endif; ?>					
+	<?php endif; ?>			
 </tr>

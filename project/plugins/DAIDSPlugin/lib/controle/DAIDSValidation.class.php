@@ -67,6 +67,9 @@ class DAIDSValidation
 		if ($totalEntrepots > $totalChais) {
 			$this->errors['total_diff_entrepots_'.$detail->renderId()] = new DAIDSControleError('stock_entrepots', $this->generateUrl('daids_recap_detail', $detail));
 		}
+		if ($detail->stocks_moyen->non_vinifie->total > $detail->stocks_moyen->non_vinifie->volume) {
+			$this->errors['volume_non_vinifie_'.$detail->renderId()] = new DAIDSControleError('volume_non_vinifie', $this->generateUrl('daids_recap_detail', $detail));
+		}
 		
 	}
 	

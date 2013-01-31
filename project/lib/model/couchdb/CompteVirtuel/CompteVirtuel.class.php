@@ -16,18 +16,6 @@ class CompteVirtuel extends BaseCompteVirtuel {
     const VIEW_KEY_STATUT = 7;
 
 
-    public function getGerantInterpro() {
-        if(is_null($this->gerant_interpro)) {
-            foreach($this->interpro as $interpro_id => $interpro) {
-                $this->gerant_interpro = acCouchdbManager::getClient('Interpro')->find($interpro_id);
-                break;
-            }
-        }
-
-        return $this->gerant_interpro;
-    }
-
-
     public function __toString() {
         if ($this->prenom) {
             return sprintf('%s. %s', $this->prenom, strtoupper(substr($this->nom, 0, 1)));

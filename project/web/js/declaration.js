@@ -790,6 +790,8 @@
 						if (champLiaison.val()) {
 							val = parseFloat(champLiaison.val());
 							$(tabChamps[i]).val(val.toFixed(2));
+						} else {
+							$(tabChamps[i]).val(null);
 						}
 						
 					}
