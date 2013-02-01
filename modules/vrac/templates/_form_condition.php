@@ -15,7 +15,7 @@
                         <tr>
                             <th>Date (jj/mm/aaaa)</th>
                             <th>Volume (hl)</th>
-                            <th>Montant de l'échéancier (€ HT)</th>
+                            <th>Montant de l'échéance (€ HT)</th>
                             <th class="dernier"></th>
                         </tr>
                     </thead>

@@ -27,8 +27,9 @@ class VracRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
 			if (isset($this->options['no_archive']) && $this->options['no_archive'] === true && ($this->getEtablissement()->statut == Etablissement::STATUT_ARCHIVE)) {
 				$this->redirect('vrac_etablissement', array('identifiant' => $this->getEtablissement()->identifiant));
 			}
+      		$this->checkSecurity($this->getEtablissement());
     	}
-
+		
         return $this->vrac;
     }
 
@@ -61,6 +62,21 @@ class VracRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
         }
         
         return array("identifiant" => $etablissement->identifiant);
+    }
+    
+
+    
+    public function checkSecurity($etablissement = null) {
+    	if (!$etablissement) {
+    		return;
+    	}
+    	$user = sfContext::getInstance()->getUser();
+    	$compte = $user->getCompte();
+    	if (!$user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $compte->type == 'CompteTiers') {
+    		if (!$compte->hasEtablissement($etablissement->get('_id'))) {
+    			return $this->redirect('@acces_interdit');
+    		}
+    	}
     }
 
     public function getVrac() {
