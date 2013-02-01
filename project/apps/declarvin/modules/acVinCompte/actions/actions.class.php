@@ -51,6 +51,9 @@ class acVinCompteActions extends BaseacVinCompteActions {
     public function executeComptePartenaire(sfWebRequest $request) {
     	
     }
+    public function executeAccesInterdit(sfWebRequest $request) {
+    	
+    }
     public function executeRedefinitionPassword(sfWebRequest $request) {
     	$this->forward404Unless($login = $request->getParameter('login'));
         $this->forward404Unless($this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));

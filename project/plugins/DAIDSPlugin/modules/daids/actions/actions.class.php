@@ -24,6 +24,9 @@ class daidsActions extends sfActions
       if(DAIDSClient::getInstance()->formatToCompare($daids->periode) > DAIDSClient::getInstance()->formatToCompare(DAIDSClient::getInstance()->getCurrentPeriode())) {
         throw new sfException('Impossible de faire une DAI/DS future');
       }
+      if(!$daids->hasLastDrmCampagne()) {
+        throw new sfException('Impossible de faire la DAI/DS '.$daids->periode.' sans la DRM '.preg_replace('/([0-9]{4})-([0-9]{4})/', '$2', $daids->periode).'-'.sprintf('%02d', (DRMPaiement::NUM_MOIS_DEBUT_CAMPAGNE - 1)));
+      }
       $daids->save();
       $this->redirect('daids_informations', $daids);
   }
@@ -66,12 +69,12 @@ class daidsActions extends sfActions
   	  	if ($this->formCampagne->isValid()) {
   	  		$values = $this->formCampagne->getValues();
   	  		$daids = DAIDSClient::getInstance()->createDoc($this->etablissement->identifiant, $values['campagne']);
-  	  		if (count($daids->getDetails()) != 0) {
+  	  		if ($daids && count($daids->getDetails()) != 0) {
   	  			$daids->mode_de_saisie = DAIDSClient::MODE_DE_SAISIE_PAPIER;
       			$daids->save();
       			$this->redirect('daids_informations', $daids);
   	  		} else {
-  	  			$this->getUser()->setFlash('error_campagne', 'Il n\'y a aucune DRM saisie pour la campagne '.$values['campagne']);
+  	  			$this->getUser()->setFlash('error_campagne', 'La DRM de juillet n\'a pas été déclarée pour la campagne '.$values['campagne']);
   	  			$this->redirect('daids_mon_espace', $this->etablissement);
   	  		}
   	  	}

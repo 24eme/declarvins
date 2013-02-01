@@ -42,6 +42,10 @@ class CompteTiers extends BaseCompteTiers {
     public function hasEtablissementId($etablissementId) {
       return $this->tiers->exist('ETABLISSEMENT-'.$etablissementId);
     }
+
+    public function hasEtablissement($identifiant) {
+      return $this->tiers->exist($identifiant);
+    }
     
     public function generateByContrat($contrat) {
     	$this->_id = 'COMPTE-'.$contrat->no_contrat;

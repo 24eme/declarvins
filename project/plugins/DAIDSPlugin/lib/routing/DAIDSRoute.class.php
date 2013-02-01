@@ -25,6 +25,7 @@ class DAIDSRoute extends sfObjectRoute implements InterfaceEtablissementRoute
 		if (isset($this->options['must_be_not_valid']) && $this->options['must_be_not_valid'] === true && $this->daids->isValidee()) {
 			$this->redirect('daids_validated', array('identifiant' => $this->getEtablissement()->identifiant, 'periode_version' => $this->getDAIDS()->getPeriodeAndVersion()));
 		}
+		$this->checkSecurity($this->getEtablissement());
         return $this->daids;
     }
 
@@ -44,6 +45,21 @@ class DAIDSRoute extends sfObjectRoute implements InterfaceEtablissementRoute
 
     public function getEtablissement() {
         return $this->getDAIDS()->getEtablissement();
+    }
+    
+
+    
+    public function checkSecurity($etablissement = null) {
+    	if (!$etablissement) {
+    		return;
+    	}
+    	$user = sfContext::getInstance()->getUser();
+    	$compte = $user->getCompte();
+    	if (!$user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $compte->type == 'CompteTiers') {
+    		if (!$compte->hasEtablissement($etablissement->get('_id'))) {
+    			return $this->redirect('@acces_interdit');
+    		}
+    	}
     }
     
 	public function redirect($url, $statusCode = 302)

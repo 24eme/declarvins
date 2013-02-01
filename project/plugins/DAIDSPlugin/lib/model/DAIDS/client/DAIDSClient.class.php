@@ -49,35 +49,57 @@ class DAIDSClient extends acCouchdbClient
     
     public function createDoc($identifiant, $periode = null) {
     	if (!$periode) {
-      		$periode = $this->getCurrentPeriode();
       		$last_daids = $this->getDAIDSHistorique($identifiant)->getLastDAIDS();
 		    if ($last_daids) {
         		$periode = $this->getPeriodeSuivante($last_daids->periode);
+        		if (!$this->isValidePeriode($identifiant, $periode)) {
+        			$periode = null;
+        		}
+      		} else {
+      			$periode = $this->getPeriodeByDrms($identifiant);
       		}
+    	} else {
+        	if (!$this->isValidePeriode($identifiant, $periode)) {
+        		$periode = null;
+        	}
     	}
     	return $this->createDocByPeriode($identifiant, $periode);
   	}
+  	
+  	public function isValidePeriode($identifiant, $periode) {
+  		$mois = DRMClient::getInstance()->getMois($periode);
+	  	$annee = DRMClient::getInstance()->getAnnee($periode);
+	    $date = $annee.'0810';
+	  	if ($date <= date('Ymd')) {
+	  		return true;
+	  	}
+  		return false;
+  		
+  	}
 
-    public function createDocByPeriode($identifiant, $periode)
+    public function createDocByPeriode($identifiant, $periode = null)
     {
-       $prev_daids = $this->getDAIDSHistorique($identifiant)->getPreviousDAIDS($periode);
-       $next_daids = $this->getDAIDSHistorique($identifiant)->getNextDAIDS($periode);
-       if ($prev_daids) {
-       	$daids = $prev_daids->generateSuivante($periode);
-       } elseif ($next_daids) {
-       	$daids = $next_daids->generateSuivante($periode);
-       } else {
+    	if (!$periode) {
+    		return null;
+    	}
+       	/*$prev_daids = $this->getDAIDSHistorique($identifiant)->getPreviousDAIDS($periode);
+       	$next_daids = $this->getDAIDSHistorique($identifiant)->getNextDAIDS($periode);
+       	if ($prev_daids) {
+       		$daids = $prev_daids->generateSuivante($periode);
+       	} elseif ($next_daids) {
+       		$daids = $next_daids->generateSuivante($periode);
+       	} else {*/
         $daids = new DAIDS();
         $daids->identifiant = $identifiant;
         $daids->periode = $periode;
         $daids->campagne = $periode;
         $daids->initProduits();
-       }
-       $daids->mode_de_saisie =  self::MODE_DE_SAISIE_DTI;
-       if($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-        $daids->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
-       }
-       return $daids;
+        //}
+       	$daids->mode_de_saisie =  self::MODE_DE_SAISIE_DTI;
+       	if($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        	$daids->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
+       	}
+       	return $daids;
     }
 
 
@@ -99,6 +121,20 @@ class DAIDSClient extends acCouchdbClient
       } else {
       	return sprintf('%s-%s', date('Y') - 1, date('Y'));
       }
+    }
+    
+    public function getPeriodeByDrms($identifiant)
+    {
+    	$drmHistorique = new DRMHistorique($identifiant);
+    	$drmCampagnes = $drmHistorique->getCampagnes();
+    	foreach ($drmCampagnes as $campagne) {
+    		$annee = preg_replace('/([0-9]{4})-([0-9]{4})/', '$2', $campagne);
+    		$date = $annee.'0810';
+    		if ($date <= date('Ymd')) {
+    			return $campagne;
+    		}
+    	}
+    	return null;
     }
     
     public function formatToCompare($periode)

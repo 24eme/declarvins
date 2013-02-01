@@ -45,6 +45,9 @@ class daidsComponents extends sfComponents
     protected function getNewDAIDS($identifiant) 
     {
         $daids = DAIDSClient::getInstance()->createDoc($identifiant);
+        if (!$daids) {
+        	return null;
+        }
         if (count($daids->getDetails()) == 0) {
         	$daids = null;
         }

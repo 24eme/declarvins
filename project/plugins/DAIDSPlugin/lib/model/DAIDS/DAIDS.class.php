@@ -379,6 +379,16 @@ class DAIDS extends BaseDAIDS
 	        $this->interpros->add(0,$i->getKey());
         }
     }
+    
+    public function hasLastDrmCampagne() {
+  		$drmsHistorique = new DRMHistorique($this->identifiant);
+  		if ($lastDrm = $drmsHistorique->getLastDRMByCampagne($this->periode)) {
+  			if (DRMClient::getInstance()->getMois($lastDrm->periode) == (DRMPaiement::NUM_MOIS_DEBUT_CAMPAGNE - 1)) {
+  				return true;
+  			}
+  		}
+  		return false;
+    }
 
     public function validate($options = null) 
     {

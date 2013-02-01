@@ -17,6 +17,9 @@ compte_inexistant:
 compte_partenaire:
   url:   /partenaire/erreur
   param: { module: acVinCompte, action: comptePartenaire }
+acces_interdit:
+  url:   /acces/erreur
+  param: { module: acVinCompte, action: accesInterdit }
 compte_valide:
   url:   /compte/valide
   param: { module: acVinCompte, action: valide }
