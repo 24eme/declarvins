@@ -445,8 +445,19 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     }
     
     public function isDebutCampagne() {
-    	
-        return DRMPaiement::isDebutCampagne((int)$this->getMois());
+        return DRMPaiement::isDebutCampagne(DRMClient::getInstance()->getMois($this->periode));
+    }
+    public function getCampagnePrecedente() {
+    	$annee = preg_replace('/([0-9]{4})-([0-9]{4})/', '$1', $this->campagne);
+    	return ($annee-1).'-'.$annee;
+    }
+    public function hasDaidsCampagnePrecedente() {
+    	$campagne = $this->getCampagnePrecedente();
+    	return (DAIDSClient::getInstance()->findMasterByIdentifiantAndPeriode($this->identifiant, $campagne))? true : false;
+    }
+    
+    public function hasDaids() {
+    	return (DAIDSClient::getInstance()->findMasterByIdentifiantAndPeriode($this->identifiant, $this->campagne))? true : false;
     }
 
     public function getCurrentEtapeRouting() {

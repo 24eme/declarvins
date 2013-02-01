@@ -31,6 +31,7 @@ class DRMRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
 			//throw new sfError404Exception('DRM must not be validated');
 			$this->redirect('drm_validated', array('identifiant' => $this->getEtablissement()->identifiant, 'periode_version' => $this->getDRM()->getPeriodeAndVersion()));
 		}
+		$this->checkSecurity($this->getEtablissement());
         return $this->drm;
     }
 
@@ -54,6 +55,19 @@ class DRMRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
     public function getEtablissement() {
 
         return $this->getDRM()->getEtablissement();
+    }
+    
+    public function checkSecurity($etablissement = null) {
+    	if (!$etablissement) {
+    		return;
+    	}
+    	$user = sfContext::getInstance()->getUser();
+    	$compte = $user->getCompte();
+    	if (!$user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $compte->type == 'CompteTiers') {
+    		if (!$compte->hasEtablissement($etablissement->get('_id'))) {
+    			return $this->redirect('@acces_interdit');
+    		}
+    	}
     }
     
 	public function redirect($url, $statusCode = 302)

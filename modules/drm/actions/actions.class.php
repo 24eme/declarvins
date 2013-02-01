@@ -19,13 +19,15 @@ class drmActions extends sfActions
       $drm = $this->getRoute()->getDRM();
 
       if ($drm->getHistorique()->hasDRMInProcess()) {
-        
         throw new sfException('Une DRM est déjà en cours de saisie.');
       }
 
       if($drm->periode > DRMClient::getInstance()->getCurrentPeriode()) {
-
         throw new sfException('Impossible de faire une DRM future');
+      }
+      
+      if ($drm->isDebutCampagne() && !$drm->hasDaidsCampagnePrecedente()) {
+      	throw new sfException('Impossible de faire la DRM '.$drm->periode.' sans la DAI/DS '.$drm->getCampagnePrecedente());
       }
 
       $drm->save();

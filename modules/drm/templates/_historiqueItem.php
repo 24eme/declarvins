@@ -30,7 +30,11 @@
     <?php endif; ?>
     <td>
         <?php if($drm->isNew()): ?>
-            <a href="<?php echo url_for('drm_nouvelle', $drm) ?>" class="btn_reinitialiser"><span>Démarrer la DRM</span></a>
+        	<?php if ($drm->isDebutCampagne() && !$drm->hasDaidsCampagnePrecedente()): ?>
+        		Vous devez saisir votre <strong>DAI/DS <?php echo $drm->getCampagnePrecedente() ?></strong>
+        	<?php else: ?>
+            	<a href="<?php echo url_for('drm_nouvelle', $drm) ?>" class="btn_reinitialiser"><span>Démarrer la DRM</span></a>
+            <?php endif; ?>
         <?php elseif ($drm->isValidee()): ?>
             <a href="<?php echo url_for('drm_visualisation', $drm) ?>" class="btn_reinitialiser"><span>Visualiser</span></a>
         <?php else: ?>

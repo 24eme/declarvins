@@ -166,10 +166,17 @@ class DRMHistorique {
         return $this->identifiant;
     }
 
-    public function getPeriodes() {
-
-        return $this->periodes;
-    }
+    /*public function getPeriodes() {
+        $periodes = array();
+        foreach($this->getDRMs() as $drm) {
+            if (!isset($periodes[$drm->campagne])) {
+                $periodes[$drm->campagne] = array();
+            }
+            $periodes[$drm->campagne][DRMClient::getInstance()->getMois($drm->periode)] = 1;
+        }
+        ksort($periodes);
+        return $periodes;
+    }*/
 
 }
 
