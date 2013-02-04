@@ -5,7 +5,6 @@
  */
 
 class CompteVirtuel extends BaseCompteVirtuel {
-    protected $gerant_interpro = null;
     const VIEW_KEY_INTERPRO = 0;
     const VIEW_KEY_TYPE = 1;
     const VIEW_KEY_NOM = 2;
