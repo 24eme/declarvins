@@ -43,15 +43,15 @@ EOF;
 				}
 				$drmsTab[$date] = $drm;
 			}
+			echo "\n".$identifiant." : \n";
+			print_r($drmsTab);
 			if (count($drmsTab) > 0) {
 				ksort($drmsTab);
 				$end = date('Ym');
-				if ($identifiant == '9223700100') { // a supprimer
-					while ($start <= $end) {
-						echo $start." != ".$end."\n";
-						$start = $this->getNextMonth($start);
-					}
-				} // a supprimer
+				while ($start <= $end) {
+					//echo $start." != ".$end."\n";
+					$start = $this->getNextMonth($start);
+				}
 			}
         }
     }
@@ -59,7 +59,7 @@ EOF;
     private function getNextMonth($date) {
 		$year = substr($date, 0, 4);
 		$month = substr($date, -2);
-		return ($month < 12)? sprintf('%04d', $year).sprintf('%02d', $month + 1) : sprintf('%04d', $year + 1).sprintf('%02d', 99);
+		return ($month != 12)? sprintf('%04d', $year).sprintf('%02d', $month + 1) : sprintf('%04d', $year + 1).sprintf('%02d', 1);
     }
 
 }

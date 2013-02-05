@@ -31,7 +31,7 @@ class vracActions extends acVinVracActions
 						} 
 					} 
 				} 
-				Email::getInstance()->vracDemandeValidationInterpro($vrac, $email, $acteur);
+				Email::getInstance()->vracDemandeValidation($vrac, $etablissement, $email, $acteur);
 			} else {
 				if ($email = $interpro->email_contrat_vrac) {
 					Email::getInstance()->vracDemandeValidationInterpro($vrac, $email, $acteur);

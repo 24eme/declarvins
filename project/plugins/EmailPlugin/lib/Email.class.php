@@ -87,6 +87,28 @@ class Email {
         return self::getMailer()->send($message);
     }
     
+    public function vracRelanceContrat($vrac, $etablissement, $destinataire, $acteur) 
+    {
+        $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
+        $to = array($destinataire);
+        $subject = 'Relance : Demande de validation d\'un contrat interprofessionnel vrac';
+        $body = self::getBodyFromPartial('vrac_contrat_relance', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur));
+        $message = self::getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+
+        return self::getMailer()->send($message);
+    }
+    
+    public function vracExpirationContrat($vrac, $etablissement, $destinataire) 
+    {
+        $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
+        $to = array($destinataire);
+        $subject = 'Annulation d\'un contrat d\'achat vrac suite au dépassement du délai';
+        $body = self::getBodyFromPartial('vrac_contrat_expiration', array('vrac' => $vrac, 'etablissement' => $etablissement));
+        $message = self::getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+
+        return self::getMailer()->send($message);
+    }
+    
     public function sendContratMandat($contrat, $destinataire) 
     {
         $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
