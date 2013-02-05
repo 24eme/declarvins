@@ -94,10 +94,51 @@ Vrac:
       original: {  }
       type_transaction: {  }
       produit: {  }
+      produit_detail:
+        type: collection
+        definition:
+          fields:
+            appellation:
+              type: collection
+              definition:
+                fields:
+                  code: {  }
+                  libelle: {  }
+            genre:
+              type: collection
+              definition:
+                fields:
+                  code: {  }
+                  libelle: {  }
+            certification:
+              type: collection
+              definition:
+                fields:
+                  code: {  }
+                  libelle: {  }
+            lieu:
+              type: collection
+              definition:
+                fields:
+                  code: {  }
+                  libelle: {  }
+            couleur:
+              type: collection
+              definition:
+                fields:
+                  code: {  }
+                  libelle: {  }
+            cepage:
+              type: collection
+              definition:
+                fields:
+                  code: {  }
+                  libelle: {  }
       millesime: {  }
       contient_domaine: {  }
       domaine: {  }
       labels: {  }
+      labels_libelle: {  }
       mentions:
         type: array_collection
         definition:
@@ -178,6 +219,7 @@ Vrac:
       cvo_repartition: {  }
       date_stats: {  }
       date_signature: {  }
+      date_relance: {  }
       volume_enleve: {  }
       valide:
         type: collection

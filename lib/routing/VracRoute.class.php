@@ -8,7 +8,6 @@ class VracRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
     protected $etablissement = null;
     
     protected function getObjectForParameters($parameters) {
-
         if(isset($parameters['numero_contrat'])) {
             $this->vrac = VracClient::getInstance()->findByNumContrat($parameters['numero_contrat']);
         }
@@ -16,7 +15,6 @@ class VracRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
         {
             $this->vrac = new Vrac();
         }
-		
         if ($parameters['identifiant'] != self::ETABLISSEMENT_IDENTIFIANT_ADMIN) {
             $this->etablissement = EtablissementClient::getInstance()->find($parameters['identifiant']);
         } else {
@@ -35,7 +33,7 @@ class VracRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
 
     protected function convertObjectToArray($object) {
         $etablissement = false;
-
+        
         if (isset($object['etablissement'])) {
             $etablissement = $object['etablissement'];
         }

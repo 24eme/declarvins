@@ -14,7 +14,7 @@
 					</p>
 				<?php endif; ?>
                 <div id="titre">
-                    <span class="style_label">N° de Visa du contrat : <?php echo ($vrac->isValide)? $vrac->numero_contrat : 'Brouillon'; ?></span>
+                    <span class="style_label">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'Brouillon'; ?></span>
                 </div>
                 <form action="" method="post" id="vrac_condition">  
                     <div class="legende" id="ss_titre">

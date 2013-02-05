@@ -17,6 +17,11 @@ class VracProduitForm extends VracForm
         if (count($result) == 0) {
         	throw new sfException('Aucun résultat pour le produit '.$this->getObject()->produit);
         }
+        $configuration = ConfigurationClient::getCurrent();
+        if ($configuration->exist($this->getObject()->produit)) {
+        	$produit = $configuration->get($this->getObject()->produit);
+        	$this->getObject()->setDetailProduit($produit);
+        }
         $result = $result[0];
         $droits = $result->value;
         $this->getObject()->part_cvo = $droits->taux;

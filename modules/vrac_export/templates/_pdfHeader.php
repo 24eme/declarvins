@@ -14,7 +14,7 @@
 		<tr>
 			<td width="50%">Saisie le <?php echo $vrac->getEuSaisieDate(); ?></td>
 			<?php if ($vrac->isValide()): ?>
-			<td width="50%" style="text-align: right;">N° de Visa du contrat : <?php echo ($vrac->isValide)? $vrac->numero_contrat : 'Brouillon'; ?></td>
+			<td width="50%" style="text-align: right;">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'Brouillon'; ?></td>
 			<?php else: ?>
 			<td width="50%" style="text-align: right;">&nbsp;</td>
 			<?php endif; ?>

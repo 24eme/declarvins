@@ -30,6 +30,8 @@ class VracHistoryView extends acCouchdbView
     const VRAC_VIEW_ACHETEURVAL = 25;
     const VRAC_VIEW_MANDATAIREVAL = 26;
     const VRAC_VIEW_VENDEURVAL = 27;
+    const VRAC_VIEW_DATESAISIE = 28;
+    const VRAC_VIEW_DATERELANCE = 29;
     
 	public static function getInstance() {
 

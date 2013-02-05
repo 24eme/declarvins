@@ -41,6 +41,7 @@ class VracMarcheForm extends VracForm
         if (!in_array($this->getObject()->type_prix, $this->getTypePrixNeedDetermination())) {
           $this->getObject()->determination_prix = null;
         }
+        $this->getObject()->labels_libelle = $this->getConfiguration()->formatLabelsLibelle(array($this->getObject()->labels));
         $this->getObject()->update();
     }
     protected function updateDefaultsFromObject() {

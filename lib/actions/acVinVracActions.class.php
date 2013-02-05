@@ -10,6 +10,9 @@ class acVinVracActions extends sfActions
 	
 	public function executeIndex(sfWebRequest $request)
     {
+    	if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+    		return $this->redirect('@acces_interdit');
+    	}
         $this->etablissement = null;
         $this->vracs = array();
         $lasts = VracHistoryView::getInstance()->findLast();
@@ -46,6 +49,7 @@ class acVinVracActions extends sfActions
 
 	public function executeNouveau(sfWebRequest $request)
 	{
+		$this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
 		$vrac = new Vrac();
 		$this->init($vrac, $this->etablissement);
@@ -119,8 +123,8 @@ class acVinVracActions extends sfActions
 		if (!$this->getUser()->getCompte()) {
 			throw new sfException('Compte required');
 		}
-        $this->etablissement = $this->getRoute()->getEtablissement();
         $this->vrac = $this->getRoute()->getVrac();
+        $this->etablissement = $this->getRoute()->getEtablissement();
 		$this->init($this->vrac, $this->etablissement);
         if (!$this->vrac->isModifiable()) {
         	if ($this->etablissement)
@@ -205,9 +209,9 @@ class acVinVracActions extends sfActions
   {
     	ini_set('memory_limit', '512M');
         $this->vrac = $this->getRoute()->getVrac();
-    	$this->interpro = $this->getInterpro($this->vrac, $this->getRoute()->getEtablissement());
-		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
         $this->etablissement = $this->getRoute()->getEtablissement();
+    	$this->interpro = $this->getInterpro($this->vrac, $this->etablissement);
+		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
   		$pdf = new ExportVracPdf($this->vrac, $this->configurationVrac);
     	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
   }
@@ -216,9 +220,9 @@ class acVinVracActions extends sfActions
   {
     	ini_set('memory_limit', '512M');
         $this->vrac = $this->getRoute()->getVrac();
-    	$this->interpro = $this->getInterpro($this->interpro, $this->getRoute()->getEtablissement());
-		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
         $this->etablissement = $this->getRoute()->getEtablissement();
+    	$this->interpro = $this->getInterpro($this->interpro, $this->etablissement);
+		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
   		$pdf = new ExportVracPdfTransaction($this->vrac, $this->configurationVrac);
     	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
   }

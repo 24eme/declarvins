@@ -15,7 +15,7 @@
 					</p>
 				<?php endif; ?>
                 <div id="titre">
-                    <span class="style_label">N° de Visa du contrat : <?php echo ($vrac->isValide)? $vrac->numero_contrat : 'Brouillon'; ?></span>
+                    <span class="style_label">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'Brouillon'; ?></span>
                 </div>
             	<br />
                 <?php include_partial('showContrat', array('configurationVrac' => $configurationVrac, 'etablissement' => $etablissement, 'vrac' => $vrac, 'editer_etape' => false)); ?>

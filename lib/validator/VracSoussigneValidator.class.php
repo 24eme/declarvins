@@ -19,6 +19,9 @@ class VracSoussigneValidator extends sfValidatorBase {
     	if ($values ['vendeur_identifiant'] == $values ['acheteur_identifiant']) {
     		throw new sfValidatorErrorSchema($this, array(new sfValidatorError($this, 'impossible_acheteur_vendeur')));
     	}
+    	if (isset($values['vous_etes_identifiant']) && ($values ['vendeur_identifiant'] == $values ['vous_etes_identifiant'] || $values['vous_etes_identifiant'] == $values ['acheteur_identifiant'])) {
+    		throw new sfValidatorErrorSchema($this, array(new sfValidatorError($this, 'impossible_acheteur_vendeur')));
+    	}
     	if ($values['mandataire_exist']) {
     		if (!$values['mandataire_identifiant']) {
     			throw new sfValidatorErrorSchema($this, array('mandataire_identifiant' => new sfValidatorError($this, 'required')));

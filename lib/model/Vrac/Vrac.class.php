@@ -111,6 +111,22 @@ class Vrac extends BaseVrac
     public function getTotalUnitaire() {
     	return round($this->prix_unitaire + $this->getCvoUnitaire(), 2);
     }
+    
+    public function setDetailProduit($produit)
+    {
+    	$this->produit_detail->appellation->code = $produit->getAppellation()->code;
+    	$this->produit_detail->appellation->libelle = $produit->getAppellation()->libelle;
+    	$this->produit_detail->genre->code = $produit->getGenre()->code;
+    	$this->produit_detail->genre->libelle = $produit->getGenre()->libelle;
+    	$this->produit_detail->certification->code = $produit->getCertification()->code;
+    	$this->produit_detail->certification->libelle = $produit->getCertification()->libelle;
+    	$this->produit_detail->lieu->code = $produit->getLieu()->code;
+    	$this->produit_detail->lieu->libelle = $produit->getLieu()->libelle;
+    	$this->produit_detail->couleur->code = $produit->getCouleur()->code;
+    	$this->produit_detail->couleur->libelle = $produit->getCouleur()->libelle;
+    	$this->produit_detail->cepage->code = $produit->code;
+    	$this->produit_detail->cepage->libelle = $produit->libelle;
+    }
 
     public function update($params = array()) {
       parent::update($params);
