@@ -32,6 +32,9 @@ upload_etablissements:
 streamDRMEdi:
   url: /edi/drm/:interpro/:datedebut
   param: {module: edi, action: streamDRM}
+streamVracEdi:
+  url: /edi/vrac/:interpro/:datedebut
+  param: {module: edi, action: streamVrac}
 # OK
 viewDRMEdi:
   url: /edi/drm/:identifiant/:annee/:mois/:rectificative
