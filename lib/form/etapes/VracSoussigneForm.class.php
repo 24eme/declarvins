@@ -69,7 +69,8 @@ class VracSoussigneForm extends VracForm
           $this->getObject()->mandataire_identifiant = $this->getEtablissement()->identifiant;
           $this->getObject()->mandataire_exist = 1;
         }
-
+		
+      	$this->getObject()->cas_particulier_libelle = $this->getConfiguration()->formatCasParticulierLibelle(array($this->getObject()->cas_particulier));
         parent::doUpdateObject($values);
 
         $this->getObject()->storeSoussignesInformations();

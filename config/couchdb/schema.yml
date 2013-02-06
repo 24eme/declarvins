@@ -4,6 +4,7 @@ Vrac:
       _id: {  }
       _rev: {  }
       type: {  }
+      interpro: {  }
       has_transaction: {  }
       has_cotisation_cvo: {  }
       numero_contrat: {  }
@@ -91,8 +92,10 @@ Vrac:
             email: {  }
       premiere_mise_en_marche: {  }
       cas_particulier: {  }
+      cas_particulier_libelle: {  }
       original: {  }
       type_transaction: {  }
+      type_transaction_libelle: {  }
       produit: {  }
       produit_detail:
         type: collection
@@ -155,6 +158,7 @@ Vrac:
       part_cvo: {  }
       prix_total: {  }
       conditions_paiement: {  }
+      conditions_paiement_libelle: {  }
       type_echeancier_paiement: {  }
       vin_livre: {  }
       date_debut_retiraison: {  }
@@ -228,7 +232,7 @@ Vrac:
             date_saisie: {  }
             date_validation_vendeur: {  }
             date_validation_acheteur: {  }
-            date_validation_courtier: {  }
+            date_validation_mandataire: {  }
             identifiant: {  }
             statut: { }
       nature_document: {  }

@@ -140,6 +140,9 @@ class acVinVracActions extends sfActions
 				$this->form->save();
 
 				if (!$this->configurationVracEtapes->next($this->vrac->etape)) {
+					$interpro = $this->getInterpro($this->vrac, $this->etablissement);
+					$this->vrac->interpro = $interpro->get('_id');
+					$this->vrac->save();
                     $this->getUser()->setFlash('termine', true);
                     if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
                     	$this->contratValide($this->vrac);

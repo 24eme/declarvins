@@ -27,6 +27,7 @@ class VracConditionForm extends VracForm
         $this->getObject()->remove('paiements');
         $this->getObject()->add('paiements');
       }
+      $this->getObject()->conditions_paiement_libelle = $this->getConfiguration()->formatConditionsPaiementLibelle(array($this->getObject()->conditions_paiement));
       parent::doUpdateObject($values); 
     }
 
