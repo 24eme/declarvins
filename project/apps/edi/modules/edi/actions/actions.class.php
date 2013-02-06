@@ -61,6 +61,23 @@ class ediActions extends sfActions
   /*
    * FONCTION REVUES ET CORRIGEES
    */
+  public function executeStreamVrac(sfWebRequest $request) 
+  {
+  	ini_set('memory_limit', '1024M');
+  	set_time_limit(0);
+    $date = $request->getParameter('datedebut');
+    $interpro = $request->getParameter('interpro');
+    if (!$date) {
+		return $this->renderText("Pas de date définie");
+    }
+    if (!preg_match('/^INTERPRO-/', $interpro)) {
+		$interpro = 'INTERPRO-'.$interpro;
+    }
+    $dateTime = new DateTime($date);
+    $vracs = VracDateView::getInstance()->findByInterproAndDate($interpro, $dateTime->format('c'));
+    return $this->renderCsvVrac($vracs->rows, $dateTime->format('c'));
+  }
+  
   public function executeStreamDRM(sfWebRequest $request) 
   {
   	ini_set('memory_limit', '1024M');
@@ -76,6 +93,29 @@ class ediActions extends sfActions
     $dateTime = new DateTime($date);
     $drms = DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateTime->format('c'));
     return $this->renderCsvDRMs($drms->rows, $dateTime->format('c'));
+  }
+
+  private function renderCsvVrac($vracs, $date = null) 
+  {
+    $this->setLayout(false);
+    $csv_file = '';
+    $lastDate = $date;
+    foreach ($vracs as $vrac) {
+      	$csv_file .= implode(';', $vrac->value)."\n";
+      	if ($lastDate < $vrac->value[VracDateView::VALUE_DATE_SAISIE]) {
+      		$lastDate = $vrac->value[VracDateView::VALUE_DATE_SAISIE];
+      	}
+    }
+    if (!$csv_file) {
+		$this->response->setStatusCode(204);
+		return $this->renderText(null);
+    }
+    $this->response->setContentType('text/csv');
+    $this->response->setHttpHeader('md5', md5($csv_file));
+    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$lastDate.".csv");
+    $this->response->setHttpHeader('LastDocDate', $lastDate);
+    $this->response->setHttpHeader('Last-Modified', date('r', strtotime($lastDate)));
+    return $this->renderText($csv_file);
   }
 
   private function renderCsvDRMs($drms, $date = null) 
