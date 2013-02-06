@@ -556,6 +556,15 @@ a:hover { text-decoration:underline; }
   visibility:hidden;
 }
 #contenu:after { clear:both; }
+#contenu #etablissement_archive {
+  background:#494949;
+  color:#ffffff;
+  font-size:16px;
+  height:30px;
+  line-height:30px;
+  margin:0 0 25px;
+  text-align:center;
+}
 #contenu #principal { zoom:1; }
 #contenu #principal:before, #contenu #principal:after {
   content:"\0020";
@@ -1416,15 +1425,6 @@ a:hover { text-decoration:underline; }
 }
 #contrat_mandat .btn_suiv { float:none; }
 #profil a#btn_archiver_etablissement { padding:0 10px; }
-#profil #etablissement_archive {
-  background:#494949;
-  color:#ffffff;
-  font-size:16px;
-  height:30px;
-  line-height:30px;
-  margin:0 0 25px;
-  text-align:center;
-}
 #profil #formulaire_profil { float:left; }
 #profil #visualisation_profil {
   overflow:hidden;
