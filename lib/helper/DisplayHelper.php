@@ -10,7 +10,7 @@ function display_field($object, $fieldName) {
 
 function escape_string_for_latex($string) {
     $disp = str_replace("&#039;", "'", $string);
-    $disp = str_replace("&amp;", "\&", $disp);
+    $disp = str_replace("&amp;", "&", $disp);
     $disp = str_replace("&", "\&", $disp);
     $disp = str_replace("%", "\%", $disp);
     return $disp;
@@ -23,13 +23,13 @@ function display_latex_string($string, $sep = '', $limit = null) {
         return $disp;
     
     if (!$sep)
-        $disp = str_replace($sep, "\\\\", $disp);
+        $disp = str_replace($sep, "\\\\ ", $disp);
     $len = strlen($disp);
     if ($limit!=null && $len > $limit) {
         $d = substr($disp, 0, $limit);
         $pos = strrpos($d, ' ');        
         if ($pos !== FALSE) {
-            $disp = substr($d, 0, $pos) . " \\\\ " . substr($disp, $pos, $len);
+            $disp = substr($d, 0, $pos) . "\\\\ " . substr($disp, $pos, $len);
         }
     }  
     return $disp;
