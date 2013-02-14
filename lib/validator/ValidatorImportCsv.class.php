@@ -9,7 +9,7 @@ class ValidatorImportCsv extends sfValidatorFile
     $options['required'] = true;
     parent::configure($options, $messages);
     $this->setMessage('mime_types', "Le fichier fourni doit être un CSV");
-    $this->options['mime_types'] = array('text/plain', 'text/csv','text/comma-separated-values','application/csv');
+    $this->options['mime_types'] = array('text/plain', 'text/csv','text/comma-separated-values','application/csv', 'application/octet-stream');
 
   }
 
