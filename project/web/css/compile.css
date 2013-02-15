@@ -1724,6 +1724,15 @@ p#date_drm {
   font-size:12px;
   margin:0px 0 0 70px;
 }
+#principal #drm_informations form .entrepots { list-style-type:none; }
+#principal #drm_informations form .entrepots li { margin:0 0 20px; }
+#principal #drm_informations form .entrepots li .champs { padding:0 0 0 20px; }
+#principal #drm_informations form .entrepots li input, #principal #drm_informations form .entrepots li textarea { vertical-align:top; }
+#principal #drm_informations form .entrepots li label:first-child {
+  display:block;
+  margin:0 0 5px;
+}
+#principal #drm_informations form .entrepots li textarea { margin-right:20px; }
 #principal #drm_informations form .ligne_form { margin:0 0 20px; }
 #principal #drm_informations form .ligne_form * {
   display:inline-block;

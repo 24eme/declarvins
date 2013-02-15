@@ -65,20 +65,23 @@ $(document).ready(function() {
 						<label for="champ_9">Numéro d’Accise :</label>
 						<span class="valeur">1654546764</span>
 					</div>
-					<table>
-						<tr>
-							<th>Entrepots</th>
-							<th>Commentaires</th>
-							<th>Principal</th>
-						</tr>
+					<ol class="entrepots">
 						<?php foreach ($formEntrepots['entrepots'] as $key => $formEntrepot): ?>
-						<tr>
-							<td><?php echo $daids->entrepots->get($key)->libelle; ?></td>
-							<td><span class="erreur"><?php echo $formEntrepots['entrepots'][$key]['commentaires']->renderError(); ?></span><?php echo $formEntrepots['entrepots'][$key]['commentaires']->render(); ?></td>
-							<td><span class="erreur"><?php echo $formEntrepots['entrepots'][$key]['principal']->renderError(); ?></span><?php echo $formEntrepots['entrepots'][$key]['principal']->render(); ?></td>
-						</tr>
+							<li>
+								<label><?php echo $daids->entrepots->get($key)->libelle; ?> :</label>
+								
+								<div class="champs">
+									<span class="erreur"><?php echo $formEntrepots['entrepots'][$key]['commentaires']->renderError(); ?></span>
+									<?php echo $formEntrepots['entrepots'][$key]['commentaires']->renderLabel(); ?> :
+									<?php echo $formEntrepots['entrepots'][$key]['commentaires']->render(); ?>
+
+									<span class="erreur"><?php echo $formEntrepots['entrepots'][$key]['principal']->renderError(); ?></span>
+									<?php echo $formEntrepots['entrepots'][$key]['principal']->renderLabel(); ?> :
+									<?php echo $formEntrepots['entrepots'][$key]['principal']->render(); ?>
+								</div>
+							</li>
 						<?php endforeach; ?>
-					</table>
+					</ol>
 					<?php if(!$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 					<?php echo $form['confirmation']->render() ?>
 					<?php endif; ?>
