@@ -466,6 +466,38 @@ p#date_drm
 		font-size: 12px;
 		margin: 0px 0 0 70px;
 
+		.entrepots
+		{
+			list-style-type: none;
+
+			li
+			{
+				margin: 0 0 20px;
+
+				.champs
+				{
+					padding: 0 0 0 20px;
+				}
+
+				input,
+				textarea
+				{
+					vertical-align: top;
+				}
+
+				label
+				{
+					&:first-child
+					{
+						display: block;
+						margin: 0 0 5px;
+					}
+				}
+
+				textarea { margin-right: 20px; }
+			}
+		}
+
 		.ligne_form
 		{
 			margin: 0 0 20px;
@@ -557,7 +589,11 @@ p#date_drm
 				border-color: @couleur-a5;
 				text-align: center;
 				
-				&:first-child { text-align: left; }
+				&:first-child 
+				{ 
+					text-align: left; 
+					width: 165px;
+				}
 				
 				a.supprimer
 				{

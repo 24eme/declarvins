@@ -2,6 +2,12 @@
 
 <section id="contenu">
     
+	<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVE): ?>
+		<div id="etablissement_archive">
+			Cet établissement est archivé
+		</div>
+	<?php endif; ?>
+	
     <h1>DAI/DS</h1>
     
     <p class="intro">Bienvenue sur votre espace DAI/DS. Que voulez-vous faire ?</p>

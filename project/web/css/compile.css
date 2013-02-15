@@ -556,6 +556,15 @@ a:hover { text-decoration:underline; }
   visibility:hidden;
 }
 #contenu:after { clear:both; }
+#contenu #etablissement_archive {
+  background:#494949;
+  color:#ffffff;
+  font-size:16px;
+  height:30px;
+  line-height:30px;
+  margin:0 0 25px;
+  text-align:center;
+}
 #contenu #principal { zoom:1; }
 #contenu #principal:before, #contenu #principal:after {
   content:"\0020";
@@ -1416,15 +1425,6 @@ a:hover { text-decoration:underline; }
 }
 #contrat_mandat .btn_suiv { float:none; }
 #profil a#btn_archiver_etablissement { padding:0 10px; }
-#profil #etablissement_archive {
-  background:#494949;
-  color:#ffffff;
-  font-size:16px;
-  height:30px;
-  line-height:30px;
-  margin:0 0 25px;
-  text-align:center;
-}
 #profil #formulaire_profil { float:left; }
 #profil #visualisation_profil {
   overflow:hidden;
@@ -1724,6 +1724,15 @@ p#date_drm {
   font-size:12px;
   margin:0px 0 0 70px;
 }
+#principal #drm_informations form .entrepots { list-style-type:none; }
+#principal #drm_informations form .entrepots li { margin:0 0 20px; }
+#principal #drm_informations form .entrepots li .champs { padding:0 0 0 20px; }
+#principal #drm_informations form .entrepots li input, #principal #drm_informations form .entrepots li textarea { vertical-align:top; }
+#principal #drm_informations form .entrepots li label:first-child {
+  display:block;
+  margin:0 0 5px;
+}
+#principal #drm_informations form .entrepots li textarea { margin-right:20px; }
 #principal #drm_informations form .ligne_form { margin:0 0 20px; }
 #principal #drm_informations form .ligne_form * {
   display:inline-block;
@@ -1772,7 +1781,10 @@ p#date_drm {
   border-color:#dbdbdb;
   text-align:center;
 }
-#principal .tableau_ajouts_liquidations table tbody td:first-child { text-align:left; }
+#principal .tableau_ajouts_liquidations table tbody td:first-child {
+  text-align:left;
+  width:165px;
+}
 #principal .tableau_ajouts_liquidations table tbody td a.supprimer {
   height:13px;
   width:13px;
@@ -2933,10 +2945,7 @@ p#date_drm {
   display:block;
   margin:15px 0 0;
 }
-.vracs .visualisation_contrat .legende div .legende_statut_texte {
-  margin:2px 0 0 10px;
-  position:absolute;
-}
+.vracs .visualisation_contrat .legende_statut_texte { margin:2px 0 0 5px; }
 .vracs .visualisation_contrat .statut {
   -webkit-border-radius:50%;
   -moz-border-radius:50%;
