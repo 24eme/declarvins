@@ -31,7 +31,7 @@ class VracLotForm extends acCouchdbObjectForm
 		   'bailleur' => new sfWidgetFormInputText()
 		));
 		$this->widgetSchema->setLabels(array(
-	       'numero' => 'Numéro du lot:',
+	       'numero' => 'Numéro du lot*:',
 	       'assemblage' => 'Assemblage de millésimes:',
 	       'degre' => 'Degré:',
 	       'presence_allergenes' => 'Allergènes:',

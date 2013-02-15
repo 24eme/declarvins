@@ -106,8 +106,8 @@ class acVinVracActions extends sfActions
 	}
 
     public function executeEdition(sfWebRequest $request) {
-        $this->etablissement = $this->getRoute()->getEtablissement();
         $this->vrac = $this->getRoute()->getVrac();
+        $this->etablissement = $this->getRoute()->getEtablissement();
         $this->init($this->vrac, $this->etablissement);
         $this->etape = $this->configurationVracEtapes->getFirst();
         if($this->vrac->etape) {
@@ -224,9 +224,9 @@ class acVinVracActions extends sfActions
     	ini_set('memory_limit', '512M');
         $this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
-    	$this->interpro = $this->getInterpro($this->interpro, $this->etablissement);
+    	$this->interpro = $this->getInterpro($this->vrac, $this->etablissement);
 		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
-  		$pdf = new ExportVracPdfTransaction($this->vrac, $this->configurationVrac);
+  		$pdf = new ExportVracPdfTransaction($this->vrac, $this->configurationVrac, true);
     	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
   }
   

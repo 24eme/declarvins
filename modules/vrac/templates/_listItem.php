@@ -22,6 +22,9 @@ if ($acteur) {
 
 <tr class="<?php echo $statusColor; ?>" >
   <td>
+  	<?php if (!$validated): ?>
+  	<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" style="left: 5px;" href="<?php echo url_for('vrac_supprimer', array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Supprimer</a>
+  	<?php endif; ?>
     <?php echo $elt[VracHistoryView::VRAC_VIEW_STATUT]; ?>
   </td>
   <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): $libelles = Vrac::getModeDeSaisieLibelles(); ?>

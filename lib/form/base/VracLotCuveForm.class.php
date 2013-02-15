@@ -9,7 +9,7 @@ class VracLotCuveForm extends acCouchdbObjectForm
 		   'date' => new sfWidgetFormInputText()
 		));
 		$this->widgetSchema->setLabels(array(
-	       'numero' => 'Année:',
+	       'numero' => 'Année*:',
 	       'volume' => 'Pourcentage:',
 	       'date' => 'Date retiraison:'
 		));

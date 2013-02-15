@@ -12,7 +12,11 @@ class ExportVracPdf extends ExportVrac
 		}
 
 		$class = $format_class[$format];
-		$document = new $class($this->vrac->get('_id').'.pdf');
+		$filename = (!$this->vrac->isValide())? 'BROUILLON-'.md5($this->vrac->get('_id')) : $this->vrac->get('_id');	
+		if ($this->getisTransaction()) {
+			$filename .= '-TRANSACTION';
+		}
+		$document = new $class($filename.'.pdf');
 		if (!$cache) {
 			$document->removeCache();
 		}
@@ -27,7 +31,11 @@ class ExportVracPdf extends ExportVrac
 	public function generate($debug = false)
 	{
 		$targetClass = ($debug)? 'PrintableHTML' : 'PrintablePDF';
-		$document = new $targetClass($this->vrac->get('_id').'.pdf');
+		$filename = (!$this->vrac->isValide())? 'BROUILLON-'.md5($this->vrac->get('_id')) : $this->vrac->get('_id');
+		if ($this->getisTransaction()) {
+			$filename .= '-TRANSACTION';
+		}
+		$document = new $targetClass($filename.'.pdf');
 		$document->removeCache();
 		$document->setPaper(PrintableOutput::FORMAT_A4, PrintableOutput::ORIENTATION_PORTRAIT);
 		$document->addHtml($this->getContent());

@@ -89,4 +89,15 @@ class VracRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
         return $this->etablissement;
     }
     
+	public function redirect($url, $statusCode = 302)
+	{
+		if (is_object($statusCode) || is_array($statusCode))
+		{
+			$url = array_merge(array('sf_route' => $url), is_object($statusCode) ? array('sf_subject' => $statusCode) : $statusCode);
+			$statusCode = func_num_args() >= 3 ? func_get_arg(2) : 302;
+		}
+		sfContext::getInstance()->getController()->redirect($url, 0, $statusCode);
+		throw new sfStopException();
+	}
+    
 }

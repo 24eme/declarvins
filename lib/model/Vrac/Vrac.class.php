@@ -184,7 +184,7 @@ class Vrac extends BaseVrac
 
 
     protected function preSave() {
-        if ($this->volume_enleve == $this->volume_propose && $this->valide->statut != VracClient::STATUS_CONTRAT_SOLDE) {
+        if ($this->volume_propose > 0 && $this->volume_enleve == $this->volume_propose && $this->valide->statut != VracClient::STATUS_CONTRAT_SOLDE) {
         	$this->valide->statut = VracClient::STATUS_CONTRAT_SOLDE;
         }
     }
