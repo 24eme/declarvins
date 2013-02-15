@@ -22,8 +22,8 @@ function display_latex_string($string, $sep = '', $limit = null) {
     if (!$limit && $sep == '')
         return $disp;
     
-    if (!$sep)
-        $disp = str_replace($sep, "\\\\ ", $disp);
+    if ($sep)
+        $disp = str_replace($sep, " \\\\ ", $disp);
     $len = strlen($disp);
     if ($limit!=null && $len > $limit) {
         $d = substr($disp, 0, $limit);
