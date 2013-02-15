@@ -1772,7 +1772,10 @@ p#date_drm {
   border-color:#dbdbdb;
   text-align:center;
 }
-#principal .tableau_ajouts_liquidations table tbody td:first-child { text-align:left; }
+#principal .tableau_ajouts_liquidations table tbody td:first-child {
+  text-align:left;
+  width:165px;
+}
 #principal .tableau_ajouts_liquidations table tbody td a.supprimer {
   height:13px;
   width:13px;
@@ -2933,10 +2936,7 @@ p#date_drm {
   display:block;
   margin:15px 0 0;
 }
-.vracs .visualisation_contrat .legende div .legende_statut_texte {
-  margin:2px 0 0 10px;
-  position:absolute;
-}
+.vracs .visualisation_contrat .legende_statut_texte { margin:2px 0 0 5px; }
 .vracs .visualisation_contrat .statut {
   -webkit-border-radius:50%;
   -moz-border-radius:50%;
