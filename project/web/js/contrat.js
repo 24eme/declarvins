@@ -153,6 +153,7 @@ objContrat = {};
 			var champFamillesVal = champFamilles.val();
 			var champSousFamilles = $("#contratetablissement_sous_famille");
 			var templateSousFamilles = $('#template_options_sous_famille');
+			var champSousFamillesVal = champSousFamilles.val();
 			
 			// Création de l'objet
 			$.extend(objContrat,
@@ -161,7 +162,7 @@ objContrat = {};
 				champFamilles: champFamilles,
 				champFamillesVal: champFamillesVal,
 				champSousFamilles: champSousFamilles,
-				champSousFamillesVal: '',
+				champSousFamillesVal: champSousFamillesVal,
 				tabSousFamilles: [],
 				templateSousFamilles: templateSousFamilles
 			});
@@ -201,9 +202,8 @@ objContrat = {};
 		for(var i in objContrat.tabSousFamilles)
 		{
 			objTemplate = { value: objContrat.tabSousFamilles[i], key: i };
-			
 			// Si l'éléments courant doit être sélectionné
-			if(objContrat.champSousFamillesVal == objContrat.tabSousFamilles[i])
+			if(objContrat.champSousFamillesVal == i)
 			{
 				$.extend(objTemplate, {selected: true });
 			}
