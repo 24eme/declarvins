@@ -189,12 +189,21 @@ class Vrac extends BaseVrac
         }
     }
     
+    public function isEnCoursSaisie() {
+
+      return $this->valide->statut != null;
+    }
+
     public function isValide() {
     	return ($this->valide->statut && $this->valide->statut != VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION)? true : false;
     }
-    
+
     public function isModifiable() {
-    	return (!$this->valide->statut || !$this->volume_enleve)? true : false;
+      if($this->valide->statut && $this->valide->statut != VracClient::STATUS_CONTRAT_NONSOLDE) {
+        return false;
+      }
+
+    	return !($this->volume_enleve > 0);
     }
 
     public function isVisualisable() {
