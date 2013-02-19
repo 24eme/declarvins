@@ -17,7 +17,8 @@ class acVinCompteActions extends BaseacVinCompteActions {
      */
     public function executeNouveau(sfWebRequest $request) {
         $this->forward404Unless($this->contrat = ContratClient::getInstance()->find('CONTRAT-'.$request->getParameter('nocontrat')));
-        $this->form = new CompteTiersAjoutForm(_CompteClient::getInstance()->find('COMPTE-'.$request->getParameter('nocontrat')), array('contrat' => $this->contrat));
+        $this->forward404Unless($this->compte = _CompteClient::getInstance()->find('COMPTE-'.$request->getParameter('nocontrat')));
+        $this->form = new CompteTiersAjoutForm($this->compte, array('contrat' => $this->contrat));
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
