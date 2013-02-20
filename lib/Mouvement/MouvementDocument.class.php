@@ -30,6 +30,30 @@ class MouvementDocument
         }
     }
 
+    public function isFactures() {
+        foreach($this->document->getMouvements() as $mouvements) {
+            foreach($mouvements as $mouvement) {
+                if(!$mouvement->isFacture()) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public function isNonFactures() {
+        foreach($this->document->getMouvements() as $mouvements) {
+            foreach($mouvements as $mouvement) {
+                if(!$mouvement->isNonFacture()) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     public function findMouvement($cle_mouvement, $part_idetablissement = null){
         foreach($this->document->getMouvements() as $identifiant => $mouvements) {
 	  if ((!$part_idetablissement || preg_match('/^'.$part_idetablissement.'/', $identifiant)) && array_key_exists($cle_mouvement, $mouvements->toArray())) {

@@ -12,7 +12,9 @@ abstract class Mouvement extends acCouchdbDocumentTree
     }
 
     public function facturer() {
-        $this->facture = 1;
+        if($this->isFacturable()) {
+            $this->facture = 1;
+        }
     }
 
     public function defacturer() {
@@ -29,6 +31,25 @@ abstract class Mouvement extends acCouchdbDocumentTree
 
     public function isFacturable() {        
         return $this->facturable;
+    }
+
+    public function isFacture() {
+        if (!$this->isFacturable()) {
+
+            return true;
+        }
+
+        return !$this->facture;
+    }
+
+    public function isNonFacture() {
+
+        if (!$this->isFacturable()) {
+
+            return true;
+        }
+
+        return !$this->facture;
     }
 
     public function setVolume($v) {

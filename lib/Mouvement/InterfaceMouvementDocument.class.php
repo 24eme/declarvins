@@ -9,4 +9,6 @@ interface InterfaceMouvementDocument
     public function findMouvement($cle, $id = null);
     public function facturerMouvements();
     public function clearMouvements();
+    public function isFactures();
+    public function isNonFactures();
 }
