@@ -10,8 +10,6 @@ class mouvementUpdateTask extends sfBaseTask
     // ));
 
     $this->addOptions(array(
-      new sfCommandOption('force_facture', null, sfCommandOption::PARAMETER_REQUIRED, 'Facturé', false),
-
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'vinsdeloire'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'prod'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
@@ -67,7 +65,7 @@ EOF;
           throw new sfException(sprintf("WARNING;Le document '%s' n'est pas validé\n", $id_doc));
         }
 
-        if(!$options['force_facture'] && !$doc->isNonFactures()) {
+        if(!$doc->isNonFactures()) {
 
           throw new sfException(sprintf("WARNING;Le document '%s' possède des mouvements facturés\n", $id_doc));
         }
