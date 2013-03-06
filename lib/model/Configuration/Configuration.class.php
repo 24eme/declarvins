@@ -15,15 +15,24 @@ class Configuration extends BaseConfiguration
 
     protected $produits_libelle = null;
     protected $produits_code = null;
+    protected $produits = null;
+    protected $format_produits = null;
+
+    public function loadAllData() {
+      parent::loadAllData();
+      $this->loadProduits();
+    }
+
+    protected function loadProduits() {
+      $this->getProduits();
+      $this->getProduitsLibelles();
+      $this->getProduitLibelleByHash();
+      $this->getProduitCodeByHash();
+    }
 
     public function constructId() 
     {
         $this->set('_id', "CONFIGURATION");
-    }
-
-    public function getProduits() 
-    {
-      	return ConfigurationProduitsView::getInstance()->findProduits()->rows;
     }
 
     public function getProduitsByDepartement($departement) 
@@ -55,31 +64,54 @@ class Configuration extends BaseConfiguration
         }
       	return $produits;
     }
-
-    public function formatProduits($departement, $format = "%g% %a% %l% %co% %ce%") 
-    {
-    	return ConfigurationProduitsView::getInstance()->formatProduits($this->getProduitsByDepartement($departement), $format);
-    }
     
     public function formatVracProduitsByDepartement($departement, $format = "%g% %a% %l% %co% %ce%") 
     {
     	return ConfigurationProduitsView::getInstance()->formatVracProduits($this->getProduitsVracByDepartement($departement), $format);
     }
 
-    public function getProduitLibelleByHash($hash) 
-    {
-    	if(is_null($this->produits_libelle)) {
-    		$this->produits_libelle = ConfigurationProduitsView::getInstance()->getProduitsLibelles();
-    	}
-    	return (array_key_exists($hash, $this->produits_libelle)) ? $this->produits_libelle[$hash] : null;
+    public function getProduits() {
+        if(is_null($this->produits)) {
+          $this->produits = ConfigurationProduitsView::getInstance()->findProduits()->rows;
+        }
+
+      	return $this->produits;
     }
 
-    public function getProduitCodeByHash($hash) 
-    {
-    	if(is_null($this->produits_code)) {
-    		$this->produits_code = ConfigurationProduitsView::getInstance()->getProduitsCodes();
-    	}
-    	return (array_key_exists($hash, $this->produits_code)) ? $this->produits_code[$hash] : null;
+    public function formatProduits($format = "%g% %a% %m% %l% %co% %ce% (%code_produit%)") {
+      if(is_null($this->format_produits)) {
+        $this->format_produits = ConfigurationProduitsView::getInstance()->formatProduits($this->getProduitsByDepartement($departement), $format);
+      }
+    	
+      return $this->format_produits;
+    }
+
+    public function getProduitsLibelles() {
+      if(is_null($this->produits_libelle)) {
+        $this->produits_libelle = ConfigurationProduitsView::getInstance()->getProduitsLibelles();
+      }
+
+      return $this->produits_libelle;
+    }
+
+    public function getProduitLibelleByHash($hash) {
+    	$produits_libelle = $this->getProduitsLibelles();
+
+    	return (array_key_exists($hash, $produits_libelle)) ? $produits_libelle[$hash] : null;
+    }
+
+    public function getProduitsCodes() {
+      if(is_null($this->produits_code)) {
+        $this->produits_code = ConfigurationProduitsView::getInstance()->getProduitsCodes();
+      }
+
+      return $this->produits_code;
+    }
+
+    public function getProduitCodeByHash($hash) {
+      $produits_code = $this->getProduitsCodes();
+
+      return (array_key_exists($hash, $produits_code)) ? $produits_code[$hash] : null;
     }
 
     private static function normalizeLibelle($libelle) 
@@ -207,4 +239,21 @@ class Configuration extends BaseConfiguration
     	return $this->daids->interpro->get($interpro);
     }
 
+    public function updateAlias($hashProduit,$alias) {
+        $hashProduitKey = str_replace('/', '-', $hashProduit);
+        if(!$this->alias->exist($hashProduitKey))
+            $this->alias->add($hashProduitKey,array());
+        $pos = count($this->alias->get($hashProduitKey));
+        $this->alias->get($hashProduitKey)->add($pos,$alias);
+    }
+
+    public function save() {
+        parent::save();
+        ConfigurationClient::getInstance()->cacheResetCurrent();
+    }
+
+    public function prepareCache() {
+      $this->loadAllData();
+    }
 }
+

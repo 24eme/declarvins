@@ -8,6 +8,7 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
 
 	protected $libelles = null;
 	protected $codes = null;
+  	protected $produits_without_view = null;
 
 	protected function loadAllData() {
 		parent::loadAllData();
