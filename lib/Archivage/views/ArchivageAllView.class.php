@@ -16,7 +16,7 @@ class ArchivageAllView extends acCouchdbView
 
         $rows = $this->getViewByTypeAndCampagne($type, $campagne, $fourchette_basse, $fourchette_haute, $format)
                      ->reduce(true)
-                     ->group_level(self::KEYS_CAMPAGNE)      
+                     ->group_level(self::KEYS_CAMPAGNE+1)      
                      ->getView($this->design, $this->view)->rows;
 
         $nb_docs = 0;
