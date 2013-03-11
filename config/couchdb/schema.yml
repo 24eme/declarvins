@@ -1,0 +1,6 @@
+Lock:
+  definition:
+    fields:
+      _id: {}
+      type: {}
+      *: { }
