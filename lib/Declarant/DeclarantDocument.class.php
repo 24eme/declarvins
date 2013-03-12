@@ -40,7 +40,9 @@ class DeclarantDocument
         $declarant->raison_sociale = $etablissement->raison_sociale;
         $declarant->cvi = $etablissement->cvi;
         $declarant->no_accises = $etablissement->no_accises;
-        $declarant->adresse = $etablissement->siege->adresse;        
+        $declarant->adresse = $etablissement->siege->adresse;
+        if($etablissement->siege->exist('adresse_complementaire'))
+            $declarant->add('adresse_complementaire',$etablissement->siege->adresse_complementaire);
         $declarant->commune = $etablissement->siege->commune;
         $declarant->code_postal = $etablissement->siege->code_postal;
         $declarant->region = $etablissement->region;
