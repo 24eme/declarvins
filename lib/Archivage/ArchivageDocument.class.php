@@ -1,6 +1,6 @@
 <?php
 
-class ArchivageDocument
+class ArchivageDocument implements iLock
 {
     protected $document;
     protected $format;
@@ -25,30 +25,12 @@ class ArchivageDocument
         if ($this->document->numero_archive) {
             return;
         }
-
-        $type = $this->document->toJson()->type;
-        
-	for($i = 0 ; $i < 10 ; $i++) {
-	  try {
-	    $this->getLock();
-	    $last_numero = ArchivageAllView::getInstance()->getLastNumeroArchiveByTypeAndCampagne($type, $this->document->campagne);
-	    $this->document->numero_archive = sprintf($this->format, $last_numero+1);
-	    $this->setLock($this->document->campagne.' '.$this->document->numero_archive);
-	    break;
-	  }catch(sfException $e) {
-	  }
-	}
-	if ($i >= 10) {
-	  throw new sfException('Could not acquire the archive lock');
-	}
+	Lock::runLock($this, $this->document->toJson()->type);
     }
 
-    private function getLock() {
-      $this->lock = Lock::getInstance();
-    }
-
-    private function setLock($value) {
-      $this->lock->add($this->document->type, $value);
-      $this->lock->save();
+    public function executeLock($type = null) {
+      $last_numero = ArchivageAllView::getInstance()->getLastNumeroArchiveByTypeAndCampagne($type, $this->document->campagne);
+      $this->document->numero_archive = sprintf($this->format, $last_numero+1);
+      return array('value' => $this->document->campagne.' '.$this->document->numero_archive, 'key' => $type);
     }
 }
