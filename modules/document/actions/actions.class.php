@@ -11,6 +11,9 @@ class documentActions extends sfActions {
         if(preg_match('/^DRM/', $id_doc)){
             $this->redirect('drm_redirect_to_visualisation', array('identifiant_drm' =>$id_doc));
         }
+        if(preg_match('/^VRAC/', $id_doc)){
+            $this->redirect('vrac_redirect_to_visualisation', array('identifiant_vrac' =>$id_doc));
+        }
         throw new sfException("Le document d'id $id_doc n'est pas visualisable, il n'existe pas.");
     }
 
