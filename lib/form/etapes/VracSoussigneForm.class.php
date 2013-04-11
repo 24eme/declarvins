@@ -68,6 +68,7 @@ class VracSoussigneForm extends VracForm
           unset($values['mandataire_identifiant']);
           $this->getObject()->mandataire_identifiant = $this->getEtablissement()->identifiant;
           $this->getObject()->mandataire_exist = 1;
+          $this->getObject()->vous_etes = 'mandataire';
         }
 		
       	$this->getObject()->cas_particulier_libelle = $this->getConfiguration()->formatCasParticulierLibelle(array($this->getObject()->cas_particulier));

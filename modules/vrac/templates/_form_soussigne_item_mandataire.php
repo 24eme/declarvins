@@ -30,7 +30,7 @@
             <?php echo $form->getEtablissement()->getNom(); ?>
         </div>
         <div  class="bloc_form etablissement_informations"> 
-            <?php include_partial('form_mandataire', array('form' => $form['mandataire'])); ?>
+            <?php include_partial('form_mandataire_defaut', array('form' => $form['mandataire'], 'etablissement' => $form->getEtablissement())); ?>
         </div>
     </div>
     <?php endif; ?>

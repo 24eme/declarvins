@@ -29,8 +29,8 @@ class VracSignatureForm extends acCouchdbObjectForm
 	}
 
     protected function updateDefaultsFromObject() {
-      parent::updateDefaultsFromObject();    
-      if (is_null($this->getObject()->get($this->date_validation_field))) {
+      parent::updateDefaultsFromObject();
+      if (!($this->getObject()->get($this->date_validation_field))) {
         $this->setDefault($this->date_validation_field, date('c'));
       }  
     }

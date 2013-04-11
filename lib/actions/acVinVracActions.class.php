@@ -65,6 +65,7 @@ class acVinVracActions extends sfActions
 	{
         $this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
+        $this->contratAnnulation($this->vrac, $this->etablissement);
         $this->vrac->delete();
 
         if(!$this->etablissement) {
@@ -268,6 +269,7 @@ class acVinVracActions extends sfActions
 					$this->contratValide($this->vrac);
 					$this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
 				}
+				$this->redirect('vrac_validation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement, 'acteur' => $this->acteur));
 			}
 		}
 	}

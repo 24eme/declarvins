@@ -1,6 +1,6 @@
 <?php 
 $acteur = null;
-$validated = true;
+$validated = false;
 if ($etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_ACHETEURID]) {
 	$acteur = VracClient::VRAC_TYPE_ACHETEUR;
 	$const = VracHistoryView::VRAC_VIEW_ACHETEURVAL;
@@ -13,10 +13,13 @@ if ($etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_
 	$acteur = VracClient::VRAC_TYPE_VENDEUR;
 	$const = VracHistoryView::VRAC_VIEW_VENDEURVAL;
 }
-if ($acteur) {
+/*if ($acteur) {
 	if (!$elt[$const]) {
 		$validated = false;
 	}
+}*/
+if ($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_NONSOLDE || $elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_SOLDE) {
+	$validated = true;
 }
 ?>
 
@@ -42,12 +45,12 @@ if ($acteur) {
       		<a href="<?php echo url_for("vrac_visualisation", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>"><?php echo substr($vracid,0,8)."&nbsp;".substr($vracid,8,  strlen($vracid)-1); ?></a>
     	<?php else: ?>
 			<?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
-    		<a href="<?php echo url_for('vrac_validation', array('numero_contrat' => $vracid, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>">Brouillon</a>
+    		<a href="<?php echo url_for('vrac_validation', array('numero_contrat' => $vracid, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>">En attente</a>
 			<?php endif; ?>
     	<?php endif; ?>
     <?php else: ?>
     	<?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
-      	<a href="<?php echo url_for("vrac_edition", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Brouillon</a>
+      	<a href="<?php echo url_for("vrac_edition", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">En attente</a>
       	<?php endif; ?>
     <?php endif; ?>
       

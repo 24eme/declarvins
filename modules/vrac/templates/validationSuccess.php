@@ -15,14 +15,14 @@
 					</p>
 				<?php endif; ?>
                 <div id="titre">
-                    <span class="style_label">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'Brouillon'; ?></span>
+                    <span class="style_label">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'En attente'; ?></span>
                 </div>
             	<br />
                 <?php include_partial('showContrat', array('configurationVrac' => $configurationVrac, 'etablissement' => $etablissement, 'vrac' => $vrac, 'editer_etape' => false)); ?>
                 
                 <div class="ligne_form_btn">
 					<?php if (!$vrac->isValide() && !$dateValidationActeur): ?>
-					<a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat" onclick="return confirm('Confirmez-vous la suppression de ce contrat ?')">Refuser</a>  
+					<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat">Supprimer</a>
                 	<form action="<?php echo url_for('vrac_validation', array('sf_subject' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>" method="post" id="vrac_condition">
 						<?php echo $form->renderHiddenFields() ?>
 						<?php echo $form->renderGlobalErrors() ?>
