@@ -71,6 +71,7 @@ CompteTiers:
       type: {  }
       contrat: {  }
       raison_sociale: {  }
+      valide: {  }
 
 CompteVirtuel:
   inheritance: acVinCompteVirtuel

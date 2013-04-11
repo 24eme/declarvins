@@ -1,12 +1,14 @@
 <?php
 class CompteDeclarantsView extends acCouchdbView
 {
-	const KEY_NUMERO_CONTRAT = 0;
-	const KEY_NOM = 1;
-	const KEY_PRENOM = 2;
-	const KEY_LOGIN = 3;
-	const KEY_EMAIL = 4;
-	const KEY_RAISON_SOCIALE = 5;
+	
+	const KEY_VALIDE = 0;
+	const KEY_NUMERO_CONTRAT = 1;
+	const KEY_NOM = 2;
+	const KEY_PRENOM = 3;
+	const KEY_LOGIN = 4;
+	const KEY_EMAIL = 5;
+	const KEY_RAISON_SOCIALE = 6;
 
 	public static function getInstance() 
 	{
@@ -23,7 +25,9 @@ class CompteDeclarantsView extends acCouchdbView
   		$comptes_format = array();
   		$comptes = $this->findAll();
   		foreach($comptes->rows as $compte) {
-  			$comptes_format[$compte->key[self::KEY_NUMERO_CONTRAT]] = $this->formatCompte($compte->key, $format);
+  			if ($compte->key[self::KEY_VALIDE]) {
+  				$comptes_format[$compte->key[self::KEY_NUMERO_CONTRAT]] = $this->formatCompte($compte->key, $format);
+  			}
         }
         ksort($comptes_format);
 

@@ -170,7 +170,7 @@ EOF;
     $e->no_tva_intracommunautaire = "FR9200000000";
     $e->nom = "Garage d'Actualys";
     $e->siege = array("adresse" => "1 rue Garnier", "code_postal" => "84200", "commune" => "Neuilly", "pays" => "France");
-    $e->statut = "ACTIF";
+    $e->statut = "INSCRIT";
     $e->save();
     
     $e = new Etablissement();
@@ -184,7 +184,7 @@ EOF;
     $e->no_tva_intracommunautaire = "FR9200000000";
     $e->nom = "Garage d'Actualys";
     $e->siege = array("adresse" => "1 rue Garnier", "code_postal" => "13200", "commune" => "Neuilly", "pays" => "France");
-    $e->statut = "ACTIF";
+    $e->statut = "INSCRIT";
     $e->save();
     
     $e = new Etablissement();
@@ -198,7 +198,7 @@ EOF;
     $e->no_tva_intracommunautaire = "FR9200000000";
     $e->nom = "Château Corinne";
     $e->siege = array("adresse" => "1 rue Garnier", "code_postal" => "13200", "commune" => "Neuilly", "pays" => "France");
-    $e->statut = "ACTIF";
+    $e->statut = "INSCRIT";
     $e->save();
     
     $e = new Etablissement();
@@ -212,7 +212,7 @@ EOF;
     $e->no_tva_intracommunautaire = "FR9200000000";
     $e->nom = "Château Thierry";
     $e->siege = array("adresse" => "1 rue Garnier", "code_postal" => "13200", "commune" => "Neuilly", "pays" => "France");
-    $e->statut = "ACTIF";
+    $e->statut = "INSCRIT";
     $e->save();
 
     $compte->addEtablissement($e);

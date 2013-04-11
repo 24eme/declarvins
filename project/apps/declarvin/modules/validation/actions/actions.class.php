@@ -42,7 +42,7 @@ class validationActions extends sfActions {
                 $this->valide_interpro = true;
             }
         }
-        $this->compte_active = ($this->compte->getStatut() == _Compte::STATUT_ACTIF);
+        $this->compte_active = ($this->compte->getStatut() == _Compte::STATUT_INSCRIT);
     }
 
     /**

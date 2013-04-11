@@ -136,7 +136,7 @@
 </div>
 
 <div class="ligne_btn">
-    <button type="submit" class="btn_suiv"><span><?php echo ($recapitulatif) ? 'Modifier' : 'Valider'; ?></span></button>
+    <button type="submit" class="btn_suiv"><span>Valider</span></button>
     <?php if (!$new): ?>
         <button type="button" class="btn_supprimer" onclick="window.location.href='<?php echo ($recapitulatif) ? url_for('contrat_etablissement_suppression', array('indice' => $form->getObject()->getKey(), 'recapitulatif' => 1)) : url_for('contrat_etablissement_suppression', array('indice' => $form->getObject()->getKey())); ?>'">Supprimer cet établissement</button>
     <?php else: ?>

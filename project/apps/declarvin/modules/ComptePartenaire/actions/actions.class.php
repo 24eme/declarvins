@@ -39,7 +39,7 @@ class ComptePartenaireActions extends sfActions
   	$this->forward404Unless($compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
   	$ldap = new Ldap();
   	$ldap->saveCompte($compte);
-  	$compte->statut = _Compte::STATUT_ACTIF;
+  	$compte->statut = _Compte::STATUT_INSCRIT;
   	$compte->save();
   	$this->getUser()->setFlash('notice', 'Compte activé avec succès');
   	$this->redirect("@partenaire_comptes");
@@ -81,7 +81,7 @@ class ComptePartenaireActions extends sfActions
   public function executeCompteAjout(sfWebRequest $request) 
     {
       $this->compte = new ComptePartenaire();
-      $this->compte->statut = _Compte::STATUT_ACTIF;
+      $this->compte->statut = _Compte::STATUT_INSCRIT;
    	  $this->compte->interpro = array($this->getUser()->getCompte()->getGerantInterpro()->_id => array('statut' => _Compte::STATUT_VALIDE));
       $this->form = new ComptePartenaireModificationForm($this->compte);
       if($request->isMethod(sfWebRequest::POST))

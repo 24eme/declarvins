@@ -15,7 +15,8 @@ function closeCompte() {
 		<?php endif; ?>
 		<p class="txt-espace">
 		Vous allez recevoir un email à l'adresse : <strong><?php echo $contrat->email ?></strong> contenant un contrat mandat à signer et à retourner par courrier à votre interprofession.<br />
-		Dès que votre interprofession aura mis à jour vos données et votre compte, vous recevrez un second email afin de créer votre identifiant et votre mot de passe et d'activer définitivement votre compte.<br /><br />
+		Dès que votre interprofession aura mis à jour vos données et votre compte, vous recevrez un second email afin de créer votre identifiant et votre mot de passe et d'activer définitivement votre compte.<br />
+		Vous pouvez fermer cette page.<br /><br />
 		Si vous n'avez pas reçu d'email :
 		<ul>
         	<li>Vérifiez vos spams</li>
