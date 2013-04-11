@@ -127,12 +127,16 @@ class acVinVracActions extends sfActions
         $this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
 		$this->init($this->vrac, $this->etablissement);
-        if (!$this->vrac->isModifiable()) {
-        	if ($this->etablissement)
-        		$this->redirect('vrac_valide', array('identifiant' => $this->etablissement->identifiant));
-        	else 
-        		$this->redirect('vrac_valide_admin');
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) && !$this->vrac->isModifiable()) {
+            
+            return $this->redirect('vrac_valide_admin');
         }
+
+        if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) && !$this->vrac->isEnCoursSaisie()) {
+            
+            return $this->redirect('vrac_valide', array('identifiant' => $this->etablissement->identifiant));
+        }
+
 		$this->vrac->setEtape($this->etape);
 		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->etablissement, $this->getUser(), $this->vrac);
 		if ($request->isMethod(sfWebRequest::POST)) {
