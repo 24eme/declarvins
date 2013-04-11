@@ -55,7 +55,7 @@ EOF;
     $nb = 0;
     foreach($ids as $id) {
         $compte = acCouchdbManager::getClient('_Compte')->retrieveDocumentById($id);
-        if ($compte->getStatut() == _Compte::STATUT_ACTIF) {
+        if ($compte->getStatut() == _Compte::STATUT_INSCRIT) {
             $this->log($id);
             $nb++;
             $compte->updateLdap();
