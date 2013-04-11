@@ -41,6 +41,8 @@ var dpConfig =
 		});
 
 		$(".datepicker").datepicker(dpConfig); 
+
+		$('.num_float').saisieNum(true);
                
 	});
 	
@@ -239,12 +241,6 @@ var dpConfig =
 		// Si ce n'est pas un nombre (ex : copier/coller d'un texte)
 		if(isNaN(val)) val = ''; //val = 0;
 
-		/*if (val == 0) {
-			champ.addClass('num_light');
-		} else {
-			champ.removeClass('num_light');
-		}*/
-		
 		champ.attr('value', val);
 	};
 	
