@@ -18,12 +18,12 @@ class VracSignatureForm extends acCouchdbObjectForm
 		$this->setWidgets(array(
 	       'date_validation_vendeur' => new sfWidgetFormInputHidden(),
 	       'date_validation_acheteur' => new sfWidgetFormInputHidden(),
-	       'date_validation_mandataire' => new sfWidgetFormInputHidden()
+	       'date_validation_courtier' => new sfWidgetFormInputHidden()
 		));
 		$this->setValidators(array(
 	       'date_validation_vendeur' => new sfValidatorPass(),
 	       'date_validation_acheteur' => new sfValidatorPass(),
-	       'date_validation_mandataire' => new sfValidatorPass()
+	       'date_validation_courtier' => new sfValidatorPass()
 		));
 		$this->widgetSchema->setNameFormat('valide[%s]');
 	}

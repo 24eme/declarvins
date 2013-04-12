@@ -191,7 +191,7 @@ class Vrac extends BaseVrac
     
     public function isEnCoursSaisie() {
 
-      return $this->valide->statut != null;
+      return $this->valide->statut == null;
     }
 
     public function isValide() {

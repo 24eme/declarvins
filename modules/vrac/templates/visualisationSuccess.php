@@ -4,7 +4,7 @@
     <div id="rub_contrats">
         <section id="principal"> 
             <div id="recap_saisie" class="popup_form visualisation_contrat">
-                <?php if ($sf_user->hasFlash('termine')): ?>
+                <?php if ($sf_user->hasFlash('termine') && !$sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
 					<h2>La saisie est terminée !</h2>
 					<p id="titre" style="text-align: left; margin-bottom: 30px;">
 					Votre contrat a bien été enregistré. Il va être envoyé aux autres parties concernées pour validation.<br />

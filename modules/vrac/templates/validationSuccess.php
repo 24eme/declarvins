@@ -7,8 +7,7 @@
             	<?php if ($sf_user->hasFlash('termine')): ?>
 					<h2>La saisie est terminée !</h2>
 					<p id="titre" style="text-align: left; margin-bottom: 30px;">
-					Votre contrat a bien été enregistré. Vous allez recevoir un email de confirmation.<br />
-					Il va être envoyé aux autres parties concernées pour validation.<br />
+					Votre contrat a bien été enregistré.<br />
 					Vous recevrez une version du contrat en .pdf avec le numéro de contrat lorsque toutes les parties auront validé le contrat.<br />
 					Le contrat ne pourra être considéré comme valable que lorsque vous aurez reçu cette version faisant figurer le numéro de contrat.<br /><br />
 					Attention si le contrat n’est pas validé d'ici 10 jours par vos partenaires, il sera automatiquement supprimé et non valable.

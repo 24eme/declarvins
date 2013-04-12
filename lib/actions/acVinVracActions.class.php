@@ -128,12 +128,10 @@ class acVinVracActions extends sfActions
         $this->etablissement = $this->getRoute()->getEtablissement();
 		$this->init($this->vrac, $this->etablissement);
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) && !$this->vrac->isModifiable()) {
-            
             return $this->redirect('vrac_valide_admin');
         }
 
         if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) && !$this->vrac->isEnCoursSaisie()) {
-            
             return $this->redirect('vrac_valide', array('identifiant' => $this->etablissement->identifiant));
         }
 
@@ -268,11 +266,12 @@ class acVinVracActions extends sfActions
 			$this->form->bind($request->getParameter($this->form->getName()));
 			if ($this->form->isValid()) {
 				$this->form->save();
-				$this->contratValidation($this->vrac, $this->acteur);
+				//$this->contratValidation($this->vrac, $this->acteur);
 				if ($this->vrac->isValide()) {
 					$this->contratValide($this->vrac);
 					$this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
 				}
+				$this->getUser()->setFlash('termine', true);
 				$this->redirect('vrac_validation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement, 'acteur' => $this->acteur));
 			}
 		}
