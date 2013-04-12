@@ -9,8 +9,12 @@
     <section id="principal">
 		<div id="application_dr">
 			<div id="drm_informations">
-		        <p>Veuillez tout d'abord confirmer les informations ci-dessous :<br /><br /></p>
 		        <form action="<?php echo url_for('drm_informations', $drm) ?>" method="post">
+				<div class="ligne_btn">
+					<button type="submit" class="btn_suiv"><span>VALIDER</span></button>
+					<a href="#" class="btn_popup btn_popup_trigger" data-popup="#popup_confirm_modif_infos" data-popup-config="configConfirmModifInfos" data-popup-titre="Etes-vous sûr de vouloir modifier ces informations ?"></a>
+				</div>
+		        <p>Veuillez tout d'abord confirmer les informations ci-dessous :<br /><br /></p>
 			        <?php echo $form->renderGlobalErrors() ?>
 					<?php echo $form->renderHiddenFields() ?>
                                         <div class="ligne_form">
@@ -47,10 +51,6 @@
 					<div class="ligne_form">
 						<label for="champ_8">Service des douanes :</label>
 						<span class="valeur"><?php echo $etablissement->service_douane ?></span>
-					</div>
-					<div class="ligne_form">
-						<label for="champ_9">Numéro d’Accise :</label>
-						<span class="valeur">1654546764</span>
 					</div>
 					<?php if(!$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 					<?php echo $form['confirmation']->render() ?>

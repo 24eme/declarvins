@@ -10,6 +10,22 @@
         <form id="formValidation" action="<?php echo url_for('drm_validation', $drm) ?>" method="post">
             <?php echo $form->renderGlobalErrors() ?>
             <?php echo $form->renderHiddenFields() ?>
+            
+            <div id="btn_etape_dr">
+                <?php if ($drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER): ?>
+                <a href="<?php echo url_for('drm_vrac', array("sf_subject" => $drm, "precedent" => true))?>" class="btn_prec">
+                    <span>Précédent</span>
+                </a>
+                <?php else: ?>
+                <a href="<?php echo url_for('drm_declaratif', $drm) ?>" class="btn_prec">
+                    <span>Précédent</span>
+                </a>
+                <?php endif; ?>
+                <button type="submit" class="btn_suiv"<?php if ($drmValidation->hasErrors()): ?> disabled="disabled"<?php endif; ?>>
+                    <span>Valider</span>
+                </button>
+            </div>
+            
             <div id="application_dr">
                
                 <div id="validation_intro">
@@ -64,7 +80,7 @@
                 </button>
             </div>
 
-            <div class="ligne_btn" style="margin-top: 30px;">
+            <div class="ligne_btn">
                 <a href="<?php echo url_for('drm_delete_one', $drm) ?>" class="annuler_saisie btn_remise"><span>annuler la saisie</span></a>
             </div>
 

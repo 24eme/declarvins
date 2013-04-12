@@ -98,7 +98,6 @@
 
 			</table>
 		<?php endif; ?>
-		
 		<?php $colonnes = $pagers_vrac[$certification_key]->getResults(); ?>
 		<?php if(count($colonnes) > 0): ?>
 			<h2>Contrats vrac - <?php echo $certification->getConfig()->libelle ?></h2>
@@ -125,10 +124,9 @@
 				
 			</table>
 		<?php endif; ?>
-
+		<hr />
 		<?php $pagers_volume[$certification_key]->gotoNextPage(); ?>
 		<?php $pagers_vrac[$certification_key]->gotoNextPage(); ?>
-		<hr />
 		<?php endwhile; ?>
 	<?php endforeach; ?>
 	
@@ -282,7 +280,6 @@
 	</table>
 
 <?php endif; //si pas validée ?>
-	<hr />
 	<?php endif; ?>
 	<div class="legende">
 	<?php foreach($drm->declaration->certifications as $certification_key => $certification): ?>

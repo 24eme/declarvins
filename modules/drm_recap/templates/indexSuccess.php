@@ -12,6 +12,28 @@
     <section id="principal">
         <div id="application_dr">
             
+            <div id="btn_etape_dr">
+            	<?php if ($previous_certif): ?>
+                <a href="<?php echo url_for('drm_recap', $previous_certif) ?>" class="btn_prec">
+                    <span>Précédent</span>
+                </a>
+                <?php else: ?>
+                <a href="<?php echo url_for('drm_mouvements_generaux', $drm) ?>" class="btn_prec">
+                    <span>Précédent</span>
+                </a>
+                <?php endif; ?>
+
+                <?php if ($next_certif): ?>
+                <a href="<?php echo url_for('drm_recap', $next_certif) ?>" class="btn_suiv">
+                    <span>Suivant</span>
+                </a>
+                <?php else: ?>
+                <a href="<?php echo url_for('drm_vrac', $drm) ?>" class="btn_suiv">
+                    <span>Suivant</span>
+                </a>
+            	<?php endif; ?>
+            </div>
+            
             <?php include_component('drm_recap', 'onglets', array('config_lieu' => $config_lieu, 
                                                                   'drm_lieu' => $drm_lieu)) ?>
             <div id="contenu_onglet">
@@ -62,7 +84,7 @@
             	
             </div>
 
-            <div class="ligne_btn" style="margin-top: 30px;">
+            <div class="ligne_btn">
                 <a href="<?php echo url_for('drm_delete_one', $drm) ?>" class="annuler_saisie btn_remise"><span>annuler la saisie</span></a>
             </div>
 

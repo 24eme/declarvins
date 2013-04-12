@@ -727,7 +727,6 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     }
 
     public function isModifiedMother($hash_or_object, $key = null) {
-        
         return $this->version_document->isModifiedMother($hash_or_object, $key);
     }
 

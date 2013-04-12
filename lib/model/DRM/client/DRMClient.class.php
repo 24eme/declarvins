@@ -58,7 +58,6 @@ class DRMClient extends acCouchdbClient {
     }
 
     public function buildDate($periode) {
-        
         return sprintf('%4d-%02d-%02d', $this->getAnnee($periode), $this->getMois($periode), date("t",$this->getMois($periode)));
     }
 
@@ -351,14 +350,8 @@ class DRMClient extends acCouchdbClient {
   }
 
   public function getCurrentPeriode() {
-    if(date('d') >= 10) {
-      
-      return sprintf('%s-%02d', date('Y'), date('m'));
-    } else {
       $timestamp = strtotime('-1 month');
-      
       return sprintf('%s-%02d', date('Y', $timestamp), date('m', $timestamp));
-    }
   }
     
   public function getUser() {

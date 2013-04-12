@@ -42,6 +42,9 @@ class drm_vracActions extends sfActions
 
 
     protected function redirectIfNoMouvementCheck() {    	
+    	if ($this->drm->hasVrac()) {
+    		return;
+    	}
     	if (!$this->drm->detailHasMouvementCheck()) {
 	    	return $this->redirect('drm_mouvements_generaux', $this->drm);
     	}

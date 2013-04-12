@@ -295,6 +295,17 @@ class DRMRouting {
                             'must_be_not_valid' => true
                 )));
         
+        $r->prependRoute('drm_recap_redirect_last', new DRMRoute('/drm/:identifiant/edition/:periode_version/dernier/recapitulatif',
+                        array('module' => 'drm_recap',
+                            'action' => 'redirectLast'),
+                        array('sf_method' => array('get', 'post')),
+                        array('model' => 'DRM',
+                            'type' => 'object',
+                            'no_archive' => true,
+                            'must_be_valid' => false,
+                            'must_be_not_valid' => true
+                )));
+        
         $r->prependRoute('drm_recap_lieu_ajout_ajax', new DRMCertificationRoute('/drm/:identifiant/edition/:periode_version/recapitulatif-appellation-ajout/:certification',
                         array('module' => 'drm_recap',
                             'action' => 'lieuAjoutAjax'),

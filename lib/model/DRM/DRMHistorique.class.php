@@ -47,14 +47,8 @@ class DRMHistorique {
     }
     
 	public function getCurrentPeriode() {
-	    if(date('d') >= 10) {
-	      
-	      return sprintf('%s-%02d', date('Y'), date('m'));
-	    } else {
 	      $timestamp = strtotime('-1 month');
-	      
 	      return sprintf('%s-%02d', date('Y', $timestamp), date('m', $timestamp));
-	    }
   	}
 
     public function getPreviousDRM($periode) {

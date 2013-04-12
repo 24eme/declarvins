@@ -7,6 +7,17 @@
     <section id="principal">
 		<div id="application_dr">
 	        <form action="<?php echo url_for('drm_mouvements_generaux', $drm) ?>" method="post">
+	        
+
+		        <div id="btn_etape_dr">
+		            <a href="<?php echo url_for('drm_informations', $drm) ?>" class="btn_prec">
+		            	<span>Précédent</span>
+		            </a>
+	                <?php if($first_certification): ?>
+		            	<button type="submit" class="btn_suiv"><span>Suivant</span></button>
+	                <?php endif; ?>
+		        </div>
+			        
 				<div id="contenu_onglet">
 	        		<?php echo $form->renderHiddenFields() ?>
 	        		<?php echo $form->renderGlobalErrors() ?>
@@ -74,11 +85,10 @@
 			            </a>
 		                <?php if($first_certification): ?>
 			            	<button type="submit" class="btn_suiv"><span>Suivant</span></button>
-			            </form>
 		                <?php endif; ?>
 			        </div>
 
-			        <div class="ligne_btn" style="margin-top: 30px;">
+			        <div class="ligne_btn">
            				<a href="<?php echo url_for('drm_delete_one', $drm) ?>" class="annuler_saisie btn_remise"><span>annuler la saisie</span></a>
         			</div>
 

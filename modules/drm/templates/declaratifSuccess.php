@@ -7,6 +7,17 @@
     <section id="principal">
         <div id="application_dr">
             <form id="declaratif_info" action="<?php echo url_for('drm_declaratif', $drm) ?>" method="post">
+            
+				
+                <div id="btn_etape_dr">
+                	<?php if (!$drm->declaration->hasMouvementCheck()): ?>
+                	<a href="<?php echo url_for('drm_mouvements_generaux', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
+                	<?php else: ?>
+                    <a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec"><span>Précédent</span></a>
+                    <?php endif; ?>
+                    <button type="submit" class="btn_suiv"><span>suivant</span></button>
+                </div>
+                
                 <?php echo $form->renderHiddenFields() ?>
                 
                 <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
@@ -140,7 +151,7 @@
                     <button type="submit" class="btn_suiv"><span>suivant</span></button>
                 </div>
 
-                <div class="ligne_btn" style="margin-top: 30px;">
+                <div class="ligne_btn">
                     <a href="<?php echo url_for('drm_delete_one', $drm) ?>" class="annuler_saisie btn_remise"><span>annuler la saisie</span></a>
                 </div>
 
