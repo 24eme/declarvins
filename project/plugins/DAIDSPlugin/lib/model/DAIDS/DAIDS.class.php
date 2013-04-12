@@ -384,7 +384,9 @@ class DAIDS extends BaseDAIDS
   		$drmsHistorique = new DRMHistorique($this->identifiant);
   		if ($lastDrm = $drmsHistorique->getLastDRMByCampagne($this->periode)) {
   			if (DRMClient::getInstance()->getMois($lastDrm->periode) == (DRMPaiement::NUM_MOIS_DEBUT_CAMPAGNE - 1)) {
-  				return true;
+  				if ($lastDrm->isValidee()) {
+  					return true;
+  				}
   			}
   		}
   		return false;

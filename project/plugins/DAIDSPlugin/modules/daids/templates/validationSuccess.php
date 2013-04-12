@@ -10,6 +10,20 @@
         <form id="formValidation" action="<?php echo url_for('daids_validation', $daids) ?>" method="post">
             <?php echo $form->renderGlobalErrors() ?>
             <?php echo $form->renderHiddenFields() ?>
+            
+            <div id="btn_etape_dr">
+                <a href="<?php echo url_for('daids_recap_redirect', $daids) ?>" class="btn_prec">
+                    <span>Précédent</span>
+                </a>
+                <button type="submit" class="btn_suiv"<?php if ($daidsValidation->hasErrors()): ?> disabled="disabled"<?php endif; ?>><span>
+                    Valider
+                    <?php if ($daids->needNextVersion() && $daids->getSuivante()): ?>
+                        <small style="font-size: 10px;">et réctifier la DAI/DS suivante</small>
+                    <?php endif; ?>
+                    </span>
+                </button>
+            </div>
+            
             <div id="application_dr">
                
                 <div id="validation_intro">

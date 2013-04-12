@@ -280,8 +280,12 @@
 					{
 						var champ = $(this);
 						var val = champ.val();
-						var val_defaut = champ.attr('data-val-defaut');
-
+						var val_defaut = parseFloat(champ.attr('data-val-defaut'));
+						if (isNaN(val_defaut)) {
+							val_defaut = '';
+						} else {
+							val_defaut = val_defaut.toFixed(2);
+						}
 						if (val_defaut != val) {
 							if (colActive.attr('data-cssclass-rectif')) {
 								champ.parent().addClass(colActive.attr('data-cssclass-rectif'));

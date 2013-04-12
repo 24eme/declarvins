@@ -4,7 +4,7 @@
 	<div id="profil">
 		<?php if ($hasCompte): ?>
 			<div id="formulaire_profil">
-				<?php include_partial('form_compte', array('form' => $form, 'etablissement' => $etablissement)); ?>
+				<?php include_partial('form_compte', array('compte' => $compte, 'form' => $form, 'etablissement' => $etablissement)); ?>
 			</div>
 		<?php endif; ?>
 		

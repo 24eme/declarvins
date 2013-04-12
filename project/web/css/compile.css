@@ -833,7 +833,7 @@ a:hover { text-decoration:underline; }
 #principal #contenu_onglet, #principal .contenu_onglet {
   background:#f1f1f1;
   border:1px solid #e9e9e9;
-  margin:0 0 15px;
+  margin:0 0 15px 0;
   padding:18px;
 }
 .notice {
@@ -2222,7 +2222,7 @@ p#date_drm {
 #declaratif_info .contenu_onglet_declaratif {
   background:#f1f1f1;
   border:1px solid #e9e9e9;
-  margin:0 0 15px;
+  margin:0 0 15px 0;
   padding:18px;
 }
 #declaratif_info .contenu_onglet_declaratif.alignes { padding-left:249px; }
@@ -2297,6 +2297,7 @@ p#date_drm {
   text-transform:uppercase;
   z-index:1;
   zoom:1;
+  margin:0 0 15px 0;
 }
 #btn_etape_dr:before, #btn_etape_dr:after {
   content:"\0020";

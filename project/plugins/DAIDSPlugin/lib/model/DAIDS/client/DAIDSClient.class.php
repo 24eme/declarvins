@@ -47,7 +47,7 @@ class DAIDSClient extends acCouchdbClient
       return $this->daids_historiques[$identifiant];
     }
     
-    public function createDoc($identifiant, $periode = null) {
+    public function createDoc($identifiant, $periode = null, $force = false) {
     	if (!$periode) {
       		$last_daids = $this->getDAIDSHistorique($identifiant)->getLastDAIDS();
 		    if ($last_daids) {
@@ -67,15 +67,20 @@ class DAIDSClient extends acCouchdbClient
   	}
   	
   	public function isValidePeriode($identifiant, $periode) {
-  		$mois = DRMClient::getInstance()->getMois($periode);
-	  	$annee = DRMClient::getInstance()->getAnnee($periode);
-	    $date = $annee.'0810';
+	  	$annee = $this->getAnnee($periode);
+	    $date = $annee.'0801';
 	  	if ($date <= date('Ymd')) {
 	  		return true;
 	  	}
   		return false;
   		
   	}
+
+
+    public function getAnnee($periode) {
+
+      return preg_replace('/([0-9]{4})-([0-9]{4})/', '$2', $periode);
+    }
 
     public function createDocByPeriode($identifiant, $periode = null)
     {
@@ -116,10 +121,10 @@ class DAIDSClient extends acCouchdbClient
 
     public function getCurrentPeriode() 
     {
-      if(date('m') == 8 && date('d') >= 10) {
-      	return sprintf('%s-%s', date('Y'), date('Y') + 1);
-      } else {
+      if(date('m') >= 8) {
       	return sprintf('%s-%s', date('Y') - 1, date('Y'));
+      } else {
+      	return sprintf('%s-%s', date('Y') - 2, date('Y') - 1);
       }
     }
     
@@ -129,7 +134,7 @@ class DAIDSClient extends acCouchdbClient
     	$drmCampagnes = $drmHistorique->getCampagnes();
     	foreach ($drmCampagnes as $campagne) {
     		$annee = preg_replace('/([0-9]{4})-([0-9]{4})/', '$2', $campagne);
-    		$date = $annee.'0810';
+    		$date = $annee.'0801';
     		if ($date <= date('Ymd')) {
     			return $campagne;
     		}

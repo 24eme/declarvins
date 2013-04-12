@@ -16,7 +16,7 @@ class DAIDSDetailForm extends acCouchdbObjectForm
     	$this->setWidget('total_pertes_autorisees', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
     	$this->setWidget('total_manquants_taxables', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
     	$this->setWidget('total_douane', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
-    	$this->setWidget('stock_theorique', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
+    	$this->setWidget('stock_theorique', new sfWidgetFormInputFloat(array()));
     	$this->setWidget('stock_chais', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
     	$this->setWidget('stock_propriete', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
     	$this->setWidget('stock_mensuel_theorique', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));

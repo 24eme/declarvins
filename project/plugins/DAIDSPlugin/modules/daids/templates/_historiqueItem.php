@@ -30,7 +30,7 @@
     <?php endif; ?>
     <td>
         <?php if($daids->isNew()): ?>
-        	<?php if ($daids->hasLastDrmCampagne()): ?>
+        	<?php if ($daids->hasLastDrmCampagne() || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <a href="<?php echo url_for('daids_nouvelle', $daids) ?>" class="btn_reinitialiser"><span>Démarrer la DAI/DS</span></a>
             <?php else: ?>
             Vous devez saisir votre <strong>DRM <?php echo preg_replace('/([0-9]{4})-([0-9]{4})/', '$2', $daids->periode); ?>-<?php echo sprintf('%02d', (DRMPaiement::NUM_MOIS_DEBUT_CAMPAGNE - 1)) ?></strong>

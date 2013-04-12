@@ -16,7 +16,11 @@
             </p>
             
             <p class="stock_th stock_th_drm  <?php echo isVersionnerCssClass($form->getObject(), 'stock_theorique') ?>">
-				<?php echo $form['stock_theorique']->render(array('class' => 'texte stock_th stock_th_drm', 'data-val-defaut' => sprintFloat($form->getObject()->stock_theorique))) ?>
+            	<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+            	<?php echo $form['stock_theorique']->render(array('class' => 'num num_float num_light', 'data-val-defaut' => sprintFloat($form->getObject()->stock_theorique))) ?>
+				<?php else: ?>
+            	<?php echo $form['stock_theorique']->render(array('readonly' => 'readonly', 'class' => 'texte stock_th stock_th_drm', 'data-val-defaut' => sprintFloat($form->getObject()->stock_theorique))) ?>
+            	<?php endif; ?>
 			</p>     	
 			
 			<div class="groupe" data-groupe-id="1">

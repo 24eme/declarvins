@@ -5,33 +5,25 @@
 		    <?php echo $form->renderHiddenFields(); ?>
 		    <?php echo $form->renderGlobalErrors(); ?>
 			<div class="ligne_form">
-			    <?php echo $form['nom']->renderLabel() ?>
-			    <?php echo $form['nom']->render() ?>
-			    <?php echo $form['nom']->renderError() ?>
+			    <label>Nom:</label>
+			    <strong><?php echo $compte->getNom() ?></strong>
 			</div>
 			
 			<div class="ligne_form">
-			    <?php echo $form['prenom']->renderLabel() ?>
-			    <?php echo $form['prenom']->render() ?>
-			    <?php echo $form['prenom']->renderError() ?>
+			    <label>Prénom:</label>
+			    <strong><?php echo $compte->getPrenom() ?></strong>
 			</div>
 			
 			<div class="ligne_form">
-			    <?php echo $form['telephone']->renderLabel() ?>
-			    <?php echo $form['telephone']->render() ?>
-			    <?php echo $form['telephone']->renderError() ?>
+			    <label>Adresse e-mail:</label>
+			    <strong><?php echo $compte->getEmail() ?></strong>
 			</div>
 			
-			<div class="ligne_form">
-			    <?php echo $form['fax']->renderLabel() ?>
-			    <?php echo $form['fax']->render() ?>
-			    <?php echo $form['fax']->renderError() ?>
-			</div>
+			<br />
 			
 			<div class="ligne_form">
-			    <?php echo $form['email']->renderLabel() ?>
-			    <?php echo $form['email']->render() ?>
-			    <?php echo $form['email']->renderError() ?>
+			    <label>Identifiant:</label>
+			    <strong><?php echo $compte->getLogin() ?></strong>
 			</div>
 			
 			<div class="ligne_form">

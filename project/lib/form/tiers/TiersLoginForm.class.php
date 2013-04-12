@@ -3,6 +3,7 @@
 class TiersLoginForm extends BaseForm { 
     protected $_compte = null;
     protected $_expanded = null;
+    protected $_etablissements = null;
     
     /**
      *
@@ -10,9 +11,10 @@ class TiersLoginForm extends BaseForm {
      * @param array $options
      * @param string $CSRFSecret 
      */
-    public function __construct(_Compte $compte, $expanded = false, $options = array(), $CSRFSecret = null) {
+    public function __construct(_Compte $compte, $expanded = false, $etablissements = array(), $options = array(), $CSRFSecret = null) {
         $this->_compte = $compte;
         $this->_expanded = $expanded;
+        $this->_etablissements = $etablissements;
         $this->checkCompte();
         parent::__construct(array(), $options, $CSRFSecret);
     }
@@ -50,11 +52,18 @@ class TiersLoginForm extends BaseForm {
     
     public function getChoiceTiers() {
         $choices = array();
-        foreach($this->_compte->tiers as $tiers) {
-        	$etablissement = EtablissementClient::getInstance()->find($tiers->id);
-        	if ($etablissement->statut == Etablissement::STATUT_ACTIF) {
-            	$choices[$tiers->id] = $tiers->raison_sociale;
+        foreach($this->_etablissements as $tiers) {
+        	$libelle = $tiers->raison_sociale;
+        	if ($tiers->nom) {
+        		$libelle .= ' ('.$tiers->nom.')';
         	}
+        	if ($tiers->famille) {
+        		$libelle .= ' '.EtablissementFamilles::getFamilleLibelle($tiers->famille);
+        	}
+        	if ($tiers->siege->commune) {
+        		$libelle .= ', '.$tiers->siege->commune;
+        	}
+            $choices[$tiers->_id] = $libelle;
         }
         return $choices;
     }

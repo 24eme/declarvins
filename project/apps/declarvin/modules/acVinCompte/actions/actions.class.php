@@ -56,8 +56,8 @@ class acVinCompteActions extends BaseacVinCompteActions {
     	
     }
     public function executeRedefinitionPassword(sfWebRequest $request) {
-    	$this->forward404Unless($login = $request->getParameter('login'));
-        $this->forward404Unless($this->compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
+    	$this->forward404Unless($this->login = $request->getParameter('login'));
+        $this->forward404Unless($this->compte = _CompteClient::getInstance()->retrieveByLogin($this->login));
         $this->form = new CompteTiersPasswordForm($this->compte);
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));

@@ -12,7 +12,7 @@ class DAIDSCampagneValidator extends sfValidatorBase {
     protected function doClean($values) {
         if (!$values['campagne']) {
         	throw new sfValidatorErrorSchema($this, array('campagne' => new sfValidatorError($this, 'required')));
-        }       
+        }
         if (DAIDSClient::getInstance()->formatToCompare($values['campagne']) > DAIDSClient::getInstance()->formatToCompare(DAIDSClient::getInstance()->getCurrentPeriode())) {
         	throw new sfValidatorErrorSchema($this, array($this->getOption('years') => new sfValidatorError($this, 'impossible')));
         } 

@@ -22,22 +22,29 @@ class tiersActions extends sfActions
 	  if ($this->compte->isVirtuel()) {
 	  	return $this->redirect("admin");
 	  }
-    if (count($this->compte->tiers) == 1) {
-    	$etablissement = EtablissementClient::getInstance()->find($this->compte->tiers->getFirst()->id);
-    	if ($etablissement->statut == Etablissement::STATUT_ACTIF) {
-    		return $this->redirect("tiers_mon_espace", $etablissement);
-    	} else {
+	  
+	  $nbEtablissement = 0;
+	  $etablissements = array();
+  	  foreach($this->compte->tiers as $tiers) {
+        	$etablissement = EtablissementClient::getInstance()->find($tiers->id);
+        	if ($etablissement->statut == Etablissement::STATUT_ACTIF) {
+        		$etablissements[] = $etablissement;
+            	$nbEtablissement++;
+        	}
+      }
+      if ($nbEtablissement == 0) {
       		throw new sfException('Aucun établissement actif pour ce compte');
-    	}
-    }
+      }
+      if ($nbEtablissement == 1) {
+    		return $this->redirect("tiers_mon_espace", $etablissement);
+      }
 
-  	$this->form = new TiersLoginForm($this->compte, true);
+  	  $this->form = new TiersLoginForm($this->compte, true, $etablissements);
 	
-  	if ($request->isMethod(sfWebRequest::POST)) {
-    	$this->form->bind($request->getParameter($this->form->getName()));
-    	$tiers = $this->form->process();
-		
-      return $this->redirect("tiers_mon_espace", $tiers);
+  	  if ($request->isMethod(sfWebRequest::POST)) {
+    		$this->form->bind($request->getParameter($this->form->getName()));
+    		$tiers = $this->form->process();
+      		return $this->redirect("tiers_mon_espace", $tiers);
 	  }
   }
 

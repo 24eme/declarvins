@@ -9,6 +9,10 @@
 		<h1>Redéfinition de votre mot de passe</h1>
 		<div class="col">
 			<div class="ligne_form">
+				<label>Identifiant: </label>
+				<strong><?php echo $login ?></strong>
+			</div>
+			<div class="ligne_form">
 				<?php echo $form['mdp1']->renderError() ?>
 				<?php echo $form['mdp1']->renderLabel() ?>
 				<?php echo $form['mdp1']->render() ?>

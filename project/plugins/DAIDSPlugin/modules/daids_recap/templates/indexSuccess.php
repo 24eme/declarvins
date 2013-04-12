@@ -13,6 +13,30 @@
     <!-- #principal -->
     <section id="principal">
         <div id="application_dr">
+        
+            
+            <div id="btn_etape_dr">
+            	<?php if ($previous_certif): ?>
+                <a href="<?php echo url_for('daids_recap', $previous_certif) ?>" class="btn_prec">
+                    <span>Précédent</span>
+                </a>
+                <?php else: ?>
+                <a href="<?php echo url_for('daids_informations', $daids) ?>" class="btn_prec">
+                    <span>Précédent</span>
+                </a>
+                <?php endif; ?>
+
+                <?php if ($next_certif): ?>
+                <a href="<?php echo url_for('daids_recap', $next_certif) ?>" class="btn_suiv">
+                    <span>Suivant</span>
+                </a>
+                <?php else: ?>
+                <a href="<?php echo url_for('daids_validation', $daids) ?>" class="btn_suiv">
+                    <span>Suivant</span>
+                </a>
+            	<?php endif; ?>
+            	
+            </div>
             
             <?php include_component('daids_recap', 'onglets', array('config_lieu' => $config_lieu, 
                                                                   'daids_lieu' => $daids_lieu)) ?>

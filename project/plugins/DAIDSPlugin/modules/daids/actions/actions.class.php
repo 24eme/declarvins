@@ -24,7 +24,7 @@ class daidsActions extends sfActions
       if(DAIDSClient::getInstance()->formatToCompare($daids->periode) > DAIDSClient::getInstance()->formatToCompare(DAIDSClient::getInstance()->getCurrentPeriode())) {
         throw new sfException('Impossible de faire une DAI/DS future');
       }
-      if(!$daids->hasLastDrmCampagne()) {
+      if(!$daids->hasLastDrmCampagne() && !$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
         throw new sfException('Impossible de faire la DAI/DS '.$daids->periode.' sans la DRM '.preg_replace('/([0-9]{4})-([0-9]{4})/', '$2', $daids->periode).'-'.sprintf('%02d', (DRMPaiement::NUM_MOIS_DEBUT_CAMPAGNE - 1)));
       }
       $daids->save();

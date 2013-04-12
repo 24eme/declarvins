@@ -26,6 +26,13 @@ $(document).ready(function() {
 					<?php echo $form->renderHiddenFields() ?>
 			        <?php echo $formEntrepots->renderGlobalErrors() ?>
 					<?php echo $formEntrepots->renderHiddenFields() ?>
+					
+					
+					<div class="ligne_btn">
+						<button type="submit" class="btn_suiv"><span>VALIDER</span></button>
+						<a href="#" class="btn_popup btn_popup_trigger" data-popup="#popup_confirm_modif_infos" data-popup-config="configConfirmModifInfos" data-popup-titre="Etes-vous sûr de vouloir modifier ces informations ?"></a>
+					</div>
+					
                                         <div class="ligne_form">
 						<?php echo $form['confirmation']->renderError() ?>
 					</div>
