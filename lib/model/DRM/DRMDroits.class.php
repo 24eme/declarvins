@@ -19,6 +19,10 @@ class DRMDroits extends BaseDRMDroits {
   public static function getDroitSortiesInterRhone() {
     return self::$droit_sorties_inter_rhone;
   }
+  static $douane_droit_sorties = array('sorties/factures', 'sorties/crd');
+  public static function getDouaneDroitSorties() {
+    return self::$douane_droit_sorties;
+  }
 
   private $res = array();
   private function addVirtual($key, $value) {
