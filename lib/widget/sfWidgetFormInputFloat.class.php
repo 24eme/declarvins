@@ -10,7 +10,7 @@ class sfWidgetFormInputFloat extends sfWidgetFormInputText
     if (!isset($attributes['class']))
       $attributes['class'] = '';
     if (!($value*1)) 
-      $attributes['class'] .= ' num_light';
+      $attributes['class'] .= ' num_light num_float';
 
     return parent::render($name, $value, $attributes, $errors);
   }
