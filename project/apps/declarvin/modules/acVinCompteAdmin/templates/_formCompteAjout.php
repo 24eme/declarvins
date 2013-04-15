@@ -12,7 +12,6 @@
         <?php echo $form['droits']->render() ?>
         <?php echo $form['droits']->renderError() ?>
     </div>
-    
     <div class="btnValidation">
         <input class="btn_valider" type="submit" value="Ajouter"/>
     </div>

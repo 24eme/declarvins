@@ -431,6 +431,8 @@ button.btn_suiv span { height: 26px; }
 }
 
 .btn_telecharger { .btn_violet; }
+
+.lien_notice { font-size: 12px; }
  
 a.msg_aide
 {
@@ -1032,12 +1034,18 @@ a
  ******************************************/
 #footer
 {
-	p
+	.copyright
 	{
-		color: @couleur-a2;
 		float: left;
-		font-size: 12px;
-		a { color: @couleur-a2; }
+
+		p
+		{
+			color: @couleur-a2;
+			font-size: 12px;
+			margin: 0 0 10px;
+
+			a { color: @couleur-a2; }
+		}
 	}
 	
 	ul#logos_footer

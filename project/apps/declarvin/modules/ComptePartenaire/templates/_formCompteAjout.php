@@ -7,6 +7,8 @@
     <?php 
       include_partial('ComptePartenaire/formCompteRenderer', array('form' => $form));  
     ?>
+	
+	<strong class="champs_obligatoires">* Champs obligatoires</strong>
     
     <div class="btnValidation">
         <input class="btn_valider" type="submit" value="Ajouter"/>

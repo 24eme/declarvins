@@ -18,6 +18,7 @@
 			        <input class="btn_valider" type="submit" value="Ajouter"/>
 			    </div>
 			</form>
+			<strong class="champs_obligatoires">* Champ obligatoire</strong>
 		</div>
 	</div>
 </section>

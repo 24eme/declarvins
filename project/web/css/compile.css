@@ -409,6 +409,7 @@ button.btn_prec, button.btn_prec span, button.btn_suiv, button.btn_suiv span { h
 }
 .btn_telecharger:hover, .btn_telecharger:focus { text-decoration:none; }
 .btn_telecharger:hover, .btn_telecharger:focus { background-color:#494949; }
+.lien_notice { font-size:12px; }
 a.msg_aide {
   -webkit-opacity:0.5;
   -khtml-opacity:0.5;
@@ -863,12 +864,13 @@ a:hover { text-decoration:underline; }
   padding:3px;
   vertical-align:middle;
 }
-#footer p {
+#footer .copyright { float:left; }
+#footer .copyright p {
   color:#737373;
-  float:left;
   font-size:12px;
+  margin:0 0 10px;
 }
-#footer p a { color:#737373; }
+#footer .copyright p a { color:#737373; }
 #footer ul#logos_footer { float:right; }
 #footer ul#logos_footer li {
   float:left;
@@ -2319,6 +2321,10 @@ p#date_drm {
   text-transform:none;
 }
 #telecharger_pdf:hover { text-decoration:none; }
+.annuler_saisie {
+  font-size:11px;
+  font-weight:normal;
+}
 .vracs { color:#3e3e3e; }
 .vracs .disabled { background-color:#cdcdcd; }
 .vracs #table_paiements, .vracs #table_retiraisons, .vracs #table_lots table, .vracs #recap_transaction .lot table {

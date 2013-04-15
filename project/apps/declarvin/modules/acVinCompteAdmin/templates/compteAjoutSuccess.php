@@ -6,5 +6,6 @@
     <div id="compteAjout">
         <?php include_partial('acVinCompteAdmin/formCompteAjout', array('form' => $form))   ?>
     </div>
+	<strong class="champs_obligatoires">* Champs obligatoires</strong>
 </div>
 </section>

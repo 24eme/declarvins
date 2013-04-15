@@ -5,6 +5,7 @@
     <h1>Compte partenaire</h1>
     <div id="compteModification">
         <?php include_partial('ComptePartenaire/formCompteModification', array('form' => $form))?>
+		<strong class="champs_obligatoires">* Champs obligatoires</strong>
     </div>
 </div>
 </section>
