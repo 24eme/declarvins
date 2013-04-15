@@ -9,7 +9,7 @@
 			<input type="text" id="contrat_etablissements_${nbEtablissements}_nom" name="contrat[etablissements][${nbEtablissements}][nom]">
 		</div>
 		<div class="ligne_form">
-			<label for="contrat_etablissements_${nbEtablissements}_siret_cni">SIRET/CNI*: </label>
+			<label for="contrat_etablissements_${nbEtablissements}_siret_cni">SIRET*: <a href="" class="msg_aide" data-msg="help_popup_mandat_siret" title="Message aide"></a></label>
 			<input type="text" id="contrat_etablissements_${nbEtablissements}_siret_cni" name="contrat[etablissements][${nbEtablissements}][siret_cni]">
 		</div>
 		<a href="#" class="supprimer">Supprimer</a>

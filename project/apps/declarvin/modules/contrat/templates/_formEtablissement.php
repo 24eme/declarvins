@@ -18,22 +18,22 @@
     </div>
     <div class="ligne_form">
         <?php echo $form['cni']->renderError() ?>
-        <?php echo $form['cni']->renderLabel() ?>
+        <?php echo $form['cni']->renderLabel('CNI: <a href="" class="msg_aide" data-msg="help_popup_mandat_cni" title="Message aide"></a>') ?>
         <?php echo $form['cni']->render() ?>
     </div>
     <div class="ligne_form">
         <?php echo $form['cvi']->renderError() ?>
-        <?php echo $form['cvi']->renderLabel() ?>
+        <?php echo $form['cvi']->renderLabel('CVI: <a href="" class="msg_aide" data-msg="help_popup_mandat_cvi" title="Message aide"></a>') ?>
         <?php echo $form['cvi']->render() ?>
     </div>
     <div class="ligne_form">
         <?php echo $form['no_accises']->renderError() ?>
-        <?php echo $form['no_accises']->renderLabel() ?>
+        <?php echo $form['no_accises']->renderLabel('Numéro accises: <a href="" class="msg_aide" data-msg="help_popup_mandat_num_accises" title="Message aide"></a>') ?>
         <?php echo $form['no_accises']->render() ?>
     </div>
     <div class="ligne_form">
         <?php echo $form['no_tva_intracommunautaire']->renderError() ?>
-        <?php echo $form['no_tva_intracommunautaire']->renderLabel() ?>
+        <?php echo $form['no_tva_intracommunautaire']->renderLabel('Numéro TVA intracommunautaire: <a href="" class="msg_aide" data-msg="help_popup_mandat_tva_intracommunautaire" title="Message aide"></a>') ?>
         <?php echo $form['no_tva_intracommunautaire']->render() ?>
     </div>
     <div class="ligne_form">

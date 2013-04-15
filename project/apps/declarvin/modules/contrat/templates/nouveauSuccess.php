@@ -49,7 +49,7 @@
 		</div>
 		
 		<div id="infos_etablissements">
-			<h1>Etablissement</h1>
+			<h1>Etablissement <a href="" class="msg_aide" data-msg="help_popup_mandat_etablissements" title="Message aide"></a></h1>
 			<p class="intro">Veuillez ajouter vos établissements</p>
 			<?php 
 				include_partial('templateEtablissement');

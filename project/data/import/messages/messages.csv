@@ -45,3 +45,13 @@
 "help_popup_drm_stockfin_warrante";"Vin sous contrat de stockage, sous engagement de garantie ou faisant l'objet d'une saisie judiciaire. Les vins concernés ne peuvent ni sortir du chais ni être vendus."
 "help_popup_drm_stockfin_instance";"Vins en instance de revendication en début de mois moins les vins revendiques durant le mois."
 "help_popup_drm_stockfin_commercialisable";"Organisme de cautionnement (banque), nécessite une validation par les douanes."
+"help_popup_mandat_siret";
+"help_popup_mandat_etablissements";
+"help_popup_mandat_cni";
+"help_popup_mandat_cvi";
+"help_popup_mandat_num_accises";
+"help_popup_mandat_tva_intracommunautaire";
+"help_popup_vrac_statut";
+"help_popup_vrac_type";
+"help_popup_vrac_visa";
+"help_popup_vrac_mentions";

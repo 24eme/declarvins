@@ -11,7 +11,7 @@
 	</div>
 	<div class="ligne_form">
 		<?php echo $form['siret_cni']->renderError() ?>
-		<?php echo $form['siret_cni']->renderLabel() ?>
+		<?php echo $form['siret_cni']->renderLabel('SIRET*: <a href="" class="msg_aide" data-msg="help_popup_mandat_siret" title="Message aide"></a>') ?>
 		<?php echo $form['siret_cni']->render() ?>
 	</div>
 	<?php if ($supprimer): ?>
