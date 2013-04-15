@@ -12,7 +12,9 @@ class DAIDSCampagneForm extends sfForm
 	public function configure() 
 	{    
         $this->setWidgets(array(
-            'campagne'   => new WidgetFormCampagne()
+            'campagne'   => new sfWidgetFormChoice(array(
+        						'choices' => $this->getCampagneChoices(),
+        		)) //WidgetFormCampagne()
         ));
 
         $this->setValidators(array(
@@ -21,5 +23,15 @@ class DAIDSCampagneForm extends sfForm
         
         $this->widgetSchema->setNameFormat('create_daids[%s]');
         $this->validatorSchema->setPostValidator(new DAIDSCampagneValidator(array('etablissement' => $this->etablissement)));
+    }
+    
+    public function getCampagneChoices()
+    {
+    	$years = range(date('Y') + 1, date('Y') - 10);
+    	$choices = array();
+    	foreach ($years as $year) {
+    		$choices[$year] = 'Août '.$year;
+    	}
+    	return $choices;
     }
 }

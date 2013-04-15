@@ -168,9 +168,9 @@ class contratActions extends sfActions
   {
   	$this->forward404Unless($this->contrat = $this->getUser()->getContrat());
   	if (!$request->getParameter('send', null)) {
-  		$this->sendContratMandat($this->contrat);
   		$this->contrat->valide = 1;
   		$this->contrat->save();
+  		$this->sendContratMandat($this->contrat);
   		$this->redirect('contrat_etablissement_confirmation', array('send' => 'sended'));
   	}
   	$this->form = new CompteModificationEmailForm($this->contrat);

@@ -25,9 +25,9 @@ class CompteDeclarantsView extends acCouchdbView
   		$comptes_format = array();
   		$comptes = $this->findAll();
   		foreach($comptes->rows as $compte) {
-  			if ($compte->key[self::KEY_VALIDE]) {
+  			//if ($compte->key[self::KEY_VALIDE]) {
   				$comptes_format[$compte->key[self::KEY_NUMERO_CONTRAT]] = $this->formatCompte($compte->key, $format);
-  			}
+  			//}
         }
         ksort($comptes_format);
 

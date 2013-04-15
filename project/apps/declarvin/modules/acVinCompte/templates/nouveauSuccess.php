@@ -14,7 +14,7 @@
 		<h1><strong>Création de compte</strong></h1>
 		<p>
 			Bonjour <?php echo $contrat->nom ?> <?php echo $contrat->prenom ?>,<br />
-			Veuillez saisir ici vos identifiants et mots de passe qui vous serviront à vous connecter sur la plateforme déclarative des vins du Rhône, de Provence et du Sud-Est.
+			Veuillez créer un identifiant de compte qui vous servira à vous connecter sur la plateforme déclarative des vins du Rhône, de Provence et du Sud-Est.
 			<br /><br /><br /><br />
 		</p>
 		<div class="col">
