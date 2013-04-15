@@ -3,12 +3,12 @@
 	<table id="tableau_recap" class="visualisation_contrat">    
 	    <thead>
 	        <tr>
-	        	<th style="width: auto;">Statut</th>
+	        	<th style="width: auto;">Statut<br /><a href="" class="msg_aide" data-msg="help_popup_vrac_statut" title="Message aide"></a></th>
 	        	<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <th>Mode de saisie</th>
                 <?php endif; ?>
-	            <th class="type">Type</th>
-	            <th>N° de Visa</th>
+	            <th class="type">Type<br /><a href="" class="msg_aide" data-msg="help_popup_vrac_type" title="Message aide"></a></th>
+	            <th>N° de Visa<br /><a href="" class="msg_aide" data-msg="help_popup_vrac_visa" title="Message aide"></a></th>
 	            <th>Soussignés</th>   
 	            <th>Produit</th>
 	            <th>Vol. enlevé. / Vol. prop.</th>

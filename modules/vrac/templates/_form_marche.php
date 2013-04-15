@@ -23,7 +23,7 @@
             </div>
             <div class="section_label_strong">
                 <?php echo $form['mentions']->renderError() ?>
-                <?php echo $form['mentions']->renderLabel() ?>
+                <?php echo $form['mentions']->renderLabel('Mentions: <a href="" class="msg_aide" data-msg="help_popup_vrac_mentions" title="Message aide"></a>') ?>
                 <?php echo $form['mentions']->render() ?>
             </div>
         	<div class="section_label_strong">
