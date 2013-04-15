@@ -34,6 +34,11 @@ class ValidatorCampagne extends sfValidatorBase
    */
   protected function doClean($value)
   {
+  	if (!is_array($value)) {
+  		$year = $value;
+  		$value = array('start_year' => $year - 1, 'end_year' => $year);
+  	}
+  	
     // check campagne format
     if (is_string($value) && $regex = $this->getOption('campagne_format'))
     {
