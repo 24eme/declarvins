@@ -1757,6 +1757,7 @@ p#date_drm {
 }
 #principal .tableau_ajouts_liquidations .recap_produit { position:relative; }
 #principal .tableau_ajouts_liquidations .recap_produit .btn { text-align:right; }
+#principal .tableau_ajouts_liquidations + .ligne_btn { text-align:right; }
 #principal .tableau_ajouts_liquidations table {
   border-collapse:separate;
   border-spacing:3px;
