@@ -1788,6 +1788,7 @@ p#date_drm {
   text-align:left;
   width:165px;
 }
+#principal .tableau_ajouts_liquidations table tbody td a:hover { color:#86005b; }
 #principal .tableau_ajouts_liquidations table tbody td a.supprimer {
   height:13px;
   width:13px;
