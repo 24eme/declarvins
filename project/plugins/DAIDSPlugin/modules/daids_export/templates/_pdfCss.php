@@ -312,9 +312,4 @@
 	{
 		border-bottom-width: 3px;
 	}
-	
-	table#vins_propriete
-	{
-		background: red;
-	}
 </style>
