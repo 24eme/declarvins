@@ -409,6 +409,7 @@ button.btn_prec, button.btn_prec span, button.btn_suiv, button.btn_suiv span { h
 }
 .btn_telecharger:hover, .btn_telecharger:focus { text-decoration:none; }
 .btn_telecharger:hover, .btn_telecharger:focus { background-color:#494949; }
+.lien_declarvin { text-decoration:underline; }
 .lien_notice { font-size:12px; }
 a.msg_aide {
   -webkit-opacity:0.5;

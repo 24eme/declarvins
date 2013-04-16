@@ -106,18 +106,20 @@
 		<?php endwhile; ?>
 	<?php endforeach; ?>
 	<h2>Vins de la propriété</h2>
-	<table class="triple_col bloc_bottom" style="width: 100%;">
+	<table id="vins_propriete" class="triple_col bloc_bottom">
 		<tr>
-			<td class="col_left" style="width: 33.3%;">
-				<h2><?php echo $daids->entrepots->entrepot_a->libelle ?><?php if ($daids->entrepots->entrepot_a->principal):?> (principal)<?php endif; ?></h2>
-				<p><?php echo $daids->entrepots->entrepot_a->commentaires ?><br /></p>
+			<th><h2><?php echo $daids->entrepots->entrepot_a->libelle ?><?php if ($daids->entrepots->entrepot_a->principal):?> (principal)<?php endif; ?></h2></th>
+			<th><h2><?php echo $daids->entrepots->entrepot_b->libelle ?><?php if ($daids->entrepots->entrepot_b->principal):?> (principal)<?php endif; ?></h2></th>
+			<th><h2><?php echo $daids->entrepots->entrepot_c->libelle ?><?php if ($daids->entrepots->entrepot_c->principal):?> (principal)<?php endif; ?></h2></th>
+		</tr>
+		<tr>
+			<td class="col_left">
+				<p><?php echo $daids->entrepots->entrepot_a->commentaires ?></p>
 			</td>
-			<td class="col_center" style="width: 33.3%;">
-				<h2><?php echo $daids->entrepots->entrepot_b->libelle ?><?php if ($daids->entrepots->entrepot_b->principal):?> (principal)<?php endif; ?></h2>
+			<td class="col_center">
 				<p><?php echo $daids->entrepots->entrepot_b->commentaires ?></p>
 			</td>
-			<td class="col_right" style="width: 33.3%;">
-				<h2><?php echo $daids->entrepots->entrepot_c->libelle ?><?php if ($daids->entrepots->entrepot_c->principal):?> (principal)<?php endif; ?></h2>
+			<td class="col_right">
 				<p><?php echo $daids->entrepots->entrepot_c->commentaires ?></p>
 			</td>
 		</tr>
