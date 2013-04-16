@@ -97,7 +97,7 @@
 	 ******************************************/
 	$.initMasqueColActive = function()
 	{
-		var hauteur = $('#contenu_onglet').position().top;
+		var hauteur = $('#colonnes_dr').position().top;
 		masqueColActive = $('<div id="masque_col_active"></div>').height(hauteur).hide();
 		
 		$('#contenu').append(masqueColActive);
