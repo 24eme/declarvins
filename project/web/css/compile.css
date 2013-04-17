@@ -1138,6 +1138,12 @@ a:hover { text-decoration:underline; }
   margin:0 5px 0 0;
   vertical-align:middle;
 }
+#creation_compte #btn_etape_dr .btn_ajouter, #creation_compte .ligne_btn .btn_ajouter {
+  display:inline-block;
+  height:auto;
+  text-transform:none;
+}
+#creation_compte #btn_etape_dr .btn_ajouter:hover, #creation_compte .ligne_btn .btn_ajouter:hover { text-decoration:underline; }
 #creation_compte .ligne_btn {
   margin:34px 0 0;
   right:23px;
@@ -1156,22 +1162,6 @@ a:hover { text-decoration:underline; }
   line-height:26px;
   padding:0 17px 0 15px;
 }
-#creation_compte .ligne_btn .btn_ajouter {
-  background-repeat:no-repeat;
-  border:1px solid;
-  color:#ffffff;
-  display:inline-block;
-  height:26px;
-  line-height:26px;
-  background-color:#86005b;
-  border-color:#494949;
-  background-image:url(../images/boutons/btn_ajouter.png);
-  background-position:7px center;
-  margin:0 10px 0 0;
-  padding:0 10px 0 30px;
-}
-#creation_compte .ligne_btn .btn_ajouter:hover, #creation_compte .ligne_btn .btn_ajouter:focus { text-decoration:none; }
-#creation_compte .ligne_btn .btn_ajouter:hover, #creation_compte .ligne_btn .btn_ajouter:focus { background-color:#494949; }
 #creation_compte .ligne_btn .btn_supprimer {
   background-repeat:no-repeat;
   border:1px solid;
@@ -1189,6 +1179,7 @@ a:hover { text-decoration:underline; }
 }
 #creation_compte .ligne_btn .btn_supprimer:hover, #creation_compte .ligne_btn .btn_supprimer:focus { text-decoration:none; }
 #creation_compte .ligne_btn .btn_supprimer:hover, #creation_compte .ligne_btn .btn_supprimer:focus { background-color:#494949; }
+#creation_compte #btn_etape_dr .btn_ajouter { margin:5px 0 0 460px; }
 #creation_compte #infos_etablissements {
   margin:15px 0 0;
   position:relative;
@@ -1790,6 +1781,10 @@ p#date_drm {
   width:165px;
 }
 #principal .tableau_ajouts_liquidations table tbody td.num_contrat a:hover { color:#86005b; }
+#principal .tableau_ajouts_liquidations table tbody td .statut {
+  display:inline-block;
+  margin-right:5px;
+}
 #principal .tableau_ajouts_liquidations table tbody td a.supprimer {
   height:13px;
   width:13px;

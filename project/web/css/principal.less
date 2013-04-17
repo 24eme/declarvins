@@ -26,16 +26,16 @@
 		margin: 0 0 15px;
 	}
 
-        .txt-espace { line-height:18px; }
+	.txt-espace { line-height:18px; }
 
-        ul{ margin-top: 5px;}
+	ul{ margin-top: 5px;}
 
-        ul li
-        { 
-                line-height:18px;
-                list-style: square;
-                margin: 0 0 0 25px;
-        }
+	ul li
+	{ 
+			line-height:18px;
+			list-style: square;
+			margin: 0 0 0 25px;
+	}
 	
 	.col
 	{
@@ -115,11 +115,27 @@
 			}
 		}
 	}
+
+	#btn_etape_dr,
+	.ligne_btn
+	{
+		.btn_ajouter
+		{
+			display: inline-block;
+			height: auto;
+			text-transform: none;
+
+			&:hover
+			{
+				text-decoration: underline;
+			}
+		}
+	}
 	
 	.ligne_btn 
 	{
 		margin: 34px 0 0;
-                right: 23px;
+		right: 23px;
 		
 		button, a
 		{
@@ -138,15 +154,6 @@
 			line-height: 26px;
 			padding: 0 17px 0 15px;
 		}
-		
-		.btn_ajouter
-		{
-			.btn_violet;
-			background-image: url(../images/boutons/btn_ajouter.png);
-			background-position: 7px center;
-			margin: 0 10px 0 0;
-			padding: 0 10px 0 30px;
-		}
 
 		.btn_supprimer
 		{
@@ -154,8 +161,16 @@
 			background-image: url(../images/boutons/btn_supprimer.png);
 			background-position: 7px center;
 			padding: 0 10px 0 30px;
-                        margin-right:20px;
-                        text-transform: none;
+			margin-right:20px;
+			text-transform: none;
+		}
+	}
+
+	#btn_etape_dr
+	{
+		.btn_ajouter
+		{
+			margin: 5px 0 0 460px;
 		}
 	}
 	

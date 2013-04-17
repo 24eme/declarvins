@@ -66,7 +66,7 @@
                 </div>
                 <div id="btn_etape_dr">
                     <a href="<?php echo url_for('contrat_etablissement_modification', array('indice' => $etablissement->getKey(), 'recapitulatif' => 1)) ?>" class="btn_prec"><span>Précédent</span></a>
-                    <a href="<?php echo url_for('contrat_etablissement_nouveau') ?>" class="btn_ajouter_etab">Ajouter un nouvel établissement</a>
+                    <a href="<?php echo url_for('contrat_etablissement_nouveau') ?>" class="btn_ajouter">Ajouter un nouvel établissement</a>
                     <a href="<?php echo url_for('contrat_etablissement_confirmation') ?>" class="btn_suiv"><span>Valider</span></a>
                 </div>
             </div>
