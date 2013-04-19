@@ -36,7 +36,7 @@
 	<td class="premier">Adresse et n° d'EA du chai : 
 		<?php echo $drm->declarant->siege->adresse ?>, <?php echo $drm->declarant->siege->code_postal ?> <?php echo $drm->declarant->siege->commune ?> <?php echo $drm->declarant->siege->pays ?>
 	</td>
-	<td>Accises : <?php echo $drm->declarant->no_accises ?></td>
+	<td>&nbsp;</td>
 </tr>
 <tr>
 	<td class="premier">Service des douanes de : <?php echo $drm->declarant->service_douane ?></td>
