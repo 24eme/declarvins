@@ -66,9 +66,9 @@
 				<p>Commune : <?php echo $vrac->mandataire->commune ?></p>
 				<p>Pays : <?php echo $vrac->mandataire->pays ?></p>
 				<p>Tel : <?php echo $vrac->mandataire->telephone ?>&nbsp;&nbsp;&nbsp;Fax : <?php echo $vrac->mandataire->fax ?></p>
-				<?php if ($vrac->valide->date_validation_courtier): ?>
+				<?php if ($vrac->valide->date_validation_mandataire): ?>
 				<br />
-				<p>Signé le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_validation_courtier)); ?>, sur Déclarvins</p>
+				<p>Signé le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_validation_mandataire)); ?>, sur Déclarvins</p>
 				<?php endif; ?>
 			</td>
 			<?php endif; ?>

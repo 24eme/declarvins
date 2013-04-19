@@ -232,7 +232,7 @@ Vrac:
             date_saisie: {  }
             date_validation_vendeur: {  }
             date_validation_acheteur: {  }
-            date_validation_courtier: {  }
+            date_validation_mandataire: {  }
             identifiant: {  }
             statut: { }
       nature_document: {  }
