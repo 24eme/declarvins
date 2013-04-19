@@ -45,7 +45,7 @@ class acCouchdbFormDocable
 		$this->form->setDefault(self::FIELDNAME_REVISION, $this->doc->get('_rev'));
 	}
 
-	protected function remove()
+	public function remove()
 	{
 		unset($this->form[self::FIELDNAME_REVISION]);
 	}

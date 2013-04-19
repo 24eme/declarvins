@@ -131,25 +131,8 @@ class acCouchdbClient extends couchClient {
      * @see method find()
      */
     public function retrieveDocumentById($id, $hydrate = self::HYDRATE_DOCUMENT) {
-        try {
-            if ($hydrate == self::HYDRATE_DOCUMENT) {
-                $data = $this->getDoc($id);
-
-                return $this->createDocumentFromData($data);
-            } elseif ($hydrate == self::HYDRATE_JSON) {
-
-                return $this->getDoc($id);
-            } elseif ($hydrate == self::HYDRATE_ARRAY) {
-
-                return $this->asArray()->getDoc($id);
-            } else {
-                
-                throw new acCouchdbException('This hydrate method does not exist');
-            }
-        } catch (couchException $exc) {
-
-            return null;
-        }
+        
+        return $this->find($id, $hydrate);
     }
 
     /**
