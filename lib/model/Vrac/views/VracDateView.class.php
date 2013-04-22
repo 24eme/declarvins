@@ -2,7 +2,7 @@
 class VracDateView extends acCouchdbView
 {
 	const KEY_INTERPRO_ID = 0;
-	const KEY_DATES_AISIE = 1;
+	const KEY_DATES_SAISIE = 1;
 	const KEY_VRAC_ID = 2;
 	const KEY_PRODUIT_HASH = 3;
 
