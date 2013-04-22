@@ -35,6 +35,9 @@ streamDRMEdi:
 streamVracEdi:
   url: /edi/vrac/:interpro/:datedebut
   param: {module: edi, action: streamVrac}
+streamVracEdi:
+  url: /edi/daids/:interpro/:datedebut
+  param: {module: edi, action: streamDAIDS}
 # OK
 viewDRMEdi:
   url: /edi/drm/:identifiant/:annee/:mois/:rectificative
