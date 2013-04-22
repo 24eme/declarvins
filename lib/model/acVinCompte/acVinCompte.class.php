@@ -55,4 +55,13 @@ abstract class acVinCompte extends BaseacVinCompte
         $hash = "{SSHA}" . base64_encode(pack("H*", sha1($mot_de_passe . $salt)) . $salt);        
         return $hash;
     }
+    
+	public static function compareMotDePasseSSHA($ldapMdp, $mdp) 
+    {
+		$ohash = base64_decode(str_replace('{SSHA}', '', $ldapMdp));
+		$osalt = substr($ohash, 20);
+		$ohash = substr($ohash, 0, 20);
+		$nhash = pack("H*", sha1($mdp . $osalt));
+    	return $ohash == $nhash;
+    }
 }
