@@ -13,8 +13,9 @@ class ValidatorProfil extends sfValidatorSchema {
         if ($values['mdp']) {
         	if ($values['mdp1']) {
             	$compte = _CompteClient::getInstance()->retrieveByLogin($values['login']);
-            	if ($compte->mot_de_passe == acVinCompte::getMotDePasseSSHA($values['mdp']))
+            	if (acVinCompte::compareMotDePasseSSHA($compte->mot_de_passe, $values['mdp'])) {
                 	return $values;
+            	}
         	}
         }
         elseif (!$values['mdp1']) {

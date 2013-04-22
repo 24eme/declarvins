@@ -17,10 +17,10 @@ class LibelleAdminForm extends sfForm {
 		'libelle' => new sfWidgetFormTextarea()
 	));
 	$this->setValidators(array(
-		'libelle' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire'))
+		'libelle' => new sfValidatorString(array('required' => false), array('required' => 'Champ obligatoire'))
 	));
 	$this->widgetSchema->setLabels(array(
-		'libelle' => 'Libellé*: '
+		'libelle' => 'Libellé: '
 	));
 	$this->setDefault('libelle', $this->object->get($this->key));
 	$this->widgetSchema->setNameFormat('libelle[%s]');

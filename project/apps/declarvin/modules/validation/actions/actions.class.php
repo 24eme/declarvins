@@ -63,7 +63,7 @@ class validationActions extends sfActions {
             $this->compte = $this->formCompte->save();  	
             $ldap = new Ldap();
   			$ldap->saveCompte($this->compte);
-            $this->getUser()->setFlash('notification_compte', 'Les identifiants ont bien été mis à jour.');
+            $this->getUser()->setFlash('notice', 'Les identifiants ont bien été mis à jour.');
             $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
         }
         $this->setTemplate('fiche');
@@ -91,9 +91,9 @@ class validationActions extends sfActions {
         		$this->compte->save();
         		$ldap = new Ldap();
         		$ldap->saveCompte($this->compte);
-        		$this->getUser()->setFlash('notification_general', 'Compte validé');
+        		$this->getUser()->setFlash('notice', 'Compte validé');
         	} else {
-        		$this->getUser()->setFlash('notification_general', 'Liaisons interpro faites');
+        		$this->getUser()->setFlash('notice', 'Liaisons interpro faites');
         	}
         	$this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
         }
@@ -126,7 +126,7 @@ class validationActions extends sfActions {
         $this->compte->save();
 		$ldap = new Ldap();
 		$ldap->saveCompte($this->compte);
-        $this->getUser()->setFlash('notification_general', 'Compte validé');
+        $this->getUser()->setFlash('notice', 'Compte validé');
         $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
         $this->setTemplate('fiche');
     }
@@ -151,7 +151,7 @@ class validationActions extends sfActions {
         	$compte->interpro->add($interpro->get('_id'))->setStatut(_Compte::STATUT_ATTENTE);
 		}
 		$compte->save();
-        $this->getUser()->setFlash('notification_general', "L'établissement a bien été lié");
+        $this->getUser()->setFlash('notice', "L'établissement a bien été lié");
         $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
     }
 
@@ -169,7 +169,7 @@ class validationActions extends sfActions {
         	$compte->setStatut(_Compte::STATUT_ARCHIVE);
         }
         $compte->save();
-        $this->getUser()->setFlash('notification_general', "L'établissement a bien été délié");
+        $this->getUser()->setFlash('notice', "L'établissement a bien été délié");
         $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
     }
 	  public function executePdf(sfWebRequest $request)
