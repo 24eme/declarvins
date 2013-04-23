@@ -64,15 +64,15 @@ class acVinLdap
      */
     public function save($uid, $infos)
     {
-        $con = $this->connect();
-        if($con) {
-        	if ($this->exist($uid)) {
-            	return $this->update($uid, $infos);
-        	} else {
-        		return $this->add($uid, $infos);
-        	}
-        }
-        return false;
+      $con = $this->connect();
+      if($con) {
+	if ($this->exist($uid)) {
+	  return $this->update($uid, $infos);
+	} else {
+	  return $this->add($uid, $infos);
+	}
+      }
+      return false;
     }
     
     /**
@@ -85,7 +85,10 @@ class acVinLdap
     {
         $con = $this->connect();
         if($con) {
-            $add = ldap_add($con, 'uid='.$uid.',ou=People,'.$this->dc, $infos);
+            $add = @ldap_add($con, 'uid='.$uid.',ou=People,'.$this->dc, $infos);
+	    if (!$add) {
+	      throw new sfException(ldap_error($con));
+	    }
             ldap_unbind($con);
             return $add;
         }
@@ -102,7 +105,10 @@ class acVinLdap
     {
         $con = $this->connect();
         if($con) {
-            $update = ldap_modify($con, 'uid='.$uid.',ou=People,'.$this->dc, $infos);
+            $update = @ldap_modify($con, 'uid='.$uid.',ou=People,'.$this->dc, $infos);
+	    if (!$update) {
+	      throw new sfException(ldap_error($con));
+	    }
             ldap_unbind($con);
             return $update;
         }
