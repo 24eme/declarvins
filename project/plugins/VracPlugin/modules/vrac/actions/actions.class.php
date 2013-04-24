@@ -9,12 +9,12 @@ class vracActions extends acVinVracActions
 	protected function saisieTerminee($vrac, $interpro) {
 		$acteurs = VracClient::getInstance()->getActeurs();
 		$saisisseur = $vrac->vous_etes;
-		if ($saisisseur && in_array($saisisseur, $acteurs)) {
+		/*if ($saisisseur && in_array($saisisseur, $acteurs)) {
 			if ($email = $vrac->get($saisisseur)->email) {
 				$etablissement = EtablissementClient::getInstance()->find($vrac->get($saisisseur.'_identifiant'));
 				Email::getInstance()->vracSaisieTerminee($vrac, $etablissement, $email);
 			}
-		}
+		}*/
 		unset($acteurs[array_search($saisisseur, $acteurs)]);
 		if (!$vrac->mandataire_exist) {
 			unset($acteurs[array_search(VracClient::VRAC_TYPE_COURTIER, $acteurs)]);

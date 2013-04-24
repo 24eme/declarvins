@@ -1,6 +1,6 @@
 <?php echo include_partial('Email/headerMail') ?>
 
-Entreprise : <?php echo ($vrac->{$vrac->vous_etes}->raison_sociale)? $vrac->{$vrac->vous_etes}->raison_sociale : $vrac->{$vrac->vous_etes}->nom; ?><br /><br />
+Entreprise : <?php echo $vrac->{$acteur}->raison_sociale.' '.$vrac->{$acteur}->nom.' '.$vrac->{$acteur}->commune; ?><br /><br />
 Madame, Monsieur,<br /><br />
 L'entreprise <?php echo ($vrac->{$vrac->vous_etes}->raison_sociale)? $vrac->{$vrac->vous_etes}->raison_sociale : $vrac->{$vrac->vous_etes}->nom; ?> a saisi un contrat de transaction <?php echo strtolower($vrac->type) ?> vous concernant.<br /><br />
 Le contrat saisi porte sur la transaction suivante :<br />

@@ -22,7 +22,10 @@
                 <label>Adresse e-mail:</label> <?php echo $compte->email; ?>
             </div>
             <?php if ($compte->login): ?>
-            <div class="ligne_form  ligne_form_alt">
+            <div class="ligne_form ligne_form_alt">
+                <label>Login:</label> <?php echo $compte->login; ?>
+            </div>
+            <div class="ligne_form">
                <label>Mot de passe:</label> ******
             </div>
             <?php endif; ?>

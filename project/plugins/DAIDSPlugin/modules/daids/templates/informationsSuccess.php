@@ -57,6 +57,10 @@ $(document).ready(function() {
 						<span class="valeur"><?php echo $etablissement->no_tva_intracommunautaire ?></span>
 					</div>
 					<div class="ligne_form">
+						<label for="champ_9">Numéro d’Accise :</label>
+						<span class="valeur"><?php echo $etablissement->no_accises ?></span>
+					</div>
+					<div class="ligne_form">
 						<label for="champ_6">Adresse du chai :</label>
 						<span class="valeur"><?php echo $etablissement->siege->adresse ?><br /><?php echo $etablissement->siege->code_postal ?> <?php echo $etablissement->siege->commune ?> <?php echo $etablissement->siege->pays ?></span>
 					</div>
@@ -67,10 +71,6 @@ $(document).ready(function() {
 					<div class="ligne_form">
 						<label for="champ_8">Service des douanes :</label>
 						<span class="valeur"><?php echo $etablissement->service_douane ?></span>
-					</div>
-					<div class="ligne_form">
-						<label for="champ_9">Numéro d’Accise :</label>
-						<span class="valeur">1654546764</span>
 					</div>
 					<ol class="entrepots">
 						<?php foreach ($formEntrepots['entrepots'] as $key => $formEntrepot): ?>
