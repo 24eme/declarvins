@@ -155,7 +155,9 @@
 	<?php endif; ?>
 	<p>Volume total : <?php echo $vrac->volume_propose ?>&nbsp;hl</p>
 	<p>Observations : <?php echo $vrac->commentaires ?></p>
+	<?php if ($configurationVrac->getInformationsComplementaires()): ?>
 	<h2>Informations complémentaires</h2>
 	<?php echo $configurationVrac->getInformationsComplementaires(ESC_RAW) ?>
+	<?php endif; ?>
 </body>
 </html>

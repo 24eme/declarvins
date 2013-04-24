@@ -239,8 +239,10 @@
 		</table>
 
 	</div>
+	<?php if ($configurationVrac->getInformationsComplementaires()): ?>
 	<h2>Informations complémentaires</h2>
 	<?php echo $configurationVrac->getInformationsComplementaires(ESC_RAW) ?>
+	<?php endif; ?>
 	<?php endif; ?>
 </body>
 </html>
