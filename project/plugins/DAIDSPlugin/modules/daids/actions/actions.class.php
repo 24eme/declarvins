@@ -74,7 +74,7 @@ class daidsActions extends sfActions
       			$daids->save();
       			$this->redirect('daids_informations', $daids);
   	  		} else {
-  	  			$this->getUser()->setFlash('error_campagne', 'La DRM de juillet n\'a pas été déclarée pour la campagne '.$values['campagne']);
+  	  			$this->getUser()->setFlash('error_campagne', 'Aucune DRM saisie pour la campagne '.$values['campagne']);
   	  			$this->redirect('daids_mon_espace', $this->etablissement);
   	  		}
   	  	}

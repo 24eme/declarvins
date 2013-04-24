@@ -7,6 +7,6 @@
         <?php echo $form['interpro']->render() ?>
     </div>
     <div class="ligne_form_btn">
-		<button class="btn_valider" type="submit"><span>Lier/Délier</span></button>
+		<button class="btn_valider" type="submit"><span>Valider</span></button>
 	</div>
 </form> 
