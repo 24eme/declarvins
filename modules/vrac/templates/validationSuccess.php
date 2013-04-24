@@ -21,7 +21,7 @@
                 
                 <div class="ligne_form_btn">
 					<?php if (!$vrac->isValide() && !$dateValidationActeur): ?>
-					<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat">Supprimer</a>
+					<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat">Refuser</a>
                 	<form action="<?php echo url_for('vrac_validation', array('sf_subject' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>" method="post" id="vrac_condition">
 						<?php echo $form->renderHiddenFields() ?>
 						<?php echo $form->renderGlobalErrors() ?>
