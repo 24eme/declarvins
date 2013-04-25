@@ -157,7 +157,19 @@ class ImportEtablissementsCsv {
         }
         $etab->nom = trim($line[EtablissementCsv::COL_NOM]);
         $etab->raison_sociale = trim($line[EtablissementCsv::COL_RAISON_SOCIALE]);
-        $etab->email = trim($line[EtablissementCsv::COL_EMAIL]);
+        $validateur = new sfValidatorEmail(array('required' => false));
+    	try {
+		    $etab->email = $validateur->clean(trim($line[EtablissementCsv::COL_EMAIL]));
+		} catch (sfValidatorError $e) {
+        	if (isset($this->_errors[$ligne])) {
+        		$merge = $this->_errors[$ligne];
+        		$merge[] = 'Colonne (indice '.(EtablissementCsv::COL_EMAIL + 1).') "email" non valide';
+        		$this->_errors[$ligne] = $merge;
+        	} else {
+        		$this->_errors[$ligne] = array('Colonne (indice '.(EtablissementCsv::COL_EMAIL + 1).') "email" non valide');
+        	}
+        	throw new sfException('has errors');
+		}
         $etab->telephone = trim($line[EtablissementCsv::COL_TELEPHONE]);
         $etab->fax = trim($line[EtablissementCsv::COL_FAX]);
         $etab->siege->adresse = trim($line[EtablissementCsv::COL_ADRESSE]);
@@ -258,7 +270,19 @@ class ImportEtablissementsCsv {
     	$compte->nom = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_NOM]);
         $compte->prenom = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_PRENOM]);
         $compte->fonction = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_FONCTION]);
-        $compte->email = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_EMAIL]);
+        $validateur = new sfValidatorEmail(array('required' => false));
+    	try {
+		    $compte->email = $validateur->clean(trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_EMAIL]));
+		} catch (sfValidatorError $e) {
+        	if (isset($this->_errors[$ligne])) {
+        		$merge = $this->_errors[$ligne];
+        		$merge[] = 'Colonne (indice '.(EtablissementCsv::COL_CHAMPS_COMPTE_EMAIL + 1).') "email" non valide';
+        		$this->_errors[$ligne] = $merge;
+        	} else {
+        		$this->_errors[$ligne] = array('Colonne (indice '.(EtablissementCsv::COL_CHAMPS_COMPTE_EMAIL + 1).') "email" non valide');
+        	}
+        	throw new sfException('has errors');
+		}
         $compte->telephone = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_TELEPHONE]);
         $compte->fax = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_FAX]);
         return $compte;
