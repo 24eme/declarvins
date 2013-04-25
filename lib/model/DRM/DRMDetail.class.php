@@ -143,7 +143,8 @@ class DRMDetail extends BaseDRMDetail {
 	        	$this->douane->taux = 0;
 	        }
         }
-        $this->cvo->volume_taxable = $this->douane->volume_taxable = $this->getVolumeTaxable();
+        $this->cvo->volume_taxable = $this->getVolumeTaxable();
+        $this->douane->volume_taxable = $this->getDouaneVolumeTaxable();
     }
     
     public function getVolumeTaxable()
@@ -155,6 +156,16 @@ class DRMDetail extends BaseDRMDetail {
     		$mergeEntrees = DRMDroits::getDroitEntreesInterRhone();
     	}
     	return ($this->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)) - $this->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)));
+    }
+    
+    public function getDouaneVolumeTaxable()
+    {
+    	$mergeSorties = array();
+    	$mergeEntrees = array();
+    	if ($this->getDocument()->getInterpro()->getKey() == Interpro::INTERPRO_KEY.Interpro::INTER_RHONE_ID) {
+    		$mergeEntrees = DRMDroits::getDroitEntreesInterRhone();
+    	}
+    	return ($this->sommeLignes(DRMDroits::getDouaneDroitSorties()) - $this->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)));
     }
 
     public function nbToComplete() {
