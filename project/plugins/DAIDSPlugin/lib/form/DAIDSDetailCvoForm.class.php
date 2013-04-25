@@ -15,5 +15,6 @@ class DAIDSDetailCvoForm extends acCouchdbObjectForm
     {
     	parent::doUpdateObject($values);
         $this->getObject()->getDocument()->update(array('cvo_manuel' => true));
+        $this->getObject()->getDocument()->updateCvo();
     }
 }

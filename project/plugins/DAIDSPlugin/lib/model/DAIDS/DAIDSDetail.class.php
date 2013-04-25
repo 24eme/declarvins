@@ -97,19 +97,25 @@ class DAIDSDetail extends BaseDAIDSDetail {
         $this->stocks_moyen->non_vinifie->volume = $this->stock_mensuel_theorique - $this->stocks_moyen->vinifie->volume;
         $this->stocks_moyen->conditionne->total = $this->stocks_moyen->conditionne->taux * $this->stocks_moyen->conditionne->volume;
         $this->total_pertes_autorisees = $this->stocks_moyen->vinifie->total + $this->stocks_moyen->non_vinifie->total + $this->stocks_moyen->conditionne->total;
-        $this->total_manquants_taxables = $this->total_manquants_excedents - $this->total_pertes_autorisees;
+        $this->total_manquants_taxables = (-1 * $this->total_manquants_excedents) - $this->total_pertes_autorisees;
         if ($this->total_manquants_taxables < 0) {
         	$this->total_manquants_taxables = 0;
         }
-        $this->total_douane = $this->douane->taux * $this->total_manquants_taxables * -1;
+        $this->total_douane = $this->douane->taux * $this->total_manquants_taxables;
+        if ($this->total_douane < 0) {
+        	$this->total_douane = 0;
+        }
         if (!isset($params['cvo_manuel']) || !$params['cvo_manuel']) {
-        	$this->total_cvo = $this->cvo->taux * $this->total_manquants_taxables * -1;
+        	$this->total_cvo = $this->cvo->taux * $this->total_manquants_taxables;
+        }
+        if ($this->total_cvo < 0) {
+        	$this->total_cvo = 0;
         }
     }
     
     public function getCvoCalcul()
     {
-    	return ($this->cvo->taux * $this->total_manquants_taxables * -1);
+    	return ($this->cvo->taux * $this->total_manquants_taxables);
     }
     
     public function isUpdatedCvo()

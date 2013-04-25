@@ -189,7 +189,7 @@ class daidsActions extends sfActions
         	$this->getResponse()->setContentType('text/json');
         	$this->form->bind($request->getParameter($this->form->getName()));
         	if($this->form->isValid()) {
-        		$this->form->save();
+        		$detail = $this->form->save();
         		$this->getUser()->setFlash("notice", 'Cotisations interprofessionnelles mises à jour avec succès.');
             	return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('daids_visualisation', $this->daids))));
         	} else {

@@ -103,7 +103,7 @@
 				<?php echo $form['total_pertes_autorisees']->render(array('class' => 'texte', 'data-champs' => $dataChamps, 'data-calcul' => 'somme', 'data-val-defaut' => sprintFloat($form->getObject()->total_pertes_autorisees))) ?>
 			</p>
 			<p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_manquants_taxables') ?>">
-				<?php echo $form['total_manquants_taxables']->render(array('class' => 'texte not_null_value', 'data-champs' => '#'.$form['total_manquants_excedents']->renderId().';#'.$form['total_pertes_autorisees']->renderId(), 'data-calcul' => 'diff', 'data-val-defaut' => sprintFloat($form->getObject()->total_manquants_taxables))) ?>
+				<?php echo $form['total_manquants_taxables']->render(array('class' => 'texte inverse_value not_null_value', 'data-champs' => '#'.$form['total_pertes_autorisees']->renderId().';#'.$form['total_manquants_excedents']->renderId(), 'data-calcul' => 'somme', 'data-val-defaut' => sprintFloat($form->getObject()->total_manquants_taxables))) ?>
 			</p>
 
             <div class="col_btn">

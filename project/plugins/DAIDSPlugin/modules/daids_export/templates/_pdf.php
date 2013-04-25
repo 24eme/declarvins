@@ -99,6 +99,36 @@
 																	   'hash' => 'total_douane')) ?>
 
 			</table>
+			
+		<div class="legende">
+			<?php while($pagers_code[$certification_key]->getPage() <= $pagers_code[$certification_key]->getLastPage()): ?>
+			<?php $colonnes = $pagers_code[$certification_key]->getResults(); ?>
+			<?php if(count($colonnes) > 0): ?>
+				<h2>Codes produit - <?php echo $certification->getConfig()->libelle ?></h2>
+				<table>
+					<?php $counter=0; foreach($colonnes as $key => $item): ?>
+						<?php if($item): ?>
+						<?php if ($counter == 0): ?>
+						<tr>
+						<?php elseif ($counter == ExportDAIDS::NB_COL_CODES): $counter = 0;?>
+						</tr>
+						<tr>
+						<?php endif; ?>
+						<td>
+							<strong><?php echo strtoupper($item->getCode()) ?></strong>
+				   			<span><?php echo $item->getConfig()->getLibelleFormat(array(), "%g% %a% %l% %co% %ce%") ?></span>
+						</td>
+						<?php endif; ?>
+					<?php $counter++; endforeach; ?>
+					</tr>
+				</table>
+				<?php if ($pagers_code[$certification_key]->getPage() != $pagers_code[$certification_key]->getLastPage()): ?>
+				<hr />
+				<?php endif; ?>
+			<?php endif; ?>
+			<?php $pagers_code[$certification_key]->gotoNextPage(); ?>
+			<?php endwhile; ?>
+		</div>
 		<?php endif; ?>
 
 		<?php $pagers_volume[$certification_key]->gotoNextPage(); ?>
@@ -124,7 +154,6 @@
 			</td>
 		</tr>
 	</table>
-	<hr />
 	<?php if ($daids->valide->date_saisie): ?>
 	<?php while($pager_droits_douane->getPage() <= $pager_droits_douane->getLastPage()): ?>
 		<?php $colonnes = $pager_droits_douane->getResults(); ?>
@@ -183,37 +212,5 @@
 	</table>
 
 	<?php endif; ?>
-	<hr />
-	<div class="legende">
-	<?php foreach($daids->declaration->certifications as $certification_key => $certification): ?>
-		<?php $i = 1; while($pagers_code[$certification_key]->getPage() <= $pagers_code[$certification_key]->getLastPage()): ?>
-		<?php $colonnes = $pagers_code[$certification_key]->getResults(); ?>
-		<?php if(count($colonnes) > 0): ?>
-			<h2>Codes produit - <?php echo $certification->getConfig()->libelle ?></h2>
-			<table>
-				<?php $counter=0; foreach($colonnes as $key => $item): ?>
-					<?php if($item): ?>
-					<?php if ($counter == 0): ?>
-					<tr>
-					<?php elseif ($counter == ExportDAIDS::NB_COL_CODES): $counter = 0;?>
-					</tr>
-					<tr>
-					<?php endif; ?>
-					<td>
-						<strong><?php echo strtoupper($item->getCode()) ?></strong>
-			   			<span><?php echo $item->getConfig()->getLibelleFormat(array(), "%g% %a% %l% %co% %ce%") ?></span>
-					</td>
-					<?php endif; ?>
-				<?php $counter++; endforeach; ?>
-				</tr>
-			</table>
-			<?php if ($pagers_code[$certification_key]->getPage() != $pagers_code[$certification_key]->getLastPage()): ?>
-			<hr />
-			<?php endif; ?>
-		<?php endif; $i++; ?>
-		<?php $pagers_code[$certification_key]->gotoNextPage(); ?>
-		<?php endwhile; ?>
-	<?php endforeach; ?>
-	</div>
 </body>
 </html>

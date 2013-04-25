@@ -38,6 +38,11 @@ class DAIDSDroit extends BaseDAIDSDroit
     $this->volume_taxe += $volume_taxable;
   	$this->total = $this->volume_taxe * $this->taux;
   }
+
+  public function updateTotal($total) 
+  {
+  	$this->total += $total;
+  }
   
   public function getPayable() 
   {
