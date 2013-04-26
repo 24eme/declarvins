@@ -20,12 +20,20 @@ class DeclarantDocument
         return $this->document->declarant;
     }
     
-    public function getEtablissementObject() {
-        if(is_null($this->etablissement)) {
-            $this->etablissement = EtablissementClient::getInstance()->findByIdentifiant($this->getIdentifiant());
+   public function getDeclarantObject() {
+       if(is_null($this->etablissement)) {
+            if (sfConfig::get('app_declarant_class') == "Recoltant") {
+                $this->etablissement = acCouchdbManager::getClient('Recoltant')->retrieveByCvi($this->getIdentifiant());                
+            }else {
+                $this->etablissement = EtablissementClient::getInstance()->findByIdentifiant($this->getIdentifiant());
+            }
         }
 
         return $this->etablissement;
+    }
+    
+    public function getEtablissementObject() {
+        return $this->getDeclarant();
     }
 
     public function storeDeclarant()
@@ -37,12 +45,15 @@ class DeclarantDocument
         }
         $declarant = $this->getDeclarant();
         $declarant->nom = $etablissement->nom;
-        $declarant->raison_sociale = $etablissement->raison_sociale;
+        $declarant->raison_sociale = $etablissement->getRaisonSociale();
         $declarant->cvi = $etablissement->cvi;
-        $declarant->no_accises = $etablissement->no_accises;
-        $declarant->adresse = $etablissement->getSiegeAdresses();
+        $declarant->no_accises = $etablissement->getNoAccises();
+        $declarant->adresse = $etablissement->siege->adresse;
+      if ($etablissement->siege->exist("adresse_complementaire")) {
+	$declarant->adresse .= ' ; '.$etablissement->siege->adresse_complementaire;
+      }
         $declarant->commune = $etablissement->siege->commune;
         $declarant->code_postal = $etablissement->siege->code_postal;
-        $declarant->region = $etablissement->region;
+        $declarant->region = $etablissement->getRegion();
     }
 }
