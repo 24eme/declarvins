@@ -33,7 +33,7 @@ class DeclarantDocument
     }
     
     public function getEtablissementObject() {
-        return $this->getDeclarant();
+        return $this->getDeclarantObject();
     }
 
     public function storeDeclarant()
