@@ -56,6 +56,7 @@ class contratActions extends sfActions
 	            $compte->generateByContrat($contrat);
            		$compte->statut = _Compte::STATUT_FICTIF;
            		$compte->valide = 0;
+        		$compte->contrat_valide = 0;
 	            $compte->save();
                 $contrat->setCompte($compte->get('_id'));
                 $contrat->save();
@@ -170,6 +171,9 @@ class contratActions extends sfActions
   	if (!$request->getParameter('send', null)) {
   		$this->contrat->valide = 1;
   		$this->contrat->save();
+        $compte = $this->contrat->getCompteObject();
+        $compte->contrat_valide = 1;
+        $compte->save();
   		$this->sendContratMandat($this->contrat);
   		$this->redirect('contrat_etablissement_confirmation', array('send' => 'sended'));
   	}
@@ -181,7 +185,6 @@ class contratActions extends sfActions
            $contrat = $this->form->save();
            $compte = $contrat->getCompteObject();
            $compte->email = $contrat->email;
-           $compte->valide = $contrat->valide;
            $compte->save();
            $this->getUser()->setFlash('success', 'Modification prise en compte, vous devriez recevoir un nouvel email');
            $this->redirect('@contrat_etablissement_confirmation');

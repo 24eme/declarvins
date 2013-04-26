@@ -18,6 +18,8 @@ class validationActions extends sfActions {
     public function executeLogin(sfWebRequest $request) {
     	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
         $this->formLogin = new LoginContratForm();
+        $this->comptes_fictif = CompteMandatsView::getInstance()->findByStatut(_Compte::STATUT_FICTIF);
+        $this->comptes_attente = CompteMandatsView::getInstance()->findByStatut(_Compte::STATUT_ATTENTE);
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->formLogin->bind($request->getParameter($this->formLogin->getName()));
             if ($this->formLogin->isValid()) {

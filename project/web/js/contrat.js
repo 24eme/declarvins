@@ -192,6 +192,14 @@ objContrat = {};
 	 ******************************************/
 	$.majEtablissementSousFamille = function()
 	{
+
+		if (objContrat.champFamilles.val() == 'courtier') {
+			$("#contratetablissement_service_douane").val('');
+			$("#contratetablissement_service_douane").parent('.ligne_form').hide();
+		} else {
+			$("#contratetablissement_service_douane").parent('.ligne_form').show();
+		}
+		
 		var objTemplate = {};
 		
 		objContrat.champSousFamillesVal = objContrat.champSousFamilles.val();

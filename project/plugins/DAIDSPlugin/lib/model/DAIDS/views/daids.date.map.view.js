@@ -30,6 +30,15 @@ function(doc) {
 		var daids_id = doc._id;
 		var daids_campagne = (doc.campagne).replace("-", "");
 		var daids_explosed_id = explodeIdDAIDS(daids_id);
+		var daids_precedente_annee_debut = null;
+		var daids_precedente_annee_fin = null;
+		var daids_precedente_version = null;
+		if (doc.precedente) {
+			daids_precedente_explosed_id = explodeIdDAIDS(doc.precedente);
+			daids_precedente_annee_debut = getAnneeDebutByDAIDS(daids_precedente_explosed_id);
+			daids_precedente_annee_fin = getAnneeFinByDAIDS(daids_precedente_explosed_id);
+			daids_precedente_version = getVersionByDAIDS(daids_precedente_explosed_id);
+		}
 		var daids_identifiant = doc.identifiant;
 		var daids_declarant = doc.declarant.raison_sociale;
 		var daids_annee_debut = getAnneeDebutByDAIDS(daids_explosed_id);
@@ -100,6 +109,9 @@ function(doc) {
 			                                		 daids_annee_debut,
 			                                		 daids_annee_fin,
 			                                		 daids_version,
+			                                		 daids_precedente_annee,
+			                                		 daids_precedente_mois,
+			                                		 daids_precedente_version,
 			                                		 certification_libelle,
 			                                		 certification_code,
 			                                		 genre_libelle,
@@ -118,11 +130,13 @@ function(doc) {
 			                                		 codes_label,
 			                                		 detail.label_supplementaire,
 			                                		 detail.stock_theorique,
+			                                		 detail.stock_chais,
 			                                		 detail.stocks.inventaire_chais,
 			                                		 detail.chais_details.entrepot_a,
 			                                		 detail.chais_details.entrepot_b,
 			                                		 detail.chais_details.entrepot_c,
 			                                		 detail.stocks.propriete_tiers,
+			                                		 detail.stock_propriete,
 			                                		 detail.stocks.physique_chais,
 			                                		 detail.stocks.tiers,
 			                                		 detail.stock_propriete_details.reserve,
@@ -137,6 +151,7 @@ function(doc) {
 			                                		 detail.stocks_moyen.non_vinifie.volume,
 			                                		 detail.stocks_moyen.non_vinifie.total,
 			                                		 detail.stocks_moyen.conditionne.volume,
+			                                		 detail.stocks_moyen.conditionne.taux,
 			                                		 detail.stocks_moyen.conditionne.total,
 			                                		 detail.total_pertes_autorisees,
 			                                		 detail.total_manquants_taxables,			                                		 

@@ -85,7 +85,7 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
 	       'comptabilite_code_postal' => new sfValidatorString(array('required' => false)),
 	       'comptabilite_commune' => new sfValidatorString(array('required' => false)),
 	       'comptabilite_pays' => new sfValidatorString(array('required' => false)),
-	       'service_douane' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($douaneChoices))),
+	       'service_douane' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($douaneChoices))),
            'edi' => new ValidatorBoolean(array('required' => true))
        ));
        $xorValidator = new ValidatorXor(null, array('field0' => 'siret', 'field1' => 'cni'),
@@ -93,6 +93,7 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
                      'none' => 'Vous devez renseigner obligatoirement le Siret ou le Cni'));
        
        $this->mergePostValidator($xorValidator);
+       $this->mergePostValidator(new ValidatorContratDouane());
        $this->widgetSchema->setNameFormat('contratetablissement[%s]');
        }
 
