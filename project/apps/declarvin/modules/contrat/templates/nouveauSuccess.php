@@ -65,7 +65,7 @@
                        
 		</div>
                 
-                 
+        <strong class="champs_obligatoires">* Champs obligatoires</strong>
 		<div class="ligne_btn">
             <a href="#" class="btn_ajouter">Ajouter <span>un établissement</span></a>
 		</div>
