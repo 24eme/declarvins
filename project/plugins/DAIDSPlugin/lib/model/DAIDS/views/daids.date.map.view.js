@@ -27,6 +27,7 @@ function(doc) {
 		}
 		
 		var key = 'DETAIL';
+		var key_default = 'DEFAUT';
 		var daids_id = doc._id;
 		var daids_campagne = (doc.campagne).replace("-", "");
 		var daids_explosed_id = explodeIdDAIDS(daids_id);
@@ -47,6 +48,8 @@ function(doc) {
 		var daids_date_saisie = doc.valide.date_saisie;
 		var daids_date_signee = doc.valide.date_signee;
 		var daids_mode_saisie = doc.mode_de_saisie;
+		var daids_identifiant_daids_historique = doc.identifiant_daids_historique;
+		var daids_identifiant_ivse = doc.identifiant_ivse;
 		
 		for(interpro in doc.interpros) {
 			for(certification_key in doc.declaration.certifications) {
@@ -57,33 +60,57 @@ function(doc) {
 			    for(genre_key in certification.genres) {
 			        var genre = certification.genres[genre_key];
 			        var genre_hash = certification_hash+"/genres/"+genre_key;
-				var genre_code = genre.code;
+				var genre_code = genre_key;
 				var genre_libelle = genre.libelle;
+		        if (genre_code == key_default) {
+		        	genre_code = null;
+		        	genre_libelle = null;
+		        }
 			        for(appellation_key in genre.appellations) {
 			            var appellation = genre.appellations[appellation_key];
 			            var appellation_hash = genre_hash+"/appellations/"+appellation_key;
-				    var appellation_code = appellation.code;
+				    var appellation_code = appellation_key;
 				    var appellation_libelle = appellation.libelle;
+			        if (appellation_code == key_default) {
+			        	appellation_code = null;
+			        	appellation_libelle = null;
+			        }
 			            for(mention_key in appellation.mentions) {
 			                var mention = appellation.mentions[mention_key];
 			                var mention_hash = appellation_hash+"/mentions/"+appellation_key;
-				        var mention_code = mention.code;
+				        var mention_code = mention_key;
 					var mention_libelle = mention.libelle;
+			        if (mention_code == key_default) {
+			        	mention_code = null;
+			        	mention_libelle = null;
+			        }
 			                for(lieu_key in mention.lieux) {
 			                    var lieu = mention.lieux[lieu_key];
 			                    var lieu_hash = mention_hash+"/lieux/"+lieu_key;
-					    var lieu_code = lieu.code;
+					    var lieu_code = lieu_key;
 					    var lieu_libelle = lieu.libelle;
+				        if (lieu_code == key_default) {
+				        	lieu_code = null;
+				        	lieu_libelle = null;
+				        }
 			                    for(couleur_key in lieu.couleurs) {
 			                        var couleur = lieu.couleurs[couleur_key];
 			                        var couleur_hash = lieu_hash+"/couleurs/"+couleur_key;
-						var couleur_code = couleur.code;
+						var couleur_code = couleur_key;
 						var couleur_libelle = couleur.libelle;
+				        if (couleur_code == key_default) {
+				        	couleur_code = null;
+				        	couleur_libelle = null;
+				        }
 			                        for(cepage_key in couleur.cepages) {
 			                            var cepage = couleur.cepages[cepage_key];
 			                            var cepage_hash = couleur_hash+"/cepages/"+cepage_key;
-						    var cepage_code = cepage.code;
+						    var cepage_code = cepage_key;
 						    var cepage_libelle = cepage.libelle;
+					        if (cepage_code == key_default) {
+					        	cepage_code = null;
+					        	cepage_libelle = null;
+					        }
 			                            for(detail_key in cepage.details) {
 			                                var detail = cepage.details[detail_key];
 			                                var detail_hash =  cepage_hash+"/details/"+detail_key;
@@ -109,8 +136,8 @@ function(doc) {
 			                                		 daids_annee_debut,
 			                                		 daids_annee_fin,
 			                                		 daids_version,
-			                                		 daids_precedente_annee,
-			                                		 daids_precedente_mois,
+			                                		 daids_precedente_annee_debut,
+			                                		 daids_precedente_annee_fin,
 			                                		 daids_precedente_version,
 			                                		 certification_libelle,
 			                                		 certification_code,
@@ -162,7 +189,8 @@ function(doc) {
 			                                		 detail.cvo.taux,
 			                                		 detail.total_cvo,
 			                                		 daids_campagne,
-			                                		 daids_id = doc._id
+			                                		 daids_identifiant_daids_historique,
+			                                		 daids_identifiant_ivse
 			                                		 ]
 			                                );
 			                            }

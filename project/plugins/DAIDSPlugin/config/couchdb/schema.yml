@@ -335,6 +335,8 @@ DAIDS:
                     pays: {  }
             service_douane: {  }
       identifiant: {  }
+      identifiant_ivse: {  }
+      identifiant_daids_historique: {  }
       etablissement_num_interne: {  }
       mode_de_saisie: {  }
       interpros:
