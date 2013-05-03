@@ -70,6 +70,9 @@ class DRMDateView extends acCouchdbView
 	const VALUE_DETAIL_CVO_MONTANT = 61;
 	const VALUE_CAMPAGNE = 62;
 	const VALUE_IDDRM = 63;
+	const VALUE_IDIVSE = 64;
+	const VALUE_CONTRAT_NUMERO = 65;
+	const VALUE_CONTRAT_VOLUME = 66;
 
 	public static function getInstance() 
 	{

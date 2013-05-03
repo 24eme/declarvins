@@ -362,6 +362,8 @@ DRM:
                   dispense: { type: integer }
                   organisme: {  }
       identifiant: {  }
+      identifiant_ivse: {  }
+      identifiant_drm_historique: {  }
       etablissement_num_interne: {  }
       mode_de_saisie: {  }
       interpros:
