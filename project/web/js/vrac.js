@@ -176,7 +176,6 @@
                 	thisVal = 0;                
                 }
                 var cotis = parseFloat(cotisation.text());
-            	console.log(cotis);
                 if(!isNaN(thisVal) && !isNaN(cotis))
                 {
                     if (hasCotisationCvo != 0) {

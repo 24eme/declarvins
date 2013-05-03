@@ -22,7 +22,7 @@
             }
             ?>
         </ul>
-
+		
         <?php
         foreach ($contrat->etablissements as $etablissement):
             if ($etablissement->getKey() == $form->getObject()->getKey()):

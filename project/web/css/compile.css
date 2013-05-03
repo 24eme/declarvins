@@ -430,6 +430,7 @@ a.msg_aide:hover {
   -moz-opacity:1;
   opacity:1;
 }
+.champs_obligatoires { display:inline-block; }
 .invisible {
   clip:rect(1px 1px 1px 1px);
   clip:rect(1px,1px,1px,1px);
@@ -1780,7 +1781,11 @@ p#date_drm {
   text-align:left;
   width:165px;
 }
-#principal .tableau_ajouts_liquidations table tbody td.num_contrat a:hover { color:#86005b; }
+#principal .tableau_ajouts_liquidations table tbody td.num_contrat .btn_violet {
+  height:auto;
+  line-height:normal;
+  margin:5px 0 0;
+}
 #principal .tableau_ajouts_liquidations table tbody td .statut {
   display:inline-block;
   margin-right:5px;
@@ -2010,15 +2015,15 @@ p#date_drm {
 #colonnes_dr .col_recolte .col_cont .groupe { margin:0 0 10px; }
 #colonnes_dr .col_recolte .col_cont .groupe.groupe_ouvert { margin:0; }
 #colonnes_dr .col_recolte .col_cont .groupe p { margin:0; }
-#colonnes_dr .col_recolte .col_cont .groupe ul { padding:10px 0 0; }
-#colonnes_dr .col_recolte .col_cont .groupe ul li {
+#colonnes_dr .col_recolte .col_cont .groupe > ul { padding:10px 0 0; }
+#colonnes_dr .col_recolte .col_cont .groupe > ul li {
   height:20px;
   margin:0 0 10px;
   overflow:hidden;
   zoom:1;
 }
-#colonnes_dr .col_recolte .col_cont .groupe ul.choix_radio { position:relative; }
-#colonnes_dr .col_recolte .col_cont .groupe ul.choix_radio li.resultat {
+#colonnes_dr .col_recolte .col_cont .groupe > ul.choix_radio { position:relative; }
+#colonnes_dr .col_recolte .col_cont .groupe > ul.choix_radio li.resultat {
   height:auto;
   margin:0;
   position:absolute;

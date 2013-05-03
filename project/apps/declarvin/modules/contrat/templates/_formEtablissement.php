@@ -135,6 +135,8 @@
     </div>
 </div>
 
+<strong class="champs_obligatoires">* Champs obligatoires</strong>
+
 <div class="ligne_btn">
     <button type="submit" class="btn_suiv"><span>Valider</span></button>
     <?php if (!$new): ?>
