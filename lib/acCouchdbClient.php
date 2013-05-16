@@ -99,12 +99,12 @@ class acCouchdbClient extends couchClient {
      * @param int $hydrate Hydration mode: see acCouchdbClient::HYDRATE_* constants
      * @return acCouchdbDocument|stdClass|array Depending on hydration mode. null if no result.
      */
-    public function find($id, $hydrate = self::HYDRATE_DOCUMENT) {
+    public function find($id, $hydrate = self::HYDRATE_DOCUMENT, $force_return_ls = false) {
         try {
             if ($hydrate == self::HYDRATE_DOCUMENT) {
                 $data = $this->getDoc($id);
 
-                return $this->create($data);
+                return $this->create($data, $force_return_ls);
             } elseif ($hydrate == self::HYDRATE_JSON) {
 
                 return $this->getDoc($id);
@@ -130,9 +130,9 @@ class acCouchdbClient extends couchClient {
      * @deprecated
      * @see method find()
      */
-    public function retrieveDocumentById($id, $hydrate = self::HYDRATE_DOCUMENT) {
+    public function retrieveDocumentById($id, $hydrate = self::HYDRATE_DOCUMENT, $force_return_ls = false) {
         
-        return $this->find($id, $hydrate);
+        return $this->find($id, $hydrate, $force_return_ls);
     }
 
     /**
@@ -141,7 +141,7 @@ class acCouchdbClient extends couchClient {
      * @param stdClass $data The json data of couchdb document
      * @return acCouchdbDocument
      */
-    public function create($data) {
+    public function create($data, $force_return_ls = false) {
         if (!isset($data->type)) {
             
             throw new acCouchdbException('Property "type" ($data->type)');
@@ -153,6 +153,9 @@ class acCouchdbClient extends couchClient {
         
         $doc = new $data->type();
         $doc->loadFromCouchdb($data);
+
+        if($doc->getType() == "LS" && $force_return_ls == false )
+          return $this->find($doc->getPointeur());
         
         return $doc;
     }
@@ -166,15 +169,8 @@ class acCouchdbClient extends couchClient {
      * @see method create()
      */
     public function createDocumentFromData($data) {
-        if (!isset($data->type)) {
-            throw new acCouchdbException('data should have a type');
-        }
-        if (!class_exists($data->type)) {
-            throw new acCouchdbException('class ' . $data->type . ' not found');
-        }
-        $doc = new $data->type();
-        $doc->loadFromCouchdb($data);
-        return $doc;
+        
+        return $this->create($data);
     }
 
     /**
