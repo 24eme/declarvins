@@ -1,0 +1,22 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/11-App
+
+# default values
+all:
+  statistiques:
+    drm:
+      title: "DRM"
+      nb_resultat: 10
+      elasticsearch_type: "drm"
+      champs:
+        id:
+          libelle: "Id"
+          noeud: "_id"
+        total:
+          libelle: "Stock fin de mois"
+          noeud: "declaration.total"
+      facets:
+        total:
+          nom: "total"
+          noeud: "declaration.total"
+          code: null

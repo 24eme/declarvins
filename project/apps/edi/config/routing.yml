@@ -38,6 +38,9 @@ streamVracEdi:
 streamVracEdi:
   url: /edi/daids/:interpro/:datedebut
   param: {module: edi, action: streamDAIDS}
+streamStatistiquesBilanDrm:
+  url: /edi/statistiques-bilan-drm/:interpro/:campagne
+  param: {module: edi, action: streamStatistiquesBilanDrm}
 # OK
 viewDRMEdi:
   url: /edi/drm/:identifiant/:annee/:mois/:rectificative

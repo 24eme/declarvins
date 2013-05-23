@@ -49,3 +49,6 @@
 [submodule "project/plugins/acExceptionNotifierPlugin"]
 	path = project/plugins/acExceptionNotifierPlugin
 	url = git@gitorious.org:acexceptionnotifierplugin/acexceptionnotifierplugin.git
+[submodule "project/plugins/acElasticaPlugin"]
+	path = project/plugins/acElasticaPlugin
+	url = git@gitorious.org:accouchdbplugin/acelasticaplugin.git

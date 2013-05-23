@@ -111,6 +111,56 @@ class ediActions extends sfActions
     $drms = DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateTime->format('c'));
     return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, $dateTime->format('c'));
   }
+  
+  public function executeStreamStatistiquesBilanDrm(sfWebRequest $request) 
+  {
+  	ini_set('memory_limit', '1024M');
+  	set_time_limit(0);
+    $campagne = $request->getParameter('campagne');
+    $interpro = $request->getParameter('interpro');
+    if (!$campagne) {
+		return $this->renderText("Pas de campagne définie");
+    }
+    if (!preg_match("/[0-9]{4}-[0-9]{4}/", $campagne)) {
+    	return $this->renderText("Campagne invalide");
+    }
+    if (!preg_match('/^INTERPRO-/', $interpro)) {
+		$interpro = 'INTERPRO-'.$interpro;
+    }
+    $bilan = new StatistiquesBilan($interpro, $campagne);
+    
+    $csv_file = 'Etablissements;';
+    foreach ($bilan->getPeriodes() as $periode){
+    	$csv_file .= "$periode;";
+    }
+	$csv_file .= "\n";		
+    $etablissementsInformations = $bilan->getEtablissementsInformations();
+    $drmsInformations = $bilan->getDRMsInformations();
+    foreach ($bilan->getEtablissementsInformations() as $identifiant => $etablissement) {
+		$informations = $etablissementsInformations[$identifiant];
+		$csv_file .= $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_RAISON_SOCIALE].' '.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_NOM].' ('.$identifiant.') '.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_ADRESSE].' '.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_CODE_POSTAL].' '.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_COMMUNE].' '.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_PAYS].';';
+		$drms = $drmsInformations[$identifiant];
+		$precedente = null;
+		foreach ($bilan->getPeriodes() as $periode) {
+    			if (!isset($drms[$periode]) && !$precedente)
+    			$csv_file .= '0;';
+    			elseif (!isset($drms[$periode]) && $precedente && $precedente[StatistiquesBilanView::VALUE_DRM_TOTAL_FIN_DE_MOIS] > 0)
+    			$csv_file .= '0;';
+    			elseif (isset($drms[$periode]) && !$drms[$periode][StatistiquesBilanView::VALUE_DRM_DATE_SAISIE])
+    			$csv_file .= '0;';
+    			else
+    			$csv_file .= '1;';
+    			if (isset($drms[$periode])) {
+    				$precedente = $drms[$periode];
+    			}
+		}
+	$csv_file .= "\n";
+    }
+    $this->response->setContentType('text/csv');
+    $this->response->setHttpHeader('md5', md5($csv_file));
+    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$campagne.".csv");
+    return $this->renderText($csv_file);
+  }
 
   private function renderCsv($items, $dateSaisieIndice, $date = null) 
   {

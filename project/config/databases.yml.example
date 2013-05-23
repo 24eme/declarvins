@@ -7,3 +7,8 @@ all:
     param:
       dsn: http://127.0.0.1:5984/
       dbname: declarvin
+  elastica:
+    class: acElasticaDatabase
+    param:
+      dsn: http://127.0.0.1:9200/
+      dbname: declarvin

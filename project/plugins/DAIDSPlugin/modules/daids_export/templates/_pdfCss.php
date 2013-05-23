@@ -312,4 +312,21 @@
 	{
 		border-bottom-width: 3px;
 	}
+	
+	#vins_propriete
+	{
+		width: 100%;
+	}
+	
+	#vins_propriete th,
+	#vins_propriete td
+	{
+		vertical-align: top;
+	}
+	
+	#vins_propriete td
+	{
+		font-weight: normal;
+		width: 33.33%;
+	}
 </style>

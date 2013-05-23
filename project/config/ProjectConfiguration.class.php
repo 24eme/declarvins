@@ -30,7 +30,9 @@ class ProjectConfiguration extends sfProjectConfiguration
 		$this->enablePlugins('acVinDocumentPlugin');
 		$this->enablePlugins('acVinAlertePlugin');
 		$this->enablePlugins('DAIDSPlugin');
+		$this->enablePlugins('StatistiquePlugin');
 		$this->enablePlugins('acExceptionNotifierPlugin');
+        $this->enablePlugins('acElasticaPlugin');
 	}
 	
 	public static function getAppRouting()

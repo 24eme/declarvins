@@ -1,5 +1,5 @@
 <?php
-class DAIDSCampagneForm extends sfForm
+class DAIDSCampagneForm extends CampagneForm
 {
     protected $etablissement = null;
 
@@ -11,27 +11,7 @@ class DAIDSCampagneForm extends sfForm
 
 	public function configure() 
 	{    
-        $this->setWidgets(array(
-            'campagne'   => new sfWidgetFormChoice(array(
-        						'choices' => $this->getCampagneChoices(),
-        		)) //WidgetFormCampagne()
-        ));
-
-        $this->setValidators(array(
-            'campagne'   => new ValidatorCampagne()
-        ));
-        
-        $this->widgetSchema->setNameFormat('create_daids[%s]');
+        parent::configure();
         $this->validatorSchema->setPostValidator(new DAIDSCampagneValidator(array('etablissement' => $this->etablissement)));
-    }
-    
-    public function getCampagneChoices()
-    {
-    	$years = range(date('Y') + 1, date('Y') - 10);
-    	$choices = array();
-    	foreach ($years as $year) {
-    		$choices[$year] = 'Août '.$year;
-    	}
-    	return $choices;
     }
 }

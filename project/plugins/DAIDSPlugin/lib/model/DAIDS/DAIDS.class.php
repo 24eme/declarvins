@@ -149,9 +149,9 @@ class DAIDS extends BaseDAIDS
     public function devalide() 
     {
         $this->etape = null;
-        $this->valide->identifiant = '';
-        $this->valide->date_saisie = '';
-        $this->valide->date_signee = '';
+        $this->valide->identifiant = null;
+        $this->valide->date_saisie = null;
+        $this->valide->date_signee = null;
     }
 
     public function getDetails() 

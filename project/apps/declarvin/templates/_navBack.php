@@ -9,8 +9,13 @@
         <li<?php if ($active == 'comptes'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@admin_comptes') ?>">Comptes</a>
 		</li>
+		<!-- 
         <li<?php if ($active == 'alertes'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@alertes?reset_filters=true') ?>">Alertes</a>
+		</li>
+		 -->
+        <li<?php if ($active == 'statistiques'): ?> class="actif"<?php endif; ?>>
+			<a href="<?php echo url_for('@statistiques_bilan_drm') ?>">Statistiques</a>
 		</li>
 	</ul>
 	<ul id="actions_etablissement">
@@ -74,6 +79,19 @@
 			<li<?php if ($subactive == 'partenaires'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@partenaire_comptes') ?>">Partenaires</a>
 			</li>		
+		<?php elseif ($active == 'statistiques'): ?>
+			<li<?php if ($subactive == 'bilan_drm'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('@statistiques_bilan_drm') ?>">Bilan DRM</a>
+			</li>
+			<li<?php if ($subactive == 'drm'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('statistiques', array('type' => 'drm')) ?>">DRM</a>
+			</li>		
+			<li<?php if ($subactive == 'vrac'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('statistiques', array('type' => 'vrac')) ?>">Contrat Vrac</a>
+			</li>		
+			<li<?php if ($subactive == 'daids'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('statistiques', array('type' => 'daids')) ?>">DAI/DS</a>
+			</li>	
 		<?php endif; ?>
 	</ul>
 </nav>
