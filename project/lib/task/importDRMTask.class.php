@@ -25,28 +25,21 @@ class importDRMTask extends sfBaseTask
 EOF;
   }
 
-  private function CSV2DRM($csv) {
+  private function CSV2DRM($csv) 
+  {
     if (!count($csv))
       return ;
     $csvDRM = DRMCsvFile::createFromArray($csv);
     try {
-      $drm = $csvDRM->importDRM(array('no_droits'=>1,'no_vrac' => 1, 'init_line' => $this->line));
-      $drm->save();
+      $drm = $csvDRM->importDRM();
     }catch(Exception $e) {
-      if (count($csvDRM->errors) && $csvDRM->errors[0] && $csvDRM->errors[0]['line'] >=0) {
-	echo "ERROR: [ligne ".$csvDRM->errors[0]['line']."] ".$csvDRM->errors[0]['message']."\n";
-	echo "DEBUG: [ligne ".$csvDRM->errors[0]['line']."] ".implode(';', $csv[$csvDRM->errors[0]['line'] - $this->line -1 ])."\n";
+    	$errors = $csvDRM->getErrors();
+      if (count($errors) > 0) {
+		echo "ERROR: [ligne ".$errors[0]['line']."] ".$errors[0]['message']."\n";
       }else{
-	echo "ERROR: $e\n";
+		echo "ERROR: $e\n";
       }
-      /*
-      foreach ($csv as $c) {
-	echo "DEBUG2: [ligne ".$csvDRM->errors[0]['line']."] ".implode(';', $c)."\n";
-      }
-      throw new Exception("errors $e");
-      */
     }
-    $this->line += count($csv);
     return;
   }
 
@@ -55,23 +48,12 @@ EOF;
     // initialize the database connection
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-    //sfContext::createInstance($this->configuration);
+
     $lignes = file($options['file']);
     $csv = array();
-    $oldid = '';
-    $this->line = 0;
-    foreach ($lignes as $l) {
-      $l = preg_replace('/"/', '', $l);
-      if (preg_match('/^[^;]*;([^;]*;[^;]*;[^;]*;[^;]*);/', $l, $match)) {
-	if (!preg_match('/[0-9]/', $match[1]))
-	  continue;
-	if ($match[1] != $oldid) {
-	  $this->CSV2DRM($csv);
-	  $csv = array();
-	}
-	$oldid = $match[1];
-	$csv[] = explode(';', $l);
-      }
+    foreach ($lignes as $ligne) {
+    	$ligne = preg_replace('/"/', '', $ligne);
+    	$csv[] = explode(';', $ligne);
     }
     $this->CSV2DRM($csv);
   }
