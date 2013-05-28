@@ -45,23 +45,22 @@ class CsvFile
       $this->separator = '\t';
   }
 
-  public function getCsv() {
-    if ($this->csvdata)
+  public function getCsv() 
+  {
+    if ($this->csvdata) {
       return $this->csvdata;
+    }
     $handler = fopen($this->file, 'r');
-    if (!$handler)
+    if (!$handler) {
       throw new Exception('Cannot open csv file anymore');
+    }
     $this->csvdata = array();
     while (($data = fgetcsv($handler, 0, $this->separator)) !== FALSE) {
-      if (!preg_match('/^#/', $data[0]))
-      {
-	$this->csvdata[] = $data;           
-      }
-        
+      if (!preg_match('/^#/', $data[0])) {
+		$this->csvdata[] = $data;           
+      }  
     }
     fclose($handler);
-    /*if ($this->ignore && !preg_match('/^\d{10}$/', $this->csvdata[0][0]))
-      array_shift($this->csvdata);*/
     return $this->csvdata;
   }
   
