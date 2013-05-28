@@ -181,8 +181,8 @@ class DRMDetail extends BaseDRMDetail {
     }
     
     public function addVrac($contrat_numero, $volume) {
-      $contratVrac = $this->vrac->add($contrat_numero."");
-      $contratVrac->volume = $volume*1 ;
+      $contratVrac = $this->vrac->getOrAdd($contrat_numero);
+      $contratVrac->volume = $volume * 1;
     }
 
     public function getContratsVracAutocomplete() {

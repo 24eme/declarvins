@@ -326,6 +326,14 @@ class DRMClient extends acCouchdbClient {
     	$periode = $this->getPeriodeSuivante($last_drm->periode);
     }
   }
+  
+  public function createBlankDoc($identifiant, $periode)
+  {
+        $drm = new DRM();
+        $drm->identifiant = $identifiant;
+     	$drm->periode = $periode;
+     	return $drm;
+  }
 
   public function createDocByPeriode($identifiant, $periode)
   {
@@ -337,9 +345,7 @@ class DRMClient extends acCouchdbClient {
 	     	if ($next_drm) {
 	        	$drm = $next_drm->generateSuivanteByPeriode($periode);
 	     	} else {
-	        	$drm = new DRM();
-	        	$drm->identifiant = $identifiant;
-	     		$drm->periode = $periode;
+	        	$drm = $this->createBlankDoc($identifiant, $periode);
 	      	}
      	}
       	$drm->mode_de_saisie = self::MODE_DE_SAISIE_DTI;      

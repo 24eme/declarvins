@@ -548,7 +548,12 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     }
     
     public function getUser() {
-    	return sfContext::getInstance()->getUser();
+    	try {
+    		return sfContext::getInstance()->getUser();
+    	} catch (sfException $e) {
+    		return null;
+    	}
+    	return null;
     }
     
     public function addEditeur($compte) {
