@@ -49,11 +49,20 @@ class DeclarantDocument
         $declarant->cvi = $etablissement->cvi;
         $declarant->no_accises = $etablissement->getNoAccises();
         $declarant->adresse = $etablissement->siege->adresse;
-      if ($etablissement->siege->exist("adresse_complementaire")) {
-	$declarant->adresse .= ' ; '.$etablissement->siege->adresse_complementaire;
-      }
+        if ($etablissement->siege->exist("adresse_complementaire")) {
+            $declarant->adresse .= ' ; '.$etablissement->siege->adresse_complementaire;
+        }
         $declarant->commune = $etablissement->siege->commune;
         $declarant->code_postal = $etablissement->siege->code_postal;
         $declarant->region = $etablissement->getRegion();
+        if ($etablissement->exist("telephone")) {
+             $declarant->add('telephone',$declarant->telephone);
+        }
+        if ($etablissement->exist("email")) {
+             $declarant->add('email',$declarant->email);
+        }
+         if ($etablissement->exist("fax")) {
+            $declarant->add('fax',$declarant->fax);
+        }
     }
 }
