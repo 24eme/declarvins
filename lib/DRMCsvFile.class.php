@@ -6,11 +6,8 @@ class DRMCsvFile extends CsvFile
   const NOEUD_TEMPORAIRE = 'TMP';
   const DEFAULT_KEY = 'DEFAUT';
   
-  protected $errors;
-  
   public function __construct($file = null, $ignore_first_if_comment = 1) {
   	parent::__construct($file, $ignore_first_if_comment);
-  	$this->errors = array();
   }
 
   public static function datize($str) 
@@ -118,122 +115,4 @@ class DRMCsvFile extends CsvFile
     return $csv;
   }
   
-  private function couleurKeyToCode($key) {
-    $correspondances = array(1 => "rouge",
-                             2 => "rose",
-                             3 => "blanc");
-
-    return $correspondances[$key];
-  }
-  
-  private function getKey($key, $withDefault = false) 
-  {
-	if ($withDefault) {
-  		return ($key)? $key : Configuration::DEFAULT_KEY;
-  	} elseif (!$key) {
-  		throw new Exception('La clé "'.$key.'" n\'est pas valide');
-  	} else {
-  		return $key;
-  	}
-  }
-  
-  private function getHashProduit($line) 
-  {
-  	/*
-  	 * ATTENTION CODE COULEUR
-  	 */
-  	$hash = 'declaration/certifications/'.$this->getKey($line[DRMDateView::VALUE_CERTIFICATION_CODE]).
-                '/genres/'.$this->getKey($line[DRMDateView::VALUE_GENRE_CODE], true).
-                '/appellations/'.$this->getKey($line[DRMDateView::VALUE_APPELLATION_CODE], true).
-                '/mentions/'.Configuration::DEFAULT_KEY.
-                '/lieux/'.$this->getKey($line[DRMDateView::VALUE_LIEU_CODE], true).
-                '/couleurs/'.strtolower($line[DRMDateView::VALUE_COULEUR_CODE]).
-                '/cepages/'.$this->getKey($line[DRMDateView::VALUE_CEPAGE_CODE], true);
-    return $hash;
-  }
-
-  private function parseContrat($detail, $line) 
-  {
-    $detail->addVrac($line[DRMDateView::VALUE_CONTRAT_NUMERO], $line[DRMDateView::VALUE_CONTRAT_VOLUME]);
-  }
-
-  private function parseDetail($detail, $line) 
-  {
-      $detail->total_debut_mois = ($line[DRMDateView::VALUE_DETAIL_TOTAL_DEBUT_MOIS])? $line[DRMDateView::VALUE_DETAIL_TOTAL_DEBUT_MOIS] * 1 : 0;
-      $detail->stocks_debut->bloque = ($line[DRMDateView::VALUE_DETAIL_STOCKDEB_BLOQUE])? $line[DRMDateView::VALUE_DETAIL_STOCKDEB_BLOQUE] * 1 : 0;
-      $detail->stocks_debut->warrante = ($line[DRMDateView::VALUE_DETAIL_STOCKDEB_WARRANTE])? $line[DRMDateView::VALUE_DETAIL_STOCKDEB_WARRANTE] * 1 : 0;
-      $detail->stocks_debut->instance = ($line[DRMDateView::VALUE_DETAIL_STOCKDEB_INSTANCE])? $line[DRMDateView::VALUE_DETAIL_STOCKDEB_INSTANCE] * 1 : 0;
-      $detail->stocks_debut->commercialisable = ($line[DRMDateView::VALUE_DETAIL_STOCKDEB_COMMERCIALISABLE])? $line[DRMDateView::VALUE_DETAIL_STOCKDEB_COMMERCIALISABLE] * 1 : 0;
-      //$detail->total_entrees = ($line[DRMDateView::VALUE_DETAIL_ENTREES])? $line[DRMDateView::VALUE_DETAIL_ENTREES] : 0;
-      $detail->entrees->achat = ($line[DRMDateView::VALUE_DETAIL_ENTREES_ACHAT])? $line[DRMDateView::VALUE_DETAIL_ENTREES_ACHAT] * 1 : 0;
-      $detail->entrees->recolte = ($line[DRMDateView::VALUE_DETAIL_ENTREES_RECOLTE])? $line[DRMDateView::VALUE_DETAIL_ENTREES_RECOLTE] * 1 : 0;
-      $detail->entrees->repli = ($line[DRMDateView::VALUE_DETAIL_ENTREES_REPLI])? $line[DRMDateView::VALUE_DETAIL_ENTREES_REPLI] * 1 : 0;
-      $detail->entrees->declassement = ($line[DRMDateView::VALUE_DETAIL_ENTREES_DECLASSEMENT])? $line[DRMDateView::VALUE_DETAIL_ENTREES_DECLASSEMENT] * 1 : 0;
-      $detail->entrees->mouvement = ($line[DRMDateView::VALUE_DETAIL_ENTREES_MOUVEMENT])? $line[DRMDateView::VALUE_DETAIL_ENTREES_MOUVEMENT] * 1 : 0;
-      $detail->entrees->crd = ($line[DRMDateView::VALUE_DETAIL_ENTREES_CRD])? $line[DRMDateView::VALUE_DETAIL_ENTREES_CRD] * 1 : 0;
-      //$detail->total_sorties = ($line[DRMDateView::VALUE_DETAIL_SORTIES])? $line[DRMDateView::VALUE_DETAIL_SORTIES] * 1 : 0;
-      $detail->sorties->vrac = ($line[DRMDateView::VALUE_DETAIL_SORTIES_VRAC])? $line[DRMDateView::VALUE_DETAIL_SORTIES_VRAC] * 1 : 0;
-      $detail->sorties->export = ($line[DRMDateView::VALUE_DETAIL_SORTIES_EXPORT])? $line[DRMDateView::VALUE_DETAIL_SORTIES_EXPORT] * 1 : 0;
-      $detail->sorties->factures = ($line[DRMDateView::VALUE_DETAIL_SORTIES_FACTURES])? $line[DRMDateView::VALUE_DETAIL_SORTIES_FACTURES] * 1 : 0;
-      $detail->sorties->crd = ($line[DRMDateView::VALUE_DETAIL_SORTIES_CRD])? $line[DRMDateView::VALUE_DETAIL_SORTIES_CRD] * 1 : 0;
-      $detail->sorties->consommation = ($line[DRMDateView::VALUE_DETAIL_SORTIES_CONSOMMATION])? $line[DRMDateView::VALUE_DETAIL_SORTIES_CONSOMMATION] * 1 : 0;
-      $detail->sorties->pertes = ($line[DRMDateView::VALUE_DETAIL_SORTIES_PERTES])? $line[DRMDateView::VALUE_DETAIL_SORTIES_PERTES] * 1 : 0;
-      $detail->sorties->declassement = ($line[DRMDateView::VALUE_DETAIL_SORTIES_DECLASSEMENT])? $line[DRMDateView::VALUE_DETAIL_SORTIES_DECLASSEMENT] * 1 : 0;
-      $detail->sorties->repli = ($line[DRMDateView::VALUE_DETAIL_SORTIES_REPLI])? $line[DRMDateView::VALUE_DETAIL_SORTIES_REPLI] * 1 : 0;
-      $detail->sorties->mouvement = ($line[DRMDateView::VALUE_DETAIL_SORTIES_MOUVEMENT])? $line[DRMDateView::VALUE_DETAIL_SORTIES_MOUVEMENT] * 1 : 0;
-      $detail->sorties->distillation = ($line[DRMDateView::VALUE_DETAIL_SORTIES_MOUVEMENT])? $line[DRMDateView::VALUE_DETAIL_SORTIES_DISTILLATION] * 1 : 0;
-      $detail->sorties->lies = ($line[DRMDateView::VALUE_DETAIL_SORTIES_LIES])? $line[DRMDateView::VALUE_DETAIL_SORTIES_LIES] * 1 : 0;
-      //$detail->total = ($line[DRMDateView::VALUE_DETAIL_TOTAL])? $line[DRMDateView::VALUE_DETAIL_TOTAL] : 0;
-      $detail->stocks_fin->bloque = ($line[DRMDateView::VALUE_DETAIL_STOCKFIN_BLOQUE])? $line[DRMDateView::VALUE_DETAIL_STOCKFIN_BLOQUE] * 1 : 0;
-      $detail->stocks_fin->warrante = ($line[DRMDateView::VALUE_DETAIL_STOCKFIN_WARRANTE])? $line[DRMDateView::VALUE_DETAIL_STOCKFIN_WARRANTE] * 1 : 0;
-      $detail->stocks_fin->instance = ($line[DRMDateView::VALUE_DETAIL_STOCKFIN_INSTANCE])? $line[DRMDateView::VALUE_DETAIL_STOCKFIN_INSTANCE] * 1 : 0;
-      $detail->stocks_fin->commercialisable = ($line[DRMDateView::VALUE_DETAIL_STOCKFIN_COMMERCIALISABLE])? $line[DRMDateView::VALUE_DETAIL_STOCKFIN_COMMERCIALISABLE] * 1 : 0;
-  }
-
-  public function importDRM($options = null) 
-  {
-    $this->config = ConfigurationClient::getCurrent();
-    $this->drm = null;
-    $this->errors = array();
-    $drmClient = DRMClient::getInstance();
-	$numLine = 0;
-      foreach ($this->getCsv() as $line) {
-      	$numLine++;
-      	if (!($drm = $drmClient->find($drmClient->buildId($line[DRMDateView::VALUE_IDENTIFIANT_DECLARANT], $drmClient->buildPeriode($line[DRMDateView::VALUE_ANNEE], $line[DRMDateView::VALUE_MOIS]), $line[DRMDateView::VALUE_VERSION])))) {
-      		$drm = $drmClient->createBlankDoc($line[DRMDateView::VALUE_IDENTIFIANT_DECLARANT], $drmClient->buildPeriode($line[DRMDateView::VALUE_ANNEE], $line[DRMDateView::VALUE_MOIS]));
-      		$drm->version = ($line[DRMDateView::VALUE_VERSION])? $line[DRMDateView::VALUE_VERSION] : null;
-      		$drm->mode_de_saisie = ($line[DRMDateView::VALUE_MODEDESAISIE])? $line[DRMDateView::VALUE_MODEDESAISIE] : DRMClient::MODE_DE_SAISIE_PAPIER;
-      		$drm->identifiant_ivse = ($line[DRMDateView::VALUE_IDIVSE])? $line[DRMDateView::VALUE_IDIVSE] : null;
-      		$drm->identifiant_drm_historique = ($line[DRMDateView::VALUE_IDDRM])? $line[DRMDateView::VALUE_IDDRM] : null;
-      		$drm->precedente = ($line[DRMDateView::VALUE_ANNEE_PRECEDENTE] && $line[DRMDateView::VALUE_MOIS_PRECEDENTE])? $drmClient->buildId($line[DRMDateView::VALUE_IDENTIFIANT_DECLARANT], $drmClient->buildPeriode($line[DRMDateView::VALUE_ANNEE_PRECEDENTE], $line[DRMDateView::VALUE_MOIS_PRECEDENTE]), $line[DRMDateView::VALUE_VERSION_PRECEDENTE]) : null;
-      	}
-      	$detail = $drm->addProduit($this->getHashProduit($line), explode('|', $line[DRMDateView::VALUE_LABELS]));
-      	switch($line[DRMDateView::VALUE_TYPE]) {
-			case 'DETAIL':
-	  			$this->parseDetail($detail, $line);
-	  			break;
-			case 'CONTRAT':
-	  			$this->parseContrat($detail, $line);
-	  			break;
-		}
-		$drm->validate();
-	  	$drm->valide->date_signee = self::datize($line[DRMDateView::VALUE_DATEDESIGNATURE]);
-	  	$drm->valide->date_saisie = self::datize($line[DRMDateView::VALUE_DATEDESAISIE]);
-	  	
-      	$validator = new DRMValidation($drm, $options);
-    	if ($validator->hasErrors()) {
-      		foreach($validator->getErrors() as $err) {
-				$this->errors[] = array('line' => $numLine, 'message' => $err->getMessage());
-      		}
-      		throw new sfException('CSV has errors');
-    	} else {
-    		$drm->save();
-    	}
-      }
-  }
-
-  public function getErrors() 
-  {
-    return $this->errors;
-  }
 }

@@ -7,7 +7,7 @@
 <?php if($drm->isRectificative()): ?>
  - <span class="rectificative">Rectificative <?php echo sprintf('%02d', $drm->rectificative) ?></span>
 <?php endif; ?>
-<br/>Vins de la vallées du Rhône et de Provence (Inter-Rhône, CIVP, InterVins SE)
+<br/>Vins de la vallée du Rhône et de Provence (Inter-Rhône, CIVP, InterVins SE)
 </h1></center>
 <table>
 <tr>
