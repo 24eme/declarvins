@@ -25,36 +25,27 @@ class importDRMTask extends sfBaseTask
 EOF;
   }
 
-  private function CSV2DRM($csv) 
-  {
-    if (!count($csv))
-      return ;
-    $csvDRM = DRMCsvFile::createFromArray($csv);
-    try {
-      $drm = $csvDRM->importDRM();
-    }catch(Exception $e) {
-    	$errors = $csvDRM->getErrors();
-      if (count($errors) > 0) {
-		echo "ERROR: [ligne ".$errors[0]['line']."] ".$errors[0]['message']."\n";
-      }else{
-		echo "ERROR: $e\n";
-      }
-    }
-    return;
-  }
-
   protected function execute($arguments = array(), $options = array())
   {
     // initialize the database connection
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-    $lignes = file($options['file']);
-    $csv = array();
+    $csv = new CsvFile($options['file']);
+    $lignes = $csv->getCsv();
+    $drmClient = DRMClient::getInstance();
+    $numLigne = 0;
     foreach ($lignes as $ligne) {
-    	$ligne = preg_replace('/"/', '', $ligne);
-    	$csv[] = explode(';', $ligne);
+    	$numLigne++;
+    	$import = new DRMDetailImport($ligne, $drmClient);
+    	$drm = $import->getDrm();
+    	if ($import->hasErrors()) {
+    		$this->logSection('drm', "echec de l'import du produit ligne $numLigne", null, 'ERROR');
+    		$this->logBlock($import->getLogs(), 'ERROR');
+    	} else {
+    		$drm->save();
+    		$this->logSection('drm', $drm->get('_id')." : succès de l'import du produit ligne $numLigne.");
+    	}
     }
-    $this->CSV2DRM($csv);
   }
 }

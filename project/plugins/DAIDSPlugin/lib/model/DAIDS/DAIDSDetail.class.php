@@ -115,12 +115,12 @@ class DAIDSDetail extends BaseDAIDSDetail {
     
     public function getCvoCalcul()
     {
-    	return ($this->cvo->taux * $this->total_manquants_taxables);
+    	return round(($this->cvo->taux * $this->total_manquants_taxables),2);
     }
     
     public function isUpdatedCvo()
     {
-    	return ($this->total_cvo == $this->getCvoCalcul())? false : true;
+    	return (round($this->total_cvo,2) == round($this->getCvoCalcul(),2))? false : true;
     }
 
     public function nbToComplete() {

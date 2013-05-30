@@ -27,6 +27,27 @@
 	</script>
 	<?php include_partial('daids_export/pdfHeader', array('daids' => $daids)); ?>
 	<?php include_partial('daids_export/pdfFooter'); ?>
+	
+	
+	<h2>Vins de la propriété</h2>
+	<table id="vins_propriete" class="triple_col bloc_bottom">
+		<tr>
+			<th><h2><?php echo $daids->entrepots->entrepot_a->libelle ?><?php if ($daids->entrepots->entrepot_a->principal):?> (principal)<?php endif; ?></h2></th>
+			<th><h2><?php echo $daids->entrepots->entrepot_b->libelle ?><?php if ($daids->entrepots->entrepot_b->principal):?> (principal)<?php endif; ?></h2></th>
+			<th><h2><?php echo $daids->entrepots->entrepot_c->libelle ?><?php if ($daids->entrepots->entrepot_c->principal):?> (principal)<?php endif; ?></h2></th>
+		</tr>
+		<tr>
+			<td class="col_left">
+				<p><?php echo $daids->entrepots->entrepot_a->commentaires ?></p>
+			</td>
+			<td class="col_center">
+				<p><?php echo $daids->entrepots->entrepot_b->commentaires ?></p>
+			</td>
+			<td class="col_right">
+				<p><?php echo $daids->entrepots->entrepot_c->commentaires ?></p>
+			</td>
+		</tr>
+	</table>
 
 	<?php $i=0; ?>
 	<?php foreach($daids->declaration->certifications as $certification_key => $certification): ?>
@@ -58,6 +79,46 @@
 																	   'colonnes' => $colonnes,
 																	   'hash' => 'stock_chais')) ?>
 
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Inventaire des vins logés dans vos chais',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 'a',
+																	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'stocks/inventaire_chais')) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'dont entrepot A',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 'b',
+																	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'chais_details/entrepot_a')) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'dont entrepot B',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 'c',
+																	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'chais_details/entrepot_b')) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'dont entrepot C',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 'd',
+																	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'chais_details/entrepot_c')) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Vins logés pour un tiers',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 'e',
+																	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'stocks/propriete_tiers')) ?>
+
 				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Total Stock de votre propriété',
 																	   'unite' => 'hl',
 	    						  								       'counter' => 4,
@@ -66,17 +127,147 @@
 																	   'colonnes' => $colonnes,
 																	   'hash' => 'stock_propriete')) ?>
 
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Vins logés dans vos chais',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 'a',
+																	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'stocks/physique_chais')) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Vins logés chez un tiers',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 'b',
+																	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'stocks/tiers')) ?>
+																	   
+				<?php include_partial('daids_export/pdfLine', array('libelle' => 'Répartition des stocks physiques de la propriété',
+																	  'counter' => 5,
+																	  'colonnes' => array(),
+																	  'hash' => null,
+																	  'partial' => 'daids_export/pdfLineItemFloat',
+																	  'partial_params' => array('unite' => 'hl'),
+																	  'cssclass_libelle' => 'total',
+																	  'cssclass_value' => 'total number',
+																	  'partial_cssclass_value' => null)) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Dont Réserve Bloquée',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 'a',
+																	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'stock_propriete_details/reserve')) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Dont Conditionné',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 'b',
+																	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'stock_propriete_details/conditionne')) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Dont Vrac Vendu non retiré',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 'c',
+																	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'stock_propriete_details/vrac_vendu')) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Dont Vrac libre à la vente',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 'd',
+																	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'stock_propriete_details/vrac_libre')) ?>
+
 				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Total Manquants ou Excédents',
 																	   'unite' => 'hl',
-	    						  								       'counter' => 5,
+	    						  								       'counter' => 6,
 																	   'cssclass_libelle' => 'total',
 																  	   'cssclass_value' => 'total',
 																	   'colonnes' => $colonnes,
 																	   'hash' => 'total_manquants_excedents')) ?>
 
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Stock moyen mensuel',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 7,
+																	   'cssclass_libelle' => 'total',
+																  	   'cssclass_value' => 'total',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'stock_mensuel_theorique')) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'dont Stock moyen volume vinifié et stocké dans l\'année',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 8,
+																	   'cssclass_libelle' => 'total',
+																  	   'cssclass_value' => 'total',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'stocks_moyen/vinifie/volume')) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Taux',
+																	   'unite' => '%',
+	    						  								       'counter' => 'a',
+																	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'stocks_moyen/vinifie/taux')) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Pertes autorisées vinifié et stocké',
+																	   'unite' => '%',
+	    						  								       'counter' => 'b',
+																	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'stocks_moyen/vinifie/total')) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'dont Stock moyen volume stocké non vinifié (CGI)',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 9,
+																	   'cssclass_libelle' => 'total',
+																  	   'cssclass_value' => 'total',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'stocks_moyen/non_vinifie/volume')) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Pertes autorisées volume stocké',
+																	   'unite' => '%',
+	    						  								       'counter' => 'a',
+																	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'stocks_moyen/non_vinifie/total')) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Volume conditionné dans l\'année',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 10,
+																	   'cssclass_libelle' => 'total',
+																  	   'cssclass_value' => 'total',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'stocks_moyen/conditionne/volume')) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Taux',
+																	   'unite' => '%',
+	    						  								       'counter' => 'a',
+																	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'stocks_moyen/conditionne/taux')) ?>
+
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Pertes autorisées conditionné',
+																	   'unite' => '%',
+	    						  								       'counter' => 'b',
+																	   'cssclass_libelle' => 'detail',
+																  	   'cssclass_value' => 'detail',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'stocks_moyen/conditionne/total')) ?>
+																	   
 				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Total Pertes Autorisée',
 																	   'unite' => 'hl',
-	    						  								       'counter' => 6,
+	    						  								       'counter' => 11,
 																	   'cssclass_libelle' => 'total',
 																  	   'cssclass_value' => 'total',
 																	   'colonnes' => $colonnes,
@@ -84,7 +275,7 @@
 
 				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Manquants taxables éventuels',
 																	   'unite' => 'hl',
-	    						  								       'counter' => 7,
+	    						  								       'counter' => 12,
 																	   'cssclass_libelle' => 'total',
 																  	   'cssclass_value' => 'total',
 																	   'colonnes' => $colonnes,
@@ -92,7 +283,7 @@
 
 				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Total droits de circulation à payer',
 																	   'unite' => '€',
-	    						  								       'counter' => 8,
+	    						  								       'counter' => 13,
 																	   'cssclass_libelle' => 'total',
 																  	   'cssclass_value' => 'total',
 																	   'colonnes' => $colonnes,
@@ -135,25 +326,6 @@
 		<hr />
 		<?php endwhile; ?>
 	<?php endforeach; ?>
-	<h2>Vins de la propriété</h2>
-	<table id="vins_propriete" class="triple_col bloc_bottom">
-		<tr>
-			<th><h2><?php echo $daids->entrepots->entrepot_a->libelle ?><?php if ($daids->entrepots->entrepot_a->principal):?> (principal)<?php endif; ?></h2></th>
-			<th><h2><?php echo $daids->entrepots->entrepot_b->libelle ?><?php if ($daids->entrepots->entrepot_b->principal):?> (principal)<?php endif; ?></h2></th>
-			<th><h2><?php echo $daids->entrepots->entrepot_c->libelle ?><?php if ($daids->entrepots->entrepot_c->principal):?> (principal)<?php endif; ?></h2></th>
-		</tr>
-		<tr>
-			<td class="col_left">
-				<p><?php echo $daids->entrepots->entrepot_a->commentaires ?></p>
-			</td>
-			<td class="col_center">
-				<p><?php echo $daids->entrepots->entrepot_b->commentaires ?></p>
-			</td>
-			<td class="col_right">
-				<p><?php echo $daids->entrepots->entrepot_c->commentaires ?></p>
-			</td>
-		</tr>
-	</table>
 	<?php if ($daids->valide->date_saisie): ?>
 	<?php while($pager_droits_douane->getPage() <= $pager_droits_douane->getLastPage()): ?>
 		<?php $colonnes = $pager_droits_douane->getResults(); ?>
