@@ -3,6 +3,7 @@
 	<td class="counter<?php if (isset($cssclass_counter)): ?> <?php echo $cssclass_counter ?><?php endif; ?>"><?php echo $counter ?></td>
 	<?php endif; ?>
 	<th class="<?php echo ((isset($cssclass_libelle)) ? $cssclass_libelle : null) ?>"><?php echo $libelle ?></th>
+	<?php if (count($colonnes) > 0): ?>
 	<?php foreach($colonnes as $col_key => $item): ?>
 	<?php if(!is_null($item)): ?>
 	<?php $td_cssclass_ = ((isset($cssclass_value)) ? $cssclass_value : null) ?>
@@ -26,4 +27,7 @@
 	<td class="vide">&nbsp;</td>
 	<?php endif; ?>
 	<?php endforeach; ?>
+	<?php else: ?>
+	<td class="vide">&nbsp;</td>
+	<?php endif; ?>
 </tr>

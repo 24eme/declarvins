@@ -122,7 +122,7 @@
 	}
 
 	table.recap.volumes tr th {
-		width: 252px;
+		width: 340px;
 	}
 
 	table.recap.volumes tr td {
