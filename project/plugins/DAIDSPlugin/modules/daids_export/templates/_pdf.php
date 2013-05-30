@@ -79,13 +79,13 @@
 																	   'colonnes' => $colonnes,
 																	   'hash' => 'stock_chais')) ?>
 
-				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Inventaire des vins logés dans vos chais',
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Vins de la propriété',
 																	   'unite' => 'hl',
 	    						  								       'counter' => 'a',
 																	   'cssclass_libelle' => 'detail',
 																  	   'cssclass_value' => 'detail',
 																	   'colonnes' => $colonnes,
-																	   'hash' => 'stocks/inventaire_chais')) ?>
+																	   'hash' => 'stocks/chais')) ?>
 
 				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'dont entrepot A',
 																	   'unite' => 'hl',
@@ -133,7 +133,7 @@
 																	   'cssclass_libelle' => 'detail',
 																  	   'cssclass_value' => 'detail',
 																	   'colonnes' => $colonnes,
-																	   'hash' => 'stocks/physique_chais')) ?>
+																	   'hash' => 'stocks/chais')) ?>
 
 				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Vins logés chez un tiers',
 																	   'unite' => 'hl',
