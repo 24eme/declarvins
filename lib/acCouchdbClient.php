@@ -44,9 +44,6 @@ class acCouchdbClient extends couchClient {
             $url.='/' . urlencode($document->get('_id'));
         }
         $resultat = $this->_queryAndTest($method, $url, array(200, 201), array(), $document->getData());
-        if (sfConfig::get('sf_logging_enabled')) {
-        sfContext::getInstance()->getLogger()->log(sprintf('{acCouchdb} document saved %s?rev=%s', $document->_id, $resultat->rev));
-        }
         return $resultat;
     }
 
