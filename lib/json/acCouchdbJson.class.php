@@ -312,7 +312,7 @@ class acCouchdbJson extends acCouchdbJsonFields implements IteratorAggregate, Ar
     }
 
     public function offsetExists($index) {
-        return $this->hasField($index);
+        return $this->exist($index);
     }
 
     public function offsetUnset($offset) {
