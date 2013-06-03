@@ -169,6 +169,9 @@ class DRMDetailImport
   
 	private function getKey($key, $withDefault = false) 
 	{
+		if ($key == " ") {
+  			$key = null;
+  		}
 		if ($withDefault) {
 			return ($key)? $key : Configuration::DEFAULT_KEY;
 		} elseif (!$key) {
