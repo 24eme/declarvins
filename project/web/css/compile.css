@@ -1099,7 +1099,7 @@ a:hover { text-decoration:underline; }
 #creation_compte .ligne_form label {
   display:inline-block;
   vertical-align:middle;
-  width:200px;
+  width:215px;
 }
 #creation_compte .ligne_form.ligne_form_large label {
   display:block;

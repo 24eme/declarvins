@@ -147,7 +147,7 @@ objContrat = {};
 	$.initEtablissementFamille = function()
 	{
 		if(familles)
-		{
+		{	
 			var famillesJSON = JSON.parse(familles);
 			var champFamilles = $("#contratetablissement_famille");
 			var champFamillesVal = champFamilles.val();
@@ -167,7 +167,9 @@ objContrat = {};
 				templateSousFamilles: templateSousFamilles
 			});
 			
+			champFamilles.unbind('mouseenter');
 			
+						
 			// Si le champ est prérempli
 			if(champFamillesVal)
 			{
