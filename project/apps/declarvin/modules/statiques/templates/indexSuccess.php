@@ -1,3 +1,5 @@
+<?php include_component('global', 'navBack', array('active' => 'operateurs', 'subactive' => 'etablissement')); ?>
+
 <section id="contenu">
-	PAGES STATIQUES
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, tempore, itaque, soluta, autem esse corrupti voluptatibus deleniti a sit sequi dolorum obcaecati et consequuntur vero nostrum molestiae delectus laboriosam laborum. Debitis, voluptates, consequuntur ab voluptatum sequi odio porro veritatis accusantium assumenda dolores cupiditate et perferendis obcaecati. Obcaecati, amet, quos natus consequuntur vel maiores magnam fugiat deleniti. Ratione, eveniet, necessitatibus dignissimos provident a sint enim quis odio animi vitae ducimus magnam est voluptate illum ex sequi ab eaque ipsam labore amet quasi possimus repellat blanditiis praesentium doloribus libero harum. Quisquam, unde, est laudantium aspernatur deserunt totam fugiat fugit obcaecati consequuntur sit veniam velit ipsam voluptatum sed dolor enim eaque ex sequi. Deleniti, dicta in illo quisquam voluptatem accusamus ex labore explicabo.</p>
 </section>
