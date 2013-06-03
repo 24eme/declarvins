@@ -67,7 +67,7 @@ class vracActions extends acVinVracActions
 	}
 	
 	protected function contratValidation($vrac, $acteur) {
-		$acteurs = VracClient::getInstance()->getActeurs();
+		/*$acteurs = VracClient::getInstance()->getActeurs();
       	if (!$acteur || !in_array($acteur, $acteurs)) {
         	throw new sfException('Acteur '.$acteur.' invalide!');
       	}
@@ -83,7 +83,8 @@ class vracActions extends acVinVracActions
 				}
 			}
 			Email::getInstance()->vracContratValidation($vrac, $etablissement, $email);
-		}
+		}*/
+		return;
 	}
 	
 	protected function contratAnnulation($vrac, $etab = null) {

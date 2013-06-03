@@ -6,7 +6,10 @@ class Ldap extends acVinLdap {
 
     public function saveCompte($compte) 
     {
-      return $this->save($compte->login, $this->info($compte));
+    	if ($compte->login) {
+      		return $this->save($compte->login, $this->info($compte));
+    	}
+    	return null;
     }
 
     /**
