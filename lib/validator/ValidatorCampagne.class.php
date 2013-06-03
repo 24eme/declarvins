@@ -36,7 +36,7 @@ class ValidatorCampagne extends sfValidatorBase
   {
   	if (!is_array($value)) {
   		$year = $value;
-  		$value = array('start_year' => $year, 'end_year' => $year + 1);
+  		$value = array('start_year' => $year - 1, 'end_year' => $year);
   	}
   	
     // check campagne format
