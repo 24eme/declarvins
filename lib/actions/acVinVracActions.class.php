@@ -267,11 +267,11 @@ class acVinVracActions extends sfActions
 			if ($this->form->isValid()) {
 				$this->form->save();
 				$this->contratValidation($this->vrac, $this->acteur);
+				$this->getUser()->setFlash('termine', true);
 				if ($this->vrac->isValide()) {
 					$this->contratValide($this->vrac);
 					$this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
 				}
-				$this->getUser()->setFlash('termine', true);
 				$this->redirect('vrac_validation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement, 'acteur' => $this->acteur));
 			}
 		}

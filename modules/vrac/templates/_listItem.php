@@ -1,28 +1,33 @@
 <?php 
 $acteur = null;
 $validated = false;
+$isProprietaire = false;
 if ($etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_ACHETEURID]) {
 	$acteur = VracClient::VRAC_TYPE_ACHETEUR;
 	$const = VracHistoryView::VRAC_VIEW_ACHETEURVAL;
+	if ($elt[VracHistoryView::VRAC_VIEW_VOUSETES] == $acteur) {
+		$isProprietaire = true;
+	}
 }
 if ($etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_MANDATAIREID]) {
 	$acteur = VracClient::VRAC_TYPE_COURTIER;
 	$const = VracHistoryView::VRAC_VIEW_MANDATAIREVAL;
+	if ($elt[VracHistoryView::VRAC_VIEW_VOUSETES] == $acteur) {
+		$isProprietaire = true;
+	}
 }
 if ($etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_VENDEURID]) {
 	$acteur = VracClient::VRAC_TYPE_VENDEUR;
 	$const = VracHistoryView::VRAC_VIEW_VENDEURVAL;
-}
-/*if ($acteur) {
-	if (!$elt[$const]) {
-		$validated = false;
+	if ($elt[VracHistoryView::VRAC_VIEW_VOUSETES] == $acteur) {
+		$isProprietaire = true;
 	}
-}*/
+}
 if ($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_NONSOLDE || $elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_SOLDE) {
 	$validated = true;
 }
 ?>
-
+<?php if($elt[VracHistoryView::VRAC_VIEW_STATUT] || $isProprietaire): ?>
 <tr class="<?php echo $statusColor; ?>" >
   <td>
   	<?php if (!$validated): ?>
@@ -45,14 +50,13 @@ if ($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_NONSOL
     		<?php echo substr($vracid,0,8)."&nbsp;".substr($vracid,8,  strlen($vracid)-1); ?><br />
       		<a href="<?php echo url_for("vrac_visualisation", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Visualiser le contrat</a>
     	<?php else: ?>
-			<?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
-			En attente<br />
+    		En attente<br />
+			<?php if ($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
     		<a href="<?php echo url_for('vrac_validation', array('numero_contrat' => $vracid, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>">Accéder au contrat</a>
 			<?php endif; ?>
     	<?php endif; ?>
     <?php else: ?>
-    	<?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
-			En attente<br />
+    	<?php if ($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
       	<a href="<?php echo url_for("vrac_edition", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder au contrat</a>
       	<?php endif; ?>
     <?php endif; ?>
@@ -101,3 +105,4 @@ if ($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_NONSOL
         <?php echo (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]))? $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE] : '0'; ?>&nbsp;€/hl Hors cotisations<br />
     </td>
 </tr>
+<?php endif; ?>
