@@ -24,7 +24,7 @@ class DRMDroit extends BaseDRMDroit {
     $this->cumulable_total += $drmdroit->getCumulable();
   }
 
-  public function integreVolume($volume_taxable, $volume_reintegre, $taux, $report, $libelle) {
+  public function integreVolume($volume_taxable, $volume_reintegre, $taux, $report, $libelle, $negatif = false) {
   	if (!$this->libelle && $libelle) {
       $this->libelle = $libelle;
     }
@@ -38,6 +38,9 @@ class DRMDroit extends BaseDRMDroit {
     $this->volume_reintegre += $volume_reintegre;
     $this->report += $report;
   	$this->total = ($this->volume_taxe - $this->volume_reintegre) * $this->taux;
+  	if (!$negatif && $this->total < 0) {
+  		$this->total = 0;
+  	}
   	$this->cumul = $this->total + $this->report;
   }
   

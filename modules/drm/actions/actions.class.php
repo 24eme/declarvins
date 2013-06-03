@@ -137,25 +137,10 @@ class drmActions extends sfActions
 
   	  if ($this->form->isValid()) {
 	  		$values = $this->form->getValues();
-                        if ($values['confirmation'] == "modification"){
-                            $this->redirect('drm_modif_infos', $this->drm);
-                        }elseif ($values['confirmation']) {
-  				$this->drm->declarant->nom = $this->etablissement->nom;
-  				$this->drm->declarant->raison_sociale = $this->etablissement->raison_sociale;
-  				$this->drm->declarant->siret = $this->etablissement->siret;
-  				$this->drm->declarant->cni = $this->etablissement->cni;
-  				$this->drm->declarant->cvi = $this->etablissement->cvi;
-  				$this->drm->declarant->siege->adresse = $this->etablissement->siege->adresse;
-  				$this->drm->declarant->siege->code_postal = $this->etablissement->siege->code_postal;
-  				$this->drm->declarant->siege->commune = $this->etablissement->siege->commune;
-  				$this->drm->declarant->siege->pays = $this->etablissement->siege->pays;
-  				$this->drm->declarant->comptabilite->adresse = $this->etablissement->comptabilite->adresse;
-  				$this->drm->declarant->comptabilite->code_postal = $this->etablissement->comptabilite->code_postal;
-  				$this->drm->declarant->comptabilite->commune = $this->etablissement->comptabilite->commune;
-  				$this->drm->declarant->comptabilite->pays = $this->etablissement->comptabilite->pays;
-  				$this->drm->declarant->no_accises = $this->etablissement->no_accises;
-  				$this->drm->declarant->no_tva_intracommunautaire = $this->etablissement->no_tva_intracommunautaire;
-  				$this->drm->declarant->service_douane = $this->etablissement->service_douane;		
+            if ($values['confirmation'] == "modification"){
+            	$this->redirect('drm_modif_infos', $this->drm);
+            }elseif ($values['confirmation']) {
+            	$this->drm->setEtablissementInformations($this->etablissement);
   				$this->drm->save();
 	  		}
 			$this->drm->setCurrentEtapeRouting('ajouts_liquidations');		

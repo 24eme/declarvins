@@ -240,6 +240,9 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
   		$this->declarant->comptabilite->pays = $etablissement->comptabilite->pays;
   		$this->declarant->no_accises = $etablissement->no_accises;
   		$this->declarant->no_tva_intracommunautaire = $etablissement->no_tva_intracommunautaire;
+  		$this->declarant->email = $etablissement->email;
+  		$this->declarant->telephone = $etablissement->telephone;
+  		$this->declarant->fax = $etablissement->fax;
   		$this->declarant->service_douane = $etablissement->service_douane;
     }
     

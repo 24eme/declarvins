@@ -302,6 +302,9 @@ DRM:
             cvi: {  }
             no_accises: {  }
             no_tva_intracommunautaire: {  }
+            email: {  }
+            telephone: {  }
+            fax: {  }
             siege:
                 type: collection
                 definition:
