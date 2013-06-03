@@ -35,7 +35,9 @@
 			    					<?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_RAISON_SOCIALE] ?> <?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_NOM] ?> (<?php echo $identifiant ?>)<br />
 			    					<?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_ADRESSE] ?><br />
 			    					<?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_CODE_POSTAL] ?> <?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_COMMUNE] ?><br />
-			    					<?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_PAYS] ?>
+			    					<?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_PAYS] ?><br />
+			    					@ : <?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_EMAIL] ?><br />
+			    					Tèl : <?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_TELEPHONE] ?> Fax :<?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX] ?>
 			    				</td>
 					    		<?php 
 					    			$drms = $drmsInformations[$identifiant];

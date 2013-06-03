@@ -67,6 +67,9 @@ class StatistiquesBilan
 		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_COMMUNE] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_COMMUNE];
 		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_PAYS] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_PAYS];
 		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_SERVICE_DOUANE] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_SERVICE_DOUANE];
+		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_EMAIL] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_EMAIL];
+		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_TELEPHONE] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_TELEPHONE];
+		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX];
 	}
 	
 	private function setDRMInformations($etablissement, $periode, $dataValues)

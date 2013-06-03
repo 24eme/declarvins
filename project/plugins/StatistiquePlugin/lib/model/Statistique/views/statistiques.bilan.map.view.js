@@ -16,6 +16,9 @@ function(doc) {
 			var service_douane = (doc.declarant.service_douane)? doc.declarant.service_douane : "";
 			var total = (doc.declaration.total)? doc.declaration.total : 0;
 			var date_sasie = (doc.valide.date_sasie)? doc.valide.date_sasie : "";
+			var email = (doc.declarant.email)? doc.declarant.email : "";
+			var telephone = (doc.declarant.telephone)? doc.declarant.telephone : "";
+			var fax = (doc.declarant.fax)? doc.declarant.fax : "";
 
 	  		emit([doc.interpros[i], doc.campagne, doc.identifiant, doc.periode], [
 			nom,
@@ -31,7 +34,10 @@ function(doc) {
 			pays,
 			service_douane,
 			total,
-			date_sasie
+			date_sasie,
+			email,
+			telephone,
+			fax
 			]);
 		}
  	}

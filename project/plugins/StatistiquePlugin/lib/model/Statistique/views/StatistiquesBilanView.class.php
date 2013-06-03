@@ -21,6 +21,9 @@ class StatistiquesBilanView extends acCouchdbView
 	const VALUE_ETABLISSEMENT_SERVICE_DOUANE = 11;
 	const VALUE_DRM_TOTAL_FIN_DE_MOIS = 12;
 	const VALUE_DRM_DATE_SAISIE = 13;
+	const VALUE_ETABLISSEMENT_EMAIL = 14;
+	const VALUE_ETABLISSEMENT_TELEPHONE = 15;
+	const VALUE_ETABLISSEMENT_FAX = 16;
 
 	public static function getInstance() 
 	{
