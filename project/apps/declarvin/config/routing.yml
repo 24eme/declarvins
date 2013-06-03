@@ -215,6 +215,11 @@ compte_partenaire_modification:
 partenaire_compte_password:
   url:   /partenaire/compte-password/:login
   param: { module: ComptePartenaire, action: redefinitionPassword }
+  
+# Statiques
+statiques:
+  url:   /statiques
+  param: { module: statiques, action: index }
 
 # generic rules
 # please, remove them by adding more specific rules

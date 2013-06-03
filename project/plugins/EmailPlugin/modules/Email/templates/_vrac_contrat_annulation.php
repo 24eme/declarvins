@@ -1,7 +1,7 @@
 <?php echo include_partial('Email/headerMail') ?>
 
 Madame, Monsieur,<br /><br />
-Le contrat de transaction en vrac saisi le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?> a été rejeté par <?php if ($etablissement): ?>l'entreprise <?php echo $etablissement->raison_sociale ?><?php else: ?>votre interprofession<?php endif; ?>.<br />
+Le contrat de transaction en vrac saisi le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?> n'a pas été validé par toutes les parties dans le délai prévu.<br />
 <strong>Ce contrat a donc été supprimé et est considéré comme non valable.</strong><br /><br />
 Pour mémoire, le contrat portait sur la transaction suivante :<br />
 Date de saisie : <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?><br />
