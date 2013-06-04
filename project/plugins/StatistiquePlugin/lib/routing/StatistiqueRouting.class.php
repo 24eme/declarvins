@@ -34,6 +34,7 @@ class StatistiqueRouting {
     static public function listenToRoutingLoadConfigurationEvent(sfEvent $event) {
         $r = $event->getSubject();
         $r->prependRoute('statistiques_bilan_drm', new sfRoute('/admin/statistiques/bilan-drm', array('module' => 'statistique', 'action' => 'bilanDrm')));
+        $r->prependRoute('statistiques_bilan_drm_csv', new sfRoute('/admin/statistiques/:interpro/bilan-drm/:campagne', array('module' => 'statistique', 'action' => 'bilanDrmCsv', 'interpro' => null, 'campagne' => null)));
         $r->prependRoute('statistiques', new sfRoute('/admin/:type/statistiques/', array('module' => 'statistique', 'action' => 'statistiques', 'type' => null)));
     }
 

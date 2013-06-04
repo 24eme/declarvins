@@ -13,7 +13,9 @@
 	        	<?php include_partial('formCampagne', array('form' => $formCampagne)) ?>
 	        </div>
 	        <br />
+	        <?php if ($bilan): ?>
     		<div class="tableau_ajouts_liquidations">
+    			<a href="<?php echo url_for('statistiques_bilan_drm_csv', array('interpro' => $interpro->get('_id'), 'campagne' => $campagne)) ?>">CSV</a>
 	    		<table class="tableau_recap">
 	    			<thead>
 		    			<tr>
@@ -68,6 +70,7 @@
 	    			</tbody>
 	    		</table>
     		</div>
+    		<?php endif; ?>
     	</div>
 	</section>
 </section>
