@@ -70,8 +70,8 @@ class EtablissementAllView extends acCouchdbView
             return null;
         }
 
-        return $this->client->startkey(array($etablissement->interpro, $etablissement->famille, $etablissement->sous_famille, $etablissement->societe, $etablissement->_id))
-                            ->endkey(array($etablissement->interpro, $etablissement->famille, $etablissement->sous_famille, $etablissement->societe, $etablissement->_id, array()))
+        return $this->client->startkey(array($etablissement->interpro, $etablissement->famille, $etablissement->sous_famille, null, $etablissement->_id))
+                            ->endkey(array($etablissement->interpro, $etablissement->famille, $etablissement->sous_famille, null, $etablissement->_id, array()))
                             ->getView($this->design, $this->view);
         
     }
