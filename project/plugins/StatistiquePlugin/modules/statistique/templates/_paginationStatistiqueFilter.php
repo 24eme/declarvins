@@ -1,5 +1,9 @@
-<ul>
-<?php for ($i = 0; $i < $nbPage; $i++): ?>
-	<li><a href="<?php echo url_for('statistiques', array($queryName => $query, 'p' => ($i + 1), 'type' => $type)) ?>"><?php if ($i + 1 == $page): ?><strong><?php endif; ?><?php echo ($i + 1) ?><?php if ($i + 1 == $page): ?></strong><?php endif; ?></a></li>
-<?php endfor; ?>
-</ul>
+<div style="text-align: right; margin: 20px 0;">
+<?php if ($page > 1): ?>
+<a href="<?php echo url_for('statistiques', array($queryName => $query, 'p' => ($page - 1), 'type' => $type)) ?>">&lt;&lt;</a>
+<?php endif; ?>
+(<strong><?php echo $page ?></strong>/<?php echo $nbPage ?>)
+<?php if ($page < $nbPage): ?>
+<a href="<?php echo url_for('statistiques', array($queryName => $query, 'p' => ($page + 1), 'type' => $type)) ?>">&gt;&gt;</a>
+<?php endif; ?>
+</div>

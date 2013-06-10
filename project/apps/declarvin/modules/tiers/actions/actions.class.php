@@ -33,7 +33,7 @@ class tiersActions extends sfActions
         	}
       }
       if ($nbEtablissement == 0) {
-      		throw new sfException('Aucun établissement actif pour ce compte');
+      		return $this->redirect('tiers_forbidden');
       }
       if ($nbEtablissement == 1) {
     		return $this->redirect("tiers_mon_espace", $etablissement);
@@ -46,6 +46,11 @@ class tiersActions extends sfActions
     		$tiers = $this->form->process();
       		return $this->redirect("tiers_mon_espace", $tiers);
 	  }
+  }
+  
+  public function executeAccessForbidden(sfWebRequest $request)
+  {
+  	
   }
 
   public function executeMonEspace(sfWebRequest $request) 

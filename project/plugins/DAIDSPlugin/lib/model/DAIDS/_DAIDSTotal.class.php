@@ -83,6 +83,7 @@ abstract class _DAIDSTotal extends acCouchdbDocumentTree
         	$this->code = $this->getFormattedCode();
         	$this->libelle = $this->getFormattedLibelle();
         }
+		$this->selecteur = 1;
     }
     
     private function getTotalByKey($key) 

@@ -88,7 +88,7 @@ class DAIDSDetail extends BaseDAIDSDetail {
         parent::update($params);
         $this->code = $this->getFormattedCode();
         $this->libelle = $this->getFormattedLibelle("%g% %a% %l% %co% %ce%");
-		
+		$this->selecteur = 1;
         $this->stock_chais = $this->stocks->chais + $this->stocks->propriete_tiers;
         $this->stock_propriete = $this->stocks->chais + $this->stocks->tiers;
         $this->total_manquants_excedents = $this->stock_chais - $this->stock_theorique;

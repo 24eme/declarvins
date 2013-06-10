@@ -110,6 +110,34 @@ class DAIDS extends BaseDAIDS
 	    }
         return $e;
     }
+    
+    public function setEtablissementInformations($etablissement = null)
+    {
+    	if (!$etablissement) {
+    		$etablissement = $this->getEtablissement();
+    	}
+    	$this->declarant->nom = $etablissement->nom;
+  		$this->declarant->raison_sociale = $etablissement->raison_sociale;
+  		$this->declarant->siret = $etablissement->siret;
+  		$this->declarant->cni = $etablissement->cni;
+  		$this->declarant->cvi = $etablissement->cvi;
+  		$this->declarant->siege->adresse = $etablissement->siege->adresse;
+  		$this->declarant->siege->code_postal = $etablissement->siege->code_postal;
+  		$this->declarant->siege->commune = $etablissement->siege->commune;
+  		$this->declarant->siege->pays = $etablissement->siege->pays;
+  		$this->declarant->comptabilite->adresse = $etablissement->comptabilite->adresse;
+  		$this->declarant->comptabilite->code_postal = $etablissement->comptabilite->code_postal;
+  		$this->declarant->comptabilite->commune = $etablissement->comptabilite->commune;
+  		$this->declarant->comptabilite->pays = $etablissement->comptabilite->pays;
+  		$this->declarant->no_accises = $etablissement->no_accises;
+  		$this->declarant->no_tva_intracommunautaire = $etablissement->no_tva_intracommunautaire;
+  		$this->declarant->email = $etablissement->email;
+  		$this->declarant->telephone = $etablissement->telephone;
+  		$this->declarant->fax = $etablissement->fax;
+  		$this->declarant->famille = $etablissement->famille;
+  		$this->declarant->sous_famille = $etablissement->sous_famille;
+  		$this->declarant->service_douane = $etablissement->service_douane;
+    }
 
     public function generateSuivante($periode) 
     {
@@ -157,26 +185,6 @@ class DAIDS extends BaseDAIDS
     public function getDetails() 
     {
         return $this->declaration->getProduits();
-    }
-    
-    public function setDeclarantInformations($etablissement)
-    {
-		$this->declarant->nom = $etablissement->nom;
-		$this->declarant->raison_sociale = $etablissement->raison_sociale;
-		$this->declarant->siret = $etablissement->siret;
-		$this->declarant->cni = $etablissement->cni;
-		$this->declarant->cvi = $etablissement->cvi;
-		$this->declarant->siege->adresse = $etablissement->siege->adresse;
-		$this->declarant->siege->code_postal = $etablissement->siege->code_postal;
-		$this->declarant->siege->commune = $etablissement->siege->commune;
-		$this->declarant->siege->pays = $etablissement->siege->pays;
-		$this->declarant->comptabilite->adresse = $etablissement->comptabilite->adresse;
-		$this->declarant->comptabilite->code_postal = $etablissement->comptabilite->code_postal;
-		$this->declarant->comptabilite->commune = $etablissement->comptabilite->commune;
-		$this->declarant->comptabilite->pays = $etablissement->comptabilite->pays;
-		$this->declarant->no_accises = $etablissement->no_accises;
-		$this->declarant->no_tva_intracommunautaire = $etablissement->no_tva_intracommunautaire;
-		$this->declarant->service_douane = $etablissement->service_douane;
     }
 
     public function setDroits() 

@@ -6,17 +6,126 @@ all:
   statistiques:
     drm:
       title: "DRM"
-      nb_resultat: 10
+      nb_resultat: 20
       elasticsearch_type: "drm"
       champs:
         id:
-          libelle: "Id"
+          libelle: "Identifiant"
           noeud: "_id"
-        total:
-          libelle: "Stock fin de mois"
-          noeud: "declaration.total"
+          need_replace: false
+          replace: null
+          var_replace: null
+          print_number: false
+        mode_de_saisie:
+          libelle: "Saisie"
+          noeud: "mode_de_saisie"
+          need_replace: false
+          replace: null
+          var_replace: null
+          print_number: false
+        etablissement_raison_sociale:
+          libelle: "Raison sociale"
+          noeud: "declarant.raison_sociale"
+          need_replace: false
+          replace: null
+          var_replace: null
+          print_number: false
+        etablissement_nom_commerical:
+          libelle: "Nom"
+          noeud: "declarant.nom"
+          need_replace: false
+          replace: null
+          var_replace: null
+          print_number: false
+        numero_ivse:
+          libelle: "Num. IVSE"
+          noeud: "identifiant_ivse"
+          need_replace: false
+          replace: null
+          var_replace: null
+          print_number: false
+        total_debut_mois:
+          libelle: "Total début de mois"
+          noeud: "%declaration%.total_debut_mois_net"
+          need_replace: true
+          replace: "%declaration%"
+          var_replace: "hashProduitFilter"
+          print_number: true
+        total_entrees_nettes:
+          libelle: "Total entrées nettes"
+          noeud: "%declaration%.total_entrees_nettes"
+          need_replace: true
+          replace: "%declaration%"
+          var_replace: "hashProduitFilter"
+          print_number: true
+        total_entrees_reciproque:
+          libelle: "Total entrées avec réciproque"
+          noeud: "%declaration%.total_entrees_reciproque"
+          need_replace: true
+          replace: "%declaration%"
+          var_replace: "hashProduitFilter"
+          print_number: true
+        total_sorties_nettes:
+          libelle: "Total sorties nettes"
+          noeud: "%declaration%.total_sorties_nettes"
+          need_replace: true
+          replace: "%declaration%"
+          var_replace: "hashProduitFilter"
+          print_number: true
+        total_sorties_reciproque:
+          libelle: "Total sorties avec réciproque"
+          noeud: "%declaration%.total_sorties_reciproque"
+          need_replace: true
+          replace: "%declaration%"
+          var_replace: "hashProduitFilter"
+          print_number: true
+        total_fin_de_mois:
+          libelle: "Total fin de mois"
+          noeud: "%declaration%.total_net"
+          need_replace: true
+          replace: "%declaration%"
+          var_replace: "hashProduitFilter"
+          print_number: true
       facets:
-        total:
-          nom: "total"
-          noeud: "declaration.total"
+        total_debut_mois:
+          nom: "Total début de mois"
+          noeud: "%declaration%.total_debut_mois_net"
+          need_replace: true
+          replace: "%declaration%"
+          var_replace: "hashProduitFilter"
+          code: null
+        total_entrees_nettes:
+          nom: "Total entrées nettes"
+          noeud: "%declaration%.total_entrees_nettes"
+          need_replace: true
+          replace: "%declaration%"
+          var_replace: "hashProduitFilter"
+          code: null
+        total_entrees_reciproque:
+          nom: "Total entrées avec réciproque"
+          noeud: "%declaration%.total_entrees_reciproque"
+          need_replace: true
+          replace: "%declaration%"
+          var_replace: "hashProduitFilter"
+          code: null
+        total_sorties_nettes:
+          nom: "Total sorties nettes"
+          noeud: "%declaration%.total_sorties_nettes"
+          need_replace: true
+          replace: "%declaration%"
+          var_replace: "hashProduitFilter"
+          code: null
+        total_sorties_reciproque:
+          nom: "Total sorties avec réciproque"
+          noeud: "%declaration%.total_sorties_reciproque"
+          need_replace: true
+          replace: "%declaration%"
+          var_replace: "hashProduitFilter"
+          code: null
+        total_fin_de_mois:
+          nom: "Total fin de mois"
+          noeud: "%declaration%.total_net"
+          need_replace: true
+          replace: "%declaration%"
+          var_replace: "hashProduitFilter"
           code: null

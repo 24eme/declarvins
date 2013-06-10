@@ -17,9 +17,10 @@ class produitActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
+  	ini_set('memory_limit', '512M');
   	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
-	  $this->produits = ConfigurationClient::getInstance()->findProduitsForAdmin($this->interpro->_id);
-	  $this->produitsNonSupprimables = DRMClient::getInstance()->getAllProduits();
+	$this->produits = ConfigurationClient::getInstance()->findProduitsForAdmin($this->interpro->_id);
+	//$this->produitsNonSupprimables = DRMClient::getInstance()->getAllProduits();
   }
   public function executeModification(sfWebRequest $request)
   {

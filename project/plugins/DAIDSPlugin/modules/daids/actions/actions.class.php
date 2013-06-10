@@ -120,7 +120,7 @@ class daidsActions extends sfActions
             	$this->redirect('daids_modif_infos', $this->daids);
             } elseif ($values['confirmation']) {	
             	$this->formEntrepots->save();	
-            	$this->daids->setDeclarantInformations($this->etablissement);
+            	$this->daids->setEtablissementInformations($this->etablissement);
   				$this->daids->save();
 	  		}
 	        $this->daids->setCurrentEtapeRouting('recapitulatif');

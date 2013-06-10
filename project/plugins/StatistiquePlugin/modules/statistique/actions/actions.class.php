@@ -87,6 +87,19 @@ class statistiqueActions extends sfActions
     return $this->renderText($csv_file);
   }
   
+  private function parseQueryForDefaultValuesForm($query)
+  {
+  	$result = array();
+  	if ($query) {
+  		$fields = explode(' ', $query);
+  		foreach ($fields as $field) {
+  			$terms = explode(':', $field);
+  			$result[$terms[0]] = $terms[1];
+  		}
+  	}
+  	return $result;
+  }
+  
   public function executeStatistiques(sfWebRequest $request) 
   {
   	  $this->page = $request->getParameter('p', 1);
@@ -104,31 +117,37 @@ class statistiqueActions extends sfActions
   	   * Pour le moment commun a tous!
   	   * A rendre generique quand on aura les difference
   	   */
-	  $this->form = new StatistiqueFilterForm();
-	  $query = '*';
-	  $this->query = '';
-  	  if ($datas = $request->getParameter($this->form->getName())) {
-      	$this->form->bind($datas);
+  	  $this->query = $request->getParameter('query', '*');
+	  $this->form = new StatistiqueDRMFilterForm($this->getUser()->getCompte()->getGerantInterpro());
+	  if ($this->query != '*') {
+	  	$this->form->setDefaults($this->parseQueryForDefaultValuesForm($this->query));
+	  }
+	  $this->query = $request->getParameter('query', '*');
+	  if ($request->isMethod(sfWebRequest::POST)) {
+	  	$this->form->bind($request->getParameter($this->form->getName()));
   	  	if ($this->form->isValid()) {
-  	  		$values = $this->form->getValues();
-  	  		if ($values['query']) {
-  	  			$this->query = $values['query'];
-  	  			$query = $values['query'];
+  	  		if ($q = $this->form->getQuery()) {
+  	  			$this->query = $q;
   	  		}
   	  	}
-      }   
+	  }  
+	  $this->hashProduitFilter = $this->form->getProduit();
       /*
        * -------- BLOC FILTRES
        */
       
       $index = acElasticaManager::getType($this->statistiquesConfig['elasticsearch_type']);
       $elasticaQuery = new acElasticaQuery();
-      $elasticaQuery->setQuery(new acElasticaQueryQueryString($query));
+      $elasticaQuery->setQuery(new acElasticaQueryQueryString($this->query));
       
       $facets = $this->statistiquesConfig['facets'];
       foreach($facets as $facet) {
 		$elasticaFacet 	= new acElasticaFacetStatistical($facet['nom']);
-		$elasticaFacet->setField($facet['noeud']);
+		if ($facet['need_replace']) {
+			$elasticaFacet->setField(str_replace($facet['replace'], $this->{$facet['var_replace']}, $facet['noeud']));
+		} else {
+			$elasticaFacet->setField($facet['noeud']);
+		}
 		if ($facet['code']) {
 			$elasticaFacet->setScript($facet['code']);
 		}

@@ -99,6 +99,9 @@ tiers_mon_espace:
 tiers:
   url: /tiers
   param: { module: tiers, action: login }
+tiers_forbidden:
+  url: /tiers/acces-restreint
+  param: { module: tiers, action: accessForbidden }
 profil:
   class: EtablissementRoute
   url: /profil/:identifiant
