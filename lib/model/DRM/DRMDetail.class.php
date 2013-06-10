@@ -113,6 +113,14 @@ class DRMDetail extends BaseDRMDetail {
         $this->total_entrees = $this->getTotalByKey('entrees');
         $this->total_sorties = $this->getTotalByKey('sorties');
         $this->total = $this->total_debut_mois + $this->total_entrees - $this->total_sorties;
+        if (!in_array(substr($this->getCepage()->getHash(),1), ConfigurationClient::getInstance()->findHashProduitsNoCvo($this->getDocument()->getInterpro()->getKey()))) {
+        	$this->total_debut_mois_net = $this->total_debut_mois;
+        	$this->total_entrees_nettes = $this->sommeLignes(DRMVolumes::getEntreesNettes());
+        	$this->total_entrees_reciproque = $this->sommeLignes(DRMVolumes::getEntreesReciproque());
+        	$this->total_sorties_nettes = $this->sommeLignes(DRMVolumes::getSortiesNettes());
+        	$this->total_sorties_reciproque = $this->sommeLignes(DRMVolumes::getSortiesReciproque());
+        	$this->total_net = $this->total_entrees_nettes + $this->total_entrees_reciproque + $this->total_entrees_reciproque - $this->total_sorties_nettes - $this->total_sorties_reciproque;
+        }
         if (!$this->code) {
         	$this->code = $this->getFormattedCode();
         }
@@ -145,6 +153,7 @@ class DRMDetail extends BaseDRMDetail {
         }
         $this->cvo->volume_taxable = $this->getVolumeTaxable();
         $this->douane->volume_taxable = $this->getDouaneVolumeTaxable();
+        $this->selecteur = 1;
     }
     
     public function getVolumeTaxable()
@@ -264,14 +273,22 @@ class DRMDetail extends BaseDRMDetail {
       $this->total_entrees = null;
       $this->total_sorties = null;
       $this->total = null;
+      $this->total_debut_mois_net = ($keepStock)? $this->total_net : null;
+      $this->total_entrees_nettes = null;
+      $this->total_entrees_reciproque = null;
+      $this->total_sorties_nettes = null;
+      $this->total_sorties_reciproque = null;
+      $this->total_net = null;
       $this->cvo->taux = null;
       $this->douane->taux = null;
+      $this->selecteur = 1;
        if ($nextCampagne != $this->getDocument()->campagne) {
        	$daids = DAIDSClient::getInstance()->findMasterByIdentifiantAndPeriode($this->getDocument()->identifiant, $this->getDocument()->campagne);
        	if ($daids) {
        		if ($daids->exist($this->getHash())) {
        			$detailDAIDS = $daids->get($this->getHash());
        			$this->total_debut_mois = $detailDAIDS->stock_chais;
+       			$this->total_debut_mois_net = $detailDAIDS->stock_chais;
        		}
        	}
        	$this->pas_de_mouvement_check = 0;

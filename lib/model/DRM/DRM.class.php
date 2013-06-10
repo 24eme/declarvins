@@ -243,6 +243,8 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
   		$this->declarant->email = $etablissement->email;
   		$this->declarant->telephone = $etablissement->telephone;
   		$this->declarant->fax = $etablissement->fax;
+  		$this->declarant->famille = $etablissement->famille;
+  		$this->declarant->sous_famille = $etablissement->sous_famille;
   		$this->declarant->service_douane = $etablissement->service_douane;
     }
     
@@ -792,6 +794,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     protected function replicate($drm) {
         foreach($this->getDiffWithMother() as $key => $value) {
             $this->replicateDetail($drm, $key, $value, 'total', 'total_debut_mois');
+            $this->replicateDetail($drm, $key, $value, 'total_net', 'total_debut_mois_net');
             $this->replicateDetail($drm, $key, $value, 'stocks_fin/bloque', 'stocks_debut/bloque');
             $this->replicateDetail($drm, $key, $value, 'stocks_fin/warrante', 'stocks_debut/warrante');
             $this->replicateDetail($drm, $key, $value, 'stocks_fin/instance', 'stocks_debut/instance');

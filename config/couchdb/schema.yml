@@ -70,10 +70,17 @@ DRM:
         type: collection
         definition:
           fields:
+            selecteur: {  }
             total_debut_mois: { type: float }
             total_entrees: { type: float }
             total_sorties: { type: float }
             total: { type: float }
+            total_debut_mois_net: { type: float }
+            total_entrees_nettes: { type: float }
+            total_entrees_reciproque: { type: float }
+            total_sorties_nettes: { type: float }
+            total_sorties_reciproque: { type: float }
+            total_net: { type: float }
             certifications:
               type: collection
               definition:
@@ -87,10 +94,17 @@ DRM:
                       fields:
                         code: {  }
                         libelle: {  }
+                        selecteur: {  }
                         total_debut_mois: { type: float }
                         total_entrees: { type: float }
                         total_sorties: { type: float }
                         total: { type: float }
+                        total_debut_mois_net: { type: float }
+                        total_entrees_nettes: { type: float }
+                        total_entrees_reciproque: { type: float }
+                        total_sorties_nettes: { type: float }
+                        total_sorties_reciproque: { type: float }
+                        total_net: { type: float }
                         genres:
                           type: collection
                           definition:
@@ -104,10 +118,17 @@ DRM:
                                   fields:
                                     code: {  }
                                     libelle: {  }
+                                    selecteur: {  }
                                     total_debut_mois: { type: float }
                                     total_entrees: { type: float }
                                     total_sorties: { type: float }
                                     total: { type: float }
+                                    total_debut_mois_net: { type: float }
+                                    total_entrees_nettes: { type: float }
+                                    total_entrees_reciproque: { type: float }
+                                    total_sorties_nettes: { type: float }
+                                    total_sorties_reciproque: { type: float }
+                                    total_net: { type: float }
                                     appellations:
                                       type: collection
                                       definition:
@@ -121,10 +142,17 @@ DRM:
                                               fields:
                                                 code: {  }
                                                 libelle: {  }
+                                                selecteur: {  }
                                                 total_debut_mois: { type: float }
                                                 total_entrees: { type: float }
                                                 total_sorties: { type: float }
                                                 total: { type: float }
+                                                total_debut_mois_net: { type: float }
+                                                total_entrees_nettes: { type: float }
+                                                total_entrees_reciproque: { type: float }
+                                                total_sorties_nettes: { type: float }
+                                                total_sorties_reciproque: { type: float }
+                                                total_net: { type: float }
                                                 mentions:
                                                   type: collection
                                                   definition:
@@ -138,10 +166,17 @@ DRM:
                                                           fields:
                                                             code: {  }
                                                             libelle: {  }
+                                                            selecteur: {  }
                                                             total_debut_mois: { type: float }
                                                             total_entrees: { type: float }
                                                             total_sorties: { type: float }
                                                             total: { type: float }
+                                                            total_debut_mois_net: { type: float }
+                                                            total_entrees_nettes: { type: float }
+                                                            total_entrees_reciproque: { type: float }
+                                                            total_sorties_nettes: { type: float }
+                                                            total_sorties_reciproque: { type: float }
+                                                            total_net: { type: float }
                                                             lieux:
                                                               type: collection
                                                               definition:
@@ -155,10 +190,17 @@ DRM:
                                                                       fields:
                                                                         code: {  }
                                                                         libelle: {  }
+                                                                        selecteur: {  }
                                                                         total_debut_mois: { type: float }
                                                                         total_entrees: { type: float }
                                                                         total_sorties: { type: float }
                                                                         total: { type: float }
+                                                                        total_debut_mois_net: { type: float }
+                                                                        total_entrees_nettes: { type: float }
+                                                                        total_entrees_reciproque: { type: float }
+                                                                        total_sorties_nettes: { type: float }
+                                                                        total_sorties_reciproque: { type: float }
+                                                                        total_net: { type: float }
                                                                         couleurs:
                                                                           type: collection
                                                                           definition:
@@ -172,10 +214,17 @@ DRM:
                                                                                   fields:
                                                                                     code: {  }
                                                                                     libelle: {  }
+                                                                                    selecteur: {  }
                                                                                     total_debut_mois: { type: float }
                                                                                     total_entrees: { type: float }
                                                                                     total_sorties: { type: float }
                                                                                     total: { type: float }
+                                                                                    total_debut_mois_net: { type: float }
+                                                                                    total_entrees_nettes: { type: float }
+                                                                                    total_entrees_reciproque: { type: float }
+                                                                                    total_sorties_nettes: { type: float }
+                                                                                    total_sorties_reciproque: { type: float }
+                                                                                    total_net: { type: float }
                                                                                     cepages:
                                                                                       type: collection
                                                                                       definition:
@@ -189,10 +238,17 @@ DRM:
                                                                                               fields:
                                                                                                 code: {  }
                                                                                                 libelle: {  }
+                                                                                                selecteur: {  }
                                                                                                 total_debut_mois: { type: float }
                                                                                                 total_entrees: { type: float }
                                                                                                 total_sorties: { type: float }
                                                                                                 total: { type: float }
+                                                                                                total_debut_mois_net: { type: float }
+                                                                                                total_entrees_nettes: { type: float }
+                                                                                                total_entrees_reciproque: { type: float }
+                                                                                                total_sorties_nettes: { type: float }
+                                                                                                total_sorties_reciproque: { type: float }
+                                                                                                total_net: { type: float }
                                                                                                 details:
                                                                                                   type: collection
                                                                                                   class: DRMDetails
@@ -205,11 +261,18 @@ DRM:
                                                                                                           fields:
                                                                                                             code: {  }
                                                                                                             libelle: {  }
+                                                                                                            selecteur: {  }
                                                                                                             pas_de_mouvement_check: { type: integer }
                                                                                                             total_debut_mois: { type: float }
                                                                                                             total_entrees: { type: float }
                                                                                                             total_sorties: { type: float }
                                                                                                             total: { type: float }
+                                                                                                            total_debut_mois_net: { type: float }
+                                                                                                            total_entrees_nettes: { type: float }
+                                                                                                            total_entrees_reciproque: { type: float }
+                                                                                                            total_sorties_nettes: { type: float }
+                                                                                                            total_sorties_reciproque: { type: float }
+                                                                                                            total_net: { type: float }
                                                                                                             labels:
                                                                                                               type: array_collection
                                                                                                               definition:
@@ -321,6 +384,8 @@ DRM:
                     code_postal: {  }
                     commune: {  }
                     pays: {  }
+            famille: {  }
+            sous_famille: {  }
             service_douane: {  }
       declaratif:
         type: collection

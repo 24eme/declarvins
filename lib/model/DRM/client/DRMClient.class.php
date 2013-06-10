@@ -43,6 +43,15 @@ class DRMClient extends acCouchdbClient {
 
       return DRM::buildModificative($version);
     }
+    
+    public function getModesDeSaisie()
+    {
+    	return array(
+    		self::MODE_DE_SAISIE_PAPIER => self::MODE_DE_SAISIE_PAPIER_LIBELLE,
+    		self::MODE_DE_SAISIE_DTI => self::MODE_DE_SAISIE_DTI_LIBELLE,
+    		self::MODE_DE_SAISIE_EDI => self::MODE_DE_SAISIE_EDI_LIBELLE
+    	);
+    }
 
     public function getPeriodes($campagne) {
       $periodes = array();
@@ -364,5 +373,10 @@ class DRMClient extends acCouchdbClient {
 
     return sfContext::getInstance()->getUser();
   }
+	public function findAll() 
+    {
+        
+        return $this->reduce(false)->getView('drm', 'all');
+    }
 
 }
