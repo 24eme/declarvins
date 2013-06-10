@@ -59,6 +59,72 @@ class ConfigurationClient extends acCouchdbClient {
         return $this->startkey(array($interpro))
               ->endkey(array($interpro, array()))->getView('configuration', 'produits_admin');
     }
+  
+    public function findTreeProduitsLibelleForAdmin($interpro, $withCsvo = true) {
+        $produits = $this->findProduitsForAdmin($interpro)->rows;
+        $tree = array();
+        foreach ($produits as $produit) {
+        	$p = $produit->key;
+        	if (!$withCsvo) {
+        		$values = $produit->value;
+        		if((!isset($values->cvo) || !isset($values->cvo->taux) || $values->cvo->taux == 0 || $values->cvo->taux == null || $values->cvo->taux == '')) {
+        			continue;
+        		}
+        	}
+        	$tree = array_merge($tree, $this->getProduitsByKey($p));
+        }
+        ksort($tree);
+        return $tree;
+    }
+    
+    public function getProduitsByKey($key)
+    {
+    	$explodedHash = explode('/', $key[8]);
+    	$result = array();
+        $codeConcat = $explodedHash[1];
+        $libelleConcat = '';
+    	for ($i = 2; $i<15; $i++) {
+    		$codeConcat .= '/'.$explodedHash[$i];
+    		if ($explodedHash[$i] == Configuration::DEFAULT_KEY) {
+    			continue;
+    		}
+    		if ($i%2 != 0) {
+    			continue;
+    		}
+    		$libelleConcat .= $key[$i/2].' ';
+    		$result[$codeConcat] = $libelleConcat;
+    	}
+    	return $result;
+    }
+  
+    public function findHashProduits($interpro, $withCsvo = true) {
+        $produits = $this->findProduitsForAdmin($interpro)->rows;
+        $result = array();
+        foreach ($produits as $produit) {
+        	$p = $produit->key;
+        	if (!$withCsvo) {
+        		$values = $produit->value;
+        		if((!isset($values->cvo) || !isset($values->cvo->taux) || $values->cvo->taux == 0 || $values->cvo->taux == null || $values->cvo->taux == '')) {
+        			continue;
+        		}
+        	}
+        	$result[] = $p[8];
+        }
+        return $result;
+    }
+  
+    public function findHashProduitsNoCvo($interpro) {
+        $produits = $this->findProduitsForAdmin($interpro)->rows;
+        $result = array();
+        foreach ($produits as $produit) {
+        	$p = $produit->key;
+        	$values = $produit->value;
+        	if((!isset($values->cvo) || !isset($values->cvo->taux) || $values->cvo->taux == 0 || $values->cvo->taux == null || $values->cvo->taux == '')) {
+        		$result[] = $p[8];
+        	}
+        }
+        return $result;
+    }
 
     public function findDroitsByHashAndType($hash, $type) {
         

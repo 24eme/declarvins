@@ -26,8 +26,9 @@ class Configuration extends BaseConfiguration
     protected function loadProduits() {
       $this->getProduits();
       $this->getProduitsLibelles();
-      $this->getProduitLibelleByHash();
-      $this->getProduitCodeByHash();
+      $this->getProduitsCodes();
+      //$this->getProduitLibelleByHash();
+      //$this->getProduitCodeByHash();
     }
 
     public function constructId() 
