@@ -56,13 +56,16 @@ class DeclarantDocument
         $declarant->code_postal = $etablissement->siege->code_postal;
         $declarant->region = $etablissement->getRegion();
         if ($etablissement->exist("telephone")) {
-             $declarant->add('telephone',$declarant->telephone);
+            if($declarant->getDefinition()->exist('telephone'))
+                 $declarant->add('telephone',$declarant->telephone);
         }
         if ($etablissement->exist("email")) {
-             $declarant->add('email',$declarant->email);
+            if($declarant->getDefinition()->exist('email'))
+               $declarant->add('email',$declarant->email);
         }
          if ($etablissement->exist("fax")) {
-            $declarant->add('fax',$declarant->fax);
+             if($declarant->getDefinition()->exist('fax'))
+                $declarant->add('fax',$declarant->fax);
         }
     }
 }
