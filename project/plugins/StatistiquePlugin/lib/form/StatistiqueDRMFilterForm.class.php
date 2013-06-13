@@ -2,10 +2,16 @@
 class StatistiqueDRMFilterForm extends StatistiqueFilterForm
 {
 	const HASH_PRODUIT_DEFAUT = 'declaration';
-	
+	const FORM_TEMPLATE = 'formDRMStatistiqueFilter';
 	public function configure() 
 	{
 		parent::configure();
+		/**
+		 * INTERPRO
+		 */
+        $this->setWidget('interpros', new sfWidgetFormInputHidden());
+        $this->setValidator('interpros', new sfValidatorString(array('required' => false)));
+        $this->getWidget('interpros')->setDefault($this->getInterproId());
 		/**
 		 * DECLARANT
 		 */
@@ -81,60 +87,6 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
         
     }
     
-    protected function getDouanes() 
-    {
-        $douanes = DouaneAllView::getInstance()->findActives()->rows;
-        $choices = array();
-        foreach ($douanes as $douane) {
-        	$value = $douane->value;
-            $choices[$value[DouaneAllView::VALUE_DOUANE_NOM]] = $value[DouaneAllView::VALUE_DOUANE_NOM];
-        }
-        return $choices;
-    }
-    protected function getFamilles() 
-    {
-        $familles = EtablissementFamilles::getFamilles();
-        $choices = array();
-        foreach ($familles as $key => $famille) {
-            $choices[$key] = $famille;
-        }
-        return $choices;
-    }
-    
-	protected function getSousFamilles() 
-	{
-    	$sousFamilles =  EtablissementFamilles::getSousFamilles();	
-    	$result = array();
-    	foreach ($sousFamilles as $sousFamillesByFamille) {
-    		foreach ($sousFamillesByFamille as $sousFamille => $value) {
-    			$result[$sousFamille] = $sousFamille;
-    		}
-    	}
-    	return $result;
-    }
-    
-    protected function getModesDeSaisie()
-    {
-    	return DRMClient::getInstance()->getModesDeSaisie();
-    }
-
-    
-    protected function getCampagneChoices()
-    {
-    	$years = range(date('Y'), date('Y') - 20);
-    	$choices = array();
-    	foreach ($years as $year) {
-    		$campagne = ($year-1).'-'.$year;
-    		$choices[$campagne] = $campagne;
-    	}
-    	return $choices;
-    }
-    
-    protected function getProduits()
-    {
-    	return ConfigurationClient::getInstance()->findTreeProduitsLibelleForAdmin($this->getInterproId(), false);
-    }
-    
     public function getProduit()
     {
     	$produit = self::HASH_PRODUIT_DEFAUT;
@@ -144,6 +96,11 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
     		}
     	}
     	return $produit;
+    }
+    
+    public function getDefaultQuery()
+    {
+    	return 'interpros:'.$this->getInterproId();
     }
     
     public function getQuery()
@@ -158,12 +115,17 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
     			$query .= $node.':'.$value;
     		}
     	}
-    	if ($values['declaration']) {
+    	if (isset($values['declaration']) && !empty($values['declaration'])) {
     		if ($query) {
     			$query .= ' ';
     		}
     		$query .= self::HASH_PRODUIT_DEFAUT.'.'.str_replace('/', '.', $values['declaration']).'.selecteur:1';
     	}
     	return $query;
+    }
+    
+    public function getFormTemplate()
+    {
+    	return self::FORM_TEMPLATE;
     }
 }

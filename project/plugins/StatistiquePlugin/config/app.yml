@@ -90,42 +90,203 @@ all:
         total_debut_mois:
           nom: "Total début de mois"
           noeud: "%declaration%.total_debut_mois_net"
+          divise: null
+          unite: "hl"
           need_replace: true
           replace: "%declaration%"
           var_replace: "hashProduitFilter"
           code: null
+          facet_filter: false
+          filters: null
         total_entrees_nettes:
           nom: "Total entrées nettes"
           noeud: "%declaration%.total_entrees_nettes"
+          divise: null
+          unite: "hl"
           need_replace: true
           replace: "%declaration%"
           var_replace: "hashProduitFilter"
           code: null
+          facet_filter: false
+          filters: null
         total_entrees_reciproque:
           nom: "Total entrées avec réciproque"
           noeud: "%declaration%.total_entrees_reciproque"
+          divise: null
+          unite: "hl"
           need_replace: true
           replace: "%declaration%"
           var_replace: "hashProduitFilter"
           code: null
+          facet_filter: false
+          filters: null
         total_sorties_nettes:
           nom: "Total sorties nettes"
           noeud: "%declaration%.total_sorties_nettes"
+          divise: null
+          unite: "hl"
           need_replace: true
           replace: "%declaration%"
           var_replace: "hashProduitFilter"
           code: null
+          facet_filter: false
+          filters: null
         total_sorties_reciproque:
           nom: "Total sorties avec réciproque"
           noeud: "%declaration%.total_sorties_reciproque"
+          divise: null
+          unite: "hl"
           need_replace: true
           replace: "%declaration%"
           var_replace: "hashProduitFilter"
           code: null
+          facet_filter: false
+          filters: null
         total_fin_de_mois:
           nom: "Total fin de mois"
           noeud: "%declaration%.total_net"
+          divise: null
+          unite: "hl"
           need_replace: true
           replace: "%declaration%"
           var_replace: "hashProduitFilter"
           code: null
+          facet_filter: false
+          filters: null
+    vrac:
+      title: "Contrat Vrac"
+      nb_resultat: 20
+      elasticsearch_type: "vrac"
+      champs:
+        id:
+          libelle: "Visa"
+          noeud: "_id"
+          need_replace: false
+          replace: null
+          var_replace: null
+          print_number: false
+        produit:
+          libelle: "Produit"
+          noeud: "produit_libelle"
+          need_replace: false
+          replace: null
+          var_replace: null
+          print_number: false
+        label:
+          libelle: "Label"
+          noeud: "labels_libelle"
+          need_replace: false
+          replace: null
+          var_replace: null
+          print_number: false
+        mentions:
+          libelle: "Mentions"
+          noeud: "mentions_libelle"
+          need_replace: false
+          replace: null
+          var_replace: null
+          print_number: false
+        volume:
+          libelle: "Volume"
+          noeud: "volume_propose"
+          need_replace: false
+          replace: null
+          var_replace: null
+          print_number: true
+        prix_unitaire:
+          libelle: "Prix unitaire"
+          noeud: "prix_unitaire"
+          need_replace: false
+          replace: null
+          var_replace: null
+          print_number: true
+        date_saisie:
+          libelle: "Saisie"
+          noeud: "valide.date_saisie"
+          need_replace: false
+          replace: null
+          var_replace: null
+          print_number: false
+        vendeur:
+          libelle: "Vendeur"
+          noeud: "vendeur.raison_sociale"
+          need_replace: false
+          replace: null
+          var_replace: null
+          print_number: false
+        acheteur:
+          libelle: "Acheteur"
+          noeud: "acheteur.raison_sociale"
+          need_replace: false
+          replace: null
+          var_replace: null
+          print_number: false
+        courtier:
+          libelle: "Courtier"
+          noeud: "mandataire.raison_sociale"
+          need_replace: false
+          replace: null
+          var_replace: null
+          print_number: false
+        statut:
+          libelle: "Statut"
+          noeud: "valide.statut"
+          need_replace: false
+          replace: null
+          var_replace: null
+          print_number: false
+      facets:
+        total_volume:
+          nom: "Total volume"
+          noeud: "volume_propose"
+          divise: null
+          unite: "hl"
+          need_replace: false
+          replace: null
+          var_replace: null
+          code: null
+          facet_filter: false
+          filters: null
+        prix_moyen:
+          nom: "Prix moyen"
+          noeud: "prix_total_net"
+          divise: "Total volume"
+          unite: "€"
+          need_replace: false
+          replace: null
+          var_replace: null
+          code: null
+          facet_filter: false
+          filters: null
+        total_volume_pris_en_compte:
+          nom: "Total volume pris en compte"
+          noeud: "volume_propose"
+          divise: null
+          unite: "hl"
+          need_replace: false
+          replace: null
+          var_replace: null
+          code: null
+          facet_filter: true
+          filters:
+            filter_0:
+              type: "not"
+              term:
+                node: "type_prix"
+                value: "acompte"
+        prix_moyen_pris_en_compte:
+          nom: "Prix moyen pris en compte"
+          noeud: "prix_total_net"
+          divise: "Total volume pris en compte"
+          unite: "€"
+          need_replace: false
+          replace: null
+          var_replace: null
+          code: null
+          facet_filter: true
+          filters:
+            filter_0:
+              type: "not"
+              term:
+                node: "type_prix"
+                value: "acompte"

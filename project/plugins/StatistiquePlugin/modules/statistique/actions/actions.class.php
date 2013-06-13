@@ -112,17 +112,13 @@ class statistiqueActions extends sfActions
   	  	throw new sfException('No configuration set for elasticsearch type '.$this->type);
   	  }
   	  
-  	  /*
-  	   * BLOC FILTRES -------
-  	   * Pour le moment commun a tous!
-  	   * A rendre generique quand on aura les difference
-  	   */
-  	  $this->query = $request->getParameter('query', '*');
-	  $this->form = new StatistiqueDRMFilterForm($this->getUser()->getCompte()->getGerantInterpro());
-	  if ($this->query != '*') {
+  	  $this->query = $request->getParameter('query');
+	  $this->form = FilterFormFactory::create($this->type, $this->getUser()->getCompte()->getGerantInterpro());
+	  if ($this->query) {
 	  	$this->form->setDefaults($this->parseQueryForDefaultValuesForm($this->query));
+	  } else {
+	  	$this->query = $this->form->getDefaultQuery();
 	  }
-	  $this->query = $request->getParameter('query', '*');
 	  if ($request->isMethod(sfWebRequest::POST)) {
 	  	$this->form->bind($request->getParameter($this->form->getName()));
   	  	if ($this->form->isValid()) {
@@ -132,9 +128,6 @@ class statistiqueActions extends sfActions
   	  	}
 	  }  
 	  $this->hashProduitFilter = $this->form->getProduit();
-      /*
-       * -------- BLOC FILTRES
-       */
       
       $index = acElasticaManager::getType($this->statistiquesConfig['elasticsearch_type']);
       $elasticaQuery = new acElasticaQuery();
@@ -143,17 +136,24 @@ class statistiqueActions extends sfActions
       $facets = $this->statistiquesConfig['facets'];
       foreach($facets as $facet) {
 		$elasticaFacet 	= new acElasticaFacetStatistical($facet['nom']);
-		if ($facet['need_replace']) {
-			$elasticaFacet->setField(str_replace($facet['replace'], $this->{$facet['var_replace']}, $facet['noeud']));
-		} else {
-			$elasticaFacet->setField($facet['noeud']);
+		if ($facet['noeud']) {
+			if ($facet['need_replace']) {
+				$elasticaFacet->setField(str_replace($facet['replace'], $this->{$facet['var_replace']}, $facet['noeud']));
+			} else {
+				$elasticaFacet->setField($facet['noeud']);
+			}
 		}
 		if ($facet['code']) {
 			$elasticaFacet->setScript($facet['code']);
 		}
+		if ($facet['facet_filter']) {
+			$filters = $this->getFacetFilters($facet);
+			foreach ($filters as $filter) {
+				$elasticaFacet->setFilter($filter);
+			}
+		}
 		$elasticaQuery->addFacet($elasticaFacet);
       }
-      
       $elasticaQuery->setLimit($this->statistiquesConfig['nb_resultat']);
       $elasticaQuery->setFrom(($this->page - 1) * $this->statistiquesConfig['nb_resultat']);
       $result = $index->search($elasticaQuery);
@@ -164,4 +164,17 @@ class statistiqueActions extends sfActions
 
   }
   
+  private function getFacetFilters($facet)
+  {
+  	  $filters = array();
+  	  foreach ($facet['filters'] as $filter) {
+  	  	switch ($filter['type']) {
+  	  		case 'not':
+  	  			 $filters[] = new acElasticaFilterNot(new acElasticaFilterTerm(array($filter['term']['node'] => $filter['term']['value'])));
+  	  			 break;
+  	  	    default: continue; break;
+  	  	}
+  	  }
+  	  return $filters;
+  }
 }

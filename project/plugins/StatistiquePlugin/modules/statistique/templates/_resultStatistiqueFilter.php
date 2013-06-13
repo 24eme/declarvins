@@ -9,7 +9,7 @@
     <tbody>
     <?php 
     foreach ($hits as $hit): 
-    $drm = $hit->getData();
+    $item = $hit->getData();
     ?>
     	<tr>
     	
@@ -20,9 +20,14 @@
     			if ($champs['need_replace']) {
     				$noeud = str_replace($champs['replace'], ${$champs['var_replace']}, $noeud);
     			}
-    			foreach (explode('.', $noeud) as $v) {$value = ($value)? $value[$v] : $drm[$v]; }
+    			foreach (explode('.', $noeud) as $v) {$value = ($value)? $value[$v] : $item[$v]; }
     		?>
+    		<?php if (is_object($value)) {$value = $value->getRawValue();} ?>
+    		<?php if (is_array($value)): ?>
+    		<td><?php echo implode(', ', $value); ?></td>
+    		<?php else: ?>
     		<td><?php echo ($champs['print_number'])? number_format($value, 2, ',', ' ') : $value; ?></td>
+    		<?php endif; ?>
     		<?php endforeach; ?>
     	</tr>
     <?php endforeach; ?>

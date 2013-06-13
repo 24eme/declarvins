@@ -1,6 +1,6 @@
 <?php
 
-class updateDrmsTask extends sfBaseTask {
+class updateVracsTask extends sfBaseTask {
 
     protected function configure() {
         $this->addOptions(array(
@@ -11,7 +11,7 @@ class updateDrmsTask extends sfBaseTask {
         ));
 
         $this->namespace = 'update';
-        $this->name = 'drms';
+        $this->name = 'vracs';
         $this->briefDescription = '';
         $this->detailedDescription = <<<EOF
 The [update|INFO] task does things.
@@ -28,13 +28,13 @@ EOF;
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         $campagne = null;
         
-        $drms = DRMClient::getInstance()->findAll();
+        $vracs = VracClient::getInstance()->findAll();
         $i = 1;
-        foreach ($drms->rows as $d) {
-        	$drm = DRMClient::getInstance()->find($d->id);
-			$drm->update();
-        	$drm->save();
-			$this->logSection('drm', $d->id.' OK '.$i);
+        foreach ($vracs->rows as $v) {
+        	$vrac = VracClient::getInstance()->find($v->id);
+        	$vrac->save();
+        	var_dump($vrac->volume_propose);
+			$this->logSection('vrac', $v->id.' OK '.$i);
 			$i++;
         }
     }

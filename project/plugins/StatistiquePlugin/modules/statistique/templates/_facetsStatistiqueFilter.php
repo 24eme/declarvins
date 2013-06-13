@@ -8,11 +8,17 @@
     	<td>&nbsp;</td>
     </tr>
 <?php 
-	foreach ($facets as $name => $stats):
+	foreach ($configFacets as $configFacet):
+		$stats = $facets[$configFacet['nom']];
+		$divise = 1;
+		if ($n = $configFacet['divise']) {
+			$divise = $facets[$n]['total'];
+		}
 ?>
 	<tr>
-    	<th><?php echo $name ?> : </th>
-    	<td><?php echo number_format($stats['total'], 2, ',', ' '); ?> <strong>hl</strong></td>
+    	<th><?php echo $configFacet['nom'] ?> : </th>
+    	<td><?php echo number_format(($stats['total'] / $divise), 2, ',', ' '); ?> <strong><?php echo $configFacet['unite'] ?></strong>
+    	</td>
     </tr>
 <?php endforeach; ?>
 </table>
