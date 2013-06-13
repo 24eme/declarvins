@@ -133,9 +133,9 @@ class DRMValidation
 		if ($detail->sorties->mouvement > 0) {
 			$this->warnings['mouvement_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mouvement', $this->generateUrl('drm_recap_detail', $detail).'#sorties');
 		}
-		if (!$detail->hasCvo() || !$detail->hasDouane()) {
+		/*if (!$detail->hasCvo() || !$detail->hasDouane()) {
 			$this->warnings['droits_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('droits', $this->generateUrl('drm_recap_detail', $detail));
-		}
+		}*/
 		if (
 			$detail->total_debut_mois < $detail->stocks_debut->bloque ||
 			$detail->total_debut_mois < $detail->stocks_debut->warrante ||
