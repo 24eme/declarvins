@@ -21,6 +21,7 @@ class VracProduitForm extends VracForm
         if ($configuration->exist($this->getObject()->produit)) {
         	$produit = $configuration->get($this->getObject()->produit);
         	$this->getObject()->setDetailProduit($produit);
+        	$this->getObject()->produit_libelle = $this->getObject()->getLibelleProduit();
         }
         $result = $result[0];
         $droits = $result->value;

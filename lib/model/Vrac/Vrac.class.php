@@ -102,6 +102,8 @@ class Vrac extends BaseVrac
       	if ($informations->exist('telephone')) $informations->telephone = $etablissement->telephone;
       	if ($informations->exist('fax')) $informations->fax = $etablissement->fax;
       	if ($informations->exist('email')) $informations->email = $etablissement->email;
+      	if ($informations->exist('famille')) $informations->famille = $etablissement->famille;
+      	if ($informations->exist('sous_famille')) $informations->sous_famille = $etablissement->sous_famille;
     }
     
     public function getCvoUnitaire() {
@@ -130,11 +132,21 @@ class Vrac extends BaseVrac
 
     public function update($params = array()) {
       parent::update($params);
+      $this->prix_total_net = round($this->prix_unitaire * $this->volume_propose, 2);
 	  if ($this->has_cotisation_cvo && $this->part_cvo > 0) {
 	  	$this->prix_total = round($this->volume_propose * $this->getTotalUnitaire(), 2);
 	  } else {
       	$this->prix_total = round($this->prix_unitaire * $this->volume_propose, 2);
 	  }
+    }
+    
+    public function normalizeNumeric()
+    {
+    	$this->prix_unitaire = ($this->prix_unitaire)? $this->prix_unitaire * 1 : 0;
+    	$this->prix_total = ($this->prix_total)? $this->prix_total * 1 : 0;
+    	$this->prix_total_net = ($this->prix_total_net)? $this->prix_total_net * 1 : 0;
+    	$this->volume_propose = ($this->volume_propose)? $this->volume_propose * 1 : 0;
+    	$this->volume_enleve = ($this->volume_enleve)? $this->volume_enleve * 1 : 0;
     }
 
     public function validate($user) {
@@ -187,6 +199,7 @@ class Vrac extends BaseVrac
         if ($this->volume_propose > 0 && $this->volume_enleve == $this->volume_propose && $this->valide->statut != VracClient::STATUS_CONTRAT_SOLDE) {
         	$this->valide->statut = VracClient::STATUS_CONTRAT_SOLDE;
         }
+	    $this->normalizeNumeric();
     }
     
     public function isEnCoursSaisie() {

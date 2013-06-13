@@ -158,4 +158,9 @@ class VracClient extends acCouchdbClient {
     public function getStatutsVin() {
 		return $this->_statuts_vin;
     }
+    
+	public function findAll() 
+    {
+        return $this->getView('vrac', 'all');
+    }
  }

@@ -29,6 +29,8 @@ Vrac:
             telephone: {  }
             fax: {  }
             email: {   }
+            famille: {  }
+            sous_famille: {   }
       vendeur_tva: {  }
       adresse_stockage:
         type: collection
@@ -58,6 +60,8 @@ Vrac:
             telephone: {  }
             fax: {  }
             email: {   }
+            famille: {  }
+            sous_famille: {   }
       acheteur_tva: {  }
       adresse_livraison:
         type: collection
@@ -90,6 +94,8 @@ Vrac:
             telephone: {  }
             fax: {  }
             email: {  }
+            famille: {  }
+            sous_famille: {   }
       premiere_mise_en_marche: {  }
       cas_particulier: {  }
       cas_particulier_libelle: {  }
@@ -97,6 +103,7 @@ Vrac:
       type_transaction: {  }
       type_transaction_libelle: {  }
       produit: {  }
+      produit_libelle: {  }
       produit_detail:
         type: collection
         definition:
@@ -147,6 +154,7 @@ Vrac:
         definition:
           fields:
             '*': {  }
+      mentions_libelle: {  }
       volume_propose: {  }
       annexe: {  }
       prix_unitaire: {  }
@@ -157,6 +165,7 @@ Vrac:
       commentaires_conditions: {  }
       part_cvo: {  }
       prix_total: {  }
+      prix_total_net: {  }
       conditions_paiement: {  }
       conditions_paiement_libelle: {  }
       type_echeancier_paiement: {  }

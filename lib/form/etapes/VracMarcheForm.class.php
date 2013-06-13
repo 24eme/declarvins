@@ -42,6 +42,7 @@ class VracMarcheForm extends VracForm
           $this->getObject()->determination_prix = null;
         }
         $this->getObject()->labels_libelle = $this->getConfiguration()->formatLabelsLibelle(array($this->getObject()->labels));
+        $this->getObject()->mentions_libelle = $this->getConfiguration()->formatMentionsLibelle($this->getObject()->mentions);
         $this->getObject()->type_transaction_libelle = $this->getConfiguration()->formatTypesTransactionLibelle(array($this->getObject()->type_transaction));
         $this->getObject()->update();
     }
