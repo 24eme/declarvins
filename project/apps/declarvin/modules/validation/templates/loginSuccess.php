@@ -16,7 +16,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php $i = 0; foreach($comptes_fictif->rows as $compte_fictif): ?>
+				<?php $i = 0; foreach($comptes_fictif as $compte_fictif): ?>
 				<?php include_partial('validation/item', array('compte' => $compte_fictif, 'i' => $i)) ?>
 				<?php $i++; endforeach; ?>
 			</tbody>
@@ -31,7 +31,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php $i = 0; foreach($comptes_attente->rows as $compte_attente): ?>
+				<?php $i = 0; foreach($comptes_attente as $compte_attente): ?>
 				<?php include_partial('validation/item', array('compte' => $compte_attente, 'i' => $i)) ?>
 				<?php $i++; endforeach; ?>
 			</tbody>

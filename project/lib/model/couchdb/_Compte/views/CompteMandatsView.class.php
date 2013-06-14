@@ -26,4 +26,21 @@ class CompteMandatsView extends acCouchdbView
     	return $this->client->startkey(array($statut, $actif))
                     ->endkey(array($statut, $actif, array()))->getView($this->design, $this->view);
   	}
+
+    public function findByStatutAndInterpro($statut, $interpro = null, $actif = 1) 
+    {
+    	$comptes = $this->findByStatut($statut, $actif)->rows;
+    	$result = array();
+    	foreach ($comptes as $compte) {
+    		$interpros = json_decode(json_encode($compte->value), true);
+    		if (count($interpros) > 0) {
+	  			if ($interpro && in_array($interpro, array_keys($interpros))) {
+	  				$result[] = $compte;
+	  			}
+  			} else {
+  				$result[] = $compte;
+  			}
+    	}
+    	return $result;
+  	}
 }

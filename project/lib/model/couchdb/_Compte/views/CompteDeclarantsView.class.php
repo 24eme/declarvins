@@ -20,14 +20,19 @@ class CompteDeclarantsView extends acCouchdbView
     	return $this->client->getView($this->design, $this->view);
   	}
   	
-	public function formatComptes($format = "%n% %p% %rs% (%l% %e% %m%)") 
+	public function formatComptes($interpro = null, $format = "%n% %p% %rs% (%l% %e% %m%)") 
 	{
   		$comptes_format = array();
   		$comptes = $this->findAll();
   		foreach($comptes->rows as $compte) {
-  			//if ($compte->key[self::KEY_VALIDE]) {
+  			$interpros = json_decode(json_encode($compte->value), true);
+  			if (count($interpros) > 0) {
+	  			if ($interpro && in_array($interpro, array_keys($interpros))) {
+	  				$comptes_format[$compte->key[self::KEY_NUMERO_CONTRAT]] = $this->formatCompte($compte->key, $format);
+	  			}
+  			} else {
   				$comptes_format[$compte->key[self::KEY_NUMERO_CONTRAT]] = $this->formatCompte($compte->key, $format);
-  			//}
+  			}
         }
         ksort($comptes_format);
 

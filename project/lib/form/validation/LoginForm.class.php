@@ -3,6 +3,13 @@ class LoginContratForm extends BaseForm
 {
 	
     protected $_choices_comptes;
+    protected $_interpro;
+    
+  public function __construct($interpro, $defaults = array(), $options = array(), $CSRFSecret = null)
+  {
+    $this->_interpro = $interpro;
+    parent::__construct($defaults, $options, $CSRFSecret);
+  }
   
     public function configure() {
         $this->setWidgets(array(
@@ -23,8 +30,7 @@ class LoginContratForm extends BaseForm
     
     public function getComptes() {
         if (is_null($this->_choices_comptes)) {
-        	
-            $this->_choices_comptes = CompteDeclarantsView::getInstance()->formatComptes();
+            $this->_choices_comptes = CompteDeclarantsView::getInstance()->formatComptes($this->_interpro);
             $this->_choices_comptes[""] = "";
             ksort($this->_choices_comptes);
         }
