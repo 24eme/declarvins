@@ -15,7 +15,7 @@ class acVinVracActions extends sfActions
     	}
         $this->etablissement = null;
         $this->vracs = array();
-        $lasts = VracHistoryView::getInstance()->findLast();
+        $lasts = VracHistoryView::getInstance()->findLastByInterpro();
         foreach ($lasts->rows as $last) {
         	$this->vracs[$last->id] = $last;
         }
