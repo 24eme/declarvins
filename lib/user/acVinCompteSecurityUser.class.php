@@ -28,40 +28,52 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
 
     protected $_compte = null;
     const SESSION_COMPTE = 'compte';
+    
     const NAMESPACE_COMPTE_TIERS = "CompteSecurityUser_Tiers";
     const NAMESPACE_COMPTE_PROXY = "CompteSecurityUser_Proxy";
     const NAMESPACE_COMPTE_VIRTUEL = "CompteSecurityUser_Virtuel";
     const NAMESPACE_COMPTE_PARTENAIRE = "CompteSecurityUser_Partenaire";
+    const NAMESPACE_COMPTE_OIOC = "CompteSecurityUser_OIOC";
+    
     const CREDENTIAL_COMPTE = 'compte';
     const CREDENTIAL_COMPTE_TIERS = 'compte_tiers';
     const CREDENTIAL_COMPTE_PROXY = 'compte_proxy';
     const CREDENTIAL_COMPTE_VIRTUEL = 'compte_virtuel';
     const CREDENTIAL_COMPTE_PARTENAIRE = 'compte_partenaire';
+    const CREDENTIAL_COMPTE_OIOC = 'compte_oioc';
     const CREDENTIAL_ADMIN = 'admin';
     const CREDENTIAL_OPERATEUR = 'operateur';
+    const CREDENTIAL_ACCES_PLATERFORME = 'plateforme';
+    const CREDENTIAL_ACCES_EDI = 'edi';
 
     protected $_couchdb_type_namespace_compte= array("CompteTiers" => self::NAMESPACE_COMPTE_TIERS, 
                                                      "CompteProxy" => self::NAMESPACE_COMPTE_PROXY, 
                                                      "CompteVirtuel" => self::NAMESPACE_COMPTE_VIRTUEL,
-    												 "ComptePartenaire" => self::NAMESPACE_COMPTE_PARTENAIRE);
+    												 "ComptePartenaire" => self::NAMESPACE_COMPTE_PARTENAIRE,
+    												 "CompteOIOC" => self::NAMESPACE_COMPTE_OIOC);
     
     protected $_namespace_credential_compte = array(self::NAMESPACE_COMPTE_TIERS => self::CREDENTIAL_COMPTE_TIERS, 
                                                    self::NAMESPACE_COMPTE_PROXY => self::CREDENTIAL_COMPTE_PROXY,
                                                    self::NAMESPACE_COMPTE_VIRTUEL => self::CREDENTIAL_COMPTE_VIRTUEL,
-                                                   self::NAMESPACE_COMPTE_PARTENAIRE => self::CREDENTIAL_COMPTE_PARTENAIRE);
+                                                   self::NAMESPACE_COMPTE_PARTENAIRE => self::CREDENTIAL_COMPTE_PARTENAIRE,
+                                                   self::NAMESPACE_COMPTE_OIOC => self::CREDENTIAL_COMPTE_PARTENAIRE);
     
     protected $_namespaces_compte = array(self::NAMESPACE_COMPTE_TIERS, 
                                           self::NAMESPACE_COMPTE_PROXY, 
                                           self::NAMESPACE_COMPTE_VIRTUEL,
-    									  self::NAMESPACE_COMPTE_PARTENAIRE);
+    									  self::NAMESPACE_COMPTE_PARTENAIRE,
+    									  self::NAMESPACE_COMPTE_OIOC);
     
     protected $_credentials_compte = array(self::CREDENTIAL_COMPTE, 
                                            self::CREDENTIAL_COMPTE_TIERS, 
                                            self::CREDENTIAL_COMPTE_PROXY, 
                                            self::CREDENTIAL_COMPTE_VIRTUEL,
                                            self::CREDENTIAL_COMPTE_PARTENAIRE,
+                                           self::CREDENTIAL_COMPTE_OIOC,
                                            self::CREDENTIAL_ADMIN,
-                                           self::CREDENTIAL_OPERATEUR);
+                                           self::CREDENTIAL_OPERATEUR,
+                                           self::CREDENTIAL_ACCES_PLATERFORME,
+                                           self::CREDENTIAL_ACCES_EDI);
 
     /**
      *
@@ -125,8 +137,15 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
         $this->signOutCompte($namespace);
         $this->setAttribute(self::SESSION_COMPTE, $compte->login, $namespace);
         $this->addCredential($this->_namespace_credential_compte[$namespace]);
-        foreach ($compte->droits as $credential) {
-                $this->addCredential($credential);
+        if ($compte->exist('droits')) {
+	        foreach ($compte->droits as $credential) {
+	                $this->addCredential($credential);
+	        }
+        }
+        if ($compte->exist('acces')) {
+	        foreach ($compte->acces as $credential) {
+	                $this->addCredential($credential);
+	        }
         }
         if ($this->hasCredential(self::CREDENTIAL_ADMIN)) {
             $this->addCredential(self::CREDENTIAL_OPERATEUR);
@@ -174,6 +193,8 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
             return self::NAMESPACE_COMPTE_VIRTUEL;
         } elseif($this->hasCredential(self::CREDENTIAL_COMPTE_PARTENAIRE)) {
             return self::NAMESPACE_COMPTE_PARTENAIRE;
+        } elseif($this->hasCredential(self::CREDENTIAL_COMPTE_OIOC)) {
+            return self::NAMESPACE_COMPTE_OIOC;
         } else {
             throw new sfException("no namespace existing");
         }
