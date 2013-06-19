@@ -25,7 +25,7 @@ class DouaneForm extends acCouchdbObjectForm
     protected function doUpdateObject($values) {
         parent::doUpdateObject($values);
         if ($this->getObject()->isNew()) {
-        	$this->getObject()->set('_id', strtoupper(KeyInflector::slugify($values['identifiant'])));
+        	$this->getObject()->set('_id', $this->getObject()->generateId(strtoupper(KeyInflector::slugify($values['identifiant']))));
         	$this->getObject()->setStatut(Douane::STATUT_ACTIF);
         }
     }
