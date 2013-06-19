@@ -52,6 +52,9 @@ class ConfigurationCertification extends BaseConfigurationCertification
   	{
   		return true;
   	}
+  	public function hasOIOC() {
+  		return false;
+  	}
 	
   	public function getTypeNoeud() 
   	{

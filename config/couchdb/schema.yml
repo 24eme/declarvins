@@ -751,6 +751,7 @@ Configuration:
                                                                                               fields:
                                                                                                 libelle: {  }
                                                                                                 code: {  }
+                                                                                                oioc: {  }
                         detail:
                           class: ConfigurationDetail
                           type: collection

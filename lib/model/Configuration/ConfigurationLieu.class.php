@@ -73,6 +73,9 @@ class ConfigurationLieu extends BaseConfigurationLieu
   	{
   		return true;
   	}
+  	public function hasOIOC() {
+  		return false;
+  	}
   	
   	public function getTypeNoeud() 
   	{

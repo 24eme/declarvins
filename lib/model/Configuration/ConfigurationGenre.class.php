@@ -32,6 +32,9 @@ class ConfigurationGenre extends BaseConfigurationGenre {
   	public function hasDetails() {
   		return true;
   	}
+  	public function hasOIOC() {
+  		return false;
+  	}
   	public function getTypeNoeud() {
   		return self::TYPE_NOEUD;
   	}

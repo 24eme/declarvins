@@ -41,6 +41,9 @@ class ConfigurationCouleur extends BaseConfigurationCouleur {
   	public function hasDetails() {
   		return false;
   	}
+  	public function hasOIOC() {
+  		return false;
+  	}
   	public function getTypeNoeud() {
   		return self::TYPE_NOEUD;
   	}
