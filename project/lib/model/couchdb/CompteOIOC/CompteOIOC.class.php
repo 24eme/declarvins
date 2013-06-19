@@ -4,8 +4,9 @@
  *
  */
 
-class ComptePartenaire extends BaseComptePartenaire {
-    const COMPTE_TYPE_PARTENAIRE = 'ComptePartenaire';
+class CompteOIOC extends BaseCompteOIOC {
+	
+    const COMPTE_TYPE_OIOC = 'CompteOIOC';
     
     public function isVirtuel() {
     	return false;

@@ -47,6 +47,12 @@ class ProduitDefinitionForm extends acCouchdbObjectForm {
 				new ProduitDetailsForm($this->getObject()->getOrAdd('detail'))
 			);
 		}
+		if ($this->getObject()->hasOIOC()) {
+			$choices = array_merge(array(''=>''), OIOCAllView::getInstance()->getAllOIOC());
+         	$this->setWidget('oioc',  new sfWidgetFormChoice(array('choices' => $choices)));
+         	$this->getWidget('oioc')->setLabel('OIOC: ');
+         	$this->setValidator('oioc', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($choices))));
+		}
         $this->widgetSchema->setNameFormat('produit_definition[%s]');
         $this->mergePostValidator(new ProduitDefinitionValidatorSchema($this->getObject()));
     }

@@ -78,7 +78,10 @@
 			</li>		
 			<li<?php if ($subactive == 'partenaires'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@partenaire_comptes') ?>">Partenaires</a>
-			</li>		
+			</li>			
+			<li<?php if ($subactive == 'oioc'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('@oioc_comptes') ?>">OIOC</a>
+			</li>	
 		<?php elseif ($active == 'statistiques'): ?>
 			<li<?php if ($subactive == 'bilan_drm'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@statistiques_bilan_drm') ?>">Bilan DRM</a>

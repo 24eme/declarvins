@@ -49,10 +49,14 @@ EOF;
     $compte->email = 'mcouderc@provencewines.com';
     $compte->mot_de_passe = "actualys";
     $compte->droits->add(null, 'admin');
+    $compte->acces->add(null, 'edi');
+    $compte->acces->add(null, 'plateforme');
     $compte->interpro = array("INTERPRO-CIVP" => array('statut' => "VALIDE"));
+    $compte->statut = _Compte::STATUT_INSCRIT;
     $compte->save();
     $ldap = new Ldap();
     $ldap->saveCompte($compte);
+    $this->logSection('compte', 'admin-civp créé');
     
     if ($compte = acCouchdbManager::getClient()->find('COMPTE-admin-ir', acCouchdbClient::HYDRATE_JSON)) {
         acCouchdbManager::getClient()->deleteDoc($compte);
@@ -63,10 +67,14 @@ EOF;
     $compte->email = 'beymard@inter-rhone.com';
     $compte->mot_de_passe = "actualys";
     $compte->droits->add(null, 'admin');
+    $compte->acces->add(null, 'edi');
+    $compte->acces->add(null, 'plateforme');
     $compte->interpro = array("INTERPRO-IR" => array('statut' => "VALIDE"));
+    $compte->statut = _Compte::STATUT_INSCRIT;
     $compte->save();
     $ldap = new Ldap();
     $ldap->saveCompte($compte);
+    $this->logSection('compte', 'admin-ir créé');
     
     if ($compte = acCouchdbManager::getClient()->find('COMPTE-admin-ivse', acCouchdbClient::HYDRATE_JSON)) {
         acCouchdbManager::getClient()->deleteDoc($compte);
@@ -78,12 +86,16 @@ EOF;
     $compte->email = 'marie.de-monte@intervins-sudest.org';
     $compte->mot_de_passe = "actualys";
     $compte->droits->add(null, 'admin');
+    $compte->acces->add(null, 'edi');
+    $compte->acces->add(null, 'plateforme');
     $compte->interpro = array("INTERPRO-IVSE" => array('statut' => "VALIDE"));
+    $compte->statut = _Compte::STATUT_INSCRIT;
     $compte->save();
     $ldap = new Ldap();
     $ldap->saveCompte($compte);
+    $this->logSection('compte', 'admin-ivse créé');
 
-    if ($compte = acCouchdbManager::getClient()->find('COMPTE-civp-corinne', acCouchdbClient::HYDRATE_JSON)) {
+    /*if ($compte = acCouchdbManager::getClient()->find('COMPTE-civp-corinne', acCouchdbClient::HYDRATE_JSON)) {
         acCouchdbManager::getClient()->deleteDoc($compte);
     }
 
@@ -119,7 +131,7 @@ EOF;
                                                                "interpro" => "INTERPRO-CIVP"));
     $compte->save();
     $ldap = new Ldap();
-    $ldap->saveCompte($compte);
+    $ldap->saveCompte($compte);*/
    
     /*
      * FIN COMPTE VIRTUEL ADMIN
@@ -131,7 +143,7 @@ EOF;
       $ldap->delete($compte);
     $ldap->saveCompte($compte);*/
 
-    if ($compte = acCouchdbManager::getClient()->find('COMPTE-autologin', acCouchdbClient::HYDRATE_JSON)) {
+    /*if ($compte = acCouchdbManager::getClient()->find('COMPTE-autologin', acCouchdbClient::HYDRATE_JSON)) {
         acCouchdbManager::getClient()->deleteDoc($compte);
     }
 
@@ -141,7 +153,7 @@ EOF;
     $compte->login = 'autologin';
     $compte->interpro = array('INTERPRO-IR' => array('statut' => "VALIDE"));
     $compte->email = 'autologin@example.org';
-    $compte->save();
+    $compte->save();*/
 
     if ($e = acCouchdbManager::getClient()->find('ETABLISSEMENT-9223700100', acCouchdbClient::HYDRATE_JSON)) {
         acCouchdbManager::getClient()->deleteDoc($e);
@@ -151,13 +163,13 @@ EOF;
         acCouchdbManager::getClient()->deleteDoc($e);
     }
 
-    if ($e = acCouchdbManager::getClient()->find('ETABLISSEMENT-9223700102', acCouchdbClient::HYDRATE_JSON)) {
+    /*if ($e = acCouchdbManager::getClient()->find('ETABLISSEMENT-9223700102', acCouchdbClient::HYDRATE_JSON)) {
         acCouchdbManager::getClient()->deleteDoc($e);
     }
 
     if ($e = acCouchdbManager::getClient()->find('ETABLISSEMENT-9223700103', acCouchdbClient::HYDRATE_JSON)) {
         acCouchdbManager::getClient()->deleteDoc($e);
-    }
+    }*/
 
     $e = new Etablissement();
     $e->cvi = "9223700100";
@@ -187,7 +199,7 @@ EOF;
     $e->statut = "INSCRIT";
     $e->save();
     
-    $e = new Etablissement();
+    /*$e = new Etablissement();
     $e->cvi = "9223700102";
     $e->email = "test@example.org";
     $e->interpro = 'INTERPRO-CIVP';
@@ -213,9 +225,9 @@ EOF;
     $e->nom = "Château Thierry";
     $e->siege = array("adresse" => "1 rue Garnier", "code_postal" => "13200", "commune" => "Neuilly", "pays" => "France");
     $e->statut = "INSCRIT";
-    $e->save();
+    $e->save();*/
 
-    $compte->addEtablissement($e);
-    $compte->save();
+    /*$compte->addEtablissement($e);
+    $compte->save();*/
   }
 }

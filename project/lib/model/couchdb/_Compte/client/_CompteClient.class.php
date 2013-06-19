@@ -10,9 +10,14 @@ class _CompteClient extends acVinCompteClient
     const KEY_LOGIN = 4;
     const KEY_EMAIL = 5;
     const KEY_TELEPHONE = 6;
+    const KEY_OIOC = 7;
 
     private $droits = array(acVinCompteSecurityUser::CREDENTIAL_OPERATEUR => 'Opérateur',
                             acVinCompteSecurityUser::CREDENTIAL_ADMIN => 'Administrateur');
+
+    private $acces = array(acVinCompteSecurityUser::CREDENTIAL_ACCES_PLATERFORME => 'Declarvins',
+                            acVinCompteSecurityUser::CREDENTIAL_ACCES_EDI => 'EDI');
+                            
      
     /**
      *
@@ -28,6 +33,13 @@ class _CompteClient extends acVinCompteClient
     {
         
         return $this->droits;
+    }
+    
+    
+    public function getAcces()
+    {
+        
+        return $this->acces;
     }
     
     public function findAll()
@@ -57,6 +69,14 @@ class _CompteClient extends acVinCompteClient
 
         return $this->startkey(array($interpro_id, 'ComptePartenaire'))
                     ->endkey(array($interpro_id, 'ComptePartenaire', array()))
+                    ->getView('compte', 'all');
+    }
+
+    public function findAllOIOCByInterpo($interpro_id)
+    {
+
+        return $this->startkey(array($interpro_id, 'CompteOIOC'))
+                    ->endkey(array($interpro_id, 'CompteOIOC', array()))
                     ->getView('compte', 'all');
     }
 

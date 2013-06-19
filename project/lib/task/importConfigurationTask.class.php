@@ -34,13 +34,14 @@ EOF;
 
     $import_dir = sfConfig::get('sf_data_dir').'/import/configuration';
 
-    if ($current = acCouchdbManager::getClient()->retrieveDocumentById('CURRENT')) {
+    /*if ($current = acCouchdbManager::getClient()->retrieveDocumentById('CURRENT')) {
         $current->delete();
     }
     
     $current = new Current();
     $current->campagne = '2011-11';
-    $current->save();
+    $current->save();*/
+    
     $configuration = acCouchdbManager::getClient()->retrieveDocumentById('CONFIGURATION', acCouchdbClient::HYDRATE_JSON);
     if ($configuration) {
       acCouchdbManager::getClient()->deleteDoc($configuration);
@@ -57,9 +58,11 @@ EOF;
 	    }
 	    $interpro->save();
     }
+    $this->logSection('configuration', 'produits importés');
     
     $csv = new LabelCsvFile($configuration, $import_dir.'/labels.csv');
     $configuration = $csv->importLabels();
+    $this->logSection('configuration', 'labels importés');
 
     
     foreach (file($import_dir.'/details.csv') as $line) {
@@ -76,13 +79,19 @@ EOF;
         $detail = $configuration->libelle_detail_ligne->get($datas[0])->add($datas[1], $datas[2]);
     }
     
+    $this->logSection('configuration', 'configuration details importée');
+    
     
     
     $csv = new VracConfigurationCsvFile($configuration, $import_dir.'/vrac.csv');
     $configuration = $csv->importConfigurationVrac();
     
+    $this->logSection('configuration', 'configuration vrac importée');
+    
     $csv = new DAIDSConfigurationCsvFile($configuration, $import_dir.'/daids.csv');
     $configuration = $csv->importConfigurationDAIDS();
+    
+    $this->logSection('configuration', 'configuration daids importée');
 
   	$configuration->save();
   }

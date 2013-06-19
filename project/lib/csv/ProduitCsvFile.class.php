@@ -38,6 +38,7 @@ class ProduitCsvFile extends CsvFile
   const CSV_PRODUIT_REPLI_SORTI = 25;
   const CSV_PRODUIT_DECLASSEMENT_ENTREE = 26;
   const CSV_PRODUIT_DECLASSEMENT_SORTI = 27;
+  const CSV_PRODUIT_OIOC = 28;
   
   protected $config;
   protected $errors;

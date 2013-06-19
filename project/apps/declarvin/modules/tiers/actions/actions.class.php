@@ -17,7 +17,9 @@ class tiersActions extends sfActions
   */
   public function executeLogin(sfWebRequest $request) 
   {
-
+	  if (!$this->getUser()->hasCredential('plateforme')) {
+	  	return $this->redirect('tiers_forbidden');
+	  }
 	  $this->compte = $this->getUser()->getCompte();
 	  if ($this->compte->isVirtuel()) {
 	  	return $this->redirect("admin");

@@ -6,6 +6,7 @@
 	$cvo = (isset($values->cvo))? $values->cvo->getRawValue() : null;
 	$entrees = (isset($values->entrees))? $values->entrees->getRawValue() : null;
 	$sorties = (isset($values->sorties))? $values->sorties->getRawValue() : null;
+	$oioc = (isset($values->oioc))? str_replace(OIOC::OIOC_KEY, '', $values->oioc) : null;
 	
 	$noeudDepartements = "Valeurs définies dans le noeud ".strtolower($values->noeud_departements);
 	$noeudLabels = "Valeurs définies dans le noeud ".strtolower($values->noeud_labels);
@@ -13,6 +14,7 @@
 	$noeudCvo = "Valeurs définies dans le noeud ".strtolower($values->noeud_cvo);
 	$noeudRepli = "Valeurs définies dans le noeud ".strtolower($values->noeud_repli);
 	$noeudDeclassement = "Valeurs définies dans le noeud ".strtolower($values->noeud_declassement);
+	$noeudOIOC = "Valeurs définies dans le noeud ".strtolower($values->noeud_oioc);
 	
 	$categorie = "Noeud définisant".(($values->noeud_departements == 'Catégorie')? ' departement' : null).(($values->noeud_labels == 'Catégorie')? ' labels' : null).(($values->noeud_douane == 'Catégorie')? ' douane' : null).(($values->noeud_cvo == 'Catégorie')? ' cvo' : null).(($values->noeud_repli == 'Catégorie')? ' repli' : null).(($values->noeud_declassement == 'Catégorie')? ' declassement' : null);
 	$genre = "Noeud définisant".(($values->noeud_departements == 'Genre')? ' departement' : null).(($values->noeud_labels == 'Genre')? ' labels' : null).(($values->noeud_douane == 'Genre')? ' douane' : null).(($values->noeud_cvo == 'Genre')? ' cvo' : null).(($values->noeud_repli == 'Genre')? ' repli' : null).(($values->noeud_declassement == 'Genre')? ' declassement' : null);
@@ -35,6 +37,7 @@
 	<td><a title="<?php echo $lieu ?>" href="<?php echo url_for('produit_modification', array('noeud' => 'lieu', 'hash' => str_replace('/', '-', $produit->key[8]))) ?>" class="btn_edit btn_popup1" data-popup="popup_produit" data-popup-config="configForm"><?php echo ($produit->key[5])? $produit->key[5] : 'Défaut' ?></a></td>
 	<td><a href="<?php echo url_for('produit_modification', array('noeud' => 'couleur', 'hash' => str_replace('/', '-', $produit->key[8]))) ?>" class="btn_edit btn_popup1" data-popup="popup_produit" data-popup-config="configForm"><?php echo ($produit->key[6])? $produit->key[6] : 'Défaut' ?></a></td>
 	<td><a href="<?php echo url_for('produit_modification', array('noeud' => 'cepage', 'hash' => str_replace('/', '-', $produit->key[8]))) ?>" class="btn_edit btn_popup1" data-popup="popup_produit" data-popup-config="configForm"><?php echo ($produit->key[7])? $produit->key[7] : 'Défaut' ?></a></td>
+	<td class="center" title="<?php echo $noeudOIOC ?>"><?php echo $oioc ?></td>
 	<td class="center" title="<?php echo $noeudDepartements ?>"><?php echo implode(', ', $departements) ?></td>
 	<td class="center" title="<?php echo $noeudLabels ?>"><?php echo implode(', ', $labels) ?></td>
 	<td class="center" title="<?php echo $noeudDouane ?>"><?php if ($douane) {echo ($douane->taux)? $douane->taux.'<br />('.$douane->code.')' : null;} ?></td>

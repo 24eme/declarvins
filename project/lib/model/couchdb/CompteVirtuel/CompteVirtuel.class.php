@@ -13,6 +13,7 @@ class CompteVirtuel extends BaseCompteVirtuel {
     const VIEW_KEY_EMAIl = 5;
     const VIEW_KEY_TELEPHONE = 6;
     const VIEW_KEY_STATUT = 7;
+    const VIEW_KEY_OIOC = 8;
 
 
     public function __toString() {
@@ -26,4 +27,5 @@ class CompteVirtuel extends BaseCompteVirtuel {
     public function isVirtuel() {
     	return true;
     }
+    
 }

@@ -1,6 +1,6 @@
 <?php
 
-class importInterproTask extends sfBaseTask
+class importOIOCTask extends sfBaseTask
 {
   protected function configure()
   {
@@ -17,13 +17,13 @@ class importInterproTask extends sfBaseTask
     ));
 
     $this->namespace        = 'import';
-    $this->name             = 'interpro';
+    $this->name             = 'oioc';
     $this->briefDescription = '';
     $this->detailedDescription = <<<EOF
 The [importInterpo|INFO] task does things.
 Call it with:
 
-  [php symfony importInterpo|INFO]
+  [php symfony importOIOC|INFO]
 EOF;
   }
 
@@ -32,38 +32,39 @@ EOF;
     // initialize the database connection
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-
-    if ($civp = acCouchdbManager::getClient()->retrieveDocumentById('INTERPRO-CIVP')) {
-        $civp->delete();
+    
+    $oiocs = OIOCAllView::getInstance()->findAll();
+    foreach ($oiocs->rows as $o) {
+    	$oioc = OIOCClient::getInstance()->find($o->key[OIOCAllView::KEY_ID]);
+    	$oioc->delete();
     }
     
-    $civp = new Interpro();
-    $civp->set('_id', 'INTERPRO-CIVP');
-    $this->identifiant = 'CIVP';
-    $civp->nom = 'CIVP';
-    $civp->save();
-    $this->logSection('interpro', 'CIVP importé');
-
-    if ($ir = acCouchdbManager::getClient()->retrieveDocumentById('INTERPRO-IR')) {
-        $ir->delete();
-    }
+    $oioc = new OIOC();
+    $oioc->set('_id', 'OIOC-OIVR');
+    $oioc->identifiant = 'OIVR';
+    $oioc->nom = 'OIVR';
+    $oioc->save();
+    $this->logSection('oioc', 'OIVR importé');
     
-    $ir = new Interpro();
-    $ir->set('_id', 'INTERPRO-IR');
-    $this->identifiant = 'IR';
-    $ir->nom = 'InterRhône';
-    $ir->save();
-    $this->logSection('interpro', 'InterRhone importé');
-
-    if ($ise = acCouchdbManager::getClient()->retrieveDocumentById('INTERPRO-IVSE')) {
-        $ise->delete();
-    }
+    $oioc = new OIOC();
+    $oioc->set('_id', 'OIOC-Vinomed');
+    $oioc->identifiant = 'Vinomed';
+    $oioc->nom = 'Vinomed';
+    $oioc->save();
+    $this->logSection('oioc', 'Vinomed importé');
     
-    $ise = new Interpro();
-    $ise->set('_id', 'INTERPRO-IVSE');
-    $this->identifiant = 'IVSE';
-    $ise->nom = "Intervins Sud-Est";
-    $ise->save();
-    $this->logSection('interpro', 'Intervins Sud-Est importé');
+    $oioc = new OIOC();
+    $oioc->set('_id', 'OIOC-AVPI');
+    $oioc->identifiant = 'AVPI';
+    $oioc->nom = 'AVPI';
+    $oioc->save();
+    $this->logSection('oioc', 'AVPI importé');
+    
+    $oioc = new OIOC();
+    $oioc->set('_id', 'OIOC-OTC');
+    $oioc->identifiant = 'OTC';
+    $oioc->nom = 'OTC';
+    $oioc->save();
+    $this->logSection('oioc', 'OTC importé');
   }
 }

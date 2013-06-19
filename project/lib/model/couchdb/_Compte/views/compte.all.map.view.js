@@ -6,7 +6,7 @@ function(doc) {
     }
 
     for(interpro_id in doc.interpro) {        
-        emit([interpro_id, doc.type, doc.nom, doc.prenom, doc.login, doc.email, doc.telephone, doc.statut], null);
+        emit([interpro_id, doc.type, doc.nom, doc.prenom, doc.login, doc.email, doc.telephone, doc.statut, doc.oioc], null);
     }
 
 }

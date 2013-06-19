@@ -4,6 +4,15 @@ class CompteTiers extends BaseCompteTiers {
     
     protected $_contrat = null;
     
+
+    
+	protected function preSave() {
+        if ($this->isNew()) {
+        	$this->acces->add(null, acVinCompteSecurityUser::CREDENTIAL_ACCES_PLATERFORME);
+        }
+	    parent::preSave();
+    }
+    
     public function getNbEtablissementByInterproId() 
     {
         $result = array();

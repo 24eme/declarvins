@@ -27,6 +27,8 @@ class acVinCompteActions extends BaseacVinCompteActions {
                 $compteTiers->delete();
                 $newCompteTiers->_id = 'COMPTE-'.$newCompteTiers->login;
                 $newCompteTiers->statut = _Compte::STATUT_INSCRIT;
+                $newCompteTiers->remove('acces');
+                $newCompteTiers->add('acces');
                 $newCompteTiers->save();
                 foreach ($newCompteTiers->tiers as $etablissement_id => $values) {
                 	$etablissement = EtablissementClient::getInstance()->find($etablissement_id);

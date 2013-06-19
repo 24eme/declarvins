@@ -219,6 +219,30 @@ partenaire_compte_password:
   url:   /partenaire/compte-password/:login
   param: { module: ComptePartenaire, action: redefinitionPassword }
   
+oioc_comptes:
+  url:   /oioc/comptes
+  param: { module: CompteOIOC, action: index }
+
+compte_oioc_ajout:
+  url:   /oioc/compte-ajout
+  param: { module: CompteOIOC, action: compteAjout }
+  
+compte_oioc_suppression:
+  url:   /oioc/compte-supprimer/:login
+  param: { module: CompteOIOC, action: compteSuppression }
+  
+compte_oioc_creation:
+  url:   /oioc/compte-creer/:login
+  param: { module: CompteOIOC, action: compteCreation }
+
+compte_oioc_modification:
+  url:   /oioc/compte-modification/:login
+  param: { module: CompteOIOC, action: compteModification }
+
+oioc_compte_password:
+  url:   /oioc/compte-password/:login
+  param: { module: CompteOIOC, action: redefinitionPassword }
+  
 # Statiques
 statiques:
   url:   /statiques

@@ -11,6 +11,11 @@ acVinCompte:
         definition:
           fields:
             '*': { }
+      acces:
+        type: array_collection
+        definition:
+          fields:
+            '*': { }
       interpro: 
         type: collection
         definition:
@@ -88,6 +93,12 @@ ComptePartenaire:
   definition:
     fields: {  }
 
+CompteOIOC:
+  inheritance: CompteVirtuel
+  definition:
+    fields:
+      oioc: {  }
+
 Interpro:
   definition:
     fields:
@@ -116,7 +127,15 @@ Interpro:
             '*': {  }
       email_contrat_vrac: {  }
 
-
+OIOC:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      identifiant: { }
+      nom: { }
+      type: {  }
+      statut: {  }
 
 Contrat:
   definition:
