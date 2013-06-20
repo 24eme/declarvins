@@ -1,6 +1,6 @@
-<ul>
+<ul class="messages_log">
     <?php foreach ($points as $controle): ?>
-        <li class="<?php echo $css_class ?>">
+        <li>
             <?php if($controle->getRawValue()->getLien()) :?>
             <?php echo $controle->getRawValue()->getMessage() ?> : <a href="<?php echo $controle->getRawValue()->getLien() ?>">
             <?php echo $controle->getRawValue()->getInfo() ?></a>

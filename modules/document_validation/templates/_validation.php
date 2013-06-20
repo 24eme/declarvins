@@ -1,13 +1,13 @@
 <?php if($validation->hasErreurs()): ?>
-<div id="points_bloquants">
-    <p>Points bloquants :</p>
+<fieldset class="message message_erreur">
+	<legend class="message_title">Points bloquants <a href="#" class="msg_aide" rel="help_popup_validation_log_erreur" title="Message aide"></a></legend>
     <?php include_partial('document_validation/validationType', array('points' => $validation->getPoints('erreur'), 'css_class' => 'error')) ?>
-</div>
+</fieldset>
 <?php endif; ?>
 
 <?php if($validation->hasVigilances()): ?>
-<div id="points_vigilance">
-    <p>Points de vigilance :</p>
+<fieldset class="message">
+    <legend class="message_title">Points de vigilance <a href="#" class="msg_aide" rel="help_popup_validation_log_vigilance" title="Message aide"></a></legend>
      <?php include_partial('document_validation/validationType', array('points' => $validation->getPoints('vigilance'), 'css_class' => 'warning')) ?>
-</div>
+</fieldset>
 <?php endif; ?>
