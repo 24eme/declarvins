@@ -44,7 +44,12 @@ class DeclarantDocument
             throw new sfException(sprintf("L'etablissement %s n'existe pas", $this->getIdentifiant()));
         }
         $declarant = $this->getDeclarant();
-        $declarant->nom = $etablissement->nom;
+
+        $declarant->nom = null;
+        if ($etablissement->exist("intitule") && $etablissement->get("intitule")) {
+            $declarant->nom = $etablissement->intitule . " ";
+        }
+        $declarant->nom .= $etablissement->nom;
         $declarant->raison_sociale = $etablissement->getRaisonSociale();
         $declarant->cvi = $etablissement->cvi;
         $declarant->no_accises = $etablissement->getNoAccises();
@@ -55,21 +60,21 @@ class DeclarantDocument
         $declarant->commune = $etablissement->siege->commune;
         $declarant->code_postal = $etablissement->siege->code_postal;
         $declarant->region = $etablissement->getRegion();
+        if ($etablissement->exist("siret")) {
+            if($declarant->getDefinition()->exist('siret'))
+                 $declarant->add('siret', $etablissement->siret);
+        }
         if ($etablissement->exist("telephone")) {
             if($declarant->getDefinition()->exist('telephone'))
-                 $declarant->add('telephone',$declarant->telephone);
+                 $declarant->add('telephone', $etablissement->telephone);
         }
         if ($etablissement->exist("email")) {
             if($declarant->getDefinition()->exist('email'))
-               $declarant->add('email',$declarant->email);
+               $declarant->add('email', $etablissement->email);
         }
         if ($etablissement->exist("fax")) {
              if($declarant->getDefinition()->exist('fax'))
-                $declarant->add('fax',$declarant->fax);
-        }
-        if ($etablissement->exist("exploitant")) {
-             if($declarant->getDefinition()->exist('exploitant'))
-                $declarant->add('exploitant',$declarant->exploitant);
+                $declarant->add('fax', $etablissement->fax);
         }
     }
 }
