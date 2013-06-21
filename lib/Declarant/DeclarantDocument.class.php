@@ -63,9 +63,13 @@ class DeclarantDocument
             if($declarant->getDefinition()->exist('email'))
                $declarant->add('email',$declarant->email);
         }
-         if ($etablissement->exist("fax")) {
+        if ($etablissement->exist("fax")) {
              if($declarant->getDefinition()->exist('fax'))
                 $declarant->add('fax',$declarant->fax);
+        }
+        if ($etablissement->exist("exploitant")) {
+             if($declarant->getDefinition()->exist('exploitant'))
+                $declarant->add('exploitant',$declarant->exploitant);
         }
     }
 }
