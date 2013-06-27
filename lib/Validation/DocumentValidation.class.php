@@ -97,6 +97,11 @@ abstract class DocumentValidation
         return count($this->getErreurs()) > 0;
     }
 
+    public function hasPoints()
+    {
+        return $this->hasEngagements() || $this->hasVigilances() || $this->hasErreurs();
+    }
+
     public function isValide() {
       
         return !($this->hasErreurs());
