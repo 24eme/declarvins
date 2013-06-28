@@ -1068,6 +1068,28 @@ a:hover { text-decoration:underline; }
 #ajax_form_error_notification a:hover { text-decoration:none; }
 .bloc_conditionner { display:none; }
 .template_form { display:none; }
+#selection_etablissement ul li { margin:10px 0; }
+#selection_etablissement .ligne_form_btn { margin:30px 0 0; }
+#selection_etablissement .ligne_form_btn button {
+  height:28px;
+  line-height:28px;
+  margin:0 0 0 5px;
+  padding:0 10px;
+  text-transform:uppercase;
+  font-size:12px;
+}
+#selection_etablissement .ligne_form_btn button.btn_valider {
+  background-repeat:no-repeat;
+  border:1px solid;
+  color:#ffffff;
+  display:inline-block;
+  height:26px;
+  line-height:26px;
+  background-color:#86005b;
+  border-color:#494949;
+}
+#selection_etablissement .ligne_form_btn button.btn_valider:hover, #selection_etablissement .ligne_form_btn button.btn_valider:focus { text-decoration:none; }
+#selection_etablissement .ligne_form_btn button.btn_valider:hover, #selection_etablissement .ligne_form_btn button.btn_valider:focus { background-color:#494949; }
 #creation_compte h1 {
   font-size:21px;
   font-weight:normal;
