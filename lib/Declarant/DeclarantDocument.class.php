@@ -22,11 +22,8 @@ class DeclarantDocument
     
    public function getDeclarantObject() {
        if(is_null($this->etablissement)) {
-            if (sfConfig::get('app_declarant_class') == "Recoltant") {
-                $this->etablissement = acCouchdbManager::getClient('Recoltant')->retrieveByCvi($this->getIdentifiant());                
-            }else {
-                $this->etablissement = EtablissementClient::getInstance()->findByIdentifiant($this->getIdentifiant());
-            }
+            $class = sfConfig::get('app_declarant_class', 'Etablissement');
+            $this->etablissement = acCouchdbManager::getClient($class)->findByIdentifiant($this->getIdentifiant());
         }
 
         return $this->etablissement;
