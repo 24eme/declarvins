@@ -31,6 +31,16 @@ class EtablissementFamilles
     	self::FAMILLE_COURTIER => array()
     );
     
+    protected static $sous_familles_all = array (
+    	self::SOUS_FAMILLE_CAVE_PARTICULIERE => "Cave particulière", 
+        self::SOUS_FAMILLE_CAVE_COOPERATIVE => "Cave coopérative",
+    	self::SOUS_FAMILLE_REGIONAL => "Régional", 
+        self::SOUS_FAMILLE_EXTERIEUR => "Extérieur", 
+        self::SOUS_FAMILLE_ETRANGER => "Etranger", 
+        self::SOUS_FAMILLE_UNION => "Union", 
+        self::SOUS_FAMILLE_VINIFICATEUR => "Vinificateur"
+    );
+    
     protected static $droits = array (
     	"producteur_cave_particuliere" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
     	"producteur_cave_cooperative" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
@@ -61,6 +71,11 @@ class EtablissementFamilles
     public static function getSousFamilles() 
     {
     	return self::$sous_familles;
+    }
+    
+    public static function getSousFamillesAll()
+    {
+    	return self::$sous_familles_all;
     }
 
     public static function getSousFamillesByFamille($famille) 
