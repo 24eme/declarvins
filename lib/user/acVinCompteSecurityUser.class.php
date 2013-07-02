@@ -44,7 +44,10 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
     const CREDENTIAL_ADMIN = 'admin';
     const CREDENTIAL_OPERATEUR = 'operateur';
     const CREDENTIAL_ACCES_PLATERFORME = 'plateforme';
-    const CREDENTIAL_ACCES_EDI = 'edi';
+    const CREDENTIAL_ACCES_EDI_DRM = 'edi_drm';
+    const CREDENTIAL_ACCES_EDI_VRAC = 'edi_vrac';
+    const CREDENTIAL_ACCES_EDI_TRANSACTION = 'edi_transaction';
+    const CREDENTIAL_ACCES_EDI_DAIDS = 'edi_daids';
 
     protected $_couchdb_type_namespace_compte= array("CompteTiers" => self::NAMESPACE_COMPTE_TIERS, 
                                                      "CompteProxy" => self::NAMESPACE_COMPTE_PROXY, 
@@ -73,7 +76,10 @@ abstract class acVinCompteSecurityUser extends sfBasicSecurityUser
                                            self::CREDENTIAL_ADMIN,
                                            self::CREDENTIAL_OPERATEUR,
                                            self::CREDENTIAL_ACCES_PLATERFORME,
-                                           self::CREDENTIAL_ACCES_EDI);
+                                           self::CREDENTIAL_ACCES_EDI_DRM,
+                                           self::CREDENTIAL_ACCES_EDI_VRAC,
+                                           self::CREDENTIAL_ACCES_EDI_TRANSACTION,
+                                           self::CREDENTIAL_ACCES_EDI_DAIDS);
 
     /**
      *
