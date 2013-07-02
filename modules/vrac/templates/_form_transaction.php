@@ -9,8 +9,8 @@
                 <p><?php echo $form->getObject()->volume_propose ?>&nbsp;hl</p>
                 <br />
                 <h3>Rappel des dates de retiraisons:</h3>
-                <?php if ($form->getObject()->date_debut_retiraison): ?><p>Date de début de retiraison : <?php echo $form->getObject()->date_debut_retiraison ?></p><?php endif; ?>
-                <?php if ($form->getObject()->date_limite_retiraison): ?><p>Date limite de retiraison : <?php echo $form->getObject()->date_limite_retiraison ?></p><?php endif; ?>
+                <?php if ($form->getObject()->date_debut_retiraison): ?><p>Date de début de retiraison : <?php echo Date::francizeDate($form->getObject()->date_debut_retiraison) ?></p><?php endif; ?>
+                <?php if ($form->getObject()->date_limite_retiraison): ?><p>Date limite de retiraison : <?php echo Date::francizeDate($form->getObject()->date_limite_retiraison) ?></p><?php endif; ?>
                 <br /><br />
             </div>
             <?php endif; ?>

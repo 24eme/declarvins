@@ -14,10 +14,10 @@ class Vrac extends BaseVrac
     {
         $this->set('_id', 'VRAC-'.$this->numero_contrat);
         if(!$this->date_signature) {
-            $this->date_signature = date('d/m/Y');
+            $this->date_signature = date('c');
         }
         if(!$this->date_stats) {
-            $this->date_stats = date('d/m/Y');
+            $this->date_stats = date('c');
         }
     }
 

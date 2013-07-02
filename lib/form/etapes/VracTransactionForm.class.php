@@ -13,7 +13,7 @@ class VracTransactionForm extends VracForm
 		$this->setWidget('volume_propose', new sfWidgetFormInputHidden());
 		$this->setValidator('volume_propose', new sfValidatorPass());
 		$this->setWidget('date_limite_retiraison', new sfWidgetFormInputHidden());
-		$this->setValidator('date_limite_retiraison', new sfValidatorPass());
+		$this->setValidator('date_limite_retiraison', new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)));
   		$this->validatorSchema->setPostValidator(new VracTransactionValidator());
 		$this->widgetSchema->setNameFormat('vrac_transaction[%s]');
     }

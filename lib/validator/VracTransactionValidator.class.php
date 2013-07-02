@@ -11,7 +11,7 @@ class VracTransactionValidator extends sfValidatorBase {
     	$total = 0;
     	$hasDateLimiteRetiraison = (isset($values['date_limite_retiraison']) && $values['date_limite_retiraison']);
     	if ($hasDateLimiteRetiraison) {
-    		$date_limite_retiraison = new DateTime($this->getDateEn($values['date_limite_retiraison']));
+    		$date_limite_retiraison = new DateTime($values['date_limite_retiraison']);
     	}
     	$isDateSup = false;
     	if (is_array($values['lots'])) {
@@ -22,7 +22,7 @@ class VracTransactionValidator extends sfValidatorBase {
 		    				$total += $cuve['volume'];
 		    			}
 		    			if ($hasDateLimiteRetiraison && $cuve['date']) {
-		    				$d = new DateTime($this->getDateEn($cuve['date']));
+		    				$d = new DateTime($cuve['date']);
 	    					if ($d->format('Ymd') > $date_limite_retiraison->format('Ymd')) {
 	    						$isDateSup = true;
 	    					}
@@ -40,10 +40,5 @@ class VracTransactionValidator extends sfValidatorBase {
         
         return $values;
     }
-    
-	protected function getDateEn($date) {
-		$tabDate = explode('/', $date);
-		return $tabDate[2].'-'.$tabDate[1].'-'.$tabDate[0];
-	}
 
 }

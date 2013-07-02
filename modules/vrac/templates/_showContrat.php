@@ -136,7 +136,7 @@
 		            <tbody>
 						<?php foreach ($vrac->paiements as $paiement): ?>
 						<tr>
-							<td><?php echo $paiement->date ?></td>
+							<td><?php echo Date::francizeDate($paiement->date) ?></td>
 							<td><?php echo $paiement->volume ?> hl</td>
 							<td><?php echo $paiement->montant ?> €</td>
 						</tr>
@@ -158,12 +158,12 @@
 			<?php if($vrac->date_debut_retiraison): ?>
 			<li>
 				<span>Date de début de retiraison:</span>
-				<span><?php echo $vrac->date_debut_retiraison ?></span>
+				<span><?php echo Date::francizeDate($vrac->date_debut_retiraison) ?></span>
 			</li>
 			<?php endif; ?>
 			<li>
 				<span>Date limite de retiraison:</span>
-				<span><?php echo $vrac->date_limite_retiraison ?></span>
+				<span><?php echo Date::francizeDate($vrac->date_limite_retiraison) ?></span>
 			</li>
 			<?php if(!is_null($vrac->clause_reserve_retiraison)): ?>
 			<li>
@@ -202,7 +202,7 @@
 								<tr>
 									<td><?php echo $cuve->numero ?></td>
 									<td><?php echo $cuve->volume ?></td>
-									<td><?php echo $cuve->date ?></td>
+									<td><?php echo Date::francizeDate($cuve->date) ?></td>
 								</tr>
 								<?php endforeach; ?>
 				            </tbody>

@@ -130,8 +130,8 @@
 	<h2>Conditions</h2>
 	
 	<p>
-		<?php echo ($vrac->date_debut_retiraison)? 'Date de début de retiraison : '.$vrac->date_debut_retiraison.'&nbsp;&nbsp;' : ''; ?>
-		<?php echo ($vrac->date_limite_retiraison)? 'Date limite de retiraison : '.$vrac->date_limite_retiraison : ''; ?>
+		<?php echo ($vrac->date_debut_retiraison)? 'Date de début de retiraison : '.Date::francizeDate($vrac->date_debut_retiraison).'&nbsp;&nbsp;' : ''; ?>
+		<?php echo ($vrac->date_limite_retiraison)? 'Date limite de retiraison : '.Date::francizeDate($vrac->date_limite_retiraison) : ''; ?>
 	</p>
 
 
@@ -149,7 +149,7 @@
         <tbody>
 			<?php foreach ($vrac->paiements as $paiement): ?>
 			<tr>
-				<td><?php echo $paiement->date ?></td>
+				<td><?php echo Date::francizeDate($paiement->date) ?></td>
 				<td><?php echo $paiement->volume ?> hl</td>
 				<td><?php echo $paiement->montant ?> €</td>
 			</tr>
@@ -200,7 +200,7 @@
 			<tr class="<?php if($i==$nb_cuves) echo 'der_cat'; ?>">
 				<td><?php echo $cuve->numero ?></td>
 				<td><?php echo $cuve->volume ?> hl</td>
-				<td><?php echo $cuve->date ?></td>
+				<td><?php echo Date::francizeDate($cuve->date) ?></td>
 			</tr>
 			<?php $i++; ?>
 			<?php endforeach; ?>

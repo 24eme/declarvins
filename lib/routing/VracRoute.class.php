@@ -58,8 +58,10 @@ class VracRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
 
             return array("identifiant" => self::ETABLISSEMENT_IDENTIFIANT_ADMIN);
         }
-        
-        return array("identifiant" => $etablissement->identifiant);
+        if (is_object($etablissement)) {
+        	return array("identifiant" => $etablissement->identifiant);
+        }
+        return array("identifiant" => $etablissement);
     }
     
 

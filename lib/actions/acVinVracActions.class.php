@@ -14,13 +14,13 @@ class acVinVracActions extends sfActions
     		return $this->redirect('@acces_interdit');
     	}
         $this->etablissement = null;
+        $this->forward404Unless($this->interpro = $this->getUser()->getCompte()->getGerantInterpro());
         $this->vracs = array();
-        $lasts = VracHistoryView::getInstance()->findLastByInterpro();
+        $lasts = VracHistoryView::getInstance()->findLastByInterpro($this->interpro);
         foreach ($lasts->rows as $last) {
         	$this->vracs[$last->id] = $last;
         }
         krsort($this->vracs);
-        $this->forward404Unless($this->interpro = $this->getUser()->getCompte()->getGerantInterpro());
         $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
 	    if ($request->isMethod(sfWebRequest::POST)) {
 	    	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {

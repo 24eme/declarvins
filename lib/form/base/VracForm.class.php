@@ -14,6 +14,13 @@ class VracForm extends acCouchdbObjectForm
     const VRAC_PAIEMENT_FORM = 'VracPaiementForm';
     const VRAC_LOT_FORM = 'VracLotForm';
     
+    protected static $_francize_date = array(
+    	'date_debut_retiraison',
+    	'date_limite_retiraison',
+    	'date_stats',
+    	'date_signature',
+    );
+    
 	public function __construct(ConfigurationVrac $configuration, $etablissement, $user, acCouchdbJson $object, $options = array(), $CSRFSecret = null) 
 	{
         $this->setConfiguration($configuration);
@@ -54,7 +61,6 @@ class VracForm extends acCouchdbObjectForm
     
 	public function configure()
     {
-
     	$this->setWidgets(array(
     		'vous_etes' => new sfWidgetFormChoice(array('choices' => $this->getVousEtes(), 'expanded' => true)),
         	'numero_contrat' => new sfWidgetFormInputText(),
@@ -203,8 +209,8 @@ class VracForm extends acCouchdbObjectForm
         	'prix_unitaire' => new sfValidatorNumber(array('required' => true)),
         	'type_prix' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getTypesPrix()))),
         	'determination_prix' => new sfValidatorString(array('required' => false)),
-        	'date_debut_retiraison' => new sfValidatorDate(array('date_output' => 'd/m/Y', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
-        	'date_limite_retiraison' => new sfValidatorDate(array('date_output' => 'd/m/Y', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
+        	'date_debut_retiraison' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
+        	'date_limite_retiraison' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
         	'commentaires_conditions' => new sfValidatorString(array('required' => false)),
         	'prix_total' => new sfValidatorNumber(array('required' => false)),
 	        'part_cvo' => new sfValidatorPass(),
@@ -223,13 +229,13 @@ class VracForm extends acCouchdbObjectForm
         	'part_variable' => new sfValidatorString(array('required' => false)),
         	'cvo_nature' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCvoNatures()))),
         	'cvo_repartition' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCvoRepartitions()))),
-        	'date_stats' => new sfValidatorDate(array('date_output' => 'd/m/Y', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
-        	'date_signature' => new sfValidatorDate(array('date_output' => 'd/m/Y', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
+        	'date_stats' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
+        	'date_signature' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
         	'volume_enleve' => new sfValidatorNumber(array('required' => false)),
         	'nature_document' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getNaturesDocument()))),
-        	'date_signature_vendeur' => new sfValidatorDate(array('date_output' => 'd/m/Y', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
-        	'date_signature_acheteur' => new sfValidatorDate(array('date_output' => 'd/m/Y', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
-        	'date_signature_mandataire' => new sfValidatorDate(array('date_output' => 'd/m/Y', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
+        	'date_signature_vendeur' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
+        	'date_signature_acheteur' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
+        	'date_signature_mandataire' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
         	'commentaires' => new sfValidatorString(array('required' => false))
                 ));
     
@@ -454,6 +460,17 @@ class VracForm extends acCouchdbObjectForm
     protected function getVousEtes() {
 
       return array('vendeur' => "Vendeur", 'acheteur' => "Acheteur");
+    }
+    
+	protected function updateDefaultsFromObject() {
+        parent::updateDefaultsFromObject();
+        $defaults = $this->getDefaults();
+        foreach (self::$_francize_date as $field) {
+        	if (isset($defaults[$field]) && !empty($defaults[$field])) {
+        		$defaults[$field] = Date::francizeDate($defaults[$field]);
+        	}
+        }       
+        $this->setDefaults($defaults); 
     }
 }
 
