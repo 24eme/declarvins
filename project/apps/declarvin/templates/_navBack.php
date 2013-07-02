@@ -87,13 +87,13 @@
 				<a href="<?php echo url_for('@statistiques_bilan_drm') ?>">Bilan DRM</a>
 			</li>
 			<li<?php if ($subactive == 'drm'): ?> class="actif"<?php endif; ?>>
-				<a href="<?php echo url_for('statistiques', array('type' => 'drm')) ?>">DRM</a>
+				<a href="<?php echo url_for('statistiques_drm') ?>">DRM</a>
 			</li>		
 			<li<?php if ($subactive == 'vrac'): ?> class="actif"<?php endif; ?>>
-				<a href="<?php echo url_for('statistiques', array('type' => 'vrac')) ?>">Contrat Vrac</a>
+				<a href="<?php echo url_for('statistiques_vrac') ?>">Contrat Vrac</a>
 			</li>		
 			<li<?php if ($subactive == 'daids'): ?> class="actif"<?php endif; ?>>
-				<a href="<?php echo url_for('statistiques', array('type' => 'daids')) ?>">DAI/DS</a>
+				<a href="<?php echo url_for('statistiques_drm') ?>">DAI/DS</a>
 			</li>	
 		<?php endif; ?>
 	</ul>

@@ -52,12 +52,10 @@ class StatistiqueFilterForm extends BaseForm
     
 	protected function getSousFamilles() 
 	{
-    	$sousFamilles =  EtablissementFamilles::getSousFamilles();	
+    	$sousFamilles =  EtablissementFamilles::getSousFamillesAll();	
     	$result = array();
-    	foreach ($sousFamilles as $sousFamillesByFamille) {
-    		foreach ($sousFamillesByFamille as $sousFamille => $value) {
-    			$result[$sousFamille] = $sousFamille;
-    		}
+    	foreach ($sousFamilles as $key => $sousFamille) {
+    			$result[$key] = $sousFamille;
     	}
     	return $result;
     }

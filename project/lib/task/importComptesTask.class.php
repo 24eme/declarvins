@@ -34,6 +34,7 @@ EOF;
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
     $import_dir = sfConfig::get('sf_data_dir').'/import/configuration';
+    $acces = _CompteClient::getInstance()->getAcces();
     
     /*
      * COMPTE VIRTUEL ADMIN
@@ -49,8 +50,9 @@ EOF;
     $compte->email = 'mcouderc@provencewines.com';
     $compte->mot_de_passe = "actualys";
     $compte->droits->add(null, 'admin');
-    $compte->acces->add(null, 'edi');
-    $compte->acces->add(null, 'plateforme');
+    foreach ($acces as $accesKey => $accesName) {
+    	 $compte->acces->add(null, $accesKey);
+    }
     $compte->interpro = array("INTERPRO-CIVP" => array('statut' => "VALIDE"));
     $compte->statut = _Compte::STATUT_INSCRIT;
     $compte->save();
@@ -67,8 +69,9 @@ EOF;
     $compte->email = 'beymard@inter-rhone.com';
     $compte->mot_de_passe = "actualys";
     $compte->droits->add(null, 'admin');
-    $compte->acces->add(null, 'edi');
-    $compte->acces->add(null, 'plateforme');
+    foreach ($acces as $accesKey => $accesName) {
+    	 $compte->acces->add(null, $accesKey);
+    }
     $compte->interpro = array("INTERPRO-IR" => array('statut' => "VALIDE"));
     $compte->statut = _Compte::STATUT_INSCRIT;
     $compte->save();
@@ -86,8 +89,9 @@ EOF;
     $compte->email = 'marie.de-monte@intervins-sudest.org';
     $compte->mot_de_passe = "actualys";
     $compte->droits->add(null, 'admin');
-    $compte->acces->add(null, 'edi');
-    $compte->acces->add(null, 'plateforme');
+    foreach ($acces as $accesKey => $accesName) {
+    	 $compte->acces->add(null, $accesKey);
+    }
     $compte->interpro = array("INTERPRO-IVSE" => array('statut' => "VALIDE"));
     $compte->statut = _Compte::STATUT_INSCRIT;
     $compte->save();

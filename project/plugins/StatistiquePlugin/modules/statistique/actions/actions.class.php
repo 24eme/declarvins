@@ -100,25 +100,15 @@ class statistiqueActions extends sfActions
   	return $result;
   }
   
-  public function executeStatistiques(sfWebRequest $request) 
+  public function executeDrmStatistiques(sfWebRequest $request) 
   {
   	  $this->page = $request->getParameter('p', 1);
-  	  $this->type = $request->getParameter('type');
-  	  if (!$this->type) {
-  	  	throw new sfException('You must specify elasticsearch type');
-  	  }
-  	  $this->statistiquesConfig = sfConfig::get('app_statistiques_'.$this->type);
+  	  $this->statistiquesConfig = sfConfig::get('app_statistiques_drm');
   	  if (!$this->statistiquesConfig) {
-  	  	throw new sfException('No configuration set for elasticsearch type '.$this->type);
+  	  	throw new sfException('No configuration set for elasticsearch type drm');
   	  }
-  	  
-  	  $this->query = $request->getParameter('query');
-	  $this->form = FilterFormFactory::create($this->type, $this->getUser()->getCompte()->getGerantInterpro());
-	  if ($this->query) {
-	  	$this->form->setDefaults($this->parseQueryForDefaultValuesForm($this->query));
-	  } else {
-	  	$this->query = $this->form->getDefaultQuery();
-	  }
+	  $this->form = new StatistiqueDRMFilterForm($this->getUser()->getCompte()->getGerantInterpro());
+	  $this->query = $this->form->getDefaultQuery();
 	  if ($request->isMethod(sfWebRequest::POST)) {
 	  	$this->form->bind($request->getParameter($this->form->getName()));
   	  	if ($this->form->isValid()) {
@@ -127,13 +117,139 @@ class statistiqueActions extends sfActions
   	  		}
   	  	}
 	  }  
-	  $this->hashProduitFilter = $this->form->getProduit();
+	  $this->produits = $this->form->getProduits();
       
       $index = acElasticaManager::getType($this->statistiquesConfig['elasticsearch_type']);
       $elasticaQuery = new acElasticaQuery();
-      $elasticaQuery->setQuery(new acElasticaQueryQueryString($this->query));
+      $elasticaQuery->setQuery($this->query);
+      
+      
+  	  //print_r(json_encode($elasticaQuery->toArray()));exit;
       
       $facets = $this->statistiquesConfig['facets'];
+      foreach($facets as $facet) {
+		$elasticaFacet 	= new acElasticaFacetStatistical($facet['nom']);
+		if ($this->produits) {
+			$script = null;
+			foreach ($this->produits as $produit) {
+					if ($script) {
+						$script .= ' + ';
+					}
+					$script .= "doc['".$produit.".".$facet['noeud']."'].value";
+    		}
+    		if (count($this->produits) > 1) {
+				$elasticaFacet->setScript($script);
+    		} else {
+    			$elasticaFacet->setField($produit.'.'.$facet['noeud']);
+    		}
+		} else {
+			$elasticaFacet->setField('declaration.'.$facet['noeud']);
+		}
+		$elasticaQuery->addFacet($elasticaFacet);
+      }
+      
+  	  $facetsGraph = $this->statistiquesConfig['facets_graph'];
+      foreach($facetsGraph as $facetGraph) {
+		$elasticaFacet 	= new acElasticaFacetDateHistogram($facetGraph['nom']);
+		$elasticaFacet->setField($facetGraph['key_field']);
+		$elasticaFacet->setInterval($facetGraph['interval']);
+		if ($this->produits) {
+			$script = null;
+			foreach ($this->produits as $produit) {
+					if ($script) {
+						$script .= ' + ';
+					}
+					$script .= "doc['".$produit.".".$facetGraph['value_field']."'].value";
+    		}
+    		if (count($this->produits) > 1) {
+				$elasticaFacet->setKeyValueScripts($facetGraph['key_field'], $script);
+    		} else {
+    			$elasticaFacet->setKeyValueFields($facetGraph['key_field'], $produit.'.'.$facetGraph['value_field']);
+    		}
+		} else {
+			$elasticaFacet->setKeyValueFields($facetGraph['key_field'], 'declaration.'.$facetGraph['value_field']);
+		}
+		$elasticaQuery->addFacet($elasticaFacet);
+      }
+      
+      
+  	  //print_r(json_encode($elasticaQuery->toArray()));exit;
+      $elasticaQuery->setLimit($this->statistiquesConfig['nb_resultat']);
+      $elasticaQuery->setFrom(($this->page - 1) * $this->statistiquesConfig['nb_resultat']);
+      $result = $index->search($elasticaQuery);
+      $this->hits = $result->getResults();
+      $this->facets = $this->getStatisticalFacets($result->getFacets());
+      $this->chartConfig = $this->getChartConfig($this->getDateHistogramFacets($result->getFacets()));
+      $this->nbHits = $result->getTotalHits();
+      $this->nbPage = ceil($this->nbHits / $this->statistiquesConfig['nb_resultat']);      
+
+  }
+  
+  private function getStatisticalFacets($facets)
+  {
+  	$statistical = array();
+  	foreach ($facets as $facetKey => $facet) {
+  		if ($facet['_type'] == 'statistical') {
+  			$statistical[$facetKey] = $facet;
+  		}
+  	}
+  	return $statistical;
+  }
+  
+  private function getDateHistogramFacets($facets)
+  {
+  	$dateHistogram = array();
+  	foreach ($facets as $facetKey => $facet) {
+  		if ($facet['_type'] == 'date_histogram') {
+  			$dateHistogram[$facetKey] = $facet;
+  		}
+  	}
+  	return $dateHistogram;
+  }
+  
+  private function getChartConfig($datas)
+  {
+  	$config = array();
+  	$first = true;
+  	foreach ($datas as $name => $values) {
+  		foreach ($values['entries'] as $entries) {
+  			if ($first) {
+  				$config['categories'][] = date('Y-m', $entries['time']/1000);
+  			}
+  			$config['series'][$name][] = $entries['total'];
+  		}
+  		$first = false;
+  	}
+  	return $config;
+  }
+  
+  public function executeVracStatistiques(sfWebRequest $request) 
+  {
+  	  $this->page = $request->getParameter('p', 1);
+  	  $this->statistiquesConfig = sfConfig::get('app_statistiques_vrac');
+  	  if (!$this->statistiquesConfig) {
+  	  	throw new sfException('No configuration set for elasticsearch type vrac');
+  	  }
+	  $this->form = new StatistiqueVracFilterForm($this->getUser()->getCompte()->getGerantInterpro());
+	  $this->query = $this->form->getDefaultQuery();
+	  if ($request->isMethod(sfWebRequest::POST)) {
+	  	$this->form->bind($request->getParameter($this->form->getName()));
+  	  	if ($this->form->isValid()) {
+  	  		if ($q = $this->form->getQuery()) {
+  	  			$this->query = $q;
+  	  		}
+  	  	}
+	  }  
+	  $this->produits = $this->form->getProduits();
+      
+      $index = acElasticaManager::getType($this->statistiquesConfig['elasticsearch_type']);
+      $elasticaQuery = new acElasticaQuery();
+      $elasticaQuery->setQuery($this->query);
+      
+      
+  	  //print_r(json_encode($elasticaQuery->toArray()));exit;
+      
+  	  $facets = $this->statistiquesConfig['facets'];
       foreach($facets as $facet) {
 		$elasticaFacet 	= new acElasticaFacetStatistical($facet['nom']);
 		if ($facet['noeud']) {

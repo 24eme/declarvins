@@ -10,11 +10,4 @@ class ComptePartenaire extends BaseComptePartenaire {
     public function isVirtuel() {
     	return false;
     }
-    
-	protected function preSave() {
-        if ($this->isNew()) {
-        	$this->acces->add(null, acVinCompteSecurityUser::CREDENTIAL_ACCES_EDI);
-        }
-	    parent::preSave();
-    }
 }

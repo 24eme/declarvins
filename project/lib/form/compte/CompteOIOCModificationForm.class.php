@@ -25,6 +25,10 @@ class CompteOIOCModificationForm extends CompteModificationForm {
             $this->getWidget('login')->setLabel('Login*: ');
             $this->setValidator('login', new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')));
          }
+         $accesChoices = _CompteClient::getInstance()->getAcces();
+         $this->setWidget('acces',  new sfWidgetFormChoice(array('choices' => $accesChoices, 'expanded' => true, 'multiple' => true)));
+         $this->getWidget('acces')->setLabel('Accès: ');
+         $this->setValidator('acces', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($accesChoices),'multiple' => true)));
          $choices = OIOCAllView::getInstance()->getAllOIOC();
          $this->setWidget('oioc',  new sfWidgetFormChoice(array('choices' => $choices)));
          $this->getWidget('oioc')->setLabel('OIOC*: ');

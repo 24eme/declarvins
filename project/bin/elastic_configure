@@ -26,6 +26,25 @@ if curl -s http://$ELASTHOST:$ELASTPORT/$ELASTINDEX | grep -v "IndexMissingExcep
     curl -s -X DELETE "http://$ELASTHOST:$ELASTPORT/_river" > /dev/null
 fi
 
+# Creation des index
+
+curl -XPUT 'http://localhost:9200/_river/' > /dev/null
+curl -XPUT 'http://localhost:9200/$ELASTINDEX/' > /dev/null
+
+# Configuration du mapping drm
+
+echo '{
+    "drm" : {
+        "properties" : {
+            "periode" : {"type" : "date", "format" : "dateOptionalTime"}
+        }
+    }
+}' > /tmp/elastic.mapping.json
+
+curl -XPUT "http://$ELASTHOST:$ELASTPORT/$ELASTINDEX/drm/_mapping" -d '@/tmp/elastic.mapping.json'
+
+
+# Initialisation des rivers
 
 echo '{
     "type" : "couchdb",

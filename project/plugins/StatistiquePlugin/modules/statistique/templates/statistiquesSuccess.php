@@ -12,7 +12,7 @@
     		<h1><?php echo $nbHits ?> résultat<?php if ($nbHits > 1): ?>s<?php endif; ?></h1>
     		
     		<?php if ($nbHits > 0): ?>
-    			<?php include_partial('resultStatistiqueFilter', array('hashProduitFilter' => $hashProduitFilter, 'statistiquesConfig' => $statistiquesConfig, 'hits' => $hits)) ?>
+    			<?php include_partial('resultStatistiqueFilter', array('produits' => $produits, 'statistiquesConfig' => $statistiquesConfig, 'hits' => $hits)) ?>
     		<?php else: ?>
     			<p>Aucun résultat pour la recherche</p>
     		<?php endif; ?>

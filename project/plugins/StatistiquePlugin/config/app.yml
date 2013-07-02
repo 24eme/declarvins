@@ -89,7 +89,7 @@ all:
       facets:
         total_debut_mois:
           nom: "Total début de mois"
-          noeud: "%declaration%.total_debut_mois_net"
+          noeud: "total_debut_mois_net"
           divise: null
           unite: "hl"
           need_replace: true
@@ -100,7 +100,7 @@ all:
           filters: null
         total_entrees_nettes:
           nom: "Total entrées nettes"
-          noeud: "%declaration%.total_entrees_nettes"
+          noeud: "total_entrees_nettes"
           divise: null
           unite: "hl"
           need_replace: true
@@ -111,7 +111,7 @@ all:
           filters: null
         total_entrees_reciproque:
           nom: "Total entrées avec réciproque"
-          noeud: "%declaration%.total_entrees_reciproque"
+          noeud: "total_entrees_reciproque"
           divise: null
           unite: "hl"
           need_replace: true
@@ -122,7 +122,7 @@ all:
           filters: null
         total_sorties_nettes:
           nom: "Total sorties nettes"
-          noeud: "%declaration%.total_sorties_nettes"
+          noeud: "total_sorties_nettes"
           divise: null
           unite: "hl"
           need_replace: true
@@ -133,7 +133,7 @@ all:
           filters: null
         total_sorties_reciproque:
           nom: "Total sorties avec réciproque"
-          noeud: "%declaration%.total_sorties_reciproque"
+          noeud: "total_sorties_reciproque"
           divise: null
           unite: "hl"
           need_replace: true
@@ -144,7 +144,7 @@ all:
           filters: null
         total_fin_de_mois:
           nom: "Total fin de mois"
-          noeud: "%declaration%.total_net"
+          noeud: "total_net"
           divise: null
           unite: "hl"
           need_replace: true
@@ -153,6 +153,42 @@ all:
           code: null
           facet_filter: false
           filters: null
+      facets_graph:
+        histo_debut_mois:
+          nom: "Début de mois"
+          key_field: "periode"
+          value_field: "total_debut_mois_net"
+          interval: "month"
+        histo_entrees_nettes:
+          nom: "Entrées nettes"
+          key_field: "periode"
+          value_field: "total_entrees_nettes"
+          interval: "month"
+        histo_entrees_reciproque:
+          nom: "Entrées avec réciproque"
+          key_field: "periode"
+          value_field: "total_entrees_reciproque"
+          interval: "month"
+        histo_entrees_reciproque:
+          nom: "Entrées avec réciproque"
+          key_field: "periode"
+          value_field: "total_entrees_reciproque"
+          interval: "month"
+        histo_sorties_nettes:
+          nom: "Sorties nettes"
+          key_field: "periode"
+          value_field: "total_sorties_nettes"
+          interval: "month"
+        histo_sorties_reciproque:
+          nom: "Sorties avec réciproque"
+          key_field: "periode"
+          value_field: "total_sorties_reciproque"
+          interval: "month"
+        histo_fin_de_mois:
+          nom: "Fin de mois"
+          key_field: "periode"
+          value_field: "total_net"
+          interval: "month"
     vrac:
       title: "Contrat Vrac"
       nb_resultat: 20

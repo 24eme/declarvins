@@ -3,82 +3,51 @@
 	padding:0;
 	margin:0;
 }
-#statistique_drm_filter_periode_year, #statistique_drm_filter_periode_month {
-	width: 98px;
+.select_periode select {
+	width: 98px !important;
+}
+.select_date select {
+	width: 60px !important;
 }
 #form_ajout {
 	padding: 10px 0;
 	margin-bottom: 10px;
 }
+.popup_form .ligne_form ul.checkbox_list {
+	margin: 0;
+	padding: 0;
+	width: auto;
+	height: auto;
+	float: none;
+	display: block;
+}
 </style>
 <script type="text/javascript">
 $( document ).ready(function() {
-	$( "#statistique_drm_filter_periode_day" ).hide();
-	$( "#statistique_drm_filter_periode_day" ).val(1);
-	$( "#<?php echo $form['declaration']->renderId() ?>" ).combobox();
-	
-    var familles = '<?php echo json_encode(EtablissementFamilles::getFamillesForJs()) ?>';
-    var sousFamilleSelected = '<?php echo $form['declarant.sous_famille']->getValue() ?>';
-
-    var famillesJSON = JSON.parse(familles);
-	var champFamilles = $("#statistique_drm_filter_declarant\\.famille");
-	var champFamillesVal = champFamilles.val();
-	var champSousFamilles = $("#statistique_drm_filter_declarant\\.sous_famille");
-	var templateSousFamilles = $('#template_options_sous_famille');
-	var champSousFamillesVal = champSousFamilles.val();	
-	// Si le champ est prérempli
-	if(champFamillesVal)
-	{
-		$.majEtablissementSousFamille();
-	}
-	
-	champFamilles.change(function()
-	{
-		champFamillesVal = champFamilles.val();
-		$.majEtablissementSousFamille();
-	});
-	
-	$.majEtablissementSousFamille = function()
-	{		
-		var objTemplate = {};
-		
-		champSousFamillesVal = champSousFamilles.val();
-		tabSousFamilles = famillesJSON[champFamillesVal];
-		champSousFamilles.html('');
-		
-		// Parcours des sous-familles
-		for(var i in tabSousFamilles)
-		{
-			objTemplate = { value: tabSousFamilles[i], key: i };
-			// Si l'éléments courant doit être sélectionné
-			if(champSousFamillesVal == i)
-			{
-				$.extend(objTemplate, {selected: true });
-			}
-			
-			// Insertion de l'option
-			templateSousFamilles.tmpl(objTemplate).appendTo(champSousFamilles);
-		}
-	};
+	$("#filtre_produits_items select").combobox();
 });
 </script>
-<form  class="popup_form" id="form_ajout" action="<?php echo url_for('statistiques', array('type' => $type)) ?>" method="post">
+<form  class="popup_form" id="form_ajout" action="<?php echo url_for('statistiques_drm') ?>" method="post">
 	<?php echo $form->renderHiddenFields() ?>
 	<table>
 		<thead>
 			<tr>
-				<th>Déclarant</th>
-				<th>Document</th>
-				<th>Produit</th>
+				<th width="33%">Déclarant</th>
+				<th width="33%">Document</th>
+				<th width="33%">Produit</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td>
-					<div class="ligne_form">
-						<span class="error"><?php echo $form['identifiant']->renderError() ?></span>
-						<?php echo $form['identifiant']->renderLabel() ?><?php echo $form['identifiant']->render() ?>
-					</div>
+					<div id="filtre_etablissements">
+						<a class="btn_ajouter_ligne_template" data-container="#filtre_etablissements #filtre_etablissements_items" data-template="#template_form_etablissements_item" href="#"><span>Ajouter</span></a>
+						<div id="filtre_etablissements_items">
+							<?php foreach ($form['identifiant'] as $formEtablissement): ?>
+		                        <?php include_partial('form_etablissements_item', array('form' => $formEtablissement)) ?>
+		                    <?php endforeach; ?>
+	                    </div>
+                    </div>
 				</td>
 				<td>
 					<div class="ligne_form">
@@ -87,10 +56,14 @@ $( document ).ready(function() {
 					</div>
 				</td>
 				<td>
-					<div class="ligne_form">
-						<span class="error"><?php echo $form['declaration']->renderError() ?></span>
-						<?php echo $form['declaration']->renderLabel() ?><?php echo $form['declaration']->render() ?>
-					</div>
+					<div id="filtre_produits">
+						<a class="btn_ajouter_ligne_template" data-container="#filtre_produits #filtre_produits_items" data-template="#template_form_produits_item" href="#"><span>Ajouter</span></a>
+						<div id="filtre_produits_items">
+							<?php foreach ($form['declaration'] as $formProduit): ?>
+		                        <?php include_partial('form_produits_item', array('form' => $formProduit)) ?>
+		                    <?php endforeach; ?>
+	                    </div>
+                    </div>
 				</td>
 			</tr>
 			<tr>
@@ -116,7 +89,7 @@ $( document ).ready(function() {
 					</div>
 				</td>
 				<td>
-					<div class="ligne_form">
+					<div class="ligne_form select_date">
 						<span class="error"><?php echo $form['valide.date_saisie']->renderError() ?></span>
 						<?php echo $form['valide.date_saisie']->renderLabel() ?><?php echo $form['valide.date_saisie']->render() ?>
 					</div>
@@ -132,8 +105,8 @@ $( document ).ready(function() {
 				</td>
 				<td>
 					<div class="ligne_form">
-						<span class="error"><?php echo $form['valide.date_signee']->renderError() ?></span>
-						<?php echo $form['valide.date_signee']->renderLabel() ?><?php echo $form['valide.date_signee']->render() ?>
+						<span class="error"><?php echo $form['mode_de_saisie']->renderError() ?></span>
+						<?php echo $form['mode_de_saisie']->renderLabel() ?><?php echo $form['mode_de_saisie']->render() ?>
 					</div>
 				</td>
 				<td></td>
@@ -143,15 +116,12 @@ $( document ).ready(function() {
 					<div class="ligne_form">
 						<span class="error"><?php echo $form['declarant.sous_famille']->renderError() ?></span>
 						<?php echo $form['declarant.sous_famille']->renderLabel() ?><?php echo $form['declarant.sous_famille']->render() ?>
-				        <script id="template_options_sous_famille" type="text/x-jquery-tmpl">
-            				<option value="${key}" {{if selected}}selected="selected"{{/if}} >${value}</option>
-        				</script>
 					</div>
 				</td>
 				<td>
-					<div class="ligne_form">
-						<span class="error"><?php echo $form['mode_de_saisie']->renderError() ?></span>
-						<?php echo $form['mode_de_saisie']->renderLabel() ?><?php echo $form['mode_de_saisie']->render() ?>
+					<div class="ligne_form select_periode">
+						<span class="error"><?php echo $form['periode']->renderError() ?></span>
+						<?php echo $form['periode']->renderLabel() ?><?php echo $form['periode']->render() ?>
 					</div>
 				</td>
 				<td></td>
@@ -169,10 +139,6 @@ $( document ).ready(function() {
 			<tr>
 				<td></td>
 				<td>
-					<div class="ligne_form">
-						<span class="error"><?php echo $form['periode']->renderError() ?></span>
-						<?php echo $form['periode']->renderLabel() ?><?php echo $form['periode']->render() ?>
-					</div>
 				</td>
 				<td></td>
 			</tr>
@@ -182,3 +148,5 @@ $( document ).ready(function() {
 		<button name="valider" class="btn_valider" type="submit" value="true">Filtrer</button>
 	</div>
 </form>
+<?php include_partial('form_collection_template', array('partial' => 'form_produits_item', 'form' => $form->getFormTemplateProduits())); ?>
+<?php include_partial('form_collection_template', array('partial' => 'form_etablissements_item', 'form' => $form->getFormTemplateEtablissements())); ?>

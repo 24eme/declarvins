@@ -7,6 +7,12 @@
     <?php 
       include_partial('CompteOIOC/formCompteRenderer', array('form' => $form));  
     ?>
+
+    <div class="ligne_form ligne_entiere ecart_check">
+        <?php echo $form['acces']->renderLabel() ?>
+        <?php echo $form['acces']->render() ?>
+        <?php echo $form['acces']->renderError() ?>
+    </div>
 	
 	<strong class="champs_obligatoires">* Champs obligatoires</strong>
     

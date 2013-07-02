@@ -560,6 +560,21 @@
    	 	if ($(".drm_vrac_contrats").length > 0) {
    	 		$(".drm_vrac_contrats").combobox(); 
    	 	}
+   	 	if ($("#filtre_produits_items").length > 0) {
+   	 		$("#filtre_produits_items select").last().combobox();
+   	 	}
+   	 	if ($("#filtre_etablissements_items").length > 0) {
+   	 		$("#filtre_etablissements_items select").last().combobox();
+   	 	}
+   	 	if ($("#filtre_vendeur_identifiant").length > 0) {
+   	 		$("#filtre_vendeur_identifiant select").last().combobox();
+   	 	}
+   	 	if ($("#filtre_acheteur_identifiant").length > 0) {
+   	 		$("#filtre_acheteur_identifiant select").last().combobox();
+   	 	}
+   	 	if ($("#filtre_mandataire_identifiant").length > 0) {
+   	 		$("#filtre_mandataire_identifiant select").last().combobox();
+   	 	}
     }
 
 	$(document).ready(function()

@@ -3,9 +3,30 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
 {
 	const HASH_PRODUIT_DEFAUT = 'declaration';
 	const FORM_TEMPLATE = 'formDRMStatistiqueFilter';
+	const TERM_BOOST = 1.0;
+	
+	protected static $fieldsConfig = array(
+		'interpros' => StatistiqueQuery::CONFIG_QUERY_STRING,
+		'identifiant' => StatistiqueQuery::CONFIG_QUERY_STRING_OR,
+		'declarant.siege.code_postal' => StatistiqueQuery::CONFIG_QUERY_STRING_OR,
+		'declarant.service_douane' => StatistiqueQuery::CONFIG_QUERY_STRING_OR,
+		'declarant.famille' => StatistiqueQuery::CONFIG_QUERY_STRING_OR,
+		'declarant.sous_famille' => StatistiqueQuery::CONFIG_QUERY_STRING_OR,
+		'_id' => StatistiqueQuery::CONFIG_QUERY_STRING,
+		'identifiant_drm_historique' => StatistiqueQuery::CONFIG_QUERY_STRING,
+		'valide.date_saisie' => StatistiqueQuery::CONFIG_QUERY_RANGE,
+		'mode_de_saisie' => StatistiqueQuery::CONFIG_QUERY_STRING_OR,
+		'campagne' => StatistiqueQuery::CONFIG_QUERY_STRING,
+		'periode' => StatistiqueQuery::CONFIG_QUERY_RANGE,
+		'declaration' => StatistiqueQuery::CONFIG_QUERY_STRING_OR_PRODUCT
+	);
+	
+	
 	public function configure() 
 	{
 		parent::configure();
+		$years = range(date('Y'), date('Y') - 20);
+        $years = array_combine($years, $years);
 		/**
 		 * INTERPRO
 		 */
@@ -16,29 +37,27 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
 		 * DECLARANT
 		 */
 		// ETABLISSEMENT
-    	$options = array_merge(array('interpro_id' => $this->getInterproId()), $this->getOptions());
-        $this->setWidget('identifiant', new WidgetEtablissement($options));
-        $this->widgetSchema->setLabel('identifiant', 'Etablissement :');
-        $this->setValidator('identifiant', new ValidatorEtablissement(array('required' => false)));
+        $etablissements = new StatistiqueEtablissementCollectionForm($this->getInterproId());
+        $this->embedForm('identifiant', $etablissements);
         // DEPARTEMENTS
-        $choices = array(''=>'')+$this->getDepartementsChoices();
-        $this->setWidget('declarant.siege.code_postal', new sfWidgetFormChoice(array('choices' => $choices)));
+        $choices = $this->getDepartementsChoices();
+        $this->setWidget('declarant.siege.code_postal', new sfWidgetFormChoice(array('multiple' => true, 'expanded' => true, 'choices' => $choices)));
         $this->widgetSchema->setLabel('declarant.siege.code_postal', 'Code postal :');
-        $this->setValidator('declarant.siege.code_postal', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($choices))));
+        $this->setValidator('declarant.siege.code_postal', new sfValidatorChoice(array('required' => false, 'multiple' => true, 'choices' => array_keys($choices))));
         // DOUANES
-        $choices = array_merge(array(''=>''), $this->getDouanes());
-        $this->setWidget('declarant.service_douane', new sfWidgetFormChoice(array('choices' => $choices)));
+        $choices = $this->getDouanes();
+        $this->setWidget('declarant.service_douane', new sfWidgetFormChoice(array('multiple' => true, 'expanded' => true, 'choices' => $choices)));
         $this->widgetSchema->setLabel('declarant.service_douane', 'Service douane :');
-        $this->setValidator('declarant.service_douane', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($choices))));
+        $this->setValidator('declarant.service_douane', new sfValidatorChoice(array('required' => false, 'multiple' => true, 'choices' => array_keys($choices))));
         // FAMILLES
-        $familleChoices = array_merge(array(''=>''), $this->getFamilles());
-        $sousFamilleChoices = array('' => '');
-        $this->setWidget('declarant.famille', new sfWidgetFormChoice(array('choices' => $familleChoices)));
-        $this->setWidget('declarant.sous_famille', new sfWidgetFormChoice(array('choices' => $sousFamilleChoices)));
+        $familleChoices = $this->getFamilles();
+        $sousFamilleChoices = $this->getSousFamilles();
+        $this->setWidget('declarant.famille', new sfWidgetFormChoice(array('multiple' => true, 'expanded' => true, 'choices' => $familleChoices)));
+        $this->setWidget('declarant.sous_famille', new sfWidgetFormChoice(array('multiple' => true, 'expanded' => true, 'choices' => $sousFamilleChoices)));
         $this->widgetSchema->setLabel('declarant.famille', 'Famille :');
         $this->widgetSchema->setLabel('declarant.sous_famille', 'Sous famille :');
-        $this->setValidator('declarant.famille', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($familleChoices))));
-        $this->setValidator('declarant.sous_famille', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getSousFamilles()))));
+        $this->setValidator('declarant.famille', new sfValidatorChoice(array('required' => false, 'multiple' => true, 'choices' => array_keys($familleChoices))));
+        $this->setValidator('declarant.sous_famille', new sfValidatorChoice(array('required' => false, 'multiple' => true, 'choices' => array_keys($this->getSousFamilles()))));
         /**
          * DRM
          */
@@ -51,81 +70,111 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
         $this->widgetSchema->setLabel('identifiant_drm_historique', 'Identifiant historique :');
         $this->setValidator('identifiant_drm_historique', new sfValidatorString(array('required' => false)));
 		// DATE SAISIE
-        $this->setWidget('valide.date_saisie', new sfWidgetFormInputText());
+        $this->setWidget('valide.date_saisie', new sfWidgetFormDateRange(array(
+            'from_date'     => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
+            'to_date'       => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
+            'template'      => '<br />du %from_date%<br />au %to_date%'
+        )));
         $this->widgetSchema->setLabel('valide.date_saisie', 'Date de saisie :');
-        $this->setValidator('valide.date_saisie', new sfValidatorString(array('required' => false)));
-		// DATE SAISIE
-        $this->setWidget('valide.date_signee', new sfWidgetFormInputText());
-        $this->widgetSchema->setLabel('valide.date_signee', 'Date de signature :');
-        $this->setValidator('valide.date_signee', new sfValidatorString(array('required' => false)));
+        $this->setValidator('valide.date_saisie', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date'   => new sfValidatorDate(array('required' => false)))));
 		// MODE DE SAISIE
-		$choices = array_merge(array(''=>''), $this->getModesDeSaisie());
-        $this->setWidget('mode_de_saisie', new sfWidgetFormChoice(array('choices' => $choices)));
+		$choices = $this->getModesDeSaisie();
+        $this->setWidget('mode_de_saisie', new sfWidgetFormChoice(array('multiple' => true, 'expanded' => true, 'choices' => $choices)));
         $this->widgetSchema->setLabel('mode_de_saisie', 'Mode de saisie :');
-        $this->setValidator('mode_de_saisie', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($choices))));
+        $this->setValidator('mode_de_saisie', new sfValidatorChoice(array('required' => false, 'multiple' => true, 'choices' => array_keys($choices))));
         // CAMPAGNE
         $choices = array_merge(array(''=>''), $this->getCampagneChoices());
         $this->setWidget('campagne', new sfWidgetFormChoice(array('choices' => $choices)));
         $this->widgetSchema->setLabel('campagne', 'Campagne :');
         $this->setValidator('campagne', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($choices))));
         // PERIODE
-        $years = range(date('Y'), date('Y') - 20);
-        $years = array_combine($years, $years);
-        $this->setWidget('periode', new WidgetFormPeriode(array('format' => '%year%-%month%', 'years' => $years)));
+        $this->setWidget('periode', new sfWidgetFormDateRange(array(
+            'from_date'     => new WidgetFormPeriode(array('format' => '%year% - %month%', 'years' => $years)),
+            'to_date'       => new WidgetFormPeriode(array('format' => '%year% - %month%', 'years' => $years)),
+            'template'      => '<br />du %from_date%<br />au %to_date%'
+        )));
         $this->widgetSchema->setLabel('periode', 'Période :');
-        $this->setValidator('periode', new ValidatorPeriode(array('required' => false, 'date_output' => 'Y-m')));
+        $this->setValidator('periode', new sfValidatorDateRange(array('required' => false, 'from_date' => new ValidatorPeriode(array('required' => false, 'date_output' => 'Y-m')), 'to_date'   => new ValidatorPeriode(array('required' => false, 'date_output' => 'Y-m')))));
 		/**
 		 * PRODUIT
 		 */
-        // PRODUIT
-        $choices = array_merge(array(''=>''), $this->getProduits());
-        $this->setWidget('declaration', new sfWidgetFormChoice(array('choices' => $choices)));
-        $this->widgetSchema->setLabel('declaration', 'Produit :');
-        $this->setValidator('declaration', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($choices))));
+        // PRODUIT        
+        $produits = new StatistiqueProduitCollectionForm($this->getInterproId());
+        $this->embedForm('declaration', $produits);
         
         $this->widgetSchema->setNameFormat('statistique_drm_filter[%s]');
         
     }
     
-    public function getProduit()
+    public function getProduits()
     {
-    	$produit = self::HASH_PRODUIT_DEFAUT;
+    	$produits = array();
     	if ($values = $this->getValues()) {
     		if (isset($values['declaration']) && !empty($values['declaration'])) {
-    			$produit .= '.'.str_replace('/', '.', $values['declaration']);
+    			foreach ($values['declaration'] as $p) {
+    				if ($p['declaration']) {
+    					$produits[] = self::HASH_PRODUIT_DEFAUT.'.'.str_replace('/', '.', $p['declaration']);
+    				}
+    			}
     		}
     	}
-    	return $produit;
+    	if (count($produits) > 0) {
+    		return $produits;
+    	}
+    	return null;
     }
     
     public function getDefaultQuery()
     {
-    	return 'interpros:'.$this->getInterproId();
+    	$query_string = new acElasticaQueryQueryString('interpros:'.$this->getInterproId());
+    	return $query_string;
     }
     
     public function getQuery()
     {
-    	$query = '';
-    	$values = $this->getValues();
-    	foreach ($values as $node => $value) {
-    		if ($value && $node != 'declaration') {
-    			if ($query) {
-	    			$query .= ' ';
-	    		}
-    			$query .= $node.':'.$value;
-    		}
-    	}
-    	if (isset($values['declaration']) && !empty($values['declaration'])) {
-    		if ($query) {
-    			$query .= ' ';
-    		}
-    		$query .= self::HASH_PRODUIT_DEFAUT.'.'.str_replace('/', '.', $values['declaration']).'.selecteur:1';
-    	}
-    	return $query;
+    	$query = new acElasticaQueryMatchAll();
+    	$statistiqueQuery = new StatistiqueQuery(self::$fieldsConfig, $this->getValues());
+    	$filtered = new acElasticaFiltered($query, $statistiqueQuery->getFilter());
+    	return $filtered;
     }
+    
     
     public function getFormTemplate()
     {
     	return self::FORM_TEMPLATE;
+    }
+    
+	public function bind(array $taintedValues = null, array $taintedFiles = null)
+    {
+        foreach ($this->embeddedForms as $key => $form) {
+        	if (isset($taintedValues[$key])) {
+        		$form->bind($taintedValues[$key], $taintedFiles[$key]);
+            	$this->updateEmbedForm($key, $form);
+        	}
+        }
+        parent::bind($taintedValues, $taintedFiles);
+    }
+
+    public function updateEmbedForm($name, $form) {
+    	$this->widgetSchema[$name] = $form->getWidgetSchema();
+        $this->validatorSchema[$name] = $form->getValidatorSchema();
+    }
+    
+	public function getEmbedFormTemplate($field, $form_item_class, $arg1 = null) {
+        $vrac = new Vrac();
+        $form_embed = new $form_item_class($arg1);
+        $form = new StatistiqueCollectionTemplateForm($this, $field, $form_embed);
+        
+        return $form->getFormTemplate();
+    }
+
+    public function getFormTemplateProduits() {
+
+        return $this->getEmbedFormTemplate('declaration', 'StatistiqueProduitForm', $this->getInterproId());
+    }
+
+    public function getFormTemplateEtablissements() {
+
+        return $this->getEmbedFormTemplate('identifiant', 'StatistiqueEtablissementForm', $this->getInterproId());
     }
 }

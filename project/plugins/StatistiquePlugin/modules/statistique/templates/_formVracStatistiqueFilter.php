@@ -3,105 +3,31 @@
 	padding:0;
 	margin:0;
 }
-#statistique_drm_filter_periode_year, #statistique_drm_filter_periode_month {
-	width: 98px;
+.select_periode select {
+	width: 98px !important;
+}
+.select_date select {
+	width: 60px !important;
 }
 #form_ajout {
 	padding: 10px 0;
 	margin-bottom: 10px;
 }
+.popup_form .ligne_form ul.checkbox_list {
+	margin: 0;
+	padding: 0;
+	width: auto;
+	height: auto;
+	float: none;
+	display: block;
+}
 </style>
 <script type="text/javascript">
 $( document ).ready(function() {
-	$( "#<?php echo $form['produit']->renderId() ?>" ).combobox();
-	
-    var familles = '<?php echo json_encode(EtablissementFamilles::getFamillesForJs()) ?>';
-    var sousFamilleSelected = null;
-    var famillesJSON = JSON.parse(familles);
-    
-	var champVendeurFamilles = $("#statistique_vrac_filter_vendeur\\.famille");
-	var champVendeurFamillesVal = champVendeurFamilles.val();
-	var champVendeurSousFamilles = $("#statistique_vrac_filter_vendeur\\.sous_famille");
-	var templateVendeurSousFamilles = $('#template_options_vendeur_sous_famille');
-	var champVendeurSousFamillesVal = champVendeurSousFamilles.val();	
-	// Si le champ est prérempli
-	if(champVendeurFamillesVal)
-	{
-		$.majVendeurEtablissementSousFamille();
-	}
-	
-	champVendeurFamilles.change(function()
-	{
-		champVendeurFamillesVal = champVendeurFamilles.val();
-		$.majVendeurEtablissementSousFamille();
-	});
-	
-	$.majVendeurEtablissementSousFamille = function()
-	{		
-		var objTemplate = {};
-		
-		champVendeurSousFamillesVal = champVendeurSousFamilles.val();
-		tabVendeurSousFamilles = famillesJSON[champVendeurFamillesVal];
-		champVendeurSousFamilles.html('');
-		
-		// Parcours des sous-familles
-		for(var i in tabVendeurSousFamilles)
-		{
-			objVendeurTemplate = { value: tabVendeurSousFamilles[i], key: i };
-			// Si l'éléments courant doit être sélectionné
-			if(champVendeurSousFamillesVal == i)
-			{
-				$.extend(objTemplate, {selected: true });
-			}
-			
-			// Insertion de l'option
-			templateVendeurSousFamilles.tmpl(objVendeurTemplate).appendTo(champVendeurSousFamilles);
-		}
-	};
-
-
-	var champAcheteurFamilles = $("#statistique_vrac_filter_acheteur\\.famille");
-	var champAcheteurFamillesVal = champAcheteurFamilles.val();
-	var champAcheteurSousFamilles = $("#statistique_vrac_filter_acheteur\\.sous_famille");
-	var templateAcheteurSousFamilles = $('#template_options_acheteur_sous_famille');
-	var champAcheteurSousFamillesVal = champAcheteurSousFamilles.val();	
-	// Si le champ est prérempli
-	if(champAcheteurFamillesVal)
-	{
-		$.majAcheteurEtablissementSousFamille();
-	}
-	
-	champAcheteurFamilles.change(function()
-	{
-		champAcheteurFamillesVal = champAcheteurFamilles.val();
-		$.majAcheteurEtablissementSousFamille();
-	});
-	
-	$.majAcheteurEtablissementSousFamille = function()
-	{		
-		var objAcheteurTemplate = {};
-		
-		champAcheteurSousFamillesVal = champAcheteurSousFamilles.val();
-		tabAcheteurSousFamilles = famillesJSON[champAcheteurFamillesVal];
-		champAcheteurSousFamilles.html('');
-		
-		// Parcours des sous-familles
-		for(var i in tabAcheteurSousFamilles)
-		{
-			objAcheteurTemplate = { value: tabAcheteurSousFamilles[i], key: i };
-			// Si l'éléments courant doit être sélectionné
-			if(champAcheteurSousFamillesVal == i)
-			{
-				$.extend(objAcheteurTemplate, {selected: true });
-			}
-			
-			// Insertion de l'option
-			templateAcheteurSousFamilles.tmpl(objAcheteurTemplate).appendTo(champAcheteurSousFamilles);
-		}
-	};
+	$("#filtre_produits_items select").combobox();
 });
 </script>
-<form  class="popup_form" id="form_ajout" action="<?php echo url_for('statistiques', array('type' => $type)) ?>" method="post">
+<form  class="popup_form" id="form_ajout" action="<?php echo url_for('statistiques_vrac') ?>" method="post">
 	<?php echo $form->renderHiddenFields() ?>
 	<table>
 		<thead>
@@ -114,10 +40,14 @@ $( document ).ready(function() {
 		<tbody>
 			<tr>
 				<td>
-					<div class="ligne_form">
-						<span class="error"><?php echo $form['vendeur_identifiant']->renderError() ?></span>
-						<?php echo $form['vendeur_identifiant']->renderLabel() ?><?php echo $form['vendeur_identifiant']->render() ?>
-					</div>
+					<div id="filtre_vendeur_identifiant">
+						<a class="btn_ajouter_ligne_template" data-container="#filtre_vendeur_identifiant #filtre_vendeur_identifiant_items" data-template="#template_form_vendeur_identifiant_item" href="#"><span>Ajouter</span></a>
+						<div id="filtre_vendeur_identifiant_items">
+							<?php foreach ($form['vendeur_identifiant'] as $subForm): ?>
+		                        <?php include_partial('form_etablissements_item', array('form' => $subForm, 'label' => 'Vendeur : ')) ?>
+		                    <?php endforeach; ?>
+	                    </div>
+                    </div>
 				</td>
 				<td>
 					<div class="ligne_form">
@@ -126,18 +56,26 @@ $( document ).ready(function() {
 					</div>
 				</td>
 				<td>
-					<div class="ligne_form">
-						<span class="error"><?php echo $form['produit']->renderError() ?></span>
-						<?php echo $form['produit']->renderLabel() ?><?php echo $form['produit']->render() ?>
-					</div>
+					<div id="filtre_produits">
+						<a class="btn_ajouter_ligne_template" data-container="#filtre_produits #filtre_produits_items" data-template="#template_form_produits_item" href="#"><span>Ajouter</span></a>
+						<div id="filtre_produits_items">
+							<?php foreach ($form['produit'] as $formProduit): ?>
+		                        <?php include_partial('form_produits_item', array('form' => $formProduit)) ?>
+		                    <?php endforeach; ?>
+	                    </div>
+                    </div>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<div class="ligne_form">
-						<span class="error"><?php echo $form['acheteur_identifiant']->renderError() ?></span>
-						<?php echo $form['acheteur_identifiant']->renderLabel() ?><?php echo $form['acheteur_identifiant']->render() ?>
-					</div>
+					<div id="filtre_acheteur_identifiant">
+						<a class="btn_ajouter_ligne_template" data-container="#filtre_acheteur_identifiant #filtre_acheteur_identifiant_items" data-template="#template_form_acheteur_identifiant_item" href="#"><span>Ajouter</span></a>
+						<div id="filtre_acheteur_identifiant_items">
+							<?php foreach ($form['acheteur_identifiant'] as $subForm): ?>
+		                        <?php include_partial('form_etablissements_item', array('form' => $subForm, 'label' => 'Acheteur : ')) ?>
+		                    <?php endforeach; ?>
+	                    </div>
+                    </div>
 				</td>
 				<td>
 					<div class="ligne_form">
@@ -149,15 +87,20 @@ $( document ).ready(function() {
 					<div class="ligne_form">
 						<span class="error"><?php echo $form['millesime']->renderError() ?></span>
 						<?php echo $form['millesime']->renderLabel() ?><?php echo $form['millesime']->render() ?>
+						<br /><i style="font-size: 10px;">Multiple, utilisez le séparateur ;</i>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<div class="ligne_form">
-						<span class="error"><?php echo $form['mandataire_identifiant']->renderError() ?></span>
-						<?php echo $form['mandataire_identifiant']->renderLabel() ?><?php echo $form['mandataire_identifiant']->render() ?>
-					</div>
+					<div id="filtre_mandataire_identifiant">
+						<a class="btn_ajouter_ligne_template" data-container="#filtre_mandataire_identifiant #filtre_mandataire_identifiant_items" data-template="#template_form_mandataire_identifiant_item" href="#"><span>Ajouter</span></a>
+						<div id="filtre_mandataire_identifiant_items">
+							<?php foreach ($form['mandataire_identifiant'] as $subForm): ?>
+		                        <?php include_partial('form_etablissements_item', array('form' => $subForm, 'label' => 'Courtier : ')) ?>
+		                    <?php endforeach; ?>
+	                    </div>
+                    </div>
 				</td>
 				<td>
 					<div class="ligne_form">
@@ -227,13 +170,10 @@ $( document ).ready(function() {
 					<div class="ligne_form">
 						<span class="error"><?php echo $form['vendeur.sous_famille']->renderError() ?></span>
 						<?php echo $form['vendeur.sous_famille']->renderLabel() ?><?php echo $form['vendeur.sous_famille']->render() ?>
-				        <script id="template_options_vendeur_sous_famille" type="text/x-jquery-tmpl">
-            				<option value="${key}" {{if selected}}selected="selected"{{/if}} >${value}</option>
-        				</script>
 					</div>
 				</td>
 				<td>
-					<div class="ligne_form">
+					<div class="ligne_form select_date">
 						<span class="error"><?php echo $form['date_limite_retiraison']->renderError() ?></span>
 						<?php echo $form['date_limite_retiraison']->renderLabel() ?><?php echo $form['date_limite_retiraison']->render() ?>
 					</div>
@@ -248,7 +188,7 @@ $( document ).ready(function() {
 					</div>
 				</td>
 				<td>
-					<div class="ligne_form">
+					<div class="ligne_form select_date">
 						<span class="error"><?php echo $form['valide.date_saisie']->renderError() ?></span>
 						<?php echo $form['valide.date_saisie']->renderLabel() ?><?php echo $form['valide.date_saisie']->render() ?>
 					</div>
@@ -260,9 +200,6 @@ $( document ).ready(function() {
 					<div class="ligne_form">
 						<span class="error"><?php echo $form['acheteur.sous_famille']->renderError() ?></span>
 						<?php echo $form['acheteur.sous_famille']->renderLabel() ?><?php echo $form['acheteur.sous_famille']->render() ?>
-				        <script id="template_options_acheteur_sous_famille" type="text/x-jquery-tmpl">
-            				<option value="${key}" {{if selected}}selected="selected"{{/if}} >${value}</option>
-        				</script>
 					</div>
 				</td>
 				<td></td>
@@ -274,3 +211,7 @@ $( document ).ready(function() {
 		<button name="valider" class="btn_valider" type="submit" value="true">Filtrer</button>
 	</div>
 </form>
+<?php include_partial('form_collection_template', array('partial' => 'form_produits_item', 'form' => $form->getFormTemplateProduits())); ?>
+<?php include_partial('form_collection_template', array('partial' => 'form_vendeur_identifiant_item', 'form' => $form->getFormTemplateVendeurIdentifiant())); ?>
+<?php include_partial('form_collection_template', array('partial' => 'form_acheteur_identifiant_item', 'form' => $form->getFormTemplateAcheteurIdentifiant())); ?>
+<?php include_partial('form_collection_template', array('partial' => 'form_mandataire_identifiant_item', 'form' => $form->getFormTemplateMandataireIdentifiant())); ?>

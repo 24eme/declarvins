@@ -16,7 +16,10 @@ class _CompteClient extends acVinCompteClient
                             acVinCompteSecurityUser::CREDENTIAL_ADMIN => 'Administrateur');
 
     private $acces = array(acVinCompteSecurityUser::CREDENTIAL_ACCES_PLATERFORME => 'Declarvins',
-                            acVinCompteSecurityUser::CREDENTIAL_ACCES_EDI => 'EDI');
+                            acVinCompteSecurityUser::CREDENTIAL_ACCES_EDI_DRM => 'EDI DRM',
+                            acVinCompteSecurityUser::CREDENTIAL_ACCES_EDI_VRAC => 'EDI Vrac',
+                            acVinCompteSecurityUser::CREDENTIAL_ACCES_EDI_TRANSACTION => 'EDI Transaction',
+                            acVinCompteSecurityUser::CREDENTIAL_ACCES_EDI_DAIDS => 'EDI DAIDS');
                             
      
     /**

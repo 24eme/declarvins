@@ -42,6 +42,8 @@
 	$.fn.includeJS(jsPath, 'plugins/selectivizr-min.js', {condition: true, operateur: 'lte', version: 'IE 8'});
 	$.fn.includeJS(jsPath, 'plugins/jquery.plugins.min.js');
 	$.fn.includeJS(jsPath, 'plugins/ui.dropdownchecklist-1.3-min.js');
+	$.fn.includeJS(jsPath, 'plugins/highcharts/highcharts.js');
+	$.fn.includeJS(jsPath, 'plugins/highcharts/modules/exporting.js');
 		
 	// Fonctions personnalisées)
 	$.fn.includeJS(jsPath, 'konami.js');
