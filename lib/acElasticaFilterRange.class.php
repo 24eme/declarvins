@@ -1,8 +1,8 @@
 <?php
 
-class acElasticaFilterAnd extends Elastica_Filter_And {
+class acElasticaFilterRange extends Elastica_Filter_Range {
 	
-	const FILTER_TYPE = 'and';
+	const FILTER_TYPE = 'range';
     
 	protected function _getBaseName()
     {
