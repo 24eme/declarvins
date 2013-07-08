@@ -44,7 +44,6 @@
 				menusNiv2.not(menuNiv2).removeClass('visible');
 				menuNiv2.toggleClass('visible');
 			});
-			
 		});
 		
 		// Deuxième niveau du menu
@@ -91,22 +90,28 @@
 	var initDatePicker = function()
 	{	
 		var datePickerDebut = statsConteneur.find('.calendrier_debut .date_picker'),
-			datePickerFin = statsConteneur.find('.calendrier_fin .date_picker');
+			datePickerFin = statsConteneur.find('.calendrier_fin .date_picker'),
+			
+			majSelect = function(date, obj, indexDebut)
+			{
+				var elemsSelect = $('#'+obj.id).parents('.calendriers').prev().find('select'),
+					elemsDate = date.split('/'),
+					iDate = 0,
+					limite = indexDebut + 3;
+					
+				// On commence par le premier select
+				for(var i = indexDebut; i < limite; i++)
+				{
+					elemsSelect.eq(i).find('option:contains("'+elemsDate[iDate]+'")').attr('selected', 'selected');
+					iDate++;
+				}
+			};
 		
 			datePickerDebut.datepicker($.extend({}, dpConfig,
 			{
 				onSelect: function(date, obj)
 				{	
-					var elemsSelect = $('#'+obj.id).parents('.calendriers').prev().find('select'),
-						elemsDate = date.split('/'),
-						j = 0;
-					
-					// On commence par le premier select
-					for(var i = 0; i < 3; i++)
-					{
-						elemsSelect.eq(i).find('option:contains("'+elemsDate[j]+'")').attr('selected', 'selected');
-						j++;
-					}
+					majSelect(date, obj, 0);
 				}
 			}));
 			
@@ -114,18 +119,9 @@
 			{
 				onSelect: function(date, obj)
 				{
-					var elemsSelect = $('#'+obj.id).parents('.calendriers').prev().find('select'),
-						elemsDate = date.split('/'),
-						j = 0;
-					
-					// On commence par le 4ème select
-					for(var i = 3; i < 6; i++)
-					{
-						elemsSelect.eq(i).find('option:contains("'+elemsDate[j]+'")').attr('selected', 'selected');
-						j++;
-					}
+					majSelect(date, obj, 3);
 				}
-			}));
+			}));		
 	};
 	
 	$(document).ready(function()
