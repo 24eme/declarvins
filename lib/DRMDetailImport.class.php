@@ -18,10 +18,6 @@ class DRMDetailImport
 	
 	public function getDrm() 
   	{
-    	$this->config = ConfigurationClient::getCurrent();
-    	$this->drm = null;
-    	$this->client = DRMClient::getInstance();
-    	
     	$drm = $this->parseDrm();
     	$hasDetail = true;
     	try {
