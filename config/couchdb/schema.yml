@@ -242,6 +242,7 @@ Vrac:
             date_validation_vendeur: {  }
             date_validation_acheteur: {  }
             date_validation_mandataire: {  }
+            date_validation: {  }
             identifiant: {  }
             statut: { }
       nature_document: {  }

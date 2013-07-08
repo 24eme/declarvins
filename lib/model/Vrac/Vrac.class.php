@@ -166,6 +166,7 @@ class Vrac extends BaseVrac
     			}
     		}
     		$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
+    		$this->valide->date_validation = date('c');
     	} else {
     		$this->mode_de_saisie = self::MODE_DE_SAISIE_DTI;
     		if ($this->vous_etes && in_array($this->vous_etes, $acteurs)) {
@@ -190,6 +191,7 @@ class Vrac extends BaseVrac
       }
       if ($statut_valide) {
       	$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
+    	$this->valide->date_validation = date('c');
       }
     }
     
