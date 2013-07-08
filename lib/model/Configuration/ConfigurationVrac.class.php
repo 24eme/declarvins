@@ -81,6 +81,24 @@ class ConfigurationVrac extends BaseConfigurationVrac {
       $libelles = $this->getLibelles($cas, 'cas_particulier');
       return str_replace("%ca%", implode($separator, $libelles), $format);
     }
+    
+    public function getKeyAndLibelle($node, $libelle) {
+    	$result = array();
+    	foreach ($this->{$node} as $k => $v) {
+    		if ($this->cleanForCompare($v) == $this->cleanForCompare($libelle)) {
+    			$result[] = array('key' => $k, 'libelle' => $v);
+    		}
+    	}
+    	return $result;
+    }
+    
+    private function cleanForCompare($str = null)
+    {
+    	if (!$str) {
+    		return null;
+    	}
+    	return strtolower(KeyInflector::unaccent(trim($str)));
+    }
 
     public function getLibelles($collection, $node) {
         $libelles = array(); 
