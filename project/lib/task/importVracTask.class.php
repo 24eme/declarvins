@@ -4,15 +4,12 @@ class importVracTask extends sfBaseTask
 {
   protected function configure()
   {
-    // // add your own arguments here
-    $this->addArguments(array(
-       new sfCommandArgument('file', sfCommandArgument::REQUIRED, "Fichier csv pour l'import"),
-    ));
-
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'vinsdeloire'),
+      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
+      new sfCommandOption('file', null, sfCommandOption::PARAMETER_REQUIRED, 'Vrac History File'),
+      new sfCommandOption('interpro', null, sfCommandOption::PARAMETER_REQUIRED, 'Interpro')
       // add your own options here
     ));
 
@@ -20,10 +17,7 @@ class importVracTask extends sfBaseTask
     $this->name             = 'vrac';
     $this->briefDescription = '';
     $this->detailedDescription = <<<EOF
-The [importEtablissement|INFO] task does things.
-Call it with:
 
-  [php symfony importEtablissement|INFO]
 EOF;
   }
 
@@ -33,14 +27,23 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-    set_time_limit(600);
-    $csv = new VracCsvFile($arguments['file']);
-    $this->log('started');
-    $vracs = $csv->importVracs();
-    /*foreach($vracs as $v) {
-      $v->save();
-    }*/
-
-    // add your code here
+  	$csv = new CsvFile($options['file']);
+    $lignes = $csv->getCsv();
+    $vracClient = VracClient::getInstance();
+    $vracConfiguration = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($options['interpro']);
+    
+    $numLigne = 0;
+    foreach ($lignes as $ligne) {
+    	$numLigne++;
+    	$import = new VracDetailImport($ligne, $vracClient, $vracConfiguration);
+    	$vrac = $import->getVrac();
+    	if ($import->hasErrors()) {
+    		$this->logSection('vrac', "echec de l'import du contrat ligne $numLigne", null, 'ERROR');
+    		$this->logBlock($import->getLogs(), 'ERROR');
+    	} else {
+    		$vrac->save();
+    		$this->logSection('vrac', $vrac->get('_id')." : succès de l'import du contrat ligne $numLigne.");
+    	}
+    }
   }
 }
