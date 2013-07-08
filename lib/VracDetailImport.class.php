@@ -21,15 +21,12 @@ class VracDetailImport
 	public function getVrac() 
   	{    	
     	try {
-    		if (!($vrac = $this->client->findByNumContrat($this->getDataValue(VracDateView::VALUE_VRAC_ID, 'numéro visa', true)))) {
+    		$vrac = $this->client->findByNumContrat($this->getDataValue(VracDateView::VALUE_VRAC_ID, 'numéro visa', true));
+    		if (!$vrac) {
   				$vrac = $this->parseVrac();
     		}
     		$this->parseLot($vrac);
-    	} catch (Exception $e) {
-			$this->loggeur->addLog($e->getMessage());    	
-    	}
-		try {
-			$result = ConfigurationClient::getInstance()->findDroitsByHashAndType('/'.$vrac->produit, DRMDroits::DROIT_CVO)->rows;
+    		$result = ConfigurationClient::getInstance()->findDroitsByHashAndType('/'.$vrac->produit, DRMDroits::DROIT_CVO)->rows;
 	        if (count($result) != 0) {
 	        	$result = $result[0];
 		        $droits = $result->value;
@@ -51,24 +48,24 @@ class VracDetailImport
     		}
 			$vrac->storeSoussignesInformations();
 			$vrac->update();
-		} catch (Exception $e) {
-			$this->loggeur->addLog($e->getMessage());
-		}
+    	} catch (Exception $e) {
+			$this->loggeur->addLog($e->getMessage());    	
+    	}
   		return $vrac;
   	}
 
 	private function parseVrac() 
   	{
   		$vrac = new Vrac();
-  		$vrac->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
-  		$vrac->interpro = $this->client->getInterproId();
+  		$vrac->mode_de_saisie = Vrac::MODE_DE_SAISIE_PAPIER;
+  		$vrac->interpro = $this->config->getInterproId();
     	$vrac->numero_contrat = $this->getDataValue(VracDateView::VALUE_VRAC_ID, 'numéro visa', true);
     	$vrac->valide->date_saisie = $this->datize($this->getDataValue(VracDateView::VALUE_DATE_SAISIE, 'vrac date de saisie'), VracDateView::VALUE_DATE_SAISIE, 'vrac date de saisie');
     	$vrac->valide->date_validation = $this->datize($this->getDataValue(VracDateView::VALUE_DATE_SAISIE, 'vrac date de validation'), VracDateView::VALUE_DATE_SAISIE, 'vrac date de validation');
     	$vrac->mandataire_exist = 0;
-    	$vrac->acheteur_identifiant = $this->getDataValue(VracDateView::VALUE_ACHETEUR_ID, 'identifiant acheteur', true);
-    	$vrac->vendeur_identifiant = $this->getDataValue(VracDateView::VALUE_VENDEUR_ID, 'identifiant vendeur', true);
-    	$vrac->mandataire_identifiant = $this->getDataValue(VracDateView::VALUE_MANDATAIRE_ID, 'identifiant courtier', true);
+    	$vrac->acheteur_identifiant = $this->getDataValue(VracDateView::VALUE_ACHETEUR_ID, 'identifiant acheteur', false);
+    	$vrac->vendeur_identifiant = $this->getDataValue(VracDateView::VALUE_VENDEUR_ID, 'identifiant vendeur', false);
+    	$vrac->mandataire_identifiant = $this->getDataValue(VracDateView::VALUE_MANDATAIRE_ID, 'identifiant courtier', false);
     	if ($vrac->mandataire_identifiant) {
     		$vrac->mandataire_exist = 1;
     	}  	
