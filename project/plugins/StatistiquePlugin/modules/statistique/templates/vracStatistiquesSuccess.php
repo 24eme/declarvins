@@ -1,15 +1,24 @@
 <?php include_component('global', 'navBack', array('active' => 'statistiques', 'subactive' => 'vrac')); ?>
-<section id="contenu">
+<section id="contenu" class="statistiques">
 	<section id="principal">
 		<div class="clearfix" id="application_dr">
 			
+			<!-- .options_recherche -->
+			<?php include_partial('vracSearchOptions'); ?>
+			<!-- fin .options_recherche -->
+			
     		<h1><strong><?php echo $statistiquesConfig['title'] ?></strong></h1>
-    		<h1>Filtres</h1>
+
     		<div class="contenu clearfix">
+				
+				<ul class="liste_filtres">
+					<li></li>
+				</ul>
+				
 	        	<?php include_partial($form->getFormTemplate(), array('type' => 'vrac', 'form' => $form)) ?>
 	        </div>
-	        
-    		<h1><?php echo $nbHits ?> résultat<?php if ($nbHits > 1): ?>s<?php endif; ?></h1>
+			
+    		<h2><?php echo $nbHits ?> résultat<?php if ($nbHits > 1): ?>s<?php endif; ?></h2>
     		
     		<?php if ($nbHits > 0): ?>
     			<?php include_partial('resultVracStatistiqueFilter', array('produits' => $produits, 'statistiquesConfig' => $statistiquesConfig, 'hits' => $hits)) ?>
@@ -22,7 +31,7 @@
     		<?php endif; ?>
     		
     		<?php if ($nbHits > 0): ?>
-    			<h1>Statistiques</h1>
+    			<h2>Statistiques</h2>
     			<?php include_partial('facetsStatistiqueFilter', array('nbDoc' => $nbHits, 'facets' => $facets, 'configFacets' => $statistiquesConfig['facets'])) ?>
     		<?php endif; ?>
     		

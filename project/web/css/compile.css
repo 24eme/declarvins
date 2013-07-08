@@ -752,6 +752,7 @@ a:hover { text-decoration:underline; }
   color:#ffffff;
   text-decoration:none;
 }
+#barre_sub_navigation ul li.options_recherche { float:right; }
 #contenu { position:relative; }
 #contenu h1 {
   color:#86005b;
@@ -1069,7 +1070,7 @@ a:hover { text-decoration:underline; }
 .bloc_conditionner { display:none; }
 .template_form { display:none; }
 #selection_etablissement ul li { margin:10px 0; }
-#selection_etablissement .ligne_form_btn { margin:30px 0 0; }
+#selection_etablissement .ligne_form_btn { margin:20px 0 0; }
 #selection_etablissement .ligne_form_btn button {
   height:28px;
   line-height:28px;
@@ -1763,56 +1764,56 @@ p#date_drm {
   color:#737373;
   font-style:italic;
 }
-#principal .tableau_ajouts_liquidations { margin:0 0 25px; }
-#principal .tableau_ajouts_liquidations h2 {
+#principal .tableau_ajouts_liquidations, #principal .tableau_resultats { margin:0 0 25px; }
+#principal .tableau_ajouts_liquidations h2, #principal .tableau_resultats h2 {
   font-size:14px;
   font-weight:normal;
   margin:0 0 5px;
 }
-#principal .tableau_ajouts_liquidations .recap_produit { position:relative; }
-#principal .tableau_ajouts_liquidations .recap_produit .btn { text-align:right; }
-#principal .tableau_ajouts_liquidations + .ligne_btn { text-align:right; }
-#principal .tableau_ajouts_liquidations table {
+#principal .tableau_ajouts_liquidations .recap_produit, #principal .tableau_resultats .recap_produit { position:relative; }
+#principal .tableau_ajouts_liquidations .recap_produit .btn, #principal .tableau_resultats .recap_produit .btn { text-align:right; }
+#principal .tableau_ajouts_liquidations + .ligne_btn, #principal .tableau_resultats + .ligne_btn { text-align:right; }
+#principal .tableau_ajouts_liquidations table, #principal .tableau_resultats table {
   border-collapse:separate;
   border-spacing:3px;
   margin:0 0 10px;
   width:100%;
 }
-#principal .tableau_ajouts_liquidations table th, #principal .tableau_ajouts_liquidations table td {
+#principal .tableau_ajouts_liquidations table th, #principal .tableau_ajouts_liquidations table td, #principal .tableau_resultats table th, #principal .tableau_resultats table td {
   border:1px solid;
   font-weight:normal;
   line-height:18px;
   padding:0 10px;
   vertical-align:middle;
 }
-#principal .tableau_ajouts_liquidations table thead th {
+#principal .tableau_ajouts_liquidations table thead th, #principal .tableau_resultats table thead th {
   background:#494949;
   border-color:#494949;
   color:#ffffff;
 }
-#principal .tableau_ajouts_liquidations table thead th:first-child {
+#principal .tableau_ajouts_liquidations table thead th:first-child, #principal .tableau_resultats table thead th:first-child {
   text-align:left;
   width:180px;
 }
-#principal .tableau_ajouts_liquidations table tbody td {
+#principal .tableau_ajouts_liquidations table tbody td, #principal .tableau_resultats table tbody td {
   background:#e9e9e9;
   border-color:#dbdbdb;
   text-align:center;
 }
-#principal .tableau_ajouts_liquidations table tbody td:first-child {
+#principal .tableau_ajouts_liquidations table tbody td:first-child, #principal .tableau_resultats table tbody td:first-child {
   text-align:left;
   width:165px;
 }
-#principal .tableau_ajouts_liquidations table tbody td.num_contrat .btn_violet {
+#principal .tableau_ajouts_liquidations table tbody td.num_contrat .btn_violet, #principal .tableau_resultats table tbody td.num_contrat .btn_violet {
   height:auto;
   line-height:normal;
   margin:5px 0 0;
 }
-#principal .tableau_ajouts_liquidations table tbody td .statut {
+#principal .tableau_ajouts_liquidations table tbody td .statut, #principal .tableau_resultats table tbody td .statut {
   display:inline-block;
   margin-right:5px;
 }
-#principal .tableau_ajouts_liquidations table tbody td a.supprimer {
+#principal .tableau_ajouts_liquidations table tbody td a.supprimer, #principal .tableau_resultats table tbody td a.supprimer {
   height:13px;
   width:13px;
   background:url(../images/pictos/pi_supprimer.png) 0 0 no-repeat;
@@ -1821,28 +1822,28 @@ p#date_drm {
   left:-15px;
   text-indent:-9999px;
 }
-#principal .tableau_ajouts_liquidations table tbody td input, #principal .tableau_ajouts_liquidations table tbody td select {
+#principal .tableau_ajouts_liquidations table tbody td input, #principal .tableau_ajouts_liquidations table tbody td select, #principal .tableau_resultats table tbody td input, #principal .tableau_resultats table tbody td select {
   margin:3px 0;
   vertical-align:middle;
 }
-#principal .tableau_ajouts_liquidations table tbody td input[type=checkbox] { height:14px; }
-#principal .tableau_ajouts_liquidations table tbody td input[type=text], #principal .tableau_ajouts_liquidations table tbody td select {
+#principal .tableau_ajouts_liquidations table tbody td input[type=checkbox], #principal .tableau_resultats table tbody td input[type=checkbox] { height:14px; }
+#principal .tableau_ajouts_liquidations table tbody td input[type=text], #principal .tableau_ajouts_liquidations table tbody td select, #principal .tableau_resultats table tbody td input[type=text], #principal .tableau_resultats table tbody td select {
   background:#ffffff;
   border:1px solid #dbdbdb;
   color:#494949;
 }
-#principal .tableau_ajouts_liquidations table tbody td input[type=text].num, #principal .tableau_ajouts_liquidations table tbody td select.num { width:50px; }
-#principal .tableau_ajouts_liquidations table tbody td input[type=text]:hover, #principal .tableau_ajouts_liquidations table tbody td input[type=text]:focus, #principal .tableau_ajouts_liquidations table tbody td select:hover, #principal .tableau_ajouts_liquidations table tbody td select:focus { border-color:#777777; }
-#principal .tableau_ajouts_liquidations table tbody td input[type=text] {
+#principal .tableau_ajouts_liquidations table tbody td input[type=text].num, #principal .tableau_ajouts_liquidations table tbody td select.num, #principal .tableau_resultats table tbody td input[type=text].num, #principal .tableau_resultats table tbody td select.num { width:50px; }
+#principal .tableau_ajouts_liquidations table tbody td input[type=text]:hover, #principal .tableau_ajouts_liquidations table tbody td input[type=text]:focus, #principal .tableau_ajouts_liquidations table tbody td select:hover, #principal .tableau_ajouts_liquidations table tbody td select:focus, #principal .tableau_resultats table tbody td input[type=text]:hover, #principal .tableau_resultats table tbody td input[type=text]:focus, #principal .tableau_resultats table tbody td select:hover, #principal .tableau_resultats table tbody td select:focus { border-color:#777777; }
+#principal .tableau_ajouts_liquidations table tbody td input[type=text], #principal .tableau_resultats table tbody td input[type=text] {
   height:16px;
   padding:2px 5px 0;
 }
-#principal .tableau_ajouts_liquidations table tbody td select { height:20px; }
-#principal .tableau_ajouts_liquidations table tbody tr.alt td { background:#ffffff; }
-#principal .tableau_ajouts_liquidations .ajout_produit { margin:10px 0 0; }
-#principal .tableau_ajouts_liquidations .ajout_produit table { margin:0 0 10px; }
-#principal .tableau_ajouts_liquidations .ajout_produit .btn { text-align:right; }
-#principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_annuler {
+#principal .tableau_ajouts_liquidations table tbody td select, #principal .tableau_resultats table tbody td select { height:20px; }
+#principal .tableau_ajouts_liquidations table tbody tr.alt td, #principal .tableau_resultats table tbody tr.alt td { background:#ffffff; }
+#principal .tableau_ajouts_liquidations .ajout_produit, #principal .tableau_resultats .ajout_produit { margin:10px 0 0; }
+#principal .tableau_ajouts_liquidations .ajout_produit table, #principal .tableau_resultats .ajout_produit table { margin:0 0 10px; }
+#principal .tableau_ajouts_liquidations .ajout_produit .btn, #principal .tableau_resultats .ajout_produit .btn { text-align:right; }
+#principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_annuler, #principal .tableau_resultats .ajout_produit .btn .btn_annuler {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
@@ -1852,9 +1853,9 @@ p#date_drm {
   background-color:#a0a0a0;
   border-color:#c0c0c0;
 }
-#principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_annuler:hover, #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_annuler:focus { text-decoration:none; }
-#principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_annuler:hover, #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_annuler:focus { background-color:#494949; }
-#principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider {
+#principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_annuler:hover, #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_annuler:focus, #principal .tableau_resultats .ajout_produit .btn .btn_annuler:hover, #principal .tableau_resultats .ajout_produit .btn .btn_annuler:focus { text-decoration:none; }
+#principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_annuler:hover, #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_annuler:focus, #principal .tableau_resultats .ajout_produit .btn .btn_annuler:hover, #principal .tableau_resultats .ajout_produit .btn .btn_annuler:focus { background-color:#494949; }
+#principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider, #principal .tableau_resultats .ajout_produit .btn .btn_valider {
   background-repeat:no-repeat;
   border:1px solid;
   color:#ffffff;
@@ -1864,9 +1865,9 @@ p#date_drm {
   background-color:#86005b;
   border-color:#494949;
 }
-#principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider:hover, #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider:focus { text-decoration:none; }
-#principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider:hover, #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider:focus { background-color:#494949; }
-#principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_annuler, #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider {
+#principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider:hover, #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider:focus, #principal .tableau_resultats .ajout_produit .btn .btn_valider:hover, #principal .tableau_resultats .ajout_produit .btn .btn_valider:focus { text-decoration:none; }
+#principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider:hover, #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider:focus, #principal .tableau_resultats .ajout_produit .btn .btn_valider:hover, #principal .tableau_resultats .ajout_produit .btn .btn_valider:focus { background-color:#494949; }
+#principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_annuler, #principal .tableau_ajouts_liquidations .ajout_produit .btn .btn_valider, #principal .tableau_resultats .ajout_produit .btn .btn_annuler, #principal .tableau_resultats .ajout_produit .btn .btn_valider {
   line-height:20px;
   margin:0 0 0 5px;
   padding:0 5px;
@@ -3166,3 +3167,132 @@ p#date_drm {
   margin-left:0;
   vertical-align:middle;
 }
+#contenu.statistiques h2 {
+  color:#86005b;
+  font-size:20px;
+  margin:0 0 10px;
+}
+#contenu.statistiques .options_recherche {
+  bottom:auto;
+  left:0;
+  position:absolute;
+  right:auto;
+  top:0;
+  background:#f1f1f1;
+  border-bottom:1px solid #dbdbdb;
+  display:none;
+  line-height:30px;
+  width:100%;
+}
+#contenu.statistiques .options_recherche a {
+  display:block;
+  padding:0 15px;
+}
+#contenu.statistiques .options_recherche > ul {
+  zoom:1;
+  padding:0 15px;
+}
+#contenu.statistiques .options_recherche > ul:before, #contenu.statistiques .options_recherche > ul:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+#contenu.statistiques .options_recherche > ul:after { clear:both; }
+#contenu.statistiques .options_recherche > ul > li {
+  float:left;
+  position:relative;
+}
+#contenu.statistiques .options_recherche > ul > li > a.coche { font-weight:bold; }
+#contenu.statistiques .options_recherche > ul > li ul {
+  -webkit-box-shadow:0 0 4px #999999;
+  -moz-box-shadow:0 0 4px #999999;
+  box-shadow:0 0 4px #999999;
+  -webkit-box-shadow:0 0 4px #999999;
+  -moz-box-shadow:0 0 4px #999999;
+  box-shadow:0 0 4px #999999;
+  bottom:auto;
+  left:0;
+  position:absolute;
+  right:auto;
+  top:30px;
+  display:none;
+  min-width:200px;
+  z-index:1;
+}
+#contenu.statistiques .options_recherche > ul > li ul.visible { display:block; }
+#contenu.statistiques .options_recherche > ul > li ul li { background:#ffffff; }
+#contenu.statistiques .options_recherche > ul > li ul li a {
+  padding-left:30px;
+  position:relative;
+  background:7px 50% no-repeat;
+}
+#contenu.statistiques .options_recherche > ul > li ul li a:hover {
+  background-color:#f1f1f1;
+  text-decoration:none;
+}
+#contenu.statistiques .options_recherche > ul > li ul li a.coche { background-image:url('../images/pictos/pi_actif.png'); }
+#contenu.statistiques .liste_filtres { margin:0 0 10px; }
+#contenu.statistiques .popup_form { display:none; }
+#contenu.statistiques #chart_container { margin-bottom:20px !important; }
+#contenu.statistiques .tableau_resultats table { table-layout:fixed; }
+#contenu.statistiques .tableau_resultats table th, #contenu.statistiques .tableau_resultats table td { word-wrap:break-word; }
+#contenu.statistiques .tableau_resultats table thead th:first-child, #contenu.statistiques .tableau_resultats table tbody td:first-child { width:auto; }
+#contenu.statistiques table.statistiques {
+  border-collapse:separate;
+  border-spacing:3px;
+}
+#contenu.statistiques table.statistiques th, #contenu.statistiques table.statistiques td { padding:5px; }
+#contenu.statistiques table.statistiques th {
+  background:#494949;
+  border:1px solid #494949;
+  color:#ffffff;
+  font-weight:normal;
+}
+#contenu.statistiques table.statistiques td {
+  background:#e9e9e9;
+  border:1px solid #dbdbdb;
+}
+.fb-statistiques .popup_form { display:block; }
+.fb-statistiques .popup_form fieldset { display:none; }
+.fb-statistiques .popup_form fieldset.visible { display:block; }
+.fb-statistiques .popup_form fieldset legend {
+  color:#86005b;
+  font-size:17px;
+  font-weight:bold;
+  margin:0 0 20px;
+}
+.fb-statistiques .popup_form .select_periode select { width:98px !important; }
+.fb-statistiques .popup_form .select_date select { width:60px !important; }
+.fb-statistiques .ligne_form label, .fb-statistiques .ligne_form ul.checkbox_list, .fb-statistiques .ligne_form select { width:auto; }
+.fb-statistiques .ligne_form > label {
+  margin-bottom:10px;
+  padding:0 10px 0 0;
+}
+.fb-statistiques .ligne_form ul.checkbox_list {
+  display:block;
+  float:none;
+  height:auto;
+  margin:0;
+  padding:0 0 0 10px;
+}
+.fb-statistiques .ligne_form select { margin:0 0 10px; }
+.fb-statistiques .champs_dynamiques .ligne_form { margin:0 0 10px; }
+.fb-statistiques .champs_dynamiques .btn_supprimer_ligne_template {
+  background:url('../images/pictos/pi_supprimer.png') no-repeat;
+  display:inline-block;
+  height:13px;
+  margin:4px 0 0 5px;
+  overflow:hidden;
+  text-indent:100%;
+  width:13px;
+  white-space:nowrap;
+}
+.fb-statistiques .code_postal ul li, .fb-statistiques #filtre_export ul li, .fb-statistiques #filtre_annexe ul li {
+  float:left;
+  margin:0 15px 0 0;
+}
+.fb-statistiques .calendriers, .fb-statistiques .select_date { float:left; }
+.fb-statistiques .calendriers { padding:0 0 0 20px; }
+.fb-statistiques .calendriers .calendrier_item, .fb-statistiques .calendriers .instruction { margin:0 0 10px; }

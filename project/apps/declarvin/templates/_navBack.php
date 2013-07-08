@@ -94,7 +94,10 @@
 			</li>		
 			<li<?php if ($subactive == 'daids'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('statistiques_drm') ?>">DAI/DS</a>
-			</li>	
+			</li>
+			<li class="options_recherche">
+				<a href="#">Options de recherche</a>
+			</li>
 		<?php endif; ?>
 	</ul>
 </nav>

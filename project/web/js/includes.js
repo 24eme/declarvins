@@ -57,5 +57,6 @@
     $.fn.includeJS(jsPath, 'produits.js');
     $.fn.includeJS(jsPath, 'ajaxHelper.js');
     $.fn.includeJS(jsPath, 'vrac.js');
+	$.fn.includeJS(jsPath, 'statistiques.js');
 
 })(jQuery);

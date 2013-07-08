@@ -13,6 +13,22 @@ var dpConfig =
 	firstDay:1
 };
 
+// Fancybox - Config par défaut
+var fbConfig =
+{
+	padding	: 0,
+	autoSize : true,
+	fitToView : true,
+	tpl:
+	{
+		closeBtn : '<a class="fancybox-item fancybox-close" href="javascript:;">Fermer</a>'
+	},
+	helpers :
+	{
+		title : null            
+	}
+};
+
 /**
  * Initialisation
  ******************************************/

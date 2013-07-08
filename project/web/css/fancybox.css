@@ -85,6 +85,9 @@
 
 .fancybox-close {
 	position: absolute;
+	text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
 	top: -18px;
 	right: -18px;
 	width: 36px;

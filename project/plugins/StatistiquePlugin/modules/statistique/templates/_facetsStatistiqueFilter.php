@@ -1,11 +1,7 @@
-<table>
+<table class="statistiques">
 	<tr>
-    	<th>Nombre de document : </th>
+    	<th>Nombre de document :</th>
     	<td><?php echo $nbDoc ?></td>
-    </tr>
-	<tr>
-    	<th>&nbsp;</th>
-    	<td>&nbsp;</td>
     </tr>
 <?php 
 	foreach ($configFacets as $configFacet):

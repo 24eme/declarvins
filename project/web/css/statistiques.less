@@ -1,0 +1,233 @@
+/**
+ * Fichier : statistiques.less
+ * Description : styles spécifiques aux statistiques
+ * Auteur : Mikaël Guillin - mguillin[at]actualys.com
+ * Version : 1.0.0
+ ******************************************/
+
+#contenu.statistiques
+{
+
+	h2
+	{
+		color: @couleur-b3;
+		font-size: 20px;
+		margin: 0 0 10px;
+	}
+
+	// Menu pour filtrer les résultats
+	.options_recherche
+	{
+		.pos-abs(0, auto, auto, 0);
+		background: @couleur-a4;
+		border-bottom: 1px solid @couleur-a5;
+		display: none;
+		line-height: 30px;
+		width: 100%;
+		
+		a 
+		{ 
+			display: block;
+			padding: 0 15px;
+		}
+
+		// Premier de niveau de la liste
+		& > ul
+		{
+			.clearfix;
+			padding: 0 15px;
+			
+			& > li
+			{
+				float: left;
+				position: relative;
+
+				& > a.coche { font-weight: bold; }
+
+				// Deuxième niveau
+				ul
+				{
+					.box-shadow(0 0 4px #999);
+					.pos-abs(30px, auto, auto, 0);
+					display: none;
+					min-width: 200px;
+					z-index: 1;
+
+					&.visible { display: block; }
+
+					li
+					{
+						background: @couleur-e2;
+
+						a
+						{
+							padding-left: 30px;
+							position: relative;
+							background: 7px 50% no-repeat;
+
+							&:hover
+							{
+								background-color: @couleur-a4;
+								text-decoration: none;
+							}
+
+							&.coche { background-image: url('../images/pictos/pi_actif.png'); }
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.liste_filtres { margin: 0 0 10px; }
+
+	// Formulaire
+	.popup_form { display: none; }
+
+	// Graphique
+	#chart_container
+	{
+		margin-bottom: 20px !important;
+	}
+
+	// Tableau des résultats
+	.tableau_resultats
+	{
+		table
+		{
+			table-layout: fixed;
+
+			th, td { word-wrap: break-word; }
+
+			thead th:first-child,
+			tbody td:first-child
+			{
+				width: auto;
+			}
+		}
+	}
+
+	// Tableau des statistiques
+	table.statistiques
+	{
+		border-collapse: separate;
+		border-spacing: 3px;
+
+		th, td 
+		{
+			padding: 5px; 
+		}
+
+		th
+		{
+			background: @couleur-b1;
+			border: 1px solid @couleur-b1;
+			color: @couleur-e2;
+			font-weight: normal;
+		}
+
+		td
+		{
+			background: @couleur-a3;
+			border: 1px solid @couleur-a5;
+		}
+	}
+}
+
+
+// Style des fancybox
+.fb-statistiques
+{
+	.popup_form 
+	{ 
+		display: block; 
+		
+		fieldset
+		{
+			display: none;
+
+			&.visible { display: block; }
+
+			legend
+			{
+				color: @couleur-b3;
+				font-size: 17px;
+				font-weight: bold;
+				margin: 0 0 20px;
+			}
+		}
+
+		.select_periode select { width: 98px !important; }
+
+		.select_date select { width: 60px !important; }
+	}
+
+	.ligne_form
+	{
+		label,
+		ul.checkbox_list,
+		select { width: auto; }
+
+		& > label 
+		{ 
+			margin-bottom: 10px;
+			padding: 0 10px 0 0;
+		}
+
+		ul.checkbox_list
+		{
+			display: block;
+			float: none;
+			height: auto;
+			margin: 0;
+			padding: 0 0 0 10px;
+		}
+
+		select { margin: 0 0 10px; }
+	}
+
+	.champs_dynamiques
+	{
+		.ligne_form { margin: 0 0 10px; }
+
+		.btn_supprimer_ligne_template 
+		{ 
+			background: url('../images/pictos/pi_supprimer.png') no-repeat;
+			display: inline-block;
+			height: 13px;
+			margin: 4px 0 0 5px;
+			overflow: hidden;
+			text-indent: 100%;
+			width: 13px;
+			white-space: nowrap;
+		}
+	}
+
+	.code_postal,
+	#filtre_export,
+	#filtre_annexe
+	{
+		ul
+		{
+			li
+			{
+				float: left;
+				margin: 0 15px 0 0;
+			}
+		}
+	}
+
+	.calendriers,
+	.select_date
+	{
+		float: left;
+	}
+
+	.calendriers
+	{
+		padding: 0 0 0 20px;
+
+		.calendrier_item, 
+		.instruction { margin: 0 0 10px; }
+	}
+}
