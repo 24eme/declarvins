@@ -3222,6 +3222,7 @@ p#date_drm {
   z-index:1;
 }
 #contenu.statistiques .options_recherche > ul > li ul.visible { display:block; }
+.ielt9 #contenu.statistiques .options_recherche > ul > li ul { border:1px solid #999999; }
 #contenu.statistiques .options_recherche > ul > li ul li { background:#ffffff; }
 #contenu.statistiques .options_recherche > ul > li ul li a {
   padding-left:30px;
