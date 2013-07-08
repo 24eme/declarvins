@@ -42,7 +42,7 @@ class DRMDetailImport
 			$this->loggeur->addLog($e->getMessage());
 		}
 		if ($hasDetail) {
-			$this->checkDetailTotaux($drm->getProduit($this->getHashProduit(), explode('|', $this->getDataValue(DRMDateView::VALUE_LABELS, 'drm detail labels'))));
+			//$this->checkDetailTotaux($drm->getProduit($this->getHashProduit(), explode('|', $this->getDataValue(DRMDateView::VALUE_LABELS, 'drm detail labels'))));
 		}
 	  	$drm->valide->date_signee = $this->datize($this->getDataValue(DRMDateView::VALUE_DATEDESIGNATURE, 'drm date de signature'), DRMDateView::VALUE_DATEDESIGNATURE, 'drm date de signature');
 	  	$drm->valide->date_saisie = $this->datize($this->getDataValue(DRMDateView::VALUE_DATEDESAISIE, 'drm date de saisie'), DRMDateView::VALUE_DATEDESAISIE, 'drm date de saisie');
