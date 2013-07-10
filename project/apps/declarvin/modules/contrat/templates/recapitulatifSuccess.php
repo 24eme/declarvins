@@ -57,7 +57,9 @@
                                 <?php endif; ?>
                             </div>
                             <div class="ligne_btn">
+                            	<?php if ($etablissement->getKey() > 0): ?>
                                 <a class="btn_supprimer" href="<?php echo url_for('contrat_etablissement_suppression', array('indice' => $etablissement->getKey(), 'recapitulatif' => 1)) ?>" >Supprimer</a>
+                                <?php endif; ?>
                                 <a class="btn_ajouter" href="<?php echo url_for('contrat_etablissement_modification', array('indice' => $etablissement->getKey(), 'recapitulatif' => 1)) ?>">Modifier</a>
                             </div>
                         </div>
