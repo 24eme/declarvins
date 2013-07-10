@@ -21,7 +21,7 @@ class CampagneForm extends sfForm
     	$years = range(date('Y') - 1, date('Y') - 10);
     	$choices = array();
     	foreach ($years as $year) {
-    		$choices[$year] = 'Juillet '.$year;
+    		$choices[$year] = ($year-1).'-'.$year;
     	}
     	return $choices;
     }
