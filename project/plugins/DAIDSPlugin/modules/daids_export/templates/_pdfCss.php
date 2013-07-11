@@ -1,6 +1,6 @@
 <style type="text/css">
 	@page {
-		margin: 0.5cm;
+		margin: 150px 30px 0px 30px;
 	}
 	body {
 		font-family: sans-serif;
@@ -24,12 +24,14 @@
 
 	#header,
 	#footer {
+		position: fixed; left: 0px;
 	}
 
 	#header {
 		font-size: 11pt;
 		color: #000;
 		padding: 0 0 30px;
+		top: -150px;
 	}
 
 	#header h1 {

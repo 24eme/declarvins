@@ -50,7 +50,7 @@
 																	   'colonnes' => $colonnes,
 																	   'hash' => 'stock_theorique')) ?>
 
-				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Total vins logés dans votre chais',
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Inventaire au 31 juillet logé dans vos chais',
 																	   'unite' => 'hl',
 	    						  								       'counter' => 3,
 																	   'cssclass_libelle' => 'total',
@@ -58,7 +58,7 @@
 																	   'colonnes' => $colonnes,
 																	   'hash' => 'stock_chais')) ?>
 
-				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Vins de la propriété',
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Inventaire des vins de la propriété logés dans vos chais',
 																	   'unite' => 'hl',
 	    						  								       'counter' => 'a',
 																	   'cssclass_libelle' => 'detail',
@@ -90,7 +90,7 @@
 																	   'colonnes' => $colonnes,
 																	   'hash' => 'chais_details/entrepot_c')) ?>
 
-				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Vins logés pour un tiers',
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Inventaire des vins logés dans vos chais pour un tiers',
 																	   'unite' => 'hl',
 	    						  								       'counter' => 'e',
 																	   'cssclass_libelle' => 'detail',
@@ -106,7 +106,7 @@
 																	   'colonnes' => $colonnes,
 																	   'hash' => 'stock_propriete')) ?>
 
-				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Vins logés dans vos chais',
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Inventaire des vins logés dans vos chais',
 																	   'unite' => 'hl',
 	    						  								       'counter' => 'a',
 																	   'cssclass_libelle' => 'detail',
@@ -114,7 +114,7 @@
 																	   'colonnes' => $colonnes,
 																	   'hash' => 'stocks/chais')) ?>
 
-				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Vins logés chez un tiers',
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Stock de la propriété logé chez un tiers',
 																	   'unite' => 'hl',
 	    						  								       'counter' => 'b',
 																	   'cssclass_libelle' => 'detail',
@@ -164,7 +164,7 @@
 																	   'colonnes' => $colonnes,
 																	   'hash' => 'stock_propriete_details/vrac_libre')) ?>
 
-				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Total Manquants ou Excédents',
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Total Manquants (-) ou Excedents (+)',
 																	   'unite' => 'hl',
 	    						  								       'counter' => 6,
 																	   'cssclass_libelle' => 'total',
@@ -188,7 +188,7 @@
 																	   'colonnes' => $colonnes,
 																	   'hash' => 'stocks_moyen/vinifie/volume')) ?>
 
-				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Taux',
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Taux forfaitaire',
 																	   'unite' => '%',
 	    						  								       'counter' => 'a',
 																	   'cssclass_libelle' => 'detail',
@@ -228,7 +228,7 @@
 																	   'colonnes' => $colonnes,
 																	   'hash' => 'stocks_moyen/conditionne/volume')) ?>
 
-				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Taux',
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Taux forfaitaire',
 																	   'unite' => '%',
 	    						  								       'counter' => 'a',
 																	   'cssclass_libelle' => 'detail',
@@ -244,7 +244,7 @@
 																	   'colonnes' => $colonnes,
 																	   'hash' => 'stocks_moyen/conditionne/total')) ?>
 																	   
-				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Total Pertes Autorisée',
+				<?php include_partial('daids_export/pdfLineFloat', array('libelle' => 'Total Pertes Autorisées',
 																	   'unite' => 'hl',
 	    						  								       'counter' => 11,
 																	   'cssclass_libelle' => 'total',
