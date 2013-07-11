@@ -254,16 +254,17 @@ class ImportEtablissementsCsv {
     private function updateCompte($line, $etablissement, $contrat) 
     {
     	if ($contrat) {
-	    	$compte = $contrat->getCompteObject();
-	    	$compte = $this->bindCompte($line, $compte);
-	    	if (!$compte->interpro->exist(trim($line[EtablissementCsv::COL_INTERPRO]))) {
-	    		$interpro = $compte->interpro->add(trim($line[EtablissementCsv::COL_INTERPRO]));
-	    		$interpro->statut = _Compte::STATUT_ATTENTE;
+	    	if ($compte = $contrat->getCompteObject()) {
+		    	$compte = $this->bindCompte($line, $compte);
+		    	if (!$compte->interpro->exist(trim($line[EtablissementCsv::COL_INTERPRO]))) {
+		    		$interpro = $compte->interpro->add(trim($line[EtablissementCsv::COL_INTERPRO]));
+		    		$interpro->statut = _Compte::STATUT_ATTENTE;
+		    	}
+		    	if (!$compte->tiers->exist($etablissement->get('_id'))) {
+		    		$compte->addEtablissement($etablissement);
+		    	}
+		    	$compte->save();
 	    	}
-	    	if (!$compte->tiers->exist($etablissement->get('_id'))) {
-	    		$compte->addEtablissement($etablissement);
-	    	}
-	    	$compte->save();
     	}
     }
 
