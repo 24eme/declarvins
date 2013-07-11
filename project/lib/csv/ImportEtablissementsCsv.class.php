@@ -254,7 +254,6 @@ class ImportEtablissementsCsv {
     private function updateCompte($line, $etablissement, $contrat) 
     {
     	if ($contrat) {
-    		var_dump($contrat->getCompteObject());exit;
 	    	if ($compte = $contrat->getCompteObject()) {
 		    	$compte = $this->bindCompte($line, $compte);
 		    	if (!$compte->interpro->exist(trim($line[EtablissementCsv::COL_INTERPRO]))) {
