@@ -53,6 +53,7 @@ class acVinVracActions extends sfActions
         $this->etablissement = $this->getRoute()->getEtablissement();
 		$vrac = new Vrac();
 		$this->init($vrac, $this->etablissement);
+		$vrac->interpro = $this->interpro->get('_id');
 		$vrac->numero_contrat = $this->getNumeroContrat();
 		$vrac->save();
 		$this->redirect(array('sf_route' => 'vrac_etape', 
