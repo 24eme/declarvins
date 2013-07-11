@@ -36,7 +36,7 @@
                 <?php endif; ?>
                 <?php if ($form->getObject()->isValidee()): ?>
                 <ul class="onglets_declaratif">
-                    <li><strong>Date signature</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_date_signature" title="Message aide"></a></li>
+                    <li><strong>Date signature</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_date_signee" title="Message aide"></a></li>
                 </ul>
 
                 <div class="contenu_onglet_declaratif ">
