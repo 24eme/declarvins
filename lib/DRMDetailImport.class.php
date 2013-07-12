@@ -42,7 +42,7 @@ class DRMDetailImport
 			$this->loggeur->addLog($e->getMessage());
 		}
 		if ($hasDetail) {
-			$this->checkDetailTotaux($drm->getProduit($this->getHashProduit(), explode('|', $this->getDataValue(DRMDateView::VALUE_LABELS, 'drm detail labels'))));
+			//$this->checkDetailTotaux($drm->getProduit($this->getHashProduit(), explode('|', $this->getDataValue(DRMDateView::VALUE_LABELS, 'drm detail labels'))));
 		}
 	  	$drm->valide->date_signee = $this->datize($this->getDataValue(DRMDateView::VALUE_DATEDESIGNATURE, 'drm date de signature'), DRMDateView::VALUE_DATEDESIGNATURE, 'drm date de signature');
 	  	$drm->valide->date_saisie = $this->datize($this->getDataValue(DRMDateView::VALUE_DATEDESAISIE, 'drm date de saisie'), DRMDateView::VALUE_DATEDESAISIE, 'drm date de saisie');
@@ -125,10 +125,10 @@ class DRMDetailImport
       	$total_sorties = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES])? $this->datas[DRMDateView::VALUE_DETAIL_SORTIES] * 1 : 0;
       	$total = ($this->datas[DRMDateView::VALUE_DETAIL_TOTAL])? $this->datas[DRMDateView::VALUE_DETAIL_TOTAL] * 1 : 0;
       	if (round($detail->total_entrees,2) != round($total_entrees,2)) {
-      		if (round($total_entrees,2) > 0) {
+      		if (round($detail->total_entrees,2) > 0) {
       			$this->loggeur->addCalculateColumnLog(DRMDateView::VALUE_DETAIL_ENTREES, 'drm detail total entrées', $total_entrees, $detail->total_entrees);
       		} else {
-      			$detail->entrees->recolte = round($detail->total_entrees,2);
+      			$detail->entrees->recolte = round($total_entrees,2);
       		}
       	}
       	if (round($detail->total_sorties,2) != round($total_sorties,2)) {
