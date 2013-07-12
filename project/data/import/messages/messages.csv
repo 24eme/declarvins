@@ -17,9 +17,7 @@
 "help_popup_monespace_admin";"Pour plus d'informations, téléchargez la notice de la DRM."
 "help_popup_mouvgen_pasdemouvement_global";"Ni entrées, ni sorties de chai pour le mois indiqué. Il n'est pas nécessaire de remplir les lignes de suivi des vins."
 "help_popup_mouvgen_stock_epuise";"Vous n'avez plus de vin en cave. Il n'est pas nécessaire de remplir les lignes sur la DRM en cours. <br />Pas besoin d'envoyer de nouvelles DRM jusqu'à la prochaine entrée de vin."
-"help_popup_mouvgen_disponible";"Le stock debut de mois doit correspondre au stock théorique de fin de mois calculé sur la DRM du mois précédent.<br />
-Exception pour le mois d'août, indiquez le stock physique arrêté au 31 juillet.<br />
-S'il s'agit d'un nouveau produit suite à une récolte ou un achat, indiquez le mouvement en entrée dans l'étape suivante de la DRM."
+"help_popup_mouvgen_disponible";"Le stock debut de mois doit correspondre au stock théorique de fin de mois calculé sur la DRM du mois précédent.<br />Exception pour le mois d'août, indiquez le stock physique arrêté au 31 juillet.<br />S'il s'agit d'un nouveau produit suite à une récolte ou un achat, indiquez le mouvement en entrée dans l'étape suivante de la DRM."
 "help_popup_mouvgen_pasdemouvement";"Ni entrées, ni sorties de chai pour le mois indiqué. Il n'est pas nécessaire de remplir les lignes de suivi des vins."
 "help_popup_drm_stockdebut_bloque";"Report du mois précédent. Vin bloqué dans le cadre d'une mesure de régulation. Ce volume est géré par votre interprofession."
 "help_popup_drm_stockdebut_warrante";"Report du mois précédent.Vin sous contrat de stockage, sous engagement de garantie ou faisant l'objet d'une saisie judiciaire.<br />Les vins concernés ne peuvent ni sortir du chais ni être vendus."
@@ -65,10 +63,7 @@ Depuis le 1er janvier 1998, les exploitations viti-vinicoles sont immatriculées
 "help_popup_mandat_num_accises";"Numéro à 13 caractères commencant par FR - Correspond également au numéro d'entrepositaire agréé."
 "help_popup_mandat_tva_intracommunautaire";"Numéro à 13 caractères commencant par FR.
 Toute entreprise redevable de la TVA dans l'Union européenne dispose d'un numéro d'identification fiscal individuel délivré par son administration fiscale"
-"help_popup_vrac_statut";"En fonction de son traitement votre contrat interprofessionnel peut avoir différent statut : 
-. EN ATTENTE DE VALIDATION : contrat saisi par l'une des parties mais non encore validé par toutes les parties
-. NON SOLDE : contrat validé par toutes les parties mais dont les volumes engagés n'ont pas encore été tous sortis en vrac sur la DRM
-. SOLDE : contrat validé par toutes les parties et dont tous les volumes ont été sortis en vrac sur la DRM"
+"help_popup_vrac_statut";"En fonction de son traitement votre contrat interprofessionnel peut avoir différent statut : <br /><ul><li>EN ATTENTE DE VALIDATION : contrat saisi par l'une des parties mais non encore validé par toutes les parties</li><li>NON SOLDE : contrat validé par toutes les parties mais dont les volumes engagés n'ont pas encore été tous sortis en vrac sur la DRM</li><li>SOLDE : contrat validé par toutes les parties et dont tous les volumes ont été sortis en vrac sur la DRM</li></ul>"
 "help_popup_vrac_type";"En fonction de votre Accord Interprofessionnel, le contrat interprofessionnel peut porter sur des échanges en vrac, raisin ou mouts"
 "help_popup_vrac_visa";"Une fois le contrat validé par toute les parties, votre interprofession vous délivre un numéro de contrat qui vaut également VISA interprofessionnel conformément à l'article L665.2 du code rural et de la pêche maritime."
 "help_popup_vrac_mentions";"Indiquez ici si le vin vendu est en primeurs ou s'il est vendu avec l'autorisation d'utiliser votre nom de château ou de domaine"
