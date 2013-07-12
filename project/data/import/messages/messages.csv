@@ -54,8 +54,7 @@
 "help_popup_daids_stockmoyen";"Calcul automatique de la moyenne des stocks théoriques des DRM de la campagne"
 "help_popup_daids_validation_engagement";
 "help_popup_mandat_siret";"Le numéro SIRET est un identifiant d'établissement à 14 chiffres.<br />Cet identifiant numérique est articulé en deux parties : la première est le numéro SIREN de l'unité légale à laquelle appartient l'unité SIRET ; la seconde, habituellement appelée NIC (Numéro Interne de Classement), se compose d'un numéro d'ordre à quatre chiffres attribué à l'établissement et d'un chiffre de contrôle"
-"help_popup_mandat_etablissements";"Un établissement = un numéro SIRET propre et/ou un CVI.
-Un établissement exerce une activité économique, constitue une unité géographiquement individualisée, mais juridiquement et financiérement dépendante de l'entreprise (N° SIREN) qui l'a crée."
+"help_popup_mandat_etablissements";"Un établissement = un numéro SIRET propre et/ou un CVI.<br />Un établissement exerce une activité économique, constitue une unité géographiquement individualisée, mais juridiquement et financiérement dépendante de l'entreprise (N° SIREN) qui l'a crée."
 "help_popup_mandat_cni";"A indiquer uniquement si vous n'avez pas de numéro SIRET. Le numéro CNI est composé de 12 chiffres."
 "help_popup_mandat_cvi";"Numéro à 10 chiffres (2 premiers chiffres = département du siège de l'exploitation, 3 chiffres suivants = code INSEE de la commune du siège de l'exploitation, 4 chiffres suivants : n° d'ordre séquentiel, dernier chiffre:  n° de contrôle ).<br />Depuis le 1er janvier 1998, les exploitations viti-vinicoles sont immatriculées dans le casier viticole informatisé 'CVI' par les centres de la viticulture. "
 "help_popup_mandat_num_accises";"Numéro à 13 caractères commencant par FR - Correspond également au numéro d'entrepositaire agréé."
