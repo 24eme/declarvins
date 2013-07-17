@@ -30,14 +30,41 @@ class UtilisateursDocument implements IUtilisateursDocument
     }
     
     public function getLastEdition() {
-        if($this->document && ($this->document->exist('utilisateur')) && ($this->document->utilisateur->exist('edition'))) 
-            return $this->document->get('utilisateur')->get('edition');
-        return null;
+        $editions = $this->getEdition();
+        if(!$editions) return null;
+        $last_date = null;
+        $editeur = null;
+        foreach($editions as $key => $date) {
+            if(!$last_date){
+                $last_date = $date;
+                $editeur = $key;
+            }elseif ($date > $last_date) {                
+                $last_date = $date;
+                $editeur = $key;
+            }
+        }
+        return $editeur;
     }
 
     public function getLastValidation() {        
-        if($this->document && ($this->document->exist('utilisateur')) && ($this->document->utilisateur->exist('validation'))) 
-            return $this->document->get('utilisateur')->get('validation');
-        return null;
+        $validations = $this->getValidation();
+        if(!$validations) return null;
+        $last_date = null;
+        $validation = null;
+        foreach($validations as $key => $date) {
+            if(!$last_date){
+                $last_date = $date;
+                $validation = $key;
+            }elseif ($date > $last_date) {                
+                $last_date = $date;
+                $validation = $key;
+            }
+        }
+        return $validation;
+    }
+
+    public function removeValidation() {
+       if($this->document && ($this->document->exist('utilisateur')) && ($this->document->utilisateur->exist('validation'))) 
+           $this->document->utilisateur->remove('validation');
     }
 }

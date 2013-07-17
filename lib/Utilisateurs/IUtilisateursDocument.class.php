@@ -6,4 +6,6 @@ interface IUtilisateursDocument {
   
   function getLastEdition();
   function getLastValidation();
+  
+  function removeValidation();
 }
