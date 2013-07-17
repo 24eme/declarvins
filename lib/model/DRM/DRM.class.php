@@ -99,7 +99,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     public function getDetailsAvecVrac() {
         $details = array();
         foreach ($this->getDetails() as $d) {
-	        if ($d->sorties->vrac && $d->hasCvo()) {
+	        if ($d->sorties->vrac && $d->canHaveVrac()) {
 	           $details[] = $d;
             }
         }

@@ -248,6 +248,10 @@ class DRMDetail extends BaseDRMDetail {
         } 
     	return $tmp;
     }
+    public function canHaveVrac()
+    {
+    	return ($this->getCepage()->getConfig()->has_vrac)? true : false;
+    }
     
     public function hasCvo()
     {
