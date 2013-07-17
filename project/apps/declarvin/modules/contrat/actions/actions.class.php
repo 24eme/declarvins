@@ -130,8 +130,11 @@ class contratActions extends sfActions
     if ($this->contrat->valide) {
     	return $this->redirect("contrat_valide");
     }
-  	$this->recapitulatif = $request->getParameter('recapitulatif');
   	$indice = $request->getParameter('indice');
+  	if ($indice < 1) {
+  		$this->redirect('contrat_etablissement_modification', array('indice' => $indice));
+  	}
+  	$this->recapitulatif = $request->getParameter('recapitulatif');
   	$nextIndice = $indice + 1;
   	$this->contrat->etablissements->remove($indice);
   	$this->contrat->save();

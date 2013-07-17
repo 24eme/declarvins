@@ -139,8 +139,12 @@
 
 <div class="ligne_btn">
     <button type="submit" class="btn_suiv"><span>Valider</span></button>
-    <?php if (!$new): ?>
+    <?php if (!$recapitulatif): ?>
+    	<?php if ($form->getObject()->getKey() > 0): ?>
         <button type="button" class="btn_supprimer" onclick="window.location.href='<?php echo ($recapitulatif) ? url_for('contrat_etablissement_suppression', array('indice' => $form->getObject()->getKey(), 'recapitulatif' => 1)) : url_for('contrat_etablissement_suppression', array('indice' => $form->getObject()->getKey())); ?>'">Supprimer cet établissement</button>
+        <?php else: ?>
+        <button type="button" class="btn_supprimer" style="visibility: hidden;" />
+    	<?php endif; ?>
     <?php else: ?>
         <button type="button" class="btn_supprimer" onclick="window.location.href='<?php echo url_for("contrat_etablissement_recapitulatif"); ?>'">Annuler</button>
     <?php endif; ?>

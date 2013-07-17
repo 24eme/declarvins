@@ -22,7 +22,7 @@
     	<?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
 	        <?php if($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$hasDaidsEnCours): ?>
 	        <br /><br />
-	        <h1>Espace Admin <a href="" class="msg_aide" data-msg="help_popup_monespace_admin" data-doc="notice.pdf" title="Message aide"></a></h1>
+	        <h1>Espace Admin</h1>
 	    	<p class="intro">Saisir une DAI/DS d'une campagne différente.</p>
 	    	<?php if ($sf_user->hasFlash('error_campagne')): ?>
 			  <p><?php echo $sf_user->getFlash('error_campagne') ?></p>

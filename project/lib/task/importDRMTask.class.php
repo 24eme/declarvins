@@ -13,7 +13,7 @@ class importDRMTask extends sfBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
-      new sfCommandOption('file', null, sfCommandOption::PARAMETER_REQUIRED, 'DRM History File')
+      new sfCommandOption('file', null, sfCommandOption::PARAMETER_REQUIRED, null)
       // add your own options here
     ));
 

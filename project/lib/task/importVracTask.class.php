@@ -4,12 +4,14 @@ class importVracTask extends sfBaseTask
 {
   protected function configure()
   {
+    // // add your own arguments here
+
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
-      new sfCommandOption('file', null, sfCommandOption::PARAMETER_REQUIRED, 'Vrac History File'),
-      new sfCommandOption('interpro', null, sfCommandOption::PARAMETER_REQUIRED, 'Interpro')
+      new sfCommandOption('file', null, sfCommandOption::PARAMETER_REQUIRED, null),
+      new sfCommandOption('interpro', null, sfCommandOption::PARAMETER_REQUIRED, null),
       // add your own options here
     ));
 
