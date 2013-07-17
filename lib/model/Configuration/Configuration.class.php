@@ -58,10 +58,7 @@ class Configuration extends BaseConfiguration
         	$departement = array($departement);
         }
         foreach ($departement as $dep) {
-        	$produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findProduitsByCertificationAndDepartement(self::CERTIFICATION_AOP, $dep)->rows);
-        	$produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findProduitsByCertificationAndDepartement(self::CERTIFICATION_IGP, $dep)->rows);
-        	$produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findProduitsByCertificationAndDepartement(self::CERTIFICATION_VINSSANSIG, $dep)->rows);
-        	$produits = array_merge($produits, ConfigurationProduitsView::getInstance()->findProduitsByCertificationAndDepartement(self::CERTIFICATION_MOUTS, $dep)->rows);
+        	$produits = array_merge($produits, ConfigurationProduitsVracView::getInstance()->findProduitsVracByDepartement($dep)->rows);
         }
       	return $produits;
     }

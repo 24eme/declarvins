@@ -752,6 +752,7 @@ Configuration:
                                                                                                 libelle: {  }
                                                                                                 code: {  }
                                                                                                 oioc: {  }
+                                                                                                has_vrac: {  }
                         detail:
                           class: ConfigurationDetail
                           type: collection

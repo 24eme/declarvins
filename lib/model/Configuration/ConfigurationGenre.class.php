@@ -35,6 +35,9 @@ class ConfigurationGenre extends BaseConfigurationGenre {
   	public function hasOIOC() {
   		return false;
   	}
+  	public function hasHasVrac() {
+  		return false;
+  	}
   	public function getTypeNoeud() {
   		return self::TYPE_NOEUD;
   	}

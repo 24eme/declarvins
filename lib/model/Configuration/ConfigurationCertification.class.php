@@ -55,6 +55,9 @@ class ConfigurationCertification extends BaseConfigurationCertification
   	public function hasOIOC() {
   		return false;
   	}
+  	public function hasHasVrac() {
+  		return false;
+  	}
 	
   	public function getTypeNoeud() 
   	{

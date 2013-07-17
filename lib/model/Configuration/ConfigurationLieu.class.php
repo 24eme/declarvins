@@ -76,6 +76,9 @@ class ConfigurationLieu extends BaseConfigurationLieu
   	public function hasOIOC() {
   		return false;
   	}
+  	public function hasHasVrac() {
+  		return false;
+  	}
   	
   	public function getTypeNoeud() 
   	{

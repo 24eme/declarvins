@@ -162,11 +162,7 @@ class ConfigurationProduitsView extends acCouchdbView
   	{
   		$produits_format = array();
   		foreach($produits as $produit) {
-  			if (isset($produit->value->cvo)) { 
-  				if (isset($produit->value->cvo->taux) && !is_null($produit->value->cvo->taux)) {
-  					$produits_format[$produit->key[self::KEY_HASH]] = $this->formatProduit($produit, $format);
-  				}
-  			}
+  			$produits_format[$produit->key[self::KEY_HASH]] = $this->formatProduit($produit, $format);
         }
         ksort($produits_format);
         return $produits_format;

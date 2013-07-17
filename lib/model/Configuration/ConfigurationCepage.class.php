@@ -47,6 +47,7 @@ class ConfigurationCepage extends BaseConfigurationCepage {
     	$this->libelle = ($datas[ProduitCsvFile::CSV_PRODUIT_CEPAGE_LIBELLE])? $datas[ProduitCsvFile::CSV_PRODUIT_CEPAGE_LIBELLE] : null;
     	$this->code = ($datas[ProduitCsvFile::CSV_PRODUIT_CEPAGE_CODE])? $datas[ProduitCsvFile::CSV_PRODUIT_CEPAGE_CODE] : null;
     	$this->oioc = ($datas[ProduitCsvFile::CSV_PRODUIT_OIOC])? $datas[ProduitCsvFile::CSV_PRODUIT_OIOC] : null;
+    	$this->has_vrac = ($datas[ProduitCsvFile::CSV_HAS_VRAC])? 1 : 0;
     }
     
     public function addInterpro($interpro) 
@@ -67,6 +68,9 @@ class ConfigurationCepage extends BaseConfigurationCepage {
   		return false;
   	}	
   	public function hasOIOC() {
+  		return true;
+  	}
+  	public function hasHasVrac() {
   		return true;
   	}
   	public function getTypeNoeud() {

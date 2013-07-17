@@ -193,6 +193,7 @@ abstract class _ConfigurationDeclaration extends acCouchdbDocumentTree {
   	public abstract function hasLabels();
   	public abstract function hasDetails();
   	public abstract function hasOIOC();
+  	public abstract function hasHasVrac();
   	public abstract function getTypeNoeud();
 
   	public function getDetailConfiguration() {
