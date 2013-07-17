@@ -1,6 +1,6 @@
 <tr>
 	<th colspan="6" style="text-align: center;"><strong>Produit</strong></th>
-	<th colspan="7"><strong>Configuration</strong></th>
+	<th colspan="8"><strong>Configuration</strong></th>
 </tr>
 <tr>
 	<th style="width:35px;"><strong>Cat.</strong></th>
@@ -13,7 +13,8 @@
 	<th style="width:15px;" class="center"><strong>Dép.</strong></th>
 	<th style="width:15px;" class="center"><strong>Labels</strong></th>  
 	<th style="width:15px;" class="center"><strong>Douane</strong></th> 
-	<th style="width:15px;" class="center"><strong>CVO</strong></th>    
+	<th style="width:15px;" class="center"><strong>CVO</strong></th>
+	<th style="width:15px;" class="center"><strong>Vrac</strong></th>    
 	<th style="width:15px;" class="center"><strong>Repli</strong></th>   
 	<th style="width:15px;" class="center"><strong>Déclas.</strong></th>
 </tr>
