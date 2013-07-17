@@ -138,7 +138,7 @@ class ediActions extends sfActions
     $drmsInformations = $bilan->getDRMsInformations();
     foreach ($bilan->getEtablissementsInformations() as $identifiant => $etablissement) {
 		$informations = $etablissementsInformations[$identifiant];
-		$csv_file .= $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_RAISON_SOCIALE].' '.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_NOM].' ('.$identifiant.') '.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_ADRESSE].' '.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_CODE_POSTAL].' '.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_COMMUNE].' '.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_PAYS].' '.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_EMAIL].' Tel : '.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_TELEPHONE].' Fax : '.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX].';';
+		$csv_file .= $identifiant.';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_RAISON_SOCIALE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_NOM].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_ADRESSE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_CODE_POSTAL].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_COMMUNE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_PAYS].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_EMAIL].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_TELEPHONE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX].';';
 		$drms = $drmsInformations[$identifiant];
 		$precedente = null;
 		foreach ($bilan->getPeriodes() as $periode) {

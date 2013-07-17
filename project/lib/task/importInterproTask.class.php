@@ -41,6 +41,7 @@ EOF;
     $civp->set('_id', 'INTERPRO-CIVP');
     $this->identifiant = 'CIVP';
     $civp->nom = 'CIVP';
+    $civp->email_contrat_vrac = 'eco@provencewines.com';
     $civp->save();
     $this->logSection('interpro', 'CIVP importé');
 
@@ -52,6 +53,7 @@ EOF;
     $ir->set('_id', 'INTERPRO-IR');
     $this->identifiant = 'IR';
     $ir->nom = 'InterRhône';
+    $ir->email_contrat_vrac = '';
     $ir->save();
     $this->logSection('interpro', 'InterRhone importé');
 

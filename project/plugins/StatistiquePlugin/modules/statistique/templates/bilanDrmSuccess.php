@@ -2,7 +2,7 @@
 <section id="contenu">
 	<section id="principal">
 		<div class="clearfix" id="application_dr">
-    		<h1>Bilan des DRM saisies</h1>
+    		<h1>Etat des DRM saisies</h1>
     		<p>
     		<font color="red"><strong>0</strong> : DRM manquante</font><br />
     		<strong>0</strong> : DRM saisie non validée<br />
