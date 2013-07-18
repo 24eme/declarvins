@@ -129,8 +129,8 @@ class VracDetailImport
     	$vrac->vin_livre = ($this->datas[VracDateView::VALUE_VIN_LIVRE])? strtolower(KeyInflector::unaccent(trim($this->datas[VracDateView::VALUE_VIN_LIVRE]))) : null;
     	$vrac->premiere_mise_en_marche = ($this->datas[VracDateView::VALUE_PREMIERE_MISE_EN_MARCHE] == 1)? 1 : 0;
     	$vrac->annexe = ($this->datas[VracDateView::VALUE_ANNEXE] == 1)? 1 : 0;
-    	$vrac->volume_propose = ($this->datas[VracDateView::VALUE_VOLUME_PROPOSE])? sprintf('%2f', $this->datas[VracDateView::VALUE_VOLUME_PROPOSE]) : null;
-    	$vrac->prix_unitaire = ($this->datas[VracDateView::VALUE_PRIX_UNITAIRE])? sprintf('%2f', $this->datas[VracDateView::VALUE_PRIX_UNITAIRE]) : null;
+    	$vrac->volume_propose = ($this->datas[VracDateView::VALUE_VOLUME_PROPOSE])? sprintf('%2f', $this->floatize($this->datas[VracDateView::VALUE_VOLUME_PROPOSE])) : null;
+    	$vrac->prix_unitaire = ($this->datas[VracDateView::VALUE_PRIX_UNITAIRE])? sprintf('%2f', $this->floatize($this->datas[VracDateView::VALUE_PRIX_UNITAIRE])) : null;
     	$vrac->determination_prix = $this->getDataValue(VracDateView::VALUE_DETERMINATION_PRIX, 'mode de détermination du prix', false);
     	$vrac->export = ($this->datas[VracDateView::VALUE_EXPORT] == 1)? 1 : 0;
     	$vrac->reference_contrat_pluriannuel = $this->getDataValue(VracDateView::VALUE_REFERENCE_CONTRAT_PLURIANNUEL, 'reference contrat pluriannuel', false);
@@ -143,12 +143,17 @@ class VracDetailImport
     		foreach ($dates as $k => $date) {
     			$e = $vrac->paiements->add();
     			$e->date = $this->datize($date, VracDateView::VALUE_PAIEMENTS_DATE, 'échéancier date');
-    			$e->montant = (isset($montants[$k]))? sprintf('%2f', $montants[$k]) : null;
-    			$e->volume = (isset($volumes[$k]))? sprintf('%2f', $volumes[$k]) : null;
+    			$e->montant = (isset($montants[$k]))? sprintf('%2f', $this->floatize($montants[$k])) : null;
+    			$e->volume = (isset($volumes[$k]))? sprintf('%2f', $this->floatize($volumes[$k])) : null;
     		}
     	}
     	$vrac->valide->statut = $this->getDataValue(VracDateView::VALUE_STATUT, 'statut', false);
     	return $vrac;
+  	}
+  	
+  	private function floatize($value)
+  	{
+  		return floatval(str_replace(',', '.', $value));
   	}
 
 	private function parseLot($vrac) 
@@ -172,7 +177,7 @@ class VracDetailImport
 	    			$c = $lot->cuves->add();
 	    			$c->numero = $this->getDataValue($numero, VracDateView::VALUE_LOT_CUVES_NUMERO, 'lot cuve numéro', true);
 	    			$c->date = (isset($dates[$k]))? $this->datize($dates[$k], VracDateView::VALUE_LOT_CUVES_DATE, 'lot cuve date') : null;
-	    			$c->volume = (isset($volumes[$k]))? sprintf('%2f', $volumes[$k]) : null;
+	    			$c->volume = (isset($volumes[$k]))? sprintf('%2f', $this->floatize($volumes[$k])) : null;
 	    		}
 	    	}
 	  		if ($millesimes = $this->datas[VracDateView::VALUE_LOT_MILLESIMES_ANNEE]) {
@@ -181,7 +186,7 @@ class VracDetailImport
 	    		foreach ($annees as $k => $annee) {
 	    			$m = $lot->millesimes->add();
 	    			$m->annee = $this->getDataValue($annee, VracDateView::VALUE_LOT_MILLESIMES_ANNEE, 'lot année millésime', false, '/^[0-9]{4}$/');
-	    			$m->pourcentage = (isset($pourcentages[$k]))? sprintf('%2f', $pourcentages[$k]) : null;
+	    			$m->pourcentage = (isset($pourcentages[$k]))? sprintf('%2f', $this->floatize($pourcentages[$k])) : null;
 	    		}
 	    	}
   		}
