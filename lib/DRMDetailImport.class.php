@@ -42,7 +42,7 @@ class DRMDetailImport
 			$this->loggeur->addLog($e->getMessage());
 		}
 		if ($hasDetail) {
-			//$this->checkDetailTotaux($drm->getProduit($this->getHashProduit(), explode('|', $this->getDataValue(DRMDateView::VALUE_LABELS, 'drm detail labels'))));
+			$this->checkDetailTotaux($drm->getProduit($this->getHashProduit(), explode('|', $this->getDataValue(DRMDateView::VALUE_LABELS, 'drm detail labels'))));
 		}
 	  	$drm->valide->date_signee = $this->datize($this->getDataValue(DRMDateView::VALUE_DATEDESIGNATURE, 'drm date de signature'), DRMDateView::VALUE_DATEDESIGNATURE, 'drm date de signature');
 	  	$drm->valide->date_saisie = $this->datize($this->getDataValue(DRMDateView::VALUE_DATEDESAISIE, 'drm date de saisie'), DRMDateView::VALUE_DATEDESAISIE, 'drm date de saisie');
@@ -91,39 +91,44 @@ class DRMDetailImport
 
 	private function parseDetail($detail) 
   	{
-    	$detail->total_debut_mois = ($this->datas[DRMDateView::VALUE_DETAIL_TOTAL_DEBUT_MOIS])? $this->datas[DRMDateView::VALUE_DETAIL_TOTAL_DEBUT_MOIS] * 1 : null;
-      	$detail->stocks_debut->bloque = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKDEB_BLOQUE])? $this->datas[DRMDateView::VALUE_DETAIL_STOCKDEB_BLOQUE] * 1 : null;
-      	$detail->stocks_debut->warrante = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKDEB_WARRANTE])? $this->datas[DRMDateView::VALUE_DETAIL_STOCKDEB_WARRANTE] * 1 : null;
-      	$detail->stocks_debut->instance = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKDEB_INSTANCE])? $this->datas[DRMDateView::VALUE_DETAIL_STOCKDEB_INSTANCE] * 1 : null;
-      	$detail->stocks_debut->commercialisable = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKDEB_COMMERCIALISABLE])? $this->datas[DRMDateView::VALUE_DETAIL_STOCKDEB_COMMERCIALISABLE] * 1 : null;
-      	$detail->entrees->achat = ($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_ACHAT])? $this->datas[DRMDateView::VALUE_DETAIL_ENTREES_ACHAT] * 1 : null;
-      	$detail->entrees->recolte = ($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_RECOLTE])? $this->datas[DRMDateView::VALUE_DETAIL_ENTREES_RECOLTE] * 1 : null;
-      	$detail->entrees->repli = ($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_REPLI])? $this->datas[DRMDateView::VALUE_DETAIL_ENTREES_REPLI] * 1 : null;
-      	$detail->entrees->declassement = ($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_DECLASSEMENT])? $this->datas[DRMDateView::VALUE_DETAIL_ENTREES_DECLASSEMENT] * 1 : null;
-      	$detail->entrees->mouvement = ($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_MOUVEMENT])? $this->datas[DRMDateView::VALUE_DETAIL_ENTREES_MOUVEMENT] * 1 : null;
-      	$detail->entrees->crd = ($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_CRD])? $this->datas[DRMDateView::VALUE_DETAIL_ENTREES_CRD] * 1 : null;
-      	$detail->sorties->vrac = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_VRAC])? $this->datas[DRMDateView::VALUE_DETAIL_SORTIES_VRAC] * 1 : null;
-      	$detail->sorties->export = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_EXPORT])? $this->datas[DRMDateView::VALUE_DETAIL_SORTIES_EXPORT] * 1 : null;
-      	$detail->sorties->factures = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_FACTURES])? $this->datas[DRMDateView::VALUE_DETAIL_SORTIES_FACTURES] * 1 : null;
-      	$detail->sorties->crd = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_CRD])? $this->datas[DRMDateView::VALUE_DETAIL_SORTIES_CRD] * 1 : null;
-      	$detail->sorties->consommation = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_CONSOMMATION])? $this->datas[DRMDateView::VALUE_DETAIL_SORTIES_CONSOMMATION] * 1 : null;
-      	$detail->sorties->pertes = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_PERTES])? $this->datas[DRMDateView::VALUE_DETAIL_SORTIES_PERTES] * 1 : null;
-      	$detail->sorties->declassement = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_DECLASSEMENT])? $this->datas[DRMDateView::VALUE_DETAIL_SORTIES_DECLASSEMENT] * 1 : null;
-      	$detail->sorties->repli = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_REPLI])? $this->datas[DRMDateView::VALUE_DETAIL_SORTIES_REPLI] * 1 : null;
-      	$detail->sorties->mouvement = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_MOUVEMENT])? $this->datas[DRMDateView::VALUE_DETAIL_SORTIES_MOUVEMENT] * 1 : null;
-      	$detail->sorties->distillation = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_MOUVEMENT])? $this->datas[DRMDateView::VALUE_DETAIL_SORTIES_DISTILLATION] * 1 : null;
-      	$detail->sorties->lies = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_LIES])? $this->datas[DRMDateView::VALUE_DETAIL_SORTIES_LIES] * 1 : null;
-      	$detail->stocks_fin->bloque = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_BLOQUE])? $this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_BLOQUE] * 1 : null;
-      	$detail->stocks_fin->warrante = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_WARRANTE])? $this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_WARRANTE] * 1 : null;
-      	$detail->stocks_fin->instance = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_INSTANCE])? $this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_INSTANCE] * 1 : null;
-      	$detail->stocks_fin->commercialisable = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_COMMERCIALISABLE])? $this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_COMMERCIALISABLE] * 1 : null;
+    	$detail->total_debut_mois = ($this->datas[DRMDateView::VALUE_DETAIL_TOTAL_DEBUT_MOIS])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_TOTAL_DEBUT_MOIS]) : null;
+      	$detail->stocks_debut->bloque = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKDEB_BLOQUE])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_STOCKDEB_BLOQUE]) : null;
+      	$detail->stocks_debut->warrante = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKDEB_WARRANTE])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_STOCKDEB_WARRANTE]) : null;
+      	$detail->stocks_debut->instance = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKDEB_INSTANCE])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_STOCKDEB_INSTANCE]) : null;
+      	$detail->stocks_debut->commercialisable = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKDEB_COMMERCIALISABLE])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_STOCKDEB_COMMERCIALISABLE]) : null;
+      	$detail->entrees->achat = ($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_ACHAT])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_ACHAT]) : null;
+      	$detail->entrees->recolte = ($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_RECOLTE])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_RECOLTE]) : null;
+      	$detail->entrees->repli = ($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_REPLI])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_REPLI]) : null;
+      	$detail->entrees->declassement = ($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_DECLASSEMENT])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_DECLASSEMENT]) : null;
+      	$detail->entrees->mouvement = ($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_MOUVEMENT])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_MOUVEMENT]) : null;
+      	$detail->entrees->crd = ($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_CRD])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_ENTREES_CRD]) : null;
+      	$detail->sorties->vrac = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_VRAC])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_VRAC]) : null;
+      	$detail->sorties->export = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_EXPORT])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_EXPORT]) : null;
+      	$detail->sorties->factures = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_FACTURES])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_FACTURES]) : null;
+      	$detail->sorties->crd = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_CRD])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_CRD]) : null;
+      	$detail->sorties->consommation = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_CONSOMMATION])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_CONSOMMATION]) : null;
+      	$detail->sorties->pertes = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_PERTES])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_PERTES]) : null;
+      	$detail->sorties->declassement = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_DECLASSEMENT])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_DECLASSEMENT]) : null;
+      	$detail->sorties->repli = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_REPLI])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_REPLI]) : null;
+      	$detail->sorties->mouvement = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_MOUVEMENT])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_MOUVEMENT]) : null;
+      	$detail->sorties->distillation = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_MOUVEMENT])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_DISTILLATION]) : null;
+      	$detail->sorties->lies = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_LIES])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES_LIES]) : null;
+      	$detail->stocks_fin->bloque = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_BLOQUE])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_BLOQUE]) : null;
+      	$detail->stocks_fin->warrante = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_WARRANTE])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_WARRANTE]) : null;
+      	$detail->stocks_fin->instance = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_INSTANCE])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_INSTANCE]) : null;
+      	$detail->stocks_fin->commercialisable = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_COMMERCIALISABLE])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_COMMERCIALISABLE]) : null;
+  	}
+  	
+  	private function floatize($value)
+  	{
+  		return floatval(str_replace(',', '.', $value));
   	}
   	
   	private function checkDetailTotaux($detail)
   	{
-      	$total_entrees = ($this->datas[DRMDateView::VALUE_DETAIL_ENTREES])? $this->datas[DRMDateView::VALUE_DETAIL_ENTREES] * 1 : 0;
-      	$total_sorties = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES])? $this->datas[DRMDateView::VALUE_DETAIL_SORTIES] * 1 : 0;
-      	$total = ($this->datas[DRMDateView::VALUE_DETAIL_TOTAL])? $this->datas[DRMDateView::VALUE_DETAIL_TOTAL] * 1 : 0;
+      	$total_entrees = ($this->datas[DRMDateView::VALUE_DETAIL_ENTREES])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_ENTREES]) : 0;
+      	$total_sorties = ($this->datas[DRMDateView::VALUE_DETAIL_SORTIES])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES]) : 0;
+      	$total = ($this->datas[DRMDateView::VALUE_DETAIL_TOTAL])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_TOTAL]) : 0;
       	if (round($detail->total_entrees,2) != round($total_entrees,2)) {
       		if (round($detail->total_entrees,2) > 0) {
       			$this->loggeur->addCalculateColumnLog(DRMDateView::VALUE_DETAIL_ENTREES, 'drm detail total entrées', $total_entrees, $detail->total_entrees);
