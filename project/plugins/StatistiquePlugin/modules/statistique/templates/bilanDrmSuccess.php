@@ -45,6 +45,11 @@
 					    			$drms = $drmsInformations[$identifiant];
 					    			$precedente = null;
 					    			foreach ($bilan->getPeriodes() as $periode): 
+					    			
+					    			if (str_replace('-', '', $periode) < str_replace('-', '', $informations[StatistiquesBilanView::FIRST_PERIODE])) {
+					    				echo '<td style="padding: 0;">&nbsp;</td>';
+					    				continue;
+					    			}
 					    		?>
 					    		<td style="padding: 0;">
 					    			<strong>

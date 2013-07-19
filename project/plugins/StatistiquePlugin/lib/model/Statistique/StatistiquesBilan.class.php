@@ -70,6 +70,8 @@ class StatistiquesBilan
 		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_EMAIL] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_EMAIL];
 		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_TELEPHONE] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_TELEPHONE];
 		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX];
+		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX];
+		$this->etablissements[$etablissement][StatistiquesBilanView::FIRST_PERIODE] = DRMAllView::getInstance()->getFirstDrmPeriodeByEtablissement($etablissement, date('Y-m'));
 	}
 	
 	private function setDRMInformations($etablissement, $periode, $dataValues)

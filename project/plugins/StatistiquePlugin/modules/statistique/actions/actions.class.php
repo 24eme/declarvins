@@ -54,7 +54,7 @@ class statistiqueActions extends sfActions
     }
     $bilan = new StatistiquesBilan($interpro, $campagne);
     
-    $csv_file = 'Etablissements;';
+    $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;';
     foreach ($bilan->getPeriodes() as $periode){
     	$csv_file .= "$periode;";
     }
@@ -67,6 +67,10 @@ class statistiqueActions extends sfActions
 		$drms = $drmsInformations[$identifiant];
 		$precedente = null;
 		foreach ($bilan->getPeriodes() as $periode) {
+				if (str_replace('-', '', $periode) < str_replace('-', '', $informations[StatistiquesBilanView::FIRST_PERIODE])) {
+    				$csv_file .= ';';
+    				continue;
+    			}
     			if (!isset($drms[$periode]) && !$precedente)
     			$csv_file .= '0;';
     			elseif (!isset($drms[$periode]) && $precedente && $precedente[StatistiquesBilanView::VALUE_DRM_TOTAL_FIN_DE_MOIS] > 0)

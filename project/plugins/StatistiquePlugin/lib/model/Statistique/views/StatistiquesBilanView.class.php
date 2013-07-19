@@ -24,6 +24,8 @@ class StatistiquesBilanView extends acCouchdbView
 	const VALUE_ETABLISSEMENT_EMAIL = 14;
 	const VALUE_ETABLISSEMENT_TELEPHONE = 15;
 	const VALUE_ETABLISSEMENT_FAX = 16;
+	
+	const FIRST_PERIODE = 17;
 
 	public static function getInstance() 
 	{
