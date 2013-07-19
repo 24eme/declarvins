@@ -102,8 +102,6 @@
 	<p><?php echo $configurationVrac->formatTypesTransactionLibelle(array($vrac->type_transaction)); ?>, <?php echo ($vrac->produit)? $vrac->getLibelleProduit("%a% %l% %co% %ce%") : null; ?>&nbsp;<?php echo ($vrac->millesime)? $vrac->millesime.'&nbsp;' : ''; ?><p>
 	<p><?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)).'&nbsp;' : ''; ?><?php echo (count($vrac->mentions) > 0)? $configurationVrac->formatMentionsLibelle($vrac->mentions) : ''; ?></p>
 	<p>Annexe technique : <?php echo ($vrac->annexe)? 'Oui' : 'Non'; ?>, Export : <?php echo ($vrac->export)? 'Oui' : 'Non'; ?></p>
-	
-
 
 	<h2>Volume / Prix</h2>
 	
@@ -170,7 +168,9 @@
 		Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?>&nbsp;&nbsp;
 	</p>
 	<h2>Clauses</h2>
+	<div class="clauses">
 	<?php echo $configurationVrac->getClauses(ESC_RAW) ?>
+	</div>
 	<?php if ($vrac->has_transaction): ?>
 	<hr />
 	<h2>Descriptif des lots</h2>
@@ -241,7 +241,9 @@
 	</div>
 	<?php if ($configurationVrac->getInformationsComplementaires()): ?>
 	<h2>Informations complémentaires</h2>
+	<div class="clauses">
 	<?php echo $configurationVrac->getInformationsComplementaires(ESC_RAW) ?>
+	</div>
 	<?php endif; ?>
 	<?php endif; ?>
 </body>

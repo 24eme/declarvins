@@ -331,5 +331,11 @@
 	{
 		border-bottom-width: 3px;
 	}
+	
+	.clauses 
+	{
+		font-size: 7px;
+    	line-height: 4px;
+	}
 
 </style>

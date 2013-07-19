@@ -157,7 +157,9 @@
 	<p>Observations : <?php echo $vrac->commentaires ?></p>
 	<?php if ($configurationVrac->getInformationsComplementaires()): ?>
 	<h2>Informations complémentaires</h2>
+	<div class="clauses">
 	<?php echo $configurationVrac->getInformationsComplementaires(ESC_RAW) ?>
+	</div>
 	<?php endif; ?>
 </body>
 </html>
