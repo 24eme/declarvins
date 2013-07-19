@@ -18,7 +18,7 @@ class CampagneForm extends sfForm
     
     public function getCampagneChoices()
     {
-    	$years = range(date('Y') - 1, date('Y') - 10);
+    	$years = range(date('Y'), date('Y') - 10);
     	$choices = array();
     	foreach ($years as $year) {
     		$choices[$year] = ($year-1).'-'.$year;
