@@ -152,7 +152,7 @@ function(doc) {
 			                                		 cepage_libelle,
 			                                		 cepage_code,
 			                                		 detail.millesime,
-			                                		 null,
+			                                		 detail.millesime,
 			                                		 libelles_label,
 			                                		 codes_label,
 			                                		 detail.label_supplementaire,
