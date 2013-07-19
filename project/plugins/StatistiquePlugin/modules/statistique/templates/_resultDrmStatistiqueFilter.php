@@ -7,7 +7,6 @@
 				<th>Saisie</th>
 				<th>Raison sociale</th>
 				<th>Nom</th>
-				<th>Num. IVSE</th>
 				<th>Total début de mois</th>
 				<th>Total entrées nettes</th>
 				<th>Total entrées avec réciproque</th>
@@ -30,7 +29,6 @@
 				<td><?php echo $item['mode_de_saisie'] ?></td>
 				<td><?php echo $item['declarant']['raison_sociale'] ?></td>
 				<td><?php echo $item['declarant']['nom'] ?></td>
-				<td><?php echo $item['identifiant_ivse'] ?></td>
 				<?php 
 				if ($produits):
 					$total_debut_mois = 0;

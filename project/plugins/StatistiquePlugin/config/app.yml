@@ -37,13 +37,6 @@ all:
           replace: null
           var_replace: null
           print_number: false
-        numero_ivse:
-          libelle: "Num. IVSE"
-          noeud: "identifiant_ivse"
-          need_replace: false
-          replace: null
-          var_replace: null
-          print_number: false
         total_debut_mois:
           libelle: "Total début de mois"
           noeud: "%declaration%.total_debut_mois_net"
@@ -88,7 +81,7 @@ all:
           print_number: true
       facets:
         total_debut_mois:
-          nom: "Total début de mois"
+          nom: "Moy. début de mois"
           noeud: "total_debut_mois_net"
           divise: null
           unite: "hl"
@@ -99,7 +92,7 @@ all:
           facet_filter: false
           filters: null
         total_entrees_nettes:
-          nom: "Total entrées nettes"
+          nom: "Moy. entrées nettes"
           noeud: "total_entrees_nettes"
           divise: null
           unite: "hl"
@@ -110,7 +103,7 @@ all:
           facet_filter: false
           filters: null
         total_entrees_reciproque:
-          nom: "Total entrées avec réciproque"
+          nom: "Moy. entrées avec réciproque"
           noeud: "total_entrees_reciproque"
           divise: null
           unite: "hl"
@@ -121,7 +114,7 @@ all:
           facet_filter: false
           filters: null
         total_sorties_nettes:
-          nom: "Total sorties nettes"
+          nom: "Moy. sorties nettes"
           noeud: "total_sorties_nettes"
           divise: null
           unite: "hl"
@@ -132,7 +125,7 @@ all:
           facet_filter: false
           filters: null
         total_sorties_reciproque:
-          nom: "Total sorties avec réciproque"
+          nom: "Moy. sorties avec réciproque"
           noeud: "total_sorties_reciproque"
           divise: null
           unite: "hl"
@@ -143,7 +136,7 @@ all:
           facet_filter: false
           filters: null
         total_fin_de_mois:
-          nom: "Total fin de mois"
+          nom: "Moy. fin de mois"
           noeud: "total_net"
           divise: null
           unite: "hl"
@@ -273,7 +266,7 @@ all:
           print_number: false
       facets:
         total_volume:
-          nom: "Total volume"
+          nom: "Moy. volume"
           noeud: "volume_propose"
           divise: null
           unite: "hl"
@@ -286,7 +279,7 @@ all:
         prix_moyen:
           nom: "Prix moyen"
           noeud: "prix_total_net"
-          divise: "Total volume"
+          divise: "Moy. volume"
           unite: "€"
           need_replace: false
           replace: null
@@ -295,7 +288,7 @@ all:
           facet_filter: false
           filters: null
         total_volume_pris_en_compte:
-          nom: "Total volume pris en compte"
+          nom: "Moy. volume pris en compte"
           noeud: "volume_propose"
           divise: null
           unite: "hl"
@@ -313,7 +306,7 @@ all:
         prix_moyen_pris_en_compte:
           nom: "Prix moyen pris en compte"
           noeud: "prix_total_net"
-          divise: "Total volume pris en compte"
+          divise: "Moy. volume pris en compte"
           unite: "€"
           need_replace: false
           replace: null

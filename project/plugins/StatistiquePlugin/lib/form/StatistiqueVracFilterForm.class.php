@@ -28,7 +28,8 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
 		'type_transaction' => StatistiqueQuery::CONFIG_QUERY_STRING_OR,
 		'annexe' => StatistiqueQuery::CONFIG_QUERY_STRING,
 		'export' => StatistiqueQuery::CONFIG_QUERY_STRING,
-		'produit' => StatistiqueQuery::CONFIG_QUERY_STRING_OR_PRODUCT_VRAC
+		'produit' => StatistiqueQuery::CONFIG_QUERY_STRING_OR_PRODUCT_VRAC,
+		'valide.statut' => StatistiqueQuery::CONFIG_QUERY_STRING_OR,
 	);
 	
 	public function configure() 
@@ -136,6 +137,11 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
         $this->setWidget('export', new sfWidgetFormChoice(array('expanded' => true, 'choices' => $choices)));
         $this->widgetSchema->setLabel('export', 'Conditionné export :');
         $this->setValidator('export', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($choices))));
+        // STATUT
+		$choices = $this->getStatuts();
+        $this->setWidget('valide.statut', new sfWidgetFormChoice(array('multiple' => true, 'expanded' => true, 'choices' => $choices)));
+        $this->widgetSchema->setLabel('valide.statut', 'Statut :');
+        $this->setValidator('valide.statut', new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($choices))));
 
         
   		$this->validatorSchema->setPostValidator(new StatistiqueVracFilterValidator());
@@ -149,6 +155,17 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
     		$this->configurationVrac = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($this->getInterproId());
     	}
     	return $this->configurationVrac;
+    }
+
+    
+    public function getStatuts()
+    {
+    	$statuts = VracClient::getInstance()->getStatusContrat();
+    	$result = array();
+    	foreach ($statuts as $statut) {
+    		$result[$statut] = $statut;
+    	}
+    	return $result;
     }
 
     

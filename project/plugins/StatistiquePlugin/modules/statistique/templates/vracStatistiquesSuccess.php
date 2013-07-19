@@ -17,6 +17,20 @@
 				
 	        	<?php include_partial($form->getFormTemplate(), array('type' => 'vrac', 'form' => $form)) ?>
 	        </div>
+	        
+	        <div style="width: 100%; display: inline-block;">
+			<?php if($nbHits > 0): ?>
+				
+				<div style="float: left; width: 300px;">
+    			<?php include_partial('facetsStatistiqueFilter', array('nbDoc' => $nbHits, 'facets' => $facets, 'configFacets' => $statistiquesConfig['facets'])) ?>
+				</div>
+				<div style="float: left; width: 600px;">
+    			<?php if (isset($chartConfig)): ?>
+					<?php include_partial('facetsChart', array('chartConfig' => $chartConfig)) ?>
+				<?php endif; ?>
+				</div>
+			<?php endif; ?>
+			</div>
 			
     		<h2><?php echo $nbHits ?> résultat<?php if ($nbHits > 1): ?>s<?php endif; ?></h2>
     		
@@ -28,11 +42,6 @@
     		
     		<?php if ($nbPage > 1): ?>
     			<?php include_partial('paginationStatistiqueFilter', array('type' => 'vrac', 'nbPage' => $nbPage, 'page' => $page)) ?>
-    		<?php endif; ?>
-    		
-    		<?php if ($nbHits > 0): ?>
-    			<h2>Statistiques</h2>
-    			<?php include_partial('facetsStatistiqueFilter', array('nbDoc' => $nbHits, 'facets' => $facets, 'configFacets' => $statistiquesConfig['facets'])) ?>
     		<?php endif; ?>
     		
     	</div>

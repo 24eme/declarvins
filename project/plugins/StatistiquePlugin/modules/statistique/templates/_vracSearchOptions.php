@@ -25,6 +25,7 @@
 				<li><a href="#form_ajout" data-filtre="#filtre_type_prix">Type de prix</a></li>
 				<li><a href="#form_ajout" data-filtre="#filtre_date_limite_retiraison">Date limite de retiraison</a></li>
 				<li><a href="#form_ajout" data-filtre="#filtre_date_saisie">Date de saisie</a></li>
+				<li><a href="#form_ajout" data-filtre="#filtre_statuts">Statut</a></li>
 			</ul>
 		</li>
 		<li>

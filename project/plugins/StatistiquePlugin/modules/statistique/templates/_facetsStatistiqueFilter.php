@@ -6,14 +6,14 @@
 <?php 
 	foreach ($configFacets as $configFacet):
 		$stats = $facets[$configFacet['nom']];
-		$divise = 1;
+		$stat = $stats['mean'];
 		if ($n = $configFacet['divise']) {
-			$divise = $facets[$n]['total'];
+			$stat = $stats['total'] / $facets[$n]['total'];
 		}
 ?>
 	<tr>
     	<th><?php echo $configFacet['nom'] ?> : </th>
-    	<td><?php echo number_format(($stats['total'] / $divise), 2, ',', ' '); ?> <strong><?php echo $configFacet['unite'] ?></strong>
+    	<td><?php echo number_format($stat, 2, ',', ' '); ?><strong><?php echo $configFacet['unite'] ?></strong>
     	</td>
     </tr>
 <?php endforeach; ?>

@@ -55,6 +55,9 @@ contrat_pdf:
 validation_login:
   url:   /validation/login
   param: { module: validation, action: login }
+validation_suppression:
+  url:   /validation/:num_contrat/suppression
+  param: { module: validation, action: suppression }
 validation_fiche:
   url:   /validation/fiche/:num_contrat
   param: { module: validation, action: fiche, num_contrat: null }

@@ -30,6 +30,19 @@ class validationActions extends sfActions {
         }
     }
     
+    public function executeSuppression(sfWebRequest $request)
+    {
+    	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
+    	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
+        $this->compte = $this->contrat->getCompteObject();
+        $ldap = new Ldap();
+  		$ldap->deleteCompte($this->compte);
+  		$this->compte->delete();
+  		$this->contrat->delete();
+        $this->getUser()->setFlash('notice', 'Contrat mandat supprimé avec succès');
+        $this->redirect('validation_login');
+    }
+    
     public function init(sfWebRequest $request) {
     	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
     	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);

@@ -198,6 +198,14 @@
 		</div>
 	</fieldset>
 	
+	<fieldset id="filtre_statuts">
+		<legend>Filtrer par statuts</legend>
+		<div class="ligne_form">
+			<span class="error"><?php echo $form['valide.statut']->renderError() ?></span>
+			<?php echo $form['valide.statut']->renderLabel() ?><?php echo $form['valide.statut']->render() ?>
+		</div>
+	</fieldset>
+	
 	<fieldset id="filtre_sous_famille_acheteur">
 		<legend>Filter par sous famille d'acheteur</legend>
 

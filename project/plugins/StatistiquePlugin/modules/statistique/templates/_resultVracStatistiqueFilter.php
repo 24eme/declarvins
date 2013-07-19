@@ -31,20 +31,20 @@
 				<td>
 					<?php if ($etab): ?>
 						<?php if (in_array($item['valide']['statut'], array(VracClient::STATUS_CONTRAT_SOLDE, VracClient::STATUS_CONTRAT_NONSOLDE))): ?>
-							<a href="<?php echo url_for("vrac_visualisation", array('numero_contrat' => $item['_id'], 'etablissement' => $etab)) ?>"><?php echo $item['_id'] ?></a>
+							<a href="<?php echo url_for("vrac_visualisation", array('numero_contrat' => $item['_id'], 'etablissement' => $etab)) ?>"><?php echo $item['numero_contrat'] ?></a>
 						<?php else: ?>
-							<a href="<?php echo url_for("vrac_validation", array('numero_contrat' => $item['numero_contrat'], 'etablissement' => $etab, 'acteur' => $item['vous_etes'])) ?>"><?php echo $item['_id'] ?></a>
+							<a href="<?php echo url_for("vrac_validation", array('numero_contrat' => $item['numero_contrat'], 'etablissement' => $etab, 'acteur' => $item['vous_etes'])) ?>"><?php echo $item['numero_contrat'] ?></a>
 						<?php endif; ?>
 					<?php else: ?>
-						<?php echo $item['_id'] ?>
+						<?php echo $item['numero_contrat'] ?>
 					<?php endif; ?>
 				</td>
 				<td><?php echo $item['produit_libelle'] ?></td>
 				<td><?php echo $item['labels_libelle'] ?></td>
 				<td><?php echo $item['mentions_libelle'] ?></td>
-				<td><?php echo $item['volume_propose'] ?></td>
-				<td><?php echo $item['prix_unitaire'] ?></td>
-				<td><?php echo $item['valide']['date_saisie'] ?></td>
+				<td><?php echo number_format($item['volume_propose'], 2, ',', ' ') ?></td>
+				<td><?php echo number_format($item['prix_unitaire'], 2, ',', ' ') ?></td>
+				<td><?php echo ($item['valide']['date_saisie'])? strftime('%d/%m/%Y', strtotime($item['valide']['date_saisie'])) : null; ?></td>
 				<td><?php echo $item['vendeur']['raison_sociale'] ?></td>
 				<td><?php echo $item['acheteur']['raison_sociale'] ?></td>
 				<td><?php echo $item['mandataire']['raison_sociale'] ?></td>

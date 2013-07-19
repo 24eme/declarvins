@@ -4,11 +4,11 @@ $(function () {
             chart: {
                 type: 'line',
                 marginRight: 130,
-                marginBottom: 25
+                marginBottom: 25,
+                width: 600
             },
             title: {
-                text: 'Statistiques DRM',
-                x: -20 //center
+                text: null
             },
             xAxis: {
                 categories: ["<?php echo implode('", "', $chartConfig['categories']->getRawValue()) ?>"]
