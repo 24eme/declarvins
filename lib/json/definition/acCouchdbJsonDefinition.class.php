@@ -119,16 +119,20 @@ class acCouchdbJsonDefinition {
         return null;
     }
 
-    /*public function getJsonField($key, $numeric_key, $couchdb_document, $hash) {
-        if (!$this->hasField($key)) {
-	  throw new acCouchdbException(sprintf("Definition error : %s (%s)", $key, $hash));
+    public function toArray() {
+        $tab = array();
+        foreach($this->getFields() as $key => $field) {
+            if($field->isCollection()) {
+                $tab[$field->getName()] = $field->getDefinition()->toArray();
+            } else {
+                $args = array('type' => $field->getType());
+                if(!$field->isRequired()) {
+                    $args['required'] = false;
+                }
+                $tab[$key] = $args;
+            }
         }
 
-        $field = $this->get($key);
-        
-        if ($field->isMultiple())
-	  return $field->getJsonField($numeric_key, $couchdb_document, $hash, $key);
-        else
-	  return $field->getJsonField($numeric_key, $couchdb_document, $hash);
-    }*/
+        return $tab;
+    }
 }
