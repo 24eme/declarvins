@@ -63,8 +63,7 @@ class VracDateView extends acCouchdbView
 	const VALUE_LOT_MILLESIMES_POURCENTAGE = 54;
 	const VALUE_LOT_DEGRE = 55;
 	const VALUE_LOT_PRESENCE_ALLERGENES = 56;
-	const VALUE_LOT_BAILLEUR = 57;
-	const VALUE_STATUT = 58;
+	const VALUE_STATUT = 57;
 
 	public static function getInstance() 
 	{
