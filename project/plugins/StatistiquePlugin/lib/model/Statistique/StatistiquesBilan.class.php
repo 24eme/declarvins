@@ -9,6 +9,7 @@ class StatistiquesBilan
 	protected $drms;
 	protected $etablissements;
 	protected $periodes;
+	protected $firstDrm;
 	
 	public function __construct($interpro, $campagne)
 	{
@@ -17,6 +18,7 @@ class StatistiquesBilan
 		$this->buildPeriodes();
 		$this->drms = array();
 		$this->etablissements = array();
+		$this->firstDrm = DRMAllView::getInstance()->getAllFirstDrm();
 		$datas = StatistiquesBilanView::getInstance()->findDrmByCampagne($this->interpro, $this->campagne)->rows;
 		$this->setInformations($datas);
 	}
@@ -71,7 +73,7 @@ class StatistiquesBilan
 		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_TELEPHONE] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_TELEPHONE];
 		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX];
 		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX];
-		$this->etablissements[$etablissement][StatistiquesBilanView::FIRST_PERIODE] = DRMAllView::getInstance()->getFirstDrmPeriodeByEtablissement($etablissement, date('Y-m'));
+		$this->etablissements[$etablissement][StatistiquesBilanView::FIRST_PERIODE] = (isset($this->firstDrm[$etablissement]))? $this->firstDrm[$etablissement] : date('Y-m');
 	}
 	
 	private function setDRMInformations($etablissement, $periode, $dataValues)
