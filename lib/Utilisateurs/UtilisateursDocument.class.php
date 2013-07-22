@@ -67,4 +67,19 @@ class UtilisateursDocument implements IUtilisateursDocument
        if($this->document && ($this->document->exist('utilisateur')) && ($this->document->utilisateur->exist('validation'))) 
            $this->document->utilisateur->remove('validation');
     }
+    
+    public function getPremiereModification() {
+
+        $arr_date = array();
+        if ($this->document->exist('utilisateurs') && $this->document->utilisateurs->exist('edition')) {
+            foreach($this->document->utilisateurs->edition as $date) {
+                $arr_date[]= $date;
+            }
+        }
+        if(count($arr_date) > 0)
+        {
+            return min($arr_date);
+        }else
+            return null;
+    }
 }
