@@ -1,12 +1,6 @@
 <?php include_component('global', 'navTop', array('active' => 'daids')); ?>
 
 <section id="contenu">
-    
-	<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVE): ?>
-		<div id="etablissement_archive">
-			Cet établissement est archivé
-		</div>
-	<?php endif; ?>
 	
     <h1>DAI/DS</h1>
     
@@ -19,7 +13,6 @@
             </div>
         </div>
     </section>
-    	<?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
 	        <?php if($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$hasDaidsEnCours): ?>
 	        <br /><br />
 	        <h1>Espace Admin</h1>
@@ -34,5 +27,4 @@
 	            </div>
 	        </div>
 	        <?php endif; ?>
-		<?php endif; ?>
 </section>

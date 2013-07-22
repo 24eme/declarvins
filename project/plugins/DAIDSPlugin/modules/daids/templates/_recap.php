@@ -34,7 +34,7 @@
 							<td class="<?php echo isVersionnerCssClass($detail, 'total_douane') ?>"><strong><?php if ($detail->total_douane) echoFloat($detail->total_douane); else echoFloat(0); ?></strong>&nbsp;<span class="unite">€</span></td>
 							<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 							<td class="<?php echo isVersionnerCssClass($detail, 'total_cvo') ?>">
-								<?php if ($daids->isValidee() && $etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
+								<?php if ($daids->isValidee()): ?>
 									<a class="btn_edit btn_popup" data-popup-config="configForm" data-popup="#popup_update_cvo_<?php echo $detail->renderId() ?>" href="<?php echo url_for('daids_visualisation_update_cvo', $detail) ?>" title="Modifier"><strong><?php if ($detail->total_cvo) echoFloat($detail->total_cvo); else echoFloat(0); ?></strong>&nbsp;<span class="unite">€</span></a>
 									<?php if ($detail->isUpdatedCvo()): ?>(<strike><?php echo $detail->getCvoCalcul() ?></strike>)<?php endif; ?>
 								<?php else: ?>

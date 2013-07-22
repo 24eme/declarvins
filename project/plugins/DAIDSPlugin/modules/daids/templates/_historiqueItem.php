@@ -38,7 +38,7 @@
         <?php elseif ($daids->isValidee()): ?>
             <a href="<?php echo url_for('daids_visualisation', $daids) ?>" class="btn_reinitialiser"><span>Visualiser</span></a>
         <?php else: ?>
-        	<?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
+        	<?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 		    <a href="<?php echo url_for('daids_init', $daids); ?>">Accéder à la déclaration en cours</a><br />
 		    <?php endif; ?>
         <?php endif; ?>

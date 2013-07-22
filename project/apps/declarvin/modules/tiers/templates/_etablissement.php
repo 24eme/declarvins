@@ -1,11 +1,5 @@
 <div id="application_dr" class="clearfix">
 	
-	<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVE): ?>
-		<div id="etablissement_archive">
-			Cet établissement est archivé
-		</div>
-	<?php endif; ?>
-	
 	<h1>Votre établissement<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVE): ?> (archivé)<?php endif; ?></h1>
 	<div id="compteModification">
 		<div class="societe">

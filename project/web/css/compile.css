@@ -559,14 +559,14 @@ a:hover { text-decoration:underline; }
   visibility:hidden;
 }
 #contenu:after { clear:both; }
-#contenu #etablissement_archive {
+#etablissement_archive {
   background:#494949;
   color:#ffffff;
   font-size:16px;
   height:30px;
   line-height:30px;
-  margin:0 0 25px;
   text-align:center;
+  font-weight: bold;
 }
 #contenu #principal { zoom:1; }
 #contenu #principal:before, #contenu #principal:after {

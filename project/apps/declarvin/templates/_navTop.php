@@ -38,12 +38,18 @@ use_helper('Text');
         
         <li class="etablissement_courant">
             <a href="" title="<?php echo $etablissement->getDenomination();?> (<?php echo $etablissement->getRaisonSociale(); ?> <?php echo $etablissement->getIdentifiant();?>)">
-                <span<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVE): ?> style="color: grey;"<?php endif; ?>><?php echo truncate_text($etablissement->getDenomination(),20); ?></span>
+                <span><?php echo truncate_text($etablissement->getDenomination(),20); ?></span>
             </a>
         </li>
         <li class="quitter"><a href="<?php echo url_for('@tiers') ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
     </ul>
 </nav>
+
+<?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVE): ?>
+	<div id="etablissement_archive">
+		/!\ Cet établissement est archivé /!\
+	</div>
+<?php endif; ?>
 
 <?php if ($sf_user->hasFlash('notice')){ ?>
     <div id="flash_message">
