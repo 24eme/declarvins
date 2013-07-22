@@ -34,5 +34,21 @@ class DRMAllView extends acCouchdbView
     	}
     	return $defaut;
     }
+    
+    public function getAllFirstDrm()
+    {
+    	$drms = $this->client->reduce(false)->getView($this->design, $this->view)->rows;
+    	$result = array();
+    	foreach ($drms as $drm) {
+    		if (!array_key_exists($drm->key[self::KEY_IDENTIFIANT], $result)) {
+    			$result[$drm->key[self::KEY_IDENTIFIANT]] = $drm->key[self::KEY_PERIODE];
+    		} else {
+    			if (str_replace('-', '', $drm->key[self::KEY_PERIODE]) < str_replace('-', '', $result[$drm->key[self::KEY_IDENTIFIANT]])) {
+    				$result[$drm->key[self::KEY_IDENTIFIANT]] = $drm->key[self::KEY_PERIODE];
+    			}
+    		}
+    	}
+    	return $result;
+    }
 
 }  
