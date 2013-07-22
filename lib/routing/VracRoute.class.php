@@ -22,7 +22,7 @@ class VracRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
         }
         
     	if ($this->getEtablissement()) {
-			if (isset($this->options['no_archive']) && $this->options['no_archive'] === true && ($this->getEtablissement()->statut == Etablissement::STATUT_ARCHIVE)) {
+			if (isset($this->options['no_archive']) && $this->options['no_archive'] === true && ($this->getEtablissement()->statut == Etablissement::STATUT_ARCHIVE) && !sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
 				$this->redirect('vrac_etablissement', array('identifiant' => $this->getEtablissement()->identifiant));
 			}
       		$this->checkSecurity($this->getEtablissement());

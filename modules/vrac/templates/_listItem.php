@@ -51,12 +51,12 @@ if ($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_NONSOL
       		<a href="<?php echo url_for("vrac_visualisation", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Visualiser le contrat</a>
     	<?php else: ?>
     		En attente<br />
-			<?php if ($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
+			<?php if ($etablissement && ($etablissement->statut != Etablissement::STATUT_ARCHIVE || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
     		<a href="<?php echo url_for('vrac_validation', array('numero_contrat' => $vracid, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>">Accéder au contrat</a>
 			<?php endif; ?>
     	<?php endif; ?>
     <?php else: ?>
-    	<?php if ($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
+    	<?php if ($etablissement && ($etablissement->statut != Etablissement::STATUT_ARCHIVE || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
       	<a href="<?php echo url_for("vrac_edition", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder au contrat</a>
       	<?php endif; ?>
     <?php endif; ?>
