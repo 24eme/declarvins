@@ -54,9 +54,9 @@ class ProduitDefinitionForm extends acCouchdbObjectForm {
          	$this->setValidator('oioc', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($choices))));
 		}
 		if ($this->getObject()->hasHasVrac()) {
-         	$this->setWidget('has_vrac',  new sfWidgetFormInputCheckbox());
+         	$this->setWidget('has_vrac',  new WidgetFormInputCheckbox());
          	$this->getWidget('has_vrac')->setLabel('Disponible en vrac');
-         	$this->setValidator('has_vrac', new sfValidatorBoolean(array('required' => false)));
+         	$this->setValidator('has_vrac', new ValidatorBoolean(array('required' => false)));
 		}
         $this->widgetSchema->setNameFormat('produit_definition[%s]');
         $this->mergePostValidator(new ProduitDefinitionValidatorSchema($this->getObject()));

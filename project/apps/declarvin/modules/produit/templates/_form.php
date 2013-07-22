@@ -53,6 +53,14 @@
                     <?php echo $form['oioc']->render() ?>
             </div>
 		    <?php endif; ?>
+		    <?php if ($form->getObject()->hasHasVrac()): ?>
+            <br />
+            <div class="ligne_form">
+                    <?php if($form['has_vrac']->hasError()){ ?><span class="error"><?php echo $form['has_vrac']->renderError() ?></span><?php } ?>
+                    <?php echo $form['has_vrac']->renderLabel() ?>
+                    <?php echo $form['has_vrac']->render() ?>
+            </div>
+		    <?php endif; ?>
         </div>
 	<?php if ($form->getObject()->hasDepartements()): ?>
                 <h2>Départements&nbsp;&nbsp;<a href="javascript:void(0)" class="addForm btn_ajouter"></a></h2>
