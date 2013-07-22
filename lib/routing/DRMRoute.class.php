@@ -20,7 +20,7 @@ class DRMRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
             throw new sfError404Exception(sprintf('No DRM found for this periode/version "%s".',  $parameters['periode_version']));
         }
     
-		if (isset($this->options['no_archive']) && $this->options['no_archive'] === true && ($this->getEtablissement()->statut == Etablissement::STATUT_ARCHIVE)) {
+		if (isset($this->options['no_archive']) && $this->options['no_archive'] === true && ($this->getEtablissement()->statut == Etablissement::STATUT_ARCHIVE) && !sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
 			$this->redirect('drm_mon_espace', array('identifiant' => $this->getEtablissement()->identifiant));
 		}
 		if (isset($this->options['must_be_valid']) && $this->options['must_be_valid'] === true && !$this->drm->isValidee()) {

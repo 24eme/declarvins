@@ -14,7 +14,6 @@
         </div>
         <?php include_component('drm', 'campagnes', array('etablissement' => $etablissement)); ?>
     </section>
-    	<?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
 	        <?php if($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$hasDrmEnCours): ?>
 	        <br /><br />
 	        <h1>Espace Admin <a href="" class="msg_aide" data-msg="help_popup_monespace_admin" data-doc="notice.pdf" title="Message aide"></a></h1>
@@ -26,5 +25,4 @@
 	            </div>
 	        </div>
 	        <?php endif; ?>
-		<?php endif; ?>
 </section>

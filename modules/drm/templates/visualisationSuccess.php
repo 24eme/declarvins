@@ -6,7 +6,7 @@
 <section id="contenu">
 
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
-    <?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
+    <?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 		<?php if (!$hide_rectificative && !$drm->getHistorique()->hasDRMInProcess() && $drm->isRectifiable()): ?>
 	    <form method="get" action="<?php echo url_for('drm_rectificative', $drm) ?>">
 	        <button class="btn_passer_etape rectificative" type="submit">Soumettre une DRM rectificative</button>
@@ -49,11 +49,9 @@
 
         </div>    
     </section>
-    <?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
 	    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$drm->getHistorique()->hasDRMInProcess() && $drm->isModifiable()): ?>
 	    <form method="get" action="<?php echo url_for('drm_modificative', $drm) ?>">
 	        <button style="float:left;" class="btn_passer_etape modificative" type="submit">Corriger la DRM</button>
 	    </form>
-	    <?php endif; ?>
     <?php endif; ?>
 </section>
