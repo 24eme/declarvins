@@ -22,9 +22,9 @@ class ConfigurationDroits extends BaseConfigurationDroits {
 		$currentDroit = null;
 		foreach ($this as $configurationDroit) {
 			$date = new DateTime($configurationDroit->date);
-			if ($periode >= $date->format('Y-m')) {
+			if (str_replace('-', '', $periode) >= $date->format('Ym')) {
 				if ($currentDroit) {
-					if ($date->format('Y-m-d') > $currentDroit->date) {
+					if ($date->format('Ymd') > str_replace('-', '', $currentDroit->date)) {
 						$currentDroit = $configurationDroit;
 					}
 				} else {
