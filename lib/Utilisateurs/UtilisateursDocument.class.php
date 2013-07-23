@@ -18,13 +18,13 @@ class UtilisateursDocument implements IUtilisateursDocument
     }
 
     public function getEdition() {
-        if($this->document && ($this->document->exist('utilisateur')) && ($this->document->utilisateur->exist('edition'))) 
+        if($this->document && ($this->document->exist('utilisateur')) && ($this->document->utilisateur->exist('edition'))) 
             return $this->document->get('utilisateur')->get('edition');
         return null;
     }
 
     public function getValidation() {    
-        if($this->document && ($this->document->exist('utilisateur')) && ($this->document->utilisateur->exist('validation'))) 
+        if($this->document && ($this->document->exist('utilisateur')) && ($this->document->utilisateur->exist('validation'))) 
             return $this->document->get('utilisateur')->get('validation');
         return null;
     }
@@ -64,7 +64,7 @@ class UtilisateursDocument implements IUtilisateursDocument
     }
 
     public function removeValidation() {
-       if($this->document && ($this->document->exist('utilisateur')) && ($this->document->utilisateur->exist('validation'))) 
+       if($this->document && ($this->document->exist('utilisateur')) && ($this->document->utilisateur->exist('validation'))) 
            $this->document->utilisateur->remove('validation');
     }
     
