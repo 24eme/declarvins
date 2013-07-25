@@ -131,6 +131,29 @@ class ConfigurationClient extends acCouchdbClient {
         return $this->startkey(array($hash, $type))
               ->endkey(array($hash, $type, array()))->getView('configuration', 'droits');
     }
+    
+    public function getDroitsByHashAndTypeAndPeriode($hash, $type, $periode = null)
+    {
+    	if (!$periode) {
+    		$periode = date('Y-m').'-01';
+    	}
+    	$droits = $this->findDroitsByHashAndType($hash, $type)->rows;
+        $tmp = null;
+        foreach ($droits as $d) {
+        	$items = $d->value;
+        	foreach ($items as $item) {
+	        	foreach ($item as $droit) {
+	        		if (!$tmp && date('Ymd', strtotime($droit->date)) <= date('Ymd', strtotime($periode))) {
+		        		$tmp = $droit;
+		        	}
+		        	if ($tmp && date('Ymd', strtotime($tmp->date)) <= date('Ymd', strtotime($droit->date)) && date('Ymd', strtotime($droit->date)) <= date('Ymd', strtotime($periode))) {
+		        		$tmp = $droit;
+		        	}
+	        	}
+        	}
+        } 
+    	return $tmp;
+    }
 
     public function findProduitsByCertificationAndInterpro($interpro, $certif) {
         
