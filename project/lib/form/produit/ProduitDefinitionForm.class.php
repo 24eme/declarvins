@@ -141,11 +141,22 @@ class ProduitDefinitionForm extends acCouchdbObjectForm {
     	}
     	return $key;
     }
+  
+    private function couleurKeyToCode($key) {
+    	$correspondances = array(1 => "rouge",
+                             2 => "rose",
+                             3 => "blanc");
+
+    	return $correspondances[$key];
+    }
     
     public function save($con = null) {
     	$object = parent::save($con);
     	$values = $this->getValues();
     	if (!empty($values['code']) && $object->getKey() != $values['code']) {
+    		if (in_array($values['code'], array(1,2,3))) {
+    			$values['code'] = $this->couleurKeyToCode($values['code']);
+    		}
     		$object = $object->getDocument()->moveAndClean($object->getHash(), $this->replaceKey($object->getHash(), $this->normalizeKey($values['code'], (($object->getTypeNoeud() == ConfigurationCouleur::TYPE_NOEUD)? false : true))));
     	}
     	if ($object->hasDepartements()) {
