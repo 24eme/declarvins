@@ -26,11 +26,9 @@ class VracDetailImport
   				$vrac = $this->parseVrac();
     		}
     		$this->parseLot($vrac);
-    		$result = ConfigurationClient::getInstance()->findDroitsByHashAndType('/'.$vrac->produit, DRMDroits::DROIT_CVO)->rows;
-	        if (count($result) != 0) {
-	        	$result = $result[0];
-		        $droits = $result->value;
-		        $vrac->part_cvo = $droits->taux;
+    		$result = ConfigurationClient::getInstance()->getDroitsByHashAndTypeAndPeriode('/'.$vrac->produit, DRMDroits::DROIT_CVO);
+	        if ($result) {
+		        $vrac->part_cvo = $result->taux;
 	        }
 	        $vrac->has_cotisation_cvo = 1;
 	        if ($vrac->interpro == 'INTERPRO-CIVP') {
