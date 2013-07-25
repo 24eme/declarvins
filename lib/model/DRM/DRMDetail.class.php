@@ -233,21 +233,9 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function getDroit($type) {
-    	$result = ConfigurationClient::getInstance()->findDroitsByHashAndType($this->getCepage()->getHash(), $type)->rows;
-        if (count($result) == 0) {
-        	return null;
-        }
-        $tmp = null;
-        foreach ($result as $droit) {
-        	if (!$tmp) {
-        		$tmp = $droit->value;
-        	}
-        	if ($droit->value && $tmp->date < $droit->value->date) {
-        		$tmp = $droit->value;
-        	}
-        } 
-    	return $tmp;
+    	return ConfigurationClient::getInstance()->getDroitsByHashAndTypeAndPeriode($this->getCepage()->getHash(), $type, $this->getDocument()->getPeriode().'-01');
     }
+    
     public function canHaveVrac()
     {
     	return ($this->getCepage()->getConfig()->has_vrac)? true : false;
