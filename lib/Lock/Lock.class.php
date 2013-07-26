@@ -34,7 +34,6 @@ class Lock extends BaseLock {
         $lock->save();
         break;
       }catch(sfException $e) {
-        throw $e;
       }
       sleep(1);
     }
