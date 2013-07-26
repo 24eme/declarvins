@@ -157,19 +157,19 @@ class ImportEtablissementsCsv {
         }
         $etab->nom = trim($line[EtablissementCsv::COL_NOM]);
         $etab->raison_sociale = trim($line[EtablissementCsv::COL_RAISON_SOCIALE]);
-        $validateur = new sfValidatorEmail(array('required' => false));
+        $validateur = new sfValidatorEmailStrict(array('required' => false));
     	try {
 		    $etab->email = $validateur->clean(trim($line[EtablissementCsv::COL_EMAIL]));
 		} catch (sfValidatorError $e) {
-			$etab->email = null;
-        	/*if (isset($this->_errors[$ligne])) {
+			//$etab->email = null;
+        	if (isset($this->_errors[$ligne])) {
         		$merge = $this->_errors[$ligne];
         		$merge[] = 'Colonne (indice '.(EtablissementCsv::COL_EMAIL + 1).') "email" non valide';
         		$this->_errors[$ligne] = $merge;
         	} else {
         		$this->_errors[$ligne] = array('Colonne (indice '.(EtablissementCsv::COL_EMAIL + 1).') "email" non valide');
         	}
-        	throw new sfException('has errors');*/
+        	throw new sfException('has errors');
 		}
         $etab->telephone = trim($line[EtablissementCsv::COL_TELEPHONE]);
         $etab->fax = trim($line[EtablissementCsv::COL_FAX]);
