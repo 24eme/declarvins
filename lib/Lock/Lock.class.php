@@ -26,11 +26,13 @@ class Lock extends BaseLock {
 
           throw new sfException('executeLock needs to return a hashtable with an element "value"');
         }
-        if ($lock->exist($res['key']) && $lock->get($res['key']) == $res['value']) {
-          
-          throw new sfException('the archive value need to be different from the lock one');
+        if($lock->exist($res['key']) && $lock->get($res['key']) == $res['value']) {
+          $docid = preg_replace('/^.*:/', '', $lock->get($res['value']));
+          if(acCouchdbManager::getClient()->find($docid, acCouchdbClient::HYDRATE_JSON)) {
+            throw new sfException('the archive value need to be different from the lock one');
+          }
         }
-        $lock->add($res['key'], $res['value']); 
+        $lock->add($res['key'], $res['value'].':'.$res['docid']); 
         $lock->save();
         break;
       }catch(sfException $e) {
@@ -39,7 +41,7 @@ class Lock extends BaseLock {
     }
     if ($i >= 10) {
 
-      throw new sfException('Could not acquire the archive lock');
+      throw new sfException("Could not acquire the archive lock, il faut s'assurer que le numéro d'archive de lock est égal au plus élévé de celui des vues");
     }
   }
 }
