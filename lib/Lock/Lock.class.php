@@ -27,15 +27,14 @@ class Lock extends BaseLock {
           throw new sfException('executeLock needs to return a hashtable with an element "value"');
         }
         if ($lock->exist($res['key']) && $lock->get($res['key']) == $res['value']) {
-
+          
           throw new sfException('the archive value need to be different from the lock one');
         }
         $lock->add($res['key'], $res['value']); 
-
         $lock->save();
         break;
       }catch(sfException $e) {
-        echo $e->getMessage()."\n";
+        throw $e;
       }
       sleep(1);
     }
