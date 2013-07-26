@@ -2,5 +2,6 @@ Lock:
   definition:
     fields:
       _id: {}
+      _rev: {}
       type: {}
       *: { }
