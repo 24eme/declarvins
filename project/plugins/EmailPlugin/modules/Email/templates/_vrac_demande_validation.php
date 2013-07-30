@@ -23,7 +23,7 @@ Commentaire : <?php echo $vrac->commentaires ?><br /><br />
 Ce contrat ne pourra être considéré comme valable que lorsque toutes les parties concernées l'auront validé.<br />
 Vous recevrez alors une version du contrat en .pdf avec le numéro de contrat.<br /><br />
 Attention si le contrat n'est pas validé dans les 10 jours à compter de sa date de saisie, il sera automatiquement supprimé et non valable.<br /><br />
-<strong>Si vous souhaitez valider ce contrat, cliquez sur le lien suivant : </strong><a href="<?php echo ProjectConfiguration::getAppRouting()->generate('vrac_validation', array('sf_subject' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur), true); ?>">Valider le contrat</a>.<br /><br />
+<strong>Si vous souhaitez valider ce contrat : </strong><a href="<?php echo ProjectConfiguration::getAppRouting()->generate('vrac_validation', array('sf_subject' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur), true); ?>">Cliquez ici pour valider ou refuser le contrat</a>.<br /><br />
 Pour toute information, vous pouvez contacter votre interprofession.<br /><br />
 Cordialement,<br /><br />
 L'équipe Declarvins.net 
