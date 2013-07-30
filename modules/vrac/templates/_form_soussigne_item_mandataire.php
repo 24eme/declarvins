@@ -7,13 +7,13 @@
 <?php endif; ?>
 
 <div id="bloc_mandataire" class="vrac_mandataire <?php if (isset($form['mandataire_exist'])): ?>bloc_conditionner<?php endif; ?>" data-condition-value="1">
-    <h1>Courtier</h1>
+    <h1>Courtier <a class="msg_aide" href="" data-msg="help_popup_vrac_etablissement_informations" title="Message aide"></a></h1>
     <?php if(!$form->etablissementIsCourtier()): ?>
     <div>
         <h2>Sélectionner un courtier :</h2>
         <div class="section_label_strong" id="listener_mandataire_choice">
             <?php echo $form['mandataire_identifiant']->renderError() ?>
-            <label for="">Nom :</label>
+            <label for="">Nom : <a class="msg_aide" href="" data-msg="help_popup_vrac_etablissement_manquant" title="Message aide"></a></label>
             <?php echo $form['mandataire_identifiant']->render(array('data-infos-container' => '#bloc_mandataire .etablissement_informations')) ?>
         </div>
         <div  class="bloc_form etablissement_informations"> 

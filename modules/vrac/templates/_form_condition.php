@@ -69,6 +69,7 @@
             <div class="section_label_strong">
                 <?php echo $form['date_limite_retiraison']->renderError() ?>
                 <?php echo $form['date_limite_retiraison']->renderLabel() ?>
+            	<a class="msg_aide" title="Message aide" data-msg="help_popup_vrac_date_limite_retiraison" href=""></a>
                 <?php echo $form['date_limite_retiraison']->render(array('class' => 'datepicker')) ?>
                 &nbsp;(jj/mm/aaaa)
             </div>

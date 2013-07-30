@@ -63,33 +63,29 @@ if ($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_NONSOL
       
   </td>
   <td>
-        <ul>  
-          <li>
             <?php include_partial('vrac/listItemSoussigne', array(
-                                                          'libelle' => 'Vendeur :',
-                                                          'identifiant' => $elt[VracHistoryView::VRAC_VIEW_VENDEUR_ID],
-                                                          'nom' => $elt[VracHistoryView::VRAC_VIEW_VENDEUR_NOM],
-                                                          'rs' => $elt[VracHistoryView::VRAC_VIEW_VENDEUR_RAISON_SOCIALE],
-                                                                  )) ?>
-          </li>
-          <li>
-            <?php include_partial('vrac/listItemSoussigne', array(
-                                                          'libelle' => 'Acheteur :',
                                                           'identifiant' => $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_ID],
                                                           'nom' => $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM],
                                                           'rs' => $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_RAISON_SOCIALE],
+            											  'signature' => $elt[VracHistoryView::VRAC_VIEW_ACHETEURVAL]
                                                                   )) ?>
-          </li>
-          <li>
+    </td>   
+  <td>
             <?php include_partial('vrac/listItemSoussigne', array(
-                                                          'libelle' => 'Mandataire :',
+                                                          'identifiant' => $elt[VracHistoryView::VRAC_VIEW_VENDEUR_ID],
+                                                          'nom' => $elt[VracHistoryView::VRAC_VIEW_VENDEUR_NOM],
+                                                          'rs' => $elt[VracHistoryView::VRAC_VIEW_VENDEUR_RAISON_SOCIALE],
+            											  'signature' => $elt[VracHistoryView::VRAC_VIEW_VENDEURVAL]
+                                                                  )) ?>
+    </td> 
+  <td>
+            <?php include_partial('vrac/listItemSoussigne', array(
                                                           'identifiant' => $elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_ID],
                                                           'nom' => $elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_NOM],
                                                           'rs' => $elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_RAISON_SOCIALE],
+            											  'signature' => $elt[VracHistoryView::VRAC_VIEW_MANDATAIREVAL]
                                                                   )) ?>
-          </li>
-       </ul>
-    </td>              
+    </td>            
     <td>
       <?php echo ($elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID])? ConfigurationClient::getCurrent()->get($elt[VracHistoryView::VRAC_VIEW_PRODUIT_ID])->getLibelleFormat() : ''; ?>
       <br />

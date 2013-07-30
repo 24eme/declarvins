@@ -28,7 +28,7 @@
 						<a class="annuler_saisie" onclick="return confirm('Confirmez-vous la suppression du contrat?')" href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat">Refuser</a>
 						<?php echo $form->renderHiddenFields() ?>
 						<?php echo $form->renderGlobalErrors() ?>
-						 <button class="valider_etape" type="submit"><span>Valider</span></button>
+						 <button class="valider_etape" type="submit"><span>Valider = signature électronique</span></button>
 					</div>
 				</form>
 				<?php endif; ?>

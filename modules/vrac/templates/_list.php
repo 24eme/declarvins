@@ -9,7 +9,9 @@
                 <?php endif; ?>
 	            <th class="type">Type<br /><a href="" class="msg_aide" data-msg="help_popup_vrac_type" title="Message aide"></a></th>
 	            <th>N° de Visa<br /><a href="" class="msg_aide" data-msg="help_popup_vrac_visa" title="Message aide"></a></th>
-	            <th>Soussignés</th>   
+	            <th>Acheteur</th>   
+	            <th>Vendeur</th>   
+	            <th>Courtier</th>
 	            <th>Produit</th>
 	            <th>Vol. enlevé. / Vol. prop.</th>
 	            <th>Prix (HT)</th>

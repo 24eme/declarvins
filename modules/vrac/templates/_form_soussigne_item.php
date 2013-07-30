@@ -1,5 +1,5 @@
 <div id="bloc_<?php echo $famille ?>" class="vrac_vendeur_acheteur">
-    <h1><?php echo $titre ?></h1>
+    <h1><?php echo $titre ?> <a class="msg_aide" href="" data-msg="help_popup_vrac_etablissement_informations" title="Message aide"></a></h1>
 
     <div id="bloc_<?php echo $famille ?>_choice" class="soussigne_form_choice <?php if (isset($form['vous_etes'])): ?>bloc_conditionner<?php endif; ?>" data-condition-value="<?php echo $famille_autre ?>">
         <h2><?php echo $sous_titre ?></h2>
@@ -10,7 +10,7 @@
         </div>
         <div class="section_label_strong etablissement_choice" id="listener_<?php echo $famille ?>_choice">
             <?php echo $form[$famille.'_identifiant']->renderError() ?>
-            <label for="">Nom :</label>
+            <label for="">Nom : <a class="msg_aide" href="" data-msg="help_popup_vrac_etablissement_manquant" title="Message aide"></a></label>
             <?php echo $form[$famille.'_identifiant']->render(array('data-infos-container' => '#etablissement_informations_'.$famille)) ?>
         </div>
 
