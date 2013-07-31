@@ -31,6 +31,6 @@ class ArchivageDocument implements iLock
     public function executeLock($type = null) {
       $last_numero = ArchivageAllView::getInstance()->getLastNumeroArchiveByTypeAndCampagne($type, $this->document->campagne);
       $this->document->numero_archive = sprintf($this->format, $last_numero+1);
-      return array('value' => $this->document->campagne.' '.$this->document->numero_archive, 'key' => $type);
+      return array('value' => $this->document->campagne.' '.$this->document->numero_archive, 'key' => $type, 'docid' => $this->document->_id);
     }
 }
