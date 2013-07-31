@@ -8,7 +8,7 @@ abstract class Mouvement extends acCouchdbDocumentTree
 
     public function setProduitHash($value) {
         $this->_set('produit_hash',  $value);
-        $this->produit_libelle = $this->getProduitConfig()->getLibelleFormat(array(), "%g% %a% %m% %l% %co% %ce%");
+        $this->produit_libelle = $this->getProduitConfig()->getLibelleFormat(array(), "%format_libelle%");
     }
 
     public function facturer() {
