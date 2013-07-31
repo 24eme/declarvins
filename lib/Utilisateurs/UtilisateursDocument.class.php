@@ -18,14 +18,14 @@ class UtilisateursDocument implements IUtilisateursDocument
     }
 
     public function getEdition() {
-        if($this->document && ($this->document->exist('utilisateur')) && ($this->document->utilisateur->exist('edition'))) 
-            return $this->document->get('utilisateur')->get('edition');
+        if($this->document && ($this->document->exist('utilisateurs')) && ($this->document->utilisateurs->exist('edition'))) 
+            return $this->document->get('utilisateurs')->get('edition');
         return null;
     }
 
     public function getValidation() {    
-        if($this->document && ($this->document->exist('utilisateur')) && ($this->document->utilisateur->exist('validation'))) 
-            return $this->document->get('utilisateur')->get('validation');
+        if($this->document && ($this->document->exist('utilisateurs')) && ($this->document->utilisateurs->exist('validation'))) 
+            return $this->document->get('utilisateurs')->get('validation');
         return null;
     }
     
