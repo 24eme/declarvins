@@ -2,7 +2,7 @@
 <section id="contenu" class="vracs">
     <div id="principal" class="produit">
         <h1>
-            Contrats interprofessionnels<?php if(!$etablissement): ?> en attente de validation<?php endif; ?> &nbsp;
+            Contrats interprofessionnels &nbsp;
             <?php if (!$etablissement || $etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
             <a class="btn_ajouter" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>">Ajouter</a>
         	<?php endif; ?>
@@ -13,6 +13,12 @@
         </div>
         <br /><br />
         <?php endif; ?>
+        <div>
+        	<a href="<?php echo url_for('vrac_admin') ?>"<?php if($statut == VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION): ?> class="active"<?php endif; ?>>En attente de validation</a> | 
+        	<a href="<?php echo url_for('vrac_admin', array('statut' => VracClient::STATUS_CONTRAT_SOLDE)) ?>"<?php if($statut == VracClient::STATUS_CONTRAT_SOLDE): ?> class="active"<?php endif; ?>>Soldé</a> |
+        	<a href="<?php echo url_for('vrac_admin', array('statut' => VracClient::STATUS_CONTRAT_NONSOLDE)) ?>"<?php if($statut == VracClient::STATUS_CONTRAT_NONSOLDE): ?> class="active"<?php endif; ?>>Non soldé</a> |
+        	<a href="<?php echo url_for('vrac_admin', array('statut' => VracClient::STATUS_CONTRAT_ANNULE)) ?>"<?php if($statut == VracClient::STATUS_CONTRAT_ANNULE): ?> class="active"<?php endif; ?>>Annulé</a>
+        </div>
         <?php include_partial('list', array('vracs' => $vracs, 'etablissement' => $etablissement)); ?>
     </div>
 </section>

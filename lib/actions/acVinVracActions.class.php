@@ -15,8 +15,13 @@ class acVinVracActions extends sfActions
     	}
         $this->etablissement = null;
         $this->forward404Unless($this->interpro = $this->getUser()->getCompte()->getGerantInterpro());
+        $this->statut = $request->getParameter('statut', VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION);
+        if (!$this->statut) {
+        	$this->statut = VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION;
+        }
+        $this->forward404Unless(in_array($this->statut, VracClient::getInstance()->getStatusContrat()));
         $this->vracs = array();
-        $lasts = VracHistoryView::getInstance()->findLastByInterpro($this->interpro);
+        $lasts = VracHistoryView::getInstance()->findByStatutAndInterpro($this->statut, $this->interpro->get('_id'));
         foreach ($lasts->rows as $last) {
         	$this->vracs[$last->id] = $last;
         }

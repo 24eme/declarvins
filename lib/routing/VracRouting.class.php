@@ -11,8 +11,8 @@ class VracRouting {
     static public function listenToRoutingLoadConfigurationEvent(sfEvent $event) {
         $r = $event->getSubject();
 
-        $r->prependRoute('vrac_admin', new sfRoute('/vrac',
-                                                    array('module' => 'vrac', 'action' => 'index'),
+        $r->prependRoute('vrac_admin', new sfRoute('/listing/vrac/:statut',
+                                                    array('module' => 'vrac', 'action' => 'index', 'statut' => null),
                                                     array('sf_method' => array('get'))
                                                         )); 
         

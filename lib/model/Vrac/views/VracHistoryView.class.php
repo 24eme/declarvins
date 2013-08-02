@@ -39,9 +39,15 @@ class VracHistoryView extends acCouchdbView
         return acCouchdbManager::getView('vrac', 'history', 'Vrac');
     }
 
+	public function findByStatutAndInterpro($statut, $interpro) {
+        return $this->client->startkey(array($statut, $interpro))
+                    		->endkey(array($statut, $interpro, array()))
+                            ->getView($this->design, $this->view);
+    }
+
 	public function findLastByInterpro($interpro) {
       
-        return $this->client->startkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION), $interpro)
+        return $this->client->startkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro))
                     		->endkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, array()))
                             ->getView($this->design, $this->view);
     }
