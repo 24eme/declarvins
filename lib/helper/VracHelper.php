@@ -45,6 +45,8 @@ function statusColor($status)
             return 'statut_solde';
         case VracClient::STATUS_CONTRAT_NONSOLDE:
             return 'statut_non-solde';
+        case VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION:
+            return 'statut_attente-validation';
         default :
             return '';
     }

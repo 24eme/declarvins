@@ -16,8 +16,8 @@ class VracRouting {
                                                     array('sf_method' => array('get'))
                                                         )); 
         
-        $r->prependRoute('vrac_etablissement', new EtablissementRoute('/vrac/:identifiant', 
-                                                        array('module' => 'vrac', 'action' => 'etablissement'),
+        $r->prependRoute('vrac_etablissement', new EtablissementRoute('/vrac/:identifiant/:statut', 
+                                                        array('module' => 'vrac', 'action' => 'etablissement', 'statut' => null),
                                                         array('sf_method' => array('get')),
                                                         array('model' => 'Etablissement', 'type' => 'object'))); 
         

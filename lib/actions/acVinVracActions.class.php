@@ -43,6 +43,11 @@ class acVinVracActions extends sfActions
     public function executeEtablissement(sfWebRequest $request)
 	{
         $this->etablissement = $this->getRoute()->getEtablissement();
+        $this->statut = $request->getParameter('statut', VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION);
+        if (!$this->statut) {
+            $this->statut = VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION;
+        }
+        $this->forward404Unless(in_array($this->statut, VracClient::getInstance()->getStatusContrat()));
 		$this->vracs = array();
         $contrats = VracSoussigneIdentifiantView::getInstance()->findByEtablissement($this->etablissement->identifiant);
         foreach ($contrats->rows as $contrat) {
