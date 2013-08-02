@@ -546,6 +546,15 @@ a:hover { text-decoration:underline; }
   -moz-box-shadow:0 0 5px #666666;
   box-shadow:0 0 5px #666666;
 }
+#etablissement_archive {
+  background:#494949;
+  color:#ffffff;
+  font-size:16px;
+  height:30px;
+  line-height:30px;
+  font-weight:bold;
+  text-align:center;
+}
 #contenu {
   background:#ffffff;
   padding:25px 20px 70px;
@@ -559,15 +568,6 @@ a:hover { text-decoration:underline; }
   visibility:hidden;
 }
 #contenu:after { clear:both; }
-#etablissement_archive {
-  background:#494949;
-  color:#ffffff;
-  font-size:16px;
-  height:30px;
-  line-height:30px;
-  text-align:center;
-  font-weight: bold;
-}
 #contenu #principal { zoom:1; }
 #contenu #principal:before, #contenu #principal:after {
   content:"\0020";
@@ -2521,11 +2521,13 @@ p#date_drm {
   width:330px;
 }
 .vracs input.ui-autocomplete-input[disabled] { background:#dbdbdb; }
+.vracs #mon_compte { margin:0 0 25px; }
 .vracs #mon_compte .ui-autocomplete-input {
   padding:0 4px;
   width:220px;
 }
 .vracs #mon_compte .popup_form .ui-autocomplete-input { height:20px; }
+.vracs .filtre { margin:0 0 5px 5px; }
 .vracs .ui-button { display:none; }
 .vracs h2 {
   font-size:15px;
