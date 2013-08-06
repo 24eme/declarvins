@@ -42,5 +42,6 @@ abstract class acCouchdbDocumentTree extends acCouchdbDocumentStorable {
    protected function update($params = array()) {
         $this->_storage = array();
         parent::update($params);
+        $this->_storage = array();
     }
 }
