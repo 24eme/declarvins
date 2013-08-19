@@ -24,7 +24,7 @@ class DRMProduitAjoutForm extends acCouchdbForm
             'disponible' => new sfWidgetFormInputFloat(),
         ));
         $this->widgetSchema->setLabels(array(
-            'hashref' => 'Produit*: ',
+            'hashref' => 'Produit: ',
             'label' => 'Label: ',
             //'label_supplementaire' => 'Label supplémentaire: ',
         ));
