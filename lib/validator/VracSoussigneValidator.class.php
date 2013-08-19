@@ -7,7 +7,6 @@ class VracSoussigneValidator extends sfValidatorBase {
     }
     
     protected function doClean($values) {
-    	//print_r($values);exit;
     	if (isset($values['vous_etes']) && $values['vous_etes'] == VracClient::VRAC_TYPE_VENDEUR) {
     		if (!$values ['acheteur_identifiant']) {
     			throw new sfValidatorErrorSchema($this, array('acheteur_identifiant' => new sfValidatorError($this, 'required')));
@@ -15,6 +14,18 @@ class VracSoussigneValidator extends sfValidatorBase {
     	} elseif (isset($values['vous_etes']) && $values['vous_etes'] == VracClient::VRAC_TYPE_ACHETEUR) {
     		if (!$values ['vendeur_identifiant']) {
     			throw new sfValidatorErrorSchema($this, array('vendeur_identifiant' => new sfValidatorError($this, 'required')));
+    		}
+    	}
+    	if (!isset($values['vous_etes'])) {
+    		if (!$values ['acheteur_identifiant'] && $values ['vendeur_identifiant']) {
+    			throw new sfValidatorErrorSchema($this, array('acheteur_identifiant' => new sfValidatorError($this, 'required')));
+    		}
+    		if ($values ['acheteur_identifiant'] && !$values ['vendeur_identifiant']) {
+    			throw new sfValidatorErrorSchema($this, array('vendeur_identifiant' => new sfValidatorError($this, 'required')));
+    		}
+    		if (!$values ['acheteur_identifiant'] && !$values ['vendeur_identifiant']) {
+    			$errors = array('vendeur_identifiant' => new sfValidatorError($this, 'required'), 'acheteur_identifiant' => new sfValidatorError($this, 'required'));
+    			throw new sfValidatorErrorSchema($this, $errors);
     		}
     	}
     	if (isset($values['vendeur_identifiant']) && isset($values['acheteur_identifiant']) && $values ['vendeur_identifiant'] == $values ['acheteur_identifiant']) {
