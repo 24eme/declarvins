@@ -23,7 +23,7 @@
     </div>
     <div class="ligne_form">
         <?php echo $form['cvi']->renderError() ?>
-        <?php echo $form['cvi']->renderLabel('CVI: <a href="" class="msg_aide" data-msg="help_popup_mandat_cvi" title="Message aide"></a>') ?>
+        <?php echo $form['cvi']->renderLabel('CVI**: <a href="" class="msg_aide" data-msg="help_popup_mandat_cvi" title="Message aide"></a>') ?>
         <?php echo $form['cvi']->render() ?>
     </div>
     <div class="ligne_form">
@@ -135,7 +135,8 @@
     </div>
 </div>
 
-<strong class="champs_obligatoires">* Champs obligatoires</strong>
+<strong class="champs_obligatoires">* Champs obligatoires</strong><br />
+<strong class="champs_obligatoires">** Les numéros SIRET et CVI sont obligatoires pour les structures de production.<br />Le SIRET est obligatoire pour les structures de négoce.</strong>
 
 <div class="ligne_btn">
     <button type="submit" class="btn_suiv"><span>Suivant</span></button>

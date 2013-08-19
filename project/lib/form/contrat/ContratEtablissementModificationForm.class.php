@@ -44,9 +44,9 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
        $this->widgetSchema->setLabels(array(
                'raison_sociale' => 'Raison sociale*: ',
                'nom' => 'Nom commercial*: ',
-	       'siret' => 'SIRET: ',
+	       'siret' => 'SIRET**: ',
 	       'cni' => 'CNI: ',
-	       'cvi' => 'CVI: ',
+	       'cvi' => 'CVI**: ',
 	       'no_accises' => 'Numéro accises: ',
 	       'no_tva_intracommunautaire' => 'Numéro TVA intracommunautaire: ',
 	       'adresse' => 'Adresse*: ',
