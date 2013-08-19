@@ -2523,11 +2523,13 @@ p#date_drm {
   width:330px;
 }
 .vracs input.ui-autocomplete-input[disabled] { background:#dbdbdb; }
+.vracs #mon_compte { margin:0 0 25px; }
 .vracs #mon_compte .ui-autocomplete-input {
   padding:0 4px;
   width:220px;
 }
 .vracs #mon_compte .popup_form .ui-autocomplete-input { height:20px; }
+.vracs .filtre { margin:0 0 5px 5px; }
 .vracs .ui-button { display:none; }
 .vracs h2 {
   font-size:15px;
