@@ -60,13 +60,26 @@ class tiersActions extends sfActions
     $this->etablissement = $this->getRoute()->getEtablissement();
 
   	if(($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR))) {
-
+    	$this->configureAlerteDrm($this->etablissement);
         return $this->redirect("drm_mon_espace", $this->etablissement);
     }
 
     if ($this->etablissement->hasDroit(EtablissementDroit::DROIT_VRAC)) {
 
         return $this->redirect("vrac_etablissement", $this->etablissement);
+    }
+  }
+  
+  private function configureAlerteDrm($etablissement)
+  {
+  	if ($etablissement) {
+    	$historique = new DRMHistorique($etablissement->identifiant);
+    	$infos = array();
+    	if ($drm = $historique->getLastDRM()) {
+    		$infos['periode'] = $drm->periode;
+    		$infos['valide'] = (int)$drm->isValidee();
+    	}
+    	$this->getUser()->setAttribute('last_drm', $infos);
     }
   }
   

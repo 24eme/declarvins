@@ -45,6 +45,20 @@ use_helper('Text');
     </ul>
 </nav>
 
+<?php if ($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
+	<?php if($lastDrmInfos = $sf_user->getDerniereDrmSaisie()): ?>
+		<?php if (!$lastDrmInfos['valide'] && str_replace('-', '', $lastDrmInfos['periode']) < date('Ym')): ?>
+	    <div id="flash_message">
+	        <div class="flash_error">/!\ Vous n'avez pas validé votre DRM de <?php echo strftime('%B %Y', strtotime($lastDrmInfos['periode'].'-01')); ?> /!\</div>
+	    </div>
+	    <?php elseif (str_replace('-', '', $lastDrmInfos['periode']) < date('Ym')): ?>
+	    <div id="flash_message">
+	        <div class="flash_error">/!\ Vous devez saisir votre DRM de <?php echo strftime('%B %Y', strtotime('next month',strtotime($lastDrmInfos['periode'].'-01'))); ?> /!\</div>
+	    </div>
+		<?php endif; ?>
+	<?php endif; ?>
+<?php endif; ?>
+
 <?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVE): ?>
 	<div id="etablissement_archive">
 		/!\ Cet établissement est archivé /!\
