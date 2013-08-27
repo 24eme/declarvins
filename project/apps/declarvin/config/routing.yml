@@ -250,6 +250,10 @@ oioc_compte_password:
 statiques:
   url:   /statiques
   param: { module: statiques, action: index }
+  
+contact:
+  url:   /contact
+  param: { module: statiques, action: contact }
 
 # generic rules
 # please, remove them by adding more specific rules

@@ -34,6 +34,7 @@
                                 <p><span>N° CNI :</span> <strong><?php echo $etablissement->cni ?></strong></p>
                                 <p><span>N° CVI :</span> <strong><?php echo $etablissement->cvi ?></strong></p>
                                 <p><span>N° accises :</span> <strong><?php echo $etablissement->no_accises ?></strong></p>
+                                <p><span>N° TVA intracommunautaire :</span> <strong><?php echo $etablissement->no_tva_intracommunautaire ?></strong></p>
                                 <p><span>Adresse :</span> <strong><?php echo $etablissement->adresse ?></strong></p>
                                 <p><span>CP :</span> <strong><?php echo $etablissement->code_postal ?></strong></p>
                                 <p><span>ville :</span> <strong><?php echo $etablissement->commune ?></strong></p>

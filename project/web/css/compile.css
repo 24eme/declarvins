@@ -509,6 +509,8 @@ a {
   text-decoration:none;
 }
 a:hover { text-decoration:underline; }
+a.highlight_link { text-decoration:underline; }
+a.highlight_link:hover { text-decoration:none; }
 #global {
   margin:0 auto;
   width:940px;

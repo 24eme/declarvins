@@ -5,7 +5,7 @@
             <?php if($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <li class="backend"><a href="<?php echo url_for('@admin'); ?>">Interface de Gestion</a></li>
             <?php  endif; ?>
-            <li><a href="#">Contact</a></li>
+            <li><a href="<?php echo url_for('@contact') ?>">Contact</a></li>
         </ul>
     </nav>
 

@@ -35,7 +35,7 @@ streamDRMEdi:
 streamVracEdi:
   url: /edi/vrac/:interpro/:datedebut
   param: {module: edi, action: streamVrac}
-streamVracEdi:
+streamDAIDSEdi:
   url: /edi/daids/:interpro/:datedebut
   param: {module: edi, action: streamDAIDS}
 streamStatistiquesBilanDrm:
