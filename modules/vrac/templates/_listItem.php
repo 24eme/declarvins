@@ -30,7 +30,7 @@ if ($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_NONSOL
 <?php if($elt[VracHistoryView::VRAC_VIEW_STATUT] || $isProprietaire): ?>
 <tr class="<?php echo $statusColor; ?>" >
   <td>
-  	<?php if (!$validated): ?>
+  	<?php if (!$validated && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
   	<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" style="left: 5px;" href="<?php echo url_for('vrac_supprimer', array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Supprimer</a>
   	<?php endif; ?>
 	
@@ -51,16 +51,16 @@ if ($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_NONSOL
     <?php if($elt[VracHistoryView::VRAC_VIEW_STATUT]): ?>
     	<?php if ($validated): ?>
     		<?php echo substr($vracid,0,8)."&nbsp;".substr($vracid,8,  strlen($vracid)-1); ?><br />
-      		<a href="<?php echo url_for("vrac_visualisation", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Visualiser le contrat</a>
+      		<a class="highlight_link" href="<?php echo url_for("vrac_visualisation", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Visualiser le contrat</a>
     	<?php else: ?>
     		En attente<br />
 			<?php if ($etablissement && ($etablissement->statut != Etablissement::STATUT_ARCHIVE || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
-    		<a href="<?php echo url_for('vrac_validation', array('numero_contrat' => $vracid, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>">Accéder au contrat</a>
+    		<a class="highlight_link" href="<?php echo url_for('vrac_validation', array('numero_contrat' => $vracid, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>">Accéder au contrat</a>
 			<?php endif; ?>
     	<?php endif; ?>
     <?php else: ?>
     	<?php if ($etablissement && ($etablissement->statut != Etablissement::STATUT_ARCHIVE || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
-      	<a href="<?php echo url_for("vrac_edition", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder au contrat</a>
+      	<a class="highlight_link" href="<?php echo url_for("vrac_edition", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder au contrat</a>
       	<?php endif; ?>
     <?php endif; ?>
       

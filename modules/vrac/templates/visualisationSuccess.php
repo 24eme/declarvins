@@ -36,7 +36,7 @@
                     <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && $vrac->isModifiable()): ?>
 	                    <div id="ligne_btn">
 	                        <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'soussigne', 'etablissement' => $etablissement)) ?>" id="btn_editer_contrat"  class="modifier"> Modifier le contrat</a>
-	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat" onclick="return confirm('Confirmez-vous la suppression de ce contrat ?')"> Annuler le contrat</a>                             
+	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat" onclick="return confirm('Confirmez-vous l\'annulation de ce contrat ?')"> Annuler le contrat</a>                             
 	                    </div>
                     <?php endif; ?>
                 </form>

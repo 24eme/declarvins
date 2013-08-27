@@ -132,6 +132,7 @@ class VracDetailImport
     	$vrac->determination_prix = $this->getDataValue(VracDateView::VALUE_DETERMINATION_PRIX, 'mode de détermination du prix', false);
     	$vrac->export = ($this->datas[VracDateView::VALUE_EXPORT] == 1)? 1 : 0;
     	$vrac->reference_contrat_pluriannuel = $this->getDataValue(VracDateView::VALUE_REFERENCE_CONTRAT_PLURIANNUEL, 'reference contrat pluriannuel', false);
+    	$vrac->date_debut_retiraison = $this->datize($this->getDataValue(VracDateView::VALUE_DATE_DEBUT_RETIRAISON, 'vrac date début de retiraison', false), VracDateView::VALUE_DATE_DEBUT_RETIRAISON, 'vrac date début de retiraison');
     	$vrac->date_limite_retiraison = $this->datize($this->getDataValue(VracDateView::VALUE_DATE_LIMITE_RETIRAISON, 'vrac date limite de retiraison', false), VracDateView::VALUE_DATE_LIMITE_RETIRAISON, 'vrac date limite de retiraison');
   	
     	if ($echeancier = $this->datas[VracDateView::VALUE_PAIEMENTS_DATE]) {

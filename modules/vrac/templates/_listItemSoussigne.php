@@ -8,4 +8,5 @@
           <?php echo $identifiant; ?>    
       <?php endif; ?>
       </span>
+	  <?php if ($signature): ?><br />Signé le <?php echo date('d/m/Y', strtotime($signature)) ?><?php endif; ?>
 <?php endif; ?>
