@@ -37,8 +37,8 @@ class DeclarantDocument
     {
         $etablissement = $this->getEtablissementObject();
         if (!$etablissement) {
-
             throw new sfException(sprintf("L'etablissement %s n'existe pas", $this->getIdentifiant()));
+            return;
         }
         $declarant = $this->getDeclarant();
 
