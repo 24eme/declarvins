@@ -205,4 +205,72 @@ class acCouchdbClient extends couchClient {
         return new acCouchdbDocumentCollection($this->getAllDocs(), $hydrate);
     }
 
+    public function rollBack($id, $revision) {
+        $doc = $this->find($id, self::HYDRATE_JSON);
+
+        if(!$doc) {
+
+            throw new sfException(sprintf("Document %s does not exist", $id, $revision));
+        }
+
+        $doc_to_roll_back = $this->rev($revision)->find($id, self::HYDRATE_JSON);
+
+        if(!$doc_to_roll_back) {
+
+            throw new sfException(sprintf("Document to rollback %s@%s does not exist", $id, $revision));
+        }
+
+        $doc_to_roll_back->_rev = $doc->_rev;   
+
+        $this->storeDoc($doc_to_roll_back);  
+
+        return $doc_to_roll_back;   
+    }
+
+    public function findRevision($id, $revision_search) {
+        $revisions = $this->getRevisions($id);
+        $revision_num = null;
+
+        if(preg_match("/^[0-9]+$/", $revision_search)) {
+            $revision_num = $revision_search;
+        }
+
+        if(preg_match("/^(-|\+)[0-9]+$/", $revision_search)) {
+            $revision_num = max(array_keys($revisions)) + (int)$revision_search;
+        }
+
+        if(preg_match("/^[0-9]+-.+/", $revision_search)) {
+            foreach($revisions as $num => $rev) {
+                if($rev[0] == $revision_search) {
+                   $revision_num = $num;
+                   break;
+                }
+            }
+        }
+
+        if(!$revision_num || !isset($revisions[$revision_num])) {
+            
+            throw new sfException(sprintf("La révision %s n'a pas été trouvé", $revision_search));
+        }
+
+        return $revisions[$revision_num][0];
+    }
+
+    public function getRevisions($id) {
+        
+        $doc = $this->revs_info()->find($id, self::HYDRATE_JSON);
+        
+        if(!$doc) {
+
+            throw new sfException(sprintf("Doc %s not found", $id));
+        }
+
+        $revisions = array();
+        foreach($doc->_revs_info as $rev) {
+            $revisions[preg_replace('/^([0-9]+)-.+/', '\1', $rev->rev)] = array($rev->rev, $rev->status);
+        }
+
+        return $revisions;
+    }
+
 }
