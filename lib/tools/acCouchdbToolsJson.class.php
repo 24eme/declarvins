@@ -8,9 +8,9 @@ class acCouchdbToolsJson {
 	    $i = 0;
 	    foreach($json as $key => $value) {
 	      if($value instanceof stdClass) {
-	        $flat_array = array_merge($flat_array, $this->flattenJson($value, $prefix.$decorator.$key));
+	        $flat_array = array_merge($flat_array, self::json2FlatenArray($value, $prefix.$decorator.$key));
 	      } elseif(is_array($value))  {
-	        $flat_array = array_merge($flat_array, $this->flattenJson($value, $prefix.$decorator.$key.$decorator.'{array}'));
+	        $flat_array = array_merge($flat_array, self::json2FlatenArray($value, $prefix.$decorator.$key.$decorator.'{array}'));
 	      } else {
 	        $flat_array[$prefix.$decorator.$key] = $value;
 	      }
