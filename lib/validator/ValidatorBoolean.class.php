@@ -1,6 +1,11 @@
 <?php
 class ValidatorBoolean extends sfValidatorBoolean
 {
+  protected function configure($options = array(), $messages = array())
+  {
+  	parent::configure($options, $messages);
+    $this->setOption('empty_value', 0);
+  }
 
   /**
    * @see sfValidatorBase
