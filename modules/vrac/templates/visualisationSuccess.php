@@ -15,6 +15,12 @@
 					</p>
 					<?php endif; ?>
 				<?php endif; ?>
+            	<?php if ($sf_user->hasFlash('valide')): ?>
+					<p id="titre" style="text-align: left; margin-bottom: 30px;">
+					Votre validation a bien été prise en compte.<br />
+					Vous recevrez prochainement le contrat validé en pdf (après validation des éventuelles autres parties) ou un message de suppression de contrat (en cas de refus / non validation par l’une des parties).
+					</p>
+				<?php endif; ?>
                 <div id="titre">
                     <span class="style_label">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'En attente'; ?></span>
                 </div>

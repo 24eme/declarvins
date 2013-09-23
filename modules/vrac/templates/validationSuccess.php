@@ -7,10 +7,17 @@
             	<?php if ($sf_user->hasFlash('termine')): ?>
 					<h2>La saisie est terminée !</h2>
 					<p id="titre" style="text-align: left; margin-bottom: 30px;">
-					Votre contrat a bien été enregistré.<br />
-					Vous recevrez une version du contrat en .pdf avec le numéro de contrat lorsque toutes les parties auront validé le contrat.<br />
-					Le contrat ne pourra être considéré comme valable que lorsque vous aurez reçu cette version faisant figurer le numéro de contrat.<br /><br />
-					Attention si le contrat n’est pas validé d'ici 10 jours par vos partenaires, il sera automatiquement supprimé et non valable.
+					Votre contrat a bien été enregistré. Vous allez recevoir un mail de confirmation.<br />
+					Il va être envoyé aux autres parties concernées pour validation.<br />
+					Vous recevrez une version du contrat en .pdf avec le numéro de contrat (VISA Interprofessionnel) lorsque toutes les parties auront validé le contrat (ou un message d’annulation de contrat en cas de refus / non validation par l’une des parties).<br /><br />
+					Le contrat ne sera valable que lorsque vous aurez reçu cette version faisant figurer le numéro de contrat.<br /><br />
+					Attention si le contrat n’est pas validé d’ici 10 jours par vos partenaires, il sera automatiquement supprimé et non valable.
+					</p>
+				<?php endif; ?>
+            	<?php if ($sf_user->hasFlash('valide')): ?>
+					<p id="titre" style="text-align: left; margin-bottom: 30px;">
+					Votre validation a bien été prise en compte.<br />
+					Vous recevrez prochainement le contrat validé en pdf (après validation des éventuelles autres parties) ou un message de suppression de contrat (en cas de refus / non validation par l’une des parties).
 					</p>
 				<?php endif; ?>
                 <div id="titre">

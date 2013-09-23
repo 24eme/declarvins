@@ -47,6 +47,33 @@ class Vrac extends BaseVrac
         return EtablissementClient::getInstance()->find($this->mandataire_identifiant,acCouchdbClient::HYDRATE_DOCUMENT);
     }
     
+    public function vendeurHasCompteActif()
+    {
+    	$etablissement = $this->getVendeurObject();
+    	if ($compte = $etablissement->getCompteObject()) {
+    		return ($compte->statut == _Compte::STATUT_INSCRIT);
+    	}
+    	return false;
+    }
+    
+    public function acheteurHasCompteActif()
+    {
+    	$etablissement = $this->getAcheteurObject();
+    	if ($compte = $etablissement->getCompteObject()) {
+    		return ($compte->statut == _Compte::STATUT_INSCRIT);
+    	}
+    	return false;
+    }
+    
+    public function mandataireHasCompteActif()
+    {
+    	$etablissement = $this->getMandataireObject();
+    	if ($compte = $etablissement->getCompteObject()) {
+    		return ($compte->statut == _Compte::STATUT_INSCRIT);
+    	}
+    	return false;
+    }
+    
     public function getSoussigneObjectById($soussigneId) 
     {
         return EtablissementClient::getInstance()->find($soussigneId,acCouchdbClient::HYDRATE_DOCUMENT);
