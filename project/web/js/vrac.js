@@ -427,8 +427,6 @@
 			for(key in params) {
 				bloc_html = bloc_html.replace(new RegExp(key, "g"), params[key]);
 			}
-			
-			console.log(bloc_html);
 
 	        var bloc = $($(this).attr('data-container')).append(bloc_html);
 

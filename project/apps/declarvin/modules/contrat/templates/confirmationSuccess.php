@@ -13,11 +13,10 @@ function closeCompte() {
 		    <p class="flash_notice"><?php echo $sf_user->getFlash('success'); ?></p>
                     <br />
 		<?php endif; ?>
-		<p class="txt-espace">
-		Vous allez recevoir un email à l'adresse : <strong><?php echo $contrat->email ?></strong> contenant un contrat mandat à signer et à retourner par courrier à votre interprofession.<br />
-		Dès que votre interprofession aura mis à jour vos données et votre compte, vous recevrez un second email afin de créer votre identifiant et votre mot de passe et d'activer définitivement votre compte.<br />
-		Vous pouvez fermer cette page.<br /><br />
-		Si vous n'avez pas reçu d'email :
+		<p class="txt-espace">Vous allez recevoir un email à l'adresse : <strong><?php echo $contrat->email ?></strong> contenant un contrat d'inscription à signer et à retourner par courrier à votre interprofession avec votre K-Bis.</p>
+		<p class="txt-espace">En parallèle, votre interprofession vous fait parvenir le cas échéant par mail les avenants précisant les services disponibles, et notamment les contrats mandats de dépôts mis en place.</p>
+		<p class="txt-espace">Dès que votre interprofession aura mis à jour vos données et votre compte, vous recevrez un autre mail afin de créer votre identifiant et votre mot de passe et d'activer définitivement votre compte.</p><br /><br />
+		<p class="txt-espace">Si vous n'avez pas reçu d'email :</p>
 		<ul>
         	<li>Vérifiez vos spams</li>
             <li>L'adresse mail indiqué plus haut est peut-être erronée, <a href="javascript:updateCompte()">Veuillez cliquer ici pour la modifier.</a></li>

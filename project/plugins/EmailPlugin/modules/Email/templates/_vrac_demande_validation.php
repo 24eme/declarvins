@@ -1,30 +1,51 @@
 <?php echo include_partial('Email/headerMail') ?>
 
-Entreprise : <?php echo $vrac->{$acteur}->raison_sociale.' '.$vrac->{$acteur}->nom.' '.$vrac->{$acteur}->commune; ?><br /><br />
+Entreprise :  <?php echo ($vrac->{$acteur}->raison_sociale)? $vrac->{$acteur}->raison_sociale : $vrac->{$acteur}->nom; ?><?php if ($vrac->{$acteur}->telephone) {echo ' '.$vrac->{$acteur}->telephone;} if ($vrac->{$acteur}->fax) {echo ' '.$vrac->{$acteur}->fax;} if ($vrac->{$acteur}->email) {echo ' '.$vrac->{$acteur}->email;} ?><br /><br />
 Madame, Monsieur,<br /><br />
-L'entreprise <?php echo ($vrac->{$vrac->vous_etes}->raison_sociale)? $vrac->{$vrac->vous_etes}->raison_sociale : $vrac->{$vrac->vous_etes}->nom; ?> a saisi un contrat de transaction <?php echo strtolower($vrac->type) ?> vous concernant.<br /><br />
+L'entreprise <?php echo ($vrac->{$vrac->vous_etes}->raison_sociale)? $vrac->{$vrac->vous_etes}->raison_sociale : $vrac->{$vrac->vous_etes}->nom; ?> a saisi un contrat de transaction vous concernant.<br /><br />
 Le contrat saisi porte sur la transaction suivante :<br />
 Date de saisie : <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?><br />
-Produit : <?php echo $vrac->getLibelleProduit() ?> <br />
+Produit : <?php echo $vrac->getLibelleProduit() ?><br />
 Millésime : <?php echo $vrac->millesime ?><br />
 Type : <?php echo $vrac->type ?><br />
 Quantité : <?php echo $vrac->volume_propose ?>hl<br />
-Prix : <?php echo $vrac->prix_unitaire ?>€/hl<br />
+Prix : <?php echo $vrac->prix_unitaire ?>€ net HT /hl<br />
+<?php if ($vrac->vendeur_identifiant): ?>
+Vendeur :<br />
+<ul>
+	<li>Nom commercial : <?php echo ($vrac->vendeur->nom)? $vrac->vendeur->nom : $vrac->vendeur->raison_sociale; ?></li>
+	<li>Adresse e-mail : <?php echo $vrac->vendeur->email; ?></li>
+	<li>Inscrit sur DeclarVins.net : <?php echo ($vrac->vendeurHasCompteActif())? 'oui' : 'non'; ?></li>
+</ul> 
+<br />
+<?php endif; ?>
 <?php if ($vrac->acheteur_identifiant): ?>
-Acheteur : <?php echo ($vrac->acheteur->raison_sociale)? $vrac->acheteur->raison_sociale : $vrac->acheteur->nom; ?><br />
+Acheteur :<br />
+<ul>
+	<li>Nom commercial : <?php echo ($vrac->acheteur->nom)? $vrac->acheteur->nom : $vrac->acheteur->raison_sociale; ?></li>
+	<li>Adresse e-mail : <?php echo $vrac->acheteur->email; ?></li>
+	<li>Inscrit sur DeclarVins.net : <?php echo ($vrac->acheteurHasCompteActif())? 'oui' : 'non'; ?></li>
+</ul> 
+<br />
 <?php endif; ?>
 <?php if ($vrac->mandataire_identifiant): ?>
-Courtier : <?php echo ($vrac->mandataire->raison_sociale)? $vrac->mandataire->raison_sociale : $vrac->mandataire->nom; ?><br />
-<?php endif; ?>
-<?php if ($vrac->vendeur_identifiant): ?>
-Vendeur : <?php echo ($vrac->vendeur->raison_sociale)? $vrac->vendeur->raison_sociale : $vrac->vendeur->nom; ?><br />
+Courtier :<br />
+<ul>
+	<li>Nom commercial : <?php echo ($vrac->mandataire->nom)? $vrac->mandataire->nom : $vrac->mandataire->raison_sociale; ?></li>
+	<li>Adresse e-mail : <?php echo $vrac->mandataire->email; ?></li>
+	<li>Inscrit sur DeclarVins.net : <?php echo ($vrac->mandataireHasCompteActif())? 'oui' : 'non'; ?></li>
+</ul> 
+<br />
 <?php endif; ?>
 Commentaire : <?php echo $vrac->commentaires ?><br /><br />
-Ce contrat ne pourra être considéré comme valable que lorsque toutes les parties concernées l'auront validé.<br />
-Vous recevrez alors une version du contrat en .pdf avec le numéro de contrat.<br /><br />
-Attention si le contrat n'est pas validé dans les 10 jours à compter de sa date de saisie, il sera automatiquement supprimé et non valable.<br /><br />
-<strong>Si vous souhaitez valider ce contrat : </strong><a href="<?php echo ProjectConfiguration::getAppRouting()->generate('vrac_validation', array('sf_subject' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur), true); ?>">Cliquez ici pour valider ou refuser le contrat</a>.<br /><br />
-Pour toute information, vous pouvez contacter votre interprofession.<br /><br />
+<strong>Si vous souhaitez valider ou refuser ce contrat, cliquez sur le lien suivant : <a href="<?php echo ProjectConfiguration::getAppRouting()->generate('vrac_validation', array('sf_subject' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur), true); ?>">Valider ou refuser le contrat</a></strong><br /><br />
+Si vous n'êtes pas inscrit sur DeclarVins.net, nous vous invitons à vous inscrire en suivant le lien : <a href="<?php echo ProjectConfiguration::getAppRouting()->generate('homepage', array(), true); ?>">Inscription à DeclarVins.net</a><br />
+Le contrat ne sera valable que lorsque vous aurez reçu la version pdf faisant figurer le numéro de contrat.<br /><br />
+Attention si le contrat n'est pas validé dans les 10 jours à compter de sa date de saisie, il sera automatiquement supprimé et non valable.<br />
+Vous recevrez un rappel dans 5 jours.<br />
+Si un des partenaires n'est pas inscrit sur DeclarVins, l'interprofession peut valider un contrat interprofessionnel en back office si elle est en possession d'une contrepartie écrite, signée. Une fois que toutes les parties ont signé, cela crée un numéro de VISA et envoie un mail avec le contrat en pdf à toutes les parties.<br /><br />
+Aidez vos partenaires à s'inscrire pour profiter des services de DeclarVins et gagner du temps, notamment signer en ligne les contrats interprofessionnels : affectation d'un numéro de VISA, et envoi d'un mail avec le contrat valide en pdf à toutes les parties IMMEDIAT (dès signature par la dernière partie concernée).<br /><br />
+Pour toute information, vous pouvez <a href="<?php echo ProjectConfiguration::getAppRouting()->generate('contact', array(), true); ?>">contacter votre interprofession</a><br /><br />
 Cordialement,<br /><br />
 L'équipe Declarvins.net 
 

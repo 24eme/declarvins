@@ -9,12 +9,12 @@ class vracActions extends acVinVracActions
 	protected function saisieTerminee($vrac, $interpro) {
 		$acteurs = VracClient::getInstance()->getActeurs();
 		$saisisseur = $vrac->vous_etes;
-		/*if ($saisisseur && in_array($saisisseur, $acteurs)) {
+		if ($saisisseur && in_array($saisisseur, $acteurs)) {
 			if ($email = $vrac->get($saisisseur)->email) {
 				$etablissement = EtablissementClient::getInstance()->find($vrac->get($saisisseur.'_identifiant'));
 				Email::getInstance()->vracSaisieTerminee($vrac, $etablissement, $email);
 			}
-		}*/
+		}
 		unset($acteurs[array_search($saisisseur, $acteurs)]);
 		if (!$vrac->mandataire_exist) {
 			unset($acteurs[array_search(VracClient::VRAC_TYPE_COURTIER, $acteurs)]);
@@ -101,13 +101,13 @@ class vracActions extends acVinVracActions
 						if ($compte->statut == _Compte::STATUT_ARCHIVE) {
 							if ($interpro->email_contrat_vrac) {
 								if ($send_mail)
-									Email::getInstance()->vracContratAnnulation($vrac, $etab, $interpro->email_contrat_vrac);
+									Email::getInstance()->vracContratAnnulation($vrac, $etab, $acteur, $interpro->email_contrat_vrac);
 							}
 						}
 					}
 				}
 				if ($send_mail)
-					Email::getInstance()->vracContratAnnulation($vrac, $etab, $email);
+					Email::getInstance()->vracContratAnnulation($vrac, $etab, $acteur, $email);
 			}
 		}	
 	}
