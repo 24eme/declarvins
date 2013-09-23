@@ -2,6 +2,7 @@
 class Etablissement extends BaseEtablissement {
 
     protected $_interpro = null;
+    protected $_compte = null;
     protected $droit = null;
 
     const STATUT_ACTIF = "ACTIF";
@@ -18,6 +19,16 @@ class Etablissement extends BaseEtablissement {
         }
         
         return $this->_interpro;
+    }
+    
+    public function getCompteObject() {
+        if (is_null($this->_compte)) {
+        	if ($this->compte) {
+            	$this->_compte = _CompteClient::getInstance()->find($this->compte);
+        	}
+        }
+        
+        return $this->_compte;
     }
     
     public function constructId() {
