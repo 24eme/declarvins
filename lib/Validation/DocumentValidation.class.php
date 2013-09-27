@@ -13,10 +13,13 @@ abstract class DocumentValidation
     protected $controles = array();
 
     protected $points = array();
+    
+    protected $noticeVigilance;
 
     public function __construct($document, $options = null)
     {
         $this->document = $document;
+        $this->noticeVigilance = true;
 
         foreach($this->types as $type) {
             $this->points[$type] = array();
@@ -115,5 +118,10 @@ abstract class DocumentValidation
     protected function isTypeExist($type) {
 
         return in_array($type, $this->types);
+    }
+    
+    public function printNoticeVigilance()
+    {
+    	return $this->noticeVigilance;
     }
 }
