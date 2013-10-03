@@ -2,10 +2,6 @@
 abstract class _Compte extends acVinCompte {  
 	
     protected $gerant_interpro = null;
-	const STATUT_FICTIF = 'FICTIF';
-	const STATUT_ARCHIVE = 'ARCHIVE';
-    const STATUT_ATTENTE = "EN_ATTENTE";
-    const STATUT_VALIDE = "VALIDE";
     
     public function getGecos() 
     {
