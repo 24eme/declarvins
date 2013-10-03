@@ -53,15 +53,15 @@ EOF;
 					if ($compte = _CompteClient::getInstance()->find($etablissement->compte)) {
 						if ($compte->statut == _Compte::STATUT_ARCHIVE) {
 							if ($interpro->email_contrat_vrac) {
-								Email::getInstance()->vracContratExpiration($vrac, $etablissement, $interpro->email_contrat_vrac);
+								Email::getInstance(sfContext::createInstance($this->configuration))->vracExpirationContrat($vrac, $etablissement, $interpro->email_contrat_vrac);
 							}
 						}
 					}
 				}
-				Email::getInstance()->vracContratExpiration($vrac, $etablissement, $email);
+				Email::getInstance(sfContext::createInstance($this->configuration))->vracExpirationContrat($vrac, $etablissement, $email);
 			}
 		}
-  		
+  		$this->logSection('vrac-expiration', 'Expiration du contrat '.$vrac->_id);
   		$vrac->delete();
   	}
   }
