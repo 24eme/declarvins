@@ -31,6 +31,12 @@ abstract class acVinCompte extends BaseacVinCompte
     const STATUT_ACTIF = 'ACTIF';
     const STATUT_MOT_DE_PASSE_OUBLIE = 'MOT_DE_PASSE_OUBLIE';
     
+    
+	const STATUT_FICTIF = 'FICTIF';
+	const STATUT_ARCHIVE = 'ARCHIVE';
+    const STATUT_ATTENTE = "EN_ATTENTE";
+    const STATUT_VALIDE = "VALIDE";
+    
 	/**
      *
      * @param string $mot_de_passe
