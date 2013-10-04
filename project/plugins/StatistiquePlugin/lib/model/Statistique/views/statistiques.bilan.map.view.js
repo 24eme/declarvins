@@ -15,7 +15,7 @@ function(doc) {
 			var pays = (doc.declarant.siege.pays)? doc.declarant.siege.pays : "";
 			var service_douane = (doc.declarant.service_douane)? doc.declarant.service_douane : "";
 			var total = (doc.declaration.total)? doc.declaration.total : 0;
-			var date_sasie = (doc.valide.date_sasie)? doc.valide.date_sasie : "";
+			var date_saisie = (doc.valide.date_saisie)? doc.valide.date_saisie : "";
 			var email = (doc.declarant.email)? doc.declarant.email : "";
 			var telephone = (doc.declarant.telephone)? doc.declarant.telephone : "";
 			var fax = (doc.declarant.fax)? doc.declarant.fax : "";
@@ -34,7 +34,7 @@ function(doc) {
 			pays,
 			service_douane,
 			total,
-			date_sasie,
+			date_saisie,
 			email,
 			telephone,
 			fax
