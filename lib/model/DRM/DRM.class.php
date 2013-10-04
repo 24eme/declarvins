@@ -15,6 +15,10 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     public function  __construct() {
         parent::__construct();   
         $this->initDocuments();
+        $config_certifications = ConfigurationClient::getCurrent()->declaration->certifications;
+        foreach ($config_certifications as $key => $config_certification) {
+        	$this->declaration->certifications->add($key);
+        }
     }
 
     public function __clone() {

@@ -10,12 +10,13 @@ class drmComponents extends sfComponents {
         foreach ($this->config_certifications as $certification_config) {
             if ($this->drm->exist($certification_config->getHash())) {
             	$certif = $this->drm->get($certification_config->getHash());
-            	if ($certif->hasMouvementCheck()) {
+            	if ($certif->hasMouvementCheck() && count($certif->genres) > 0) {
 	                $this->certifications[$i] = $this->drm->get($certification_config->getHash());
 	                $i++;
             	}
             }
         }
+        
         $nbCertifs = count($this->certifications);
         if (count($this->drm->getDetailsAvecVrac()) > 0) {
 	        $this->numeros = array(
@@ -47,7 +48,7 @@ class drmComponents extends sfComponents {
 
         if ($this->etape == 'recapitulatif') {
             foreach ($this->config_certifications as $certification_config) {
-                if ($this->drm->exist($certification_config->getHash())) {
+                if ($this->drm->exist($certification_config->getHash()) && count($this->drm->get($certification_config->getHash())->genres) > 0) {
                     if ($this->certification == $certification_config->getKey()) {
                         break;
                     }

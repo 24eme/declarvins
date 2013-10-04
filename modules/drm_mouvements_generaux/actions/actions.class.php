@@ -19,13 +19,12 @@ class drm_mouvements_generauxActions extends sfActions
 		}
         $this->first_certification = null;
         if(count($this->drm->declaration->certifications) > 0) {
-    		$config_certifications = ConfigurationClient::getCurrent()->declaration->certifications;
-    		foreach ($config_certifications as $k => $certification_config) {
-    			if ($this->drm->declaration->certifications->exist($k)) {
-    				$this->first_certification = $this->drm->declaration->certifications->get($k);
-    				break;
-    			}
-    		}
+        	foreach ($this->drm->declaration->certifications as $key => $certification) {
+        		if (count($this->drm->declaration->certifications->get($key)->genres) > 0) {
+        			$this->first_certification = $this->drm->declaration->certifications->get($key);
+        			break;
+        		}
+        	}
         }
         if ($request->isMethod(sfWebRequest::POST)) {
         	$this->form->bind($request->getParameter($this->form->getName()));
