@@ -53,7 +53,7 @@ EOF;
     $ir->set('_id', 'INTERPRO-IR');
     $this->identifiant = 'IR';
     $ir->nom = 'InterRhône';
-    $ir->email_contrat_vrac = '';
+    $ir->email_contrat_vrac = 'contrats@inter-rhone.com';
     $ir->save();
     $this->logSection('interpro', 'InterRhone importé');
 
@@ -65,6 +65,7 @@ EOF;
     $ise->set('_id', 'INTERPRO-IVSE');
     $this->identifiant = 'IVSE';
     $ise->nom = "Intervins Sud-Est";
+    $ise->email_contrat_vrac = '';
     $ise->save();
     $this->logSection('interpro', 'Intervins Sud-Est importé');
   }

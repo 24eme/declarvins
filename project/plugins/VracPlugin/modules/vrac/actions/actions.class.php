@@ -45,10 +45,12 @@ class vracActions extends acVinVracActions
 		if (!$vrac->mandataire_exist) {
 			unset($acteurs[array_search(VracClient::VRAC_TYPE_COURTIER, $acteurs)]);
 		}
+		$interpros = array();
 		foreach ($acteurs as $acteur) {
 			if ($email = $vrac->get($acteur)->email) {
 				$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
 				$interpro = $this->getInterpro($vrac, $etablissement);
+				$interpros[$interpro->_id] = $interpro;
 				$configurationVrac = $this->getConfigurationVrac($interpro->_id);
 				$pdf = new ExportVracPdf($vrac, $configurationVrac);
     			$pdf->generate();
@@ -62,6 +64,11 @@ class vracActions extends acVinVracActions
 					}
 				}
 				Email::getInstance()->vracContratValide($vrac, $etablissement, $email);
+			}
+		}
+		foreach ($interpros as $interpro) {
+			if ($interpro->email_contrat_vrac) {
+				Email::getInstance()->vracContratValideInterpro($vrac, $interpro->email_contrat_vrac);
 			}
 		}
 	}
