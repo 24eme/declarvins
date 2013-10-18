@@ -113,13 +113,15 @@ class DRMDetail extends BaseDRMDetail {
         $this->total_entrees = $this->getTotalByKey('entrees');
         $this->total_sorties = $this->getTotalByKey('sorties');
         $this->total = $this->total_debut_mois + $this->total_entrees - $this->total_sorties;
-        if (!in_array(substr($this->getCepage()->getHash(),1), ConfigurationClient::getInstance()->findHashProduitsNoCvo($this->getDocument()->getInterpro()->getKey()))) {
-        	$this->total_debut_mois_net = $this->total_debut_mois;
+        if ($this->has_vrac) {
+        	$this->total_debut_mois_interpro = $this->total_debut_mois;
+            $this->total_entrees_interpro = $this->getTotalByKey('entrees');
+            $this->total_sorties_interpro = $this->getTotalByKey('sorties');
         	$this->total_entrees_nettes = $this->sommeLignes(DRMVolumes::getEntreesNettes());
         	$this->total_entrees_reciproque = $this->sommeLignes(DRMVolumes::getEntreesReciproque());
         	$this->total_sorties_nettes = $this->sommeLignes(DRMVolumes::getSortiesNettes());
         	$this->total_sorties_reciproque = $this->sommeLignes(DRMVolumes::getSortiesReciproque());
-        	$this->total_net = $this->total_entrees_nettes + $this->total_entrees_reciproque + $this->total_entrees_reciproque - $this->total_sorties_nettes - $this->total_sorties_reciproque;
+            $this->total_interpro = $this->total_debut_mois_interpro + $this->total_entrees_interpro - $this->total_sorties_interpro;
         }
         if (!$this->code) {
         	$this->code = $this->getFormattedCode();
@@ -265,12 +267,14 @@ class DRMDetail extends BaseDRMDetail {
       $this->total_entrees = null;
       $this->total_sorties = null;
       $this->total = null;
-      $this->total_debut_mois_net = ($keepStock)? $this->total_net : null;
       $this->total_entrees_nettes = null;
       $this->total_entrees_reciproque = null;
       $this->total_sorties_nettes = null;
       $this->total_sorties_reciproque = null;
-      $this->total_net = null;
+      $this->total_debut_mois_interpro = ($keepStock)? $this->total_interpro : null;
+      $this->total_entrees_interpro = null;
+      $this->total_sorties_interpro = null;
+      $this->total_interpro = null;
       $this->cvo->taux = null;
       $this->douane->taux = null;
       $this->selecteur = 1;
@@ -280,7 +284,9 @@ class DRMDetail extends BaseDRMDetail {
        		if ($daids->exist($this->getHash())) {
        			$detailDAIDS = $daids->get($this->getHash());
        			$this->total_debut_mois = $detailDAIDS->stock_chais;
-       			$this->total_debut_mois_net = $detailDAIDS->stock_chais;
+       			if ($this->has_vrac) {
+       				$this->total_debut_mois_interpro = $detailDAIDS->stock_chais;
+       			}
        		}
        	}
        	$this->pas_de_mouvement_check = 0;

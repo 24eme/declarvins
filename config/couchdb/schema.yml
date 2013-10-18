@@ -75,12 +75,14 @@ DRM:
             total_entrees: { type: float }
             total_sorties: { type: float }
             total: { type: float }
-            total_debut_mois_net: { type: float }
             total_entrees_nettes: { type: float }
             total_entrees_reciproque: { type: float }
             total_sorties_nettes: { type: float }
             total_sorties_reciproque: { type: float }
-            total_net: { type: float }
+            total_debut_mois_interpro: { type: float }
+            total_entrees_interpro: { type: float }
+            total_sorties_interpro: { type: float }
+            total_interpro: { type: float }
             certifications:
               type: collection
               definition:
@@ -99,12 +101,14 @@ DRM:
                         total_entrees: { type: float }
                         total_sorties: { type: float }
                         total: { type: float }
-                        total_debut_mois_net: { type: float }
                         total_entrees_nettes: { type: float }
                         total_entrees_reciproque: { type: float }
                         total_sorties_nettes: { type: float }
                         total_sorties_reciproque: { type: float }
-                        total_net: { type: float }
+                        total_debut_mois_interpro: { type: float }
+                        total_entrees_interpro: { type: float }
+                        total_sorties_interpro: { type: float }
+                        total_interpro: { type: float }
                         genres:
                           type: collection
                           definition:
@@ -123,12 +127,14 @@ DRM:
                                     total_entrees: { type: float }
                                     total_sorties: { type: float }
                                     total: { type: float }
-                                    total_debut_mois_net: { type: float }
                                     total_entrees_nettes: { type: float }
                                     total_entrees_reciproque: { type: float }
                                     total_sorties_nettes: { type: float }
                                     total_sorties_reciproque: { type: float }
-                                    total_net: { type: float }
+                                    total_debut_mois_interpro: { type: float }
+                                    total_entrees_interpro: { type: float }
+                                    total_sorties_interpro: { type: float }
+                                    total_interpro: { type: float }
                                     appellations:
                                       type: collection
                                       definition:
@@ -147,12 +153,14 @@ DRM:
                                                 total_entrees: { type: float }
                                                 total_sorties: { type: float }
                                                 total: { type: float }
-                                                total_debut_mois_net: { type: float }
                                                 total_entrees_nettes: { type: float }
                                                 total_entrees_reciproque: { type: float }
                                                 total_sorties_nettes: { type: float }
                                                 total_sorties_reciproque: { type: float }
-                                                total_net: { type: float }
+                                                total_debut_mois_interpro: { type: float }
+                                                total_entrees_interpro: { type: float }
+                                                total_sorties_interpro: { type: float }
+                                                total_interpro: { type: float }
                                                 mentions:
                                                   type: collection
                                                   definition:
@@ -171,12 +179,14 @@ DRM:
                                                             total_entrees: { type: float }
                                                             total_sorties: { type: float }
                                                             total: { type: float }
-                                                            total_debut_mois_net: { type: float }
                                                             total_entrees_nettes: { type: float }
                                                             total_entrees_reciproque: { type: float }
                                                             total_sorties_nettes: { type: float }
                                                             total_sorties_reciproque: { type: float }
-                                                            total_net: { type: float }
+                                                            total_debut_mois_interpro: { type: float }
+                                                            total_entrees_interpro: { type: float }
+                                                            total_sorties_interpro: { type: float }
+                                                            total_interpro: { type: float }
                                                             lieux:
                                                               type: collection
                                                               definition:
@@ -195,12 +205,14 @@ DRM:
                                                                         total_entrees: { type: float }
                                                                         total_sorties: { type: float }
                                                                         total: { type: float }
-                                                                        total_debut_mois_net: { type: float }
                                                                         total_entrees_nettes: { type: float }
                                                                         total_entrees_reciproque: { type: float }
                                                                         total_sorties_nettes: { type: float }
                                                                         total_sorties_reciproque: { type: float }
-                                                                        total_net: { type: float }
+                                                                        total_debut_mois_interpro: { type: float }
+                                                                        total_entrees_interpro: { type: float }
+                                                                        total_sorties_interpro: { type: float }
+                                                                        total_interpro: { type: float }
                                                                         couleurs:
                                                                           type: collection
                                                                           definition:
@@ -219,12 +231,14 @@ DRM:
                                                                                     total_entrees: { type: float }
                                                                                     total_sorties: { type: float }
                                                                                     total: { type: float }
-                                                                                    total_debut_mois_net: { type: float }
                                                                                     total_entrees_nettes: { type: float }
                                                                                     total_entrees_reciproque: { type: float }
                                                                                     total_sorties_nettes: { type: float }
                                                                                     total_sorties_reciproque: { type: float }
-                                                                                    total_net: { type: float }
+                                                                                    total_debut_mois_interpro: { type: float }
+                                                                                    total_entrees_interpro: { type: float }
+                                                                                    total_sorties_interpro: { type: float }
+                                                                                    total_interpro: { type: float }
                                                                                     cepages:
                                                                                       type: collection
                                                                                       definition:
@@ -243,12 +257,14 @@ DRM:
                                                                                                 total_entrees: { type: float }
                                                                                                 total_sorties: { type: float }
                                                                                                 total: { type: float }
-                                                                                                total_debut_mois_net: { type: float }
                                                                                                 total_entrees_nettes: { type: float }
                                                                                                 total_entrees_reciproque: { type: float }
                                                                                                 total_sorties_nettes: { type: float }
                                                                                                 total_sorties_reciproque: { type: float }
-                                                                                                total_net: { type: float }
+                                                                                                total_debut_mois_interpro: { type: float }
+                                                                                                total_entrees_interpro: { type: float }
+                                                                                                total_sorties_interpro: { type: float }
+                                                                                                total_interpro: { type: float }
                                                                                                 details:
                                                                                                   type: collection
                                                                                                   class: DRMDetails
@@ -262,17 +278,20 @@ DRM:
                                                                                                             code: {  }
                                                                                                             libelle: {  }
                                                                                                             selecteur: {  }
+                                                                                                            has_vrac: {  }
                                                                                                             pas_de_mouvement_check: { type: integer }
                                                                                                             total_debut_mois: { type: float }
                                                                                                             total_entrees: { type: float }
                                                                                                             total_sorties: { type: float }
                                                                                                             total: { type: float }
-                                                                                                            total_debut_mois_net: { type: float }
                                                                                                             total_entrees_nettes: { type: float }
                                                                                                             total_entrees_reciproque: { type: float }
                                                                                                             total_sorties_nettes: { type: float }
                                                                                                             total_sorties_reciproque: { type: float }
-                                                                                                            total_net: { type: float }
+                                                                                                            total_debut_mois_interpro: { type: float }
+                                                                                                            total_entrees_interpro: { type: float }
+                                                                                                            total_sorties_interpro: { type: float }
+                                                                                                            total_interpro: { type: float }
                                                                                                             labels:
                                                                                                               type: array_collection
                                                                                                               definition:

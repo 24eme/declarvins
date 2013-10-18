@@ -1,6 +1,13 @@
 <?php use_helper('Version'); ?>
 <?php use_helper('Float'); ?>
-<?php foreach($drm->declaration->certifications as $certification): ?>
+<?php 
+	foreach($drm->declaration->certifications as $certification): 
+	$details = $certification->getProduits();
+	$i = 1;
+	if (!(count($details) > 0)) {
+		continue;
+	}
+?>
 	<div class="tableau_ajouts_liquidations">
 		<h2><?php echo $certification->getConfig()->libelle ?></h2>
 		<table class="tableau_recap">
@@ -14,8 +21,6 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php $details = $certification->getProduits(); 
-					  $i = 1;?>
 
 				<?php foreach($details as $detail): 
                         $i++; ?>

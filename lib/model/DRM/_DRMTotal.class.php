@@ -35,13 +35,15 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
         $this->total_entrees = null;
         $this->total_sorties = null;
         $this->total = null;
+        $this->total_debut_mois_interpro = null;
+        $this->total_entrees_interpro = null;
+        $this->total_sorties_interpro = null;
+        $this->total_interpro = null;
         $this->selecteur = 1;
-        $this->total_debut_mois_net = null;
 		$this->total_entrees_nettes = null;
 		$this->total_entrees_reciproque = null;
 		$this->total_sorties_nettes = null;
 		$this->total_sorties_reciproque = null;
-		$this->total_net = null;
     }
     
 	protected function update($params = array()) {
@@ -49,11 +51,13 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
 		$sumTotalDebutMois = 0;
 		$sumTotalEntrees = 0;
 		$sumTotalSorties = 0;
-		$sumTotalDebutMoisNet = 0;
 		$sumTotalEntreesNettes = 0;
 		$sumTotalEntreesReciproque = 0;
 		$sumTotalSortiesNettes = 0;
 		$sumTotalSortiesReciproque = 0;
+		$sumTotalDebutMoisInterpro = 0;
+		$sumTotalEntreesInterpro = 0;
+		$sumTotalSortiesInterpro = 0;
 		$fields = $this->getFields();
     	foreach ($fields as $field => $k) {
     		if ($this->fieldIsCollection($field)) {
@@ -69,8 +73,14 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     					if ($v->exist('total_sorties')) {
 		    				$sumTotalSorties += $v->get('total_sorties');
     					}
-    					if ($v->exist('total_debut_mois_net')) {
-		    				$sumTotalDebutMoisNet += $v->get('total_debut_mois_net');
+    					if ($v->exist('total_debut_mois_interpro')) {
+		    				$sumTotalDebutMoisInterpro += $v->get('total_debut_mois_interpro');
+    					}
+    					if ($v->exist('total_entrees_interpro')) {
+		    				$sumTotalEntreesInterpro += $v->get('total_entrees_interpro');
+    					}
+    					if ($v->exist('total_sorties_interpro')) {
+		    				$sumTotalSortiesInterpro += $v->get('total_sorties_interpro');
     					}
     					if ($v->exist('total_entrees_nettes')) {
 		    				$sumTotalEntreesNettes += $v->get('total_entrees_nettes');
@@ -92,12 +102,14 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
         $this->total_entrees = $sumTotalEntrees;
         $this->total_sorties = $sumTotalSorties;
         $this->total = $sumTotalDebutMois + $sumTotalEntrees - $sumTotalSorties;
-        $this->total_debut_mois_net = $sumTotalDebutMoisNet;
+        $this->total_debut_mois_interpro = $sumTotalDebutMoisInterpro;
+        $this->total_entrees_interpro = $sumTotalEntreesInterpro;
+        $this->total_sorties_interpro = $sumTotalSortiesInterpro;
+        $this->total_interpro = $sumTotalDebutMoisInterpro + $sumTotalEntreesInterpro - $sumTotalSortiesInterpro;
         $this->total_entrees_nettes = $sumTotalEntreesNettes;
         $this->total_entrees_reciproque = $sumTotalEntreesReciproque;
         $this->total_sorties_nettes = $sumTotalSortiesNettes;
         $this->total_sorties_reciproque = $sumTotalSortiesReciproque;
-        $this->total_net = $sumTotalDebutMoisNet + $sumTotalEntreesNettes + $sumTotalEntreesReciproque - $sumTotalSortiesNettes - $sumTotalSortiesReciproque;
         if ($this->exist('code') && $this->exist('libelle')) {
         	if (!$this->code) {
         		$this->code = $this->getFormattedCode();

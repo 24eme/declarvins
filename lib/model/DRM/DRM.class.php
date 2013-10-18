@@ -798,7 +798,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     protected function replicate($drm) {
         foreach($this->getDiffWithMother() as $key => $value) {
             $this->replicateDetail($drm, $key, $value, 'total', 'total_debut_mois');
-            $this->replicateDetail($drm, $key, $value, 'total_net', 'total_debut_mois_net');
+            $this->replicateDetail($drm, $key, $value, 'total_interpro', 'total_debut_mois_interpro');
             $this->replicateDetail($drm, $key, $value, 'stocks_fin/bloque', 'stocks_debut/bloque');
             $this->replicateDetail($drm, $key, $value, 'stocks_fin/warrante', 'stocks_debut/warrante');
             $this->replicateDetail($drm, $key, $value, 'stocks_fin/instance', 'stocks_debut/instance');

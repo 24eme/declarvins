@@ -2,9 +2,10 @@
 class DRMDateView extends acCouchdbView
 {
 	const KEY_INTERPRO_ID = 0;
-	const KEY_DATE_SAISIE = 1;
-	const KEY_DRM_ID = 2;
-	const KEY_DETAIL_HASH = 3;
+	const KEY_HAS_VRAC = 1;
+	const KEY_DATE_SAISIE = 2;
+	const KEY_DRM_ID = 3;
+	const KEY_DETAIL_HASH = 4;
 
 	const VALUE_TYPE = 0;
 	const VALUE_IDENTIFIANT_DECLARANT = 1;
@@ -79,10 +80,10 @@ class DRMDateView extends acCouchdbView
         return acCouchdbManager::getView('drm', 'date', 'DRM');
     }
 
-    public function findByInterproAndDate($interpro, $date) 
+    public function findByInterproAndDate($interpro, $date, $hasVrac = 1) 
     {
-      	return $this->client->startkey(array($interpro, $date))
-                    		->endkey(array($interpro, $this->getEndISODateForView(), array()))
+      	return $this->client->startkey(array($interpro, $hasVrac, $date))
+                    		->endkey(array($interpro, $hasVrac, $this->getEndISODateForView(), array()))
                     		->getView($this->design, $this->view);
     }
     

@@ -117,6 +117,9 @@ class DRMDetailImport
       	$detail->stocks_fin->warrante = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_WARRANTE])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_WARRANTE]) : null;
       	$detail->stocks_fin->instance = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_INSTANCE])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_INSTANCE]) : null;
       	$detail->stocks_fin->commercialisable = ($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_COMMERCIALISABLE])? $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_STOCKFIN_COMMERCIALISABLE]) : null;
+      	if ($detail->has_vrac) {
+      		$detail->total_debut_mois_interpro = $detail->total_debut_mois;
+      	}
   	}
   	
   	private function floatize($value)
@@ -136,12 +139,12 @@ class DRMDetailImport
       			$detail->entrees->recolte = round($total_entrees,2);
       		}
       	}
-      	if (round($detail->total_sorties,2) != round($total_sorties,2)) {
+      	/*if (round($detail->total_sorties,2) != round($total_sorties,2)) {
       		$this->loggeur->addCalculateColumnLog(DRMDateView::VALUE_DETAIL_SORTIES, 'drm detail total sorties', $total_sorties, $detail->total_sorties);
       	}
       	if (round($detail->total,2) != round($total,2)) {
       		$this->loggeur->addCalculateColumnLog(DRMDateView::VALUE_DETAIL_TOTAL, 'drm detail total fin de mois', $total, $detail->total);
-      	}
+      	}*/
   	}
   
   	private function getDataValue($dataIndice, $dataName, $required = false, $regexp = null)

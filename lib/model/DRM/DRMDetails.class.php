@@ -18,6 +18,8 @@ class DRMDetails extends BaseDRMDetails {
 
 	public function addProduit($labels = array()) {
 		$detail = $this->add($this->slugifyLabels($labels));
+		$config = $detail->getCepage()->getConfig();
+		$detail->has_vrac = $config->has_vrac;
 		$detail->labels = $labels;
 		return $detail;
 	}
