@@ -172,7 +172,7 @@ class ediActions extends sfActions
     $csv_file = '';
     $lastDate = $date;
     foreach ($items as $item) {
-      	$csv_file .= implode(';', $item->value)."\n";
+      		$csv_file .= implode(';', $item->value)."\n";
       	if ($lastDate < $item->value[$dateSaisieIndice]) {
       		$lastDate = $item->value[$dateSaisieIndice];
       	}
