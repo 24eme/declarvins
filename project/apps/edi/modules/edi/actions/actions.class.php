@@ -63,7 +63,7 @@ class ediActions extends sfActions
    */
   public function executeStreamDAIDS(sfWebRequest $request) 
   {
-  	ini_set('memory_limit', '1536M');
+  	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
     $date = $request->getParameter('datedebut');
     $interpro = $request->getParameter('interpro');
@@ -80,7 +80,7 @@ class ediActions extends sfActions
   
   public function executeStreamVrac(sfWebRequest $request) 
   {
-  	ini_set('memory_limit', '1536M');
+  	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
     $date = $request->getParameter('datedebut');
     $interpro = $request->getParameter('interpro');
@@ -97,7 +97,7 @@ class ediActions extends sfActions
   
   public function executeStreamDRM(sfWebRequest $request) 
   {
-  	ini_set('memory_limit', '1536M');
+  	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
     $date = $request->getParameter('datedebut');
     $interpro = $request->getParameter('interpro');
@@ -114,7 +114,7 @@ class ediActions extends sfActions
   
   public function executeStreamStatistiquesBilanDrm(sfWebRequest $request) 
   {
-  	ini_set('memory_limit', '1536M');
+  	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
     $campagne = $request->getParameter('campagne');
     $interpro = $request->getParameter('interpro');
