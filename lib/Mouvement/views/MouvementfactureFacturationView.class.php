@@ -58,11 +58,6 @@ class MouvementfactureFacturationView extends acCouchdbView
 
     protected function consolidationMouvements($rows) {
         foreach($rows as $row) {
-            if($row->value[self::VALUE_ID_ORIGINE]) {
-                $row->value[self::VALUE_ID_ORIGINE] = array($row->value[self::VALUE_ID_ORIGINE]);
-                continue;
-            }
-
             $rows_mouvements = $this->client
             ->startkey($row->key)
             ->endkey(array_merge($row->key, array(array())))
