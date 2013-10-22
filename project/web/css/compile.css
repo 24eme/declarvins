@@ -1903,7 +1903,6 @@ p#date_drm {
   float:left;
   font-size:13px;
   line-height:20px;
-  margin-right:25px;
   position:relative;
   width:297px;
 }
@@ -1950,7 +1949,7 @@ p#date_drm {
   font-weight:bold;
 }
 #colonnes_dr #col_saisies {
-  float:left;
+  float:right;
   padding:0 0 10px;
   position:relative;
   overflow-x:auto;
