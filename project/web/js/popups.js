@@ -205,6 +205,8 @@
 				$(id_popup).dialog('open');
 			}
 		}
+		
+		$.callbackOpenPopup();
 	};
 
 	$.initPopup = function(id_popup, config, titre, href)
@@ -327,6 +329,7 @@
 	                popup.dialog('option' , 'title' , titre);
 	                popup.dialog('open');
 	                
+					$.callbackOpenPopup();
 	            }
             );
 
@@ -335,5 +338,11 @@
 	        return false;
 	    });
 	};
+
+	$.callbackOpenPopup = function()
+	{
+		$('.ui-dialog').insertAfter($('.ui-widget-overlay'));
+	};
+
 
 })(jQuery);
