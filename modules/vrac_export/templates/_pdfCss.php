@@ -334,8 +334,27 @@
 	
 	.clauses 
 	{
-		font-size: 7px;
-    	line-height: 4px;
+		font-size: 8px;
+    	line-height: 1;
+	}
+	
+	.clauses table
+	{
+		width: 100%;
+	}
+	
+	.clauses table td
+	{
+		padding: 0 10px;
+		width: 50%;
+		vertical-align: top;
+	}
+	
+	.clauses ol,
+	.clauses ul
+	{
+		margin: 10px 0 10px 30px;
+		padding: 0;
 	}
 
 </style>
