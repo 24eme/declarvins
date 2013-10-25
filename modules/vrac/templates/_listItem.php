@@ -61,28 +61,46 @@ if ($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_NONSOL
       
   </td>
   <td>
-            <?php include_partial('vrac/listItemSoussigne', array(
-                                                          'identifiant' => $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_ID],
-                                                          'nom' => $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM],
-                                                          'rs' => $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_RAISON_SOCIALE],
-            											  'signature' => $elt[VracHistoryView::VRAC_VIEW_ACHETEURVAL]
-                                                                  )) ?>
+	  <?php if($elt[VracHistoryView::VRAC_VIEW_ACHETEUR_ID]): ?>
+	      <span class="<?php if ($elt[VracHistoryView::VRAC_VIEW_ACHETEURVAL]): ?>texte_vert<?php else: ?>texte_rouge<?php endif; ?>">
+	      <?php if($elt[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM]): ?>
+	          <?php echo $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM] ?>
+	      <?php elseif($elt[VracHistoryView::VRAC_VIEW_ACHETEUR_RAISON_SOCIALE]): ?>
+	          <?php echo $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_RAISON_SOCIALE] ?>
+	      <?php else: ?>
+	          <?php echo $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_ID]; ?>    
+	      <?php endif; ?>
+	      </span>
+		  <?php if ($elt[VracHistoryView::VRAC_VIEW_ACHETEURVAL]): ?><br />Signé le <?php echo date('d/m/Y', strtotime($elt[VracHistoryView::VRAC_VIEW_ACHETEURVAL])) ?><?php endif; ?>
+	<?php endif; ?>
     </td>   
   <td>
-            <?php include_partial('vrac/listItemSoussigne', array(
-                                                          'identifiant' => $elt[VracHistoryView::VRAC_VIEW_VENDEUR_ID],
-                                                          'nom' => $elt[VracHistoryView::VRAC_VIEW_VENDEUR_NOM],
-                                                          'rs' => $elt[VracHistoryView::VRAC_VIEW_VENDEUR_RAISON_SOCIALE],
-            											  'signature' => $elt[VracHistoryView::VRAC_VIEW_VENDEURVAL]
-                                                                  )) ?>
+	  <?php if($elt[VracHistoryView::VRAC_VIEW_VENDEUR_ID]): ?>
+		      <span class="<?php if ($elt[VracHistoryView::VRAC_VIEW_VENDEURVAL]): ?>texte_vert<?php else: ?>texte_rouge<?php endif; ?>">
+		      <?php if($elt[VracHistoryView::VRAC_VIEW_VENDEUR_NOM]): ?>
+		          <?php echo $elt[VracHistoryView::VRAC_VIEW_VENDEUR_NOM] ?>
+		      <?php elseif($elt[VracHistoryView::VRAC_VIEW_VENDEUR_RAISON_SOCIALE]): ?>
+		          <?php echo $elt[VracHistoryView::VRAC_VIEW_VENDEUR_RAISON_SOCIALE] ?>
+		      <?php else: ?>
+		          <?php echo $elt[VracHistoryView::VRAC_VIEW_VENDEUR_ID]; ?>    
+		      <?php endif; ?>
+		      </span>
+			  <?php if ($elt[VracHistoryView::VRAC_VIEW_VENDEURVAL]): ?><br />Signé le <?php echo date('d/m/Y', strtotime($elt[VracHistoryView::VRAC_VIEW_VENDEURVAL])) ?><?php endif; ?>
+		<?php endif; ?>
     </td> 
   <td>
-            <?php include_partial('vrac/listItemSoussigne', array(
-                                                          'identifiant' => $elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_ID],
-                                                          'nom' => $elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_NOM],
-                                                          'rs' => $elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_RAISON_SOCIALE],
-            											  'signature' => $elt[VracHistoryView::VRAC_VIEW_MANDATAIREVAL]
-                                                                  )) ?>
+  		  <?php if($elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_ID]): ?>
+		      <span class="<?php if ($elt[VracHistoryView::VRAC_VIEW_MANDATAIREVAL]): ?>texte_vert<?php else: ?>texte_rouge<?php endif; ?>">
+		      <?php if($elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_NOM]): ?>
+		          <?php echo $elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_NOM] ?>
+		      <?php elseif($elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_RAISON_SOCIALE]): ?>
+		          <?php echo $elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_RAISON_SOCIALE] ?>
+		      <?php else: ?>
+		          <?php echo $elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_ID]; ?>    
+		      <?php endif; ?>
+		      </span>
+			  <?php if ($elt[VracHistoryView::VRAC_VIEW_MANDATAIREVAL]): ?><br />Signé le <?php echo date('d/m/Y', strtotime($elt[VracHistoryView::VRAC_VIEW_MANDATAIREVAL])) ?><?php endif; ?>
+		<?php endif; ?>
     </td>            
     <td><?php echo $elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE] ?><br /><?php echo $elt[VracHistoryView::VRAC_VIEW_MILLESIME] ?> <?php echo $elt[VracHistoryView::VRAC_VIEW_LABELS] ?></td>
     <td><?php echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLENLEVE]))? $elt[VracHistoryView::VRAC_VIEW_VOLENLEVE] : '0'; ?> hl / <?php echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLPROP]))? $elt[VracHistoryView::VRAC_VIEW_VOLPROP] : '0'; ?> hl</td>
