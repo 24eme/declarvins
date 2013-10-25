@@ -75,7 +75,7 @@ class ediActions extends sfActions
     }
     $dateTime = new DateTime($date);
     $daids = DAIDSDateView::getInstance()->findByInterproAndDate($interpro, $dateTime->format('c'));
-    return $this->renderCsv($daids->rows, DAIDSDateView::VALUE_DATEDESAISIE, $dateTime->format('c'));
+    return $this->renderCsv($daids->rows, DAIDSDateView::VALUE_DATEDESAISIE, "DAIDS", $dateTime->format('c'));
   }
   
   public function executeStreamVrac(sfWebRequest $request) 
@@ -92,7 +92,7 @@ class ediActions extends sfActions
     }
     $dateTime = new DateTime($date);
     $vracs = VracDateView::getInstance()->findByInterproAndDate($interpro, $dateTime->format('c'));
-    return $this->renderCsv($vracs->rows, VracDateView::VALUE_DATE_SAISIE, $dateTime->format('c'));
+    return $this->renderCsv($vracs->rows, VracDateView::VALUE_DATE_SAISIE, "VRAC", $dateTime->format('c'));
   }
   
   public function executeStreamDRM(sfWebRequest $request) 
@@ -109,7 +109,7 @@ class ediActions extends sfActions
     }
     $dateTime = new DateTime($date);
     $drms = DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateTime->format('c'));
-    return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, $dateTime->format('c'));
+    return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $dateTime->format('c'));
   }
   
   public function executeStreamStatistiquesBilanDrm(sfWebRequest $request) 
@@ -166,7 +166,7 @@ class ediActions extends sfActions
     return $this->renderText($csv_file);
   }
 
-  private function renderCsv($items, $dateSaisieIndice, $date = null) 
+  private function renderCsv($items, $dateSaisieIndice, $type, $date = null) 
   {
     $this->setLayout(false);
     $csv_file = '';
@@ -183,7 +183,7 @@ class ediActions extends sfActions
     }
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('md5', md5($csv_file));
-    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$lastDate.".csv");
+    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$type."_".$lastDate.".csv");
     $this->response->setHttpHeader('LastDocDate', $lastDate);
     $this->response->setHttpHeader('Last-Modified', date('r', strtotime($lastDate)));
     return $this->renderText($csv_file);
