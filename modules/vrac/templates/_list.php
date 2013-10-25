@@ -18,9 +18,13 @@
 	        </tr>
 	    </thead>
 	    <tbody>
-	        <?php foreach ($vracs as $value): ?>
-	        	<?php include_component('vrac', 'listItem', array('value' => $value->getRawValue(), 'etablissement' => $etablissement)) ?>
-	        <?php endforeach; ?>
+	        <?php 
+	        	$libelles = Vrac::getModeDeSaisieLibelles();
+	        	$isOperateur = $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR);
+	        	foreach ($vracs as $value) {
+	        		include_partial('listItem', array('elt' => $value->value, 'etablissement' => $etablissement, 'libelles' => $libelles, 'isOperateur' => $isOperateur));
+	        	}
+	        ?>
 	    </tbody>
 	</table>
 </div>
