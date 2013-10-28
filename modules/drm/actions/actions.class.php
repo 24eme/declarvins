@@ -41,6 +41,8 @@ class drmActions extends sfActions
    */
   public function executeInit(sfWebRequest $request) {
       $drm = $this->getRoute()->getDRM();
+      $etablissement = $this->getRoute()->getEtablissement();
+      $infos = array();
       $reinit_etape = $request->getParameter('reinit_etape', 0);
       if ($reinit_etape) {
 		$drm->setCurrentEtapeRouting('recapitulatif');
@@ -89,9 +91,18 @@ class drmActions extends sfActions
   public function executeMonEspace(sfWebRequest $request)
   {
       $this->etablissement = $this->getRoute()->getEtablissement();
+      $this->updateLastDrmSession($this->etablissement);
       $this->historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
       $this->formCampagne = new DRMCampagneForm($this->etablissement->identifiant);
       $this->hasDrmEnCours = $this->historique->hasDRMInProcess();
+      $drmSessionInfos = $this->getUser()->getAttribute('last_drm');
+      if (!(isset($drmSessionInfos['periode']) && !empty($drmSessionInfos['periode'])) && $this->hasNewDRM($this->historique, $this->etablissement->identifiant)) {
+      	$periode = DRMClient::getInstance()->getLastPeriode($this->etablissement->identifiant);
+      	$infos = array();
+    	$infos['periode'] = $periode;
+    	$infos['valide'] = "NEW";
+    	$this->getUser()->setAttribute('last_drm', $infos);
+      }
       if ($request->isMethod(sfWebRequest::POST)) {
 	  	if ($this->hasDrmEnCours) {
 	  		throw new sfException('Une DRM est déjà en cours de saisie.');
@@ -107,6 +118,18 @@ class drmActions extends sfActions
   	  	}
       }
   }
+  
+
+
+    protected function hasNewDRM($historique, $identifiant) {
+        if($historique->getLastPeriode(false) >= $historique->getCurrentPeriode()) {
+            return false;
+        }
+        if ($historique->hasDRMInProcess()) {
+            return false;
+        }
+        return true;
+    }
 
 
  /**
@@ -209,6 +232,21 @@ class drmActions extends sfActions
     }
 
     return $this->redirect('drm_visualisation', array('sf_subject' => $this->drm, 'hide_rectificative' => 1));
+  }
+  
+
+  
+  private function updateLastDrmSession($etablissement)
+  {
+  	if ($etablissement) {
+    	$historique = new DRMHistorique($etablissement->identifiant);
+    	$infos = array();
+    	if ($drm = $historique->getLastDRM()) {
+    		$infos['periode'] = $drm->periode;
+    		$infos['valide'] = (int)$drm->isValidee();
+    	}
+    	$this->getUser()->setAttribute('last_drm', $infos);
+    }
   }
 
   public function executeShowError(sfWebRequest $request) {

@@ -334,6 +334,7 @@ class DRMClient extends acCouchdbClient {
     if ($last_drm) {
     	$periode = $this->getPeriodeSuivante($last_drm->periode);
     }
+    return $periode;
   }
   
   public function createBlankDoc($identifiant, $periode)

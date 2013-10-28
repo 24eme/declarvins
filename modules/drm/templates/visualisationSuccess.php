@@ -51,7 +51,7 @@
     </section>
 	    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$drm->getHistorique()->hasDRMInProcess() && $drm->isModifiable()): ?>
 	    <form method="get" action="<?php echo url_for('drm_modificative', $drm) ?>">
-	        <button style="float:left;" class="btn_passer_etape modificative" type="submit">Corriger la DRM</button>
+	        <button style="float:left;" class="btn_passer_etape modificative" type="submit">Faire une DRM Modificative</button>
 	    </form>
     <?php endif; ?>
 </section>

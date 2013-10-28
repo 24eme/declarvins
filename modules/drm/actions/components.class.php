@@ -60,7 +60,8 @@ class drmComponents extends sfComponents {
 
     protected function getNewDRM($historique, $identifiant) {
         if ($this->hasNewDRM($historique, $identifiant)) {
-        	return DRMClient::getInstance()->createDoc($identifiant);
+        	$drm = DRMClient::getInstance()->createDoc($identifiant);
+        	return $drm;
         }
         return null;
     }
