@@ -29,7 +29,7 @@ class acExceptionEmailNotifier implements IExceptionNotifier
 		if (!sfConfig::get('sf_debug') && is_object($exception = $event->getSubject())) {
 			$acException = new acException($exception, sfConfig::get('app_ac_exception_notifier_format'));
 			$traces = self::renderTraces($acException);
-			self::notify($traces);
+			self::notify($traces, $exception->getMessage());
 		}
 	}
 
@@ -57,8 +57,8 @@ class acExceptionEmailNotifier implements IExceptionNotifier
    * @access private
    * @static
    */
-	private static function notify($message)
+	private static function notify($message, $title)
 	{
-		acEmailNotifier::exceptionEmailNotifier($message);
+		acEmailNotifier::exceptionEmailNotifier($message, $title);
 	}
 }

@@ -25,12 +25,12 @@ class acEmailNotifier
    * @static
    * @return int|false The number of sent emails
    */
-    public static function exceptionEmailNotifier($message) 
+    public static function exceptionEmailNotifier($message, $title) 
     {
     	$emailInformations = sfConfig::get('app_ac_exception_notifier_email');
         $from = array($emailInformations['from'] => $emailInformations['from_name']);
         $to = $emailInformations['to'];
-        $subject = $emailInformations['subject'];
+        $subject = str_replace("%title%", $title, $emailInformations['subject']);
         $email = self::getMailer()->compose($from, $to, $subject, $message)->setContentType('text/html');
         return self::getMailer()->send($email);
     }
