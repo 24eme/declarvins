@@ -25,12 +25,22 @@ class ArchivageDocument implements iLock
         if ($this->document->numero_archive) {
             return;
         }
-	Lock::runLock($this, $this->document->toJson()->type);
+	   Lock::runLock($this, $this->document->toJson()->type);
+    }
+
+    public function getCampagne() {
+        if(method_exists($this->document, 'getCampagneArchive')) {
+
+            return $this->document->getCampagneArchive();
+        }
+
+        $this->document->campagne;
     }
 
     public function executeLock($type = null) {
-      $last_numero = ArchivageAllView::getInstance()->getLastNumeroArchiveByTypeAndCampagne($type, $this->document->campagne);
-      $this->document->numero_archive = sprintf($this->format, $last_numero+1);
-      return array('value' => $this->document->campagne.' '.$this->document->numero_archive, 'key' => $type, 'docid' => $this->document->_id);
+        $last_numero = ArchivageAllView::getInstance()->getLastNumeroArchiveByTypeAndCampagne($type, $this->getCampagne());
+        $this->document->numero_archive = sprintf($this->format, $last_numero+1);
+        
+        return array('value' => $this->getCampagne().' '.$this->document->numero_archive, 'key' => $type, 'docid' => $this->document->_id);
     }
 }
