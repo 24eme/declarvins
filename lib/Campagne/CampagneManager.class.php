@@ -47,14 +47,14 @@ class CampagneManager {
     }
 
     public function getPrevious($campagne) {
-        $annees = $this->getAnnees();
+        $annees = $this->getAnnees($campagne);
 
         return sprintf('%s-%s', $annees[1]-1, $annees[2]-1); 
 
     }
 
     public function getNext($campagne) {
-        $annees = $this->getAnnees();
+        $annees = $this->getAnnees($campagne);
 
         return sprintf('%s-%s', $annees[1]+1, $annees[2]+1); 
 
