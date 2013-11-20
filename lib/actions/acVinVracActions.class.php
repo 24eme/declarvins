@@ -21,6 +21,7 @@ class acVinVracActions extends sfActions
         }
         $this->forward404Unless(in_array($this->statut, VracClient::getInstance()->getStatusContrat()));
         $this->vracs = VracHistoryView::getInstance()->findByStatutAndInterpro($this->statut, $this->interpro->get('_id'))->rows;
+		$this->vracs_attente = array();
         $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
 	    if ($request->isMethod(sfWebRequest::POST)) {
 	    	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
@@ -44,11 +45,17 @@ class acVinVracActions extends sfActions
         }
         $this->forward404Unless(in_array($this->statut, VracClient::getInstance()->getStatusContrat()));
 		$this->vracs = array();
+		$this->vracs_attente = array();
         $contrats = VracSoussigneIdentifiantView::getInstance()->findByEtablissement($this->etablissement->identifiant);
         foreach ($contrats->rows as $contrat) {
-        	$this->vracs[$contrat->id] = $contrat;
+        	if (!$contrat->value[VracHistoryView::VRAC_VIEW_STATUT] || $contrat->value[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION) {
+        		$this->vracs_attente[$contrat->id] = $contrat;
+        	} else {
+        		$this->vracs[$contrat->id] = $contrat;
+        	}
         }
         krsort($this->vracs);
+        krsort($this->vracs_attente);
         $this->setTemplate('index');
 	}
 

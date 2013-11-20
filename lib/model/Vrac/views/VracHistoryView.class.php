@@ -48,9 +48,10 @@ class VracHistoryView extends acCouchdbView
     }
 
 	public function findLastByInterpro($interpro) {
-      
-        return $this->client->startkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro))
-                    		->endkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, array()))
+		$date_fin = date('c');
+		$date_debut = date('c', mktime(0, 0, 0, date("m"), date("d"), date("Y")-1));
+        return $this->client->startkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_debut))
+                    		->endkey(array(VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION, $interpro, $date_fin, array()))
                             ->getView($this->design, $this->view);
     }
 
