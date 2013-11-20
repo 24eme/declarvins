@@ -66,11 +66,11 @@ class vracActions extends acVinVracActions
 				Email::getInstance()->vracContratValide($vrac, $etablissement, $email);
 			}
 		}
-		foreach ($interpros as $interpro) {
+		/*foreach ($interpros as $interpro) {
 			if ($interpro->email_contrat_vrac) {
 				Email::getInstance()->vracContratValideInterpro($vrac, $interpro->email_contrat_vrac);
 			}
-		}
+		}*/
 	}
 	
 	protected function contratValidation($vrac, $acteur) {
