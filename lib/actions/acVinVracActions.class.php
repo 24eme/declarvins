@@ -134,11 +134,11 @@ class acVinVracActions extends sfActions
         $this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
 		$this->init($this->vrac, $this->etablissement);
-        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) && !$this->vrac->isModifiable()) {
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$this->vrac->isModifiable()) {
             return $this->redirect('vrac_valide_admin');
         }
 
-        if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) && !$this->vrac->isEnCoursSaisie()) {
+        if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$this->vrac->isEnCoursSaisie()) {
             return $this->redirect('vrac_valide', array('identifiant' => $this->etablissement->identifiant));
         }
 
