@@ -107,7 +107,7 @@ class tiersActions extends sfActions
   public function executeStatut(sfWebRequest $request) 
   {
   	  $this->etablissement = $this->getRoute()->getEtablissement();
-  	  if ($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+  	  if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
   	  	if ($this->etablissement->statut == Etablissement::STATUT_ARCHIVE) {
   	  		$this->etablissement->statut = Etablissement::STATUT_ACTIF;
   	  	} else {

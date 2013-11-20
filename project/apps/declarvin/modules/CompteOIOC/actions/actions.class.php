@@ -17,7 +17,7 @@ class CompteOIOCActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-  	if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+  	if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
   		return $this->redirect('validation_login');
   	}
   	$this->comptes = _CompteClient::getInstance()->findAllOIOCByInterpo($this->getUser()->getCompte()->getGerantInterpro()->_id);
