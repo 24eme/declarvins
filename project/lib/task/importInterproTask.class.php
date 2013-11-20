@@ -42,6 +42,7 @@ EOF;
     $this->identifiant = 'CIVP';
     $civp->nom = 'CIVP';
     $civp->email_contrat_vrac = 'eco@provencewines.com';
+    $civp->email_contrat_inscription = 'eco@provencewines.com';
     $civp->save();
     $this->logSection('interpro', 'CIVP importé');
 
@@ -54,6 +55,7 @@ EOF;
     $this->identifiant = 'IR';
     $ir->nom = 'InterRhône';
     $ir->email_contrat_vrac = 'contrats@inter-rhone.com';
+    $ir->email_contrat_inscription = 'contrats@inter-rhone.com';
     $ir->save();
     $this->logSection('interpro', 'InterRhone importé');
 
@@ -66,6 +68,7 @@ EOF;
     $this->identifiant = 'IVSE';
     $ise->nom = "Intervins Sud-Est";
     $ise->email_contrat_vrac = '';
+    $ise->email_contrat_inscription = '';
     $ise->save();
     $this->logSection('interpro', 'Intervins Sud-Est importé');
   }

@@ -126,6 +126,7 @@ Interpro:
           fields:
             '*': {  }
       email_contrat_vrac: {  }
+      email_contrat_inscription: {  }
 
 OIOC:
   definition:

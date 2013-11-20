@@ -41,8 +41,18 @@ class InterproClient extends acCouchdbClient {
     public function getAll($hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         return $this->keys($this->getInterpros())->execute($hydrate);
     }
+    
     public function getInterpros() {
     	return self::$_base_interpros;
+    }
+    
+    public function getInterprosObject() {
+    	$interpros = $this->getInterpros();
+    	$result = array();
+    	foreach ($interpros as $interpro) {
+    		$result[] = $this->getById($interpro);
+    	}
+    	return $result;
     }
 
 }
