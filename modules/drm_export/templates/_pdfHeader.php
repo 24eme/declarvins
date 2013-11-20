@@ -11,7 +11,7 @@
 </h1></center>
 <table>
 <tr>
-	<td class="premier"><strong>Nom / Raison sociale : <?php echo $drm->declarant->nom ?></strong></td>
+	<td class="premier"><strong>Nom / Raison sociale : <?php echo ($drm->declarant->raison_sociale)? $drm->declarant->raison_sociale : $drm->declarant->nom ?></strong></td>
    <td>n° DRM : <?php echo preg_replace('/DRM-/', '', $drm->_id); ?><?php if($drm->isValidee()): ?> (<?php if ($drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER): ?>saisie interne le<?php else: ?>validée le<?php endif;?> <?php echo $drm->getEuValideDate(); ?>)<?php endif; ?></td>
 </tr>
 <tr>
