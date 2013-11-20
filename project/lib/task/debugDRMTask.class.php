@@ -31,17 +31,18 @@ EOF;
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
     
   		$rows = acCouchdbManager::getClient()
-    		  ->reduce(false)
               ->getView("drm", "debug")
               ->rows;
       $i = 0;
       foreach($rows as $row) {
       	$drm = DRMClient::getInstance()->find($row->key[0]);
-        $drm->identifiant_drm_historique = null;
-        $drm->identifiant_ivse = null;
-        $drm->save();
-        $this->logSection("debug", $drm->get('_id'), null, 'SUCCESS');
-        $i++;
+      	if ($drm) {
+	        $drm->identifiant_drm_historique = null;
+	        $drm->identifiant_ivse = null;
+	        $drm->save();
+	        $this->logSection("debug", $drm->get('_id'), null, 'SUCCESS');
+	        $i++;
+      	}
       }
       $this->logSection("debug", $i." drm(s) debugguées avec succès", null, 'SUCCESS');
     
