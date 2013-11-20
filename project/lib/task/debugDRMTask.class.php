@@ -32,18 +32,18 @@ EOF;
     
   		$rows = acCouchdbManager::getClient()
     		  ->reduce(false)
-              ->getView("drm", "all")
+              ->getView("drm", "debug")
               ->rows;
+      $i = 0;
       foreach($rows as $row) {
-      	$drm = DRMClient::getInstance()->find($row->key[7]);
-      	if($drm->declarant->siege->code_postal && $drm->declarant->siege->commune && !is_numeric($drm->declarant->siege->code_postal) && is_numeric($drm->declarant->siege->commune)) {
-          $drm->declarant->siege->code_postal = $drm->declarant->siege->commune;
-          $drm->declarant->siege->commune = $drm->declarant->siege->adresse;
-          $drm->declarant->siege->pays = $drm->declarant->siege->pays;
-          $drm->save();
-          $this->logSection("debug", $drm->get('_id'), null, 'SUCCESS');
-        }
+      	$drm = DRMClient::getInstance()->find($row->key[0]);
+        $drm->identifiant_drm_historique = null;
+        $drm->identifiant_ivse = null;
+        $drm->save();
+        $this->logSection("debug", $drm->get('_id'), null, 'SUCCESS');
+        $i++;
       }
+      $this->logSection("debug", $i." drm(s) debugguées avec succès", null, 'SUCCESS');
     
   }
 }
