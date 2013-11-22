@@ -12,7 +12,7 @@
         <table id="table_lot_cuves_<?php echo $form->getName() ?>">
         	<thead>
             	<tr>
-            		<th>Numéro(s)</th>
+            		<th>Numéro(s)*</th>
             		<th>Volume (hl)</th>
             		<th>Date retiraison<br  />(jj/mm/aaaa)</th>
                     <th class="dernier"></th>
