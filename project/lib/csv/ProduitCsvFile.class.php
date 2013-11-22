@@ -116,16 +116,16 @@ class ProduitCsvFile extends CsvFile
 
   public function getInterprosObject() 
   {
-  	$interpros = array();
+  	$interpros = InterproClient::getInstance()->getInterprosInitialConfiguration();
+  	$inters = array();
   	foreach ($this->interpros as $interpro => $departement) {
-	  	$inter = new Interpro();
-	    $inter->set('_id', 'INTERPRO-'.$interpro);
-	    $inter->identifiant = $interpro;
-	    $inter->nom = $interpro;
-	    $inter->departements = $departement;
-	    $interpros[] = $inter;
+  		if (isset($interpros[$interpro])) {
+  			$i = $interpros[$interpro];
+	    	$i->departements = $departement;
+	    	$inters[] = $i;
+  		}
   	}
-    return $interpros;
+    return $inters;
   }
   
   private function setDepartementsInterpros($datas)

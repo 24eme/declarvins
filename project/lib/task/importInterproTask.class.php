@@ -33,7 +33,7 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-    if ($civp = acCouchdbManager::getClient()->retrieveDocumentById('INTERPRO-CIVP')) {
+    /*if ($civp = acCouchdbManager::getClient()->retrieveDocumentById('INTERPRO-CIVP')) {
         $civp->delete();
     }
     
@@ -70,6 +70,8 @@ EOF;
     $ise->email_contrat_vrac = '';
     $ise->email_contrat_inscription = '';
     $ise->save();
-    $this->logSection('interpro', 'Intervins Sud-Est importé');
+    $this->logSection('interpro', 'Intervins Sud-Est importé');*/
+    
+    $this->logSection('interpro', 'Tâche obsolete => utiliser la tâche d\'import de la configuration');
   }
 }

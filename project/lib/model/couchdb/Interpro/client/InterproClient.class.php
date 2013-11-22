@@ -54,5 +54,30 @@ class InterproClient extends acCouchdbClient {
     	}
     	return $result;
     }
+    
+    public function getInterprosInitialConfiguration() {
+    	
+    	$civp = new Interpro();
+    	$civp->set('_id', 'INTERPRO-CIVP');
+    	$civp->identifiant = 'CIVP';
+    	$civp->nom = 'CIVP';
+    	$civp->email_contrat_vrac = 'eco@provencewines.com';
+    	$civp->email_contrat_inscription = 'eco@provencewines.com';
+	    $ir = new Interpro();
+	    $ir->set('_id', 'INTERPRO-IR');
+	    $ir->identifiant = 'IR';
+	    $ir->nom = 'InterRhône';
+	    $ir->email_contrat_vrac = 'contrats@inter-rhone.com';
+	    $ir->email_contrat_inscription = 'contrats@inter-rhone.com';
+	    $ivse = new Interpro();
+	    $ivse->set('_id', 'INTERPRO-IVSE');
+	    $ivse->identifiant = 'IVSE';
+	    $ivse->nom = "Intervins Sud-Est";
+	    $ivse->email_contrat_vrac = '';
+	    $ivse->email_contrat_inscription = '';
+	    
+	    $interpros = array('CIVP' => $civp, 'IR' => $ir, 'IVSE' => $ivse);
+	    return $interpros;
+    }
 
 }
