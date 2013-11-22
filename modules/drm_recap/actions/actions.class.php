@@ -13,16 +13,25 @@ class drm_recapActions extends sfActions
     	$drm = $this->getRoute()->getDRM();
     	$first_certification = null;
         if(count($drm->declaration->certifications) > 0) {
-            $first_certification = $drm->declaration->certifications->getFirst();
+        	foreach ($drm->declaration->certifications as $key => $certification) {
+        		if (count($drm->declaration->certifications->get($key)->genres) > 0) {
+        			$first_certification = $drm->declaration->certifications->get($key);
+        			break;
+        		}
+        	}
         }
         $this->redirect('drm_recap', $first_certification);
     }
 
     public function executeRedirectLast(sfWebRequest $request) {
     	$drm = $this->getRoute()->getDRM();
-    	$first_certification = null;
-        if(count($drm->declaration->certifications) > 0) {
-            $last_certification = $drm->declaration->certifications->getLast();
+    	$last_certification = null;
+        if(count($drm->declaration->certifications) > 0) {        
+        	foreach ($drm->declaration->certifications as $key => $certification) {
+        		if (count($drm->declaration->certifications->get($key)->genres) > 0) {
+        			$last_certification = $drm->declaration->certifications->get($key);
+        		}
+        	}
         }
         $this->redirect('drm_recap', $last_certification);
     }

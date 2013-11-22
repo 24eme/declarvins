@@ -48,6 +48,14 @@ class drm_vracActions extends sfActions
     	if (!$this->drm->detailHasMouvementCheck()) {
 	    	return $this->redirect('drm_mouvements_generaux', $this->drm);
     	}
-    	return $this->redirect('drm_recap', $this->drm->declaration->certifications->getLast());
+    	$last_certification = null;
+        if(count($this->drm->declaration->certifications) > 0) {        
+        	foreach ($this->drm->declaration->certifications as $key => $certification) {
+        		if (count($this->drm->declaration->certifications->get($key)->genres) > 0) {
+        			$last_certification = $this->drm->declaration->certifications->get($key);
+        		}
+        	}
+        }
+    	return $this->redirect('drm_recap', $last_certification);
     }
 }

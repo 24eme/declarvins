@@ -21,7 +21,6 @@ class DRMLieuRoute extends DRMCertificationRoute {
         $drm_certification = parent::getObjectForParameters($parameters);
 
         if (!array_key_exists('appellation', $parameters)) {
-
         	return $drm_certification->genres->getFirst()->appellations->getFirst()->mentions->getFirst()->lieux->getFirst();
         }
 
