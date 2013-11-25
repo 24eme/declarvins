@@ -136,7 +136,7 @@
 </div>
 
 <strong class="champs_obligatoires">* Champs obligatoires</strong><br />
-<strong class="champs_obligatoires">** Les numéros SIRET et CVI sont obligatoires pour les structures de production.<br />Le SIRET est obligatoire pour les structures de négoce.</strong>
+<strong class="champs_obligatoires">** Les numéros SIRET, CVI et Numéro d’accises sont obligatoires pour les structures de production.<br />Le SIRET, Numéro d’accises et Numéro TVA intracommunautaire est obligatoire pour les structures de négoce.</strong>
 
 <div class="ligne_btn">
     <button type="submit" class="btn_suiv"><span>Suivant</span></button>
