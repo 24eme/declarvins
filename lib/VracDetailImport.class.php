@@ -132,8 +132,8 @@ class VracDetailImport
     	$vrac->determination_prix = $this->getDataValue(VracDateView::VALUE_DETERMINATION_PRIX, 'mode de détermination du prix', false);
     	$vrac->export = ($this->datas[VracDateView::VALUE_EXPORT] == 1)? 1 : 0;
     	$vrac->reference_contrat_pluriannuel = $this->getDataValue(VracDateView::VALUE_REFERENCE_CONTRAT_PLURIANNUEL, 'reference contrat pluriannuel', false);
-    	$vrac->date_debut_retiraison = $this->datize($this->getDataValue(VracDateView::VALUE_DATE_DEBUT_RETIRAISON, 'vrac date début de retiraison', false), VracDateView::VALUE_DATE_DEBUT_RETIRAISON, 'vrac date début de retiraison');
-    	$vrac->date_limite_retiraison = $this->datize($this->getDataValue(VracDateView::VALUE_DATE_LIMITE_RETIRAISON, 'vrac date limite de retiraison', false), VracDateView::VALUE_DATE_LIMITE_RETIRAISON, 'vrac date limite de retiraison');
+    	$vrac->date_debut_retiraison = $this->datizeMin($this->datize($this->getDataValue(VracDateView::VALUE_DATE_DEBUT_RETIRAISON, 'vrac date début de retiraison', false), VracDateView::VALUE_DATE_DEBUT_RETIRAISON, 'vrac date début de retiraison'));
+    	$vrac->date_limite_retiraison = $this->datizeMin($this->datize($this->getDataValue(VracDateView::VALUE_DATE_LIMITE_RETIRAISON, 'vrac date limite de retiraison', false), VracDateView::VALUE_DATE_LIMITE_RETIRAISON, 'vrac date limite de retiraison'));
   	
     	if ($echeancier = $this->datas[VracDateView::VALUE_PAIEMENTS_DATE]) {
     		$dates = explode('|', $echeancier);
@@ -141,7 +141,7 @@ class VracDetailImport
     		$volumes = explode('|', $this->datas[VracDateView::VALUE_PAIEMENTS_VOLUME]);
     		foreach ($dates as $k => $date) {
     			$e = $vrac->paiements->add();
-    			$e->date = $this->datize($date, VracDateView::VALUE_PAIEMENTS_DATE, 'échéancier date');
+    			$e->date = $this->datizeMin($this->datize($date, VracDateView::VALUE_PAIEMENTS_DATE, 'échéancier date'));
     			$e->montant = (isset($montants[$k]))? sprintf('%2f', $this->floatize($montants[$k])) : null;
     			$e->volume = (isset($volumes[$k]))? sprintf('%2f', $this->floatize($volumes[$k])) : null;
     		}
@@ -175,7 +175,7 @@ class VracDetailImport
 	    		foreach ($numeros as $k => $numero) {
 	    			$c = $lot->cuves->add();
 	    			$c->numero = $this->getDataValue($numero, VracDateView::VALUE_LOT_CUVES_NUMERO, 'lot cuve numéro', true);
-	    			$c->date = (isset($dates[$k]))? $this->datize($dates[$k], VracDateView::VALUE_LOT_CUVES_DATE, 'lot cuve date') : null;
+	    			$c->date = (isset($dates[$k]))? $this->datizeMin($this->datize($dates[$k], VracDateView::VALUE_LOT_CUVES_DATE, 'lot cuve date')) : null;
 	    			$c->volume = (isset($volumes[$k]))? sprintf('%2f', $this->floatize($volumes[$k])) : null;
 	    		}
 	    	}
@@ -266,6 +266,14 @@ class VracDetailImport
       		return $str.'T00:00:00Z' ;
     	}
     	$this->loggeur->addInvalidColumnLog($dataIndice, $dataName, $this->datas[$dataIndice]);
+  	}
+  	
+  	public function datizeMin($str)
+  	{
+  		if ($str) {
+  			return date("Y-m-d", strtotime($str));
+  		}
+  		return null;
   	}
   	
   	public function hasErrors()
