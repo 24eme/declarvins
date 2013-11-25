@@ -377,21 +377,23 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     	foreach ($this->getDetails() as $detail) {
 			foreach ($detail->vrac as $numero => $vrac) {
 				$volume = $vrac->volume;
-				if ($this->hasVersion() && !$this->isModifiedMother($vrac, 'volume')) {
-					continue;
-					
-				}
-				
-				if ($this->hasVersion() && $this->getMother()->exist($vrac->getHash())) {
-					$volume = $volume - $this->getMother()->get($vrac->getHash())->volume;
-				}
-				
-				if ($volume == 0) {
-					continue;
-				}
 				$contrat = VracClient::getInstance()->findByNumContrat($numero);
 				$contrat->integreVolumeEnleve($volume);
 				$contrat->save();
+			}
+      	}
+    }
+    
+    public function updateVracVersion() {
+    	foreach ($this->getDetails() as $detail) {
+			foreach ($detail->vrac as $numero => $vrac) {
+				$volume = $vrac->volume;
+				$contrat = VracClient::getInstance()->findByNumContrat($numero);
+				if ($contrat->isSolde()) {
+					$contrat->soustraitVolumeEnleve($volume);
+					$contrat->desolder();
+					$contrat->save(false);
+				}
 			}
       	}
     }
@@ -770,13 +772,15 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     }
 
     public function generateRectificative() {
-
-        return $this->version_document->generateRectificative();
+		$drm = $this->version_document->generateRectificative();
+		$drm->updateVracVersion();
+        return $drm;
     }
 
     public function generateModificative() {
-
-        return $this->version_document->generateModificative();
+        $drm = $this->version_document->generateModificative();
+		$drm->updateVracVersion();
+        return $drm;
     }
 
     public function generateNextVersion() {
