@@ -14,12 +14,9 @@
 					<button type="submit" class="btn_suiv"><span>VALIDER</span></button>
 					<a href="#" class="btn_popup btn_popup_trigger" data-popup="#popup_confirm_modif_infos" data-popup-config="configConfirmModifInfos" data-popup-titre="Etes-vous sûr de vouloir modifier ces informations ?"></a>
 				</div>
-		        <p>Veuillez tout d'abord confirmer les informations ci-dessous :<br /><br /></p>
+		        <p>Veuillez tout d'abord confirmer les informations ci-dessous* :<br /><br /></p>
 			        <?php echo $form->renderGlobalErrors() ?>
 					<?php echo $form->renderHiddenFields() ?>
-                                        <div class="ligne_form">
-						<?php echo $form['confirmation']->renderError() ?>
-					</div>
 					<div class="ligne_form">
 						<label for="champ_4">Raison sociale :</label>
 						<span class="valeur valeur_2"><?php echo $etablissement->raison_sociale ?></span>
@@ -57,7 +54,12 @@
 						<span class="valeur"><?php echo $etablissement->service_douane ?></span>
 					</div>
 					<?php if(!$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-					<?php echo $form['confirmation']->render() ?>
+                    <div class="ligne_form">
+						<?php echo $form['confirmation']->renderError() ?>
+					</div>
+                    <div class="ligne_form">
+						<?php echo $form['confirmation']->render() ?>
+					</div>
 					<?php endif; ?>
 					<div class="ligne_btn">
 						<button type="submit" class="btn_suiv"><span>VALIDER</span></button>
