@@ -224,11 +224,26 @@ class Vrac extends BaseVrac
     
 
 
-    protected function preSave() {
+    protected function updateStatutSolde() {
         if ($this->volume_propose > 0 && $this->volume_enleve == $this->volume_propose && $this->valide->statut != VracClient::STATUS_CONTRAT_SOLDE) {
         	$this->valide->statut = VracClient::STATUS_CONTRAT_SOLDE;
         }
 	    $this->normalizeNumeric();
+    }
+    
+    public function save($updateStatutSolde = true) {
+    	if ($updateStatutSolde) {
+    		$this->updateStatutSolde();
+    	}
+    	parent::save();
+    }
+    
+    public function isSolde() {
+    	return ($this->valide->statut == VracClient::STATUS_CONTRAT_SOLDE);
+    }
+    
+    public function desolder() {
+    	$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
     }
     
     public function isEnCoursSaisie() {
@@ -278,6 +293,10 @@ class Vrac extends BaseVrac
     
     public function integreVolumeEnleve($volume) {
     	$this->volume_enleve = $this->volume_enleve + $volume;
+    }
+    
+    public function soustraitVolumeEnleve($volume) {
+    	$this->volume_enleve = $this->volume_enleve - $volume;
     }
 
 
