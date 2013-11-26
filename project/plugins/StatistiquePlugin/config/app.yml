@@ -39,7 +39,7 @@ all:
           print_number: false
         total_debut_mois:
           libelle: "Total début de mois"
-          noeud: "%declaration%.total_debut_mois_net"
+          noeud: "%declaration%.total_debut_mois"
           need_replace: true
           replace: "%declaration%"
           var_replace: "hashProduitFilter"
@@ -74,7 +74,7 @@ all:
           print_number: true
         total_fin_de_mois:
           libelle: "Total fin de mois"
-          noeud: "%declaration%.total_net"
+          noeud: "%declaration%.total"
           need_replace: true
           replace: "%declaration%"
           var_replace: "hashProduitFilter"
@@ -82,7 +82,7 @@ all:
       facets:
         total_debut_mois:
           nom: "Moy. début de mois"
-          noeud: "total_debut_mois_net"
+          noeud: "total_debut_mois"
           divise: null
           unite: "hl"
           need_replace: true
@@ -137,7 +137,7 @@ all:
           filters: null
         total_fin_de_mois:
           nom: "Moy. fin de mois"
-          noeud: "total_net"
+          noeud: "total"
           divise: null
           unite: "hl"
           need_replace: true
@@ -150,7 +150,7 @@ all:
         histo_debut_mois:
           nom: "Début de mois"
           key_field: "periode"
-          value_field: "total_debut_mois_net"
+          value_field: "total_debut_mois"
           interval: "month"
         histo_entrees_nettes:
           nom: "Entrées nettes"
@@ -180,7 +180,7 @@ all:
         histo_fin_de_mois:
           nom: "Fin de mois"
           key_field: "periode"
-          value_field: "total_net"
+          value_field: "total"
           interval: "month"
     vrac:
       title: "Contrat Vrac"
