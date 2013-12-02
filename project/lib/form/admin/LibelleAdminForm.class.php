@@ -17,7 +17,7 @@ class LibelleAdminForm extends sfForm {
 		'libelle' => new sfWidgetFormTextarea()
 	));
 	$this->setValidators(array(
-		'libelle' => new sfValidatorString(array('required' => false), array('required' => 'Champ obligatoire'))
+		'libelle' => new sfValidatorString(array('required' => false))
 	));
 	$this->widgetSchema->setLabels(array(
 		'libelle' => 'Libellé: '

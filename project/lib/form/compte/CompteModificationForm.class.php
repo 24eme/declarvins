@@ -16,8 +16,8 @@ class CompteModificationForm extends acVinCompteModificationForm {
     	$this->getWidget('telephone')->setLabel('Téléphone: ');
     	$this->getWidget('fax')->setLabel('Fax: ');
     	
-    	$this->setValidator('nom', new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')));
-    	$this->setValidator('prenom', new sfValidatorString(array('required' => false), array('required' => 'Champ obligatoire')));
+    	$this->setValidator('nom', new sfValidatorString(array('required' => true)));
+    	$this->setValidator('prenom', new sfValidatorString(array('required' => false)));
     	$this->setValidator('telephone', new sfValidatorString(array('required' => false)));
     	$this->setValidator('fax', new sfValidatorString(array('required' => false)));
     }

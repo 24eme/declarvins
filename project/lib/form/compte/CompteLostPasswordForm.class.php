@@ -11,7 +11,7 @@ class CompteLostPasswordForm extends BaseForm {
         ));
 
         $this->setValidators(array(
-        		'login' => new sfValidatorRegex(array('required' => true, 'pattern' => '/^([a-zA-Z0-9\-_]*)$/'),array('required' => 'Champ obligatoire', 'invalid' => 'Identifiant invalide.'))
+        		'login' => new sfValidatorRegex(array('required' => true, 'pattern' => '/^([a-zA-Z0-9\-_]*)$/'))
         ));
         
 		$this->widgetSchema->setNameFormat('compte_lost_password[%s]');

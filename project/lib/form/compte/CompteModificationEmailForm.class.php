@@ -15,8 +15,8 @@ class CompteModificationEmailForm extends acCouchdbObjectForm {
         ));
 
         $this->setValidators(array(
-                'email' => new sfValidatorEmailStrict(array('required' => true),array('required' => 'Champ obligatoire', 'invalid' => 'Adresse email invalide.')),
-        		'email2' => new sfValidatorEmailStrict(array('required' => true),array('required' => 'Champ obligatoire', 'invalid' => 'Adresse email invalide.'))
+                'email' => new sfValidatorEmailStrict(array('required' => true)),
+        		'email2' => new sfValidatorEmailStrict(array('required' => true))
         ));
         
         $this->validatorSchema->setPostValidator(new sfValidatorSchemaCompare('email', 

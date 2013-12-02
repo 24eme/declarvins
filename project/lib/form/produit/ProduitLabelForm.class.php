@@ -9,8 +9,8 @@ class ProduitLabelForm extends sfForm {
     		'code' => new sfWidgetFormInputText()
     	));
     	$this->setValidators(array(
-    		'label' => new sfValidatorString(array('required' => false), array('required' => 'Champ obligatoire')),
-    		'code' => new sfValidatorString(array('required' => false), array('required' => 'Champ obligatoire'))
+    		'label' => new sfValidatorString(array('required' => false)),
+    		'code' => new sfValidatorString(array('required' => false))
     	));
 		$this->widgetSchema->setLabels(array(
 			'label' => 'Label: ',

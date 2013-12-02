@@ -17,9 +17,8 @@ class ContratEtablissementNouveauForm extends acCouchdbObjectForm {
 		'siret_cni' => 'SIRET*: '
         ));
         $this->setValidators(array(
-                'raison_sociale' => new sfValidatorString(array('required' => true, 'min_length' => 3),
-                                                        array('required' => 'Champ obligatoire', 'min_length' => 'La raison sociale doit faire au minimum 3 caractères')),
-                'nom' => new sfValidatorString(array('required' => true, 'min_length' => 2),array('required' => 'Champ obligatoire', 'min_length' => 'Le nom doit faire au minimum 2 caractères')),
+                'raison_sociale' => new sfValidatorString(array('required' => true, 'min_length' => 3)),
+                'nom' => new sfValidatorString(array('required' => true, 'min_length' => 2)),
 		
                 'siret_cni' => new sfValidatorOr(array($siretValid,$cniValid),array(),$siretCni_errors)));
 		$this->widgetSchema->setNameFormat('contratetablissement[%s]');

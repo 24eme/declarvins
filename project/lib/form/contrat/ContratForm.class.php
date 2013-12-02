@@ -21,13 +21,13 @@ class ContratForm extends acCouchdbObjectForm {
             'email2' => 'Vérification de l\'e-mail*: '
 		));
 		$this->setValidators(array(
-			'nom' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')),
-			'prenom' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')),
-			'fonction' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')),
-			'telephone' => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')),
+			'nom' => new sfValidatorString(array('required' => true)),
+			'prenom' => new sfValidatorString(array('required' => true)),
+			'fonction' => new sfValidatorString(array('required' => true)),
+			'telephone' => new sfValidatorString(array('required' => true)),
 			'fax' => new sfValidatorString(array('required' => false)),
-            'email' => new sfValidatorEmailStrict(array('required' => true),array('required' => 'Champ obligatoire', 'invalid' => 'Adresse email invalide.')),
-        	'email2' => new sfValidatorEmailStrict(array('required' => true),array('required' => 'Champ obligatoire', 'invalid' => 'Adresse email invalide.'))
+            'email' => new sfValidatorEmailStrict(array('required' => true)),
+        	'email2' => new sfValidatorEmailStrict(array('required' => true))
 		));
         
         $this->validatorSchema->setPostValidator(new sfValidatorSchemaCompare('email', 

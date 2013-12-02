@@ -12,8 +12,8 @@ class CompteTiersPasswordForm extends acCouchdbObjectForm {
         ));
 
         $this->setValidators(array(
-                'mdp1'  => new sfValidatorString(array('required' => true, "min_length" => "4"), array('required' => 'Champ obligatoire', "min_length" => "Votre mot de passe doit comporter au minimum 4 caractères.")),
-                'mdp2'  => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire'))
+                'mdp1'  => new sfValidatorString(array('required' => true, "min_length" => "4")),
+                'mdp2'  => new sfValidatorString(array('required' => true))
         ));
         
         $this->validatorSchema->setPostValidator(new sfValidatorSchemaCompare('mdp1', 

@@ -15,9 +15,9 @@ abstract class CompteForm extends acCouchdbObjectForm {
         ));
 
         $this->setValidators(array(
-        		'login' => new sfValidatorRegex(array('required' => true, 'pattern' => '/^([a-zA-Z0-9\-_]*)$/', 'min_length' => 6),array('required' => 'Champ obligatoire', 'invalid' => 'Identifiant invalide.', 'min_length' => '6 caractères minimum.')),
-                'mdp1'  => new sfValidatorString(array('required' => true, "min_length" => "4"), array('required' => 'Champ obligatoire', "min_length" => "Votre mot de passe doit comporter au minimum 4 caractères.")),
-                'mdp2'  => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire'))
+        		'login' => new sfValidatorRegex(array('required' => true, 'pattern' => '/^([a-zA-Z0-9\-_]*)$/', 'min_length' => 6)),
+                'mdp1'  => new sfValidatorString(array('required' => true, "min_length" => "4")),
+                'mdp2'  => new sfValidatorString(array('required' => true))
         ));
         
         $this->validatorSchema->setPostValidator(new sfValidatorSchemaCompare('mdp1', 

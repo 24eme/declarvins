@@ -23,7 +23,7 @@ class CompteModificationDroitForm extends CompteModificationForm {
          if($this->getObject()->isNew()) {
             $this->setWidget('login', new sfWidgetFormInputText());
             $this->getWidget('login')->setLabel('Login*: ');
-            $this->setValidator('login', new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')));
+            $this->setValidator('login', new sfValidatorString(array('required' => true)));
          }
          
          $choices = _CompteClient::getInstance()->getDroits();

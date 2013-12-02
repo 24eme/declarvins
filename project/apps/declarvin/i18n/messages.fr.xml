@@ -9,12 +9,12 @@
 
       <trans-unit>
         <source>Invalid.</source>
-        <target>Champ ci-dessous non valide</target>
+        <target>Champ non valide ci-dessous</target>
       </trans-unit>
 
       <trans-unit>
         <source>Required.</source>
-        <target>Champ ci-dessous obligatoire</target>
+        <target>Champ obligatoire ci-dessous</target>
       </trans-unit>
       
       <trans-unit>

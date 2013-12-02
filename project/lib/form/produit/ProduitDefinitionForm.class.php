@@ -13,8 +13,8 @@ class ProduitDefinitionForm extends acCouchdbObjectForm {
 			'code' => 'Code: '
 		));
 		$this->setValidators(array(
-			'libelle' => new sfValidatorString(array('required' => false), array('required' => 'Champ obligatoire')),
-			'code' => new sfValidatorString(array('required' => false), array('required' => 'Champ obligatoire'))
+			'libelle' => new sfValidatorString(array('required' => false)),
+			'code' => new sfValidatorString(array('required' => false))
 		));
 		
 		if ($this->getObject()->hasDepartements()) {

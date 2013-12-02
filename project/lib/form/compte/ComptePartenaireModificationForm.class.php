@@ -23,7 +23,7 @@ class ComptePartenaireModificationForm extends CompteModificationForm {
          if($this->getObject()->isNew()) {
             $this->setWidget('login', new sfWidgetFormInputText());
             $this->getWidget('login')->setLabel('Login*: ');
-            $this->setValidator('login', new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')));
+            $this->setValidator('login', new sfValidatorString(array('required' => true)));
          }
          $accesChoices = _CompteClient::getInstance()->getAcces();
          $this->setWidget('acces',  new sfWidgetFormChoice(array('choices' => $accesChoices, 'expanded' => true, 'multiple' => true)));
