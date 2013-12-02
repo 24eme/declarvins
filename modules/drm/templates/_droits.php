@@ -13,7 +13,7 @@
     			<th><strong>Volumes "sortie" facturable</strong></th>
     			<th><strong>Volumes réintégrés</strong></th>
     			<th><strong>Taux</strong></th>
-    			<th><strong>Droits à payer</strong></th>
+    			<th><strong>Montant à payer</strong></th>
     			<?php if ($drm->isPaiementAnnualise()): ?>
     			<th><strong>Report</strong></th>
     			<th><strong>Total cumulé</strong></th>    			
