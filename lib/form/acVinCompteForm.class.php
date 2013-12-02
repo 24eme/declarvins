@@ -42,9 +42,9 @@ class acVinCompteForm extends acCouchdbObjectForm
         $this->widgetSchema->setNameFormat('ac_vin_compte[%s]');
 
         $this->setValidators(array(
-                'email' => new sfValidatorEmail(array('required' => true),array('required' => 'Champ obligatoire', 'invalid' => 'Adresse email invalide.')),
-                'mdp1'  => new sfValidatorString(array('required' => true, "min_length" => "4"), array('required' => 'Champ obligatoire', "min_length" => "Votre mot de passe doit comporter au minimum 4 caractères.")),
-                'mdp2'  => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')),
+                'email' => new sfValidatorEmail(array('required' => true)),
+                'mdp1'  => new sfValidatorString(array('required' => true, "min_length" => "4")),
+                'mdp2'  => new sfValidatorString(array('required' => true)),
         ));
         
         $this->validatorSchema->setPostValidator(new sfValidatorSchemaCompare('mdp1', 

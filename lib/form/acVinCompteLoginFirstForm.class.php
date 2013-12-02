@@ -43,9 +43,6 @@ class acVinCompteLoginFirstForm extends BaseForm
         ));
         
         $this->widgetSchema->setNameFormat('first_connection[%s]');
-
-        $this->validatorSchema['login']->setMessage('required', 'Champ obligatoire');
-        $this->validatorSchema['mdp']->setMessage('required', 'Champ obligatoire');
         
 
         $this->validatorSchema->setPostValidator(new acVinValidatorCompteLoginFirst());

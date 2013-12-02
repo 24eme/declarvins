@@ -36,7 +36,6 @@ class acVinCompteMotDePasseOublieForm extends BaseForm
             'login' => new sfValidatorString(array('required' => true)),
         ));
         
-        $this->validatorSchema['login']->setMessage('required', 'Champ obligatoire');
 
         $this->validatorSchema->setPostValidator(new acVinValidatorCompteMotDePasseOublie());
 
