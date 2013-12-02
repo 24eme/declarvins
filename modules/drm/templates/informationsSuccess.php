@@ -57,9 +57,7 @@
                     <div class="ligne_form">
 						<?php echo $form['confirmation']->renderError() ?>
 					</div>
-                    <div class="ligne_form">
-						<?php echo $form['confirmation']->render() ?>
-					</div>
+					<?php echo $form['confirmation']->render() ?>
 					<?php endif; ?>
 					<div class="ligne_btn">
 						<button type="submit" class="btn_suiv"><span>VALIDER</span></button>
