@@ -23,7 +23,7 @@ class DRMVracContratForm extends acCouchdbObjectForm
         	'volume' => 'Volume*: ',
         ));
         $this->setValidators(array(
-            'vrac' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getContratChoices())), array('required' => 'Champ obligatoire')),
+            'vrac' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getContratChoices()))),
         	'volume' => new sfValidatorNumber(array('required' => true)),
         ));
 

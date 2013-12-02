@@ -20,7 +20,6 @@ class DRMLoginForm extends BaseForm {
         
         $this->widgetSchema->setNameFormat('admin[%s]');
 
-        $this->validatorSchema['login']->setMessage('required', 'Champ obligatoire');
         $this->validatorSchema->setPostValidator(new DRMCompteLoginValidator());
     }
 
