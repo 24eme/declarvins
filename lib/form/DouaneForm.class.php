@@ -15,9 +15,9 @@ class DouaneForm extends acCouchdbObjectForm
                 'email'  => 'Email*: '
         ));
         $this->setValidators(array(
-                'email' => new sfValidatorEmail(array('required' => true),array('required' => 'Champ obligatoire', 'invalid' => 'Adresse email invalide.')),
-                'nom'  => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire')),
-                'identifiant'  => new sfValidatorString(array('required' => true), array('required' => 'Champ obligatoire'))
+                'email' => new sfValidatorEmail(array('required' => true)),
+                'nom'  => new sfValidatorString(array('required' => true)),
+                'identifiant'  => new sfValidatorString(array('required' => true))
         ));
         $this->widgetSchema->setNameFormat('douane[%s]');
     }
