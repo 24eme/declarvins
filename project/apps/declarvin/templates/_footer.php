@@ -1,7 +1,7 @@
 		<!-- #footer -->
 		<footer id="footer">
 			<div class="copyright">
-				<p>Copyright <?php echo date('Y') ?> - <a href="<?php echo url_for('@contact') ?>">Contact</a> - <a href="#">Mentions légales</a> - <a href="#">Crédits</a></p>
+				<p>Copyright <?php echo date('Y') ?> - <a href="<?php echo url_for('@contact') ?>" target="_blank">Contact</a> - <a href="#">Mentions légales</a> - <a href="#">Crédits</a></p>
 				<img src="/images/visuels/logo_franceagrimer.png" alt="France Agrimer" />
 			</div>
 			<ul id="logos_footer">
