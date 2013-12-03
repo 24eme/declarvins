@@ -54,12 +54,16 @@ class VracDetailImport
 
 	private function parseVrac() 
   	{
-  		$vrac = new Vrac();
+  		$numContrat = $this->getDataValue(VracDateView::VALUE_VRAC_ID, 'numéro visa', true);
+  		$vrac = VracClient::getInstance()->find('VRAC-'.$numContrat);
+  		if (!$vrac) {
+  			$vrac = new Vrac();
+  		}
   		$vrac->mode_de_saisie = Vrac::MODE_DE_SAISIE_PAPIER;
   		$vrac->interpro = $this->config->getInterproId();
     	$vrac->numero_contrat = $this->getDataValue(VracDateView::VALUE_VRAC_ID, 'numéro visa', true);
     	$vrac->valide->date_saisie = $this->datize($this->getDataValue(VracDateView::VALUE_DATE_SAISIE, 'vrac date de saisie'), VracDateView::VALUE_DATE_SAISIE, 'vrac date de saisie');
-    	$vrac->valide->date_validation = $this->datize($this->getDataValue(VracDateView::VALUE_DATE_SAISIE, 'vrac date de validation'), VracDateView::VALUE_DATE_SAISIE, 'vrac date de validation');
+    	$vrac->valide->date_validation = $this->datize($this->getDataValue(VracDateView::VALUE_DATE_VALIDATION, 'vrac date de validation'), VracDateView::VALUE_DATE_VALIDATION, 'vrac date de validation');
     	$vrac->mandataire_exist = 0;
     	$vrac->acheteur_identifiant = $this->getDataValue(VracDateView::VALUE_ACHETEUR_ID, 'identifiant acheteur', false);
     	$vrac->vendeur_identifiant = $this->getDataValue(VracDateView::VALUE_VENDEUR_ID, 'identifiant vendeur', false);
@@ -256,6 +260,9 @@ class VracDetailImport
     	}
     	if (preg_match('/^\d{4}-\d{2}-\d{2}([^T]|$)/', $str)) {
       		return $str.'T00:00:00Z';
+    	}
+    	if (preg_match('/^T[\.]*/', $str)) {
+      		return null;
     	}
     	if (preg_match('/\//', $str)) {
       		$str = preg_replace('/(\d{2})\/(\d{2})\/(\d{4})/', '\3-\2-\1', $str);

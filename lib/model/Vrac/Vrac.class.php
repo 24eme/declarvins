@@ -13,12 +13,6 @@ class Vrac extends BaseVrac
     public function constructId() 
     {
         $this->set('_id', 'VRAC-'.$this->numero_contrat);
-        if(!$this->date_signature) {
-            $this->date_signature = date('c');
-        }
-        if(!$this->date_stats) {
-            $this->date_stats = date('c');
-        }
     }
 
     public function getProduitObject() 
