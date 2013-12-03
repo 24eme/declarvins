@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" class="no-js">
 <head>
-	<title>Mandat | Vins de Provence</title>
+	<title>Contrat d'inscription | Vins de Provence</title>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -163,7 +163,7 @@
 	<div id="global">
 		<div id="entete_doc">
 			<h1>
-				Contrat - Mandat <br />
+				Contrat d'inscription <br />
 				&laquo; la Déclaration Web &raquo; N° : <?php echo $contrat->no_contrat ?>&nbsp;&nbsp;&nbsp;<sup>(1)</sup>
 			</h1>
 			<p>à un système de Déclarations Informatisé (DRM, DAI/DS, DR, Contrats...)<br />

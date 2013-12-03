@@ -53,9 +53,9 @@ var formModificationCompte = function()
 
     <div id="contrat_mandat">
 
-        <h1>Contrat mandat</h1>
+        <h1>Contrat d'inscription</h1>
        
-        <a href="<?php echo url_for("validation_pdf", array("num_contrat" => $contrat->no_contrat)) ?>" class="btn_suiv"><span>Télécharger le pdf du contrat mandat n°<?php echo $contrat->no_contrat ?></span></a>
+        <a href="<?php echo url_for("validation_pdf", array("num_contrat" => $contrat->no_contrat)) ?>" class="btn_suiv"><span>Télécharger le pdf du contrat d'inscription n°<?php echo $contrat->no_contrat ?></span></a>
         
         
         <h1>Informations du compte</h1>

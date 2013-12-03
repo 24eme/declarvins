@@ -74,7 +74,7 @@
 			</li>	
 			<?php endif; ?>
 			<li<?php if ($subactive == 'contrat'): ?> class="actif"<?php endif; ?>>
-				<a href="<?php echo url_for('@validation_login') ?>">Déclarants / Contrats mandat</a>
+				<a href="<?php echo url_for('@validation_login') ?>">Déclarants / Contrats d'inscription</a>
 			</li>		
 			<li<?php if ($subactive == 'partenaires'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@partenaire_comptes') ?>">Partenaires</a>

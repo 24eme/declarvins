@@ -39,7 +39,7 @@ class validationActions extends sfActions {
   		$ldap->deleteCompte($this->compte);
   		$this->compte->delete();
   		$this->contrat->delete();
-        $this->getUser()->setFlash('notice', 'Contrat mandat supprimé avec succès');
+        $this->getUser()->setFlash('notice', 'Contrat d\'inscription supprimé avec succès');
         $this->redirect('validation_login');
     }
     
