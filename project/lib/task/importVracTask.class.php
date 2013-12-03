@@ -43,7 +43,7 @@ EOF;
     		$this->logSection('vrac', "echec de l'import du contrat ligne $numLigne", null, 'ERROR');
     		$this->logBlock($import->getLogs(), 'ERROR');
     	} else {
-    		$vrac->save();
+    		$vrac->save(false);
     		$this->logSection('vrac', $vrac->get('_id')." : succès de l'import du contrat ligne $numLigne.");
     	}
     }
