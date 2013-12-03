@@ -50,8 +50,8 @@ class VracConditionValidator extends sfValidatorBase {
     	}
         if ($isDateSup) {
         	//throw new sfValidatorErrorSchema($this, array('date_limite_retiraison' => new sfValidatorError($this, 'impossible_date')));
-    					$errorSchema->addError(new sfValidatorError($this, 'impossible_date'), 'date_limite_retiraison');
-    					$hasError = true;
+    					//$errorSchema->addError(new sfValidatorError($this, 'impossible_date'), 'date_limite_retiraison');
+    					//$hasError = true;
         }
     	if ($hasError) {
     		throw new sfValidatorErrorSchema($this, $errorSchema);
