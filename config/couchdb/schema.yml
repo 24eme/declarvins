@@ -27,7 +27,7 @@ Etablissement:
       cni: {  }
       cvi: {  }
       no_accises: {  }
-      carte_pro: {  }
+      no_carte_professionnelle: {  }
       no_tva_intracommunautaire: {  }
       famille: {  }
       sous_famille: {  }

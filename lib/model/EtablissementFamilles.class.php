@@ -28,7 +28,7 @@ class EtablissementFamilles
                                          self::SOUS_FAMILLE_ETRANGER => "Etranger", 
                                          self::SOUS_FAMILLE_UNION => "Union", 
                                          self::SOUS_FAMILLE_VINIFICATEUR => "Vinificateur"),
-    	self::FAMILLE_COURTIER => array()
+    	self::FAMILLE_COURTIER => array(null => null)
     );
     
     protected static $sous_familles_all = array (
