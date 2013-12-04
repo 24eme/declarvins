@@ -10,7 +10,7 @@
         <?php echo $etablissement->siege->pays ?>
     <?php endif; ?>
     <br /><br />
-    Familles : <?php echo EtablissementFamilles::getFamilleLibelle($etablissement->famille) ?> / <?php echo EtablissementFamilles::getSousFamilleLibelle($etablissement->famille, $etablissement->sous_famille) ?>
+    Familles : <?php echo EtablissementFamilles::getFamilleLibelle($etablissement->famille) ?><?php if ($etablissement->sous_famille): ?> / <?php echo EtablissementFamilles::getSousFamilleLibelle($etablissement->famille, $etablissement->sous_famille) ?><?php endif; ?>
     <br />
     Douane : <?php echo $etablissement->service_douane ?>
     <?php if ($interpro->get('_id') == $etablissement->getInterpro()): ?>
