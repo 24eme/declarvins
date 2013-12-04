@@ -21,10 +21,7 @@ class VracDetailImport
 	public function getVrac() 
   	{    	
     	try {
-    		$vrac = $this->client->findByNumContrat($this->getDataValue(VracDateView::VALUE_VRAC_ID, 'numéro visa', true));
-    		if (!$vrac) {
-  				$vrac = $this->parseVrac();
-    		}
+  			$vrac = $this->parseVrac();
     		$this->parseLot($vrac);
     		$result = ConfigurationClient::getInstance()->getDroitsByHashAndTypeAndPeriode('/'.$vrac->produit, DRMDroits::DROIT_CVO);
 	        if ($result) {
@@ -34,16 +31,6 @@ class VracDetailImport
 	        if ($vrac->interpro == 'INTERPRO-CIVP') {
 	        	$vrac->has_cotisation_cvo = 0;
 	        }
-			$acteurs = VracClient::getInstance()->getActeurs();
-	      	if (!$vrac->mandataire_exist) {
-	      		unset($acteurs[array_search(VracClient::VRAC_TYPE_COURTIER, $acteurs)]);
-	      	}
-			foreach ($acteurs as $acteur) {
-    			$validateur = 'date_validation_'.$acteur;
-    			if (!$vrac->valide->get($validateur)) {
-    				$vrac->valide->{$validateur} = date('c');
-    			}
-    		}
 			$vrac->storeSoussignesInformations();
 			$vrac->update();
     	} catch (Exception $e) {
@@ -68,8 +55,12 @@ class VracDetailImport
     	$vrac->acheteur_identifiant = $this->getDataValue(VracDateView::VALUE_ACHETEUR_ID, 'identifiant acheteur', false);
     	$vrac->vendeur_identifiant = $this->getDataValue(VracDateView::VALUE_VENDEUR_ID, 'identifiant vendeur', false);
     	$vrac->mandataire_identifiant = $this->getDataValue(VracDateView::VALUE_MANDATAIRE_ID, 'identifiant courtier', false);
+    	$vrac->valide->date_validation_vendeur = $vrac->valide->date_validation;
+    	$vrac->valide->date_validation_acheteur = $vrac->valide->date_validation;
+    	$vrac->valide->date_validation_mandataire = null;
     	if ($vrac->mandataire_identifiant) {
     		$vrac->mandataire_exist = 1;
+    		$vrac->valide->date_validation_mandataire = $vrac->valide->date_validation;
     	}  	
     	if ($this->datas[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE]) {
     		if ($r = $this->config->getKeyAndLibelle('types_transaction', $this->datas[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE])) {
