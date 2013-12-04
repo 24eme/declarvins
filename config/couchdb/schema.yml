@@ -87,6 +87,7 @@ Vrac:
             raison_sociale: {  }
             siret: {  }
             no_carte_professionnelle: {  }
+            carte_pro: {  }
             adresse: {  }
             code_postal: {  }
             commune: {  }
