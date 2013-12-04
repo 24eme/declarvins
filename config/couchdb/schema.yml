@@ -29,6 +29,7 @@ Etablissement:
       no_accises: {  }
       no_carte_professionnelle: {  }
       no_tva_intracommunautaire: {  }
+      carte_pro: {  }
       famille: {  }
       sous_famille: {  }
       email: {  }
