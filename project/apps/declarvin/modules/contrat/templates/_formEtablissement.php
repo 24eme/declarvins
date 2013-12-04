@@ -37,6 +37,11 @@
         <?php echo $form['no_tva_intracommunautaire']->render() ?>
     </div>
     <div class="ligne_form">
+        <?php echo $form['no_carte_professionnelle']->renderError() ?>
+        <?php echo $form['no_carte_professionnelle']->renderLabel() ?>
+        <?php echo $form['no_carte_professionnelle']->render() ?>
+    </div>
+    <div class="ligne_form">
         <?php echo $form['adresse']->renderError() ?>
         <?php echo $form['adresse']->renderLabel() ?>
         <?php echo $form['adresse']->render() ?>
@@ -137,6 +142,7 @@
 
 <strong class="champs_obligatoires">* Champs obligatoires</strong><br />
 <strong class="champs_obligatoires">** Les numéros SIRET, CVI et Numéro d’accises sont obligatoires pour les structures de production.<br />Le SIRET, Numéro d’accises et Numéro TVA intracommunautaire est obligatoire pour les structures de négoce.</strong>
+<strong class="champs_obligatoires">*** Le numéro de carte professionnelle est obligatoire pour les courtiers.</strong>
 
 <div class="ligne_btn">
     <button type="submit" class="btn_suiv"><span>Suivant</span></button>

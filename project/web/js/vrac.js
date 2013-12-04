@@ -30,8 +30,9 @@
     {
     	var input = blocCondition.find('input');
     	var blocs = blocCondition.attr('data-condition-cible').split('|');
+    	console.log(blocs);
     	var traitement = function(input, blocs) {
-		if(input.is(':checked'))
+		if(input.is(':checked') || input.is(':selected'))
             {
         	   for (bloc in blocs) {
         		   if ($(blocs[bloc]).exists()) {
@@ -39,8 +40,7 @@
             		   for(key in values) {
             			   if (values[key] == input.val()) {
             				   $(blocs[bloc]).show();
-
-     	  					 $(blocs[bloc]).initBlocsFormCol();	
+            				   $(blocs[bloc]).initBlocsFormCol();	
             			   }
             		   }
         		   }

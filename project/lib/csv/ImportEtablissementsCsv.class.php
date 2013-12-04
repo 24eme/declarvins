@@ -52,6 +52,9 @@ class ImportEtablissementsCsv {
     	if (!isset($line[EtablissementCsv::COL_NO_TVA_INTRACOMMUNAUTAIRE])) {
    			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_NO_TVA_INTRACOMMUNAUTAIRE + 1).') "numéro tva intracommunautaire" manquante');
    		}
+    	if (!isset($line[EtablissementCsv::COL_NO_CARTE_PROFESSIONNELLE])) {
+   			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_NO_CARTE_PROFESSIONNELLE + 1).') "numéro carte professionnelle" manquante');
+   		}
     	if (!isset($line[EtablissementCsv::COL_FAMILLE])) {
    			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_FAMILLE + 1).') "famille" manquante');
    		}
@@ -142,6 +145,7 @@ class ImportEtablissementsCsv {
         $etab->cvi = trim($line[EtablissementCsv::COL_CVI]);
         $etab->no_accises = trim($line[EtablissementCsv::COL_NO_ASSICES]);
         $etab->no_tva_intracommunautaire = trim($line[EtablissementCsv::COL_NO_TVA_INTRACOMMUNAUTAIRE]);
+        $etab->no_carte_professionnelle = trim($line[EtablissementCsv::COL_NO_CARTE_PROFESSIONNELLE]);
         try {
         	$etab->famille = EtablissementClient::getInstance()->matchFamille(KeyInflector::slugify(trim($line[EtablissementCsv::COL_FAMILLE])));
         	$etab->sous_famille = EtablissementClient::getInstance()->matchSousFamille(trim($line[EtablissementCsv::COL_SOUS_FAMILLE]));
@@ -152,6 +156,17 @@ class ImportEtablissementsCsv {
         		$this->_errors[$ligne] = $merge;
         	} else {
         		$this->_errors[$ligne] = array($e->getMessage());
+        	}
+        	throw new sfException('has errors');
+        }
+        $famillesSousFamilles = EtablissementFamilles::getSousFamillesByFamille($etab->famille);
+        if (!in_array($etab->sous_famille, $famillesSousFamilles)) {
+        	if (isset($this->_errors[$ligne])) {
+        		$merge = $this->_errors[$ligne];
+        		$merge[] = 'La sous famille "'.$etab->sous_famille.'" n\'est pas associable à la famille "'.$etab->famille.'"';
+        		$this->_errors[$ligne] = $merge;
+        	} else {
+        		$this->_errors[$ligne] = array('La sous famille "'.$etab->sous_famille.'" n\'est pas associable à la famille "'.$etab->famille.'"');
         	}
         	throw new sfException('has errors');
         }

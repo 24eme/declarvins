@@ -27,6 +27,13 @@ class ValidatorContratEtablissement extends sfValidatorSchema {
                 	$hasErrors = true;
                 }
         }
+    
+        if ($values['famille'] == EtablissementFamilles::FAMILLE_COURTIER) {
+                if (!isset($values['no_carte_professionnelle']) || empty($values['no_carte_professionnelle'])) {
+                	$errorSchema->addError(new sfValidatorErrorSchema($this, array('no_carte_professionnelle' => new sfValidatorError($this, 'required'))));
+                	$hasErrors = true;
+                }
+        }
         
         if ($hasErrors) {
         	throw $errorSchema;

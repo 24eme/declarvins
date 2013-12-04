@@ -197,6 +197,7 @@
 					N° CVI : <strong><?php echo $etablissement->cvi ?></strong><br />
 					N° accises : <strong><?php echo $etablissement->no_accises ?></strong><br />
 					N° TVA intracommunautaire : <strong><?php echo $etablissement->no_tva_intracommunautaire ?></strong><br />
+                    N° de carte professionnelle : <strong><?php echo $etablissement->no_carte_professionnelle ?></strong><br />
 					Adresse : <strong><?php echo $etablissement->adresse ?></strong><br />
 					CP : <strong><?php echo $etablissement->code_postal ?></strong><br />
 					ville : <strong><?php echo $etablissement->commune ?></strong><br />
