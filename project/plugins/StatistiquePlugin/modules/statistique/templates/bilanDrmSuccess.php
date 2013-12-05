@@ -39,7 +39,8 @@
 			    					<?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_CODE_POSTAL] ?> <?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_COMMUNE] ?><br />
 			    					<?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_PAYS] ?><br />
 			    					@ : <?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_EMAIL] ?><br />
-			    					Tèl : <?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_TELEPHONE] ?> Fax :<?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX] ?>
+			    					Tèl : <?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_TELEPHONE] ?> Fax :<?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX] ?><br />
+			    					Service douane : <?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_SERVICE_DOUANE] ?>
 			    				</td>
 					    		<?php 
 					    			$drms = $drmsInformations[$identifiant];
