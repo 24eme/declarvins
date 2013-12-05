@@ -37,6 +37,33 @@ function display_latex_string($string, $sep = '', $limit = null, $nb_max = null)
     return $disp;
 }
 
+function display_latex_message_communication($string) {
+     $longueur_msg = strlen($string);
+    $msg = escape_string_for_latex($string);
+    echo $longueur_msg;
+        if($longueur_msg < 46){
+            echo "\centering {~}\\\\
+                    \centering {".$msg."}\\\\
+                    \centering {~}\\\\
+                    \centering {~}";            
+            return;
+        }
+        if($longueur_msg < 91){
+            echo "\centering {~}\\\\
+                    \centering {".$msg."}\\\\
+                    \centering {~}";
+            return;
+        }
+        if($longueur_msg < 136){
+            echo "\centering {".$msg."}\\\\
+                    \centering {~}";
+            return;
+        }
+        echo "\centering {".$msg."}";
+        return;
+            
+}
+
 function cut_latex_string($string, $limit) {
     $disp = escape_string_for_latex($string);
     
