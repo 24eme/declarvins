@@ -3,7 +3,7 @@
 <div class="error_list">Veuillez cocher toutes les cases.</div>
 <?php } ?>
 <ol>
-    <?php foreach ($drmValidation->getEngagements() as $engagement): ?>
+    <?php foreach ($engagements as $engagement): ?>
         <li>
             <?php echo $form['engagement_' . $engagement->getCode()]->renderLabel() ?>
             <?php echo $form['engagement_' . $engagement->getCode()]->render() ?>

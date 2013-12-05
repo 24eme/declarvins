@@ -211,7 +211,11 @@ class drmActions extends sfActions
     $this->etablissement = $this->getRoute()->getEtablissement();
     $this->drm = $this->getRoute()->getDRM();
     $this->drmValidation = $this->drm->validation(array('stock' => 'warning'));
-    $this->form = new DRMValidationForm(array(), array('engagements' => $this->drmValidation->getEngagements()));
+    $this->engagements = $this->drmValidation->getEngagements();
+    if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+    	$this->engagements = array();
+    }
+    $this->form = new DRMValidationForm(array(), array('engagements' => $this->engagements));
     if (!$request->isMethod(sfWebRequest::POST)) {
       
       return sfView::SUCCESS;

@@ -49,9 +49,9 @@
                 </div>
                 <?php } ?>
                 
-                <?php if ($drmValidation->hasEngagements()) { ?>
+                <?php if (count($engagements) > 0) { ?>
                 <div id="contenu_onglet" class="tableau_ajouts_liquidations">
-                    <?php include_partial('engagements', array('drm' => $drm, 'drmValidation' => $drmValidation, 'form' => $form)); ?>                    
+                    <?php include_partial('engagements', array('drm' => $drm, 'drmValidation' => $drmValidation, 'engagements' => $engagements, 'form' => $form)); ?>                    
                 </div>
                 <?php } ?>
                 
