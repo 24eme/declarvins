@@ -15,6 +15,14 @@
 	<?php endif; ?>
     <!-- #principal -->
     <section id="principal">
+    
+    	<?php if ($drm->isValidee()): ?>
+            <div style="background: none repeat scroll 0 0 #ECFEEA;border: 1px solid #359B02;color: #1E5204;font-weight: bold;margin: 0 0 10px 0;padding: 5px 10px;">
+                <ul>
+                    <li>Votre DRM a bien été saisie et validée</li>
+                </ul>
+            </div>
+        <?php endif; ?>
 
         <?php if ($drm_suivante && $drm_suivante->isRectificative() && !$drm_suivante->isValidee()): ?>
             <div class="vigilance_list">
