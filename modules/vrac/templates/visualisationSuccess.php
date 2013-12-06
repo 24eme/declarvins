@@ -6,7 +6,7 @@
             <div id="recap_saisie" class="popup_form visualisation_contrat">
                 <?php if ($sf_user->hasFlash('termine')): ?>
 					<h2>La saisie est terminée !</h2>
-					<?php if(!$sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
+					<?php if(!$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 					<p id="titre" style="text-align: left; margin-bottom: 30px;">
 					Votre contrat a bien été enregistré. Il va être envoyé aux autres parties concernées pour validation.<br />
 					Vous recevrez une version du contrat en .pdf avec le numéro de contrat lorsque toutes les parties auront validé le contrat.<br />
@@ -15,13 +15,19 @@
 					</p>
 					<?php endif; ?>
 				<?php endif; ?>
+            	<?php if ($sf_user->hasFlash('valide')): ?>
+					<p id="titre" style="text-align: left; margin-bottom: 30px;">
+					Votre validation a bien été prise en compte.<br />
+					Vous recevrez prochainement le contrat validé en pdf (après validation des éventuelles autres parties) ou un message de suppression de contrat (en cas de refus / non validation par l’une des parties).
+					</p>
+				<?php endif; ?>
                 <div id="titre">
                     <span class="style_label">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'En attente'; ?></span>
                 </div>
                 <form action="" method="post" id="vrac_condition">  
                     <div class="legende" id="ss_titre">
                         <span class="style_label">Etat du contrat</span>
-                    	<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
+                    	<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 	                        <?php if ($vrac->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE): ?>
 	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_SOLDE, 'etablissement' => $etablissement)) ?>" id="solder_contrat">Solder le contrat</a>
 	                        <?php elseif ($vrac->valide->statut == VracClient::STATUS_CONTRAT_SOLDE): ?>
@@ -33,10 +39,10 @@
                         </div>                            
                     </div>
                     
-                    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN) && $vrac->isModifiable()): ?>
+                    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $vrac->isModifiable()): ?>
 	                    <div id="ligne_btn">
 	                        <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'soussigne', 'etablissement' => $etablissement)) ?>" id="btn_editer_contrat"  class="modifier"> Modifier le contrat</a>
-	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat" onclick="return confirm('Confirmez-vous la suppression de ce contrat ?')"> Annuler le contrat</a>                             
+	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat" onclick="return confirm('Confirmez-vous l\'annulation de ce contrat ?')"> Annuler le contrat</a>                             
 	                    </div>
                     <?php endif; ?>
                 </form>

@@ -53,9 +53,9 @@
                     </div>
                     <div class="vracs_ligne_form vracs_ligne_form_alt">
                         <span>
-                            <?php echo $form['carte_pro']->renderError() ?>
-                            <?php echo $form['carte_pro']->renderLabel() ?>
-                            <?php echo $form['carte_pro']->render(array('class' => 'disabled', 'readonly' => 'readonly')) ?>
+                            <?php echo $form['no_carte_professionnelle']->renderError() ?>
+                            <?php echo $form['no_carte_professionnelle']->renderLabel() ?>
+                            <?php echo $form['no_carte_professionnelle']->render(array('class' => 'disabled', 'readonly' => 'readonly')) ?>
                         </span>
                     </div>
                     <div class="vracs_ligne_form ">

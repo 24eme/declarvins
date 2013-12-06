@@ -21,10 +21,7 @@ class VracDetailImport
 	public function getVrac() 
   	{    	
     	try {
-    		$vrac = $this->client->findByNumContrat($this->getDataValue(VracDateView::VALUE_VRAC_ID, 'numéro visa', true));
-    		if (!$vrac) {
-  				$vrac = $this->parseVrac();
-    		}
+  			$vrac = $this->parseVrac();
     		$this->parseLot($vrac);
     		$result = ConfigurationClient::getInstance()->getDroitsByHashAndTypeAndPeriode('/'.$vrac->produit, DRMDroits::DROIT_CVO);
 	        if ($result) {
@@ -34,16 +31,6 @@ class VracDetailImport
 	        if ($vrac->interpro == 'INTERPRO-CIVP') {
 	        	$vrac->has_cotisation_cvo = 0;
 	        }
-			$acteurs = VracClient::getInstance()->getActeurs();
-	      	if (!$vrac->mandataire_exist) {
-	      		unset($acteurs[array_search(VracClient::VRAC_TYPE_COURTIER, $acteurs)]);
-	      	}
-			foreach ($acteurs as $acteur) {
-    			$validateur = 'date_validation_'.$acteur;
-    			if (!$vrac->valide->get($validateur)) {
-    				$vrac->valide->{$validateur} = date('c');
-    			}
-    		}
 			$vrac->storeSoussignesInformations();
 			$vrac->update();
     	} catch (Exception $e) {
@@ -54,18 +41,26 @@ class VracDetailImport
 
 	private function parseVrac() 
   	{
-  		$vrac = new Vrac();
+  		$numContrat = $this->getDataValue(VracDateView::VALUE_VRAC_ID, 'numéro visa', true);
+  		$vrac = VracClient::getInstance()->find('VRAC-'.$numContrat);
+  		if (!$vrac) {
+  			$vrac = new Vrac();
+  		}
   		$vrac->mode_de_saisie = Vrac::MODE_DE_SAISIE_PAPIER;
   		$vrac->interpro = $this->config->getInterproId();
     	$vrac->numero_contrat = $this->getDataValue(VracDateView::VALUE_VRAC_ID, 'numéro visa', true);
     	$vrac->valide->date_saisie = $this->datize($this->getDataValue(VracDateView::VALUE_DATE_SAISIE, 'vrac date de saisie'), VracDateView::VALUE_DATE_SAISIE, 'vrac date de saisie');
-    	$vrac->valide->date_validation = $this->datize($this->getDataValue(VracDateView::VALUE_DATE_SAISIE, 'vrac date de validation'), VracDateView::VALUE_DATE_SAISIE, 'vrac date de validation');
+    	$vrac->valide->date_validation = $this->datize($this->getDataValue(VracDateView::VALUE_DATE_VALIDATION, 'vrac date de validation'), VracDateView::VALUE_DATE_VALIDATION, 'vrac date de validation');
     	$vrac->mandataire_exist = 0;
     	$vrac->acheteur_identifiant = $this->getDataValue(VracDateView::VALUE_ACHETEUR_ID, 'identifiant acheteur', false);
     	$vrac->vendeur_identifiant = $this->getDataValue(VracDateView::VALUE_VENDEUR_ID, 'identifiant vendeur', false);
     	$vrac->mandataire_identifiant = $this->getDataValue(VracDateView::VALUE_MANDATAIRE_ID, 'identifiant courtier', false);
+    	$vrac->valide->date_validation_vendeur = $vrac->valide->date_validation;
+    	$vrac->valide->date_validation_acheteur = $vrac->valide->date_validation;
+    	$vrac->valide->date_validation_mandataire = null;
     	if ($vrac->mandataire_identifiant) {
     		$vrac->mandataire_exist = 1;
+    		$vrac->valide->date_validation_mandataire = $vrac->valide->date_validation;
     	}  	
     	if ($this->datas[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE]) {
     		if ($r = $this->config->getKeyAndLibelle('types_transaction', $this->datas[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE])) {
@@ -132,7 +127,8 @@ class VracDetailImport
     	$vrac->determination_prix = $this->getDataValue(VracDateView::VALUE_DETERMINATION_PRIX, 'mode de détermination du prix', false);
     	$vrac->export = ($this->datas[VracDateView::VALUE_EXPORT] == 1)? 1 : 0;
     	$vrac->reference_contrat_pluriannuel = $this->getDataValue(VracDateView::VALUE_REFERENCE_CONTRAT_PLURIANNUEL, 'reference contrat pluriannuel', false);
-    	$vrac->date_limite_retiraison = $this->datize($this->getDataValue(VracDateView::VALUE_DATE_LIMITE_RETIRAISON, 'vrac date limite de retiraison', false), VracDateView::VALUE_DATE_LIMITE_RETIRAISON, 'vrac date limite de retiraison');
+    	$vrac->date_debut_retiraison = $this->datizeMin($this->datize($this->getDataValue(VracDateView::VALUE_DATE_DEBUT_RETIRAISON, 'vrac date début de retiraison', false), VracDateView::VALUE_DATE_DEBUT_RETIRAISON, 'vrac date début de retiraison'));
+    	$vrac->date_limite_retiraison = $this->datizeMin($this->datize($this->getDataValue(VracDateView::VALUE_DATE_LIMITE_RETIRAISON, 'vrac date limite de retiraison', false), VracDateView::VALUE_DATE_LIMITE_RETIRAISON, 'vrac date limite de retiraison'));
   	
     	if ($echeancier = $this->datas[VracDateView::VALUE_PAIEMENTS_DATE]) {
     		$dates = explode('|', $echeancier);
@@ -140,7 +136,7 @@ class VracDetailImport
     		$volumes = explode('|', $this->datas[VracDateView::VALUE_PAIEMENTS_VOLUME]);
     		foreach ($dates as $k => $date) {
     			$e = $vrac->paiements->add();
-    			$e->date = $this->datize($date, VracDateView::VALUE_PAIEMENTS_DATE, 'échéancier date');
+    			$e->date = $this->datizeMin($this->datize($date, VracDateView::VALUE_PAIEMENTS_DATE, 'échéancier date'));
     			$e->montant = (isset($montants[$k]))? sprintf('%2f', $this->floatize($montants[$k])) : null;
     			$e->volume = (isset($volumes[$k]))? sprintf('%2f', $this->floatize($volumes[$k])) : null;
     		}
@@ -174,7 +170,7 @@ class VracDetailImport
 	    		foreach ($numeros as $k => $numero) {
 	    			$c = $lot->cuves->add();
 	    			$c->numero = $this->getDataValue($numero, VracDateView::VALUE_LOT_CUVES_NUMERO, 'lot cuve numéro', true);
-	    			$c->date = (isset($dates[$k]))? $this->datize($dates[$k], VracDateView::VALUE_LOT_CUVES_DATE, 'lot cuve date') : null;
+	    			$c->date = (isset($dates[$k]))? $this->datizeMin($this->datize($dates[$k], VracDateView::VALUE_LOT_CUVES_DATE, 'lot cuve date')) : null;
 	    			$c->volume = (isset($volumes[$k]))? sprintf('%2f', $this->floatize($volumes[$k])) : null;
 	    		}
 	    	}
@@ -256,6 +252,9 @@ class VracDetailImport
     	if (preg_match('/^\d{4}-\d{2}-\d{2}([^T]|$)/', $str)) {
       		return $str.'T00:00:00Z';
     	}
+    	if (preg_match('/^T[\.]*/', $str)) {
+      		return null;
+    	}
     	if (preg_match('/\//', $str)) {
       		$str = preg_replace('/(\d{2})\/(\d{2})\/(\d{4})/', '\3-\2-\1', $str);
       		return $str.'T00:00:00Z' ;
@@ -265,6 +264,14 @@ class VracDetailImport
       		return $str.'T00:00:00Z' ;
     	}
     	$this->loggeur->addInvalidColumnLog($dataIndice, $dataName, $this->datas[$dataIndice]);
+  	}
+  	
+  	public function datizeMin($str)
+  	{
+  		if ($str) {
+  			return date("Y-m-d", strtotime($str));
+  		}
+  		return null;
   	}
   	
   	public function hasErrors()

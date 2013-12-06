@@ -59,7 +59,7 @@
 			<td width="<?php echo $w ?>" valign="top">
 				<h2>Courtier</h2>
 				<p>Raison sociale : <?php echo ($vrac->mandataire->raison_sociale)? $vrac->mandataire->raison_sociale : $vrac->mandataire->nom; ?></p>
-				<p>N° Carte professionnelle : <?php echo $vrac->mandataire->carte_pro ?></p>
+				<p>N° Carte professionnelle : <?php echo $vrac->mandataire->no_carte_professionnelle ?></p>
 				<p>N° RCS/SIRET : <?php echo $vrac->mandataire->siret ?></p>
 				<p>Adresse : <?php echo $vrac->mandataire->adresse ?></p>
 				<p>Code postal : <?php echo $vrac->mandataire->code_postal ?></p>

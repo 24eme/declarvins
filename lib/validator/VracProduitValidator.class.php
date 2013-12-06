@@ -9,22 +9,33 @@ class VracProduitValidator extends sfValidatorBase {
     }
     
     protected function doClean($values) {
+    	$errorSchema = new sfValidatorErrorSchema($this);
+    	$hasError = false;
     	$interpros = InterproClient::getInstance()->getInterpros();
     	if (isset($values['produit']) && !empty($values['produit'])) {
     		$conf = ConfigurationClient::getCurrent();
     		$confProduit = $conf->get($values['produit']);
     		$interproProduit = $confProduit->getGerantInterpro();
     		if (!in_array($interproProduit->get('_id'), $interpros)) {
-    			throw new sfValidatorErrorSchema($this, array($this->getOption('produit') => new sfValidatorError($this, 'interpro')));
+    			//throw new sfValidatorErrorSchema($this, array($this->getOption('produit') => new sfValidatorError($this, 'interpro')));
+    					$errorSchema->addError(new sfValidatorError($this, 'interpro'), 'produit');
+    					$hasError = true;
     		}
     	}
     	if (isset($values['millesime']) && !empty($values['millesime'])) {
     		if (strlen($values['millesime']) != 4) {
-    			throw new sfValidatorErrorSchema($this, array($this->getOption('millesime') => new sfValidatorError($this, 'format_millesime')));
+    			//throw new sfValidatorErrorSchema($this, array($this->getOption('millesime') => new sfValidatorError($this, 'format_millesime')));
+    					$errorSchema->addError(new sfValidatorError($this, 'format_millesime'), 'millesime');
+    					$hasError = true;
     		}
-    		if ($values['millesime'] > (date('Y') - 1)) {
-    			throw new sfValidatorErrorSchema($this, array($this->getOption('millesime') => new sfValidatorError($this, 'date_millesime')));
+    		if ($values['millesime'] > (date('Y'))) {
+    			//throw new sfValidatorErrorSchema($this, array($this->getOption('millesime') => new sfValidatorError($this, 'date_millesime')));
+    					$errorSchema->addError(new sfValidatorError($this, 'date_millesime'), 'millesime');
+    					$hasError = true;
     		}
+    	}
+    	if ($hasError) {
+    		throw new sfValidatorErrorSchema($this, $errorSchema);
     	}
         return $values;
     }

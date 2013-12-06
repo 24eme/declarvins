@@ -65,6 +65,7 @@ EOF;
   		if ($vrac) {
   			$vrac->date_relance = date('c');
   			$vrac->save();
+  			$this->logSection('vrac-relance', 'Relance envoyée pour le contrat '.$vrac->_id);
   		}
   	}
   }
@@ -75,11 +76,11 @@ EOF;
 		if ($compte = _CompteClient::getInstance()->find($etablissement->compte)) {
 			if ($compte->statut == _Compte::STATUT_ARCHIVE) {
 				if ($interpro->email_contrat_vrac) {
-					Email::getInstance()->vracRelanceContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur);
+					Email::getInstance(sfContext::createInstance($this->configuration))->vracRelanceContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur);
 				}
 			}
 		}
 	}
-	Email::getInstance()->vracRelanceContrat($vrac, $etablissement, $etablissement->email, $acteur);
+	Email::getInstance(sfContext::createInstance($this->configuration))->vracRelanceContrat($vrac, $etablissement, $etablissement->email, $acteur);
   }
 }

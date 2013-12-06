@@ -12,18 +12,24 @@ class VracMarcheValidator extends sfValidatorBase {
     }
     
     protected function doClean($values) {
+    	$errorSchema = new sfValidatorErrorSchema($this);
+    	$hasError = false;
     	if (isset($values['type_prix']) && in_array($values['type_prix'], $this->getTypePrixNeedDetermination())) {
     		if (isset($values['determination_prix']) && !($values['determination_prix'])) {
-    			throw new sfValidatorErrorSchema($this, array($this->getOption('determination_prix_field') => new sfValidatorError($this, 'required')));
+    			$errorSchema->addError(new sfValidatorError($this, 'required'), 'determination_prix');
+    			$hasError = true;
     		}
     	}
-    	if (isset($values['millesime']) && $values['millesime']) {
-    		if (!preg_match('/[0-9]{4}/', $values['millesime'])) {
-    			throw new sfValidatorErrorSchema($this, array('millesime' => new sfValidatorError($this, 'invalid')));
-    		}
-    		if ($values['millesime'] > date('Y')) {
-    			throw new sfValidatorErrorSchema($this, array('millesime' => new sfValidatorError($this, 'invalid')));
-    		}
+    	if (isset($values['volume_propose']) && $values['volume_propose'] <= 0) {
+    			$errorSchema->addError(new sfValidatorError($this, 'required'), 'volume_propose');
+    			$hasError = true;
+    	}
+    	if (isset($values['prix_unitaire']) && $values['prix_unitaire'] <= 0) {
+    			$errorSchema->addError(new sfValidatorError($this, 'required'), 'prix_unitaire');
+    			$hasError = true;
+    	}
+    	if ($hasError) {
+    		throw new sfValidatorErrorSchema($this, $errorSchema);
     	}
         return $values;
     }

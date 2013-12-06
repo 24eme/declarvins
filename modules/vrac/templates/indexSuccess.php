@@ -19,6 +19,6 @@
             <?php if($statut != VracClient::STATUS_CONTRAT_ANNULE): ?><a href="<?php echo url_for('vrac_admin', array('statut' => VracClient::STATUS_CONTRAT_ANNULE)) ?>">Annulé</a><?php else: ?><strong>Annulé</strong><?php endif; ?>
         </div>
         <?php endif; ?>
-        <?php include_partial('list', array('vracs' => $vracs, 'etablissement' => $etablissement)); ?>
+        <?php include_partial('list', array('vracs' => $vracs, 'vracs_attente' => $vracs_attente, 'etablissement' => $etablissement)); ?>
     </div>
 </section>

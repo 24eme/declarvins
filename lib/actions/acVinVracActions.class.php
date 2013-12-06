@@ -20,12 +20,8 @@ class acVinVracActions extends sfActions
         	$this->statut = VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION;
         }
         $this->forward404Unless(in_array($this->statut, VracClient::getInstance()->getStatusContrat()));
-        $this->vracs = array();
-        $lasts = VracHistoryView::getInstance()->findByStatutAndInterpro($this->statut, $this->interpro->get('_id'));
-        foreach ($lasts->rows as $last) {
-        	$this->vracs[$last->id] = $last;
-        }
-        krsort($this->vracs);
+        $this->vracs = VracHistoryView::getInstance()->findByStatutAndInterpro($this->statut, $this->interpro->get('_id'))->rows;
+		$this->vracs_attente = array();
         $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
 	    if ($request->isMethod(sfWebRequest::POST)) {
 	    	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
@@ -49,11 +45,17 @@ class acVinVracActions extends sfActions
         }
         $this->forward404Unless(in_array($this->statut, VracClient::getInstance()->getStatusContrat()));
 		$this->vracs = array();
+		$this->vracs_attente = array();
         $contrats = VracSoussigneIdentifiantView::getInstance()->findByEtablissement($this->etablissement->identifiant);
         foreach ($contrats->rows as $contrat) {
-        	$this->vracs[$contrat->id] = $contrat;
+        	if (!$contrat->value[VracHistoryView::VRAC_VIEW_STATUT] || $contrat->value[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION) {
+        		$this->vracs_attente[$contrat->id] = $contrat;
+        	} else {
+        		$this->vracs[$contrat->id] = $contrat;
+        	}
         }
         krsort($this->vracs);
+        krsort($this->vracs_attente);
         $this->setTemplate('index');
 	}
 
@@ -98,16 +100,15 @@ class acVinVracActions extends sfActions
         		$statut_credentials = VracClient::getInstance()->getStatusContratCredentials();
         		$statut_credentials = $statut_credentials[$this->vrac->valide->statut];
         		if (in_array($this->statut, $statut_credentials)) {
+        			$this->vrac->valide->statut = $this->statut;
+        			$this->vrac->save();
         			if ($this->statut == VracClient::STATUS_CONTRAT_ANNULE) {
 						$this->contratAnnulation($this->vrac, $this->etablissement);
-						$this->vrac->delete();
 				        if(!$this->etablissement) {
 				            $this->redirect('vrac_admin');
 				        }
 						$this->redirect('vrac_etablissement', array('sf_subject' => $this->etablissement));
         			} else {
-        				$this->vrac->valide->statut = $this->statut;
-        				$this->vrac->save();
         				$this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
         			}
         		}
@@ -140,11 +141,11 @@ class acVinVracActions extends sfActions
         $this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
 		$this->init($this->vrac, $this->etablissement);
-        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) && !$this->vrac->isModifiable()) {
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$this->vrac->isModifiable()) {
             return $this->redirect('vrac_valide_admin');
         }
 
-        if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) && !$this->vrac->isEnCoursSaisie()) {
+        if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$this->vrac->isEnCoursSaisie()) {
             return $this->redirect('vrac_valide', array('identifiant' => $this->etablissement->identifiant));
         }
 
@@ -280,7 +281,7 @@ class acVinVracActions extends sfActions
 			if ($this->form->isValid()) {
 				$this->form->save();
 				$this->contratValidation($this->vrac, $this->acteur);
-				$this->getUser()->setFlash('termine', true);
+				$this->getUser()->setFlash('valide', true);
 				if ($this->vrac->isValide()) {
 					$this->contratValide($this->vrac);
 					$this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));

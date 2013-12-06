@@ -13,12 +13,6 @@ class Vrac extends BaseVrac
     public function constructId() 
     {
         $this->set('_id', 'VRAC-'.$this->numero_contrat);
-        if(!$this->date_signature) {
-            $this->date_signature = date('c');
-        }
-        if(!$this->date_stats) {
-            $this->date_stats = date('c');
-        }
     }
 
     public function getProduitObject() 
@@ -45,6 +39,33 @@ class Vrac extends BaseVrac
     public function getMandataireObject() 
     {
         return EtablissementClient::getInstance()->find($this->mandataire_identifiant,acCouchdbClient::HYDRATE_DOCUMENT);
+    }
+    
+    public function vendeurHasCompteActif()
+    {
+    	$etablissement = $this->getVendeurObject();
+    	if ($compte = $etablissement->getCompteObject()) {
+    		return ($compte->statut == _Compte::STATUT_INSCRIT);
+    	}
+    	return false;
+    }
+    
+    public function acheteurHasCompteActif()
+    {
+    	$etablissement = $this->getAcheteurObject();
+    	if ($compte = $etablissement->getCompteObject()) {
+    		return ($compte->statut == _Compte::STATUT_INSCRIT);
+    	}
+    	return false;
+    }
+    
+    public function mandataireHasCompteActif()
+    {
+    	$etablissement = $this->getMandataireObject();
+    	if ($compte = $etablissement->getCompteObject()) {
+    		return ($compte->statut == _Compte::STATUT_INSCRIT);
+    	}
+    	return false;
     }
     
     public function getSoussigneObjectById($soussigneId) 
@@ -197,11 +218,26 @@ class Vrac extends BaseVrac
     
 
 
-    protected function preSave() {
+    protected function updateStatutSolde() {
         if ($this->volume_propose > 0 && $this->volume_enleve == $this->volume_propose && $this->valide->statut != VracClient::STATUS_CONTRAT_SOLDE) {
         	$this->valide->statut = VracClient::STATUS_CONTRAT_SOLDE;
         }
 	    $this->normalizeNumeric();
+    }
+    
+    public function save($updateStatutSolde = true) {
+    	if ($updateStatutSolde) {
+    		$this->updateStatutSolde();
+    	}
+    	parent::save();
+    }
+    
+    public function isSolde() {
+    	return ($this->valide->statut == VracClient::STATUS_CONTRAT_SOLDE);
+    }
+    
+    public function desolder() {
+    	$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
     }
     
     public function isEnCoursSaisie() {
@@ -251,6 +287,10 @@ class Vrac extends BaseVrac
     
     public function integreVolumeEnleve($volume) {
     	$this->volume_enleve = $this->volume_enleve + $volume;
+    }
+    
+    public function soustraitVolumeEnleve($volume) {
+    	$this->volume_enleve = $this->volume_enleve - $volume;
     }
 
 

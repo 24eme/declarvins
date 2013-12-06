@@ -9,15 +9,15 @@
                 <?php echo $form['produit']->renderLabel() ?>
                 <?php echo $form['produit']->render() ?>
             </div>
-            <div  class="section_label_strong">
-                <?php echo $form['non_millesime']->renderError() ?>
-                <?php echo $form['non_millesime']->renderLabel() ?>
-                <?php echo $form['non_millesime']->render() ?> Non millésimé
-            </div>
             <div  id="section_millesime" class="section_label_strong">
                 <?php echo $form['millesime']->renderError() ?>
                 <?php echo $form['millesime']->renderLabel() ?>
                 <?php echo $form['millesime']->render() ?>
+            </div>
+            <div  class="section_label_strong">
+                <?php echo $form['non_millesime']->renderError() ?>
+                <?php echo $form['non_millesime']->renderLabel() ?>
+                <?php echo $form['non_millesime']->render() ?> Non millésimé
             </div>
         </div>
 
