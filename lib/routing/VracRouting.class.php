@@ -62,6 +62,11 @@ class VracRouting {
                                                         array('module' => 'vrac','action' => 'statut'),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true))); 
+                                                        
+        $r->prependRoute('vrac_modification', new VracRoute('/vrac/:identifiant/:numero_contrat/modification',
+                                                        array('module' => 'vrac','action' => 'modification'),
+                                                        array('sf_method' => array('get','post')),
+                                                        array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true)));
 
         $r->prependRoute('vrac_pdf', new VracRoute('/vrac/:identifiant/:numero_contrat/pdf.:format', 
                                                           array('module' => 'vrac', 'action' => 'pdf', 'format' => 'pdf'),

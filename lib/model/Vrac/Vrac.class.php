@@ -116,6 +116,7 @@ class Vrac extends BaseVrac
       	if ($informations->exist('cvi')) $informations->cvi = $etablissement->cvi;
       	if ($informations->exist('num_accise')) $informations->num_accise = $etablissement->no_accises;
       	if ($informations->exist('num_tva_intracomm')) $informations->num_tva_intracomm = $etablissement->no_tva_intracommunautaire;
+      	if ($informations->exist('no_carte_professionnelle')) $informations->no_carte_professionnelle = $etablissement->no_carte_professionnelle;
       	if ($informations->exist('adresse')) $informations->adresse = $etablissement->siege->adresse;
       	if ($informations->exist('code_postal')) $informations->code_postal = $etablissement->siege->code_postal;
       	if ($informations->exist('commune')) $informations->commune = $etablissement->siege->commune;
@@ -219,7 +220,7 @@ class Vrac extends BaseVrac
 
 
     protected function updateStatutSolde() {
-        if ($this->volume_propose > 0 && $this->volume_enleve == $this->volume_propose && $this->valide->statut != VracClient::STATUS_CONTRAT_SOLDE) {
+        if ($this->volume_propose > 0 && $this->volume_enleve >= $this->volume_propose && $this->valide->statut != VracClient::STATUS_CONTRAT_SOLDE) {
         	$this->valide->statut = VracClient::STATUS_CONTRAT_SOLDE;
         }
 	    $this->normalizeNumeric();

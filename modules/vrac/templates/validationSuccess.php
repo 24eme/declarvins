@@ -9,9 +9,9 @@
 					<p id="titre" style="text-align: left; margin-bottom: 30px;">
 					Votre contrat a bien été enregistré. Vous allez recevoir un mail de confirmation.<br />
 					Il va être envoyé aux autres parties concernées pour validation.<br />
-					Vous recevrez une version du contrat en .pdf avec le numéro de contrat (VISA Interprofessionnel) lorsque toutes les parties auront validé le contrat (ou un message d’annulation de contrat en cas de refus / non validation par l’une des parties).<br /><br />
+					Vous recevrez une version du contrat en .pdf avec le numéro de contrat (VISA Interprofessionnel) lorsque toutes les parties auront validé le contrat (ou un message d'annulation de contrat en cas de refus / non validation par l'une des parties).<br /><br />
 					Le contrat ne sera valable que lorsque vous aurez reçu cette version faisant figurer le numéro de contrat.<br /><br />
-					Attention si le contrat n’est pas validé d’ici 10 jours par vos partenaires, il sera automatiquement supprimé et non valable.
+					Attention si le contrat n’est pas validé d'ici 10 jours par vos partenaires, il sera automatiquement supprimé et non valable.
 					</p>
 				<?php endif; ?>
             	<?php if ($sf_user->hasFlash('valide')): ?>

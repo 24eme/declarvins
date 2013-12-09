@@ -8,9 +8,10 @@
 					<h2>La saisie est terminée !</h2>
 					<?php if(!$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 					<p id="titre" style="text-align: left; margin-bottom: 30px;">
-					Votre contrat a bien été enregistré. Il va être envoyé aux autres parties concernées pour validation.<br />
-					Vous recevrez une version du contrat en .pdf avec le numéro de contrat lorsque toutes les parties auront validé le contrat.<br />
-					Le contrat ne pourra être considéré comme valable que lorsque vous aurez reçu cette version faisant figurer le numéro de contrat.<br /><br />
+					Votre contrat a bien été enregistré. Vous allez recevoir un mail de confirmation.<br />
+					Il va être envoyé aux autres parties concernées pour validation.<br />
+					Vous recevrez une version du contrat en .pdf avec le numéro de contrat (VISA Interprofessionnel) lorsque toutes les parties auront validé le contrat (ou un message d'annulation de contrat en cas de refus / non validation par l'une des parties).<br /><br />
+					Le contrat ne sera valable que lorsque vous aurez reçu cette version faisant figurer le numéro de contrat.<br /><br />
 					Attention si le contrat n’est pas validé d'ici 10 jours par vos partenaires, il sera automatiquement supprimé et non valable.
 					</p>
 					<?php endif; ?>
@@ -19,6 +20,13 @@
 					<p id="titre" style="text-align: left; margin-bottom: 30px;">
 					Votre validation a bien été prise en compte.<br />
 					Vous recevrez prochainement le contrat validé en pdf (après validation des éventuelles autres parties) ou un message de suppression de contrat (en cas de refus / non validation par l’une des parties).
+					</p>
+				<?php endif; ?>
+            	<?php if ($sf_user->hasFlash('annulation')): ?>
+					<p id="titre" style="text-align: left; margin-bottom: 30px;">
+					Votre rejet du contrat a bien été pris en compte.<br />
+					L'information sera transmise à toutes les parties concernées.<br />
+					Ce contrat est désormais supprimé et considéré comme non valable.
 					</p>
 				<?php endif; ?>
                 <div id="titre">
@@ -41,7 +49,7 @@
                     
                     <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $vrac->isModifiable()): ?>
 	                    <div id="ligne_btn">
-	                        <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'soussigne', 'etablissement' => $etablissement)) ?>" id="btn_editer_contrat"  class="modifier"> Modifier le contrat</a>
+	                        <a href="<?php echo url_for('vrac_modification', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>" id="btn_editer_contrat"  class="modifier"> Modifier le contrat</a>
 	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat" onclick="return confirm('Confirmez-vous l\'annulation de ce contrat ?')"> Annuler le contrat</a>                             
 	                    </div>
                     <?php endif; ?>

@@ -104,13 +104,9 @@ class acVinVracActions extends sfActions
         			$this->vrac->save();
         			if ($this->statut == VracClient::STATUS_CONTRAT_ANNULE) {
 						$this->contratAnnulation($this->vrac, $this->etablissement);
-				        if(!$this->etablissement) {
-				            $this->redirect('vrac_admin');
-				        }
-						$this->redirect('vrac_etablissement', array('sf_subject' => $this->etablissement));
-        			} else {
-        				$this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
+						$this->getUser()->setFlash('annulation', true);
         			}
+        			$this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
         		}
         	} else {
         		throw new sfException('Unknown status');	
@@ -118,6 +114,14 @@ class acVinVracActions extends sfActions
         } else {
         	throw new sfException('Status needed');
         }
+	}
+
+	public function executeModification(sfWebRequest $request)
+	{
+        $this->vrac = $this->getRoute()->getVrac();
+        $this->etablissement = $this->getRoute()->getEtablissement();
+        $this->getUser()->setAttribute('vrac_modification', $this->vrac->_id);
+        return $this->redirect(array('sf_route' => 'vrac_etape', 'sf_subject' => $this->vrac, 'step' => 'soussigne', 'etablissement' => $this->etablissement));
 	}
 
     public function executeEdition(sfWebRequest $request) {
@@ -162,7 +166,12 @@ class acVinVracActions extends sfActions
 					$this->vrac->save();
                     $this->getUser()->setFlash('termine', true);
                     if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-                    	$this->contratValide($this->vrac);
+                    	if ($this->getUser()->getAttribute('vrac_modification', null)) {
+                    		$this->contratModifie($this->vrac);
+                    		$this->getUser()->setAttribute('vrac_modification', null);
+                    	} else {
+                    		$this->contratValide($this->vrac);
+                    	}
                     	return $this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
                     } else {
                     	$this->saisieTerminee($this->vrac, $this->interpro);
@@ -331,6 +340,10 @@ class acVinVracActions extends sfActions
 	}
 	
 	protected function contratValide($vrac) {
+		return;
+	}
+	
+	protected function contratModifie($vrac) {
 		return;
 	}
 	
