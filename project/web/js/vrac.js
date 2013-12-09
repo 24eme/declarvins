@@ -531,6 +531,7 @@
 			var url = url.replace(/var---type---/g, type);
 			$.get(url, function(data){
 				container.html(data);
+				$('.bloc_form').has('.col').initBlocsFormCol();
 			});
 		});
 	}
