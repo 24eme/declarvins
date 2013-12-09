@@ -21,7 +21,6 @@
                                                             'field_adresse' => 'adresse_stockage',
                                                             'label_adresse' => 'Adresse de stockage différente')) ?>
 
-    <br />
     
     <?php include_partial('vrac/form_soussigne_item', array('form' => $form,
                                                             'titre' => 'Acheteur',
@@ -33,8 +32,7 @@
                                                             'label_adresse' => 'Adresse de livraison différente')) ?>
 
     <?php include_partial('vrac/form_soussigne_item_mandataire', array('form' => $form)) ?>
-    <br />
-    <br />
+
     <div id="contrat">
         <h1>Type de contrat</h1>
         <div class="section_label_strong">
