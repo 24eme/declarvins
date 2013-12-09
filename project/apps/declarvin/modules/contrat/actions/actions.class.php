@@ -201,7 +201,7 @@ class contratActions extends sfActions
   protected function sendContratMandat($contrat) {
   	$pdf = new ExportContratPdf($contrat);
   	$pdf->generate();
-  	$interpros = InterproClient::getInstance()->getInterprosObject();
+  	$interpros = InterproClient::getInstance()->getInterproByDepartements($contrat->getDepartementsEtablissements());
 	Email::getInstance()->sendContratMandat($contrat, $contrat->email);
   	foreach ($interpros as $interpro) {
   		if ($interpro->email_contrat_inscription) {

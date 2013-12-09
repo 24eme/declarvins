@@ -73,6 +73,34 @@ class vracActions extends acVinVracActions
 		}*/
 	}
 	
+	protected function contratModifie($vrac) {
+		$acteurs = VracClient::getInstance()->getActeurs();
+		if (!$vrac->mandataire_exist) {
+			unset($acteurs[array_search(VracClient::VRAC_TYPE_COURTIER, $acteurs)]);
+		}
+		$interpros = array();
+		foreach ($acteurs as $acteur) {
+			if ($email = $vrac->get($acteur)->email) {
+				$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
+				$interpro = $this->getInterpro($vrac, $etablissement);
+				$interpros[$interpro->_id] = $interpro;
+				$configurationVrac = $this->getConfigurationVrac($interpro->_id);
+				$pdf = new ExportVracPdf($vrac, $configurationVrac);
+    			$pdf->generate();
+				if ($etablissement->compte) {
+					if ($compte = _CompteClient::getInstance()->find($etablissement->compte)) {
+						if ($compte->statut == _Compte::STATUT_ARCHIVE) {
+							if ($interpro->email_contrat_vrac) {
+								Email::getInstance()->vracContratModifie($vrac, $etablissement, $interpro->email_contrat_vrac);
+							}
+						}
+					}
+				}
+				Email::getInstance()->vracContratModifie($vrac, $etablissement, $email);
+			}
+		}
+	}
+	
 	protected function contratValidation($vrac, $acteur) {
 		/*$acteurs = VracClient::getInstance()->getActeurs();
       	if (!$acteur || !in_array($acteur, $acteurs)) {

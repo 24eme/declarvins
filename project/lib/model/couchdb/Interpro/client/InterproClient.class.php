@@ -3,7 +3,7 @@
 class InterproClient extends acCouchdbClient {
 	
 	protected static $_base_interpros = array('INTERPRO-CIVP', 'INTERPRO-IR', 'INTERPRO-IVSE');
-    
+    const INTERPRO_REFERENTE = 'INTERPRO-IR';
     /**
      *
      * @return _ContratClient
@@ -51,6 +51,29 @@ class InterproClient extends acCouchdbClient {
     	$result = array();
     	foreach ($interpros as $interpro) {
     		$result[] = $this->getById($interpro);
+    	}
+    	return $result;
+    }
+    
+    public function getInterproReferente()
+    {
+    	return $this->getById(self::INTERPRO_REFERENTE);
+    }
+    
+    public function getInterproByDepartements($departements = array(), $withReferente = true)
+    {
+    	$interpros = $this->getInterprosObject();
+    	$result = array();
+    	foreach ($interpros as $interpro) {
+    		$dep = $interpro->departements->toArray();
+    		foreach ($departements as $departement) {
+    			if (in_array($departement, $dep)) {
+    				$result[$interpro->_id] = $interpro;
+    			}	
+    		}
+    	}
+    	if (count($result) == 0 && $withReferente) {
+    		$result[] = $this->getInterproReferente();
     	}
     	return $result;
     }

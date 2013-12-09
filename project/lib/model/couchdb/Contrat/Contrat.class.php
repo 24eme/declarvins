@@ -12,4 +12,13 @@ class Contrat extends BaseContrat {
         }
         return $this->_compte;
     }
+    
+    public function getDepartementsEtablissements()
+    {
+    	$departements = array();
+    	foreach ($this->etablissements as $etablissement) {
+    		$departements[] = substr($etablissement->code_postal, 0, 2);
+    	}
+    	return $departements;
+    }
 }

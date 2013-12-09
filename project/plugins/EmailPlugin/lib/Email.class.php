@@ -67,6 +67,23 @@ class Email {
         return $this->getMailer()->send($message);
     }
     
+    public function vracContratModifie($vrac, $etablissement, $destinataire) 
+    {
+        $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
+        $to = array($destinataire);
+        $subject = 'Modification d\'un contrat interprofessionnel';
+        $body = $this->getBodyFromPartial('vrac_contrat_modifie', array('vrac' => $vrac, 'etablissement' => $etablissement));
+		$message = Swift_Message::newInstance()
+  					->setFrom($from)
+  					->setTo($to)
+  					->setSubject($subject)
+  					->setBody($body)
+  					->setContentType('text/html')
+  					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$vrac->get('_id').'.pdf'));
+		
+        return $this->getMailer()->send($message);
+    }
+    
     public function vracContratValideInterpro($vrac, $destinataire) 
     {
         $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
@@ -99,7 +116,7 @@ class Email {
     {
         $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
         $to = array($destinataire);
-        $subject = 'Refus du contrat interprofessionnel';
+        $subject = 'Refus d\'un contrat interprofessionnel';
         $body = $this->getBodyFromPartial('vrac_contrat_annulation', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur));
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
