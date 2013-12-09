@@ -39,8 +39,7 @@ function display_latex_string($string, $sep = '', $limit = null, $nb_max = null)
 
 function display_latex_message_communication($string) {
      $longueur_msg = strlen($string);
-    $msg = escape_string_for_latex($string);
-    echo $longueur_msg;
+    $msg = escape_string_for_latex($string);    
         if($longueur_msg < 46){
             echo "\centering {~}\\\\
                     \centering {".$msg."}\\\\
