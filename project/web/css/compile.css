@@ -2838,6 +2838,7 @@ p#date_drm {
   padding-top:4px;
 }
 .vracs .bloc_form {
+  overflow:hidden;
   -webkit-border-radius:5px;
   -moz-border-radius:5px;
   border-radius:5px;
