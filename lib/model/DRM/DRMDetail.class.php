@@ -219,7 +219,9 @@ class DRMDetail extends BaseDRMDetail {
 	      		$courtier .= $vrac->mandataire->raison_sociale;
 	      	}
       	}
-        $vracs_autocomplete[$vrac->numero_contrat] = $acheteur.', contrat n°'.$vrac->numero_contrat.' comprenant '.($vrac->volume_propose - $vrac->volume_enleve).'hl à '.$vrac->prix_unitaire.'€ HT/hl '.$millesime.' '.$courtier;
+      	$vol = $vrac->volume_propose - $vrac->volume_enleve;
+      	$vol = ($vol >= 0)? $vol : 0;
+        $vracs_autocomplete[$vrac->numero_contrat] = $acheteur.', contrat n°'.$vrac->numero_contrat.' comprenant '.$vol.'hl à '.$vrac->prix_unitaire.'€ HT/hl '.$millesime.' '.$courtier;
       }
       return $vracs_autocomplete;
     }
