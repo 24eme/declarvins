@@ -20,39 +20,48 @@ class ProduitDefinitionValidatorSchema extends sfValidatorSchema
   			throw new sfValidatorErrorSchema($this, array($this->getOption('code') => new sfValidatorError($this, 'indisponible')));
   		}
   	}
-  	if (isset($values['secteurs'])) {
-	    foreach($values['secteurs'] as $key => $value)
+  	if (isset($values['noeud_departements'])) {
+	    foreach($values['noeud_departements'] as $key => $value)
 	    {
 	      if (!$value['departement'])
 	      {
-	        unset($values['secteurs'][$key]);
+	        unset($values['noeud_departements'][$key]);
 	      }
 	    }
   	}
-  	if (isset($values['droit_douane'])) {
-	    foreach($values['droit_douane'] as $key => $value)
+  	if (isset($values['noeud_droits_douane'])) {
+	    foreach($values['noeud_droits_douane'] as $key => $value)
 	    {
-	      if (!$value['date'] && !$value['code'] && !$value['taux'])
+	      if (!$value['date'])
 	      {
-	        unset($values['droit_douane'][$key]);
+	        unset($values['noeud_droits_douane'][$key]);
 	      }
 	    }
   	}
-  	if (isset($values['droit_cvo'])) {
-	    foreach($values['droit_cvo'] as $key => $value)
+  	if (isset($values['noeud_droits_cvo'])) {
+	    foreach($values['noeud_droits_cvo'] as $key => $value)
 	    {
-	      if (!$value['date'] && !$value['code'] && !$value['taux'])
+	      if (!$value['date'])
 	      {
-	        unset($values['droit_cvo'][$key]);
+	        unset($values['noeud_droits_cvo'][$key]);
 	      }
 	    }
   	}
-  	if (isset($values['labels'])) {
-	    foreach($values['labels'] as $key => $value)
+  	if (isset($values['noeud_labels'])) {
+	    foreach($values['noeud_labels'] as $key => $value)
 	    {
 	      if (!$value['label'] && !$value['code'])
 	      {
-	        unset($values['labels'][$key]);
+	        unset($values['noeud_labels'][$key]);
+	      }
+	    }
+  	}
+  	if (isset($values['noeud_organismes'])) {
+	    foreach($values['noeud_organismes'] as $key => $value)
+	    {
+	      if (!$value['date'])
+	      {
+	        unset($values['noeud_organismes'][$key]);
 	      }
 	    }
   	}

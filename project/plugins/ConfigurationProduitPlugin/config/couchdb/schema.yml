@@ -1,0 +1,334 @@
+ConfigurationProduit:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      interpro: {  }
+      type: {  }
+      declaration:
+        type: collection
+        class: ConfigurationProduitDeclaration
+        inheritance: _ConfigurationProduit
+        definition:
+          fields:
+            certifications:
+              type: collection
+              definition:
+                fields:
+                  '*':
+                    # CERTIFICATION
+                    class: ConfigurationProduitCertification
+                    inheritance: _ConfigurationProduit
+                    type: collection
+                    definition:
+                      fields:
+                        libelle: {  }
+                        code: {  }
+                        labels:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        droits:
+                          type: collection
+                          definition:
+                            fields:
+                              douane:
+                                class: ConfigurationProduitDroits
+                                type: collection
+                                definition:
+                                  fields:
+                                    '*':
+                                      class: ConfigurationProduitDroit
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          date: {  }
+                                          taux: { type: float }
+                                          code: {  }
+                                          libelle: {  }
+                              cvo:
+                                class: ConfigurationProduitDroits
+                                type: collection
+                                definition:
+                                  fields:
+                                    '*':
+                                      class: ConfigurationProduitDroit
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          date: {  }
+                                          taux: { type: float }
+                                          code: {  }
+                                          libelle: {  }
+                        genres:
+                          type: collection
+                          definition:
+                            fields:
+                              '*':
+                                # GENRE
+                                class: ConfigurationProduitGenre
+                                inheritance: _ConfigurationProduit
+                                type: collection
+                                definition:
+                                  fields:
+                                    libelle: {  }
+                                    code: {  }
+                                    droits:
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          douane:
+                                            class: ConfigurationProduitDroits
+                                            type: collection
+                                            definition:
+                                              fields:
+                                                '*':
+                                                  class: ConfigurationProduitDroit
+                                                  type: collection
+                                                  definition:
+                                                    fields:
+                                                      date: {  }
+                                                      taux: { type: float }
+                                                      code: {  }
+                                                      libelle: {  }
+                                          cvo:
+                                            class: ConfigurationProduitDroits
+                                            type: collection
+                                            definition:
+                                              fields:
+                                                '*':
+                                                  class: ConfigurationProduitDroit
+                                                  type: collection
+                                                  definition:
+                                                    fields:
+                                                      date: {  }
+                                                      taux: { type: float }
+                                                      code: {  }
+                                                      libelle: {  }
+                                    appellations:
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          '*':
+                                            # APPELLATION
+                                            class: ConfigurationProduitAppellation
+                                            inheritance: _ConfigurationProduit
+                                            type: collection
+                                            definition:
+                                              fields:
+                                                libelle: {  }
+                                                code: {  }
+                                                drm_vrac: {  }
+                                                departements:
+                                                  type: array_collection
+                                                  definition:
+                                                    fields:
+                                                      '*': {  }
+                                                organismes:
+                                                  type: collection
+                                                  definition:
+                                                    fields:
+                                                      '*':
+                                                        type: collection
+                                                        definition:
+                                                          fields:
+                                                            oioc: {  }
+                                                            date: {  }
+                                                droits:
+                                                  type: collection
+                                                  definition:
+                                                    fields:
+                                                      douane:
+                                                        class: ConfigurationProduitDroits
+                                                        type: collection
+                                                        definition:
+                                                          fields:
+                                                            '*':
+                                                              class: ConfigurationProduitDroit
+                                                              type: collection
+                                                              definition:
+                                                                fields:
+                                                                  date: {  }
+                                                                  taux: { type: float }
+                                                                  code: {  }
+                                                                  libelle: {  }
+                                                      cvo:
+                                                        class: ConfigurationProduitDroits
+                                                        type: collection
+                                                        definition:
+                                                          fields:
+                                                            '*':
+                                                              class: ConfigurationProduitDroit
+                                                              type: collection
+                                                              definition:
+                                                                fields:
+                                                                  date: {  }
+                                                                  taux: { type: float }
+                                                                  code: {  }
+                                                                  libelle: {  }
+                                                mentions:
+                                                  type: collection
+                                                  definition:
+                                                    fields:
+                                                      '*':
+                                                        # MENTION
+                                                        class: ConfigurationProduitMention
+                                                        inheritance: _ConfigurationProduit
+                                                        type: collection
+                                                        definition:
+                                                          fields:
+                                                            libelle: {  }
+                                                            code: {  }
+                                                            droits:
+                                                              type: collection
+                                                              definition:
+                                                                fields:
+                                                                  douane:
+                                                                    class: ConfigurationProduitDroits
+                                                                    type: collection
+                                                                    definition:
+                                                                      fields:
+                                                                        '*':
+                                                                          class: ConfigurationProduitDroit
+                                                                          type: collection
+                                                                          definition:
+                                                                            fields:
+                                                                              date: {  }
+                                                                              taux: { type: float }
+                                                                              code: {  }
+                                                                              libelle: {  }
+                                                                  cvo:
+                                                                    class: ConfigurationProduitDroits
+                                                                    type: collection
+                                                                    definition:
+                                                                      fields:
+                                                                        '*':
+                                                                          class: ConfigurationProduitDroit
+                                                                          type: collection
+                                                                          definition:
+                                                                            fields:
+                                                                              date: {  }
+                                                                              taux: { type: float }
+                                                                              code: {  }
+                                                                              libelle: {  }
+                                                            lieux:
+                                                              type: collection
+                                                              definition:
+                                                                fields:
+                                                                  '*':
+                                                                    # LIEU
+                                                                    class: ConfigurationProduitLieu
+                                                                    inheritance: _ConfigurationProduit
+                                                                    type: collection
+                                                                    definition:
+                                                                      fields:
+                                                                        libelle: {  }
+                                                                        code: {  }
+                                                                        definition_drm:
+                                                                          type: collection
+                                                                          definition:
+                                                                            fields:
+                                                                              entree:
+                                                                                type: collection
+                                                                                definition:
+                                                                                  fields:
+                                                                                    declassement: {  }
+                                                                                    repli: {  }
+                                                                              sortie:
+                                                                                type: collection
+                                                                                definition:
+                                                                                  fields:
+                                                                                    declassement: {  }
+                                                                                    repli: {  }
+                                                                              
+                                                                        droits:
+                                                                          type: collection
+                                                                          definition:
+                                                                            fields:
+                                                                              douane:
+                                                                                class: ConfigurationProduitDroits
+                                                                                type: collection
+                                                                                definition:
+                                                                                  fields:
+                                                                                    '*':
+                                                                                      class: ConfigurationProduitDroit
+                                                                                      type: collection
+                                                                                      definition:
+                                                                                        fields:
+                                                                                          date: {  }
+                                                                                          taux: { type: float }
+                                                                                          code: {  }
+                                                                                          libelle: {  }
+                                                                              cvo:
+                                                                                class: ConfigurationProduitDroits
+                                                                                type: collection
+                                                                                definition:
+                                                                                  fields:
+                                                                                    '*':
+                                                                                      class: ConfigurationProduitDroit
+                                                                                      type: collection
+                                                                                      definition:
+                                                                                        fields:
+                                                                                          date: {  }
+                                                                                          taux: { type: float }
+                                                                                          code: {  }
+                                                                                          libelle: {  }
+                                                                        couleurs: 
+                                                                          type: collection
+                                                                          definition:
+                                                                            fields:
+                                                                              '*':
+                                                                                # COULEUR
+                                                                                class: ConfigurationProduitCouleur
+                                                                                inheritance: _ConfigurationProduit
+                                                                                type: collection
+                                                                                definition:
+                                                                                  fields:
+                                                                                    libelle: {  }
+                                                                                    code: {  }
+                                                                                    droits:
+                                                                                      type: collection
+                                                                                      definition:
+                                                                                        fields:
+                                                                                          douane:
+                                                                                            class: ConfigurationProduitDroits
+                                                                                            type: collection
+                                                                                            definition:
+                                                                                              fields:
+                                                                                                '*':
+                                                                                                  class: ConfigurationProduitDroit
+                                                                                                  type: collection
+                                                                                                  definition:
+                                                                                                    fields:
+                                                                                                      date: {  }
+                                                                                                      taux: { type: float }
+                                                                                                      code: {  }
+                                                                                                      libelle: {  }
+                                                                                          cvo:
+                                                                                            class: ConfigurationProduitDroits
+                                                                                            type: collection
+                                                                                            definition:
+                                                                                              fields:
+                                                                                                '*':
+                                                                                                  class: ConfigurationProduitDroit
+                                                                                                  type: collection
+                                                                                                  definition:
+                                                                                                    fields:
+                                                                                                      date: {  }
+                                                                                                      taux: { type: float }
+                                                                                                      code: {  }
+                                                                                                      libelle: {  }
+                                                                                    cepages: 
+                                                                                      type: collection
+                                                                                      definition:
+                                                                                        fields:
+                                                                                          '*':
+                                                                                            # CEPAGE
+                                                                                            class: ConfigurationProduitCepage
+                                                                                            inheritance: _ConfigurationProduit
+                                                                                            type: collection
+                                                                                            definition:
+                                                                                              fields:
+                                                                                                libelle: {  }
+                                                                                                code: {  }

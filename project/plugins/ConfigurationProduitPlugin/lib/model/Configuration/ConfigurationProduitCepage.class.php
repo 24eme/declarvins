@@ -1,0 +1,124 @@
+<?php
+class ConfigurationProduitCepage extends BaseConfigurationProduitCepage 
+{
+	const TYPE_NOEUD = 'cepage';
+	const CODE_APPLICATIF_NOEUD = 'CE';
+	
+	public function getChildrenNode() 
+	{
+      return null;
+    }
+
+    public function getProduits() 
+    {
+        return array($this->getHash() => $this);
+    }
+    
+    public function getAllCepages()
+    {
+    	return array($this->code => $this->libelle);
+    }
+    
+    public function getCertification() 
+    {
+        return $this->getAppellation()->getCertification();
+    }
+
+    public function getGenre() 
+    {
+        return $this->getAppellation()->getGenre();
+    }
+  	
+	public function getAppellation() 
+	{
+        return $this->getCouleur()->getLieu()->getAppellation();
+    }
+
+    public function getMention() 
+    {
+        return $this->getLieu()->getMention();
+    }
+
+    public function getLieu() 
+    {
+        return $this->getCouleur()->getLieu();
+    }
+    
+    public function getCouleur()
+    {
+    	return $this->getParentNode();
+    }
+    
+    public function getCepage()
+    {
+    	return $this;
+    }
+
+    public function getCertificationLibelle($defaut = true) 
+    {
+    	$libelle = $this->getCertification()->libelle;
+    	return (!$libelle && $defaut)? ConfigurationProduit::DEFAULT_LIBELLE : $libelle;
+    }
+
+    public function getGenreLibelle($defaut = true) 
+    {
+        $libelle = $this->getGenre()->libelle;
+    	return (!$libelle && $defaut)? ConfigurationProduit::DEFAULT_LIBELLE : $libelle;
+    }
+  	
+	public function getAppellationLibelle($defaut = true) 
+	{
+        $libelle = $this->getAppellation()->libelle;
+    	return (!$libelle && $defaut)? ConfigurationProduit::DEFAULT_LIBELLE : $libelle;
+    }
+
+    public function getMentionLibelle($defaut = true) 
+    {
+        $libelle = $this->getMention()->libelle;
+    	return (!$libelle && $defaut)? ConfigurationProduit::DEFAULT_LIBELLE : $libelle;
+    }
+
+    public function getLieuLibelle($defaut = true) 
+    {
+        $libelle = $this->getLieu()->libelle;
+    	return (!$libelle && $defaut)? ConfigurationProduit::DEFAULT_LIBELLE : $libelle;
+    }
+    
+    public function getCouleurLibelle($defaut = true)
+    {
+        $libelle = $this->getCouleur()->libelle;
+    	return (!$libelle && $defaut)? ConfigurationProduit::DEFAULT_LIBELLE : $libelle;
+    }
+    
+    public function getCepageLibelle($defaut = true)
+    {
+        $libelle = $this->libelle;
+    	return (!$libelle && $defaut)? ConfigurationProduit::DEFAULT_LIBELLE : $libelle;
+    }
+    
+	/*
+     * Les fonctions ci-dessous sont relatives à la gestion de la configuration du catalogue produit
+     */
+    
+  	public function hasLabels() { return false; }
+    
+  	public function hasDepartements() { return false; }
+  	
+  	public function hasCvo() { return false; }
+  	
+  	public function hasDouane() { return false; }
+  	
+  	public function hasDRMVrac() { return false; }
+  	  	
+  	public function hasOIOC() { return false; }
+  	
+  	public function hasDefinitionDrm() { return false; }
+  	
+  	public function getTypeNoeud() { return self::TYPE_NOEUD; }
+  	
+  	public function getCodeApplicatif() { return self::CODE_APPLICATIF_NOEUD; }
+  	
+  	public function getCsvLibelle() { return ConfigurationProduitCsvFile::CSV_PRODUIT_CEPAGE_LIBELLE; }
+  	
+  	public function getCsvCode() { return ConfigurationProduitCsvFile::CSV_PRODUIT_CEPAGE_CODE; }
+}
