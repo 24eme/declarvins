@@ -1,5 +1,5 @@
 <?php
-class ConfigurationProduit
+class ConfigurationProduitTmp
 {
 	protected static $arborescence = array('certifications', 'genres', 'appellations', 'mentions', 'lieux', 'couleurs', 'cepages');
 	protected static $certifications = array('' => '', 'AOP' => 'AOP', 'IGP' => 'IGP', 'VINSSANSIG' => 'SANS IG', 'LIE' => 'LIE', 'MOUTS' => 'MOÛTS');
