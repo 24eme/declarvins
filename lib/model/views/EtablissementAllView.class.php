@@ -50,7 +50,6 @@ class EtablissementAllView extends acCouchdbView
     }
 
     public function findByInterproAndFamille($interpro, $famille) {
-
     	return $this->client->startkey(array($interpro, $famille))
                     		->endkey(array($interpro, $famille, array()))
                     		->getView($this->design, $this->view);

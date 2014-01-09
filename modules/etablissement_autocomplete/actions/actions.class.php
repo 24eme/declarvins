@@ -10,7 +10,6 @@ class etablissement_autocompleteActions extends sfActions
 	    								   $request->getParameter('q'),
 	    								   $request->getParameter('limit', 100),
 	    								   $only_actif);
-
 		$this->setTemplate('index');
   	}
 
@@ -18,14 +17,12 @@ class etablissement_autocompleteActions extends sfActions
 	    $interpro = $request->getParameter('interpro_id');
 		$familles = $request->getParameter('familles');
 		$only_actif = $request->getParameter('only_actif');
-		
 	    $this->json = $this->matchEtablissements(
 	    	EtablissementAllView::getInstance()->findByInterproAndFamilles($interpro, explode('|', $familles)),
 		    $request->getParameter('q'),
 		   	$request->getParameter('limit', 100),
 		   	$only_actif
 		);
-
  		$this->setTemplate('index');	
   	}
 
@@ -44,7 +41,6 @@ class etablissement_autocompleteActions extends sfActions
 		   	$request->getParameter('limit', 100),
 		   	$only_actif
 		);
-
  		$this->setTemplate('index');	
   	}
 
