@@ -34,6 +34,11 @@ class ConfigurationProduitCouleur extends BaseConfigurationProduitCouleur
     	return $this->getParentNode();
     }
     
+	public function hasCepage() 
+	{
+    	return (count($this->cepages) > 1 || (count($this->cepages) == 1 && $this->cepages->getFirst()->getKey() != ConfigurationProduit::DEFAULT_KEY));
+    }
+    
 	/*
      * Les fonctions ci-dessous sont relatives à la gestion de la configuration du catalogue produit
      */

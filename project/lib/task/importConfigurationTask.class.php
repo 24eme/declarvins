@@ -9,7 +9,7 @@ class importConfigurationTask extends sfBaseTask
     ));
 
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name'),
+      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
       // add your own options here
@@ -33,14 +33,6 @@ EOF;
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
     $import_dir = sfConfig::get('sf_data_dir').'/import/configuration';
-
-    /*if ($current = acCouchdbManager::getClient()->retrieveDocumentById('CURRENT')) {
-        $current->delete();
-    }
-    
-    $current = new Current();
-    $current->campagne = '2011-11';
-    $current->save();*/
     
     $configuration = acCouchdbManager::getClient()->retrieveDocumentById('CONFIGURATION', acCouchdbClient::HYDRATE_JSON);
     if ($configuration) {
@@ -49,38 +41,32 @@ EOF;
 	    
     $configuration = new Configuration();
     
-    $csv = new ProduitCsvFile($configuration, $import_dir.'/produits.csv');
-    $configuration = $csv->importProduits();
-    $interpros = $csv->getInterprosObject();
-    foreach ($interpros as $interpro) {
-	    if ($inter = acCouchdbManager::getClient()->retrieveDocumentById($interpro->get('_id'))) {
+    $interpros = InterproClient::getInstance()->getInterprosInitialConfiguration();
+  	foreach ($interpros as $id => $interpro) {
+  		if ($inter = acCouchdbManager::getClient()->retrieveDocumentById($interpro->_id)) {
 	        $inter->delete();
 	    }
-	    $interpro->save();
-    }
+	    if ($configurationProduits = acCouchdbManager::getClient()->retrieveDocumentById(ConfigurationProduitClient::getInstance()->buildId($interpro->_id))) {
+	    	$configurationProduits->delete();
+	    }
+  		$configurationFile = $import_dir.'/catalogue_produits_'.$id.'.csv';
+  		if (file_exists($configurationFile)) {
+	  		$configurationProduits = ConfigurationProduitClient::getInstance()->getOrCreate($interpro->_id);
+  			$csv = new ConfigurationProduitCsvFile($configurationProduits, $configurationFile);
+  			$configurationProduits = $csv->importProduits();
+  			if ($csv->hasErrors()) {
+				throw new sfException(implode("\n", $csv->getErrors()));
+			}
+			$configurationProduits->save();
+			$interpro->configuration_produits = $configurationProduits->_id;
+			$interpro->save();
+			$produits_interpro = $configuration->produits->add($interpro->_id, $configurationProduits->_id);
+  		} else {
+  			$this->logSection('configuration', 'Aucun CSV produits pour l\'interpro : '.$id, null, 'ERROR');
+  		}
+  	}
+  	
     $this->logSection('configuration', 'produits importés');
-    
-    $csv = new LabelCsvFile($configuration, $import_dir.'/labels.csv');
-    $configuration = $csv->importLabels();
-    $this->logSection('configuration', 'labels importés');
-
-    
-    foreach (file($import_dir.'/details.csv') as $line) {
-        $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
-        if ($detail = $configuration->declaration->certifications->exist($datas[0])) {
-	        $detail = $configuration->declaration->certifications->get($datas[0])->detail->get($datas[1])->add($datas[2]);
-	        $detail->readable = $datas[3];
-	        $detail->writable = $datas[4];
-        }
-    }
-    
-  	foreach (file($import_dir.'/libelle_detail_ligne.csv') as $line) {
-        $datas = explode(";", preg_replace('/"/', '', str_replace("\n", "", $line)));
-        $detail = $configuration->libelle_detail_ligne->get($datas[0])->add($datas[1], $datas[2]);
-    }
-    
-    $this->logSection('configuration', 'configuration details importée');
-    
     
     
     $csv = new VracConfigurationCsvFile($configuration, $import_dir.'/vrac.csv');

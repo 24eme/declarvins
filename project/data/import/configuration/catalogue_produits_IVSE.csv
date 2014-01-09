@@ -1,0 +1,860 @@
+"#CATEGORIE_LIBELLE";"CATEGORIE_CODE";"GENRE_LIBELLE";"GENRE_CODE";"DENOMINATION_LIBELLE";"DENOMINATION_CODE";"LIEU_LIBELLE";"LIEU_CODE";"COULEUR_LIBELLE";"COULEUR_CODE";"CEPAGE_LIBELLE";"CEPAGE_CODE";"LABELS";"DEPARTEMENTS";"DROITS_DOUANE";"DROITS_CVO";"DRM_VRAC";"OIOC";"REPLI_ENTREE";"REPLI_SORTIE";"DECLASSEMENT_ENTREE";"DECLASSEMENT_SORTIE"
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rouge";1;;;"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rouge";1;"Syrah";"SYR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rouge";1;"Grenache Noir";"GRN";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rouge";1;"Cabernet-Sauvignon";"CS";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rouge";1;"Cinsaut";"CIN";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rouge";1;"Merlot";"MER";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rouge";1;"Mourvedre";"MOU";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rouge";1;"Marselan";"MAR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rouge";1;"Autre";"CEP";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rosé";2;;;"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rosé";2;"Syrah";"SYR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rosé";2;"Grenache Noir";"GRN";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rosé";2;"Cabernet-Sauvignon";"CS";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rosé";2;"Cinsaut";"CIN";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rosé";2;"Merlot";"MER";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rosé";2;"Mourvedre";"MOU";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rosé";2;"Marselan";"MAR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rosé";2;"Grenache Gris";"GRG";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Rosé";2;"Autre";"CEP";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Blanc";3;;;"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Blanc";3;"Rolle-Vermentino";"ROL";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Blanc";3;"Chardonnay";"CHA";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Blanc";3;"Sauvignon";"SAU";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Blanc";3;"Grenache Blanc";"GRB";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Blanc";3;"Viognier";"VIO";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Blanc";3;"Marsanne";"MAR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Blanc";3;"Roussanne";"ROU";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Blanc";3;"Clairette";"CLA";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Blanc";3;"Muscat de HAMBOURG";"MUH";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";;;"Blanc";3;"Autre";"CEP";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rouge";1;;;"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rouge";1;"Syrah";"SYR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rouge";1;"Grenache Noir";"GRN";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rouge";1;"Cabernet-Sauvignon";"CS";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rouge";1;"Cinsaut";"CIN";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rouge";1;"Merlot";"MER";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rouge";1;"Mourvedre";"MOU";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rouge";1;"Marselan";"MAR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rouge";1;"Autre";"CEP";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rosé";2;;;"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rosé";2;"Syrah";"SYR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rosé";2;"Grenache Noir";"GRN";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rosé";2;"Cabernet-Sauvignon";"CS";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rosé";2;"Cinsaut";"CIN";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rosé";2;"Merlot";"MER";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rosé";2;"Mourvedre";"MOU";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rosé";2;"Marselan";"MAR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rosé";2;"Grenache Gris";"GRG";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Rosé";2;"Autre";"CEP";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Blanc";3;;;"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Blanc";3;"Rolle-Vermentino";"ROL";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Blanc";3;"Chardonnay";"CHA";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Blanc";3;"Sauvignon";"SAU";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Blanc";3;"Grenache Blanc";"GRB";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Blanc";3;"Viognier";"VIO";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Blanc";3;"Marsanne";"MAR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Blanc";3;"Roussanne";"ROU";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Blanc";3;"Clairette";"CLA";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Blanc";3;"Muscat de HAMBOURG";"MUH";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Comté de Grignan";"CDG";"Blanc";3;"Autre";"CEP";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rouge";1;;;"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rouge";1;"Syrah";"SYR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rouge";1;"Grenache Noir";"GRN";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rouge";1;"Cabernet-Sauvignon";"CS";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rouge";1;"Cinsaut";"CIN";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rouge";1;"Merlot";"MER";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rouge";1;"Mourvedre";"MOU";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rouge";1;"Marselan";"MAR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rouge";1;"Autre";"CEP";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rosé";2;;;"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rosé";2;"Syrah";"SYR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rosé";2;"Grenache Noir";"GRN";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rosé";2;"Cabernet-Sauvignon";"CS";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rosé";2;"Cinsaut";"CIN";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rosé";2;"Merlot";"MER";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rosé";2;"Mourvedre";"MOU";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rosé";2;"Marselan";"MAR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rosé";2;"Grenache Gris";"GRG";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Rosé";2;"Autre";"CEP";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Blanc";3;;;"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Blanc";3;"Rolle-Vermentino";"ROL";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Blanc";3;"Chardonnay";"CHA";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Blanc";3;"Sauvignon";"SAU";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Blanc";3;"Grenache Blanc";"GRB";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Blanc";3;"Viognier";"VIO";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Blanc";3;"Marsanne";"MAR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Blanc";3;"Roussanne";"ROU";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Blanc";3;"Clairette";"CLA";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Blanc";3;"Muscat de HAMBOURG";"MUH";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Méditerranée";"MED";"Coteaux de Montélimar";"CTM";"Blanc";3;"Autre";"CEP";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rouge";1;;;"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rouge";1;"Syrah";"SYR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rouge";1;"Grenache Noir";"GRN";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rouge";1;"Cabernet-Sauvignon";"CS";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rouge";1;"Cinsaut";"CIN";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rouge";1;"Merlot";"MER";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rouge";1;"Mourvedre";"MOU";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rouge";1;"Marselan";"MAR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rouge";1;"Autre";"CEP";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rosé";2;;;"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rosé";2;"Syrah";"SYR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rosé";2;"Grenache Noir";"GRN";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rosé";2;"Cabernet-Sauvignon";"CS";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rosé";2;"Cinsaut";"CIN";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rosé";2;"Merlot";"MER";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rosé";2;"Mourvedre";"MOU";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rosé";2;"Marselan";"MAR";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rosé";2;"Grenache Gris";"GRG";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Rosé";2;"Autre";"CEP";"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Blanc";3;;;"AB:Agriculture Biologique|AR:Agriculture Raisonnée|BD:Biodynamie|ABC:AB en conversion";"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Blanc";3;"Rolle-Vermentino";"ROL";;"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Blanc";3;"Chardonnay";"CHA";;"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Blanc";3;"Sauvignon";"SAU";;"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Blanc";3;"Grenache Blanc";"GRB";;"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Blanc";3;"Viognier";"VIO";;"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Blanc";3;"Marsanne";"MAR";;"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Blanc";3;"Roussanne";"ROU";;"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Blanc";3;"Clairette";"CLA";;"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Blanc";3;"Muscat de HAMBOURG";"MUH";;"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Méditerranée";"MED";;;"Blanc";3;"Autre";"CEP";;"07,26,84,13,83,06,04,05,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"MED/MED/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rouge";1;;;;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rosé";2;;;;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Blanc";3;;;;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rouge";1;"Syrah";"SYR";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rouge";1;"Grenache Noir";"GRN";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rouge";1;"Cinsaut";"CIN";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rouge";1;"Merlot";"MER";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rouge";1;"Mourvedre";"MOU";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rouge";1;"Marselan";"MAR";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rouge";1;"Autre";"CEP";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rosé";2;"Syrah";"SYR";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rosé";2;"Grenache Noir";"GRN";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rosé";2;"Cinsaut";"CIN";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rosé";2;"Merlot";"MER";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rosé";2;"Mourvedre";"MOU";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rosé";2;"Marselan";"MAR";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rosé";2;"Grenache Gris";"GRG";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Rosé";2;"Autre";"CEP";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Blanc";3;"Rolle-Vermentino";"ROL";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Blanc";3;"Chardonnay";"CHA";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Blanc";3;"Sauvignon";"SAU";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Blanc";3;"Grenache Blanc";"GRB";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Blanc";3;"Viognier";"VIO";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Blanc";3;"Marsanne";"MAR";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Blanc";3;"Roussanne";"ROU";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Blanc";3;"Clairette";"CLA";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Blanc";3;"Muscat de HAMBOURG";"MUH";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";;;"Blanc";3;"Autre";"CEP";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rouge";1;;;;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rouge";1;"Syrah";"SYR";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rouge";1;"Grenache Noir";"GRN";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rouge";1;"Cabernet-Sauvignon";"CS";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rouge";1;"Cinsaut";"CIN";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rouge";1;"Merlot";"MER";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rouge";1;"Mourvedre";"MOU";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rouge";1;"Marselan";"MAR";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rouge";1;"Autre";"CEP";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rosé";2;;;;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rosé";2;"Syrah";"SYR";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rosé";2;"Grenache Noir";"GRN";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rosé";2;"Cabernet-Sauvignon";"CS";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rosé";2;"Cinsaut";"CIN";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rosé";2;"Merlot";"MER";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rosé";2;"Mourvedre";"MOU";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rosé";2;"Marselan";"MAR";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rosé";2;"Grenache Gris";"GRG";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Rosé";2;"Autre";"CEP";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Blanc";3;;;;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Blanc";3;"Rolle-Vermentino";"ROL";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Blanc";3;"Chardonnay";"CHA";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Blanc";3;"Sauvignon";"SAU";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Blanc";3;"Grenache Blanc";"GRB";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Blanc";3;"Viognier";"VIO";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Blanc";3;"Marsanne";"MAR";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Blanc";3;"Roussanne";"ROU";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Blanc";3;"Clairette";"CLA";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Blanc";3;"Muscat de HAMBOURG";"MUH";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Aigues";"VPA";"Blanc";3;"Autre";"CEP";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rouge";1;;;;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rouge";1;"Syrah";"SYR";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rouge";1;"Grenache Noir";"GRN";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rouge";1;"Cabernet-Sauvignon";"CS";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rouge";1;"Cinsaut";"CIN";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rouge";1;"Merlot";"MER";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rouge";1;"Mourvedre";"MOU";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rouge";1;"Marselan";"MAR";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rouge";1;"Autre";"CEP";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rosé";2;;;;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rosé";2;"Syrah";"SYR";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rosé";2;"Grenache Noir";"GRN";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rosé";2;"Cabernet-Sauvignon";"CS";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rosé";2;"Cinsaut";"CIN";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rosé";2;"Merlot";"MER";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rosé";2;"Mourvedre";"MOU";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rosé";2;"Marselan";"MAR";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rosé";2;"Grenache Gris";"GRG";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Rosé";2;"Autre";"CEP";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Blanc";3;;;;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Blanc";3;"Rolle-Vermentino";"ROL";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Blanc";3;"Chardonnay";"CHA";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Blanc";3;"Sauvignon";"SAU";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Blanc";3;"Grenache Blanc";"GRB";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Blanc";3;"Viognier";"VIO";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Blanc";3;"Marsanne";"MAR";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Blanc";3;"Roussanne";"ROU";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Blanc";3;"Clairette";"CLA";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Blanc";3;"Muscat de HAMBOURG";"MUH";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Vaucluse";"D84";"Principauté d'Orange";"PDO";"Blanc";3;"Autre";"CEP";;84;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D84/D84/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Rouge";1;;;;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Rouge";1;"Syrah";"SYR";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Rouge";1;"Grenache Noir";"GRN";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Rouge";1;"Cinsaut";"CIN";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Rouge";1;"Merlot";"MER";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Rouge";1;"Mourvedre";"MOU";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Rouge";1;"Autre";"CEP";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Rosé";2;;;;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Rosé";2;"Syrah";"SYR";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Rosé";2;"Grenache Noir";"GRN";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Rosé";2;"Cinsaut";"CIN";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Rosé";2;"Merlot";"MER";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Rosé";2;"Mourvedre";"MOU";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Rosé";2;"Grenache Gris";"GRG";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Rosé";2;"Autre";"CEP";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Blanc";3;;;;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Blanc";3;"Rolle-Vermentino";"ROL";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Blanc";3;"Chardonnay";"CHA";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Blanc";3;"Sauvignon";"SAU";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Blanc";3;"Grenache Blanc";"GRB";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Blanc";3;"Viognier";"VIO";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Blanc";3;"Marsanne";"MAR";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Blanc";3;"Roussanne";"ROU";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Blanc";3;"Clairette";"CLA";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Blanc";3;"Muscat de HAMBOURG";"MUH";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";;;"Blanc";3;"Autre";"CEP";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Rouge";1;;;;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Rouge";1;"Syrah";"SYR";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Rouge";1;"Grenache Noir";"GRN";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Rouge";1;"Cabernet-Sauvignon";"CS";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Rouge";1;"Cinsaut";"CIN";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Rouge";1;"Merlot";"MER";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Rouge";1;"Mourvedre";"MOU";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Rouge";1;"Autre";"CEP";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Rosé";2;;;;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Rosé";2;"Syrah";"SYR";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Rosé";2;"Grenache Noir";"GRN";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Rosé";2;"Cabernet-Sauvignon";"CS";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Rosé";2;"Cinsaut";"CIN";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Rosé";2;"Merlot";"MER";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Rosé";2;"Mourvedre";"MOU";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Rosé";2;"Grenache Gris";"GRG";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Rosé";2;"Autre";"CEP";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Blanc";3;;;;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Blanc";3;"Rolle-Vermentino";"ROL";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Blanc";3;"Chardonnay";"CHA";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Blanc";3;"Sauvignon";"SAU";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Blanc";3;"Grenache Blanc";"GRB";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Blanc";3;"Viognier";"VIO";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Blanc";3;"Marsanne";"MAR";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Blanc";3;"Roussanne";"ROU";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Blanc";3;"Clairette";"CLA";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Blanc";3;"Muscat de HAMBOURG";"MUH";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Comté de Grignan";"CDG";"Blanc";3;"Autre";"CEP";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Rouge";1;;;;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Rouge";1;"Syrah";"SYR";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Rouge";1;"Grenache Noir";"GRN";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Rouge";1;"Cabernet-Sauvignon";"CS";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Rouge";1;"Cinsaut";"CIN";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Rouge";1;"Merlot";"MER";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Rouge";1;"Mourvedre";"MOU";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Rouge";1;"Autre";"CEP";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Rosé";2;;;;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Rosé";2;"Syrah";"SYR";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Rosé";2;"Grenache Noir";"GRN";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Rosé";2;"Cabernet-Sauvignon";"CS";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Rosé";2;"Cinsaut";"CIN";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Rosé";2;"Merlot";"MER";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Rosé";2;"Mourvedre";"MOU";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Rosé";2;"Grenache Gris";"GRG";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Rosé";2;"Autre";"CEP";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Blanc";3;;;;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Blanc";3;"Rolle-Vermentino";"ROL";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Blanc";3;"Chardonnay";"CHA";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Blanc";3;"Sauvignon";"SAU";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Blanc";3;"Grenache Blanc";"GRB";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Blanc";3;"Viognier";"VIO";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Blanc";3;"Marsanne";"MAR";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Blanc";3;"Roussanne";"ROU";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Blanc";3;"Clairette";"CLA";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Blanc";3;"Muscat de HAMBOURG";"MUH";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Drôme";"D26";"Coteaux de Montélimar";"CTM";"Blanc";3;"Autre";"CEP";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Rouge";1;;;;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Rouge";1;"Syrah";"SYR";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Rouge";1;"Grenache Noir";"GRN";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Rouge";1;"Cinsaut";"CIN";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Rouge";1;"Merlot";"MER";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Rouge";1;"Mourvedre";"MOU";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Rouge";1;"Autre";"CEP";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Rosé";2;;;;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Rosé";2;"Syrah";"SYR";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Rosé";2;"Grenache Noir";"GRN";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Rosé";2;"Cinsaut";"CIN";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Rosé";2;"Merlot";"MER";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Rosé";2;"Mourvedre";"MOU";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Rosé";2;"Grenache Gris";"GRG";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Rosé";2;"Autre";"CEP";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Blanc";3;;;;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Blanc";3;"Rolle-Vermentino";"ROL";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Blanc";3;"Chardonnay";"CHA";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Blanc";3;"Sauvignon";"SAU";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Blanc";3;"Grenache Blanc";"GRB";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Blanc";3;"Viognier";"VIO";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Blanc";3;"Marsanne";"MAR";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Blanc";3;"Roussanne";"ROU";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Blanc";3;"Clairette";"CLA";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Blanc";3;"Muscat de HAMBOURG";"MUH";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Drôme";"D26";;;"Blanc";3;"Autre";"CEP";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D26/D26/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Rouge";1;;;;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Rouge";1;"Syrah";"SYR";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Rouge";1;"Grenache Noir";"GRN";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Rouge";1;"Cinsaut";"CIN";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Rouge";1;"Merlot";"MER";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Rouge";1;"Mourvedre";"MOU";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Rouge";1;"Autre";"CEP";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Rosé";2;;;;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Rosé";2;"Syrah";"SYR";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Rosé";2;"Grenache Noir";"GRN";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Rosé";2;"Cinsaut";"CIN";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Rosé";2;"Merlot";"MER";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Rosé";2;"Mourvedre";"MOU";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Rosé";2;"Grenache Gris";"GRG";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Rosé";2;"Autre";"CEP";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Blanc";3;;;;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Rolle-Vermentino";"ROL";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Chardonnay";"CHA";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Sauvignon";"SAU";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Grenache Blanc";"GRB";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Viognier";"VIO";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Marsanne";"MAR";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Roussanne";"ROU";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Clairette";"CLA";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Muscat de HAMBOURG";"MUH";;26;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Rouge";1;;;;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Rouge";1;"Syrah";"SYR";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Rouge";1;"Grenache Noir";"GRN";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Rouge";1;"Cinsaut";"CIN";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Rouge";1;"Merlot";"MER";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Rouge";1;"Mourvedre";"MOU";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Rouge";1;"Autre";"CEP";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Rosé";2;;;;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Rosé";2;"Syrah";"SYR";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Rosé";2;"Grenache Noir";"GRN";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Rosé";2;"Cinsaut";"CIN";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Rosé";2;"Merlot";"MER";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Rosé";2;"Mourvedre";"MOU";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Rosé";2;"Grenache Gris";"GRG";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Rosé";2;"Autre";"CEP";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Blanc";3;;;;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Rolle-Vermentino";"ROL";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Chardonnay";"CHA";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Sauvignon";"SAU";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Grenache Blanc";"GRB";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Viognier";"VIO";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Marsanne";"MAR";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Roussanne";"ROU";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Clairette";"CLA";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Muscat de HAMBOURG";"MUH";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Coteaux des Baronnies";"CBA";;;"Blanc";3;"Autre";"CEP";;26;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CBA/CBA/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Rouge";1;;;;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Rouge";1;"Syrah";"SYR";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Rouge";1;"Grenache Noir";"GRN";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Rouge";1;"Cinsaut";"CIN";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Rouge";1;"Merlot";"MER";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Rouge";1;"Mollard";"MOL";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Rouge";1;"Autre";"CEP";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Rosé";2;;;;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Rosé";2;"Syrah";"SYR";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Rosé";2;"Grenache Noir";"GRN";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Rosé";2;"Cinsaut";"CIN";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Rosé";2;"Merlot";"MER";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Rosé";2;"Mourvedre";"MOU";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Rosé";2;"Autre";"CEP";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Blanc";3;;;;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Blanc";3;"Rolle-Vermentino";"ROL";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Blanc";3;"Chardonnay";"CHA";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Blanc";3;"Sauvignon";"SAU";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Blanc";3;"Grenache Blanc";"GRB";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Blanc";3;"Viognier";"VIO";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Blanc";3;"Marsanne";"MAR";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Blanc";3;"Roussanne";"ROU";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Blanc";3;"Muscat à petits grains";"MPG";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Hautes Alpes ";"D05";;;"Blanc";3;"Autre";"CEP";;5;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Rouge";1;;;;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Rouge";1;"Syrah";"SYR";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Rouge";1;"Grenache Noir";"GRN";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Rouge";1;"Cinsaut";"CIN";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Rouge";1;"Merlot";"MER";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Rouge";1;"Mollard";"MOL";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Rouge";1;"Autre";"CEP";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Rosé";2;;;;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Rosé";2;"Syrah";"SYR";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Rosé";2;"Grenache Noir";"GRN";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Rosé";2;"Cinsaut";"CIN";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Rosé";2;"Merlot";"MER";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Rosé";2;"Mourvedre";"MOU";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Rosé";2;"Autre";"CEP";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Blanc";3;;;;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Blanc";3;"Rolle-Vermentino";"ROL";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Blanc";3;"Chardonnay";"CHA";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Blanc";3;"Sauvignon";"SAU";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Blanc";3;"Grenache Blanc";"GRB";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Blanc";3;"Viognier";"VIO";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Blanc";3;"Marsanne";"MAR";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Blanc";3;"Roussanne";"ROU";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Blanc";3;"Muscat à petits grains";"MPG";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Hautes Alpes ";"D05";;;"Blanc";3;"Autre";"CEP";;5;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D05/D05/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Rouge";1;;;;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Rouge";1;"Syrah";"SYR";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Rouge";1;"Grenache Noir";"GRN";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Rouge";1;"Cinsaut";"CIN";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Rouge";1;"Merlot";"MER";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Rouge";1;"Mourvedre";"MOU";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Rouge";1;"Autre";"CEP";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Rosé";2;;;;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Rosé";2;"Syrah";"SYR";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Rosé";2;"Grenache Noir";"GRN";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Rosé";2;"Cinsaut";"CIN";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Rosé";2;"Merlot";"MER";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Rosé";2;"Mourvedre";"MOU";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Rosé";2;"Autre";"CEP";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Blanc";3;;;;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Blanc";3;"Rolle-Vermentino";"ROL";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Blanc";3;"Chardonnay";"CHA";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Blanc";3;"Sauvignon";"SAU";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Blanc";3;"Grenache Blanc";"GRB";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Blanc";3;"Viognier";"VIO";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Blanc";3;"Marsanne";"MAR";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Blanc";3;"Roussanne";"ROU";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Blanc";3;"Muscat à petits grains";"MPG";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Alpes de Haute Provence";"D04";;;"Blanc";3;"Autre";"CEP";;4;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D04/D04/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rouge";1;;;;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rouge";1;"Syrah";"SYR";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rouge";1;"Grenache Noir";"GRN";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rouge";1;"Cinsaut";"CIN";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rouge";1;"Merlot";"MER";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rouge";1;"Mourvedre";"MOU";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rouge";1;"Marselan";"MAR";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rouge";1;"Autre";"CEP";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rosé";2;;;;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rosé";2;"Syrah";"SYR";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rosé";2;"Grenache Noir";"GRN";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rosé";2;"Cinsaut";"CIN";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rosé";2;"Merlot";"MER";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rosé";2;"Mourvedre";"MOU";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rosé";2;"Grenache Gris";"GRG";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Rosé";2;"Autre";"CEP";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Blanc";3;;;;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Blanc";3;"Rolle-Vermentino";"ROL";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Blanc";3;"Chardonnay";"CHA";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Blanc";3;"Sauvignon";"SAU";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Blanc";3;"Grenache Blanc";"GRB";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Blanc";3;"Viognier";"VIO";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Blanc";3;"Marsanne";"MAR";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Blanc";3;"Roussanne";"ROU";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Blanc";3;"Clairette";"CLA";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Blanc";3;"Muscat de HAMBOURG";"MUH";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpilles";"ALP";;;"Blanc";3;"Autre";"CEP";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"ALP/ALP/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rouge";1;;;;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rouge";1;"Syrah";"SYR";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rouge";1;"Grenache Noir";"GRN";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rouge";1;"Cinsaut";"CIN";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rouge";1;"Merlot";"MER";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rouge";1;"Mourvedre";"MOU";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rouge";1;"Pinot";"PIN";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rouge";1;"Gamay";"GAM";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rouge";1;"Autre";"CEP";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rosé";2;;;;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rosé";2;"Syrah";"SYR";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rosé";2;"Grenache Noir";"GRN";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rosé";2;"Cinsaut";"CIN";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rosé";2;"Merlot";"MER";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rosé";2;"Mourvedre";"MOU";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rosé";2;"Grenache Gris";"GRG";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Rosé";2;"Autre";"CEP";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Blanc";3;;;;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Blanc";3;"Rolle-Vermentino";"ROL";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Blanc";3;"Chardonnay";"CHA";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Blanc";3;"Sauvignon";"SAU";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Blanc";3;"Grenache Blanc";"GRB";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Blanc";3;"Viognier";"VIO";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Blanc";3;"Marsanne";"MAR";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Blanc";3;"Roussanne";"ROU";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Blanc";3;"Clairette";"CLA";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Blanc";3;"Muscat de HAMBOURG";"MUH";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";;;"Blanc";3;"Autre";"CEP";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rouge";1;;;;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rouge";1;"Syrah";"SYR";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rouge";1;"Grenache Noir";"GRN";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rouge";1;"Cabernet-Sauvignon";"CS";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rouge";1;"Cinsaut";"CIN";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rouge";1;"Merlot";"MER";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rouge";1;"Mourvedre";"MOU";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rouge";1;"Pinot";"PIN";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rouge";1;"Gamay";"GAM";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rouge";1;"Autre";"CEP";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rosé";2;;;;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rosé";2;"Syrah";"SYR";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rosé";2;"Grenache Noir";"GRN";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rosé";2;"Cabernet-Sauvignon";"CS";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rosé";2;"Cinsaut";"CIN";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rosé";2;"Merlot";"MER";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rosé";2;"Mourvedre";"MOU";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rosé";2;"Grenache Gris";"GRG";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Rosé";2;"Autre";"CEP";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Blanc";3;;;;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Blanc";3;"Rolle-Vermentino";"ROL";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Blanc";3;"Chardonnay";"CHA";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Blanc";3;"Sauvignon";"SAU";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Blanc";3;"Grenache Blanc";"GRB";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Blanc";3;"Viognier";"VIO";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Blanc";3;"Marsanne";"MAR";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Blanc";3;"Roussanne";"ROU";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Blanc";3;"Clairette";"CLA";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Blanc";3;"Muscat de HAMBOURG";"MUH";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Ardèche";"D07";"Coteaux de l'Ardèche";"CDA";"Blanc";3;"Autre";"CEP";;"7,3";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rouge";1;;;;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rouge";1;"Syrah";"SYR";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rouge";1;"Grenache Noir";"GRN";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rouge";1;"Cinsaut";"CIN";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rouge";1;"Merlot";"MER";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rouge";1;"Mourvedre";"MOU";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rouge";1;"Pinot";"PIN";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rouge";1;"Gamay";"GAM";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rouge";1;"Autre";"CEP";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rosé";2;;;;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rosé";2;"Syrah";"SYR";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rosé";2;"Grenache Noir";"GRN";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rosé";2;"Cinsaut";"CIN";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rosé";2;"Merlot";"MER";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rosé";2;"Mourvedre";"MOU";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rosé";2;"Grenache Gris";"GRG";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Rosé";2;"Autre";"CEP";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Blanc";3;;;;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Blanc";3;"Rolle-Vermentino";"ROL";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Blanc";3;"Chardonnay";"CHA";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Blanc";3;"Sauvignon";"SAU";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Blanc";3;"Grenache Blanc";"GRB";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Blanc";3;"Viognier";"VIO";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Blanc";3;"Marsanne";"MAR";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Blanc";3;"Roussanne";"ROU";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Blanc";3;"Clairette";"CLA";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Blanc";3;"Muscat de HAMBOURG";"MUH";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Ardèche";"D07";;;"Blanc";3;"Autre";"CEP";;"7,3";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D07/D07/1/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Rouge";1;;;;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Rouge";1;"Syrah";"SYR";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Rouge";1;"Grenache Noir";"GRN";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Rouge";1;"Cinsaut";"CIN";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Rouge";1;"Merlot";"MER";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Rouge";1;"Mourvedre";"MOU";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Rouge";1;"Pinot";"PIN";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Rouge";1;"Gamay";"GAM";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Rosé";2;"Syrah";"SYR";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Rosé";2;"Grenache Noir";"GRN";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Rosé";2;"Cinsaut";"CIN";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Rosé";2;"Merlot";"MER";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Rosé";2;"Mourvedre";"MOU";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Rosé";2;"Grenache Gris";"GRG";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Rosé";2;"Autre";"CEP";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Blanc";3;;;;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Rolle-Vermentino";"ROL";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Chardonnay";"CHA";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Sauvignon";"SAU";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Grenache Blanc";"GRB";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Viognier";"VIO";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Marsanne";"MAR";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Roussanne";"ROU";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Clairette";"CLA";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Muscat de HAMBOURG";"MUH";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Autre";"CEP";;"07,26,38,42,69";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rouge";1;;;;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rouge";1;"Syrah";"SYR";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rouge";1;"Grenache Noir";"GRN";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rouge";1;"Cinsaut";"CIN";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rouge";1;"Merlot";"MER";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rouge";1;"Mourvedre";"MOU";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rouge";1;"Pinot";"PIN";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rouge";1;"Gamay";"GAM";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rouge";1;"Autre";"CEP";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rosé";2;;;;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rosé";2;"Syrah";"SYR";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rosé";2;"Grenache Noir";"GRN";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rosé";2;"Cinsaut";"CIN";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rosé";2;"Merlot";"MER";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rosé";2;"Mourvedre";"MOU";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Rosé";2;"Grenache Gris";"GRG";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Blanc";3;;;;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Rolle-Vermentino";"ROL";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Chardonnay";"CHA";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Sauvignon";"SAU";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Grenache Blanc";"GRB";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Viognier";"VIO";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Marsanne";"MAR";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Roussanne";"ROU";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Clairette";"CLA";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Muscat de HAMBOURG";"MUH";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Collines Rhodaniennes";"CLR";;;"Blanc";3;"Autre";"CEP";;"07,26,38,42,69";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CLR/CLR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rouge";1;;;;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rouge";1;"Syrah";"SYR";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rouge";1;"Grenache Noir";"GRN";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rouge";1;"Cinsaut";"CIN";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rouge";1;"Merlot";"MER";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rouge";1;"Mourvedre";"MOU";;"02,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+;"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rouge";1;"Pinot";"PIN";;"03,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+;"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rouge";1;"Gamay";"GAM";;"04,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rouge";1;"Autre";"CEP";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rosé";2;;;;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rosé";2;"Syrah";"SYR";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rosé";2;"Grenache Noir";"GRN";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rosé";2;"Cinsaut";"CIN";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rosé";2;"Merlot";"MER";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rosé";2;"Mourvedre";"MOU";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rosé";2;"Grenache Gris";"GRG";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Rosé";2;"Autre";"CEP";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Blanc";3;;;;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Blanc";3;"Rolle-Vermentino";"ROL";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Blanc";3;"Chardonnay";"CHA";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Blanc";3;"Sauvignon";"SAU";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Blanc";3;"Grenache Blanc";"GRB";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Blanc";3;"Viognier";"VIO";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Blanc";3;"Marsanne";"MAR";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Blanc";3;"Roussanne";"ROU";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Blanc";3;"Clairette";"CLA";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Blanc";3;"Muscat de HAMBOURG";"MUH";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Comté Rhodanien";"CTR";;;"Blanc";3;"Autre";"CEP";;"01,07,26,42,69,71,73,74";"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rouge";1;;;;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rouge";1;"Syrah";"SYR";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rouge";1;"Grenache Noir";"GRN";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rouge";1;"Cinsaut";"CIN";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rouge";1;"Merlot";"MER";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rouge";1;"Mourvedre";"MOU";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rouge";1;"Pinot";"PIN";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rouge";1;"Gamay";"GAM";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rouge";1;"autre";"CEP";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rosé";2;;;;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rosé";2;"Syrah";"SYR";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rosé";2;"Grenache Noir";"GRN";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rosé";2;"Cinsaut";"CIN";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rosé";2;"Merlot";"MER";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rosé";2;"Mourvedre";"MOU";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rosé";2;"Grenache Gris";"GRG";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Rosé";2;"Autre";"CEP";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Blanc";3;;;;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Blanc";3;"Rolle-Vermentino";"ROL";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Blanc";3;"Chardonnay";"CHA";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Blanc";3;"Sauvignon";"SAU";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Blanc";3;"Grenache Blanc";"GRB";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Blanc";3;"Viognier";"VIO";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Blanc";3;"Marsanne";"MAR";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Blanc";3;"Roussanne";"ROU";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Blanc";3;"Clairette";"CLA";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Blanc";3;"Muscat de HAMBOURG";"MUH";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Comté Rhodanien";"CTR";;;"Blanc";3;"Autre";"CEP";;"01,07,26,42,69,71,73,74";"L385/L385-Vins mousseux/8,91/2012-01-01/G";"CTR/CTR/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rouge";1;;;;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rouge";1;"Syrah";"SYR";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rouge";1;"Grenache Noir";"GRN";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rouge";1;"Cinsaut";"CIN";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rouge";1;"Merlot";"MER";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rouge";1;"Mourvedre";"MOU";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rouge";1;"Marselan";"MAR";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rouge";1;"Autre";"CEP";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rosé";2;;;;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rosé";2;"Syrah";"SYR";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rosé";2;"Grenache Noir";"GRN";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rosé";2;"Cinsaut";"CIN";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rosé";2;"Merlot";"MER";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rosé";2;"Mourvedre";"MOU";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rosé";2;"Grenache Gris";"GRG";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Rosé";2;"Autre";"CEP";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Blanc";3;;;;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Rolle-Vermentino";"ROL";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Chardonnay";"CHA";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Sauvignon";"SAU";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Grenache Blanc";"GRB";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Viognier";"VIO";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Marsanne";"MAR";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Roussanne";"ROU";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Clairette";"CLA";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Muscat de HAMBOURG";"MUH";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Autre";"CEP";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;;;;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;"Syrah";"SYR";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;"Grenache Noir";"GRN";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;"Cabernet-Sauvignon";"CS";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;"Cinsaut";"CIN";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;"Merlot";"MER";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;"Mourvedre";"MOU";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;"Marselan";"MAR";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;"Autre";"CEP";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;;;;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;"Syrah";"SYR";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;"Grenache Noir";"GRN";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;"Cabernet-Sauvignon";"CS";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;"Cinsaut";"CIN";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;"Merlot";"MER";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;"Mourvedre";"MOU";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;"Grenache Gris";"GRG";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;"Autre";"CEP";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;;;;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Rolle-Vermentino";"ROL";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Chardonnay";"CHA";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Sauvignon";"SAU";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Grenache Blanc";"GRB";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Viognier";"VIO";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Marsanne";"MAR";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Roussanne";"ROU";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Clairette";"CLA";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Muscat de HAMBOURG";"MUH";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Autre";"CEP";;13;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rouge";1;;;;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rouge";1;"Syrah";"SYR";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rouge";1;"Grenache Noir";"GRN";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rouge";1;"Cinsaut";"CIN";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rouge";1;"Merlot";"MER";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rouge";1;"Mourvedre";"MOU";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rouge";1;"Marselan";"MAR";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rouge";1;"Autre";"CEP";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rosé";2;;;;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rosé";2;"Syrah";"SYR";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rosé";2;"Grenache Noir";"GRN";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rosé";2;"Cinsaut";"CIN";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rosé";2;"Merlot";"MER";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rosé";2;"Mourvedre";"MOU";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rosé";2;"Grenache Gris";"GRG";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Rosé";2;"Autre";"CEP";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Blanc";3;;;;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Rolle-Vermentino";"ROL";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Chardonnay";"CHA";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Sauvignon";"SAU";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Grenache Blanc";"GRB";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Viognier";"VIO";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Marsanne";"MAR";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Roussanne";"ROU";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Clairette";"CLA";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Muscat de HAMBOURG";"MUH";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";;;"Blanc";3;"Autre";"CEP";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;;;;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;"Syrah";"SYR";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;"Grenache Noir";"GRN";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;"Cabernet-Sauvignon";"CS";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;"Cinsaut";"CIN";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;"Merlot";"MER";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;"Mourvedre";"MOU";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;"Marselan";"MAR";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rouge";1;"Autre";"CEP";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;;;;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;"Syrah";"SYR";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;"Grenache Noir";"GRN";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;"Cabernet-Sauvignon";"CS";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;"Cinsaut";"CIN";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;"Merlot";"MER";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;"Mourvedre";"MOU";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;"Grenache Gris";"GRG";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Rosé";2;"Autre";"CEP";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;;;;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Rolle-Vermentino";"ROL";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Chardonnay";"CHA";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Sauvignon";"SAU";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Grenache Blanc";"GRB";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Viognier";"VIO";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Marsanne";"MAR";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Roussanne";"ROU";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Clairette";"CLA";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Muscat de HAMBOURG";"MUH";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";" Bouches-du-Rhône";"D13";"Terre de Camargue";"TDC";"Blanc";3;"Autre";"CEP";;13;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D13/D13/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Rouge";1;;;;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Rouge";1;"Syrah";"SYR";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Rouge";1;"Grenache Noir";"GRN";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Rouge";1;"Cinsaut";"CIN";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Rouge";1;"Merlot";"MER";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Rouge";1;"Mourvedre";"MOU";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Rouge";1;"Autre";"CEP";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Rosé";2;;;;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Rosé";2;"Syrah";"SYR";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Rosé";2;"Grenache Noir";"GRN";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Rosé";2;"Cinsaut";"CIN";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Rosé";2;"Merlot";"MER";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Rosé";2;"Mourvedre";"MOU";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Rosé";2;"Autre";"CEP";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Blanc";3;;;;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Blanc";3;"Rolle-Vermentino";"ROL";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Blanc";3;"Chardonnay";"CHA";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Blanc";3;"Sauvignon";"SAU";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Blanc";3;"Grenache Blanc";"GRB";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Blanc";3;"Viognier";"VIO";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Blanc";3;"Marsanne";"MAR";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Blanc";3;"Roussanne";"ROU";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Blanc";3;"Clairette";"CLA";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Tranquilles";"TRANQ";"Alpes Maritimes";"D06";;;"Blanc";3;"Autre";"CEP";;6;"L387/L387-Vins tranquilles/3,6/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Rouge";1;;;;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Rouge";1;"Syrah";"SYR";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Rouge";1;"Grenache Noir";"GRN";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Rouge";1;"Cabernet-Sauvignon";"CS";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Rouge";1;"Cinsaut";"CIN";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Rouge";1;"Merlot";"MER";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Rouge";1;"Mourvedre";"MOU";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Rouge";1;"Autre";"CEP";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Rosé";2;;;;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Rosé";2;"Syrah";"SYR";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Rosé";2;"Grenache Noir";"GRN";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Rosé";2;"Cabernet-Sauvignon";"CS";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Rosé";2;"Cinsaut";"CIN";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Rosé";2;"Merlot";"MER";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Rosé";2;"Mourvedre";"MOU";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Rosé";2;"Autre";"CEP";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Blanc";3;;;;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Blanc";3;"Rolle-Vermentino";"ROL";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Blanc";3;"Chardonnay";"CHA";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Blanc";3;"Sauvignon";"SAU";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Blanc";3;"Grenache Blanc";"GRB";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Blanc";3;"Viognier";"VIO";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Blanc";3;"Marsanne";"MAR";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Blanc";3;"Roussanne";"ROU";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Blanc";3;"Clairette";"CLA";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1
+"IGP";"IGP";"Effervescent";"EFF";"Alpes Maritimes";"D06";;;"Blanc";3;"Autre";"CEP";;6;"L385/L385-Vins mousseux/8,91/2012-01-01/G";"D06/D06/0,5/2010-01-01/A";0;;1;1;0;1

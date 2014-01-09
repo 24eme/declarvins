@@ -34,6 +34,40 @@ class ConfigurationProduitLieu extends BaseConfigurationProduitLieu
     	return $this->getParentNode();
     }
     
+    public function hasCepage()
+    {
+    	foreach($this->couleurs as $couleur) {
+            if ($couleur->hasCepage()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public function getTotalLieux($departements = null) 
+    {
+    	if ($departements) {
+    		if (!is_array($departements)) {
+    			$departements = array($departements);
+    		}
+    		if ($currentDepartements = $this->getCurrentDepartements(true)) {
+    			$found = false;
+    			foreach ($departements as $departement) {
+    				if (in_array($departement, $currentDepartements)) {
+    					$found = true;
+    					break;
+    				}
+    			}
+    			if (!$found) {
+    				return array();
+    			} 
+    		} else {
+    			return array();
+    		}
+    	}
+        return array($this->getHash() => $this);
+    }
+    
 	/*
      * Les fonctions ci-dessous sont relatives à la gestion de la configuration du catalogue produit
      */

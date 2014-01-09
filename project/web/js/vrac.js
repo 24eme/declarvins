@@ -30,7 +30,6 @@
     {
     	var input = blocCondition.find('input');
     	var blocs = blocCondition.attr('data-condition-cible').split('|');
-    	console.log(blocs);
     	var traitement = function(input, blocs) {
 		if(input.is(':checked') || input.is(':selected'))
             {

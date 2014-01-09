@@ -6,7 +6,7 @@
 
 class ConfigurationProduitDroit extends BaseConfigurationProduitDroit 
 {
-	public function isEmpty()
+	/*public function isEmpty()
 	{
 		return is_null($this->taux);
 	}
@@ -17,5 +17,5 @@ class ConfigurationProduitDroit extends BaseConfigurationProduitDroit
 			return $this->getDocument()->droits->get($this->getCode());
 		}
 		return $this->getLibelle();
-	}
+	}*/
 }

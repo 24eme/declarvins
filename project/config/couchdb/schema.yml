@@ -120,6 +120,7 @@ Interpro:
       nom: { }
       type: {  }
       statut: {  }
+      configuration_produits: {  }
       departements:
         type: array_collection
         definition:

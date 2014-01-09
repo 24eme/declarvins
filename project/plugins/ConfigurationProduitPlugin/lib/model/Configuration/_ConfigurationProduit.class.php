@@ -14,13 +14,32 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 		}
 	}
 	
-	public function getProduits() 
+	public function getProduits($departements = null, $onlyForDrmVrac = false) 
 	{       
       	$produits = array();
       	foreach($this->getChildrenNode() as $key => $item) {
-        	$produits = array_merge($produits, $item->getProduits());
+        	$produits = array_merge($produits, $item->getProduits($departements, $onlyForDrmVrac));
       	}
     	return $produits;
+  	}
+	
+	public function getTotalLieux($departements = null) 
+	{       
+      	$lieux = array();
+      	foreach($this->getChildrenNode() as $key => $item) {
+        	$lieux = array_merge($lieux, $item->getTotalLieux($departements));
+      	}
+    	return $lieux;
+  	}
+  	
+  	public function hasProduits($departements = null, $onlyForDrmVrac = false)
+  	{
+  		return (count($this->getProduits($departements, $onlyForDrmVrac)) > 0)? true : false; 
+  	}
+  	
+  	public function hasLieux($departements = null)
+  	{
+  		return (count($this->getTotalLieux($departements)) > 0)? true : false; 
   	}
     
     public function getAllAppellations()
@@ -28,6 +47,24 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     	$items = array();
       	foreach($this->getChildrenNode() as $key => $item) {
         	$items = array_merge($items, $item->getAllAppellations());
+      	}
+    	return $items;
+    }
+    
+    public function getAllCertifications()
+    {
+    	$items = array();
+      	foreach($this->getChildrenNode() as $key => $item) {
+        	$items = array_merge($items, $item->getAllCertifications());
+      	}
+    	return $items;
+    }
+    
+    public function getAllLabels()
+    {
+    	$items = array();
+      	foreach($this->getChildrenNode() as $key => $item) {
+        	$items = array_merge($items, $item->getAllLabels());
       	}
     	return $items;
     }
@@ -50,6 +87,22 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     	return $items;
     }
     
+	public function getLibelles() 
+	{
+    	if(is_null($this->libelles)) {
+        	$this->libelles = array_merge($this->getParentNode()->getLibelles(), array($this->libelle));
+        }
+        return $this->libelles;
+    }
+
+    public function getCodes() 
+    {
+		if(is_null($this->codes)) {
+			$this->codes = array_merge($this->getParentNode()->getCodes(), array($this->code));
+		}
+		return $this->codes;
+    }
+    
     protected function castFloat($float) 
     {
     	return floatval(str_replace(',', '.', $float));
@@ -61,7 +114,7 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     /*
      * Les fonctions ci-dessous permettent la récupération de la configuration d'un produit
      */
-    public function getCurrentDroit($typeDroit, $atDate = null)
+    public function getCurrentDroit($typeDroit, $atDate = null, $onlyValue = false)
     {
     	$atDate = ($atDate)? $atDate : date('Y-m-d');
     	if ($this->exist('droits')) {
@@ -75,82 +128,82 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     				}
     			}
     			if ($d) {
-    				return array($this->getTypeNoeud() => $d);
+    				return ($onlyValue)? $d : array($this->getTypeNoeud() => $d);
     			}
     		}
     	}
-    	return $this->callbackCurrentDroit($typeDroit, $atDate);
+    	return $this->callbackCurrentDroit($typeDroit, $atDate, $onlyValue);
     }
     
-    public function callbackCurrentDroit($typeDroit, $atDate = null)
+    public function callbackCurrentDroit($typeDroit, $atDate = null, $onlyValue = false)
     {
-    	return $this->getParentNode()->getCurrentDroit($typeDroit, $atDate);
+    	return $this->getParentNode()->getCurrentDroit($typeDroit, $atDate, $onlyValue);
     }
     
-	public function getHistoryDroit($typeDroit)
+	public function getHistoryDroit($typeDroit, $onlyValue = false)
     {
     	$result = array();
     	if ($this->exist('droits')) {
     		$droits = $this->droits->get($typeDroit)->toArray();
     		if (count($droits) > 0) {
-    			$result = array($this->getCodeApplicatif() => $droits);
+    			$result = ($onlyValue)? $droits : array($this->getCodeApplicatif() => $droits);
     		}
     	}
-    	return array_merge($this->callbackHistoryDroit($typeDroit), $result);
+    	return array_merge($this->callbackHistoryDroit($typeDroit, $onlyValue), $result);
     }
     
-    public function callbackHistoryDroit($typeDroit)
+    public function callbackHistoryDroit($typeDroit, $onlyValue = false)
     {
-    	return $this->getParentNode()->getHistoryDroit($typeDroit);
+    	return $this->getParentNode()->getHistoryDroit($typeDroit, $onlyValue);
     }
     
-    public function getCurrentDepartements()
+    public function getCurrentDepartements($onlyValue = false)
     {
     	if ($this->exist('departements')) {
     		$departements = $this->departements->toArray();
     		if (count($departements) > 0) {
-    			return array($this->getTypeNoeud() => $departements);
+    			return ($onlyValue)? $departements : array($this->getTypeNoeud() => $departements);
     		}
     	}
-    	return $this->callbackCurrentDepartements();
+    	return $this->callbackCurrentDepartements($onlyValue);
     }
     
-    public function callbackCurrentDepartements()
+    public function callbackCurrentDepartements($onlyValue = false)
     {
-    	return $this->getParentNode()->getCurrentDepartements();
+    	return $this->getParentNode()->getCurrentDepartements($onlyValue);
     }
     
-    public function getCurrentLabels()
+    public function getCurrentLabels($onlyValue = false)
     {
     	if ($this->exist('labels')) {
     		$labels = $this->labels->toArray();
     		if (count($labels) > 0) {
-    			return array($this->getTypeNoeud() => $labels);
+    			return ($onlyValue)? $labels : array($this->getTypeNoeud() => $labels);
     		}
     	}
-    	return $this->callbackCurrentLabels();
+    	return $this->callbackCurrentLabels($onlyValue);
     }
     
-    public function callbackCurrentLabels()
+    public function callbackCurrentLabels($onlyValue = false)
     {
-    	return $this->getParentNode()->getCurrentLabels();
+    	return $this->getParentNode()->getCurrentLabels($onlyValue);
     }
     
-    public function getCurrentDrmVrac()
+    public function getCurrentDrmVrac($onlyValue = false)
     {
     	if ($this->exist('drm_vrac')) {
     		$drm_vrac = ($this->drm_vrac)? 1 : 0;
-    		return array($this->getTypeNoeud() => $drm_vrac);
+    		return ($onlyValue)? $drm_vrac : array($this->getTypeNoeud() => $drm_vrac);
     	}
-    	return $this->callbackCurrentDrmVrac();
+    	return $this->callbackCurrentDrmVrac($onlyValue);
     }
     
-    public function callbackCurrentDrmVrac()
+    public function callbackCurrentDrmVrac($onlyValue = false)
     {
-    	return $this->getParentNode()->getCurrentDrmVrac();
+    	return $this->getParentNode()->getCurrentDrmVrac($onlyValue);
     }
     
-    public function getCurrentOrganisme($atDate = null)
+    public function getCurrentOrganisme($atDate = null, $onlyValue = false)
     {
     	$atDate = ($atDate)? $atDate : date('Y-m-d');
     	if ($this->exist('organismes')) {
@@ -164,46 +217,46 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     				}
     			}
     			if ($o) {
-    				return array($this->getTypeNoeud() => $o);
+    				return ($onlyValue)? $o : array($this->getTypeNoeud() => $o);
     			}
     		}
     	}
-    	return $this->callbackCurrentOrganisme($atDate);
+    	return $this->callbackCurrentOrganisme($atDate, $onlyValue);
     }
     
-    public function callbackCurrentOrganisme($atDate = null)
+    public function callbackCurrentOrganisme($atDate = null, $onlyValue = false)
     {
-    	return $this->getParentNode()->getCurrentOrganisme();
+    	return $this->getParentNode()->getCurrentOrganisme($atDate, $onlyValue);
     }
     
-	public function getHistoryOrganisme()
+	public function getHistoryOrganisme($onlyValue = false)
     {
     	$result = array();
     	if ($this->exist('organismes')) {
     		$organismes = $this->organismes->toArray();
     		if (count($organismes) > 0) {
-    			$result = array($this->getCodeApplicatif() => $organismes);
+    			$result = ($onlyValue)? $organismes : array($this->getCodeApplicatif() => $organismes);
     		}
     	}
-    	return array_merge($this->callbackHistoryOrganisme(), $result);
+    	return array_merge($this->callbackHistoryOrganisme($onlyValue), $result);
     }
     
-    public function callbackHistoryOrganisme()
+    public function callbackHistoryOrganisme($onlyValue = false)
     {
-    	return $this->getParentNode()->getHistoryOrganisme();
+    	return $this->getParentNode()->getHistoryOrganisme($onlyValue);
     }
     
-    public function getCurrentDefinitionDrm()
+    public function getCurrentDefinitionDrm($onlyValue = false)
     {
     	if ($this->exist('definition_drm')) {
-    		return array($this->getTypeNoeud() => $this->definition_drm);
+    		return ($onlyValue)? $this->definition_drm : array($this->getTypeNoeud() => $this->definition_drm);
     	}
-    	return $this->callbackCurrentDefinitionDrm();
+    	return $this->callbackCurrentDefinitionDrm($onlyValue);
     }
     
-    public function callbackCurrentDefinitionDrm()
+    public function callbackCurrentDefinitionDrm($onlyValue = false)
     {
-    	return $this->getParentNode()->getCurrentDefinitionDrm();
+    	return $this->getParentNode()->getCurrentDefinitionDrm($onlyValue);
     }
     
     /*

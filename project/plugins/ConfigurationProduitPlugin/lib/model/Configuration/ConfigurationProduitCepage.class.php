@@ -9,8 +9,32 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
       return null;
     }
 
-    public function getProduits() 
+    public function getProduits($departements = null, $onlyForDrmVrac = false) 
     {
+    	if ($departements) {
+    		if (!is_array($departements)) {
+    			$departements = array($departements);
+    		}
+    		if ($currentDepartements = $this->getCurrentDepartements(true)) {
+    			$found = false;
+    			foreach ($departements as $departement) {
+    				if (in_array($departement, $currentDepartements)) {
+    					$found = true;
+    					break;
+    				}
+    			}
+    			if (!$found) {
+    				return array();
+    			} 
+    		} else {
+    			return array();
+    		}
+    	}
+    	if ($onlyForDrmVrac) {
+    		if (!$this->getCurrentDrmVrac(true)) {
+    			return array();
+    		}
+    	}
         return array($this->getHash() => $this);
     }
     

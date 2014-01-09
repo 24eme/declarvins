@@ -8,21 +8,21 @@ class ConfigurationProduitDeclaration extends BaseConfigurationProduitDeclaratio
         return $this->certifications;
     }
     
-    public function getCurrentDroit($typeDroit, $atDate = null) { return null; }
+    public function getCurrentDroit($typeDroit, $atDate = null, $onlyValue = false) { return null; }
     
-	public function getHistoryDroit($typeDroit) { return null; }
+	public function getHistoryDroit($typeDroit, $onlyValue = false) { return null; }
     
-    public function getCurrentDepartements() { return null; }
+    public function getCurrentDepartements($onlyValue = false) { return null; }
     
-    public function getCurrentDrmVrac() { return null; }
+    public function getCurrentDrmVrac($onlyValue = false) { return null; }
     
-    public function getCurrentOrganisme($atDate = null) { return null; }
+    public function getCurrentOrganisme($atDate = null, $onlyValue = false) { return null; }
     
-	public function getHistoryOrganisme() { return null; }
+	public function getHistoryOrganisme($onlyValue = false) { return null; }
     
-    public function getCurrentLabels() { return null; }
+    public function getCurrentLabels($onlyValue = false) { return null; }
     
-    public function getCurrentDefinitionDrm() { return null; }
+    public function getCurrentDefinitionDrm($onlyValue = false) { return null; }
     
 	/*
      * Les fonctions ci-dessous sont relatives à la gestion de la configuration du catalogue produit

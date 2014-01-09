@@ -95,5 +95,49 @@ class ConfigurationProduit extends BaseConfigurationProduit
     {
     	return $this->declaration->getAllCepages();
     }
+    
+    public function getCertifications()
+    {
+    	return $this->declaration->getAllCertifications();
+    }
+    
+    public function getLabels($hash = null)
+    {
+    	if ($hash) {
+    		if ($this->exist($hash)) {
+    			return $this->get($hash)->getAllLabels();
+    		}
+    		return array();
+    	} else {
+    		return $this->declaration->getAllLabels();
+    	}
+    }
+    
+    public function getProduits($hash = null, $departements = null, $onlyForDrmVrac = false)
+    {
+    	if ($hash) {
+    		if ($this->exist($hash)) {
+    			return $this->get($hash)->getProduits($departements, $onlyForDrmVrac);
+    		}
+    		return array();
+    	}
+    	return $this->declaration->getProduits($departements, $onlyForDrmVrac);
+    }
+    
+    public function getTotalLieux($hash = null, $departements = null)
+    {
+    	if ($hash) {
+    		if ($this->exist($hash)) {
+    			return $this->get($hash)->getTotalLieux($departements);
+    		}
+    		return array();
+    	}
+    	return $this->declaration->getTotalLieux($departements);
+    }
+    
+    public function getInterproObject()
+    {
+    	return InterproClient::getInstance()->find($this->interpro);
+    }
 }
 
