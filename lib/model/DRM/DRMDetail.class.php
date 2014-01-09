@@ -11,19 +11,24 @@ class DRMDetail extends BaseDRMDetail {
     public function getConfig() 
     {
     	if (!$this->_config) {
-    		$this->_config = ConfigurationClient::getCurrent()->declaration->certifications->get($this->getCertification()->getKey())->detail;
+    		$this->_config = ConfigurationClient::getCurrent()->getConfigurationProduit($this->getCepage()->getHash());
     	}
     	return $this->_config;
     }
 
     public function getFormattedLibelle($format = "%g% %a% %l% %co% %ce% <span class=\"labels\">%la%</span>", $label_separator = ", ") 
     {
-    	return $this->getCepage()->getConfig()->getLibelleFormat($this->labels->toArray(), $format, $label_separator);
+    	return ConfigurationProduitClient::getInstance()->format($this->getCepage()->getConfig()->getLibelles(), $this->labels->toArray(), $format);
     }
 
     public function getFormattedCode($format = "%g%%a%%l%%co%%ce%") 
     {
-    	return $this->getCepage()->getConfig()->getCodeFormat($format);
+    	return ConfigurationProduitClient::getInstance()->format($this->getCepage()->getConfig()->getCodes(), array(), $format);
+    }
+
+    public function makeFormattedLibelle($format = "%g% %a% %l% %co% %ce%", $label_separator = ", ") 
+    {
+    	return ConfigurationProduitClient::getInstance()->format($this->getCepage()->getConfig()->getLibelles(), $this->labels->toArray(), $format);
     }
     
     public function getCepage() 
@@ -110,6 +115,7 @@ class DRMDetail extends BaseDRMDetail {
     
     protected function update($params = array()) {
         parent::update($params);
+        $configuration = ConfigurationClient::getCurrent();
         $this->total_entrees = $this->getTotalByKey('entrees');
         $this->total_sorties = $this->getTotalByKey('sorties');
         $this->total = $this->total_debut_mois + $this->total_entrees - $this->total_sorties;
@@ -127,14 +133,18 @@ class DRMDetail extends BaseDRMDetail {
         	$this->code = $this->getFormattedCode();
         }
         if (!$this->libelle) {
-        	$this->libelle = $this->getFormattedLibelle("%g% %a% %l% %co% %ce%");
+        	$this->libelle = $this->makeFormattedLibelle("%g% %a% %l% %co% %ce%");
         }
-        $labelLibelles = $this->getConfig()->getDocument()->getLabelsLibelles($this->labels->toArray());
-        foreach ($labelLibelles as $label => $libelle) {
-        	$this->libelles_label->add($label, $libelle);
+        $labels = $this->labels->toArray();
+        $labelLibelles = ConfigurationClient::getCurrent()->getLabels();
+        foreach ($labelLibelles as $code => $label) {
+        	if (in_array($code, $labels)) {
+        		$this->libelles_label->add($code, $label);
+        	}
         }
+        $date = $this->getDocument()->periode.'-01'; 
         if (!$this->cvo->taux) {
-        	$droitCvo = $this->getDroit(DRMDroits::DROIT_CVO);
+        	$droitCvo = $this->getDroit(ConfigurationProduit::NOEUD_DROIT_CVO);
 	        if ($droitCvo) {
 	        	$this->cvo->code = $droitCvo->code;
 	        	$this->cvo->taux = $droitCvo->taux;
@@ -144,7 +154,7 @@ class DRMDetail extends BaseDRMDetail {
 	        }
         }
         if (!$this->douane->taux) {
-        	$droitDouane = $this->getDroit(DRMDroits::DROIT_DOUANE);
+        	$droitDouane = $this->getDroit(ConfigurationProduit::NOEUD_DROIT_DOUANE);
 	        if ($droitDouane) {
 	        	$this->douane->code = $droitDouane->code;
 	        	$this->douane->taux = $droitDouane->taux;
@@ -237,26 +247,28 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function getDroit($type) {
-    	return ConfigurationClient::getInstance()->getDroitsByHashAndTypeAndPeriode($this->getCepage()->getHash(), $type, $this->getDocument()->getPeriode().'-01');
+    	$date = $this->getDocument()->periode.'-01'; 
+    	return $this->getConfig()->getCurrentDroit($type, $date, true);
     }
     
     public function canHaveVrac()
     {
-    	return ($this->getCepage()->getConfig()->has_vrac)? true : false;
+    	return ($this->getCepage()->getConfig()->getCurrentDrmVrac(true))? true : false;
     }
     
     public function hasCvo()
     {
-    	return ($this->getDroit(DRMDroits::DROIT_CVO))? true : false;
+    	return ($this->getDroit(ConfigurationProduit::NOEUD_DROIT_CVO))? true : false;
     }
     
     public function hasDouane()
     {
-    	return ($this->getDroit(DRMDroits::DROIT_DOUANE))? true : false;
+    	return ($this->getDroit(ConfigurationProduit::NOEUD_DROIT_DOUANE))? true : false;
     }
     
     public function hasDetailLigne($ligne)
     {
+    	throw new sfException('fonction obsolete');
     	return $this->getLieu()->hasDetailLigne($ligne);
     }
 

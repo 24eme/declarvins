@@ -3,15 +3,15 @@
 class drmComponents extends sfComponents {
 
     public function executeEtapes() {
-        $this->config_certifications = ConfigurationClient::getCurrent()->declaration->certifications;
+        $this->config_certifications = ConfigurationClient::getCurrent()->getCertifications();
         $this->certifications = array();
         
         $i = 3;
         foreach ($this->config_certifications as $certification_config) {
-            if ($this->drm->exist($certification_config->getHash())) {
-            	$certif = $this->drm->get($certification_config->getHash());
+            if ($this->drm->declaration->certifications->exist($certification_config)) {
+            	$certif = $this->drm->declaration->certifications->get($certification_config);
             	if ($certif->hasMouvementCheck() && count($certif->genres) > 0) {
-	                $this->certifications[$i] = $this->drm->get($certification_config->getHash());
+	                $this->certifications[$i] = $certif;
 	                $i++;
             	}
             }
@@ -48,8 +48,8 @@ class drmComponents extends sfComponents {
 
         if ($this->etape == 'recapitulatif') {
             foreach ($this->config_certifications as $certification_config) {
-                if ($this->drm->exist($certification_config->getHash()) && count($this->drm->get($certification_config->getHash())->genres) > 0) {
-                    if ($this->certification == $certification_config->getKey()) {
+                if ($this->drm->declaration->certifications->exist($certification_config) && count($this->drm->declaration->certifications->get($certification_config)->genres) > 0) {
+                    if ($this->certification == $certification_config) {
                         break;
                     }
                     $this->numero++;
@@ -82,8 +82,8 @@ class drmComponents extends sfComponents {
     public function executeHistoriqueList() {
         $this->drms = array();
         $historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
-
         $this->new_drm = ($this->etablissement->statut != Etablissement::STATUT_ARCHIVE)? $this->getNewDRM($historique, $this->etablissement->identifiant) : null;
+        
 		
         if ((!isset($this->campagne) || !$this->campagne) && $this->new_drm) {
             $this->campagne = $this->new_drm->campagne;

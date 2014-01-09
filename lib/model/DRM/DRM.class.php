@@ -13,11 +13,11 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     protected $suivante = null;
 
     public function  __construct() {
-        parent::__construct();   
-        $this->initDocuments();
-        $config_certifications = ConfigurationClient::getCurrent()->declaration->certifications;
-        foreach ($config_certifications as $key => $config_certification) {
-        	$this->declaration->certifications->add($key);
+        parent::__construct();  
+        $this->initDocuments(); 
+        $config_certifications = ConfigurationClient::getCurrent()->getCertifications();
+        foreach ($config_certifications as $config_certification) {
+        	$this->declaration->certifications->add($config_certification);
         }
     }
 
@@ -458,6 +458,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     }
 
     private function setDroit($type, $appellation) {
+    	throw new sfException('Utilisé  ?');exit;
         $configurationDroits = $appellation->getConfig()->interpro->get($this->getInterpro()->get('_id'))->droits->get($type)->getCurrentDroit($this->periode);
         $droit = $appellation->droits->get($type);
         $droit->ratio = $configurationDroits->ratio;

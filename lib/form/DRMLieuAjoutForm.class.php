@@ -2,56 +2,45 @@
 
 class DRMLieuAjoutForm extends acCouchdbForm {
 
-    protected $_interpro = null;
     protected $_drm = null;
     protected $_config = null;
-    protected $_choices_produits = null;
+    protected $_certification = null;
 
-    public function __construct(DRM $drm, _ConfigurationDeclaration $config, $options = array(), $CSRFSecret = null) {
+    public function __construct(DRM $drm, Configuration $config, $certification, $options = array(), $CSRFSecret = null) {
         $this->_drm = $drm;
-        $this->_interpro = $drm->getInterpro();
         $this->_config = $config;
+        $this->_certification = $certification;
         $defaults = array();
         parent::__construct($drm, $defaults, $options, $CSRFSecret);
     }
 
     public function setup() {
+    	$produits = $this->getProduits();
         $this->setWidgets(array(
-            'hash' => new sfWidgetFormChoice(array('choices' => $this->getProduits(), 'label' => 'Appellation')),
+            'hash' => new sfWidgetFormChoice(array('choices' => $produits, 'label' => 'Appellation')),
         ));
 
         $this->setValidators(array(
-            'hash' => new sfValidatorChoice(array('choices' => array_keys($this->getProduits()), 'required' => true), 
+            'hash' => new sfValidatorChoice(array('choices' => array_keys($produits), 'required' => true), 
                                             array('required' => "Aucune appellation n'a été saisi !")),
         ));
 
         $this->widgetSchema->setNameFormat('drm_lieu_ajout[%s]');
         $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
     }
+    
+    public function getCertificationHash()
+    {
+    	return $this->_drm->declaration->certifications->get($this->_certification)->getHash();
+    }
 
-    public function getProduits() {
-        if (is_null($this->_choices_produits)) {
-
-            $lieux_existant = $this->_drm->get($this->_config->getHash())->getLieuxArray();
-            
-            $this->_choices_produits = $this->_config->formatProduitsLieux($this->_drm->getDepartement());
-            foreach($lieux_existant as $lieu) {
-                $hash = substr($lieu->getHash(), 1, strlen($lieu->getHash())-1);
-
-                if (array_key_exists($hash, $this->_choices_produits)) {
-                    unset($this->_choices_produits[$hash]);
-                }
-            }
-
-            $this->_choices_produits = array_merge(array("" => ""), 
-                                                   $this->_choices_produits);
-        }
-
-        return $this->_choices_produits;
+    public function getProduits() 
+    {
+        return array_merge(array("" => ""), $this->_config->getFormattedLieux($this->getCertificationHash(), $this->_drm->getDepartement()));;
     }
     
-    public function addLieu() {
-
+    public function addLieu() 
+    {
         return $this->_drm->getOrAdd($this->values['hash']);
     }
 

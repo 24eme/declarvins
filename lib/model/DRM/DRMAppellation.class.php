@@ -29,6 +29,7 @@ class DRMAppellation extends BaseDRMAppellation {
     
     public function hasDetailLigne($ligne)
     {
+    	throw new sfException('fonction obsolete');
     	if ($configurationDetail = $this->getConfig()->exist('detail')) {
     		$line = $configurationDetail->get($ligne);
     		if (!is_null($line->readable)) {

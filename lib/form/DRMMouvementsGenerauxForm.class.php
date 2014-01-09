@@ -19,13 +19,12 @@ class DRMMouvementsGenerauxForm extends acCouchdbObjectForm
 		$this->setValidators(array(
         	'pas_de_mouvement' => new sfValidatorBoolean(array('required' => false))
         ));
-		foreach ($this->configuration->declaration->certifications as $certification_key => $certification_config) {
-			if ($certification_config->hasProduit($this->getObject()->getDepartement())) {
-				if ($this->getObject()->declaration->certifications->exist($certification_key)) {
-	                $details = $this->getObject()->declaration->certifications->get($certification_key)->getProduits();
-	                $this->embedForm($certification_key, new DRMMouvementsGenerauxCollectionProduitForm($details));
+        $certifications = $this->getObject()->declaration->certifications->toArray();
+		foreach ($certifications as $certification => $value) {
+				if ($this->getObject()->declaration->certifications->exist($certification)) {
+	                $details = $this->getObject()->declaration->certifications->get($certification)->getProduits();
+	                $this->embedForm($certification, new DRMMouvementsGenerauxCollectionProduitForm($details));
 				}
-			}
 		}
 		$this->widgetSchema->setNameFormat('mouvements_generaux[%s]');
     }

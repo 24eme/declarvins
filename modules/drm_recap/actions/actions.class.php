@@ -41,8 +41,10 @@ class drm_recapActions extends sfActions
         $this->getResponse()->setContentType('text/json');
         $this->certification = $this->getRoute()->getObject();
         $this->drm = $this->getRoute()->getDRM();
+        $config = ConfigurationClient::getCurrent();
+        $certification = $this->getRoute()->getCertification();
 
-        $this->form = new DRMLieuAjoutForm($this->drm, $this->certification->getConfig());
+        $this->form = new DRMLieuAjoutForm($this->drm, $config, $certification);
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
@@ -66,13 +68,13 @@ class drm_recapActions extends sfActions
     public function executeAjoutAjax(sfWebRequest $request) 
     {
         $this->drm = $this->getRoute()->getDRM();
-        $this->config_lieu = $this->getRoute()->getConfigLieu();
         $this->drm_lieu = $this->getRoute()->getDRMLieu();
+        $config = ConfigurationClient::getCurrent();
+        $certification = $this->getRoute()->getCertification();
         
         $this->forward404Unless($request->isXmlHttpRequest());
 
-        $form = new DRMProduitAjoutForm($this->drm,
-                                        $this->config_lieu);
+        $form = new DRMProduitAjoutForm($this->drm, $config, $certification, $this->drm_lieu->getHash());
 
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->getResponse()->setContentType('text/json');

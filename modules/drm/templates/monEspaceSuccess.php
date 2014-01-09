@@ -34,7 +34,7 @@
                 <?php include_component('drm', 'historiqueList', array('etablissement' => $etablissement, 'historique' => false)) ?>
             </div>
         </div>
-        <?php include_component('drm', 'campagnes', array('etablissement' => $etablissement)); ?>
+        <?php //include_component('drm', 'campagnes', array('etablissement' => $etablissement)); ?>
     </section>
 	        <?php if($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$hasDrmEnCours): ?>
 	        <br /><br />

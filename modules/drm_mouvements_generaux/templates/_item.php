@@ -3,7 +3,7 @@
     	<?php if (!$detail->total_debut_mois && !$detail->hasStockFinDeMoisDRMPrecedente()): ?>
     	<a href="<?php echo url_for('drm_mouvements_generaux_produit_delete', $detail) ?>" class="supprimer">Supprimer</a>
     	<?php endif; ?>
-    	<?php echo $detail->getLibelle(ESC_RAW); ?>
+    	<?php echo $detail->getFormattedLibelle(ESC_RAW); ?>
     </td>
 	<td>
         <?php echo $detail->total_debut_mois ?> <span class="unite">hl </span>

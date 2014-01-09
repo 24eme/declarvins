@@ -45,6 +45,7 @@ class DRMCertification extends BaseDRMCertification {
     
     public function hasDetailLigne($ligne)
     {
+    	throw new sfException('methode obsolete');
     	if ($configurationDetail = $this->getConfig()->exist('detail')) {
     		$line = $configurationDetail->get($ligne);
     		if (!is_null($line->readable)) {
@@ -53,15 +54,5 @@ class DRMCertification extends BaseDRMCertification {
     	}
     	return false;
     }
-    
-    /*public function getDroit($type) 
-    {
-    	if ($this->getConfig()->hasDroits()) {
-    		if (count($this->getConfig()->getDroits($this->getInterproKey())->get($type)) > 0) {
-    			return $this->getConfig()->getDroits($this->getInterproKey())->get($type)->getCurrentDroit($this->getPeriode());
-    		}
-    	}
-      	return null;
-    }*/
 
 }

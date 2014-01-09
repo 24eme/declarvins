@@ -13,11 +13,6 @@ class DRMProduitValidator extends sfValidatorSchema
             $values['label'] = array();
         }
 
-        $index_autre = array_search(DRMProduitAjoutForm::LABEL_AUTRE_KEY, $values['label']);
-        if ($index_autre !== false) {
-            unset($values['label'][$index_autre]);
-        }
-
         if ($this->getDRM()->getProduit($values['hashref'], $values['label'])) {
             throw new sfValidatorError($this, 'exist');
         }

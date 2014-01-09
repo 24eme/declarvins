@@ -1,15 +1,16 @@
 <?php
-
-class DRMCertificationRoute extends DRMRoute {
+class DRMCertificationRoute extends DRMRoute 
+{
+	protected $certification;
     
-    public function getConfigCertification() {
-        
-        return $this->getDRMCertification()->getConfig();
+    public function getDRMCertification() 
+    {
+        return $this->getObject();
     }
     
-    public function getDRMCertification() {
-        
-        return $this->getObject();
+    public function getCertification()
+    {
+    	return $this->certification;
     }
     
     protected function getObjectForParameters($parameters) {
@@ -18,8 +19,9 @@ class DRMCertificationRoute extends DRMRoute {
         if (!array_key_exists('certification', $parameters)) {
             return $this->getDRM()->declaration->certifications->getFirst();
         }
-        
-        if ($this->getDRMConfiguration()->declaration->certifications->exist($parameters['certification'])) {
+        $certifications = ConfigurationClient::getCurrent()->getCertifications();
+        if (in_array($parameters['certification'], $certifications)) {
+        	$this->certification = $parameters['certification'];
             if (isset($this->options['add_noeud']) && $this->options['add_noeud'] === true) {
                 return $this->getDRM()->declaration->certifications->add($parameters['certification']);
             } else {

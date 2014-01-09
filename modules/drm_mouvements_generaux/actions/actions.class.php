@@ -7,15 +7,17 @@ class drm_mouvements_generauxActions extends sfActions
 		$this->drm = $this->getRoute()->getDRM();
 		$this->certifs = array();
 		$this->certificationLibelle = array();
-		$configuration = ConfigurationClient::getCurrent();
+		$configuration = $this->getConfigurationProduit();
+        $certification_config = $configuration->declaration->certifications;
+		$certifications = ConfigurationClient::getCurrent()->getCertifications();
 		$this->form = new DRMMouvementsGenerauxForm($configuration, $this->drm);
-		foreach ($configuration->declaration->certifications as $certification_key => $certification_config) {
-			if ($certification_config->hasProduit($this->drm->getDepartement())) {
-	            if (!isset($this->certifs[$certification_key])) {
-					$this->certifs[$certification_key] = $certification_config->libelle;//$certification_config->hasUniqProduit($this->drm->getInterpro()->get('_id'));
-					$this->certificationLibelle[$certification_key] = $certification_config->libelle;
+		foreach ($certifications as $certification) {
+			//if ($certification_config->exist($certification) && $certification_config->get($certification)->hasProduits($this->drm->getDepartement())) {
+	            if (!isset($this->certifs[$certification])) {
+					$this->certifs[$certification] = $certification;//$certification_config->get($certification)->libelle;
+					$this->certificationLibelle[$certification] = $certification;//$certification_config->get($certification)->libelle;
 				}
-			}
+			//}
 		}
         $this->first_certification = null;
         if(count($this->drm->declaration->certifications) > 0) {
@@ -78,23 +80,34 @@ class drm_mouvements_generauxActions extends sfActions
     {
         $this->forward404Unless($request->isXmlHttpRequest());
     	$drm = $this->getRoute()->getDRM();
-        $certification_config = $this->getRoute()->getConfigCertification();
+        $config = ConfigurationClient::getCurrent();
+        $certification = $this->getRoute()->getCertification();
 
-        $form = new DRMProduitAjoutForm($drm, $certification_config);
+        $form = new DRMProduitAjoutForm($drm, $config, $certification);
         if ($request->isMethod(sfWebRequest::POST)) {
     		$this->getResponse()->setContentType('text/json');
             $form->bind($request->getParameter($form->getName()));
 			if ($form->isValid()) {
                 $form->addProduit();
-                //$drm->update();
 				$drm->save();
 				$this->getUser()->setFlash("notice", 'Le produit a été ajouté avec succès.');
 				return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_mouvements_generaux', $drm))));
 			} else {
-				return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form, 'certification_config' => $certification_config)))));
+				return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('form', array('form' => $form, 'certification' => $certification)))));
 			}
         }
 
-        return $this->renderText($this->getPartial('popupAjout', array('form' => $form, 'certification_config' => $certification_config)));
+        return $this->renderText($this->getPartial('popupAjout', array('form' => $form, 'certification' => $certification)));
     }
+	
+	protected function getConfigurationProduit()
+	{
+		$interpro = $this->getInterpro()->_id;
+		return ConfigurationProduitClient::getInstance()->getOrCreate($interpro);
+	}
+	
+	protected function getInterpro()
+	{
+		return $this->getUser()->getCompte()->getGerantInterpro();
+	}
 }

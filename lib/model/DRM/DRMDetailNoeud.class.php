@@ -10,10 +10,6 @@ class DRMDetailNoeud extends BaseDRMDetailNoeud {
   public function get($key, $get_anyway = null) {
     return $this->_get($key);    
   }
-
-  public function getConfig() {
-    return $this->getParent()->getConfig()->get($this->getKey());
-  }
   
   protected function init($params = array()) {
       parent::init($params);
@@ -27,15 +23,6 @@ class DRMDetailNoeud extends BaseDRMDetailNoeud {
       	$this->set($key, null);
       }
     }
-
-  public function set($key, $value) {
-    if (!$this->getConfig()->exist($key) && !$this->getConfig()->get($key)->isWritable()) {
-      
-      throw new sfException("$key is not writable");
-    }
-
-    parent::set($key, $value);
-  }
 
   public function isModifiedMasterDRM($key) {
 

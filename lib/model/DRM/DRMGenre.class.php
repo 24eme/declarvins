@@ -23,6 +23,7 @@ class DRMGenre extends BaseDRMGenre {
     
     public function hasDetailLigne($ligne)
     {
+    	throw new sfException('methode obsolete');
     	if ($configurationDetail = $this->getConfig()->exist('detail')) {
     		$line = $configurationDetail->get($ligne);
     		if (!is_null($line->readable)) {

@@ -51,10 +51,10 @@
 																       'colonnes' => $colonnes,
 																       'hash' => 'total_debut_mois')) ?>
 
-				<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
+				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksDebut(),
 	    						  								        'counter' => 2,
 																		'colonnes' => $colonnes,
-																  		'hash' => 'stocks_debut')) ?>
+																  		'hash' => 'stocks_debut'))?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total entrées',
 																	   'unite' => 'hl',
@@ -65,7 +65,7 @@
 																	   'hash' => 'total_entrees')) ?>
 
 
-				<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
+				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksEntree(),
 	    						  								        'counter' => 3,
 																		'colonnes' => $colonnes,
 																  		'hash' => 'entrees')) ?>
@@ -78,7 +78,7 @@
 																	   'cssclass_value' => 'total',
 																	   'hash' => 'total_sorties')) ?>
 
-				<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
+				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksSortie(),
 	    						  								        'counter' => 4,
 																		'colonnes' => $colonnes,
 																  		'hash' => 'sorties')) ?>
@@ -91,7 +91,7 @@
 																  	   'colonnes' => $colonnes,
 																  	   'hash' => 'total')) ?>
 
-				<?php include_partial('drm_export/pdfLineDetail', array('certification_config' => $certification->getConfig(),
+				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksFin(),
 	    						  								        'counter' => 5,
 																		'colonnes' => $colonnes,
 																  		'hash' => 'stocks_fin')) ?>
@@ -298,7 +298,7 @@
 					<?php endif; ?>
 					<td>
 						<strong><?php echo strtoupper($item->getCode()) ?></strong>
-			   			<span><?php echo $item->getConfig()->getLibelleFormat(array(), "%g% %a% %l% %co% %ce%") ?></span>
+			   			<span><?php echo $item->getLibelle() ?></span>
 					</td>
 					<?php endif; ?>
 				<?php $counter++; endforeach; ?>

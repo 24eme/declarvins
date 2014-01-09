@@ -1,4 +1,4 @@
-<form  class="popup_form" id="form_ajout" action="<?php echo url_for('drm_mouvements_generaux_product_ajout', $form->getDRM()->getOrAdd($certification_config->getHash())) ?>" method="post">
+<form  class="popup_form" id="form_ajout" action="<?php echo url_for('drm_mouvements_generaux_product_ajout', $form->getDRM()->declaration->certifications->getOrAdd($certification)) ?>" method="post">
 	<?php echo $form->renderGlobalErrors() ?>
 	<?php echo $form->renderHiddenFields() ?>
 	<div class="ligne_form">
@@ -14,7 +14,7 @@
 		
 	</div>
     <?php endif; ?>
-	<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $certification_config->getKey() == DRMValidation::VINSSANSIG_KEY): ?>
+	<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $certification == DRMValidation::VINSSANSIG_KEY): ?>
 	<a href="#" id="lien_<?php echo $form['disponible']->renderId() ?>" style="font-size: 12px">Je souhaite déclarer un stock disponible</a>
 	<?php endif; ?>
 	<div id="ligne_<?php echo $form['disponible']->renderId() ?>" class="ligne_form" style="display: none">
@@ -34,8 +34,8 @@ $(document).ready(function () {
 		$('#lien_<?php echo $form['disponible']->renderId() ?>').click(function() {
 	    	$(this).hide();
 	    	$('#ligne_<?php echo $form['disponible']->renderId() ?>').show();
-		$('#produit_<?php echo $certification_config->getKey(); ?>_disponible.num_float').saisieNum(true);
-		$('#produit_<?php echo $certification_config->getKey(); ?>_disponible.num_float').nettoyageChamps();
+		$('#produit_<?php echo $certification; ?>_disponible.num_float').saisieNum(true);
+		$('#produit_<?php echo $certification; ?>_disponible.num_float').nettoyageChamps();
 		return false;
 	    }); 
 });

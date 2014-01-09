@@ -10,7 +10,7 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
 	
     public function getConfig() {
 		if (!$this->_config) {
-			$this->_config = ConfigurationClient::getCurrent()->get($this->getHash());
+			$this->_config = ConfigurationClient::getCurrent()->getConfigurationProduit($this->getHash());
 		}
         return $this->_config;
     }
@@ -21,12 +21,11 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     }
 
     public function getFormattedLibelle($format = "%g% %a% %l% %co% %ce%") {
-
-      return $this->getConfig()->getLibelleFormat(array(), $format);
+      return ConfigurationProduitClient::getInstance()->format($this->getConfig()->getLibelles(), array(), $format);
     }
 
    	public function getFormattedCode($format = "%g%%a%%l%%co%%ce%") {
-      return $this->getConfig()->getCodeFormat();
+      return ConfigurationProduitClient::getInstance()->format($this->getConfig()->getCodes(), array(), $format);
     }
 
     protected function init($params = array()) {
@@ -253,22 +252,9 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
   
     abstract public function getChildrenNode();
     
-    
-    /*
-     * DROITS
-     */
-    /*public function getDroit($type) 
-    {
-    	if ($this->getConfig()->hasDroits()) {
-    		if (count($this->getConfig()->getDroits($this->getInterproKey())->get($type)) > 0) {
-    			return $this->getConfig()->getDroits($this->getInterproKey())->get($type)->getCurrentDroit($this->getPeriode());
-    		}
-    	}
-      	return $this->getParentNode()->getDroit($type);
-    }*/
-    
 	public function getDroits() 
 	{
+		throw new sfException('Utilisé ?');
     	$droits = array();
     	if ($this->getConfig()->hasDroits()) {
       		foreach ($this->getConfig()->getDroits($this->getInterproKey()) as $key => $droit) {
