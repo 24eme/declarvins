@@ -125,7 +125,7 @@ class ConfigurationVrac extends BaseConfigurationVrac {
 		} elseif (!is_array($departements)) {
 			$departements = array($departements);
 		}
-      return $this->getConfig()->formatVracProduitsByDepartement($departements);
+      return $this->getConfig()->getFormattedProduits(null, $departements, true);
     }
 
 }
