@@ -17,13 +17,17 @@ class Vrac extends BaseVrac
 
     public function getProduitObject() 
     {
-      return ConfigurationClient::getCurrent()->get($this->produit);
+        $configuration = ConfigurationClient::getCurrent();
+        return $configuration->getConfigurationProduit($this->produit);
     }
     
     public function getLibelleProduit($format = "%g% %a% %l% %co% %ce%")
     {
+    	if ($this->produit_libelle) {
+    		return $this->produit_libelle;
+    	}
     	$produit = $this->getProduitObject();
-    	return $produit->getLibelleFormat(array(), $format);
+    	return ConfigurationProduitClient::getInstance()->format($produit->getLibelles(), array(), $format);
     }
 
     public function getVendeurObject() 
@@ -90,7 +94,7 @@ class Vrac extends BaseVrac
     {
     	if ($this->produit) {
     		$produit = $this->getProduitObject();
-      		return $produit->getGerantInterpro();
+      		return $produit->getDocument()->getInterproObject();
     	}
     	return null;
     }

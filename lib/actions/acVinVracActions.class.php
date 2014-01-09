@@ -332,7 +332,7 @@ class acVinVracActions extends sfActions
 	
 	public function getConfigurationVrac($interpro_id = null)
 	{
-		return ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro_id);
+		return ConfigurationClient::getCurrent()->getConfigurationVrac($interpro_id);
 	}
 	
 	protected function saisieTerminee($vrac, $interpro) {

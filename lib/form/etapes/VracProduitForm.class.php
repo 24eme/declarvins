@@ -17,17 +17,17 @@ class VracProduitForm extends VracForm
     }
     protected function doUpdateObject($values) {
         parent::doUpdateObject($values);
-        $result = ConfigurationClient::getInstance()->getDroitsByHashAndTypeAndPeriode('/'.$this->getObject()->produit, DRMDroits::DROIT_CVO);
-        if (!$result) {
+        $configuration = ConfigurationClient::getCurrent();
+        $configurationProduit = $configuration->getConfigurationProduit($this->getObject()->produit);
+        $cvo = $configurationProduit->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, null, true);
+        if (!$cvo) {
         	throw new sfException('Aucun résultat pour le produit '.$this->getObject()->produit);
         }
-        $configuration = ConfigurationClient::getCurrent();
-        if ($configuration->exist($this->getObject()->produit)) {
-        	$produit = $configuration->get($this->getObject()->produit);
-        	$this->getObject()->setDetailProduit($produit);
-        	$this->getObject()->produit_libelle = $this->getObject()->getLibelleProduit();
+        if ($configurationProduit) {
+        	$this->getObject()->setDetailProduit($configurationProduit);
+        	$this->getObject()->produit_libelle = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles());
         }
-        $this->getObject()->part_cvo = $result->taux;
+        $this->getObject()->part_cvo = $cvo->taux;
         $this->getObject()->update();
     }
     

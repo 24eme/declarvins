@@ -24,6 +24,6 @@ class vracComponents extends sfComponents
 	
 	public function getConfigurationVrac($interpro_id = null)
 	{
-		return ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro_id);
+		return ConfigurationClient::getCurrent()->getConfigurationVrac($interpro_id);
 	}
 }
