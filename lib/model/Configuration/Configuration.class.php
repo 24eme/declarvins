@@ -169,6 +169,11 @@ class Configuration extends BaseConfiguration
     {
     	return $this->vrac->interpro->get($interpro);
     }
+    
+    public function getConfigurationDAIDS($interpro)
+    {
+    	return $this->daids->interpro->get($interpro);
+    }
 
     public function save() {
         parent::save();
