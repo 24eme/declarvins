@@ -12,18 +12,18 @@ class DAIDSDetail extends BaseDAIDSDetail {
 	}
 	
 	public function getConfig() 
-	{
-    	return ConfigurationClient::getCurrent()->declaration->certifications->get($this->getCertification()->getKey())->detail;
+    {
+    	return ConfigurationClient::getCurrent()->getConfigurationProduit($this->getCepage()->getHash());
     }
 
     public function getFormattedLibelle($format = "%g% %a% %l% %co% %ce% <span class=\"labels\">%la%</span>", $label_separator = ", ") 
     {
-    	return $this->getCepage()->getConfig()->getLibelleFormat($this->labels->toArray(), $format, $label_separator);
+    	return ConfigurationProduitClient::getInstance()->format($this->getCepage()->getConfig()->getLibelles(), $this->labels->toArray(), $format);
     }
 
     public function getFormattedCode($format = "%g%%a%%l%%co%%ce%") 
     {
-    	return $this->getCepage()->getConfig()->getCodeFormat($format);
+    	return ConfigurationProduitClient::getInstance()->format($this->getCepage()->getConfig()->getCodes(), array(), $format);
     }
     
     public function getCepage() 

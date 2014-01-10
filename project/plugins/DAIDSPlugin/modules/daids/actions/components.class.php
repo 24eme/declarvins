@@ -5,14 +5,14 @@ class daidsComponents extends sfComponents
 
     public function executeEtapes() 
     {
-        $this->config_certifications = ConfigurationClient::getCurrent()->declaration->certifications;
+        $this->config_certifications = ConfigurationClient::getCurrent()->getCertifications();
         $this->certifications = array();
         
         $i = 2;
         foreach ($this->config_certifications as $certification_config) {
-            if ($this->daids->exist($certification_config->getHash())) {
-            	$certif = $this->daids->get($certification_config->getHash());
-	            $this->certifications[$i] = $this->daids->get($certification_config->getHash());
+            if ($this->daids->declaration->certifications->exist($certification_config)) {
+            	$certif = $this->daids->declaration->certifications->get($certification_config);
+	            $this->certifications[$i] = $certif;
 	            $i++;
             }
         }
@@ -32,8 +32,9 @@ class daidsComponents extends sfComponents
 
         if ($this->etape == 'recapitulatif') {
             foreach ($this->config_certifications as $certification_config) {
-                if ($this->daids->exist($certification_config->getHash())) {
-                    if ($this->certification == $certification_config->getKey()) {
+            	if ($this->daids->declaration->certifications->exist($certification_config)) {
+            		$certif = $this->daids->declaration->certifications->get($certification_config);
+                    if ($this->certification == $certif->getKey()) {
                         break;
                     }
                     $this->numero++;

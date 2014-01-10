@@ -68,7 +68,7 @@ class DAIDS extends BaseDAIDS
        			$d->labels->add($label);
        		}
        		$d->millesime = $detail->millesime;
-       		$labelLibelles = ConfigurationClient::getCurrent()->getLabelsLibelles($detail->labels->toArray());
+       		$labelLibelles = $detail->libelles_label->toArray();
         	foreach ($labelLibelles as $label => $libelle) {
         		$d->libelles_label->add($label, $libelle);
         	}

@@ -52,7 +52,7 @@ class daids_recapActions extends sfActions
 	
 	public function getConfigurationDAIDS($interpro_id = null)
 	{
-		return ConfigurationClient::getCurrent()->getConfigurationDAIDSByInterpro($interpro_id);
+		return ConfigurationClient::getCurrent()->getConfigurationDAIDS($interpro_id);
 	}
     
     public function executeUpdate(sfWebRequest $request)

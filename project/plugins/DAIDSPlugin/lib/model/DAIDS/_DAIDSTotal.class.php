@@ -20,7 +20,7 @@ abstract class _DAIDSTotal extends acCouchdbDocumentTree
     
 	public function getConfig() 
 	{
-        return ConfigurationClient::getCurrent()->get($this->getHash());
+        return ConfigurationClient::getCurrent()->getConfigurationProduit($this->getHash());
     }
 
     public function getParentNode() 
@@ -103,15 +103,12 @@ abstract class _DAIDSTotal extends acCouchdbDocumentTree
     	return $sum;
     }
 
-    public function getFormattedLibelle($format = "%g% %a% %l% %co% %ce%") 
-    {
-
-      return $this->getConfig()->getLibelleFormat(array(), $format);
+    public function getFormattedLibelle($format = "%g% %a% %l% %co% %ce%") {
+      return ConfigurationProduitClient::getInstance()->format($this->getConfig()->getLibelles(), array(), $format);
     }
 
-   	public function getFormattedCode($format = "%g%%a%%l%%co%%ce%") 
-   	{
-      return $this->getConfig()->getCodeFormat();
+   	public function getFormattedCode($format = "%g%%a%%l%%co%%ce%") {
+      return ConfigurationProduitClient::getInstance()->format($this->getConfig()->getCodes(), array(), $format);
     }
 
     public function getPreviousSisterWithParent() 
