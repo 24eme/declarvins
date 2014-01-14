@@ -6,10 +6,9 @@
 
 class Configuration extends BaseConfiguration 
 {
-
-    protected $produits_libelle = null;
-    protected $produits_code = null;
-    protected $format_produits = null;
+    protected $_configuration_produits_IR = null;
+    protected $_configuration_produits_CIVP = null;
+    protected $_configuration_produits_IVSE = null;
     
     protected static $stocks_debut = array(
     	'bloque' => 'Dont Vin bloqué',
@@ -68,17 +67,10 @@ class Configuration extends BaseConfiguration
     	return self::$stocks_fin;
     }
 
-    public function loadAllData() {
+    public function loadAllData() 
+    {
       parent::loadAllData();
-      //$this->loadProduits();
-    }
-
-    protected function loadProduits() {
-      $this->getProduits();
-      $this->getProduitsLibelles();
-      $this->getProduitsCodes();
-      //$this->getProduitLibelleByHash();
-      //$this->getProduitCodeByHash();
+      $this->getConfigurationProduitsComplete();
     }
 
     public function constructId() 
@@ -86,9 +78,6 @@ class Configuration extends BaseConfiguration
         $this->set('_id', "CONFIGURATION");
     }
     
-    /*
-     * NEW 
-     */
     public function getCertifications()
     {
     	$certifications = array();
@@ -111,7 +100,12 @@ class Configuration extends BaseConfiguration
     
     public function getConfigurationProduits($interpro)
     {
-    	return ($this->produits->exist($interpro))? acCouchdbManager::getClient()->retrieveDocumentById($this->produits->get($interpro)) : null;
+    	$variable = '_configuration_produits_'.str_replace(Interpro::INTERPRO_KEY, '', $interpro);
+    	if (is_null($this->$variable)) {
+    		$this->$variable = ($this->produits->exist($interpro))? acCouchdbManager::getClient()->retrieveDocumentById($this->produits->get($interpro)) : null;
+    		$this->$variable->loadAllData();
+    	}
+    	return $this->$variable;
     }
     
     public function getConfigurationProduitsComplete()
@@ -175,12 +169,14 @@ class Configuration extends BaseConfiguration
     	return $this->daids->interpro->get($interpro);
     }
 
-    public function save() {
+    public function save() 
+    {
         parent::save();
         ConfigurationClient::getInstance()->cacheResetCurrent();
     }
 
-    public function prepareCache() {
+    public function prepareCache() 
+    {
       $this->loadAllData();
     }
 }
