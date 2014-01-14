@@ -25,7 +25,7 @@ class ConfigurationProduit extends BaseConfigurationProduit
   	const NOEUD_DROIT_CVO = 'cvo';
   	const NOEUD_DROIT_DOUANE = 'douane';
   	
-  	public function $interpro_object = null;
+  	public $interpro_object = null;
   	
   	protected static $correspondance_couleurs = array (
 		self::CLE_COULEUR_ROUGE => self::CODE_COULEUR_ROUGE,
