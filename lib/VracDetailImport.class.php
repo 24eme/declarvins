@@ -209,7 +209,7 @@ class VracDetailImport
 		$hash = 'declaration/certifications/'.$this->getKey($this->datas[VracDateView::VALUE_PRODUIT_CERTIFICATION_CODE]).
                 '/genres/'.$this->getKey($this->datas[VracDateView::VALUE_PRODUIT_GENRE_CODE], true).
                 '/appellations/'.$this->getKey($this->datas[VracDateView::VALUE_PRODUIT_APPELLATION_CODE], true).
-                '/mentions/'.Configuration::DEFAULT_KEY.
+                '/mentions/'.ConfigurationProduit::DEFAULT_KEY.
                 '/lieux/'.$this->getKey($this->datas[VracDateView::VALUE_PRODUIT_LIEU_CODE], true).
                 '/couleurs/'.strtolower($this->couleurKeyToCode($this->datas[VracDateView::VALUE_PRODUIT_COULEUR_CODE])).
                 '/cepages/'.$this->getKey($this->datas[VracDateView::VALUE_PRODUIT_CEPAGE_CODE], true);
@@ -222,7 +222,7 @@ class VracDetailImport
   			$key = null;
   		}
 		if ($withDefault) {
-			return ($key)? $key : Configuration::DEFAULT_KEY;
+			return ($key)? $key : ConfigurationProduit::DEFAULT_KEY;
 		} elseif (!$key) {
 			throw new Exception('La clé "'.$key.'" n\'est pas valide');
 		} else {
