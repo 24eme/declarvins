@@ -255,7 +255,7 @@ class ConfigurationProduitCsvFile extends CsvFile
   		$hash = 'certifications/'.$this->getKey($line[self::CSV_PRODUIT_CATEGORIE_CODE]).
                 '/genres/'.$this->getKey($line[self::CSV_PRODUIT_GENRE_CODE], true).
                 '/appellations/'.$this->getKey($line[self::CSV_PRODUIT_DENOMINATION_CODE], true).
-                '/mentions/'.Configuration::DEFAULT_KEY.
+                '/mentions/'.ConfigurationProduit::DEFAULT_KEY.
                 '/lieux/'.$this->getKey($line[self::CSV_PRODUIT_LIEU_CODE], true).
                 '/couleurs/'.strtolower($this->couleurKeyToCode($line[self::CSV_PRODUIT_COULEUR_CODE])).
                 '/cepages/'.$this->getKey($line[self::CSV_PRODUIT_CEPAGE_CODE], true);
