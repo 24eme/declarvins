@@ -24,6 +24,10 @@ class ConfigurationProduitDeclaration extends BaseConfigurationProduitDeclaratio
     
     public function getCurrentDefinitionDrm($onlyValue = false) { return null; }
     
+	public function getLibelles() { return null; }
+
+    public function getCodes() { return null; }
+    
 	/*
      * Les fonctions ci-dessous sont relatives à la gestion de la configuration du catalogue produit
      */

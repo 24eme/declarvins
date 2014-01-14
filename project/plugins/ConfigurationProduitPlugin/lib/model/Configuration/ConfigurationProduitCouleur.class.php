@@ -38,6 +38,11 @@ class ConfigurationProduitCouleur extends BaseConfigurationProduitCouleur
 	{
     	return (count($this->cepages) > 1 || (count($this->cepages) == 1 && $this->cepages->getFirst()->getKey() != ConfigurationProduit::DEFAULT_KEY));
     }
+	
+	public function getTotalLieux($departements = null) 
+	{
+		return array();
+	}
     
 	/*
      * Les fonctions ci-dessous sont relatives à la gestion de la configuration du catalogue produit
