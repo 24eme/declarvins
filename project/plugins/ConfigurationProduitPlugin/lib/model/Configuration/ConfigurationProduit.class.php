@@ -25,6 +25,8 @@ class ConfigurationProduit extends BaseConfigurationProduit
   	const NOEUD_DROIT_CVO = 'cvo';
   	const NOEUD_DROIT_DOUANE = 'douane';
   	
+  	public function $interpro_object = null;
+  	
   	protected static $correspondance_couleurs = array (
 		self::CLE_COULEUR_ROUGE => self::CODE_COULEUR_ROUGE,
 		self::CLE_COULEUR_ROSE => self::CODE_COULEUR_ROSE,
@@ -142,7 +144,10 @@ class ConfigurationProduit extends BaseConfigurationProduit
     
     public function getInterproObject()
     {
-    	return InterproClient::getInstance()->find($this->interpro);
+    	if (is_null($this->interpro_object)) {
+    		$this->interpro_object = InterproClient::getInstance()->find($this->interpro);
+    	}
+    	return $this->interpro_object;
     }
     
     protected function doSave() 
