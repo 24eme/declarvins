@@ -162,7 +162,7 @@ class daidsActions extends sfActions
 	    $this->etablissement = $this->getRoute()->getEtablissement();
 	    $this->daids = $this->getRoute()->getDAIDS();
 	    $this->daidsValidation = $this->daids->validation();
-	    $this->form = new DAIDSValidationForm(array(), array('engagements' => $this->daidsValidation->getEngagements()));
+	    $this->form = new DAIDSValidationForm();
 	    if (!$request->isMethod(sfWebRequest::POST)) {
 	      return sfView::SUCCESS;
 	    }

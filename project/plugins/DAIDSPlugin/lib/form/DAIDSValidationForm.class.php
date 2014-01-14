@@ -1,15 +1,18 @@
 <?php
-class DAIDSValidationForm extends BaseForm
-{
-	public function configure()
-  	{
-  		$engagements = $this->getOption('engagements');
-  		foreach ($engagements as $engagement) {
-  			$this->setWidget('engagement_'.$engagement->getCode(), new sfWidgetFormInputCheckbox());
-  			$this->getWidget('engagement_'.$engagement->getCode())->setLabel($engagement->getMessage());
-  			$this->setValidator('engagement_'.$engagement->getCode(), new sfValidatorBoolean(array('required' => true)));
-  		}
-	    
-	    $this->widgetSchema->setNameFormat('daids_validation[%s]');
-  	}
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of class DAIDSValidationForm
+ * @author mathurin
+ */
+class DAIDSValidationForm extends sfForm  {
+      public function configure() {
+          parent::configure();
+      } 
+    
 }

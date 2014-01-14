@@ -2,7 +2,7 @@
 class DAIDSValidation
 {
 	private $daids;
-	private $engagements;
+//	private $engagements;
 	private $warnings;
 	private $errors;
 	const VINSSANSIG_KEY = 'VINSSANSIG';
@@ -14,16 +14,16 @@ class DAIDSValidation
 	{
 		$this->daids = $daids;
 		$this->options = $options;
-		$this->engagements = array();
+//		$this->engagements = array();
 		$this->warnings = array();
 		$this->errors = array();
 		$this->controleDAIDS();
 	}
 	
-	public function getEngagements()
-	{
-		return $this->engagements;
-	}
+//	public function getEngagements()
+//	{
+//		return $this->engagements;
+//	}
 	
 	public function getWarnings()
 	{
@@ -73,10 +73,10 @@ class DAIDSValidation
 		
 	}
 	
-	public function hasEngagements()
-	{
-		return (count($this->engagements) > 0)? true : false;
-	}
+//	public function hasEngagements()
+//	{
+//		return (count($this->engagements) > 0)? true : false;
+//	}
 	
 	public function hasErrors()
 	{
@@ -102,10 +102,11 @@ class DAIDSValidation
 		} elseif($type == 'warning' && array_key_exists($identifiant, $this->warnings)) {
 
 			return $this->warnings[$identifiant];
-		} elseif($type == 'engagement' && array_key_exists($identifiant, $this->engagements)) {
-			
-			return $this->engagements[$identifiant];
 		}
+//                elseif($type == 'engagement' && array_key_exists($identifiant, $this->engagements)) {
+//			
+//			return $this->engagements[$identifiant];
+//		}
 
 		return null;
 	}

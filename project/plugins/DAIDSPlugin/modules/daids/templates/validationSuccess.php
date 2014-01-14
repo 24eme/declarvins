@@ -46,11 +46,11 @@
                 </div>
                 <?php endif; ?>
                 
-                <?php if ($daidsValidation->hasEngagements()): ?>
-                <div id="contenu_onglet" class="tableau_ajouts_liquidations">
-                    <?php include_partial('engagements', array('daids' => $daids, 'daidsValidation' => $daidsValidation, 'form' => $form)); ?>                    
-                </div>
-                <?php endif; ?>
+                <?php // if ($daidsValidation->hasEngagements()): ?>
+<!--                <div id="contenu_onglet" class="tableau_ajouts_liquidations">
+                    <?php // include_partial('engagements', array('daids' => $daids, 'daidsValidation' => $daidsValidation, 'form' => $form)); ?>                    
+                </div>-->
+                <?php // endif; ?>
                 
                 <div id="contenu_onglet">
                 	<?php include_partial('daids/recap', array('daids' => $daids, 'etablissement' => $etablissement)) ?>

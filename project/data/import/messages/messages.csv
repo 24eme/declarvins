@@ -52,7 +52,6 @@
 "help_popup_daids_monespace_admin";"Cette colonne vous indique si la DAI/DS saisie a bien été transmise et reçue par les interprofessions via la plateforme Declarvins.net"
 "help_popup_daids_cgi";"Volume calculé automatiquement. Concerne les vins stockés dans vos chais qui n'ont pas fait l'objet d'une vinification. <br />Ils sont soumis au taux réglementaire des douanes. <br />Veuillez vous référer au CGI pour le calculer (articles 111-OOA et suivants de l'annexe III du CGI, par décret N°2001-649 du 16 juillet 2001)."
 "help_popup_daids_stockmoyen";"Calcul automatique de la moyenne des stocks théoriques des DRM de la campagne"
-"help_popup_daids_validation_engagement";
 "help_popup_mandat_siret";"Le numéro SIRET est un identifiant d'établissement à 14 chiffres.<br />Cet identifiant numérique est articulé en deux parties : la première est le numéro SIREN de l'unité légale à laquelle appartient l'unité SIRET ; la seconde, habituellement appelée NIC (Numéro Interne de Classement), se compose d'un numéro d'ordre à quatre chiffres attribué à l'établissement et d'un chiffre de contrôle."
 "help_popup_mandat_etablissements";"Un établissement = un numéro SIRET propre et/ou un CVI.<br />Un établissement exerce une activité économique, constitue une unité géographiquement individualisée, mais juridiquement et financiérement dépendante de l'entreprise (N° SIREN) qui l'a crée."
 "help_popup_mandat_cni";"A indiquer uniquement si vous n'avez pas de numéro SIRET. Le numéro CNI est composé de 12 chiffres."

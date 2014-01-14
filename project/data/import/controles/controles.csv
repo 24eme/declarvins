@@ -12,6 +12,6 @@
 "error_volume_non_vinifie";"Erreur, le volume stocké de pertes autorisées ne peut être supérieur au volume stocke non vinifié."
 "error_vrac";"Erreur, la sortie vrac est différente des volumes vrac saisie."
 "warning_declassement";"Attention, les entrées en Vins sans IG/lies sont supérieures aux déclassements dans les autres catégories."
-"warning_mouvement";"Attention, mouvement."
+"warning_mouvement";"Attention, lors d'un transfert de chais, sauf accord des douanes, le vin doit revenir dans vos chais avant sa sortie définitive."
 "warning_stock";"Attention, le stock théorique fin de mois est différent du stock théorique début de mois de la DRM suivante."
 "warning_stocksdebut";"Attention, incohérence entre le stock début de mois et la répartition des stocks."
