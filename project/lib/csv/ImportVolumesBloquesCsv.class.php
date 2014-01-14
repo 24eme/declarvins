@@ -81,7 +81,7 @@ class ImportVolumesBloquesCsv
   			$hash = 'certifications_'.$this->getKey($line[self::COL_PRODUIT_CATEGORIE]).
                 '_genres_'.$this->getKey($line[self::COL_PRODUIT_GENRE], true).
                 '_appellations_'.$this->getKey($line[self::COL_PRODUIT_DENOMINATION], true).
-                '_mentions_'.Configuration::DEFAULT_KEY.
+                '_mentions_'.ConfigurationProduit::DEFAULT_KEY.
                 '_lieux_'.$this->getKey($line[self::COL_PRODUIT_LIEU], true).
                 '_couleurs_'.strtolower($this->couleurKeyToCode($line[self::COL_PRODUIT_COULEUR])).
                 '_cepages_'.$this->getKey($line[self::COL_PRODUIT_CEPAGE], true);
@@ -105,7 +105,7 @@ class ImportVolumesBloquesCsv
   	private function getKey($key, $withDefault = false) 
   	{
 		if ($withDefault) {
-  			return ($key)? $key : Configuration::DEFAULT_KEY;
+  			return ($key)? $key : ConfigurationProduit::DEFAULT_KEY;
   		} elseif (!$key) {
   			throw new Exception('La clé "'.$key.'" n\'est pas valide');
   		} else {

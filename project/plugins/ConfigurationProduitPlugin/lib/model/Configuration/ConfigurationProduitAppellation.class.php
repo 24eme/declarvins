@@ -24,6 +24,11 @@ class ConfigurationProduitAppellation extends BaseConfigurationProduitAppellatio
     	return $this->getParentNode();
     }
     
+    public function getAllDepartements()
+    {
+    	return $this->getCurrentDepartements(true);
+    }
+    
     /*
      * Les fonctions ci-dessous sont relatives à la gestion de la configuration du catalogue produit
      */

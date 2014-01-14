@@ -113,6 +113,11 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	}
     }
     
+    public function getDepartements()
+    {
+    	return array_values(array_unique($this->declaration->getAllDepartements()));
+    }
+    
     public function getProduits($hash = null, $departements = null, $onlyForDrmVrac = false)
     {
     	if ($hash) {
@@ -138,6 +143,13 @@ class ConfigurationProduit extends BaseConfigurationProduit
     public function getInterproObject()
     {
     	return InterproClient::getInstance()->find($this->interpro);
+    }
+    
+    protected function doSave() 
+    {
+        $interpro = $this->getInterproObject();
+        $interpro->departements = $this->getDepartements();
+        $interpro->save();
     }
 }
 

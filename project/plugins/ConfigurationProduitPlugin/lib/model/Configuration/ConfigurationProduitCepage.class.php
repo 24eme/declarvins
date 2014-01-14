@@ -63,6 +63,11 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
     	return array();
     }
     
+    public function getAllDepartements()
+    {
+    	return array();
+    }
+    
     public function getAllLieux()
     {
     	return array();

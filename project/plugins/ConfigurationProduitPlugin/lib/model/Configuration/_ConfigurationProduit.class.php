@@ -19,6 +19,7 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 		$this->getAllLabels();
 		$this->getAllLieux();
 		$this->getAllCepages();
+		$this->getAllDepartements();
     }
     
   	public function getParentNode() 
@@ -91,6 +92,11 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     public function getAllCepages()
     {
     	return $this->getAllAbstract("getAllCepages");
+    }
+    
+    public function getAllDepartements()
+    {
+    	return $this->getAllAbstract("getAllDepartements");
     }
     
     public function getAllAbstract($function) {
