@@ -20,8 +20,13 @@ class acVinVracActions extends sfActions
         	$this->statut = VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION;
         }
         $this->forward404Unless(in_array($this->statut, VracClient::getInstance()->getStatusContrat()));
-        $this->vracs = VracHistoryView::getInstance()->findByStatutAndInterpro($this->statut, $this->interpro->get('_id'))->rows;
+        $this->vracs = array();
 		$this->vracs_attente = array();
+        $contrats = VracHistoryView::getInstance()->findLastByStatutAndInterpro($this->statut, $this->interpro->get('_id'));
+        foreach ($contrats->rows as $contrat) {
+        		$this->vracs[$contrat->id] = $contrat;
+        }
+        krsort($this->vracs);
         $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
 	    if ($request->isMethod(sfWebRequest::POST)) {
 	    	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
