@@ -21,11 +21,19 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     }
 
     public function getFormattedLibelle($format = "%g% %a% %l% %co% %ce%") {
-      return ConfigurationProduitClient::getInstance()->format($this->getConfig()->getLibelles(), array(), $format);
+    	$config = $this->getConfig();
+    	if (!$config) {
+    		return null;
+    	}
+      	return ConfigurationProduitClient::getInstance()->format($config->getLibelles(), array(), $format);
     }
 
    	public function getFormattedCode($format = "%g%%a%%l%%co%%ce%") {
-      return ConfigurationProduitClient::getInstance()->format($this->getConfig()->getCodes(), array(), $format);
+    	$config = $this->getConfig();
+    	if (!$config) {
+    		return null;
+    	}
+      return ConfigurationProduitClient::getInstance()->format($config->getCodes(), array(), $format);
     }
 
     protected function init($params = array()) {
