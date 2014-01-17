@@ -10,7 +10,7 @@ class CampagneManager {
 
 	public function getCampagneByDate($date) {
 
-        return sprintf('%s-%s', date('Y', strtotime($this->getDateDebutByDate($date))), date('Y', strtotime($this->getDateFinByDate($date))));
+        return $this->formatCampagneOutput(sprintf('%s-%s', date('Y', strtotime($this->getDateDebutByDate($date))), date('Y', strtotime($this->getDateFinByDate($date)))));
     }
 
     public function getCurrent() {
@@ -19,12 +19,16 @@ class CampagneManager {
     }
 
     public function getDateDebutByCampagne($campagne) {
+        $campagne = $this->formatCampagneInput($campagne);
+
         $annees = $this->getAnnees($campagne);
 
         return $annees[1]."-".$this->mm_dd_debut; 
     }
 
     public function getDateFinByCampagne($campagne) {
+        $campagne = $this->formatCampagneInput($campagne);
+
         $date_debut = new DateTime($this->getDateDebutByCampagne($campagne));
 
         return $date_debut->modify("+1 year")->modify("-1 day")->format('Y-m-d');
@@ -49,24 +53,38 @@ class CampagneManager {
     public function getPrevious($campagne) {
         $annees = $this->getAnnees($campagne);
 
-        return sprintf('%s-%s', $annees[1]-1, $annees[2]-1); 
+        return $this->formatCampagneOutput(sprintf('%s-%s', $annees[1]-1, $annees[2]-1)); 
 
     }
 
     public function getNext($campagne) {
+        $campagne = $this->formatCampagneInput($campagne);
+
         $annees = $this->getAnnees($campagne);
 
-        return sprintf('%s-%s', $annees[1]+1, $annees[2]+1); 
+        return $this->formatCampagneOutput(sprintf('%s-%s', $annees[1]+1, $annees[2]+1)); 
 
     }
 
     protected function getAnnees($campagne) {
+        $campagne = $this->formatCampagneInput($campagne);
+        
     	if (!preg_match('/^([0-9]+)-([0-9]+)$/', $campagne, $annees)) {
 
             throw new sfException('campagne bad format');
         }
 
         return $annees;
+    }
+
+    protected function formatCampagneOutput($campagne_output) {
+
+        return $campagne_output;
+    }
+
+    protected function formatCampagneInput($campagne_input) {
+
+        return $campagne_input;
     }
 
 }
