@@ -20,6 +20,7 @@ class StatistiqueProduitForm extends BaseForm
 	
     protected function getProduits()
     {
-    	return ConfigurationClient::getInstance()->findTreeProduitsLibelleForAdmin($this->interpro, false);
+    	$configurationProduits = ConfigurationClient::getCurrent()->getConfigurationProduits($this->interpro);
+    	return $configurationProduits->getTreeProduits();
     }
 }

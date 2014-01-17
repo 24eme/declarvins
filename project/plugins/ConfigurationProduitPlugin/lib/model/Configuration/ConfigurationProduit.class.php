@@ -131,6 +131,11 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	return $this->declaration->getProduits($departements, $onlyForDrmVrac);
     }
     
+    public function getTreeProduits()
+    {
+    	return $this->declaration->getTreeProduits();
+    }
+    
     public function getTotalLieux($hash = null, $departements = null)
     {
     	if ($hash) {

@@ -37,6 +37,11 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
     	}
         return array($this->getHash() => $this);
     }
+    
+    public function getTreeProduits()
+    {
+		return array($this->getHash() => $this->getLibelles());
+    }
 	
 	public function getTotalLieux($departements = null) 
 	{

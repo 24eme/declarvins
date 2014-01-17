@@ -4,6 +4,7 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 	protected $libelles = null;
 	protected $codes = null;
 	protected $produits = array();
+	protected $tree_produits = array();
 	protected $all_libelles = array();
 	protected $total_lieux = array();
 	
@@ -11,6 +12,7 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     {
 		parent::loadAllData();
 		$this->getProduits();
+		$this->getTreeProduits();
 		$this->getAllCepages();
 		$this->getTotalLieux();
 		$this->getCodes();
@@ -44,6 +46,20 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 		}
 		return $this->produits[$key];
   	}
+    
+    public function getTreeProduits()
+    {
+    	$key = sprintf("%s", 'all');
+		if(!array_key_exists($key, $this->tree_produits)) {
+			$client = ConfigurationProduitClient::getInstance();
+			$produits = ($this->getKey() == ConfigurationProduit::DEFAULT_KEY || $this->getTypeNoeud() == 'declaration')? array() : array($this->getHash() => $client->format($this->getLibelles(), array(), "%c% %g% %a% %m% %l% %co% %ce%"));
+	      	foreach($this->getChildrenNode() as $key => $item) {
+	        	$produits = array_merge($produits, $item->getTreeProduits());
+	      	}
+	      	$this->tree_produits[$key] = $produits;
+		}
+		return $this->tree_produits[$key];
+    }
 	
 	public function getTotalLieux($departements = null) 
 	{
