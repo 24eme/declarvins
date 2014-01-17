@@ -89,7 +89,7 @@ class VersionDocument
 
         if($this->isRectificative()) {
 
-            return $this->document->getMasterVersionOfRectificative();
+            return $this->buildVersionDocument($this->getRectificative() - 1, $this->getModificative());
         }
 
         return null;
