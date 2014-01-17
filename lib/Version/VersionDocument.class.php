@@ -107,7 +107,6 @@ class VersionDocument
 
     public function getMother() {
         if (!$this->document->hasVersion()) {
-
             return null;
         }
 
