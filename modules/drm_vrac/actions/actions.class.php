@@ -8,14 +8,43 @@ class drm_vracActions extends sfActions
         $this->etablissement = $this->getRoute()->getEtablissement();
     	$this->details = $this->drm->getDetailsAvecVrac();
     	
-    	/*
-    	 * Si il n'y a pas de sortie vrac declaree, on redirige sur l'etape suivante
-    	 */
-    	  	if($request->hasParameter('precedent')) {
-    	    	$this->redirectIfNoMouvementCheck();
-	    	}
+    	if($request->hasParameter('precedent')) {
+    		$this->redirectIfNoMouvementCheck();
+	   	}
+	   	
+	    if ($this->drm->hasVersion()) {
+    		foreach ($this->drm->getDetails() as $detail) {
+    			if (count($detail->vrac) > 0 && !$detail->sorties->vrac) {
+	    			foreach ($detail->vrac as $numero => $vrac) {
+	    				$volume = $vrac->volume;
+						$contrat = VracClient::getInstance()->findByNumContrat($numero);
+						if ($contrat->isSolde() && $volume > 0) {
+							$contrat->desolder();
+						}
+						$contrat->soustraitVolumeEnleve($volume);
+						$contrat->save(false);
+	    			}
+    			} elseif (count($detail->vrac) > 0) {
+    				$volume = 0;
+	    			foreach ($detail->vrac as $numero => $vrac) {
+	    				$volume += $vrac->volume; 
+	    			}
+	    			if($volume != $detail->sorties->vrac) {
+	    				foreach ($detail->vrac as $numero => $vrac) {
+		    				$volume = $vrac->volume;
+							$contrat = VracClient::getInstance()->findByNumContrat($numero);
+							if ($contrat->isSolde() && $volume > 0) {
+								$contrat->desolder();
+							}
+							$contrat->soustraitVolumeEnleve($volume);
+							$contrat->save(false);
+	    				}
+	    			}
+    			}
+    		}
+	    }
+	    
     	if (count($this->details)==0) {
-
             if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) {
     			$this->drm->setCurrentEtapeRouting('validation');
                 return $this->redirect('drm_validation', $this->drm);

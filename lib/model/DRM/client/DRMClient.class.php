@@ -267,7 +267,6 @@ class DRMClient extends acCouchdbClient {
       }
       
       krsort($drms);
-      
       return $drms;
     }
 

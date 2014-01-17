@@ -389,11 +389,11 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
 			foreach ($detail->vrac as $numero => $vrac) {
 				$volume = $vrac->volume;
 				$contrat = VracClient::getInstance()->findByNumContrat($numero);
-				if ($contrat->isSolde()) {
-					$contrat->soustraitVolumeEnleve($volume);
+				if ($contrat->isSolde() && $volume > 0) {
 					$contrat->desolder();
-					$contrat->save(false);
 				}
+				$contrat->soustraitVolumeEnleve($volume);
+				$contrat->save(false);
 			}
       	}
     }

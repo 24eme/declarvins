@@ -59,16 +59,17 @@ class drmActions extends sfActions
    * @param sfWebRequest $request 
    */
   public function executeDelete(sfWebRequest $request) {
-      $etablissement = $this->getRoute()->getEtablissement();
+      /*$etablissement = $this->getRoute()->getEtablissement();
       $drm = $this->getRoute()->getDRM();
+      var_dump($drm->getVersion());exit; 
       if (!$drm->isNew() && ($drm->isSupprimable() || ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->isSupprimableOperateur()))) {
         $drms = DRMClient::getInstance()->findByIdentifiantAndPeriodeAndRectificative($drm->identifiant, $drm->periode, $drm->getRectificative());
         foreach($drms as $drm) {
           $drm->delete();
         }
       	$this->redirect('drm_mon_espace', $etablissement);
-      }
-      throw new sfException('Vous ne pouvez pas supprimer cette DRM');
+      }*/
+      throw new sfException('Obsolète');
     
   }
   
@@ -76,6 +77,12 @@ class drmActions extends sfActions
       $etablissement = $this->getRoute()->getEtablissement();
       $drm = $this->getRoute()->getDRM();
       if (!$drm->isNew() && ($drm->isSupprimable() || ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->isSupprimableOperateur()))) {
+      	$drm->updateVracVersion();
+      	if ($drm->hasVersion()) {
+      		if ($previous = $drm->getMother()) {
+      			$previous->updateVrac();
+      		}
+      	}
         $drm->delete();
       	$this->redirect('drm_mon_espace', $etablissement);
       }

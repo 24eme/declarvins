@@ -89,8 +89,7 @@ class DRMHistorique {
         $this->has_drm_process = false;
 
         foreach($drms as $drm) {
-            $key = $drm[self::VIEW_PERIODE].DRMClient::getInstance()->getRectificative($drm[self::VIEW_VERSION]);
-
+            $key = $drm[self::VIEW_PERIODE].$drm[self::VIEW_VERSION];
             if (array_key_exists($key, $this->drms)) {
                 
                 continue;
