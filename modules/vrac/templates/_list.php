@@ -236,9 +236,9 @@
 					  <?php if ($elt[VracHistoryView::VRAC_VIEW_MANDATAIREVAL]): ?><br />Signé le <?php echo date('d/m/Y', strtotime($elt[VracHistoryView::VRAC_VIEW_MANDATAIREVAL])) ?><?php endif; ?>
 				<?php endif; ?>
 		    </td>            
-			    <td><?php echo $elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE] ?><br /><?php echo $elt[VracHistoryView::VRAC_VIEW_MILLESIME] ?> <?php echo $elt[VracHistoryView::VRAC_VIEW_LABELS] ?></td>
-			    <td><?php echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLENLEVE]))? $elt[VracHistoryView::VRAC_VIEW_VOLENLEVE] : '0'; ?> hl / <?php echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLPROP]))? $elt[VracHistoryView::VRAC_VIEW_VOLPROP] : '0'; ?> hl</td>
-			    <td><?php echo (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]))? $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE] : '0'; ?>&nbsp;€/hl Hors cotisations</td>
+			    <td><?php echo $elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE] ?><br /><?php echo $elt[VracHistoryView::VRAC_VIEW_MILLESIME] ?></td>
+			    <td><?php echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLENLEVE]))? round($elt[VracHistoryView::VRAC_VIEW_VOLENLEVE],2) : '0'; ?> hl / <?php echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLPROP]))? round($elt[VracHistoryView::VRAC_VIEW_VOLPROP],2) : '0'; ?> hl</td>
+			    <td><?php echo (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]))? round($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE],2) : '0'; ?>&nbsp;€/hl Hors cotisations</td>
 			</tr>
 			<?php endif; ?>
 	        <?php endforeach; ?>
