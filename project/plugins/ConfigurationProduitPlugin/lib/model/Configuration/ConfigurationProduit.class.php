@@ -25,6 +25,8 @@ class ConfigurationProduit extends BaseConfigurationProduit
   	const NOEUD_DROIT_CVO = 'cvo';
   	const NOEUD_DROIT_DOUANE = 'douane';
   	
+  	public $interpro_object = null;
+  	
   	protected static $correspondance_couleurs = array (
 		self::CLE_COULEUR_ROUGE => self::CODE_COULEUR_ROUGE,
 		self::CLE_COULEUR_ROSE => self::CODE_COULEUR_ROSE,
@@ -113,6 +115,11 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	}
     }
     
+    public function getDepartements()
+    {
+    	return array_values(array_unique($this->declaration->getAllDepartements()));
+    }
+    
     public function getProduits($hash = null, $departements = null, $onlyForDrmVrac = false)
     {
     	if ($hash) {
@@ -122,6 +129,11 @@ class ConfigurationProduit extends BaseConfigurationProduit
     		return array();
     	}
     	return $this->declaration->getProduits($departements, $onlyForDrmVrac);
+    }
+    
+    public function getTreeProduits()
+    {
+    	return $this->declaration->getTreeProduits();
     }
     
     public function getTotalLieux($hash = null, $departements = null)
@@ -137,7 +149,17 @@ class ConfigurationProduit extends BaseConfigurationProduit
     
     public function getInterproObject()
     {
-    	return InterproClient::getInstance()->find($this->interpro);
+    	if (is_null($this->interpro_object)) {
+    		$this->interpro_object = InterproClient::getInstance()->find($this->interpro);
+    	}
+    	return $this->interpro_object;
+    }
+    
+    protected function doSave() 
+    {
+        $interpro = $this->getInterproObject();
+        $interpro->departements = $this->getDepartements();
+        $interpro->save();
     }
 }
 

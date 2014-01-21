@@ -149,7 +149,28 @@ class configuration_produitActions extends sfActions
 			  	$this->redirect('configuration_produit');
 			}
 	    }
-  }
+  	}
+
+	
+
+  	public function executeSuppression(sfWebRequest $request)
+  	{
+  		$this->forward404Unless($hash = $request->getParameter('hash', null));
+  		$hash = str_replace('-', '/', $hash);
+  		$configurationProduits = $this->getConfigurationProduit();
+  		$object = $configurationProduits->getOrAdd($hash);
+	  	while ($object->getParent()->count() == 1) {
+	  		$object = $object->getParentNode();
+	  	}
+  		$doc = $object->getDocument();
+  		$object->delete();
+  		$doc->save();
+	    if ($cache = $this->getContext()->getViewCacheManager()) {
+    		$cache->remove('configuration_produit/index');
+	    }
+		$this->getUser()->setFlash("notice", 'Le produit a été supprimé avec success.');
+		$this->redirect('configuration_produit');
+  	}
   
   	protected function getNextHash($object) 
   	{

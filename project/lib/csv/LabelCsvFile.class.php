@@ -37,7 +37,7 @@ class LabelCsvFile extends CsvFile
   private function getKey($key, $withDefault = false) 
   {
 	if ($withDefault) {
-  		return ($key)? $key : Configuration::DEFAULT_KEY;
+  		return ($key)? $key : ConfigurationProduit::DEFAULT_KEY;
   	} elseif (!$key) {
   		throw new Exception('La clé "'.$key.'" n\'est pas valide');
   	} else {

@@ -38,9 +38,44 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
         return array($this->getHash() => $this);
     }
     
+    public function getTreeProduits()
+    {
+		return array($this->getHash() => $this->getLibelles());
+    }
+	
+	public function getTotalLieux($departements = null) 
+	{
+		return array();
+	}
+    
     public function getAllCepages()
     {
     	return array($this->code => $this->libelle);
+    }
+    
+    public function getAllAppellations()
+    {
+    	return array();
+    }
+    
+    public function getAllCertifications()
+    {
+    	return array();
+    }
+    
+    public function getAllLabels()
+    {
+    	return array();
+    }
+    
+    public function getAllDepartements()
+    {
+    	return array();
+    }
+    
+    public function getAllLieux()
+    {
+    	return array();
     }
     
     public function getCertification() 

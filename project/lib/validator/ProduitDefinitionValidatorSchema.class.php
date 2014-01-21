@@ -16,7 +16,7 @@ class ProduitDefinitionValidatorSchema extends sfValidatorSchema
   protected function doClean($values)
   { 
   	if (isset($values['code']) && !empty($values['code'])) {
-  		if ($this->_object->getKey() == Configuration::DEFAULT_KEY && $this->_object->getParent()->exist($values['code'])) {
+  		if ($this->_object->getKey() == ConfigurationProduit::DEFAULT_KEY && $this->_object->getParent()->exist($values['code'])) {
   			throw new sfValidatorErrorSchema($this, array($this->getOption('code') => new sfValidatorError($this, 'indisponible')));
   		}
   	}

@@ -4,7 +4,7 @@
 			<a href="<?php echo url_for('@etablissement_login') ?>">Opérateurs</a>
 		</li>
 		<li<?php if ($active == 'parametrage'): ?> class="actif"<?php endif; ?>>
-			<a href="<?php echo url_for('@produits') ?>">Paramétrage</a>
+			<a href="<?php echo url_for('@configuration_produit') ?>">Paramétrage</a>
 		</li>
         <li<?php if ($active == 'comptes'): ?> class="actif"<?php endif; ?>>
 			<a href="<?php echo url_for('@admin_comptes') ?>">Comptes</a>
@@ -56,7 +56,7 @@
 			</li>
 		<?php elseif ($active == 'parametrage'): ?>
 			<li<?php if ($subactive == 'produits'): ?> class="actif"<?php endif; ?>>
-				<a href="<?php echo url_for('@produits') ?>">Produits</a>
+				<a href="<?php echo url_for('@configuration_produit') ?>">Produits</a>
 			</li>
 	        <li<?php if ($subactive == 'douanes'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@admin_douanes') ?>">Douanes</a>

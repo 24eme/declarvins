@@ -141,19 +141,6 @@ alertes:
 alerte_edit:
   url: /admin/alertes/:id/modification/:campagne/:etablissement
   param: { module: alerte, action: alerteModification, id: null, campagne: null, etablissement: null }
-## Produit routing
-produits:
-  url: /admin/produits
-  param: {module: produit, action: index}
-produit_nouveau:
-  url: /admin/produit/nouveau
-  param: {module: produit, action: nouveau }
-produit_modification:
-  url: /admin/produit/:noeud/modification/:hash
-  param: {module: produit, action: modification, hash: null, noeud: null}
-produit_suppression:
-  url: /admin/produit/:noeud/suppression/:hash
-  param: {module: produit, action: suppression, hash: null, noeud: null}
 ## Etablissement routing
 etablissement_login:
   url: /admin/etablissements/drm

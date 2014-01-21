@@ -70,7 +70,7 @@
     	?>
     		<tr<?php if ($i%2): ?> class="alt"<?php endif;?>>
 			<td>
-				<a href="#" class="supprimer" style="left: 5px;" onclick="return confirm('Confirmez-vous la suppression du produit?')">Supprimer</a>
+				<a href="<?php echo url_for('configuration_produit_suppression', array('hash' => str_replace('/', '-', $produit->getHash()))) ?>" class="supprimer" style="left: 5px;" onclick="return confirm('Confirmez-vous la suppression du produit?')">Supprimer</a>
 				<a href="<?php echo url_for('configuration_produit_modification', array('noeud' => 'certification', 'hash' => str_replace('/', '-', $produit->getHash()))) ?>" class="btn_edit btn_popup1" data-popup="popup_produit" data-popup-config="configForm"><?php echo $produit->getCertificationLibelle(); ?></a>
 			</td>
 			<td><a href="<?php echo url_for('configuration_produit_modification', array('noeud' => 'genre', 'hash' => str_replace('/', '-', $produit->getHash()))) ?>" class="btn_edit btn_popup1" data-popup="popup_produit" data-popup-config="configForm"><?php echo $produit->getGenreLibelle(); ?></a></td>

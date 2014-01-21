@@ -79,6 +79,7 @@ class StatistiqueFilterForm extends BaseForm
     
     protected function getProduits()
     {
-    	return ConfigurationClient::getInstance()->findTreeProduitsLibelleForAdmin($this->getInterproId(), false);
+    	$configurationProduits = ConfigurationClient::getCurrent()->getConfigurationProduits($this->interpro);
+    	return $configurationProduits->getTreeProduits();
     }
 }

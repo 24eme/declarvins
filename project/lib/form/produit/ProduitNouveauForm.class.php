@@ -56,10 +56,10 @@ class ProduitNouveauForm extends sfForm {
 	        		$noeud = self::$configurationNoeud[$node];
 	        		unset($values[$node]);
 	        	} else {
-	        		$hash = $hash.'/'.$node.'/'.Configuration::DEFAULT_KEY;
+	        		$hash = $hash.'/'.$node.'/'.ConfigurationProduit::DEFAULT_KEY;
 	        	}
 	        } else {
-	        	$hash = $hash.'/'.$node.'/'.Configuration::DEFAULT_KEY;
+	        	$hash = $hash.'/'.$node.'/'.ConfigurationProduit::DEFAULT_KEY;
 	        	unset($values[$node]);
 	        }
         }

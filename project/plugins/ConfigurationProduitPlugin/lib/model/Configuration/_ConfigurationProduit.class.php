@@ -3,7 +3,27 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 {
 	protected $libelles = null;
 	protected $codes = null;
-
+	protected $produits = array();
+	protected $tree_produits = array();
+	protected $all_libelles = array();
+	protected $total_lieux = array();
+	
+    public function loadAllData() 
+    {
+		parent::loadAllData();
+		$this->getProduits();
+		$this->getTreeProduits();
+		$this->getAllCepages();
+		$this->getTotalLieux();
+		$this->getCodes();
+		$this->getAllAppellations();
+		$this->getAllCertifications();
+		$this->getAllLabels();
+		$this->getAllLieux();
+		$this->getAllCepages();
+		$this->getAllDepartements();
+    }
+    
   	public function getParentNode() 
   	{
 		$parent = $this->getParent()->getParent();
@@ -15,22 +35,45 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 	}
 	
 	public function getProduits($departements = null, $onlyForDrmVrac = false) 
-	{       
-      	$produits = array();
-      	foreach($this->getChildrenNode() as $key => $item) {
-        	$produits = array_merge($produits, $item->getProduits($departements, $onlyForDrmVrac));
-      	}
-    	return $produits;
+	{   
+		$key = sprintf("%s_%s", is_array($departements) ? implode('_', $departements) : $departements, $onlyForDrmVrac);
+		if(!array_key_exists($key, $this->produits)) {
+			$produits = array();
+	      	foreach($this->getChildrenNode() as $key => $item) {
+	        	$produits = array_merge($produits, $item->getProduits($departements, $onlyForDrmVrac));
+	      	}
+	      	$this->produits[$key] = $produits;
+		}
+		return $this->produits[$key];
   	}
+    
+    public function getTreeProduits()
+    {
+    	$key = sprintf("%s", 'all');
+		if(!array_key_exists($key, $this->tree_produits)) {
+			$client = ConfigurationProduitClient::getInstance();
+			$produits = ($this->getKey() == ConfigurationProduit::DEFAULT_KEY || $this->getTypeNoeud() == 'declaration')? array() : array($this->getHash() => $client->format($this->getLibelles(), array(), "%c% %g% %a% %m% %l% %co% %ce%"));
+	      	foreach($this->getChildrenNode() as $key => $item) {
+	        	$produits = array_merge($produits, $item->getTreeProduits());
+	      	}
+	      	$this->tree_produits[$key] = $produits;
+		}
+		return $this->tree_produits[$key];
+    }
 	
 	public function getTotalLieux($departements = null) 
-	{       
-      	$lieux = array();
-      	foreach($this->getChildrenNode() as $key => $item) {
-        	$lieux = array_merge($lieux, $item->getTotalLieux($departements));
-      	}
-    	return $lieux;
+	{
+		$key = sprintf("%s", is_array($departements) ? implode('_', $departements) : $departements);
+		if(!array_key_exists($key, $this->total_lieux)) {
+	      	$lieux = array();
+	      	foreach($this->getChildrenNode() as $key => $item) {
+	        	$lieux = array_merge($lieux, $item->getTotalLieux($departements));
+	      	}
+	    	$this->total_lieux[$key] = $lieux;
+		}
+		return $this->total_lieux[$key];
   	}
+  	
   	
   	public function hasProduits($departements = null, $onlyForDrmVrac = false)
   	{
@@ -44,47 +87,43 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     
     public function getAllAppellations()
     {
-    	$items = array();
-      	foreach($this->getChildrenNode() as $key => $item) {
-        	$items = array_merge($items, $item->getAllAppellations());
-      	}
-    	return $items;
+    	return $this->getAllAbstract("getAllAppellations");
     }
     
     public function getAllCertifications()
     {
-    	$items = array();
-      	foreach($this->getChildrenNode() as $key => $item) {
-        	$items = array_merge($items, $item->getAllCertifications());
-      	}
-    	return $items;
+    	return $this->getAllAbstract("getAllCertifications");
     }
     
     public function getAllLabels()
     {
-    	$items = array();
-      	foreach($this->getChildrenNode() as $key => $item) {
-        	$items = array_merge($items, $item->getAllLabels());
-      	}
-    	return $items;
+    	return $this->getAllAbstract("getAllLabels");
     }
     
     public function getAllLieux()
     {
-    	$items = array();
-      	foreach($this->getChildrenNode() as $key => $item) {
-        	$items = array_merge($items, $item->getAllLieux());
-      	}
-    	return $items;
+    	return $this->getAllAbstract("getAllLieux");
     }
     
     public function getAllCepages()
     {
-    	$items = array();
-      	foreach($this->getChildrenNode() as $key => $item) {
-        	$items = array_merge($items, $item->getAllCepages());
-      	}
-    	return $items;
+    	return $this->getAllAbstract("getAllCepages");
+    }
+    
+    public function getAllDepartements()
+    {
+    	return $this->getAllAbstract("getAllDepartements");
+    }
+    
+    public function getAllAbstract($function) {
+    	if(!array_key_exists($function, $this->all_libelles)) {
+	    	$items = array();
+	      	foreach($this->getChildrenNode() as $key => $item) {
+	        	$items = array_merge($items, $item->$function());
+	      	}
+	      	$this->all_libelles[$function] = $items;
+    	}
+    	return $this->all_libelles[$function];
     }
     
 	public function getLibelles() 
