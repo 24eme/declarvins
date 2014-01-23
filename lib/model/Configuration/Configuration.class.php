@@ -159,7 +159,7 @@ class Configuration extends BaseConfiguration
     	return null;
     }
     
-    public function getConfigurationVrac($interpro)
+    public function getConfigurationVracByInterpro($interpro)
     {
     	return $this->vrac->interpro->get($interpro);
     }
