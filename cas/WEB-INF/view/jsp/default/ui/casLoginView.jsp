@@ -62,8 +62,21 @@
                     </div>
             </form:form>
                                 <ul id="liens_compte">
-                                        <li><a href="#">Mot de passe oublié ?</a></li>
-                                        <li><a href="#">Pas encore inscrit ?</a></li>
+                                        <li>
+                                            <!--<a href="#">-->
+                                            <strike>
+                                                Mot de passe oublié ?
+                                            </strike>&nbsp;Ouverture prochaine
+                                            <!--</a>-->
+                                        </li>
+                                        <li>
+                                            <!--<a href="#">-->
+                                            <strike>
+                                                Pas encore inscrit ?
+                                            </strike>&nbsp;Ouverture prochaine
+                                            <!--</a>-->
+                                            
+                                        </li>
                                 </ul>
 
           </div>
