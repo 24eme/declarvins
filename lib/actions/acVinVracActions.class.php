@@ -67,7 +67,7 @@ class acVinVracActions extends sfActions
 	public function executeNouveau(sfWebRequest $request)
 	{
 		$this->vrac = $this->getRoute()->getVrac();
-        $this->etablissement = $this->getRoute()->getEtablissement();
+                $this->etablissement = $this->getRoute()->getEtablissement();
 		$vrac = new Vrac();
 		$this->init($vrac, $this->etablissement);
 		$vrac->interpro = $this->interpro->get('_id');
@@ -337,7 +337,7 @@ class acVinVracActions extends sfActions
 	
 	public function getConfigurationVrac($interpro_id = null)
 	{
-		return ConfigurationClient::getCurrent()->getConfigurationVrac($interpro_id);
+		return ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro_id);
 	}
 	
 	protected function saisieTerminee($vrac, $interpro) {
