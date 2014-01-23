@@ -91,7 +91,7 @@
 		
 		button { background: 0; border: 0; font-family: Arial, Verdana, Helvetica, sans-serif; margin: 0; outline: 0; overflow: visible; padding: 0; }
 		button::-moz-focus-inner { border: 0; padding: 0; }
-		button span { position: relative; !margin: -1px 0 -2px; }
+		button span { position: relative; margin: -1px 0 -2px; }
 		
 		pre, code, kbd, samp { font-family: monospace, sans-serif; }
 		
@@ -164,12 +164,19 @@
 		<div id="entete_doc">
 			<h1>
 				Contrat d'inscription <br />
-				&laquo; la Déclaration Web &raquo; N° : <?php echo $contrat->no_contrat ?>&nbsp;&nbsp;&nbsp;<sup>(1)</sup>
+				&laquo; DeclarVins.net &raquo; N° : <?php echo $contrat->no_contrat ?>&nbsp;&nbsp;&nbsp;<sup>(1)</sup>
 			</h1>
-			<p>à un système de Déclarations Informatisé (DRM, DAI/DS, DR, Contrats...)<br />
-			ET aux autres systèmes des Interprofessions : Intranet d'échange d'information...</p>
-
 			<p class="note">(1) Numéro Interprofessionnel d'enregistrement de l'inscription</p>
+                        
+			<p>A un système d’identification sécurisé permettant :<br />
+			- de réaliser des Déclarations Informatisé sur DeclarVins.net et de les transmettre aux différents destinataires.<br />
+                        - et d’accéder à des services spécifiques à votre Interprofession. </p>
+                        <p>
+                            <i>
+                            Toutes les informations notées * du présent formulaire sont obligatoires (suivant la famille des établissements. 1 Etablissement = 1 comptabilité matière &laquo; vin &raquo;).  
+                            </i>
+                        </p>
+
 		</div>
 		
 		
@@ -178,26 +185,28 @@
 			<div id="declarant">
 				<h2>D&Eacute;CLARANT</h2>
 				<p>
-					<strong>Je soussigné, <?php echo $contrat->nom ?> <?php echo $contrat->prenom ?></strong><br />
-					Représentant les entreprises suivantes<br />
-					Qualité (fonction) : <strong><?php echo $contrat->fonction ?></strong><br />
-					Courriel : <strong><?php echo $compte->email ?></strong><br />
+					<strong>Je soussigné, Nom* : <?php echo $contrat->nom ?> Prénom* : <?php echo $contrat->prenom ?> 
+					Fonction : <?php echo $contrat->fonction ?></strong>
+                                    <br />
+                                        <strong>Tel* : <?php echo $compte->telephone ?> Fax : <?php echo $compte->fax ?></strong>
+					Email* : <strong><?php echo $compte->email ?></strong>
+                                        <br />
 				</p>
+                                <p class="note">(Attention à vérifier les sécurités, paramètres, et espaces disponibles sur cette adresse mail : des informations importantes vous y seront envoyées. Notamment certains systèmes de sécurité pourraient classer en &laquo; SPAM &raquo; ces informations)</p>
 			</div>
 			
-			<p>Adresse des sociétés concernés </p>
 			<?php foreach ($contrat->etablissements as $i => $etablissement): ?>
 			<div class="societe">
-				<h3>Société <?php echo $i+1 ?></h3>
+				<h3>Etablissement <?php echo $i+1 ?></h3>
 				<p>
 					Raison Sociale : <strong><?php echo $etablissement->raison_sociale ?></strong><br />
 					Nom Commercial : <strong><?php echo $etablissement->nom ?></strong><br />
-					N° RCS / SIRET: <strong><?php echo $etablissement->siret ?></strong><br />
+					N° RCS / SIRET : <strong><?php echo $etablissement->siret ?></strong><br />
 					N° Carte Nationale d'Identité pour les exploitants individuels : <strong><?php echo $etablissement->cni ?></strong><br />
 					N° CVI : <strong><?php echo $etablissement->cvi ?></strong><br />
 					N° accises : <strong><?php echo $etablissement->no_accises ?></strong><br />
 					N° TVA intracommunautaire : <strong><?php echo $etablissement->no_tva_intracommunautaire ?></strong><br />
-                    N° de carte professionnelle : <strong><?php echo $etablissement->no_carte_professionnelle ?></strong><br />
+                                        N° de carte professionnelle : <strong><?php echo $etablissement->no_carte_professionnelle ?></strong><br />
 					Adresse : <strong><?php echo $etablissement->adresse ?></strong><br />
 					CP : <strong><?php echo $etablissement->code_postal ?></strong><br />
 					ville : <strong><?php echo $etablissement->commune ?></strong><br />
@@ -206,10 +215,7 @@
 					fax : <strong><?php echo $etablissement->fax ?></strong><br />
 					email : <strong><?php echo $etablissement->email ?></strong>
 				</p>
-				<p>Famille : <strong><?php echo EtablissementFamilles::getFamilleLibelle($etablissement->famille) ?></strong><br />
-				   Sous-famille : <strong><?php echo EtablissementFamilles::getSousFamilleLibelle($etablissement->famille, $etablissement->sous_famille) ?></strong>
-                </p>
-                <p>Provenance EDI : <strong><?php echo ($etablissement->edi) ? "Oui" : "Non" ?></strong></p>
+                                <p>Provenance EDI : <strong><?php echo ($etablissement->edi) ? "Oui" : "Non" ?></strong></p>
 
                                 <?php if ($etablissement->comptabilite_adresse): ?>
 				<p>
