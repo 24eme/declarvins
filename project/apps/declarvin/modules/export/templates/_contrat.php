@@ -164,40 +164,39 @@
 		<div id="entete_doc">
 			<h1>
 				Contrat d'inscription <br />
-				&laquo; DeclarVins.net &raquo; N° : <?php echo $contrat->no_contrat ?>&nbsp;&nbsp;&nbsp;<sup>(1)</sup>
+				&laquo; DeclarVins.net &raquo; N° : <?php echo $contrat->no_contrat ?>&nbsp;&nbsp;&nbsp;<sup>(1)</sup><br />
 			</h1>
 			<p class="note">(1) Numéro Interprofessionnel d'enregistrement de l'inscription</p>
-                        
-			<p>A un système d’identification sécurisé permettant :<br />
-			- de réaliser des Déclarations Informatisé sur DeclarVins.net et de les transmettre aux différents destinataires.<br />
-                        - et d’accéder à des services spécifiques à votre Interprofession. </p>
-                        <p>
-                            <i>
-                            Toutes les informations notées * du présent formulaire sont obligatoires (suivant la famille des établissements. 1 Etablissement = 1 comptabilité matière &laquo; vin &raquo;).  
-                            </i>
-                        </p>
-
 		</div>
 		
+                <br />
+                <br />
+                <p>A un système d’identification sécurisé permettant :<br />
+                - de réaliser des Déclarations Informatisées sur DeclarVins.net et de les transmettre aux différents destinataires.<br />
+                - et d’accéder à des services spécifiques à votre Interprofession. </p>
+
 		
 		<div id="formulaire">
 			
 			<div id="declarant">
 				<h2>D&Eacute;CLARANT</h2>
+                                <br/><br/>
 				<p>
-					<strong>Je soussigné, Nom* : <?php echo $contrat->nom ?> Prénom* : <?php echo $contrat->prenom ?> 
+                                    <strong>Je soussigné,&nbsp;&nbsp;Nom : <?php echo $contrat->nom ?>&nbsp;&nbsp;Prénom : <?php echo $contrat->prenom ?>&nbsp;&nbsp;<br/> 
 					Fonction : <?php echo $contrat->fonction ?></strong>
                                     <br />
-                                        <strong>Tel* : <?php echo $compte->telephone ?> Fax : <?php echo $compte->fax ?></strong>
-					Email* : <strong><?php echo $compte->email ?></strong>
-                                        <br />
+                                        <strong><?php if($compte->exist('telephone') && $compte->telephone): ?> Tel : <?php echo $compte->telephone ?><br /><?php endif; ?>
+                                            <?php if($compte->exist('fax') && $compte->fax): ?>Fax : <?php echo $compte->fax ?><br /><?php endif; ?></strong>
+                                            <?php if($compte->exist('email') && $compte->email): ?>Email : <strong><?php echo $compte->email ?></strong><br /><?php endif; ?>
 				</p>
+                                <br/>
                                 <p class="note">(Attention à vérifier les sécurités, paramètres, et espaces disponibles sur cette adresse mail : des informations importantes vous y seront envoyées. Notamment certains systèmes de sécurité pourraient classer en &laquo; SPAM &raquo; ces informations)</p>
-			</div>
+                                <br/><br/>
+                        </div>
 			
 			<?php foreach ($contrat->etablissements as $i => $etablissement): ?>
 			<div class="societe">
-				<h3>Etablissement <?php echo $i+1 ?></h3>
+				<h3><u>Etablissement <?php echo $i+1 ?></u></h3>
 				<p>
 					Raison Sociale : <strong><?php echo $etablissement->raison_sociale ?></strong><br />
 					Nom Commercial : <strong><?php echo $etablissement->nom ?></strong><br />
@@ -206,17 +205,23 @@
 					N° CVI : <strong><?php echo $etablissement->cvi ?></strong><br />
 					N° accises : <strong><?php echo $etablissement->no_accises ?></strong><br />
 					N° TVA intracommunautaire : <strong><?php echo $etablissement->no_tva_intracommunautaire ?></strong><br />
-                                        N° de carte professionnelle : <strong><?php echo $etablissement->no_carte_professionnelle ?></strong><br />
+                                        N° de carte pro courtier : <strong><?php echo $etablissement->no_carte_professionnelle ?></strong><br />
 					Adresse : <strong><?php echo $etablissement->adresse ?></strong><br />
 					CP : <strong><?php echo $etablissement->code_postal ?></strong><br />
-					ville : <strong><?php echo $etablissement->commune ?></strong><br />
+					Ville : <strong><?php echo $etablissement->commune ?></strong><br />
 					Pays : <strong><?php echo $etablissement->pays ?></strong><br />
-					tel : <strong><?php echo $etablissement->telephone ?></strong><br />
-					fax : <strong><?php echo $etablissement->fax ?></strong><br />
-					email : <strong><?php echo $etablissement->email ?></strong>
+					Tél : <strong><?php echo $etablissement->telephone ?></strong><br />
+					Fax : <strong><?php echo $etablissement->fax ?></strong><br />
+					Email : <strong><?php echo $etablissement->email ?></strong>
 				</p>
+                                <?php $sousFamille = EtablissementFamilles::getSousFamilleLibelle($etablissement->famille, $etablissement->sous_famille); ?>
+                                <p>Famille - sous-famille : <strong><?php echo EtablissementFamilles::getFamilleLibelle($etablissement->famille) ?></strong><br />
+                                  <?php if($sousFamille): ?> Sous-famille : <strong><?php echo $sousFamille ?></strong><?php endif; ?>
+                              </p>
+                                
                                 <p>Provenance EDI : <strong><?php echo ($etablissement->edi) ? "Oui" : "Non" ?></strong></p>
 
+                                <br />
                                 <?php if ($etablissement->comptabilite_adresse): ?>
 				<p>
 					Lieu où est tenue la comptabilité matière (si différente de l'adresse du chai) :<br />
@@ -231,31 +236,37 @@
 					Dépend du service des douanes de : <strong><?php echo $etablissement->service_douane ?></strong>
 				</p>
 			</div>
-			<?php if (count($contrat->etablissements) == $i+1): ?>
-			<p>Le cas échéant, logiciel utilisé pour la gestion de cave et transmission (DTI) des informations à « Déclarations Web » : <strong>Logiciels</strong><br />
-			(lister les logiciels testés et validés)</p>
-			<?php endif; ?>
 			<div class="page_break">&nbsp;</div>
                         <?php endforeach; ?>
 		</div>
 		
 		<div class="important">
-			<p>Demande à bénéficier d'une connexion au système informatique « Déclaration Web », et donne mandat pour dépôt définitif aux Interprofessions (InterRhône, CIVP, InterVins SE) de me représenter en la personne de ses salariés habilités dans le cadre de la télédéclaration des informations relatives à mes déclarations auprès des douanes : DRM, DAI/DS, DR, DAA.</p>
-			<p>Le présent mandat prend effet à compter de la date de signature, et demeure valable jusqu'à dénonciation par l'une ou l'autre des parties.</p>
+                    <p>Le déclarant, pour le compte des Etablissements précitées, demande à bénéficier d'une connexion au système informatique &laquo; DeclarVins.net &raquo;, </p>
 		</div>
- 
-		<div id="interprofessions">
-			<p><span class="souligne">INTERPROFESSIONS :</span> InterRhône, CIVP, InterVins SE, en partenariat avec les douanes.<br />
-			Interlocuteur en gestion :</p>
-			<ul>
-				<li>pour les opérateurs de Provence (départements 13, 83, 04, 06) ressortissants d'InterVins SE et du CIVP : CIVP.</li>
-				<li>pour les opérateurs de Vallée du Rhône (départements 04, 05, 07, 26, 84) ressortissants d'InterVins SE et d'InterRhône : InterRhône.</li>
-				<li>pour les opérateurs ressortissants d'InterVins SE uniquement (tous départements + 30): InterVins SE.</li>
-			</ul>
-			<p>En cas de changement de la production, ou de l'adhésion d'organismes représentatifs de la production aux Interprofessions, les interlocuteurs de gestion peuvent évoluer.</p>
-		</div>
+                <p>En fonction de la mise en place des services, le système d’indentification ‘Declarvins.net’ permet l’accès à la saisie et validation <u>pour l’interprofession</u> de divers documents déclaratifs obligatoires.</p>
+                <p>Cela concerne : </p>
+                <ul>
+                        <li>Contrats Interprofessionnels, </li>
+                        <li>DRM (Déclaration Récapitulative Mensuelle),</li>
+                        <li>DAI/DS (Déclaration Annuel d’Inventaire / Déclaration de Stock) production. </li>
+                </ul>
+                <p>
+                    Cela pourra concerner d’autres obligations déclaratives faisant l’objet d’une convention avec les douanes ou les autres organismes de la filière viti-vinicole.
+                </p>
+                <p>
+                    Les Interprofessions développent des partenariats pour transporter l’information auprès de différents destinataires. En l’absence de partenariats, le déclarant doit réaliser les déclarations aux différents destinataires suivant les modalités prévues par ces derniers (papier signé et envoyé par la poste en général).
+                </p>
+                <p>
+                    Des Avenants précisent les partenariats et contrats mandats de dépôt (transport de l’information par DeclarVins vers un autre destinataire pour le compte de l’opérateur déclarant).
+                </p>
+                <div class="important">
+                    <p>
+                        Une information vous sera fournie à chaque nouvelle fonctionnalité mise en service, ainsi qu’un avenant récapitulatif de l’ensemble des fonctionnalités et Mandats de dépôt proposés.
+                    </p>
+                </div>
 
         <?php echo include_partial('export/contrat_conditions') ?>
+                <br/><br/>
 		<div id="signature">
                         <p>Fait à 
                         <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>, Le <strong></strong>
