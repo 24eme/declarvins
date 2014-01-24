@@ -16,7 +16,7 @@ class VracProduitValidator extends sfValidatorBase {
     					$errorSchema->addError(new sfValidatorError($this, 'format_millesime'), 'millesime');
     					$hasError = true;
     		}
-    		if ($values['millesime'] > (date('Y'))) {
+    		if ($values['millesime'] > (date('Y')+1)) {
     			//throw new sfValidatorErrorSchema($this, array($this->getOption('millesime') => new sfValidatorError($this, 'date_millesime')));
     					$errorSchema->addError(new sfValidatorError($this, 'date_millesime'), 'millesime');
     					$hasError = true;
