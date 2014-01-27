@@ -34,7 +34,7 @@ class ArchivageDocument implements iLock
             return $this->document->getCampagneArchive();
         }
 
-        $this->document->campagne;
+        return $this->document->campagne;
     }
 
     public function executeLock($type = null) {
