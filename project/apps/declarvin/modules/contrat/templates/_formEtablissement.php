@@ -33,7 +33,7 @@
     </div>
     <div class="ligne_form">
         <?php echo $form['no_tva_intracommunautaire']->renderError() ?>
-        <?php echo $form['no_tva_intracommunautaire']->renderLabel('Numéro TVA intracommunautaire: <a href="" class="msg_aide" data-msg="help_popup_mandat_tva_intracommunautaire" title="Message aide"></a>') ?>
+        <?php echo $form['no_tva_intracommunautaire']->renderLabel('Numéro TVA intracommunautaire**: <a href="" class="msg_aide" data-msg="help_popup_mandat_tva_intracommunautaire" title="Message aide"></a>') ?>
         <?php echo $form['no_tva_intracommunautaire']->render() ?>
     </div>
     <div class="ligne_form">
