@@ -124,7 +124,7 @@ class Configuration extends BaseConfiguration
     	foreach ($configuration as $interpro => $configurationProduits) {
     		$produits = array_merge($produits, $configurationProduits->getProduits($hash, $departements, $onlyForDrmVrac));
     	}
-    	return $this->format($produits, $format);
+    	return $this->formatWithCode($produits, $format);
     }
 
     public function getFormattedLieux($hash = null, $departements, $format = "%g% %a% %m% %l%")
@@ -146,6 +146,31 @@ class Configuration extends BaseConfiguration
     	}
     	return $result;
     }
+    
+    protected function formatWithCode($produits, $format = "%g% %a% %m% %l% %co% %ce%")
+    {
+    	$result = array();
+    	$client = ConfigurationProduitClient::getInstance();
+    	foreach ($produits as $hash => $produit) {
+    		$result[$hash] = $client->format($produit->getLibelles(), array(), $format).' '.$this->constructCode($produit);
+    	}
+    	return $result;
+    }
+    
+    protected function constructCode($produit) {
+            $codes = $produit->getCodes();
+            $code_produit = '';
+            foreach ($codes as $k => $c) {
+                if(!$k) {
+                    $code_produit .= ($c)? $c : '';
+                }
+                else{
+                    $code_produit .= ($c)? $c : '';
+                }
+            }
+            return $code_produit;
+    }
+    
     
     public function getConfigurationProduit($hash)
     {
