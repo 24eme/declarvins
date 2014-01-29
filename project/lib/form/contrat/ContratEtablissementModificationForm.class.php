@@ -96,7 +96,9 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
                      'none' => 'Vous devez renseigner obligatoirement le Siret ou le Cni'));
        
        $this->mergePostValidator($xorValidator);
-       $this->mergePostValidator(new ValidatorContratEtablissement());
+       $this->mergePostValidator(new ValidatorContratEtablissement(null,
+                                                                   array('no_carte_professionnelle' => 'no_carte_professionnelle', 'famille' => 'famille'),
+                                                                   array('no_carte_professionnelle_wrong_famille' => "Il n'est pas possible de remplir le champ n° carte pro courtier")));
        $this->mergePostValidator(new ValidatorContratDouane());
        $this->widgetSchema->setNameFormat('contratetablissement[%s]');
        }
