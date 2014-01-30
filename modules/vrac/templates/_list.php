@@ -127,7 +127,7 @@
 		    </td>            
 			    <td><?php echo $elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE] ?><br /><?php echo $elt[VracHistoryView::VRAC_VIEW_MILLESIME] ?> <?php echo $elt[VracHistoryView::VRAC_VIEW_LABELS] ?></td>
 			    <td><?php echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLENLEVE]))? $elt[VracHistoryView::VRAC_VIEW_VOLENLEVE] : '0'; ?> hl / <?php echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLPROP]))? $elt[VracHistoryView::VRAC_VIEW_VOLPROP] : '0'; ?> hl</td>
-			    <td><?php echo (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]))? $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE] : '0'; ?>&nbsp;€/hl Hors cotisations</td>
+			    <td><?php echo (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]))? $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE] : '0'; ?>&nbsp;€&nbsp;HT/hl</td>
 			</tr>
 			<?php endif; ?>
 	        <?php endforeach; ?>
@@ -238,7 +238,7 @@
 		    </td>            
 			    <td><?php echo $elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE] ?><br /><?php echo $elt[VracHistoryView::VRAC_VIEW_MILLESIME] ?></td>
 			    <td><?php echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLENLEVE]))? round($elt[VracHistoryView::VRAC_VIEW_VOLENLEVE],2) : '0'; ?> hl / <?php echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLPROP]))? round($elt[VracHistoryView::VRAC_VIEW_VOLPROP],2) : '0'; ?> hl</td>
-			    <td><?php echo (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]))? round($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE],2) : '0'; ?>&nbsp;€/hl Hors cotisations</td>
+			    <td><?php echo (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]))? round($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE],2) : '0'; ?>&nbsp;€&nbsp;HT/hl</td>
 			</tr>
 			<?php endif; ?>
 	        <?php endforeach; ?>
