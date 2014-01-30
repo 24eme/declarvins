@@ -5,11 +5,18 @@ class VracProduitValidator extends sfValidatorBase {
     public function configure($options = array(), $messages = array()) {
         $this->addMessage('format_millesime', "Le millésime doit être renseigné sur quatre chiffres");
         $this->addMessage('date_millesime', "Millésime invalide");
+        $this->addMessage('millesime_inexistant', "Le millésime doit être renseigné si la case Non millésimé n'est pas cochée.'");
     }
     
     protected function doClean($values) {
     	$errorSchema = new sfValidatorErrorSchema($this);
     	$hasError = false;
+        if ((!isset($values['millesime']) || empty($values['millesime'])) 
+                        && (!isset($values['non_millesime']) || is_null($values['non_millesime']))){
+            $errorSchema->addError(new sfValidatorError($this, 'millesime_inexistant'), 'millesime');
+    	    $hasError = true;
+        }
+        
     	if (isset($values['millesime']) && !empty($values['millesime'])) {
     		if (strlen($values['millesime']) != 4) {
     			//throw new sfValidatorErrorSchema($this, array($this->getOption('millesime') => new sfValidatorError($this, 'format_millesime')));
