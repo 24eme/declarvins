@@ -145,9 +145,10 @@ class Email {
         return $this->getMailer()->send($message);
     }
     
-    public function sendContratMandat($contrat, $destinataire) 
+    public function sendContratMandat($contrat, $destinataire, $interpro = null) 
     {
-        $from = array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
+        $from = ($interpro)? array($interpro->email_contrat_vrac => $interpro->nom) :
+
         $to = array($destinataire);
         $subject = 'Contrat d\'inscription DeclarVins';
         $body = $this->getBodyFromPartial('send_contrat_mandat', array('contrat' => $contrat));
