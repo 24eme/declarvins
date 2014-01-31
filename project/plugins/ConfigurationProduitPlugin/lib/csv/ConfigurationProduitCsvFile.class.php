@@ -2,28 +2,34 @@
 
 class ConfigurationProduitCsvFile extends CsvFile 
 {
-	const CSV_PRODUIT_CATEGORIE_LIBELLE = 0;    //CATEGORIE == CERTIFICATION
-  	const CSV_PRODUIT_CATEGORIE_CODE = 1;       //CATEGORIE == CERTIFICATION
-  	const CSV_PRODUIT_GENRE_LIBELLE = 2;
-  	const CSV_PRODUIT_GENRE_CODE = 3;
-  	const CSV_PRODUIT_DENOMINATION_LIBELLE = 4; //DENOMINATION == APPELLATION
-  	const CSV_PRODUIT_DENOMINATION_CODE = 5;    //DENOMINATION == APPELLATION
-  	const CSV_PRODUIT_LIEU_LIBELLE = 6;
-  	const CSV_PRODUIT_LIEU_CODE = 7;
-  	const CSV_PRODUIT_COULEUR_LIBELLE = 8;
-  	const CSV_PRODUIT_COULEUR_CODE = 9;
-  	const CSV_PRODUIT_CEPAGE_LIBELLE = 10;
-  	const CSV_PRODUIT_CEPAGE_CODE = 11;
-  	const CSV_PRODUIT_LABELS = 12;
-  	const CSV_PRODUIT_DEPARTEMENTS = 13;
-  	const CSV_PRODUIT_DROITS_DOUANE = 14;
-  	const CSV_PRODUIT_DROITS_CVO = 15;
-  	const CSV_PRODUIT_DRM_VRAC = 16;
-  	const CSV_PRODUIT_OIOC = 17;
-  	const CSV_PRODUIT_DRM_CONFIG_ENTREE_REPLI = 18;
-  	const CSV_PRODUIT_DRM_CONFIG_SORTIE_REPLI = 19;
-  	const CSV_PRODUIT_DRM_CONFIG_ENTREE_DECLASSEMENT = 20;
-  	const CSV_PRODUIT_DRM_CONFIG_SORTIE_DECLASSEMENT = 21;
+	const CSV_PRODUIT_CATEGORIE_KEY = 0;    //CATEGORIE == CERTIFICATION
+	const CSV_PRODUIT_CATEGORIE_LIBELLE = 1;    //CATEGORIE == CERTIFICATION
+  	const CSV_PRODUIT_CATEGORIE_CODE = 2;       //CATEGORIE == CERTIFICATION
+  	const CSV_PRODUIT_GENRE_KEY = 3;
+  	const CSV_PRODUIT_GENRE_LIBELLE = 4;
+  	const CSV_PRODUIT_GENRE_CODE = 5;
+  	const CSV_PRODUIT_DENOMINATION_KEY = 6; //DENOMINATION == APPELLATION
+  	const CSV_PRODUIT_DENOMINATION_LIBELLE = 7; //DENOMINATION == APPELLATION
+  	const CSV_PRODUIT_DENOMINATION_CODE = 8;    //DENOMINATION == APPELLATION
+  	const CSV_PRODUIT_LIEU_KEY = 9;
+  	const CSV_PRODUIT_LIEU_LIBELLE = 10;
+  	const CSV_PRODUIT_LIEU_CODE = 11;
+  	const CSV_PRODUIT_COULEUR_KEY = 12;
+  	const CSV_PRODUIT_COULEUR_LIBELLE = 13;
+  	const CSV_PRODUIT_COULEUR_CODE = 14;
+  	const CSV_PRODUIT_CEPAGE_KEY = 15;
+  	const CSV_PRODUIT_CEPAGE_LIBELLE = 16;
+  	const CSV_PRODUIT_CEPAGE_CODE = 17;
+  	const CSV_PRODUIT_LABELS = 18;
+  	const CSV_PRODUIT_DEPARTEMENTS = 19;
+  	const CSV_PRODUIT_DROITS_DOUANE = 20;
+  	const CSV_PRODUIT_DROITS_CVO = 21;
+  	const CSV_PRODUIT_DRM_VRAC = 22;
+  	const CSV_PRODUIT_OIOC = 23;
+  	const CSV_PRODUIT_DRM_CONFIG_ENTREE_REPLI = 24;
+  	const CSV_PRODUIT_DRM_CONFIG_SORTIE_REPLI = 25;
+  	const CSV_PRODUIT_DRM_CONFIG_ENTREE_DECLASSEMENT = 25;
+  	const CSV_PRODUIT_DRM_CONFIG_SORTIE_DECLASSEMENT = 26;
   	
   	const CSV_PRODUIT_DROITS_CODE = 0;
   	const CSV_PRODUIT_DROITS_LIBELLE = 1;
@@ -91,16 +97,22 @@ class ConfigurationProduitCsvFile extends CsvFile
   		$result[$i] = self::getCsvProduitsEntetes();
   		foreach ($produits as $produit) {
   			$i++;
+  			$result[$i][self::CSV_PRODUIT_CATEGORIE_KEY] = $produit->getCertification()->getKey();
   			$result[$i][self::CSV_PRODUIT_CATEGORIE_LIBELLE] = $produit->getCertification()->libelle;
   			$result[$i][self::CSV_PRODUIT_CATEGORIE_CODE] = $this->getExportKey($produit->getCertification()->code);
+  			$result[$i][self::CSV_PRODUIT_GENRE_KEY] = $produit->getGenre()->getKey();
   			$result[$i][self::CSV_PRODUIT_GENRE_LIBELLE] = $produit->getGenre()->libelle;
   			$result[$i][self::CSV_PRODUIT_GENRE_CODE] = $this->getExportKey($produit->getGenre()->code);
+  			$result[$i][self::CSV_PRODUIT_DENOMINATION_KEY] = $produit->getAppellation()->getKey();
   			$result[$i][self::CSV_PRODUIT_DENOMINATION_LIBELLE] = $produit->getAppellation()->libelle;
   			$result[$i][self::CSV_PRODUIT_DENOMINATION_CODE] = $this->getExportKey($produit->getAppellation()->code);
+  			$result[$i][self::CSV_PRODUIT_LIEU_KEY] = $produit->getLieu()->getKey();
   			$result[$i][self::CSV_PRODUIT_LIEU_LIBELLE] = $produit->getLieu()->libelle;
   			$result[$i][self::CSV_PRODUIT_LIEU_CODE] = $this->getExportKey($produit->getLieu()->code);
+  			$result[$i][self::CSV_PRODUIT_COULEUR_KEY] = $produit->getCouleur()->getKey();
   			$result[$i][self::CSV_PRODUIT_COULEUR_LIBELLE] = $produit->getCouleur()->libelle;
   			$result[$i][self::CSV_PRODUIT_COULEUR_CODE] = $this->getExportKey($produit->getCouleur()->code);
+  			$result[$i][self::CSV_PRODUIT_CEPAGE_KEY] = $produit->getCepage()->getKey();
   			$result[$i][self::CSV_PRODUIT_CEPAGE_LIBELLE] = $produit->getCepage()->libelle;
   			$result[$i][self::CSV_PRODUIT_CEPAGE_CODE] = $this->getExportKey($produit->getCepage()->code);
 		  	$result[$i][self::CSV_PRODUIT_LABELS] = $this->renderCsvLabels($produit->getCurrentLabels());
@@ -252,20 +264,14 @@ class ConfigurationProduitCsvFile extends CsvFile
 
   	private function getProduit($line) 
   	{
-  		$hash = 'certifications/'.$this->getKey($line[self::CSV_PRODUIT_CATEGORIE_CODE]).
-                '/genres/'.$this->getKey($line[self::CSV_PRODUIT_GENRE_CODE], true).
-                '/appellations/'.$this->getKey($line[self::CSV_PRODUIT_DENOMINATION_CODE], true).
+  		$hash = 'certifications/'.$this->getKey($line[self::CSV_PRODUIT_CATEGORIE_KEY]).
+                '/genres/'.$this->getKey($line[self::CSV_PRODUIT_GENRE_KEY], true).
+                '/appellations/'.$this->getKey($line[self::CSV_PRODUIT_DENOMINATION_KEY], true).
                 '/mentions/'.ConfigurationProduit::DEFAULT_KEY.
-                '/lieux/'.$this->getKey($line[self::CSV_PRODUIT_LIEU_CODE], true).
-                '/couleurs/'.strtolower($this->couleurKeyToCode($line[self::CSV_PRODUIT_COULEUR_CODE])).
-                '/cepages/'.$this->getKey($line[self::CSV_PRODUIT_CEPAGE_CODE], true);
+                '/lieux/'.$this->getKey($line[self::CSV_PRODUIT_LIEU_KEY], true).
+                '/couleurs/'.$this->getKey($line[self::CSV_PRODUIT_COULEUR_KEY]).
+                '/cepages/'.$this->getKey($line[self::CSV_PRODUIT_CEPAGE_KEY], true);
     	return $this->config->declaration->getOrAdd($hash);
-  	}
-  
-  	private function couleurKeyToCode($key) 
-  	{
-    	$correspondances = ConfigurationProduit::getCorrespondanceCouleurs();
-    	return $correspondances[$key];
   	}
   
 	private function getKey($key, $withDefault = false) 

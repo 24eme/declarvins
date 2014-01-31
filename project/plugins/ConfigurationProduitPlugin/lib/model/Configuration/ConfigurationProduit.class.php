@@ -158,7 +158,8 @@ class ConfigurationProduit extends BaseConfigurationProduit
     protected function doSave() 
     {
         $interpro = $this->getInterproObject();
-        $interpro->departements = $this->getDepartements();
+        $departements = $this->getDepartements();
+        $interpro->departements = ($departements)? $departements : array();
         $interpro->save();
     }
 }

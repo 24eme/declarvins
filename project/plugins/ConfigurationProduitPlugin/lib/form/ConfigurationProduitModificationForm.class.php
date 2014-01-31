@@ -76,8 +76,8 @@ class ConfigurationProduitModificationForm extends acCouchdbObjectForm
     public function save($con = null) {
     	$object = parent::save($con);
     	$values = $this->getValues();
-    	
-    	if (!empty($values['code']) && $object->getKey() != $values['code']) {
+    	$isNew = $this->getOption('isNew', false);
+    	if ($isNew && !empty($values['code']) && $object->getKey() != $values['code']) {
     		if ($object->getTypeNoeud() == ConfigurationProduitCouleur::TYPE_NOEUD) {
     			$values['code'] = $this->couleurKeyToCode($values['code']);
     		}

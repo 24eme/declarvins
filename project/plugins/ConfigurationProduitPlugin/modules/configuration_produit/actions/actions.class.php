@@ -94,6 +94,7 @@ class configuration_produitActions extends sfActions
   		$configurationProduits = $this->getConfigurationProduit();
   		$object = $configurationProduits->getOrAdd($hash);
   		$object = $object->__get($noeud);
+  		$isNew = ($this->getUser()->hasAttribute('pile_noeud'))? true : false;
   		if ($this->getUser()->hasAttribute('pile_noeud') && !$request->isMethod(sfWebRequest::POST)) {
   			$pile = $this->getUser()->getAttribute('pile_noeud');
   			$arborescence = ConfigurationProduit::getArborescence();
@@ -119,7 +120,7 @@ class configuration_produitActions extends sfActions
 	  		}
   		}
   		$this->noeud = $noeud;
-  		$this->form = new ConfigurationProduitModificationForm($object, array('nbDepartement' => $this->nbDepartement, 'nbDouane' => $this->nbDouane, 'nbCvo' => $this->nbCvo, 'nbLabel' => $this->nbLabel, 'nbOrganisme' => $this->nbOrganisme));
+  		$this->form = new ConfigurationProduitModificationForm($object, array('isNew' => $isNew, 'nbDepartement' => $this->nbDepartement, 'nbDouane' => $this->nbDouane, 'nbCvo' => $this->nbCvo, 'nbLabel' => $this->nbLabel, 'nbOrganisme' => $this->nbOrganisme));
   		$this->form->setHash($hash);
   	
 	  	if ($request->isMethod(sfWebRequest::POST)) {
