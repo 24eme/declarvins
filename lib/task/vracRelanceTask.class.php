@@ -43,44 +43,37 @@ EOF;
 	$interval = $today->diff($datesaisie);
 	$ecart = $interval->format('%a');
   	if ($ecart >= self::NB_JOUR_RELANCE && !$values[VracHistoryView::VRAC_VIEW_DATERELANCE]) {
-  		$vrac = null;
+  		$vrac = VracClient::getInstance()->find($values[VracHistoryView::VRAC_VIEW_NUMCONTRAT]);
   		if ($values[VracHistoryView::VRAC_VIEW_ACHETEURID] && !$values[VracHistoryView::VRAC_VIEW_ACHETEURVAL]) {
-  			if (!$vrac) {
-  				$vrac = VracClient::getInstance()->find($values[VracHistoryView::VRAC_VIEW_NUMCONTRAT]);
-  			}
   			$this->sendEmail($vrac, $values[VracHistoryView::VRAC_VIEW_ACHETEURID], VracClient::VRAC_TYPE_ACHETEUR);
   		}
   		if ($values[VracHistoryView::VRAC_VIEW_MANDATAIREID] && !$values[VracHistoryView::VRAC_VIEW_MANDATAIREVAL]) {
-  		  	if (!$vrac) {
-  				$vrac = VracClient::getInstance()->find($values[VracHistoryView::VRAC_VIEW_NUMCONTRAT]);
-  			}
   			$this->sendEmail($vrac, $values[VracHistoryView::VRAC_VIEW_MANDATAIREID], VracClient::VRAC_TYPE_COURTIER);
   		}
   		if ($values[VracHistoryView::VRAC_VIEW_VENDEURID] && !$values[VracHistoryView::VRAC_VIEW_VENDEURVAL]) {
-  		  	if (!$vrac) {
-  				$vrac = VracClient::getInstance()->find($values[VracHistoryView::VRAC_VIEW_NUMCONTRAT]);
-  			}
   			$this->sendEmail($vrac, $values[VracHistoryView::VRAC_VIEW_VENDEURID], VracClient::VRAC_TYPE_VENDEUR);
   		}
-  		if ($vrac) {
-  			$vrac->date_relance = date('c');
-  			$vrac->save();
-  			$this->logSection('vrac-relance', 'Relance envoyée pour le contrat '.$vrac->_id);
-  		}
+  		$vrac->date_relance = date('c');
+  		$vrac->save();
+  		$this->logSection('vrac-relance', 'Relance envoyée pour le contrat '.$vrac->_id);
   	}
   }
   
   protected function sendEmail($vrac, $identifiant, $acteur) {
+  	$routing = clone ProjectConfiguration::getAppRouting();
+	$contextInstance = sfContext::createInstance($this->configuration);
+    $contextInstance->set('routing', $routing);
+    
   	$etablissement = EtablissementClient::getInstance()->find($identifiant);
   	if ($etablissement->compte) {
 		if ($compte = _CompteClient::getInstance()->find($etablissement->compte)) {
 			if ($compte->statut == _Compte::STATUT_ARCHIVE) {
 				if ($interpro->email_contrat_vrac) {
-					Email::getInstance(sfContext::createInstance($this->configuration))->vracRelanceContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur);
+					Email::getInstance($contextInstance)->vracRelanceContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur);
 				}
 			}
 		}
 	}
-	Email::getInstance(sfContext::createInstance($this->configuration))->vracRelanceContrat($vrac, $etablissement, $etablissement->email, $acteur);
+	Email::getInstance($contextInstance)->vracRelanceContrat($vrac, $etablissement, $etablissement->email, $acteur);
   }
 }
