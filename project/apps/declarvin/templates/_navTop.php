@@ -37,7 +37,7 @@ use_helper('Text');
         <?php  endif; ?>
         
         <li class="etablissement_courant">
-            <a href="<?php echo url_for('profil', array('identifiant' => $etablissement->getIdentifiant())); ?>" title="<?php echo $etablissement->getDenomination();?> (<?php echo $etablissement->getRaisonSociale(); ?> <?php echo $etablissement->getIdentifiant();?>)">
+            <a href="<?php echo url_for('@tiers') ?>" title="<?php echo $etablissement->getDenomination();?> (<?php echo $etablissement->getRaisonSociale(); ?> <?php echo $etablissement->getIdentifiant();?>)">
                 <span><?php echo truncate_text($etablissement->getDenomination(),20); ?></span>
             </a>
         </li>
