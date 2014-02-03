@@ -38,6 +38,10 @@ EOF;
   }
   
   protected function sendExpiration($values) {
+  	$routing = clone ProjectConfiguration::getAppRouting();
+	$contextInstance = sfContext::createInstance($this->configuration);
+    $contextInstance->set('routing', $routing);
+    
   	$today = new DateTime();
 	$datesaisie = new DateTime($values[VracHistoryView::VRAC_VIEW_DATESAISIE]);
 	$interval = $today->diff($datesaisie);
@@ -53,12 +57,12 @@ EOF;
 					if ($compte = _CompteClient::getInstance()->find($etablissement->compte)) {
 						if ($compte->statut == _Compte::STATUT_ARCHIVE) {
 							if ($interpro->email_contrat_vrac) {
-								Email::getInstance(sfContext::createInstance($this->configuration))->vracExpirationContrat($vrac, $etablissement, $interpro->email_contrat_vrac);
+								Email::getInstance($contextInstance)->vracExpirationContrat($vrac, $etablissement, $interpro->email_contrat_vrac);
 							}
 						}
 					}
 				}
-				Email::getInstance(sfContext::createInstance($this->configuration))->vracExpirationContrat($vrac, $etablissement, $email);
+				Email::getInstance($contextInstance)->vracExpirationContrat($vrac, $etablissement, $email);
 			}
 		}
   		$this->logSection('vrac-expiration', 'Expiration du contrat '.$vrac->_id);
