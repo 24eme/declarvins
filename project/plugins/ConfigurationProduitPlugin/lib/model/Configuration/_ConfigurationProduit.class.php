@@ -119,7 +119,10 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     	if(!array_key_exists($function, $this->all_libelles)) {
 	    	$items = array();
 	      	foreach($this->getChildrenNode() as $key => $item) {
-	        	$items = array_merge($items, $item->$function());
+	      		$result = $item->$function();
+	      		if (is_array($result)) {
+	        		$items = array_merge($items, $result);
+	      		}
 	      	}
 	      	$this->all_libelles[$function] = $items;
     	}

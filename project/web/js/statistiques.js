@@ -22,13 +22,6 @@
 			menusNiv2 = menuNiv1.find('ul li ul'),
 			btnsNiv2 = menusNiv2.find('a');
 		
-		// Bouton affichant le menu
-		btnOptions.click(function(e)
-		{
-			e.preventDefault();
-			menuNiv1.slideToggle();
-		});
-		
 		// Premier niveau du menu
 		btnsNiv1.each(function()
 		{

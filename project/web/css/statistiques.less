@@ -7,6 +7,7 @@
 
 #contenu.statistiques
 {
+	padding-top: 55px;
 
 	h2
 	{
@@ -18,10 +19,10 @@
 	// Menu pour filtrer les résultats
 	.options_recherche
 	{
+		.clearfix;
 		.pos-abs(0, auto, auto, 0);
 		background: @couleur-a4;
 		border-bottom: 1px solid @couleur-a5;
-		display: none;
 		line-height: 30px;
 		width: 100%;
 		
@@ -35,6 +36,7 @@
 		& > ul
 		{
 			.clearfix;
+			float: right;
 			padding: 0 15px;
 			
 			& > li
