@@ -206,7 +206,8 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
     		if (isset($values['produit']) && !empty($values['produit'])) {
     			foreach ($values['produit'] as $p) {
     				if ($p['declaration']) {
-    					$produits[] = self::HASH_PRODUIT_DEFAUT.'.'.str_replace('/', '.', $p['declaration']);
+    					$prod = str_replace('/declaration/', 'declaration/', $p['declaration']);
+    					$produits[] = self::HASH_PRODUIT_DEFAUT.'.'.str_replace('/', '.', $prod);
     				}
     			}
     		}

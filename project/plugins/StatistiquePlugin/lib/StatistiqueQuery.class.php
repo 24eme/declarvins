@@ -70,6 +70,7 @@ class StatistiqueQuery
 			if ($string && $valueForNode !== null && $valueForNode !== '') {
 				$string .= ' OR ';
 			}
+			$valueForNode = str_replace('/declaration/', '', $valueForNode);
 			$string .= ($valueForNode !== null && $valueForNode !== '')? $node.'.'.str_replace('/', '.', $valueForNode).'.selecteur:1' : null;
 		}
 		if (!$string) {
@@ -89,7 +90,7 @@ class StatistiqueQuery
 			if ($string && $valueForNode !== null && $valueForNode !== '') {
 				$string .= ' OR ';
 			}
-			$string .= ($valueForNode !== null && $valueForNode !== '')? $node.':declaration/'.$valueForNode.'*' : null;
+			$string .= ($valueForNode !== null && $valueForNode !== '')? $node.':('.str_replace('/', ' ', $valueForNode).')' : null;
 		}
 		if (!$string) {
 			return null;
