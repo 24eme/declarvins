@@ -822,5 +822,10 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
             $drm->get($detail->getHash())->set($hash_replication, $value);
         }
     }
+    
+    public function getFormattedDateFromPeriode() {
+        return preg_replace('/^([0-9]{4})-([0-9]{2})$/','$1-$2-01', $this->periode);
+    }
+    
     /**** FIN DE VERSION ****/
 }

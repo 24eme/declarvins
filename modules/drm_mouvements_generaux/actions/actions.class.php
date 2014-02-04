@@ -8,7 +8,7 @@ class drm_mouvements_generauxActions extends sfActions
 		$this->certifs = array();
 		$this->certificationLibelle = array();
 		$configuration = $this->getConfigurationProduit();
-        $certification_config = $configuration->declaration->certifications;
+                $certification_config = $configuration->declaration->certifications;
 		$certifications = ConfigurationClient::getCurrent()->getCertifications();
 		$this->form = new DRMMouvementsGenerauxForm($configuration, $this->drm);
 		foreach ($certifications as $certification) {

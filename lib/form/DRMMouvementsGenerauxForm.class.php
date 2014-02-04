@@ -23,7 +23,7 @@ class DRMMouvementsGenerauxForm extends acCouchdbObjectForm
 		foreach ($certifications as $certification => $value) {
 				if ($this->getObject()->declaration->certifications->exist($certification)) {
 	                $details = $this->getObject()->declaration->certifications->get($certification)->getProduits();
-	                $this->embedForm($certification, new DRMMouvementsGenerauxCollectionProduitForm($details));
+                        $this->embedForm($certification, new DRMMouvementsGenerauxCollectionProduitForm($details));
 				}
 		}
 		$this->widgetSchema->setNameFormat('mouvements_generaux[%s]');
