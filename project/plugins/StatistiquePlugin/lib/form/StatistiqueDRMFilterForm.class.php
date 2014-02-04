@@ -113,7 +113,8 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
     		if (isset($values['declaration']) && !empty($values['declaration'])) {
     			foreach ($values['declaration'] as $p) {
     				if ($p['declaration']) {
-    					$produits[] = self::HASH_PRODUIT_DEFAUT.'.'.str_replace('/', '.', $p['declaration']);
+    					$prod = str_replace('/declaration/', '', $p['declaration']);
+    					$produits[] = self::HASH_PRODUIT_DEFAUT.'.'.str_replace('/', '.', $prod);
     				}
     			}
     		}
