@@ -119,13 +119,13 @@ class ConfigurationVrac extends BaseConfigurationVrac {
     	return InterproClient::getInstance()->find($this->getKey());
     }
 
-    public function formatVracProduitsByDepartement($departements = null) {
-		if (!$departements) {
-			$departements = $this->getInterpro()->departements->toArray();
-		} elseif (!is_array($departements)) {
-			$departements = array($departements);
-		}
-      return $this->getConfig()->getFormattedProduits(null, $departements, true);
+    public function formatVracProduitsByDepartement($departements = null, $date = null) {
+        if (!$departements) {
+                $departements = $this->getInterpro()->departements->toArray();
+        } elseif (!is_array($departements)) {
+                $departements = array($departements);
+        }
+        return $this->getConfig()->getFormattedProduits(null, $departements, true, "%g% %a% %m% %l% %co% %ce%", false,  $date);
     }
-
+    
 }

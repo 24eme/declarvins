@@ -117,16 +117,16 @@ class Configuration extends BaseConfiguration
     	return $configuration;
     }
 
-    public function getFormattedProduits($hash = null, $departements, $onlyForDrmVrac = false, $format = "%g% %a% %m% %l% %co% %ce%")
+    public function getFormattedProduits($hash = null, $departements, $onlyForDrmVrac = false, $format = "%g% %a% %m% %l% %co% %ce%", $cvoNeg = false, $date = null)
     {
     	$produits = array();
     	$configuration = $this->getConfigurationProduitsComplete();
     	foreach ($configuration as $interpro => $configurationProduits) {
-    		$produits = array_merge($produits, $configurationProduits->getProduits($hash, $departements, $onlyForDrmVrac));
+    		$produits = array_merge($produits, $configurationProduits->getProduits($hash, $departements, $onlyForDrmVrac, $cvoNeg, $date));
     	}
     	return $this->formatWithCode($produits, $format);
     }
-
+    
     public function getFormattedLieux($hash = null, $departements, $format = "%g% %a% %m% %l%")
     {
     	$lieux = array();
