@@ -34,19 +34,19 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 		}
 	}
 	
-	public function getProduits($departements = null, $onlyForDrmVrac = false) 
+	public function getProduits($departements = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null) 
 	{   
 		$key = sprintf("%s_%s", is_array($departements) ? implode('_', $departements) : $departements, $onlyForDrmVrac);
 		if(!array_key_exists($key, $this->produits)) {
 			$produits = array();
 	      	foreach($this->getChildrenNode() as $key => $item) {
-	        	$produits = array_merge($produits, $item->getProduits($departements, $onlyForDrmVrac));
+	        	$produits = array_merge($produits, $item->getProduits($departements, $onlyForDrmVrac, $cvoNeg, $date));
 	      	}
 	      	$this->produits[$key] = $produits;
 		}
-		return $this->produits[$key];
+            return $this->produits[$key];
   	}
-    
+        
     public function getTreeProduits()
     {
     	$key = sprintf("%s", 'all');
@@ -159,7 +159,7 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     	if ($this->exist('droits')) {
     		$droits = $this->droits->get($typeDroit)->toArray();
     		if (count($droits) > 0) {
-    			krsort($droits);
+    			ksort($droits);
     			$d = null;
     			foreach ($droits as $date => $droit) {
     				if ($date <= $atDate) {

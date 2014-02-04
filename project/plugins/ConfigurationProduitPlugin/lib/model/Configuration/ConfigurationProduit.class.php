@@ -120,15 +120,15 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	return array_values(array_unique($this->declaration->getAllDepartements()));
     }
     
-    public function getProduits($hash = null, $departements = null, $onlyForDrmVrac = false)
+    public function getProduits($hash = null, $departements = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null)
     {
     	if ($hash) {
     		if ($this->exist($hash)) {
-    			return $this->get($hash)->getProduits($departements, $onlyForDrmVrac);
+    			return $this->get($hash)->getProduits($departements, $onlyForDrmVrac, $cvoNeg, $date);
     		}
     		return array();
     	}
-    	return $this->declaration->getProduits($departements, $onlyForDrmVrac);
+    	return $this->declaration->getProduits($departements, $onlyForDrmVrac, $cvoNeg, $date);
     }
     
     public function getTreeProduits()

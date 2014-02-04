@@ -181,7 +181,7 @@ class ProduitDefinitionForm extends acCouchdbObjectForm {
     		}
     		$this->getNoeudInterpro()->droits->remove('cvo');
     		foreach ($values['droit_cvo'] as $value) {
-    			if ($value['taux'] > 0) {
+    			if (is_float($value['taux'])) {
     				$this->setDroit($value['code'], $value['libelle']);
     				$date = $value['date'];
     				if ($date) {
