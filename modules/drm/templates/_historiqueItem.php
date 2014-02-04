@@ -45,7 +45,7 @@
 	</td>
 	<?php if (!$drm->isNew() && ($drm->isSupprimable() || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->isSupprimableOperateur())) && $drm->isMaster()): ?>	
 	<td style="border: 0px; padding-left: 0px;background-color: #ffffff;">
-		<a href="<?php echo url_for('drm_delete_one', $drm); ?>" class="btn_reinitialiser"><span><img src="/images/pictos/pi_supprimer.png"/></span></a>
+		<a href="<?php echo url_for('drm_delete_one', $drm); ?>" class="btn_reinitialiser" onclick="return confirm('Etes vous surs de vouloir supprimer cette DRM ?')"><span><img src="/images/pictos/pi_supprimer.png"/></span></a>
 	</td>
 	<?php endif; ?>			
 </tr>
