@@ -24,7 +24,11 @@
         <h3>Interprofessions</h3>
         <p>Les Interprofessions s'engagent à ce que &laquo; DeclarVins &raquo; donne les moyens aux déclarants d'effectuer leurs déclarations obligatoires auprès des Interprofessions et des douanes (comparable à la liasse papier). L'information est transmise instantanément et en toute transparence au déclarant (visualisation définitive avant envoi).</p> 
         <p>Une fois les déclarations validées par les déclarants, elles sont reçues par l’interprofession qui fourni un numéro unique à chacune.</p>
-        <p>Des mises à jour peuvent être faites sur le système pour répondre aux évolutions règlementaires. Les évolutions du système &laquo; DeclarVins &raquo; donneront lieu à une information faite par les Interprofessions dans des délais raisonnables.</p> 
+        
+        <div class="page_break">&nbsp;</div>
+        <p>Des mises à jour peuvent être faites sur le système pour répondre aux évolutions règlementaires. Les évolutions du système &laquo; DeclarVins &raquo; donneront lieu à une information faite par les Interprofessions dans des délais raisonnables.</p>
+        
+			
         <p>Les Interprofessions informent les déclarants concernés en cas de changement d'adhésion d'organismes représentatifs de produits aux Interprofessions, et d'interlocuteur de gestion des déclarants sur &laquo; DeclarVins &raquo;.</p>
         <p>Un protocole de sécurité, de sauvegarde et de résolution des problèmes en moins de 4h00 est établi avec le prestataire hébergeant la solution &laquo; DeclarVins &raquo;.</p>
         <p>Des alertes sont prévues en cas de disfonctionnement d’un transfert d’information dématérialisée, et informeront sur les procédures à mettre en place éventuellement par les déclarants (procédures de secours).</p>

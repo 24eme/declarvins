@@ -8,8 +8,8 @@ class ExportContratPdf extends ExportContrat
 		$document->setPaper(PrintableOutput::FORMAT_A4, PrintableOutput::ORIENTATION_PORTRAIT);
 		$contrat = $this->getContrat();
 		$compte = $contrat->getCompteObject();
-		$document->addHtml($this->getPartial('contrat', array('contrat' => $contrat, 'compte' => $compte)));
-		$output = $document->output();
+		$document->addHtml($this->getPartial('contrat_pdf', array('contrat' => $contrat, 'compte' => $compte)));
+                $output = $document->output();
 		$document->addHeaders($response);
 		return $output;
 	}
@@ -22,7 +22,7 @@ class ExportContratPdf extends ExportContrat
 		$document->setPaper(PrintableOutput::FORMAT_A4, PrintableOutput::ORIENTATION_PORTRAIT);
 		$contrat = $this->getContrat();
 		$compte = $contrat->getCompteObject();
-		$document->addHtml($this->getPartial('contrat', array('contrat' => $contrat, 'compte' => $compte)));
+		$document->addHtml($this->getPartial('contrat_pdf', array('contrat' => $contrat, 'compte' => $compte)));
 		$output = $document->output();
 	}
 	
