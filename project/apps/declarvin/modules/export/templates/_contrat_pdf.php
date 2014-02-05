@@ -26,12 +26,12 @@
 		dl, dt, dd, ol, ul, li,
 		fieldset, form, label, legend,
 		table, caption, tbody, tfoot, thead, tr, th, td,
-		article, aside, figure, footer, header, 
+		article, aside, figure,  header, 
 		hgroup, menu, nav, section, menu,
 		time, mark, audio, video
 		{
 			border: 0;
-			font-size: 100%;
+			font-size: 80%;
 			margin: 0;
 			outline: 0;
 			padding: 0;
@@ -56,7 +56,7 @@
 		hr { border: 0; border-top: 1px solid #ccc; display: block; height: 1px; margin: 1em 0; padding: 0; }
 		input, select { vertical-align: middle; }
 		
-		article, aside, figure, footer, header, 
+		article, aside, figure,  header, 
 		hgroup, nav, section { display: block; }
 		
 		/**
@@ -147,7 +147,12 @@
 		#articles { margin: 0 0 20px;}
 		#articles h2 { font-size: 16px; margin: 30px 0 20px; }
 		#articles h3 { font-family: "Times New Roman", Times, serif; font-size: 16px; font-style: italic; margin: 15px 0; }
-	</style>
+                
+                #footer {
+                    position: fixed; left: 0px;
+                }              
+                
+        </style>
 </head>
 
 <body>
@@ -159,16 +164,27 @@
 <!--[if IE 9 ]> <div class="ie9"> <![endif]-->
 <!-- ####### A REPRENDRE ABSOLUMENT ####### -->
 
-	<!-- #global -->
-	<div id="global">
+<script type="text/php">
+    if (isset($pdf)) {
+            $w = $pdf->get_width();
+            $h = $pdf->get_height();
+            $font = Font_Metrics::get_font("helvetica");
+            $pdf->page_text($w / 2 - 115, $h - 20, 'Declarvins.net - Contrat inscription n<?php echo utf8_encode('°').' '.$contrat->no_contrat ?> - {PAGE_NUM} / {PAGE_COUNT}', $font, 10, array(0,0,0));
+    }
+</script>
+<!-- #global -->
+	<div id="global">                
 		<div id="entete_doc">
+                    <br /><br />
 			<h1>
 				Contrat d'inscription <br />
 				&laquo; DeclarVins.net &raquo; N° : <?php echo $contrat->no_contrat ?>&nbsp;&nbsp;&nbsp;<sup>(1)</sup><br />
 			</h1>
+                    <br />
 			<p class="note">(1) Numéro Interprofessionnel d'enregistrement de l'inscription</p>
 		</div>
 		
+                <br />
                 <br />
                 <br />
                 <p>A un système d’identification sécurisé permettant :<br />
@@ -236,7 +252,7 @@
 					Dépend du service des douanes de : <strong><?php echo $etablissement->service_douane ?></strong>
 				</p>
 			</div>
-			<div class="page_break">&nbsp;</div>
+                        <div class="page_break">&nbsp;</div>
                         <?php endforeach; ?>
 		</div>
 		
@@ -265,16 +281,17 @@
                     </p>
                 </div>
 
-        <?php echo include_partial('export/contrat_conditions') ?>
+        <?php echo include_partial('export/contrat_pdf_conditions',array('contrat' => $contrat)); ?>
                 <br/><br/>
 		<div id="signature">
                         <p>Fait à 
                         <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>, Le <strong></strong>
                         </p>
-			<p>Le déclarant, <strong><?php echo $contrat->nom ?> <?php echo $contrat->prenom ?></strong></p> 								
-			<p>Le représentant de &laquo; déclaration web &raquo; pour les 3 Interprofessions, <strong></strong></p>
-		</div>
+			<p>Le déclarant, <strong><?php echo $contrat->nom ?> <?php echo $contrat->prenom ?></strong> signature et cachet :</p><br/> 								
+			<p>L’e-mail d’activation vaut engagement de l’interprofession.<strong></strong></p>
+		</div>                
 	</div>
+        		
 <!-- fin #global -->
 
 <!-- ####### A REPRENDRE ABSOLUMENT ####### -->

@@ -9,7 +9,7 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
       return null;
     }
 
-    public function getProduits($departements = null, $onlyForDrmVrac = false) 
+    public function getProduits($departements = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null) 
     {
     	if ($departements) {
     		if (!is_array($departements)) {
@@ -29,14 +29,30 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
     		} else {
     			return array();
     		}
-    	}
+    	}        
+        if($cvoNeg){
+            return array($this->getHash() => $this);
+        }        
+        
     	if ($onlyForDrmVrac) {
     		if (!$this->getCurrentDrmVrac(true)) {
     			return array();
     		}
     	}
-        return array($this->getHash() => $this);
+        
+        return $this->getProduitWithTaux($date);
+        
     }
+    
+    protected function getProduitWithTaux($date = null) {
+        $date_cvo = (!$date)? date('Y-m-d') : $date;
+        $taux = $this->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, $date_cvo, true)->taux;
+        if($taux >= 0.0){
+             return array($this->getHash() => $this);
+        }
+        return array();
+    }
+    
     
     public function getTreeProduits()
     {
