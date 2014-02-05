@@ -54,11 +54,32 @@
 	</fieldset>
 	
 	<fieldset id="filtre_date_saisie">
-		<legend>Filtrer par date de saisie</legend>
+		<legend>Filtrer par période de saisie</legend>
 		<div class="ligne_form select_date">
 			<span class="error"><?php echo $form['valide.date_saisie']->renderError() ?></span>
 			<?php echo $form['valide.date_saisie']->renderLabel() ?>
 			<?php echo $form['valide.date_saisie']->render() ?>
+		</div>
+		<div class="calendriers">
+			<div class="calendrier_item calendrier_debut">
+				<div class="instruction">Choisir la date de début</div>
+
+				<div class="date_picker"></div>
+			</div>
+			<div class="calendrier_item calendrier_fin">
+				<div class="instruction">Choisir la date de fin</div>
+
+				<div class="date_picker"></div>
+			</div>
+		</div>
+	</fieldset>
+	
+	<fieldset id="filtre_date_signee">
+		<legend>Filtrer par période de signature</legend>
+		<div class="ligne_form select_date">
+			<span class="error"><?php echo $form['valide.date_signee']->renderError() ?></span>
+			<?php echo $form['valide.date_signee']->renderLabel() ?>
+			<?php echo $form['valide.date_signee']->render() ?>
 		</div>
 		<div class="calendriers">
 			<div class="calendrier_item calendrier_debut">

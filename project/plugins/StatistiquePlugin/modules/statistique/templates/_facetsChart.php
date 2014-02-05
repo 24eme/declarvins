@@ -15,7 +15,7 @@ $(function () {
             },
             yAxis: {
                 title: {
-                    text: 'Hectolitres (hl)'
+                    text: 'Saisies DRM'
                 },
                 plotLines: [{
                     value: 0,
@@ -24,7 +24,7 @@ $(function () {
                 }]
             },
             tooltip: {
-                valueSuffix: 'hl'
+                valueSuffix: ''
             },
             legend: {
                 layout: 'vertical',

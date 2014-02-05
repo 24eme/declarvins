@@ -78,6 +78,21 @@
 	};
 	
 	/**
+	* Affichage des filtres
+	******************************************/
+	var affichageFiltres = function(filtres)
+	{
+		var result_filtered = $('#result_filtered');
+		console.log(filtres);
+		for (filtre in filtres) {
+			result_filtered.append('<fieldset>' + $("#"+filtres[filtre]).html() + '</fieldset>');
+		}
+		if (filtres.length > 0) {
+			result_filtered.append($('.ligne_form_btn').html());
+		}
+	};
+	
+	/**
 	* Initialisation des date picker
 	******************************************/
 	var initDatePicker = function()
@@ -124,5 +139,8 @@
 		if(statsConteneur.find('.date_picker').exists()) { initDatePicker(); }
 		
 		statsConteneur.find("#filtre_produits_items select").combobox();
+		
+		affichageFiltres(ids);
+		
 	});
 })(jQuery);
