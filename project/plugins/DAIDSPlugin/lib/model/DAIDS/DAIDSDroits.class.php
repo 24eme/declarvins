@@ -12,7 +12,7 @@ class DAIDSDroits extends BaseDAIDSDroits
     }
     $this->res[$key]->integreVirtualVolume($value);
     $this->res[$key]->code = $key;
-    $this->res[$key]->libelle = (ConfigurationClient::getCurrent()->droits->exist($key))? ConfigurationClient::getCurrent()->droits->get($key) : $key;
+    $this->res[$key]->libelle = $value->libelle;
   }
 
   public function getDroitsWithVirtual() 

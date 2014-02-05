@@ -15,6 +15,7 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
 		'_id' => StatistiqueQuery::CONFIG_QUERY_STRING,
 		'identifiant_drm_historique' => StatistiqueQuery::CONFIG_QUERY_STRING,
 		'valide.date_saisie' => StatistiqueQuery::CONFIG_QUERY_RANGE,
+		'valide.date_signee' => StatistiqueQuery::CONFIG_QUERY_RANGE,
 		'mode_de_saisie' => StatistiqueQuery::CONFIG_QUERY_STRING_OR,
 		'campagne' => StatistiqueQuery::CONFIG_QUERY_STRING,
 		'periode' => StatistiqueQuery::CONFIG_QUERY_RANGE,
@@ -75,9 +76,18 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
             'to_date'       => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
             'template'      => '<br />du %from_date%<br />au %to_date%'
         )));
-        $this->widgetSchema->setLabel('valide.date_saisie', 'Date de saisie :');
+        $this->widgetSchema->setLabel('valide.date_saisie', 'Période de saisie :');
         $this->setValidator('valide.date_saisie', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date'   => new sfValidatorDate(array('required' => false)))));
-		// MODE DE SAISIE
+		// DATE DE SIGNATURE
+		$this->setWidget('valide.date_signee', new sfWidgetFormDateRange(array(
+            'from_date'     => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
+            'to_date'       => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
+            'template'      => '<br />du %from_date%<br />au %to_date%'
+        )));
+        $this->widgetSchema->setLabel('valide.date_signee', 'Période de signature :');
+        $this->setValidator('valide.date_signee', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date'   => new sfValidatorDate(array('required' => false)))));
+		
+        // MODE DE SAISIE
 		$choices = $this->getModesDeSaisie();
         $this->setWidget('mode_de_saisie', new sfWidgetFormChoice(array('multiple' => true, 'expanded' => true, 'choices' => $choices)));
         $this->widgetSchema->setLabel('mode_de_saisie', 'Mode de saisie :');
@@ -104,6 +114,64 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
         
         $this->widgetSchema->setNameFormat('statistique_drm_filter[%s]');
         
+    }
+    
+    public function getFiltres($values = null)
+    {
+    	$filtres = array();
+    	if ($values = $this->getValues()) {
+    		if ($values['identifiant']) {
+    			foreach ($values['identifiant'] as $identifiant) {
+    				if ($identifiant['identifiant']) {
+    					$filtres[] = 'filtre_etablissements';
+    					break;
+    				}
+    			}
+    		}
+    		if ($values['declarant.siege.code_postal']) {
+    			$filtres[] = 'filtre_code_postal';
+    		}
+    		if ($values['declarant.service_douane']) {
+    			$filtres[] = 'filtre_service_douane';
+    		}
+    		if ($values['declarant.famille']) {
+    			$filtres[] = 'filtre_famille';
+    		}
+    		if ($values['declarant.sous_famille']) {
+    			$filtres[] = 'filtre_sous_famille';
+    		}
+    		if ($values['_id']) {
+    			$filtres[] = 'filtre_identifiant';
+    		}
+    		if ($values['identifiant_drm_historique']) {
+    			$filtres[] = 'filtre_identifiant_historique';
+    		}
+    		if ($values['mode_de_saisie']) {
+    			$filtres[] = 'filtre_mode_saisie';
+    		}
+    		if ($values['campagne']) {
+    			$filtres[] = 'filtre_campagne';
+    		}
+    		if ($values['valide.date_saisie']['from'] || $values['valide.date_saisie']['to']) {
+    			$filtres[] = 'filtre_date_saisie';
+    		}
+    		if ($values['valide.date_signee']['from'] || $values['valide.date_signee']['to']) {
+    			$filtres[] = 'filtre_date_signee';
+    		}
+    		if ($values['periode']['from'] || $values['periode']['to']) {
+    			$filtres[] = 'filtre_periode';
+    		}
+    		if ($values['declaration']) {
+    			$produits = array();
+    			foreach ($values['declaration'] as $identifiant) {
+    				if ($identifiant['declaration']) {
+    					$filtres[] = 'filtre_produits';
+    					break;
+    				}
+    			}
+    		}
+    	}
+    	return $filtres;
     }
     
     public function getProduits()

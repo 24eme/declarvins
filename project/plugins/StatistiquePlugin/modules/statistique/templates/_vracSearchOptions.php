@@ -24,7 +24,8 @@
 				<li><a href="#form_ajout" data-filtre="#filtre_annexe">Présence annexe</a></li>
 				<li><a href="#form_ajout" data-filtre="#filtre_type_prix">Type de prix</a></li>
 				<li><a href="#form_ajout" data-filtre="#filtre_date_limite_retiraison">Date limite de retiraison</a></li>
-				<li><a href="#form_ajout" data-filtre="#filtre_date_saisie">Date de saisie</a></li>
+				<li><a href="#form_ajout" data-filtre="#filtre_date_saisie">Période de saisie</a></li>
+				<li><a href="#form_ajout" data-filtre="#filtre_date_validation">Période de signature</a></li>
 				<li><a href="#form_ajout" data-filtre="#filtre_statuts">Statut</a></li>
 			</ul>
 		</li>
@@ -35,6 +36,8 @@
 				<li><a href="#form_ajout" data-filtre="#filtre_millesime">Millesime</a></li>
 				<li><a href="#form_ajout" data-filtre="#filtre_label">Label</a></li>
 				<li><a href="#form_ajout" data-filtre="#filtre_mention">Mention</a></li>
+				<li><a href="#form_ajout" data-filtre="#filtre_prix_unitaire">Fourchette de prix</a></li>
+				<li><a href="#form_ajout" data-filtre="#filtre_volume_propose">Fourchette de volume</a></li>
 			</ul>
 		</li>
 	</ul>

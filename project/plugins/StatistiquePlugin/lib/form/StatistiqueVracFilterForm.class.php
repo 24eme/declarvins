@@ -19,7 +19,10 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
 		'acheteur.sous_famille' => StatistiqueQuery::CONFIG_QUERY_STRING_OR,
 		'_id' => StatistiqueQuery::CONFIG_QUERY_STRING,
 		'valide.date_saisie' => StatistiqueQuery::CONFIG_QUERY_RANGE,
+		'valide.date_validation' => StatistiqueQuery::CONFIG_QUERY_RANGE,
 		'date_limite_retiraison' => StatistiqueQuery::CONFIG_QUERY_RANGE,
+		'prix_unitaire' => StatistiqueQuery::CONFIG_QUERY_RANGE,
+		'volume_propose' => StatistiqueQuery::CONFIG_QUERY_RANGE,
 		'millesime' => StatistiqueQuery::CONFIG_QUERY_STRING_OR,
 		'cas_particulier' => StatistiqueQuery::CONFIG_QUERY_STRING_OR,
 		'labels' => StatistiqueQuery::CONFIG_QUERY_STRING_OR,
@@ -85,9 +88,18 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
             'to_date'       => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
             'template'      => '<br />du %from_date%<br />au %to_date%'
         )));
-        $this->widgetSchema->setLabel('valide.date_saisie', 'Date de saisie :');
+        $this->widgetSchema->setLabel('valide.date_saisie', 'Période de saisie :');
         $this->setValidator('valide.date_saisie', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date'   => new sfValidatorDate(array('required' => false)))));
-		// DATE RETIRAISON
+		// DATE SIGNATURE
+		$this->setWidget('valide.date_validation', new sfWidgetFormDateRange(array(
+            'from_date'     => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
+            'to_date'       => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
+            'template'      => '<br />du %from_date%<br />au %to_date%'
+        )));
+        $this->widgetSchema->setLabel('valide.date_validation', 'Période de signature :');
+        $this->setValidator('valide.date_validation', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date'   => new sfValidatorDate(array('required' => false)))));
+		
+        // DATE RETIRAISON
         $this->setWidget('date_limite_retiraison', new sfWidgetFormDateRange(array(
             'from_date'     => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
             'to_date'       => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
@@ -95,7 +107,23 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
         )));
         $this->widgetSchema->setLabel('date_limite_retiraison', 'Date limite de retiraison :');
         $this->setValidator('date_limite_retiraison', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date'   => new sfValidatorDate(array('required' => false)))));
-		// MILLESIME
+		// RANGE PRIX
+        $this->setWidget('prix_unitaire', new sfWidgetFormDateRange(array(
+            'from_date'     => new sfWidgetFormInputFloat(),
+            'to_date'       => new sfWidgetFormInputFloat(),
+            'template'      => '<br />de %from_date%<br />à %to_date%'
+        )));
+        $this->widgetSchema->setLabel('prix_unitaire', 'Fourchette de prix :');
+        $this->setValidator('prix_unitaire', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorNumber(array('required' => false)), 'to_date'   => new sfValidatorNumber(array('required' => false)))));
+		// RANGE VOLUME
+		$this->setWidget('volume_propose', new sfWidgetFormDateRange(array(
+            'from_date'     => new sfWidgetFormInputFloat(),
+            'to_date'       => new sfWidgetFormInputFloat(),
+            'template'      => '<br />de %from_date%<br />à %to_date%'
+        )));
+        $this->widgetSchema->setLabel('volume_propose', 'Fourchette de volume :');
+        $this->setValidator('volume_propose', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorNumber(array('required' => false)), 'to_date'   => new sfValidatorNumber(array('required' => false)))));
+        // MILLESIME
         $this->setWidget('millesime', new sfWidgetFormInputText());
         $this->widgetSchema->setLabel('millesime', 'Millesime :');
         $this->setValidator('millesime', new sfValidatorString(array('required' => false)));
