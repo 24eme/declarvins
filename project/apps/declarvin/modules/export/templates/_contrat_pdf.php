@@ -247,10 +247,11 @@
 					Pays : <strong><?php echo $etablissement->comptabilite_pays ?></strong>
 				</p>
                                 <?php endif; ?>
-
+                                <?php if($etablissement->service_douane): ?>
 				<p>
 					Dépend du service des douanes de : <strong><?php echo $etablissement->service_douane ?></strong>
 				</p>
+                                <?php endif; ?>
 			</div>
                         <div class="page_break">&nbsp;</div>
                         <?php endforeach; ?>
