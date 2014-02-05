@@ -1,4 +1,4 @@
-validation<?php
+<?php
 /**
  * Model for DAIDS
  *
