@@ -83,7 +83,6 @@
 	var affichageFiltres = function(filtres)
 	{
 		var result_filtered = $('#result_filtered');
-		console.log(filtres);
 		for (filtre in filtres) {
 			result_filtered.append('<fieldset>' + $("#"+filtres[filtre]).html() + '</fieldset>');
 		}
@@ -138,9 +137,9 @@
 		
 		if(statsConteneur.find('.date_picker').exists()) { initDatePicker(); }
 		
-		statsConteneur.find("#filtre_produits_items select").combobox();
-		
 		affichageFiltres(ids);
+		
+		statsConteneur.find("#filtre_produits_items select").combobox();
 		
 	});
 })(jQuery);

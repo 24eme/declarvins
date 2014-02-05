@@ -9,7 +9,7 @@
 			
     		<h1><strong><?php echo $statistiquesConfig['title'] ?></strong></h1>
     		
-    		<form id="result_filtered" action="<?php echo url_for('statistiques_drm') ?>" method="post"></form>
+    		<!-- <form id="result_filtered" action="<?php echo url_for('statistiques_drm') ?>" method="post"></form>  -->
 			
     		<div class="contenu clearfix">
 	        	<?php include_partial($form->getFormTemplate(), array('type' => 'drm', 'form' => $form)) ?>
