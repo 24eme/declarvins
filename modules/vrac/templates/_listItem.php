@@ -36,7 +36,7 @@ if ($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_NONSOL
   	<?php if (!$validated && $isOperateur): ?>
   	<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" style="left: 5px;" href="<?php echo url_for('vrac_supprimer', array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Supprimer</a>
   	<?php endif; ?>
-	<span class="statut <?php echo $statusColor ?>"></span><?php echo $elt[VracHistoryView::VRAC_VIEW_STATUT]; ?>
+	<span class="statut <?php echo $statusColor ?>" title="<?php echo $elt[VracHistoryView::VRAC_VIEW_STATUT]; ?>"></span>
   </td>
   <?php if ($isOperateur):  ?>
   <td><?php echo ($elt[VracHistoryView::VRAC_VIEW_MODEDESAISIE])? $libelles[$elt[VracHistoryView::VRAC_VIEW_MODEDESAISIE]] : ''; ?></td>
