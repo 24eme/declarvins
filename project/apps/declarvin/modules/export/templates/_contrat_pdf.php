@@ -169,7 +169,7 @@
             $w = $pdf->get_width();
             $h = $pdf->get_height();
             $font = Font_Metrics::get_font("helvetica");
-            $pdf->page_text($w / 2 - 120, $h - 20, 'Declarvins.net - Contrat inscription n<?php echo utf8_encode('°').' '.$contrat->no_contrat ?>', $font, 10, array(0,0,0));
+            $pdf->page_text($w / 2 - 115, $h - 20, 'Declarvins.net - Contrat inscription n<?php echo utf8_encode('°').' '.$contrat->no_contrat ?> - {PAGE_NUM} / {PAGE_COUNT}', $font, 10, array(0,0,0));
     }
 </script>
 <!-- #global -->
