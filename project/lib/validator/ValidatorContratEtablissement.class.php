@@ -27,17 +27,11 @@ class ValidatorContratEtablissement extends sfValidatorSchema {
                 	$errorSchema->addError(new sfValidatorErrorSchema($this, array('cvi' => new sfValidatorError($this, 'required'))));
                 	$hasErrors = true;
                 }
-                if (!isset($values['no_accises']) || empty($values['no_accises'])) {
-                	$errorSchema->addError(new sfValidatorErrorSchema($this, array('no_accises' => new sfValidatorError($this, 'required'))));
-                	$hasErrors = true;
-                }
+                
         }
     
         if ($values['famille'] == EtablissementFamilles::FAMILLE_NEGOCIANT) {
-                if (!isset($values['no_accises']) || empty($values['no_accises'])) {
-                	$errorSchema->addError(new sfValidatorErrorSchema($this, array('no_accises' => new sfValidatorError($this, 'required'))));
-                	$hasErrors = true;
-                }
+                
                 if (!isset($values['no_tva_intracommunautaire']) || empty($values['no_tva_intracommunautaire'])) {
                 	$errorSchema->addError(new sfValidatorErrorSchema($this, array('no_tva_intracommunautaire' => new sfValidatorError($this, 'required'))));
                 	$hasErrors = true;

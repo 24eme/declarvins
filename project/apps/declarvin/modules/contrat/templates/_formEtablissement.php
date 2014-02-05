@@ -28,7 +28,7 @@
     </div>
     <div class="ligne_form">
         <?php echo $form['no_accises']->renderError() ?>
-        <?php echo $form['no_accises']->renderLabel('Numéro accises**: <a href="" class="msg_aide" data-msg="help_popup_mandat_num_accises" title="Message aide"></a>') ?>
+        <?php echo $form['no_accises']->renderLabel('Numéro accises: <a href="" class="msg_aide" data-msg="help_popup_mandat_num_accises" title="Message aide"></a>') ?>
         <?php echo $form['no_accises']->render() ?>
     </div>
     <div class="ligne_form">
@@ -141,7 +141,7 @@
 </div>
 
 <strong class="champs_obligatoires">* Champs obligatoires</strong><br />
-<strong class="champs_obligatoires">** Les numéros SIRET, CVI et Numéro d’accises sont obligatoires pour les structures de production.<br />Le SIRET, Numéro d’accises et Numéro TVA intracommunautaire est obligatoire pour les structures de négoce.</strong>
+<strong class="champs_obligatoires">** Les numéros SIRET et CVI sont obligatoires pour les structures de production.<br/>Le SIRET et le Numéro TVA intracommunautaire sont obligatoires pour les structures de négoce.</strong>
 <strong class="champs_obligatoires">*** Le numéro de carte professionnelle est obligatoire pour les courtiers.</strong>
 
 <div class="ligne_btn">
