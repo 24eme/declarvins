@@ -139,32 +139,60 @@
 }
 
 
-// Style des fancybox
+// Style des filtres
+#form_ajout,
+#result_filtered
+{ 
+    display: block; 
+    
+    fieldset
+    {
+        display: none;
+
+        &.visible { display: block; }
+
+        legend
+        {
+            color: @couleur-b3;
+            font-size: 17px;
+            font-weight: bold;
+            margin: 0 0 20px;
+        }
+    }
+
+    .select_periode select { width: 98px !important; }
+
+    .select_date select { width: 60px !important; }
+}
+
+#result_filtered
+{
+    fieldset 
+    { 
+        display: block;
+        
+        legend { display: none; }
+        
+        & + fieldset { margin: 20px 0 0; }   
+    }
+    
+    .btn_valider 
+    { 
+       background-color: #86005B;
+        background-repeat: no-repeat;
+        border: 1px solid #494949;
+        color: #FFFFFF;
+        display: inline-block;
+        height: 26px;
+        line-height: 26px;
+        padding: 0 10px;
+        margin: 20px 0 0;
+    }
+
+}
+
 .fb-statistiques
 {
-	.popup_form 
-	{ 
-		display: block; 
-		
-		fieldset
-		{
-			display: none;
-
-			&.visible { display: block; }
-
-			legend
-			{
-				color: @couleur-b3;
-				font-size: 17px;
-				font-weight: bold;
-				margin: 0 0 20px;
-			}
-		}
-
-		.select_periode select { width: 98px !important; }
-
-		.select_date select { width: 60px !important; }
-	}
 
 	.ligne_form
 	{

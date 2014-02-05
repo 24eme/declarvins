@@ -122,6 +122,7 @@ class statistiqueActions extends sfActions
   	  	}
 	  }  
 	  $this->produits = $this->form->getProduits();
+	  $this->filtres = $this->form->getFiltres();
       
       $index = acElasticaManager::getType($this->statistiquesConfig['elasticsearch_type']);
       $elasticaQuery = new acElasticaQuery();
@@ -220,7 +221,7 @@ class statistiqueActions extends sfActions
   			if ($first) {
   				$config['categories'][] = date('Y-m', $entries['time']/1000);
   			}
-  			$config['series'][$name][] = $entries['total'];
+  			$config['series'][$name][] = $entries['count'];
   		}
   		$first = false;
   	}
@@ -274,11 +275,21 @@ class statistiqueActions extends sfActions
 		}
 		$elasticaQuery->addFacet($elasticaFacet);
       }
+      
+      $facetsGraph = $this->statistiquesConfig['facets_graph'];
+      foreach($facetsGraph as $facetGraph) {
+		$elasticaFacet 	= new acElasticaFacetDateHistogram($facetGraph['nom']);
+		$elasticaFacet->setField($facetGraph['key_field']);
+		$elasticaFacet->setInterval($facetGraph['interval']);
+		$elasticaQuery->addFacet($elasticaFacet);
+      }
+      
       $elasticaQuery->setLimit($this->statistiquesConfig['nb_resultat']);
       $elasticaQuery->setFrom(($this->page - 1) * $this->statistiquesConfig['nb_resultat']);
       $result = $index->search($elasticaQuery);
       $this->hits = $result->getResults();
       $this->facets = $result->getFacets();
+      $this->chartConfig = $this->getChartConfig($this->getDateHistogramFacets($result->getFacets()));
       $this->nbHits = $result->getTotalHits();
       $this->nbPage = ceil($this->nbHits / $this->statistiquesConfig['nb_resultat']);      
 

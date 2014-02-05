@@ -106,6 +106,22 @@
 		</div>
 	</fieldset>
 	
+	<fieldset id="filtre_prix_unitaire">
+		<legend>Filter par fourchette de prix</legend>
+		<div class="ligne_form">
+			<span class="error"><?php echo $form['prix_unitaire']->renderError() ?></span>
+			<?php echo $form['prix_unitaire']->renderLabel() ?><?php echo $form['prix_unitaire']->render() ?>
+		</div>
+	</fieldset>
+	
+	<fieldset id="filtre_volume_propose">
+		<legend>Filter par fourchette de volume</legend>
+		<div class="ligne_form">
+			<span class="error"><?php echo $form['volume_propose']->renderError() ?></span>
+			<?php echo $form['volume_propose']->renderLabel() ?><?php echo $form['volume_propose']->render() ?>
+		</div>
+	</fieldset>
+	
 	<fieldset id="filtre_code_postal_acheteur">
 		<legend>Filtrer par code postal de l'acheteur</legend>
 		<div class="ligne_form code_postal">
@@ -177,11 +193,33 @@
 	</fieldset>
 	
 	<fieldset id="filtre_date_saisie">
-		<legend>Filtrer par date de saisie</legend>
+		<legend>Filtrer par période de saisie</legend>
 
 		<div class="ligne_form select_date">
 			<span class="error"><?php echo $form['valide.date_saisie']->renderError() ?></span>
 			<?php echo $form['valide.date_saisie']->renderLabel() ?><?php echo $form['valide.date_saisie']->render() ?>
+		</div>
+		
+		<div class="calendriers">
+			<div class="calendrier_item calendrier_debut">
+				<div class="instruction">Choisir la date de début</div>
+
+				<div class="date_picker"></div>
+			</div>
+			<div class="calendrier_item calendrier_fin">
+				<div class="instruction">Choisir la date de fin</div>
+
+				<div class="date_picker"></div>
+			</div>
+		</div>
+	</fieldset>
+	
+	<fieldset id="filtre_date_validation">
+		<legend>Filtrer par période de signature</legend>
+
+		<div class="ligne_form select_date">
+			<span class="error"><?php echo $form['valide.date_validation']->renderError() ?></span>
+			<?php echo $form['valide.date_validation']->renderLabel() ?><?php echo $form['valide.date_validation']->render() ?>
 		</div>
 		
 		<div class="calendriers">

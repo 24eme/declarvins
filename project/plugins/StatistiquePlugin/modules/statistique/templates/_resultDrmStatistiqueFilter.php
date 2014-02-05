@@ -7,12 +7,12 @@
 				<th>Saisie</th>
 				<th>Raison sociale</th>
 				<th>Nom</th>
-				<th>Total début de mois</th>
+				<th>Total stock début de mois</th>
 				<th>Total entrées nettes</th>
 				<th>Total entrées avec réciproque</th>
 				<th>Total sorties nettes</th>
 				<th>Total sorties avec réciproque</th>
-				<th>Total fin de mois</th>
+				<th>Total stock fin de mois</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -24,10 +24,10 @@
 		$parameters['periode_version'] = ($item['version'])? $item['periode'].'_'.$item['version'] : $item['periode'];
 		?>
 			<tr>
-				<td><a href="<?php echo url_for('drm_visualisation', $parameters) ?>"><?php echo $item['_id'] ?></a></td>
+				<td><a href="<?php echo url_for('drm_visualisation', $parameters) ?>" target="_blank"><?php echo $item['_id'] ?></a></td>
 				<td><?php echo $item['periode'] ?></td>
 				<td><?php echo $item['mode_de_saisie'] ?></td>
-				<td><?php echo $item['declarant']['raison_sociale'] ?></td>
+				<td><a href="<?php echo url_for('tiers_mon_espace', array('identifiant' => $item['identifiant'])) ?>" target="_blank"><?php echo $item['declarant']['raison_sociale'] ?></a></td>
 				<td><?php echo $item['declarant']['nom'] ?></td>
 				<?php 
 				if ($produits):

@@ -5,7 +5,7 @@
 all:
   statistiques:
     drm:
-      title: "DRM"
+      title: "Etat des lieux de saisie des DRMs"
       nb_resultat: 20
       elasticsearch_type: "drm"
       champs:
@@ -81,7 +81,7 @@ all:
           print_number: true
       facets:
         total_debut_mois:
-          nom: "Moy. début de mois"
+          nom: "Total stock début de mois"
           noeud: "total_debut_mois"
           divise: null
           unite: "hl"
@@ -92,7 +92,7 @@ all:
           facet_filter: false
           filters: null
         total_entrees_nettes:
-          nom: "Moy. entrées nettes"
+          nom: "Total entrées nettes"
           noeud: "total_entrees_nettes"
           divise: null
           unite: "hl"
@@ -103,7 +103,7 @@ all:
           facet_filter: false
           filters: null
         total_entrees_reciproque:
-          nom: "Moy. entrées avec réciproque"
+          nom: "Total entrées avec réciproque"
           noeud: "total_entrees_reciproque"
           divise: null
           unite: "hl"
@@ -114,7 +114,7 @@ all:
           facet_filter: false
           filters: null
         total_sorties_nettes:
-          nom: "Moy. sorties nettes"
+          nom: "Total sorties nettes"
           noeud: "total_sorties_nettes"
           divise: null
           unite: "hl"
@@ -125,7 +125,7 @@ all:
           facet_filter: false
           filters: null
         total_sorties_reciproque:
-          nom: "Moy. sorties avec réciproque"
+          nom: "Total sorties avec réciproque"
           noeud: "total_sorties_reciproque"
           divise: null
           unite: "hl"
@@ -136,7 +136,7 @@ all:
           facet_filter: false
           filters: null
         total_fin_de_mois:
-          nom: "Moy. fin de mois"
+          nom: "Total stock fin de mois"
           noeud: "total"
           divise: null
           unite: "hl"
@@ -147,43 +147,13 @@ all:
           facet_filter: false
           filters: null
       facets_graph:
-        histo_debut_mois:
-          nom: "Début de mois"
+        histo_nb_saisie:
+          nom: "Nombre de saisie"
           key_field: "periode"
-          value_field: "total_debut_mois"
-          interval: "month"
-        histo_entrees_nettes:
-          nom: "Entrées nettes"
-          key_field: "periode"
-          value_field: "total_entrees_nettes"
-          interval: "month"
-        histo_entrees_reciproque:
-          nom: "Entrées avec réciproque"
-          key_field: "periode"
-          value_field: "total_entrees_reciproque"
-          interval: "month"
-        histo_entrees_reciproque:
-          nom: "Entrées avec réciproque"
-          key_field: "periode"
-          value_field: "total_entrees_reciproque"
-          interval: "month"
-        histo_sorties_nettes:
-          nom: "Sorties nettes"
-          key_field: "periode"
-          value_field: "total_sorties_nettes"
-          interval: "month"
-        histo_sorties_reciproque:
-          nom: "Sorties avec réciproque"
-          key_field: "periode"
-          value_field: "total_sorties_reciproque"
-          interval: "month"
-        histo_fin_de_mois:
-          nom: "Fin de mois"
-          key_field: "periode"
-          value_field: "total"
+          value_field: "selecteur"
           interval: "month"
     vrac:
-      title: "Contrat Vrac"
+      title: "Etat des lieux de saisie des Contrats vrac"
       nb_resultat: 20
       elasticsearch_type: "vrac"
       champs:
@@ -266,7 +236,7 @@ all:
           print_number: false
       facets:
         total_volume:
-          nom: "Moy. volume"
+          nom: "Total volume"
           noeud: "volume_propose"
           divise: null
           unite: "hl"
@@ -279,7 +249,7 @@ all:
         prix_moyen:
           nom: "Prix moyen"
           noeud: "prix_total_net"
-          divise: "Moy. volume"
+          divise: "Total volume"
           unite: "€"
           need_replace: false
           replace: null
@@ -288,8 +258,8 @@ all:
           facet_filter: false
           filters: null
         total_volume_pris_en_compte:
-          nom: "Moy. volume pris en compte"
-          noeud: "volume_propose"
+          nom: "Total volume pris en compte"
+          noeud: "volume_enleve"
           divise: null
           unite: "hl"
           need_replace: false
@@ -306,7 +276,7 @@ all:
         prix_moyen_pris_en_compte:
           nom: "Prix moyen pris en compte"
           noeud: "prix_total_net"
-          divise: "Moy. volume pris en compte"
+          divise: "Total volume pris en compte"
           unite: "€"
           need_replace: false
           replace: null
@@ -319,3 +289,9 @@ all:
               term:
                 node: "type_prix"
                 value: "acompte"
+      facets_graph:
+        histo_nb_saisie:
+          nom: "Nombre de saisie"
+          key_field: "valide.date_saisie"
+          value_field: "type"
+          interval: "month"

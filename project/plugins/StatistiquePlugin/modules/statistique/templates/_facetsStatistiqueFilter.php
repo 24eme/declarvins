@@ -6,7 +6,7 @@
 <?php 
 	foreach ($configFacets as $configFacet):
 		$stats = $facets[$configFacet['nom']];
-		$stat = $stats['mean'];
+		$stat = $stats['total'];
 		if ($n = $configFacet['divise']) {
 			$stat = $stats['total'] / $facets[$n]['total'];
 		}
