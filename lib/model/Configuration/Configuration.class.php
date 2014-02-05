@@ -103,7 +103,9 @@ class Configuration extends BaseConfiguration
     	$variable = '_configuration_produits_'.str_replace(Interpro::INTERPRO_KEY, '', $interpro);
     	if (is_null($this->$variable)) {
     		$this->$variable = ($this->produits->exist($interpro))? acCouchdbManager::getClient()->retrieveDocumentById($this->produits->get($interpro)) : null;
-    		$this->$variable->loadAllData();
+            if (!sfConfig::get('sf_debug')) {
+    		    $this->$variable->loadAllData();
+            }
     	}
     	return $this->$variable;
     }
