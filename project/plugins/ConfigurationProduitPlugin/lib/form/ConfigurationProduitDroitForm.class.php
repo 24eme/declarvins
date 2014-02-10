@@ -3,6 +3,8 @@ class ConfigurationProduitDroitForm extends sfForm
 {
     public function configure() 
     {
+    	
+		$type = $this->getOption('type');
     	$this->setWidgets(array(
 			'date' => new sfWidgetFormInputText( array('default' => ''), array('class' => 'datepicker') ),
 			'code' => new sfWidgetFormInputText(),
@@ -10,10 +12,10 @@ class ConfigurationProduitDroitForm extends sfForm
 			'taux' => new sfWidgetFormInputFloat()  		
     	));
 		$this->widgetSchema->setLabels(array(
-			'date' => 'Date: ',
-			'code' => 'Code: ',
-			'libelle' => 'Libelle: ',
-			'taux' => 'Taux: '
+			'date' => 'Date '.$type.': ',
+			'code' => 'Code '.$type.': ',
+			'libelle' => 'Libelle '.$type.': ',
+			'taux' => 'Taux '.$type.': '
 		)); 
 		$this->setValidators(array(
 			'date' => new sfValidatorString(array('required' => false)),

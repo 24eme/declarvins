@@ -24,7 +24,7 @@
 			<div class="ligne_form">
 				<span class="error"><?php echo $form['lieux']->renderError() ?></span>
 				<?php echo $form['lieux']->renderLabel() ?>
-				<?php echo $form['lieux']->render() ?>
+				<?php echo $form['lieux']->render(array('class' => 'permissif')) ?>
 			</div>
 			<div class="ligne_form">
 				<span class="error"><?php echo $form['couleurs']->renderError() ?></span>

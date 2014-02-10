@@ -12,8 +12,8 @@ class ConfigurationProduitLabelForm extends sfForm
     		'code' => new sfValidatorString(array('required' => false))
     	));
 		$this->widgetSchema->setLabels(array(
-			'label' => 'Label: ',
-			'code' => 'Code: '
+			'label' => 'Libellé label: ',
+			'code' => 'Code label: '
 		));
     	$this->setDefault('label', $this->getOption('libelle_label'));
     	$this->setDefault('code', $this->getOption('code_label'));
