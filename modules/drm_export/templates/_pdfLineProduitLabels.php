@@ -1,0 +1,1 @@
+<?php echo $item->getLabelsLibelle() ?><?php echo ($item->label_supplementaire)? '<br />'.$item->label_supplementaire : ''; ?>

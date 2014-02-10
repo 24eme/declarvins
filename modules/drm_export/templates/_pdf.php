@@ -42,6 +42,12 @@
 																  'colonnes' => $colonnes,
 																  'cssclass_value' => 'libelle',
 																  'partial' => 'drm_export/pdfLineVolumeItemProduitLibelle')) ?>
+																  
+				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Labels',
+	    						  								  'counter' => '',
+																  'colonnes' => $colonnes,
+																  'cssclass_value' => 'labels',
+																  'partial' => 'drm_export/pdfLineProduitLabels')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total début de mois',
 																	   'unite' => 'hl',
