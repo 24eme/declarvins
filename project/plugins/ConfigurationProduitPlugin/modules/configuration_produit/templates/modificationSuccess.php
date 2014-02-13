@@ -1,3 +1,4 @@
+<?php use_helper('ConfigurationProduit') ?>
 <?php include_component('global', 'navBack', array('active' => 'parametrage', 'subactive' => 'produits')); ?>
 <style>
 .popup_form .ligne_form {
@@ -30,7 +31,7 @@
 <section id="contenu">
 	<section id="principal">
 	<div class="clearfix" id="application_dr">
-	    <h1>Modification du noeud <strong><?php echo $noeud ?></strong>.</h1>
+	    <h1>Modification du noeud <strong><?php echo printLibelleNode($noeud) ?></strong>.</h1>
 	    <div id="popup_produit" class="popup_contenu">
 			<form class="popup_form" id="form_ajout" action="<?php echo url_for('configuration_produit_modification', array('noeud' => $form->getObject()->getTypeNoeud(), 'hash' => str_replace('/', '-', $form->getHash()))) ?>" method="post">
 				<?php echo $form->renderGlobalErrors() ?>

@@ -11,8 +11,8 @@ class ConfigurationProduitModificationForm extends acCouchdbObjectForm
 			'code' => new sfWidgetFormInputText()
     	));
 		$this->widgetSchema->setLabels(array(
-			'libelle' => 'Libellé: ',
-			'code' => 'Code: '
+			'libelle' => 'Libellé noeud: ',
+			'code' => 'Code noeud: '
 		));
 		$this->setValidators(array(
 			'libelle' => new sfValidatorString(array('required' => false)),
@@ -28,13 +28,13 @@ class ConfigurationProduitModificationForm extends acCouchdbObjectForm
 		if ($this->getObject()->hasCvo()) {
 			$this->embedForm(
 				'noeud_droits_cvo', 
-				new ConfigurationProduitDroitCollectionForm(null, array('droits' => $this->getObject()->getOrAdd('droits')->getOrAdd('cvo'), 'nb' => $this->getOption('nbCvo', null)))
+				new ConfigurationProduitDroitCollectionForm(null, array('droits' => $this->getObject()->getOrAdd('droits')->getOrAdd('cvo'), 'type' => 'cvo', 'nb' => $this->getOption('nbCvo', null)))
 			);
 		}
 		if ($this->getObject()->hasDouane()) {
 			$this->embedForm(
 				'noeud_droits_douane', 
-				new ConfigurationProduitDroitCollectionForm(null, array('droits' => $this->getObject()->getOrAdd('droits')->getOrAdd('douane'), 'nb' => $this->getOption('nbDouane', null)))
+				new ConfigurationProduitDroitCollectionForm(null, array('droits' => $this->getObject()->getOrAdd('droits')->getOrAdd('douane'), 'type' => 'douane', 'nb' => $this->getOption('nbDouane', null)))
 			);
 		}
 		if ($this->getObject()->hasLabels()) {

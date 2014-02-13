@@ -28,8 +28,8 @@ class ConfigurationProduitCsvFile extends CsvFile
   	const CSV_PRODUIT_OIOC = 23;
   	const CSV_PRODUIT_DRM_CONFIG_ENTREE_REPLI = 24;
   	const CSV_PRODUIT_DRM_CONFIG_SORTIE_REPLI = 25;
-  	const CSV_PRODUIT_DRM_CONFIG_ENTREE_DECLASSEMENT = 25;
-  	const CSV_PRODUIT_DRM_CONFIG_SORTIE_DECLASSEMENT = 26;
+  	const CSV_PRODUIT_DRM_CONFIG_ENTREE_DECLASSEMENT = 26;
+  	const CSV_PRODUIT_DRM_CONFIG_SORTIE_DECLASSEMENT = 27;
   	
   	const CSV_PRODUIT_DROITS_CODE = 0;
   	const CSV_PRODUIT_DROITS_LIBELLE = 1;
@@ -50,16 +50,22 @@ class ConfigurationProduitCsvFile extends CsvFile
   	const CSV_DELIMITER_OIOC_INTER = '/';
   	
   	protected static $csv_produits_entetes = array (
-  		'#CATEGORIE_LIBELLE',
+  		'#CATEGORIE_KEY',
+  		'CATEGORIE_LIBELLE',
   		'CATEGORIE_CODE',
+  		'GENRE_KEY',
   		'GENRE_LIBELLE',
   		'GENRE_CODE',
+  		'DENOMINATION_KEY',
   		'DENOMINATION_LIBELLE',
   		'DENOMINATION_CODE',
+  		'LIEU_KEY',
   		'LIEU_LIBELLE',
   		'LIEU_CODE',
+  		'COULEUR_KEY',
   		'COULEUR_LIBELLE',
   		'COULEUR_CODE',
+  		'CEPAGE_KEY',
   		'CEPAGE_LIBELLE',
   		'CEPAGE_CODE',
   		'LABELS',
@@ -91,7 +97,7 @@ class ConfigurationProduitCsvFile extends CsvFile
   	
   	public function exportProduits()
   	{
-  		$produits = $this->config->declaration->getProduits();
+  		$produits = $this->config->getProduits();
   		$result = array();
   		$i = 0;
   		$result[$i] = self::getCsvProduitsEntetes();

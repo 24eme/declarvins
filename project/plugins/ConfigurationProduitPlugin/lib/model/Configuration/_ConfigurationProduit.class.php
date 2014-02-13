@@ -36,7 +36,7 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 	
 	public function getProduits($departements = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null) 
 	{   
-		$key = sprintf("%s_%s", is_array($departements) ? implode('_', $departements) : $departements, $onlyForDrmVrac);
+		$key = sprintf("%s_%s_%s_%s", is_array($departements) ? implode('_', $departements) : $departements, $onlyForDrmVrac, $cvoNeg, $date);
 		if(!array_key_exists($key, $this->produits)) {
 			$produits = array();
 	      	foreach($this->getChildrenNode() as $key => $item) {
@@ -44,7 +44,7 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 	      	}
 	      	$this->produits[$key] = $produits;
 		}
-            return $this->produits[$key];
+        return $this->produits[$key];
   	}
         
     public function getTreeProduits()
