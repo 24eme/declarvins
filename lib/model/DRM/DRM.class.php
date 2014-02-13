@@ -619,7 +619,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
 
     public function isSupprimableOperateur() {
 
-        return !$this->isEnvoyee() && !$this->isRectificativeEnCascade();
+        return !$this->isValidee() && !$this->isRectificativeEnCascade();
     }
 
     public function validation($options = null) { 
