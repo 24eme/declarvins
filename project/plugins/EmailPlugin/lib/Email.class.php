@@ -157,7 +157,7 @@ class Email {
     
     public function sendContratMandat($contrat, $destinataire, $interpros = null) 
     {
-        $from = $this->getFromEmailInterpros($interpros); 
+        $from = $this->getFromEmailInterpros($interpros,true); 
         $to = array($destinataire);
         $subject = 'Contrat d\'inscription DeclarVins';
         $body = $this->getBodyFromPartial('send_contrat_mandat', array('contrat' => $contrat));
@@ -173,7 +173,8 @@ class Email {
     
     public function sendCompteRegistration($compte, $destinataire) 
     {
-        $from = $this->getFromEmailInterpros(null);
+        $interpros = array($compte-getEtablissement()->getInterproObject());
+        $from = $this->getFromEmailInterpros($interpros,true);
         $to = array($destinataire);
         $subject = 'Activation de votre compte sur Declarvins.net';
     	$numeroContrat = explode('-', $compte->contrat);
@@ -186,7 +187,8 @@ class Email {
     
     public function sendRedefinitionMotDePasse($compte, $destinataire) 
     {
-        $from = $this->getFromEmailInterpros(null);
+        $interpros = array($compte-getEtablissement()->getInterproObject());
+        $from = $this->getFromEmailInterpros($interpros,true);
         $to = array($destinataire);
         $subject = 'Redéfinition du mot de passe';
         $body = $this->getBodyFromPartial('send_redefinition_mot_de_passe', array('compte' => $compte));
@@ -205,7 +207,7 @@ class Email {
         return $this->_context->getController()->getAction('Email', 'main')->getPartial('Email/' . $partial, $vars);
     }
 
-    protected function getFromEmailInterpros($interpros = null) {
+    protected function getFromEmailInterpros($interpros = null, $isInscription = false) {
         if(!$interpros){
             return array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
         }
@@ -213,6 +215,9 @@ class Email {
             return array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
         }
         $interpro = $interpros[0];
-        return array($interpro->email_contrat_vrac => $interpro->nom);
+        if(!$isInscription){
+            return array($interpro->email_contrat_vrac => $interpro->nom);
+        }
+        return array($interpro->email_contrat_inscription => $interpro->nom);
     }
 }
