@@ -87,4 +87,29 @@ class CampagneManager {
         return $campagne_input;
     }
 
+    public function consoliderCampagnesList($campagnes, $add_current = true, $add_one_more = true) {
+        krsort($campagnes);
+        
+        $campagnes_consolider = array();
+        
+        if($add_current) {
+            $campagnes_consolider[$this->getCurrent()] = $this->getCurrent();
+        }
+        
+        foreach($campagnes as $campagne => $value) {
+            $next_campagne = $this->getNext($campagne);
+            if($next_campagne < $this->getCurrent() && !array_key_exists($next_campagne, $campagnes_consolider)) {
+                $campagnes_consolider[$next_campagne] = $next_campagne;
+            }
+            $campagnes_consolider[$campagne] = $campagne;
+        }
+        if($add_one_more) {
+            $campagnes_consolider[$this->getPrevious($campagne)] = $this->getPrevious($campagne);
+        }
+
+        krsort($campagnes_consolider);
+
+        return $campagnes_consolider;
+    }
+
 }
