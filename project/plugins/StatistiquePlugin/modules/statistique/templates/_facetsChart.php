@@ -2,7 +2,7 @@
 $(function () {
         $('#chart_container').highcharts({
             chart: {
-                type: 'line',
+                type: 'column',
                 marginRight: 130,
                 marginBottom: 25,
                 width: 600
@@ -15,7 +15,7 @@ $(function () {
             },
             yAxis: {
                 title: {
-                    text: 'Saisies DRM'
+                    text: '<?php echo $title ?>'
                 },
                 plotLines: [{
                     value: 0,

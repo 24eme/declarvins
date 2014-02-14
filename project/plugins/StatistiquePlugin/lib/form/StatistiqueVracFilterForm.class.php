@@ -248,7 +248,7 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
     
     public function getDefaultQuery()
     {
-    	$query_string = new acElasticaQueryQueryString('interpro:'.$this->getInterproId());
+    	$query_string = new acElasticaQueryQueryString('interpro:'.$this->getInterproId().' valide.statut:*');
     	return $query_string;
     }
     

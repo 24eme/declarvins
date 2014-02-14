@@ -23,7 +23,7 @@
 				</div>
 				<div style="float: left; width: 600px;">
     			<?php if ($chartConfig): ?>
-					<?php include_partial('facetsChart', array('chartConfig' => $chartConfig)) ?>
+					<?php include_partial('facetsChart', array('chartConfig' => $chartConfig, 'title' => 'Saisies des DRMs')) ?>
 				<?php endif; ?>
 				</div>
 			<?php endif; ?>
