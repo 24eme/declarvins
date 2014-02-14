@@ -388,12 +388,13 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     	foreach ($this->getDetails() as $detail) {
 			foreach ($detail->vrac as $numero => $vrac) {
 				$volume = $vrac->volume;
-				$contrat = VracClient::getInstance()->findByNumContrat($numero);
-				if ($contrat->isSolde()) {
-					$contrat->desolder();
+				if ($contrat = VracClient::getInstance()->findByNumContrat($numero)) {
+					if ($contrat->isSolde()) {
+						$contrat->desolder();
+					}
+					$contrat->soustraitVolumeEnleve($volume);
+					$contrat->save(false);
 				}
-				$contrat->soustraitVolumeEnleve($volume);
-				$contrat->save(false);
 			}
       	}
     }
@@ -619,7 +620,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
 
     public function isSupprimableOperateur() {
 
-        return !$this->isValidee() && !$this->isRectificativeEnCascade();
+        return !$this->isEnvoyee() && !$this->isRectificativeEnCascade();
     }
 
     public function validation($options = null) { 
