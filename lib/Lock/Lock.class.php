@@ -35,7 +35,7 @@ class Lock extends BaseLock {
         $lock->add($res['key'], $res['value'].':'.$res['docid']); 
         $lock->save();
         break;
-      }catch(sfException $e) {
+      }catch(Exception $e) {
       }
       sleep(1);
     }
