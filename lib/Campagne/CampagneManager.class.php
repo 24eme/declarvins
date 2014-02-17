@@ -97,6 +97,11 @@ class CampagneManager {
         }
         
         foreach($campagnes as $campagne => $value) {
+            if(!$campagne) {
+
+                continue;
+            }
+
             $next_campagne = $this->getNext($campagne);
             if($next_campagne < $this->getCurrent() && !array_key_exists($next_campagne, $campagnes_consolider)) {
                 $campagnes_consolider[$next_campagne] = $next_campagne;
