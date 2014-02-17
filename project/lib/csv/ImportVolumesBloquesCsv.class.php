@@ -12,6 +12,12 @@ class ImportVolumesBloquesCsv
     const COL_PRODUIT_COULEUR = 6;
     const COL_PRODUIT_CEPAGE = 7;
     const COL_PRODUIT_VOLUMEBLOQUE = 8;
+    
+    const CSV_PRODUIT_VOLUMEBLOQUE_DATE = 0;
+  	const CSV_PRODUIT_VOLUMEBLOQUE_VOLUME = 1;
+    
+  	const CSV_DELIMITER_VOLUMEBLOQUE_INTER = ':';
+  	const CSV_DELIMITER_VOLUMEBLOQUE = '|';
 
     protected $_interpro = null;
     protected $_csv = array();
@@ -27,7 +33,7 @@ class ImportVolumesBloquesCsv
 	            throw new Exception('Cannot open csv file anymore');
 	        }
 	        while (($line = fgetcsv($handler, 0, ";")) !== FALSE) {
-	            if (preg_match('/[0-9]+/', trim($line[EtablissementCsv::COL_ID]))) {
+	        	if (!preg_match('/^#/', trim($line[EtablissementCsv::COL_ID]))) {
 	                $this->_csv[] = $line;
 	            }
 	        }
@@ -131,15 +137,11 @@ class ImportVolumesBloquesCsv
 	  				$etab->save();
 	  			}
       			$etabTmp = $etab = EtablissementClient::getInstance()->find(trim($line[self::COL_ETABLISSEMENT_IDENTIFIANT]));
-	  			$cpt++;
       		}
 			if ($etab) {
 				$p = $etab->produits->add($this->getProduitHashKey($line));
-				if ($line[self::COL_PRODUIT_VOLUMEBLOQUE]) {
-					$p->volume_bloque = round(floatval($line[self::COL_PRODUIT_VOLUMEBLOQUE]), 2);
-				} else {
-					$p->volume_bloque = null;
-				}
+				$this->setVolumesBloquesCsv($p, $line[self::COL_PRODUIT_VOLUMEBLOQUE]);
+				$cpt++;
 			}
       	}
       	if (count($this->_errors) > 0) {
@@ -149,6 +151,30 @@ class ImportVolumesBloquesCsv
   			$etab->save();
   		}
       	return $cpt;
+    }
+    
+
+    
+    protected function setVolumesBloquesCsv($produit, $datas) 
+    {
+    	$volumes = explode(self::CSV_DELIMITER_VOLUMEBLOQUE, $datas);
+    	if ($volumes) {
+	    	foreach ($volumes as $volume) {
+	    		$details = explode(self::CSV_DELIMITER_VOLUMEBLOQUE_INTER, $volume);
+	    		$date = (isset($details[self::CSV_PRODUIT_VOLUMEBLOQUE_DATE]) && $details[self::CSV_PRODUIT_VOLUMEBLOQUE_DATE])? $details[self::CSV_PRODUIT_VOLUMEBLOQUE_DATE] : null;
+	    		$v = (isset($details[self::CSV_PRODUIT_VOLUMEBLOQUE_VOLUME]) && $details[self::CSV_PRODUIT_VOLUMEBLOQUE_VOLUME])? $details[self::CSV_PRODUIT_VOLUMEBLOQUE_VOLUME] : null;
+	    		if ($date) {
+					$vb = $produit->volume_bloque->getOrAdd($date);
+		    		$vb->date = $date;
+		    		$vb->volume = round($this->castFloat($v), 2);
+	    		}
+	    	}
+    	}
+    }
+    
+    protected function castFloat($float) 
+    {
+    	return floatval(str_replace(',', '.', $float));
     }
 }
 

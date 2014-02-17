@@ -3251,7 +3251,6 @@ p#date_drm {
 }
 #contenu.statistiques .options_recherche > ul > li ul li a.coche { background-image:url('../images/pictos/pi_actif.png'); }
 #contenu.statistiques .liste_filtres { margin:0 0 10px; }
-#contenu.statistiques .popup_form { display:none; }
 #contenu.statistiques #chart_container { margin-bottom:20px !important; }
 #contenu.statistiques .tableau_resultats table { table-layout:fixed; }
 #contenu.statistiques .tableau_resultats table th, #contenu.statistiques .tableau_resultats table td { word-wrap:break-word; }
@@ -3272,7 +3271,6 @@ p#date_drm {
   border:1px solid #dbdbdb;
 }
 #form_ajout, #result_filtered { display:block; }
-#form_ajout fieldset, #result_filtered fieldset { display:none; }
 #form_ajout fieldset.visible, #result_filtered fieldset.visible { display:block; }
 #form_ajout fieldset legend, #result_filtered fieldset legend {
   color:#86005b;

@@ -49,7 +49,7 @@ class interproActions extends sfActions
 	            $this->import = new ImportVolumesBloquesCsv($this->interpro);
 	            try {
 		            $nb = $this->import->updateOrCreate();
-	        		$this->getUser()->setFlash('notice', "$nb établissements ont été importés");
+	        		$this->getUser()->setFlash('notice', "$nb volumes bloqués ont été importés");
 		            $this->redirect('interpro_upload_csv_volumes_bloques');
 	          	} catch (Exception $e) {
 	            	$this->hasErrors = true;
