@@ -95,11 +95,11 @@ class CampagneManager {
         if($add_current) {
             $campagnes_consolider[$this->getCurrent()] = $this->getCurrent();
         }
-        
+
         foreach($campagnes as $campagne => $value) {
             if(!$campagne) {
 
-                continue;
+                    continue;
             }
 
             $next_campagne = $this->getNext($campagne);
@@ -108,7 +108,7 @@ class CampagneManager {
             }
             $campagnes_consolider[$campagne] = $campagne;
         }
-        if($add_one_more) {
+        if(isset($campagne) && $add_one_more) {
             $campagnes_consolider[$this->getPrevious($campagne)] = $this->getPrevious($campagne);
         }
 
