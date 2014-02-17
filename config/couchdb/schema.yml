@@ -23,6 +23,7 @@ DRM:
       periode: {  }
       version: {  }
       precedente: {  }
+      referente: { required: false }
       rectificative: { type: integer, required: false }
       droits:
         type: collection
