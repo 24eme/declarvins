@@ -343,8 +343,36 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
             $this->getSuivante()->precedente = $this->get('_id');
             $this->getSuivante()->save();
         }
+        $this->storeReferente();
+    }
+    
+    public function storeReferente() {
+        $drm_ref = null;
+        if($this->getPreviousVersion()){
+            $drm_ref = $this->getMother();
+        }
+        else
+        {
+            $id_drm_ref = DRMClient::getInstance()->buildId($this->identifiant, $this->periode);
+            if($id_drm_ref != $this->_id){
+            $drm_ref = DRMClient::getInstance()->find();
+            }
+        }
+        $this->add('referente',1);
+        if(!$drm_ref){
+            return;
+        }
+        $drm_ref->add('referente',0);
+        $drm_ref->save();
     }
 
+    public function getReferente() {
+        if(!$this->exist('referente')){
+            return 1;
+        }
+        return $this->exist('referente');
+    }
+    
     public function storeDroits($options) {
         if (!isset($options['no_droits']) || !$options['no_droits']) {
            $this->setDroits();
@@ -650,7 +678,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     }
 
     public function hasVersion() {
-
+        
         return $this->version_document->hasVersion();
     }
 
@@ -725,7 +753,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     }
 
     public function findDocumentByVersion($version) {
-
+    //    var_dump($version); exit;
         return DRMClient::getInstance()->find(DRMClient::getInstance()->buildId($this->identifiant, $this->periode, $version));
     }
 
