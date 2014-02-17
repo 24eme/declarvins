@@ -404,8 +404,9 @@ class DRMDetail extends BaseDRMDetail {
     	$produitHash =  str_replace('/declaration/', '', $this->getCepage()->getHash());
       	$produitHash = str_replace('/', '_', $produitHash);
       	$etablissement = $this->getDocument()->getEtablissement();
+      	$date = $this->getDocument()->periode.'-01'; 
       	if ($etablissement->produits->exist($produitHash)) {
-      		$this->stocks_debut->bloque = $etablissement->produits->get($produitHash)->volume_bloque;
+      		$this->stocks_debut->bloque = $etablissement->getVolumeBloque($produitHash, $date);
       	}
     }
     
