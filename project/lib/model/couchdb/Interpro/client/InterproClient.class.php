@@ -90,7 +90,7 @@ class InterproClient extends acCouchdbClient {
 	    $ir->set('_id', 'INTERPRO-IR');
 	    $ir->identifiant = 'IR';
 	    $ir->nom = 'InterRhône';
-	    $ir->email_contrat_vrac = 'contrats@inter-rhone.com';
+	    $ir->email_contrat_vrac = 'declarvins@inter-rhone.com';
 	    $ir->email_contrat_inscription = 'declarvins@inter-rhone.com';
 	    $ivse = new Interpro();
 	    $ivse->set('_id', 'INTERPRO-IVSE');

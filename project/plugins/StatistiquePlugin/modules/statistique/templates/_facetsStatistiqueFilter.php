@@ -8,7 +8,7 @@
 		$stats = $facets[$configFacet['nom']];
 		$stat = $stats['total'];
 		if ($n = $configFacet['divise']) {
-			$stat = $stats['total'] / $facets[$n]['total'];
+			$stat = ($facets[$n]['total'] > 0)? $stats['total'] / $facets[$n]['total'] : 0;
 		}
 ?>
 	<tr>

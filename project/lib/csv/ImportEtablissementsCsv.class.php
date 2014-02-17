@@ -16,7 +16,7 @@ class ImportEtablissementsCsv {
 	            throw new Exception('Cannot open csv file anymore');
 	        }
 	        while (($line = fgetcsv($handler, 0, ";")) !== FALSE) {
-	            if (preg_match('/[0-9]+/', trim($line[EtablissementCsv::COL_ID]))) {
+	            if (!preg_match('/^#/', trim($line[EtablissementCsv::COL_ID]))) {
 	                $this->_csv[] = $line;
 	            }
 	        }
@@ -160,7 +160,7 @@ class ImportEtablissementsCsv {
         	throw new sfException('has errors');
         }
         $famillesSousFamilles = EtablissementFamilles::getSousFamillesByFamille($etab->famille);
-        if (!in_array($etab->sous_famille, $famillesSousFamilles)) {
+        if (!in_array($etab->sous_famille, array_keys($famillesSousFamilles))) {
         	if (isset($this->_errors[$ligne])) {
         		$merge = $this->_errors[$ligne];
         		$merge[] = 'La sous famille "'.$etab->sous_famille.'" n\'est pas associable à la famille "'.$etab->famille.'"';

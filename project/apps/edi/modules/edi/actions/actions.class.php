@@ -170,6 +170,7 @@ class ediActions extends sfActions
   {
     $this->setLayout(false);
     $csv_file = '';
+    $startDate = ($date)? $date."_" : '';
     $lastDate = $date;
     foreach ($items as $item) {
       		$csv_file .= implode(';', $item->value)."\n";
@@ -183,7 +184,7 @@ class ediActions extends sfActions
     }
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('md5', md5($csv_file));
-    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$type."_".$lastDate.".csv");
+    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$type."_".$startDate.$lastDate.".csv");
     $this->response->setHttpHeader('LastDocDate', $lastDate);
     $this->response->setHttpHeader('Last-Modified', date('r', strtotime($lastDate)));
     return $this->renderText($csv_file);

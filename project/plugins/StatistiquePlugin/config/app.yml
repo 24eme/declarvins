@@ -250,7 +250,7 @@ all:
           nom: "Prix moyen"
           noeud: "prix_total_net"
           divise: "Total volume"
-          unite: "€"
+          unite: "€/hl"
           need_replace: false
           replace: null
           var_replace: null
@@ -277,7 +277,7 @@ all:
           nom: "Prix moyen pris en compte"
           noeud: "prix_total_net"
           divise: "Total volume pris en compte"
-          unite: "€"
+          unite: "€/hl"
           need_replace: false
           replace: null
           var_replace: null
