@@ -12,9 +12,7 @@ class DRMMouvementsGenerauxCollectionProduitForm extends sfForm
 	public function configure() 
 	{
         foreach ($this->details as $detail) {
-            if($detail->getDroit(ConfigurationProduit::NOEUD_DROIT_CVO)->taux >= 0){
         	$this->embedForm($detail->getHash(), new DRMMouvementsGenerauxProduitForm($detail));
-            }
         }
     }
 

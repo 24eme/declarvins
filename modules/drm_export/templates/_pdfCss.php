@@ -115,6 +115,12 @@
 		font-weight: normal;
 	}
 
+	table.recap tr td.labels {
+		font-weight: normal;
+		text-align: center;
+		font-size: 8pt;
+	}
+
 	table.recap tr th.vide, table.recap tr td.vide {
 		border: none;
 	}
