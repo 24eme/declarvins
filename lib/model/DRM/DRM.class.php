@@ -355,7 +355,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         {
             $id_drm_ref = DRMClient::getInstance()->buildId($this->identifiant, $this->periode);
             if($id_drm_ref != $this->_id){
-            $drm_ref = DRMClient::getInstance()->find();
+            $drm_ref = DRMClient::getInstance()->find($id_drm_ref);
             }
         }
         $this->add('referente',1);
