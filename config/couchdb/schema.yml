@@ -11,7 +11,16 @@ Etablissement:
               type: collection
               definition:
                 fields:
-                  volume_bloque: { type: float }
+                  volume_bloque:
+                    type: collection
+                    definition:
+                      fields:
+                        '*':
+                          type: collection
+                          definition:
+                            fields:
+                              date: {  }
+                              volume: { type: float }
       identifiant: { }
       nom: { }
       type: {  }

@@ -117,4 +117,23 @@ class Etablissement extends BaseEtablissement {
 
         return sprintf('%s (%s)', $this->nom, $this->identifiant);
     }
+    
+    public function getVolumeBloque($produit, $atDate = null)
+    {    
+    	$atDate = ($atDate)? $atDate : date('Y-m-d');
+    	if ($this->produits->exist($produit)) {
+    		$volumes = $this->produits->get($produit)->volume_bloque->toArray();
+    		if (count($volumes) > 0) {
+    			ksort($volumes);
+    			$v = null;
+    			foreach ($volumes as $date => $volume) {
+    				if ($date <= $atDate) {
+    					$v = $volume->volume;
+    				}
+    			}
+    			return $v;
+    		}
+    	}
+    	return null;
+    }
 }
