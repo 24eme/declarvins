@@ -134,15 +134,15 @@ class DAIDSDetail extends BaseDAIDSDetail {
     public function isComplete() {
         return $this->stocks->chais > 0 || $this->stocks->propriete_tiers > 0 || $this->stocks->tiers > 0;
     }
-
     
     public function updateVolumeBloque()
     {
     	$produitHash =  str_replace('/declaration/', '', $this->getCepage()->getHash());
       	$produitHash = str_replace('/', '_', $produitHash);
       	$etablissement = $this->getDocument()->getEtablissement();
+      	$date = $this->getDocument()->periode.'-01'; 
       	if ($etablissement->produits->exist($produitHash)) {
-      		$this->stock_propriete_details->reserve = $etablissement->produits->get($produitHash)->volume_bloque;
+      		$this->stocks_debut->bloque = $etablissement->getVolumeBloque($produitHash, $date);
       	}
     }
 }

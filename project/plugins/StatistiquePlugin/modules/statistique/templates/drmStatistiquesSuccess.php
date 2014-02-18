@@ -4,7 +4,7 @@
 		<div class="clearfix" id="application_dr">
 			
 			<!-- .options_recherche -->
-			<?php include_partial('drmSearchOptions'); ?>
+			<?php //include_partial('drmSearchOptions'); ?>
 			<!-- fin .options_recherche -->
 			
     		<h1><strong><?php echo $statistiquesConfig['title'] ?></strong></h1>
