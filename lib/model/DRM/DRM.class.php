@@ -721,6 +721,10 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
 
         return $this->version_document->isModifiable();
     }
+    
+    public function isRectificativeAndModificative() {
+        return $this->isModificative() && $this->isRectificative();
+    }
 
     public function getPreviousVersion() {
 
