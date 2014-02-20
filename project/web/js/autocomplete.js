@@ -1,5 +1,6 @@
 (function($)
 {
+	'use strict';
 
 	var normalize = function(term) {
 		var accentMap = { "à": "a", "á": "a", "ã": "a", "ä": "a", "å": "a", "â":"a", "é": "e", "è": "e", "ê": "e", "ë": "e", "ì":"i", "í":"i", "î":"i", "ï":"i", "ð": "o", "ò": "o", "ó": "o", "ô": "o", "õ": "o", "ö":"o", "ù": "u", "ú": "u", "û": "u", "ü": "u", "ý": "y", "ÿ":"y", "ç": "c", "À": "A", "Á": "A", "Â": "A", "Ã": "A", "Ä": "A", "Å": "A", "Ç": "C", "È": "E", "É": "E", "Ê": "E", "Ë": "E", "Ì" : "I", "Í": "I", "Î": "I", "Ï": "I", "Ò":"O", "Ó":"O", "Ô":"O", "Õ":"O", "Ö":"O", "Ù":"U", "Ú":"U", "Û":"U", "Ü":"U", "Ý":"Y" };
@@ -23,10 +24,11 @@
 		var words_text = text.split(reg);
 		var words_term = term.split(reg);
 		var text_final = text;
-		for(wterm in words_term) {
+		var text_current;
+		for(var wterm in words_term) {
 			var matcher = new RegExp(normalize(words_term[wterm]), "i" );
 			var find = false;
-			for(wtext in words_text) {
+			for(var wtext in words_text) {
 				text_current = words_text[wtext];
 			    text_final = text_final.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
 								 		words_term[wterm] +
@@ -51,14 +53,13 @@
 		}
 
 		return text_final;
-	}
+	};
 
 	$.widget("ui.combobox", {
 		_create: function() {
 			var self = this,
 			select = this.element.hide(),
-			selected = select.find( "option:selected" );
-
+			selected = select.find( "option:selected" ),
 			value = selected.text() ? selected.text() : "";
 			
 			var newValueAllowed  = select.hasClass('permissif');
@@ -67,7 +68,7 @@
 				select.append(newValueOption);
 			}
 			
-			var url_ajax = select.attr('data-ajax');
+			var url_ajax = select.data('ajax');
 			var limit = 20;
 			//var prev_term = "";
 			var minLength = (url_ajax) ? 1 : 0;
@@ -81,7 +82,7 @@
 				minLength: minLength,
 				source: function( request, response ) {
 					//prev_term_matcher = new RegExp("^"+prev_term);
-					var new_url_ajax = select.attr('data-ajax');
+					var new_url_ajax = select.data('ajax');
 					if (new_url_ajax != url_ajax) {
 						url_ajax = new_url_ajax;
 						//prev_term = "";
@@ -95,7 +96,7 @@
 							//	return ;
 							//}
 							var inner_select = '';
-							for(hash in data) {
+							for(var hash in data) {
 							 	inner_select += '<option value="'+hash+'">'+data[hash]+'</option>';
 							}
 							select.html(inner_select);
