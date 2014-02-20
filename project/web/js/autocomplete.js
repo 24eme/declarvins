@@ -71,7 +71,7 @@
 			var url_ajax = select.data('ajax');
 			var limit = 20;
 			//var prev_term = "";
-			var minLength = (url_ajax) ? 1 : 0;
+			var minLength = 0;
 			var delay = (url_ajax) ? 300 : 200;
 
 			var input = this.input = $( "<input type='text'>" )
@@ -230,7 +230,7 @@
 						$( this ).blur();
 
 						// pass empty string as value to search for, displaying all results
-						input.autocomplete( "search", $(input).val());
+						input.autocomplete( "search", "");
 						input.focus();
 					});
 						$(input).parent().find('button').button( "option", "disabled", url_ajax && (select.children("option").length > 1));
