@@ -526,8 +526,11 @@
 		var input = $(listenerChoice+' input');
 		var container = $(select.attr('data-infos-container'));
 		input.live( "autocompleteselect", function(event, ui) {
-			var url = $(templateUrl).text().replace(/var---etablissement---/g, $(ui.item.option).val());
-			var url = url.replace(/var---type---/g, type);
+
+			var url = $(templateUrl).html().replace(/var---etablissement---/g, $(ui.item.option).val());
+				url = url.replace(/var---type---/g, type);
+				url = $.trim(url);
+
 			$.get(url, function(data){
 				container.html(data);
 				$('.bloc_form').has('.col').initBlocsFormCol();
