@@ -76,7 +76,7 @@ class drmActions extends sfActions
   public function executeDeleteOne(sfWebRequest $request) {
       $etablissement = $this->getRoute()->getEtablissement();
       $drm = $this->getRoute()->getDRM();
-      if (!$drm->isNew() && ($drm->isSupprimable() || ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->isSupprimableOperateur()))) {
+      if (!$drm->isNew() && !$drm->isValidee()) {
       	if ($drm->isValidee()) {
       		$drm->updateVracVersion();
       	}
