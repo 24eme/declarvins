@@ -34,6 +34,9 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
         $this->setWidget('interpros', new sfWidgetFormInputHidden());
         $this->setValidator('interpros', new sfValidatorString(array('required' => false)));
         $this->getWidget('interpros')->setDefault($this->getInterproId());
+        $this->setWidget('referente', new sfWidgetFormInputHidden());
+        $this->setValidator('referente', new sfValidatorString(array('required' => false)));
+        $this->getWidget('referente')->setDefault(1);
 		/**
 		 * DECLARANT
 		 */
@@ -195,7 +198,7 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
     
     public function getDefaultQuery()
     {
-    	$query_string = new acElasticaQueryQueryString('interpros:'.$this->getInterproId());
+    	$query_string = new acElasticaQueryQueryString('interpros:'.$this->getInterproId().' referente:1');
     	return $query_string;
     }
     

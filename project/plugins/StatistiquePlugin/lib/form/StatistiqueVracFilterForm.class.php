@@ -255,7 +255,13 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
     public function getQuery()
     {
     	$query = new acElasticaQueryMatchAll();
-    	$statistiqueQuery = new StatistiqueQuery(self::$fieldsConfig, $this->getValues());
+    	$values = $this->getValues();
+    	$fieldsConfig = self::$fieldsConfig;
+    	if (!$values['valide.statut']) {
+    		$values['valide.statut'] = '*';
+    		$fieldsConfig['valide.statut'] = StatistiqueQuery::CONFIG_QUERY_STRING;
+    	}
+    	$statistiqueQuery = new StatistiqueQuery($fieldsConfig, $values);
     	$filtered = new acElasticaFiltered($query, $statistiqueQuery->getFilter());
     	return $filtered;
     }
