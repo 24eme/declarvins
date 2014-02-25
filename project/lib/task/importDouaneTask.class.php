@@ -56,9 +56,10 @@ EOF;
     foreach($douanes as $nom) {
         $douane = new Douane();
         $identifiant = strtoupper(str_replace(array(" ","â", "-", "î", "'") ,array("", "a", "", "i", "") ,$nom));
-        $douane->set('_id', $dounae->generateId($identifiant));
+        $douane->set('_id', $douane->generateId($identifiant));
         $douane->nom = $nom;
         $douane->identifiant = $identifiant;
+        $douane->statut = 'Actif';
         $douane->save();
     	$this->logSection('douane', $nom.' importé');
     }

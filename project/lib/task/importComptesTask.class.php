@@ -98,6 +98,26 @@ EOF;
     $ldap = new Ldap();
     $ldap->saveCompte($compte);
     $this->logSection('compte', 'admin-ivse créé');
+    
+    if ($compte = acCouchdbManager::getClient()->find('COMPTE-admin-anivin', acCouchdbClient::HYDRATE_JSON)) {
+        acCouchdbManager::getClient()->deleteDoc($compte);
+    }
+
+    $compte = new CompteVirtuel();
+    $compte->nom = "Anivin";
+    $compte->login = 'admin-anivin';
+    $compte->email = '';
+    $compte->mot_de_passe = "actualys";
+    $compte->droits->add(null, 'admin');
+    foreach ($acces as $accesKey => $accesName) {
+    	 $compte->acces->add(null, $accesKey);
+    }
+    $compte->interpro = array("INTERPRO-ANIVIN" => array('statut' => "VALIDE"));
+    $compte->statut = _Compte::STATUT_INSCRIT;
+    $compte->save();
+    $ldap = new Ldap();
+    $ldap->saveCompte($compte);
+    $this->logSection('compte', 'admin-anivin créé');
 
     /*if ($compte = acCouchdbManager::getClient()->find('COMPTE-civp-corinne', acCouchdbClient::HYDRATE_JSON)) {
         acCouchdbManager::getClient()->deleteDoc($compte);
@@ -159,13 +179,13 @@ EOF;
     $compte->email = 'autologin@example.org';
     $compte->save();*/
 
-    if ($e = acCouchdbManager::getClient()->find('ETABLISSEMENT-9223700100', acCouchdbClient::HYDRATE_JSON)) {
+    /*if ($e = acCouchdbManager::getClient()->find('ETABLISSEMENT-9223700100', acCouchdbClient::HYDRATE_JSON)) {
         acCouchdbManager::getClient()->deleteDoc($e);
     }
 
     if ($e = acCouchdbManager::getClient()->find('ETABLISSEMENT-9223700101', acCouchdbClient::HYDRATE_JSON)) {
         acCouchdbManager::getClient()->deleteDoc($e);
-    }
+    }*/
 
     /*if ($e = acCouchdbManager::getClient()->find('ETABLISSEMENT-9223700102', acCouchdbClient::HYDRATE_JSON)) {
         acCouchdbManager::getClient()->deleteDoc($e);
@@ -175,7 +195,7 @@ EOF;
         acCouchdbManager::getClient()->deleteDoc($e);
     }*/
 
-    $e = new Etablissement();
+    /*$e = new Etablissement();
     $e->cvi = "9223700100";
     $e->email = "test@example.org";
     $e->interpro = 'INTERPRO-IR';
@@ -201,7 +221,7 @@ EOF;
     $e->nom = "Garage d'Actualys";
     $e->siege = array("adresse" => "1 rue Garnier", "code_postal" => "13200", "commune" => "Neuilly", "pays" => "France");
     $e->statut = "INSCRIT";
-    $e->save();
+    $e->save();*/
     
     /*$e = new Etablissement();
     $e->cvi = "9223700102";

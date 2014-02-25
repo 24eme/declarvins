@@ -57,9 +57,10 @@ EOF;
   			if ($csv->hasErrors()) {
 				throw new sfException(implode("\n", $csv->getErrors()));
 			}
+			$configurationProduits->interpro_object = $interpro;
+			$configurationProduits->save();
 			$interpro->configuration_produits = $configurationProduits->_id;
 			$interpro->save();
-			$configurationProduits->save();
 			$produits_interpro = $configuration->produits->add($interpro->_id, $configurationProduits->_id);
   		} else {
   			$this->logSection('configuration', 'Aucun CSV produits pour l\'interpro : '.$id, null, 'ERROR');

@@ -98,8 +98,14 @@ class InterproClient extends acCouchdbClient {
 	    $ivse->nom = "Intervins Sud-Est";
 	    $ivse->email_contrat_vrac = '';
 	    $ivse->email_contrat_inscription = '';
+	    $anivin = new Interpro();
+	    $anivin->set('_id', 'INTERPRO-ANIVIN');
+	    $anivin->identifiant = 'ANIVIN';
+	    $anivin->nom = "Anivin";
+	    $anivin->email_contrat_vrac = '';
+	    $anivin->email_contrat_inscription = '';
 	    
-	    $interpros = array('CIVP' => $civp, 'IR' => $ir, 'IVSE' => $ivse);
+	    $interpros = array('CIVP' => $civp, 'IR' => $ir, 'IVSE' => $ivse, 'ANIVIN' => $anivin);
 	    return $interpros;
     }
 
