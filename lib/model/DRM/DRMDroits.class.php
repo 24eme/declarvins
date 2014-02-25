@@ -36,16 +36,15 @@ class DRMDroits extends BaseDRMDroits {
   public function getDroitsWithVirtual() {
     $this->res = $this->toArray();
     $nb_total = array();
-    var_dump($this->toArray());exit;
     foreach($this->toArray() as $key => $value) {
-      //if (preg_match('/^([^_]+)_/', $key, $m)) {
-	$this->addVirtual($key, $value);
-		if (!isset($nb_total[$key])) {
-			$nb_total[$key] = 1;
+      if (preg_match('/^([^_]+)_/', $key, $m)) {
+	$this->addVirtual($m[1], $value);
+		if (!isset($nb_total[$m[1]])) {
+			$nb_total[$m[1]] = 1;
 		} else {
-        	$nb_total[$key]++;
+        	$nb_total[$m[1]]++;
 		}
-      //}
+      }
       $this->addVirtual('ZZZZTotal', $value);
     }
     foreach($nb_total as $code => $nb) {
