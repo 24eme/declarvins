@@ -207,14 +207,21 @@ class Email {
         return $this->_context->getController()->getAction('Email', 'main')->getPartial('Email/' . $partial, $vars);
     }
 
-    protected function getFromEmailInterpros($interpros = null, $isInscription = false) {
+    protected function getFromEmailInterpros($interpros = array(), $isInscription = false) {
         if(!$interpros){
             return array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
         }
-        if(count($interpros) > 1){
-            return array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
+        $interpro = null;
+        if (count($interpros) > 0) {
+        	foreach ($interpros as $inter) {
+        		if ($inter->_id == InterproClient::INTERPRO_REFERENTE) {
+        			$interpro = $inter;
+        		}
+        	}
         }
-        $interpro = $interpros[0];
+        if (!$interpro) {
+        	$interpro = $interpros[0];
+        }
         if(!$isInscription){
             return array($interpro->email_contrat_vrac => $interpro->nom);
         }
