@@ -47,6 +47,7 @@ class DRMDroits extends BaseDRMDroits {
       }
       $this->addVirtual('ZZZZTotal', $value);
     }
+    var_dump($nb_total);exit;
     foreach($nb_total as $code => $nb) {
 	if ($nb < 2) {
 		unset($this->res[$code]);
