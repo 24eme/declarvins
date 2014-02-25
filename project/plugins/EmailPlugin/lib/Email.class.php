@@ -173,7 +173,7 @@ class Email {
     
     public function sendCompteRegistration($compte, $destinataire) 
     {
-        $interpros = array($compte-getEtablissement()->getInterproObject());
+        $interpros = array($compte->getEtablissement()->getInterproObject());
         $from = $this->getFromEmailInterpros($interpros,true);
         $to = array($destinataire);
         $subject = 'Activation de votre compte sur Declarvins.net';
