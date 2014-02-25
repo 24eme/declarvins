@@ -52,7 +52,7 @@ class ProjectConfiguration extends sfProjectConfiguration
 			$params = array_merge($config['routing']['param'], array('load_configuration' => false,
           															 'logging'            => false,
           															 'context'            => array('host'      => sfConfig::get('app_routing_context_production_host', 'localhost'),
-            																					   'prefix'    => sfConfig::get('app_prefix', sfConfig::get('sf_no_script_name') ? '' : '/'.$appConfig->getApplication().'_'.$appConfig->getEnvironment().'.php'),
+            																					   'prefix'    => '',
             														 							   'is_secure' => sfConfig::get('app_routing_context_secure', false))));
 			$handler = new sfRoutingConfigHandler();
 			$routes = $handler->evaluate($appConfig->getConfigPaths('config/routing.yml'));
