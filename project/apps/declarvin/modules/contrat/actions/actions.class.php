@@ -205,7 +205,7 @@ class contratActions extends sfActions
         Email::getInstance()->sendContratMandat($contrat, $contrat->email,$interpros);
   	foreach ($interpros as $interpro) {
   		if ($interpro->email_contrat_inscription) {
-  			Email::getInstance()->sendContratMandat($contrat, $interpro->email_contrat_inscription,$interpros[0]);
+  			Email::getInstance()->sendContratMandat($contrat, $interpro->email_contrat_inscription, $interpro->email_contrat_inscription);
   		}	
   	}
   }
