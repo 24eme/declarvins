@@ -8,5 +8,8 @@ class VracMarcheIrForm extends VracMarcheForm
 		$this->getWidget('prix_total_unitaire')->setLabel('Prix unitaire total HT:');
 		$this->getWidget('prix_total_unitaire')->setDefault($this->getObject()->getTotalUnitaire());
         unset($this['annexe']);
+    	if (!sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && isset($this['type_transaction'])) {
+            unset($this['type_transaction']);
+        }
     }
 }
