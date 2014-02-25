@@ -175,7 +175,7 @@ class Email {
     {
     	$interpros = array();
     	foreach ($compte->interpro as $id => $values) {
-    		$interpros = InterproClient::getInstance()->find($id);
+    		$interpros[] = InterproClient::getInstance()->find($id);
     	}
         $from = $this->getFromEmailInterpros($interpros,true);
         $to = array($destinataire);
@@ -192,7 +192,7 @@ class Email {
     {
     	$interpros = array();
     	foreach ($compte->interpro as $id => $values) {
-    		$interpros = InterproClient::getInstance()->find($id);
+    		$interpros[] = InterproClient::getInstance()->find($id);
     	}
         $from = $this->getFromEmailInterpros($interpros,true);
         $to = array($destinataire);
