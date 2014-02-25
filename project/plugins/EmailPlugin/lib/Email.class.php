@@ -173,7 +173,10 @@ class Email {
     
     public function sendCompteRegistration($compte, $destinataire) 
     {
-        $interpros = array($compte->getEtablissement()->getInterproObject());
+    	$interpros = array();
+    	foreach ($compte->interpro as $id => $values) {
+    		$interpros = InterproClient::getInstance()->find($id);
+    	}
         $from = $this->getFromEmailInterpros($interpros,true);
         $to = array($destinataire);
         $subject = 'Activation de votre compte sur Declarvins.net';
@@ -187,7 +190,10 @@ class Email {
     
     public function sendRedefinitionMotDePasse($compte, $destinataire) 
     {
-        $interpros = array($compte-getEtablissement()->getInterproObject());
+    	$interpros = array();
+    	foreach ($compte->interpro as $id => $values) {
+    		$interpros = InterproClient::getInstance()->find($id);
+    	}
         $from = $this->getFromEmailInterpros($interpros,true);
         $to = array($destinataire);
         $subject = 'Redéfinition du mot de passe';
