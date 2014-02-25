@@ -36,6 +36,7 @@ class DRMDroits extends BaseDRMDroits {
   public function getDroitsWithVirtual() {
     $this->res = $this->toArray();
     $nb_total = array();
+    var_dump($this->toArray());exit;
     foreach($this->toArray() as $key => $value) {
       //if (preg_match('/^([^_]+)_/', $key, $m)) {
 	$this->addVirtual($key, $value);
