@@ -39,7 +39,7 @@ class DRMDroits extends BaseDRMDroits {
     foreach($this->toArray() as $key => $value) {
       //if (preg_match('/^([^_]+)_/', $key, $m)) {
 	$this->addVirtual($key, $value);
-		if (!isset($nb_total[$m[1]])) {
+		if (!isset($nb_total[$key])) {
 			$nb_total[$key] = 1;
 		} else {
         	$nb_total[$key]++;
