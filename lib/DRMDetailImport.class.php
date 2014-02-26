@@ -21,17 +21,24 @@ class DRMDetailImport
     	$drm = $this->parseDrm();
     	$hasDetail = true;
     	try {
-  			$detail = $drm->addProduit($this->getHashProduit(), explode('|', $this->getDataValue(DRMDateView::VALUE_LABELS, 'drm detail labels')));
-	      	switch($this->getDataValue(DRMDateView::VALUE_TYPE, 'type ligne', true, '/^(DETAIL|CONTRAT)$/')) {
-				case 'DETAIL':
-		  			$this->parseDetail($detail);
-		  			break;
-				case 'CONTRAT':
-		  			$this->parseContrat($detail);
-		  			break;
-				default:
-					break;
-			}
+    		$configuration = ConfigurationClient::getCurrent();
+    		$hash = $this->getHashProduit();
+    		if ($configuration->getConfigurationProduit($hash)) {
+	  			$detail = $drm->addProduit($this->getHashProduit(), explode('|', $this->getDataValue(DRMDateView::VALUE_LABELS, 'drm detail labels')));
+		      	switch($this->getDataValue(DRMDateView::VALUE_TYPE, 'type ligne', true, '/^(DETAIL|CONTRAT)$/')) {
+					case 'DETAIL':
+			  			$this->parseDetail($detail);
+			  			break;
+					case 'CONTRAT':
+			  			$this->parseContrat($detail);
+			  			break;
+					default:
+						break;
+				}
+    		} else {
+				$this->loggeur->addLog('Pas de configuration pour le produit '.$hash);    	
+				$hasDetail = false;	
+    		}
     	} catch (Exception $e) {
 			$this->loggeur->addLog($e->getMessage());    	
 			$hasDetail = false;	
