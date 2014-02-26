@@ -10,6 +10,8 @@ class Configuration extends BaseConfiguration
     protected $_configuration_produits_CIVP = null;
     protected $_configuration_produits_IVSE = null;
     protected $_configuration_produits_ANIVIN = null;
+    protected $_configuration_produits_CIVL = null;
+    protected $_configuration_produits_IO = null;
     
     protected static $stocks_debut = array(
     	'bloque' => 'Dont Vin bloqué',
