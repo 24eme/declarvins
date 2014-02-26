@@ -13,7 +13,7 @@ class interproActions extends sfActions
 
     public function executeUploadCsv(sfWebRequest $request) {  
     	$this->forward404Unless($this->interpro = InterproClient::getInstance()->getById($request->getParameter("id")));     
-    	ini_set('memory_limit', '512M');
+    	ini_set('memory_limit', '1024M');
     	set_time_limit(60);
         $this->formUploadCsv = new UploadCSVForm();
 		$this->hasErrors = false;
@@ -37,7 +37,9 @@ class interproActions extends sfActions
     }
     
 	public function executeUploadCsvVolumesBloques(sfWebRequest $request) {  
-    	$this->forward404Unless($this->interpro = $this->getUser()->getCompte()->getGerantInterpro());     
+    	$this->forward404Unless($this->interpro = $this->getUser()->getCompte()->getGerantInterpro());  
+    	ini_set('memory_limit', '1024M');
+    	set_time_limit(60);   
         $this->formUploadCsv = new UploadCSVForm();
 		$this->hasErrors = false;
         if ($request->isMethod(sfWebRequest::POST) && $request->getFiles('csv')) {
