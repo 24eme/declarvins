@@ -280,6 +280,7 @@ class drmActions extends sfActions
   public function executeVisualisation(sfWebRequest $request)
   {
     $this->drm = $this->getRoute()->getDRM();
+    //print_r(($this->drm->droits->get('douane')->getDroitsWithVirtual()));exit;
     $this->etablissement = $this->getRoute()->getEtablissement();
     $this->hide_rectificative = $request->getParameter('hide_rectificative');
     $this->drm_suivante = $this->drm->getSuivante();
