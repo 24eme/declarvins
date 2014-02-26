@@ -86,18 +86,21 @@ class InterproClient extends acCouchdbClient {
     	$civp->nom = 'CIVP';
     	$civp->email_contrat_vrac = 'eco@provencewines.com';
     	$civp->email_contrat_inscription = 'eco@provencewines.com';
+    	
 	    $ir = new Interpro();
 	    $ir->set('_id', 'INTERPRO-IR');
 	    $ir->identifiant = 'IR';
 	    $ir->nom = 'InterRhône';
 	    $ir->email_contrat_vrac = 'declarvins@inter-rhone.com';
 	    $ir->email_contrat_inscription = 'declarvins@inter-rhone.com';
+	    
 	    $ivse = new Interpro();
 	    $ivse->set('_id', 'INTERPRO-IVSE');
 	    $ivse->identifiant = 'IVSE';
 	    $ivse->nom = "Intervins Sud-Est";
 	    $ivse->email_contrat_vrac = '';
 	    $ivse->email_contrat_inscription = '';
+	    
 	    $anivin = new Interpro();
 	    $anivin->set('_id', 'INTERPRO-ANIVIN');
 	    $anivin->identifiant = 'ANIVIN';
@@ -105,7 +108,21 @@ class InterproClient extends acCouchdbClient {
 	    $anivin->email_contrat_vrac = '';
 	    $anivin->email_contrat_inscription = '';
 	    
-	    $interpros = array('CIVP' => $civp, 'IR' => $ir, 'IVSE' => $ivse, 'ANIVIN' => $anivin);
+	    $civl = new Interpro();
+	    $civl->set('_id', 'INTERPRO-CIVL');
+	    $civl->identifiant = 'CIVL';
+	    $civl->nom = "CIVL";
+	    $civl->email_contrat_vrac = '';
+	    $civl->email_contrat_inscription = '';
+	    
+	    $io = new Interpro();
+	    $io->set('_id', 'INTERPRO-IO');
+	    $io->identifiant = 'IO';
+	    $io->nom = "InterOC";
+	    $io->email_contrat_vrac = '';
+	    $io->email_contrat_inscription = '';
+	    
+	    $interpros = array('CIVP' => $civp, 'IR' => $ir, 'IVSE' => $ivse, 'ANIVIN' => $anivin, 'CIVL' => $civl, 'IO' => $io);
 	    return $interpros;
     }
 

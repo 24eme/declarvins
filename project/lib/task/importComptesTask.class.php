@@ -118,6 +118,46 @@ EOF;
     $ldap = new Ldap();
     $ldap->saveCompte($compte);
     $this->logSection('compte', 'admin-anivin créé');
+    
+    if ($compte = acCouchdbManager::getClient()->find('COMPTE-admin-civl', acCouchdbClient::HYDRATE_JSON)) {
+        acCouchdbManager::getClient()->deleteDoc($compte);
+    }
+
+    $compte = new CompteVirtuel();
+    $compte->nom = "CIVL";
+    $compte->login = 'admin-civl';
+    $compte->email = '';
+    $compte->mot_de_passe = "actualys";
+    $compte->droits->add(null, 'admin');
+    foreach ($acces as $accesKey => $accesName) {
+    	 $compte->acces->add(null, $accesKey);
+    }
+    $compte->interpro = array("INTERPRO-CIVL" => array('statut' => "VALIDE"));
+    $compte->statut = _Compte::STATUT_INSCRIT;
+    $compte->save();
+    $ldap = new Ldap();
+    $ldap->saveCompte($compte);
+    $this->logSection('compte', 'admin-civl créé');
+    
+    if ($compte = acCouchdbManager::getClient()->find('COMPTE-admin-io', acCouchdbClient::HYDRATE_JSON)) {
+        acCouchdbManager::getClient()->deleteDoc($compte);
+    }
+
+    $compte = new CompteVirtuel();
+    $compte->nom = "InterOC";
+    $compte->login = 'admin-io';
+    $compte->email = '';
+    $compte->mot_de_passe = "actualys";
+    $compte->droits->add(null, 'admin');
+    foreach ($acces as $accesKey => $accesName) {
+    	 $compte->acces->add(null, $accesKey);
+    }
+    $compte->interpro = array("INTERPRO-IO" => array('statut' => "VALIDE"));
+    $compte->statut = _Compte::STATUT_INSCRIT;
+    $compte->save();
+    $ldap = new Ldap();
+    $ldap->saveCompte($compte);
+    $this->logSection('compte', 'admin-io créé');
 
     /*if ($compte = acCouchdbManager::getClient()->find('COMPTE-civp-corinne', acCouchdbClient::HYDRATE_JSON)) {
         acCouchdbManager::getClient()->deleteDoc($compte);
