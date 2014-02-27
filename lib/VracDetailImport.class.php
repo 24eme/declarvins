@@ -23,7 +23,8 @@ class VracDetailImport
     	try {
   			$vrac = $this->parseVrac();
     		$this->parseLot($vrac);
-    		$result = ConfigurationClient::getInstance()->getDroitsByHashAndTypeAndPeriode('/'.$vrac->produit, DRMDroits::DROIT_CVO);
+    		$date = ($vrac->valide->date_saisie)? date('Y-m-d', strtotime($vrac->valide->date_saisie)) : null;
+    		$result = ConfigurationClient::getCurrent()->getConfigurationProduit($vrac->produit)->getCurrentDroit(DRMDroits::DROIT_CVO, $date, true);
 	        if ($result) {
 		        $vrac->part_cvo = $result->taux;
 	        }
@@ -159,10 +160,10 @@ class VracDetailImport
   			$lot->assemblage = ($this->datas[VracDateView::VALUE_LOT_ASSEMBLAGE] == 1)? 1 : 0;
   			$lot->degre = $this->getDataValue(VracDateView::VALUE_LOT_DEGRE, 'lot degré', false);
   			$lot->presence_allergenes = ($this->datas[VracDateView::VALUE_LOT_PRESENCE_ALLERGENES] == 1)? 1 : 0;
-  			$lot->bailleur = $this->getDataValue(VracDateView::VALUE_LOT_BAILLEUR, 'lot bailleur', false);
+  			/*$lot->bailleur = $this->getDataValue(VracDateView::VALUE_LOT_BAILLEUR, 'lot bailleur', false);
   			if ($lot->bailleur) {
   				$lot->metayage = 1;
-  			}
+  			}*/
 	  		if ($cuves = $this->datas[VracDateView::VALUE_LOT_CUVES_NUMERO]) {
 	    		$numeros = explode('|', $cuves);
 	    		$dates = explode('|', $this->datas[VracDateView::VALUE_LOT_CUVES_DATE]);
