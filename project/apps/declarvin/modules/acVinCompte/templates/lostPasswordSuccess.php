@@ -10,7 +10,7 @@
 	<form id="creation_compte" method="post" action="<?php echo url_for('@compte_lost_password') ?>">
 		<?php echo $form->renderHiddenFields(); ?>
 		<?php echo $form->renderGlobalErrors(); ?>
-		<h1>Mot de passe oublié</h1>		
+		<h1>Mot de passe oublié</h1>	
 		<p class="txt-espace">
 		Veuillez saisir l'identifiant de votre compte pour lancer une procédure de redéfinition de votre mot de passe.<br />
 		Vous recevrez un email afin de modifier votre mot de passe.<br /><br />
@@ -26,14 +26,13 @@
 				<?php echo $form['login']->renderLabel() ?>
 				<?php echo $form['login']->render() ?>
 			</div>
+			<strong class="champs_obligatoires">* Champs obligatoires</strong>
 		</div>
-		<div class="col">
-			<div class="ligne_btn">
-				<?php if ($email_send): ?>
-				<a href="<?php echo url_for('@ac_vin_login') ?>">Retour à la page de login</a>
-				<?php endif; ?>
-				<button type="submit" class="btn_valider">Valider</button>
-			</div>
+		<div class="ligne_btn">
+			<button type="submit" class="btn_valider">Valider</button>
 		</div>
+		<?php if ($email_send): ?>
+		<a href="<?php echo url_for('@ac_vin_login') ?>"><br /><span>Retour à la page de login</span></a>
+		<?php endif; ?>	
 	</form>
 </section>

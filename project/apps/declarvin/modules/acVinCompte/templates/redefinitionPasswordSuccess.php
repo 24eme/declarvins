@@ -22,11 +22,10 @@
 				<?php echo $form['mdp2']->renderLabel() ?>
 				<?php echo $form['mdp2']->render() ?>
 			</div>
+			<strong class="champs_obligatoires">* Champs obligatoires</strong>
 		</div>
-		<div class="col">
-			<div class="ligne_btn">
-				<button type="submit" class="btn_valider">Valider</button>
-			</div>
+		<div class="ligne_btn">
+			<button type="submit" class="btn_valider"><span>Valider</span></button>
 		</div>
 	</form>
 </section>
