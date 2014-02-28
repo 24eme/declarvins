@@ -23,8 +23,7 @@ abstract class Mouvement extends acCouchdbDocumentTree
 
     public function getMD5Key() {
         $key = $this->getDocument()->identifiant . $this->produit_hash . $this->type_hash . $this->detail_identifiant;
-        if ($this->detail_identifiant)
-            $key.= uniqid();
+        $key.= uniqid();
         
         return md5($key);
     }
