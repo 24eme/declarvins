@@ -85,7 +85,7 @@ class ConfigurationVrac extends BaseConfigurationVrac {
     public function getKeyAndLibelle($node, $libelle) {
     	$result = array();
     	foreach ($this->{$node} as $k => $v) {
-    		if ($this->cleanForCompare($v) == $this->cleanForCompare($libelle)) {
+    		if (preg_match('/'.$this->cleanForCompare($v).'/i', $this->cleanForCompare($libelle)) || preg_match('/'.$this->cleanForCompare($libelle).'/i', $this->cleanForCompare($v))) {
     			$result[] = array('key' => $k, 'libelle' => $v);
     		}
     	}
@@ -97,7 +97,7 @@ class ConfigurationVrac extends BaseConfigurationVrac {
     	if (!$str) {
     		return null;
     	}
-    	return strtolower(KeyInflector::unaccent(trim($str)));
+    	return strtolower(KeyInflector::slugify(trim($str)));
     }
 
     public function getLibelles($collection, $node) {
