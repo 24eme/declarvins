@@ -54,8 +54,16 @@ class VracDetailImport
     	$vrac->valide->date_validation = $this->datize($this->getDataValue(VracDateView::VALUE_DATE_VALIDATION, 'vrac date de validation'), VracDateView::VALUE_DATE_VALIDATION, 'vrac date de validation');
     	$vrac->mandataire_exist = 0;
     	$vrac->acheteur_identifiant = $this->getDataValue(VracDateView::VALUE_ACHETEUR_ID, 'identifiant acheteur', false);
+    	$vrac->acheteur->cvi = $this->getDataValue(VracDateView::VALUE_ACHETEUR_CVI, 'cvi acheteur', false);
+    	$vrac->acheteur->siret = $this->getDataValue(VracDateView::VALUE_ACHETEUR_SIRET, 'siret acheteur', false);
+    	$vrac->acheteur->raison_sociale = $this->getDataValue(VracDateView::VALUE_ACHETEUR_NOM, 'nom acheteur', false);
     	$vrac->vendeur_identifiant = $this->getDataValue(VracDateView::VALUE_VENDEUR_ID, 'identifiant vendeur', false);
+    	$vrac->vendeur->cvi = $this->getDataValue(VracDateView::VALUE_VENDEUR_CVI, 'cvi vendeur', false);
+    	$vrac->vendeur->siret = $this->getDataValue(VracDateView::VALUE_VENDEUR_SIRET, 'siret vendeur', false);
+    	$vrac->vendeur->raison_sociale = $this->getDataValue(VracDateView::VALUE_VENDEUR_NOM, 'nom vendeur', false);
     	$vrac->mandataire_identifiant = $this->getDataValue(VracDateView::VALUE_MANDATAIRE_ID, 'identifiant courtier', false);
+    	$vrac->mandataire->siret = $this->getDataValue(VracDateView::VALUE_MANDATAIRE_SIRET, 'siret mandataire', false);
+    	$vrac->mandataire->raison_sociale = $this->getDataValue(VracDateView::VALUE_MANDATAIRE_NOM, 'nom mandataire', false);
     	$vrac->valide->date_validation_vendeur = $vrac->valide->date_validation;
     	$vrac->valide->date_validation_acheteur = $vrac->valide->date_validation;
     	$vrac->valide->date_validation_mandataire = null;
@@ -72,6 +80,12 @@ class VracDetailImport
     		}
     	}
     	$vrac->produit = $this->getHashProduit();
+    	$configuration = ConfigurationClient::getCurrent();
+        $configurationProduit = $configuration->getConfigurationProduit($vrac->produit);
+        if ($configurationProduit) {
+        	$vrac->setDetailProduit($configurationProduit);
+        	$vrac->produit_libelle = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles());
+        }
     	$vrac->millesime = $this->getDataValue(VracDateView::VALUE_MILLESIME, 'millesime', false, "/^[0-9]{4}$/");
     	if (!$vrac->millesime) {
     		$vrac->millesime = $this->getDataValue(VracDateView::VALUE_MILLESIME_CODE, 'millesime', false, "/^[0-9]{4}$/");	
@@ -90,7 +104,7 @@ class VracDetailImport
 	    		if ($r = $this->config->getKeyAndLibelle('mentions', $mention)) {
 	    			$libelles = array();
 	    			foreach ($r as $data) {
-	    				$vrac->mentions->getOrAdd($data['key']);
+	    				$vrac->mentions->add(null, $data['key']);
 	    				$libelles[] = $data['libelle'];
 	    			}
 	    			$vrac->mentions_libelle = implode(', ', $libelles);
@@ -123,8 +137,8 @@ class VracDetailImport
     	$vrac->vin_livre = ($this->datas[VracDateView::VALUE_VIN_LIVRE])? strtolower(KeyInflector::unaccent(trim($this->datas[VracDateView::VALUE_VIN_LIVRE]))) : null;
     	$vrac->premiere_mise_en_marche = ($this->datas[VracDateView::VALUE_PREMIERE_MISE_EN_MARCHE] == 1)? 1 : 0;
     	$vrac->annexe = ($this->datas[VracDateView::VALUE_ANNEXE] == 1)? 1 : 0;
-    	$vrac->volume_propose = ($this->datas[VracDateView::VALUE_VOLUME_PROPOSE])? sprintf('%2f', $this->floatize($this->datas[VracDateView::VALUE_VOLUME_PROPOSE])) : null;
-    	$vrac->prix_unitaire = ($this->datas[VracDateView::VALUE_PRIX_UNITAIRE])? sprintf('%2f', $this->floatize($this->datas[VracDateView::VALUE_PRIX_UNITAIRE])) : null;
+    	$vrac->volume_propose = ($this->datas[VracDateView::VALUE_VOLUME_PROPOSE])? sprintf('%01.2f', $this->floatize($this->datas[VracDateView::VALUE_VOLUME_PROPOSE])) : null;
+    	$vrac->prix_unitaire = ($this->datas[VracDateView::VALUE_PRIX_UNITAIRE])? sprintf('%01.2f', $this->floatize($this->datas[VracDateView::VALUE_PRIX_UNITAIRE])) : null;
     	$vrac->determination_prix = $this->getDataValue(VracDateView::VALUE_DETERMINATION_PRIX, 'mode de détermination du prix', false);
     	$vrac->export = ($this->datas[VracDateView::VALUE_EXPORT] == 1)? 1 : 0;
     	$vrac->reference_contrat_pluriannuel = $this->getDataValue(VracDateView::VALUE_REFERENCE_CONTRAT_PLURIANNUEL, 'reference contrat pluriannuel', false);
@@ -138,11 +152,11 @@ class VracDetailImport
     		foreach ($dates as $k => $date) {
     			$e = $vrac->paiements->add();
     			$e->date = $this->datizeMin($this->datize($date, VracDateView::VALUE_PAIEMENTS_DATE, 'échéancier date'));
-    			$e->montant = (isset($montants[$k]))? sprintf('%2f', $this->floatize($montants[$k])) : null;
-    			$e->volume = (isset($volumes[$k]))? sprintf('%2f', $this->floatize($volumes[$k])) : null;
+    			$e->montant = (isset($montants[$k]))? sprintf('%01.2f', $this->floatize($montants[$k])) : null;
+    			$e->volume = (isset($volumes[$k]))? sprintf('%01.2f', $this->floatize($volumes[$k])) : null;
     		}
     	}
-    	$vrac->valide->statut = $this->getDataValue(VracDateView::VALUE_STATUT, 'statut', false);
+    	$vrac->valide->statut = VracClient::matchStatut($this->getDataValue(VracDateView::VALUE_STATUT, 'statut', false));
     	return $vrac;
   	}
   	
@@ -155,24 +169,25 @@ class VracDetailImport
   	{
   		$numeroLot = $this->getDataValue(VracDateView::VALUE_LOT_NUMERO, 'numero de lot', false);
   		if ($numeroLot) {
+  			foreach ($vrac->lots as $l) {
+  				if ($l->numero == $numeroLot) {
+  					return;
+  				}
+  			}
   			$lot = $vrac->lots->add();
   			$lot->numero = $numeroLot;
   			$lot->assemblage = ($this->datas[VracDateView::VALUE_LOT_ASSEMBLAGE] == 1)? 1 : 0;
   			$lot->degre = $this->getDataValue(VracDateView::VALUE_LOT_DEGRE, 'lot degré', false);
   			$lot->presence_allergenes = ($this->datas[VracDateView::VALUE_LOT_PRESENCE_ALLERGENES] == 1)? 1 : 0;
-  			/*$lot->bailleur = $this->getDataValue(VracDateView::VALUE_LOT_BAILLEUR, 'lot bailleur', false);
-  			if ($lot->bailleur) {
-  				$lot->metayage = 1;
-  			}*/
 	  		if ($cuves = $this->datas[VracDateView::VALUE_LOT_CUVES_NUMERO]) {
 	    		$numeros = explode('|', $cuves);
 	    		$dates = explode('|', $this->datas[VracDateView::VALUE_LOT_CUVES_DATE]);
 	    		$volumes = explode('|', $this->datas[VracDateView::VALUE_LOT_CUVES_VOLUME]);
 	    		foreach ($numeros as $k => $numero) {
 	    			$c = $lot->cuves->add();
-	    			$c->numero = $this->getDataValue($numero, VracDateView::VALUE_LOT_CUVES_NUMERO, 'lot cuve numéro', true);
+	    			$c->numero = $this->getData($numero, VracDateView::VALUE_LOT_CUVES_NUMERO, 'lot cuve numéro', true);
 	    			$c->date = (isset($dates[$k]))? $this->datizeMin($this->datize($dates[$k], VracDateView::VALUE_LOT_CUVES_DATE, 'lot cuve date')) : null;
-	    			$c->volume = (isset($volumes[$k]))? sprintf('%2f', $this->floatize($volumes[$k])) : null;
+	    			$c->volume = (isset($volumes[$k]))? sprintf('%01.2f', $this->floatize($volumes[$k])) : null;
 	    		}
 	    	}
 	  		if ($millesimes = $this->datas[VracDateView::VALUE_LOT_MILLESIMES_ANNEE]) {
@@ -180,15 +195,35 @@ class VracDetailImport
 	    		$pourcentages = explode('|', $this->datas[VracDateView::VALUE_LOT_MILLESIMES_POURCENTAGE]);
 	    		foreach ($annees as $k => $annee) {
 	    			$m = $lot->millesimes->add();
-	    			$m->annee = $this->getDataValue($annee, VracDateView::VALUE_LOT_MILLESIMES_ANNEE, 'lot année millésime', false, '/^[0-9]{4}$/');
-	    			$m->pourcentage = (isset($pourcentages[$k]))? sprintf('%2f', $this->floatize($pourcentages[$k])) : null;
+	    			$m->annee = $this->getData($annee, VracDateView::VALUE_LOT_MILLESIMES_ANNEE, 'lot année millésime', false, '/^[0-9]{4}$/');
+	    			$m->pourcentage = (isset($pourcentages[$k]))? $this->floatize($pourcentages[$k]) : null;
 	    		}
 	    	}
   		}
   	}
   
+  	private function getData($value, $dataIndice, $dataName, $required = false, $regexp = null)
+  	{
+  		$value = trim($value);
+  		if ($value == " ") {
+  			$value = null;
+  		}
+  		if ($required && !$value) {
+  			$this->loggeur->addEmptyColumnLog($dataIndice, $dataName);
+  			return null;
+  		}
+  		if ($value && $regexp && !preg_match($regexp, $value)) {
+  			if ($required) {
+  				$this->loggeur->addInvalidColumnLog($dataIndice, $dataName, $value);
+  			}
+  			return null;
+  		}
+  		return ($value)? $value : null;
+  	}  
+  
   	private function getDataValue($dataIndice, $dataName, $required = false, $regexp = null)
   	{
+  		$this->datas[$dataIndice] = trim($this->datas[$dataIndice]);
   		if ($this->datas[$dataIndice] == " ") {
   			$this->datas[$dataIndice] = null;
   		}
@@ -219,6 +254,7 @@ class VracDetailImport
   
 	private function getKey($key, $withDefault = false) 
 	{
+		$key = trim($key);
 		if ($key == " ") {
   			$key = null;
   		}
@@ -233,6 +269,7 @@ class VracDetailImport
   
 	private function couleurKeyToCode($key) 
 	{
+		$key = trim($key);
 		$correspondances = array(1 => "rouge",
                                  2 => "rose",
                                  3 => "blanc");
@@ -244,6 +281,7 @@ class VracDetailImport
 	
 	public function datize($str, $dataIndice, $dataName) 
 	{
+		$str = trim($str);
   		if (!$str) {
   			return null;
   		}
@@ -269,6 +307,7 @@ class VracDetailImport
   	
   	public function datizeMin($str)
   	{
+  		$str = trim($str);
   		if ($str) {
   			return date("Y-m-d", strtotime($str));
   		}

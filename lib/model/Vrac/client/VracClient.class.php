@@ -163,4 +163,21 @@ class VracClient extends acCouchdbClient {
     {
         return $this->getView('vrac', 'all');
     }
+    
+    public static function matchStatut($statut)
+    {
+      	if (preg_match('/solde/i', $statut)) {
+        	return self::STATUS_CONTRAT_SOLDE;
+      	}
+      	if (preg_match('/annule/i', $statut)) {
+        	return self::ANNULE;
+      	}
+      	if (preg_match('/non/i', $statut)) {
+        	return self::NONSOLDE;
+      	}
+      	if (preg_match('/attente/i', $statut)) {
+        	return self::ATTENTE_VALIDATION;
+      	}
+		return $statut;
+    }
  }
