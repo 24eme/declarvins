@@ -170,7 +170,7 @@ class DRMDetailImport
   		return ($this->datas[$dataIndice])? $this->datas[$dataIndice] : null;
   	}  
   
-	private function getHashProduit() 
+	public function getHashProduit() 
 	{
 		$hash = 'declaration/certifications/'.$this->getKey($this->datas[DRMDateView::VALUE_CERTIFICATION_CODE]).
                 '/genres/'.$this->getKey($this->datas[DRMDateView::VALUE_GENRE_CODE], true).
