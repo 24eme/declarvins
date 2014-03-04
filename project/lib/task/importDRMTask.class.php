@@ -35,16 +35,28 @@ EOF;
     $lignes = $csv->getCsv();
     $drmClient = DRMClient::getInstance();
     $numLigne = 0;
+    $produits = array(
+    	'declaration/certifications/IGP/genres/TRANQ/appellations/IGP/mentions/DEFAUT/lieux/DEFAUT/couleurs/blanc/cepages/DEFAUT',
+    	'declaration/certifications/IGP/genres/TRANQ/appellations/IGP/mentions/DEFAUT/lieux/DEFAUT/couleurs/rose/cepages/DEFAUT',
+    	'declaration/certifications/IGP/genres/TRANQ/appellations/IGP/mentions/DEFAUT/lieux/DEFAUT/couleurs/rouge/cepages/DEFAUT',
+    	'declaration/certifications/IGP/genres/TRANQ/appellations/OC/mentions/DEFAUT/lieux/DEFAUT/couleurs/rose/cepages/DEFAUT',
+    	'declaration/certifications/IGP/genres/TRANQ/appellations/OC/mentions/DEFAUT/lieux/DEFAUT/couleurs/rouge/cepages/DEFAUT',
+    	'declaration/certifications/IGP/genres/TRANQ/appellations/CLR/mentions/DEFAUT/lieux/DEFAUT/couleurs/rose/cepages/DEFAUT'
+    );
     foreach ($lignes as $ligne) {
     	$numLigne++;
     	$import = new DRMDetailImport($ligne, $drmClient);
-    	$drm = $import->getDrm();
-    	if ($import->hasErrors()) {
-    		$this->logSection('drm', "echec de l'import du produit ligne $numLigne", null, 'ERROR');
-    		$this->logBlock($import->getLogs(), 'ERROR');
+    	if (in_array($import->getHashProduit(), $produits)) {
+	    	$drm = $import->getDrm();
+	    	if ($import->hasErrors()) {
+	    		$this->logSection('drm', "echec de l'import du produit ligne $numLigne", null, 'ERROR');
+	    		$this->logBlock($import->getLogs(), 'ERROR');
+	    	} else {
+	    		$drm->save();
+	    		$this->logSection('drm', $drm->get('_id')." : succès de l'import du produit ligne $numLigne.");
+	    	}
     	} else {
-    		$drm->save();
-    		$this->logSection('drm', $drm->get('_id')." : succès de l'import du produit ligne $numLigne.");
+    		$this->logSection('drm', $numLigne." : squeezé");
     	}
     }
   }
