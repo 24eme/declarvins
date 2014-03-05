@@ -24,10 +24,16 @@ class VracDetailImport
   			$vrac = $this->parseVrac();
     		$this->parseLot($vrac);
     		$date = ($vrac->valide->date_saisie)? date('Y-m-d', strtotime($vrac->valide->date_saisie)) : null;
-    		$result = ConfigurationClient::getCurrent()->getConfigurationProduit($vrac->produit)->getCurrentDroit(DRMDroits::DROIT_CVO, $date, true);
-	        if ($result) {
-		        $vrac->part_cvo = $result->taux;
-	        }
+    		echo $vrac->produit;exit;
+    		$conf = ConfigurationClient::getCurrent()->getConfigurationProduit($vrac->produit);
+    		if ($conf) {
+	    		$result = $conf->getCurrentDroit(DRMDroits::DROIT_CVO, $date, true);
+		        if ($result) {
+			        $vrac->part_cvo = $result->taux;
+		        }
+    		} else {
+    			$this->loggeur->addLog("Pas de configuration pour le produit ".$vrac->produit);    
+    		}
 	        $vrac->has_cotisation_cvo = 1;
 	        if ($vrac->interpro == 'INTERPRO-CIVP') {
 	        	$vrac->has_cotisation_cvo = 0;
