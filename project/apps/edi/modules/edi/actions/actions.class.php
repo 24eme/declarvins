@@ -112,6 +112,84 @@ class ediActions extends sfActions
     return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $dateTime->format('c'));
   }
   
+  public function executeStreamDRMEtablissement(sfWebRequest $request) 
+  {
+  	ini_set('memory_limit', '2048M');
+  	set_time_limit(0);
+    $date = $request->getParameter('datedebut', null);
+    if ($date) {
+    	$dateTime = new DateTime($date);
+    	$date = $dateTime->format('c');
+    }
+    $etablissement = $request->getParameter('etablissement');
+    $drms = DRMEtablissementView::getInstance()->findByEtablissement($etablissement, $date);
+    return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $date);
+  }
+  
+  public function executePushDRMEtablissement(sfWebRequest $request)
+  {
+  	ini_set('memory_limit', '2048M');
+  	set_time_limit(0);
+      		var_dump($request->getFiles());
+  	
+	$formUploadCsv = new UploadCSVForm();
+    $result = array();
+	if ($request->isMethod('post')) {
+    	$formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
+      	if ($formUploadCsv->isValid()) {
+			$csv = new CsvFile(sfConfig::get('sf_data_dir') . '/upload/' . $formUploadCsv->getValue('file')->getMd5());
+	      	$lignes = $csv->getCsv();
+		    $drmClient = DRMClient::getInstance();
+		    $numLigne = 0;
+		  	foreach ($lignes as $ligne) {
+		    	$numLigne++;
+		    	$import = new DRMDetailImport($ligne, $drmClient);
+		    	$drm = $import->getDrm();
+		    	if ($import->hasErrors()) {
+		    		$result[$numLigne] = array('ERREUR', 'LIGNE', $numLigne, implode(' - ', $import->getLogs()));
+		    	} else {
+		    		$result[$numLigne] = array('OK', '', $numLigne, '');
+		    		$drm->save();
+		    	}
+		    }
+      	} else {
+      		echo "pas cool";
+      		foreach($formUploadCsv->getErrorSchema()->getErrors() as $key => $error) {
+      			
+      			echo $key;
+      			echo $error;
+      			echo "\n";
+      		}
+      		$result[] = array('ERREUR', 'COHERENCE', 0, 'Fichier csv non valide');
+      	}
+      	
+    } else {
+    	$result[] = array('ERREUR', 'COHERENCE ', 0, 'Appel en POST uniquement');
+    }
+    return $this->renderSimpleCsv($result);
+  }
+
+	
+  protected function renderSimpleCsv($items, $date = null) 
+  {
+    $this->setLayout(false);
+    $csv_file = '';
+  	foreach ($items as $item) {
+      		$csv_file .= implode(';', $item)."\n";
+    }
+    $lastDate = ($date)? $date : date('Ymd');
+    if (!$csv_file) {
+		$this->response->setStatusCode(204);
+		return $this->renderText(null);
+    }
+    $this->response->setContentType('text/csv');
+    $this->response->setHttpHeader('md5', md5($csv_file));
+    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$lastDate."_resultat_import_drm.csv");
+    $this->response->setHttpHeader('LastDocDate', $lastDate);
+    $this->response->setHttpHeader('Last-Modified', date('r', strtotime($lastDate)));
+    return $this->renderText(utf8_decode($csv_file));
+  }
+  
   public function executeStreamStatistiquesBilanDrm(sfWebRequest $request) 
   {
   	ini_set('memory_limit', '2048M');
@@ -172,11 +250,18 @@ class ediActions extends sfActions
     $csv_file = '';
     $startDate = ($date)? $date."_" : '';
     $lastDate = $date;
+    $beginDate = '9999-99-99';
     foreach ($items as $item) {
       		$csv_file .= implode(';', $item->value)."\n";
       	if ($lastDate < $item->value[$dateSaisieIndice]) {
       		$lastDate = $item->value[$dateSaisieIndice];
       	}
+      	if ($beginDate > $item->value[$dateSaisieIndice]) {
+      		$beginDate = $item->value[$dateSaisieIndice];
+      	}
+    }
+    if (!$startDate) {
+    	$startDate = $beginDate."_";
     }
     if (!$csv_file) {
 		$this->response->setStatusCode(204);

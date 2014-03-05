@@ -32,6 +32,9 @@ upload_etablissements:
 streamDRMEdi:
   url: /edi/drm/:interpro/:datedebut
   param: {module: edi, action: streamDRM}
+streamDRMEtablissementEdi:
+  url: /edi/etablissement/drm/:etablissement/:datedebut
+  param: {module: edi, action: streamDRMEtablissement, datedebut: null}
 streamVracEdi:
   url: /edi/vrac/:interpro/:datedebut
   param: {module: edi, action: streamVrac}
@@ -41,6 +44,9 @@ streamDAIDSEdi:
 streamStatistiquesBilanDrm:
   url: /edi/statistiques-bilan-drm/:interpro/:campagne
   param: {module: edi, action: streamStatistiquesBilanDrm}
+pushDRMEtablissementEdi:
+  url: /edi/push/etablissement/drm/:etablissement
+  param: {module: edi, action: pushDRMEtablissement}
 # OK
 viewDRMEdi:
   url: /edi/drm/:identifiant/:annee/:mois/:rectificative
