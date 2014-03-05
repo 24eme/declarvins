@@ -24,7 +24,6 @@ class VracDetailImport
   			$vrac = $this->parseVrac();
     		$this->parseLot($vrac);
     		$date = ($vrac->valide->date_saisie)? date('Y-m-d', strtotime($vrac->valide->date_saisie)) : null;
-    		echo $vrac->produit;exit;
     		$conf = ConfigurationClient::getCurrent()->getConfigurationProduit($vrac->produit);
     		if ($conf) {
 	    		$result = $conf->getCurrentDroit(DRMDroits::DROIT_CVO, $date, true);
