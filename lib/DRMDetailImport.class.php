@@ -181,6 +181,11 @@ class DRMDetailImport
                 '/cepages/'.$this->getKey($this->datas[DRMDateView::VALUE_CEPAGE_CODE], true);
 		return $hash;
 	}
+	
+	public function getEtablissement()
+	{
+		return 	($this->datas[DRMDateView::VALUE_IDENTIFIANT_DECLARANT])? $this->datas[DRMDateView::VALUE_IDENTIFIANT_DECLARANT] : null;
+	}
   
 	private function getKey($key, $withDefault = false) 
 	{
