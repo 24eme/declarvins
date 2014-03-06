@@ -35,6 +35,9 @@ streamDRMEdi:
 streamDRMEtablissementEdi:
   url: /edi/etablissement/drm/:etablissement/:datedebut
   param: {module: edi, action: streamDRMEtablissement, datedebut: null}
+streamCampagneDRMEdi:
+  url: /edi/campagne/drm/:interpro/:campagne
+  param: {module: edi, action: streamCampagneDRM}
 streamVracEdi:
   url: /edi/vrac/:interpro/:datedebut
   param: {module: edi, action: streamVrac}
