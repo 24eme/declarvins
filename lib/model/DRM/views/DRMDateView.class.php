@@ -86,6 +86,13 @@ class DRMDateView extends acCouchdbView
                     		->endkey(array($interpro, $hasVrac, $this->getEndISODateForView(), array()))
                     		->getView($this->design, $this->view);
     }
+
+    public function findByInterproAndDates($interpro, $dates, $hasVrac = 1) 
+    {
+      	return $this->client->startkey(array($interpro, $hasVrac, $dates['begin']))
+                    		->endkey(array($interpro, $hasVrac, $dates['end'], array()))
+                    		->getView($this->design, $this->view);
+    }
     
     public function getEndISODateForView() 
     {
