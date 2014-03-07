@@ -156,17 +156,17 @@ Vrac:
           fields:
             '*': {  }
       mentions_libelle: {  }
-      volume_propose: {  }
+      volume_propose: { type: float }
       annexe: {  }
-      prix_unitaire: {  }
+      prix_unitaire: { type: float }
       type_prix: {  }
       determination_prix: {  }
       date_debut_retiraison: {  }
       date_limite_retiraison: {  }
       commentaires_conditions: {  }
       part_cvo: {  }
-      prix_total: {  }
-      prix_total_net: {  }
+      prix_total: { type: float }
+      prix_total_net: { type: float }
       conditions_paiement: {  }
       conditions_paiement_libelle: {  }
       type_echeancier_paiement: {  }
@@ -185,7 +185,7 @@ Vrac:
               definition:
                 fields:
                   date: {  }
-                  volume: {  }
+                  volume: { type: float }
                   montant: {  }
       clause_reserve_retiraison: {  }
       export: {  }
@@ -208,7 +208,7 @@ Vrac:
                           definition:
                             fields:
                               numero: {  }
-                              volume: {  }
+                              volume: { type: float }
                               date: {  }
                   millesimes:
                     type: array_collection
@@ -234,7 +234,7 @@ Vrac:
       date_stats: {  }
       date_signature: {  }
       date_relance: {  }
-      volume_enleve: {  }
+      volume_enleve: { type: float }
       valide:
         type: collection
         definition:
