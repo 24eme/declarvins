@@ -32,8 +32,8 @@ EOF;
         $i = 1;
         foreach ($vracs->rows as $v) {
         	$vrac = VracClient::getInstance()->find($v->id, acCouchdbClient::HYDRATE_ARRAY);
+        	$vrac->volume_propose = floatval($vrac->volume_propose);
         	$vrac->save();
-        	var_dump($vrac->volume_propose);
 			$this->logSection('vrac', $v->id.' OK '.$i);
 			$i++;
         }
