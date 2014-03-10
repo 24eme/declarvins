@@ -432,6 +432,12 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         if ($i) {
 	        $this->interpros->add(0,$i->getKey());
         }
+    	$details = $this->getDetails();
+    	foreach ($details as $detail) {
+    		if (!in_array($detail->interpro, $this->interpros->toArray())) {
+    			$this->interpros->add(null, $detail->interpro);
+    		}
+    	}
     }
 
     public function save() {

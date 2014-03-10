@@ -410,4 +410,11 @@ class DRMDetail extends BaseDRMDetail {
       	}
     }
     
+    public function storeInterpro()
+    {
+    	if ($config = $this->getConfig()) {
+    		$this->add('interpro', $config->getDocument()->interpro);
+    	}
+    }
+    
 }

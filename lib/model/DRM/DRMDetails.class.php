@@ -19,6 +19,7 @@ class DRMDetails extends BaseDRMDetails {
 	public function addProduit($labels = array()) {
 		$detail = $this->add($this->slugifyLabels($labels));
 		$detail->labels = $labels;
+		$detail->storeInterpro();
 		if ($config = $detail->getCepage()->getConfig()) {
 			$detail->has_vrac = $config->getCurrentDrmVrac(true);
 		}
