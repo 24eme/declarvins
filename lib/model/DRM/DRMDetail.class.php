@@ -414,6 +414,8 @@ class DRMDetail extends BaseDRMDetail {
     {
     	if ($config = $this->getConfig()) {
     		$this->add('interpro', $config->getDocument()->interpro);
+    	} else {
+    		$this->add('interpro', null);
     	}
     }
     
