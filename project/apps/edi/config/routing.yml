@@ -39,7 +39,7 @@ streamCampagneDRMEdi:
   url: /edi/campagne/drm/:interpro/:campagne
   param: {module: edi, action: streamCampagneDRM}
 streamAnneeDRMEdi:
-  url: /edi/annee/drm/:interpro/:campagne
+  url: /edi/annee/drm/:interpro/:annee
   param: {module: edi, action: streamAnneeDRM}
 streamVracEdi:
   url: /edi/vrac/:interpro/:datedebut
