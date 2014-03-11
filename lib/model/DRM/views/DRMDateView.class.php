@@ -106,7 +106,7 @@ class DRMDateView extends acCouchdbView
     
     public function getEndISODateForView() 
     {
-    	return '9999-99-99';
+    	return '9999-99-99T99:99:99'.date('P');
     }
 
 }  
