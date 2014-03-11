@@ -80,23 +80,33 @@ class DRMDateView extends acCouchdbView
         return acCouchdbManager::getView('drm', 'date', 'DRM');
     }
 
-    public function findByInterproAndDate($interpro, $date, $hasVrac = 1) 
+    public function findByInterproAndDate($interpro, $date, $onlyVrac = false) 
     {
-      	return $this->client->startkey(array($interpro, $hasVrac, $date))
-                    		->endkey(array($interpro, $hasVrac, $this->getEndISODateForView(), array()))
+    	if ($onlyVrac) {
+      		return $this->client->startkey(array($interpro, $date, 1))
+                    		->endkey(array($interpro, $this->getEndISODateForView(), 1, array()))
+                    		->getView($this->design, $this->view);
+    	}
+      	return $this->client->startkey(array($interpro, $date))
+                    		->endkey(array($interpro, $this->getEndISODateForView(), array()))
                     		->getView($this->design, $this->view);
     }
 
-    public function findByInterproAndDates($interpro, $dates, $hasVrac = 1) 
+    public function findByInterproAndDates($interpro, $dates, $onlyVrac = false) 
     {
-      	return $this->client->startkey(array($interpro, $hasVrac, $dates['begin']))
-                    		->endkey(array($interpro, $hasVrac, $dates['end'], array()))
+    	if ($onlyVrac) {
+      		return $this->client->startkey(array($interpro, $dates['begin'], 1))
+                    		->endkey(array($interpro, $dates['end'], 1, array()))
+                    		->getView($this->design, $this->view);
+    	}
+      	return $this->client->startkey(array($interpro, $dates['begin']))
+                    		->endkey(array($interpro, $dates['end'], array()))
                     		->getView($this->design, $this->view);
     }
     
     public function getEndISODateForView() 
     {
-    	return '9999-99-99T99:99:99'.date('P');
+    	return '9999-99-99';
     }
 
 }  
