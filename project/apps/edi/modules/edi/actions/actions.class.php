@@ -131,6 +131,25 @@ class ediActions extends sfActions
     return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $datedebut->format('c'));
   }
   
+  public function executeStreamAnneeDRM(sfWebRequest $request) 
+  {
+  	ini_set('memory_limit', '2048M');
+  	set_time_limit(0);
+    $annee = $request->getParameter('annee');
+    $interpro = $request->getParameter('interpro');
+    if (!preg_match('/^([0-9]{4})$/', $annee, $annees)) {
+    	return $this->renderText("Année non valide");
+    }
+    if (!preg_match('/^INTERPRO-/', $interpro)) {
+		$interpro = 'INTERPRO-'.$interpro;
+    }
+    $datedebut = new DateTime($annee.'-01-01');
+    $datefin = new DateTime($annee.'-01-01');
+    $datefin->modify("+1 year")->modify("-1 day");
+    $drms = DRMDateView::getInstance()->findByInterproAndDates($interpro, array('begin' => $datedebut->format('c'), 'end' => $datefin->format('c')));
+    return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $datedebut->format('c'));
+  }
+  
   public function executeStreamDRMEtablissement(sfWebRequest $request) 
   {
   	ini_set('memory_limit', '2048M');
