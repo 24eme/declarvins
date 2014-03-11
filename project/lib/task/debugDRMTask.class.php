@@ -41,7 +41,11 @@ EOF;
       			$detail->storeInterpro();
       		}
       		$drm->setInterpros();
+      		try {
       		$drm->save();
+      		} catch (Exception $e) {
+      			$this->logSection("debug", $drm->_id." bug", null, 'ERROR');
+      		}
       	}
       	$i++;
       	$this->logSection("debug", $i." drm(s) debugguées avec succès", null, 'SUCCESS');
