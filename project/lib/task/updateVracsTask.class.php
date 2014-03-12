@@ -32,8 +32,10 @@ EOF;
         $i = 1;
         foreach ($vracs->rows as $v) {
         	$vrac = VracClient::getInstance()->find($v->id);
-        	$vrac->volume_propose = floatval($vrac->volume_propose);
-        	$vrac->save();
+        	if ($vrac->valide->date_saisie >= '2012-01-01') {
+        		$vrac->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
+        		$vrac->save(false);
+        	}
 			$this->logSection('vrac', $v->id.' OK '.$i);
 			$i++;
         }
