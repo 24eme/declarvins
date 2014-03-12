@@ -80,15 +80,15 @@ class DRMEtablissementView extends acCouchdbView
         return acCouchdbManager::getView('drm', 'etablissement', 'DRM');
     }
 
-    public function findByEtablissement($etablissement, $date = null, $hasVrac = 1) 
+    public function findByEtablissement($etablissement, $date = null) 
     {
     	if (!$date) {
-      		return $this->client->startkey(array($etablissement, $hasVrac))
-                    		->endkey(array($etablissement, $hasVrac, array()))
+      		return $this->client->startkey(array($etablissement))
+                    		->endkey(array($etablissement, array()))
                     		->getView($this->design, $this->view);
     	}
-      	return $this->client->startkey(array($etablissement, $hasVrac, $date))
-                    		->endkey(array($etablissement, $hasVrac, $this->getEndISODateForView(), array()))
+      	return $this->client->startkey(array($etablissement, $date))
+                    		->endkey(array($etablissement, $this->getEndISODateForView(), array()))
                     		->getView($this->design, $this->view);
     }
     
