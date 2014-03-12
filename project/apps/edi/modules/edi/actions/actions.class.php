@@ -10,57 +10,7 @@
  */
 class ediActions extends sfActions
 {
-  public function executeFile(sfWebRequest $request)
-  {
-    $this->formUploadCsv = new UploadCSVForm();
-    
-    if ($request->isMethod('post')) {
-      $this->formUploadCsv->bind($request->getParameter($this->formUploadCsv->getName()), $request->getFiles($this->formUploadCsv->getName()));
-      if ($this->formUploadCsv->isValid()) {
-	return $this->redirect('edi/'.$request->getParameter('csvViewer').'?md5=' . $this->formUploadCsv->getValue('file')->getMd5());
-      }
-    }
-  }
 
-  public function executeCsvDRMView(sfWebRequest $request) 
-  {
-    $this->response->setContentType('text/plain');
-    $md5 = $request->getParameter('md5');
-    set_time_limit(600);
-
-    $csv = new DRMCsvFile(sfConfig::get('sf_data_dir') . '/upload/' . $md5);
-    $this->iddrm = null;
-    try {
-      $drm = $csv->importDRM(array('compte' => $this->getUser()));
-      $drm->mode_de_saisie = 'EDI';
-      $drm->save();
-      $this->iddrm = $drm->_id;
-    }catch(sfException $e) {
-      $this->errors = $csv->getErrors();
-      if (!count($this->errors))
-	throw $e;
-    }
-    
-    $this->setLayout(false);
-  }
-  public function executeCsvContratView(sfWebRequest $request) 
-  {
-    $this->response->setContentType('text/plain');
-    $md5 = $request->getParameter('md5');
-    set_time_limit(600);
-    $csv = new VracCsvFile(sfConfig::get('sf_data_dir') . '/upload/' . $md5);
-    $contrats = $csv->importContrats();
-    $this->nb = count($contrats);
-    $this->errors = $csv->getErrors();
-    foreach($contrats as $c) {
-      $c->save();
-    }
-    $this->setLayout(false);
-  }
-  
-  /*
-   * FONCTION REVUES ET CORRIGEES
-   */
   public function executeStreamDAIDS(sfWebRequest $request) 
   {
   	ini_set('memory_limit', '2048M');
@@ -161,15 +111,14 @@ class ediActions extends sfActions
     }
     $etablissement = $request->getParameter('etablissement');
     $drms = DRMEtablissementView::getInstance()->findByEtablissement($etablissement, $date);
-    return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $date);
+    return $this->renderCsv($drms->rows, DRMEtablissementView::VALUE_DATEDESAISIE, "DRM", $date);
   }
   
   public function executePushDRMEtablissement(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
-  	set_time_limit(0);
-      		var_dump($request->getFiles());
-  	
+  	set_time_limit(0);  	
+    $etablissement = $request->getParameter('etablissement');
 	$formUploadCsv = new UploadCSVForm();
     $result = array();
 	if ($request->isMethod('post')) {
@@ -191,13 +140,6 @@ class ediActions extends sfActions
 		    	}
 		    }
       	} else {
-      		echo "pas cool";
-      		foreach($formUploadCsv->getErrorSchema()->getErrors() as $key => $error) {
-      			
-      			echo $key;
-      			echo $error;
-      			echo "\n";
-      		}
       		$result[] = array('ERREUR', 'COHERENCE', 0, 'Fichier csv non valide');
       	}
       	
@@ -206,26 +148,57 @@ class ediActions extends sfActions
     }
     return $this->renderSimpleCsv($result);
   }
-
-	
-  protected function renderSimpleCsv($items, $date = null) 
+  
+  public function executeStreamVracEtablissement(sfWebRequest $request) 
   {
-    $this->setLayout(false);
-    $csv_file = '';
-  	foreach ($items as $item) {
-      		$csv_file .= implode(';', $item)."\n";
+  	ini_set('memory_limit', '2048M');
+  	set_time_limit(0);
+    $date = $request->getParameter('datedebut', null);
+    if ($date) {
+    	$dateTime = new DateTime($date);
+    	$date = $dateTime->format('c');
     }
-    $lastDate = ($date)? $date : date('Ymd');
-    if (!$csv_file) {
-		$this->response->setStatusCode(204);
-		return $this->renderText(null);
+    $etablissement = $request->getParameter('etablissement');
+    $vracs = VracEtablissementView::getInstance()->findByEtablissement($etablissement, $date);
+    return $this->renderCsv($vracs->rows, VracEtablissementView::VALUE_DATE_SAISIE, "VRAC", $dateTime->format('c'));
+  }
+  
+  public function executePushVracEtablissement(sfWebRequest $request)
+  {
+  	ini_set('memory_limit', '2048M');
+  	set_time_limit(0);  	
+    $etablissement = $request->getParameter('etablissement');
+    $etablissementObject = EtablissementClient::getInstance()->find($etablissement);
+    $interpro = ($etablissementObject)? $etablissementObject->interpo : null;
+	$formUploadCsv = new UploadCSVForm();
+    $result = array();
+	if ($request->isMethod('post')) {
+    	$formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
+      	if ($formUploadCsv->isValid()) {
+			$csv = new CsvFile(sfConfig::get('sf_data_dir') . '/upload/' . $formUploadCsv->getValue('file')->getMd5());
+	      	$lignes = $csv->getCsv();
+    		$vracClient = VracClient::getInstance();
+    		$vracConfiguration = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro);
+		    $numLigne = 0;
+		  	foreach ($lignes as $ligne) {
+		    	$numLigne++;
+		    	$import = new VracDetailImport($ligne, $vracClient, $vracConfiguration);
+		    	$vrac = $import->getVrac();
+		    	if ($import->hasErrors()) {
+		    		$result[$numLigne] = array('ERREUR', 'LIGNE', $numLigne, implode(' - ', $import->getLogs()));
+		    	} else {
+		    		$result[$numLigne] = array('OK', '', $numLigne, '');
+		    		$vrac->save();
+		    	}
+		    }
+      	} else {
+      		$result[] = array('ERREUR', 'COHERENCE', 0, 'Fichier csv non valide');
+      	}
+      	
+    } else {
+    	$result[] = array('ERREUR', 'COHERENCE ', 0, 'Appel en POST uniquement');
     }
-    $this->response->setContentType('text/csv');
-    $this->response->setHttpHeader('md5', md5($csv_file));
-    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$lastDate."_resultat_import_drm.csv");
-    $this->response->setHttpHeader('LastDocDate', $lastDate);
-    $this->response->setHttpHeader('Last-Modified', date('r', strtotime($lastDate)));
-    return $this->renderText(utf8_decode($csv_file));
+    return $this->renderSimpleCsv($result);
   }
   
   public function executeStreamStatistiquesBilanDrm(sfWebRequest $request) 
@@ -281,8 +254,31 @@ class ediActions extends sfActions
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$campagne.".csv");
     return $this->renderText($csv_file);
   }
+  
+  public function executeViewDRM(sfWebRequest $request) 
+  {
+    $drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriodeAndRectificative(
+    		$request->getParameter('identifiant'), 
+        	DRMClient::getInstance()->buildPeriode($request->getParameter('annee'), $request->getParameter('mois')), 
+        	$request->getParameter('rectificative')
+    );
+    $this->forward404Unless($drm);
+    $csv_file = '';
+	$csv = DRMCsvFile::createFromDRM($drm);
+  	foreach($csv->getCsv() as $line) {
+  		$csv_file .= implode(';', $line)."\n";
+	}
+    if (!$csv_file) {
+		$this->response->setStatusCode(204);
+		return $this->renderText(null);
+    }
+    $this->response->setContentType('text/csv');
+    $this->response->setHttpHeader('md5', md5($csv_file));
+    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$drm->_id.".csv");
+    return $this->renderText($csv_file);
+  }
 
-  private function renderCsv($items, $dateSaisieIndice, $type, $date = null) 
+  protected function renderCsv($items, $dateSaisieIndice, $type, $date = null) 
   {
     $this->setLayout(false);
     $csv_file = '';
@@ -312,28 +308,25 @@ class ediActions extends sfActions
     $this->response->setHttpHeader('Last-Modified', date('r', strtotime($lastDate)));
     return $this->renderText($csv_file);
   }
-  
-  public function executeViewDRM(sfWebRequest $request) 
+	
+  protected function renderSimpleCsv($items, $date = null) 
   {
-    $drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriodeAndRectificative(
-    		$request->getParameter('identifiant'), 
-        	DRMClient::getInstance()->buildPeriode($request->getParameter('annee'), $request->getParameter('mois')), 
-        	$request->getParameter('rectificative')
-    );
-    $this->forward404Unless($drm);
+    $this->setLayout(false);
     $csv_file = '';
-	$csv = DRMCsvFile::createFromDRM($drm);
-  	foreach($csv->getCsv() as $line) {
-  		$csv_file .= implode(';', $line)."\n";
-	}
+  	foreach ($items as $item) {
+      		$csv_file .= implode(';', $item)."\n";
+    }
+    $lastDate = ($date)? $date : date('Ymd');
     if (!$csv_file) {
 		$this->response->setStatusCode(204);
 		return $this->renderText(null);
     }
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('md5', md5($csv_file));
-    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$drm->_id.".csv");
-    return $this->renderText($csv_file);
+    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$lastDate."_resultat_import_drm.csv");
+    $this->response->setHttpHeader('LastDocDate', $lastDate);
+    $this->response->setHttpHeader('Last-Modified', date('r', strtotime($lastDate)));
+    return $this->renderText(utf8_decode($csv_file));
   }
 
   // A TESTER
@@ -354,35 +347,5 @@ class ediActions extends sfActions
   	$this->setLayout(false);
   	$this->response->setContentType('text/plain');
   }
-  /*
-   * // FIN
-   * 
-   */
 
-  public function executeRedirect(sfWebRequest $request) {
-	$param = $request->getGetParameters();
-	unset($param['destination']);
-	return $this->redirect(array_merge(array("sf_route" => $request->getParameter('destination')), $param));
-  }
-
-  public function executeListDRM(sfWebRequest $request) 
-  {
-    $this->setLayout(false);
-    $this->response->setContentType('text/plain');
-    $this->historiques = array();
-    $compte = $this->getUser()->getCompte();
-    foreach($this->getUser()->getCompte()->getTiersCollection() as $tiers) {
-      $this->historiques[] = new DRMHistorique($tiers->identifiant);
-    }
-  }
-  public function executeListContrat(sfWebRequest $request) 
-  {
-    $this->setLayout(false);
-    $this->response->setContentType('text/plain');
-    
-    $this->contrats = array();
-    foreach ($this->getUser()->getCompte()->getTiersCollection() as $tiers) {
-      	$this->contrats = array_merge($this->contrats, VracClient::getInstance()->retrieveActifFromEtablissements($tiers->identifiant));
-    }
-  }
 }

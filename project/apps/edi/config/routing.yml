@@ -1,29 +1,6 @@
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 
-
-  
-
-upload_drm:
-  url: /edi/drm/csv
-  param: {module: edi, action: file, csvViewer: csvDRMView}
-uploadDRMView:
-  url: /edi/drm/csv/:md5
-  param: {module: edi, action: csvDRMView}
-listDRMEdi:
-  url: /edi/drm/list
-  param: {module: edi, action: listDRM}
-
-upload_contrat:
-  url: /edi/contrat/csv
-  param: {module: edi, action: file, csvViewer: csvContratView}
-uploadContratView:
-  url: /edi/contrat/csv/:md5
-  param: {module: edi, action: csvContratView}
-listContratEdi:
-  url: /edi/contrat/list
-  param: {module: edi, action: listContrat}
-
 # A TESTER
 upload_etablissements:
   url: /edi/etablissements/csv/:id
@@ -44,6 +21,9 @@ streamAnneeDRMEdi:
 streamVracEdi:
   url: /edi/vrac/:interpro/:datedebut
   param: {module: edi, action: streamVrac}
+streamVracEtablissementEdi:
+  url: /edi/etablissement/vrac/:etablissement/:datedebut
+  param: {module: edi, action: streamVracEtablissement, datedebut: null}
 streamDAIDSEdi:
   url: /edi/daids/:interpro/:datedebut
   param: {module: edi, action: streamDAIDS}
@@ -53,14 +33,9 @@ streamStatistiquesBilanDrm:
 pushDRMEtablissementEdi:
   url: /edi/push/etablissement/drm/:etablissement
   param: {module: edi, action: pushDRMEtablissement}
-# OK
+pushVracEtablissementEdi:
+  url: /edi/push/etablissement/vrac/:etablissement
+  param: {module: edi, action: pushVracEtablissement}
 viewDRMEdi:
   url: /edi/drm/:identifiant/:annee/:mois/:rectificative
   param: {module: edi, action: viewDRM, rectificative: ''}
-# POURQUOI ?
-redirect_stream:
-  url: /edi/drm/stream
-  param: {module: edi, action: redirect, destination: 'streamDRMEdi'}
-redirect_view:
-  url: /edi/drm/view
-  param: {module: edi, action: redirect, destination: "viewDRMEdi"}
