@@ -162,5 +162,11 @@ class ConfigurationProduit extends BaseConfigurationProduit
         $interpro->departements = ($departements)? $departements : array();
         $interpro->save();
     }
+
+    public function save() 
+    {
+        parent::save();
+        ConfigurationClient::getInstance()->cacheResetCurrent();
+    }
 }
 
