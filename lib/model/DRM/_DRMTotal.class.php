@@ -105,18 +105,18 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     			}
     		}
     	}
-        $this->total_debut_mois = $sumTotalDebutMois;
-        $this->total_entrees = $sumTotalEntrees;
-        $this->total_sorties = $sumTotalSorties;
-        $this->total = $sumTotalDebutMois + $sumTotalEntrees - $sumTotalSorties;
-        $this->total_debut_mois_interpro = $sumTotalDebutMoisInterpro;
-        $this->total_entrees_interpro = $sumTotalEntreesInterpro;
-        $this->total_sorties_interpro = $sumTotalSortiesInterpro;
-        $this->total_interpro = $sumTotalDebutMoisInterpro + $sumTotalEntreesInterpro - $sumTotalSortiesInterpro;
-        $this->total_entrees_nettes = $sumTotalEntreesNettes;
-        $this->total_entrees_reciproque = $sumTotalEntreesReciproque;
-        $this->total_sorties_nettes = $sumTotalSortiesNettes;
-        $this->total_sorties_reciproque = $sumTotalSortiesReciproque;
+        $this->total_debut_mois = round($sumTotalDebutMois, 2);
+        $this->total_entrees = round($sumTotalEntrees, 2);
+        $this->total_sorties = round($sumTotalSorties, 2);
+        $this->total = round($sumTotalDebutMois + $sumTotalEntrees - $sumTotalSorties, 2);
+        $this->total_debut_mois_interpro = round($sumTotalDebutMoisInterpro, 2);
+        $this->total_entrees_interpro = round($sumTotalEntreesInterpro, 2);
+        $this->total_sorties_interpro = round($sumTotalSortiesInterpro, 2);
+        $this->total_interpro = round($sumTotalDebutMoisInterpro + $sumTotalEntreesInterpro - $sumTotalSortiesInterpro, 2);
+        $this->total_entrees_nettes = round($sumTotalEntreesNettes, 2);
+        $this->total_entrees_reciproque = round($sumTotalEntreesReciproque, 2);
+        $this->total_sorties_nettes = round($sumTotalSortiesNettes, 2);
+        $this->total_sorties_reciproque = round($sumTotalSortiesReciproque, 2);
         if ($this->exist('code') && $this->exist('libelle')) {
         	if (!$this->code) {
         		$this->code = $this->getFormattedCode();
