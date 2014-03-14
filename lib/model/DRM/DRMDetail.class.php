@@ -116,18 +116,18 @@ class DRMDetail extends BaseDRMDetail {
     protected function update($params = array()) {
         parent::update($params);
         $configuration = ConfigurationClient::getCurrent();
-        $this->total_entrees = $this->getTotalByKey('entrees');
-        $this->total_sorties = $this->getTotalByKey('sorties');
-        $this->total = $this->total_debut_mois + $this->total_entrees - $this->total_sorties;
+        $this->total_entrees = round($this->getTotalByKey('entrees'), 2);
+        $this->total_sorties = round($this->getTotalByKey('sorties'), 2);
+        $this->total = round($this->total_debut_mois + $this->total_entrees - $this->total_sorties, 2);
         if ($this->has_vrac) {
         	$this->total_debut_mois_interpro = $this->total_debut_mois;
-            $this->total_entrees_interpro = $this->getTotalByKey('entrees');
-            $this->total_sorties_interpro = $this->getTotalByKey('sorties');
-        	$this->total_entrees_nettes = $this->sommeLignes(DRMVolumes::getEntreesNettes());
-        	$this->total_entrees_reciproque = $this->sommeLignes(DRMVolumes::getEntreesReciproque());
-        	$this->total_sorties_nettes = $this->sommeLignes(DRMVolumes::getSortiesNettes());
-        	$this->total_sorties_reciproque = $this->sommeLignes(DRMVolumes::getSortiesReciproque());
-            $this->total_interpro = $this->total_debut_mois_interpro + $this->total_entrees_interpro - $this->total_sorties_interpro;
+            $this->total_entrees_interpro = round($this->getTotalByKey('entrees'), 2);
+            $this->total_sorties_interpro = round($this->getTotalByKey('sorties'), 2);
+        	$this->total_entrees_nettes = round($this->sommeLignes(DRMVolumes::getEntreesNettes()), 2);
+        	$this->total_entrees_reciproque = round($this->sommeLignes(DRMVolumes::getEntreesReciproque()), 2);
+        	$this->total_sorties_nettes = round($this->sommeLignes(DRMVolumes::getSortiesNettes()), 2);
+        	$this->total_sorties_reciproque = round($this->sommeLignes(DRMVolumes::getSortiesReciproque()), 2);
+            $this->total_interpro = round($this->total_debut_mois_interpro + $this->total_entrees_interpro - $this->total_sorties_interpro, 2);
         }
         if (!$this->code) {
         	$this->code = $this->getFormattedCode();
