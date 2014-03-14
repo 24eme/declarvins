@@ -24,7 +24,7 @@ class ediActions extends sfActions
 		$interpro = 'INTERPRO-'.$interpro;
     }
     $dateTime = new DateTime($date);
-    $daids = DAIDSDateView::getInstance()->findByInterproAndDate($interpro, $dateTime->format('c'));
+    $daids = DAIDSDateView::getInstance()->findByInterproAndDate($interpro, $dateTime->modify('-1 second')->format('c'));
     return $this->renderCsv($daids->rows, DAIDSDateView::VALUE_DATEDESAISIE, "DAIDS", $dateTime->format('c'));
   }
   
@@ -41,7 +41,7 @@ class ediActions extends sfActions
 		$interpro = 'INTERPRO-'.$interpro;
     }
     $dateTime = new DateTime($date);
-    $vracs = VracDateView::getInstance()->findByInterproAndDate($interpro, $dateTime->format('c'));
+    $vracs = VracDateView::getInstance()->findByInterproAndDate($interpro, $dateTime->modify('-1 second')->format('c'));
     return $this->renderCsv($vracs->rows, VracDateView::VALUE_DATE_SAISIE, "VRAC", $dateTime->format('c'));
   }
   
@@ -58,7 +58,7 @@ class ediActions extends sfActions
 		$interpro = 'INTERPRO-'.$interpro;
     }
     $dateTime = new DateTime($date);
-    $drms = DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateTime->format('c'), true);
+    $drms = DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateTime->modify('-1 second')->format('c'), true);
     return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $dateTime->format('c'));
   }
   
@@ -77,7 +77,7 @@ class ediActions extends sfActions
     $campagneManager = new CampagneManager('08-01');
     $datedebut = new DateTime($campagneManager->getDateDebutByCampagne($campagne));
     $datefin = new DateTime($campagneManager->getDateFinByCampagne($campagne));
-    $drms = DRMDateView::getInstance()->findByInterproAndDates($interpro, array('begin' => $datedebut->format('c'), 'end' => $datefin->format('c')), true);
+    $drms = DRMDateView::getInstance()->findByInterproAndDates($interpro, array('begin' => $datedebut->modify('-1 second')->format('c'), 'end' => $datefin->modify('+1 second')->format('c')), true);
     return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $datedebut->format('c'));
   }
   
@@ -96,7 +96,7 @@ class ediActions extends sfActions
     $datedebut = new DateTime($annee.'-01-01');
     $datefin = new DateTime($annee.'-01-01');
     $datefin->modify("+1 year")->modify("-1 day");
-    $drms = DRMDateView::getInstance()->findByInterproAndDates($interpro, array('begin' => $datedebut->format('c'), 'end' => $datefin->format('c')), true);
+    $drms = DRMDateView::getInstance()->findByInterproAndDates($interpro, array('begin' => $datedebut->modify('-1 second')->format('c'), 'end' => $datefin->modify('+1 second')->format('c')), true);
     return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $datedebut->format('c'));
   }
   
@@ -107,7 +107,7 @@ class ediActions extends sfActions
     $date = $request->getParameter('datedebut', null);
     if ($date) {
     	$dateTime = new DateTime($date);
-    	$date = $dateTime->format('c');
+    	$date = $dateTime->modify('-1 second')->format('c');
     }
     $etablissement = $request->getParameter('etablissement');
     $drms = DRMEtablissementView::getInstance()->findByEtablissement($etablissement, $date);
@@ -156,7 +156,7 @@ class ediActions extends sfActions
     $date = $request->getParameter('datedebut', null);
     if ($date) {
     	$dateTime = new DateTime($date);
-    	$date = $dateTime->format('c');
+    	$date = $dateTime->modify('-1 second')->format('c');
     }
     $etablissement = $request->getParameter('etablissement');
     $vracs = VracEtablissementView::getInstance()->findByEtablissement($etablissement, $date);
