@@ -10,6 +10,41 @@
  */
 class ediActions extends sfActions
 {
+	
+  protected function getCompte()
+  {
+  	return $this->getUser()->getCompte();
+  }
+	
+  protected function securizeInterpro($interpro)
+  {
+    if (!preg_match('/^INTERPRO-/', $interpro)) {
+		$interpro = 'INTERPRO-'.$interpro;
+    }
+  	$interpros = array_keys($this->getCompte()->interpro->toArray());
+  	if (!in_array($interpro, $interpros)) {
+  		throw new error401Exception("Accès restreint");
+  	}
+  }
+	
+  protected function securizeEtablissement($etablissement)
+  {
+    if (!preg_match('/^ETABLISSEMENT-/', $etablissement)) {
+		$etablissement = 'ETABLISSEMENT-'.$etablissement;
+    }
+    if ($this->getCompte()->exist('tiers')) {
+  		$etablissements = array_keys($this->getCompte()->tiers->toArray());
+	  	if (!in_array($etablissement, $etablissements)) {
+	  		throw new error401Exception("Accès restreint");
+	  	}
+    } else {
+    	if ($etab = EtablissementClient::getInstance()->find($etablissement)) {
+    		$this->securizeInterpro($etab->interpro);
+    	} else {
+    		throw new error401Exception("Accès restreint");
+    	}
+    }
+  }
 
   public function executeStreamDAIDS(sfWebRequest $request) 
   {
@@ -17,6 +52,7 @@ class ediActions extends sfActions
   	set_time_limit(0);
     $date = $request->getParameter('datedebut');
     $interpro = $request->getParameter('interpro');
+    $this->securizeInterpro($interpro);
     if (!$date) {
 		return $this->renderText("Pas de date définie");
     }
@@ -34,6 +70,7 @@ class ediActions extends sfActions
   	set_time_limit(0);
     $date = $request->getParameter('datedebut');
     $interpro = $request->getParameter('interpro');
+    $this->securizeInterpro($interpro);
     if (!$date) {
 		return $this->renderText("Pas de date définie");
     }
@@ -51,6 +88,8 @@ class ediActions extends sfActions
   	set_time_limit(0);
     $date = $request->getParameter('datedebut');
     $interpro = $request->getParameter('interpro');
+  	$this->securizeInterpro($interpro);
+  	echo 'yop';exit;
     if (!$date) {
 		return $this->renderText("Pas de date définie");
     }
@@ -68,6 +107,7 @@ class ediActions extends sfActions
   	set_time_limit(0);
     $campagne = $request->getParameter('campagne');
     $interpro = $request->getParameter('interpro');
+    $this->securizeInterpro($interpro);
     if (!preg_match('/^([0-9]+)-([0-9]+)$/', $campagne, $annees)) {
     	return $this->renderText("Campagne non valide");
     }
@@ -87,6 +127,7 @@ class ediActions extends sfActions
   	set_time_limit(0);
     $annee = $request->getParameter('annee');
     $interpro = $request->getParameter('interpro');
+  	$this->securizeInterpro($interpro);
     if (!preg_match('/^([0-9]{4})$/', $annee, $annees)) {
     	return $this->renderText("Année non valide");
     }
@@ -110,6 +151,7 @@ class ediActions extends sfActions
     	$date = $dateTime->modify('-1 second')->format('c');
     }
     $etablissement = $request->getParameter('etablissement');
+    $this->securizeEtablissement($etablissement);
     $drms = DRMEtablissementView::getInstance()->findByEtablissement($etablissement, $date);
     return $this->renderCsv($drms->rows, DRMEtablissementView::VALUE_DATEDESAISIE, "DRM", $date);
   }
@@ -119,6 +161,7 @@ class ediActions extends sfActions
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);  	
     $etablissement = $request->getParameter('etablissement');
+    $this->securizeEtablissement($etablissement);
 	$formUploadCsv = new UploadCSVForm();
     $result = array();
 	if ($request->isMethod('post')) {
@@ -159,6 +202,7 @@ class ediActions extends sfActions
     	$date = $dateTime->modify('-1 second')->format('c');
     }
     $etablissement = $request->getParameter('etablissement');
+    $this->securizeEtablissement($etablissement);
     $vracs = VracEtablissementView::getInstance()->findByEtablissement($etablissement, $date);
     return $this->renderCsv($vracs->rows, VracEtablissementView::VALUE_DATE_SAISIE, "VRAC", $dateTime->format('c'));
   }
@@ -168,6 +212,7 @@ class ediActions extends sfActions
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);  	
     $etablissement = $request->getParameter('etablissement');
+    $this->securizeEtablissement($etablissement);
     $etablissementObject = EtablissementClient::getInstance()->find($etablissement);
     $interpro = ($etablissementObject)? $etablissementObject->interpo : null;
 	$formUploadCsv = new UploadCSVForm();
@@ -207,6 +252,7 @@ class ediActions extends sfActions
   	set_time_limit(0);
     $campagne = $request->getParameter('campagne');
     $interpro = $request->getParameter('interpro');
+    $this->securizeInterpro($interpro);
     if (!$campagne) {
 		return $this->renderText("Pas de campagne définie");
     }
@@ -257,6 +303,7 @@ class ediActions extends sfActions
   
   public function executeViewDRM(sfWebRequest $request) 
   {
+    $this->securizeEtablissement($request->getParameter('identifiant'));
     $drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriodeAndRectificative(
     		$request->getParameter('identifiant'), 
         	DRMClient::getInstance()->buildPeriode($request->getParameter('annee'), $request->getParameter('mois')), 
@@ -333,6 +380,7 @@ class ediActions extends sfActions
   public function executeUploadEtablissements(sfWebRequest $request) 
   {  
   	$this->forward404Unless($this->interpro = InterproClient::getInstance()->getById($request->getParameter("id")));
+    $this->securizeInterpro($this->interpro);
   	$this->formUploadCsv = new UploadCSVForm();
   	if ($request->isMethod(sfWebRequest::POST) && $request->getFiles('csv')) {
   		$this->formUploadCsv->bind($request->getParameter('csv'), $request->getFiles('csv'));
