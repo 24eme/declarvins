@@ -18,6 +18,6 @@ class acVinCompteActions extends BaseacVinCompteActions
   public function executeLogin(sfWebRequest $request)
   {
     $this->getUser()->signIn($_SERVER['PHP_AUTH_USER']);
-    return $this->redirect($request->getParameter('module').'/'.$request->getParameter('action'));
+    return $this->redirect($request->getUri());
   }
 }
