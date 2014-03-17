@@ -23,29 +23,37 @@ class importVracTask extends sfBaseTask
 EOF;
   }
 
-  protected function execute($arguments = array(), $options = array())
+    protected function execute($arguments = array(), $options = array())
   {
     // initialize the database connection
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-  	$csv = new CsvFile($options['file']);
+        $csv = new CsvFile($options['file']);
     $lignes = $csv->getCsv();
     $vracClient = VracClient::getInstance();
     $vracConfiguration = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($options['interpro']);
-    
+
     $numLigne = 0;
     foreach ($lignes as $ligne) {
-    	$numLigne++;
-    	$import = new VracDetailImport($ligne, $vracClient, $vracConfiguration);
-    	$vrac = $import->getVrac();
-    	if ($import->hasErrors()) {
-    		$this->logSection('vrac', "echec de l'import du contrat ligne $numLigne", null, 'ERROR');
-    		$this->logBlock($import->getLogs(), 'ERROR');
-    	} else {
-    		$vrac->save(false);
-    		$this->logSection('vrac', $vrac->get('_id')." : succès de l'import du contrat ligne $numLigne.");
-    	}
+        $numLigne++;
+        $import = new VracDetailImport($ligne, $vracClient, $vracConfiguration);
+        $vrac = $import->getVrac();
+        if ($import->hasErrors()) {
+                $this->logSection('vrac', "echec de l'import du contrat ligne $numLigne", null, 'ERROR');
+                $this->logBlock($import->getLogs(), 'ERROR');
+        } else {
+                $vrac->volume_propose = floatval($vrac->volume_propose);
+                $vrac->prix_unitaire = floatval($vrac->prix_unitaire);
+                foreach($vrac->lots as $key => $lot) {
+                        foreach($lot->cuves as $key2 => $cuve) {
+                                $cuve->volume = floatval($cuve->volume);
+                        }
+                }
+                $vrac->save(false);
+                $this->logSection('vrac', $vrac->get('_id')." : succès de l'import du contrat ligne $numLigne.");
+        }
     }
   }
 }
+  
