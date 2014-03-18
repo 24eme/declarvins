@@ -89,7 +89,6 @@ class ediActions extends sfActions
     $date = $request->getParameter('datedebut');
     $interpro = $request->getParameter('interpro');
   	$this->securizeInterpro($interpro);
-  	echo 'yop';exit;
     if (!$date) {
 		return $this->renderText("Pas de date définie");
     }
