@@ -32,16 +32,13 @@ EOF;
         $i = 1;
         foreach ($drms->rows as $d) {
         	$drm = DRMClient::getInstance()->find($d->id);
-        	$details = $drm->getDetails();
-        	foreach ($details as $detail) {
-        		try {
-        			$detail->has_vrac = $detail->getCepage()->getConfig()->has_vrac;
-        		} catch (sfException $e) {
-        			$hash = $detail->getHash();
-        			$this->logSection('drm', $d->id.' FAILED '.$hash, null, 'ERROR');
-        		}
-        	}
-			//$drm->update();
+        	
+        	$drs = $drm->declarant->raison_sociale;
+        	$dn = $drm->declarant->nom;
+        	
+        	$drm->declarant->raison_sociale = $dn;
+        	$drm->declarant->nom = $drs;
+        	
         	$drm->save();
 			$this->logSection('drm', $d->id.' OK '.$i);
 			$i++;
