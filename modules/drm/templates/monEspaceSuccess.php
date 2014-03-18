@@ -28,6 +28,12 @@
     
     <p class="intro">Bienvenue sur votre espace DRM. Que voulez-vous faire ?</p>
     
+    <?php if ($sf_user->hasFlash('erreur_drm')): ?>
+    <div id="flash_message">
+		<div class="flash_error"><?php echo $sf_user->getFlash('erreur_drm') ?></div>
+	</div>
+    <?php endif; ?>
+    
     <section id="principal">
         <div id="recap_drm">
             <div id="drm_annee_courante" >

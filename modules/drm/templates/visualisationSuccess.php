@@ -4,6 +4,11 @@
 
 
 <section id="contenu">
+	<?php if ($sf_user->hasFlash('erreur_drm')): ?>
+    <div id="flash_message">
+		<div class="flash_error"><?php echo $sf_user->getFlash('erreur_drm') ?></div>
+	</div>
+    <?php endif; ?>
 
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
     <?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
