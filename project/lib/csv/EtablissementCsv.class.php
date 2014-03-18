@@ -13,8 +13,8 @@ class EtablissementCsv {
     const COL_EMAIL = 9;
     const COL_TELEPHONE = 10;
     const COL_FAX = 11;
-    const COL_NOM = 12;
-    const COL_RAISON_SOCIALE = 13;
+    const COL_RAISON_SOCIALE = 12;
+    const COL_NOM = 13;
     const COL_ADRESSE = 14;
     const COL_COMMUNE = 15;
     const COL_CODE_POSTAL = 16;

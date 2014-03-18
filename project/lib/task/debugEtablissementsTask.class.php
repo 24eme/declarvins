@@ -37,8 +37,10 @@ EOF;
       foreach($rows as $row) {
       	$etab = EtablissementClient::getInstance()->find($row->key[4]);
       	if ($etab) {
-	        $etab->remove('produits');
-	        $etab->add('produits');
+      		$rs = $etab->raison_sociale;
+      		$nom = $etab->nom;
+      		$etab->raison_sociale = $nom;
+      		$etab->nom = $rs;
 	        $etab->save();
 	        $this->logSection("debug", $etab->get('_id'), null, 'SUCCESS');
 	        $i++;
