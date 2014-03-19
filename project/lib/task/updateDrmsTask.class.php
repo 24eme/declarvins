@@ -4,7 +4,7 @@ class updateDrmsTask extends sfBaseTask {
 
     protected function configure() {
         $this->addOptions(array(
-            new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name'),
+            new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
                 // add your own options here
@@ -31,8 +31,7 @@ EOF;
         $drms = DRMClient::getInstance()->findAll();
         $i = 1;
         foreach ($drms->rows as $d) {
-        	$drm = DRMClient::getInstance()->find($d->id);
-        	
+        	$drm = DRMClient::getInstance()->find($d->id, acCouchdbClient::HYDRATE_DOCUMENT);
         	$drs = $drm->declarant->raison_sociale;
         	$dn = $drm->declarant->nom;
         	
