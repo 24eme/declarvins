@@ -31,16 +31,12 @@ EOF;
         $drms = DRMClient::getInstance()->findAll();
         $i = 1;
         foreach ($drms->rows as $d) {
-        	$drm = DRMClient::getInstance()->find($d->id, acCouchdbClient::HYDRATE_DOCUMENT);
-        	$drs = $drm->declarant->raison_sociale;
-        	$dn = $drm->declarant->nom;
-        	
-        	$drm->declarant->raison_sociale = $dn;
-        	$drm->declarant->nom = $drs;
-        	
-        	$drm->save();
-			$this->logSection('drm', $d->id.' OK '.$i);
-			$i++;
+        	if (preg_match('/DRM-CIVP/', $d->id)) {
+        		$drm = DRMClient::getInstance()->find($d->id, acCouchdbClient::HYDRATE_DOCUMENT);
+        		$drm->delete();
+				$this->logSection('drm', $d->id.' OK '.$i);
+				$i++;
+        	}
         }
     }
 
