@@ -21,7 +21,7 @@ class DAIDSDetailStocksMoyenDetailForm extends acCouchdbObjectForm
     	}
     	$this->setWidget('total', new sfWidgetFormInputFloat());
     	$this->setValidator('total', new sfValidatorNumber(array('required' => false)));
-    	$this->setWidget('volume', new sfWidgetFormInputFloat());
+    	$this->setWidget('volume', new sfWidgetFormInputFloat(array('float_format' => "%01.04f")));
     	$this->setValidator('volume', new sfValidatorNumber(array('required' => false)));
     		    		
         $this->widgetSchema->setNameFormat('[%s]');

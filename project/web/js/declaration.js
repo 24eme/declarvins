@@ -281,7 +281,7 @@
 						if (isNaN(val_defaut)) {
 							val_defaut = '';
 						} else {
-							val_defaut = val_defaut.toFixed(2);
+							val_defaut = val_defaut.toFixed(4);
 						}
 						if (val_defaut != val) {
 							if (colActive.attr('data-cssclass-rectif')) {
@@ -701,7 +701,7 @@
 					else somme = parseInt(somme);
 				}
 				
-				if(float) somme = somme.toFixed(2); // Arrondi à 2 chiffres après la virgule
+				if(float) somme = somme.toFixed(4); // Arrondi à 2 chiffres après la virgule
 				champSomme.attr('value', somme);
 			});
 		});
@@ -761,7 +761,7 @@
 				if (jQuery.inArray("not_pos_value", classes) != -1 && resultat > 0) {
 					resultat = 0;
 				}
-				resultat = resultat.toFixed(2);
+				resultat = resultat.toFixed(4);
 				champCalcul.val(resultat);
 
 				if(resultat > 0) champCalcul.addClass('positif');
@@ -790,7 +790,7 @@
 					{
 						if (champLiaison.val()) {
 							val = parseFloat(champLiaison.val());
-							$(tabChamps[i]).val(val.toFixed(2));
+							$(tabChamps[i]).val(val.toFixed(4));
 						} else {
 							$(tabChamps[i]).val(null);
 						}

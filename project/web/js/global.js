@@ -216,7 +216,7 @@ var fbConfig =
 				// virgule déjà présente
 				if(touche == 44 && ponctuationPresente) e.preventDefault(); 
 				// 2 décimales
-				if(val.match(/[\.\,][0-9][0-9]/) && chiffre && e.currentTarget && e.currentTarget.selectionStart > val.length - 3) e.preventDefault();
+				if(val.match(/[\.\,][0-9][0-9][0-9][0-9]/) && chiffre && e.currentTarget && e.currentTarget.selectionStart > val.length - 3) e.preventDefault();
 			}
 			// Champ nombre entier
 			else
@@ -274,7 +274,7 @@ var fbConfig =
 			if(val.indexOf('0') == 0 && val.length > 1) val = val.substring(1);
 			
 			// Comparaison nombre entier / flottant
-			if(float || parseInt(val) != parseFloat(val)) val = parseFloat(val).toFixed(2);		
+			if(float || parseInt(val) != parseFloat(val)) val = parseFloat(val).toFixed(4);		
 			else val = parseInt(val);
 		}
 		// Si rien n'a été saisi

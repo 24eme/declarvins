@@ -12,14 +12,14 @@ class DAIDSDetailForm extends acCouchdbObjectForm
 
     public function configure() 
     {
-    	$this->setWidget('total_manquants_excedents', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
-    	$this->setWidget('total_pertes_autorisees', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
-    	$this->setWidget('total_manquants_taxables', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
-    	$this->setWidget('total_douane', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
-    	$this->setWidget('stock_theorique', new sfWidgetFormInputFloat(array()));
-    	$this->setWidget('stock_chais', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
-    	$this->setWidget('stock_propriete', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
-    	$this->setWidget('stock_mensuel_theorique', new sfWidgetFormInputFloat(array(), array('readonly' => 'readonly')));
+    	$this->setWidget('total_manquants_excedents', new sfWidgetFormInputFloat(array('float_format' => "%01.04f"), array('readonly' => 'readonly')));
+    	$this->setWidget('total_pertes_autorisees', new sfWidgetFormInputFloat(array('float_format' => "%01.04f"), array('readonly' => 'readonly')));
+    	$this->setWidget('total_manquants_taxables', new sfWidgetFormInputFloat(array('float_format' => "%01.04f"), array('readonly' => 'readonly')));
+    	$this->setWidget('total_douane', new sfWidgetFormInputFloat(array('float_format' => "%01.04f"), array('readonly' => 'readonly')));
+    	$this->setWidget('stock_theorique', new sfWidgetFormInputFloat(array('float_format' => "%01.04f")));
+    	$this->setWidget('stock_chais', new sfWidgetFormInputFloat(array('float_format' => "%01.04f"), array('readonly' => 'readonly')));
+    	$this->setWidget('stock_propriete', new sfWidgetFormInputFloat(array('float_format' => "%01.04f"), array('readonly' => 'readonly')));
+    	$this->setWidget('stock_mensuel_theorique', new sfWidgetFormInputFloat(array('float_format' => "%01.04f"), array('readonly' => 'readonly')));
 
     	$this->setValidator('total_manquants_excedents', new sfValidatorNumber(array('required' => false)));
     	$this->setValidator('total_pertes_autorisees', new sfValidatorNumber(array('required' => false)));
