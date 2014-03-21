@@ -2,10 +2,17 @@
 
 class sfWidgetFormInputFloat extends sfWidgetFormInputText
 {
+  protected function configure($options = array(), $attributes = array())
+  {
+    parent::configure($options, $attributes);
+    $this->addOption('float_format');
+  }
+  
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
     sfApplicationConfiguration::getActive()->loadHelpers('Float');
-    $value = sprintFloat($value);
+    $floatFormat = $this->getOption('float_format');
+    $value = ($floatFormat)? sprintFloat($value, $floatFormat) : sprintFloat($value, $floatFormat);
     $attributes['autocomplete'] = 'off';
     if (!isset($attributes['class']))
       $attributes['class'] = '';
