@@ -28,10 +28,10 @@
 							<td>
 								<?php echo $detail->getFormattedLibelle(ESC_RAW) ?>
 				            </td>
-                            <td class="<?php echo isVersionnerCssClass($detail, 'total_debut_mois') ?>"><strong><?php echoFloat($detail->total_debut_mois) ?></strong>&nbsp;<span class="unite">hl</span></td>
-							<td class="<?php echo isVersionnerCssClass($detail, 'total_entrees') ?>"><?php echoFloat($detail->total_entrees) ?>&nbsp;<span class="unite">hl</span></td>
-							<td class="<?php echo isVersionnerCssClass($detail, 'total_sorties') ?>"><?php echoFloat($detail->total_sorties) ?>&nbsp;<span class="unite">hl</span></td>
-							<td class="<?php echo isVersionnerCssClass($detail, 'total') ?>"><strong><?php echoFloat($detail->total) ?></strong>&nbsp;<span class="unite">hl</span></td>
+                            <td class="<?php echo isVersionnerCssClass($detail, 'total_debut_mois') ?>"><strong><?php echoLongFloat($detail->total_debut_mois) ?></strong>&nbsp;<span class="unite">hl</span></td>
+							<td class="<?php echo isVersionnerCssClass($detail, 'total_entrees') ?>"><?php echoLongFloat($detail->total_entrees) ?>&nbsp;<span class="unite">hl</span></td>
+							<td class="<?php echo isVersionnerCssClass($detail, 'total_sorties') ?>"><?php echoLongFloat($detail->total_sorties) ?>&nbsp;<span class="unite">hl</span></td>
+							<td class="<?php echo isVersionnerCssClass($detail, 'total') ?>"><strong><?php echoLongFloat($detail->total) ?></strong>&nbsp;<span class="unite">hl</span></td>
 						</tr>
 			<?php endforeach; ?>
 		</tbody>

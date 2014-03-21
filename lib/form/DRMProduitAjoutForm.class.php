@@ -23,7 +23,7 @@ class DRMProduitAjoutForm extends acCouchdbForm
         $this->setWidgets(array(
             'hashref' => new sfWidgetFormChoice(array('choices' => $produits)),
             'label' => new sfWidgetFormChoice(array('expanded' => true, 'multiple' => true,'choices' => $labels)),
-            'disponible' => new sfWidgetFormInputFloat(),
+            'disponible' => new sfWidgetFormInputFloat(array('float_format' => "%01.04f")),
         ));
         $this->widgetSchema->setLabels(array(
             'hashref' => 'Produit: ',

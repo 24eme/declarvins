@@ -105,18 +105,18 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     			}
     		}
     	}
-        $this->total_debut_mois = round($sumTotalDebutMois, 2);
-        $this->total_entrees = round($sumTotalEntrees, 2);
-        $this->total_sorties = round($sumTotalSorties, 2);
-        $this->total = round($sumTotalDebutMois + $sumTotalEntrees - $sumTotalSorties, 2);
-        $this->total_debut_mois_interpro = round($sumTotalDebutMoisInterpro, 2);
-        $this->total_entrees_interpro = round($sumTotalEntreesInterpro, 2);
-        $this->total_sorties_interpro = round($sumTotalSortiesInterpro, 2);
-        $this->total_interpro = round($sumTotalDebutMoisInterpro + $sumTotalEntreesInterpro - $sumTotalSortiesInterpro, 2);
-        $this->total_entrees_nettes = round($sumTotalEntreesNettes, 2);
-        $this->total_entrees_reciproque = round($sumTotalEntreesReciproque, 2);
-        $this->total_sorties_nettes = round($sumTotalSortiesNettes, 2);
-        $this->total_sorties_reciproque = round($sumTotalSortiesReciproque, 2);
+        $this->total_debut_mois = round($sumTotalDebutMois, 4);
+        $this->total_entrees = round($sumTotalEntrees, 4);
+        $this->total_sorties = round($sumTotalSorties, 4);
+        $this->total = round($sumTotalDebutMois + $sumTotalEntrees - $sumTotalSorties, 4);
+        $this->total_debut_mois_interpro = round($sumTotalDebutMoisInterpro, 4);
+        $this->total_entrees_interpro = round($sumTotalEntreesInterpro, 4);
+        $this->total_sorties_interpro = round($sumTotalSortiesInterpro, 4);
+        $this->total_interpro = round($sumTotalDebutMoisInterpro + $sumTotalEntreesInterpro - $sumTotalSortiesInterpro, 4);
+        $this->total_entrees_nettes = round($sumTotalEntreesNettes, 4);
+        $this->total_entrees_reciproque = round($sumTotalEntreesReciproque, 4);
+        $this->total_sorties_nettes = round($sumTotalSortiesNettes, 4);
+        $this->total_sorties_reciproque = round($sumTotalSortiesReciproque, 4);
         if ($this->exist('code') && $this->exist('libelle')) {
         	if (!$this->code) {
         		$this->code = $this->getFormattedCode();
