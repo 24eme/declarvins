@@ -31,9 +31,9 @@ EOF;
         $drms = DRMClient::getInstance()->findAll();
         $i = 1;
         foreach ($drms->rows as $d) {
-        	if (preg_match('/DRM-CIVP/', $d->id)) {
-        		$drm = DRMClient::getInstance()->find($d->id, acCouchdbClient::HYDRATE_DOCUMENT);
-        		$drm->delete();
+        	if ($drm = DRMClient::getInstance()->find($d->id, acCouchdbClient::HYDRATE_DOCUMENT)) {
+        		$drm->setEtablissementInformations();
+        		$drm->save();
 				$this->logSection('drm', $d->id.' OK '.$i);
 				$i++;
         	}
