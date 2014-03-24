@@ -21,8 +21,8 @@ EOF;
     }
 
     protected function execute($arguments = array(), $options = array()) {
-        ini_set('memory_limit', '512M');
-        set_time_limit('3600');
+		ini_set('memory_limit', '2048M');
+  		set_time_limit(0);
         // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
@@ -32,9 +32,11 @@ EOF;
         $i = 1;
         foreach ($drms->rows as $d) {
         	if ($drm = DRMClient::getInstance()->find($d->id, acCouchdbClient::HYDRATE_DOCUMENT)) {
-        		$drm->setEtablissementInformations();
-        		$drm->save();
-				$this->logSection('drm', $d->id.' OK '.$i);
+        		if ($drm->version) {
+        			$drm->identifiant_drm_historique = null;
+        			$drm->save();
+					$this->logSection('drm', $d->id.' OK '.$i);
+        		}
 				$i++;
         	}
         }
