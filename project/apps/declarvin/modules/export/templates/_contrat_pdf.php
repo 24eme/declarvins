@@ -187,9 +187,9 @@
                 <br />
                 <br />
                 <br />
-                <p>A un système d’identification sécurisé permettant :<br />
+                <p>A un système d'identification sécurisé permettant :<br />
                 - de réaliser des Déclarations Informatisées sur DeclarVins.net et de les transmettre aux différents destinataires.<br />
-                - et d’accéder à des services spécifiques à votre Interprofession. </p>
+                - et d'accéder à des services spécifiques à votre Interprofession. </p>
 
 		
 		<div id="formulaire">
@@ -260,25 +260,25 @@
 		<div class="important">
                     <p>Le déclarant, pour le compte des Etablissements précitées, demande à bénéficier d'une connexion au système informatique &laquo; DeclarVins.net &raquo;, </p>
 		</div>
-                <p>En fonction de la mise en place des services, le système d’indentification ‘Declarvins.net’ permet l’accès à la saisie et validation <u>pour l’interprofession</u> de divers documents déclaratifs obligatoires.</p>
+                <p>En fonction de la mise en place des services, le système d'indentification ‘Declarvins.net' permet l'accès à la saisie et validation <u>pour l'interprofession</u> de divers documents déclaratifs obligatoires.</p>
                 <p>Cela concerne : </p>
                 <ul>
                         <li>Contrats Interprofessionnels, </li>
                         <li>DRM (Déclaration Récapitulative Mensuelle),</li>
-                        <li>DAI/DS (Déclaration Annuel d’Inventaire / Déclaration de Stock) production. </li>
+                        <li>DAI/DS (Déclaration Annuel d'Inventaire / Déclaration de Stock) production. </li>
                 </ul>
                 <p>
-                    Cela pourra concerner d’autres obligations déclaratives faisant l’objet d’une convention avec les douanes ou les autres organismes de la filière viti-vinicole.
+                    Cela pourra concerner d'autres obligations déclaratives faisant l'objet d'une convention avec les douanes ou les autres organismes de la filière viti-vinicole.
                 </p>
                 <p>
-                    Les Interprofessions développent des partenariats pour transporter l’information auprès de différents destinataires. En l’absence de partenariats, le déclarant doit réaliser les déclarations aux différents destinataires suivant les modalités prévues par ces derniers (papier signé et envoyé par la poste en général).
+                    Les Interprofessions développent des partenariats pour transporter l'information auprès de différents destinataires. En l'absence de partenariats, le déclarant doit réaliser les déclarations aux différents destinataires suivant les modalités prévues par ces derniers (papier signé et envoyé par la poste en général).
                 </p>
                 <p>
-                    Des Avenants précisent les partenariats et contrats mandats de dépôt (transport de l’information par DeclarVins vers un autre destinataire pour le compte de l’opérateur déclarant).
+                    Des Avenants précisent les partenariats et contrats mandats de dépôt (transport de l'information par DeclarVins vers un autre destinataire pour le compte de l'opérateur déclarant).
                 </p>
                 <div class="important">
                     <p>
-                        Une information vous sera fournie à chaque nouvelle fonctionnalité mise en service, ainsi qu’un avenant récapitulatif de l’ensemble des fonctionnalités et Mandats de dépôt proposés.
+                        Une information vous sera fournie à chaque nouvelle fonctionnalité mise en service, ainsi qu'un avenant récapitulatif de l'ensemble des fonctionnalités et Mandats de dépôt proposés.
                     </p>
                 </div>
 
@@ -289,7 +289,7 @@
                         <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>, Le <strong></strong>
                         </p>
 			<p>Le déclarant, <strong><?php echo $contrat->nom ?> <?php echo $contrat->prenom ?></strong> signature et cachet :</p><br/> 								
-			<p>L’e-mail d’activation vaut engagement de l’interprofession.<strong></strong></p>
+			<p>L'e-mail d'activation vaut engagement de l'interprofession.<strong></strong></p>
 		</div>                
 	</div>
         		
