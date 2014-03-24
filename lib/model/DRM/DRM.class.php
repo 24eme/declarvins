@@ -814,22 +814,25 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     public function generateRectificative() {
 		$drm = $this->version_document->generateRectificative();
 		$drm->updateVracVersion();
+		$drm->identifiant_drm_historique = null;
         return $drm;
     }
 
     public function generateModificative() {
         $drm = $this->version_document->generateModificative();
 		$drm->updateVracVersion();
+		$drm->identifiant_drm_historique = null;
         return $drm;
     }
 
     public function generateNextVersion() {
         if (!$this->hasVersion()) {
-
-            return $this->version_document->generateRectificativeSuivante();
+           $next = $this->version_document->generateRectificativeSuivante();
+        } else {
+        	$next = $this->version_document->generateNextVersion();
         }
-
-        return $this->version_document->generateNextVersion();
+        $next->identifiant_drm_historique = null;
+        return $next;
     }
 
     public function listenerGenerateVersion($document) {
