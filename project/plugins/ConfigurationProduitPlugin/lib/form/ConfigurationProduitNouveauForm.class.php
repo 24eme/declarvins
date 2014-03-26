@@ -4,7 +4,7 @@ class ConfigurationProduitNouveauForm extends sfForm
 	protected $configurationProduit;
 	protected static $configurationNoeud = array('certifications' => 'certification', 'genres' => 'genre', 'appellations' => 'appellation', 'lieux' => 'lieu', 'couleurs' => 'couleur', 'cepages' => 'cepage'); 
 	protected static $certifications = array('' => '', 'AOP' => 'AOP', 'IGP' => 'IGP', 'VINSSANSIG' => 'SANS IG', 'LIE' => 'LIE', 'MOUTS' => 'MOÛTS');
-	protected static $couleurs = array('' => '', 'Rouge' => 'Rouge', 'Blanc' => 'Blanc', 'Rosé' => 'Rosé');
+	protected static $couleurs = array('' => '', 'rouge' => 'Rouge', 'blanc' => 'Blanc', 'rose' => 'Rosé');
 	protected static $genres = array('' => '', 'EFF' => 'Effervescent', 'TRANQ' => 'Tranquilles', 'VDN' => 'Vin doux naturel');
 	
 	public function __construct($configuration, $defaults = array(), $options = array(), $CSRFSecret = null) 
@@ -64,9 +64,11 @@ class ConfigurationProduitNouveauForm extends sfForm
 	        if ($values[$node]) {
 	        	if ($this->configurationProduit->exist($hash.'/'.$node.'/'.$values[$node])) {
 	        		$hash = $hash.'/'.$node.'/'.$values[$node];
-	        		$noeud = $correspondanceNoeuds[$node];
 	        		unset($values[$node]);
 	        	} else {
+	        		if (!$noeud) {
+	        			$noeud = $correspondanceNoeuds[$node];
+	        		}
 	        		$hash = $hash.'/'.$node.'/'.ConfigurationProduit::DEFAULT_KEY;
 	        	}
 	        } else {

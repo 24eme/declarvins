@@ -4,6 +4,7 @@ class configuration_produitActions extends sfActions
 {
   	public function executeIndex(sfWebRequest $request)
   	{
+  		$this->getUser()->setAttribute('pile_noeud', null);
   		$this->configurationProduits = $this->getConfigurationProduit();
 	}
   
@@ -95,29 +96,18 @@ class configuration_produitActions extends sfActions
   		$object = $configurationProduits->getOrAdd($hash);
   		$object = $object->__get($noeud);
   		$isNew = ($this->getUser()->hasAttribute('pile_noeud'))? true : false;
-  		if ($this->getUser()->hasAttribute('pile_noeud') && !$request->isMethod(sfWebRequest::POST)) {
+  		if ($isNew && !$request->isMethod(sfWebRequest::POST)) {
   			$pile = $this->getUser()->getAttribute('pile_noeud');
-  			$arborescence = ConfigurationProduit::getArborescence();
-  			$nextNoeuds = false;
-	  		foreach ($arborescence as $produit) {
-	  			if ($nextNoeuds) {
-		  			if (isset($pile[$produit])) {
-		  				$object = $object->getOrAdd($produit)->add(ConfigurationProduit::DEFAULT_KEY);
-		  				$object->set('libelle', $pile[$produit]);
-		  				$noeud = $object->getTypeNoeud();
-		  				if ($noeud == ConfigurationProduitCouleur::TYPE_NOEUD) {
-		  					$codeCouleurs = ConfigurationProduit::getCorrespondanceCodeCouleurs();
-		  					$object->set('code', $codeCouleurs[$pile[$produit]]);
-		  				}
-		  				break;
-		  			} else {
-		  				$object = $object->getOrAdd($produit)->add(ConfigurationProduit::DEFAULT_KEY);
-		  			}
-	  			}
-		  		if (preg_match('/^'.$object->getTypeNoeud().'[a-z]?$/', $produit)) {
-		  			$nextNoeuds = true;
-		  		}
-	  		}
+  			$correspondance = array_flip(ConfigurationProduit::getCorrespondanceNoeuds());
+  			if (isset($correspondance[$noeud]) && isset($pile[$correspondance[$noeud]])) {
+  				$object->set('libelle', $pile[$correspondance[$noeud]]);
+  				if ($noeud == ConfigurationProduitCouleur::TYPE_NOEUD) {
+  					$codeCouleurs = ConfigurationProduit::getCorrespondanceCodeCouleurs();
+  					$libelleCouleurs = ConfigurationProduit::getCorrespondanceLibelleCouleurs();
+  					$object->set('libelle', $libelleCouleurs[$pile[$correspondance[$noeud]]]);
+  					$object->set('code', $codeCouleurs[$pile[$correspondance[$noeud]]]);
+  				}
+  			}
   		}
   		$this->noeud = $noeud;
   		$this->form = new ConfigurationProduitModificationForm($object, array('isNew' => $isNew, 'nbDepartement' => $this->nbDepartement, 'nbDouane' => $this->nbDouane, 'nbCvo' => $this->nbCvo, 'nbLabel' => $this->nbLabel, 'nbOrganisme' => $this->nbOrganisme));
@@ -127,7 +117,7 @@ class configuration_produitActions extends sfActions
 	        $this->form->bind($request->getParameter($this->form->getName()));
 			if ($this->form->isValid()) {
 				$object = $this->form->save();
-				if ($pile = $this->getUser()->hasAttribute('pile_noeud')) {
+				if ($isNew) {
 	  				$pile = $this->getUser()->getAttribute('pile_noeud');
 			  		$arborescence = ConfigurationProduit::getArborescence();
 			  		foreach ($arborescence as $produit) {
@@ -135,11 +125,25 @@ class configuration_produitActions extends sfActions
 			  				unset($pile[$produit]);
 			  				if (count($pile) > 0) {
 			  					$this->getUser()->setAttribute('pile_noeud', $pile);
-			  					$this->redirect('configuration_produit_modification', array('noeud' => $object->getTypeNoeud(), 'hash' => str_replace('/', '-', $this->getNextHash($object))));
-			  				} else {
-			  					$this->getUser()->setAttribute('pile_noeud', null);
-			  					$this->redirect('configuration_produit');
+			  					$nextHash = $this->getNextHash($object);
+			  					$object = $object->getDocument()->get($nextHash);
+			  					foreach ($arborescence as $p) {
+			  						if (isset($pile[$p])) {
+			  							$object = $configurationProduits->getOrAdd($hash);
+			  							$correspondance = ConfigurationProduit::getCorrespondanceNoeuds();
+			  							if (isset($correspondance[$p])) {
+  											$object = $object->__get($correspondance[$p]);
+			  								$this->redirect('configuration_produit_modification', array('noeud' => $object->getTypeNoeud(), 'hash' => str_replace('/', '-', $nextHash)));
+			  							}
+			  						}
+			  					}
+			  					
 			  				}
+		  					if ($cache = $this->getContext()->getViewCacheManager()) {
+			    				$cache->remove('configuration_produit/index');
+				    		}
+							$this->getUser()->setFlash("notice", 'Le produit a été ajouté avec success.');
+		  					$this->redirect('configuration_produit');
 			  			}
 			  		}
 			  	}

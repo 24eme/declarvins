@@ -53,9 +53,15 @@ class ConfigurationProduit extends BaseConfigurationProduit
 	); 
 	
 	protected static $correspondance_code_couleurs = array (
-		self::LIBELLE_COULEUR_ROUGE => self::CLE_COULEUR_ROUGE,
-		self::LIBELLE_COULEUR_ROSE => self::CLE_COULEUR_ROSE,
-		self::LIBELLE_COULEUR_BLANC => self::CLE_COULEUR_BLANC 
+		self::CODE_COULEUR_ROUGE => self::CLE_COULEUR_ROUGE,
+		self::CODE_COULEUR_ROSE => self::CLE_COULEUR_ROSE,
+		self::CODE_COULEUR_BLANC => self::CLE_COULEUR_BLANC 
+	);
+	
+	protected static $correspondance_libelle_couleurs = array (
+		self::CODE_COULEUR_ROUGE => self::LIBELLE_COULEUR_ROUGE,
+		self::CODE_COULEUR_ROSE => self::LIBELLE_COULEUR_ROSE,
+		self::CODE_COULEUR_BLANC => self::LIBELLE_COULEUR_BLANC 
 	);
 
     public static function getCorrespondanceCouleurs() 
@@ -76,6 +82,11 @@ class ConfigurationProduit extends BaseConfigurationProduit
     public static function getCorrespondanceCodeCouleurs() 
     {
     	return self::$correspondance_code_couleurs;
+    }
+    
+    public static function getCorrespondanceLibelleCouleurs() 
+    {
+    	return self::$correspondance_libelle_couleurs;
     }
 
     public function constructId() 
