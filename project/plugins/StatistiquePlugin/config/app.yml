@@ -153,7 +153,7 @@ all:
           value_field: "selecteur"
           interval: "month"
     vrac:
-      title: "Etat des lieux de saisie des contrats interprofessionnel"
+      title: "Etat des lieux de saisie des contrats interprofessionnels"
       nb_resultat: 20
       elasticsearch_type: "vrac"
       champs:
