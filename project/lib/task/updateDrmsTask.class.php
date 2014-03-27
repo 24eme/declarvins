@@ -32,8 +32,8 @@ EOF;
         $i = 1;
         foreach ($drms->rows as $d) {
         	if ($drm = DRMClient::getInstance()->find($d->id, acCouchdbClient::HYDRATE_DOCUMENT)) {
-        		if ($drm->version) {
-        			$drm->identifiant_drm_historique = null;
+        		if (!$drm->declarant->raison_sociale) {
+        			$drm->setEtablissementInformations();
         			$drm->save();
 					$this->logSection('drm', $d->id.' OK '.$i);
         		}
