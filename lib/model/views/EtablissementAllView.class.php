@@ -110,6 +110,9 @@ class EtablissementAllView extends acCouchdbView
 
     	if (isset($datas[$datas[self::KEY_PAYS]]))
     	  	$libelle .= ' '.$datas[$datas[self::KEY_PAYS]];
+
+    	if (isset($datas[self::KEY_STATUT]))
+    	  	$libelle .= ' / '.$datas[self::KEY_STATUT];
         
         return trim($libelle);
     }
