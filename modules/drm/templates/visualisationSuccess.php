@@ -30,14 +30,14 @@
         <?php endif; ?>
 
         <?php 
-        if ($drm_suivante && $drm->isRectificative() && !$drm->isModificative() && !$drm_suivante->isValidee()): ?>
+        if ($drm_suivante && $drm_suivante->isRectificative() && !$drm_suivante->isValidee()): ?>
             <div class="vigilance_list">
                 <ul>
                     <li>Vous devez rectifier la DRM du mois suivant</li>
                 </ul>
             </div>
         <?php endif; ?>
-        <?php if ($drm_suivante && $drm->isModificative() && !$drm_suivante->isValidee()): ?>
+        <?php if ($drm_suivante && $drm_suivante->isModificative() && !$drm_suivante->isValidee()): ?>
             <div class="vigilance_list">
                 <ul>
                     <li>Vous devez modifier la DRM du mois suivant</li>

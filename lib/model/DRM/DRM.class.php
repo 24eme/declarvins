@@ -827,7 +827,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
 
     public function generateNextVersion() {
         if (!$this->hasVersion()) {
-           $next = $this->version_document->generateRectificativeSuivante();
+           $next = $this->version_document->generateModificativeSuivante();
         } else {
         	$next = $this->version_document->generateNextVersion();
         }
