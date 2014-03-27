@@ -45,7 +45,7 @@ class drm_vracActions extends sfActions
 	    }
 	    
     	if (count($this->details)==0) {
-            if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) {
+            if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER || $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
     			$this->drm->setCurrentEtapeRouting('validation');
                 return $this->redirect('drm_validation', $this->drm);
             }
@@ -61,8 +61,9 @@ class drm_vracActions extends sfActions
         	if ($this->form->isValid()) {
        			$this->form->save();
        			$this->drm->setCurrentEtapeRouting('declaratif');
-		        if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) {
-		          return $this->redirect('drm_validation', $this->drm);
+		        if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER || $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+		        	$this->drm->setCurrentEtapeRouting('validation');
+		          	return $this->redirect('drm_validation', $this->drm);
 		        }
 	        	return $this->redirect('drm_declaratif', $this->drm);
         	}

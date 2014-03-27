@@ -36,7 +36,7 @@ class drm_mouvements_generauxActions extends sfActions
 	        	   $this->drm->setCurrentEtapeRouting('recapitulatif');
 	               return $this->redirect('drm_recap', $this->first_certification);
 	            } else {
-	               if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) {
+	               if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER || $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
 	                   $this->drm->setCurrentEtapeRouting('validation');
 	                   return $this->redirect('drm_validation', $this->drm); 
 	               }
@@ -55,7 +55,7 @@ class drm_mouvements_generauxActions extends sfActions
         	$produit->pas_de_mouvement_check = 1;
         }
 
-        if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) {
+        if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER || $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
             $drm->setCurrentEtapeRouting('validation');
         
             return $this->redirect('drm_validation', $drm);
