@@ -162,6 +162,7 @@ class VracDetailImport
     		}
     	}
     	$vrac->valide->statut = VracClient::matchStatut($this->getDataValue(VracDateView::VALUE_STATUT, 'statut', false));
+    	$vrac->commentaires = $this->getDataValue(VracDateView::VALUE_COMMENTAIRE, 'commentaire', false);
     	return $vrac;
   	}
   	
