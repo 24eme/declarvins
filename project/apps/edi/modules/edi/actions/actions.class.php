@@ -121,7 +121,7 @@ class ediActions extends sfActions
     $datefin = new DateTime($campagneManager->getDateFinByCampagne($campagne));
     $dateForViewDebut = new DateTime($campagneManager->getDateDebutByCampagne($campagne));
     $dateForViewfin = new DateTime($campagneManager->getDateFinByCampagne($campagne));
-    $drms = DRMDateView::getInstance()->findByInterproAndDates($interpro, array('begin' => $dateForViewDebut->modify('-1 second')->format('c'), 'end' => $dateForViewfin->modify('+1 second')->format('c')), true);
+    $drms = DRMDateView::getInstance()->findByInterproAndDates($interpro, array('begin' => $dateForViewDebut->modify('-1 second')->format('c'), 'end' => $dateForViewfin->modify('+1 day')->modify('-1 second')->format('c')), true);
     return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $datedebut->format('c'));
   }
   
