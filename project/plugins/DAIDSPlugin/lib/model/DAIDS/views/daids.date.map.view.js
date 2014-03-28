@@ -53,15 +53,23 @@ function(doc) {
 		
 		for(interpro in doc.interpros) {
 			for(certification_key in doc.declaration.certifications) {
-			    var certification = doc.declaration.certifications[certification_key];
+				var certification = doc.declaration.certifications[certification_key];
 			    var certification_hash = "declaration/certifications/"+certification_key;
 			    var certification_code = certification_key;
 			    var certification_libelle = certification_key;
+			    var libelle = certification_libelle;
+			    var code = certification_code;
 			    for(genre_key in certification.genres) {
 			        var genre = certification.genres[genre_key];
 			        var genre_hash = certification_hash+"/genres/"+genre_key;
-				var genre_code = genre_key;
-				var genre_libelle = genre.libelle;
+				if (certification_libelle) {
+					libelle = certification_libelle;
+				}
+				if (certification_code) {
+					code = certification_code;
+				}
+		        var genre_code = (genre.code).replace(code, '');
+				var genre_libelle = (genre.libelle).replace(libelle, '');
 		        if (genre_code == key_default) {
 		        	genre_code = null;
 		        	genre_libelle = null;
@@ -69,8 +77,14 @@ function(doc) {
 			        for(appellation_key in genre.appellations) {
 			            var appellation = genre.appellations[appellation_key];
 			            var appellation_hash = genre_hash+"/appellations/"+appellation_key;
-				    var appellation_code = appellation_key;
-				    var appellation_libelle = appellation.libelle;
+					if (genre.libelle && genre_code != key_default) {
+						libelle = genre.libelle;
+					}
+					if (genre.code && genre_code != key_default) {
+						code = genre.code;
+					}
+			        var appellation_code = (appellation.code).replace(code, '');
+				    var appellation_libelle = (appellation.libelle).replace(libelle, '');
 			        if (appellation_code == key_default) {
 			        	appellation_code = null;
 			        	appellation_libelle = null;
@@ -78,17 +92,29 @@ function(doc) {
 			            for(mention_key in appellation.mentions) {
 			                var mention = appellation.mentions[mention_key];
 			                var mention_hash = appellation_hash+"/mentions/"+appellation_key;
-				        var mention_code = mention_key;
-					var mention_libelle = mention.libelle;
-			        if (mention_code == key_default) {
-			        	mention_code = null;
-			        	mention_libelle = null;
-			        }
+						if (appellation.libelle && appellation_code != key_default) {
+							libelle = appellation.libelle;
+						}
+						if (appellation.code && appellation_code != key_default) {
+					        code = appellation.code;
+						}
+				        var mention_code = (mention.code).replace(code, '');
+						var mention_libelle = (mention.libelle).replace(libelle, '');
+				        if (mention_code == key_default) {
+				        	mention_code = null;
+				        	mention_libelle = null;
+				        }
 			                for(lieu_key in mention.lieux) {
 			                    var lieu = mention.lieux[lieu_key];
 			                    var lieu_hash = mention_hash+"/lieux/"+lieu_key;
-					    var lieu_code = lieu_key;
-					    var lieu_libelle = lieu.libelle;
+						if (mention.libelle && mention_code != key_default) {
+							libelle = mention.libelle;
+						}
+						if (mention.code && mention_code != key_default) {
+							code = mention.code;
+						}
+				        var lieu_code = (lieu.code).replace(code, '');
+					    var lieu_libelle = (lieu.libelle).replace(libelle, '');
 				        if (lieu_code == key_default) {
 				        	lieu_code = null;
 				        	lieu_libelle = null;
@@ -96,8 +122,14 @@ function(doc) {
 			                    for(couleur_key in lieu.couleurs) {
 			                        var couleur = lieu.couleurs[couleur_key];
 			                        var couleur_hash = lieu_hash+"/couleurs/"+couleur_key;
-						var couleur_code = couleur_key;
-						var couleur_libelle = couleur.libelle;
+						if (lieu.libelle && lieu_code != key_default) {
+							libelle = lieu.libelle;
+						}
+						if (lieu.code && lieu_code != key_default) {
+							code = lieu.code;
+						}
+				        var couleur_code = (couleur.code).replace(code, '');
+						var couleur_libelle = (couleur.libelle).replace(libelle, '');
 				        if (couleur_code == key_default) {
 				        	couleur_code = null;
 				        	couleur_libelle = null;
@@ -105,8 +137,14 @@ function(doc) {
 			                        for(cepage_key in couleur.cepages) {
 			                            var cepage = couleur.cepages[cepage_key];
 			                            var cepage_hash = couleur_hash+"/cepages/"+cepage_key;
-						    var cepage_code = cepage_key;
-						    var cepage_libelle = cepage.libelle;
+							if (couleur.libelle && couleur_code != key_default) {
+								libelle = couleur.libelle;
+							}
+							if (couleur.code && couleur_code != key_default) {
+								code = couleur.code;
+							}
+					        var cepage_code = (cepage.code).replace(code, '');
+						    var cepage_libelle = (cepage.libelle).replace(libelle, '');
 					        if (cepage_code == key_default) {
 					        	cepage_code = null;
 					        	cepage_libelle = null;
