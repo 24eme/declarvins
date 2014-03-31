@@ -52,7 +52,7 @@ class drm_vracActions extends sfActions
 	  		return $this->redirect('drm_declaratif', $this->drm);
     	}
 
-    	$this->drm->setCurrentEtapeRouting('vrac');
+    	$this->drm->etape = "vrac";
 		$this->form = new DRMVracForm($this->drm);
 
     	if ($request->isMethod(sfWebRequest::POST)) {
