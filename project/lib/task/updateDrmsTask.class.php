@@ -30,12 +30,34 @@ EOF;
         
         $drms = DRMClient::getInstance()->findAll();
         $i = 1;
+        $nb = count($drms->rows);
         foreach ($drms->rows as $d) {
         	if ($drm = DRMClient::getInstance()->find($d->id, acCouchdbClient::HYDRATE_DOCUMENT)) {
-        		if (!$drm->declarant->raison_sociale) {
-        			$drm->setEtablissementInformations();
-        			$drm->save();
-					$this->logSection('drm', $d->id.' OK '.$i);
+        		if ($drm->isValidee()) {
+        			$needSave = false;
+        			foreach ($drm->getDetails() as $detail) {
+        				if ($detail->cvo->exist('code') && $detail->cvo->code) {
+        					if ($drm->droits->exist('cvo') && $drm->droits->cvo->exist($detail->cvo->code)) {
+        						if ($detail->cvo->taux != $drm->droits->cvo->get($detail->cvo->code)->taux) {
+        							$detail->cvo->taux = $drm->droits->cvo->get($detail->cvo->code)->taux;
+        							$needSave = true;
+        						}
+        					}
+        				}
+        				if ($detail->douane->exist('code') && $detail->douane->code) {
+        					if ($drm->droits->exist('douane') && $drm->droits->douane->exist($detail->douane->code)) {
+        						if ($detail->douane->taux != $drm->droits->douane->get($detail->douane->code)->taux) {
+        							$detail->douane->taux = $drm->droits->douane->get($detail->douane->code)->taux;
+        							$needSave = true;
+        						}
+        					}
+        					
+        				}
+        			}
+        			if ($needSave) {
+        				$drm->save();
+						$this->logSection('drm', $d->id.' OK '.$i.'/'.$nb);	
+        			}
         		}
 				$i++;
         	}
