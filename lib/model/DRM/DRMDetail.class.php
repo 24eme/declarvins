@@ -143,7 +143,7 @@ class DRMDetail extends BaseDRMDetail {
         	}
         }
         $date = $this->getDocument()->periode.'-01'; 
-        if (!$this->cvo->taux) {
+        //if (!$this->cvo->taux) {
         	$droitCvo = $this->getDroit(ConfigurationProduit::NOEUD_DROIT_CVO);
 	        if ($droitCvo) {
 	        	$this->cvo->code = $droitCvo->code;
@@ -152,8 +152,8 @@ class DRMDetail extends BaseDRMDetail {
 	        	$this->cvo->code = null;
 	        	$this->cvo->taux = 0;
 	        }
-        }
-        if (!$this->douane->taux) {
+        //}
+        //if (!$this->douane->taux) {
         	$droitDouane = $this->getDroit(ConfigurationProduit::NOEUD_DROIT_DOUANE);
 	        if ($droitDouane) {
 	        	$this->douane->code = $droitDouane->code;
@@ -162,7 +162,7 @@ class DRMDetail extends BaseDRMDetail {
 	        	$this->douane->code = null;
 	        	$this->douane->taux = 0;
 	        }
-        }
+        //}
         $this->cvo->volume_taxable = $this->getVolumeTaxable();
         $this->douane->volume_taxable = $this->getDouaneVolumeTaxable();
         $this->selecteur = 1;
@@ -289,8 +289,6 @@ class DRMDetail extends BaseDRMDetail {
       $this->total_entrees_interpro = null;
       $this->total_sorties_interpro = null;
       $this->total_interpro = null;
-      $this->cvo->taux = null;
-      $this->douane->taux = null;
       $this->selecteur = 1;
        if ($nextCampagne != $this->getDocument()->campagne) {
        	$daids = DAIDSClient::getInstance()->findMasterByIdentifiantAndPeriode($this->getDocument()->identifiant, $this->getDocument()->campagne);
@@ -306,6 +304,10 @@ class DRMDetail extends BaseDRMDetail {
        	$this->pas_de_mouvement_check = 0;
        }
 	  
+      $this->remove('cvo');
+      $this->add('cvo');
+      $this->remove('douane');
+      $this->add('douane');
       $this->remove('vrac');
       $this->add('vrac');
       

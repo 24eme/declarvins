@@ -123,9 +123,9 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         $keepStock = ($periode > $this->periode);
 
         $drm_suivante = clone $this;
+        $drm_suivante->periode = $periode;
     	$drm_suivante->init(array('keepStock' => $keepStock, 'next_campagne' => DRMClient::getInstance()->buildCampagne($periode)));
         $drm_suivante->update();
-        $drm_suivante->periode = $periode;
 
         if ($is_just_the_next_periode) {
             $drm_suivante->precedente = $this->_id;
@@ -143,6 +143,8 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         $this->add('declarant');
         $this->remove('editeurs'); 
         $this->add('editeurs'); 
+        $this->remove('droits'); 
+        $this->add('droits'); 
 
         $this->version = null;
         $this->raison_rectificative = null;
