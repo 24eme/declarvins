@@ -25,7 +25,16 @@ class ArchivageDocument implements iLock
         if ($this->document->numero_archive) {
             return;
         }
-	   Lock::runLock($this, $this->document->toJson()->type);
+	   Lock::runLock($this, $this->getType());
+    }
+    
+    public function getType() {
+    	if(method_exists($this->document, 'getTypeArchive')) {
+
+            return $this->document->getTypeArchive();
+        }
+        
+    	return $this->document->toJson()->type;
     }
 
     public function getCampagne() {
