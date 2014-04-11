@@ -100,8 +100,7 @@ class DRMValidation
 		  foreach ($detail->vrac as $contrat) {
 		    $totalVolume += $contrat->volume;
 		  }
-		  if ($detail->canHaveVrac()) {
-		  	var_dump($totalVolume, $detail->sorties->vrac);exit;
+		  if ($detail->canHaveVrac() && $detail->sorties->vrac) {
 			  if ($totalVolume < $detail->sorties->vrac) {
 			    $this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm));
 			  } elseif ($totalVolume > $detail->sorties->vrac) {
