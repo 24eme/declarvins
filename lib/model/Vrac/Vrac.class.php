@@ -188,11 +188,11 @@ class Vrac extends BaseVrac
     		foreach ($acteurs as $acteur) {
     			$validateur = 'date_validation_'.$acteur;
     			if (!$this->valide->get($validateur)) {
-    				$this->valide->{$validateur} = date('c');
+    				$this->valide->{$validateur} = ($this->date_signature)? $this->date_signature : date('c');
     			}
     		}
     		$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
-    		$this->valide->date_validation = date('c');
+    		$this->valide->date_validation = ($this->date_signature)? $this->date_signature : date('c');
     	} else {
     		$this->mode_de_saisie = self::MODE_DE_SAISIE_DTI;
     		if ($this->vous_etes && in_array($this->vous_etes, $acteurs)) {
