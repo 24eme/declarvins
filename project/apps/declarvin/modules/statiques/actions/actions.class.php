@@ -25,4 +25,9 @@ class statiquesActions extends sfActions
 
 	  
   }
+  public function executeMentions(sfWebRequest $request) 
+  {
+
+	  
+  }
 }

@@ -241,6 +241,10 @@ statiques:
 contact:
   url:   /contact
   param: { module: statiques, action: contact }
+  
+mentions:
+  url:   /mentions-legales-credits
+  param: { module: statiques, action: mentions }
 
 # generic rules
 # please, remove them by adding more specific rules

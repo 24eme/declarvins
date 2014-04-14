@@ -137,7 +137,7 @@
 		
 		if(statsConteneur.find('.date_picker').exists()) { initDatePicker(); }
 		
-		affichageFiltres(ids);
+		//affichageFiltres(ids);
 		
 		statsConteneur.find("#filtre_produits_items select").combobox();
 		
