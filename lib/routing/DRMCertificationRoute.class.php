@@ -19,7 +19,7 @@ class DRMCertificationRoute extends DRMRoute
         if (!array_key_exists('certification', $parameters)) {
             return $this->getDRM()->declaration->certifications->getFirst();
         }
-        $certifications = ConfigurationClient::getCurrent()->getCertifications();
+        $certifications = array_keys(ConfigurationClient::getCurrent()->getCertifications());
         if (in_array($parameters['certification'], $certifications)) {
         	$this->certification = $parameters['certification'];
             if (isset($this->options['add_noeud']) && $this->options['add_noeud'] === true) {

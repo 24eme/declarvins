@@ -16,8 +16,8 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         parent::__construct();  
         $this->initDocuments(); 
         $config_certifications = ConfigurationClient::getCurrent()->getCertifications();
-        foreach ($config_certifications as $config_certification) {
-        	$this->declaration->certifications->add($config_certification);
+        foreach ($config_certifications as $certification => $config_certification) {
+        	$this->declaration->certifications->add($certification);
         }
     }
 
