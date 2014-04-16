@@ -230,7 +230,7 @@ class VracForm extends acCouchdbObjectForm
         	'cvo_nature' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCvoNatures()))),
         	'cvo_repartition' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCvoRepartitions()))),
         	'date_stats' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
-        	'date_signature' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
+        	'date_signature' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true)),
         	'volume_enleve' => new sfValidatorNumber(array('required' => false)),
         	'nature_document' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getNaturesDocument()))),
         	'date_signature_vendeur' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),

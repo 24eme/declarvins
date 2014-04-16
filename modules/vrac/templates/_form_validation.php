@@ -9,19 +9,17 @@
 	            <?php echo $form['commentaires']->renderLabel() ?>
 	            <?php echo $form['commentaires']->render() ?>
 	        </div>
+	    <?php if (isset($form['date_signature'])): ?>
+	        <div class="vracs_ligne_form vracs_ligne_form_alt">
+	            <?php echo $form['date_signature']->renderError() ?>
+	            <?php echo $form['date_signature']->renderLabel() ?>
+	            <?php echo $form['date_signature']->render(array('class' => 'datepicker')) ?> (jj/mm/aaaa)
+	        </div>
+	    <?php endif; ?>
 	    </div>
 	    <br />
 	    <h2>Récapitulatif de la saisie</h2>
 	    <?php include_partial('showContrat', array('configurationVrac' => $configurationVrac,'etablissement' => $etablissement, 'vrac' => $form->getObject(), 'editer_etape' => true)); ?>
-	    <?php if (isset($form['date_signature']))?>
-	    <div class="bloc_form ">
-	        <div class="vracs_ligne_form vracs_ligne_form_alt">
-	            <?php echo $form['date_signature']->renderError() ?>
-	            <?php echo $form['date_signature']->renderLabel() ?>
-	            <?php echo $form['date_signature']->render(array('class' => 'datepicker')) ?>
-	        </div>
-	    </div>
-	    <br />
 		<p style="text-align:right;">Assurez-vous de bien respecter les délais minimum de transmission de vos déclarations de transactions à votre organisme d’inspection/contrôle.</p>
 		<div class="ligne_form_btn">
 			<?php if($form->getObject()->has_transaction): ?>
