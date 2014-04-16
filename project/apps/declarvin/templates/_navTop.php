@@ -32,8 +32,9 @@ use_helper('Text');
             <a href="<?php echo url_for('profil', $etablissement) ?>">Profil</a>
         </li>
     </ul>
-
-    <ul id="actions_etablissement">
+</nav>
+<nav id="sous_barre_navigation">
+	<ul id="actions_etablissement">
         <?php if($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <li class="backend">
                 <a href="<?php echo url_for('@admin'); ?>"><?php echo $sf_user->getCompte() ?></a>
@@ -42,7 +43,7 @@ use_helper('Text');
         
         <li class="etablissement_courant">
             <a href="<?php echo url_for('@tiers') ?>" title="<?php echo $etablissement->getDenomination();?> (<?php echo $etablissement->getRaisonSociale(); ?> <?php echo $etablissement->getIdentifiant();?>)">
-                <span><?php echo truncate_text($etablissement->getDenomination(),20); ?></span>
+                <span><?php echo $etablissement->getDenomination(); ?></span>
             </a>
         </li>
         <li class="quitter"><a href="<?php echo url_for('@tiers') ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>

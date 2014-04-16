@@ -614,7 +614,7 @@ a.highlight_link
 #contenu
 {
 	background: #fff;
-	padding: 25px 20px 70px;
+	padding: 0 20px 70px;
 	.clearfix;
 	
 	#principal
@@ -787,16 +787,25 @@ a.highlight_link
 			}
 		}
 	}
-	
-	#actions_etablissement
-	{
-		float: right;
-		line-height: 27px;
-		
-		li
-		{
-			display: inline;
-			float: left;
+}
+
+#sous_barre_navigation
+{
+    background: #fff;
+    padding: 4px 4px 0;
+    .clearfix;
+    
+    a:hover { text-decoration: none; }
+    
+    #actions_etablissement
+    {
+        float: right;
+        line-height: 27px;
+        
+        li
+        {
+            display: inline;
+            float: left;
 
                         &.backend
                         {
@@ -808,34 +817,33 @@ a.highlight_link
                                 padding: 0 10px;
                         }
 
-			&.etablissement_courant
-			{
-				a
-				{
-					background: url(../images/boutons/btn_etablissement_courant.png) right 0 no-repeat;
-					padding: 0 20px 0 0;
-					
-					span
-					{
-						background: url(../images/boutons/btn_etablissement_courant.png) 0 0 no-repeat;
-						float: left;
-						padding: 0 0 0 27px;
-					}
-				}
-			}
-			
-			&.quitter { margin-right: -10px; }
-			
-			a
-			{
-				color: #fff;
-				float: left;
-			}
-			
-			img { display: block; }
-		}
-
-                .popup_form
+            &.etablissement_courant
+            {
+                a
+                {
+                    background: url(../images/boutons/btn_etablissement_courant.png) right 0 no-repeat;
+                    padding: 0 20px 0 0;
+                    
+                    span
+                    {
+                        background: url(../images/boutons/btn_etablissement_courant.png) 0 0 no-repeat;
+                        float: left;
+                        padding: 0 0 0 27px;
+                    }
+                }
+            }
+            
+            &.quitter { margin-right: -10px; }
+            
+            a
+            {
+                color: #fff;
+                float: left;
+            }
+            
+            img { display: block; }
+        }
+                        .popup_form
                 {
                         position: relative;
                         right: 3px;
@@ -846,7 +854,7 @@ a.highlight_link
                         }
                 }
 
-	}
+    }
 }
 
 /**

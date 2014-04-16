@@ -559,7 +559,7 @@ a.highlight_link:hover { text-decoration:none; }
 }
 #contenu {
   background:#ffffff;
-  padding:25px 20px 70px;
+  padding:0 20px 70px;
   zoom:1;
 }
 #contenu:before, #contenu:after {
@@ -691,43 +691,57 @@ a.highlight_link:hover { text-decoration:none; }
   background:url(../images/fonds/bg_nav_principale.png) left 0 no-repeat;
   color:#ffffff;
 }
-#barre_navigation #actions_etablissement {
+#sous_barre_navigation {
+  background:#ffffff;
+  padding:4px 4px 0;
+  zoom:1;
+}
+#sous_barre_navigation:before, #sous_barre_navigation:after {
+  content:"\0020";
+  display:block;
+  font-size:0;
+  height:0;
+  visibility:hidden;
+}
+#sous_barre_navigation:after { clear:both; }
+#sous_barre_navigation a:hover { text-decoration:none; }
+#sous_barre_navigation #actions_etablissement {
   float:right;
   line-height:27px;
 }
-#barre_navigation #actions_etablissement li {
+#sous_barre_navigation #actions_etablissement li {
   display:inline;
   float:left;
 }
-#barre_navigation #actions_etablissement li.backend {
+#sous_barre_navigation #actions_etablissement li.backend {
   background:#c582af;
   border:1px solid #a55d8d;
   height:25px;
   line-height:25px;
   padding:0 10px;
 }
-#barre_navigation #actions_etablissement li.backend a { color:#86005b; }
-#barre_navigation #actions_etablissement li.etablissement_courant a {
+#sous_barre_navigation #actions_etablissement li.backend a { color:#86005b; }
+#sous_barre_navigation #actions_etablissement li.etablissement_courant a {
   background:url(../images/boutons/btn_etablissement_courant.png) right 0 no-repeat;
   padding:0 20px 0 0;
 }
-#barre_navigation #actions_etablissement li.etablissement_courant a span {
+#sous_barre_navigation #actions_etablissement li.etablissement_courant a span {
   background:url(../images/boutons/btn_etablissement_courant.png) 0 0 no-repeat;
   float:left;
   padding:0 0 0 27px;
 }
-#barre_navigation #actions_etablissement li.quitter { margin-right:-10px; }
-#barre_navigation #actions_etablissement li a {
+#sous_barre_navigation #actions_etablissement li.quitter { margin-right:-10px; }
+#sous_barre_navigation #actions_etablissement li a {
   color:#ffffff;
   float:left;
 }
-#barre_navigation #actions_etablissement li img { display:block; }
-#barre_navigation #actions_etablissement .popup_form {
+#sous_barre_navigation #actions_etablissement li img { display:block; }
+#sous_barre_navigation #actions_etablissement .popup_form {
   position:relative;
   right:3px;
   top:3px;
 }
-#barre_navigation #actions_etablissement .popup_form button, #barre_navigation #actions_etablissement .popup_form input { margin-top:2px; }
+#sous_barre_navigation #actions_etablissement .popup_form button, #sous_barre_navigation #actions_etablissement .popup_form input { margin-top:2px; }
 #barre_sub_navigation {
   background:#f1f1f1;
   border-bottom:1px solid #e1e1e0;
