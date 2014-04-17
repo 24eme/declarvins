@@ -20,25 +20,6 @@
 		</li>
 		<?php endif; ?>
 	</ul>
-	<ul id="actions_etablissement">
-		<?php if ($recherche && 1==2): // on masque la recherche intensionnellement ?>
-		<li id="bloc_admin_etablissement_choice" class="popup_form">
-			<form method="post" action="<?php echo url_for('@etablissement_login') ?>" id="select_etablissement" >
-                                <?php echo $form->renderHiddenFields(); ?>
-				<div class="ligne_form ligne_form_label">
-                                <?php echo $form['etablissement']->render() ?>
-                                <input type="submit" value="Ok" />
-		        </form>
-			<script type="text/javascript">
-			$(document).ready(function () {
-				$( "#<?php echo $form['etablissement']->renderId() ?>" ).combobox();
-                        });
-			</script>
-		</li>
-		<?php endif; ?>
-		<li class="etablissement_courant_admin"><a href="<?php echo url_for('@admin'); ?>"><span><?php echo $sf_user->getCompte() ?></span></a></li>
-		<li class="quitter"><a href="<?php echo url_for('@ac_vin_logout'); ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
-	</ul>
 </nav>
 
 <nav id="barre_sub_navigation">
@@ -105,6 +86,14 @@
 		<?php endif; ?>
 	</ul>
 </nav>
+
+<nav id="sous_barre_navigation">
+	<ul id="actions_etablissement">
+		<li class="etablissement_courant_admin"><a href="<?php echo url_for('@admin'); ?>"><span><?php echo $sf_user->getCompte() ?></span></a></li>
+		<li class="quitter"><a href="<?php echo url_for('@ac_vin_logout'); ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
+    </ul>
+</nav>
+
 <?php if ($sf_user->hasFlash('notice')){ ?>
     <div id="flash_message">
         <div class="flash_notice"><?php echo $sf_user->getFlash('notice'); ?></div>

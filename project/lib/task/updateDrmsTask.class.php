@@ -37,7 +37,12 @@ EOF;
         			$drm->declaration->certifications->remove('Sans IG');
         			$drm->declaration->certifications->add('VINSSANSIG');
         			$drm->save();
-        			$this->logSection('drm', $drm->get('_id')." : succès de la mise à jour $i.");
+        			$this->logSection('drm', $drm->get('_id')." : succès de la mise à jour arborescence $i.");
+        		}
+        		if (!$drm->declarant->raison_sociale) {
+        			$drm->setEtablissementInformations();
+        			$drm->save();
+        			$this->logSection('drm', $drm->get('_id')." : succès de la mise à jour établissement $i.");
         		}
 				$i++;
         	}
