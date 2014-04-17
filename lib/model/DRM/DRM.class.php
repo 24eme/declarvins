@@ -340,6 +340,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         $this->storeDroits($options);
         $this->setInterpros();
         $this->updateVrac();
+        $this->setEtablissementInformations();
 
         if($this->getSuivante() && $this->isSuivanteCoherente()) {
             $this->getSuivante()->precedente = $this->get('_id');

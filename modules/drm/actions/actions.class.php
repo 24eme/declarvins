@@ -176,10 +176,8 @@ class drmActions extends sfActions
 	  		$values = $this->form->getValues();
             if ($values['confirmation'] == "modification"){
             	$this->redirect('drm_modif_infos', $this->drm);
-            }elseif ($values['confirmation']) {
-            	$this->drm->setEtablissementInformations($this->etablissement);
-  				$this->drm->save();
-	  		}
+            }
+            $this->drm->setEtablissementInformations($this->etablissement);
 			$this->drm->setCurrentEtapeRouting('ajouts_liquidations');		
         	$this->redirect('drm_mouvements_generaux', $this->drm);
     	}
