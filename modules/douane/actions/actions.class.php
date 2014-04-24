@@ -19,7 +19,7 @@ class douaneActions extends sfActions
   public function executeEtablissements(sfWebRequest $request)
   {
   	  $this->douane = $this->findDouaneById($request->getParameter('id'));
-      $this->etablissements = EtablissementDouaneView::getInstance()->findByDouane($this->douane->nom);
+      $this->etablissements = EtablissementAllView::getInstance()->findByDouane($this->douane->nom);
   }
   
   public function executeNouveau(sfWebRequest $request)

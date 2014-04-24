@@ -4,11 +4,11 @@
 	<div class="clearfix" id="application_dr">
 	    <h1>Etablissements appartenants au service douane <strong><?php echo $douane->nom ?></strong></h1>
 	    <div class="tableau_ajouts_liquidations">
-	    <?php if (count($etablissements->rows) > 0): ?>
+	    <?php if (count($etablissements) > 0): ?>
 	    <table class="tableau_recap">
             <tbody>
-	    	<?php foreach($etablissements->rows as $etablissement): ?>
-	    		<tr><td><?php echo EtablissementDouaneView::makeLibelle($etablissement->value) ?></td></tr>
+	    	<?php foreach($etablissements as $etablissement): ?>
+	    		<tr><td><?php echo EtablissementAllView::makeLibelle($etablissement) ?></td></tr>
 	    	<?php endforeach; ?>
 	    	</tbody>
     	</table>
