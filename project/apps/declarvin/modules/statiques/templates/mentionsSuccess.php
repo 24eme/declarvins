@@ -1,4 +1,4 @@
-<section id="contenu">
+<section id="contenu" style="padding: 30px 20px 70px;">
     <h1>Mentions légales et crédits</h1>
     <h2 style="color: #86005B; font-size:18px; font-weight: normal;">Interprofessions :</h2>
     <br />

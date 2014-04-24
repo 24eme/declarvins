@@ -29,7 +29,7 @@
 			    		<?php 
 			    			$etablissementsInformations = $bilan->getEtablissementsInformations();
 			    			$drmsInformations = $bilan->getDRMsInformations();
-			    			foreach ($bilan->getEtablissementsInformations() as $identifiant => $etablissement): 
+			    			foreach ($drmsInformations as $identifiant => $etablissement): 
 			    			$informations = $etablissementsInformations[$identifiant];
 			    		?>
 			    			<tr>
@@ -45,17 +45,12 @@
 					    		<?php 
 					    			$drms = $drmsInformations[$identifiant];
 					    			$precedente = null;
-					    			foreach ($bilan->getPeriodes() as $periode): 
-					    			
-					    			if (str_replace('-', '', $periode) < str_replace('-', '', $informations[StatistiquesBilanView::FIRST_PERIODE])) {
-					    				echo '<td style="padding: 0;">&nbsp;</td>';
-					    				continue;
-					    			}
+					    			foreach ($bilan->getPeriodes() as $periode):
 					    		?>
 					    		<td style="padding: 0;">
 					    			<strong>
 					    			<?php if (!isset($drms[$periode]) && !$precedente): ?>
-					    			<font color="red">0</font>
+					    			<font color="red"><?php $first = DRMAllView::getInstance()->getFirstDrmPeriodeByEtablissement($identifiant); if($first && $periode < $first): ?>&nbsp;<?php else: ?>0<?php endif; ?></font>
 					    			<?php elseif (!isset($drms[$periode]) && $precedente && $precedente[StatistiquesBilanView::VALUE_DRM_TOTAL_FIN_DE_MOIS] > 0): ?>
 					    			<font color="red">0</font>
 					    			<?php elseif (isset($drms[$periode]) && !$drms[$periode][StatistiquesBilanView::VALUE_DRM_DATE_SAISIE]): ?>

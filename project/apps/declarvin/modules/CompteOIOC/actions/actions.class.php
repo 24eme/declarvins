@@ -20,7 +20,7 @@ class CompteOIOCActions extends sfActions
   	if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
   		return $this->redirect('validation_login');
   	}
-  	$this->comptes = _CompteClient::getInstance()->findAllOIOCByInterpo($this->getUser()->getCompte()->getGerantInterpro()->_id);
+  	$this->comptes = CompteAllView::getInstance()->findBy($this->getUser()->getCompte()->getGerantInterpro()->_id, 'CompteOIOC');
   }
   
   public function executeCompteSuppression(sfWebRequest $request)

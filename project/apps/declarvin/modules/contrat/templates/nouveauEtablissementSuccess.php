@@ -6,7 +6,7 @@
 <?php endif; ?>
 
 <!-- #contenu -->
-<section id="contenu">
+<section id="contenu" style="padding: 30px 20px 70px;">
     <h1><strong>Étape 2 :</strong> Informations relatives à vos établissements</h1>
     <?php $intro = (count($contrat->etablissements) > 1) ? "vos établissements" : "votre établissement" ; ?>
     <p class="intro">Veuillez remplir les informations concernant votre nouvel établissement  :</p>

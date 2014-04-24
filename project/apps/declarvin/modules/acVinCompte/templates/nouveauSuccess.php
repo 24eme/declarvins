@@ -1,4 +1,4 @@
-<section id="contenu">
+<section id="contenu" style="padding: 30px 20px 70px;">
 	<?php if($sf_user->hasFlash('create-compte')) : ?>
 	<p>Votre compte est désormais actif. Vous pouvez profiter pleinement des services offerts par la plateforme <a href="<?php echo url_for('ac_vin_login') ?>" class="lien_declarvin">Declarvins.net</a>.</p>
 	<p>Pensez à bien conserver votre identifiant et votre mot de passe. Ils sont uniques, confidentiels et les seuls valables pour votre entreprise.</p>

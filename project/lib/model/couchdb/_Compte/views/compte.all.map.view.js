@@ -1,12 +1,11 @@
 function(doc) {
     var r = new RegExp('\^COMPTE-');
     if (!doc._id.match(r)) {
-
         return;
     }
-
+    var numero_contrat = (doc.contrat)? doc.contrat.replace("CONTRAT-", "") : null;
     for(interpro_id in doc.interpro) {        
-        emit([interpro_id, doc.type, doc.nom, doc.prenom, doc.login, doc.email, doc.telephone, doc.statut, doc.oioc], null);
+        emit([interpro_id, doc.type, doc.statut], [numero_contrat, doc.nom, doc.prenom, doc.login, doc.email, doc.raison_sociale, doc.telephone, doc.oioc]);
     }
 
 }

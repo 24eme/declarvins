@@ -20,7 +20,7 @@ class acVinCompteAdminActions extends sfActions
   	if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN)) {
   		return $this->redirect('validation_login');
   	}
-  	$this->comptes = _CompteClient::getInstance()->findAllOperateurByInterpo($this->getUser()->getCompte()->getGerantInterpro()->_id);
+  	$this->comptes = CompteAllView::getInstance()->findBy($this->getUser()->getCompte()->getGerantInterpro()->_id, 'CompteVirtuel');
   }
   
   public function executeCompteSuppression(sfWebRequest $request)
@@ -109,21 +109,18 @@ class acVinCompteAdminActions extends sfActions
 
 
   public function executeCompteAutocomplete(sfWebRequest $request) {
-    $comptes = _CompteClient::getInstance()->findAllByInterpo($this->getUser()->getCompte()->getGerantInterpro()->get('_id'))->rows;
+    $comptes = CompteAllView::getInstance()->findBy($this->getUser()->getCompte()->getGerantInterpro()->get('_id'))->rows;
     $json = array();
     $limit = $request->getParameter('limit', 100);
     foreach($comptes as $key => $compte) {
-      $text = _CompteClient::getInstance()->makeLibelle($compte->key);
-     
+      $text = CompteAllView::getInstance()->makeLibelle($compte->value);
       if (Search::matchTerm($request->getParameter('q'), $text)) {
-        $json[$compte->key[_CompteClient::KEY_LOGIN]] = _CompteClient::getInstance()->makeLibelle($compte->key);
+        $json[$compte->key[CompteAllView::VALUE_LOGIN]] = $text;
       }
-
       if (count($json) >= $limit) {
         break;
       }
     }
-
     return $this->renderText(json_encode($json));
   }
 }

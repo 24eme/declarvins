@@ -1,4 +1,4 @@
-<section id="contenu">
+<section id="contenu" style="padding: 30px 20px 70px;">
     <div id="creation_compte">
         <div id="principal" >
             <h1>Récapitulatif</h1>

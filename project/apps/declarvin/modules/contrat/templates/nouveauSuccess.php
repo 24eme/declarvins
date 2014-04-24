@@ -1,4 +1,4 @@
-<section id="contenu">
+<section id="contenu" style="padding: 30px 20px 70px;">
 	<?php if($sf_user->hasFlash('notice')) : ?>
 	<p class="flash_message"><?php echo $sf_user->getFlash('notice'); ?></p>
 	<?php endif; ?>

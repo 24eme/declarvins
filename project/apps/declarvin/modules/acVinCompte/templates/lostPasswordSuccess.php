@@ -1,4 +1,4 @@
-<section id="contenu">
+<section id="contenu" style="padding: 30px 20px 70px;">
 	<?php $email_send = false; ?>
 	<?php if($sf_user->hasFlash('notice')) : ?>
 	<?php $email_send = true; ?>

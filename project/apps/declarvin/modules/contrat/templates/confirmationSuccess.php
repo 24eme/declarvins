@@ -6,7 +6,7 @@ function closeCompte() {
 	$('#modification-adresse-form').hide();
 }
 </script>
-<section id="contenu">
+<section id="contenu" style="padding: 30px 20px 70px;">
 	<div id="creation_compte" class="popup_form">
 		<h1>Confirmation</h1>
 		<?php if ($sf_user->hasFlash('success')) : ?>

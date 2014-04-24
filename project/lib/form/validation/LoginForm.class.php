@@ -30,7 +30,8 @@ class LoginContratForm extends BaseForm
     
     public function getComptes() {
         if (is_null($this->_choices_comptes)) {
-            $this->_choices_comptes = CompteDeclarantsView::getInstance()->formatComptes($this->_interpro);
+        	$comptesView = CompteAllView::getInstance();
+            $this->_choices_comptes = $comptesView->formatComptes($comptesView->findBy($this->_interpro, 'CompteTiers'));
             $this->_choices_comptes[""] = "";
             ksort($this->_choices_comptes);
         }

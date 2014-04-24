@@ -67,12 +67,13 @@ class statistiqueActions extends sfActions
 		$drms = $drmsInformations[$identifiant];
 		$precedente = null;
 		foreach ($bilan->getPeriodes() as $periode) {
-				if (str_replace('-', '', $periode) < str_replace('-', '', $informations[StatistiquesBilanView::FIRST_PERIODE])) {
-    				$csv_file .= ';';
-    				continue;
+				if (!isset($drms[$periode]) && !$precedente) {
+    				$first = DRMAllView::getInstance()->getFirstDrmPeriodeByEtablissement($identifiant); 
+    				if($first && $periode < $first)
+    					$csv_file .= ';';
+    				else 
+    					$csv_file .= '0;';
     			}
-    			if (!isset($drms[$periode]) && !$precedente)
-    			$csv_file .= '0;';
     			elseif (!isset($drms[$periode]) && $precedente && $precedente[StatistiquesBilanView::VALUE_DRM_TOTAL_FIN_DE_MOIS] > 0)
     			$csv_file .= '0;';
     			elseif (isset($drms[$periode]) && !$drms[$periode][StatistiquesBilanView::VALUE_DRM_DATE_SAISIE])

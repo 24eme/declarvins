@@ -19,8 +19,8 @@ class validationActions extends sfActions {
     	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
     	
         $this->formLogin = new LoginContratForm($this->interpro->get('_id'));
-        $this->comptes_fictif = CompteMandatsView::getInstance()->findByStatutAndInterpro(_Compte::STATUT_FICTIF, $this->interpro->get('_id'));
-        $this->comptes_attente = CompteMandatsView::getInstance()->findByStatutAndInterpro(_Compte::STATUT_ATTENTE, $this->interpro->get('_id'));
+        $this->comptes_fictif = CompteAllView::getInstance()->findBy($this->interpro->get('_id'), 'CompteTiers', _Compte::STATUT_FICTIF)->rows;
+        $this->comptes_attente = CompteAllView::getInstance()->findBy($this->interpro->get('_id'), 'CompteTiers', _Compte::STATUT_ATTENTE)->rows;
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->formLogin->bind($request->getParameter($this->formLogin->getName()));
             if ($this->formLogin->isValid()) {

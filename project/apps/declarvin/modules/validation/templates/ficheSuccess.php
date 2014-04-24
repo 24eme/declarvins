@@ -51,9 +51,9 @@ var formModificationCompte = function()
 
 <div class="clearfix" id="application_dr">
 
-    <div id="contrat_mandat">
+    <div id="contrat_mandat" >
 
-        <h1>Contrat d'inscription</h1>
+        <h1 style="margin: 0 0 15px;">Contrat d'inscription</h1>
        
         <a href="<?php echo url_for("validation_pdf", array("num_contrat" => $contrat->no_contrat)) ?>" class="btn_suiv"><span>Télécharger le pdf du contrat d'inscription n°<?php echo $contrat->no_contrat ?></span></a>
         

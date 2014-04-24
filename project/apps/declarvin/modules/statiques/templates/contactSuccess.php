@@ -1,4 +1,4 @@
-<section id="contenu">
+<section id="contenu" style="padding: 30px 20px 70px;">
     <h1>Contact</h1>
     <p>Vos contacts au sujet de DeclarVins, suivant vos produits :</p>
     <br />
