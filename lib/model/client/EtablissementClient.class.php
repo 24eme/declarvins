@@ -29,16 +29,6 @@ class EtablissementClient extends acCouchdbClient {
     public function find($id_or_identifiant, $hydrate = self::HYDRATE_DOCUMENT, $force_return_ls = false) {
         return parent::find($this->getId($id_or_identifiant), $hydrate, $force_return_ls);
     }
-    
-    public function findByCvi($cvi) {
-        $rows = EtablissementFindByCviView::getInstance()->findByCvi($cvi);
-        
-        if(!count($rows)) {
-            return null;
-        }
-        
-        return $this->find($rows[0]->id);
-    }
 
     public function getId($id_or_identifiant) {
         $id = $id_or_identifiant;
@@ -72,21 +62,6 @@ class EtablissementClient extends acCouchdbClient {
     	}
 
 	    return $etab;
-    }
-
-    public function findByFamille($famille,$limit=100) {
-        if($limit==null){            
-            return $this->startkey(array($famille))
-              ->endkey(array($famille, array()))->getView('etablissement', 'tous');
-        }
-        return $this->startkey(array($famille))
-              ->endkey(array($famille, array()))->limit($limit)->getView('etablissement', 'tous');
-    }
-    
-    public function findAll() 
-    {
-        
-        return $this->limit(100)->getView('etablissement', 'tous');
     }
 
     public function matchFamille($f) {
@@ -130,9 +105,9 @@ class EtablissementClient extends acCouchdbClient {
 
     public function getEtablissementsByContrat($contrat) {
     	$etablissements = array();
-    	$result = EtablissementContratView::getInstance()->findByContrat($contrat)->rows;
+    	$result = EtablissementAllView::getInstance()->findByContrat($contrat);
     	foreach ($result as $etab) {
-    		$etablissements[$etab->value[EtablissementContratView::CONTRAT_NUMERO]] = $this->find($etab->value[EtablissementContratView::CONTRAT_NUMERO]);
+    		$etablissements[$etab->id] = $this->find($etab->id);
     	}
     	return $etablissements;
     }

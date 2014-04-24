@@ -16,6 +16,8 @@ class EtablissementAllView extends acCouchdbView
 	const KEY_CODE_POSTAL = 11;
 	const KEY_PAYS = 12;
 	const KEY_STATUT = 13;
+	const KEY_CONTRAT = 14;
+	const KEY_DOUANE = 15;
 
 	public static function getInstance() {
 
@@ -73,6 +75,28 @@ class EtablissementAllView extends acCouchdbView
                             ->endkey(array($etablissement->interpro, $etablissement->famille, $etablissement->sous_famille, null, $etablissement->_id, array()))
                             ->getView($this->design, $this->view);
         
+    }
+
+    public function findByContrat($contrat) {
+		$etablissements = $this->client->getView($this->design, $this->view)->rows;
+		$result = array();
+		foreach ($etablissements as $etablissement) {
+			if ($etablissement->key[self::KEY_CONTRAT] == $contrat) {
+				$result[] = $etablissement;
+			}
+		}
+		return $result;
+    }
+
+    public function findByDouane($douane) {
+		$etablissements = $this->client->getView($this->design, $this->view)->rows;
+		$result = array();
+		foreach ($etablissements as $etablissement) {
+			if ($etablissement->key[self::KEY_DOUANE] == $douane) {
+				$result[] = $etablissement->key;
+			}
+		}
+		return $result;
     }
 
     public static function makeLibelle($datas) {
