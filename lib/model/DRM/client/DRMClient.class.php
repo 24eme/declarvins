@@ -291,20 +291,6 @@ class DRMClient extends acCouchdbClient {
       
       return $drms;
     }
-  
-  public function findProduits() {
-    return $this->startkey(array("produit"))
-              ->endkey(array("produit", array()))->getView('drm', 'produits');
-  }
-  
-  public function getAllProduits() {
-    $produits = $this->findProduits()->rows;
-    $result = array();
-    foreach ($produits as $produit) {
-    	$result[] = $produit->key[1];
-    }
-    return $result;
-  }
 
   public function getDRMHistorique($identifiant) {
     if (!array_key_exists($identifiant, $this->drm_historiques)) {
