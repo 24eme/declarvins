@@ -166,7 +166,7 @@ class ImportVolumesBloquesCsv
 	    		if ($date) {
 					$vb = $produit->volume_bloque->getOrAdd($date);
 		    		$vb->date = $date;
-		    		$vb->volume = round($this->castFloat($v), 2);
+		    		$vb->volume = round($this->castFloat($v), 4);
 	    		}
 	    	}
     	}
