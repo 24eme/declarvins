@@ -4,7 +4,7 @@ function sprintFloat($float, $format = "%01.02f")
 {
 	if (is_null($float))
 		return null;
-  return sprintf($format, round($float, 2));
+  return sprintf($format, $float);
 }
 
 function sprintFloatFr($float, $format = "%01.02f")
