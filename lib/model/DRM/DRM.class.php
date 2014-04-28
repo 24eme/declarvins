@@ -594,11 +594,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
      * Pour les users administrateur
      */
     public function canSetStockDebutMois() {
-    	if (!$this->getPrecedente()) {
-    		return true;
-    	} elseif ($this->getPrecedente() && $this->getPrecedente()->isNew()) {
-    		return true;
-    	} elseif ($this->isDebutCampagne()) {
+    	if ($this->isDebutCampagne()) {
     		return true;
     	} else {
     		return false;
