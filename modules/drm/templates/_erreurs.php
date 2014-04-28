@@ -1,5 +1,5 @@
 <div class="error_list">
-    <h3>Points bloquants</h3>
+    <h3>Points bloquants (cliquer sur le(s) lien(s) suivant pour modifier)</h3>
     <ol>
         <?php foreach ($drmValidation->getErrors() as $identifiant => $error): ?>
             <li>
