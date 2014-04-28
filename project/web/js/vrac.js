@@ -562,6 +562,7 @@
    	 	bloc.find('.datepicker').datepicker(dpConfig); 
    	 	if ($(".drm_vrac_contrats").length > 0) {
    	 		$(".drm_vrac_contrats").combobox(); 
+   	 		$('.num_float').saisieNum(true);
    	 	}
    	 	if ($("#filtre_produits_items").length > 0) {
    	 		$("#filtre_produits_items select").last().combobox();
