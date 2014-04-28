@@ -1,9 +1,11 @@
+<?php use_helper('Float'); ?>
 <tr class="addContrat">
     <td class="libelle">
         <strong><?php echo $detail->getLibelle(ESC_RAW); ?></strong>
     </td>
-    <td>
-    	Sortie vrac : <?php echo $detail->sorties->vrac ?>hl
+    <td style="text-align: left;">
+    	Sortie vrac&nbsp;&nbsp;: <span style="width: 60%; text-align: right; display: inline-block;"><strong><?php echo echoLongFloat($detail->sorties->vrac) ?></strong>hl</span><br />
+    	Total saisie&nbsp;: <span style="width: 60%; text-align: right; display: inline-block;"><span id="total_saisie" class="total_saisie_contrats" style="font-weight: bold;">0</span>hl</span>
     </td>
     <td>
         <?php if($hasContrat): ?>

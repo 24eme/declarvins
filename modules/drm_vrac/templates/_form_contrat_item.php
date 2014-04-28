@@ -1,5 +1,5 @@
 <tr class="contenu">
-    <td width="700px">
+    <td width="600px">
         <?php echo $form['vrac']->render(array('class' => 'drm_vrac_contrats')) ?>
     </td>
     <td align="center">
