@@ -503,7 +503,9 @@
 	    {
 	    	var element = $(this).attr('data-container');
 	        $(this).parents(element).remove();
-	
+	        if ($(".total_saisie_contrats").length > 0) {
+	        	$.calculerSommesVrac();
+	        }
 	        return false;
 	    });
 	}

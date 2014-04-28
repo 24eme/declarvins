@@ -44,7 +44,27 @@
 			$.toggleGroupesChamps();
 			$.initChoixRadio();
 		}
+		if ($(".total_saisie_contrats").length > 0) {
+			$.calculerSommesVrac();
+			$(".num_float").live("blur", function() { $.calculerSommesVrac(); });
+		}
 	});
+	
+	/**
+	 * Calcul dynamique des sommes des contrats
+	 * $.calculerSommesVrac();
+	 ******************************************/
+	$.calculerSommesVrac = function()
+	{
+		var total = 0;
+		$(".num_float").each(function()
+		{
+			if (!isNaN(parseFloat($(this).val()))) {
+				total += parseFloat($(this).val());
+			}
+		});
+		$("#total_saisie").text(total.toFixed(4));
+	};
 	
 	/**
 	 * Calcul dynamique des dimmensions des colonnes
