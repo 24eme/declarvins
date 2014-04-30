@@ -9,6 +9,7 @@ class DRMValidation
 	const AOP_KEY = 'AOP';
 	const IGP_KEY = 'IGP';
 	const NO_LINK = '#';
+	const ECART_VRAC = 0.2;
 	
 	public function __construct($drm, $options = null)
 	{
@@ -101,7 +102,8 @@ class DRMValidation
 		    $totalVolume += $contrat->volume;
 		  }
 		  if ($detail->canHaveVrac() && $detail->sorties->vrac) {
-			  if (round($totalVolume,4) != round($detail->sorties->vrac,4)) {
+		  	  $ecart = round($detail->sorties->vrac * self::ECART_VRAC, 4);
+			  if (round($totalVolume,4) < (round($detail->sorties->vrac,4) - $ecart) || round($totalVolume,4) > (round($detail->sorties->vrac,4) + $ecart)) {
 			    $this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm));
 			  }
 		  }
