@@ -35,8 +35,17 @@ class ArchivageDocument implements iLock
             return;
         }
         //echo sprintf("DEBUT;%s;%s;\n", date('Y-m-d H:i:s'), $this->document->get('_id'));
-        Lock::runLock($this, $this->document->toJson()->type);
+        Lock::runLock($this, $this->getType());
         //echo sprintf("FIN;%s;%s;%s\n", date('Y-m-d H:i:s'), $this->document->get('_id'), $this->document->numero_archive);
+    }
+    
+    public function getType() {
+    	if(method_exists($this->document, 'getTypeArchive')) {
+
+            return $this->document->getTypeArchive();
+        }
+        
+    	return $this->document->toJson()->type;
     }
 
     public function getCampagne() {
