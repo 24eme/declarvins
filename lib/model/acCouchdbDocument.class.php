@@ -19,6 +19,11 @@ abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
 
         $this->load($data);
     }
+
+    public function reloadFromCouchdb(stdClass $data) {
+        $this->_serialize_loaded_json = null;
+        $this->loadFromCouchdb($data);
+    }
     
     public function __toString() {
         return $this->get('_id') . '/' . $this->get('_rev');
@@ -49,14 +54,28 @@ abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
         $this->definitionValidation();
         if ($this->isModified()) {
             $this->doSave();
-            $ret = acCouchdbManager::getClient()->save($this);
-            $this->_rev = $ret->rev;
-            $this->_serialize_loaded_json = serialize(new acCouchdbJsonNative($this->getData()));
-            return $ret;
+            
+            return $this->store();
         }
         return false;
     }
+
+    public function store() {
+        $ret = acCouchdbManager::getClient()->save($this);
+        $this->_rev = $ret->rev;
+        $this->_serialize_loaded_json = serialize(new acCouchdbJsonNative($this->getData()));
+        
+        return $ret;
+    }
     
+    public function rollBackAndPreserve($revision = null) {
+        $doc_to_roll_back = acCouchdbManager::getClient()->getPreviousDoc($this->_id, $revision);
+        $doc_to_roll_back->_rev = $this->_rev;
+        $ret = acCouchdbManager::getClient()->storeDoc($doc_to_roll_back);
+        $this->_rev = $ret->rev;
+        return $ret;
+    }
+
     protected function constructId() {
         
     }
@@ -87,8 +106,11 @@ abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
     }
 
     public function delete() {
+        $ret = acCouchdbManager::getClient()->delete($this);
 
-        return acCouchdbManager::getClient()->delete($this);
+        $this->_rev = null;
+
+        return $ret;
     }
 
     public function storeAttachment($file, $content_type = 'application/octet-stream', $filename = null) { 
