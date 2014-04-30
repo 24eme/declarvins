@@ -41,7 +41,7 @@ class ArchivageAllView extends acCouchdbView
             return $row->key[self::KEYS_NUMERO_ARCHIVE];
         }
 
-        return 0;
+        return $this->getLastNumeroArchiveByTypeAndCampagne($type, $campagne, $fourchette_basse, $fourchette_haute, $format);
     }
 
     protected function getViewByTypeAndCampagne($type, $campagne, $fourchette_basse = 0, $fourchette_haute = 99999, $format) {
