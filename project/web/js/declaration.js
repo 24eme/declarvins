@@ -44,7 +44,7 @@
 			$.toggleGroupesChamps();
 			$.initChoixRadio();
 		}
-		if ($(".total_saisie_contrats").length > 0) {
+		if ($(".contrat_vracs").length > 0) {
 			$.calculerSommesVrac();
 			$(".num_float").live("blur", function() { $.calculerSommesVrac(); });
 		}
@@ -56,14 +56,20 @@
 	 ******************************************/
 	$.calculerSommesVrac = function()
 	{
-		var total = 0;
-		$(".num_float").each(function()
-		{
-			if (!isNaN(parseFloat($(this).val()))) {
-				total += parseFloat($(this).val());
-			}
+		$(".contrat_vracs").each(function()
+		{	
+			var table = $(this);
+			var inputs = table.find("input.num_float");
+			var total = 0;
+			inputs.each(function() {
+				console.log('coucou');
+				var input = $(this);
+				if (!isNaN(parseFloat(input.val()))) {
+					total += parseFloat(input.val());
+				}
+			});
+			table.find(".total_saisie_contrats").text(total.toFixed(4));
 		});
-		$("#total_saisie").text(total.toFixed(4));
 	};
 	
 	/**
