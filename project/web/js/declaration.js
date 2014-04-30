@@ -62,7 +62,6 @@
 			var inputs = table.find("input.num_float");
 			var total = 0;
 			inputs.each(function() {
-				console.log('coucou');
 				var input = $(this);
 				if (!isNaN(parseFloat(input.val()))) {
 					total += parseFloat(input.val());
