@@ -103,6 +103,7 @@ class drmActions extends sfActions
   */
   public function executeMonEspace(sfWebRequest $request)
   {
+  	  $this->forward404Unless($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR));
       $this->etablissement = $this->getRoute()->getEtablissement();
       $this->updateLastDrmSession($this->etablissement);
       $this->historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
