@@ -13,11 +13,12 @@ use_helper('Text');
         </li>
         <?php endif; ?>
         <?php endif; ?>
-
+		<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
         <?php if($etablissement->hasDroit(EtablissementDroit::DROIT_VRAC) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
         <li<?php if ($active == 'vrac'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('vrac_etablissement', $etablissement) ?>">Contrat interprofessionnel</a>
         </li>
+        <?php endif; ?>
         <?php endif; ?>
         
         <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>

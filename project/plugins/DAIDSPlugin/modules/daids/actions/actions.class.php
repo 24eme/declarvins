@@ -57,6 +57,7 @@ class daidsActions extends sfActions
   */
   public function executeMonEspace(sfWebRequest $request)
   {
+  	  $this->forward404Unless($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR));
       $this->etablissement = $this->getRoute()->getEtablissement();
       $this->historique = DAIDSClient::getInstance()->getDAIDSHistorique($this->etablissement->identifiant);
       $this->formCampagne = new DAIDSCampagneForm($this->etablissement->identifiant);
