@@ -38,7 +38,7 @@ class Lock extends BaseLock {
       }
         $lock->add($res['key'], $res['value'].':'.$res['docid']);
         $rev = ($ilockobject->getDocument()->_rev) ? $ilockobject->getDocument()->_rev : null;
-        $ilockobject->getDocument()->store();
+        $ilockobject->getDocument()->storeDoc();
         $doc = acCouchdbManager::getClient()->find($ilockobject->getDocument()->_id, acCouchdbClient::HYDRATE_JSON);
       try {
         $lock->save();
