@@ -55,12 +55,12 @@ abstract class acCouchdbDocument extends acCouchdbDocumentStorable {
         if ($this->isModified()) {
             $this->doSave();
             
-            return $this->store();
+            return $this->storeDoc();
         }
         return false;
     }
 
-    public function store() {
+    public function storeDoc() {
         $ret = acCouchdbManager::getClient()->save($this);
         $this->_rev = $ret->rev;
         $this->_serialize_loaded_json = serialize(new acCouchdbJsonNative($this->getData()));
