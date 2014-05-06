@@ -10,7 +10,7 @@ class acCouchdbDocumentRollBackTask extends sfBaseTask
     ));
 
     $this->addOptions(array(
-      new sfCommandOption('revision', null, sfCommandOption::PARAMETER_REQUIRED, 'Révision à récupérer, plusieurs formats acceptés (-N, N, N-rev)'),
+      new sfCommandOption('revision', null, sfCommandOption::PARAMETER_REQUIRED, 'Révision à récupérer, plusieurs formats acceptés (-N, N, N-rev)', null),
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
@@ -18,7 +18,7 @@ class acCouchdbDocumentRollBackTask extends sfBaseTask
     ));
 
     $this->namespace        = 'document';
-    $this->name             = 'roll-back';
+    $this->name             = 'rollback';
     $this->briefDescription = '';
     $this->detailedDescription = <<<EOF
 The [maintenanceCompteStatut|INFO] task does things.
@@ -34,8 +34,7 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-    $revision = acCouchdbManager::getClient()->findRevision($arguments['doc_id'], $options['revision']);
-    acCouchdbManager::getClient()->rollBack($arguments['doc_id'], $revision);
-    echo sprintf("Document %s has been roll back to revision : %s\n", $arguments['doc_id'], $revision);
+    acCouchdbManager::getClient()->rollBack($arguments['doc_id'], $options['revision']);
+    echo sprintf("Document %s has been roll back\n", $arguments['doc_id']);
   }
 } 

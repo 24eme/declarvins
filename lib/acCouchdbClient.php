@@ -205,12 +205,36 @@ class acCouchdbClient extends couchClient {
         return new acCouchdbDocumentCollection($this->getAllDocs(), $hydrate);
     }
 
-    public function rollBack($id, $revision) {
+    public function rollBack($id, $revision = null) {
+        
+        $doc_to_roll_back = $this->getPreviousDoc($id, $revision);
+
         $doc = $this->find($id, self::HYDRATE_JSON);
 
-        if(!$doc) {
+        $doc_to_roll_back->_rev = $doc->_rev;
 
-            throw new sfException(sprintf("Document %s does not exist", $id, $revision));
+        $ret = $this->storeDoc($doc_to_roll_back);
+
+        $doc_to_roll_back->_rev = $ret->rev;
+
+        return $doc_to_roll_back;   
+    }
+
+    public function rollBackDoc($doc, $revision = null) {
+        
+        $doc_to_roll_back = $this->getPreviousDoc($id, $revision);
+        $doc_to_roll_back->_rev = $doc->_rev;
+
+        return $ret = $this->storeDoc($doc_to_roll_back);;   
+    }
+
+    public function getPreviousDoc($id, $revision = null) {
+        if(!$revision) {
+            $revision = "-1";
+        }
+        
+        if(!preg_match('/^[0-9]+-.+/', $revision)) {
+            $revision = $this->findRevision($id, $revision);
         }
 
         $doc_to_roll_back = $this->rev($revision)->find($id, self::HYDRATE_JSON);
@@ -220,11 +244,7 @@ class acCouchdbClient extends couchClient {
             throw new sfException(sprintf("Document to rollback %s@%s does not exist", $id, $revision));
         }
 
-        $doc_to_roll_back->_rev = $doc->_rev;   
-
-        $this->storeDoc($doc_to_roll_back);  
-
-        return $doc_to_roll_back;   
+        return $doc_to_roll_back;
     }
 
     public function findRevision($id, $revision_search) {
