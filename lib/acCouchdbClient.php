@@ -230,7 +230,11 @@ class acCouchdbClient extends couchClient {
 
     public function getPreviousDoc($id, $revision = null) {
         if(!$revision) {
-            $revision = $this->findRevision($id, "-1");
+            $revision = "-1";
+        }
+        
+        if(!preg_match('/^[0-9]+-.+/', $revision)) {
+            $revision = $this->findRevision($id, $revision);
         }
 
         $doc_to_roll_back = $this->rev($revision)->find($id, self::HYDRATE_JSON);
