@@ -96,7 +96,9 @@ class Configuration extends BaseConfiguration
     	$labels = array();
     	$configuration = $this->getConfigurationProduitsComplete();
     	foreach ($configuration as $interpro => $configurationProduits) {
-    		$labels = array_merge($labels, $configurationProduits->getLabels($hash));
+    		if ($l = $configurationProduits->getLabels($hash)) {
+    			$labels = array_merge($labels, $l);
+    		}
     	}
     	return $labels;
     }
