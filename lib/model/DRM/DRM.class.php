@@ -763,7 +763,6 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     }
 
     public function findDocumentByVersion($version) {
-    //    var_dump($version); exit;
         return DRMClient::getInstance()->find(DRMClient::getInstance()->buildId($this->identifiant, $this->periode, $version));
     }
 
