@@ -80,9 +80,66 @@ class StatistiquesBilan
 		$this->drms[$etablissement][$periode][StatistiquesBilanView::VALUE_DRM_DATE_SAISIE] = $dataValues[StatistiquesBilanView::VALUE_DRM_DATE_SAISIE];
 	}
 	
+	public function getVolumesAnterieursDRMManquantes()
+	{
+		$drms = array();
+		$etablissements = array_keys($this->getEtablissementsInformations());
+		$i = 0;
+		foreach ($etablissements as $identifiant) {
+			$precedente = null;
+			if (!isset($drms[$identifiant])) {
+				$drms[$identifiant] = array();
+			}
+			foreach ($this->getPeriodes() as $periode) {
+				$drm = $this->getDRMsInformationsByEtablissementPeriode($identifiant, $periode);
+				if (!$drm && !$precedente) {
+    				$first = DRMAllView::getInstance()->getFirstDrmPeriodeByEtablissement($identifiant); 
+    				if(!$first || $periode >= $first) {
+    					if ($p = $this->getPreviousDRM($identifiant, $periode)) {
+    						$drms[$identifiant][$periode] = $this->getPreviousDRM($identifiant, $periode);
+    					}
+    				}
+    			} elseif (!$drm && $precedente && $precedente[StatistiquesBilanView::VALUE_DRM_TOTAL_FIN_DE_MOIS] > 0) {
+    				if ($p = $this->getPreviousDRM($identifiant, $periode)) {
+    					$drms[$identifiant][$periode] = $this->getPreviousDRM($identifiant, $periode);
+    				}
+    			} elseif ($drm && !$drm[StatistiquesBilanView::VALUE_DRM_DATE_SAISIE]) {
+    				if ($p = $this->getPreviousDRM($identifiant, $periode)) {
+    					$drms[$identifiant][$periode] = $this->getPreviousDRM($identifiant, $periode);
+    				}
+    			}
+    			if ($drm) {
+    				$precedente = $drm;
+    			}
+			}
+			if (count($drms[$identifiant]) == 0) {
+				unset($drms[$identifiant]);
+			}
+		}
+		return $drms;
+	}
+	
+	public function getEtablissementInformations($etablissement)
+	{
+		return (isset($this->etablissements[$etablissement]))? $this->etablissements[$etablissement] : null;
+	}
+	
 	public function getEtablissementsInformations()
 	{
 		return $this->etablissements;
+	}
+	
+	public function getDRMsInformationsByEtablissement($etablissement)
+	{
+		return (isset($this->drms[$etablissement]))? $this->drms[$etablissement] : null;
+	}
+	
+	public function getDRMsInformationsByEtablissementPeriode($etablissement, $periode)
+	{
+		if ($drmEtablissement = $this->getDRMsInformationsByEtablissement($etablissement)) {
+			return (isset($drmEtablissement[$periode]))? $drmEtablissement[$periode] : null;
+		}
+		return null;
 	}
 	
 	public function getDRMsInformations()
@@ -94,4 +151,17 @@ class StatistiquesBilan
 	{
 		return $this->periodes;
 	}
+	
+	public function getPreviousDRM($identifiant, $periode)
+	{
+		return DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($identifiant, $this->getPreviousPeriode($periode));
+	}
+
+    public function getPreviousPeriode($periode) 
+    {
+    	if (!preg_match('/^([0-9]+)-([0-9]+)$/', $periode, $explosedPeriode)) {
+            throw new sfException('periode bad format');
+        }
+        return sprintf('%s-%s', $explosedPeriode[1]-1, $explosedPeriode[2]); 
+    }
 }  
