@@ -48,9 +48,18 @@ EOF;
                 foreach($vrac->lots as $key => $lot) {
                         foreach($lot->cuves as $key2 => $cuve) {
                                 $cuve->volume = floatval($cuve->volume);
+                        	
                         }
                 }
-                $vrac->save(false);
+                foreach($vrac->paiements as $key => $paiement) {
+                	$paiement->volume = floatval($paiement->volume);
+                }
+                try {
+                	$vrac->save(false);
+                } catch (Exception $e) {
+                	$this->logSection('vrac', $numLigne." : erreur save ".$e->getMessage());
+                	continue;
+                }
                 $this->logSection('vrac', $vrac->get('_id')." : succès de l'import du contrat ligne $numLigne.");
         }
     }
