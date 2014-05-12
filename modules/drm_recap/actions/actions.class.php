@@ -136,7 +136,30 @@ class drm_recapActions extends sfActions
         $this->next = $this->drm_lieu->getNextSisterWithMouvementCheck();
     	$this->previous_certif = $this->drm_lieu->getCertification()->getPreviousSisterWithMouvementCheck();
     	$this->next_certif = $this->drm_lieu->getCertification()->getNextSisterWithMouvementCheck();
-
+		$this->percent = 40;
+		if (count($this->drm->getDetailsAvecVrac()) > 0) {
+			$this->percent -= 10;
+		}
+		$config_certifications = ConfigurationClient::getCurrent()->getCertifications();
+        $certifications = array();
+        $current = 1;
+        $find = false;
+        foreach ($config_certifications as $certification_config) {
+            if ($this->drm->declaration->certifications->exist($certification_config)) {
+            	$certif = $this->drm->declaration->certifications->get($certification_config);
+            	if ($certif->hasMouvementCheck() && count($certif->genres) > 0) {
+	                $certifications[] = $certif;
+	                if ($this->drm_lieu->getCertification()->getKey() == $certification_config) {
+	                	$find = true;
+	                }
+	                if ($this->drm_lieu->getCertification()->getKey() != $certification_config && !$find) {
+	                	$current++;
+	                }
+            	}
+            }
+        }
+        $nbCertifs = count($certifications);
+        $this->percent += round(((20 / $nbCertifs) * $current), 0, PHP_ROUND_HALF_UP);
     	$this->redirectIfNoMouvementCheck();
     }
 

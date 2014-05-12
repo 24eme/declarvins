@@ -6,7 +6,7 @@
     <?php include_component('drm', 'etapes', array('drm' => $drm, 
                                                    'etape' => 'recapitulatif', 
                                                    'certification' => $config_lieu->getCertification()->getKey(), 
-                                                   'pourcentage' => '30')); ?>
+                                                   'pourcentage' => $percent)); ?>
     <?php include_partial('drm/controlMessage'); ?>
     <!-- #principal -->
     <section id="principal">

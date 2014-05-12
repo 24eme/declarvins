@@ -3,7 +3,7 @@
 <section id="contenu" class="drm_vracs">
 
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
-    <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'vrac', 'pourcentage' => '30')); ?>
+    <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'vrac', 'pourcentage' => '60')); ?>
 	
             
 
