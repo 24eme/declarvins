@@ -32,7 +32,7 @@
 			<button type="submit" class="btn_valider">Valider</button>
 		</div>
 		<?php if ($email_send): ?>
-		<a href="<?php echo url_for('@ac_vin_login') ?>"><br /><span>Retour à la page de login</span></a>
+		<a href="<?php echo url_for('@ac_vin_logout') ?>"><br /><span>Retour à la page de login</span></a>
 		<?php endif; ?>	
 	</form>
 </section>

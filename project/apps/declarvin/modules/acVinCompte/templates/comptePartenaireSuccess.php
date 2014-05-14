@@ -6,4 +6,5 @@
 	Bonne navigation.<br /><br />
 	L'équipe Declarvins.net
 	</p>
+	<a href="<?php echo url_for('@ac_vin_logout') ?>"><br /><span>Retour à la page de login</span></a>
 </section>
