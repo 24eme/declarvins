@@ -68,7 +68,7 @@
 				select.append(newValueOption);
 			}
 			
-			var url_ajax = select.data('ajax');
+			var url_ajax = select.attr('data-ajax');
 			var limit = 20;
 			//var prev_term = "";
 			var minLength = 0;
@@ -81,17 +81,13 @@
 				delay: delay,
 				minLength: minLength,
 				source: function( request, response ) {
-					//prev_term_matcher = new RegExp("^"+prev_term);
-					var new_url_ajax = select.data('ajax');
-					if (new_url_ajax != url_ajax) {
-						url_ajax = new_url_ajax;
-						//prev_term = "";
-					}
+					
 
-					if(url_ajax) {
+
+					if(select.attr('data-ajax')) {
 					  	
 						//prev_term = request.term;
-						$.getJSON(url_ajax, {q:request.term,limit:limit+1}, function(data) {
+						$.getJSON(select.attr('data-ajax'), {q:request.term,limit:limit+1}, function(data) {
 							//if (prev_term != request.term) {
 							//	return ;
 							//}
@@ -113,14 +109,13 @@
 
 							$(input).parent().find('button').button( "option", "disabled", select.children("option").length > limit);
 						});
-
 						return;
 					} 
 					if ($(input).val()) {
 						$(input).parent().find('button').hide();
 						$(input).parent().find('a.remove_autocomplete').show();
 					} else {
-						if (url_ajax || (select.children("option").length > 1)) {
+						if (select.attr('data-ajax') || (select.children("option").length > 1)) {
 							$(input).parent().find('button').show();
 						}
 						$(input).parent().find('a.remove_autocomplete').hide();
@@ -163,7 +158,7 @@
 							
 							select.val('');
 							$(input).parent().find('a.remove_autocomplete').hide();
-							if (url_ajax || (select.children("option").length > 1)) {
+							if (select.attr('data-ajax') || (select.children("option").length > 1)) {
 								$(input).parent().find('button').show();
 							}
 							// remove invalid value, as it didn't match anything
@@ -193,7 +188,7 @@
 						input.val("");
 						$(this).hide();
 
-						if (url_ajax || (select.children("option").length > 1)) {
+						if (select.attr('data-ajax') || (select.children("option").length > 1)) {
 							$(input).parent().find('button').show();
 						}
 						return false;
@@ -233,7 +228,7 @@
 						input.autocomplete( "search", "");
 						input.focus();
 					});
-						$(input).parent().find('button').button( "option", "disabled", url_ajax && (select.children("option").length > 1));
+						$(input).parent().find('button').button( "option", "disabled", select.attr('data-ajax') && (select.children("option").length > 1));
 						if (select.val()) {
 							$(input).parent().find('button').hide();
 						} else {
