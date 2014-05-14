@@ -214,8 +214,9 @@ class Email {
     }
 
     protected function getFromEmailInterpros($interpros = array(), $isInscription = false) {
+    	$referente = InterproClient::getInstance()->getById(InterproClient::INTERPRO_REFERENTE);
         if(!$interpros){
-            return array(sfConfig::get('app_email_plugin_from_adresse') => sfConfig::get('app_email_plugin_from_name'));
+            return (!$isInscription)? array($referente->email_contrat_vrac => $referente->nom) : array($referente->email_contrat_inscription => $referente->nom);
         }
         $interpro = null;
         if (count($interpros) > 0) {
@@ -229,8 +230,8 @@ class Email {
         	$interpro = $interpros[0];
         }
         if(!$isInscription){
-            return array($interpro->email_contrat_vrac => $interpro->nom);
+            return ($interpro->email_contrat_vrac)? array($interpro->email_contrat_vrac => $interpro->nom) : array($referente->email_contrat_vrac => $referente->nom);
         }
-        return array($interpro->email_contrat_inscription => $interpro->nom);
+        return ($interpro->email_contrat_inscription)? array($interpro->email_contrat_inscription => $interpro->nom) : array($referente->email_contrat_inscription => $referente->nom);
     }
 }
