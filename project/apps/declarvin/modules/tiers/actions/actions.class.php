@@ -57,6 +57,8 @@ class tiersActions extends sfActions
 
   public function executeMonEspace(sfWebRequest $request) 
   {
+  	return $this->redirect("profil", $this->etablissement); // solution temporaire
+  	
     $this->etablissement = $this->getRoute()->getEtablissement();
 
   	if(($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR))) {
