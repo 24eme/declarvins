@@ -6,7 +6,8 @@
 	Bonne navigation.<br /><br />
 	L'équipe Declarvins.net
 	</p>
+	<br />
 	<div id="btn_etape_dr">
-	<a href="<?php echo url_for('@ac_vin_logout') ?>" class="btn_prec"><br /><span>Retour à la page de login</span></a>
+	<a href="<?php echo url_for('@ac_vin_logout') ?>" class="btn_prec"><span>Retour à la page de login</span></a>
 	</div>
 </section>

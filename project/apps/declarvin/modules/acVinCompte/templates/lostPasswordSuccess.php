@@ -32,8 +32,9 @@
 			<button type="submit" class="btn_valider">Valider</button>
 		</div>
 		<?php if ($email_send): ?>
+		<br />
 		<div id="btn_etape_dr">
-			<a href="<?php echo url_for('@ac_vin_logout') ?>" class="btn_prec"><br /><span>Retour à la page de login</span></a>
+			<a href="<?php echo url_for('@ac_vin_logout') ?>" class="btn_prec"><span>Retour à la page de login</span></a>
 		</div>
 		<?php endif; ?>	
 	</form>
