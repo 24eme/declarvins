@@ -429,6 +429,21 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
 			}
       	}
     }
+    
+    public function updateProduitsDiponibles() {
+    	$delete = false;
+    	foreach ($this->getDetails() as $detail) {
+    		$cvo = $detail->getDroit(ConfigurationProduit::NOEUD_DROIT_CVO);
+    		if ($cvo && $cvo->taux < 0) {
+    			$objectToDelete = $detail->cascadingDelete();
+				$objectToDelete->delete();
+				$delete = true;
+    		}
+    	}
+    	if ($delete) {
+			$this->update();
+    	}
+    }
 
     public function setInterpros() {
         $i = $this->getInterpro();
@@ -812,6 +827,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     public function generateRectificative() {
 		$drm = $this->version_document->generateRectificative();
 		$drm->updateVracVersion();
+		$drm->updateProduitsDiponibles();
 		$drm->identifiant_drm_historique = null;
         return $drm;
     }
@@ -819,6 +835,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     public function generateModificative() {
         $drm = $this->version_document->generateModificative();
 		$drm->updateVracVersion();
+		$drm->updateProduitsDiponibles();
 		$drm->identifiant_drm_historique = null;
         return $drm;
     }
