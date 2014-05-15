@@ -12,6 +12,16 @@ class etablissement_autocompleteActions extends sfActions
 	    								   $only_actif);
 		$this->setTemplate('index');
   	}
+  	
+	public function executeAllAdmin(sfWebRequest $request) {
+	    $interpro = $request->getParameter('interpro_id');
+		$only_actif = $request->getParameter('only_actif');
+	    $this->json = $this->matchEtablissements(EtablissementAllView::getInstance()->findAllByInterpro($interpro),
+	    								   $request->getParameter('q'),
+	    								   $request->getParameter('limit', 100),
+	    								   $only_actif);
+		$this->setTemplate('index');
+  	}
 
  	public function executeByFamilles(sfWebRequest $request) {
 	    $interpro = $request->getParameter('interpro_id');

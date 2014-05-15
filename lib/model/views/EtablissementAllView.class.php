@@ -2,22 +2,23 @@
 
 class EtablissementAllView extends acCouchdbView
 {
-	const KEY_INTERPRO_ID = 0;
-	const KEY_FAMILLE = 1;
-	const KEY_SOUS_FAMILLE = 2;
-	const KEY_SOCIETE = 3;
-	const KEY_ETABLISSEMENT_ID = 4;
-	const KEY_NOM = 5;
-	const KEY_IDENTIFIANT = 6;
-	const KEY_RAISON_SOCIALE = 7;
-	const KEY_SIRET = 8;
-	const KEY_CVI = 9;
-	const KEY_COMMUNE = 10;
-	const KEY_CODE_POSTAL = 11;
-	const KEY_PAYS = 12;
-	const KEY_STATUT = 13;
-	const KEY_CONTRAT = 14;
-	const KEY_DOUANE = 15;
+	const KEY_STATUT_FILTRE = 0;
+	const KEY_INTERPRO_ID = 1;
+	const KEY_FAMILLE = 2;
+	const KEY_SOUS_FAMILLE = 3;
+	const KEY_SOCIETE = 4;
+	const KEY_ETABLISSEMENT_ID = 5;
+	const KEY_NOM = 6;
+	const KEY_IDENTIFIANT = 7;
+	const KEY_RAISON_SOCIALE = 8;
+	const KEY_SIRET = 9;
+	const KEY_CVI = 10;
+	const KEY_COMMUNE = 11;
+	const KEY_CODE_POSTAL = 12;
+	const KEY_PAYS = 13;
+	const KEY_STATUT = 14;
+	const KEY_CONTRAT = 15;
+	const KEY_DOUANE = 16;
 
 	public static function getInstance() {
 
@@ -26,9 +27,19 @@ class EtablissementAllView extends acCouchdbView
 
     public function findByInterpro($interpro) {
 
-    	return $this->client->startkey(array($interpro))
-                    		->endkey(array($interpro, array()))
+    	return $this->client->startkey(array(Etablissement::STATUT_ACTIF, $interpro))
+                    		->endkey(array(Etablissement::STATUT_ACTIF, $interpro, array()))
                     		->getView($this->design, $this->view);
+    }
+
+    public function findAllByInterpro($interpro) {
+    	$actifs = $this->client->startkey(array(Etablissement::STATUT_ACTIF, $interpro))
+                    		->endkey(array(Etablissement::STATUT_ACTIF, $interpro, array()))
+                    		->getView($this->design, $this->view)->rows;
+        $archives = $this->client->startkey(array(Etablissement::STATUT_ARCHIVE, $interpro))
+                    		->endkey(array(Etablissement::STATUT_ARCHIVE, $interpro, array()))
+                    		->getView($this->design, $this->view)->rows;
+		return array_merge($actifs, $archives);
     }
 
     public function findByInterproAndFamilles($interpro, array $familles) {
@@ -52,15 +63,15 @@ class EtablissementAllView extends acCouchdbView
     }
 
     public function findByInterproAndFamille($interpro, $famille) {
-    	return $this->client->startkey(array($interpro, $famille))
-                    		->endkey(array($interpro, $famille, array()))
+    	return $this->client->startkey(array(Etablissement::STATUT_ACTIF, $interpro, $famille))
+                    		->endkey(array(Etablissement::STATUT_ACTIF, $interpro, $famille, array()))
                     		->getView($this->design, $this->view);
     }
 
     public function findByInterproAndSousFamille($interpro, $famille, $sous_famille) {
 
-    	return $this->client->startkey(array($interpro, $famille, $sous_famille))
-                    		->endkey(array($interpro, $famille, $sous_famille, array()))
+    	return $this->client->startkey(array(Etablissement::STATUT_ACTIF, $interpro, $famille, $sous_famille))
+                    		->endkey(array(Etablissement::STATUT_ACTIF, $interpro, $famille, $sous_famille, array()))
                     		->getView($this->design, $this->view);
     }
 
@@ -71,8 +82,8 @@ class EtablissementAllView extends acCouchdbView
             return null;
         }
 
-        return $this->client->startkey(array($etablissement->interpro, $etablissement->famille, $etablissement->sous_famille, null, $etablissement->_id))
-                            ->endkey(array($etablissement->interpro, $etablissement->famille, $etablissement->sous_famille, null, $etablissement->_id, array()))
+        return $this->client->startkey(array(Etablissement::STATUT_ACTIF, $etablissement->interpro, $etablissement->famille, $etablissement->sous_famille, null, $etablissement->_id))
+                            ->endkey(array(Etablissement::STATUT_ACTIF, $etablissement->interpro, $etablissement->famille, $etablissement->sous_famille, null, $etablissement->_id, array()))
                             ->getView($this->design, $this->view);
         
     }

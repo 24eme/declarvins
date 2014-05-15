@@ -20,6 +20,7 @@ class WidgetEtablissement extends sfWidgetFormChoice
         $this->addOption('familles', array());
         $this->addOption('sous_familles', array());
         $this->addOption('only_actif', 0);
+        $this->addOption('admin', 0);
         $this->addRequiredOption('interpro_id', null);
         $this->setAttribute('class', 'autocomplete'); 
     }
@@ -35,7 +36,8 @@ class WidgetEtablissement extends sfWidgetFormChoice
     }
 
     public function getUrlAutocomplete() {
-        $familles = $this->getOption('familles');
+        $admin = $this->getOption('admin');
+    	$familles = $this->getOption('familles');
         $sous_familles = $this->getOption('sous_familles');
 		$interpro_id = $this->getOption('interpro_id');
 		$only_actif = $this->getOption('only_actif');
@@ -51,6 +53,9 @@ class WidgetEtablissement extends sfWidgetFormChoice
         if (is_array($sous_familles) && count($sous_familles) > 0) {
             return sfContext::getInstance()->getRouting()->generate('etablissement_autocomplete_bysousfamilles', array('interpro_id' => $interpro_id, 'familles' => implode("|",array_keys($sous_familles)), 'sous_familles' => implode("|",$sous_familles), 'only_actif' => $only_actif));
         }
+        if ($admin) {
+        	return sfContext::getInstance()->getRouting()->generate('etablissement_autocomplete_all_admin', array('interpro_id' => $interpro_id, 'only_actif' => $only_actif));
+        }        
 
         return sfContext::getInstance()->getRouting()->generate('etablissement_autocomplete_all', array('interpro_id' => $interpro_id, 'only_actif' => $only_actif));
     }

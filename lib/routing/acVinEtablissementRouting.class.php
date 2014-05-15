@@ -14,6 +14,10 @@ class acVinEtablissementRouting {
         $r->prependRoute('etablissement_autocomplete_all', new sfRoute('/etablissement/autocomplete/:interpro_id/tous/:only_actif',
                         array('module' => 'etablissement_autocomplete',
                             'action' => 'all')));
+                        
+        $r->prependRoute('etablissement_autocomplete_all_admin', new sfRoute('/etablissement/admin/autocomplete/:interpro_id/tous/:only_actif',
+                        array('module' => 'etablissement_autocomplete',
+                            'action' => 'allAdmin')));
         															   
 		
 		$r->prependRoute('etablissement_autocomplete_byfamilles', new sfRoute('/etablissement/autocomplete/:interpro_id/familles/:familles/:only_actif', 
