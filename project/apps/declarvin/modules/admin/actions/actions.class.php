@@ -69,7 +69,8 @@ class adminActions extends sfActions
   public function executeEtablissementProfilLogin(sfWebRequest $request)
   {
   	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
-    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
+  	$admin = (int)$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN);
+    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'), array(), array('admin' => $admin));
     if ($request->isMethod(sfWebRequest::POST)) {
     	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
     		$this->form->bind($request->getParameter('etablissement_selection_nav'));
