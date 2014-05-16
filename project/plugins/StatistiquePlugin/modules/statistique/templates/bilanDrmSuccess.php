@@ -15,8 +15,8 @@
 	        <br />
 	        <?php if ($bilan): ?>
     		<div class="tableau_ajouts_liquidations">
-    			<a href="<?php echo url_for('statistiques_bilan_drm_csv', array('interpro' => $interpro->get('_id'), 'campagne' => $campagne)) ?>">CSV</a>
-    			<!-- <a href="<?php echo url_for('statistiques_drm_manquantes_csv', array('interpro' => $interpro->get('_id'), 'campagne' => $campagne)) ?>">CSV N-1</a> -->
+    			<a href="<?php echo url_for('statistiques_bilan_drm_csv', array('interpro' => $interpro->get('_id'), 'campagne' => $campagne)) ?>">CSV</a>&nbsp;|&nbsp;
+    			<a href="<?php echo url_for('statistiques_drm_manquantes_csv', array('interpro' => $interpro->get('_id'), 'campagne' => $campagne)) ?>">CSV N-1</a>
 	    		<table class="tableau_recap">
 	    			<thead>
 		    			<tr>
