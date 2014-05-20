@@ -4,8 +4,9 @@ class StatistiquesBilanView extends acCouchdbView
 {
 	const KEY_INTERPRO = 0;
 	const KEY_CAMPAGNE = 1;
-	const KEY_ETABLISSEMENT = 2;
-	const KEY_PERIODE = 3;
+	const KEY_MOIS = 2;
+	const KEY_ETABLISSEMENT = 3;
+	const KEY_PERIODE = 4;
 	
 	const VALUE_ETABLISSEMENT_NOM = 0;
 	const VALUE_ETABLISSEMENT_RAISON_SOCIALE = 1;
@@ -32,10 +33,16 @@ class StatistiquesBilanView extends acCouchdbView
         return acCouchdbManager::getView('statistiques', 'bilan');
     }
 
-    public function findDrmByCampagne($interpro, $campagne) 
+    public function findDrmByCampagne($interpro, $campagne, $periode = null) 
     {
-    	return $this->client->startkey(array($interpro, $campagne))
-                    		->endkey(array($interpro, $campagne, array()))
+    	$startparams = array($interpro, $campagne);
+    	if ($periode) {
+    		$startparams[] = $periode;
+    	}
+    	$endparams = $startparams;
+    	$endparams[] = array();
+    	return $this->client->startkey($startparams)
+                    		->endkey($endparams)
                     		->getView($this->design, $this->view);
     }
 }  

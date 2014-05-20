@@ -97,38 +97,46 @@ class statistiqueActions extends sfActions
   	ini_set('memory_limit', '1024M');
   	set_time_limit(0);
     $campagne = $request->getParameter('campagne');
+    $periode = $request->getParameter('periode');
     $interpro = $request->getParameter('interpro');
     if (!$campagne) {
 		return $this->renderText("Pas de campagne définie");
     }
+    if (!$periode) {
+		return $this->renderText("Pas de période définie");
+    }
     if (!preg_match("/[0-9]{4}-[0-9]{4}/", $campagne)) {
     	return $this->renderText("Campagne invalide");
+    }
+    if (!preg_match("/[0-9]{4}-[0-9]{2}/", $periode)) {
+    	return $this->renderText("Période invalide");
     }
     if (!preg_match('/^INTERPRO-/', $interpro)) {
 		$interpro = 'INTERPRO-'.$interpro;
     }
-    $bilan = new StatistiquesBilan($interpro, $campagne);
+    $bilan = new StatistiquesBilan($interpro, $campagne, $periode);
     $manquantes = $bilan->getVolumesAnterieursDRMManquantes();
     
-    $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Categorie;Genre;Denomination;Lieu;Couleur;Cepage;';
-    foreach ($bilan->getPeriodes() as $periode){
+    $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Categorie;Genre;Denomination;Lieu;Couleur;Cepage;'.$periode.';';
+    /*foreach ($bilan->getPeriodes() as $periode){
     	$csv_file .= "$periode;";
-    }
+    }*/
 	$csv_file .= "\n";
     foreach ($manquantes as $identifiant => $periodes) {
 		$informations = $bilan->getEtablissementInformations($identifiant);
-		foreach ($periodes as $periode => $drm) {
+		foreach ($periodes as $per => $drm) {
 			$produits = $drm->getDetails();
 			foreach ($produits as $produit) {
 				$csv_file .= $identifiant.';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_RAISON_SOCIALE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_NOM].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_ADRESSE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_CODE_POSTAL].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_COMMUNE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_PAYS].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_EMAIL].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_TELEPHONE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_SERVICE_DOUANE].';';
 				$csv_file .= $produit->getCertification()->getKey().';'.$produit->getGenre()->getKey().';'.$produit->getAppellation()->getKey().';'.$produit->getLieu()->getKey().';'.$produit->getCouleur()->getKey().';'.$produit->getCepage()->getKey().';';
-				foreach ($bilan->getPeriodes() as $p) {
-					if ($p == $periode) {
+				$csv_file .= $produit->total.';';
+				/*foreach ($bilan->getPeriodes() as $p) {
+					if ($p == $per) {
 						$csv_file .= $produit->total.';';
 					} else {
 						$csv_file .= ';';
 					}
-				}
+				}*/
 				$csv_file .= "\n";
 			}
 		}

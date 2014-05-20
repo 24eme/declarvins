@@ -35,7 +35,7 @@ class StatistiqueRouting {
         $r = $event->getSubject();
         $r->prependRoute('statistiques_bilan_drm', new sfRoute('/admin/statistiques/bilan-drm', array('module' => 'statistique', 'action' => 'bilanDrm')));
         $r->prependRoute('statistiques_bilan_drm_csv', new sfRoute('/admin/statistiques/:interpro/bilan-drm/:campagne', array('module' => 'statistique', 'action' => 'bilanDrmCsv', 'interpro' => null, 'campagne' => null)));
-        $r->prependRoute('statistiques_drm_manquantes_csv', new sfRoute('/admin/statistiques/:interpro/drm-manquantes/:campagne', array('module' => 'statistique', 'action' => 'bilanDrmManquantesCsv', 'interpro' => null, 'campagne' => null)));
+        $r->prependRoute('statistiques_drm_manquantes_csv', new sfRoute('/admin/statistiques/:interpro/drm-manquantes/:campagne/:periode', array('module' => 'statistique', 'action' => 'bilanDrmManquantesCsv', 'interpro' => null, 'campagne' => null, 'periode' => null)));
         $r->prependRoute('statistiques_drm', new sfRoute('/admin/drm/statistiques/', array('module' => 'statistique', 'action' => 'drmStatistiques')));
         $r->prependRoute('statistiques_vrac', new sfRoute('/admin/vrac/statistiques/', array('module' => 'statistique', 'action' => 'vracStatistiques')));
     }

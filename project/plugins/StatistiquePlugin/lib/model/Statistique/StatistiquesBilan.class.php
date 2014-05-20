@@ -6,14 +6,16 @@ class StatistiquesBilan
 	
 	protected $interpro;
 	protected $campagne;
+	protected $periode;
 	protected $drms;
 	protected $etablissements;
 	protected $periodes;
 	
-	public function __construct($interpro, $campagne)
+	public function __construct($interpro, $campagne, $periode = null)
 	{
 		$this->interpro = $interpro;
 		$this->campagne = $campagne;
+		$this->periode = $periode;
 		$this->buildPeriodes();
 		$this->drms = array();
 		$this->etablissements = array();
@@ -92,22 +94,24 @@ class StatistiquesBilan
 			}
 			foreach ($this->getPeriodes() as $periode) {
 				$drm = $this->getDRMsInformationsByEtablissementPeriode($identifiant, $periode);
-				if (!$drm && !$precedente) {
-    				$first = DRMAllView::getInstance()->getFirstDrmPeriodeByEtablissement($identifiant); 
-    				if(!$first || $periode >= $first) {
-    					if ($p = $this->getPreviousDRM($identifiant, $periode)) {
-    						$drms[$identifiant][$periode] = $this->getPreviousDRM($identifiant, $periode);
-    					}
-    				}
-    			} elseif (!$drm && $precedente && $precedente[StatistiquesBilanView::VALUE_DRM_TOTAL_FIN_DE_MOIS] > 0) {
-    				if ($p = $this->getPreviousDRM($identifiant, $periode)) {
-    					$drms[$identifiant][$periode] = $this->getPreviousDRM($identifiant, $periode);
-    				}
-    			} elseif ($drm && !$drm[StatistiquesBilanView::VALUE_DRM_DATE_SAISIE]) {
-    				if ($p = $this->getPreviousDRM($identifiant, $periode)) {
-    					$drms[$identifiant][$periode] = $this->getPreviousDRM($identifiant, $periode);
-    				}
-    			}
+				if ($this->periode && $this->periode == $periode) {
+					if (!$drm && !$precedente) {
+	    				$first = DRMAllView::getInstance()->getFirstDrmPeriodeByEtablissement($identifiant); 
+	    				if(!$first || $periode >= $first) {
+	    					if ($p = $this->getPreviousDRM($identifiant, $periode)) {
+	    						$drms[$identifiant][$periode] = $this->getPreviousDRM($identifiant, $periode);
+	    					}
+	    				}
+	    			} elseif (!$drm && $precedente && $precedente[StatistiquesBilanView::VALUE_DRM_TOTAL_FIN_DE_MOIS] > 0) {
+	    				if ($p = $this->getPreviousDRM($identifiant, $periode)) {
+	    					$drms[$identifiant][$periode] = $this->getPreviousDRM($identifiant, $periode);
+	    				}
+	    			} elseif ($drm && !$drm[StatistiquesBilanView::VALUE_DRM_DATE_SAISIE]) {
+	    				if ($p = $this->getPreviousDRM($identifiant, $periode)) {
+	    					$drms[$identifiant][$periode] = $this->getPreviousDRM($identifiant, $periode);
+	    				}
+	    			}
+				}
     			if ($drm) {
     				$precedente = $drm;
     			}
