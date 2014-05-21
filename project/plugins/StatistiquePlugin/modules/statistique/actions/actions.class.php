@@ -129,7 +129,7 @@ class statistiqueActions extends sfActions
 			foreach ($produits as $produit) {
 				$csv_file .= $identifiant.';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_RAISON_SOCIALE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_NOM].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_ADRESSE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_CODE_POSTAL].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_COMMUNE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_PAYS].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_EMAIL].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_TELEPHONE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_SERVICE_DOUANE].';';
 				$csv_file .= $produit->getCertification()->getKey().';'.$produit->getGenre()->getKey().';'.$produit->getAppellation()->getKey().';'.$produit->getLieu()->getKey().';'.$produit->getCouleur()->getKey().';'.$produit->getCepage()->getKey().';';
-				$csv_file .= $produit->total.';';
+				$csv_file .= $produit->cvo->volume_taxable.';';
 				/*foreach ($bilan->getPeriodes() as $p) {
 					if ($p == $per) {
 						$csv_file .= $produit->total.';';
@@ -143,7 +143,7 @@ class statistiqueActions extends sfActions
     }
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('md5', md5($csv_file));
-    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=drm_manquantes_n-1_".$campagne.".csv");
+    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".date('Y-m-d')."_drm_manquantes_n-1_".$campagne." ".$periode.".csv");
     return $this->renderText($csv_file);
   }
   
