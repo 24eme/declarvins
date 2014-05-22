@@ -4,7 +4,7 @@
 <div id="col_recolte_<?php echo $form->getObject()->renderId() ?>" class="col_recolte<?php if ($active): ?> col_active<?php endif; ?>" data-input-focus="#drm_detail_entrees_achat" data-cssclass-rectif="<?php echo ($form->getObject()->getDocument()->isRectificative()) ? versionnerCssClass() : '' ?>">
     <form action="<?php echo url_for('daids_recap_update', $form->getObject()) ?>" method="post">
         <?php echo $form->renderHiddenFields(); ?>
-        <a href="#" class="col_curseur" data-curseur="<?php echo $form->getObject()->getKey() ?>"></a>
+        <a href="#" class="col_curseur" data-curseur="<?php echo $form->getObject()->renderId() ?>"></a>
         <h2><?php echo $form->getObject()->getCouleur()->getConfig()->libelle ?></h2>
         <div class="col_cont">
             <?php if($config_lieu->hasCepage()): ?>
