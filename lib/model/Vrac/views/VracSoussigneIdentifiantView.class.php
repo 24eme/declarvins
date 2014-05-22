@@ -43,8 +43,7 @@ class VracSoussigneIdentifiantView extends acCouchdbView
 
     public function findByEtablissement($identifiant) {
       
-        return $this->client->descending(true)
-        					->startkey(array($identifiant))
+        return $this->client->startkey(array($identifiant))
                             ->endkey(array($identifiant, array()))
                             ->getView($this->design, $this->view);
     }
