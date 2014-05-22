@@ -143,7 +143,8 @@ class statistiqueActions extends sfActions
     }
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('md5', md5($csv_file));
-    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".date('Y-m-d')."_drm_manquantes_n-1_".$campagne." ".$periode.".csv");
+    $filename = date('Y-m-d')."_drm_manquantes_n-1_".$campagne." ".$periode.".csv";
+    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=$filename");
     return $this->renderText($csv_file);
   }
   
