@@ -35,10 +35,10 @@ class acVinCompteActions extends BaseacVinCompteActions {
                 	$etablissement->compte = 'COMPTE-'.$newCompteTiers->login;
                 	$etablissement->save();
                 }
-           		$ldap = new Ldap();
-           		$ldap->saveCompte($newCompteTiers);
                 $this->contrat->setCompte($newCompteTiers->get('_id'));
                 $this->contrat->save();
+           		$ldap = new Ldap();
+           		$ldap->saveCompte($newCompteTiers);
                 $this->getUser()->signOut();
                 $this->getUser()->setFlash('notice', 'Création de compte validée');
 	  			$this->redirect('compte_valide');
