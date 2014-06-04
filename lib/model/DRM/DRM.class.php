@@ -609,7 +609,8 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
      * Pour les users administrateur
      */
     public function canSetStockDebutMois() {
-    	if ($this->isDebutCampagne()) {
+    	$isAdministrateur = ($this->getUser())? $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN): false;
+    	if ($this->isDebutCampagne() || ($isAdministrateur && $this->hasVersion())) {
     		return true;
     	} else {
     		return false;
