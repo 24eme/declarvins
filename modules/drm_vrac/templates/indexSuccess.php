@@ -30,7 +30,7 @@
 	            			$nbDetailSansContrat++;
 	            	?>
 					<tr class="contenu">
-						<td colspan="3">Pas de contrat défini pour ce produit. Merci de contacter votre interpro</td>
+						<td colspan="3" style="text-align: left">Pas de contrat défini pour ce produit. Merci de contacter votre interpro</td>
 					</tr>
 					<?php else: ?>
 	                <?php foreach ($formDetail as $formContrats): ?>
@@ -55,9 +55,7 @@
                 <a href="<?php echo url_for('drm_recap_redirect_last', $drm) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>
-                <?php if ($nbDetailSansContrat == 0) : ?>
-                	<button type="submit" class="btn_suiv"><span>Suivant</span></button>
-                <?php endif; ?>
+                <button type="submit" class="btn_suiv"><span>Suivant</span></button>
             </div>
 
             <div class="ligne_btn">

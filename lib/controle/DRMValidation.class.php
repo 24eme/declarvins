@@ -96,18 +96,6 @@ class DRMValidation
 	
 	private function controleErrors($detail)
 	{
-		$totalVolume = 0;
-		if (!isset($this->options['no_vrac']) || ! $this->options['no_vrac']) {
-		  foreach ($detail->vrac as $contrat) {
-		    $totalVolume += $contrat->volume;
-		  }
-		  if ($detail->canHaveVrac() && $detail->sorties->vrac) {
-		  	  $ecart = round($detail->sorties->vrac * self::ECART_VRAC, 4);
-			  if (round($totalVolume,4) < (round($detail->sorties->vrac,4) - $ecart) || round($totalVolume,4) > (round($detail->sorties->vrac,4) + $ecart)) {
-			    $this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm));
-			  }
-		  }
-		}
 		if ($detail->total < 0) {
 			$this->errors['total_negatif_'.$detail->getIdentifiantHTML()] = new DRMControleError('total_negatif', $this->generateUrl('drm_recap_detail', $detail));
 		}
@@ -130,6 +118,18 @@ class DRMValidation
 	
 	private function controleWarnings($detail)
 	{
+		$totalVolume = 0;
+		if (!isset($this->options['no_vrac']) || ! $this->options['no_vrac']) {
+		  foreach ($detail->vrac as $contrat) {
+		    $totalVolume += $contrat->volume;
+		  }
+		  if ($detail->canHaveVrac() && $detail->sorties->vrac) {
+		  	  $ecart = round($detail->sorties->vrac * self::ECART_VRAC, 4);
+			  if (round($totalVolume,4) < (round($detail->sorties->vrac,4) - $ecart) || round($totalVolume,4) > (round($detail->sorties->vrac,4) + $ecart)) {
+			    $this->warnings['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('vrac', $this->generateUrl('drm_vrac', $this->drm));
+			  }
+		  }
+		}
 		if ($detail->sorties->mouvement > 0) {
 			$this->warnings['mouvement_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mouvement', $this->generateUrl('drm_recap_detail', $detail).'#sorties');
 		}
