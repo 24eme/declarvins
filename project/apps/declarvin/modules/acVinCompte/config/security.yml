@@ -1,2 +1,2 @@
-default:
-  nouveau: false
+nouveau:
+  is_secure: false
