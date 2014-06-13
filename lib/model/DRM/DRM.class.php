@@ -457,32 +457,31 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     		}
     	}
     }
-
-    public function save() {
-        if (!preg_match('/^2\d{3}-[01][0-9]$/', $this->periode)) {
-            throw new sfException('Wrong format for periode ('.$this->periode.')');
-        }
-        if ($user = $this->getUser()) {
-        	if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-        		$compte = $user->getCompte();
-        		$canInsertEditeur = true;
-        		if ($lastEditeur = $this->getLastEditeur()) {
-        			$diff = Date::diff($lastEditeur->date_modification, date('c'), 'i');
-        			if ($diff < 25) {
-        				$canInsertEditeur = false;
-        			}
-        		}
-        		if ($canInsertEditeur) {
-        			$this->addEditeur($compte);
-        		}
-        	}
-        }
-        if ($this->isNew()) {
-        	$etablissement = $this->getEtablissement();
-        	$this->etablissement_num_interne = $etablissement->num_interne;
-        }
-
-        return parent::save();
+    
+    protected function preSave() 
+    {
+	    if (!preg_match('/^2\d{3}-[01][0-9]$/', $this->periode)) {
+	            throw new sfException('Wrong format for periode ('.$this->periode.')');
+	        }
+	        if ($user = $this->getUser()) {
+	        	if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+	        		$compte = $user->getCompte();
+	        		$canInsertEditeur = true;
+	        		if ($lastEditeur = $this->getLastEditeur()) {
+	        			$diff = Date::diff($lastEditeur->date_modification, date('c'), 'i');
+	        			if ($diff < 25) {
+	        				$canInsertEditeur = false;
+	        			}
+	        		}
+	        		if ($canInsertEditeur) {
+	        			$this->addEditeur($compte);
+	        		}
+	        	}
+	        }
+	        if ($this->isNew()) {
+	        	$etablissement = $this->getEtablissement();
+	        	$this->etablissement_num_interne = $etablissement->num_interne;
+	        }
     }
 
     protected function getHistoriqueAbstract() {
