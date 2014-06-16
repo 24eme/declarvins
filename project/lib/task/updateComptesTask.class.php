@@ -90,7 +90,7 @@ EOF;
         	$object = _CompteClient::getInstance()->find('COMPTE-'.$compte);
         	if ($object) {
         		$ldap = new Ldap();
-                $ldap->saveCompte($n);
+                $ldap->saveCompte($object);
         	}
 			$this->logSection('compte', $object->_id.' OK '.$i);
 			$i++;
