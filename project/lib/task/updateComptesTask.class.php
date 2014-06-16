@@ -26,74 +26,38 @@ EOF;
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         $campagne = null;
         
-        $comptes = array
-('michel',
-'saisiedrm',
-'amandine84',
-'assemat',
-'asharvatt',
-'campuget',
-'cavedetavel',
-'cavelirac30',
-'cavestmarc',
-'cavroch57',
-'cedres',
-'clefevre',
-'damiron',
-'ddm123',
-'dom-panisse',
-'domaine-condorcet',
-'domaine-des-hauts-chassis',
-'domainecoulange',
-'domainedefontenille',
-'domaine-bernard-crumiere',
-'earl-domaine-saint-julien',
-'ehebert',
-'elysabe',
-'ent8678',
-'estezargues',
-'franck-alexandre',
-'gaillard',
-'gassier',
-'grangeon',
-'imbertf',
-'jcfromont',
-'josephcastan',
-'lay-fra',
-'loufrejau',
-'melody',
-'michel-gayot',
-'marjolet',
-'panery',
-'pjaume',
-'pimpinella',
-'sasdaussantj',
-'sautjm',
-'scea-ribasse',
-'sixtine',
-'srousset',
-'stesteve',
-'sourcesmarine',
-'tbonnet',
-'thoumy',
-'transportsblanc',
-'vignal-yvonne',
-'vignoble-saut',
-'vidalfleury',
-'bouissiere',
-'chateau-des-roques',
-'domainecharite',
-'gaec-aubert-freres');
-        $i = 1;
-        
-        foreach ($comptes as $compte) {
-        	$object = _CompteClient::getInstance()->find('COMPTE-'.$compte);
-        	if ($object) {
-        		$ldap = new Ldap();
-                $ldap->saveCompte($object);
+        $fictifs = CompteAllView::getInstance()->findBy(1, 'CompteTiers', _Compte::STATUT_FICTIF)->row;
+        $attentes = CompteAllView::getInstance()->findBy('INTERPRO-IR', 'CompteTiers', _Compte::STATUT_ATTENTE)->row;
+        $inscrits = CompteAllView::getInstance()->findBy('INTERPRO-IR', 'CompteTiers', _Compte::STATUT_INSCRIT)->row;
+        foreach ($fictifs as $f) {
+        	if ($f->value[CompteAllView::VALUE_NUMERO_CONTRAT]) {
+        		if ($object = ContratClient::getInstance()->find('CONTRAT-'.$f->value[CompteAllView::VALUE_NUMERO_CONTRAT])) {
+        			foreach ($object->etablissements as $etab) {
+        				echo _Compte::STATUT_FICTIF.';'.$object->no_contrat.';'.$etab->raison_sociale.';'.$etab->email.';'.$etab->adresse.';'.$etab->code_postal.';'.$etab->commune.';'.$etab->siret.';'.$object->nom.';'.$object->prenom.';'.$object->email;
+        				echo "\n";
+        			}	
+        		}				
         	}
-			$this->logSection('compte', $object->_id.' OK '.$i);
-			$i++;
+        }
+    	foreach ($attentes as $a) {
+        	if ($a->value[CompteAllView::VALUE_NUMERO_CONTRAT]) {
+        		if ($object = ContratClient::getInstance()->find('CONTRAT-'.$a->value[CompteAllView::VALUE_NUMERO_CONTRAT])) {
+        			foreach ($object->etablissements as $etab) {
+        				echo _Compte::STATUT_ATTENTE.';'.$object->no_contrat.';'.$etab->raison_sociale.';'.$etab->email.';'.$etab->adresse.';'.$etab->code_postal.';'.$etab->commune.';'.$etab->siret.';'.$object->nom.';'.$object->prenom.';'.$object->email;
+        				echo "\n";
+        			}	
+        		}				
+        	}
+        }
+    	foreach ($inscrits as $i) {
+        	if ($i->value[CompteAllView::VALUE_NUMERO_CONTRAT]) {
+        		if ($object = ContratClient::getInstance()->find('CONTRAT-'.$i->value[CompteAllView::VALUE_NUMERO_CONTRAT])) {
+        			foreach ($object->etablissements as $etab) {
+        				echo _Compte::STATUT_INSCRIT.';'.$object->no_contrat.';'.$etab->raison_sociale.';'.$etab->email.';'.$etab->adresse.';'.$etab->code_postal.';'.$etab->commune.';'.$etab->siret.';'.$object->nom.';'.$object->prenom.';'.$object->email;
+        				echo "\n";
+        			}	
+        		}				
+        	}
         }
     }
 
