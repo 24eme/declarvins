@@ -10,14 +10,11 @@ class drm_mouvements_generauxActions extends sfActions
 		$configuration = $this->getConfigurationProduit();
                 $certification_config = $configuration->declaration->certifications;
 		$certifications = ConfigurationClient::getCurrent()->getCertifications();
-		$this->form = new DRMMouvementsGenerauxForm($configuration, $this->drm);
 		foreach ($certifications as $c => $certification) {
-			//if ($certification_config->exist($certification) && $certification_config->get($certification)->hasProduits($this->drm->getDepartement())) {
 	            if (!isset($this->certifs[$c])) {
-					$this->certifs[$c] = $certification;//$certification_config->get($certification)->libelle;
-					$this->certificationLibelle[$c] = $certification;//$certification_config->get($certification)->libelle;
+					$this->certifs[$c] = $certification;
+					$this->certificationLibelle[$c] = $certification;
 				}
-			//}
 		}
         $this->first_certification = null;
         if(count($this->drm->declaration->certifications) > 0) {
@@ -28,6 +25,7 @@ class drm_mouvements_generauxActions extends sfActions
         		}
         	}
         }
+		$this->form = new DRMMouvementsGenerauxForm($configuration, $this->drm);
         if ($request->isMethod(sfWebRequest::POST)) {
         	$this->form->bind($request->getParameter($this->form->getName()));
         	if ($this->form->isValid()) {
