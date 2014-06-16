@@ -26,27 +26,74 @@ EOF;
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         $campagne = null;
         
-        $comptes = CompteAllView::getInstance()->findAll();
-        //$i = 1;
-        $ldap = new Ldap();
-        foreach ($comptes->rows as $compte) {
-        	if (!preg_match('/^([a-z0-9\-\_\@\.]*)$/', $compte->value[CompteAllView::VALUE_LOGIN])) {
-        		$c = _CompteClient::getInstance()->find($compte->id);
-        		$n = clone $c;
-        		$login = strtolower(KeyInflector::slugify($compte->value[CompteAllView::VALUE_LOGIN]));
-        		echo $compte->value[CompteAllView::VALUE_NOM].';'.$compte->value[CompteAllView::VALUE_PRENOM].';'.$compte->value[CompteAllView::VALUE_RAISON_SOCIALE].';'.$compte->value[CompteAllView::VALUE_EMAIL].';'.$compte->value[CompteAllView::VALUE_TELEPHONE].';'.$compte->value[CompteAllView::VALUE_LOGIN].';'.$login;
-        		echo "\n";
-
-        		
-  				$ldap->deleteCompte($c);
-                $c->delete();
-                $n->login = $login;
-                $n->_id = 'COMPTE-'.$login;
-                $n->save();
+        $comptes = array
+('michel',
+'saisiedrm',
+'amandine84',
+'assemat',
+'asharvatt',
+'campuget',
+'cavedetavel',
+'cavelirac30',
+'cavestmarc',
+'cavroch57',
+'cedres',
+'clefevre',
+'damiron',
+'ddm123',
+'dom-panisse',
+'domaine-condorcet',
+'domaine-des-hauts-chassis',
+'domainecoulange',
+'domainedefontenille',
+'domaine-bernard-crumiere',
+'earl-domaine-saint-julien',
+'ehebert',
+'elysabe',
+'ent8678',
+'estezargues',
+'franck-alexandre',
+'gaillard',
+'gassier',
+'grangeon',
+'imbertf',
+'jcfromont',
+'josephcastan',
+'lay-fra',
+'loufrejau',
+'melody',
+'michel-gayot',
+'marjolet',
+'panery',
+'pjaume',
+'pimpinella',
+'sasdaussantj',
+'sautjm',
+'scea-ribasse',
+'sixtine',
+'srousset',
+'stesteve',
+'sourcesmarine',
+'tbonnet',
+'thoumy',
+'transportsblanc',
+'vignal-yvonne',
+'vignoble-saut',
+'vidalfleury',
+'bouissiere',
+'chateau-des-roques',
+'domainecharite',
+'gaec-aubert-freres');
+        $i = 1;
+        
+        foreach ($comptes as $compte) {
+        	$object = _CompteClient::getInstance()->find('COMPTE-'.$compte);
+        	if ($object) {
+        		$ldap = new Ldap();
                 $ldap->saveCompte($n);
         	}
-			//$this->logSection('compte', $compte->id.' OK '.$i);
-			//$i++;
+			$this->logSection('compte', $object->_id.' OK '.$i);
+			$i++;
         }
     }
 
