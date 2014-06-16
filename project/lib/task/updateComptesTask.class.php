@@ -33,17 +33,17 @@ EOF;
         	if (!preg_match('/^([a-z0-9\-\_\@\.]*)$/', $compte->value[CompteAllView::VALUE_LOGIN])) {
         		$c = _CompteClient::getInstance()->find($compte->id);
         		$n = clone $c;
-        		$login = KeyInflector::slugify($compte->value[CompteAllView::VALUE_LOGIN]);
+        		$login = strtolower(KeyInflector::slugify($compte->value[CompteAllView::VALUE_LOGIN]));
         		echo $compte->value[CompteAllView::VALUE_NOM].';'.$compte->value[CompteAllView::VALUE_PRENOM].';'.$compte->value[CompteAllView::VALUE_RAISON_SOCIALE].';'.$compte->value[CompteAllView::VALUE_EMAIL].';'.$compte->value[CompteAllView::VALUE_TELEPHONE].';'.$compte->value[CompteAllView::VALUE_LOGIN].';'.$login;
         		echo "\n";
 
         		
-  				/*$ldap->deleteCompte($c);
+  				$ldap->deleteCompte($c);
                 $c->delete();
                 $n->login = $login;
                 $n->_id = 'COMPTE-'.$login;
                 $n->save();
-                $ldap->saveCompte($n);*/
+                $ldap->saveCompte($n);
         	}
 			//$this->logSection('compte', $compte->id.' OK '.$i);
 			//$i++;
