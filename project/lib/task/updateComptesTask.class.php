@@ -26,9 +26,9 @@ EOF;
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         $campagne = null;
         
-        $fictifs = CompteAllView::getInstance()->findBy(1, 'CompteTiers', _Compte::STATUT_FICTIF)->row;
-        $attentes = CompteAllView::getInstance()->findBy('INTERPRO-IR', 'CompteTiers', _Compte::STATUT_ATTENTE)->row;
-        $inscrits = CompteAllView::getInstance()->findBy('INTERPRO-IR', 'CompteTiers', _Compte::STATUT_INSCRIT)->row;
+        $fictifs = CompteAllView::getInstance()->findBy(1, 'CompteTiers', _Compte::STATUT_FICTIF)->rows;
+        $attentes = CompteAllView::getInstance()->findBy('INTERPRO-IR', 'CompteTiers', _Compte::STATUT_ATTENTE)->rows;
+        $inscrits = CompteAllView::getInstance()->findBy('INTERPRO-IR', 'CompteTiers', _Compte::STATUT_INSCRIT)->rows;
         foreach ($fictifs as $f) {
         	if ($f->value[CompteAllView::VALUE_NUMERO_CONTRAT]) {
         		if ($object = ContratClient::getInstance()->find('CONTRAT-'.$f->value[CompteAllView::VALUE_NUMERO_CONTRAT])) {
