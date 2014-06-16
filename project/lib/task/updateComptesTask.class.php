@@ -38,7 +38,7 @@ EOF;
         		echo "\n";
 
         		
-  				$/*ldap->deleteCompte($c);
+  				/*$ldap->deleteCompte($c);
                 $c->delete();
                 $n->login = $login;
                 $n->_id = 'COMPTE-'.$login;
