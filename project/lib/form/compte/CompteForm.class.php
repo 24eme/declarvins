@@ -15,7 +15,7 @@ abstract class CompteForm extends acCouchdbObjectForm {
         ));
 
         $this->setValidators(array(
-        		'login' => new sfValidatorString(array('required' => true, 'min_length' => 6)),
+        		'login' => new sfValidatorRegex(array('required' => true, 'pattern' => '/^([a-z0-9\-\_\@\.]*)$/', 'min_length' => 6)),
                 'mdp1'  => new sfValidatorString(array('required' => true, "min_length" => 4)),
                 'mdp2'  => new sfValidatorString(array('required' => true))
         ));

@@ -16,11 +16,15 @@
 		<p>Bonjour <strong><?php echo $contrat->prenom ?> <?php echo $contrat->nom ?></strong>,</p><br />
 		<p>Veuillez créer un identifiant de compte qui vous servira à vous connecter sur la plateforme déclarative des vins du Rhône, de Provence et du Sud-Est.</p>
 		<br /><br />
-		<div class="col">
+		<div class="">
 			<div class="ligne_form">			
 				<?php echo $form['login']->renderError() ?>
 				<?php echo $form['login']->renderLabel() ?>
 				<?php echo $form['login']->render() ?>
+			</div>
+			<div class="ligne_form">
+				<label>&nbsp;</label>
+				<span style="font-style: italic; font-size: 10px;">Saisie en <strong>minuscule</strong>, sans caractères <strong>accentués</strong>, ni <strong>spéciaux</strong> (exceptés arobase(@), tiret(-), underscore(_) et point(.))</span>
 			</div>
 			<div class="ligne_form">
 				<?php echo $form['mdp1']->renderError() ?>
