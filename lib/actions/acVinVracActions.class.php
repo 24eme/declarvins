@@ -165,7 +165,7 @@ class acVinVracActions extends sfActions
 			$this->form->bind($request->getParameter($this->form->getName()));
 			if ($this->form->isValid()) {
 				$this->form->save();
-
+				$sendEmail = (bool)$this->form->getValue('email');
 				if (!$this->configurationVracEtapes->next($this->vrac->etape)) {
 					$interpro = $this->getInterpro($this->vrac, $this->etablissement);
 					$this->vrac->interpro = $interpro->get('_id');
@@ -173,10 +173,12 @@ class acVinVracActions extends sfActions
                     $this->getUser()->setFlash('termine', true);
                     if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
                     	if ($this->getUser()->getAttribute('vrac_modification', null)) {
-                    		$this->contratModifie($this->vrac);
+                    		if ($sendEmail) {
+                    			$this->contratModifie($this->vrac, $sendEmail);
+                    		}
                     		$this->getUser()->setAttribute('vrac_modification', null);
-                    	} else {
-                    		$this->contratValide($this->vrac);
+                    	} elseif ($sendEmail) {
+                    		$this->contratValide($this->vrac, $sendEmail);
                     	}
                     	return $this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
                     } else {

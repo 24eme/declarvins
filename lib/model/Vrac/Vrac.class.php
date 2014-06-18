@@ -177,7 +177,9 @@ class Vrac extends BaseVrac
 
     public function validate($user) {
     	$this->valide->statut = VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION;
-    	$this->valide->date_saisie = date('c');
+    	if (!$this->valide->date_saisie) {
+    		$this->valide->date_saisie = date('c');
+    	}
     	$this->valide->identifiant = $user->getCompte()->_id;
     	$acteurs = VracClient::getInstance()->getActeurs();
       	if (!$this->mandataire_exist) {

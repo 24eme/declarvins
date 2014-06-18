@@ -3,7 +3,7 @@ class VracValideForm extends acCouchdbObjectForm
 {
     
     protected static $_francize_date = array(
-    	'date',
+    	'date_saisie',
     );
 	public function configure()
 	{
@@ -32,7 +32,8 @@ class VracValideForm extends acCouchdbObjectForm
         $defaults = $this->getDefaults();
         foreach (self::$_francize_date as $field) {
         	if (isset($defaults[$field]) && !empty($defaults[$field])) {
-        		$defaults[$field] = Date::francizeDate($defaults[$field]);
+        		$date = new DateTime($defaults[$field]);
+        		$defaults[$field] = $date->format('d/m/Y');
         	}
         }    
         $this->setDefaults($defaults);     
