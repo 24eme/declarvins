@@ -24,7 +24,7 @@
 			</div>
 			<div class="ligne_form">
 				<label>&nbsp;</label>
-				<span style="font-style: italic; font-size: 10px;">Saisie en <strong>minuscule</strong>, sans caractères <strong>accentués</strong>, ni <strong>spéciaux</strong> (exceptés arobase(@), tiret(-), underscore(_) et point(.))</span>
+				<span style="font-style: italic; font-size: 10px;">Saisie en <strong>minuscule</strong>, sans <strong>espaces</strong>, sans caractères <strong>accentués</strong>, ni <strong>spéciaux</strong> (exceptés arobase(@), tiret(-), underscore(_) et point(.))</span>
 			</div>
 			<div class="ligne_form">
 				<?php echo $form['mdp1']->renderError() ?>
