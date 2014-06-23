@@ -58,16 +58,17 @@ class tiersActions extends sfActions
   public function executeMonEspace(sfWebRequest $request) 
   {
     $this->etablissement = $this->getRoute()->getEtablissement();
+
+    if ($this->etablissement->hasDroit(EtablissementDroit::DROIT_VRAC)) {
+
+        return $this->redirect("vrac_etablissement", $this->etablissement);
+    }
+    
   	return $this->redirect("profil", $this->etablissement); // solution temporaire
 
   	if(($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR))) {
     	$this->configureAlerteDrm($this->etablissement);
         return $this->redirect("drm_mon_espace", $this->etablissement);
-    }
-
-    if ($this->etablissement->hasDroit(EtablissementDroit::DROIT_VRAC)) {
-
-        return $this->redirect("vrac_etablissement", $this->etablissement);
     }
   }
   
