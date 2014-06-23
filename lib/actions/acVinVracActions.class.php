@@ -43,7 +43,6 @@ class acVinVracActions extends sfActions
 
     public function executeEtablissement(sfWebRequest $request)
 	{
-		$this->forward404Unless($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR));
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->statut = $request->getParameter('statut', VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION);
         if (!$this->statut) {
