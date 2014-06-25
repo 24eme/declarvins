@@ -45,19 +45,19 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
         $this->embedForm('identifiant', $etablissements);
         // DEPARTEMENTS
         $choices = $this->getDepartementsChoices();
-        $this->setWidget('declarant.siege.code_postal', new sfWidgetFormChoice(array('multiple' => true, 'expanded' => true, 'choices' => $choices)));
+        $this->setWidget('declarant.siege.code_postal', new sfWidgetFormChoice(array('renderer_options' => array('label_separator' => null), 'multiple' => true, 'expanded' => true, 'choices' => $choices)));
         $this->widgetSchema->setLabel('declarant.siege.code_postal', 'Code postal :');
         $this->setValidator('declarant.siege.code_postal', new sfValidatorChoice(array('required' => false, 'multiple' => true, 'choices' => array_keys($choices))));
         // DOUANES
         $choices = $this->getDouanes();
-        $this->setWidget('declarant.service_douane', new sfWidgetFormChoice(array('multiple' => true, 'expanded' => true, 'choices' => $choices)));
+        $this->setWidget('declarant.service_douane', new sfWidgetFormChoice(array('renderer_options' => array('label_separator' => null), 'multiple' => true, 'expanded' => true, 'choices' => $choices)));
         $this->widgetSchema->setLabel('declarant.service_douane', 'Service douane :');
         $this->setValidator('declarant.service_douane', new sfValidatorChoice(array('required' => false, 'multiple' => true, 'choices' => array_keys($choices))));
         // FAMILLES
         $familleChoices = $this->getFamilles();
         $sousFamilleChoices = $this->getSousFamilles();
-        $this->setWidget('declarant.famille', new sfWidgetFormChoice(array('multiple' => true, 'expanded' => true, 'choices' => $familleChoices)));
-        $this->setWidget('declarant.sous_famille', new sfWidgetFormChoice(array('multiple' => true, 'expanded' => true, 'choices' => $sousFamilleChoices)));
+        $this->setWidget('declarant.famille', new sfWidgetFormChoice(array('renderer_options' => array('label_separator' => null), 'multiple' => true, 'expanded' => true, 'choices' => $familleChoices)));
+        $this->setWidget('declarant.sous_famille', new sfWidgetFormChoice(array('renderer_options' => array('label_separator' => null), 'multiple' => true, 'expanded' => true, 'choices' => $sousFamilleChoices)));
         $this->widgetSchema->setLabel('declarant.famille', 'Famille :');
         $this->widgetSchema->setLabel('declarant.sous_famille', 'Sous famille :');
         $this->setValidator('declarant.famille', new sfValidatorChoice(array('required' => false, 'multiple' => true, 'choices' => array_keys($familleChoices))));
@@ -92,7 +92,7 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
 		
         // MODE DE SAISIE
 		$choices = $this->getModesDeSaisie();
-        $this->setWidget('mode_de_saisie', new sfWidgetFormChoice(array('multiple' => true, 'expanded' => true, 'choices' => $choices)));
+        $this->setWidget('mode_de_saisie', new sfWidgetFormChoice(array('renderer_options' => array('label_separator' => null), 'multiple' => true, 'expanded' => true, 'choices' => $choices)));
         $this->widgetSchema->setLabel('mode_de_saisie', 'Mode de saisie :');
         $this->setValidator('mode_de_saisie', new sfValidatorChoice(array('required' => false, 'multiple' => true, 'choices' => array_keys($choices))));
         // CAMPAGNE
