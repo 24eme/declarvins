@@ -415,7 +415,7 @@
 	    {
 	        var bloc_html = $($(this).attr('data-template')).html().replace(regexp_replace, UUID.generate());
 
-
+	        console.log(bloc_html);
 
 	        try {
 				var params = jQuery.parseJSON($(this).attr('data-template-params'));
@@ -426,6 +426,8 @@
 			for(key in params) {
 				bloc_html = bloc_html.replace(new RegExp(key, "g"), params[key]);
 			}
+
+			console.log($(this).attr('data-container'));
 
 	        var bloc = $($(this).attr('data-container')).append(bloc_html);
 
