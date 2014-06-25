@@ -4645,6 +4645,31 @@ p#date_drm {
   font-size: 20px;
   margin: 0 0 10px;
 }
+#contenu.statistiques fieldset {
+  margin: 0 0 20px;
+}
+#contenu.statistiques fieldset legend {
+  color: #86005b;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 10px;
+}
+#contenu.statistiques fieldset.document .col_form,
+#contenu.statistiques fieldset.produit .col_form {
+  width: 217px;
+}
+#contenu.statistiques fieldset.document .col_form + .col_form,
+#contenu.statistiques fieldset.produit .col_form + .col_form {
+  margin-left: 10px;
+}
+#contenu.statistiques fieldset.document .ui-autocomplete-input,
+#contenu.statistiques fieldset.produit .ui-autocomplete-input {
+  width: 90px;
+}
+#contenu.statistiques .ui-autocomplete-input {
+  vertical-align: middle;
+  width: 115px;
+}
 #contenu.statistiques .ligne_form,
 #contenu.statistiques .ligne_form_btn {
   margin: 0 0 15px;
@@ -4664,14 +4689,32 @@ p#date_drm {
   font-weight: bold;
   margin: 0 10px 10px 0;
 }
-#contenu.statistiques .checkbox_list {
+#contenu.statistiques .delimiteur_date {
+  display: inline-block;
+  min-width: 15px;
+}
+#contenu.statistiques .checkbox_list,
+#contenu.statistiques .radio_list {
   font-size: 0;
 }
-#contenu.statistiques .checkbox_list li {
+#contenu.statistiques .checkbox_list li,
+#contenu.statistiques .radio_list li {
   display: inline-block;
   font-size: 12px;
+  position: relative;
   vertical-align: top;
   width: 50%;
+}
+#contenu.statistiques .checkbox_list label,
+#contenu.statistiques .radio_list label {
+  display: block;
+  padding: 3px 0 3px 22px;
+}
+#contenu.statistiques .checkbox_list input,
+#contenu.statistiques .radio_list input {
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 #contenu.statistiques .code_postal {
   width: 580px;
@@ -4681,10 +4724,6 @@ p#date_drm {
 }
 #contenu.statistiques .code_postal .checkbox_list {
   width: 280px;
-}
-#contenu.statistiques .ui-autocomplete-input {
-  vertical-align: middle;
-  width: 115px;
 }
 #contenu.statistiques .btn_supprimer_ligne_template {
   background: url('../images/pictos/pi_supprimer.png') no-repeat;

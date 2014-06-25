@@ -86,7 +86,7 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
         $this->setWidget('valide.date_saisie', new sfWidgetFormDateRange(array(
             'from_date'     => new sfWidgetFormInputText(array(), array('class' => 'datepicker')),
             'to_date'       => new sfWidgetFormInputText(array(), array('class' => 'datepicker')),
-            'template'      => '<br />du %from_date%<br />au %to_date%'
+            'template'      => '<br /><span class="delimiteur_date">du</span> %from_date%<br /><span class="delimiteur_date">au</span> %to_date%'
         )));
         $this->widgetSchema->setLabel('valide.date_saisie', 'Période de saisie :');
         $this->setValidator('valide.date_saisie', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)), 'to_date'   => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)))));
@@ -94,7 +94,7 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
 		$this->setWidget('valide.date_validation', new sfWidgetFormDateRange(array(
             'from_date'     => new sfWidgetFormInputText(array(), array('class' => 'datepicker')),
             'to_date'       => new sfWidgetFormInputText(array(), array('class' => 'datepicker')),
-            'template'      => '<br />du %from_date%<br />au %to_date%'
+            'template'      => '<br /><span class="delimiteur_date">du</span> %from_date%<br /><span class="delimiteur_date">au</span> %to_date%'
         )));
         $this->widgetSchema->setLabel('valide.date_validation', 'Période de signature :');
         $this->setValidator('valide.date_validation', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)), 'to_date'   => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)))));
@@ -103,7 +103,7 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
         $this->setWidget('date_limite_retiraison', new sfWidgetFormDateRange(array(
             'from_date'     => new sfWidgetFormInputText(array(), array('class' => 'datepicker')),
             'to_date'       => new sfWidgetFormInputText(array(), array('class' => 'datepicker')),
-            'template'      => '<br />du %from_date%<br />au %to_date%'
+            'template'      => '<br /><span class="delimiteur_date">du</span> %from_date%<br /><span class="delimiteur_date">au</span> %to_date%'
         )));
         $this->widgetSchema->setLabel('date_limite_retiraison', 'Date limite de retiraison :');
         $this->setValidator('date_limite_retiraison', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)), 'to_date'   => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)))));
@@ -111,7 +111,7 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
         $this->setWidget('prix_unitaire', new sfWidgetFormDateRange(array(
             'from_date'     => new sfWidgetFormInputFloat(),
             'to_date'       => new sfWidgetFormInputFloat(),
-            'template'      => '<br />de %from_date%<br />à %to_date%'
+            'template'      => '<br /><span class="delimiteur_date">de</span> %from_date%<br /><span class="delimiteur_date">à</span> %to_date%'
         )));
         $this->widgetSchema->setLabel('prix_unitaire', 'Fourchette de prix :');
         $this->setValidator('prix_unitaire', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorNumber(array('required' => false)), 'to_date'   => new sfValidatorNumber(array('required' => false)))));
@@ -119,7 +119,7 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
 		$this->setWidget('volume_propose', new sfWidgetFormDateRange(array(
             'from_date'     => new sfWidgetFormInputFloat(),
             'to_date'       => new sfWidgetFormInputFloat(),
-            'template'      => '<br />de %from_date%<br />à %to_date%'
+            'template'      => '<br /><span class="delimiteur_date">de</span> %from_date%<br /><span class="delimiteur_date">à</span> %to_date%'
         )));
         $this->widgetSchema->setLabel('volume_propose', 'Fourchette de volume :');
         $this->setValidator('volume_propose', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorNumber(array('required' => false)), 'to_date'   => new sfValidatorNumber(array('required' => false)))));

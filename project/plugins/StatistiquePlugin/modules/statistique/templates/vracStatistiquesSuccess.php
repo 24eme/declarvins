@@ -3,18 +3,9 @@
 	<section id="principal">
 		<div class="clearfix" id="application_dr">
 			
-			<!-- .options_recherche -->
-			<?php include_partial('vracSearchOptions'); ?>
-			<!-- fin .options_recherche -->
-			
     		<h1><strong><?php echo $statistiquesConfig['title'] ?></strong></h1>
 
     		<div class="contenu clearfix">
-				
-				<ul class="liste_filtres">
-					<li></li>
-				</ul>
-				
 	        	<?php include_partial($form->getFormTemplate(), array('type' => 'vrac', 'form' => $form)) ?>
 	        </div>
 	        

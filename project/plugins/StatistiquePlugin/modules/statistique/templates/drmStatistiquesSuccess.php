@@ -3,10 +3,6 @@
 	<section id="principal">
 		<div class="clearfix" id="application_dr">
 			
-			<!-- .options_recherche -->
-			<?php //include_partial('drmSearchOptions'); ?>
-			<!-- fin .options_recherche -->
-			
     		<h1><strong><?php echo $statistiquesConfig['title'] ?></strong></h1>
     		
     		<!-- <form id="result_filtered" action="<?php echo url_for('statistiques_drm') ?>" method="post"></form>  -->

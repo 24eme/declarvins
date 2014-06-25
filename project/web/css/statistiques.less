@@ -15,6 +15,37 @@
 	}
 
 	// Eléments de formulaire
+	fieldset
+	{
+		margin: 0 0 20px;
+
+		legend
+		{
+			color: #86005b;
+			font-size: 16px;
+			font-weight: bold;
+			margin: 0 0 10px;
+		}
+
+		&.document,
+		&.produit
+		{
+			.col_form 
+			{
+				width: 217px;
+
+				& + .col_form { margin-left: 10px; } 
+			}
+
+			.ui-autocomplete-input { width: 90px; }
+		}
+	}
+
+	.ui-autocomplete-input 
+	{
+		vertical-align: middle; 
+		width: 115px; 
+	}
 
 	.ligne_form,
 	.ligne_form_btn { margin: 0 0 15px; }
@@ -36,16 +67,38 @@
 		margin: 0 10px 10px 0;
 	}
 
-	.checkbox_list
+	// Labels des champs de date
+	.delimiteur_date 
+	{
+		display: inline-block; 
+		min-width: 15px; 
+	}
+
+	.checkbox_list,
+	.radio_list
 	{
 		font-size: 0;
 
 		li 
 		{ 
 			display: inline-block;
-			font-size: 12px; 
+			font-size: 12px;
+			position: relative;
 			vertical-align: top;
 			width: 50%;
+		}
+
+		label 
+		{ 
+			display: block; 
+			padding: 3px 0 3px 22px;
+		}
+
+		input
+		{
+			position: absolute;
+			left: 0;
+			top: 0;
 		}
 	}
 
@@ -56,12 +109,6 @@
 		li { width: auto; }
 
 		.checkbox_list { width: 280px; }
-	}
-
-	.ui-autocomplete-input 
-	{
-		vertical-align: middle; 
-		width: 115px; 
 	}
 
 	// Boutons
