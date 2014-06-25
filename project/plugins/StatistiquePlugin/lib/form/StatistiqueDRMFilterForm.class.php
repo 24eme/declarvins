@@ -75,20 +75,20 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
         $this->setValidator('identifiant_drm_historique', new sfValidatorString(array('required' => false)));
 		// DATE SAISIE
         $this->setWidget('valide.date_saisie', new sfWidgetFormDateRange(array(
-            'from_date'     => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
-            'to_date'       => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
+            'from_date'     => new sfWidgetFormInputText(array(), array('class' => 'datepicker')),
+            'to_date'       => new sfWidgetFormInputText(array(), array('class' => 'datepicker')),
             'template'      => '<br />du %from_date%<br />au %to_date%'
         )));
         $this->widgetSchema->setLabel('valide.date_saisie', 'Période de saisie :');
-        $this->setValidator('valide.date_saisie', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date'   => new sfValidatorDate(array('required' => false)))));
+        $this->setValidator('valide.date_saisie', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)), 'to_date'   => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)))));
 		// DATE DE SIGNATURE
 		$this->setWidget('valide.date_signee', new sfWidgetFormDateRange(array(
-            'from_date'     => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
-            'to_date'       => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
+            'from_date'     => new sfWidgetFormInputText(array(), array('class' => 'datepicker')),
+            'to_date'       => new sfWidgetFormInputText(array(), array('class' => 'datepicker')),
             'template'      => '<br />du %from_date%<br />au %to_date%'
         )));
         $this->widgetSchema->setLabel('valide.date_signee', 'Période de signature :');
-        $this->setValidator('valide.date_signee', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date'   => new sfValidatorDate(array('required' => false)))));
+        $this->setValidator('valide.date_signee', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)), 'to_date'   => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)))));
 		
         // MODE DE SAISIE
 		$choices = $this->getModesDeSaisie();

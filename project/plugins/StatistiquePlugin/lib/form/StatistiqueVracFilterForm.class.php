@@ -84,29 +84,29 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
         $this->setValidator('_id', new sfValidatorString(array('required' => false)));
 		// DATE SAISIE
         $this->setWidget('valide.date_saisie', new sfWidgetFormDateRange(array(
-            'from_date'     => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
-            'to_date'       => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
+            'from_date'     => new sfWidgetFormInputText(array(), array('class' => 'datepicker')),
+            'to_date'       => new sfWidgetFormInputText(array(), array('class' => 'datepicker')),
             'template'      => '<br />du %from_date%<br />au %to_date%'
         )));
         $this->widgetSchema->setLabel('valide.date_saisie', 'Période de saisie :');
-        $this->setValidator('valide.date_saisie', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date'   => new sfValidatorDate(array('required' => false)))));
+        $this->setValidator('valide.date_saisie', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)), 'to_date'   => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)))));
 		// DATE SIGNATURE
 		$this->setWidget('valide.date_validation', new sfWidgetFormDateRange(array(
-            'from_date'     => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
-            'to_date'       => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
+            'from_date'     => new sfWidgetFormInputText(array(), array('class' => 'datepicker')),
+            'to_date'       => new sfWidgetFormInputText(array(), array('class' => 'datepicker')),
             'template'      => '<br />du %from_date%<br />au %to_date%'
         )));
         $this->widgetSchema->setLabel('valide.date_validation', 'Période de signature :');
-        $this->setValidator('valide.date_validation', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date'   => new sfValidatorDate(array('required' => false)))));
+        $this->setValidator('valide.date_validation', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)), 'to_date'   => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)))));
 		
         // DATE RETIRAISON
         $this->setWidget('date_limite_retiraison', new sfWidgetFormDateRange(array(
-            'from_date'     => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
-            'to_date'       => new sfWidgetFormDate(array('format' => '%day% / %month% / %year%', 'years' => $years)),
+            'from_date'     => new sfWidgetFormInputText(array(), array('class' => 'datepicker')),
+            'to_date'       => new sfWidgetFormInputText(array(), array('class' => 'datepicker')),
             'template'      => '<br />du %from_date%<br />au %to_date%'
         )));
         $this->widgetSchema->setLabel('date_limite_retiraison', 'Date limite de retiraison :');
-        $this->setValidator('date_limite_retiraison', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date'   => new sfValidatorDate(array('required' => false)))));
+        $this->setValidator('date_limite_retiraison', new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)), 'to_date'   => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)))));
 		// RANGE PRIX
         $this->setWidget('prix_unitaire', new sfWidgetFormDateRange(array(
             'from_date'     => new sfWidgetFormInputFloat(),
