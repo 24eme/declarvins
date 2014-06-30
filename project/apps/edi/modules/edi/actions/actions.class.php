@@ -80,8 +80,8 @@ class ediActions extends sfActions
     }
     $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
-    $vracs = VracDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'));
-    return $this->renderCsv($vracs->rows, VracDateView::VALUE_DATE_SAISIE, "VRAC", $dateTime->format('c'));
+    $vracs = $this->vracCallback(VracDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows);
+    return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "VRAC", $dateTime->format('c'));
   }
   
   public function executeStreamDRM(sfWebRequest $request) 
@@ -216,8 +216,8 @@ class ediActions extends sfActions
     }
     $etablissement = $request->getParameter('etablissement');
     $this->securizeEtablissement($etablissement);
-    $vracs = VracEtablissementView::getInstance()->findByEtablissement($etablissement, $dateForView);
-    return $this->renderCsv($vracs->rows, VracEtablissementView::VALUE_DATE_SAISIE, "VRAC", $date);
+    $vracs = $this->vracCallback(VracEtablissementView::getInstance()->findByEtablissement($etablissement, $dateForView)->rows);
+    return $this->renderCsv($vracs, VracEtablissementView::VALUE_DATE_SAISIE, "VRAC", $date);
   }
   
   public function executePushVracEtablissement(sfWebRequest $request)
@@ -336,6 +336,19 @@ class ediActions extends sfActions
     $this->response->setHttpHeader('md5', md5($csv_file));
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$drm->_id.".csv");
     return $this->renderText($csv_file);
+  }
+  
+  protected function vracCallback($interpro, $items)
+  {
+  		$vracs = array();
+  		$configurationVrac = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro);
+  		foreach ($items as $item) {
+  			$item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE] = $configurationVrac->formatTypesTransactionLibelle(array($item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE]));
+  			$item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE] = $configurationVrac->formatCasParticulierLibelle(array($item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE]));
+  			$item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE] = $configurationVrac->formatConditionsPaiementLibelle(array($item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE]));
+  			$vracs[] = $item;
+  		}
+  		return $vracs;
   }
 
   protected function renderCsv($items, $dateSaisieIndice, $type, $date = null) 
