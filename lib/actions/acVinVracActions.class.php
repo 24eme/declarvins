@@ -114,11 +114,12 @@ class acVinVracActions extends sfActions
         			$this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
         		}
         	} else {
-        		throw new sfException('Unknown status');	
+        		throw new sfError404Exception('Unknown status');
         	}
         } else {
-        	throw new sfException('Status needed');
+        	throw new sfError404Exception('Status needed');
         }
+        $this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
 	}
 
 	public function executeModification(sfWebRequest $request)
