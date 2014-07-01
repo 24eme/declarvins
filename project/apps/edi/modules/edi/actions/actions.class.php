@@ -80,7 +80,7 @@ class ediActions extends sfActions
     }
     $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
-    $vracs = $this->vracCallback(VracDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows);
+    $vracs = $this->vracCallback($interpro, VracDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows);
     return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "VRAC", $dateTime->format('c'));
   }
   
@@ -216,7 +216,8 @@ class ediActions extends sfActions
     }
     $etablissement = $request->getParameter('etablissement');
     $this->securizeEtablissement($etablissement);
-    $vracs = $this->vracCallback(VracEtablissementView::getInstance()->findByEtablissement($etablissement, $dateForView)->rows);
+    $etablissementObject = EtablissementClient::getInstance()->find($etablissement);
+    $vracs = $this->vracCallback($etablissementObject->interpro, VracEtablissementView::getInstance()->findByEtablissement($etablissement, $dateForView)->rows);
     return $this->renderCsv($vracs, VracEtablissementView::VALUE_DATE_SAISIE, "VRAC", $date);
   }
   
