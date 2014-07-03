@@ -1,4 +1,9 @@
-    <form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>">
+<div class="vigilance_list">
+    <ul>
+        <li>Attention votre déclaration de transaction ne sera pas envoyée automatiquement à votre organisme d'inspection/de contrôle (fonctionnalité à venir).<br />Vous devrez donc la faire parvenir lorsque vous aurez reçu le document correspondant en PDF.</li>
+    </ul>
+</div>
+<form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>">
         <?php echo $form->renderHiddenFields() ?>
         <?php echo $form->renderGlobalErrors() ?>
     <div>
