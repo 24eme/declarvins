@@ -12,4 +12,10 @@ class VracMarcheIrForm extends VracMarcheForm
             unset($this['type_transaction']);
         }
     }
+    protected function doUpdateObject($values) {
+    	parent::doUpdateObject($values);
+    	if (!sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+    		$this->getObject()->type_transaction = VracClient::TRANSACTION_DEFAUT;
+    	}
+    }
 }
