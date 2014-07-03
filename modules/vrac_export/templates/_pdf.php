@@ -1,3 +1,5 @@
+<?php use_helper('Float') ?>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" class="no-js">
 <head>
@@ -37,18 +39,15 @@
 				<p>Raison sociale : <?php echo ($vrac->vendeur->raison_sociale)? $vrac->vendeur->raison_sociale : $vrac->vendeur->nom; ?></p>
 				<p>N° RCS/SIRET : <?php echo $vrac->vendeur->siret ?></p>
 				<p>N° CVI/EVV : <?php echo $vrac->vendeur->cvi ?></p>
-				<p>Adresse : <?php echo $vrac->vendeur->adresse ?></p>
-				<p>Code postal : <?php echo $vrac->vendeur->code_postal ?></p>
-				<p>Commune : <?php echo $vrac->vendeur->commune ?></p>
-				<p>Pays : <?php echo $vrac->vendeur->pays ?></p>
+				<p>Adresse :</p>
+				<p><?php echo $vrac->vendeur->adresse ?> <?php echo $vrac->vendeur->code_postal ?> <?php echo $vrac->vendeur->commune ?><br /><?php echo $vrac->vendeur->pays ?></p>
+				<p>Email : <?php echo $vrac->vendeur->email ?></p>
 				<p>Tel : <?php echo $vrac->vendeur->telephone ?>&nbsp;&nbsp;&nbsp;Fax : <?php echo $vrac->vendeur->fax ?></p>
 				<?php if ($vrac->hasAdresseStockage()): ?>
 				<br />
 				<p>Adresse de stockage : <?php echo $vrac->adresse_stockage->libelle ?></p>
-				<p>Adresse : <?php echo $vrac->adresse_stockage->adresse ?></p>
-				<p>Code postal : <?php echo $vrac->adresse_stockage->code_postal ?></p>
-				<p>Commune : <?php echo $vrac->adresse_stockage->commune ?></p>
-				<p>Pays : <?php echo $vrac->adresse_stockage->pays ?></p>
+				<p>Adresse :</p>
+				<p><?php echo $vrac->adresse_stockage->adresse ?> <?php echo $vrac->adresse_stockage->code_postal ?> <?php echo $vrac->adresse_stockage->commune ?><br /><?php echo $vrac->adresse_stockage->pays ?></p>
 				<?php endif; ?>
 				<?php if ($vrac->valide->date_validation_vendeur): ?>
 				<br />
@@ -61,10 +60,9 @@
 				<p>Raison sociale : <?php echo ($vrac->mandataire->raison_sociale)? $vrac->mandataire->raison_sociale : $vrac->mandataire->nom; ?></p>
 				<p>N° Carte professionnelle : <?php echo $vrac->mandataire->no_carte_professionnelle ?></p>
 				<p>N° RCS/SIRET : <?php echo $vrac->mandataire->siret ?></p>
-				<p>Adresse : <?php echo $vrac->mandataire->adresse ?></p>
-				<p>Code postal : <?php echo $vrac->mandataire->code_postal ?></p>
-				<p>Commune : <?php echo $vrac->mandataire->commune ?></p>
-				<p>Pays : <?php echo $vrac->mandataire->pays ?></p>
+				<p>Adresse :</p>
+				<p><?php echo $vrac->mandataire->adresse ?> <?php echo $vrac->mandataire->code_postal ?> <?php echo $vrac->mandataire->commune ?><br /><?php echo $vrac->mandataire->pays ?></p>
+				<p>Email : <?php echo $vrac->mandataire->email ?></p>
 				<p>Tel : <?php echo $vrac->mandataire->telephone ?>&nbsp;&nbsp;&nbsp;Fax : <?php echo $vrac->mandataire->fax ?></p>
 				<?php if ($vrac->valide->date_validation_mandataire): ?>
 				<br />
@@ -78,18 +76,15 @@
 				<p>Raison sociale : <?php echo ($vrac->acheteur->raison_sociale)? $vrac->acheteur->raison_sociale : $vrac->acheteur->nom; ?></p>
 				<p>N° RCS/SIRET : <?php echo $vrac->acheteur->siret ?></p>
 				<p>N° CVI/EVV : <?php echo $vrac->acheteur->cvi ?></p>
-				<p>Adresse : <?php echo $vrac->acheteur->adresse ?></p>
-				<p>Code postal : <?php echo $vrac->acheteur->code_postal ?></p>
-				<p>Commune : <?php echo $vrac->acheteur->commune ?></p>
-				<p>Pays : <?php echo $vrac->acheteur->pays ?></p>
+				<p>Adresse :</p>
+				<p><?php echo $vrac->acheteur->adresse ?><br /><?php echo $vrac->acheteur->code_postal ?> <?php echo $vrac->acheteur->commune ?><br /><?php echo $vrac->acheteur->pays ?></p>
+				<p>Email : <?php echo $vrac->acheteur->email ?></p>
 				<p>Tel : <?php echo $vrac->acheteur->telephone ?>&nbsp;&nbsp;&nbsp;Fax : <?php echo $vrac->acheteur->fax ?></p>
 				<?php if ($vrac->hasAdresseLivraison()): ?>
 				<br />
 				<p>Adresse de livraison : <?php echo $vrac->adresse_livraison->libelle ?></p>
-				<p>Adresse : <?php echo $vrac->adresse_livraison->adresse ?></p>
-				<p>Code postal : <?php echo $vrac->adresse_livraison->code_postal ?></p>
-				<p>Commune : <?php echo $vrac->adresse_livraison->commune ?></p>
-				<p>Pays : <?php echo $vrac->adresse_livraison->pays ?></p>
+				<p>Adresse :</p>
+				<p><?php echo $vrac->adresse_livraison->adresse ?> <?php echo $vrac->adresse_livraison->code_postal ?> <?php echo $vrac->adresse_livraison->commune ?><br /><?php echo $vrac->adresse_livraison->pays ?></p>
 				<?php endif; ?>
 				<?php if ($vrac->valide->date_validation_acheteur): ?>
 				<br />
@@ -110,13 +105,19 @@
 			<tr>
 				<th>Volume total (hl)</th>
 				<th>Prix unitaire net HT hors cotisation</th>
-				<th>Prix (HT)</th>
+				<?php if ($vrac->has_cotisation_cvo): ?>
+				<th>Part cotisation payée par l'acheteur</th>
+				<?php endif; ?>
+				<th>Type de prix</th>
         	</tr>
         </thead>
         <tbody>
 			<tr>
-				<td><?php echo $vrac->volume_propose ?> hl</td>
-				<td><?php echo $vrac->prix_unitaire ?> €/hl</td>
+				<td><?php echoLongFloat($vrac->volume_propose) ?> hl</td>
+				<td><?php echoFloat($vrac->prix_unitaire) ?> €/hl</td>
+				<?php if ($vrac->has_cotisation_cvo): ?>
+				<td><?php echoFloat($vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) ?> €/hl</td>
+				<?php endif; ?>
 				<td><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)); ?></td>
 			</tr>
         </tbody>
@@ -148,8 +149,8 @@
 			<?php foreach ($vrac->paiements as $paiement): ?>
 			<tr>
 				<td><?php echo Date::francizeDate($paiement->date) ?></td>
-				<td><?php echo $paiement->volume ?> hl</td>
-				<td><?php echo $paiement->montant ?> €</td>
+				<td><?php if ($paiement->volume) {echoLongFloat($paiement->volume);} ?> hl</td>
+				<td><?php if ($paiement->montant) {echoFloat($paiement->montant);} ?> €</td>
 			</tr>
 			<?php endforeach; ?>
         </tbody>
@@ -199,7 +200,7 @@
 			<?php foreach ($lot->cuves as $cuve): ?>
 			<tr class="<?php if($i==$nb_cuves) echo 'der_cat'; ?>">
 				<td><?php echo $cuve->numero ?></td>
-				<td><?php echo $cuve->volume ?> hl</td>
+				<td><?php if ($cuve->volume) {echoLongFloat($cuve->volume);} ?> hl</td>
 				<td><?php echo Date::francizeDate($cuve->date) ?></td>
 			</tr>
 			<?php $i++; ?>

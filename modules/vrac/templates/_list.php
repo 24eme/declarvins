@@ -68,7 +68,7 @@
 			  <td id="num_contrat">
 			    <?php if($elt[VracHistoryView::VRAC_VIEW_STATUT]): ?>
 			    	<?php if ($validated): ?>
-			    		<?php echo $vracid ?><br />
+			    		<strong><?php echo $vracid ?></strong><br />
 			      		<a class="highlight_link" href="<?php echo url_for("vrac_visualisation", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Visualiser le contrat</a>
 			    	<?php else: ?>
 			    		En attente<br />
@@ -179,7 +179,7 @@
 			  <td id="num_contrat">
 			    <?php if($elt[VracHistoryView::VRAC_VIEW_STATUT]): ?>
 			    	<?php if ($validated): ?>
-			    		<?php echo $vracid ?><br />
+			    		<strong><?php echo $vracid ?></strong><br />
 			      		<a class="highlight_link" href="<?php echo url_for("vrac_visualisation", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Visualiser le contrat</a>
 			    	<?php else: ?>
 			    		En attente<br />
