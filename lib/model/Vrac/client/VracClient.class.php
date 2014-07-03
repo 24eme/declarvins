@@ -38,7 +38,7 @@ class VracClient extends acCouchdbClient {
     const STATUS_VIN_LIVRE = 'livre';
     const TRANSACTION_DEFAUT = 'vrac';
     const PRIX_DEFAUT = 'definitif';
-    const LABEL_DEFAUT = 'conventionnel';
+    const LABEL_DEFAUT = 'conv';
     const ECHEANCIER_PAIEMENT = 'echeancier_paiement';
     const VRAC_TYPE_VENDEUR = 'vendeur';
     const VRAC_TYPE_ACHETEUR = 'acheteur';
