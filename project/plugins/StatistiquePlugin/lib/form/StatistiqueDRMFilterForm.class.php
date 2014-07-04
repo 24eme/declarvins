@@ -7,6 +7,7 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
 	
 	protected static $fieldsConfig = array(
 		'interpros' => StatistiqueQuery::CONFIG_QUERY_STRING,
+		'referente' => StatistiqueQuery::CONFIG_QUERY_STRING,
 		'identifiant' => StatistiqueQuery::CONFIG_QUERY_STRING_OR,
 		'declarant.siege.code_postal' => StatistiqueQuery::CONFIG_QUERY_STRING_OR,
 		'declarant.service_douane' => StatistiqueQuery::CONFIG_QUERY_STRING_OR,
