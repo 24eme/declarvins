@@ -9,7 +9,7 @@ class ProduitDetailForm extends acCouchdbObjectForm {
     	));
     	$this->setValidators(array(
     		'readable' => new sfValidatorChoice(array('multiple' => false, 'choices' => array_keys($choices), 'required' => false)),
-    		'writable' => new sfValidatorPass()
+    		'writable' => new ValidatorPass()
     	));
 		$this->widgetSchema->setLabels(array(
 			'readable' => $this->getOption('libelle', null)

@@ -35,7 +35,7 @@ class ProduitNouveauForm extends sfForm {
 			'certifications' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->configurationProduit->getCertifications()))),
 			'genres' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->configurationProduit->getGenres()))),
 			'appellations' => new sfValidatorString(array('required' => false)),
-			'mentions' => new sfValidatorPass(),
+			'mentions' => new ValidatorPass(),
 			'lieux' => new sfValidatorString(array('required' => false)),
 			'couleurs' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->configurationProduit->getCouleurs()))),
 			'cepages' => new sfValidatorString(array('required' => false))

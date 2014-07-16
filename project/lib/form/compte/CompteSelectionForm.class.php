@@ -9,7 +9,7 @@ class CompteSelectionForm extends sfForm {
 			'compte' => 'Compte*: ',
 		));
 		$this->setValidators(array(
-			'compte' => new sfValidatorPass(),
+			'compte' => new ValidatorPass(),
 		));
         $this->widgetSchema->setNameFormat('compte_selection[%s]');
     }

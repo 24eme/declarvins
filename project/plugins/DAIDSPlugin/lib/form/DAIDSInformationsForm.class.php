@@ -9,7 +9,7 @@ class DAIDSInformationsForm extends BaseForm
 	            'confirmation' => new sfWidgetFormInputHidden()
 	        ));
 	        $this->setValidators(array(
-	            'confirmation' => new sfValidatorPass()
+	            'confirmation' => new ValidatorPass()
 	        ));
 	        $this->setDefault('confirmation', 'confirmation');
     		

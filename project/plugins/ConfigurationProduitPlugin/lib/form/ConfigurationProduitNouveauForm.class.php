@@ -44,7 +44,7 @@ class ConfigurationProduitNouveauForm extends sfForm
 			'certifications' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($certifications))),
 			'genres' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($genres))),
 			'appellations' => new sfValidatorString(array('required' => false)),
-			'mentions' => new sfValidatorPass(),
+			'mentions' => new ValidatorPass(),
 			'lieux' => new sfValidatorString(array('required' => false)),
 			'couleurs' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($couleurs))),
 			'cepages' => new sfValidatorString(array('required' => false))
