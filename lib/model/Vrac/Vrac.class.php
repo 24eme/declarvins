@@ -236,6 +236,8 @@ class Vrac extends BaseVrac
     	if ($updateStatutSolde) {
     		$this->updateStatutSolde();
     	}
+    	// fixe
+    	$this->part_cvo = floatval($this->part_cvo);
     	parent::save();
     }
     
