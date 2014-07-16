@@ -27,7 +27,7 @@ class VracSoussigneForm extends VracForm
         unset($this['vous_etes']);
       } else {
       	$this->setWidget('vous_etes_identifiant', new sfWidgetFormInputHidden(array('default' => $this->getEtablissement()->identifiant)));
-      	$this->setValidator('vous_etes_identifiant', new sfValidatorPass());
+      	$this->setValidator('vous_etes_identifiant', new ValidatorPass());
       }
 
       if ($this->etablissementIsCourtier()) {

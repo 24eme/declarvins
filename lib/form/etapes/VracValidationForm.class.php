@@ -8,7 +8,7 @@ class VracValidationForm extends VracForm
     {
     	parent::configure();    	
 		$this->setWidget('email', new sfWidgetFormInputHidden());
-		$this->setValidator('email', new sfValidatorPass());
+		$this->setValidator('email', new ValidatorPass());
 		if ($this->user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
 			$fields = array('valide','commentaires', 'date_signature', 'email');
 		} else {

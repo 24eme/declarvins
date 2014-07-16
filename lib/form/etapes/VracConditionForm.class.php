@@ -16,7 +16,7 @@ class VracConditionForm extends VracForm
 		   'volume_propose'
   		));
 		$this->setWidget('volume_propose', new sfWidgetFormInputHidden());
-		$this->setValidator('volume_propose', new sfValidatorPass());
+		$this->setValidator('volume_propose', new ValidatorPass());
   		$this->validatorSchema->setPostValidator(new VracConditionValidator());
   		$this->widgetSchema->setNameFormat('vrac_condition[%s]');
     }

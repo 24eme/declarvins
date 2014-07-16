@@ -10,7 +10,7 @@ class VracProduitForm extends VracForm
     		));
     		$this->setWidget('non_millesime', new sfWidgetFormInputCheckbox());
     		$this->widgetSchema->setLabel('non_millesime', '&nbsp;');
-    		$this->setValidator('non_millesime', new sfValidatorPass());
+    		$this->setValidator('non_millesime', new ValidatorPass());
     		
   		    $this->validatorSchema->setPostValidator(new VracProduitValidator());
     		$this->widgetSchema->setNameFormat('vrac_produit[%s]');

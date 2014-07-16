@@ -21,9 +21,9 @@ class VracSignatureForm extends acCouchdbObjectForm
 	       'date_validation_mandataire' => new sfWidgetFormInputHidden()
 		));
 		$this->setValidators(array(
-	       'date_validation_vendeur' => new sfValidatorPass(),
-	       'date_validation_acheteur' => new sfValidatorPass(),
-	       'date_validation_mandataire' => new sfValidatorPass()
+	       'date_validation_vendeur' => new ValidatorPass(),
+	       'date_validation_acheteur' => new ValidatorPass(),
+	       'date_validation_mandataire' => new ValidatorPass()
 		));
 		$this->widgetSchema->setNameFormat('valide[%s]');
 	}

@@ -164,7 +164,7 @@ Vrac:
       date_debut_retiraison: {  }
       date_limite_retiraison: {  }
       commentaires_conditions: {  }
-      part_cvo: {  }
+      part_cvo: { type: float }
       prix_total: { type: float }
       prix_total_net: { type: float }
       conditions_paiement: {  }
@@ -186,7 +186,7 @@ Vrac:
                 fields:
                   date: {  }
                   volume: { type: float }
-                  montant: {  }
+                  montant: { type: float }
       clause_reserve_retiraison: {  }
       export: {  }
       lots:
@@ -230,7 +230,7 @@ Vrac:
       prix_variable: {  }
       part_variable: {  }
       cvo_nature: {  }
-      cvo_repartition: {  }
+      cvo_repartition: { type: float }
       date_stats: {  }
       date_signature: {  }
       date_relance: {  }
