@@ -121,6 +121,11 @@ class acCouchdbJsonDefinitionField {
         }
     }
     
+    public function getParsedValue($value)
+    {
+    	return ($value === "")? null : $value;
+    }
+    
     public function getPhpType() {
         if ($this->type == self::TYPE_STRING) {
             return "string";

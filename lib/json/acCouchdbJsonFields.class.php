@@ -229,13 +229,13 @@ abstract class acCouchdbJsonFields {
                 if ($this->fieldIsCollection($key)) {
                     $data[] = $field->getData();
                 } else {
-                    $data[] = $field;
+                    $data[] = $this->getDefinition()->get($key)->getParsedValue($field);
                 }
             } else {
                 if ($this->fieldIsCollection($key)) {
                     $data[$this->getFieldName($key)] = $field->getData();
                 } else {
-                    $data[$this->getFieldName($key)] = $field;
+                    $data[$this->getFieldName($key)] = $this->getDefinition()->get($key)->getParsedValue($field);
                 }
             }
         }
