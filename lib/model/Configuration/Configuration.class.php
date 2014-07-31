@@ -14,37 +14,36 @@ class Configuration extends BaseConfiguration
     protected $_configuration_produits_IO = null;
     
     protected static $stocks_debut = array(
-    	'bloque' => 'Dont Vin bloqué',
+    	'bloque' => 'Dont Vin bloqué / Reserve',
     	'warrante' => 'Dont Vin warranté',
-    	'instance' => 'Dont Vin en instance',
-    	'commercialisable' => 'Dont commercialisable'
+    	'instance' => 'Dont Vin en instance'
     );
     
     protected static $stocks_entree = array(
     	'achat' => 'Achats',
     	'recolte' => 'Récolte',
     	'repli' => 'Replis / Changement de dénomination',
-    	'declassement' => 'Déclassement',
-    	'mouvement' => 'Transfert de chai / Embouteillage',
-    	'crd' => 'Réintégration CRD'
+    	'declassement' => 'Déclassement / Lies',
+    	'mouvement' => 'Transfert de chai / Embouteillage / Retours',
+    	'crd' => 'Réintégration conditionné / Vrac'
     );
     
     protected static $stocks_sortie = array(
-    	'vrac' => 'Vrac DAA/DAE',
-    	'export' => 'Conditionné Export',
+    	'vrac' => 'Vrac DAA / DAE / DAC',
+    	'export' => 'Conditionné export DAE ou CRD',
     	'factures' => 'DSA / Tickets / Factures',
     	'crd' => 'CRD France',
     	'consommation' => 'Conso Fam. / Analyses / Dégustation',
-    	'pertes' => 'Pertes',
+    	'pertes' => 'Pertes exceptionnelles',
     	'declassement' => 'Non rev. / Déclassement',
     	'repli' => 'Changement / Repli',
-    	'mouvement' => 'Transfert de chai / Embouteillage',
-    	'distillation' => 'Distillation',
+    	'mouvement' => 'Transfert de chai / Embouteillage / Prise de mousse',
+    	'distillation' => 'Distillation / Destruction',
     	'lies' => 'Lies'
     );
     
     protected static $stocks_fin = array(
-    	'bloque' => 'Dont Vin bloqué',
+    	'bloque' => 'Dont Vin bloqué / Reserve',
     	'warrante' => 'Dont Vin warranté',
     	'instance' => 'Dont Vin en instance',
     	'commercialisable' => 'Dont commercialisable'
