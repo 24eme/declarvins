@@ -1,3 +1,4 @@
+<?php use_helper('Float'); ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" class="no-js">
 <head>
@@ -200,68 +201,164 @@
 
 	
 <?php if ($drm->valide->date_saisie): ?>
-	<?php while($pager_droits_douane->getPage() <= $pager_droits_douane->getLastPage()): ?>
-		<?php $colonnes = $pager_droits_douane->getResults(); ?>
-		<h2>Droits de circulation, de consommation et autres taxes</h2>
-		<table class="recap droits_douane bloc_bottom">
-	    <?php include_partial('drm_export/pdfLine', array('libelle' => '',
-	    						  'counter' => '&nbsp;',
-	    						  'cssclass_counter' => 'counterNone',
-							      'colonnes' => $colonnes,
-							      'cssclass_libelle' => 'vide',
-							      'cssclass_value' => 'libelle',
-							      'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
-							      'method' => 'getLibelle')) ?>
-	    
-	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume réintégré',
-	    						   'counter' => '6a',
-								   'colonnes' => $colonnes,
-								   'unite' => 'hl',
-								   'cssclass_libelle' => 'detail',
-								   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
-								   'hash' => 'volume_reintegre')) ?>
-	    
-	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume taxé',
-	    						   'counter' => '6b',
-								   'colonnes' => $colonnes,
-								   'unite' => 'hl',
-								   'cssclass_libelle' => 'detail',
-								   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
-								   'hash' => 'volume_taxe')) ?>
-	    
-	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Taux des droits en vigueur',
-	    						   'counter' => '6c',
-								   'colonnes' => $colonnes,
-								   'unite' => '€/hl',
-								   'cssclass_libelle' => 'detail',
-								   'partial_cssclass_value' => 'drm_export/pdfLineDroitsDouaneItemIsTotalCss',
-								   'hash' => 'taux')) ?>
-	    
-	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Droits à payer',
-	    						   'counter' => '6d',
-								   'colonnes' => $colonnes,
-								   'unite' => '€',
-								   'cssclass_libelle' => 'total',
-								   'cssclass_value' => 'total',
-								   'hash' => 'payable')) ?>
 
-	    <?php if ($drm->isPaiementAnnualise() || 1==1): ?>
-			<?php include_partial('drm_export/pdfLine', array('libelle' => 'Report du mois précédent',
-	    						   								   'counter' => '6e',
-																   'colonnes' => $colonnes,
-																   'cssclass_libelle' => 'total',
-																   'cssclass_value' => 'total',
-																   'partial' => 'drm_export/pdfLineReport')) ?>
-			<?php include_partial('drm_export/pdfLine', array('libelle' => 'Total cumulé à reporter ou à solder',
-	    						   								   'counter' => '6f',
-																   'colonnes' => $colonnes,
-																   'cssclass_libelle' => 'total',
-																   'cssclass_value' => 'total',
-																   'partial' => 'drm_export/pdfLineCumul')) ?>
-		<?php endif; ?>  
-		</table>
-		<?php $pager_droits_douane->gotoNextPage(); ?>
-	<?php endwhile; ?>
+		<h2>Droits de circulation, de consommation et autres taxes</h2>
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+<?php $circulation = new DRMDroitsCirculation($drm->getRawValue()); $droits_circulation = $circulation->getDroits(); ?>
+
+<table class="recap droits_douane bloc_bottom">
+	<tbody>
+		<tr>
+			<td class="counter counterNone">&nbsp;</td>
+			<th class="vide"></th>
+			<td class="detail">L387 - AOP (AOC)</td>
+			<td class="detail">L387 - IGP (VdP)</td>
+			<td class="detail">L387 - Sans IG (VdT)</td>
+		</tr>	    
+	    <tr>
+			<td class="counter">6a</td>
+			<th class="detail">Volume réintégré</th>
+			<td class="number detail"><?php if (($val = $droits_circulation['L387'][DRMDroitsCirculation::CERTIFICATION_AOP][DRMDroitsCirculation::KEY_VOLUME_REINTEGRATION]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="number detail"><?php if (($val = $droits_circulation['L387'][DRMDroitsCirculation::CERTIFICATION_IGP][DRMDroitsCirculation::KEY_VOLUME_REINTEGRATION]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="number detail"><?php if (($val = $droits_circulation['L387'][DRMDroitsCirculation::CERTIFICATION_VINSSANSIG][DRMDroitsCirculation::KEY_VOLUME_REINTEGRATION]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+		</tr>	    
+	    <tr>
+			<td class="counter">6b</td>
+			<th class="detail">Volume taxé</th>
+			<td class="number detail"><?php if (($val = $droits_circulation['L387'][DRMDroitsCirculation::CERTIFICATION_AOP][DRMDroitsCirculation::KEY_VOLUME_TAXABLE]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="number detail"><?php if (($val = $droits_circulation['L387'][DRMDroitsCirculation::CERTIFICATION_IGP][DRMDroitsCirculation::KEY_VOLUME_TAXABLE]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="number detail"><?php if (($val = $droits_circulation['L387'][DRMDroitsCirculation::CERTIFICATION_VINSSANSIG][DRMDroitsCirculation::KEY_VOLUME_TAXABLE]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+		</tr>	    
+	    <tr>
+			<td class="counter">6c</td>
+			<th class="detail">Taux des droits en vigueur</th>
+			<td class="number blank">&nbsp;</td>
+			<td class="number blank">&nbsp;</td>
+			<td class="number blank">&nbsp;</td>
+		</tr>	    
+	    <tr>
+			<td class="counter">6d</td>
+			<th class="total">Droits à payer</th>
+			<td class="number blank">&nbsp;</td>
+			<td class="number blank">&nbsp;</td>
+			<td class="number blank">&nbsp;</td>
+		</tr>
+	    <tr>
+			<td class="counter">6e</td>
+			<th class="total">Report du mois précédent</th>
+			<td class="number blank">&nbsp;</td>
+			<td class="number blank">&nbsp;</td>
+			<td class="number blank">&nbsp;</td>
+		</tr>			
+		<tr>
+			<td class="counter">6f</td>
+			<th class="total">Total cumulé à reporter ou à solder</th>
+			<td class="number blank">&nbsp;</td>
+			<td class="number blank">&nbsp;</td>
+			<td class="number blank">&nbsp;</td>
+		</tr>		  
+	</tbody>
+</table>
+<table class="recap droits_douane bloc_bottom">
+	<tbody>
+		<tr>
+			<td class="counter counterNone">&nbsp;</td>
+			<th class="vide"></th>
+			<td class="libelle total">Total L387</td>
+			<td class="detail">L385 - Vins mousseux</td>
+			<td class="detail">L423 - AOC VDN</td>
+			<td class="detail">L425 - VDN non AOC</td>
+			<td class="detail">L440 - Alcools</td>
+			<td class="libelle detail">Autres taxes</td>
+			<td class="libelle total">Total tous produits</td>
+		</tr>
+		<tr>
+			<td class="counter">6a</td>
+			<th class="detail">Volume réintégré</th>
+			<td class="number detail"><?php if (($val = $droits_circulation['L387'][DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_VOLUME_REINTEGRATION]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="number detail"><?php if (($val = $droits_circulation['L385'][DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_VOLUME_REINTEGRATION]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="number detail"><?php if (($val = $droits_circulation['L423'][DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_VOLUME_REINTEGRATION]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="number detail"><?php if (($val = $droits_circulation['L425'][DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_VOLUME_REINTEGRATION]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="number detail"><?php if (($val = $droits_circulation['L440'][DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_VOLUME_REINTEGRATION]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="number detail">&nbsp;</td>
+			<td class="number blank">&nbsp;</td>
+		</tr>	    
+	    <tr>
+			<td class="counter">6b</td>
+			<th class="detail">Volume taxé</th>
+			<td class="number detail"><?php if (($val = $droits_circulation['L387'][DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_VOLUME_TAXABLE]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="number detail"><?php if (($val = $droits_circulation['L385'][DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_VOLUME_TAXABLE]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="number detail"><?php if (($val = $droits_circulation['L423'][DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_VOLUME_TAXABLE]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="number detail"><?php if (($val = $droits_circulation['L425'][DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_VOLUME_TAXABLE]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="number detail"><?php if (($val = $droits_circulation['L440'][DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_VOLUME_TAXABLE]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="number detail">&nbsp;</td>
+			<td class="number blank">&nbsp;</td>
+		</tr>	    
+	    <tr>
+			<td class="counter">6c</td>
+			<th class="detail">Taux des droits en vigueur</th>
+			<td class="total detail"><?php if (($val = $droits_circulation['L387'][DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_TAUX]) !== null): ?><?php echoFloat($val) ?> <span class="unite">€/hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if (($val = $droits_circulation['L385'][DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_TAUX]) !== null): ?><?php echoFloat($val) ?> <span class="unite">€/hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if (($val = $droits_circulation['L423'][DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_TAUX]) !== null): ?><?php echoFloat($val) ?> <span class="unite">€/hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if (($val = $droits_circulation['L425'][DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_TAUX]) !== null): ?><?php echoFloat($val) ?> <span class="unite">€/hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if (($val = $droits_circulation['L440'][DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_TAUX]) !== null): ?><?php echoFloat($val) ?> <span class="unite">€/hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="number detail">&nbsp;</td>
+			<td class="number blank">&nbsp;</td>
+		</tr>	    
+	    <tr>
+			<td class="counter">6d</td>
+			<th class="total">Droits à payer</th>
+			<td class="total detail"><?php if(($val = $circulation->getPayable('L387', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if(($val = $circulation->getPayable('L385', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if(($val = $circulation->getPayable('L423', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if(($val = $circulation->getPayable('L425', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if(($val = $circulation->getPayable('L440', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="number detail">&nbsp;</td>
+			<td class="number detail"><?php echoLongFloatFr($circulation->getTotalPayable()) ?> <span class="unite">€</span></td>
+		</tr>
+	    <tr>
+			<td class="counter">6e</td>
+			<th class="total">Report du mois précédent</th>
+			<td class="number detail">&nbsp;</td>
+			<td class="number detail">&nbsp;</td>
+			<td class="number detail">&nbsp;</td>
+			<td class="number detail">&nbsp;</td>
+			<td class="number detail">&nbsp;</td>
+			<td class="number detail">&nbsp;</td>
+			<td class="number detail">&nbsp;</td>
+		</tr>			
+		<tr>
+			<td class="counter">6f</td>
+			<th class="total">Total cumulé à reporter ou à solder</th>
+			<td class="number detail">&nbsp;</td>
+			<td class="number detail">&nbsp;</td>
+			<td class="number detail">&nbsp;</td>
+			<td class="number detail">&nbsp;</td>
+			<td class="number detail">&nbsp;</td>
+			<td class="number detail">&nbsp;</td>
+			<td class="number detail">&nbsp;</td>
+		</tr>		  
+	</tbody>
+</table>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<div class="bloc_bottom">
 		<h2>Paiement des droits de circulation</h2>
 		<p><strong>Echéance de paiement</strong> : <?php echo $drm->declaratif->paiement->douane->frequence ?></p>

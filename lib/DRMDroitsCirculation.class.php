@@ -39,9 +39,9 @@ class DRMDroitsCirculation
 			$this->droits[$c] = array();
 			foreach (self::$certifications as $certif) {
 				$this->droits[$c][$certif] = array();
-				$this->droits[$c][$certif][self::KEY_VOLUME_REINTEGRATION] = 0;
-				$this->droits[$c][$certif][self::KEY_VOLUME_TAXABLE] = 0;
-				$this->droits[$c][$certif][self::KEY_TAUX] = 0;
+				$this->droits[$c][$certif][self::KEY_VOLUME_REINTEGRATION] = ($c == 'L387')? 0 : null;
+				$this->droits[$c][$certif][self::KEY_VOLUME_TAXABLE] = ($c == 'L387')? 0 : null;
+				$this->droits[$c][$certif][self::KEY_TAUX] = ($c == 'L387')? 0 : null;
 			}
 		}
 	}
@@ -87,6 +87,31 @@ class DRMDroitsCirculation
     public function getDroits()
     {
     	return $this->droits;
+    }
+    
+    public function getPayable($code, $certification)
+    {
+    	$taxable = $this->droits[$code][$certification][self::KEY_VOLUME_TAXABLE];
+    	$reintegration = $this->droits[$code][$certification][self::KEY_VOLUME_REINTEGRATION];
+    	$taux = $this->droits[$code][$certification][self::KEY_TAUX];
+    	$payable = null;
+    	if ($taxable !== null && $reintegration !== null && $taux !== null) {
+    		$payable = ($taxable - $reintegration) * $taux / 100;
+    		if ($payable < 0) {
+    			$payable = 0;
+    		}
+    		return round($payable, 4);
+    	}
+    	return $payable;
+    }
+    
+    public function getTotalPayable()
+    {
+    	$total = 0;
+    	foreach (self::$codes as $c) {
+    		$total += (($val = $this->getPayable($c, self::CERTIFICATION_TOTAL)) !== null)? $val : 0;
+    	}
+    	return round($total, 4);
     }
 	
   
