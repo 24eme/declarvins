@@ -41,3 +41,31 @@
     	</table>
     </div>
 <?php endif; ?>
+
+<?php if ($droits_circulation): ?>
+<div class="tableau_ajouts_liquidations">
+    <h2>Droits de circulation, de consommation et autres taxes  <a href="" class="msg_aide" data-msg="help_popup_validation_droit_douane" title="Message aide"></a></h2>
+    	<table class="tableau_recap">
+            <thead>
+    		<tr>
+    			<th><strong>Code</strong></th>
+    			<th><strong>Volumes réintégrés</strong></th>
+    			<th><strong>Volumes taxables</strong></th>
+    			<th><strong>Taux en vigueur</strong></th>
+    			<th><strong>Droits à payer</strong></th>
+    		</tr>
+             </thead>
+             <tbody>
+             <?php $i=1; foreach ($droits_circulation->getDroits() as $code => $droit) :  $i++; ?>
+            <tr<?php if($i%2!=0) echo ' class="alt"'; ?>>
+	            <td><?php echo $code ?></td>
+	        	<td><?php echoFloat($droit[DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_VOLUME_REINTEGRATION]) ?>&nbsp;<span class="unite">hl</span></td>
+	        	<td><?php echoFloat($droit[DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_VOLUME_TAXABLE]) ?>&nbsp;<span class="unite">hl</span></td>
+	        	<td><span class="unite"><?php echoFloat($droit[DRMDroitsCirculation::CERTIFICATION_TOTAL][DRMDroitsCirculation::KEY_TAUX]) ?>€/hl</span></td>
+	        	<td><span class="unite">€</span></td>
+        	</tr>
+        	<?php endforeach; ?>
+            </tbody>
+    	</table>
+    </div>
+<?php endif; ?>

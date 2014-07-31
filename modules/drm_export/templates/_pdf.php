@@ -49,7 +49,7 @@
 																  'cssclass_value' => 'labels',
 																  'partial' => 'drm_export/pdfLineProduitLabels')) ?>
 
-				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total début de mois',
+				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Stock début de mois',
 																	   'unite' => 'hl',
 	    						  								       'counter' => 2,
 																	   'cssclass_libelle' => 'total',
@@ -89,7 +89,7 @@
 																		'colonnes' => $colonnes,
 																  		'hash' => 'sorties')) ?>
 
-				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total fin de mois',
+				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Stock fin de mois',
 																	   'unite' => 'hl',
 	    						  								       'counter' => 5,
 																	   'cssclass_libelle' => 'total',
@@ -107,7 +107,7 @@
 		<?php $colonnes = $pagers_vrac[$certification_key]->getResults(); ?>
 		<?php if(count($colonnes) > 0): ?>
 			<h2>Contrats vrac - <?php echo $certification->getConfig()->libelle ?></h2>
-			<table class="recap volumes bloc_bottom">
+			<table class="recap volumes bloc_bottom" id="recap_contrat">
 				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Code produit',
 																  'colonnes' => $colonnes,
 																  'cssclass_value' => 'libelle',
@@ -172,17 +172,15 @@
 					Aucun
 					<?php endif; ?>
 				</p>
-				<?php if($drm->declaratif->adhesion_emcs_gamma): ?>
-					<p>
-						<strong>Adhère</strong> à EMCS / GAMMA (n° non nécessaires)
-					</p>
-				<?php endif; ?>
+				<p>
+					Adhésion à <strong>EMCS / GAMMA</strong> : <?php if($drm->declaratif->adhesion_emcs_gamma): ?>Oui<?php else: ?>Non<?php endif; ?>
+				</p>
 			</td>
 			<td class="col_right">
 				<h2>Défaut d'apurement</h2>
 				<p class="bloc_bottom">
 					<?php if($drm->declaratif->defaut_apurement): ?>
-						Défaut d'apurement à déclarer (Joindre relevé de non apurement et copie du DAA)
+						Défaut d'apurement à déclarer (joindre le relevé de non apurement ou copie du DAA)
 					<?php else: ?>
 						Pas de défaut d'apurement
 					<?php endif; ?>		
@@ -204,7 +202,7 @@
 <?php if ($drm->valide->date_saisie): ?>
 	<?php while($pager_droits_douane->getPage() <= $pager_droits_douane->getLastPage()): ?>
 		<?php $colonnes = $pager_droits_douane->getResults(); ?>
-		<h2>Droits de circulation et de consommation</h2>
+		<h2>Droits de circulation, de consommation et autres taxes</h2>
 		<table class="recap droits_douane bloc_bottom">
 	    <?php include_partial('drm_export/pdfLine', array('libelle' => '',
 	    						  'counter' => '&nbsp;',
@@ -216,7 +214,7 @@
 							      'method' => 'getLibelle')) ?>
 	    
 	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume réintégré',
-	    						   'counter' => 'a',
+	    						   'counter' => '6a',
 								   'colonnes' => $colonnes,
 								   'unite' => 'hl',
 								   'cssclass_libelle' => 'detail',
@@ -224,7 +222,7 @@
 								   'hash' => 'volume_reintegre')) ?>
 	    
 	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume taxé',
-	    						   'counter' => 'b',
+	    						   'counter' => '6b',
 								   'colonnes' => $colonnes,
 								   'unite' => 'hl',
 								   'cssclass_libelle' => 'detail',
@@ -232,7 +230,7 @@
 								   'hash' => 'volume_taxe')) ?>
 	    
 	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Taux des droits en vigueur',
-	    						   'counter' => 'c',
+	    						   'counter' => '6c',
 								   'colonnes' => $colonnes,
 								   'unite' => '€/hl',
 								   'cssclass_libelle' => 'detail',
@@ -240,22 +238,22 @@
 								   'hash' => 'taux')) ?>
 	    
 	    <?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Droits à payer',
-	    						   'counter' => 'd',
+	    						   'counter' => '6d',
 								   'colonnes' => $colonnes,
 								   'unite' => '€',
 								   'cssclass_libelle' => 'total',
 								   'cssclass_value' => 'total',
 								   'hash' => 'payable')) ?>
 
-	    <?php if ($drm->isPaiementAnnualise()): ?>
+	    <?php if ($drm->isPaiementAnnualise() || 1==1): ?>
 			<?php include_partial('drm_export/pdfLine', array('libelle' => 'Report du mois précédent',
-	    						   								   'counter' => 'e',
+	    						   								   'counter' => '6e',
 																   'colonnes' => $colonnes,
 																   'cssclass_libelle' => 'total',
 																   'cssclass_value' => 'total',
 																   'partial' => 'drm_export/pdfLineReport')) ?>
 			<?php include_partial('drm_export/pdfLine', array('libelle' => 'Total cumulé à reporter ou à solder',
-	    						   								   'counter' => 'f',
+	    						   								   'counter' => '6f',
 																   'colonnes' => $colonnes,
 																   'cssclass_libelle' => 'total',
 																   'cssclass_value' => 'total',
@@ -274,13 +272,14 @@
 		<tr>
 			<td class="col_left">
 				<h2>Cadre reservé à l'administration des douanes</h2>
-				<p>Date de récéption / Cachet dateur : <br /><br/><br/>
-				<p>N° de déclaration GILDA : <br /><br/><br/></p>
+				<p>Date de récéption / Cachet dateur : <br /><br/><br/><br/></p>
+				<p>N° de déclaration GILDA : <br /><br/><br/><br/></p>
 			</td>
 			<td class="col_right">
 				<h2>Déclaration établie </h2>
-				<p><strong>le : <?php echo $drm->getEuValideDate(); ?></strong></p>
-				<p>via l'application Déclarvin</p>
+				<p>le <strong><?php echo $drm->getEuValideDate(); ?></strong>, via l'application Déclarvin<br /></p>
+				<p><strong>Signature et cachet du déclarant</strong> :</p>
+				<p id="signature"><br /><br/><br/><br /><br /><br /></p>
 			</td>
 		</tr>
 	</table>

@@ -131,7 +131,10 @@
 	}
 
 	table.recap.volumes tr th {
-		width: 252px;
+		width: 307px;
+	}
+	table#recap_contrat tr th {
+		width: 327px;
 	}
 
 	table.recap.volumes tr td {
@@ -320,5 +323,8 @@
 	#lots table .dernier > *
 	{
 		border-bottom-width: 3px;
+	}
+	p#signature {
+		border: 1px dashed #000000;
 	}
 </style>

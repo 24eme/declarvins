@@ -63,16 +63,6 @@ class drmActions extends sfActions
    * @param sfWebRequest $request 
    */
   public function executeDelete(sfWebRequest $request) {
-      /*$etablissement = $this->getRoute()->getEtablissement();
-      $drm = $this->getRoute()->getDRM();
-      var_dump($drm->getVersion());exit; 
-      if (!$drm->isNew() && ($drm->isSupprimable() || ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->isSupprimableOperateur()))) {
-        $drms = DRMClient::getInstance()->findByIdentifiantAndPeriodeAndRectificative($drm->identifiant, $drm->periode, $drm->getRectificative());
-        foreach($drms as $drm) {
-          $drm->delete();
-        }
-      	$this->redirect('drm_mon_espace', $etablissement);
-      }*/
       throw new sfException('Obsolète');
     
   }
@@ -284,6 +274,7 @@ class drmActions extends sfActions
   public function executeVisualisation(sfWebRequest $request)
   {
     $this->drm = $this->getRoute()->getDRM();
+    $this->droits_circulation = ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER)? null : new DRMDroitsCirculation($this->drm);
     $this->etablissement = $this->getRoute()->getEtablissement();
     $this->hide_rectificative = $request->getParameter('hide_rectificative');
     $this->drm_suivante = $this->drm->getSuivante();
