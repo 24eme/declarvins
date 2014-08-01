@@ -96,7 +96,7 @@ class DRMDroitsCirculation
     	$taux = $this->droits[$code][$certification][self::KEY_TAUX];
     	$payable = null;
     	if ($taxable !== null && $reintegration !== null && $taux !== null) {
-    		$payable = ($taxable - $reintegration) * $taux / 100;
+    		$payable = ($taxable - $reintegration) * $taux;
     		if ($payable < 0) {
     			$payable = 0;
     		}
