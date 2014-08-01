@@ -237,35 +237,7 @@
 			<td class="number detail"><?php if (($val = $droits_circulation['L387'][DRMDroitsCirculation::CERTIFICATION_AOP][DRMDroitsCirculation::KEY_VOLUME_TAXABLE]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
 			<td class="number detail"><?php if (($val = $droits_circulation['L387'][DRMDroitsCirculation::CERTIFICATION_IGP][DRMDroitsCirculation::KEY_VOLUME_TAXABLE]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
 			<td class="number detail"><?php if (($val = $droits_circulation['L387'][DRMDroitsCirculation::CERTIFICATION_VINSSANSIG][DRMDroitsCirculation::KEY_VOLUME_TAXABLE]) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">hl</span><?php else: ?>&nbsp;<?php endif; ?></td>
-		</tr>	    
-	    <tr>
-			<td class="counter">6c</td>
-			<th class="detail">Taux des droits en vigueur</th>
-			<td class="number blank">&nbsp;</td>
-			<td class="number blank">&nbsp;</td>
-			<td class="number blank">&nbsp;</td>
-		</tr>	    
-	    <tr>
-			<td class="counter">6d</td>
-			<th class="total">Droits à payer</th>
-			<td class="number blank">&nbsp;</td>
-			<td class="number blank">&nbsp;</td>
-			<td class="number blank">&nbsp;</td>
-		</tr>
-	    <tr>
-			<td class="counter">6e</td>
-			<th class="total">Report du mois précédent</th>
-			<td class="number blank">&nbsp;</td>
-			<td class="number blank">&nbsp;</td>
-			<td class="number blank">&nbsp;</td>
-		</tr>			
-		<tr>
-			<td class="counter">6f</td>
-			<th class="total">Total cumulé à reporter ou à solder</th>
-			<td class="number blank">&nbsp;</td>
-			<td class="number blank">&nbsp;</td>
-			<td class="number blank">&nbsp;</td>
-		</tr>		  
+		</tr>	  
 	</tbody>
 </table>
 <table class="recap droits_douane bloc_bottom">
@@ -380,7 +352,7 @@
 			</td>
 		</tr>
 	</table>
-
+<hr />
 <?php endif; //si pas validée ?>
 	<?php endif; ?>
 	<div class="legende">
