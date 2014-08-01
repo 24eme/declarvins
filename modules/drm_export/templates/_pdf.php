@@ -323,7 +323,7 @@
 			<td class="total detail"><?php if(($val = $circulation->getPayable('L425', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
 			<td class="total detail"><?php if(($val = $circulation->getPayable('L440', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
 			<td class="number detail">&nbsp;</td>
-			<td class="number detail"><?php echoLongFloatFr($circulation->getTotalPayable()) ?> <span class="unite">€</span></td>
+			<td class="total detail"><?php echoLongFloatFr($circulation->getTotalPayable()) ?> <span class="unite">€</span></td>
 		</tr>
 	    <tr>
 			<td class="counter">6e</td>
