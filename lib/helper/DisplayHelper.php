@@ -15,18 +15,6 @@ function get_field($object, $fieldName) {
     return (!is_null($object->$fieldName)) ? $object->$fieldName : '';
 }
 
-function display_teledeclaration_soussigne_NomCvi($object){
-    if(!$object){
-        echo "";
-        return;
-    }
-    $result = $object->nom;
-    if($object->cvi){
-        $result.= '&nbsp('.$object->cvi.')';
-    }
-    echo $result;
-}
-
 function escape_string_for_latex($string) {
     $disp = str_replace("&#039;", "'", $string);
     $disp = str_replace("&amp;", "&", $disp);
