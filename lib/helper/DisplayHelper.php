@@ -8,6 +8,25 @@ function display_field($object, $fieldName) {
     echo (!is_null($object->$fieldName)) ? $object->$fieldName : '';
 }
 
+function get_field($object, $fieldName) {
+    if (is_null($object)) {
+        return '';
+    }
+    return (!is_null($object->$fieldName)) ? $object->$fieldName : '';
+}
+
+function display_teledeclaration_soussigne_NomCvi($object){
+    if(!$object){
+        echo "";
+        return;
+    }
+    $result = $object->nom;
+    if($object->cvi){
+        $result.= '&nbsp('.$object->cvi.')';
+    }
+    echo $result;
+}
+
 function escape_string_for_latex($string) {
     $disp = str_replace("&#039;", "'", $string);
     $disp = str_replace("&amp;", "&", $disp);
