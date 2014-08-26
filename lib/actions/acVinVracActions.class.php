@@ -339,7 +339,7 @@ class acVinVracActions extends sfActions
 	}
 	
 
-    public function executeModificationVolume(sfWebRequest $request) {
+    public function executeModificationRestreinte(sfWebRequest $request) {
         if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
             
             return $this->redirect('@acces_interdit');
@@ -347,12 +347,13 @@ class acVinVracActions extends sfActions
 
         $this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
+        $this->init($this->vrac, $this->etablissement);
 
         if(!$this->vrac->isModifiableVolume()) {
             throw new sfException("Le volume n'est pas modifiable sur ce contrat");
         }
 
-        $this->form = new VracModificationVolumeForm($this->vrac);
+        $this->form = new VracModificationForm($this->configurationVrac, $this->etablissement, $this->getUser(), $this->vrac);
 
         if(!$request->isMethod(sfRequest::POST)) {
 

@@ -63,8 +63,8 @@ class VracRouting {
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true))); 
 
-        $r->prependRoute('vrac_modification_volume', new VracRoute('/vrac/:identifiant/:numero_contrat/modification-volume',
-                                                        array('module' => 'vrac','action' => 'modificationVolume'),
+        $r->prependRoute('vrac_modification_restreinte', new VracRoute('/vrac/:identifiant/:numero_contrat/modification-restreinte',
+                                                        array('module' => 'vrac','action' => 'modificationRestreinte'),
                                                         array('sf_method' => array('get','post')),
                                                         array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true)));
                                                         
