@@ -266,6 +266,20 @@ class Vrac extends BaseVrac
     	return !($this->volume_enleve > 0);
     }
 
+    public function isModifiableVolume() {
+        if($this->valide->statut && $this->valide->statut != VracClient::STATUS_CONTRAT_NONSOLDE) {
+            
+            return false;
+        }
+
+        if($this->mode_de_saisie != self::MODE_DE_SAISIE_PAPIER) {
+
+            return false;
+        }
+
+        return true;
+    }
+
     public function isVisualisable() {
       return ($this->valide->statut)? true : false;
     }

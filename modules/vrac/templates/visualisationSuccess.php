@@ -47,10 +47,16 @@
                         </div>                            
                     </div>
                     
-                    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $vrac->isModifiable()): ?>
+                    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 	                    <div id="ligne_btn">
+                                <?php if($vrac->isModifiable()): ?>
 	                        <a href="<?php echo url_for('vrac_modification', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>" id="btn_editer_contrat"  class="modifier"> Modifier le contrat</a>
-	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat" onclick="return confirm('Confirmez-vous l\'annulation de ce contrat ?')"> Annuler le contrat</a>                             
+                            <?php elseif($vrac->isModifiableVolume()): ?>
+                                <a href="<?php echo url_for('vrac_modification_volume', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>" id="btn_editer_contrat"  class="modifier"> Modifier le volume</a>
+                            <?php endif; ?>
+                            <?php if($vrac->isModifiable()): ?>
+	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat" onclick="return confirm('Confirmez-vous l\'annulation de ce contrat ?')"> Annuler le contrat</a>
+                            <?php endif; ?>                  
 	                    </div>
                     <?php endif; ?>
                 </form>

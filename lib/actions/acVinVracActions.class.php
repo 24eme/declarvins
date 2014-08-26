@@ -338,6 +338,39 @@ class acVinVracActions extends sfActions
         return $this->getUser()->getCompte()->getGerantInterpro();
 	}
 	
+
+    public function executeModificationVolume(sfWebRequest $request) {
+        if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+            
+            return $this->redirect('@acces_interdit');
+        }
+
+        $this->vrac = $this->getRoute()->getVrac();
+        $this->etablissement = $this->getRoute()->getEtablissement();
+
+        if(!$this->vrac->isModifiableVolume()) {
+            throw new sfException("Le volume n'est pas modifiable sur ce contrat");
+        }
+
+        $this->form = new VracModificationVolumeForm($this->vrac);
+
+        if(!$request->isMethod(sfRequest::POST)) {
+
+            return sfView::SUCCESS;
+        }
+
+        $this->form->bind($request->getParameter($this->form->getName()));
+
+        if(!$this->form->isValid()) {
+            
+            return sfView::SUCCESS;
+        }
+
+        $this->form->save();
+
+        return $this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
+    }
+
 	public function getConfigurationVrac($interpro_id = null)
 	{
 		return ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro_id);
@@ -362,4 +395,6 @@ class acVinVracActions extends sfActions
 	protected function contratAnnulation($vrac, $etablissement = null) {
 		return;
 	}
+
+
 }
