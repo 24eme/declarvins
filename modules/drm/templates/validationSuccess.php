@@ -62,6 +62,9 @@
                         <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
                     <?php endif; ?>
                 </div>
+                <?php echo $form['commentaire']->renderError() ?>
+                <?php echo $form['commentaire']->renderLabel() ?>
+                <?php echo $form['commentaire']->render() ?>
             </div>
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Visualisez le brouillon de DRM en PDF</a>
             

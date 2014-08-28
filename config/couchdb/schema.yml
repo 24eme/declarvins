@@ -455,6 +455,7 @@ DRM:
       identifiant_drm_historique: {  }
       etablissement_num_interne: {  }
       mode_de_saisie: {  }
+      commentaire: {  }
       interpros:
         type: array_collection
         definition:

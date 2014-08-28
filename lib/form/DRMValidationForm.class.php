@@ -1,5 +1,5 @@
 <?php
-class DRMValidationForm extends BaseForm
+class DRMValidationForm extends acCouchdbObjectForm
 {
 	public function configure()
   	{
@@ -10,6 +10,10 @@ class DRMValidationForm extends BaseForm
   			$this->getWidget('engagement_'.$engagement->getCode())->setLabel($engagement->getMessage());
   			$this->setValidator('engagement_'.$engagement->getCode(), new sfValidatorBoolean(array('required' => true)));
   		}
+
+      $this->setWidget('commentaire', new sfWidgetFormTextarea());
+      $this->getWidget('commentaire')->setLabel("Commentaires");
+      $this->setValidator('commentaire', new sfValidatorString(array('required' => false)));
 	    
 	    $this->widgetSchema->setNameFormat('drm_validation[%s]');
   	}

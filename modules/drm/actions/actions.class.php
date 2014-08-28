@@ -218,7 +218,7 @@ class drmActions extends sfActions
     if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
     	$this->engagements = array();
     }
-    $this->form = new DRMValidationForm(array(), array('engagements' => $this->engagements));
+    $this->form = new DRMValidationForm($this->drm, array('engagements' => $this->engagements));
     if (!$request->isMethod(sfWebRequest::POST)) {
       
       return sfView::SUCCESS;
@@ -230,6 +230,7 @@ class drmActions extends sfActions
       return sfView::SUCCESS;
     }
 
+    $this->form->save();
 	  $this->drm->validate();
 	  $this->drm->save();
 

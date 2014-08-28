@@ -167,6 +167,8 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         $this->declaratif->daa->fin = null;
         $this->declaratif->dsa->debut = null;
         $this->declaratif->dsa->fin = null;
+
+        $this->commentaire = null;
                 
         $this->devalide();
     }

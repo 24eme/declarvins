@@ -53,6 +53,10 @@
                 <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
             <?php endif; ?>
 
+            <strong>Commentaires</strong>
+            <pre>
+            <?php echo $drm->commentaire ?>
+            </pre>
             
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
             
