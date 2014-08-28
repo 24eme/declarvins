@@ -27,7 +27,16 @@
             </div>
             
             <div id="application_dr">
-               
+                
+                <div class="bloc_form_commentaire bloc_form ">
+                    <div class="vracs_ligne_form vracs_ligne_form_alt">
+                        <?php echo $form['commentaires']->renderError() ?>
+                        <?php echo $form['commentaires']->renderLabel() ?>
+                        <?php echo $form['commentaires']->render() ?>
+                    </div>
+                </div>
+                <br />
+
                 <div id="validation_intro">
                     <h2>Validation</h2>
                     <p>Vous êtes sur le point de valider votre DRM. Merci de vérifier vos données.</p>
@@ -62,9 +71,6 @@
                         <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
                     <?php endif; ?>
                 </div>
-                <?php echo $form['commentaire']->renderError() ?>
-                <?php echo $form['commentaire']->renderLabel() ?>
-                <?php echo $form['commentaire']->render() ?>
             </div>
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Visualisez le brouillon de DRM en PDF</a>
             
