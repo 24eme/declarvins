@@ -27,15 +27,6 @@
             </div>
             
             <div id="application_dr">
-                
-                <div class="bloc_form_commentaire bloc_form ">
-                    <div class="vracs_ligne_form vracs_ligne_form_alt">
-                        <?php echo $form['commentaires']->renderError() ?>
-                        <?php echo $form['commentaires']->renderLabel() ?>
-                        <?php echo $form['commentaires']->render() ?>
-                    </div>
-                </div>
-                <br />
 
                 <div id="validation_intro">
                     <h2>Validation</h2>
@@ -70,6 +61,14 @@
                     <?php else: ?>
                         <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
                     <?php endif; ?>
+                </div>
+
+                <div style="background: #E3E2E2; color: #3E3E3E; border-radius: 5px; margin-bottom: 25px;">
+                    <div style="padding: 4px 0 10px 10px;">
+                        <?php echo $form['commentaires']->renderError() ?>
+                        <?php echo $form['commentaires']->renderLabel(null, array("style" => "padding: 10px 0px; font-weight: bold; display: block;")) ?>
+                        <?php echo $form['commentaires']->render(array("style" => "width: 872px; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4) inset; border-radius: 3px; border: 0px none; padding: 5px;", "rows" => "2")) ?>
+                    </div>
                 </div>
             </div>
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Visualisez le brouillon de DRM en PDF</a>
