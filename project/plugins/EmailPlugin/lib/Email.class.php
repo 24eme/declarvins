@@ -227,7 +227,10 @@ class Email {
         	}
         }
         if (!$interpro) {
-        	$interpro = $interpros[0];
+                foreach($interpros as $inter) {
+                        $interpro = $inter;
+                        break;
+                }
         }
         if(!$isInscription){
             return ($interpro->email_contrat_vrac)? array($interpro->email_contrat_vrac => $interpro->nom) : array($referente->email_contrat_vrac => $referente->nom);
