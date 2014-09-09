@@ -309,7 +309,7 @@ class statistiqueActions extends sfActions
       $elasticaQuery->setQuery($this->query);
       
       
-  	  print_r(json_encode($elasticaQuery->toArray()));exit;
+  	  //print_r(json_encode($elasticaQuery->toArray()));exit;
       
   	  $facets = $this->statistiquesConfig['facets'];
       foreach($facets as $facet) {
