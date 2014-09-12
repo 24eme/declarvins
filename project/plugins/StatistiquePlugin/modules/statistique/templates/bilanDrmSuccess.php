@@ -58,6 +58,9 @@
 			    			<tr>
 			    				<td style="padding: 0 5px;">
 			    					<?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_RAISON_SOCIALE] ?> <?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_NOM] ?> (<?php echo $identifiant ?>)<br />
+									Siret : <?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_SIRET] ?><br />
+									Cvi : <?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_CVI] ?><br />
+									Num. Accises : <?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_NUM_ACCISES] ?><br />
 			    					<?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_ADRESSE] ?><br />
 			    					<?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_CODE_POSTAL] ?> <?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_COMMUNE] ?><br />
 			    					<?php echo $informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_PAYS] ?><br />

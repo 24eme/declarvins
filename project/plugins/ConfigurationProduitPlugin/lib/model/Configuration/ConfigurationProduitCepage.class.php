@@ -30,15 +30,16 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
     			return array();
     		}
     	}        
-        if($cvoNeg){
-            return array($this->getHash() => $this);
-        }        
         
     	if ($onlyForDrmVrac) {
     		if (!$this->getCurrentDrmVrac(true)) {
     			return array();
     		}
-    	}
+    	}  
+    	     
+        if($cvoNeg){
+            return array($this->getHash() => $this);
+        } 
         
         return $this->getProduitWithTaux($date);
         

@@ -61,6 +61,7 @@ class StatistiquesBilan
 		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_NOM] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_NOM];
 		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_RAISON_SOCIALE] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_RAISON_SOCIALE];
 		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_SIRET] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_SIRET];
+		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_CVI] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_CVI];
 		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_CNI] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_CNI];
 		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_NUM_ACCISES] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_NUM_ACCISES];
 		$this->etablissements[$etablissement][StatistiquesBilanView::VALUE_ETABLISSEMENT_NUM_TVA_INTRACOMMUNAUTAIRE] = $dataValues[StatistiquesBilanView::VALUE_ETABLISSEMENT_NUM_TVA_INTRACOMMUNAUTAIRE];

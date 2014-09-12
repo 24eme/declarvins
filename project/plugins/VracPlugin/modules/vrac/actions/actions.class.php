@@ -95,6 +95,9 @@ class vracActions extends acVinVracActions
 	
 	protected function contratAnnulation($vrac, $etab = null) {
 		$acteurs = VracClient::getInstance()->getActeurs();
+		if (!$vrac->mandataire_exist) {
+			unset($acteurs[array_search(VracClient::VRAC_TYPE_COURTIER, $acteurs)]);
+		}
 		foreach ($acteurs as $acteur) {
 			$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
 			$compte = $etablissement->getCompteObject();

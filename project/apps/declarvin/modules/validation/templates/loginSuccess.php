@@ -7,6 +7,8 @@
         <?php include_partial('validation/form', array('form' => $formLogin))?>
     </div>
     <br /><br />
+    <a href="<?php echo url_for('validation_comptes_csv') ?>">Liste des comptes au format CSV</a>
+    <br /><br />
     <h1>Comptes fictifs</h1>
 	<div class="tableau_ajouts_liquidations">
 		<table class="tableau_recap">

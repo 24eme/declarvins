@@ -30,6 +30,102 @@ class validationActions extends sfActions {
         }
     }
     
+    public function executeComptesCsv(sfWebRequest $request)
+    {
+    	ini_set('memory_limit', '1024M');
+  		set_time_limit(0);
+    	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
+        $this->comptes = CompteAllView::getInstance()->findBy($this->interpro->get('_id'), 'CompteTiers')->rows;
+        
+        $csv_file = 'Compte Statut;Identifiant;Num Interne;Num Contrat;Interpro;Siret;Cni;Cvi;Num Accises;Num TVA intra;Email;Tel;Fax;Raison Sociale;Nom Com.;Adresse;Commune;CP;Pays;Famille;Sous famille;Adresse compta;Commune compta;CP compta;Pays compta;Douane;Complement;Statut;Compte nom;Compte prenom;Compte fonction;Compte email;Compte tel;Compte fax;Num carte pro;';
+		$csv_file .= "\n";	
+		foreach ($this->comptes as $c) {
+			if($compte = _CompteClient::getInstance()->find($c->id)) {
+				$compteInfosCsv = $compte->nom.';'.$compte->prenom.';'.$compte->fonction.';'.$compte->email.';'.$compte->telephone.';'.$compte->fax;
+				$compteNonInfosCsv = ';;;;;';
+				if (count($compte->tiers) > 0) {
+					foreach ($compte->tiers as $etablissementId => $etablissementInfos) {
+						if ($etablissement = EtablissementClient::getInstance()->find($etablissementId)) {
+						    $csv_file .= 
+						    			$compte->statut.';'.
+						    			$etablissement->identifiant.';'.
+						    			$etablissement->num_interne.';'.
+						    			str_replace('CONTRAT-', '', $etablissement->contrat_mandat).';'.
+						    			$etablissement->interpro.';'.
+						    			$etablissement->siret.';'.
+						    			$etablissement->cni.';'.
+						    			$etablissement->cvi.';'.
+						    			$etablissement->no_accises.';'.
+						    			$etablissement->no_tva_intracommunautaire.';'.
+						    			$etablissement->email.';'.
+						    			$etablissement->telephone.';'.
+						    			$etablissement->fax.';'.
+						    			$etablissement->raison_sociale.';'.
+						    			$etablissement->nom.';'.
+						    			$etablissement->siege->adresse.';'.
+						    			$etablissement->siege->commune.';'.
+						    			$etablissement->siege->code_postal.';'.
+						    			$etablissement->siege->pays.';'.
+						    			$etablissement->famille.';'.
+						    			$etablissement->sous_famille.';'.
+						    			$etablissement->comptabilite->adresse.';'.
+						    			$etablissement->comptabilite->commune.';'.
+						    			$etablissement->comptabilite->code_postal.';'.
+						    			$etablissement->comptabilite->pays.';'.
+						    			$etablissement->service_douane.';'.
+										';'.
+						    			$etablissement->statut.';'.
+						    			$compteInfosCsv.';'.
+						    			$etablissement->no_carte_professionnelle;
+										$csv_file .= "\n";
+						}
+					}
+				} else {
+					if ($contrat = ContratClient::getInstance()->find($compte->contrat)) {
+						foreach ($contrat->etablissements as $etablissement) {
+							$csv_file .= 
+						    			$compte->statut.';'.
+						    			';'.
+						    			';'.
+						    			str_replace('CONTRAT-', '', $contrat->_id).';'.
+						    			';'.
+						    			$etablissement->siret.';'.
+						    			$etablissement->cni.';'.
+						    			$etablissement->cvi.';'.
+						    			$etablissement->no_accises.';'.
+						    			$etablissement->no_tva_intracommunautaire.';'.
+						    			$etablissement->email.';'.
+						    			$etablissement->telephone.';'.
+						    			$etablissement->fax.';'.
+						    			$etablissement->raison_sociale.';'.
+						    			$etablissement->nom.';'.
+						    			$etablissement->adresse.';'.
+						    			$etablissement->commune.';'.
+						    			$etablissement->code_postal.';'.
+						    			$etablissement->pays.';'.
+						    			$etablissement->famille.';'.
+						    			$etablissement->sous_famille.';'.
+						    			$etablissement->comptabilite_adresse.';'.
+						    			$etablissement->comptabilite_commune.';'.
+						    			$etablissement->comptabilite_code_postal.';'.
+						    			$etablissement->comptabilite_pays.';'.
+						    			$etablissement->service_douane.';'.
+										';'.
+						    			';'.
+						    			$compteNonInfosCsv.';'.
+						    			$etablissement->no_carte_professionnelle;
+										$csv_file .= "\n";
+						}
+					}
+				}
+			}
+		}	
+	    $this->response->setContentType('text/csv');
+	    $this->response->setHttpHeader('md5', md5($csv_file));
+	    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=comptes.csv");
+	    return $this->renderText($csv_file);
+    }
+    
     public function executeSuppression(sfWebRequest $request)
     {
     	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
