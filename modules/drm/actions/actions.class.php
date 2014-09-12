@@ -33,9 +33,8 @@ class drmActions extends sfActions
 	  		$this->getUser()->setFlash('erreur_drm', 'Impossible de faire la DRM '.$drm->periode.' sans la DAI/DS '.$drm->getCampagnePrecedente());
 	  		$this->redirect('drm_mon_espace', $etablissement);
       }
-
+		//exit;
       $drm->save();
-      
       $this->redirect('drm_informations', $drm);
   }
   

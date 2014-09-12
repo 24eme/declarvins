@@ -166,6 +166,7 @@ class DRMDetail extends BaseDRMDetail {
         $this->cvo->volume_taxable = $this->getVolumeTaxable();
         $this->douane->volume_taxable = $this->getDouaneVolumeTaxable();
         $this->selecteur = 1;
+        $this->storeInterpro();
     }
     
     public function getVolumeTaxable()
@@ -414,10 +415,10 @@ class DRMDetail extends BaseDRMDetail {
     
     public function storeInterpro()
     {
-    	if ($config = $this->getConfig()) {
-    		$this->add('interpro', $config->getDocument()->interpro);
+    	if (($config = $this->getConfig()) && $this->cvo->taux > 0) {
+    		$this->interpro = $config->getDocument()->interpro;
     	} else {
-    		$this->add('interpro', null);
+    		$this->interpro = null;
     	}
     }
     

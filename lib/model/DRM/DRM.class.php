@@ -829,7 +829,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     public function generateRectificative() {
 		$drm = $this->version_document->generateRectificative();
 		$drm->updateVracVersion();
-		$drm->updateProduitsDiponibles();
+		//$drm->updateProduitsDiponibles();
 		$drm->identifiant_drm_historique = null;
         return $drm;
     }
@@ -837,7 +837,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     public function generateModificative() {
         $drm = $this->version_document->generateModificative();
 		$drm->updateVracVersion();
-		$drm->updateProduitsDiponibles();
+		//$drm->updateProduitsDiponibles();
 		$drm->identifiant_drm_historique = null;
         return $drm;
     }

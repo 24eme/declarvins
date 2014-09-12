@@ -20,7 +20,7 @@ class DRMDetails extends BaseDRMDetails {
 		$detail = $this->add($this->slugifyLabels($labels));
 		$detail->labels = $labels;
 		$detail->storeInterpro();
-		if ($config = $detail->getCepage()->getConfig()) {
+		if ($config = $detail->getConfig()) {
 			$detail->has_vrac = $config->getCurrentDrmVrac(true);
 		}
 		return $detail;
