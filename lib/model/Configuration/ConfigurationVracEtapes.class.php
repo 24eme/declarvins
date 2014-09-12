@@ -89,4 +89,26 @@ class ConfigurationVracEtapes extends BaseConfigurationVracEtapes
 		}
 		return $findEtapeReference;
 	}
+	
+	public function hasSupForNav($etapeToTest, $etapeReference)
+	{
+		$this->checkEtapes();
+		if (!in_array($etapeToTest, array_keys($this->getTabEtapes()))) {
+			throw new sfException('"'.$etapeToTest.'" : étape inconnu');
+		}
+		if (!in_array($etapeReference, array_keys($this->getTabEtapes()))) {
+			throw new sfException('"'.$etapeReference.'" : étape inconnu');
+		}
+		$findEtapeReference = false;
+		$etapes = $this->getTabEtapes();
+		foreach ($etapes as $step => $stepLibelle) {
+			if ($etapeToTest == $step) {
+				break;
+			}
+			if ($etapeReference == $step) {
+				$findEtapeReference = true;
+			}
+		}
+		return $findEtapeReference;
+	}
 }
