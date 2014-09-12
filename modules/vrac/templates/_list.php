@@ -49,10 +49,11 @@
 							$isProprietaire = true;
 						}
 					}
-					if ($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_NONSOLDE || $elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_SOLDE) {
+					if (in_array($elt[VracHistoryView::VRAC_VIEW_STATUT], array(VracClient::STATUS_CONTRAT_NONSOLDE, VracClient::STATUS_CONTRAT_SOLDE, VracClient::STATUS_CONTRAT_ANNULE))) {
 						$validated = true;
 					}
 			?>
+			
 			<?php if($elt[VracHistoryView::VRAC_VIEW_STATUT] || $isProprietaire): ?>
 			<tr class="<?php echo $statusColor ?>" >
 			  <td>
@@ -160,7 +161,7 @@
 							$isProprietaire = true;
 						}
 					}
-					if ($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_NONSOLDE || $elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_SOLDE) {
+					if (in_array($elt[VracHistoryView::VRAC_VIEW_STATUT], array(VracClient::STATUS_CONTRAT_NONSOLDE, VracClient::STATUS_CONTRAT_SOLDE, VracClient::STATUS_CONTRAT_ANNULE))) {
 						$validated = true;
 					}
 			?>

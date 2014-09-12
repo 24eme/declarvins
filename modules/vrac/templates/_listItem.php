@@ -26,7 +26,7 @@ if ($etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_
 		$isProprietaire = true;
 	}
 }
-if ($elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_NONSOLDE || $elt[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_SOLDE) {
+if (in_array($elt[VracHistoryView::VRAC_VIEW_STATUT], array(VracClient::STATUS_CONTRAT_NONSOLDE, VracClient::STATUS_CONTRAT_SOLDE, VracClient::STATUS_CONTRAT_ANNULE))) {
 	$validated = true;
 }
 ?>

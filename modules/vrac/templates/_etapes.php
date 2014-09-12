@@ -10,7 +10,7 @@
                             if ($actif == $etape) {
                             	$isPrev = false;
                             }
-                            include_partial('etapeItem',array('vrac' => $vrac, 'etablissement' => $etablissement, 'actif' => $actif, 'etape' => $etape, 'label' => $etapeLibelle, 'isActive' => ($actif == $etape), 'isLink' => !$configurationVracEtapes->hasSup($etape, $actif), 'last' => ($nbEtapes == $counter), 'first' => $first, 'isPrev' => $isPrev));
+                            include_partial('etapeItem',array('vrac' => $vrac, 'etablissement' => $etablissement, 'actif' => $actif, 'etape' => $etape, 'label' => $etapeLibelle, 'isActive' => ($actif == $etape), 'isLink' => !$configurationVracEtapes->hasSupForNav($etape, $vracEtape), 'last' => ($nbEtapes == $counter), 'first' => $first, 'isPrev' => $isPrev));
                             if ($first) {
                                 $first = false;
                             }

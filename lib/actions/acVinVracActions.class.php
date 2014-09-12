@@ -158,8 +158,9 @@ class acVinVracActions extends sfActions
         if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$this->vrac->isEnCoursSaisie()) {
             return $this->redirect('vrac_valide', array('identifiant' => $this->etablissement->identifiant));
         }
-
-		$this->vrac->setEtape($this->etape);
+		if ($this->vrac->etape && $this->configurationVracEtapes->hasSupForNav($this->etape, $this->vrac->etape)) {
+			$this->vrac->setEtape($this->etape);
+		}
 		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->etablissement, $this->getUser(), $this->vrac);
 		if ($request->isMethod(sfWebRequest::POST)) {
 			$this->form->bind($request->getParameter($this->form->getName()));

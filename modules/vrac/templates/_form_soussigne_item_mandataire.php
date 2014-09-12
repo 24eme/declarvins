@@ -35,3 +35,17 @@
     </div>
     <?php endif; ?>
 </div>
+
+<script type="text/javascript">
+$("#<?php echo $form['mandataire_exist']->renderId() ?>_0").click(function() {
+	var select = $("#listener_mandataire_choice select");
+	var input = $("#listener_mandataire_choice input");
+	var btn = $("#listener_mandataire_choice button");
+	if (select.children("option").length == 1) {
+		select.prepend($( "<option value=\"\"></option>" ));
+	}
+	select.val("");
+	input.val("");
+	btn.hide();	
+});
+</script>
