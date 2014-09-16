@@ -3,7 +3,7 @@
 	
 
 	<fieldset class="acteurs">
-		<legend>Acteurs</legend>
+		<legend>Document</legend>
 
 		<div class="ligne_form clearfix">
 			<div class="col_form">
@@ -19,6 +19,11 @@
 			<div class="col_form">
 				<span class="error"><?php echo $form['type_transaction']->renderError() ?></span>
 				<?php echo $form['type_transaction']->renderLabel(null, array('class' => 'intitule_champ')) ?><?php echo $form['type_transaction']->render() ?>
+			</div>
+
+			<div class="col_form">
+				<span class="error"><?php echo $form['vous_etes']->renderError() ?></span>
+				<?php echo $form['vous_etes']->renderLabel(null, array('class' => 'intitule_champ')) ?><?php echo $form['vous_etes']->render() ?>
 			</div>
 		</div>
 
@@ -63,7 +68,7 @@
 	</fieldset>
 
 	<fieldset class="document">
-		<legend>Document</legend>
+		<legend>Acteurs</legend>
 
 		<div class="ligne_form clearfix">
 			<div class="col_form">

@@ -4,6 +4,9 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
 	const HASH_PRODUIT_DEFAUT = 'produit';
 	const FORM_TEMPLATE = 'formVracStatistiqueFilter';
 	
+	const VOUS_ETES_OPERATEUR = 'operateur';
+	const VOUS_ETES_DECLARANT = 'declarant';
+	
 	protected $configurationVrac = null;
 	
 	protected static $fieldsConfig = array(
@@ -33,6 +36,7 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
 		'export' => StatistiqueQuery::CONFIG_QUERY_STRING,
 		'produit' => StatistiqueQuery::CONFIG_QUERY_STRING_OR_PRODUCT_VRAC,
 		'valide.statut' => StatistiqueQuery::CONFIG_QUERY_STRING_OR,
+		'vous_etes' => StatistiqueQuery::CONFIG_QUERY_STRING,
 	);
 	
 	public function configure() 
@@ -170,6 +174,12 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
         $this->setWidget('valide.statut', new sfWidgetFormChoice(array('renderer_options' => array('label_separator' => null), 'multiple' => true, 'expanded' => true, 'choices' => $choices)));
         $this->widgetSchema->setLabel('valide.statut', 'Statut :');
         $this->setValidator('valide.statut', new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($choices))));
+        // VOUS ETES
+        $choices = array(self::VOUS_ETES_DECLARANT => 'Déclarant', self::VOUS_ETES_OPERATEUR => 'Opérateur');
+        $this->setWidget('vous_etes', new sfWidgetFormChoice(array('renderer_options' => array('label_separator' => null), 'multiple' => true, 'expanded' => true, 'choices' => $choices)));
+        $this->widgetSchema->setLabel('vous_etes', 'Saisie :');
+        $this->setValidator('vous_etes', new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($choices))));
+        
 
         
   		$this->validatorSchema->setPostValidator(new StatistiqueVracFilterValidator());
@@ -260,6 +270,13 @@ class StatistiqueVracFilterForm extends StatistiqueFilterForm
     	if (!$values['valide.statut']) {
     		$values['valide.statut'] = '*';
     		$fieldsConfig['valide.statut'] = StatistiqueQuery::CONFIG_QUERY_STRING;
+    	}
+    	$values['vous_etes'] = '*';
+    	if ($values['vous_etes'] && $values['vous_etes'] == self::VOUS_ETES_DECLARANT) {
+    		$fieldsConfig['vous_etes'] = StatistiqueQuery::CONFIG_QUERY_EXISTS;
+    	}
+    	if ($values['vous_etes'] && $values['vous_etes'] == self::VOUS_ETES_OPERATEUR) {
+    		$fieldsConfig['vous_etes'] = StatistiqueQuery::CONFIG_QUERY_MISSING;
     	}
     	$statistiqueQuery = new StatistiqueQuery($fieldsConfig, $values);
     	$filtered = new acElasticaFiltered($query, $statistiqueQuery->getFilter());

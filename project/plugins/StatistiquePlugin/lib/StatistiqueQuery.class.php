@@ -6,6 +6,8 @@ class StatistiqueQuery
 	const CONFIG_QUERY_STRING_OR = 'query_string_or';
 	const CONFIG_QUERY_RANGE = 'query_range';
 	const CONFIG_QUERY_STRING_OR_PRODUCT_VRAC = 'query_string_or_product_vrac';
+	const CONFIG_QUERY_EXISTS = 'query_exists';
+	const CONFIG_QUERY_MISSING = 'query_missing';
 	
 	protected $fieldsConfig;
 	protected $values;
@@ -38,6 +40,12 @@ class StatistiqueQuery
 					break;
 				case self::CONFIG_QUERY_RANGE :
 					$result = $this->buildQueryRange($node, $value);
+					break;
+				case self::CONFIG_QUERY_EXISTS :
+					$result = $this->buildQueryExists($node);
+					break;
+				case self::CONFIG_QUERY_MISSING :
+					$result = $this->buildQueryMissing($node);
 					break;
     			default:
     				$result = null;
@@ -130,6 +138,18 @@ class StatistiqueQuery
 		}
 		$query_filter_range = new acElasticaFilterRange($node, $values);
 		return $query_filter_range;
+	}
+	
+	private function buildQueryExists($node)
+	{
+		$query_exists = new acElasticaFilterExists($node);
+		return $query_exists;
+	}
+	
+	private function buildQueryMissing($node)
+	{
+		$query_missing = new acElasticaFilterMissing($node);
+		return $query_missing;
 	}
 	
 	private function getValues(&$result, $values)
