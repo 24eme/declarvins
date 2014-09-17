@@ -68,11 +68,11 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
          */
 		// IDENTIFIANT
         $this->setWidget('_id', new sfWidgetFormInputText());
-        $this->widgetSchema->setLabel('_id', 'Identifiant :');
+        $this->widgetSchema->setLabel('_id', 'N°DRM :');
         $this->setValidator('_id', new sfValidatorString(array('required' => false)));
 		// IDENTIFIANT HISTORIQUE
         $this->setWidget('identifiant_drm_historique', new sfWidgetFormInputText());
-        $this->widgetSchema->setLabel('identifiant_drm_historique', 'Identifiant historique :');
+        $this->widgetSchema->setLabel('identifiant_drm_historique', 'N°DRM ancien :');
         $this->setValidator('identifiant_drm_historique', new sfValidatorString(array('required' => false)));
 		// DATE SAISIE
         $this->setWidget('valide.date_saisie', new sfWidgetFormDateRange(array(
@@ -107,7 +107,7 @@ class StatistiqueDRMFilterForm extends StatistiqueFilterForm
             'to_date'       => new WidgetFormPeriode(array('format' => '%year% - %month%', 'years' => $years)),
             'template'      => '<br /><span class="delimiteur_date">du</span> %from_date%<br /><span class="delimiteur_date">au</span> %to_date%'
         )));
-        $this->widgetSchema->setLabel('periode', 'Période :');
+        $this->widgetSchema->setLabel('periode', 'Date DRM :');
         $this->setValidator('periode', new sfValidatorDateRange(array('required' => false, 'from_date' => new ValidatorPeriode(array('required' => false, 'date_output' => 'Y-m')), 'to_date'   => new ValidatorPeriode(array('required' => false, 'date_output' => 'Y-m')))));
 		/**
 		 * PRODUIT
