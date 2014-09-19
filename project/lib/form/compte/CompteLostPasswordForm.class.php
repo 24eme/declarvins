@@ -7,7 +7,7 @@ class CompteLostPasswordForm extends BaseForm {
         		'login' => new sfWidgetFormInputText()
         ));
         $this->widgetSchema->setLabels(array(
-        		'login' => 'Identifiant*: '
+        		'login' => 'Identifiant ou e-mail de votre compte*: '
         ));
 
         $this->setValidators(array(

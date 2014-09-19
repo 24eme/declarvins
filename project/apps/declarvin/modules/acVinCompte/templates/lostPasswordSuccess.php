@@ -10,9 +10,9 @@
 	<form id="creation_compte" method="post" action="<?php echo url_for('@compte_lost_password') ?>">
 		<?php echo $form->renderHiddenFields(); ?>
 		<?php echo $form->renderGlobalErrors(); ?>
-		<h1>Mot de passe oublié</h1>	
+		<h1>Identifiants de connexion oubliés</h1>	
 		<p class="txt-espace">
-		Veuillez saisir l'identifiant de votre compte pour lancer une procédure de redéfinition de votre mot de passe.<br />
+		Veuillez saisir l'identifiant ou l'e-mail de votre compte pour lancer une procédure de récupération d'identifiant et redéfinition de votre mot de passe.<br />
 		Vous recevrez un email afin de modifier votre mot de passe.<br /><br />
 		Si vous n'avez pas reçu d'email :
 		<ul>
