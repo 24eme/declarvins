@@ -157,7 +157,7 @@ class Email {
     
     public function sendContratMandat($contrat, $destinataire, $interpros = null) 
     {
-        $from = $this->getFromEmailInterpros($interpros,true); 
+        $from = $this->getFromEmailInterpros($interpros,true);
         $to = array($destinataire);
         $subject = 'Contrat d\'inscription DeclarVins';
         $body = $this->getBodyFromPartial('send_contrat_mandat', array('contrat' => $contrat));
@@ -215,7 +215,7 @@ class Email {
 
     protected function getFromEmailInterpros($interpros = array(), $isInscription = false) {
     	$referente = InterproClient::getInstance()->getById(InterproClient::INTERPRO_REFERENTE);
-        if(!$interpros){
+        if(!(count($interpros) > 0)){
             return (!$isInscription)? array($referente->email_contrat_vrac => $referente->nom) : array($referente->email_contrat_inscription => $referente->nom);
         }
         $interpro = null;
@@ -228,8 +228,10 @@ class Email {
         }
         if (!$interpro) {
                 foreach($interpros as $inter) {
-                        $interpro = $inter;
-                        break;
+                		if ($inter->email_contrat_vrac && $inter->email_contrat_inscription) {
+                        	$interpro = $inter;
+                        	break;
+                		}
                 }
         }
         if(!$isInscription){
