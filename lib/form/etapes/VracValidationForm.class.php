@@ -5,16 +5,23 @@ class VracValidationForm extends VracForm
     	'date_signature',
     );
 	public function configure()
-    {
-    	parent::configure();    	
+    {	
 		$this->setWidget('email', new sfWidgetFormInputHidden());
 		$this->setValidator('email', new ValidatorPass());
+		$this->setWidget('commentaires', new sfWidgetFormTextarea());
+		$this->setValidator('commentaires', new sfValidatorString(array('required' => false)));
 		if ($this->user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-			$fields = array('valide','commentaires', 'date_signature', 'email');
-		} else {
-			$fields = array('valide','commentaires', 'email');
+			$this->setWidget('date_signature', new sfWidgetFormInputText());
+			$this->setValidator('date_signature', new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true)));
 		}
-		$this->useFields($fields);
+        $this->widgetSchema->setLabels(array(
+        	'date_signature' => 'Date de signature:',
+        	'commentaires' => 'Commentaires:'
+        ));
+		$vracValideFormName = $this->vracValideFormName();
+        $valide = new VracValideForm($this->getObject()->valide);
+        $this->embedForm('valide', $valide);
+        
         $this->widgetSchema->setNameFormat('vrac_validation[%s]');
     }
 

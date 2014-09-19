@@ -3,25 +3,62 @@ class VracSoussigneForm extends VracForm
 {
    	public function configure()
     {
-		parent::configure();
-		$this->useFields(array(
-		   'vous_etes',
-           'vendeur_type',
-           'vendeur_identifiant',
-	       'vendeur_tva',
-           'acheteur_type',
-           'acheteur_identifiant',
-	       'acheteur_tva',
-	       'mandataire_exist',
-	       'mandataire_identifiant',
-	       'premiere_mise_en_marche',
-	       'cas_particulier',
-		   'vendeur',
-		   'acheteur',
-		   'mandataire',
-		   'adresse_stockage',
-		   'adresse_livraison',
-		));
+		$this->setWidgets(array(
+    		'vous_etes' => new sfWidgetFormChoice(array('choices' => $this->getVousEtes(), 'expanded' => true)),
+            'vendeur_type' => new sfWidgetFormChoice(array('choices' => $this->getVendeurTypes(), 'expanded' => true)),
+            'vendeur_identifiant' => new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'only_actif' => 1)),
+            'vendeur_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(), 'expanded' => true)),
+            'acheteur_type' => new sfWidgetFormChoice(array('choices' => $this->getAcheteurTypes(), 'expanded'=> true)),
+            'acheteur_identifiant' => new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'only_actif' => 1)),
+        	'acheteur_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
+            'mandataire_exist' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
+        	'mandataire_identifiant' => new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'familles' => EtablissementFamilles::FAMILLE_COURTIER, 'only_actif' => 1)),
+        	'premiere_mise_en_marche' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
+        	'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier()))
+    	));
+        $this->widgetSchema->setLabels(array(
+        	'vous_etes' => 'Vous êtes*: ',
+        	'vendeur_type' => 'Type:',
+        	'vendeur_identifiant' => 'Vendeur:',
+        	'vendeur_tva' => 'Assujetti à la TVA',
+        	'acheteur_type' => 'Type:',
+        	'acheteur_identifiant' => 'Acheteur:',
+        	'acheteur_tva' => 'Assujetti à la TVA',
+        	'mandataire_exist' => 'Transaction avec un courtier',
+        	'mandataire_identifiant' => 'Mandataire:',
+        	'premiere_mise_en_marche' => 'Première mise en marché:',
+        	'cas_particulier' => 'Condition particulière:'
+        ));
+        $this->setValidators(array(
+            'vous_etes' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getVousEtes()))),
+        	'vendeur_type' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getVendeurTypes()))),
+        	'vendeur_identifiant' => new ValidatorEtablissement(array('required' => false)),
+        	'vendeur_tva' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
+        	'acheteur_type' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getAcheteurTypes()))),
+        	'acheteur_identifiant' => new ValidatorEtablissement(array('required' => false)),
+        	'acheteur_tva' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
+        	'mandataire_exist' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
+        	'mandataire_identifiant' => new ValidatorEtablissement(array('required' => false, 'familles' => EtablissementFamilles::FAMILLE_COURTIER)),
+        	'premiere_mise_en_marche' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
+        	'cas_particulier' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCasParticulier())))
+        ));
+        
+        $vracVendeurFormName = $this->vracVendeurFormName();
+    	$vendeur = new $vracVendeurFormName($this->getObject()->vendeur);
+        $this->embedForm('vendeur', $vendeur);
+        $vracAcheteurFormName = $this->vracAcheteurFormName();
+        $acheteur = new $vracAcheteurFormName($this->getObject()->acheteur);
+        $this->embedForm('acheteur', $acheteur);
+        $vracMandataireFormName = $this->vracMandataireFormName();
+        $mandataire = new VracMandataireForm($this->getObject()->mandataire);
+        $this->embedForm('mandataire', $mandataire);
+        
+        $vracStockageFormName = $this->vracStockageFormName();
+        $stockage = new $vracStockageFormName($this->getObject()->adresse_stockage);
+        $this->embedForm('adresse_stockage', $stockage);
+        $vracLivraisonFormName = $this->vracLivraisonFormName();
+        $livraison = new $vracLivraisonFormName($this->getObject()->adresse_livraison);
+        $this->embedForm('adresse_livraison', $livraison);
 
       if (!$this->etablissementIsVendeurOrAcheteur()) {
         unset($this['vous_etes']);
@@ -33,7 +70,8 @@ class VracSoussigneForm extends VracForm
       if ($this->etablissementIsCourtier()) {
         unset($this['mandataire_exist']);
       }
-  		$this->validatorSchema->setPostValidator(new VracSoussigneValidator());
+      $this->widgetSchema->setNameFormat('vrac_soussigne[%s]');
+  	  $this->validatorSchema->setPostValidator(new VracSoussigneValidator());
     }
 
     protected function updateDefaultsFromObject() {

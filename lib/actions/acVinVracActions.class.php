@@ -68,15 +68,20 @@ class acVinVracActions extends sfActions
 	{
 		$this->vrac = $this->getRoute()->getVrac();
                 $this->etablissement = $this->getRoute()->getEtablissement();
-		$vrac = new Vrac();
-		$this->init($vrac, $this->etablissement);
-		$vrac->interpro = $this->interpro->get('_id');
-		$vrac->numero_contrat = $this->getNumeroContrat();
-		$vrac->save();
+		$vrac = $this->getNewVrac($etablissement);
 		$this->redirect(array('sf_route' => 'vrac_etape', 
                               'sf_subject' => $vrac, 
                               'step' => $this->configurationVracEtapes->next($vrac->etape), 
                               'etablissement' => $this->etablissement));
+	}
+	
+	private function getNewVrac($etablissement)
+	{
+		$vrac = new Vrac();
+		$this->init($vrac, $etablissement);
+		$vrac->interpro = $this->interpro->get('_id');
+		$vrac->numero_contrat = uniqid();
+		return $vrac;
 	}
 
 	public function executeSupprimer(sfWebRequest $request)
@@ -148,8 +153,16 @@ class acVinVracActions extends sfActions
 		if (!$this->getUser()->getCompte()) {
 			throw new sfException('Compte required');
 		}
-        $this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
+        if (!$this->etablissement) {
+        	if ($etablissement = EtablissementClient::getInstance()->find($request->getParameter('identifiant'))) {
+        		$this->etablissement = $etablissement;
+        	}
+        }
+        $this->vrac = $this->getRoute()->getVrac();
+        if ($this->vrac->isNew()) {
+        	$this->vrac = $this->getNewVrac($this->etablissement);
+        } 
 		$this->init($this->vrac, $this->etablissement);
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$this->vrac->isModifiable()) {
             return $this->redirect('vrac_valide_admin');
@@ -161,11 +174,18 @@ class acVinVracActions extends sfActions
 		if ($this->vrac->etape && $this->configurationVracEtapes->hasSupForNav($this->etape, $this->vrac->etape)) {
 			$this->vrac->setEtape($this->etape);
 		}
+		if (!$this->vrac->etape) {
+			$this->vrac->setEtape($this->etape);
+		}
 		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->etablissement, $this->getUser(), $this->vrac);
 		if ($request->isMethod(sfWebRequest::POST)) {
 			$this->form->bind($request->getParameter($this->form->getName()));
 			if ($this->form->isValid()) {
-				$this->form->save();
+				$this->vrac = $this->form->getUpdatedObject();
+				if ($this->vrac->isNew()) {
+					$this->vrac->numero_contrat = $this->getNumeroContrat();
+				}
+				$this->vrac->save();
 				$sendEmail = (bool)$this->form->getValue('email');
 				if (!$this->configurationVracEtapes->next($this->vrac->etape)) {
 					$interpro = $this->getInterpro($this->vrac, $this->etablissement);

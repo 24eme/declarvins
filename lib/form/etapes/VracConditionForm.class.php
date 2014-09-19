@@ -3,18 +3,38 @@ class VracConditionForm extends VracForm
 {
    	public function configure()
     {
-  		parent::configure();
-  		$this->useFields(array(
-  	       'date_debut_retiraison',
-  	       'date_limite_retiraison',
-           'conditions_paiement',
-  	       'vin_livre',
-           'reference_contrat_pluriannuel',
-  	       'delai_paiement',
-           'clause_reserve_retiraison',
-  		     'paiements',
-		   'volume_propose'
-  		));
+  		$this->setWidgets(array(
+        	'date_debut_retiraison' => new sfWidgetFormInputText(),
+        	'date_limite_retiraison' => new sfWidgetFormInputText(),
+        	'conditions_paiement' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getConditionsPaiement(), 'multiple' => false)),
+        	'vin_livre' => new sfWidgetFormChoice(array('choices' => $this->getChoixVinLivre(),'expanded' => true)),
+        	'reference_contrat_pluriannuel' => new sfWidgetFormInputText(),
+        	'delai_paiement' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getDelaisPaiement())),
+        	'clause_reserve_retiraison' => new sfWidgetFormInputCheckbox()
+    	));
+        $this->widgetSchema->setLabels(array(
+        	'date_debut_retiraison' => 'Date de début de retiraison*:',
+        	'date_limite_retiraison' => 'Date limite de retiraison*:',
+        	'conditions_paiement' => 'Conditions générales de vente*:',
+        	'vin_livre' => 'Le vin sera*:',
+        	'reference_contrat_pluriannuel' => 'Référence contrat pluriannuel:',
+        	'delai_paiement' => 'Delai de paiement*:',
+        	'clause_reserve_retiraison' => 'Clause de reserve de propriété (si réserve, recours possible jusqu\'au paiement complet): '
+        ));
+        $this->setValidators(array(
+        	'date_debut_retiraison' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
+        	'date_limite_retiraison' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
+        	'conditions_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getConditionsPaiement()), 'multiple' => false)),
+        	'vin_livre' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixVinLivre()))),
+        	'reference_contrat_pluriannuel' => new sfValidatorString(array('required' => false)),
+        	'delai_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getDelaisPaiement()))),
+        	'clause_reserve_retiraison' => new ValidatorPass()
+        ));
+        
+        $paiements = new VracPaiementCollectionForm($this->vracPaiementFormName(), $this->getObject()->paiements);
+        $this->embedForm('paiements', $paiements);
+  		
+  		
 		$this->setWidget('volume_propose', new sfWidgetFormInputHidden());
 		$this->setValidator('volume_propose', new ValidatorPass());
   		$this->validatorSchema->setPostValidator(new VracConditionValidator());

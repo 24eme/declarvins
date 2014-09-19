@@ -3,11 +3,20 @@ class VracProduitForm extends VracForm
 {
    	public function configure()
     {
-    		parent::configure();
-    		$this->useFields(array(
-               'produit',
-    		   'millesime'
-    		));
+    		$produits = $this->getProduits();
+	    	$this->setWidgets(array(
+	        	'produit' => new sfWidgetFormChoice(array('choices' => $produits), array('class' => 'autocomplete')),
+	        	'millesime' => new sfWidgetFormInputText()
+	    	));
+	        $this->widgetSchema->setLabels(array(
+	        	'produit' => 'Produit*:',
+	        	'millesime' => 'Millesime:'
+	        ));
+	        $this->setValidators(array(
+	        	'produit' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($produits))),
+	        	'millesime' => new sfValidatorString(array('required' => false))
+	        ));
+    		
     		$this->setWidget('non_millesime', new sfWidgetFormInputCheckbox());
     		$this->widgetSchema->setLabel('non_millesime', '&nbsp;');
     		$this->setValidator('non_millesime', new ValidatorPass());
