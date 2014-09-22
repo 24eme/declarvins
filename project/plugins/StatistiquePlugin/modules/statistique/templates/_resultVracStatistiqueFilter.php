@@ -11,6 +11,7 @@
 				<th>Prix unitaire</th>
 				<th>Date de saisie</th>
 				<th>Date de signature</th>
+				<th>Conditions particulières</th>
 				<th>Vendeur</th>
 				<th>Acheteur</th>
 				<th>Courtier</th>
@@ -51,6 +52,7 @@
 				<td><?php echo number_format($item['prix_unitaire'], 2, ',', ' ') ?></td>
 				<td><?php echo ($item['valide']['date_saisie'])? strftime('%d/%m/%Y', strtotime($item['valide']['date_saisie'])) : null; ?></td>
 				<td><?php echo ($item['valide']['date_validation'])? strftime('%d/%m/%Y', strtotime($item['valide']['date_validation'])) : null; ?></td>
+				<td><?php echo ($item['cas_particulier'])? $item['cas_particulier'] : null; ?></td>
 				<td>
 					<?php if ($vendeur): ?>
 						<a href="<?php echo url_for('tiers_mon_espace', array('identifiant' => $vendeur)) ?>" target="_blank"><?php echo $item['vendeur']['raison_sociale'] ?></a>
