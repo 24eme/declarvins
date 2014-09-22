@@ -188,7 +188,7 @@ class Email {
         return $this->getMailer()->send($message);
     }
     
-    public function sendRedefinitionMotDePasse($compte, $destinataire) 
+    public function sendRedefinitionMotDePasse($compte, $destinataire, $logins) 
     {
     	$interpros = array();
     	foreach ($compte->interpro as $id => $values) {
@@ -197,7 +197,7 @@ class Email {
         $from = $this->getFromEmailInterpros($interpros,true);
         $to = array($destinataire);
         $subject = 'Redéfinition du mot de passe';
-        $body = $this->getBodyFromPartial('send_redefinition_mot_de_passe', array('compte' => $compte));
+        $body = $this->getBodyFromPartial('send_redefinition_mot_de_passe', array('compte' => $compte, 'logins' => $logins));
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
         return $this->getMailer()->send($message);

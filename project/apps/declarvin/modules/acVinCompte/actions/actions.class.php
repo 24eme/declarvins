@@ -81,8 +81,9 @@ class acVinCompteActions extends BaseacVinCompteActions {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
                 $login = $this->form->getValue('login');
+                $logins = $this->form->getValue('logins');
                 $compte = _CompteClient::getInstance()->retrieveByLogin($login);
-     			Email::getInstance()->sendRedefinitionMotDePasse($compte, $compte->email);
+     			Email::getInstance()->sendRedefinitionMotDePasse($compte, $compte->email, $logins);
      			$this->getUser()->setFlash('notice', 'Une demande de redéfinition de votre mot de passe vous a été envoyé');
      			$this->redirect('@compte_lost_password');
             }
