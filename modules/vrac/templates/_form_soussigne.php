@@ -49,7 +49,7 @@
     </div>
 
     <div class="ligne_form_btn">
-        <a href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $form->getObject(), 'etablissement' => $etablissement)) ?>" class="annuler_saisie"><span>supprimer le contrat</span></a>
+        <a href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $form->getObject(), 'etablissement' => $etablissement)) ?>" class="annuler_saisie" onclick="return confirm('Attention, ce contrat sera supprimé de la base')"><span>supprimer le contrat</span></a>
         <button class="valider_etape" type="submit"><span>Etape Suivante</span></button>
     </div>
     
