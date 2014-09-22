@@ -69,7 +69,7 @@ class CompteOIOCActions extends sfActions
   public function executeRedefinitionPassword(sfWebRequest $request)
   {
      $this->forward404Unless($compte = _CompteClient::getInstance()->retrieveByLogin($request->getParameter('login')));
-     Email::getInstance()->sendRedefinitionMotDePasse($compte, $compte->email);
+     Email::getInstance()->sendRedefinitionMotDePasse($compte, $compte->email, array($compte->login));
      $this->getUser()->setFlash('notice', 'Demande de redéfinition du mot de passe envoyée');
      $this->redirect(array('sf_route' => 'compte_oioc_modification', 'login' => $compte->login));
   }
