@@ -3,7 +3,7 @@
 class VracSoussigneValidator extends sfValidatorBase {
 
 	public function configure($options = array(), $messages = array()) {
-        $this->addMessage('impossible_acheteur_vendeur', "Le vendeur et l'acheteur ne peuvent être la même personne");
+        $this->addMessage('impossible_acheteur_vendeur', "Le vendeur et l'acheteur ne peuvent être le même établissement");
     }
     
     protected function doClean($values) {
@@ -37,6 +37,14 @@ class VracSoussigneValidator extends sfValidatorBase {
     		}
     	}
     	if (isset($values['vendeur_identifiant']) && isset($values['acheteur_identifiant']) && $values ['vendeur_identifiant'] == $values ['acheteur_identifiant']) {
+    					$errorSchema->addError(new sfValidatorError($this, 'impossible_acheteur_vendeur'));
+    					$hasError = true;
+    	}
+    	if (isset($values['vous_etes_identifiant']) && isset($values['acheteur_identifiant']) && $values ['vous_etes_identifiant'] == $values ['acheteur_identifiant']) {
+    					$errorSchema->addError(new sfValidatorError($this, 'impossible_acheteur_vendeur'));
+    					$hasError = true;
+    	}
+    	if (isset($values['vous_etes_identifiant']) && isset($values['vendeur_identifiant']) && $values ['vous_etes_identifiant'] == $values ['vendeur_identifiant']) {
     					$errorSchema->addError(new sfValidatorError($this, 'impossible_acheteur_vendeur'));
     					$hasError = true;
     	}
