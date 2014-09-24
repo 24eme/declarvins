@@ -304,5 +304,16 @@ class validationActions extends sfActions {
      }
      $this->redirect(array('sf_route' => 'compte_modification', 'login' => $compte->login));
   }
+  
+  public function executeRedefinitionInscription(sfWebRequest $request)
+  {
+  		$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
+    	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
+        $this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
+        $this->compte = $this->contrat->getCompteObject();
+        Email::getInstance()->sendCompteRegistration($this->compte, $this->compte->email);
+     	$this->getUser()->setFlash('notice', 'Demande du renvoi de l\'email d\'inscription envoyée');
+     	$this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));
+  }
 
 }

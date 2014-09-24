@@ -85,6 +85,9 @@ validation_lier:
 validation_compte_password:
   url:   /validation/compte-password/:login
   param: { module: validation, action: redefinitionPassword }
+validation_compte_inscription:
+  url:   /validation/compte-inscription/:num_contrat
+  param: { module: validation, action: redefinitionInscription }
 
 # Interpro routing
 interpro_upload_csv:
