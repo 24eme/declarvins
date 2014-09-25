@@ -30,7 +30,7 @@
     <?php endif; ?>
     <td>
         <?php if($drm->isNew()): ?>
-        	<?php if ($drm->isDebutCampagne() && !$drm->hasDaidsCampagnePrecedente()): ?>
+        	<?php if (1 == 2 && $drm->isDebutCampagne() && !$drm->hasDaidsCampagnePrecedente()): ?>
         		Vous devez saisir votre <strong>DAI/DS <?php echo $drm->getCampagnePrecedente() ?></strong>
         	<?php else: ?>
             	<a href="<?php echo url_for('drm_nouvelle', $drm) ?>" class="btn_reinitialiser"><span>Démarrer la DRM</span></a>
