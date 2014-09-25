@@ -388,15 +388,16 @@ class DRMDetail extends BaseDRMDetail {
     public function getStockTheoriqueMensuelByCampagne($campagne)
     {
     	$drmsHistorique = new DRMHistorique($this->getDocument()->identifiant);
-    	$drms = $drmsHistorique->getDRMsByCampagne($campagne);
+    	$drms = $drmsHistorique->getDRMsPeriodeByCampagne($campagne);
     	$total = 0;
     	$nbDrm = 0;
-    	foreach ($drms as $d) {
-    		$drm = DRMClient::getInstance()->find($d->_id);
-    		if ($drm->exist($this->getHash())) {
-    			$nbDrm++;
-    			$detail = $drm->get($this->getHash());
-    			$total += $detail->total;
+    	foreach ($drms as $periode) {
+    		if ($drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($this->getDocument()->identifiant, $periode)) {
+	    		if ($drm->exist($this->getHash())) {
+	    			$nbDrm++;
+	    			$detail = $drm->get($this->getHash());
+	    			$total += $detail->total;
+	    		}
     		}
     	}
     	return ($nbDrm > 0)? ($total / $nbDrm) : 0;

@@ -135,6 +135,16 @@ class DRMHistorique {
         return $drms;
     }
 
+    public function getDRMsPeriodeByCampagne($campagne) {
+        $periodes = array();
+        foreach($this->getDRMsByCampagne($campagne) as $drm) {
+        	if (!in_array($drm->periode, $periodes)) {
+        		$periodes[] = $drm->periode;
+        	}
+        }
+        return $periodes;
+    }
+
     public function getLastDRMByCampagne($campagne) {
         foreach($this->drms as $drm) {
             if ($drm->campagne == $campagne) {
