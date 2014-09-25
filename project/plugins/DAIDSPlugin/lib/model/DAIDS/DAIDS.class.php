@@ -192,7 +192,7 @@ class DAIDS extends BaseDAIDS
         $this->remove('droits');
         $this->add('droits');
         foreach ($this->getDetails() as $detail) {
-        	$this->droits->getOrAdd(DAIDSDroits::DROIT_CVO)->getOrAdd($detail->get(DAIDSDroits::DROIT_CVO)->code)->integreVolume(($detail->total_manquants_taxables), $detail->get(DAIDSDroits::DROIT_CVO)->taux, $detail->get(DAIDSDroits::DROIT_CVO)->libelle);
+        	$this->droits->getOrAdd(DAIDSDroits::DROIT_CVO)->getOrAdd($detail->get(DAIDSDroits::DROIT_CVO)->code)->integreVolume(($detail->total_manquants_taxables_cvo), $detail->get(DAIDSDroits::DROIT_CVO)->taux, $detail->get(DAIDSDroits::DROIT_CVO)->libelle);
         	$this->droits->getOrAdd(DAIDSDroits::DROIT_DOUANE)->getOrAdd($detail->get(DAIDSDroits::DROIT_DOUANE)->code)->integreVolume(($detail->total_manquants_taxables), $detail->get(DAIDSDroits::DROIT_DOUANE)->taux, $detail->get(DAIDSDroits::DROIT_DOUANE)->libelle);
         }
     }
@@ -202,7 +202,7 @@ class DAIDS extends BaseDAIDS
         $this->remove('droits');
         $this->add('droits');
         foreach ($this->getDetails() as $detail) {
-        	$this->droits->getOrAdd(DAIDSDroits::DROIT_CVO)->getOrAdd($detail->get(DAIDSDroits::DROIT_CVO)->code)->updateTotal($detail->total_cvo);
+        	$this->droits->getOrAdd(DAIDSDroits::DROIT_CVO)->getOrAdd($detail->get(DAIDSDroits::DROIT_CVO)->code)->integreVolume(($detail->total_manquants_taxables_cvo), $detail->get(DAIDSDroits::DROIT_CVO)->taux, $detail->get(DAIDSDroits::DROIT_CVO)->libelle);
         	$this->droits->getOrAdd(DAIDSDroits::DROIT_DOUANE)->getOrAdd($detail->get(DAIDSDroits::DROIT_DOUANE)->code)->integreVolume(($detail->total_manquants_taxables), $detail->get(DAIDSDroits::DROIT_DOUANE)->taux, $detail->get(DAIDSDroits::DROIT_DOUANE)->libelle);
         }
     }

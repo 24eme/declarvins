@@ -16,7 +16,11 @@
         
             
             <div id="btn_etape_dr">
-            	<?php if ($previous_certif): ?>
+            	<?php if ($previous): ?>
+                <a href="<?php echo url_for('daids_recap_lieu', $previous) ?>" class="btn_prec">
+                	<span>Précédent</span>
+                </a>
+            	<?php elseif ($previous_certif): ?>
                 <a href="<?php echo url_for('daids_recap', $previous_certif) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>
@@ -25,8 +29,13 @@
                     <span>Précédent</span>
                 </a>
                 <?php endif; ?>
-
-                <?php if ($next_certif): ?>
+				
+				
+                <?php if ($next): ?>
+                <a href="<?php echo url_for('daids_recap_lieu', $next) ?>" class="btn_suiv">
+                	<span>Suivant</span>
+                </a>
+                <?php elseif ($next_certif): ?>
                 <a href="<?php echo url_for('daids_recap', $next_certif) ?>" class="btn_suiv">
                     <span>Suivant</span>
                 </a>

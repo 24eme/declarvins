@@ -191,7 +191,7 @@ class daidsActions extends sfActions
         	$this->form->bind($request->getParameter($this->form->getName()));
         	if($this->form->isValid()) {
         		$detail = $this->form->save();
-        		$this->getUser()->setFlash("notice", 'Cotisations interprofessionnelles mises à jour avec succès.');
+        		$this->getUser()->setFlash("notice", 'Manquants taxables mis à jour avec succès.');
             	return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('daids_visualisation', $this->daids))));
         	} else {
         		return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('formCvo', array('form' => $this->form)))));

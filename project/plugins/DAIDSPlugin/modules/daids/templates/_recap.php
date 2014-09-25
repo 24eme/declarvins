@@ -30,16 +30,22 @@
 							<td class="<?php echo isVersionnerCssClass($detail, 'stock_chais') ?>"><strong><?php if ($detail->stock_chais) echoLongFloat($detail->stock_chais); else echoLongFloat(0); ?></strong>&nbsp;<span class="unite">hl</span></td>
 							<td class="<?php echo isVersionnerCssClass($detail, 'total_manquants_excedents') ?>"><strong><?php if ($detail->total_manquants_excedents) echoLongFloat($detail->total_manquants_excedents); else echoLongFloat(0); ?></strong>&nbsp;<span class="unite">hl</span></td>
 							<td class="<?php echo isVersionnerCssClass($detail, 'total_pertes_autorisees') ?>"><strong><?php if ($detail->total_pertes_autorisees) echoLongFloat($detail->total_pertes_autorisees); else echoLongFloat(0); ?></strong>&nbsp;<span class="unite">hl</span></td>
-							<td class="<?php echo isVersionnerCssClass($detail, 'total_manquants_taxables') ?>"><strong><?php if ($detail->total_manquants_taxables) echoLongFloat($detail->total_manquants_taxables); else echoLongFloat(0); ?></strong>&nbsp;<span class="unite">hl</span></td>
+							<td class="<?php echo isVersionnerCssClass($detail, 'total_manquants_taxables') ?>">
+								<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+									<?php if ($daids->isValidee()): ?>
+										<a class="btn_edit btn_popup" data-popup-config="configForm" data-popup="#popup_update_cvo_<?php echo $detail->renderId() ?>" href="<?php echo url_for('daids_visualisation_update_cvo', $detail) ?>" title="Modifier"><strong><?php if ($detail->total_manquants_taxables_cvo) echoFloat($detail->total_manquants_taxables_cvo); else echoFloat(0); ?></strong>&nbsp;<span class="unite">hl</span></a>
+										<?php if ($detail->isUpdatedCvo()): ?>(<strike><?php echo $detail->total_manquants_taxables ?></strike> hl)<?php endif; ?>
+									<?php else: ?>
+										<strong><?php if ($detail->total_manquants_taxables) echoLongFloat($detail->total_manquants_taxables); else echoLongFloat(0); ?></strong>&nbsp;<span class="unite">hl</span>
+									<?php endif; ?>
+								<?php else: ?>
+									<strong><?php if ($detail->total_manquants_taxables) echoLongFloat($detail->total_manquants_taxables); else echoLongFloat(0); ?></strong>&nbsp;<span class="unite">hl</span>
+								<?php endif; ?>
+							</td>
 							<td class="<?php echo isVersionnerCssClass($detail, 'total_douane') ?>"><strong><?php if ($detail->total_douane) echoFloat($detail->total_douane); else echoFloat(0); ?></strong>&nbsp;<span class="unite">€</span></td>
 							<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 							<td class="<?php echo isVersionnerCssClass($detail, 'total_cvo') ?>">
-								<?php if ($daids->isValidee()): ?>
-									<a class="btn_edit btn_popup" data-popup-config="configForm" data-popup="#popup_update_cvo_<?php echo $detail->renderId() ?>" href="<?php echo url_for('daids_visualisation_update_cvo', $detail) ?>" title="Modifier"><strong><?php if ($detail->total_cvo) echoFloat($detail->total_cvo); else echoFloat(0); ?></strong>&nbsp;<span class="unite">€</span></a>
-									<?php if ($detail->isUpdatedCvo()): ?>(<strike><?php echo $detail->getCvoCalcul() ?></strike>)<?php endif; ?>
-								<?php else: ?>
 									<strong><?php if ($detail->total_cvo) echoFloat($detail->total_cvo); else echoFloat(0); ?></strong>&nbsp;<span class="unite">€</span>
-								<?php endif; ?>
 							</td>
 							<?php endif; ?>
 						</tr>

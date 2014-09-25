@@ -2,9 +2,9 @@
 	<?php echo $form->renderGlobalErrors() ?>
 	<?php echo $form->renderHiddenFields() ?>
 	<div class="ligne_form">
-		<span class="error"><?php echo $form['total_cvo']->renderError() ?></span>
-		<?php echo $form['total_cvo']->renderLabel() ?>
-		<?php echo $form['total_cvo']->render() ?>
+		<span class="error"><?php echo $form['total_manquants_taxables_cvo']->renderError() ?></span>
+		<?php echo $form['total_manquants_taxables_cvo']->renderLabel() ?>
+		<?php echo $form['total_manquants_taxables_cvo']->render() ?>
 	</div>
 	<div class="ligne_form_btn">
 		<button name="annuler" class="btn_annuler btn_fermer" type="reset">Annuler</button>

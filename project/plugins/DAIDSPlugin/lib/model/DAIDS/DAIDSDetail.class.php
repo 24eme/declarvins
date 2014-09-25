@@ -106,21 +106,27 @@ class DAIDSDetail extends BaseDAIDSDetail {
         	$this->total_douane = 0;
         }
         if (!isset($params['cvo_manuel']) || !$params['cvo_manuel']) {
-        	$this->total_cvo = $this->cvo->taux * $this->total_manquants_taxables;
+        	$this->total_manquants_taxables_cvo = $this->total_manquants_taxables;
         }
+        $this->total_cvo = $this->cvo->taux * $this->total_manquants_taxables_cvo;
         if ($this->total_cvo < 0) {
         	$this->total_cvo = 0;
         }
     }
     
+    public function updateCvo($params)
+    {
+    	$this->update($params);
+    }
+    
     public function getCvoCalcul()
     {
-    	return round(($this->cvo->taux * $this->total_manquants_taxables),2);
+    	return round(($this->cvo->taux * $this->total_manquants_taxables_cvo),2);
     }
     
     public function isUpdatedCvo()
     {
-    	return (round($this->total_cvo,2) == round($this->getCvoCalcul(),2))? false : true;
+    	return ($this->total_manquants_taxables == $this->total_manquants_taxables_cvo)? false : true;
     }
 
     public function nbToComplete() {
