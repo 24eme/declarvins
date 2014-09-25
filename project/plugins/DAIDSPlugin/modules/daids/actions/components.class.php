@@ -70,7 +70,9 @@ class daidsComponents extends sfComponents
         $historique = DAIDSClient::getInstance()->getDAIDSHistorique($this->etablissement->identifiant);
         $this->new_daids = ($this->etablissement->statut != Etablissement::STATUT_ARCHIVE)? $this->getNewDAIDS($this->etablissement->identifiant) : null;
         foreach($historique->getDAIDSs() as $key => $d) {
-            $this->daids[$key] = DAIDSClient::getInstance()->find($d->_id);
+        	if ($daids = DAIDSClient::getInstance()->find($d->_id)) {
+            	$this->daids[$key] = $daids;
+        	}
         }
 
     }
