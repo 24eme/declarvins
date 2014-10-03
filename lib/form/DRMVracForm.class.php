@@ -1,6 +1,8 @@
 <?php
 class DRMVracForm extends acCouchdbForm 
 {
+	protected $_contrat_choices;
+	
 	public function configure()
 	{
 		$details_vrac = $this->getDocument()->getDetailsAvecVrac();
@@ -28,11 +30,23 @@ class DRMVracForm extends acCouchdbForm
 
     public function getFormTemplateDetailContrats($key) 
     {
-    	$object = $this->getDocument()->get($key)->vrac->add();
-        $form_embed = new DRMVracContratForm($object);
+    	$detail = $this->getDocument()->get($key);
+    	$object = $detail->vrac->add();
+    	$choices = $this->getContratChoices($detail);
+        $form_embed = new DRMVracContratForm($object, $choices);
         $form = new DRMVracCollectionTemplateForm($this, $key.'][contrats', $form_embed, 'var---nbItem---');
 
         return $form->getFormTemplate();
+    }
+    
+    public function getContratChoices($object) 
+    {
+      if (is_null($this->_contrat_choices)) {
+	   $this->_contrat_choices = $object->getContratsVracAutocomplete();
+	   $this->_contrat_choices[''] = '';
+	   ksort($this->_contrat_choices);
+      }
+      return $this->_contrat_choices;
     }
     
     public function update($values)

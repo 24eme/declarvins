@@ -1,10 +1,12 @@
 <?php
 class DRMVracContratsForm extends acCouchdbObjectForm 
 {
+	protected $_contrat_choices;
 	
 	public function configure()
 	{
-        $contrats = new DRMVracContratCollectionForm($this->getObject()->vrac);
+		$choices = $this->getContratChoices();
+        $contrats = new DRMVracContratCollectionForm($this->getObject()->vrac, $choices);
         $this->embedForm('contrats', $contrats);
     }
     
@@ -17,6 +19,16 @@ class DRMVracContratsForm extends acCouchdbObjectForm
             }
         }
         parent::bind($taintedValues, $taintedFiles);
+    }
+    
+    public function getContratChoices() 
+    {
+      if (is_null($this->_contrat_choices)) {
+	   $this->_contrat_choices = $this->getObject()->getContratsVracAutocomplete();
+	   $this->_contrat_choices[''] = '';
+	   ksort($this->_contrat_choices);
+      }
+      return $this->_contrat_choices;
     }
 
     public function updateEmbedForm($name, $form) {

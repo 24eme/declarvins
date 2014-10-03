@@ -3,6 +3,12 @@
 class DRMVracContratCollectionForm extends acCouchdbObjectForm implements FormBindableInterface 
 {
 	public $virgin_object = null;
+	protected $_contrat_choices;
+	
+	public function __construct(acCouchdbJson $object, $contratChoices, $options = array(), $CSRFSecret = null) {
+		$this->_contrat_choices = $contratChoices;
+		parent::__construct($object, $options, $CSRFSecret);
+	}
 
 	public function configure() 
 	{
@@ -10,7 +16,7 @@ class DRMVracContratCollectionForm extends acCouchdbObjectForm implements FormBi
 			$this->virgin_object = $this->getObject()->add();
 		}
 		foreach ($this->getObject() as $key => $object) {
-			$this->embedForm ($key, new DRMVracContratForm($object));
+			$this->embedForm ($key, new DRMVracContratForm($object, $this->_contrat_choices));
 		}
     }
     
@@ -27,7 +33,7 @@ class DRMVracContratCollectionForm extends acCouchdbObjectForm implements FormBi
 			if(!is_array($values) || array_key_exists($key, $this->embeddedForms)) {
 				continue;
 			}
-			$this->embedForm($key, new DRMVracContratForm($this->getObject()->add()));
+			$this->embedForm($key, new DRMVracContratForm($this->getObject()->add(), $this->_contrat_choices));
 		}
 	}
 

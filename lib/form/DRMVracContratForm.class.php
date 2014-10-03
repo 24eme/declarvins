@@ -4,6 +4,11 @@ class DRMVracContratForm extends acCouchdbObjectForm
 {
 	protected $_contrat_choices;
 	
+	public function __construct(acCouchdbJson $object, $contratChoices, $options = array(), $CSRFSecret = null) {
+		$this->_contrat_choices = $contratChoices;
+		parent::__construct($object, $options, $CSRFSecret);
+	}
+	
 	protected function updateDefaultsFromObject() {
 		parent::updateDefaultsFromObject();
         
@@ -39,11 +44,6 @@ class DRMVracContratForm extends acCouchdbObjectForm
     
     public function getContratChoices() 
     {
-      if (is_null($this->_contrat_choices)) {
-	   $this->_contrat_choices = $this->getObject()->getParent()->getParent()->getContratsVracAutocomplete();
-	   $this->_contrat_choices[''] = '';
-	   ksort($this->_contrat_choices);
-      }
       return $this->_contrat_choices;
     }
 
