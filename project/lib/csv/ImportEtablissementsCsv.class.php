@@ -135,8 +135,19 @@ class ImportEtablissementsCsv {
    			throw new sfException('has errors');
    		}
     }
+    
+    protected function completeLine($line)
+    {
+    	$nb = EtablissementCsv::NB_COL - count($line);
+    	while($nb > 0) {
+    		$line[] = '';
+    		$nb--;
+    	}
+    	return $line;
+    }
 
     protected function bind($ligne, $etab, $line) {
+    	$line = $this->completeLine($line);
     	$this->existLine($ligne, $line);
     	$etab->identifiant = trim($line[EtablissementCsv::COL_ID]);
         $etab->num_interne = trim($line[EtablissementCsv::COL_NUM_INTERNE]);

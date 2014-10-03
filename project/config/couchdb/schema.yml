@@ -116,6 +116,7 @@ Interpro:
                   revpos: { }
                   length: { }
                   stub: { } 
+                  digest: { required: false } 
       identifiant: { }
       nom: { }
       type: {  }
