@@ -37,7 +37,7 @@
 </div>
 
 <script type="text/javascript">
-$("#<?php echo $form['mandataire_exist']->renderId() ?>_0").click(function() {
+$("#<?php echo (isset($form['mandataire_exist']))? $form['mandataire_exist']->renderId() : ''; ?>_0").click(function() {
 	var select = $("#listener_mandataire_choice select");
 	var input = $("#listener_mandataire_choice input");
 	var btn = $("#listener_mandataire_choice button");
