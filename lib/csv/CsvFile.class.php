@@ -3,6 +3,7 @@
 class CsvFile 
 {
 
+  protected $current_line = 0;
   private $file = null;
   private $separator = null;
   protected $csvdata = null;
