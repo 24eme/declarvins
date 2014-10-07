@@ -28,8 +28,14 @@ EOF;
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         	if ($d = DRMClient::getInstance()->find($options['file'])) {
-        		foreach ($d->getDetails() as $detail) {
-        			$detail->add('interpro', 'INTERPRO-IVSE');
+        		if ($d->declaration->certifications->exist('IGP')) {
+        			if ($d->declaration->certifications->get('IGP')->genres->exist('TRANQ')) {
+        				if ($d->declaration->certifications->get('IGP')->genres->get('TRANQ')->appellations->exist('IGP')) {
+			        		foreach ($d->declaration->certifications->get('IGP')->genres->get('TRANQ')->appellations->get('IGP')->getProduits() as $detail) {
+			        			$detail->add('interpro', 'INTERPRO-IVSE');
+			        		}
+        				}
+        			}
         		}
         		$d->save();
         		$this->logSection('drm', $drm." : succès de la mise à jour.");
