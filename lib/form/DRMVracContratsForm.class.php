@@ -1,7 +1,6 @@
 <?php
 class DRMVracContratsForm extends acCouchdbObjectForm 
 {
-	protected $_contrat_choices;
 	
 	public function configure()
 	{
@@ -23,12 +22,10 @@ class DRMVracContratsForm extends acCouchdbObjectForm
     
     public function getContratChoices() 
     {
-      if (is_null($this->_contrat_choices)) {
-	   $this->_contrat_choices = $this->getObject()->getContratsVracAutocomplete();
-	   $this->_contrat_choices[''] = '';
-	   ksort($this->_contrat_choices);
-      }
-      return $this->_contrat_choices;
+	   $contrat_choices = $this->getObject()->getContratsVracAutocomplete();
+	   $contrat_choices[''] = '';
+	   ksort($contrat_choices);
+      	return $contrat_choices;
     }
 
     public function updateEmbedForm($name, $form) {
