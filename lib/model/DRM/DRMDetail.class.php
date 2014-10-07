@@ -417,9 +417,9 @@ class DRMDetail extends BaseDRMDetail {
     public function storeInterpro()
     {
     	if (($config = $this->getConfig()) && $this->cvo->taux > 0) {
-    		$this->interpro = $config->getDocument()->interpro;
+    		$this->add('interpro', $config->getDocument()->interpro);
     	} else {
-    		$this->interpro = null;
+    		$this->add('interpro', null);
     	}
     }
     
