@@ -27,7 +27,7 @@ EOF;
         // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-        	if ($d = DRMClient::getInstance()->find($options['file'])) {
+        	if ($d = DRMClient::getInstance()->find($options['drm'])) {
         		if ($d->declaration->certifications->exist('IGP')) {
         			if ($d->declaration->certifications->get('IGP')->genres->exist('TRANQ')) {
         				if ($d->declaration->certifications->get('IGP')->genres->get('TRANQ')->appellations->exist('IGP')) {
