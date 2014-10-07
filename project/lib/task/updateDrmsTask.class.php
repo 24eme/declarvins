@@ -7,6 +7,7 @@ class updateDrmsTask extends sfBaseTask {
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
+      		new sfCommandOption('drm', null, sfCommandOption::PARAMETER_REQUIRED, null)
                 // add your own options here
         ));
 
@@ -26,16 +27,13 @@ EOF;
         // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-        $drms = array(
-        			'DRM-C7000-2014-01'
-        );
-        foreach ($drms as $drm) {
-        	if ($d = DRMClient::getInstance()->find($drm)) {
-        		$d->update();
+        	if ($d = DRMClient::getInstance()->find($options['file'])) {
+        		foreach ($d->getDetails() as $detail) {
+        			$detail->add('interpro', 'INTERPRO-IVSE');
+        		}
         		$d->save();
         		$this->logSection('drm', $drm." : succès de la mise à jour.");
         	}
-        }
     }
 
 }
