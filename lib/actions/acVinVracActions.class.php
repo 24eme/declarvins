@@ -187,7 +187,7 @@ class acVinVracActions extends sfActions
 				}
 				$this->vrac->save();
 				$sendEmail = (bool)$this->form->getValue('email');
-				if (!$this->configurationVracEtapes->next($this->vrac->etape)) {
+				if (!$this->configurationVracEtapes->next($this->etape)) {
 					$interpro = $this->getInterpro($this->vrac, $this->etablissement);
 					$this->vrac->interpro = $interpro->get('_id');
 					$this->vrac->save();
