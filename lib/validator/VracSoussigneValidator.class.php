@@ -40,11 +40,11 @@ class VracSoussigneValidator extends sfValidatorBase {
     					$errorSchema->addError(new sfValidatorError($this, 'impossible_acheteur_vendeur'));
     					$hasError = true;
     	}
-    	if (isset($values['vous_etes_identifiant']) && isset($values['acheteur_identifiant']) && $values ['vous_etes_identifiant'] == $values ['acheteur_identifiant']) {
+    	if (isset($values['vous_etes_identifiant']) && isset($values['acheteur_identifiant']) && isset($values['vous_etes']) && $values['vous_etes'] != VracClient::VRAC_TYPE_ACHETEUR && $values ['vous_etes_identifiant'] == $values ['acheteur_identifiant']) {
     					$errorSchema->addError(new sfValidatorError($this, 'impossible_acheteur_vendeur'));
     					$hasError = true;
     	}
-    	if (isset($values['vous_etes_identifiant']) && isset($values['vendeur_identifiant']) && $values ['vous_etes_identifiant'] == $values ['vendeur_identifiant']) {
+    	if (isset($values['vous_etes_identifiant']) && isset($values['vendeur_identifiant']) && isset($values['vous_etes']) && $values['vous_etes'] != VracClient::VRAC_TYPE_VENDEUR && $values ['vous_etes_identifiant'] == $values ['vendeur_identifiant']) {
     					$errorSchema->addError(new sfValidatorError($this, 'impossible_acheteur_vendeur'));
     					$hasError = true;
     	}
