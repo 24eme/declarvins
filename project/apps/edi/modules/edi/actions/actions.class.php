@@ -199,7 +199,7 @@ class ediActions extends sfActions
     } else {
     	$result[] = array('ERREUR', 'COHERENCE ', 0, 'Appel en POST uniquement');
     }
-    return $this->renderSimpleCsv($result);
+    return $this->renderSimpleCsv($result, "drm");
   }
   
   public function executeStreamVracEtablissement(sfWebRequest $request) 
@@ -257,7 +257,7 @@ class ediActions extends sfActions
     } else {
     	$result[] = array('ERREUR', 'COHERENCE ', 0, 'Appel en POST uniquement');
     }
-    return $this->renderSimpleCsv($result);
+    return $this->renderSimpleCsv($result, "vrac");
   }
   
   public function executeStreamStatistiquesBilanDrm(sfWebRequest $request) 
@@ -371,7 +371,7 @@ class ediActions extends sfActions
     } else {
     	$result[] = array('ERREUR', 'COHERENCE ', 0, 'Appel en POST uniquement');
     }
-    return $this->renderSimpleCsv($result);
+    return $this->renderSimpleCsv($result, "grc");
   }
   
   protected function vracCallback($interpro, $items)
@@ -418,7 +418,7 @@ class ediActions extends sfActions
     return $this->renderText($csv_file);
   }
 	
-  protected function renderSimpleCsv($items, $date = null) 
+  protected function renderSimpleCsv($items, $type, $date = null) 
   {
     $this->setLayout(false);
     $csv_file = '';
@@ -432,7 +432,7 @@ class ediActions extends sfActions
     }
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('md5', md5($csv_file));
-    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$lastDate."_resultat_import_drm.csv");
+    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$lastDate."_resultat_import_".$type.".csv");
     $this->response->setHttpHeader('LastDocDate', $lastDate);
     $this->response->setHttpHeader('Last-Modified', date('r', strtotime($lastDate)));
     return $this->renderText(utf8_decode($csv_file));
