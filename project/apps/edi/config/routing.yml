@@ -39,3 +39,6 @@ pushVracEtablissementEdi:
 viewDRMEdi:
   url: /edi/drm/:identifiant/:annee/:mois/:rectificative
   param: {module: edi, action: viewDRM, rectificative: ''}
+pushGrcEdi:
+  url: /edi/push/grc/:interpro
+  param: {module: edi, action: pushGrc}
