@@ -339,40 +339,41 @@ class ediActions extends sfActions
     return $this->renderText($csv_file);
   }
   
-  public function executePushGrc(sfWebRequest $request)
-  {
-  	ini_set('memory_limit', '2048M');
-  	set_time_limit(0);  
-    $interpro = $request->getParameter('interpro');
-    $this->securizeInterpro($interpro);
-    if (!preg_match('/^INTERPRO-/', $interpro)) {
-		$interpro = 'INTERPRO-'.$interpro;
-    }	
-	$formUploadCsv = new UploadCSVForm();
-    $result = array();
-	if ($request->isMethod('post')) {
-    	$formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
-      	if ($formUploadCsv->isValid()) {			
-			$file = new CsvFile(sfConfig::get('sf_data_dir') . '/upload/' . $formUploadCsv->getValue('file')->getMd5());
-  			$interpro->storeAttachment($file, 'text/csv', 'etablissements.csv');
-  			$import = new ImportEtablissementsCsv($interpro);
-      		try {
-	            $nb = $import->updateOrCreate();
-	            $result[0] = array('OK', '', 0, $nb.' établissement(s) importé(s)');
-	        } catch (Exception $e) {
-	        	foreach ($import->getErrors() as $k => $v) {
-	        		$result[$k] = array('ERREUR', 'LIGNE', $k, implode(' - ', $v));
-	        	}
+	public function executePushGrc(sfWebRequest $request)
+	{
+        ini_set('memory_limit', '2048M');
+        set_time_limit(0);
+    	$interpro = $request->getParameter('interpro');
+    	$this->securizeInterpro($interpro);
+    	if (!preg_match('/^INTERPRO-/', $interpro)) {
+        	$interpro = 'INTERPRO-'.$interpro;
+    	}   
+        $interpro = InterproClient::getInstance()->getById($interpro);
+        $formUploadCsv = new UploadCSVForm();
+    	$result = array();
+        if ($request->isMethod('post')) {
+	        $formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
+	        if ($formUploadCsv->isValid()) {
+	        	$file = sfConfig::get('sf_data_dir') . '/upload/' . $formUploadCsv->getValue('file')->getMd5();
+	            $interpro->storeAttachment($file, 'text/csv', 'etablissements.csv');
+	            $import = new ImportEtablissementsCsv($interpro);
+	            try {
+	            	$nb = $import->updateOrCreate();
+	                $result[0] = array('OK', '', 0, $nb.' établissement(s) importé(s)');
+	            } catch (Exception $e) {
+	            	foreach ($import->getErrors() as $k => $v) {
+	                	$result[$k] = array('ERREUR', 'LIGNE', $k, implode(' - ', $v));
+	                }
+	            }
+	        } else {
+	                $result[] = array('ERREUR', 'COHERENCE', 0, 'Fichier csv non valide');
 	        }
-      	} else {
-      		$result[] = array('ERREUR', 'COHERENCE', 0, 'Fichier csv non valide');
-      	}
-      	
-    } else {
-    	$result[] = array('ERREUR', 'COHERENCE ', 0, 'Appel en POST uniquement');
-    }
-    return $this->renderSimpleCsv($result, "grc");
-  }
+    	} else {
+        	$result[] = array('ERREUR', 'COHERENCE ', 0, 'Appel en POST uniquement');
+    	}
+    	return $this->renderSimpleCsv($result, "grc");
+	}
+  
   
   protected function vracCallback($interpro, $items)
   {
