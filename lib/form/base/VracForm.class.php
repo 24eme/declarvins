@@ -101,12 +101,12 @@ class VracForm extends acCouchdbObjectForm
     
     public function getProduits()
     {
-    	$departements = null;
+    	$zones = array();
     	if (($etablissement = $this->getEtablissement()) && $this->getObject()->vendeur_type == EtablissementFamilles::FAMILLE_PRODUCTEUR) {
-            $departements = array($etablissement->getDepartement());
+            $zones = $etablissement->getConfigurationZones();
         }
         $date = $this->getObject()->valide->date_saisie;
-    	$produits = $this->getConfiguration()->formatVracProduitsByDepartement($departements, $date);
+    	$produits = $this->getConfiguration()->formatVracProduitsByZones($zones, $date);
     	$produits[''] = '';
     	ksort($produits);
     	return $produits;
