@@ -106,6 +106,11 @@
             <?php echo $form['edi']->render() ?>
         </div>
     </div>
+    <div class="ligne_form" id="inscription-zones">
+        <?php echo $form['configuration_zones']->renderError() ?>
+        <?php echo $form['configuration_zones']->renderLabel() ?>
+        <?php echo $form['configuration_zones']->render() ?>
+    </div>
     <div class="ligne_form ligne_form_large">
         <label for="champ_16-1">L'adresse de votre comptabilité est-elle différente de la précédente ?</label>
         <div class="champ_form champ_form_radio_cb">

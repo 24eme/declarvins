@@ -34,13 +34,13 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 		}
 	}
 	
-	public function getProduits($departements = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null) 
+	public function getProduits($onlyForDrmVrac = false, $cvoNeg = false, $date = null) 
 	{   
-		$key = sprintf("%s_%s_%s_%s", is_array($departements) ? implode('_', $departements) : $departements, $onlyForDrmVrac, $cvoNeg, $date);
+		$key = sprintf("%s_%s_%s", $onlyForDrmVrac, $cvoNeg, $date);
 		if(!array_key_exists($key, $this->produits)) {
 			$produits = array();
 	      	foreach($this->getChildrenNode() as $key => $item) {
-	        	$produits = array_merge($produits, $item->getProduits($departements, $onlyForDrmVrac, $cvoNeg, $date));
+	        	$produits = array_merge($produits, $item->getProduits($onlyForDrmVrac, $cvoNeg, $date));
 	      	}
 	      	$this->produits[$key] = $produits;
 		}
@@ -61,13 +61,13 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 		return $this->tree_produits[$key];
     }
 	
-	public function getTotalLieux($departements = null) 
+	public function getTotalLieux() 
 	{
-		$key = sprintf("%s", is_array($departements) ? implode('_', $departements) : $departements);
+		$key = sprintf("%s", 'all');
 		if(!array_key_exists($key, $this->total_lieux)) {
 	      	$lieux = array();
 	      	foreach($this->getChildrenNode() as $key => $item) {
-	        	$lieux = array_merge($lieux, $item->getTotalLieux($departements));
+	        	$lieux = array_merge($lieux, $item->getTotalLieux());
 	      	}
 	    	$this->total_lieux[$key] = $lieux;
 		}
@@ -75,14 +75,14 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
   	}
   	
   	
-  	public function hasProduits($departements = null, $onlyForDrmVrac = false)
+  	public function hasProduits($onlyForDrmVrac = false)
   	{
-  		return (count($this->getProduits($departements, $onlyForDrmVrac)) > 0)? true : false; 
+  		return (count($this->getProduits($onlyForDrmVrac)) > 0)? true : false; 
   	}
   	
-  	public function hasLieux($departements = null)
+  	public function hasLieux()
   	{
-  		return (count($this->getTotalLieux($departements)) > 0)? true : false; 
+  		return (count($this->getTotalLieux()) > 0)? true : false; 
   	}
     
     public function getAllAppellations()

@@ -69,6 +69,25 @@ EOF;
   	
     $this->logSection('configuration', 'produits importés');
     
+    $zones = ConfigurationZoneClient::getInstance()->getZonesInitialConfiguration();
+    $zonesIds = array();
+    
+    foreach ($zones as $zone) {
+  		if ($z = acCouchdbManager::getClient()->retrieveDocumentById($zone->_id)) {
+	        $z->delete();
+	    }
+    	$zone->save();
+    	foreach ($zone->liaisons as $interproId) {
+    		if ($interpro = acCouchdbManager::getClient()->retrieveDocumentById($interproId)) {
+    			$interpro->zone = $zone->_id;
+    			$interpro->save();
+    		}
+    	}
+    	$zonesIds[] = $zone->_id;
+    }
+    $configuration->zones = $zonesIds;
+    
+    $this->logSection('configuration', 'zones importés');
     
     $csv = new VracConfigurationCsvFile($configuration, $import_dir.'/vrac.csv');
     $configuration = $csv->importConfigurationVrac();

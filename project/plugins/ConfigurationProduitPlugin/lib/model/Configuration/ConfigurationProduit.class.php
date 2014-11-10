@@ -131,15 +131,15 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	return array_values(array_unique($this->declaration->getAllDepartements()));
     }
     
-    public function getProduits($hash = null, $departements = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null)
+    public function getProduits($hash = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null)
     {
     	if ($hash) {
     		if ($this->exist($hash)) {
-    			return $this->get($hash)->getProduits($departements, $onlyForDrmVrac, $cvoNeg, $date);
+    			return $this->get($hash)->getProduits($onlyForDrmVrac, $cvoNeg, $date);
     		}
     		return array();
     	}
-    	return $this->declaration->getProduits($departements, $onlyForDrmVrac, $cvoNeg, $date);
+    	return $this->declaration->getProduits($onlyForDrmVrac, $cvoNeg, $date);
     }
     
     public function getTreeProduits()
@@ -147,15 +147,15 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	return $this->declaration->getTreeProduits();
     }
     
-    public function getTotalLieux($hash = null, $departements = null)
+    public function getTotalLieux($hash = null)
     {
     	if ($hash) {
     		if ($this->exist($hash)) {
-    			return $this->get($hash)->getTotalLieux($departements);
+    			return $this->get($hash)->getTotalLieux();
     		}
     		return array();
     	}
-    	return $this->declaration->getTotalLieux($departements);
+    	return $this->declaration->getTotalLieux();
     }
     
     public function getInterproObject()

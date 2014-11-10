@@ -1,0 +1,31 @@
+ConfigurationZone:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      identifiant: {  }
+      libelle: {  }
+      administratrice: { type: integer }
+      transparente: { type: integer }
+      liaisons: 
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
+      produits: 
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
+      inscriptions: 
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
+      accessibilites: 
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
+      type: {  }
+      

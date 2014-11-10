@@ -1568,6 +1568,10 @@ a.highlight_link:hover {
   list-style: square;
   margin: 0 0 0 25px;
 }
+#creation_compte #inscription-zones ul li {
+  list-style: none;
+  margin: 0;
+}
 #creation_compte .col {
   display: inline-block;
   vertical-align: top;

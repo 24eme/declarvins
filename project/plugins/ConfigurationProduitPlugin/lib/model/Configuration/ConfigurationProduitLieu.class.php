@@ -44,7 +44,7 @@ class ConfigurationProduitLieu extends BaseConfigurationProduitLieu
         return false;
     }
     
-    public function getTotalLieux($departements = null) 
+    public function getTotalLieux() 
     {
     	if ($departements) {
     		if (!is_array($departements)) {

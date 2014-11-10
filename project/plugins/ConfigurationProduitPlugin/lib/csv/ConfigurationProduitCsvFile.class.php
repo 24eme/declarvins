@@ -97,7 +97,7 @@ class ConfigurationProduitCsvFile extends CsvFile
   	
   	public function exportProduits()
   	{
-  		$produits = $this->config->getProduits(null, null, false, true);
+  		$produits = $this->config->getProduits(null, false, true);
   		$result = array();
   		$i = 0;
   		$result[$i] = self::getCsvProduitsEntetes();
