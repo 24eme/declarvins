@@ -61,3 +61,15 @@ Etablissement:
               commune: {  }
               pays: {  }
       service_douane: {  }
+      zones:
+        type: collection
+        required: false
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  libelle: {  }
+                  transparente: {  }
+                  administratrice: {  }

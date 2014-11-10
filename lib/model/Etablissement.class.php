@@ -10,16 +10,6 @@ class Etablissement extends BaseEtablissement {
     const STATUT_DELIE = "DELIE";
     const STATUT_CSV = "CSV";
     
-    /**
-     * @return _Compte
-     */
-    public function getInterproObject() {
-        if (is_null($this->_interpro)) {
-            $this->_interpro = InterproClient::getInstance()->find($this->interpro);
-        }
-        
-        return $this->_interpro;
-    }
     
     public function getCompteObject() {
         if (is_null($this->_compte)) {
@@ -135,5 +125,14 @@ class Etablissement extends BaseEtablissement {
     		}
     	}
     	return null;
+    }
+    
+    public function getConfigurationZones()
+    {
+    	$zones = array();
+    	foreach ($this->zones as $configurationZoneId => $zoneInfos) {
+    		$zones[$configurationZoneId] = ConfigurationZoneClient::getInstance()->find($configurationZoneId);
+    	}
+    	return $zones;
     }
 }

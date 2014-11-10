@@ -61,22 +61,7 @@ class WidgetEtablissement extends sfWidgetFormChoice
     }
 
     public function getChoices() {
-        if(!$this->identifiant) {
-
-            return array();
-        }
-        $etablissements = EtablissementAllView::getInstance()->findByEtablissement($this->identifiant);
-        if (!$etablissements) {
-
-            return array();
-        }
-        
-        $choices = array();
-        foreach($etablissements->rows as $key => $etablissement) {
-            $choices[EtablissementClient::getInstance()->getIdentifiant($etablissement->id)] = EtablissementAllView::getInstance()->makeLibelle($etablissement->key);
-        }
-
-        return $choices;
+        return array();
     }
 
     public function render($name, $value = null, $attributes = array(), $errors = array())

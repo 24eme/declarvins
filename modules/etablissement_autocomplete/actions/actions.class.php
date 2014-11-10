@@ -6,7 +6,7 @@ class etablissement_autocompleteActions extends sfActions
   	public function executeAll(sfWebRequest $request) {
 	    $interpro = $request->getParameter('interpro_id');
 		$only_actif = $request->getParameter('only_actif');
-	    $this->json = $this->matchEtablissements(EtablissementAllView::getInstance()->findByInterpro($interpro)->rows,
+	    $this->json = $this->matchEtablissements(EtablissementAllView::getInstance()->findByZone($this->getZone($interpro))->rows,
 	    								   $request->getParameter('q'),
 	    								   $request->getParameter('limit', 100),
 	    								   $only_actif);
@@ -16,7 +16,7 @@ class etablissement_autocompleteActions extends sfActions
 	public function executeAllAdmin(sfWebRequest $request) {
 	    $interpro = $request->getParameter('interpro_id');
 		$only_actif = $request->getParameter('only_actif');
-	    $this->json = $this->matchEtablissements(EtablissementAllView::getInstance()->findAllByInterpro($interpro),
+	    $this->json = $this->matchEtablissements(EtablissementAllView::getInstance()->findAllByZone($this->getZone($interpro)),
 	    								   $request->getParameter('q'),
 	    								   $request->getParameter('limit', 100),
 	    								   $only_actif);
@@ -28,7 +28,7 @@ class etablissement_autocompleteActions extends sfActions
 		$familles = $request->getParameter('familles');
 		$only_actif = $request->getParameter('only_actif');
 	    $this->json = $this->matchEtablissements(
-	    	EtablissementAllView::getInstance()->findByInterproAndFamilles($interpro, explode('|', $familles)),
+	    	EtablissementAllView::getInstance()->findByZoneAndFamilles($this->getZone($interpro), explode('|', $familles)),
 		    $request->getParameter('q'),
 		   	$request->getParameter('limit', 100),
 		   	$only_actif
@@ -46,7 +46,7 @@ class etablissement_autocompleteActions extends sfActions
 			$result[$famille[$i]] = $sous_famille[$i];
 		}
 	    $this->json = $this->matchEtablissements(
-	    	EtablissementAllView::getInstance()->findByInterproAndSousFamilles($interpro, $result),
+	    	EtablissementAllView::getInstance()->findByZoneAndSousFamilles($this->getZone($interpro), $result),
 		    $request->getParameter('q'),
 		   	$request->getParameter('limit', 100),
 		   	$only_actif
@@ -73,6 +73,12 @@ class etablissement_autocompleteActions extends sfActions
 	      
 	    }
 	    return $json;
+	}
+	
+	protected function getZone($interproId)
+	{
+		$interpro = InterproClient::getInstance()->find($interproId);
+		return $interpro->zone;
 	}
 
 }

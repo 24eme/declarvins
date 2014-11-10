@@ -3,7 +3,7 @@
 class EtablissementAllView extends acCouchdbView
 {
 	const KEY_STATUT_FILTRE = 0;
-	const KEY_INTERPRO_ID = 1;
+	const KEY_ZONE_ID = 1;
 	const KEY_FAMILLE = 2;
 	const KEY_SOUS_FAMILLE = 3;
 	const KEY_SOCIETE = 4;
@@ -25,75 +25,61 @@ class EtablissementAllView extends acCouchdbView
         return acCouchdbManager::getView('etablissement', 'all', 'Etablissement');
     }
 
-    public function findByInterpro($interpro) {
+    public function findByZone($zone) {
 
-    	return $this->client->startkey(array(Etablissement::STATUT_ACTIF, $interpro))
-                    		->endkey(array(Etablissement::STATUT_ACTIF, $interpro, array()))
+    	return $this->client->startkey(array(Etablissement::STATUT_ACTIF, $zone))
+                    		->endkey(array(Etablissement::STATUT_ACTIF, $zone, array()))
                     		->getView($this->design, $this->view);
     }
 
-    public function findAllByInterpro($interpro) {
-    	$actifs = $this->client->startkey(array(Etablissement::STATUT_ACTIF, $interpro))
-                    		->endkey(array(Etablissement::STATUT_ACTIF, $interpro, array()))
+    public function findAllByZone($zone) {
+    	$actifs = $this->client->startkey(array(Etablissement::STATUT_ACTIF, $zone))
+                    		->endkey(array(Etablissement::STATUT_ACTIF, $zone, array()))
                     		->getView($this->design, $this->view)->rows;
-        $archives = $this->client->startkey(array(Etablissement::STATUT_ARCHIVE, $interpro))
-                    		->endkey(array(Etablissement::STATUT_ARCHIVE, $interpro, array()))
+        $archives = $this->client->startkey(array(Etablissement::STATUT_ARCHIVE, $zone))
+                    		->endkey(array(Etablissement::STATUT_ARCHIVE, $zone, array()))
                     		->getView($this->design, $this->view)->rows;
 		return array_merge($actifs, $archives);
     }
 
-    public function findByInterproAndFamilles($interpro, array $familles) {
+    public function findByZoneAndFamilles($zone, array $familles) {
     	$etablissements = array();
     	foreach($familles as $famille) {
-    		$etablissements = array_merge($etablissements, $this->findByInterproAndFamille($interpro, $famille)->rows);
+    		$etablissements = array_merge($etablissements, $this->findByZoneAndFamille($zone, $famille)->rows);
     	}
-
     	return $etablissements;
     }
 
-    public function findByInterproAndSousFamilles($interpro, $sous_familles) {
+    public function findByZoneAndSousFamilles($zone, $sous_familles) {
     	$etablissements = array();
     	foreach($sous_familles as $famille => $sous_famille) {
     		if ($sous_famille)
-    			$etablissements = array_merge($etablissements, $this->findByInterproAndSousFamille($interpro, $famille, $sous_famille)->rows);
+    			$etablissements = array_merge($etablissements, $this->findByZoneAndSousFamille($zone, $famille, $sous_famille)->rows);
     		else 
-    			$etablissements = array_merge($etablissements, $this->findByInterproAndFamille($interpro, $famille)->rows);
+    			$etablissements = array_merge($etablissements, $this->findByZoneAndSousFamille($zone, $famille)->rows);
     	}
     	return $etablissements;
     }
 
-    public function findByInterproAndFamille($interpro, $famille) {
-    	return $this->client->startkey(array(Etablissement::STATUT_ACTIF, $interpro, $famille))
-                    		->endkey(array(Etablissement::STATUT_ACTIF, $interpro, $famille, array()))
+    public function findByZoneAndFamille($zone, $famille) {
+    	return $this->client->startkey(array(Etablissement::STATUT_ACTIF, $zone, $famille))
+                    		->endkey(array(Etablissement::STATUT_ACTIF, $zone, $famille, array()))
                     		->getView($this->design, $this->view);
     }
 
-    public function findByInterproAndSousFamille($interpro, $famille, $sous_famille) {
+    public function findByZoneAndSousFamille($zone, $famille, $sous_famille) {
 
-    	return $this->client->startkey(array(Etablissement::STATUT_ACTIF, $interpro, $famille, $sous_famille))
-                    		->endkey(array(Etablissement::STATUT_ACTIF, $interpro, $famille, $sous_famille, array()))
+    	return $this->client->startkey(array(Etablissement::STATUT_ACTIF, $zone, $famille, $sous_famille))
+                    		->endkey(array(Etablissement::STATUT_ACTIF, $zone, $famille, $sous_famille, array()))
                     		->getView($this->design, $this->view);
-    }
-
-    public function findByEtablissement($identifiant) {
-        $etablissement = $this->client->find($identifiant, acCouchdbClient::HYDRATE_JSON);
-
-        if(!$etablissement) {
-            return null;
-        }
-
-        return $this->client->startkey(array(Etablissement::STATUT_ACTIF, $etablissement->interpro, $etablissement->famille, $etablissement->sous_famille, null, $etablissement->_id))
-                            ->endkey(array(Etablissement::STATUT_ACTIF, $etablissement->interpro, $etablissement->famille, $etablissement->sous_famille, null, $etablissement->_id, array()))
-                            ->getView($this->design, $this->view);
-        
     }
 
     public function findByContrat($contrat) {
 		$etablissements = $this->client->getView($this->design, $this->view)->rows;
 		$result = array();
 		foreach ($etablissements as $etablissement) {
-			if ($etablissement->key[self::KEY_CONTRAT] == $contrat) {
-				$result[] = $etablissement;
+			if ($etablissement->key[self::KEY_CONTRAT] == $contrat && !in_array($etablissement->key[self::KEY_IDENTIFIANT], array_keys($result))) {
+				$result[$etablissement->key[self::KEY_IDENTIFIANT]] = $etablissement;
 			}
 		}
 		return $result;
@@ -103,8 +89,8 @@ class EtablissementAllView extends acCouchdbView
 		$etablissements = $this->client->getView($this->design, $this->view)->rows;
 		$result = array();
 		foreach ($etablissements as $etablissement) {
-			if ($etablissement->key[self::KEY_DOUANE] == $douane) {
-				$result[] = $etablissement->key;
+			if ($etablissement->key[self::KEY_DOUANE] == $douane && !in_array($etablissement->key[self::KEY_IDENTIFIANT], array_keys($result))) {
+				$result[$etablissement->key[self::KEY_IDENTIFIANT]] = $etablissement->key;
 			}
 		}
 		return $result;
