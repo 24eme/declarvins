@@ -16,15 +16,15 @@ class ConfigurationVrac extends BaseConfigurationVrac {
 	const CONDITION_PAIEMENT_ECHEANCIER = 'echeancier_paiement';
 	
     public function getVendeurs() {
-    	return EtablissementAllView::getInstance()->findByInterproAndFamille($this->getKey(), self::FAMILLE_VENDEUR)->rows;
+    	return EtablissementAllView::getInstance()->findByZoneAndFamille($this->getInterpro()->zone, self::FAMILLE_VENDEUR)->rows;
     }
     
     public function getAcheteurs() {
-    	return EtablissementAllView::getInstance()->findByInterproAndFamille($this->getKey(), self::FAMILLE_ACHETEUR)->rows;
+    	return EtablissementAllView::getInstance()->findByZoneAndFamille($this->getInterpro()->zone, self::FAMILLE_ACHETEUR)->rows;
     }
     
     public function getMandataires() {
-    	return EtablissementAllView::getInstance()->findByInterproAndFamille($this->getKey(), self::FAMILLE_MANDATAIRE)->rows;
+    	return EtablissementAllView::getInstance()->findByZoneAndFamille($this->getInterpro()->zone, self::FAMILLE_MANDATAIRE)->rows;
     }
     /*
      * @todo 
@@ -119,13 +119,11 @@ class ConfigurationVrac extends BaseConfigurationVrac {
     	return InterproClient::getInstance()->find($this->getKey());
     }
 
-    public function formatVracProduitsByDepartement($departements = null, $date = null) {
-        if (!$departements) {
-                $departements = $this->getInterpro()->departements->toArray();
-        } elseif (!is_array($departements)) {
-                $departements = array($departements);
+    public function formatVracProduitsByZones($zones = array(), $date = null) {
+        if (!$zones) {
+                $zones = array($this->getInterpro()->zone => ConfigurationZoneClient::getInstance()->find($this->getInterpro()->zone));
         }
-        return $this->getConfig()->getFormattedProduits(null, $departements, true, "%g% %a% %m% %l% %co% %ce%", false,  $date);
+        return $this->getConfig()->getFormattedProduits(null, $zones, true, "%g% %a% %m% %l% %co% %ce%", false,  $date);
     }
     
 }

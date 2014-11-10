@@ -10,6 +10,11 @@ Configuration:
         definition:
           fields:
             '*': {  }
+      zones:
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
       vrac:
         type: collection
         definition:

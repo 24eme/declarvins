@@ -12,6 +12,7 @@ class Configuration extends BaseConfiguration
     protected $_configuration_produits_ANIVIN = null;
     protected $_configuration_produits_CIVL = null;
     protected $_configuration_produits_IO = null;
+    protected $_zones = null;
     
     protected static $stocks_debut = array(
     	'bloque' => 'Dont Vin bloqué / Reserve',
@@ -123,22 +124,24 @@ class Configuration extends BaseConfiguration
     	return $configuration;
     }
 
-    public function getFormattedProduits($hash = null, $departements, $onlyForDrmVrac = false, $format = "%g% %a% %m% %l% %co% %ce%", $cvoNeg = false, $date = null)
+    public function getFormattedProduits($hash = null, $zones, $onlyForDrmVrac = false, $format = "%g% %a% %m% %l% %co% %ce%", $cvoNeg = false, $date = null)
     {
     	$produits = array();
-    	$configuration = $this->getConfigurationProduitsComplete();
-    	foreach ($configuration as $interpro => $configurationProduits) {
-    		$produits = array_merge($produits, $configurationProduits->getProduits($hash, $departements, $onlyForDrmVrac, $cvoNeg, $date));
+    	foreach ($zones as $zoneId => $zone) {
+	    	foreach ($zone->getConfigurationProduits() as $configurationProduitsId => $configurationProduits) {
+	    		$produits = array_merge($produits, $configurationProduits->getProduits($hash, $onlyForDrmVrac, $cvoNeg, $date));
+	    	}
     	}
     	return $this->formatWithCode($produits, $format);
     }
     
-    public function getFormattedLieux($hash = null, $departements, $format = "%g% %a% %m% %l%")
+    public function getFormattedLieux($hash = null, $zones, $format = "%g% %a% %m% %l%")
     {
     	$lieux = array();
-    	$configuration = $this->getConfigurationProduitsComplete();
-    	foreach ($configuration as $interpro => $configurationProduits) {
-    		$lieux = array_merge($lieux, $configurationProduits->getTotalLieux($hash, $departements));
+    	foreach ($zones as $zoneId => $zone) {
+	    	foreach ($zone->getConfigurationProduits() as $configurationProduitsId => $configurationProduits) {
+	    		$lieux = array_merge($lieux, $configurationProduits->getTotalLieux($hash));
+	    	}
     	}
     	return $this->format($lieux, $format);
     }
@@ -198,6 +201,41 @@ class Configuration extends BaseConfiguration
     public function getConfigurationDAIDS($interpro)
     {
     	return $this->daids->interpro->get($interpro);
+    }
+    
+    public function getAllZones()
+    {
+    	if (is_null($this->_zones)) {
+    		$this->_zones = array();
+    		foreach ($this->zones as $zone) {
+    			$this->_zones[$zone] = acCouchdbManager::getClient()->retrieveDocumentById($zone);
+    		}
+    	}
+    	return $this->_zones;
+    }
+    
+    public function getAdministratriceZones($administratrice = true)
+    {
+    	$zones = $this->getAllZones();
+    	$result = array();
+    	foreach ($zones as $id => $zone) {
+    		if ($zone->administratrice) {
+    			$result[$id] = $zone;
+    		}
+    	}
+    	return ($administratrice)? $result : array_diff_key($zones, $result);
+    }
+    
+    public function getTransparenteZones($transparente = true)
+    {
+    	$zones = $this->getAllZones();
+    	$result = array();
+    	foreach ($zones as $id => $zone) {
+    		if ($zone->transparente) {
+    			$result[$id] = $zone;
+    		}
+    	}
+    	return ($transparente)? $result : array_diff_key($zones, $result);
     }
 
     public function save() 
