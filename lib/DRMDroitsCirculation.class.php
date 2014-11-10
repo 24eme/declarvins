@@ -48,13 +48,13 @@ class DRMDroitsCirculation
 	
 	public function calculDroits() 
     {
-    	$mergeSorties = array();
-    	$mergeEntrees = array();
-    	if ($this->drm->getInterpro()->getKey() == Interpro::INTERPRO_KEY.Interpro::INTER_RHONE_ID) {
-    		$mergeSorties = DRMDroits::getDroitSortiesInterRhone();
-    		$mergeEntrees = DRMDroits::getDroitEntreesInterRhone();
-    	}
         foreach ($this->drm->getDetails() as $detail) {
+	        $mergeSorties = array();
+	    	$mergeEntrees = array();
+	    	if ($detail->interpro == Interpro::INTERPRO_KEY.Interpro::INTER_RHONE_ID) {
+	    		$mergeSorties = DRMDroits::getDroitSortiesInterRhone();
+	    		$mergeEntrees = DRMDroits::getDroitEntreesInterRhone();
+	    	}
         	$certification = $detail->getCertification()->getKey();
         	$droit = $detail->getDroit(ConfigurationProduit::NOEUD_DROIT_DOUANE);
         	$taux = ($droit)? $droit->taux : 0;

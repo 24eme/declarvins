@@ -67,7 +67,8 @@ class DRMProduitAjoutForm extends acCouchdbForm
     
     public function getProduits() 
     {
-    	return array_merge(array("" => ""), $this->_config->getFormattedProduits($this->getHash(), $this->_drm->getDepartement(), false, "%g% %a% %m% %l% %co% %ce%", false, $this->_drm->getFormattedDateFromPeriode()));
+    	$etablissement = $this->_drm->getEtablissement();
+    	return array_merge(array("" => ""), $this->_config->getFormattedProduits($this->getHash(), $etablissement->getConfigurationZones(), false, "%g% %a% %m% %l% %co% %ce%", false, $this->_drm->getFormattedDateFromPeriode()));
     }
 
     public function addProduit() {

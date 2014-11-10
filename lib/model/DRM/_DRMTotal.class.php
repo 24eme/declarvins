@@ -259,26 +259,7 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     }
   
     abstract public function getChildrenNode();
-    
-	public function getDroits() 
-	{
-		throw new sfException('Utilisé ?');
-    	$droits = array();
-    	if ($this->getConfig()->hasDroits()) {
-      		foreach ($this->getConfig()->getDroits($this->getInterproKey()) as $key => $droit) {
-				$droits[$key] = $droit->getCurrentDroit($this->getPeriode());
-      		}
-    	}
-      	return $droits;
-    }
-    
-    public function getInterproKey() 
-    {
-		if (!$this->getDocument()->getInterpro()) {
-			return array();
-		}
-      	return $this->getDocument()->getInterpro()->get('_id');
-    }
+   
     
     public function getPeriode() 
     {

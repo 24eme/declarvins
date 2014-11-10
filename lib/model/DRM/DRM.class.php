@@ -177,15 +177,15 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     {
         $this->remove('droits');
         $this->add('droits');
-    	$mergeSorties = array();
-    	$mergeEntrees = array();
-    	if ($this->getInterpro()->getKey() == Interpro::INTERPRO_KEY.Interpro::INTER_RHONE_ID) {
-    		$mergeSorties = DRMDroits::getDroitSortiesInterRhone();
-    		$mergeEntrees = DRMDroits::getDroitEntreesInterRhone();
-    	}
         foreach ($this->getDetails() as $detail) {
         	$droitCvo = $detail->getDroit(DRMDroits::DROIT_CVO);
         	$droitDouane = $detail->getDroit(DRMDroits::DROIT_DOUANE);
+	    	$mergeSorties = array();
+	    	$mergeEntrees = array();
+	    	if ($detail->interpro == Interpro::INTERPRO_KEY.Interpro::INTER_RHONE_ID) {
+	    		$mergeSorties = DRMDroits::getDroitSortiesInterRhone();
+	    		$mergeEntrees = DRMDroits::getDroitEntreesInterRhone();
+	    	}
         	if ($droitCvo) {
         		$this->droits->getOrAdd(DRMDroits::DROIT_CVO)->getOrAdd($droitCvo->code)->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitCvo->taux, 0, $droitCvo->libelle);
         	}
@@ -260,6 +260,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
     
     public function getInterpro() {
     	
+    	throw new sfException('Utilisé  ?');exit;
         if ($this->getEtablissement())
             return $this->getEtablissement()->getInterproObject();
     }
@@ -340,7 +341,7 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
         $this->storeIdentifiant($options);
         $this->storeDates();
         $this->storeDroits($options);
-        $this->setInterpros();
+        //$this->setInterpros();
         $this->updateVrac();
         $this->setEtablissementInformations();
 
