@@ -469,6 +469,13 @@ DRM:
             date_signee: {}
             identifiant: {}
             status: {}
+      manquants:
+        required: false
+        type: collection
+        definition:
+          fields:
+            igp: { type: integer }
+            contrats: { type: integer }
       douane:
         type: collection
         definition:

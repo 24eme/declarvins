@@ -12,6 +12,7 @@
             <?php echo $form->renderHiddenFields() ?>
             
             <div id="btn_etape_dr">
+            	<?php if (!$drm->isIncomplete()): ?>
                 <?php if ($drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <a href="<?php echo url_for('drm_vrac', array("sf_subject" => $drm, "precedent" => true))?>" class="btn_prec">
                     <span>Précédent</span>
@@ -20,6 +21,7 @@
                 <a href="<?php echo url_for('drm_declaratif', $drm) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>
+                <?php endif; ?>
                 <?php endif; ?>
                 <button type="submit" class="btn_suiv"<?php if ($drmValidation->hasErrors()): ?> disabled="disabled"<?php endif; ?>>
                     <span>Valider</span>
@@ -62,6 +64,22 @@
                         <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
                     <?php endif; ?>
                 </div>
+                
+                <div style="background: #E3E2E2; color: #3E3E3E; border-radius: 5px; margin-bottom: 25px;">
+                    <div style="padding: 4px 0 10px 10px;">
+                    	<div style="padding: 10px 0px; font-weight: bold; display: block;">DRM incomplète</div>
+                    	<div>
+	                        <?php echo $form['manquants']['igp']->renderError() ?>
+	                        <?php echo $form['manquants']['igp']->render() ?>
+	                        <?php echo $form['manquants']['igp']->renderLabel() ?>
+                        </div>
+                    	<div>
+	                        <?php echo $form['manquants']['contrats']->renderError() ?>
+	                        <?php echo $form['manquants']['contrats']->render() ?>
+	                        <?php echo $form['manquants']['contrats']->renderLabel() ?>
+                        </div>
+                    </div>
+                </div>
 
                 <div style="background: #E3E2E2; color: #3E3E3E; border-radius: 5px; margin-bottom: 25px;">
                     <div style="padding: 4px 0 10px 10px;">
@@ -74,6 +92,7 @@
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Visualisez le brouillon de DRM en PDF</a>
             
             <div id="btn_etape_dr">
+            	<?php if (!$drm->isIncomplete()): ?>
                 <?php if ($drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <a href="<?php echo url_for('drm_vrac', array("sf_subject" => $drm, "precedent" => true))?>" class="btn_prec">
                     <span>Précédent</span>
@@ -83,13 +102,16 @@
                     <span>Précédent</span>
                 </a>
                 <?php endif; ?>
+                <?php endif; ?>
                 <button type="submit" class="btn_suiv"<?php if ($drmValidation->hasErrors()): ?> disabled="disabled"<?php endif; ?>>
                     <span>Valider</span>
                 </button>
             </div>
 
             <div class="ligne_btn">
+            	<?php if (!$drm->isIncomplete()): ?>
                 <a href="<?php echo url_for('drm_delete_one', $drm) ?>" class="annuler_saisie btn_remise"><span>supprimer la drm</span></a>
+                <?php endif; ?>
             </div>
 
         </form>

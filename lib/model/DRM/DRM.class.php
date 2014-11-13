@@ -678,6 +678,39 @@ class DRM extends BaseDRM implements InterfaceVersionDocument {
 
         return new DRMValidation($this, $options);
     }
+    
+    public function isIncomplete()
+    {
+    	$incomplete = false;
+    	if ($this->exist('manquants')) {
+    		if ($this->manquants->igp || $this->manquants->contrats) {
+    			$incomplete = true;
+    		}
+    	}
+    	return $incomplete;
+    }
+    
+    public function isIgpManquant()
+    {
+    	if (!$this->isValidee()) {
+    		return false;
+    	}
+    	if(!$this->isIncomplete()) {
+    		return false;
+    	}
+    	return ($this->manquants->igp)? true : false;
+    }
+    
+    public function isContratManquant()
+    {
+    	if (!$this->isValidee()) {
+    		return false;
+    	}
+    	if(!$this->isIncomplete()) {
+    		return false;
+    	}
+    	return ($this->manquants->contrats)? true : false;
+    }
 
     /**** VERSION ****/
 

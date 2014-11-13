@@ -52,6 +52,21 @@
             <?php else: ?>
                 <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
             <?php endif; ?>
+            
+            
+        <?php if ($drm->isIncomplete()): ?>
+            <div class="vigilance_list">
+                <ul>
+                    <li style="padding-bottom: 5px;">DRM incomplète :</li>
+                    <?php if ($drm->manquants->igp): ?>
+                    <li style="font-weight: normal;">Produit(s) IGP manquant(s)</li>
+                    <?php endif; ?>
+                    <?php if ($drm->manquants->contrats): ?>
+                    <li style="font-weight: normal;">Contrat(s) manquant(s)</li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
  
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
             

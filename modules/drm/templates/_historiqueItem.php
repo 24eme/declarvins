@@ -17,6 +17,8 @@
     <td>
     <?php if ($drm->isNew()): ?>
         Nouvelle
+    <?php elseif ($drm->isIncomplete()): ?>
+    	Incomplète
     <?php elseif ($drm->isValidee()): ?>
         OK
     <?php else: ?>
