@@ -69,6 +69,29 @@ class Configuration extends BaseConfiguration
     {
     	return self::$stocks_fin;
     }
+    
+    public static function getAllStocksLibelles() {
+        $stocks_libelles = array();
+        
+        foreach (self::$stocks_debut as $key => $value) {
+            $stocks_libelles['debuts/'.$key] = 'Début '.$value;
+        }
+        
+        foreach (self::$stocks_entree as $key => $value) {
+            $stocks_libelles['entrees/'.$key] = 'Entrée '.$value;
+        }
+        
+        foreach (self::$stocks_sortie as $key => $value) {
+            $stocks_libelles['sorties/'.$key] = 'Sortie '.$value;
+        }
+        
+        foreach (self::$stocks_fin as $key => $value) {
+            $stocks_libelles['fins/'.$key] = 'Fin '.$value;
+        }
+        
+        return $stocks_libelles;
+        
+    }
 
     public function loadAllData() 
     {
