@@ -68,6 +68,8 @@
             </div>
         <?php endif; ?>
  
+		<?php include_partial('drm/mouvements', array('mouvements' => $mouvements, 'hamza_style' => false, 'no_link' => $no_link)) ?>
+            <br/>
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
             
             <div id="btn_etape_dr">

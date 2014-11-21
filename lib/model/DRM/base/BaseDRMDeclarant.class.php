@@ -11,8 +11,13 @@
  * @property string $cvi
  * @property string $no_accises
  * @property string $no_tva_intracommunautaire
+ * @property string $email
+ * @property string $telephone
+ * @property string $fax
  * @property acCouchdbJson $siege
  * @property acCouchdbJson $comptabilite
+ * @property string $famille
+ * @property string $sous_famille
  * @property string $service_douane
 
  * @method string getNom()
@@ -29,10 +34,20 @@
  * @method string setNoAccises()
  * @method string getNoTvaIntracommunautaire()
  * @method string setNoTvaIntracommunautaire()
+ * @method string getEmail()
+ * @method string setEmail()
+ * @method string getTelephone()
+ * @method string setTelephone()
+ * @method string getFax()
+ * @method string setFax()
  * @method acCouchdbJson getSiege()
  * @method acCouchdbJson setSiege()
  * @method acCouchdbJson getComptabilite()
  * @method acCouchdbJson setComptabilite()
+ * @method string getFamille()
+ * @method string setFamille()
+ * @method string getSousFamille()
+ * @method string setSousFamille()
  * @method string getServiceDouane()
  * @method string setServiceDouane()
  

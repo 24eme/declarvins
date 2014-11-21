@@ -277,6 +277,7 @@ class drmActions extends sfActions
     $this->etablissement = $this->getRoute()->getEtablissement();
     $this->hide_rectificative = $request->getParameter('hide_rectificative');
     $this->drm_suivante = $this->drm->getSuivante();
+    $this->mouvements = DRMMouvementsConsultationView::getInstance()->getMouvementsByEtablissementAndPeriode($this->drm->identifiant, $this->drm->periode);
   }
 
   public function executeRectificative(sfWebRequest $request)
