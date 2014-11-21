@@ -153,6 +153,16 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
     	return (!$libelle && $defaut)? ConfigurationProduit::DEFAULT_LIBELLE : $libelle;
     }
     
+    public function getLibelleFormat($params = array(), $format = "%g% %a% %l% %co% %ce%") {
+        $complete_libelle = "";
+        foreach ($this->getLibelles() as $key => $value){
+            if($value){
+                $complete_libelle.=$value." ";
+            }
+        }
+        return $complete_libelle;
+    }
+    
 	/*
      * Les fonctions ci-dessous sont relatives à la gestion de la configuration du catalogue produit
      */
