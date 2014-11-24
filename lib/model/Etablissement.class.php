@@ -12,13 +12,20 @@ class Etablissement extends BaseEtablissement {
     
     
     public function getCompteObject() {
-        if (is_null($this->_compte)) {
-        	if ($this->compte) {
-            	$this->_compte = _CompteClient::getInstance()->find($this->compte);
-        	}
+        if (is_null($this->_compte) && $this->compte) {
+            $this->_compte = _CompteClient::getInstance()->find($this->compte);
         }
         
         return $this->_compte;
+    }
+    
+    public function getInterproObject() {
+        if (is_null($this->_interpro) && $this->interpro) {
+            $this->_interpro = InterproClient::getInstance()->find($this->interpro);
+        }
+        
+        return $this->_interpro;
+    	
     }
     
     public function constructId() {
