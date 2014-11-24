@@ -35,6 +35,18 @@ class DRMAllView extends acCouchdbView
     	return $defaut;
     }
     
+    public function getPrecedenteDrmPeriodeByEtablissement($identifiant, $periode)
+    {
+    	$drms = $this->findByEtablissement($identifiant)->rows;
+    	$precedente = null;
+    	foreach ($drms as $drm) {
+	    	if ((str_replace('-', '', $drm->key[self::KEY_PERIODE]) < str_replace('-', '', $periode))) {
+	    		$precedente = $drm->key[self::KEY_PERIODE];
+	    	}
+    	}
+    	return $precedente;
+    }
+    
     public function getAllFirstDrm()
     {
     	$drms = $this->client->reduce(false)->getView($this->design, $this->view)->rows;
