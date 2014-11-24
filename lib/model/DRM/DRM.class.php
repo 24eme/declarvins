@@ -252,14 +252,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->declarant->service_douane = $etablissement->service_douane;
     }
 
-    public function getInterpro() {
-
-        throw new sfException('Utilisé  ?');
-        exit;
-        if ($this->getEtablissement())
-            return $this->getEtablissement()->getInterproObject();
-    }
-
     public function getHistorique() {
 
         return $this->store('historique', array($this, 'getHistoriqueAbstract'));
@@ -336,7 +328,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->storeIdentifiant($options);
         $this->storeDates();
         $this->storeDroits($options);
-        //$this->setInterpros();
+        $this->setInterpros();
         $this->updateVrac();
         $this->setEtablissementInformations();
          
@@ -443,10 +435,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function setInterpros() {
-        $i = $this->getInterpro();
-        if ($i) {
-            $this->interpros->add(0, $i->getKey());
-        }
         $details = $this->getDetails();
         foreach ($details as $detail) {
             if ($detail->interpro && !in_array($detail->interpro, $this->interpros->toArray())) {
