@@ -39,7 +39,7 @@
                         <td><?php
                             if ($mouvement->vrac_numero) {
                                 echo (!isset($no_link) || !$no_link) ? '<a href="' . url_for("vrac_visualisation", array("numero_contrat" => $mouvement->vrac_numero)) . '">' : '';
-                                echo $mouvement->type_libelle . ' ' . $mouvement->numero_archive;
+                                echo $mouvement->type_libelle.' n° '.$mouvement->vrac_numero;
                                 echo (!isset($no_link) || !$no_link) ? '</a>' : '';
                             } else {
                                 echo $mouvement->type_libelle . ' ' . $mouvement->detail_libelle;

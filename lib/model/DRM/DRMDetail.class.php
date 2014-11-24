@@ -430,13 +430,13 @@ class DRMDetail extends BaseDRMDetail {
             }
 
             $facturableArray = $this->getIsFacturableArray();
-            
+
             $mouvement = DRMMouvement::freeInstance($this->getDocument());
             $mouvement->produit_hash = $this->getCepage()->getConfig()->getHash();
             $mouvement->facture = 0;
             $mouvement->interpro = $this->interpro;
             $mouvement->cvo = $this->getCVOTaux();
-            $mouvement->facturable = in_array($hash.'/'.$key,$facturableArray) ? 1 : 0;
+            $mouvement->facturable = in_array($hash . '/' . $key, $facturableArray) ? 1 : 0;
             $mouvement->version = $this->getDocument()->getVersion();
             $mouvement->date_version = ($this->getDocument()->valide->date_saisie) ? ($this->getDocument()->valide->date_saisie) : date('Y-m-d');
 
@@ -451,7 +451,13 @@ class DRMDetail extends BaseDRMDetail {
                 continue;
             }
 
-            $mouvements[$this->getDocument()->getIdentifiant()][$mouvement->getMD5Key()] = $mouvement;
+            if (is_array($mouvement)) {
+                foreach ($mouvement as $mouvement_vrac) {
+                    $mouvements[$this->getDocument()->getIdentifiant()][$mouvement_vrac->getMD5Key()] = $mouvement_vrac;
+                }
+            } else {
+                $mouvements[$this->getDocument()->getIdentifiant()][$mouvement->getMD5Key()] = $mouvement;
+            }
         }
 
         return $mouvements;
@@ -462,31 +468,66 @@ class DRMDetail extends BaseDRMDetail {
             return null;
         }
 
+        $mouvement->type_hash = $hash;
+
         if ($this->getDocument()->hasVersion() && $this->getDocument()->motherExist($this->getHash() . '/' . $hash)) {
             $volume = $volume - $this->getDocument()->motherGet($this->getHash() . '/' . $hash);
         }
 
-        //MOUVEMENT COEFF?
-        //$config = $this->getConfig()->get($hash);
+        $configCoeffMouvement = Configuration::getAllStocksCoeffsMouvements();
 
-        //$volume = //$config->mouvement_coefficient * 
-        //        $volume;
+        $volume = $configCoeffMouvement [$hash] * $volume;
 
         if ($volume == 0) {
             return null;
         }
+
         $stocksLibelles = Configuration::getAllStocksLibelles();
 
-        $mouvement->type_hash = $hash;
         $mouvement->type_libelle = $stocksLibelles[$hash];
+
+        if ($hash == "sorties/vrac" && $this->hasVracs()) {
+            $mouvements_vrac = array();
+            foreach ( $this->vrac as $vrac_numero => $vrac) {
+                $mouvement_vrac = clone $mouvement;
+                $hash_vrac = "sorties/vrac_contrat";
+                $mouvement_vrac->type_hash = $hash_vrac;
+                $volume_vrac = $configCoeffMouvement [$hash_vrac] * $vrac->volume;
+                $mouvement_vrac->type_libelle = $stocksLibelles[$hash_vrac];
+
+                if ($volume_vrac == 0) {
+                    return null;
+                }
+                $mouvement_vrac->volume = $volume_vrac;
+                $mouvement_vrac->date = $this->getDocument()->getDate();
+                $mouvement_vrac->vrac_numero = $vrac_numero;
+
+                $mouvements_vrac[] = $mouvement_vrac;
+
+                $mouvement->volume -= $volume_vrac;
+            }
+            $mouvement->volume = $volume;
+            $mouvement->date = $this->getDocument()->getDate();
+            $mouvements_vrac[] = $mouvement;
+            return $mouvements_vrac;
+        }
+
         $mouvement->volume = $volume;
         $mouvement->date = $this->getDocument()->getDate();
 
-        return $mouvement;
+        return $mouvement
+
+        ;
     }
 
     public function getCVOTaux() {
-        return $this->cvo->taux;
+        return $this->cvo->taux
+
+        ;
+    }
+
+    public function hasVracs() {
+        return count($this->vrac);
     }
 
 }

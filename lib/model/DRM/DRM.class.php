@@ -322,6 +322,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function validate($options = null) {
+        if(in_array('onlyUpdateMouvements', $options))
+        {
+            $this->generateMouvements();
+            return;
+        }
         $this->update();
 
         if ($this->hasApurementPossible()) {
