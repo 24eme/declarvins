@@ -77,19 +77,19 @@ class ConfigurationZoneClient extends acCouchdbClient
     }
     
 	public function matchZone($zone) {
-      if (preg_match('/rhon/i', $zone)) {
+      if (preg_match('/rhon/i', $zone) || preg_match('/'.self::ZONE_RHONE.'/i', $zone)) {
         return self::ZONE_RHONE;
       }
-      if (preg_match('/prov/i', $zone)) {
+      if (preg_match('/prov/i', $zone) || preg_match('/'.self::ZONE_PROVENCE.'/i', $zone)) {
         return self::ZONE_PROVENCE;
       }
-      if (preg_match('/ldoc/i', $zone)) {
+      if (preg_match('/ldoc/i', $zone) || preg_match('/'.self::ZONE_LANGUEDOC.'/i', $zone)) {
         return self::ZONE_LANGUEDOC;
       }
-      if (preg_match('/ivse/i', $zone)) {
+      if (preg_match('/ivse/i', $zone) || preg_match('/'.self::ZONE_IVSE.'/i', $zone)) {
         return self::ZONE_IVSE;
       }
-      if (preg_match('/vsig/i', $zone)) {
+      if (preg_match('/vsig/i', $zone) || preg_match('/'.self::ZONE_ANIVIN.'/i', $zone)) {
         return self::ZONE_ANIVIN;
       }
 
