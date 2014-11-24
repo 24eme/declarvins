@@ -81,6 +81,8 @@ class StatistiquesBilan
 		$this->drms[$etablissement][$periode] = array();
 		$this->drms[$etablissement][$periode][StatistiquesBilanView::VALUE_DRM_TOTAL_FIN_DE_MOIS] = $dataValues[StatistiquesBilanView::VALUE_DRM_TOTAL_FIN_DE_MOIS];
 		$this->drms[$etablissement][$periode][StatistiquesBilanView::VALUE_DRM_DATE_SAISIE] = $dataValues[StatistiquesBilanView::VALUE_DRM_DATE_SAISIE];
+		$this->drms[$etablissement][$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_IGP] = $dataValues[StatistiquesBilanView::VALUE_DRM_MANQUANT_IGP];
+		$this->drms[$etablissement][$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_CONTRAT] = $dataValues[StatistiquesBilanView::VALUE_DRM_MANQUANT_CONTRAT];
 	}
 	
 	public function getVolumesAnterieursDRMManquantes()
@@ -100,7 +102,7 @@ class StatistiquesBilan
 	    				$first = DRMAllView::getInstance()->getFirstDrmPeriodeByEtablissement($identifiant); 
 	    				if(!$first || $periode >= $first) {
 	    					if ($p = $this->getPreviousDRM($identifiant, $periode)) {
-	    						$drms[$identifiant][$periode] = $this->getPreviousDRM($identifiant, $periode);
+	    						$drms[$identifiant][$periode] = $p;
 	    					}
 	    				}
 	    			} elseif (!$drm && $precedente && $precedente[StatistiquesBilanView::VALUE_DRM_TOTAL_FIN_DE_MOIS] > 0) {
@@ -145,6 +147,13 @@ class StatistiquesBilan
 			return (isset($drmEtablissement[$periode]))? $drmEtablissement[$periode] : null;
 		}
 		return null;
+	}
+	
+	public function getDRMInformationByEtablissementPeriode($etablissement, $periode)
+	{
+		$campagne = DRMClient::getInstance()->buildCampagne($periode);
+		$result = current(StatistiquesBilanView::getInstance()->findDrmByCampagne($this->interpro, $campagne, $periode, $etablissement)->rows);
+		return $result->value;
 	}
 	
 	public function getDRMsInformations()

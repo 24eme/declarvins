@@ -4,9 +4,11 @@
 		<div class="clearfix" id="application_dr">
     		<h1>Etat des DRM saisies</h1>
     		<p>
-    		<font color="red"><strong>0</strong> : DRM manquante</font><br />
-    		<strong>0</strong> : DRM saisie non validée<br />
-    		<font color="green"><strong>1</strong> : DRM saisie validée</font>
+	    		<strong>0</strong> : DRM manquante<br />
+	    		<font color="green"><strong>1</strong> : DRM saisie validée</font><br />
+	    		<strong>2</strong> : DRM validée mais infos IGP manquantes<br />
+	    		<strong>3</strong> : DRM validée mais infos contrat vrac manquants<br />    		
+	    		<strong>4</strong> : DRM saisie non validée<br />
     		</p>
     		<br />
     		<div class="contenu clearfix">
@@ -72,18 +74,29 @@
 					    			$drms = $drmsInformations[$identifiant];
 					    			$precedente = null;
 					    			foreach ($bilan->getPeriodes() as $periode):
+					    				if (!$precedente) {
+					    					if ($p = DRMAllView::getInstance()->getPrecedenteDrmPeriodeByEtablissement($identifiant, $periode)) {
+					    						$precedente = $bilan->getDRMInformationByEtablissementPeriode($identifiant, $p);
+					    					}
+					    				}
 					    		?>
 					    		<td style="padding: 0;">
 					    			<strong>
-					    			<?php if (!isset($drms[$periode]) && !$precedente): ?>
-					    			<font color="red"><?php $first = DRMAllView::getInstance()->getFirstDrmPeriodeByEtablissement($identifiant); if($first && $periode < $first): ?>&nbsp;<?php else: ?>0<?php endif; ?></font>
-					    			<?php elseif (!isset($drms[$periode]) && $precedente && $precedente[StatistiquesBilanView::VALUE_DRM_TOTAL_FIN_DE_MOIS] > 0): ?>
-					    			<font color="red">0</font>
-					    			<?php elseif (isset($drms[$periode]) && !$drms[$periode][StatistiquesBilanView::VALUE_DRM_DATE_SAISIE]): ?>
-					    			0
-					    			<?php else: ?>
-					    			<font color="green">1</font>
-					    			<?php endif; ?>
+						    			<?php if (!isset($drms[$periode]) && !$precedente): ?>
+						    			&nbsp;
+						    			<?php elseif (!isset($drms[$periode]) && $precedente && $precedente[StatistiquesBilanView::VALUE_DRM_TOTAL_FIN_DE_MOIS] > 0): ?>
+						    			0
+						    			<?php elseif (isset($drms[$periode]) && !$drms[$periode][StatistiquesBilanView::VALUE_DRM_DATE_SAISIE]): ?>
+						    			4
+						    			<?php elseif (isset($drms[$periode]) && $drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_IGP] && !$drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_CONTRAT]): ?>
+						    			2
+						    			<?php elseif (isset($drms[$periode]) && $drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_CONTRAT] && !$drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_IGP]): ?>
+						    			3
+						    			<?php elseif (isset($drms[$periode]) && $drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_CONTRAT] && !$drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_IGP]): ?>
+						    			2 + 3
+						    			<?php else: ?>
+						    			<font color="green">1</font>
+						    			<?php endif; ?>
 					    			</strong>
 					    		</td>
 					    		<?php 

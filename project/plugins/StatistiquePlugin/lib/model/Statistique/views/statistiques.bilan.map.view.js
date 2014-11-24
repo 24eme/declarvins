@@ -19,8 +19,10 @@ function(doc) {
 			var email = (doc.declarant.email)? doc.declarant.email : "";
 			var telephone = (doc.declarant.telephone)? doc.declarant.telephone : "";
 			var fax = (doc.declarant.fax)? doc.declarant.fax : "";
+			var igp_manquant = (doc.manquants)? doc.manquants.igp : 0;
+			var contrat_manquant = (doc.manquants)? doc.manquants.contrats : 0;
 
-	  		emit([doc.interpros[i], doc.campagne, doc.identifiant, doc.periode], [
+	  		emit([doc.interpros[i], doc.campagne, doc.periode, doc.identifiant, doc.periode], [
 			nom,
 			raison_sociale,
 			siret,
@@ -37,7 +39,9 @@ function(doc) {
 			date_saisie,
 			email,
 			telephone,
-			fax
+			fax,
+			igp_manquant,
+			contrat_manquant
 			]);
 		}
  	}

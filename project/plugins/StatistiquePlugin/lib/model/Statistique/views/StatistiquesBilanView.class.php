@@ -25,6 +25,8 @@ class StatistiquesBilanView extends acCouchdbView
 	const VALUE_ETABLISSEMENT_EMAIL = 14;
 	const VALUE_ETABLISSEMENT_TELEPHONE = 15;
 	const VALUE_ETABLISSEMENT_FAX = 16;
+	const VALUE_DRM_MANQUANT_IGP = 17;
+	const VALUE_DRM_MANQUANT_CONTRAT = 18;
 	
 	const FIRST_PERIODE = 17;
 
@@ -33,11 +35,14 @@ class StatistiquesBilanView extends acCouchdbView
         return acCouchdbManager::getView('statistiques', 'bilan');
     }
 
-    public function findDrmByCampagne($interpro, $campagne, $periode = null) 
+    public function findDrmByCampagne($interpro, $campagne, $periode = null, $etablissement = null) 
     {
     	$startparams = array($interpro, $campagne);
     	if ($periode) {
     		$startparams[] = $periode;
+	    	if ($etablissement) {
+	    		$startparams[] = $etablissement;
+	    	}
     	}
     	$endparams = $startparams;
     	$endparams[] = array();
