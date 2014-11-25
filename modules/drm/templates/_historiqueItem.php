@@ -9,10 +9,11 @@
         <?php endif; ?>
 
         <?php if($drm->isMaster()): ?></strong><?php endif; ?>
-
-        <?php if($drm->getModificative() > 0): ?>
-            <?php echo sprintf('(M%02d)', $drm->getModificative()) ?>
-        <?php endif; ?>
+		<!-- 
+        if($drm->getModificative() > 0):
+        echo sprintf('(M%02d)', $drm->getModificative())
+        endif;
+         -->
     </td>
     <td>
     <?php if ($drm->isNew()): ?>
