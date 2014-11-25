@@ -83,7 +83,7 @@ class drmComponents extends sfComponents {
         $this->drms = array();
         $historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
         $this->new_drm = ($this->etablissement->statut != Etablissement::STATUT_ARCHIVE)? $this->getNewDRM($historique, $this->etablissement->identifiant) : null;
-        
+        $this->limit = 1;
 		
         if ((!isset($this->campagne) || !$this->campagne) && $this->new_drm) {
             $this->campagne = $this->new_drm->campagne;

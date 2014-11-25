@@ -13,7 +13,7 @@
 
     <div class="tableau_ajouts_liquidations">
 
-                <h2>Mouvements</h2>
+        <h2>Mouvements</h2>
         <table id="table_mouvements" class="tableau_recap">
             <thead>
                 <tr>
@@ -25,31 +25,42 @@
             </thead>
             <tbody>
                 <?php $i = 1; ?>
-    <?php foreach ($mouvements as $mouvement): ?>
-        <?php $i++; ?>
-                    <tr id="<?php echo mouvement_get_id($mouvement) ?>" class="<?php if ($i % 2 != 0) echo "alt";
-        if ($mouvement->facturable) {
-            echo " facturable";
-        } ?>">
+                <?php
+                foreach ($mouvements as $mouvement):
+                    $matches = array();
+                    if (!preg_match('/^DRM-([A-Z0-9]*)-(.*)/', $mouvement->doc_id, $matches)) {
+                        throw new sfException("Lidentifiant du document n'est pas valable;");
+                    }
+                    $identifiant = $matches[1];
+                    $periode_version = $matches[2];
+                    ?>
+                    <?php $i++; ?>
+                    <tr id="<?php echo mouvement_get_id($mouvement) ?>" class="<?php
+                    if ($i % 2 != 0)
+                        echo "alt";
+                    if ($mouvement->facturable) {
+                        echo " facturable";
+                    }
+                    ?>">
                         <td>
-                            <a title="Saisi le <?php echo format_date($mouvement->date_version, 'D') ?>" href="<?php echo url_for('redirect_visualisation', array('id_doc' => $mouvement->doc_id)) ?>"><?php echo acCouchdbManager::getClient($mouvement->type)->getLibelleFromId($mouvement->doc_id) ?><?php echo ($mouvement->version) ? ' (' . $mouvement->version . ')' : '' ?></a>
+                            <a title="Saisi le <?php echo format_date($mouvement->date_version, 'D') ?>" href="<?php echo url_for('drm_visualisation', array('identifiant' => $identifiant, 'periode_version' => $periode_version)) ?>"><?php echo acCouchdbManager::getClient($mouvement->type)->getLibelleFromId($mouvement->doc_id) ?><?php echo ($mouvement->version) ? ' (' . $mouvement->version . ')' : '' ?></a>
                         </td>
                         </td>
                         <td><?php echo $mouvement->produit_libelle ?> </td>
                         <td><?php
                             if ($mouvement->vrac_numero) {
                                 echo (!isset($no_link) || !$no_link) ? '<a href="' . url_for("vrac_visualisation", array("numero_contrat" => $mouvement->vrac_numero)) . '">' : '';
-                                echo $mouvement->type_libelle . ' ' . $mouvement->numero_archive;
+                                echo $mouvement->type_libelle . ' n° ' . $mouvement->vrac_numero;
                                 echo (!isset($no_link) || !$no_link) ? '</a>' : '';
                             } else {
                                 echo $mouvement->type_libelle . ' ' . $mouvement->detail_libelle;
                             }
                             ?></td>
                         <td <?php echo ($mouvement->volume > 0) ? ' class="positif"' : 'class="negatif"'; ?> >
-            <?php echoSignedFloat($mouvement->volume); ?>
+        <?php echoSignedFloat($mouvement->volume); ?>
                         </td>
                     </tr>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
             </tbody>
         </table>
 <?php else: ?>
