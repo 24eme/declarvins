@@ -279,7 +279,9 @@ class drmActions extends sfActions {
         $this->droits_circulation = ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) ? null : new DRMDroitsCirculation($this->drm);
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->hide_rectificative = $request->getParameter('hide_rectificative');
-        $this->drm_suivante = $this->drm->getSuivante();
+        $this->drm_next_version = $this->getUser()->getFlash('drm_next_version');
+        $this->drm_generate_version = $this->getUser()->getFlash('drm_generate_version');
+        //$this->drm_suivante = $this->drm->getSuivante();
         $this->drm_precedente_version_id = DRMClient::getInstance()->buildId($this->drm->identifiant,$this->drm->periode,$this->drm->getPreviousVersion());
         $this->drm_precedente_version = DRMClient::getInstance()->find($this->drm_precedente_version_id);
         $this->masterVersion = $this->drm->getMaster();

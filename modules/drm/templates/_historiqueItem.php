@@ -1,12 +1,14 @@
 <tr class="<?php if($alt): ?>alt<?php endif; ?>">
     <td>
         <?php if($drm->isMaster()): ?><strong><?php endif; ?>
-
-        <?php if($drm->getRectificative() > 0): ?>
-            <?php echo sprintf('%s R%02d', $drm->periode, $drm->getRectificative()) ?>
-        <?php else: ?>
-            <?php echo sprintf('%s', $drm->periode) ?>
-        <?php endif; ?>
+		<!--
+        if($drm->getRectificative() > 0):
+        echo sprintf('%s R%02d', $drm->periode, $drm->getRectificative())
+        else:
+        echo sprintf('%s', $drm->periode)
+        endif;
+        -->
+        <?php echo sprintf('%s', $drm->periode) ?>
 
         <?php if($drm->isMaster()): ?></strong><?php endif; ?>
 		<!-- 
