@@ -1,0 +1,19 @@
+#!/bin/bash
+. bin/config.inc
+
+TMP=/tmp
+
+curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/drm/_view/all?reduce=false > $TMP"/drms_rows"
+
+cat $TMP"/drms_rows" | sed 's/{"id":"//g' | sed 's/",.*//g' | grep -E "^DRM" > $TMP"/drms_list"
+
+echo "#!/bin/bash" > $TMP"/updateDrmsWithMouvements.sh"
+echo "TMP=/tmp" >> $TMP"/updateDrmsWithMouvements.sh"
+
+echo "TOTAL=`cat $TMP"/drms_list" | wc -l`" >> $TMP"/updateDrmsWithMouvements.sh"
+
+echo -n $TMP"/updateDrmsWithMouvements.log"
+
+cat $TMP"/drms_list" | sed -r 's/(.*)/php symfony update:drmsWithMouvements --drm="\1" \>\> $TMP"\/updateDrmsWithMouvements.log"/g' | awk '{printf("%06d %s\n", NR, $0)}' | sed -r 's/([0-9]{6}) (.*) >> (.*)/\2 \| sed -r "s\/(.*)\/\\1 (\1\\\/$TOTAL) \/g" >> \3/g' >> $TMP"/updateDrmsWithMouvements.sh"
+
+bash $TMP"/updateDrmsWithMouvements.sh"
