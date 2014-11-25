@@ -233,8 +233,27 @@ class drmActions extends sfActions
 	  $this->drm->save();
 
     if ($this->drm->needNextVersion()) {
+      $generate = true;
+      $nb_generate = 0;
       $drm_version_suivante = $this->drm->generateNextVersion();
-      $drm_version_suivante->save();
+      while($generate) {
+      	$validation_drm_version_suivante = $drm_version_suivante->validation(array('stock' => 'warning'));
+      	if ($validation_drm_version_suivante->isValide()) {
+      		$drm_version_suivante->validate();
+      		$drm_version_suivante->save();
+      		$nb_generate++;
+      	} else {
+      		$drm_version_suivante->save();
+      		$this->getUser()->setFlash('drm_next_version', $drm_version_suivante->_id);
+      		$generate = false;
+      	}
+      	if ($drm_version_suivante->needNextVersion()) {      			
+      		$drm_version_suivante = $drm_version_suivante->generateNextVersion();
+      	} else {
+      		$generate = false;
+      	}
+      }
+       $this->getUser()->setFlash('drm_generate_version', $nb_generate);
     }
 
     return $this->redirect('drm_visualisation', array('sf_subject' => $this->drm, 'hide_rectificative' => 1));
@@ -276,7 +295,11 @@ class drmActions extends sfActions
     $this->droits_circulation = ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER)? null : new DRMDroitsCirculation($this->drm);
     $this->etablissement = $this->getRoute()->getEtablissement();
     $this->hide_rectificative = $request->getParameter('hide_rectificative');
-    $this->drm_suivante = $this->drm->getSuivante();
+    $this->drm_generate_version = $this->getUser()->getFlash('drm_generate_version');
+    $this->drm_next_version = $this->getUser()->getFlash('drm_next_version');
+    if ($this->drm_next_version) {
+    	$this->drm_next_version = DRMClient::getInstance()->find($this->drm_next_version);
+    }
     $this->mouvements = DRMMouvementsConsultationView::getInstance()->getMouvementsByEtablissementAndPeriode($this->drm->identifiant, $this->drm->periode);
   }
 

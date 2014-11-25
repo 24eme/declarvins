@@ -29,18 +29,19 @@
             </div>
         <?php endif; ?>
 
-        <?php 
-        if ($drm_suivante && $drm_suivante->isRectificative() && !$drm_suivante->isValidee()): ?>
+
+        <?php if ($drm_generate_version || $drm_next_version): ?>
             <div class="vigilance_list">
                 <ul>
-                    <li>Vous devez rectifier la DRM du mois suivant</li>
-                </ul>
-            </div>
-        <?php endif; ?>
-        <?php if ($drm_suivante && $drm_suivante->isModificative() && !$drm_suivante->isValidee()): ?>
-            <div class="vigilance_list">
-                <ul>
-                    <li>Vous devez modifier la DRM du mois suivant</li>
+                	<?php if ($drm_generate_version > 0): ?>
+                	<li><?php echo $drm_generate_version ?> DRM<?php if($drm_generate_version > 1): ?>s<?php endif; ?> modificative<?php if($drm_generate_version > 1): ?>s<?php endif; ?> générée<?php if($drm_generate_version > 1): ?>s<?php endif; ?> automatiquement</li>
+                	<?php endif; ?>
+                	<?php if ($drm_next_version && $drm_next_version->isModificative() && !$drm_next_version->isValidee()): ?>
+                    <li>Vous devez modifier la DRM <?php echo $drm_next_version->periode ?></li>
+                    <?php endif; ?>
+                    <?php if ($drm_next_version && $drm_next_version->isRectificative() && !$drm_next_version->isValidee()): ?>
+                    <li>Vous devez rectifier la DRM <?php echo $drm_next_version->periode ?></li>
+                    <?php endif; ?>
                 </ul>
             </div>
         <?php endif; ?>
@@ -73,8 +74,8 @@
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
             
             <div id="btn_etape_dr">
-                <?php if ($drm_suivante && $drm_suivante->hasVersion() && !$drm_suivante->isValidee()): ?>
-                    <a href="<?php echo url_for('drm_init', array('sf_subject' => $drm_suivante, 'reinit_etape' => 1)) ?>" class="btn_suiv">
+                <?php if ($drm_next_version && $drm_next_version->hasVersion() && !$drm_next_version->isValidee()): ?>
+                    <a href="<?php echo url_for('drm_init', array('sf_subject' => $drm_next_version, 'reinit_etape' => 1)) ?>" class="btn_suiv">
                         <span>Passer à la DRM suivante</span>
                     </a>
                 <?php else: ?>
