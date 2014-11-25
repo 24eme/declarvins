@@ -773,7 +773,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function getPreviousVersion() {
-
+        
         return $this->version_document->getPreviousVersion();
     }
 

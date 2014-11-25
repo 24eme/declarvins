@@ -261,6 +261,9 @@ class drmActions extends sfActions {
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->hide_rectificative = $request->getParameter('hide_rectificative');
         $this->drm_suivante = $this->drm->getSuivante();
+        $this->drm_precedente_version_id = DRMClient::getInstance()->buildId($this->drm->identifiant,$this->drm->periode,$this->drm->getPreviousVersion());
+        $this->drm_precedente_version = DRMClient::getInstance()->find($this->drm_precedente_version_id);
+        $this->masterVersion = $this->drm->getMaster();
         $this->mouvements = DRMMouvementsConsultationView::getInstance()->getMouvementsByEtablissementAndPeriode($this->drm->identifiant, $this->drm->periode);
     }
 
