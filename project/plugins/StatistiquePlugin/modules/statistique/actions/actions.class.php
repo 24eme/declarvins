@@ -67,17 +67,23 @@ class statistiqueActions extends sfActions
 		$drms = $drmsInformations[$identifiant];
 		$precedente = null;
 		foreach ($bilan->getPeriodes() as $periode) {
-				if (!isset($drms[$periode]) && !$precedente) {
-    				$first = DRMAllView::getInstance()->getFirstDrmPeriodeByEtablissement($identifiant); 
-    				if($first && $periode < $first)
-    					$csv_file .= ';';
-    				else 
-    					$csv_file .= '0;';
+				if (!$precedente) {
+    				if ($p = DRMAllView::getInstance()->getPrecedenteDrmPeriodeByEtablissement($identifiant, $periode)) {
+    					$precedente = $bilan->getDRMInformationByEtablissementPeriode($identifiant, $p);
+    				}
     			}
+				if (!isset($drms[$periode]) && !$precedente)
+				$csv_file .= ';';
     			elseif (!isset($drms[$periode]) && $precedente && $precedente[StatistiquesBilanView::VALUE_DRM_TOTAL_FIN_DE_MOIS] > 0)
     			$csv_file .= '0;';
     			elseif (isset($drms[$periode]) && !$drms[$periode][StatistiquesBilanView::VALUE_DRM_DATE_SAISIE])
-    			$csv_file .= '0;';
+    			$csv_file .= '4;';
+    			elseif (isset($drms[$periode]) && $drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_IGP] && !$drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_CONTRAT])
+    			$csv_file .= '2;';
+    			elseif (isset($drms[$periode]) && $drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_CONTRAT] && !$drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_IGP])
+    			$csv_file .= '3;';
+    			elseif (isset($drms[$periode]) && $drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_CONTRAT] && !$drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_IGP])
+    			$csv_file .= '2+3;';
     			else
     			$csv_file .= '1;';
     			if (isset($drms[$periode])) {

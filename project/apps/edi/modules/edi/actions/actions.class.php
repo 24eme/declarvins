@@ -290,17 +290,24 @@ class ediActions extends sfActions
 		$csv_file .= $identifiant.';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_RAISON_SOCIALE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_NOM].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_ADRESSE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_CODE_POSTAL].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_COMMUNE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_PAYS].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_EMAIL].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_TELEPHONE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_SERVICE_DOUANE].';';
 		$drms = $drmsInformations[$identifiant];
 		$precedente = null;
-		foreach ($bilan->getPeriodes() as $periode) {
-    			if (!isset($drms[$periode]) && !$precedente) {
-    				$first = DRMAllView::getInstance()->getFirstDrmPeriodeByEtablissement($identifiant); 
-    				if($first && $periode < $first)
-    					$csv_file .= ';';
-    				else 
-    					$csv_file .= '0;';
-    			} elseif (!isset($drms[$periode]) && $precedente && $precedente[StatistiquesBilanView::VALUE_DRM_TOTAL_FIN_DE_MOIS] > 0)
+    	foreach ($bilan->getPeriodes() as $periode) {
+				if (!$precedente) {
+    				if ($p = DRMAllView::getInstance()->getPrecedenteDrmPeriodeByEtablissement($identifiant, $periode)) {
+    					$precedente = $bilan->getDRMInformationByEtablissementPeriode($identifiant, $p);
+    				}
+    			}
+				if (!isset($drms[$periode]) && !$precedente)
+				$csv_file .= ';';
+    			elseif (!isset($drms[$periode]) && $precedente && $precedente[StatistiquesBilanView::VALUE_DRM_TOTAL_FIN_DE_MOIS] > 0)
     			$csv_file .= '0;';
     			elseif (isset($drms[$periode]) && !$drms[$periode][StatistiquesBilanView::VALUE_DRM_DATE_SAISIE])
-    			$csv_file .= '0;';
+    			$csv_file .= '4;';
+    			elseif (isset($drms[$periode]) && $drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_IGP] && !$drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_CONTRAT])
+    			$csv_file .= '2;';
+    			elseif (isset($drms[$periode]) && $drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_CONTRAT] && !$drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_IGP])
+    			$csv_file .= '3;';
+    			elseif (isset($drms[$periode]) && $drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_CONTRAT] && !$drms[$periode][StatistiquesBilanView::VALUE_DRM_MANQUANT_IGP])
+    			$csv_file .= '2+3;';
     			else
     			$csv_file .= '1;';
     			if (isset($drms[$periode])) {
