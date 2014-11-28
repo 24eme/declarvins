@@ -209,7 +209,7 @@ class acVinVracActions extends sfActions
 			        
 				}
 
-				if (!$this->vrac->has_transaction && $this->configurationVracEtapes->next($this->vrac->etape) == 'transaction') {
+				if (!$this->vrac->has_transaction && $this->configurationVracEtapes->next($this->etape) == 'transaction') {
 					
                     return $this->redirect(array('sf_route' => 'vrac_etape', 'sf_subject' => $this->vrac, 'step' => $this->configurationVracEtapes->next('transaction'), 'etablissement' => $this->etablissement));
 				}
