@@ -29,7 +29,9 @@
 				
 		   		
 				<?php if (!$vrac->isValide() && !$dateValidationActeur): ?>
+				<?php if ($vrac->has_transaction): ?>
 				<p style="text-align:right;">Assurez-vous de bien respecter les délais minimum de transmission de vos déclarations de transactions à votre organisme d’inspection/contrôle.</p>
+				<?php endif; ?>
 				<form action="<?php echo url_for('vrac_validation', array('sf_subject' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>" method="post" id="vrac_condition">
 					 <div class="ligne_form_btn">
 						<a class="annuler_saisie" onclick="return confirm('Confirmez-vous le refus du contrat?')" href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat">Refuser</a>

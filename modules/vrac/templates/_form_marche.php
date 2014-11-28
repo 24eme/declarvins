@@ -65,7 +65,7 @@
                 <?php echo $form['annexe']->render() ?>
             </div>
             <?php endif; ?>
-            <?php if (isset($form['has_transaction']) && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+            <?php if (isset($form['has_transaction'])): ?>
             <div class="contenu_onglet">
                 <?php echo $form['has_transaction']->renderError() ?>
                 <?php echo $form['has_transaction']->render() ?> 
