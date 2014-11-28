@@ -171,6 +171,12 @@
 				<span><?php echo ($vrac->clause_reserve_retiraison)? 'Oui' : 'Non'; ?></span>
 			</li>
 			<?php endif; ?>
+			<?php if(!is_null($vrac->commentaires)): ?>
+			<li>
+				<span>Autres observations:</span>
+				<span><?php echo $vrac->commentaires ?></span>
+			</li>
+			<?php endif; ?>
 		</ul>
 		<?php if($editer_etape): ?>
 			<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'condition', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
