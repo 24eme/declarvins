@@ -88,10 +88,13 @@ class acVinVracActions extends sfActions
 	{
         $this->vrac = $this->getRoute()->getVrac();
         $this->etablissement = $this->getRoute()->getEtablissement();
-        if ($this->vrac->valide->date_saisie) {
-        	$this->contratAnnulation($this->vrac, $this->etablissement);
+        
+        if (!$this->vrac->isNew())  {
+	        if ($this->vrac->valide->date_saisie) {
+	        	$this->contratAnnulation($this->vrac, $this->etablissement);
+	        }
+	        $this->vrac->delete();
         }
-        $this->vrac->delete();
 
         if(!$this->etablissement) {
             $this->redirect('vrac_admin');

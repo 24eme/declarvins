@@ -36,7 +36,8 @@
 			<td width="<?php echo $w ?>" valign="top">
 				<h2>Vendeur</h2>
 				<p>Type : <?php echo $vrac->vendeur_type ?></p>
-				<p>Raison sociale : <?php echo ($vrac->vendeur->raison_sociale)? $vrac->vendeur->raison_sociale : $vrac->vendeur->nom; ?></p>
+				<p>Raison sociale : <?php echo $vrac->vendeur->raison_sociale; ?></p>
+				<p>Nom commercial : <?php echo $vrac->vendeur->nom; ?></p>
 				<p>N° RCS/SIRET : <?php echo $vrac->vendeur->siret ?></p>
 				<p>N° CVI/EVV : <?php echo $vrac->vendeur->cvi ?></p>
 				<p>Adresse :</p>
@@ -57,7 +58,8 @@
 			<?php if($vrac->mandataire_exist): ?>
 			<td width="<?php echo $w ?>" valign="top">
 				<h2>Courtier</h2>
-				<p>Raison sociale : <?php echo ($vrac->mandataire->raison_sociale)? $vrac->mandataire->raison_sociale : $vrac->mandataire->nom; ?></p>
+				<p>Raison sociale : <?php echo $vrac->mandataire->raison_sociale; ?></p>
+				<p>Nom commercial : <?php echo $vrac->mandataire->nom; ?></p>
 				<p>N° Carte professionnelle : <?php echo $vrac->mandataire->no_carte_professionnelle ?></p>
 				<p>N° RCS/SIRET : <?php echo $vrac->mandataire->siret ?></p>
 				<p>Adresse :</p>
@@ -73,7 +75,8 @@
 			<td width="<?php echo $w ?>" valign="top">
 				<h2>Acheteur</h2>
 				<p>Type : <?php echo $vrac->acheteur_type ?></p>
-				<p>Raison sociale : <?php echo ($vrac->acheteur->raison_sociale)? $vrac->acheteur->raison_sociale : $vrac->acheteur->nom; ?></p>
+				<p>Raison sociale : <?php echo $vrac->acheteur->raison_sociale; ?></p>
+				<p>Nom commercial : <?php echo $vrac->acheteur->nom; ?></p>
 				<p>N° RCS/SIRET : <?php echo $vrac->acheteur->siret ?></p>
 				<p>N° CVI/EVV : <?php echo $vrac->acheteur->cvi ?></p>
 				<p>Adresse :</p>
