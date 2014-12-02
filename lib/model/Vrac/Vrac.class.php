@@ -1,5 +1,5 @@
 <?php
-class Vrac extends BaseVrac 
+class Vrac extends BaseVrac implements InterfaceVersionDocument
 {
 	const MODE_DE_SAISIE_PAPIER = 'PAPIER';
     const MODE_DE_SAISIE_DTI = 'DTI';
@@ -9,6 +9,13 @@ class Vrac extends BaseVrac
     									self::MODE_DE_SAISIE_PAPIER => 'par l\'interprofession (papier)',
     									self::MODE_DE_SAISIE_DTI => 'via Declarvins (DTI)',
     									self::MODE_DE_SAISIE_EDI => 'via votre logiciel (EDI)');
+    protected $version_document = null;
+    protected $suivante = null;
+    
+	public function __construct() {
+        parent::__construct();
+        $this->version_document = new VersionDocument($this);
+    }
     
     public function constructId() 
     {
@@ -204,6 +211,20 @@ class Vrac extends BaseVrac
     	}
     }
     
+
+
+    public function devalide() {
+        $this->valide->statut = null;
+        $this->valide->date_saisie = null;
+        $this->valide->identifiant = null;
+        $this->valide->date_validation = null;
+    	$acteurs = VracClient::getInstance()->getActeurs();
+    	foreach ($acteurs as $acteur) {
+    		$validateur = 'date_validation_'.$acteur;
+    		$this->valide->{$validateur} = null;
+    	}
+    }
+    
     public function updateStatut() {
       $acteurs = VracClient::getInstance()->getActeurs();
       if (!$this->mandataire_exist) {
@@ -320,4 +341,181 @@ class Vrac extends BaseVrac
     public static function getModeDeSaisieLibelles() {
 		return self::$_mode_de_saisie_libelles;
     }
+    /*     * ** VERSION *** */
+
+    public static function buildVersion($rectificative, $modificative) {
+
+        return VersionDocument::buildVersion($rectificative, $modificative);
+    }
+
+    public static function buildRectificative($version) {
+
+        return VersionDocument::buildRectificative($version);
+    }
+
+    public static function buildModificative($version) {
+
+        return VersionDocument::buildModificative($version);
+    }
+
+    public function getVersion() {
+
+        return $this->_get('version');
+    }
+
+    public function hasVersion() {
+
+        return $this->version_document->hasVersion();
+    }
+
+    public function isVersionnable() {
+        if (!$this->isValide()) {
+
+            return false;
+        }
+
+        return $this->version_document->isVersionnable();
+    }
+
+    public function getRectificative() {
+
+        return $this->version_document->getRectificative();
+    }
+
+    public function isRectificative() {
+
+        return $this->version_document->isRectificative();
+    }
+
+    public function isRectifiable() {
+
+        return $this->version_document->isRectifiable();
+    }
+
+    public function getModificative() {
+
+        return $this->version_document->getModificative();
+    }
+
+    public function isModificative() {
+
+        return $this->version_document->isModificative();
+    }
+
+    public function isModifiable() {
+
+        return $this->version_document->isModifiable();
+    }
+
+    public function isRectificativeAndModificative() {
+        return $this->isModificative() && $this->isRectificative();
+    }
+
+    public function getPreviousVersion() {
+        
+        return $this->version_document->getPreviousVersion();
+    }
+	// CLIENT
+    public function getMasterVersionOfRectificative() {
+        return DRMClient::getInstance()->getMasterVersionOfRectificative($this->identifiant, $this->periode, $this->getRectificative() - 1);
+    }
+
+    public function needNextVersion() {
+
+        return $this->version_document->needNextVersion() || !$this->isSuivanteCoherente();
+    }
+    
+	public function isSuivanteCoherente() {
+		// A VOIR
+        return true;
+    }
+
+    public function getMaster() {
+
+        return $this->version_document->getMaster();
+    }
+
+    public function isMaster() {
+
+        return $this->version_document->isMaster();
+    }
+
+    public function findMaster() {
+
+        return VracClient::getInstance()->findMasterByVisa($this->numero_contrat);
+    }
+
+    public function findDocumentByVersion($version) {
+        return VracClient::getInstance()->find(VracClient::getInstance()->buildId($this->numero_contrat, $version));
+    }
+
+    public function getMother() {
+
+        return $this->version_document->getMother();
+    }
+
+    public function motherGet($hash) {
+
+        return $this->version_document->motherGet($hash);
+    }
+
+    public function motherExist($hash) {
+
+        return $this->version_document->motherExist($hash);
+    }
+
+    public function motherHasChanged() {
+
+		// A VOIR
+        return true;
+    }
+
+    public function getDiffWithMother() {
+
+        return $this->version_document->getDiffWithMother();
+    }
+
+    public function isModifiedMother($hash_or_object, $key = null) {
+        return $this->version_document->isModifiedMother($hash_or_object, $key);
+    }
+
+    public function generateRectificative() {
+        $doc = $this->version_document->generateRectificative();
+        return $doc;
+    }
+
+    public function generateModificative() {
+        $doc = $this->version_document->generateModificative();
+        return $doc;
+    }
+
+    public function generateNextVersion() {
+        if (!$this->hasVersion()) {
+            $next = $this->version_document->generateModificativeSuivante();
+        } else {
+            $next = $this->version_document->generateNextVersion();
+        }
+        return $next;
+    }
+
+    public function listenerGenerateVersion($document) {
+        $document->devalide();
+    }
+
+    public function listenerGenerateNextVersion($document) {
+        $document->update();
+    }
+
+	public function getSuivante() {
+        if (is_null($this->suivante)) {
+            if (!$this->numero_contrat) {
+                return null;
+            }
+            $this->suivante = VracClient::getInstance()->findMasterByVisa($this->numero_contrat);
+        }
+
+        return $this->suivante;
+    }
+
+    /*     * ** FIN DE VERSION *** */
 }

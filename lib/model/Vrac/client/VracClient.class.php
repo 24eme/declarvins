@@ -57,9 +57,22 @@ class VracClient extends acCouchdbClient {
       return acCouchdbManager::getClient("Vrac");
     }
 
-    public function getId($numeroContrat)
+    public function getId($numeroContrat, $version = null)
     {
-      return 'VRAC-'.$numeroContrat;
+      return 'VRAC-'.$numeroContrat.$this->buildVersion($version);
+    }
+    
+    public function buildId($numeroContrat, $version = null) {
+
+        return $this->getId($numeroContrat, $version);
+    }
+    
+	public function buildVersion($version) {
+        if ($version) {
+            return sprintf('-%s', $version);
+        }
+
+        return '';
     }
 
     public function getNextNoContrat()
@@ -179,5 +192,25 @@ class VracClient extends acCouchdbClient {
         	return self::STATUS_CONTRAT_ATTENTE_VALIDATION;
       	}
 		return $statut;
+    }
+    
+	public function findMasterByVisa($visa, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
+        $contrat = $this->findByNumContrat($visa, $hydrate);
+        return $contrat;
+    }
+
+    public function buildVersion($rectificative, $modificative) {
+
+        return Vrac::buildVersion($rectificative, $modificative);
+    }
+
+    public function getRectificative($version) {
+
+        return Vrac::buildRectificative($version);
+    }
+
+    public function getModificative($version) {
+
+        return Vrac::buildModificative($version);
     }
  }
