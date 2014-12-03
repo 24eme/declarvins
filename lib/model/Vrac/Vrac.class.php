@@ -279,7 +279,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	return ($this->valide->statut && $this->valide->statut != VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION)? true : false;
     }
 
-    public function isModifiable() {
+    public function isEditable() {
       if($this->valide->statut && $this->valide->statut != VracClient::STATUS_CONTRAT_NONSOLDE) {
         return false;
       }
@@ -415,9 +415,9 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         
         return $this->version_document->getPreviousVersion();
     }
-	// CLIENT
+	
     public function getMasterVersionOfRectificative() {
-        return DRMClient::getInstance()->getMasterVersionOfRectificative($this->identifiant, $this->periode, $this->getRectificative() - 1);
+        throw new sfException('inutile');
     }
 
     public function needNextVersion() {

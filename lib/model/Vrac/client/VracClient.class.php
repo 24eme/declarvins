@@ -59,7 +59,7 @@ class VracClient extends acCouchdbClient {
 
     public function getId($numeroContrat, $version = null)
     {
-      return 'VRAC-'.$numeroContrat.$this->buildVersion($version);
+      return 'VRAC-'.$numeroContrat.$this->buildIdVersion($version);
     }
     
     public function buildId($numeroContrat, $version = null) {
@@ -67,7 +67,7 @@ class VracClient extends acCouchdbClient {
         return $this->getId($numeroContrat, $version);
     }
     
-	public function buildVersion($version) {
+	public function buildIdVersion($version) {
         if ($version) {
             return sprintf('-%s', $version);
         }

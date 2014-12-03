@@ -11,7 +11,8 @@ Vrac:
       etape: {  }
       vous_etes: {  }
       vendeur_type: {  }  
-      vendeur_identifiant: {  }      
+      vendeur_identifiant: {  }   
+      version: {  required: false; }   
       vendeur:        
         type: collection
         definition:

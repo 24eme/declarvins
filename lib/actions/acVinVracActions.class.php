@@ -167,7 +167,7 @@ class acVinVracActions extends sfActions
         	$this->vrac = $this->getNewVrac($this->etablissement);
         } 
 		$this->init($this->vrac, $this->etablissement);
-        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$this->vrac->isModifiable()) {
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$this->vrac->isEditable()) {
             return $this->redirect('vrac_valide_admin');
         }
 
@@ -339,6 +339,36 @@ class acVinVracActions extends sfActions
 	public function executeValideAdmin(sfWebRequest $request) {
 		$this->etablissement = null;
 		$this->setTemplate('valide');
+    }
+    
+
+
+    public function executeRectificative(sfWebRequest $request) {    
+        $this->vrac = $this->getRoute()->getVrac();
+        $this->etablissement = $this->getRoute()->getEtablissement();
+        $this->init($this->vrac, $this->etablissement);
+
+        $vrac_rectificative = $this->vrac->generateRectificative();
+        $vrac_rectificative->save();
+
+        return $this->redirect(array('sf_route' => 'vrac_etape', 
+                              'sf_subject' => $vrac_rectificative, 
+                              'step' => $this->configurationVracEtapes->getFirst(), 
+                              'etablissement' => $this->etablissement));
+    }
+
+    public function executeModificative(sfWebRequest $request) {
+        $this->vrac = $this->getRoute()->getVrac();
+        $this->etablissement = $this->getRoute()->getEtablissement();
+        $this->init($this->vrac, $this->etablissement);
+
+        $vrac_modificative = $this->vrac->generateModificative();
+        $vrac_modificative->save();
+
+        return $this->redirect(array('sf_route' => 'vrac_etape', 
+                              'sf_subject' => $vrac_modificative, 
+                              'step' => $this->configurationVracEtapes->getFirst(), 
+                              'etablissement' => $this->etablissement));
     }
 
 	public function getForm($interproId, $etape, $configurationVrac, $etablissement, $user, $vrac)
