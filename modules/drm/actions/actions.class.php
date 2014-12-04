@@ -10,6 +10,19 @@
  */
 class drmActions extends sfActions {
 
+	public function preExecute()
+  	{
+  		try {
+  			$etablissement = $this->getRoute()->getEtablissement();
+  		} catch (Exeption $e) {
+  			$etablissement = null;
+  		}
+  		if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement) {
+  			$configuration = ConfigurationClient::getCurrent();
+  			$this->forward404Unless($configuration->isApplicationOuverte($etablissement->interpro, 'drm'));	
+  		}
+  		
+  	}
     /**
      *
      * @param sfWebRequest $request 
@@ -88,7 +101,6 @@ class drmActions extends sfActions {
      * @param sfRequest $request A request object
      */
     public function executeMonEspace(sfWebRequest $request) {
-        $this->forward404Unless($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR));
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->updateLastDrmSession($this->etablissement);
         $this->historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
