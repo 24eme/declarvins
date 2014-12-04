@@ -1,6 +1,19 @@
 <?php
 class acVinVracActions extends sfActions
 {
+	public function preExecute()
+  	{
+  		try {
+  			$etablissement = $this->getRoute()->getEtablissement();
+  		} catch (Exeption $e) {
+  			$etablissement = null;
+  		}
+  		if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement) {
+  			$configuration = ConfigurationClient::getCurrent();
+  			$this->forward404Unless($configuration->isApplicationOuverte($etablissement->interpro, 'vrac'));	
+  		}
+  		
+  	}
 	public function init($vrac, $etablissement)
 	{
 		$this->interpro = $this->getInterpro($vrac, $etablissement);
