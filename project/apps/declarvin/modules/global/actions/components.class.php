@@ -16,6 +16,7 @@ class globalComponents extends sfComponents {
 
     public function executeNavTop() {
         $this->etablissement = $this->getRoute()->getEtablissement();
+    	$this->configuration = ConfigurationClient::getCurrent();
     }
 
     public function getRoute()

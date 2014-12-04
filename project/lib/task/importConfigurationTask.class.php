@@ -72,6 +72,17 @@ EOF;
     $zones = ConfigurationZoneClient::getInstance()->getZonesInitialConfiguration();
     $zonesIds = array();
     
+    $interprosGerantes = InterproClient::getInstance()->getInterpros();
+    
+    foreach ($interprosGerantes as $interproGerant) {
+    	 $ouverture = $configuration->ouverture->add($interproGerant);
+    	 $ouverture->add('drm', 1);
+    	 $ouverture->add('vrac', 1);
+    	 $ouverture->add('daids', 1);
+    }
+    
+     $this->logSection('configuration', 'ouvertures importées');
+    
     foreach ($zones as $zone) {
   		if ($z = acCouchdbManager::getClient()->retrieveDocumentById($zone->_id)) {
 	        $z->delete();

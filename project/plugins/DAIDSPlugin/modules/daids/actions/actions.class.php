@@ -10,6 +10,19 @@
  */
 class daidsActions extends sfActions
 {
+	public function preExecute()
+  	{
+  		try {
+  			$etablissement = $this->getRoute()->getEtablissement();
+  		} catch (Exeption $e) {
+  			$etablissement = null;
+  		}
+  		if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement) {
+  			$configuration = ConfigurationClient::getCurrent();
+  			$this->forward404Unless($configuration->isApplicationOuverte($etablissement->interpro, 'daids'));	
+  		}
+  		
+  	}
 
   /**
    *
@@ -57,7 +70,6 @@ class daidsActions extends sfActions
   */
   public function executeMonEspace(sfWebRequest $request)
   {
-  	  $this->forward404Unless($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR));
       $this->etablissement = $this->getRoute()->getEtablissement();
       $this->historique = DAIDSClient::getInstance()->getDAIDSHistorique($this->etablissement->identifiant);
       $this->formCampagne = new DAIDSCampagneForm($this->etablissement->identifiant);

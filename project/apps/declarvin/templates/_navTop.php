@@ -6,20 +6,21 @@ use_helper('Text');
         <!--<li>
             <a href="#">Accueil</a>
         </li>-->
-        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $configuration->isApplicationOuverte($etablissement->interpro, 'drm')): ?>
         <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
         <li<?php if ($active == 'drm'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('drm_mon_espace', $etablissement) ?>">DRM</a>
         </li>
         <?php endif; ?>
         <?php endif; ?>
+        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $configuration->isApplicationOuverte($etablissement->interpro, 'vrac')): ?>
         <?php if($etablissement->hasDroit(EtablissementDroit::DROIT_VRAC) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
         <li<?php if ($active == 'vrac'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('vrac_etablissement', $etablissement) ?>">Contrat interprofessionnel</a>
         </li>
         <?php endif; ?>
-        
-        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+        <?php endif; ?>        
+        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $configuration->isApplicationOuverte($etablissement->interpro, 'daids')): ?>
         <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
         <li<?php if ($active == 'daids'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('daids_mon_espace', $etablissement) ?>">DAI/DS</a>
