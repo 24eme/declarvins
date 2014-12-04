@@ -15,6 +15,17 @@ Configuration:
         definition:
           fields:
             '*': {  }
+      ouverture:
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  drm: {  }
+                  vrac: {  }
+                  daids: {  }
       vrac:
         type: collection
         definition:
