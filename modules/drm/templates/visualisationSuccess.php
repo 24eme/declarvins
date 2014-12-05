@@ -78,6 +78,13 @@
 
             <?php include_partial('drm/mouvements', array('mouvements' => $mouvements, 'hamza_style' => false, 'no_link' => null)) ?>
             <br/>
+        <?php if ($drm->commentaires): ?>
+            <div style="padding: 0 0 30px 0">
+                <strong>Commentaires</strong>
+                <pre style="background: #fff; border: 1px #E9E9E9; padding: 8px; margin-top: 8px;"><?php echo $drm->commentaires ?></pre>
+            </div>
+        <?php endif; ?>   
+            
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
 
             <div id="btn_etape_dr">
@@ -94,12 +101,6 @@
 
         </div> 
 
-        <?php if ($drm->commentaires): ?>
-            <div style="padding: 0 0 30px 0">
-                <strong>Commentaires</strong>
-                <pre style="background: #fff; border: 1px #E9E9E9; padding-top: 8px;"><?php echo $drm->commentaires ?></pre>
-            </div>
-        <?php endif; ?>   
     </section>
     <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$drm->getHistorique()->hasDRMInProcess() && $drm->isModifiable()): ?>
         <form method="get" action="<?php echo url_for('drm_modificative', $drm) ?>">

@@ -12,6 +12,12 @@ class DRMClient extends acCouchdbClient {
     const MODE_DE_SAISIE_PAPIER_LIBELLE = 'par l\'interprofession (papier)';
     const MODE_DE_SAISIE_DTI_LIBELLE = 'via Declarvins (DTI)';
     const MODE_DE_SAISIE_EDI_LIBELLE = 'via votre logiciel (EDI)';
+    const DRM_STATUS_BILAN_VALIDE = 'DRM_STATUS_BILAN_VALIDE';
+    const DRM_STATUS_BILAN_MANQUANTE = 'DRM_STATUS_BILAN_MANQUANTE';
+    const DRM_STATUS_BILAN_IGP_MANQUANT = 'DRM_STATUS_BILAN_IGP_MANQUANT';
+    const DRM_STATUS_BILAN_CONTRAT_MANQUANT = 'DRM_STATUS_BILAN_CONTRAT_MANQUANT';
+    const DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT = 'DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT';
+    const DRM_STATUS_BILAN_NON_VALIDE = 'DRM_STATUS_BILAN_NON_VALIDE';
 
     protected $drm_historiques = array();
 
@@ -374,6 +380,20 @@ class DRMClient extends acCouchdbClient {
         $date = $annee . '-' . $mois . '-01';
         $df = format_date($date, 'MMMM yyyy', 'fr_FR');
         return elision($origineLibelle, $df);
+    }
+
+    public static function getAllLibellesStatusBilan() {
+        return array(self::DRM_STATUS_BILAN_MANQUANTE => "DRM manquante",
+            self::DRM_STATUS_BILAN_VALIDE => "DRM saisie validée",
+            self::DRM_STATUS_BILAN_IGP_MANQUANT => "DRM validée mais infos IGP manquantes",
+            self::DRM_STATUS_BILAN_CONTRAT_MANQUANT => "DRM validée mais infos contrat vrac manquants",
+            self::DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT => "DRM validée mais infos IGP manquantes et contrat vrac manquants",
+            self::DRM_STATUS_BILAN_NON_VALIDE => "DRM non validée");
+    }
+
+    public static function getLibellesForStatusBilan($status) {
+        $allLibellesStatusBilan = self::getAllLibellesStatusBilan();
+        return $allLibellesStatusBilan[$status];
     }
 
 }
