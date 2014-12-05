@@ -283,5 +283,14 @@ class Configuration extends BaseConfiguration {
     public function prepareCache() {
         $this->loadAllData();
     }
+    
+    public function isApplicationOuverte($interpro, $application) {
+    		try {
+  				$ouverture = $this->ouverture->get($interpro)->get($application);
+  			} catch (Exception $e) { 
+  				$ouverture = 0;
+  			}
+  			return $ouverture;
+    }
 
 }
