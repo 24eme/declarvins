@@ -97,7 +97,11 @@ class Configuration extends BaseConfiguration {
         }
 
         foreach (self::$stocks_sortie as $key => $value) {
-            $stocks_libelles['sorties/' . $key] = 'Sortie ' . $value;
+            if ($key == 'vrac_contrat') {
+                $stocks_libelles['sorties/' . $key] = 'Dont Sortie ' . $value;
+            } else {
+                $stocks_libelles['sorties/' . $key] = 'Sortie ' . $value;
+            }
         }
 
         foreach (self::$stocks_fin as $key => $value) {
@@ -113,7 +117,7 @@ class Configuration extends BaseConfiguration {
         foreach (self::$mouvement_coefficient_entree as $key => $value) {
             $stocks_coeffs_mouvement['entrees/' . $key] = $value;
         }
-        
+
         foreach (self::$mouvement_coefficient_sortie as $key => $value) {
             $stocks_coeffs_mouvement['sorties/' . $key] = $value;
         }
