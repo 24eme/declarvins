@@ -702,6 +702,22 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return ($this->manquants->contrats) ? true : false;
     }
 
+    public function getLibelleBilan() {
+        if(!$this->isValidee()){
+            return DRMClient::getLibellesForStatusBilan(DRMClient::DRM_STATUS_BILAN_NON_VALIDE);
+        }
+        if($this->isIncomplete()){
+            return DRMClient::getLibellesForStatusBilan(DRMClient::DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT);
+        }
+        if($this->isContratManquant()){
+            return DRMClient::getLibellesForStatusBilan(DRMClient::DRM_STATUS_CONTRAT_MANQUANT);
+        }
+        if($this->isIgpManquant()){
+            return DRMClient::getLibellesForStatusBilan(DRMClient::DRM_STATUS_IGP_MANQUANT);
+        }
+        return DRMClient::getLibellesForStatusBilan(DRMClient::DRM_STATUS_BILAN_VALIDE);
+    }
+    
     /*     * ** VERSION *** */
 
     public static function buildVersion($rectificative, $modificative) {

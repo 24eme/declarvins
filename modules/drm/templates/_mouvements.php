@@ -13,11 +13,11 @@
 
     <div class="tableau_ajouts_liquidations">
 
-        <h2>Mouvements</h2>
+        <h2>Suivi des modifications / rectifications</h2>
         <table id="table_mouvements" class="tableau_recap">
             <thead>
                 <tr>
-                    <th style="width: 170px;">Date de modification</th>
+                    <th style="width: 170px;">Date + Version</th>
                     <th style="width: 280px;">Produits</th>
                     <th>Type</th>
                     <th>Volume</th>
