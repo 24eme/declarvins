@@ -313,7 +313,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return ($this->valide->date_saisie);
     }
 
-    public function validate($options = null) {
+    public function validate($options = array()) {
         if(in_array('onlyUpdateMouvements', $options))
         {
             $this->generateMouvements();
@@ -783,7 +783,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
     public function needNextVersion() {
 
-        return $this->version_document->needNextVersion() || !$this->isSuivanteCoherente();
+        return $this->version_document->needNextVersion();
     }
 
     public function getMaster() {
@@ -821,22 +821,28 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function motherHasChanged() {
-        if ($this->declaration->total != $this->getMother()->declaration->total) {
-
-            return true;
-        }
 
         if (count($this->getDetails()) != count($this->getMother()->getDetails())) {
 
             return true;
         }
-
-        if ($this->droits->douane->getCumul() != $this->getMother()->droits->douane->getCumul()) {
-
-            return true;
+        
+        $change = false;
+        foreach ($this->getDetails() as $detail) {
+        	if ($old = $this->getMother()->get($detail->getHash())) {
+        		if ($detail->total != $old->total) {
+        			$change = true;
+        			break;
+        		}
+        	} else {
+        		$change = true;
+        		break;
+        	}
         }
+        
+        
 
-        return false;
+        return $change;
     }
 
     public function getDiffWithMother() {
