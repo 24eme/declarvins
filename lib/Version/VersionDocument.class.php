@@ -223,7 +223,7 @@ class VersionDocument
             throw new sfException(sprintf('The document %s is not rectificable, maybe she was already rectificate', $this->document->get('_id')));
         }
 
-        $document_rectificative->version = $this->buildVersionDocument($this->getRectificative() + 1, 0);
+        $document_rectificative->version = $this->buildVersionDocument($this->getRectificative() + 1, $this->getModificative());
         $this->document->listenerGenerateVersion($document_rectificative);
 
         return $document_rectificative;
