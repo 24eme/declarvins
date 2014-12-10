@@ -11,18 +11,18 @@
  *
  * @author mathurin
  */
-class updateDrmsWithMouvementsTask extends sfBaseTask {
+class createBilansDrmTask extends sfBaseTask {
 
     protected function configure() {
         $this->addOptions(array(
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
-            new sfCommandOption('drm', null, sfCommandOption::PARAMETER_REQUIRED, null)
+            new sfCommandOption('etablissement', null, sfCommandOption::PARAMETER_REQUIRED, null)
         ));
 
         $this->namespace = 'update';
-        $this->name = 'drmsWithMouvements';
+        $this->name = 'createBilansDRM';
         $this->briefDescription = '';
         $this->detailedDescription = <<<EOF
 The [update|INFO] task does things.
@@ -37,14 +37,62 @@ EOF;
         // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-        $optionDrmId = $options['drm'];
-        if ($drm = DRMClient::getInstance()->find($optionDrmId)) {
-            echo "Mouvements crées pour $optionDrmId\n";
-            $drm->validate(array('onlyUpdateMouvements'));
-            $drm->save();
-        }else{
-            echo "Pas de drm touvée pour $optionDrmId\n";
+        $optionEtablissementId = $options['etablissement'];
+        if ($etablissement = DRMClient::getInstance()->find($optionEtablissementId)) {
+            $this->creatBilanDRMForEtablissement($etablissement);
+        } else {
+            echo "Etablissement non touvé: $optionEtablissementId\n";
         }
+    }
+
+    protected function creatBilanDRMForEtablissement($etablissement) {
+        $identifiant = $etablissement->identifiant;
+        $firstPeriode = DRMAllView::getInstance()->getFirstDrmPeriodeByEtablissement($identifiant);
+        $allPeriodes = $this->createPeriodesFromFirstPeriode($firstPeriode);
+        $drm_client = DRMClient::getInstance();
+        foreach ($allPeriodes as $periode) {
+            $idDrm = $drm_client->buildId($identifiant, $periode);
+            $drm = $drm_client->find($idDrm);
+            if (!is_null($drm)) {
+                $drm = $drm->getMaster();
+            }
+            $bilan = BilanClient::getInstance()->findOrCreateByIdentifiant($identifiant, 'DRM');
+            $bilan->updateEtablissement();
+            $currentCampagne = ConfigurationClient::getInstance()->buildCampagne($periode . '-01');
+            $firstCampagne = ($currentCampagne == ConfigurationClient::getInstance()->buildCampagne($firstPeriode . '-01'));
+            
+            $bilan->updateFromDRM($drm, $firstCampagne);
+            
+            if (is_null($drm)) {
+                $bilan->updateDRMManquantesAndNonSaisiesForCampagne($currentCampagne,$periode, $firstCampagne);
+            }
+            
+            $bilan->save();
+            echo "Insertion de la période $periode dans le bilan $bilan->_id \n";
+        }
+    }
+
+    protected function createPeriodesFromFirstPeriode($firstPeriode) {
+        $firstCampagne = ConfigurationClient::getInstance()->buildCampagne($firstPeriode . '-01');
+        $currentCampagne = ConfigurationClient::getInstance()->buildCampagne(date('Y-m-d'));
+        $firstAnnee = (int) substr($firstCampagne, 0, 4);
+        $lastAnnee = (int) substr($currentCampagne, 0, 4);
+        $periodeArray = array();
+
+        for ($annee = $firstAnnee; $annee <= $lastAnnee; $annee++) {
+            $campagne = $annee . "-" . ($annee + 1);
+            $periodeForCampagne = ConfigurationClient::getInstance()->getPeriodesForCampagne($campagne);
+            if ($campagne == $firstCampagne) {
+                foreach ($periodeForCampagne as $periode) {
+                    if ($periode >= $firstPeriode) {
+                        $periodeArray[] = $periode;
+                    }
+                }
+            } else {
+                $periodeArray = array_merge($periodeArray, $periodeForCampagne);
+            }
+        }
+        return $periodeArray;
     }
 
 }

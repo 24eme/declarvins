@@ -1,0 +1,19 @@
+#!/bin/bash
+. bin/config.inc
+
+TMP=/tmp
+
+
+curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/etablissement/_view/all > $TMP"/etablissements_rows"
+cat $TMP"/etablissements_rows" | grep -E '^{"id":' | sed 's/{"id"://g' | sed 's/],"value":null}//g' | sed 's/"key":\[//g' | grep ',"producteur",' | cut -d "," -f 1 | sort | uniq > $TMP"/etablissements_uniq"
+
+echo "#!/bin/bash" > $TMP"/createBilansDRM.sh"
+echo "TMP=/tmp" >> $TMP"/createBilansDRM.sh"
+
+echo "TOTAL=`cat $TMP"/etablissements_uniq" | wc -l`" >> $TMP"/createBilansDRM.sh"
+
+echo -n $TMP"/createBilansDRM.log"
+
+cat $TMP"/etablissements_uniq" | sed -r 's/(.*)/php symfony update:createBilansDRM --etablissement=\1 \>\> $TMP"\/createBilansDRM.log"/g' | awk '{printf("%06d %s\n", NR, $0)}' | sed -r 's/([0-9]{6}) (.*) >> (.*)/\2 \| sed -r "s\/(.*)\/\\1 (\1\\\/$TOTAL) \/g" >> \3/g' >> $TMP"/createBilansDRM.sh"
+
+bash $TMP"/createBilansDRM.sh"

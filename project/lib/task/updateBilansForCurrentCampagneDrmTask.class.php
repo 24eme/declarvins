@@ -11,18 +11,18 @@
  *
  * @author mathurin
  */
-class updateDrmsWithMouvementsTask extends sfBaseTask {
+class updateBilansForCurrentCampagneDrmTask extends sfBaseTask {
 
     protected function configure() {
         $this->addOptions(array(
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
-            new sfCommandOption('drm', null, sfCommandOption::PARAMETER_REQUIRED, null)
+            new sfCommandOption('etablissement', null, sfCommandOption::PARAMETER_REQUIRED, null)
         ));
 
         $this->namespace = 'update';
-        $this->name = 'drmsWithMouvements';
+        $this->name = 'updateBilansForCurrentCampagneDrmTask';
         $this->briefDescription = '';
         $this->detailedDescription = <<<EOF
 The [update|INFO] task does things.
@@ -37,14 +37,24 @@ EOF;
         // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-        $optionDrmId = $options['drm'];
-        if ($drm = DRMClient::getInstance()->find($optionDrmId)) {
-            echo "Mouvements crées pour $optionDrmId\n";
-            $drm->validate(array('onlyUpdateMouvements'));
-            $drm->save();
-        }else{
-            echo "Pas de drm touvée pour $optionDrmId\n";
+        $optionEtablissementId = $options['etablissement'];
+        if ($etablissement = DRMClient::getInstance()->find($optionEtablissementId)) {
+            $this->updateBilansForCurrentCampagneDrm($etablissement);
+        } else {
+            echo "Etablissement non touvé: $optionEtablissementId\n";
         }
+    }
+
+    protected function updateBilansForCurrentCampagneDrm($etablissement) {
+        $identifiant = $etablissement->identifiant;
+        $currentCampagne = ConfigurationClient::getInstance()->buildCampagne(date('Y-m-d'));
+        $periodes = ConfigurationClient::getInstance()->getPeriodesForCampagne($currentCampagne);
+        $bilan = BilanClient::getInstance()->findOrCreateByIdentifiant($identifiant, 'DRM');
+        foreach ($periodes as $periode) {
+            $bilan->updateDRMManquantesAndNonSaisiesForCampagne($currentCampagne, $periode);
+        }
+        $bilan->save();
+        echo "BILAN $bilan->_id updated \n";
     }
 
 }
