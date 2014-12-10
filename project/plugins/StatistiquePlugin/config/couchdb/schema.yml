@@ -1,0 +1,58 @@
+Bilan:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {  }
+      identifiant: {  }
+      type_bilan: {  }
+      etablissement:
+        type: collection
+        definition:
+          fields:
+            nom: { }
+            statut: {  }
+            interpro: {  }
+            num_interne: {  }
+            siret: {  }
+            raison_sociale: {  }
+            cni: {  }
+            cvi: {  }
+            no_accises: {  }
+            no_tva_intracommunautaire: {  }
+            email: {  }
+            telephone: {  }
+            fax: {  }
+            service_douane: {  }
+            siege:
+              type: collection
+              definition:
+                fields:
+                  adresse: {  }
+                  code_postal: {  }
+                  commune: {  }
+                  pays: {  }  
+            zones:
+              type: collection
+              required: false
+              definition:
+                fields:
+                  '*':
+                    type: collection
+                    definition:
+                      fields:
+                        libelle: {  }
+                        transparente: {  }
+                        administratrice: {  }
+      periodes:
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  total_fin_de_mois : { type: float }
+                  id_drm: {  }
+                  statut: {  } 
+                  statut_libelle: {  }
