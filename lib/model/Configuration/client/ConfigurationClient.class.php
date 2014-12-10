@@ -87,6 +87,21 @@ class ConfigurationClient extends acCouchdbClient
         }
         return sprintf(self::CAMPAGNE_DATE_FIN, $annees[2]); 
     }
+    
+    public function getPeriodesForCampagne($campagne) 
+    {
+        if (!preg_match('/^([0-9]+)-([0-9]+)$/', $campagne, $annees)) {
+            throw new sfException('campagne bad format');
+        }
+        $periodes = array();
+        for ($mois = 8; $mois <= 12; $mois++) {
+            $periodes[] = sprintf("%s-%02d", $annees[1],$mois);
+        }
+        for ($mois = 1; $mois <= 7; $mois++) {
+           $periodes[] = sprintf("%s-%02d", $annees[2],$mois); 
+        }
+        return $periodes; 
+    }
 
     public function buildDateDebutCampagne($date) 
     {
