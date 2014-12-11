@@ -471,6 +471,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $etablissement = $this->getEtablissement();
             $this->etablissement_num_interne = $etablissement->num_interne;
         }
+        $this->updateBilan();
     }
 
     protected function getHistoriqueAbstract() {
@@ -703,19 +704,23 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function getLibelleBilan() {
+            return DRMClient::getLibellesForStatusBilan($this->getStatutBilan());        
+    }
+    
+    public function getStatutBilan() {
         if(!$this->isValidee()){
-            return DRMClient::getLibellesForStatusBilan(DRMClient::DRM_STATUS_BILAN_NON_VALIDE);
+            return DRMClient::DRM_STATUS_BILAN_NON_VALIDE;
         }
         if($this->isIncomplete()){
-            return DRMClient::getLibellesForStatusBilan(DRMClient::DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT);
+            return DRMClient::DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT;
         }
         if($this->isContratManquant()){
-            return DRMClient::getLibellesForStatusBilan(DRMClient::DRM_STATUS_CONTRAT_MANQUANT);
+            return DRMClient::DRM_STATUS_CONTRAT_MANQUANT;
         }
         if($this->isIgpManquant()){
-            return DRMClient::getLibellesForStatusBilan(DRMClient::DRM_STATUS_IGP_MANQUANT);
+            return DRMClient::DRM_STATUS_IGP_MANQUANT;
         }
-        return DRMClient::getLibellesForStatusBilan(DRMClient::DRM_STATUS_BILAN_VALIDE);
+        return DRMClient::DRM_STATUS_BILAN_VALIDE;
     }
     
     /*     * ** VERSION *** */
@@ -978,4 +983,17 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     /*     * ** FIN DES MOUVEMENTS *** */
+    
+    
+    /* CREATION BILAN */
+    
+    public function updateBilan() {
+       $bilan = BilanClient::getInstance()->findOrCreateByIdentifiant($this->identifiant, 'DRM');
+       $bilan->updateEtablissement();
+       $bilan->updateFromDRM($this);
+       $bilan->save();
+    }
+    
+    
+    /* FIN DES MOUVEMENTS *** */
 }
