@@ -1,7 +1,15 @@
 <?php
 class DRMManquantsForm extends acCouchdbObjectForm
-{
-	public function configure()
+{   
+    private $drm = null;
+
+
+    public function __construct(acCouchdbJson $object, $options = array(), $CSRFSecret = null, $drm = null) {
+        $this->drm = $drm;
+        parent::__construct($object, $options, $CSRFSecret);
+    }
+    
+    public function configure()
   	{
       	$this->setWidgets(array(
         	'igp' => new WidgetFormInputCheckbox(),
@@ -17,4 +25,14 @@ class DRMManquantsForm extends acCouchdbObjectForm
         ));
 	    $this->widgetSchema->setNameFormat('drm_manquants[%s]');
   	}
+        
+        protected function updateDefaultsFromObject() {
+        parent::updateDefaultsFromObject();
+        $defaults = $this->getDefaults();
+        if($this->drm->hasVolumeVracWithoutDetailVrac()){
+            $defaults['contrats'] = 1;
+        }
+        
+        $this->setDefaults($defaults);     
+    }
 }
