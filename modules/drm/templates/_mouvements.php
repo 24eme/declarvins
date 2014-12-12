@@ -2,6 +2,8 @@
 <?php use_helper('Date'); ?>
 <?php use_helper('Mouvement') ?>
 
+<div class="tableau_ajouts_liquidations">
+    <h2>Suivi des modifications / rectifications</h2>
 <?php if (count($mouvements) > 0): ?>
     <?php if (isset($hamza_style) && $hamza_style) : ?>
         <?php
@@ -11,9 +13,7 @@
         ?>
     <?php endif; ?>
 
-    <div class="tableau_ajouts_liquidations">
 
-        <h2>Suivi des modifications / rectifications</h2>
         <table id="table_mouvements" class="tableau_recap">
             <thead>
                 <tr>
