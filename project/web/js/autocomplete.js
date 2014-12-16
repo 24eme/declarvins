@@ -191,6 +191,12 @@
 						if (select.attr('data-ajax') || (select.children("option").length > 1)) {
 							$(input).parent().find('button').show();
 						}
+						if (select.attr('data-remove-inputs')) {
+							console.log(select.attr('data-remove-inputs'));
+							var content = select.attr('data-remove-inputs');
+							$(content+' input').each(function() { console.log($(this)); $(this).val(''); });
+							$(content+' textarea').each(function() { $(this).val(''); });
+						}
 						return false;
 					});
 					//.addClass( "ui-widget ui-widget-content ui-corner-left" );
