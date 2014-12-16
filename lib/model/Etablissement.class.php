@@ -142,4 +142,18 @@ class Etablissement extends BaseEtablissement {
     	}
     	return $zones;
     }
+    
+    public function makeLibelle()
+    {
+    	$datas = array();
+    	$datas[EtablissementAllView::KEY_NOM] = $this->nom;
+    	$datas[EtablissementAllView::KEY_RAISON_SOCIALE] = $this->raison_sociale;
+    	$datas[EtablissementAllView::KEY_IDENTIFIANT] = $this->identifiant;
+    	$datas[EtablissementAllView::KEY_FAMILLE] = $this->famille;
+    	$datas[EtablissementAllView::KEY_COMMUNE] = $this->siege->commune;
+    	$datas[EtablissementAllView::KEY_CODE_POSTAL] = $this->siege->code_postal;
+    	$datas[EtablissementAllView::KEY_PAYS] = $this->siege->pays;
+    	$datas[EtablissementAllView::KEY_STATUT] = $this->statut;
+    	return EtablissementAllView::makeLibelle($datas);
+    }
 }
