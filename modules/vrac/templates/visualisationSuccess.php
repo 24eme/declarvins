@@ -1,13 +1,6 @@
 <?php include_component('global', 'nav', array('active' => 'vrac', 'subactive' => 'vrac')); ?>
 
 <div id="contenu" class="vracs">
-<?php if ($etablissement->statut != Etablissement::STATUT_ARCHIVE || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-        <?php if ($vrac->isRectifiable()): ?>
-            <form method="get" action="<?php echo url_for('vrac_rectificative', $vrac) ?>">
-                <button class="btn_passer_etape rectificative" type="submit">Soumettre un contrat rectificatif</button>
-            </form>
-        <?php endif; ?>
-    <?php endif; ?>
     <div id="rub_contrats">
         <section id="principal"> 
             <div id="recap_saisie" class="popup_form visualisation_contrat">
@@ -54,22 +47,31 @@
                         </div>                            
                     </div>
                     
-                    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-	                    <div id="ligne_btn">
-                                <?php if($vrac->isEditable()): ?>
-	                        <a href="<?php echo url_for('vrac_modification', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>" id="btn_editer_contrat"  class="modifier"> Modifier le contrat</a>
-                            <?php elseif($vrac->isModifiableVolume()): ?>
-                                <a href="<?php echo url_for('vrac_modification_restreinte', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>" id="btn_editer_contrat"  class="modifier"> Modifier le contrat (restreint)</a>
-                            <?php endif; ?>
+                    <?php if (($etablissement->statut != Etablissement::STATUT_ARCHIVE && $etablissement->identifiant == $vrac->getCreateur()) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+				        <?php if ($vrac->isRectifiable()): ?>
+				        <div id="ligne_btn">
+				            <form method="get" action="<?php echo url_for('vrac_rectificative', $vrac) ?>">
+				                <button type="submit" id="btn_editer_contrat"  class="modifier" style="font-size: 12px;">Soumettre un contrat rectificatif</button>
+				            </form>
                             <?php if($vrac->isEditable()): ?>
-	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat" onclick="return confirm('Confirmez-vous l\'annulation de ce contrat ?')"> Annuler le contrat</a>
-                            <?php endif; ?>                  
-	                    </div>
-                    <?php endif; ?>
+	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat" style="font-size: 12px;" onclick="return confirm('Confirmez-vous l\'annulation de ce contrat ?')"> Annuler le contrat</a>
+                            <?php endif; ?>  
+				        </div>
+				        <?php endif; ?>
+				    <?php endif; ?>
                 </form>
             
                 <?php include_partial('showContrat', array('configurationVrac' => $configurationVrac, 'etablissement' => $etablissement, 'vrac' => $vrac, 'editer_etape' => false)); ?>
                 
+    
+			    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $vrac->isModifiable()): ?>
+			        <div class="ligne_form_btn" style="margin: 0;">
+			            <form method="get" action="<?php echo url_for('vrac_modificative', $vrac) ?>">
+			                <button type="submit" id="btn_editer_contrat"  class="modifier" style="font-size:12px; float: none;">Soumettre un contrat modificatif</button>
+						</form>
+			        </div>
+			    <?php endif; ?>
+    
                 <div class="ligne_form_btn">
 					<?php if ($etablissement): ?>
 						<a href="<?php echo url_for("vrac_etablissement", array('identifiant' => $etablissement->identifiant)) ?>" class="etape_prec"><span>Retour à liste des contrats</span></a>
@@ -87,10 +89,4 @@
             </div> 
         </section>
     </div>
-    
-    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $vrac->isModifiable()): ?>
-        <form method="get" action="<?php echo url_for('vrac_modificative', $vrac) ?>">
-            <button style="float:left;" class="btn_passer_etape modificative" type="submit">Faire un contrat modificatif</button>
-        </form>
-    <?php endif; ?>
 </div>

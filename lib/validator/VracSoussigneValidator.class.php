@@ -54,6 +54,10 @@ class VracSoussigneValidator extends sfValidatorBase {
     					$hasError = true;
     		}
     	}
+    	if (isset($values['mandataire_exist']) && !$values['mandataire_exist']) {
+    		$values['mandataire_identifiant'] = null;
+    	}
+    	
     	if ($hasError) {
     		throw new sfValidatorErrorSchema($this, $errorSchema);
     	}

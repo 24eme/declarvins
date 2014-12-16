@@ -3,9 +3,9 @@ class acVinVracActions extends sfActions
 {
 	public function preExecute()
   	{
-  		try {
+  		if ($this->getRoute() instanceof EtablissementRoute) {
   			$etablissement = $this->getRoute()->getEtablissement();
-  		} catch (Exeption $e) {
+  		} else {
   			$etablissement = null;
   		}
   		if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement) {
@@ -94,6 +94,8 @@ class acVinVracActions extends sfActions
 		$this->init($vrac, $etablissement);
 		$vrac->interpro = $this->interpro->get('_id');
 		$vrac->numero_contrat = uniqid();
+		$vrac->add('referente', 1);
+		$vrac->add('version', null);
 		return $vrac;
 	}
 

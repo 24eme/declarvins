@@ -11,7 +11,7 @@
         <div class="section_label_strong etablissement_choice" id="listener_<?php echo $famille ?>_choice">
             <?php echo $form[$famille.'_identifiant']->renderError() ?>
             <label for="">Nom : <a class="msg_aide" href="" data-msg="help_popup_vrac_etablissement_manquant" title="Message aide"></a></label>
-            <?php echo $form[$famille.'_identifiant']->render(array('data-infos-container' => '#etablissement_informations_'.$famille)) ?>
+            <?php echo $form[$famille.'_identifiant']->render(array('data-remove-inputs' => '#etablissement_informations_'.$famille, 'data-infos-container' => '#etablissement_informations_'.$famille)) ?>
         </div>
 
         <div class="bloc_form etablissement_informations" id="etablissement_informations_<?php echo $famille ?>"> 
@@ -28,7 +28,7 @@
         </div>
         <div class="section_label_strong etablissement_choice">
             <label for="">Nom :</label>
-            <?php echo $form->getEtablissement()->getNom() ?>
+            <?php if ($form->getEtablissement()->raison_sociale): ?> / <?php endif; ?><?php echo $form->getEtablissement()->nom ?>
         </div>
 
         <div class="bloc_form etablissement_informations"> 

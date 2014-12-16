@@ -5,6 +5,9 @@ $validated = false;
 $isProprietaire = false;
 $statusColor = statusColor($elt[VracHistoryView::VRAC_VIEW_STATUT]);
 $vracid = $elt[VracHistoryView::VRAC_VIEW_NUM];
+if ($elt[VracHistoryView::VRAC_VERSION]) {
+	$vracid .= '-'.$elt[VracHistoryView::VRAC_VERSION];
+}
 if ($etablissement && $etablissement->identifiant == $elt[VracHistoryView::VRAC_VIEW_ACHETEURID]) {
 	$acteur = VracClient::VRAC_TYPE_ACHETEUR;
 	$const = VracHistoryView::VRAC_VIEW_ACHETEURVAL;
@@ -34,7 +37,7 @@ if (in_array($elt[VracHistoryView::VRAC_VIEW_STATUT], array(VracClient::STATUS_C
 <tr class="<?php echo $statusColor ?>" >
   <td>
   	<?php if (!$validated && $isOperateur): ?>
-  	<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" style="left: 5px;" href="<?php echo url_for('vrac_supprimer', array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Supprimer</a>
+  	<a class="supprimer" onclick="return confirm('Confirmez-vous la suppression du contrat?')" style="left: 5px;" href="<?php echo url_for('vrac_supprimer', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Supprimer</a>
   	<?php endif; ?>
 	<span class="statut <?php echo $statusColor ?>" title="<?php echo $elt[VracHistoryView::VRAC_VIEW_STATUT]; ?>"></span>
   </td>
@@ -46,16 +49,16 @@ if (in_array($elt[VracHistoryView::VRAC_VIEW_STATUT], array(VracClient::STATUS_C
     <?php if($elt[VracHistoryView::VRAC_VIEW_STATUT]): ?>
     	<?php if ($validated): ?>
     		<?php echo $vracid ?><br />
-      		<a class="highlight_link" href="<?php echo url_for("vrac_visualisation", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Visualiser le contrat</a>
+      		<a class="highlight_link" href="<?php echo url_for("vrac_visualisation", array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Visualiser le contrat</a>
     	<?php else: ?>
     		En attente<br />
 			<?php if ($etablissement && ($etablissement->statut != Etablissement::STATUT_ARCHIVE || $isOperateur)): ?>
-    		<a class="highlight_link" href="<?php echo url_for('vrac_validation', array('numero_contrat' => $vracid, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>">Accéder au contrat</a>
+    		<a class="highlight_link" href="<?php echo url_for('vrac_validation', array('contrat' => $vracid, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>">Accéder au contrat</a>
 			<?php endif; ?>
     	<?php endif; ?>
     <?php else: ?>
     	<?php if ($etablissement && ($etablissement->statut != Etablissement::STATUT_ARCHIVE || $isOperateur)): ?>
-      	<a class="highlight_link" href="<?php echo url_for("vrac_edition", array('numero_contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder au contrat</a>
+      	<a class="highlight_link" href="<?php echo url_for("vrac_edition", array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder au contrat</a>
       	<?php endif; ?>
     <?php endif; ?>
       

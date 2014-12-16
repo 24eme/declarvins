@@ -13,6 +13,7 @@ Vrac:
       vendeur_type: {  }  
       vendeur_identifiant: {  }   
       version: {  required: false; }   
+      referente: {  required: false; }   
       vendeur:        
         type: collection
         definition:

@@ -110,7 +110,7 @@
 		<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'marche', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
 		<?php endif; ?>
     </li>
-    <li>
+    <li<?php if (!$vrac->has_transaction): ?> style="margin: 0;"<?php endif; ?>>
 		<h3>Conditions</h3>
         <ul>
 			<li>
@@ -183,7 +183,7 @@
 		<?php endif; ?>
     </li>
 	<?php if ($vrac->has_transaction): ?>
-    <li id="recap_transaction">
+    <li id="recap_transaction" style="margin: 0;">
 		<h3>Transaction</h3>
         <ul>
 			<li class="lots">

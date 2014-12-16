@@ -14,9 +14,9 @@
         <div class="section_label_strong" id="listener_mandataire_choice">
             <?php echo $form['mandataire_identifiant']->renderError() ?>
             <label for="">Nom : <a class="msg_aide" href="" data-msg="help_popup_vrac_etablissement_manquant" title="Message aide"></a></label>
-            <?php echo $form['mandataire_identifiant']->render(array('data-infos-container' => '#bloc_mandataire .etablissement_informations')) ?>
+            <?php echo $form['mandataire_identifiant']->render(array('data-remove-inputs' => '#etablissement_informations_mandataire', 'data-infos-container' => '#bloc_mandataire .etablissement_informations')) ?>
         </div>
-        <div  class="bloc_form etablissement_informations"> 
+        <div  class="bloc_form etablissement_informations" id="etablissement_informations_mandataire"> 
             <?php include_partial('form_mandataire', array('form' => $form['mandataire'])); ?>
         </div>
     </div>
@@ -35,7 +35,7 @@
     </div>
     <?php endif; ?>
 </div>
-
+<?php if(isset($form['mandataire_exist'])): ?>
 <script type="text/javascript">
 $("#<?php echo (isset($form['mandataire_exist']))? $form['mandataire_exist']->renderId() : ''; ?>_0").click(function() {
 	var select = $("#listener_mandataire_choice select");
@@ -49,3 +49,4 @@ $("#<?php echo (isset($form['mandataire_exist']))? $form['mandataire_exist']->re
 	btn.hide();	
 });
 </script>
+<?php endif; ?>

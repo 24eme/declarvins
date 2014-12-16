@@ -19,7 +19,11 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     
     public function constructId() 
     {
-        $this->set('_id', 'VRAC-'.$this->numero_contrat);
+    	$id = 'VRAC-'.$this->numero_contrat;
+    	if ($this->version) {
+    		$id .= '-'.$this->version;
+    	}
+        $this->set('_id', $id);
     }
 
     public function getProduitObject() 
@@ -90,6 +94,16 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         }
 
         return null;
+    }
+    
+    public function getCreateur($object = false)
+    {
+    	if ($this->vous_etes) {
+    		if ($id = $this->get($this->vous_etes.'_identifiant')) {
+    			return ($object)? $this->getSoussigneObjectById($id) : $id;
+    		}
+    	}
+    	return null;
     }
     
     public function getVendeurInterpro() 
@@ -257,7 +271,6 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	if ($updateStatutSolde) {
     		$this->updateStatutSolde();
     	}
-    	// fixe
     	$this->part_cvo = floatval($this->part_cvo);
     	parent::save();
     }
@@ -369,11 +382,9 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
 
     public function isVersionnable() {
-        if (!$this->isValide()) {
-
+        if ($this->valide->statut && $this->valide->statut != VracClient::STATUS_CONTRAT_NONSOLDE) {
             return false;
         }
-
         return $this->version_document->isVersionnable();
     }
 
@@ -422,12 +433,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 
     public function needNextVersion() {
 
-        return $this->version_document->needNextVersion() || !$this->isSuivanteCoherente();
-    }
-    
-	public function isSuivanteCoherente() {
-		// A VOIR
-        return true;
+        return $this->version_document->needNextVersion();
     }
 
     public function getMaster() {
@@ -465,9 +471,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
 
     public function motherHasChanged() {
-
-		// A VOIR
-        return true;
+        return false;
     }
 
     public function getDiffWithMother() {

@@ -100,9 +100,9 @@ class VracClient extends acCouchdbClient {
         return null;
     }
     
-    public function findByNumContrat($num_contrat) 
+    public function findByNumContrat($num_contrat, $version = null) 
     {
-      return $this->find($this->getId($num_contrat));
+      return $this->find($this->getId($num_contrat, $version));
     }
     
     public function retrieveFromEtablissementsAndHash($etablissement, $hash, $mustActive = true, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {

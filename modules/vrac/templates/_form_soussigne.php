@@ -3,7 +3,6 @@
     <?php echo $form->renderGlobalErrors() ?>
 
     <?php if(isset($form['vous_etes'])): ?>
-    <!--<div class="contenu_onglet" data-cible="vrac_vendeur_acheteur">-->
     
     <div id="bloc_vous_etes" class="contenu_onglet bloc_condition" data-condition-cible="#bloc_acheteur_choice|#bloc_vendeur_choice|#bloc_acheteur_vous|#bloc_vendeur_vous">
         <?php echo $form['vous_etes']->renderError(); ?>
@@ -11,6 +10,11 @@
         <?php echo $form['vous_etes']->render(); ?>
     </div>
     <?php endif; ?>
+    
+    
+    <?php if ($form->getObject()->hasVersion()): ?>
+    	<?php include_partial('vrac/form_soussignes_version', array('vrac' => $form->getObject(), 'form' => $form)) ?>
+    <?php else: ?>
 
     <?php include_partial('vrac/form_soussigne_item', array('form' => $form,
                                                             'titre' => 'Vendeur',
@@ -32,6 +36,8 @@
                                                             'label_adresse' => 'Adresse de livraison différente')) ?>
 
     <?php include_partial('vrac/form_soussigne_item_mandataire', array('form' => $form)) ?>
+    
+    <?php endif; ?>
 
     <div id="contrat">
         <h1>Type de contrat</h1>
