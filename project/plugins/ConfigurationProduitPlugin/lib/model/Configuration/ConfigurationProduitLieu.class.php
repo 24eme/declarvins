@@ -46,25 +46,6 @@ class ConfigurationProduitLieu extends BaseConfigurationProduitLieu
     
     public function getTotalLieux() 
     {
-    	if ($departements) {
-    		if (!is_array($departements)) {
-    			$departements = array($departements);
-    		}
-    		if ($currentDepartements = $this->getCurrentDepartements(true)) {
-    			$found = false;
-    			foreach ($departements as $departement) {
-    				if (in_array($departement, $currentDepartements)) {
-    					$found = true;
-    					break;
-    				}
-    			}
-    			if (!$found) {
-    				return array();
-    			} 
-    		} else {
-    			return array();
-    		}
-    	}
         return array($this->getHash() => $this);
     }
     
