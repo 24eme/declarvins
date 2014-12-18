@@ -4,8 +4,8 @@ class DRMManquantsForm extends acCouchdbObjectForm
     private $drm = null;
 
 
-    public function __construct(acCouchdbJson $object, $options = array(), $CSRFSecret = null, $drm = null) {
-        $this->drm = $drm;
+    public function __construct(acCouchdbJson $object, $options = array(), $CSRFSecret = null) {
+        $this->drm = $object->getDocument();
         parent::__construct($object, $options, $CSRFSecret);
     }
     
@@ -26,7 +26,7 @@ class DRMManquantsForm extends acCouchdbObjectForm
 	    $this->widgetSchema->setNameFormat('drm_manquants[%s]');
   	}
         
-        protected function updateDefaultsFromObject() {
+        /*protected function updateDefaultsFromObject() {
         parent::updateDefaultsFromObject();
         $defaults = $this->getDefaults();
         if($this->drm->hasVolumeVracWithoutDetailVrac()){
@@ -34,5 +34,5 @@ class DRMManquantsForm extends acCouchdbObjectForm
         }
         
         $this->setDefaults($defaults);     
-    }
+    }*/
 }

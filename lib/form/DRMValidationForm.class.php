@@ -15,7 +15,7 @@ class DRMValidationForm extends acCouchdbObjectForm
       $this->getWidget('commentaires')->setLabel("Commentaires");
       $this->setValidator('commentaires', new sfValidatorString(array('required' => false)));
       
-      $this->embedForm('manquants', new DRMManquantsForm($this->getObject()->getOrAdd('manquants'),array(),array(),$this->getObject()));
+      $this->embedForm('manquants', new DRMManquantsForm($this->getObject()->getOrAdd('manquants')));
 	    
 	    $this->widgetSchema->setNameFormat('drm_validation[%s]');
   	}
