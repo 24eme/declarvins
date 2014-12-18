@@ -6,7 +6,7 @@ class DAIDSDetailCvoForm extends acCouchdbObjectForm
     {
     	$this->setWidget('total_manquants_taxables_cvo', new sfWidgetFormInputFloat());
     	$this->setValidator('total_manquants_taxables_cvo', new sfValidatorNumber(array('required' => true)));
-        $this->widgetSchema->setLabel('total_manquants_taxables_cvo', 'Manquants taxables: ');
+        $this->widgetSchema->setLabel('total_manquants_taxables_cvo', 'Volumes manquants cotisables DAI/DS: ');
         $this->widgetSchema->setNameFormat('daids_detail_cvo[%s]');
         $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
     }

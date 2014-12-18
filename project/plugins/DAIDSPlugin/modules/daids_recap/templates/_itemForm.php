@@ -61,7 +61,7 @@
 	        </p>
 
 			<p class="stock_th stock_th_mensuel <?php echo isVersionnerCssClass($form->getObject(), 'stock_mensuel_theorique') ?>">
-				<?php echo $form['stock_mensuel_theorique']->render(array('class' => 'texte stock_th stock_th_mensuel', 'data-val-defaut' => sprintFloat($form->getObject()->stock_mensuel_theorique, "%01.04f"))) ?>
+				<?php echo $form['stock_mensuel_theorique']->render(array('class' => 'num num_float', 'data-val-defaut' => sprintFloat($form->getObject()->stock_mensuel_theorique, "%01.04f"))) ?>
 	        </p>
 
 			<div class="groupe" data-groupe-id="4">

@@ -63,10 +63,11 @@ class DAIDSDateView extends acCouchdbView
 	const VALUE_MODEDESAISIE = 54;
 	const VALUE_DETAIL_CVO_CODE = 55;
 	const VALUE_DETAIL_CVO_TAUX = 56;
-	const VALUE_DETAIL_CVO_MONTANT = 57;
+	const VALUE_TOTAL_MANQUANTS_TAXABLES_CVO = 57;
 	const VALUE_CAMPAGNE = 58;
 	const VALUE_IDDAIDS = 59;
 	const VALUE_IDIVSE = 60;
+	const VALUE_COMMENTAIRES = 61;
 
 	public static function getInstance() 
 	{

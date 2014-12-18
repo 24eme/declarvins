@@ -50,6 +50,7 @@ function(doc) {
 		var daids_mode_saisie = doc.mode_de_saisie;
 		var daids_identifiant_daids_historique = doc.identifiant_daids_historique;
 		var daids_identifiant_ivse = doc.identifiant_ivse;
+		var daids_commentaires = doc.commentaires;
 		
 		for(interpro in doc.interpros) {
 			for(certification_key in doc.declaration.certifications) {
@@ -225,10 +226,11 @@ function(doc) {
 			                                		 daids_mode_saisie,
 			                                		 detail.cvo.code,
 			                                		 detail.cvo.taux,
-			                                		 detail.total_cvo,
+			                                		 detail.total_manquants_taxables_cvo,
 			                                		 daids_campagne,
 			                                		 daids_identifiant_daids_historique,
-			                                		 daids_identifiant_ivse
+			                                		 daids_identifiant_ivse,
+									 daids_commentaires
 			                                		 ]
 			                                );
 			                            }

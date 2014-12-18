@@ -35,6 +35,7 @@ DAIDS:
       precedente: {  }
       rectificative: { type: integer, required: false }
       referente: { required: false }
+      commentaires: { required: false }
       droits:
         type: collection
         definition:

@@ -76,6 +76,19 @@ class DAIDS extends BaseDAIDS
        	$this->getDocument()->update();
        }
     }
+    
+    public function updateStockTheorique()
+    {
+    	$drmsHistorique = new DRMHistorique($this->identifiant);
+       	if ($lastDrm = $drmsHistorique->getLastDRMByCampagne($this->periode)) {
+	    	foreach ($this->getDetails() as $detail) {
+	    		$d = $lastDrm->getOrAdd($detail->getHash());
+	    		$detail->stock_theorique = $d->total;
+	    		$detail->stock_mensuel_theorique = $d->getStockTheoriqueMensuelByCampagne($this->periode);
+	    	}
+       		$this->getDocument()->update();
+       	}
+    }
 
     public function constructId() 
     {
@@ -253,7 +266,7 @@ class DAIDS extends BaseDAIDS
 
     public function isSupprimable() 
     {
-        return !$this->isValidee() && !$this->isRectificativeEnCascade();
+        return !$this->isValidee();
     }
 
     public function isSupprimableOperateur() 
