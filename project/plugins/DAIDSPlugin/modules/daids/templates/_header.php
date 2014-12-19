@@ -6,5 +6,10 @@
 			Rectificative n° <?php echo sprintf('%02d', $daids->rectificative) ?>
 		</strong>
         <?php endif; ?>
+	<?php if($daids->isModificative()): ?>
+		- <strong style="color: #ff0000; text-transform: uppercase;">
+			Modificative n° <?php echo sprintf('%02d', $daids->modificative) ?>
+		</strong>
+        <?php endif; ?>
 <small>(saisie <?php echo $daids->getModeDeSaisieLibelle(); ?>)</small>
 </p>

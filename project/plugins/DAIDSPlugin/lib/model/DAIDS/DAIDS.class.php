@@ -160,6 +160,7 @@ class DAIDS extends BaseDAIDS
         $daids_suivante->periode = $periode;
         $daids_suivante->campagne = $periode;
         $daids_suivante->precedente = $this->_id;
+        $daids_suivante->commentaires = null;
         $daids_suivante->devalide();
 	    $daids_suivante->remove('editeurs'); 
 	    $daids_suivante->add('editeurs'); 

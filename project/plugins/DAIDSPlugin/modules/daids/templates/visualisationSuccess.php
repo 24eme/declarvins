@@ -54,7 +54,7 @@
     </section>
 	    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$daids->getHistorique()->hasDAIDSInProcess() && $daids->isModifiable()): ?>
 	    <form method="get" action="<?php echo url_for('daids_modificative', $daids) ?>">
-	        <button style="float:left;" class="btn_passer_etape modificative" type="submit">Corriger la DAI/DS</button>
+	        <button style="float:left;" class="btn_passer_etape modificative" type="submit">Faire une DAI/DS modificative</button>
 	    </form>
 	    <?php endif; ?>
 </section>

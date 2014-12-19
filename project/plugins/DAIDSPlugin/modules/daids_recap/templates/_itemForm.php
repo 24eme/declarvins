@@ -78,7 +78,7 @@
 
 			<div class="groupe" data-groupe-id="5">
 				<p class="<?php echo isVersionnerCssClass($form->getObject()->stocks_moyen->non_vinifie, 'volume') ?>">
-					<?php echo $form['stocks_moyen']['non_vinifie']['volume']->render(array('class' => 'texte', 'data-calcul' => 'diff', 'data-champs' => '#col_recolte_'.$form->getObject()->renderId().' #'.$form['stock_mensuel_theorique']->renderId().';#col_recolte_'.$form->getObject()->renderId().' #'.$form['stocks_moyen']['vinifie']['volume']->renderId(), 'data-val-defaut' => sprintFloat($form->getObject()->stocks_moyen->non_vinifie->volume, "%01.04f"))) ?>
+					<?php echo $form['stocks_moyen']['non_vinifie']['volume']->render(array('class' => 'num num_float', 'data-val-defaut' => sprintFloat($form->getObject()->stocks_moyen->non_vinifie->volume, "%01.04f"))) ?>
 				</p>
 				<ul>
 					<li class="<?php echo isVersionnerCssClass($form->getObject()->stocks_moyen->conditionne, 'total') ?>">
