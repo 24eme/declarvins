@@ -1,6 +1,6 @@
 <?php use_helper('Float'); ?>
 <?php use_helper('Version'); ?>
-<?php include_partial('global/navTop', array('active' => 'drm', 'etablissement' => $etablissement)); ?>
+<?php include_component('global', 'navTop', array('active' => 'drm')); ?>
 
 
 <section id="contenu">
