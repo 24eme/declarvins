@@ -19,7 +19,30 @@
             <?php if ($statistiquesBilan): ?>
                 <div class="tableau_ajouts_liquidations">
                     <a href="<?php echo url_for('statistiques_bilan_drm_csv', array('interpro' => $interpro->get('_id'), 'campagne' => $campagne)) ?>">CSV</a>&nbsp;|&nbsp;
-                    <a href="<?php echo url_for('statistiques_drm_manquantes_csv', array('interpro' => $interpro->get('_id'), 'campagne' => $campagne)) ?>">CSV N-1</a>
+                                        <a class="btn_popup" data-popup-config="configForm" data-popup="#popup_select_periode" href="">CSV N-1</a>
+                    <div class="popup_contenu" style="display: none;">
+                        <form  class="popup_form" id="popup_select_periode" action="#" method="post">
+                            <div class="ligne_form">
+                                <label for="select_periode">Récupérer par période :</label>
+                                <select id="select_periode" name="select_periode">
+                                    <?php foreach ($statistiquesBilan->getPeriodes() as $periode): ?>
+                                    <option value="<?php echo url_for('statistiques_drm_manquantes_csv', array('interpro' => $interpro->get('_id'), 'campagne' => $campagne, 'periode' => $periode)); ?>"><?php echo $periode; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="ligne_form_btn">
+                                <button class="btn_annuler btn_fermer" type="reset" name="annuler">Annuler</button>
+                                <button class="btn_valider" type="submit" name="valider">Valider</button>
+                            </div>
+                        </form>
+                        <script type="text/javascript">
+                            $('#popup_select_periode').submit(function() {
+                                document.location.href = $('#select_periode').val();
+                                return false;
+                            });
+                        </script>
+                    </div>
+
                     <table class="tableau_recap">
                         <thead>
                             <tr>
@@ -41,7 +64,7 @@
                                         Cvi : <?php echo  $bilanOperateur->etablissement->cvi; ?><br />
                                         Num. Accises : <?php echo $bilanOperateur->etablissement->no_accises; ?><br />
                                         <?php echo $bilanOperateur->etablissement->siege->adresse; ?><br />
-                                        <?php echo $bilanOperateur->etablissement->siege->code_postal; ?> <?php $bilanOperateur->etablissement->siege->ville; ?><br />
+                                        <?php echo $bilanOperateur->etablissement->siege->code_postal; ?> <?php $bilanOperateur->etablissement->siege->commune; ?><br />
                                         <?php echo $bilanOperateur->etablissement->siege->pays; ?><br />
                                         @ : <?php echo $bilanOperateur->etablissement->email; ?><br />
                                         Tèl : <?php echo $bilanOperateur->etablissement->telephone; ?> Fax :<?php echo $bilanOperateur->etablissement->fax; ?><br />

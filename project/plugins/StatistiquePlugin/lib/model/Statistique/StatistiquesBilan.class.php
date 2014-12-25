@@ -113,36 +113,9 @@ class StatistiquesBilan {
         }
         return $statutsDrmsCsv;
     }
+            
+    public function hasEtablissementStatutManquantForPeriode($bilanOperateur, $periode) {
+        return ($bilanOperateur->periodes[$periode]->statut == DRMClient::DRM_STATUS_BILAN_MANQUANTE);
+    } 
     
-    public function hasEtablissementOneStatutManquant($bilanOperateur) {
-        foreach ($this->buildPeriodes() as $periode) {
-            if($bilanOperateur->periodes[$periode]->statut == DRMClient::DRM_STATUS_BILAN_MANQUANTE){
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public function getVolumesForDrmsManquantesCsv($bilanOperateur) {
-        $volumesForDrmsManquantesCsv = "";
-        foreach ($this->buildPeriodes() as $periode) {
-            if($bilanOperateur->periodes[$periode]->statut == DRMClient::DRM_STATUS_BILAN_MANQUANTE){
-                $periodePrec = (((int) substr($periode, 0,4)) - 1).substr($periode, 4,3);
-                if(!array_key_exists($periodePrec, $bilanOperateur->periodesNMoins1)
-                        || is_null($bilanOperateur->periodesNMoins1[$periodePrec])
-                        || ($bilanOperateur->periodesNMoins1[$periodePrec]->statut == DRMClient::DRM_STATUS_BILAN_MANQUANTE)
-                        || ($bilanOperateur->periodesNMoins1[$periodePrec]->statut == DRMClient::DRM_STATUS_BILAN_NON_SAISIE)
-                        || ($bilanOperateur->periodesNMoins1[$periodePrec]->statut == DRMClient::DRM_STATUS_BILAN_NON_VALIDE)){
-                   $volumesForDrmsManquantesCsv .= "Non Renseigné;";
-                        }else{
-                            $volumesForDrmsManquantesCsv .= $bilanOperateur->periodesNMoins1[$periodePrec]->total_fin_de_mois.";";
-                        }
-            }
-            else{
-                $volumesForDrmsManquantesCsv .= ";";
-            }
-        }
-        return $volumesForDrmsManquantesCsv;
-    }
-
 }

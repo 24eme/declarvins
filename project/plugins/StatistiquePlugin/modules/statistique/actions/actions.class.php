@@ -73,9 +73,16 @@ class statistiqueActions extends sfActions {
         set_time_limit(0);
         $campagne = $request->getParameter('campagne');
         $interpro = $request->getParameter('interpro');
+        
+        $periode = $request->getParameter('periode');
+        
         if (!$campagne) {
             return $this->renderText("Pas de campagne définie");
         }
+        if (!$periode) {
+            return $this->renderText("Pas de periode définie");
+        }
+        
         if (!preg_match("/[0-9]{4}-[0-9]{4}/", $campagne)) {
             return $this->renderText("Campagne invalide");
         }
@@ -84,22 +91,30 @@ class statistiqueActions extends sfActions {
         }
         $statistiquesBilan = new StatistiquesBilan($interpro, $campagne);
         
-        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;';
-        foreach ($statistiquesBilan->getPeriodes() as $periode) {
-            $csv_file .= "$periode;";
-        }
+        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Categorie;Genre;Denomination;Lieu;Couleur;Cepage;'.$periode;
         $csv_file .= "\n";
 
         foreach ($statistiquesBilan->getBilans() as $bilanOperateur) {
-            if ($statistiquesBilan->hasEtablissementOneStatutManquant($bilanOperateur)) {
-                $csv_file .= $statistiquesBilan->getEtablissementFieldCsv($bilanOperateur);
-                $csv_file .= $statistiquesBilan->getVolumesForDrmsManquantesCsv($bilanOperateur);
+            if ($statistiquesBilan->hasEtablissementStatutManquantForPeriode($bilanOperateur,$periode)) {
+                $etablissementFieldCsv = $statistiquesBilan->getEtablissementFieldCsv($bilanOperateur);
+                $periodeNmoins1 = (((int) substr($periode, 0,4) ) - 1 ).substr($periode, 4);
+                $drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($bilanOperateur->identifiant, $periodeNmoins1);
+                
+                foreach ($drm->getDetails() as $detail) {
+                    $csv_file .= $etablissementFieldCsv;
+                    $csv_file .=  substr(strrchr($detail->getCertification()->getHash(), "/"), 1).";";
+                    $csv_file .=  substr(strrchr($detail->getGenre()->getHash(), "/"), 1).";";
+                    $csv_file .=  substr(strrchr($detail->getAppellation()->getHash(), "/"), 1).";";
+                    $csv_file .=  substr(strrchr($detail->getLieu()->getHash(), "/"), 1).";";
+                    $csv_file .=  substr(strrchr($detail->getCouleur()->getHash(), "/"), 1).";";
+                    $csv_file .=  substr(strrchr($detail->getCepage()->getHash(), "/"), 1).";";
+                    $csv_file .=  $detail->getTotal()."\n";
+                }
             }
-            $csv_file .= "\n";
         }
         $this->response->setContentType('text/csv');
         $this->response->setHttpHeader('md5', md5($csv_file));
-        $this->response->setHttpHeader('Content-Disposition', "attachment; filename=bilan_drm" . $campagne . ".csv");
+        $this->response->setHttpHeader('Content-Disposition', "attachment; filename=bilan_drm_manquantes_" . $campagne . "_".$periode.".csv");
         return $this->renderText($csv_file);
     }
 
