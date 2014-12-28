@@ -100,7 +100,7 @@ class Bilan extends BaseBilan {
             $periodeNode->statut = DRMClient::DRM_STATUS_BILAN_NON_SAISIE;
             $periodeNode->total_fin_de_mois = 0;
         } else {
-            $periodeNode->statut = DRMClient::DRM_STATUS_BILAN_MANQUANTE;
+            $periodeNode->statut = DRMClient::DRM_STATUS_BILAN_A_SAISIR;
         }
         $periodeNode->statut_libelle = DRMClient::getLibellesForStatusBilan($periodeNode->statut);
     }
