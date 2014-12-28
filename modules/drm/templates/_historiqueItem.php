@@ -20,7 +20,7 @@ endif;
     <td>
         <?php
         if (is_null($drm)):
-            echo DRMClient::getLibellesForStatusBilan(DRMClient::DRM_STATUS_BILAN_MANQUANTE);
+            echo DRMClient::getLibellesForStatusBilan(DRMClient::DRM_STATUS_BILAN_A_SAISIR);
         else:
             echo $drm->getLibelleBilan();
         endif;

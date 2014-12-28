@@ -14,7 +14,7 @@ class DRMClient extends acCouchdbClient {
     const MODE_DE_SAISIE_EDI_LIBELLE = 'via votre logiciel (EDI)';
     
     const DRM_STATUS_BILAN_VALIDE = 'DRM_STATUS_BILAN_VALIDE';
-    const DRM_STATUS_BILAN_MANQUANTE = 'DRM_STATUS_BILAN_MANQUANTE';
+    const DRM_STATUS_BILAN_A_SAISIR = 'DRM_STATUS_BILAN_A_SAISIR';
     const DRM_STATUS_BILAN_IGP_MANQUANT = 'DRM_STATUS_BILAN_IGP_MANQUANT';
     const DRM_STATUS_BILAN_CONTRAT_MANQUANT = 'DRM_STATUS_BILAN_CONTRAT_MANQUANT';
     const DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT = 'DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT';
@@ -385,7 +385,7 @@ class DRMClient extends acCouchdbClient {
     }
 
     public static function getAllLibellesStatusBilan() {
-        return array(self::DRM_STATUS_BILAN_MANQUANTE => "DRM manquante",
+        return array(self::DRM_STATUS_BILAN_A_SAISIR => "DRM à saisir",
             self::DRM_STATUS_BILAN_VALIDE => "DRM saisie validée",
             self::DRM_STATUS_BILAN_IGP_MANQUANT => "DRM validée mais infos IGP manquantes",
             self::DRM_STATUS_BILAN_CONTRAT_MANQUANT => "DRM validée mais infos contrat vrac manquants",
