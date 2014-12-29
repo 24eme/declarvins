@@ -18,13 +18,7 @@ endif;
         -->
     </td>
     <td>
-        <?php
-        if (is_null($drm)):
-            echo DRMClient::getLibellesForStatusBilan(DRMClient::DRM_STATUS_BILAN_A_SAISIR);
-        else:
-            echo $drm->getLibelleBilan();
-        endif;
-        ?>
+    <?php echo $drm->getLibelleBilan(); ?>
     </td>
     <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
         <td>

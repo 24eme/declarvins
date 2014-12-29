@@ -739,6 +739,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
     
     public function getStatutBilan() {
+        if($this->isNew()){
+            return DRMClient::DRM_STATUS_BILAN_A_SAISIR;
+        }
         if(!$this->isValidee()){
             return DRMClient::DRM_STATUS_BILAN_NON_VALIDE;
         }
