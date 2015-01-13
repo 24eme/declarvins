@@ -76,7 +76,7 @@
                 </div>
             <?php endif; ?>
 
-            <?php include_partial('drm/mouvements', array('mouvements' => $mouvements, 'hamza_style' => false, 'no_link' => null)) ?>
+            <?php include_partial('drm/mouvements', array('mouvements' => $mouvements, 'etablissement' => $etablissement, 'hamza_style' => false, 'no_link' => null)) ?>
             <br/>
         <?php if ($drm->commentaires): ?>
             <div style="padding: 0 0 30px 0">
