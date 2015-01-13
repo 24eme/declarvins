@@ -81,7 +81,7 @@
 					<?php echo $form['stocks_moyen']['non_vinifie']['volume']->render(array('class' => 'num num_float', 'data-val-defaut' => sprintFloat($form->getObject()->stocks_moyen->non_vinifie->volume, "%01.04f"))) ?>
 				</p>
 				<ul>
-					<li class="<?php echo isVersionnerCssClass($form->getObject()->stocks_moyen->conditionne, 'total') ?>">
+					<li class="<?php echo isVersionnerCssClass($form->getObject()->stocks_moyen->non_vinifie, 'total') ?>">
 						<?php echo $form['stocks_moyen']['non_vinifie']['total']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->getObject()->stocks_moyen->non_vinifie->total, "%01.04f"))) ?>
 					</li>
 				</ul>

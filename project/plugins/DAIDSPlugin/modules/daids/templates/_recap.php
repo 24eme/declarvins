@@ -13,7 +13,7 @@
 					<th style="font-weight: bold; border: none;">Total Pertes Autorisée</th>
 					<th style="font-weight: bold; border: none;">Manquants taxables éventuels</th>
 					<th style="font-weight: bold; border: none;">Volumes manquants cotisables DAI/DS</th>
-					<th style="font-weight: bold; border: none;">Total droits de circulation à payer</th>
+					<!-- <th style="font-weight: bold; border: none;">Total droits de circulation à payer</th>  -->
 					<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 					<th style="font-weight: bold; border: none;">Total cotisations interprofessionnelles à payer</th>
 					<?php endif; ?>
@@ -43,7 +43,7 @@
 									<strong><?php if ($detail->total_manquants_taxables_cvo) echoLongFloat($detail->total_manquants_taxables_cvo); else echoLongFloat(0); ?></strong>&nbsp;<span class="unite">hl</span>
 								<?php endif; ?>
 							</td>
-							<td class="<?php echo isVersionnerCssClass($detail, 'total_douane') ?>"><strong><?php if ($detail->total_douane) echoFloat($detail->total_douane); else echoFloat(0); ?></strong>&nbsp;<span class="unite">€</span></td>
+							<!-- <td class="<?php //echo isVersionnerCssClass($detail, 'total_douane') ?>"><strong><?php //if ($detail->total_douane) echoFloat($detail->total_douane); else echoFloat(0); ?></strong>&nbsp;<span class="unite">€</span></td>  -->
 							<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 							<td class="<?php echo isVersionnerCssClass($detail, 'total_cvo') ?>">
 									<strong><?php if ($detail->total_cvo) echoFloat($detail->total_cvo); else echoFloat(0); ?></strong>&nbsp;<span class="unite">€</span>

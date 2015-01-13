@@ -2,7 +2,7 @@
                         "cvo" => "Cotisations interprofessionnelles"
                         ) ?>
 
-<?php foreach ($daids->getDroits() as $typedroit => $droits) if (count($daids->droits->{$typedroit})): if ($typedroit == DAIDSDroits::DROIT_CVO && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {continue;}?>    
+<?php foreach ($daids->getDroits() as $typedroit => $droits) if (count($daids->droits->{$typedroit})): if ($typedroit == DAIDSDroits::DROIT_CVO && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {continue;} if ($typedroit == DAIDSDroits::DROIT_DOUANE) {continue;}?>    
     <div class="tableau_ajouts_liquidations">
     <h2><?php echo $libelles[$typedroit] ?> <a href="" class="msg_aide" data-msg="help_popup_daids_validation_droit_<?php echo $typedroit; ?>" title="Message aide"></a></h2>
     <table class="tableau_recap">
