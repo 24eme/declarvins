@@ -115,6 +115,9 @@ class StatistiquesBilan {
     }
             
     public function hasEtablissementStatutManquantForPeriode($bilanOperateur, $periode) {
+    	if (!isset($bilanOperateur->periodes[$periode])) {
+    		return false;
+    	}
         return ($bilanOperateur->periodes[$periode]->statut == DRMClient::DRM_STATUS_BILAN_A_SAISIR);
     } 
     

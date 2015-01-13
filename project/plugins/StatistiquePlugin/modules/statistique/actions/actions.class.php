@@ -100,6 +100,7 @@ class statistiqueActions extends sfActions {
                 $periodeNmoins1 = (((int) substr($periode, 0,4) ) - 1 ).substr($periode, 4);
                 $drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($bilanOperateur->identifiant, $periodeNmoins1);
                 
+                if ($drm) {                                                   
                 foreach ($drm->getDetails() as $detail) {
                     $csv_file .= $etablissementFieldCsv;
                     $csv_file .=  substr(strrchr($detail->getCertification()->getHash(), "/"), 1).";";
@@ -110,6 +111,17 @@ class statistiqueActions extends sfActions {
                     $csv_file .=  substr(strrchr($detail->getCepage()->getHash(), "/"), 1).";";
                     $csv_file .=  $detail->getTotal()."\n";
                 }
+                } else {
+                    $csv_file .= $etablissementFieldCsv;
+                    $csv_file .=  ";";
+                    $csv_file .=  ";";
+                    $csv_file .=  ";";
+                    $csv_file .=  ";";
+                    $csv_file .=  ";";
+                    $csv_file .=  ";";
+                    $csv_file .=  "\n";
+                }
+                
             }
         }
         $this->response->setContentType('text/csv');
