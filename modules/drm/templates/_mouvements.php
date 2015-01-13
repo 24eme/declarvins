@@ -49,7 +49,7 @@
                         <td><?php echo $mouvement->produit_libelle ?> </td>
                         <td><?php
                             if ($mouvement->vrac_numero) {
-                                echo (!isset($no_link) || !$no_link) ? '<a href="' . url_for("vrac_visualisation", array("numero_contrat" => $mouvement->vrac_numero)) . '">' : '';
+                                echo (!isset($no_link) || !$no_link) ? '<a href="' . url_for("vrac_visualisation", array("contrat" => $mouvement->vrac_numero)) . '">' : '';
                                 echo $mouvement->type_libelle . ' n° ' . $mouvement->vrac_numero;
                                 echo (!isset($no_link) || !$no_link) ? '</a>' : '';
                             } else {
