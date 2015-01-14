@@ -1,5 +1,5 @@
 <tr class="<?php if ($alt): ?>alt<?php endif; ?>">
-    <td>
+    <td style="padding: 5px;">
         <?php if ($drm->isMaster()): ?><strong><?php endif; ?>
             <!--
     if($drm->getRectificative() > 0):
@@ -17,18 +17,18 @@ echo sprintf('(M%02d)', $drm->getModificative())
 endif;
         -->
     </td>
-    <td>
+    <td style="padding: 5px;">
     <?php echo $drm->getLibelleBilan(); ?>
     </td>
     <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-        <td>
+        <td style="padding: 5px;">
             <?php echo $drm->getModeDeSaisieLibelle() ?>
         </td>
     <?php endif; ?>
-    <td>
+    <td style="padding: 5px;">
         <?php if ($drm->isNew()): ?>
             <?php if (1 == 2 && $drm->isDebutCampagne() && !$drm->hasDaidsCampagnePrecedente()): ?>
-                Vous devez saisir votre <strong>DAI/DS <?php echo $drm->getCampagnePrecedente() ?></strong>
+                Vous devez saisir votre <strong>DRM <?php echo $drm->getCampagnePrecedente() ?></strong>
             <?php else: ?>
                 <a href="<?php echo url_for('drm_nouvelle', $drm) ?>" class="btn_reinitialiser"><span>Démarrer la DRM</span></a>
             <?php endif; ?>
