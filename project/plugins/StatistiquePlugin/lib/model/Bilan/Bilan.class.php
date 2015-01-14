@@ -46,7 +46,6 @@ class Bilan extends BaseBilan {
         if (!$drm) {
             return;
         }
-
         if (!$drm->exist('campagne') || !$drm->campagne) {
             return;
         }
@@ -97,7 +96,7 @@ class Bilan extends BaseBilan {
         $periodeNode = $this->periodes->get($periode);
         $previousNode = $this->getPreviousBilanPeriodeNode($periode);
         if ($previousNode && $this->isInStatusNonSaisieOrZeroVolume($previousNode)) {
-            $periodeNode->statut = DRMClient::DRM_STATUS_BILAN_NON_SAISIE;
+            $periodeNode->statut = DRMClient::DRM_STATUS_BILAN_STOCK_EPUISE;
             $periodeNode->total_fin_de_mois = 0;
         } else {
             $periodeNode->statut = DRMClient::DRM_STATUS_BILAN_A_SAISIR;
@@ -106,7 +105,7 @@ class Bilan extends BaseBilan {
     }
 
     public function isInStatusNonSaisieOrZeroVolume($previousNode) {
-        return $previousNode->statut == DRMClient::DRM_STATUS_BILAN_NON_SAISIE || ($previousNode->statut != DRMClient::DRM_STATUS_BILAN_NON_VALIDE && $previousNode->statut != DRMClient::DRM_STATUS_BILAN_CONTRAT_MANQUANT && !is_null($previousNode->total_fin_de_mois) && ($previousNode->total_fin_de_mois == 0) );
+        return $previousNode->statut == DRMClient::DRM_STATUS_BILAN_STOCK_EPUISE || ($previousNode->statut != DRMClient::DRM_STATUS_BILAN_NON_VALIDE && $previousNode->statut != DRMClient::DRM_STATUS_BILAN_CONTRAT_MANQUANT && !is_null($previousNode->total_fin_de_mois) && ($previousNode->total_fin_de_mois == 0) );
     }
 
     private function getPreviousBilanPeriodeNode($periode) {
