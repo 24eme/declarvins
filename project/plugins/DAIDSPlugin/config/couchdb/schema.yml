@@ -236,6 +236,7 @@ DAIDS:
                                                                                                             code: {  }
                                                                                                             libelle: {  }
                                                                                                             selecteur: {  }
+                                                                                                            interpro: { required: false }
                                                                                                             labels:
                                                                                                               type: array_collection
                                                                                                               definition:
