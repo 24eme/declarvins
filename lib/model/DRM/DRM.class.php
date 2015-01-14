@@ -745,7 +745,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         if(!$this->isValidee()){
             return DRMClient::DRM_STATUS_BILAN_NON_VALIDE;
         }
-        if($this->isIncomplete()){
+        if($this->isContratManquant() && $this->isIgpManquant()){
             return DRMClient::DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT;
         }
         if($this->isContratManquant()){

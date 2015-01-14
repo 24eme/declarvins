@@ -19,7 +19,7 @@ class DRMClient extends acCouchdbClient {
     const DRM_STATUS_BILAN_CONTRAT_MANQUANT = 'DRM_STATUS_BILAN_CONTRAT_MANQUANT';
     const DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT = 'DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT';
     const DRM_STATUS_BILAN_NON_VALIDE = 'DRM_STATUS_BILAN_NON_VALIDE';
-    const DRM_STATUS_BILAN_NON_SAISIE = 'DRM_STATUS_BILAN_NON_SAISIE';
+    const DRM_STATUS_BILAN_STOCK_EPUISE = 'DRM_STATUS_BILAN_STOCK_EPUISE';
 
     protected $drm_historiques = array();
 
@@ -386,12 +386,12 @@ class DRMClient extends acCouchdbClient {
 
     public static function getAllLibellesStatusBilan() {
         return array(self::DRM_STATUS_BILAN_A_SAISIR => "DRM à saisir",
-            self::DRM_STATUS_BILAN_VALIDE => "DRM saisie validée",
-            self::DRM_STATUS_BILAN_IGP_MANQUANT => "DRM validée mais infos IGP manquantes",
-            self::DRM_STATUS_BILAN_CONTRAT_MANQUANT => "DRM validée mais infos contrat vrac manquants",
-            self::DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT => "DRM validée mais infos IGP manquantes et contrat vrac manquants",
-            self::DRM_STATUS_BILAN_NON_VALIDE => "DRM non validée",
-            self::DRM_STATUS_BILAN_NON_SAISIE => "DRM non saisie");
+            self::DRM_STATUS_BILAN_VALIDE => "DRM validée",
+            self::DRM_STATUS_BILAN_CONTRAT_MANQUANT => "DRM validée avec infos contrats vrac manquantes",
+            self::DRM_STATUS_BILAN_IGP_MANQUANT => "DRM validée avec infos IGP manquantes",
+            self::DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT => "DRM validée avec infos contrats vrac et IGP manquantes",
+            self::DRM_STATUS_BILAN_NON_VALIDE => "DRM saisie non validée",
+            self::DRM_STATUS_BILAN_STOCK_EPUISE => "Stock épuisé");
     }
 
     public static function getLibellesForStatusBilan($status) {
