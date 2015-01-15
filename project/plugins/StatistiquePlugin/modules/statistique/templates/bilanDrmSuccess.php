@@ -75,7 +75,7 @@
                                         ?>
                                         <td style="padding: 0;">
                                             <strong>
-                                             <?php echo (is_null($bilanOperateur->periodes[$periode]))? array_search(DRMClient::DRM_STATUS_BILAN_STOCK_EPUISE, $statusArray) : array_search($bilanOperateur->periodes[$periode]->statut, $statusArray); ?>
+                                             <?php echo (!isset($bilanOperateur->periodes[$periode]) || is_null($bilanOperateur->periodes[$periode]))? array_search(DRMClient::DRM_STATUS_BILAN_STOCK_EPUISE, $statusArray) : array_search($bilanOperateur->periodes[$periode]->statut, $statusArray); ?>
                                             </strong>
                                         </td>
                                         <?php
