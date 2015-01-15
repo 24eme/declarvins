@@ -59,6 +59,11 @@ class VracHistoryView extends acCouchdbView
 
 
 	public function findLastByStatutAndInterpro($statut, $interpro) {
+		if (!$statut) {
+        	return $this->client->startkey(array($statut, $interpro))
+                    		->endkey(array($statut, $interpro, array()))
+                            ->getView($this->design, $this->view);
+		}
 		$date_fin = date('c');
 		$date_debut = date('c', mktime(0, 0, 0, date("m"), date("d"), date("Y")-1));
         return $this->client->startkey(array($statut, $interpro, $date_debut))

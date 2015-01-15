@@ -211,11 +211,12 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		foreach ($acteurs as $acteur) {
     			$validateur = 'date_validation_'.$acteur;
     			if (!$this->valide->get($validateur)) {
-    				$this->valide->{$validateur} = ($this->date_signature)? $this->date_signature : date('c');
+    				$this->valide->{$validateur} = ($this->valide->date_saisie)? $this->valide->date_saisie : date('c');
     			}
     		}
     		$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
-    		$this->valide->date_validation = ($this->date_signature)? $this->date_signature : date('c');
+    		$this->valide->date_validation = ($this->valide->date_saisie)? $this->valide->date_saisie : date('c');
+    		$this->updateReferente();
     	} else {
     		$this->mode_de_saisie = self::MODE_DE_SAISIE_DTI;
     		if ($this->vous_etes && in_array($this->vous_etes, $acteurs)) {
@@ -255,7 +256,20 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       if ($statut_valide) {
       	$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
     	$this->valide->date_validation = date('c');
+    	$this->date_signature = $this->valide->date_validation;
+    	$this->date_stats = $this->valide->date_validation;
+    	$this->updateReferente();
       }
+    }
+    
+    public function updateReferente()
+    {
+    	$this->referente = 1;
+    	if ($mother = $this->getMother()) {
+    		$mother->referente = 0;
+    		$mother->valide->statut = VracClient::STATUS_CONTRAT_ANNULE;
+    		$mother->save(false);
+    	}
     }
     
 

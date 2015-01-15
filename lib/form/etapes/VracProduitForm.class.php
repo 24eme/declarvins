@@ -20,6 +20,13 @@ class VracProduitForm extends VracForm
     		$this->setWidget('non_millesime', new sfWidgetFormInputCheckbox());
     		$this->widgetSchema->setLabel('non_millesime', '&nbsp;');
     		$this->setValidator('non_millesime', new ValidatorPass());
+    
+	        
+		    if ($this->getObject()->hasVersion()) {
+		      	$this->setWidget('produit', new sfWidgetFormInputHidden());
+		      	$this->setWidget('millesime', new sfWidgetFormInputHidden());
+		      	unset($this['non_millesime']);
+		      }
     		
   		    $this->validatorSchema->setPostValidator(new VracProduitValidator());
     		$this->widgetSchema->setNameFormat('vrac_produit[%s]');
@@ -43,6 +50,7 @@ class VracProduitForm extends VracForm
 	protected function updateDefaultsFromObject() {
         parent::updateDefaultsFromObject();
         if ($this->getObject()->produit) {
+        	$this->setDefault('produit', '/'.str_replace('/declaration/', 'declaration/', $this->getObject()->produit));
         	if (!$this->getObject()->millesime) {
         		$this->setDefault('non_millesime', true);
         	}

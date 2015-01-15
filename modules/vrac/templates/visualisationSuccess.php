@@ -46,7 +46,7 @@
                             <span class="statut statut_<?php echo $vrac->getStatutCssClass() ?>"></span><span class="legende_statut_texte"><?php echo $vrac->valide->statut ?></span>
                         </div>                            
                     </div>
-                    
+                    <?php if ($etablissement): ?>
                     <?php if (($etablissement->statut != Etablissement::STATUT_ARCHIVE && $etablissement->identifiant == $vrac->getCreateur()) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 				        <?php if ($vrac->isRectifiable()): ?>
 				        <div id="ligne_btn">
@@ -58,6 +58,7 @@
                             <?php endif; ?>  
 				        </div>
 				        <?php endif; ?>
+				    <?php endif; ?>
 				    <?php endif; ?>
                 </form>
             

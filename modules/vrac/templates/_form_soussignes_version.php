@@ -1,7 +1,7 @@
 <div id="bloc_vendeur" class="vrac_vendeur_acheteur">
     <h1>Vendeur <a class="msg_aide" href="" data-msg="help_popup_vrac_etablissement_informations" title="Message aide"></a></h1>
 
-    <div id="bloc_vendeur_vous" class="soussigne_vous bloc_conditionner">
+    <div id="bloc_vendeur_vous" class="soussigne_vous">
     	<?php if ($vrac->vous_etes == 'vendeur'): ?><h2>Vous êtes le vendeur</h2><?php endif; ?>
         <div class="section_label_strong etablissement_famille_choice">
             <label for="">Type :</label>
@@ -94,7 +94,7 @@
     <div class="section_label_strong">
         <?php echo $form['vendeur_tva']->renderError() ?> 
         <?php echo $form['vendeur_tva']->renderLabel() ?>
-        <?php echo $form['vendeur_tva']->render('class' => 'disabled', 'disabled' => 'disabled') ?>
+        <?php echo $form['vendeur_tva']->render(array('class' => 'disabled', 'disabled' => 'disabled')) ?>
     </div>
     
    <div class="bloc_adresse">
@@ -141,7 +141,7 @@
 	<!-- FIN VENDEUR -->
 	
 	
-	<div id="bloc_acheteur_vous" class="soussigne_vous bloc_conditionner">
+	<div id="bloc_acheteur_vous" class="soussigne_vous">
     	<?php if ($vrac->vous_etes == 'acheteur'): ?><h2>Vous êtes l'acheteur</h2><?php endif; ?>
         <div class="section_label_strong etablissement_famille_choice">
             <label for="">Type :</label>
@@ -234,7 +234,7 @@
     <div class="section_label_strong">
         <?php echo $form['acheteur_tva']->renderError() ?> 
         <?php echo $form['acheteur_tva']->renderLabel() ?>
-        <?php echo $form['acheteur_tva']->render('class' => 'disabled', 'disabled' => 'disabled') ?>
+        <?php echo $form['acheteur_tva']->render(array('class' => 'disabled', 'disabled' => 'disabled')) ?>
     </div>
     
    <div class="bloc_adresse">

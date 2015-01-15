@@ -13,9 +13,12 @@ class VracValidationForm extends VracForm
 		if ($this->user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
 			$this->setWidget('date_signature', new sfWidgetFormInputText());
 			$this->setValidator('date_signature', new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true)));
+			$this->setWidget('date_stats', new sfWidgetFormInputText());
+			$this->setValidator('date_stats', new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)));
 		}
         $this->widgetSchema->setLabels(array(
-        	'date_signature' => 'Date de signature:',
+        	'date_signature' => 'Date de signature*:',
+        	'date_stats' => 'Date de statistique:',
         	'commentaires' => 'Commentaires:'
         ));
 		$vracValideFormName = $this->vracValideFormName();
@@ -35,6 +38,13 @@ class VracValidationForm extends VracForm
     		$date = new DateTime($values['valide']['date_saisie']);
     		$this->getObject()->getDocument()->valide->date_saisie = $date->format('c');
     	}
+    	if (isset($values['date_stats']) && $values['date_stats']) {
+    		$date = new DateTime($values['date_stats']);
+    		$this->getObject()->getDocument()->date_stats = $date->format('c');
+    	}
+    	if (isset($values['date_stats']) && !$values['date_stats']) {
+    		$this->getObject()->getDocument()->date_stats = $this->getObject()->getDocument()->valide->date_saisie;
+    	}
         $this->getObject()->getDocument()->validate($this->user);
     }
 	
@@ -48,7 +58,7 @@ class VracValidationForm extends VracForm
         		$date = new DateTime($defaults[$field]);
         		$defaults[$field] = $date->format('d/m/Y');
         	}
-        }    
+        }   
         $defaults['email'] = 1;
         $this->setDefaults($defaults);     
     }

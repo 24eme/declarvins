@@ -7,8 +7,15 @@
             <div  id="listener_product" class="section_label_strong">
                 <?php echo $form['produit']->renderError() ?>
                 <?php echo $form['produit']->renderLabel() ?>
-                <?php echo $form['produit']->render() ?>
+                <?php echo ($form->getObject()->hasVersion())? $form->getObject()->produit_libelle : $form['produit']->render(); ?>
             </div>
+            <?php if ($form->getObject()->hasVersion()): ?>
+            <div  id="section_millesime" class="section_label_strong">
+                <?php echo $form['millesime']->renderError() ?>
+                <?php echo $form['millesime']->renderLabel() ?>
+                <?php if ($form->getObject()->millesime): echo $form->getObject()->millesime; else: ?>Non millésimé<?php endif; ?>
+            </div>
+            <?php else: ?>
             <div  id="section_millesime" class="section_label_strong">
                 <?php echo $form['millesime']->renderError() ?>
                 <?php echo $form['millesime']->renderLabel() ?>
@@ -19,6 +26,7 @@
                 <?php echo $form['non_millesime']->renderLabel() ?>
                 <?php echo $form['non_millesime']->render() ?> Non millésimé
             </div>
+            <?php endif; ?>
         </div>
 
         <div class="ligne_form_btn">
@@ -29,6 +37,7 @@
             <a href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $form->getObject(), 'etablissement' => $etablissement)) ?>" class="annuler_saisie" onclick="return confirm('Attention, ce contrat sera supprimé de la base')"><span>supprimer le contrat</span></a>
         </div> 
     </form>
+    <?php if (isset($form['non_millesime'])): ?>
     <script type="text/javascript">
     $( document ).ready(function() {
     	if ($("#<?php echo $form['non_millesime']->renderId() ?>").is(':checked')) {
@@ -41,3 +50,4 @@
         });
     });
 	</script>
+	<?php endif; ?>

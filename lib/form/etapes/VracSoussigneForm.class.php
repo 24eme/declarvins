@@ -66,6 +66,12 @@ class VracSoussigneForm extends VracForm
       	$this->setWidget('vous_etes_identifiant', new sfWidgetFormInputHidden(array('default' => $this->getEtablissement()->identifiant)));
       	$this->setValidator('vous_etes_identifiant', new ValidatorPass());
       }
+      
+      if ($this->getObject()->hasVersion()) {
+      	$this->setWidget('vendeur_identifiant', new sfWidgetFormInputHidden());
+      	$this->setWidget('acheteur_identifiant', new sfWidgetFormInputHidden());
+      	$this->setWidget('mandataire_identifiant', new sfWidgetFormInputHidden());
+      }
 
       if ($this->etablissementIsCourtier()) {
         unset($this['mandataire_exist']);
@@ -88,6 +94,9 @@ class VracSoussigneForm extends VracForm
         if ($this->getEtablissement()->identifiant == $this->getObject()->vendeur_identifiant) {
           $this->setDefault('vous_etes', 'vendeur');
         }
+      }
+      if (!$this->getObject()->mandataire_exist) {
+      	$this->setDefault('mandataire_exist', 0);
       }
     }
 

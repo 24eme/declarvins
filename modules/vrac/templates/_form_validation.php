@@ -16,11 +16,11 @@
 	            <?php echo $form['date_signature']->render(array('class' => 'datepicker')) ?> (jj/mm/aaaa)
 	        </div>
 	    <?php endif; ?>
-	    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+	    <?php if (isset($form['date_stats'])): ?>
 	        <div class="vracs_ligne_form vracs_ligne_form_alt">
-	            <?php echo $form['valide']['date_saisie']->renderError() ?>
-	            <?php echo $form['valide']['date_saisie']->renderLabel() ?>
-	            <?php echo $form['valide']['date_saisie']->render(array('class' => 'datepicker')) ?> (jj/mm/aaaa)
+	            <?php echo $form['date_stats']->renderError() ?>
+	            <?php echo $form['date_stats']->renderLabel() ?>
+	            <?php echo $form['date_stats']->render(array('class' => 'datepicker')) ?> (jj/mm/aaaa)
 	        </div>
 	    <?php endif; ?>
 	    </div>

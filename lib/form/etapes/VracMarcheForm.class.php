@@ -35,13 +35,15 @@ class VracMarcheForm extends VracForm
         	'repartition_cvo_acheteur' => 'Repartition CVO acheteur:',
         	'export' => 'Expédition export*:'
         ));
+        $min = ($this->getObject()->volume_enleve)? $this->getObject()->volume_enleve : 0;
+        $minErreur = ($min > 1)? $min.' hl ont déjà été enlevés pour ce contrat' : $min.' hl a déjà été enlevé pour ce contrat';
         $this->setValidators(array(
         	'has_transaction' => new ValidatorPass(),
         	'has_cotisation_cvo' => new ValidatorPass(),
         	'type_transaction' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getTypesTransaction()))),
         	'labels' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getLabels()))),
         	'mentions' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getMentions()), 'multiple' => true)),
-        	'volume_propose' => new sfValidatorNumber(array('required' => true)),
+        	'volume_propose' => new sfValidatorNumber(array('required' => true, 'min' => $min), array('min' => $minErreur)),
         	'annexe' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'prix_unitaire' => new sfValidatorNumber(array('required' => true)),
         	'type_prix' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getTypesPrix()))),
