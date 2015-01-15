@@ -2,7 +2,7 @@
 
 Entreprise :  <?php echo ($vrac->{$acteur}->raison_sociale)? $vrac->{$acteur}->raison_sociale : $vrac->{$acteur}->nom; ?><?php if ($vrac->{$acteur}->telephone) {echo ' '.$vrac->{$acteur}->telephone;} if ($vrac->{$acteur}->fax) {echo ' '.$vrac->{$acteur}->fax;} if ($vrac->{$acteur}->email) {echo ' '.$vrac->{$acteur}->email;} ?><br /><br />
 Madame, Monsieur,<br /><br />
-L'entreprise <?php echo ($vrac->{$vrac->vous_etes}->raison_sociale)? $vrac->{$vrac->vous_etes}->raison_sociale : $vrac->{$vrac->vous_etes}->nom; ?> a saisi un contrat de transaction vous concernant.<br /><br />
+L'entreprise <?php echo ($vrac->{$vrac->vous_etes}->raison_sociale)? $vrac->{$vrac->vous_etes}->raison_sociale : $vrac->{$vrac->vous_etes}->nom; ?> a <?php if ($vrac->isRectificative()): ?>rectifié le contrat numéro <?php echo $vrac->numero_contrat; ?><?php else: ?>saisi un contrat de transaction<?php endif; ?> vous concernant.<br /><br />
 Le contrat saisi porte sur la transaction suivante :<br />
 Date de saisie : <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?><br />
 Produit : <?php echo $vrac->getLibelleProduit() ?><br />

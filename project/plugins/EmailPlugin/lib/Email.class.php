@@ -35,6 +35,9 @@ class Email {
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
         $subject = 'Demande de validation d\'un contrat interprofessionnel';
+        if ($vrac->isRectificative()) {
+        	$subject .= ' RECTIFIE';
+        }
         $body = $this->getBodyFromPartial('vrac_demande_validation', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur));
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
