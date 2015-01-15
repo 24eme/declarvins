@@ -50,6 +50,7 @@ class DAIDS extends BaseDAIDS
        		$d->label_supplementaire = $detail->label_supplementaire;
        		$d->douane->taux = $detail->douane->taux;
        		$d->douane->code = $detail->douane->code;
+       		$d->add('interpro', $detail->interpro);
        		if ($lastDrm->droits->exist(DAIDSDroits::DROIT_DOUANE) && $lastDrm->droits->get(DAIDSDroits::DROIT_DOUANE)->exist($detail->douane->code)) {
        			$d->douane->libelle = $lastDrm->droits->get(DAIDSDroits::DROIT_DOUANE)->get($detail->douane->code)->libelle;
        		} else {
@@ -431,6 +432,10 @@ class DAIDS extends BaseDAIDS
             $next_daids->precedente = $this->_id;
             $next_daids->save();
         }
+        if ($prev_daids = $this->getMother()) {
+        	$prev_daids->referente = 0;
+            $prev_daids->save();
+        }
         $this->storeIdentifiant($options);
         $this->storeDates();
         $this->storeDroits($options);
@@ -516,6 +521,12 @@ class DAIDS extends BaseDAIDS
 
     public function listenerGenerateVersion($document) 
     {
+    	if ($prev_daids = $document->getMother()) {
+    		if ($prev_daids->hasVersion()) {
+            	$document->precedente = $prev_daids->_id;
+    		}
+        }
+        $document->commentaires = null;
         $document->devalide();
     }
 
