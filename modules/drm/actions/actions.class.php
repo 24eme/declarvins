@@ -217,7 +217,7 @@ class drmActions extends sfActions {
     public function executeValidation(sfWebRequest $request) {
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->drm = $this->getRoute()->getDRM();
-        $this->drmValidation = $this->drm->validation(array('stock' => 'warning'));
+        $this->drmValidation = $this->drm->validation(array('stock' => 'warning', 'is_operateur' => $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)));
         $this->engagements = $this->drmValidation->getEngagements();
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
             $this->engagements = array();
@@ -284,7 +284,7 @@ class drmActions extends sfActions {
 
     public function executeShowError(sfWebRequest $request) {
         $drm = $this->getRoute()->getDRM();
-        $drmValidation = new DRMValidation($drm);
+        $drmValidation = new DRMValidation($drm, array('is_operateur' => $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)));
         $controle = $drmValidation->find($request->getParameter('type'), $request->getParameter('identifiant_controle'));
         $this->forward404Unless($controle);
         $this->getUser()->setFlash('control_message', $controle->getMessage());

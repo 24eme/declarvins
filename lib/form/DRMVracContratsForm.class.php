@@ -35,6 +35,8 @@ class DRMVracContratsForm extends acCouchdbObjectForm
 
     public function update($values)
     {
+    	$this->getObject()->remove('vrac');
+    	$this->getObject()->add('vrac');
         foreach ($this->embeddedForms as $key => $form) {
                 $form->update($values[$key]);
         }

@@ -23,9 +23,12 @@
                 </a>
                 <?php endif; ?>
                 <?php endif; ?>
+                
+                <?php if (!$drmValidation->hasErrors()): ?>
                 <button type="submit" class="btn_suiv"<?php if ($drmValidation->hasErrors()): ?> disabled="disabled"<?php endif; ?>>
                     <span>Valider</span>
                 </button>
+                <?php endif; ?>
             </div>
             
             <div id="application_dr">
@@ -64,7 +67,7 @@
                         <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
                     <?php endif; ?>
                 </div>
-                
+                <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <div style="background: #E3E2E2; color: #3E3E3E; border-radius: 5px; margin-bottom: 25px;">
                     <div style="padding: 4px 0 10px 10px;">
                     	<div style="padding: 10px 0px; font-weight: bold; display: block;">DRM incomplète</div>
@@ -80,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-
+				<?php endif; ?>
                 <div style="background: #E3E2E2; color: #3E3E3E; border-radius: 5px; margin-bottom: 25px;">
                     <div style="padding: 4px 0 10px 10px;">
                         <?php echo $form['commentaires']->renderError() ?>
@@ -103,9 +106,11 @@
                 </a>
                 <?php endif; ?>
                 <?php endif; ?>
+                <?php if (!$drmValidation->hasErrors()): ?>
                 <button type="submit" class="btn_suiv"<?php if ($drmValidation->hasErrors()): ?> disabled="disabled"<?php endif; ?>>
                     <span>Valider</span>
                 </button>
+                <?php endif; ?>
             </div>
 
             <div class="ligne_btn">

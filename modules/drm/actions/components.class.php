@@ -39,6 +39,11 @@ class drmComponents extends sfComponents {
                 'validation' => 4 + $nbCertifs,
             );
         }
+        
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        	unset($this->numeros['declaratif']);
+        	$this->numeros['validation'] = $this->numeros['validation'] - 1;
+        }
 
         $this->numero = $this->numeros[$this->etape];
         if (isset($this->numeros[$this->drm->etape]))
@@ -46,7 +51,7 @@ class drmComponents extends sfComponents {
         else
             $this->numero_autorise = '';
         $this->numero_vrac = (isset($this->numeros['vrac'])) ? $this->numeros['vrac'] : null;
-        $this->numero_declaratif = $this->numeros['declaratif'];
+        $this->numero_declaratif = (isset($this->numeros['declaratif'])) ? $this->numeros['declaratif'] : null;
         $this->numero_validation = $this->numeros['validation'];
 
         if ($this->etape == 'recapitulatif') {
