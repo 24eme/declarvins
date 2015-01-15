@@ -7,10 +7,12 @@
 				<span>
 					<?php if($vrac->vendeur->nom): ?>
 						<?php echo $vrac->vendeur->nom ?>
-					<?php else: ?>
-						<?php echo $vrac->vendeur->raison_sociale ?>
 					<?php endif; ?>
-					<?php echo ($vrac->vendeur_tva)? '(Assujetti à la TVA)' : ''; ?>
+					<?php if($vrac->vendeur->raison_sociale): ?>
+						<?php echo ($vrac->vendeur->nom)? ' / '.$vrac->vendeur->raison_sociale : $vrac->vendeur->raison_sociale; ?>
+					<?php endif; ?>
+					<?php echo ($vrac->vendeur->famille)? ' - '.ucfirst(($vrac->vendeur->famille)) : ''; ?>
+					<?php echo ($vrac->vendeur_tva)? ' (Assujetti à la TVA)' : ''; ?>
 				</span>
 			</li>
 			<li>
@@ -18,16 +20,25 @@
 				<span>
 					<?php if($vrac->acheteur->nom): ?>
 						<?php echo $vrac->acheteur->nom ?>
-					<?php else: ?>
-						<?php echo $vrac->acheteur->raison_sociale ?>
 					<?php endif; ?>
-					<?php echo ($vrac->acheteur_tva)? '(Assujetti à la TVA)' : ''; ?>
+					<?php if($vrac->acheteur->raison_sociale): ?>
+						<?php echo ($vrac->acheteur->nom)? ' / '.$vrac->acheteur->raison_sociale : $vrac->acheteur->raison_sociale; ?>
+					<?php endif; ?>
+					<?php echo ($vrac->acheteur->famille)? ' - '.ucfirst(($vrac->acheteur->famille)) : ''; ?>
+					<?php echo ($vrac->acheteur_tva)? ' (Assujetti à la TVA)' : ''; ?>
 				</span>
 			</li>
 			<?php if($vrac->mandataire_exist): ?>
 			<li>
 				<span>Courtier :</span>
-				<span><?php echo $vrac->mandataire->nom ?></span>
+				<span>
+					<?php if($vrac->mandataire->nom): ?>
+						<?php echo $vrac->mandataire->nom ?>
+					<?php endif; ?>
+					<?php if($vrac->mandataire->raison_sociale): ?>
+						<?php echo ($vrac->mandataire->nom)? ' / '.$vrac->mandataire->raison_sociale : $vrac->mandataire->raison_sociale; ?>
+					<?php endif; ?>
+				</span>
 			</li>
 			<?php endif; ?>
 			<li>

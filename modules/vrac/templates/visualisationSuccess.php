@@ -41,6 +41,9 @@
 	                        <?php elseif ($vrac->valide->statut == VracClient::STATUS_CONTRAT_SOLDE): ?>
 	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_NONSOLDE, 'etablissement' => $etablissement)) ?>" id="solder_contrat">Désolder le contrat</a>
 	                        <?php endif; ?>
+				        	<?php if($vrac->isModifiableVolume()): ?>
+                            <div><a style="float: right;" href="<?php echo url_for('vrac_modification_restreinte', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>" id="btn_editer_contrat"  class="modifier"> Modifier le contrat (restreint)</a></div>
+                            <?php endif; ?>
                         <?php endif; ?>
                         <div>
                             <span class="statut statut_<?php echo $vrac->getStatutCssClass() ?>"></span><span class="legende_statut_texte"><?php echo $vrac->valide->statut ?></span>
@@ -48,16 +51,17 @@
                     </div>
                     <?php if ($etablissement): ?>
                     <?php if (($etablissement->statut != Etablissement::STATUT_ARCHIVE && $etablissement->identifiant == $vrac->getCreateur()) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-				        <?php if ($vrac->isRectifiable()): ?>
+				        
 				        <div id="ligne_btn">
+				        	<?php if ($vrac->isRectifiable()): ?>
 				            <form method="get" action="<?php echo url_for('vrac_rectificative', $vrac) ?>">
 				                <button type="submit" id="btn_editer_contrat"  class="modifier" style="font-size: 12px;">Soumettre un contrat rectificatif</button>
 				            </form>
+				        	<?php endif; ?>
                             <?php if($vrac->isEditable()): ?>
 	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat" style="font-size: 12px;" onclick="return confirm('Confirmez-vous l\'annulation de ce contrat ?')"> Annuler le contrat</a>
                             <?php endif; ?>  
 				        </div>
-				        <?php endif; ?>
 				    <?php endif; ?>
 				    <?php endif; ?>
                 </form>
