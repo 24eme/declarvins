@@ -75,8 +75,9 @@
                     </ul>
                 </div>
             <?php endif; ?>
-
+			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <?php include_partial('drm/mouvements', array('mouvements' => $mouvements, 'etablissement' => $etablissement, 'hamza_style' => false, 'no_link' => null)) ?>
+            <?php endif; ?>
             <br/>
         <?php if ($drm->commentaires): ?>
             <div style="padding: 0 0 30px 0">

@@ -42,7 +42,7 @@
     </div>
 <?php endif; ?>
 
-<?php if ($droits_circulation): ?>
+<?php if ($droits_circulation && 1 == 2): ?>
 <div class="tableau_ajouts_liquidations">
     <h2>Droits de circulation, de consommation et autres taxes  <a href="" class="msg_aide" data-msg="help_popup_validation_droit_douane" title="Message aide"></a></h2>
     	<table class="tableau_recap">
