@@ -3,6 +3,7 @@ class VracValidationForm extends VracForm
 {
 	protected static $_francize_date = array(
     	'date_signature',
+		'date_stats'
     );
 	public function configure()
     {	
