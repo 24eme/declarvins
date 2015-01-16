@@ -334,6 +334,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->storeDates();
         $this->storeDroits($options);
         $this->setInterpros();
+    	if ($this->hasVersion()) {
+        	if ($previous = $drm->getMother()) {
+            	$previous->updateVracVersion();
+            }
+        }
         $this->updateVrac();
         $this->setEtablissementInformations();
          
@@ -421,6 +426,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                         $contrat->desolder();
                     }
                     $contrat->soustraitVolumeEnleve($volume);
+                    $enlevements = $contrat->getOrAdd('enlevements');
+                	$drm = $enlevements->getOrAdd($this->_id);
+                	$drm->add('volume', $volume);
                     $contrat->save(false);
                 }
             }
@@ -914,7 +922,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
     public function generateRectificative() {
         $drm = $this->version_document->generateRectificative();
-        $drm->updateVracVersion();
+        //$drm->updateVracVersion();
         //$drm->updateProduitsDiponibles();
         $drm->identifiant_drm_historique = null;
         return $drm;
@@ -922,7 +930,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
     public function generateModificative() {
         $drm = $this->version_document->generateModificative();
-        $drm->updateVracVersion();
+        //$drm->updateVracVersion();
         //$drm->updateProduitsDiponibles();
         $drm->identifiant_drm_historique = null;
         return $drm;
