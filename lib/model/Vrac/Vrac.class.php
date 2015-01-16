@@ -272,6 +272,13 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     }
     
+    public function hasEnlevements()
+    {
+    	if ($this->exist('enlevements')) {
+    		return (count($this->enlevements) > 0)? true : false;
+    	}
+    	return false;
+    }
 
 
     protected function updateStatutSolde() {

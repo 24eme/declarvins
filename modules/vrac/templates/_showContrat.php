@@ -274,4 +274,20 @@
 		<?php endif; ?>
 	</li>
     <?php endif; ?>
+    <?php if ($vrac->hasEnlevements() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+    <li id="recap_enlevements" style="margin-top: 45px;">
+		<h3>Enlevements</h3>
+		<ul>
+			<?php 
+				foreach ($vrac->enlevements as $drm => $enlevement): 
+				preg_match('/^DRM-([a-zA-Z0-9]*)-([a-zA-Z0-9\-]*)$/', $drm, $infosDrm);
+			?>
+			<li>
+				<span><a href="<?php echo url_for('drm_visualisation', array('identifiant' => $infosDrm[1], 'periode_version' => $infosDrm[2])); ?>"><?php echo $drm ?></a></span>
+				<span><?php echo $enlevement->volume ?> hl</span>
+			</li>
+			<?php endforeach; ?>
+		</ul>
+	</li>
+    <?php endif; ?>
 </ol>
