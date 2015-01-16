@@ -37,12 +37,13 @@ EOF;
 	        foreach ($d->getDetails() as $detail) {
 	            foreach ($detail->vrac as $numero => $vrac) {
 	                $volume = $vrac->volume;
-	                $contrat = VracClient::getInstance()->findByNumContrat($numero);
-	                $enlevements = $contrat->getOrAdd('enlevements');
-	                $drm = $enlevements->getOrAdd($d->_id);
-	                $drm->add('volume', $volume);
-	                $contrat->save(false);
-        			$this->logSection('update', $contrat->_id." : succès de la mise à jour des enlevements.");
+	                if ($contrat = VracClient::getInstance()->findByNumContrat($numero)) {
+		                $enlevements = $contrat->getOrAdd('enlevements');
+		                $drm = $enlevements->getOrAdd($d->_id);
+		                $drm->add('volume', $volume);
+		                $contrat->save(false);
+	        			$this->logSection('update', $contrat->_id." : succès de la mise à jour des enlevements.");
+	                }
 	            }
 	        }
         	}
