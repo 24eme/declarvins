@@ -2,7 +2,7 @@
     <?php echo $form->renderHiddenFields() ?>
     <?php echo $form->renderGlobalErrors() ?>
 
-    <?php if(isset($form['vous_etes'])): ?>
+    <?php if(isset($form['vous_etes']) && !$form->getObject()->hasVersion())): ?>
     
     <div id="bloc_vous_etes" class="contenu_onglet bloc_condition" data-condition-cible="#bloc_acheteur_choice|#bloc_vendeur_choice|#bloc_acheteur_vous|#bloc_vendeur_vous">
         <?php echo $form['vous_etes']->renderError(); ?>
