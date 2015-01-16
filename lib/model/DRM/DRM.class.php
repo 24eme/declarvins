@@ -335,7 +335,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->storeDroits($options);
         $this->setInterpros();
     	if ($this->hasVersion()) {
-        	if ($previous = $drm->getMother()) {
+        	if ($previous = $this->getMother()) {
             	$previous->updateVracVersion();
             }
         }
