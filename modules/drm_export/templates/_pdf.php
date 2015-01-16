@@ -85,7 +85,7 @@
 																	   'cssclass_value' => 'total',
 																	   'hash' => 'total_sorties')) ?>
 
-				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksSortie(),
+				<?php $stockSorties = Configuration::getStocksSortie(); unset($stockSorties['vrac_contrat']); include_partial('drm_export/pdfLineDetail', array('stocks' => $stockSorties,
 	    						  								        'counter' => 4,
 																		'colonnes' => $colonnes,
 																  		'hash' => 'sorties')) ?>

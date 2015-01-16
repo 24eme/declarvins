@@ -81,9 +81,7 @@ class drmActions extends sfActions {
         $etablissement = $this->getRoute()->getEtablissement();
         $drm = $this->getRoute()->getDRM();
         if (!$drm->isNew() && !$drm->isValidee()) {
-            if ($drm->isValidee()) {
-                $drm->updateVracVersion();
-            }
+            $drm->updateVracVersion();
             if ($drm->hasVersion()) {
                 if ($previous = $drm->getMother()) {
                     $previous->updateVrac();
