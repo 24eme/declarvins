@@ -406,7 +406,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         if ($this->valide->statut && $this->valide->statut != VracClient::STATUS_CONTRAT_NONSOLDE) {
             return false;
         }
-        return $this->version_document->isVersionnable();
+        return true;
     }
 
     public function getRectificative() {
