@@ -24,7 +24,7 @@ class drm_vracActions extends sfActions
                 $this->redirectIfNoMouvementCheck();
                 }
 
-            if ($this->drm->hasVersion()) {
+            /*if ($this->drm->hasVersion()) {
                 foreach ($this->drm->getDetails() as $detail) {
                         if (count($detail->vrac) > 0 && !$detail->sorties->vrac) {
                                 foreach ($detail->vrac as $numero => $vrac) {
@@ -54,7 +54,7 @@ class drm_vracActions extends sfActions
                                 }
                         }
                 }
-            }
+            }*/
 
         if (count($this->details)==0) {
             if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER || $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
