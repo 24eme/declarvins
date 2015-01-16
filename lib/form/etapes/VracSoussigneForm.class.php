@@ -71,6 +71,7 @@ class VracSoussigneForm extends VracForm
       	$this->setWidget('vendeur_identifiant', new sfWidgetFormInputHidden());
       	$this->setWidget('acheteur_identifiant', new sfWidgetFormInputHidden());
       	$this->setWidget('mandataire_identifiant', new sfWidgetFormInputHidden());
+      	unset($this['vous_etes']);
       }
 
       if ($this->etablissementIsCourtier()) {
