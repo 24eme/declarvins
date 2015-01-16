@@ -32,7 +32,7 @@
                 <div id="titre">
                     <span class="style_label">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'En attente'; ?></span>
                 </div>
-                <form action="" method="post" id="vrac_condition">  
+                <div id="vrac_condition">  
                     <div class="legende" id="ss_titre">
                         <span class="style_label">Etat du contrat</span>
                     	<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
@@ -64,7 +64,7 @@
 				        </div>
 				    <?php endif; ?>
 				    <?php endif; ?>
-                </form>
+                </div>
             
                 <?php include_partial('showContrat', array('configurationVrac' => $configurationVrac, 'etablissement' => $etablissement, 'vrac' => $vrac, 'editer_etape' => false)); ?>
                 
