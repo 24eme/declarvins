@@ -102,7 +102,7 @@ class VracSoussigneForm extends VracForm
     }
 
     protected function doUpdateObject($values) {
-        if ($this->etablissementIsVendeurOrAcheteur()) {
+        if ($this->etablissementIsVendeurOrAcheteur() && isset($values['vous_etes'])) {
           $etablissement_type = $values['vous_etes'];
           unset($values[$etablissement_type]);
           unset($values[$etablissement_type."_type"]);
