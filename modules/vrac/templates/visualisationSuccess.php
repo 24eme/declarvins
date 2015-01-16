@@ -54,7 +54,7 @@
 				        
 				        <div id="ligne_btn">
 				        	<?php if ($vrac->isRectifiable()): ?>
-				            <form method="get" action="<?php echo url_for('vrac_rectificative', $vrac) ?>">
+				            <form method="get" action="<?php echo url_for('vrac_rectificative', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>">
 				                <button type="submit" id="btn_editer_contrat"  class="modifier" style="font-size: 12px;">Soumettre un contrat rectificatif</button>
 				            </form>
 				        	<?php endif; ?>
