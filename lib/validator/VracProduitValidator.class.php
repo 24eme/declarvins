@@ -12,7 +12,7 @@ class VracProduitValidator extends sfValidatorBase {
         $errorSchema = new sfValidatorErrorSchema($this);
         $hasError = false;
         if (!isset($values['millesime']) || empty($values['millesime'])) {
-                if (!isset($values['non_millesime']) || is_null($values['non_millesime'])) {
+                if (isset($values['non_millesime']) && is_null($values['non_millesime'])) {
                         $errorSchema->addError(new sfValidatorError($this, 'millesime_inexistant'), 'millesime');
                         $hasError = true;
                 }
