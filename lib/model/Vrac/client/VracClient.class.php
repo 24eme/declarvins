@@ -194,8 +194,8 @@ class VracClient extends acCouchdbClient {
 		return $statut;
     }
     
-	public function findMasterByVisa($visa, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
-        $contrat = $this->findByNumContrat($visa, $hydrate);
+	public function findMasterByVisa($visa, $version = null) {
+        $contrat = $this->findByNumContrat($visa, $version);
         return $contrat;
     }
 
