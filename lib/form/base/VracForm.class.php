@@ -274,9 +274,6 @@ class VracForm extends acCouchdbObjectForm
         }
 
         try {
-            if (null === $con) {
-            	$con = $this->getConnection();
-        	}	
         	$this->updateObject();
         } catch (Exception $e) {
             throw $e;

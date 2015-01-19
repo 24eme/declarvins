@@ -217,6 +217,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
     		$this->valide->date_validation = ($this->valide->date_saisie)? $this->valide->date_saisie : date('c');
     		$this->updateReferente();
+    		$this->updateEnlevements();
     	} else {
     		$this->mode_de_saisie = self::MODE_DE_SAISIE_DTI;
     		if ($this->vous_etes && in_array($this->vous_etes, $acteurs)) {
@@ -259,6 +260,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	$this->date_signature = $this->valide->date_validation;
     	$this->date_stats = $this->valide->date_validation;
     	$this->updateReferente();
+    	$this->updateEnlevements();
       }
     }
     
@@ -294,6 +296,41 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     	$this->part_cvo = floatval($this->part_cvo);
     	parent::save();
+    }
+    
+    public function updateEnlevements()
+    {
+    	$identifiant = $this->numero_contrat;
+	    if ($this->exist('version') && $this->version) {
+	    	$identifiant .= '-'.$this->version;
+	    }
+	    $delete = array();
+		if ($this->hasVersion()) {
+			if ($previous = $this->getMother()) {
+				$enlevements = $this->getOrAdd('enlevements');
+				$id = $previous->numero_contrat;
+	            if ($previous->exist('version') && $previous->version) {
+	            	$id .= '-'.$previous->version;
+	            }
+				foreach ($enlevements as $idDrm => $infos) {
+					if ($drm = DRMClient::getInstance()->find($idDrm)) {
+						foreach ($drm->getDetails() as $detail) {
+	            			foreach ($detail->vrac as $numero => $vrac) {
+	            				if (trim($numero) == trim($id)) {
+	            					$detailVrac = $detail->vrac->get($numero);
+	            					$detail->vrac->add(trim($identifiant), $vrac);
+	            					$delete[$detailVrac->gethash()] = $drm;
+	            				}
+	            			}
+						}
+					}
+				}
+			}
+		}
+		foreach ($delete as $hash => $drm) {
+			$drm->remove($hash);
+			$drm->save();
+		}
     }
     
     public function isSolde() {
