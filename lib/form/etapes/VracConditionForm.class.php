@@ -71,4 +71,9 @@ class VracConditionForm extends VracForm
     public function conditionneReferenceContrat() {
       return true;
     }
+
+
+    public function conditionneIVSE() {
+      return false;
+    }
 }

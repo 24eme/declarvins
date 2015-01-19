@@ -53,11 +53,13 @@
             <?php endif; ?>
         </div>
         <h1>Retiraison / Enlèvement</h1>
+        <?php if (!$form->conditionneIVSE()): ?>
         <div class="section_label_strong">
             <?php echo $form['vin_livre']->renderError() ?>
             <?php echo $form['vin_livre']->renderLabel() ?>
             <?php echo $form['vin_livre']->render() ?>
         </div>
+        <?php endif; ?>
             <?php if(isset($form['date_debut_retiraison'])): ?>
             <div class="section_label_strong">
                 <?php echo $form['date_debut_retiraison']->renderError() ?>
@@ -80,6 +82,10 @@
                 <?php echo $form['clause_reserve_retiraison']->render() ?>
             </div>
             <?php endif; ?>
+        	<?php if ($form->conditionneIVSE()): ?>
+        	<p>En cas de calendrier de retiraison, indiquez les échéances dans la case &laquo;commentaires&raquo; de l'étape suivante</p>
+        	
+        	<?php endif; ?>
         <div class="ligne_form_btn">
             <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'marche', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a> 
             <button class="valider_etape" type="submit"><span>Etape Suivante</span></button>

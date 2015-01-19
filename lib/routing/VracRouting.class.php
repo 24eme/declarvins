@@ -86,7 +86,7 @@ class VracRouting {
         $r->prependRoute('vrac_pdf', new VracRoute('/vrac/:identifiant/:contrat/pdf.:format', 
                                                           array('module' => 'vrac', 'action' => 'pdf', 'format' => 'pdf'),
                                                           array('sf_method' => array('get'), 'format' => '(html|pdf)'),
-                                                          array('model' => 'Vrac', 'type' => 'object', 'segment_separators' => array('/'))));
+                                                          array('model' => 'Vrac', 'type' => 'object', 'segment_separators' => array('/', '.'))));
 
         $r->prependRoute('vrac_pdf_transaction', new VracRoute('/vrac/:identifiant/:contrat/pdf-transaction.:format', 
                                                           array('module' => 'vrac', 'action' => 'pdfTransaction', 'format' => 'pdf'),

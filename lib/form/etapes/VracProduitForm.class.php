@@ -10,7 +10,7 @@ class VracProduitForm extends VracForm
 	    	));
 	        $this->widgetSchema->setLabels(array(
 	        	'produit' => 'Produit*:',
-	        	'millesime' => 'Millesime:'
+	        	'millesime' => 'Millesime (année de récolte):'
 	        ));
 	        $this->setValidators(array(
 	        	'produit' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($produits))),

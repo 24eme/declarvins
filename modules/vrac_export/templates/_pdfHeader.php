@@ -14,7 +14,7 @@
 		<tr>
 			<td width="50%">Saisie le <?php echo $vrac->getEuSaisieDate(); ?></td>
 			<?php if ($vrac->isValide()): ?>
-			<td width="50%" style="text-align: right;">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'En attente'; ?></td>
+			<td width="50%" style="text-align: right;">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'En attente'; ?><?php if ($vrac->isConditionneIvse()): ?><br /><span class="clauses">à reporter sur la DRM et le document d'accompagnement DAA/DAE/DSA</span><?php endif; ?></td>
 			<?php else: ?>
 			<td width="50%" style="text-align: right;">&nbsp;</td>
 			<?php endif; ?>

@@ -119,6 +119,16 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     	return null;
     }
+    
+    public function isConditionneIvse()
+    {
+    	if ($interpro = $this->getProduitInterpro()) {
+    		if ($interpro->identifiant == 'IVSE') {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 
     public function storeSoussignesInformations() {
       $this->storeSoussigneInformations('acheteur', $this->getAcheteurObject());

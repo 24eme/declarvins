@@ -162,10 +162,12 @@
 				<span><?php echo $configurationVrac->formatDelaisPaiementLibelle(array($vrac->delai_paiement)) ?></span>
 			</li>
 			<?php endif; ?>
+			<?php if (!$vrac->isConditionneIvse()): ?>
 			<li>
 				<span>Le vin sera :</span>
 				<span><?php $statut = VracClient::getInstance()->getStatutsVin(); echo $statut[$vrac->vin_livre] ?></span>
 			</li>
+			<?php endif; ?>
 			<?php if($vrac->date_debut_retiraison): ?>
 			<li>
 				<span>Date de début de retiraison:</span>

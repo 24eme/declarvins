@@ -131,12 +131,16 @@
 
 	<h2>Conditions</h2>
 	
+	<?php if ($vrac->isConditionneIvse()): ?><p><strong>De retiraison :</strong></p><?php endif; ?>
 	<p>
 		<?php echo ($vrac->date_debut_retiraison)? 'Date de début de retiraison : '.Date::francizeDate($vrac->date_debut_retiraison).'&nbsp;&nbsp;' : ''; ?>
 		<?php echo ($vrac->date_limite_retiraison)? 'Date limite de retiraison : '.Date::francizeDate($vrac->date_limite_retiraison) : ''; ?>
 	</p>
 
-
+	<?php if ($vrac->isConditionneIvse()): ?>
+	<br /><p><strong>De paiement :</strong></p>
+	<?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?>&nbsp;&nbsp;<?php echo ($vrac->reference_contrat_pluriannuel)? 'Référence contrat : '.$vrac->reference_contrat_pluriannuel : ''; ?>
+	<?php endif; ?>
 	<?php if (count($vrac->paiements) > 0): ?>
 	<p>Echéancier : </p>
 	
@@ -160,18 +164,22 @@
     </table>
 
 	<?php endif; ?>
+	<?php if ($vrac->isConditionneIvse()): ?><br /><br /><p><strong>Générales :</strong></p><?php endif; ?>
 	<p>
 		<?php if(!is_null($vrac->clause_reserve_retiraison)): ?>Propriété (réserve)<br /><?php endif; ?>
-		Conditions Générales de Vente : <?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?>&nbsp;&nbsp;<?php echo ($vrac->reference_contrat_pluriannuel)? 'Référence contrat : '.$vrac->reference_contrat_pluriannuel : ''; ?><br />
-		Autres observations : <?php echo $vrac->commentaires ?>
+		<?php if (!$vrac->isConditionneIvse()): ?>Conditions Générales de Vente : <?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?>&nbsp;&nbsp;<?php echo ($vrac->reference_contrat_pluriannuel)? 'Référence contrat : '.$vrac->reference_contrat_pluriannuel : ''; ?><br /><?php endif; ?>
+		
 	</p>
 	<p>
 		<?php if(!is_null($vrac->delai_paiement)): ?>
 		Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array($vrac->delai_paiement)) ?><br />
 		<?php endif; ?>
-		Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?>&nbsp;&nbsp;
+		<?php if (!$vrac->isConditionneIvse()): ?>
+		Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?><br /><br />
+		<?php endif; ?>
+		Autres observations : <?php echo $vrac->commentaires ?>
 	</p>
-	<h2>Clauses</h2>
+	<h2><?php if ($vrac->isConditionneIvse()): ?>Conditions générales de vente<?php else: ?>Clauses<?php endif; ?></h2>
 	<div class="clauses">
 	<?php echo $configurationVrac->getClauses(ESC_RAW) ?>
 	</div>
