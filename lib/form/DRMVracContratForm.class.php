@@ -38,7 +38,7 @@ class DRMVracContratForm extends acCouchdbObjectForm
 
     public function update($values)
     {
-        $contrat = $this->getObject()->getParent()->getOrAdd($values['vrac']);
+        $contrat = $this->getObject()->getParent()->getOrAdd(trim($values['vrac']));
         $contrat->volume = $values['volume'];
     }
 
