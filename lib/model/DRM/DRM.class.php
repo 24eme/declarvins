@@ -489,6 +489,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $etablissement = $this->getEtablissement();
             $this->etablissement_num_interne = $etablissement->num_interne;
         }
+    }
+    
+	public function save() {
+        parent::save();
         $this->updateBilan();
     }
 

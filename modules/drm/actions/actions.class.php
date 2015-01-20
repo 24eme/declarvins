@@ -89,7 +89,7 @@ class drmActions extends sfActions {
             }
             $campagneDrm = $drm->campagne;
             $periodeDrm = $drm->periode;
-            $bilan = BilanClient::getInstance()->findOrCreateByIdentifiant($this->identifiant, 'DRM');
+            $bilan = BilanClient::getInstance()->findOrCreateByIdentifiant($etablissement->identifiant, 'DRM');
             $drm->delete();
             
             $bilan->updateDRMManquantesAndNonSaisiesForCampagne($campagneDrm,$periodeDrm);
