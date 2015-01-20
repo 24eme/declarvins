@@ -87,17 +87,14 @@ class Bilan extends BaseBilan {
             }
             $this->updateDRMManquantesAndNonSaisiesForPeriode($periode, $exist_drm);
         }
-        //exit;
     }
 
     public function updateDRMManquantesAndNonSaisiesForPeriode($periode, $exist_drm = false) {
-    	var_dump($periode, $exist_drm);
         if ($exist_drm) {
             return;
         }
         $periodeNode = $this->periodes->get($periode);
         $previousNode = $this->getPreviousBilanPeriodeNode($periode);
-        var_dump(($previousNode && $this->isInStatusNonSaisieOrZeroVolume($previousNode)));
         if ($previousNode && $this->isInStatusNonSaisieOrZeroVolume($previousNode)) {
             $periodeNode->statut = DRMClient::DRM_STATUS_BILAN_STOCK_EPUISE;
             $periodeNode->total_fin_de_mois = 0;
@@ -128,7 +125,6 @@ class Bilan extends BaseBilan {
 
     private function existDRMForPeriode($periode) {
         $drm_client = DRMClient::getInstance();
-        var_dump($this->identifiant, $periode, $drm_client->buildId($this->identifiant, $periode));
         return !is_null($drm_client->find($drm_client->buildId($this->identifiant, $periode)));
     }
 
