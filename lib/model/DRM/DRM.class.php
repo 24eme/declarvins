@@ -893,8 +893,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function motherExist($hash) {
-
-        return $this->version_document->motherExist($hash);
+        return ($this->getMother())? $this->version_document->motherExist($hash) : false;
     }
 
     public function motherHasChanged() {
