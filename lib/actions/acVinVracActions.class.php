@@ -203,6 +203,9 @@ class acVinVracActions extends sfActions
 				}
 				$this->vrac->save();
 				$sendEmail = (bool)$this->form->getValue('email');
+				if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->vrac->isModificative()) {
+					$sendEmail = false;
+				}
 				if (!$this->configurationVracEtapes->next($this->etape)) {
 					$interpro = $this->getInterpro($this->vrac, $this->etablissement);
 					$this->vrac->interpro = $interpro->get('_id');
