@@ -70,8 +70,8 @@ class acVinVracActions extends sfActions
         		$this->vracs[$contrat->id] = $contrat;
         	}
         }
-        //krsort($this->vracs);
-        //krsort($this->vracs_attente);
+        krsort($this->vracs);
+        krsort($this->vracs_attente);
         $this->setTemplate('index');
 	}
 

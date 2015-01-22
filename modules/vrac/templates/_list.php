@@ -56,7 +56,7 @@
 						$validated = true;
 					}
 			?>
-			<?php if ($isProprietaire || $isOperateur): ?>
+			<?php if($elt[VracHistoryView::VRAC_VIEW_STATUT] || $isProprietaire || $isOperateur): ?>
 			<tr class="<?php echo $statusColor ?>" >
 			  <td>
 			  	<?php if (!$validated && $isOperateur): ?>
