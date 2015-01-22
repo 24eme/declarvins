@@ -1,6 +1,6 @@
 <?php echo include_partial('Email/headerMail') ?>
 
-Entreprise :  <?php echo ($etablissement->raison_sociale)? $etablissement->raison_sociale : $etablissement->nom; ?><?php if ($etablissement->telephone) {echo ' '.$etablissement->telephone;} if ($etablissement->fax) {echo ' '.$etablissement->fax;} if ($etablissement->email) {echo ' '.$etablissement->email;} ?><br /><br />
+Entreprise :  <?php if($etablissement->nom) { echo $etablissement->nom; } if($etablissement->raison_sociale) { echo ($etablissement->nom)? ' / '.$etablissement->raison_sociale : $etablissement->raison_sociale; } echo ($etablissement->famille)? ' - '.ucfirst($etablissement->famille) : ''; ?><?php if ($etablissement->telephone) {echo ' '.$etablissement->telephone;} if ($etablissement->fax) {echo ' '.$etablissement->fax;} if ($etablissement->email) {echo ' '.$etablissement->email;} ?><br /><br />
 Madame, Monsieur,<br /><br />
 <?php if ($vrac->isRectificative()): ?>
 Le contrat de transaction numéro <?php echo $vrac->numero_contrat; ?> et saisi le <strong><?php echo strftime('%d/%m/%Y', strtotime($vrac->getMaster()->valide->date_saisie)) ?> a été rectifié le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?></strong> à la demande de toutes les parties au contrat.<br />
