@@ -209,7 +209,7 @@ class DRMDetail extends BaseDRMDetail {
         $vracs_autocomplete = array();
         $vracs = $this->getContratsVrac();
         foreach ($vracs as $vrac) {
-        	if ($vrac->exist('referente') && !$vrac->referente) {
+        	if ($vrac->exist('referente') && $vrac->referente === 0) {
         		continue;
         	}
             $acheteur = '';
