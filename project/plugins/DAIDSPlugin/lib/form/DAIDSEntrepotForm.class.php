@@ -11,6 +11,8 @@ class DAIDSEntrepotForm  extends acCouchdbObjectForm
     	$this->setValidator('commentaires', new sfValidatorString(array('required' => false)));
     	$this->setValidator('principal', new sfValidatorBoolean(array('required' => false)));
     	
+    	$this->widgetSchema->setLabel('commentaires', 'Adresse: ');
+    	
         $this->widgetSchema->setNameFormat('[%s]');
         $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
     }
