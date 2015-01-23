@@ -89,28 +89,47 @@ class statistiqueActions extends sfActions {
         if (!preg_match('/^INTERPRO-/', $interpro)) {
             $interpro = 'INTERPRO-' . $interpro;
         }
-        $statistiquesBilan = new StatistiquesBilan($interpro, $campagne);
+        $this->interpro = InterproClient::getInstance()->find($interpro);
+        $manquantesBilan = StatistiquesN1View::getInstance()->findManquantesByPeriode($this->interpro->getZone(), $periode)->rows;
         
         $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Categorie;Genre;Denomination;Lieu;Couleur;Cepage;'.$periode;
         $csv_file .= "\n";
 
-        foreach ($statistiquesBilan->getBilans() as $bilanOperateur) {
-            if ($statistiquesBilan->hasEtablissementStatutManquantForPeriode($bilanOperateur,$periode)) {
-                $etablissementFieldCsv = $statistiquesBilan->getEtablissementFieldCsv($bilanOperateur);
+        foreach ($manquantesBilan as $manquanteBilan) {
+        	$manquante = $manquanteBilan->value;
+                $etablissement = $manquante[StatistiquesN1View::VALUE_ETABLISSEMENT];
+                $etablissementId = $manquante[StatistiquesN1View::VALUE_ETABLISSEMENTID];
+                $etablissementFieldCsv = 
+                  $etablissementId . ";"
+                . $etablissement->raison_sociale . ";"
+                . $etablissement->nom . ";"
+                . $etablissement->siret . ";"
+                . $etablissement->cvi . ";"
+                . $etablissement->no_accises . ";"
+                . $etablissement->siege->adresse . ";"
+                . $etablissement->siege->code_postal . ";"
+                . $etablissement->siege->commune . ";"
+                . $etablissement->siege->pays . ";"
+                . $etablissement->email . ";"
+                . $etablissement->telephone . ";"
+                . $etablissement->fax . ";"
+                . $etablissement->service_douane . ";";
                 $periodeNmoins1 = (((int) substr($periode, 0,4) ) - 1 ).substr($periode, 4);
-                $drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($bilanOperateur->identifiant, $periodeNmoins1);
                 
-                if ($drm) {                                                   
-                foreach ($drm->getDetails() as $detail) {
-                    $csv_file .= $etablissementFieldCsv;
-                    $csv_file .=  substr(strrchr($detail->getCertification()->getHash(), "/"), 1).";";
-                    $csv_file .=  substr(strrchr($detail->getGenre()->getHash(), "/"), 1).";";
-                    $csv_file .=  substr(strrchr($detail->getAppellation()->getHash(), "/"), 1).";";
-                    $csv_file .=  substr(strrchr($detail->getLieu()->getHash(), "/"), 1).";";
-                    $csv_file .=  substr(strrchr($detail->getCouleur()->getHash(), "/"), 1).";";
-                    $csv_file .=  substr(strrchr($detail->getCepage()->getHash(), "/"), 1).";";
-                    $csv_file .=  $detail->getTotal()."\n";
-                }
+                if ($drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($etablissementId, $periodeNmoins1)) {                                                   
+	                foreach ($drm->getDetails() as $detail) {
+	                	$appCode = str_replace($detail->getGenre()->getCode(), '', $detail->getAppellation()->getCode());
+	                	$lieuCode = str_replace($detail->getAppellation()->getCode(), '', $detail->getLieu()->getCode());
+	                	$cepCode = str_replace($detail->getCouleur()->getCode(), '', $detail->getCepage()->getCode());
+	                    $csv_file .= $etablissementFieldCsv;
+	                    $csv_file .=  $detail->getCertification()->getKey().";";
+	                    $csv_file .=  $detail->getGenre()->getCode().";";
+	                    $csv_file .=  $appCode.";";
+	                    $csv_file .=  $lieuCode.";";
+	                    $csv_file .=  $detail->getCouleur()->getKey().";";
+	                    $csv_file .=  $cepCode.";";
+	                    $csv_file .=  $detail->total_sorties."\n";
+	                }
                 } else {
                     $csv_file .= $etablissementFieldCsv;
                     $csv_file .=  ";";
@@ -121,8 +140,6 @@ class statistiqueActions extends sfActions {
                     $csv_file .=  ";";
                     $csv_file .=  "\n";
                 }
-                
-            }
         }
         $this->response->setContentType('text/csv');
         $this->response->setHttpHeader('md5', md5($csv_file));
