@@ -91,6 +91,17 @@
 					<?php include_partial('templateformsDepartement'); ?>
 					<?php endif; ?>
 					
+					<?php if ($form->getObject()->hasPrestations()): ?>
+					<h2>Prestations&nbsp;&nbsp;</h2>
+			        <div class="contenu_onglet">
+							<div class="ligne_form" data-key="<?php echo $form['noeud_prestations']->getName() ?>">
+								<span class="error"><?php echo $form['noeud_prestations']['prestation']->renderError() ?></span>
+								<?php echo $form['noeud_prestations']['prestation']->render() ?>
+							</div>
+					</div>
+					<input class="counteur" type="hidden" name="nb_interpro" value="<?php echo count($form['noeud_prestations']) ?>" />
+					<?php endif; ?>
+					
 					<?php if ($form->getObject()->hasCvo()): ?>		
 			        <h2>Cotisations interprofessionnelles&nbsp;&nbsp;<a href="javascript:void(0)" class="addForm btn_ajouter"></a></h2>
 			        <div class="subForm contenu_onglet" id="formsCvo">

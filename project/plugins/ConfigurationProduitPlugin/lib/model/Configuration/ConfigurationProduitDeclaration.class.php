@@ -14,6 +14,8 @@ class ConfigurationProduitDeclaration extends BaseConfigurationProduitDeclaratio
     
     public function getCurrentDepartements($onlyValue = false) { return null; }
     
+	public function getCurrentPrestations($onlyValue = false) { return null; }
+    
     public function getCurrentDrmVrac($onlyValue = false) { return null; }
     
     public function getCurrentOrganisme($atDate = null, $onlyValue = false) { return null; }
@@ -36,6 +38,8 @@ class ConfigurationProduitDeclaration extends BaseConfigurationProduitDeclaratio
   	public function hasLabels() { return false; }
     
   	public function hasDepartements() { return false; }
+  	
+	public function hasPrestations() { return false; }
   	
   	public function hasCvo() { return false; }
   	

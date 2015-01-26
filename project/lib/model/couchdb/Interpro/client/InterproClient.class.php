@@ -3,6 +3,7 @@
 class InterproClient extends acCouchdbClient {
 	
 	protected static $_base_interpros = array('INTERPRO-CIVP', 'INTERPRO-IR', 'INTERPRO-IVSE');
+	protected static $_interpros = array('INTERPRO-IR', 'INTERPRO-CIVP', 'INTERPRO-IVSE', 'INTERPRO-IO', 'INTERPRO-CIVL', 'INTERPRO-ANIVIN');
     const INTERPRO_REFERENTE = 'INTERPRO-IR';
     /**
      *
@@ -44,6 +45,10 @@ class InterproClient extends acCouchdbClient {
     
     public function getInterpros() {
     	return self::$_base_interpros;
+    }
+    
+    public function getAllInterpros() {
+    	return self::$_interpros;
     }
     
     public function getInterprosObject() {
@@ -124,6 +129,31 @@ class InterproClient extends acCouchdbClient {
 	    
 	    $interpros = array('CIVP' => $civp, 'IR' => $ir, 'IVSE' => $ivse, 'ANIVIN' => $anivin, 'CIVL' => $civl, 'IO' => $io);
 	    return $interpros;
+    }
+    
+
+    
+	public function matchInterpro($interpro) {
+      if (preg_match('/ir/i', $zone)) {
+        return 'INTERPRO-IR';
+      }
+	  if (preg_match('/civp/i', $zone)) {
+        return 'INTERPRO-CIVP';
+      }
+	  if (preg_match('/ivse/i', $zone)) {
+        return 'INTERPRO-IVSE';
+      }
+	  if (preg_match('/anivin/i', $zone)) {
+        return 'INTERPRO-ANIVIN';
+      }
+	  if (preg_match('/civl/i', $zone)) {
+        return 'INTERPRO-CIVL';
+      }
+	  if (preg_match('/io/i', $zone)) {
+        return 'INTERPRO-IO';
+      }
+
+      throw new sfException("L'interpro $interpro n'est pas reconnue");
     }
 
 }

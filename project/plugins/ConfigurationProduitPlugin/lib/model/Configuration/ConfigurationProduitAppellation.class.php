@@ -29,6 +29,11 @@ class ConfigurationProduitAppellation extends BaseConfigurationProduitAppellatio
     	return $this->getCurrentDepartements(true);
     }
     
+    public function getAllPrestations()
+    {
+    	return $this->getCurrentPrestations(true);
+    }
+    
     /*
      * Les fonctions ci-dessous sont relatives à la gestion de la configuration du catalogue produit
      */
@@ -36,6 +41,8 @@ class ConfigurationProduitAppellation extends BaseConfigurationProduitAppellatio
   	public function hasLabels() { return false; }
     
   	public function hasDepartements() { return true; }
+  	
+	public function hasPrestations() { return true; }
   	
   	public function hasCvo() { return true; }
   	

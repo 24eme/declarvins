@@ -131,6 +131,16 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	return array_values(array_unique($this->declaration->getAllDepartements()));
     }
     
+    public function getPrestations()
+    {
+    	return array_values(array_unique($this->declaration->getAllPrestations()));
+    }
+    
+    public function getProduitsEnPrestation($interpro)
+    {
+    	return $this->declaration->getProduitsEnPrestation($interpro);
+    }
+    
     public function getProduits($hash = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null)
     {
     	if ($hash) {
@@ -172,6 +182,32 @@ class ConfigurationProduit extends BaseConfigurationProduit
         $departements = $this->getDepartements();
         $interpro->departements = ($departements)? $departements : array();
         $interpro->save();
+    	$interpros = InterproClient::getInstance()->getAllInterpros();
+    	foreach ($interpros as $inter) {
+    		if ($interpro->_id == $inter) {
+    			continue;
+    		}
+    		if ($produits = $this->getProduitsEnPrestation($inter)) {
+    			if ($obj = InterproClient::getInstance()->find($inter)) {
+    				if ($obj->exist('configuration_produits')) {
+    					if ($confProduits = ConfigurationProduitClient::getInstance()->find($obj->configuration_produits)) {
+    						$prestations = $confProduits->getOrAdd('prestations');
+    						if ($prestations->exist($interpro->_id)) {
+    							$prestations->remove($interpro->_id);
+    						}
+    						$prestation = $prestations->add($interpro->_id);
+    						foreach ($produits as $hash => $confProduit) {
+    							$produit = $prestation->add(str_replace('/', '_', $hash));
+    							$produit->hash = $hash;
+    							$produit->libelle = ConfigurationProduitClient::getInstance()->format($confProduit->getLibelles());
+    							$produit->configuration = $this->_id;
+    						}
+    						$confProduits->save();
+    					}
+    				}
+    			}
+    		}
+    	}
     }
 
     public function save() 

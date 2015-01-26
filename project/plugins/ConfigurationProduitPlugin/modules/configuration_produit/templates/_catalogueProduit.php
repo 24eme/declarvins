@@ -3,7 +3,7 @@
             <thead>
     			<tr>
 					<th colspan="6" style="text-align: center;"><strong>Produit</strong></th>
-			<th colspan="7"><strong>Configuration</strong></th>
+			<th colspan="8"><strong>Configuration</strong></th>
 		</tr>
 		<tr>
 			<th style="width:35px;"><strong>Cat.</strong></th>
@@ -19,6 +19,7 @@
 			<th style="width:15px;" class="center"><strong>Vrac</strong></th>    
 			<th style="width:15px;" class="center"><strong>OIOC</strong></th>
 			<th style="width:15px;" class="center"><strong>Rep/Dec</strong></th>
+			<th style="width:15px;" class="center"><strong>Presta.</strong></th>
 				</tr>
             </thead>
             <tbody>
@@ -28,6 +29,7 @@
     			$cvo = $produit->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO);
     			$douane = $produit->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_DOUANE);
     			$departements = $produit->getCurrentDepartements();
+    			$prestations = $produit->getCurrentPrestations();
     			$drmVrac = $produit->getCurrentDrmVrac();
     			$organisme = $produit->getCurrentOrganisme();
     			$labels = $produit->getCurrentLabels();
@@ -46,6 +48,11 @@
     				$departements = $departements->getRawValue();
     				$departementsNoeud = key($departements);
     				$departements = current($departements);
+    			}
+    			if ($prestations) {
+    				$prestations = $prestations->getRawValue();
+    				$prestationsNoeud = key($prestations);
+    				$prestations = current($prestations);
     			}
     			if ($drmVrac) {
     				$drmVrac = $drmVrac->getRawValue();
@@ -104,6 +111,10 @@
 				D : <?php echo ($drmConf->entree->declassement)? 'E' : ''; ?><?php echo ($drmConf->sortie->declassement)? 'S' : ''; ?>
 				<?php endif; ?>
 				</td>
+			
+			<td class="center" title="<?php if (isset($prestationsNoeud)): ?>Valeur définie au noeud <?php echo $prestationsNoeud ?><?php endif; ?>">
+				<?php if ($prestations): ?><?php echo str_replace('INTERPRO-', '', implode(', ', $prestations)); ?><?php endif; ?>
+			</td>
 			</tr>
     	<?php $i++; endforeach; ?>
 	    	</tbody>

@@ -36,6 +36,8 @@ class ConfigurationProduitCertification extends BaseConfigurationProduitCertific
     
     public function callbackCurrentDepartements($onlyValue = false) { return null; }
     
+	public function callbackCurrentPrestations($onlyValue = false) { return null; }
+    
     public function callbackCurrentLabels($onlyValue = false) { return null; }
     
     public function callbackCurrentDrmVrac($onlyValue = false) { return null; }
@@ -53,6 +55,8 @@ class ConfigurationProduitCertification extends BaseConfigurationProduitCertific
   	public function hasLabels() { return true; }
     
   	public function hasDepartements() { return false; }
+  	
+	public function hasPrestations() { return false; }
   	
   	public function hasCvo() { return false; }
   	

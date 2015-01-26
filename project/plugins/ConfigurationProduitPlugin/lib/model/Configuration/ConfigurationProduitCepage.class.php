@@ -25,6 +25,16 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
         return $this->getProduitWithTaux($date);
         
     }
+
+    public function getProduitsEnPrestation($interpro) 
+    {      
+        $prestations = $this->getCurrentPrestations(true);
+        if (!$prestations || !in_array($interpro, $prestations)) {
+    		return array();
+    	}  
+        return array($this->getHash() => $this);
+        
+    }
     
     protected function getProduitWithTaux($date = null) {
         $date_cvo = (!$date)? date('Y-m-d') : $date;
@@ -67,6 +77,11 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
     }
     
     public function getAllDepartements()
+    {
+    	return array();
+    }
+    
+    public function getAllPrestations()
     {
     	return array();
     }
@@ -170,6 +185,8 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
   	public function hasLabels() { return false; }
     
   	public function hasDepartements() { return false; }
+  	
+	public function hasPrestations() { return false; }
   	
   	public function hasCvo() { return false; }
   	

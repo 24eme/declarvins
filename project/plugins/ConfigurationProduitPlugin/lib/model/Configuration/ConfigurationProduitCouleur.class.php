@@ -52,6 +52,8 @@ class ConfigurationProduitCouleur extends BaseConfigurationProduitCouleur
     
   	public function hasDepartements() { return false; }
   	
+	public function hasPrestations() { return false; }
+  	
   	public function hasCvo() { return true; }
   	
   	public function hasDouane() { return false; }
