@@ -864,7 +864,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             	return $doc;
             }
         }
-		throw new sfException('Erreur de version');
+		//throw new sfException('Erreur de version');
         return null;
     }
 
