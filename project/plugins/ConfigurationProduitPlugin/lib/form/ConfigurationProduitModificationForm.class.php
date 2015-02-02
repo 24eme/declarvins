@@ -102,8 +102,10 @@ class ConfigurationProduitModificationForm extends acCouchdbObjectForm
     	if ($object->hasPrestations()) {
     		$object->remove('prestations');
     		$prestations = $object->add('prestations');
-    		foreach ($values['noeud_prestations']['prestation'] as $value) {
-    			$prestations->add(null, $value);
+    		if ($values['noeud_prestations']['prestation']) {
+	    		foreach ($values['noeud_prestations']['prestation'] as $value) {
+	    			$prestations->add(null, $value);
+	    		}
     		}
     	}
     	if ($object->hasLabels()) {
@@ -161,7 +163,7 @@ class ConfigurationProduitModificationForm extends acCouchdbObjectForm
     			$organisme->oioc = $value['oioc'];
     		}
 		}
-    	$object->getDocument()->save();
+    	$object->getDocument()->save(true);
     	return $object;
     }
     

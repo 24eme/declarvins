@@ -182,11 +182,22 @@ class ConfigurationProduit extends BaseConfigurationProduit
         $departements = $this->getDepartements();
         $interpro->departements = ($departements)? $departements : array();
         $interpro->save();
+    }
+
+    public function save($prestation = false) 
+    {
+    	if ($prestation) {
+    		$this->updatePrestations();
+    	}
+        parent::save();
+        ConfigurationClient::getInstance()->cacheResetCurrent();
+    }
+    
+    public function updatePrestations() 
+    {
+    	$interpro = $this->getInterproObject();
     	$interpros = InterproClient::getInstance()->getAllInterpros();
     	foreach ($interpros as $inter) {
-    		if ($interpro->_id == $inter) {
-    			continue;
-    		}
     		if ($produits = $this->getProduitsEnPrestation($inter)) {
     			if ($obj = InterproClient::getInstance()->find($inter)) {
     				if ($obj->exist('configuration_produits')) {
@@ -208,12 +219,6 @@ class ConfigurationProduit extends BaseConfigurationProduit
     			}
     		}
     	}
-    }
-
-    public function save() 
-    {
-        parent::save();
-        ConfigurationClient::getInstance()->cacheResetCurrent();
     }
 }
 

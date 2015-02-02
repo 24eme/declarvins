@@ -23,7 +23,6 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 		$this->getAllLieux();
 		$this->getAllCepages();
 		$this->getAllDepartements();
-		$this->getAllPrestations();
     }
     
   	public function getParentNode() 
