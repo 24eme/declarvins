@@ -141,15 +141,36 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	return $this->declaration->getProduitsEnPrestation($interpro);
     }
     
-    public function getProduits($hash = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null)
+    public function getProduits($hash = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null, $avecPrestation = false)
     {
     	if ($hash) {
     		if ($this->exist($hash)) {
-    			return $this->get($hash)->getProduits($onlyForDrmVrac, $cvoNeg, $date);
+    			return ($avecPrestation)? array_merge($this->get($hash)->getProduits($onlyForDrmVrac, $cvoNeg, $date), $this->getProduitsPrestataire($hash)) : $this->get($hash)->getProduits($onlyForDrmVrac, $cvoNeg, $date);
     		}
-    		return array();
+    		return ($avecPrestation)? $this->getProduitsPrestataire($hash) : array();
     	}
-    	return $this->declaration->getProduits($onlyForDrmVrac, $cvoNeg, $date);
+    	return ($avecPrestation)? array_merge($this->declaration->getProduits($onlyForDrmVrac, $cvoNeg, $date), $this->getProduitsPrestataire()) : $this->declaration->getProduits($onlyForDrmVrac, $cvoNeg, $date);
+    }
+    
+    public function getProduitsPrestataire($hash = null)
+    {
+    	$prestations = $this->getOrAdd('prestations');
+    	$produits = array();
+    	foreach ($prestations as $i => $val) {
+    		if($interpro = InterproClient::getInstance()->find($i)) {
+    			if ($configurationProduits = ConfigurationProduitClient::getInstance()->find($interpro->getOrAdd('configuration_produits'))) {
+	    				foreach ($val as $key => $value) {
+	    					if ($hash && !preg_match("/^".str_replace('/', '_', $hash)."/", $key)) {
+	    						continue;
+	    					}
+	    					if ($configurationProduits->exist($value->lien)) {
+	    						$produits = array_merge($produits, $configurationProduits->get($value->lien)->getProduits());
+	    					}
+    				}
+    			}
+    		}
+    	}
+    	return $produits;
     }
     
     public function getTreeProduits()
@@ -157,15 +178,38 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	return $this->declaration->getTreeProduits();
     }
     
-    public function getTotalLieux($hash = null)
+    public function getTotalLieux($hash = null, $avecPrestation = false)
     {
     	if ($hash) {
     		if ($this->exist($hash)) {
-    			return $this->get($hash)->getTotalLieux();
+    			return ($avecPrestation)? array_merge($this->get($hash)->getTotalLieux(), $this->getTotalLieuxPrestataire($hash)) : $this->get($hash)->getTotalLieux();
     		}
-    		return array();
+    		return ($avecPrestation)? $this->getTotalLieuxPrestataire($hash) : array();
     	}
-    	return $this->declaration->getTotalLieux();
+    	return ($avecPrestation)? array_merge($this->declaration->getTotalLieux(), $this->getTotalLieuxPrestataire()) : $this->declaration->getTotalLieux();
+    }
+    
+
+    
+    public function getTotalLieuxPrestataire($hash = null)
+    {
+    	$prestations = $this->getOrAdd('prestations');
+    	$produits = array();
+    	foreach ($prestations as $i => $val) {
+    		if($interpro = InterproClient::getInstance()->find($i)) {
+    			if ($configurationProduits = ConfigurationProduitClient::getInstance()->find($interpro->getOrAdd('configuration_produits'))) {
+	    				foreach ($val as $key => $value) {
+	    					if ($hash && !preg_match("/^".str_replace('/', '_', $hash)."/", $key)) {
+	    						continue;
+	    					}
+	    					if ($configurationProduits->exist($value->lien)) {
+	    						$produits = array_merge($produits, $configurationProduits->get($value->lien)->getLieu()->getTotalLieux());
+	    					}
+    				}
+    			}
+    		}
+    	}
+    	return $produits;
     }
     
     public function getInterproObject()
@@ -209,7 +253,7 @@ class ConfigurationProduit extends BaseConfigurationProduit
     						$prestation = $prestations->add($interpro->_id);
     						foreach ($produits as $hash => $confProduit) {
     							$produit = $prestation->add(str_replace('/', '_', $hash));
-    							$produit->hash = $hash;
+    							$produit->lien = $hash;
     							$produit->libelle = ConfigurationProduitClient::getInstance()->format($confProduit->getLibelles());
     							$produit->configuration = $this->_id;
     						}
