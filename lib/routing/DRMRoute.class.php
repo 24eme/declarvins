@@ -43,13 +43,32 @@ class DRMRoute extends sfObjectRoute implements InterfaceEtablissementRoute {
     public function getDRMConfiguration() {
         return ConfigurationClient::getCurrent();
     }
+    
+    public function getObject()
+  	{
+  		$object = parent::getObject();
+  		
+        $user = sfContext::getInstance()->getUser();
+    	if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+    		$interpro = $user->getCompte()->getGerantInterpro();
+    		return new DRMFictive($object, $interpro);
+    	} else {
+    		return $object;
+    	}
+  	}
 
     public function getDRM() {
         if (!$this->drm) {
             $this->getObject();
         }
-
-        return $this->drm;
+        $object = $this->drm;
+    	$user = sfContext::getInstance()->getUser();
+    	if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+    		$interpro = $user->getCompte()->getGerantInterpro();
+    		return new DRMFictive($object, $interpro);
+    	} else {
+    		return $object;
+    	}
     }
 
     public function getEtablissement() {
