@@ -173,6 +173,25 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	return $produits;
     }
     
+    public function isProduitInPrestation($hash)
+    {
+    	$hash = str_replace('/', '_', $hash);
+    	$prestations = $this->getOrAdd('prestations');
+    	$find = false;
+    	foreach ($prestations as $i => $val) {
+    		if ($find) {
+    			break;
+    		}
+    		foreach ($val as $key => $value) {
+    			if ($value->lien == $hash) {
+    				$find = true;
+    				break;
+    			}
+    		}
+    	}
+    	return $find;
+    }
+    
     public function getTreeProduits()
     {
     	return $this->declaration->getTreeProduits();
