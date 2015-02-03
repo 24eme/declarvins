@@ -193,7 +193,7 @@ class Configuration extends BaseConfiguration {
         return $this->format($lieux, $format);
     }
 
-    protected function format($produits, $format = "%g% %a% %m% %l% %co% %ce%") {
+    public function format($produits, $format = "%g% %a% %m% %l% %co% %ce%") {
         $result = array();
         $client = ConfigurationProduitClient::getInstance();
         foreach ($produits as $hash => $produit) {
@@ -202,7 +202,7 @@ class Configuration extends BaseConfiguration {
         return $result;
     }
 
-    protected function formatWithCode($produits, $format = "%g% %a% %m% %l% %co% %ce%") {
+    public function formatWithCode($produits, $format = "%g% %a% %m% %l% %co% %ce%") {
         $result = array();
         $client = ConfigurationProduitClient::getInstance();
         foreach ($produits as $hash => $produit) {
