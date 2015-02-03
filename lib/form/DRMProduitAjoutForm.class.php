@@ -6,12 +6,14 @@ class DRMProduitAjoutForm extends acCouchdbForm
     protected $_config = null;
     protected $_certification = null;
     protected $_lieu = null;
+    protected $_configurationProduits = null;
 
-    public function __construct(DRM $drm, Configuration $config, $certification, $lieu = null, $options = array(), $CSRFSecret = null) {
+    public function __construct(DRM $drm, Configuration $config, $certification, $lieu = null, $configurationProduits = null, $options = array(), $CSRFSecret = null) {
 		$this->_drm = $drm;
         $this->_config = $config;
         $this->_certification = $certification;
         $this->_lieu = $lieu;
+        $this->_configurationProduits = $configurationProduits;
         $defaults = array();
         parent::__construct($drm, $defaults, $options, $CSRFSecret);
     }
@@ -67,6 +69,9 @@ class DRMProduitAjoutForm extends acCouchdbForm
     
     public function getProduits() 
     {
+    	if ($this->_configurationProduits) {
+    		return array_merge(array("" => ""), $this->_config->formatWithCode($this->_configurationProduits->getProduits($this->getHash(), false, false, $this->_drm->getFormattedDateFromPeriode(), true), "%g% %a% %m% %l% %co% %ce%"));
+    	}
     	$etablissement = $this->_drm->getEtablissement();
     	return array_merge(array("" => ""), $this->_config->getFormattedProduits($this->getHash(), $etablissement->getConfigurationZones(), false, "%g% %a% %m% %l% %co% %ce%", false, $this->_drm->getFormattedDateFromPeriode()));
     }

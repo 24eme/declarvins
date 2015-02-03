@@ -94,8 +94,13 @@ class drm_mouvements_generauxActions extends sfActions
     	$drm = $this->getRoute()->getDRM();
         $config = ConfigurationClient::getCurrent();
         $certification = $this->getRoute()->getCertification();
+        $configurationProduits = null;
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        	$interpro = $this->getUser()->getCompte()->getGerantInterpro();
+        	$configurationProduits = ConfigurationProduitClient::getInstance()->find($interpro->getOrAdd('configuration_produits'));
+        }
 
-        $form = new DRMProduitAjoutForm($drm, $config, $certification);
+        $form = new DRMProduitAjoutForm($drm, $config, $certification, null, $configurationProduits);
         if ($request->isMethod(sfWebRequest::POST)) {
     		$this->getResponse()->setContentType('text/json');
             $form->bind($request->getParameter($form->getName()));

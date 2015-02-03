@@ -55,8 +55,13 @@ class drm_recapActions extends sfActions
         $this->drm = $this->getRoute()->getDRM();
         $config = ConfigurationClient::getCurrent();
         $certification = $this->getRoute()->getCertification();
+    	$configurationProduits = null;
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        	$interpro = $this->getUser()->getCompte()->getGerantInterpro();
+        	$configurationProduits = ConfigurationProduitClient::getInstance()->find($interpro->getOrAdd('configuration_produits'));
+        }
 
-        $this->form = new DRMLieuAjoutForm($this->drm, $config, $certification);
+        $this->form = new DRMLieuAjoutForm($this->drm, $config, $certification, $configurationProduits);
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
@@ -85,8 +90,13 @@ class drm_recapActions extends sfActions
         $certification = $this->getRoute()->getCertification();
         
         $this->forward404Unless($request->isXmlHttpRequest());
+    	$configurationProduits = null;
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        	$interpro = $this->getUser()->getCompte()->getGerantInterpro();
+        	$configurationProduits = ConfigurationProduitClient::getInstance()->find($interpro->getOrAdd('configuration_produits'));
+        }
 
-        $form = new DRMProduitAjoutForm($this->drm, $config, $certification, $this->drm_lieu->getHash());
+        $form = new DRMProduitAjoutForm($this->drm, $config, $certification, $this->drm_lieu->getHash(), $configurationProduits);
 
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->getResponse()->setContentType('text/json');
