@@ -179,14 +179,9 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	$prestations = $this->getOrAdd('prestations');
     	$find = false;
     	foreach ($prestations as $i => $val) {
-    		if ($find) {
-    			break;
-    		}
-    		foreach ($val as $key => $value) {
-    			if ($value->lien == $hash) {
+    		if ($prestations->get($i)->exist($hash)) {
     				$find = true;
     				break;
-    			}
     		}
     	}
     	return $find;
