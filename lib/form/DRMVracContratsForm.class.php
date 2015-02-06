@@ -2,6 +2,14 @@
 class DRMVracContratsForm extends acCouchdbObjectForm
 {
 
+	protected $interpro;
+	
+  	public function __construct($doc, $interpro, $options = array(), $CSRFSecret = null) 
+  	{
+  		$this->interpro = $interpro;
+    	parent::__construct($doc, $options, $CSRFSecret);
+  	}
+
         public function configure()
         {
                 $choices = $this->getContratChoices();
@@ -22,7 +30,11 @@ class DRMVracContratsForm extends acCouchdbObjectForm
 
     public function getContratChoices()
     {
-           $contrat_choices = $this->getObject()->getContratsVracAutocomplete();
+    	$prestation = false;
+    	if ($this->interpro && $this->getObject()->interpro != $this->interpro) {
+    		$prestation = true;
+    	}
+           $contrat_choices = $this->getObject()->getContratsVracAutocomplete($prestation);
            $contrat_choices[''] = '';
            ksort($contrat_choices);
         return $contrat_choices;

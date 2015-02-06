@@ -65,7 +65,11 @@ class drm_vracActions extends sfActions
         }
 
             $this->drm->etape = "vrac";
-                $this->form = new DRMVracForm($this->drm);
+            $interpro = null;
+            if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+            	$interpro = $this->getUser()->getCompte()->getGerantInterpro()->_id;
+            }
+                $this->form = new DRMVracForm($this->drm, $interpro);
 
         if ($request->isMethod(sfWebRequest::POST)) {
 

@@ -1,12 +1,22 @@
 <?php
 class DRMVracForm extends acCouchdbForm 
 {
+
+	protected $interpro;
 	
+  	public function __construct($doc, $interpro, $defaults = array(), $options = array(), $CSRFSecret = null) 
+  	{
+  		$this->interpro = $interpro;
+  		
+    	parent::__construct($doc, $defaults, $options, $CSRFSecret);
+  	}
+  	
 	public function configure()
 	{
+		
 		$details_vrac = $this->getDocument()->getDetailsAvecVrac();
         foreach ($details_vrac as $detail_vrac) {
-        	$this->embedForm($detail_vrac->getHash(), new DRMVracContratsForm($detail_vrac));
+        	$this->embedForm($detail_vrac->getHash(), new DRMVracContratsForm($detail_vrac, $this->interpro));
         }
         
   		$this->validatorSchema->setPostValidator(new DRMVracValidator());
@@ -40,7 +50,11 @@ class DRMVracForm extends acCouchdbForm
     
     public function getContratChoices($object) 
     {
-	   $contrat_choices = $object->getContratsVracAutocomplete();
+    	$prestation = false;
+    	if ($this->interpro && $object->interpro != $this->interpro) {
+    		$prestation = true;
+    	}
+	   $contrat_choices = $object->getContratsVracAutocomplete($prestation);
 	   $contrat_choices[''] = '';
 	   ksort($contrat_choices);
        return $contrat_choices;

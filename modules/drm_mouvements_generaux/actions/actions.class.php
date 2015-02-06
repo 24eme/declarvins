@@ -80,9 +80,12 @@ class drm_mouvements_generauxActions extends sfActions
     
     public function executeDelete(sfWebRequest $request) 
     {
-		$objectToDelete = $this->getRoute()->getObject()->cascadingDelete();
+    	$drm = $this->getRoute()->getObject()->getDocument();
+    	if ($drm->type == DRMFictive::TYPE) {
+    		$drm = $drm->getDRM();
+    	}
+		$objectToDelete = $drm->get($this->getRoute()->getObject()->getHash())->cascadingDelete();
 		$objectToDelete->delete();
-		$drm = $this->getRoute()->getObject()->getDocument();
 		$drm->update();
 		$drm->save();
 		$this->redirect('drm_mouvements_generaux', $drm);

@@ -5,6 +5,7 @@ class DRMFictive extends DRM
 	protected $drm;
 	protected $interpro;
 	protected $configurationProduits;
+	const TYPE = 'DRMFictive';
 	
     public function __construct($drm, $interpro) 
     {
@@ -14,7 +15,13 @@ class DRMFictive extends DRM
     	$this->configurationProduits = ConfigurationProduitClient::getInstance()->find($interpro->getOrAdd('configuration_produits'));
     	$this->initDrm();
     	$this->initProduits();
+    	$this->type = self::TYPE;
     	
+    }
+    
+    public function getDRM()
+    {
+    	return $this->drm;
     }
     
     protected function initDrm()
@@ -38,19 +45,42 @@ class DRMFictive extends DRM
     	if ($hasChange) {
 			$this->update();
     	}
+    	$this->setDroits();
     }
     
-    /**
-     * 
-     * @todo
-     */
+    protected function preSave() {
+    	return;
+    }
     public function save() 
     {
+    	$drm = $this->drm;
+    	$produits = $this->getDetails();
+    	foreach ($produits as $produit) {
+    		$detail = $drm->getOrAdd($produit->getHash());
+    		$detail->getParent()->set($produit->getKey(), $produit);
+    	}
+        $drm->update();
+    	$drm->save();
     	
     }
     public function delete() 
     {
-    	
+    	$this->drm->delete();
+    }
+    
+    public function validate($options = array()) 
+    {
+    	$this->drm->validate($options);
+    }
+    
+    public function setCurrentEtapeRouting($etape) 
+    {
+    	$this->drm->setCurrentEtapeRouting($etape);
+    }
+    
+    public function setEtablissementInformations($etablissement = null) 
+    {
+    	$this->drm->setEtablissementInformations($etablissement);
     }
 
 }

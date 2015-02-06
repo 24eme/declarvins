@@ -234,7 +234,7 @@ class drmActions extends sfActions {
 
         $this->form->save();
         $this->drm->validate();
-        $this->drm->updateBilan();
+        //$this->drm->updateBilan();
         $this->drm->save();
     	if ($this->drm->needNextVersion()) {
 	      $generate = true;

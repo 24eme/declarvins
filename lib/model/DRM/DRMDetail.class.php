@@ -205,7 +205,7 @@ class DRMDetail extends BaseDRMDetail {
         $contratVrac->volume = $volume * 1;
     }
 
-    public function getContratsVracAutocomplete() {
+    public function getContratsVracAutocomplete($prestation = false) {
         $vracs_autocomplete = array();
         $vracs = $this->getContratsVrac();
         foreach ($vracs as $vrac) {
@@ -237,7 +237,11 @@ class DRMDetail extends BaseDRMDetail {
             if ($vrac->exist('version') && $vrac->version) {
             	$id .= '-'.$vrac->version;
             }
-            $vracs_autocomplete[$id] = $acheteur . ', contrat n°' . $vrac->numero_contrat . ' comprenant ' . $vol . 'hl à ' . $vrac->prix_unitaire . '€ HT/hl ' . $millesime . ' ' . $courtier;
+            if ($prestation) {
+            	$vracs_autocomplete[$id] = 'contrat n°' . $vrac->numero_contrat . ' comprenant ' . $vol . 'hl ' . $millesime;
+            } else {
+            	$vracs_autocomplete[$id] = $acheteur . ', contrat n°' . $vrac->numero_contrat . ' comprenant ' . $vol . 'hl à ' . $vrac->prix_unitaire . '€ HT/hl ' . $millesime . ' ' . $courtier;
+            }
         }
         return $vracs_autocomplete;
     }
