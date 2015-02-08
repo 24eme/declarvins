@@ -245,7 +245,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     }
     
-	public getTypeByEtablissement($identifiant)
+	public function getTypeByEtablissement($identifiant)
 	{
 		$type = null;
 		if ($this->acheteur_identifiant == $identifiant) {
