@@ -146,12 +146,15 @@ class DRMHistorique {
     }
 
     public function getLastDRMByCampagne($campagne) {
-        foreach($this->drms as $drm) {
+    	$d = null;
+    	$drms = $this->drms;
+    	ksort($drms);
+        foreach($drms as $drm) {
             if ($drm->campagne == $campagne) {
-               return DRMClient::getInstance()->find($drm->_id);
+               $d = DRMClient::getInstance()->find($drm->_id);
             }
         }
-        return null;
+        return $d;
     }
 
     public function getCampagnes() {
