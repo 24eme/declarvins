@@ -22,10 +22,8 @@ class VracProduitForm extends VracForm
     		$this->setValidator('non_millesime', new ValidatorPass());
     
 	        
-		    if ($this->getObject()->hasVersion()) {
+		    if ($this->getObject()->hasVersion() && $this->getObject()->volume_enleve > 0) {
 		      	$this->setWidget('produit', new sfWidgetFormInputHidden());
-		      	$this->setWidget('millesime', new sfWidgetFormInputHidden());
-		      	unset($this['non_millesime']);
 		      }
     		
   		    $this->validatorSchema->setPostValidator(new VracProduitValidator());

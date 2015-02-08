@@ -46,7 +46,7 @@ class VracValidationForm extends VracForm
     	if (isset($values['date_stats']) && !$values['date_stats']) {
     		$this->getObject()->getDocument()->date_stats = $this->getObject()->getDocument()->valide->date_saisie;
     	}
-        $this->getObject()->getDocument()->validate($this->user);
+        $this->getObject()->getDocument()->validate($this->user, $this->etablissement);
     }
 	
 

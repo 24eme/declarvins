@@ -36,7 +36,7 @@
 			<?php else: ?>
 				<a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'condition', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a>
 			<?php endif; ?>
-			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$form->getObject()->isRectificative()): ?>
 				<button id="no_mail" style="text-transform: uppercase; color: #FFFFFF; height: 21px; line-height: 21px; font-weight: bold; padding: 0 10px; background-color: #FF9F00; border: 1px solid #D68500;" type="submit"><span>Valider sans e-mail</span></button>
 			<?php endif; ?>
 			<button class="valider_etape" type="submit"><span>Terminer la saisie</span></button>

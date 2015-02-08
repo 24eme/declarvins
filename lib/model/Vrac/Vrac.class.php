@@ -206,7 +206,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	$this->volume_enleve = ($this->volume_enleve)? $this->volume_enleve * 1 : 0;
     }
 
-    public function validate($user) {
+    public function validate($user, $etablissement = null) {
     	$this->valide->statut = VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION;
     	if (!$this->valide->date_saisie) {
     		$this->valide->date_saisie = date('c');
@@ -230,14 +230,35 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$this->updateEnlevements();
     	} else {
     		$this->mode_de_saisie = self::MODE_DE_SAISIE_DTI;
-    		if ($this->vous_etes && in_array($this->vous_etes, $acteurs)) {
-    			$validateur = 'date_validation_'.$this->vous_etes;
-    			$this->valide->{$validateur} = date('c');
+    		if ($etablissement) {
+    			$type = $this->getTypeByEtablissement($etablissement->identifiant);
+    			if ($type && in_array($type, $acteurs)) {
+	    			$validateur = 'date_validation_'.$type;
+	    			$this->valide->{$validateur} = date('c');
+	    		}
+    		} else {
+	    		if ($this->vous_etes && in_array($this->vous_etes, $acteurs)) {
+	    			$validateur = 'date_validation_'.$this->vous_etes;
+	    			$this->valide->{$validateur} = date('c');
+	    		}
     		}
     	}
     }
     
-
+	public getTypeByEtablissement($identifiant)
+	{
+		$type = null;
+		if ($this->acheteur_identifiant == $identifiant) {
+			$type = 'acheteur';
+		}
+		if ($this->vendeur_identifiant == $identifiant) {
+			$type = 'vendeur';
+		}
+		if ($this->mandataire_identifiant == $identifiant) {
+			$type = 'mandataire';
+		}
+		return $type;
+	}
 
     public function devalide() {
         $this->valide->statut = null;

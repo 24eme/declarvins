@@ -67,7 +67,7 @@ class VracSoussigneForm extends VracForm
       	$this->setValidator('vous_etes_identifiant', new ValidatorPass());
       }
       
-      if ($this->getObject()->hasVersion()) {
+      if ($this->getObject()->hasVersion() && !$this->isAdmin()) {
       	$this->setWidget('vendeur_identifiant', new sfWidgetFormInputHidden());
       	$this->setWidget('acheteur_identifiant', new sfWidgetFormInputHidden());
       	$this->setWidget('mandataire_identifiant', new sfWidgetFormInputHidden());
@@ -102,7 +102,7 @@ class VracSoussigneForm extends VracForm
     }
 
     protected function doUpdateObject($values) {
-    	if ($this->getObject()->hasVersion()) {
+    	if ($this->getObject()->hasVersion() && !$this->isAdmin()) {
     		return;
     	}
         if ($this->etablissementIsVendeurOrAcheteur() && isset($values['vous_etes'])) {
@@ -141,5 +141,11 @@ class VracSoussigneForm extends VracForm
     public function etablissementIsCourtier() {
 
       return $this->getEtablissement() && in_array($this->getEtablissement()->famille, array(EtablissementFamilles::FAMILLE_COURTIER));
+    }
+
+
+    public function isAdmin() {
+
+        return sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR);
     }
 }

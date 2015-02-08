@@ -46,7 +46,7 @@
                             <span class="statut statut_<?php echo $vrac->getStatutCssClass() ?>"></span><span class="legende_statut_texte"><?php echo $vrac->valide->statut ?></span>
                         </div>                            
                     </div>
-                    <?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE && $etablissement->identifiant == $vrac->getCreateur()) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+                    <?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 				        
 				        <div id="ligne_btn">
 				        	<?php if ($vrac->isRectifiable()): ?>
@@ -54,7 +54,7 @@
 				                <button type="submit" id="btn_editer_contrat"  class="modifier" style="font-size: 12px;">Soumettre un contrat rectificatif</button>
 				            </form>
 				        	<?php endif; ?>
-                            <?php if($vrac->isEditable()): ?>
+                            <?php if($vrac->isEditable() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat" style="font-size: 12px;" onclick="return confirm('Confirmez-vous l\'annulation de ce contrat ?')"> Annuler le contrat</a>
                             <?php endif; ?>  
 				        </div>
