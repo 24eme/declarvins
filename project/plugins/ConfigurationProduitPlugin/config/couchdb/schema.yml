@@ -125,6 +125,12 @@ ConfigurationProduit:
                                                   definition:
                                                     fields:
                                                       '*': {  }
+                                                prestations:
+                                                  required: false
+                                                  type: array_collection
+                                                  definition:
+                                                    fields:
+                                                      '*': {  }
                                                 organismes:
                                                   type: collection
                                                   definition:

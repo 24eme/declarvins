@@ -2,8 +2,13 @@
 
 Entreprise : <?php if($vrac->{$acteur}->nom) { echo $vrac->{$acteur}->nom; } if($vrac->{$acteur}->raison_sociale) { echo ($vrac->{$acteur}->nom)? ' / '.$vrac->{$acteur}->raison_sociale : $vrac->{$acteur}->raison_sociale; } echo ($vrac->{$acteur}->famille)? ' - '.ucfirst($vrac->{$acteur}->famille) : ''; ?><?php if ($vrac->{$acteur}->telephone) {echo ' '.$vrac->{$acteur}->telephone;} if ($vrac->{$acteur}->fax) {echo ' '.$vrac->{$acteur}->fax;} if ($vrac->{$acteur}->email) {echo ' '.$vrac->{$acteur}->email;} ?><br /><br />
 Madame, Monsieur,<br /><br />
+<?php if ($vrac->isRectificative()): ?>
+La demande de rectification du contrat de transaction faite le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?> a été refusée par l'entreprise <?php if($etablissement->nom) { echo $etablissement->nom; } if($etablissement->raison_sociale) { echo ($etablissement->nom)? ' / '.$etablissement->raison_sociale : $etablissement->raison_sociale; } echo ($etablissement->famille)? ' - '.ucfirst($etablissement->famille) : ''; ?>.<br />
+<strong>Le contrat initial saisie le <?php echo strftime('%d/%m/%Y', strtotime($vrac->getMaster()->valide->date_saisie)) ?> est donc toujours considéré comme valable.</strong><br /><br />
+<?php else: ?>
 Le contrat de transaction saisi le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?> a été refusé par l'entreprise <?php if($etablissement->nom) { echo $etablissement->nom; } if($etablissement->raison_sociale) { echo ($etablissement->nom)? ' / '.$etablissement->raison_sociale : $etablissement->raison_sociale; } echo ($etablissement->famille)? ' - '.ucfirst($etablissement->famille) : ''; ?>.<br />
 <strong>Ce contrat a donc été supprimé et est considéré comme non valable.</strong><br /><br />
+<?php endif; ?> 
 Pour mémoire, le contrat portait sur la transaction suivante :<br />
 Date de saisie : <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?><br />
 Produit : <?php echo $vrac->getLibelleProduit() ?><br />
