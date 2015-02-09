@@ -268,6 +268,7 @@ class ConfigurationProduit extends BaseConfigurationProduit
     						foreach ($produits as $hash => $confProduit) {
     							$produit = $prestation->add(str_replace('/', '_', $hash));
     							$produit->lien = $hash;
+    							$produit->appellation = ConfigurationProduitClient::getInstance()->format($confProduit->getLibelles(), array(), "%g% %a%");
     							$produit->libelle = ConfigurationProduitClient::getInstance()->format($confProduit->getLibelles());
     							$produit->configuration = $this->_id;
     						}

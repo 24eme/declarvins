@@ -20,6 +20,7 @@ ConfigurationProduit:
                       fields:
                         lien: {  }
                         libelle: {  }
+                        appellation: {  }
                         configuration: {  }
       declaration:
         type: collection

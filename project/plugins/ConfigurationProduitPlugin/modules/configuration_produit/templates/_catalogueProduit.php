@@ -3,7 +3,7 @@
             <thead>
     			<tr>
 					<th colspan="6" style="text-align: center;"><strong>Produit</strong></th>
-			<th colspan="8"><strong>Configuration</strong></th>
+			<th colspan="6"><strong>Configuration</strong></th>
 		</tr>
 		<tr>
 			<th style="width:35px;"><strong>Cat.</strong></th>
@@ -13,11 +13,11 @@
 			<th><strong>Couleur</strong></th>
 			<th><strong>Cépage</strong></th>
 			<th style="width:15px;" class="center"><strong>Labels</strong></th>
-			<th style="width:15px;" class="center"><strong>Dép.</strong></th>
+			<!--<th style="width:15px;" class="center"><strong>Dép.</strong></th> -->
 			<th style="width:15px;" class="center"><strong>Douane</strong></th> 
 			<th style="width:15px;" class="center"><strong>CVO</strong></th>
 			<th style="width:15px;" class="center"><strong>Vrac</strong></th>    
-			<th style="width:15px;" class="center"><strong>OIOC</strong></th>
+			<!-- <th style="width:15px;" class="center"><strong>OIOC</strong></th>  -->
 			<th style="width:15px;" class="center"><strong>Rep/Dec</strong></th>
 			<th style="width:15px;" class="center"><strong>Presta.</strong></th>
 				</tr>
@@ -28,10 +28,10 @@
     		foreach($produits as $produit): 
     			$cvo = $produit->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO);
     			$douane = $produit->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_DOUANE);
-    			$departements = $produit->getCurrentDepartements();
+    			//$departements = $produit->getCurrentDepartements();
     			$prestations = $produit->getCurrentPrestations();
     			$drmVrac = $produit->getCurrentDrmVrac();
-    			$organisme = $produit->getCurrentOrganisme();
+    			//$organisme = $produit->getCurrentOrganisme();
     			$labels = $produit->getCurrentLabels();
     			$drmConf = $produit->getCurrentDefinitionDrm();
     			if ($cvo) {
@@ -44,11 +44,11 @@
     				$douaneNoeud = key($douane);
     				$douane = current($douane);
     			}
-    			if ($departements) {
+    			/*if ($departements) {
     				$departements = $departements->getRawValue();
     				$departementsNoeud = key($departements);
     				$departements = current($departements);
-    			}
+    			}*/
     			if ($prestations) {
     				$prestations = $prestations->getRawValue();
     				$prestationsNoeud = key($prestations);
@@ -59,11 +59,11 @@
     				$drmVracNoeud = key($drmVrac);
     				$drmVrac = current($drmVrac);
     			}
-    			if ($organisme) {
+    			/*if ($organisme) {
     				$organisme = $organisme->getRawValue();
     				$organismeNoeud = key($organisme);
     				$organisme = current($organisme);
-    			}
+    			}*/
     			if ($labels) {
     				$labels = $labels->getRawValue();
     				$labelsNoeud = key($labels);
@@ -89,10 +89,6 @@
 			<td class="center" title="<?php if (isset($labelsNoeud)): ?>Valeur définie au noeud <?php echo $labelsNoeud ?><?php endif; ?>">
 				<?php if ($labels): ?><?php echo implode(', ', $labels); ?><?php endif; ?>
 			</td>
-			
-			<td class="center" title="<?php if (isset($departementsNoeud)): ?>Valeur définie au noeud <?php echo $departementsNoeud ?><?php endif; ?>">
-				<?php if ($departements): ?><?php echo implode(', ', $departements); ?><?php endif; ?>
-			</td>
 			<td class="center" title="<?php if (isset($douaneNoeud)): ?>Valeur définie au noeud <?php echo $douaneNoeud ?><?php endif; ?>">
 				<?php if ($douane): ?><?php echo $douane->taux; ?><br />(<?php echo $douane->code; ?>)<?php endif; ?>
 			</td>
@@ -102,9 +98,6 @@
 			<td class="center" title="<?php if (isset($drmVracNoeud)): ?>Valeur définie au noeud <?php echo $drmVracNoeud ?><?php endif; ?>">
 				<?php if ($drmVrac): ?>oui<?php else: ?>non<?php endif; ?>
 			</td>	
-			<td class="center" title="<?php if (isset($organismeNoeud)): ?>Valeur définie au noeud <?php echo $organismeNoeud ?><?php endif; ?>">
-				<?php if ($organisme): ?><?php echo $organisme->oioc; ?><?php endif; ?>
-			</td>
 			<td class="center" title="<?php if (isset($drmConfNoeud)): ?>Valeur définie au noeud <?php echo $drmConfNoeud ?><?php endif; ?>">
 				<?php if ($drmConf): ?>
 				R : <?php echo ($drmConf->entree->repli)? 'E' : ''; ?><?php echo ($drmConf->sortie->repli)? 'S' : ''; ?><br />
