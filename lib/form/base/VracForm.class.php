@@ -104,7 +104,7 @@ class VracForm extends acCouchdbObjectForm
     	$zones = array();
     	if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
     		$interpro = $this->getUser()->getCompte()->getGerantInterpro();
-    		$zones[$interpro->configuration_produits] = ConfigurationZoneClient::getInstance()->find($interpro->configuration_produits);
+    		$zones[$interpro->zone] = ConfigurationZoneClient::getInstance()->find($interpro->zone);
     	} elseif (($etablissement = $this->getEtablissement()) && $this->getObject()->vendeur_type == EtablissementFamilles::FAMILLE_PRODUCTEUR) {
             $zones = $etablissement->getConfigurationZones();
         }
