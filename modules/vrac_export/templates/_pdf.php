@@ -179,6 +179,7 @@
 		<?php endif; ?>
 		Autres observations : <?php echo $vrac->commentaires ?>
 	</p>
+	<?php if ($vrac->isConditionneIvse()): ?><hr /><?php endif; ?>
 	<h2><?php if ($vrac->isConditionneIvse()): ?>Conditions générales de vente<?php else: ?>Clauses<?php endif; ?></h2>
 	<div class="clauses">
 	<?php echo $configurationVrac->getClauses(ESC_RAW) ?>

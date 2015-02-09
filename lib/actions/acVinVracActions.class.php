@@ -126,11 +126,20 @@ class acVinVracActions extends sfActions
         		$statut_credentials = VracClient::getInstance()->getStatusContratCredentials();
         		$statut_credentials = $statut_credentials[$this->vrac->valide->statut];
         		if (in_array($this->statut, $statut_credentials)) {
+        			$valide = $this->vrac->isValide();
         			$this->vrac->valide->statut = $this->statut;
         			$this->vrac->save();
         			if ($this->statut == VracClient::STATUS_CONTRAT_ANNULE) {
 						$this->contratAnnulation($this->vrac, $this->etablissement);
 						$this->getUser()->setFlash('annulation', true);
+        			}
+        			if (!$valide) {
+        				$this->vrac->delete();
+        				if(!$this->etablissement) {
+				            $this->redirect('vrac_admin');
+				        }
+				
+						$this->redirect('vrac_etablissement', array('sf_subject' => $this->etablissement));
         			}
         			$this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
         		}
