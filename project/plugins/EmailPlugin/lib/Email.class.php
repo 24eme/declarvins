@@ -23,6 +23,9 @@ class Email {
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
         $subject = 'Confirmation de votre saisie d\'un contrat interprofessionnel';
+        if ($vrac->isRectificative()) {
+        	$subject .= ' RECTIFIE';
+        }
         $body = $this->getBodyFromPartial('vrac_saisie_terminee', array('vrac' => $vrac, 'etablissement' => $etablissement));
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 

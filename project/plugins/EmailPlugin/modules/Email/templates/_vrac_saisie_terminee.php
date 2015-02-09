@@ -1,7 +1,11 @@
 <?php echo include_partial('Email/headerMail') ?>
 
 Madame, Monsieur,<br /><br />
+<?php if ($vrac->isRectificative()): ?>
+Vous avez rectifié le contrat numéro <?php echo $vrac->numero_contrat; ?> le  <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?>.<br />
+<?php else: ?>
 Vous avez saisi un contrat interprofessionnel le  <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?> à <?php echo strftime('%R', strtotime($vrac->valide->date_saisie)) ?>.<br />
+<?php endif; ?>
 Ce contrat porte sur la transaction suivante :<br /><br />
 Date de saisie : <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?><br />
 Produit : <?php echo $vrac->getLibelleProduit() ?><br />
