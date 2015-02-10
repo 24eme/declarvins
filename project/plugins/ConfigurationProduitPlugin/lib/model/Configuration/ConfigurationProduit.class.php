@@ -131,7 +131,7 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	return array_values(array_unique($this->declaration->getAllDepartements()));
     }
     
-    public function getPrestations()
+    public function getPrestataires()
     {
     	return array_values(array_unique($this->declaration->getAllPrestations()));
     }
