@@ -194,7 +194,7 @@ class drmActions extends sfActions {
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
-                $this->form->save();
+                $this->drm = $this->form->save();
                 $this->drm->setCurrentEtapeRouting('validation');
                 $this->redirect('drm_validation', $this->drm);
             }

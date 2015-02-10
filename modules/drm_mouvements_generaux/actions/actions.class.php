@@ -43,7 +43,7 @@ class drm_mouvements_generauxActions extends sfActions
         if ($request->isMethod(sfWebRequest::POST)) {
         	$this->form->bind($request->getParameter($this->form->getName()));
         	if ($this->form->isValid()) {
-       			$this->form->save();
+       			$this->drm = $this->form->save();
 	            if($this->drm->declaration->hasMouvementCheck()) {
 	        	   $this->drm->setCurrentEtapeRouting('recapitulatif');
 	               return $this->redirect('drm_recap', $this->first_certification);
