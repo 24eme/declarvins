@@ -37,7 +37,8 @@ class DRMFictive extends DRM
     	foreach ($produits as $produit) {
     		if ($produit->interpro != $this->interpro->_id) {
     			if (!$this->configurationProduits->isProduitInPrestation($produit->getCepage()->getHash())) {
-    				$this->remove($produit->getHash());
+    				$object = $produit->cascadingFictiveDelete();
+    				$this->remove($object->getHash());
     				$hasChange = true;
     			}
     		}
