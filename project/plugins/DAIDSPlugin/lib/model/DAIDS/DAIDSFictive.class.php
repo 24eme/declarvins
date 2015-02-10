@@ -37,7 +37,8 @@ class DAIDSFictive extends DAIDS
     	foreach ($produits as $produit) {
     		if ($produit->interpro != $this->interpro->_id) {
     			if (!$this->configurationProduits->isProduitInPrestation($produit->getCepage()->getHash())) {
-    				$this->remove($produit->getHash());
+    				$object = $produit->cascadingDelete();
+    				$this->remove($object->getHash());
     				$hasChange = true;
     			}
     		}
@@ -48,9 +49,6 @@ class DAIDSFictive extends DAIDS
     	$this->setDroits();
     }
     
-    protected function preSave() {
-    	return;
-    }
     public function save() 
     {
     	$daids = $this->daids;
@@ -81,6 +79,11 @@ class DAIDSFictive extends DAIDS
     public function setEtablissementInformations($etablissement = null) 
     {
     	$this->daids->setEtablissementInformations($etablissement);
+    }
+    
+    public function setEntrepotsInformations($entrepots = array())
+    {
+    	$this->daids->setEntrepotsInformations($entrepots);
     }
 
 }

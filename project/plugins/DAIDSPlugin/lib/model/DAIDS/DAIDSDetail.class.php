@@ -151,4 +151,39 @@ class DAIDSDetail extends BaseDAIDSDetail {
       		$this->stocks_debut->bloque = $etablissement->getVolumeBloque($produitHash, $date);
       	}
     }
+    
+
+
+    public function cascadingDelete() {
+        $cepage = $this->getCepage();
+        $couleur = $this->getCouleur();
+        $lieu = $this->getLieu();
+        $mention = $this->getMention();
+        $appellation = $this->getAppellation();
+        $genre = $this->getGenre();
+        $certification = $this->getCertification();
+        $objectToDelete = $this;
+        if ($cepage->details->count() == 1 && $cepage->details->exist($this->getKey())) {
+            $objectToDelete = $cepage;
+            if ($couleur->cepages->count() == 1 && $couleur->cepages->exist($cepage->getKey())) {
+                $objectToDelete = $couleur;
+                if ($lieu->couleurs->count() == 1 && $lieu->couleurs->exist($couleur->getKey())) {
+                    $objectToDelete = $lieu;
+                    if ($mention->lieux->count() == 1 && $mention->lieux->exist($lieu->getKey())) {
+                        $objectToDelete = $mention;
+                        if ($appellation->mentions->count() == 1 && $appellation->mentions->exist($mention->getKey())) {
+                            $objectToDelete = $appellation;
+                            if ($genre->appellations->count() == 1 && $genre->appellations->exist($appellation->getKey())) {
+                                $objectToDelete = $genre;
+                                if ($certification->genres->count() == 1 && $certification->genres->exist($genre->getKey())) {
+                                    $objectToDelete = $certification;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return $objectToDelete;
+    }
 }

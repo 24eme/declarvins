@@ -152,6 +152,17 @@ class DAIDS extends BaseDAIDS
   		$this->declarant->sous_famille = $etablissement->sous_famille;
   		$this->declarant->service_douane = $etablissement->service_douane;
     }
+    
+
+    
+    public function setEntrepotsInformations($entrepots = array())
+    {
+    	foreach ($entrepots as $entrepot => $datas) {
+    		$e = $this->entrepots->getOrAdd($entrepot);
+    		$e->commentaires = $datas['commentaires'];
+    		$e->principal = $datas['principal'];
+    	}
+    }
 
     public function generateSuivante($periode) 
     {

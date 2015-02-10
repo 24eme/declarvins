@@ -29,7 +29,7 @@
 			<?php include_partial('daids/droits', array('daids' => $daids)) ?>
 			
 			
-        <?php if ($daids->commentaires): ?>
+        <?php if ($daids->exist('commentaires') && $daids->commentaires): ?>
             <div style="padding: 0 0 30px 0">
                 <strong>Commentaires</strong>
                 <pre style="background: #fff; border: 1px #E9E9E9; padding: 8px; margin-top: 8px;"><?php echo $daids->commentaires ?></pre>
