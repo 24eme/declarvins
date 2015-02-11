@@ -537,7 +537,9 @@ class DAIDS extends BaseDAIDS
             	$document->precedente = $prev_daids->_id;
     		}
         }
-        $document->commentaires = null;
+        if ($document->exist('commentaires')) {
+        	$document->commentaires = null;
+        }
         $document->devalide();
     }
 
