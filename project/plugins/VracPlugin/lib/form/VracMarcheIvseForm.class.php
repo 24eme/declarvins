@@ -7,6 +7,9 @@ class VracMarcheIvseForm extends VracMarcheForm
 		$this->setValidator('prix_total_unitaire', new sfValidatorNumber(array('required' => false)));
 		$this->getWidget('prix_total_unitaire')->setLabel('Prix unitaire total HT:');
 		$this->getWidget('prix_total_unitaire')->setDefault($this->getObject()->getTotalUnitaire());
+		$this->getWidget('millesime')->setLabel('Année de production*:');
+		$this->getValidator('millesime')->setOption('required', true);
+		unset($this['non_millesime']);
         unset($this['annexe']);
         unset($this['has_transaction']);
     	if (!sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && isset($this['type_transaction'])) {
