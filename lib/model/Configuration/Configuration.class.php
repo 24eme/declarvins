@@ -225,7 +225,6 @@ class Configuration extends BaseConfiguration {
     }
 
     public function getConfigurationProduit($hash) {
-
         $configuration = $this->getConfigurationProduitsComplete();
         foreach ($configuration as $interpro => $configurationProduits) {
             if ($configurationProduits->exist($hash)) {
