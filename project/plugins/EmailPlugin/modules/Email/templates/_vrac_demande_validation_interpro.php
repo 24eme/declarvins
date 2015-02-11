@@ -2,7 +2,9 @@
 
 Entreprise :  <?php if($vrac->{$acteur}->nom) { echo $vrac->{$acteur}->nom; } if($vrac->{$acteur}->raison_sociale) { echo ($vrac->{$acteur}->nom)? ' / '.$vrac->{$acteur}->raison_sociale : $vrac->{$acteur}->raison_sociale; } echo ($vrac->{$acteur}->famille)? ' - '.ucfirst($vrac->{$acteur}->famille) : ''; ?><?php if ($vrac->{$acteur}->telephone) {echo ' '.$vrac->{$acteur}->telephone;} if ($vrac->{$acteur}->fax) {echo ' '.$vrac->{$acteur}->fax;} if ($vrac->{$acteur}->email) {echo ' '.$vrac->{$acteur}->email;} ?><br /><br />
 Madame, Monsieur,<br /><br />
+<?php if ($vrac->{$vrac->vous_etes}): ?>
 L'entreprise <?php if($vrac->{$vrac->vous_etes}->nom) { echo $vrac->{$vrac->vous_etes}->nom; } if($vrac->{$vrac->vous_etes}->raison_sociale) { echo ($vrac->{$vrac->vous_etes}->nom)? ' / '.$vrac->{$vrac->vous_etes}->raison_sociale : $vrac->{$vrac->vous_etes}->raison_sociale; } echo ($vrac->{$vrac->vous_etes}->famille)? ' - '.ucfirst($vrac->{$vrac->vous_etes}->famille) : ''; ?> a <?php if ($vrac->isRectificative()): ?>rectifié le contrat numéro <?php echo $vrac->numero_contrat; ?><?php else: ?>saisi un contrat de transaction<?php endif; ?> vous concernant.<br /><br />
+<?php endif; ?>
 Le contrat saisi porte sur la transaction suivante :<br />
 Date de saisie : <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?><br />
 Produit : <?php echo $vrac->getLibelleProduit() ?><br />
