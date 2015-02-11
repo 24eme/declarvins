@@ -86,4 +86,15 @@ class DAIDSFictive extends DAIDS
     	$this->daids->setEntrepotsInformations($entrepots);
     }
 
+
+    public function generateRectificative() 
+    {
+        return $this->daids->generateRectificative();
+    }
+
+    public function generateModificative() 
+    {
+        return $this->daids->generateModificative();
+    }
+
 }
