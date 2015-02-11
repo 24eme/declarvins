@@ -43,6 +43,14 @@ class VracSoussigneForm extends VracForm
         	'cas_particulier' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCasParticulier())))
         ));
         
+        if ($type = $this->getObject()->vendeur_type) {
+        	$this->setWidget('vendeur_identifiant', new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'familles' => $type, 'only_actif' => 1)));
+        }
+        
+        if ($type = $this->getObject()->acheteur_type) {
+        	$this->setWidget('acheteur_identifiant', new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'familles' => $type, 'only_actif' => 1)));
+        }
+        
         $vracVendeurFormName = $this->vracVendeurFormName();
     	$vendeur = new $vracVendeurFormName($this->getObject()->vendeur);
         $this->embedForm('vendeur', $vendeur);

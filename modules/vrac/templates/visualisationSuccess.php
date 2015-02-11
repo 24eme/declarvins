@@ -1,5 +1,14 @@
 <?php include_component('global', 'nav', array('active' => 'vrac', 'subactive' => 'vrac')); ?>
-
+<?php 
+$rectif = $vrac->generateRectificative();
+$rectif->constructId();
+$modif = $vrac->generateModificative();
+$modif->constructId();
+$hasNextVersion = false;
+if (VracClient::getInstance()->find($rectif->_id) || VracClient::getInstance()->find($modif->_id)) {
+	$hasNextVersion = true;
+}
+?>
 <div id="contenu" class="vracs">
     <div id="rub_contrats">
         <section id="principal"> 
@@ -49,11 +58,13 @@
                     <?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 				        
 				        <div id="ligne_btn">
-				        	<?php if ($vrac->isRectifiable()): ?>
+				        		<?php if($hasNextVersion): ?>
+				        			<button id="btn_editer_contrat"  class="modifier" style="font-size: 12px; background-color: #E42C2C; border-color: #E42C2C;">Une version du contrat est en cours</button>
+				        		<?php else: ?>
 				            <form method="get" action="<?php echo url_for('vrac_rectificative', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>">
 				                <button type="submit" id="btn_editer_contrat"  class="modifier" style="font-size: 12px;">Soumettre un contrat rectificatif</button>
 				            </form>
-				        	<?php endif; ?>
+				            	<?php endif; ?>
                             <?php if($vrac->isEditable() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat" style="font-size: 12px;" onclick="return confirm('Confirmez-vous l\'annulation de ce contrat ?')"> Annuler le contrat</a>
                             <?php endif; ?>  
@@ -66,9 +77,15 @@
     
 			    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $vrac->isModifiable()): ?>
 			        <div class="ligne_form_btn" style="margin: 0;">
+			        	
+				        		<?php if($hasNextVersion): ?>
+				        			<button id="btn_editer_contrat"  class="modifier" style="font-size: 12px; float: none; background-color: #E42C2C; border-color: #E42C2C;">Une version du contrat est en cours</button>
+				        		<?php else: ?>
 			            <form method="get" action="<?php echo url_for('vrac_modificative', $vrac) ?>">
 			                <button type="submit" id="btn_editer_contrat"  class="modifier" style="font-size:12px; float: none;">Soumettre un contrat modificatif</button>
 						</form>
+						
+			    			<?php endif; ?>
 			        </div>
 			    <?php endif; ?>
     

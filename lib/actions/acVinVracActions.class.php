@@ -233,8 +233,10 @@ class acVinVracActions extends sfActions
                     			$this->contratModifie($this->vrac, $sendEmail);
                     		}
                     		$this->getUser()->setAttribute('vrac_modification', null);
-                    	} elseif ($sendEmail) {
+                    	} elseif ($sendEmail && !$this->vrac->isRectificative()) {
                     		$this->contratValide($this->vrac, $sendEmail);
+                    	} elseif ($sendEmail) {
+                    		$this->saisieTerminee($this->vrac, $this->interpro);
                     	}
                     	return $this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
                     } else {
@@ -381,6 +383,11 @@ class acVinVracActions extends sfActions
         $this->init($this->vrac, $this->etablissement);
 
         $vrac_rectificative = $this->vrac->generateRectificative();
+        if ($this->etablissement) {
+        	$vrac_rectificative->vous_etes = $this->vrac->getTypeByEtablissement($this->etablissement->identifiant);
+        } else {
+        	$vrac_rectificative->vous_etes = null;
+        }
         $vrac_rectificative->save(false);
 
         return $this->redirect(array('sf_route' => 'vrac_etape', 
@@ -395,6 +402,11 @@ class acVinVracActions extends sfActions
         $this->init($this->vrac, $this->etablissement);
 
         $vrac_modificative = $this->vrac->generateModificative();
+        if ($this->etablissement) {
+        	$vrac_rectificative->vous_etes = $this->vrac->getTypeByEtablissement($this->etablissement->identifiant);
+        } else {
+        	$vrac_rectificative->vous_etes = null;
+        }
         $vrac_modificative->save(false);
 
         return $this->redirect(array('sf_route' => 'vrac_etape', 

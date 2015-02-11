@@ -5,21 +5,16 @@ class VracProduitForm extends VracForm
     {
     		$produits = $this->getProduits();
 	    	$this->setWidgets(array(
-	        	'produit' => new sfWidgetFormChoice(array('choices' => $produits), array('class' => 'autocomplete')),
-	        	'millesime' => new sfWidgetFormInputText()
+	        	'produit' => new sfWidgetFormChoice(array('choices' => $produits), array('class' => 'autocomplete'))
 	    	));
 	        $this->widgetSchema->setLabels(array(
-	        	'produit' => 'Produit*:',
-	        	'millesime' => 'Millesime (année de récolte):'
+	        	'produit' => 'Produit*:'
 	        ));
 	        $this->setValidators(array(
-	        	'produit' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($produits))),
-	        	'millesime' => new sfValidatorString(array('required' => false))
+	        	'produit' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($produits)))
 	        ));
     		
-    		$this->setWidget('non_millesime', new sfWidgetFormInputCheckbox());
-    		$this->widgetSchema->setLabel('non_millesime', '&nbsp;');
-    		$this->setValidator('non_millesime', new ValidatorPass());
+    		
     
 	        
 		    if ($this->getObject()->hasVersion() && $this->getObject()->volume_enleve > 0) {
@@ -49,9 +44,7 @@ class VracProduitForm extends VracForm
         parent::updateDefaultsFromObject();
         if ($this->getObject()->produit) {
         	$this->setDefault('produit', '/'.str_replace('/declaration/', 'declaration/', $this->getObject()->produit));
-        	if (!$this->getObject()->millesime) {
-        		$this->setDefault('non_millesime', true);
-        	}
+        	
         }   
     }
 }

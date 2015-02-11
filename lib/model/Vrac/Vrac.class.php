@@ -216,7 +216,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       	if (!$this->mandataire_exist) {
       		unset($acteurs[array_search(VracClient::VRAC_TYPE_COURTIER, $acteurs)]);
       	}
-    	if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+    	if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$this->isRectificative()) {
     		$this->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
     		foreach ($acteurs as $acteur) {
     			$validateur = 'date_validation_'.$acteur;
@@ -229,7 +229,11 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$this->updateReferente();
     		$this->updateEnlevements();
     	} else {
-    		$this->mode_de_saisie = self::MODE_DE_SAISIE_DTI;
+    		if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+    			$this->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
+    		} else {
+    			$this->mode_de_saisie = self::MODE_DE_SAISIE_DTI;
+    		}
     		if ($etablissement) {
     			$type = $this->getTypeByEtablissement($etablissement->identifiant);
     			if ($type && in_array($type, $acteurs)) {
@@ -265,6 +269,9 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         $this->valide->date_saisie = null;
         $this->valide->identifiant = null;
         $this->valide->date_validation = null;
+        if ($this->exist('commentaires')) {
+        	$this->commentaires = null;
+        }
     	$acteurs = VracClient::getInstance()->getActeurs();
     	foreach ($acteurs as $acteur) {
     		$validateur = 'date_validation_'.$acteur;

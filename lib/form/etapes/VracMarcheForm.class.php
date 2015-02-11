@@ -17,7 +17,8 @@ class VracMarcheForm extends VracForm
         	'prix_total' => new sfWidgetFormInputHidden(),
 	        'part_cvo' => new sfWidgetFormInputHidden(),
 	        'repartition_cvo_acheteur' => new sfWidgetFormInputHidden(array('default' => ConfigurationVrac::REPARTITION_CVO_ACHETEUR)),
-        	'export' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true))
+        	'export' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
+	        'millesime' => new sfWidgetFormInputText()
     	));
         $this->widgetSchema->setLabels(array(
         	'has_transaction' => 'Je souhaite associer une déclaration de transaction',
@@ -33,7 +34,8 @@ class VracMarcheForm extends VracForm
         	'prix_total' => 'Prix total HT:',
         	'part_cvo' => 'Part CVO:',
         	'repartition_cvo_acheteur' => 'Repartition CVO acheteur:',
-        	'export' => 'Expédition export*:'
+        	'export' => 'Expédition export*:',
+	        'millesime' => 'Millesime:'
         ));
         $min = ($this->getObject()->volume_enleve)? $this->getObject()->volume_enleve : 0;
         $minErreur = ($min > 1)? $min.' hl ont déjà été enlevés pour ce contrat' : $min.' hl a déjà été enlevé pour ce contrat';
@@ -51,11 +53,14 @@ class VracMarcheForm extends VracForm
         	'prix_total' => new sfValidatorNumber(array('required' => false)),
 	        'part_cvo' => new sfValidatorNumber(array('required' => false)),
 	        'repartition_cvo_acheteur' => new sfValidatorNumber(array('required' => false)),
-        	'export' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixOuiNon())))
+        	'export' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixOuiNon()))),
+	        'millesime' => new sfValidatorString(array('required' => false))
          ));
     		
     		
-    		
+    		$this->setWidget('non_millesime', new sfWidgetFormInputCheckbox());
+    		$this->widgetSchema->setLabel('non_millesime', '&nbsp;');
+    		$this->setValidator('non_millesime', new ValidatorPass());
     		
 		    $this->getObject()->has_cotisation_cvo = 1;
   		    $this->validatorSchema->setPostValidator(new VracMarcheValidator());
@@ -106,6 +111,9 @@ class VracMarcheForm extends VracForm
       if (!(count($this->getObject()->mentions->toArray()) > 0)) {
         $this->setDefault('mentions', '');
       }  
+      	if (!$this->getObject()->millesime && $this->getObject()->volume_propose) {
+        		$this->setDefault('non_millesime', true);
+        	}
     }
 
     public function getTypePrixNeedDetermination() {

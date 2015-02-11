@@ -28,6 +28,25 @@ class VracMarcheValidator extends sfValidatorBase {
     			$errorSchema->addError(new sfValidatorError($this, 'required'), 'prix_unitaire');
     			$hasError = true;
     	}
+    if (!isset($values['millesime']) || empty($values['millesime'])) {
+                if (isset($values['non_millesime']) && is_null($values['non_millesime'])) {
+                        $errorSchema->addError(new sfValidatorError($this, 'millesime_inexistant'), 'millesime');
+                        $hasError = true;
+                }
+        }
+
+        if (isset($values['millesime']) && !empty($values['millesime'])) {
+                if (strlen($values['millesime']) != 4) {
+                        //throw new sfValidatorErrorSchema($this, array($this->getOption('millesime') => new sfValidatorError($this, 'format_millesime')));
+                                        $errorSchema->addError(new sfValidatorError($this, 'format_millesime'), 'millesime');
+                                        $hasError = true;
+                }
+                if ($values['millesime'] > (date('Y')+1)) {
+                        //throw new sfValidatorErrorSchema($this, array($this->getOption('millesime') => new sfValidatorError($this, 'date_millesime')));
+                                        $errorSchema->addError(new sfValidatorError($this, 'date_millesime'), 'millesime');
+                                        $hasError = true;
+                }
+        }
     	if ($hasError) {
     		throw new sfValidatorErrorSchema($this, $errorSchema);
     	}
