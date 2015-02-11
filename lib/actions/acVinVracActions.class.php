@@ -381,7 +381,7 @@ class acVinVracActions extends sfActions
         $this->init($this->vrac, $this->etablissement);
 
         $vrac_rectificative = $this->vrac->generateRectificative();
-        $vrac_rectificative->save();
+        $vrac_rectificative->save(false);
 
         return $this->redirect(array('sf_route' => 'vrac_etape', 
                               'sf_subject' => $vrac_rectificative, 
@@ -395,7 +395,7 @@ class acVinVracActions extends sfActions
         $this->init($this->vrac, $this->etablissement);
 
         $vrac_modificative = $this->vrac->generateModificative();
-        $vrac_modificative->save();
+        $vrac_modificative->save(false);
 
         return $this->redirect(array('sf_route' => 'vrac_etape', 
                               'sf_subject' => $vrac_modificative, 
