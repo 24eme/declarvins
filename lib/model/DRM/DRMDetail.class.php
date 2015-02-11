@@ -258,7 +258,7 @@ class DRMDetail extends BaseDRMDetail {
 
     public function getDroit($type) {
         $date = $this->getDocument()->periode . '-01';
-        return $this->getConfig()->getCurrentDroit($type, $date, true);
+        return $this->getCepage()->getConfig()->getCurrentDroit($type, $date, true);
     }
 
     public function canHaveVrac() {
@@ -296,6 +296,7 @@ class DRMDetail extends BaseDRMDetail {
         $this->total_sorties_interpro = null;
         $this->total_interpro = null;
         $this->selecteur = 1;
+        $this->pas_de_mouvement_check = 0;
         if ($nextCampagne != $this->getDocument()->campagne) {
             $daids = DAIDSClient::getInstance()->findMasterByIdentifiantAndPeriode($this->getDocument()->identifiant, $this->getDocument()->campagne);
             if ($daids) {
@@ -307,7 +308,6 @@ class DRMDetail extends BaseDRMDetail {
                     }
                 }
             }
-            $this->pas_de_mouvement_check = 0;
         }
 
         $this->remove('cvo');

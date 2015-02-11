@@ -45,6 +45,11 @@ class drmActions extends sfActions {
           $this->getUser()->setFlash('erreur_drm', 'Impossible de faire la DRM '.$drm->periode.' sans la DAI/DS '.$drm->getCampagnePrecedente());
           $this->redirect('drm_mon_espace', $etablissement);
           } */
+    		if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+            	$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_PAPIER;
+            } else {
+            	$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
+            }
         $drm->save();
         $this->redirect('drm_informations', $drm);
     }
@@ -322,6 +327,11 @@ class drmActions extends sfActions {
         }
 
         $drm_rectificative = $drm->generateRectificative();
+    	if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+            	$drm_rectificative->mode_de_saisie = DRMClient::MODE_DE_SAISIE_PAPIER;
+            } else {
+            	$drm_rectificative->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
+            }
         $drm_rectificative->save();
 
         return $this->redirect('drm_init', $drm_rectificative);
@@ -337,6 +347,11 @@ class drmActions extends sfActions {
         }
 
         $drm_modificative = $drm->generateModificative();
+    	if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+            	$drm_modificative->mode_de_saisie = DRMClient::MODE_DE_SAISIE_PAPIER;
+            } else {
+            	$drm_modificative->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
+            }
         $drm_modificative->save();
 
         return $this->redirect('drm_init', $drm_modificative);

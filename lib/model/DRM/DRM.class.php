@@ -354,6 +354,13 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $this->getSuivante()->save();
         }
         $this->storeReferente();
+        if ($user = $this->getUser()) {
+            if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+            	$this->mode_de_saisie = DRMClient::MODE_DE_SAISIE_PAPIER;
+            } else {
+            	$this->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
+            }
+        }
     }
 
     public function storeReferente() {
