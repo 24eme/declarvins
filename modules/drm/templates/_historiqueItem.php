@@ -20,11 +20,9 @@ endif;
     <td style="padding: 5px;">
     <?php echo $drm->getLibelleBilan(); ?>
     </td>
-    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
         <td style="padding: 5px;">
             <?php echo $drm->getModeDeSaisieLibelle() ?>
         </td>
-    <?php endif; ?>
     <td style="padding: 5px;">
         <?php if ($drm->isNew()): ?>
             <?php if (1 == 2 && $drm->isDebutCampagne() && !$drm->hasDaidsCampagnePrecedente()): ?>

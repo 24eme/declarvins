@@ -3,9 +3,9 @@
 		<tr>
 			<th style="padding: 5px; width: 100px;">DRM</th>
 			<th style="padding: 5px;">Etat <a href="" class="msg_aide" data-msg="help_popup_monespace_etat" title="Message aide"></a></th>
-            <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+
                  <th style="padding: 5px; width: 155px;">Mode de saisie</th>
-            <?php endif; ?>
+
 			<th style="padding: 5px; width: 185px;">&nbsp;</th>
 		</tr>
 	</thead>

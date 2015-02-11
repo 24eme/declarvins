@@ -83,5 +83,13 @@ class DRMFictive extends DRM
     {
     	$this->drm->setEtablissementInformations($etablissement);
     }
+    
+	public function generateRectificative() {
+        return $this->drm->generateRectificative();
+    }
+
+    public function generateModificative() {
+        return $this->drm->generateModificative();
+    }
 
 }
