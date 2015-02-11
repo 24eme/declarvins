@@ -71,5 +71,6 @@ class DRMVracForm extends acCouchdbForm
     {
     	$this->update($this->values);
     	$this->getDocument()->save();
+    	return $this->getDocument();
     }
 }
