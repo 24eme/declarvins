@@ -22,6 +22,6 @@
         </div>
         <?php endif; ?>
         
-        <?php include_partial('list', array('vracs' => $vracs, 'vracs_attente' => $vracs_attente, 'etablissement' => $etablissement)); ?>
+        <?php include_partial('list', array('vracs' => $vracs, 'vracs_attente' => $vracs_attente, 'etablissement' => $etablissement, 'configurationProduit' => $configurationProduit)); ?>
     </div>
 </section>

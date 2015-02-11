@@ -31,6 +31,11 @@ class acVinVracActions extends sfActions
         $this->statut = $request->getParameter('statut');
         $this->statut = ($this->statut)? $this->statut : 0;
         $this->forward404Unless(in_array($this->statut, array_merge(VracClient::getInstance()->getStatusContrat(), array(0))));
+        $this->configurationProduit = null;
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        	$interpro = $this->getUser()->getCompte()->getGerantInterpro();
+        	$this->configurationProduit = ConfigurationProduitClient::getInstance()->find($interpro->configuration_produits);
+        }
         $this->vracs = array();
 		$this->vracs_attente = array();
         $contrats = VracHistoryView::getInstance()->findLastByStatutAndInterpro($this->statut, $this->interpro->get('_id'));
@@ -60,6 +65,11 @@ class acVinVracActions extends sfActions
             $this->statut = VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION;
         }
         $this->forward404Unless(in_array($this->statut, VracClient::getInstance()->getStatusContrat()));
+        $this->configurationProduit = null;
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        	$interpro = $this->getUser()->getCompte()->getGerantInterpro();
+        	$this->configurationProduit = ConfigurationProduitClient::getInstance()->find($interpro->configuration_produits);
+        }
 		$this->vracs = array();
 		$this->vracs_attente = array();
         $contrats = array_reverse(VracSoussigneIdentifiantView::getInstance()->findByEtablissement($this->etablissement->identifiant)->rows);
