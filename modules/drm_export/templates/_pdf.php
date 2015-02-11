@@ -138,7 +138,7 @@
 	<?php endforeach; ?>
 	
 	
-	<?php if ($drm->mode_de_saisie != DRMClient::MODE_DE_SAISIE_PAPIER): ?>	
+	<?php if (!$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>	
 	<?php if($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()): ?>
 	<?php else: ?>
 		<div class="bloc_bottom">

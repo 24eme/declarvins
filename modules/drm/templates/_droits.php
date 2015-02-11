@@ -3,7 +3,7 @@
                         ) ?>
 
 <?php foreach ($drm->getDroits() as $typedroit => $droits) if (count($drm->droits->{$typedroit})): ?>
-    <?php if ($drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER && $typedroit == "douane") {continue;} ?>       
+    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $typedroit == "douane") {continue;} ?>       
     <div class="tableau_ajouts_liquidations">
     <h2><?php echo $libelles[$typedroit] ?> <a href="" class="msg_aide" data-msg="help_popup_validation_droit_<?php echo $typedroit; ?>" title="Message aide"></a></h2>
     	<table class="tableau_recap">
