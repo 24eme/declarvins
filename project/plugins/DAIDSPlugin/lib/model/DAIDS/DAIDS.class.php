@@ -45,6 +45,9 @@ class DAIDS extends BaseDAIDS
        $drmsHistorique = new DRMHistorique($this->identifiant);
        if ($lastDrm = $drmsHistorique->getLastDRMByCampagne($this->periode)) {
        	foreach ($lastDrm->getDetails() as $detail) {
+       		if (!ConfigurationClient::getCurrent()->getConfigurationProduit($detail->getCepage()->getHash())) {
+       			continue;
+       		}
        		$d = $this->getDocument()->getOrAdd($detail->getHash());
        		$d->updateVolumeBloque();
        		$d->label_supplementaire = $detail->label_supplementaire;
