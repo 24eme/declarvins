@@ -355,36 +355,6 @@
 <hr />
 <?php endif; //si pas validée ?>
 	<?php endif; ?>
-	<div class="legende">
-	<?php foreach($drm->declaration->certifications as $certification_key => $certification): ?>
-		<?php $i = 1; while($pagers_code[$certification_key]->getPage() <= $pagers_code[$certification_key]->getLastPage()): ?>
-		<?php $colonnes = $pagers_code[$certification_key]->getResults(); ?>
-		<?php if(count($colonnes) > 0): ?>
-			<h2>Codes produit - <?php echo $certification->getConfig()->libelle ?></h2>
-			<table>
-				<?php $counter=0; foreach($colonnes as $key => $item): ?>
-					<?php if($item): ?>
-					<?php if ($counter == 0): ?>
-					<tr>
-					<?php elseif ($counter == ExportDRM::NB_COL_CODES): $counter = 0;?>
-					</tr>
-					<tr>
-					<?php endif; ?>
-					<td>
-						<strong><?php echo strtoupper($item->getCode()) ?></strong>
-			   			<span><?php echo $item->getLibelle() ?></span>
-					</td>
-					<?php endif; ?>
-				<?php $counter++; endforeach; ?>
-				</tr>
-			</table>
-			<?php if ($pagers_code[$certification_key]->getPage() != $pagers_code[$certification_key]->getLastPage()): ?>
-			<hr />
-			<?php endif; ?>
-		<?php endif; $i++; ?>
-		<?php $pagers_code[$certification_key]->gotoNextPage(); ?>
-		<?php endwhile; ?>
-	<?php endforeach; ?>
-	</div>
+
 </body>
 </html>

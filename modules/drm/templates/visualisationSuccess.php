@@ -75,7 +75,7 @@
                     </ul>
                 </div>
             <?php endif; ?>
-			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->hasVersion()): ?>
             <?php include_partial('drm/mouvements', array('mouvements' => $mouvements, 'etablissement' => $etablissement, 'hamza_style' => false, 'no_link' => null)) ?>
             <?php endif; ?>
             <br/>
