@@ -171,10 +171,8 @@ class DRMClient extends acCouchdbClient {
         $drms = $this->viewByIdentifiantPeriode($identifiant, $periode);
 
         foreach ($drms as $id => $drm) {
-
             return $this->find($id, $hydrate);
         }
-
         return null;
     }
 
@@ -232,7 +230,7 @@ class DRMClient extends acCouchdbClient {
             $drms[$row->id] = $row->key;
         }
 
-        krsort($drms);
+        uksort($drms, array($this, 'sortDrmId'));
 
         return $drms;
     }
@@ -251,7 +249,7 @@ class DRMClient extends acCouchdbClient {
             $drms[$row->id] = $row->key;
         }
 
-        krsort($drms);
+        uksort($drms, array($this, 'sortDrmId'));
 
         return $drms;
     }
@@ -272,7 +270,7 @@ class DRMClient extends acCouchdbClient {
             $drms[$row->id] = $row->key;
         }
 
-        krsort($drms);
+        uksort($drms, array($this, 'sortDrmId'));
         return $drms;
     }
 
@@ -293,7 +291,7 @@ class DRMClient extends acCouchdbClient {
             $drms[$row->id] = $row->key;
         }
 
-        krsort($drms);
+        uksort($drms, array($this, 'sortDrmId'));
 
         return $drms;
     }
@@ -397,6 +395,27 @@ class DRMClient extends acCouchdbClient {
     public static function getLibellesForStatusBilan($status) {
         $allLibellesStatusBilan = self::getAllLibellesStatusBilan();
         return $allLibellesStatusBilan[$status];
+    }
+    
+    public function sortDrmId($a, $b) 
+    {
+    	$hasVersionA = preg_match('/(M|R)([0-9]){2}$/', $a, $ma);
+    	$hasVersionB = preg_match('/(M|R)([0-9]){2}$/', $b, $mb);
+    	
+    	if (!$hasVersionA && !$hasVersionB) {
+    		return strcasecmp($a, $b);
+    	}
+    	
+    	if (!$hasVersionA) {
+    		return 1;
+    	}
+    	
+    	if (!$hasVersionB) {
+    		return -1;
+    	}
+    	
+    	return ($ma[2] < $mb[2])? 1 : -1;
+    	
     }
 
 }
