@@ -222,8 +222,8 @@ class VersionDocument
 
             throw new sfException(sprintf('The document %s is not rectificable, maybe she was already rectificate', $this->document->get('_id')));
         }
-
-        $document_rectificative->version = $this->buildVersionDocument($this->getRectificative() + 1, $this->getModificative());
+		$numero = (int)$this->getRectificative() + (int)$this->getModificative();
+        $document_rectificative->version = $this->buildVersionDocument($numero + 1, null);
         $this->document->listenerGenerateVersion($document_rectificative);
 
         return $document_rectificative;
@@ -236,8 +236,8 @@ class VersionDocument
 
             throw new sfException(sprintf('The document %s is not modifiable, maybe she was already modified', $this->document->get('_id')));
         }
-
-        $document_modificative->version = $this->buildVersionDocument($this->getRectificative(), $this->getModificative() + 1);
+		$numero = (int)$this->getRectificative() + (int)$this->getModificative();
+        $document_modificative->version = $this->buildVersionDocument(null, $numero + 1);
         $this->document->listenerGenerateVersion($document_modificative);
 
         return $document_modificative;
