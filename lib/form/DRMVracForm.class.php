@@ -69,8 +69,27 @@ class DRMVracForm extends acCouchdbForm
     
     public function save()
     {
-    	$this->update($this->values);
-    	$this->getDocument()->save();
-    	return $this->getDocument();
+    	$drm = $this->getDocument();
+    	if ($drm->getType() == DRMFictive::TYPE) {
+    		$drm = $drm->getDRM();
+    	}
+    	$details_vrac = $drm->getDetailsAvecVrac();
+        foreach ($details_vrac as $detail_vrac) {
+        	$p = $drm->get($detail_vrac->getHash());
+        	$p->remove('vrac');
+    		$p->add('vrac');
+        }
+    	foreach ($this->values as $hash => $contrats) {
+    		if ($drm->exist($hash)) {
+    			$produit = $drm->get($hash);
+    			foreach ($contrats['contrats'] as $v) {
+    				$contrat = $produit->get('vrac')->add(trim($v['vrac']));
+        			$contrat->volume = $v['volume'];
+    			}
+    		}
+    	}
+    	//$this->update($this->values);
+    	$drm->save();
+    	return $drm;
     }
 }
