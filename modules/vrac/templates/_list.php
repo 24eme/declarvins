@@ -83,7 +83,7 @@
 			    	<?php else: ?>
 			    		<?php if ($elt[VracHistoryView::VRAC_VERSION]): ?><strong><?php echo $vraclibelle ?></strong><?php else: ?>En attente<?php endif; ?><br />
 						<?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE) || $isOperateur): ?>
-			    		<a class="highlight_link" href="<?php echo url_for('vrac_visualisation', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Visualiser le contrat</a>
+			    		<a class="highlight_link" href="<?php echo url_for('vrac_validation', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder au contrat</a>
 						<?php endif; ?>
 			    	<?php endif; ?>
 			    <?php else: ?>
@@ -205,7 +205,7 @@
 			    	<?php else: ?>
 			    		<?php if ($elt[VracHistoryView::VRAC_VERSION]): ?><strong><?php echo $vraclibelle ?></strong><?php else: ?>En attente<?php endif; ?><br />
 						<?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE) || $isOperateur): ?>
-			    		<a class="highlight_link" href="<?php echo url_for('vrac_visualisation', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Visualiser le contrat</a>
+			    		<a class="highlight_link" href="<?php echo url_for('vrac_validation', array('contrat' => $vracid, 'etablissement' => $etablissement)) ?>">Accéder au contrat</a>
 						<?php endif; ?>
 			    	<?php endif; ?>
 			    <?php else: ?>
