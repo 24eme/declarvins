@@ -478,9 +478,6 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
 
     public function isVersionnable() {
-        if ($this->valide->statut && $this->valide->statut != VracClient::STATUS_CONTRAT_NONSOLDE) {
-            return false;
-        }
         return true;
     }
 

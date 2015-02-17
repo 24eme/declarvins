@@ -14,7 +14,7 @@
             <div class="section_label_strong">
             	<label>Produit: </label>
             	<?php $form->getObject()->getProduitInterpro() ?>
-                <?php echo ($form->getObject()->produit)? $form->getObject()->getLibelleProduit() : null; ?> <?php echo ($form->getObject()->millesime)? $form->getObject()->millesime : 'Non millésimé'; ?>
+                <?php echo ($form->getObject()->produit)? $form->getObject()->getLibelleProduit() : null; ?>
             </div>
             <div  id="section_millesime" class="section_label_strong">
                 <?php echo $form['millesime']->renderError() ?>
