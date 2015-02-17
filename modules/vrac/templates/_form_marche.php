@@ -19,7 +19,7 @@
             <div  id="section_millesime" class="section_label_strong">
                 <?php echo $form['millesime']->renderError() ?>
                 <?php echo $form['millesime']->renderLabel() ?>
-                <?php echo $form['millesime']->render() ?>
+                <?php echo ($form->getObject()->hasVersion() && $form->getObject()->volume_enleve > 0)? $form->getObject()->millesime : $form['millesime']->render(); ?>
             </div>
             <?php if (isset($form['non_millesime'])): ?>
             <div  class="section_label_strong">

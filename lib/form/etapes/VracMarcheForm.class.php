@@ -65,6 +65,11 @@ class VracMarcheForm extends VracForm
 		    $this->getObject()->has_cotisation_cvo = 1;
   		    $this->validatorSchema->setPostValidator(new VracMarcheValidator());
     		$this->widgetSchema->setNameFormat('vrac_marche[%s]');
+    		
+    	if ($this->getObject()->hasVersion() && $this->getObject()->volume_enleve > 0) {
+		      	$this->setWidget('millesime', new sfWidgetFormInputHidden());
+            	unset($this['non_millesime']);
+		      }
 
         if (count($this->getTypesTransaction()) < 2) {
             unset($this['type_transaction']);
