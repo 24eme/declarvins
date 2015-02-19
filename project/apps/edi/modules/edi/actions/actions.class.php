@@ -376,7 +376,8 @@ class ediActions extends sfActions
     $lastDate = $date;
     $beginDate = '9999-99-99';
     foreach ($items as $item) {
-      		$csv_file .= implode(';', $item->value)."\n";
+      		$csv_file .= preg_replace('[\r\n]+', ' ', implode(';', $item->value));
+      		$csv_file .= "\n";
       	if ($lastDate < $item->value[$dateSaisieIndice]) {
       		$lastDate = $item->value[$dateSaisieIndice];
       	}
