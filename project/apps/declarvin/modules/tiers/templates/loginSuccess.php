@@ -1,5 +1,5 @@
 <section id="contenu">
-	<h1>Sélectionnez votre établissement</h1>
+	<h1 style="padding-top: 20px;">Sélectionnez votre établissement</h1>
 	<div id="selection_etablissement">
 		<form action="<?php echo url_for('@tiers') ?>" method="post">
 			<?php echo $form->renderHiddenFields(); ?>

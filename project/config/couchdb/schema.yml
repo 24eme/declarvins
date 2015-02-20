@@ -122,6 +122,7 @@ Interpro:
       type: {  }
       statut: {  }
       configuration_produits: {  }
+      zone: {  }
       departements:
         type: array_collection
         definition:
@@ -186,6 +187,19 @@ Contrat:
                   comptabilite_pays: {  }
                   service_douane: {  }
                   edi: {  }
+                  zones:
+                    type: collection
+                    required: false
+                    definition:
+                      fields:
+                        '*':
+                          type: collection
+                          definition:
+                            fields:
+                              libelle: {  }
+                              transparente: {  }
+                              administratrice: {  }
+                              
 
 Messages:
   definition:

@@ -9,27 +9,8 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
       return null;
     }
 
-    public function getProduits($departements = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null) 
-    {
-    	if ($departements) {
-    		if (!is_array($departements)) {
-    			$departements = array($departements);
-    		}
-    		if ($currentDepartements = $this->getCurrentDepartements(true)) {
-    			$found = false;
-    			foreach ($departements as $departement) {
-    				if (in_array($departement, $currentDepartements)) {
-    					$found = true;
-    					break;
-    				}
-    			}
-    			if (!$found) {
-    				return array();
-    			} 
-    		} else {
-    			return array();
-    		}
-    	}        
+    public function getProduits($onlyForDrmVrac = false, $cvoNeg = false, $date = null) 
+    {      
         
     	if ($onlyForDrmVrac) {
     		if (!$this->getCurrentDrmVrac(true)) {
@@ -42,6 +23,16 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
         } 
         
         return $this->getProduitWithTaux($date);
+        
+    }
+
+    public function getProduitsEnPrestation($interpro) 
+    {      
+        $prestations = $this->getCurrentPrestations(true);
+        if (!$prestations || !in_array($interpro, $prestations)) {
+    		return array();
+    	}  
+        return array($this->getHash() => $this);
         
     }
     
@@ -60,7 +51,7 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
 		return array($this->getHash() => $this->getLibelles());
     }
 	
-	public function getTotalLieux($departements = null) 
+	public function getTotalLieux() 
 	{
 		return array();
 	}
@@ -86,6 +77,11 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
     }
     
     public function getAllDepartements()
+    {
+    	return array();
+    }
+    
+    public function getAllPrestations()
     {
     	return array();
     }
@@ -172,6 +168,16 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
     	return (!$libelle && $defaut)? ConfigurationProduit::DEFAULT_LIBELLE : $libelle;
     }
     
+    public function getLibelleFormat($params = array(), $format = "%g% %a% %l% %co% %ce%") {
+        $complete_libelle = "";
+        foreach ($this->getLibelles() as $key => $value){
+            if($value){
+                $complete_libelle.=$value." ";
+            }
+        }
+        return $complete_libelle;
+    }
+    
 	/*
      * Les fonctions ci-dessous sont relatives à la gestion de la configuration du catalogue produit
      */
@@ -179,6 +185,8 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
   	public function hasLabels() { return false; }
     
   	public function hasDepartements() { return false; }
+  	
+	public function hasPrestations() { return false; }
   	
   	public function hasCvo() { return false; }
   	

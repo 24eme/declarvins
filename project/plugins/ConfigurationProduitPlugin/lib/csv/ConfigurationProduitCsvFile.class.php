@@ -30,6 +30,7 @@ class ConfigurationProduitCsvFile extends CsvFile
   	const CSV_PRODUIT_DRM_CONFIG_SORTIE_REPLI = 25;
   	const CSV_PRODUIT_DRM_CONFIG_ENTREE_DECLASSEMENT = 26;
   	const CSV_PRODUIT_DRM_CONFIG_SORTIE_DECLASSEMENT = 27;
+  	const CSV_PRODUIT_PRESTATIONS = 28;
   	
   	const CSV_PRODUIT_DROITS_CODE = 0;
   	const CSV_PRODUIT_DROITS_LIBELLE = 1;
@@ -42,6 +43,7 @@ class ConfigurationProduitCsvFile extends CsvFile
   	
   	
   	const CSV_DELIMITER_DEPARTEMENTS = ',';
+  	const CSV_DELIMITER_PRESTATIONS = '|';
   	const CSV_DELIMITER_LABELS = '|';
   	const CSV_DELIMITER_LABELS_INTER = ':';
   	const CSV_DELIMITER_DROITS = '|';
@@ -77,7 +79,8 @@ class ConfigurationProduitCsvFile extends CsvFile
   		'REPLI_ENTREE',
   		'REPLI_SORTIE',
   		'DECLASSEMENT_ENTREE',
-  		'DECLASSEMENT_SORTIE'
+  		'DECLASSEMENT_SORTIE',
+  		'PRESTATIONS'
 	);
 
     public static function getCsvProduitsEntetes() 
@@ -97,7 +100,7 @@ class ConfigurationProduitCsvFile extends CsvFile
   	
   	public function exportProduits()
   	{
-  		$produits = $this->config->getProduits(null, null, false, true);
+  		$produits = $this->config->getProduits(null, false, true);
   		$result = array();
   		$i = 0;
   		$result[$i] = self::getCsvProduitsEntetes();
@@ -143,6 +146,7 @@ class ConfigurationProduitCsvFile extends CsvFile
 		  	$result[$i][self::CSV_PRODUIT_DRM_CONFIG_SORTIE_REPLI] = $sr;
 		  	$result[$i][self::CSV_PRODUIT_DRM_CONFIG_ENTREE_DECLASSEMENT] = $ed;
 		  	$result[$i][self::CSV_PRODUIT_DRM_CONFIG_SORTIE_DECLASSEMENT] = $sd;
+		  	$result[$i][self::CSV_PRODUIT_PRESTATIONS] = $this->renderCsvPrestations($produit->getCurrentPrestations());
   		}
   		return $result;
   	}
@@ -180,6 +184,25 @@ class ConfigurationProduitCsvFile extends CsvFile
   			$result .= $departement;
   			if ($counter < $nbDepartements) {
   				$result .= self::CSV_DELIMITER_DEPARTEMENTS;
+  			}
+  		}
+  		return $result;
+  	}
+  	
+  	protected function renderCsvPrestations($prestations)
+  	{
+  		if (!$prestations) {
+  			return null;
+  		}
+  		$prestations = current($prestations);
+  		$nbPrestations = count($prestations);
+  		$result = '';
+  		$counter = 0;
+  		foreach ($prestations as $prestation) {
+  			$counter++;
+  			$result .= str_replace('INTERPRO-', '', $prestation);
+  			if ($counter < $nbPrestations) {
+  				$result .= self::CSV_DELIMITER_PRESTATIONS;
   			}
   		}
   		return $result;

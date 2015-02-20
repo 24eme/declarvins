@@ -14,6 +14,7 @@ compte_nouveau:
 compte_inexistant:
   url:   /compte/erreur/:login
   param: { module: acVinCompte, action: compteInexistant, login: null }
+  options: { segment_separators: ["/"] }
 compte_partenaire:
   url:   /partenaire/erreur
   param: { module: acVinCompte, action: comptePartenaire }
@@ -26,6 +27,7 @@ compte_valide:
 compte_password:
   url:   /compte/mot-de-passe/:login
   param: { module: acVinCompte, action: redefinitionPassword, login: null }
+  options: { segment_separators: ["/"] }
 compte_lost_password:
   url:   /compte/mot-de-passe-oublie
   param: { module: acVinCompte, action: lostPassword }
@@ -85,6 +87,7 @@ validation_lier:
 validation_compte_password:
   url:   /validation/compte-password/:login
   param: { module: validation, action: redefinitionPassword }
+  options: { segment_separators: ["/"] }
 validation_compte_inscription:
   url:   /validation/compte-inscription/:num_contrat
   param: { module: validation, action: redefinitionInscription }
@@ -170,6 +173,7 @@ compte_ajout:
 compte_recap:
   url:   /admin/compte-recap/:login
   param: { module: acVinCompteAdmin, action: compteRecap }
+  options: { segment_separators: ["/"] }
   
 compte_suppression:
   url:   /admin/compte-supprimer/:login
@@ -178,10 +182,12 @@ compte_suppression:
 compte_creation:
   url:   /admin/compte-creer/:login
   param: { module: acVinCompteAdmin, action: compteCreation }
+  options: { segment_separators: ["/"] }
 
 compte_modification:
   url:   /admin/compte-modification/:login
   param: { module: acVinCompteAdmin, action: compteModification }
+  options: { segment_separators: ["/"] }
 
 compte_autocomplete:
   url: /admin/comptes-autocomplete
@@ -190,6 +196,7 @@ compte_autocomplete:
 admin_compte_password:
   url:   /admin/compte-password/:login
   param: { module: acVinCompteAdmin, action: redefinitionPassword }
+  options: { segment_separators: ["/"] }
   
 partenaire_comptes:
   url:   /partenaire/comptes
@@ -202,6 +209,7 @@ compte_partenaire_ajout:
 compte_partenaire_suppression:
   url:   /partenaire/compte-supprimer/:login
   param: { module: ComptePartenaire, action: compteSuppression }
+  options: { segment_separators: ["/"] }
   
 compte_partenaire_creation:
   url:   /partenaire/compte-creer/:login
@@ -210,10 +218,12 @@ compte_partenaire_creation:
 compte_partenaire_modification:
   url:   /partenaire/compte-modification/:login
   param: { module: ComptePartenaire, action: compteModification }
+  options: { segment_separators: ["/"] }
 
 partenaire_compte_password:
   url:   /partenaire/compte-password/:login
   param: { module: ComptePartenaire, action: redefinitionPassword }
+  options: { segment_separators: ["/"] }
   
 oioc_comptes:
   url:   /oioc/comptes
@@ -226,18 +236,22 @@ compte_oioc_ajout:
 compte_oioc_suppression:
   url:   /oioc/compte-supprimer/:login
   param: { module: CompteOIOC, action: compteSuppression }
+  options: { segment_separators: ["/"] }
   
 compte_oioc_creation:
   url:   /oioc/compte-creer/:login
   param: { module: CompteOIOC, action: compteCreation }
+  options: { segment_separators: ["/"] }
 
 compte_oioc_modification:
   url:   /oioc/compte-modification/:login
   param: { module: CompteOIOC, action: compteModification }
+  options: { segment_separators: ["/"] }
 
 oioc_compte_password:
   url:   /oioc/compte-password/:login
   param: { module: CompteOIOC, action: redefinitionPassword }
+  options: { segment_separators: ["/"] }
   
 # Statiques
 statiques:

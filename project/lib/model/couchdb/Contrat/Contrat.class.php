@@ -21,4 +21,33 @@ class Contrat extends BaseContrat {
     	}
     	return $departements;
     }
+    
+    public function addZones($etablissementKey, $zonesIds)
+    {
+    	foreach ($zonesIds as $zoneId) {
+    		$this->addZone($etablissementKey, ConfigurationZoneClient::getInstance()->find($zoneId));
+    	}
+    }
+    
+    public function addZone($etablissementKey, $zone)
+    {
+    	$zones = $this->etablissements->get($etablissementKey)->getOrAdd('zones');
+    	$z = $zones->getOrAdd($zone->_id);
+    	$z->libelle = $zone->libelle;
+    	$z->transparente = $zone->transparente;
+    	$z->administratrice = $zone->administratrice;
+    }
+    
+    public function getConfigurationZones()
+    {
+    	$result = array();
+    	foreach ($this->etablissements as $etablissement) {
+    		foreach ($etablissement->zones as $zoneId => $zone) {
+    			if (!in_array($zoneId, array_keys($result))) {
+    				$result[$zoneId] = ConfigurationZoneClient::getInstance()->find($zoneId);
+    			}
+    		}
+    	}
+    	return $result;
+    }
 }

@@ -4,6 +4,7 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 	protected $libelles = null;
 	protected $codes = null;
 	protected $produits = array();
+	protected $produits_prestation = array();
 	protected $tree_produits = array();
 	protected $all_libelles = array();
 	protected $total_lieux = array();
@@ -34,17 +35,30 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 		}
 	}
 	
-	public function getProduits($departements = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null) 
+	public function getProduits($onlyForDrmVrac = false, $cvoNeg = false, $date = null) 
 	{   
-		$key = sprintf("%s_%s_%s_%s", is_array($departements) ? implode('_', $departements) : $departements, $onlyForDrmVrac, $cvoNeg, $date);
+		$key = sprintf("%s_%s_%s", $onlyForDrmVrac, $cvoNeg, $date);
 		if(!array_key_exists($key, $this->produits)) {
 			$produits = array();
 	      	foreach($this->getChildrenNode() as $key => $item) {
-	        	$produits = array_merge($produits, $item->getProduits($departements, $onlyForDrmVrac, $cvoNeg, $date));
+	        	$produits = array_merge($produits, $item->getProduits($onlyForDrmVrac, $cvoNeg, $date));
 	      	}
 	      	$this->produits[$key] = $produits;
 		}
         return $this->produits[$key];
+  	}
+	
+	public function getProduitsEnPrestation($interpro) 
+	{   
+		$key = sprintf("%s", $interpro);
+		if(!array_key_exists($key, $this->produits_prestation)) {
+			$produits = array();
+	      	foreach($this->getChildrenNode() as $key => $item) {
+	        	$produits = array_merge($produits, $item->getProduitsEnPrestation($interpro));
+	      	}
+	      	$this->produits_prestation[$key] = $produits;
+		}
+        return $this->produits_prestation[$key];
   	}
         
     public function getTreeProduits()
@@ -61,13 +75,13 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 		return $this->tree_produits[$key];
     }
 	
-	public function getTotalLieux($departements = null) 
+	public function getTotalLieux() 
 	{
-		$key = sprintf("%s", is_array($departements) ? implode('_', $departements) : $departements);
+		$key = sprintf("%s", 'all');
 		if(!array_key_exists($key, $this->total_lieux)) {
 	      	$lieux = array();
 	      	foreach($this->getChildrenNode() as $key => $item) {
-	        	$lieux = array_merge($lieux, $item->getTotalLieux($departements));
+	        	$lieux = array_merge($lieux, $item->getTotalLieux());
 	      	}
 	    	$this->total_lieux[$key] = $lieux;
 		}
@@ -75,14 +89,19 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
   	}
   	
   	
-  	public function hasProduits($departements = null, $onlyForDrmVrac = false)
+  	public function hasProduits($onlyForDrmVrac = false)
   	{
-  		return (count($this->getProduits($departements, $onlyForDrmVrac)) > 0)? true : false; 
+  		return (count($this->getProduits($onlyForDrmVrac)) > 0)? true : false; 
   	}
   	
-  	public function hasLieux($departements = null)
+  	public function hasProduitsEnPrestation($interpro)
   	{
-  		return (count($this->getTotalLieux($departements)) > 0)? true : false; 
+  		return (count($this->getProduitsEnPrestation($interpro)) > 0)? true : false; 
+  	}
+  	
+  	public function hasLieux()
+  	{
+  		return (count($this->getTotalLieux()) > 0)? true : false; 
   	}
     
     public function getAllAppellations()
@@ -113,6 +132,11 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     public function getAllDepartements()
     {
     	return $this->getAllAbstract("getAllDepartements");
+    }
+    
+    public function getAllPrestations()
+    {
+    	return $this->getAllAbstract("getAllPrestations");
     }
     
     public function getAllAbstract($function) {
@@ -213,6 +237,22 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     public function callbackCurrentDepartements($onlyValue = false)
     {
     	return $this->getParentNode()->getCurrentDepartements($onlyValue);
+    }
+    
+    public function getCurrentPrestations($onlyValue = false)
+    {
+    	if ($this->exist('prestations')) {
+    		$prestations = $this->prestations->toArray();
+    		if (count($prestations) > 0) {
+    			return ($onlyValue)? $prestations : array($this->getTypeNoeud() => $prestations);
+    		}
+    	}
+    	return $this->callbackCurrentPrestations($onlyValue);
+    }
+    
+    public function callbackCurrentPrestations($onlyValue = false)
+    {
+    	return $this->getParentNode()->getCurrentPrestations($onlyValue);
     }
     
     public function getCurrentLabels($onlyValue = false)
@@ -319,6 +359,16 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     			}
     		}
     	}
+    	if ($this->hasPrestations()) {
+    		$prestations = $this->getPrestationsCsv($datas[ConfigurationProduitCsvFile::CSV_PRODUIT_PRESTATIONS]);
+    		if ($prestations) {
+    			$this->remove('prestations');
+    			$this->add('prestations');
+    			foreach ($prestations as $prestation) {
+    				$this->prestations->add(null, InterproClient::getInstance()->matchInterpro($prestation));
+    			}
+    		}
+    	}
     	if ($this->hasLabels()) {
     		$labels = $this->getLabelsCsv($datas[ConfigurationProduitCsvFile::CSV_PRODUIT_LABELS]);
     		if ($labels) {
@@ -360,6 +410,11 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     protected function getDepartementsCsv($departements) 
     {
     	return ($departements)? explode(ConfigurationProduitCsvFile::CSV_DELIMITER_DEPARTEMENTS, $departements) : array();
+    }
+	
+    protected function getPrestationsCsv($prestations) 
+    {
+    	return ($prestations)? explode(ConfigurationProduitCsvFile::CSV_DELIMITER_PRESTATIONS, $prestations) : array();
     }
 	
     protected function getLabelsCsv($labels) 
@@ -431,6 +486,7 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     }
     
   	public abstract function hasDepartements();
+  	public abstract function hasPrestations();
   	public abstract function hasLabels();
  	public abstract function hasCvo();
  	public abstract function hasDouane();

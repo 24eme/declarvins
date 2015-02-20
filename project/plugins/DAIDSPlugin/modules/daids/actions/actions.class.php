@@ -10,6 +10,19 @@
  */
 class daidsActions extends sfActions
 {
+	public function preExecute()
+  	{
+  		try {
+  			$etablissement = $this->getRoute()->getEtablissement();
+  		} catch (Exeption $e) {
+  			$etablissement = null;
+  		}
+  		if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement) {
+  			$configuration = ConfigurationClient::getCurrent();
+  			$this->forward404Unless($configuration->isApplicationOuverte($etablissement->interpro, 'daids'));	
+  		}
+  		
+  	}
 
   /**
    *
@@ -38,6 +51,8 @@ class daidsActions extends sfActions
   public function executeInit(sfWebRequest $request) 
   {
       $daids = $this->getRoute()->getDAIDS();
+      $daids->updateStockTheorique();
+      $daids->save();
       $reinit_etape = $request->getParameter('reinit_etape', 0);
       if ($reinit_etape) {
 		$daids->setCurrentEtapeRouting('recapitulatif');
@@ -57,7 +72,6 @@ class daidsActions extends sfActions
   */
   public function executeMonEspace(sfWebRequest $request)
   {
-  	  $this->forward404Unless($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR));
       $this->etablissement = $this->getRoute()->getEtablissement();
       $this->historique = DAIDSClient::getInstance()->getDAIDSHistorique($this->etablissement->identifiant);
       $this->formCampagne = new DAIDSCampagneForm($this->etablissement->identifiant);
@@ -163,7 +177,7 @@ class daidsActions extends sfActions
 	    $this->etablissement = $this->getRoute()->getEtablissement();
 	    $this->daids = $this->getRoute()->getDAIDS();
 	    $this->daidsValidation = $this->daids->validation();
-	    $this->form = new DAIDSValidationForm();
+	    $this->form = new DAIDSValidationForm($this->daids);
 	    if (!$request->isMethod(sfWebRequest::POST)) {
 	      return sfView::SUCCESS;
 	    }
@@ -171,12 +185,13 @@ class daidsActions extends sfActions
 		if (!$this->form->isValid() || !$this->daidsValidation->isValide()) {
 	      return sfView::SUCCESS;
 	    }
+	    $this->form->save();
 		$this->daids->validate();
 		$this->daids->save();
-	    if ($this->daids->needNextVersion()) {
+	    /*if ($this->daids->needNextVersion()) {
 	      $daids_version_suivante = $this->daids->generateNextVersion();
 	      $daids_version_suivante->save();
-	    }
+	    }*/
 	    $this->redirect('daids_visualisation', array('sf_subject' => $this->daids, 'hide_rectificative' => 1));
     }
 

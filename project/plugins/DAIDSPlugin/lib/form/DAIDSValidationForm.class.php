@@ -10,9 +10,13 @@
  * Description of class DAIDSValidationForm
  * @author mathurin
  */
-class DAIDSValidationForm extends sfForm  {
+class DAIDSValidationForm extends acCouchdbObjectForm  {
       public function configure() {
-          parent::configure();
+        $this->setWidget('commentaires', new sfWidgetFormTextarea());
+      	$this->getWidget('commentaires')->setLabel("Commentaires");
+      	$this->setValidator('commentaires', new sfValidatorString(array('required' => false)));
+	    
+	    $this->widgetSchema->setNameFormat('drm_validation[%s]');
       } 
     
 }

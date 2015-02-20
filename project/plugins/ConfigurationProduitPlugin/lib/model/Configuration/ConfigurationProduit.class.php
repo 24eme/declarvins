@@ -131,15 +131,60 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	return array_values(array_unique($this->declaration->getAllDepartements()));
     }
     
-    public function getProduits($hash = null, $departements = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null)
+    public function getPrestataires()
+    {
+    	return array_values(array_unique($this->declaration->getAllPrestations()));
+    }
+    
+    public function getProduitsEnPrestation($interpro)
+    {
+    	return $this->declaration->getProduitsEnPrestation($interpro);
+    }
+    
+    public function getProduits($hash = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null, $avecPrestation = false)
     {
     	if ($hash) {
     		if ($this->exist($hash)) {
-    			return $this->get($hash)->getProduits($departements, $onlyForDrmVrac, $cvoNeg, $date);
+    			return ($avecPrestation)? array_merge($this->get($hash)->getProduits($onlyForDrmVrac, $cvoNeg, $date), $this->getProduitsPrestataire($hash)) : $this->get($hash)->getProduits($onlyForDrmVrac, $cvoNeg, $date);
     		}
-    		return array();
+    		return ($avecPrestation)? $this->getProduitsPrestataire($hash) : array();
     	}
-    	return $this->declaration->getProduits($departements, $onlyForDrmVrac, $cvoNeg, $date);
+    	return ($avecPrestation)? array_merge($this->declaration->getProduits($onlyForDrmVrac, $cvoNeg, $date), $this->getProduitsPrestataire()) : $this->declaration->getProduits($onlyForDrmVrac, $cvoNeg, $date);
+    }
+    
+    public function getProduitsPrestataire($hash = null)
+    {
+    	$prestations = $this->getOrAdd('prestations');
+    	$produits = array();
+    	foreach ($prestations as $i => $val) {
+    		if($interpro = InterproClient::getInstance()->find($i)) {
+    			if ($configurationProduits = ConfigurationProduitClient::getInstance()->find($interpro->getOrAdd('configuration_produits'))) {
+	    				foreach ($val as $key => $value) {
+	    					if ($hash && !preg_match("/^".str_replace('/', '_', $hash)."/", $key)) {
+	    						continue;
+	    					}
+	    					if ($configurationProduits->exist($value->lien)) {
+	    						$produits = array_merge($produits, $configurationProduits->get($value->lien)->getProduits());
+	    					}
+    				}
+    			}
+    		}
+    	}
+    	return $produits;
+    }
+    
+    public function isProduitInPrestation($hash)
+    {
+    	$hash = str_replace('/', '_', $hash);
+    	$prestations = $this->getOrAdd('prestations');
+    	$find = false;
+    	foreach ($prestations as $i => $val) {
+    		if ($prestations->get($i)->exist($hash)) {
+    				$find = true;
+    				break;
+    		}
+    	}
+    	return $find;
     }
     
     public function getTreeProduits()
@@ -147,15 +192,38 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	return $this->declaration->getTreeProduits();
     }
     
-    public function getTotalLieux($hash = null, $departements = null)
+    public function getTotalLieux($hash = null, $avecPrestation = false)
     {
     	if ($hash) {
     		if ($this->exist($hash)) {
-    			return $this->get($hash)->getTotalLieux($departements);
+    			return ($avecPrestation)? array_merge($this->get($hash)->getTotalLieux(), $this->getTotalLieuxPrestataire($hash)) : $this->get($hash)->getTotalLieux();
     		}
-    		return array();
+    		return ($avecPrestation)? $this->getTotalLieuxPrestataire($hash) : array();
     	}
-    	return $this->declaration->getTotalLieux($departements);
+    	return ($avecPrestation)? array_merge($this->declaration->getTotalLieux(), $this->getTotalLieuxPrestataire()) : $this->declaration->getTotalLieux();
+    }
+    
+
+    
+    public function getTotalLieuxPrestataire($hash = null)
+    {
+    	$prestations = $this->getOrAdd('prestations');
+    	$produits = array();
+    	foreach ($prestations as $i => $val) {
+    		if($interpro = InterproClient::getInstance()->find($i)) {
+    			if ($configurationProduits = ConfigurationProduitClient::getInstance()->find($interpro->getOrAdd('configuration_produits'))) {
+	    				foreach ($val as $key => $value) {
+	    					if ($hash && !preg_match("/^".str_replace('/', '_', $hash)."/", $key)) {
+	    						continue;
+	    					}
+	    					if ($configurationProduits->exist($value->lien)) {
+	    						$produits = array_merge($produits, $configurationProduits->get($value->lien)->getLieu()->getTotalLieux());
+	    					}
+    				}
+    			}
+    		}
+    	}
+    	return $produits;
     }
     
     public function getInterproObject()
@@ -174,10 +242,42 @@ class ConfigurationProduit extends BaseConfigurationProduit
         $interpro->save();
     }
 
-    public function save() 
+    public function save($prestation = false) 
     {
+    	if ($prestation) {
+    		$this->updatePrestations();
+    	}
         parent::save();
         ConfigurationClient::getInstance()->cacheResetCurrent();
+    }
+    
+    public function updatePrestations() 
+    {
+    	$interpro = $this->getInterproObject();
+    	$interpros = InterproClient::getInstance()->getAllInterpros();
+    	foreach ($interpros as $inter) {
+    		if ($produits = $this->getProduitsEnPrestation($inter)) {
+    			if ($obj = InterproClient::getInstance()->find($inter)) {
+    				if ($obj->exist('configuration_produits')) {
+    					if ($confProduits = ConfigurationProduitClient::getInstance()->find($obj->configuration_produits)) {
+    						$prestations = $confProduits->getOrAdd('prestations');
+    						if ($prestations->exist($interpro->_id)) {
+    							$prestations->remove($interpro->_id);
+    						}
+    						$prestation = $prestations->add($interpro->_id);
+    						foreach ($produits as $hash => $confProduit) {
+    							$produit = $prestation->add(str_replace('/', '_', $hash));
+    							$produit->lien = $hash;
+    							$produit->appellation = ConfigurationProduitClient::getInstance()->format($confProduit->getLibelles(), array(), "%g% %a%");
+    							$produit->libelle = ConfigurationProduitClient::getInstance()->format($confProduit->getLibelles());
+    							$produit->configuration = $this->_id;
+    						}
+    						$confProduits->save();
+    					}
+    				}
+    			}
+    		}
+    	}
     }
 }
 

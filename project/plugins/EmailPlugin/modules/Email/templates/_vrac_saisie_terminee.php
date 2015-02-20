@@ -1,7 +1,11 @@
 <?php echo include_partial('Email/headerMail') ?>
 
 Madame, Monsieur,<br /><br />
+<?php if ($vrac->isRectificative()): ?>
+Vous avez rectifié le contrat numéro <?php echo $vrac->numero_contrat; ?> le  <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?>.<br />
+<?php else: ?>
 Vous avez saisi un contrat interprofessionnel le  <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?> à <?php echo strftime('%R', strtotime($vrac->valide->date_saisie)) ?>.<br />
+<?php endif; ?>
 Ce contrat porte sur la transaction suivante :<br /><br />
 Date de saisie : <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?><br />
 Produit : <?php echo $vrac->getLibelleProduit() ?><br />
@@ -12,7 +16,7 @@ Prix : <?php echo $vrac->prix_unitaire ?>€ net HT /hl<br />
 <?php if ($vrac->vendeur_identifiant): ?>
 Vendeur :<br />
 <ul>
-	<li>Nom commercial : <?php echo ($vrac->vendeur->nom)? $vrac->vendeur->nom : $vrac->vendeur->raison_sociale; ?></li>
+	<li><?php if($vrac->vendeur->nom) { echo $vrac->vendeur->nom; } if($vrac->vendeur->raison_sociale) { echo ($vrac->vendeur->nom)? ' / '.$vrac->vendeur->raison_sociale : $vrac->vendeur->raison_sociale; } echo ($vrac->vendeur->famille)? ' - '.ucfirst($vrac->vendeur->famille) : ''; ?></li>
 	<li>Adresse e-mail : <?php echo $vrac->vendeur->email; ?></li>
 	<li>Inscrit sur DeclarVins.net : <?php echo ($vrac->vendeurHasCompteActif())? 'oui' : 'non'; ?></li>
 </ul> 
@@ -21,7 +25,7 @@ Vendeur :<br />
 <?php if ($vrac->acheteur_identifiant): ?>
 Acheteur :<br />
 <ul>
-	<li>Nom commercial : <?php echo ($vrac->acheteur->nom)? $vrac->acheteur->nom : $vrac->acheteur->raison_sociale; ?></li>
+	<li><?php if($vrac->acheteur->nom) { echo $vrac->acheteur->nom; } if($vrac->acheteur->raison_sociale) { echo ($vrac->acheteur->nom)? ' / '.$vrac->acheteur->raison_sociale : $vrac->acheteur->raison_sociale; } echo ($vrac->acheteur->famille)? ' - '.ucfirst($vrac->acheteur->famille) : ''; ?></li>
 	<li>Adresse e-mail : <?php echo $vrac->acheteur->email; ?></li>
 	<li>Inscrit sur DeclarVins.net : <?php echo ($vrac->acheteurHasCompteActif())? 'oui' : 'non'; ?></li>
 </ul> 
@@ -30,7 +34,7 @@ Acheteur :<br />
 <?php if ($vrac->mandataire_identifiant): ?>
 Courtier :<br />
 <ul>
-	<li>Nom commercial : <?php echo ($vrac->mandataire->nom)? $vrac->mandataire->nom : $vrac->mandataire->raison_sociale; ?></li>
+	<li><?php if($vrac->mandataire->nom) { echo $vrac->mandataire->nom; } if($vrac->mandataire->raison_sociale) { echo ($vrac->mandataire->nom)? ' / '.$vrac->mandataire->raison_sociale : $vrac->mandataire->raison_sociale; } echo ($vrac->mandataire->famille)? ' - '.ucfirst($vrac->mandataire->famille) : ''; ?></li>
 	<li>Adresse e-mail : <?php echo $vrac->mandataire->email; ?></li>
 	<li>Inscrit sur DeclarVins.net : <?php echo ($vrac->mandataireHasCompteActif())? 'oui' : 'non'; ?></li>
 </ul> 

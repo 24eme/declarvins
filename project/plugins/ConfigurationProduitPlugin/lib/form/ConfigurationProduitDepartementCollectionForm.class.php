@@ -7,7 +7,7 @@ class ConfigurationProduitDepartementCollectionForm extends sfForm
 	    $key = 0;
 	    $departements = $this->getOption('departements');
 	    foreach ($departements as $departement) {
-	    	$this->embedForm ($key, new ProduitDepartementForm(null, array('departement' => $departement)));
+	    	$this->embedForm ($key, new ConfigurationProduitDepartementForm(null, array('departement' => $departement)));
 	    	$hasItem = true;
 	    	$key++;
 	    }

@@ -130,6 +130,9 @@ class ImportEtablissementsCsv {
     	if (!isset($line[EtablissementCsv::COL_CHAMPS_COMPTE_FAX])) {
    			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_CHAMPS_COMPTE_FAX + 1).') "compte fax" manquante');
    		}
+    	if (!isset($line[EtablissementCsv::COL_ZONES])) {
+   			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_ZONES + 1).') "zones" manquante');
+   		}
    		if (count($errors) > 0) {
    			$this->_errors[$ligne] = $errors;
    			throw new sfException('has errors');
@@ -215,6 +218,33 @@ class ImportEtablissementsCsv {
 		} else {
 			$etab->statut = Etablissement::STATUT_ACTIF;
 		}
+		$zones = explode('|', $line[EtablissementCsv::COL_ZONES]);
+		$zones = array_merge($zones, array_keys(ConfigurationClient::getCurrent()->getTransparenteZones()));
+        $result = array();
+        try {
+        	foreach ($zones as $zone) {
+        		$result[] = ConfigurationZoneClient::getInstance()->matchZone($zone);
+        	}
+        } catch (sfException $e) {
+        	if (isset($this->_errors[$ligne])) {
+        		$merge = $this->_errors[$ligne];
+        		$merge[] = $e->getMessage();
+        		$this->_errors[$ligne] = $merge;
+        	} else {
+        		$this->_errors[$ligne] = array($e->getMessage());
+        	}
+        	throw new sfException('has errors');
+        }
+        
+        $etab->remove('zones');
+        $etab->add('zones');
+        foreach ($result as $confZoneId) {
+        	$confZone = ConfigurationZoneClient::getInstance()->find($confZoneId);
+        	$z = $etab->zones->add($confZoneId);
+        	$z->libelle = $confZone->libelle;
+        	$z->transparente = $confZone->transparente;
+        	$z->administratrice = $confZone->administratrice;
+        }
 
         return $etab;
     }

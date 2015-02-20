@@ -44,27 +44,8 @@ class ConfigurationProduitLieu extends BaseConfigurationProduitLieu
         return false;
     }
     
-    public function getTotalLieux($departements = null) 
+    public function getTotalLieux() 
     {
-    	if ($departements) {
-    		if (!is_array($departements)) {
-    			$departements = array($departements);
-    		}
-    		if ($currentDepartements = $this->getCurrentDepartements(true)) {
-    			$found = false;
-    			foreach ($departements as $departement) {
-    				if (in_array($departement, $currentDepartements)) {
-    					$found = true;
-    					break;
-    				}
-    			}
-    			if (!$found) {
-    				return array();
-    			} 
-    		} else {
-    			return array();
-    		}
-    	}
         return array($this->getHash() => $this);
     }
     
@@ -75,6 +56,8 @@ class ConfigurationProduitLieu extends BaseConfigurationProduitLieu
   	public function hasLabels() { return false; }
     
   	public function hasDepartements() { return false; }
+  	
+	public function hasPrestations() { return false; }
   	
   	public function hasCvo() { return true; }
   	

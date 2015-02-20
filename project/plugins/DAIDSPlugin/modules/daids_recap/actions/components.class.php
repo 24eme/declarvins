@@ -16,7 +16,15 @@ class daids_recapComponents extends sfComponents {
     
     public function executeOnglets() 
     {
-        $this->items = $this->daids_lieu->getCertification()->getLieuxArray();
+    	$items = array();
+    	$results = $this->daids_lieu->getCertification()->getLieuxArray();
+    	foreach ($results as $key => $result) {
+    		if ($result->nbToComplete() > 0) {
+    			$items[$key] = $result;
+    		}
+    	}
+    	$this->items = $items;
+        
     }
 
 }

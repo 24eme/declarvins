@@ -35,12 +35,19 @@ class DAIDSRoute extends sfObjectRoute implements InterfaceEtablissementRoute
         return $parameters;
     }
 
-    public function getDAIDS() 
-    {
+    public function getDAIDS() {
         if (!$this->daids) {
-            $this->getObject();
+            $this->daids = $this->getObject()->getDocument();
         }
-        return $this->daids;
+        $object = $this->daids;
+    	$user = sfContext::getInstance()->getUser();
+    	if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $object->type != DAIDSFictive::TYPE) {
+    		$interpro = $user->getCompte()->getGerantInterpro();
+    		$newobject = new DAIDSFictive($object, $interpro);
+    		return $newobject;
+    	} else {
+    		return $object;
+    	}
     }
 
     public function getEtablissement() {

@@ -276,39 +276,19 @@ class ediActions extends sfActions
     if (!preg_match('/^INTERPRO-/', $interpro)) {
 		$interpro = 'INTERPRO-'.$interpro;
     }
-    $bilan = new StatistiquesBilan($interpro, $campagne);
-    
-    $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;';
-    foreach ($bilan->getPeriodes() as $periode){
-    	$csv_file .= "$periode;";
-    }
-	$csv_file .= "\n";		
-    $etablissementsInformations = $bilan->getEtablissementsInformations();
-    $drmsInformations = $bilan->getDRMsInformations();
-    foreach ($bilan->getEtablissementsInformations() as $identifiant => $etablissement) {
-		$informations = $etablissementsInformations[$identifiant];
-		$csv_file .= $identifiant.';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_RAISON_SOCIALE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_NOM].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_ADRESSE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_CODE_POSTAL].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_COMMUNE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_PAYS].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_EMAIL].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_TELEPHONE].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_FAX].';'.$informations[StatistiquesBilanView::VALUE_ETABLISSEMENT_SERVICE_DOUANE].';';
-		$drms = $drmsInformations[$identifiant];
-		$precedente = null;
-		foreach ($bilan->getPeriodes() as $periode) {
-    			if (!isset($drms[$periode]) && !$precedente) {
-    				$first = DRMAllView::getInstance()->getFirstDrmPeriodeByEtablissement($identifiant); 
-    				if($first && $periode < $first)
-    					$csv_file .= ';';
-    				else 
-    					$csv_file .= '0;';
-    			} elseif (!isset($drms[$periode]) && $precedente && $precedente[StatistiquesBilanView::VALUE_DRM_TOTAL_FIN_DE_MOIS] > 0)
-    			$csv_file .= '0;';
-    			elseif (isset($drms[$periode]) && !$drms[$periode][StatistiquesBilanView::VALUE_DRM_DATE_SAISIE])
-    			$csv_file .= '0;';
-    			else
-    			$csv_file .= '1;';
-    			if (isset($drms[$periode])) {
-    				$precedente = $drms[$periode];
-    			}
-		}
-	$csv_file .= "\n";
-    }
+  	$statistiquesBilan = new StatistiquesBilan($interpro, $campagne);
+
+        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;';
+        foreach ($statistiquesBilan->getPeriodes() as $periode) {
+            $csv_file .= "$periode;";
+        }
+        $csv_file .= "\n";
+
+        foreach ($statistiquesBilan->getBilans() as $bilanOperateur) {
+            $csv_file .= $statistiquesBilan->getEtablissementFieldCsv($bilanOperateur);
+            $csv_file .= $statistiquesBilan->getStatutsDrmsCsv($bilanOperateur);
+            $csv_file .= "\n";
+        }
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('md5', md5($csv_file));
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$campagne.".csv");
@@ -395,8 +375,11 @@ class ediActions extends sfActions
     $startDate = ($date)? $date."_" : '';
     $lastDate = $date;
     $beginDate = '9999-99-99';
+    $rc1 = chr(10);
+    $rc2 = chr(13);
     foreach ($items as $item) {
-      		$csv_file .= implode(';', $item->value)."\n";
+            $csv_file .= str_replace(array($rc1, $rc2), array(' ', ' '), implode(';', $item->value));
+      		$csv_file .= "\n";
       	if ($lastDate < $item->value[$dateSaisieIndice]) {
       		$lastDate = $item->value[$dateSaisieIndice];
       	}

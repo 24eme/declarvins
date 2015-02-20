@@ -34,22 +34,24 @@ function(doc) {
 		var daids_precedente_annee_debut = null;
 		var daids_precedente_annee_fin = null;
 		var daids_precedente_version = null;
-		if (doc.precedente) {
+		/*if (doc.precedente) {
 			daids_precedente_explosed_id = explodeIdDAIDS(doc.precedente);
 			daids_precedente_annee_debut = getAnneeDebutByDAIDS(daids_precedente_explosed_id);
 			daids_precedente_annee_fin = getAnneeFinByDAIDS(daids_precedente_explosed_id);
 			daids_precedente_version = getVersionByDAIDS(daids_precedente_explosed_id);
-		}
+		}*/
 		var daids_identifiant = doc.identifiant;
 		var daids_declarant = doc.declarant.raison_sociale;
 		var daids_annee_debut = getAnneeDebutByDAIDS(daids_explosed_id);
 		var daids_annee_fin = getAnneeFinByDAIDS(daids_explosed_id);
 		var daids_version = doc.version;
+		var daids_referente = doc.referente;
 		var daids_date_saisie = doc.valide.date_saisie;
 		var daids_date_signee = doc.valide.date_signee;
 		var daids_mode_saisie = doc.mode_de_saisie;
 		var daids_identifiant_daids_historique = doc.identifiant_daids_historique;
 		var daids_identifiant_ivse = doc.identifiant_ivse;
+		var daids_commentaires = doc.commentaires;
 		
 		for(interpro in doc.interpros) {
 			for(certification_key in doc.declaration.certifications) {
@@ -156,18 +158,18 @@ function(doc) {
 			                                var codes_label = null;
 			                                var counter = 0;
 			                                var nb_labels = (detail.libelles_label).length;
-							if (nb_labels > 0) {
-			                                for (label_key in detail.libelles_label) {
-			                                	counter++;
-			                                	libelles_label += detail.libelles_label[label_key];
-			                                	codes_label += label_key;
-			                                	if (counter < nb_labels) {
-			                                		libelles_label += '|';
-			                                		codes_label += '|';
-			                                	}
+			                                if (nb_labels > 0) {
+				                                for (label_key in detail.libelles_label) {
+				                                	counter++;
+				                                	libelles_label += detail.libelles_label[label_key];
+				                                	codes_label += label_key;
+				                                	if (counter < nb_labels) {
+				                                		libelles_label += '|';
+				                                		codes_label += '|';
+				                                	}
+				                                }
 			                                }
-							}
-			                                emit([doc.interpros[interpro], doc.valide.date_saisie, doc._id, detail_hash], 
+			                                emit([detail.interpro, doc.valide.date_saisie, doc._id, detail_hash], 
 			                                		[key,
 			                                		 daids_identifiant,
 			                                		 daids_declarant,
@@ -177,6 +179,7 @@ function(doc) {
 			                                		 daids_precedente_annee_debut,
 			                                		 daids_precedente_annee_fin,
 			                                		 daids_precedente_version,
+			                                		 daids_referente,
 			                                		 certification_libelle,
 			                                		 certification_code,
 			                                		 genre_libelle,
@@ -225,10 +228,12 @@ function(doc) {
 			                                		 daids_mode_saisie,
 			                                		 detail.cvo.code,
 			                                		 detail.cvo.taux,
-			                                		 detail.total_cvo,
+			                                		 detail.total_manquants_taxables_cvo,
 			                                		 daids_campagne,
 			                                		 daids_identifiant_daids_historique,
-			                                		 daids_identifiant_ivse
+			                                		 daids_id,
+			                                		 daids_identifiant_ivse,
+			                                		 daids_commentaires
 			                                		 ]
 			                                );
 			                            }

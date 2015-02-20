@@ -43,7 +43,7 @@
 		    <?php endif; ?>
         <?php endif; ?>
 	</td>
-	<?php if (!$daids->isNew() && ($daids->isSupprimable() || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $daids->isSupprimableOperateur()))): ?>	
+	<?php if (!$daids->isNew() && ($daids->isSupprimable())): ?>	
 	<td style="border: 0px; padding-left: 0px;background-color: #ffffff;">
 		<a href="<?php echo url_for('daids_delete', $daids); ?>" class="btn_reinitialiser"><span><img src="/images/pictos/pi_supprimer.png"/></span></a>
 	</td>

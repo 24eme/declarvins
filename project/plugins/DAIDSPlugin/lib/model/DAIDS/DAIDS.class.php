@@ -45,11 +45,15 @@ class DAIDS extends BaseDAIDS
        $drmsHistorique = new DRMHistorique($this->identifiant);
        if ($lastDrm = $drmsHistorique->getLastDRMByCampagne($this->periode)) {
        	foreach ($lastDrm->getDetails() as $detail) {
+       		if (!ConfigurationClient::getCurrent()->getConfigurationProduit($detail->getCepage()->getHash())) {
+       			continue;
+       		}
        		$d = $this->getDocument()->getOrAdd($detail->getHash());
        		$d->updateVolumeBloque();
        		$d->label_supplementaire = $detail->label_supplementaire;
        		$d->douane->taux = $detail->douane->taux;
        		$d->douane->code = $detail->douane->code;
+       		$d->add('interpro', $detail->interpro);
        		if ($lastDrm->droits->exist(DAIDSDroits::DROIT_DOUANE) && $lastDrm->droits->get(DAIDSDroits::DROIT_DOUANE)->exist($detail->douane->code)) {
        			$d->douane->libelle = $lastDrm->droits->get(DAIDSDroits::DROIT_DOUANE)->get($detail->douane->code)->libelle;
        		} else {
@@ -75,6 +79,19 @@ class DAIDS extends BaseDAIDS
        	}
        	$this->getDocument()->update();
        }
+    }
+    
+    public function updateStockTheorique()
+    {
+    	$drmsHistorique = new DRMHistorique($this->identifiant);
+       	if ($lastDrm = $drmsHistorique->getLastDRMByCampagne($this->periode)) {
+	    	foreach ($this->getDetails() as $detail) {
+	    		$d = $lastDrm->getOrAdd($detail->getHash());
+	    		$detail->stock_theorique = $d->total;
+	    		$detail->stock_mensuel_theorique = $d->getStockTheoriqueMensuelByCampagne($this->periode);
+	    	}
+       		$this->getDocument()->update();
+       	}
     }
 
     public function constructId() 
@@ -138,6 +155,17 @@ class DAIDS extends BaseDAIDS
   		$this->declarant->sous_famille = $etablissement->sous_famille;
   		$this->declarant->service_douane = $etablissement->service_douane;
     }
+    
+
+    
+    public function setEntrepotsInformations($entrepots = array())
+    {
+    	foreach ($entrepots as $entrepot => $datas) {
+    		$e = $this->entrepots->getOrAdd($entrepot);
+    		$e->commentaires = $datas['commentaires'];
+    		$e->principal = $datas['principal'];
+    	}
+    }
 
     public function generateSuivante($periode) 
     {
@@ -147,6 +175,7 @@ class DAIDS extends BaseDAIDS
         $daids_suivante->periode = $periode;
         $daids_suivante->campagne = $periode;
         $daids_suivante->precedente = $this->_id;
+        $daids_suivante->commentaires = null;
         $daids_suivante->devalide();
 	    $daids_suivante->remove('editeurs'); 
 	    $daids_suivante->add('editeurs'); 
@@ -253,7 +282,7 @@ class DAIDS extends BaseDAIDS
 
     public function isSupprimable() 
     {
-        return !$this->isValidee() && !$this->isRectificativeEnCascade();
+        return !$this->isValidee();
     }
 
     public function isSupprimableOperateur() 
@@ -417,6 +446,10 @@ class DAIDS extends BaseDAIDS
             $next_daids->precedente = $this->_id;
             $next_daids->save();
         }
+        if ($prev_daids = $this->getMother()) {
+        	$prev_daids->referente = 0;
+            $prev_daids->save();
+        }
         $this->storeIdentifiant($options);
         $this->storeDates();
         $this->storeDroits($options);
@@ -502,6 +535,14 @@ class DAIDS extends BaseDAIDS
 
     public function listenerGenerateVersion($document) 
     {
+    	if ($prev_daids = $document->getMother()) {
+    		if ($prev_daids->hasVersion()) {
+            	$document->precedente = $prev_daids->_id;
+    		}
+        }
+        if ($document->exist('commentaires')) {
+        	$document->commentaires = null;
+        }
         $document->devalide();
     }
 

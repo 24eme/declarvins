@@ -23,6 +23,8 @@
 
                     <?php
                     foreach ($contrat->etablissements as $etablissement):
+                    	$zones = array();
+                    	foreach ($etablissement->zones as $zone): if (!$zone->transparente) {$zones[] = $zone->libelle;} endforeach;
                         ?>
 					
                         <h2>Etablissement <?php echo $etablissement->getKey() + 1; ?></h2>
@@ -47,6 +49,7 @@
                             <div class="col">
                                 <p><span>Famille :</span> <strong><?php echo EtablissementFamilles::getFamilleLibelle($etablissement->famille) ?></strong></p>
                                 <p><span>Sous-famille :</span> <strong><?php echo EtablissementFamilles::getSousFamilleLibelle($etablissement->famille, $etablissement->sous_famille) ?></strong></p>
+                                <p><span>Zones :</span> <strong><?php echo implode(', ', $zones); ?></strong></p>
                                 <p><span>J'utilise un logiciel agréé EDI Declarvins pour déclarer mes DRM et DAI/DS :</span> <strong><?php echo  ($etablissement->edi) ? "Oui" : "Non" ?></strong></p>
                                 <?php if ($etablissement->comptabilite_adresse): ?>
                                     <div class="adresse_comptabilite">

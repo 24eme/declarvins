@@ -3,21 +3,39 @@
 Madame, Monsieur,<br /><br />
 Vous avez reçu une demande de validation d'un contrat de transaction en vrac le <strong><?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?></strong>.<br />
 A ce jour,  vous n'avez toujours pas <strong>validé ou refusé ce contrat</strong>.<br /><br />
-Ce contrat porte sur la transaction suivante :<br />
+Pour mémoire, le contrat portait sur la transaction suivante :<br />
 Date de saisie : <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?><br />
-Produit : <?php echo $vrac->getLibelleProduit() ?> <br />
+Produit : <?php echo $vrac->getLibelleProduit() ?><br />
 Millésime : <?php echo $vrac->millesime ?><br />
 Type : <?php echo $vrac->type ?><br />
 Quantité : <?php echo $vrac->volume_propose ?>hl<br />
-Prix : <?php echo $vrac->prix_unitaire ?>€/hl<br />
+Prix : <?php echo $vrac->prix_unitaire ?>€ net HT /hl<br />
+<?php if ($vrac->vendeur_identifiant): ?>
+Vendeur :<br />
+<ul>
+	<li><?php if($vrac->vendeur->nom) { echo $vrac->vendeur->nom; } if($vrac->vendeur->raison_sociale) { echo ($vrac->vendeur->nom)? ' / '.$vrac->vendeur->raison_sociale : $vrac->vendeur->raison_sociale; } echo ($vrac->vendeur->famille)? ' - '.ucfirst($vrac->vendeur->famille) : ''; ?></li>
+	<li>Adresse e-mail : <?php echo $vrac->vendeur->email; ?></li>
+	<li>Inscrit sur DeclarVins.net : <?php echo ($vrac->vendeurHasCompteActif())? 'oui' : 'non'; ?></li>
+</ul> 
+<br />
+<?php endif; ?>
 <?php if ($vrac->acheteur_identifiant): ?>
-Acheteur : <?php echo ($vrac->acheteur->raison_sociale)? $vrac->acheteur->raison_sociale : $vrac->acheteur->nom; ?><br />
+Acheteur :<br />
+<ul>
+	<li><?php if($vrac->acheteur->nom) { echo $vrac->acheteur->nom; } if($vrac->acheteur->raison_sociale) { echo ($vrac->acheteur->nom)? ' / '.$vrac->acheteur->raison_sociale : $vrac->acheteur->raison_sociale; } echo ($vrac->acheteur->famille)? ' - '.ucfirst($vrac->acheteur->famille) : ''; ?></li>
+	<li>Adresse e-mail : <?php echo $vrac->acheteur->email; ?></li>
+	<li>Inscrit sur DeclarVins.net : <?php echo ($vrac->acheteurHasCompteActif())? 'oui' : 'non'; ?></li>
+</ul> 
+<br />
 <?php endif; ?>
 <?php if ($vrac->mandataire_identifiant): ?>
-Courtier : <?php echo ($vrac->mandataire->raison_sociale)? $vrac->mandataire->raison_sociale : $vrac->mandataire->nom; ?><br />
-<?php endif; ?>
-<?php if ($vrac->vendeur_identifiant): ?>
-Vendeur : <?php echo ($vrac->vendeur->raison_sociale)? $vrac->vendeur->raison_sociale : $vrac->vendeur->nom; ?><br />
+Courtier :<br />
+<ul>
+	<li><?php if($vrac->mandataire->nom) { echo $vrac->mandataire->nom; } if($vrac->mandataire->raison_sociale) { echo ($vrac->mandataire->nom)? ' / '.$vrac->mandataire->raison_sociale : $vrac->mandataire->raison_sociale; } echo ($vrac->mandataire->famille)? ' - '.ucfirst($vrac->mandataire->famille) : ''; ?></li>
+	<li>Adresse e-mail : <?php echo $vrac->mandataire->email; ?></li>
+	<li>Inscrit sur DeclarVins.net : <?php echo ($vrac->mandataireHasCompteActif())? 'oui' : 'non'; ?></li>
+</ul> 
+<br />
 <?php endif; ?>
 Commentaire : <?php echo $vrac->commentaires ?><br /><br />
 <strong>Si vous souhaitez valider ou refuser ce contrat, cliquez sur le lien suivant : <a href="<?php echo url_for('vrac_validation', array('sf_subject' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur), true); ?>">Valider ou refuser le contrat</a></strong><br /><br />

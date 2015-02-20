@@ -25,6 +25,13 @@ class ConfigurationProduitModificationForm extends acCouchdbObjectForm
 				new ConfigurationProduitDepartementCollectionForm(null, array('departements' => $this->getObject()->getOrAdd('departements'), 'nb' => $this->getOption('nbDepartement', null)))
 			);
 		}
+		
+		if ($this->getObject()->hasPrestations()) {
+			$this->embedForm(
+				'noeud_prestations', 
+				new ConfigurationProduitPrestationForm(null, array('object' => $this->getObject()))
+			);
+		}
 		if ($this->getObject()->hasCvo()) {
 			$this->embedForm(
 				'noeud_droits_cvo', 
@@ -91,6 +98,16 @@ class ConfigurationProduitModificationForm extends acCouchdbObjectForm
     			$departements->add(null, $value['departement']);
     		}
     	}
+    	
+    	if ($object->hasPrestations()) {
+    		$object->remove('prestations');
+    		$prestations = $object->add('prestations');
+    		if ($values['noeud_prestations']['prestation']) {
+	    		foreach ($values['noeud_prestations']['prestation'] as $value) {
+	    			$prestations->add(null, $value);
+	    		}
+    		}
+    	}
     	if ($object->hasLabels()) {
     		$object->remove('labels');
     		$labels = $object->add('labels');
@@ -146,7 +163,7 @@ class ConfigurationProduitModificationForm extends acCouchdbObjectForm
     			$organisme->oioc = $value['oioc'];
     		}
 		}
-    	$object->getDocument()->save();
+    	$object->getDocument()->save(true);
     	return $object;
     }
     

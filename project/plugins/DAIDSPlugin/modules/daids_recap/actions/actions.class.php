@@ -2,7 +2,19 @@
 
 class daids_recapActions extends sfActions
 {
-    
+	public function preExecute()
+  	{
+  		try {
+  			$etablissement = $this->getRoute()->getEtablissement();
+  		} catch (Exeption $e) {
+  			$etablissement = null;
+  		}
+  		if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement) {
+  			$configuration = ConfigurationClient::getCurrent();
+  			$this->forward404Unless($configuration->isApplicationOuverte($etablissement->interpro, 'daids'));	
+  		}
+  		
+  	}
     public function executeIndex(sfWebRequest $request) 
     {
         $this->init($this->getRoute()->getEtablissement());

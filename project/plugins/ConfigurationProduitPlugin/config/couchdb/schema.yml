@@ -5,6 +5,23 @@ ConfigurationProduit:
       _rev: {  }
       interpro: {  }
       type: {  }
+      prestations:
+        type: collection
+        required: false
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  '*':
+                    type: collection
+                    definition:
+                      fields:
+                        lien: {  }
+                        libelle: {  }
+                        appellation: {  }
+                        configuration: {  }
       declaration:
         type: collection
         class: ConfigurationProduitDeclaration
@@ -135,6 +152,12 @@ ConfigurationProduit:
                                                           fields:
                                                             oioc: {  }
                                                             date: {  }
+                                                prestations:
+                                                  type: array_collection
+                                                  required: false
+                                                  definition:
+                                                    fields:
+                                                      '*': {  }
                                                 droits:
                                                   type: collection
                                                   definition:
@@ -332,3 +355,4 @@ ConfigurationProduit:
                                                                                               fields:
                                                                                                 libelle: {  }
                                                                                                 code: {  }
+

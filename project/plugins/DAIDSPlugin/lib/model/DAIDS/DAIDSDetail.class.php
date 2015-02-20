@@ -94,7 +94,7 @@ class DAIDSDetail extends BaseDAIDSDetail {
         $this->total_manquants_excedents = $this->stock_chais - $this->stock_theorique;
         $this->stock_propriete_details->vrac_libre = $this->stock_propriete - $this->stock_propriete_details->reserve - $this->stock_propriete_details->vrac_vendu - $this->stock_propriete_details->conditionne;
         $this->stocks_moyen->vinifie->total = $this->stocks_moyen->vinifie->taux * $this->stocks_moyen->vinifie->volume * 0.01;
-        $this->stocks_moyen->non_vinifie->volume = $this->stock_mensuel_theorique - $this->stocks_moyen->vinifie->volume;
+        //$this->stocks_moyen->non_vinifie->volume = $this->stock_mensuel_theorique - $this->stocks_moyen->vinifie->volume;
         $this->stocks_moyen->conditionne->total = $this->stocks_moyen->conditionne->taux * $this->stocks_moyen->conditionne->volume;
         $this->total_pertes_autorisees = $this->stocks_moyen->vinifie->total + $this->stocks_moyen->non_vinifie->total + $this->stocks_moyen->conditionne->total;
         $this->total_manquants_taxables = (-1 * $this->total_manquants_excedents) - $this->total_pertes_autorisees;
@@ -150,5 +150,40 @@ class DAIDSDetail extends BaseDAIDSDetail {
       	if ($etablissement->produits->exist($produitHash)) {
       		$this->stocks_debut->bloque = $etablissement->getVolumeBloque($produitHash, $date);
       	}
+    }
+    
+
+
+    public function cascadingDelete() {
+        $cepage = $this->getCepage();
+        $couleur = $this->getCouleur();
+        $lieu = $this->getLieu();
+        $mention = $this->getMention();
+        $appellation = $this->getAppellation();
+        $genre = $this->getGenre();
+        $certification = $this->getCertification();
+        $objectToDelete = $this;
+        if ($cepage->details->count() == 1 && $cepage->details->exist($this->getKey())) {
+            $objectToDelete = $cepage;
+            if ($couleur->cepages->count() == 1 && $couleur->cepages->exist($cepage->getKey())) {
+                $objectToDelete = $couleur;
+                if ($lieu->couleurs->count() == 1 && $lieu->couleurs->exist($couleur->getKey())) {
+                    $objectToDelete = $lieu;
+                    if ($mention->lieux->count() == 1 && $mention->lieux->exist($lieu->getKey())) {
+                        $objectToDelete = $mention;
+                        if ($appellation->mentions->count() == 1 && $appellation->mentions->exist($mention->getKey())) {
+                            $objectToDelete = $appellation;
+                            if ($genre->appellations->count() == 1 && $genre->appellations->exist($appellation->getKey())) {
+                                $objectToDelete = $genre;
+                                if ($certification->genres->count() == 1 && $certification->genres->exist($genre->getKey())) {
+                                    $objectToDelete = $certification;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return $objectToDelete;
     }
 }

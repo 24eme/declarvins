@@ -201,7 +201,8 @@ class contratActions extends sfActions
   protected function sendContratMandat($contrat) {
   	$pdf = new ExportContratPdf($contrat);
   	$pdf->generate();
-  	$interpros = InterproClient::getInstance()->getInterproByDepartements($contrat->getDepartementsEtablissements());
+  	
+  	$interpros = $this->getInterprosByZonesForInscription($contrat->getConfigurationZones());
     Email::getInstance()->sendContratMandat($contrat, $contrat->email, $interpros);
   	foreach ($interpros as $interpro) {
   		if ($interpro->email_contrat_inscription) {
@@ -209,6 +210,16 @@ class contratActions extends sfActions
   		}	
   	}
   }
+  
+  protected function getInterprosByZonesForInscription($zones)
+  {
+  	$result = array();
+  	foreach ($zones as $zone) {
+  		$result = array_merge($result, $zone->getInterprosForInscriptions());
+  	}
+  	return $result;
+  }
+  
  /**
   * 
   *

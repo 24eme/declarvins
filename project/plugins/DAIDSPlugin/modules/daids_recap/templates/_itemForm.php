@@ -61,7 +61,7 @@
 	        </p>
 
 			<p class="stock_th stock_th_mensuel <?php echo isVersionnerCssClass($form->getObject(), 'stock_mensuel_theorique') ?>">
-				<?php echo $form['stock_mensuel_theorique']->render(array('class' => 'texte stock_th stock_th_mensuel', 'data-val-defaut' => sprintFloat($form->getObject()->stock_mensuel_theorique, "%01.04f"))) ?>
+				<?php echo $form['stock_mensuel_theorique']->render(array('class' => 'num num_float', 'data-val-defaut' => sprintFloat($form->getObject()->stock_mensuel_theorique, "%01.04f"))) ?>
 	        </p>
 
 			<div class="groupe" data-groupe-id="4">
@@ -78,10 +78,10 @@
 
 			<div class="groupe" data-groupe-id="5">
 				<p class="<?php echo isVersionnerCssClass($form->getObject()->stocks_moyen->non_vinifie, 'volume') ?>">
-					<?php echo $form['stocks_moyen']['non_vinifie']['volume']->render(array('class' => 'texte', 'data-calcul' => 'diff', 'data-champs' => '#col_recolte_'.$form->getObject()->renderId().' #'.$form['stock_mensuel_theorique']->renderId().';#col_recolte_'.$form->getObject()->renderId().' #'.$form['stocks_moyen']['vinifie']['volume']->renderId(), 'data-val-defaut' => sprintFloat($form->getObject()->stocks_moyen->non_vinifie->volume, "%01.04f"))) ?>
+					<?php echo $form['stocks_moyen']['non_vinifie']['volume']->render(array('class' => 'num num_float', 'data-val-defaut' => sprintFloat($form->getObject()->stocks_moyen->non_vinifie->volume, "%01.04f"))) ?>
 				</p>
 				<ul>
-					<li class="<?php echo isVersionnerCssClass($form->getObject()->stocks_moyen->conditionne, 'total') ?>">
+					<li class="<?php echo isVersionnerCssClass($form->getObject()->stocks_moyen->non_vinifie, 'total') ?>">
 						<?php echo $form['stocks_moyen']['non_vinifie']['total']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->getObject()->stocks_moyen->non_vinifie->total, "%01.04f"))) ?>
 					</li>
 				</ul>

@@ -8,18 +8,20 @@ class vracActions extends acVinVracActions
 	
 	protected function saisieTerminee($vrac, $interpro) {
 		$acteurs = VracClient::getInstance()->getActeurs();
-		$saisisseur = $vrac->vous_etes;
-		if ($saisisseur && in_array($saisisseur, $acteurs)) {
-			$etablissement = EtablissementClient::getInstance()->find($vrac->get($saisisseur.'_identifiant'));
-			if ($compte = $etablissement->getCompteObject()) {
-				if ($compte->email) {
-					Email::getInstance()->vracSaisieTerminee($vrac, $etablissement, $compte->email);
-				}
-			}
-		}
-		unset($acteurs[array_search($saisisseur, $acteurs)]);
 		if (!$vrac->mandataire_exist) {
 			unset($acteurs[array_search(VracClient::VRAC_TYPE_COURTIER, $acteurs)]);
+		}
+		if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+			$saisisseur = $vrac->vous_etes;
+			if ($saisisseur && in_array($saisisseur, $acteurs)) {
+				$etablissement = EtablissementClient::getInstance()->find($vrac->get($saisisseur.'_identifiant'));
+				if ($compte = $etablissement->getCompteObject()) {
+					if ($compte->email) {
+						Email::getInstance()->vracSaisieTerminee($vrac, $etablissement, $compte->email);
+					}
+				}
+			}
+			unset($acteurs[array_search($saisisseur, $acteurs)]);
 		}
 		foreach ($acteurs as $acteur) {
 			$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));

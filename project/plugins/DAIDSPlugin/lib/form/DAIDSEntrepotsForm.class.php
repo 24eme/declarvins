@@ -10,5 +10,13 @@ class DAIDSEntrepotsForm  extends acCouchdbObjectForm
         $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
         
     }
+    
+    public function save($con = null) {
+    	$values = $this->getValues();
+    	$this->getObject()->setEntrepotsInformations($values['entrepots']);
+    	$this->getObject()->save();
+    }
+    
+    
 
 }

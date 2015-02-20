@@ -1568,6 +1568,10 @@ a.highlight_link:hover {
   list-style: square;
   margin: 0 0 0 25px;
 }
+#creation_compte #inscription-zones ul li {
+  list-style: none;
+  margin: 0;
+}
 #creation_compte .col {
   display: inline-block;
   vertical-align: top;
@@ -2329,7 +2333,7 @@ p#date_drm {
 }
 #principal #recap_drm {
   float: left;
-  width: 670px;
+  width: 750px;
 }
 #principal #recap_drm table {
   border-collapse: separate;
@@ -2400,7 +2404,7 @@ p#date_drm {
   font-size: 15px;
   line-height: 20px;
   margin: 5px 0 0;
-  width: 200px;
+  width: 140px;
   text-transform: uppercase;
 }
 #principal #nav_drm_annees li {
@@ -3334,6 +3338,7 @@ p#date_drm {
 }
 .vracs .disabled {
   background-color: #cdcdcd;
+  color: #3e3e3e;
 }
 .vracs #table_paiements,
 .vracs #table_retiraisons,

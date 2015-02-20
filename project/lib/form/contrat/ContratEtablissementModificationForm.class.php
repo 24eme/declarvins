@@ -12,6 +12,7 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
 	   	$sousFamilleChoices = $this->getFamilleSousFamilleChoices();
 	   else
 	   	$sousFamilleChoices = $this->getSousFamilleChoicesByFamille($this->getObject()->getFamille());
+	   $zonesChoices = $this->getZonesChoices();
 	   
 	   $this->setWidgets(array(
                'raison_sociale' => new sfWidgetFormInputText(),
@@ -40,6 +41,7 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
                                                  'multiple' => false, 'expanded' => true,
                                                       'renderer_options' => array('formatter' => array($this, 'formatter'))
                                                       )),
+           'configuration_zones' => new sfWidgetFormChoice(array('choices' => $zonesChoices, 'multiple' => true, 'expanded' => true)),
 
 	   ));
        $this->widgetSchema->setLabels(array(
@@ -65,7 +67,9 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
 	       'comptabilite_commune' => 'Commune: ',
 	       'comptabilite_pays' => 'Pays: ',
 	       'service_douane' => 'Service douane*: ',
-           'edi' => 'J\'utilise un logiciel agréé EDI Declarvins pour déclarer mes DRM et DAI/DS*'));
+           'edi' => 'J\'utilise un logiciel agréé EDI Declarvins pour déclarer mes DRM et DAI/DS*',
+       	   'configuration_zones' => 'Zones*: ',
+       ));
        $this->setValidators(array(
        	       'raison_sociale' => new sfValidatorString(array('required' => true)),
        	       'nom' => new sfValidatorString(array('required' => true)),
@@ -89,7 +93,8 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
 	       'comptabilite_commune' => new sfValidatorString(array('required' => false)),
 	       'comptabilite_pays' => new sfValidatorString(array('required' => false)),
 	       'service_douane' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($douaneChoices))),
-           'edi' => new ValidatorBoolean(array('required' => true))
+           'edi' => new ValidatorBoolean(array('required' => true)),
+       	   'configuration_zones' => new sfValidatorChoice(array('required' => true, 'multiple' => true, 'choices' => array_keys($zonesChoices))),
        ));
        $xorValidator = new ValidatorXor(null, array('field0' => 'siret', 'field1' => 'cni'),
                array('both' => 'LE SIRET est renseigné, vous ne pouvez pas fournir de CNI',
@@ -108,6 +113,14 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
        parent::updateDefaultsFromObject();
        $this->setDefault('telephone', $this->getObject()->getDocument()->getTelephone());
        $this->setDefault('fax', $this->getObject()->getDocument()->getFax());
+       $this->setDefault('configuration_zones', array_keys($this->getObject()->getOrAdd('zones')->toArray()));
+    }
+    
+	protected function doUpdateObject($values)
+	{
+        parent::doUpdateObject($values);
+        $zones = (isset($values['configuration_zones']))? $values['configuration_zones'] : array();
+        $this->getObject()->getDocument()->addZones($this->getObject()->getKey(), array_merge($zones, array_keys(ConfigurationClient::getCurrent()->getTransparenteZones())));
     }
     
     /**
@@ -119,6 +132,15 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
         foreach ($douanes as $douane) {
         	$value = $douane->value;
             $choices[$value[DouaneAllView::VALUE_DOUANE_NOM]] = $value[DouaneAllView::VALUE_DOUANE_NOM];
+        }
+        return $choices;
+    }
+    
+	protected function getZonesChoices() {
+        $zones = ConfigurationClient::getCurrent()->getTransparenteZones(false);
+        $choices = array();
+        foreach ($zones as $zone) {
+            	$choices[$zone->_id] = $zone->libelle;
         }
         return $choices;
     }

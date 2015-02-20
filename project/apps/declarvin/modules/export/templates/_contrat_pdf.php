@@ -210,7 +210,11 @@
                                 <br/><br/>
                         </div>
 			
-			<?php foreach ($contrat->etablissements as $i => $etablissement): ?>
+			<?php 
+				foreach ($contrat->etablissements as $i => $etablissement): 
+					$zones = array();
+                    foreach ($etablissement->zones as $zone): if (!$zone->transparente) {$zones[] = $zone->libelle;} endforeach;
+			?>
 			<div class="societe">
 				<h3><u>Etablissement <?php echo $i+1 ?></u></h3>
 				<p>
@@ -234,7 +238,7 @@
                                 <p>Famille - sous-famille : <strong><?php echo EtablissementFamilles::getFamilleLibelle($etablissement->famille) ?></strong><br />
                                   <?php if($sousFamille): ?> Sous-famille : <strong><?php echo $sousFamille ?></strong><?php endif; ?>
                               </p>
-                                
+                                <p>Zones : <strong><?php echo implode(', ', $zones); ?></strong></p>
                                 <p>Provenance EDI : <strong><?php echo ($etablissement->edi) ? "Oui" : "Non" ?></strong></p>
 
                                 <br />
