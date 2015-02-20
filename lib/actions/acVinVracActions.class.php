@@ -42,7 +42,7 @@ class acVinVracActions extends sfActions
         foreach ($contrats->rows as $contrat) {
         		$this->vracs[$contrat->id] = $contrat;
         }
-        krsort($this->vracs);
+        uksort($this->vracs, array('VracClient', 'sortVracId'));
         $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
 	    if ($request->isMethod(sfWebRequest::POST)) {
 	    	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
@@ -80,8 +80,8 @@ class acVinVracActions extends sfActions
         		$this->vracs[$contrat->id] = $contrat;
         	}
         }
-        krsort($this->vracs);
-        krsort($this->vracs_attente);
+        uksort($this->vracs, array('VracClient', 'sortVracId'));
+        uksort($this->vracs_attente, array('VracClient', 'sortVracId'));
         $this->setTemplate('index');
 	}
 
