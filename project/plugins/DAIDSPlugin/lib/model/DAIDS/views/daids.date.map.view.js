@@ -34,12 +34,12 @@ function(doc) {
 		var daids_precedente_annee_debut = null;
 		var daids_precedente_annee_fin = null;
 		var daids_precedente_version = null;
-		if (doc.precedente) {
+		/*if (doc.precedente) {
 			daids_precedente_explosed_id = explodeIdDAIDS(doc.precedente);
 			daids_precedente_annee_debut = getAnneeDebutByDAIDS(daids_precedente_explosed_id);
 			daids_precedente_annee_fin = getAnneeFinByDAIDS(daids_precedente_explosed_id);
 			daids_precedente_version = getVersionByDAIDS(daids_precedente_explosed_id);
-		}
+		}*/
 		var daids_identifiant = doc.identifiant;
 		var daids_declarant = doc.declarant.raison_sociale;
 		var daids_annee_debut = getAnneeDebutByDAIDS(daids_explosed_id);
