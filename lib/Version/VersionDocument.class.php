@@ -82,16 +82,21 @@ class VersionDocument
     }
 
     public function getPreviousVersion() {
-        if($this->isModificative()) {
-            
-            return $this->buildVersionDocument($this->getRectificative(), $this->getModificative() - 1);
+    	if ($this->isModificative()) {
+    		$modificative = $this->buildVersionDocument(null, $this->getModificative() - 1);
+    		$rectificative = str_replace('M', 'R', $modificative);
+    	} elseif ($this->isRectificative()) {
+    		$rectificative = $this->buildVersionDocument($this->getRectificative() - 1, null);
+    		$modificative = str_replace('R', 'M', $rectificative);
+    	} else {
+        	return null;
+    	}
+        if($this->document->findDocumentByVersion($modificative)) {            
+            return $modificative;
         }
-
-        if($this->isRectificative()) {
-
-            return $this->buildVersionDocument($this->getRectificative() - 1, $this->getModificative());
+        if($this->document->findDocumentByVersion($rectificative)) {
+            return $rectificative;
         }
-
         return null;
     }
 
