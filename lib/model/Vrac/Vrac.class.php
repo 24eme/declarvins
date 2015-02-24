@@ -221,7 +221,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		foreach ($acteurs as $acteur) {
     			$validateur = 'date_validation_'.$acteur;
     			if (!$this->valide->get($validateur)) {
-    				$this->valide->{$validateur} = ($this->valide->date_saisie)? $this->valide->date_saisie : date('c');
+    				$this->valide->{$validateur} = ($this->date_signature)? $this->date_signature : date('c');
     			}
     		}
     		$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
