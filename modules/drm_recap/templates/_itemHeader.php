@@ -26,7 +26,11 @@
 	<div class="groupe" data-groupe-id="3">
 		<p>Sorties</p>
 		<ul>
-			<?php foreach (Configuration::getStocksSortie() as $key => $item): ?>
+			<?php 
+				$stockSorties = Configuration::getStocksSortie(); 
+    			unset($stockSorties['vrac_contrat']);
+				foreach ($stockSorties as $key => $item): 
+			?>
                         <li>Sortie <?php echo $item ?>&nbsp;(<span class="unite">hl</span>)&nbsp;<a href="" class="msg_aide" data-msg="help_popup_drm_sorties_<?php echo $key; ?>" title="Message aide"></a></li>
 			<?php endforeach; ?>
 		</ul>

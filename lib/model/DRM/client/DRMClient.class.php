@@ -399,24 +399,30 @@ class DRMClient extends acCouchdbClient {
     
     public function sortDrmId($a, $b) 
     {
-    	preg_match('/DRM-([0-9a-zA-Z])*-([0-9]){4}-([0-9]){2}/', $a, $ma1);
-    	preg_match('/DRM-([0-9a-zA-Z])*-([0-9]){4}-([0-9]){2}/', $b, $mb1);
-    	$hasVersionA = preg_match('/([0-9a-zA-Z\-])*-(M|R)([0-9]){2}$/', $a, $ma);
-    	$hasVersionB = preg_match('/([0-9a-zA-Z\-])*-(M|R)([0-9]){2}$/', $b, $mb);
-    	
-    	if ((!$hasVersionA && !$hasVersionB) || $ma1[2].$ma1[3] != $mb1[2].$mb1[3]) {
-    		return -1 * strcasecmp($a, $b);
-    	}
-    	
-    	if (!$hasVersionA) {
-    		return 1;
-    	}
-    	
-    	if (!$hasVersionB) {
-    		return -1;
-    	}
-    	
-    	return ($ma[3] < $mb[3])? 1 : -1;
+    	preg_match('/DRM-([0-9a-zA-Z]*)-([0-9]{4})-([0-9]{2})/', $a, $ma1);
+        preg_match('/DRM-([0-9a-zA-Z]*)-([0-9]{4})-([0-9]{2})/', $b, $mb1);
+        $hasVersionA = preg_match('/([0-9a-zA-Z\-]*)-(M|R)([0-9]{2})$/', $a, $ma);
+        $hasVersionB = preg_match('/([0-9a-zA-Z\-]*)-(M|R)([0-9]{2})$/', $b, $mb);
+
+
+        if ((!$hasVersionA && !$hasVersionB) || $ma1[2].$ma1[3] != $mb1[2].$mb1[3]) {
+                if ($ma1[2].$ma1[3] > $mb1[2].$mb1[3]) {
+                        return -1;
+                }
+                if ($ma1[2].$ma1[3] < $mb1[2].$mb1[3]) {
+                        return 1;
+                }
+                return 0;
+        }
+        
+        if (!$hasVersionA) {
+                return 1;
+        }
+        
+        if (!$hasVersionB) {
+                return -1;
+        }
+        return ($ma[3] < $mb[3])? 1 : -1;
     	
     }
 
