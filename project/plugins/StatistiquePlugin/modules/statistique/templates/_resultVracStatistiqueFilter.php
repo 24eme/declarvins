@@ -37,9 +37,9 @@
 				<td>
 					<?php if ($etab): ?>
 						<?php if (in_array($item['valide']['statut'], array(VracClient::STATUS_CONTRAT_SOLDE, VracClient::STATUS_CONTRAT_NONSOLDE))): ?>
-							<a href="<?php echo url_for("vrac_visualisation", array('numero_contrat' => $item['_id'], 'etablissement' => $etab)) ?>" target="_blank"><?php echo $item['numero_contrat'] ?></a>
+							<a href="<?php echo url_for("vrac_visualisation", array('contrat' => $item['_id'], 'etablissement' => $etab)) ?>" target="_blank"><?php echo $item['numero_contrat'] ?></a>
 						<?php else: ?>
-							<a href="<?php echo url_for("vrac_validation", array('numero_contrat' => $item['numero_contrat'], 'etablissement' => $etab, 'acteur' => $item['vous_etes'])) ?>" target="_blank"><?php echo $item['numero_contrat'] ?></a>
+							<a href="<?php echo url_for("vrac_validation", array('contrat' => $item['_id'], 'etablissement' => $etab, 'acteur' => $item['vous_etes'])) ?>" target="_blank"><?php echo $item['numero_contrat'] ?></a>
 						<?php endif; ?>
 					<?php else: ?>
 						<?php echo $item['numero_contrat'] ?>

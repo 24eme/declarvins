@@ -215,7 +215,9 @@ class contratActions extends sfActions
   {
   	$result = array();
   	foreach ($zones as $zone) {
-  		$result = array_merge($result, $zone->getInterprosForInscriptions());
+  		if (!$zone->transparente) {
+  			$result = array_merge($result, $zone->getInterprosForInscriptions());
+  		}
   	}
   	return $result;
   }
