@@ -269,9 +269,6 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         $this->valide->date_saisie = null;
         $this->valide->identifiant = null;
         $this->valide->date_validation = null;
-        if ($this->exist('commentaires')) {
-        	$this->commentaires = null;
-        }
     	$acteurs = VracClient::getInstance()->getActeurs();
     	foreach ($acteurs as $acteur) {
     		$validateur = 'date_validation_'.$acteur;
