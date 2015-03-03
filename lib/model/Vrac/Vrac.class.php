@@ -218,14 +218,17 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       	}
     	if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$this->isRectificative()) {
     		$this->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
+    		if (!$this->date_signature) {
+    			$this->date_signature = date('c');
+    		}
     		foreach ($acteurs as $acteur) {
     			$validateur = 'date_validation_'.$acteur;
     			if (!$this->valide->get($validateur)) {
-    				$this->valide->{$validateur} = ($this->date_signature)? $this->date_signature : date('c');
+    				$this->valide->{$validateur} = $this->date_signature;
     			}
     		}
     		$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
-    		$this->valide->date_validation = ($this->valide->date_saisie)? $this->valide->date_saisie : date('c');
+    		$this->valide->date_validation = ($this->valide->date_saisie)? $this->valide->date_saisie : $this->date_signature;
     		$this->updateReferente();
     		$this->updateEnlevements();
     	} else {
