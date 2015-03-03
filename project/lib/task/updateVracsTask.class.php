@@ -32,19 +32,10 @@ EOF;
         $i = 1;
         foreach ($vracs->rows as $v) {
         	$vrac = VracClient::getInstance()->find($v->id);
-        	$ars = $vrac->acheteur->raison_sociale;
-        	$an = $vrac->acheteur->nom;
-        	$vrs = $vrac->vendeur->raison_sociale;
-        	$vn = $vrac->vendeur->nom;
-        	$mrs = $vrac->mandataire->raison_sociale;
-        	$mn = $vrac->mandataire->nom;
-        	$vrac->acheteur->raison_sociale = $an;
-        	$vrac->acheteur->nom = $ars;
-        	$vrac->vendeur->raison_sociale = $vn;
-        	$vrac->vendeur->nom = $vrs;
-        	$vrac->mandataire->raison_sociale = $mn;
-        	$vrac->mandataire->nom = $mrs;
-        	$vrac->save(false);
+        	if ($vrac->valide->date_validation && !$vrac->date_signature) {
+        		$vrac->date_signature = $vrac->valide->date_validation;
+        		$vrac->save(false);
+        	}
 			$this->logSection('vrac', $v->id.' OK '.$i);
 			$i++;
         }
