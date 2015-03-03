@@ -302,6 +302,10 @@ class drmActions extends sfActions {
      */
     public function executeVisualisation(sfWebRequest $request) {
         $this->drm = $this->getRoute()->getDRM();
+        if ($this->drm->type == DRMFictive::TYPE) {
+        	$this->drm->update();
+        	$this->drm->setDroits();
+        }
         $this->droits_circulation = ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) ? null : new DRMDroitsCirculation($this->drm);
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->hide_rectificative = $request->getParameter('hide_rectificative');
@@ -366,6 +370,10 @@ class drmActions extends sfActions {
 
         ini_set('memory_limit', '512M');
         $this->drm = $this->getRoute()->getDRM();
+        if ($this->drm->type == DRMFictive::TYPE) {
+        	$this->drm->update();
+        	$this->drm->setDroits();
+        }
         $pdf = new ExportDRMPdf($this->drm);
 
         return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
