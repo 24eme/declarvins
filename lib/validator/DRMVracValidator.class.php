@@ -13,6 +13,7 @@ class DRMVracValidator extends sfValidatorBase {
 
     protected function doClean($values) {
     	$contratIds = array();
+    	$drm = DRMClient::getInstance()->find($values['drm'])->getMother();
     	foreach ($values as $key => $value) {
     		if (is_array($value)) {
 	    		foreach ($value['contrats'] as $contrat) {
@@ -27,7 +28,11 @@ class DRMVracValidator extends sfValidatorBase {
 	    			}
 	    			$contratVrac = VracClient::getInstance()->findByNumContrat($contrat['vrac']);
 	    			if ($contratVrac) {
-	    				$vol = $contratVrac->volume_propose - $contratVrac->volume_enleve;
+		    			$complement = 0;
+		    			if ($drm->hasVersion() && $drm->get($key)->vrac->exist($contrat['vrac'])) {
+		    				$complement += $drm->get($key)->vrac->get($contrat['vrac'])->volume;
+		    			}
+	    				$vol = $contratVrac->volume_propose - $contratVrac->volume_enleve + $complement;
 	    				$marge = $contratVrac->volume_propose * self::POURCENTAGE_MARGE;
 	    				if ($contrat['volume'] > ($vol + $marge)) {
 	    					throw new sfValidatorErrorSchema($this, array(new sfValidatorError($this, 'sup')));

@@ -237,6 +237,9 @@ class DRMDetail extends BaseDRMDetail {
             if ($vrac->exist('version') && $vrac->version) {
             	$id .= '-'.$vrac->version;
             }
+            if ($this->getDocument()->hasVersion() && $this->vrac->exist($id)) {
+            	$vol += $this->getDocument()->getMother()->get($this->getHash())->vrac->get($id)->volume;
+            }
             if ($prestation) {
             	$vracs_autocomplete[$id] = 'contrat n°' . $vrac->numero_contrat . ' comprenant ' . $vol . 'hl ' . $millesime;
             } else {

@@ -1,11 +1,12 @@
 <?php
 class DRMVracForm extends acCouchdbForm 
 {
-
+	protected $doc;
 	protected $interpro;
 	
   	public function __construct($doc, $interpro, $defaults = array(), $options = array(), $CSRFSecret = null) 
   	{
+  		$this->doc = $doc;
   		$this->interpro = $interpro;
   		
     	parent::__construct($doc, $defaults, $options, $CSRFSecret);
@@ -13,7 +14,9 @@ class DRMVracForm extends acCouchdbForm
   	
 	public function configure()
 	{
-		
+		$this->setWidget('drm', new sfWidgetFormInputHidden());
+        $this->setValidator('drm', new sfValidatorPass());
+        $this->getWidget('drm')->setDefault($this->doc->_id);
 		$details_vrac = $this->getDocument()->getDetailsAvecVrac();
         foreach ($details_vrac as $detail_vrac) {
         	$this->embedForm($detail_vrac->getHash(), new DRMVracContratsForm($detail_vrac, $this->interpro));
