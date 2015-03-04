@@ -33,20 +33,20 @@ class DAIDSFictive extends DAIDS
     protected function initAccessibleProduits()
     {
     	$produits = $this->getDetails();
-    	$hasChange = false;
+    	//$hasChange = false;
     	foreach ($produits as $produit) {
     		if ($produit->interpro != $this->interpro->_id) {
     			if (!$this->configurationProduits->isProduitInPrestation($produit->getCepage()->getHash())) {
     				$object = $produit->cascadingDelete();
     				$this->remove($object->getHash());
-    				$hasChange = true;
+    				//$hasChange = true;
     			}
     		}
     	}
-    	if ($hasChange) {
+    	/*if ($hasChange) {
 			$this->update();
     	}
-    	$this->setDroits();
+    	$this->setDroits();*/
     }
     
     public function save() 

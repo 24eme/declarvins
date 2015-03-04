@@ -218,6 +218,10 @@ class daidsActions extends sfActions
   public function executeVisualisation(sfWebRequest $request)
   {
     $this->daids = $this->getRoute()->getDAIDS();
+    if ($this->daids->type == DAIDSFictive::TYPE) {
+        	$this->daids->update();
+        	$this->daids->setDroits();
+    }
     $this->etablissement = $this->getRoute()->getEtablissement();
     $this->hide_rectificative = $request->getParameter('hide_rectificative');
     $this->daids_suivante = $this->daids->getSuivante();
@@ -262,6 +266,10 @@ class daidsActions extends sfActions
   {
     ini_set('memory_limit', '512M');
     $this->daids = $this->getRoute()->getDAIDS();
+    if ($this->daids->type == DAIDSFictive::TYPE) {
+        	$this->daids->update();
+        	$this->daids->setDroits();
+    }
   	$pdf = new ExportDAIDSPdf($this->daids);
 
     return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
