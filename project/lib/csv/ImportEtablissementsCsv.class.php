@@ -5,11 +5,25 @@ class ImportEtablissementsCsv {
     protected $_interpro = null;
     protected $_csv = array();
     protected $_errors = array();
+    protected $_interpros = array();
+    protected $_zones = array();
+    protected $_zonesTransparentes = array();
 
     public function __construct(Interpro $interpro) {
         $file_uri = $interpro->getAttachmentUri("etablissements.csv");
         $this->_interpro = $interpro;
         $this->_csv = array();
+        $interproClient = InterproClient::getInstance();
+        $zoneClient = ConfigurationZoneClient::getInstance();
+        $interpros = $interproClient->getAllInterpros();
+        foreach ($interpros as $i) {
+        	$this->_interpros[$i] = $interproClient->find($i);
+        }
+        $this->_zonesTransparentes = array_keys(ConfigurationClient::getCurrent()->getTransparenteZones());
+        $zones = $zoneClient->getAllZones();
+        foreach ($zones as $z) {
+        	$this->_zones[$z] = $zoneClient->find($z);
+        }
     	if (@file_get_contents($file_uri)) {
 	        $handler = fopen($file_uri, 'r');
 	        if (!$handler) {
@@ -133,6 +147,9 @@ class ImportEtablissementsCsv {
     	if (!isset($line[EtablissementCsv::COL_ZONES])) {
    			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_ZONES + 1).') "zones" manquante');
    		}
+    	if (!isset($line[EtablissementCsv::COL_CORRESPONDANCES])) {
+   			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_CORRESPONDANCES + 1).') "correspondances ids" manquante');
+   		}
    		if (count($errors) > 0) {
    			$this->_errors[$ligne] = $errors;
    			throw new sfException('has errors');
@@ -190,7 +207,6 @@ class ImportEtablissementsCsv {
     	try {
 		    $etab->email = $validateur->clean(trim($line[EtablissementCsv::COL_EMAIL]));
 		} catch (sfValidatorError $e) {
-			//$etab->email = null;
         	if (isset($this->_errors[$ligne])) {
         		$merge = $this->_errors[$ligne];
         		$merge[] = 'Colonne (indice '.(EtablissementCsv::COL_EMAIL + 1).') "email" non valide';
@@ -211,7 +227,7 @@ class ImportEtablissementsCsv {
         $etab->comptabilite->commune = trim($line[EtablissementCsv::COL_COMPTA_COMMUNE]);
         $etab->comptabilite->pays = trim($line[EtablissementCsv::COL_COMPTA_PAYS]);
         $etab->service_douane = trim($line[EtablissementCsv::COL_SERVICE_DOUANE]);
-		$etab->interpro = trim($line[EtablissementCsv::COL_INTERPRO]);
+		$etab->interpro = InterproClient::getInstance()->matchInterpro(trim($line[EtablissementCsv::COL_INTERPRO]));
 		$etab->contrat_mandat = 'CONTRAT-'.trim($line[EtablissementCsv::COL_NUMERO_CONTRAT]);
 		if (isset($line[EtablissementCsv::COL_CHAMPS_STATUT]) && trim($line[EtablissementCsv::COL_CHAMPS_STATUT])) {
 			$etab->statut = trim($line[EtablissementCsv::COL_CHAMPS_STATUT]);
@@ -219,7 +235,7 @@ class ImportEtablissementsCsv {
 			$etab->statut = Etablissement::STATUT_ACTIF;
 		}
 		$zones = explode('|', $line[EtablissementCsv::COL_ZONES]);
-		$zones = array_merge($zones, array_keys(ConfigurationClient::getCurrent()->getTransparenteZones()));
+		$zones = array_merge($zones, $this->_zonesTransparentes);
         $result = array();
         try {
         	foreach ($zones as $zone) {
@@ -239,13 +255,34 @@ class ImportEtablissementsCsv {
         $etab->remove('zones');
         $etab->add('zones');
         foreach ($result as $confZoneId) {
-        	$confZone = ConfigurationZoneClient::getInstance()->find($confZoneId);
+        	$confZone = $this->_zones[$confZoneId];
         	$z = $etab->zones->add($confZoneId);
         	$z->libelle = $confZone->libelle;
         	$z->transparente = $confZone->transparente;
         	$z->administratrice = $confZone->administratrice;
         }
-
+		$correspondances = explode('|', $line[EtablissementCsv::COL_CORRESPONDANCES]);
+		$etab->remove('correspondances');
+        $etab->add('correspondances');
+        foreach ($this->_interpros as $interId => $inter) {
+        	if ($inter->correspondances->exist($etab->identifiant)) {
+        		$inter->correspondances->remove($etab->identifiant);
+        		$inter->save();
+        		$this->_interpros[$interId] = $inter;
+        	}
+        }
+        foreach ($correspondances as $correspondance) {
+        	$c = explode(':', $correspondance);
+        	if (count($c) == 2) {
+        		$interpro = $this->_interpros[InterproClient::getInstance()->matchInterpro($c[0])];
+        		$idCorrespondance = trim($c[1]);
+        		$etab->correspondances->add($interpro->_id, $idCorrespondance);
+        		$interpro->correspondances->add($etab->identifiant, $idCorrespondance);
+        		$interpro->save();
+        		$this->_interpros[InterproClient::getInstance()->matchInterpro($c[0])] = $interpro;
+        	}
+        }
+		
         return $etab;
     }
     

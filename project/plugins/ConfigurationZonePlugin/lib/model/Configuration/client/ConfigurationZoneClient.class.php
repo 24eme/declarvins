@@ -9,10 +9,16 @@ class ConfigurationZoneClient extends acCouchdbClient
 	const ZONE_LANGUEDOC = 'CONFIGURATION-ZONE-IGP-LANGUEDOC';
 	const ZONE_ANIVIN = 'CONFIGURATION-ZONE-ANIVIN';
 	
+	protected static $_zones = array(self::ZONE_RHONE, self::ZONE_PROVENCE, self::ZONE_IVSE, self::ZONE_LANGUEDOC, self::ZONE_ANIVIN);
+	
 	public static function getInstance() 
 	{
 	  	return acCouchdbManager::getClient("ConfigurationZone");
 	}
+    
+    public function getAllZones() {
+    	return self::$_zones;
+    }
 
 	public function getZonesInitialConfiguration() 
 	{
@@ -94,6 +100,44 @@ class ConfigurationZoneClient extends acCouchdbClient
       }
 
       throw new sfException("La zone $zone n'est pas reconnue");
+    }
+    
+	public function getGrcCode($zone) {
+      if ($zone == self::ZONE_RHONE) {
+        return 'rhon';
+      }
+      if ($zone == self::ZONE_PROVENCE) {
+        return 'prov';
+      }
+      if ($zone == self::ZONE_LANGUEDOC) {
+        return 'ldoc';
+      }
+      if ($zone == self::ZONE_IVSE) {
+        return 'ivse';
+      }
+      if ($zone == self::ZONE_ANIVIN) {
+        return 'vsig';
+      }
+	  return '';
+    }
+    
+	public function getGrcLibelle($zone) {
+      if ($zone == self::ZONE_RHONE) {
+        return 'Rhone';
+      }
+      if ($zone == self::ZONE_PROVENCE) {
+        return 'Provence';
+      }
+      if ($zone == self::ZONE_LANGUEDOC) {
+        return 'Languedoc';
+      }
+      if ($zone == self::ZONE_IVSE) {
+        return 'IVSE';
+      }
+      if ($zone == self::ZONE_ANIVIN) {
+        return 'Anivins';
+      }
+	  return '';
     }
 	
 }

@@ -42,3 +42,6 @@ viewDRMEdi:
 pushGrcEdi:
   url: /edi/push/grc/:interpro
   param: {module: edi, action: pushGrc}
+streamGrcEdi:
+  url: /edi/grc/:interpro
+  param: {module: edi, action: streamGrc}

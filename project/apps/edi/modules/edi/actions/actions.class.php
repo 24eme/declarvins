@@ -62,7 +62,7 @@ class ediActions extends sfActions
     $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
     $daids = DAIDSDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'));
-    return $this->renderCsv($daids->rows, DAIDSDateView::VALUE_DATEDESAISIE, "DAIDS", $dateTime->format('c'));
+    return $this->renderCsv($daids->rows, DAIDSDateView::VALUE_DATEDESAISIE, "DAIDS", $dateTime->format('c'), $interpro, array(DAIDSDateView::VALUE_IDENTIFIANT_DECLARANT));
   }
   
   public function executeStreamVrac(sfWebRequest $request) 
@@ -81,7 +81,7 @@ class ediActions extends sfActions
     $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
     $vracs = $this->vracCallback($interpro, VracDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows);
-    return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "VRAC", $dateTime->format('c'));
+    return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "VRAC", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID, VracDateView::VALUE_MANDATAIRE_ID));
   }
   
   public function executeStreamDRM(sfWebRequest $request) 
@@ -100,7 +100,7 @@ class ediActions extends sfActions
     $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
     $drms = DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'), true);
-    return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $dateTime->format('c'));
+    return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $dateTime->format('c'), $interpro, array(DRMDateView::VALUE_IDENTIFIANT_DECLARANT));
   }
   
   public function executeStreamCampagneDRM(sfWebRequest $request) 
@@ -122,7 +122,7 @@ class ediActions extends sfActions
     $dateForViewDebut = new DateTime($campagneManager->getDateDebutByCampagne($campagne));
     $dateForViewfin = new DateTime($campagneManager->getDateFinByCampagne($campagne));
     $drms = DRMDateView::getInstance()->findByInterproAndDates($interpro, array('begin' => $dateForViewDebut->modify('-1 second')->format('c'), 'end' => $dateForViewfin->modify('+1 day')->modify('-1 second')->format('c')), true);
-    return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $datedebut->format('c'));
+    return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $datedebut->format('c'), $interpro, array(DRMDateView::VALUE_IDENTIFIANT_DECLARANT));
   }
   
   public function executeStreamAnneeDRM(sfWebRequest $request) 
@@ -145,7 +145,7 @@ class ediActions extends sfActions
     $dateForViewfin = new DateTime($annee.'-01-01');
     $dateForViewfin->modify("+1 year")->modify("-1 day");
     $drms = DRMDateView::getInstance()->findByInterproAndDates($interpro, array('begin' => $dateForViewDebut->modify('-1 second')->format('c'), 'end' => $dateForViewfin->modify('+1 second')->format('c')), true);
-    return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $datedebut->format('c'));
+    return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $datedebut->format('c'), $interpro, array(DRMDateView::VALUE_IDENTIFIANT_DECLARANT));
   }
   
   public function executeStreamDRMEtablissement(sfWebRequest $request) 
@@ -162,8 +162,9 @@ class ediActions extends sfActions
     }
     $etablissement = $request->getParameter('etablissement');
     $this->securizeEtablissement($etablissement);
+    $etab = EtablissementClient::getInstance()->find($etablissement);
     $drms = DRMEtablissementView::getInstance()->findByEtablissement($etablissement, $dateForView);
-    return $this->renderCsv($drms->rows, DRMEtablissementView::VALUE_DATEDESAISIE, "DRM", $date);
+    return $this->renderCsv($drms->rows, DRMEtablissementView::VALUE_DATEDESAISIE, "DRM", $date, $etab->interpro);
   }
   
   public function executePushDRMEtablissement(sfWebRequest $request)
@@ -218,7 +219,7 @@ class ediActions extends sfActions
     $this->securizeEtablissement($etablissement);
     $etablissementObject = EtablissementClient::getInstance()->find($etablissement);
     $vracs = $this->vracCallback($etablissementObject->interpro, VracEtablissementView::getInstance()->findByEtablissement($etablissement, $dateForView)->rows);
-    return $this->renderCsv($vracs, VracEtablissementView::VALUE_DATE_SAISIE, "VRAC", $date);
+    return $this->renderCsv($vracs, VracEtablissementView::VALUE_DATE_SAISIE, "VRAC", $date, $etablissementObject->interpro);
   }
   
   public function executePushVracEtablissement(sfWebRequest $request)
@@ -353,6 +354,128 @@ class ediActions extends sfActions
     	}
     	return $this->renderSimpleCsv($result, "grc");
 	}
+	
+	public function executeStreamGrc(sfWebRequest $request)
+	{
+		ini_set('memory_limit', '2048M');
+	  	set_time_limit(0);
+	    $interproId = $request->getParameter('interpro');
+	    $this->securizeInterpro($interproId);
+	    if (!preg_match('/^INTERPRO-/', $interproId)) {
+			$interproId = 'INTERPRO-'.$interproId;
+	    }
+	    $interpro = InterproClient::getInstance()->find($interproId);
+		$rows = EtablissementAllView::getInstance()->findAllByZone($interpro->zone);
+		$eClient = EtablissementClient::getInstance();
+		$zClient = ConfigurationZoneClient::getInstance();
+		$result = '';
+		foreach($rows as $row) {
+			$etablissement = $eClient->find($row->id);
+			$compte = $etablissement->getCompteObject();
+			$result .= $etablissement->identifiant;
+			$result .= ';';
+			$result .= $etablissement->num_interne;
+			$result .= ';';
+			$result .= str_replace('CONTRAT-', '', $etablissement->contrat_mandat);
+			$result .= ';';
+			$result .= str_replace('INTERPRO-', '', $etablissement->interpro);
+			$result .= ';';
+			$result .= $etablissement->siret;
+			$result .= ';';
+			$result .= $etablissement->cni;
+			$result .= ';';
+			$result .= $etablissement->cvi;
+			$result .= ';';
+			$result .= $etablissement->no_accises;
+			$result .= ';';
+			$result .= $etablissement->no_tva_intracommunautaire;
+			$result .= ';';
+			$result .= $etablissement->email;
+			$result .= ';';
+			$result .= $etablissement->telephone;
+			$result .= ';';
+			$result .= $etablissement->fax;
+			$result .= ';';
+			$result .= $etablissement->raison_sociale;
+			$result .= ';';
+			$result .= $etablissement->nom;
+			$result .= ';';
+			$result .= $etablissement->siege->adresse;
+			$result .= ';';
+			$result .= $etablissement->siege->commune;
+			$result .= ';';
+			$result .= $etablissement->siege->code_postal;
+			$result .= ';';
+			$result .= $etablissement->siege->pays;
+			$result .= ';';
+			$result .= $etablissement->famille;
+			$result .= ';';
+			$result .= $etablissement->sous_famille;
+			$result .= ';';
+			$result .= $etablissement->comptabilite->adresse;
+			$result .= ';';
+			$result .= $etablissement->comptabilite->commune;
+			$result .= ';';
+			$result .= $etablissement->comptabilite->code_postal;
+			$result .= ';';
+			$result .= $etablissement->comptabilite->pays;
+			$result .= ';';
+			$result .= $etablissement->service_douane;
+			$result .= ';';
+			$result .= '';
+			$result .= ';';
+			$result .= $etablissement->statut;
+			$result .= ';';
+			$result .= ($compte)? $compte->nom : '';
+			$result .= ';';
+			$result .= ($compte)? $compte->prenom : '';
+			$result .= ';';
+			$result .= ($compte)? $compte->fonction : '';
+			$result .= ';';
+			$result .= ($compte)? $compte->email : '';
+			$result .= ';';
+			$result .= ($compte)? $compte->telephone : '';
+			$result .= ';';
+			$result .= ($compte)? $compte->fax : '';
+			$result .= ';';
+			$result .= $etablissement->no_carte_professionnelle;
+			$result .= ';';
+			$zones = array();
+			$zonesLibelles = array();
+			$correspondances = array();
+			if ($etablissement->exist('zones')) {
+				foreach ($etablissement->zones as $zoneId => $zone) {
+					if (!$zone->transparente) {
+						$zones[] = $zClient->getGrcCode($zoneId);
+						$zonesLibelles[] = $zClient->getGrcLibelle($zoneId);
+					}
+				}
+			}
+			if ($etablissement->exist('correspondances')) {
+				foreach ($etablissement->correspondances as $inter => $id) {
+						$correspondances[] = str_replace('INTERPRO-', '', $inter).':'.$id;
+				}
+			}
+			$result .= ($zones)? implode('|', $zones) : '';
+			$result .= ';';
+			$result .= ($zonesLibelles)? implode('|', $zonesLibelles) : '';
+			$result .= ';';
+			$result .= ($correspondances)? implode('|', $correspondances) : '';
+			$result .= "\n";
+		}
+	    if (!$result) {
+			$this->response->setStatusCode(204);
+			return $this->renderText(null);
+	    }
+	    $date = date('r');
+	    $now = date('c');
+		$this->response->setContentType('text/csv');
+	    $this->response->setHttpHeader('md5', md5($result));
+	    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$interproId."_GRC_".$now.".csv");
+	    $this->response->setHttpHeader('LastDocDate', $date);
+	    $this->response->setHttpHeader('Last-Modified', $date);
+	    return $this->renderText($result);
+	}
   
   
   protected function vracCallback($interpro, $items)
@@ -368,7 +491,7 @@ class ediActions extends sfActions
   		return $vracs;
   }
 
-  protected function renderCsv($items, $dateSaisieIndice, $type, $date = null) 
+  protected function renderCsv($items, $dateSaisieIndice, $type, $date = null, $interpro, $correspondances = array()) 
   {
     $this->setLayout(false);
     $csv_file = '';
@@ -377,9 +500,17 @@ class ediActions extends sfActions
     $beginDate = '9999-99-99';
     $rc1 = chr(10);
     $rc2 = chr(13);
+    $tableCorrespondances = $this->getTableCorrespondance($interpro);
     foreach ($items as $item) {
-            $csv_file .= str_replace(array($rc1, $rc2), array(' ', ' '), implode(';', str_replace(';', '-', $item->value)));
-      		$csv_file .= "\n";
+    	if ($tableCorrespondances && $correspondances) {
+    		foreach ($correspondances as $correspondance) {
+    			if ($item->value[$correspondance] && in_array($item->value[$correspondance], array_keys($tableCorrespondances))) {
+    				$item->value[$correspondance] = $tableCorrespondances[$item->value[$correspondance]];
+    			}
+    		}
+    	}
+        $csv_file .= str_replace(array($rc1, $rc2), array(' ', ' '), implode(';', str_replace(';', '-', $item->value)));
+      	$csv_file .= "\n";
       	if ($lastDate < $item->value[$dateSaisieIndice]) {
       		$lastDate = $item->value[$dateSaisieIndice];
       	}
@@ -400,6 +531,12 @@ class ediActions extends sfActions
     $this->response->setHttpHeader('LastDocDate', $lastDate);
     $this->response->setHttpHeader('Last-Modified', date('r', strtotime($lastDate)));
     return $this->renderText($csv_file);
+  }
+  
+  protected function getTableCorrespondance($interproId)
+  {
+  	$interpro = InterproClient::getInstance()->find($interproId);
+  	return $interpro->correspondances->toArray();
   }
 	
   protected function renderSimpleCsv($items, $type, $date = null) 

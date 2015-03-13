@@ -128,6 +128,11 @@ Interpro:
         definition:
           fields:
             '*': {  }
+      correspondances:
+        type: collection
+        definition:
+          fields:
+            '*': {  }
       email_contrat_vrac: {  }
       email_contrat_inscription: {  }
 

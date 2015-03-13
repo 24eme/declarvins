@@ -36,6 +36,8 @@ class EtablissementCsv {
     const COL_CHAMPS_COMPTE_FAX = 32;
     const COL_NO_CARTE_PROFESSIONNELLE = 33;
     const COL_ZONES = 34;
-    const NB_COL = 35;
+    const COL_ZONES_LIBELLES = 35;
+    const COL_CORRESPONDANCES = 36;
+    const NB_COL = 37;
 }
 
