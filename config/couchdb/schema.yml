@@ -73,3 +73,9 @@ Etablissement:
                   libelle: {  }
                   transparente: {  }
                   administratrice: {  }
+      correspondances:
+        type: collection
+        required: false
+        definition:
+          fields:
+            '*': {  }
