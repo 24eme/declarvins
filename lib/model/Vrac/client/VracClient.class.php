@@ -218,13 +218,19 @@ class VracClient extends acCouchdbClient {
     
     public static function sortVracId($a, $b) 
     {
-    	preg_match('/VRAC-([0-9a-zA-Z])*/', $a, $ma1);
-    	preg_match('/VRAC-([0-9a-zA-Z])*/', $b, $mb1);
-    	$hasVersionA = preg_match('/([0-9a-zA-Z\-])*-(M|R)([0-9]){2}$/', $a, $ma);
-    	$hasVersionB = preg_match('/([0-9a-zA-Z\-])*-(M|R)([0-9]){2}$/', $b, $mb);
+    	preg_match('/VRAC-([0-9a-zA-Z]*)/', $a, $ma1);
+    	preg_match('/VRAC-([0-9a-zA-Z]*)/', $b, $mb1);
+    	$hasVersionA = preg_match('/([0-9a-zA-Z\-]*)-(M|R)([0-9]{2})$/', $a, $ma);
+    	$hasVersionB = preg_match('/([0-9a-zA-Z\-]*)-(M|R)([0-9]{2})$/', $b, $mb);
     	
     	if ((!$hasVersionA && !$hasVersionB) || $ma1[1] != $mb1[1]) {
-    		return -1 * strcasecmp($a, $b);
+    		if ($ma1[1] > $mb1[1]) {
+                        return -1;
+            }
+            if ($ma1[1] < $mb1[1]) {
+            	return 1;
+            }
+            return 0;
     	}
     	
     	if (!$hasVersionA) {
