@@ -1,20 +1,14 @@
 <?php echo include_partial('Email/headerMail') ?>
 
-Entreprise : <?php if($vrac->{$acteur}->nom) { echo $vrac->{$acteur}->nom; } if($vrac->{$acteur}->raison_sociale) { echo ($vrac->{$acteur}->nom)? ' / '.$vrac->{$acteur}->raison_sociale : $vrac->{$acteur}->raison_sociale; } echo ($vrac->{$acteur}->famille)? ' - '.ucfirst($vrac->{$acteur}->famille) : ''; ?><?php if ($vrac->{$acteur}->telephone) {echo ' '.$vrac->{$acteur}->telephone;} if ($vrac->{$acteur}->fax) {echo ' '.$vrac->{$acteur}->fax;} if ($vrac->{$acteur}->email) {echo ' '.$vrac->{$acteur}->email;} ?><br /><br />
+Entreprise :  <?php if($vrac->{$acteur}->nom) { echo $vrac->{$acteur}->nom; } if($vrac->{$acteur}->raison_sociale) { echo ($vrac->{$acteur}->nom)? ' / '.$vrac->{$acteur}->raison_sociale : $vrac->{$acteur}->raison_sociale; } echo ($vrac->{$acteur}->famille)? ' - '.ucfirst($vrac->{$acteur}->famille) : ''; ?><?php if ($vrac->{$acteur}->telephone) {echo ' '.$vrac->{$acteur}->telephone;} if ($vrac->{$acteur}->fax) {echo ' '.$vrac->{$acteur}->fax;} if ($vrac->{$acteur}->email) {echo ' '.$vrac->{$acteur}->email;} ?><br /><br />
 Madame, Monsieur,<br /><br />
-<?php if ($etablissement): ?>
-	<?php if ($vrac->isRectificative()): ?>
-	La demande de rectification du contrat de transaction faite le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?> a été refusée à la demande de l'entreprise <?php if($etablissement->nom) { echo $etablissement->nom; } if($etablissement->raison_sociale) { echo ($etablissement->nom)? ' / '.$etablissement->raison_sociale : $etablissement->raison_sociale; } echo ($etablissement->famille)? ' - '.ucfirst($etablissement->famille) : ''; ?>.<br />
-	<strong>Le contrat initial saisie le <?php echo strftime('%d/%m/%Y', strtotime($vrac->getMaster()->valide->date_saisie)) ?> est donc toujours considéré comme valable.</strong><br /><br />
-	<?php else: ?>
-	Le contrat de transaction saisi le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?> a été refusé à la demande de l'entreprise <?php if($etablissement->nom) { echo $etablissement->nom; } if($etablissement->raison_sociale) { echo ($etablissement->nom)? ' / '.$etablissement->raison_sociale : $etablissement->raison_sociale; } echo ($etablissement->famille)? ' - '.ucfirst($etablissement->famille) : ''; ?>.<br />
-	<strong>Ce contrat a donc été supprimé et est considéré comme non valable.</strong><br /><br />
-	<?php endif; ?> 
+<?php if ($etab): ?>
+L'entreprise <?php if($etab->nom) { echo $etab->nom; } if($etab->raison_sociale) { echo ($etab->nom)? ' / '.$etab->raison_sociale : $etab->raison_sociale; } echo ($etab->famille)? ' - '.ucfirst($etab->famille) : ''; ?> a refusé l'annulation du contrat<?php if ($vrac->isRectificative()): ?> rectifié<?php endif; ?> numéro <?php echo $vrac->numero_contrat; ?> vous concernant.<br /><br />
 <?php else: ?>
-Votre interprofession a annulé le contrat numéro <?php echo $vrac->numero_contrat; ?> vous concernant.<br /><br />
-<strong>Ce contrat a donc été supprimé et est considéré comme non valable.</strong><br /><br />
+Votre interprofession a refusé l'annulation du contrat numéro <?php echo $vrac->numero_contrat; ?> vous concernant.<br /><br />
 <?php endif; ?>
-Pour mémoire, le contrat portait sur la transaction suivante :<br />
+<strong>Ce contrat n'a donc pas été supprimé et est toujours considéré comme valable.</strong><br /><br />
+Le contrat saisi porte sur la transaction suivante :<br />
 Date de saisie : <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?><br />
 Produit : <?php echo $vrac->getLibelleProduit() ?><br />
 Millésime : <?php echo $vrac->millesime ?><br />
@@ -49,7 +43,6 @@ Courtier :<br />
 <br />
 <?php endif; ?>
 Commentaire : <?php echo $vrac->commentaires ?><br /><br />
-Nous vous invitons à vous rapprocher de vos partenaires.<br /><br />
 Pour toute information, vous pouvez <a href="<?php echo ProjectConfiguration::getAppRouting()->generate('contact', array(), true); ?>">contacter votre interprofession</a><br /><br />
 Cordialement,<br /><br />
 L'équipe Declarvins.net 

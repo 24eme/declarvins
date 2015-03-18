@@ -53,6 +53,9 @@ class Email {
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
         $subject = 'Demande de validation d\'un contrat interprofessionnel';
+        if ($vrac->isRectificative()) {
+        	$subject .= ' RECTIFIE';
+        }
         $body = $this->getBodyFromPartial('vrac_demande_validation_interpro', array('vrac' => $vrac, 'acteur' => $acteur));
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
@@ -131,7 +134,59 @@ class Email {
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
         $subject = 'Refus d\'un contrat interprofessionnel';
+        if ($vrac->isRectificative()) {
+        	$subject .= ' RECTIFIE';
+        }
         $body = $this->getBodyFromPartial('vrac_contrat_annulation', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur));
+        $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+
+        return $this->getMailer()->send($message);
+    }
+    
+
+    
+    public function vracDemandeAnnulation($vrac, $etab, $etablissement, $destinataire, $acteur) 
+    {
+        $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
+        $from = $this->getFromEmailInterpros($interpros);
+        $to = array($destinataire);
+        $subject = 'Demande d\'annulation d\'un contrat interprofessionnel';
+        if ($vrac->isRectificative()) {
+        	$subject .= ' RECTIFIE';
+        }
+        $body = $this->getBodyFromPartial('vrac_demande_annulation', array('vrac' => $vrac, 'etab' => $etab, 'etablissement' => $etablissement, 'acteur' => $acteur));
+        $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+
+        return $this->getMailer()->send($message);
+    }
+    
+
+    
+    public function vracRefusAnnulation($vrac, $etab, $etablissement, $destinataire, $acteur) 
+    {
+        $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
+        $from = $this->getFromEmailInterpros($interpros);
+        $to = array($destinataire);
+        $subject = 'Refus d\'annulation d\'un contrat interprofessionnel';
+        if ($vrac->isRectificative()) {
+        	$subject .= ' RECTIFIE';
+        }
+        $body = $this->getBodyFromPartial('vrac_refus_annulation', array('vrac' => $vrac, 'etab' => $etab, 'etablissement' => $etablissement, 'acteur' => $acteur));
+        $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+
+        return $this->getMailer()->send($message);
+    }
+    
+    public function vracDemandeAnnulationInterpro($vrac, $etab, $etablissement, $destinataire, $acteur) 
+    {
+        $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
+        $from = $this->getFromEmailInterpros($interpros);
+        $to = array($destinataire);
+        $subject = 'Demande d\'annulation d\'un contrat interprofessionnel';
+        if ($vrac->isRectificative()) {
+        	$subject .= ' RECTIFIE';
+        }
+        $body = $this->getBodyFromPartial('vrac_demande_annulation_interpro', array('vrac' => $vrac, 'etab' => $etab, 'etablissement' => $etablissement, 'acteur' => $acteur));
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
         return $this->getMailer()->send($message);
