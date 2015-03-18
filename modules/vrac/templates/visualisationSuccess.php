@@ -34,8 +34,13 @@ if (VracClient::getInstance()->find($rectif->_id) || VracClient::getInstance()->
             	<?php if ($sf_user->hasFlash('annulation')): ?>
 					<p id="titre" style="text-align: left; margin-bottom: 30px;">
 					Votre rejet du contrat a bien été pris en compte.<br />
-					L'information sera transmise à toutes les parties concernées.<br />
-					Ce contrat est désormais supprimé et considéré comme non valable.
+					L'information sera transmise à toutes les parties concernées.
+					</p>
+				<?php endif; ?>
+            	<?php if ($sf_user->hasFlash('attente_annulation')): ?>
+					<p id="titre" style="text-align: left; margin-bottom: 30px;">
+					Votre rejet du contrat a bien été pris en compte.<br />
+					Une confirmation va être envoyée aux autres parties concernées pour acceptation.
 					</p>
 				<?php endif; ?>
                 <div id="titre">
@@ -58,6 +63,7 @@ if (VracClient::getInstance()->find($rectif->_id) || VracClient::getInstance()->
                     <?php if (($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 				        
 				        <div id="ligne_btn">
+				        	<?php if ($vrac->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE): ?>
 				        		<?php if($hasNextVersion): ?>
 				        			<button id="btn_editer_contrat"  class="modifier" style="font-size: 12px; background-color: #E42C2C; border-color: #E42C2C;">Une version du contrat est en cours</button>
 				        		<?php else: ?>
@@ -65,7 +71,8 @@ if (VracClient::getInstance()->find($rectif->_id) || VracClient::getInstance()->
 				                <button type="submit" id="btn_editer_contrat"  class="modifier" style="font-size: 12px;">Soumettre un contrat rectificatif</button>
 				            </form>
 				            	<?php endif; ?>
-                            <?php if($vrac->isEditable() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+				            <?php endif; ?>
+                            <?php if($vrac->isEditable() && !$hasNextVersion): ?>
 	                        <a href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat" style="font-size: 12px;" onclick="return confirm('Confirmez-vous l\'annulation de ce contrat ?')"> Annuler le contrat</a>
                             <?php endif; ?>  
 				        </div>

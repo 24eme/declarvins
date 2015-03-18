@@ -205,6 +205,56 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	$this->volume_propose = ($this->volume_propose)? $this->volume_propose * 1 : 0;
     	$this->volume_enleve = ($this->volume_enleve)? $this->volume_enleve * 1 : 0;
     }
+    
+    public function annuler($user, $etablissement = null, $force = false) {
+    	$this->getOrAdd('annulation');
+    	$this->valide->statut = VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION;
+    	if (!$this->annulation->identifiant) {
+    		$this->annulation->identifiant = $user->getCompte()->_id;
+    	}
+    	if (!$this->annulation->etablissement && $etablissement) {
+    		$this->annulation->etablissement = $etablissement->_id;
+    	}
+    	$acteurs = VracClient::getInstance()->getActeurs();
+      	if (!$this->mandataire_exist) {
+      		unset($acteurs[array_search(VracClient::VRAC_TYPE_COURTIER, $acteurs)]);
+      	}
+    	if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $force) {
+    		$this->annulation->date_annulation = date('c');
+    		foreach ($acteurs as $acteur) {
+    			$validateur = 'date_annulation_'.$acteur;
+    			if (!$this->annulation->get($validateur)) {
+    				$this->annulation->{$validateur} = $this->annulation->date_annulation;
+    			}
+    		}
+    		$this->valide->statut = VracClient::STATUS_CONTRAT_ANNULE;
+    	} else {
+    		if ($etablissement) {
+    			$type = $this->getTypeByEtablissement($etablissement->identifiant);
+    			if ($type && in_array($type, $acteurs)) {
+	    			$validateur = 'date_annulation_'.$type;
+	    			$this->annulation->{$validateur} = date('c');
+	    		}
+    		} else {
+	    		if ($this->vous_etes && in_array($this->vous_etes, $acteurs)) {
+	    			$validateur = 'date_annulation_'.$this->vous_etes;
+	    			$this->annulation->{$validateur} = date('c');
+	    		}
+    		}
+    		$statut_annule = true;
+	      	foreach ($acteurs as $acteur) {
+	      		$validateur = 'date_annulation_'.$acteur;
+	      		if (!$this->annulation->get($validateur)) {
+	      			$statut_annule = false;
+	      			break;
+	      		}
+	      	}
+	      	if ($statut_annule) {
+	      		$this->valide->statut = VracClient::STATUS_CONTRAT_ANNULE;
+	    		$this->annulation->date_annulation = date('c');
+	      	}
+    	}
+    }
 
     public function validate($user, $etablissement = null) {
     	$this->valide->statut = VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION;

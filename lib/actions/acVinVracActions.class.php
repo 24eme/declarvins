@@ -136,21 +136,27 @@ class acVinVracActions extends sfActions
         		$statut_credentials = VracClient::getInstance()->getStatusContratCredentials();
         		$statut_credentials = $statut_credentials[$this->vrac->valide->statut];
         		if (in_array($this->statut, $statut_credentials)) {
-        			$valide = $this->vrac->isValide();
+        			$isEditable = $this->vrac->isEditable();
+        			$lastStatut = $this->vrac->valide->statut;
         			$this->vrac->valide->statut = $this->statut;
-        			$this->vrac->save();
         			if ($this->statut == VracClient::STATUS_CONTRAT_ANNULE) {
-						$this->contratAnnulation($this->vrac, $this->etablissement);
-						$this->getUser()->setFlash('annulation', true);
+        				if (!$isEditable) {
+        					throw new sfError404Exception('Tentative de hack');
+        				}
+        				$this->vrac->annuler($this->getUser(), $this->etablissement);
+        				if ($this->vrac->valide->statut == VracClient::STATUS_CONTRAT_ANNULE) {
+							$this->contratAnnulation($this->vrac, $this->vrac->getProduitInterpro(), $this->etablissement);
+							$this->getUser()->setFlash('annulation', true);
+        				} else {
+							$this->contratDemandeAnnulation($this->vrac, $this->vrac->getProduitInterpro(), $this->etablissement);
+							$this->getUser()->setFlash('attente_annulation', true);
+        				}
         			}
-        			if (!$valide) {
-        				$this->vrac->delete();
-        				if(!$this->etablissement) {
-				            $this->redirect('vrac_admin');
-				        }
-				
-						$this->redirect('vrac_etablissement', array('sf_subject' => $this->etablissement));
+        			if ($this->statut == VracClient::STATUS_CONTRAT_NONSOLDE && $lastStatut == VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION) {
+							$this->contratRefusAnnulation($this->vrac, $this->vrac->getProduitInterpro(), $this->etablissement);
+							$this->getUser()->setFlash('refus_annulation', true);
         			}
+        			$this->vrac->save();
         			$this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
         		}
         	} else {
@@ -366,6 +372,33 @@ class acVinVracActions extends sfActions
 		}
 	}
 	
+	public function executeAnnulation(sfWebRequest $request)
+	{
+		$this->forward404Unless($this->acteur = $request->getParameter('acteur', null));
+		$acteurs = VracClient::getInstance()->getActeurs();
+      	if (!in_array($this->acteur, $acteurs)) {
+        	throw new sfException('Acteur '.$acteur.' invalide!');
+      	}
+		$this->vrac = $this->getRoute()->getVrac();
+        $this->etablissement = $this->getRoute()->getEtablissement();
+        $this->init($this->vrac, $this->etablissement);
+        $annulationActeur = 'date_annulation_'.$this->acteur;
+        $this->dateAnnulationActeur = $this->vrac->annulation->{$annulationActeur};
+        $this->form = new VracannulationForm($this->vrac->annulation, $this->acteur, $this->getUser() , $this->etablissement);
+		if ($request->isMethod(sfWebRequest::POST)) {
+			$this->form->bind($request->getParameter($this->form->getName()));
+			if ($this->form->isValid()) {
+				$this->form->save();
+				$this->getUser()->setFlash('annulation', true);
+				if ($this->vrac->valide->statut == VracClient::STATUS_CONTRAT_ANNULE) {
+					$this->contratAnnulation($this->vrac, $this->vrac->getProduitInterpro(), null);
+					$this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
+				}
+				$this->redirect('vrac_annulation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement, 'acteur' => $this->acteur));
+			}
+		}
+	}
+	
 	public function executeValide(sfWebRequest $request) {
 		$this->etablissement = $this->getRoute()->getEtablissement();
     }
@@ -491,9 +524,19 @@ class acVinVracActions extends sfActions
 		return;
 	}
 	
-	protected function contratAnnulation($vrac, $etablissement = null) {
+	protected function contratAnnulation($vrac, $interpro, $etablissement = null) {
 		return;
 	}
+	
+	protected function contratDemandeAnnulation($vrac, $interpro, $etablissement = null) {
+		return;
+	}
+	
+	protected function contratRefusAnnulation($vrac, $interpro, $etablissement = null) {
+		return;
+	}
+	
+	
 
 
 }

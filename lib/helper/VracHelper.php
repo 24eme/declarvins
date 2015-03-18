@@ -39,6 +39,8 @@ function statusColor($status)
     
     switch ($status)
     {
+        case VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION:
+            return 'statut_annule';
         case VracClient::STATUS_CONTRAT_ANNULE:
             return 'statut_annule';
         case VracClient::STATUS_CONTRAT_SOLDE:

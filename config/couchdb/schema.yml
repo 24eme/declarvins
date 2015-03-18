@@ -248,6 +248,17 @@ Vrac:
       date_signature: {  }
       date_relance: {  }
       volume_enleve: { type: float }
+      annulation:
+        type: collection
+        required: false
+        definition:
+          fields:
+            date_annulation_vendeur: {  }
+            date_annulation_acheteur: {  }
+            date_annulation_mandataire: {  }
+            date_annulation: {  }
+            identifiant: {  }
+            etablissement: {  }
       valide:
         type: collection
         definition:

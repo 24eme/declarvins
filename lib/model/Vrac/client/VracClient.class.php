@@ -15,23 +15,27 @@ class VracClient extends acCouchdbClient {
     const STATUS_CONTRAT_ANNULE = 'ANNULE';
     const STATUS_CONTRAT_NONSOLDE = 'NONSOLDE';
     const STATUS_CONTRAT_ATTENTE_VALIDATION = 'ATTENTE_VALIDATION';
+    const STATUS_CONTRAT_ATTENTE_ANNULATION= 'ATTENTE_ANNULATION';
     
     protected $_acteurs = array(self::VRAC_TYPE_VENDEUR, self::VRAC_TYPE_ACHETEUR, self::VRAC_TYPE_COURTIER);
     
     protected $_status_contrat = array(self::STATUS_CONTRAT_SOLDE, 
                                                    self::STATUS_CONTRAT_ANNULE,
                                                    self::STATUS_CONTRAT_NONSOLDE,
-                                                   self::STATUS_CONTRAT_ATTENTE_VALIDATION);
+                                                   self::STATUS_CONTRAT_ATTENTE_VALIDATION,
+                                                   self::STATUS_CONTRAT_ATTENTE_ANNULATION);
     
     protected $_status_contrat_credentials = array(self::STATUS_CONTRAT_SOLDE => array(self::STATUS_CONTRAT_NONSOLDE), 
                                                    self::STATUS_CONTRAT_ANNULE => array(),
                                                    self::STATUS_CONTRAT_NONSOLDE => array(self::STATUS_CONTRAT_SOLDE, self::STATUS_CONTRAT_ANNULE),
-                                                   self::STATUS_CONTRAT_ATTENTE_VALIDATION => array(self::STATUS_CONTRAT_NONSOLDE, self::STATUS_CONTRAT_ANNULE));
+                                                   self::STATUS_CONTRAT_ATTENTE_VALIDATION => array(self::STATUS_CONTRAT_NONSOLDE, self::STATUS_CONTRAT_ANNULE),
+                                                   self::STATUS_CONTRAT_ATTENTE_ANNULATION => array());
     
     protected $_status_contrat_css_class = array(self::STATUS_CONTRAT_SOLDE => 'solde', 
                                                    self::STATUS_CONTRAT_ANNULE => 'annule',
                                                    self::STATUS_CONTRAT_NONSOLDE => 'non-solde',
-                                                   self::STATUS_CONTRAT_ATTENTE_VALIDATION => 'attente-validation');
+                                                   self::STATUS_CONTRAT_ATTENTE_VALIDATION => 'attente-validation',
+                                                   self::STATUS_CONTRAT_ATTENTE_ANNULATION => 'annule');
     
 
     const STATUS_VIN_RETIRE = 'retire';
