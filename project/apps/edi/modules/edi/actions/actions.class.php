@@ -279,7 +279,7 @@ class ediActions extends sfActions
     }
   	$statistiquesBilan = new StatistiquesBilan($interpro, $campagne);
 
-        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;';
+        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;';
         foreach ($statistiquesBilan->getPeriodes() as $periode) {
             $csv_file .= "$periode;";
         }

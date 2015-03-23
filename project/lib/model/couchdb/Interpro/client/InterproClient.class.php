@@ -103,8 +103,8 @@ class InterproClient extends acCouchdbClient {
 	    $ivse->set('_id', 'INTERPRO-IVSE');
 	    $ivse->identifiant = 'IVSE';
 	    $ivse->nom = "Intervins Sud-Est";
-	    $ivse->email_contrat_vrac = '';
-	    $ivse->email_contrat_inscription = '';
+	    $ivse->email_contrat_vrac = 'contrat@intervins-sudest.org';
+	    $ivse->email_contrat_inscription = 'contact@intervins-sudest.org';
 	    
 	    $anivin = new Interpro();
 	    $anivin->set('_id', 'INTERPRO-ANIVIN');

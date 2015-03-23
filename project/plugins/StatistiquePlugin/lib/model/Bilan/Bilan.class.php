@@ -15,8 +15,11 @@ class Bilan extends BaseBilan {
         $this->set('_id', BilanClient::getInstance()->buildId($this->identifiant, $this->type_bilan));
     }
 
-    public function updateEtablissement() {
-        $etablissement = EtablissementClient::getInstance()->findByIdentifiant($this->identifiant);
+    public function updateEtablissement($etablissement = null) {
+    	if (!$etablissement) {
+        	$etablissement = EtablissementClient::getInstance()->findByIdentifiant($this->identifiant);
+    	}
+        $this->remove('etablissement');
         $this->add('etablissement');
         $this->etablissement->nom = $etablissement->nom;
         $this->etablissement->statut = $etablissement->statut;
