@@ -7,7 +7,7 @@ class ExportDRM
     protected $pagers_code;
     protected $pager_droits_douane;
 
-	const NB_COL = 8;
+	const NB_COL = 7;
     const NB_COL_CODES = 3;
     const MAX_PER_COL = 31;
 
