@@ -113,7 +113,7 @@
 		#global ul { list-style: disc inside; padding: 0 0 0 20px; }
 		#global .note { font-size: 11px; }
 		#global .important { font-size: 13px; font-weight: bold; }
-		#global .important p { margin: 20px 0; }
+		#global .important p { margin: 10px 0; }
 		#global .souligne { text-decoration: underline; }
 		#global .page_break { page-break-after: always; }
 		
@@ -145,8 +145,8 @@
 		 * Articles
 		 ******************************************/
 		#articles { margin: 0 0 20px;}
-		#articles h2 { font-size: 16px; margin: 30px 0 20px; }
-		#articles h3 { font-family: "Times New Roman", Times, serif; font-size: 16px; font-style: italic; margin: 15px 0; }
+		#articles h2 { font-size: 16px; margin: 10px 0; }
+		#articles h3 { font-family: "Times New Roman", Times, serif; font-size: 16px; font-style: italic; margin: 10px 0; }
                 
                 #footer {
                     position: fixed; left: 0px;
@@ -175,7 +175,15 @@
 <!-- #global -->
 	<div id="global">                
 		<div id="entete_doc">
-                    <br /><br />
+			<div id="logo">
+				<table width="100%">
+					<tr>
+						<td width="33%" align="center"><img src="<?php echo sfConfig::get('sf_web_dir')?>/images/visuels/logo_interpro-ivse.png" alt="InterVins Sud Est" /></td>
+						<td width="33%" align="center"><img src="<?php echo sfConfig::get('sf_web_dir')?>/images/visuels/logo_interpro-ir.png" alt="Inter Rhone" /></td>
+						<td width="33%" align="center"><img src="<?php echo sfConfig::get('sf_web_dir')?>/images/visuels/logo_interpro-civp.png" alt="Provence" /></td>
+					</tr>
+				</table>
+			</div>
 			<h1>
 				Contrat d'inscription <br />
 				&laquo; DeclarVins.net &raquo; N° : <?php echo $contrat->no_contrat ?>&nbsp;&nbsp;&nbsp;<sup>(1)</sup><br />
@@ -183,8 +191,6 @@
                     <br />
 			<p class="note">(1) Numéro Interprofessionnel d'enregistrement de l'inscription</p>
 		</div>
-		
-                <br />
                 <br />
                 <br />
                 <p>A un système d'identification sécurisé permettant :<br />
@@ -208,13 +214,21 @@
                                 <br/>
                                 <p class="note">(Attention à vérifier les sécurités, paramètres, et espaces disponibles sur cette adresse mail : des informations importantes vous y seront envoyées. Notamment certains systèmes de sécurité pourraient classer en &laquo; SPAM &raquo; ces informations)</p>
                                 <br/><br/>
+                                <?php 
+									foreach ($contrat->etablissements as $i => $etablissement) {
+										$zones = array();
+					                    foreach ($etablissement->zones as $id => $zone) {
+					                    	if (!$zone->transparente) {
+					                    		$zones[$id] = $zone->libelle;
+					                    	} 
+					                    }
+									}
+								?>
+                                <p class="note">Zones d'influence de son ou ses établissement(s) : <br /><?php echo implode(', ', $zones); ?></p>
+                                <br/><br/>
                         </div>
 			
-			<?php 
-				foreach ($contrat->etablissements as $i => $etablissement): 
-					$zones = array();
-                    foreach ($etablissement->zones as $zone): if (!$zone->transparente) {$zones[] = $zone->libelle;} endforeach;
-			?>
+			<?php foreach ($contrat->etablissements as $i => $etablissement): ?>
 			<div class="societe">
 				<h3><u>Etablissement <?php echo $i+1 ?></u></h3>
 				<p>
@@ -238,7 +252,6 @@
                                 <p>Famille - sous-famille : <strong><?php echo EtablissementFamilles::getFamilleLibelle($etablissement->famille) ?></strong><br />
                                   <?php if($sousFamille): ?> Sous-famille : <strong><?php echo $sousFamille ?></strong><?php endif; ?>
                               </p>
-                                <p>Zones : <strong><?php echo implode(', ', $zones); ?></strong></p>
                                 <p>Provenance EDI : <strong><?php echo ($etablissement->edi) ? "Oui" : "Non" ?></strong></p>
 
                                 <br />
@@ -264,12 +277,12 @@
 		<div class="important">
                     <p>Le déclarant, pour le compte des Etablissements précitées, demande à bénéficier d'une connexion au système informatique &laquo; DeclarVins.net &raquo;, </p>
 		</div>
-                <p>En fonction de la mise en place des services, le système d'indentification ‘Declarvins.net' permet l'accès à la saisie et validation <u>pour l'interprofession</u> de divers documents déclaratifs obligatoires.</p>
+                <p>En fonction de la mise en place des services, le système d'indentification 'Declarvins.net' permet l'accès à la saisie et validation <u>pour les interprofessions</u> de divers documents déclaratifs obligatoires selon les produits concernés en fonction des modalités des accords interprofessionnels en vigueur.</p>
                 <p>Cela concerne : </p>
                 <ul>
                         <li>Contrats Interprofessionnels, </li>
                         <li>DRM (Déclaration Récapitulative Mensuelle),</li>
-                        <li>DAI/DS (Déclaration Annuel d'Inventaire / Déclaration de Stock) production. </li>
+                        <li>DAI/DS (Déclaration Annuel d'Inventaire / Déclaration de Stock). </li>
                 </ul>
                 <p>
                     Cela pourra concerner d'autres obligations déclaratives faisant l'objet d'une convention avec les douanes ou les autres organismes de la filière viti-vinicole.
@@ -281,9 +294,7 @@
                     Des Avenants précisent les partenariats et contrats mandats de dépôt (transport de l'information par DeclarVins vers un autre destinataire pour le compte de l'opérateur déclarant).
                 </p>
                 <div class="important">
-                    <p>
                         Une information vous sera fournie à chaque nouvelle fonctionnalité mise en service, ainsi qu'un avenant récapitulatif de l'ensemble des fonctionnalités et Mandats de dépôt proposés.
-                    </p>
                 </div>
 
         <?php echo include_partial('export/contrat_pdf_conditions',array('contrat' => $contrat)); ?>
@@ -293,7 +304,7 @@
                         <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>, Le <strong></strong>
                         </p>
 			<p>Le déclarant, <strong><?php echo $contrat->nom ?> <?php echo $contrat->prenom ?></strong> signature et cachet :</p><br/> 								
-			<p>L'e-mail d'activation vaut engagement de l'interprofession.<strong></strong></p>
+			<p>L'e-mail d'activation, que vous recevrez après traitement et validation de votre inscription, vaudra engagement de l'interprofession.<strong></strong></p>
 		</div>                
 	</div>
         		

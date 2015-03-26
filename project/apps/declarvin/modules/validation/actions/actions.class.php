@@ -289,7 +289,7 @@ class validationActions extends sfActions {
     	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
     	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
 	  	$pdf = new ExportContratPdf($this->contrat);
-		return $this->renderText($pdf->render($this->getResponse()));
+		return $this->renderText($pdf->render($this->getResponse(), false));
 	  }
   
   public function executeRedefinitionPassword(sfWebRequest $request)
