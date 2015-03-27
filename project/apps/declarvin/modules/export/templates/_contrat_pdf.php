@@ -215,8 +215,8 @@
                                 <p class="note">(Attention à vérifier les sécurités, paramètres, et espaces disponibles sur cette adresse mail : des informations importantes vous y seront envoyées. Notamment certains systèmes de sécurité pourraient classer en &laquo; SPAM &raquo; ces informations)</p>
                                 <br/><br/>
                                 <?php 
+                                	$zones = array();
 									foreach ($contrat->etablissements as $i => $etablissement) {
-										$zones = array();
 					                    foreach ($etablissement->zones as $id => $zone) {
 					                    	if (!$zone->transparente) {
 					                    		$zones[$id] = $zone->libelle;
