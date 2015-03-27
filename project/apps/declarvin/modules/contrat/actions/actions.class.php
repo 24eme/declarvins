@@ -202,7 +202,7 @@ class contratActions extends sfActions
   	$pdf = new ExportContratPdf($contrat);
   	$pdf->generate();
   	
-  	$interpros = $this->getInterprosByZonesForInscription($contrat->getConfigurationZones());
+  	$interpros = $this->getInterprosByZonesForInscription($contrat->getConfigurationZonesForSend());
     Email::getInstance()->sendContratMandat($contrat, $contrat->email, $interpros);
   	foreach ($interpros as $interpro) {
   		if ($interpro->email_contrat_inscription) {
