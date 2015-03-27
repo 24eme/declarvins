@@ -134,15 +134,6 @@ class statistiqueActions extends sfActions {
 	                    $csv_file .=  $cepCode.";";
 	                    $csv_file .=  $detail->total_sorties."\n";
 	                }
-                } else {
-                    $csv_file .= $etablissementFieldCsv;
-                    $csv_file .=  ";";
-                    $csv_file .=  ";";
-                    $csv_file .=  ";";
-                    $csv_file .=  ";";
-                    $csv_file .=  ";";
-                    $csv_file .=  ";";
-                    $csv_file .=  "\n";
                 }
         }
         $this->response->setContentType('text/csv');
