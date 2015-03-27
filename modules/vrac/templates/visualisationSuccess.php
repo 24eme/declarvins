@@ -33,14 +33,14 @@ if (VracClient::getInstance()->find($rectif->_id) || VracClient::getInstance()->
 				<?php endif; ?>
             	<?php if ($sf_user->hasFlash('annulation')): ?>
 					<p id="titre" style="text-align: left; margin-bottom: 30px;">
-					Votre rejet du contrat a bien été pris en compte.<br />
-					L'information sera transmise à toutes les parties concernées.
+					Votre demande d'annulation du contrat a bien été prise en compte.
 					</p>
 				<?php endif; ?>
             	<?php if ($sf_user->hasFlash('attente_annulation')): ?>
 					<p id="titre" style="text-align: left; margin-bottom: 30px;">
-					Votre rejet du contrat a bien été pris en compte.<br />
-					Une confirmation va être envoyée aux autres parties concernées pour acceptation.
+					Votre demande d'annulation du contrat a bien été prise en compte.<br />
+					Elle va être envoyée aux autres parties concernées pour acceptation.<br />
+					En l'absence de validation sous trois jours, la demande d'annulation sera automatiquement rejetée.
 					</p>
 				<?php endif; ?>
                 <div id="titre">
