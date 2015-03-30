@@ -39,7 +39,7 @@
         
         <h4>Procédures de secours </h4>
         
-        <p>Dans le cas extrême où le problème informatique ne pourrait être résolu dans les délais impartis, une procédure de secours sera en place via l'utilisation des liasses papier toujours valides.</p>
+        <p>Dans le cas extrême où le problème informatique ne pourrait être résolu dans les délais impartis, une procédure de secours sera en place, notamment via l'utilisation des liasses papier toujours valides.</p>
         
    	</div>
 
