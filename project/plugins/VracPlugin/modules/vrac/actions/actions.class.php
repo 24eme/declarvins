@@ -104,8 +104,8 @@ class vracActions extends acVinVracActions
 			unset($acteurs[array_search(VracClient::VRAC_TYPE_COURTIER, $acteurs)]);
 		}
 		$etab = null;
-		if ($this->annulation->etablissement) {
-			$etab = EtablissementClient::getInstance()->find($this->annulation->etablissement);
+		if ($vrac->annulation->etablissement) {
+			$etab = EtablissementClient::getInstance()->find($vrac->annulation->etablissement);
 		}
 		foreach ($acteurs as $acteur) {
 			$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
