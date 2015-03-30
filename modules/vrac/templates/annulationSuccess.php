@@ -18,7 +18,7 @@
 				
 		   		
 				<?php if ($vrac->valide->statut == VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION && !$dateAnnulationActeur): ?>
-				<form action="<?php echo url_for('vrac_annulation', array('contrat' => $vrac->numero_contrat, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>" method="post" id="vrac_condition">
+				<form action="<?php echo url_for('vrac_annulation', array('sf_subject' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>" method="post" id="vrac_condition">
 					 <div class="ligne_form_btn">
 						<a class="annuler_saisie" onclick="return confirm('Confirmez-vous le refus de l'\annulation de ce contrat?')" href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_NONSOLDE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat">Refuser l'annulation</a>
 						<?php echo $form->renderHiddenFields() ?>
