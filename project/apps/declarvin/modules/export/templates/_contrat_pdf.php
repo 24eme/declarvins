@@ -214,21 +214,13 @@
                                 <br/>
                                 <p class="note">(Attention à vérifier les sécurités, paramètres, et espaces disponibles sur cette adresse mail : des informations importantes vous y seront envoyées. Notamment certains systèmes de sécurité pourraient classer en &laquo; SPAM &raquo; ces informations)</p>
                                 <br/><br/>
-                                <?php 
-                                	$zones = array();
-									foreach ($contrat->etablissements as $i => $etablissement) {
-					                    foreach ($etablissement->zones as $id => $zone) {
-					                    	if (!$zone->transparente) {
-					                    		$zones[$id] = $zone->libelle;
-					                    	} 
-					                    }
-									}
-								?>
-                                <p class="note">Zones d'influence de son ou ses établissement(s) : <br /><?php echo implode(', ', $zones); ?></p>
-                                <br/><br/>
                         </div>
 			
-			<?php foreach ($contrat->etablissements as $i => $etablissement): ?>
+			<?php 
+				foreach ($contrat->etablissements as $i => $etablissement): 
+					$zones = array();
+                	foreach ($etablissement->zones as $zone): if (!$zone->transparente) {$zones[] = $zone->libelle;} endforeach;
+			?>
 			<div class="societe">
 				<h3><u>Etablissement <?php echo $i+1 ?></u></h3>
 				<p>
@@ -252,6 +244,7 @@
                                 <p>Famille - sous-famille : <strong><?php echo EtablissementFamilles::getFamilleLibelle($etablissement->famille) ?></strong><br />
                                   <?php if($sousFamille): ?> Sous-famille : <strong><?php echo $sousFamille ?></strong><?php endif; ?>
                               </p>
+                              	<p>Zones : <strong><?php echo implode(', ', $zones); ?></strong></p>
                                 <p>Provenance EDI : <strong><?php echo ($etablissement->edi) ? "Oui" : "Non" ?></strong></p>
 
                                 <br />
