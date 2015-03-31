@@ -267,19 +267,20 @@ class ImportEtablissementsCsv {
         foreach ($this->_interpros as $interId => $inter) {
         	if ($inter->correspondances->exist($etab->identifiant)) {
         		$inter->correspondances->remove($etab->identifiant);
-        		$inter->save();
+        		//$inter->save();
         		$this->_interpros[$interId] = $inter;
         	}
         }
         foreach ($correspondances as $correspondance) {
         	$c = explode(':', $correspondance);
         	if (count($c) == 2) {
-        		$interpro = $this->_interpros[InterproClient::getInstance()->matchInterpro($c[0])];
+        		$i = InterproClient::getInstance()->matchInterpro($c[0]);
+        		$interpro = $this->_interpros[$i];
         		$idCorrespondance = trim($c[1]);
         		$etab->correspondances->add($interpro->_id, $idCorrespondance);
         		$interpro->correspondances->add($etab->identifiant, $idCorrespondance);
-        		$interpro->save();
-        		$this->_interpros[InterproClient::getInstance()->matchInterpro($c[0])] = $interpro;
+        		//$interpro->save();
+        		$this->_interpros[$i] = $interpro;
         	}
         }
 		
@@ -337,6 +338,9 @@ class ImportEtablissementsCsv {
 					continue;
 				}
 			}
+      	}
+      	foreach ($this->_interpros as $interpro) {
+      		$interpro->save();
       	}
       	if (count($this->_errors) > 0) {
       		throw new sfException("has errors");
