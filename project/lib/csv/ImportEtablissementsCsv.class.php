@@ -7,6 +7,7 @@ class ImportEtablissementsCsv {
     protected $_errors = array();
     protected $_interpros = array();
     protected $_zones = array();
+    protected $_zoneClient = null;
     protected $_zonesTransparentes = array();
 
     public function __construct(Interpro $interpro) {
@@ -14,15 +15,15 @@ class ImportEtablissementsCsv {
         $this->_interpro = $interpro;
         $this->_csv = array();
         $interproClient = InterproClient::getInstance();
-        $zoneClient = ConfigurationZoneClient::getInstance();
+        $this->_zoneClient = ConfigurationZoneClient::getInstance();
         $interpros = $interproClient->getAllInterpros();
         foreach ($interpros as $i) {
         	$this->_interpros[$i] = $interproClient->find($i);
         }
         $this->_zonesTransparentes = array_keys(ConfigurationClient::getCurrent()->getTransparenteZones());
-        $zones = $zoneClient->getAllZones();
+        $zones = $this->_zoneClient->getAllZones();
         foreach ($zones as $z) {
-        	$this->_zones[$z] = $zoneClient->find($z);
+        	$this->_zones[$z] = $this->_zoneClient->find($z);
         }
     	if (@file_get_contents($file_uri)) {
 	        $handler = fopen($file_uri, 'r');
@@ -239,7 +240,7 @@ class ImportEtablissementsCsv {
         $result = array();
         try {
         	foreach ($zones as $zone) {
-        		$result[] = ConfigurationZoneClient::getInstance()->matchZone($zone);
+        		$result[] = $this->_zoneClient->matchZone($zone);
         	}
         } catch (sfException $e) {
         	if (isset($this->_errors[$ligne])) {
