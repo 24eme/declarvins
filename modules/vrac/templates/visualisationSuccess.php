@@ -43,6 +43,12 @@ if (VracClient::getInstance()->find($rectif->_id) || VracClient::getInstance()->
 					En l'absence de validation sous trois jours, la demande d'annulation sera automatiquement rejetée.
 					</p>
 				<?php endif; ?>
+            	<?php if ($sf_user->hasFlash('refus_annulation')): ?>
+					<p id="titre" style="text-align: left; margin-bottom: 30px;">
+					Vous avez refusé la demande d'annulation du contrat.<br />
+					Celui-ci reste donc effectif et valable.'
+					</p>
+				<?php endif; ?>
                 <div id="titre">
                     <span class="style_label">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'En attente'; ?></span>
                 </div>
