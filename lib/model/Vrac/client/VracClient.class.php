@@ -29,7 +29,7 @@ class VracClient extends acCouchdbClient {
                                                    self::STATUS_CONTRAT_ANNULE => array(),
                                                    self::STATUS_CONTRAT_NONSOLDE => array(self::STATUS_CONTRAT_SOLDE, self::STATUS_CONTRAT_ANNULE),
                                                    self::STATUS_CONTRAT_ATTENTE_VALIDATION => array(self::STATUS_CONTRAT_NONSOLDE, self::STATUS_CONTRAT_ANNULE),
-                                                   self::STATUS_CONTRAT_ATTENTE_ANNULATION => array());
+                                                   self::STATUS_CONTRAT_ATTENTE_ANNULATION => array(self::STATUS_CONTRAT_NONSOLDE));
     
     protected $_status_contrat_css_class = array(self::STATUS_CONTRAT_SOLDE => 'solde', 
                                                    self::STATUS_CONTRAT_ANNULE => 'annule',

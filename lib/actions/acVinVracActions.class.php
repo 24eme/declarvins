@@ -153,6 +153,7 @@ class acVinVracActions extends sfActions
         				}
         			}
         			if ($this->statut == VracClient::STATUS_CONTRAT_NONSOLDE && $lastStatut == VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION) {
+        					$this->vrac->remove('annulation');
 							$this->contratRefusAnnulation($this->vrac, $this->vrac->getProduitInterpro(), $this->etablissement);
 							$this->getUser()->setFlash('refus_annulation', true);
         			}
