@@ -64,7 +64,10 @@ class Contrat extends BaseContrat {
     			}
     		}
     		if (in_array(ConfigurationZoneClient::ZONE_IVSE, $resultEtablissements)) {
-    			if (in_array(ConfigurationZoneClient::ZONE_RHONE, $resultEtablissements) || in_array(ConfigurationZoneClient::ZONE_PROVENCE, $resultEtablissements)) {
+    			if (in_array(ConfigurationZoneClient::ZONE_RHONE, $resultEtablissements)) {
+    				unset($resultEtablissements[ConfigurationZoneClient::ZONE_IVSE]);
+    			}
+    			if (in_array(ConfigurationZoneClient::ZONE_PROVENCE, $resultEtablissements)) {
     				unset($resultEtablissements[ConfigurationZoneClient::ZONE_IVSE]);
     			}
     		}
