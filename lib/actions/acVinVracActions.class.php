@@ -140,16 +140,17 @@ class acVinVracActions extends sfActions
         			$lastStatut = $this->vrac->valide->statut;
         			$this->vrac->valide->statut = $this->statut;
         			if ($this->statut == VracClient::STATUS_CONTRAT_ANNULE) {
-        				if (!$isEditable) {
-        					throw new sfError404Exception('Tentative de hack');
-        				}
-        				$this->vrac->annuler($this->getUser(), $this->etablissement);
-        				if ($this->vrac->valide->statut == VracClient::STATUS_CONTRAT_ANNULE) {
-							$this->contratAnnulation($this->vrac, $this->vrac->getProduitInterpro(), $this->etablissement);
-							$this->getUser()->setFlash('annulation', true);
+        				if ($lastStatut != VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION)  {
+        					$this->getUser()->setFlash('annulation', true);
         				} else {
-							$this->contratDemandeAnnulation($this->vrac, $this->vrac->getProduitInterpro(), $this->etablissement);
-							$this->getUser()->setFlash('attente_annulation', true);
+	        				$this->vrac->annuler($this->getUser(), $this->etablissement);
+	        				if ($this->vrac->valide->statut == VracClient::STATUS_CONTRAT_ANNULE) {
+								$this->contratAnnulation($this->vrac, $this->vrac->getProduitInterpro(), $this->etablissement);
+								$this->getUser()->setFlash('annulation', true);
+	        				} else {
+								$this->contratDemandeAnnulation($this->vrac, $this->vrac->getProduitInterpro(), $this->etablissement);
+								$this->getUser()->setFlash('attente_annulation', true);
+	        				}
         				}
         			}
         			if ($this->statut == VracClient::STATUS_CONTRAT_NONSOLDE && $lastStatut == VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION) {
