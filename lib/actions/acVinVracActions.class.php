@@ -140,7 +140,7 @@ class acVinVracActions extends sfActions
         			$lastStatut = $this->vrac->valide->statut;
         			$this->vrac->valide->statut = $this->statut;
         			if ($this->statut == VracClient::STATUS_CONTRAT_ANNULE) {
-        				if ($lastStatut != VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION)  {
+        				if ($lastStatut == VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION)  {
         					$this->getUser()->setFlash('annulation', true);
         				} else {
 	        				$this->vrac->annuler($this->getUser(), $this->etablissement);
