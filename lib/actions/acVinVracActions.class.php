@@ -74,9 +74,9 @@ class acVinVracActions extends sfActions
 		$this->vracs_attente = array();
         $contrats = array_reverse(VracSoussigneIdentifiantView::getInstance()->findByEtablissement($this->etablissement->identifiant)->rows);
         foreach ($contrats as $contrat) {
-        	if (!$contrat->value[VracHistoryView::VRAC_VIEW_STATUT] || $contrat->value[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION) {
+        	if (!$contrat->value[VracHistoryView::VRAC_VIEW_STATUT] || $contrat->value[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_ATTENTE_VALIDATION || $contrat->value[VracHistoryView::VRAC_VIEW_STATUT] == VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION) {
         		$this->vracs_attente[$contrat->id] = $contrat;
-        	} else {
+        	} elseif($contrat->value[VracHistoryView::VRAC_VIEW_STATUT] != VracClient::STATUS_CONTRAT_ANNULE) {
         		$this->vracs[$contrat->id] = $contrat;
         	}
         }
