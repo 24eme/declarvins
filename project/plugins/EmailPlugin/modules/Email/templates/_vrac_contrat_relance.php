@@ -1,5 +1,6 @@
 <?php echo include_partial('Email/headerMail') ?>
 
+Entreprise :  <?php if($vrac->{$acteur}->nom) { echo $vrac->{$acteur}->nom; } if($vrac->{$acteur}->raison_sociale) { echo ($vrac->{$acteur}->nom)? ' / '.$vrac->{$acteur}->raison_sociale : $vrac->{$acteur}->raison_sociale; } echo ($vrac->{$acteur}->famille)? ' - '.ucfirst($vrac->{$acteur}->famille) : ''; ?><?php if ($vrac->{$acteur}->telephone) {echo ' '.$vrac->{$acteur}->telephone;} if ($vrac->{$acteur}->fax) {echo ' '.$vrac->{$acteur}->fax;} if ($vrac->{$acteur}->email) {echo ' '.$vrac->{$acteur}->email;} ?><br /><br />
 Madame, Monsieur,<br /><br />
 Vous avez reçu une demande de validation d'un contrat de transaction en vrac le <strong><?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?></strong>.<br />
 A ce jour,  vous n'avez toujours pas <strong>validé ou refusé ce contrat</strong>.<br /><br />
