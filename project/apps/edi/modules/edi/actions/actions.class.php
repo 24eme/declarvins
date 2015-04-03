@@ -509,6 +509,9 @@ class ediActions extends sfActions
     			}
     		}
     	}
+    	if ($type == 'DRM') {
+    		$item->value[DRMDateView::VALUE_DETAIL_CVO_MONTANT] = round($item->value[DRMDateView::VALUE_DETAIL_CVO_MONTANT], 2);
+    	}
         $csv_file .= str_replace(array($rc1, $rc2), array(' ', ' '), implode(';', str_replace(';', '-', $item->value)));
       	$csv_file .= "\n";
       	if ($lastDate < $item->value[$dateSaisieIndice]) {
