@@ -103,8 +103,8 @@ class InterproClient extends acCouchdbClient {
 	    $ivse->set('_id', 'INTERPRO-IVSE');
 	    $ivse->identifiant = 'IVSE';
 	    $ivse->nom = "Intervins Sud-Est";
-	    $ivse->email_contrat_vrac = '';
-	    $ivse->email_contrat_inscription = '';
+	    $ivse->email_contrat_vrac = 'contrat@intervins-sudest.org';
+	    $ivse->email_contrat_inscription = 'contact@intervins-sudest.org';
 	    
 	    $anivin = new Interpro();
 	    $anivin->set('_id', 'INTERPRO-ANIVIN');
@@ -134,22 +134,22 @@ class InterproClient extends acCouchdbClient {
 
     
 	public function matchInterpro($interpro) {
-      if (preg_match('/ir/i', $zone)) {
+      if (preg_match('/ir/i', $interpro)) {
         return 'INTERPRO-IR';
       }
-	  if (preg_match('/civp/i', $zone)) {
+	  if (preg_match('/civp/i', $interpro)) {
         return 'INTERPRO-CIVP';
       }
-	  if (preg_match('/ivse/i', $zone)) {
+	  if (preg_match('/ivse/i', $interpro)) {
         return 'INTERPRO-IVSE';
       }
-	  if (preg_match('/anivin/i', $zone)) {
+	  if (preg_match('/anivin/i', $interpro)) {
         return 'INTERPRO-ANIVIN';
       }
-	  if (preg_match('/civl/i', $zone)) {
+	  if (preg_match('/civl/i', $interpro)) {
         return 'INTERPRO-CIVL';
       }
-	  if (preg_match('/io/i', $zone)) {
+	  if (preg_match('/io/i', $interpro)) {
         return 'INTERPRO-IO';
       }
 

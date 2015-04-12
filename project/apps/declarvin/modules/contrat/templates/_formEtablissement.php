@@ -109,6 +109,7 @@
     <div class="ligne_form" id="inscription-zones">
         <?php echo $form['configuration_zones']->renderError() ?>
         <?php echo $form['configuration_zones']->renderLabel() ?>
+        <p>Plusieurs zones possibles. Indiquez la ou les zones qui vous concernent. Zone Rhône pour les AOP du Rhône, Zone Provence pour les AOP de Provence et les IGP Var, Zone IGP intervins SE pour les IGP du Sud-Est, Zone IGP Languedoc pour les IGP du Languedoc).</p>
         <?php echo $form['configuration_zones']->render() ?>
     </div>
     <div class="ligne_form ligne_form_large">

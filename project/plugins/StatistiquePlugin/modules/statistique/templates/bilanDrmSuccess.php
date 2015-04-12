@@ -68,7 +68,8 @@
                                         <?php echo $bilanOperateur->etablissement->siege->pays; ?><br />
                                         @ : <?php echo $bilanOperateur->etablissement->email; ?><br />
                                         Tèl : <?php echo $bilanOperateur->etablissement->telephone; ?> Fax :<?php echo $bilanOperateur->etablissement->fax; ?><br />
-                                        Service douane : <?php echo $bilanOperateur->etablissement->service_douane ?>
+                                        Service douane : <?php echo $bilanOperateur->etablissement->service_douane ?><br />
+                                        Statut : <?php echo $bilanOperateur->etablissement->statut ?><br />
                                     </td>
                                     <?php
                                     foreach ($statistiquesBilan->getPeriodes() as $periode):

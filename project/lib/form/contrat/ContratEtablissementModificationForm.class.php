@@ -68,7 +68,7 @@ class ContratEtablissementModificationForm extends acCouchdbObjectForm {
 	       'comptabilite_pays' => 'Pays: ',
 	       'service_douane' => 'Service douane*: ',
            'edi' => 'J\'utilise un logiciel agréé EDI Declarvins pour déclarer mes DRM et DAI/DS*',
-       	   'configuration_zones' => 'Zones*: ',
+       	   'configuration_zones' => 'Zone(s)*: ',
        ));
        $this->setValidators(array(
        	       'raison_sociale' => new sfValidatorString(array('required' => true)),

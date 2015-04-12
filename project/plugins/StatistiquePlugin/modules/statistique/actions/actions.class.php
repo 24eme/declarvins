@@ -51,7 +51,7 @@ class statistiqueActions extends sfActions {
         }
         $statistiquesBilan = new StatistiquesBilan($interpro, $campagne);
 
-        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;';
+        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;';
         foreach ($statistiquesBilan->getPeriodes() as $periode) {
             $csv_file .= "$periode;";
         }
@@ -92,7 +92,7 @@ class statistiqueActions extends sfActions {
         $this->interpro = InterproClient::getInstance()->find($interpro);
         $manquantesBilan = StatistiquesN1View::getInstance()->findManquantesByPeriode($this->interpro->getZone(), $periode)->rows;
         
-        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Categorie;Genre;Denomination;Lieu;Couleur;Cepage;'.$periode;
+        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;Categorie;Genre;Denomination;Lieu;Couleur;Cepage;'.$periode;
         $csv_file .= "\n";
 
         foreach ($manquantesBilan as $manquanteBilan) {
@@ -113,14 +113,18 @@ class statistiqueActions extends sfActions {
                 . $etablissement->email . ";"
                 . $etablissement->telephone . ";"
                 . $etablissement->fax . ";"
-                . $etablissement->service_douane . ";";
+                . $etablissement->service_douane . ";"
+                . $etablissement->statut . ";";
                 $periodeNmoins1 = (((int) substr($periode, 0,4) ) - 1 ).substr($periode, 4);
                 
                 if ($drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($etablissementId, $periodeNmoins1)) {                                                   
 	                foreach ($drm->getDetails() as $detail) {
-	                	$appCode = str_replace($detail->getGenre()->getCode(), '', $detail->getAppellation()->getCode());
-	                	$lieuCode = str_replace($detail->getAppellation()->getCode(), '', $detail->getLieu()->getCode());
-	                	$cepCode = str_replace($detail->getCouleur()->getCode(), '', $detail->getCepage()->getCode());
+	                	if ($detail->interpro != $this->interpro->_id) {
+	                		continue;
+	                	}
+	                	$appCode = str_replace(DRM::DEFAULT_KEY, '', $detail->getAppellation()->getKey());
+	                	$lieuCode = str_replace(DRM::DEFAULT_KEY, '', $detail->getLieu()->getKey());
+	                	$cepCode = str_replace(DRM::DEFAULT_KEY, '', $detail->getCepage()->getKey());
 	                    $csv_file .= $etablissementFieldCsv;
 	                    $csv_file .=  $detail->getCertification()->getKey().";";
 	                    $csv_file .=  $detail->getGenre()->getCode().";";
@@ -130,15 +134,6 @@ class statistiqueActions extends sfActions {
 	                    $csv_file .=  $cepCode.";";
 	                    $csv_file .=  $detail->total_sorties."\n";
 	                }
-                } else {
-                    $csv_file .= $etablissementFieldCsv;
-                    $csv_file .=  ";";
-                    $csv_file .=  ";";
-                    $csv_file .=  ";";
-                    $csv_file .=  ";";
-                    $csv_file .=  ";";
-                    $csv_file .=  ";";
-                    $csv_file .=  "\n";
                 }
         }
         $this->response->setContentType('text/csv');

@@ -103,7 +103,8 @@ class StatistiquesBilan {
                 . $bilanOperateur->etablissement->email . ";"
                 . $bilanOperateur->etablissement->telephone . ";"
                 . $bilanOperateur->etablissement->fax . ";"
-                . $bilanOperateur->etablissement->service_douane . ";";
+                . $bilanOperateur->etablissement->service_douane . ";"
+                . $bilanOperateur->etablissement->statut . ";";
     }
     
     public function getStatutsDrmsCsv($bilanOperateur) {

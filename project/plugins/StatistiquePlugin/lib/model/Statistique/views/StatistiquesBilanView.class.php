@@ -10,9 +10,9 @@ class StatistiquesBilanView extends acCouchdbView
         return acCouchdbManager::getView('statistiques', 'bilan');
     }
 
-    public function findDrmByRegion($region) 
+    public function findDrmByRegion($region, $statut = Etablissement::STATUT_ACTIF) 
     {
-    	$startparams = array($region);        
+    	$startparams = array($region, $statut);        
     	$endparams = $startparams;
     	$endparams[] = array();
     	return $this->client->startkey($startparams)

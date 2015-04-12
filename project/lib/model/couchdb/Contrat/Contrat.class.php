@@ -50,4 +50,31 @@ class Contrat extends BaseContrat {
     	}
     	return $result;
     }
+    
+
+    
+    public function getConfigurationZonesForSend()
+    {
+    	$result = array();
+    	foreach ($this->etablissements as $etablissement) {
+    		$resultEtablissements = array();
+    		foreach ($etablissement->zones as $zoneId => $zone) {
+    			if (!in_array($zoneId, array_keys($result))) {
+    				$resultEtablissements[$zoneId] = $zoneId;
+    			}
+    		}
+    		if (in_array(ConfigurationZoneClient::ZONE_IVSE, $resultEtablissements)) {
+    			if (in_array(ConfigurationZoneClient::ZONE_RHONE, $resultEtablissements)) {
+    				unset($resultEtablissements[ConfigurationZoneClient::ZONE_IVSE]);
+    			}
+    			if (in_array(ConfigurationZoneClient::ZONE_PROVENCE, $resultEtablissements)) {
+    				unset($resultEtablissements[ConfigurationZoneClient::ZONE_IVSE]);
+    			}
+    		}
+    		foreach ($resultEtablissements as $resultEtablissement) {
+    			$result[$resultEtablissement] = ConfigurationZoneClient::getInstance()->find($resultEtablissement);
+    		}
+    	}
+    	return $result;
+    }
 }

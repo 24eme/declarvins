@@ -14,9 +14,9 @@ class StatistiquesN1View extends acCouchdbView
         return acCouchdbManager::getView('statistiques', 'n-1');
     }
 
-    public function findManquantesByPeriode($region, $periode) 
+    public function findManquantesByPeriode($region, $periode, $statut = Etablissement::STATUT_ACTIF) 
     {
-    	$startparams = array($region, $periode, DRMClient::DRM_STATUS_BILAN_A_SAISIR);        
+    	$startparams = array($region, $periode, DRMClient::DRM_STATUS_BILAN_A_SAISIR, $statut);        
     	$endparams = $startparams;
     	$endparams[] = array();
     	return $this->client->startkey($startparams)
