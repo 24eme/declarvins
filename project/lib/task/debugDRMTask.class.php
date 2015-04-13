@@ -37,14 +37,22 @@ EOF;
       $i = 0;
       foreach($rows as $row) {
       	if ($drm = DRMClient::getInstance()->find($row->id)) {
+      		$update = false;
       		foreach ($drm->getDetails() as $detail) {
-      			$detail->storeInterpro();
+      			if ($detail->interpro == 'INTERPRO-IR') {
+        			$detail->cvo->volume_taxable = $detail->getVolumeTaxable();
+        			$detail->douane->volume_taxable = $detail->getDouaneVolumeTaxable();
+        			$update = true;
+      			}
       		}
-      		$drm->setInterpros();
-      		try {
-      		$drm->save();
-      		} catch (Exception $e) {
-      			$this->logSection("debug", $drm->_id." bug", null, 'ERROR');
+      		if ($update) {
+      			$drm->setDroits();
+	      		try {
+	      		$drm->save();
+	      		$this->logSection("debug", $drm->_id." drm debugguée avec succès", null, 'SUCCESS');
+	      		} catch (Exception $e) {
+	      			$this->logSection("debug", $drm->_id." bug", null, 'ERROR');
+	      		}
       		}
       	}
       	$i++;
