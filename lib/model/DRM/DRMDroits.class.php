@@ -10,7 +10,7 @@ class DRMDroits extends BaseDRMDroits
     	return array_merge(self::$droit_entrees, $merge);
   	}
   	
-  	static $droit_entrees_inter_rhone = array('entrees/mouvement');
+  	static $droit_entrees_inter_rhone = array();
   	public static function getDroitEntreesInterRhone() 
   	{
     	return self::$droit_entrees_inter_rhone;
@@ -22,7 +22,7 @@ class DRMDroits extends BaseDRMDroits
     	return array_merge(self::$droit_sorties, $merge);
   	}
   	
-  	static $droit_sorties_inter_rhone = array('sorties/mouvement');
+  	static $droit_sorties_inter_rhone = array();
   	public static function getDroitSortiesInterRhone() 
   	{
     	return self::$droit_sorties_inter_rhone;
