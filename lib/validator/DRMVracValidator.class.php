@@ -27,7 +27,7 @@ class DRMVracValidator extends sfValidatorBase {
 	    				throw new sfValidatorErrorSchema($this, array(new sfValidatorError($this, 'invalid')));
 	    			}
 	    			$contratVrac = VracClient::getInstance()->findByNumContrat($contrat['vrac']);
-	    			if ($contratVrac) {
+	    			if ($contratVrac && $drm) {
 		    			$complement = 0;
 		    			if ($drm->hasVersion() && $drm->get($key)->vrac->exist($contrat['vrac'])) {
 		    				$complement += $drm->get($key)->vrac->get($contrat['vrac'])->volume;
