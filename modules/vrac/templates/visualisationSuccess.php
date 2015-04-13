@@ -5,7 +5,12 @@ $rectif->constructId();
 $modif = $vrac->generateModificative();
 $modif->constructId();
 $hasNextVersion = false;
-if (VracClient::getInstance()->find($rectif->_id) || VracClient::getInstance()->find($modif->_id)) {
+$nextRectif = VracClient::getInstance()->find($rectif->_id);
+$nextModif = VracClient::getInstance()->find($modif->_id);
+if ($nextRectif && $nextRectif->valide->statut != VracClient::STATUS_CONTRAT_ANNULE) {
+	$hasNextVersion = true;
+}
+if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNULE) {
 	$hasNextVersion = true;
 }
 ?>
