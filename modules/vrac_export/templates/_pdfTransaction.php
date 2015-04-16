@@ -1,3 +1,5 @@
+<?php use_helper('Float') ?>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" class="no-js">
 <head>
@@ -92,6 +94,7 @@
 	<div id="lots">
 
 		<table>
+			<?php $date_premiere_retiraison = null; ?>
 			<?php foreach ($vrac->lots as $lot): ?>
 			<?php
 				$nb_cuves = sizeof($lot->cuves);
@@ -112,10 +115,17 @@
 			<?php foreach ($lot->cuves as $cuve): ?>
 			<tr class="<?php if($i==$nb_cuves) echo 'der_cat'; ?>">
 				<td><?php echo $cuve->numero ?></td>
-				<td><?php echo $cuve->volume ?> hl</td>
-				<td><?php echo $cuve->date ?></td>
+				<td><?php if ($cuve->volume) {echoLongFloat($cuve->volume);} ?> hl</td>
+				<td><?php echo Date::francizeDate($cuve->date) ?></td>
 			</tr>
 			<?php $i++; ?>
+			
+			<?php 
+				if ($date_premiere_retiraison || $cuve->date < $date_premiere_retiraison) {
+					$date_premiere_retiraison = $cuve->date;
+				}
+			
+			?>
 			<?php endforeach; ?>
 
 			<?php if($lot->assemblage): ?>
@@ -153,7 +163,10 @@
 
 	</div>
 	<?php endif; ?>
-	<p>Volume total : <?php echo $vrac->volume_propose ?>&nbsp;hl</p>
+	<p>Volume total : <?php echoLongFloat($vrac->volume_propose) ?>&nbsp;hl</p>
+	<?php if ($date_premiere_retiraison): ?>
+	<p>Date première retiraison : <?php echo Date::francizeDate($date_premiere_retiraison) ?></p>
+	<?php endif; ?>
 	<p>Observations : <?php echo $vrac->commentaires ?></p>
 	<?php if ($configurationVrac->getInformationsComplementaires()): ?>
 	<h2>Informations complémentaires</h2>

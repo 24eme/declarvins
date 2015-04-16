@@ -48,6 +48,7 @@
             <div class="section_label_strong">
                 <?php echo $form['delai_paiement']->renderError() ?>
                 <?php echo $form['delai_paiement']->renderLabel() ?>
+                <a class="msg_aide" title="Message aide" data-msg="help_popup_vrac_delai_paiement" href=""></a>
                 <?php echo $form['delai_paiement']->render() ?>
             </div>
             <?php endif; ?>
@@ -71,7 +72,6 @@
             <div class="section_label_strong">
                 <?php echo $form['date_limite_retiraison']->renderError() ?>
                 <?php echo $form['date_limite_retiraison']->renderLabel() ?>
-            	<a class="msg_aide" title="Message aide" data-msg="help_popup_vrac_date_limite_retiraison" href=""></a>
                 <?php echo $form['date_limite_retiraison']->render(array('class' => 'datepicker')) ?>
                 &nbsp;(jj/mm/aaaa)
             </div>

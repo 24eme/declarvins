@@ -192,6 +192,7 @@
 
 
 		<table>
+			<?php $date_premiere_retiraison = null; ?>
 			<?php foreach ($vrac->lots as $lot): ?>
 			<?php
 				$nb_cuves = sizeof($lot->cuves);
@@ -216,6 +217,13 @@
 				<td><?php echo Date::francizeDate($cuve->date) ?></td>
 			</tr>
 			<?php $i++; ?>
+			
+			<?php 
+				if ($date_premiere_retiraison || $cuve->date < $date_premiere_retiraison) {
+					$date_premiere_retiraison = $cuve->date;
+				}
+			
+			?>
 			<?php endforeach; ?>
 
 			<?php if($lot->assemblage): ?>
@@ -252,6 +260,9 @@
 		</table>
 
 	</div>
+	<?php if ($date_premiere_retiraison): ?>
+	<p>Date première retiraison : <?php echo Date::francizeDate($date_premiere_retiraison) ?></p>
+	<?php endif; ?>
 	<?php if ($configurationVrac->getInformationsComplementaires()): ?>
 	<h2>Informations complémentaires</h2>
 	<div class="clauses">
