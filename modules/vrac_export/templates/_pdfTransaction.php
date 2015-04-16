@@ -121,7 +121,7 @@
 			<?php $i++; ?>
 			
 			<?php 
-				if ($date_premiere_retiraison || $cuve->date < $date_premiere_retiraison) {
+				if (!$date_premiere_retiraison || $cuve->date < $date_premiere_retiraison) {
 					$date_premiere_retiraison = $cuve->date;
 				}
 			
