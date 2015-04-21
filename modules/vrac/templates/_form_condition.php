@@ -48,8 +48,10 @@
             <div class="section_label_strong">
                 <?php echo $form['delai_paiement']->renderError() ?>
                 <?php echo $form['delai_paiement']->renderLabel() ?>
-                <a class="msg_aide" title="Message aide" data-msg="help_popup_vrac_delai_paiement" href=""></a>
                 <?php echo $form['delai_paiement']->render() ?>
+            </div>
+            <div class="section_label_strong">
+                Si le contrat contient une clause de paiements à date fixe (un ou plusieurs versements), le délai maximum entre la retiraison du vin et le paiement pourra être au maximum de 120 jours.
             </div>
             <?php endif; ?>
         </div>
