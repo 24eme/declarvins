@@ -36,8 +36,8 @@
             <?php if ($compte->login): ?>
             <a href="<?php echo url_for('validation_compte_password', array('login' => $compte->login)) ?>" class="btn_mdp">Lancer une procédure de redéfinition du mot de passe</a>
             <?php endif; ?>
-            <?php if ($compte->statut == _Compte::STATUT_ATTENTE || 1 == 1): ?>
-            <a style="float: right;" href="<?php echo url_for('validation_compte_inscription', array('num_contrat' => $contrat->no_contrat)) ?>" class="btn_mdp">Renvoyer l'e-mail d'inscription</a>
+            <?php if ($compte->statut == _Compte::STATUT_ATTENTE): ?>
+            <a style="float: right;" href="<?php echo url_for('validation_compte_inscription', array('num_contrat' => $contrat->no_contrat)) ?>" class="btn_mdp">Renvoyer le mail de choix des identifiants</a>
             <?php endif; ?>
         </div>
     </div>
