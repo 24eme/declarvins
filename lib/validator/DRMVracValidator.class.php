@@ -13,7 +13,7 @@ class DRMVracValidator extends sfValidatorBase {
 
     protected function doClean($values) {
     	$contratIds = array();
-    	$drm = DRMClient::getInstance()->find($values['drm'])->getMother();
+    	$drm = DRMClient::getInstance()->find($values['drm']);
     	foreach ($values as $key => $value) {
     		if (is_array($value)) {
 	    		foreach ($value['contrats'] as $contrat) {

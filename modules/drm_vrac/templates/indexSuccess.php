@@ -24,9 +24,9 @@
                         ?>
             <table width="100%" class="contrat_vracs" id="contrats<?php echo $detail->getIdentifiantHTML() ?>">
                 <tbody>
-                        <?php include_partial('add_contrat', array('detail' => $detail, 'hasContrat' => count($detail->getContratsVrac()))); ?>
+                        <?php include_partial('add_contrat', array('detail' => $detail, 'hasContrat' => count($detail->getContratsVrac(true)))); ?>
                         <?php
-                                if (!count($detail->getContratsVrac())):
+                                if (!count($detail->getContratsVrac(true))):
                                         $nbDetailSansContrat++;
                         ?>
                                         <tr class="contenu">

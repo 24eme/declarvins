@@ -205,9 +205,9 @@ class DRMDetail extends BaseDRMDetail {
         $contratVrac->volume = $volume * 1;
     }
 
-    public function getContratsVracAutocomplete($prestation = false) {
+    public function getContratsVracAutocomplete($prestation = false, $withSolde = false) {
         $vracs_autocomplete = array();
-        $vracs = $this->getContratsVrac();
+        $vracs = $this->getContratsVrac($withSolde);
         foreach ($vracs as $vrac) {
         	if ($vrac->exist('referente') && $vrac->referente === 0) {
         		continue;
@@ -249,9 +249,13 @@ class DRMDetail extends BaseDRMDetail {
         return $vracs_autocomplete;
     }
 
-    public function getContratsVrac() {
+    public function getContratsVrac($withSolde = false) {
         $etablissement = 'ETABLISSEMENT-' . $this->getDocument()->identifiant;
-        return VracClient::getInstance()->retrieveFromEtablissementsAndHash($etablissement, $this->getHash());
+        $contrats = VracClient::getInstance()->retrieveFromEtablissementsAndHash($etablissement, $this->getHash());
+        if ($withSolde) {
+        	$contrats = array_merge($contrats, VracClient::getInstance()->retrieveSoldeFromEtablissementsAndHash($etablissement, $this->getHash()));
+        }
+        return $contrats;
     }
 
     public function isModifiedMasterDRM($key) {

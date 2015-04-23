@@ -31,10 +31,11 @@ class DRMVracContratsForm extends acCouchdbObjectForm
     public function getContratChoices()
     {
     	$prestation = false;
+    	$withSolde = $this->getObject()->getDocument()->hasVersion();
     	if ($this->interpro && $this->getObject()->interpro != $this->interpro) {
     		$prestation = true;
     	}
-           $contrat_choices = $this->getObject()->getContratsVracAutocomplete($prestation);
+           $contrat_choices = $this->getObject()->getContratsVracAutocomplete($prestation, $withSolde);
            $contrat_choices[''] = '';
            ksort($contrat_choices);
         return $contrat_choices;
