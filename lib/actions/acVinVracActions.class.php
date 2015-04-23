@@ -158,7 +158,7 @@ class acVinVracActions extends sfActions
 							$this->contratRefusAnnulation($this->vrac, $this->vrac->getProduitInterpro(), $this->etablissement);
 							$this->getUser()->setFlash('refus_annulation', true);
         			}
-        			$this->vrac->save();
+        			$this->vrac->save(false);
         			$this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
         		}
         	} else {
