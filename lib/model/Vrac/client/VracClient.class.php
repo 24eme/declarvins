@@ -124,6 +124,23 @@ class VracClient extends acCouchdbClient {
       }
       return $contrats;
     }
+    
+	public function retrieveSoldeFromEtablissementsAndHash($etablissement, $hash, $mustActive = true, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
+        $contrats = array();
+        $hash = preg_replace('|(couleurs/[^/]*/).*|', '\1', $hash);
+        $vracs = VracAllView::getInstance()->findByEtablissement($etablissement)->rows;
+        $vracs = array_merge($vracs, VracAllView::getInstance()->findSoldeByEtablissement($etablissement)->rows);
+        foreach ($vracs as $c) {
+            if (strpos('/'.$c->key[VracAllView::VRAC_VIEW_PRODUIT], $hash) === false) {
+                continue;
+            }
+            if ($mustActive && $c->key[VracAllView::VRAC_VIEW_STATUT] == self::STATUS_CONTRAT_SOLDE) {
+               $contrats[] = parent::retrieveDocumentById($c->key[VracAllView::VRAC_VIEW_ID]);
+           }
+            
+      }
+      return $contrats;
+    }
 
     public function retrieveFromEtablissements($etablissement, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
       $contrats = array();
