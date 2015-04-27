@@ -89,8 +89,8 @@ class InterproClient extends acCouchdbClient {
     	$civp->set('_id', 'INTERPRO-CIVP');
     	$civp->identifiant = 'CIVP';
     	$civp->nom = 'CIVP';
-    	$civp->email_contrat_vrac = 'eco@provencewines.com';
-    	$civp->email_contrat_inscription = 'eco@provencewines.com';
+    	$civp->email_contrat_vrac = 'declarvins@provencewines.com';
+    	$civp->email_contrat_inscription = 'declarvins@provencewines.com';
     	
 	    $ir = new Interpro();
 	    $ir->set('_id', 'INTERPRO-IR');
