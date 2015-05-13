@@ -1,0 +1,81 @@
+Etablissement:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      produits:
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  volume_bloque:
+                    type: collection
+                    definition:
+                      fields:
+                        '*':
+                          type: collection
+                          definition:
+                            fields:
+                              date: {  }
+                              volume: { type: float }
+      identifiant: { }
+      nom: { }
+      type: {  }
+      statut: {  }
+      interpro: {  }
+      contrat_mandat: {  }
+      compte: {  }
+      societe: {  }
+      num_interne: {  }
+      siret: {  }
+      raison_sociale: {  }
+      nom: {  }
+      cni: {  }
+      cvi: {  }
+      no_accises: {  }
+      no_carte_professionnelle: {  }
+      no_tva_intracommunautaire: {  }
+      carte_pro: {  }
+      famille: {  }
+      sous_famille: {  }
+      email: {  }
+      telephone: {  }
+      fax: {  }
+      siege:
+          type: collection
+          definition:
+            fields:
+              adresse: {  }
+              code_postal: {  }
+              commune: {  }
+              pays: {  }
+      comptabilite:
+          type: collection
+          definition:
+            fields:
+              adresse: {  }
+              code_postal: {  }
+              commune: {  }
+              pays: {  }
+      service_douane: {  }
+      zones:
+        type: collection
+        required: false
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  libelle: {  }
+                  transparente: {  }
+                  administratrice: {  }
+      correspondances:
+        type: collection
+        required: false
+        definition:
+          fields:
+            '*': {  }
