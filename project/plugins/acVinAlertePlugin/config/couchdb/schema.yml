@@ -1,0 +1,23 @@
+
+Alerte:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {  }
+      sous_type: {  }
+      interpro: {  }
+      campagne: {  }
+      etablissement_identifiant: {  }
+      alertes:
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  detail: {  }
+                  commentaire: {  }
+                  statut: {  }
+      derniere_detection: {  }
