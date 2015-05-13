@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+    http://pear.php.net/dtd/tasks-1.0.xsd
+    http://pear.php.net/dtd/package-2.0
+    http://pear.php.net/dtd/package-2.0.xsd">
+ <name>acPhpCasPlugin</name>
+ <uri>https://gitorious.org/accasplugin</uri>
+ <summary>acPhpCasPlugin - Allows you to use easily the phpCAS library</summary>
+ <description>Allows you to use easily the phpCAS library (Central Authentication Service).</description>
+ <lead>
+  <name>Jean-Baptiste Le Metayer</name>
+  <user>jblemetayer</user>
+  <email>lemetayer.jb@gmail.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Vincent Laurent</name>
+  <user>vlaurent</user>
+  <email>vince.laurent@gmail.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-11-30</date>
+ <version>
+  <release>1.0.1</release>
+  <api>1.0.1</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/mit-license.html">MIT</license>
+ <notes>
+Initial release
+ </notes>
+ <contents>
+  <dir baseinstalldir="." name="/">
+   <file baseinstalldir="." md5sum="cca447248aecb51e4b56fb0ff82f05e6" name="config/acCasPluginConfiguration.class.php" role="data" />
+   <file baseinstalldir="." md5sum="10e7e2543cd42231c5f1b6b8970f8926" name="config/app.yml" role="data" />
+   <file baseinstalldir="." md5sum="d88c016570db05dbbb34b29486f3c290" name="lib/acPhpCas.class.php" role="data" />
+   <file baseinstalldir="." md5sum="2acac9d99ab80146b1d583e48e87408d" name="lib/vendor/phpCAS/CAS.class.php" role="data" />
+   <file baseinstalldir="." md5sum="6eef7c1591eca2fd5e0a80265548f67f" name="lib/vendor/phpCAS/CAS/client.php" role="data" />
+   <file baseinstalldir="." md5sum="e9ce7e11f871d8206b0abc2f608b0277" name="lib/vendor/phpCAS/CAS/domxml-php4-to-php5.php" role="data" />
+   <file baseinstalldir="." md5sum="0c9d3153be1cd5797d551bdc68700cb1" name="lib/vendor/phpCAS/CAS/languages/catalan.php" role="data" />
+   <file baseinstalldir="." md5sum="bc09a9df04cef13254ae57f3a274f0df" name="lib/vendor/phpCAS/CAS/languages/english.php" role="data" />
+   <file baseinstalldir="." md5sum="e5aa122b7c9dd2eecd507d67aac818f9" name="lib/vendor/phpCAS/CAS/languages/french.php" role="data" />
+   <file baseinstalldir="." md5sum="1135952ce25e181ad89c05843314c4b0" name="lib/vendor/phpCAS/CAS/languages/german.php" role="data" />
+   <file baseinstalldir="." md5sum="f1a3d2bf5b62c5ed57c3c0e2d275becc" name="lib/vendor/phpCAS/CAS/languages/greek.php" role="data" />
+   <file baseinstalldir="." md5sum="ebb9a79ae04c030ccb7aabc98c1f43a8" name="lib/vendor/phpCAS/CAS/languages/japanese.php" role="data" />
+   <file baseinstalldir="." md5sum="f0c462c22a96622ced80a4b5dd954d09" name="lib/vendor/phpCAS/CAS/languages/languages.php" role="data" />
+   <file baseinstalldir="." md5sum="734a4d32b5f27017c775d2ed0b6ce2a3" name="lib/vendor/phpCAS/CAS/languages/spanish.php" role="data" />
+   <file baseinstalldir="." md5sum="731911e4c987b29300f1700975c83e5b" name="lib/vendor/phpCAS/CAS/PGTStorage/pgt-db.php" role="data" />
+   <file baseinstalldir="." md5sum="9162d942d32ac8bdc01d409c07f41a0f" name="lib/vendor/phpCAS/CAS/PGTStorage/pgt-file.php" role="data" />
+   <file baseinstalldir="." md5sum="4bd67b4d6d6021504c00eff90e577ac0" name="lib/vendor/phpCAS/CAS/PGTStorage/pgt-main.php" role="data" />
+   <file baseinstalldir="." md5sum="e9a79974bb128dcff4b83b537484a5c9" name="AUTHORS" role="data" />
+   <file baseinstalldir="." md5sum="8e791731ecf94c96f89fdbb1cced3d81" name="LICENSE" role="data" />
+   <file baseinstalldir="." md5sum="bebab82e9ed28b178809f5b694b37508" name="README" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller> 
+   <package>
+     <name>symfony</name>
+     <channel>pear.symfony-project.com</channel>
+     <min>1.3.0</min>
+     <max>2.0.0</max>
+     <exclude>2.0.0</exclude>
+  </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-11-30</date>
+   <license uri="http://www.opensource.org/licenses/mit-license.html">MIT</license>
+   <notes>
+Initial release
+   </notes>
+  </release>
+ </changelog>
+</package>
