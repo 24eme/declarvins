@@ -1,0 +1,179 @@
+
+Configuration:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {  }
+      produits:
+        type: collection
+        definition:
+          fields:
+            '*': {  }
+      zones:
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
+      ouverture:
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  drm: {  }
+                  vrac: {  }
+                  daids: {  }
+      vrac:
+        type: collection
+        definition:
+          fields:
+            interpro:
+              type: collection
+              definition:
+                fields:
+                  '*':
+                    class: ConfigurationVrac
+                    type: collection
+                    definition:
+                      fields:
+                        transaction_has_acheteur: {  }
+                        clauses: {  }
+                        informations_complementaires: {  }
+                        has_transaction: {  }
+                        etapes:
+                          class: ConfigurationVracEtapes
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        vendeur_types:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        acheteur_types:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        types_transaction:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        labels:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        mentions:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        types_prix:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        conditions_paiement:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        types_contrat:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        cvo_natures:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        cvo_repartitions:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        natures_document:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        types_domaine:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        delais_paiement:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        contenances:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        commentaires_lot:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        cas_particulier:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
+      daids:
+        type: collection
+        definition:
+          fields:
+            interpro:
+              type: collection
+              definition:
+                fields:
+                  '*':
+                    class: ConfigurationDAIDS
+                    type: collection
+                    definition:
+                      fields:
+                        volume_conditionne: {  }
+                        stocks_moyen:
+                          type: collection
+                          definition:
+                            fields:
+                              vinifie:
+                                type: collection
+                                definition:
+                                  fields:
+                                    '*':
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          libelle: {  }
+                                          taux: {  }
+                              non_vinifie:
+                                type: collection
+                                definition:
+                                  fields:
+                                    '*':
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          libelle: {  }
+                                          taux: {  }
+                              conditionne:
+                                type: collection
+                                definition:
+                                  fields:
+                                    '*':
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          libelle: {  }
+                                          taux: {  }
