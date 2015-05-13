@@ -1,0 +1,20 @@
+all:
+  is_secure: false
+   
+creation:
+  is_secure: true
+  credentials: [compte]
+  
+modificationOublie:
+  is_secure: true
+  credentials: [compte]
+  
+modification:
+  is_secure: true
+  credentials: [compte]
+  
+  
+
+
+
+
