@@ -1,0 +1,279 @@
+
+Vrac:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {  }
+      interpro: {  }
+      has_transaction: {  }
+      has_cotisation_cvo: {  }
+      numero_contrat: {  }
+      etape: {  }
+      vous_etes: {  }
+      vendeur_type: {  }  
+      vendeur_identifiant: {  }   
+      version: {  required: false; }   
+      referente: {  required: false; }   
+      enlevements:
+        required: false
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  volume: { type: float }
+      vendeur:        
+        type: collection
+        definition:
+          fields:            
+            nom: {  }
+            raison_sociale: {  }
+            siret: {  }
+            cvi: {  }
+            num_accise: {   }
+            num_tva_intracomm: {    }
+            adresse: {  }
+            code_postal: {  }
+            commune: {  }
+            pays: {  }
+            telephone: {  }
+            fax: {  }
+            email: {   }
+            famille: {  }
+            sous_famille: {   }
+      vendeur_tva: {  }
+      adresse_stockage:
+        type: collection
+        definition:
+          fields:
+            libelle: {  }
+            adresse: {  }
+            code_postal: {  }
+            commune: {  }
+            pays: {  }
+      acheteur_type: {  }  
+      acheteur_identifiant: {  }      
+      acheteur:        
+        type: collection
+        definition:
+          fields:            
+            nom: {  }
+            raison_sociale: {  }
+            siret: {  }
+            cvi: {  }
+            num_accise: {   }
+            num_tva_intracomm: {    }
+            adresse: {  }
+            code_postal: {  }
+            commune: {  }
+            pays: {  }
+            telephone: {  }
+            fax: {  }
+            email: {   }
+            famille: {  }
+            sous_famille: {   }
+      acheteur_tva: {  }
+      adresse_livraison:
+        type: collection
+        definition:
+          fields:
+            libelle: {  }
+            adresse: {  }
+            code_postal: {  }
+            commune: {  }
+            pays: {  }
+      mandataire_exist: {  }
+      mandatant: 
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
+      mandataire_identifiant: {  }     
+      mandataire:
+        type: collection
+        definition:
+          fields:
+            nom: {  }
+            raison_sociale: {  }
+            siret: {  }
+            no_carte_professionnelle: {  }
+            carte_pro: {  }
+            adresse: {  }
+            code_postal: {  }
+            commune: {  }
+            pays: {  }
+            telephone: {  }
+            fax: {  }
+            email: {  }
+            famille: {  }
+            sous_famille: {   }
+      premiere_mise_en_marche: {  }
+      cas_particulier: {  }
+      cas_particulier_libelle: {  }
+      original: {  }
+      type_transaction: {  }
+      type_transaction_libelle: {  }
+      produit: {  }
+      produit_libelle: {  }
+      produit_detail:
+        type: collection
+        definition:
+          fields:
+            appellation:
+              type: collection
+              definition:
+                fields:
+                  code: {  }
+                  libelle: {  }
+            genre:
+              type: collection
+              definition:
+                fields:
+                  code: {  }
+                  libelle: {  }
+            certification:
+              type: collection
+              definition:
+                fields:
+                  code: {  }
+                  libelle: {  }
+            lieu:
+              type: collection
+              definition:
+                fields:
+                  code: {  }
+                  libelle: {  }
+            couleur:
+              type: collection
+              definition:
+                fields:
+                  code: {  }
+                  libelle: {  }
+            cepage:
+              type: collection
+              definition:
+                fields:
+                  code: {  }
+                  libelle: {  }
+      millesime: {  }
+      contient_domaine: {  }
+      domaine: {  }
+      labels: {  }
+      labels_libelle: {  }
+      mentions:
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
+      mentions_libelle: {  }
+      volume_propose: { type: float }
+      annexe: {  }
+      prix_unitaire: { type: float }
+      type_prix: {  }
+      determination_prix: {  }
+      date_debut_retiraison: {  }
+      date_limite_retiraison: {  }
+      commentaires_conditions: {  }
+      part_cvo: { type: float }
+      prix_total: { type: float }
+      prix_total_net: { type: float }
+      conditions_paiement: {  }
+      conditions_paiement_libelle: {  }
+      type_echeancier_paiement: {  }
+      vin_livre: {  }
+      date_debut_retiraison: {  }
+      contrat_pluriannuel: {  }
+      reference_contrat_pluriannuel: {  }
+      delai_paiement: {  }
+      echeancier_paiement: {  }
+      paiements:
+        type: array_collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  date: {  }
+                  volume: { type: float }
+                  montant: { type: float }
+      clause_reserve_retiraison: {  }
+      export: {  }
+      lots:
+        type: array_collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  numero: {  }
+                  assemblage: {  }
+                  cuves:
+                    type: array_collection
+                    definition:
+                      fields:
+                        '*':
+                          type: collection
+                          definition:
+                            fields:
+                              numero: {  }
+                              volume: { type: float }
+                              date: {  }
+                  millesimes:
+                    type: array_collection
+                    definition:
+                      fields:
+                        '*':
+                          type: collection
+                          definition:
+                            fields:
+                              annee: {  }
+                              pourcentage: {  }
+                  degre: {  }
+                  presence_allergenes: {  }
+                  allergenes: {  }
+                  metayage: {  }
+                  bailleur: {  }
+                  montant: {  }
+      type_contrat: {  }
+      prix_variable: {  }
+      part_variable: {  }
+      cvo_nature: {  }
+      cvo_repartition: { type: float }
+      date_stats: {  }
+      date_signature: {  }
+      date_relance: {  }
+      volume_enleve: { type: float }
+      annulation:
+        type: collection
+        required: false
+        definition:
+          fields:
+            date_annulation_vendeur: {  }
+            date_annulation_acheteur: {  }
+            date_annulation_mandataire: {  }
+            date_annulation: {  }
+            identifiant: {  }
+            etablissement: {  }
+      valide:
+        type: collection
+        definition:
+          fields:
+            date_saisie: {  }
+            date_validation_vendeur: {  }
+            date_validation_acheteur: {  }
+            date_validation_mandataire: {  }
+            date_validation: {  }
+            identifiant: {  }
+            statut: { }
+      nature_document: {  }
+      date_signature_vendeur: {  }
+      date_signature_acheteur: {  }
+      date_signature_mandataire: {  }
+      commentaires: {  }
+      mode_de_saisie: {  }
+
