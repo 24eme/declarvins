@@ -38,7 +38,7 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
 				<?php endif; ?>
             	<?php if ($sf_user->hasFlash('annulation')): ?>
 					<p id="titre" style="text-align: left; margin-bottom: 30px;">
-					Votre demande d'annulation du contrat a bien été prise en compte.
+					Votre confirmation d'annulation a bien été prise en compte.
 					</p>
 				<?php endif; ?>
             	<?php if ($sf_user->hasFlash('attente_annulation')): ?>

@@ -133,10 +133,7 @@ class Email {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
-        $subject = 'Refus d\'un contrat interprofessionnel';
-        if ($vrac->isRectificative()) {
-        	$subject .= ' RECTIFIE';
-        }
+        $subject = 'Annulation d\'un contrat interprofessionnel';
         $body = $this->getBodyFromPartial('vrac_contrat_annulation', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur));
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
