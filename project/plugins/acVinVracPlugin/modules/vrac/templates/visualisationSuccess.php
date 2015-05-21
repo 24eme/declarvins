@@ -93,7 +93,7 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
                 <?php include_partial('showContrat', array('configurationVrac' => $configurationVrac, 'etablissement' => $etablissement, 'vrac' => $vrac, 'editer_etape' => false)); ?>
                 
     
-			    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $vrac->isModifiable()): ?>
+			    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && ($vrac->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE)): ?>
 			        <div class="ligne_form_btn" style="margin: 0;">
 			        	
 				        		<?php if($hasNextVersion): ?>
