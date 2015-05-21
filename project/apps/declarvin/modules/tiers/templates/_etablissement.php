@@ -4,6 +4,13 @@
 	<div id="compteModification">
 		<div class="societe">
 			<ul>
+				<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+				<li>Identifiant <?php echo str_replace('INTERPRO-', '', $etablissement->interpro) ?> : <strong><?php echo $etablissement->identifiant ?></strong></li>
+				<?php if ($etablissement->exist('correspondances')): foreach ($etablissement->correspondances as $interpro => $correspondance): ?>
+				<li>Identifiant <?php echo str_replace('INTERPRO-', '', $interpro) ?> : <strong><?php echo $correspondance ?></strong></li>
+				<?php endforeach; endif;?>
+				<li>&nbsp;</li>
+				<?php endif; ?>
 				<li>Raison Sociale : <strong><?php echo $etablissement->raison_sociale ?></strong></li>
 				<li>Nom Commercial : <strong><?php echo $etablissement->nom ?></strong></li>
 				<li>N° RCS / SIRET: <strong><?php echo $etablissement->siret ?></strong></li>
