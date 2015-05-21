@@ -5,8 +5,8 @@
     <p><strong>CIVP – Conseil Interprofessionnel des Vins de Provence</strong></p>
 	<p>Service Economique</p>
 	<p>Maison des Vins ; RN 7 ; 83460 Les Arcs sur Argens</p>
-	<p>Tel : 0(033) 4 94 99 50 10 ; Fax : 0(033) 4 94 99 50 19</p>
-	<p>Mail : <a href="mailto:eco@provencewines.com" class="highlight_link">eco@provencewines.com</a></p>
+	<p>Tel : 0(033) 4 94 99 50 26 ; Fax : 0(033) 4 94 99 50 19</p>
+	<p>Mail : <a href="mailto:declarvins@provencewines.com" class="highlight_link">declarvins@provencewines.com</a></p>
 	<br />
 	<p><strong>Inter-Rhône</strong></p>
 	<p>Département Economique</p>
