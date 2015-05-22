@@ -418,6 +418,9 @@ class acVinVracActions extends sfActions
         $this->init($this->vrac, $this->etablissement);
 
         $vrac_rectificative = $this->vrac->generateRectificative();
+        if ($conflict = VracClient::getInstance()->find($vrac_rectificative->_id)) {
+        	$conflict->delete();
+        }
         if ($this->etablissement) {
         	$vrac_rectificative->vous_etes = $this->vrac->getTypeByEtablissement($this->etablissement->identifiant);
         } else {
@@ -437,6 +440,9 @@ class acVinVracActions extends sfActions
         $this->init($this->vrac, $this->etablissement);
 
         $vrac_modificative = $this->vrac->generateModificative();
+        if ($conflict = VracClient::getInstance()->find($vrac_modificative->_id)) {
+        	$conflict->delete();
+        }
         if ($this->etablissement) {
         	$vrac_rectificative->vous_etes = $this->vrac->getTypeByEtablissement($this->etablissement->identifiant);
         } else {
