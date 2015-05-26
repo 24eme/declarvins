@@ -978,6 +978,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         } else {
             $next = $this->version_document->generateNextVersion();
         }
+        if (!$next) {
+        	return null;
+        }
         $next->identifiant_drm_historique = null;
         return $next;
     }

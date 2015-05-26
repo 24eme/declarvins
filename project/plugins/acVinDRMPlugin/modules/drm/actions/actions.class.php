@@ -245,11 +245,12 @@ class drmActions extends sfActions {
 	      $generate = true;
 	      $nb_generate = 0;
 	      $drm_version_suivante = $this->drm->generateNextVersion();
+	      if ($drm_version_suivante) {
 	      if ($drm_version_suivante->isRectificative()) {
 	      	$drm_version_suivante->save();
 	      	$this->getUser()->setFlash('drm_next_version', $drm_version_suivante->_id);
 	      } else {
-	      while($generate) {
+	      	while($generate) {
 		      	$validation_drm_version_suivante = $drm_version_suivante->validation(array('stock' => 'warning'));
 		      	if ($validation_drm_version_suivante->isValide()) {
 		      		$drm_version_suivante->validate();
@@ -262,12 +263,16 @@ class drmActions extends sfActions {
 		      	}
 		      	if ($drm_version_suivante->needNextVersion()) {      			
 		      		$drm_version_suivante = $drm_version_suivante->generateNextVersion();
+		      		if (!$drm_version_suivante) {
+		      			$generate = false;
+		      		}
 		      	} else {
 		      		$generate = false;
 		      	}
 		      }
 		       $this->getUser()->setFlash('drm_generate_version', $nb_generate);
 	      }
+    	  }
 	    }
 
         return $this->redirect('drm_visualisation', array('sf_subject' => $this->drm, 'hide_rectificative' => 1));
