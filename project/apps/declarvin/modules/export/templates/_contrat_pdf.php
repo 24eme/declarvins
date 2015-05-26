@@ -219,7 +219,9 @@
 			<?php 
 				foreach ($contrat->etablissements as $i => $etablissement): 
 					$zones = array();
-                	foreach ($etablissement->zones as $zone): if (!$zone->transparente) {$zones[] = $zone->libelle;} endforeach;
+					if ($etablissement->exist('zones')) {
+                		foreach ($etablissement->zones as $zone): if (!$zone->transparente) {$zones[] = $zone->libelle;} endforeach;
+					}
 			?>
 			<div class="societe">
 				<h3><u>Etablissement <?php echo $i+1 ?></u></h3>
