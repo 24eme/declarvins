@@ -440,7 +440,7 @@ class acVinVracActions extends sfActions
         $this->init($this->vrac, $this->etablissement);
 
         $vrac_modificative = $this->vrac->generateModificative();
-        if ($conflict = VracClient::getInstance()->find($vrac_modificative->_id)) {
+        if ($conflict = VracClient::getInstance()->find($vrac_modificative->makeId())) {
         	$conflict->delete();
         }
         if ($this->etablissement) {
