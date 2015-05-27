@@ -60,7 +60,7 @@ class VracValidationForm extends VracForm
         		$date = new DateTime($defaults[$field]);
         		$defaults[$field] = $date->format('d/m/Y');
         	}
-        }   
+        }
         $defaults['email'] = 1;
         $this->setDefaults($defaults);     
     }

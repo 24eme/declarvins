@@ -19,11 +19,16 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     
     public function constructId() 
     {
+        $this->set('_id', $this->makeId());
+    }
+    
+    public function makeId()
+    {
     	$id = 'VRAC-'.$this->numero_contrat;
     	if ($this->version) {
     		$id .= '-'.$this->version;
     	}
-        $this->set('_id', $id);
+    	return $id;
     }
 
     public function getProduitObject() 
