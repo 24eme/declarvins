@@ -220,6 +220,10 @@ class drmActions extends sfActions {
     public function executeValidation(sfWebRequest $request) {
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->drm = $this->getRoute()->getDRM();
+        if ($this->drm->type == DRMFictive::TYPE) {
+        	$this->drm->update();
+        	$this->drm->setDroits();
+        }
         $this->drmValidation = $this->drm->validation(array('stock' => 'warning', 'is_operateur' => $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)));
         $this->engagements = $this->drmValidation->getEngagements();
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
@@ -238,9 +242,11 @@ class drmActions extends sfActions {
         }
 
         $this->form->save();
+        
         $this->drm->validate();
-        //$this->drm->updateBilan();
+        
         $this->drm->save();
+        
     	if ($this->drm->needNextVersion()) {
 	      $generate = true;
 	      $nb_generate = 0;
