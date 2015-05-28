@@ -11,6 +11,8 @@ class VracValidationForm extends VracForm
 		$this->setValidator('email', new ValidatorPass());
 		$this->setWidget('commentaires', new sfWidgetFormTextarea());
 		$this->setValidator('commentaires', new sfValidatorString(array('required' => false)));
+		$this->setWidget('observations', new sfWidgetFormTextarea());
+		$this->setValidator('observations', new sfValidatorString(array('required' => false)));
 		if ($this->user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
 			$this->setWidget('date_signature', new sfWidgetFormInputText());
 			$this->setValidator('date_signature', new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true)));
@@ -55,6 +57,10 @@ class VracValidationForm extends VracForm
 	protected function updateDefaultsFromObject() {
         parent::updateDefaultsFromObject();
         $defaults = $this->getDefaults();
+        if ($this->user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->getObject()->hasVersion()) {
+        	$defaults['date_stats'] = date('c');
+        	$defaults['date_signature'] = null;
+        }
         foreach (self::$_francize_date as $field) {
         	if (isset($defaults[$field]) && !empty($defaults[$field])) {
         		$date = new DateTime($defaults[$field]);

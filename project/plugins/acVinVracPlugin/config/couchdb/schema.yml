@@ -275,5 +275,6 @@ Vrac:
       date_signature_acheteur: {  }
       date_signature_mandataire: {  }
       commentaires: {  }
+      observations: {  }
       mode_de_saisie: {  }
 

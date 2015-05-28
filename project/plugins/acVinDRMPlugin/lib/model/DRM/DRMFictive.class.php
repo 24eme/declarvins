@@ -19,6 +19,11 @@ class DRMFictive extends DRM
     	
     }
     
+    public function setDRM($drm)
+    {
+    	$this->drm = $drm;
+    }
+    
     public function getDRM()
     {
     	return $this->drm;
@@ -33,20 +38,14 @@ class DRMFictive extends DRM
     protected function initProduits()
     {
     	$produits = $this->getDetails();
-    	//$hasChange = false;
     	foreach ($produits as $produit) {
     		if ($produit->interpro != $this->interpro->_id) {
     			if (!$this->configurationProduits->isProduitInPrestation($produit->getCepage()->getHash())) {
     				$object = $produit->cascadingFictiveDelete();
     				$this->remove($object->getHash());
-    				//$hasChange = true;
     			}
     		}
     	}
-    	/*if ($hasChange) {
-			$this->update();
-    	}
-    	$this->setDroits();*/
     }
     
     protected function preSave() {
