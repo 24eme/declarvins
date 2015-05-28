@@ -186,8 +186,14 @@
 			<?php endif; ?>
 			<?php if(!is_null($vrac->commentaires)): ?>
 			<li>
-				<span>Autres observations:</span>
+				<span>Commentaires:</span>
 				<span><?php echo $vrac->commentaires ?></span>
+			</li>
+			<?php endif; ?>
+			<?php if($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $vrac->exist('observations') && $vrac->observations): ?>
+			<li>
+				<span>Observations BO:</span>
+				<span><?php echo $vrac->observations ?></span>
 			</li>
 			<?php endif; ?>
 		</ul>

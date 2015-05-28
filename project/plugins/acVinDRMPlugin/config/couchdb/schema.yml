@@ -456,6 +456,7 @@ DRM:
       etablissement_num_interne: {  }
       mode_de_saisie: {  }
       commentaires: {  }
+      observations: {  }
       interpros:
         type: array_collection
         definition:

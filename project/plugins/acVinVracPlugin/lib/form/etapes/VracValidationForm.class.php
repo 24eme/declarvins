@@ -11,6 +11,8 @@ class VracValidationForm extends VracForm
 		$this->setValidator('email', new ValidatorPass());
 		$this->setWidget('commentaires', new sfWidgetFormTextarea());
 		$this->setValidator('commentaires', new sfValidatorString(array('required' => false)));
+		$this->setWidget('observations', new sfWidgetFormTextarea());
+		$this->setValidator('observations', new sfValidatorString(array('required' => false)));
 		if ($this->user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
 			$this->setWidget('date_signature', new sfWidgetFormInputText());
 			$this->setValidator('date_signature', new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true)));
@@ -20,7 +22,8 @@ class VracValidationForm extends VracForm
         $this->widgetSchema->setLabels(array(
         	'date_signature' => 'Date de signature*:',
         	'date_stats' => 'Date de statistique:',
-        	'commentaires' => 'Commentaires:'
+        	'commentaires' => 'Commentaires:',
+        	'observations' => 'Observations BO:'
         ));
 		$vracValideFormName = $this->vracValideFormName();
         $valide = new VracValideForm($this->getObject()->valide);

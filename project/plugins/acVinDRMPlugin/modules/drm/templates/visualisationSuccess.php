@@ -84,6 +84,12 @@
                 <strong>Commentaires</strong>
                 <pre style="background: #fff; border: 1px #E9E9E9; padding: 8px; margin-top: 8px;"><?php echo $drm->commentaires ?></pre>
             </div>
+        <?php endif; ?>
+        <?php if ($drm->exist('observations') && $drm->observations && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+            <div style="padding: 0 0 30px 0">
+                <strong>Observations BO</strong>
+                <pre style="background: #fff; border: 1px #E9E9E9; padding: 8px; margin-top: 8px;"><?php echo $drm->observations ?></pre>
+            </div>
         <?php endif; ?>   
             
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>

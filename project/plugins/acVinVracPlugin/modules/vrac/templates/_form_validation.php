@@ -9,6 +9,13 @@
 	            <?php echo $form['commentaires']->renderLabel() ?>
 	            <?php echo $form['commentaires']->render() ?>
 	        </div>
+	        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+	        <div class="vracs_ligne_form vracs_ligne_form_alt">
+	            <?php echo $form['observations']->renderError() ?>
+	            <?php echo $form['observations']->renderLabel() ?>
+	            <?php echo $form['observations']->render() ?>
+	        </div>
+	    <?php endif; ?>
 	    <?php if (isset($form['date_signature'])): ?>
 	        <div class="vracs_ligne_form vracs_ligne_form_alt">
 	            <?php echo $form['date_signature']->renderError() ?>
