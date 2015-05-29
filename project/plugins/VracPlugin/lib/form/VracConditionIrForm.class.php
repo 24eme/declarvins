@@ -8,4 +8,9 @@ class VracConditionIrForm extends VracConditionForm
         unset($this['clause_reserve_retiraison']);
         unset($this['date_debut_retiraison']);
     }
+
+
+    public function conditionneDelaiContrat() {
+      return false;
+    }
 }
