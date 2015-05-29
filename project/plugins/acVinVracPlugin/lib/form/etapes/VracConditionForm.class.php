@@ -67,8 +67,17 @@ class VracConditionForm extends VracForm
       return 'contrat_pluriannuel';
     }
 
+    public function getCgpDelaiNeedDetermination() {
+      return 'cadre_reglementaire';
+    }
+
 
     public function conditionneReferenceContrat() {
+      return true;
+    }
+
+
+    public function conditionneDelaiContrat() {
       return true;
     }
 
