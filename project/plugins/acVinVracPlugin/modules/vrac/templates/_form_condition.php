@@ -15,7 +15,7 @@
                         <tr>
                             <th>Date (jj/mm/aaaa)</th>
                             <th>Volume (hl)</th>
-                            <th>Montant de l'échéance (€ HT)</th>
+                            <th>Montant du paiement (€ HT)</th>
                             <th class="dernier"></th>
                         </tr>
                     </thead>
@@ -54,6 +54,11 @@
                 <?php echo $form['delai_paiement']->renderLabel() ?>
                 <?php echo $form['delai_paiement']->render() ?>
             </div>
+            <div class="section_label_strong">
+                Si le contrat contient une clause de paiements à date fixe (un ou plusieurs versements), le délai maximum entre la retiraison du vin et le paiement pourra être au maximum de 120 jours.
+            </div>
+            <?php endif; ?>
+            <?php if ($form->conditionneDelaiContrat()): ?>
             <div class="section_label_strong">
                 Si le contrat contient une clause de paiements à date fixe (un ou plusieurs versements), le délai maximum entre la retiraison du vin et le paiement pourra être au maximum de 120 jours.
             </div>
