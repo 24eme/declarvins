@@ -142,7 +142,7 @@
 	<?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?>&nbsp;&nbsp;<?php echo ($vrac->reference_contrat_pluriannuel)? 'Référence contrat : '.$vrac->reference_contrat_pluriannuel : ''; ?>
 	<?php endif; ?>
 	<?php if (count($vrac->paiements) > 0): ?>
-	<p>Echéancier : </p>
+	<p>Echéancier de paiements : </p>
 	
 	<table class="tableau_simple">
 		<thead>
