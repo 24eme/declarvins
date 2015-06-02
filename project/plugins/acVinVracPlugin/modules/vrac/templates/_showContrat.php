@@ -184,15 +184,15 @@
 				<span><?php echo ($vrac->clause_reserve_retiraison)? 'Oui' : 'Non'; ?></span>
 			</li>
 			<?php endif; ?>
-			<?php if(!is_null($vrac->commentaires)): ?>
+			<?php if($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $vrac->exist('observations') && !is_null($vrac->commentaires)): ?>
 			<li>
-				<span>Commentaires:</span>
+				<span>Commentaires BO:</span>
 				<span><?php echo $vrac->commentaires ?></span>
 			</li>
 			<?php endif; ?>
-			<?php if($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $vrac->exist('observations') && $vrac->observations): ?>
+			<?php if($vrac->exist('observations') && $vrac->observations): ?>
 			<li>
-				<span>Observations BO:</span>
+				<span>Observations:</span>
 				<span><?php echo $vrac->observations ?></span>
 			</li>
 			<?php endif; ?>

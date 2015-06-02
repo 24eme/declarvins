@@ -79,16 +79,16 @@
             <?php include_partial('drm/mouvements', array('mouvements' => $mouvements, 'etablissement' => $etablissement, 'hamza_style' => false, 'no_link' => null)) ?>
             <?php endif; ?>
             <br/>
-        <?php if ($drm->commentaires): ?>
+        <?php if ($drm->exist('observations') && $drm->observations): ?>
             <div style="padding: 0 0 30px 0">
-                <strong>Commentaires</strong>
-                <pre style="background: #fff; border: 1px #E9E9E9; padding: 8px; margin-top: 8px;"><?php echo $drm->commentaires ?></pre>
+                <strong>Observations</strong>
+                <pre style="background: #fff; border: 1px #E9E9E9; padding: 8px; margin-top: 8px;"><?php echo $drm->observations ?></pre>
             </div>
         <?php endif; ?>
-        <?php if ($drm->exist('observations') && $drm->observations && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+        <?php if ($drm->exist('commentaires') && $drm->commentaires && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <div style="padding: 0 0 30px 0">
-                <strong>Observations BO</strong>
-                <pre style="background: #fff; border: 1px #E9E9E9; padding: 8px; margin-top: 8px;"><?php echo $drm->observations ?></pre>
+                <strong>Commentaires BO</strong>
+                <pre style="background: #fff; border: 1px #E9E9E9; padding: 8px; margin-top: 8px;"><?php echo $drm->commentaires ?></pre>
             </div>
         <?php endif; ?>   
             

@@ -84,6 +84,15 @@
                     </div>
                 </div>
 				<?php endif; ?>
+                <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+                <?php if ($form->getObject()->exist('observations') && $form->getObject()->observations): ?>
+                <div style="background: #E3E2E2; color: #3E3E3E; border-radius: 5px; margin-bottom: 25px;">
+                    <div style="padding: 4px 10px 10px 10px;">
+                		<label style="padding: 10px 0px; font-weight: bold; display: block;">Observations</label>
+                		<pre style="background: #fff; padding: 8px 0;"><?php echo $form->getObject()->observations ?></pre>
+            		</div>
+                </div>
+                <?php endif; ?>
                 <div style="background: #E3E2E2; color: #3E3E3E; border-radius: 5px; margin-bottom: 25px;">
                     <div style="padding: 4px 0 10px 10px;">
                         <?php echo $form['commentaires']->renderError() ?>
@@ -91,7 +100,7 @@
                         <?php echo $form['commentaires']->render(array("style" => "width: 872px; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4) inset; border-radius: 3px; border: 0px none; padding: 5px;", "rows" => "2")) ?>
                     </div>
                 </div>
-                <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+                <?php else: ?>
                 <div style="background: #E3E2E2; color: #3E3E3E; border-radius: 5px; margin-bottom: 25px;">
                     <div style="padding: 4px 0 10px 10px;">
                         <?php echo $form['observations']->renderError() ?>

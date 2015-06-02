@@ -27,7 +27,7 @@ class VracConditionForm extends VracForm
         	'conditions_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getConditionsPaiement()), 'multiple' => false)),
         	'vin_livre' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixVinLivre()))),
         	'reference_contrat_pluriannuel' => new sfValidatorString(array('required' => false)),
-        	'delai_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getDelaisPaiement()))),
+        	'delai_paiement' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getDelaisPaiement()))),
         	'clause_reserve_retiraison' => new ValidatorPass()
         ));
         
