@@ -12,11 +12,11 @@ class DRMValidationForm extends acCouchdbObjectForm
   		}
 
       $this->setWidget('commentaires', new sfWidgetFormTextarea());
-      $this->getWidget('commentaires')->setLabel("Commentaires");
+      $this->getWidget('commentaires')->setLabel("Commentaires BO");
       $this->setValidator('commentaires', new sfValidatorString(array('required' => false)));
 
       $this->setWidget('observations', new sfWidgetFormTextarea());
-      $this->getWidget('observations')->setLabel("Observations BO");
+      $this->getWidget('observations')->setLabel("Observations");
       $this->setValidator('observations', new sfValidatorString(array('required' => false)));
       
       $this->embedForm('manquants', new DRMManquantsForm($this->getObject()->getOrAdd('manquants')));

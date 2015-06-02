@@ -177,7 +177,8 @@
 		<?php if (!$vrac->isConditionneIvse()): ?>
 		Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?><br /><br />
 		<?php endif; ?>
-		Autres observations : <?php echo $vrac->commentaires ?>
+		Autres observations : <?php if ($vrac->exist('observations') && $vrac->observations): ?><?php echo $vrac->observations ?><?php endif; ?>
+		
 	</p>
 	<?php if ($vrac->isConditionneIvse()): ?><hr /><?php endif; ?>
 	<h2><?php if ($vrac->isConditionneIvse()): ?>Conditions générales de vente<?php else: ?>Clauses<?php endif; ?></h2>
