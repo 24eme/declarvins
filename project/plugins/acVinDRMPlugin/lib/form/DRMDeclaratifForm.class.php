@@ -157,7 +157,7 @@ class DRMDeclaratifForm extends acCouchdbForm {
             $this->_drm->declaratif->paiement->douane->frequence = $values['frequence'];
         }
         $this->_drm->declaratif->paiement->douane->moyen = $values['moyen_paiement'];
-        $this->_drm->save();
+        //$this->_drm->save();
         return $this->_drm;
     }
 
