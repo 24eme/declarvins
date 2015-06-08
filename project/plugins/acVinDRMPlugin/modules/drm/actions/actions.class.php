@@ -195,9 +195,6 @@ class drmActions extends sfActions {
 
     public function executeDeclaratif(sfWebRequest $request) {
         $this->drm = $this->getRoute()->getDRM();
-        if ($drm = $this->drm->setCurrentEtapeRouting('declaratif')) {
-        	$this->drm = $drm;
-        }
         $this->form = new DRMDeclaratifForm($this->drm);
         $this->hasFrequencePaiement = ($this->drm->declaratif->paiement->douane->frequence) ? true : false;
         if ($request->isMethod(sfWebRequest::POST)) {
