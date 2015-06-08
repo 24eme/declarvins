@@ -586,7 +586,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     public function setCurrentEtapeRouting($etape) {
         if (!$this->isValidee()) {
             $this->etape = $etape;
-            $this->getDocument()->save();
+            $this->save();
         }
     }
 
