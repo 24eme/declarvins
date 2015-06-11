@@ -30,9 +30,10 @@
 			<ul>
 				<li>Famille : <strong><?php echo EtablissementFamilles::getFamilleLibelle($etablissement->famille) ?></strong></li>
 			    <li>Sous-famille : <strong><?php echo EtablissementFamilles::getSousFamilleLibelle($etablissement->famille, $etablissement->sous_famille) ?></strong></li>
+				<li>Dépend du service des douanes de : <strong><?php echo $etablissement->service_douane ?></strong></li>
             </ul>
 			<?php if ($etablissement->comptabilite->adresse): ?>
-			<h2>Lieu où est tenue la comptabilité matière (si différente de l'adresse du chai) :</h2>
+			<h2>Lieu où est tenue la comptabilité matière :</h2>
 			<ul>
 				<?php if($etablissement->comptabilite->adresse): ?><li>Adresse : <strong><?php echo $etablissement->comptabilite->adresse ?></strong></li><?php endif; ?>
 				<?php if($etablissement->comptabilite->code_postal): ?><li>CP : <strong><?php echo $etablissement->comptabilite->code_postal ?></strong></li><?php endif; ?>
@@ -40,9 +41,6 @@
 				<?php if($etablissement->comptabilite->pays): ?><li>Pays : <strong><?php echo $etablissement->comptabilite->pays ?></strong></li><?php endif; ?>
 			</ul>
             <?php endif; ?>
-			<ul>
-				<li>Dépend du service des douanes de : <strong><?php echo $etablissement->service_douane ?></strong></li>
-			</ul>
 		</div>
 	</div>
 </div>
