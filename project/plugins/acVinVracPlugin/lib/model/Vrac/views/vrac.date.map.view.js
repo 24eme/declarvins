@@ -90,6 +90,7 @@ function(doc) {
 		var vrac_statut = doc.valide.statut;
 		var regexp = new RegExp("(\r\n|\r|\n)", "g");
 		var vrac_commentaire = (doc.commentaires)? (doc.commentaires).replace(regexp, " ") : null;
+		var vrac_observation = (doc.observations)? (doc.observations).replace(regexp, " ") : null;
 		
 		var nbItem = doc.lots.length;
 		
@@ -200,7 +201,8 @@ function(doc) {
                 		 vrac_referente,
                 		 vrac_mode,
 				 vrac_date_saisie,
-				 vrac_date_signature
+				 vrac_date_signature,
+				 vrac_observation
                 		 ]);
 			}
 		} else {
@@ -269,7 +271,8 @@ function(doc) {
             		 vrac_referente,
             		 vrac_mode,
 			 vrac_date_saisie,
-			 vrac_date_signature
+			 vrac_date_signature,
+			 vrac_date_observation
             		 ]);
 		}                              
 	} 
