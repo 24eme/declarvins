@@ -98,12 +98,13 @@ function(doc) {
             }
         }
         var drm_identifiant_ivse = doc.identifiant_ivse;
-        var drm_referente = (doc.referente)? doc.referente : 0;
-        var drm_contrats_manquants = (doc.manquants)? doc.manquants.contrats : 0;
-        var drm_igp_manquants = (doc.manquants)? doc.manquants.igp : 0;
+        var drm_referente = (doc.referente)? doc.referente : null;
+        var drm_contrats_manquants = (doc.manquants)? doc.manquants.contrats : null;
+        var drm_igp_manquants = (doc.manquants)? doc.manquants.igp : null;
 
         var regexp = new RegExp("(\r\n|\r|\n)", "g");
         var drm_commentaire = (doc.commentaires)? (doc.commentaires).replace(regexp, " ") : null;
+        var drm_observation = (doc.observations)? (doc.observations).replace(regexp, " ") : null;
         
             for(certification_key in doc.declaration.certifications) {
                 var certification = doc.declaration.certifications[certification_key];
@@ -295,7 +296,8 @@ function(doc) {
                                                      drm_commentaire,
                                                      drm_referente,
                                                      drm_contrats_manquants,
-                                                     drm_igp_manquants
+                                                     drm_igp_manquants,
+                                                     drm_observation
                                                      ]
                                             );
 
@@ -374,7 +376,8 @@ function(doc) {
                                                              drm_commentaire,
                                                              drm_referente,
                                                              drm_contrats_manquants,
-                                                             drm_igp_manquants
+                                                             drm_igp_manquants,
+                                                             drm_observation
                                                              ]
                                                     );
                                                 }
