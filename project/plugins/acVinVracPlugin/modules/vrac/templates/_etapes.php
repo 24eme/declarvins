@@ -18,3 +18,18 @@
             ?>  
     </ol>
 </div>
+<script type="text/javascript">
+	$("#rail_etapes a").click(function() {
+		console.log('yep');
+		var link = $(this);
+		$.ajax({type:"POST", data: $("form").serialize(), url: $("form").attr('action'),
+			success: function(data){
+				window.location.href = link.attr('href');
+			},
+			error: function(){
+				$('#ajax_form_error_notification').show();
+			}
+		});
+		return false;
+	});
+</script>
