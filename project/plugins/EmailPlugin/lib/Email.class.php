@@ -213,6 +213,18 @@ class Email {
         return $this->getMailer()->send($message);
     }
     
+    public function vracExpirationAnnulationContrat($vrac, $etablissement, $destinataire, $acteur) 
+    {
+        $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
+        $from = $this->getFromEmailInterpros($interpros);
+        $to = array($destinataire);
+        $subject = 'Suppression de l\'annulation d\'un contrat interprofessionnel suite au dépassement du délai';
+        $body = $this->getBodyFromPartial('vrac_contrat_expiration_annulation', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur));
+        $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+
+        return $this->getMailer()->send($message);
+    }
+    
     public function sendContratMandat($contrat, $destinataire, $interpros = null) 
     {
         $from = $this->getFromEmailInterpros($interpros,true);
