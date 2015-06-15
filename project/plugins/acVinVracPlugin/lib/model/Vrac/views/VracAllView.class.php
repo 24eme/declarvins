@@ -23,5 +23,9 @@ class VracAllView extends acCouchdbView
 
         return $this->client->startkey(array(VracClient::STATUS_CONTRAT_SOLDE,$identifiant))->endkey(array(VracClient::STATUS_CONTRAT_SOLDE,$identifiant, array()))->getView($this->design, $this->view);
     }
+    
+	public function findByStatut($statut) {
+        return $this->client->startkey(array($statut))->endkey(array($statut, array()))->getView($this->design, $this->view);
+    }
 
 }  
