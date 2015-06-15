@@ -9,7 +9,7 @@
         </div>
         <div class="section_label_strong etablissement_choice">
             <label for="">Nom :</label>
-            <?php echo $vrac->vendeur->raison_sociale ?><?php if ($vrac->vendeur->raison_sociale): ?> / <?php endif; ?><?php echo $vrac->vendeur->nom ?>
+            <?php echo $vrac->vendeur->raison_sociale ?><?php if ($vrac->vendeur->raison_sociale && $vrac->vendeur->nom): ?> / <?php endif; ?><?php echo $vrac->vendeur->nom ?>
         </div>
 
         <div class="bloc_form etablissement_informations"> 
@@ -149,7 +149,7 @@
         </div>
         <div class="section_label_strong etablissement_choice">
             <label for="">Nom :</label>
-            <?php echo $vrac->acheteur->raison_sociale ?><?php if ($vrac->acheteur->raison_sociale): ?> / <?php endif; ?><?php echo $vrac->acheteur->nom ?>
+            <?php echo $vrac->acheteur->raison_sociale ?><?php if ($vrac->acheteur->raison_sociale && $vrac->acheteur->nom): ?> / <?php endif; ?><?php echo $vrac->acheteur->nom ?>
         </div>
 
         <div class="bloc_form etablissement_informations"> 
@@ -295,7 +295,7 @@
     	<?php if ($form->etablissementIsCourtier()): ?><h2>Vous êtes le courtier</h2><?php endif; ?>
         <div class="section_label_strong" id="listener_mandataire_choice">
             <label for="">Nom :</label>
-            <?php echo $vrac->mandataire->raison_sociale ?><?php if ($vrac->mandataire->raison_sociale): ?> / <?php endif; ?><?php echo $vrac->mandataire->nom ?>
+            <?php echo $vrac->mandataire->raison_sociale ?><?php if ($vrac->mandataire->raison_sociale && $vrac->mandataire->nom): ?> / <?php endif; ?><?php echo $vrac->mandataire->nom ?>
         </div>
         <div  class="bloc_form etablissement_informations"> 
             <div class="col">

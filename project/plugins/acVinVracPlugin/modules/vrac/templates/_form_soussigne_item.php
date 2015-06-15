@@ -3,20 +3,23 @@
 
     
 
-    <?php if ($form->getObject()->vous_etes == $famille): ?>
+    <?php 
+    	if ($form->getObject()->vous_etes == $famille): 
+    		$etablissement = ($form->getEtablissement())? $form->getEtablissement() : $form->getObject()->getCreateur(true);
+    ?>
     <div id="bloc_<?php echo $famille ?>_vous" class="soussigne_vous " data-condition-value="<?php echo $famille ?>">
         <h2><?php echo $sous_titre_vous ?></h2>
         <div class="section_label_strong etablissement_famille_choice">
             <label for="">Type :</label>
-            <?php echo $form->getEtablissement()->getFamille() ?>
+            <?php echo $etablissement->getFamille() ?>
         </div>
         <div class="section_label_strong etablissement_choice">
             <label for="">Nom :</label>
-            <?php if ($form->getEtablissement()->raison_sociale): ?> / <?php endif; ?><?php echo $form->getEtablissement()->nom ?>
+            <?php echo $etablissement->raison_sociale ?><?php if ($etablissement->raison_sociale && $etablissement->nom): ?> / <?php endif; ?><?php echo $etablissement->nom ?>
         </div>
 
         <div class="bloc_form etablissement_informations"> 
-            <?php include_partial('form_etablissement_defaut', array('etablissement' => $form->getEtablissement(), 'form' => $form[$famille])); ?>
+            <?php include_partial('form_etablissement_defaut', array('etablissement' => $etablissement, 'form' => $form[$famille])); ?>
         </div>
     </div>
     <?php else: ?>

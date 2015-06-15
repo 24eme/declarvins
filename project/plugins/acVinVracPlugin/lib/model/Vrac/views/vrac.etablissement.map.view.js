@@ -137,7 +137,7 @@ function(doc) {
 				
 				var vue =  [vrac_id,
 				         vrac_date_stat,
-                		 vrac_date_validation,
+				         vrac_date_signature,
                 		 vrac_acheteur_id,
                 		 vrac_acheteur_cvi,
 				         vrac_acheteur_siret,
@@ -199,13 +199,13 @@ function(doc) {
                 		 vrac_referente,
                 		 vrac_mode,
         				 vrac_date_saisie,
-        				 vrac_date_signature
+        				 vrac_date_validation
                 		 ];
 			}
 		} else {
 			var vue = [vrac_id,
 			             vrac_date_stat,
-	            		 vrac_date_validation,
+			             vrac_date_signature,
 	            		 vrac_acheteur_id,
 	            		 vrac_acheteur_cvi,
 				         vrac_acheteur_siret,
@@ -267,7 +267,7 @@ function(doc) {
                 		 vrac_referente,
                 		 vrac_mode,
             			 vrac_date_saisie,
-            			 vrac_date_signature
+            			 vrac_date_validation
 	            		 ];
 		}
 

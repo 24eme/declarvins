@@ -27,7 +27,7 @@
         <h2>Vous êtes le courtier</h2>
         <div class="section_label_strong" id="listener_mandataire_choice">
             <label for="">Nom :</label>
-            <?php echo $form->getEtablissement()->getNom(); ?>
+            <?php echo $form->getEtablissement()->raison_sociale ?><?php if ($form->getEtablissement()->raison_sociale && $form->getEtablissement()->nom): ?> / <?php endif; ?><?php echo $form->getEtablissement()->nom; ?>
         </div>
         <div  class="bloc_form etablissement_informations"> 
             <?php include_partial('form_mandataire_defaut', array('form' => $form['mandataire'], 'etablissement' => $form->getEtablissement())); ?>
