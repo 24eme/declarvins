@@ -10,7 +10,8 @@ $etabstest = array(
 'C8664',
 'C0662',
 'C7002',
-'T0001'
+'T0001',
+'C0323'
 );
 ?>
 <nav id="barre_navigation">
