@@ -37,9 +37,30 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         return $configuration->getConfigurationProduit($this->produit);
     }
     
-    public function getLibelleProduit($format = "%g% %a% %l% %co% %ce%")
+    public function getCepagesProduit($withDefault = false)
     {
-    	if ($this->produit_libelle) {
+    	$configuration = ConfigurationClient::getCurrent();
+    	$cepages = array();
+    	if ($produit = $this->getProduitObject()) {
+    		if (!$withDefault) {
+    			$produits = array();
+    			$p = $produit->getCouleur()->getProduits();
+    			foreach ($p as $k => $v) {
+    				if ($v->getKey() != ConfigurationProduit::DEFAULT_KEY) {
+    					$produits[$k] = $v;
+    				}
+    			}
+    		} else {
+    			$produits = $produit->getCouleur()->getProduits();
+    		}
+    		$cepages = $configuration->formatWithCode($produits, "%ce%");
+    	}
+    	return $cepages;
+    }
+    
+    public function getLibelleProduit($format = "%g% %a% %l% %co% %ce%", $force = false)
+    {
+    	if ($this->produit_libelle && !$force) {
     		return $this->produit_libelle;
     	}
     	$produit = $this->getProduitObject();
@@ -149,6 +170,8 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 
           return null;
          }
+         
+         $this->{$type.'_type'} = $etablissement->famille;
          
         if ($informations->exist('nom')) $informations->nom = $etablissement->nom;
       	if ($informations->exist('raison_sociale')) $informations->raison_sociale = $etablissement->raison_sociale;

@@ -18,9 +18,9 @@
             ?>  
     </ol>
 </div>
+<?php if ($actif != 'validation'): ?>
 <script type="text/javascript">
 	$("#rail_etapes a").click(function() {
-		console.log('yep');
 		var link = $(this);
 		$.ajax({type:"POST", data: $("form").serialize(), url: $("form").attr('action'),
 			success: function(data){
@@ -33,3 +33,4 @@
 		return false;
 	});
 </script>
+<?php endif; ?>

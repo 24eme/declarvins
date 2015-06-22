@@ -193,6 +193,16 @@ class Configuration extends BaseConfiguration {
         return $this->format($lieux, $format);
     }
 
+    public function getFormattedCouleurs($hash = null, $zones, $onlyForDrmVrac = false, $format = "%g% %a% %m% %l% %co%", $cvoNeg = false, $date = null) {
+        $produits = array();
+        foreach ($zones as $zoneId => $zone) {
+            foreach ($zone->getConfigurationProduits() as $configurationProduitsId => $configurationProduits) {
+                $produits = array_merge($produits, $configurationProduits->getTotalCouleurs($hash, $onlyForDrmVrac, $cvoNeg, $date));
+            }
+        }
+        return $this->formatWithCode($produits, $format);
+    }
+
     public function format($produits, $format = "%g% %a% %m% %l% %co% %ce%") {
         $result = array();
         $client = ConfigurationProduitClient::getInstance();

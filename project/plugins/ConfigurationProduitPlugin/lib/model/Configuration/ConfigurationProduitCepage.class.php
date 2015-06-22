@@ -55,6 +55,11 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
 	{
 		return array();
 	}
+	
+	public function getTotalCouleurs($onlyForDrmVrac = false, $cvoNeg = false, $date = null) 
+	{
+		return array();
+	}
     
     public function getAllCepages()
     {

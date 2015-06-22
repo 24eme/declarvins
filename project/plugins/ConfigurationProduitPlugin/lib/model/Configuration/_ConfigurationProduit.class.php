@@ -8,6 +8,7 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 	protected $tree_produits = array();
 	protected $all_libelles = array();
 	protected $total_lieux = array();
+	protected $total_couleurs = array();
 	
     public function loadAllData() 
     {
@@ -16,6 +17,7 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 		$this->getTreeProduits();
 		$this->getAllCepages();
 		$this->getTotalLieux();
+		$this->getTotalCouleurs();
 		$this->getCodes();
 		$this->getAllAppellations();
 		$this->getAllCertifications();
@@ -86,6 +88,19 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 	    	$this->total_lieux[$key] = $lieux;
 		}
 		return $this->total_lieux[$key];
+  	}
+	
+	public function getTotalCouleurs($onlyForDrmVrac = false, $cvoNeg = false, $date = null) 
+	{
+		$key = sprintf("%s_%s_%s", $onlyForDrmVrac, $cvoNeg, $date);
+		if(!array_key_exists($key, $this->total_lieux)) {
+	      	$couleurs = array();
+	      	foreach($this->getChildrenNode() as $key => $item) {
+	        	$couleurs = array_merge($couleurs, $item->getTotalCouleurs($onlyForDrmVrac, $cvoNeg, $date));
+	      	}
+	    	$this->total_couleurs[$key] = $couleurs;
+		}
+		return $this->total_couleurs[$key];
   	}
   	
   	

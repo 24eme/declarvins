@@ -25,7 +25,12 @@ class VracProduitForm extends VracForm
     		$this->widgetSchema->setNameFormat('vrac_produit[%s]');
     }
     protected function doUpdateObject($values) {
+    	$persit = null;
+    	if (preg_match('/'.str_replace('/', '\/', $values['produit']).'/', $this->getObject()->produit)) {
+    		$persit = $this->getObject()->produit;
+    	}
         parent::doUpdateObject($values);
+        $this->getObject()->produit = ($persit)? $persit : $values['produit'].'/cepages/'.ConfigurationProduit::DEFAULT_KEY;
         $configuration = ConfigurationClient::getCurrent();
         $configurationProduit = $configuration->getConfigurationProduit($this->getObject()->produit);
         $cvo = $configurationProduit->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, null, true);
@@ -43,7 +48,8 @@ class VracProduitForm extends VracForm
 	protected function updateDefaultsFromObject() {
         parent::updateDefaultsFromObject();
         if ($this->getObject()->produit) {
-        	$this->setDefault('produit', '/'.str_replace('/declaration/', 'declaration/', $this->getObject()->produit));
+        	preg_match('/([0-9a-zA-Z\/]+)\/cepages\/[0-9a-zA-Z\/]+/', $this->getObject()->produit, $matches);
+        	$this->setDefault('produit', '/'.str_replace('/declaration/', 'declaration/', $matches[1]));
         	
         }   
     }

@@ -192,6 +192,38 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	return $this->declaration->getTreeProduits();
     }
     
+    public function getTotalCouleurs($hash = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null, $avecPrestation = false)
+    {
+    	if ($hash) {
+    		if ($this->exist($hash)) {
+    			return ($avecPrestation)? array_merge($this->get($hash)->getTotalCouleurs(), $this->getTotalCouleursPrestataire($hash)) : $this->get($hash)->getTotalCouleurs();
+    		}
+    		return ($avecPrestation)? $this->getTotalCouleursPrestataire($hash) : array();
+    	}
+    	return ($avecPrestation)? array_merge($this->declaration->getTotalCouleurs(), $this->getTotalCouleursPrestataire()) : $this->declaration->getTotalCouleurs();
+    }
+    
+    public function getTotalCouleursPrestataire($hash = null)
+    {
+    	$prestations = $this->getOrAdd('prestations');
+    	$produits = array();
+    	foreach ($prestations as $i => $val) {
+    		if($interpro = InterproClient::getInstance()->find($i)) {
+    			if ($configurationProduits = ConfigurationProduitClient::getInstance()->find($interpro->getOrAdd('configuration_produits'))) {
+	    				foreach ($val as $key => $value) {
+	    					if ($hash && !preg_match("/^".str_replace('/', '_', $hash)."/", $key)) {
+	    						continue;
+	    					}
+	    					if ($configurationProduits->exist($value->lien)) {
+	    						$produits = array_merge($produits, $configurationProduits->get($value->lien)->getCouleur()->getTotalCouleurs());
+	    					}
+    				}
+    			}
+    		}
+    	}
+    	return $produits;
+    }
+    
     public function getTotalLieux($hash = null, $avecPrestation = false)
     {
     	if ($hash) {
@@ -202,8 +234,6 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	}
     	return ($avecPrestation)? array_merge($this->declaration->getTotalLieux(), $this->getTotalLieuxPrestataire()) : $this->declaration->getTotalLieux();
     }
-    
-
     
     public function getTotalLieuxPrestataire($hash = null)
     {

@@ -56,7 +56,14 @@ class VracMarcheForm extends VracForm
         	'export' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixOuiNon()))),
 	        'millesime' => new sfValidatorString(array('required' => false))
          ));
-    		
+        
+        $cepages = $this->getCepages();
+    	if (count($cepages) > 0) {
+    		$cepages = array_merge(array('' => ''), $this->getCepages());
+    		$this->setWidget('cepages', new sfWidgetFormChoice(array('choices' => $cepages), array('class' => 'autocomplete')));
+    		$this->widgetSchema->setLabel('cepages', 'Cépage:');
+    		$this->setValidator('cepages', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($cepages))));
+    	}
     		
     		$this->setWidget('non_millesime', new sfWidgetFormInputCheckbox());
     		$this->widgetSchema->setLabel('non_millesime', '&nbsp;');
@@ -77,6 +84,20 @@ class VracMarcheForm extends VracForm
     }
     protected function doUpdateObject($values) {
         parent::doUpdateObject($values);
+        
+        if (isset($values['cepages']) && $values['cepages']) {
+        	$this->getObject()->produit = $values['cepages'];
+        	$configuration = ConfigurationClient::getCurrent();
+        	$configurationProduit = $configuration->getConfigurationProduit($this->getObject()->produit);
+        	$this->getObject()->produit_libelle = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles());
+        } else {
+        	$configuration = ConfigurationClient::getCurrent();
+        	$configurationProduit = $configuration->getConfigurationProduit($this->getObject()->produit);
+        	$configurationProduit = $configurationProduit->getCouleur();
+        	$this->getObject()->produit = $configurationProduit->getHash().'/cepages/'.ConfigurationProduit::DEFAULT_KEY;
+        	$this->getObject()->produit_libelle = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles());
+        	
+        }
 
         $types_transaction = $this->getTypesTransaction();
         if (count($types_transaction) == 1) {
@@ -98,6 +119,9 @@ class VracMarcheForm extends VracForm
     }
     protected function updateDefaultsFromObject() {
       parent::updateDefaultsFromObject();    
+      
+      $this->setDefault('cepages', $this->getObject()->produit);
+      
       if (is_null($this->getObject()->type_transaction)) {
         $this->setDefault('type_transaction', VracClient::TRANSACTION_DEFAUT);
       }      
@@ -119,6 +143,11 @@ class VracMarcheForm extends VracForm
       	if (!$this->getObject()->millesime && $this->getObject()->volume_propose) {
         		$this->setDefault('non_millesime', true);
         	}
+    }
+    
+    public function getCepages()
+    {
+    	return $this->getObject()->getCepagesProduit();
     }
 
     public function getTypePrixNeedDetermination() {

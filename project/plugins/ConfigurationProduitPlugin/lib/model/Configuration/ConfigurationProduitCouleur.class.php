@@ -43,6 +43,32 @@ class ConfigurationProduitCouleur extends BaseConfigurationProduitCouleur
 	{
 		return array();
 	}
+
+    public function getTotalCouleurs($onlyForDrmVrac = false, $cvoNeg = false, $date = null)
+    {
+    
+    	if ($onlyForDrmVrac) {
+    		if (!$this->getCurrentDrmVrac(true)) {
+    			return array();
+    		}
+    	}
+    
+    	if($cvoNeg){
+    		return array($this->getHash() => $this);
+    	}
+    
+    	return $this->getProduitWithTaux($date);
+    
+    }
+    
+    protected function getProduitWithTaux($date = null) {
+        $date_cvo = (!$date)? date('Y-m-d') : $date;
+        $droit = $this->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, $date_cvo, true);
+        if(!$droit || $droit->taux >= 0.0){
+             return array($this->getHash() => $this);
+        }
+        return array();
+    }
     
 	/*
      * Les fonctions ci-dessous sont relatives à la gestion de la configuration du catalogue produit

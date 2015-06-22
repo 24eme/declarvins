@@ -14,8 +14,15 @@
             <div class="section_label_strong">
             	<label>Produit: </label>
             	<?php $form->getObject()->getProduitInterpro() ?>
-                <?php echo ($form->getObject()->produit)? $form->getObject()->getLibelleProduit() : null; ?>
+                <?php echo ($form->getObject()->produit)? $form->getObject()->getLibelleProduit("%g% %a% %l% %co%", true) : null; ?>
             </div>
+            <?php if (isset($form['cepages'])): ?>
+            <div id="section_cepages" class="section_label_strong">
+                <?php echo $form['cepages']->renderError() ?>
+                <?php echo $form['cepages']->renderLabel() ?>
+                <?php echo $form['cepages']->render() ?>
+            </div>
+            <?php endif; ?>
             <div  id="section_millesime" class="section_label_strong">
                 <?php echo $form['millesime']->renderError() ?>
                 <?php echo $form['millesime']->renderLabel() ?>
