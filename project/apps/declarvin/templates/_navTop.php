@@ -1,25 +1,12 @@
 <?php
 use_helper('Text');
-$etabstest = array(
-'C0356',
-'C0662',
-'C2262',
-'C7598',
-'C0469',
-'C1046',
-'C8664',
-'C0662',
-'C7002',
-'T0001',
-'C0323'
-);
 ?>
 <nav id="barre_navigation">
     <ul id="nav_principale">
         <!--<li>
             <a href="#">Accueil</a>
         </li>-->
-        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $configuration->isApplicationOuverte($etablissement->interpro, 'drm') || in_array($etablissement->identifiant, $etabstest)): ?>
+        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $configuration->isApplicationOuverte($etablissement->interpro, 'drm')): ?>
         <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
         <li<?php if ($active == 'drm'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('drm_mon_espace', $etablissement) ?>">DRM</a>
