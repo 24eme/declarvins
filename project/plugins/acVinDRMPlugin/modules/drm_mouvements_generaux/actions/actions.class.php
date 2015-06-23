@@ -12,8 +12,7 @@ class drm_mouvements_generauxActions extends sfActions
   		if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement) {
   			$configuration = ConfigurationClient::getCurrent();
   			
-  			$etabstest = array('C0356','C0662','C2262','C7598','C0469','C1046','C8664','C0662','C7002','T0001', 'C0323');
-  			$access = ($configuration->isApplicationOuverte($etablissement->interpro, 'drm') || in_array($etablissement->identifiant, $etabstest))? true : false;
+  			$access = ($configuration->isApplicationOuverte($etablissement->interpro, 'drm'))? true : false;
   			$this->forward404Unless($access);
   		}
   		
