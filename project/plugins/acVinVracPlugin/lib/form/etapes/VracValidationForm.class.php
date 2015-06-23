@@ -22,8 +22,8 @@ class VracValidationForm extends VracForm
         $this->widgetSchema->setLabels(array(
         	'date_signature' => 'Date de signature*:',
         	'date_stats' => 'Date de statistique:',
-        	'commentaires' => 'Commentaires:',
-        	'observations' => 'Observations BO:'
+        	'commentaires' => 'Commentaires BO:',
+        	'observations' => 'Observations:'
         ));
 		$vracValideFormName = $this->vracValideFormName();
         $valide = new VracValideForm($this->getObject()->valide);
