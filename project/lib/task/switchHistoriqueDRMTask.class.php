@@ -44,8 +44,8 @@ EOF;
       foreach($rows as $row) {
       	if ($drm = DRMClient::getInstance()->find($row->id)) {
       		$drm->setEtablissementInformations($to);
-      		$json = str_replace($from->identifiant, $to->identifiant, $drm->toJson());
-      		DRMClient::getInstance()->storeDoc($json);
+      		$json = str_replace($from->identifiant, $to->identifiant, json_encode($drm->toJson()));
+      		DRMClient::getInstance()->storeDoc(json_decode($json));
       		$this->logSection("drm", $drm->_id." drm switchée avec succès", null, 'SUCCESS');
       		$i++;
       	}
