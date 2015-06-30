@@ -36,13 +36,13 @@ EOF;
     $to = EtablissementClient::getInstance()->find($arguments['to']);
     $archivage = $options['archivage'];
     
-    if ($from->famille != "negociant" && $to->famille != "negociant") {
+    if (($from->famille != "negociant" && $to->famille != "negociant") || ($from->famille != "courtier" && $to->famille != "courtier")) {
     	$this->logSection("vrac", $from->identifiant." ".$from->famille." / ".$to->identifiant." ".$to->famille, null, 'ERROR');
     } else {
   		$rows = acCouchdbManager::getClient()
               ->startkey(array($from->identifiant))
               ->endkey(array($from->identifiant, array()))
-              ->reduce(false)
+              //->reduce(false)
               ->getView("vrac", "etablissement")
               ->rows;
       	$i = 0;
