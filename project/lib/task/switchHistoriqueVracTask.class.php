@@ -36,7 +36,7 @@ EOF;
     $to = EtablissementClient::getInstance()->find($arguments['to']);
     $archivage = $options['archivage'];
     
-    if (($from->famille != "negociant" && $to->famille != "negociant") || ($from->famille != "courtier" && $to->famille != "courtier")) {
+    if ($from->famille != "producteur" || $to->famille != "producteur") {
     	$this->logSection("vrac", $from->identifiant." ".$from->famille." / ".$to->identifiant." ".$to->famille, null, 'ERROR');
     } else {
   		$rows = acCouchdbManager::getClient()
