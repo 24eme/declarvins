@@ -40,12 +40,14 @@ class DRMDroit extends BaseDRMDroit
 	    }
 	    $this->volume_taxe += $volume_taxable;
 	    $this->volume_reintegre += $volume_reintegre;
-	    $this->report += $report;
 	  	$this->total = ($this->volume_taxe - $this->volume_reintegre) * $this->taux;
 	  	if (!$negatif && $this->total < 0) {
 	  		$this->total = 0;
 	  	}
-	  	$this->cumul = $this->total + $this->report;
+	  	if ($this->isReportable()) {
+	    	$this->report = $report;
+	  		$this->cumul = $this->total + $this->report;
+	  	}
 	}
   
 	public function getPayable() 
