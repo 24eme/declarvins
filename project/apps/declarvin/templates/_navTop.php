@@ -42,7 +42,7 @@ use_helper('Text');
         <?php  endif; ?>
         
         <li class="etablissement_courant">
-            <a href="<?php echo url_for('@tiers') ?>" title="<?php echo $etablissement->getDenomination();?> (<?php echo $etablissement->getRaisonSociale(); ?> <?php echo $etablissement->getIdentifiant();?>)">
+            <a href="<?php echo url_for('profil', $etablissement) ?>" title="<?php echo $etablissement->getDenomination();?> (<?php echo $etablissement->getRaisonSociale(); ?> <?php echo $etablissement->getIdentifiant();?>)">
                 <span><?php echo $etablissement->getDenomination(); ?></span>
             </a>
         </li>
