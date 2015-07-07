@@ -35,28 +35,19 @@ EOF;
               ->getView("drm", "all")
               ->rows;
       $i = 0;
+      $nb = count($rows);
       foreach($rows as $row) {
       	if ($drm = DRMClient::getInstance()->find($row->id)) {
-      		$update = false;
-      		foreach ($drm->getDetails() as $detail) {
-      			if ($detail->interpro == 'INTERPRO-IR') {
-        			$detail->cvo->volume_taxable = $detail->getVolumeTaxable();
-        			$detail->douane->volume_taxable = $detail->getDouaneVolumeTaxable();
-        			$update = true;
-      			}
-      		}
-      		if ($update) {
-      			$drm->setDroits();
-	      		try {
+      		$drm->setDroits();
+	      	try {
 	      		$drm->save();
 	      		$this->logSection("debug", $drm->_id." drm debugguée avec succès", null, 'SUCCESS');
-	      		} catch (Exception $e) {
-	      			$this->logSection("debug", $drm->_id." bug", null, 'ERROR');
-	      		}
-      		}
+	      	} catch (Exception $e) {
+	      		$this->logSection("debug", $drm->_id." bug", null, 'ERROR');
+	      	}
       	}
       	$i++;
-      	$this->logSection("debug", $i." drm(s) debugguées avec succès", null, 'SUCCESS');
+      	$this->logSection("debug", $i." / ".$nb." (".round(($i / $nb) * 100)."%) drm(s) debugguée(s) avec succès", null, 'SUCCESS');
       }
     
   }

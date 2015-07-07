@@ -224,6 +224,8 @@ class drmActions extends sfActions {
         	$this->drm->update();
         	$this->drm->setDroits();
         }
+        $this->drm->storeDroits(array());
+        $this->droits_circulation = ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) ? null : new DRMDroitsCirculation($this->drm);
         $this->drmValidation = $this->drm->validation(array('stock' => 'warning', 'is_operateur' => $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)));
         $this->engagements = $this->drmValidation->getEngagements();
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
@@ -383,8 +385,8 @@ class drmActions extends sfActions {
         $this->drm = $this->getRoute()->getDRM();
         if ($this->drm->type == DRMFictive::TYPE) {
         	$this->drm->update();
-        	$this->drm->setDroits();
         }
+        $this->drm->setDroits();
         $pdf = new ExportDRMPdf($this->drm);
 
         return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));

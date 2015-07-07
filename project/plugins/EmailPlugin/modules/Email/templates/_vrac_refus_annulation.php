@@ -42,7 +42,7 @@ Courtier :<br />
 </ul> 
 <br />
 <?php endif; ?>
-Commentaire : <?php echo $vrac->commentaires ?><br /><br />
+Observations : <?php echo $vrac->observations ?><br /><br />
 Pour toute information, vous pouvez <a href="<?php echo ProjectConfiguration::getAppRouting()->generate('contact', array(), true); ?>">contacter votre interprofession</a><br /><br />
 Cordialement,<br /><br />
 L'équipe Declarvins.net 

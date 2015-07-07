@@ -41,7 +41,7 @@ Courtier :<br />
 </ul> 
 <br />
 <?php endif; ?>
-Commentaire : <?php echo $vrac->commentaires ?><br /><br />
+Observations : <?php echo $vrac->observations ?><br /><br />
 <strong>Si vous souhaitez valider ou refuser ce contrat, cliquez sur le lien suivant : <a href="<?php echo ProjectConfiguration::getAppRouting()->generate('vrac_validation', array('sf_subject' => $vrac, 'acteur' => $acteur), true); ?>">Valider ou refuser le contrat</a></strong><br /><br />
 Si vous n'êtes pas inscrit sur DeclarVins.net, nous vous invitons à vous inscrire en suivant le lien : <a href="<?php echo ProjectConfiguration::getAppRouting()->generate('homepage', array(), true); ?>">Inscription à DeclarVins.net</a><br />
 Le contrat ne sera valable que lorsque vous aurez reçu la version pdf faisant figurer le numéro de contrat.<br /><br />

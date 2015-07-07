@@ -1,6 +1,6 @@
 <?php
 
-class switchHistoriqueDRMTask extends sfBaseTask
+class switchHistoriqueVracTask extends sfBaseTask
 {
   protected function configure()
   {
@@ -11,13 +11,14 @@ class switchHistoriqueDRMTask extends sfBaseTask
      ));
 
     $this->addOptions(array(
+      new sfCommandOption('archivage', null, sfCommandOption::PARAMETER_OPTIONAL, 'Archivage de l\'etablissement', '0'),
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
       // add your own options here
     ));
 
-    $this->namespace        = 'drm';
+    $this->namespace        = 'vrac';
     $this->name             = 'switch-history';
     $this->briefDescription = '';
     $this->detailedDescription = <<<EOF
@@ -33,24 +34,34 @@ EOF;
     
     $from = EtablissementClient::getInstance()->find($arguments['from']);
     $to = EtablissementClient::getInstance()->find($arguments['to']);
+    $archivage = $options['archivage'];
     
+    if ($from->famille == "producteur" || $to->famille == "producteur") {
+    	$this->logSection("vrac", $from->identifiant." ".$from->famille." / ".$to->identifiant." ".$to->famille, null, 'ERROR');
+    } else {
   		$rows = acCouchdbManager::getClient()
               ->startkey(array($from->identifiant))
               ->endkey(array($from->identifiant, array()))
-              ->reduce(false)
-              ->getView("drm", "all")
+              //->reduce(false)
+              ->getView("vrac", "etablissement")
               ->rows;
-      $i = 0;
-      foreach($rows as $row) {
-      	if ($drm = DRMClient::getInstance()->find($row->id)) {
-      		$drm->setEtablissementInformations($to);
-      		$json = str_replace($from->identifiant, $to->identifiant, json_encode($drm->toJson()));
-      		DRMClient::getInstance()->storeDoc(json_decode($json));
-      		$this->logSection("drm", $drm->_id." drm switchée avec succès", null, 'SUCCESS');
-      		$i++;
+      	$i = 0;
+      	foreach($rows as $row) {
+	      		if ($vrac = VracClient::getInstance()->find($row->id)) {
+	      		$type = $vrac->getTypeByEtablissement($from->identifiant);
+	      		$vrac->storeSoussigneInformations($type, $to);
+	      		$vrac->{$type.'_identifiant'} = $to->identifiant;
+	      		$vrac->save(false);
+	      		$this->logSection("vrac", $vrac->_id." contrat switché avec succès", null, 'SUCCESS');
+	      		$i++;
+      		}
       	}
-      }
-      $this->logSection("drm", $i." drm(s) switchée(s) avec succès", null, 'SUCCESS');
-    
+      	if ($archivage) {
+      		$from->statut = Etablissement::STATUT_ARCHIVE;
+      		$from->save();
+      		$this->logSection("vrac", "etablissement ".$from->identifiant." archivé avec succès", null, 'SUCCESS');
+      	}
+      	$this->logSection("vrac", $i." contrat(s) switché(s) avec succès", null, 'SUCCESS');
+    }
   }
 }

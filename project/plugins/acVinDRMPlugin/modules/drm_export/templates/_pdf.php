@@ -200,10 +200,9 @@
 	</table>
 
 	
-<?php if ($drm->valide->date_saisie): ?>
+
 
 		<h2>Droits de circulation, de consommation et autres taxes</h2>
-
 	
 	
 	
@@ -337,6 +336,7 @@
 		<p><strong>Mode de paiement</strong> : <?php echo $drm->declaratif->paiement->douane->moyen ?></p>
 	</div>
 
+<?php if ($drm->valide->date_saisie): ?>
 	<table class="double_col bloc_bottom">
 		<tr>
 			<td class="col_left">
