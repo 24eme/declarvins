@@ -237,7 +237,9 @@
 						$(input).parent().find('button').button( "option", "disabled", select.attr('data-ajax') && (select.children("option").length > 1));
 						if (select.val()) {
 							$(input).parent().find('button').hide();
+							$(input).parent().find('a.remove_autocomplete').show();
 						} else {
+							$(input).parent().find('button').show();
 							$(input).parent().find('a.remove_autocomplete').hide();
 						}
 					},

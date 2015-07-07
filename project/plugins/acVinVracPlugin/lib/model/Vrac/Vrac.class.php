@@ -174,8 +174,6 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
          	$this->{$type.'_type'} = $etablissement->famille;
          }
          
-         $this->{$type.'_type'} = $etablissement->famille;
-         
         if ($informations->exist('nom')) $informations->nom = $etablissement->nom;
       	if ($informations->exist('raison_sociale')) $informations->raison_sociale = $etablissement->raison_sociale;
       	if ($informations->exist('siret')) $informations->siret = $etablissement->siret;
