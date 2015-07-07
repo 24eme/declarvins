@@ -40,7 +40,7 @@ Courtier :<br />
 </ul> 
 <br />
 <?php endif; ?>
-Commentaire : <?php echo $vrac->commentaires ?><br /><br />
+Observations : <?php echo $vrac->observations ?><br /><br />
 Votre contrat a bien été enregistré. Il va être envoyé aux autres parties concernées pour validation.<br />
 Vous recevrez une version du contrat en .pdf avec le numéro de contrat lorsque toutes les parties auront validé le contrat.<br /> 
 Le contrat ne sera valable que lorsque vous aurez reçu cette version pdf faisant figurer le numéro de contrat.<br /><br />
