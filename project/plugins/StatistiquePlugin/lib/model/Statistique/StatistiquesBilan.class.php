@@ -110,6 +110,9 @@ class StatistiquesBilan {
     public function getStatutsDrmsCsv($bilanOperateur) {
         $statutsDrmsCsv = "";
         foreach ($this->buildPeriodes() as $periode) {
+        	if (isset($bilanOperateur->periodes[$periode]->mode_de_saisie) && $bilanOperateur->periodes[$periode]->mode_de_saisie) {
+        		$statutsDrmsCsv .= $bilanOperateur->periodes[$periode]->mode_de_saisie." ";
+        	}
             $statutsDrmsCsv .= $bilanOperateur->periodes[$periode]->statut_libelle.";";
         }
         return $statutsDrmsCsv;
