@@ -31,7 +31,7 @@ class ConfigurationClient extends acCouchdbClient
 	{
 	  	$configuration = $this->findCurrent();
         if(!sfConfig::get('sf_debug')) {
-            $configuration->prepareCache();
+            //$configuration->prepareCache();
         }
 
 		return $configuration;
