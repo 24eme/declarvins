@@ -56,3 +56,4 @@ Bilan:
                   id_drm: {  }
                   statut: {  } 
                   statut_libelle: {  }
+                  mode_de_saisie: { required: false }

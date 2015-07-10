@@ -61,6 +61,7 @@ class Bilan extends BaseBilan {
 
         $periodeNode = $this->periodes->get($drm->periode);
         $periodeNode->id_drm = $drm->_id;
+        $periodeNode->mode_de_saisie = $drm->mode_de_saisie;
         $periodeNode->statut = $drm->getStatutBilan();
         $periodeNode->statut_libelle = $drm->getLibelleBilan();
         if ($drm->exist('declaration') && $drm->declaration && $drm->declaration->exist('total')) {
