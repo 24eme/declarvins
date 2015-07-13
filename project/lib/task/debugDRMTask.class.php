@@ -37,6 +37,10 @@ EOF;
       $i = 0;
       $nb = count($rows);
       foreach($rows as $row) {
+	if (round(($i / $nb) * 100) < 12) {
+		$this->logSection("debug", $row->id." squezzée avec succès", null, 'SUCCESS');
+		continue;
+	}
       	if ($drm = DRMClient::getInstance()->find($row->id)) {
       		$drm->setDroits();
 	      	try {
