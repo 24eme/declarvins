@@ -265,7 +265,7 @@ class DRMDetail extends BaseDRMDetail {
 
     public function getDroit($type) {
         $date = $this->getDocument()->periode . '-01';
-        return $this->getCepage()->getConfig()->getCurrentDroit($type, $date, true);
+        return ($this->getCepage()->getConfig())? $this->getCepage()->getConfig()->getCurrentDroit($type, $date, true) : null;
     }
 
     public function canHaveVrac() {
