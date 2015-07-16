@@ -28,6 +28,9 @@ class interproActions extends sfActions
 	            try {
 	            	$nb = $this->import->updateOrCreate();
         			$this->getUser()->setFlash('notice', "$nb établissements ont été importés");
+			      	if (count($this->import->getErrors()) > 0) {
+			      		throw new sfException("has errors");
+			      	}
 	            	$this->redirect('interpro_upload_csv', array('id' => $this->interpro->get('_id')));
 	            } catch (Exception $e) {
 	            	$this->hasErrors = true;

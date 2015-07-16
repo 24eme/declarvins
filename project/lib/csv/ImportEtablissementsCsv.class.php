@@ -170,6 +170,16 @@ class ImportEtablissementsCsv {
     protected function bind($ligne, $etab, $line) {
     	$line = $this->completeLine($line);
     	$this->existLine($ligne, $line);
+    	$interpro = InterproClient::getInstance()->matchInterpro(trim($line[EtablissementCsv::COL_INTERPRO]));
+    	if ($interpro != $this->_interpro->_id) {
+    		throw new sfException('squeeze ligne');
+    	} elseif ($line[EtablissementCsv::COL_SIRET]) {
+    		$interproRef = EtablissementInterproView::getInstance()->findInterproRefBySiret(trim($line[EtablissementCsv::COL_SIRET]));
+    		if ($interproRef != $this->_interpro->_id) {
+    			$this->_errors[$ligne] = array('Colonne (indice '.(EtablissementCsv::COL_INTERPRO + 1).') "interpro" interpro referente '.$interproRef);
+    			throw new sfException('has errors');
+    		}
+    	}
     	$etab->identifiant = trim($line[EtablissementCsv::COL_ID]);
         $etab->num_interne = trim($line[EtablissementCsv::COL_NUM_INTERNE]);
         $etab->siret = trim($line[EtablissementCsv::COL_SIRET]);
@@ -228,7 +238,7 @@ class ImportEtablissementsCsv {
         $etab->comptabilite->commune = trim($line[EtablissementCsv::COL_COMPTA_COMMUNE]);
         $etab->comptabilite->pays = trim($line[EtablissementCsv::COL_COMPTA_PAYS]);
         $etab->service_douane = trim($line[EtablissementCsv::COL_SERVICE_DOUANE]);
-		$etab->interpro = InterproClient::getInstance()->matchInterpro(trim($line[EtablissementCsv::COL_INTERPRO]));
+		$etab->interpro = $interpro;
 		$etab->contrat_mandat = 'CONTRAT-'.trim($line[EtablissementCsv::COL_NUMERO_CONTRAT]);
 		if (isset($line[EtablissementCsv::COL_CHAMPS_STATUT]) && trim($line[EtablissementCsv::COL_CHAMPS_STATUT])) {
 			$etab->statut = trim($line[EtablissementCsv::COL_CHAMPS_STATUT]);
@@ -280,7 +290,6 @@ class ImportEtablissementsCsv {
         		$idCorrespondance = trim($c[1]);
         		$etab->correspondances->add($interpro->_id, $idCorrespondance);
         		$interpro->correspondances->add($etab->identifiant, $idCorrespondance);
-        		//$interpro->save();
         		$this->_interpros[$i] = $interpro;
         	}
         }
@@ -321,7 +330,7 @@ class ImportEtablissementsCsv {
 	public function updateOrCreate() 
     {
     	$cpt = 0;
-    	$ligne = 1;
+    	$ligne = 0;
       	foreach ($this->_csv as $line) {
       		$ligne++;
 	  		$etab = EtablissementClient::getInstance()->retrieveOrCreateById(trim($line[EtablissementCsv::COL_ID]));
@@ -342,9 +351,6 @@ class ImportEtablissementsCsv {
       	}
       	foreach ($this->_interpros as $interpro) {
       		$interpro->save();
-      	}
-      	if (count($this->_errors) > 0) {
-      		throw new sfException("has errors");
       	}
       	return $cpt;
     }  
