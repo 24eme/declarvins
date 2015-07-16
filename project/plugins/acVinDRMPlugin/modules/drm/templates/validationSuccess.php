@@ -106,7 +106,7 @@
                     <div style="padding: 4px 0 10px 10px;">
                         <?php echo $form['observations']->renderError() ?>
                         <?php echo $form['observations']->renderLabel(null, array("style" => "padding: 10px 0px; font-weight: bold; display: block;")) ?>
-                        <?php echo $form['observations']->render(array("style" => "width: 872px; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4) inset; border-radius: 3px; border: 0px none; padding: 5px;", "rows" => "2")) ?>
+                        <?php echo $form['observations']->render(array("maxlength" => "250", "style" => "width: 872px; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4) inset; border-radius: 3px; border: 0px none; padding: 5px;", "rows" => "2")) ?><br /><br />250 caractères max.
                     </div>
                 </div>
                 <?php endif; ?>

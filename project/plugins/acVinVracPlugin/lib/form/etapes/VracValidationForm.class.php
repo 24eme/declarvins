@@ -9,6 +9,8 @@ class VracValidationForm extends VracForm
     {	
 		$this->setWidget('email', new sfWidgetFormInputHidden());
 		$this->setValidator('email', new ValidatorPass());
+		$this->setWidget('brouillon', new sfWidgetFormInputHidden());
+		$this->setValidator('brouillon', new ValidatorPass());
 		$this->setWidget('commentaires', new sfWidgetFormTextarea());
 		$this->setValidator('commentaires', new sfValidatorString(array('required' => false)));
 		$this->setWidget('observations', new sfWidgetFormTextarea());
@@ -49,7 +51,9 @@ class VracValidationForm extends VracForm
     	if (isset($values['date_stats']) && !$values['date_stats']) {
     		$this->getObject()->getDocument()->date_stats = $this->getObject()->getDocument()->valide->date_saisie;
     	}
-        $this->getObject()->getDocument()->validate($this->user, $this->etablissement);
+    	if (isset($values['brouillon']) && !$values['brouillon']) {
+        	$this->getObject()->getDocument()->validate($this->user, $this->etablissement);
+    	}
     }
 	
 
@@ -68,6 +72,7 @@ class VracValidationForm extends VracForm
         	}
         }
         $defaults['email'] = 1;
+        $defaults['brouillon'] = 0;
         $this->setDefaults($defaults);     
     }
 }
