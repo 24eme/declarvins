@@ -112,7 +112,7 @@ class DRMValidation
 			  	  $ecart = round($detail->sorties->vrac * self::ECART_VRAC, 4);
 				  if (round($totalVolume,4) < (round($detail->sorties->vrac,4) - $ecart) || round($totalVolume,4) > (round($detail->sorties->vrac,4) + $ecart)) {
 				    if ($detail->getCertification()->getKey() == self::IGP_KEY) {
-				  		$this->warnings['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('vrac', $this->generateUrl('drm_vrac', $this->drm));
+				  		$this->warnings['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('vrac', $this->generateUrl('drm_vrac', $this->drm), $detail->getLibelle().': %message%');
 				    } else {
 				    	$this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm));
 				    }
@@ -125,7 +125,7 @@ class DRMValidation
 				$d = $drmSuivante->get($detail->getHash());
 				if (round($d->total_debut_mois,4) != round($detail->total,4) && !$this->drm->hasVersion()) {
 					if(isset($this->options['stock']) && $this->options['stock'] == 'warning') {
-						$this->warnings['stock_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('stock', $this->generateUrl('drm_recap_detail', $detail));
+						$this->warnings['stock_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('stock', $this->generateUrl('drm_recap_detail', $detail), $detail->getLibelle().': %message%');
 					} else {
 						$this->errors['stock_'.$detail->getIdentifiantHTML()] = new DRMControleError('stock', $this->generateUrl('drm_recap_detail', $detail));
 					}
@@ -145,13 +145,13 @@ class DRMValidation
 			  if ($detail->canHaveVrac() && $detail->sorties->vrac) {
 			  	  $ecart = round($detail->sorties->vrac * self::ECART_VRAC, 4);
 				  if (round($totalVolume,4) < (round($detail->sorties->vrac,4) - $ecart) || round($totalVolume,4) > (round($detail->sorties->vrac,4) + $ecart)) {
-				    $this->warnings['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('vrac', $this->generateUrl('drm_vrac', $this->drm));
+				    $this->warnings['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('vrac', $this->generateUrl('drm_vrac', $this->drm), $detail->getLibelle().': %message%');
 				  }
 			  }
 			}
 		}
 		if ($detail->sorties->mouvement > 0) {
-			$this->warnings['mouvement_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mouvement', $this->generateUrl('drm_recap_detail', $detail).'#sorties');
+			$this->warnings['mouvement_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('mouvement', $this->generateUrl('drm_recap_detail', $detail).'#sorties', $detail->getLibelle().': %message%');
 		}
 		/*if (!$detail->hasCvo() || !$detail->hasDouane()) {
 			$this->warnings['droits_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('droits', $this->generateUrl('drm_recap_detail', $detail));
@@ -162,7 +162,7 @@ class DRMValidation
 			round($detail->total_debut_mois,4) < round($detail->stocks_debut->instance,4) ||
 			round($detail->total_debut_mois,4) < round($detail->stocks_debut->commercialisable,4)
 		) {
-			$this->warnings['stocksdebut_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('stocksdebut', $this->generateUrl('drm_recap_detail', $detail));
+			$this->warnings['stocksdebut_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('stocksdebut', $this->generateUrl('drm_recap_detail', $detail), $detail->getLibelle().': %message%');
 		}
 	}
 	
