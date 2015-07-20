@@ -579,4 +579,9 @@ class DRMDetail extends BaseDRMDetail {
         return count($this->vrac);
     }
 
+    public function getStockBilan()
+    {
+    	return $this->sorties->vrac + $this->sorties->export + $this->sorties->factures + $this->sorties->crd + $this->sorties->consommation + $this->sorties->pertes;
+    }
+
 }

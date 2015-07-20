@@ -132,7 +132,7 @@ class statistiqueActions extends sfActions {
 	                    $csv_file .=  $lieuCode.";";
 	                    $csv_file .=  $detail->getCouleur()->getKey().";";
 	                    $csv_file .=  $cepCode.";";
-	                    $csv_file .=  $detail->total_sorties."\n";
+	                    $csv_file .=  $detail->getStockBilan()."\n";
 	                }
                 }
         }
