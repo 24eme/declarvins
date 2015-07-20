@@ -46,6 +46,15 @@ class DRMFictive extends DRM
     			}
     		}
     	}
+    	foreach ($this->getMouvements() as $key => $mouvements) {
+            foreach ($mouvements as $mouvement) {
+	    		if ($mouvement->interpro != $this->interpro->_id) {
+	    			if (!$this->configurationProduits->isProduitInPrestation($mouvement->produit_hash)) {
+	    				$this->remove($mouvement->getHash());
+	    			}
+	    		}
+            }
+    	}
     }
     
     protected function preSave() {
