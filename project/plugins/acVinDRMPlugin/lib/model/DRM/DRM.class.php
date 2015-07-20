@@ -197,6 +197,12 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $douanes = $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE);
         foreach ($douanes as $douane) {
         	$douane->total = round($douane->total);
+        	if ($douane->report) {
+        		$douane->report = round($douane->report);
+        	}
+        	if ($douane->cumul) {
+        		$douane->cumul = round($douane->cumul);
+        	}
         }
     }
 
