@@ -99,8 +99,8 @@ class ediActions extends sfActions
     }
     $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
-    $drms = DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'), true);
-    return $this->renderCsv($drms->rows, DRMDateView::VALUE_DATEDESAISIE, "DRM", $dateTime->format('c'), $interpro, array(DRMDateView::VALUE_IDENTIFIANT_DECLARANT));
+    $drms = $this->drmCallback(DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'), true)->rows);
+    return $this->renderCsv($drms, DRMDateView::VALUE_DATEDESAISIE, "DRM", $dateTime->format('c'), $interpro, array(DRMDateView::VALUE_IDENTIFIANT_DECLARANT));
   }
   
   public function executeStreamCampagneDRM(sfWebRequest $request) 
@@ -489,6 +489,18 @@ class ediActions extends sfActions
   			$vracs[] = $item;
   		}
   		return $vracs;
+  }
+  
+  
+  protected function drmCallback($items)
+  {
+  		$drms = array();
+  		foreach ($items as $item) {
+  			if ($item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX] && $item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX] > 0) {
+  				$drms[] = $item;
+  			}
+  		}
+  		return $drms;
   }
 
   protected function renderCsv($items, $dateSaisieIndice, $type, $date = null, $interpro, $correspondances = array()) 
