@@ -4,6 +4,7 @@ class VracSoussigneForm extends VracForm
    	public function configure()
     {
 		$this->setWidgets(array(
+    		'vous_etes' => new sfWidgetFormChoice(array('choices' => $this->getVousEtes(), 'expanded' => true)),
             'vendeur_type' => new sfWidgetFormChoice(array('choices' => $this->getVendeurTypes(), 'expanded' => true)),
             'vendeur_identifiant' => new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'familles' => EtablissementFamilles::FAMILLE_PRODUCTEUR, 'only_actif' => 1)),
             'vendeur_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(), 'expanded' => true)),
@@ -16,6 +17,7 @@ class VracSoussigneForm extends VracForm
         	'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier()))
     	));
         $this->widgetSchema->setLabels(array(
+        	'vous_etes' => 'Vous êtes*: ',
         	'vendeur_type' => 'Type:',
         	'vendeur_identifiant' => 'Vendeur:',
         	'vendeur_tva' => 'Assujetti à la TVA',
@@ -28,6 +30,7 @@ class VracSoussigneForm extends VracForm
         	'cas_particulier' => 'Condition particulière:'
         ));
         $this->setValidators(array(
+            'vous_etes' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getVousEtes()))),
         	'vendeur_type' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getVendeurTypes()))),
         	'vendeur_identifiant' => new ValidatorEtablissement(array('required' => false)),
         	'vendeur_tva' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
