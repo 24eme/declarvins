@@ -27,6 +27,13 @@
                 <?php $i = 1; ?>
                 <?php
                 foreach ($mouvements as $mouvement):
+                	if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+                		if ($interpro->_id != $mouvement->interpro) {
+                			if (!$configurationProduits->isProduitInPrestation($mouvement->produit_hash)) {
+                				continue;
+                			}
+                		}
+                	}
                     $matches = array();
                     if (!preg_match('/^DRM-([A-Z0-9]*)-(.*)/', $mouvement->doc_id, $matches)) {
                         throw new sfException("Lidentifiant du document n'est pas valable;");
@@ -46,7 +53,7 @@
                             <a title="Saisi le <?php echo format_date($mouvement->date_version, 'D') ?>" href="<?php echo url_for('drm_visualisation', array('identifiant' => $identifiant, 'periode_version' => $periode_version)) ?>"><?php echo acCouchdbManager::getClient($mouvement->type)->getLibelleFromId($mouvement->doc_id) ?><?php echo ($mouvement->version) ? ' (' . $mouvement->version . ')' : '' ?></a>
                         </td>
                         </td>
-                        <td><?php echo $mouvement->produit_libelle ?> </td>
+                        <td><?php echo $mouvement->produit_libelle ?> <?php echo $mouvement->interpro ?></td>
                         <td><?php
                             if ($mouvement->vrac_numero) {
                                 echo (!isset($no_link) || !$no_link) ? '<a href="' . url_for("vrac_visualisation", array("contrat" => $mouvement->vrac_numero, "etablissement" => $etablissement)) . '">' : '';

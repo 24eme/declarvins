@@ -76,7 +76,7 @@
                 </div>
             <?php endif; ?>
 			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->hasVersion()): ?>
-            <?php include_partial('drm/mouvements', array('mouvements' => $mouvements, 'etablissement' => $etablissement, 'hamza_style' => false, 'no_link' => null)) ?>
+            <?php include_partial('drm/mouvements', array('interpro' => $interpro, 'configurationProduits' => $configurationProduits, 'mouvements' => $mouvements, 'etablissement' => $etablissement, 'hamza_style' => false, 'no_link' => null)) ?>
             <?php endif; ?>
             <br/>
         <?php if ($drm->exist('observations') && $drm->observations): ?>
