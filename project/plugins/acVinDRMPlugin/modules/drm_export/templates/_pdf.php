@@ -288,35 +288,35 @@
 	    <tr>
 			<td class="counter">6d</td>
 			<th class="total">Droits à payer</th>
-			<td class="total detail"><?php if(($val = $circulation->getPayable('L387', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
-			<td class="total detail"><?php if(($val = $circulation->getPayable('L385', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
-			<td class="total detail"><?php if(($val = $circulation->getPayable('L423', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
-			<td class="total detail"><?php if(($val = $circulation->getPayable('L425', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
-			<td class="total detail"><?php if(($val = $circulation->getPayable('L440', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoLongFloatFr($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if(($val = $circulation->getPayable('L387', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoFloat($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if(($val = $circulation->getPayable('L385', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoFloat($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if(($val = $circulation->getPayable('L423', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoFloat($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if(($val = $circulation->getPayable('L425', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoFloat($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if(($val = $circulation->getPayable('L440', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoFloat($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
 			<td class="number detail">&nbsp;</td>
-			<td class="total detail"><?php echoLongFloatFr($circulation->getTotalPayable()) ?> <span class="unite">€</span></td>
+			<td class="total detail"><?php echoFloat($circulation->getTotalPayable()) ?> <span class="unite">€</span></td>
 		</tr>
 	    <tr>
 			<td class="counter">6e</td>
 			<th class="total">Report du mois précédent</th>
+			<td class="total detail"><?php if(($val = $circulation->getReportable('L387', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoFloat($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if(($val = $circulation->getReportable('L385', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoFloat($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if(($val = $circulation->getReportable('L423', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoFloat($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if(($val = $circulation->getReportable('L425', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoFloat($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if(($val = $circulation->getReportable('L440', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoFloat($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
 			<td class="number detail">&nbsp;</td>
-			<td class="number detail">&nbsp;</td>
-			<td class="number detail">&nbsp;</td>
-			<td class="number detail">&nbsp;</td>
-			<td class="number detail">&nbsp;</td>
-			<td class="number detail">&nbsp;</td>
-			<td class="number detail">&nbsp;</td>
+			<td class="total detail"><?php echoFloat($circulation->getTotalReportable()) ?> <span class="unite">€</span></td>
 		</tr>			
 		<tr>
 			<td class="counter">6f</td>
 			<th class="total">Total cumulé à reporter ou à solder</th>
+			<td class="total detail"><?php if(($val = $circulation->getCumulable('L387', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoFloat($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if(($val = $circulation->getCumulable('L385', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoFloat($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if(($val = $circulation->getCumulable('L423', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoFloat($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if(($val = $circulation->getCumulable('L425', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoFloat($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
+			<td class="total detail"><?php if(($val = $circulation->getCumulable('L440', DRMDroitsCirculation::CERTIFICATION_TOTAL)) !== null): ?><?php echoFloat($val) ?> <span class="unite">€</span><?php else: ?>&nbsp;<?php endif; ?></td>
 			<td class="number detail">&nbsp;</td>
-			<td class="number detail">&nbsp;</td>
-			<td class="number detail">&nbsp;</td>
-			<td class="number detail">&nbsp;</td>
-			<td class="number detail">&nbsp;</td>
-			<td class="number detail">&nbsp;</td>
-			<td class="number detail">&nbsp;</td>
+			<td class="total detail"><?php echoFloat($circulation->getTotalCumulable()) ?> <span class="unite">€</span></td>
 		</tr>		  
 	</tbody>
 </table>

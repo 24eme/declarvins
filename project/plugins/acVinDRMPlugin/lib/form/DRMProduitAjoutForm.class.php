@@ -69,7 +69,7 @@ class DRMProduitAjoutForm extends acCouchdbForm
     
     public function getProduits() 
     {
-    	if ($this->_configurationProduits && ($this->getHash() == 'IGP' || $this->getHash() == 'AOP')) {
+    	if ($this->_configurationProduits) {
     		return array_merge(array("" => ""), $this->_config->formatWithCode($this->_configurationProduits->getProduits($this->getHash(), false, false, $this->_drm->getFormattedDateFromPeriode(), true), "%g% %a% %m% %l% %co% %ce%"));
     	}
     	$etablissement = $this->_drm->getEtablissement();
