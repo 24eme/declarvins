@@ -34,14 +34,13 @@ class VracProduitForm extends VracForm
         $configuration = ConfigurationClient::getCurrent();
         $configurationProduit = $configuration->getConfigurationProduit($this->getObject()->produit);
         $cvo = $configurationProduit->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, null, true);
-        if (!$cvo) {
-        	throw new sfException('Aucun résultat pour le produit '.$this->getObject()->produit);
-        }
         if ($configurationProduit) {
         	$this->getObject()->setDetailProduit($configurationProduit);
         	$this->getObject()->produit_libelle = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles());
         }
-        $this->getObject()->part_cvo = $cvo->taux;
+        if ($cvo) {
+        	$this->getObject()->part_cvo = $cvo->taux;
+        }
         $this->getObject()->update();
     }
     
