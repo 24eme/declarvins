@@ -22,6 +22,8 @@ class MouvementsConsultationView extends acCouchdbView {
     const VALUE_CVO = 8;
     const VALUE_FACTURABLE = 9;
     const VALUE_MOUVEMENT_ID = 10;
+    const VALUE_PAYS = 11;
+    const VALUE_INTERPRO = 12;
 
     public static $types_document = array("DRM", "SV12");
 
@@ -95,6 +97,7 @@ class MouvementsConsultationView extends acCouchdbView {
         $mouvement->cvo = $row->value[self::VALUE_CVO];
         $mouvement->facturable = $row->value[self::VALUE_FACTURABLE];
         $mouvement->id = $row->value[self::VALUE_MOUVEMENT_ID];
+        $mouvement->interpro = $row->value[self::VALUE_INTERPRO];
         if ($mouvement->vrac_numero) {
             $mouvement->numero_archive = $row->value[self::VALUE_TYPE_LIBELLE];
             if (strlen($mouvement->numero_archive) != 5) {

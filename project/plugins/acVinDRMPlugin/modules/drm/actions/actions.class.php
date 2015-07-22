@@ -319,6 +319,12 @@ class drmActions extends sfActions {
         	$this->drm->update();
         	$this->drm->setDroits();
         }
+        $this->configurationProduits = null;
+        $this->interpro = null;
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
+        	$this->configurationProduits = ConfigurationProduitClient::getInstance()->find($this->interpro->getOrAdd('configuration_produits'));
+        }
         $this->droits_circulation = ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) ? null : new DRMDroitsCirculation($this->drm);
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->hide_rectificative = $request->getParameter('hide_rectificative');
