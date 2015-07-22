@@ -16,6 +16,7 @@
     <?php endif; ?>
 
     <?php include_partial('vrac/form_soussigne_item', array('form' => $form,
+    														'etablissement' => $etablissement,
                                                             'titre' => 'Vendeur',
                                                             'famille' => 'vendeur', 
                                                             'famille_autre' => 'acheteur', 
@@ -26,6 +27,7 @@
 
     
     <?php include_partial('vrac/form_soussigne_item', array('form' => $form,
+    														'etablissement' => $etablissement,
                                                             'titre' => 'Acheteur',
                                                             'famille' => 'acheteur', 
                                                             'famille_autre' => 'vendeur', 

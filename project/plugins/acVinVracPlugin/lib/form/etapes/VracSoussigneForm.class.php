@@ -51,14 +51,19 @@ class VracSoussigneForm extends VracForm
         	$this->setWidget('acheteur_identifiant', new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'familles' => $type, 'only_actif' => 1)));
         }
         
-        if ($this->getObject()->vous_etes == 'vendeur') {
-        	$this->setWidget('vendeur_identifiant', new sfWidgetFormInputHidden());
-        	$this->setValidator('vendeur_identifiant', new sfValidatorPass());
-        }
-        
-        if ($this->getObject()->vous_etes == 'acheteur') {
-        	$this->setWidget('acheteur_identifiant', new sfWidgetFormInputHidden());
-        	$this->setValidator('acheteur_identifiant', new sfValidatorPass());
+        $etablissement = $this->getEtablissement();
+        if($etablissement && $etablissement->famille == 'negociant' && !$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        } else {
+        	unset($this['vous_etes']);
+        	if ($this->getObject()->vous_etes == 'vendeur') {
+        		$this->setWidget('vendeur_identifiant', new sfWidgetFormInputHidden());
+        		$this->setValidator('vendeur_identifiant', new sfValidatorPass());
+        	}
+        	 
+        	if ($this->getObject()->vous_etes == 'acheteur') {
+        		$this->setWidget('acheteur_identifiant', new sfWidgetFormInputHidden());
+        		$this->setValidator('acheteur_identifiant', new sfValidatorPass());
+        	}
         }
         
         $vracVendeurFormName = $this->vracVendeurFormName();
