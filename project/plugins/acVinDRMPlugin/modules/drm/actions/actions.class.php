@@ -254,6 +254,8 @@ class drmActions extends sfActions {
         
         $this->drm->validate();
         
+        $this->drm->save();
+        
     	if ($this->drm->needNextVersion()) {
 	      $generate = true;
 	      $nb_generate = 0;
