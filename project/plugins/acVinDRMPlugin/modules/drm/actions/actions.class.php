@@ -242,12 +242,17 @@ class drmActions extends sfActions {
 
             return sfView::SUCCESS;
         }
-
+		$values = $this->form->getValues();
+		
         $this->form->save();
         
-        $this->drm->validate();
+        if (isset($values['brouillon']) && $values['brouillon']) {
         
-        $this->drm->save();
+        	$this->drm->save();
+        	$this->redirect('drm_validation', $this->drm);
+        }
+        
+        $this->drm->validate();
         
     	if ($this->drm->needNextVersion()) {
 	      $generate = true;

@@ -10,6 +10,8 @@ class DRMValidationForm extends acCouchdbObjectForm
   			$this->getWidget('engagement_'.$engagement->getCode())->setLabel($engagement->getMessage());
   			$this->setValidator('engagement_'.$engagement->getCode(), new sfValidatorBoolean(array('required' => true)));
   		}
+	  $this->setWidget('brouillon', new sfWidgetFormInputHidden());
+      $this->setValidator('brouillon', new ValidatorPass());
 
       $this->setWidget('commentaires', new sfWidgetFormTextarea());
       $this->getWidget('commentaires')->setLabel("Commentaires BO");
@@ -23,6 +25,13 @@ class DRMValidationForm extends acCouchdbObjectForm
 	    
 	    $this->widgetSchema->setNameFormat('drm_validation[%s]');
   	}
+    
+	protected function updateDefaultsFromObject() {
+        parent::updateDefaultsFromObject();
+        $defaults = $this->getDefaults();
+        $defaults['brouillon'] = 0;
+        $this->setDefaults($defaults);     
+    }
 
     protected function doSave($con = null) 
     {
