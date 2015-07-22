@@ -136,6 +136,7 @@
             	<?php if (!$drm->isIncomplete()): ?>
                 <a href="<?php echo url_for('drm_delete_one', $drm) ?>" class="annuler_saisie btn_remise"><span>supprimer la drm</span></a>
                 <?php endif; ?>
+                <button id="brouillon" style="text-transform: uppercase; color: #FFFFFF; height: 25px; line-height: 22px; font-weight: bold; padding: 0 10px; background-color: #989898; border: 1px solid  #ECEBEB; float: right;" type="submit"><span>Sauvegarder le brouillon</span></button>
             </div>
 
         </form>
@@ -144,7 +145,16 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#formValidation").submit(function(){
-			return confirm("Une fois votre déclaration validée, vous ne pourrez plus la modifier.\n\nConfirmez vous la validation de votre DRM ?");
+			if ($('#<?php echo $form['brouillon']->renderId() ?>').val() == 1) {
+				return true;
+			} else { 
+				return confirm("Une fois votre déclaration validée, vous ne pourrez plus la modifier.\n\nConfirmez vous la validation de votre DRM ?");
+			}
+		});
+		$("#brouillon").click(function() {
+			$('#<?php echo $form['brouillon']->renderId() ?>').val(1);
+			$("#formValidation").submit();
+			return false;
 		});
 	});
 </script>
