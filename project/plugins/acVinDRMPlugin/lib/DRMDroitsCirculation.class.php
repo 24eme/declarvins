@@ -100,7 +100,7 @@ class DRMDroitsCirculation
     		if ($payable < 0) {
     			$payable = 0;
     		}
-    		return round($payable, 4);
+    		return round($payable);
     	}
     	return $payable;
     }
@@ -111,7 +111,7 @@ class DRMDroitsCirculation
     	foreach (self::$codes as $c) {
     		$total += (($val = $this->getPayable($c, self::CERTIFICATION_TOTAL)) !== null)? $val : 0;
     	}
-    	return round($total, 4);
+    	return round($total);
     }
 	
   
