@@ -15,8 +15,8 @@ class EtablissementInterproView extends acCouchdbView
     	$result = $this->client->startkey(array($siret))
                     		->endkey(array($siret, array()))
                     		->getView($this->design, $this->view)->rows;
-    	if (count($result) > 1) {
-    		throw new sfException('plusieurs etablissement pour le siret '.$siret);
+    	if (count($result) != 1) {
+    		return null;
     	}
     	$result = current($result);
     	return $result->value[self::VALUE_INTERPRO];
