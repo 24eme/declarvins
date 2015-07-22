@@ -1,15 +1,22 @@
 <form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>">
     <?php echo $form->renderHiddenFields() ?>
     <?php echo $form->renderGlobalErrors() ?>
-
-
     
     
     <?php if ($form->getObject()->hasVersion() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
     	<?php include_partial('vrac/form_soussignes_version', array('vrac' => $form->getObject(), 'form' => $form)) ?>
     <?php else: ?>
 
+	<?php if($etablissement && $etablissement->famille == 'negociant' && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+    <div id="bloc_vous_etes" class="contenu_onglet bloc_condition" data-condition-cible="#bloc_acheteur_choice|#bloc_vendeur_choice|#bloc_acheteur_vous|#bloc_vendeur_vous">
+        <?php echo $form['vous_etes']->renderError(); ?>
+        <?php echo $form['vous_etes']->renderLabel(); ?>
+        <?php echo $form['vous_etes']->render(); ?>
+    </div>
+    <?php endif; ?>
+
     <?php include_partial('vrac/form_soussigne_item', array('form' => $form,
+    														'etablissement' => $etablissement,
                                                             'titre' => 'Vendeur',
                                                             'famille' => 'vendeur', 
                                                             'famille_autre' => 'acheteur', 
@@ -20,6 +27,7 @@
 
     
     <?php include_partial('vrac/form_soussigne_item', array('form' => $form,
+    														'etablissement' => $etablissement,
                                                             'titre' => 'Acheteur',
                                                             'famille' => 'acheteur', 
                                                             'famille_autre' => 'vendeur', 
