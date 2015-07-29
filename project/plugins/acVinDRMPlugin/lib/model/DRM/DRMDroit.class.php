@@ -10,6 +10,7 @@ class DRMDroit extends BaseDRMDroit
   	private $virtual = 0;
   	private $payable_total = 0;
   	private $cumulable_total = 0;
+  	private $reportable_total = 0;
 
   	public function setTaux($taux) 
   	{
@@ -25,6 +26,7 @@ class DRMDroit extends BaseDRMDroit
     	$this->integreVolume($drmdroit->volume_taxe, $drmdroit->volume_reintegre, '', $drmdroit->report, '');
     	$this->payable_total += $drmdroit->getPayable();
     	$this->cumulable_total += $drmdroit->getCumulable();
+    	$this->reportable_total += $drmdroit->getReportable();
   	}
 
   	public function integreVolume($volume_taxable, $volume_reintegre, $taux, $report, $libelle, $negatif = false) 
@@ -58,6 +60,11 @@ class DRMDroit extends BaseDRMDroit
   	public function getCumulable() 
   	{
   		return ($this->virtual)? $this->cumulable_total : $this->cumul;
+  	}
+	
+  	public function getReportable() 
+  	{
+  		return ($this->virtual)? $this->reportable_total : $this->report;
   	}
 
   	public function getLibelle() 

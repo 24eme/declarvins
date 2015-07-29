@@ -151,7 +151,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->version = null;
         $this->raison_rectificative = null;
         $this->etape = null;
-        $this->precedente = null;
         $this->identifiant_drm_historique = null;
         $this->identifiant_ivse = null;
 
@@ -274,12 +273,17 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
     public function getPrecedente() {
         if ($this->exist('precedente') && $this->_get('precedente')) {
-
             return DRMClient::getInstance()->find($this->_get('precedente'));
-        } else {
-
-            return new DRM();
         }
+    	$periode = DRMClient::getInstance()->getPeriodePrecedente($this->periode);
+    	$campagne = DRMClient::getInstance()->buildCampagne($periode);
+    	if ($campagne != $this->campagne) {
+    		return new DRM();
+    	}
+    	if ($precente = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($this->identifiant, $periode)) {
+    		return $precente;
+    	}
+        return new DRM();
     }
 
     public function getSuivante() {
