@@ -44,7 +44,6 @@
     
 
 <?php 
-$circulation = $circulation->getRawValue();
 if ($circulation && $typedroit == "douane"): 
 $droits_circulation = $circulation->getDroits();
 ?>
