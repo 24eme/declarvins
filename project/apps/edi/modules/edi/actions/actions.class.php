@@ -99,7 +99,7 @@ class ediActions extends sfActions
     }
     $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
-    $drms = DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'), true)->rows;
+    $drms = $this->drmCallback(DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'), true)->rows);
     return $this->renderCsv($drms, DRMDateView::VALUE_DATEDESAISIE, "DRM", $dateTime->format('c'), $interpro, array(DRMDateView::VALUE_IDENTIFIANT_DECLARANT));
   }
   
@@ -495,8 +495,12 @@ class ediActions extends sfActions
   protected function drmCallback($items)
   {
   		$drms = array();
+  		$squeeze = null;
   		foreach ($items as $item) {
-  			if ($item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX] && $item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX] > 0) {
+  			if ($item->value[DRMDateView::VALUE_TYPE] == 'DETAIL' && (is_null($item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX]) || $item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX] < 0)) {
+  				$squeeze = $item->value[DRMDateView::VALUE_IDDRM];
+  			}
+  			if ($item->value[DRMDateView::VALUE_IDDRM] != $squeeze) {
   				$drms[] = $item;
   			}
   		}
