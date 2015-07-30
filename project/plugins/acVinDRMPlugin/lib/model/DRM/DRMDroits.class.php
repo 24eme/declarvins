@@ -89,4 +89,13 @@ class DRMDroits extends BaseDRMDroits
     	}
     	return $sum;
   	}
+
+	public function getReport() 
+	{
+    	$sum = 0;
+    	foreach ($this->toArray() as $key => $value) {
+      		$sum += $value->getReport();
+    	}
+    	return $sum;
+  	}
 }

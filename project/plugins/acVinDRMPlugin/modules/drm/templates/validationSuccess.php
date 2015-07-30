@@ -63,7 +63,7 @@
                 <div id="contenu_onglet">
                     <?php if($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()):  ?>
                         <?php include_partial('drm/recap', array('drm' => $drm)) ?>
-                		<?php include_partial('drm/droits', array('drm' => $drm, 'droits_circulation' => $droits_circulation, 'hide_cvo' => true)) ?>
+                		<?php include_partial('drm/droits', array('drm' => $drm, 'circulation' => $droits_circulation, 'hide_cvo' => true)) ?>
                     <?php else: ?>
                         <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
                     <?php endif; ?>

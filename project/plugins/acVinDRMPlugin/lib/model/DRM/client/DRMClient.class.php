@@ -150,6 +150,18 @@ class DRMClient extends acCouchdbClient {
         return $this->buildPeriode($nextYear, $nextMonth);
     }
 
+    public function getPeriodePrecedente($periode) {
+        $prevMonth = $this->getMois($periode) - 1;
+        $year = $this->getAnnee($periode);
+
+        if ($prevMonth < 1) {
+            $prevMonth = 12;
+            $year--;
+        }
+
+        return $this->buildPeriode($year, $prevMonth);
+    }
+
     public function getModeDeSaisieLibelle($key) {
         switch ($key) {
             case self::MODE_DE_SAISIE_DTI:

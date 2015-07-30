@@ -495,8 +495,12 @@ class ediActions extends sfActions
   protected function drmCallback($items)
   {
   		$drms = array();
+  		$squeeze = null;
   		foreach ($items as $item) {
-  			if ($item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX] && $item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX] > 0) {
+  			if ($item->value[DRMDateView::VALUE_TYPE] == 'DETAIL' && (is_null($item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX]) || $item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX] < 0 || !$item->value[DRMDateView::VALUE_DETAIL_CVO_CODE])) {
+  				$squeeze = $item->value[DRMDateView::VALUE_IDDRM];
+  			}
+  			if ($item->value[DRMDateView::VALUE_IDDRM] != $squeeze) {
   				$drms[] = $item;
   			}
   		}

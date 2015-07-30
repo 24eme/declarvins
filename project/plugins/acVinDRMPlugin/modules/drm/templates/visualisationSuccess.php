@@ -56,7 +56,7 @@
             <?php endif; ?>
             <?php if ($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()): ?>
                 <?php include_partial('drm/recap', array('drm' => $drm)) ?>
-                <?php include_partial('drm/droits', array('drm' => $drm, 'droits_circulation' => $droits_circulation)) ?>
+                <?php include_partial('drm/droits', array('drm' => $drm, 'circulation' => $droits_circulation)) ?>
             <?php else: ?>
                 <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
             <?php endif; ?>
