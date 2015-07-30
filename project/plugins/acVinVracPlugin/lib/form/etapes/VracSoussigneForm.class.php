@@ -132,6 +132,10 @@ class VracSoussigneForm extends VracForm
         	$this->getObject()->remove('mandataire');
         	$this->getObject()->add('mandataire');
         }
+        
+        if (isset($values['vous_etes']) && $values['vous_etes'] && $this->getEtablissement()) {
+        	$this->getObject()->{$values['vous_etes'].'_identifiant'} = $this->getEtablissement()->identifiant;
+        }
 
         $this->getObject()->storeSoussignesInformations();
     }

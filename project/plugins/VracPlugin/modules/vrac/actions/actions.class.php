@@ -15,7 +15,7 @@ class vracActions extends acVinVracActions
 			$saisisseur = $vrac->vous_etes;
 			if ($saisisseur && in_array($saisisseur, $acteurs)) {
 				$etablissement = EtablissementClient::getInstance()->find($vrac->get($saisisseur.'_identifiant'));
-				if ($compte = $etablissement->getCompteObject()) {
+				if ($etablissement && $compte = $etablissement->getCompteObject()) {
 					if ($compte->email) {
 						Email::getInstance()->vracSaisieTerminee($vrac, $etablissement, $compte->email);
 					}
@@ -25,7 +25,7 @@ class vracActions extends acVinVracActions
 		}
 		foreach ($acteurs as $acteur) {
 			$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
-			$compte = $etablissement->getCompteObject();
+			$compte = ($etablissement)? $etablissement->getCompteObject() : null;
 			if ($compte && $compte->email) {
 				if ($compte->statut == _Compte::STATUT_ARCHIVE) {
 					if ($interpro->email_contrat_vrac) {
@@ -50,7 +50,7 @@ class vracActions extends acVinVracActions
 		$interpros = array();
 		foreach ($acteurs as $acteur) {
 			$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
-			$compte = $etablissement->getCompteObject();
+			$compte = ($etablissement)? $etablissement->getCompteObject() : null;
 			if ($compte && $compte->email) {
 				$interpro = $this->getInterpro($vrac, $etablissement);
 				$interpros[$interpro->_id] = $interpro;
@@ -76,7 +76,7 @@ class vracActions extends acVinVracActions
 		$interpros = array();
 		foreach ($acteurs as $acteur) {
 			$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
-			$compte = $etablissement->getCompteObject();
+			$compte = ($etablissement)? $etablissement->getCompteObject() : null;
 			if ($compte && $compte->email) {
 				$interpro = $this->getInterpro($vrac, $etablissement);
 				$interpros[$interpro->_id] = $interpro;
@@ -109,7 +109,7 @@ class vracActions extends acVinVracActions
 		}
 		foreach ($acteurs as $acteur) {
 			$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
-			$compte = $etablissement->getCompteObject();
+			$compte = ($etablissement)? $etablissement->getCompteObject() : null;
 			if ($compte && $compte->email) {
 				if ($compte->statut == _Compte::STATUT_ARCHIVE) {
 					if ($interpro->email_contrat_vrac) {
@@ -138,7 +138,7 @@ class vracActions extends acVinVracActions
 		}
 		foreach ($acteurs as $acteur) {
 			$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
-			$compte = $etablissement->getCompteObject();
+			$compte = ($etablissement)? $etablissement->getCompteObject() : null;
 			if ($compte && $compte->email) {
 				if ($compte->statut == _Compte::STATUT_ARCHIVE) {
 					if ($interpro && $interpro->email_contrat_vrac) {
@@ -167,7 +167,7 @@ class vracActions extends acVinVracActions
 		}
 		foreach ($acteurs as $acteur) {
 			$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
-			$compte = $etablissement->getCompteObject();
+			$compte = ($etablissement)? $etablissement->getCompteObject() : null;
 			if ($compte && $compte->email) {
 				if ($compte->statut == _Compte::STATUT_ARCHIVE) {
 					if ($interpro && $interpro->email_contrat_vrac) {
