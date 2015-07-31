@@ -13,6 +13,7 @@ class DRMDroitsCirculation
 	const KEY_TAUX = 'taux';
 	const KEY_CUMUL = 'cumul';
 	const KEY_REPORT = 'report';
+	const KEY_TOTAL = 'total';
 	protected static $codes = array(
 		'L387',
 		'L385',
@@ -46,37 +47,40 @@ class DRMDroitsCirculation
 				$this->droits[$c][$certif][self::KEY_TAUX] = ($c == 'L387')? 0 : null;
 				$this->droits[$c][$certif][self::KEY_CUMUL] = ($c == 'L387')? 0 : null;
 				$this->droits[$c][$certif][self::KEY_REPORT] = ($c == 'L387')? 0 : null;
+				$this->droits[$c][$certif][self::KEY_TOTAL] = ($c == 'L387')? 0 : null;
 			}
 		}
 	}
 	
 	public function calculDroits() 
     {
+    	$correspondances = array();
         foreach ($this->drm->getDetails() as $detail) {
-	        $mergeSorties = array();
-	    	$mergeEntrees = array();
-	    	if ($detail->interpro == Interpro::INTERPRO_KEY.Interpro::INTER_RHONE_ID) {
-	    		$mergeSorties = DRMDroits::getDroitSortiesInterRhone();
-	    		$mergeEntrees = DRMDroits::getDroitEntreesInterRhone();
-	    	}
         	$certification = $detail->getCertification()->getKey();
-        	$droit = $detail->getDroit(ConfigurationProduit::NOEUD_DROIT_DOUANE);
-        	$taux = ($droit)? $droit->taux : 0;
-        	$taux = ($taux)? $taux : 0;
         	if ($detail->douane) {
-        		if ($code = $this->getCorrespondanceCode($detail->douane->code)) {
-        			$taxable = $detail->sommeLignes(DRMDroits::getDouaneDroitSorties());
-        			$reintegration = $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees));
-        			$this->droits[$code][$certification][self::KEY_VOLUME_REINTEGRATION] += $reintegration;
-        			$this->droits[$code][$certification][self::KEY_VOLUME_TAXABLE] += $taxable;
-        			$this->droits[$code][$certification][self::KEY_TAUX] = $taux;
+        		if (!isset($correspondances[$detail->douane->code])) {
+        			$correspondances[$detail->douane->code] = array();
         		}
+        		$tab = $correspondances[$detail->douane->code];
+        		$tab[] = $certification;
+        		$correspondances[$detail->douane->code] = array_unique($tab);
         	}
         }
         foreach ($this->drm->droits->douane as $droit) {
         	if ($code = $this->getCorrespondanceCode($droit->code)) {
-        		$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_REPORT] = $droit->report;
-        		$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_CUMUL] = $droit->cumul;
+        		foreach ($correspondances[$droit->code] as $certif) {
+	        		$this->droits[$code][$certif][self::KEY_VOLUME_REINTEGRATION] = $droit->volume_reintegre;
+	        		$this->droits[$code][$certif][self::KEY_VOLUME_TAXABLE] = $droit->volume_taxe;
+        			$this->droits[$code][$certif][self::KEY_REPORT] = $droit->report;
+        			$this->droits[$code][$certif][self::KEY_CUMUL] = $droit->cumul;
+	        		$this->droits[$code][$certif][self::KEY_TAUX] = $droit->taux;
+        		}
+	        	$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_VOLUME_REINTEGRATION] += $droit->volume_reintegre;
+	        	$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_VOLUME_TAXABLE] += $droit->volume_taxe;
+	        	$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_TAUX] = $droit->taux;
+        		$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_REPORT] += $droit->report;
+        		$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_CUMUL] += $droit->cumul;
+        		$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_TOTAL] += $droit->total;
         	}
         }
     }
@@ -98,18 +102,15 @@ class DRMDroitsCirculation
     
     public function getPayable($code, $certification)
     {
-    	$taxable = $this->droits[$code][$certification][self::KEY_VOLUME_TAXABLE];
-    	$reintegration = $this->droits[$code][$certification][self::KEY_VOLUME_REINTEGRATION];
-    	$taux = $this->droits[$code][$certification][self::KEY_TAUX];
-    	$payable = null;
-    	if ($taxable !== null && $reintegration !== null && $taux !== null) {
-    		$payable = ($taxable - $reintegration) * $taux;
-    		if ($payable < 0) {
-    			$payable = 0;
+    	$total = $this->droits[$code][$certification][self::KEY_TOTAL];
+    	$result = null;
+    	if ($total !== null) {
+    		if ($total < 0) {
+    			$total = 0;
     		}
-    		return round($payable);
+    		return round($total);
     	}
-    	return $payable;
+    	return $result;
     }
     
     public function getCumulable($code, $certification)
