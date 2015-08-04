@@ -514,3 +514,47 @@ DRM:
                         date: {  }
                         date_version: {  }
                         version: {  }
+      crds:
+        type: collection
+        definition:
+          fields:
+            '*':
+              class: DRMCrd
+              type: collection
+              definition:
+                fields:
+                  libelle: {  }
+                  categorie:
+                    type: collection
+                    definition:
+                      fields:
+                        code: {  }
+                        libelle: {  }
+                  type:
+                    type: collection
+                    definition:
+                      fields:
+                        code: {  }
+                        libelle: {  }
+                  centilisation:
+                    type: collection
+                    definition:
+                      fields:
+                        code: {  }
+                        libelle: {  }
+                  total_debut_mois: { type: float }
+                  total_fin_mois: { type: float }
+                  entrees:
+                    type: collection
+                    definition:
+                      fields:
+                        achats: { type: float }
+                        excedents: { type: float }
+                        retours: { type: float }
+                  sorties:
+                    type: collection
+                    definition:
+                      fields:
+                        utilisees: { type: float }
+                        detruites: { type: float }
+                        manquantes: { type: float }

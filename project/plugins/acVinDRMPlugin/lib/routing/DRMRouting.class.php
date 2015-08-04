@@ -370,7 +370,28 @@ class DRMRouting {
                                                                 'type' => 'object',
                               									'no_archive' => true,
 									                            'must_be_valid' => false,
-									                            'must_be_not_valid' => true)));      
+									                            'must_be_not_valid' => true)));   
+
+        $r->prependRoute('drm_crd', new DRMRoute('/drm/:identifiant/edition/:periode_version/crd', 
+                                                          array('module' => 'drm_crd', 
+                                                                'action' => 'index'),
+                                                          array('sf_method' => array('get','post')),
+                                                          array('model' => 'DRM',
+                                                                'type' => 'object',
+                              									'no_archive' => true,
+									                            'must_be_valid' => false,
+									                            'must_be_not_valid' => true)));    
+
+        $r->prependRoute('drm_crd_product_ajout', new DRMRoute('/drm/:identifiant/edition/:periode_version/crd/ajout',
+                        array('module' => 'drm_crd',
+                            'action' => 'ajoutAjax'),
+                        array('sf_method' => array('get','post')),
+                        array('model' => 'DRM',
+                              'type' => 'object',
+                              'no_archive' => true,
+                              'add_noeud' => true,
+                              'must_be_valid' => false,
+                              'must_be_not_valid' => true))); 
     }
 
 }

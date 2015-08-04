@@ -90,5 +90,10 @@ class DRMFictive extends DRM
     public function generateModificative() {
         return $this->drm->generateModificative();
     }
+    
+    public function addCrd($categorie, $type, $centilisation)
+    {
+    	return $this->drm->addCrd($categorie, $type, $centilisation);
+    }
 
 }
