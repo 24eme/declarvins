@@ -50,8 +50,8 @@ class drm_vracActions extends sfActions
                                 $this->drm->setCurrentEtapeRouting('validation');
                                 return $this->redirect('drm_validation', $this->drm);
                         }
-                        $this->drm->setCurrentEtapeRouting('declaratif');
-                        return $this->redirect('drm_declaratif', $this->drm);
+                        $this->drm->setCurrentEtapeRouting('crd');
+                        return $this->redirect('drm_crd', $this->drm);
                 }
         }
     }

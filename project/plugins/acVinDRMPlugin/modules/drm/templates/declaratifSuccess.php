@@ -10,11 +10,7 @@
             
 				
                 <div id="btn_etape_dr">
-                	<?php if (!$drm->declaration->hasMouvementCheck()): ?>
-                	<a href="<?php echo url_for('drm_mouvements_generaux', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
-                	<?php else: ?>
-                    <a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec"><span>Précédent</span></a>
-                    <?php endif; ?>
+                    <a href="<?php echo url_for('drm_crd', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
                     <button type="submit" class="btn_suiv"><span>suivant</span></button>
                 </div>
                 
@@ -141,11 +137,7 @@
                 </div>
 				
                 <div id="btn_etape_dr">
-                	<?php if (!$drm->declaration->hasMouvementCheck()): ?>
-                	<a href="<?php echo url_for('drm_mouvements_generaux', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
-                	<?php else: ?>
-                    <a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec"><span>Précédent</span></a>
-                    <?php endif; ?>
+                    <a href="<?php echo url_for('drm_crd', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
                     <button type="submit" class="btn_suiv"><span>suivant</span></button>
                 </div>
 

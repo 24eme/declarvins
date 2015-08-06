@@ -1,5 +1,12 @@
 <?php include_component('global', 'navTop', array('active' => 'drm')); ?>
 
+<style>
+#principal .tableau_ajouts_liquidations table tbody td input[type="text"], #principal .tableau_resultats table tbody td input[type="text"] {
+	width: 45px !important;
+	text-align: right !important;
+}
+</style>
+
 <section id="contenu" class="drm_vracs">
 
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
@@ -10,7 +17,6 @@
     <section id="principal">
         <p>Veuillez indiquer ci-dessous le compte des capsules CRD correspondant aux volumes déclarés :</p>
         <br />
-
         <div id="application_dr" class="tableau_ajouts_liquidations">
             <form action="<?php echo url_for('drm_crd', $drm) ?>" method="post">
             	<?php echo $form->renderHiddenFields(); ?>
@@ -35,28 +41,20 @@
                        </tr>
                    </thead>
                    <tbody>
-                   		<tr>
-                   			<td>1</td>
-                   			<td>2</td>
-                   			<td>3</td>
-                   			<td>4</td>
-                   			<td>5</td>
-                   			<td>6</td>
-                   			<td>7</td>
-                   			<td>8</td>
-                   			<td>9</td>
+                   		
+                       <?php $i=0; foreach ($form['crds'] as $key => $subform): ?>
+                   		<tr<?php if ($i%2): ?> class="alt"<?php endif; ?>>
+                   			<td><?php echo $drm->crds->get($key)->libelle; ?></td>
+                   			<td><?php echo (isset($form['crds'][$key]['total_debut_mois']))? $form['crds'][$key]['total_debut_mois'] : $drm->crds->get($key)->total_debut_mois;?></td>
+                   			<td><?php echo $form['crds'][$key]['entrees']['achats'] ?></td>
+                   			<td><?php echo $form['crds'][$key]['entrees']['excedents'] ?></td>
+                   			<td><?php echo $form['crds'][$key]['entrees']['retours'] ?></td>
+                   			<td><?php echo $form['crds'][$key]['sorties']['utilisees'] ?></td>
+                   			<td><?php echo $form['crds'][$key]['sorties']['detruites'] ?></td>
+                   			<td><?php echo $form['crds'][$key]['sorties']['manquantes'] ?></td>
+                   			<td><?php echo $drm->crds->get($key)->total_fin_mois; ?></td>
                    		</tr>
-                   		<tr class="alt">
-                   			<td>9</td>
-                   			<td>8</td>
-                   			<td>7</td>
-                   			<td>6</td>
-                   			<td>5</td>
-                   			<td>4</td>
-                   			<td>3</td>
-                   			<td>2</td>
-                   			<td>1</td>
-                   		</tr>
+                   		<?php $i++; endforeach; ?>
 				   </tbody>
 				</table>
 				<div class="btn" style="text-align: right;">
@@ -64,9 +62,11 @@
 				</div>
 	            <br /><br />
 	            <div id="btn_etape_dr">
-	                <a href="<?php echo url_for('drm_recap_redirect_last', $drm) ?>" class="btn_prec">
-	                    <span>Précédent</span>
-	                </a>
+                	<?php if (!$drm->declaration->hasMouvementCheck()): ?>
+                	<a href="<?php echo url_for('drm_mouvements_generaux', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
+                	<?php else: ?>
+                    <a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec"><span>Précédent</span></a>
+                    <?php endif; ?>
 	                <button type="submit" class="btn_suiv"><span>Suivant</span></button>
 	            </div>
 	

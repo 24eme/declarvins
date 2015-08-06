@@ -25,18 +25,21 @@ class DRMCrdAjoutForm extends acCouchdbForm
         $this->setWidgets(array(
             'categorie' => new sfWidgetFormChoice(array('choices' => $categories)),
             'type' => new sfWidgetFormChoice(array('choices' => $types)),
-            'centilisation' => new sfWidgetFormChoice(array('choices' => $centilisations))
+            'centilisation' => new sfWidgetFormChoice(array('choices' => $centilisations)),
+        	'disponible' => new sfWidgetFormInput()
         ));
         $this->widgetSchema->setLabels(array(
             'categorie' => 'Catégorie fiscale : ',
             'type' => 'Type CRD : ',
             'centilisation' => 'Centilisation : ',
+        	'disponible' => 'Stock disponible : '
         ));
 
         $this->setValidators(array(
             'categorie' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($categories))),
             'type' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($types))),
             'centilisation' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($centilisations))),
+        	'disponible' => new sfValidatorInteger(array('required' => false))
         ));
 
         $this->validatorSchema->setPostValidator(new DRMCrdValidator(null, array('drm' => $this->_drm)));
@@ -67,7 +70,8 @@ class DRMCrdAjoutForm extends acCouchdbForm
         if (!$this->isValid()) {
             throw $this->getErrorSchema();
         }
-        $this->_drm->addCrd($this->values['categorie'], $this->values['type'], $this->values['centilisation']);
+        $stock = (isset($this->values['disponible']) && $this->values['disponible'])? $this->values['disponible'] : 0;
+        $this->_drm->addCrd($this->values['categorie'], $this->values['type'], $this->values['centilisation'], $stock);
         return  $this->_drm;
     }
 

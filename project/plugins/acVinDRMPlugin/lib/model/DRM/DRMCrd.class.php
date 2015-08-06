@@ -13,7 +13,7 @@ class DRMCrd extends BaseDRMCrd {
 	
 
 
-	public function addCrd($categorie, $type, $centilisation)
+	public function addCrd($categorie, $type, $centilisation, $stock = 0)
 	{
 		$conf = ConfigurationClient::getCurrent();
 		$this->categorie->code = $categorie;
@@ -23,8 +23,21 @@ class DRMCrd extends BaseDRMCrd {
 		$this->centilisation->code = $centilisation;
 		$this->centilisation->libelle = $conf->crds->centilisation->get($centilisation);
 		$this->libelle = $this->categorie->libelle.' '.$this->type->libelle.' '.$this->centilisation->libelle;
-		$this->total_debut_mois = 0;
-		$this->total_fin_mois = 0;
+		$this->total_debut_mois = ($stock > 0)? $stock : 0;
+		$this->total_fin_mois = ($stock > 0)? $stock : 0;
+	}
+	
+	public function updateStocks()
+	{
+		$stockEntrees = 0;
+		$stockSorties = 0;
+		foreach ($this->entrees as $stock) {
+			$stockEntrees += $stock;
+		}
+		foreach ($this->sorties as $stock) {
+			$stockSorties += $stock;
+		}
+		$this->total_fin_mois = $this->total_debut_mois + $stockEntrees - $stockSorties;
 	}
 
 }

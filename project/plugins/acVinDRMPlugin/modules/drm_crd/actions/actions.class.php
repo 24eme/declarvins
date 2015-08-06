@@ -21,13 +21,13 @@ class drm_crdActions extends sfActions
         $this->drm = $this->getRoute()->getDRM();
         $this->etablissement = $this->getRoute()->getEtablissement();
         
-        $this->form = new DRMCrdForm($this->drm);
+        $this->form = new DRMCrdsForm($this->drm);
         if ($request->isMethod(sfWebRequest::POST)) {
         	$this->form->bind($request->getParameter($this->form->getName()));
         	if ($this->form->isValid()) {
         		$this->drm = $this->form->save();
-        		$this->drm->setCurrentEtapeRouting('validation');
-        		$this->redirect('drm_validation', $this->drm);
+        		$this->drm->setCurrentEtapeRouting('declaratif');
+        		$this->redirect('drm_declaratif', $this->drm);
         	}
         }
     }
