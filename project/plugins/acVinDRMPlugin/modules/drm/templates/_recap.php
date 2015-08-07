@@ -59,10 +59,10 @@
 							<td>
 								<?php echo $crd->libelle ?>
 				            </td>
-                            <td><strong><?php echo $crd->total_debut_mois ?></strong></td>
-							<td><?php echo $crd->getTotalEntrees() ?></td>
-							<td><?php echo $crd->getTotalSorties() ?></td>
-							<td><strong><?php echo $crd->total_fin_mois ?></strong></td>
+                            <td class="<?php echo isVersionnerCssClass($crd, 'total_debut_mois') ?>"><strong><?php echo $crd->total_debut_mois ?></strong></td>
+							<td class="<?php echo isVersionnerCssClass($crd->entrees, 'achat') ?> <?php echo isVersionnerCssClass($crd->entrees, 'excedents') ?> <?php echo isVersionnerCssClass($crd->entrees, 'retours') ?>"><?php echo $crd->getTotalEntrees() ?></td>
+							<td class="<?php echo isVersionnerCssClass($crd->sorties, 'utilisees') ?> <?php echo isVersionnerCssClass($crd->sorties, 'detruites') ?> <?php echo isVersionnerCssClass($crd->sorties, 'manquantes') ?>"><?php echo $crd->getTotalSorties() ?></td>
+							<td class="<?php echo isVersionnerCssClass($crd, 'total_fin_mois') ?>"><strong><?php echo $crd->total_fin_mois ?></strong></td>
 						</tr>
 			<?php endforeach; ?>
 		</tbody>

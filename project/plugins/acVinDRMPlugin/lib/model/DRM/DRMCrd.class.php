@@ -57,4 +57,15 @@ class DRMCrd extends BaseDRMCrd {
 		}
 		return $total;
 	}
+	
+	public function initCrd()
+	{
+		$this->total_debut_mois = $this->total_fin_mois;
+		foreach ($this->entrees as $entree => $stock) {
+			$this->entrees->set($entree, null);
+		}
+		foreach ($this->sorties as $sortie => $stock) {
+			$this->sorties->set($sortie, null);
+		}
+	}
 }

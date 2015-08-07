@@ -177,8 +177,17 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->declaratif->dsa->fin = null;
 
         $this->commentaires = null;
+        
+        $this->initCrds();
 
         $this->devalide();
+    }
+    
+    public function initCrds()
+    {
+    	foreach ($this->crds as $crd) {
+    		$crd->initCrd();
+    	}
     }
 
     public function setDroits() {
