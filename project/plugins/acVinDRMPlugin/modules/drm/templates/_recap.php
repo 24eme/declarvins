@@ -40,7 +40,7 @@
 <?php endforeach; ?>
 <?php if ($drm->exist('crds') && count($drm->crds) > 0): ?>
 <div class="tableau_ajouts_liquidations">
-		<h2><strong>CRD</strong></h2>
+		<h2><strong>Comptabilité capsules CRD</strong></h2>
 		<table class="tableau_recap">
 			<thead>
 				<tr>

@@ -137,7 +137,7 @@
 		<?php endwhile; ?>
 	<?php endforeach; ?>
 	<?php if ($drm->exist('crds') && count($drm->crds) > 0): ?>
-	<h2>Comptes CRD</h2>
+	<h2>Comptabilité capsules CRD</h2>
 	
 	
 	<table class="recap droits_douane bloc_bottom">
