@@ -6,7 +6,7 @@
     <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $typedroit == "douane") {continue;} ?>     
     <?php if (isset($hide_cvo) && $hide_cvo && $typedroit == "cvo") {continue;} ?>       
     <div class="tableau_ajouts_liquidations">
-    <h2><?php echo $libelles[$typedroit] ?> <a href="" class="msg_aide" data-msg="help_popup_validation_droit_<?php echo $typedroit; ?>" title="Message aide"></a></h2>
+    <h2><strong><?php echo $libelles[$typedroit] ?></strong> <a href="" class="msg_aide" data-msg="help_popup_validation_droit_<?php echo $typedroit; ?>" title="Message aide"></a></h2>
     	<table class="tableau_recap">
             <thead>
     		<tr>
@@ -44,7 +44,7 @@
     
 
 <?php 
-if ($circulation && $typedroit == "douane"): 
+if ($circulation && $typedroit == "douane" && 1==2): 
 $droits_circulation = $circulation->getDroits();
 ?>
 <div class="tableau_ajouts_liquidations">

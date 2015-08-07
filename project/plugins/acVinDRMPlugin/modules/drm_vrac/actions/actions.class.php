@@ -28,10 +28,10 @@ class drm_vracActions extends sfActions
 
         if (count($this->details)==0) {
             if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER || $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-                        $this->drm->setCurrentEtapeRouting('validation');
-                return $this->redirect('drm_validation', $this->drm);
+                        $this->drm->setCurrentEtapeRouting('crd');
+                return $this->redirect('drm_crd', $this->drm);
             }
-                        return $this->redirect('drm_declaratif', $this->drm);
+                        return $this->redirect('drm_crd', $this->drm);
         }
 
             $this->drm->etape = "vrac";

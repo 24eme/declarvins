@@ -13,6 +13,7 @@
 	var anchorIds = {"entrees" : 2, "sorties" : 3}
 	// Variables globales 
 	var colonnesDR = $('#colonnes_dr');
+	var lignesCRD = $('#lignes_crd');
 	var colIntitules = $('#colonne_intitules');
 	var colSaisies = $('#col_saisies');
 	var colSaisiesCont = $('#col_saisies_cont');
@@ -43,6 +44,10 @@
 			$.calculerChampsInterdependants();
 			$.toggleGroupesChamps();
 			$.initChoixRadio();
+		}
+		if(lignesCRD.exists())
+		{
+			$.initLignes();
 		}
 		if ($(".contrat_vracs").length > 0) {
 			$.calculerSommesVrac();
@@ -114,6 +119,49 @@
 		// Colonne active par défaut
 		if(colActiveDefaut.exists()) colActiveDefaut.majColActive();
 	};
+	
+
+	
+	/**
+	 * Calcul dynamique des dimmensions des lignes
+	 * $.initLignes();
+	 ******************************************/
+	$.initLignes = function()
+	{
+		$(".total_crd").each(function() {
+			var total = $(this);
+			var ligne = total.parent();
+			var inputs = ligne.find("input");
+			var nbInputs = inputs.length;
+			var somme = 0;
+			
+			var sommeIputs = function()
+			{
+				somme = 0;
+				inputs.each(function(i)
+				{
+					var input = $(this)
+					var valeur = parseInt(input.val());
+					
+					if (isNaN(valeur)) {
+						valeur = 0;
+					}
+					
+					if (input.hasClass('sorties')) {
+						somme = somme - valeur;
+					} else {
+						somme = somme + valeur;
+					}
+					
+					if(i == nbInputs-1) total.html(somme);
+				});
+			}
+			
+			inputs.blur(function(){
+				sommeIputs();
+			});
+		});
+	}
 	
 	/**
 	 * Initialise le masque qui désactive les 
