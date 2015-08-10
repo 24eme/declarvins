@@ -413,6 +413,30 @@ DRM:
         definition:
           fields:
             defaut_apurement: { type: integer }
+            rna:
+              type: collection
+              definition:
+                fields:
+                  '*':
+                    type: collection
+                    definition:
+                      fields:
+                        numero: { type: integer }
+                        accises: {  }
+                        date: {  }
+            statistiques:
+              type: collection
+              definition:
+                fields:
+                  jus: { type: float }
+                  mcr: { type: float }
+                  vinaigre: { type: float }
+            empreinte:
+              type: collection
+              definition:
+                fields:
+                  debut: { type: integer }
+                  fin: { type: integer }
             daa:
               type: collection
               definition:

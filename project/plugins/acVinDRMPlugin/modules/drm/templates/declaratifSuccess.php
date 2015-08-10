@@ -51,7 +51,7 @@
 
                 <div class="contenu_onglet_declaratif ">
                     <p class="intro">Veuillez séléctionner un défaut d'apurement :</p>
-                    <div class="ligne_form alignes">
+                    <div class="ligne_form alignes bloc_condition" data-condition-cible="#bloc_rna">
 
                         <?php echo $form['apurement']->renderError() ?>
                         <?php echo $form['apurement']->render() ?>
@@ -64,30 +64,61 @@
                 </ul>
 
                 <div class="contenu_onglet_declaratif">
-                    <p class="intro">Documents prévalidés ou N° empreinte utilisés au cours du mois</p>
-
-                    <div class="champs_centres">
-                        <h3>DAA</h3>
-
-                        <div class="ligne_form">
-                            <?php echo $form['daa_debut']->renderLabel() ?><?php echo $form['daa_debut']->render() ?>
-                            <?php echo $form['daa_fin']->renderLabel() ?><?php echo $form['daa_fin']->render() ?>
-                        </div>
-                        <div class="ligne_form alignes">
-                            <?php echo $form['daa_debut']->renderError() ?>
-                            <?php echo $form['daa_fin']->renderError() ?>
-                        </div>
-
-                        <h3>DSA</h3>
-
-                        <div class="ligne_form">
-                            <?php echo $form['dsa_debut']->renderLabel() ?><?php echo $form['dsa_debut']->render() ?>
-                            <?php echo $form['dsa_fin']->renderLabel() ?><?php echo $form['dsa_fin']->render() ?>
-                        </div>
-                        <div class="ligne_form alignes">
-                            <?php echo $form['dsa_debut']->renderError() ?>
-                            <?php echo $form['dsa_fin']->renderError() ?>
-                        </div>
+                	<div id="bloc_rna" class="bloc_conditionner" data-condition-value="1">
+	                    <p class="intro">Relevé des documents d'accompagnement non apurés (RNA)</p>
+	                    
+	                    <div class="tableau_ajouts_liquidations">
+							<table id="rna" class="tableau_recap" style="width: auto;">
+								<thead>
+	                    			<tr>
+	                    				<th style="width: 225px; text-align:center;">Numéro DAA/DAC/DAE</th>
+	                    				<th style="width: 260px;">Numéro d'accises du destinataire</th>
+	                    				<th style="width: 260px;">Date d'expédition</th>
+	                    			</tr>
+	                    		</thead>
+	                    		<tbody>
+	                    			<?php foreach ($form['rna'] as $key => $subform): ?>
+	                        			<?php echo include_partial('form_rna_item', array('form' => $subform)); ?>
+	                    			<?php endforeach; ?>
+	                    		</tbody>
+	                    	</table>
+	                    	<div style="text-align: right; padding-right: 45px;">
+	                    		<a class="btn_ajouter_ligne_template" data-container="#rna tbody" data-template="#template_form_detail_rna_item" href="#">Ajouter un RNA</a>
+	                    	</div>
+	                    	<script id="template_form_detail_rna_item" class="template_form" type="text/x-jquery-tmpl">
+                        <?php echo include_partial('form_rna_item', array('form' => $form->getFormTemplateRna())); ?>
+                        </script>
+	                    </div>
+					</div>
+                    <p class="intro">Références des documents d'accompagnement emis durant le mois précédent</p>
+                    
+                    <div class="tableau_ajouts_liquidations">
+						<table class="tableau_recap" style="width: auto;">
+							<thead>
+                    			<tr>
+                    				<th style="width: 225px;"></th>
+                    				<th style="width: 260px;">Début de période</th>
+                    				<th style="width: 260px;">Fin de période</th>
+                    			</tr>
+                    		</thead>
+                    		<tbody>
+                    			<tr>
+                    				<td>N° d'empreintes utilisées</td>
+                    				<td><?php echo $form['empreinte_debut']->renderError() ?><?php echo $form['empreinte_debut']->render() ?></td>
+                    				<td><?php echo $form['empreinte_fin']->renderError() ?><?php echo $form['empreinte_fin']->render() ?></td>
+                    			</tr>
+                    			<tr>
+                    				<td>N° DAA/DCA</td>
+                    				<td><?php echo $form['daa_debut']->renderError() ?><?php echo $form['daa_debut']->render() ?></td>
+                    				<td><?php echo $form['daa_fin']->renderError() ?><?php echo $form['daa_fin']->render() ?></td>
+                    			</tr>
+                    			<tr>
+                    				<td>N° DSA/DSAC</td>
+                    				<td><?php echo $form['dsa_debut']->renderError() ?><?php echo $form['dsa_debut']->render() ?></td>
+                    				<td><?php echo $form['dsa_fin']->renderError() ?><?php echo $form['dsa_fin']->render() ?></td>
+                    			</tr>
+                    		</tbody>
+                    	</table>
                     </div>
                     <div class="ligne_form ligne_entiere ecart_check">
                         <?php echo $form['adhesion_emcs_gamma']->render() ?><?php echo $form['adhesion_emcs_gamma']->renderLabel() ?><?php echo $form['adhesion_emcs_gamma']->renderError() ?>
@@ -133,6 +164,38 @@
                     <div class="ligne_form alignes">
                         <?php echo $form['moyen_paiement']->renderError() ?>
                         <?php echo $form['moyen_paiement']->render() ?>
+                    </div>
+                </div>
+                
+                
+
+                <ul class="onglets_declaratif">
+                    <li><strong>Statistiques européennes</strong><a href="" class="msg_aide" data-msg="" title="Message aide"></a></li>
+                </ul>
+                <div class="contenu_onglet_declaratif">
+                	<div class="tableau_ajouts_liquidations">
+						<table class="tableau_recap">
+							<thead>
+                    			<tr>
+                    				<th style=" width: auto;"></th>
+                    				<th>Volume</th>
+                    			</tr>
+                    		</thead>
+                    		<tbody>
+                    			<tr>
+                    				<td><?php echo $form['statistiques_jus']->renderLabel() ?></td>
+                    				<td><?php echo $form['statistiques_jus']->render() ?>&nbsp;<span class="unite">hl</span><br /><?php echo $form['statistiques_jus']->renderError() ?></td>
+                    			</tr>
+                    			<tr>
+                    				<td><?php echo $form['statistiques_mcr']->renderLabel() ?></td>
+                    				<td><?php echo $form['statistiques_mcr']->render() ?>&nbsp;<span class="unite">hl</span><br /><?php echo $form['statistiques_mcr']->renderError() ?></td>
+                    			</tr>
+                    			<tr>
+                    				<td><?php echo $form['statistiques_vinaigre']->renderLabel() ?></td>
+                    				<td><?php echo $form['statistiques_vinaigre']->render() ?>&nbsp;<span class="unite">hl</span><br /><?php echo $form['statistiques_vinaigre']->renderError() ?></td>
+                    			</tr>
+                    		</tbody>
+                    	</table>
                     </div>
                 </div>
 				
