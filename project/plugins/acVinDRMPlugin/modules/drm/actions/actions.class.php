@@ -221,7 +221,6 @@ class drmActions extends sfActions {
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->drm = $this->getRoute()->getDRM();
         $this->drm->storeDroits(array());
-        $this->drm->save();
         $this->droits_circulation = ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) ? null : new DRMDroitsCirculation($this->drm);
         $this->drmValidation = $this->drm->validation(array('stock' => 'warning', 'is_operateur' => $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)));
         $this->engagements = $this->drmValidation->getEngagements();
@@ -241,11 +240,10 @@ class drmActions extends sfActions {
         }
 		$values = $this->form->getValues();
 		
-        $this->form->save();
+        $this->drm = $this->form->save();
         
-        if (isset($values['brouillon']) && $values['brouillon']) {
-        
-        	$this->drm->save();
+        if (isset($values['brouillon']) && $values['brouillon']) 
+        {
         	$this->redirect('drm_validation', $this->drm);
         }
         
