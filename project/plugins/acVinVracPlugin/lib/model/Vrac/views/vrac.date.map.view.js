@@ -11,7 +11,7 @@ function(doc) {
 		
 		var vrac_id = doc.numero_contrat;
 		var vrac_version = (doc.version)? doc.version : null;
-		var vrac_referente = (doc.referente)? doc.referente : 0;
+		var vrac_referente = (doc.referente === null || doc.referente === undefined)? 1 : doc.referente;
 		var vrac_date_saisie = doc.valide.date_saisie;
 		var vrac_date_stat = (doc.date_stats)? doc.date_stats : doc.valide.date_validation;
 		var vrac_date_signature = (doc.date_signature)? doc.date_signature : doc.valide.date_validation;
