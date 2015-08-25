@@ -269,6 +269,9 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function canHaveVrac() {
+    	if (!$this->getCepage()->getConfig()) {
+    		return false;
+    	}
         return ($this->getCepage()->getConfig()->getCurrentDrmVrac(true)) ? true : false;
     }
 
