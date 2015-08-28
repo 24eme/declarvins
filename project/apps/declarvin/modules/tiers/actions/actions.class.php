@@ -50,6 +50,16 @@ class tiersActions extends sfActions
 	  }
   }
   
+  public function executeConnexion(sfWebRequest $request)
+  {
+  	if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+  		$this->getUser()->signOut();
+  		$this->getUser()->signIn($request->getParameter('login'));
+  		return $this->redirect('@tiers');
+  	}
+  	return $this->redirect('tiers_forbidden');
+  }
+  
   public function executeAccessForbidden(sfWebRequest $request)
   {
   	
