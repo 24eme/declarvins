@@ -204,8 +204,16 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         	}
         }
     }
-
+	public function isNouvelleCampagne() {
+		if ($this->getMois() == 8) {
+			return true;
+		}
+		return false;
+	}
     public function getReportByDroit($type, $droit) {
+    	if ($this->isNouvelleCampagne()) {
+    		return 0;
+    	}
         $drmPrecedente = $this->getPrecedente();
         if ($drmPrecedente && !$drmPrecedente->isNew()) {
             if ($drmPrecedente->droits->get($type)->exist($droit->code)) {
