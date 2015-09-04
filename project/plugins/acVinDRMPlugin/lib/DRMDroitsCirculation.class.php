@@ -104,7 +104,7 @@ class DRMDroitsCirculation
     {
     	$total = $this->droits[$code][$certification][self::KEY_VOLUME_TAXABLE] * $this->droits[$code][$certification][self::KEY_TAUX];
     	$result = null;
-    	if ($total !== null) {
+    	if ($this->droits[$code][$certification][self::KEY_TOTAL] !== null) {
     		if ($total < 0) {
     			$total = 0;
     		}
