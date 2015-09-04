@@ -283,6 +283,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 	      		$this->valide->statut = VracClient::STATUS_CONTRAT_ANNULE;
 	    		$this->annulation->date_annulation = date('c');
     			$this->date_stats = $this->annulation->date_annulation;
+    			$this->valide->date_validation = $this->annulation->date_annulation;
 	      	}
     	}
     }
@@ -390,6 +391,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$mother->referente = 0;
     		$mother->valide->statut = VracClient::STATUS_CONTRAT_ANNULE;
     		$mother->date_stats = date('c');
+    		$mother->valide->date_validation = $mother->date_stats;
     		$mother->save(false);
     	}
     }
