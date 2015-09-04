@@ -102,7 +102,7 @@ class DRMDroitsCirculation
     
     public function getPayable($code, $certification)
     {
-    	$total = $this->droits[$code][$certification][self::KEY_TOTAL];
+    	$total = $this->droits[$code][$certification][self::KEY_VOLUME_TAXABLE] * $this->droits[$code][$certification][self::KEY_TAUX];
     	$result = null;
     	if ($total !== null) {
     		if ($total < 0) {
