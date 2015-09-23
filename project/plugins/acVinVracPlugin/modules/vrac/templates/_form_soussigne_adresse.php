@@ -6,6 +6,9 @@
         </label>
     </div>
     <div id="bloc_<?php echo $field ?>_form" class="bloc_form bloc_conditionner" data-condition-value="differente"> 
+		<?php if ($field == 'adresse_stockage'): ?>
+        		<div class="vigilance_list" style="margin-top: 10px;">Attention, tout lieu de stockage doit être préalablement déclaré à votre Organisme de Contrôle</div>
+		<?php endif; ?>
         <div class="vracs_ligne_form vracs_ligne_form_alt">
             <span>
                 <?php echo $form[$field]['libelle']->renderError() ?>
