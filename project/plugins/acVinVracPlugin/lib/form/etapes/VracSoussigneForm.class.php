@@ -6,16 +6,35 @@ class VracSoussigneForm extends VracForm
 		$this->setWidgets(array(
     		'vous_etes' => new sfWidgetFormChoice(array('choices' => $this->getVousEtes(), 'expanded' => true)),
             'vendeur_type' => new sfWidgetFormChoice(array('choices' => $this->getVendeurTypes(), 'expanded' => true)),
-            'vendeur_identifiant' => new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'familles' => EtablissementFamilles::FAMILLE_PRODUCTEUR, 'only_actif' => 1)),
             'vendeur_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(), 'expanded' => true)),
             'acheteur_type' => new sfWidgetFormChoice(array('choices' => $this->getAcheteurTypes(), 'expanded'=> true)),
-            'acheteur_identifiant' => new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'familles' => EtablissementFamilles::FAMILLE_NEGOCIANT, 'only_actif' => 1)),
         	'acheteur_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
             'mandataire_exist' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
-        	'mandataire_identifiant' => new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'familles' => EtablissementFamilles::FAMILLE_COURTIER, 'only_actif' => 1)),
         	'premiere_mise_en_marche' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier()))
     	));
+		if ($etablissement = $this->getEtablissement()) {
+			$this->setWidget('vendeur_identifiant', new WidgetEtablissement(array('interpro_id' => implode('|', array_keys($etablissement->zones->toArray())), 'familles' => EtablissementFamilles::FAMILLE_PRODUCTEUR, 'only_actif' => 1)));
+			$this->setWidget('acheteur_type', new WidgetEtablissement(array('interpro_id' => implode('|', array_keys($etablissement->zones->toArray())), 'familles' => EtablissementFamilles::FAMILLE_NEGOCIANT, 'only_actif' => 1)));
+			$this->setWidget('mandataire_identifiant', new WidgetEtablissement(array('interpro_id' => implode('|', array_keys($etablissement->zones->toArray())), 'familles' => EtablissementFamilles::FAMILLE_COURTIER, 'only_actif' => 1)));
+			if ($type = $this->getObject()->vendeur_type) {
+				$this->setWidget('vendeur_identifiant', new WidgetEtablissement(array('interpro_id' => implode('|', array_keys($etablissement->zones->toArray())), 'familles' => $type, 'only_actif' => 1)));
+			}
+			if ($type = $this->getObject()->acheteur_type) {
+				$this->setWidget('acheteur_identifiant', new WidgetEtablissement(array('interpro_id' => implode('|', array_keys($etablissement->zones->toArray())), 'familles' => $type, 'only_actif' => 1)));
+			}
+		} else {
+			$this->setWidget('vendeur_identifiant', new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'familles' => EtablissementFamilles::FAMILLE_PRODUCTEUR, 'only_actif' => 1)));
+			$this->setWidget('acheteur_type', new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'familles' => EtablissementFamilles::FAMILLE_NEGOCIANT, 'only_actif' => 1)));
+			$this->setWidget('mandataire_identifiant', new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'familles' => EtablissementFamilles::FAMILLE_COURTIER, 'only_actif' => 1)));
+			if ($type = $this->getObject()->vendeur_type) {
+				$this->setWidget('vendeur_identifiant', new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'familles' => $type, 'only_actif' => 1)));
+			}
+			if ($type = $this->getObject()->acheteur_type) {
+				$this->setWidget('acheteur_identifiant', new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'familles' => $type, 'only_actif' => 1)));
+			}
+		}
+		
         $this->widgetSchema->setLabels(array(
         	'vous_etes' => 'Vous êtes*: ',
         	'vendeur_type' => 'Type:',
@@ -42,14 +61,6 @@ class VracSoussigneForm extends VracForm
         	'premiere_mise_en_marche' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'cas_particulier' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCasParticulier())))
         ));
-        
-        if ($type = $this->getObject()->vendeur_type) {
-        	$this->setWidget('vendeur_identifiant', new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'familles' => $type, 'only_actif' => 1)));
-        }
-        
-        if ($type = $this->getObject()->acheteur_type) {
-        	$this->setWidget('acheteur_identifiant', new WidgetEtablissement(array('interpro_id' => $this->getInterpro()->get('_id'), 'familles' => $type, 'only_actif' => 1)));
-        }
         
         $etablissement = $this->getEtablissement();
         if($etablissement && $etablissement->famille == 'negociant' && !$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
