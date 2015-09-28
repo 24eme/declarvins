@@ -237,7 +237,7 @@ class DRMDetail extends BaseDRMDetail {
             if ($vrac->exist('version') && $vrac->version) {
             	$id .= '-'.$vrac->version;
             }
-            if ($this->getDocument()->hasVersion() && $this->vrac->exist($id)) {
+            if ($this->getDocument()->hasVersion() && $this->vrac->exist($id) && $this->getDocument()->getMother()->exist($this->getHash()) && $this->getDocument()->getMother()->get($this->getHash())->vrac->exist($id)) {
             	$vol += $this->getDocument()->getMother()->get($this->getHash())->vrac->get($id)->volume;
             }
             if ($prestation) {
