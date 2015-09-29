@@ -49,11 +49,6 @@ class DRMDetailImport
 			$this->loggeur->addLog($e->getMessage());    	
 			$hasDetail = false;	
     	}
-		try {
-			$drm->validate();
-		} catch (Exception $e) {
-			$this->loggeur->addLog($e->getMessage());
-		}
 		if ($hasDetail) {
 			$this->checkDetailTotaux($drm->getProduit($this->getHashProduit(), explode('|', $this->getDataValue(DRMDateView::VALUE_LABELS, 'drm detail labels'))));
 		}

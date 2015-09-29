@@ -175,6 +175,8 @@ class ediActions extends sfActions
     $this->securizeEtablissement($etablissement);
 	$formUploadCsv = new UploadCSVForm();
     $result = array();
+    $drms = array();
+    $unsetDrms = array();
 	if ($request->isMethod('post')) {
     	$formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
       	if ($formUploadCsv->isValid()) {
@@ -186,8 +188,10 @@ class ediActions extends sfActions
 		    	$numLigne++;
 		    	$import = new DRMDetailImport($ligne, $drmClient);
 		    	$drm = $import->getDrm();
+		    	$drms[$drm->_id] = $drm;
 		    	if ($import->hasErrors()) {
 		    		$result[$numLigne] = array('ERREUR', 'LIGNE', $numLigne, implode(' - ', $import->getLogs()));
+		    		$unsetDrms[$drm->_id] = $drm->_id;
 		    	} else {
 		    		$result[$numLigne] = array('OK', '', $numLigne, '');
 		    		$drm->save();
@@ -195,6 +199,14 @@ class ediActions extends sfActions
 		    }
       	} else {
       		$result[] = array('ERREUR', 'COHERENCE', 0, 'Fichier csv non valide');
+      	}
+      	
+      	foreach ($drms as $id => $d) {
+      		if (!in_array($id, $unsetDrms)) {
+      			$d->mode_de_saisie = DRMClient::MODE_DE_SAISIE_EDI;
+      			$d->validate();
+      			$d->save();
+      		}
       	}
       	
     } else {
