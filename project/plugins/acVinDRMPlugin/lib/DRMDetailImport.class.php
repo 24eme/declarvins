@@ -30,7 +30,13 @@ class DRMDetailImport
 			  			$this->parseDetail($detail);
 			  			break;
 					case 'CONTRAT':
-			  			$this->parseContrat($detail);
+						$numContrat = $this->getDataValue(DRMDateView::VALUE_CONTRAT_NUMERO, 'drm contrat numéro');
+						$contrat = VracClient::getInstance()->findByNumContrat($numContrat);
+						if (!$contrat) {
+							$this->loggeur->addLog('Le contrat '.$numContrat.' n\'existe pas dans la base DeclarVins');
+						} else {
+			  				$this->parseContrat($detail);
+						}
 			  			break;
 					default:
 						break;
