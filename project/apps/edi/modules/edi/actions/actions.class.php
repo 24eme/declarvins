@@ -172,7 +172,8 @@ class ediActions extends sfActions
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);  	
     $etablissement = $request->getParameter('etablissement');
-    $this->securizeEtablissement($etablissement);
+    //$this->securizeEtablissement($etablissement);
+    $etab = EtablissementClient::getInstance()->find($etablissement);
 	$formUploadCsv = new UploadCSVForm();
     $result = array();
     $drms = array();
@@ -181,36 +182,22 @@ class ediActions extends sfActions
     	$formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
       	if ($formUploadCsv->isValid()) {
 			$csv = new CsvFile(sfConfig::get('sf_data_dir') . '/upload/' . $formUploadCsv->getValue('file')->getMd5());
-	      	$lignes = $csv->getCsv();
-		    $drmClient = DRMClient::getInstance();
-		    $numLigne = 0;
-		  	foreach ($lignes as $ligne) {
-		    	$numLigne++;
-		    	$import = new DRMDetailImport($ligne, $drmClient);
-		    	$drm = $import->getDrm();
-		    	$drms[$drm->_id] = $drm;
-		    	if ($import->hasErrors()) {
-		    		$result[$numLigne] = array('ERREUR', 'LIGNE', $numLigne, implode(' - ', $import->getLogs()));
-		    		$unsetDrms[$drm->_id] = $drm->_id;
-		    	} else {
-		    		$result[$numLigne] = array('OK', '', $numLigne, '');
-		    		$drm->save();
-		    	}
+			$import = new DRMImport($csv->getCsv(), $etab);
+			if ($import->hasErrors()) {
+				return $this->renderSimpleCsv($import->getLogs(), "drm");
+			}
+		    $drm = $import->getDrm();
+		    if ($import->hasErrors()) {
+				return $this->renderSimpleCsv($import->getLogs(), "drm");
 		    }
+		    $drm->validate();
+		    $drm->save();
+		    $result[] = array('SUCCESS', 'DRM', null, 'La DRM '.$drm->_id.' a été importée avec succès');
       	} else {
-      		$result[] = array('ERREUR', 'COHERENCE', 0, 'Fichier csv non valide');
-      	}
-      	
-      	foreach ($drms as $id => $d) {
-      		if (!in_array($id, $unsetDrms)) {
-      			$d->mode_de_saisie = DRMClient::MODE_DE_SAISIE_EDI;
-      			$d->validate();
-      			$d->save();
-      		}
-      	}
-      	
+      		$result[] = array('ERREUR', 'FORMAT', null, 'Fichier csv non valide');
+      	}      	
     } else {
-    	$result[] = array('ERREUR', 'COHERENCE ', 0, 'Appel en POST uniquement');
+    	$result[] = array('ERREUR', 'ACCES ', null, 'Seules les requêtes de type POST sont acceptées');
     }
     return $this->renderSimpleCsv($result, "drm");
   }

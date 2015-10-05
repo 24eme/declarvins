@@ -2,15 +2,12 @@
 
 class DRMDetailImport
 {
-  
-	protected $logs;
 	protected $datas;
 	protected $client;
 	protected $loggeur;
   
 	public function __construct(array $datas, DRMClient $client) 
 	{
-		$this->logs = array();
 		$this->datas = $datas;
 		$this->client = $client;
 		$this->loggeur = new DRMDetailLoggeur();
@@ -56,8 +53,8 @@ class DRMDetailImport
 	  	$drm->valide->date_saisie = $this->datize($this->getDataValue(DRMDateView::VALUE_DATEDESAISIE, 'drm date de saisie'), DRMDateView::VALUE_DATEDESAISIE, 'drm date de saisie');
   		return $drm;
   	}
-
-	private function parseDrm() 
+  	
+  	public function getDrmId()
   	{
   		$drmDeclarant = $this->getDataValue(DRMDateView::VALUE_IDENTIFIANT_DECLARANT, 'drm identifiant declarant', true);
   		$drmAnnee = $this->getDataValue(DRMDateView::VALUE_ANNEE, 'drm année', true, '/^[0-9]{4}$/');
@@ -66,6 +63,12 @@ class DRMDetailImport
   		$drmVersion = $this->getDataValue(DRMDateView::VALUE_VERSION, 'drm version', false, '/^[RM]{1}[0-9]{2}$/');
   		$drmPeriode = $this->client->buildPeriode($drmAnnee, $drmMois);
   		$drmId = $this->client->buildId($drmDeclarant, $drmPeriode, $drmVersion);
+  		return $drmId;
+  	}
+
+	private function parseDrm() 
+  	{
+  		$drmId = $this->getDrmId();
   		$drm = $this->client->find($drmId);
   		
   		if (!$drm) {
@@ -74,7 +77,7 @@ class DRMDetailImport
       			$drm->setEtablissementInformations($etablissement);
       		}
       		$drm->version = $drmVersion;
-      		$drm->mode_de_saisie = $this->getDataValue(DRMDateView::VALUE_MODEDESAISIE, 'drm mode de saisie');
+      		$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_EDI;
       		$drm->identifiant_ivse = $this->getDataValue(DRMDateView::VALUE_IDIVSE, 'drm ivse id');
       		$drm->identifiant_drm_historique = $this->getDataValue(DRMDateView::VALUE_IDDRM, 'drm historique id');
       		
@@ -147,12 +150,6 @@ class DRMDetailImport
       			$detail->entrees->recolte = round($total_entrees,4);
       		}
       	}
-      	/*if (round($detail->total_sorties,4) != round($total_sorties,4)) {
-      		$this->loggeur->addCalculateColumnLog(DRMDateView::VALUE_DETAIL_SORTIES, 'drm detail total sorties', $total_sorties, $detail->total_sorties);
-      	}
-      	if (round($detail->total,4) != round($total,4)) {
-      		$this->loggeur->addCalculateColumnLog(DRMDateView::VALUE_DETAIL_TOTAL, 'drm detail total fin de mois', $total, $detail->total);
-      	}*/
   	}
   
   	private function getDataValue($dataIndice, $dataName, $required = false, $regexp = null)
