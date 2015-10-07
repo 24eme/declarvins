@@ -40,7 +40,7 @@ class etablissement_autocompleteActions extends sfActions
 				);
 			}
 		} else {
-			$this->json = $this->matchEtablissements(EtablissementAllView::getInstance()->findByZone($this->getZone($interpro)),
+			$this->json = $this->matchEtablissements(EtablissementAllView::getInstance()->findAllByZone($this->getZone($interpro)),
 					$request->getParameter('q'),
 					$request->getParameter('limit', 100),
 					$only_actif);
