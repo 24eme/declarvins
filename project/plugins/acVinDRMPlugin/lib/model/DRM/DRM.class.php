@@ -71,6 +71,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
         return $this->get($hash)->details->getProduit($labels);
     }
+    
+    public function payerReport()
+    {
+    	$this->declaratif->paiement->douane->report_paye = 1;
+    }
 
     public function addProduit($hash, $labels = array()) {
         if ($p = $this->getProduit($hash, $labels)) {
@@ -158,8 +163,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $this->declaratif->adhesion_emcs_gamma = null;
             $this->declaratif->paiement->douane->frequence = null;
             $this->declaratif->paiement->douane->moyen = null;
+            $this->declaratif->paiement->douane->report_paye = null;
             $this->declaratif->paiement->cvo->frequence = null;
             $this->declaratif->paiement->cvo->moyen = null;
+            $this->declaratif->paiement->cvo->report_paye = null;
             $this->declaratif->caution->dispense = null;
             $this->declaratif->caution->organisme = null;
         }
@@ -214,10 +221,13 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	if ($this->isNouvelleCampagne()) {
     		return 0;
     	}
+    	if ($this->declaratif->paiement->get($type)->exist('report_paye') && $this->declaratif->paiement->get($type)->get('report_paye')) {
+    		return 0;
+    	}
         $drmPrecedente = $this->getPrecedente();
         if ($drmPrecedente && !$drmPrecedente->isNew()) {
             if ($drmPrecedente->droits->get($type)->exist($droit->code)) {
-                return $drmPrecedente->droits->get($type)->get($droit->code)->cumul;
+                return $drmPrecedente->droits->get($type)->get($droit->code)->cumul;exit;
             }
         }
         return 0;
