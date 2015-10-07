@@ -4,7 +4,7 @@ class DRMDroits extends BaseDRMDroits
 	const DROIT_CVO = 'cvo';
 	const DROIT_DOUANE = 'douane';
 
-	static $droit_entrees = array();
+	static $droit_entrees = array('entrees/crd');
 	public static function getDroitEntrees($merge = array()) 
 	{
     	return array_merge(self::$droit_entrees, $merge);
