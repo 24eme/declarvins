@@ -90,5 +90,10 @@ class DRMFictive extends DRM
     public function generateModificative() {
         return $this->drm->generateModificative();
     }
+    
+    public function payerReport()
+    {
+    	$this->drm->payerReport();
+    }
 
 }

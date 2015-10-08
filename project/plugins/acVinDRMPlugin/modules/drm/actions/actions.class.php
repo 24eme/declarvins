@@ -211,6 +211,13 @@ class drmActions extends sfActions {
         $drm = $this->getRoute()->getDRM();
         return $this->renderText($this->getPartial('popupFrequence', array('drm' => $drm)));
     }
+    
+    public function executePayerReport(sfWebRequest $request) {
+    	$drm = $this->getRoute()->getDRM();
+    	$drm->payerReport();
+    	$drm->save();
+    	return $this->redirect('drm_validation', array('sf_subject' => $drm));
+    }
 
     /**
      * Executes mouvements generaux action
@@ -228,6 +235,8 @@ class drmActions extends sfActions {
             $this->engagements = array();
         }
         $this->form = new DRMValidationForm($this->drm, array('engagements' => $this->engagements));
+        
+        
         if (!$request->isMethod(sfWebRequest::POST)) {
 
             return sfView::SUCCESS;

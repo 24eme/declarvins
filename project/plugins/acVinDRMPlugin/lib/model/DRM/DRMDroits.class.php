@@ -68,9 +68,9 @@ class DRMDroits extends BaseDRMDroits
 			}
     	}
     	
-    	if (count($this->res) == 2) {
+    	/*if (count($this->res) == 2) {
       		unset($this->res['ZZZZTotal']);
-    	}
+    	}*/
     	krsort($this->res);
     	if (isset($this->res['ZZZZTotal'])) {
 			$this->res['Total'] = $this->res['ZZZZTotal'];
