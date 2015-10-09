@@ -250,6 +250,10 @@ class acVinVracActions extends sfActions
 				}
 				$this->vrac->save();
 				$sendEmail = (bool)$this->form->getValue('email');
+				$brouillon = (bool)$this->form->getValue('brouillon');
+				if ($brouillon) {
+					return $this->redirect(array('sf_route' => 'vrac_etape', 'sf_subject' => $this->vrac, 'step' => 'validation', 'etablissement' => $this->etablissement));
+				}
 				if (!$this->configurationVracEtapes->next($this->etape)) {
 					$interpro = $this->getInterpro($this->vrac, $this->etablissement);
 					$this->vrac->interpro = $interpro->get('_id');

@@ -417,6 +417,9 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$this->updateStatutSolde();
     	}
     	$this->part_cvo = floatval($this->part_cvo);
+    	if (!$this->valide->date_saisie) {
+    		$this->valide->date_saisie = date('c');
+    	}
     	parent::save();
     }
     
