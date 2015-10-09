@@ -11,7 +11,8 @@ class VracSoussigneForm extends VracForm
         	'acheteur_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
             'mandataire_exist' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'premiere_mise_en_marche' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
-        	'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier()))
+        	'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier())),
+        	'bailleur_metayer' => new WidgetFormInputCheckbox(),
     	));
 		if ($etablissement = $this->getEtablissement()) {
 			$this->setWidget('vendeur_identifiant', new WidgetEtablissement(array('interpro_id' => implode('|', array_keys($etablissement->zones->toArray())), 'familles' => EtablissementFamilles::FAMILLE_PRODUCTEUR, 'only_actif' => 1)));
@@ -46,7 +47,8 @@ class VracSoussigneForm extends VracForm
         	'mandataire_exist' => 'Transaction avec un courtier',
         	'mandataire_identifiant' => 'Mandataire:',
         	'premiere_mise_en_marche' => 'Première mise en marché:',
-        	'cas_particulier' => 'Condition particulière:'
+        	'cas_particulier' => 'Condition particulière:',
+        	'bailleur_metayer' => 'Entre bailleur et métayer:'
         ));
         $this->setValidators(array(
             'vous_etes' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getVousEtes()))),
@@ -59,7 +61,8 @@ class VracSoussigneForm extends VracForm
         	'mandataire_exist' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'mandataire_identifiant' => new ValidatorEtablissement(array('required' => false, 'familles' => EtablissementFamilles::FAMILLE_COURTIER)),
         	'premiere_mise_en_marche' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
-        	'cas_particulier' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCasParticulier())))
+        	'cas_particulier' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCasParticulier()))),
+        	'bailleur_metayer' => new ValidatorBoolean(array('required' => false))
         ));
         
         $etablissement = $this->getEtablissement();

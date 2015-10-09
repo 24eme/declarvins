@@ -105,6 +105,7 @@ class VracLotForm extends acCouchdbObjectForm
         $this->setDefault('presence_allergenes', 0);
         $this->getObject()->set('presence_allergenes', 0);
       }  
+        $this->setDefault('assemblage', 1);
     }
 
     protected function doUpdateObject($values) {

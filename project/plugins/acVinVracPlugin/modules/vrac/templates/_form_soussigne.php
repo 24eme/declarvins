@@ -53,6 +53,11 @@
             <a class="msg_aide" title="Message aide" data-msg="help_popup_vrac_condition_particuliere" href=""></a>
             <?php echo $form['cas_particulier']->render() ?>
         </div>
+        <div class="section_label_strong_bloc">
+            <?php echo $form['bailleur_metayer']->renderError() ?>
+            <?php echo $form['bailleur_metayer']->renderLabel() ?>
+            <?php echo $form['bailleur_metayer']->render() ?>
+        </div>
     </div>
 
     <div class="ligne_form_btn">

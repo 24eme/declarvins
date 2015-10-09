@@ -47,7 +47,7 @@
 				<?php if ($vrac->hasAdresseStockage()): ?>
 				<br />
 				<p>Adresse de stockage : <?php echo $vrac->adresse_stockage->libelle ?></p>
-				<p>Adresse :</p>
+				<?php if ($vrac->adresse_stockage->exist('siret')): ?><p>Siret : <?php echo $vrac->adresse_stockage->siret ?></p><?php endif; ?>
 				<p><?php echo $vrac->adresse_stockage->adresse ?> <?php echo $vrac->adresse_stockage->code_postal ?> <?php echo $vrac->adresse_stockage->commune ?><br /><?php echo $vrac->adresse_stockage->pays ?></p>
 				<?php endif; ?>
 				<?php if ($vrac->valide->date_validation_vendeur): ?>
@@ -86,7 +86,7 @@
 				<?php if ($vrac->hasAdresseLivraison()): ?>
 				<br />
 				<p>Adresse de livraison : <?php echo $vrac->adresse_livraison->libelle ?></p>
-				<p>Adresse :</p>
+				<?php if ($vrac->adresse_livraison->exist('siret')): ?><p>Siret : <?php echo $vrac->adresse_livraison->siret ?></p><?php endif; ?>
 				<p><?php echo $vrac->adresse_livraison->adresse ?> <?php echo $vrac->adresse_livraison->code_postal ?> <?php echo $vrac->adresse_livraison->commune ?><br /><?php echo $vrac->adresse_livraison->pays ?></p>
 				<?php endif; ?>
 				<?php if ($vrac->valide->date_validation_acheteur): ?>
@@ -130,7 +130,6 @@
 	
 
 	<h2>Conditions</h2>
-	
 	<?php if ($vrac->isConditionneIvse()): ?><p><strong>De retiraison :</strong></p><?php endif; ?>
 	<p>
 		<?php echo ($vrac->date_debut_retiraison)? 'Date de début de retiraison : '.Date::francizeDate($vrac->date_debut_retiraison).'&nbsp;&nbsp;' : ''; ?>
@@ -205,7 +204,7 @@
 			<tr>
 				<th rowspan="<?php echo $nb_lignes; ?>" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
 				<th rowspan="<?php echo 1 + $nb_cuves; ?>" class="cuves">Cuves</th>
-				<th>N°</th>
+				<th>N° des cuves</th>
 				<th>Volume (hl)</th>
 				<th>Date de retiraison</th>
 			</tr>

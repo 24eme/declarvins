@@ -4,11 +4,20 @@ class VracSoussigneValidator extends sfValidatorBase {
 
 	public function configure($options = array(), $messages = array()) {
         $this->addMessage('impossible_acheteur_vendeur', "Le vendeur et l'acheteur ne peuvent être le même établissement");
+        $this->addMessage('stockage', "Vous devez renseigner tous les champs de l'adresse de stockage");
     }
     
     protected function doClean($values) {
     	$errorSchema = new sfValidatorErrorSchema($this);
     	$hasError = false;
+    	
+    	if ($values['adresse_stockage']['siret'] || $values['adresse_stockage']['libelle'] || $values['adresse_stockage']['adresse'] || $values['adresse_stockage']['code_postal'] || $values['adresse_stockage']['commune'] || $values['adresse_stockage']['pays']) {
+    		if (!$values['adresse_stockage']['siret'] || !$values['adresse_stockage']['libelle'] || !$values['adresse_stockage']['adresse'] || !$values['adresse_stockage']['code_postal'] || !$values['adresse_stockage']['commune'] || !$values['adresse_stockage']['pays']) {
+    			$errorSchema->addError(new sfValidatorError($this, 'stockage'), '');
+    			$hasError = true;
+    		}
+    	}
+    	
     	if (isset($values['vous_etes']) && $values['vous_etes'] == VracClient::VRAC_TYPE_VENDEUR) {
     		if (!$values ['acheteur_identifiant']) {
     					$errorSchema->addError(new sfValidatorError($this, 'required'), 'acheteur_identifiant');

@@ -4,6 +4,7 @@ class VracAdresseForm extends acCouchdbObjectForm
 	public function configure()
 	{
 		$this->setWidgets(array(
+	       'siret' => new sfWidgetFormInputText(),
 	       'libelle' => new sfWidgetFormInputText(),
 		   'adresse' => new sfWidgetFormInputText(),
 	       'code_postal' => new sfWidgetFormInputText(),
@@ -11,6 +12,7 @@ class VracAdresseForm extends acCouchdbObjectForm
 	       'pays' => new sfWidgetFormInputText()
 		));
 		$this->widgetSchema->setLabels(array(
+		   'siret' => 'SIRET:',
 		   'libelle' => 'Nom commercial:',
 	       'adresse' => 'Adresse:',
 	       'code_postal' => 'Code postal:',
@@ -18,6 +20,7 @@ class VracAdresseForm extends acCouchdbObjectForm
 	       'pays' => 'Pays:'
 		));
 		$this->setValidators(array(
+			'siret' => new ValidatorSiret(array('required' => false)),
 		   'libelle' => new sfValidatorString(array('required' => false)),
 	       'adresse' => new sfValidatorString(array('required' => false)),
 	       'code_postal' => new sfValidatorString(array('required' => false)),
