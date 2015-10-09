@@ -89,7 +89,7 @@ class statistiqueActions extends sfActions {
         if (!preg_match('/^INTERPRO-/', $interpro)) {
             $interpro = 'INTERPRO-' . $interpro;
         }
-        //$this->interpro = InterproClient::getInstance()->find($interpro);
+        $this->interpro = InterproClient::getInstance()->find($interpro);
         //$manquantesBilan = StatistiquesN1View::getInstance()->findManquantesByPeriode($this->interpro->getZone(), $periode)->rows;
         
         $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;Categorie;Genre;Denomination;Lieu;Couleur;Cepage;'.$periode;
