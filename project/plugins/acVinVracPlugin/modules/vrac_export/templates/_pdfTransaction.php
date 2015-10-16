@@ -87,7 +87,7 @@
 	<p>Annexe technique : <?php echo ($vrac->annexe)? 'Oui' : 'Non'; ?>, Export : <?php echo ($vrac->export)? 'Oui' : 'Non'; ?></p>
 	
 	
-	<?php if ($vrac->has_transaction: ?>
+	<?php if ($vrac->has_transaction): ?>
 	<h2>Descriptif des lots</h2>
 
 	<div id="lots">
