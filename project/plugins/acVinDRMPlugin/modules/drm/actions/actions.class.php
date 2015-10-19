@@ -95,11 +95,23 @@ class drmActions extends sfActions {
             }
             $campagneDrm = $drm->campagne;
             $periodeDrm = $drm->periode;
+            
+            $hasVersion = $drm->hasVersion();
+            $previous = $drm->getPreviousVersion();
+            $mother = $drm->getMother();
             $bilan = BilanClient::getInstance()->findOrCreateByIdentifiant($etablissement->identifiant, 'DRM');
             $drm->delete();
             
-            $bilan->updateDRMManquantesAndNonSaisiesForCampagne($campagneDrm,$periodeDrm);
-            $bilan->save();
+            if ($hasVersion) {
+            	if ($previous) {
+            		$previous->updateBilan();
+            	} elseif($mother) {
+            		$mother->updateBilan();
+            	}
+            } else {            
+            	$bilan->updateDRMManquantesAndNonSaisiesForCampagne($campagneDrm,$periodeDrm);
+            	$bilan->save();
+            }
             $this->redirect('drm_mon_espace', $etablissement);
         }
         throw new sfException('Vous ne pouvez pas supprimer cette DRM');

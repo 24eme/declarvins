@@ -91,10 +91,10 @@ class VersionDocument
     	} else {
         	return null;
     	}
-        if($this->document->findDocumentByVersion($modificative)) {            
+        if($this->document->findDocumentByVersion($modificative)) {    
             return $modificative;
         }
-        if($this->document->findDocumentByVersion($rectificative)) {
+        if($this->document->findDocumentByVersion($rectificative)) {  
             return $rectificative;
         }
         return null;

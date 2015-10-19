@@ -894,21 +894,12 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function getPreviousVersion() {
-    	
-        if($this->isModificative()) {
-            $doc = self::buildVersion($this->getRectificative(), $this->getModificative() - 1);
-            if ($this->findDocumentByVersion($doc)) {
+    	$version = $this->version_document->getPreviousVersion();
+        if($version) {
+        	if ($doc = $this->findDocumentByVersion($version)) {
             	return $doc;
-            }
+        	}
         }
-        if($this->isRectificative()) {
-
-            $doc = self::buildVersion($this->getRectificative() - 1, $this->getModificative());
-        	if ($this->findDocumentByVersion($doc)) {
-            	return $doc;
-            }
-        }
-		//throw new sfException('Erreur de version');
         return null;
     }
 
