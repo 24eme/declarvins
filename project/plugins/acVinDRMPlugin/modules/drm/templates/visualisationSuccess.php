@@ -49,11 +49,6 @@
             </div>
         <?php endif; ?>
         <div id="contenu_onglet">
-            <?php if ($drm_precedente_version->_id != $drm->_id): ?>
-<!--                <div class="tableau_ajouts_liquidations">
-                    <a href="<?php echo url_for('drm_visualisation', array('sf_subject' => $drm_precedente_version)) ?>" class="btn_etape_prec" ><span>Accéder à la version précédente</span></a>
-                </div>-->
-            <?php endif; ?>
             <?php if ($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()): ?>
                 <?php include_partial('drm/recap', array('drm' => $drm)) ?>
                 <?php include_partial('drm/droits', array('drm' => $drm, 'circulation' => $droits_circulation)) ?>
