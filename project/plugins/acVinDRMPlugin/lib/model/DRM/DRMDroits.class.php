@@ -4,13 +4,13 @@ class DRMDroits extends BaseDRMDroits
 	const DROIT_CVO = 'cvo';
 	const DROIT_DOUANE = 'douane';
 
-	static $droit_entrees = array('entrees/crd');
+	static $droit_entrees = array();
 	public static function getDroitEntrees($merge = array()) 
 	{
     	return array_merge(self::$droit_entrees, $merge);
   	}
   	
-  	static $droit_entrees_inter_rhone = array();
+  	static $droit_entrees_inter_rhone = array('entrees/crd');
   	public static function getDroitEntreesInterRhone() 
   	{
     	return self::$droit_entrees_inter_rhone;
