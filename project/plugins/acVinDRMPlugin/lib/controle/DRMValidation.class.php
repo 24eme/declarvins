@@ -100,8 +100,7 @@ class DRMValidation
 		if ($detail->total < 0) {
 			$this->errors['total_negatif_'.$detail->getIdentifiantHTML()] = new DRMControleError('total_negatif', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
 		}
-		if (round($detail->total,4) < round(round($detail->stocks_fin->bloque,4) + round($detail->stocks_fin->instance,4),4)) {
-			var_dump(round($detail->total,4), round(round($detail->stocks_fin->bloque,4) + round($detail->stocks_fin->instance,4),4));exit;
+		if (round($detail->total,4) < round($detail->stocks_fin->bloque + $detail->stocks_fin->instance,4)) {
 			$this->errors['total_stocks_'.$detail->getIdentifiantHTML()] = new DRMControleError('total_stocks', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
 		}
 		if (isset($this->options['is_operateur']) && !$this->options['is_operateur']) {

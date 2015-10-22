@@ -64,6 +64,7 @@ class DRMImport
   			$this->datas[$k][DRMDateView::VALUE_DETAIL_SORTIES_MOUVEMENT] = $this->floatize($datas[DRMDateView::VALUE_DETAIL_SORTIES_MOUVEMENT]);
   			$this->datas[$k][DRMDateView::VALUE_DETAIL_SORTIES_DISTILLATION] = $this->floatize($datas[DRMDateView::VALUE_DETAIL_SORTIES_DISTILLATION]);
   			$this->datas[$k][DRMDateView::VALUE_DETAIL_SORTIES_LIES] = $this->floatize($datas[DRMDateView::VALUE_DETAIL_SORTIES_LIES]);
+  			$this->datas[$k][DRMDateView::VALUE_DETAIL_TOTAL] = $this->floatize($datas[DRMDateView::VALUE_DETAIL_TOTAL]);
   			$this->datas[$k][DRMDateView::VALUE_DETAIL_STOCKFIN_BLOQUE] = $this->floatize($datas[DRMDateView::VALUE_DETAIL_STOCKFIN_BLOQUE]);
   			$this->datas[$k][DRMDateView::VALUE_DETAIL_STOCKFIN_WARRANTE] = $this->floatize($datas[DRMDateView::VALUE_DETAIL_STOCKFIN_WARRANTE]);
   			$this->datas[$k][DRMDateView::VALUE_DETAIL_STOCKFIN_INSTANCE] = $this->floatize($datas[DRMDateView::VALUE_DETAIL_STOCKFIN_INSTANCE]);
