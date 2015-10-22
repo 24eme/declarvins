@@ -194,6 +194,7 @@ class DRMImport
   		$detail->sorties->mouvement = $datas[DRMDateView::VALUE_DETAIL_SORTIES_MOUVEMENT];
   		$detail->sorties->distillation = $datas[DRMDateView::VALUE_DETAIL_SORTIES_DISTILLATION];
   		$detail->sorties->lies = $datas[DRMDateView::VALUE_DETAIL_SORTIES_LIES];
+  		$detail->total = $datas[DRMDateView::VALUE_DETAIL_TOTAL];
   		$detail->stocks_fin->bloque = $datas[DRMDateView::VALUE_DETAIL_STOCKFIN_BLOQUE];
   		$detail->stocks_fin->warrante = $datas[DRMDateView::VALUE_DETAIL_STOCKFIN_WARRANTE];
   		$detail->stocks_fin->instance = $datas[DRMDateView::VALUE_DETAIL_STOCKFIN_INSTANCE];
