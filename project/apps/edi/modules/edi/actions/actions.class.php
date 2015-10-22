@@ -84,6 +84,22 @@ class ediActions extends sfActions
     return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "VRAC", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID, VracDateView::VALUE_MANDATAIRE_ID));
   }
   
+  public function executeStreamTransaction(sfWebRequest $request) 
+  {
+  	ini_set('memory_limit', '2048M');
+  	set_time_limit(0);
+    $date = $request->getParameter('datedebut');
+    $oioc = $request->getParameter('oioc');
+    $this->securizeOioc($oioc);
+    if (!$date) {
+		return $this->renderText("Pas de date définie");
+    }
+    $dateTime = new DateTime($date);
+    $dateForView = new DateTime($date);
+    $vracs = $this->vracCallback($interpro, VracDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows);
+    return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "VRAC", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID, VracDateView::VALUE_MANDATAIRE_ID));
+  }
+  
   public function executeStreamDRM(sfWebRequest $request) 
   {
   	ini_set('memory_limit', '2048M');
@@ -172,7 +188,7 @@ class ediActions extends sfActions
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);  	
     $etablissement = $request->getParameter('etablissement');
-    //$this->securizeEtablissement($etablissement);
+    $this->securizeEtablissement($etablissement);
     $etab = EtablissementClient::getInstance()->find($etablissement);
 	$formUploadCsv = new UploadCSVForm();
     $result = array();
@@ -359,7 +375,7 @@ class ediActions extends sfActions
 		ini_set('memory_limit', '2048M');
 	  	set_time_limit(0);
 	    $interproId = $request->getParameter('interpro');
-	    //$this->securizeInterpro($interproId);
+	    $this->securizeInterpro($interproId);
 	    if (!preg_match('/^INTERPRO-/', $interproId)) {
 			$interproId = 'INTERPRO-'.$interproId;
 	    }

@@ -313,6 +313,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$this->valide->date_validation = ($this->valide->date_saisie)? $this->valide->date_saisie : $this->date_signature;
     		$this->updateReferente();
     		$this->updateEnlevements();
+    		$this->setOioc();
     	} else {
     		if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
     			$this->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
@@ -381,6 +382,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	$this->date_stats = $this->valide->date_validation;
     	$this->updateReferente();
     	$this->updateEnlevements();
+    	$this->setOioc();
       }
     }
     
@@ -394,6 +396,16 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$mother->valide->date_validation = $mother->date_stats;
     		$mother->save(false);
     	}
+    }
+    
+    public function setOioc()
+    {
+    	$produit = $this->getProduitObject();
+    	$organisme = $produit->getCurrentOrganisme($this->valide->date_saisie, true);
+    	$oioc = $this->getOrAdd('oioc');
+    	$oioc->identifiant = str_replace(OIOC::OIOC_KEY, '', $organisme->oioc);
+    	
+    	$oioc->statut = OIOC::STATUT_EDI;
     }
     
     public function hasEnlevements()

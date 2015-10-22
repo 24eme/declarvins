@@ -21,6 +21,9 @@ streamAnneeDRMEdi:
 streamVracEdi:
   url: /edi/vrac/:interpro/:datedebut
   param: {module: edi, action: streamVrac}
+streamTransactionEdi:
+  url: /edi/transaction/:oioc/:datedebut
+  param: {module: edi, action: streamTransaction, datedebut: null}
 streamVracEtablissementEdi:
   url: /edi/etablissement/vrac/:etablissement/:datedebut
   param: {module: edi, action: streamVracEtablissement, datedebut: null}

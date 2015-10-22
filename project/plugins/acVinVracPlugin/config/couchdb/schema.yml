@@ -273,6 +273,14 @@ Vrac:
             date_validation: {  }
             identifiant: {  }
             statut: { }
+      oioc:
+        type: collection
+        definition:
+          fields:
+            date_reception: {  }
+            date_traitement: {  }
+            identifiant: {  }
+            statut: { }
       nature_document: {  }
       date_signature_vendeur: {  }
       date_signature_acheteur: {  }
