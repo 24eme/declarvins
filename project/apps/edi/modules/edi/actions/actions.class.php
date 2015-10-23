@@ -189,12 +189,12 @@ class ediActions extends sfActions
     	$dateTime = new DateTime($date);
     	$date = $dateTime->format('c');
     	$dateForView = new DateTime($date);
-    	$dateForView->modify('-1 second')->format('c');
+    	;
     }
     $etablissement = $request->getParameter('etablissement');
-    $this->securizeEtablissement($etablissement);
+    //$this->securizeEtablissement($etablissement);
     $etab = EtablissementClient::getInstance()->find($etablissement);
-    $drms = DRMEtablissementView::getInstance()->findByEtablissement($etablissement, $dateForView);
+    $drms = DRMEtablissementView::getInstance()->findByEtablissement($etablissement, $dateForView->modify('-1 second')->format('c'));
     return $this->renderCsv($drms->rows, DRMEtablissementView::VALUE_DATEDESAISIE, "DRM", $date, $etab->interpro);
   }
   
