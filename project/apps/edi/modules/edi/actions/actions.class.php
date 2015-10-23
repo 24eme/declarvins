@@ -45,6 +45,20 @@ class ediActions extends sfActions
     	}
     }
   }
+	
+  protected function securizeOioc($oioc)
+  {
+    if (!preg_match('/^OIOC-/', $oioc)) {
+		$oioc = 'OIOC-'.$oioc;
+    }
+    if ($this->getCompte()->exist('oioc')) {
+  		if ($oioc != $this->getCompte()->oioc) {
+	  		throw new error401Exception("Accès restreint");
+	  	}
+    } else {
+    	throw new error401Exception("Accès restreint");
+    }
+  }
 
   public function executeStreamDAIDS(sfWebRequest $request) 
   {
@@ -94,10 +108,11 @@ class ediActions extends sfActions
     if (!$date) {
 		return $this->renderText("Pas de date définie");
     }
+    $interpro = current(array_keys($this->getCompte()->interpro->toArray()));
     $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
-    $vracs = $this->vracCallback($interpro, VracDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows);
-    return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "VRAC", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID, VracDateView::VALUE_MANDATAIRE_ID));
+    $vracs = $this->vracCallback($interpro, VracOiocView::getInstance()->findByOiocAndDate($oioc, OIOC::STATUT_EDI, "Vrac", $dateForView->modify('-1 second')->format('c'))->rows);
+    return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "TRANSACTION", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID));
   }
   
   public function executeStreamDRM(sfWebRequest $request) 
