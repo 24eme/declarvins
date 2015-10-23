@@ -198,6 +198,42 @@ class ediActions extends sfActions
     return $this->renderCsv($drms->rows, DRMEtablissementView::VALUE_DATEDESAISIE, "DRM", $date, $etab->interpro);
   }
   
+
+
+  public function executePushTransaction(sfWebRequest $request)
+  {
+  	ini_set('memory_limit', '2048M');
+  	set_time_limit(0);
+  	$oioc = $request->getParameter('oioc');
+    $this->securizeOioc($oioc);
+  	$oioc = OIOCClient::getInstance()->find($oioc);
+  	$formUploadCsv = new UploadCSVForm();
+  	$result = array();
+  	$lignes = array();
+  	if ($request->isMethod('post')) {
+  		$formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
+  		if ($formUploadCsv->isValid()) {
+  			$csv = new CsvFile(sfConfig::get('sf_data_dir') . '/upload/' . $formUploadCsv->getValue('file')->getMd5());
+  			$import = new TransactionUpdate($csv->getCsv(), $oioc);
+			if ($import->hasErrors()) {
+				return $this->renderSimpleCsv($import->getLogs(), "transaction");
+			}
+
+			$contrats = $import->getContrats();
+			foreach ($contrats as $contrat) {
+				$contrat->save(false);
+				$result[] = array('SUCCESS', 'CONTRAT', null, 'Le contrat '.$contrat->_id.' a été mis à jour avec succès');
+			}
+  			
+  		} else {
+  			$result[] = array('ERREUR', 'FORMAT', null, 'Fichier csv non valide');
+  		}
+  	} else {
+  		$result[] = array('ERREUR', 'ACCES ', null, 'Seules les requêtes de type POST sont acceptées');
+  	}
+  	return $this->renderSimpleCsv($result, "transaction");
+  }
+  
   public function executePushDRMEtablissement(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
