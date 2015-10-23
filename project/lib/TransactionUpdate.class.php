@@ -40,7 +40,7 @@ class TransactionUpdate
   				$this->logs[] = array('ERREUR', 'FORMAT', $numLigne, "Le contrat ".$this->datas[$k][self::VRAC_ID]." n'existe pas dans la base DeclarVins");
   			} else {
 	  			if (!$vrac->exist('oioc') || ($vrac->oioc->identifiant != $this->oioc->identifiant)) {
-	  				$this->logs[] = array('ERREUR', 'FORMAT', $numLigne, "Le contrat ".$this->datas[$k][self::VRAC_ID]." n'appartient pas à l'OI/OC ".$this->oioc->identifiant);
+	  				$this->logs[] = array('ERREUR', 'ACCES', $numLigne, "L'OI/OC ".$this->oioc->identifiant." n'est pas autorisé à modifier le contrat ".$this->datas[$k][self::VRAC_ID]);
 	  			}
   			}
   		}
