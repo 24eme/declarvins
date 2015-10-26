@@ -7,6 +7,8 @@
     <?php if (isset($hide_cvo) && $hide_cvo && $typedroit == "cvo") {continue;} ?>       
     <div class="tableau_ajouts_liquidations">
     <h2><?php echo $libelles[$typedroit] ?> <a href="" class="msg_aide" data-msg="help_popup_validation_droit_<?php echo $typedroit; ?>" title="Message aide"></a></h2>
+    	
+    	<?php if ($typedroit != "douane"): ?>
     	<table class="tableau_recap">
             <thead>
     		<tr>
@@ -40,8 +42,8 @@
         	<?php endforeach; ?>
             </tbody>
     	</table>
+    	<?php endif; ?>
     </div>
-    
 
 <?php 
 if ($circulation && $typedroit == "douane"): 
