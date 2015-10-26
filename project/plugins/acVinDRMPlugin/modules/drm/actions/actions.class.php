@@ -97,7 +97,7 @@ class drmActions extends sfActions {
             $periodeDrm = $drm->periode;
             
             $hasVersion = $drm->hasVersion();
-            $previous = $drm->getPreviousVersion();
+            $previous = ($drm->getPreviousVersion())? $drm->findDocumentByVersion($drm->getPreviousVersion()) : null;
             $mother = $drm->getMother();
             $bilan = BilanClient::getInstance()->findOrCreateByIdentifiant($etablissement->identifiant, 'DRM');
             $drm->delete();

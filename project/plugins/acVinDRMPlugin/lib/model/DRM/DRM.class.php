@@ -897,13 +897,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function getPreviousVersion() {
-    	$version = $this->version_document->getPreviousVersion();
-        if($version) {
-        	if ($doc = $this->findDocumentByVersion($version)) {
-            	return $doc;
-        	}
-        }
-        return null;
+    	return $this->version_document->getPreviousVersion();
     }
 
     public function getMasterVersionOfRectificative() {
