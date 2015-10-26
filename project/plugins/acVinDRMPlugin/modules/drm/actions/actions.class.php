@@ -240,7 +240,7 @@ class drmActions extends sfActions {
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->drm = $this->getRoute()->getDRM();
         $this->drm->storeDroits(array());
-        $this->droits_circulation = ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) ? null : new DRMDroitsCirculation($this->drm);
+        $this->droits_circulation = new DRMDroitsCirculation($this->drm);
         $this->drmValidation = $this->drm->validation(array('stock' => 'warning', 'is_operateur' => $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)));
         $this->engagements = $this->drmValidation->getEngagements();
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
@@ -348,7 +348,7 @@ class drmActions extends sfActions {
         	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
         	$this->configurationProduits = ConfigurationProduitClient::getInstance()->find($this->interpro->getOrAdd('configuration_produits'));
         }
-        $this->droits_circulation = ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) ? null : new DRMDroitsCirculation($this->drm);
+        $this->droits_circulation = new DRMDroitsCirculation($this->drm);
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->hide_rectificative = $request->getParameter('hide_rectificative');
         $this->drm_next_version = $this->getUser()->getFlash('drm_next_version');
