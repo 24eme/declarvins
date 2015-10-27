@@ -26,13 +26,13 @@ class DRMManquantsForm extends acCouchdbObjectForm
 	    $this->widgetSchema->setNameFormat('drm_manquants[%s]');
   	}
         
-        /*protected function updateDefaultsFromObject() {
+    protected function updateDefaultsFromObject() {
         parent::updateDefaultsFromObject();
         $defaults = $this->getDefaults();
         if($this->drm->hasVolumeVracWithoutDetailVrac()){
             $defaults['contrats'] = 1;
         }
         
-        $this->setDefaults($defaults);     
-    }*/
+       $this->setDefaults($defaults);     
+    }
 }

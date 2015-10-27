@@ -773,34 +773,21 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
     
     public function hasVolumeVracWithoutDetailVrac(){
-        
-        $this->generateMouvements();
-        $cumulVrac = array();
-        foreach ($this->getMouvements() as $key => $mouvements) {
-            foreach ($mouvements as $mouvement) {
-                if($mouvement->type_hash == 'sorties/vrac_contrat'){
-                    if(!array_key_exists($mouvement->produit_hash, $cumulVrac)){
-                        $cumulVrac[$mouvement->produit_hash] = 0;
-                    }
-                    $cumulVrac[$mouvement->produit_hash] += -1 * $mouvement->volume;
-                }
-            }
+    	$result = false;
+        foreach ($this->getDetailsAvecVrac() as $detail) {
+        	$totalVolume = 0;
+			 foreach ($detail->vrac as $contrat) {
+			 	$totalVolume += $contrat->volume;
+			 }
+			 if ($detail->canHaveVrac() && $detail->sorties->vrac) {
+			  	  $ecart = round($detail->sorties->vrac * DRMValidation::ECART_VRAC, 4);
+				  if (round($totalVolume,4) < (round($detail->sorties->vrac,4) - $ecart)) {
+				    $result = true;
+				    break;
+				  }
+			  }
         }
-        foreach ($this->getDetailsAvecVrac() as $key => $detail) {
-            if($detail->hasVracs()){
-                $cepage = $detail->getCepage();
-                if(!array_key_exists($cepage->getHash(), $cumulVrac)){
-                    return true;
-                }
-                else{
-                    if($cumulVrac[$cepage->getHash()] < $detail->sorties->vrac){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-        
+        return $result;
     }
 
     public function getLibelleBilan() {
