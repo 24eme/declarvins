@@ -197,17 +197,20 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 $this->droits->getOrAdd(DRMDroits::DROIT_CVO)->getOrAdd($droitCvo->code)->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitCvo->taux, 0, $droitCvo->libelle);
             }
             if ($droitDouane) {
-                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($droitDouane->code)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitDouane->taux, $this->getReportByDroit(DRMDroits::DROIT_DOUANE, $droitDouane), $droitDouane->libelle);
+                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($droitDouane->code)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitDouane->taux, $this->getReportByDroit(DRMDroits::DROIT_DOUANE, $droitDouane->code), $droitDouane->libelle);
+                $codeTotal = DRMDroitsCirculation::getCorrespondanceCode($droitDouane->code).'_'.DRMDroitsCirculation::KEY_VIRTUAL_TOTAL;
+                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($codeTotal)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitDouane->taux, $this->getReportByDroit(DRMDroits::DROIT_DOUANE, $codeTotal), $codeTotal);
             }
         }
         $douanes = $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE);
-        foreach ($douanes as $douane) {
-        	$douane->total = round($douane->total);
+        foreach ($douanes as $k => $douane) {
+        	$round = (preg_match('/\_'.DRMDroitsCirculation::KEY_VIRTUAL_TOTAL.'/', $k))? 0 : 2;
+        	$douane->total = round($douane->total, $round);
         	if ($douane->report) {
-        		$douane->report = round($douane->report);
+        		$douane->report = round($douane->report, $round);
         	}
         	if ($douane->cumul) {
-        		$douane->cumul = round($douane->cumul);
+        		$douane->cumul = round($douane->cumul, $round);
         	}
         }
     }
@@ -226,8 +229,8 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	}
         $drmPrecedente = $this->getPrecedente();
         if ($drmPrecedente && !$drmPrecedente->isNew()) {
-            if ($drmPrecedente->droits->get($type)->exist($droit->code)) {
-                return $drmPrecedente->droits->get($type)->get($droit->code)->cumul;exit;
+            if ($drmPrecedente->droits->get($type)->exist($droit)) {
+                return $drmPrecedente->droits->get($type)->get($droit)->cumul;
             }
         }
         return 0;
@@ -894,13 +897,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function getPreviousVersion() {
-    	$version = $this->version_document->getPreviousVersion();
-        if($version) {
-        	if ($doc = $this->findDocumentByVersion($version)) {
-            	return $doc;
-        	}
-        }
-        return null;
+    	return $this->version_document->getPreviousVersion();
     }
 
     public function getMasterVersionOfRectificative() {

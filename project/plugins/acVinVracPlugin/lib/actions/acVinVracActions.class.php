@@ -104,26 +104,6 @@ class acVinVracActions extends sfActions
 		$vrac->numero_contrat = uniqid();
 		$vrac->add('referente', 1);
 		$vrac->add('version', null);
-		$vrac->vendeur_type = 'producteur';
-		$vrac->acheteur_type = 'negociant';
-		if ($etablissement) {
-			$famille = EtablissementClient::getInstance()->matchFamille($etablissement->famille);
-			if ($famille == EtablissementFamilles::FAMILLE_PRODUCTEUR) {
-				$vrac->vous_etes = 'vendeur';
-				$vrac->vendeur_identifiant = $etablissement->identifiant;
-			}
-			if ($famille == EtablissementFamilles::FAMILLE_NEGOCIANT) {
-				$vrac->vous_etes = 'acheteur';
-				$vrac->acheteur_identifiant = $etablissement->identifiant;
-				
-			}
-			if ($famille == EtablissementFamilles::FAMILLE_COURTIER) {
-				$vrac->vous_etes = 'mandataire';
-				$vrac->mandataire_identifiant = $etablissement->identifiant;
-				$vrac->mandataire_exist = 1;
-				
-			}
-		}
 		return $vrac;
 	}
 
