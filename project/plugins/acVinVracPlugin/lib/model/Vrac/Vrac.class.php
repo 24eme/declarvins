@@ -360,6 +360,10 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$validateur = 'date_validation_'.$acteur;
     		$this->valide->{$validateur} = null;
     	}
+    	if ($this->exist('oioc')) {
+	    	$this->remove('oioc');
+	    	$this->add('oioc');
+    	}
     }
     
     public function updateStatut() {

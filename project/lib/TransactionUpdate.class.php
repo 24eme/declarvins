@@ -26,21 +26,22 @@ class TransactionUpdate
   		foreach ($this->datas as $k => $datas) {
   			$numLigne++;
   			$this->loggeur = new DRMDetailLoggeur();
-  			$this->datas[$k][self::VRAC_ID] = $this->getDataValue($datas, self::VRAC_ID, 'contrat identifiant', true, '/^[0-9]{11}$/');
+  			$this->datas[$k][self::VRAC_ID] = $this->getDataValue($datas, self::VRAC_ID, 'contrat identifiant', true, '/^[0-9]{11}(-(R|M)[0-9]{2})*$/');
   			$this->datas[$k][self::VRAC_OIOC_STATUT] = $this->getDataValue($datas, self::VRAC_OIOC_STATUT, 'statut', true, '/^('.OIOC::STATUT_RECEPTIONNE.'|'.OIOC::STATUT_TRAITE.')$/');
   			$this->datas[$k][self::VRAC_OIOC_DATE] = $this->datize($this->getDataValue($datas, self::VRAC_OIOC_DATE, 'date', true), self::VRAC_OIOC_DATE, 'date');
   			
   			
   			if ($this->loggeur->hasLogs()) {
   				$this->logs[] = array('ERREUR', 'FORMAT', $numLigne, implode(' - ', $this->loggeur->getLogs()));
-  			}
-  			
-  			$vrac = VracClient::getInstance()->findByNumContrat($this->datas[$k][self::VRAC_ID]);
-  			if (!$vrac) {
-  				$this->logs[] = array('ERREUR', 'FORMAT', $numLigne, "Le contrat ".$this->datas[$k][self::VRAC_ID]." n'existe pas dans la base DeclarVins");
   			} else {
-	  			if (!$vrac->exist('oioc') || ($vrac->oioc->identifiant != $this->oioc->identifiant)) {
-	  				$this->logs[] = array('ERREUR', 'ACCES', $numLigne, "L'OI/OC ".$this->oioc->identifiant." n'est pas autorisé à modifier le contrat ".$this->datas[$k][self::VRAC_ID]);
+  			
+	  			$vrac = VracClient::getInstance()->findByNumContrat($this->datas[$k][self::VRAC_ID]);
+	  			if (!$vrac) {
+	  				$this->logs[] = array('ERREUR', 'FORMAT', $numLigne, "Le contrat ".$this->datas[$k][self::VRAC_ID]." n'existe pas dans la base DeclarVins");
+	  			} else {
+		  			if (!$vrac->exist('oioc') || ($vrac->oioc->identifiant != $this->oioc->identifiant)) {
+		  				$this->logs[] = array('ERREUR', 'ACCES', $numLigne, "L'OI/OC ".$this->oioc->identifiant." n'est pas autorisé à modifier le contrat ".$this->datas[$k][self::VRAC_ID]);
+		  			}
 	  			}
   			}
   		}

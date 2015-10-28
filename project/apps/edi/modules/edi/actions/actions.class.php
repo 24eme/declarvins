@@ -205,7 +205,7 @@ class ediActions extends sfActions
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
   	$oioc = $request->getParameter('oioc');
-    $this->securizeOioc($oioc);
+    //$this->securizeOioc($oioc);
   	$oioc = OIOCClient::getInstance()->find($oioc);
   	$formUploadCsv = new UploadCSVForm();
   	$result = array();

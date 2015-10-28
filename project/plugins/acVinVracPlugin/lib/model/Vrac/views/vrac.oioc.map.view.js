@@ -97,12 +97,12 @@ function(doc) {
 		var vrac_oioc_date_reception = (doc.oioc.date_reception)? doc.oioc.date_reception : null;
 		var vrac_oioc_date_traitement = (doc.oioc.date_traitement)? doc.oioc.date_traitement : null;
 		
-		var vrac_addr_stockage_siret = doc.adresse_stockage.siret;
-		var vrac_addr_stockage_libelle = doc.adresse_stockage.libelle;
-		var vrac_addr_stockage_adresse = doc.adresse_stockage.adresse;
-		var vrac_addr_stockage_code_postal = doc.adresse_stockage.code_postal;
-		var vrac_addr_stockage_commune = doc.adresse_stockage.commune;
-		var vrac_addr_stockage_pays = doc.adresse_stockage.pays;
+		var vrac_addr_stockage_siret = (doc.adresse_stockage.siret)? doc.adresse_stockage.siret : doc.vendeur.siret;
+		var vrac_addr_stockage_libelle = (doc.adresse_stockage.siret)? doc.adresse_stockage.libelle : doc.vendeur.raison_sociale;
+		var vrac_addr_stockage_adresse = (doc.adresse_stockage.siret)? doc.adresse_stockage.adresse : doc.vendeur.adresse;
+		var vrac_addr_stockage_code_postal = (doc.adresse_stockage.siret)? doc.adresse_stockage.code_postal : doc.vendeur.code_postal;
+		var vrac_addr_stockage_commune = (doc.adresse_stockage.siret)? doc.adresse_stockage.commune : doc.vendeur.commune;
+		var vrac_addr_stockage_pays = (doc.adresse_stockage.siret)? doc.adresse_stockage.pays : doc.vendeur.pays;
 		
 		var nbItem = doc.lots.length;
 		
