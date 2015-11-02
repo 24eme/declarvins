@@ -194,7 +194,7 @@ class Configuration extends BaseConfiguration {
     }
 
     public function getFormattedCouleurs($hash = null, $zones, $onlyForDrmVrac = false, $format = "%g% %a% %m% %l% %co%", $cvoNeg = false, $date = null) {
-        $produits = array();
+    	$produits = array();
         foreach ($zones as $zoneId => $zone) {
             foreach ($zone->getConfigurationProduits() as $configurationProduitsId => $configurationProduits) {
                 $produits = array_merge($produits, $configurationProduits->getTotalCouleurs($hash, $onlyForDrmVrac, $cvoNeg, $date));
