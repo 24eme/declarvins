@@ -293,12 +293,30 @@ class Configuration extends BaseConfiguration {
         $this->loadAllData();
     }
     
-    public function isApplicationOuverte($interpro, $application) {
+    public function isApplicationOuverte($interpro, $application, $etablissement = null) {
     		try {
   				$ouverture = $this->ouverture->get($interpro)->get($application);
   			} catch (Exception $e) { 
   				$ouverture = 0;
   			}
+  			/* Ouverture test CIVP */
+  			if (!$ouverture && $interpro == 'INTERPRO-civp' && $application == 'drm' && $etablissement) {
+  				$test = array(
+  					'CIVP24041',	
+  					'CIVP24144',
+  					'CIVP23747',
+  					'CIVP24067',
+  					'CIVP24102',
+  					'CIVP23884',
+  					'CIVP24479',
+  					'CIVP23989',
+  					'CIVP23752',
+  				);
+  				if (in_array($etablissement->identifiant, $test)) {
+  					$ouverture = 1;
+  				}
+  			}
+  			/* fin test civp */
   			return $ouverture;
     }
 

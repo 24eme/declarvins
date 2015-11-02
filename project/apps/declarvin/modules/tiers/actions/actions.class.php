@@ -70,7 +70,7 @@ class tiersActions extends sfActions
     $this->etablissement = $this->getRoute()->getEtablissement();
     $configuration = ConfigurationClient::getCurrent();
 
-    if ($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI) && $configuration->isApplicationOuverte($this->etablissement->interpro, 'drm')) {
+    if ($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI) && $configuration->isApplicationOuverte($this->etablissement->interpro, 'drm', $this->etablissement)) {
 		$this->configureAlerteDrm($this->etablissement);
         return $this->redirect("drm_mon_espace", $this->etablissement);
     }
