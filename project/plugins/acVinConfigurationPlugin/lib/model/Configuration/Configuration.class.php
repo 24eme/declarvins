@@ -300,7 +300,7 @@ class Configuration extends BaseConfiguration {
   				$ouverture = 0;
   			}
   			/* Ouverture test CIVP */
-  			if (!$ouverture && $interpro == 'INTERPRO-civp' && $application == 'drm' && $etablissement) {
+  			if (!$ouverture && $interpro == 'INTERPRO-CIVP' && $application == 'drm' && $etablissement) {
   				$test = array(
   					'CIVP24041',	
   					'CIVP24144',
