@@ -38,7 +38,7 @@ class DRMImport
   			$this->datas[$k][DRMDateView::VALUE_MOIS_PRECEDENTE] = $this->getDataValue($datas, DRMDateView::VALUE_MOIS_PRECEDENTE, 'drm mois précédente', false, '/^[0-9]{1,2}$/');
   			$this->datas[$k][DRMDateView::VALUE_MOIS_PRECEDENTE] = ($this->datas[$k][DRMDateView::VALUE_MOIS_PRECEDENTE])? sprintf("%02d", $this->datas[$k][DRMDateView::VALUE_MOIS_PRECEDENTE]) : null;
   			$this->datas[$k][DRMDateView::VALUE_VERSION_PRECEDENTE] = $this->getDataValue($datas, DRMDateView::VALUE_VERSION_PRECEDENTE, 'drm version précédente', false, '/^[RM]{1}[0-9]{2}$/');
-  			$this->datas[$k][DRMDateView::VALUE_CONTRAT_NUMERO] = $this->getDataValue($datas, DRMDateView::VALUE_CONTRAT_NUMERO, 'drm contrat numéro', false, '/^[0-9]{11}$/');
+  			$this->datas[$k][DRMDateView::VALUE_CONTRAT_NUMERO] = $this->getDataValue($datas, DRMDateView::VALUE_CONTRAT_NUMERO, 'drm contrat numéro');
   			$this->datas[$k][DRMDateView::VALUE_LABELS] = $this->getDataValue($datas, DRMDateView::VALUE_LABELS, 'drm detail labels');
   			$this->datas[$k][DRMDateView::VALUE_DATEDESIGNATURE] = $this->datize($this->getDataValue($datas, DRMDateView::VALUE_DATEDESIGNATURE, 'drm date de signature'), DRMDateView::VALUE_DATEDESIGNATURE, 'drm date de signature');
   			$this->datas[$k][DRMDateView::VALUE_DATEDESAISIE] = $this->datize($this->getDataValue($datas, DRMDateView::VALUE_DATEDESAISIE, 'drm date de saisie'), DRMDateView::VALUE_DATEDESAISIE, 'drm date de saisie');
@@ -84,11 +84,13 @@ class DRMImport
   			}
   			
   			if ($this->datas[$k][DRMDateView::VALUE_TYPE] == 'CONTRAT') {
-  				if (!$this->datas[$k][DRMDateView::VALUE_CONTRAT_NUMERO] || !$this->datas[$k][DRMDateView::VALUE_CONTRAT_NUMERO]) {
+  				if (!$this->datas[$k][DRMDateView::VALUE_CONTRAT_NUMERO] || !$this->datas[$k][DRMDateView::VALUE_CONTRAT_VOLUME]) {
   					$this->logs[] = array('ERREUR', 'CONTRAT', $numLigne, "Le numéro et le volume du contrat doivent être renseignés");
   				} else {
 	  				if (!VracClient::getInstance()->findByNumContrat($this->datas[$k][DRMDateView::VALUE_CONTRAT_NUMERO])) {
-	  					$this->logs[] = array('ERREUR', 'CONTRAT', $numLigne, "Le contrat numéro ".$this->datas[$k][DRMDateView::VALUE_CONTRAT_NUMERO]." n'existe pas dans la base DeclarVins");
+	  					$this->datas[$k][DRMDateView::VALUE_CONTRAT_VOLUME] = null;
+	  					$this->datas[$k][DRMDateView::VALUE_CONTRAT_NUMERO] = null;
+	  					//$this->logs[] = array('ERREUR', 'CONTRAT', $numLigne, "Le contrat numéro ".$this->datas[$k][DRMDateView::VALUE_CONTRAT_NUMERO]." n'existe pas dans la base DeclarVins");
 	  				}
   				}
   			}
@@ -167,7 +169,9 @@ class DRMImport
   	{
   		$numContrat = $datas[DRMDateView::VALUE_CONTRAT_NUMERO];
   		$volContrat = $datas[DRMDateView::VALUE_CONTRAT_VOLUME];
-  		$detail->addVrac($numContrat, $volContrat);
+  		if ($numContrat) {
+  			$detail->addVrac($numContrat, $volContrat);
+  		}
   	}
   	
   	private function parseDetail($detail, $datas)
