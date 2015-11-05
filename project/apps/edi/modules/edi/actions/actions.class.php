@@ -258,6 +258,7 @@ class ediActions extends sfActions
 				return $this->renderSimpleCsv($import->getLogs(), "drm");
 		    }
 		    $drm->validate();
+		    $drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_EDI;
 		    $drm->save();
 		    $result[] = array('SUCCESS', 'DRM', null, 'La DRM '.$drm->_id.' a été importée avec succès');
       	} else {
