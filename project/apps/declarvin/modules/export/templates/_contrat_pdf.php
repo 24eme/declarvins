@@ -231,7 +231,7 @@
 					N° RCS / SIRET : <strong><?php echo $etablissement->siret ?></strong><br />
 					N° Carte Nationale d'Identité pour les exploitants individuels : <strong><?php echo $etablissement->cni ?></strong><br />
 					N° CVI : <strong><?php echo $etablissement->cvi ?></strong><br />
-					N° accises : <strong><?php echo $etablissement->no_accises ?></strong><br />
+					N° accises / EA : <strong><?php echo $etablissement->no_accises ?></strong><br />
 					N° TVA intracommunautaire : <strong><?php echo $etablissement->no_tva_intracommunautaire ?></strong><br />
                                         N° de carte pro courtier : <strong><?php echo $etablissement->no_carte_professionnelle ?></strong><br />
 					Adresse : <strong><?php echo $etablissement->adresse ?></strong><br />

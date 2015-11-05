@@ -28,7 +28,7 @@
     </div>
     <div class="ligne_form">
         <?php echo $form['no_accises']->renderError() ?>
-        <?php echo $form['no_accises']->renderLabel('Numéro accises: <a href="" class="msg_aide" data-msg="help_popup_mandat_num_accises" title="Message aide"></a>') ?>
+        <?php echo $form['no_accises']->renderLabel('Numéro accises / EA: <a href="" class="msg_aide" data-msg="help_popup_mandat_num_accises" title="Message aide"></a>') ?>
         <?php echo $form['no_accises']->render() ?>
     </div>
     <div class="ligne_form">

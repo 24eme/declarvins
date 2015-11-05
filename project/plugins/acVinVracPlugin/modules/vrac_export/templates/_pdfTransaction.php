@@ -38,8 +38,9 @@
 				<p>Type : <?php echo $vrac->vendeur_type ?></p>
 				<p>Raison sociale : <?php echo $vrac->vendeur->raison_sociale; ?></p>
 				<p>Nom commercial : <?php echo $vrac->vendeur->nom; ?></p>
-				<p>N° RCS/SIRET : <?php echo $vrac->vendeur->siret ?></p>
-				<p>N° CVI/EVV : <?php echo $vrac->vendeur->cvi ?></p>
+				<p>N° RCS / SIRET : <?php echo $vrac->vendeur->siret ?></p>
+				<p>N° CVI / EVV : <?php echo $vrac->vendeur->cvi ?></p>
+				<p>N° accises / EA : <?php echo $vrac->vendeur->num_accise ?></p>
 				<p>Adresse :</p>
 				<p><?php echo $vrac->vendeur->adresse ?> <?php echo $vrac->vendeur->code_postal ?> <?php echo $vrac->vendeur->commune ?><br /><?php echo $vrac->vendeur->pays ?></p>
 				<p>Email : <?php echo $vrac->vendeur->email ?></p>
@@ -61,8 +62,9 @@
 				<p>Type : <?php echo $vrac->acheteur_type ?></p>
 				<p>Raison sociale : <?php echo $vrac->acheteur->raison_sociale; ?></p>
 				<p>Nom commercial : <?php echo $vrac->acheteur->nom; ?></p>
-				<p>N° RCS/SIRET : <?php echo $vrac->acheteur->siret ?></p>
-				<p>N° CVI/EVV : <?php echo $vrac->acheteur->cvi ?></p>
+				<p>N° RCS / SIRET : <?php echo $vrac->acheteur->siret ?></p>
+				<p>N° CVI / EVV : <?php echo $vrac->acheteur->cvi ?></p>
+				<p>N° accises / EA : <?php echo $vrac->acheteur->num_accise ?></p>
 				<p>Adresse :</p>
 				<p><?php echo $vrac->acheteur->adresse ?><br /><?php echo $vrac->acheteur->code_postal ?> <?php echo $vrac->acheteur->commune ?><br /><?php echo $vrac->acheteur->pays ?></p>
 				<p>Email : <?php echo $vrac->acheteur->email ?></p>

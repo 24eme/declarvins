@@ -8,6 +8,7 @@ class VracMandataireForm extends VracEtablissementForm
            'raison_sociale',
            'nom',
 	       'siret',
+			'num_accise',
 	       'no_carte_professionnelle',
 	       'adresse',
 	       'code_postal',

@@ -59,27 +59,31 @@
     </div>
     <div class="vracs_ligne_form ">
         <span>
+            <?php echo $form['num_accise']->renderError() ?>
+            <?php echo $form['num_accise']->renderLabel() ?>
+            <?php echo $form['num_accise']->render(array('class' => 'disabled', 'disabled' => 'disabled')) ?>
+        </span>
+    </div>
+    <div class="vracs_ligne_form vracs_ligne_form_alt">
+        <span>
             <?php echo $form['telephone']->renderError() ?>
             <?php echo $form['telephone']->renderLabel() ?>
             <?php echo $form['telephone']->render(array('class' => 'disabled', 'disabled' => 'disabled')) ?>
         </span>
     </div>
-    <div class="vracs_ligne_form vracs_ligne_form_alt">
+    <div class="vracs_ligne_form ">
         <span>
             <?php echo $form['fax']->renderError() ?>
             <?php echo $form['fax']->renderLabel() ?>
             <?php echo $form['fax']->render(array('class' => 'disabled', 'disabled' => 'disabled')) ?>
         </span>
     </div>
-    <div class="vracs_ligne_form ">
+    <div class="vracs_ligne_form vracs_ligne_form_alt">
         <span>
             <?php echo $form['email']->renderError() ?>
             <?php echo $form['email']->renderLabel() ?>
             <?php echo $form['email']->render(array('class' => 'disabled', 'disabled' => 'disabled')) ?>
         </span>
-    </div>
-    <div class="vracs_ligne_form vracs_ligne_form_alt">
-        <span>&nbsp;</span>
     </div>
 </div>
 <div style="clear:both"></div>
