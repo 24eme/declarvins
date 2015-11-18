@@ -65,6 +65,6 @@
     </div>
     
 </form>
-<?php include_partial('url_etablissement_template', array('interpro' => $form->getInterpro())); ?>
+<?php include_partial('url_etablissement_template', array('interpro' => $form->getInterpro(), 'etablissement' => $etablissement)); ?>
 <?php include_partial('url_informations_template', array('vrac' => $form->getObject(), 'etablissement' => $etablissement, 'etape' => $etape)); ?>
 
