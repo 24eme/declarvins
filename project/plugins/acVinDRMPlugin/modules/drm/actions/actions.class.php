@@ -19,7 +19,7 @@ class drmActions extends sfActions {
   		}
   		if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement) {
   			$configuration = ConfigurationClient::getCurrent();
-  			$access = ($configuration->isApplicationOuverte($etablissement->interpro, 'drm'))? true : false;
+  			$access = ($configuration->isApplicationOuverte($etablissement->interpro, 'drm', $etablissement))? true : false;
   			$this->forward404Unless($access);	
   		}
   		
@@ -95,11 +95,23 @@ class drmActions extends sfActions {
             }
             $campagneDrm = $drm->campagne;
             $periodeDrm = $drm->periode;
+            
+            $hasVersion = $drm->hasVersion();
+            $previous = ($drm->getPreviousVersion())? $drm->findDocumentByVersion($drm->getPreviousVersion()) : null;
+            $mother = $drm->getMother();
             $bilan = BilanClient::getInstance()->findOrCreateByIdentifiant($etablissement->identifiant, 'DRM');
             $drm->delete();
             
-            $bilan->updateDRMManquantesAndNonSaisiesForCampagne($campagneDrm,$periodeDrm);
-            $bilan->save();
+            if ($hasVersion) {
+            	if ($previous) {
+            		$previous->updateBilan();
+            	} elseif($mother) {
+            		$mother->updateBilan();
+            	}
+            } else {            
+            	$bilan->updateDRMManquantesAndNonSaisiesForCampagne($campagneDrm,$periodeDrm);
+            	$bilan->save();
+            }
             $this->redirect('drm_mon_espace', $etablissement);
         }
         throw new sfException('Vous ne pouvez pas supprimer cette DRM');
@@ -211,6 +223,13 @@ class drmActions extends sfActions {
         $drm = $this->getRoute()->getDRM();
         return $this->renderText($this->getPartial('popupFrequence', array('drm' => $drm)));
     }
+    
+    public function executePayerReport(sfWebRequest $request) {
+    	$drm = $this->getRoute()->getDRM();
+    	$drm->payerReport();
+    	$drm->save();
+    	return $this->redirect('drm_validation', array('sf_subject' => $drm));
+    }
 
     /**
      * Executes mouvements generaux action
@@ -221,14 +240,15 @@ class drmActions extends sfActions {
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->drm = $this->getRoute()->getDRM();
         $this->drm->storeDroits(array());
-        $this->drm->save();
-        $this->droits_circulation = ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) ? null : new DRMDroitsCirculation($this->drm);
+        $this->droits_circulation = new DRMDroitsCirculation($this->drm);
         $this->drmValidation = $this->drm->validation(array('stock' => 'warning', 'is_operateur' => $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)));
         $this->engagements = $this->drmValidation->getEngagements();
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
             $this->engagements = array();
         }
         $this->form = new DRMValidationForm($this->drm, array('engagements' => $this->engagements));
+        
+        
         if (!$request->isMethod(sfWebRequest::POST)) {
 
             return sfView::SUCCESS;
@@ -328,7 +348,7 @@ class drmActions extends sfActions {
         	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
         	$this->configurationProduits = ConfigurationProduitClient::getInstance()->find($this->interpro->getOrAdd('configuration_produits'));
         }
-        $this->droits_circulation = ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) ? null : new DRMDroitsCirculation($this->drm);
+        $this->droits_circulation = new DRMDroitsCirculation($this->drm);
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->hide_rectificative = $request->getParameter('hide_rectificative');
         $this->drm_next_version = $this->getUser()->getFlash('drm_next_version');

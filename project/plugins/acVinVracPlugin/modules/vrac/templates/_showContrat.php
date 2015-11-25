@@ -49,6 +49,12 @@
 				<span>Condition particulière :</span>
 				<span><?php echo $configurationVrac->formatCasParticulierLibelle(array($vrac->cas_particulier)); ?></span>
 			</li>
+			<?php if ($vrac->exist('bailleur_metayer')): ?>
+			<li>
+				<span>Entre bailleur et métayer :</span>
+				<span><?php echo ($vrac->bailleur_metayer)? 'Oui' : 'Non'; ?></span>
+			</li>
+			<?php endif; ?>
     	</ul>
     	<?php if($editer_etape): ?>
     	<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'soussigne', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
@@ -213,11 +219,11 @@
 					
 					<?php if($lot->cuves): ?>
 					<div class="cuves">
-						<p><span>Détail des cuves / contenants :</span></p>
+						<p><span>Détail :</span></p>
 						<table>
 							<thead>
 								<tr>
-									<th>Numéro(s)</th>
+									<th>Numéro(s) des cuves</th>
 									<th>Volume (hl)</th>
 									<th>Date</th>
 				            	</tr>

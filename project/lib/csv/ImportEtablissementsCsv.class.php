@@ -9,8 +9,10 @@ class ImportEtablissementsCsv {
     protected $_zones = array();
     protected $_zoneClient = null;
     protected $_zonesTransparentes = array();
+    protected $_ldap = null;
 
     public function __construct(Interpro $interpro) {
+    	$this->_ldap = new Ldap();
         $file_uri = $interpro->getAttachmentUri("etablissements.csv");
         $this->_interpro = $interpro;
         $this->_csv = array();
@@ -368,6 +370,7 @@ class ImportEtablissementsCsv {
 		    		$compte->addEtablissement($etablissement);
 		    	}
 		    	$compte->save();
+		    	$this->_ldap->saveCompte($compte);
 	    	}
     	}
     }

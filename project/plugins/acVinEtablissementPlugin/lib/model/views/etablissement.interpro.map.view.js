@@ -1,5 +1,5 @@
 function(doc) {
   	if (doc.type == "Etablissement") {
-  		emit([doc.siret], [doc.interpro]);
+  		emit([doc.statut, doc.siret], [doc.interpro]);
 	}
 }

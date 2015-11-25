@@ -116,11 +116,13 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
 					<?php if ($vrac->isValide()): ?>
 					<a class="valider_etape" href="<?php echo url_for('vrac_pdf', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>"><span>PDF Contrat</span></a>
 					<?php if ($vrac->has_transaction): ?>
-					<a class="valider_etape" href="<?php echo url_for('vrac_pdf_transaction', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>"><span>PDF Transaction</span></a>
+					<a class="valider_etape" href="<?php echo url_for('vrac_pdf_transaction', array('sf_subject' => $vrac, 'etablissement' => $etablissement)) ?>"><span>PDF Transaction *</span></a>
 					<?php endif; ?>
 					<?php endif; ?>
 				</div>
-                
+				<?php if ($vrac->has_transaction): ?>
+				<p style="text-align: right; font-size: 10px;">(*) à envoyer à votre organisme d'inspection</p>
+                <?php endif; ?>
             </div> 
         </section>
     </div>

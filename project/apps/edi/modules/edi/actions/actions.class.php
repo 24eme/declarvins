@@ -45,6 +45,20 @@ class ediActions extends sfActions
     	}
     }
   }
+	
+  protected function securizeOioc($oioc)
+  {
+    if (!preg_match('/^OIOC-/', $oioc)) {
+		$oioc = 'OIOC-'.$oioc;
+    }
+    if ($this->getCompte()->exist('oioc')) {
+  		if ($oioc != $this->getCompte()->oioc) {
+	  		throw new error401Exception("Accès restreint");
+	  	}
+    } else {
+    	throw new error401Exception("Accès restreint");
+    }
+  }
 
   public function executeStreamDAIDS(sfWebRequest $request) 
   {
@@ -82,6 +96,23 @@ class ediActions extends sfActions
     $dateForView = new DateTime($date);
     $vracs = $this->vracCallback($interpro, VracDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows);
     return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "VRAC", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID, VracDateView::VALUE_MANDATAIRE_ID));
+  }
+  
+  public function executeStreamTransaction(sfWebRequest $request) 
+  {
+  	ini_set('memory_limit', '2048M');
+  	set_time_limit(0);
+    $date = $request->getParameter('datedebut');
+    $oioc = $request->getParameter('oioc');
+    $this->securizeOioc($oioc);
+    if (!$date) {
+		return $this->renderText("Pas de date définie");
+    }
+    $interpro = current(array_keys($this->getCompte()->interpro->toArray()));
+    $dateTime = new DateTime($date);
+    $dateForView = new DateTime($date);
+    $vracs = $this->vracCallback($interpro, VracOiocView::getInstance()->findByOiocAndDate($oioc, OIOC::STATUT_EDI, "Vrac", $dateForView->modify('-1 second')->format('c'))->rows);
+    return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "TRANSACTION", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID));
   }
   
   public function executeStreamDRM(sfWebRequest $request) 
@@ -158,13 +189,49 @@ class ediActions extends sfActions
     	$dateTime = new DateTime($date);
     	$date = $dateTime->format('c');
     	$dateForView = new DateTime($date);
-    	$dateForView->modify('-1 second')->format('c');
+    	;
     }
     $etablissement = $request->getParameter('etablissement');
     $this->securizeEtablissement($etablissement);
     $etab = EtablissementClient::getInstance()->find($etablissement);
-    $drms = DRMEtablissementView::getInstance()->findByEtablissement($etablissement, $dateForView);
+    $drms = DRMEtablissementView::getInstance()->findByEtablissement($etablissement, $dateForView->modify('-1 second')->format('c'));
     return $this->renderCsv($drms->rows, DRMEtablissementView::VALUE_DATEDESAISIE, "DRM", $date, $etab->interpro);
+  }
+  
+
+
+  public function executePushTransaction(sfWebRequest $request)
+  {
+  	ini_set('memory_limit', '2048M');
+  	set_time_limit(0);
+  	$oioc = $request->getParameter('oioc');
+    $this->securizeOioc($oioc);
+  	$oioc = OIOCClient::getInstance()->find($oioc);
+  	$formUploadCsv = new UploadCSVForm();
+  	$result = array();
+  	$lignes = array();
+  	if ($request->isMethod('post')) {
+  		$formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
+  		if ($formUploadCsv->isValid()) {
+  			$csv = new CsvFile(sfConfig::get('sf_data_dir') . '/upload/' . $formUploadCsv->getValue('file')->getMd5());
+  			$import = new TransactionUpdate($csv->getCsv(), $oioc);
+			if ($import->hasErrors()) {
+				return $this->renderSimpleCsv($import->getLogs(), "transaction");
+			}
+
+			$contrats = $import->getContrats();
+			foreach ($contrats as $contrat) {
+				$contrat->save(false);
+				$result[] = array('SUCCESS', 'CONTRAT', null, 'Le contrat '.$contrat->_id.' a été mis à jour avec succès');
+			}
+  			
+  		} else {
+  			$result[] = array('ERREUR', 'FORMAT', null, 'Fichier csv non valide');
+  		}
+  	} else {
+  		$result[] = array('ERREUR', 'ACCES ', null, 'Seules les requêtes de type POST sont acceptées');
+  	}
+  	return $this->renderSimpleCsv($result, "transaction");
   }
   
   public function executePushDRMEtablissement(sfWebRequest $request)
@@ -173,32 +240,32 @@ class ediActions extends sfActions
   	set_time_limit(0);  	
     $etablissement = $request->getParameter('etablissement');
     $this->securizeEtablissement($etablissement);
+    $etab = EtablissementClient::getInstance()->find($etablissement);
 	$formUploadCsv = new UploadCSVForm();
     $result = array();
+    $drms = array();
+    $unsetDrms = array();
 	if ($request->isMethod('post')) {
     	$formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
       	if ($formUploadCsv->isValid()) {
 			$csv = new CsvFile(sfConfig::get('sf_data_dir') . '/upload/' . $formUploadCsv->getValue('file')->getMd5());
-	      	$lignes = $csv->getCsv();
-		    $drmClient = DRMClient::getInstance();
-		    $numLigne = 0;
-		  	foreach ($lignes as $ligne) {
-		    	$numLigne++;
-		    	$import = new DRMDetailImport($ligne, $drmClient);
-		    	$drm = $import->getDrm();
-		    	if ($import->hasErrors()) {
-		    		$result[$numLigne] = array('ERREUR', 'LIGNE', $numLigne, implode(' - ', $import->getLogs()));
-		    	} else {
-		    		$result[$numLigne] = array('OK', '', $numLigne, '');
-		    		$drm->save();
-		    	}
+			$import = new DRMImport($csv->getCsv(), $etab);
+			if ($import->hasErrors()) {
+				return $this->renderSimpleCsv($import->getLogs(), "drm");
+			}
+		    $drm = $import->getDrm();
+		    if ($import->hasErrors()) {
+				return $this->renderSimpleCsv($import->getLogs(), "drm");
 		    }
+		    $drm->validate();
+		    $drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_EDI;
+		    $drm->save();
+		    $result[] = array('SUCCESS', 'DRM', null, 'La DRM '.$drm->_id.' a été importée avec succès');
       	} else {
-      		$result[] = array('ERREUR', 'COHERENCE', 0, 'Fichier csv non valide');
-      	}
-      	
+      		$result[] = array('ERREUR', 'FORMAT', null, 'Fichier csv non valide');
+      	}      	
     } else {
-    	$result[] = array('ERREUR', 'COHERENCE ', 0, 'Appel en POST uniquement');
+    	$result[] = array('ERREUR', 'ACCES ', null, 'Seules les requêtes de type POST sont acceptées');
     }
     return $this->renderSimpleCsv($result, "drm");
   }
@@ -360,7 +427,7 @@ class ediActions extends sfActions
 		ini_set('memory_limit', '2048M');
 	  	set_time_limit(0);
 	    $interproId = $request->getParameter('interpro');
-	    //$this->securizeInterpro($interproId);
+	    $this->securizeInterpro($interproId);
 	    if (!preg_match('/^INTERPRO-/', $interproId)) {
 			$interproId = 'INTERPRO-'.$interproId;
 	    }

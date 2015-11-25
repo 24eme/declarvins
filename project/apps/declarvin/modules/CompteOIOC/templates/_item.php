@@ -11,7 +11,7 @@
 	<td><?php echo $compte->value[CompteAllView::VALUE_LOGIN] ?></td>
 	<td><?php echo $compte->value[CompteAllView::VALUE_NOM] ?></td>
 	<td><?php echo $compte->value[CompteAllView::VALUE_PRENOM] ?></td>
-	<td><?php echo $compte->value[CompteAllView::VALUE_EMAIl] ?></td>
+	<td><?php echo $compte->value[CompteAllView::VALUE_EMAIL] ?></td>
 	<td><?php echo $compte->value[CompteAllView::VALUE_TELEPHONE] ?></td>		
 	<td class="actions"><a class="btn_modifier"	href="<?php echo url_for("compte_oioc_modification", array('login' => $compte->value[CompteAllView::VALUE_LOGIN])) ?>">Modifier</a></td>		
 </tr>

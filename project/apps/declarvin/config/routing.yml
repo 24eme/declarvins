@@ -111,6 +111,9 @@ tiers_mon_espace:
 tiers:
   url: /tiers
   param: { module: tiers, action: login }
+tiers_connexion:
+  url: /tiers/:login/connexion
+  param: { module: tiers, action: connexion, login: null }
 tiers_forbidden:
   url: /tiers/acces-restreint
   param: { module: tiers, action: accessForbidden }

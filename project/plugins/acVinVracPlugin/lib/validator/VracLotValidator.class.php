@@ -10,7 +10,7 @@ class VracLotValidator extends sfValidatorBase {
     	$errorSchema = new sfValidatorErrorSchema($this);
     	$hasError = false;
     	$pourcentage = 0;
-        if (is_array($values['millesimes']) && $values['assemblage']) {
+        if (is_array($values['millesimes'])) {
     		foreach ($values['millesimes'] as $millesime) {
     			if ($millesime['pourcentage']) {
     				$pourcentage += $millesime['pourcentage'];

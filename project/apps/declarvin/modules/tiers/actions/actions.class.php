@@ -50,6 +50,16 @@ class tiersActions extends sfActions
 	  }
   }
   
+  public function executeConnexion(sfWebRequest $request)
+  {
+  	if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+  		$this->getUser()->signOut();
+  		$this->getUser()->signIn($request->getParameter('login'));
+  		return $this->redirect('@tiers');
+  	}
+  	return $this->redirect('tiers_forbidden');
+  }
+  
   public function executeAccessForbidden(sfWebRequest $request)
   {
   	
@@ -60,7 +70,7 @@ class tiersActions extends sfActions
     $this->etablissement = $this->getRoute()->getEtablissement();
     $configuration = ConfigurationClient::getCurrent();
 
-    if ($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI) && $configuration->isApplicationOuverte($this->etablissement->interpro, 'drm')) {
+    if ($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI) && $configuration->isApplicationOuverte($this->etablissement->interpro, 'drm', $this->etablissement)) {
 		$this->configureAlerteDrm($this->etablissement);
         return $this->redirect("drm_mon_espace", $this->etablissement);
     }

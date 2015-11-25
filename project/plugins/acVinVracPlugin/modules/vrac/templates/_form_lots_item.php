@@ -8,12 +8,12 @@
         </span>
     </div>
     <div id="cuve" class="vracs_ligne_form">
-        <label>Détail des cuves / contenants: </label>
+        <label>Détail: </label>
         <table id="table_lot_cuves_<?php echo $form->getName() ?>">
         	<thead>
             	<tr>
-            		<th>Numéro(s)*</th>
-            		<th>Volume (hl)</th>
+            		<th>Numéro(s) des cuves de ce lot*</th>
+            		<th>Volume de ce lot (hl)</th>
             		<th>Date retiraison<br  />(jj/mm/aaaa)</th>
                     <th class="dernier"></th>
             	</tr>
@@ -23,19 +23,24 @@
                     <?php include_partial('form_lot_cuves_item', array('form' => $formCuve)) ?>
                 <?php endforeach; ?>
             </tbody>
+            
+    		<!-- 
             <tfoot>
                 <tr>
                     <td colspan="3"><a class="btn_ajouter_ligne_template" data-container="#table_lot_cuves_<?php echo $form->getName() ?> tbody" data-template="#template_form_lot_cuves_item" data-template-params='<?php echo json_encode(array('var---nbItemLot---' => $form->getName())) ?>' href="#"><span>Ajouter une cuve / un contenant</span></a></td>
                     <td></td>
                 </tr>
             </tfoot>
+            -->
         </table>
         
     </div>
     <div class="vracs_ligne_form bloc_condition" data-condition-cible=".millesime_<?php echo $form->getName() ?>">
         <?php echo $form['assemblage']->renderError() ?>
         <?php echo $form['assemblage']->renderLabel() ?>
+        <div style="display:none;">
         <?php echo $form['assemblage']->render() ?>
+        </div>
     </div>
     <div id="millesime" class="vracs_ligne_form bloc_conditionner millesime_<?php echo $form->getName() ?>" data-condition-value="1">
         <table id="table_lot_millesimes_<?php echo $form->getName() ?>">

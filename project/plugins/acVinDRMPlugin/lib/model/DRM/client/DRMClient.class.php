@@ -114,6 +114,14 @@ class DRMClient extends acCouchdbClient {
         return preg_replace('/([0-9]{4})-([0-9]{2})/', '$2', $periode);
     }
 
+    public function getEtablissementByDRMId($drm_id) {
+        $tab = explode('-', $drm_id);
+        if (isset($tab[1])) {
+            return $tab[1];
+        }
+        return null;
+    }
+
     public function getAnneeByDRMId($drm_id) {
         $tab = explode('-', $drm_id);
         if (isset($tab[2])) {
@@ -338,10 +346,13 @@ class DRMClient extends acCouchdbClient {
         return $periode;
     }
 
-    public function createBlankDoc($identifiant, $periode) {
+    public function createBlankDoc($identifiant, $periode, $version = null) {
         $drm = new DRM();
         $drm->identifiant = $identifiant;
         $drm->periode = $periode;
+        if ($version) {
+        	$drm->version = $version;
+        }
         return $drm;
     }
 

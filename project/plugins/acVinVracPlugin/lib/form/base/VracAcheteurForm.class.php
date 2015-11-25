@@ -8,6 +8,7 @@ class VracAcheteurForm extends VracEtablissementForm
            'raison_sociale',
            'nom',
 	       'siret',
+			'num_accise',
 	       'cvi',
 	       'adresse',
 	       'code_postal',

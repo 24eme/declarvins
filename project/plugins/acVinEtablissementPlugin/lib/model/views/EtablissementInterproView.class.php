@@ -12,10 +12,10 @@ class EtablissementInterproView extends acCouchdbView
 
     public function findInterproRefBySiret($siret) {
 
-    	$result = $this->client->startkey(array($siret))
-                    		->endkey(array($siret, array()))
+    	$result = $this->client->startkey(array(Etablissement::STATUT_ACTIF, $siret))
+                    		->endkey(array(Etablissement::STATUT_ACTIF, $siret, array()))
                     		->getView($this->design, $this->view)->rows;
-    	if (count($result) != 1) {
+    	if (!count($result)) {
     		return null;
     	}
     	$result = current($result);

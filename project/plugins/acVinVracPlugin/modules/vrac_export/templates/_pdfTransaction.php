@@ -36,21 +36,20 @@
 			<td width="<?php echo $w ?>" valign="top">
 				<h2>Vendeur</h2>
 				<p>Type : <?php echo $vrac->vendeur_type ?></p>
-				<p>Raison sociale : <?php echo ($vrac->vendeur->raison_sociale)? $vrac->vendeur->raison_sociale : $vrac->vendeur->nom; ?></p>
-				<p>N° RCS/SIRET : <?php echo $vrac->vendeur->siret ?></p>
-				<p>N° CVI/EVV : <?php echo $vrac->vendeur->cvi ?></p>
-				<p>Adresse : <?php echo $vrac->vendeur->adresse ?></p>
-				<p>Code postal : <?php echo $vrac->vendeur->code_postal ?></p>
-				<p>Commune : <?php echo $vrac->vendeur->commune ?></p>
-				<p>Pays : <?php echo $vrac->vendeur->pays ?></p>
+				<p>Raison sociale : <?php echo $vrac->vendeur->raison_sociale; ?></p>
+				<p>Nom commercial : <?php echo $vrac->vendeur->nom; ?></p>
+				<p>N° RCS / SIRET : <?php echo $vrac->vendeur->siret ?></p>
+				<p>N° CVI / EVV : <?php echo $vrac->vendeur->cvi ?></p>
+				<p>N° accises / EA : <?php echo $vrac->vendeur->num_accise ?></p>
+				<p>Adresse :</p>
+				<p><?php echo $vrac->vendeur->adresse ?> <?php echo $vrac->vendeur->code_postal ?> <?php echo $vrac->vendeur->commune ?><br /><?php echo $vrac->vendeur->pays ?></p>
+				<p>Email : <?php echo $vrac->vendeur->email ?></p>
 				<p>Tel : <?php echo $vrac->vendeur->telephone ?>&nbsp;&nbsp;&nbsp;Fax : <?php echo $vrac->vendeur->fax ?></p>
 				<?php if ($vrac->hasAdresseStockage()): ?>
 				<br />
 				<p>Adresse de stockage : <?php echo $vrac->adresse_stockage->libelle ?></p>
-				<p>Adresse : <?php echo $vrac->adresse_stockage->adresse ?></p>
-				<p>Code postal : <?php echo $vrac->adresse_stockage->code_postal ?></p>
-				<p>Commune : <?php echo $vrac->adresse_stockage->commune ?></p>
-				<p>Pays : <?php echo $vrac->adresse_stockage->pays ?></p>
+				<?php if ($vrac->adresse_stockage->exist('siret')): ?><p>Siret : <?php echo $vrac->adresse_stockage->siret ?></p><?php endif; ?>
+				<p><?php echo $vrac->adresse_stockage->adresse ?> <?php echo $vrac->adresse_stockage->code_postal ?> <?php echo $vrac->adresse_stockage->commune ?><br /><?php echo $vrac->adresse_stockage->pays ?></p>
 				<?php endif; ?>
 				<?php if ($vrac->valide->date_validation_vendeur): ?>
 				<br />
@@ -61,21 +60,20 @@
 			<td width="<?php echo $w ?>" valign="top">
 				<h2>Acheteur</h2>
 				<p>Type : <?php echo $vrac->acheteur_type ?></p>
-				<p>Raison sociale : <?php echo ($vrac->acheteur->raison_sociale)? $vrac->acheteur->raison_sociale : $vrac->acheteur->nom; ?></p>
-				<p>N° RCS/SIRET : <?php echo $vrac->acheteur->siret ?></p>
-				<p>N° CVI/EVV : <?php echo $vrac->acheteur->cvi ?></p>
-				<p>Adresse : <?php echo $vrac->acheteur->adresse ?></p>
-				<p>Code postal : <?php echo $vrac->acheteur->code_postal ?></p>
-				<p>Commune : <?php echo $vrac->acheteur->commune ?></p>
-				<p>Pays : <?php echo $vrac->acheteur->pays ?></p>
+				<p>Raison sociale : <?php echo $vrac->acheteur->raison_sociale; ?></p>
+				<p>Nom commercial : <?php echo $vrac->acheteur->nom; ?></p>
+				<p>N° RCS / SIRET : <?php echo $vrac->acheteur->siret ?></p>
+				<p>N° CVI / EVV : <?php echo $vrac->acheteur->cvi ?></p>
+				<p>N° accises / EA : <?php echo $vrac->acheteur->num_accise ?></p>
+				<p>Adresse :</p>
+				<p><?php echo $vrac->acheteur->adresse ?><br /><?php echo $vrac->acheteur->code_postal ?> <?php echo $vrac->acheteur->commune ?><br /><?php echo $vrac->acheteur->pays ?></p>
+				<p>Email : <?php echo $vrac->acheteur->email ?></p>
 				<p>Tel : <?php echo $vrac->acheteur->telephone ?>&nbsp;&nbsp;&nbsp;Fax : <?php echo $vrac->acheteur->fax ?></p>
 				<?php if ($vrac->hasAdresseLivraison()): ?>
 				<br />
 				<p>Adresse de livraison : <?php echo $vrac->adresse_livraison->libelle ?></p>
-				<p>Adresse : <?php echo $vrac->adresse_livraison->adresse ?></p>
-				<p>Code postal : <?php echo $vrac->adresse_livraison->code_postal ?></p>
-				<p>Commune : <?php echo $vrac->adresse_livraison->commune ?></p>
-				<p>Pays : <?php echo $vrac->adresse_livraison->pays ?></p>
+				<?php if ($vrac->adresse_livraison->exist('siret')): ?><p>Siret : <?php echo $vrac->adresse_livraison->siret ?></p><?php endif; ?>
+				<p><?php echo $vrac->adresse_livraison->adresse ?> <?php echo $vrac->adresse_livraison->code_postal ?> <?php echo $vrac->adresse_livraison->commune ?><br /><?php echo $vrac->adresse_livraison->pays ?></p>
 				<?php endif; ?>
 				<?php if ($vrac->valide->date_validation_acheteur): ?>
 				<br />
@@ -89,12 +87,15 @@
 	<p><?php echo $configurationVrac->formatTypesTransactionLibelle(array($vrac->type_transaction)); ?>, <?php echo ($vrac->produit)? $vrac->getLibelleProduit("%a% %l% %co% %ce%") : null; ?>&nbsp;<?php echo ($vrac->millesime)? $vrac->millesime.'&nbsp;' : ''; ?><p>
 	<p><?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)).'&nbsp;' : ''; ?><?php echo (count($vrac->mentions) > 0)? $configurationVrac->formatMentionsLibelle($vrac->mentions) : ''; ?></p>
 	<p>Annexe technique : <?php echo ($vrac->annexe)? 'Oui' : 'Non'; ?>, Export : <?php echo ($vrac->export)? 'Oui' : 'Non'; ?></p>
+	
+	
 	<?php if ($vrac->has_transaction): ?>
 	<h2>Descriptif des lots</h2>
+
 	<div id="lots">
 
+		<?php $date_premiere_retiraison = null; ?>
 		<table>
-			<?php $date_premiere_retiraison = null; ?>
 			<?php foreach ($vrac->lots as $lot): ?>
 			<?php
 				$nb_cuves = sizeof($lot->cuves);
@@ -104,9 +105,9 @@
 			<?php $nb_lignes = 3 + $nb_cuves ?>
 			<?php if($nb_millesimes > 0) $nb_lignes += 1 + $nb_millesimes; ?>
 			<tr>
-				<th rowspan="<? echo $nb_lignes; ?>" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
+				<th rowspan="<?php echo $nb_lignes; ?>" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
 				<th rowspan="<?php echo 1 + $nb_cuves; ?>" class="cuves">Cuves</th>
-				<th>N°</th>
+				<th>N° des cuves</th>
 				<th>Volume (hl)</th>
 				<th>Date de retiraison</th>
 			</tr>
@@ -131,8 +132,8 @@
 			<?php if($lot->assemblage): ?>
 			<tr>
 				<th rowspan="<?php echo 1 + $nb_millesimes ?>" class="millesimes">Assemblage de millésimes</th>
-				<th>Millésime</th>
-				<th class="pourcentage">Pourcentage (%)</th>
+				<th>Année</th>
+				<th class="pourcentage">Pourcentage</th>
 				<th></th>
 			</tr>
 
@@ -169,6 +170,7 @@
 	<?php endif; ?>
 	<p>Observations : <?php echo $vrac->commentaires ?></p>
 	<?php if ($configurationVrac->getInformationsComplementaires()): ?>
+	<hr />
 	<h2>Informations complémentaires</h2>
 	<div class="clauses">
 	<?php echo $configurationVrac->getInformationsComplementaires(ESC_RAW) ?>

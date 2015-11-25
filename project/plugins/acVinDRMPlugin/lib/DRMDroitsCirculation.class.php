@@ -14,6 +14,7 @@ class DRMDroitsCirculation
 	const KEY_CUMUL = 'cumul';
 	const KEY_REPORT = 'report';
 	const KEY_TOTAL = 'total';
+	const KEY_VIRTUAL_TOTAL = 'TOTAL';
 	protected static $codes = array(
 		'L387',
 		'L385',
@@ -66,26 +67,53 @@ class DRMDroitsCirculation
         		$correspondances[$detail->douane->code] = array_unique($tab);
         	}
         }
-        foreach ($this->drm->droits->douane as $droit) {
-        	if ($code = $this->getCorrespondanceCode($droit->code)) {
-        		foreach ($correspondances[$droit->code] as $certif) {
-	        		$this->droits[$code][$certif][self::KEY_VOLUME_REINTEGRATION] = $droit->volume_reintegre;
-	        		$this->droits[$code][$certif][self::KEY_VOLUME_TAXABLE] = $droit->volume_taxe;
-        			$this->droits[$code][$certif][self::KEY_REPORT] = $droit->report;
-        			$this->droits[$code][$certif][self::KEY_CUMUL] = $droit->cumul;
-	        		$this->droits[$code][$certif][self::KEY_TAUX] = $droit->taux;
+        $codes = array_keys($this->drm->droits->douane->toArray());
+        $hasVirtual = false;
+        foreach ($codes as $c) {
+        	if (preg_match('/\_'.DRMDroitsCirculation::KEY_VIRTUAL_TOTAL.'/', $c)) {
+        		$hasVirtual = true;
+        		break;
+        	}
+        }
+        foreach ($this->drm->droits->douane as $k => $droit) {
+        	if ($code = self::getCorrespondanceCode($droit->code)) {
+        		if (!preg_match('/\_'.DRMDroitsCirculation::KEY_VIRTUAL_TOTAL.'/', $k)) {
+	        		foreach ($correspondances[$droit->code] as $certif) {
+		        		$this->droits[$code][$certif][self::KEY_VOLUME_REINTEGRATION] = $droit->volume_reintegre;
+		        		$this->droits[$code][$certif][self::KEY_VOLUME_TAXABLE] = $droit->volume_taxe;
+	        			$this->droits[$code][$certif][self::KEY_REPORT] = $droit->report;
+	        			$this->droits[$code][$certif][self::KEY_CUMUL] = $droit->cumul;
+		        		$this->droits[$code][$certif][self::KEY_TAUX] = $droit->taux;
+	        		}
+	        		if (!$hasVirtual) {
+			        	$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_VOLUME_REINTEGRATION] += $droit->volume_reintegre;
+			        	$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_VOLUME_TAXABLE] += $droit->volume_taxe;
+			        	$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_TAUX] = $droit->taux;
+		        		$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_REPORT] += $droit->report;
+		        		$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_CUMUL] += $droit->cumul;
+		        		$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_TOTAL] += $droit->total;
+	        			
+	        		}
+        		} else {
+		        	$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_VOLUME_REINTEGRATION] += $droit->volume_reintegre;
+		        	$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_VOLUME_TAXABLE] += $droit->volume_taxe;
+		        	$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_TAUX] = $droit->taux;
+	        		$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_REPORT] += $droit->report;
+	        		$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_CUMUL] += $droit->cumul;
+	        		$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_TOTAL] += $droit->total;
         		}
-	        	$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_VOLUME_REINTEGRATION] += $droit->volume_reintegre;
-	        	$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_VOLUME_TAXABLE] += $droit->volume_taxe;
-	        	$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_TAUX] = $droit->taux;
-        		$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_REPORT] += $droit->report;
-        		$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_CUMUL] += $droit->cumul;
-        		$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_TOTAL] += $droit->total;
+        	}
+        }
+        foreach ($this->drm->droits->douane as $droit) {
+        	if ($code = self::getCorrespondanceCode($droit->code)) {
+        		$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_REPORT] = round($this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_REPORT]);
+        		$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_CUMUL] = round($this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_CUMUL]);
+        		$this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_TOTAL] = round($this->droits[$code][self::CERTIFICATION_TOTAL][self::KEY_TOTAL]);
         	}
         }
     }
     
-    public function getCorrespondanceCode($code)
+    public static function getCorrespondanceCode($code)
     {
     	foreach (self::$codes as $c) {
     		if (preg_match('/'.$c.'/i', $code)) {
@@ -102,9 +130,9 @@ class DRMDroitsCirculation
     
     public function getPayable($code, $certification)
     {
-    	$total = $this->droits[$code][$certification][self::KEY_TOTAL];
+    	$total = $this->droits[$code][$certification][self::KEY_VOLUME_TAXABLE] * $this->droits[$code][$certification][self::KEY_TAUX];
     	$result = null;
-    	if ($total !== null) {
+    	if ($this->droits[$code][$certification][self::KEY_TOTAL] !== null) {
     		if ($total < 0) {
     			$total = 0;
     		}
@@ -164,6 +192,11 @@ class DRMDroitsCirculation
     		$total += (($val = $this->getPayable($c, self::CERTIFICATION_TOTAL)) !== null)? $val : 0;
     	}
     	return round($total);
+    }
+    
+    public static function getCodes()
+    {
+    	return self::$codes;
     }
 	
   

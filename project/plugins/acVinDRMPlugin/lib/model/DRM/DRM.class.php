@@ -71,6 +71,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
         return $this->get($hash)->details->getProduit($labels);
     }
+    
+    public function payerReport()
+    {
+    	$this->declaratif->paiement->douane->report_paye = 1;
+    }
 
     public function addProduit($hash, $labels = array()) {
         if ($p = $this->getProduit($hash, $labels)) {
@@ -165,8 +170,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $this->declaratif->adhesion_emcs_gamma = null;
             $this->declaratif->paiement->douane->frequence = null;
             $this->declaratif->paiement->douane->moyen = null;
+            $this->declaratif->paiement->douane->report_paye = null;
             $this->declaratif->paiement->cvo->frequence = null;
             $this->declaratif->paiement->cvo->moyen = null;
+            $this->declaratif->paiement->cvo->report_paye = null;
             $this->declaratif->caution->dispense = null;
             $this->declaratif->caution->organisme = null;
         }
@@ -206,26 +213,40 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 $this->droits->getOrAdd(DRMDroits::DROIT_CVO)->getOrAdd($droitCvo->code)->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitCvo->taux, 0, $droitCvo->libelle);
             }
             if ($droitDouane) {
-                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($droitDouane->code)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitDouane->taux, $this->getReportByDroit(DRMDroits::DROIT_DOUANE, $droitDouane), $droitDouane->libelle);
+                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($droitDouane->code)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitDouane->taux, $this->getReportByDroit(DRMDroits::DROIT_DOUANE, $droitDouane->code), $droitDouane->libelle);
+                $codeTotal = DRMDroitsCirculation::getCorrespondanceCode($droitDouane->code).'_'.DRMDroitsCirculation::KEY_VIRTUAL_TOTAL;
+                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($codeTotal)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitDouane->taux, $this->getReportByDroit(DRMDroits::DROIT_DOUANE, $codeTotal), $codeTotal);
             }
         }
         $douanes = $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE);
-        foreach ($douanes as $douane) {
-        	$douane->total = round($douane->total);
+        foreach ($douanes as $k => $douane) {
+        	$round = (preg_match('/\_'.DRMDroitsCirculation::KEY_VIRTUAL_TOTAL.'/', $k))? 0 : 2;
+        	$douane->total = round($douane->total, $round);
         	if ($douane->report) {
-        		$douane->report = round($douane->report);
+        		$douane->report = round($douane->report, $round);
         	}
         	if ($douane->cumul) {
-        		$douane->cumul = round($douane->cumul);
+        		$douane->cumul = round($douane->cumul, $round);
         	}
         }
     }
-
+	public function isNouvelleCampagne() {
+		if ($this->getMois() == 8) {
+			return true;
+		}
+		return false;
+	}
     public function getReportByDroit($type, $droit) {
+    	if ($this->isNouvelleCampagne()) {
+    		return 0;
+    	}
+    	if ($this->declaratif->paiement->get($type)->exist('report_paye') && $this->declaratif->paiement->get($type)->get('report_paye')) {
+    		return 0;
+    	}
         $drmPrecedente = $this->getPrecedente();
         if ($drmPrecedente && !$drmPrecedente->isNew()) {
-            if ($drmPrecedente->droits->get($type)->exist($droit->code)) {
-                return $drmPrecedente->droits->get($type)->get($droit->code)->cumul;
+            if ($drmPrecedente->droits->get($type)->exist($droit)) {
+                return $drmPrecedente->droits->get($type)->get($droit)->cumul;
             }
         }
         return 0;
@@ -768,34 +789,21 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
     
     public function hasVolumeVracWithoutDetailVrac(){
-        
-        $this->generateMouvements();
-        $cumulVrac = array();
-        foreach ($this->getMouvements() as $key => $mouvements) {
-            foreach ($mouvements as $mouvement) {
-                if($mouvement->type_hash == 'sorties/vrac_contrat'){
-                    if(!array_key_exists($mouvement->produit_hash, $cumulVrac)){
-                        $cumulVrac[$mouvement->produit_hash] = 0;
-                    }
-                    $cumulVrac[$mouvement->produit_hash] += -1 * $mouvement->volume;
-                }
-            }
+    	$result = false;
+        foreach ($this->getDetailsAvecVrac() as $detail) {
+        	$totalVolume = 0;
+			 foreach ($detail->vrac as $contrat) {
+			 	$totalVolume += $contrat->volume;
+			 }
+			 if ($detail->canHaveVrac() && $detail->sorties->vrac) {
+			  	  $ecart = round($detail->sorties->vrac * DRMValidation::ECART_VRAC, 4);
+				  if (round($totalVolume,4) < (round($detail->sorties->vrac,4) - $ecart)) {
+				    $result = true;
+				    break;
+				  }
+			  }
         }
-        foreach ($this->getDetailsAvecVrac() as $key => $detail) {
-            if($detail->hasVracs()){
-                $cepage = $detail->getCepage();
-                if(!array_key_exists($cepage->getHash(), $cumulVrac)){
-                    return true;
-                }
-                else{
-                    if($cumulVrac[$cepage->getHash()] < $detail->sorties->vrac){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-        
+        return $result;
     }
 
     public function getLibelleBilan() {
@@ -892,22 +900,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function getPreviousVersion() {
-    	
-        if($this->isModificative()) {
-            $doc = self::buildVersion($this->getRectificative(), $this->getModificative() - 1);
-            if ($this->findDocumentByVersion($doc)) {
-            	return $doc;
-            }
-        }
-        if($this->isRectificative()) {
-
-            $doc = self::buildVersion($this->getRectificative() - 1, $this->getModificative());
-        	if ($this->findDocumentByVersion($doc)) {
-            	return $doc;
-            }
-        }
-		//throw new sfException('Erreur de version');
-        return null;
+    	return $this->version_document->getPreviousVersion();
     }
 
     public function getMasterVersionOfRectificative() {

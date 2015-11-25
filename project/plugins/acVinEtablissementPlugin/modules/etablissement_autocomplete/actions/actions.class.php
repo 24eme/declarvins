@@ -6,20 +6,45 @@ class etablissement_autocompleteActions extends sfActions
   	public function executeAll(sfWebRequest $request) {
 	    $interpro = $request->getParameter('interpro_id');
 		$only_actif = $request->getParameter('only_actif');
-	    $this->json = $this->matchEtablissements(EtablissementAllView::getInstance()->findByZone($this->getZone($interpro))->rows,
+		if (preg_match('/zone/i', $interpro)) {
+			$this->json = array();
+			foreach (explode('|', $interpro) as $zone) {
+				$this->json = array_merge($this->json,
+						$this->matchEtablissements(EtablissementAllView::getInstance()->findByZone($zone)->rows,
+								$request->getParameter('q'),
+								$request->getParameter('limit', 100),
+								$only_actif)
+				);
+			}
+		} else {
+	    	$this->json = $this->matchEtablissements(EtablissementAllView::getInstance()->findByZone($this->getZone($interpro))->rows,
 	    								   $request->getParameter('q'),
 	    								   $request->getParameter('limit', 100),
 	    								   $only_actif);
+		}
 		$this->setTemplate('index');
   	}
   	
 	public function executeAllAdmin(sfWebRequest $request) {
 	    $interpro = $request->getParameter('interpro_id');
 		$only_actif = $request->getParameter('only_actif');
-	    $this->json = $this->matchEtablissements(EtablissementAllView::getInstance()->findAllByZone($this->getZone($interpro)),
-	    								   $request->getParameter('q'),
-	    								   $request->getParameter('limit', 100),
-	    								   $only_actif);
+
+		if (preg_match('/zone/i', $interpro)) {
+			$this->json = array();
+			foreach (explode('|', $interpro) as $zone) {
+				$this->json = array_merge($this->json,
+						$this->matchEtablissements(EtablissementAllView::getInstance()->findAllByZone($zone),
+								$request->getParameter('q'),
+								$request->getParameter('limit', 100),
+								$only_actif)
+				);
+			}
+		} else {
+			$this->json = $this->matchEtablissements(EtablissementAllView::getInstance()->findAllByZone($this->getZone($interpro)),
+					$request->getParameter('q'),
+					$request->getParameter('limit', 100),
+					$only_actif);
+		}
 		$this->setTemplate('index');
   	}
 
@@ -27,12 +52,23 @@ class etablissement_autocompleteActions extends sfActions
 	    $interpro = $request->getParameter('interpro_id');
 		$familles = $request->getParameter('familles');
 		$only_actif = $request->getParameter('only_actif');
-	    $this->json = $this->matchEtablissements(
-	    	EtablissementAllView::getInstance()->findByZoneAndFamilles($this->getZone($interpro), explode('|', $familles)),
-		    $request->getParameter('q'),
-		   	$request->getParameter('limit', 100),
-		   	$only_actif
-		);
+
+		if (preg_match('/zone/i', $interpro)) {
+			$this->json = array();
+			foreach (explode('|', $interpro) as $zone) {
+				$this->json = array_merge($this->json,
+						$this->matchEtablissements(EtablissementAllView::getInstance()->findByZoneAndFamilles($zone, explode('|', $familles)),
+								$request->getParameter('q'),
+								$request->getParameter('limit', 100),
+								$only_actif)
+				);
+			}
+		} else {
+			$this->json = $this->matchEtablissements(EtablissementAllView::getInstance()->findByZoneAndFamilles($this->getZone($interpro), explode('|', $familles)),
+					$request->getParameter('q'),
+					$request->getParameter('limit', 100),
+					$only_actif);
+		}
  		$this->setTemplate('index');	
   	}
 
@@ -45,12 +81,23 @@ class etablissement_autocompleteActions extends sfActions
 		for ($i=0, $nb = count($famille); $i<$nb; $i++) {
 			$result[$famille[$i]] = $sous_famille[$i];
 		}
-	    $this->json = $this->matchEtablissements(
-	    	EtablissementAllView::getInstance()->findByZoneAndSousFamilles($this->getZone($interpro), $result),
-		    $request->getParameter('q'),
-		   	$request->getParameter('limit', 100),
-		   	$only_actif
-		);
+
+		if (preg_match('/zone/i', $interpro)) {
+			$this->json = array();
+			foreach (explode('|', $interpro) as $zone) {
+				$this->json = array_merge($this->json,
+						$this->matchEtablissements(EtablissementAllView::getInstance()->findByZoneAndSousFamilles($zone, $result),
+								$request->getParameter('q'),
+								$request->getParameter('limit', 100),
+								$only_actif)
+				);
+			}
+		} else {
+			$this->json = $this->matchEtablissements(EtablissementAllView::getInstance()->findByZoneAndSousFamilles($this->getZone($interpro), $result),
+					$request->getParameter('q'),
+					$request->getParameter('limit', 100),
+					$only_actif);
+		}
  		$this->setTemplate('index');	
   	}
 

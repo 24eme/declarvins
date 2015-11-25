@@ -11,6 +11,8 @@
  * @method string setFrequence()
  * @method string getMoyen()
  * @method string setMoyen()
+ * @method string getReportPaye()
+ * @method string setReportPaye()
  
  */
 

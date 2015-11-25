@@ -3,10 +3,12 @@
                         ) ?>
 
 <?php foreach ($drm->getDroits() as $typedroit => $droits) if (count($drm->droits->{$typedroit})): ?>
-    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $typedroit == "douane") {continue;} ?>     
+    <?php /*if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $typedroit == "douane") {continue;}*/ ?>     
     <?php if (isset($hide_cvo) && $hide_cvo && $typedroit == "cvo") {continue;} ?>       
     <div class="tableau_ajouts_liquidations">
+
     <h2><strong><?php echo $libelles[$typedroit] ?></strong> <a href="" class="msg_aide" data-msg="help_popup_validation_droit_<?php echo $typedroit; ?>" title="Message aide"></a></h2>
+
     	<table class="tableau_recap">
             <thead>
     		<tr>
@@ -31,17 +33,17 @@
 	        	<td class="<?php echo isVersionnerCssClass($droit, 'volume_taxe') ?>"><?php echo $strong ; echoFloat($droit->volume_taxe); echo $estrong;?>&nbsp;<span class="unite">hl</span></td>
 	        	<td class="<?php echo isVersionnerCssClass($droit, 'volume_reintegre') ?>"><?php echo $strong; echoFloat($droit->volume_reintegre); echo $estrong; ?>&nbsp;<span class="unite">hl</span></td>
 	        	<td class=""><?php if (!$droit->isVirtual()): echo $strong; echoFloat($droit->taux); echo $estrong; ?>&nbsp;<span class="unite">€/hl</span><?php endif; ?></td>
-	        	<td class="<?php echo (isVersionner($droit, 'volume_taxe') || isVersionner($droit, 'volume_reintegre')) ? rectifierCssClass() : null ?>"><?php echo $strong; echoFloat($droit->payable); echo $estrong; ?>&nbsp;<span class="unite">€</span></td>
+	        	<td class="<?php echo (isVersionner($droit, 'volume_taxe') || isVersionner($droit, 'volume_reintegre')) ? versionnerCssClass() : null ?>"><?php echo $strong; echoFloat($droit->payable); echo $estrong; ?>&nbsp;<span class="unite">€</span></td>
 	        	<?php if ($drm->isPaiementAnnualise()): ?>
-	        	<td class="<?php echo (isVersionner($droit, 'volume_taxe') || isVersionner($droit, 'volume_reintegre')) ? rectifierCssClass() : null ?>"><?php if($droit->isTotal()): ?><strong><?php echoFloat($droit->reportable); ?>&nbsp;</strong><span class="unite">€</span><?php endif; ?></td>
-	            <td class="<?php echo (isVersionner($droit, 'volume_taxe') || isVersionner($droit, 'volume_reintegre')) ? rectifierCssClass() : null ?>"><?php if($droit->isTotal()): ?><strong><?php echoFloat($droit->cumulable); ?></strong>&nbsp;<span class="unite">€</span><?php endif; ?>&nbsp;</td>
+	        	<td class="<?php echo (isVersionner($droit, 'volume_taxe') || isVersionner($droit, 'volume_reintegre')) ? versionnerCssClass() : null ?>"><?php if($droit->isTotal()): ?><strong><?php echoFloat($droit->reportable); ?>&nbsp;</strong><span class="unite">€</span><?php endif; ?></td>
+	            <td class="<?php echo (isVersionner($droit, 'volume_taxe') || isVersionner($droit, 'volume_reintegre')) ? versionnerCssClass() : null ?>"><?php if($droit->isTotal()): ?><strong><?php echoFloat($droit->cumulable); ?></strong>&nbsp;<span class="unite">€</span><?php endif; ?>&nbsp;</td>
 	            <?php endif; ?>
         	</tr>
         	<?php endforeach; ?>
             </tbody>
     	</table>
+    	<?php endif; ?>
     </div>
-    
 
 <?php 
 if ($circulation && $typedroit == "douane" && 1==2): 

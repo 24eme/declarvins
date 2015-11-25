@@ -10,7 +10,7 @@ class DRMDroits extends BaseDRMDroits
     	return array_merge(self::$droit_entrees, $merge);
   	}
   	
-  	static $droit_entrees_inter_rhone = array();
+  	static $droit_entrees_inter_rhone = array('entrees/crd');
   	public static function getDroitEntreesInterRhone() 
   	{
     	return self::$droit_entrees_inter_rhone;
@@ -68,9 +68,9 @@ class DRMDroits extends BaseDRMDroits
 			}
     	}
     	
-    	if (count($this->res) == 2) {
+    	/*if (count($this->res) == 2) {
       		unset($this->res['ZZZZTotal']);
-    	}
+    	}*/
     	krsort($this->res);
     	if (isset($this->res['ZZZZTotal'])) {
 			$this->res['Total'] = $this->res['ZZZZTotal'];

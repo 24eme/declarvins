@@ -64,6 +64,11 @@
                     <?php if($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()):  ?>
                         <?php include_partial('drm/recap', array('drm' => $drm)) ?>
                 		<?php include_partial('drm/droits', array('drm' => $drm, 'circulation' => $droits_circulation, 'hide_cvo' => true)) ?>
+                		<?php if($drm->droits->douane->getReport() > 0 && $drm->get('declaratif')->get('paiement')->get('douane')->isAnnuelle()): ?>
+                		<div style="height: 20px;">
+                			<a href="<?php echo url_for('drm_payer_report', $drm) ?>" onclick="return confirm('Etes vous sûre de vouloir remettre le report à zéro ?');" style="text-transform: uppercase; color: #FFFFFF; height: 19px; line-height: 20px; font-weight: bold; padding: 0 10px; background-color: #ff9f00; border: 1px solid #ECEBEB; float: right;">J'ai payé le cumul des droits de circulation et souhaite remettre le report à zéro</a>
+                		</div>
+                		<?php endif; ?>
                     <?php else: ?>
                         <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
                     <?php endif; ?>

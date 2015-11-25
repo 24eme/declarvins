@@ -12,6 +12,10 @@
 	   		<td width="50%" style="text-align: right;">Saisie <?php echo $vrac->getModeDeSaisieLibelle() ?></td>
 		</tr>
 		<tr>
+			<td width="50%"><?php if ($vrac->exist('bailleur_metayer') && $vrac->bailleur_metayer): ?>Entre bailleur et métayer<?php endif; ?></td>
+			<td width="50%">&nbsp;</td>
+		</tr>
+		<tr>
 			<td width="50%">Saisie le <?php echo $vrac->getEuSaisieDate(); ?></td>
 			<?php if ($vrac->isValide()): ?>
 			<td width="50%" style="text-align: right;">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'En attente'; ?><?php if ($vrac->isConditionneIvse()): ?><br /><span class="clauses">à reporter sur la DRM et le document d'accompagnement DAA/DAE/DSA</span><?php endif; ?></td>

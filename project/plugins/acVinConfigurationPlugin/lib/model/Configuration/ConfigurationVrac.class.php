@@ -123,7 +123,7 @@ class ConfigurationVrac extends BaseConfigurationVrac {
         if (!$zones) {
                 $zones = array($this->getInterpro()->zone => ConfigurationZoneClient::getInstance()->find($this->getInterpro()->zone));
         }
-        return $this->getConfig()->getFormattedCouleurs(null, $zones, true, "%g% %a% %m% %l% %co%", false,  $date);
+        return $this->getConfig()->getFormattedCouleurs(null, $zones, false, "%g% %a% %m% %l% %co%", false,  $date);
     }
     
 }

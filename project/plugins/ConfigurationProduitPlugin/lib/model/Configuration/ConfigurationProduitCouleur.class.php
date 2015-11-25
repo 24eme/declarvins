@@ -64,7 +64,7 @@ class ConfigurationProduitCouleur extends BaseConfigurationProduitCouleur
     protected function getProduitWithTaux($date = null) {
         $date_cvo = (!$date)? date('Y-m-d') : $date;
         $droit = $this->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, $date_cvo, true);
-        if(!$droit || $droit->taux >= 0.0){
+        if($droit && $droit->taux >= 0){
              return array($this->getHash() => $this);
         }
         return array();

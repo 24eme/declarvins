@@ -6,7 +6,7 @@ use_helper('Text');
         <!--<li>
             <a href="#">Accueil</a>
         </li>-->
-        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $configuration->isApplicationOuverte($etablissement->interpro, 'drm')): ?>
+        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $configuration->isApplicationOuverte($etablissement->interpro, 'drm', $etablissement)): ?>
         <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
         <li<?php if ($active == 'drm'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('drm_mon_espace', $etablissement) ?>">DRM</a>

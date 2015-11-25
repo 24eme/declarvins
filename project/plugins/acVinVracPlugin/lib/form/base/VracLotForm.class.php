@@ -41,7 +41,7 @@ class VracLotForm extends acCouchdbObjectForm
 		));
 		$this->setValidators(array(
 	       'numero' => new sfValidatorString(array('required' => true)),
-	       'assemblage' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
+	       'assemblage' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixOuiNon()))),
 	       'degre' => new sfValidatorNumber(array('required' => false)),
 	       'presence_allergenes' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
 	       'allergenes' => new sfValidatorString(array('required' => false)),
@@ -105,6 +105,7 @@ class VracLotForm extends acCouchdbObjectForm
         $this->setDefault('presence_allergenes', 0);
         $this->getObject()->set('presence_allergenes', 0);
       }  
+        $this->setDefault('assemblage', 1);
     }
 
     protected function doUpdateObject($values) {

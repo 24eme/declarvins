@@ -37,12 +37,21 @@ EOF;
       $i = 0;
       $nb = count($rows);
       foreach($rows as $row) {
-	if (round(($i / $nb) * 100) < 12) {
+	/*if (round(($i / $nb) * 100) < 12) {
 		$this->logSection("debug", $row->id." squezzée avec succès", null, 'SUCCESS');
 		$i++;
 		continue;
-	}
+	}*/
+      	if ($row->key[1] != '2015-2016') {
+			//$this->logSection("debug", $row->id." squezzée avec succès", null, 'SUCCESS');
+			$i++;
+			continue;
+      	}
       	if ($drm = DRMClient::getInstance()->find($row->id)) {
+      		if (!$drm->isValidee()) {
+      			$i++;
+      			continue;
+      		}
       		$drm->setDroits();
 	      	try {
 	      		$drm->save();

@@ -53,11 +53,11 @@ $(document).ready(function() {
 						<span class="valeur"><?php echo $etablissement->siret ?></span>
 					</div>
 					<div class="ligne_form">
-						<label for="champ_3">N° entrepositaire agréé :</label>
+						<label for="champ_3">N° TVA intracommunautaire :</label>
 						<span class="valeur"><?php echo $etablissement->no_tva_intracommunautaire ?></span>
 					</div>
 					<div class="ligne_form">
-						<label for="champ_9">Numéro d’Accise :</label>
+						<label for="champ_9">N° accises / EA :</label>
 						<span class="valeur"><?php echo $etablissement->no_accises ?></span>
 					</div>
 					<div class="ligne_form">

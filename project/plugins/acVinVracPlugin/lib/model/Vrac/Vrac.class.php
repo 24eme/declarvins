@@ -283,6 +283,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 	      		$this->valide->statut = VracClient::STATUS_CONTRAT_ANNULE;
 	    		$this->annulation->date_annulation = date('c');
     			$this->date_stats = $this->annulation->date_annulation;
+    			$this->valide->date_validation = $this->annulation->date_annulation;
 	      	}
     	}
     }
@@ -312,6 +313,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$this->valide->date_validation = ($this->valide->date_saisie)? $this->valide->date_saisie : $this->date_signature;
     		$this->updateReferente();
     		$this->updateEnlevements();
+    		$this->setOioc();
     	} else {
     		if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
     			$this->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
@@ -358,6 +360,10 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$validateur = 'date_validation_'.$acteur;
     		$this->valide->{$validateur} = null;
     	}
+    	if ($this->exist('oioc')) {
+	    	$this->remove('oioc');
+	    	$this->add('oioc');
+    	}
     }
     
     public function updateStatut() {
@@ -380,6 +386,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	$this->date_stats = $this->valide->date_validation;
     	$this->updateReferente();
     	$this->updateEnlevements();
+    	$this->setOioc();
       }
     }
     
@@ -390,7 +397,18 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$mother->referente = 0;
     		$mother->valide->statut = VracClient::STATUS_CONTRAT_ANNULE;
     		$mother->date_stats = date('c');
+    		$mother->valide->date_validation = $mother->date_stats;
     		$mother->save(false);
+    	}
+    }
+    
+    public function setOioc()
+    {
+    	$produit = $this->getProduitObject();
+    	if ($organisme = $produit->getCurrentOrganisme($this->valide->date_saisie, true)) {
+	    	$oioc = $this->getOrAdd('oioc');
+	    	$oioc->identifiant = str_replace(OIOC::OIOC_KEY, '', $organisme->oioc);
+	    	$oioc->statut = OIOC::STATUT_EDI;
     	}
     }
     
@@ -415,6 +433,9 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$this->updateStatutSolde();
     	}
     	$this->part_cvo = floatval($this->part_cvo);
+    	if (!$this->valide->date_saisie) {
+    		$this->valide->date_saisie = date('c');
+    	}
     	parent::save();
     }
     

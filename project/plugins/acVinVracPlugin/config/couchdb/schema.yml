@@ -49,6 +49,7 @@ Vrac:
         type: collection
         definition:
           fields:
+            siret: {  }
             libelle: {  }
             adresse: {  }
             code_postal: {  }
@@ -80,6 +81,7 @@ Vrac:
         type: collection
         definition:
           fields:
+            siret: {  }
             libelle: {  }
             adresse: {  }
             code_postal: {  }
@@ -111,6 +113,7 @@ Vrac:
             famille: {  }
             sous_famille: {   }
       premiere_mise_en_marche: {  }
+      bailleur_metayer: {  }
       cas_particulier: {  }
       cas_particulier_libelle: {  }
       original: {  }
@@ -268,6 +271,14 @@ Vrac:
             date_validation_acheteur: {  }
             date_validation_mandataire: {  }
             date_validation: {  }
+            identifiant: {  }
+            statut: { }
+      oioc:
+        type: collection
+        definition:
+          fields:
+            date_reception: {  }
+            date_traitement: {  }
             identifiant: {  }
             statut: { }
       nature_document: {  }

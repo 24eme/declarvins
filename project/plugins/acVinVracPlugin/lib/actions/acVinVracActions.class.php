@@ -104,26 +104,6 @@ class acVinVracActions extends sfActions
 		$vrac->numero_contrat = uniqid();
 		$vrac->add('referente', 1);
 		$vrac->add('version', null);
-		$vrac->vendeur_type = 'producteur';
-		$vrac->acheteur_type = 'negociant';
-		if ($etablissement) {
-			$famille = EtablissementClient::getInstance()->matchFamille($etablissement->famille);
-			if ($famille == EtablissementFamilles::FAMILLE_PRODUCTEUR) {
-				$vrac->vous_etes = 'vendeur';
-				$vrac->vendeur_identifiant = $etablissement->identifiant;
-			}
-			if ($famille == EtablissementFamilles::FAMILLE_NEGOCIANT) {
-				$vrac->vous_etes = 'acheteur';
-				$vrac->acheteur_identifiant = $etablissement->identifiant;
-				
-			}
-			if ($famille == EtablissementFamilles::FAMILLE_COURTIER) {
-				$vrac->vous_etes = 'mandataire';
-				$vrac->mandataire_identifiant = $etablissement->identifiant;
-				$vrac->mandataire_exist = 1;
-				
-			}
-		}
 		return $vrac;
 	}
 
@@ -250,6 +230,10 @@ class acVinVracActions extends sfActions
 				}
 				$this->vrac->save();
 				$sendEmail = (bool)$this->form->getValue('email');
+				$brouillon = (bool)$this->form->getValue('brouillon');
+				if ($brouillon) {
+					return $this->redirect(array('sf_route' => 'vrac_etape', 'sf_subject' => $this->vrac, 'step' => 'validation', 'etablissement' => $this->etablissement));
+				}
 				if (!$this->configurationVracEtapes->next($this->etape)) {
 					$interpro = $this->getInterpro($this->vrac, $this->etablissement);
 					$this->vrac->interpro = $interpro->get('_id');
@@ -438,7 +422,7 @@ class acVinVracActions extends sfActions
         $this->init($this->vrac, $this->etablissement);
 
         $vrac_rectificative = $this->vrac->generateRectificative();
-        if ($conflict = VracClient::getInstance()->find($vrac_rectificative->_id)) {
+        if ($conflict = VracClient::getInstance()->find($vrac_rectificative->makeId())) {
         	$conflict->delete();
         }
         if ($this->etablissement) {

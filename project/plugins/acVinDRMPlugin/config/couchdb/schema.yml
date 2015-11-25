@@ -461,6 +461,7 @@ DRM:
                       fields:
                         frequence: {  }
                         moyen: {  }
+                        report_paye: {  }
                   cvo:
                     class: DRMPaiement
                     type: collection
@@ -468,6 +469,7 @@ DRM:
                       fields:
                         frequence: {  }
                         moyen: {  }
+                        report_paye: {  }
             caution:
               type: collection
               definition:
