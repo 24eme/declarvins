@@ -413,7 +413,7 @@ class ediActions extends sfActions
 			      	}
 	            } catch (Exception $e) {
 	            	foreach ($import->getErrors() as $k => $v) {
-	                	$result[$k] = array('ERREUR', 'LIGNE', $k, implode(' - ', $v));
+	                	$result[$k] = array('ERREUR', 'LIGNE', $k+1, implode(' - ', $v));
 	                }
 	            }
 	        } else {
