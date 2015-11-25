@@ -383,12 +383,12 @@ class ImportEtablissementsCsv {
     	try {
 		    $compte->email = $validateur->clean(trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_EMAIL]));
 		} catch (sfValidatorError $e) {
-        	if (isset($this->_errors[$ligne])) {
-        		$merge = $this->_errors[$ligne];
+        	if (isset($this->_errors[$line])) {
+        		$merge = $this->_errors[$line];
         		$merge[] = 'Colonne (indice '.(EtablissementCsv::COL_CHAMPS_COMPTE_EMAIL + 1).') "email" non valide';
-        		$this->_errors[$ligne] = $merge;
+        		$this->_errors[$line] = $merge;
         	} else {
-        		$this->_errors[$ligne] = array('Colonne (indice '.(EtablissementCsv::COL_CHAMPS_COMPTE_EMAIL + 1).') "email" non valide');
+        		$this->_errors[$line] = array('Colonne (indice '.(EtablissementCsv::COL_CHAMPS_COMPTE_EMAIL + 1).') "email" non valide');
         	}
         	throw new sfException('has errors');
 		}
