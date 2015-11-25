@@ -408,6 +408,9 @@ class ediActions extends sfActions
 	            try {
 	            	$nb = $import->updateOrCreate();
 	                $result[0] = array('OK', '', 0, $nb.' établissement(s) importé(s)');
+			      	if (count($import->getErrors()) > 0) {
+			      		throw new sfException("has errors");
+			      	}
 	            } catch (Exception $e) {
 	            	foreach ($import->getErrors() as $k => $v) {
 	                	$result[$k] = array('ERREUR', 'LIGNE', $k, implode(' - ', $v));
