@@ -282,9 +282,11 @@ DRM:
                                                                                                             has_vrac: {  }
                                                                                                             pas_de_mouvement_check: { type: integer }
                                                                                                             total_debut_mois: { type: float }
+                                                                                                            acq_total_debut_mois: { type: float }
                                                                                                             total_entrees: { type: float }
                                                                                                             total_sorties: { type: float }
                                                                                                             total: { type: float }
+                                                                                                            acq_total: { type: float }
                                                                                                             total_entrees_nettes: { type: float }
                                                                                                             total_entrees_reciproque: { type: float }
                                                                                                             total_sorties_nettes: { type: float }
@@ -349,6 +351,16 @@ DRM:
                                                                                                                   declassement: { type: float }
                                                                                                                   mouvement: { type: float }
                                                                                                                   crd: { type: float }
+                                                                                                                  manipulation: { type: float }
+                                                                                                                  vci: { type: float }
+                                                                                                                  embouteillage: { type: float }
+                                                                                                                  travail: { type: float }
+                                                                                                                  distillation: { type: float }
+                                                                                                                  replacement: { type: float }
+                                                                                                                  excedent: { type: float }
+                                                                                                                  transfert: { type: float }
+                                                                                                                  acq_achat: { type: float }
+                                                                                                                  acq_autres: { type: float }
                                                                                                             sorties:
                                                                                                               type: collection
                                                                                                               class: DRMDetailNoeud
@@ -365,6 +377,16 @@ DRM:
                                                                                                                   mouvement: { type: float }
                                                                                                                   distillation: { type: float }
                                                                                                                   lies: { type: float }
+                                                                                                                  mutage: { type: float }
+                                                                                                                  transfert: { type: float }
+                                                                                                                  vci: { type: float }
+                                                                                                                  embouteillage: { type: float }
+                                                                                                                  travail: { type: float }
+                                                                                                                  autres: { type: float }
+                                                                                                                  autres_interne: { type: float }
+                                                                                                                  acq_crd: { type: float }
+                                                                                                                  acq_replacement: { type: float }
+                                                                                                                  acq_autres: { type: float }
                                                                                                             stocks_fin:
                                                                                                               type: collection
                                                                                                               class: DRMDetailNoeud
