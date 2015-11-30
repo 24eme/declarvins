@@ -3,7 +3,7 @@
 class DRMDetailStocksFinForm  extends acCouchdbObjectForm {
 
     public function configure() {
-    	foreach (Configuration::getStocksFin() as $key => $item) {
+    	foreach (Configuration::getStocksFin($this->getOption('acquittes', false)) as $key => $item) {
 	    	$this->setWidget($key, new sfWidgetFormInputFloat(array('float_format' => "%01.04f")));
 	    	$this->setValidator($key, new sfValidatorNumber(array('required' => false)));
     	}        

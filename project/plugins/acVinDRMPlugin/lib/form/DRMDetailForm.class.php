@@ -11,16 +11,16 @@ class DRMDetailForm extends acCouchdbObjectForm {
     	}
     	$this->setValidator('total_debut_mois', new sfValidatorNumber(array('required' => false)));
     	
-        $this->stocks_debut = new DRMDetailStocksDebutForm($this->getObject()->stocks_debut);
+        $this->stocks_debut = new DRMDetailStocksDebutForm($this->getObject()->stocks_debut, array('acquittes' => false));
         $this->embedForm('stocks_debut', $this->stocks_debut);
             
-        $this->entrees = new DRMDetailEntreesForm($this->getObject()->entrees);
+        $this->entrees = new DRMDetailEntreesForm($this->getObject()->entrees, array('acquittes' => false));
         $this->embedForm('entrees', $this->entrees);
 
-        $this->sorties = new DRMDetailSortiesForm($this->getObject()->sorties);
+        $this->sorties = new DRMDetailSortiesForm($this->getObject()->sorties, array('acquittes' => false));
         $this->embedForm('sorties', $this->sorties);
         
-        $this->stocks_fin = new DRMDetailStocksFinForm($this->getObject()->stocks_fin);
+        $this->stocks_fin = new DRMDetailStocksFinForm($this->getObject()->stocks_fin, array('acquittes' => false));
         $this->embedForm('stocks_fin', $this->stocks_fin);
         
         $this->widgetSchema->setNameFormat('drm_detail[%s]');

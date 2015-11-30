@@ -12,6 +12,12 @@ class drm_recapComponents extends sfComponents {
         }
     }
     
+    public function executeItemFormAcq() {
+        if (is_null($this->form)) {
+            $this->form = new DRMDetailAcqForm($this->detail);
+        }
+    }
+    
     public function executeOnglets() {
         $this->items = $this->drm_lieu->getCertification()->getLieuxArray();
     }

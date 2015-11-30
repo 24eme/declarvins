@@ -83,6 +83,7 @@ class DRMProduitAjoutForm extends acCouchdbForm
 
         $detail = $this->_drm->addProduit($this->values['hashref'], $this->values['label']);
         $detail->total_debut_mois = 0;
+        $detail->acq_total_debut_mois = 0;
         $detail->total_debut_mois_interpro = 0;
         if ($this->values['disponible']) {
             $detail->total_debut_mois = $this->values['disponible'];
