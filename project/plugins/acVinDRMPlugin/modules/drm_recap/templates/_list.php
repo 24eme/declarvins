@@ -31,6 +31,7 @@
         </div>
     </div>
 </div>
+<?php if ($drm->hasDroitsAcquittes()): ?>
 <h1>En droits acquittés</h1>
 <div id="colonnes_dr_acq">
     <?php include_partial('drm_recap/itemHeader', array('config_lieu' => $config_lieu, 'acquittes' => true)); ?>    
@@ -51,3 +52,4 @@
         </div>
     </div>
 </div>
+<?php endif; ?>

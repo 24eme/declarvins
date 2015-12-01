@@ -372,7 +372,7 @@ class DRMDetail extends BaseDRMDetail {
 
     public function hasMouvement() {
 
-        return ($this->total_entrees > 0 || $this->total_sorties > 0) || ($this->acq_total_entrees > 0 || $this->acq_total_sorties > 0);
+        return ($this->total_entrees > 0 || $this->total_sorties > 0 || $this->acq_total_entrees > 0 || $this->acq_total_sorties > 0);
     }
 
     public function hasStockEpuise() {

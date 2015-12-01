@@ -25,6 +25,7 @@ DRM:
       precedente: {  }
       referente: { required: false }
       rectificative: { type: integer, required: false }
+      droits_acquittes: { type: integer }
       droits:
         type: collection
         definition:

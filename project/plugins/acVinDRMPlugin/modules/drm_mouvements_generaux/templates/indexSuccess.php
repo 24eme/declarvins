@@ -28,8 +28,23 @@
 	        		
 	        			<div id="ajouts_liquidations">
 		        			<?php if ($drm->hasProduits()): ?>
+		        			<div style="padding:15px 0 0 0; margin:0;" class="tableau_ajouts_liquidations">
+			        			<table class="tableau_recap">
+									<tbody>
+									<tr class="alt">
+										<td style="width: 694px;" colspan="2">
+											<label for="<?php echo $form['droits_acquittes']->renderId() ?>">Je souhaite déclarer des produits en droits acquittés <a href="" class="msg_aide" data-msg="help_popup_mouvgen_droits_acquittes" title="Message aide"></a>
+											</label>
+										</td>
+										<td style="width: 140px" align="center">
+											<?php echo $form['droits_acquittes']->render() ?>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+			        		</div>
 		        			<?php if(!$drm->declaration->hasMouvement()): ?>
-		        			<div style="padding:15px 0 0 0; margin:0 0 15px 0;" class="tableau_ajouts_liquidations">
+		        			<div style="padding:0; margin:0 0 15px 0;" class="tableau_ajouts_liquidations">
 			        			<table class="tableau_recap">
 									<tbody>
 									<tr class="alt">
