@@ -107,7 +107,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     public function getDetailsAvecVrac() {
         $details = array();
         foreach ($this->getDetails() as $d) {
-            if ($d->sorties->vrac && $d->canHaveVrac()) {
+            if (($d->sorties->vrac && $d->canHaveVrac()) || count($d->vrac->toArray()) > 0) {
                 $details[] = $d;
             }
         }

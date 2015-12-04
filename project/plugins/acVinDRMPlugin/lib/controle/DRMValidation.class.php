@@ -108,7 +108,7 @@ class DRMValidation
 			  foreach ($detail->vrac as $contrat) {
 			    $totalVolume += $contrat->volume;
 			  }
-			  if ($detail->canHaveVrac() && $detail->sorties->vrac) {
+			  if (($detail->canHaveVrac() && $detail->sorties->vrac) || count($detail->vrac->toArray()) > 0) {
 			  	  $ecart = round($detail->sorties->vrac * self::ECART_VRAC, 4);
 				  if (round($totalVolume,4) < (round($detail->sorties->vrac,4) - $ecart) || round($totalVolume,4) > (round($detail->sorties->vrac,4) + $ecart)) {
 				  	if ($detail->getCertification()->getKey() == self::IGP_KEY || $detail->interpro == 'INTERPRO-CIVP') {
@@ -142,7 +142,7 @@ class DRMValidation
 			  foreach ($detail->vrac as $contrat) {
 			    $totalVolume += $contrat->volume;
 			  }
-			  if ($detail->canHaveVrac() && $detail->sorties->vrac) {
+			  if (($detail->canHaveVrac() && $detail->sorties->vrac) || count($detail->vrac->toArray()) > 0) {
 			  	  $ecart = round($detail->sorties->vrac * self::ECART_VRAC, 4);
 				  if (round($totalVolume,4) < (round($detail->sorties->vrac,4) - $ecart) || round($totalVolume,4) > (round($detail->sorties->vrac,4) + $ecart)) {
 				    $this->warnings['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('vrac', $this->generateUrl('drm_vrac', $this->drm), $detail->makeFormattedLibelle().': %message%');
