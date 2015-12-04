@@ -326,7 +326,8 @@ class Configuration extends BaseConfiguration {
   						'CIVP24659',
   						'CIVP36023',
   						'CIVP25103',
-  						'CIVP23940'
+  						'CIVP23940',
+  						'CIVP23602'
   				);
   				if (in_array($etablissement->identifiant, $test)) {
   					$ouverture = 1;
