@@ -113,7 +113,7 @@ class acVinVracActions extends sfActions
         $this->etablissement = $this->getRoute()->getEtablissement();
         
         if (!$this->vrac->isNew())  {
-	        if ($this->vrac->valide->date_saisie) {
+	        if ($this->vrac->valide->date_validation) {
 	        	$this->contratAnnulation($this->vrac, $this->etablissement);
 	        }
 	        $this->vrac->delete();
