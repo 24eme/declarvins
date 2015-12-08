@@ -91,6 +91,7 @@ class Email {
   					->setFrom($from)
   					->setTo($to)
   					->setCc($cc)
+  					->setReplyTo($cc)
   					->setSubject($subject)
   					->setBody($body)
   					->setContentType('text/html')
