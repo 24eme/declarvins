@@ -6,7 +6,7 @@
 			<ul>
 				<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 				<li>Identifiant <?php echo str_replace('INTERPRO-', '', $etablissement->interpro) ?> : <strong><?php echo $etablissement->identifiant ?></strong></li>
-				<?php if ($etablissement->exist('correspondances')): foreach ($etablissement->correspondances as $interpro => $correspondance): ?>
+				<?php if ($etablissement->exist('correspondances')): foreach ($etablissement->correspondances as $interpro => $correspondance): if ($correspondance == $etablissement->identifiant) { continue; }?>
 				<li>Identifiant <?php echo str_replace('INTERPRO-', '', $interpro) ?> : <strong><?php echo $correspondance ?></strong></li>
 				<?php endforeach; endif;?>
 				<li>&nbsp;</li>
@@ -28,6 +28,10 @@
 				<li>email : <strong><?php echo $etablissement->email ?></strong></li>
 			</ul>
 			<ul>
+				<li>Interprofession référente : <strong><?php echo $etablissement->getInterproObject()->nom ?></strong></li>
+				<?php if ($etablissement->exist('zones')): ?>
+				<li>Zones : <strong><?php $zones = ''; foreach ($etablissement->zones as $zone): if (!$zone->transparente): $zones .= $zone->libelle.' - '; endif; endforeach; echo substr($zones, 0, -2); ?></strong></li>
+				<?php endif; ?>
 				<li>Famille : <strong><?php echo EtablissementFamilles::getFamilleLibelle($etablissement->famille) ?></strong></li>
 			    <li>Sous-famille : <strong><?php echo EtablissementFamilles::getSousFamilleLibelle($etablissement->famille, $etablissement->sous_famille) ?></strong></li>
 				<li>Dépend du service des douanes de : <strong><?php echo $etablissement->service_douane ?></strong></li>
