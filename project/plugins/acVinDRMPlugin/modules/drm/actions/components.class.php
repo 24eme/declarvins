@@ -82,9 +82,9 @@ class drmComponents extends sfComponents {
     }
 
     protected function hasNewDRM($historique, $identifiant) {
-        if ($historique->getLastPeriode(false) >= $historique->getCurrentPeriode()) {
+        /*if ($historique->getLastPeriode(false) >= $historique->getCurrentPeriode()) {
             return false;
-        }
+        }*/
         if ($historique->hasDRMInProcess()) {
             return false;
         }
