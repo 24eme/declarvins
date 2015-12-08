@@ -72,7 +72,7 @@ class vracActions extends acVinVracActions
 			$oioc = OIOCClient::getInstance()->find($vrac->oioc->identifiant);
 			$etablissement = EtablissementClient::getInstance()->find($vrac->get('vendeur_identifiant'));
 			$configurationVrac = $this->getConfigurationVrac($vrac->interpro);
-			$transaction = new ExportVracPdfTransaction($vrac, $configurationVrac);
+			$transaction = new ExportVracPdfTransaction($vrac, $configurationVrac, true);
 			$transaction->generate();
 			Email::getInstance()->vracTransaction($vrac, $etablissement, $oioc, $transactionCC);
 		}
