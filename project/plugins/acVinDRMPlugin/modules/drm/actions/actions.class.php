@@ -37,10 +37,10 @@ class drmActions extends sfActions {
             $this->redirect('drm_mon_espace', $etablissement);
         }
 
-        if ($drm->periode > DRMClient::getInstance()->getCurrentPeriode()) {
+        /*if ($drm->periode > DRMClient::getInstance()->getCurrentPeriode()) {
             $this->getUser()->setFlash('erreur_drm', 'Impossible de faire une DRM future');
             $this->redirect('drm_mon_espace', $etablissement);
-        }
+        }*/
 
         /* if ($drm->isDebutCampagne() && !$drm->hasDaidsCampagnePrecedente()) {
           $this->getUser()->setFlash('erreur_drm', 'Impossible de faire la DRM '.$drm->periode.' sans la DAI/DS '.$drm->getCampagnePrecedente());

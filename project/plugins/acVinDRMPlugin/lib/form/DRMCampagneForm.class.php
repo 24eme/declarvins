@@ -37,7 +37,7 @@ class DRMCampagneForm extends sfForm
 	    return $results;
     }
     public function getYears() {
-    	$years = range(date('Y'), date('Y') - 10);
+    	$years = range(date('Y') + 1, date('Y') - 10);
     	array_unshift($years, '');
     	$years = array_combine($years, $years);
     	return $years;
