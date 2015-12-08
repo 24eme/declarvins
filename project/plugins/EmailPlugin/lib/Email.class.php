@@ -80,6 +80,25 @@ class Email {
         return $this->getMailer()->send($message);
     }
     
+    public function vracTransaction($vrac, $etablissement, $oioc, $cc) 
+    {
+        $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
+        $from = $this->getFromEmailInterpros($interpros);
+        $to = array($oioc->email_transaction);
+        $subject = 'Envoi de votre DECLARATION DE TRANSACTION à votre OIOC';
+        $body = $this->getBodyFromPartial('vrac_transaction', array('vrac' => $vrac, 'etablissement' => $etablissement, 'oioc' => $oioc));
+		$message = Swift_Message::newInstance()
+  					->setFrom($from)
+  					->setTo($to)
+  					->setCc($cc)
+  					->setSubject($subject)
+  					->setBody($body)
+  					->setContentType('text/html')
+  					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$vrac->get('_id').'-TRANSACTION.pdf'));
+		
+        return $this->getMailer()->send($message);
+    }
+    
     public function vracContratModifie($vrac, $etablissement, $destinataire) 
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));

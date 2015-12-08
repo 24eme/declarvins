@@ -1,7 +1,9 @@
-<div class="vigilance_list">
-    <ul>
-        <li>Attention votre déclaration de transaction ne sera pas envoyée automatiquement à votre organisme d'inspection/de contrôle (fonctionnalité à venir).<br />Vous devrez donc la faire parvenir lorsque vous aurez reçu le document correspondant en PDF.</li>
-    </ul>
+<div style="background: none repeat scroll 0 0 #ECFEEA;border: 1px solid #359B02;color: #1E5204;font-weight: bold;margin: 0 0 10px 0;padding: 5px 10px;">
+	<ul>
+		<li>
+			Votre déclaration de transaction est désormais envoyée automatiquement à votre OIOC par e-mail (vous serez copie).<br />Si vous n’êtes pas en copie de ce mail, ou si vous ne recevez pas d'accusé de réception de votre OIOC dans les 24 heures pour AVPI, 48 heures ouvrées pour QUALISUD, vous devrez impérativement prendre contact avec votre OIOC afin de transmettre vous-même votre déclaration de transaction (« PDF Transaction »).<br />Votre interprofession ne pourra être tenu responsable de la non réception de votre déclaration de transaction par votre OIOC.
+		</li>
+	</ul>
 </div>
 <form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>">
         <?php echo $form->renderHiddenFields() ?>
