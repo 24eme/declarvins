@@ -292,8 +292,8 @@
 
 	#lots table th.num_lot
 	{
-		background: #666;
-		color: #fff;
+		background: #fff;
+		color: #000;
 		width: 25%;	
 	}
 
