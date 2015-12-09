@@ -68,13 +68,15 @@ class vracActions extends acVinVracActions
 				}
 			}
 		}
-		if ($vrac->exist('oioc') && $vrac->oioc->identifiant) {
-			$oioc = OIOCClient::getInstance()->find($vrac->oioc->identifiant);
-			$etablissement = EtablissementClient::getInstance()->find($vrac->get('vendeur_identifiant'));
-			$configurationVrac = $this->getConfigurationVrac($vrac->interpro);
-			$transaction = new ExportVracPdfTransaction($vrac, $configurationVrac, true);
-			$transaction->generate();
-			Email::getInstance()->vracTransaction($vrac, $etablissement, $oioc, $transactionCC);
+		if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+			if ($vrac->exist('oioc') && $vrac->oioc->identifiant) {
+				$oioc = OIOCClient::getInstance()->find($vrac->oioc->identifiant);
+				$etablissement = EtablissementClient::getInstance()->find($vrac->get('vendeur_identifiant'));
+				$configurationVrac = $this->getConfigurationVrac($vrac->interpro);
+				$transaction = new ExportVracPdfTransaction($vrac, $configurationVrac, true);
+				$transaction->generate();
+				Email::getInstance()->vracTransaction($vrac, $etablissement, $oioc, $transactionCC);
+			}
 		}
 	}
 	

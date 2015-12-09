@@ -1,6 +1,5 @@
 <?php echo include_partial('Email/headerMail') ?>
 
-Entreprise :  <?php if($etablissement->nom) { echo $etablissement->nom; } if($etablissement->raison_sociale) { echo ($etablissement->nom)? ' / '.$etablissement->raison_sociale : $etablissement->raison_sociale; } echo ($etablissement->famille)? ' - '.ucfirst($etablissement->famille) : ''; ?><?php if ($etablissement->telephone) {echo ' '.$etablissement->telephone;} if ($etablissement->fax) {echo ' '.$etablissement->fax;} if ($etablissement->email) {echo ' <a href="mailto:'.$etablissement->email.'">'.$etablissement->email.'</a>';} ?><br /><br />
 A destination de <?php echo $oioc->nom ?>,<br /><br />
 Veuillez trouver en pièce jointe la déclaration de transaction <?php echo $vrac->numero_contrat; ?> validé le <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_validation)) ?>.<br />
 Ce mail ne vaut pas Accusé de Réception ni Accusé de Traitement. C’est votre OIOC qui vous confirmera la réception de votre déclaration de transaction.<br />
