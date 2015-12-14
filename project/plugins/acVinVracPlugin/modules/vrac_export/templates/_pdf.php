@@ -193,9 +193,10 @@
 	<div id="lots">
 
 
-		<table>
+		
 			<?php $date_premiere_retiraison = null; ?>
 			<?php foreach ($vrac->lots as $lot): ?>
+			<table>
 			<?php
 				$nb_cuves = sizeof($lot->cuves);
 				$nb_millesimes = 0;
@@ -258,8 +259,9 @@
 				<td><?php echo ($lot->presence_allergenes)? 'Oui' : 'Non'; ?></td>
 				<td colspan="2"></td>
 			</tr>
+			</table>
 			<?php endforeach; ?>
-		</table>
+		
 
 	</div>
 	<?php if ($date_premiere_retiraison): ?>
