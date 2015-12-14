@@ -68,7 +68,7 @@ class vracActions extends acVinVracActions
 				}
 			}
 		}
-		if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+		if ($vrac->mode_de_saisie != Vrac::MODE_DE_SAISIE_PAPIER) {
 			if ($vrac->exist('oioc') && $vrac->oioc->identifiant) {
 				$oioc = OIOCClient::getInstance()->find($vrac->oioc->identifiant);
 				$etablissement = EtablissementClient::getInstance()->find($vrac->get('vendeur_identifiant'));
