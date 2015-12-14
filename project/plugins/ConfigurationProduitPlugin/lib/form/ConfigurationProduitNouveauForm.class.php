@@ -5,7 +5,7 @@ class ConfigurationProduitNouveauForm extends sfForm
 	protected static $configurationNoeud = array('certifications' => 'certification', 'genres' => 'genre', 'appellations' => 'appellation', 'lieux' => 'lieu', 'couleurs' => 'couleur', 'cepages' => 'cepage'); 
 	protected static $certifications = array('' => '', 'AOP' => 'AOP', 'IGP' => 'IGP', 'VINSSANSIG' => 'SANS IG', 'LIE' => 'LIE', 'MOUTS' => 'MOÛTS');
 	protected static $couleurs = array('' => '', 'rouge' => 'Rouge', 'blanc' => 'Blanc', 'rose' => 'Rosé');
-	protected static $genres = array('' => '', 'EFF' => 'Effervescent', 'TRANQ' => 'Tranquilles', 'VDN' => 'Vin doux naturel');
+	protected static $genres = array('' => '', 'EFF' => 'Effervescent', 'TRANQ' => 'Tranquilles', 'VDN' => 'Vin doux naturel', 'VCI' => 'VCI');
 	
 	public function __construct($configuration, $defaults = array(), $options = array(), $CSRFSecret = null) 
 	{
