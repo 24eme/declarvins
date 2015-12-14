@@ -134,7 +134,11 @@
 	<h2>Conditions</h2>
 	<?php if ($vrac->isConditionneIvse()): ?><p><strong>De retiraison :</strong></p><?php endif; ?>
 	<p>
-		<?php echo ($vrac->date_debut_retiraison)? 'Date de début de retiraison : '.Date::francizeDate($vrac->date_debut_retiraison).'&nbsp;&nbsp;' : ''; ?>
+		
+		<?php if (!$vrac->isConditionneIvse()): ?>
+		Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?>&nbsp;;&nbsp;
+		<?php endif; ?>
+		<?php echo ($vrac->date_debut_retiraison)? 'Date de début de retiraison : '.Date::francizeDate($vrac->date_debut_retiraison).'&nbsp;;&nbsp;' : ''; ?>
 		<?php echo ($vrac->date_limite_retiraison)? 'Date limite de retiraison : '.Date::francizeDate($vrac->date_limite_retiraison) : ''; ?>
 	</p>
 
@@ -175,10 +179,7 @@
 		<?php if(!is_null($vrac->delai_paiement)): ?>
 		Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array($vrac->delai_paiement)) ?><br />
 		<?php endif; ?>
-		<?php if (!$vrac->isConditionneIvse()): ?>
-		Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?><br /><br />
-		<?php endif; ?>
-		Autres observations : <?php if ($vrac->exist('observations') && $vrac->observations): ?><?php echo $vrac->observations ?><?php endif; ?>
+		Autres observations : <?php if ($vrac->exist('observations') && $vrac->observations): ?><?php echo $vrac->observations ?><?php endif; ?><br />
 		
 	</p>
 	<?php if ($vrac->isConditionneIvse()): ?><hr /><?php endif; ?>
@@ -190,12 +191,13 @@
 	<hr />
 	<h2>Descriptif des lots</h2>
 
-	<div id="lots">
+
 
 
 		
 			<?php $date_premiere_retiraison = null; ?>
 			<?php foreach ($vrac->lots as $lot): ?>
+			<div id="lots">
 			<table>
 			<?php
 				$nb_cuves = sizeof($lot->cuves);
@@ -260,13 +262,12 @@
 				<td colspan="2"></td>
 			</tr>
 			</table>
+			</div>
 			<?php endforeach; ?>
 		
 
-	</div>
-	<?php if ($date_premiere_retiraison): ?>
-	<p>Date première retiraison : <?php echo Date::francizeDate($date_premiere_retiraison) ?></p>
-	<?php endif; ?>
+	
+	
 	<?php if ($configurationVrac->getInformationsComplementaires()): ?>
 	<h2>Informations complémentaires</h2>
 	<div class="clauses">

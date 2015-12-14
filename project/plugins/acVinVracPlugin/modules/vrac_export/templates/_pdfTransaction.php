@@ -90,13 +90,15 @@
 	
 	
 	<?php if ($vrac->has_transaction): ?>
+	<hr />
 	<h2>Descriptif des lots</h2>
 
-	<div id="lots">
+	
 
 		<?php $date_premiere_retiraison = null; ?>
-		<table>
 			<?php foreach ($vrac->lots as $lot): ?>
+			<div id="lots">
+			<table>
 			<?php
 				$nb_cuves = sizeof($lot->cuves);
 				$nb_millesimes = 0;
@@ -159,18 +161,17 @@
 				<td><?php echo ($lot->presence_allergenes)? 'Oui' : 'Non'; ?></td>
 				<td colspan="2"></td>
 			</tr>
+			</table>
+			</div>
 			<?php endforeach; ?>
-		</table>
-
-	</div>
+			
 	<?php endif; ?>
 	<p>Volume total : <?php echoLongFloat($vrac->volume_propose) ?>&nbsp;hl</p>
 	<?php if ($date_premiere_retiraison): ?>
 	<p>Date première retiraison : <?php echo Date::francizeDate($date_premiere_retiraison) ?></p>
 	<?php endif; ?>
-	<p>Observations : <?php echo $vrac->commentaires ?></p>
+	<p>Observations : <?php echo $vrac->commentaires ?><br /></p>
 	<?php if ($configurationVrac->getInformationsComplementaires()): ?>
-	<hr />
 	<h2>Informations complémentaires</h2>
 	<div class="clauses">
 	<?php echo $configurationVrac->getInformationsComplementaires(ESC_RAW) ?>
