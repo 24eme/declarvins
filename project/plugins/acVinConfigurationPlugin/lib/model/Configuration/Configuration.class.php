@@ -13,6 +13,12 @@ class Configuration extends BaseConfiguration {
     protected $_configuration_produits_CIVL = null;
     protected $_configuration_produits_IO = null;
     protected $_zones = null;
+
+    protected static $contraintes_vci = array(
+    		'entrees/recolte',
+    		'sorties/repli'
+    );
+    
     protected static $stocks_debut = array(
         'bloque' => 'Dont Vin bloqué / Reserve',
         'warrante' => 'Dont Vin warranté',
@@ -24,7 +30,8 @@ class Configuration extends BaseConfiguration {
         'repli' => 'Replis / Changement de dénomination',
         'declassement' => 'Déclassement / Lies',
         'mouvement' => 'Transfert de chai / Embouteillage / Retours',
-        'crd' => 'Réintégration conditionné / Vrac'
+        'crd' => 'Réintégration conditionné / Vrac',
+        'vci' => 'Intégration issue de VCI'
     );
     protected static $stocks_sortie = array(
         'vrac' => 'Vrac DAA / DAE / DAC',
@@ -34,7 +41,7 @@ class Configuration extends BaseConfiguration {
         'consommation' => 'Conso Fam. / Analyses / Dégustation',
         'pertes' => 'Pertes exceptionnelles',
         'declassement' => 'Non rev. / Déclassement',
-        'repli' => 'Changement / Repli',
+        'repli' => 'Changement / repli / VCI',
         'mouvement' => 'Transfert de chai / Embouteillage / Prise de mousse',
         'distillation' => 'Distillation / Destruction',
         'lies' => 'Lies',
@@ -68,6 +75,15 @@ class Configuration extends BaseConfiguration {
         'lies' => -1,
         'vrac_contrat' => -1
     );
+    
+
+
+    public static function getContraintes($genre) {
+    	if ($genre == 'VCI') {
+    		return self::$contraintes_vci;
+    	}
+    	return array();
+    }
 
     public static function getStocksDebut() {
         return self::$stocks_debut;

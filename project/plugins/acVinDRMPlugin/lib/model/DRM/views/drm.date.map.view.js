@@ -297,7 +297,8 @@ function(doc) {
                                                      drm_referente,
                                                      drm_contrats_manquants,
                                                      drm_igp_manquants,
-                                                     drm_observation
+                                                     drm_observation,
+                        						     detail.entrees.vci
                                                      ]
                                             );
 
@@ -377,7 +378,8 @@ function(doc) {
                                                              drm_referente,
                                                              drm_contrats_manquants,
                                                              drm_igp_manquants,
-                                                             drm_observation
+                                                             drm_observation,
+                                						     null
                                                              ]
                                                     );
                                                 }

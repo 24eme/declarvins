@@ -349,6 +349,7 @@ DRM:
                                                                                                                   declassement: { type: float }
                                                                                                                   mouvement: { type: float }
                                                                                                                   crd: { type: float }
+                                                                                                                  vci: { type: float }
                                                                                                             sorties:
                                                                                                               type: collection
                                                                                                               class: DRMDetailNoeud

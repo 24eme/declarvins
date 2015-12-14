@@ -18,6 +18,10 @@ class DRMLieu extends BaseDRMLieu {
 
         return $this->getMention()->getAppellation();
     }
+    public function getGenre() {
+
+        return $this->getAppellation()->getGenre();
+    }
 
     public function getCertification() {
         
