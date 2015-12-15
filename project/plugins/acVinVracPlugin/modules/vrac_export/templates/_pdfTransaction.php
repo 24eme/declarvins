@@ -167,8 +167,8 @@
 			
 	<?php endif; ?>
 	<p>Volume total : <?php echoLongFloat($vrac->volume_propose) ?>&nbsp;hl</p>
-	<?php if ($date_premiere_retiraison): ?>
-	<p>Date première retiraison : <?php echo Date::francizeDate($date_premiere_retiraison) ?></p>
+	<?php if ($vrac->date_debut_retiraison): ?>
+	<p>Date de début de retiraison : <?php echo Date::francizeDate($vrac->date_debut_retiraison) ?></p>
 	<?php endif; ?>
 	<p>Observations : <?php echo $vrac->commentaires ?><br /></p>
 	<?php if ($configurationVrac->getInformationsComplementaires()): ?>
