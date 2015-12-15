@@ -109,7 +109,13 @@
                         <?php echo $form['caution']->render() ?>
                     </div>
 
-                    <div class="ligne_form alignes" id="organisme" style="display:<?php echo ($form['caution']->getValue() === 0) ? 'block' : 'none' ?>;">
+                    <div class="ligne_form alignes" id="numero" style="display:<?php echo ($form['caution']->getValue() === 1 || $form['numero']->hasError()) ? 'block' : 'none' ?>;">
+                        <?php echo $form['numero']->renderError() ?>
+                        <?php echo $form['numero']->renderLabel() ?>
+                        <?php echo $form['numero']->render() ?>
+                    </div>
+
+                    <div class="ligne_form alignes" id="organisme" style="display:<?php echo ($form['caution']->getValue() === 0 || $form['organisme']->hasError()) ? 'block' : 'none' ?>;">
                         <?php echo $form['organisme']->renderError() ?>
                         <?php echo $form['organisme']->renderLabel() ?>
                         <?php echo $form['organisme']->render() ?>
@@ -162,7 +168,7 @@
 
 $(document).ready( function()
 	{
-        $('#drm_declaratif_caution_0').click(function() { $('#organisme').css('display', 'block') });
-        $('#drm_declaratif_caution_1').click(function() { $('#organisme').css('display', 'none') });
+        $('#drm_declaratif_caution_0').click(function() { $('#organisme').css('display', 'block'); $('#numero').css('display', 'none') });
+        $('#drm_declaratif_caution_1').click(function() { $('#organisme').css('display', 'none'); $('#numero').css('display', 'block') });
     });
 </script>
