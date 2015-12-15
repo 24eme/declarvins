@@ -31,6 +31,8 @@ class DRMManquantsForm extends acCouchdbObjectForm
         $defaults = $this->getDefaults();
         if($this->drm->hasVolumeVracWithoutDetailVrac()){
             $defaults['contrats'] = 1;
+        } else {
+        	$defaults['contrats'] = 0;
         }
         
        $this->setDefaults($defaults);     

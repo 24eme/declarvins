@@ -452,6 +452,7 @@ DRM:
               definition:
                 fields:
                   dispense: { type: integer }
+                  numero: { }
                   organisme: {  }
       identifiant: {  }
       identifiant_ivse: {  }
