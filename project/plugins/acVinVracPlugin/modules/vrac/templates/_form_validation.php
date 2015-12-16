@@ -1,4 +1,12 @@
 
+            	<?php if (!$form->getObject()->isValide() && $form->getObject()->premiere_mise_en_marche && $form->getObject()->vendeur->famille == EtablissementFamilles::FAMILLE_NEGOCIANT): ?>
+            	<div class="vigilance_list">
+				    <h3>Points de vigilance</h3>
+				    <ol>
+				    	<li>Attention, vous êtes sur le point de valider un contrat de première mise en marché.</li>
+				    </ol>
+				</div>
+				<?php endif; ?>
 	<form class="popup_form" id="recap_saisie" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>">
 		<?php echo $form->renderHiddenFields() ?>
 		<?php echo $form->renderGlobalErrors() ?>
