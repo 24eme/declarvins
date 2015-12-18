@@ -241,7 +241,7 @@
 			</tr>
 			</table>
 			</div>
-			<?php if ($item%4 == 0) {echo "<hr />"; } $item++; endforeach; ?>
+			<?php if ($item%5 == 0) {echo "<hr />"; } $item++; endforeach; ?>
 		
 
 	
