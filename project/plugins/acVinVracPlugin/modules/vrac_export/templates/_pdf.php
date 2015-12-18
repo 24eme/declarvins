@@ -182,7 +182,7 @@
 		Autres observations : <?php if ($vrac->exist('observations') && $vrac->observations): ?><?php echo $vrac->observations ?><?php endif; ?><br />
 		
 	</p>
-	<?php if ($vrac->isConditionneIvse()): ?><hr /><?php endif; ?>
+	<hr />
 	<h2><?php if ($vrac->isConditionneIvse()): ?>Conditions générales de vente<?php else: ?>Clauses<?php endif; ?></h2>
 	<div class="clauses">
 	<?php echo $configurationVrac->getClauses(ESC_RAW) ?>
@@ -195,7 +195,7 @@
 
 
 		
-			<?php $item = 0; foreach ($vrac->lots as $lot): ?>
+			<?php $item = 1; foreach ($vrac->lots as $lot): ?>
 			<div id="lots">
 			<table>
 			<tr>
@@ -242,7 +242,7 @@
 			</tr>
 			</table>
 			</div>
-			<?php if ($item%2 == 0) {echo "<hr />"; } $item++; endforeach; ?>
+			<?php if ($item%4 == 0) {echo "<hr />"; } $item++; endforeach; ?>
 		
 
 	
