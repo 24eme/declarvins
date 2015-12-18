@@ -195,7 +195,7 @@
 
 
 		
-			<?php foreach ($vrac->lots as $lot): ?>
+			<?php $item = 0; foreach ($vrac->lots as $lot): ?>
 			<div id="lots">
 			<table>
 			<tr>
@@ -242,7 +242,7 @@
 			</tr>
 			</table>
 			</div>
-			<?php endforeach; ?>
+			<?php if ($item%2 == 0) {echo "<hr />"; } $item++; endforeach; ?>
 		
 
 	
