@@ -199,7 +199,7 @@
 			<div id="lots">
 			<table>
 			<tr>
-				<th rowspan="6" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
+				<th rowspan="5" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
 				<th rowspan="2" class="cuves">Cuves</th>
 				<th>N° des cuves</th>
 				<th>Volume (hl)</th>
@@ -222,7 +222,7 @@
 				<td>
 				<?php $j=0; foreach ($lot->millesimes as $millesime): ?>
 				<?php echo $millesime->annee ?> (<?php echo $millesime->pourcentage ?>%)
-				<?php if ($j < sizeof($lot->millesimes)): ?> - <?php endif; ?>
+				<?php if ($j < (sizeof($lot->millesimes) - 1)): ?> - <?php endif; ?>
 				<?php $j++; endforeach; ?>
 				</td>
 				<td colspan="2"></td>
