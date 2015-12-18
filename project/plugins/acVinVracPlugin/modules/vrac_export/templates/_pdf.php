@@ -219,13 +219,12 @@
 			<?php if($lot->assemblage): ?>
 			<tr class="der_cat">
 				<th class="degre">Assemblage de millésimes</th>
-				<td>
+				<td colspan="3">
 				<?php $j=0; foreach ($lot->millesimes as $millesime): ?>
 				<?php echo $millesime->annee ?> (<?php echo $millesime->pourcentage ?>%)
 				<?php if ($j < (sizeof($lot->millesimes) - 1)): ?> - <?php endif; ?>
 				<?php $j++; endforeach; ?>
 				</td>
-				<td colspan="2"></td>
 			</tr>
 
 			<?php endif; ?>
