@@ -94,8 +94,7 @@ class VracMarcheForm extends VracForm
         } else {
         	$configuration = ConfigurationClient::getCurrent();
         	$configurationProduit = $configuration->getConfigurationProduit($this->getObject()->produit);
-        	$configurationProduit = $configurationProduit->getCouleur();
-        	$this->getObject()->produit = $configurationProduit->getHash().'/cepages/'.ConfigurationProduit::DEFAULT_KEY;
+        	$this->getObject()->produit = $configurationProduit->getCouleur()->getHash().'/cepages/'.ConfigurationProduit::DEFAULT_KEY;
         	$this->getObject()->setDetailProduit($configurationProduit);
         	$this->getObject()->produit_libelle = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles());
         	
