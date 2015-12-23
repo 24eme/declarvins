@@ -206,7 +206,7 @@ function(doc) {
                                         for(detail_key in cepage.details) {
                                             var detail = cepage.details[detail_key];
                                             var detail_hash =  cepage_hash+"/details/"+detail_key;
-                                            var montant_cvo = parseFloat(detail.cvo.taux) * parseFloat(detail.cvo.volume_taxable);
+                                            var montant_cvo = parseFloat(detail.cvo.taux) * parseFloat(detail.sorties.vrac + detail.sorties.export + detail.sorties.factures + detail.sorties.crd);      
                                             if (isNaN(montant_cvo) || parseFloat(detail.cvo.taux) === -1) {
                                                 montant_cvo = null;
                                             }
