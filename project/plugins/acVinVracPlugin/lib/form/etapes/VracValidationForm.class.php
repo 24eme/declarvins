@@ -24,13 +24,13 @@ class VracValidationForm extends VracForm
 		if (!$this->user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->getObject()->hasOioc()) {
 			$this->setWidget('transaction', new sfWidgetFormInputCheckbox());
 			$this->setValidator('transaction', new sfValidatorBoolean(array('required' => true)));
+			$this->getWidget('transaction')->setLabel('J\'ai pris connaissance de l\'envoi automatique de ma déclaration de transaction.');
 		}
         $this->widgetSchema->setLabels(array(
         	'date_signature' => 'Date de signature*:',
         	'date_stats' => 'Date de statistique:',
         	'commentaires' => 'Commentaires BO:',
-        	'observations' => 'Observations:',
-        	'transaction' => 'J\'ai pris connaissance de l\'envoi automatique de ma déclaration de transaction.'
+        	'observations' => 'Observations:'
         ));
 		$vracValideFormName = $this->vracValideFormName();
         $valide = new VracValideForm($this->getObject()->valide);

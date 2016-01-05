@@ -25,6 +25,12 @@ class VracSignatureForm extends acCouchdbObjectForm
 	       'date_validation_acheteur' => new ValidatorPass(),
 	       'date_validation_mandataire' => new ValidatorPass()
 		));
+		
+		if (!sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->getObject()->hasOioc()) {
+			$this->setWidget('transaction', new sfWidgetFormInputCheckbox());
+			$this->setValidator('transaction', new sfValidatorBoolean(array('required' => true)));
+			$this->getWidget('transaction')->setLabel('J\'ai pris connaissance de l\'envoi automatique de ma déclaration de transaction.');
+		}
 		$this->widgetSchema->setNameFormat('valide[%s]');
 	}
 
