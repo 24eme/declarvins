@@ -402,6 +402,16 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     }
     
+    public function hasOioc()
+    {
+    	$produit = $this->getProduitObject();
+    	if ($organisme = $produit->getCurrentOrganisme($this->valide->date_saisie, true)) {
+	    	return true;
+    	}
+    	return false;
+    	
+    }
+    
     public function setOioc()
     {
     	$produit = $this->getProduitObject();
