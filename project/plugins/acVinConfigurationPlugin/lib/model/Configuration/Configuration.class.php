@@ -30,7 +30,7 @@ class Configuration extends BaseConfiguration {
         'repli' => 'Replis / Changement de dénomination',
         'declassement' => 'Déclassement / Lies',
         'mouvement' => 'Transfert de chai / Embouteillage / Retours',
-        'crd' => 'Réintégration conditionné / Vrac',
+        'crd' => 'Réintégration CRD',
         'vci' => 'Intégration issue de VCI'
     );
     protected static $stocks_sortie = array(
