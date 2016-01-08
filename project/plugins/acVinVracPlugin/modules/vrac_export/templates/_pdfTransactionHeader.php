@@ -3,7 +3,12 @@
 		<img src="<?php echo sfConfig::get('sf_web_dir')?>/images/visuels/logo_<?php echo strtolower($configurationVrac->getInterproId()) ?>.png" alt="<?php echo $configurationVrac->getInterproId() ?>" />
 	</div>
 	<center>
-		<h1>Déclaration de transaction</h1>
+		<h1>
+			Déclaration de transaction
+			<?php if($vrac->isRectificative()): ?>
+ 			- <span class="rectificative">Rectificatif <?php echo sprintf('%02d', $vrac->rectificative) ?></span>
+			<?php endif; ?>
+		</h1>
 	</center>
 	<table>
 	<tr>
