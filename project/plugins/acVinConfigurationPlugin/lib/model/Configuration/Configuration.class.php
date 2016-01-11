@@ -16,7 +16,8 @@ class Configuration extends BaseConfiguration {
 
     protected static $contraintes_vci = array(
     		'entrees/recolte',
-    		'sorties/repli'
+    		'sorties/repli',
+        	'sorties/distillation'
     );
     
     protected static $stocks_debut = array(
@@ -30,7 +31,7 @@ class Configuration extends BaseConfiguration {
         'repli' => 'Replis / Changement de dénomination',
         'declassement' => 'Déclassement / Lies',
         'mouvement' => 'Transfert de chai / Embouteillage / Retours',
-        'crd' => 'Réintégration conditionné / Vrac',
+        'crd' => 'Réintégration CRD',
         'vci' => 'Intégration issue de VCI'
     );
     protected static $stocks_sortie = array(
@@ -343,7 +344,11 @@ class Configuration extends BaseConfiguration {
   						'CIVP36023',
   						'CIVP25103',
   						'CIVP23940',
-  						'CIVP23602'
+  						'CIVP23602',
+  						'CIVP24125',
+  						'CIVP23644',
+  						'CIVP24019',
+  						'CIVP24741'
   				);
   				if (in_array($etablissement->identifiant, $test)) {
   					$ouverture = 1;
