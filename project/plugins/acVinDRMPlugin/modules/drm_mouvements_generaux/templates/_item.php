@@ -9,6 +9,9 @@
 	<td>
         <?php echo echoLongFloat($detail->total_debut_mois) ?> <span class="unite">hl </span>
 	</td>
+	<td class="acqTd <?php if ($detail->getDocument()->droits_acquittes): ?>showTd<?php else: ?>noTd<?php endif; ?>">
+        <?php echo echoLongFloat($detail->acq_total_debut_mois) ?> <span class="unite">hl </span>
+	</td>
 	<td>
 		<?php echo $form['pas_de_mouvement_check']->render(array("class" => "pas_de_mouvement")) ?>
 	</td>

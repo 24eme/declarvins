@@ -283,6 +283,7 @@ DRM:
                                                                                                             has_vrac: {  }
                                                                                                             pas_de_mouvement_check: { type: integer }
                                                                                                             total_debut_mois: { type: float }
+                                                                                                            tav: { type: float }
                                                                                                             acq_total_debut_mois: { type: float }
                                                                                                             total_entrees: { type: float }
                                                                                                             acq_total_entrees: { type: float }

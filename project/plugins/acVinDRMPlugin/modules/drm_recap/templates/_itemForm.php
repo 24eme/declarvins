@@ -14,6 +14,9 @@
                 <?php echo $form->getObject()->getLabelsLibelle() ?><br />
                 <?php echo $form->getObject()->label_supplementaire ?>
             </p>
+            <p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_debut_mois') ?>">
+            	<?php echo $form['tav']->render(array('data-val-defaut' => sprintFloat($form->getObject()->tav, "%01.04f"), 'class' => 'num num_float')) ?>
+            </p>
             <div class="groupe" data-groupe-id="1">
                 <p class="<?php echo isVersionnerCssClass($form->getObject(), 'total_debut_mois') ?>">
                     <?php echo $form['total_debut_mois']->render(array('data-val-defaut' => sprintFloat($form->getObject()->total_debut_mois, "%01.04f"), 'class' => 'num num_float somme_stock_debut')) ?>

@@ -4,6 +4,7 @@
 	<p class="cepage">Cépage</p>
 	<?php endif; ?>
 	<p class="label">Labels</p>
+	<p class="label" style="text-align: right;"><strong>T.A.V</strong>&nbsp;<a href="" class="msg_aide" data-msg="help_popup_drm_tav" title="Message aide"></a></p>
 	
 	<div class="groupe" data-groupe-id="<?php if ($acquittes): ?>5<?php else: ?>1<?php endif; ?>">
 		<p>Stock théorique début de mois&nbsp;(<span class="unite">hl</span>)</p>

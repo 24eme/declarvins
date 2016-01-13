@@ -213,7 +213,7 @@
     </section>
 </section>
 
-<script language="javascript">
+<script type="text/javascript">
 
 $(document).ready( function()
 	{

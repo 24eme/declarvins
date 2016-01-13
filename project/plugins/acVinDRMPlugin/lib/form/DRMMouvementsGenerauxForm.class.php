@@ -22,6 +22,9 @@ class DRMMouvementsGenerauxForm extends acCouchdbObjectForm
         	'pas_de_mouvement' => new sfValidatorBoolean(array('required' => false)),
         	'droits_acquittes' => new sfValidatorBoolean(array('required' => false))
         ));
+		if ($this->getObject()->hasVolumeAcquittes()) {
+			$this->getWidget('droits_acquittes')->setAttribute('disabled', 'disabled');
+		}
         $certifications = $this->getObject()->declaration->certifications->toArray();
 		foreach ($certifications as $certification => $value) {
 				if ($this->getObject()->declaration->certifications->exist($certification)) {
@@ -51,6 +54,9 @@ class DRMMouvementsGenerauxForm extends acCouchdbObjectForm
         	$this->getObject()->setHasDroitsAcquittes(1);
         } else {
         	$this->getObject()->setHasDroitsAcquittes(0);
+        }
+        if ($this->getObject()->hasVolumeAcquittes()) {
+        	$this->getObject()->setHasDroitsAcquittes(1);
         }
     }
 }

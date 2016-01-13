@@ -43,6 +43,11 @@
 									</tbody>
 								</table>
 			        		</div>
+			        		<div class="vigilance_list" style="display: none;">
+							    <ul>
+							        <li>Dans l'étapes suivante, vous pourrez intégrer le stock début de mois en droit acquitté dans le champs prévu a cet effet.</li>
+							    </ul>
+							</div>
 		        			<?php if(!$drm->declaration->hasMouvement()): ?>
 		        			<div style="padding:0; margin:0 0 15px 0;" class="tableau_ajouts_liquidations">
 			        			<table class="tableau_recap">
@@ -69,12 +74,13 @@
 			            <div id="tableau_<?php echo strtolower($certificationLibelle[$certification]) ?>" class="tableau_ajouts_liquidations">
 			                    <h2><?php echo $certificationLibelle[$certification] ?></h2>
 			                    <div class="recap_produit">
-				                    <table class="tableau_recap">
+				                    <table class="tableau_recap" style="width: 100%">
 				                        <thead>
                                                                 <tr>
-                                                                        <th style="width: 570px">Produits</th>
-                                                                        <th style="width: 170px">Stock début de mois <a href="" class="msg_aide" data-msg="help_popup_mouvgen_disponible" title="Message aide"></a></th>
-                                                                        <th style="width: 150px">Pas de mouvement <a href="" class="msg_aide" data-msg="help_popup_mouvgen_pasdemouvement" title="Message aide"></a></th>
+                                                                        <th>Produits</th>
+                                                                        <th width="70px" style="width: 70px">Stock début de mois <a href="" class="msg_aide" data-msg="help_popup_mouvgen_disponible" title="Message aide"></a></th>
+                                                                        <th width="90px" class="acqTd <?php if ($drm->droits_acquittes): ?>showTd<?php else: ?>noTd<?php endif; ?>" style="width: 90px">Stock début de mois acquittés <a href="" class="msg_aide" data-msg="help_popup_mouvgen_disponible" title="Message aide"></a></th>
+                                                                        <th width="85px" style="width: 82px">Pas de mouvement <a href="" class="msg_aide" data-msg="help_popup_mouvgen_pasdemouvement" title="Message aide"></a></th>
                                                                 </tr>
                                                         </thead>
                                                         <tbody>
@@ -111,3 +117,21 @@
 			</div>
     </section>
 </section>
+
+<script type="text/javascript">
+
+$(document).ready( function()
+	{
+		$('#<?php echo $form['droits_acquittes']->renderId() ?>').change(function() {
+			if(this.checked) {
+				$(".acqTd").removeClass('noTd');
+				$(".acqTd").addClass('showTd');
+				$(".vigilance_list").css('display', 'block');
+			} else {
+				$(".acqTd").removeClass('showTd');
+				$(".acqTd").addClass('noTd');
+				$(".vigilance_list").css('display', 'none');
+			}
+		});
+    });
+</script>

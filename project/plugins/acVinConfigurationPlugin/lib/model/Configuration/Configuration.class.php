@@ -21,16 +21,16 @@ class Configuration extends BaseConfiguration {
     protected static $stocks_debut_acq = array();
     protected static $stocks_entree = array(
         'achat' => 'Achats / réintégration',
-        'recolte' => 'Récolte / revendiation',
+        'recolte' => 'Récolte / revendication',
         'repli' => 'Mvt. interne : Replis / Changt. de dénomination',
         'declassement' => 'Mvt. interne : Déclassement / Lies',
     	'manipulation' => 'Mvt. interne : Augmentation de volume',
-    	'vci' => 'Mvt. interne : Intégration de VCI',
+    	'vci' => 'Mvt. interne : Intégration issue de VCI',
         'mouvement' => 'Mvt. temporaire : Retour transfert de chai',
         'embouteillage' => 'Mvt. temporaire : Retour embouteillage',
         'travail' => 'Mvt. temporaire : Retour de travail à façon',
         'distillation' => 'Mvt. temporaire : Retour de distillation à façon',    		
-        'crd' => 'Réintégration CRD',
+        'crd' => 'Replacement en suspension CRD',
     	'excedent' => 'Excédent suite à inventaire ou contrôle douanes'
     );
     protected static $stocks_entree_acq = array(
@@ -43,7 +43,8 @@ class Configuration extends BaseConfiguration {
         'factures' => 'DSA / Tickets / Factures',
         'crd' => 'CRD France',
         'consommation' => 'Conso Fam. / Analyses / Dégustation',
-        'pertes' => 'Pertes / Destruction / Manquants',
+        'pertes' => 'Pertes et manquants constatés',
+        'autres' => 'Destruction / Distillation',
         'declassement' => 'Mvt. interne : Non rev. / Déclassement',
         'repli' => 'Mvt. interne : Changement / Repli',
         'mutage' => 'Mvt. interne : Mutage',
@@ -54,12 +55,11 @@ class Configuration extends BaseConfiguration {
         'travail' => 'Mvt. temporaire : Travail à façon',
         'distillation' => 'Mvt. temporaire : Distillation à façon',
         'lies' => 'Lies',
-        'autres' => 'Autres',
         'vrac_contrat' => 'Contrat Vrac'
     );
     protected static $stocks_sortie_acq = array(
-        'acq_crd' => 'CRD collectives',
-        'acq_replacement' => 'Replacement en suspensions',
+        'acq_crd' => 'Ventes de produits',
+        'acq_replacement' => 'Replacement en suspension',
         'acq_autres' => 'Autres'
     );
     protected static $stocks_fin = array(

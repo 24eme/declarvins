@@ -2505,6 +2505,14 @@ p#date_drm {
   padding: 0 10px;
   vertical-align: middle;
 }
+#principal .tableau_ajouts_liquidations table .showTd,
+#principal .tableau_resultats table .showTd {
+  display: table-cell !important;
+}
+#principal .tableau_ajouts_liquidations table .noTd,
+#principal .tableau_resultats table .noTd {
+  display: none !important;
+}
 #principal .tableau_ajouts_liquidations table thead th,
 #principal .tableau_resultats table thead th {
   background: #494949;

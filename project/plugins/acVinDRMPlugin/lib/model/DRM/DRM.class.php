@@ -673,6 +673,19 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             return false;
         }
     }
+    
+    public function hasVolumeAcquittes()
+    {
+    	if (!$this->hasDroitsAcquittes()) {
+    		return false;
+    	}
+    	foreach ($this->getDetails() as $detail) {
+    		if ($detail->acq_total_debut_mois) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 
     public function setHasDroitsAcquittes($has = 0)
     {
@@ -716,11 +729,17 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
      * Pour les users administrateur
      */
 
-    public function canSetStockDebutMois() {
+    public function canSetStockDebutMois($acq = false) {
         $isAdministrateur = ($this->getUser()) ? $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) : false;
         if ($this->isDebutCampagne() || ($isAdministrateur && $this->hasVersion())) {
             return true;
         } else {
+        	if ($acq) {
+        		$mother = $this->getPrecedente();
+        		if ($mother && $this->hasDroitsAcquittes() && !$mother->hasDroitsAcquittes()) {
+        			return true;
+        		}
+        	}
             return false;
         }
     }
