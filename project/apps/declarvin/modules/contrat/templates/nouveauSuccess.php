@@ -47,6 +47,11 @@
 				<?php echo $form['fax']->render() ?>
 			</div>
 		</div>
+		<div>
+				<?php echo $form['dematerialise_ciel']->renderError() ?>
+				<?php echo $form['dematerialise_ciel']->render() ?>
+				<?php echo $form['dematerialise_ciel']->renderLabel() ?>
+		</div>
 		
 		<div id="infos_etablissements">
 			<h1>Etablissement <a href="" class="msg_aide" data-msg="help_popup_mandat_etablissements" title="Message aide"></a></h1>

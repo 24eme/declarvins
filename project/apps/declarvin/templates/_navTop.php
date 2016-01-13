@@ -31,6 +31,17 @@ use_helper('Text');
         <li<?php if ($active == 'profil'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('profil', $etablissement) ?>">Profil</a>
         </li>
+        
+        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $configuration->isApplicationOuverte($etablissement->interpro, 'drm', $etablissement)): ?>
+        <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
+        <?php if ($sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?>
+        <?php else: ?>
+        <li<?php if ($active == 'ciel'): ?> class="actif"<?php endif; ?>>
+            <a href="<?php echo url_for('tiers_adhesion_ciel', $etablissement) ?>"><strong>Adhésion CIEL</strong></a>
+        </li>
+        <?php endif; ?>
+        <?php endif; ?>
+        <?php endif; ?>
     </ul>
 </nav>
 <nav id="sous_barre_navigation">

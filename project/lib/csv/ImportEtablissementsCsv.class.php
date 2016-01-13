@@ -153,6 +153,9 @@ class ImportEtablissementsCsv {
     	if (!isset($line[EtablissementCsv::COL_CORRESPONDANCES])) {
    			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_CORRESPONDANCES + 1).') "correspondances ids" manquante');
    		}
+    	if (!isset($line[EtablissementCsv::COL_CHAMPS_COMPTE_CIEL])) {
+   			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_CHAMPS_COMPTE_CIEL + 1).') "adhesion CIEL" manquante');
+   		}
    		if (count($errors) > 0) {
    			$this->_errors[$ligne] = $errors;
    			throw new sfException('has errors');
@@ -394,6 +397,7 @@ class ImportEtablissementsCsv {
 		}
         $compte->telephone = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_TELEPHONE]);
         $compte->fax = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_FAX]);
+        $compte->dematerialise_ciel = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_CIEL]);
         return $compte;
     }
 }

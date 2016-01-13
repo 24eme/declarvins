@@ -67,6 +67,7 @@ class CompteTiers extends BaseCompteTiers {
     	$this->email = $contrat->email;
     	$etablissement = $contrat->etablissements->getFirst();
     	$this->raison_sociale = $etablissement->raison_sociale;
+    	$this->dematerialise_ciel = $contrat->dematerialise_ciel;
     }
 
     public function __toString() {

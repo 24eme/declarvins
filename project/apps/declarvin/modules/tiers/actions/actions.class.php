@@ -72,7 +72,13 @@ class tiersActions extends sfActions
 
     if ($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI) && $configuration->isApplicationOuverte($this->etablissement->interpro, 'drm', $this->etablissement)) {
 		$this->configureAlerteDrm($this->etablissement);
-        return $this->redirect("drm_mon_espace", $this->etablissement);
+		if (!($this->getUser()->getCompte()->exist('dematerialise_ciel'))) {
+			return $this->redirect("tiers_adhesion_ciel", $this->etablissement);
+		} elseif (!($this->getUser()->getCompte()->dematerialise_ciel)) {
+			return $this->redirect("tiers_adhesion_ciel", $this->etablissement);
+		} else {
+        	return $this->redirect("drm_mon_espace", $this->etablissement);
+		}
     }
 
     if ($this->etablissement->hasDroit(EtablissementDroit::DROIT_VRAC) && $configuration->isApplicationOuverte($this->etablissement->interpro, 'vrac')) {
@@ -135,5 +141,22 @@ class tiersActions extends sfActions
   	  	$this->getUser()->setFlash('notice', 'Modifications effectuées avec succès');
   	  }
   	  $this->redirect('profil', $this->etablissement);
+  }
+  
+  public function executeAdhesionCiel(sfWebRequest $request)
+  {
+  	$this->etablissement = $this->getRoute()->getEtablissement();
+  }
+  
+  public function executeAcceptationCiel(sfWebRequest $request)
+  {
+  	$this->compte = $this->getUser()->getCompte();
+  	$this->etablissement = $this->getRoute()->getEtablissement();
+  	if ($this->compte instanceof acVinCompteTiers) {
+	  	$this->compte->dematerialise_ciel = 1;
+	  	$this->compte->save();
+	  	$this->getUser()->setFlash('notice', 'Adhésion au service CIEL effectuée avec succès');
+  	}
+  	return $this->redirect("drm_mon_espace", $this->etablissement);
   }
 }

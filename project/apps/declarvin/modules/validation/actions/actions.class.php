@@ -37,12 +37,16 @@ class validationActions extends sfActions {
     	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
         $this->comptes = CompteAllView::getInstance()->findBy($this->interpro->get('_id'), 'CompteTiers')->rows;
         
-        $csv_file = 'Compte Statut;Identifiant;Num Interne;Num Contrat;Interpro;Siret;Cni;Cvi;Num Accises;Num TVA intra;Email;Tel;Fax;Raison Sociale;Nom Com.;Adresse;Commune;CP;Pays;Famille;Sous famille;Adresse compta;Commune compta;CP compta;Pays compta;Douane;Complement;Statut;Compte nom;Compte prenom;Compte fonction;Compte email;Compte tel;Compte fax;Num carte pro;';
+        $csv_file = 'Compte Statut;Identifiant;Num Interne;Num Contrat;Interpro;Siret;Cni;Cvi;Num Accises;Num TVA intra;Email;Tel;Fax;Raison Sociale;Nom Com.;Adresse;Commune;CP;Pays;Famille;Sous famille;Adresse compta;Commune compta;CP compta;Pays compta;Douane;Complement;Statut;Compte nom;Compte prenom;Compte fonction;Compte email;Compte tel;Compte fax;Compte CIEL;Num carte pro;';
 		$csv_file .= "\n";	
 		foreach ($this->comptes as $c) {
 			if($compte = _CompteClient::getInstance()->find($c->id)) {
-				$compteInfosCsv = $compte->nom.';'.$compte->prenom.';'.$compte->fonction.';'.$compte->email.';'.$compte->telephone.';'.$compte->fax;
-				$compteNonInfosCsv = ';;;;;';
+				$dematerialise_ciel = 0;
+				if ($compte->exist('dematerialise_ciel') && $compte->dematerialise_ciel) {
+					$dematerialise_ciel = 1;
+				}
+				$compteInfosCsv = $compte->nom.';'.$compte->prenom.';'.$compte->fonction.';'.$compte->email.';'.$compte->telephone.';'.$compte->fax.';'.$dematerialise_ciel;
+				$compteNonInfosCsv = ';;;;;;';
 				if (count($compte->tiers) > 0) {
 					foreach ($compte->tiers as $etablissementId => $etablissementInfos) {
 						if ($etablissement = EtablissementClient::getInstance()->find($etablissementId)) {
