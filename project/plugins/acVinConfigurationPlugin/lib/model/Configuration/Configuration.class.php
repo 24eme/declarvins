@@ -60,7 +60,8 @@ class Configuration extends BaseConfiguration {
         'repli' => 1,
         'declassement' => 1,
         'mouvement' => 1,
-        'crd' => 1
+        'crd' => 1,
+    	'vci' => 1
     );
     protected static $mouvement_coefficient_sortie = array(
         'vrac' => -1,
