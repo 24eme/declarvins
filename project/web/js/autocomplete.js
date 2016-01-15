@@ -71,8 +71,8 @@
 			var url_ajax = select.attr('data-ajax');
 			var limit = 20;
 			//var prev_term = "";
-			var minLength = 0;
-			var delay = (url_ajax) ? 300 : 200;
+			var minLength = 4;
+			var delay = (url_ajax) ? 800 : 300;
 
 			var input = this.input = $( "<input type='text'>" )
 			.insertAfter( select )
@@ -83,6 +83,8 @@
 				source: function( request, response ) {
 					
 
+					
+					console.log('yop');
 
 					if(select.attr('data-ajax')) {
 					  	
@@ -143,8 +145,6 @@
 					return false;
 				},
 				change: function( event, ui ) {
-					//console.log('change');
-					
 					if ( !ui.item ) {
 						var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( $(this).val() ) + "$", "i" ),
 						valid = false;
