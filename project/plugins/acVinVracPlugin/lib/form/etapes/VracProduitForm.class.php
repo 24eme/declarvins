@@ -33,13 +33,13 @@ class VracProduitForm extends VracForm
         $this->getObject()->produit = ($persit)? $persit : $values['produit'].'/cepages/'.ConfigurationProduit::DEFAULT_KEY;
         $configuration = ConfigurationClient::getCurrent();
         $configurationProduit = $configuration->getConfigurationProduit($this->getObject()->produit);
-        $cvo = $configurationProduit->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, null, true);
         if ($configurationProduit) {
         	$this->getObject()->setDetailProduit($configurationProduit);
         	$this->getObject()->produit_libelle = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles());
-        }
-        if ($cvo) {
-        	$this->getObject()->part_cvo = $cvo->taux;
+        	$cvo = $configurationProduit->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, null, true);
+	        if ($cvo) {
+	        	$this->getObject()->part_cvo = $cvo->taux;
+	        }
         }
         $this->getObject()->update();
     }
