@@ -568,9 +568,9 @@ class ediActions extends sfActions
   		$squeeze = null;
   		foreach ($items as $item) {
   			if ($item->value[DRMDateView::VALUE_TYPE] == 'DETAIL' && (is_null($item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX]) || $item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX] < 0 || !$item->value[DRMDateView::VALUE_DETAIL_CVO_CODE])) {
-  				$squeeze = $item->value[DRMDateView::VALUE_IDDRM];
+  				$squeeze = $item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH];
   			}
-  			if ($item->value[DRMDateView::VALUE_IDDRM] != $squeeze) {
+  			if ($item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH] != $squeeze) {
   				$drms[] = $item;
   			}
   		}
