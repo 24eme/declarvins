@@ -71,8 +71,8 @@
 			var url_ajax = select.attr('data-ajax');
 			var limit = 20;
 			//var prev_term = "";
-			var minLength = 4;
-			var delay = (url_ajax) ? 800 : 300;
+			var minLength = (url_ajax) ? 3 : 0;
+			var delay = (url_ajax) ? 800 : 200;
 
 			var input = this.input = $( "<input type='text'>" )
 			.insertAfter( select )
