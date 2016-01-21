@@ -32,7 +32,7 @@ class VracProduitForm extends VracForm
         parent::doUpdateObject($values);
         $this->getObject()->produit = ($persit)? $persit : $values['produit'].'/cepages/'.ConfigurationProduit::DEFAULT_KEY;
         $configuration = ConfigurationClient::getCurrent();
-        $configurationProduit = $configuration->getConfigurationProduit($persit);
+        $configurationProduit = $configuration->getConfigurationProduit($this->getObject()->produit);
         if ($configurationProduit) {
         	$this->getObject()->setDetailProduit($configurationProduit);
         	$this->getObject()->produit_libelle = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles());
