@@ -936,6 +936,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             return true;
         }
         
+        if ($this->declaratif->paiement->douane->frequence != $this->getMother()->declaratif->paiement->douane->frequence) {
+        	return true;
+        }
+        
         $change = false;
         foreach ($this->getDetails() as $detail) {
         	if ($old = $this->getMother()->get($detail->getHash())) {
