@@ -1,9 +1,19 @@
-
-            	<?php if (!$form->getObject()->isValide() && $form->getObject()->premiere_mise_en_marche && $form->getObject()->vendeur->famille == EtablissementFamilles::FAMILLE_NEGOCIANT): ?>
+<?php 
+	$warningMiseEnMarche = false;
+	$warningExport = false;
+	if (!$form->getObject()->isValide() && $form->getObject()->premiere_mise_en_marche && $form->getObject()->vendeur->famille == EtablissementFamilles::FAMILLE_NEGOCIANT) {
+		$warningMiseEnMarche = true;
+	} 
+	if (!$form->getObject()->isValide() && !preg_match("/^fr/i", $form->getObject()->acheteur->pays)) {
+		$warningExport = true;
+	} 
+?>
+				<?php if($warningMiseEnMarche || $warningExport): ?>
             	<div class="vigilance_list">
 				    <h3>Points de vigilance</h3>
 				    <ol>
-				    	<li>Attention, vous êtes sur le point de valider un contrat de première mise en marché.</li>
+				    	<?php if ($warningMiseEnMarche): ?><li>Attention, vous êtes sur le point de valider un contrat de première mise en marché.</li><?php endif; ?>
+				    	<?php if ($warningExport): ?><li>Attention, vous êtes sur le point de valider un contrat pour le marché français (étape &laquo;Marché&raquo;, champs &laquo;Expédition export&raquo;).</li><?php endif; ?>
 				    </ol>
 				</div>
 				<?php endif; ?>
