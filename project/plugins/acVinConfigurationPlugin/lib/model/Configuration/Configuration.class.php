@@ -32,7 +32,7 @@ class Configuration extends BaseConfiguration {
         'declassement' => 'Déclassement / Lies',
         'mouvement' => 'Transfert de chai / Embouteillage / Retours',
         'crd' => 'Réintégration CRD',
-        'vci' => 'Intégration issue de VCI'
+        //'vci' => 'Intégration issue de VCI'
     );
     protected static $stocks_sortie = array(
         'vrac' => 'Vrac DAA / DAE / DAC',
