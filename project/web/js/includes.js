@@ -50,7 +50,7 @@
 	$.fn.includeJS(jsPath, 'global.js');
 	$.fn.includeJS(jsPath, 'popups.js');
 	$.fn.includeJS(jsPath, 'form.js');
-	$.fn.includeJS(jsPath, 'autocomplete.js?20160121');
+	$.fn.includeJS(jsPath, 'autocomplete.js?20160122');
 	$.fn.includeJS(jsPath, 'contrat.js');
 	$.fn.includeJS(jsPath, 'drm.js');
 	$.fn.includeJS(jsPath, 'declaration.js');
