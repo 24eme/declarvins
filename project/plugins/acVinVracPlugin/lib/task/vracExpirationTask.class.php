@@ -62,7 +62,13 @@ EOF;
 						}
 					}
 				}
-				Email::getInstance($contextInstance)->vracExpirationContrat($vrac, $etablissement, $email, $acteur);
+
+					try {
+						Email::getInstance($contextInstance)->vracExpirationContrat($vrac, $etablissement, $email, $acteur);
+					} catch (Exception $e) {
+						continue;
+					}
+				
 			}
 		}
   		$this->logSection('vrac-expiration', 'Expiration du contrat '.$vrac->_id);

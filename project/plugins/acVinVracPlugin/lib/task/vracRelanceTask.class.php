@@ -74,6 +74,12 @@ EOF;
 			}
 		}
 	}
-	Email::getInstance($contextInstance)->vracRelanceContrat($vrac, $etablissement, $etablissement->email, $acteur);
+	if ($etablissement->email) {
+		try {
+			Email::getInstance($contextInstance)->vracRelanceContrat($vrac, $etablissement, $etablissement->email, $acteur);
+		} catch (Exception $e) {
+			return;
+		}
+	}
   }
 }
