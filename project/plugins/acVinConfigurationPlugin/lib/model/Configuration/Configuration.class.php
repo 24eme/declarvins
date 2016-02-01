@@ -317,48 +317,6 @@ class Configuration extends BaseConfiguration {
   			} catch (Exception $e) { 
   				$ouverture = 0;
   			}
-  			/* Ouverture test CIVP */
-  			if (!$ouverture && $interpro == 'INTERPRO-CIVP' && $application == 'drm' && $etablissement) {
-  				$test = array(
-  					'CIVP24041',	
-  					'CIVP24144',
-  					'CIVP23747',
-  					'CIVP24067',
-  					'CIVP24102',
-  					'CIVP23884',
-  					'CIVP24479',
-  					'CIVP23989',
-  					'CIVP23752',
-  						'CIVP23730',
-  						'CIVP23767',
-  						'CIVP24818',
-  						'CIVP23770',
-  						'CIVP24005',
-  						'CIVP24722',
-  						'CIVP23666',
-  						'CIVP23956',
-  						'CIVP24729',
-  						'CIVP24104',
-  						'CIVP23710',
-  						'CIVP23883',
-  						'CIVP24659',
-  						'CIVP36023',
-  						'CIVP25103',
-  						'CIVP23940',
-  						'CIVP23602',
-  						'CIVP24125',
-  						'CIVP23644',
-  						'CIVP24019',
-  						'CIVP24741',
-  						'CIVP23772',
-  						'CIVP24162',
-  						'CIVP24698',
-  				);
-  				if (in_array($etablissement->identifiant, $test)) {
-  					$ouverture = 1;
-  				}
-  			}
-  			/* fin test civp */
   			return $ouverture;
     }
 
