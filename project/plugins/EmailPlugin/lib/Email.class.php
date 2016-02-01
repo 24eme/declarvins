@@ -209,37 +209,37 @@ class Email {
         return $this->getMailer()->send($message);
     }
     
-    public function vracRelanceContrat($vrac, $etablissement, $destinataire, $acteur) 
+    public function vracRelanceContrat($vrac, $etablissement, $destinataire, $acteur, $url) 
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
         $subject = 'Relance : Demande de validation d\'un contrat interprofessionnel vrac';
-        $body = $this->getBodyFromPartial('vrac_contrat_relance', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur));
+        $body = $this->getBodyFromPartial('vrac_contrat_relance', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur, 'url' => $url));
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
-
+		return $message;
         return $this->getMailer()->send($message);
     }
     
-    public function vracExpirationContrat($vrac, $etablissement, $destinataire, $acteur) 
+    public function vracExpirationContrat($vrac, $etablissement, $destinataire, $acteur, $url) 
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
         $subject = 'Suppression d\'un contrat interprofessionnel suite au dépassement du délai';
-        $body = $this->getBodyFromPartial('vrac_contrat_expiration', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur));
+        $body = $this->getBodyFromPartial('vrac_contrat_expiration', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur, 'url' => $url));
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
         return $this->getMailer()->send($message);
     }
     
-    public function vracExpirationAnnulationContrat($vrac, $etablissement, $destinataire, $acteur) 
+    public function vracExpirationAnnulationContrat($vrac, $etablissement, $destinataire, $acteur, $url) 
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
         $subject = 'Suppression de l\'annulation d\'un contrat interprofessionnel suite au dépassement du délai';
-        $body = $this->getBodyFromPartial('vrac_contrat_expiration_annulation', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur));
+        $body = $this->getBodyFromPartial('vrac_contrat_expiration_annulation', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur, 'url' => $url));
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
         return $this->getMailer()->send($message);

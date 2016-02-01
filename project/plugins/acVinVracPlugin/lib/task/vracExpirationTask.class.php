@@ -53,18 +53,20 @@ EOF;
 		foreach ($acteurs as $acteur) {
 			if ($email = $vrac->get($acteur)->email) {
 				$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
+				$url['contact'] = $routing->generate('contact', array(), true);
+				$url['home'] = $routing->generate('homepage', array(), true);
 				if ($etablissement->compte) {
 					if ($compte = _CompteClient::getInstance()->find($etablissement->compte)) {
 						if ($compte->statut == _Compte::STATUT_ARCHIVE) {
 							if ($interpro->email_contrat_vrac) {
-								Email::getInstance($contextInstance)->vracExpirationContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur);
+								Email::getInstance($contextInstance)->vracExpirationContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
 							}
 						}
 					}
 				}
 
 					try {
-						Email::getInstance($contextInstance)->vracExpirationContrat($vrac, $etablissement, $email, $acteur);
+						Email::getInstance($contextInstance)->vracExpirationContrat($vrac, $etablissement, $email, $acteur, $url);
 					} catch (Exception $e) {
 						continue;
 					}
