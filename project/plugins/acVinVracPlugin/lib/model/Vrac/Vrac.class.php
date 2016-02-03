@@ -164,12 +164,12 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 
     public function storeSoussigneInformations($type, $etablissement) 
     {        
-    	   $informations = $this->get($type);
     	   
     	   if (!$this->mandataire_exist && !$this->mandataire_identifiant) {
     	   	$this->remove('mandataire');
     	   	$this->add('mandataire');
     	   }
+    	   $informations = $this->get($type);
 
          if(!$etablissement) {
 			
