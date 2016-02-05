@@ -1,6 +1,6 @@
 <style type="text/css">
 	@page {
-		margin: 150px 30px 0px 30px;
+		margin: 180px 30px 0px 30px;
 	}
 	body {
 		font-family: sans-serif;
@@ -31,7 +31,7 @@
 		font-size: 11pt;
 		color: #000;
 		padding: 0 0 30px;
-		top: -150px;
+		top: -180px;
 	}
 
 	#header h1 {
