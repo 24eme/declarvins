@@ -220,9 +220,13 @@ class ediActions extends sfActions
 			}
 
 			$contrats = $import->getContrats();
+			$traites = array();
 			foreach ($contrats as $contrat) {
-				$contrat->save(false);
-				$result[] = array('SUCCESS', 'CONTRAT', null, 'Le contrat '.$contrat->_id.' a été mis à jour avec succès');
+				if (!in_array($contrat->_id, $traites)) {
+					$traites[] = $contrat->_id;
+					$contrat->save(false);
+					$result[] = array('SUCCESS', 'CONTRAT', null, 'Le contrat '.$contrat->_id.' a été mis à jour avec succès');
+				}
 			}
   			
   		} else {
