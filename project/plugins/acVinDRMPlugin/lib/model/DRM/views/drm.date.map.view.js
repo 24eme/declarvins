@@ -216,21 +216,16 @@ function(doc) {
 					    if (isNaN(volume_cvo)) {
 					    	volume_cvo = null;
 					    }
-                                            var libelles_label = null;
-                                            var codes_label = null;
-                                            var counter = 0;
-                                            var nb_labels = (detail.libelles_label).length;
-                            if (nb_labels > 0) {
+                                            var libelles_label = '';
+                                            var codes_label = '';
                                             for (label_key in detail.libelles_label) {
-                                                counter++;
-                                                libelles_label += detail.libelles_label[label_key];
-                                                codes_label += label_key;
-                                                if (counter < nb_labels) {
+                                                if (libelles_label) {
                                                     libelles_label += '|';
                                                     codes_label += '|';
                                                 }
+                                                libelles_label += detail.libelles_label[label_key];
+                                                codes_label += label_key;
                                             }
-                            }
                                             emit([detail.interpro, doc.valide.date_saisie, detail.has_vrac, doc._id, detail_hash, "PRODUIT"], 
                                                     [key,
                                                      drm_identifiant,
