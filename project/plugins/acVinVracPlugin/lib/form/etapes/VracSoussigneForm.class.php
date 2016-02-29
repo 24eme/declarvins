@@ -156,6 +156,7 @@ class VracSoussigneForm extends VracForm
 		if (!$this->getObject()->mandataire_exist) {
 			$this->getObject()->remove('mandataire');
 			$this->getObject()->add('mandataire');
+			$this->getObject()->mandataire_identifiant = null;
 		}
 
 		$this->getObject()->storeSoussignesInformations();
