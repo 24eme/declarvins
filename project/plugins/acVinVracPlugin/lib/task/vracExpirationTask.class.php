@@ -51,6 +51,9 @@ EOF;
   		
   		$acteurs = VracClient::getInstance()->getActeurs();
 		foreach ($acteurs as $acteur) {
+			if (!$vrac->get($acteur.'_identifiant')) {
+				continue;
+			}
 			if ($email = $vrac->get($acteur)->email) {
 				$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
 				$url['contact'] = $routing->generate('contact', array(), true);
