@@ -166,7 +166,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $this->declaratif->paiement->douane->report_paye = null;
             $this->declaratif->paiement->cvo->frequence = null;
             $this->declaratif->paiement->cvo->moyen = null;
-            $this->declaratif->paiement->cvo->report_paye = null;
             $this->declaratif->caution->dispense = null;
             $this->declaratif->caution->organisme = null;
         }
@@ -175,6 +174,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->declaratif->daa->fin = null;
         $this->declaratif->dsa->debut = null;
         $this->declaratif->dsa->fin = null;
+        $this->declaratif->paiement->cvo->report_paye = null;
+        $this->declaratif->remove('reports');
+        $this->declaratif->add('reports');
 
         $this->commentaires = null;
 
@@ -221,6 +223,13 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		return false;
 	}
     public function getReportByDroit($type, $droit) {
+    	$reportSet = 0;
+    	if (preg_match('/\_'.DRMDroitsCirculation::KEY_VIRTUAL_TOTAL.'/', $droit)) {
+    		$reports = $this->declaratif->getOrAdd('reports');
+    		if ($reports->exist($droit)) {
+    			$reportSet = $reports->get($droit);
+    		}
+    	}
     	if ($this->isNouvelleCampagne()) {
     		return 0;
     	}
@@ -230,10 +239,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $drmPrecedente = $this->getPrecedente();
         if ($drmPrecedente && !$drmPrecedente->isNew()) {
             if ($drmPrecedente->droits->get($type)->exist($droit)) {
-                return $drmPrecedente->droits->get($type)->get($droit)->cumul;
+                return ($drmPrecedente->droits->get($type)->get($droit)->cumul + $reportSet);
             }
         }
-        return 0;
+        return $reportSet;
     }
 
     public function detailHasMouvementCheck() {

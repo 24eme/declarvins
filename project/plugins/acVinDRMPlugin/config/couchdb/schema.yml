@@ -427,6 +427,11 @@ DRM:
                   debut: { type: integer }
                   fin: { type: integer }
             adhesion_emcs_gamma: { type: integer }
+            reports:
+              type: collection
+              definition:
+                fields:
+                  '*': { type: float }
             paiement:
               type: collection
               definition:

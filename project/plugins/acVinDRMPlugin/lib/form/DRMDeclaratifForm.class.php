@@ -16,7 +16,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
     }
 
     public function getDefaultValues() {
-        $has_frequence_paiement = ($this->_drm->declaratif->paiement->douane->frequence) ? 1 : '';
         $default = array(
             'raison_rectificative' => $this->_drm->raison_rectificative,
         	'date_signee' => $this->_drm->valide->date_signee,
@@ -119,6 +118,8 @@ class DRMDeclaratifForm extends acCouchdbForm {
         $this->validatorSchema['daa_fin']->setMessage('invalid', 'Merci d\'entrer une valeur numérique pour la fin de DAA.');
         $this->validatorSchema['dsa_debut']->setMessage('invalid', 'Merci d\'entrer une valeur numérique pour le début de DSA.');
         $this->validatorSchema['dsa_fin']->setMessage('invalid', 'Merci d\'entrer une valeur numérique pour la fin DSA.');
+        
+        $this->embedForm('reports', new DRMDeclaratifReportForm($this->_drm));
 
 
         $this->widgetSchema->setNameFormat('drm_declaratif[%s]');
@@ -160,13 +161,19 @@ class DRMDeclaratifForm extends acCouchdbForm {
         $this->_drm->declaratif->caution->numero = $values['numero'];
         if ($this->hasWidgetFrequence()) {
             $this->_drm->declaratif->paiement->douane->frequence = $values['frequence'];
+            $reports = $this->_drm->declaratif->getOrAdd('reports');
+	        foreach ($values['reports'] as $code => $report) {
+	        	if ($report) {
+	        		$reports->add($code, $report);
+	        	}
+	        }
         }
         $this->_drm->declaratif->paiement->douane->moyen = $values['moyen_paiement'];
         //$this->_drm->save();
         return $this->_drm;
     }
 
-    private function hasWidgetFrequence() {
+    public function hasWidgetFrequence() {
         return ($this->_drm->declaratif->paiement->douane->frequence && !DRMPaiement::isDebutCampagne($this->_drm->getMois())) ? false : true;
     }
     

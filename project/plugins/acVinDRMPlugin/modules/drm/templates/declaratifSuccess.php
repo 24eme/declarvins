@@ -126,7 +126,7 @@
                     <li><strong>Paiement des droits de circulation</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_paiement" title="Message aide"></a></li>
                 </ul>
                 <div class="contenu_onglet_declaratif">
-                    <?php if ($hasFrequencePaiement && !DRMPaiement::isDebutCampagne($drm->getMois())): ?>
+                    <?php if (!$form->hasWidgetFrequence()): ?>
                             <div class="ligne_form alignes">
                                 Vous payez par échéance <strong><?php echo strtolower($drm->declaratif->paiement->douane->frequence) ?></strong>
                                 - <a href="<?php echo url_for('drm_declaratif_frequence_form', $drm) ?>" class="btn_popup" data-popup="#popup_ajout_frequence" data-popup-config="configForm">Modifier l'échéance de paiement</a>
@@ -139,6 +139,16 @@
                         </div>
                     <?php endif; ?>
                     <br />
+                    <div id="reports" style="display: <?php if((isset($form['frequence']) && $form['frequence']->getValue() == 'Annuelle')): ?>block<?php else: ?>none<?php endif; ?>;">
+                    	<p class="intro">Veuillez saisir le cumul de vos droits de circulation depuis le début de campagne par code taxe :<p>
+                    		<?php foreach ($form['reports'] as $formReport): ?>
+                    		<div class="ligne_form alignes">
+                        		<?php echo $formReport->renderError() ?>
+                        		<?php echo $formReport->renderLabel() ?>
+                        		<?php echo $formReport->render() ?>
+                        	</div>
+                    		<?php endforeach; ?>
+                    </div>
                     <p class="intro"><?php echo $form['moyen_paiement']->renderLabel() ?><p>
                     <div class="ligne_form alignes">
                         <?php echo $form['moyen_paiement']->renderError() ?>
@@ -170,5 +180,8 @@ $(document).ready( function()
 	{
         $('#drm_declaratif_caution_0').click(function() { $('#organisme').css('display', 'block'); $('#numero').css('display', 'none') });
         $('#drm_declaratif_caution_1').click(function() { $('#organisme').css('display', 'none'); $('#numero').css('display', 'block') });
+        $('#drm_declaratif_frequence_Mensuelle').click(function() { $('#reports').css('display', 'none'); });
+        $('#drm_declaratif_frequence_Annuelle').click(function() { $('#reports').css('display', 'block'); });
+        
     });
 </script>
