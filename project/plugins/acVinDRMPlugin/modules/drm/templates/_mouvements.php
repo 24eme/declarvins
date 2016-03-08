@@ -53,7 +53,7 @@
                             <a title="Saisi le <?php echo format_date($mouvement->date_version, 'D') ?>" href="<?php echo url_for('drm_visualisation', array('identifiant' => $identifiant, 'periode_version' => $periode_version)) ?>"><?php echo acCouchdbManager::getClient($mouvement->type)->getLibelleFromId($mouvement->doc_id) ?><?php echo ($mouvement->version) ? ' (' . $mouvement->version . ')' : '' ?></a>
                         </td>
                         </td>
-                        <td><?php echo $mouvement->produit_libelle ?> <?php echo $mouvement->interpro ?></td>
+                        <td><?php echo $mouvement->produit_libelle ?></td>
                         <td><?php
                             if ($mouvement->vrac_numero) {
                                 echo (!isset($no_link) || !$no_link) ? '<a href="' . url_for("vrac_visualisation", array("contrat" => $mouvement->vrac_numero, "etablissement" => $etablissement)) . '">' : '';
