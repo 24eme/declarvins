@@ -139,9 +139,10 @@
                         </div>
                     <?php endif; ?>
                     <br />
+                    <?php if (isset($form['reports'])): ?>
                     <div id="reports" style="display: <?php if((isset($form['frequence']) && $form['frequence']->getValue() == 'Annuelle')): ?>block<?php else: ?>none<?php endif; ?>;">
                     	<p class="intro">Veuillez saisir le cumul de vos droits de circulation depuis le début de campagne par code taxe :<p>
-                    		<?php foreach ($form['reports'] as $formReport): ?>
+                    		<?php  foreach ($form['reports'] as $formReport): ?>
                     		<div class="ligne_form alignes">
                         		<?php echo $formReport->renderError() ?>
                         		<?php echo $formReport->renderLabel() ?>
@@ -149,6 +150,7 @@
                         	</div>
                     		<?php endforeach; ?>
                     </div>
+                    <?php endif; ?>
                     <p class="intro"><?php echo $form['moyen_paiement']->renderLabel() ?><p>
                     <div class="ligne_form alignes">
                         <?php echo $form['moyen_paiement']->renderError() ?>

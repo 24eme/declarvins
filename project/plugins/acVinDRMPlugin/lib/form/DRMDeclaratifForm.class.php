@@ -127,6 +127,10 @@ class DRMDeclaratifForm extends acCouchdbForm {
         
         if (!$this->hasWidgetFrequence()) {
             unset($this['frequence']);
+            unset($this['reports']);
+        }
+        if (DRMPaiement::isDebutCampagne($this->_drm->getMois()) && isset($this['reports'])) {
+            unset($this['reports']);
         }
     }
 
@@ -162,11 +166,13 @@ class DRMDeclaratifForm extends acCouchdbForm {
         if ($this->hasWidgetFrequence()) {
             $this->_drm->declaratif->paiement->douane->frequence = $values['frequence'];
             $reports = $this->_drm->declaratif->getOrAdd('reports');
-	        foreach ($values['reports'] as $code => $report) {
-	        	if ($report) {
-	        		$reports->add($code, $report);
-	        	}
-	        }
+            if (isset($values['reports'])) {
+		        foreach ($values['reports'] as $code => $report) {
+		        	if ($report) {
+		        		$reports->add($code, $report);
+		        	}
+		        }
+            }
         }
         $this->_drm->declaratif->paiement->douane->moyen = $values['moyen_paiement'];
         //$this->_drm->save();
@@ -176,7 +182,7 @@ class DRMDeclaratifForm extends acCouchdbForm {
     public function hasWidgetFrequence() {
     	$historique = new DRMHistorique($this->_drm->identifiant);
     	$firstDTI = $historique->getFirstDTIByCampagne($this->_drm->campagne);
-    	if ($firstDTI && $this->_drm->periode >= $firstDTI) {
+    	if ($firstDTI && $this->_drm->periode <= $firstDTI) {
     		return true;
     	}
         return ($this->_drm->declaratif->paiement->douane->frequence && !DRMPaiement::isDebutCampagne($this->_drm->getMois())) ? false : true;
