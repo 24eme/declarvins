@@ -30,12 +30,12 @@
 	#header {
 		font-size: 11pt;
 		color: #000;
-		padding: 0 0 30px;
+		padding: 30px 0 30px 0;
 		top: -180px;
 	}
 
 	#header h1 {
-		font-size: 16pt;
+		font-size: 12pt;
 		margin: 0;
 	}
 
