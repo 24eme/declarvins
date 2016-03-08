@@ -174,6 +174,11 @@ class DRMDeclaratifForm extends acCouchdbForm {
     }
 
     public function hasWidgetFrequence() {
+    	$historique = new DRMHistorique($this->_drm->identifiant);
+    	$firstDTI = $historique->getFirstDTIByCampagne($this->_drm->campagne);
+    	if ($firstDTI && $this->_drm->periode >= $firstDTI) {
+    		return true;
+    	}
         return ($this->_drm->declaratif->paiement->douane->frequence && !DRMPaiement::isDebutCampagne($this->_drm->getMois())) ? false : true;
     }
     
