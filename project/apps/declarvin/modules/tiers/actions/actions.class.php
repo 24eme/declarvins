@@ -38,7 +38,7 @@ class tiersActions extends sfActions
       		return $this->redirect('tiers_forbidden');
       }
       if ($nbEtablissement == 1) {
-    		return $this->redirect("tiers_mon_espace", $etablissement);
+    		return $this->redirect("tiers_mon_espace", current($etablissements));
       }
 
   	  $this->form = new TiersLoginForm($this->compte, true, $etablissements);

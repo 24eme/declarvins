@@ -60,7 +60,7 @@
         <!--[if lte IE 9 ]> </div> <![endif]-->
         <!-- ####### A REPRENDRE ABSOLUMENT ####### -->
         <script type="text/javascript">var jsPath = "/js/";</script>
-        <script type="text/javascript" src="/js/includes.js"></script>
+        <script type="text/javascript" src="/js/includes.js?20160122"></script>
     </body>
 
 </html>

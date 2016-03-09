@@ -28,7 +28,14 @@
         <?php if ($drm->isValidee()): ?>
             <div style="background: none repeat scroll 0 0 #ECFEEA;border: 1px solid #359B02;color: #1E5204;font-weight: bold;margin: 0 0 10px 0;padding: 5px 10px;">
                 <ul>
-                    <li>Votre DRM a bien été saisie et validée</li>
+                    <li>
+                    <?php if ($drm->isTeledeclare()): ?>
+                    Votre DRM a bien été validée et transmis à votre interprofession.<br />
+					Vous devez par contre imprimer le PDF et le signer puis l'envoyer à votre service des douanes habituels.
+                    <?php else: ?>
+                    Votre DRM a bien été saisie et validée.
+                    <?php endif; ?>
+                    </li>
                 </ul>
             </div>
         <?php endif; ?>

@@ -497,6 +497,9 @@ class DRMDetail extends BaseDRMDetail {
             }
 
             $facturableArray = $this->getIsFacturableArray();
+            if (!$this->getCepage()->getConfig()) {
+            	continue;
+            }
 
             $mouvement = DRMMouvement::freeInstance($this->getDocument());
             $mouvement->produit_hash = $this->getCepage()->getConfig()->getHash();

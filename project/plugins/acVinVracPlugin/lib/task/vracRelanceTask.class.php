@@ -28,7 +28,7 @@ EOF;
     // initialize the database connection
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-    set_time_limit(600);
+    set_time_limit(0);
     
     $vracs = VracHistoryView::getInstance()->findLast();
     foreach ($vracs->rows as $vrac) {
@@ -60,20 +60,33 @@ EOF;
   }
   
   protected function sendEmail($vrac, $identifiant, $acteur) {
+  	
   	$routing = clone ProjectConfiguration::getAppRouting();
 	$contextInstance = sfContext::createInstance($this->configuration);
     $contextInstance->set('routing', $routing);
     
   	$etablissement = EtablissementClient::getInstance()->find($identifiant);
+
+
+  	$url['contact'] = $routing->generate('contact', array(), true);
+  	$url['home'] = $routing->generate('homepage', array(), true);
+  	$url['lien'] = $routing->generate('vrac_validation', array('sf_subject' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur), true);
+
   	if ($etablissement->compte) {
 		if ($compte = _CompteClient::getInstance()->find($etablissement->compte)) {
 			if ($compte->statut == _Compte::STATUT_ARCHIVE) {
 				if ($interpro->email_contrat_vrac) {
-					Email::getInstance($contextInstance)->vracRelanceContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur);
+					Email::getInstance($contextInstance)->vracRelanceContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
 				}
 			}
 		}
 	}
-	Email::getInstance($contextInstance)->vracRelanceContrat($vrac, $etablissement, $etablissement->email, $acteur);
+	if ($etablissement->email) {
+		try {
+			Email::getInstance($contextInstance)->vracRelanceContrat($vrac, $etablissement, $etablissement->email, $acteur, $url);
+		} catch (Exception $e) {
+			return;
+		}
+	}
   }
 }

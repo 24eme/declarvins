@@ -71,8 +71,8 @@
 			var url_ajax = select.attr('data-ajax');
 			var limit = 20;
 			//var prev_term = "";
-			var minLength = 0;
-			var delay = (url_ajax) ? 300 : 200;
+			var minLength = (url_ajax) ? 4 : 0;
+			var delay = (url_ajax) ? 800 : 200;
 
 			var input = this.input = $( "<input type='text'>" )
 			.insertAfter( select )
@@ -81,8 +81,6 @@
 				delay: delay,
 				minLength: minLength,
 				source: function( request, response ) {
-					
-
 
 					if(select.attr('data-ajax')) {
 					  	
@@ -143,8 +141,6 @@
 					return false;
 				},
 				change: function( event, ui ) {
-					//console.log('change');
-					
 					if ( !ui.item ) {
 						var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( $(this).val() ) + "$", "i" ),
 						valid = false;
@@ -192,9 +188,8 @@
 							$(input).parent().find('button').show();
 						}
 						if (select.attr('data-remove-inputs')) {
-							console.log(select.attr('data-remove-inputs'));
 							var content = select.attr('data-remove-inputs');
-							$(content+' input').each(function() { console.log($(this)); $(this).val(''); });
+							$(content+' input').each(function() { $(this).val(''); });
 							$(content+' textarea').each(function() { $(this).val(''); });
 						}
 						return false;

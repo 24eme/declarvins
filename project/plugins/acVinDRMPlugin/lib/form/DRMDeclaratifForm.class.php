@@ -35,6 +35,7 @@ class DRMDeclaratifForm extends acCouchdbForm {
             'statistiques_jus' => $this->_drm->declaratif->statistiques->jus,
             'statistiques_mcr' => $this->_drm->declaratif->statistiques->mcr,
             'statistiques_vinaigre' => $this->_drm->declaratif->statistiques->vinaigre,
+            'numero' => $this->_drm->declaratif->caution->numero,
         );
 
         return $default;
@@ -78,6 +79,7 @@ class DRMDeclaratifForm extends acCouchdbForm {
                 )
             )),
             'organisme' => new sfWidgetFormInput(),
+            'numero' => new sfWidgetFormInput(),
             'moyen_paiement' => new sfWidgetFormChoice(array(
                 'expanded' => true,
                 'choices' => array(
@@ -118,6 +120,7 @@ class DRMDeclaratifForm extends acCouchdbForm {
             'adhesion_emcs_gamma' => new sfValidatorBoolean(array('required' => false)),
             'caution' => new sfValidatorChoice(array('required' => true, 'choices' => array(1, 0))),
             'organisme' => new sfValidatorString(array('required' => false)),
+            'numero' => new sfValidatorString(array('required' => false)),
             'moyen_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array('Numéraire', 'Chèque', 'Virement'))),
             'frequence' => new sfValidatorChoice(array('required' => true, 'choices' => array(DRMPaiement::FREQUENCE_ANNUELLE, DRMPaiement::FREQUENCE_MENSUELLE))),
             'statistiques_jus' => new sfValidatorNumber(array('required' => false)),
@@ -128,6 +131,7 @@ class DRMDeclaratifForm extends acCouchdbForm {
         $this->validatorSchema['apurement']->setMessage('required', 'Vous n\'avez pas selectionné de défaut d\'apurement.');
         $this->validatorSchema['caution']->setMessage('required', 'Vous n\'avez pas précisé si vous bénéficier d\'une caution.');
         $this->validatorSchema['organisme']->setMessage('required', 'Veuillez préciser l\'organisme.');
+        $this->validatorSchema['numero']->setMessage('required', 'Veuillez préciser le numéro.');
         $this->validatorSchema['moyen_paiement']->setMessage('required', 'Vous n\'avez pas selectionné de moyen de paiement.');
         $this->validatorSchema['frequence']->setMessage('required', 'Vous n\'avez pas selectionné de type d\'échéance.');
         
@@ -202,6 +206,8 @@ class DRMDeclaratifForm extends acCouchdbForm {
         $this->_drm->declaratif->statistiques->jus = $values['statistiques_jus'];
         $this->_drm->declaratif->statistiques->mcr = $values['statistiques_mcr'];
         $this->_drm->declaratif->statistiques->vinaigre = $values['statistiques_vinaigre'];
+        $this->_drm->declaratif->caution->numero = $values['numero'];
+        		
         if ($this->hasWidgetFrequence()) {
             $this->_drm->declaratif->paiement->douane->frequence = $values['frequence'];
         }

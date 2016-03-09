@@ -130,7 +130,7 @@ class ediActions extends sfActions
     }
     $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
-    $drms = $this->drmCallback(DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'), true)->rows);
+    $drms = $this->drmCallback(DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows);
     return $this->renderCsv($drms, DRMDateView::VALUE_DATEDESAISIE, "DRM", $dateTime->format('c'), $interpro, array(DRMDateView::VALUE_IDENTIFIANT_DECLARANT));
   }
   
@@ -220,9 +220,13 @@ class ediActions extends sfActions
 			}
 
 			$contrats = $import->getContrats();
+			$traites = array();
 			foreach ($contrats as $contrat) {
-				$contrat->save(false);
-				$result[] = array('SUCCESS', 'CONTRAT', null, 'Le contrat '.$contrat->_id.' a été mis à jour avec succès');
+				if (!in_array($contrat->_id, $traites)) {
+					$traites[] = $contrat->_id;
+					$contrat->save(false);
+					$result[] = array('SUCCESS', 'CONTRAT', null, 'Le contrat '.$contrat->_id.' a été mis à jour avec succès');
+				}
 			}
   			
   		} else {
@@ -408,9 +412,12 @@ class ediActions extends sfActions
 	            try {
 	            	$nb = $import->updateOrCreate();
 	                $result[0] = array('OK', '', 0, $nb.' établissement(s) importé(s)');
+			      	if (count($import->getErrors()) > 0) {
+			      		throw new sfException("has errors");
+			      	}
 	            } catch (Exception $e) {
 	            	foreach ($import->getErrors() as $k => $v) {
-	                	$result[$k] = array('ERREUR', 'LIGNE', $k, implode(' - ', $v));
+	                	$result[$k] = array('ERREUR', 'LIGNE', $k+1, implode(' - ', $v));
 	                }
 	            }
 	        } else {
@@ -565,9 +572,9 @@ class ediActions extends sfActions
   		$squeeze = null;
   		foreach ($items as $item) {
   			if ($item->value[DRMDateView::VALUE_TYPE] == 'DETAIL' && (is_null($item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX]) || $item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX] < 0 || !$item->value[DRMDateView::VALUE_DETAIL_CVO_CODE])) {
-  				$squeeze = $item->value[DRMDateView::VALUE_IDDRM];
+  				$squeeze = $item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH];
   			}
-  			if ($item->value[DRMDateView::VALUE_IDDRM] != $squeeze) {
+  			if ($item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH] != $squeeze) {
   				$drms[] = $item;
   			}
   		}

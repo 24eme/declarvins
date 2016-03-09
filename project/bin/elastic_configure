@@ -28,8 +28,8 @@ fi
 
 # Creation des index
 
-curl -XPUT 'http://localhost:9200/_river/' > /dev/null
-curl -XPUT 'http://localhost:9200/$ELASTINDEX/' > /dev/null
+curl -s -XPUT http://$ELASTHOST:$ELASTPORT/_river/ > /dev/null
+curl -s -XPUT http://$ELASTHOST:$ELASTPORT/$ELASTINDEX/ > /dev/null
 
 # Configuration du mapping drm
 
@@ -41,7 +41,7 @@ echo '{
     }
 }' > /tmp/elastic.mapping.json
 
-curl -XPUT "http://$ELASTHOST:$ELASTPORT/$ELASTINDEX/drm/_mapping" -d '@/tmp/elastic.mapping.json'
+curl -s -XPUT "http://$ELASTHOST:$ELASTPORT/$ELASTINDEX/drm/_mapping" -d '@/tmp/elastic.mapping.json'
 
 
 # Initialisation des rivers
@@ -65,7 +65,7 @@ echo '{
     }
 }' > /tmp/elastic.configure.json
 
-curl -XPUT "http://$ELASTHOST:$ELASTPORT/_river/"$ELASTRIVERNAME"_drm/_meta" -d '@/tmp/elastic.configure.json'
+curl -s -XPUT "http://$ELASTHOST:$ELASTPORT/_river/"$ELASTRIVERNAME"_drm/_meta" -d '@/tmp/elastic.configure.json'
 
 echo '{
     "type" : "couchdb",
@@ -86,7 +86,7 @@ echo '{
     }
 }' > /tmp/elastic.configure.json
 
-curl -XPUT "http://$ELASTHOST:$ELASTPORT/_river/"$ELASTRIVERNAME"_daids/_meta" -d '@/tmp/elastic.configure.json'
+curl -s -XPUT "http://$ELASTHOST:$ELASTPORT/_river/"$ELASTRIVERNAME"_daids/_meta" -d '@/tmp/elastic.configure.json'
 
 echo '{
     "type" : "couchdb",
@@ -107,6 +107,8 @@ echo '{
     }
 }' > /tmp/elastic.configure.json
 
-curl -XPUT "http://$ELASTHOST:$ELASTPORT/_river/"$ELASTRIVERNAME"_vrac/_meta" -d '@/tmp/elastic.configure.json'
+curl -s -XPUT "http://$ELASTHOST:$ELASTPORT/_river/"$ELASTRIVERNAME"_vrac/_meta" -d '@/tmp/elastic.configure.json'
+
+curl -s -XPUT "http://$ELASTHOST:$ELASTPORT/_settings" -d'{"number_of_replicas" : 0}'
 
 rm /tmp/elastic.configure.json

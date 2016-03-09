@@ -29,10 +29,26 @@
 				
 		   		
 				<?php if (!$vrac->isValide() && !$dateValidationActeur): ?>
-				<?php if ($vrac->has_transaction): ?>
-				<p style="text-align:right;">Assurez-vous de bien respecter les délais minimum de transmission de vos déclarations de transactions à votre organisme d’inspection/contrôle.</p>
-				<?php endif; ?>
+				
 				<form action="<?php echo url_for('vrac_validation', array('sf_subject' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur)) ?>" method="post" id="vrac_condition">
+				<?php 
+					if ($vrac->hasOioc() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+					?>
+					<div style="background: none repeat scroll 0 0 #ECFEEA;border: 1px solid #359B02;color: #1E5204;font-weight: bold;text-align: left;margin: 10px 0 10px 0;padding: 5px 10px;">
+						<ul>
+							<li>
+								Une fois le contrat validé par toutes les parties, votre déclaration de transaction sera envoyée automatiquement à votre OIOC par e-mail (vous serez en copie).<br />Si vous n’êtes pas en copie de ce mail, ou si vous ne recevez pas d'accusé de réception de votre OIOC dans les 24 heures ouvrées pour AVPI, 48 heures ouvrées pour QUALISUD, vous devrez impérativement prendre contact avec votre OIOC afin de transmettre vous-même votre déclaration de transaction (« PDF Transaction »).<br />Votre interprofession ne pourra être tenu responsable de la non réception de votre déclaration de transaction par votre OIOC.
+							</li>
+						</ul>
+					</div>
+				        		<div class="vracs_ligne_form" style="font-weight: bold;">
+				            		<?php echo $form['transaction']->renderError() ?>
+				            		<?php echo $form['transaction']->render() ?>
+				            		<?php echo $form['transaction']->renderLabel() ?>
+				        		</div>
+					<?php 
+						}
+					?>
 					 <div class="ligne_form_btn">
 						<a class="annuler_saisie" onclick="return confirm('Confirmez-vous le refus du contrat?')" href="<?php echo url_for('vrac_statut', array('sf_subject' => $vrac, 'statut' => VracClient::STATUS_CONTRAT_ANNULE, 'etablissement' => $etablissement)) ?>" id="btn_annuler_contrat">Refuser</a>
 						<?php echo $form->renderHiddenFields() ?>

@@ -5,6 +5,10 @@
 		    <?php echo $form->renderHiddenFields(); ?>
 		    <?php echo $form->renderGlobalErrors(); ?>
 			<div class="ligne_form">
+			    <label>N° contrat d'inscription:</label>
+			    <strong><?php echo str_replace('CONTRAT-', '', $compte->contrat) ?></strong>
+			</div>
+			<div class="ligne_form">
 			    <label>Nom:</label>
 			    <strong><?php echo $compte->getNom() ?></strong>
 			</div>

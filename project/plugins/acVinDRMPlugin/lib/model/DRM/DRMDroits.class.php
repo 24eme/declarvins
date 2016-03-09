@@ -33,6 +33,12 @@ class DRMDroits extends BaseDRMDroits
   	{
     	return self::$douane_droit_sorties;
   	}
+  	
+  	static $douane_droit_entrees = array('entrees/crd');
+  	public static function getDouaneDroitEntrees() 
+  	{
+    	return self::$douane_droit_entrees;
+  	}
 
 	private $res = array();
 	

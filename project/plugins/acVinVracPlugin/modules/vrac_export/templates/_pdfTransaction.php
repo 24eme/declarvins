@@ -88,25 +88,24 @@
 	<p><?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)).'&nbsp;' : ''; ?><?php echo (count($vrac->mentions) > 0)? $configurationVrac->formatMentionsLibelle($vrac->mentions) : ''; ?></p>
 	<p>Annexe technique : <?php echo ($vrac->annexe)? 'Oui' : 'Non'; ?>, Export : <?php echo ($vrac->export)? 'Oui' : 'Non'; ?></p>
 	
+	<h2>Conditions</h2>
+	
+	<p>Volume total : <?php echoLongFloat($vrac->volume_propose) ?>&nbsp;hl</p>
+	<p>Date de début de retiraison : <?php if ($vrac->date_debut_retiraison): ?><?php echo Date::francizeDate($vrac->date_debut_retiraison) ?><?php endif; ?></p>
+	<p>Autres observations : <?php if ($vrac->exist('observations') && $vrac->observations): ?><?php echo $vrac->observations ?><?php endif; ?><br /></p>
 	
 	<?php if ($vrac->has_transaction): ?>
+	<hr />
 	<h2>Descriptif des lots</h2>
 
-	<div id="lots">
+	
 
-		<?php $date_premiere_retiraison = null; ?>
-		<table>
-			<?php foreach ($vrac->lots as $lot): ?>
-			<?php
-				$nb_cuves = sizeof($lot->cuves);
-				$nb_millesimes = 0;
-				if($lot->assemblage) $nb_millesimes = sizeof($lot->millesimes);
-			?>
-			<?php $nb_lignes = 3 + $nb_cuves ?>
-			<?php if($nb_millesimes > 0) $nb_lignes += 1 + $nb_millesimes; ?>
+		<?php $item = 1; foreach ($vrac->lots as $lot): ?>
+			<div id="lots">
+			<table>
 			<tr>
-				<th rowspan="<?php echo $nb_lignes; ?>" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
-				<th rowspan="<?php echo 1 + $nb_cuves; ?>" class="cuves">Cuves</th>
+				<th rowspan="5" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
+				<th rowspan="2" class="cuves">Cuves</th>
 				<th>N° des cuves</th>
 				<th>Volume (hl)</th>
 				<th>Date de retiraison</th>
@@ -114,38 +113,24 @@
 
 			<?php $i=1; ?>
 			<?php foreach ($lot->cuves as $cuve): ?>
-			<tr class="<?php if($i==$nb_cuves) echo 'der_cat'; ?>">
+			<tr class="<?php if($i==sizeof($lot->cuves)) echo 'der_cat'; ?>">
 				<td><?php echo $cuve->numero ?></td>
 				<td><?php if ($cuve->volume) {echoLongFloat($cuve->volume);} ?> hl</td>
 				<td><?php echo Date::francizeDate($cuve->date) ?></td>
 			</tr>
 			<?php $i++; ?>
-			
-			<?php 
-				if (!$date_premiere_retiraison || $cuve->date < $date_premiere_retiraison) {
-					$date_premiere_retiraison = $cuve->date;
-				}
-			
-			?>
 			<?php endforeach; ?>
 
 			<?php if($lot->assemblage): ?>
-			<tr>
-				<th rowspan="<?php echo 1 + $nb_millesimes ?>" class="millesimes">Assemblage de millésimes</th>
-				<th>Année</th>
-				<th class="pourcentage">Pourcentage</th>
-				<th></th>
+			<tr class="der_cat">
+				<th class="degre">Assemblage de millésimes</th>
+				<td colspan="3">
+				<?php $j=0; foreach ($lot->millesimes as $millesime): ?>
+				<?php echo $millesime->annee ?> (<?php echo $millesime->pourcentage ?>%)
+				<?php if ($j < (sizeof($lot->millesimes) - 1)): ?> - <?php endif; ?>
+				<?php $j++; endforeach; ?>
+				</td>
 			</tr>
-
-			<?php $i=1; ?>
-			<?php foreach ($lot->millesimes as $millesime): ?>
-			<tr class="<?php if($i==$nb_millesimes) echo 'der_cat'; ?>">
-				<td><?php echo $millesime->annee ?></td>
-				<td class="pourcentage"><?php echo $millesime->pourcentage ?> %</td>
-				<td></td>
-			</tr>
-			<?php $i++; ?>
-			<?php endforeach; ?>
 
 			<?php endif; ?>
 
@@ -159,18 +144,13 @@
 				<td><?php echo ($lot->presence_allergenes)? 'Oui' : 'Non'; ?></td>
 				<td colspan="2"></td>
 			</tr>
-			<?php endforeach; ?>
-		</table>
-
-	</div>
+			</table>
+			</div>
+			<?php if ($item%5 == 0) {echo "<hr />"; } $item++; endforeach; ?>
+			
 	<?php endif; ?>
-	<p>Volume total : <?php echoLongFloat($vrac->volume_propose) ?>&nbsp;hl</p>
-	<?php if ($date_premiere_retiraison): ?>
-	<p>Date première retiraison : <?php echo Date::francizeDate($date_premiere_retiraison) ?></p>
-	<?php endif; ?>
-	<p>Observations : <?php echo $vrac->commentaires ?></p>
+	
 	<?php if ($configurationVrac->getInformationsComplementaires()): ?>
-	<hr />
 	<h2>Informations complémentaires</h2>
 	<div class="clauses">
 	<?php echo $configurationVrac->getInformationsComplementaires(ESC_RAW) ?>

@@ -144,6 +144,8 @@ OIOC:
       _rev: {  }
       identifiant: { }
       nom: { }
+      email_transaction: {  }
+      delai_reponses: {  }
       type: {  }
       statut: {  }
 

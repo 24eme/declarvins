@@ -134,7 +134,11 @@
 	<h2>Conditions</h2>
 	<?php if ($vrac->isConditionneIvse()): ?><p><strong>De retiraison :</strong></p><?php endif; ?>
 	<p>
-		<?php echo ($vrac->date_debut_retiraison)? 'Date de début de retiraison : '.Date::francizeDate($vrac->date_debut_retiraison).'&nbsp;&nbsp;' : ''; ?>
+		
+		<?php if (!$vrac->isConditionneIvse()): ?>
+		Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?>&nbsp;;&nbsp;
+		<?php endif; ?>
+		<?php echo ($vrac->date_debut_retiraison)? 'Date de début de retiraison : '.Date::francizeDate($vrac->date_debut_retiraison).'&nbsp;;&nbsp;' : ''; ?>
 		<?php echo ($vrac->date_limite_retiraison)? 'Date limite de retiraison : '.Date::francizeDate($vrac->date_limite_retiraison) : ''; ?>
 	</p>
 
@@ -175,13 +179,10 @@
 		<?php if(!is_null($vrac->delai_paiement)): ?>
 		Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array($vrac->delai_paiement)) ?><br />
 		<?php endif; ?>
-		<?php if (!$vrac->isConditionneIvse()): ?>
-		Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?><br /><br />
-		<?php endif; ?>
-		Autres observations : <?php if ($vrac->exist('observations') && $vrac->observations): ?><?php echo $vrac->observations ?><?php endif; ?>
+		Autres observations : <?php if ($vrac->exist('observations') && $vrac->observations): ?><?php echo $vrac->observations ?><?php endif; ?><br />
 		
 	</p>
-	<?php if ($vrac->isConditionneIvse()): ?><hr /><?php endif; ?>
+	<hr />
 	<h2><?php if ($vrac->isConditionneIvse()): ?>Conditions générales de vente<?php else: ?>Clauses<?php endif; ?></h2>
 	<div class="clauses">
 	<?php echo $configurationVrac->getClauses(ESC_RAW) ?>
@@ -190,22 +191,16 @@
 	<hr />
 	<h2>Descriptif des lots</h2>
 
-	<div id="lots">
 
 
-		<table>
-			<?php $date_premiere_retiraison = null; ?>
-			<?php foreach ($vrac->lots as $lot): ?>
-			<?php
-				$nb_cuves = sizeof($lot->cuves);
-				$nb_millesimes = 0;
-				if($lot->assemblage) $nb_millesimes = sizeof($lot->millesimes);
-			?>
-			<?php $nb_lignes = 3 + $nb_cuves ?>
-			<?php if($nb_millesimes > 0) $nb_lignes += 1 + $nb_millesimes; ?>
+
+		
+			<?php $item = 1; foreach ($vrac->lots as $lot): ?>
+			<div id="lots">
+			<table>
 			<tr>
-				<th rowspan="<?php echo $nb_lignes; ?>" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
-				<th rowspan="<?php echo 1 + $nb_cuves; ?>" class="cuves">Cuves</th>
+				<th rowspan="5" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
+				<th rowspan="2" class="cuves">Cuves</th>
 				<th>N° des cuves</th>
 				<th>Volume (hl)</th>
 				<th>Date de retiraison</th>
@@ -213,38 +208,24 @@
 
 			<?php $i=1; ?>
 			<?php foreach ($lot->cuves as $cuve): ?>
-			<tr class="<?php if($i==$nb_cuves) echo 'der_cat'; ?>">
+			<tr class="<?php if($i==sizeof($lot->cuves)) echo 'der_cat'; ?>">
 				<td><?php echo $cuve->numero ?></td>
 				<td><?php if ($cuve->volume) {echoLongFloat($cuve->volume);} ?> hl</td>
 				<td><?php echo Date::francizeDate($cuve->date) ?></td>
 			</tr>
 			<?php $i++; ?>
-			
-			<?php 
-				if (!$date_premiere_retiraison || $cuve->date < $date_premiere_retiraison) {
-					$date_premiere_retiraison = $cuve->date;
-				}
-			
-			?>
 			<?php endforeach; ?>
 
 			<?php if($lot->assemblage): ?>
-			<tr>
-				<th rowspan="<?php echo 1 + $nb_millesimes ?>" class="millesimes">Assemblage de millésimes</th>
-				<th>Année</th>
-				<th class="pourcentage">Pourcentage</th>
-				<th></th>
+			<tr class="der_cat">
+				<th class="degre">Assemblage de millésimes</th>
+				<td colspan="3">
+				<?php $j=0; foreach ($lot->millesimes as $millesime): ?>
+				<?php echo $millesime->annee ?> (<?php echo $millesime->pourcentage ?>%)
+				<?php if ($j < (sizeof($lot->millesimes) - 1)): ?> - <?php endif; ?>
+				<?php $j++; endforeach; ?>
+				</td>
 			</tr>
-
-			<?php $i=1; ?>
-			<?php foreach ($lot->millesimes as $millesime): ?>
-			<tr class="<?php if($i==$nb_millesimes) echo 'der_cat'; ?>">
-				<td><?php echo $millesime->annee ?></td>
-				<td class="pourcentage"><?php echo $millesime->pourcentage ?> %</td>
-				<td></td>
-			</tr>
-			<?php $i++; ?>
-			<?php endforeach; ?>
 
 			<?php endif; ?>
 
@@ -258,13 +239,13 @@
 				<td><?php echo ($lot->presence_allergenes)? 'Oui' : 'Non'; ?></td>
 				<td colspan="2"></td>
 			</tr>
-			<?php endforeach; ?>
-		</table>
+			</table>
+			</div>
+			<?php if ($item%5 == 0) {echo "<hr />"; } $item++; endforeach; ?>
+		
 
-	</div>
-	<?php if ($date_premiere_retiraison): ?>
-	<p>Date première retiraison : <?php echo Date::francizeDate($date_premiere_retiraison) ?></p>
-	<?php endif; ?>
+	
+	
 	<?php if ($configurationVrac->getInformationsComplementaires()): ?>
 	<h2>Informations complémentaires</h2>
 	<div class="clauses">

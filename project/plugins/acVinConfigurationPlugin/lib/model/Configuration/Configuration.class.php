@@ -13,6 +13,13 @@ class Configuration extends BaseConfiguration {
     protected $_configuration_produits_CIVL = null;
     protected $_configuration_produits_IO = null;
     protected $_zones = null;
+
+    protected static $contraintes_vci = array(
+    		'entrees/recolte',
+    		'sorties/repli',
+        	'sorties/distillation'
+    );
+    
     protected static $stocks_debut = array(
         'bloque' => 'Dont Vin bloqué / Reserve',
         'warrante' => 'Dont Vin warranté',
@@ -102,6 +109,15 @@ class Configuration extends BaseConfiguration {
         'autres' => -1,
         'vrac_contrat' => -1
     );
+    
+
+
+    public static function getContraintes($genre) {
+    	if ($genre == 'VCI') {
+    		return self::$contraintes_vci;
+    	}
+    	return array();
+    }
 
     public static function getStocksDebut($acquittes = false) {
         return ($acquittes)? self::$stocks_debut_acq : self::$stocks_debut;
@@ -333,24 +349,6 @@ class Configuration extends BaseConfiguration {
   			} catch (Exception $e) { 
   				$ouverture = 0;
   			}
-  			/* Ouverture test CIVP */
-  			if (!$ouverture && $interpro == 'INTERPRO-CIVP' && $application == 'drm' && $etablissement) {
-  				$test = array(
-  					'CIVP24041',	
-  					'CIVP24144',
-  					'CIVP23747',
-  					'CIVP24067',
-  					'CIVP24102',
-  					'CIVP23884',
-  					'CIVP24479',
-  					'CIVP23989',
-  					'CIVP23752',
-  				);
-  				if (in_array($etablissement->identifiant, $test)) {
-  					$ouverture = 1;
-  				}
-  			}
-  			/* fin test civp */
   			return $ouverture;
     }
 

@@ -113,8 +113,8 @@ class acVinVracActions extends sfActions
         $this->etablissement = $this->getRoute()->getEtablissement();
         
         if (!$this->vrac->isNew())  {
-	        if ($this->vrac->valide->date_saisie) {
-	        	$this->contratAnnulation($this->vrac, $this->etablissement);
+	        if ($this->vrac->valide->date_validation) {
+	        	$this->contratAnnulation($this->vrac, $this->vrac->getProduitInterpro(), $this->etablissement);
 	        }
 	        $this->vrac->delete();
         }
@@ -248,7 +248,7 @@ class acVinVracActions extends sfActions
                     	} elseif ($sendEmail && !$this->vrac->isRectificative()) {
                     		$this->contratValide($this->vrac, $sendEmail);
                     	} elseif ($sendEmail) {
-                    		$this->saisieTerminee($this->vrac, $this->interpro);
+                    		$this->saisieTerminee($this->vrac, $this->vrac->getProduitInterpro());
                     	}
                     	return $this->redirect('vrac_visualisation', array('sf_subject' => $this->vrac, 'etablissement' => $this->etablissement));
                     } else {

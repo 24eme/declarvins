@@ -229,7 +229,7 @@
 				<h2>Caution</h2>
 				<p>
 					<?php if($drm->declaratif->caution->dispense): ?>
-						Dispensé
+						Dispensé, Numéro de dispense de caution : <?php echo $drm->declaratif->caution->numero ?>
 					<?php else: ?>
 						Oui, Organisme : <?php echo $drm->declaratif->caution->organisme ?>
 					<?php endif; ?>

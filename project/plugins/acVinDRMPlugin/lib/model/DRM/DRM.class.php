@@ -114,7 +114,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     public function getDetailsAvecVrac() {
         $details = array();
         foreach ($this->getDetails() as $d) {
-            if ($d->sorties->vrac && $d->canHaveVrac()) {
+            if (($d->sorties->vrac && $d->canHaveVrac()) || count($d->vrac->toArray()) > 0) {
                 $details[] = $d;
             }
         }
@@ -210,12 +210,12 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 $mergeEntrees = DRMDroits::getDroitEntreesInterRhone();
             }
             if ($droitCvo) {
-                $this->droits->getOrAdd(DRMDroits::DROIT_CVO)->getOrAdd($droitCvo->code)->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties($mergeSorties)), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitCvo->taux, 0, $droitCvo->libelle);
+                $this->droits->getOrAdd(DRMDroits::DROIT_CVO)->getOrAdd($droitCvo->code)->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties()), $detail->sommeLignes(DRMDroits::getDroitEntrees()), $droitCvo->taux, 0, $droitCvo->libelle);
             }
             if ($droitDouane) {
-                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($droitDouane->code)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitDouane->taux, $this->getReportByDroit(DRMDroits::DROIT_DOUANE, $droitDouane->code), $droitDouane->libelle);
+                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($droitDouane->code)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDouaneDroitEntrees()), $droitDouane->taux, $this->getReportByDroit(DRMDroits::DROIT_DOUANE, $droitDouane->code), $droitDouane->libelle);
                 $codeTotal = DRMDroitsCirculation::getCorrespondanceCode($droitDouane->code).'_'.DRMDroitsCirculation::KEY_VIRTUAL_TOTAL;
-                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($codeTotal)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDroitEntrees($mergeEntrees)), $droitDouane->taux, $this->getReportByDroit(DRMDroits::DROIT_DOUANE, $codeTotal), $codeTotal);
+                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($codeTotal)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDouaneDroitEntrees()), $droitDouane->taux, $this->getReportByDroit(DRMDroits::DROIT_DOUANE, $codeTotal), $codeTotal);
             }
         }
         $douanes = $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE);
@@ -416,6 +416,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             	$this->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
             }
         }
+    }
+    
+    public function isTeledeclare()
+    {
+    	return ($this->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI);
     }
 
     public function storeReferente() {
@@ -996,6 +1001,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         if (count($this->getDetails()) != count($this->getMother()->getDetails())) {
 
             return true;
+        }
+        
+        if ($this->declaratif->paiement->douane->frequence != $this->getMother()->declaratif->paiement->douane->frequence) {
+        	return true;
         }
         
         $change = false;

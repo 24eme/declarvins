@@ -40,7 +40,7 @@ Courtier :<br />
 <?php endif; ?>
 Observations : <?php echo $vrac->observations ?><br /><br />
 Nous vous invitons à vous rapprocher de vos partenaires.<br /><br />
-Pour toute information, vous pouvez <a href="<?php echo ProjectConfiguration::getAppRouting()->generate('contact', array(), true); ?>">contacter votre interprofession</a><br /><br />
+Pour toute information, vous pouvez <a href="<?php echo $url['contact']; ?>">contacter votre interprofession</a><br /><br />
 Cordialement,<br /><br />
 L'équipe Declarvins.net
 

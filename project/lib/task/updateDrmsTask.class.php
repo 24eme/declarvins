@@ -27,19 +27,22 @@ EOF;
         // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-        	if ($d = DRMClient::getInstance()->find($options['drm'])) {
-        		if ($d->declaration->certifications->exist('IGP')) {
-        			if ($d->declaration->certifications->get('IGP')->genres->exist('TRANQ')) {
-        				if ($d->declaration->certifications->get('IGP')->genres->get('TRANQ')->appellations->exist('IGP')) {
-			        		foreach ($d->declaration->certifications->get('IGP')->genres->get('TRANQ')->appellations->get('IGP')->getProduits() as $detail) {
-			        			$detail->add('interpro', 'INTERPRO-IVSE');
-			        		}
-        				}
-        			}
-        		}
-        		$d->save();
-        		$this->logSection('drm', $drm." : succès de la mise à jour.");
-        	}
+        $date  = new DateTime('2006-01-01T00:00:00');
+        $endDate = new DateTime('2016-02-02T00:00:00');
+        while ($date < $endDate) {
+        	$begin = $date->format('c');
+        	$date->modify('+1 year');
+        	$end = $date->format('c');
+	        $drms = DRMDateView::getInstance()->findByInterproAndDates('INTERPRO-CIVP', array('begin' => $begin, 'end' => $end))->rows;
+	        foreach ($drms as $drm) {
+	        	if (preg_match('/^declaration\/certifications\/AOP\/genres\/TRANQ/', $drm->key[4])) {
+	        		$d = DRMClient::getInstance()->find($drm->id);
+	        		$d->setDroits();
+	        		$d->save();
+	        		$this->logSection('update', $d->_id." : succès de la mise à jour des droits.");exit;
+	        	}
+	        }
+        }
     }
 
 }

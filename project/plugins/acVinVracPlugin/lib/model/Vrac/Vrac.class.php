@@ -164,10 +164,15 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 
     public function storeSoussigneInformations($type, $etablissement) 
     {        
+    	   
+    	   if (!$this->mandataire_exist && !$this->mandataire_identifiant) {
+    	   	$this->remove('mandataire');
+    	   	$this->add('mandataire');
+    	   }
     	   $informations = $this->get($type);
 
          if(!$etablissement) {
-
+			
           return null;
          }
          if ($this->exist($type.'_type')) {
@@ -311,6 +316,11 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		}
     		$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
     		$this->valide->date_validation = ($this->valide->date_saisie)? $this->valide->date_saisie : $this->date_signature;
+    		if (!$this->mandataire_exist) {
+    			$this->remove('mandataire');
+    			$this->add('mandataire');
+    			$this->mandataire_identifiant = null;
+    		}
     		$this->updateReferente();
     		$this->updateEnlevements();
     		$this->setOioc();
@@ -384,6 +394,11 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	$this->valide->date_validation = date('c');
     	$this->date_signature = $this->valide->date_validation;
     	$this->date_stats = $this->valide->date_validation;
+    	if (!$this->mandataire_exist) {
+    		$this->remove('mandataire');
+    		$this->add('mandataire');
+    		$this->mandataire_identifiant = null;
+    	}
     	$this->updateReferente();
     	$this->updateEnlevements();
     	$this->setOioc();
@@ -400,6 +415,16 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$mother->valide->date_validation = $mother->date_stats;
     		$mother->save(false);
     	}
+    }
+    
+    public function hasOioc()
+    {
+    	$produit = $this->getProduitObject();
+    	if ($organisme = $produit->getCurrentOrganisme($this->valide->date_saisie, true)) {
+	    	return true;
+    	}
+    	return false;
+    	
     }
     
     public function setOioc()

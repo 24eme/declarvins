@@ -347,7 +347,7 @@ class ImportEtablissementsCsv {
 		  				$etab->compte = $contrat->compte;
 		  			}
 		  			$etab->save();
-		  			$this->updateCompte($line, $etab, $contrat);
+		  			$this->updateCompte($line, $etab, $contrat, $ligne);
 		  			$cpt++;
 				} catch (sfException $e) {
 					continue;
@@ -360,11 +360,11 @@ class ImportEtablissementsCsv {
       	return $cpt;
     }  
     
-    private function updateCompte($line, $etablissement, $contrat) 
+    private function updateCompte($line, $etablissement, $contrat, $ligne) 
     {
     	if ($contrat) {
 	    	if ($compte = $contrat->getCompteObject()) {
-		    	$compte = $this->bindCompte($line, $compte);
+		    	$compte = $this->bindCompte($line, $compte, $ligne);
 		    	if (!$compte->interpro->exist(trim($line[EtablissementCsv::COL_INTERPRO]))) {
 		    		$interpro = $compte->interpro->add(trim($line[EtablissementCsv::COL_INTERPRO]));
 		    		$interpro->statut = _Compte::STATUT_ATTENTE;
@@ -378,7 +378,7 @@ class ImportEtablissementsCsv {
     	}
     }
 
-    protected function bindCompte($line, $compte) {
+    protected function bindCompte($line, $compte, $ligne) {
     	$compte->nom = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_NOM]);
         $compte->prenom = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_PRENOM]);
         $compte->fonction = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_FONCTION]);
