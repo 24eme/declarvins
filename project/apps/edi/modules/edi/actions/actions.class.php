@@ -198,6 +198,17 @@ class ediActions extends sfActions
     return $this->renderCsv($drms->rows, DRMEtablissementView::VALUE_DATEDESAISIE, "DRM", $date, $etab->interpro);
   }
   
+  public function executeEdiV2(sfWebRequest $request)
+  {
+  	ini_set('memory_limit', '2048M');
+  	set_time_limit(0);
+    if ($drm = DRMClient::getInstance()->find($request->getParameter('id_drm', null))) {
+    	$export = new DRMExportCsvEdi($drm);
+    	echo $export->exportEDI();
+    }
+    exit;
+  	
+  }
 
 
   public function executePushTransaction(sfWebRequest $request)

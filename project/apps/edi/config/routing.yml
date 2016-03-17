@@ -6,6 +6,9 @@ upload_etablissements:
   url: /edi/etablissements/csv/:id
   param: {module: edi, action: uploadEtablissements}
 # OK
+testDRMEdi:
+  url: /edi/v2/drm/:id_drm
+  param: {module: edi, action: ediV2}
 streamDRMEdi:
   url: /edi/drm/:interpro/:datedebut
   param: {module: edi, action: streamDRM}
