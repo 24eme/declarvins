@@ -204,16 +204,16 @@
 				<h2>D&Eacute;CLARANT</h2>
                                 <br/><br/>
 				<p>
-                                    <strong>Je soussigné,&nbsp;&nbsp;Nom : <?php echo $contrat->nom ?>&nbsp;&nbsp;Prénom : <?php echo $contrat->prenom ?>&nbsp;&nbsp;<br/> 
-					Fonction : <?php echo $contrat->fonction ?></strong>
-                                    <br />
-                                        <strong><?php if($compte->exist('telephone') && $compte->telephone): ?> Tel : <?php echo $compte->telephone ?><br /><?php endif; ?>
-                                            <?php if($compte->exist('fax') && $compte->fax): ?>Fax : <?php echo $compte->fax ?><br /><?php endif; ?></strong>
-                                            <?php if($compte->exist('email') && $compte->email): ?>Email : <strong><?php echo $compte->email ?></strong><br /><?php endif; ?>
+                Je soussigné,&nbsp;&nbsp;Nom : <strong><?php echo $contrat->nom ?></strong>&nbsp;&nbsp;Prénom : <strong><?php echo $contrat->prenom ?></strong>&nbsp;&nbsp;<br/> 
+				Fonction : <strong><?php echo $contrat->fonction ?></strong><br />
+                <?php if($compte->exist('telephone') && $compte->telephone): ?> Tel : <strong><?php echo $compte->telephone ?></strong><br /><?php endif; ?>
+                <?php if($compte->exist('fax') && $compte->fax): ?>Fax : <strong><?php echo $compte->fax ?></strong><br /><?php endif; ?>
+                <?php if($compte->exist('email') && $compte->email): ?>Email : <strong><?php echo $compte->email ?></strong><br /><?php endif; ?>
 				</p>
                                 <br/>
                                 <p class="note">(Attention à vérifier les sécurités, paramètres, et espaces disponibles sur cette adresse mail : des informations importantes vous y seront envoyées. Notamment certains systèmes de sécurité pourraient classer en &laquo; SPAM &raquo; ces informations)</p>
                                 <br/><br/>
+                                <p>Adhésion dematérialisation CIEL : <strong><?php echo ($compte->exist('dematerialise_ciel') && $compte->dematerialise_ciel)? 'oui' : 'non'; ?></strong><br /><br /></p>
                         </div>
 			
 			<?php 

@@ -8,4 +8,5 @@
 	<td><?php echo $compte->value[CompteAllView::VALUE_NOM] ?></td>
 	<td><?php echo $compte->value[CompteAllView::VALUE_PRENOM] ?></td>
 	<td><?php echo $compte->value[CompteAllView::VALUE_EMAIL] ?></td>
+	<td><?php echo ($compte->value[CompteAllView::VALUE_CIEL])? 'oui' : '' ?></td>
 </tr>

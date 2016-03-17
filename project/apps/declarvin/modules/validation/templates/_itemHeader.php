@@ -5,4 +5,5 @@
 	<th><strong>Nom</strong></th>
 	<th><strong>Prénom</strong></th>
 	<th><strong>E-mail</strong></th>
+	<th><strong>CIEL</strong></th>
 </tr>

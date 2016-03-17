@@ -124,7 +124,7 @@ class drm_recapActions extends sfActions
     public function executeUpdate(sfWebRequest $request) {
         $this->init();
   
-        $this->form = new DRMDetailForm($this->getRoute()->getDRMDetail());
+        $this->form = ($request->getParameter('acquittes', 0))? new DRMDetailAcqForm($this->getRoute()->getDRMDetail()) : new DRMDetailForm($this->getRoute()->getDRMDetail());
         $this->form->bind($request->getParameter($this->form->getName()));
         
         if($this->form->isValid()) {

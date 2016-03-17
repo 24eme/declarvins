@@ -14,6 +14,7 @@ class CompteAllView extends acCouchdbView
 	const VALUE_RAISON_SOCIALE = 5;
 	const VALUE_TELEPHONE = 6;
 	const VALUE_OIOC = 7;
+	const VALUE_CIEL = 8;
 
 	public static function getInstance() 
 	{

@@ -27,16 +27,18 @@ class drmComponents extends sfComponents {
                 'ajouts_liquidations' => 2,
                 'recapitulatif' => 3,
                 'vrac' => 3 + $nbCertifs,
-                'declaratif' => 4 + $nbCertifs,
-                'validation' => 5 + $nbCertifs,
+                'crd' => 4 + $nbCertifs,
+                'declaratif' => 5 + $nbCertifs,
+                'validation' => 6 + $nbCertifs,
             );
         } else {
             $this->numeros = array(
                 'informations' => 1,
                 'ajouts_liquidations' => 2,
                 'recapitulatif' => 3,
-                'declaratif' => 3 + $nbCertifs,
-                'validation' => 4 + $nbCertifs,
+                'crd' => 3 + $nbCertifs,
+                'declaratif' => 4 + $nbCertifs,
+                'validation' => 5 + $nbCertifs,
             );
         }
         
@@ -51,6 +53,7 @@ class drmComponents extends sfComponents {
         else
             $this->numero_autorise = '';
         $this->numero_vrac = (isset($this->numeros['vrac'])) ? $this->numeros['vrac'] : null;
+        $this->numero_crd = (isset($this->numeros['crd'])) ? $this->numeros['crd'] : null;
         $this->numero_declaratif = (isset($this->numeros['declaratif'])) ? $this->numeros['declaratif'] : null;
         $this->numero_validation = $this->numeros['validation'];
 

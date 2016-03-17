@@ -136,7 +136,46 @@
 		<?php $pagers_vrac[$certification_key]->gotoNextPage(); ?>
 		<?php endwhile; ?>
 	<?php endforeach; ?>
+	<?php if ($drm->exist('crds') && count($drm->crds) > 0): ?>
+	<h2>Comptabilité capsules CRD</h2>
 	
+	
+	<table class="recap droits_douane bloc_bottom">
+	<tbody>
+		
+        <tr>
+            <th rowspan="2" style="width: 285px">Catégorie fiscale</th>
+            <th rowspan="2" style="width: 105px; text-align: center;">Stock théorique Début de mois</th>
+            <th colspan="3" style="width: 250px; text-align: center;">Entrées</th>
+            <th colspan="3" style="width: 250px; text-align: center;">Sorties</th>
+            <th rowspan="2" style="width: 105px; text-align: center;">Stock théorique Fin de mois</th>
+        </tr>
+        <tr>
+            <th style="width: 70px; text-align: center;">Achats</th>
+            <th style="width: 70px; text-align: center;">Excédents</th>
+            <th style="width: 70px; text-align: center;">Retours</th>
+            <th style="width: 70px; text-align: center;">Utilisées</th>
+            <th style="width: 70px; text-align: center;">Détruites</th>
+            <th style="width: 70px; text-align: center;">Manquantes</th>
+        </tr>
+		<?php foreach($drm->crds as $crd): ?>
+		
+		<tr >
+			<td><?php echo $crd->libelle ?></td>
+            <td class="number detail"><strong><?php echo $crd->total_debut_mois ?></strong></td>
+			<td class="number detail"><?php echo $crd->entrees->achats ?></td>
+			<td class="number detail"><?php echo $crd->entrees->excedents ?></td>
+			<td class="number detail"><?php echo $crd->entrees->retours ?></td>
+			<td class="number detail"><?php echo $crd->sorties->utilisees ?></td>
+			<td class="number detail"><?php echo $crd->sorties->detruites ?></td>
+			<td class="number detail"><?php echo $crd->sorties->manquantes ?></td>
+			<td class="number detail"><strong><?php echo $crd->total_fin_mois ?></strong></td>
+		</tr>
+		
+		<?php endforeach; ?>
+	</tbody>
+	</table>
+	<?php endif; ?>
 	
 	<?php if (!$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>	
 	<?php if($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()): ?>
@@ -327,7 +366,7 @@
 	
 	
 	
-	
+	<hr />
 	
 	
 	<div class="bloc_bottom">

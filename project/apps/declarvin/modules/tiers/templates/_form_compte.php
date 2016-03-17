@@ -23,6 +23,11 @@
 			    <strong><?php echo $compte->getEmail() ?></strong>
 			</div>
 			
+			<div class="ligne_form">
+			    <label>Adhésion CIEL:</label>
+			    <strong><?php echo ($compte->exist('dematerialise_ciel') && $compte->dematerialise_ciel)? 'oui' : 'non'; ?></strong>
+			</div>
+			
 			<br />
 			
 			<div class="ligne_form">

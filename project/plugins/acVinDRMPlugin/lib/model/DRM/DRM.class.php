@@ -85,6 +85,13 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $detail->updateVolumeBloque();
         return $detail;
     }
+    
+    public function addCrd($categorie, $type, $centilisation, $stock = 0)
+    {
+    	$idCrd = DRMCrd::makeId($categorie, $type, $centilisation);
+    	$crd = $this->crds->getOrAdd($idCrd);
+    	$crd->addCrd($categorie, $type, $centilisation, $stock);
+    }
 
     public function getDepartement() {
         if ($this->declarant->siege->code_postal) {
@@ -177,8 +184,17 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->declaratif->dsa->fin = null;
 
         $this->commentaires = null;
+        
+        $this->initCrds();
 
         $this->devalide();
+    }
+    
+    public function initCrds()
+    {
+    	foreach ($this->crds as $crd) {
+    		$crd->initCrd();
+    	}
     }
 
     public function setDroits() {
@@ -369,6 +385,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $next_drm->precedente = $this->_id;
             $next_drm->save();
         }
+        
+        if (!$this->hasDroitsAcquittes()) {
+        	$this->cleanVolumesAcquittes();
+        }
 
         $this->storeIdentifiant($options);
         $this->storeDates();
@@ -454,7 +474,20 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $this->valide->add('date_signee', date('c'));
         }
     }
-
+	public function cleanVolumesAcquittes()
+	{
+		foreach ($this->getDetails() as $detail) {
+			$detail->acq_total_debut_mois = null;
+			$detail->acq_total_entrees = null;
+			$detail->acq_total_sorties = null;
+			$detail->acq_total = null;
+			$detail->entrees->acq_achat = null;
+			$detail->entrees->acq_autres = null;
+			$detail->sorties->acq_crd = null;
+			$detail->sorties->acq_replacement = null;
+			$detail->sorties->acq_autres = null;
+		}
+	}
     public function updateVrac() {
         foreach ($this->getDetails() as $detail) {
             foreach ($detail->vrac as $numero => $vrac) {
@@ -645,6 +678,29 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             return false;
         }
     }
+    
+    public function hasVolumeAcquittes()
+    {
+    	if (!$this->hasDroitsAcquittes()) {
+    		return false;
+    	}
+    	foreach ($this->getDetails() as $detail) {
+    		if ($detail->acq_total_debut_mois) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+
+    public function setHasDroitsAcquittes($has = 0)
+    {
+    	$this->droits_acquittes = ($has)? 1 : 0;
+    }
+    
+    public function hasDroitsAcquittes()
+    {
+    	return ($this->droits_acquittes)? true : false;
+    }
 
     public function hasVrac() {
         $detailsVrac = $this->getDetailsAvecVrac();
@@ -678,11 +734,17 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
      * Pour les users administrateur
      */
 
-    public function canSetStockDebutMois() {
+    public function canSetStockDebutMois($acq = false) {
         $isAdministrateur = ($this->getUser()) ? $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) : false;
         if ($this->isDebutCampagne() || ($isAdministrateur && $this->hasVersion())) {
             return true;
         } else {
+        	if ($acq) {
+        		$mother = $this->getPrecedente();
+        		if ($mother && $this->hasDroitsAcquittes() && !$mother->hasDroitsAcquittes()) {
+        			return true;
+        		}
+        	}
             return false;
         }
     }
@@ -1012,6 +1074,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
     protected function replicate($drm) {
         foreach ($this->getDiffWithMother() as $key => $value) {
+            $this->replicateDetail($drm, $key, $value, 'acq_total', 'acq_total_debut_mois');
             $this->replicateDetail($drm, $key, $value, 'total', 'total_debut_mois');
             $this->replicateDetail($drm, $key, $value, 'total_interpro', 'total_debut_mois_interpro');
             $this->replicateDetail($drm, $key, $value, 'stocks_fin/bloque', 'stocks_debut/bloque');

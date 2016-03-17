@@ -91,6 +91,18 @@ class DRMFictive extends DRM
         return $this->drm->generateModificative();
     }
     
+
+    public function addCrd($categorie, $type, $centilisation, $stock = 0)
+    {
+    	return $this->drm->addCrd($categorie, $type, $centilisation, $stock);
+    }
+    
+
+    public function setHasDroitsAcquittes($has = 0)
+    {
+    	return $this->drm->setHasDroitsAcquittes($has);
+    }
+    
     public function payerReport()
     {
     	$this->drm->payerReport();

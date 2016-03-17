@@ -10,6 +10,7 @@
                             <p><span>Nom :</span> <strong><?php echo $contrat->getNom() ?></strong></p>
                             <p><span>Prénom :</span> <strong><?php echo $contrat->getPrenom() ?></strong></p>
                             <p><span>Fonction :</span> <strong><?php echo $contrat->getFonction() ?></strong></p>
+                            <p><span>Adhésion dematérialisation CIEL :</span> <strong><?php echo ($contrat->exist('dematerialise_ciel') && $contrat->dematerialise_ciel)? 'oui' : 'non'; ?></strong></p>
                         </div>
                         <div class="col">
                             <p><span>Email :</span> <strong><?php echo $contrat->getEmail() ?></strong></p>

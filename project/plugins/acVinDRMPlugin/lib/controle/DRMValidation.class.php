@@ -132,6 +132,15 @@ class DRMValidation
 				}
 			}
 		}
+		$crdNeg = false;
+		foreach ($this->drm->crds as $crd) {
+			if ($crd->total_fin_mois < 0) {
+				$crdNeg = true;
+			}
+		}
+		if ($crdNeg) {
+			$this->errors['stock_crd'] = new DRMControleError('crd', $this->generateUrl('drm_crd', $this->drm));
+		}
 	}
 	
 	private function controleWarnings($detail)

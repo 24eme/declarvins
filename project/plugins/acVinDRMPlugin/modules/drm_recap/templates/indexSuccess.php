@@ -55,7 +55,8 @@
                                                                    'config_lieu' => $config_lieu,
                                                                    'produits' => $produits,
                                                                    'form' => $form,
-                												   'detail' => $detail)); ?>
+                												   'detail' => $detail,
+                												   'drm' => $drm)); ?>
             </div>
             
             <div id="btn_etape_dr">

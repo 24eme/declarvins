@@ -107,6 +107,20 @@ tiers_mon_espace:
   param: { module: tiers, action: monEspace }
   requirements: { sf_method: ['get'] }
   options: { model: Etablissement, type: object }
+  
+tiers_adhesion_ciel:
+  class: EtablissementRoute
+  url: /tiers/:identifiant/adhesion-ciel
+  param: { module: tiers, action: adhesionCiel }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
+  
+tiers_acceptation_ciel:
+  class: EtablissementRoute
+  url: /tiers/:identifiant/acceptation-ciel
+  param: { module: tiers, action: acceptationCiel }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
 
 tiers:
   url: /tiers

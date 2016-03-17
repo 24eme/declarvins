@@ -78,6 +78,7 @@ CompteTiers:
       raison_sociale: {  }
       valide: {  }
       contrat_valide: {  }
+      dematerialise_ciel: {  }
 
 CompteVirtuel:
   inheritance: acVinCompteVirtuel
@@ -163,6 +164,7 @@ Contrat:
       compte: {  }
       email: {  }
       valide: {  }
+      dematerialise_ciel: {  }
       etablissements:
         type: array_collection
         definition:

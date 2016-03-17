@@ -26,6 +26,25 @@ Configuration:
                   drm: {  }
                   vrac: {  }
                   daids: {  }
+      crds:
+        type: collection
+        definition:
+          fields:
+            categorie:
+              type: collection
+              definition:
+                fields:
+                  '*': {  }
+            type:
+              type: collection
+              definition:
+                fields:
+                  '*': {  }
+            centilisation:
+              type: collection
+              definition:
+                fields:
+                  '*': {  }
       vrac:
         type: collection
         definition:

@@ -25,43 +25,69 @@ class Configuration extends BaseConfiguration {
         'warrante' => 'Dont Vin warranté',
         'instance' => 'Dont Vin en instance'
     );
+    protected static $stocks_debut_acq = array();
     protected static $stocks_entree = array(
-        'achat' => 'Achats',
-        'recolte' => 'Récolte',
-        'repli' => 'Replis / Changement de dénomination',
-        'declassement' => 'Déclassement / Lies',
-        'mouvement' => 'Transfert de chai / Embouteillage / Retours',
-        'crd' => 'Réintégration CRD',
-        //'vci' => 'Intégration issue de VCI'
+        'achat' => 'Achats / réintégration',
+        'recolte' => 'Récolte / revendication',
+        'repli' => 'Mvt. interne : Replis / Changt. de dénomination',
+        'declassement' => 'Mvt. interne : Déclassement / Lies',
+    	'manipulation' => 'Mvt. interne : Augmentation de volume',
+    	'vci' => 'Mvt. interne : Intégration issue de VCI',
+        'mouvement' => 'Mvt. temporaire : Retour transfert de chai',
+        'embouteillage' => 'Mvt. temporaire : Retour embouteillage',
+        'travail' => 'Mvt. temporaire : Retour de travail à façon',
+        'distillation' => 'Mvt. temporaire : Retour de distillation à façon',    		
+        'crd' => 'Replacement en suspension CRD',
+    	'excedent' => 'Excédent suite à inventaire ou contrôle douanes'
+    );
+    protected static $stocks_entree_acq = array(
+        'acq_achat' => 'Achats',
+        'acq_autres' => 'Autres'
     );
     protected static $stocks_sortie = array(
-        'vrac' => 'Vrac DAA / DAE / DAC',
-        'export' => 'Conditionné export DAE ou CRD',
+        'vrac' => 'Vrac DAA / DAE',
+        'export' => 'Conditionné export',
         'factures' => 'DSA / Tickets / Factures',
         'crd' => 'CRD France',
         'consommation' => 'Conso Fam. / Analyses / Dégustation',
-        'pertes' => 'Pertes exceptionnelles',
-        'declassement' => 'Non rev. / Déclassement',
-        'repli' => 'Changement / repli / VCI',
-        'mouvement' => 'Transfert de chai / Embouteillage / Prise de mousse',
-        'distillation' => 'Distillation / Destruction',
+        'pertes' => 'Pertes et manquants constatés',
+        'autres' => 'Destruction / Distillation',
+        'declassement' => 'Mvt. interne : Non rev. / Déclassement',
+        'repli' => 'Mvt. interne : Changement / Repli',
+        'mutage' => 'Mvt. interne : Mutage',
+        'vci' => 'Mvt. interne : Revendication de VCI',
+        'autres_interne' => 'Mvt. interne : Autres',
+        'mouvement' => 'Mvt. temporaire : Transfert de chai',
+        'embouteillage' => 'Mvt. temporaire : Embouteillage',
+        'travail' => 'Mvt. temporaire : Travail à façon',
+        'distillation' => 'Mvt. temporaire : Distillation à façon',
         'lies' => 'Lies',
         'vrac_contrat' => 'Contrat Vrac'
+    );
+    protected static $stocks_sortie_acq = array(
+        'acq_crd' => 'Ventes de produits',
+        'acq_replacement' => 'Replacement en suspension',
+        'acq_autres' => 'Autres'
     );
     protected static $stocks_fin = array(
         'bloque' => 'Dont Vin bloqué / Reserve',
         'warrante' => 'Dont Vin warranté',
         'instance' => 'Dont Vin en instance',
-        'commercialisable' => 'Dont commercialisable'
     );
+    protected static $stocks_fin_acq = array();
     protected static $mouvement_coefficient_entree = array(
         'achat' => 1,
         'recolte' => 1,
         'repli' => 1,
         'declassement' => 1,
+    	'manipulation' => 1,
+    	'vci' => 1,
         'mouvement' => 1,
+        'embouteillage' => 1,
+        'travail' => 1,
+        'distillation' => 1,    		
         'crd' => 1,
-    	'vci' => 1
+    	'excedent' => 1
     );
     protected static $mouvement_coefficient_sortie = array(
         'vrac' => -1,
@@ -72,9 +98,15 @@ class Configuration extends BaseConfiguration {
         'pertes' => -1,
         'declassement' => -1,
         'repli' => -1,
+        'mutage' => -1,
+        'vci' => -1,
+        'autres_interne' => -1,
         'mouvement' => -1,
+        'embouteillage' => -1,
+        'travail' => -1,
         'distillation' => -1,
         'lies' => -1,
+        'autres' => -1,
         'vrac_contrat' => -1
     );
     
@@ -87,20 +119,20 @@ class Configuration extends BaseConfiguration {
     	return array();
     }
 
-    public static function getStocksDebut() {
-        return self::$stocks_debut;
+    public static function getStocksDebut($acquittes = false) {
+        return ($acquittes)? self::$stocks_debut_acq : self::$stocks_debut;
     }
 
-    public static function getStocksEntree() {
-        return self::$stocks_entree;
+    public static function getStocksEntree($acquittes = false) {
+        return ($acquittes)? self::$stocks_entree_acq : self::$stocks_entree;
     }
 
-    public static function getStocksSortie() {
-        return self::$stocks_sortie;
+    public static function getStocksSortie($acquittes = false) {
+        return ($acquittes)? self::$stocks_sortie_acq : self::$stocks_sortie;
     }
 
-    public static function getStocksFin() {
-        return self::$stocks_fin;
+    public static function getStocksFin($acquittes = false) {
+        return ($acquittes)? self::$stocks_fin_acq : self::$stocks_fin;
     }
 
     public static function getAllStocksLibelles() {
