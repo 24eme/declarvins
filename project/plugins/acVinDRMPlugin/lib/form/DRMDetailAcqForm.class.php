@@ -45,6 +45,7 @@ class DRMDetailAcqForm extends acCouchdbObjectForm {
 
     protected function doUpdateObject($values) 
     {
+    	parent::doUpdateObject($values);
        if (!$values['acq_total_debut_mois']) {
        	$this->getObject()->acq_total_debut_mois = 0;
        }

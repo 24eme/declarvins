@@ -4,7 +4,7 @@
  * Model for DRM
  *
  */
-class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersionDocument {
+class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersionDocument, InterfaceDRMExportable {
 
     const NOEUD_TEMPORAIRE = 'TMP';
     const DEFAULT_KEY = 'DEFAUT';
@@ -1159,4 +1159,72 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     
     
     /* FIN DES MOUVEMENTS *** */
+    
+    /* EXPORTABLE */
+    public function getExportableProduits() {
+    	return $this->getDetails();
+    }
+    
+    public function getExportableVracs() {
+    	$details = $this->getDetailsAvecVrac();
+    	$result = array();
+    	foreach ($details as $detail) {
+    		$result[$detail->getHash()] = array();
+    		foreach ($detail->vrac as $contrat => $data) {
+    			$result[$detail->getHash()][$contrat] = array(
+    				DRMCsvEdi::CSV_CONTRAT_CONTRATID => $contrat,
+    				DRMCsvEdi::CSV_CONTRAT_VOLUME => $data->volume,
+    			);
+    		}
+    	}
+    	return $result;
+    }
+    
+    public function getExportableCrds() {
+    	$crds = array();
+    	foreach ($this->crds as $key => $crd) {
+    		$crds[$key] = array();
+    		$champs = array(
+    			array('total_debut_mois', null, true),	
+    			array('entrees', 'achats', false),	
+    			array('entrees', 'excedents', false),	
+    			array('entrees', 'retours', false),	
+    			array('sorties', 'utilisees', false),	
+    			array('sorties', 'detruites', false),	
+    			array('sorties', 'manquantes', false),
+    			array('total_fin_mois', null, true)	
+    		);
+    		foreach ($champs as $index => $datas) {
+    			if ($ligne = $this->getExportableCrd($crd, $datas[0], $datas[1], $datas[2])) {
+    				$crds[$key][$index] = $ligne;
+    			}
+    		}
+    	}
+    	return $crds;
+    }
+    
+    protected function getExportableCrd($crd, $cat, $type, $force = false) {
+    	$val = ($type)? $crd->get($cat)->get($type) : $crd->get($cat);
+    	if ($val || $force) {
+    		return array(
+    				DRMCsvEdi::CSV_CRD_GENRE => $crd->type->code,
+    				DRMCsvEdi::CSV_CRD_COULEUR => $crd->categorie->code,
+    				DRMCsvEdi::CSV_CRD_CENTILITRAGE => $crd->centilisation->code,
+    				DRMCsvEdi::CSV_CRD_LIBELLE => $crd->libelle,
+    				DRMCsvEdi::CSV_CRD_CATEGORIE_KEY => $cat,
+    				DRMCsvEdi::CSV_CRD_TYPE_KEY => $type,
+    				DRMCsvEdi::CSV_CRD_QUANTITE => ($val)? $val : 0,
+    		);
+    	}
+    	return null;
+    }
+    
+    public function getExportableAnnexes() {
+    	return array();
+    }
+    
+	public function hasExportableProduitsAcquittes() {
+		return boolval($this->droits_acquittes);
+	}
+    /* FIN EXPORTABLE */
 }

@@ -202,11 +202,24 @@ class ediActions extends sfActions
   {
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
+  	$csv_file = null;
     if ($drm = DRMClient::getInstance()->find($request->getParameter('id_drm', null))) {
     	$export = new DRMExportCsvEdi($drm);
-    	echo $export->exportEDI();
+    	$csv_file = $export->exportEDI();
     }
-    exit;
+    if (!$csv_file) {
+    	$this->response->setStatusCode(204);
+    	return $this->renderText(null);
+    }
+
+    $this->response->setContentType('text/csv');
+    $this->response->setHttpHeader('md5', md5($csv_file));
+    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=ediv2.csv");
+    $this->response->setHttpHeader('LastDocDate', date('r'));
+    $this->response->setHttpHeader('Last-Modified', date('r'));
+     
+    return $this->renderText($csv_file);
+    
   	
   }
 
