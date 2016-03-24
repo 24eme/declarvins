@@ -156,7 +156,7 @@ class DRMExportCsvEdi extends DRMCsvEdi
             		DRMCsvEdi::CSV_CRD_COULEUR => $crdDetail[DRMCsvEdi::CSV_CRD_COULEUR],
             		DRMCsvEdi::CSV_CRD_CENTILITRAGE => $crdDetail[DRMCsvEdi::CSV_CRD_CENTILITRAGE],
             		DRMCsvEdi::CSV_CRD_LIBELLE => $crdDetail[DRMCsvEdi::CSV_CRD_LIBELLE],
-            		DRMCsvEdi::CSV_CRD_CATEGORIE_KEY => $contrat[DRMCsvEdi::CSV_CRD_CATEGORIE_KEY],
+            		DRMCsvEdi::CSV_CRD_CATEGORIE_KEY => $crdDetail[DRMCsvEdi::CSV_CRD_CATEGORIE_KEY],
             		DRMCsvEdi::CSV_CRD_TYPE_KEY => $crdDetail[DRMCsvEdi::CSV_CRD_TYPE_KEY],
             		DRMCsvEdi::CSV_CRD_QUANTITE => $crdDetail[DRMCsvEdi::CSV_CRD_QUANTITE])
             	);

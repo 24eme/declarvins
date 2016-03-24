@@ -1197,17 +1197,16 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	foreach ($this->crds as $key => $crd) {
     		$crds[$key] = array();
     		$champs = array(
-    			array('total_debut_mois', null, true),	
-    			array('entrees', 'achats', false),	
-    			array('entrees', 'excedents', false),	
-    			array('entrees', 'retours', false),	
-    			array('sorties', 'utilisees', false),	
-    			array('sorties', 'detruites', false),	
-    			array('sorties', 'manquantes', false),
-    			array('total_fin_mois', null, true)	
+    			array('total_debut_mois', null),	
+    			array('entrees', 'achats'),	
+    			array('entrees', 'excedents'),	
+    			array('entrees', 'retours'),	
+    			array('sorties', 'utilisees'),	
+    			array('sorties', 'detruites'),	
+    			array('sorties', 'manquantes')
     		);
     		foreach ($champs as $index => $datas) {
-    			if ($ligne = $this->getExportableCrd($crd, $datas[0], $datas[1], $datas[2])) {
+    			if ($ligne = $this->getExportableCrd($crd, $datas[0], $datas[1])) {
     				$crds[$key][$index] = $ligne;
     			}
     		}
@@ -1215,9 +1214,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	return $crds;
     }
     
-    protected function getExportableCrd($crd, $cat, $type, $force = false) {
+    protected function getExportableCrd($crd, $cat, $type) {
     	$val = ($type)? $crd->get($cat)->get($type) : $crd->get($cat);
-    	if ($val || $force) {
+    	if ($val) {
     		return array(
     				DRMCsvEdi::CSV_CRD_GENRE => $crd->type->code,
     				DRMCsvEdi::CSV_CRD_COULEUR => $crd->categorie->code,
@@ -1225,7 +1224,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     				DRMCsvEdi::CSV_CRD_LIBELLE => $crd->libelle,
     				DRMCsvEdi::CSV_CRD_CATEGORIE_KEY => $cat,
     				DRMCsvEdi::CSV_CRD_TYPE_KEY => $type,
-    				DRMCsvEdi::CSV_CRD_QUANTITE => ($val)? $val : 0,
+    				DRMCsvEdi::CSV_CRD_QUANTITE => $val,
     		);
     	}
     	return null;
@@ -1244,7 +1243,15 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 	}
 
 	public function getExportableStatistiquesEuropeennes() {
-		return ($this->declaratif->exist('statistiques'))? $this->declaratif->statistiques->toArray() : array();
+		$result = array();
+		if ($this->declaratif->exist('statistiques')) {
+			foreach ($this->declaratif->statistiques as $key => $val) {
+				if ($val) {
+					$result[$key] = $val;
+				}
+			}
+		}
+		return $result;
 	}
 	public function getExportableRna() {
 		$result = array();
@@ -1265,14 +1272,18 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		foreach ($champs as $champ) {
 			if ($this->declaratif->exist($champ)) {
 				$result[$champ] = array();
-				$result[$champ][] = array(
-						DRMCsvEdi::CSV_ANNEXE_TYPEMVT => 'debut',
-						DRMCsvEdi::CSV_ANNEXE_QUANTITE => $this->declaratif->get($champ)->debut,
-				);
-				$result[$champ][] = array(
-						DRMCsvEdi::CSV_ANNEXE_TYPEMVT => 'fin',
-						DRMCsvEdi::CSV_ANNEXE_QUANTITE => $this->declaratif->get($champ)->fin,
-				);
+				if ($this->declaratif->get($champ)->debut) {
+					$result[$champ][] = array(
+							DRMCsvEdi::CSV_ANNEXE_TYPEMVT => 'debut',
+							DRMCsvEdi::CSV_ANNEXE_QUANTITE => $this->declaratif->get($champ)->debut,
+					);
+				}
+				if ($this->declaratif->get($champ)->fin) {
+					$result[$champ][] = array(
+							DRMCsvEdi::CSV_ANNEXE_TYPEMVT => 'fin',
+							DRMCsvEdi::CSV_ANNEXE_QUANTITE => $this->declaratif->get($champ)->fin,
+					);
+				}
 			}
 		}
 		return $result;
