@@ -6,4 +6,13 @@ interface InterfaceDRMExportable
 	public function getExportableVracs();
 	public function getExportableCrds();
 	public function getExportableAnnexes();
+	public function getExportableObservations();
+	public function getExportableStatistiquesEuropeennes();
+	public function getExportableProduitsSucre();
+	public function getExportableRna();
+	public function getExportableDocuments();
+	public function getExportableDeclarantInformations();
+	public function getExportableCategoriesMouvements();
+	public function getExportableLibelleMvt($key);
+	public function getExportableCountryList();
 }

@@ -10,12 +10,14 @@ class DRMCsvEdi extends CsvFile
     const STATUT_VALIDE = 'VALIDE';
     const STATUT_WARNING = 'WARNING';
     const TYPE_CAVE = 'CAVE';
-    const TYPE_CONTRAT = 'CONTRAT';
+    const TYPE_CONTRAT = 'RETIRAISON';
     const TYPE_CRD = 'CRD';
     const TYPE_ANNEXE = 'ANNEXE';
-    const TYPE_ANNEXE_NONAPUREMENT = 'NONAPUREMENT';
+    const TYPE_ANNEXE_NONAPUREMENT = 'NON_APUREMENT';
+    const TYPE_ANNEXE_DOCUMENT = 'DOCUMENT';
     const TYPE_ANNEXE_SUCRE = 'SUCRE';
     const TYPE_ANNEXE_OBSERVATIONS = 'OBSERVATIONS';
+    const TYPE_ANNEXE_STATISTIQUES = 'STATISTIQUES';
     const TYPE_DROITS_SUSPENDUS = 'SUSPENDUS';
     const TYPE_DROITS_ACQUITTES = 'ACQUITTES';
     const CSV_TYPE = 0;
@@ -36,7 +38,9 @@ class DRMCsvEdi extends CsvFile
     const CSV_CAVE_VOLUME = 15;
     const CSV_CAVE_EXPORTPAYS = 16;
     const CSV_CAVE_CONTRATID = 17;
+    const CSV_CAVE_NUMERODOCUMENT = 18;
     const CSV_CAVE_COMMENTAIRE = 19;
+    const CSV_CONTRAT_TYPE_DROITS = 4;
     const CSV_CONTRAT_CERTIFICATION = 5;
     const CSV_CONTRAT_GENRE = 6;
     const CSV_CONTRAT_APPELLATION = 7;
@@ -47,6 +51,7 @@ class DRMCsvEdi extends CsvFile
     const CSV_CONTRAT_PRODUIT = 12;
     const CSV_CONTRAT_VOLUME = 15;
     const CSV_CONTRAT_CONTRATID = 17;
+    const CSV_CRD_TYPE_DROITS = 4;
     const CSV_CRD_GENRE = 5;
     const CSV_CRD_COULEUR = 6;
     const CSV_CRD_CENTILITRAGE = 7;
@@ -54,13 +59,15 @@ class DRMCsvEdi extends CsvFile
     const CSV_CRD_CATEGORIE_KEY = 13;
     const CSV_CRD_TYPE_KEY = 14;
     const CSV_CRD_QUANTITE = 15;
-    const CSV_ANNEXE_TYPEANNEXE = 13;
+    const CSV_ANNEXE_TYPEANNEXE = 4;
+    const CSV_ANNEXE_CATMVT = 13;
     const CSV_ANNEXE_TYPEMVT = 14;
     const CSV_ANNEXE_QUANTITE = 15;
     const CSV_ANNEXE_NONAPUREMENTDATEEMISSION = 16;
     const CSV_ANNEXE_NONAPUREMENTACCISEDEST = 17;
     const CSV_ANNEXE_NUMERODOCUMENT = 18;
     const CSV_ANNEXE_OBSERVATION = 19;
+    const CSV_NB_TOTAL_COL = 20;
 
     protected static $permitted_types = array(self::TYPE_CAVE, self::TYPE_CRD, self::TYPE_ANNEXE);
     protected static $permitted_annexes_type_mouvements = array('DEBUT', 'FIN');
@@ -73,20 +80,9 @@ class DRMCsvEdi extends CsvFile
     public function __construct($file, DRM $drm = null) 
     {
         $this->drm = $drm;
+        $this->countryList = $drm->getExportableCountryList();
         //$this->type_annexes_docs = array_merge($this->type_annexes, DRMClient::$drm_documents_daccompagnement);
-        //$this->buildCountryList();
         parent::__construct($file);
-    }
-
-    public function buildCountryList() 
-    {
-        $countryList = ConfigurationClient::getInstance()->getCountryList();
-        $match_array = array();
-        foreach ($countryList as $keyUpper => $countryString) {
-            $match_array[$keyUpper . '_' . strtolower($keyUpper)] = $countryString;
-            $match_array[$countryString] = $countryString;
-        }
-        $this->countryList = array_merge($countryList, $match_array);
     }
 
 }

@@ -1165,6 +1165,18 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	return $this->getDetails();
     }
     
+    public function getExportableProduitsSucre() {
+    	$produits = $this->getExportableProduits();
+    	$result = array();
+    	$result['tav'] = array();
+    	foreach ($produits as $produit) {
+    		if ($produit->exist('tav') && $produit->get('tav')) {
+    			$result['tav'][$produit->getHash()] = $produit;
+    		}
+    	}
+    	return $result;
+    }
+    
     public function getExportableVracs() {
     	$details = $this->getDetailsAvecVrac();
     	$result = array();
@@ -1225,6 +1237,65 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     
 	public function hasExportableProduitsAcquittes() {
 		return boolval($this->droits_acquittes);
+	}
+
+	public function getExportableObservations() {
+		return $this->observations;
+	}
+
+	public function getExportableStatistiquesEuropeennes() {
+		return ($this->declaratif->exist('statistiques'))? $this->declaratif->statistiques->toArray() : array();
+	}
+	public function getExportableRna() {
+		$result = array();
+		if ($this->declaratif->exist('rna')) {
+			foreach ($this->declaratif->rna as $rna) {
+				$result[] = array(
+					DRMCsvEdi::CSV_ANNEXE_NONAPUREMENTDATEEMISSION => $rna->date,
+					DRMCsvEdi::CSV_ANNEXE_NONAPUREMENTACCISEDEST => $rna->accises,
+					DRMCsvEdi::CSV_ANNEXE_NUMERODOCUMENT => $rna->numero,
+				);
+			}
+		}
+		return $result;
+	}
+	public function getExportableDocuments() {
+		$result = array();
+		$champs = array('empreinte', 'daa', 'dsa');
+		foreach ($champs as $champ) {
+			if ($this->declaratif->exist($champ)) {
+				$result[$champ] = array();
+				$result[$champ][] = array(
+						DRMCsvEdi::CSV_ANNEXE_TYPEMVT => 'debut',
+						DRMCsvEdi::CSV_ANNEXE_QUANTITE => $this->declaratif->get($champ)->debut,
+				);
+				$result[$champ][] = array(
+						DRMCsvEdi::CSV_ANNEXE_TYPEMVT => 'fin',
+						DRMCsvEdi::CSV_ANNEXE_QUANTITE => $this->declaratif->get($champ)->fin,
+				);
+			}
+		}
+		return $result;
+	}
+	
+	public function getExportableDeclarantInformations() {
+		$result = array();
+		$result[DRMCsvEdi::CSV_PERIODE] = $this->periode;
+		$result[DRMCsvEdi::CSV_IDENTIFIANT] = $this->identifiant;
+		$result[DRMCsvEdi::CSV_NUMACCISE] = $this->declarant->no_accises;
+		return $result;
+	}
+	
+	public function getExportableCategoriesMouvements() {
+		return array('total_debut_mois', 'acq_total_debut_mois', 'stocks_debut', 'entrees', 'sorties', 'stocks_fin');
+	}
+	
+	public function getExportableLibelleMvt($key) {
+		return str_replace('acq_', '', $key);
+	}
+	
+	public function getExportableCountryList() {
+		return array();
 	}
     /* FIN EXPORTABLE */
 }

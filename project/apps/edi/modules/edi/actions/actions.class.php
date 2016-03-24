@@ -211,7 +211,6 @@ class ediActions extends sfActions
     	$this->response->setStatusCode(204);
     	return $this->renderText(null);
     }
-
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('md5', md5($csv_file));
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=ediv2.csv");
