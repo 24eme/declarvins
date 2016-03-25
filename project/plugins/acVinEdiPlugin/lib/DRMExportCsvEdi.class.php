@@ -3,16 +3,13 @@ class DRMExportCsvEdi extends DRMCsvEdi
 {
 	protected $csv;
 
-    public function __construct(DRM $drm = null) {
+    public function __construct(DRM $drm) {
     	$this->csv = array();
         parent::__construct(null, $drm);
     }
 
     public function exportEDI() 
     {
-        if (!$this->drm) {
-            new sfException('Absence de DRM');
-        }
         if (!($this->drm instanceof InterfaceDRMExportable)) {
             new sfException('DRM must implements InterfaceDRMExportable');
         }
