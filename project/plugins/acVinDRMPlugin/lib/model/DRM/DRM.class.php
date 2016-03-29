@@ -1227,7 +1227,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
     
 	public function hasExportableProduitsAcquittes() {
-		return boolval($this->droits_acquittes);
+		return ($this->exist('droits_acquittes') && $this->droits_acquittes)? true : false;
 	}
 
 	public function getExportableObservations() {
