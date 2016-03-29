@@ -8,13 +8,23 @@ class DRMExportCsvEdi extends DRMCsvEdi
         parent::__construct(null, $drm);
     }
 
-    public function exportEDI() 
+    public function exportEDI($format = 'csv') 
     {
         if (!($this->drm instanceof InterfaceDRMExportable)) {
             new sfException('DRM must implements InterfaceDRMExportable');
         }
         $this->generateCsvEdi();
-        return $this->getCsvFormat($this->csv);
+        $result = null;
+        switch ($format) {
+        	case 'csv':
+        		$result = $this->getCsvFormat(); break;
+        	case 'xml':
+        		$result = $this->getXmlFormat(); break;
+        	case 'debug':
+        	default:
+        		$result = $this->csv; break;
+        }
+        return $result;
     }
     
     protected function getCsvFormat() {
@@ -23,6 +33,10 @@ class DRMExportCsvEdi extends DRMCsvEdi
     		$csvFile .= implode(';', $item)."\n";
     	}
     	return $csvFile;
+    }
+    
+    protected function getXmlFormat() {
+    	return $this->getPartial('xml', array('csv' => $this->csv, 'drm' => $this->drm));
     }
 
     protected function generateCsvEdi() 
@@ -185,7 +199,7 @@ class DRMExportCsvEdi extends DRMCsvEdi
         		);
         	}
         }
-        if ($sucres = $this->drm->getExportableProduitsSucre()) {
+        if ($sucres = $this->drm->getExportableSucre()) {
         	foreach ($sucres as $key => $produits) {
         		foreach ($produits as $produit) {
         			$this->addCsvLigne(DRMCsvEdi::TYPE_ANNEXE, $this->merge(array(
@@ -235,6 +249,12 @@ class DRMExportCsvEdi extends DRMCsvEdi
     	$arr = $arr1 + $arr2;
     	ksort($arr);
     	return $arr;
+    }
+
+
+    protected static function getPartial($partial, $vars = null)
+    {
+    	return sfContext::getInstance()->getController()->getAction('edi_export', 'main')->getPartial('edi_export/' . $partial, $vars);
     }
 
 }

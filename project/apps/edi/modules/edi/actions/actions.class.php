@@ -203,23 +203,43 @@ class ediActions extends sfActions
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
   	$csv_file = null;
+  	$format = $request->getParameter('format', 'csv');
     if ($drm = DRMClient::getInstance()->find($request->getParameter('id_drm', null))) {
     	$export = new DRMExportCsvEdi($drm);
-    	$csv_file = $export->exportEDI();
+    	$csv_file = $export->exportEDI($format);
     }
     if (!$csv_file) {
     	$this->response->setStatusCode(204);
     	return $this->renderText(null);
     }
-    $this->response->setContentType('text/csv');
-    $this->response->setHttpHeader('md5', md5($csv_file));
-    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=ediv2.csv");
-    $this->response->setHttpHeader('LastDocDate', date('r'));
-    $this->response->setHttpHeader('Last-Modified', date('r'));
-     
-    return $this->renderText($csv_file);
     
-  	
+    switch ($format) {
+    	case 'csv':
+    		return $this->renderTextCsv($csv_file); break;
+    	case 'xml':
+    		return $this->renderTextXml($csv_file); break;
+    	case 'debug':
+    	default:
+    		return $this->renderText($csv_file); break;
+    }
+  }
+  
+  public function renderTextCsv($csv_file) {
+  	$this->response->setHttpHeader('md5', md5($csv_file));
+  	$this->response->setHttpHeader('LastDocDate', date('r'));
+  	$this->response->setHttpHeader('Last-Modified', date('r'));
+    $this->response->setContentType('text/csv');
+    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=ediv2.csv");
+    return $this->renderText(utf8_decode($csv_file));
+  }
+  
+  public function renderTextXml($csv_file) {
+  	$this->response->setHttpHeader('md5', md5($csv_file));
+  	$this->response->setHttpHeader('LastDocDate', date('r'));
+  	$this->response->setHttpHeader('Last-Modified', date('r'));
+  	$this->response->setContentType('text/xml');
+  	$this->response->setHttpHeader('Content-Disposition', "attachment; filename=ediv2.xml");
+  	return $this->renderText(utf8_decode($csv_file));
   }
 
 

@@ -24,7 +24,7 @@ test:
 
 all:
   .settings:
-    enabled_modules:        [default, acVinCompte, drm, drm_login, drm_recap, drm_mouvements_generaux, drm_vrac, drm_export, User]
+    enabled_modules:        [default, acVinCompte, drm, drm_login, drm_recap, drm_mouvements_generaux, drm_vrac, drm_export, User, edi_export]
     # Form security secret (CSRF protection)
     csrf_secret:            false
 

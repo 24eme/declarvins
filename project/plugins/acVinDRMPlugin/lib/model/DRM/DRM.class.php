@@ -1165,16 +1165,8 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	return $this->getDetails();
     }
     
-    public function getExportableProduitsSucre() {
-    	$produits = $this->getExportableProduits();
-    	$result = array();
-    	$result['tav'] = array();
-    	foreach ($produits as $produit) {
-    		if ($produit->exist('tav') && $produit->get('tav')) {
-    			$result['tav'][$produit->getHash()] = $produit;
-    		}
-    	}
-    	return $result;
+    public function getExportableSucre() {
+    	return array();
     }
     
     public function getExportableVracs() {
@@ -1298,7 +1290,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 	}
 	
 	public function getExportableCategoriesMouvements() {
-		return array('total_debut_mois', 'acq_total_debut_mois', 'stocks_debut', 'entrees', 'sorties', 'stocks_fin');
+		return array('tav', 'total_debut_mois', 'acq_total_debut_mois', 'stocks_debut', 'entrees', 'sorties', 'stocks_fin');
 	}
 	
 	public function getExportableLibelleMvt($key) {

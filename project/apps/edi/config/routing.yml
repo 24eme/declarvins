@@ -7,8 +7,9 @@ upload_etablissements:
   param: {module: edi, action: uploadEtablissements}
 # OK
 testDRMEdi:
-  url: /edi/v2/drm/:id_drm
-  param: {module: edi, action: ediV2}
+  url: /edi/v2/drm/:id_drm.:format
+  param: {module: edi, action: ediV2, format: csv}
+  requirements: {format: (csv|xml|debug)}
 streamDRMEdi:
   url: /edi/drm/:interpro/:datedebut
   param: {module: edi, action: streamDRM}

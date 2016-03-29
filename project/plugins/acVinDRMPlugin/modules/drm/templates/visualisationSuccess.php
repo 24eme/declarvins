@@ -1,5 +1,6 @@
 <?php use_helper('Float'); ?>
 <?php use_helper('Version'); ?>
+<?php use_helper('Link'); ?>
 <?php include_component('global', 'navTop', array('active' => 'drm')); ?>
 
 
@@ -95,6 +96,7 @@
         <?php endif; ?>   
             
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
+            <a id="telecharger_pdf" style="margin-left: 225px; padding-left: 5px; background: #9e9e9e;" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Télécharger le XML</a>
 
             <div id="btn_etape_dr">
                 <?php if ($drm_next_version && $drm_next_version->hasVersion() && !$drm_next_version->isValidee()): ?>

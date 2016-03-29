@@ -8,7 +8,7 @@ interface InterfaceDRMExportable
 	public function getExportableAnnexes();
 	public function getExportableObservations();
 	public function getExportableStatistiquesEuropeennes();
-	public function getExportableProduitsSucre();
+	public function getExportableSucre();
 	public function getExportableRna();
 	public function getExportableDocuments();
 	public function getExportableDeclarantInformations();
