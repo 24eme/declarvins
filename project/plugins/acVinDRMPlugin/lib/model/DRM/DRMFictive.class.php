@@ -107,5 +107,10 @@ class DRMFictive extends DRM
     {
     	$this->drm->payerReport();
     }
+    
+    public function addObservationProduit($hash, $observation)
+    {
+    	$this->drm->addObservationProduit($hash, $observation);
+    }
 
 }

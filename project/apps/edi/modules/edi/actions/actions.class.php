@@ -230,7 +230,7 @@ class ediActions extends sfActions
   	$this->response->setHttpHeader('Last-Modified', date('r'));
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=ediv2.csv");
-    return $this->renderText(utf8_decode($csv_file));
+    return $this->renderText($csv_file);
   }
   
   public function renderTextXml($csv_file) {
@@ -239,7 +239,7 @@ class ediActions extends sfActions
   	$this->response->setHttpHeader('Last-Modified', date('r'));
   	$this->response->setContentType('text/xml');
   	$this->response->setHttpHeader('Content-Disposition', "attachment; filename=ediv2.xml");
-  	return $this->renderText(utf8_decode($csv_file));
+  	return $this->renderText($csv_file);
   }
 
 

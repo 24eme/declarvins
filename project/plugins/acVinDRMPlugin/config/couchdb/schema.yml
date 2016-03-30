@@ -281,6 +281,7 @@ DRM:
                                                                                                             libelle: {  }
                                                                                                             selecteur: {  }
                                                                                                             has_vrac: {  }
+                                                                                                            observations: {  }
                                                                                                             pas_de_mouvement_check: { type: integer }
                                                                                                             total_debut_mois: { type: float }
                                                                                                             tav: { type: float }

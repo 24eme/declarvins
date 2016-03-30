@@ -17,9 +17,12 @@ class DRMValidationForm extends acCouchdbObjectForm
       $this->getWidget('commentaires')->setLabel("Commentaires BO");
       $this->setValidator('commentaires', new sfValidatorString(array('required' => false)));
 
-      $this->setWidget('observations', new sfWidgetFormTextarea());
+      /*$this->setWidget('observations', new sfWidgetFormTextarea());
       $this->getWidget('observations')->setLabel("Observations");
-      $this->setValidator('observations', new sfValidatorString(array('required' => false)));
+      $this->setValidator('observations', new sfValidatorString(array('required' => false)));*/
+      
+      $observations = new DRMValidationObservationsCollectionForm($this->getObject());
+      $this->embedForm('observationsProduits', $observations);
       
       $this->embedForm('manquants', new DRMManquantsForm($this->getObject()->getOrAdd('manquants')));
 	    
@@ -49,6 +52,13 @@ class DRMValidationForm extends acCouchdbObjectForm
         	$drm = $this->getObject()->getDRM();
         	$drm->fromArray($values);
         	$this->getObject()->setDRM($drm);
+        }
+        if (isset($values['observationsProduits'])) {
+	        foreach ($values['observationsProduits'] as $key => $value) {
+	        	if ($value['observations']) {
+	        		$this->getObject()->addObservationProduit($key, $value['observations']);
+	        	}
+	        }
         }
     }
 }

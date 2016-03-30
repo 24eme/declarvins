@@ -219,10 +219,14 @@ class DRMExportCsvEdi extends DRMCsvEdi
         	}
         }
         if ($observations = $this->drm->getExportableObservations()) {
-            $this->addCsvLigne(DRMCsvEdi::TYPE_ANNEXE, array(
-        		DRMCsvEdi::CSV_ANNEXE_TYPEANNEXE => DRMCsvEdi::TYPE_ANNEXE_OBSERVATIONS,
-            	DRMCsvEdi::CSV_ANNEXE_OBSERVATION => $observations)
-            );
+        	foreach ($this->drm->getExportableProduits() as $hashProduit => $produitDetail) {
+        		if ($val = $produitDetail->get($observations)) {
+		            $this->addCsvLigne(DRMCsvEdi::TYPE_ANNEXE, $this->merge(array(
+		        		DRMCsvEdi::CSV_ANNEXE_TYPEANNEXE => DRMCsvEdi::TYPE_ANNEXE_OBSERVATIONS,
+		            	DRMCsvEdi::CSV_ANNEXE_OBSERVATION => $val), $this->getProduitCSV($produitDetail))
+		            );
+        		}
+        	}
         }
     }
     

@@ -23,7 +23,9 @@
 				<tav><?php echo sprintf("%.2f", $produit->tav) ?></tav>
 <?php endif; ?>
 				<premix>!!</premix>
-				<observations>!!</observations>
+<?php if($produit->observations): ?>
+				<observations><?php echo $produit->observations ?></observations>
+<?php endif; ?>
 				<balance-stocks>
 					<stock-debut-periode>
 						<stock><?php echo sprintf("%.2f", $produit->total_debut_mois) ?></stock>
@@ -147,7 +149,9 @@
 			<tav><?php echo sprintf("%.2f", $produit->tav) ?></tav>
 <?php endif; ?>
 			<premix>!!</premix>
-			<observations>!!</observations>
+<?php if($produit->observations): ?>
+				<observations><?php echo $produit->observations ?></observations>
+<?php endif; ?>
 			<balance-stocks>
   				<stock-debut-periode><?php echo sprintf("%.2f", $produit->acq_total_debut_mois) ?></stock-debut-periode>
 <?php if ($produit->entrees->acq_achat || $produit->entrees->acq_autres): ?>

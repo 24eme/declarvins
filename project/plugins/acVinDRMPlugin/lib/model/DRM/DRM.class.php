@@ -879,6 +879,14 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         }
         return DRMClient::DRM_STATUS_BILAN_VALIDE;
     }
+
+    public function addObservationProduit($hash, $observation)
+    {
+    	if ($this->exist($hash)) {
+    		$produit = $this->get($hash);
+    		$produit->observations = $observation;
+    	}
+    }
     
     /*     * ** VERSION *** */
 
@@ -1231,7 +1239,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 	}
 
 	public function getExportableObservations() {
-		return $this->observations;
+		return 'observations';
 	}
 
 	public function getExportableStatistiquesEuropeennes() {
