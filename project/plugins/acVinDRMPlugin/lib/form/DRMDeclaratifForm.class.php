@@ -180,12 +180,15 @@ class DRMDeclaratifForm extends acCouchdbForm {
     }
 
     public function hasWidgetFrequence() {
-    	$historique = new DRMHistorique($this->_drm->identifiant);
-    	$firstDTI = $historique->getFirstDTIByCampagne($this->_drm->campagne);
-    	if ($firstDTI && $this->_drm->periode <= $firstDTI) {
+    	if (($this->_drm->declaratif->paiement->douane->frequence != 'Annuelle') || DRMPaiement::isDebutCampagne($this->_drm->getMois())) {
     		return true;
     	}
-        return ($this->_drm->declaratif->paiement->douane->frequence && !DRMPaiement::isDebutCampagne($this->_drm->getMois())) ? false : true;
+    	if ($precedente = $this->_drm->getPrecedente()) {
+    		if (($precedente->declaratif->paiement->douane->frequence != 'Annuelle') || ($precedente->declaratif->paiement->douane->report_paye)) {
+    			return true;
+    		}
+    	}
+        return false;
     }
     
     public function getObject() {
