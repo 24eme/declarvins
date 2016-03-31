@@ -71,7 +71,7 @@
 						</mouvements-internes>
 <?php endif; ?>
 						<compensation>!!</compensation>
-						<autres-entrees>!!</autres-entrees>
+						<autres-entrees><?php echo sprintf("%.2f", $produit->entrees->excedent) ?></autres-entrees>
 <?php if ($produit->entrees->crd): ?>
 						<replacement-suspension>
 							<mois>!!</mois>
