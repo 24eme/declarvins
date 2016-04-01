@@ -47,7 +47,7 @@ EOF;
         );
         foreach($rows as $row) {
         	if ($drm = DRMClient::getInstance()->find($row->id)) {
-        		if ($drm->exist($row->key[DRMDateView::KEY_DETAIL_HASH])) {
+        			echo $drm->_id;
 	        		$detail = $drm->get($row->key[DRMDateView::KEY_DETAIL_HASH]);
 	        		if (isset($correspondance[$detail->getKey()])) {
 	        			$new = $correspondance[$detail->getKey()];
@@ -59,7 +59,6 @@ EOF;
 	        			$drm->save();
 	      				$this->logSection("debug", $drm->_id." : ".$i." / ".$nb." (".round(($i / $nb) * 100)."%) drm(s) updatée(s) avec succès", null, 'SUCCESS');
 	        		}
-        		}
         	}
         	$i++;
         }
