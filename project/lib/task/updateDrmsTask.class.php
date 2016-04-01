@@ -29,7 +29,6 @@ EOF;
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         
         $rows = acCouchdbManager::getClient()
-              ->reduce(false)
               ->getView("update", "drm_labels")
               ->rows;
         $i = 0;
