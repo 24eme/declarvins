@@ -55,6 +55,7 @@ EOF;
         			$detail->libelles_label = array($new => $libelles[$new]);
         			$details->add($new, $detail);
         			$detail->delete();
+        			$drm->save();
       				$i++;
       				$this->logSection("debug", $drm->_id." : ".$i." / ".$nb." (".round(($i / $nb) * 100)."%) drm(s) updatée(s) avec succès", null, 'SUCCESS');
       				exit;
