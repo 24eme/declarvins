@@ -47,17 +47,19 @@ EOF;
         );
         foreach($rows as $row) {
         	if ($drm = DRMClient::getInstance()->find($row->id)) {
-        		$detail = $drm->get($row->key[DRMDateView::KEY_DETAIL_HASH]);
-        		if (isset($correspondance[$detail->getKey()])) {
-        			$new = $correspondance[$detail->getKey()];
-        			$details = $detail->getParent();
-        			$detail->labels = array($new);
-        			$detail->libelles_label = array($new => $libelles[$new]);
-        			$details->add($new, $detail);
-        			$detail->delete();
-        			$drm->save();
-      				$i++;
-      				$this->logSection("debug", $drm->_id." : ".$i." / ".$nb." (".round(($i / $nb) * 100)."%) drm(s) updatée(s) avec succès", null, 'SUCCESS');
+        		if ($drm->exist($row->key[DRMDateView::KEY_DETAIL_HASH])) {
+	        		$detail = $drm->get($row->key[DRMDateView::KEY_DETAIL_HASH]);
+	        		if (isset($correspondance[$detail->getKey()])) {
+	        			$new = $correspondance[$detail->getKey()];
+	        			$details = $detail->getParent();
+	        			$detail->labels = array($new);
+	        			$detail->libelles_label = array($new => $libelles[$new]);
+	        			$details->add($new, $detail);
+	        			$detail->delete();
+	        			$drm->save();
+	      				$i++;
+	      				$this->logSection("debug", $drm->_id." : ".$i." / ".$nb." (".round(($i / $nb) * 100)."%) drm(s) updatée(s) avec succès", null, 'SUCCESS');
+	        		}
         		}
         	}
         }
