@@ -58,7 +58,6 @@ EOF;
         			$drm->save();
       				$i++;
       				$this->logSection("debug", $drm->_id." : ".$i." / ".$nb." (".round(($i / $nb) * 100)."%) drm(s) updatée(s) avec succès", null, 'SUCCESS');
-      				exit;
         		}
         	}
         }
