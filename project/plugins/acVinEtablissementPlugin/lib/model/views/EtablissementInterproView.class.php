@@ -19,7 +19,7 @@ class EtablissementInterproView extends acCouchdbView
     		return null;
     	}
     	$result = current($result);
-    	return $result->value[self::VALUE_INTERPRO];
+    	return array('interpro' => $result->value[self::VALUE_INTERPRO], 'id' => str_replace('ETABLISSEMENT-', '', $result->id));
     }
 
 }  
