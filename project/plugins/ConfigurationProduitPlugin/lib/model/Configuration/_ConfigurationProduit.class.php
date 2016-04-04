@@ -90,13 +90,13 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
 		return $this->total_lieux[$key];
   	}
 	
-	public function getTotalCouleurs($onlyForDrmVrac = false, $cvoNeg = false, $date = null) 
+	public function getTotalCouleurs($onlyForDrmVrac = false, $cvoNeg = false, $date = null, $exception = null) 
 	{
 		$key = sprintf("%s_%s_%s", $onlyForDrmVrac, $cvoNeg, $date);
 		if(!array_key_exists($key, $this->total_lieux)) {
 	      	$couleurs = array();
 	      	foreach($this->getChildrenNode() as $key => $item) {
-	        	$couleurs = array_merge($couleurs, $item->getTotalCouleurs($onlyForDrmVrac, $cvoNeg, $date));
+	        	$couleurs = array_merge($couleurs, $item->getTotalCouleurs($onlyForDrmVrac, $cvoNeg, $date, $exception));
 	      	}
 	    	$this->total_couleurs[$key] = $couleurs;
 		}
