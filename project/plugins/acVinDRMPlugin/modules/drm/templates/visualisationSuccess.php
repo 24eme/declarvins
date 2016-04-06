@@ -32,7 +32,7 @@
                     <li>
                     <?php if ($drm->isTeledeclare()): ?>
                     Votre DRM a bien été validée et transmis à votre interprofession.<br />
-					Vous devez par contre imprimer le PDF et le signer puis l'envoyer à votre service des douanes habituels.
+					Vous devez par contre imprimer le PDF et le signer puis l'envoyer à votre service des douanes habituel.
                     <?php else: ?>
                     Votre DRM a bien été saisie et validée.
                     <?php endif; ?>
