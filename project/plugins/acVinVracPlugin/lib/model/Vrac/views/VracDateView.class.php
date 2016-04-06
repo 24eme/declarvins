@@ -69,6 +69,24 @@ class VracDateView extends acCouchdbView
 	const VALUE_VERSION = 60;
 	const VALUE_REFERENTE = 61;
 
+	const VALUE_MODE_SAISIE = 62;
+	const VALUE_DATE_SAISIE2 = 63;
+	const VALUE_DATE_VALIDATION2 = 64;
+	const VALUE_OBSERVATIONS = 65;
+	const VALUE_BAILLEUR_METAYER = 66;
+	const VALUE_OIOC_DATE_EDI = 67;
+	const VALUE_OIOC_DATE_RECEPTION = 68;
+	const VALUE_OIOC_DATE_TRAITEMENT = 69;
+	const VALUE_STOCKAGE_SIRET = 70;
+	const VALUE_STOCKAGE_LIBELLE = 71;
+	const VALUE_STOCKAGE_ADRESSE = 72;
+	const VALUE_STOCKAGE_CP = 73;
+	const VALUE_STOCKAGE_COMMUNE = 74;
+	const VALUE_STOCKAGE_PAYS = 75;
+	const VALUE_STOCKAGE_HAS = 76;
+	const VALUE_ACHETEUR_EA = 77;
+	const VALUE_VENDEUR_EA = 78;
+
 	public static function getInstance() 
 	{
         return acCouchdbManager::getView('vrac', 'date', 'Vrac');
