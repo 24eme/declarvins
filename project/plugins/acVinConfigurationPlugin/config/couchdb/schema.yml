@@ -26,6 +26,189 @@ Configuration:
                   drm: {  }
                   vrac: {  }
                   daids: {  }
+      ciel:
+        type: collection
+        definition:
+          fields:
+            'libelles_fiscaux':
+              type: collection
+              definition:
+                fields:
+                  '*': {  }
+            'balance-stocks':
+              type: collection
+              definition:
+                fields:
+                  'droits-suspendus':
+                    type: collection
+                    definition:
+                      fields:
+                        'stock-debut-periode':
+                          type: collection
+                          definition:
+                            fields:
+                              'stock':
+                                type: array_collection
+                                definition:
+                                  fields:
+                                    '*': {  }
+                              'stock-warrante':
+                                type: array_collection
+                                definition:
+                                  fields:
+                                    '*': {  }
+                        'entrees-periode':
+                          type: collection
+                          definition:
+                            fields:
+                              'volume-produit':
+                                type: array_collection
+                                definition:
+                                  fields:
+                                    '*': {  }
+                              'achats-reintegrations':
+                                type: array_collection
+                                definition:
+                                  fields:
+                                    '*': {  }
+                              'mouvements-temporaires':
+                                type: collection
+                                definition:
+                                  fields:
+                                    '*': 
+                                      type: array_collection
+                                      definition:
+                                        fields:
+                                          '*': {  }
+                              'mouvements-internes':
+                                type: collection
+                                definition:
+                                  fields:
+                                    '*': 
+                                      type: array_collection
+                                      definition:
+                                        fields:
+                                          '*': {  }
+                              'compensation':
+                                type: array_collection
+                                definition:
+                                  fields:
+                                    '*': {  }
+                              'autres-entrees':
+                                type: array_collection
+                                definition:
+                                  fields:
+                                    '*': {  }
+                              'replacement-suspension':
+                                type: collection
+                                definition:
+                                  fields:
+                                    '*': 
+                                      type: array_collection
+                                      definition:
+                                        fields:
+                                          '*': {  }
+                        'sorties-periode':
+                          type: collection
+                          definition:
+                            fields:
+                              'ventes-france-crd-suspendus':
+                                type: collection
+                                definition:
+                                  fields:
+                                    '*': 
+                                      type: array_collection
+                                      definition:
+                                        fields:
+                                          '*': {  }
+                              'ventes-france-crd-acquittes':
+                                type: array_collection
+                                definition:
+                                  fields:
+                                    '*': {  }
+                              'sorties-sans-paiement-droits':
+                                type: collection
+                                definition:
+                                  fields:
+                                    'sorties-definitives': 
+                                      type: array_collection
+                                      definition:
+                                        fields:
+                                          '*': {  }
+                                    'consommation-familiale-degustation': 
+                                      type: array_collection
+                                      definition:
+                                        fields:
+                                          '*': {  }
+                                    'mouvements-temporaires':
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          '*': 
+                                            type: array_collection
+                                            definition:
+                                              fields:
+                                                '*': {  }
+                                    'mouvements-internes':
+                                      type: collection
+                                      definition:
+                                        fields:
+                                          '*': 
+                                            type: array_collection
+                                            definition:
+                                              fields:
+                                                '*': {  }
+                                    'autres-sorties': 
+                                      type: array_collection
+                                      definition:
+                                        fields:
+                                          '*': {  }
+                        'stock-fin-periode':
+                          type: collection
+                          definition:
+                            fields:
+                              'stock':
+                                type: array_collection
+                                definition:
+                                  fields:
+                                    '*': {  }
+                              'stock-warrante':
+                                type: array_collection
+                                definition:
+                                  fields:
+                                    '*': {  }
+                  'droits-acquittes':
+                    type: collection
+                    definition:
+                      fields:
+                        'stock-debut-periode':
+                          type: array_collection
+                          definition:
+                            fields:
+                              '*': {  }
+                        'entrees-periode':
+                          type: collection
+                          definition:
+                            fields:
+                              '*':
+                                type: array_collection
+                                definition:
+                                  fields:
+                                    '*': {  }
+                        'sorties-periode':
+                          type: collection
+                          definition:
+                            fields:
+                              '*':
+                                type: array_collection
+                                definition:
+                                  fields:
+                                    '*': {  }
+                        'stock-fin-periode':
+                          type: array_collection
+                          definition:
+                            fields:
+                              '*': {  }
       crds:
         type: collection
         definition:

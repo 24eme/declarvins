@@ -2,6 +2,7 @@
 interface InterfaceDRMExportable
 {
 	public function getExportableProduits();
+	public function getExportableCepages();
 	public function hasExportableProduitsAcquittes();
 	public function getExportableVracs();
 	public function getExportableCrds();

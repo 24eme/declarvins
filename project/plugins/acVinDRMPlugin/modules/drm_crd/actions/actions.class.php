@@ -26,8 +26,13 @@ class drm_crdActions extends sfActions
         	$this->form->bind($request->getParameter($this->form->getName()));
         	if ($this->form->isValid()) {
         		$this->drm = $this->form->save();
-        		$this->drm->setCurrentEtapeRouting('declaratif');
-        		$this->redirect('drm_declaratif', $this->drm);
+        		if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+                	$this->drm->setCurrentEtapeRouting('validation');
+                	$this->redirect('drm_validation', $this->drm);
+        		} else {
+	        		$this->drm->setCurrentEtapeRouting('declaratif');
+	        		$this->redirect('drm_declaratif', $this->drm);
+        		}
         	}
         }
     }

@@ -406,7 +406,9 @@ class sfWebResponse extends sfResponse
    */
   protected function normalizeHeaderName($name)
   {
-    return preg_replace('/\-(.)/e', "'-'.strtoupper('\\1')", strtr(ucfirst(strtolower($name)), '_', '-'));
+    strtr(ucfirst(strtolower($name)), '_', '-');
+  return str_replace(array('\'$1$3\'','\'$2$4\'','\'$1\'', '\'$2\'', '$1', '$2'),array('$matches[1].$matches[3]','$matches[2].$matches[4]','$matches[1]','$matches[2]','$matches[1]','$matches[2]'),
+$name);
   }
 
   /**

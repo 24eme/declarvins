@@ -85,6 +85,8 @@ class ConfigurationProduitCouleur extends BaseConfigurationProduitCouleur
   	public function hasDouane() { return false; }
   	
   	public function hasDRMVrac() { return false; }
+  	
+  	public function hasCiel() { return false; }
   	  	
   	public function hasOIOC() { return false; }
   	

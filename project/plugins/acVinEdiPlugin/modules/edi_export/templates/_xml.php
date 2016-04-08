@@ -1,3 +1,7 @@
+<?php 
+	use_helper('Edi');
+?>
+
 <?php echo '<?xml version="1.0" encoding="utf-8"?>' ?>
 
 <message-interprofession>
@@ -16,17 +20,19 @@
 		<droits-suspendus>
 <?php foreach ($drm->getDetails() as $produit): ?>
 			<produit>
-				<libelle-fiscal>!!</libelle-fiscal>
-				<code-inao>!!</code-inao>
+				<libelle-fiscal></libelle-fiscal>
+				<code-inao></code-inao>
 				<libelle-personnalise><?php echo trim($produit->getLibelle()) ?></libelle-personnalise>
-<?php if($produit->tav): ?>
-				<tav><?php echo sprintf("%.2f", $produit->tav) ?></tav>
-<?php endif; ?>
-				<premix>!!</premix>
-<?php if($produit->observations): ?>
-				<observations><?php echo $produit->observations ?></observations>
-<?php endif; ?>
+				<tav></tav>
+				<premix></premix>
+				<observations></observations>
 				<balance-stocks>
+<?php 
+	$xml = '';
+	noeudXml($ciel->get('balance-stocks/droits-suspendus'), $xml, 5);
+	echo $xml;
+?>
+
 					<stock-debut-periode>
 						<stock><?php echo sprintf("%.2f", $produit->total_debut_mois) ?></stock>
 <?php if($produit->stocks_debut->warrante): ?>

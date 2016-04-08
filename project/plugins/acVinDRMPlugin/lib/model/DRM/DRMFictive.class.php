@@ -60,6 +60,9 @@ class DRMFictive extends DRM
     		$detail->getParent()->set($produit->getKey(), $produit);
     	}
         $drm->update();
+        $drm->remove('crds');
+        $drm->add('crds');
+        $drm->crds = $this->crds;
     	$drm->save();
     	
     }

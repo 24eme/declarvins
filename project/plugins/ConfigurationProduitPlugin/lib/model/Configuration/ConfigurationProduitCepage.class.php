@@ -198,6 +198,8 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
   	public function hasDouane() { return false; }
   	
   	public function hasDRMVrac() { return false; }
+  	
+  	public function hasCiel() { return true; }
   	  	
   	public function hasOIOC() { return false; }
   	

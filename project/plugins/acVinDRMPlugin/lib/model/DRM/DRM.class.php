@@ -111,6 +111,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $this->declaration->getProduits();
     }
 
+    public function getProduitsCepages() {
+
+        return $this->declaration->getProduitsCepages();
+    }
+
     public function getDetailsAvecVrac() {
         $details = array();
         foreach ($this->getDetails() as $d) {
@@ -1171,6 +1176,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     /* EXPORTABLE */
     public function getExportableProduits() {
     	return $this->getDetails();
+    }
+    public function getExportableCepages() {
+    	return $this->getProduitsCepages();
     }
     
     public function getExportableSucre() {

@@ -78,8 +78,8 @@
 				                        <thead>
                                                                 <tr>
                                                                         <th>Produits</th>
-                                                                        <th width="70px" style="width: 70px">Stock début de mois <a href="" class="msg_aide" data-msg="help_popup_mouvgen_disponible" title="Message aide"></a></th>
-                                                                        <th width="90px" class="acqTd <?php if ($drm->droits_acquittes): ?>showTd<?php else: ?>noTd<?php endif; ?>" style="width: 90px">Stock début de mois acquittés <a href="" class="msg_aide" data-msg="help_popup_mouvgen_disponible" title="Message aide"></a></th>
+                                                                        <th width="70px" style="width: 70px">Stock début de mois suspendus <a href="" class="msg_aide" data-msg="help_popup_mouvgen_disponible" title="Message aide"></a></th>
+                                                                        <th width="70px" class="acqTd <?php if ($drm->droits_acquittes): ?>showTd<?php else: ?>noTd<?php endif; ?>" style="width: 70px">Stock début de mois acquittés <a href="" class="msg_aide" data-msg="help_popup_mouvgen_disponible" title="Message aide"></a></th>
                                                                         <th width="85px" style="width: 82px">Pas de mouvement <a href="" class="msg_aide" data-msg="help_popup_mouvgen_pasdemouvement" title="Message aide"></a></th>
                                                                 </tr>
                                                         </thead>

@@ -285,6 +285,7 @@ DRM:
                                                                                                             pas_de_mouvement_check: { type: integer }
                                                                                                             total_debut_mois: { type: float }
                                                                                                             tav: { type: float }
+                                                                                                            premix: { type: integer }
                                                                                                             acq_total_debut_mois: { type: float }
                                                                                                             total_entrees: { type: float }
                                                                                                             acq_total_entrees: { type: float }
@@ -373,6 +374,7 @@ DRM:
                                                                                                                   export: { type: float }
                                                                                                                   factures: { type: float }
                                                                                                                   crd: { type: float }
+                                                                                                                  crd_acquittes: { type: float }
                                                                                                                   consommation: { type: float }
                                                                                                                   pertes: { type: float }
                                                                                                                   declassement: { type: float }

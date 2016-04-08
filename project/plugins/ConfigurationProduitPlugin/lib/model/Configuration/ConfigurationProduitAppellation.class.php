@@ -49,6 +49,8 @@ class ConfigurationProduitAppellation extends BaseConfigurationProduitAppellatio
   	public function hasDouane() { return false; }
   	
   	public function hasDRMVrac() { return true; }
+  	
+  	public function hasCiel() { return false; }
   	  	
   	public function hasOIOC() { return true; }
   	

@@ -6,9 +6,9 @@
 <p style="text-align:right; padding-bottom: 4px;">
     <a href="<?php echo url_for('drm_recap_ajout_ajax', $drm_lieu) ?>" class="btn_ajouter btn_popup" data-popup-ajax="true" data-popup="#popup_ajout_detail" data-popup-config="configForm">Ajouter un produit</a>
 </p>
-<h1>En droits suspendus</h1>
+
 <div id="colonnes_dr">
-    <?php include_partial('drm_recap/itemHeader', array('config_lieu' => $config_lieu, 'acquittes' => false)); ?>    
+    <?php include_partial('drm_recap/itemHeader', array('config_lieu' => $config_lieu, 'acquittes' => $drm->hasDroitsAcquittes())); ?>    
     <div id="col_saisies">
         <script type="text/javascript">
             /* Colonne avec le focus par défaut */
@@ -23,7 +23,8 @@
                         'config_lieu' => $config_lieu,
                         'detail' => $produit,
                     	'active' => ($detail && $detail->getHash() == $produit->getHash()),
-                        'form' => $form
+                        'form' => $form,
+                    	'acquittes' => $drm->hasDroitsAcquittes()
                     ));
                     ?>
                 <?php endif; ?>
@@ -31,25 +32,3 @@
         </div>
     </div>
 </div>
-<?php if ($drm->hasDroitsAcquittes()): ?>
-<h1>En droits acquittés</h1>
-<div id="colonnes_dr_acq">
-    <?php include_partial('drm_recap/itemHeader', array('config_lieu' => $config_lieu, 'acquittes' => true)); ?>    
-    <div id="col_saisies_acq">
-        <div id="col_saisies_cont_acq">
-            <?php foreach ($produits as $produit): ?>
-                <?php if ($produit->hasMouvementCheck()): ?>
-                    <?php
-                    include_component('drm_recap', 'itemFormAcq', array('produit' => $produit,
-                        'config_lieu' => $config_lieu,
-                        'detail' => $produit,
-                    	'active' => ($detail && $detail->getHash() == $produit->getHash()),
-                        'form' => $form
-                    ));
-                    ?>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</div>
-<?php endif; ?>

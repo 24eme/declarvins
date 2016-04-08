@@ -46,6 +46,7 @@ class DRMMouvementsGenerauxForm extends acCouchdbObjectForm
 
     
     public function doUpdateObject($values) {
+    	$volAcq = $this->getObject()->hasVolumeAcquittes();
         parent::doUpdateObject($values);
         foreach ($this->getEmbeddedForms() as $key => $embedForm) {
         	$embedForm->doUpdateObject($values[$key]);
@@ -53,10 +54,11 @@ class DRMMouvementsGenerauxForm extends acCouchdbObjectForm
         if (isset($values['droits_acquittes']) && $values['droits_acquittes']) {
         	$this->getObject()->setHasDroitsAcquittes(1);
         } else {
-        	$this->getObject()->setHasDroitsAcquittes(0);
-        }
-        if ($this->getObject()->hasVolumeAcquittes()) {
-        	$this->getObject()->setHasDroitsAcquittes(1);
+        	if ($volAcq) {
+        		$this->getObject()->setHasDroitsAcquittes(1);
+        	} else {
+        		$this->getObject()->setHasDroitsAcquittes(0);
+        	}
         }
     }
 }

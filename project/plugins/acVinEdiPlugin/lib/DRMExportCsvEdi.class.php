@@ -2,9 +2,11 @@
 class DRMExportCsvEdi extends DRMCsvEdi 
 {
 	protected $csv;
+	protected $configuration;
 
     public function __construct(DRM $drm) {
     	$this->csv = array();
+    	$this->configuration = ConfigurationClient::getCurrent();
         parent::__construct(null, $drm);
     }
 
@@ -36,7 +38,10 @@ class DRMExportCsvEdi extends DRMCsvEdi
     }
     
     protected function getXmlFormat() {
-    	return $this->getPartial('xml', array('csv' => $this->csv, 'drm' => $this->drm));
+    	if (!$this->configuration->exist('ciel')) {
+    		throw new sfException('Il n\'existe aucune configuration pour CIEL.');
+    	}
+    	return $this->getPartial('xml', array('csv' => $this->csv, 'drm' => $this->drm, 'ciel' => $this->configuration->ciel));
     }
 
     protected function generateCsvEdi() 

@@ -4,7 +4,8 @@ class DRMDetailSortiesForm  extends acCouchdbObjectForm {
 
     public function configure() {
 
-    	$stockSorties = Configuration::getStocksSortie($this->getOption('acquittes', false)); 
+    	$stockSorties = Configuration::getStocksSortie(true); 
+    	$stockSorties = array_merge($stockSorties, Configuration::getStocksSortie(false));
     	if (isset($stockSorties['vrac_contrat'])) {
     		unset($stockSorties['vrac_contrat']);
     	}

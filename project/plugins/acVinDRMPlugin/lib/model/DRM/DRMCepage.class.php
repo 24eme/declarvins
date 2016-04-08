@@ -23,6 +23,10 @@ class DRMCepage extends BaseDRMCepage {
         return $produits;
     }
 
+  	public function getProduitsCepages() {
+        return array($this->getHash() => $this);
+    }
+
   	public function getLieuxArray() {
 
   		throw new sfException('this function need to call before lieu tree');

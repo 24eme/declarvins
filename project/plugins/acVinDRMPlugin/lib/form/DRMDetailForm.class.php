@@ -4,6 +4,17 @@ class DRMDetailForm extends acCouchdbObjectForm {
 	protected $_label_choices;
 
     public function configure() {
+
+    	if ($this->getObject()->getCertification()->getKey() == ConfigurationProduit::CERTIFICATION_VINSSANSIG) {
+    		$this->setWidget('tav', new sfWidgetFormInputFloat(array('float_format' => "%01.04f")));
+    		$this->setWidget('premix', new sfWidgetFormInputCheckbox());
+    	} else {
+    		$this->setWidget('tav', new sfWidgetFormInputFloat(array('float_format' => "%01.04f"), array('readonly' => 'readonly')));
+    		$this->setWidget('premix', new sfWidgetFormInputCheckbox(array(), array('disabled' => 'disabled')));
+    	}
+    	$this->setValidator('tav', new sfValidatorNumber(array('required' => false)));
+    	$this->setValidator('premix', new sfValidatorBoolean(array('required' => false)));
+    	
     	if ($this->getObject()->getDocument()->canSetStockDebutMois()) {
     		$this->setWidget('total_debut_mois', new sfWidgetFormInputFloat(array('float_format' => "%01.04f")));
     	} else {
@@ -11,21 +22,21 @@ class DRMDetailForm extends acCouchdbObjectForm {
     	}
     	$this->setValidator('total_debut_mois', new sfValidatorNumber(array('required' => false)));
     	
-    	
-    	if ($this->getObject()->getCertification()->getKey() == ConfigurationProduit::CERTIFICATION_VINSSANSIG) {
-    		$this->setWidget('tav', new sfWidgetFormInputFloat(array('float_format' => "%01.04f")));
+
+    	if ($this->getObject()->getDocument()->canSetStockDebutMois(true)) {
+    		$this->setWidget('acq_total_debut_mois', new sfWidgetFormInputFloat(array('float_format' => "%01.04f")));
     	} else {
-    		$this->setWidget('tav', new sfWidgetFormInputFloat(array('float_format' => "%01.04f"), array('readonly' => 'readonly')));
+    		$this->setWidget('acq_total_debut_mois', new sfWidgetFormInputFloat(array('float_format' => "%01.04f"), array('readonly' => 'readonly')));
     	}
-    	$this->setValidator('tav', new sfValidatorNumber(array('required' => false)));
+    	$this->setValidator('acq_total_debut_mois', new sfValidatorNumber(array('required' => false)));
     	
         $this->stocks_debut = new DRMDetailStocksDebutForm($this->getObject()->stocks_debut, array('acquittes' => false));
         $this->embedForm('stocks_debut', $this->stocks_debut);
             
-        $this->entrees = new DRMDetailEntreesForm($this->getObject()->entrees, array('acquittes' => false));
+        $this->entrees = new DRMDetailEntreesForm($this->getObject()->entrees);
         $this->embedForm('entrees', $this->entrees);
 
-        $this->sorties = new DRMDetailSortiesForm($this->getObject()->sorties, array('acquittes' => false));
+        $this->sorties = new DRMDetailSortiesForm($this->getObject()->sorties);
         $this->embedForm('sorties', $this->sorties);
         
         $this->stocks_fin = new DRMDetailStocksFinForm($this->getObject()->stocks_fin, array('acquittes' => false));
@@ -35,12 +46,29 @@ class DRMDetailForm extends acCouchdbObjectForm {
         $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
     }
     
-    public function doUpdateObject($values) {
+	protected function updateDefaultsFromObject() {
+        parent::updateDefaultsFromObject();
+        if (!$this->getObject()->acq_total_debut_mois) {
+        	$defaults = $this->getDefaults();
+        	$defaults['acq_total_debut_mois'] = 0;
+        	$this->setDefaults($defaults);     
+        }
+    }
+    
+    protected function doUpdateObject($values) {
     	parent::doUpdateObject($values);
     	if (isset($values["sorties"]["vrac"]) && !$values["sorties"]["vrac"]) {
     		$this->getObject()->remove('vrac');
     		$this->getObject()->add('vrac');
     	}
+        if (!$values['acq_total_debut_mois']) {
+       		$this->getObject()->acq_total_debut_mois = 0;
+       	}
+       	if (isset($values['premix']) && $values['premix']) {
+       		$this->getObject()->premix = 1;
+       	} else {
+       		$this->getObject()->premix = 0;       		
+       	}
         $this->getObject()->getDocument()->update();
     }
 
