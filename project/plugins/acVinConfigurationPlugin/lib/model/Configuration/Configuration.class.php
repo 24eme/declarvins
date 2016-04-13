@@ -49,6 +49,7 @@ class Configuration extends BaseConfiguration {
         'export' => 'Conditionné export',
         'factures' => 'DSA / Tickets / Factures',
         'crd' => 'CRD France',
+    	'crd_acquittes' => 'CRD Collectives acquittées',
         'consommation' => 'Conso Fam. / Analyses / Dégustation',
         'pertes' => 'Pertes et manquants constatés',
         'autres' => 'Destruction / Distillation',
