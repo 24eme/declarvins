@@ -28,11 +28,33 @@ EOF;
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         $campagne = null;
         
-        $comptes = CompteAllView::getInstance()->findBy(1, 'CompteTiers', _Compte::STATUT_INSCRIT)->rows;
+        $comptes = array(
+        		"COMPTE-170858",
+        		"COMPTE-angrasset",
+        		"COMPTE-carabinier@wanadoo.fr",
+        		"COMPTE-chastanpaulette",
+        		"COMPTE-chateauparadis",
+        		"COMPTE-christian",
+        		"COMPTE-divimer",
+        		"COMPTE-domaine-cabanon@wanadoo.fr",
+        		"COMPTE-domainedelafermonde@gmail.fr",
+        		"COMPTE-domainedesprades@orange.fr",
+        		"COMPTE-domainelabignande",
+        		"COMPTE-earlantonin@orange.fr",
+        		"COMPTE-fallegre",
+        		"COMPTE-lavins",
+        		"COMPTE-peyronniere",
+        		"COMPTE-pierric.michel@orange.fr",
+        		"COMPTE-trenel71"
+        );
         $ldap = new Ldap();
         foreach ($comptes as $compte) {
-        		if ($c = _CompteClient::getInstance()->find($compte->id)) {
+        		if ($c = _CompteClient::getInstance()->find($compte)) {
         			try {
+        			$contrat = ContratClient::getInstance()->find($c->contrat);
+        			$c->nom = $contrat->nom;
+        			$c->prenom = $contrat->prenom;
+        			$c->save();
   					$result = $ldap->saveCompte($c);
         			} catch (Exception $e) {
         				$result = false;
