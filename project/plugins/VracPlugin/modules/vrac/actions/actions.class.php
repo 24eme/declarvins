@@ -66,6 +66,10 @@ class vracActions extends acVinVracActions
 					$transactionCC[$compte->email] = $etablissement->raison_sociale;
 					Email::getInstance()->vracContratValide($vrac, $etablissement, $compte->email);
 				}
+			} else {
+				if ($interpro->email_contrat_vrac) {
+					Email::getInstance()->vracContratValide($vrac, $etablissement, $interpro->email_contrat_vrac);
+				}
 			}
 		}
 		if ($vrac->mode_de_saisie != Vrac::MODE_DE_SAISIE_PAPIER) {
@@ -102,6 +106,10 @@ class vracActions extends acVinVracActions
 				} else {
 					Email::getInstance()->vracContratModifie($vrac, $etablissement, $compte->email);
 				}
+			} else {
+				if ($interpro->email_contrat_vrac) {
+					Email::getInstance()->vracContratModifie($vrac, $etablissement, $interpro->email_contrat_vrac);
+				}
 			}
 		}
 	}
@@ -130,8 +138,19 @@ class vracActions extends acVinVracActions
 				} else {
 					Email::getInstance()->vracContratAnnulation($vrac, $etab, $acteur, $compte->email);
 				}
+			} else {
+				if ($interpro && $interpro->email_contrat_vrac) {
+					Email::getInstance()->vracContratAnnulation($vrac, $etab, $acteur, $interpro->email_contrat_vrac);
+				}
 			}
 		}	
+		if ($vrac->mode_de_saisie != Vrac::MODE_DE_SAISIE_PAPIER) {
+			if ($vrac->exist('oioc') && $vrac->oioc->identifiant) {
+				$oioc = OIOCClient::getInstance()->find($vrac->oioc->identifiant);
+				$etablissement = EtablissementClient::getInstance()->find($vrac->get('vendeur_identifiant'));
+				Email::getInstance()->vracTransactionAnnulation($vrac, $etab, $oioc, $oioc->email_transaction);
+			}
+		}
 	}
 	
 

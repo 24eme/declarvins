@@ -211,11 +211,11 @@ class Configuration extends BaseConfiguration {
         return $this->format($lieux, $format);
     }
 
-    public function getFormattedCouleurs($hash = null, $zones, $onlyForDrmVrac = false, $format = "%g% %a% %m% %l% %co%", $cvoNeg = false, $date = null) {
+    public function getFormattedCouleurs($hash = null, $zones, $onlyForDrmVrac = false, $format = "%g% %a% %m% %l% %co%", $cvoNeg = false, $date = null, $exception = null) {
     	$produits = array();
         foreach ($zones as $zoneId => $zone) {
             foreach ($zone->getConfigurationProduits() as $configurationProduitsId => $configurationProduits) {
-                $produits = array_merge($produits, $configurationProduits->getTotalCouleurs($hash, $onlyForDrmVrac, $cvoNeg, $date));
+                $produits = array_merge($produits, $configurationProduits->getTotalCouleurs($hash, $onlyForDrmVrac, $cvoNeg, $date, false, $exception));
             }
         }
         return $this->formatWithCode($produits, $format);

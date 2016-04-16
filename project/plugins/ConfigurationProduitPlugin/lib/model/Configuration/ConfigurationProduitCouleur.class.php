@@ -44,11 +44,18 @@ class ConfigurationProduitCouleur extends BaseConfigurationProduitCouleur
 		return array();
 	}
 
-    public function getTotalCouleurs($onlyForDrmVrac = false, $cvoNeg = false, $date = null)
+    public function getTotalCouleurs($onlyForDrmVrac = false, $cvoNeg = false, $date = null, $exception = null)
     {
     
     	if ($onlyForDrmVrac) {
     		if (!$this->getCurrentDrmVrac(true)) {
+    			return array();
+    		}
+    	}
+    	
+    	if ($exception) {
+    		//echo '/'.str_replace('/', '\/', $exception).'/';exit;
+    		if (preg_match('/'.str_replace('/', '\/', $exception).'/', $this->getHash())) {
     			return array();
     		}
     	}

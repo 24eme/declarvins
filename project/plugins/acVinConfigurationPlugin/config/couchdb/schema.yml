@@ -30,6 +30,7 @@ Configuration:
         type: collection
         definition:
           fields:
+            exception_produit: { required: false }
             interpro:
               type: collection
               definition:

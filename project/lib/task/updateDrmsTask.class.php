@@ -27,19 +27,41 @@ EOF;
         // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-        	if ($d = DRMClient::getInstance()->find($options['drm'])) {
-        		if ($d->declaration->certifications->exist('IGP')) {
-        			if ($d->declaration->certifications->get('IGP')->genres->exist('TRANQ')) {
-        				if ($d->declaration->certifications->get('IGP')->genres->get('TRANQ')->appellations->exist('IGP')) {
-			        		foreach ($d->declaration->certifications->get('IGP')->genres->get('TRANQ')->appellations->get('IGP')->getProduits() as $detail) {
-			        			$detail->add('interpro', 'INTERPRO-IVSE');
-			        		}
-        				}
-        			}
-        		}
-        		$d->save();
-        		$this->logSection('drm', $drm." : succès de la mise à jour.");
+        
+        $rows = acCouchdbManager::getClient()
+              ->getView("update", "drm_labels")
+              ->rows;
+        $i = 0;
+        $nb = count($rows);
+        $correspondance = array(
+        		'AB' => 'BIOL',
+        		'ABC' => 'BIOC',
+        		'AR' => 'RAIS',
+        		'BD' => 'BIOD',
+        );
+        $libelles = array(
+        		'BIOL' => 'Agriculture Biologique',
+        		'BIOC' => 'AB en conversion',
+        		'RAIS' => 'Agriculture Raisonnée',
+        		'BIOD' => 'Biodynamie',
+        );
+        foreach($rows as $row) {
+        	if ($drm = DRMClient::getInstance()->find($row->id)) {
+        			echo $drm->_id;
+	        		$detail = $drm->get($row->key[DRMDateView::KEY_DETAIL_HASH]);
+	        		if (isset($correspondance[$detail->getKey()])) {
+	        			$new = $correspondance[$detail->getKey()];
+	        			$details = $detail->getParent();
+	        			$detail->labels = array($new);
+	        			$detail->libelles_label = array($new => $libelles[$new]);
+	        			$details->add($new, $detail);
+	        			$detail->delete();
+	        			$drm->save();
+	      				$this->logSection("debug", $drm->_id." : ".$i." / ".$nb." (".round(($i / $nb) * 100)."%) drm(s) updatée(s) avec succès", null, 'SUCCESS');
+	        		}
         	}
+        	$i++;
+        }
     }
 
 }

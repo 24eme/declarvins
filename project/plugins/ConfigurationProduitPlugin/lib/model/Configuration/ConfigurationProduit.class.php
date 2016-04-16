@@ -192,18 +192,18 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	return $this->declaration->getTreeProduits();
     }
     
-    public function getTotalCouleurs($hash = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null, $avecPrestation = false)
+    public function getTotalCouleurs($hash = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null, $avecPrestation = false, $exception = null)
     {
     	if ($hash) {
     		if ($this->exist($hash)) {
-    			return ($avecPrestation)? array_merge($this->get($hash)->getTotalCouleurs($onlyForDrmVrac, $cvoNeg, $date), $this->getTotalCouleursPrestataire($hash, $onlyForDrmVrac, $cvoNeg, $date)) : $this->get($hash)->getTotalCouleurs($onlyForDrmVrac, $cvoNeg, $date);
+    			return ($avecPrestation)? array_merge($this->get($hash)->getTotalCouleurs($onlyForDrmVrac, $cvoNeg, $date, $exception), $this->getTotalCouleursPrestataire($hash, $onlyForDrmVrac, $cvoNeg, $date, $exception)) : $this->get($hash)->getTotalCouleurs($onlyForDrmVrac, $cvoNeg, $date, $exception);
     		}
-    		return ($avecPrestation)? $this->getTotalCouleursPrestataire($hash, $onlyForDrmVrac, $cvoNeg, $date) : array();
+    		return ($avecPrestation)? $this->getTotalCouleursPrestataire($hash, $onlyForDrmVrac, $cvoNeg, $date, $exception) : array();
     	}
-    	return ($avecPrestation)? array_merge($this->declaration->getTotalCouleurs($onlyForDrmVrac, $cvoNeg, $date), $this->getTotalCouleursPrestataire(null, $onlyForDrmVrac, $cvoNeg, $date)) : $this->declaration->getTotalCouleurs($onlyForDrmVrac, $cvoNeg, $date);
+    	return ($avecPrestation)? array_merge($this->declaration->getTotalCouleurs($onlyForDrmVrac, $cvoNeg, $date, $exception), $this->getTotalCouleursPrestataire(null, $onlyForDrmVrac, $cvoNeg, $date, $exception)) : $this->declaration->getTotalCouleurs($onlyForDrmVrac, $cvoNeg, $date, $exception);
     }
     
-    public function getTotalCouleursPrestataire($hash = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null)
+    public function getTotalCouleursPrestataire($hash = null, $onlyForDrmVrac = false, $cvoNeg = false, $date = null, $exception = null)
     {
     	$prestations = $this->getOrAdd('prestations');
     	$produits = array();
@@ -215,7 +215,7 @@ class ConfigurationProduit extends BaseConfigurationProduit
 	    						continue;
 	    					}
 	    					if ($configurationProduits->exist($value->lien)) {
-	    						$produits = array_merge($produits, $configurationProduits->get($value->lien)->getCouleur()->getTotalCouleurs($onlyForDrmVrac, $cvoNeg, $date));
+	    						$produits = array_merge($produits, $configurationProduits->get($value->lien)->getCouleur()->getTotalCouleurs($onlyForDrmVrac, $cvoNeg, $date, $exception));
 	    					}
     				}
     			}
