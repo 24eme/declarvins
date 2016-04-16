@@ -43,7 +43,7 @@ class Ldap extends acVinLdap {
       $info['homeDirectory']    = '/home/'.$compte->login;
       //$info['gecos']            = $compte->getGecos(); // Probleme Ldap : Invalid Syntax avec des accents => etrange car passe dans sn / cn
       $info['mail']             = $compte->email;
-      $info['contrat']          = str_replace("CONTRAT-", "", $compte->contrat);
+      $info['gecos']          = str_replace("CONTRAT-", "", $compte->contrat);
       return $info;
     }
     
