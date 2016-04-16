@@ -21,17 +21,16 @@ EOF;
     }
 
     protected function execute($arguments = array(), $options = array()) {
+		ini_set('memory_limit', '2048M');
+  		set_time_limit(0);
         // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         $campagne = null;
         
-
-
-        $comptes = CompteAllView::getInstance()->findAll()->rows;
+        $comptes = array_merge(CompteAllView::getInstance()->findBy(0, 'CompteTiers')->rows, CompteAllView::getInstance()->findBy(1, 'CompteTiers')->rows);
         $ldap = new Ldap();
         foreach ($comptes as $compte) {
-        	if ($compte->key[CompteAllView::KEY_TYPE] == 'CompteTiers' && $compte->key[CompteAllView::KEY_STATUT] == _Compte::STATUT_INSCRIT) {
         		if ($c = _CompteClient::getInstance()->find($compte->id)) {
         			try {
   					$result = $ldap->saveCompte($c);
@@ -44,7 +43,6 @@ EOF;
   						$this->logSection("update", $compte->id." enregistré avec succès", null, 'SUCCESS');
   					}
         		}
-        	}
         }
     }
 
