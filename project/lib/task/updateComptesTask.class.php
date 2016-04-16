@@ -28,7 +28,7 @@ EOF;
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         $campagne = null;
         
-        $comptes = array_merge(CompteAllView::getInstance()->findBy(0, 'CompteTiers')->rows, CompteAllView::getInstance()->findBy(1, 'CompteTiers')->rows);
+        $comptes = CompteAllView::getInstance()->findBy(1, 'CompteTiers', _Compte::STATUT_INSCRIT)->rows;
         $ldap = new Ldap();
         foreach ($comptes as $compte) {
         		if ($c = _CompteClient::getInstance()->find($compte->id)) {
