@@ -136,6 +136,7 @@ Interpro:
             '*': {  }
       email_contrat_vrac: {  }
       email_contrat_inscription: {  }
+      siren: {  }
 
 OIOC:
   definition:

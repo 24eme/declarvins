@@ -43,11 +43,38 @@
                 </p>
                 <ul>
                     <?php $nbItem = count($form['entrees']); $i=0; foreach($form['entrees'] as $key => $subform): if (preg_match('/acq_/', $key)) {continue;} $i++; ?>
-                    <?php $class = 'num num_float'; if ($i==1) $class .= ' premier'; if ($i==$nbItem) $class .= ' dernier';?>
-                    <li class="<?php echo isVersionnerCssClass($form->getObject()->entrees, $key) ?>">
-                        <?php echo $form['entrees'][$key]->render(array('data-val-defaut' => sprintFloat($form['entrees'][$key]->getValue(), "%01.04f"),
-                                                                        'class' => $class)) ?>
-                    </li>
+                    <?php if($form->getObject()->entrees->exist($key.'_details')): ?>
+                    	<style>
+                    	a.btn_es_details {
+                    		text-align: right;
+                    		background: #fff none repeat scroll 0 0;
+						    border: 1px solid #dbdbdb;
+						    color: #494949;
+						    height: 14px;
+						    padding: 2px 5px 2px;
+						    position: relative;
+						    top: -1px;
+						    width: 76px;
+						    display: block;
+                    	}
+                    	a.btn_es_details:hover {
+                    		text-decoration: none;
+                    	}
+                    	a.btn_chargement {
+                    		background-image: url(/images/pictos/pi_loader.gif);
+                    		background-repeat: no-repeat;
+                    	}
+                    	</style>
+                    	<li class="<?php echo isVersionnerCssClass($form->getObject()->entrees, $key) ?>">
+                    		<a href="<?php echo url_for('drm_recap_es_detail', $form->getObject()) ?>" class="btn_popup btn_es_details" data-popup-reload="true" data-popup="#popup_details_entree_crd<?php echo str_replace('/', '_', $form->getObject()->getHash()) ?>" data-popup-config="configForm" data-popup-title="Entrée replacement en suspension CRD"><?php echo sprintFloat($form['entrees'][$key]->getValue(), "%01.04f") ?></a>
+                    	</li>
+                    <?php else: ?>
+	                    <?php $class = 'num num_float'; if ($i==1) $class .= ' premier'; if ($i==$nbItem) $class .= ' dernier';?>
+	                    <li class="<?php echo isVersionnerCssClass($form->getObject()->entrees, $key) ?>">
+	                        <?php echo $form['entrees'][$key]->render(array('data-val-defaut' => sprintFloat($form['entrees'][$key]->getValue(), "%01.04f"),
+	                                                                        'class' => $class)) ?>
+	                    </li>
+	                <?php endif; ?>
                     <?php endforeach; ?>
                 </ul>
             </div>

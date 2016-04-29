@@ -255,6 +255,8 @@ DRM:
                                                                                                 code: {  }
                                                                                                 libelle: {  }
                                                                                                 selecteur: {  }
+                                                                                                inao: {  }
+                                                                                                libelle_fiscal: {  }
                                                                                                 total_debut_mois: { type: float }
                                                                                                 total_entrees: { type: float }
                                                                                                 total_sorties: { type: float }
@@ -365,6 +367,19 @@ DRM:
                                                                                                                   excedent: { type: float }
                                                                                                                   acq_achat: { type: float }
                                                                                                                   acq_autres: { type: float }
+                                                                                                                  crd_details:
+                                                                                                                    class: DRMESDetails
+                                                                                                                    type:  collection
+                                                                                                                    definition:
+                                                                                                                      fields:
+                                                                                                                        '*':
+                                                                                                                          type: collection
+                                                                                                                          class: DRMESDetailCrd
+                                                                                                                          definition:
+                                                                                                                            fields:
+                                                                                                                              volume: { type: float }
+                                                                                                                              mois: {  }
+                                                                                                                              annee: {  }
                                                                                                             sorties:
                                                                                                               type: collection
                                                                                                               class: DRMDetailNoeud

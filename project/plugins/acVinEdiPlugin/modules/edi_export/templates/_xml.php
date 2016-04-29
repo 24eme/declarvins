@@ -1,11 +1,8 @@
-<?php 
-	use_helper('Edi');
-?>
-
-<?php echo '<?xml version="1.0" encoding="utf-8"?>' ?>
+<?php use_helper('Edi'); ?>
+<?php echo '<?xml version="1.0" encoding="utf-8" ?>' ?>
 
 <message-interprofession>
-	<siren-interprofession>str123400</siren-interprofession>
+	<siren-interprofession><?php echo $drm->getEtablissement()->getInterproObject()->siren ?></siren-interprofession>
 	<declaration-recapitulative>
 		<identification-declarant>
 			<numero-agrement><?php echo $drm->declarant->no_accises ?></numero-agrement>
@@ -18,176 +15,69 @@
 		<declaration-neant><?php echo (int)$drm->declaration->hasStockEpuise(); ?></declaration-neant>
 <?php if (!$drm->declaration->hasStockEpuise()): ?>
 		<droits-suspendus>
-<?php foreach ($drm->getDetails() as $produit): ?>
+<?php foreach ($drm->getExportableCepages() as $produit): ?>
 			<produit>
-				<libelle-fiscal></libelle-fiscal>
-				<code-inao></code-inao>
+<?php if ($produit->getLibelleFiscal()): ?>
+				<libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
+<?php endif; ?>
+<?php if ($produit->getInao()): ?>
+				<code-inao><?php echo $produit->getInao() ?></code-inao>
+<?php endif; ?>
 				<libelle-personnalise><?php echo trim($produit->getLibelle()) ?></libelle-personnalise>
-				<tav></tav>
-				<premix></premix>
-				<observations></observations>
+<?php if ($produit->getTav()): ?>
+				<tav><?php echo sprintf("%01.02f", $produit->getTav()) ?></tav>
+<?php endif; ?>
+<?php if ($produit->getPremix()): ?>
+				<premix>true</premix>
+<?php endif; ?>
+<?php if ($produit->getObservation()): ?>
+				<observations><?php echo $produit->getObservation() ?></observations>
+<?php endif; ?>
 				<balance-stocks>
 <?php 
 	$xml = '';
-	noeudXml($ciel->get('balance-stocks/droits-suspendus'), $xml, 5);
-	echo $xml;
+	noeudXml($produit, $ciel->get('balance-stocks/droits-suspendus'), $xml, array('mois', 'annee'));
+	echo formatXml($xml, 5);
 ?>
-
-					<stock-debut-periode>
-						<stock><?php echo sprintf("%.2f", $produit->total_debut_mois) ?></stock>
-<?php if($produit->stocks_debut->warrante): ?>
-						<stock-warrante><?php echo sprintf("%.2f", $produit->stocks_debut->warrante) ?></stock-warrante>
-<?php endif; ?>
-					</stock-debut-periode>
-<?php if ($produit->total_entrees): ?>
-					<entrees-periode>
-<?php if($produit->entrees->recolte): ?>
-						<volume-produit><?php echo sprintf("%.2f", $produit->entrees->recolte) ?></volume-produit>
-<?php endif; ?>
-<?php if($produit->entrees->achat): ?>
-						<achats-reintegrations><?php echo sprintf("%.2f", $produit->entrees->achat) ?></achats-reintegrations>
-<?php endif; ?>
-<?php if ($produit->entrees->embouteillage || $produit->entrees->mouvement || $produit->entrees->travail || $produit->entrees->distillation): ?>
-						<mouvements-temporaires>
-<?php if ($produit->entrees->embouteillage): ?>
-							<embouteillage><?php echo sprintf("%.2f", $produit->entrees->embouteillage) ?></embouteillage>
-<?php endif; ?>
-<?php if ($produit->entrees->mouvement): ?>
-							<relogement><?php echo sprintf("%.2f", $produit->entrees->mouvement) ?></relogement>
-<?php endif; ?>
-<?php if ($produit->entrees->travail): ?>
-							<travail-a-facon><?php echo sprintf("%.2f", $produit->entrees->travail) ?></travail-a-facon>
-<?php endif; ?>
-<?php if ($produit->entrees->distillation): ?>
-							<distillation-a-facon><?php echo sprintf("%.2f", $produit->entrees->distillation) ?></distillation-a-facon>
-<?php endif; ?>
-						</mouvements-temporaires>
-<?php endif; ?>
-<?php if ($produit->entrees->repli || $produit->entrees->declassement || $produit->entrees->manipulation || $produit->entrees->vci): ?>
-						<mouvements-internes>
-<?php if ($produit->entrees->repli || $produit->entrees->declassement): ?>
-							<replis-declassement-transfert-changement-appellation><?php echo sprintf("%.2f", ($produit->entrees->repli+$produit->entrees->declassement)) ?></replis-declassement-transfert-changement-appellation>
-<?php endif; ?>
-<?php if ($produit->entrees->manipulation): ?>
-							<manipulations><?php echo sprintf("%.2f", $produit->entrees->manipulation) ?></manipulations>
-<?php endif; ?>
-<?php if ($produit->entrees->vci): ?>
-							<integration-vci-agree><?php echo sprintf("%.2f", $produit->entrees->vci) ?></integration-vci-agree>
-<?php endif; ?>
-						</mouvements-internes>
-<?php endif; ?>
-						<compensation>!!</compensation>
-						<autres-entrees><?php echo sprintf("%.2f", $produit->entrees->excedent) ?></autres-entrees>
-<?php if ($produit->entrees->crd): ?>
-						<replacement-suspension>
-							<mois>!!</mois>
-							<annee>!!</annee>
-							<volume><?php echo sprintf("%.2f", $produit->entrees->crd) ?></volume>
-						</replacement-suspension>
-<?php endif; ?>
-					</entrees-periode>
-<?php endif; ?>
-<?php if ($produit->total_sorties): ?>
-					<sorties-periode>
-						<ventes-france-crd-suspendus>
-							<annee-precedente>!!</annee-precedente>
-							<annee-courante>!!</annee-courante>
-						</ventes-france-crd-suspendus>
-						<ventes-france-crd-acquittes>!!</ventes-france-crd-acquittes>
-						<sorties-sans-paiement-droits>
-							<sorties-definitives>!!</sorties-definitives>
-<?php if ($produit->sorties->consommation): ?>
-							<consommation-familiale-degustation><?php echo sprintf("%.2f", $produit->sorties->consommation) ?></consommation-familiale-degustation>
-<?php endif; ?>
-<?php if ($produit->sorties->embouteillage || $produit->sorties->mouvement || $produit->sorties->travail || $produit->sorties->distillation): ?>
-							<mouvements-temporaires>
-<?php if ($produit->sorties->embouteillage): ?>
-								<embouteillage><?php echo sprintf("%.2f", $produit->sorties->embouteillage) ?></embouteillage>
-<?php endif; ?>
-<?php if ($produit->sorties->mouvement): ?>
-								<relogement><?php echo sprintf("%.2f", $produit->sorties->mouvement) ?></relogement>
-<?php endif; ?>
-<?php if ($produit->sorties->travail): ?>
-								<travail-a-facon><?php echo sprintf("%.2f", $produit->sorties->travail) ?></travail-a-facon>
-<?php endif; ?>
-<?php if ($produit->sorties->distillation): ?>
-								<distillation-a-facon><?php echo sprintf("%.2f", $produit->sorties->distillation) ?></distillation-a-facon>
-<?php endif; ?>
-							</mouvements-temporaires>
-<?php endif; ?>
-<?php if ($produit->sorties->repli || $produit->sorties->declassement || $produit->sorties->vci || $produit->sorties->autres_interne || 1 == 1): ?>
-							<mouvements-internes>
-<?php if ($produit->sorties->repli || $produit->sorties->declassement): ?>
-								<replis-declassement-transfert-changement-appellation><?php echo sprintf("%.2f", ($produit->sorties->repli+$produit->sorties->declassement)) ?></replis-declassement-transfert-changement-appellation>
-<?php endif; ?>
-								<fabrication-autre-produit>!!</fabrication-autre-produit>
-<?php if ($produit->sorties->vci): ?>
-								<revendication-vci><?php echo sprintf("%.2f", $produit->sorties->vci) ?></revendication-vci>
-<?php endif; ?>
-<?php if ($produit->sorties->autres_interne): ?>
-								<autres-mouvements-internes><?php echo sprintf("%.2f", $produit->sorties->autres_interne) ?></autres-mouvements-internes>
-<?php endif; ?>
-							</mouvements-internes>
-<?php endif; ?>
-							<autres-sorties>!!</autres-sorties>
-						</sorties-sans-paiement-droits>
-					</sorties-periode>
-<?php endif; ?>
-					<stock-fin-periode>
-						<stock><?php echo sprintf("%.2f", $produit->total) ?></stock>
-<?php if ($produit->stocks_fin->warrante): ?>
-						<stock-warrante><?php echo sprintf("%.2f", $produit->stocks_fin->warrante) ?></stock-warrante>
-<?php endif; ?>
-					</stock-fin-periode>
 				</balance-stocks>
 			</produit>
 <?php endforeach; ?>
-			<stockEpuise>!!</stockEpuise>
+<?php if (!$drm->getTotalStock()): ?>
+			<stockEpuise>true</stockEpuise>
+<?php endif; ?>
 		</droits-suspendus>
 <?php if ($drm->hasExportableProduitsAcquittes()): ?>
 		<droits-acquittes>
-<?php foreach ($drm->getDetails() as $produit): ?>
-		<produit>
-			<libelle-fiscal>!!</libelle-fiscal>
-			<code-inao>!!</code-inao>
-			<libelle-personnalise><?php echo $produit->getLibelle() ?></libelle-personnalise>
-<?php if($produit->tav): ?>
-			<tav><?php echo sprintf("%.2f", $produit->tav) ?></tav>
+<?php foreach ($drm->getExportableCepages() as $produit): if (!$produit->getHasSaisieAcq()) { continue; } ?>
+			<produit>
+<?php if ($produit->getLibelleFiscal()): ?>
+				<libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
 <?php endif; ?>
-			<premix>!!</premix>
-<?php if($produit->observations): ?>
-				<observations><?php echo $produit->observations ?></observations>
+<?php if ($produit->getInao()): ?>
+				<code-inao><?php echo $produit->getInao() ?></code-inao>
 <?php endif; ?>
-			<balance-stocks>
-  				<stock-debut-periode><?php echo sprintf("%.2f", $produit->acq_total_debut_mois) ?></stock-debut-periode>
-<?php if ($produit->entrees->acq_achat || $produit->entrees->acq_autres): ?>
-  				<entrees-periode>
-<?php if ($produit->entrees->acq_achat): ?>
-					<achats><?php echo sprintf("%.2f", $produit->entrees->acq_achat) ?></achats>
+				<libelle-personnalise><?php echo trim($produit->getLibelle()) ?></libelle-personnalise>
+<?php if ($produit->getTav()): ?>
+				<tav><?php echo sprintf("%01.02f", $produit->getTav()) ?></tav>
 <?php endif; ?>
-<?php if ($produit->entrees->acq_autres): ?>
-					<autres-entrees><?php echo sprintf("%.2f", $produit->entrees->acq_autres) ?></autres-entrees>
+<?php if ($produit->getPremix()): ?>
+				<premix>true</premix>
+<?php endif; ?>	
+<?php if ($produit->getObservation()): ?>
+				<observations><?php echo $produit->getObservation() ?></observations>
 <?php endif; ?>
-  				</entrees-periode>
+				<balance-stocks>
+<?php 
+	$xml = '';
+	noeudXml($produit, $ciel->get('balance-stocks/droits-acquittes'), $xml, array('mois', 'annee'));
+	echo formatXml($xml, 5);
+?>
+				</balance-stocks>
+			</produit>
+<?php endforeach; ?>
+<?php if (!$drm->getTotalStockAcq()): ?>
+			<stockEpuise>true</stockEpuise>
 <?php endif; ?>
-<?php if ($produit->sorties->acq_crd || $produit->sorties->acq_replacement || $produit->sorties->acq_autres): ?>
-  				<sorties-periode>
-<?php if ($produit->sorties->acq_crd): ?>
-					<ventes><?php echo sprintf("%.2f", $produit->sorties->acq_crd) ?></ventes>
-<?php endif; ?>
-<?php if ($produit->sorties->acq_replacement): ?>
-					<replacement-suspension><?php echo sprintf("%.2f", $produit->sorties->acq_replacement) ?></replacement-suspension>
-<?php endif; ?>
-<?php if ($produit->sorties->acq_autres): ?>
-					<autres-sorties><?php echo sprintf("%.2f", $produit->sorties->acq_autres) ?></autres-sorties>
-<?php endif; ?>
-  				</sorties-periode>
-<?php endif; ?>
-  				<stock-fin-periode><?php echo sprintf("%.2f", $produit->acq_total) ?></stock-fin-periode>
-			</balance-stocks>
-		</produit>
-<?php endforeach ?>
-      		<stockEpuise>!!</stockEpuise>
     	</droits-acquittes>
 <?php endif; ?>
 <?php endif; ?>

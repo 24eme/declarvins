@@ -160,7 +160,7 @@
 				var reload = btnPopup.attr('data-popup-reload') && btnPopup.attr('data-popup-reload') == "true";				
 				$.openPopup(btnPopup.attr('data-popup'), 
 							btnPopup.attr('data-popup-config'), 
-							btnPopup.text(), 
+							(btnPopup.attr('data-popup-title') !== undefined)? btnPopup.attr('data-popup-title') : btnPopup.text(), 
 							btnPopup.attr('href'), 
 							reload, 
 							function() {

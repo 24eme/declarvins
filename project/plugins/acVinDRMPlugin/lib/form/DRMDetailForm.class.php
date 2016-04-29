@@ -4,16 +4,29 @@ class DRMDetailForm extends acCouchdbObjectForm {
 	protected $_label_choices;
 
     public function configure() {
-
-    	if ($this->getObject()->getCertification()->getKey() == ConfigurationProduit::CERTIFICATION_VINSSANSIG) {
+    	$hasTav = false;
+    	$hasPremix = false;
+    	$inao = $this->getObject()->getCepage()->inao;
+		if (!$inao || preg_match('/^1[0-9a-zA-Z]+Z$/', $inao)) {
+    		$hasTav = true;
+    		$hasPremix = true;
+		}
+		if (preg_match('/^1[0-9a-zA-Z]+N$/', $inao) || preg_match('/^1[R|S|B]175Z$/', $inao)) {
+    		$hasTav = true;
+		}
+    	if ($hasTav) {
     		$this->setWidget('tav', new sfWidgetFormInputFloat(array('float_format' => "%01.04f")));
-    		$this->setWidget('premix', new sfWidgetFormInputCheckbox());
     	} else {
     		$this->setWidget('tav', new sfWidgetFormInputFloat(array('float_format' => "%01.04f"), array('readonly' => 'readonly')));
-    		$this->setWidget('premix', new sfWidgetFormInputCheckbox(array(), array('disabled' => 'disabled')));
     	}
+    	if ($hasPremix) {
+    		$this->setWidget('premix', new WidgetFormInputCheckbox());
+    	} else {
+    		$this->setWidget('premix', new WidgetFormInputCheckbox(array(), array('disabled' => 'disabled')));
+    	}
+    	
     	$this->setValidator('tav', new sfValidatorNumber(array('required' => false)));
-    	$this->setValidator('premix', new sfValidatorBoolean(array('required' => false)));
+    	$this->setValidator('premix', new ValidatorBoolean(array('required' => false)));
     	
     	if ($this->getObject()->getDocument()->canSetStockDebutMois()) {
     		$this->setWidget('total_debut_mois', new sfWidgetFormInputFloat(array('float_format' => "%01.04f")));

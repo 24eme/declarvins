@@ -1316,5 +1316,23 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 	public function getExportableCountryList() {
 		return array();
 	}
+
+	public function getTotalStockAcq() {
+		$produits = $this->getExportableProduits();
+		$stock = 0;
+		foreach ($produits as $produit) {
+			$stock += $produit->acq_total;
+		}
+		return $stock;
+	
+	}
+	public function getTotalStock() {
+		$produits = $this->getExportableProduits();
+		$stock = 0;
+		foreach ($produits as $produit) {
+			$stock += $produit->total;
+		}
+		return $stock;
+	}
     /* FIN EXPORTABLE */
 }

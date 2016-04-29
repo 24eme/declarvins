@@ -44,19 +44,10 @@ Configuration:
                     definition:
                       fields:
                         'stock-debut-periode':
-                          type: collection
+                          type: array_collection
                           definition:
                             fields:
-                              'stock':
-                                type: array_collection
-                                definition:
-                                  fields:
-                                    '*': {  }
-                              'stock-warrante':
-                                type: array_collection
-                                definition:
-                                  fields:
-                                    '*': {  }
+                              '*': {  }
                         'entrees-periode':
                           type: collection
                           definition:
@@ -89,11 +80,6 @@ Configuration:
                                       definition:
                                         fields:
                                           '*': {  }
-                              'compensation':
-                                type: array_collection
-                                definition:
-                                  fields:
-                                    '*': {  }
                               'autres-entrees':
                                 type: array_collection
                                 definition:
@@ -164,19 +150,10 @@ Configuration:
                                         fields:
                                           '*': {  }
                         'stock-fin-periode':
-                          type: collection
+                          type: array_collection
                           definition:
                             fields:
-                              'stock':
-                                type: array_collection
-                                definition:
-                                  fields:
-                                    '*': {  }
-                              'stock-warrante':
-                                type: array_collection
-                                definition:
-                                  fields:
-                                    '*': {  }
+                              '*': {  }
                   'droits-acquittes':
                     type: collection
                     definition:

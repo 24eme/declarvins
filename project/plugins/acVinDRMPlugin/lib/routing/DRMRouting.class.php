@@ -371,6 +371,19 @@ class DRMRouting {
                             'must_be_valid' => false,
                             'must_be_not_valid' => true
                 )));
+        
+
+
+        $r->prependRoute('drm_recap_es_detail', new DRMDetailRoute('/drm/:identifiant/edition/:periode_version/recapitulatif/es-detail/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail',
+        		array('module' => 'drm_recap',
+        				'action' => 'esDetailsAjax'),
+        		array('sf_method' => array('post', 'get')),
+        		array('model' => 'DRMDetail',
+        				'type' => 'object',
+        				'no_archive' => true,
+        				'must_be_valid' => false,
+        				'must_be_not_valid' => true
+        		)));
 
         $r->prependRoute('drm_vrac', new DRMRoute('/drm/:identifiant/edition/:periode_version/vrac', 
                                                           array('module' => 'drm_vrac', 

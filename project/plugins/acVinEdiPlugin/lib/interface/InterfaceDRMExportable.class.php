@@ -16,4 +16,6 @@ interface InterfaceDRMExportable
 	public function getExportableCategoriesMouvements();
 	public function getExportableLibelleMvt($key);
 	public function getExportableCountryList();
+	public function getTotalStock();
+	public function getTotalStockAcq();
 }
