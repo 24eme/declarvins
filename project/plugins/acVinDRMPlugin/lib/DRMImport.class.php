@@ -7,6 +7,19 @@ class DRMImport
 	protected $client;
 	protected $loggeur;
 	protected $logs;
+	public static $annexes_possibles = array(
+			'defaut_apurement',
+			'daa-debut',
+			'daa-fin',
+			'dsa-debut',
+			'dsa-fin',
+			'adhesion_emcs_gamma',
+			'paiement-douane-frequence',
+			'paiement-douane-moyen',
+			'caution-dispense',
+			'caution-numero',
+			'caution-organisme'
+	);
   
 	public function __construct(array $datas, $etablissement) 
 	{
@@ -26,7 +39,7 @@ class DRMImport
   		foreach ($this->datas as $k => $datas) {
   			$numLigne++;
   			$this->loggeur = new DRMDetailLoggeur();
-  			$this->datas[$k][DRMDateView::VALUE_TYPE] = $this->getDataValue($datas, DRMDateView::VALUE_TYPE, 'ligne type', true, '/^(DETAIL|CONTRAT)$/');
+  			$this->datas[$k][DRMDateView::VALUE_TYPE] = $this->getDataValue($datas, DRMDateView::VALUE_TYPE, 'ligne type', true, '/^(DETAIL|CONTRAT|ANNEXE)$/');
   			$this->datas[$k][DRMDateView::VALUE_IDENTIFIANT_DECLARANT] = $this->getDataValue($datas, DRMDateView::VALUE_IDENTIFIANT_DECLARANT, 'drm identifiant declarant', true);
   			$this->datas[$k][DRMDateView::VALUE_ANNEE] = $this->getDataValue($datas, DRMDateView::VALUE_ANNEE, 'drm année', true, '/^[0-9]{4}$/');
   			$this->datas[$k][DRMDateView::VALUE_MOIS] = $this->getDataValue($datas, DRMDateView::VALUE_MOIS, 'drm mois', true, '/^[0-9]{1,2}$/');
@@ -69,7 +82,7 @@ class DRMImport
   			$this->datas[$k][DRMDateView::VALUE_DETAIL_STOCKFIN_WARRANTE] = $this->floatize($datas[DRMDateView::VALUE_DETAIL_STOCKFIN_WARRANTE]);
   			$this->datas[$k][DRMDateView::VALUE_DETAIL_STOCKFIN_INSTANCE] = $this->floatize($datas[DRMDateView::VALUE_DETAIL_STOCKFIN_INSTANCE]);
   			$this->datas[$k][DRMDateView::VALUE_DETAIL_STOCKFIN_COMMERCIALISABLE] = $this->floatize($datas[DRMDateView::VALUE_DETAIL_STOCKFIN_COMMERCIALISABLE]);
-  			$this->datas[$k][DRMDateView::VALUE_CONTRAT_VOLUME] = $this->floatize($datas[DRMDateView::VALUE_CONTRAT_VOLUME]);
+  			$this->datas[$k][DRMDateView::VALUE_CONTRAT_VOLUME] = ($datas[DRMDateView::VALUE_CONTRAT_VOLUME])? trim($datas[DRMDateView::VALUE_CONTRAT_VOLUME]) : null;
   			$this->datas[$k][DRMDateView::VALUE_CONTRAT_NUMERO] = ($datas[DRMDateView::VALUE_CONTRAT_NUMERO])? trim($datas[DRMDateView::VALUE_CONTRAT_NUMERO]) : null;
   			$drmId = $this->client->buildId($this->datas[$k][DRMDateView::VALUE_IDENTIFIANT_DECLARANT], $this->client->buildPeriode($this->datas[$k][DRMDateView::VALUE_ANNEE], $this->datas[$k][DRMDateView::VALUE_MOIS]), $this->datas[$k][DRMDateView::VALUE_VERSION]);
   			$drms[$drmId] = $drmId;
@@ -78,9 +91,11 @@ class DRMImport
   				$this->logs[] = array('ERREUR', 'FORMAT', $numLigne, implode(' - ', $this->loggeur->getLogs()));
   			}
   			
-  			$hash = $this->getHashProduit($this->datas[$k]);
-  			if (!$configuration->getConfigurationProduit($hash)) {
-  				$this->logs[] = array('ERREUR', 'FORMAT', $numLigne, "Le produit ".$hash." n'existe pas dans la base DeclarVins");
+  			if ($this->datas[$k][DRMDateView::VALUE_TYPE] != 'ANNEXE') {
+	  			$hash = $this->getHashProduit($this->datas[$k]);
+	  			if (!$configuration->getConfigurationProduit($hash)) {
+	  				$this->logs[] = array('ERREUR', 'FORMAT', $numLigne, "Le produit ".$hash." n'existe pas dans la base DeclarVins");
+	  			}
   			}
   			
   			if ($this->datas[$k][DRMDateView::VALUE_TYPE] == 'CONTRAT') {
@@ -92,6 +107,31 @@ class DRMImport
 	  					$this->datas[$k][DRMDateView::VALUE_CONTRAT_NUMERO] = null;
 	  					//$this->logs[] = array('ERREUR', 'CONTRAT', $numLigne, "Le contrat numéro ".$this->datas[$k][DRMDateView::VALUE_CONTRAT_NUMERO]." n'existe pas dans la base DeclarVins");
 	  				}
+  				}
+  			}
+  			
+  			if ($this->datas[$k][DRMDateView::VALUE_TYPE] == 'ANNEXE') {
+  				if (!in_array($this->datas[$k][DRMDateView::VALUE_CONTRAT_NUMERO], self::$annexes_possibles)) {
+  					$this->logs[] = array('ERREUR', 'ANNEXE', $numLigne, "Identifiant d'annexe inconnu");
+  				} else {
+  					if ($this->datas[$k][DRMDateView::VALUE_CONTRAT_NUMERO] == 'paiement-douane-frequence') {
+  						$tab = array(DRMPaiement::FREQUENCE_ANNUELLE, DRMPaiement::FREQUENCE_MENSUELLE);
+	  					if (!in_array($this->datas[$k][DRMDateView::VALUE_CONTRAT_VOLUME], $tab)) {
+	  						$this->logs[] = array('ERREUR', 'ANNEXE', $numLigne, "Valeur non autorisée");
+	  					}
+  					}
+  					if ($this->datas[$k][DRMDateView::VALUE_CONTRAT_NUMERO] == 'paiement-douane-moyen') {
+  						$tab = array('Numéraire', 'Chèque', 'Virement');
+	  					if (!in_array($this->datas[$k][DRMDateView::VALUE_CONTRAT_VOLUME], $tab)) {
+	  						$this->logs[] = array('ERREUR', 'ANNEXE', $numLigne, "Valeur non autorisée");
+	  					}
+  					}
+
+  					if (!in_array($this->datas[$k][DRMDateView::VALUE_CONTRAT_NUMERO], array('paiement-douane-frequence', 'paiement-douane-moyen', 'caution-numero', 'caution-organisme'))) {
+  						if (!is_numeric($this->datas[$k][DRMDateView::VALUE_CONTRAT_VOLUME])) {
+  							$this->logs[] = array('ERREUR', 'ANNEXE', $numLigne, "Valeur non valide : integer attendu");
+  						}
+  					}
   				}
   			}
   		}
@@ -140,14 +180,19 @@ class DRMImport
   			if (!$drm) {
   				$drm = $this->parseDrm($datas);
   			}
-  			$hash = $this->getHashProduit($datas);
-  			$detail = $drm->addProduit($hash, explode('|', $datas[DRMDateView::VALUE_LABELS]));
   			switch($datas[DRMDateView::VALUE_TYPE]) {
   				case 'DETAIL':
+  					$hash = $this->getHashProduit($datas);
+  					$detail = $drm->addProduit($hash, explode('|', $datas[DRMDateView::VALUE_LABELS]));
   					$this->parseDetail($detail, $datas);
   					break;
   				case 'CONTRAT':
+  					$hash = $this->getHashProduit($datas);
+  					$detail = $drm->addProduit($hash, explode('|', $datas[DRMDateView::VALUE_LABELS]));
   					$this->parseContrat($detail, $datas);
+  					break;
+  				case 'ANNEXE':
+  					$this->parseAnnexe($drm, $datas);
   					break;
   				default:
   					break;
@@ -165,10 +210,20 @@ class DRMImport
   		}
   	}
 
+  	private function parseAnnexe($drm, $datas)
+  	{
+  		$hash = str_replace('-', '/', $datas[DRMDateView::VALUE_CONTRAT_NUMERO]);
+  		$value = ($datas[DRMDateView::VALUE_CONTRAT_VOLUME])? $datas[DRMDateView::VALUE_CONTRAT_VOLUME] : null;
+  		if (!in_array($datas[DRMDateView::VALUE_CONTRAT_NUMERO], array('paiement-douane-frequence', 'paiement-douane-moyen', 'caution-numero', 'caution-organisme'))) {
+  			$value = intval($value);
+  		}
+  		$drm->declaratif->set($hash, $value);
+  	}
+
   	private function parseContrat($detail, $datas)
   	{
   		$numContrat = $datas[DRMDateView::VALUE_CONTRAT_NUMERO];
-  		$volContrat = $datas[DRMDateView::VALUE_CONTRAT_VOLUME];
+  		$volContrat = $this->floatize($datas[DRMDateView::VALUE_CONTRAT_VOLUME]);
   		if ($numContrat) {
   			$detail->addVrac($numContrat, $volContrat);
   		}
