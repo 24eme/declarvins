@@ -1002,12 +1002,30 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function listenerGenerateVersion($document) {
+        $this->updateReplicate($document);
+        $document->update();
         $document->devalide();
     }
 
     public function listenerGenerateNextVersion($document) {
         $this->replicate($document);
         $document->update();
+    }
+    
+    protected function updateReplicate($drm) {
+    	$precedente = $drm->getPrecedente();
+    	if ($precedente && $drm->getCampagne() == $precedente->getCampagne()) {
+    		foreach ($precedente->getDetails() as $detail) {
+    			if ($drm->exist($detail->getHash())) {
+    				$drm->get($detail->getHash())->set('total_debut_mois', $detail->get('total'));
+    				$drm->get($detail->getHash())->set('total_debut_mois_interpro', $detail->get('total_interpro'));
+    				$drm->get($detail->getHash())->set('stocks_debut/bloque', $detail->get('stocks_fin/bloque'));
+    				$drm->get($detail->getHash())->set('stocks_debut/warrante', $detail->get('stocks_fin/warrante'));
+    				$drm->get($detail->getHash())->set('stocks_debut/instance', $detail->get('stocks_fin/instance'));
+    				$drm->get($detail->getHash())->set('stocks_debut/commercialisable', $detail->get('stocks_fin/commercialisable'));
+    			}
+    		}
+    	}
     }
 
     protected function replicate($drm) {
