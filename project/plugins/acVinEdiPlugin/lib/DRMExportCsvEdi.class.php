@@ -101,7 +101,8 @@ class DRMExportCsvEdi extends DRMCsvEdi
             		if ($val) {
             			$droit = (preg_match('/^acq_/', $key))? DRMCsvEdi::TYPE_DROITS_ACQUITTES : DRMCsvEdi::TYPE_DROITS_SUSPENDUS;
             			// Il faudrait ameliorer ce code de DRMESDetails
-            			if ($val instanceof DRMESDetails && 1==2) {
+            			if ($val instanceof DRMESDetails) {
+            				continue;
             				foreach ($val as $detailKey => $detailValue) {
             					if ($detailVol = $detailValue->getVolume()) {
             						$complement = $detailValue->getIdentifiant();
