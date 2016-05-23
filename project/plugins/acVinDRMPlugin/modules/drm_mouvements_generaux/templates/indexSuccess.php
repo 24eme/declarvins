@@ -45,7 +45,7 @@
 			        		</div>
 			        		<div class="vigilance_list" style="display: none;">
 							    <ul>
-							        <li>Dans l'étapes suivante, vous pourrez intégrer le stock début de mois en droit acquitté dans le champs prévu a cet effet.</li>
+							        <li>Dans l'étape suivante, vous pourrez intégrer le stock début de mois en droit acquitté dans le champs prévu a cet effet.</li>
 							    </ul>
 							</div>
 		        			<?php if(!$drm->declaration->hasMouvement()): ?>

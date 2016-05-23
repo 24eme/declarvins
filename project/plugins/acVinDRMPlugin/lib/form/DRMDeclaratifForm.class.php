@@ -103,7 +103,7 @@ class DRMDeclaratifForm extends acCouchdbForm {
             'adhesion_emcs_gamma' => 'Adhésion à EMCS/GAMMA (n° non nécessaires)',
             'moyen_paiement' => 'Veuillez sélectionner le moyen de paiement des droits de circulation :',
             'frequence' => 'Veuillez sélectionner votre type d\'échéance :',
-            'statistiques_jus' => 'Quantités de moûts de raisin transformées en jus de raison',
+            'statistiques_jus' => 'Quantités de moûts de raisin transformées en jus de raisin',
             'statistiques_mcr' => 'Quantités de moûts de raisin transformées en MCR',
             'statistiques_vinaigre' => 'Quantités de moûts de raisin transformées en vinaigre',
         ));
