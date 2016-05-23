@@ -717,6 +717,11 @@
 			var champSommeEntrees = colonne.find('input.somme_entrees');
 			var champSommeSorties = colonne.find('input.somme_sorties');
 			
+			var champsSommeAcq = colonne.find('input.somme_acq, input.somme_groupe_acq, input.somme_stock_fin_acq');
+			var champSommeStockDebutAcq = colonne.find('input.somme_stock_debut_acq');
+			var champSommeEntreesAcq = colonne.find('input.somme_entrees_acq');
+			var champSommeSortiesAcq = colonne.find('input.somme_sorties_acq');
+			
 			// Parcours des champs sommes
 			champsSomme.each(function()
 			{
@@ -777,6 +782,69 @@
 				if(float) somme = somme.toFixed(4); // Arrondi à 2 chiffres après la virgule
 				champSomme.attr('value', somme);
 			});
+			
+			// Parcours des champs sommes acquittes
+			champsSommeAcq.each(function()
+			{
+				var champSomme = $(this);
+				var tabChamps;
+				var champsAddition;
+				var float = champSomme.hasClass('num_float');
+				var somme = 0;
+				var valeur = 0;
+				
+				// Récupération des champs à additionner
+				if(champSomme.hasClass('somme_groupe_acq') || champSomme.hasClass('somme_acq'))
+				{
+					// Sommes des groupes
+					if(champSomme.hasClass('somme_groupe_acq'))
+					{
+						champsAddition = champSomme.parents('.groupe').find('ul li input');
+					}
+					// Sommes simples
+					else
+					{
+						tabChamps = champSomme.attr('data-champs-somme').split(';');
+						
+						for(var i = 0; i < tabChamps.length; i++)
+						{
+							champsAddition.add('#' + tabChamps[i])
+						}
+					}
+					
+					// Addition des champs concernés
+					champsAddition.each(function()
+					{
+						valeur = $(this).attr('value');
+						if (valeur == '') valeur = 0;
+		
+						if(float) somme += parseFloat(valeur);
+						else somme += parseInt(valeur);
+					});
+				}
+				else if(champSomme.hasClass('somme_stock_fin_acq'))
+				{
+					// Ajout du stock théorique du début
+					if(champSommeStockDebut.hasClass('num_float')) somme += parseFloat(champSommeStockDebutAcq.val());
+					else somme += parseInt(champSommeStockDebutAcq.val());
+
+					// Ajout des entrées
+					if(champSommeEntrees.hasClass('num_float')) somme += parseFloat(champSommeEntreesAcq.val());
+					else somme += parseInt(champSommeEntreesAcq.val());
+
+					// Soustraction des sorties
+					if(champSommeSorties.hasClass('num_float')) somme -= parseFloat(champSommeSortiesAcq.val());
+					else somme -= parseInt(champSommeSortiesAcq.val());
+				
+					if(float) somme = parseFloat(somme);
+					else somme = parseInt(somme);
+				}
+				
+				if(float) somme = somme.toFixed(4); // Arrondi à 2 chiffres après la virgule
+				champSomme.attr('value', somme);
+			});
+			
+			
 		});
 	};
 

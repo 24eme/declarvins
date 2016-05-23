@@ -11,7 +11,7 @@ function noeudXml($produit, $noeud, &$xml, $exceptions = array()) {
 			if ($val) {
 				return (in_array($noeud->getKey(), $exceptions))? $val : sprintf("%01.02f", $val);
 			} else {
-				return null;
+				return (in_array($noeud->getKey(), array('stock-debut-periode', 'stock-fin-periode')))? 0 : null;
 			}
 		}
 	}

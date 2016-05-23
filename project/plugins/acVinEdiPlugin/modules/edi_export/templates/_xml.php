@@ -1,7 +1,7 @@
 <?php use_helper('Edi'); ?>
 <?php echo '<?xml version="1.0" encoding="utf-8" ?>' ?>
 
-<message-interprofession>
+<message-interprofession xmlns="http://douane.finances.gouv.fr/app/ciel/interprofession/echanges/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://douane.finances.gouv.fr/app/ciel/interprofession/echanges/1.0 echanges-interprofession-1.7.xsd">
 	<siren-interprofession><?php echo $drm->getEtablissement()->getInterproObject()->siren ?></siren-interprofession>
 	<declaration-recapitulative>
 		<identification-declarant>
@@ -12,10 +12,10 @@
 			<mois><?php echo $drm->getMois() ?></mois>
 			<annee><?php echo $drm->getAnnee() ?></annee>
 		</periode>
-		<declaration-neant><?php echo (int)$drm->declaration->hasStockEpuise(); ?></declaration-neant>
+		<declaration-neant><?php echo ($drm->declaration->hasStockEpuise())? "true" : "false"; ?></declaration-neant>
 <?php if (!$drm->declaration->hasStockEpuise()): ?>
 		<droits-suspendus>
-<?php foreach ($drm->getExportableCepages() as $produit): ?>
+<?php foreach ($drm->getExportableProduits() as $produit): ?>
 			<produit>
 <?php if ($produit->getLibelleFiscal()): ?>
 				<libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
@@ -30,8 +30,8 @@
 <?php if ($produit->getPremix()): ?>
 				<premix>true</premix>
 <?php endif; ?>
-<?php if ($produit->getObservation()): ?>
-				<observations><?php echo $produit->getObservation() ?></observations>
+<?php if ($produit->getObservations()): ?>
+				<observations><?php echo $produit->getObservations() ?></observations>
 <?php endif; ?>
 				<balance-stocks>
 <?php 
@@ -42,13 +42,11 @@
 				</balance-stocks>
 			</produit>
 <?php endforeach; ?>
-<?php if (!$drm->getTotalStock()): ?>
-			<stockEpuise>true</stockEpuise>
-<?php endif; ?>
+			<stockEpuise><?php echo (!$drm->getTotalStock())? "true" : "false"; ?></stockEpuise>
 		</droits-suspendus>
 <?php if ($drm->hasExportableProduitsAcquittes()): ?>
 		<droits-acquittes>
-<?php foreach ($drm->getExportableCepages() as $produit): if (!$produit->getHasSaisieAcq()) { continue; } ?>
+<?php foreach ($drm->getExportableProduits() as $produit): if (!$produit->getHasSaisieAcq()) { continue; } ?>
 			<produit>
 <?php if ($produit->getLibelleFiscal()): ?>
 				<libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
@@ -63,8 +61,8 @@
 <?php if ($produit->getPremix()): ?>
 				<premix>true</premix>
 <?php endif; ?>	
-<?php if ($produit->getObservation()): ?>
-				<observations><?php echo $produit->getObservation() ?></observations>
+<?php if ($produit->getObservations()): ?>
+				<observations><?php echo $produit->getObservations() ?></observations>
 <?php endif; ?>
 				<balance-stocks>
 <?php 
@@ -75,9 +73,7 @@
 				</balance-stocks>
 			</produit>
 <?php endforeach; ?>
-<?php if (!$drm->getTotalStockAcq()): ?>
-			<stockEpuise>true</stockEpuise>
-<?php endif; ?>
+			<stockEpuise><?php echo (!$drm->getTotalStockAcq())? "true" : "false"; ?></stockEpuise>
     	</droits-acquittes>
 <?php endif; ?>
 <?php endif; ?>
@@ -86,7 +82,7 @@
       		<categorie-fiscale-capsules><?php echo $crd->categorie->code ?></categorie-fiscale-capsules>
       		<type-capsule><?php echo $crd->type->code ?></type-capsule>
       		<centilisation volume="<?php echo $crd->centilisation->code ?>">
-        		<stock-debut-periode><?php echo $crd->total_fin_mois ?></stock-debut-periode>
+        		<stock-debut-periode><?php echo $crd->total_debut_mois ?></stock-debut-periode>
 <?php if ($crd->entrees->achats || $crd->entrees->excedents || $crd->entrees->retours): ?>
         		<entrees-capsules>
 <?php if ($crd->entrees->achats): ?>
@@ -113,7 +109,7 @@
 <?php endif; ?>
         		</sorties-capsules>
 <?php endif; ?>
-        		<stock-fin-periode><?php echo $crd->total_debut_mois ?></stock-fin-periode>
+        		<stock-fin-periode><?php echo $crd->total_fin_mois ?></stock-fin-periode>
       		</centilisation>
     	</compte-crd>
 <?php endforeach; endif; ?>

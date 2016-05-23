@@ -7,10 +7,14 @@ class DRMDetailEntreesForm  extends acCouchdbObjectForm {
     	$stockEntrees = Configuration::getStocksEntree(true);
     	$stockEntrees = array_merge($stockEntrees, Configuration::getStocksEntree(false));
     	foreach ($stockEntrees as $key => $item) {
-    		if ($contraintes && !in_array('entrees/'.$key, $contraintes)) {
-    			$this->setWidget($key, new sfWidgetFormInputFloat(array('float_format' => "%01.04f"), array('readonly' => 'readonly')));
+    		if ($this->getObject()->exist($key.'_details')) {
+    			$this->setWidget($key, new sfWidgetFormInputHidden());
     		} else {
-    			$this->setWidget($key, new sfWidgetFormInputFloat(array('float_format' => "%01.04f")));
+	    		if ($contraintes && !in_array('entrees/'.$key, $contraintes)) {
+	    			$this->setWidget($key, new sfWidgetFormInputFloat(array('float_format' => "%01.04f"), array('readonly' => 'readonly')));
+	    		} else {
+	    			$this->setWidget($key, new sfWidgetFormInputFloat(array('float_format' => "%01.04f")));
+	    		}
     		}
 	    	$this->setValidator($key, new sfValidatorNumber(array('required' => false)));
     	}   

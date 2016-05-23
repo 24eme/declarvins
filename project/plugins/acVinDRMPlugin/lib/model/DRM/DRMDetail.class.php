@@ -606,5 +606,34 @@ class DRMDetail extends BaseDRMDetail {
     {
     	return $this->sorties->vrac + $this->sorties->export + $this->sorties->factures + $this->sorties->crd + $this->sorties->consommation + $this->sorties->pertes;
     }
+	
+    public function getLibelleFiscal()
+    {
+    	return $this->getCepage()->getLibelleFiscal();
+    }
+	
+    public function getInao()
+    {
+    	return $this->getCepage()->getInao();
+    }
+    public function getHasSaisieAcq() {
+    	$has = false;
+    	if ($this->acq_total_debut_mois || $this->acq_total_entrees || $this->acq_total_sorties) {
+    		$has = true;
+    	}
+    	return $has;
+    }
 
+
+    public function getTotalVolume($hashes) {
+    	$total = null;
+    		foreach ($hashes as $hash) {
+    			if ($this->exist($hash)) {
+    				$total += $this->getOrAdd($hash);
+    			} else {
+    				$total += null;
+    			}
+    		}
+    	return $total;
+    }
 }

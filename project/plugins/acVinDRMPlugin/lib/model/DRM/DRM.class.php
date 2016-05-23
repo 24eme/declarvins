@@ -1177,9 +1177,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     public function getExportableProduits() {
     	return $this->getDetails();
     }
-    public function getExportableCepages() {
-    	return $this->getProduitsCepages();
-    }
     
     public function getExportableSucre() {
     	return array();

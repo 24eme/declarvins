@@ -59,7 +59,7 @@
 				   </tbody>
 				</table>
 				<div class="btn" style="text-align: right;">
-					 <a href="<?php echo url_for('drm_crd_product_ajout', $drm) ?>" class="btn_ajouter btn_popup" data-popup="#popup_ajout_crd" data-popup-config="configForm">Ajouter une CRD</a>
+					 <a href="<?php echo url_for('drm_crd_product_ajout', $drm) ?>" class="btn_ajouter btn_popup" data-popup="#popup_ajout_crd" data-popup-config="configForm" data-popup-enregistrement-crd="true">Ajouter une CRD</a>
 				</div>
 	            <br /><br />
 	            <div id="btn_etape_dr">

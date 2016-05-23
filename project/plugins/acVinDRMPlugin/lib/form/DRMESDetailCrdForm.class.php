@@ -16,8 +16,8 @@ class DRMESDetailCrdForm extends acCouchdbObjectForm {
 	}
 	
 	protected function doUpdateObject($values) {
-		parent::doUpdateObject($values);
 		$this->getObject()->getParent()->getParent()->crd = $values['volume'];
+		parent::doUpdateObject($values);
 	}
 	
 	public function getMois() {

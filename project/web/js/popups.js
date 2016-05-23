@@ -157,7 +157,48 @@
 			var btnPopup = $(this);
 			btnPopup.click(function()
 			{
-				var reload = btnPopup.attr('data-popup-reload') && btnPopup.attr('data-popup-reload') == "true";				
+				var reload = btnPopup.attr('data-popup-reload') && btnPopup.attr('data-popup-reload') == "true";	
+				var rechargement = btnPopup.attr('data-popup-enregistrement') && btnPopup.attr('data-popup-enregistrement') == "true";
+				var rechargementCrd = btnPopup.attr('data-popup-enregistrement-crd') && btnPopup.attr('data-popup-enregistrement-crd') == "true";
+				if (rechargement) {
+					var form = btnPopup.parents('form');
+					var donneesCol = form.serializeArray();
+					
+					$.post(form.attr('action'), donneesCol, function (data)
+					{
+						$.openPopup(btnPopup.attr('data-popup'), 
+								btnPopup.attr('data-popup-config'), 
+								(btnPopup.attr('data-popup-title') !== undefined)? btnPopup.attr('data-popup-title') : btnPopup.text(), 
+								btnPopup.attr('href'), 
+								reload, 
+								function() {
+									btnPopup.addClass('btn_chargement');
+								}, 
+								function() {
+									btnPopup.removeClass('btn_chargement');
+								});
+						
+					});
+				}
+				else if (rechargementCrd) {
+					var form = $('#application_dr').find('form');
+					var donneesCol = form.serializeArray();
+					$.post(form.attr('action'), function (data)
+					{
+						$.openPopup(btnPopup.attr('data-popup'), 
+								btnPopup.attr('data-popup-config'), 
+								(btnPopup.attr('data-popup-title') !== undefined)? btnPopup.attr('data-popup-title') : btnPopup.text(), 
+								btnPopup.attr('href'), 
+								reload, 
+								function() {
+									btnPopup.addClass('btn_chargement');
+								}, 
+								function() {
+									btnPopup.removeClass('btn_chargement');
+								});
+					});
+				}
+				else {
 				$.openPopup(btnPopup.attr('data-popup'), 
 							btnPopup.attr('data-popup-config'), 
 							(btnPopup.attr('data-popup-title') !== undefined)? btnPopup.attr('data-popup-title') : btnPopup.text(), 
@@ -169,7 +210,7 @@
 							function() {
 								btnPopup.removeClass('btn_chargement');
 							});
-				
+				}
 				return false;
 			});
 		});
