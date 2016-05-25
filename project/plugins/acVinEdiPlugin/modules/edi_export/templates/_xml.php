@@ -113,7 +113,7 @@
       		</centilisation>
     	</compte-crd>
 <?php endforeach; endif; ?>
-<?php if (($drm->declaratif->empreinte->debut && $drm->declaratif->empreinte->fin) || ($drm->declaratif->daa->debut && $drm->daa->fin) || ($drm->declaratif->dsa->debut && $drm->declaratif->dsa->fin)): ?>
+<?php if (($drm->declaratif->empreinte->debut && $drm->declaratif->empreinte->fin) || ($drm->declaratif->daa->debut && $drm->declaratif->daa->fin) || ($drm->declaratif->dsa->debut && $drm->declaratif->dsa->fin)): ?>
     	<document-accompagnement>
 <?php if ($drm->declaratif->empreinte->debut && $drm->declaratif->empreinte->fin): ?>
       		<numero-empreintes>
