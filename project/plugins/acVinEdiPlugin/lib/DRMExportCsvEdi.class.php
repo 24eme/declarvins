@@ -78,13 +78,13 @@ class DRMExportCsvEdi extends DRMCsvEdi
     {
         $cepageConfig = $produitDetail->getCepage()->getConfig();
         return array(
-        	DRMCsvEdi::CSV_CAVE_CERTIFICATION => $cepageConfig->getCertification()->getCode(),
-        	DRMCsvEdi::CSV_CAVE_GENRE => $cepageConfig->getGenre()->getCode(),
-        	DRMCsvEdi::CSV_CAVE_APPELLATION => $cepageConfig->getAppellation()->getCode(),
-        	DRMCsvEdi::CSV_CAVE_MENTION => $cepageConfig->getMention()->getCode(),
-        	DRMCsvEdi::CSV_CAVE_LIEU => $cepageConfig->getLieu()->getCode(),
-        	DRMCsvEdi::CSV_CAVE_COULEUR => $cepageConfig->getCouleur()->getCode(),
-        	DRMCsvEdi::CSV_CAVE_CEPAGE => $cepageConfig->getCepage()->getCode(),
+        	DRMCsvEdi::CSV_CAVE_CERTIFICATION => $cepageConfig->getCertification()->getKey(),
+        	DRMCsvEdi::CSV_CAVE_GENRE => $cepageConfig->getGenre()->getKey(),
+        	DRMCsvEdi::CSV_CAVE_APPELLATION => $cepageConfig->getAppellation()->getKey(),
+        	DRMCsvEdi::CSV_CAVE_MENTION => $cepageConfig->getMention()->getKey(),
+        	DRMCsvEdi::CSV_CAVE_LIEU => $cepageConfig->getLieu()->getKey(),
+        	DRMCsvEdi::CSV_CAVE_COULEUR => $cepageConfig->getCouleur()->getKey(),
+        	DRMCsvEdi::CSV_CAVE_CEPAGE => $cepageConfig->getCepage()->getKey(),
         	DRMCsvEdi::CSV_CAVE_PRODUIT => trim($produitDetail->getLibelle()));
     }
 

@@ -69,7 +69,7 @@ class DRMCsvEdi extends CsvFile
     const CSV_ANNEXE_OBSERVATION = 19;
     const CSV_NB_TOTAL_COL = 20;
 
-    protected static $permitted_types = array(self::TYPE_CAVE, self::TYPE_CRD, self::TYPE_ANNEXE);
+    protected static $permitted_types = array(self::TYPE_CAVE, self::TYPE_CRD, self::TYPE_ANNEXE, self::TYPE_CONTRAT);
     protected static $permitted_annexes_type_mouvements = array('DEBUT', 'FIN');
     protected static $genres = array('MOU' => 'Mousseux', 'EFF' => 'Effervescent', 'TRANQ' => 'Tranquille');
     protected $type_annexes = array(self::TYPE_ANNEXE_NONAPUREMENT => 'Non Apurement', self::TYPE_ANNEXE_SUCRE => 'Sucre', self::TYPE_ANNEXE_OBSERVATIONS => 'Observations');
@@ -80,7 +80,7 @@ class DRMCsvEdi extends CsvFile
     public function __construct($file, DRM $drm = null) 
     {
         $this->drm = $drm;
-        $this->countryList = $drm->getExportableCountryList();
+        $this->countryList = ($drm)? $drm->getExportableCountryList() : array();
         //$this->type_annexes_docs = array_merge($this->type_annexes, DRMClient::$drm_documents_daccompagnement);
         parent::__construct($file);
     }

@@ -13,6 +13,7 @@ class Configuration extends BaseConfiguration {
     protected $_configuration_produits_CIVL = null;
     protected $_configuration_produits_IO = null;
     protected $_zones = null;
+    protected $identifyLibelleProduct = array();
 
     protected static $contraintes_vci = array(
     		'entrees/recolte',
@@ -283,6 +284,31 @@ class Configuration extends BaseConfiguration {
             }
         }
         return $code_produit;
+    }
+    
+
+
+    public function identifyProductByLibelle($libelle) {
+    	if(array_key_exists($libelle, $this->identifyLibelleProduct)) {
+    
+    		return $this->identifyLibelleProduct[$libelle];
+    	}
+    
+    	$libelleSlugify = KeyInflector::slugify(preg_replace("/[ ]+/", " ", trim($libelle)));
+    
+    	$configuration = $this->getConfigurationProduitsComplete();
+        foreach ($configuration as $interpro => $configurationProduits) {
+        foreach ($configurationProduits->getProduits() as $produit) {
+    		$libelleProduitSlugify = KeyInflector::slugify(preg_replace("/[ ]+/", " ", trim($produit->getLibelleFormat())));
+    		if($libelleSlugify == $libelleProduitSlugify) {
+    			$this->identifyLibelleProduct[$libelle] = $produit;
+    
+    			return $produit;
+    		}
+    	}
+        }
+    
+    	return false;
     }
 
     public function getConfigurationProduit($hash) {
