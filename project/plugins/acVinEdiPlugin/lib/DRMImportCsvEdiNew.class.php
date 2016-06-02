@@ -131,6 +131,7 @@ class DRMImportCsvEdiNew extends DRMCsvEdi {
   		
   		$categorieMvt = $datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT];
   		$typeMvt = $datas[self::CSV_CAVE_TYPE_MOUVEMENT];
+  		$valeur = $datas[self::CSV_CAVE_VOLUME];
   		
   		if ($this->mouvements) {
 	  		if ($categorieMvt && !array_key_exists($categorieMvt, $this->mouvements)) {
@@ -147,17 +148,16 @@ class DRMImportCsvEdiNew extends DRMCsvEdi {
 	  			return;
 	  		}
   			if ($categorieMvt && !$produit->get($categorieMvt)->exist($typeMvt)) {
-	  			$this->csvDoc->addErreur($this->categorieMouvementNotFoundError($numLigne, $datas));
+	  			$this->csvDoc->addErreur($this->typeMouvementNotFoundError($numLigne, $datas));
 	  			return;
-	  		} elseif(!$produit->exist($typeMvt)) {
-	  			$this->csvDoc->addErreur($this->categorieMouvementNotFoundError($numLigne, $datas));
+	  		} elseif(!$categorieMvt && !$produit->exist($typeMvt)) {
+	  			$this->csvDoc->addErreur($this->typeMouvementNotFoundError($numLigne, $datas));
 	  			return;
 	  		}
   		}
   		
   		$mvt = ($categorieMvt)? $produit->getOrAdd($categorieMvt) : $produit;
-  		$mvt->add($typeMvt, round($this->floatize($datas[self::CSV_CAVE_VOLUME]), 2));
-    	echo $hash." ADDED\n";
+  		$mvt->add($typeMvt, round($this->floatize($valeur), 2));
     }
     
     private function importRetiraison($numLigne, $datas)
