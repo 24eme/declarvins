@@ -128,6 +128,7 @@ class DRMImport
   					}
 
   					if (!in_array($this->datas[$k][DRMDateView::VALUE_CONTRAT_NUMERO], array('paiement-douane-frequence', 'paiement-douane-moyen', 'caution-numero', 'caution-organisme'))) {
+  						$this->datas[$k][DRMDateView::VALUE_CONTRAT_VOLUME] = ($this->datas[$k][DRMDateView::VALUE_CONTRAT_VOLUME])? $this->datas[$k][DRMDateView::VALUE_CONTRAT_VOLUME] : 0;
   						if (!is_numeric($this->datas[$k][DRMDateView::VALUE_CONTRAT_VOLUME])) {
   							$this->logs[] = array('ERREUR', 'ANNEXE', $numLigne, "Valeur non valide : integer attendu");
   						}
