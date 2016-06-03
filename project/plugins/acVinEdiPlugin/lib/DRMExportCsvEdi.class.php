@@ -219,7 +219,8 @@ class DRMExportCsvEdi extends DRMCsvEdi
         	foreach ($statistiques as $stat => $vol) {
         		$this->addCsvLigne(DRMCsvEdi::TYPE_ANNEXE, array(
         			DRMCsvEdi::CSV_ANNEXE_TYPEANNEXE => DRMCsvEdi::TYPE_ANNEXE_STATISTIQUES,
-        			DRMCsvEdi::CSV_ANNEXE_CATMVT => $stat,
+        			DRMCsvEdi::CSV_ANNEXE_CATMVT => 'statistiques', // /!\
+        			DRMCsvEdi::CSV_ANNEXE_TYPEMVT => $stat,
         			DRMCsvEdi::CSV_ANNEXE_QUANTITE => $vol)
         		);
         	}

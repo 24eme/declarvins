@@ -91,6 +91,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	$idCrd = DRMCrd::makeId($categorie, $type, $centilisation);
     	$crd = $this->crds->getOrAdd($idCrd);
     	$crd->addCrd($categorie, $type, $centilisation, $stock);
+    	return $crd;
     }
 
     public function getDepartement() {
@@ -1334,6 +1335,14 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 			$stock += $produit->total;
 		}
 		return $stock;
+	}
+	
+	public function setImportableSucre($quantite) {
+		return;
+	}
+	
+	public function getImportableDeclaratif() {
+		return $this->declaratif;
 	}
     /* FIN EXPORTABLE */
 }

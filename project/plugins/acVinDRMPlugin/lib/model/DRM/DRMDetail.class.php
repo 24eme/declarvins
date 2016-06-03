@@ -602,6 +602,10 @@ class DRMDetail extends BaseDRMDetail {
         return count($this->vrac);
     }
 
+    public function hasSortieVrac() {
+        return ($this->sorties->vrac > 0) ? true : false;
+    }
+
     public function getStockBilan()
     {
     	return $this->sorties->vrac + $this->sorties->export + $this->sorties->factures + $this->sorties->crd + $this->sorties->consommation + $this->sorties->pertes;
@@ -635,5 +639,9 @@ class DRMDetail extends BaseDRMDetail {
     			}
     		}
     	return $total;
+    }
+    
+    public function setImportableObservations($observations) {
+    	$this->add('observations', $observations);
     }
 }

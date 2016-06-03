@@ -378,5 +378,41 @@ class Configuration extends BaseConfiguration {
   			}
   			return $ouverture;
     }
+    
+    public function isTypeCrdAccepted($value)
+    {
+    	if ($this->exist('crds')) {
+    		if ($this->crds->exist('type')) {
+    			if ($this->crds->type->exist($value)) {
+    				return true;
+    			}
+    		}
+    	}
+    	return false;
+    }
+    
+    public function isCategorieCrdAccepted($value)
+    {
+    	if ($this->exist('crds')) {
+    		if ($this->crds->exist('categorie')) {
+    			if ($this->crds->categorie->exist($value)) {
+    				return true;
+    			}
+    		}
+    	}
+    	return false;
+    }
+    
+    public function isCentilisationCrdAccepted($value)
+    {
+    	if ($this->exist('crds')) {
+    		if ($this->crds->exist('centilisation')) {
+    			if ($this->crds->centilisation->exist($value)) {
+    				return true;
+    			}
+    		}
+    	}
+    	return false;
+    }
 
 }
