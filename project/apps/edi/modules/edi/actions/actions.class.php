@@ -343,9 +343,9 @@ class ediActions extends sfActions
   				if($drmCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
   					foreach($drmCsvEdi->getCsvDoc()->erreurs as $erreur) {
   						if ($erreur->num_ligne > 0) {
-  							$result[] = array('ERREUR', 'DRM', $erreur->num_ligne, $erreur->diagnostic, $erreur->csv_erreur);
+  							$result[] = array('ERREUR', 'CSV', $erreur->num_ligne, $erreur->diagnostic, $erreur->csv_erreur);
   						} else {
-  							$result[] = array('ERREUR', 'DRM', null, $erreur->diagnostic, $erreur->csv_erreur);
+  							$result[] = array('ERREUR', 'CSV', null, $erreur->diagnostic, $erreur->csv_erreur);
   						}
   					}
   				} else {
@@ -354,7 +354,7 @@ class ediActions extends sfActions
 	  				$errors = 0;
 	  				if($drmCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
 	  					foreach($drmCsvEdi->getCsvDoc()->erreurs as $erreur) {
-	  						$result[] = array('ERREUR', 'DRM', $erreur->num_ligne, $erreur->diagnostic, $erreur->csv_erreur);
+	  						$result[] = array('ERREUR', 'CSV', $erreur->num_ligne, $erreur->diagnostic, $erreur->csv_erreur);
 	  						$errors++;
 	  					}
 	  				}
@@ -374,7 +374,7 @@ class ediActions extends sfActions
 	  						$drm->precedente = $master->_id;
 	  						$drm->constructId();
 	  					} else {
-	  						$result[] = array('ERREUR', 'DRM', null, "La DRM ".$drm->periode." pour ".$drm->identifiant." est déjà existante dans la base DeclarVins");
+	  						$result[] = array('ERREUR', 'ACCES', null, "La DRM ".$drm->periode." pour ".$drm->identifiant." est déjà existante dans la base DeclarVins");
 	  						$errors++;
 	  					}
 	  				} 
@@ -384,22 +384,22 @@ class ediActions extends sfActions
 		  				
 		  				if (!$validation->isValide()) {
 		  					foreach ($validation->getErrors() as $error) {
-		  						$result[] = array('ERREUR', 'DRM', null, str_replace('Erreur, ', '', $error));
+		  						$result[] = array('ERREUR', 'CSV', null, str_replace('Erreur, ', '', $error));
 		  					}
 		  				} else {
 			  				$drm->validate();
 					    	$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_EDI;
 					    	$drm->save();
-					    	$result[] = array('SUCCESS', 'DRM', null, 'La DRM '.$drm->periode." pour ".$drm->identifiant.' a été importée avec succès');
+					    	$result[] = array('SUCCESS', 'CSV', null, 'La DRM '.$drm->periode." pour ".$drm->identifiant.' a été importée avec succès');
 		  				}
 	  				}
   				}
   			
   			} catch(Exception $e) {
-  				$result[] = array('ERREUR', 'DRM', null, $e->getMessage());
+  				$result[] = array('ERREUR', 'CSV', null, $e->getMessage());
   			}
   		} else {
-      		$result[] = array('ERREUR', 'FORMAT', null, 'Fichier csv non valide');
+      		$result[] = array('ERREUR', 'ACCES', null, 'Fichier csv non valide');
       	}
   			
   	} else {
