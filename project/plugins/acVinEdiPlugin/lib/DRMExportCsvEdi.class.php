@@ -60,10 +60,11 @@ class DRMExportCsvEdi extends DRMCsvEdi
     		'COULEUR',
     		'CEPAGE',
     		'PRODUIT',
+    		'COMPLEMENT PRODUIT',
     		'CATEGORIE MOUVEMENT',
     		'TYPE MOUVEMENT',
     		'VOLUME / QUANTITE',
-    		'PAYS EXPORT / DATE NON APUREMENT',
+    		'PAYS EXPORT / DATE NON APUREMENT / PERIODE SUSPENSION CRD',
     		'NUMERO CONTRAT / NUMERO ACCISE DESTINATAIRE',
     		'NUMERO DOCUMENT',
     		'OBSERVATIONS'
@@ -77,6 +78,7 @@ class DRMExportCsvEdi extends DRMCsvEdi
     protected function getProduitCSV($produitDetail) 
     {
         $cepageConfig = $produitDetail->getCepage()->getConfig();
+        $complement = ($produitDetail->getKey() != $this->drm->getDefaultKeyNode())? $produitDetail->getKey() : null;
         return array(
         	DRMCsvEdi::CSV_CAVE_CERTIFICATION => $cepageConfig->getCertification()->getKey(),
         	DRMCsvEdi::CSV_CAVE_GENRE => $cepageConfig->getGenre()->getKey(),
@@ -85,7 +87,9 @@ class DRMExportCsvEdi extends DRMCsvEdi
         	DRMCsvEdi::CSV_CAVE_LIEU => $cepageConfig->getLieu()->getKey(),
         	DRMCsvEdi::CSV_CAVE_COULEUR => $cepageConfig->getCouleur()->getKey(),
         	DRMCsvEdi::CSV_CAVE_CEPAGE => $cepageConfig->getCepage()->getKey(),
-        	DRMCsvEdi::CSV_CAVE_PRODUIT => trim($produitDetail->getLibelle()));
+        	DRMCsvEdi::CSV_CAVE_PRODUIT => trim($produitDetail->getLibelle()),
+        	DRMCsvEdi::CSV_CAVE_COMPLEMENT_PRODUIT => $complement
+        );
     }
 
     protected function createMouvementsEdi() 
@@ -100,41 +104,29 @@ class DRMExportCsvEdi extends DRMCsvEdi
             	foreach ($mvt as $key => $val) {
             		if ($val) {
             			$droit = (preg_match('/^acq_/', $key))? DRMCsvEdi::TYPE_DROITS_ACQUITTES : DRMCsvEdi::TYPE_DROITS_SUSPENDUS;
-            			// Il faudrait ameliorer ce code de DRMESDetails
             			if ($val instanceof DRMESDetails) {
-            				continue;
             				foreach ($val as $detailKey => $detailValue) {
             					if ($detailVol = $detailValue->getVolume()) {
-            						$complement = $detailValue->getIdentifiant();
-            						$numeroDoc = ($detailValue->numero_document) ? $detailValue->numero_document : '';
-            						if ($key == 'export_details') {
-            							$pays = $this->countryList[$detailValue->getIdentifiant()];
-            							$this->addCsvLigne(DRMCsvEdi::TYPE_CAVE, $this->merge(array(
-            								DRMCsvEdi::CSV_CAVE_TYPE_DROITS => $droit,
-            								DRMCsvEdi::CSV_CAVE_CATEGORIE_MOUVEMENT => $champ,
-            								DRMCsvEdi::CSV_CAVE_TYPE_MOUVEMENT => $this->drm->getExportableLibelleMvt($key),
-            								DRMCsvEdi::CSV_CAVE_VOLUME => $detailVol,
-            								DRMCsvEdi::CSV_CAVE_EXPORTPAYS => $pays,
-            								DRMCsvEdi::CSV_CAVE_NUMERODOCUMENT => $numeroDoc), $this->getProduitCSV($produitDetail))
-            							);
-            						}
-            						if ($key == 'vrac_details') {
-            							$numeroVrac = str_replace('VRAC-', '', $detailValue->getIdentifiant());
-            							$this->addCsvLigne(DRMCsvEdi::TYPE_CAVE, $this->merge(array(
-            								DRMCsvEdi::CSV_CAVE_TYPE_DROITS => $droit,
-            								DRMCsvEdi::CSV_CAVE_CATEGORIE_MOUVEMENT => $champ,
-            								DRMCsvEdi::CSV_CAVE_TYPE_MOUVEMENT => $this->drm->getExportableLibelleMvt($key),
-            								DRMCsvEdi::CSV_CAVE_VOLUME => $detailVol,
-            								DRMCsvEdi::CSV_CAVE_CONTRATID => $numeroVrac,
-            								DRMCsvEdi::CSV_CAVE_NUMERODOCUMENT => $numeroDoc), $this->getProduitCSV($produitDetail))
-            							);
-            						}
+            						$this->addCsvLigne(DRMCsvEdi::TYPE_CAVE, 
+            							$this->merge(
+            									$this->merge(
+            										array(
+            											DRMCsvEdi::CSV_CAVE_TYPE_DROITS => $droit, 
+            											DRMCsvEdi::CSV_CAVE_CATEGORIE_MOUVEMENT => ($this->drm->getExportableLibelleMvt($champ) != $this->drm->getExportableLibelleMvt($key))? $champ : null,
+            											DRMCsvEdi::CSV_CAVE_TYPE_MOUVEMENT => $this->drm->getExportableLibelleMvt($key),
+            											DRMCsvEdi::CSV_CAVE_VOLUME => $detailVol            														
+            										),
+            										$this->drm->getExportableMvtDetails($key, $detailValue)
+            									), 
+            									$this->getProduitCSV($produitDetail)
+            							)
+            						);
             					}
             				}
-            			} else {
+            			} elseif(!isset($mvt[$key.'_details'])) {
 	            			$this->addCsvLigne(DRMCsvEdi::TYPE_CAVE, $this->merge(array(
 	            				DRMCsvEdi::CSV_CAVE_TYPE_DROITS => $droit,
-	            				DRMCsvEdi::CSV_CAVE_CATEGORIE_MOUVEMENT => $champ,
+	            				DRMCsvEdi::CSV_CAVE_CATEGORIE_MOUVEMENT => ($this->drm->getExportableLibelleMvt($champ) != $this->drm->getExportableLibelleMvt($key))? $champ : null,
 	            				DRMCsvEdi::CSV_CAVE_TYPE_MOUVEMENT => $this->drm->getExportableLibelleMvt($key),
 	            				DRMCsvEdi::CSV_CAVE_VOLUME => $val), $this->getProduitCSV($produitDetail))
 	            			);
@@ -173,8 +165,8 @@ class DRMExportCsvEdi extends DRMCsvEdi
             		DRMCsvEdi::CSV_CRD_COULEUR => $crdDetail[DRMCsvEdi::CSV_CRD_COULEUR],
             		DRMCsvEdi::CSV_CRD_CENTILITRAGE => $crdDetail[DRMCsvEdi::CSV_CRD_CENTILITRAGE],
             		DRMCsvEdi::CSV_CRD_LIBELLE => $crdDetail[DRMCsvEdi::CSV_CRD_LIBELLE],
-            		DRMCsvEdi::CSV_CRD_CATEGORIE_KEY => $crdDetail[DRMCsvEdi::CSV_CRD_CATEGORIE_KEY],
-            		DRMCsvEdi::CSV_CRD_TYPE_KEY => $crdDetail[DRMCsvEdi::CSV_CRD_TYPE_KEY],
+            		DRMCsvEdi::CSV_CRD_CATEGORIE_KEY => ($crdDetail[DRMCsvEdi::CSV_CRD_TYPE_KEY])? $crdDetail[DRMCsvEdi::CSV_CRD_CATEGORIE_KEY] : null,
+            		DRMCsvEdi::CSV_CRD_TYPE_KEY => ($crdDetail[DRMCsvEdi::CSV_CRD_TYPE_KEY])? $crdDetail[DRMCsvEdi::CSV_CRD_TYPE_KEY] : $crdDetail[DRMCsvEdi::CSV_CRD_CATEGORIE_KEY],
             		DRMCsvEdi::CSV_CRD_QUANTITE => $crdDetail[DRMCsvEdi::CSV_CRD_QUANTITE])
             	);
             }
@@ -219,7 +211,7 @@ class DRMExportCsvEdi extends DRMCsvEdi
         	foreach ($statistiques as $stat => $vol) {
         		$this->addCsvLigne(DRMCsvEdi::TYPE_ANNEXE, array(
         			DRMCsvEdi::CSV_ANNEXE_TYPEANNEXE => DRMCsvEdi::TYPE_ANNEXE_STATISTIQUES,
-        			DRMCsvEdi::CSV_ANNEXE_CATMVT => 'statistiques', // /!\
+        			DRMCsvEdi::CSV_ANNEXE_CATMVT => 'statistiques',
         			DRMCsvEdi::CSV_ANNEXE_TYPEMVT => $stat,
         			DRMCsvEdi::CSV_ANNEXE_QUANTITE => $vol)
         		);

@@ -30,7 +30,7 @@ class DRMDeclaratifRnaForm extends BaseForm
         ));
         $this->setValidators(array(
             'numero' => new sfValidatorInteger(array('required' => false)),
-            'accises' => new sfValidatorRegex(array('required' => false, 'pattern' => '/^(FR0[a-z0-9]{10})$/', 'min_length' => 13)),
+            'accises' => new sfValidatorRegex(array('required' => false, 'pattern' => '/^[A-Za-z]{2}[0-9A-Za-z]{11}$/')),
             'date' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false), array('invalid' => 'Format valide : dd/mm/aaaa'))
         ));
         $this->validatorSchema->setPostValidator(new DRMRnaValidator());

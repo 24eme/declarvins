@@ -86,6 +86,8 @@ EOF;
                 }
             }
             
+            $drm->save();
+            
             return;
 
             $drm->validate();

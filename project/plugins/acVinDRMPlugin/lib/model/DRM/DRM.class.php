@@ -65,7 +65,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
     public function getProduit($hash, $labels = array()) {
         if (!$this->exist($hash)) {
-
             return false;
         }
 
@@ -78,6 +77,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function addProduit($hash, $labels = array()) {
+    	if (!is_array($labels)) {
+    		$labels = array($labels);
+    	}
         if ($p = $this->getProduit($hash, $labels)) {
             return $p;
         }
@@ -90,7 +92,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     {
     	$idCrd = DRMCrd::makeId($categorie, $type, $centilisation);
     	$crd = $this->crds->getOrAdd($idCrd);
-    	$crd->addCrd($categorie, $type, $centilisation, $stock);
+    	if (!$crd->libelle) {
+    		$crd->addCrd($categorie, $type, $centilisation, $stock);
+    	}
     	return $crd;
     }
 
@@ -410,6 +414,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             }
         }
         $this->updateVrac();
+        $this->updateCrds();
         $this->setEtablissementInformations();
          
         $this->generateMouvements();
@@ -426,6 +431,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             	$this->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
             }
         }
+        
     }
     
     public function isTeledeclare()
@@ -517,6 +523,12 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 $contrat->save();
             }
         }
+    }
+    
+    public function updateCrds() {
+    	foreach ($this->crds as $crd) {
+    		$crd->updateStocks();
+    	}
     }
 
     public function updateVracVersion() {
@@ -1307,12 +1319,44 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		return $result;
 	}
 	
+	public function getExportableMvtDetails($key, $detail) {
+		if ($key == 'crd_details') {
+			$periode = sprintf('%4d-%02d', $detail->annee, $detail->mois);
+			return array(
+					DRMCsvEdi::CSV_CAVE_EXPORTPAYS => $periode
+			);
+		}
+		return array();
+	}
+	
+	public function setImportableMvtDetails($type, $categorie, $datas) {
+		if ($type == 'crd' && $categorie->getKey() == 'entrees') {
+			$details = $categorie->getOrAdd('crd_details');
+			$detail = $details->getOrAdd(ConfigurationProduit::DEFAULT_KEY);
+			if (preg_match('/^([0-9]{4})-([0-9]{2})$/', $datas[DRMCsvEdi::CSV_CAVE_EXPORTPAYS], $m)) {
+				$detail->annee = $m[1];
+				$detail->mois = $m[2];
+				$detail->volume = $categorie->get($type);				
+				return true;
+			}
+			return false;
+		}
+		return true;
+	}
+	
 	public function getExportableCategoriesMouvements() {
 		return array('tav', 'total_debut_mois', 'acq_total_debut_mois', 'stocks_debut', 'entrees', 'sorties', 'stocks_fin');
 	}
 	
 	public function getExportableLibelleMvt($key) {
-		return str_replace('acq_', '', $key);
+		return str_replace(array('acq_', '_details'), '', $key);
+	}
+	
+	public function getImportableLibelleMvt($type, $key) {
+		if ($type == DRMCsvEdi::TYPE_DROITS_ACQUITTES) {
+			return 'acq_'.$key;
+		}
+		return $key;
 	}
 	
 	public function getExportableCountryList() {
@@ -1343,6 +1387,26 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 	
 	public function getImportableDeclaratif() {
 		return $this->declaratif;
+	}
+	
+	public function setImportableRna($numero, $accises, $date) {
+		$rna = $this->declaratif->rna->getOrAdd($numero);
+		$rna->numero = $numero;
+		$rna->accises = $accises;
+		$rna->date = $date;
+	}
+	
+	public function setImportablePeriode($periode) {
+		$this->periode = $periode;
+	}
+	
+	public function setImportableIdentifiant($identifiant) {
+		$this->identifiant = $identifiant;
+		$this->setEtablissementInformations();
+	}
+	
+	public function getDefaultKeyNode() {
+		return ConfigurationProduit::DEFAULT_KEY;
 	}
     /* FIN EXPORTABLE */
 }

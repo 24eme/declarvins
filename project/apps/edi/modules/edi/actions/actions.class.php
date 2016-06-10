@@ -290,8 +290,6 @@ class ediActions extends sfActions
     $etab = EtablissementClient::getInstance()->find($etablissement);
 	$formUploadCsv = new UploadCSVForm();
     $result = array();
-    $drms = array();
-    $unsetDrms = array();
 	if ($request->isMethod('post')) {
     	$formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
       	if ($formUploadCsv->isValid()) {
@@ -315,6 +313,99 @@ class ediActions extends sfActions
     	$result[] = array('ERREUR', 'ACCES ', null, 'Seules les requêtes de type POST sont acceptées');
     }
     return $this->renderSimpleCsv($result, "drm");
+  }
+  
+  public function executePushDRMEtablissementV2(sfWebRequest $request)
+  {
+  	ini_set('memory_limit', '2048M');
+  	set_time_limit(0);
+  	$etablissement = $request->getParameter('etablissement');
+  	$this->securizeEtablissement($etablissement);
+  	$etab = EtablissementClient::getInstance()->find($etablissement);
+  	$formUploadCsv = new UploadCSVForm();
+  	$result = array();
+  	if ($request->isMethod('post')) {
+  		$formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
+  		if ($formUploadCsv->isValid()) {
+  			try {
+  				$drm = new DRM();
+  				$file = sfConfig::get('sf_data_dir') . '/upload/' . $formUploadCsv->getValue('file')->getMd5();
+  				$configuration = ConfigurationClient::getCurrent();
+  				$controles = array(
+  					DRMCsvEdi::TYPE_CAVE => array(
+  							DRMCsvEdi::CSV_CAVE_COMPLEMENT_PRODUIT => array_keys($configuration->getLabels())
+  					)
+  				);
+  				
+  				$drmCsvEdi = new DRMImportCsvEdi($file, $drm, $controles);
+  				$drmCsvEdi->checkCSV();
+  			
+  				if($drmCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
+  					foreach($drmCsvEdi->getCsvDoc()->erreurs as $erreur) {
+  						if ($erreur->num_ligne > 0) {
+  							$result[] = array('ERREUR', 'DRM', $erreur->num_ligne, $erreur->diagnostic, $erreur->csv_erreur);
+  						} else {
+  							$result[] = array('ERREUR', 'DRM', null, $erreur->diagnostic, $erreur->csv_erreur);
+  						}
+  					}
+  				} else {
+	  				$drmCsvEdi->importCsv();
+	  				$drm->constructId();
+	  				$errors = 0;
+	  				if($drmCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
+	  					foreach($drmCsvEdi->getCsvDoc()->erreurs as $erreur) {
+	  						$result[] = array('ERREUR', 'DRM', $erreur->num_ligne, $erreur->diagnostic, $erreur->csv_erreur);
+	  						$errors++;
+	  					}
+	  				}
+	  				if ($drm->identifiant != $etablissement) {
+	  					$result[] = array('ERREUR', 'ACCES', null, "Import restreint à l'établissement ".$etablissement);
+	  					$errors++;
+	  				}
+	  				if (!$etab->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) {
+	  					$result[] = array('ERREUR', 'ACCES', null, "L'établissement ".$etablissement." n'est pas autorisé à déclarer des DRMs");
+	  					$errors++;
+	  				}
+	  				if (DRMClient::getInstance()->find($drm->_id)) {
+	  					$master = $drm->findMaster();
+	  					if ($master->mode_de_saisie == DRMClient::MODE_DE_SAISIE_EDI) {
+	  						$master = $master->generateRectificative();
+	  						$drm->version = $master->version;
+	  						$drm->precedente = $master->_id;
+	  						$drm->constructId();
+	  					} else {
+	  						$result[] = array('ERREUR', 'DRM', null, "La DRM ".$drm->periode." pour ".$drm->identifiant." est déjà existante dans la base DeclarVins");
+	  						$errors++;
+	  					}
+	  				} 
+	  				if (!$errors) {
+		  				$drm->update();
+		  				$validation = new DRMValidation($drm);
+		  				
+		  				if (!$validation->isValide()) {
+		  					foreach ($validation->getErrors() as $error) {
+		  						$result[] = array('ERREUR', 'DRM', null, str_replace('Erreur, ', '', $error));
+		  					}
+		  				} else {
+			  				$drm->validate();
+					    	$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_EDI;
+					    	$drm->save();
+					    	$result[] = array('SUCCESS', 'DRM', null, 'La DRM '.$drm->periode." pour ".$drm->identifiant.' a été importée avec succès');
+		  				}
+	  				}
+  				}
+  			
+  			} catch(Exception $e) {
+  				$result[] = array('ERREUR', 'DRM', null, $e->getMessage());
+  			}
+  		} else {
+      		$result[] = array('ERREUR', 'FORMAT', null, 'Fichier csv non valide');
+      	}
+  			
+  	} else {
+  		$result[] = array('ERREUR', 'ACCES ', null, 'Seules les requêtes de type POST sont acceptées');
+  	}
+  	return $this->renderSimpleCsv($result, "drm");
   }
   
   public function executeStreamVracEtablissement(sfWebRequest $request) 
