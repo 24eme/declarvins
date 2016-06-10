@@ -1,6 +1,6 @@
 #Spécifications techniques de l'EDI DRM de DeclarVins
 
-**/!\ La version de cette documentation n'est pas définitive et sera amenée à évoluée /!\**
+**/!\ La version de cette documentation n'est pas définitive et sera amenée à évoluer /!\**
 
 ##Architecture technique de sécurité
 
