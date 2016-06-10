@@ -1,5 +1,7 @@
 #Spécifications techniques de l'EDI DRM de DeclarVins
 
+**/!\ La version de cette documentation n'est pas définitive et sera amenée à évoluée /!\**
+
 ##Architecture technique de sécurité
 
 ###Authentification des utilisateurs
@@ -91,14 +93,14 @@ Les quatres types de lignes se basent sur une structure commune. Cette structure
 
 Les lignes de CAVE se constituent des champs suivants :
 
- **Pour la section commune :**
+**Pour la section commune :**
  
  1. CAVE : champs obligatoire à valeur fixe
  2. Période de la DRM : champs obligatoire au format AAAA-MM
  3. Identification de l'établissement : champs alpha-numérique obligatoire 
  4. Numéro d'accises : champs alpha-numérique de 13 caractères obligatoire
 
- **Pour l'identification du vin :**
+**Pour l'identification du vin :**
  
  5. Type de droit du vin : champs obligatoire, deux valeurs acceptées « SUSPENDUS » ou « ACQUITTES »
  6. Code certification du vin : champs obligatoire
@@ -113,7 +115,7 @@ Les lignes de CAVE se constituent des champs suivants :
  
 Ces codes internes à DeclarVins seront fournis sur demande.
  
- **Pour le type de mouvement :**
+**Pour le type de mouvement :**
  
  15. La catégorie de mouvement : champs facultatif, deux valeurs acceptées « entrees » ou « sorties »
  16. Le type de mouvement : champs obligatoire, valeurs acceptées :
@@ -179,24 +181,24 @@ En sortie :
  
 Les stocks théoriques fin de mois seront automatiquement calculés afin de conserver la cohérence de la saisie.
  
- **Pour le volume :**
+**Pour le volume :**
  
  17. Le volume en hl : champs obligatoire au format nombre flottant
  
- **Pour les compléments :**
+**Pour les compléments :**
  
  18. la période complétant l'entrée replacement en suspension CRD : champs obligatoire en cas de volume d'entrée replacement en suspension CRD au format AAAA-MM
 
 ###Description les lignes RETIRAISON
 
- **Pour la section commune :**
+**Pour la section commune :**
  
  1. RETIRAISON : champs obligatoire à valeur fixe
  2. Période de la DRM : champs obligatoire au format AAAA-MM
  3. Identification de l'établissement : champs alpha-numérique obligatoire 
  4. Numéro d'accises : champs alpha-numérique de 13 caractères obligatoire
  
- **Pour la description du produit :**
+**Pour la description du produit :**
  
  5. Type de droit du vin : champs obligatoire, valeur fixe « SUSPENDUS »
  6. Code certification du vin : champs obligatoire
@@ -211,16 +213,16 @@ Les stocks théoriques fin de mois seront automatiquement calculés afin de cons
  
 Ces codes internes à DeclarVins seront fournis sur demande.
 
- **Pour le type de mouvement :**
+**Pour le type de mouvement :**
  
  15. Vide
  16. Vide
 
- **Pour le volume :**
+**Pour le volume :**
  
  17. Le volume en hl : champs obligatoire au format nombre flottant
  
- **Pour les compléments :**
+**Pour les compléments :**
  
  18. Vide
  19. Numéro de VISA du contrat : champs obligatoire au format nombre entier
@@ -229,14 +231,14 @@ Ces codes internes à DeclarVins seront fournis sur demande.
 
 ###Description des lignes CRD
 
- **Pour la section commune :**
+**Pour la section commune :**
  
  1. CRD : champs obligatoire à valeur fixe
  2. Période de la DRM : champs obligatoire au format AAAA-MM
  3. Identification de l'établissement : champs alpha-numérique obligatoire 
  4. Numéro d'accises : champs alpha-numérique de 13 caractères obligatoire
  
- **Pour l'identification de la CRD :**
+**Pour l'identification de la CRD :**
  
  5. Type de droit de la CRD : champs obligatoire, deux valeurs acceptées « SUSPENDUS » ou « ACQUITTES »
  6. Type de la CDR : champs obligatoire, trois valeurs acceptées « PERSONNALISEES », « COLLECTIVES_DROITS_SUSPENDUS » ou « COLLECTIVES_DROITS_ACQUITTES »
@@ -272,7 +274,7 @@ Ces codes internes à DeclarVins seront fournis sur demande.
  13. Libellé de la CRD : champs facultatif
  14. Vide
  
- **Pour le type de mouvement :**
+**Pour le type de mouvement :**
  
  15. La catégorie de mouvement : champs facultatif, deux valeurs acceptées « entrees » ou « sorties »
  16. Le type de mouvement : champs obligatoire, valeurs acceptées :
@@ -293,7 +295,7 @@ En sortie :
  
  Les stocks théoriques fin de mois seront automatiquement calculés afin de conserver la cohérence de la saisie.
  
- **Pour la quantité :**
+**Pour la quantité :**
  
  17. Quantité de CRD : champs obligatoire au format nombre entier
 
@@ -302,14 +304,14 @@ Il n'y a pas de champs complémentaires pour les CRD.
 
 ###Description des lignes ANNEXE
 
- **Pour la section commune :**
+**Pour la section commune :**
  
  1. ANNEXE : champs obligatoire à valeur fixe
  2. Période de la DRM : champs obligatoire au format AAAA-MM
  3. Identification de l'établissement : champs alpha-numérique obligatoire 
  4. Numéro d'accises : champs alpha-numérique de 13 caractères obligatoire
  
- **Pour la description du produit :**
+**Pour la description du produit :**
  
  5. Type d'annexe : champs obligatoire, quatre valeurs acceptées « DOCUMENT » pour les documents d'accompagnements, « NON_APUREMENT » pour les relevés de non apurements, « STATISTIQUES » pour les statistiques européennes ou « OBSERVATIONS » pour les observations relatives aux mouvements CAVE d'un vin.
  
@@ -339,7 +341,7 @@ Ces codes internes à DeclarVins seront fournis sur demande.
  13. Vide
  14. Vide
  
- **Pour les catégories d'annexe :**
+**Pour les catégories d'annexe :**
  
 ####Pour les types OBSERVATIONS et NON_APUREMENT
  
@@ -351,7 +353,7 @@ Ces codes internes à DeclarVins seront fournis sur demande.
  15. Catégorie d'annexe : champs obligatoire, valeurs acceptées « empreinte » pour les numéros d'empreinte, « daa » pour les numéros DAA/DCA et « dsa » pour les numéros DSA/DSAC pour le type DOCUMENT et « statistiques » pour le type STATISTIQUES
  16. Type d'annexe : champs obligatoire, valeurs acceptées « debut » ou « fin » pour le type DOCUMENT et « jus », « mcr » et « vinaigre » pour le type STATISTIQUES
  
- **Pour la valeur :**
+**Pour la valeur :**
  
 ####Pour les types OBSERVATIONS et NON_APUREMENT
  
@@ -361,7 +363,7 @@ Ces codes internes à DeclarVins seront fournis sur demande.
 
  17. Valeur d'annexe : champs obligatoire au format nombre entier pour le type DOCUMENT et nombre flottant pour le type STATISTIQUES
  
- **Pour les compléments :**
+**Pour les compléments :**
  
 ####Pour les types DOCUMENT et STATISTIQUES
  
