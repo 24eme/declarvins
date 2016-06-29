@@ -121,8 +121,8 @@ class DRMDeclaratifForm extends acCouchdbForm {
             'caution' => new sfValidatorChoice(array('required' => true, 'choices' => array(1, 0))),
             'organisme' => new sfValidatorString(array('required' => false)),
             'numero' => new sfValidatorString(array('required' => false)),
-            'moyen_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array('Numéraire', 'Chèque', 'Virement'))),
-            'frequence' => new sfValidatorChoice(array('required' => true, 'choices' => array(DRMPaiement::FREQUENCE_ANNUELLE, DRMPaiement::FREQUENCE_MENSUELLE))),
+            'moyen_paiement' => new sfValidatorChoice(array('required' => false, 'choices' => array('Numéraire', 'Chèque', 'Virement'))),
+            'frequence' => new sfValidatorChoice(array('required' => false, 'choices' => array(DRMPaiement::FREQUENCE_ANNUELLE, DRMPaiement::FREQUENCE_MENSUELLE))),
             'statistiques_jus' => new sfValidatorNumber(array('required' => false)),
             'statistiques_mcr' => new sfValidatorNumber(array('required' => false)),
             'statistiques_vinaigre' => new sfValidatorNumber(array('required' => false))
@@ -145,6 +145,11 @@ class DRMDeclaratifForm extends acCouchdbForm {
 
         $rna = new DRMDeclaratifRnaCollectionForm($this->_drm->declaratif->rna);
         $this->embedForm('rna', $rna);
+        
+
+
+        $observations = new DRMValidationObservationsCollectionForm($this->_drm);
+        $this->embedForm('observationsProduits', $observations);
 
 
         $this->widgetSchema->setNameFormat('drm_declaratif[%s]');
@@ -224,6 +229,11 @@ class DRMDeclaratifForm extends acCouchdbForm {
         		$rna->numero = $doc['numero'];
         		$rna->accises = $doc['accises'];
         		$rna->date = $doc['date'];
+        	}
+        }
+        if ($observations = $values['observationsProduits']) {
+        	foreach ($observations as $hash => $observation) {
+       			$this->_drm->addObservationProduit($hash, $observation['observations']);
         	}
         }
         //$this->_drm->save();

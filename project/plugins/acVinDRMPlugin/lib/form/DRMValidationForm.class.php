@@ -21,9 +21,6 @@ class DRMValidationForm extends acCouchdbObjectForm
       $this->getWidget('observations')->setLabel("Observations");
       $this->setValidator('observations', new sfValidatorString(array('required' => false)));*/
       
-      $observations = new DRMValidationObservationsCollectionForm($this->getObject());
-      $this->embedForm('observationsProduits', $observations);
-      
       $this->embedForm('manquants', new DRMManquantsForm($this->getObject()->getOrAdd('manquants')));
 	    
 	    $this->widgetSchema->setNameFormat('drm_validation[%s]');

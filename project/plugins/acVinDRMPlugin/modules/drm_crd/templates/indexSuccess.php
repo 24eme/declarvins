@@ -14,7 +14,7 @@
     <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'crd', 'pourcentage' => '70')); ?>
 
 
-
+	<?php include_partial('drm/controlMessage'); ?>
     <section id="principal">
         <p>Veuillez indiquer ci-dessous le compte des capsules CRD correspondant aux volumes déclarés :</p>
         <br />

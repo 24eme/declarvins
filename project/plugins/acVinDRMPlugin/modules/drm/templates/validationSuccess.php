@@ -106,24 +106,6 @@
                         <?php echo $form['commentaires']->render(array("style" => "width: 872px; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4) inset; border-radius: 3px; border: 0px none; padding: 5px;", "rows" => "2")) ?>
                     </div>
                 </div>
-                <?php else: ?>
-                <div style="background: #E3E2E2; color: #3E3E3E; border-radius: 5px; margin-bottom: 25px;">
-                    <div style="padding: 4px 0 10px 10px;" class="tableau_ajouts_liquidations">
-                		<label style="padding: 10px 0px; font-weight: bold; display: block;">Observations</label>
-                		<table class="tableau_recap">
-                		<?php $i=0; foreach ($form['observationsProduits'] as $formObservations): ?>
-                			<tr<?php if($i%2): ?> class="alt"<?php endif; ?>>
-                				<td style="width: 332px;"><?php echo $formObservations['observations']->renderLabel() ?></td>
-                				<td>
-                        			<?php echo $formObservations['observations']->renderError() ?>
-                        			<?php echo $formObservations['observations']->render(array("maxlength" => "250", "style" => "width: 95%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4) inset; border-radius: 3px; border: 0px none; padding: 5px;", "rows" => "2")) ?>
-                        		</td>
-                    		</tr>
-                    	<?php $i++; endforeach; ?>
-                    	</table>
-                    	<br /><br />250 caractères max.
-                    </div>
-                </div>
                 <?php endif; ?>
             </div>
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Visualisez le brouillon de DRM en PDF</a>

@@ -172,13 +172,13 @@ class DRMValidation
 			$this->errors['stock_crd'] = new DRMControleError('crd', $this->generateUrl('drm_crd', $this->drm));
 		}
 		if ($detail->entrees->crd > 0 && !$detail->observations) {
-			$this->errors['observations_crd_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_crd', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
+			$this->errors['observations_crd_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_crd', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
 		}
 		if ($detail->entrees->excedent > 0 && !$detail->observations) {
-			$this->errors['observations_excedent_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_excedent', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
+			$this->errors['observations_excedent_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_excedent', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
 		}
 		if (($detail->sorties->autres > 0 || $detail->sorties->pertes > 0) && !$detail->observations) {
-			$this->errors['observations_autres_pertes_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_autres_pertes', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
+			$this->errors['observations_autres_pertes_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_autres_pertes', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
 		}
 	}
 	

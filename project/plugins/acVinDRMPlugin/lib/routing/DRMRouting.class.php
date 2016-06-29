@@ -220,6 +220,16 @@ class DRMRouting {
                                                           'must_be_valid' => true,
                                                           'must_be_not_valid' => false)));
 
+        $r->prependRoute('drm_transfer_ciel', new DRMRoute('/drm/:identifiant/transfert-ciel/:periode_version/:hide_rectificative', 
+                                                          array('module' => 'drm', 
+                                                                'action' => 'transferCiel',
+                                                          		'hide_rectificative' => null),
+                                                          array('sf_method' => array('get')),
+                                                          array('model' => 'DRM',
+                                                                'type' => 'object',
+                                                          'must_be_valid' => true,
+                                                          'must_be_not_valid' => false)));
+
         $r->prependRoute('drm_pdf', new DRMRoute('/drm/:identifiant/pdf/:periode_version.:format', 
                                                           array('module' => 'drm', 
                                                                 'action' => 'pdf',

@@ -19,3 +19,12 @@ all:
       from_name: "acExceptionNotifierPlugin"
       to: ["vlaurent@actualys.com", "jblemetayer@actualys.com", "jthomas@actualys.com"]   
       subject: "[declaration.declarvins.net] 500 | Internal Server Error | Exception :-)"
+  ciel:
+    oauth:
+      url: "https://douane.finances.gouv.fr/oauth2/v1/auth"
+      service: "https://douane.finances.gouv.fr/ciel/interprofession/v1"
+      host: "10.253.161.5"
+      iss: "********-****-****-****-************"
+      keypath: "/absolute/path/to/private/key.pem"
+      urltoken: "http://10.253.161.5/authtokenqualif/oauth2/v1/token"
+      urlapp: "http://10.253.161.5/cielqualifinterpro/ws/1.0/declarations"

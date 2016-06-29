@@ -3,7 +3,7 @@
 
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
     <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'declaratif', 'pourcentage' => '80')); ?>
-
+	<?php include_partial('drm/controlMessage'); ?>
     <section id="principal">
         <div id="application_dr">
             <form id="declaratif_info" action="<?php echo url_for('drm_declaratif', $drm) ?>" method="post">
@@ -148,7 +148,8 @@
                         <?php echo $form['organisme']->render() ?>
                     </div>
                 </div>
-
+				
+				<?php if (1==2): ?>
                 <ul class="onglets_declaratif">
                     <li><strong>Paiement des droits de circulation</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_paiement" title="Message aide"></a></li>
                 </ul>
@@ -172,7 +173,7 @@
                         <?php echo $form['moyen_paiement']->render() ?>
                     </div>
                 </div>
-                
+                <?php endif; ?>
                 
 
                 <ul class="onglets_declaratif">
@@ -202,6 +203,26 @@
                     			</tr>
                     		</tbody>
                     	</table>
+                    </div>
+                </div>
+                
+                <ul class="onglets_declaratif">
+                    <li><strong>Observations</strong><a href="" class="msg_aide" data-msg="" title="Message aide"></a></li>
+                </ul>
+                <div class="contenu_onglet_declaratif">
+                    <div class="tableau_ajouts_liquidations">
+                		<table class="tableau_recap">
+                		<?php $i=0; foreach ($form['observationsProduits'] as $formObservations): ?>
+                			<tr<?php if($i%2): ?> class="alt"<?php endif; ?>>
+                				<td style="width: 332px;"><?php echo $formObservations['observations']->renderLabel() ?></td>
+                				<td>
+                        			<?php echo $formObservations['observations']->renderError() ?>
+                        			<?php echo $formObservations['observations']->render(array("maxlength" => "250", "style" => "width: 95%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4) inset; border-radius: 3px; border: 0px none; padding: 5px;", "rows" => "2")) ?>
+                        		</td>
+                    		</tr>
+                    	<?php $i++; endforeach; ?>
+                    	</table>
+                    	250 caractères max.
                     </div>
                 </div>
 				
