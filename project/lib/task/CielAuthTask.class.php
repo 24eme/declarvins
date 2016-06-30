@@ -44,7 +44,8 @@ EOF;
   		
   	} catch (sfException $e) {
   		echo "/!\ Erreurs :\n";
-  		echo $e;
+  		echo $e->getMessage();
+  		echo "\n";
   	}
     
   }

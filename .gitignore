@@ -4,4 +4,5 @@
 nbproject/
 .idea/
 project/bin/config.inc
+project/data/ciel/*
 *~

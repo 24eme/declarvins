@@ -50,7 +50,7 @@ class CielService
 		}
 		$oauth = $datas.'.'.$this->base64SafeEncode($encrypted);
 		$data = array('grant_type'=> 'urn:ietf:params:oauth:grant-type:jwt-bearer' , 'assertion' => $oauth);
-		$result = json_decode(file_get_contents($this->configuration['urltoken'], false, stream_context_create(array('http' => $this->getOauthHttpRequest($data)))), true);
+		$result = json_decode($this->httpQuerry($this->configuration['urltoken'], array('http' => $this->getOauthHttpRequest($data))), true);
 		if (isset($result['error'])) {
 			throw new sfException('CielService Error : '.$result['error'].' : '.$result['message']);
 		}
@@ -65,7 +65,7 @@ class CielService
 		if (!$token) {
 			$token = $this->getToken();
 		}
-		$result = file_get_contents($this->configuration['urlapp'], false, stream_context_create(array('http' => $this->getTransferHttpRequest($token, $datas))));
+		$result = $this->httpQuerry($this->configuration['urlapp'], array('http' => $this->getTransferHttpRequest($token, $datas)));
 		return $result;
 	}
 	
@@ -97,20 +97,62 @@ class CielService
 	
 	protected function getOauthHttpRequest($content)
 	{
-		return array('header'  => "Host: ".$this->configuration['host']."\nContent-Type: application/x-www-form-urlencoded\n",
-					 'method'  => 'POST',
-					 'protocol_version' => 1.1,
-					 'ignore_errors' => true,
-					 'content' => http_build_query($content));
+		return array(
+				'headers'  => array(
+						"Host: ".$this->configuration['host'],
+						"Content-Type: application/x-www-form-urlencoded"),
+				'method'  => 'POST',
+				'protocol_version' => 1.1,
+				'ignore_errors' => true,
+				'content' => http_build_query($content));
 	}
 	
 	protected function getTransferHttpRequest($token, $content = null)
 	{
-		return array('header'  => "Host: ".$this->configuration['host']."\nContent-Type: application/xml;charset=UTF-8\nAuthorization: Bearer $token\n",
+		return array(
+				'headers'  => array(
+						"Host: ".$this->configuration['host'], 
+						"Content-Type: application/xml;charset=UTF-8",
+						"Authorization: Bearer $token"),
 				'method'  => 'POST',
 				'protocol_version' => 1.1,
 				'ignore_errors' => true,
 				'content' => $content);
+	}
+	
+	protected function httpQuerry($url, $options) 
+	{
+		if (extension_loaded('curl')) {
+			return $this->httpQuerryCurl($url, $options);
+		}
+		return $this->httpQuerryFgc($url, $options);
+	}
+	
+	protected function httpQuerryFgc($url, $options) 
+	{
+		if (isset($options['http']['headers'])) {
+			$options['http']['header'] = join('\n', $options['http']['header']);
+			unset($options['http']['headers']);
+		}
+		$context  = stream_context_create($options);
+		return file_get_contents($url, false, $context);
+	}
+	
+	protected function httpQuerryCurl($url, $options) 
+	{
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		if (isset($options['http']['content']) || (isset($options['http']['method']) && $options['http']['method'] == 'POST')) {
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $options['http']['content']);
+		}
+		if (isset($options['http']['headers'])) {
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $options['http']['headers']);
+		}
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$server_output = curl_exec ($ch);
+		curl_close ($ch);
+		return $server_output;
 	}
 	
 	protected function getDatas()
