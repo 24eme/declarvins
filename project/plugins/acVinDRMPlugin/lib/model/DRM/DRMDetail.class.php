@@ -320,6 +320,7 @@ class DRMDetail extends BaseDRMDetail {
         $this->total_entrees_interpro = null;
         $this->total_sorties_interpro = null;
         $this->total_interpro = null;
+        $this->observations = null;
         $this->selecteur = 1;
         $this->pas_de_mouvement_check = 0;
         if ($nextCampagne != $this->getDocument()->campagne) {

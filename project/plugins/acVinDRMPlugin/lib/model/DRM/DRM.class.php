@@ -168,7 +168,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         	$this->remove('manquants');
         	$this->add('manquants');
         }
-        
 
         $this->version = null;
         $this->raison_rectificative = null;
@@ -192,6 +191,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->declaratif->daa->fin = null;
         $this->declaratif->dsa->debut = null;
         $this->declaratif->dsa->fin = null;
+        if ($this->declaratif->exist('statistiques')) {
+                $this->declaratif->remove('statistiques');
+                $this->declaratif->add('statistiques');
+        }
 
         $this->commentaires = null;
         
