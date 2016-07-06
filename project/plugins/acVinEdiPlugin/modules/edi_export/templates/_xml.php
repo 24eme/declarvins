@@ -77,7 +77,7 @@
     	</droits-acquittes>
 <?php endif; ?>
 <?php endif; ?>
-<?php if ($drm->exist('crds') && $drm->crds): foreach($drm->crds as $crd): ?>
+<?php if ($drm->exist('crds') && $drm->crds): foreach(drm2CrdCiel($drm) as $crd): ?>
     	<compte-crd>
       		<categorie-fiscale-capsules><?php echo $crd->categorie->code ?></categorie-fiscale-capsules>
       		<type-capsule><?php echo $crd->type->code ?></type-capsule>

@@ -28,3 +28,11 @@ function formatXml($xml, $level = 0) {
 	$xml = preg_replace("/\<([a-zA-Z0-9\-\_]*)\>\<([a-zA-Z0-9\-\_]*)\>/", "<$1>\n".str_repeat("\t", $level + 2)."<$2>", $xml);
 	return str_repeat("\t", $level).$xml."\n";
 }
+
+function drm2CrdCiel($drm) {
+	$crds = array();
+	foreach ($drm->crds as $crd) {
+		$crds[$crd->categorie->code.$crd->type->code] = $crd;
+	}
+	return $crds;
+}
