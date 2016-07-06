@@ -45,7 +45,16 @@ class DRMCepage extends BaseDRMCepage {
 
     	return $this->details;
   	}
-  	
+  
+        public function getInao() {
+		$inao = $this->_get('inao');
+                if ($inao != $this->getConfig()->getInao()) {
+			$inao = $this->getConfig()->getInao();
+			$this->setInao($inao);
+		}
+		return $inao;
+	}
+	
   	protected function update($params = array()) {
   		parent::update($params);
   		$configuration = ConfigurationClient::getCurrent();
