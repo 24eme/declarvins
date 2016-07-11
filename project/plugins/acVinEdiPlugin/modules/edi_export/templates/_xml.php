@@ -77,10 +77,11 @@
     	</droits-acquittes>
 <?php endif; ?>
 <?php endif; ?>
-<?php if ($drm->exist('crds') && $drm->crds): foreach(drm2CrdCiel($drm) as $crd): ?>
+<?php if ($drm->exist('crds') && $drm->crds): foreach(drm2CrdCiel($drm) as $gcrds): ?>
     	<compte-crd>
-      		<categorie-fiscale-capsules><?php echo $crd->categorie->code ?></categorie-fiscale-capsules>
-      		<type-capsule><?php echo $crd->type->code ?></type-capsule>
+      		<categorie-fiscale-capsules><?php echo $gcrds[0]->categorie->code ?></categorie-fiscale-capsules>
+      		<type-capsule><?php echo $gcrds[0]->type->code ?></type-capsule>
+<?php foreach($gcrds as $crd) : ?>
       		<centilisation volume="<?php echo $crd->centilisation->code ?>">
         		<stock-debut-periode><?php echo $crd->total_debut_mois ?></stock-debut-periode>
 <?php if ($crd->entrees->achats || $crd->entrees->excedents || $crd->entrees->retours): ?>
@@ -111,6 +112,7 @@
 <?php endif; ?>
         		<stock-fin-periode><?php echo $crd->total_fin_mois ?></stock-fin-periode>
       		</centilisation>
+<?php endforeach; ?>
     	</compte-crd>
 <?php endforeach; endif; ?>
 <?php if (($drm->declaratif->empreinte->debut && $drm->declaratif->empreinte->fin) || ($drm->declaratif->daa->debut && $drm->declaratif->daa->fin) || ($drm->declaratif->dsa->debut && $drm->declaratif->dsa->fin)): ?>

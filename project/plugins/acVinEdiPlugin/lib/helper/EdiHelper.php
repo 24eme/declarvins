@@ -32,7 +32,7 @@ function formatXml($xml, $level = 0) {
 function drm2CrdCiel($drm) {
 	$crds = array();
 	foreach ($drm->crds as $crd) {
-		$crds[$crd->categorie->code.$crd->type->code] = $crd;
+		$crds[$crd->categorie->code.$crd->type->code][] = $crd;
 	}
 	return $crds;
 }
