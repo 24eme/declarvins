@@ -42,7 +42,7 @@ class CielService
 		$encrypted = '';
 		$key = openssl_pkey_get_private('file://'.$this->configuration['keypath']);
 		if (!$key) {
-			throw new sfException('CielService Error : Openssl get private key failed');
+			throw new sfException('CielService Error : Openssl get private key failed : '.openssl_error_string());
 		}
 		$datas = $this->getDatas();
 		if (!openssl_sign($datas, $encrypted, $key, 'SHA256')) {
@@ -86,7 +86,7 @@ class CielService
 		$file = $this->getTokenCacheFilename();
 		$result = file_put_contents($file, $token, LOCK_EX);
 		if ($result === false) {
-			throw new sfException('CielService Error : cannot write in '.self::TOKEN_CACHE_FILENAME);
+			throw new sfException('CielService Error : cannot write in '.$file);
 		}
 	}
 	
