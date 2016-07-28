@@ -106,7 +106,6 @@ function(doc) {
 
         var regexp = new RegExp("(\r\n|\r|\n)", "g");
         var drm_commentaire = (doc.commentaires)? (doc.commentaires).replace(regexp, " ") : null;
-        var drm_observation = (doc.observations)? (doc.observations).replace(regexp, " ") : null;
         
             for(certification_key in doc.declaration.certifications) {
                 var certification = doc.declaration.certifications[certification_key];
@@ -201,6 +200,8 @@ function(doc) {
                             }
                             var cepage_code = (cepage.code).replace(code, '');
                             var cepage_libelle = (cepage.libelle).replace(libelle, '');
+                            var inao = (cepage.inao)? cepage.inao : null;
+                            var libelle_fiscal = (cepage.libelle_fiscal)? cepage.libelle_fiscal : null;
                             if (cepage_code == key_default) {
                                 cepage_code = null;
                                 cepage_libelle = null;
@@ -226,6 +227,7 @@ function(doc) {
                                                 libelles_label += detail.libelles_label[label_key];
                                                 codes_label += label_key;
                                             }
+                                            var drm_observation = (detail.observations)? (detail.observations).replace(regexp, " ") : null;
                                             emit([detail.interpro, doc.valide.date_saisie, detail.has_vrac, doc._id, detail_hash, "PRODUIT"], 
                                                     [key,
                                                      drm_identifiant,
@@ -301,7 +303,30 @@ function(doc) {
                                                      drm_observation,
 						     detail.entrees.vci,
 						     drm_declarant_famille,
-						     drm_declarant_sousfamille
+						     drm_declarant_sousfamille,
+						     inao,
+						     libelle_fiscal,
+						     detail.tav,
+						     detail.entrees.manipulation,
+						     detail.entrees.embouteillage,
+						     detail.entrees.travail,
+						     detail.entrees.distillation,
+						     detail.entrees.excedent,
+						     detail.sorties.crd_acquittes,
+						     detail.sorties.mutages,
+						     detail.sorties.vci,
+						     detail.sorties.autres_interne,
+						     detail.sorties.embouteillage,
+						     detail.sorties.travail,
+						     detail.sorties.distillation,
+						     detail.acq_total_debut_mois,
+						     detail.entrees.acq_achat,
+						     detail.entrees.acq_autres,
+						     detail.sorties.acq_crd,
+						     detail.sorties.acq_replacement,
+						     detail.sorties.acq_autres,
+						     detail.acq_total
+						     
                                                      ]
                                             );
 
@@ -384,7 +409,29 @@ function(doc) {
                                                              drm_observation,
 							     null,
 						     	     drm_declarant_famille,
-						     	     drm_declarant_sousfamille
+						     	     drm_declarant_sousfamille,
+								     inao,
+								     libelle_fiscal,
+								     detail.tav,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null
                                                              ]
                                                     );
                                                 }
