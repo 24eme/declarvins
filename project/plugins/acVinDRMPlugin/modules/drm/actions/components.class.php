@@ -99,6 +99,7 @@ class drmComponents extends sfComponents {
 
     public function executeHistoriqueList() {
         $this->drms = array();
+        $this->formImport = new UploadCSVForm();
         $historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
         $this->new_drm = ($this->etablissement->statut != Etablissement::STATUT_ARCHIVE) ? $this->getNewDRM($historique, $this->etablissement->identifiant) : null;
         //$this->limit = 1;

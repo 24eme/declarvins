@@ -33,7 +33,44 @@ endif;
             <?php if (1 == 2 && $drm->isDebutCampagne() && !$drm->hasDaidsCampagnePrecedente()): ?>
                 Vous devez saisir votre <strong>DRM <?php echo $drm->getCampagnePrecedente() ?></strong>
             <?php else: ?>
-                <a href="<?php echo url_for('drm_nouvelle', $drm) ?>" class="btn_reinitialiser"><span>Démarrer la DRM</span></a>
+                <a data-popup="#popup_selection_dti" class="btn_popup" href="">Démarrer la DRM</a>
+		        <div id="popup_selection_dti" class="popup_contenu popup_form" style="display:none;">
+		        	<div id="principal">
+		        		<div id="recap_drm" style="float: none; width: auto;">
+		        		<table>
+							<thead>
+								<tr>
+									<th>Saisie en ligne sur DeclarVins (DTI)</th>
+									<th>Import depuis votre logiciel (DTI+)</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="padding: 5px 0;">
+										<div class="btn ligne_form_btn" style="text-align: center; background: none;">
+											<input type="text" style="visibility:hidden;">
+											<a href="<?php echo url_for('drm_nouvelle', $drm) ?>" class="btn_valider" style="margin-left: 0px;"><span>Saisir la DRM</span></a>
+										</div>
+									</td>
+									<td style="padding: 5px 0;">
+										<form action="<?php echo url_for('drm_import', $drm) ?>" method="post" enctype="multipart/form-data">
+										    <?php echo $formImport->renderHiddenFields(); ?>
+										    <?php echo $formImport->renderGlobalErrors(); ?>
+										
+										    <?php echo $formImport['file']->render() ?>
+										    <?php echo $formImport['file']->renderError() ?>
+										
+											<div class="btn ligne_form_btn" style="text-align: center;">
+												<button class="btn_valider" type="submit">Importer la DRM</button>
+											</div>
+										</form>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						</div>
+					</div>
+				</div>
             <?php endif; ?>
         <?php elseif ($drm->isValidee()): ?>
             <a href="<?php echo url_for('drm_visualisation', $drm) ?>" class="btn_reinitialiser"><span>Visualiser</span></a>

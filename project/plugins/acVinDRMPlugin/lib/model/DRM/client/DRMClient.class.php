@@ -8,9 +8,11 @@ class DRMClient extends acCouchdbClient {
     const VALIDE_STATUS_VALIDEE_RECUE = 'RECUE';
     const MODE_DE_SAISIE_PAPIER = 'PAPIER';
     const MODE_DE_SAISIE_DTI = 'DTI';
+    const MODE_DE_SAISIE_DTI_PLUS = 'DTI_PLUS';
     const MODE_DE_SAISIE_EDI = 'EDI';
     const MODE_DE_SAISIE_PAPIER_LIBELLE = 'par l\'interprofession (papier)';
     const MODE_DE_SAISIE_DTI_LIBELLE = 'via Declarvins (DTI)';
+    const MODE_DE_SAISIE_DTI_PLUS_LIBELLE = 'via l\'import (DTI+)';
     const MODE_DE_SAISIE_EDI_LIBELLE = 'via votre logiciel (EDI)';
     
     const DRM_STATUS_BILAN_VALIDE = 'DRM_STATUS_BILAN_VALIDE';

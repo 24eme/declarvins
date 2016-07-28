@@ -54,6 +54,90 @@ class drmActions extends sfActions {
         $drm->save();
         $this->redirect('drm_informations', $drm);
     }
+    
+    /**
+     *
+     * @param sfWebRequest $request 
+     */
+    public function executeImport(sfWebRequest $request) {
+        $drm = $this->getRoute()->getDRM();
+        $etablissement = $this->getRoute()->getEtablissement();
+        
+
+        $formUploadCsv = new UploadCSVForm();
+
+        $result = array();
+        if ($request->isMethod('post')) {
+        	$formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
+        	if ($formUploadCsv->isValid()) {
+        		try {
+        			$file = sfConfig::get('sf_data_dir') . '/upload/' . $formUploadCsv->getValue('file')->getMd5();
+        			$configuration = ConfigurationClient::getCurrent();
+        			$controles = array(
+        					DRMCsvEdi::TYPE_CAVE => array(
+        							DRMCsvEdi::CSV_CAVE_COMPLEMENT_PRODUIT => array_keys($configuration->getLabels())
+        					)
+        			);
+        
+        			$drmCsvEdi = new DRMImportCsvEdi($file, $drm, $controles);
+        			$drmCsvEdi->checkCSV();
+        				
+        			if($drmCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
+        				foreach($drmCsvEdi->getCsvDoc()->erreurs as $erreur) {
+        					if ($erreur->num_ligne > 0) {
+        						$result[] = array('ERREUR', 'CSV', $erreur->num_ligne, $erreur->diagnostic, $erreur->csv_erreur);
+        					} else {
+        						$result[] = array('ERREUR', 'CSV', null, $erreur->diagnostic, $erreur->csv_erreur);
+        					}
+        				}
+        			} else {
+        				$drmCsvEdi->importCsv();
+        				$drm->constructId();
+        				$errors = 0;
+        				if($drmCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
+        					foreach($drmCsvEdi->getCsvDoc()->erreurs as $erreur) {
+        						$result[] = array('ERREUR', 'CSV', $erreur->num_ligne, $erreur->diagnostic, $erreur->csv_erreur);
+        						$errors++;
+        					}
+        				}
+        				if ($drm->identifiant != $etablissement->getIdentifiant()) {
+        					$result[] = array('ERREUR', 'ACCES', null, "Import restreint à l'établissement ".$etablissement->getIdentifiant());
+        					$errors++;
+        				}
+        				if (!$etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) {
+        					$result[] = array('ERREUR', 'ACCES', null, "L'établissement ".$etablissement->getIdentifiant()." n'est pas autorisé à déclarer des DRMs");
+        					$errors++;
+        				}
+        				if (!$errors) {
+        					$drm->update();
+        					$validation = new DRMValidation($drm);
+        
+        					if (!$validation->isValide()) {
+        						foreach ($validation->getErrors() as $error) {
+        							$result[] = array('ERREUR', 'CSV', null, str_replace('Erreur, ', '', $error));
+        						}
+        					} else {
+        						$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI_PLUS;
+        						$drm->save();
+        						$this->redirect('drm_validation', $drm);
+        					}
+        				}
+        			}
+        				
+        		} catch(Exception $e) {
+        			$result[] = array('ERREUR', 'CSV', null, $e->getMessage());
+        		}
+        	} else {
+        		$result[] = array('ERREUR', 'ACCES', null, 'Fichier csv non valide');
+        	}
+        		
+        } else {
+        	$result[] = array('ERREUR', 'ACCES ', null, 'Seules les requêtes de type POST sont acceptées');
+        }
+        
+        $this->logs = $result;
+        $this->etablissement = $etablissement;
+    }
 
     /**
      *
