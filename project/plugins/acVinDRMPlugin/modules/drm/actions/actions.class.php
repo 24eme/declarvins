@@ -61,6 +61,9 @@ class drmActions extends sfActions {
      */
     public function executeImport(sfWebRequest $request) {
         $drm = $this->getRoute()->getDRM();
+        if ($drm->isFictive()) {
+        	$drm = $drm->getDRM();
+        }
         $etablissement = $this->getRoute()->getEtablissement();
         
 
@@ -118,6 +121,7 @@ class drmActions extends sfActions {
         						}
         					} else {
         						$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI_PLUS;
+        						$drm->etape = 'validation';
         						$drm->save();
         						$this->redirect('drm_validation', $drm);
         					}

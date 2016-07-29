@@ -115,5 +115,10 @@ class DRMFictive extends DRM
     {
     	$this->drm->addObservationProduit($hash, $observation);
     }
+    
+    public function isFictive()
+    {
+    	return true;
+    }
 
 }

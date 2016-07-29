@@ -195,6 +195,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 $this->declaratif->remove('statistiques');
                 $this->declaratif->add('statistiques');
         }
+        if ($this->declaratif->exist('rna')) {
+                $this->declaratif->remove('rna');
+                $this->declaratif->add('rna');
+        }
 
         $this->commentaires = null;
         
@@ -427,13 +431,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $this->getSuivante()->save();
         }
         $this->storeReferente();
-        if ($user = $this->getUser()) {
-            if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-            	$this->mode_de_saisie = DRMClient::MODE_DE_SAISIE_PAPIER;
-            } else {
-            	$this->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
-            }
-        }
         
     }
     
@@ -599,6 +596,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $etablissement = $this->getEtablissement();
             $this->etablissement_num_interne = $etablissement->num_interne;
         }
+    }
+
+    public function isFictive()
+    {
+    	return false;
     }
     
 	public function save() {

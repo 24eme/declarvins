@@ -177,6 +177,9 @@ class DRMClient extends acCouchdbClient {
             case self::MODE_DE_SAISIE_DTI:
                 return self::MODE_DE_SAISIE_DTI_LIBELLE;
                 break;
+            case self::MODE_DE_SAISIE_DTI_PLUS:
+                return self::MODE_DE_SAISIE_DTI_PLUS_LIBELLE;
+                break;
             case self::MODE_DE_SAISIE_EDI:
                 return self::MODE_DE_SAISIE_EDI_LIBELLE;
                 break;
