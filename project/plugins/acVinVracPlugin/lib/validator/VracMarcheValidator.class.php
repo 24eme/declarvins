@@ -4,6 +4,7 @@ class VracMarcheValidator extends sfValidatorBase {
 
     public function configure($options = array(), $messages = array()) {
         $this->addOption('determination_prix_field', 'determination_prix');
+        $this->addOption('determination_prix_date_field', 'determination_prix_date');
     }
     
 	protected function getTypePrixNeedDetermination() {
@@ -17,6 +18,10 @@ class VracMarcheValidator extends sfValidatorBase {
     	if (isset($values['type_prix']) && in_array($values['type_prix'], $this->getTypePrixNeedDetermination())) {
     		if (isset($values['determination_prix']) && !($values['determination_prix'])) {
     			$errorSchema->addError(new sfValidatorError($this, 'required'), 'determination_prix');
+    			$hasError = true;
+    		}
+    		if (!$values['determination_prix_date']) {
+    			$errorSchema->addError(new sfValidatorError($this, 'required'), 'determination_prix_date');
     			$hasError = true;
     		}
     	}

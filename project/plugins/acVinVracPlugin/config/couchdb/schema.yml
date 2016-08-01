@@ -176,6 +176,7 @@ Vrac:
       annexe: {  }
       prix_unitaire: { type: float }
       type_prix: {  }
+      determination_prix_date: {  }
       determination_prix: {  }
       date_debut_retiraison: {  }
       date_limite_retiraison: {  }
