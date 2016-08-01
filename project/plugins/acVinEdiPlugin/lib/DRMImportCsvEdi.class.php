@@ -66,9 +66,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     			case self::TYPE_CAVE:
     				$this->importCave($numLigne, $csvRow);
     				break;
-    			case self::TYPE_CONTRAT:
-    				$this->importRetiraison($numLigne, $csvRow);
-    				break;
     			case self::TYPE_CRD:
     				$this->importCrd($numLigne, $csvRow);
     				break;
@@ -135,8 +132,12 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 	  		}
   		} else {
   			if ($categorieMvt && !$produit->exist($categorieMvt)) {
-	  			$this->csvDoc->addErreur($this->categorieMouvementNotFoundError($numLigne, $datas));
-	  			return;
+  				if (!$produit->exist($typeMvt)) {
+		  			$this->csvDoc->addErreur($this->categorieMouvementNotFoundError($numLigne, $datas));
+		  			return;
+  				} else {
+  					$categorieMvt = null;
+  				}
 	  		}
   			if ($categorieMvt && !$produit->get($categorieMvt)->exist($typeMvt)) {
 	  			$this->csvDoc->addErreur($this->typeMouvementNotFoundError($numLigne, $datas));
@@ -147,98 +148,70 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 	  		}
   		}
   		
-  		if (!is_numeric($valeur) || $valeur < 0) {
-	  		$this->csvDoc->addErreur($this->valeurMouvementNotValidError($numLigne, $datas));
-	  		return;  			
-  		}
-  		
-  		$mvt = ($categorieMvt)? $produit->getOrAdd($categorieMvt) : $produit;
-  		$mvt->add($typeMvt, round($this->floatize($valeur), 2));
-  		$result = $this->drm->setImportableMvtDetails($typeMvt, $mvt, $datas);
-  		
-  		if (!$result) {
-  			$this->csvDoc->addErreur($this->mvtDetailsNotValidError($numLigne, $datas));
-  			return;
-  		}
-    }
-    
-    private function importRetiraison($numLigne, $datas)
-  	{
-  		$hash = $this->getHashProduit($datas);
-  		if (!$this->configuration->getConfigurationProduit($hash)) {
-  			$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
-  			return;
-  		}
-  		
-
-  		$droits = $datas[self::CSV_CONTRAT_TYPE_DROITS];
-  		if ($droits && !in_array($datas[self::CSV_CONTRAT_TYPE_DROITS], array(self::TYPE_DROITS_SUSPENDUS, self::TYPE_DROITS_ACQUITTES))) {
-  			$this->csvDoc->addErreur($this->droitsNotFoundError($numLigne, $datas));
-  			return;
-  		}
-  		
-  		if ($complement = $datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]) {
-  			if (isset($this->permettedValues[self::TYPE_CAVE]) && isset($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
-  				if (is_array($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT]) && !in_array($complement, $this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
-  					$this->csvDoc->addErreur($this->complementProductWrongFormatError($numLigne, $datas));
-  					return;
-  				}
-  				if (!is_array($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT]) && !preg_match($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT], $complement)) {
-  					$this->csvDoc->addErreur($this->complementProductWrongFormatError($numLigne, $datas));
-  					return;
+  		if (!$categorieMvt && $typeMvt == 'vrac') {
+  			
+  			$numContrat = $datas[self::CSV_CAVE_CONTRATID];
+  			if (!$produit->hasSortieVrac()) {
+  				$this->csvDoc->addErreur($this->retiraisonNotAllowedError($numLigne, $datas));
+  				return;
+  			}
+  			$contrats = $produit->getContratsVrac();
+  			$exist = false;
+  			foreach ($contrats as $contrat) {
+  				if ($numContrat == $contrat->getNumeroContrat()) {
+  					$exist = true;
+  					break;
   				}
   			}
+  			if (!$exist) {
+  				$this->csvDoc->addErreur($this->contratNotFoundError($numLigne, $datas));
+  				return;
+  			}
+  			if (!is_numeric($valeur) || $valeur < 0) {
+  				$this->csvDoc->addErreur($this->valeurMouvementNotValidError($numLigne, $datas));
+  				return;
+  			}
+  			$produit->addVrac($numContrat, round($this->floatize($valeur), 2));
+  			
+  		} elseif (!$categorieMvt && $typeMvt == 'observations') {
+  			if (!$valeur) {
+  				$this->csvDoc->addErreur($this->observationsEmptyError($numLigne, $datas));
+  				return;
+  			}
+  			$produit->setImportableObservations($valeur);
+  		} elseif (!$categorieMvt && $typeMvt == 'premix') {
+  			if (!is_numeric($valeur) || $valeur < 0) {
+  				$this->csvDoc->addErreur($this->valeurMouvementNotValidError($numLigne, $datas));
+  				return;
+  			}
+  			 
+  			$mvt = ($categorieMvt)? $produit->getOrAdd($categorieMvt) : $produit;
+  			$mvt->add($typeMvt, intval($valeur));
+  		} else {
+	  		if (!is_numeric($valeur) || $valeur < 0) {
+		  		$this->csvDoc->addErreur($this->valeurMouvementNotValidError($numLigne, $datas));
+		  		return;  			
+	  		}
+	  		
+	  		$mvt = ($categorieMvt)? $produit->getOrAdd($categorieMvt) : $produit;
+	  		$mvt->add($typeMvt, round($this->floatize($valeur), 2));
+	  		$result = $this->drm->setImportableMvtDetails($typeMvt, $mvt, $datas);
+	  		if (!$result) {
+	  			$this->csvDoc->addErreur($this->mvtDetailsNotValidError($numLigne, $datas));
+	  			return;
+	  		}
   		}
-  		
-    	$produit = $this->drm->addProduit($hash, $complement);
-  		
-  		$numContrat = $datas[self::CSV_CONTRAT_CONTRATID];
-  		$valeur = $datas[self::CSV_CONTRAT_VOLUME];
-  		
-		if (!$produit->hasSortieVrac()) {
-	  		$this->csvDoc->addErreur($this->retiraisonNotAllowedError($numLigne, $datas));
-	  		return;
-		}
-		
-		$contrats = $produit->getContratsVrac();
-		$exist = false;
-		foreach ($contrats as $contrat) {
-			if ($numContrat == $contrat->getNumeroContrat()) {
-				$exist = true;
-				break;
-			}
-		}
-		
-		if (!$exist) {
-	  		$this->csvDoc->addErreur($this->contratNotFoundError($numLigne, $datas));
-	  		return;
-		}
-
-  		if (!is_numeric($valeur) || $valeur < 0) {
-  			$this->csvDoc->addErreur($this->valeurMouvementNotValidError($numLigne, $datas));
-  			return;
-  		}
-  		
-  		
-  		$produit->addVrac($numContrat, round($this->floatize($valeur), 2));
     }
     
     private function importCrd($numLigne, $datas)
   	{
   		$categorie = $datas[self::CSV_CRD_COULEUR];
-  		$type = $datas[self::CSV_CRD_GENRE];
+  		$type = $datas[self::CSV_CRD_TYPE_DROITS];
   		$centilisation = $datas[self::CSV_CRD_CENTILITRAGE];
   		
   		$categorieCrd = $datas[self::CSV_CRD_CATEGORIE_KEY];
   		$typeCrd = $datas[self::CSV_CRD_TYPE_KEY];
   		$valeur = $datas[self::CSV_CRD_QUANTITE];
-  		
-
-  		$droits = $datas[self::CSV_CRD_TYPE_DROITS];
-  		if ($droits && !in_array($datas[self::CSV_CRD_TYPE_DROITS], array(self::TYPE_DROITS_SUSPENDUS, self::TYPE_DROITS_ACQUITTES))) {
-  			$this->csvDoc->addErreur($this->droitsNotFoundError($numLigne, $datas));
-  			return;
-  		}
   		
   		if (!$this->configuration->isCentilisationCrdAccepted($centilisation)) {
   			$this->csvDoc->addErreur($this->centilisationCrdNotFoundError($numLigne, $datas));	
@@ -256,8 +229,12 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		$crd = $this->drm->addCrd($categorie, $type, $centilisation);
   		
   		if ($categorieCrd && !$crd->exist($categorieCrd)) {
-  			$this->csvDoc->addErreur($this->categorieCrdMvtNotFoundError($numLigne, $datas));
-  			return;
+  			if (!$crd->exist($typeCrd)) {
+	  			$this->csvDoc->addErreur($this->categorieCrdMvtNotFoundError($numLigne, $datas));
+	  			return;
+  			} else {
+  				$categorieCrd = null;
+  			}
   		}
   		if ($categorieCrd && !$crd->get($categorieCrd)->exist($typeCrd)) {
   			$this->csvDoc->addErreur($this->typeCrdMvtNotFoundError($numLigne, $datas));
@@ -279,25 +256,19 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     
     private function importAnnexe($numLigne, $datas)
   	{
-    	switch ($datas[self::CSV_ANNEXE_TYPEANNEXE]) {
-    		case self::TYPE_ANNEXE_NONAPUREMENT:
+    	switch ($datas[self::CSV_ANNEXE_CATMVT]) {
+    		case 'rna':
     			$this->importNonApurement($numLigne, $datas);
     			break;
     		
-    		case self::TYPE_ANNEXE_DOCUMENT:
+    		case 'empreinte':
+    		case 'daa':
+    		case 'dsa':
     			$this->importDocument($numLigne, $datas);
     			break;
     			
-    		case self::TYPE_ANNEXE_OBSERVATIONS:
-    			$this->importObservations($numLigne, $datas);
-    			break;
-    			
-    		case self::TYPE_ANNEXE_STATISTIQUES:
+    		case 'statistiques':
     			$this->importStatistiques($numLigne, $datas);
-    			break;
-    			
-    		case self::TYPE_ANNEXE_SUCRE:
-    			$this->importSucre($numLigne, $datas);
     			break;
     			
     		default:
@@ -356,36 +327,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		$mvt->add($type, intval($valeur));
     }
     
-    private function importObservations($numLigne, $datas)
-    {
-    	$hash = $this->getHashProduit($datas);
-    	if (!$this->configuration->getConfigurationProduit($hash)) {
-    		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
-    		return;
-    	}
-  		
-  		if ($complement = $datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]) {
-  			if (isset($this->permettedValues[self::TYPE_CAVE]) && isset($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
-  				if (is_array($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT]) && !in_array($complement, $this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
-  					$this->csvDoc->addErreur($this->complementProductWrongFormatError($numLigne, $datas));
-  					return;
-  				}
-  				if (!is_array($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT]) && !preg_match($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT], $complement)) {
-  					$this->csvDoc->addErreur($this->complementProductWrongFormatError($numLigne, $datas));
-  					return;
-  				}
-  			}
-  		}
-    	$produit = $this->drm->addProduit($hash, $complement);
-    	
-    	if (!$datas[self::CSV_ANNEXE_OBSERVATION]) {
-    		$this->csvDoc->addErreur($this->observationsEmptyError($numLigne, $datas));
-    		return;    		
-    	}
-    	
-    	$produit->setImportableObservations($datas[self::CSV_ANNEXE_OBSERVATION]);
-    }
-    
     private function importStatistiques($numLigne, $datas)
     {
 
@@ -412,16 +353,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     	$mvt = $declaratif->getOrAdd($categorie);
     	$mvt->add($type, round($this->floatize($valeur), 2));
     }
-    
-    private function importSucre($numLigne, $datas)
-    {
-    	$quantite = str_replace(',', '.', $datas[self::CSV_ANNEXE_QUANTITE]);
-    	if (!is_numeric($quantite) || $quantite < 0) {
-    		$this->csvDoc->addErreur($this->sucreWrongFormatError($numLigne, $datas));
-    		return;
-    	}
-    	$this->drm->setImportableSucre($quantite);
-    }
 
     private function checkCSVIntegrity() {
         $ligne_num = 1;
@@ -436,7 +367,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             if (!in_array($csvRow[self::CSV_TYPE], self::$permitted_types)) {
                 $this->csvDoc->addErreur($this->createWrongFormatTypeError($ligne_num, $csvRow));
             }
-            if (!preg_match('/^[0-9]{4}-[0-9]{2}$/', $csvRow[self::CSV_PERIODE])) {
+            if (!preg_match('/^[0-9]{6}$/', $csvRow[self::CSV_PERIODE])) {
                 $this->csvDoc->addErreur($this->createWrongFormatPeriodeError($ligne_num, $csvRow));
             } else {
             	$periodes[$csvRow[self::CSV_PERIODE]] = 1;
@@ -475,7 +406,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     }
 
     private function createWrongFormatPeriodeError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, KeyInflector::slugify($csvRow[self::CSV_PERIODE]), "Format période : AAAA-MM");
+        return $this->createError($num_ligne, KeyInflector::slugify($csvRow[self::CSV_PERIODE]), "Format période : AAAAMM");
     }
 
     private function createWrongFormatNumAcciseError($num_ligne, $csvRow) {
@@ -487,7 +418,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   	}
   	
   	private function categorieCrdNotFoundError($num_ligne, $csvRow) {
-  		return $this->createError($num_ligne, $csvRow[self::CSV_CRD_COULEUR], "La catégorie fiscale CRD n'a pas été reconnue");
+  		return $this->createError($num_ligne, $csvRow[self::CSV_CRD_TYPE_DROITS], "La catégorie fiscale CRD n'a pas été reconnue");
   	}
   	
   	private function typeCrdNotFoundError($num_ligne, $csvRow) {
@@ -507,11 +438,11 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   	}
 
     private function retiraisonNotAllowedError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_CONTRAT_CONTRATID], "Aucune sortie cave ne permet la retiraison du contrat");
+        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_CONTRATID], "Aucune sortie cave ne permet la retiraison du contrat");
     }
 
     private function contratNotFoundError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_CONTRAT_CONTRATID], "Le contrat n'a pas été trouvé");
+        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_CONTRATID], "Le contrat n'a pas été trouvé");
     }
 
     private function productNotFoundError($num_ligne, $csvRow) {
@@ -575,7 +506,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     }
 
     private function observationsEmptyError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_OBSERVATION], "Les observations sont vides");
+        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_VOLUME], "Les observations sont vides");
     }
 
     private function sucreWrongFormatError($num_ligne, $csvRow) {

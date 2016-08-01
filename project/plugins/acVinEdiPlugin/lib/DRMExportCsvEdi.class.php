@@ -51,7 +51,6 @@ class DRMExportCsvEdi extends DRMCsvEdi
     		'PERIODE',
     		'IDENTIFIANT',
     		'ACCISE',
-    		'TYPE DROITS / TYPE ANNEXE',
     		'CERTIFICATION / TYPE PRODUIT',
     		'GENRE / COULEUR CAPSULE',
     		'APPELLATION / CENTILITRAGE',
@@ -61,16 +60,15 @@ class DRMExportCsvEdi extends DRMCsvEdi
     		'CEPAGE',
     		'PRODUIT',
     		'COMPLEMENT PRODUIT',
-    		'CATEGORIE MOUVEMENT',
+    		'TYPE DROITS',
+    		'CATEGORIE MOUVEMENT / TYPE ANNEXE',
     		'TYPE MOUVEMENT',
-    		'VOLUME / QUANTITE',
+    		'VOLUME / QUANTITE / OBSERVATIONS',
     		'PAYS EXPORT / DATE NON APUREMENT / PERIODE SUSPENSION CRD',
     		'NUMERO CONTRAT / NUMERO ACCISE DESTINATAIRE',
     		'NUMERO DOCUMENT',
-    		'OBSERVATIONS'
     	);
     	$this->createMouvementsEdi();
-    	$this->createContratsEdi();
     	$this->createCrdsEdi();
     	$this->createAnnexesEdi();
     }
@@ -112,7 +110,7 @@ class DRMExportCsvEdi extends DRMCsvEdi
             									$this->merge(
             										array(
             											DRMCsvEdi::CSV_CAVE_TYPE_DROITS => $droit, 
-            											DRMCsvEdi::CSV_CAVE_CATEGORIE_MOUVEMENT => ($this->drm->getExportableLibelleMvt($champ) != $this->drm->getExportableLibelleMvt($key))? $champ : null,
+            											DRMCsvEdi::CSV_CAVE_CATEGORIE_MOUVEMENT => ($this->drm->getExportableLibelleMvt($champ) != $this->drm->getExportableLibelleMvt($key))? $champ : $this->drm->getExportableCategorieByType($key),
             											DRMCsvEdi::CSV_CAVE_TYPE_MOUVEMENT => $this->drm->getExportableLibelleMvt($key),
             											DRMCsvEdi::CSV_CAVE_VOLUME => $detailVol            														
             										),
@@ -126,7 +124,7 @@ class DRMExportCsvEdi extends DRMCsvEdi
             			} elseif(!isset($mvt[$key.'_details'])) {
 	            			$this->addCsvLigne(DRMCsvEdi::TYPE_CAVE, $this->merge(array(
 	            				DRMCsvEdi::CSV_CAVE_TYPE_DROITS => $droit,
-	            				DRMCsvEdi::CSV_CAVE_CATEGORIE_MOUVEMENT => ($this->drm->getExportableLibelleMvt($champ) != $this->drm->getExportableLibelleMvt($key))? $champ : null,
+	            				DRMCsvEdi::CSV_CAVE_CATEGORIE_MOUVEMENT => ($this->drm->getExportableLibelleMvt($champ) != $this->drm->getExportableLibelleMvt($key))? $champ : $this->drm->getExportableCategorieByType($key),
 	            				DRMCsvEdi::CSV_CAVE_TYPE_MOUVEMENT => $this->drm->getExportableLibelleMvt($key),
 	            				DRMCsvEdi::CSV_CAVE_VOLUME => $val), $this->getProduitCSV($produitDetail))
 	            			);
@@ -135,23 +133,15 @@ class DRMExportCsvEdi extends DRMCsvEdi
             	}
             }
         }
-    }
-
-    protected function createContratsEdi()
-    {
-    	$produitsDetails = $this->drm->getExportableProduits();
-    	$contrats = $this->drm->getExportableVracs();
-    	foreach ($produitsDetails as $hashProduit => $produitDetail) {
-    		if (isset($contrats[$hashProduit])) {
-    			foreach ($contrats[$hashProduit] as $contrat) {
-    				$this->addCsvLigne(DRMCsvEdi::TYPE_CONTRAT, $this->merge(array(
-    					DRMCsvEdi::CSV_CONTRAT_TYPE_DROITS => DRMCsvEdi::TYPE_DROITS_SUSPENDUS,
-    					DRMCsvEdi::CSV_CONTRAT_VOLUME => $contrat[DRMCsvEdi::CSV_CONTRAT_VOLUME],
-    					DRMCsvEdi::CSV_CONTRAT_CONTRATID => $contrat[DRMCsvEdi::CSV_CONTRAT_CONTRATID]), $this->getProduitCSV($produitDetail))
-    				);
-    			}
-    		}
-    	}
+        foreach ($this->drm->getExportableRetiraisonsVrac() as $vracId => $vracVolume) {
+			$this->addCsvLigne(DRMCsvEdi::TYPE_CAVE, $this->merge(array(
+				DRMCsvEdi::CSV_CAVE_TYPE_DROITS => DRMCsvEdi::TYPE_DROITS_SUSPENDUS,
+				DRMCsvEdi::CSV_CAVE_CATEGORIE_MOUVEMENT => $this->drm->getExportableCategorieByType('retiraison'),
+				DRMCsvEdi::CSV_CAVE_TYPE_MOUVEMENT => 'vrac',
+				DRMCsvEdi::CSV_CAVE_VOLUME => $vracVolume,
+				DRMCsvEdi::CSV_CAVE_CONTRATID => $vracId), $this->getProduitCSV($produitDetail))
+			);
+		}
     }
 
     protected function createCrdsEdi() 
@@ -160,12 +150,11 @@ class DRMExportCsvEdi extends DRMCsvEdi
             foreach ($crd as $crdDetail) {
             	$droit = (preg_match('/acq/i', $crdDetail[DRMCsvEdi::CSV_CRD_LIBELLE]))? DRMCsvEdi::TYPE_DROITS_ACQUITTES : DRMCsvEdi::TYPE_DROITS_SUSPENDUS;
             	$this->addCsvLigne(DRMCsvEdi::TYPE_CRD, array(
-            		DRMCsvEdi::CSV_CRD_TYPE_DROITS => $droit,
-            		DRMCsvEdi::CSV_CRD_GENRE => $crdDetail[DRMCsvEdi::CSV_CRD_GENRE],
+            		DRMCsvEdi::CSV_CRD_TYPE_DROITS => $crdDetail[DRMCsvEdi::CSV_CRD_GENRE],
             		DRMCsvEdi::CSV_CRD_COULEUR => $crdDetail[DRMCsvEdi::CSV_CRD_COULEUR],
             		DRMCsvEdi::CSV_CRD_CENTILITRAGE => $crdDetail[DRMCsvEdi::CSV_CRD_CENTILITRAGE],
             		DRMCsvEdi::CSV_CRD_LIBELLE => $crdDetail[DRMCsvEdi::CSV_CRD_LIBELLE],
-            		DRMCsvEdi::CSV_CRD_CATEGORIE_KEY => ($crdDetail[DRMCsvEdi::CSV_CRD_TYPE_KEY])? $crdDetail[DRMCsvEdi::CSV_CRD_CATEGORIE_KEY] : null,
+            		DRMCsvEdi::CSV_CRD_CATEGORIE_KEY => ($crdDetail[DRMCsvEdi::CSV_CRD_TYPE_KEY])? $crdDetail[DRMCsvEdi::CSV_CRD_CATEGORIE_KEY] : 'stocks',
             		DRMCsvEdi::CSV_CRD_TYPE_KEY => ($crdDetail[DRMCsvEdi::CSV_CRD_TYPE_KEY])? $crdDetail[DRMCsvEdi::CSV_CRD_TYPE_KEY] : $crdDetail[DRMCsvEdi::CSV_CRD_CATEGORIE_KEY],
             		DRMCsvEdi::CSV_CRD_QUANTITE => $crdDetail[DRMCsvEdi::CSV_CRD_QUANTITE])
             	);
@@ -179,7 +168,6 @@ class DRMExportCsvEdi extends DRMCsvEdi
         	foreach ($documents as $type => $document) {
         		foreach ($document as $doc) {
         			$this->addCsvLigne(DRMCsvEdi::TYPE_ANNEXE, array(
-        				DRMCsvEdi::CSV_ANNEXE_TYPEANNEXE => DRMCsvEdi::TYPE_ANNEXE_DOCUMENT,
         				DRMCsvEdi::CSV_ANNEXE_CATMVT => $type,
         				DRMCsvEdi::CSV_ANNEXE_TYPEMVT => $doc[DRMCsvEdi::CSV_ANNEXE_TYPEMVT],
         				DRMCsvEdi::CSV_ANNEXE_QUANTITE => $doc[DRMCsvEdi::CSV_ANNEXE_QUANTITE])
@@ -190,41 +178,20 @@ class DRMExportCsvEdi extends DRMCsvEdi
         if ($rnas = $this->drm->getExportableRna()) {
         	foreach ($rnas as $rna) {
         		$this->addCsvLigne(DRMCsvEdi::TYPE_ANNEXE, array(
-        			DRMCsvEdi::CSV_ANNEXE_TYPEANNEXE => DRMCsvEdi::TYPE_ANNEXE_NONAPUREMENT,
+        			DRMCsvEdi::CSV_ANNEXE_CATMVT => 'rna',
         			DRMCsvEdi::CSV_ANNEXE_NONAPUREMENTDATEEMISSION => $rna[DRMCsvEdi::CSV_ANNEXE_NONAPUREMENTDATEEMISSION],
         			DRMCsvEdi::CSV_ANNEXE_NONAPUREMENTACCISEDEST => $rna[DRMCsvEdi::CSV_ANNEXE_NONAPUREMENTACCISEDEST],
         			DRMCsvEdi::CSV_ANNEXE_NUMERODOCUMENT => $rna[DRMCsvEdi::CSV_ANNEXE_NUMERODOCUMENT])
         		);
         	}
         }
-        if ($sucres = $this->drm->getExportableSucre()) {
-        	foreach ($sucres as $key => $produits) {
-        		foreach ($produits as $produit) {
-        			$this->addCsvLigne(DRMCsvEdi::TYPE_ANNEXE, $this->merge(array(
-        				DRMCsvEdi::CSV_CAVE_TYPE_DROITS => DRMCsvEdi::TYPE_ANNEXE_SUCRE,
-        				DRMCsvEdi::CSV_ANNEXE_QUANTITE => $produit->get($key)), $this->getProduitCSV($produit))
-        			);
-        		}
-        	}
-        }
         if ($statistiques = $this->drm->getExportableStatistiquesEuropeennes()) {
         	foreach ($statistiques as $stat => $vol) {
         		$this->addCsvLigne(DRMCsvEdi::TYPE_ANNEXE, array(
-        			DRMCsvEdi::CSV_ANNEXE_TYPEANNEXE => DRMCsvEdi::TYPE_ANNEXE_STATISTIQUES,
         			DRMCsvEdi::CSV_ANNEXE_CATMVT => 'statistiques',
         			DRMCsvEdi::CSV_ANNEXE_TYPEMVT => $stat,
         			DRMCsvEdi::CSV_ANNEXE_QUANTITE => $vol)
         		);
-        	}
-        }
-        if ($observations = $this->drm->getExportableObservations()) {
-        	foreach ($this->drm->getExportableProduits() as $hashProduit => $produitDetail) {
-        		if ($val = $produitDetail->get($observations)) {
-		            $this->addCsvLigne(DRMCsvEdi::TYPE_ANNEXE, $this->merge(array(
-		        		DRMCsvEdi::CSV_ANNEXE_TYPEANNEXE => DRMCsvEdi::TYPE_ANNEXE_OBSERVATIONS,
-		            	DRMCsvEdi::CSV_ANNEXE_OBSERVATION => $val), $this->getProduitCSV($produitDetail))
-		            );
-        		}
         	}
         }
     }
@@ -236,7 +203,7 @@ class DRMExportCsvEdi extends DRMCsvEdi
     		$ligne[$i] = null;
     	}
     	$ligne[DRMCsvEdi::CSV_TYPE] = $type;
-    	$ligne[DRMCsvEdi::CSV_PERIODE] = $informations[DRMCsvEdi::CSV_PERIODE];
+    	$ligne[DRMCsvEdi::CSV_PERIODE] = str_replace('-', '', $informations[DRMCsvEdi::CSV_PERIODE]);
     	$ligne[DRMCsvEdi::CSV_IDENTIFIANT] = $informations[DRMCsvEdi::CSV_IDENTIFIANT];
     	$ligne[DRMCsvEdi::CSV_NUMACCISE] = $informations[DRMCsvEdi::CSV_NUMACCISE];
     	return $ligne;

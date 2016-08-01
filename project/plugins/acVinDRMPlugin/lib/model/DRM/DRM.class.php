@@ -1219,6 +1219,16 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	return $result;
     }
     
+    public function getExportableRetiraisonsVrac() {
+    	$retiraisons = array();
+    	foreach ($this->getDetailsAvecVrac() as $detail) {
+    		foreach ($detail->vrac as $id => $vrac) {
+    			$retiraisons[$id] = $vrac->volume;
+    		}
+    	}
+    	return $retiraisons;
+    }
+    
     public function getExportableCrds() {
     	$crds = array();
     	foreach ($this->crds as $key => $crd) {
@@ -1230,7 +1240,8 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     			array('entrees', 'retours'),	
     			array('sorties', 'utilisees'),	
     			array('sorties', 'detruites'),	
-    			array('sorties', 'manquantes')
+    			array('sorties', 'manquantes'),
+    			array('total_fin_mois', null)
     		);
     		foreach ($champs as $index => $datas) {
     			if ($ligne = $this->getExportableCrd($crd, $datas[0], $datas[1])) {
@@ -1350,7 +1361,17 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 	}
 	
 	public function getExportableCategoriesMouvements() {
-		return array('tav', 'premix', 'total_debut_mois', 'acq_total_debut_mois', 'stocks_debut', 'entrees', 'sorties', 'stocks_fin');
+		return array('tav', 'premix', 'observations', 'total_debut_mois', 'acq_total_debut_mois', 'stocks_debut', 'entrees', 'sorties', 'stocks_fin', 'total', 'acq_total');
+	}
+	
+	public function getExportableCategorieByType($type) {
+		if (in_array($type, array('tav', 'premix', 'observations', 'retiraison'))) {
+			return 'complement';
+		}
+		if (in_array($type, array('total_debut_mois', 'acq_total_debut_mois', 'total', 'acq_total'))) {
+			return 'stocks';
+		}
+		return null;
 	}
 	
 	public function getExportableLibelleMvt($key) {
@@ -1402,7 +1423,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 	}
 	
 	public function setImportablePeriode($periode) {
-		$this->periode = $periode;
+		$this->periode = substr($periode, 0, 4).'-'.substr($periode, -2);
 	}
 	
 	public function setImportableIdentifiant($identifiant) {
