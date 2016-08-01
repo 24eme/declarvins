@@ -138,6 +138,7 @@ The name of this should remain "userDetailsService" in order for Spring Security
         <!-- Mapping beetween LDAP entry attributes (key) and Principal's (value) -->
         <entry key="cn" value="nom"/>
         <entry key="mail" value="email" />
+        <entry key="gecos" value="gecos" />
         </map>
       </property>
     </bean> 
@@ -161,6 +162,7 @@ The name of this should remain "userDetailsService" in order for Spring Security
     <list>
       <value>nom</value>
       <value>email</value>
+      <value>gecos</value>
     </list>              
   </property>
                     </bean>
@@ -174,6 +176,7 @@ The name of this should remain "userDetailsService" in order for Spring Security
     <list>
       <value>nom</value>
       <value>email</value>
+      <value>gecos</value>
     </list>
   </property>
                     </bean>
