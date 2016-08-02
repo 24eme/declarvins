@@ -1219,16 +1219,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	return $result;
     }
     
-    public function getExportableRetiraisonsVrac() {
-    	$retiraisons = array();
-    	foreach ($this->getDetailsAvecVrac() as $detail) {
-    		foreach ($detail->vrac as $id => $vrac) {
-    			$retiraisons[$id] = $vrac->volume;
-    		}
-    	}
-    	return $retiraisons;
-    }
-    
     public function getExportableCrds() {
     	$crds = array();
     	foreach ($this->crds as $key => $crd) {
@@ -1361,7 +1351,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 	}
 	
 	public function getExportableCategoriesMouvements() {
-		return array('tav', 'premix', 'observations', 'total_debut_mois', 'acq_total_debut_mois', 'stocks_debut', 'entrees', 'sorties', 'stocks_fin', 'total', 'acq_total');
+		return array('total_debut_mois', 'acq_total_debut_mois', 'stocks_debut', 'entrees', 'sorties', 'stocks_fin', 'total', 'acq_total', 'tav', 'premix', 'observations');
 	}
 	
 	public function getExportableCategorieByType($type) {

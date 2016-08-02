@@ -628,6 +628,16 @@ class DRMDetail extends BaseDRMDetail {
     	}
     	return $has;
     }
+    
+    public function getRetiraisons() {
+    	$retiraisons = array();
+    	if (($this->sorties->vrac && $this->canHaveVrac()) || count($this->vrac->toArray()) > 0) {
+    		foreach ($this->vrac as $id => $vrac) {
+    			$retiraisons[$id] = $vrac->volume;
+    		}
+    	}
+    	return $retiraisons;
+    }
 
 
     public function getTotalVolume($hashes) {

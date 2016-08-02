@@ -58,8 +58,8 @@ class DRMExportCsvEdi extends DRMCsvEdi
     		'LIEU',
     		'COULEUR',
     		'CEPAGE',
-    		'PRODUIT',
     		'COMPLEMENT PRODUIT',
+    		'PRODUIT',
     		'TYPE DROITS',
     		'CATEGORIE MOUVEMENT / TYPE ANNEXE',
     		'TYPE MOUVEMENT',
@@ -85,7 +85,7 @@ class DRMExportCsvEdi extends DRMCsvEdi
         	DRMCsvEdi::CSV_CAVE_LIEU => $cepageConfig->getLieu()->getKey(),
         	DRMCsvEdi::CSV_CAVE_COULEUR => $cepageConfig->getCouleur()->getKey(),
         	DRMCsvEdi::CSV_CAVE_CEPAGE => $cepageConfig->getCepage()->getKey(),
-        	DRMCsvEdi::CSV_CAVE_PRODUIT => trim($produitDetail->getLibelle()),
+        	DRMCsvEdi::CSV_CAVE_PRODUIT => trim($produitDetail->getFormattedLibelle("%g% %a% %l% %co% %ce% %la%")),
         	DRMCsvEdi::CSV_CAVE_COMPLEMENT_PRODUIT => $complement
         );
     }
@@ -132,16 +132,16 @@ class DRMExportCsvEdi extends DRMCsvEdi
             		}
             	}
             }
+            foreach ($produitDetail->getRetiraisons() as $vracId => $vracVolume) {
+            	$this->addCsvLigne(DRMCsvEdi::TYPE_CAVE, $this->merge(array(
+            			DRMCsvEdi::CSV_CAVE_TYPE_DROITS => DRMCsvEdi::TYPE_DROITS_SUSPENDUS,
+            			DRMCsvEdi::CSV_CAVE_CATEGORIE_MOUVEMENT => $this->drm->getExportableCategorieByType('retiraison'),
+            			DRMCsvEdi::CSV_CAVE_TYPE_MOUVEMENT => 'vrac',
+            			DRMCsvEdi::CSV_CAVE_VOLUME => $vracVolume,
+            			DRMCsvEdi::CSV_CAVE_CONTRATID => $vracId), $this->getProduitCSV($produitDetail))
+            			);
+            }
         }
-        foreach ($this->drm->getExportableRetiraisonsVrac() as $vracId => $vracVolume) {
-			$this->addCsvLigne(DRMCsvEdi::TYPE_CAVE, $this->merge(array(
-				DRMCsvEdi::CSV_CAVE_TYPE_DROITS => DRMCsvEdi::TYPE_DROITS_SUSPENDUS,
-				DRMCsvEdi::CSV_CAVE_CATEGORIE_MOUVEMENT => $this->drm->getExportableCategorieByType('retiraison'),
-				DRMCsvEdi::CSV_CAVE_TYPE_MOUVEMENT => 'vrac',
-				DRMCsvEdi::CSV_CAVE_VOLUME => $vracVolume,
-				DRMCsvEdi::CSV_CAVE_CONTRATID => $vracId), $this->getProduitCSV($produitDetail))
-			);
-		}
     }
 
     protected function createCrdsEdi() 
