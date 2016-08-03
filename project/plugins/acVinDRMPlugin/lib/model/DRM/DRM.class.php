@@ -1329,7 +1329,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		if ($key == 'crd_details') {
 			$periode = sprintf('%4d-%02d', $detail->annee, $detail->mois);
 			return array(
-					DRMCsvEdi::CSV_CAVE_EXPORTPAYS => $periode
+					DRMCsvEdi::CSV_CAVE_EXPORTPAYS => str_replace("-", "", $periode)
 			);
 		}
 		return array();
@@ -1339,7 +1339,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		if ($type == 'crd' && $categorie->getKey() == 'entrees') {
 			$details = $categorie->getOrAdd('crd_details');
 			$detail = $details->getOrAdd(ConfigurationProduit::DEFAULT_KEY);
-			if (preg_match('/^([0-9]{4})-([0-9]{2})$/', $datas[DRMCsvEdi::CSV_CAVE_EXPORTPAYS], $m)) {
+			if (preg_match('/^([0-9]{4})([0-9]{2})$/', $datas[DRMCsvEdi::CSV_CAVE_EXPORTPAYS], $m)) {
 				$detail->annee = $m[1];
 				$detail->mois = $m[2];
 				$detail->volume = $categorie->get($type);				
