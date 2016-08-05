@@ -52,6 +52,21 @@ contrat_etablissement_confirmation:
 contrat_pdf:
   url:   /contrat/pdf.:format
   param: { module: contrat, action: pdf, format: (html|pdf) }
+  
+# Convention CIEL
+
+convention_ciel:
+  url:   /convention-ciel
+  param: { module: conventionCiel, action: index }
+convention_nouveau:
+  url:   /convention-ciel/nouveau
+  param: { module: conventionCiel, action: nouveau }
+convention_habilitations:
+  url:   /convention-ciel/habilitations
+  param: { module: conventionCiel, action: habilitations }
+convention_recapitulatif:
+  url:   /convention-ciel/recapitulatif
+  param: { module: conventionCiel, action: recapitulatif }
 
 # Validation routing
 validation_login:
@@ -269,6 +284,7 @@ oioc_compte_password:
   url:   /oioc/compte-password/:login
   param: { module: CompteOIOC, action: redefinitionPassword }
   options: { segment_separators: ["/"] }
+ 
   
 # Statiques
 statiques:

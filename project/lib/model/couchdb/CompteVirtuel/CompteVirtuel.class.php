@@ -28,4 +28,8 @@ class CompteVirtuel extends BaseCompteVirtuel {
     	return true;
     }
     
+    public function isTiers() {
+    	return false;
+    }
+    
 }

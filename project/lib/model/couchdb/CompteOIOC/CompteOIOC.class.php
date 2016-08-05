@@ -11,4 +11,8 @@ class CompteOIOC extends BaseCompteOIOC {
     public function isVirtuel() {
     	return false;
     }
+    
+    public function isTiers() {
+    	return false;
+    }
 }

@@ -38,6 +38,13 @@ class CompteTiers extends BaseCompteTiers {
         return $this->_contrat;
     }
     
+    /**
+     * @return _Compte
+     */
+    public function getConventionCiel() {
+        return ConventionCielClient::getInstance()->retrieveById($this->login);
+    }
+    
     public function getTiersCollection() {
         return acCouchdbManager::getClient()->keys(array_keys($this->getTiers()->toArray()))->execute();
     }
@@ -80,6 +87,10 @@ class CompteTiers extends BaseCompteTiers {
     
     public function isVirtuel() {
     	return false;
+    }
+    
+    public function isTiers() {
+    	return true;
     }
 
     private function cleanPhone($phone) {

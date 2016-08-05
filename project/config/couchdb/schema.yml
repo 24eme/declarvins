@@ -209,6 +209,76 @@ Contrat:
                               libelle: {  }
                               transparente: {  }
                               administratrice: {  }
+
+ConventionCiel:
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      no_convention: {  }
+      raison_sociale: {  }
+      no_operateur: {  }
+      type: {  }
+      nom: {  }
+      prenom: {  }
+      fonction: {  }
+      telephone: {  }
+      email: {  }
+      compte: {  }
+      interpro: {  }
+      valide: { type: integer }
+      etablissements:
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  raison_sociale: {  }
+                  nom: {  }
+                  siret: {  }
+                  cni: {  }
+                  cvi: {  }
+                  no_accises: {  }
+                  no_tva_intracommunautaire: {  }
+                  telephone: {  }
+                  fax: {  }
+                  email: {  }
+                  famille: {  }
+                  sous_famille: {  }
+                  service_douane: {  }
+                  siege:
+                    type: collection
+                    definition:
+                      fields:
+                        adresse: {  }
+                        code_postal: {  }
+                        commune: {  }
+                        pays: {  }
+                  comptabilite:
+                    type: collection
+                    definition:
+                      fields:
+                        adresse: {  }
+                        code_postal: {  }
+                        commune: {  }
+                        pays: {  }
+      habilitations:
+        type: array_collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  no_accises: {  }
+                  nom: {  }
+                  prenom: {  }
+                  identifiant: {  }
+                  droit_teleprocedure: {  }
+                  droit_telepaiement: {  }
+                  mensualisation: {  }
                               
 
 Messages:
