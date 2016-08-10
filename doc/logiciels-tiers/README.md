@@ -34,11 +34,11 @@ Le catalogue des mouvements de DRM admis par le portail DeclarVins  [Catalogue m
 
 ##Description des lignes CRD
 
-*Type de la CDR* : trois valeurs acceptées « PERSONNALISEES », « COLLECTIVES_DROITS_SUSPENDUS » ou « COLLECTIVES_DROITS_ACQUITTES »  
+**Type de la CDR** : trois valeurs acceptées « PERSONNALISEES », « COLLECTIVES_DROITS_SUSPENDUS » ou « COLLECTIVES_DROITS_ACQUITTES »  
  
-*Catégorie fiscale de la CRD* : trois valeurs acceptées « M » pour les vins mousseux, « T » pour les vins tranquilles ou « PI » pour les produits intermédiaires  
+**Catégorie fiscale de la CRD** : trois valeurs acceptées « M » pour les vins mousseux, « T » pour les vins tranquilles ou « PI » pour les produits intermédiaires  
 
-*Centilitrage de la CRD* : champs obligatoire, valeurs acceptées :  
+**Centilitrage de la CRD** : champs obligatoire, valeurs acceptées :  
  
  * CL_10 (10 cL)
  * CL_12_5 (12.5 cL)
