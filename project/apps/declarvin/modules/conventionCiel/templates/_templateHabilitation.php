@@ -2,7 +2,7 @@
 	<div id="etablissement${nbEtablissements}" class="etablissement">
 <div class="ligne_form">
 	<label for="convention_ciel_habilitations_${nbEtablissements}_no_accises">Numéro
-		accises*: </label> <input type="text"
+		accises: </label> <input type="text"
 		id="convention_ciel_habilitations_${nbEtablissements}_no_accises"
 		name="convention_ciel[habilitations][${nbEtablissements}][no_accises]">
 </div>
