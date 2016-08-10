@@ -1,5 +1,7 @@
-<section id="contenu" style="padding: 30px 20px 70px;">
-	<form id="creation_compte" method="post" action="<?php echo url_for('convention_nouveau') ?>">
+<?php include_component('global', 'navTop', array('active' => 'ciel')); ?>
+
+<section id="contenu">
+	<form id="creation_compte" method="post" action="<?php echo url_for('convention_nouveau', $etablissement) ?>">
 		<?php echo $form->renderHiddenFields(); ?>
 		<?php echo $form->renderGlobalErrors(); ?>
 		<input id="contrat_nb_etablissement" type="hidden" name="nb_etablissement" value="<?php echo $nbEtablissement ?>" />
@@ -67,7 +69,7 @@
                 
         <strong class="champs_obligatoires">* Champs obligatoires</strong>
 		<div class="ligne_btn">
-			<button type="submit" class="btn_valider"><span>Suivant</span></button>
+			<button type="submit" class="btn_suiv"><span>Suivant</span></button>
 		</div>
 	</form>
 </section>

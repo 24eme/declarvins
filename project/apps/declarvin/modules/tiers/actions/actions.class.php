@@ -72,13 +72,18 @@ class tiersActions extends sfActions
 
     if ($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI) && $configuration->isApplicationOuverte($this->etablissement->interpro, 'drm', $this->etablissement)) {
 		$this->configureAlerteDrm($this->etablissement);
-		if (!($this->getUser()->getCompte()->exist('dematerialise_ciel'))) {
-			return $this->redirect("tiers_adhesion_ciel", $this->etablissement);
-		} elseif (!($this->getUser()->getCompte()->dematerialise_ciel)) {
-			return $this->redirect("tiers_adhesion_ciel", $this->etablissement);
-		} else {
-        	return $this->redirect("drm_mon_espace", $this->etablissement);
+		
+		if ($this->getUser()->getCompte()->isTiers()) {
+			$convention = $this->getUser()->getCompte()->getConventionCiel();
+			if (!$convention) {
+				return $this->redirect("convention_ciel", $this->etablissement);
+			}
+			if (!$convention->valide) {
+				return $this->redirect("convention_ciel", $this->etablissement);
+			}
 		}
+		
+        return $this->redirect("drm_mon_espace", $this->etablissement);
     }
 
     if ($this->etablissement->hasDroit(EtablissementDroit::DROIT_VRAC) && $configuration->isApplicationOuverte($this->etablissement->interpro, 'vrac')) {

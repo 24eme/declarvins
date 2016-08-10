@@ -56,17 +56,41 @@ contrat_pdf:
 # Convention CIEL
 
 convention_ciel:
-  url:   /convention-ciel
+  class: EtablissementRoute
+  url:   /convention-ciel/:identifiant
   param: { module: conventionCiel, action: index }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
 convention_nouveau:
-  url:   /convention-ciel/nouveau
+  class: EtablissementRoute
+  url:   /convention-ciel/:identifiant/nouveau
   param: { module: conventionCiel, action: nouveau }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
 convention_habilitations:
-  url:   /convention-ciel/habilitations
+  class: EtablissementRoute
+  url:   /convention-ciel/:identifiant/habilitations
   param: { module: conventionCiel, action: habilitations }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
 convention_recapitulatif:
-  url:   /convention-ciel/recapitulatif
+  class: EtablissementRoute
+  url:   /convention-ciel/:identifiant/recapitulatif
   param: { module: conventionCiel, action: recapitulatif }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
+convention_confirmation:
+  class: EtablissementRoute
+  url:   /convention-ciel/:identifiant/confirmation
+  param: { module: conventionCiel, action: confirmation }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
+convention_pdf:
+  class: EtablissementRoute
+  url:   /convention-ciel/:identifiant/pdf
+  param: { module: conventionCiel, action: pdf }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
 
 # Validation routing
 validation_login:

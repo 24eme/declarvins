@@ -23,6 +23,7 @@ class ConventionCielClient extends acCouchdbClient
     	$convention->set('_id', 'CONVENTIONCIEL-'.$compte->login);
     	$convention->no_convention = $compte->login;
     	$convention->compte = $compte->_id;
+    	$convention->date_saisie = date('c');
     	$convention->nom = $compte->nom;
     	$convention->prenom = $compte->prenom;
     	$convention->fonction = $compte->fonction;

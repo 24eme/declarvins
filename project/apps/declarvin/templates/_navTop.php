@@ -37,7 +37,7 @@ use_helper('Text');
         <?php if ($sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?>
         <?php else: ?>
         <li<?php if ($active == 'ciel'): ?> class="actif"<?php endif; ?>>
-            <a href="<?php echo url_for('tiers_adhesion_ciel', $etablissement) ?>"><strong>Adhésion CIEL</strong></a>
+            <a href="<?php echo url_for('convention_ciel', $etablissement) ?>"><strong>Adhésion CIEL</strong></a>
         </li>
         <?php endif; ?>
         <?php endif; ?>

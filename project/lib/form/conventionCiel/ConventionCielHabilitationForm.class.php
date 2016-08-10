@@ -15,7 +15,7 @@ class ConventionCielHabilitationForm extends acCouchdbObjectForm
             'mensualisation' => new WidgetFormInputCheckbox()
         ));
         $this->widgetSchema->setLabels(array(
-			'no_accises' => 'Numéro accises*: ',
+			'no_accises' => 'Numéro accises: ',
 			'nom' => 'Nom*: ',
 			'prenom' => 'Prénom*: ',
 			'identifiant' => 'Identifiant Prodou@ne*: ',
@@ -24,7 +24,7 @@ class ConventionCielHabilitationForm extends acCouchdbObjectForm
 			'mensualisation' => 'Echéance mensuelle:'
         ));
         $this->setValidators(array(
-        		'no_accises' => new sfValidatorString(array('required' => true, 'max_length' => 13, 'min_length' => 13)),
+        		'no_accises' => new sfValidatorString(array('required' => false, 'max_length' => 13, 'min_length' => 13)),
     			'nom' => new sfValidatorString(array('required' => true)),
     			'prenom' => new sfValidatorString(array('required' => true)),
     			'identifiant' => new sfValidatorString(array('required' => true)),

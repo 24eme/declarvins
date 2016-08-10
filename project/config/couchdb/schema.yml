@@ -218,6 +218,7 @@ ConventionCiel:
       no_convention: {  }
       raison_sociale: {  }
       no_operateur: {  }
+      date_saisie: {  }
       type: {  }
       nom: {  }
       prenom: {  }

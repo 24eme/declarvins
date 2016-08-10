@@ -1,7 +1,9 @@
-<section id="contenu" style="padding: 30px 20px 70px;">
+<?php include_component('global', 'navTop', array('active' => 'ciel')); ?>
+
+<section id="contenu">
     <div id="creation_compte">
         
-        <form id="creation_compte" method="post" action="<?php echo url_for('convention_habilitations') ?>">
+        <form id="creation_compte" method="post" action="<?php echo url_for('convention_habilitations', $etablissement) ?>">
 			<?php echo $form->renderHiddenFields(); ?>
 			<?php echo $form->renderGlobalErrors(); ?>
 			<input id="contrat_nb_etablissement" type="hidden" name="nb_habilitation" value="<?php echo $nbHabilitation ?>" />
@@ -26,7 +28,8 @@
 	            <a href="#" class="btn_ajouter" id="ajouter_etablissement">Ajouter <span>un utilisateur</span></a>
 			</div>
 			<div class="ligne_btn">
-				<button type="submit" class="btn_valider"><span>Suivant</span></button>
+				<a href="<?php echo url_for('convention_nouveau', $etablissement) ?>" class="btn_prec"><span>Précédent</span></a>
+				<button type="submit" class="btn_suiv"><span>Suivant</span></button>
 			</div>
 		</form>
 

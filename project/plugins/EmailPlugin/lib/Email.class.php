@@ -260,6 +260,22 @@ class Email {
   					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$contrat->get('_id').'.pdf'));
 		return $this->getMailer()->send($message);
     }
+
+    public function sendConventionCiel($convention, $destinataire, $interpros = null)
+    {
+    	$from = $this->getFromEmailInterpros($interpros,true);
+    	$to = array($destinataire);
+    	$subject = 'Convention d\'adhésion à l\'échange de données CIEL-Declarvins.net';
+    	$body = $this->getBodyFromPartial('send_convention_ciel', array('convention' => $convention));
+    	$message = Swift_Message::newInstance()
+    	->setFrom($from)
+    	->setTo($to)
+    	->setSubject($subject)
+    	->setBody($body)
+    	->setContentType('text/html')
+    	->attach(Swift_Attachment::fromPath(sfConfig::get('sf_data_dir').'/convention-ciel/pdf/'.$convention->get('_id').'.pdf'));
+    	return $this->getMailer()->send($message);
+    }
     
     public function sendCompteRegistration($compte, $destinataire) 
     {
