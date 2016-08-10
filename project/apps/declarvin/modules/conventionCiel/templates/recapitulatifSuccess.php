@@ -93,7 +93,6 @@
                 
                 <div id="btn_etape_dr">
                     <a href="<?php echo url_for('convention_nouveau', $etablissement) ?>" style="background: #ff9f00 url('/images/pictos/pi_modifier.png') no-repeat scroll 7px center; border: 1px solid #d68500; color: #ffffff; display: inline-block; font-weight: bold; height: 21px; line-height: 21px; padding: 0 7px 0 30px; text-transform: uppercase;"><span>Modifier</span></a>
-                    <a href="<?php echo url_for('convention_pdf', $etablissement) ?>" target="_blank" style="background-color: #aaa; border: 1px solid #000; color: #ffffff; display: inline-block; font-weight: bold; height: 21px; line-height: 21px; padding: 0 15px; text-transform: uppercase;"><span>PDF</span></a>
                     <a href="<?php echo url_for('convention_confirmation', $etablissement) ?>" class="btn_suiv"><span>Valider</span></a>
                 </div>
             

@@ -57,6 +57,12 @@ var formModificationCompte = function()
        
         <a href="<?php echo url_for("validation_pdf", array("num_contrat" => $contrat->no_contrat)) ?>" class="btn_suiv"><span>Télécharger le pdf du contrat d'inscription n°<?php echo $contrat->no_contrat ?></span></a>
         
+        <?php if ($convention = $compte->getConventionCiel()): ?>
+        <?php if($convention->valide): ?>
+        <h1 style="margin: 15px 0 15px;">Convention CIEL</h1>
+        <a href="<?php echo url_for("validation_convention", array("num_convention" => $convention->no_convention)) ?>" class="btn_suiv"><span>Télécharger la convention</span></a>
+        <?php endif; ?>
+        <?php endif; ?>
         
         <h1>Informations du compte</h1>
         

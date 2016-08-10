@@ -295,6 +295,30 @@ class validationActions extends sfActions {
 	  	$pdf = new ExportContratPdf($this->contrat);
 		return $this->renderText($pdf->render($this->getResponse(), false));
 	  }
+	  public function executeConvention(sfWebRequest $request)
+	  {
+    	$this->forward404Unless($no_convention = $request->getParameter("num_convention"));
+    	$this->convention = ConventionCielClient::getInstance()->retrieveById($no_convention);
+    	
+    	$path = sfConfig::get('sf_data_dir').'/convention-ciel';
+    	
+    	if (!file_exists($path.'/pdf/'.$this->convention->_id.'.pdf')) {
+    		$fdf = tempnam(sys_get_temp_dir(), 'CONVENTIONCIEL');
+    		file_put_contents($fdf, $this->convention->generateFdf());
+    		exec("pdftk ".$path."/template.pdf fill_form $fdf output ".$path.'/pdf/'.$this->convention->_id.".pdf flatten");
+    		unlink($fdf);
+    	}
+    	
+    	$response = $this->getResponse();
+    	$response->setHttpHeader('Content-Type', 'application/pdf');
+    	$response->setHttpHeader('Content-disposition', 'attachment; filename="' . basename($path.'/pdf/'.$this->convention->_id.'.pdf') . '"');
+    	$response->setHttpHeader('Content-Length', filesize($path.'/pdf/'.$this->convention->_id.'.pdf'));
+    	$response->setHttpHeader('Pragma', '');
+    	$response->setHttpHeader('Cache-Control', 'public');
+    	$response->setHttpHeader('Expires', '0');
+    	 
+    	return $this->renderText(file_get_contents($path.'/pdf/'.$this->convention->_id.'.pdf'));
+	  }
   
   public function executeRedefinitionPassword(sfWebRequest $request)
   {

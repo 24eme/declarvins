@@ -108,6 +108,9 @@ validation_fiche:
 validation_pdf:
   url:   /validation/:num_contrat/pdf
   param: { module: validation, action: pdf, num_contrat: null }
+validation_convention:
+  url:   /validation/:num_convention/convention
+  param: { module: validation, action: convention, num_convention: null }
 validation_compte:
   url:   /validation/:num_contrat/compte
   param: { module: validation, action: compte, num_contrat: null }
