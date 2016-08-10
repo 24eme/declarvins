@@ -4,10 +4,10 @@
     <div id="creation_compte">
         
         <form id="creation_compte" method="post" action="<?php echo url_for('convention_habilitations', $etablissement) ?>">
+			<input id="contrat_nb_etablissement" type="hidden" name="nb_habilitation" value="<?php echo $nbHabilitation ?>" />
+			<h1><strong>Étape 2 :</strong> Habilitations</h1>			
 			<?php echo $form->renderHiddenFields(); ?>
 			<?php echo $form->renderGlobalErrors(); ?>
-			<input id="contrat_nb_etablissement" type="hidden" name="nb_habilitation" value="<?php echo $nbHabilitation ?>" />
-			<h1><strong>Étape 2 :</strong> Habilitations</h1>
 			<div id="infos_etablissements">
 				<h1>Utilisateurs</h1>
 				<p class="intro">Veuillez ajouter les utilisateurs à habiliter aux téléprocédure CIEL</p>

@@ -8,6 +8,8 @@ class ConventionCielHabilitationsForm extends acCouchdbObjectForm {
     	));
   		$this->embedForm('habilitations', $formHabilitations);
 
+  		$this->mergePostValidator(new ValidatorConventionCielHabilitations());
+
         $this->widgetSchema->setNameFormat('convention_ciel[%s]');
         
 

@@ -2,10 +2,11 @@
 
 <section id="contenu">
 	<form id="creation_compte" method="post" action="<?php echo url_for('convention_nouveau', $etablissement) ?>">
-		<?php echo $form->renderHiddenFields(); ?>
-		<?php echo $form->renderGlobalErrors(); ?>
+
 		<input id="contrat_nb_etablissement" type="hidden" name="nb_etablissement" value="<?php echo $nbEtablissement ?>" />
 		<h1><strong>Étape 1 :</strong> Création du bénéficiaire</h1>
+		<?php echo $form->renderHiddenFields(); ?>
+		<?php echo $form->renderGlobalErrors(); ?>
         <p class="intro">Afin d'identifier l'opérateur bénéficiaire, veuillez remplir les champs suivants :</p>
         <div class="col">
 			<div class="ligne_form">

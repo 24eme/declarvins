@@ -42,6 +42,9 @@ class ConventionCielForm extends acCouchdbObjectForm {
 		
 		$formEtablissements = new ConventionCielEtablissementCollectionForm($this->getObject());
   		$this->embedForm('etablissements', $formEtablissements);
+  		
+
+  		$this->mergePostValidator(new ValidatorConventionCiel());
 
         $this->widgetSchema->setNameFormat('convention_ciel[%s]');
         
