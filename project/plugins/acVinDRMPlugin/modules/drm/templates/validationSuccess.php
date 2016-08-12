@@ -7,6 +7,16 @@
 
     <!-- #principal -->
     <section id="principal">
+    	<?php if ($drmCiel->hasErreurs()): ?>
+    	<div class="error_list" style="margin-bottom: 20px;">
+		    <h3 style="margin-bottom: 15px;">Erreurs lors de la transmission CIEL (veuillez corriger votre DRM ou contacter votre interprofession pour plus d'information sur les erreurs rencontrées)&nbsp;:</h3>
+		    <ol style="font-weight: normal;">
+		        <?php foreach ($drmCiel->getErreurs() as $erreur): ?>
+		            <li><?php echo $erreur ?></li>
+		        <?php endforeach; ?>
+		    </ol>
+		</div>
+    	<?php endif; ?>
         <form id="formValidation" action="<?php echo url_for('drm_validation', $drm) ?>" method="post">
             <?php echo $form->renderGlobalErrors() ?>
             <?php echo $form->renderHiddenFields() ?>

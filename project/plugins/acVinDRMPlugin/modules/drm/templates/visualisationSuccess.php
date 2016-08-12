@@ -1,4 +1,5 @@
 <?php use_helper('Float'); ?>
+<?php use_helper('Date'); ?>
 <?php use_helper('Version'); ?>
 <?php use_helper('Link'); ?>
 <?php include_component('global', 'navTop', array('active' => 'drm')); ?>
@@ -31,8 +32,12 @@
                 <ul>
                     <li>
                     <?php if ($drm->isTeledeclare()): ?>
-                    Votre DRM a bien été validée et transmis à votre interprofession.<br />
+                    Votre DRM a bien été validée et transmise à votre interprofession.<br />
+                    <?php $drmCiel = $drm->getOrAdd('ciel'); if($drmCiel->isTransfere()): ?>
+                    Votre DRM a été transmise correctement au service CIEL, le <?php echo format_date($drmCiel->horodatage_depot, 'dd/MM/yyyy') ?> à <?php echo format_date($drmCiel->horodatage_depot, 'H:m') ?> sous le numéro <?php echo $drmCiel->identifiant_declaration ?>.
+                    <?php else: ?>
 					Vous devez par contre imprimer le PDF et le signer puis l'envoyer à votre service des douanes habituel.
+                    <?php endif; ?>
                     <?php else: ?>
                     Votre DRM a bien été saisie et validée.
                     <?php endif; ?>
@@ -109,7 +114,6 @@
             
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
             <a id="telecharger_pdf" style="margin-left: 225px; padding-left: 5px; background: #9e9e9e;" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Télécharger le XML</a>
-            <a id="telecharger_pdf" style="margin-left: 0; padding-left: 5px; background: #000; font-weight: bold;" href="<?php echo url_for('drm_transfer_ciel', $drm) ?>">GoTo CIEL</a>
 
             <div id="btn_etape_dr">
                 <?php if ($drm_next_version && $drm_next_version->hasVersion() && !$drm_next_version->isValidee()): ?>

@@ -978,6 +978,31 @@ a.highlight_link:hover {
   background: url(../images/fonds/bg_nav_principale.png) left 0 no-repeat;
   color: #fff;
 }
+#barre_navigation #nav_infociel {
+  float: right;
+  line-height: 35px;
+  font-size: 14px;
+  margin: 0 0 -10px;
+  top: -10px;
+  position: relative;
+  text-align: center;
+}
+#barre_navigation #nav_infociel li {
+  float: left;
+  margin: 0 4px 0 0;
+}
+#barre_navigation #nav_infociel li span {
+  color: #494949;
+  float: left;
+  padding: 5px 15px 0 18px;
+  cursor: pointer;
+}
+#barre_navigation #nav_infociel li .ciel_connect {
+  background: url(../images/pictos/pi_connect.png) left 13px no-repeat;
+}
+#barre_navigation #nav_infociel li .ciel_disconnect {
+  background: url(../images/pictos/pi_disconnect.png) left 13px no-repeat;
+}
 #sous_barre_navigation {
   background: #fff;
   padding: 4px 4px 0;

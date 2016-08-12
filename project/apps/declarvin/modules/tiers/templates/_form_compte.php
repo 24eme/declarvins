@@ -25,7 +25,19 @@
 			
 			<div class="ligne_form">
 			    <label>Adhésion CIEL:</label>
-			    <strong><?php echo ($compte->exist('dematerialise_ciel') && $compte->dematerialise_ciel)? 'oui' : 'non'; ?></strong>
+			    <?php if ($compte->exist('dematerialise_ciel') && $compte->dematerialise_ciel): ?>
+			    <strong>oui</strong>
+			    <?php else: ?>
+			    <?php if($compte->isTiers()): $convention = $compte->getConventionCiel(); ?>
+			    	<?php if ($convention && $convention->valide):?>
+			    	<strong>en attente</strong>
+				    <?php else: ?>
+				    <strong>non</strong>
+				    <?php endif; ?>
+			    <?php else: ?>
+			    <strong>non</strong>
+			    <?php endif; ?>
+			    <?php endif; ?>
 			</div>
 			
 			<br />

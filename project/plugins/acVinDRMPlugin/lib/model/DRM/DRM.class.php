@@ -904,6 +904,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         if($this->isIgpManquant()){
             return DRMClient::DRM_STATUS_BILAN_IGP_MANQUANT;
         }
+        $drmCiel = $this->getOrAdd('ciel');
+        if ($drmCiel->isTransfere()) {
+        	return DRMClient::DRM_STATUS_BILAN_ENVOYEE_CIEL;
+        }
         return DRMClient::DRM_STATUS_BILAN_VALIDE;
     }
 

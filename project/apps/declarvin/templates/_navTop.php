@@ -43,6 +43,9 @@ use_helper('Text');
         <?php endif; ?>
         <?php endif; ?>
     </ul>
+    <ul id="nav_infociel">
+    	<li><span class="<?php if($sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?>ciel_connect<?php else: ?>ciel_disconnect<?php endif; ?>" title="<?php if($sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?>Transmission CIEL activée<?php else: ?>Aucune transmission CIEL<?php endif; ?>">CIEL</span></li>
+    </ul>
 </nav>
 <nav id="sous_barre_navigation">
 	<ul id="actions_etablissement">

@@ -552,6 +552,15 @@ DRM:
             service: {  }
             envoi: {  }
             accuse: {  }
+      ciel:
+        class: DRMCiel
+        type: collection
+        definition:
+          fields:
+            transfere: { type: integer }
+            xml: {  }
+            identifiant_declaration: {  }
+            horodatage_depot: {  }
       mouvements:
         type: collection
         definition:

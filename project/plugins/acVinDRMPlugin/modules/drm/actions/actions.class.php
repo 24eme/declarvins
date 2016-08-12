@@ -354,6 +354,8 @@ class drmActions extends sfActions {
         }
         $this->form = new DRMValidationForm($this->drm, array('engagements' => $this->engagements));
         
+        $this->drmCiel = $this->drm->getOrAdd('ciel');
+        
         
         if (!$request->isMethod(sfWebRequest::POST)) {
 
@@ -376,7 +378,37 @@ class drmActions extends sfActions {
         
         $this->drm->validate();
         
+        // CIEL ==============
+	    $erreursCiel = false;
+        if (!$this->drmCiel->isTransfere()) {
+	        if ($this->getUser()->getCompte()->isTiers() && $this->getUser()->getCompte()->dematerialise_ciel) {
+	        	$export = new DRMExportCsvEdi($this->drm);
+	        	if ($xml = $export->exportEDI('xml')) {
+	        		try {
+	        			$service = new CielService();
+	        			$this->drmCiel->xml = $service->transfer($xml);
+	        		} catch (sfException $e) {
+	        			$this->drmCiel->xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><reponse-ciel><erreur-interne><message-erreur>'.$e->getMessage().'</message-erreur></erreur-interne></reponse-ciel>';
+	        		}
+	        	} else {
+	        		$this->drmCiel->transfere = 0;
+	        		$this->drmCiel->xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><reponse-ciel><erreur-interne><message-erreur>Une erreur est survenue à la génération du XML.</message-erreur></erreur-interne></reponse-ciel>';
+	        	}
+	        }
+	        $this->drmCiel->setInformationsFromXml();
+	        if ($this->drmCiel->hasErreurs()) {
+	        	$this->drm->devalide();
+	        	$this->drm->etape = 'validation';
+	        	$erreursCiel = true;
+	        }
+        }
+        // CIEL ===============
+        
         $this->drm->save();
+        
+        if ($erreursCiel) {
+        	$this->redirect('drm_validation', $this->drm);
+        }
         
     	if ($this->drm->needNextVersion()) {
 	      $generate = true;
