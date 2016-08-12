@@ -45,7 +45,12 @@
                    		
                        <?php $i=0; foreach ($form['crds'] as $key => $subform): ?>
                    		<tr<?php if ($i%2): ?> class="alt"<?php endif; ?>>
-                   			<td><?php echo $drm->crds->get($key)->libelle; ?></td>
+                   			<td>
+                   				<?php if (!$drm->crds->get($key)->total_debut_mois): ?>
+                   				<a class="supprimer" style="left: 5px;" href="<?php echo url_for('drm_crd_product_delete', array('sf_subject' => $drm, 'id' => $key)) ?>">Supprimer</a>
+                   				<?php endif; ?>
+                   				<?php echo $drm->crds->get($key)->libelle; ?>
+                   			</td>
                    			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key), 'total_debut_mois') ?>"><?php echo (isset($form['crds'][$key]['total_debut_mois']))? $form['crds'][$key]['total_debut_mois'] : $drm->crds->get($key)->total_debut_mois;?><input type="hidden" value="<?php echo $drm->crds->get($key)->total_debut_mois; ?>" class="entrees" /></td>
                    			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key)->entrees, 'achats') ?>"><?php echo $form['crds'][$key]['entrees']['achats']->render(array('class' => 'entrees')) ?></td>
                    			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key)->entrees, 'excedents') ?>"><?php echo $form['crds'][$key]['entrees']['excedents']->render(array('class' => 'entrees')) ?></td>

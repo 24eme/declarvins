@@ -63,4 +63,23 @@ class drm_crdActions extends sfActions
 
         return $this->renderText($this->getPartial('popupAjout', array('form' => $form)));
     }
+    
+    public function executeDelete(sfWebRequest $request) 
+    {
+    	$drm = $this->getRoute()->getDRM();
+    	$id = $request->getParameter('id');
+    	
+    	if ($id) {
+    	
+	    	if ($drm->type == DRMFictive::TYPE) {
+	    		$drm = $drm->getDRM();
+	    	}
+	    	if ($drm->crds->exist($id)) {
+	    		$drm->crds->remove($id);
+	    		$drm->save();
+	    	}
+    	}
+
+        $this->redirect('drm_crd', $drm);
+    }
 }

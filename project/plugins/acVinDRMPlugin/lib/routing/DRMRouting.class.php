@@ -438,6 +438,17 @@ class DRMRouting {
                               'add_noeud' => true,
                               'must_be_valid' => false,
                               'must_be_not_valid' => true))); 
+
+        $r->prependRoute('drm_crd_product_delete', new DRMRoute('/drm/:identifiant/edition/:periode_version/crd/delete/:id',
+                        array('module' => 'drm_crd',
+                            'action' => 'delete'),
+                        array('sf_method' => array('get','post')),
+                        array('model' => 'DRM',
+                              'type' => 'object',
+                              'no_archive' => true,
+                              'add_noeud' => true,
+                              'must_be_valid' => false,
+                              'must_be_not_valid' => true))); 
     }
 
 }
