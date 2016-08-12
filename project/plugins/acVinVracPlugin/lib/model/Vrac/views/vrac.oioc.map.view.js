@@ -200,7 +200,7 @@ function(doc) {
                 		 vrac_lot_numero,
                 		 vrac_lot_cuves_numero,
                 		 vrac_lot_cuves_volume,
-                		 null,
+                		 vrac_lot_cuves_date,
                 		 vrac_lot_assemblage,
                 		 vrac_lot_millesimes_annee,
                 		 vrac_lot_millesimes_pourcentage,
