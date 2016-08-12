@@ -16,12 +16,23 @@
 
 	<?php include_partial('drm/controlMessage'); ?>
     <section id="principal">
-        <p>Veuillez indiquer ci-dessous le compte des capsules CRD correspondant aux volumes déclarés :</p>
-        <br />
         <div id="application_dr" class="tableau_ajouts_liquidations">
             <form action="<?php echo url_for('drm_crd', $drm) ?>" method="post">
             	<?php echo $form->renderHiddenFields(); ?>
 	            <?php echo $form->renderGlobalErrors(); ?>
+	            
+	            
+	            <div id="btn_etape_dr">
+                	<?php if (!$drm->declaration->hasMouvementCheck()): ?>
+                	<a href="<?php echo url_for('drm_mouvements_generaux', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
+                	<?php else: ?>
+                    <a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec"><span>Précédent</span></a>
+                    <?php endif; ?>
+	                <button type="submit" class="btn_suiv"><span>Suivant</span></button>
+	            </div>
+	            
+		        <p>Veuillez indiquer ci-dessous le compte des capsules CRD correspondant aux volumes déclarés :</p>
+		        <br />
 	            
 				<table id="lignes_crd" class="tableau_recap">
 					<thead>

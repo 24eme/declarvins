@@ -42,9 +42,17 @@ class drmComponents extends sfComponents {
             );
         }
         
-        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-        	unset($this->numeros['declaratif']);
+
+
+        if ($this->getUser()->getCompte()->isTiers() && (!$this->getUser()->getCompte()->exist('dematerialise_ciel') || !$this->getUser()->getCompte()->dematerialise_ciel)) {
+        	unset($this->numeros['crd']);
+        	$this->numeros['declaratif'] = $this->numeros['declaratif'] - 1;
         	$this->numeros['validation'] = $this->numeros['validation'] - 1;
+        }
+        
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        	unset($this->numeros['declaratif'], $this->numeros['crd']);
+        	$this->numeros['validation'] = $this->numeros['validation'] - 2;
         }
 
         $this->numero = $this->numeros[$this->etape];

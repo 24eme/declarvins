@@ -10,7 +10,11 @@
             
 				
                 <div id="btn_etape_dr">
+                	<?php if ($sf_user->getCompte()->isTiers() && (!$sf_user->getCompte()->exist('dematerialise_ciel') || !$sf_user->getCompte()->dematerialise_ciel)): ?>
+                	<a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec"><span>Précédent</span></a>
+                	<?php else: ?>
                     <a href="<?php echo url_for('drm_crd', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
+                    <?php endif; ?>
                     <button type="submit" class="btn_suiv"><span>suivant</span></button>
                 </div>
                 
@@ -227,7 +231,11 @@
                 </div>
 				
                 <div id="btn_etape_dr">
+                	<?php if ($sf_user->getCompte()->isTiers() && (!$sf_user->getCompte()->exist('dematerialise_ciel') || !$sf_user->getCompte()->dematerialise_ciel)): ?>
+                	<a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec"><span>Précédent</span></a>
+                	<?php else: ?>
                     <a href="<?php echo url_for('drm_crd', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
+                    <?php endif; ?>
                     <button type="submit" class="btn_suiv"><span>suivant</span></button>
                 </div>
 

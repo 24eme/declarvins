@@ -34,7 +34,7 @@
                                                                'url' => url_for('drm_vrac', $drm),
                                                                'cssclass' => null)); ?>
             <?php endif; ?>
-
+			<?php if ($numero_crd): ?>
             <?php include_partial('drm/etapeItem', array('drm' => $drm,
                                                                'libelle' => 'CRD',
                                                                'numero' => $numero_crd,
@@ -42,7 +42,7 @@
                                                                'numero_autorise' => $numero_autorise,
                                                                'url' => url_for('drm_crd', $drm),
                                                                'cssclass' => null)); ?>
-                                                               
+            <?php endif; ?>
 			<?php if (!$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <?php include_partial('drm/etapeItem', array('drm' => $drm,
                                                                'libelle' => 'Déclaratif',

@@ -24,7 +24,7 @@
             <div id="btn_etape_dr">
             	<?php if (!$drm->isIncomplete()): ?>
                 <?php if ($drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-                <a href="<?php echo url_for('drm_crd', $drm)?>" class="btn_prec">
+                <a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>
                 <?php else: ?>
@@ -123,7 +123,7 @@
             <div id="btn_etape_dr">
             	<?php if (!$drm->isIncomplete()): ?>
                 <?php if ($drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-                <a href="<?php echo url_for('drm_crd', $drm)?>" class="btn_prec">
+                <a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>
                 <?php else: ?>
