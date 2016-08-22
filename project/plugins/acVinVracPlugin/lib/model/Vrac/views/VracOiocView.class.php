@@ -84,6 +84,9 @@ class VracOiocView extends acCouchdbView
 	const VALUE_STOCKAGE_CP = 73;
 	const VALUE_STOCKAGE_COMMUNE = 74;
 	const VALUE_STOCKAGE_PAYS = 75;
+	const VALUE_STOCKAGE_HAS = 76;
+	const VALUE_ACHETEUR_EA = 77;
+	const VALUE_VENDEUR_EA = 78;
 
 	public static function getInstance() 
 	{

@@ -21,19 +21,40 @@ EOF;
     }
 
     protected function execute($arguments = array(), $options = array()) {
+		ini_set('memory_limit', '2048M');
+  		set_time_limit(0);
         // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         $campagne = null;
         
-
-
-        $comptes = CompteAllView::getInstance()->findAll()->rows;
+        $comptes = array(
+        		"COMPTE-170858",
+        		"COMPTE-angrasset",
+        		"COMPTE-carabinier@wanadoo.fr",
+        		"COMPTE-chastanpaulette",
+        		"COMPTE-chateauparadis",
+        		"COMPTE-christian",
+        		"COMPTE-divimer",
+        		"COMPTE-domaine-cabanon@wanadoo.fr",
+        		"COMPTE-domainedelafermonde@gmail.fr",
+        		"COMPTE-domainedesprades@orange.fr",
+        		"COMPTE-domainelabignande",
+        		"COMPTE-earlantonin@orange.fr",
+        		"COMPTE-fallegre",
+        		"COMPTE-lavins",
+        		"COMPTE-peyronniere",
+        		"COMPTE-pierric.michel@orange.fr",
+        		"COMPTE-trenel71"
+        );
         $ldap = new Ldap();
         foreach ($comptes as $compte) {
-        	if ($compte->key[CompteAllView::KEY_TYPE] == 'CompteTiers' && $compte->key[CompteAllView::KEY_STATUT] == _Compte::STATUT_INSCRIT) {
-        		if ($c = _CompteClient::getInstance()->find($compte->id)) {
+        		if ($c = _CompteClient::getInstance()->find($compte)) {
         			try {
+        			$contrat = ContratClient::getInstance()->find($c->contrat);
+        			$c->nom = $contrat->nom;
+        			$c->prenom = $contrat->prenom;
+        			$c->save();
   					$result = $ldap->saveCompte($c);
         			} catch (Exception $e) {
         				$result = false;
@@ -44,7 +65,6 @@ EOF;
   						$this->logSection("update", $compte->id." enregistré avec succès", null, 'SUCCESS');
   					}
         		}
-        	}
         }
     }
 

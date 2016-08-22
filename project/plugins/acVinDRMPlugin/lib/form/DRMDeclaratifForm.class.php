@@ -16,7 +16,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
     }
 
     public function getDefaultValues() {
-        $has_frequence_paiement = ($this->_drm->declaratif->paiement->douane->frequence) ? 1 : '';
         $default = array(
             'raison_rectificative' => $this->_drm->raison_rectificative,
         	'date_signee' => $this->_drm->valide->date_signee,
@@ -135,6 +134,7 @@ class DRMDeclaratifForm extends acCouchdbForm {
         $this->validatorSchema['moyen_paiement']->setMessage('required', 'Vous n\'avez pas selectionné de moyen de paiement.');
         $this->validatorSchema['frequence']->setMessage('required', 'Vous n\'avez pas selectionné de type d\'échéance.');
         
+
         $this->validatorSchema['empreinte_debut']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
         $this->validatorSchema['empreinte_fin']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
         $this->validatorSchema['daa_debut']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
@@ -150,6 +150,8 @@ class DRMDeclaratifForm extends acCouchdbForm {
 
         $observations = new DRMValidationObservationsCollectionForm($this->_drm);
         $this->embedForm('observationsProduits', $observations);
+        
+        $this->embedForm('reports', new DRMDeclaratifReportForm($this->_drm));
 
 
         $this->widgetSchema->setNameFormat('drm_declaratif[%s]');
@@ -157,6 +159,10 @@ class DRMDeclaratifForm extends acCouchdbForm {
         
         if (!$this->hasWidgetFrequence()) {
             unset($this['frequence']);
+            unset($this['reports']);
+        }
+        if (DRMPaiement::isDebutCampagne($this->_drm->getMois()) && isset($this['reports'])) {
+            unset($this['reports']);
         }
     }
 
@@ -215,6 +221,14 @@ class DRMDeclaratifForm extends acCouchdbForm {
         		
         if ($this->hasWidgetFrequence()) {
             $this->_drm->declaratif->paiement->douane->frequence = $values['frequence'];
+            $reports = $this->_drm->declaratif->getOrAdd('reports');
+            if (isset($values['reports'])) {
+		        foreach ($values['reports'] as $code => $report) {
+		        	if ($report) {
+		        		$reports->add($code, $report);
+		        	}
+		        }
+            }
         }
         $this->_drm->declaratif->paiement->douane->moyen = $values['moyen_paiement'];
         
@@ -240,8 +254,16 @@ class DRMDeclaratifForm extends acCouchdbForm {
         return $this->_drm;
     }
 
-    private function hasWidgetFrequence() {
-        return ($this->_drm->declaratif->paiement->douane->frequence && !DRMPaiement::isDebutCampagne($this->_drm->getMois())) ? false : true;
+    public function hasWidgetFrequence() {
+    	if (($this->_drm->declaratif->paiement->douane->frequence != 'Annuelle') || DRMPaiement::isDebutCampagne($this->_drm->getMois())) {
+    		return true;
+    	}
+    	if ($precedente = $this->_drm->getPrecedente()) {
+    		if (($precedente->declaratif->paiement->douane->frequence != 'Annuelle') || ($precedente->declaratif->paiement->douane->report_paye)) {
+    			return true;
+    		}
+    	}
+        return false;
     }
     
     public function getObject() {

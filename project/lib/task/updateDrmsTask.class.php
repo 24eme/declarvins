@@ -27,21 +27,40 @@ EOF;
         // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-        $date  = new DateTime('2006-01-01T00:00:00');
-        $endDate = new DateTime('2016-02-02T00:00:00');
-        while ($date < $endDate) {
-        	$begin = $date->format('c');
-        	$date->modify('+1 year');
-        	$end = $date->format('c');
-	        $drms = DRMDateView::getInstance()->findByInterproAndDates('INTERPRO-CIVP', array('begin' => $begin, 'end' => $end))->rows;
-	        foreach ($drms as $drm) {
-	        	if (preg_match('/^declaration\/certifications\/AOP\/genres\/TRANQ/', $drm->key[4])) {
-	        		$d = DRMClient::getInstance()->find($drm->id);
-	        		$d->setDroits();
-	        		$d->save();
-	        		$this->logSection('update', $d->_id." : succès de la mise à jour des droits.");exit;
-	        	}
-	        }
+        
+        $rows = acCouchdbManager::getClient()
+              ->getView("update", "drm_labels")
+              ->rows;
+        $i = 0;
+        $nb = count($rows);
+        $correspondance = array(
+        		'AB' => 'BIOL',
+        		'ABC' => 'BIOC',
+        		'AR' => 'RAIS',
+        		'BD' => 'BIOD',
+        );
+        $libelles = array(
+        		'BIOL' => 'Agriculture Biologique',
+        		'BIOC' => 'AB en conversion',
+        		'RAIS' => 'Agriculture Raisonnée',
+        		'BIOD' => 'Biodynamie',
+        );
+        foreach($rows as $row) {
+        	if ($drm = DRMClient::getInstance()->find($row->id)) {
+        			echo $drm->_id;
+	        		$detail = $drm->get($row->key[DRMDateView::KEY_DETAIL_HASH]);
+	        		if (isset($correspondance[$detail->getKey()])) {
+	        			$new = $correspondance[$detail->getKey()];
+	        			$details = $detail->getParent();
+	        			$detail->labels = array($new);
+	        			$detail->libelles_label = array($new => $libelles[$new]);
+	        			$details->add($new, $detail);
+	        			$detail->delete();
+	        			$drm->save();
+	      				$this->logSection("debug", $drm->_id." : ".$i." / ".$nb." (".round(($i / $nb) * 100)."%) drm(s) updatée(s) avec succès", null, 'SUCCESS');
+	        		}
+        	}
+        	$i++;
         }
     }
 

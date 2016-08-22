@@ -146,7 +146,7 @@ function(doc) {
                     }
                         for(mention_key in appellation.mentions) {
                             var mention = appellation.mentions[mention_key];
-                            var mention_hash = appellation_hash+"/mentions/"+appellation_key;
+                            var mention_hash = appellation_hash+"/mentions/"+mention_key;
                         if (appellation.libelle && appellation_code != key_default) {
                             libelle = appellation.libelle;
                         }

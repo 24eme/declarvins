@@ -159,7 +159,19 @@ class Email {
 
         return $this->getMailer()->send($message);
     }
+
+
+    public function vracTransactionAnnulation($vrac, $etablissement, $oioc, $destinataire)
+    {
+    	$interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
+    	$from = $this->getFromEmailInterpros($interpros);
+    	$to = array($destinataire);
+    	$subject = 'Annulation d\'une DECLARATION DE TRANSACTION à votre OIOC';
+    	$body = $this->getBodyFromPartial('vrac_transaction_annulation', array('vrac' => $vrac, 'etablissement' => $etablissement, 'oioc' => $oioc));
+    	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
     
+    	return $this->getMailer()->send($message);
+    }
 
     
     public function vracDemandeAnnulation($vrac, $etab, $etablissement, $destinataire, $acteur) 

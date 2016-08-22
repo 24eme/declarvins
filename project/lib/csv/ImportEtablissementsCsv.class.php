@@ -180,8 +180,8 @@ class ImportEtablissementsCsv {
     		throw new sfException('squeeze ligne');
     	} elseif ($line[EtablissementCsv::COL_SIRET]) {
     		$interproRef = EtablissementInterproView::getInstance()->findInterproRefBySiret(trim($line[EtablissementCsv::COL_SIRET]));
-    		if ($interproRef && $interproRef != $this->_interpro->_id) {
-    			$this->_errors[$ligne] = array('Colonne (indice '.(EtablissementCsv::COL_INTERPRO + 1).') "interpro" interpro referente '.$interproRef);
+    		if ($interproRef && $interproRef['interpro'] != $this->_interpro->_id) {
+    			$this->_errors[$ligne] = array('Colonne (indice '.(EtablissementCsv::COL_INTERPRO + 1).') "interpro" referente '.$interproRef['interpro'].' de l\'etablissement '.$interproRef['id']);
     			throw new sfException('has errors');
     		}
     	}

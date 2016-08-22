@@ -134,6 +134,19 @@ class DRMHistorique {
         }
         return $drms;
     }
+    
+    public function getFirstDTIByCampagne($campagne) {
+    	$drms = $this->getDRMsByCampagne($campagne);
+    	$first = null;
+    	foreach ($drms as $d) {
+    		if ($drm = DRMClient::getInstance()->find($d->_id)) {
+    			if ($drm->isMaster() && $drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI) {
+    				$first = $drm->periode;
+    			}
+    		}
+    	}
+    	return $first;
+    }
 
     public function getDRMsPeriodeByCampagne($campagne) {
         $periodes = array();

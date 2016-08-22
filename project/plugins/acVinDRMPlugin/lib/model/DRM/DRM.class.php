@@ -182,7 +182,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $this->declaratif->paiement->douane->report_paye = null;
             $this->declaratif->paiement->cvo->frequence = null;
             $this->declaratif->paiement->cvo->moyen = null;
-            $this->declaratif->paiement->cvo->report_paye = null;
             $this->declaratif->caution->dispense = null;
             $this->declaratif->caution->organisme = null;
         }
@@ -199,6 +198,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 $this->declaratif->remove('rna');
                 $this->declaratif->add('rna');
         }
+        $this->declaratif->paiement->cvo->report_paye = null;
+        $this->declaratif->remove('reports');
+        $this->declaratif->add('reports');
 
         $this->commentaires = null;
         
@@ -254,6 +256,13 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		return false;
 	}
     public function getReportByDroit($type, $droit) {
+    	$reportSet = 0;
+    	if (preg_match('/\_'.DRMDroitsCirculation::KEY_VIRTUAL_TOTAL.'/', $droit)) {
+    		$reports = $this->declaratif->getOrAdd('reports');
+    		if ($reports->exist($droit)) {
+    			$reportSet = $reports->get($droit);
+    		}
+    	}
     	if ($this->isNouvelleCampagne()) {
     		return 0;
     	}
@@ -263,10 +272,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $drmPrecedente = $this->getPrecedente();
         if ($drmPrecedente && !$drmPrecedente->isNew()) {
             if ($drmPrecedente->droits->get($type)->exist($droit)) {
-                return $drmPrecedente->droits->get($type)->get($droit)->cumul;
+                return ($drmPrecedente->droits->get($type)->get($droit)->cumul + $reportSet);
             }
         }
-        return 0;
+        return $reportSet;
     }
 
     public function detailHasMouvementCheck() {
@@ -1103,12 +1112,30 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function listenerGenerateVersion($document) {
+        $this->updateReplicate($document);
+        $document->update();
         $document->devalide();
     }
 
     public function listenerGenerateNextVersion($document) {
         $this->replicate($document);
         $document->update();
+    }
+    
+    protected function updateReplicate($drm) {
+    	$precedente = $drm->getPrecedente();
+    	if ($precedente && $drm->getCampagne() == $precedente->getCampagne()) {
+    		foreach ($precedente->getDetails() as $detail) {
+    			if ($drm->exist($detail->getHash())) {
+    				$drm->get($detail->getHash())->set('total_debut_mois', $detail->get('total'));
+    				$drm->get($detail->getHash())->set('total_debut_mois_interpro', $detail->get('total_interpro'));
+    				$drm->get($detail->getHash())->set('stocks_debut/bloque', $detail->get('stocks_fin/bloque'));
+    				$drm->get($detail->getHash())->set('stocks_debut/warrante', $detail->get('stocks_fin/warrante'));
+    				$drm->get($detail->getHash())->set('stocks_debut/instance', $detail->get('stocks_fin/instance'));
+    				$drm->get($detail->getHash())->set('stocks_debut/commercialisable', $detail->get('stocks_fin/commercialisable'));
+    			}
+    		}
+    	}
     }
 
     protected function replicate($drm) {
