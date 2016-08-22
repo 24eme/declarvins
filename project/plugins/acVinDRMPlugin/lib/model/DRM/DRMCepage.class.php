@@ -46,10 +46,13 @@ class DRMCepage extends BaseDRMCepage {
     	return $this->details;
   	}
   
-        public function getInao() {
+    public function getInao() {
 		$inao = $this->_get('inao');
-                if ($inao != $this->getConfig()->getInao()) {
+        if ($inao != $this->getConfig()->getInao()) {
 			$inao = $this->getConfig()->getInao();
+			if (strlen($inao) == 5) {
+				$inao = $inao.' ';
+			}
 			$this->setInao($inao);
 		}
 		return $inao;
@@ -59,7 +62,11 @@ class DRMCepage extends BaseDRMCepage {
   		parent::update($params);
   		$configuration = ConfigurationClient::getCurrent();
 	  	if (!$this->inao) {
-	  		$this->inao = $this->getConfig()->getInao();
+	  		$inao = $this->getConfig()->getInao();
+	  		if (strlen($inao) == 5) {
+	  			$inao = $inao.' ';
+	  		}
+	  		$this->inao = $inao;
 	  	}
 	  	if (!$this->libelle_fiscal) {
 	  		$this->libelle_fiscal = $this->getConfig()->getLibelleFiscal();
