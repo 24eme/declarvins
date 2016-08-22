@@ -545,6 +545,45 @@ class DAIDS extends BaseDAIDS
         }
         $document->devalide();
     }
+    
+
+
+    public function motherHasChanged() {
+    
+    	if (count($this->getDetails()) != count($this->getMother()->getDetails())) {
+    
+    		return true;
+    	}
+    
+    	$change = false;
+    	foreach ($this->getDetails() as $detail) {
+    		if ($old = $this->getMother()->get($detail->getHash())) {
+    			if ($detail->total_manquants_taxables != $old->total_manquants_taxables) {
+    				$change = true;
+    				break;
+    			}
+    			if ($detail->stock_mensuel_theorique != $old->stock_mensuel_theorique) {
+    				$change = true;
+    				break;
+    			}
+    			if ($detail->total_manquants_excedents != $old->total_manquants_excedents) {
+    				$change = true;
+    				break;
+    			}
+    			if ($detail->stock_theorique != $old->stock_theorique) {
+    				$change = true;
+    				break;
+    			}
+    		} else {
+    			$change = true;
+    			break;
+    		}
+    	}
+    
+    
+    
+    	return $change;
+    }
 
     public function getDiffWithMother() 
     {
