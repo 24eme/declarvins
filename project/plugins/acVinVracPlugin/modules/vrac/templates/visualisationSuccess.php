@@ -1,3 +1,4 @@
+<?php use_helper('Date') ?>
 <?php include_component('global', 'nav', array('active' => 'vrac', 'subactive' => 'vrac')); ?>
 <?php 
 $rectif = $vrac->generateRectificative();
@@ -56,6 +57,12 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
 				<?php endif; ?>
                 <div id="titre">
                     <span class="style_label">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'En attente'; ?></span>
+                    <?php if ($vrac->oioc->date_reception): ?>
+                    <br />Envoi Oco : <?php echo format_date($vrac->oioc->date_reception, 'd/M/y') ?>
+                    <?php endif; ?>
+                    <?php if ($vrac->oioc->date_traitement): ?>
+                    <br />Chargement Oco : <?php echo format_date($vrac->oioc->date_traitement, 'd/M/y') ?>
+                    <?php endif; ?>
                 </div>
                 <div id="vrac_condition">  
                     <div class="legende" id="ss_titre">

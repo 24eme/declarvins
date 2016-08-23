@@ -434,6 +434,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 	    	$oioc = $this->getOrAdd('oioc');
 	    	$oioc->identifiant = str_replace(OIOC::OIOC_KEY, '', $organisme->oioc);
 	    	$oioc->statut = OIOC::STATUT_EDI;
+	    	$oioc->date_reception = date('c');
     	}
     }
     
