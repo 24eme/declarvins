@@ -74,7 +74,7 @@
             <div id="bloc_vrac_determination_prix_date" class="section_label_strong bloc_conditionner" data-condition-value="<?php echo implode("|", $form->getTypePrixNeedDetermination()) ?>">
                 <?php echo $form['determination_prix_date']->renderError() ?>
                 <?php echo $form['determination_prix_date']->renderLabel('Date de détermination du prix définitif*: <a href="" class="msg_aide" data-msg="help_popup_vrac_determination_prix_date" title="Message aide"></a>') ?>
-                <?php echo $form['determination_prix_date']->render() ?> 
+                <?php echo $form['determination_prix_date']->render(array('class' => 'datepicker')) ?> 
             </div>
             <div id="bloc_vrac_determination_prix" class="section_label_strong bloc_conditionner" data-condition-value="<?php echo implode("|", $form->getTypePrixNeedDetermination()) ?>">
                 <?php echo $form['determination_prix']->renderError() ?>
