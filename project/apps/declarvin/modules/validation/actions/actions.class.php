@@ -305,7 +305,7 @@ class validationActions extends sfActions {
     	if (!file_exists($path.'/pdf/'.$this->convention->_id.'.pdf')) {
     		$fdf = tempnam(sys_get_temp_dir(), 'CONVENTIONCIEL');
     		file_put_contents($fdf, $this->convention->generateFdf());
-    		exec("pdftk ".$path."/template.pdf fill_form $fdf output ".$path.'/pdf/'.$this->convention->_id.".pdf flatten");
+    		exec("pdftk ".$path."/template.pdf fill_form $fdf output  /dev/stdout flatten |  gs -o ".$path.'/pdf/'.$this->convention->_id.".pdf -sDEVICE=pdfwrite -dEmbedAllFonts=true  -sFONTPATH=\"/usr/share/fonts/truetype/freefont\" - ");
     		unlink($fdf);
     	}
     	
