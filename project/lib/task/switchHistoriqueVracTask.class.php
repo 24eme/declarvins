@@ -33,35 +33,44 @@ EOF;
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
     
     $from = EtablissementClient::getInstance()->find($arguments['from']);
+    $hasFrom = true;
     $to = EtablissementClient::getInstance()->find($arguments['to']);
     $archivage = $options['archivage'];
-    
-    if ($from->famille == "producteur" || $to->famille == "producteur") {
-    	$this->logSection("vrac", $from->identifiant." ".$from->famille." / ".$to->identifiant." ".$to->famille, null, 'ERROR');
-    } else {
-  		$rows = acCouchdbManager::getClient()
-              ->startkey(array($from->identifiant))
-              ->endkey(array($from->identifiant, array()))
-              //->reduce(false)
-              ->getView("vrac", "etablissement")
-              ->rows;
-      	$i = 0;
-      	foreach($rows as $row) {
-	      		if ($vrac = VracClient::getInstance()->find($row->id)) {
-	      		$type = $vrac->getTypeByEtablissement($from->identifiant);
-	      		$vrac->storeSoussigneInformations($type, $to);
-	      		$vrac->{$type.'_identifiant'} = $to->identifiant;
-	      		$vrac->save(false);
-	      		$this->logSection("vrac", $vrac->_id." contrat switché avec succès", null, 'SUCCESS');
-	      		$i++;
-      		}
-      	}
-      	if ($archivage) {
-      		$from->statut = Etablissement::STATUT_ARCHIVE;
-      		$from->save();
-      		$this->logSection("vrac", "etablissement ".$from->identifiant." archivé avec succès", null, 'SUCCESS');
-      	}
-      	$this->logSection("vrac", $i." contrat(s) switché(s) avec succès", null, 'SUCCESS');
+    if ($to) {
+	    if (!$from) {
+	    	$hasFrom = false;
+	    	$from = new stdClass();
+	    	$from->identifiant = str_replace('ETABLISSEMENT-', '', $arguments['from']);
+	    	$from->famille = $to->famille;
+	    }
+	    
+	    if ($from->famille == "producteur" || $to->famille == "producteur") {
+	    	$this->logSection("vrac", $from->identifiant." ".$from->famille." / ".$to->identifiant." ".$to->famille, null, 'ERROR');
+	    } else {
+	  		$rows = acCouchdbManager::getClient()
+	              ->startkey(array($from->identifiant))
+	              ->endkey(array($from->identifiant, array()))
+	              //->reduce(false)
+	              ->getView("vrac", "etablissement")
+	              ->rows;
+	      	$i = 0;
+	      	foreach($rows as $row) {
+		      		if ($vrac = VracClient::getInstance()->find($row->id)) {
+		      		$type = $vrac->getTypeByEtablissement($from->identifiant);
+		      		$vrac->storeSoussigneInformations($type, $to);
+		      		$vrac->{$type.'_identifiant'} = $to->identifiant;
+		      		$vrac->save(false);
+		      		$this->logSection("vrac", $vrac->_id." contrat switché avec succès", null, 'SUCCESS');
+		      		$i++;
+	      		}
+	      	}
+	      	if ($archivage && $hasFrom) {
+	      		$from->statut = Etablissement::STATUT_ARCHIVE;
+	      		$from->save();
+	      		$this->logSection("vrac", "etablissement ".$from->identifiant." archivé avec succès", null, 'SUCCESS');
+	      	}
+	      	$this->logSection("vrac", $i." contrat(s) switché(s) avec succès", null, 'SUCCESS');
+	    }
     }
   }
 }

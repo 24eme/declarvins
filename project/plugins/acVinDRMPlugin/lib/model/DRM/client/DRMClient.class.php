@@ -431,8 +431,8 @@ class DRMClient extends acCouchdbClient {
     
     public function sortDrmId($a, $b) 
     {
-    	preg_match('/DRM-([0-9a-zA-Z]*)-([0-9]{4})-([0-9]{2})/', $a, $ma1);
-        preg_match('/DRM-([0-9a-zA-Z]*)-([0-9]{4})-([0-9]{2})/', $b, $mb1);
+    	preg_match('/DRM-([0-9a-zA-Z\-]*)-([0-9]{4})-([0-9]{2})/', $a, $ma1);
+        preg_match('/DRM-([0-9a-zA-Z\-]*)-([0-9]{4})-([0-9]{2})/', $b, $mb1);
         $hasVersionA = preg_match('/([0-9a-zA-Z\-]*)-(M|R)([0-9]{2})$/', $a, $ma);
         $hasVersionB = preg_match('/([0-9a-zA-Z\-]*)-(M|R)([0-9]{2})$/', $b, $mb);
 
