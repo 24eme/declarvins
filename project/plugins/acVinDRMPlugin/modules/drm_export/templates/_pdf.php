@@ -240,7 +240,7 @@
 
 	
 
-
+<?php if ($sf_user->getCompte()->isTiers() && (!$sf_user->getCompte()->exist('dematerialise_ciel') || !$sf_user->getCompte()->dematerialise_ciel)): ?>
 		<h2>Droits de circulation, de consommation et autres taxes</h2>
 	
 	
@@ -374,7 +374,7 @@
 		<p><strong>Echéance de paiement</strong> : <?php echo $drm->declaratif->paiement->douane->frequence ?></p>
 		<p><strong>Mode de paiement</strong> : <?php echo $drm->declaratif->paiement->douane->moyen ?></p>
 	</div>
-
+<?php endif; ?>
 <?php if ($drm->valide->date_saisie): ?>
 	<table class="double_col bloc_bottom">
 		<tr>

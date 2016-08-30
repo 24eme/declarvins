@@ -3,7 +3,7 @@
                         ) ?>
 
 <?php foreach ($drm->getDroits() as $typedroit => $droits) if (count($drm->droits->{$typedroit})): ?>
-    <?php /*if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $typedroit == "douane") {continue;}*/ ?>     
+    <?php if (($sf_user->getCompte()->isTiers() && $sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel) && $typedroit == "douane") {continue;} ?>     
     <?php if (isset($hide_cvo) && $hide_cvo && $typedroit == "cvo") {continue;} ?>  
     <?php if ($typedroit == "douane" && !$circulation){continue;}?>      
     <div class="tableau_ajouts_liquidations">
@@ -49,8 +49,9 @@
 
 <?php 
 if ($circulation && $typedroit == "douane"): 
+if (($sf_user->getCompte()->isTiers() && $sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel)) {continue;} 
 $droits_circulation = $circulation->getDroits();
-?>
+?>   
 <div class="tableau_ajouts_liquidations">
     <table class="tableau_recap">
 	<thead>
