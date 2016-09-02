@@ -998,10 +998,13 @@ a.highlight_link:hover {
   cursor: pointer;
 }
 #barre_navigation #nav_infociel li .ciel_connect {
-  background: url(../images/pictos/pi_connect.png) left 13px no-repeat;
+  background: url(../images/pictos/pi_connect.png) left 14px no-repeat;
 }
 #barre_navigation #nav_infociel li .ciel_disconnect {
-  background: url(../images/pictos/pi_disconnect.png) left 13px no-repeat;
+  background: url(../images/pictos/pi_disconnect.png) left 14px no-repeat;
+}
+#barre_navigation #nav_infociel li .ciel_help {
+  background: url(../images/pictos/pi_help.png) left 17px no-repeat;
 }
 #sous_barre_navigation {
   background: #fff;

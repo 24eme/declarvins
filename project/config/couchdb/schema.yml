@@ -136,6 +136,7 @@ Interpro:
             '*': {  }
       email_contrat_vrac: {  }
       email_contrat_inscription: {  }
+      email_assistance_ciel: {  }
       siren: {  }
 
 OIOC:

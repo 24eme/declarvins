@@ -16,6 +16,29 @@ class conventionCielActions extends sfActions
      *
      * @param sfRequest $request A request object
      */
+    public function executeHelp(sfWebRequest $request) {
+    	$this->etablissement = $this->getRoute()->getEtablissement();
+    	$this->compte = $this->getUser()->getCompte();
+    	if (!$this->compte->isTiers()) {
+    		throw new sfError404Exception();
+    	}
+    	$this->form = new CielAssistanceForm();
+    	if ($request->isMethod(sfWebRequest::POST)) {
+    		$this->form->bind($request->getParameter($this->form->getName()));
+    		if ($this->form->isValid()) {
+    			$values = $this->form->getValues();
+    			Email::getInstance()->sendCielAssistance($values, $this->etablissement, InterproClient::getInstance()->getById($this->etablissement->interpro));
+    			$this->getUser()->setFlash('assistance', "Votre demande a bien été envoyée.");
+    			$this->redirect('ciel_help', $this->etablissement);
+    		}
+    	}
+    }
+
+    /**
+     * 
+     *
+     * @param sfRequest $request A request object
+     */
     public function executeIndex(sfWebRequest $request) {
     	$this->etablissement = $this->getRoute()->getEtablissement();
     	$this->compte = $this->getUser()->getCompte();

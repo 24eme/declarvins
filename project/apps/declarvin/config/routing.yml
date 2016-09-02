@@ -91,6 +91,15 @@ convention_pdf:
   param: { module: conventionCiel, action: pdf }
   requirements: { sf_method: ['get', 'post'] }
   options: { model: Etablissement, type: object }
+  
+# CIEL
+
+ciel_help:
+  class: EtablissementRoute
+  url:   /ciel/:identifiant/assistance
+  param: { module: conventionCiel, action: help }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
 
 # Validation routing
 validation_login:
