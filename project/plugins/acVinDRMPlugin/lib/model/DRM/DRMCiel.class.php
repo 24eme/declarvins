@@ -13,10 +13,12 @@ class DRMCiel extends BaseDRMCiel
 		$this->identifiant_declaration = null;
 		$this->horodatage_depot = null;
 		if ($reponseCiel = $this->getReponseCiel()) {
-			if (isset($reponseCiel->{'identifiant-declaration'}) && isset($reponseCiel->{'horodatage-depot'})) {
+			$identifiantdeclaration = "".$reponseCiel->{'identifiant-declaration'};
+			$horodatageDepot = "".$reponseCiel->{'horodatage-depot'};
+			if ($identifiantdeclaration && $horodatageDepot) {
 				$this->transfere = 1;
-				$this->identifiant_declaration = $reponseCiel->{'identifiant-declaration'};
-				$this->horodatage_depot = $reponseCiel->{'horodatage-depot'};
+				$this->identifiant_declaration = $identifiantdeclaration;
+				$this->horodatage_depot = $horodatageDepot;
 			}
 		}
 	}
