@@ -203,6 +203,12 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->declaratif->add('reports');
 
         $this->commentaires = null;
+
+        if ($this->exist('ciel')) {
+        	$this->remove('ciel');
+        	$this->add('ciel');
+        }
+        
         
         $this->initCrds();
 
