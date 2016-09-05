@@ -33,6 +33,9 @@ class ConventionCielClient extends acCouchdbClient
     	$interpro = array();
     	$nbEtablissement = 0;
     	$currentEtab = null;
+    	$habilitation = $convention->habilitations->add();
+    	$habilitation->nom = $compte->nom;
+    	$habilitation->prenom = $compte->prenom;
     	foreach ($compte->getTiersCollection() as $etablissement) {
     		if (!$etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) {
     			continue;

@@ -5,7 +5,7 @@
     <div id="creation_compte">
         <h1>Convention d'adhésion à l'échange de données CIEL-Declarvins.net</h1>
         <?php if ($convention && $convention->valide): ?>
-        <p>Vous avez saisie une convention d'ahésion CIEL le <?php echo format_date($convention->date_saisie,'dd MMM yyyy'); ?>.</p>
+        <p>Vous avez saisi une convention d'ahésion CIEL le <?php echo format_date($convention->date_saisie,'dd MMM yyyy'); ?>.</p>
         <p>Celle ci est en cours de traitement par votre service des douanes.</p>
         <br />
 		<p>Nos équipes se tiennent à votre disposition pour toute question.</p>

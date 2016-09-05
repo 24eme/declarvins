@@ -1,5 +1,19 @@
 <?php include_component('global', 'navTop', array('active' => 'ciel')); ?>
 
+<style>
+#creation_compte .ligne_form label {
+	width: 175px;
+}
+#creation_compte .ligne_form input[type="text"], #creation_compte .ligne_form input[type="password"] {
+	width: 215px;
+}
+
+#creation_compte #infos_etablissements .etablissement .ligne_form input[type="text"],
+#creation_compte #infos_etablissements .etablissement .ligne_form input[type="password"]  {
+	width: 120px;
+}
+</style>
+
 <section id="contenu">
 	<form id="creation_compte" method="post" action="<?php echo url_for('convention_nouveau', $etablissement) ?>">
 
