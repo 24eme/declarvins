@@ -143,7 +143,8 @@ class conventionCielActions extends sfActions
   		$this->convention->valide = 1;
   		$this->convention->save();
   		$this->generatePdf();
-    	Email::getInstance()->sendConventionCiel($this->convention, $this->compte->email, array(InterproClient::getInstance()->getById($this->convention->interpro)));
+  		$this->generateAvenant();
+    	Email::getInstance()->sendConventionCiel($this->convention, $this->compte->email, array(InterproClient::getInstance()->getById($this->convention->interpro)), ContratClient::getInstance()->find($this->compte->contrat));
   	}
 
   }
@@ -176,6 +177,21 @@ class conventionCielActions extends sfActions
   	return $this->renderText(file_get_contents($path.'/pdf/'.$this->convention->_id.'.pdf'));
   }
   
+
+  public function executeAvenant(sfWebRequest $request)
+  {
+  	$this->etablissement = $this->getRoute()->getEtablissement();
+  	$this->compte = $this->getUser()->getCompte();
+  	if (!$this->compte->isTiers()) {
+  		throw new sfError404Exception();
+  	}
+  	$this->convention = $this->compte->getConventionCiel();
+  	$this->forward404Unless($this->convention);
+  	$this->contrat = ContratClient::getInstance()->find($this->compte->contrat);
+  	$pdf = new ExportAvenantPdf($this->contrat);
+  	return $this->renderText($pdf->render($this->getResponse(), false));
+  }
+  
   protected function generatePdf() 
   {
   	$compte = $this->getUser()->getCompte();
@@ -187,6 +203,16 @@ class conventionCielActions extends sfActions
 			exec("pdftk ".$path."/template.pdf fill_form $fdf output  /dev/stdout flatten |  gs -o ".$path.'/pdf/'.$convention->_id.".pdf -sDEVICE=pdfwrite -dEmbedAllFonts=true  -sFONTPATH=\"/usr/share/fonts/truetype/freefont\" - ");
 			unlink($fdf);
 		}
+	}
+  }
+  
+  protected function generateAvenant() 
+  {
+  	$compte = $this->getUser()->getCompte();
+	if ($convention = $compte->getConventionCiel()) {
+		$contrat = ContratClient::getInstance()->find($this->compte->contrat);
+		$pdf = new ExportAvenantPdf($contrat);
+  		$pdf->generate();
 	}
   }
 }

@@ -91,6 +91,12 @@ convention_pdf:
   param: { module: conventionCiel, action: pdf }
   requirements: { sf_method: ['get', 'post'] }
   options: { model: Etablissement, type: object }
+convention_avenant:
+  class: EtablissementRoute
+  url:   /convention-ciel/:identifiant/avenant
+  param: { module: conventionCiel, action: avenant, format: (html|pdf) }
+  requirements: { sf_method: ['get'] }
+  options: { model: Etablissement, type: object }
   
 # CIEL
 

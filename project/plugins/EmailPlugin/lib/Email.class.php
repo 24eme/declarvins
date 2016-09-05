@@ -273,7 +273,7 @@ class Email {
 		return $this->getMailer()->send($message);
     }
 
-    public function sendConventionCiel($convention, $destinataire, $interpros = null)
+    public function sendConventionCiel($convention, $destinataire, $interpros = null, $contrat = null)
     {
     	$from = $this->getFromEmailInterpros($interpros,true);
     	$to = array($destinataire);
@@ -286,6 +286,9 @@ class Email {
     	->setBody($body)
     	->setContentType('text/html')
     	->attach(Swift_Attachment::fromPath(sfConfig::get('sf_data_dir').'/convention-ciel/pdf/'.$convention->get('_id').'.pdf'));
+    	if ($contrat) {
+    		$message->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$contrat->get('_id').'_avenant.pdf'));
+    	}
     	return $this->getMailer()->send($message);
     }
     
