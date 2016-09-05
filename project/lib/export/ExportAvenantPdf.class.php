@@ -23,6 +23,7 @@ class ExportAvenantPdf extends ExportContrat
 		$document->setPaper(PrintableOutput::FORMAT_A4, PrintableOutput::ORIENTATION_PORTRAIT);
 		$contrat = $this->getContrat();
 		$compte = $contrat->getCompteObject();
+		$convention = $compte->getConventionCiel();
 		$document->addHtml($this->getPartial('contrat_pdf_avenant', array('contrat' => $contrat, 'compte' => $compte, 'convention' => $convention)));
 		$output = $document->output();
 	}
