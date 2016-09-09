@@ -62,7 +62,7 @@
             </div>
         <?php endif; ?>
         <div id="contenu_onglet">
-            <?php if ($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()): ?>
+            <?php if (($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()) || $drm->hasMouvementsCrd()): ?>
                 <?php include_partial('drm/recap', array('drm' => $drm)) ?>
                 <?php include_partial('drm/droits', array('drm' => $drm, 'circulation' => $droits_circulation)) ?>
             <?php else: ?>

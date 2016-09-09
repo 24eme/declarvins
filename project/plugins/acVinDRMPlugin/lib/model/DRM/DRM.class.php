@@ -545,6 +545,23 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     		$crd->updateStocks();
     	}
     }
+    
+    public function hasMouvementsCrd() {
+    	$mvt = false;
+    	foreach ($this->crds as $crd) {
+    		foreach ($crd->entrees as $entree => $vol) {
+    			if ($vol) {
+    				$mvt = true;
+    			}
+    		}
+    		foreach ($crd->sorties as $sortie => $vol) {
+    			if ($vol) {
+    				$mvt = true;
+    			}
+    		}
+    	}
+    	return $mvt;
+    }
 
     public function updateVracVersion() {
         foreach ($this->getDetails() as $detail) {

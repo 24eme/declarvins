@@ -67,6 +67,7 @@
                     	</style>
                     	<li class="<?php echo isVersionnerCssClass($form->getObject()->entrees, $key) ?>">
                     		<a href="<?php echo url_for('drm_recap_es_detail', $form->getObject()) ?>" class="btn_popup btn_es_details" data-popup-enregistrement="true" data-popup-reload="true" data-popup="#popup_details_entree_crd<?php echo str_replace('/', '_', $form->getObject()->getHash()) ?>" data-popup-config="configForm" data-popup-title="Entrée replacement en suspension CRD"><?php echo sprintFloat($form['entrees'][$key]->getValue(), "%01.04f") ?></a>
+                    		<input type="hidden" id="drm_detail_entrees_crd" autocomplete="off" class="num num_float num_light num_float" data-val-defaut="<?php echo sprintFloat($form['entrees']['crd']->getValue(), "%01.04f") ?>" value="<?php echo sprintFloat($form['entrees']['crd']->getValue(), "%01.04f") ?>" name="">
                     	</li>
                     <?php else: ?>
 	                    <?php $class = 'num num_float'; if ($i==1) $class .= ' premier'; if ($i==$nbItem) $class .= ' dernier';?>

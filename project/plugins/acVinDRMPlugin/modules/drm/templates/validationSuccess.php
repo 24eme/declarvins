@@ -71,7 +71,7 @@
                 <?php } ?>
                 
                 <div id="contenu_onglet">
-                    <?php if($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()):  ?>
+                    <?php if(($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()) || $drm->hasMouvementsCrd()):  ?>
                         <?php include_partial('drm/recap', array('drm' => $drm)) ?>
                 		<?php include_partial('drm/droits', array('drm' => $drm, 'circulation' => $droits_circulation, 'hide_cvo' => true)) ?>
                 		<?php if($drm->droits->douane->getReport() > 0 && $drm->get('declaratif')->get('paiement')->get('douane')->isAnnuelle()): ?>
