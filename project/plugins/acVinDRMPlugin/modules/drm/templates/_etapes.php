@@ -10,7 +10,7 @@
                                                                'cssclass' => 'premier')); ?>
 
                   <?php include_partial('drm/etapeItem', array('drm' => $drm,
-                                                               'libelle' => 'Ajouts / Liquidations',
+                                                               'libelle' => 'Gestion produits',
                                                                'numero' => 2,
                                                                'numero_courant' => $numero,
                                                                'numero_autorise' => $numero_autorise,
