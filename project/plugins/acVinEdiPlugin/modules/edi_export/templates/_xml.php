@@ -121,18 +121,21 @@
       		<numero-empreintes>
         		<debut-periode><?php echo $drm->declaratif->empreinte->debut ?></debut-periode>
         		<fin-periode><?php echo $drm->declaratif->empreinte->fin ?></fin-periode>
+        		<nombre-document-empreinte><?php echo $drm->declaratif->empreinte->nb ?></nombre-document-empreinte>
       		</numero-empreintes>
 <?php endif; ?>
 <?php if ($drm->declaratif->daa->debut && $drm->declaratif->daa->fin): ?>
       		<daa-dca>
         		<debut-periode><?php echo $drm->declaratif->daa->debut ?></debut-periode>
         		<fin-periode><?php echo $drm->declaratif->daa->fin ?></fin-periode>
+        		<nombre-document-empreinte><?php echo $drm->declaratif->empreinte->nb ?></nombre-document-empreinte>
       		</daa-dca>
 <?php endif; ?>
 <?php if ($drm->declaratif->dsa->debut && $drm->declaratif->dsa->fin): ?>
       		<dsa-dsac>
         		<debut-periode><?php echo $drm->declaratif->dsa->debut ?></debut-periode>
         		<fin-periode><?php echo $drm->declaratif->dsa->fin ?></fin-periode>
+        		<nombre-document-empreinte><?php echo $drm->declaratif->empreinte->nb ?></nombre-document-empreinte>
       		</dsa-dsac>
 <?php endif; ?>
     	</document-accompagnement>

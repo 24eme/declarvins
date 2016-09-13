@@ -1366,6 +1366,12 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 							DRMCsvEdi::CSV_ANNEXE_QUANTITE => $this->declaratif->get($champ)->fin,
 					);
 				}
+				if ($this->declaratif->get($champ)->nb) {
+					$result[$champ][] = array(
+							DRMCsvEdi::CSV_ANNEXE_TYPEMVT => 'nb',
+							DRMCsvEdi::CSV_ANNEXE_QUANTITE => $this->declaratif->get($champ)->nb,
+					);
+				}
 			}
 		}
 		return $result;

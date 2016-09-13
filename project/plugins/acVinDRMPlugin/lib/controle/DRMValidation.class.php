@@ -180,6 +180,9 @@ class DRMValidation
 		if (($detail->sorties->autres > 0 || $detail->sorties->pertes > 0) && !$detail->observations) {
 			$this->errors['observations_autres_pertes_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_autres_pertes', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
 		}
+		if ($detail->tav && ($detail->tav < 0.5 || $detail->tav > 100)) {
+			$this->errors['tav_value_'.$detail->getIdentifiantHTML()] = new DRMControleError('tav_value', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
+		}
 	}
 	
 	private function controleWarnings($detail)

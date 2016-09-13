@@ -100,9 +100,10 @@
 						<table class="tableau_recap" style="width: auto;">
 							<thead>
                     			<tr>
-                    				<th style="width: 225px;"></th>
-                    				<th style="width: 260px;">Début de période</th>
-                    				<th style="width: 260px;">Fin de période</th>
+                    				<th style="width: 220px;"></th>
+                    				<th style="width: 175px;">Début de période</th>
+                    				<th style="width: 175px;">Fin de période</th>
+                    				<th style="width: 175px;">Nb de document</th>
                     			</tr>
                     		</thead>
                     		<tbody>
@@ -110,16 +111,19 @@
                     				<td>N° d'empreintes utilisées</td>
                     				<td><?php echo $form['empreinte_debut']->renderError() ?><?php echo $form['empreinte_debut']->render() ?></td>
                     				<td><?php echo $form['empreinte_fin']->renderError() ?><?php echo $form['empreinte_fin']->render() ?></td>
+                    				<td><?php echo $form['empreinte_nb']->renderError() ?><?php echo $form['empreinte_nb']->render() ?></td>
                     			</tr>
                     			<tr>
                     				<td>N° DAA/DCA</td>
                     				<td><?php echo $form['daa_debut']->renderError() ?><?php echo $form['daa_debut']->render() ?></td>
                     				<td><?php echo $form['daa_fin']->renderError() ?><?php echo $form['daa_fin']->render() ?></td>
+                    				<td><?php echo $form['daa_nb']->renderError() ?><?php echo $form['daa_nb']->render() ?></td>
                     			</tr>
                     			<tr>
                     				<td>N° DSA/DSAC</td>
                     				<td><?php echo $form['dsa_debut']->renderError() ?><?php echo $form['dsa_debut']->render() ?></td>
                     				<td><?php echo $form['dsa_fin']->renderError() ?><?php echo $form['dsa_fin']->render() ?></td>
+                    				<td><?php echo $form['dsa_nb']->renderError() ?><?php echo $form['dsa_nb']->render() ?></td>
                     			</tr>
                     		</tbody>
                     	</table>

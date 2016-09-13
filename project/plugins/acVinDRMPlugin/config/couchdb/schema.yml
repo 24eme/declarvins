@@ -478,18 +478,21 @@ DRM:
                 fields:
                   debut: { type: integer }
                   fin: { type: integer }
+                  nb: { type: integer }
             daa:
               type: collection
               definition:
                 fields:
                   debut: { type: integer }
                   fin: { type: integer }
+                  nb: { type: integer }
             dsa:
               type: collection
               definition:
                 fields:
                   debut: { type: integer }
                   fin: { type: integer }
+                  nb: { type: integer }
             adhesion_emcs_gamma: { type: integer }
             reports:
               type: collection

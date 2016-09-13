@@ -22,10 +22,13 @@ class DRMDeclaratifForm extends acCouchdbForm {
             'apurement' => $this->_drm->declaratif->defaut_apurement,
             'empreinte_debut' => ($this->_drm->declaratif->empreinte->debut)? $this->_drm->declaratif->empreinte->debut : null,
             'empreinte_fin' => ($this->_drm->declaratif->empreinte->fin)? $this->_drm->declaratif->empreinte->fin : null,
+            'empreinte_nb' => ($this->_drm->declaratif->empreinte->nb)? $this->_drm->declaratif->empreinte->nb : null,
             'daa_debut' => ($this->_drm->declaratif->daa->debut)? $this->_drm->declaratif->daa->debut : null,
             'daa_fin' => ($this->_drm->declaratif->daa->fin)? $this->_drm->declaratif->daa->fin : null,
+            'daa_nb' => ($this->_drm->declaratif->daa->nb)? $this->_drm->declaratif->daa->nb : null,
             'dsa_debut' => ($this->_drm->declaratif->dsa->debut)? $this->_drm->declaratif->dsa->debut : null,
             'dsa_fin' => ($this->_drm->declaratif->dsa->fin)? $this->_drm->declaratif->dsa->fin : null,
+            'dsa_nb' => ($this->_drm->declaratif->dsa->nb)? $this->_drm->declaratif->dsa->nb : null,
             'adhesion_emcs_gamma' => $this->_drm->declaratif->adhesion_emcs_gamma,
             'caution' => $this->_drm->declaratif->caution->dispense,
             'frequence' => $this->_drm->declaratif->paiement->douane->frequence,
@@ -54,10 +57,13 @@ class DRMDeclaratifForm extends acCouchdbForm {
             )),
             'empreinte_debut' => new sfWidgetFormInput(),
             'empreinte_fin' => new sfWidgetFormInput(),
+            'empreinte_nb' => new sfWidgetFormInput(),
             'daa_debut' => new sfWidgetFormInput(),
             'daa_fin' => new sfWidgetFormInput(),
+            'daa_nb' => new sfWidgetFormInput(),
             'dsa_debut' => new sfWidgetFormInput(),
             'dsa_fin' => new sfWidgetFormInput(),
+            'dsa_nb' => new sfWidgetFormInput(),
         		'statistiques_jus' => new sfWidgetFormInputFloat(array('float_format' => "%01.04f")),
         		'statistiques_mcr' => new sfWidgetFormInputFloat(array('float_format' => "%01.04f")),
         		'statistiques_vinaigre' => new sfWidgetFormInputFloat(array('float_format' => "%01.04f")),
@@ -112,10 +118,13 @@ class DRMDeclaratifForm extends acCouchdbForm {
             'apurement' => new sfValidatorChoice(array('required' => true, 'choices' => array(0, 1))),
             'empreinte_debut' => new sfValidatorInteger(array('required' => false)),
             'empreinte_fin' => new sfValidatorInteger(array('required' => false)),
+            'empreinte_nb' => new sfValidatorInteger(array('required' => false)),
             'daa_debut' => new sfValidatorInteger(array('required' => false)),
             'daa_fin' => new sfValidatorInteger(array('required' => false)),
+            'daa_nb' => new sfValidatorInteger(array('required' => false)),
             'dsa_debut' => new sfValidatorInteger(array('required' => false)),
             'dsa_fin' => new sfValidatorInteger(array('required' => false)),
+            'dsa_nb' => new sfValidatorInteger(array('required' => false)),
             'adhesion_emcs_gamma' => new sfValidatorBoolean(array('required' => false)),
             'caution' => new sfValidatorChoice(array('required' => true, 'choices' => array(1, 0))),
             'organisme' => new sfValidatorString(array('required' => false)),
@@ -137,10 +146,13 @@ class DRMDeclaratifForm extends acCouchdbForm {
 
         $this->validatorSchema['empreinte_debut']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
         $this->validatorSchema['empreinte_fin']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
+        $this->validatorSchema['empreinte_nb']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
         $this->validatorSchema['daa_debut']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
         $this->validatorSchema['daa_fin']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
+        $this->validatorSchema['daa_nb']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
         $this->validatorSchema['dsa_debut']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
         $this->validatorSchema['dsa_fin']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
+        $this->validatorSchema['dsa_nb']->setMessage('invalid', 'Merci d\'entrer une valeur numérique.');
         
 
         $rna = new DRMDeclaratifRnaCollectionForm($this->_drm->declaratif->rna);
@@ -207,10 +219,13 @@ class DRMDeclaratifForm extends acCouchdbForm {
         $this->_drm->declaratif->defaut_apurement = (int) $values['apurement'];
         $this->_drm->declaratif->empreinte->debut = (int) $values['empreinte_debut'];
         $this->_drm->declaratif->empreinte->fin = (int) $values['empreinte_fin'];
+        $this->_drm->declaratif->empreinte->nb = (int) $values['empreinte_nb'];
         $this->_drm->declaratif->daa->debut = (int) $values['daa_debut'];
         $this->_drm->declaratif->daa->fin = (int) $values['daa_fin'];
+        $this->_drm->declaratif->daa->nb = (int) $values['daa_nb'];
         $this->_drm->declaratif->dsa->debut = (int) $values['dsa_debut'];
         $this->_drm->declaratif->dsa->fin = (int) $values['dsa_fin'];
+        $this->_drm->declaratif->dsa->nb = (int) $values['dsa_nb'];
         $this->_drm->declaratif->adhesion_emcs_gamma = $adhesion_emcs_gamma;
         $this->_drm->declaratif->caution->dispense = (int) $values['caution'];
         $this->_drm->declaratif->caution->organisme = $values['organisme'];
