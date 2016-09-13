@@ -11,6 +11,9 @@ class drmComponents extends sfComponents {
             if ($certification_config == 'Sans IG') {
                 $certification_config = 'VINSSANSIG';
             }
+            if ($certification_config == "Autres produits") {
+                $certification_config = 'APD';
+            }
             if ($this->drm->declaration->certifications->exist($certification_config)) {
                 $certif = $this->drm->declaration->certifications->get($certification_config);
                 if ($certif->hasMouvementCheck() && count($certif->genres) > 0) {
