@@ -121,7 +121,7 @@
 		 * Entête
 		 ******************************************/
 		#entete_doc { margin: 0 0 20px; text-align: center; }
-		#entete_doc h1 { font-size: 22px; margin: 0 0 20px; }
+		#entete_doc h1 { font-size: 22px; margin: 0 0 10px; }
 		#entete_doc h1 span { font-style: italic; }
 		#entete_doc p { font-size: 16px; margin: 0 0 20px; }
 		#entete_doc p.note { margin: 0; text-align: left; }
@@ -185,8 +185,9 @@
 				</table>
 			</div>
 			<h1>
-				Avenant au contrat d'adhésion Declarvins N° : <?php echo $contrat->no_contrat ?>
+				Avenant au contrat d'inscription Declarvins N° : <?php echo $contrat->no_contrat ?>
 			</h1>
+			<p style="text-align:center;margin-top:0px;padding-top:0px;"> A envoyer signé par scan, fax ou courrier à votre interprofession.</p>
 		</div>
 
 		

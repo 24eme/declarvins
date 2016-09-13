@@ -164,4 +164,49 @@ class tiersActions extends sfActions
   	}
   	return $this->redirect("drm_mon_espace", $this->etablissement);
   }
+
+  public function executePdf(sfWebRequest $request)
+  {
+  	$this->etablissement = $this->getRoute()->getEtablissement();
+  	$this->compte = $this->etablissement->getCompteObject();
+  	$this->contrat = ContratClient::getInstance()->find($this->compte->contrat);
+  	$pdf = new ExportContratPdf($this->contrat);
+  	return $this->renderText($pdf->render($this->getResponse(), false));
+  }
+  
+  public function executeConvention(sfWebRequest $request)
+  {
+  	$this->etablissement = $this->getRoute()->getEtablissement();
+  	$this->compte = $this->etablissement->getCompteObject();
+  	$this->convention = $this->compte->getConventionCiel();
+  	 
+  	$path = sfConfig::get('sf_data_dir').'/convention-ciel';
+  	 
+  	if (!file_exists($path.'/pdf/'.$this->convention->_id.'.pdf')) {
+  		$fdf = tempnam(sys_get_temp_dir(), 'CONVENTIONCIEL');
+  		file_put_contents($fdf, $this->convention->generateFdf());
+  		exec("pdftk ".$path."/template.pdf fill_form $fdf output  /dev/stdout flatten |  gs -o ".$path.'/pdf/'.$this->convention->_id.".pdf -sDEVICE=pdfwrite -dEmbedAllFonts=true  -sFONTPATH=\"/usr/share/fonts/truetype/freefont\" - ");
+  		unlink($fdf);
+  	}
+  	 
+  	$response = $this->getResponse();
+  	$response->setHttpHeader('Content-Type', 'application/pdf');
+  	$response->setHttpHeader('Content-disposition', 'attachment; filename="' . basename($path.'/pdf/'.$this->convention->_id.'.pdf') . '"');
+  	$response->setHttpHeader('Content-Length', filesize($path.'/pdf/'.$this->convention->_id.'.pdf'));
+  	$response->setHttpHeader('Pragma', '');
+  	$response->setHttpHeader('Cache-Control', 'public');
+  	$response->setHttpHeader('Expires', '0');
+  
+  	return $this->renderText(file_get_contents($path.'/pdf/'.$this->convention->_id.'.pdf'));
+  }
+
+  public function executeAvenant(sfWebRequest $request)
+  {
+  	$this->etablissement = $this->getRoute()->getEtablissement();
+  	$this->compte = $this->etablissement->getCompteObject();
+  	$this->contrat = ContratClient::getInstance()->find($this->compte->contrat);
+  	$pdf = new ExportAvenantPdf($this->contrat);
+  	return $this->renderText($pdf->render($this->getResponse(), false));
+  }
+  
 }

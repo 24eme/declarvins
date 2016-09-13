@@ -29,6 +29,15 @@ class ConventionCiel extends BaseConventionCiel {
     	return $this->interpro;
     }
     
+    public function getEmailInterprofession() 
+    {
+    	if ($this->interpro) {
+    		$interpro = InterproClient::getInstance()->find($this->interpro);
+    		return $interpro->email_contrat_inscription;
+    	}
+    	return '';
+    }
+    
     public function getDateSaisieObj()
     {
     	return new DateTime($this->date_saisie);
@@ -65,6 +74,7 @@ FDF;
     	$fdfContent .= "<</T(rs)/V({$this->raison_sociale})>>";
     	$fdfContent .= "<</T(siren)/V({$this->no_operateur})>>";
     	$fdfContent .= "<</T(interpro)/V({$this->getInterprofession()})>>";
+    	$fdfContent .= "<</T(emailinterpro)/V({$this->getEmailInterprofession()})>>";
     	$fdfContent .= "<</T(nom)/V({$this->nom})>>";
     	$fdfContent .= "<</T(prenom)/V({$this->prenom})>>";
     	$fdfContent .= "<</T(fonction)/V({$this->fonction})>>";
@@ -73,6 +83,7 @@ FDF;
     	$fdfContent .= "<</T(irs)/V({$this->raison_sociale})>>";
     	$fdfContent .= "<</T(isiren)/V({$this->no_operateur})>>";
     	$fdfContent .= "<</T(iinterpro)/V({$this->getInterprofession()})>>";
+    	$fdfContent .= "<</T(emailiinterpro)/V({$this->getEmailInterprofession()})>>";
     	$fdfContent .= "<</T(datesaisie)/V({$this->getDateSaisieObj()->format('d/m/Y')})>>";
     	
     	$i=0;

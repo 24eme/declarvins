@@ -126,6 +126,9 @@ validation_pdf:
 validation_convention:
   url:   /validation/:num_convention/convention
   param: { module: validation, action: convention, num_convention: null }
+validation_avenant:
+  url:   /validation/:num_contrat/avenant
+  param: { module: validation, action: avenant, num_contrat: null }
 validation_compte:
   url:   /validation/:num_contrat/compte
   param: { module: validation, action: compte, num_contrat: null }
@@ -193,6 +196,24 @@ profil:
   url: /profil/:identifiant
   param: { module: tiers, action: profil }
   requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
+profil_pdf:
+  class: EtablissementRoute
+  url: /profil/:identifiant/contrat-inscription
+  param: { module: tiers, action: pdf }
+  requirements: { sf_method: ['get'] }
+  options: { model: Etablissement, type: object }
+profil_convention:
+  class: EtablissementRoute
+  url: /profil/:identifiant/convention-ciel
+  param: { module: tiers, action: convention }
+  requirements: { sf_method: ['get'] }
+  options: { model: Etablissement, type: object }
+profil_avenant:
+  class: EtablissementRoute
+  url: /profil/:identifiant/avenant
+  param: { module: tiers, action: avenant }
+  requirements: { sf_method: ['get'] }
   options: { model: Etablissement, type: object }
 profil_statut:
   class: EtablissementRoute
