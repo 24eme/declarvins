@@ -9,7 +9,11 @@ function noeudXml($produit, $noeud, &$xml, $exceptions = array()) {
 		} else {
 			$val = $produit->getTotalVolume($noeud);
 			if ($val) {
-				return (in_array($noeud->getKey(), $exceptions))? $val : sprintf("%01.02f", $val);
+				if ($noeud->getKey() == 'tav') {
+					return sprintf("%01.02f", $val);
+				} else {
+					return (in_array($noeud->getKey(), $exceptions))? $val : sprintf("%01.04f", $val);
+				}
 			} else {
 				return (in_array($noeud->getKey(), array('stock-debut-periode', 'stock-fin-periode')))? 0 : null;
 			}
