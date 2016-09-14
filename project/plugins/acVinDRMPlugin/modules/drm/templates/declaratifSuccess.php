@@ -197,7 +197,7 @@
                 
 
                 <ul class="onglets_declaratif">
-                    <li><strong>Statistiques européennes</strong><a href="" class="msg_aide" data-msg="" title="Message aide"></a></li>
+                    <li><strong>Statistiques européennes</strong><a href="" class="msg_aide" data-msg="help_popup_drm_stats_euro" title="Message aide"></a></li>
                 </ul>
                 <div class="contenu_onglet_declaratif">
                 	<div class="tableau_ajouts_liquidations">
@@ -227,7 +227,7 @@
                 </div>
                 
                 <ul class="onglets_declaratif">
-                    <li><strong>Observations</strong><a href="" class="msg_aide" data-msg="" title="Message aide"></a></li>
+                    <li><strong>Observations</strong><a href="" class="msg_aide" data-msg="help_popup_drm_observations" title="Message aide"></a></li>
                 </ul>
                 <div class="contenu_onglet_declaratif">
                     <div class="tableau_ajouts_liquidations">

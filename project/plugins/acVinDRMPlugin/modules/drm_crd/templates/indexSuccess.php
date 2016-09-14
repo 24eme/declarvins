@@ -44,12 +44,12 @@
                             <th rowspan="2" style="width: 115px">Stock théorique Fin de mois</th>
                        </tr>
                     	<tr>
-                        	<th style="width: 70px; text-align: center;">Achats<br /><a class="msg_aide" title="Message aide" data-msg="" href=""></a></th>
-                            <th style="width: 70px">Excédents<br /><a class="msg_aide" title="Message aide" data-msg="" href=""></a></th>
-                            <th style="width: 70px">Retours<br /><a class="msg_aide" title="Message aide" data-msg="" href=""></a></th>
-                            <th style="width: 70px">Utilisées<br /><a class="msg_aide" title="Message aide" data-msg="" href=""></a></th>
-                            <th style="width: 70px">Détruites<br /><a class="msg_aide" title="Message aide" data-msg="" href=""></a></th>
-                            <th style="width: 70px">Manquantes<br /><a class="msg_aide" title="Message aide" data-msg="" href=""></a></th>
+                        	<th style="width: 70px; text-align: center;">Achats<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_achats" href=""></a></th>
+                            <th style="width: 70px">Excédents<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_excedents" href=""></a></th>
+                            <th style="width: 70px">Retours<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_retours" href=""></a></th>
+                            <th style="width: 70px">Utilisées<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_utilisees" href=""></a></th>
+                            <th style="width: 70px">Détruites<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_detruites" href=""></a></th>
+                            <th style="width: 70px">Manquantes<br /><a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_manquantes" href=""></a></th>
                        </tr>
                    </thead>
                    <tbody>
