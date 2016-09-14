@@ -36,6 +36,7 @@ EOF;
     $hasFrom = true;
     $to = EtablissementClient::getInstance()->find($arguments['to']);
     $archivage = $options['archivage'];
+
     if ($to) {
 	    if (!$from) {
 	    	$hasFrom = false;
@@ -72,5 +73,6 @@ EOF;
 	      	$this->logSection("vrac", $i." contrat(s) switché(s) avec succès", null, 'SUCCESS');
 	    }
     }
+
   }
 }

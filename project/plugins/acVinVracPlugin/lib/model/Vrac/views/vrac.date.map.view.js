@@ -8,7 +8,21 @@ function(doc) {
 			var d = date.split('/');
 			return d[2]+'-'+d[1]+'-'+d[0];
 		}
-		
+
+		var getCampagne = function(date) {
+			if (!date) {
+				return null;
+			}
+			var d = date.split('-');
+			var annee = parseInt(d[0]);
+			var mois = d[1];
+			if (mois < 8) {
+				annee--;
+			}
+			return annee+""+(annee+1);
+		}
+
+		var vrac_campagne = getCampagne(doc.valide.date_validation);		
 		var vrac_id = doc.numero_contrat;
 		var vrac_version = (doc.version)? doc.version : null;
 		var vrac_referente = (doc.referente === null || doc.referente === undefined)? 1 : doc.referente;
@@ -21,10 +35,12 @@ function(doc) {
 		var vrac_acheteur_cvi = doc.acheteur.cvi;
 		var vrac_acheteur_siret = doc.acheteur.siret;
 		var vrac_acheteur_nom = doc.acheteur.raison_sociale;
+		var vrac_acheteur_ea = doc.acheteur.num_accise;
 		var vrac_vendeur_id = doc.vendeur_identifiant;
 		var vrac_vendeur_cvi = doc.vendeur.cvi;
 		var vrac_vendeur_siret = doc.vendeur.siret;
 		var vrac_vendeur_nom = doc.vendeur.raison_sociale;
+		var vrac_vendeur_ea = doc.vendeur.num_accise;
 		var vrac_mandataire_id = doc.mandataire_identifiant;
 		var vrac_mandataire_siret = doc.mandataire.siret;
 		var vrac_mandataire_nom = doc.mandataire.raison_sociale;
@@ -63,6 +79,7 @@ function(doc) {
 		var vrac_prix_unitaire = doc.prix_unitaire;
 		var vrac_type_prix = doc.type_prix;
 		var vrac_determination_prix = doc.determination_prix;
+		var vrac_determination_prix_date = doc.determination_prix_date;
 		var vrac_export = doc.export;
 		var vrac_conditions_paiement = doc.conditions_paiement;
 		var vrac_reference_contrat_pluriannuel = doc.reference_contrat_pluriannuel;
@@ -91,6 +108,26 @@ function(doc) {
 		var regexp = new RegExp("(\r\n|\r|\n)", "g");
 		var vrac_commentaire = (doc.commentaires)? (doc.commentaires).replace(regexp, " ") : null;
 		var vrac_observation = (doc.observations)? (doc.observations).replace(regexp, " ") : null;
+
+		var vrac_bailleur_metayer = (doc.bailleur_metayer)? doc.bailleur_metayer : 0;
+		var vrac_oioc_date_reception = null;
+		var vrac_oioc_date_traitement = null;
+		if (doc.oioc) {
+			vrac_oioc_date_reception = (doc.oioc.date_reception)? doc.oioc.date_reception : null;
+			vrac_oioc_date_traitement = (doc.oioc.date_traitement)? doc.oioc.date_traitement : null;
+		}
+		
+		var vrac_addr_stockage_siret = doc.adresse_stockage.siret;
+		var vrac_addr_stockage_libelle = doc.adresse_stockage.libelle;
+		var vrac_addr_stockage_adresse = doc.adresse_stockage.adresse;
+		var vrac_addr_stockage_code_postal = doc.adresse_stockage.code_postal;
+		var vrac_addr_stockage_commune = doc.adresse_stockage.commune;
+		var vrac_addr_stockage_pays = doc.adresse_stockage.pays;
+
+		var vrac_addr_stockage_has = 0;
+		if (vrac_addr_stockage_adresse || vrac_addr_stockage_code_postal || vrac_addr_stockage_commune) {
+			vrac_addr_stockage_has = 1;
+		}
 		
 		var nbItem = doc.lots.length;
 		
@@ -202,7 +239,22 @@ function(doc) {
                 		 vrac_mode,
 				 vrac_date_saisie,
 				 vrac_date_validation,
-				 vrac_observation
+				 vrac_observation,
+				 vrac_bailleur_metayer,
+				 doc.valide.date_validation,
+				 vrac_oioc_date_reception,
+				 vrac_oioc_date_traitement,
+				 vrac_addr_stockage_siret,
+				 vrac_addr_stockage_libelle,
+				 vrac_addr_stockage_adresse,
+				 vrac_addr_stockage_code_postal,
+				 vrac_addr_stockage_commune,
+				 vrac_addr_stockage_pays,
+				 vrac_addr_stockage_has,
+				 vrac_acheteur_ea,
+				 vrac_vendeur_ea,
+				 vrac_determination_prix_date,
+				 vrac_campagne
                 		 ]);
 			}
 		} else {
@@ -212,7 +264,7 @@ function(doc) {
             		 vrac_date_signature,
             		 vrac_acheteur_id,
             		 vrac_acheteur_cvi,
-			         vrac_acheteur_siret,
+			 vrac_acheteur_siret,
             		 vrac_acheteur_nom,
             		 vrac_vendeur_id,
             		 vrac_vendeur_cvi,
@@ -272,7 +324,22 @@ function(doc) {
             		 vrac_mode,
 			 vrac_date_saisie,
 			 vrac_date_validation,
-			 vrac_date_observation
+			 vrac_observation,
+			 vrac_bailleur_metayer,
+			 doc.valide.date_validation,
+			 vrac_oioc_date_reception,
+			 vrac_oioc_date_traitement,
+			 vrac_addr_stockage_siret,
+			 vrac_addr_stockage_libelle,
+			 vrac_addr_stockage_adresse,
+			 vrac_addr_stockage_code_postal,
+			 vrac_addr_stockage_commune,
+			 vrac_addr_stockage_pays,
+			 vrac_addr_stockage_has,
+			 vrac_acheteur_ea,
+			 vrac_vendeur_ea,
+			 vrac_determination_prix_date,
+			 vrac_campagne
             		 ]);
 		}                              
 	} 

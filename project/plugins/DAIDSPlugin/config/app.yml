@@ -6,6 +6,8 @@ all:
   daids_etapes:
     informations:
       url: "daids_informations"
+    ajouts_liquidations:
+      url: "daids_recap_redirect"
     recapitulatif:
       url: "daids_recap_redirect"
     validation:

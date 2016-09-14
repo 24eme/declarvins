@@ -4,7 +4,7 @@
 	if (!$form->getObject()->isValide() && $form->getObject()->premiere_mise_en_marche && $form->getObject()->vendeur->famille == EtablissementFamilles::FAMILLE_NEGOCIANT) {
 		$warningMiseEnMarche = true;
 	} 
-	if (!$form->getObject()->isValide() && !preg_match("/^fr/i", $form->getObject()->acheteur->pays)) {
+	if (!$form->getObject()->isValide() && $form->getObject()->acheteur->pays && !preg_match("/^fr/i", $form->getObject()->acheteur->pays)) {
 		$warningExport = true;
 	} 
 ?>
