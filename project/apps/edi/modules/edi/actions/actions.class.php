@@ -580,6 +580,10 @@ class ediActions extends sfActions
 		foreach($rows as $row) {
 			$etablissement = $eClient->find($row->id);
 			$compte = $etablissement->getCompteObject();
+			$convention = 'oui';
+			if (!$compte->dematerialise_ciel) {
+				$convention = ($compte->getConventionCiel())? 'att' : 'non';
+			}
 			$result .= $etablissement->identifiant;
 			$result .= ';';
 			$result .= $etablissement->num_interne;
@@ -669,6 +673,8 @@ class ediActions extends sfActions
 			$result .= ($zonesLibelles)? implode('|', $zonesLibelles) : '';
 			$result .= ';';
 			$result .= ($correspondances)? implode('|', $correspondances) : '';
+			$result .= ';';
+			$result .= $convention;
 			$result .= "\n";
 		}
 	    if (!$result) {

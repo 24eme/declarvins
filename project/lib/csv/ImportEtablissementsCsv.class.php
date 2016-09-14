@@ -397,7 +397,7 @@ class ImportEtablissementsCsv {
 		}
         $compte->telephone = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_TELEPHONE]);
         $compte->fax = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_FAX]);
-        $compte->dematerialise_ciel = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_CIEL]);
+        $compte->dematerialise_ciel = (preg_match("/oui/i", trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_CIEL])))? 1 : 0;
         return $compte;
     }
 }
