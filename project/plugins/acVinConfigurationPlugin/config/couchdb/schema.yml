@@ -85,7 +85,7 @@ Configuration:
                                 definition:
                                   fields:
                                     '*': {  }
-                              'replacement-suspension':
+                              'replacement':
                                 type: collection
                                 definition:
                                   fields:
