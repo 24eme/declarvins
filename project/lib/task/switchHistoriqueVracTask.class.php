@@ -45,9 +45,7 @@ EOF;
 	    	$from->famille = $to->famille;
 	    }
 	    
-	    if ($from->famille == "producteur" || $to->famille == "producteur") {
-	    	$this->logSection("vrac", $from->identifiant." ".$from->famille." / ".$to->identifiant." ".$to->famille, null, 'ERROR');
-	    } else {
+
 	  		$rows = acCouchdbManager::getClient()
 	              ->startkey(array($from->identifiant))
 	              ->endkey(array($from->identifiant, array()))
@@ -71,7 +69,7 @@ EOF;
 	      		$this->logSection("vrac", "etablissement ".$from->identifiant." archivé avec succès", null, 'SUCCESS');
 	      	}
 	      	$this->logSection("vrac", $i." contrat(s) switché(s) avec succès", null, 'SUCCESS');
-	    }
+	    
     }
 
   }
