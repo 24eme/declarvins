@@ -12,7 +12,7 @@
     <div id="logo">
         <h1>
                 <a href="<?php echo url_for('ac_vin_login') ?>" title="Declarvin - Retour à l'accueil"><img src="/images/visuels/logo_declarvins.png" alt="Declarvin" /></a></h1>
-        <p style="font-weight: bold; text-align:center;">/!\ PREPROD V2 /!\</p>
+        <p>La plateforme déclarative des vins du Rhône, de Provence et du Sud Est</p>
     </div>
     <?php if ($sf_user->isAuthenticated()): ?>
     <p class="deconnexion"><a href="<?php echo url_for('@ac_vin_logout'); ?>">Se deconnecter</a></p>
