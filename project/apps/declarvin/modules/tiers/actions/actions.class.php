@@ -73,7 +73,7 @@ class tiersActions extends sfActions
     if ($this->etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI) && $configuration->isApplicationOuverte($this->etablissement->interpro, 'drm', $this->etablissement)) {
 		$this->configureAlerteDrm($this->etablissement);
 		
-		if ($this->getUser()->getCompte()->isTiers()) {
+		if ($this->getUser()->getCompte()->isTiers() && !$this->getUser()->getCompte()->dematerialise_ciel) {
 			$convention = $this->getUser()->getCompte()->getConventionCiel();
 			if (!$convention) {
 				return $this->redirect("convention_ciel", $this->etablissement);
