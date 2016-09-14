@@ -35,9 +35,11 @@
                 <?php endif; ?>
                 
                 <?php if (!$drmValidation->hasErrors()): ?>
-                <button type="submit" class="btn_suiv"<?php if ($drmValidation->hasErrors()): ?> disabled="disabled"<?php endif; ?>>
+                <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()->dematerialise_ciel) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+                <button type="submit" class="btn_suiv">
                     <span>Valider</span>
                 </button>
+                <?php endif; ?>
                 <?php endif; ?>
             </div>
             
@@ -133,9 +135,11 @@
                 <?php endif; ?>
                 <?php endif; ?>
                 <?php if (!$drmValidation->hasErrors()): ?>
-                <button type="submit" class="btn_suiv"<?php if ($drmValidation->hasErrors()): ?> disabled="disabled"<?php endif; ?>>
+                <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()->dematerialise_ciel) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+                <button type="submit" class="btn_suiv">
                     <span>Valider</span>
                 </button>
+                <?php endif; ?>
                 <?php endif; ?>
             </div>
 
