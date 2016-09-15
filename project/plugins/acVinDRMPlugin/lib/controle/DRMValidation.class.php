@@ -47,9 +47,13 @@ class DRMValidation
 		$totalVciSorti = 0;
 		$certificationVinssansig = null;
 		$certificationVci = null;
+		$certificationFirst = null;
 		foreach ($this->drm->declaration->certifications as $certification) {
 			if ($certification->getKey() == self::VINSSANSIG_KEY) {
 				$certificationVinssansig = $certification;
+			}
+			if (!$certificationFirst) {
+				$certificationFirst = $certification;
 			}
 			$totalEntreeRepli = 0;
 			$totalSortiRepli = 0;
@@ -77,6 +81,7 @@ class DRMValidation
 					$totalVciEntree += $detail->entrees->recolte;
 					$totalVciSorti += $detail->sorties->repli;
 				} else {
+					$certificationVci = $certification;
 					$totalEntreeVci += $detail->entrees->vci;
 					$totalSortiVci += $detail->sorties->vci;
 				}
@@ -89,7 +94,11 @@ class DRMValidation
 			$this->errors['declassement_'.self::VINSSANSIG_KEY] = new DRMControleError('declassement', $this->generateUrl('drm_recap', $certificationVinssansig));
 		}
 		if (round($totalVciEntree,4) != round($totalSortiVci,4) || round($totalVciSorti,4) != round($totalEntreeVci,4)) {
-			$this->errors['vci_'.self::VCI_KEY] = new DRMControleError('vci', $this->generateUrl('drm_recap', $certificationVci));
+			if ($certificationVci) {
+				$this->errors['vci_'.self::VCI_KEY] = new DRMControleError('vci', $this->generateUrl('drm_recap', $certificationVci));
+			} else {
+				$this->errors['vci_'.self::VCI_KEY] = new DRMControleError('vci', $this->generateUrl('drm_recap', $certificationFirst));
+			}
 		}
 	}
 	
