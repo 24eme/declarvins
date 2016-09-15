@@ -17,8 +17,8 @@ class Configuration extends BaseConfiguration {
 
     protected static $contraintes_vci = array(
     		'entrees/recolte',
-    		'sorties/repli',
-        	'sorties/distillation'
+    		'sorties/vci',
+        	'sorties/autres'
     );
     
     protected static $stocks_debut = array(

@@ -95,9 +95,9 @@ class DRMValidation
 		}
 		if (round($totalVciEntree,4) != round($totalSortiVci,4) || round($totalVciSorti,4) != round($totalEntreeVci,4)) {
 			if ($certificationVci) {
-				$this->errors['vci_'.self::VCI_KEY] = new DRMControleError('vci', $this->generateUrl('drm_recap', $certificationVci));
+				//$this->errors['vci_'.self::VCI_KEY] = new DRMControleError('vci', $this->generateUrl('drm_recap', $certificationVci));
 			} else {
-				$this->errors['vci_'.self::VCI_KEY] = new DRMControleError('vci', $this->generateUrl('drm_recap', $certificationFirst));
+				//$this->errors['vci_'.self::VCI_KEY] = new DRMControleError('vci', $this->generateUrl('drm_recap', $certificationFirst));
 			}
 		}
 	}
