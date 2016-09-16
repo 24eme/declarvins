@@ -1,3 +1,5 @@
+
+<?php use_helper('Link'); ?>
 <?php include_component('global', 'navTop', array('active' => 'drm')); ?>
 
 <section id="contenu">
@@ -17,7 +19,7 @@
 		    </ol>
 		</div>
     	<?php endif; ?>
-        <form id="formValidation" action="<?php echo url_for('drm_validation', $drm) ?>" method="post">
+        <form id="formValidation" action="<?php echo ($sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel)? url_for('drm_transfer_ciel', $drm) :  url_for('drm_validation', $drm); ?>" method="post">
             <?php echo $form->renderGlobalErrors() ?>
             <?php echo $form->renderHiddenFields() ?>
             
@@ -37,7 +39,7 @@
                 <?php if (!$drmValidation->hasErrors()): ?>
                 <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()->dematerialise_ciel) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <button type="submit" class="btn_suiv">
-                    <span>Valider</span>
+                    <span>Valider<?php if($sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?> et envoyer à CIEL<?php endif; ?></span>
                 </button>
                 <?php endif; ?>
                 <?php endif; ?>
@@ -120,7 +122,8 @@
                 </div>
                 <?php endif; ?>
             </div>
-            <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Visualisez le brouillon de DRM en PDF</a>
+            <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Visualisez le brouillon de DRM</a>
+            <a id="telecharger_pdf" style="margin-left: 225px; padding-left: 5px; background: #9e9e9e;" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Visualisez le XML CIEL</a>
             
             <div id="btn_etape_dr">
             	<?php if (!$drm->isIncomplete()): ?>
@@ -137,7 +140,7 @@
                 <?php if (!$drmValidation->hasErrors()): ?>
                 <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()->dematerialise_ciel) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <button type="submit" class="btn_suiv">
-                    <span>Valider</span>
+                    <span>Valider<?php if($sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?> et envoyer à CIEL<?php endif; ?></span>
                 </button>
                 <?php endif; ?>
                 <?php endif; ?>

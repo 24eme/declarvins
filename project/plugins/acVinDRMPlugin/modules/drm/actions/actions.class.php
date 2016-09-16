@@ -322,19 +322,7 @@ class drmActions extends sfActions {
     public function executeTransferCiel(sfWebRequest $request) {
         $this->drm = $this->getRoute()->getDRM();
         $this->etablissement = $this->getRoute()->getEtablissement();
-        $export = new DRMExportCsvEdi($this->drm);
-        $this->cielResponse = '';
-        if ($xml = $export->exportEDI('xml')) {
-        	try {
-        		$service = new CielService();
-        		$this->cielResponse = $service->transfer($xml);
-        	} catch (sfException $e) {
-        		$this->cielResponse = $e->getMessage();
-        	}
-        } else {
-        	$this->cielResponse = "Une erreur est survenue à la génération du XML.";
-        }
-    	
+        $this->postVars = $request->getPostParameters();
     }
 
     /**
