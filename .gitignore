@@ -5,4 +5,6 @@ nbproject/
 .idea/
 project/bin/config.inc
 project/data/ciel/*
+project/apps/declarvin/templates/_header.php
+project/apps/declarvin/templates/layout.php
 *~
