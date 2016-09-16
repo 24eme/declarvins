@@ -61,6 +61,7 @@
 				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksDebut(),
 	    						  								        'counter' => 2,
 																		'colonnes' => $colonnes,
+																        'drm' => $drm,
 																  		'hash' => 'stocks_debut'))?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total entrées',
@@ -75,6 +76,7 @@
 				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksEntree(),
 	    						  								        'counter' => 3,
 																		'colonnes' => $colonnes,
+																        'drm' => $drm,
 																  		'hash' => 'entrees')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total sorties',
@@ -88,6 +90,7 @@
 				<?php $stockSorties = Configuration::getStocksSortie(); unset($stockSorties['vrac_contrat']); include_partial('drm_export/pdfLineDetail', array('stocks' => $stockSorties,
 	    						  								        'counter' => 4,
 																		'colonnes' => $colonnes,
+																        'drm' => $drm,
 																  		'hash' => 'sorties')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Stock fin de mois',
@@ -101,6 +104,7 @@
 				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksFin(),
 	    						  								        'counter' => 5,
 																		'colonnes' => $colonnes,
+																        'drm' => $drm,
 																  		'hash' => 'stocks_fin')) ?>
 
 			</table>
