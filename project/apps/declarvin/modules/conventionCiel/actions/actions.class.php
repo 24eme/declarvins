@@ -145,6 +145,7 @@ class conventionCielActions extends sfActions
   		$this->generatePdf();
   		$this->generateAvenant();
     	Email::getInstance()->sendConventionCiel($this->convention, $this->compte->email, array(InterproClient::getInstance()->getById($this->convention->interpro)), ContratClient::getInstance()->find($this->compte->contrat));
+    	Email::getInstance()->sendConventionCiel($this->convention, $convention->getEmailInterprofession(), array(InterproClient::getInstance()->getById($this->convention->interpro)), ContratClient::getInstance()->find($this->compte->contrat));
   	}
 
   }
