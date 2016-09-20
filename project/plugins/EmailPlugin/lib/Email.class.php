@@ -282,7 +282,6 @@ class Email {
     	$message = Swift_Message::newInstance()
     	->setFrom($from)
     	->setTo($to)
-    	->addBcc($convention->getEmailInterprofession(), $convention->getInterprofession())
     	->setSubject($subject)
     	->setBody($body)
     	->setContentType('text/html')
