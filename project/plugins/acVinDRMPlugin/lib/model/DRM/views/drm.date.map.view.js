@@ -20,16 +20,16 @@ function(doc) {
         var explodeIdDRM = function(id) {
             return id.split('-');
         }
-        var getAnneeByDRM = function (tabId) {
-            if (typeof tabId[2] != "undefined") {
-                return tabId[2];
+        var getAnneeByDRM = function (tabPeriode) {
+            if (typeof tabPeriode[0] != "undefined") {
+                return tabPeriode[0];
             } else {
                 return null;
             }
         }
-        var getMoisByDRM = function (tabId) {
-            if (typeof tabId[3] != "undefined") {
-                return tabId[3];
+        var getMoisByDRM = function (tabPeriode) {
+            if (typeof tabPeriode[1] != "undefined") {
+                return tabPeriode[1];
             } else {
                 return null;
             }
@@ -71,6 +71,7 @@ function(doc) {
         var drm_id = doc._id;
         var drm_campagne = (doc.campagne).replace("-", "");
         var drm_explosed_id = explodeIdDRM(drm_id);
+        var drm_explosed_periode = explodeIdDRM(doc.periode);
         var drm_precedente_explosed_id = null;
         var drm_precedente_annee = null;
         var drm_precedente_mois = null;
@@ -85,8 +86,8 @@ function(doc) {
         var drm_declarant = doc.declarant.raison_sociale;
         var drm_declarant_famille = doc.declarant.famille;
         var drm_declarant_sousfamille = doc.declarant.sous_famille;
-        var drm_annee = getAnneeByDRM(drm_explosed_id);
-        var drm_mois = getMoisByDRM(drm_explosed_id);
+        var drm_annee = getAnneeByDRM(drm_explosed_periode);
+        var drm_mois = getMoisByDRM(drm_explosed_periode);
         var drm_version = groupByLastVersion(doc.version);
         var drm_date_saisie = doc.valide.date_saisie;
         var drm_date_signee = doc.valide.date_signee;
