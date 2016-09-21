@@ -167,9 +167,9 @@ class conventionCielActions extends sfActions
 	  			$this->generatePdf($compte);
 	  			$this->generateAvenant($compte);
 	  			echo $compte->email." ".$convention->getEmailInterprofession()."<br />";
-	  			Email::getInstance()->sendConventionCiel($this->convention, $compte->email, array(InterproClient::getInstance()->getById($this->convention->interpro)), ContratClient::getInstance()->find($compte->contrat));
-	  			Email::getInstance()->sendConventionCiel($this->convention, $convention->getEmailInterprofession(), array(InterproClient::getInstance()->getById($this->convention->interpro)), ContratClient::getInstance()->find($compte->contrat));
-	  			Email::getInstance()->sendConventionCiel($this->convention, "jblemetayer@actualys.com", array(InterproClient::getInstance()->getById($this->convention->interpro)), ContratClient::getInstance()->find($compte->contrat));
+	  			Email::getInstance()->sendConventionCiel($this->convention, $compte->email, array(InterproClient::getInstance()->getById($convention->interpro)), ContratClient::getInstance()->find($compte->contrat));
+	  			Email::getInstance()->sendConventionCiel($this->convention, $convention->getEmailInterprofession(), array(InterproClient::getInstance()->getById($convention->interpro)), ContratClient::getInstance()->find($compte->contrat));
+	  			Email::getInstance()->sendConventionCiel($this->convention, "jblemetayer@actualys.com", array(InterproClient::getInstance()->getById($convention->interpro)), ContratClient::getInstance()->find($compte->contrat));
 	  		}
 	  	}
   
