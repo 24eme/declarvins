@@ -149,6 +149,32 @@ class conventionCielActions extends sfActions
   	}
 
   }
+
+  /**
+   *
+   *
+   * @param sfRequest $request A request object
+   */
+  public function executeResend(sfWebRequest $request)
+  {
+	  	$rows = acCouchdbManager::getClient()
+	  	->reduce(false)
+	  	->getView("convention", "inscription")
+	  	->rows;
+  	 
+	  	foreach($rows as $row) {
+	  		if ($compte = _CompteClient::getInstance()->find(str_replace("CONVENTIONCIEL-", "COMPTE-", $row->id))) {
+  				$convention = $compte->getConventionCiel();
+	  			$this->generatePdf($compte);
+	  			$this->generateAvenant($compte);
+	  			echo $compte->email." ".$convention->getEmailInterprofession()."<br />";
+	  			Email::getInstance()->sendConventionCiel($this->convention, $compte->email, array(InterproClient::getInstance()->getById($this->convention->interpro)), ContratClient::getInstance()->find($compte->contrat));
+	  			Email::getInstance()->sendConventionCiel($this->convention, $convention->getEmailInterprofession(), array(InterproClient::getInstance()->getById($this->convention->interpro)), ContratClient::getInstance()->find($compte->contrat));
+	  			Email::getInstance()->sendConventionCiel($this->convention, "jblemetayer@actualys.com", array(InterproClient::getInstance()->getById($this->convention->interpro)), ContratClient::getInstance()->find($compte->contrat));
+	  		}
+	  	}
+  
+  }
   
  /**
   * 
@@ -193,9 +219,9 @@ class conventionCielActions extends sfActions
   	return $this->renderText($pdf->render($this->getResponse(), false));
   }
   
-  protected function generatePdf() 
+  protected function generatePdf($c = null) 
   {
-  	$compte = $this->getUser()->getCompte();
+  	$compte = ($c)? $c : $this->getUser()->getCompte();
 	if ($convention = $compte->getConventionCiel()) {
 		$path = sfConfig::get('sf_data_dir').'/convention-ciel';
 		if (!file_exists($path.'/pdf/'.$convention->_id.'.pdf')) {
@@ -207,11 +233,11 @@ class conventionCielActions extends sfActions
 	}
   }
   
-  protected function generateAvenant() 
+  protected function generateAvenant($c = null) 
   {
-  	$compte = $this->getUser()->getCompte();
+  	$compte = ($c)? $c : $this->getUser()->getCompte();
 	if ($convention = $compte->getConventionCiel()) {
-		$contrat = ContratClient::getInstance()->find($this->compte->contrat);
+		$contrat = ContratClient::getInstance()->find($compte->contrat);
 		$pdf = new ExportAvenantPdf($contrat);
   		$pdf->generate();
 	}

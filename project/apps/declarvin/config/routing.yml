@@ -55,6 +55,9 @@ contrat_pdf:
   
 # Convention CIEL
 
+convention_ciel_resend:
+  url:   /convention-ciel-resend
+  param: { module: conventionCiel, action: resend }
 convention_ciel:
   class: EtablissementRoute
   url:   /convention-ciel/:identifiant
