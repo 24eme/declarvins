@@ -149,35 +149,6 @@ class conventionCielActions extends sfActions
   	}
 
   }
-
-  /**
-   *
-   *
-   * @param sfRequest $request A request object
-   */
-  public function executeResend(sfWebRequest $request)
-  {
-	  	$rows = acCouchdbManager::getClient()
-	  	->getView("convention", "inscription")
-	  	->rows;
-  	 	$find = false;
-	  	foreach($rows as $row) {
-	  		if ($find && $compte = _CompteClient::getInstance()->find(str_replace("CONVENTIONCIEL-", "COMPTE-", $row->id))) {
-  				$convention = $compte->getConventionCiel();
-	  			$this->generatePdf($compte);
-	  			$this->generateAvenant($compte);
-	  			echo $compte->email." ".$convention->getEmailInterprofession()."<br />";
-	  			Email::getInstance()->sendConventionCiel($convention, $compte->email, array(InterproClient::getInstance()->getById($convention->interpro)), ContratClient::getInstance()->find($compte->contrat));
-	  			Email::getInstance()->sendConventionCiel($convention, $convention->getEmailInterprofession(), array(InterproClient::getInstance()->getById($convention->interpro)), ContratClient::getInstance()->find($compte->contrat));
-	  			Email::getInstance()->sendConventionCiel($convention, "jblemetayer@actualys.com", array(InterproClient::getInstance()->getById($convention->interpro)), ContratClient::getInstance()->find($compte->contrat));
-	  		}
-
-	  		if ($row->id == 'CONVENTIONCIEL-jmargnat') {
-	  			$find = true;
-	  		}
-	  	}
-  
-  }
   
  /**
   * 
