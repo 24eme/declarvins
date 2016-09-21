@@ -158,7 +158,6 @@ class conventionCielActions extends sfActions
   public function executeResend(sfWebRequest $request)
   {
 	  	$rows = acCouchdbManager::getClient()
-	  	->reduce(false)
 	  	->getView("convention", "inscription")
 	  	->rows;
   	 
