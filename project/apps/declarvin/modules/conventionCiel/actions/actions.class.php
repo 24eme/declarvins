@@ -160,9 +160,9 @@ class conventionCielActions extends sfActions
 	  	$rows = acCouchdbManager::getClient()
 	  	->getView("convention", "inscription")
 	  	->rows;
-  	 
+  	 	$find = false;
 	  	foreach($rows as $row) {
-	  		if ($compte = _CompteClient::getInstance()->find(str_replace("CONVENTIONCIEL-", "COMPTE-", $row->id))) {
+	  		if ($find && $compte = _CompteClient::getInstance()->find(str_replace("CONVENTIONCIEL-", "COMPTE-", $row->id))) {
   				$convention = $compte->getConventionCiel();
 	  			$this->generatePdf($compte);
 	  			$this->generateAvenant($compte);
@@ -170,6 +170,10 @@ class conventionCielActions extends sfActions
 	  			Email::getInstance()->sendConventionCiel($convention, $compte->email, array(InterproClient::getInstance()->getById($convention->interpro)), ContratClient::getInstance()->find($compte->contrat));
 	  			Email::getInstance()->sendConventionCiel($convention, $convention->getEmailInterprofession(), array(InterproClient::getInstance()->getById($convention->interpro)), ContratClient::getInstance()->find($compte->contrat));
 	  			Email::getInstance()->sendConventionCiel($convention, "jblemetayer@actualys.com", array(InterproClient::getInstance()->getById($convention->interpro)), ContratClient::getInstance()->find($compte->contrat));
+	  		}
+
+	  		if ($row->id == 'CONVENTIONCIEL-jmargnat') {
+	  			$find = true;
 	  		}
 	  	}
   
