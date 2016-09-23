@@ -9,8 +9,7 @@ class ContratForm extends acCouchdbObjectForm {
 			'telephone' => new sfWidgetFormInputText(),
 			'fax' => new sfWidgetFormInputText(), 	
             'email' => new sfWidgetFormInputText(),
-        	'email2' => new sfWidgetFormInputText(),
-        	'dematerialise_ciel' => new WidgetFormInputCheckbox()
+        	'email2' => new sfWidgetFormInputText()
     					
     	));
 		$this->widgetSchema->setLabels(array(
@@ -20,8 +19,7 @@ class ContratForm extends acCouchdbObjectForm {
 			'telephone' => 'Téléphone*: ',
 			'fax' => 'Fax: ',
             'email' => 'Adresse e-mail*: ',
-            'email2' => 'Vérification de l\'e-mail*: ',
-            'dematerialise_ciel' => "J'adhère à la dématérialisation de la DRM avec les douanes CIEL et je suis inscrit et identifié sur Prodouane."
+            'email2' => 'Vérification de l\'e-mail*: '
 		));
 		$this->setValidators(array(
 			'nom' => new sfValidatorString(array('required' => true)),
@@ -30,8 +28,7 @@ class ContratForm extends acCouchdbObjectForm {
 			'telephone' => new sfValidatorString(array('required' => true)),
 			'fax' => new sfValidatorString(array('required' => false)),
             'email' => new sfValidatorEmailStrict(array('required' => true)),
-        	'email2' => new sfValidatorEmailStrict(array('required' => true)),
-        	'dematerialise_ciel' => new ValidatorBoolean(array('required' => false))
+        	'email2' => new sfValidatorEmailStrict(array('required' => true))
 		));
         
         $this->validatorSchema->setPostValidator(new sfValidatorSchemaCompare('email', 

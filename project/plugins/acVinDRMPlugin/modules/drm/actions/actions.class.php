@@ -300,7 +300,8 @@ class drmActions extends sfActions {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
                 $this->drm = $this->form->save();
-                $this->drm->setCurrentEtapeRouting('validation');
+                $this->drm->etape = 'validation';
+                $this->drm->save();
                 $this->redirect('drm_validation', $this->drm);
             }
         }

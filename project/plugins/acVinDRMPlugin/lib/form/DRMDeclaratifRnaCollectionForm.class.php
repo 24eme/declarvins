@@ -19,7 +19,7 @@ class DRMDeclaratifRnaCollectionForm extends BaseForm implements FormBindableInt
                 	if (!$key) {
                 		$key = uniqid();
                 	}
-                        $this->embedForm ($key, new DRMDeclaratifRnaForm($object));
+                    $this->embedForm ($key, new DRMDeclaratifRnaForm($object));
                 }
     }
 

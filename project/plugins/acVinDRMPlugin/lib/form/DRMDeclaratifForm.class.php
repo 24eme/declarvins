@@ -164,10 +164,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
         $this->embedForm('observationsProduits', $observations);
         
         $this->embedForm('reports', new DRMDeclaratifReportForm($this->_drm));
-
-
-        $this->widgetSchema->setNameFormat('drm_declaratif[%s]');
-        $this->validatorSchema->setPostValidator(new DRMDeclaratifValidator());
         
         if (!$this->hasWidgetFrequence()) {
             unset($this['frequence']);
@@ -176,6 +172,10 @@ class DRMDeclaratifForm extends acCouchdbForm {
         if (DRMPaiement::isDebutCampagne($this->_drm->getMois()) && isset($this['reports'])) {
             unset($this['reports']);
         }
+
+
+        $this->widgetSchema->setNameFormat('drm_declaratif[%s]');
+        $this->validatorSchema->setPostValidator(new DRMDeclaratifValidator());
     }
 
     public function bind(array $taintedValues = null, array $taintedFiles = null)
@@ -195,17 +195,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
     	$this->widgetSchema[$name] = $form->getWidgetSchema();
     	$this->validatorSchema[$name] = $form->getValidatorSchema();
     }
-
-    /* public function formatter($widget, $inputs)
-      {
-      $rows = array();
-      foreach ($inputs as $input)
-      {
-      $rows[] = $widget->renderContentTag('div', $input['label'].$this->getOption('label_separator').$input['input'], array('class' => 'ligne_form'));
-      }
-
-      return !$rows ? '' : implode($widget->getOption('separator'), $rows);
-      } */
 
     /**
      * 
@@ -265,7 +254,6 @@ class DRMDeclaratifForm extends acCouchdbForm {
        			$this->_drm->addObservationProduit($hash, $observation['observations']);
         	}
         }
-        //$this->_drm->save();
         return $this->_drm;
     }
 

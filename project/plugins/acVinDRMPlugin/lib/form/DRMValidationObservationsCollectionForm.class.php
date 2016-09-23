@@ -1,6 +1,6 @@
 <?php
 
-class DRMValidationObservationsCollectionForm extends BaseForm
+class DRMValidationObservationsCollectionForm extends BaseForm 
 {
         protected $_drm;
         

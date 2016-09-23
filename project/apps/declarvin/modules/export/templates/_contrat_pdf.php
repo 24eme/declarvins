@@ -212,8 +212,6 @@
 				</p>
                                 <br/>
                                 <p class="note">(Attention à vérifier les sécurités, paramètres, et espaces disponibles sur cette adresse mail : des informations importantes vous y seront envoyées. Notamment certains systèmes de sécurité pourraient classer en &laquo; SPAM &raquo; ces informations)</p>
-                                <br/><br/>
-                                <p>Adhésion dematérialisation CIEL : <strong><?php echo ($compte->exist('dematerialise_ciel') && $compte->dematerialise_ciel)? 'oui' : 'non'; ?></strong><br /><br /></p>
                         </div>
 			
 			<?php 
