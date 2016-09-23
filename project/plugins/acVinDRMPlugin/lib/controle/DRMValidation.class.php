@@ -90,7 +90,7 @@ class DRMValidation
 				$this->errors['repli_'.$certification->getKey()] = new DRMControleError('repli', $this->generateUrl('drm_recap', $certification));
 			}
 		}
-		if (round($totalEntreeDeclassement,4) != round($totalSortiDeclassement,4)) {
+		if (round($totalEntreeDeclassement,4) > round($totalSortiDeclassement,4)) {
 			$this->errors['declassement_'.self::VINSSANSIG_KEY] = new DRMControleError('declassement', $this->generateUrl('drm_recap', $certificationVinssansig));
 		}
 		if (round($totalVciEntree,4) != round($totalSortiVci,4) || round($totalVciSorti,4) != round($totalEntreeVci,4)) {
