@@ -580,9 +580,13 @@ class ediActions extends sfActions
 		foreach($rows as $row) {
 			$etablissement = $eClient->find($row->id);
 			$compte = $etablissement->getCompteObject();
-			$convention = 'oui';
-			if (!$compte->dematerialise_ciel) {
-				$convention = ($compte->getConventionCiel())? 'att' : 'non';
+			if ($compte) {
+				$convention = 'oui';
+				if (!$compte->dematerialise_ciel) {
+					$convention = ($compte->getConventionCiel())? 'att' : 'non';
+				}
+			} else {
+				$convention = 'non';
 			}
 			$result .= $etablissement->identifiant;
 			$result .= ';';
