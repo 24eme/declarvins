@@ -7,7 +7,7 @@ class DRMDetailEntreesForm  extends acCouchdbObjectForm {
     	$stockEntrees = Configuration::getStocksEntree(true);
     	$stockEntrees = array_merge($stockEntrees, Configuration::getStocksEntree(false));
     	foreach ($stockEntrees as $key => $item) {
-    		if ($this->getObject()->exist($key.'_details')) {
+    		if ($this->getObject()->exist($key.'_details') && ($this->getUser()->getCompte()->isTiers() && $this->getUser()->getCompte()->exist('dematerialise_ciel') && $this->getUser()->getCompte()->dematerialise_ciel)) {
     			$this->setWidget($key, new sfWidgetFormInputHidden());
     		} else {
 	    		if ($contraintes && !in_array('entrees/'.$key, $contraintes)) {
@@ -20,6 +20,11 @@ class DRMDetailEntreesForm  extends acCouchdbObjectForm {
     	}   
         $this->widgetSchema->setNameFormat('drm_detail_entrees[%s]');
         $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+    }
+
+    protected function getUser() {
+
+        return sfContext::getInstance()->getUser();
     }
 
 }

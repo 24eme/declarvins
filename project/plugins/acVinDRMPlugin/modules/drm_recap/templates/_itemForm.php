@@ -67,8 +67,12 @@
                     	</style>
                     	<li class="<?php echo isVersionnerCssClass($form->getObject()->entrees, $key) ?>">
                     		<?php if ($form->getObject()->getGenre()->getKey() != 'VCI'): ?>
-                    		<a href="<?php echo url_for('drm_recap_es_detail', $form->getObject()) ?>" class="btn_popup btn_es_details" data-popup-enregistrement="true" data-popup-reload="true" data-popup="#popup_details_entree_crd<?php echo str_replace('/', '_', $form->getObject()->getHash()) ?>" data-popup-config="configForm" data-popup-title="Entrée replacement en suspension CRD"><?php echo sprintFloat($form['entrees'][$key]->getValue(), "%01.04f") ?></a>
-                    		<input type="hidden" id="drm_detail_entrees_crd" autocomplete="off" class="num num_float num_light num_float" data-val-defaut="<?php echo sprintFloat($form['entrees']['crd']->getValue(), "%01.04f") ?>" value="<?php echo sprintFloat($form['entrees']['crd']->getValue(), "%01.04f") ?>" name="">
+	                    		<?php if ($sf_user->getCompte()->isTiers() && $sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?>
+	                    		<a href="<?php echo url_for('drm_recap_es_detail', $form->getObject()) ?>" class="btn_popup btn_es_details" data-popup-enregistrement="true" data-popup-reload="true" data-popup="#popup_details_entree_crd<?php echo str_replace('/', '_', $form->getObject()->getHash()) ?>" data-popup-config="configForm" data-popup-title="Entrée replacement en suspension CRD"><?php echo sprintFloat($form['entrees'][$key]->getValue(), "%01.04f") ?></a>
+	                    		<input type="hidden" id="drm_detail_entrees_crd" autocomplete="off" class="num num_float num_light num_float" data-val-defaut="<?php echo sprintFloat($form['entrees']['crd']->getValue(), "%01.04f") ?>" value="<?php echo sprintFloat($form['entrees']['crd']->getValue(), "%01.04f") ?>" name="">
+	                    		<?php else: ?>
+	                    		<?php echo $form['entrees'][$key]->render(array('data-val-defaut' => sprintFloat($form['entrees'][$key]->getValue(), "%01.04f"), 'class' => $class)) ?>
+	                    		<?php endif; ?>
                     		<?php else: ?>
                     		<input type="text" readonly="readonly" id="drm_detail_entrees_crd" autocomplete="off" class="num num_float num_light num_float" data-val-defaut="<?php echo sprintFloat($form['entrees']['crd']->getValue(), "%01.04f") ?>" value="<?php echo sprintFloat($form['entrees']['crd']->getValue(), "%01.04f") ?>" name="">
                     		<?php endif; ?>
