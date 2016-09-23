@@ -368,7 +368,7 @@ class drmActions extends sfActions {
         
         // CIEL ==============
 	    $erreursCiel = false;
-        if (!$this->drmCiel->isTransfere()) {
+        if (!$this->drmCiel->isTransfere() && !$this->drm->hasVersion()) {
 	        if ($this->getUser()->getCompte()->isTiers() && $this->getUser()->getCompte()->dematerialise_ciel) {
 	        	$export = new DRMExportCsvEdi($this->drm);
 	        	if ($xml = $export->exportEDI('xml')) {
@@ -492,6 +492,8 @@ class drmActions extends sfActions {
     public function executeRectificative(sfWebRequest $request) {
         $this->etablissement = $this->getRoute()->getEtablissement();
         $drm = $this->getRoute()->getDRM();
+        
+        $this->forward404Unless($drm->isRectifiable());
 
         if ($drm->getHistorique()->hasDRMInProcess()) {
             $this->getUser()->setFlash('erreur_drm', 'Une DRM est déjà en cours de saisie.');
@@ -512,6 +514,10 @@ class drmActions extends sfActions {
     public function executeModificative(sfWebRequest $request) {
         $this->etablissement = $this->getRoute()->getEtablissement();
         $drm = $this->getRoute()->getDRM();
+        
+        $this->forward404Unless($drm->isModifiable());
+        
+        if ($drm->isModifiable)
 
         if ($drm->getHistorique()->hasDRMInProcess()) {
             $this->getUser()->setFlash('erreur_drm', 'Une DRM est déjà en cours de saisie.');
