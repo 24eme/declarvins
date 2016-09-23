@@ -52,7 +52,7 @@ class Configuration extends BaseConfiguration {
         'crd' => 'CRD France',
     	'crd_acquittes' => 'CRD Collectives acquittées',
         'consommation' => 'Conso Fam. / Analyses / Dégustation',
-        'pertes' => 'Pertes exceptionnelles',
+        'pertes' => 'Autres sorties',
         'autres' => 'Destruction / Distillation',
         'declassement' => 'Mvt. interne : Non rev. / Déclassement',
         'repli' => 'Mvt. interne : Changement / Repli',
