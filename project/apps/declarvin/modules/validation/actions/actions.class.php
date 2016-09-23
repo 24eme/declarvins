@@ -41,9 +41,9 @@ class validationActions extends sfActions {
 		$csv_file .= "\n";	
 		foreach ($this->comptes as $c) {
 			if($compte = _CompteClient::getInstance()->find($c->id)) {
-				$dematerialise_ciel = 0;
-				if ($compte->exist('dematerialise_ciel') && $compte->dematerialise_ciel) {
-					$dematerialise_ciel = 1;
+				$dematerialise_ciel = 'oui';
+				if (!$compte->dematerialise_ciel) {
+					$dematerialise_ciel = ($compte->getConventionCiel())? 'att' : 'non';
 				}
 				$compteInfosCsv = $compte->nom.';'.$compte->prenom.';'.$compte->fonction.';'.$compte->email.';'.$compte->telephone.';'.$compte->fax.';'.$dematerialise_ciel;
 				$compteNonInfosCsv = ';;;;;;';
