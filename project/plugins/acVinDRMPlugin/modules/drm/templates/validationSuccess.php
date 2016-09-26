@@ -37,7 +37,7 @@
                 <?php endif; ?>
                 
                 <?php if (!$drmValidation->hasErrors()): ?>
-                <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement->getCompteObject() && !$etablissement->getCompteObject()->dematerialise_ciel) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+                <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement->getCompteObject() && !$etablissement->getCompteObject()->dematerialise_ciel) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <button type="submit" class="btn_suiv">
                     <span>Valider<?php if(!$drm->hasVersion() && $sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?> et envoyer à CIEL<?php endif; ?></span>
                 </button>
@@ -138,7 +138,7 @@
                 <?php endif; ?>
                 <?php endif; ?>
                 <?php if (!$drmValidation->hasErrors()): ?>
-                <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement->getCompteObject() && !$etablissement->getCompteObject()->dematerialise_ciel) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+                <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement->getCompteObject() && !$etablissement->getCompteObject()->dematerialise_ciel) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <button type="submit" class="btn_suiv">
                     <span>Valider<?php if($sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?> et envoyer à CIEL<?php endif; ?></span>
                 </button>
