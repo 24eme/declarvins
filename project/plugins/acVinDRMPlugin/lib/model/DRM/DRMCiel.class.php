@@ -6,6 +6,8 @@
 
 class DRMCiel extends BaseDRMCiel 
 {
+	const VALIDATE_DAY = 27;
+	
 	public function setInformationsFromXml()
 	{
 

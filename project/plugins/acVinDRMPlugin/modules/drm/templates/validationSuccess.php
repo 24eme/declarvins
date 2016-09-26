@@ -38,9 +38,19 @@
                 
                 <?php if (!$drmValidation->hasErrors()): ?>
                 <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement->getCompteObject() && !$etablissement->getCompteObject()->dematerialise_ciel) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+                <?php if(!$drm->hasVersion() && $sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?>
+                <?php if(date('Y-m-d') >= $drm->periode.'-'.DRMCiel::VALIDATE_DAY): ?>
                 <button type="submit" class="btn_suiv">
-                    <span>Valider<?php if(!$drm->hasVersion() && $sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?> et envoyer à CIEL<?php endif; ?></span>
+                    <span>Valider et envoyer à CIEL</span>
                 </button>
+                <?php else: ?>
+                <div class="ciel_wait">Vous pourrez valider à partir du <strong><?php echo DRMCiel::VALIDATE_DAY ?>/<?php echo $drm->getMois() ?></strong></div>
+                <?php endif; ?>
+                <?php else: ?>
+                <button type="submit" class="btn_suiv">
+                    <span>Valider</span>
+                </button>
+                <?php endif; ?>
                 <?php endif; ?>
                 <?php endif; ?>
             </div>
@@ -139,9 +149,19 @@
                 <?php endif; ?>
                 <?php if (!$drmValidation->hasErrors()): ?>
                 <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement->getCompteObject() && !$etablissement->getCompteObject()->dematerialise_ciel) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+                <?php if(!$drm->hasVersion() && $sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?>
+                <?php if(date('Y-m-d') >= $drm->periode.'-'.DRMCiel::VALIDATE_DAY): ?>
                 <button type="submit" class="btn_suiv">
-                    <span>Valider<?php if($sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?> et envoyer à CIEL<?php endif; ?></span>
+                    <span>Valider et envoyer à CIEL</span>
                 </button>
+                <?php else: ?>
+                <div class="ciel_wait">Vous pourrez valider à partir du <strong><?php echo DRMCiel::VALIDATE_DAY ?>/<?php echo $drm->getMois() ?></strong></div>
+                <?php endif; ?>
+                <?php else: ?>
+                <button type="submit" class="btn_suiv">
+                    <span>Valider</span>
+                </button>
+                <?php endif; ?>
                 <?php endif; ?>
                 <?php endif; ?>
             </div>
