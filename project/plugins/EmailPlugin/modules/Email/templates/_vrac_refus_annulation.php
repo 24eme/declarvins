@@ -13,8 +13,8 @@ Date de saisie : <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_
 Produit : <?php echo $vrac->getLibelleProduit() ?><br />
 Millésime : <?php echo $vrac->millesime ?><br />
 Type : <?php echo $vrac->type ?><br />
-Quantité : <?php echo $vrac->volume_propose ?> <?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>Kg<?php endif;?><br />
-Prix : <?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€/Kg (Hors Taxes / Net)<?php endif;?><br />
+Quantité : <?php echo $vrac->volume_propose ?> <?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?><br />
+Prix : <?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€/kg (Hors Taxes / Net)<?php endif;?><br />
 <?php if ($vrac->vendeur_identifiant): ?>
 Vendeur :<br />
 <ul>

@@ -89,11 +89,11 @@
 			</li>
 			<li>
 				<span>Prix :</span>
-				<span><?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€/Kg (Hors Taxes / Net)<?php endif;?></span>
+				<span><?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€/kg (Hors Taxes / Net)<?php endif;?></span>
 			</li>
 			<li>
 				<span>Volume :</span>
-				<span><?php echo $vrac->volume_propose ?> <?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>Kg<?php endif;?></span>
+				<span><?php echo $vrac->volume_propose ?> <?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?></span>
 			</li>
 			<?php if ($vrac->has_cotisation_cvo && $vrac->part_cvo > 0): ?>
 			<li>
