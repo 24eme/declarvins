@@ -517,8 +517,6 @@ class drmActions extends sfActions {
         $drm = $this->getRoute()->getDRM();
         
         $this->forward404Unless($drm->isModifiable());
-        
-        if ($drm->isModifiable)
 
         if ($drm->getHistorique()->hasDRMInProcess()) {
             $this->getUser()->setFlash('erreur_drm', 'Une DRM est déjà en cours de saisie.');
