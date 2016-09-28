@@ -71,12 +71,13 @@
                                         Tèl : <?php echo $bilanOperateur->etablissement->telephone; ?> Fax :<?php echo $bilanOperateur->etablissement->fax; ?><br />
                                         Service douane : <?php echo $bilanOperateur->etablissement->service_douane ?><br />
                                         Statut : <?php echo $bilanOperateur->etablissement->statut ?><br />
+                                        <?php echo $firstSaisie ?>
                                     </td>
                                     <?php
                                     foreach ($statistiquesBilan->getPeriodes() as $periode):
                                         ?>
                                         <td style="padding: 0;">
-                                        	<?php if ($firstSaisie && $firstSaisie >= $periode): ?>
+                                        	<?php if ($firstSaisie && $periode >= $firstSaisie): ?>
                                             <strong>
                                              <?php echo (!isset($bilanOperateur->periodes[$periode]) || is_null($bilanOperateur->periodes[$periode]))? array_search(DRMClient::DRM_STATUS_BILAN_A_SAISIR, $statusArray) : array_search($bilanOperateur->periodes[$periode]->statut, $statusArray); ?>
                                             </strong>
