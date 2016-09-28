@@ -132,7 +132,7 @@ class Bilan extends BaseBilan {
         return $this->periodes->get($periode)->getPreviousSister();
     }
 
-    private function sortPeriodes() {
+    public function sortPeriodes() {
         $periodeArray = $this->periodes->toArray(true, false);
         ksort($periodeArray);
         $this->remove('periodes');
