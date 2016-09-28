@@ -110,14 +110,19 @@ class StatistiquesBilan {
     public function getStatutsDrmsCsv($bilanOperateur) {
         $statutsDrmsCsv = "";
         $libelles = DRMClient::getAllLibellesStatusBilan();
+        $firstSaisie = $bilanOperateur->getFirstPeriodeSaisie();
         foreach ($this->buildPeriodes() as $periode) {
-        	if (!isset($bilanOperateur->periodes[$periode]) || is_null($bilanOperateur->periodes[$periode])) {
-        		$statutsDrmsCsv .= $libelles[DRMClient::DRM_STATUS_BILAN_A_SAISIR].";";
-        	} else {
-	        	if (isset($bilanOperateur->periodes[$periode]->mode_de_saisie) && $bilanOperateur->periodes[$periode]->mode_de_saisie) {
-	        		$statutsDrmsCsv .= $bilanOperateur->periodes[$periode]->mode_de_saisie." ";
+        	if ($firstSaisie && $firstSaisie >= $periode) {
+	        	if (!isset($bilanOperateur->periodes[$periode]) || is_null($bilanOperateur->periodes[$periode])) {
+	        		$statutsDrmsCsv .= $libelles[DRMClient::DRM_STATUS_BILAN_A_SAISIR].";";
+	        	} else {
+		        	if (isset($bilanOperateur->periodes[$periode]->mode_de_saisie) && $bilanOperateur->periodes[$periode]->mode_de_saisie) {
+		        		$statutsDrmsCsv .= $bilanOperateur->periodes[$periode]->mode_de_saisie." ";
+		        	}
+		            $statutsDrmsCsv .= $bilanOperateur->periodes[$periode]->statut_libelle.";";
 	        	}
-	            $statutsDrmsCsv .= $bilanOperateur->periodes[$periode]->statut_libelle.";";
+        	} else {
+        		$statutsDrmsCsv .= ";";
         	}
         }
         return $statutsDrmsCsv;

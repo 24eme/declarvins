@@ -43,6 +43,18 @@ class Bilan extends BaseBilan {
             $this->etablissement->add('zones', $etablissement->zones);
         }
     }
+    
+    public function getFirstPeriodeSaisie()
+    {
+    	$first = null;
+    	foreach ($this->periodes as $periode => $datas) {
+    		if ($datas->id_drm) {
+    			return $first;
+    		}
+    		$first = $periode;
+    	}
+    	return $first;
+    }
 
     public function updateFromDRM($drm, $isFirstCampagne = false) {
 
