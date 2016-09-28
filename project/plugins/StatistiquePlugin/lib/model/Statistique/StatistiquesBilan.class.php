@@ -31,7 +31,7 @@ class StatistiquesBilan {
             $bilan->periodes = array();
             $first = null;
             foreach ($bilanDatas->periodes as $periodesKey => $periodesValues) {
-	    		if (!$first && !$datas->id_drm) {
+	    		if (!$first && !$periodesValues->id_drm) {
 	    			$first = $periodesKey;
 	    		}
                 if (in_array($periodesKey, $this->periodes)) {
