@@ -29,11 +29,16 @@ class StatistiquesBilan {
             $bilan->identifiant = $bilanDatas->identifiant;
             $bilan->etablissement = $bilanDatas->etablissement;
             $bilan->periodes = array();
+            $first = null;
             foreach ($bilanDatas->periodes as $periodesKey => $periodesValues) {
+	    		if (!$first && !$datas->id_drm) {
+	    			$first = $periodesKey;
+	    		}
                 if (in_array($periodesKey, $this->periodes)) {
                     $bilan->periodes[$periodesKey] = $periodesValues;
                 }
             }
+            $bilan->first_periode = $first;
             
             $bilan->periodesNMoins1 = array();
             foreach ($bilanDatas->periodes as $periodesKey => $periodesValues) {
@@ -110,7 +115,7 @@ class StatistiquesBilan {
     public function getStatutsDrmsCsv($bilanOperateur) {
         $statutsDrmsCsv = "";
         $libelles = DRMClient::getAllLibellesStatusBilan();
-        $firstSaisie = $bilanOperateur->getFirstPeriodeSaisie();
+        $firstSaisie = $bilanOperateur->first_periode;
         foreach ($this->buildPeriodes() as $periode) {
         	if ($firstSaisie && $firstSaisie >= $periode) {
 	        	if (!isset($bilanOperateur->periodes[$periode]) || is_null($bilanOperateur->periodes[$periode])) {

@@ -56,7 +56,7 @@
                             <?php
                             $statusArray = array_keys(DRMClient::getAllLibellesStatusBilan());
                             foreach ($statistiquesBilan->getBilans() as $bilanOperateur):
-                            	$firstSaisie = $bilanOperateur->getFirstPeriodeSaisie();
+                            	$firstSaisie = $bilanOperateur->first_periode();
                                 ?>
                                 <tr>
                                     <td style="padding: 0 5px;">
