@@ -374,7 +374,7 @@ class drmActions extends sfActions {
 	        	$export = new DRMExportCsvEdi($this->drm);
 	        	if ($xml = $export->exportEDI('xml')) {
 	        		try {
-	        			$service = new CielService();
+	        			$service = new CielService($this->etablissement->interpro);
 	        			$this->drmCiel->xml = $service->transfer($xml);
 	        		} catch (sfException $e) {
 	        			$this->drmCiel->xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><reponse-ciel><erreur-interne><message-erreur>'.$e->getMessage().'</message-erreur></erreur-interne></reponse-ciel>';
@@ -517,8 +517,6 @@ class drmActions extends sfActions {
         $drm = $this->getRoute()->getDRM();
         
         $this->forward404Unless($drm->isModifiable());
-        
-        if ($drm->isModifiable)
 
         if ($drm->getHistorique()->hasDRMInProcess()) {
             $this->getUser()->setFlash('erreur_drm', 'Une DRM est déjà en cours de saisie.');

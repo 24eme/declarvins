@@ -10,7 +10,7 @@ class DRMExportCsvEdi extends DRMCsvEdi
         parent::__construct(null, $drm);
     }
 
-    public function exportEDI($format = 'csv') 
+    public function exportEDI($format = 'csv', $context = null) 
     {
         if (!($this->drm instanceof InterfaceDRMExportable)) {
             new sfException('DRM must implements InterfaceDRMExportable');
@@ -21,7 +21,7 @@ class DRMExportCsvEdi extends DRMCsvEdi
         	case 'csv':
         		$result = $this->getCsvFormat(); break;
         	case 'xml':
-        		$result = $this->getXmlFormat(); break;
+        		$result = $this->getXmlFormat($context); break;
         	case 'debug':
         	default:
         		$result = $this->csv; break;
@@ -37,11 +37,11 @@ class DRMExportCsvEdi extends DRMCsvEdi
     	return $csvFile;
     }
     
-    protected function getXmlFormat() {
+    protected function getXmlFormat($context = null) {
     	if (!$this->configuration->exist('ciel')) {
     		throw new sfException('Il n\'existe aucune configuration pour CIEL.');
     	}
-    	return $this->getPartial('xml', array('csv' => $this->csv, 'drm' => $this->drm, 'ciel' => $this->configuration->ciel));
+    	return $this->getPartial('xml', array('csv' => $this->csv, 'drm' => $this->drm, 'ciel' => $this->configuration->ciel), $context);
     }
 
     protected function generateCsvEdi() 
@@ -222,9 +222,10 @@ class DRMExportCsvEdi extends DRMCsvEdi
     }
 
 
-    protected static function getPartial($partial, $vars = null)
+    protected static function getPartial($partial, $vars = null, $context = null)
     {
-    	return sfContext::getInstance()->getController()->getAction('edi_export', 'main')->getPartial('edi_export/' . $partial, $vars);
+    	$sfContext = ($context)? $context : sfContext::getInstance();
+    	return $sfContext->getController()->getAction('edi_export', 'main')->getPartial('edi_export/' . $partial, $vars);
     }
 
 }

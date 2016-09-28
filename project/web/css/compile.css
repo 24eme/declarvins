@@ -551,6 +551,14 @@ button.btn_suiv span {
 #btn_suiv_prec .btn_suiv span {
   background: url(../images/boutons/btn_majeur_gris.png);
 }
+.ciel_wait {
+  color: #494949;
+  float: right;
+  padding: 5px 15px 5px 20px;
+  font-style: italic;
+  text-transform: none;
+  background: url(../images/pictos/pi_wait.png) left 4px no-repeat;
+}
 .btn_prec {
   background-position: 0 -52px !important;
   float: left;
@@ -3863,6 +3871,14 @@ p#date_drm {
 }
 .vracs #contrats_etapes:after {
   clear: both;
+}
+.vracs #vrac_type_transaction .radio_list,
+.vracs #vrac_type_prix .radio_list {
+  margin: 0px !important;
+}
+.vracs #vrac_type_transaction .radio_list li,
+.vracs #vrac_type_prix .radio_list li {
+  margin: 0px !important;
 }
 .vracs .radio_list,
 .vracs .checkbox_list {

@@ -118,10 +118,10 @@
         </thead>
         <tbody>
 			<tr>
-				<td><?php echoLongFloat($vrac->volume_propose) ?> hl</td>
-				<td><?php echoFloat($vrac->prix_unitaire) ?> €/hl</td>
+				<td><?php echoLongFloat($vrac->volume_propose) ?> <?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?></td>
+				<td><?php echoFloat($vrac->prix_unitaire) ?> <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€/kg (Hors Taxes / Net)<?php endif;?></td>
 				<?php if ($vrac->has_cotisation_cvo): ?>
-				<td><?php echoFloat($vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) ?> €/hl</td>
+				<td><?php echoFloat($vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) ?>  <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€/kg (Hors Taxes / Net)<?php endif;?></td>
 				<?php endif; ?>
 				<td><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)); ?></td>
 			</tr>
