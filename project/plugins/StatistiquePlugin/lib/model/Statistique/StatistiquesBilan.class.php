@@ -117,7 +117,7 @@ class StatistiquesBilan {
         $libelles = DRMClient::getAllLibellesStatusBilan();
         $firstSaisie = $bilanOperateur->first_periode;
         foreach ($this->buildPeriodes() as $periode) {
-        	if ($firstSaisie && $firstSaisie >= $periode) {
+        	if ($firstSaisie && $periode >= $firstSaisie) {
 	        	if (!isset($bilanOperateur->periodes[$periode]) || is_null($bilanOperateur->periodes[$periode])) {
 	        		$statutsDrmsCsv .= $libelles[DRMClient::DRM_STATUS_BILAN_A_SAISIR].";";
 	        	} else {

@@ -71,7 +71,6 @@
                                         Tèl : <?php echo $bilanOperateur->etablissement->telephone; ?> Fax :<?php echo $bilanOperateur->etablissement->fax; ?><br />
                                         Service douane : <?php echo $bilanOperateur->etablissement->service_douane ?><br />
                                         Statut : <?php echo $bilanOperateur->etablissement->statut ?><br />
-                                        <?php echo $firstSaisie ?>
                                     </td>
                                     <?php
                                     foreach ($statistiquesBilan->getPeriodes() as $periode):
