@@ -3,21 +3,26 @@ class CielService
 {
 	private static $_instance = null;
 	protected $configuration;
+	protected $interpro;
 	const TOKEN_CACHE_FILENAME = 'ciel_access_token';
 	const TOKEN_TIME_VALIDITY = 2700;
 	
-	public function __construct()
+	public function __construct($interpro)
 	{
 		$this->configuration = sfConfig::get('app_ciel_oauth');
 		if (!$this->configuration) {
 			throw new sfException('CielService Error : Yml configuration not found for CIEL');
 		}
+		$this->interpro = strtolower(str_replace("INTERPRO-", "", $interpro));
+		if (!isset($this->configuration[$this->interpro])) {
+			throw new sfException('CielService Error : '.$this->interpro.' Yml configuration not found for CIEL');
+		}
 	}
 	
-	public static function getInstance()
+	public static function getInstance($interpro)
     {
        	if(is_null(self::$_instance)) {
-       		self::$_instance = new CielService();
+       		self::$_instance = new CielService($interpro);
 		}
 		return self::$_instance;
     }
@@ -40,7 +45,7 @@ class CielService
 	public function sign()
 	{
 		$encrypted = '';
-		$key = openssl_pkey_get_private('file://'.$this->configuration['keypath']);
+		$key = openssl_pkey_get_private('file://'.$this->configuration[$this->interpro]['keypath']);
 		if (!$key) {
 			throw new sfException('CielService Error : Openssl get private key failed : '.openssl_error_string());
 		}
@@ -92,7 +97,7 @@ class CielService
 	
 	protected function getTokenCacheFilename()
 	{
-		return sfConfig::get('sf_data_dir').'/ciel/'.self::TOKEN_CACHE_FILENAME;
+		return sfConfig::get('sf_data_dir').'/ciel/'.$this->interpro.'_'.self::TOKEN_CACHE_FILENAME;
 	}
 	
 	protected function getOauthHttpRequest($content)
@@ -158,7 +163,7 @@ class CielService
 	protected function getDatas()
 	{
 		$entete = '{"alg":"RS256"}';
-		$corps = '{"iss":"'.$this->configuration['iss'].'","scope":"'.$this->configuration['service'].'","aud":"'.$this->configuration['url'].'","iat":'.time().'000}';
+		$corps = '{"iss":"'.$this->configuration[$this->interpro]['iss'].'","scope":"'.$this->configuration['service'].'","aud":"'.$this->configuration['url'].'","iat":'.time().'000}';
 		return $this->base64SafeEncode($entete).'.'.$this->base64SafeEncode($corps);
 	}
 	
