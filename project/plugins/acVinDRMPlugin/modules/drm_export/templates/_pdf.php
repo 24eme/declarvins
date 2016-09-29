@@ -36,7 +36,7 @@
 
 		<?php $colonnes = $pagers_volume[$certification_key]->getResults(); ?>
 		<?php if(count($colonnes) > 0): ?>
-			<h2>Suivi des vins - <?php echo $certification->getConfig()->libelle ?></h2>
+			<h2>Suivi des vins - <?php echo $certification->getConfig()->libelle ?> en droits suspendus</h2>
 			<table class="recap volumes bloc_bottom">
 				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Code produit',
 	    						  								  'counter' => 1,
@@ -108,6 +108,68 @@
 																  		'hash' => 'stocks_fin')) ?>
 
 			</table>
+			<?php if ($drm->hasDroitsAcquittes()): ?>
+			<h2>Suivi des vins - <?php echo $certification->getConfig()->libelle ?> en droits acquittés</h2>
+			<table class="recap volumes bloc_bottom">
+				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Code produit',
+	    						  								  'counter' => 1,
+																  'colonnes' => $colonnes,
+																  'cssclass_value' => 'libelle',
+																  'partial' => 'drm_export/pdfLineVolumeItemProduitLibelle')) ?>
+																  
+				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Labels',
+	    						  								  'counter' => '',
+																  'colonnes' => $colonnes,
+																  'cssclass_value' => 'labels',
+																  'partial' => 'drm_export/pdfLineProduitLabels')) ?>
+
+				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Stock début de mois',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 2,
+																	   'cssclass_libelle' => 'total',
+																       'cssclass_value' => 'total',
+																       'colonnes' => $colonnes,
+																       'hash' => 'acq_total_debut_mois')) ?>
+
+				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total entrées',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 3,
+																	   'cssclass_libelle' => 'total',
+																  	   'cssclass_value' => 'total',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'acq_total_entrees')) ?>
+
+
+				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksEntree(true),
+	    						  								        'counter' => 3,
+																		'colonnes' => $colonnes,
+																        'drm' => $drm,
+																  		'hash' => 'entrees')) ?>
+
+				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total sorties',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 4,
+																	   'colonnes' => $colonnes,
+																	   'cssclass_libelle' => 'total',
+																	   'cssclass_value' => 'total',
+																	   'hash' => 'acq_total_sorties')) ?>
+
+				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksSortie(true),
+	    						  								        'counter' => 4,
+																		'colonnes' => $colonnes,
+																        'drm' => $drm,
+																  		'hash' => 'sorties')) ?>
+
+				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Stock fin de mois',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 5,
+																	   'cssclass_libelle' => 'total',
+																  	   'cssclass_value' => 'total',
+																  	   'colonnes' => $colonnes,
+																  	   'hash' => 'acq_total')) ?>
+
+			</table>
+			<?php endif; ?>
 		<?php endif; ?>
 		<?php $colonnes = $pagers_vrac[$certification_key]->getResults(); ?>
 		<?php if(count($colonnes) > 0): ?>
