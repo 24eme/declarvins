@@ -362,7 +362,7 @@ class drmActions extends sfActions {
         
         if (isset($values['brouillon']) && $values['brouillon']) 
         {
-        	$this->redirect('drm_validation', $this->drm);
+        	return $this->redirect('drm_validation', $this->drm);
         }
         
         $this->drm->validate();
@@ -396,7 +396,7 @@ class drmActions extends sfActions {
         $this->drm->save();
         
         if ($erreursCiel) {
-        	$this->redirect('drm_validation', $this->drm);
+        	return $this->redirect('drm_validation', $this->drm);
         }
         
     	if ($this->drm->needNextVersion()) {
