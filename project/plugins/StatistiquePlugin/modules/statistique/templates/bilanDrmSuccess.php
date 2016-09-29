@@ -56,6 +56,7 @@
                             <?php
                             $statusArray = array_keys(DRMClient::getAllLibellesStatusBilan());
                             foreach ($statistiquesBilan->getBilans() as $bilanOperateur):
+                            	$firstSaisie = $bilanOperateur->first_periode;
                                 ?>
                                 <tr>
                                     <td style="padding: 0 5px;">
@@ -75,9 +76,11 @@
                                     foreach ($statistiquesBilan->getPeriodes() as $periode):
                                         ?>
                                         <td style="padding: 0;">
+                                        	<?php if ($firstSaisie && $periode >= $firstSaisie): ?>
                                             <strong>
                                              <?php echo (!isset($bilanOperateur->periodes[$periode]) || is_null($bilanOperateur->periodes[$periode]))? array_search(DRMClient::DRM_STATUS_BILAN_A_SAISIR, $statusArray) : array_search($bilanOperateur->periodes[$periode]->statut, $statusArray); ?>
                                             </strong>
+                                            <?php endif; ?>
                                         </td>
                                         <?php
                                     endforeach;

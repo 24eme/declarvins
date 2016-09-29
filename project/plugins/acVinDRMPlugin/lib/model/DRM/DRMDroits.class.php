@@ -16,7 +16,7 @@ class DRMDroits extends BaseDRMDroits
     	return self::$droit_entrees_inter_rhone;
   	}
   	
-  	static $droit_sorties = array('sorties/vrac', 'sorties/export', 'sorties/factures', 'sorties/crd', 'sorties/crd_acquittes');
+  	static $droit_sorties = array('sorties/vrac', 'sorties/export', 'sorties/factures', 'sorties/crd', 'sorties/crd_acquittes', 'sorties/acq_crd');
   	public static function getDroitSorties($merge = array()) 
   	{
     	return array_merge(self::$droit_sorties, $merge);

@@ -15,6 +15,8 @@ class statistiqueActions extends sfActions {
      * @param sfWebRequest $request 
      */
     public function executeBilanDrm(sfWebRequest $request) {
+        ini_set('memory_limit', '1024M');
+        set_time_limit(0);
         $this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
         $this->campagne = null;
         $this->statistiquesBilan = null;
