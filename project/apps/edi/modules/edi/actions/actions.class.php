@@ -111,7 +111,7 @@ class ediActions extends sfActions
     $interpro = current(array_keys($this->getCompte()->interpro->toArray()));
     $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
-    $vracs = $this->vracCallback($interpro, VracOiocView::getInstance()->findByOiocAndDate($oioc, OIOC::STATUT_EDI, "Vrac", $dateForView->modify('-1 second')->format('c'))->rows);
+    $vracs = $this->vracCallback($interpro, VracOiocView::getInstance()->findByOiocAndDate($oioc, OIOC::STATUT_EDI, "vrac", $dateForView->modify('-1 second')->format('c'))->rows);
     return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "TRANSACTION", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID));
   }
   

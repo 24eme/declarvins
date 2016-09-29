@@ -72,7 +72,7 @@ class vracActions extends acVinVracActions
 				}
 			}
 		}
-		if ($vrac->mode_de_saisie != Vrac::MODE_DE_SAISIE_PAPIER) {
+		/*if ($vrac->mode_de_saisie != Vrac::MODE_DE_SAISIE_PAPIER) {
 			if ($vrac->exist('oioc') && $vrac->oioc->identifiant) {
 				$oioc = OIOCClient::getInstance()->find($vrac->oioc->identifiant);
 				$etablissement = EtablissementClient::getInstance()->find($vrac->get('vendeur_identifiant'));
@@ -81,7 +81,7 @@ class vracActions extends acVinVracActions
 				$transaction->generate();
 				Email::getInstance()->vracTransaction($vrac, $etablissement, $oioc, $transactionCC);
 			}
-		}
+		}*/
 	}
 	
 	protected function contratModifie($vrac) {
@@ -144,13 +144,13 @@ class vracActions extends acVinVracActions
 				}
 			}
 		}	
-		if ($vrac->mode_de_saisie != Vrac::MODE_DE_SAISIE_PAPIER) {
+		/*if ($vrac->mode_de_saisie != Vrac::MODE_DE_SAISIE_PAPIER) {
 			if ($vrac->exist('oioc') && $vrac->oioc->identifiant) {
 				$oioc = OIOCClient::getInstance()->find($vrac->oioc->identifiant);
 				$etablissement = EtablissementClient::getInstance()->find($vrac->get('vendeur_identifiant'));
 				Email::getInstance()->vracTransactionAnnulation($vrac, $etab, $oioc, $oioc->email_transaction);
 			}
-		}
+		}*/
 	}
 	
 

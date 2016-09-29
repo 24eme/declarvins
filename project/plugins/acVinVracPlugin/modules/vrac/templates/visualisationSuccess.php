@@ -57,10 +57,10 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
 				<?php endif; ?>
                 <div id="titre">
                     <span class="style_label">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'En attente'; ?></span>
-                    <?php if ($vrac->oioc->date_reception): ?>
+                    <?php if ($vrac->oioc->date_traitement): ?>
                     <br />Envoi Oco : <?php echo format_date($vrac->oioc->date_reception, 'd/M/y') ?>
                     <?php endif; ?>
-                    <?php if ($vrac->oioc->date_traitement): ?>
+                    <?php if ($vrac->oioc->date_reception): ?>
                     <br />Chargement Oco : <?php echo format_date($vrac->oioc->date_traitement, 'd/M/y') ?>
                     <?php endif; ?>
                 </div>
