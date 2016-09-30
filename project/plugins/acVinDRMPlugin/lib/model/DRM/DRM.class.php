@@ -930,6 +930,13 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
     
     public function getStatutBilan() {
+        $drmCiel = $this->getOrAdd('ciel');
+        if ($drmCiel->isTransfere()) {
+        	return DRMClient::DRM_STATUS_BILAN_ENVOYEE_CIEL;
+        }
+        if ($this->isRectificative() && $drmCiel->isTransfere() && !$drmCiel->valide) {
+        	return DRMClient::DRM_STATUS_BILAN_DIFF_CIEL;
+        }
         if($this->isNew()){
             return DRMClient::DRM_STATUS_BILAN_A_SAISIR;
         }
@@ -944,13 +951,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         }
         if($this->isIgpManquant()){
             return DRMClient::DRM_STATUS_BILAN_IGP_MANQUANT;
-        }
-        $drmCiel = $this->getOrAdd('ciel');
-        if ($drmCiel->isTransfere()) {
-        	return DRMClient::DRM_STATUS_BILAN_ENVOYEE_CIEL;
-        }
-        if ($this->isRectificative() && $drmCiel->isTransfere() && !$drmCiel->valide) {
-        	return DRMClient::DRM_STATUS_BILAN_DIFF_CIEL;
         }
         return DRMClient::DRM_STATUS_BILAN_VALIDE;
     }
