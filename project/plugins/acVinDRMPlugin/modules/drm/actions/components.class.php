@@ -99,8 +99,13 @@ class drmComponents extends sfComponents {
         /*if ($historique->getLastPeriode(false) >= $historique->getCurrentPeriode()) {
             return false;
         }*/
+    	$last = $historique->getLastDRM();
+    	$lastCiel = ($last)? $last->getOrAdd('ciel') : null;
         if ($historique->hasDRMInProcess()) {
             return false;
+        }
+        if ($lastCiel && !$lastCiel->isValide()) {
+        	return false;
         }
         if (isset($this->campagne) && $this->campagne && DRMClient::getInstance()->buildCampagne($historique->getLastPeriode()) != $this->campagne) {
             return false;
