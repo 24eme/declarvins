@@ -931,7 +931,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     
     public function getStatutBilan() {
         $drmCiel = $this->getOrAdd('ciel');
-        if ($this->isValide()) {
+        if ($drmCiel->isValide()) {
         	return DRMClient::DRM_STATUS_BILAN_VALIDE_CIEL;
         }
         if ($drmCiel->isTransfere() && !$this->isRectificative()) {
