@@ -12,6 +12,7 @@ class DRMCiel extends BaseDRMCiel
 	{
 
 		$this->transfere = 0;
+		$this->valide = 0;
 		$this->identifiant_declaration = null;
 		$this->horodatage_depot = null;
 		if ($reponseCiel = $this->getReponseCiel()) {
@@ -33,6 +34,11 @@ class DRMCiel extends BaseDRMCiel
 	public function isTransfere()
 	{
 		return ($this->transfere && $this->identifiant_declaration && $this->horodatage_depot)? true : false;
+	}
+	
+	public function isValide()
+	{
+		return ($this->isTransfere() && $this->valide)? true : false;
 	}
 	
 	public function hasErreurs()

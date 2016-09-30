@@ -17,14 +17,19 @@ class DRMCielCompare
 		
 		$diff = array();
 		foreach ($arrIn as $key => $value) {
-			if (!isset($arrOut[$key])) {
+			if (!isset($arrOut[$key]) && $value) {
 				$diff[$key] = $value;
 			}
-			if ($arrOut[$key] != $value) {
+			if (isset($arrOut[$key]) && $arrOut[$key] != $value) {
 				$diff[$key] = $value;
 			}
 		}
 		return $diff;
+	}
+	
+	public function hasDiff()
+	{
+		return (count($this->getDiff()) > 0)? true : false;
 	}
 	
 

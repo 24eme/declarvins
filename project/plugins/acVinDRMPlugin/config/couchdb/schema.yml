@@ -566,6 +566,7 @@ DRM:
         definition:
           fields:
             transfere: { type: integer }
+            valide: { type: integer }
             xml: {  }
             identifiant_declaration: {  }
             horodatage_depot: {  }

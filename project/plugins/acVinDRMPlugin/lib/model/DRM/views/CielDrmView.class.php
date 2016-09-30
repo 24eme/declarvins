@@ -15,7 +15,6 @@ class CielDrmView extends acCouchdbView
     {
       	$result = $this->client->startkey(array(1, $accises, $periode))
                     		->endkey(array(1,$accises,$periode, array()))
-                    		->reduce(false)
                     		->getView($this->design, $this->view);
       	foreach ($result->rows as $row) {
       		return DRMClient::getInstance()->find($row->id);

@@ -90,11 +90,13 @@
             	<?php endif; ?>
             	
             </div>
-
+			
+			<?php if($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere): ?>
+			<?php else: ?>
             <div class="ligne_btn">
                 <a href="<?php echo url_for('drm_delete_one', $drm) ?>" class="annuler_saisie btn_remise"><span>supprimer la drm</span></a>
             </div>
-
+			<?php endif; ?>
         </div>
     </section>
 </section>

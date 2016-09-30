@@ -174,6 +174,9 @@ class drmActions extends sfActions {
     public function executeDeleteOne(sfWebRequest $request) {
         $etablissement = $this->getRoute()->getEtablissement();
         $drm = $this->getRoute()->getDRM();
+        
+        $this->forward404If(($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere));
+        
         if (!$drm->isNew() && !$drm->isValidee()) {
             /*if ($drm->hasVersion()) {
             	$drm->updateVracVersion();
@@ -381,6 +384,7 @@ class drmActions extends sfActions {
 	        		}
 	        	} else {
 	        		$this->drmCiel->transfere = 0;
+	        		$this->drmCiel->valide = 0;
 	        		$this->drmCiel->xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><reponse-ciel><erreur-interne><message-erreur>Une erreur est survenue à la génération du XML.</message-erreur></erreur-interne></reponse-ciel>';
 	        	}
 	        }
