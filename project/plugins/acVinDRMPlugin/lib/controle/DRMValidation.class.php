@@ -114,10 +114,10 @@ class DRMValidation
 				$xmlOut = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
 				$compare = new DRMCielCompare($xmlIn, $xmlOut);
 				if ($compare->hasDiff()) {
-					$this->errors['diff_ciel'] = new DRMControleError('diff_ciel', null);
+					$this->errors['diff_ciel'] = new DRMControleError('diff_ciel', $this->generateUrl('drm_validation', $this->drm));
 				}
 			} else {
-				$this->errors['diff_ciel'] = new DRMControleError('diff_ciel', null);
+				$this->errors['diff_ciel'] = new DRMControleError('diff_ciel', $this->generateUrl('drm_validation', $this->drm));
 			}
 		}
 	}
