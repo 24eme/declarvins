@@ -949,6 +949,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         if ($drmCiel->isTransfere()) {
         	return DRMClient::DRM_STATUS_BILAN_ENVOYEE_CIEL;
         }
+        if ($this->isRectificative() && $drmCiel->isTransfere() && !$drmCiel->valide) {
+        	return DRMClient::DRM_STATUS_BILAN_DIFF_CIEL;
+        }
         return DRMClient::DRM_STATUS_BILAN_VALIDE;
     }
 

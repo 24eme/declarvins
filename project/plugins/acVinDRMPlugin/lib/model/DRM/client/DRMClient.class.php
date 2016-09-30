@@ -23,6 +23,7 @@ class DRMClient extends acCouchdbClient {
     const DRM_STATUS_BILAN_NON_VALIDE = 'DRM_STATUS_BILAN_NON_VALIDE';
     const DRM_STATUS_BILAN_STOCK_EPUISE = 'DRM_STATUS_BILAN_STOCK_EPUISE';
     const DRM_STATUS_BILAN_ENVOYEE_CIEL = 'DRM_STATUS_BILAN_ENVOYEE_CIEL';
+    const DRM_STATUS_BILAN_DIFF_CIEL = 'DRM_STATUS_BILAN_DIFF_CIEL';
 
     protected $drm_historiques = array();
 
@@ -419,7 +420,8 @@ class DRMClient extends acCouchdbClient {
             self::DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT => "DRM validée avec infos contrats vrac et IGP manquantes",
             self::DRM_STATUS_BILAN_NON_VALIDE => "DRM saisie non validée",
             self::DRM_STATUS_BILAN_STOCK_EPUISE => "Stock épuisé",
-        	self::DRM_STATUS_BILAN_ENVOYEE_CIEL => "Envoyée CIEL"
+        	self::DRM_STATUS_BILAN_ENVOYEE_CIEL => "Envoyée CIEL",
+			self::DRM_STATUS_BILAN_DIFF_CIEL => "Incompatible CIEL"
         );
     }
 
