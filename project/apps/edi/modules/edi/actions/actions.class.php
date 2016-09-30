@@ -117,7 +117,7 @@ class ediActions extends sfActions
   
   public function executeStreamDRM(sfWebRequest $request) 
   {
-  	ini_set('memory_limit', '2048M');
+  	ini_set('memory_limit', '4096M');
   	set_time_limit(0);
     $date = $request->getParameter('datedebut');
     $interpro = $request->getParameter('interpro');
