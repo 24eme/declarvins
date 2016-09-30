@@ -395,6 +395,9 @@ class drmActions extends sfActions {
 	        	$erreursCiel = true;
 	        }
         }
+        if ($this->drm->hasVersion() && $this->drmCiel->isTransfere()) {
+        	$this->drm->ciel->valide = 1;
+        }
         // CIEL ===============
         
         $this->drm->save();

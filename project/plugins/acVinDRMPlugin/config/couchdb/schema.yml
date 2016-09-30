@@ -570,6 +570,7 @@ DRM:
             xml: {  }
             identifiant_declaration: {  }
             horodatage_depot: {  }
+            diff: {  }
       mouvements:
         type: collection
         definition:

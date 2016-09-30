@@ -56,6 +56,7 @@ EOF;
     						$drm_rectificative->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
     						$drm_rectificative->add('ciel', $drm->ciel);
     						$drm_rectificative->ciel->xml = null;
+    						$drm_rectificative->ciel->diff = $content;
     						$drm_rectificative->save();
     						$this->logSection("rectificative", $drm->_id." nécessite une correction du déclarant", null, 'ERROR');
     					} else {

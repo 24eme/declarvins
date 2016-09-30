@@ -33,8 +33,10 @@
                     <li>
                     <?php if ($drm->isTeledeclare()): ?>
                     Votre DRM a bien été validée et transmise à votre interprofession.<br />
-                    <?php $drmCiel = $drm->getOrAdd('ciel'); if($drmCiel->isTransfere()): ?>
+                    <?php $drmCiel = $drm->getOrAdd('ciel'); if(!$drm->isRectificative() && $drmCiel->isTransfere()): ?>
                     Votre DRM a été transmise correctement au service CIEL, le <?php echo format_date($drmCiel->horodatage_depot, 'dd/MM/yyyy') ?> à <?php echo format_date($drmCiel->horodatage_depot, 'H:m') ?> sous le numéro <?php echo $drmCiel->identifiant_declaration ?>.
+                    <?php elseif ($drm->isRectificative() && $drmCiel->isTransfere()): ?>
+                    Votre DRM a bien été corrigée afin de correspondre à celle transmise au service CIEL, le <?php echo format_date($drmCiel->horodatage_depot, 'dd/MM/yyyy') ?> à <?php echo format_date($drmCiel->horodatage_depot, 'H:m') ?> sous le numéro <?php echo $drmCiel->identifiant_declaration ?>.
                     <?php else: ?>
 					Vous devez par contre imprimer le PDF et le signer puis l'envoyer à votre service des douanes habituel.
                     <?php endif; ?>
