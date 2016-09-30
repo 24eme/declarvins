@@ -106,6 +106,20 @@ class DRMValidation
 				//$this->errors['vci_'.self::VCI_KEY] = new DRMControleError('vci', $this->generateUrl('drm_recap', $certificationFirst));
 			}
 		}
+		$drmCiel = $this->drm->getOrAdd('ciel');
+		if ($this->drm->isRectificative() && $drmCiel->isTransfere() && !$drmCiel->isValide() && $drmCiel->diff) {
+			$xmlIn = simplexml_load_string($drmCiel->diff, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
+			$export = new DRMExportCsvEdi($this->drm);
+			if ($xml = $export->exportEDI('xml')) {
+				$xmlOut = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
+				$compare = new DRMCielCompare($xmlIn, $xmlOut);
+				if ($compare->hasDiff()) {
+					$this->errors['diff_ciel'] = new DRMControleError('diff_ciel', null);
+				}
+			} else {
+				$this->errors['diff_ciel'] = new DRMControleError('diff_ciel', null);
+			}
+		}
 	}
 	
 	public function isValide() {
