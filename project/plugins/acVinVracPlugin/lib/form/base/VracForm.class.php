@@ -106,7 +106,7 @@ class VracForm extends acCouchdbObjectForm
     		$interpro = $this->getUser()->getCompte()->getGerantInterpro();
     		$zones[$interpro->zone] = ConfigurationZoneClient::getInstance()->find($interpro->zone);
     	} elseif ($etablissement = $this->getEtablissement()) {
-            $zones = $etablissement->getConfigurationZones();
+            $zones = $etablissement->getConfigurationZones(true);
         }
         $date = $this->getObject()->valide->date_saisie;
     	$produits = $this->getConfiguration()->formatVracProduitsByZones($zones, $date);
