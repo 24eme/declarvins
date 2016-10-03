@@ -104,7 +104,7 @@ class drmComponents extends sfComponents {
         if ($historique->hasDRMInProcess()) {
             return false;
         }
-        if ($lastCiel && !$lastCiel->isValide()) {
+        if ($lastCiel && $lastCiel->isTransfere() && !$lastCiel->isValide()) {
         	return false;
         }
         if (isset($this->campagne) && $this->campagne && DRMClient::getInstance()->buildCampagne($historique->getLastPeriode()) != $this->campagne) {
