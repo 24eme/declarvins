@@ -352,6 +352,15 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
         return $this->store('historique', array($this, 'getHistoriqueAbstract'));
     }
+    
+    public function isFirstCiel() {
+    	if ($this->getUser()->getCompte()->isTiers() && (!$this->getUser()->getCompte()->exist('dematerialise_ciel') || !$this->getUser()->getCompte()->dematerialise_ciel)) {
+    		return false;
+    	}
+    	$precedente = $this->getPrecedente();
+    	$precedenteCiel = $precedente->getOrAdd('ciel');
+    	return !$precedenteCiel->isTransfere();
+    }
 
     public function getPrecedente() {
         if ($this->exist('precedente') && $this->_get('precedente')) {

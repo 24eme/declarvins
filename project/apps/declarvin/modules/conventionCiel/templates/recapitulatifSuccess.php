@@ -32,7 +32,7 @@
 		                        	<tr<?php if($i%2!=0) echo ' class="alt"'; ?>>
 		                        		<td><?php echo ($etab->raison_sociale)? $etab->raison_sociale : $etab->nom; ?></td>
 		                        		<td><?php echo $etab->cvi ?></td>
-		                        		<td><?php echo $etab->cvi ?></td>
+		                        		<td><?php echo $etab->no_accises ?></td>
 		                        	</tr>
 		                        	<?php endforeach; ?>
 	                        	</tbody>

@@ -26,6 +26,7 @@ all:
       host: "10.253.161.5"
       urltoken: "http://10.253.161.5/authtokenqualif/oauth2/v1/token"
       urlapp: "http://10.253.161.5/cielqualifinterpro/ws/1.0/declarations"
+      urlseed: "https://pro.douane.gouv.fr/seedWS/SeedWS"
       ir:
         iss: "********-****-****-****-************"
         keypath: "/absolute/path/to/private/key.pem"

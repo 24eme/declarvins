@@ -143,10 +143,18 @@ class Etablissement extends BaseEtablissement {
     	return null;
     }
     
-    public function getConfigurationZones()
+    public function getConfigurationZones($onlyBase = false)
     {
     	$zones = array();
+    	$interpros = InterproClient::getInstance()->getInterprosObject();
+    	$baseZones = array();
+    	foreach ($interpros as $i) {
+    		$baseZones[] = $i->zone;
+    	}
     	foreach ($this->zones as $configurationZoneId => $zoneInfos) {
+    		if ($onlyBase && !in_array($configurationZoneId, $baseZones)) {
+    			continue;
+    		}
     		$zones[$configurationZoneId] = ConfigurationZoneClient::getInstance()->find($configurationZoneId);
     	}
     	return $zones;
