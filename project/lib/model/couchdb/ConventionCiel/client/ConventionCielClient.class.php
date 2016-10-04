@@ -40,6 +40,9 @@ class ConventionCielClient extends acCouchdbClient
     		if (!$etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) {
     			continue;
     		}
+    		if ($etablissement->statut != Etablissement::STATUT_ACTIF) {
+    			continue;
+    		}
     		$nbEtablissement++;
     		$currentEtab = $etablissement;
     		$etab = $convention->etablissements->getOrAdd($etablissement->_id);
