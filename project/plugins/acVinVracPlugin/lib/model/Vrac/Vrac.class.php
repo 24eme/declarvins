@@ -449,11 +449,14 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     protected function updateStatutSolde() {
         if ($this->volume_propose > 0 && $this->volume_enleve >= $this->volume_propose && $this->valide->statut != VracClient::STATUS_CONTRAT_SOLDE) {
         	$this->valide->statut = VracClient::STATUS_CONTRAT_SOLDE;
+        } elseif ($this->volume_enleve < $this->volume_propose && $this->valide->statut == VracClient::STATUS_CONTRAT_SOLDE) {
+        	$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
         }
 	    $this->normalizeNumeric();
     }
     
     public function save($updateStatutSolde = true) {
+    	$this->updateVolumeEnleve();
     	if ($updateStatutSolde) {
     		$this->updateStatutSolde();
     	}
@@ -462,6 +465,14 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$this->valide->date_saisie = date('c');
     	}
     	parent::save();
+    }
+    
+    protected function updateVolumeEnleve() {
+    	$vol = 0;
+    	foreach ($this->enlevements as $enlevement) {
+    		$vol += $enlevement->volume;
+    	}
+    	$this->volume_enleve = $vol;
     }
     
     public function updateEnlevements()

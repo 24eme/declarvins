@@ -416,6 +416,32 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->valide->identifiant = null;
         $this->valide->date_saisie = null;
         $this->valide->date_signee = null;
+        $this->annuleUpdateVrac();
+    }
+    
+    public function annuleUpdateVrac()
+    {
+    	$mothers = array();
+    	foreach ($this->getDetails() as $detail) {
+    		foreach ($detail->vrac as $numero => $vrac) {
+    			$volume = $vrac->volume;
+    			$contrat = VracClient::getInstance()->findByNumContrat($numero);
+    			$contrat->soustraitVolumeEnleve($volume);
+    			$enlevements = $contrat->getOrAdd('enlevements');
+    			if ($this->hasVersion()) {
+    				if ($previous = $this->getMother()) {
+    					$mothers[] = $previous;
+    				}
+    			}
+    			if ($enlevements->exist($this->_id)) {
+    				$enlevements->remove($this->_id);
+    			}
+    			$contrat->save();
+    		}
+    	}
+    	foreach ($mothers as $mother) {
+    		$mother->updateVrac();
+    	}
     }
 
     public function isValidee() {
