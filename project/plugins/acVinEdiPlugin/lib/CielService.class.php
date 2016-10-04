@@ -74,6 +74,12 @@ class CielService
 		return $result;
 	}
 	
+	public function seed($datas = null)
+	{
+		$result = $this->httpQuerry($this->configuration['urlseed'], array('http' => $this->getSeedHttpRequest($datas)));
+		return $result;
+	}
+	
 	protected function needNewToken()
 	{
 		$file = $this->getTokenCacheFilename();
@@ -125,6 +131,18 @@ class CielService
 				'content' => $content);
 	}
 	
+	protected function getSeedHttpRequest($content = null)
+	{
+		return array(
+				'headers'  => array(
+						"Content-Type: text/xml;charset=UTF-8",
+						"SOAPAction: getInformation"),
+				'method'  => 'POST',
+				'protocol_version' => 1.1,
+				'ignore_errors' => true,
+				'content' => $content);
+	}
+	
 	protected function httpQuerry($url, $options) 
 	{
 		if (extension_loaded('curl')) {
@@ -136,7 +154,7 @@ class CielService
 	protected function httpQuerryFgc($url, $options) 
 	{
 		if (isset($options['http']['headers'])) {
-			$options['http']['header'] = join('\n', $options['http']['header']);
+			$options['http']['header'] = join('\n', $options['http']['headers']);
 			unset($options['http']['headers']);
 		}
 		$context  = stream_context_create($options);

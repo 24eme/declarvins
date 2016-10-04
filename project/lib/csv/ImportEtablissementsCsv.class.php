@@ -64,7 +64,7 @@ class ImportEtablissementsCsv {
    			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_CVI + 1).') "cvi" manquante');
    		}
     	if (!isset($line[EtablissementCsv::COL_NO_ASSICES])) {
-   			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_NO_ASSICES + 1).') "numéro assices" manquante');
+   			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_NO_ASSICES + 1).') "numéro accises" manquante');
    		}
     	if (!isset($line[EtablissementCsv::COL_NO_TVA_INTRACOMMUNAUTAIRE])) {
    			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_NO_TVA_INTRACOMMUNAUTAIRE + 1).') "numéro tva intracommunautaire" manquante');
@@ -297,6 +297,22 @@ class ImportEtablissementsCsv {
         		$interpro->correspondances->add($etab->identifiant, $idCorrespondance);
         		$this->_interpros[$i] = $interpro;
         	}
+        }
+        $isCiel = (preg_match("/oui/i", trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_CIEL])))? 1 : 0;
+        if ($isCiel) {
+        	$service = new CielService($interpro);
+        	$edi = new EtablissementEdi();
+  			$result = $service->seed($edi->getXmlFormat(trim($line[EtablissementCsv::COL_NO_ASSICES])));
+  			if (strpos($result, '<traderAuthorisation>') === false) {
+  				if (isset($this->_errors[$ligne])) {
+  					$merge = $this->_errors[$ligne];
+  					$merge[] = 'Colonne (indice '.(EtablissementCsv::COL_NO_ASSICES + 1).') "numéro accises" non reconnu par SEED';
+  					$this->_errors[$ligne] = $merge;
+  				} else {
+  					$this->_errors[$ligne] = array('Colonne (indice '.(EtablissementCsv::COL_NO_ASSICES + 1).') "numéro accises" non reconnu par SEED');
+  				}
+  				throw new sfException('has errors');
+  			}
         }
 		
         return $etab;
