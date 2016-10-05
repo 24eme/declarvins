@@ -200,7 +200,7 @@ class DRMValidation
 		if ($crdNeg) {
 			$this->errors['stock_crd'] = new DRMControleError('crd', $this->generateUrl('drm_crd', $this->drm));
 		}
-		if ($this->isCiel && !$this->isAdmin) {
+		if ($this->isCiel) {
 			if ($detail->entrees->crd > 0 && !$detail->observations) {
 				$this->errors['observations_crd_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_crd', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
 			}
