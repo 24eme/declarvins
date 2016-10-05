@@ -468,6 +468,9 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
     
     protected function updateVolumeEnleve() {
+    	if (!$this->exist('enlevements')) {
+    		return;
+    	}
     	$vol = 0;
     	foreach ($this->enlevements as $enlevement) {
     		$vol += $enlevement->volume;
