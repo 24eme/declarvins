@@ -111,9 +111,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return DRMClient::getInstance()->getModeDeSaisieLibelle($this->mode_de_saisie);
     }
 
-    public function getDetails() {
+    public function getDetails($interpro = null) {
 
-        return $this->declaration->getProduits();
+        return $this->declaration->getProduits($interpro);
     }
 
     public function getProduitsCepages() {
@@ -1304,8 +1304,8 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     /* FIN DES MOUVEMENTS *** */
     
     /* EXPORTABLE */
-    public function getExportableProduits() {
-    	return $this->getDetails();
+    public function getExportableProduits($interpro = null) {
+    	return $this->getDetails($interpro);
     }
     
     public function getExportableSucre() {

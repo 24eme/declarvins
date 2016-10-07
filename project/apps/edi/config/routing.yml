@@ -16,6 +16,9 @@ testDRMEdi:
 streamDRMEdi:
   url: /edi/drm/:interpro/:datedebut
   param: {module: edi, action: streamDRM}
+streamDRMInterpro:
+  url: /edi/v2/drm/:interpro/:datedebut
+  param: {module: edi, action: streamDRMInterpro}
 streamDRMEtablissementEdi:
   url: /edi/etablissement/drm/:etablissement/:datedebut
   param: {module: edi, action: streamDRMEtablissement, datedebut: null}

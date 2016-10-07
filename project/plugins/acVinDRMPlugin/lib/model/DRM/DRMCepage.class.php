@@ -15,9 +15,12 @@ class DRMCepage extends BaseDRMCepage {
     	return $this->getParentNode();
   	}
 
-  	public function getProduits() {
+  	public function getProduits($interpro = null) {
         $produits = array();
         foreach($this->getChildrenNode() as $key => $item) {
+        	if ($interpro && $item->interpro != $interpro) {
+        		continue;
+        	}
             $produits[$item->getHash()] = $item;
         }
         return $produits;
