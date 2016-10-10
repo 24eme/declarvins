@@ -46,7 +46,13 @@ class CompteTiers extends BaseCompteTiers {
     }
     
     public function getTiersCollection() {
-        return acCouchdbManager::getClient()->keys(array_keys($this->getTiers()->toArray()))->execute();
+    	$result = array();
+    	foreach ($this->getTiers() as $key => $values) {
+    		if ($etablissement = EtablissementClient::getInstance()->find($key)) {
+    			$result[] = $etablissement;
+    		}
+    	}
+    	return $result;
     }
 
     public function addEtablissement($etablissement) {
