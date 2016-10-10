@@ -1,0 +1,2101 @@
+#CERTIFICATION_KEY,GENRE_KEY,APPELLATION_KEY,MENTION_KEY,LIEU_KEY,COULEUR_KEY,CEPAGE_KEY,LIBELLE
+VINSSANSIG,TRANQ,,,,rouge,,Sans IG Tranquilles Rouge 
+VINSSANSIG,TRANQ,,,,rouge,SYR,Sans IG Tranquilles Rouge Syrah
+VINSSANSIG,TRANQ,,,,rouge,GRN,Sans IG Tranquilles Rouge Grenache Noir
+VINSSANSIG,TRANQ,,,,rouge,CS,Sans IG Tranquilles Rouge Cabernet-Sauvignon
+VINSSANSIG,TRANQ,,,,rouge,CIN,Sans IG Tranquilles Rouge Cinsaut
+VINSSANSIG,TRANQ,,,,rouge,MER,Sans IG Tranquilles Rouge Merlot
+VINSSANSIG,TRANQ,,,,rouge,MOU,Sans IG Tranquilles Rouge Mourvedre
+VINSSANSIG,TRANQ,,,,rouge,CEP,Sans IG Tranquilles Rouge Autre
+VINSSANSIG,TRANQ,,,,rose,,Sans IG Tranquilles Rosé 
+VINSSANSIG,TRANQ,,,,rose,SYR,Sans IG Tranquilles Rosé Syrah
+VINSSANSIG,TRANQ,,,,rose,GRN,Sans IG Tranquilles Rosé Grenache Noir
+VINSSANSIG,TRANQ,,,,rose,CS,Sans IG Tranquilles Rosé Cabernet-Sauvignon
+VINSSANSIG,TRANQ,,,,rose,CIN,Sans IG Tranquilles Rosé Cinsaut
+VINSSANSIG,TRANQ,,,,rose,MER,Sans IG Tranquilles Rosé Merlot
+VINSSANSIG,TRANQ,,,,rose,MOU,Sans IG Tranquilles Rosé Mourvedre
+VINSSANSIG,TRANQ,,,,rose,CEP,Sans IG Tranquilles Rosé Autre
+VINSSANSIG,TRANQ,,,,blanc,,Sans IG Tranquilles Blanc 
+VINSSANSIG,TRANQ,,,,blanc,ROL,Sans IG Tranquilles Blanc Rolle-Vermentino
+VINSSANSIG,TRANQ,,,,blanc,CHA,Sans IG Tranquilles Blanc Chardonnay
+VINSSANSIG,TRANQ,,,,blanc,SAU,Sans IG Tranquilles Blanc Sauvignon
+VINSSANSIG,TRANQ,,,,blanc,GRB,Sans IG Tranquilles Blanc Grenache blanc
+VINSSANSIG,TRANQ,,,,blanc,VIO,Sans IG Tranquilles Blanc Viognier
+VINSSANSIG,TRANQ,,,,blanc,MAR,Sans IG Tranquilles Blanc Marsanne
+VINSSANSIG,TRANQ,,,,blanc,ROU,Sans IG Tranquilles Blanc Roussanne
+VINSSANSIG,TRANQ,,,,blanc,CLA,Sans IG Tranquilles Blanc Clairette
+VINSSANSIG,TRANQ,,,,blanc,CEP,Sans IG Tranquilles Blanc Autre
+VINSSANSIG,EFF,,,,rouge,,Sans IG Effervescent Rouge 
+VINSSANSIG,EFF,,,,rouge,SYR,Sans IG Effervescent Rouge Syrah
+VINSSANSIG,EFF,,,,rouge,GRN,Sans IG Effervescent Rouge Grenache Noir
+VINSSANSIG,EFF,,,,rouge,CS,Sans IG Effervescent Rouge Cabernet-Sauvignon
+VINSSANSIG,EFF,,,,rouge,CIN,Sans IG Effervescent Rouge Cinsaut
+VINSSANSIG,EFF,,,,rouge,MER,Sans IG Effervescent Rouge Merlot
+VINSSANSIG,EFF,,,,rouge,MOU,Sans IG Effervescent Rouge Mourvedre
+VINSSANSIG,EFF,,,,rouge,CEP,Sans IG Effervescent Rouge Autre
+VINSSANSIG,EFF,,,,rose,,Sans IG Effervescent Rosé 
+VINSSANSIG,EFF,,,,rose,SYR,Sans IG Effervescent Rosé Syrah
+VINSSANSIG,EFF,,,,rose,GRN,Sans IG Effervescent Rosé Grenache Noir
+VINSSANSIG,EFF,,,,rose,CS,Sans IG Effervescent Rosé Cabernet-Sauvignon
+VINSSANSIG,EFF,,,,rose,CIN,Sans IG Effervescent Rosé Cinsaut
+VINSSANSIG,EFF,,,,rose,MER,Sans IG Effervescent Rosé Merlot
+VINSSANSIG,EFF,,,,rose,MOU,Sans IG Effervescent Rosé Mourvedre
+VINSSANSIG,EFF,,,,rose,CEP,Sans IG Effervescent Rosé Autre
+VINSSANSIG,EFF,,,,blanc,,Sans IG Effervescent Blanc 
+VINSSANSIG,EFF,,,,blanc,ROL,Sans IG Effervescent Blanc Rolle-Vermentino
+VINSSANSIG,EFF,,,,blanc,CHA,Sans IG Effervescent Blanc Chardonnay
+VINSSANSIG,EFF,,,,blanc,SAU,Sans IG Effervescent Blanc Sauvignon
+VINSSANSIG,EFF,,,,blanc,GRB,Sans IG Effervescent Blanc Grenache blanc
+VINSSANSIG,EFF,,,,blanc,VIO,Sans IG Effervescent Blanc Viognier
+VINSSANSIG,EFF,,,,blanc,MAR,Sans IG Effervescent Blanc Marsanne
+VINSSANSIG,EFF,,,,blanc,ROU,Sans IG Effervescent Blanc Roussanne
+VINSSANSIG,EFF,,,,blanc,CLA,Sans IG Effervescent Blanc Clairette
+VINSSANSIG,EFF,,,,blanc,CEP,Sans IG Effervescent Blanc Autre
+VINSSANSIG,N,,,,rouge,,Sans IG VDN Rouge 
+VINSSANSIG,N,,,,rouge,MOU,Sans IG VDN Rouge Mourvedre
+VINSSANSIG,N,,,,rouge,CEP,Sans IG VDN Rouge Autre
+VINSSANSIG,N,,,,rose,,Sans IG VDN Rosé 
+VINSSANSIG,N,,,,rose,SYR,Sans IG VDN Rosé Syrah
+VINSSANSIG,N,,,,rose,GRN,Sans IG VDN Rosé Grenache Noir
+VINSSANSIG,N,,,,rose,CS,Sans IG VDN Rosé Cabernet-Sauvignon
+VINSSANSIG,N,,,,rose,CIN,Sans IG VDN Rosé Cinsaut
+VINSSANSIG,N,,,,rose,MER,Sans IG VDN Rosé Merlot
+VINSSANSIG,N,,,,rose,MOU,Sans IG VDN Rosé Mourvedre
+VINSSANSIG,N,,,,rose,CEP,Sans IG VDN Rosé Autre
+VINSSANSIG,N,,,,blanc,,Sans IG VDN Blanc 
+VINSSANSIG,N,,,,blanc,ROL,Sans IG VDN Blanc Rolle-Vermentino
+VINSSANSIG,N,,,,blanc,CHA,Sans IG VDN Blanc Chardonnay
+VINSSANSIG,N,,,,blanc,SAU,Sans IG VDN Blanc Sauvignon
+VINSSANSIG,N,,,,blanc,GRB,Sans IG VDN Blanc Grenache blanc
+VINSSANSIG,N,,,,blanc,VIO,Sans IG VDN Blanc Viognier
+VINSSANSIG,N,,,,blanc,MAR,Sans IG VDN Blanc Marsanne
+VINSSANSIG,N,,,,blanc,ROU,Sans IG VDN Blanc Roussanne
+VINSSANSIG,N,,,,blanc,CLA,Sans IG VDN Blanc Clairette
+VINSSANSIG,N,,,,blanc,CEP,Sans IG VDN Blanc Autre
+LIE,T,,,,,,LIE TRANQ LIES 
+IGP,TRANQ,301,,,rouge,,IGP Tranquilles Gard Rouge 
+IGP,TRANQ,301,,,rouge,SYR,IGP Tranquilles Gard Rouge Syrah
+IGP,TRANQ,301,,,rouge,GRN,IGP Tranquilles Gard Rouge Grenache Noir
+IGP,TRANQ,301,,,rouge,CS,IGP Tranquilles Gard Rouge Cabernet-Sauvignon
+IGP,TRANQ,301,,,rouge,CIN,IGP Tranquilles Gard Rouge Cinsaut
+IGP,TRANQ,301,,,rouge,MER,IGP Tranquilles Gard Rouge Merlot
+IGP,TRANQ,301,,,rouge,MOU,IGP Tranquilles Gard Rouge Mourvedre
+IGP,TRANQ,301,,,rouge,MAR,IGP Tranquilles Gard Rouge Marselan
+IGP,TRANQ,301,,,rouge,CEP,IGP Tranquilles Gard Rouge Autre
+IGP,TRANQ,301,,,rose,,IGP Tranquilles Gard Rosé 
+IGP,TRANQ,301,,,rose,SYR,IGP Tranquilles Gard Rosé Syrah
+IGP,TRANQ,301,,,rose,GRN,IGP Tranquilles Gard Rosé Grenache Noir
+IGP,TRANQ,301,,,rose,CS,IGP Tranquilles Gard Rosé Cabernet-Sauvignon
+IGP,TRANQ,301,,,rose,CIN,IGP Tranquilles Gard Rosé Cinsaut
+IGP,TRANQ,301,,,rose,MER,IGP Tranquilles Gard Rosé Merlot
+IGP,TRANQ,301,,,rose,MOU,IGP Tranquilles Gard Rosé Mourvedre
+IGP,TRANQ,301,,,rose,MAR,IGP Tranquilles Gard Rosé Marselan
+IGP,TRANQ,301,,,rose,GRG,IGP Tranquilles Gard Rosé Grenache Gris
+IGP,TRANQ,301,,,rose,CEP,IGP Tranquilles Gard Rosé Autre
+IGP,TRANQ,301,,,blanc,,IGP Tranquilles Gard Blanc 
+IGP,TRANQ,301,,,blanc,ROL,IGP Tranquilles Gard Blanc Rolle-Vermentino
+IGP,TRANQ,301,,,blanc,CHA,IGP Tranquilles Gard Blanc Chardonnay
+IGP,TRANQ,301,,,blanc,SAU,IGP Tranquilles Gard Blanc Sauvignon
+IGP,TRANQ,301,,,blanc,GRB,IGP Tranquilles Gard Blanc Grenache blanc
+IGP,TRANQ,301,,,blanc,VIO,IGP Tranquilles Gard Blanc Viognier
+IGP,TRANQ,301,,,blanc,MAR,IGP Tranquilles Gard Blanc Marsanne
+IGP,TRANQ,301,,,blanc,ROU,IGP Tranquilles Gard Blanc Roussanne
+IGP,TRANQ,301,,,blanc,CLA,IGP Tranquilles Gard Blanc Clairette
+IGP,TRANQ,301,,,blanc,MUH,IGP Tranquilles Gard Blanc Muscat de HAMBOURG
+IGP,TRANQ,301,,,blanc,CEP,IGP Tranquilles Gard Blanc Autre
+IGP,TRANQ,236,,,rouge,,IGP Tranquilles Duche d'Uzes Rouge 
+IGP,TRANQ,236,,,rouge,SYR,IGP Tranquilles Duche d'Uzes Rouge Syrah
+IGP,TRANQ,236,,,rouge,GRN,IGP Tranquilles Duche d'Uzes Rouge Grenache Noir
+IGP,TRANQ,236,,,rouge,CS,IGP Tranquilles Duche d'Uzes Rouge Cabernet-Sauvignon
+IGP,TRANQ,236,,,rouge,CIN,IGP Tranquilles Duche d'Uzes Rouge Cinsaut
+IGP,TRANQ,236,,,rouge,MER,IGP Tranquilles Duche d'Uzes Rouge Merlot
+IGP,TRANQ,236,,,rouge,MOU,IGP Tranquilles Duche d'Uzes Rouge Mourvedre
+IGP,TRANQ,236,,,rouge,MAR,IGP Tranquilles Duche d'Uzes Rouge Marselan
+IGP,TRANQ,236,,,rouge,CEP,IGP Tranquilles Duche d'Uzes Rouge Autre
+IGP,TRANQ,236,,,rose,,IGP Tranquilles Duche d'Uzes Rosé 
+IGP,TRANQ,236,,,rose,SYR,IGP Tranquilles Duche d'Uzes Rosé Syrah
+IGP,TRANQ,236,,,rose,GRN,IGP Tranquilles Duche d'Uzes Rosé Grenache Noir
+IGP,TRANQ,236,,,rose,CS,IGP Tranquilles Duche d'Uzes Rosé Cabernet-Sauvignon
+IGP,TRANQ,236,,,rose,CIN,IGP Tranquilles Duche d'Uzes Rosé Cinsaut
+IGP,TRANQ,236,,,rose,MER,IGP Tranquilles Duche d'Uzes Rosé Merlot
+IGP,TRANQ,236,,,rose,MOU,IGP Tranquilles Duche d'Uzes Rosé Mourvedre
+IGP,TRANQ,236,,,rose,MAR,IGP Tranquilles Duche d'Uzes Rosé Marselan
+IGP,TRANQ,236,,,rose,GRG,IGP Tranquilles Duche d'Uzes Rosé Grenache Gris
+IGP,TRANQ,236,,,rose,CEP,IGP Tranquilles Duche d'Uzes Rosé Autre
+IGP,TRANQ,236,,,blanc,,IGP Tranquilles Duche d'Uzes Blanc 
+IGP,TRANQ,236,,,blanc,ROL,IGP Tranquilles Duche d'Uzes Blanc Rolle-Vermentino
+IGP,TRANQ,236,,,blanc,CHA,IGP Tranquilles Duche d'Uzes Blanc Chardonnay
+IGP,TRANQ,236,,,blanc,SAU,IGP Tranquilles Duche d'Uzes Blanc Sauvignon
+IGP,TRANQ,236,,,blanc,GRB,IGP Tranquilles Duche d'Uzes Blanc Grenache blanc
+IGP,TRANQ,236,,,blanc,VIO,IGP Tranquilles Duche d'Uzes Blanc Viognier
+IGP,TRANQ,236,,,blanc,MAR,IGP Tranquilles Duche d'Uzes Blanc Marsanne
+IGP,TRANQ,236,,,blanc,ROU,IGP Tranquilles Duche d'Uzes Blanc Roussanne
+IGP,TRANQ,236,,,blanc,CLA,IGP Tranquilles Duche d'Uzes Blanc Clairette
+IGP,TRANQ,236,,,blanc,MUH,IGP Tranquilles Duche d'Uzes Blanc Muscat de HAMBOURG
+IGP,TRANQ,236,,,blanc,CEP,IGP Tranquilles Duche d'Uzes Blanc Autre
+IGP,TRANQ,302,,,rouge,,IGP Tranquilles Cevennes Rouge 
+IGP,TRANQ,302,,,rouge,SYR,IGP Tranquilles Cevennes Rouge Syrah
+IGP,TRANQ,302,,,rouge,GRN,IGP Tranquilles Cevennes Rouge Grenache Noir
+IGP,TRANQ,302,,,rouge,CS,IGP Tranquilles Cevennes Rouge Cabernet-Sauvignon
+IGP,TRANQ,302,,,rouge,CIN,IGP Tranquilles Cevennes Rouge Cinsaut
+IGP,TRANQ,302,,,rouge,MER,IGP Tranquilles Cevennes Rouge Merlot
+IGP,TRANQ,302,,,rouge,MOU,IGP Tranquilles Cevennes Rouge Mourvedre
+IGP,TRANQ,302,,,rouge,CEP,IGP Tranquilles Cevennes Rouge Autre
+IGP,TRANQ,302,,,rose,,IGP Tranquilles Cevennes Rosé 
+IGP,TRANQ,302,,,rose,SYR,IGP Tranquilles Cevennes Rosé Syrah
+IGP,TRANQ,302,,,rose,GRN,IGP Tranquilles Cevennes Rosé Grenache Noir
+IGP,TRANQ,302,,,rose,CS,IGP Tranquilles Cevennes Rosé Cabernet-Sauvignon
+IGP,TRANQ,302,,,rose,CIN,IGP Tranquilles Cevennes Rosé Cinsaut
+IGP,TRANQ,302,,,rose,MER,IGP Tranquilles Cevennes Rosé Merlot
+IGP,TRANQ,302,,,rose,MOU,IGP Tranquilles Cevennes Rosé Mourvedre
+IGP,TRANQ,302,,,rose,GRG,IGP Tranquilles Cevennes Rosé Grenache Gris
+IGP,TRANQ,302,,,rose,CEP,IGP Tranquilles Cevennes Rosé Autre
+IGP,TRANQ,302,,,blanc,,IGP Tranquilles Cevennes Blanc 
+IGP,TRANQ,302,,,blanc,ROL,IGP Tranquilles Cevennes Blanc Rolle-Vermentino
+IGP,TRANQ,302,,,blanc,CHA,IGP Tranquilles Cevennes Blanc Chardonnay
+IGP,TRANQ,302,,,blanc,SAU,IGP Tranquilles Cevennes Blanc Sauvignon
+IGP,TRANQ,302,,,blanc,GRB,IGP Tranquilles Cevennes Blanc Grenache blanc
+IGP,TRANQ,302,,,blanc,VIO,IGP Tranquilles Cevennes Blanc Viognier
+IGP,TRANQ,302,,,blanc,MAR,IGP Tranquilles Cevennes Blanc Marsanne
+IGP,TRANQ,302,,,blanc,ROU,IGP Tranquilles Cevennes Blanc Roussanne
+IGP,TRANQ,302,,,blanc,CLA,IGP Tranquilles Cevennes Blanc Clairette
+IGP,TRANQ,302,,,blanc,MUH,IGP Tranquilles Cevennes Blanc Muscat de HAMBOURG
+IGP,TRANQ,302,,,blanc,CEP,IGP Tranquilles Cevennes Blanc Autre
+IGP,TRANQ,,,,rouge,,IGP Tranquilles Sable du Golfe du Lion Rouge 
+IGP,TRANQ,,,,rouge,SYR,IGP Tranquilles Sable du Golfe du Lion Rouge Syrah
+IGP,TRANQ,,,,rouge,GRN,IGP Tranquilles Sable du Golfe du Lion Rouge Grenache Noir
+IGP,TRANQ,,,,rouge,CS,IGP Tranquilles Sable du Golfe du Lion Rouge Cabernet-Sauvignon
+IGP,TRANQ,,,,rouge,CIN,IGP Tranquilles Sable du Golfe du Lion Rouge Cinsaut
+IGP,TRANQ,,,,rouge,MER,IGP Tranquilles Sable du Golfe du Lion Rouge Merlot
+IGP,TRANQ,,,,rouge,MOU,IGP Tranquilles Sable du Golfe du Lion Rouge Mourvedre
+IGP,TRANQ,,,,rouge,CEP,IGP Tranquilles Sable du Golfe du Lion Rouge Autre
+IGP,TRANQ,,,,rose,,IGP Tranquilles Sable du Golfe du Lion Rosé 
+IGP,TRANQ,,,,rose,SYR,IGP Tranquilles Sable du Golfe du Lion Rosé Syrah
+IGP,TRANQ,,,,rose,GRN,IGP Tranquilles Sable du Golfe du Lion Rosé Grenache Noir
+IGP,TRANQ,,,,rose,CS,IGP Tranquilles Sable du Golfe du Lion Rosé Cabernet-Sauvignon
+IGP,TRANQ,,,,rose,CIN,IGP Tranquilles Sable du Golfe du Lion Rosé Cinsaut
+IGP,TRANQ,,,,rose,MER,IGP Tranquilles Sable du Golfe du Lion Rosé Merlot
+IGP,TRANQ,,,,rose,MOU,IGP Tranquilles Sable du Golfe du Lion Rosé Mourvedre
+IGP,TRANQ,,,,rose,CEP,IGP Tranquilles Sable du Golfe du Lion Rosé Autre
+IGP,TRANQ,,,,blanc,,IGP Tranquilles Sable du Golfe du Lion Blanc 
+IGP,TRANQ,,,,blanc,ROL,IGP Tranquilles Sable du Golfe du Lion Blanc Rolle-Vermentino
+IGP,TRANQ,,,,blanc,CHA,IGP Tranquilles Sable du Golfe du Lion Blanc Chardonnay
+IGP,TRANQ,,,,blanc,SAU,IGP Tranquilles Sable du Golfe du Lion Blanc Sauvignon
+IGP,TRANQ,,,,blanc,GRB,IGP Tranquilles Sable du Golfe du Lion Blanc Grenache blanc
+IGP,TRANQ,,,,blanc,VIO,IGP Tranquilles Sable du Golfe du Lion Blanc Viognier
+IGP,TRANQ,,,,blanc,MAR,IGP Tranquilles Sable du Golfe du Lion Blanc Marsanne
+IGP,TRANQ,,,,blanc,ROU,IGP Tranquilles Sable du Golfe du Lion Blanc Roussanne
+IGP,TRANQ,,,,blanc,MPG,IGP Tranquilles Sable du Golfe du Lion Blanc Muscat é petits grains
+IGP,TRANQ,,,,blanc,CEP,IGP Tranquilles Sable du Golfe du Lion Blanc Autre
+IGP,TRANQ,307,,,rouge,,IGP Tranquilles Sables de Camargues Rouge 
+IGP,TRANQ,307,,,rouge,SYR,IGP Tranquilles Sables de Camargues Rouge Syrah
+IGP,TRANQ,307,,,rouge,GRN,IGP Tranquilles Sables de Camargues Rouge Grenache Noir
+IGP,TRANQ,307,,,rouge,CS,IGP Tranquilles Sables de Camargues Rouge Cabernet-Sauvignon
+IGP,TRANQ,307,,,rouge,CIN,IGP Tranquilles Sables de Camargues Rouge Cinsaut
+IGP,TRANQ,307,,,rouge,MER,IGP Tranquilles Sables de Camargues Rouge Merlot
+IGP,TRANQ,307,,,rouge,MOU,IGP Tranquilles Sables de Camargues Rouge Mourvedre
+IGP,TRANQ,307,,,rouge,CEP,IGP Tranquilles Sables de Camargues Rouge Autre
+IGP,TRANQ,307,,,rose,,IGP Tranquilles Sables de Camargues Rosé 
+IGP,TRANQ,307,,,rose,SYR,IGP Tranquilles Sables de Camargues Rosé Syrah
+IGP,TRANQ,307,,,rose,GRN,IGP Tranquilles Sables de Camargues Rosé Grenache Noir
+IGP,TRANQ,307,,,rose,CS,IGP Tranquilles Sables de Camargues Rosé Cabernet-Sauvignon
+IGP,TRANQ,307,,,rose,CIN,IGP Tranquilles Sables de Camargues Rosé Cinsaut
+IGP,TRANQ,307,,,rose,MER,IGP Tranquilles Sables de Camargues Rosé Merlot
+IGP,TRANQ,307,,,rose,MOU,IGP Tranquilles Sables de Camargues Rosé Mourvedre
+IGP,TRANQ,307,,,rose,CEP,IGP Tranquilles Sables de Camargues Rosé Autre
+IGP,TRANQ,307,,,blanc,,IGP Tranquilles Sables de Camargues Blanc 
+IGP,TRANQ,307,,,blanc,ROL,IGP Tranquilles Sables de Camargues Blanc Rolle-Vermentino
+IGP,TRANQ,307,,,blanc,CHA,IGP Tranquilles Sables de Camargues Blanc Chardonnay
+IGP,TRANQ,307,,,blanc,SAU,IGP Tranquilles Sables de Camargues Blanc Sauvignon
+IGP,TRANQ,307,,,blanc,GRB,IGP Tranquilles Sables de Camargues Blanc Grenache blanc
+IGP,TRANQ,307,,,blanc,VIO,IGP Tranquilles Sables de Camargues Blanc Viognier
+IGP,TRANQ,307,,,blanc,MAR,IGP Tranquilles Sables de Camargues Blanc Marsanne
+IGP,TRANQ,307,,,blanc,ROU,IGP Tranquilles Sables de Camargues Blanc Roussanne
+IGP,TRANQ,307,,,blanc,MPG,IGP Tranquilles Sables de Camargues Blanc Muscat é petits grains
+IGP,TRANQ,307,,,blanc,CEP,IGP Tranquilles Sables de Camargues Blanc Autre
+IGP,TRANQ,305,,,rouge,,IGP Tranquilles Coteaux du Pont du Gard Rouge 
+IGP,TRANQ,305,,,rouge,SYR,IGP Tranquilles Coteaux du Pont du Gard Rouge Syrah
+IGP,TRANQ,305,,,rouge,GRN,IGP Tranquilles Coteaux du Pont du Gard Rouge Grenache Noir
+IGP,TRANQ,305,,,rouge,CS,IGP Tranquilles Coteaux du Pont du Gard Rouge Cabernet-Sauvignon
+IGP,TRANQ,305,,,rouge,CIN,IGP Tranquilles Coteaux du Pont du Gard Rouge Cinsaut
+IGP,TRANQ,305,,,rouge,MER,IGP Tranquilles Coteaux du Pont du Gard Rouge Merlot
+IGP,TRANQ,305,,,rouge,MOU,IGP Tranquilles Coteaux du Pont du Gard Rouge Mourvedre
+IGP,TRANQ,305,,,rouge,MAR,IGP Tranquilles Coteaux du Pont du Gard Rouge Marselan
+IGP,TRANQ,305,,,rouge,CEP,IGP Tranquilles Coteaux du Pont du Gard Rouge Autre
+IGP,TRANQ,305,,,rose,,IGP Tranquilles Coteaux du Pont du Gard Rosé 
+IGP,TRANQ,305,,,rose,SYR,IGP Tranquilles Coteaux du Pont du Gard Rosé Syrah
+IGP,TRANQ,305,,,rose,GRN,IGP Tranquilles Coteaux du Pont du Gard Rosé Grenache Noir
+IGP,TRANQ,305,,,rose,CS,IGP Tranquilles Coteaux du Pont du Gard Rosé Cabernet-Sauvignon
+IGP,TRANQ,305,,,rose,CIN,IGP Tranquilles Coteaux du Pont du Gard Rosé Cinsaut
+IGP,TRANQ,305,,,rose,MER,IGP Tranquilles Coteaux du Pont du Gard Rosé Merlot
+IGP,TRANQ,305,,,rose,MOU,IGP Tranquilles Coteaux du Pont du Gard Rosé Mourvedre
+IGP,TRANQ,305,,,rose,GRG,IGP Tranquilles Coteaux du Pont du Gard Rosé Grenache Gris
+IGP,TRANQ,305,,,rose,CEP,IGP Tranquilles Coteaux du Pont du Gard Rosé Autre
+IGP,TRANQ,305,,,blanc,,IGP Tranquilles Coteaux du Pont du Gard Blanc 
+IGP,TRANQ,305,,,blanc,ROL,IGP Tranquilles Coteaux du Pont du Gard Blanc Rolle-Vermentino
+IGP,TRANQ,305,,,blanc,CHA,IGP Tranquilles Coteaux du Pont du Gard Blanc Chardonnay
+IGP,TRANQ,305,,,blanc,SAU,IGP Tranquilles Coteaux du Pont du Gard Blanc Sauvignon
+IGP,TRANQ,305,,,blanc,GRB,IGP Tranquilles Coteaux du Pont du Gard Blanc Grenache blanc
+IGP,TRANQ,305,,,blanc,VIO,IGP Tranquilles Coteaux du Pont du Gard Blanc Viognier
+IGP,TRANQ,305,,,blanc,MAR,IGP Tranquilles Coteaux du Pont du Gard Blanc Marsanne
+IGP,TRANQ,305,,,blanc,ROU,IGP Tranquilles Coteaux du Pont du Gard Blanc Roussanne
+IGP,TRANQ,305,,,blanc,CLA,IGP Tranquilles Coteaux du Pont du Gard Blanc Clairette
+IGP,TRANQ,305,,,blanc,MUH,IGP Tranquilles Coteaux du Pont du Gard Blanc Muscat de HAMBOURG
+IGP,TRANQ,305,,,blanc,CEP,IGP Tranquilles Coteaux du Pont du Gard Blanc Autre
+IGP,TRANQ,IGP,,,rouge,CS,IGP Tranquilles Autre IGP Rouge Cabernet-Sauvignon
+IGP,TRANQ,IGP,,,rouge,CIN,IGP Tranquilles Autre IGP Rouge Cinsaut
+IGP,TRANQ,IGP,,,rouge,MER,IGP Tranquilles Autre IGP Rouge Merlot
+IGP,TRANQ,IGP,,,rouge,MOU,IGP Tranquilles Autre IGP Rouge Mourvedre
+IGP,TRANQ,IGP,,,rouge,MAR,IGP Tranquilles Autre IGP Rouge Marselan
+AOP,TRANQ,CP,,FRE,rouge,,AOP Tranquilles Cétes de Provence Fréjus Rouge 
+AOP,TRANQ,CP,,FRE,rose,,AOP Tranquilles Cétes de Provence Fréjus Rosé 
+AOP,TRANQ,CP,,SVI,rouge,,AOP Tranquilles Cétes de Provence Sainte Victoire Rouge 
+AOP,TRANQ,CP,,SVI,rose,,AOP Tranquilles Cétes de Provence Sainte Victoire Rosé 
+AOP,TRANQ,CP,,LLO,rouge,,AOP Tranquilles Cétes de Provence La Londe Rouge 
+AOP,TRANQ,CP,,LLO,rose,,AOP Tranquilles Cétes de Provence La Londe Rosé 
+AOP,TRANQ,CP,,,rouge,,AOP Tranquilles Cétes de Provence Rouge 
+AOP,TRANQ,CP,,,rose,,AOP Tranquilles Cétes de Provence Rosé 
+AOP,TRANQ,CP,,,blanc,ROL,AOP Tranquilles Cétes de Provence Blanc Rolle-Vermentino
+AOP,TRANQ,CP,,,blanc,,AOP Tranquilles Cétes de Provence Blanc 
+AOP,TRANQ,CP,,PIE,rouge,,AOP Tranquilles Cétes de Provence Pierrefeu Rouge 
+AOP,TRANQ,CP,,PIE,rose,,AOP Tranquilles Cétes de Provence Pierrefeu Rosé 
+AOP,TRANQ,CAP,,,rouge,,AOP Tranquilles Coteaux d'Aix en Provence Rouge 
+AOP,TRANQ,CAP,,,rose,,AOP Tranquilles Coteaux d'Aix en Provence Rosé 
+AOP,TRANQ,CAP,,,blanc,,AOP Tranquilles Coteaux d'Aix en Provence Blanc 
+AOP,TRANQ,CVP,,,rouge,,AOP Tranquilles Coteaux Varois en Provence Rouge 
+AOP,TRANQ,CVP,,,rose,,AOP Tranquilles Coteaux Varois en Provence Rosé 
+AOP,TRANQ,CVP,,,blanc,,AOP Tranquilles Coteaux Varois en Provence Blanc 
+AOP,TRANQ,BAN,,,rouge,,AOP Tranquilles Bandol Rouge 
+AOP,TRANQ,BAN,,,rose,,AOP Tranquilles Bandol Rosé 
+AOP,TRANQ,BAN,,,blanc,,AOP Tranquilles Bandol Blanc 
+AOP,TRANQ,CAS,,,rouge,,AOP Tranquilles Cassis Rouge 
+AOP,TRANQ,CAS,,,rose,,AOP Tranquilles Cassis Rosé 
+AOP,TRANQ,CAS,,,blanc,,AOP Tranquilles Cassis Blanc 
+AOP,TRANQ,BAU,,,rouge,,AOP Tranquilles Baux de Provence Rouge 
+AOP,TRANQ,BAU,,,rose,,AOP Tranquilles Baux de Provence Rosé 
+AOP,TRANQ,BAU,,,blanc,,AOP Tranquilles Baux de Provence Blanc 
+AOP,TRANQ,BEL,,,rouge,,AOP Tranquilles Bellet Rouge 
+AOP,TRANQ,BEL,,,rose,,AOP Tranquilles Bellet Rosé 
+AOP,TRANQ,BEL,,,blanc,,AOP Tranquilles Bellet Blanc 
+AOP,TRANQ,PAL,,,rouge,,AOP Tranquilles Palette Rouge 
+AOP,TRANQ,PAL,,,rose,,AOP Tranquilles Palette Rosé 
+AOP,TRANQ,PAL,,,blanc,,AOP Tranquilles Palette Blanc 
+IGP,TRANQ,D83,,,rouge,,IGP Tranquilles Var Rouge 
+IGP,TRANQ,D83,,,rouge,SYR,IGP Tranquilles Var Rouge Syrah
+IGP,TRANQ,D83,,,rouge,GRN,IGP Tranquilles Var Rouge Grenache Noir
+IGP,TRANQ,D83,,,rouge,CS,IGP Tranquilles Var Rouge Cabernet-Sauvignon
+IGP,TRANQ,D83,,,rouge,CIN,IGP Tranquilles Var Rouge Cinsaut
+IGP,TRANQ,D83,,,rouge,MER,IGP Tranquilles Var Rouge Merlot
+IGP,TRANQ,D83,,,rouge,MOU,IGP Tranquilles Var Rouge Mourvedre
+IGP,TRANQ,D83,,,rouge,CEP,IGP Tranquilles Var Rouge Autre
+IGP,TRANQ,D83,,,rose,,IGP Tranquilles Var Rosé 
+IGP,TRANQ,D83,,,rose,SYR,IGP Tranquilles Var Rosé Syrah
+IGP,TRANQ,D83,,,rose,GRN,IGP Tranquilles Var Rosé Grenache Noir
+IGP,TRANQ,D83,,,rose,CS,IGP Tranquilles Var Rosé Cabernet-Sauvignon
+IGP,TRANQ,D83,,,rose,CIN,IGP Tranquilles Var Rosé Cinsaut
+IGP,TRANQ,D83,,,rose,MER,IGP Tranquilles Var Rosé Merlot
+IGP,TRANQ,D83,,,rose,MOU,IGP Tranquilles Var Rosé Mourvedre
+IGP,TRANQ,D83,,,rose,CEP,IGP Tranquilles Var Rosé Autre
+IGP,TRANQ,D83,,,blanc,,IGP Tranquilles Var Blanc 
+IGP,TRANQ,D83,,,blanc,ROL,IGP Tranquilles Var Blanc Rolle-Vermentino
+IGP,TRANQ,D83,,,blanc,CHA,IGP Tranquilles Var Blanc Chardonnay
+IGP,TRANQ,D83,,,blanc,SAU,IGP Tranquilles Var Blanc Sauvignon
+IGP,TRANQ,D83,,,blanc,GRB,IGP Tranquilles Var Blanc Grenache Blanc
+IGP,TRANQ,D83,,,blanc,VIO,IGP Tranquilles Var Blanc Viognier
+IGP,TRANQ,D83,,,blanc,MAR,IGP Tranquilles Var Blanc Marsanne
+IGP,TRANQ,D83,,,blanc,ROU,IGP Tranquilles Var Blanc Roussanne
+IGP,TRANQ,D83,,,blanc,CLA,IGP Tranquilles Var Blanc Clairette
+IGP,TRANQ,D83,,,blanc,CEP,IGP Tranquilles Var Blanc Autre
+IGP,TRANQ,D83,,ARG,rouge,,IGP Tranquilles Var Argens Rouge 
+IGP,TRANQ,D83,,ARG,rouge,SYR,IGP Tranquilles Var Argens Rouge Syrah
+IGP,TRANQ,D83,,ARG,rouge,GRN,IGP Tranquilles Var Argens Rouge Grenache Noir
+IGP,TRANQ,D83,,ARG,rouge,CS,IGP Tranquilles Var Argens Rouge Cabernet-Sauvignon
+IGP,TRANQ,D83,,ARG,rouge,CIN,IGP Tranquilles Var Argens Rouge Cinsaut
+IGP,TRANQ,D83,,ARG,rouge,MER,IGP Tranquilles Var Argens Rouge Merlot
+IGP,TRANQ,D83,,ARG,rouge,MOU,IGP Tranquilles Var Argens Rouge Mourvedre
+IGP,TRANQ,D83,,ARG,rouge,CEP,IGP Tranquilles Var Argens Rouge Autre
+IGP,TRANQ,D83,,ARG,rose,,IGP Tranquilles Var Argens Rosé 
+IGP,TRANQ,D83,,ARG,rose,SYR,IGP Tranquilles Var Argens Rosé Syrah
+IGP,TRANQ,D83,,ARG,rose,GRN,IGP Tranquilles Var Argens Rosé Grenache Noir
+IGP,TRANQ,D83,,ARG,rose,CS,IGP Tranquilles Var Argens Rosé Cabernet-Sauvignon
+IGP,TRANQ,D83,,ARG,rose,CIN,IGP Tranquilles Var Argens Rosé Cinsaut
+IGP,TRANQ,D83,,ARG,rose,MER,IGP Tranquilles Var Argens Rosé Merlot
+IGP,TRANQ,D83,,ARG,rose,MOU,IGP Tranquilles Var Argens Rosé Mourvedre
+IGP,TRANQ,D83,,ARG,rose,CEP,IGP Tranquilles Var Argens Rosé Autre
+IGP,TRANQ,D83,,ARG,blanc,,IGP Tranquilles Var Argens Blanc 
+IGP,TRANQ,D83,,ARG,blanc,ROL,IGP Tranquilles Var Argens Blanc Rolle-Vermentino
+IGP,TRANQ,D83,,ARG,blanc,CHA,IGP Tranquilles Var Argens Blanc Chardonnay
+IGP,TRANQ,D83,,ARG,blanc,SAU,IGP Tranquilles Var Argens Blanc Sauvignon
+IGP,TRANQ,D83,,ARG,blanc,GRB,IGP Tranquilles Var Argens Blanc Grenache Blanc
+IGP,TRANQ,D83,,ARG,blanc,VIO,IGP Tranquilles Var Argens Blanc Viognier
+IGP,TRANQ,D83,,ARG,blanc,MAR,IGP Tranquilles Var Argens Blanc Marsanne
+IGP,TRANQ,D83,,ARG,blanc,ROU,IGP Tranquilles Var Argens Blanc Roussanne
+IGP,TRANQ,D83,,ARG,blanc,CLA,IGP Tranquilles Var Argens Blanc Clairette
+IGP,TRANQ,D83,,ARG,blanc,CEP,IGP Tranquilles Var Argens Blanc Autre
+IGP,TRANQ,D83,,CV,rouge,,IGP Tranquilles Var Coteaux du Verdon Rouge 
+IGP,TRANQ,D83,,CV,rouge,SYR,IGP Tranquilles Var Coteaux du Verdon Rouge Syrah
+IGP,TRANQ,D83,,CV,rouge,GRN,IGP Tranquilles Var Coteaux du Verdon Rouge Grenache Noir
+IGP,TRANQ,D83,,CV,rouge,CS,IGP Tranquilles Var Coteaux du Verdon Rouge Cabernet-Sauvignon
+IGP,TRANQ,D83,,CV,rouge,CIN,IGP Tranquilles Var Coteaux du Verdon Rouge Cinsaut
+IGP,TRANQ,D83,,CV,rouge,MER,IGP Tranquilles Var Coteaux du Verdon Rouge Merlot
+IGP,TRANQ,D83,,CV,rouge,MOU,IGP Tranquilles Var Coteaux du Verdon Rouge Mourvedre
+IGP,TRANQ,D83,,CV,rouge,CEP,IGP Tranquilles Var Coteaux du Verdon Rouge Autre
+IGP,TRANQ,D83,,CV,rose,,IGP Tranquilles Var Coteaux du Verdon Rosé 
+IGP,TRANQ,D83,,CV,rose,SYR,IGP Tranquilles Var Coteaux du Verdon Rosé Syrah
+IGP,TRANQ,D83,,CV,rose,GRN,IGP Tranquilles Var Coteaux du Verdon Rosé Grenache Noir
+IGP,TRANQ,D83,,CV,rose,CS,IGP Tranquilles Var Coteaux du Verdon Rosé Cabernet-Sauvignon
+IGP,TRANQ,D83,,CV,rose,CIN,IGP Tranquilles Var Coteaux du Verdon Rosé Cinsaut
+IGP,TRANQ,D83,,CV,rose,MER,IGP Tranquilles Var Coteaux du Verdon Rosé Merlot
+IGP,TRANQ,D83,,CV,rose,MOU,IGP Tranquilles Var Coteaux du Verdon Rosé Mourvedre
+IGP,TRANQ,D83,,CV,rose,CEP,IGP Tranquilles Var Coteaux du Verdon Rosé Autre
+IGP,TRANQ,D83,,CV,blanc,,IGP Tranquilles Var Coteaux du Verdon Blanc 
+IGP,TRANQ,D83,,CV,blanc,ROL,IGP Tranquilles Var Coteaux du Verdon Blanc Rolle-Vermentino
+IGP,TRANQ,D83,,CV,blanc,CHA,IGP Tranquilles Var Coteaux du Verdon Blanc Chardonnay
+IGP,TRANQ,D83,,CV,blanc,SAU,IGP Tranquilles Var Coteaux du Verdon Blanc Sauvignon
+IGP,TRANQ,D83,,CV,blanc,GRB,IGP Tranquilles Var Coteaux du Verdon Blanc Grenache Blanc
+IGP,TRANQ,D83,,CV,blanc,VIO,IGP Tranquilles Var Coteaux du Verdon Blanc Viognier
+IGP,TRANQ,D83,,CV,blanc,MAR,IGP Tranquilles Var Coteaux du Verdon Blanc Marsanne
+IGP,TRANQ,D83,,CV,blanc,ROU,IGP Tranquilles Var Coteaux du Verdon Blanc Roussanne
+IGP,TRANQ,D83,,CV,blanc,CLA,IGP Tranquilles Var Coteaux du Verdon Blanc Clairette
+IGP,TRANQ,D83,,CV,blanc,CEP,IGP Tranquilles Var Coteaux du Verdon Blanc Autre
+IGP,TRANQ,D83,,SBA,rouge,,IGP Tranquilles Var Sainte Baume Rouge 
+IGP,TRANQ,D83,,SBA,rouge,SYR,IGP Tranquilles Var Sainte Baume Rouge Syrah
+IGP,TRANQ,D83,,SBA,rouge,GRN,IGP Tranquilles Var Sainte Baume Rouge Grenache Noir
+IGP,TRANQ,D83,,SBA,rouge,CS,IGP Tranquilles Var Sainte Baume Rouge Cabernet-Sauvignon
+IGP,TRANQ,D83,,SBA,rouge,CIN,IGP Tranquilles Var Sainte Baume Rouge Cinsaut
+IGP,TRANQ,D83,,SBA,rouge,MER,IGP Tranquilles Var Sainte Baume Rouge Merlot
+IGP,TRANQ,D83,,SBA,rouge,MOU,IGP Tranquilles Var Sainte Baume Rouge Mourvedre
+IGP,TRANQ,D83,,SBA,rouge,CEP,IGP Tranquilles Var Sainte Baume Rouge Autre
+IGP,TRANQ,D83,,SBA,rose,,IGP Tranquilles Var Sainte Baume Rosé 
+IGP,TRANQ,D83,,SBA,rose,SYR,IGP Tranquilles Var Sainte Baume Rosé Syrah
+IGP,TRANQ,D83,,SBA,rose,GRN,IGP Tranquilles Var Sainte Baume Rosé Grenache Noir
+IGP,TRANQ,D83,,SBA,rose,CS,IGP Tranquilles Var Sainte Baume Rosé Cabernet-Sauvignon
+IGP,TRANQ,D83,,SBA,rose,CIN,IGP Tranquilles Var Sainte Baume Rosé Cinsaut
+IGP,TRANQ,D83,,SBA,rose,MER,IGP Tranquilles Var Sainte Baume Rosé Merlot
+IGP,TRANQ,D83,,SBA,rose,MOU,IGP Tranquilles Var Sainte Baume Rosé Mourvedre
+IGP,TRANQ,D83,,SBA,rose,CEP,IGP Tranquilles Var Sainte Baume Rosé Autre
+IGP,TRANQ,D83,,SBA,blanc,,IGP Tranquilles Var Sainte Baume Blanc 
+IGP,TRANQ,D83,,SBA,blanc,ROL,IGP Tranquilles Var Sainte Baume Blanc Rolle-Vermentino
+IGP,TRANQ,D83,,SBA,blanc,CHA,IGP Tranquilles Var Sainte Baume Blanc Chardonnay
+IGP,TRANQ,D83,,SBA,blanc,SAU,IGP Tranquilles Var Sainte Baume Blanc Sauvignon
+IGP,TRANQ,D83,,SBA,blanc,GRB,IGP Tranquilles Var Sainte Baume Blanc Grenache Blanc
+IGP,TRANQ,D83,,SBA,blanc,VIO,IGP Tranquilles Var Sainte Baume Blanc Viognier
+IGP,TRANQ,D83,,SBA,blanc,MAR,IGP Tranquilles Var Sainte Baume Blanc Marsanne
+IGP,TRANQ,D83,,SBA,blanc,ROU,IGP Tranquilles Var Sainte Baume Blanc Roussanne
+IGP,TRANQ,D83,,SBA,blanc,CLA,IGP Tranquilles Var Sainte Baume Blanc Clairette
+IGP,TRANQ,D83,,SBA,blanc,CEP,IGP Tranquilles Var Sainte Baume Blanc Autre
+IGP,TRANQ,MAU,,,rouge,,IGP Tranquilles Maures Rouge 
+IGP,TRANQ,MAU,,,rouge,SYR,IGP Tranquilles Maures Rouge Syrah
+IGP,TRANQ,MAU,,,rouge,GRN,IGP Tranquilles Maures Rouge Grenache Noir
+IGP,TRANQ,MAU,,,rouge,CS,IGP Tranquilles Maures Rouge Cabernet-Sauvignon
+IGP,TRANQ,MAU,,,rouge,CIN,IGP Tranquilles Maures Rouge Cinsaut
+IGP,TRANQ,MAU,,,rouge,MER,IGP Tranquilles Maures Rouge Merlot
+IGP,TRANQ,MAU,,,rouge,MOU,IGP Tranquilles Maures Rouge Mourvedre
+IGP,TRANQ,MAU,,,rouge,CEP,IGP Tranquilles Maures Rouge Autre
+IGP,TRANQ,MAU,,,rose,,IGP Tranquilles Maures Rosé 
+IGP,TRANQ,MAU,,,rose,SYR,IGP Tranquilles Maures Rosé Syrah
+IGP,TRANQ,MAU,,,rose,GRN,IGP Tranquilles Maures Rosé Grenache Noir
+IGP,TRANQ,MAU,,,rose,CS,IGP Tranquilles Maures Rosé Cabernet-Sauvignon
+IGP,TRANQ,MAU,,,rose,CIN,IGP Tranquilles Maures Rosé Cinsaut
+IGP,TRANQ,MAU,,,rose,MER,IGP Tranquilles Maures Rosé Merlot
+IGP,TRANQ,MAU,,,rose,MOU,IGP Tranquilles Maures Rosé Mourvedre
+IGP,TRANQ,MAU,,,rose,CEP,IGP Tranquilles Maures Rosé Autre
+IGP,TRANQ,MAU,,,blanc,,IGP Tranquilles Maures Blanc 
+IGP,TRANQ,MAU,,,blanc,ROL,IGP Tranquilles Maures Blanc Rolle-Vermentino
+IGP,TRANQ,MAU,,,blanc,CHA,IGP Tranquilles Maures Blanc Chardonnay
+IGP,TRANQ,MAU,,,blanc,SAU,IGP Tranquilles Maures Blanc Sauvignon
+IGP,TRANQ,MAU,,,blanc,GRB,IGP Tranquilles Maures Blanc Grenache Blanc
+IGP,TRANQ,MAU,,,blanc,VIO,IGP Tranquilles Maures Blanc Viognier
+IGP,TRANQ,MAU,,,blanc,MAR,IGP Tranquilles Maures Blanc Marsanne
+IGP,TRANQ,MAU,,,blanc,ROU,IGP Tranquilles Maures Blanc Roussanne
+IGP,TRANQ,MAU,,,blanc,CLA,IGP Tranquilles Maures Blanc Clairette
+IGP,TRANQ,MAU,,,blanc,CEP,IGP Tranquilles Maures Blanc Autre
+IGP,TRANQ,MCA,,,rouge,,IGP Tranquilles Mont Caume Rouge 
+IGP,TRANQ,MCA,,,rouge,SYR,IGP Tranquilles Mont Caume Rouge Syrah
+IGP,TRANQ,MCA,,,rouge,GRN,IGP Tranquilles Mont Caume Rouge Grenache Noir
+IGP,TRANQ,MCA,,,rouge,CS,IGP Tranquilles Mont Caume Rouge Cabernet-Sauvignon
+IGP,TRANQ,MCA,,,rouge,CIN,IGP Tranquilles Mont Caume Rouge Cinsaut
+IGP,TRANQ,MCA,,,rouge,MER,IGP Tranquilles Mont Caume Rouge Merlot
+IGP,TRANQ,MCA,,,rouge,MOU,IGP Tranquilles Mont Caume Rouge Mourvedre
+IGP,TRANQ,MCA,,,rouge,CEP,IGP Tranquilles Mont Caume Rouge Autre
+IGP,TRANQ,MCA,,,rose,,IGP Tranquilles Mont Caume Rosé 
+IGP,TRANQ,MCA,,,rose,SYR,IGP Tranquilles Mont Caume Rosé Syrah
+IGP,TRANQ,MCA,,,rose,GRN,IGP Tranquilles Mont Caume Rosé Grenache Noir
+IGP,TRANQ,MCA,,,rose,CS,IGP Tranquilles Mont Caume Rosé Cabernet-Sauvignon
+IGP,TRANQ,MCA,,,rose,CIN,IGP Tranquilles Mont Caume Rosé Cinsaut
+IGP,TRANQ,MCA,,,rose,MER,IGP Tranquilles Mont Caume Rosé Merlot
+IGP,TRANQ,MCA,,,rose,MOU,IGP Tranquilles Mont Caume Rosé Mourvedre
+IGP,TRANQ,MCA,,,rose,CEP,IGP Tranquilles Mont Caume Rosé Autre
+IGP,TRANQ,MCA,,,blanc,,IGP Tranquilles Mont Caume Blanc 
+IGP,TRANQ,MCA,,,blanc,ROL,IGP Tranquilles Mont Caume Blanc Rolle-Vermentino
+IGP,TRANQ,MCA,,,blanc,CHA,IGP Tranquilles Mont Caume Blanc Chardonnay
+IGP,TRANQ,MCA,,,blanc,SAU,IGP Tranquilles Mont Caume Blanc Sauvignon
+IGP,TRANQ,MCA,,,blanc,GRB,IGP Tranquilles Mont Caume Blanc Grenache Blanc
+IGP,TRANQ,MCA,,,blanc,VIO,IGP Tranquilles Mont Caume Blanc Viognier
+IGP,TRANQ,MCA,,,blanc,MAR,IGP Tranquilles Mont Caume Blanc Marsanne
+IGP,TRANQ,MCA,,,blanc,ROU,IGP Tranquilles Mont Caume Blanc Roussanne
+IGP,TRANQ,MCA,,,blanc,CLA,IGP Tranquilles Mont Caume Blanc Clairette
+IGP,TRANQ,MCA,,,blanc,CEP,IGP Tranquilles Mont Caume Blanc Autre
+IGP,EFF,D83,,,rouge,,IGP Effervescent Var Rouge 
+IGP,EFF,D83,,,rouge,SYR,IGP Effervescent Var Rouge Syrah
+IGP,EFF,D83,,,rouge,GRN,IGP Effervescent Var Rouge Grenache Noir
+IGP,EFF,D83,,,rouge,CS,IGP Effervescent Var Rouge Cabernet-Sauvignon
+IGP,EFF,D83,,,rouge,CIN,IGP Effervescent Var Rouge Cinsaut
+IGP,EFF,D83,,,rouge,MER,IGP Effervescent Var Rouge Merlot
+IGP,EFF,D83,,,rouge,MOU,IGP Effervescent Var Rouge Mourvedre
+IGP,EFF,D83,,,rouge,CEP,IGP Effervescent Var Rouge Autre
+IGP,EFF,D83,,,rose,,IGP Effervescent Var Rosé 
+IGP,EFF,D83,,,rose,SYR,IGP Effervescent Var Rosé Syrah
+IGP,EFF,D83,,,rose,GRN,IGP Effervescent Var Rosé Grenache Noir
+IGP,EFF,D83,,,rose,CS,IGP Effervescent Var Rosé Cabernet-Sauvignon
+IGP,EFF,D83,,,rose,CIN,IGP Effervescent Var Rosé Cinsaut
+IGP,EFF,D83,,,rose,MER,IGP Effervescent Var Rosé Merlot
+IGP,EFF,D83,,,rose,MOU,IGP Effervescent Var Rosé Mourvedre
+IGP,EFF,D83,,,rose,CEP,IGP Effervescent Var Rosé Autre
+IGP,EFF,D83,,,blanc,,IGP Effervescent Var Blanc 
+IGP,EFF,D83,,,blanc,ROL,IGP Effervescent Var Blanc Rolle-Vermentino
+IGP,EFF,D83,,,blanc,CHA,IGP Effervescent Var Blanc Chardonnay
+IGP,EFF,D83,,,blanc,SAU,IGP Effervescent Var Blanc Sauvignon
+IGP,EFF,D83,,,blanc,GRB,IGP Effervescent Var Blanc Grenache Blanc
+IGP,EFF,D83,,,blanc,VIO,IGP Effervescent Var Blanc Viognier
+IGP,EFF,D83,,,blanc,MAR,IGP Effervescent Var Blanc Marsanne
+IGP,EFF,D83,,,blanc,ROU,IGP Effervescent Var Blanc Roussanne
+IGP,EFF,D83,,,blanc,CLA,IGP Effervescent Var Blanc Clairette
+IGP,EFF,D83,,,blanc,CEP,IGP Effervescent Var Blanc Autre
+IGP,EFF,D83,,ARG,rouge,,IGP Effervescent Var Argens Rouge 
+IGP,EFF,D83,,ARG,rouge,SYR,IGP Effervescent Var Argens Rouge Syrah
+IGP,EFF,D83,,ARG,rouge,GRN,IGP Effervescent Var Argens Rouge Grenache Noir
+IGP,EFF,D83,,ARG,rouge,CS,IGP Effervescent Var Argens Rouge Cabernet-Sauvignon
+IGP,EFF,D83,,ARG,rouge,CIN,IGP Effervescent Var Argens Rouge Cinsaut
+IGP,EFF,D83,,ARG,rouge,MER,IGP Effervescent Var Argens Rouge Merlot
+IGP,EFF,D83,,ARG,rouge,MOU,IGP Effervescent Var Argens Rouge Mourvedre
+IGP,EFF,D83,,ARG,rouge,CEP,IGP Effervescent Var Argens Rouge Autre
+IGP,EFF,D83,,ARG,rose,,IGP Effervescent Var Argens Rosé 
+IGP,EFF,D83,,ARG,rose,SYR,IGP Effervescent Var Argens Rosé Syrah
+IGP,EFF,D83,,ARG,rose,GRN,IGP Effervescent Var Argens Rosé Grenache Noir
+IGP,EFF,D83,,ARG,rose,CS,IGP Effervescent Var Argens Rosé Cabernet-Sauvignon
+IGP,EFF,D83,,ARG,rose,CIN,IGP Effervescent Var Argens Rosé Cinsaut
+IGP,EFF,D83,,ARG,rose,MER,IGP Effervescent Var Argens Rosé Merlot
+IGP,EFF,D83,,ARG,rose,MOU,IGP Effervescent Var Argens Rosé Mourvedre
+IGP,EFF,D83,,ARG,rose,CEP,IGP Effervescent Var Argens Rosé Autre
+IGP,EFF,D83,,ARG,blanc,,IGP Effervescent Var Argens Blanc 
+IGP,EFF,D83,,ARG,blanc,ROL,IGP Effervescent Var Argens Blanc Rolle-Vermentino
+IGP,EFF,D83,,ARG,blanc,CHA,IGP Effervescent Var Argens Blanc Chardonnay
+IGP,EFF,D83,,ARG,blanc,SAU,IGP Effervescent Var Argens Blanc Sauvignon
+IGP,EFF,D83,,ARG,blanc,GRB,IGP Effervescent Var Argens Blanc Grenache Blanc
+IGP,EFF,D83,,ARG,blanc,VIO,IGP Effervescent Var Argens Blanc Viognier
+IGP,EFF,D83,,ARG,blanc,MAR,IGP Effervescent Var Argens Blanc Marsanne
+IGP,EFF,D83,,ARG,blanc,ROU,IGP Effervescent Var Argens Blanc Roussanne
+IGP,EFF,D83,,ARG,blanc,CLA,IGP Effervescent Var Argens Blanc Clairette
+IGP,EFF,D83,,ARG,blanc,CEP,IGP Effervescent Var Argens Blanc Autre
+IGP,EFF,D83,,CV,rouge,,IGP Effervescent Var Coteaux du Verdon Rouge 
+IGP,EFF,D83,,CV,rouge,SYR,IGP Effervescent Var Coteaux du Verdon Rouge Syrah
+IGP,EFF,D83,,CV,rouge,GRN,IGP Effervescent Var Coteaux du Verdon Rouge Grenache Noir
+IGP,EFF,D83,,CV,rouge,CS,IGP Effervescent Var Coteaux du Verdon Rouge Cabernet-Sauvignon
+IGP,EFF,D83,,CV,rouge,CIN,IGP Effervescent Var Coteaux du Verdon Rouge Cinsaut
+IGP,EFF,D83,,CV,rouge,MER,IGP Effervescent Var Coteaux du Verdon Rouge Merlot
+IGP,EFF,D83,,CV,rouge,MOU,IGP Effervescent Var Coteaux du Verdon Rouge Mourvedre
+IGP,EFF,D83,,CV,rouge,CEP,IGP Effervescent Var Coteaux du Verdon Rouge Autre
+IGP,EFF,D83,,CV,rose,,IGP Effervescent Var Coteaux du Verdon Rosé 
+IGP,EFF,D83,,CV,rose,SYR,IGP Effervescent Var Coteaux du Verdon Rosé Syrah
+IGP,EFF,D83,,CV,rose,GRN,IGP Effervescent Var Coteaux du Verdon Rosé Grenache Noir
+IGP,EFF,D83,,CV,rose,CS,IGP Effervescent Var Coteaux du Verdon Rosé Cabernet-Sauvignon
+IGP,EFF,D83,,CV,rose,CIN,IGP Effervescent Var Coteaux du Verdon Rosé Cinsaut
+IGP,EFF,D83,,CV,rose,MER,IGP Effervescent Var Coteaux du Verdon Rosé Merlot
+IGP,EFF,D83,,CV,rose,MOU,IGP Effervescent Var Coteaux du Verdon Rosé Mourvedre
+IGP,EFF,D83,,CV,rose,CEP,IGP Effervescent Var Coteaux du Verdon Rosé Autre
+IGP,EFF,D83,,CV,blanc,,IGP Effervescent Var Coteaux du Verdon Blanc 
+IGP,EFF,D83,,CV,blanc,ROL,IGP Effervescent Var Coteaux du Verdon Blanc Rolle-Vermentino
+IGP,EFF,D83,,CV,blanc,CHA,IGP Effervescent Var Coteaux du Verdon Blanc Chardonnay
+IGP,EFF,D83,,CV,blanc,SAU,IGP Effervescent Var Coteaux du Verdon Blanc Sauvignon
+IGP,EFF,D83,,CV,blanc,GRB,IGP Effervescent Var Coteaux du Verdon Blanc Grenache Blanc
+IGP,EFF,D83,,CV,blanc,VIO,IGP Effervescent Var Coteaux du Verdon Blanc Viognier
+IGP,EFF,D83,,CV,blanc,MAR,IGP Effervescent Var Coteaux du Verdon Blanc Marsanne
+IGP,EFF,D83,,CV,blanc,ROU,IGP Effervescent Var Coteaux du Verdon Blanc Roussanne
+IGP,EFF,D83,,CV,blanc,CLA,IGP Effervescent Var Coteaux du Verdon Blanc Clairette
+IGP,EFF,D83,,CV,blanc,CEP,IGP Effervescent Var Coteaux du Verdon Blanc Autre
+IGP,EFF,D83,,SBA,rouge,,IGP Effervescent Var Sainte Baume Rouge 
+IGP,EFF,D83,,SBA,rouge,SYR,IGP Effervescent Var Sainte Baume Rouge Syrah
+IGP,EFF,D83,,SBA,rouge,GRN,IGP Effervescent Var Sainte Baume Rouge Grenache Noir
+IGP,EFF,D83,,SBA,rouge,CS,IGP Effervescent Var Sainte Baume Rouge Cabernet-Sauvignon
+IGP,EFF,D83,,SBA,rouge,CIN,IGP Effervescent Var Sainte Baume Rouge Cinsaut
+IGP,EFF,D83,,SBA,rouge,MER,IGP Effervescent Var Sainte Baume Rouge Merlot
+IGP,EFF,D83,,SBA,rouge,MOU,IGP Effervescent Var Sainte Baume Rouge Mourvedre
+IGP,EFF,D83,,SBA,rouge,CEP,IGP Effervescent Var Sainte Baume Rouge Autre
+IGP,EFF,D83,,SBA,rose,,IGP Effervescent Var Sainte Baume Rosé 
+IGP,EFF,D83,,SBA,rose,SYR,IGP Effervescent Var Sainte Baume Rosé Syrah
+IGP,EFF,D83,,SBA,rose,GRN,IGP Effervescent Var Sainte Baume Rosé Grenache Noir
+IGP,EFF,D83,,SBA,rose,CS,IGP Effervescent Var Sainte Baume Rosé Cabernet-Sauvignon
+IGP,EFF,D83,,SBA,rose,CIN,IGP Effervescent Var Sainte Baume Rosé Cinsaut
+IGP,EFF,D83,,SBA,rose,MER,IGP Effervescent Var Sainte Baume Rosé Merlot
+IGP,EFF,D83,,SBA,rose,MOU,IGP Effervescent Var Sainte Baume Rosé Mourvedre
+IGP,EFF,D83,,SBA,rose,CEP,IGP Effervescent Var Sainte Baume Rosé Autre
+IGP,EFF,D83,,SBA,blanc,,IGP Effervescent Var Sainte Baume Blanc 
+IGP,EFF,D83,,SBA,blanc,ROL,IGP Effervescent Var Sainte Baume Blanc Rolle-Vermentino
+IGP,EFF,D83,,SBA,blanc,CHA,IGP Effervescent Var Sainte Baume Blanc Chardonnay
+IGP,EFF,D83,,SBA,blanc,SAU,IGP Effervescent Var Sainte Baume Blanc Sauvignon
+IGP,EFF,D83,,SBA,blanc,GRB,IGP Effervescent Var Sainte Baume Blanc Grenache Blanc
+IGP,EFF,D83,,SBA,blanc,VIO,IGP Effervescent Var Sainte Baume Blanc Viognier
+IGP,EFF,D83,,SBA,blanc,MAR,IGP Effervescent Var Sainte Baume Blanc Marsanne
+IGP,EFF,D83,,SBA,blanc,ROU,IGP Effervescent Var Sainte Baume Blanc Roussanne
+IGP,EFF,D83,,SBA,blanc,CLA,IGP Effervescent Var Sainte Baume Blanc Clairette
+IGP,EFF,D83,,SBA,blanc,CEP,IGP Effervescent Var Sainte Baume Blanc Autre
+IGP,EFF,MAU,,,rouge,,IGP Effervescent Maures Rouge 
+IGP,EFF,MAU,,,rouge,SYR,IGP Effervescent Maures Rouge Syrah
+IGP,EFF,MAU,,,rouge,GRN,IGP Effervescent Maures Rouge Grenache Noir
+IGP,EFF,MAU,,,rouge,CS,IGP Effervescent Maures Rouge Cabernet-Sauvignon
+IGP,EFF,MAU,,,rouge,CIN,IGP Effervescent Maures Rouge Cinsaut
+IGP,EFF,MAU,,,rouge,MER,IGP Effervescent Maures Rouge Merlot
+IGP,EFF,MAU,,,rouge,MOU,IGP Effervescent Maures Rouge Mourvedre
+IGP,EFF,MAU,,,rouge,CEP,IGP Effervescent Maures Rouge Autre
+IGP,EFF,MAU,,,rose,,IGP Effervescent Maures Rosé 
+IGP,EFF,MAU,,,rose,SYR,IGP Effervescent Maures Rosé Syrah
+IGP,EFF,MAU,,,rose,GRN,IGP Effervescent Maures Rosé Grenache Noir
+IGP,EFF,MAU,,,rose,CS,IGP Effervescent Maures Rosé Cabernet-Sauvignon
+IGP,EFF,MAU,,,rose,CIN,IGP Effervescent Maures Rosé Cinsaut
+IGP,EFF,MAU,,,rose,MER,IGP Effervescent Maures Rosé Merlot
+IGP,EFF,MAU,,,rose,MOU,IGP Effervescent Maures Rosé Mourvedre
+IGP,EFF,MAU,,,rose,CEP,IGP Effervescent Maures Rosé Autre
+IGP,EFF,MAU,,,blanc,,IGP Effervescent Maures Blanc 
+IGP,EFF,MAU,,,blanc,ROL,IGP Effervescent Maures Blanc Rolle-Vermentino
+IGP,EFF,MAU,,,blanc,CHA,IGP Effervescent Maures Blanc Chardonnay
+IGP,EFF,MAU,,,blanc,SAU,IGP Effervescent Maures Blanc Sauvignon
+IGP,EFF,MAU,,,blanc,GRB,IGP Effervescent Maures Blanc Grenache Blanc
+IGP,EFF,MAU,,,blanc,VIO,IGP Effervescent Maures Blanc Viognier
+IGP,EFF,MAU,,,blanc,MAR,IGP Effervescent Maures Blanc Marsanne
+IGP,EFF,MAU,,,blanc,ROU,IGP Effervescent Maures Blanc Roussanne
+IGP,EFF,MAU,,,blanc,CLA,IGP Effervescent Maures Blanc Clairette
+IGP,EFF,MAU,,,blanc,CEP,IGP Effervescent Maures Blanc Autre
+IGP,EFF,MCA,,,rouge,,IGP Effervescent Mont Caume Rouge 
+IGP,EFF,MCA,,,rouge,SYR,IGP Effervescent Mont Caume Rouge Syrah
+IGP,EFF,MCA,,,rouge,GRN,IGP Effervescent Mont Caume Rouge Grenache Noir
+IGP,EFF,MCA,,,rouge,CS,IGP Effervescent Mont Caume Rouge Cabernet-Sauvignon
+IGP,EFF,MCA,,,rouge,CIN,IGP Effervescent Mont Caume Rouge Cinsaut
+IGP,EFF,MCA,,,rouge,MER,IGP Effervescent Mont Caume Rouge Merlot
+IGP,EFF,MCA,,,rouge,MOU,IGP Effervescent Mont Caume Rouge Mourvedre
+IGP,EFF,MCA,,,rouge,CEP,IGP Effervescent Mont Caume Rouge Autre
+IGP,EFF,MCA,,,rose,,IGP Effervescent Mont Caume Rosé 
+IGP,EFF,MCA,,,rose,SYR,IGP Effervescent Mont Caume Rosé Syrah
+IGP,EFF,MCA,,,rose,GRN,IGP Effervescent Mont Caume Rosé Grenache Noir
+IGP,EFF,MCA,,,rose,CS,IGP Effervescent Mont Caume Rosé Cabernet-Sauvignon
+IGP,EFF,MCA,,,rose,CIN,IGP Effervescent Mont Caume Rosé Cinsaut
+IGP,EFF,MCA,,,rose,MER,IGP Effervescent Mont Caume Rosé Merlot
+IGP,EFF,MCA,,,rose,MOU,IGP Effervescent Mont Caume Rosé Mourvedre
+IGP,EFF,MCA,,,rose,CEP,IGP Effervescent Mont Caume Rosé Autre
+IGP,EFF,MCA,,,blanc,,IGP Effervescent Mont Caume Blanc 
+IGP,EFF,MCA,,,blanc,ROL,IGP Effervescent Mont Caume Blanc Rolle-Vermentino
+IGP,EFF,MCA,,,blanc,CHA,IGP Effervescent Mont Caume Blanc Chardonnay
+IGP,EFF,MCA,,,blanc,SAU,IGP Effervescent Mont Caume Blanc Sauvignon
+IGP,EFF,MCA,,,blanc,GRB,IGP Effervescent Mont Caume Blanc Grenache Blanc
+IGP,EFF,MCA,,,blanc,VIO,IGP Effervescent Mont Caume Blanc Viognier
+IGP,EFF,MCA,,,blanc,MAR,IGP Effervescent Mont Caume Blanc Marsanne
+IGP,EFF,MCA,,,blanc,ROU,IGP Effervescent Mont Caume Blanc Roussanne
+IGP,EFF,MCA,,,blanc,CLA,IGP Effervescent Mont Caume Blanc Clairette
+IGP,EFF,MCA,,,blanc,CEP,IGP Effervescent Mont Caume Blanc Autre
+IGP,TRANQ,OC,,,rouge,,IGP Tranquilles Pays d'OC Rouge 
+IGP,TRANQ,OC,,,rouge,SYR,IGP Tranquilles Pays d'OC Rouge Syrah
+IGP,TRANQ,OC,,,rouge,GRN,IGP Tranquilles Pays d'OC Rouge Grenache Noir
+IGP,TRANQ,OC,,,rouge,CS,IGP Tranquilles Pays d'OC Rouge Cabernet-Sauvignon
+IGP,TRANQ,OC,,,rouge,CIN,IGP Tranquilles Pays d'OC Rouge Cinsaut
+IGP,TRANQ,OC,,,rouge,MER,IGP Tranquilles Pays d'OC Rouge Merlot
+IGP,TRANQ,OC,,,rouge,MOU,IGP Tranquilles Pays d'OC Rouge Mourvedre
+IGP,TRANQ,OC,,,rouge,MAR,IGP Tranquilles Pays d'OC Rouge Marselan
+IGP,TRANQ,OC,,,rouge,CEP,IGP Tranquilles Pays d'OC Rouge Autre
+IGP,TRANQ,OC,,,rose,,IGP Tranquilles Pays d'OC Rosé 
+IGP,TRANQ,OC,,,rose,SYR,IGP Tranquilles Pays d'OC Rosé Syrah
+IGP,TRANQ,OC,,,rose,GRN,IGP Tranquilles Pays d'OC Rosé Grenache Noir
+IGP,TRANQ,OC,,,rose,CS,IGP Tranquilles Pays d'OC Rosé Cabernet-Sauvignon
+IGP,TRANQ,OC,,,rose,CIN,IGP Tranquilles Pays d'OC Rosé Cinsaut
+IGP,TRANQ,OC,,,rose,MER,IGP Tranquilles Pays d'OC Rosé Merlot
+IGP,TRANQ,OC,,,rose,MOU,IGP Tranquilles Pays d'OC Rosé Mourvedre
+IGP,TRANQ,OC,,,rose,MAR,IGP Tranquilles Pays d'OC Rosé Marselan
+IGP,TRANQ,OC,,,rose,GRG,IGP Tranquilles Pays d'OC Rosé Grenache Gris
+IGP,TRANQ,OC,,,rose,CEP,IGP Tranquilles Pays d'OC Rosé Autre
+IGP,TRANQ,OC,,,blanc,,IGP Tranquilles Pays d'OC Blanc 
+IGP,TRANQ,OC,,,blanc,ROL,IGP Tranquilles Pays d'OC Blanc Rolle-Vermentino
+IGP,TRANQ,OC,,,blanc,CHA,IGP Tranquilles Pays d'OC Blanc Chardonnay
+IGP,TRANQ,OC,,,blanc,SAU,IGP Tranquilles Pays d'OC Blanc Sauvignon
+IGP,TRANQ,OC,,,blanc,GRB,IGP Tranquilles Pays d'OC Blanc Grenache blanc
+IGP,TRANQ,OC,,,blanc,VIO,IGP Tranquilles Pays d'OC Blanc Viognier
+IGP,TRANQ,OC,,,blanc,MAR,IGP Tranquilles Pays d'OC Blanc Marsanne
+IGP,TRANQ,OC,,,blanc,ROU,IGP Tranquilles Pays d'OC Blanc Roussanne
+IGP,TRANQ,OC,,,blanc,CLA,IGP Tranquilles Pays d'OC Blanc Clairette
+IGP,TRANQ,OC,,,blanc,MUH,IGP Tranquilles Pays d'OC Blanc Muscat de HAMBOURG
+IGP,TRANQ,OC,,,blanc,CEP,IGP Tranquilles Pays d'OC Blanc Autre
+IGP,EFF,OCM,,,rouge,,IGP Effervescent Pays d'OC Rouge 
+IGP,EFF,OCM,,,rouge,SYR,IGP Effervescent Pays d'OC Rouge Syrah
+IGP,EFF,OCM,,,rouge,GRN,IGP Effervescent Pays d'OC Rouge Grenache Noir
+IGP,EFF,OCM,,,rouge,CS,IGP Effervescent Pays d'OC Rouge Cabernet-Sauvignon
+IGP,EFF,OCM,,,rouge,CIN,IGP Effervescent Pays d'OC Rouge Cinsaut
+IGP,EFF,OCM,,,rouge,MER,IGP Effervescent Pays d'OC Rouge Merlot
+IGP,EFF,OCM,,,rouge,MOU,IGP Effervescent Pays d'OC Rouge Mourvedre
+IGP,EFF,OCM,,,rouge,MAR,IGP Effervescent Pays d'OC Rouge Marselan
+IGP,EFF,OCM,,,rouge,CEP,IGP Effervescent Pays d'OC Rouge Autre
+IGP,EFF,OCM,,,rose,,IGP Effervescent Pays d'OC Rosé 
+IGP,EFF,OCM,,,rose,SYR,IGP Effervescent Pays d'OC Rosé Syrah
+IGP,EFF,OCM,,,rose,GRN,IGP Effervescent Pays d'OC Rosé Grenache Noir
+IGP,EFF,OCM,,,rose,CS,IGP Effervescent Pays d'OC Rosé Cabernet-Sauvignon
+IGP,EFF,OCM,,,rose,CIN,IGP Effervescent Pays d'OC Rosé Cinsaut
+IGP,EFF,OCM,,,rose,MER,IGP Effervescent Pays d'OC Rosé Merlot
+IGP,EFF,OCM,,,rose,MOU,IGP Effervescent Pays d'OC Rosé Mourvedre
+IGP,EFF,OCM,,,rose,MAR,IGP Effervescent Pays d'OC Rosé Marselan
+IGP,EFF,OCM,,,rose,GRG,IGP Effervescent Pays d'OC Rosé Grenache Gris
+IGP,EFF,OCM,,,rose,CEP,IGP Effervescent Pays d'OC Rosé Autre
+IGP,EFF,OCM,,,blanc,,IGP Effervescent Pays d'OC Blanc 
+IGP,EFF,OCM,,,blanc,ROL,IGP Effervescent Pays d'OC Blanc Rolle-Vermentino
+IGP,EFF,OCM,,,blanc,CHA,IGP Effervescent Pays d'OC Blanc Chardonnay
+IGP,EFF,OCM,,,blanc,SAU,IGP Effervescent Pays d'OC Blanc Sauvignon
+IGP,EFF,OCM,,,blanc,GRB,IGP Effervescent Pays d'OC Blanc Grenache blanc
+IGP,EFF,OCM,,,blanc,VIO,IGP Effervescent Pays d'OC Blanc Viognier
+IGP,EFF,OCM,,,blanc,MAR,IGP Effervescent Pays d'OC Blanc Marsanne
+IGP,EFF,OCM,,,blanc,ROU,IGP Effervescent Pays d'OC Blanc Roussanne
+IGP,EFF,OCM,,,blanc,CLA,IGP Effervescent Pays d'OC Blanc Clairette
+IGP,EFF,OCM,,,blanc,MUH,IGP Effervescent Pays d'OC Blanc Muscat de HAMBOURG
+IGP,EFF,OCM,,,blanc,CEP,IGP Effervescent Pays d'OC Blanc Autre
+AOP,TRANQ,CDR,,,rouge,,AOP Tranquilles Cotes du Rhone Regional Rouge 
+AOP,TRANQ,CDR,,,rose,,AOP Tranquilles Cotes du Rhone Regional Rosé 
+AOP,TRANQ,CDR,,,blanc,,AOP Tranquilles Cotes du Rhone Regional Blanc 
+AOP,TRANQ,CVS,,,rouge,,AOP Tranquilles CdR Villages sans NG Rouge 
+AOP,TRANQ,CVS,,,rose,,AOP Tranquilles CdR Villages sans NG Rosé 
+AOP,TRANQ,CVS,,,blanc,,AOP Tranquilles CdR Villages sans NG Blanc 
+AOP,TRANQ,CVG,,COM,rouge,,AOP Tranquilles CdR Villages avec NG Non précisé Rouge 
+AOP,TRANQ,CVG,,COM,rose,,AOP Tranquilles CdR Villages avec NG Non précisé Rosé 
+AOP,TRANQ,CVG,,COM,blanc,,AOP Tranquilles CdR Villages avec NG Non précisé Blanc 
+AOP,TRANQ,CVG,,BDV,rouge,,AOP Tranquilles CdR Villages avec NG Beaumes de Venise Rouge 
+AOP,TRANQ,CVG,,BDV,rose,,AOP Tranquilles CdR Villages avec NG Beaumes de Venise Rosé 
+AOP,TRANQ,CVG,,BDV,blanc,,AOP Tranquilles CdR Villages avec NG Beaumes de Venise Blanc 
+AOP,TRANQ,CVG,,CAI,rouge,,AOP Tranquilles CdR Villages avec NG Cairanne Rouge 
+AOP,TRANQ,CVG,,CAI,rose,,AOP Tranquilles CdR Villages avec NG Cairanne Rosé 
+AOP,TRANQ,CVG,,CAI,blanc,,AOP Tranquilles CdR Villages avec NG Cairanne Blanc 
+AOP,TRANQ,CVG,,CHU,rouge,,AOP Tranquilles CdR Villages avec NG Chusclan Rouge 
+AOP,TRANQ,CVG,,CHU,rose,,AOP Tranquilles CdR Villages avec NG Chusclan Rosé 
+AOP,TRANQ,CVG,,CHU,blanc,,AOP Tranquilles CdR Villages avec NG Chusclan Blanc 
+AOP,TRANQ,CVG,,GAD,rouge,,AOP Tranquilles CdR Villages avec NG Gadagne Rouge 
+AOP,TRANQ,CVG,,LAU,rouge,,AOP Tranquilles CdR Villages avec NG Laudun Rouge 
+AOP,TRANQ,CVG,,LAU,rose,,AOP Tranquilles CdR Villages avec NG Laudun Rosé 
+AOP,TRANQ,CVG,,LAU,blanc,,AOP Tranquilles CdR Villages avec NG Laudun Blanc 
+AOP,TRANQ,CVG,,MAS,rouge,,AOP Tranquilles CdR Villages avec NG Massif d'Uchaux Rouge 
+AOP,TRANQ,CVG,,PLA,rouge,,AOP Tranquilles CdR Villages avec NG Plan de Dieu Rouge 
+AOP,TRANQ,CVG,,PUY,rouge,,AOP Tranquilles CdR Villages avec NG Puymeras Rouge 
+AOP,TRANQ,CVG,,RAS,rouge,,AOP Tranquilles CdR Villages avec NG Rasteau Rouge 
+AOP,TRANQ,CVG,,RAS,rose,,AOP Tranquilles CdR Villages avec NG Rasteau Rosé 
+AOP,TRANQ,CVG,,RAS,blanc,,AOP Tranquilles CdR Villages avec NG Rasteau Blanc 
+AOP,TRANQ,CVG,,ROX,rouge,,AOP Tranquilles CdR Villages avec NG Roaix Rouge 
+AOP,TRANQ,CVG,,ROX,rose,,AOP Tranquilles CdR Villages avec NG Roaix Rosé 
+AOP,TRANQ,CVG,,ROX,blanc,,AOP Tranquilles CdR Villages avec NG Roaix Blanc 
+AOP,TRANQ,CVG,,ROC,rouge,,AOP Tranquilles CdR Villages avec NG Rochegude Rouge 
+AOP,TRANQ,CVG,,ROC,rose,,AOP Tranquilles CdR Villages avec NG Rochegude Rosé 
+AOP,TRANQ,CVG,,ROC,blanc,,AOP Tranquilles CdR Villages avec NG Rochegude Blanc 
+AOP,TRANQ,CVG,,RLV,rouge,,AOP Tranquilles CdR Villages avec NG Rousset les Vignes Rouge 
+AOP,TRANQ,CVG,,RLV,rose,,AOP Tranquilles CdR Villages avec NG Rousset les Vignes Rosé 
+AOP,TRANQ,CVG,,RLV,blanc,,AOP Tranquilles CdR Villages avec NG Rousset les Vignes Blanc 
+AOP,TRANQ,CVG,,SAB,rouge,,AOP Tranquilles CdR Villages avec NG Sablet Rouge 
+AOP,TRANQ,CVG,,SAB,rose,,AOP Tranquilles CdR Villages avec NG Sablet Rosé 
+AOP,TRANQ,CVG,,SAB,blanc,,AOP Tranquilles CdR Villages avec NG Sablet Blanc 
+AOP,TRANQ,CVG,,STG,rouge,,AOP Tranquilles CdR Villages avec NG Saint Gervais Rouge 
+AOP,TRANQ,CVG,,STG,rose,,AOP Tranquilles CdR Villages avec NG Saint Gervais Rosé 
+AOP,TRANQ,CVG,,STG,blanc,,AOP Tranquilles CdR Villages avec NG Saint Gervais Blanc 
+AOP,TRANQ,CVG,,STM,rouge,,AOP Tranquilles CdR Villages avec NG Saint Maurice Rouge 
+AOP,TRANQ,CVG,,STM,rose,,AOP Tranquilles CdR Villages avec NG Saint Maurice Rosé 
+AOP,TRANQ,CVG,,STM,blanc,,AOP Tranquilles CdR Villages avec NG Saint Maurice Blanc 
+AOP,TRANQ,CVG,,SPV,rouge,,AOP Tranquilles CdR Villages avec NG Saint Pantaleon les Vignes Rouge 
+AOP,TRANQ,CVG,,SPV,rose,,AOP Tranquilles CdR Villages avec NG Saint Pantaleon les Vignes Rosé 
+AOP,TRANQ,CVG,,SPV,blanc,,AOP Tranquilles CdR Villages avec NG Saint Pantaleon les Vignes Blanc 
+AOP,TRANQ,CVG,,SEG,rouge,,AOP Tranquilles CdR Villages avec NG Seguret Rouge 
+AOP,TRANQ,CVG,,SEG,rose,,AOP Tranquilles CdR Villages avec NG Seguret Rosé 
+AOP,TRANQ,CVG,,SEG,blanc,,AOP Tranquilles CdR Villages avec NG Seguret Blanc 
+AOP,TRANQ,CVG,,SIG,rouge,,AOP Tranquilles CdR Villages avec NG Signargues Rouge 
+AOP,TRANQ,CVG,,VAL,rouge,,AOP Tranquilles CdR Villages avec NG Valreas Rouge 
+AOP,TRANQ,CVG,,VAL,rose,,AOP Tranquilles CdR Villages avec NG Valreas Rosé 
+AOP,TRANQ,CVG,,VAL,blanc,,AOP Tranquilles CdR Villages avec NG Valreas Blanc 
+AOP,TRANQ,CVG,,VIN,rouge,,AOP Tranquilles CdR Villages avec NG Vinsobres Rouge 
+AOP,TRANQ,CVG,,VIN,rose,,AOP Tranquilles CdR Villages avec NG Vinsobres Rosé 
+AOP,TRANQ,CVG,,VIN,blanc,,AOP Tranquilles CdR Villages avec NG Vinsobres Blanc 
+AOP,TRANQ,CVG,,VIS,rouge,,AOP Tranquilles CdR Villages avec NG Visan Rouge 
+AOP,TRANQ,CVG,,VIS,rose,,AOP Tranquilles CdR Villages avec NG Visan Rosé 
+AOP,TRANQ,CVG,,VIS,blanc,,AOP Tranquilles CdR Villages avec NG Visan Blanc 
+AOP,TRANQ,BEA,,,rouge,,AOP Tranquilles Beaumes de Venise cru Rouge 
+AOP,TRANQ,CDP,,,rouge,,AOP Tranquilles Chateauneuf du Pape Rouge 
+AOP,TRANQ,CDP,,,blanc,,AOP Tranquilles Chateauneuf du Pape Blanc 
+AOP,TRANQ,CGR,,,blanc,,AOP Tranquilles Chateau Grllet Blanc 
+AOP,TRANQ,COD,,,blanc,,AOP Tranquilles Condrieu Blanc 
+AOP,TRANQ,COR,,,rouge,,AOP Tranquilles Cornas Rouge 
+AOP,TRANQ,CRO,,,rouge,,AOP Tranquilles Cote Rotie Rouge 
+AOP,TRANQ,CRH,,,rouge,,AOP Tranquilles Crozes Hermitage Rouge 
+AOP,TRANQ,CRH,,,blanc,,AOP Tranquilles Crozes Hermitage Blanc 
+AOP,TRANQ,GIG,,,rouge,,AOP Tranquilles Gigondas Rouge 
+AOP,TRANQ,GIG,,,rose,,AOP Tranquilles Gigondas Rosé 
+AOP,TRANQ,HER,,,rouge,,AOP Tranquilles Hermitage Rouge 
+AOP,TRANQ,HER,,,blanc,,AOP Tranquilles Hermitage Blanc 
+AOP,TRANQ,LIR,,,rouge,,AOP Tranquilles Lirac Rouge 
+AOP,TRANQ,LIR,,,rose,,AOP Tranquilles Lirac Rosé 
+AOP,TRANQ,LIR,,,blanc,,AOP Tranquilles Lirac Blanc 
+AOP,TRANQ,RTA,,,rouge,,AOP Tranquilles RASTEAU Rouge 
+AOP,TRANQ,SJO,,,rouge,,AOP Tranquilles Saint Joseph Rouge 
+AOP,TRANQ,SJO,,,blanc,,AOP Tranquilles Saint Joseph Blanc 
+AOP,TRANQ,SPT,,,blanc,,AOP Tranquilles Saint Peray Tranquilles Blanc 
+AOP,TRANQ,TAV,,,rose,,AOP Tranquilles Tavel Rosé 
+AOP,TRANQ,VAC,,,rouge,,AOP Tranquilles Vacqueyras Rouge 
+AOP,TRANQ,VAC,,,rose,,AOP Tranquilles Vacqueyras Rosé 
+AOP,TRANQ,VAC,,,blanc,,AOP Tranquilles Vacqueyras Blanc 
+AOP,TRANQ,VBR,,,rouge,,AOP Tranquilles Vinsobres Rouge 
+AOP,TRANQ,CDN,,,rouge,,AOP Tranquilles Costieres de Nimes Rouge 
+AOP,TRANQ,CDN,,,rose,,AOP Tranquilles Costieres de Nimes Rosé 
+AOP,TRANQ,CDN,,,blanc,,AOP Tranquilles Costieres de Nimes Blanc 
+AOP,TRANQ,LUB,,,rouge,,AOP Tranquilles Luberon Rouge 
+AOP,TRANQ,LUB,,,rose,,AOP Tranquilles Luberon Rosé 
+AOP,TRANQ,LUB,,,blanc,,AOP Tranquilles Luberon Blanc 
+AOP,TRANQ,GLA,,,rouge,,AOP Tranquilles Grignan les Adhémar Rouge 
+AOP,TRANQ,GLA,,,rose,,AOP Tranquilles Grignan les Adhémar Rosé 
+AOP,TRANQ,GLA,,,blanc,,AOP Tranquilles Grignan les Adhémar Blanc 
+AOP,TRANQ,CVX,,,rouge,,AOP Tranquilles Ventoux Rouge 
+AOP,TRANQ,CVX,,,rose,,AOP Tranquilles Ventoux Rosé 
+AOP,TRANQ,CVX,,,blanc,,AOP Tranquilles Ventoux Blanc 
+AOP,TRANQ,VIV,,,rouge,,AOP Tranquilles Cotes du Vivarais Rouge 
+AOP,TRANQ,VIV,,,rose,,AOP Tranquilles Cotes du Vivarais Rosé 
+AOP,TRANQ,VIV,,,blanc,,AOP Tranquilles Cotes du Vivarais Blanc 
+AOP,TRANQ,CDB,,,blanc,,AOP Tranquilles Clairette de Bellegarde Blanc 
+AOP,TRANQ,DUZ,,,blanc,,AOP Tranquilles Duché d'Uzés Blanc 
+AOP,TRANQ,DUZ,,,rose,,AOP Tranquilles Duché d'Uzés Rosé 
+AOP,TRANQ,DUZ,,,rouge,,AOP Tranquilles Duché d'Uzés Rouge 
+AOP,EFF,SPE,,,blanc,,AOP Effervescent Saint Peray Effervescents Blanc 
+AOP,VDN,VDB,,,rouge,,AOP Vin Doux Naturel Muscat de BdVenise Rouge 
+AOP,VDN,VDB,,,rose,,AOP Vin Doux Naturel Muscat de BdVenise Rosé 
+AOP,VDN,VDB,,,blanc,,AOP Vin Doux Naturel Muscat de BdVenise Blanc 
+AOP,VDN,VDR,,,rouge,,AOP Vin Doux Naturel Rasteau Rouge 
+AOP,VDN,VDR,,,rose,,AOP Vin Doux Naturel Rasteau Rosé 
+AOP,VDN,VDR,,,blanc,,AOP Vin Doux Naturel Rasteau Blanc 
+IGP,TRANQ,MED,,,rouge,,IGP Tranquilles Méditerranée Rouge 
+IGP,TRANQ,MED,,,rouge,SYR,IGP Tranquilles Méditerranée Rouge Syrah
+IGP,TRANQ,MED,,,rouge,GRN,IGP Tranquilles Méditerranée Rouge Grenache Noir
+IGP,TRANQ,MED,,,rouge,CS,IGP Tranquilles Méditerranée Rouge Cabernet-Sauvignon
+IGP,TRANQ,MED,,,rouge,CIN,IGP Tranquilles Méditerranée Rouge Cinsaut
+IGP,TRANQ,MED,,,rouge,MER,IGP Tranquilles Méditerranée Rouge Merlot
+IGP,TRANQ,MED,,,rouge,MOU,IGP Tranquilles Méditerranée Rouge Mourvedre
+IGP,TRANQ,MED,,,rouge,MAR,IGP Tranquilles Méditerranée Rouge Marselan
+IGP,TRANQ,MED,,,rouge,CEP,IGP Tranquilles Méditerranée Rouge Autre
+IGP,TRANQ,MED,,,rose,,IGP Tranquilles Méditerranée Rosé 
+IGP,TRANQ,MED,,,rose,SYR,IGP Tranquilles Méditerranée Rosé Syrah
+IGP,TRANQ,MED,,,rose,GRN,IGP Tranquilles Méditerranée Rosé Grenache Noir
+IGP,TRANQ,MED,,,rose,CS,IGP Tranquilles Méditerranée Rosé Cabernet-Sauvignon
+IGP,TRANQ,MED,,,rose,CIN,IGP Tranquilles Méditerranée Rosé Cinsaut
+IGP,TRANQ,MED,,,rose,MER,IGP Tranquilles Méditerranée Rosé Merlot
+IGP,TRANQ,MED,,,rose,MOU,IGP Tranquilles Méditerranée Rosé Mourvedre
+IGP,TRANQ,MED,,,rose,MAR,IGP Tranquilles Méditerranée Rosé Marselan
+IGP,TRANQ,MED,,,rose,GRG,IGP Tranquilles Méditerranée Rosé Grenache Gris
+IGP,TRANQ,MED,,,rose,CEP,IGP Tranquilles Méditerranée Rosé Autre
+IGP,TRANQ,MED,,,blanc,,IGP Tranquilles Méditerranée Blanc 
+IGP,TRANQ,MED,,,blanc,ROL,IGP Tranquilles Méditerranée Blanc Rolle-Vermentino
+IGP,TRANQ,MED,,,blanc,CHA,IGP Tranquilles Méditerranée Blanc Chardonnay
+IGP,TRANQ,MED,,,blanc,SAU,IGP Tranquilles Méditerranée Blanc Sauvignon
+IGP,TRANQ,MED,,,blanc,GRB,IGP Tranquilles Méditerranée Blanc Grenache Blanc
+IGP,TRANQ,MED,,,blanc,VIO,IGP Tranquilles Méditerranée Blanc Viognier
+IGP,TRANQ,MED,,,blanc,MAR,IGP Tranquilles Méditerranée Blanc Marsanne
+IGP,TRANQ,MED,,,blanc,ROU,IGP Tranquilles Méditerranée Blanc Roussanne
+IGP,TRANQ,MED,,,blanc,CLA,IGP Tranquilles Méditerranée Blanc Clairette
+IGP,TRANQ,MED,,,blanc,MUH,IGP Tranquilles Méditerranée Blanc Muscat de HAMBOURG
+IGP,TRANQ,MED,,,blanc,CEP,IGP Tranquilles Méditerranée Blanc Autre
+IGP,TRANQ,MED,,CDG,rouge,,IGP Tranquilles Méditerranée Comté de Grignan Rouge 
+IGP,TRANQ,MED,,CDG,rouge,SYR,IGP Tranquilles Méditerranée Comté de Grignan Rouge Syrah
+IGP,TRANQ,MED,,CDG,rouge,GRN,IGP Tranquilles Méditerranée Comté de Grignan Rouge Grenache Noir
+IGP,TRANQ,MED,,CDG,rouge,CS,IGP Tranquilles Méditerranée Comté de Grignan Rouge Cabernet-Sauvignon
+IGP,TRANQ,MED,,CDG,rouge,CIN,IGP Tranquilles Méditerranée Comté de Grignan Rouge Cinsaut
+IGP,TRANQ,MED,,CDG,rouge,MER,IGP Tranquilles Méditerranée Comté de Grignan Rouge Merlot
+IGP,TRANQ,MED,,CDG,rouge,MOU,IGP Tranquilles Méditerranée Comté de Grignan Rouge Mourvedre
+IGP,TRANQ,MED,,CDG,rouge,MAR,IGP Tranquilles Méditerranée Comté de Grignan Rouge Marselan
+IGP,TRANQ,MED,,CDG,rouge,CEP,IGP Tranquilles Méditerranée Comté de Grignan Rouge Autre
+IGP,TRANQ,MED,,CDG,rose,,IGP Tranquilles Méditerranée Comté de Grignan Rosé 
+IGP,TRANQ,MED,,CDG,rose,SYR,IGP Tranquilles Méditerranée Comté de Grignan Rosé Syrah
+IGP,TRANQ,MED,,CDG,rose,GRN,IGP Tranquilles Méditerranée Comté de Grignan Rosé Grenache Noir
+IGP,TRANQ,MED,,CDG,rose,CS,IGP Tranquilles Méditerranée Comté de Grignan Rosé Cabernet-Sauvignon
+IGP,TRANQ,MED,,CDG,rose,CIN,IGP Tranquilles Méditerranée Comté de Grignan Rosé Cinsaut
+IGP,TRANQ,MED,,CDG,rose,MER,IGP Tranquilles Méditerranée Comté de Grignan Rosé Merlot
+IGP,TRANQ,MED,,CDG,rose,MOU,IGP Tranquilles Méditerranée Comté de Grignan Rosé Mourvedre
+IGP,TRANQ,MED,,CDG,rose,MAR,IGP Tranquilles Méditerranée Comté de Grignan Rosé Marselan
+IGP,TRANQ,MED,,CDG,rose,GRG,IGP Tranquilles Méditerranée Comté de Grignan Rosé Grenache Gris
+IGP,TRANQ,MED,,CDG,rose,CEP,IGP Tranquilles Méditerranée Comté de Grignan Rosé Autre
+IGP,TRANQ,MED,,CDG,blanc,,IGP Tranquilles Méditerranée Comté de Grignan Blanc 
+IGP,TRANQ,MED,,CDG,blanc,ROL,IGP Tranquilles Méditerranée Comté de Grignan Blanc Rolle-Vermentino
+IGP,TRANQ,MED,,CDG,blanc,CHA,IGP Tranquilles Méditerranée Comté de Grignan Blanc Chardonnay
+IGP,TRANQ,MED,,CDG,blanc,SAU,IGP Tranquilles Méditerranée Comté de Grignan Blanc Sauvignon
+IGP,TRANQ,MED,,CDG,blanc,GRB,IGP Tranquilles Méditerranée Comté de Grignan Blanc Grenache Blanc
+IGP,TRANQ,MED,,CDG,blanc,VIO,IGP Tranquilles Méditerranée Comté de Grignan Blanc Viognier
+IGP,TRANQ,MED,,CDG,blanc,MAR,IGP Tranquilles Méditerranée Comté de Grignan Blanc Marsanne
+IGP,TRANQ,MED,,CDG,blanc,ROU,IGP Tranquilles Méditerranée Comté de Grignan Blanc Roussanne
+IGP,TRANQ,MED,,CDG,blanc,CLA,IGP Tranquilles Méditerranée Comté de Grignan Blanc Clairette
+IGP,TRANQ,MED,,CDG,blanc,MUH,IGP Tranquilles Méditerranée Comté de Grignan Blanc Muscat de HAMBOURG
+IGP,TRANQ,MED,,CDG,blanc,CEP,IGP Tranquilles Méditerranée Comté de Grignan Blanc Autre
+IGP,TRANQ,MED,,CTM,rouge,,IGP Tranquilles Méditerranée Coteaux de Montélimar Rouge 
+IGP,TRANQ,MED,,CTM,rouge,SYR,IGP Tranquilles Méditerranée Coteaux de Montélimar Rouge Syrah
+IGP,TRANQ,MED,,CTM,rouge,GRN,IGP Tranquilles Méditerranée Coteaux de Montélimar Rouge Grenache Noir
+IGP,TRANQ,MED,,CTM,rouge,CS,IGP Tranquilles Méditerranée Coteaux de Montélimar Rouge Cabernet-Sauvignon
+IGP,TRANQ,MED,,CTM,rouge,CIN,IGP Tranquilles Méditerranée Coteaux de Montélimar Rouge Cinsaut
+IGP,TRANQ,MED,,CTM,rouge,MER,IGP Tranquilles Méditerranée Coteaux de Montélimar Rouge Merlot
+IGP,TRANQ,MED,,CTM,rouge,MOU,IGP Tranquilles Méditerranée Coteaux de Montélimar Rouge Mourvedre
+IGP,TRANQ,MED,,CTM,rouge,MAR,IGP Tranquilles Méditerranée Coteaux de Montélimar Rouge Marselan
+IGP,TRANQ,MED,,CTM,rouge,CEP,IGP Tranquilles Méditerranée Coteaux de Montélimar Rouge Autre
+IGP,TRANQ,MED,,CTM,rose,,IGP Tranquilles Méditerranée Coteaux de Montélimar Rosé 
+IGP,TRANQ,MED,,CTM,rose,SYR,IGP Tranquilles Méditerranée Coteaux de Montélimar Rosé Syrah
+IGP,TRANQ,MED,,CTM,rose,GRN,IGP Tranquilles Méditerranée Coteaux de Montélimar Rosé Grenache Noir
+IGP,TRANQ,MED,,CTM,rose,CS,IGP Tranquilles Méditerranée Coteaux de Montélimar Rosé Cabernet-Sauvignon
+IGP,TRANQ,MED,,CTM,rose,CIN,IGP Tranquilles Méditerranée Coteaux de Montélimar Rosé Cinsaut
+IGP,TRANQ,MED,,CTM,rose,MER,IGP Tranquilles Méditerranée Coteaux de Montélimar Rosé Merlot
+IGP,TRANQ,MED,,CTM,rose,MOU,IGP Tranquilles Méditerranée Coteaux de Montélimar Rosé Mourvedre
+IGP,TRANQ,MED,,CTM,rose,MAR,IGP Tranquilles Méditerranée Coteaux de Montélimar Rosé Marselan
+IGP,TRANQ,MED,,CTM,rose,GRG,IGP Tranquilles Méditerranée Coteaux de Montélimar Rosé Grenache Gris
+IGP,TRANQ,MED,,CTM,rose,CEP,IGP Tranquilles Méditerranée Coteaux de Montélimar Rosé Autre
+IGP,TRANQ,MED,,CTM,blanc,,IGP Tranquilles Méditerranée Coteaux de Montélimar Blanc 
+IGP,TRANQ,MED,,CTM,blanc,ROL,IGP Tranquilles Méditerranée Coteaux de Montélimar Blanc Rolle-Vermentino
+IGP,TRANQ,MED,,CTM,blanc,CHA,IGP Tranquilles Méditerranée Coteaux de Montélimar Blanc Chardonnay
+IGP,TRANQ,MED,,CTM,blanc,SAU,IGP Tranquilles Méditerranée Coteaux de Montélimar Blanc Sauvignon
+IGP,TRANQ,MED,,CTM,blanc,GRB,IGP Tranquilles Méditerranée Coteaux de Montélimar Blanc Grenache Blanc
+IGP,TRANQ,MED,,CTM,blanc,VIO,IGP Tranquilles Méditerranée Coteaux de Montélimar Blanc Viognier
+IGP,TRANQ,MED,,CTM,blanc,MAR,IGP Tranquilles Méditerranée Coteaux de Montélimar Blanc Marsanne
+IGP,TRANQ,MED,,CTM,blanc,ROU,IGP Tranquilles Méditerranée Coteaux de Montélimar Blanc Roussanne
+IGP,TRANQ,MED,,CTM,blanc,CLA,IGP Tranquilles Méditerranée Coteaux de Montélimar Blanc Clairette
+IGP,TRANQ,MED,,CTM,blanc,MUH,IGP Tranquilles Méditerranée Coteaux de Montélimar Blanc Muscat de HAMBOURG
+IGP,TRANQ,MED,,CTM,blanc,CEP,IGP Tranquilles Méditerranée Coteaux de Montélimar Blanc Autre
+IGP,TRANQ,D84,,,rouge,,IGP Tranquilles Vaucluse Rouge 
+IGP,TRANQ,D84,,,rouge,SYR,IGP Tranquilles Vaucluse Rouge Syrah
+IGP,TRANQ,D84,,,rouge,GRN,IGP Tranquilles Vaucluse Rouge Grenache Noir
+IGP,TRANQ,D84,,,rouge,CS,IGP Tranquilles Vaucluse Rouge Cabernet-Sauvignon
+IGP,TRANQ,D84,,,rouge,CIN,IGP Tranquilles Vaucluse Rouge Cinsaut
+IGP,TRANQ,D84,,,rouge,MER,IGP Tranquilles Vaucluse Rouge Merlot
+IGP,TRANQ,D84,,,rouge,MOU,IGP Tranquilles Vaucluse Rouge Mourvedre
+IGP,TRANQ,D84,,,rouge,MAR,IGP Tranquilles Vaucluse Rouge Marselan
+IGP,TRANQ,D84,,,rouge,CEP,IGP Tranquilles Vaucluse Rouge Autre
+IGP,TRANQ,D84,,,rose,,IGP Tranquilles Vaucluse Rosé 
+IGP,TRANQ,D84,,,rose,SYR,IGP Tranquilles Vaucluse Rosé Syrah
+IGP,TRANQ,D84,,,rose,GRN,IGP Tranquilles Vaucluse Rosé Grenache Noir
+IGP,TRANQ,D84,,,rose,CS,IGP Tranquilles Vaucluse Rosé Cabernet-Sauvignon
+IGP,TRANQ,D84,,,rose,CIN,IGP Tranquilles Vaucluse Rosé Cinsaut
+IGP,TRANQ,D84,,,rose,MER,IGP Tranquilles Vaucluse Rosé Merlot
+IGP,TRANQ,D84,,,rose,MOU,IGP Tranquilles Vaucluse Rosé Mourvedre
+IGP,TRANQ,D84,,,rose,MAR,IGP Tranquilles Vaucluse Rosé Marselan
+IGP,TRANQ,D84,,,rose,GRG,IGP Tranquilles Vaucluse Rosé Grenache Gris
+IGP,TRANQ,D84,,,rose,CEP,IGP Tranquilles Vaucluse Rosé Autre
+IGP,TRANQ,D84,,,blanc,,IGP Tranquilles Vaucluse Blanc 
+IGP,TRANQ,D84,,,blanc,ROL,IGP Tranquilles Vaucluse Blanc Rolle-Vermentino
+IGP,TRANQ,D84,,,blanc,CHA,IGP Tranquilles Vaucluse Blanc Chardonnay
+IGP,TRANQ,D84,,,blanc,SAU,IGP Tranquilles Vaucluse Blanc Sauvignon
+IGP,TRANQ,D84,,,blanc,GRB,IGP Tranquilles Vaucluse Blanc Grenache Blanc
+IGP,TRANQ,D84,,,blanc,VIO,IGP Tranquilles Vaucluse Blanc Viognier
+IGP,TRANQ,D84,,,blanc,MAR,IGP Tranquilles Vaucluse Blanc Marsanne
+IGP,TRANQ,D84,,,blanc,ROU,IGP Tranquilles Vaucluse Blanc Roussanne
+IGP,TRANQ,D84,,,blanc,CLA,IGP Tranquilles Vaucluse Blanc Clairette
+IGP,TRANQ,D84,,,blanc,MUH,IGP Tranquilles Vaucluse Blanc Muscat de HAMBOURG
+IGP,TRANQ,D84,,,blanc,CEP,IGP Tranquilles Vaucluse Blanc Autre
+IGP,TRANQ,D84,,VPA,rouge,,IGP Tranquilles Vaucluse Aigues Rouge 
+IGP,TRANQ,D84,,VPA,rouge,SYR,IGP Tranquilles Vaucluse Aigues Rouge Syrah
+IGP,TRANQ,D84,,VPA,rouge,GRN,IGP Tranquilles Vaucluse Aigues Rouge Grenache Noir
+IGP,TRANQ,D84,,VPA,rouge,CS,IGP Tranquilles Vaucluse Aigues Rouge Cabernet-Sauvignon
+IGP,TRANQ,D84,,VPA,rouge,CIN,IGP Tranquilles Vaucluse Aigues Rouge Cinsaut
+IGP,TRANQ,D84,,VPA,rouge,MER,IGP Tranquilles Vaucluse Aigues Rouge Merlot
+IGP,TRANQ,D84,,VPA,rouge,MOU,IGP Tranquilles Vaucluse Aigues Rouge Mourvedre
+IGP,TRANQ,D84,,VPA,rouge,MAR,IGP Tranquilles Vaucluse Aigues Rouge Marselan
+IGP,TRANQ,D84,,VPA,rouge,CEP,IGP Tranquilles Vaucluse Aigues Rouge Autre
+IGP,TRANQ,D84,,VPA,rose,,IGP Tranquilles Vaucluse Aigues Rosé 
+IGP,TRANQ,D84,,VPA,rose,SYR,IGP Tranquilles Vaucluse Aigues Rosé Syrah
+IGP,TRANQ,D84,,VPA,rose,GRN,IGP Tranquilles Vaucluse Aigues Rosé Grenache Noir
+IGP,TRANQ,D84,,VPA,rose,CS,IGP Tranquilles Vaucluse Aigues Rosé Cabernet-Sauvignon
+IGP,TRANQ,D84,,VPA,rose,CIN,IGP Tranquilles Vaucluse Aigues Rosé Cinsaut
+IGP,TRANQ,D84,,VPA,rose,MER,IGP Tranquilles Vaucluse Aigues Rosé Merlot
+IGP,TRANQ,D84,,VPA,rose,MOU,IGP Tranquilles Vaucluse Aigues Rosé Mourvedre
+IGP,TRANQ,D84,,VPA,rose,MAR,IGP Tranquilles Vaucluse Aigues Rosé Marselan
+IGP,TRANQ,D84,,VPA,rose,GRG,IGP Tranquilles Vaucluse Aigues Rosé Grenache Gris
+IGP,TRANQ,D84,,VPA,rose,CEP,IGP Tranquilles Vaucluse Aigues Rosé Autre
+IGP,TRANQ,D84,,VPA,blanc,,IGP Tranquilles Vaucluse Aigues Blanc 
+IGP,TRANQ,D84,,VPA,blanc,ROL,IGP Tranquilles Vaucluse Aigues Blanc Rolle-Vermentino
+IGP,TRANQ,D84,,VPA,blanc,CHA,IGP Tranquilles Vaucluse Aigues Blanc Chardonnay
+IGP,TRANQ,D84,,VPA,blanc,SAU,IGP Tranquilles Vaucluse Aigues Blanc Sauvignon
+IGP,TRANQ,D84,,VPA,blanc,GRB,IGP Tranquilles Vaucluse Aigues Blanc Grenache Blanc
+IGP,TRANQ,D84,,VPA,blanc,VIO,IGP Tranquilles Vaucluse Aigues Blanc Viognier
+IGP,TRANQ,D84,,VPA,blanc,MAR,IGP Tranquilles Vaucluse Aigues Blanc Marsanne
+IGP,TRANQ,D84,,VPA,blanc,ROU,IGP Tranquilles Vaucluse Aigues Blanc Roussanne
+IGP,TRANQ,D84,,VPA,blanc,CLA,IGP Tranquilles Vaucluse Aigues Blanc Clairette
+IGP,TRANQ,D84,,VPA,blanc,MUH,IGP Tranquilles Vaucluse Aigues Blanc Muscat de HAMBOURG
+IGP,TRANQ,D84,,VPA,blanc,CEP,IGP Tranquilles Vaucluse Aigues Blanc Autre
+IGP,TRANQ,D84,,PDO,rouge,,IGP Tranquilles Vaucluse Principauté d'Orange Rouge 
+IGP,TRANQ,D84,,PDO,rouge,SYR,IGP Tranquilles Vaucluse Principauté d'Orange Rouge Syrah
+IGP,TRANQ,D84,,PDO,rouge,GRN,IGP Tranquilles Vaucluse Principauté d'Orange Rouge Grenache Noir
+IGP,TRANQ,D84,,PDO,rouge,CS,IGP Tranquilles Vaucluse Principauté d'Orange Rouge Cabernet-Sauvignon
+IGP,TRANQ,D84,,PDO,rouge,CIN,IGP Tranquilles Vaucluse Principauté d'Orange Rouge Cinsaut
+IGP,TRANQ,D84,,PDO,rouge,MER,IGP Tranquilles Vaucluse Principauté d'Orange Rouge Merlot
+IGP,TRANQ,D84,,PDO,rouge,MOU,IGP Tranquilles Vaucluse Principauté d'Orange Rouge Mourvedre
+IGP,TRANQ,D84,,PDO,rouge,MAR,IGP Tranquilles Vaucluse Principauté d'Orange Rouge Marselan
+IGP,TRANQ,D84,,PDO,rouge,CEP,IGP Tranquilles Vaucluse Principauté d'Orange Rouge Autre
+IGP,TRANQ,D84,,PDO,rose,,IGP Tranquilles Vaucluse Principauté d'Orange Rosé 
+IGP,TRANQ,D84,,PDO,rose,SYR,IGP Tranquilles Vaucluse Principauté d'Orange Rosé Syrah
+IGP,TRANQ,D84,,PDO,rose,GRN,IGP Tranquilles Vaucluse Principauté d'Orange Rosé Grenache Noir
+IGP,TRANQ,D84,,PDO,rose,CS,IGP Tranquilles Vaucluse Principauté d'Orange Rosé Cabernet-Sauvignon
+IGP,TRANQ,D84,,PDO,rose,CIN,IGP Tranquilles Vaucluse Principauté d'Orange Rosé Cinsaut
+IGP,TRANQ,D84,,PDO,rose,MER,IGP Tranquilles Vaucluse Principauté d'Orange Rosé Merlot
+IGP,TRANQ,D84,,PDO,rose,MOU,IGP Tranquilles Vaucluse Principauté d'Orange Rosé Mourvedre
+IGP,TRANQ,D84,,PDO,rose,MAR,IGP Tranquilles Vaucluse Principauté d'Orange Rosé Marselan
+IGP,TRANQ,D84,,PDO,rose,GRG,IGP Tranquilles Vaucluse Principauté d'Orange Rosé Grenache Gris
+IGP,TRANQ,D84,,PDO,rose,CEP,IGP Tranquilles Vaucluse Principauté d'Orange Rosé Autre
+IGP,TRANQ,D84,,PDO,blanc,,IGP Tranquilles Vaucluse Principauté d'Orange Blanc 
+IGP,TRANQ,D84,,PDO,blanc,ROL,IGP Tranquilles Vaucluse Principauté d'Orange Blanc Rolle-Vermentino
+IGP,TRANQ,D84,,PDO,blanc,CHA,IGP Tranquilles Vaucluse Principauté d'Orange Blanc Chardonnay
+IGP,TRANQ,D84,,PDO,blanc,SAU,IGP Tranquilles Vaucluse Principauté d'Orange Blanc Sauvignon
+IGP,TRANQ,D84,,PDO,blanc,GRB,IGP Tranquilles Vaucluse Principauté d'Orange Blanc Grenache Blanc
+IGP,TRANQ,D84,,PDO,blanc,VIO,IGP Tranquilles Vaucluse Principauté d'Orange Blanc Viognier
+IGP,TRANQ,D84,,PDO,blanc,MAR,IGP Tranquilles Vaucluse Principauté d'Orange Blanc Marsanne
+IGP,TRANQ,D84,,PDO,blanc,ROU,IGP Tranquilles Vaucluse Principauté d'Orange Blanc Roussanne
+IGP,TRANQ,D84,,PDO,blanc,CLA,IGP Tranquilles Vaucluse Principauté d'Orange Blanc Clairette
+IGP,TRANQ,D84,,PDO,blanc,MUH,IGP Tranquilles Vaucluse Principauté d'Orange Blanc Muscat de HAMBOURG
+IGP,TRANQ,D84,,PDO,blanc,CEP,IGP Tranquilles Vaucluse Principauté d'Orange Blanc Autre
+IGP,TRANQ,D26,,,rouge,,IGP Tranquilles Dréme Rouge 
+IGP,TRANQ,D26,,,rouge,SYR,IGP Tranquilles Dréme Rouge Syrah
+IGP,TRANQ,D26,,,rouge,GRN,IGP Tranquilles Dréme Rouge Grenache Noir
+IGP,TRANQ,D26,,,rouge,CS,IGP Tranquilles Dréme Rouge Cabernet-Sauvignon
+IGP,TRANQ,D26,,,rouge,CIN,IGP Tranquilles Dréme Rouge Cinsaut
+IGP,TRANQ,D26,,,rouge,MER,IGP Tranquilles Dréme Rouge Merlot
+IGP,TRANQ,D26,,,rouge,MOU,IGP Tranquilles Dréme Rouge Mourvedre
+IGP,TRANQ,D26,,,rouge,CEP,IGP Tranquilles Dréme Rouge Autre
+IGP,TRANQ,D26,,,rose,,IGP Tranquilles Dréme Rosé 
+IGP,TRANQ,D26,,,rose,SYR,IGP Tranquilles Dréme Rosé Syrah
+IGP,TRANQ,D26,,,rose,GRN,IGP Tranquilles Dréme Rosé Grenache Noir
+IGP,TRANQ,D26,,,rose,CS,IGP Tranquilles Dréme Rosé Cabernet-Sauvignon
+IGP,TRANQ,D26,,,rose,CIN,IGP Tranquilles Dréme Rosé Cinsaut
+IGP,TRANQ,D26,,,rose,MER,IGP Tranquilles Dréme Rosé Merlot
+IGP,TRANQ,D26,,,rose,MOU,IGP Tranquilles Dréme Rosé Mourvedre
+IGP,TRANQ,D26,,,rose,GRG,IGP Tranquilles Dréme Rosé Grenache Gris
+IGP,TRANQ,D26,,,rose,CEP,IGP Tranquilles Dréme Rosé Autre
+IGP,TRANQ,D26,,,blanc,,IGP Tranquilles Dréme Blanc 
+IGP,TRANQ,D26,,,blanc,ROL,IGP Tranquilles Dréme Blanc Rolle-Vermentino
+IGP,TRANQ,D26,,,blanc,CHA,IGP Tranquilles Dréme Blanc Chardonnay
+IGP,TRANQ,D26,,,blanc,SAU,IGP Tranquilles Dréme Blanc Sauvignon
+IGP,TRANQ,D26,,,blanc,GRB,IGP Tranquilles Dréme Blanc Grenache Blanc
+IGP,TRANQ,D26,,,blanc,VIO,IGP Tranquilles Dréme Blanc Viognier
+IGP,TRANQ,D26,,,blanc,MAR,IGP Tranquilles Dréme Blanc Marsanne
+IGP,TRANQ,D26,,,blanc,ROU,IGP Tranquilles Dréme Blanc Roussanne
+IGP,TRANQ,D26,,,blanc,CLA,IGP Tranquilles Dréme Blanc Clairette
+IGP,TRANQ,D26,,,blanc,MUH,IGP Tranquilles Dréme Blanc Muscat de HAMBOURG
+IGP,TRANQ,D26,,,blanc,CEP,IGP Tranquilles Dréme Blanc Autre
+IGP,TRANQ,D26,,CDG,rouge,,IGP Tranquilles Dréme Comté de Grignan Rouge 
+IGP,TRANQ,D26,,CDG,rouge,SYR,IGP Tranquilles Dréme Comté de Grignan Rouge Syrah
+IGP,TRANQ,D26,,CDG,rouge,GRN,IGP Tranquilles Dréme Comté de Grignan Rouge Grenache Noir
+IGP,TRANQ,D26,,CDG,rouge,CS,IGP Tranquilles Dréme Comté de Grignan Rouge Cabernet-Sauvignon
+IGP,TRANQ,D26,,CDG,rouge,CIN,IGP Tranquilles Dréme Comté de Grignan Rouge Cinsaut
+IGP,TRANQ,D26,,CDG,rouge,MER,IGP Tranquilles Dréme Comté de Grignan Rouge Merlot
+IGP,TRANQ,D26,,CDG,rouge,MOU,IGP Tranquilles Dréme Comté de Grignan Rouge Mourvedre
+IGP,TRANQ,D26,,CDG,rouge,CEP,IGP Tranquilles Dréme Comté de Grignan Rouge Autre
+IGP,TRANQ,D26,,CDG,rose,,IGP Tranquilles Dréme Comté de Grignan Rosé 
+IGP,TRANQ,D26,,CDG,rose,SYR,IGP Tranquilles Dréme Comté de Grignan Rosé Syrah
+IGP,TRANQ,D26,,CDG,rose,GRN,IGP Tranquilles Dréme Comté de Grignan Rosé Grenache Noir
+IGP,TRANQ,D26,,CDG,rose,CS,IGP Tranquilles Dréme Comté de Grignan Rosé Cabernet-Sauvignon
+IGP,TRANQ,D26,,CDG,rose,CIN,IGP Tranquilles Dréme Comté de Grignan Rosé Cinsaut
+IGP,TRANQ,D26,,CDG,rose,MER,IGP Tranquilles Dréme Comté de Grignan Rosé Merlot
+IGP,TRANQ,D26,,CDG,rose,MOU,IGP Tranquilles Dréme Comté de Grignan Rosé Mourvedre
+IGP,TRANQ,D26,,CDG,rose,GRG,IGP Tranquilles Dréme Comté de Grignan Rosé Grenache Gris
+IGP,TRANQ,D26,,CDG,rose,CEP,IGP Tranquilles Dréme Comté de Grignan Rosé Autre
+IGP,TRANQ,D26,,CDG,blanc,,IGP Tranquilles Dréme Comté de Grignan Blanc 
+IGP,TRANQ,D26,,CDG,blanc,ROL,IGP Tranquilles Dréme Comté de Grignan Blanc Rolle-Vermentino
+IGP,TRANQ,D26,,CDG,blanc,CHA,IGP Tranquilles Dréme Comté de Grignan Blanc Chardonnay
+IGP,TRANQ,D26,,CDG,blanc,SAU,IGP Tranquilles Dréme Comté de Grignan Blanc Sauvignon
+IGP,TRANQ,D26,,CDG,blanc,GRB,IGP Tranquilles Dréme Comté de Grignan Blanc Grenache Blanc
+IGP,TRANQ,D26,,CDG,blanc,VIO,IGP Tranquilles Dréme Comté de Grignan Blanc Viognier
+IGP,TRANQ,D26,,CDG,blanc,MAR,IGP Tranquilles Dréme Comté de Grignan Blanc Marsanne
+IGP,TRANQ,D26,,CDG,blanc,ROU,IGP Tranquilles Dréme Comté de Grignan Blanc Roussanne
+IGP,TRANQ,D26,,CDG,blanc,CLA,IGP Tranquilles Dréme Comté de Grignan Blanc Clairette
+IGP,TRANQ,D26,,CDG,blanc,MUH,IGP Tranquilles Dréme Comté de Grignan Blanc Muscat de HAMBOURG
+IGP,TRANQ,D26,,CDG,blanc,CEP,IGP Tranquilles Dréme Comté de Grignan Blanc Autre
+IGP,TRANQ,D26,,CTM,rouge,,IGP Tranquilles Dréme Coteaux de Montélimar Rouge 
+IGP,TRANQ,D26,,CTM,rouge,SYR,IGP Tranquilles Dréme Coteaux de Montélimar Rouge Syrah
+IGP,TRANQ,D26,,CTM,rouge,GRN,IGP Tranquilles Dréme Coteaux de Montélimar Rouge Grenache Noir
+IGP,TRANQ,D26,,CTM,rouge,CS,IGP Tranquilles Dréme Coteaux de Montélimar Rouge Cabernet-Sauvignon
+IGP,TRANQ,D26,,CTM,rouge,CIN,IGP Tranquilles Dréme Coteaux de Montélimar Rouge Cinsaut
+IGP,TRANQ,D26,,CTM,rouge,MER,IGP Tranquilles Dréme Coteaux de Montélimar Rouge Merlot
+IGP,TRANQ,D26,,CTM,rouge,MOU,IGP Tranquilles Dréme Coteaux de Montélimar Rouge Mourvedre
+IGP,TRANQ,D26,,CTM,rouge,CEP,IGP Tranquilles Dréme Coteaux de Montélimar Rouge Autre
+IGP,TRANQ,D26,,CTM,rose,,IGP Tranquilles Dréme Coteaux de Montélimar Rosé 
+IGP,TRANQ,D26,,CTM,rose,SYR,IGP Tranquilles Dréme Coteaux de Montélimar Rosé Syrah
+IGP,TRANQ,D26,,CTM,rose,GRN,IGP Tranquilles Dréme Coteaux de Montélimar Rosé Grenache Noir
+IGP,TRANQ,D26,,CTM,rose,CS,IGP Tranquilles Dréme Coteaux de Montélimar Rosé Cabernet-Sauvignon
+IGP,TRANQ,D26,,CTM,rose,CIN,IGP Tranquilles Dréme Coteaux de Montélimar Rosé Cinsaut
+IGP,TRANQ,D26,,CTM,rose,MER,IGP Tranquilles Dréme Coteaux de Montélimar Rosé Merlot
+IGP,TRANQ,D26,,CTM,rose,MOU,IGP Tranquilles Dréme Coteaux de Montélimar Rosé Mourvedre
+IGP,TRANQ,D26,,CTM,rose,GRG,IGP Tranquilles Dréme Coteaux de Montélimar Rosé Grenache Gris
+IGP,TRANQ,D26,,CTM,rose,CEP,IGP Tranquilles Dréme Coteaux de Montélimar Rosé Autre
+IGP,TRANQ,D26,,CTM,blanc,,IGP Tranquilles Dréme Coteaux de Montélimar Blanc 
+IGP,TRANQ,D26,,CTM,blanc,ROL,IGP Tranquilles Dréme Coteaux de Montélimar Blanc Rolle-Vermentino
+IGP,TRANQ,D26,,CTM,blanc,CHA,IGP Tranquilles Dréme Coteaux de Montélimar Blanc Chardonnay
+IGP,TRANQ,D26,,CTM,blanc,SAU,IGP Tranquilles Dréme Coteaux de Montélimar Blanc Sauvignon
+IGP,TRANQ,D26,,CTM,blanc,GRB,IGP Tranquilles Dréme Coteaux de Montélimar Blanc Grenache Blanc
+IGP,TRANQ,D26,,CTM,blanc,VIO,IGP Tranquilles Dréme Coteaux de Montélimar Blanc Viognier
+IGP,TRANQ,D26,,CTM,blanc,MAR,IGP Tranquilles Dréme Coteaux de Montélimar Blanc Marsanne
+IGP,TRANQ,D26,,CTM,blanc,ROU,IGP Tranquilles Dréme Coteaux de Montélimar Blanc Roussanne
+IGP,TRANQ,D26,,CTM,blanc,CLA,IGP Tranquilles Dréme Coteaux de Montélimar Blanc Clairette
+IGP,TRANQ,D26,,CTM,blanc,MUH,IGP Tranquilles Dréme Coteaux de Montélimar Blanc Muscat de HAMBOURG
+IGP,TRANQ,D26,,CTM,blanc,CEP,IGP Tranquilles Dréme Coteaux de Montélimar Blanc Autre
+IGP,TRANQ,CBA,,,rouge,,IGP Tranquilles Coteaux des Baronnies Rouge 
+IGP,TRANQ,CBA,,,rouge,SYR,IGP Tranquilles Coteaux des Baronnies Rouge Syrah
+IGP,TRANQ,CBA,,,rouge,GRN,IGP Tranquilles Coteaux des Baronnies Rouge Grenache Noir
+IGP,TRANQ,CBA,,,rouge,CS,IGP Tranquilles Coteaux des Baronnies Rouge Cabernet-Sauvignon
+IGP,TRANQ,CBA,,,rouge,CIN,IGP Tranquilles Coteaux des Baronnies Rouge Cinsaut
+IGP,TRANQ,CBA,,,rouge,MER,IGP Tranquilles Coteaux des Baronnies Rouge Merlot
+IGP,TRANQ,CBA,,,rouge,MOU,IGP Tranquilles Coteaux des Baronnies Rouge Mourvedre
+IGP,TRANQ,CBA,,,rouge,CEP,IGP Tranquilles Coteaux des Baronnies Rouge Autre
+IGP,TRANQ,CBA,,,rose,,IGP Tranquilles Coteaux des Baronnies Rosé 
+IGP,TRANQ,CBA,,,rose,SYR,IGP Tranquilles Coteaux des Baronnies Rosé Syrah
+IGP,TRANQ,CBA,,,rose,GRN,IGP Tranquilles Coteaux des Baronnies Rosé Grenache Noir
+IGP,TRANQ,CBA,,,rose,CS,IGP Tranquilles Coteaux des Baronnies Rosé Cabernet-Sauvignon
+IGP,TRANQ,CBA,,,rose,CIN,IGP Tranquilles Coteaux des Baronnies Rosé Cinsaut
+IGP,TRANQ,CBA,,,rose,MER,IGP Tranquilles Coteaux des Baronnies Rosé Merlot
+IGP,TRANQ,CBA,,,rose,MOU,IGP Tranquilles Coteaux des Baronnies Rosé Mourvedre
+IGP,TRANQ,CBA,,,rose,GRG,IGP Tranquilles Coteaux des Baronnies Rosé Grenache Gris
+IGP,TRANQ,CBA,,,rose,CEP,IGP Tranquilles Coteaux des Baronnies Rosé Autre
+IGP,TRANQ,CBA,,,blanc,,IGP Tranquilles Coteaux des Baronnies Blanc 
+IGP,TRANQ,CBA,,,blanc,ROL,IGP Tranquilles Coteaux des Baronnies Blanc Rolle-Vermentino
+IGP,TRANQ,CBA,,,blanc,CHA,IGP Tranquilles Coteaux des Baronnies Blanc Chardonnay
+IGP,TRANQ,CBA,,,blanc,SAU,IGP Tranquilles Coteaux des Baronnies Blanc Sauvignon
+IGP,TRANQ,CBA,,,blanc,GRB,IGP Tranquilles Coteaux des Baronnies Blanc Grenache Blanc
+IGP,TRANQ,CBA,,,blanc,VIO,IGP Tranquilles Coteaux des Baronnies Blanc Viognier
+IGP,TRANQ,CBA,,,blanc,MAR,IGP Tranquilles Coteaux des Baronnies Blanc Marsanne
+IGP,TRANQ,CBA,,,blanc,ROU,IGP Tranquilles Coteaux des Baronnies Blanc Roussanne
+IGP,TRANQ,CBA,,,blanc,CLA,IGP Tranquilles Coteaux des Baronnies Blanc Clairette
+IGP,TRANQ,CBA,,,blanc,MUH,IGP Tranquilles Coteaux des Baronnies Blanc Muscat de HAMBOURG
+IGP,TRANQ,D05,,,rouge,,IGP Tranquilles Hautes Alpesﾠ Rouge 
+IGP,TRANQ,D05,,,rouge,SYR,IGP Tranquilles Hautes Alpesﾠ Rouge Syrah
+IGP,TRANQ,D05,,,rouge,GRN,IGP Tranquilles Hautes Alpesﾠ Rouge Grenache Noir
+IGP,TRANQ,D05,,,rouge,CS,IGP Tranquilles Hautes Alpesﾠ Rouge Cabernet-Sauvignon
+IGP,TRANQ,D05,,,rouge,CIN,IGP Tranquilles Hautes Alpesﾠ Rouge Cinsaut
+IGP,TRANQ,D05,,,rouge,MER,IGP Tranquilles Hautes Alpesﾠ Rouge Merlot
+IGP,TRANQ,D05,,,rouge,MOL,IGP Tranquilles Hautes Alpesﾠ Rouge Mollard
+IGP,TRANQ,D05,,,rouge,CEP,IGP Tranquilles Hautes Alpesﾠ Rouge Autre
+IGP,TRANQ,D05,,,rose,,IGP Tranquilles Hautes Alpesé Rosé 
+IGP,TRANQ,D05,,,rose,SYR,IGP Tranquilles Hautes Alpesé Rosé Syrah
+IGP,TRANQ,D05,,,rose,GRN,IGP Tranquilles Hautes Alpesé Rosé Grenache Noir
+IGP,TRANQ,D05,,,rose,CS,IGP Tranquilles Hautes Alpesé Rosé Cabernet-Sauvignon
+IGP,TRANQ,D05,,,rose,CIN,IGP Tranquilles Hautes Alpesé Rosé Cinsaut
+IGP,TRANQ,D05,,,rose,MER,IGP Tranquilles Hautes Alpesé Rosé Merlot
+IGP,TRANQ,D05,,,rose,MOU,IGP Tranquilles Hautes Alpesé Rosé Mourvedre
+IGP,TRANQ,D05,,,rose,CEP,IGP Tranquilles Hautes Alpesé Rosé Autre
+IGP,TRANQ,D05,,,blanc,,IGP Tranquilles Hautes Alpesﾠ Blanc 
+IGP,TRANQ,D05,,,blanc,ROL,IGP Tranquilles Hautes Alpesﾠ Blanc Rolle-Vermentino
+IGP,TRANQ,D05,,,blanc,CHA,IGP Tranquilles Hautes Alpesﾠ Blanc Chardonnay
+IGP,TRANQ,D05,,,blanc,SAU,IGP Tranquilles Hautes Alpesﾠ Blanc Sauvignon
+IGP,TRANQ,D05,,,blanc,GRB,IGP Tranquilles Hautes Alpesﾠ Blanc Grenache Blanc
+IGP,TRANQ,D05,,,blanc,VIO,IGP Tranquilles Hautes Alpesﾠ Blanc Viognier
+IGP,TRANQ,D05,,,blanc,MAR,IGP Tranquilles Hautes Alpesﾠ Blanc Marsanne
+IGP,TRANQ,D05,,,blanc,ROU,IGP Tranquilles Hautes Alpesﾠ Blanc Roussanne
+IGP,TRANQ,D05,,,blanc,MPG,IGP Tranquilles Hautes Alpesé Blanc Muscat é petits grains
+IGP,TRANQ,D05,,,blanc,CEP,IGP Tranquilles Hautes Alpesﾠ Blanc Autre
+IGP,TRANQ,D04,,,rouge,,IGP Tranquilles Alpesﾠde Haute Provence Rouge 
+IGP,TRANQ,D04,,,rouge,SYR,IGP Tranquilles Alpesﾠde Haute Provence Rouge Syrah
+IGP,TRANQ,D04,,,rouge,GRN,IGP Tranquilles Alpesﾠde Haute Provence Rouge Grenache Noir
+IGP,TRANQ,D04,,,rouge,CS,IGP Tranquilles Alpesﾠde Haute Provence Rouge Cabernet-Sauvignon
+IGP,TRANQ,D04,,,rouge,CIN,IGP Tranquilles Alpesﾠde Haute Provence Rouge Cinsaut
+IGP,TRANQ,D04,,,rouge,MER,IGP Tranquilles Alpesﾠde Haute Provence Rouge Merlot
+IGP,TRANQ,D04,,,rouge,MOU,IGP Tranquilles Alpesﾠde Haute Provence Rouge Mourvedre
+IGP,TRANQ,D04,,,rouge,CEP,IGP Tranquilles Alpesﾠde Haute Provence Rouge Autre
+IGP,TRANQ,D04,,,rose,,IGP Tranquilles Alpeséde Haute Provence Rosé 
+IGP,TRANQ,D04,,,rose,SYR,IGP Tranquilles Alpeséde Haute Provence Rosé Syrah
+IGP,TRANQ,D04,,,rose,GRN,IGP Tranquilles Alpeséde Haute Provence Rosé Grenache Noir
+IGP,TRANQ,D04,,,rose,CS,IGP Tranquilles Alpeséde Haute Provence Rosé Cabernet-Sauvignon
+IGP,TRANQ,D04,,,rose,CIN,IGP Tranquilles Alpeséde Haute Provence Rosé Cinsaut
+IGP,TRANQ,D04,,,rose,MER,IGP Tranquilles Alpeséde Haute Provence Rosé Merlot
+IGP,TRANQ,D04,,,rose,MOU,IGP Tranquilles Alpeséde Haute Provence Rosé Mourvedre
+IGP,TRANQ,D04,,,rose,CEP,IGP Tranquilles Alpeséde Haute Provence Rosé Autre
+IGP,TRANQ,D04,,,blanc,,IGP Tranquilles Alpesﾠde Haute Provence Blanc 
+IGP,TRANQ,D04,,,blanc,ROL,IGP Tranquilles Alpesﾠde Haute Provence Blanc Rolle-Vermentino
+IGP,TRANQ,D04,,,blanc,CHA,IGP Tranquilles Alpesﾠde Haute Provence Blanc Chardonnay
+IGP,TRANQ,D04,,,blanc,SAU,IGP Tranquilles Alpesﾠde Haute Provence Blanc Sauvignon
+IGP,TRANQ,D04,,,blanc,GRB,IGP Tranquilles Alpesﾠde Haute Provence Blanc Grenache Blanc
+IGP,TRANQ,D04,,,blanc,VIO,IGP Tranquilles Alpesﾠde Haute Provence Blanc Viognier
+IGP,TRANQ,D04,,,blanc,MAR,IGP Tranquilles Alpesﾠde Haute Provence Blanc Marsanne
+IGP,TRANQ,D04,,,blanc,ROU,IGP Tranquilles Alpesﾠde Haute Provence Blanc Roussanne
+IGP,TRANQ,D04,,,blanc,MPG,IGP Tranquilles Alpeséde Haute Provence Blanc Muscat é petits grains
+IGP,TRANQ,D04,,,blanc,CEP,IGP Tranquilles Alpesﾠde Haute Provence Blanc Autre
+IGP,TRANQ,ALP,,,rouge,,IGP Tranquilles Alpilles Rouge 
+IGP,TRANQ,ALP,,,rouge,SYR,IGP Tranquilles Alpilles Rouge Syrah
+IGP,TRANQ,ALP,,,rouge,GRN,IGP Tranquilles Alpilles Rouge Grenache Noir
+IGP,TRANQ,ALP,,,rouge,CS,IGP Tranquilles Alpilles Rouge Cabernet-Sauvignon
+IGP,TRANQ,ALP,,,rouge,CIN,IGP Tranquilles Alpilles Rouge Cinsaut
+IGP,TRANQ,ALP,,,rouge,MER,IGP Tranquilles Alpilles Rouge Merlot
+IGP,TRANQ,ALP,,,rouge,MOU,IGP Tranquilles Alpilles Rouge Mourvedre
+IGP,TRANQ,ALP,,,rouge,MAR,IGP Tranquilles Alpilles Rouge Marselan
+IGP,TRANQ,ALP,,,rouge,CEP,IGP Tranquilles Alpilles Rouge Autre
+IGP,TRANQ,ALP,,,rose,,IGP Tranquilles Alpilles Rosé 
+IGP,TRANQ,ALP,,,rose,SYR,IGP Tranquilles Alpilles Rosé Syrah
+IGP,TRANQ,ALP,,,rose,GRN,IGP Tranquilles Alpilles Rosé Grenache Noir
+IGP,TRANQ,ALP,,,rose,CS,IGP Tranquilles Alpilles Rosé Cabernet-Sauvignon
+IGP,TRANQ,ALP,,,rose,CIN,IGP Tranquilles Alpilles Rosé Cinsaut
+IGP,TRANQ,ALP,,,rose,MER,IGP Tranquilles Alpilles Rosé Merlot
+IGP,TRANQ,ALP,,,rose,MOU,IGP Tranquilles Alpilles Rosé Mourvedre
+IGP,TRANQ,ALP,,,rose,GRG,IGP Tranquilles Alpilles Rosé Grenache Gris
+IGP,TRANQ,ALP,,,rose,CEP,IGP Tranquilles Alpilles Rosé Autre
+IGP,TRANQ,ALP,,,blanc,ROL,IGP Tranquilles Alpilles Blanc Rolle-Vermentino
+IGP,TRANQ,ALP,,,blanc,CHA,IGP Tranquilles Alpilles Blanc Chardonnay
+IGP,TRANQ,ALP,,,blanc,SAU,IGP Tranquilles Alpilles Blanc Sauvignon
+IGP,TRANQ,ALP,,,blanc,GRB,IGP Tranquilles Alpilles Blanc Grenache Blanc
+IGP,TRANQ,ALP,,,blanc,VIO,IGP Tranquilles Alpilles Blanc Viognier
+IGP,TRANQ,ALP,,,blanc,MAR,IGP Tranquilles Alpilles Blanc Marsanne
+IGP,TRANQ,ALP,,,blanc,ROU,IGP Tranquilles Alpilles Blanc Roussanne
+IGP,TRANQ,ALP,,,blanc,CLA,IGP Tranquilles Alpilles Blanc Clairette
+IGP,TRANQ,ALP,,,blanc,MUH,IGP Tranquilles Alpilles Blanc Muscat de HAMBOURG
+IGP,TRANQ,ALP,,,blanc,CEP,IGP Tranquilles Alpilles Blanc Autre
+IGP,TRANQ,ALP,,,blanc,,IGP Tranquilles Alpilles Blanc 
+IGP,TRANQ,D07,,,rouge,,IGP Tranquilles Ardéche Rouge 
+IGP,TRANQ,D07,,,rouge,SYR,IGP Tranquilles Ardéche Rouge Syrah
+IGP,TRANQ,D07,,,rouge,GRN,IGP Tranquilles Ardéche Rouge Grenache Noir
+IGP,TRANQ,D07,,,rouge,CS,IGP Tranquilles Ardéche Rouge Cabernet-Sauvignon
+IGP,TRANQ,D07,,,rouge,CIN,IGP Tranquilles Ardéche Rouge Cinsaut
+IGP,TRANQ,D07,,,rouge,MER,IGP Tranquilles Ardéche Rouge Merlot
+IGP,TRANQ,D07,,,rouge,MOU,IGP Tranquilles Ardéche Rouge Mourvedre
+IGP,TRANQ,D07,,,rouge,PIN,IGP Tranquilles Ardéche Rouge Pinot
+IGP,TRANQ,D07,,,rouge,GAM,IGP Tranquilles Ardéche Rouge Gamay
+IGP,TRANQ,D07,,,rouge,CEP,IGP Tranquilles Ardéche Rouge Autre
+IGP,TRANQ,D07,,,rose,,IGP Tranquilles Ardéche Rosé 
+IGP,TRANQ,D07,,,rose,SYR,IGP Tranquilles Ardéche Rosé Syrah
+IGP,TRANQ,D07,,,rose,GRN,IGP Tranquilles Ardéche Rosé Grenache Noir
+IGP,TRANQ,D07,,,rose,CS,IGP Tranquilles Ardéche Rosé Cabernet-Sauvignon
+IGP,TRANQ,D07,,,rose,CIN,IGP Tranquilles Ardéche Rosé Cinsaut
+IGP,TRANQ,D07,,,rose,MER,IGP Tranquilles Ardéche Rosé Merlot
+IGP,TRANQ,D07,,,rose,MOU,IGP Tranquilles Ardéche Rosé Mourvedre
+IGP,TRANQ,D07,,,rose,GRG,IGP Tranquilles Ardéche Rosé Grenache Gris
+IGP,TRANQ,D07,,,rose,CEP,IGP Tranquilles Ardéche Rosé Autre
+IGP,TRANQ,D07,,,blanc,,IGP Tranquilles Ardéche Blanc 
+IGP,TRANQ,D07,,,blanc,ROL,IGP Tranquilles Ardéche Blanc Rolle-Vermentino
+IGP,TRANQ,D07,,,blanc,CHA,IGP Tranquilles Ardéche Blanc Chardonnay
+IGP,TRANQ,D07,,,blanc,SAU,IGP Tranquilles Ardéche Blanc Sauvignon
+IGP,TRANQ,D07,,,blanc,GRB,IGP Tranquilles Ardéche Blanc Grenache Blanc
+IGP,TRANQ,D07,,,blanc,VIO,IGP Tranquilles Ardéche Blanc Viognier
+IGP,TRANQ,D07,,,blanc,MAR,IGP Tranquilles Ardéche Blanc Marsanne
+IGP,TRANQ,D07,,,blanc,ROU,IGP Tranquilles Ardéche Blanc Roussanne
+IGP,TRANQ,D07,,,blanc,CLA,IGP Tranquilles Ardéche Blanc Clairette
+IGP,TRANQ,D07,,,blanc,MUH,IGP Tranquilles Ardéche Blanc Muscat de HAMBOURG
+IGP,TRANQ,D07,,,blanc,CEP,IGP Tranquilles Ardéche Blanc Autre
+IGP,TRANQ,D07,,CDA,rouge,,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rouge 
+IGP,TRANQ,D07,,CDA,rouge,SYR,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rouge Syrah
+IGP,TRANQ,D07,,CDA,rouge,GRN,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rouge Grenache Noir
+IGP,TRANQ,D07,,CDA,rouge,CS,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rouge Cabernet-Sauvignon
+IGP,TRANQ,D07,,CDA,rouge,CIN,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rouge Cinsaut
+IGP,TRANQ,D07,,CDA,rouge,MER,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rouge Merlot
+IGP,TRANQ,D07,,CDA,rouge,MOU,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rouge Mourvedre
+IGP,TRANQ,D07,,CDA,rouge,PIN,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rouge Pinot
+IGP,TRANQ,D07,,CDA,rouge,GAM,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rouge Gamay
+IGP,TRANQ,D07,,CDA,rouge,CEP,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rouge Autre
+IGP,TRANQ,D07,,CDA,rose,,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rosé 
+IGP,TRANQ,D07,,CDA,rose,SYR,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rosé Syrah
+IGP,TRANQ,D07,,CDA,rose,GRN,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rosé Grenache Noir
+IGP,TRANQ,D07,,CDA,rose,CS,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rosé Cabernet-Sauvignon
+IGP,TRANQ,D07,,CDA,rose,CIN,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rosé Cinsaut
+IGP,TRANQ,D07,,CDA,rose,MER,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rosé Merlot
+IGP,TRANQ,D07,,CDA,rose,MOU,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rosé Mourvedre
+IGP,TRANQ,D07,,CDA,rose,GRG,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rosé Grenache Gris
+IGP,TRANQ,D07,,CDA,rose,CEP,IGP Tranquilles Ardéche Coteaux de l'Ardéche Rosé Autre
+IGP,TRANQ,D07,,CDA,blanc,,IGP Tranquilles Ardéche Coteaux de l'Ardéche Blanc 
+IGP,TRANQ,D07,,CDA,blanc,ROL,IGP Tranquilles Ardéche Coteaux de l'Ardéche Blanc Rolle-Vermentino
+IGP,TRANQ,D07,,CDA,blanc,CHA,IGP Tranquilles Ardéche Coteaux de l'Ardéche Blanc Chardonnay
+IGP,TRANQ,D07,,CDA,blanc,SAU,IGP Tranquilles Ardéche Coteaux de l'Ardéche Blanc Sauvignon
+IGP,TRANQ,D07,,CDA,blanc,GRB,IGP Tranquilles Ardéche Coteaux de l'Ardéche Blanc Grenache Blanc
+IGP,TRANQ,D07,,CDA,blanc,VIO,IGP Tranquilles Ardéche Coteaux de l'Ardéche Blanc Viognier
+IGP,TRANQ,D07,,CDA,blanc,MAR,IGP Tranquilles Ardéche Coteaux de l'Ardéche Blanc Marsanne
+IGP,TRANQ,D07,,CDA,blanc,ROU,IGP Tranquilles Ardéche Coteaux de l'Ardéche Blanc Roussanne
+IGP,TRANQ,D07,,CDA,blanc,CLA,IGP Tranquilles Ardéche Coteaux de l'Ardéche Blanc Clairette
+IGP,TRANQ,D07,,CDA,blanc,MUH,IGP Tranquilles Ardéche Coteaux de l'Ardéche Blanc Muscat de HAMBOURG
+IGP,TRANQ,D07,,CDA,blanc,CEP,IGP Tranquilles Ardéche Coteaux de l'Ardéche Blanc Autre
+IGP,TRANQ,CLR,,,rose,,IGP Tranquilles Collines Rhodaniennes Rosé 
+IGP,TRANQ,CLR,,,rose,SYR,IGP Tranquilles Collines Rhodaniennes Rosé Syrah
+IGP,TRANQ,CLR,,,rose,GRN,IGP Tranquilles Collines Rhodaniennes Rosé Grenache Noir
+IGP,TRANQ,CLR,,,rose,CS,IGP Tranquilles Collines Rhodaniennes Rosé Cabernet-Sauvignon
+IGP,TRANQ,CLR,,,rose,CIN,IGP Tranquilles Collines Rhodaniennes Rosé Cinsaut
+IGP,TRANQ,CLR,,,rose,MER,IGP Tranquilles Collines Rhodaniennes Rosé Merlot
+IGP,TRANQ,CLR,,,rose,MOU,IGP Tranquilles Collines Rhodaniennes Rosé Mourvedre
+IGP,TRANQ,CLR,,,rose,GRG,IGP Tranquilles Collines Rhodaniennes Rosé Grenache Gris
+IGP,TRANQ,CLR,,,rose,CEP,IGP Tranquilles Collines Rhodaniennes Rosé Autre
+IGP,TRANQ,CLR,,,rouge,,IGP Tranquilles Collines Rhodaniennes Rouge 
+IGP,TRANQ,CLR,,,rouge,SYR,IGP Tranquilles Collines Rhodaniennes Rouge Syrah
+IGP,TRANQ,CLR,,,rouge,GRN,IGP Tranquilles Collines Rhodaniennes Rouge Grenache Noir
+IGP,TRANQ,CLR,,,rouge,CS,IGP Tranquilles Collines Rhodaniennes Rouge Cabernet-Sauvignon
+IGP,TRANQ,CLR,,,rouge,CIN,IGP Tranquilles Collines Rhodaniennes Rouge Cinsaut
+IGP,TRANQ,CLR,,,rouge,MER,IGP Tranquilles Collines Rhodaniennes Rouge Merlot
+IGP,TRANQ,CLR,,,rouge,MOU,IGP Tranquilles Collines Rhodaniennes Rouge Mourvedre
+IGP,TRANQ,CLR,,,rouge,PIN,IGP Tranquilles Collines Rhodaniennes Rouge Pinot
+IGP,TRANQ,CLR,,,rouge,GAM,IGP Tranquilles Collines Rhodaniennes Rouge Gamay
+IGP,TRANQ,CLR,,,blanc,,IGP Tranquilles Collines Rhodaniennes Blanc 
+IGP,TRANQ,CLR,,,blanc,ROL,IGP Tranquilles Collines Rhodaniennes Blanc Rolle-Vermentino
+IGP,TRANQ,CLR,,,blanc,CHA,IGP Tranquilles Collines Rhodaniennes Blanc Chardonnay
+IGP,TRANQ,CLR,,,blanc,SAU,IGP Tranquilles Collines Rhodaniennes Blanc Sauvignon
+IGP,TRANQ,CLR,,,blanc,GRB,IGP Tranquilles Collines Rhodaniennes Blanc Grenache Blanc
+IGP,TRANQ,CLR,,,blanc,VIO,IGP Tranquilles Collines Rhodaniennes Blanc Viognier
+IGP,TRANQ,CLR,,,blanc,MAR,IGP Tranquilles Collines Rhodaniennes Blanc Marsanne
+IGP,TRANQ,CLR,,,blanc,ROU,IGP Tranquilles Collines Rhodaniennes Blanc Roussanne
+IGP,TRANQ,CLR,,,blanc,CLA,IGP Tranquilles Collines Rhodaniennes Blanc Clairette
+IGP,TRANQ,CLR,,,blanc,MUH,IGP Tranquilles Collines Rhodaniennes Blanc Muscat de HAMBOURG
+IGP,TRANQ,CLR,,,blanc,CEP,IGP Tranquilles Collines Rhodaniennes Blanc Autre
+IGP,TRANQ,CTR,,,rouge,,IGP Tranquilles Comté Rhodanien Rouge 
+IGP,TRANQ,CTR,,,rouge,SYR,IGP Tranquilles Comté Rhodanien Rouge Syrah
+IGP,TRANQ,CTR,,,rouge,GRN,IGP Tranquilles Comté Rhodanien Rouge Grenache Noir
+IGP,TRANQ,CTR,,,rouge,CS,IGP Tranquilles Comté Rhodanien Rouge Cabernet-Sauvignon
+IGP,TRANQ,CTR,,,rouge,CIN,IGP Tranquilles Comté Rhodanien Rouge Cinsaut
+IGP,TRANQ,CTR,,,rouge,MER,IGP Tranquilles Comté Rhodanien Rouge Merlot
+IGP,TRANQ,CTR,,,rouge,MOU,IGP Tranquilles Comté Rhodanien Rouge Mourvedre
+IGP,TRANQ,CTR,,,rouge,PIN,IGP Tranquilles Comté Rhodanien Rouge Pinot
+IGP,TRANQ,CTR,,,rouge,GAM,IGP Tranquilles Comté Rhodanien Rouge Gamay
+IGP,TRANQ,CTR,,,rouge,CEP,IGP Tranquilles Comté Rhodanien Rouge Autre
+IGP,TRANQ,CTR,,,rose,,IGP Tranquilles Comté Rhodanien Rosé 
+IGP,TRANQ,CTR,,,rose,SYR,IGP Tranquilles Comté Rhodanien Rosé Syrah
+IGP,TRANQ,CTR,,,rose,GRN,IGP Tranquilles Comté Rhodanien Rosé Grenache Noir
+IGP,TRANQ,CTR,,,rose,CS,IGP Tranquilles Comté Rhodanien Rosé Cabernet-Sauvignon
+IGP,TRANQ,CTR,,,rose,CIN,IGP Tranquilles Comté Rhodanien Rosé Cinsaut
+IGP,TRANQ,CTR,,,rose,MER,IGP Tranquilles Comté Rhodanien Rosé Merlot
+IGP,TRANQ,CTR,,,rose,MOU,IGP Tranquilles Comté Rhodanien Rosé Mourvedre
+IGP,TRANQ,CTR,,,rose,GRG,IGP Tranquilles Comté Rhodanien Rosé Grenache Gris
+IGP,TRANQ,CTR,,,rose,CEP,IGP Tranquilles Comté Rhodanien Rosé Autre
+IGP,TRANQ,CTR,,,blanc,,IGP Tranquilles Comté Rhodanien Blanc 
+IGP,TRANQ,CTR,,,blanc,ROL,IGP Tranquilles Comté Rhodanien Blanc Rolle-Vermentino
+IGP,TRANQ,CTR,,,blanc,CHA,IGP Tranquilles Comté Rhodanien Blanc Chardonnay
+IGP,TRANQ,CTR,,,blanc,SAU,IGP Tranquilles Comté Rhodanien Blanc Sauvignon
+IGP,TRANQ,CTR,,,blanc,GRB,IGP Tranquilles Comté Rhodanien Blanc Grenache Blanc
+IGP,TRANQ,CTR,,,blanc,VIO,IGP Tranquilles Comté Rhodanien Blanc Viognier
+IGP,TRANQ,CTR,,,blanc,MAR,IGP Tranquilles Comté Rhodanien Blanc Marsanne
+IGP,TRANQ,CTR,,,blanc,ROU,IGP Tranquilles Comté Rhodanien Blanc Roussanne
+IGP,TRANQ,CTR,,,blanc,CLA,IGP Tranquilles Comté Rhodanien Blanc Clairette
+IGP,TRANQ,CTR,,,blanc,MUH,IGP Tranquilles Comté Rhodanien Blanc Muscat de HAMBOURG
+IGP,TRANQ,CTR,,,blanc,CEP,IGP Tranquilles Comté Rhodanien Blanc Autre
+IGP,TRANQ,D13,,,rouge,,IGP Tranquilles Bouches-du-Rhéne Rouge 
+IGP,TRANQ,D13,,,rouge,SYR,IGP Tranquilles Bouches-du-Rhéne Rouge Syrah
+IGP,TRANQ,D13,,,rouge,GRN,IGP Tranquilles Bouches-du-Rhéne Rouge Grenache Noir
+IGP,TRANQ,D13,,,rouge,CS,IGP Tranquilles Bouches-du-Rhéne Rouge Cabernet-Sauvignon
+IGP,TRANQ,D13,,,rouge,CIN,IGP Tranquilles Bouches-du-Rhéne Rouge Cinsaut
+IGP,TRANQ,D13,,,rouge,MER,IGP Tranquilles Bouches-du-Rhéne Rouge Merlot
+IGP,TRANQ,D13,,,rouge,MOU,IGP Tranquilles Bouches-du-Rhéne Rouge Mourvedre
+IGP,TRANQ,D13,,,rouge,MAR,IGP Tranquilles Bouches-du-Rhéne Rouge Marselan
+IGP,TRANQ,D13,,,rouge,CEP,IGP Tranquilles Bouches-du-Rhéne Rouge Autre
+IGP,TRANQ,D13,,,rose,,IGP Tranquilles Bouches-du-Rhéne Rosé 
+IGP,TRANQ,D13,,,rose,SYR,IGP Tranquilles Bouches-du-Rhéne Rosé Syrah
+IGP,TRANQ,D13,,,rose,GRN,IGP Tranquilles Bouches-du-Rhéne Rosé Grenache Noir
+IGP,TRANQ,D13,,,rose,CS,IGP Tranquilles Bouches-du-Rhéne Rosé Cabernet-Sauvignon
+IGP,TRANQ,D13,,,rose,CIN,IGP Tranquilles Bouches-du-Rhéne Rosé Cinsaut
+IGP,TRANQ,D13,,,rose,MER,IGP Tranquilles Bouches-du-Rhéne Rosé Merlot
+IGP,TRANQ,D13,,,rose,MOU,IGP Tranquilles Bouches-du-Rhéne Rosé Mourvedre
+IGP,TRANQ,D13,,,rose,GRG,IGP Tranquilles Bouches-du-Rhéne Rosé Grenache Gris
+IGP,TRANQ,D13,,,rose,CEP,IGP Tranquilles Bouches-du-Rhéne Rosé Autre
+IGP,TRANQ,D13,,,blanc,,IGP Tranquilles Bouches-du-Rhéne Blanc 
+IGP,TRANQ,D13,,,blanc,ROL,IGP Tranquilles Bouches-du-Rhéne Blanc Rolle-Vermentino
+IGP,TRANQ,D13,,,blanc,CHA,IGP Tranquilles Bouches-du-Rhéne Blanc Chardonnay
+IGP,TRANQ,D13,,,blanc,SAU,IGP Tranquilles Bouches-du-Rhéne Blanc Sauvignon
+IGP,TRANQ,D13,,,blanc,GRB,IGP Tranquilles Bouches-du-Rhéne Blanc Grenache Blanc
+IGP,TRANQ,D13,,,blanc,VIO,IGP Tranquilles Bouches-du-Rhéne Blanc Viognier
+IGP,TRANQ,D13,,,blanc,MAR,IGP Tranquilles Bouches-du-Rhéne Blanc Marsanne
+IGP,TRANQ,D13,,,blanc,ROU,IGP Tranquilles Bouches-du-Rhéne Blanc Roussanne
+IGP,TRANQ,D13,,,blanc,CLA,IGP Tranquilles Bouches-du-Rhéne Blanc Clairette
+IGP,TRANQ,D13,,,blanc,MUH,IGP Tranquilles Bouches-du-Rhéne Blanc Muscat de HAMBOURG
+IGP,TRANQ,D13,,,blanc,CEP,IGP Tranquilles Bouches-du-Rhéne Blanc Autre
+IGP,TRANQ,D13,,TDC,rouge,,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rouge 
+IGP,TRANQ,D13,,TDC,rouge,SYR,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rouge Syrah
+IGP,TRANQ,D13,,TDC,rouge,GRN,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rouge Grenache Noir
+IGP,TRANQ,D13,,TDC,rouge,CS,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rouge Cabernet-Sauvignon
+IGP,TRANQ,D13,,TDC,rouge,CIN,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rouge Cinsaut
+IGP,TRANQ,D13,,TDC,rouge,MER,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rouge Merlot
+IGP,TRANQ,D13,,TDC,rouge,MOU,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rouge Mourvedre
+IGP,TRANQ,D13,,TDC,rouge,MAR,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rouge Marselan
+IGP,TRANQ,D13,,TDC,rouge,CEP,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rouge Autre
+IGP,TRANQ,D13,,TDC,rose,,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rosé 
+IGP,TRANQ,D13,,TDC,rose,SYR,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rosé Syrah
+IGP,TRANQ,D13,,TDC,rose,GRN,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rosé Grenache Noir
+IGP,TRANQ,D13,,TDC,rose,CS,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rosé Cabernet-Sauvignon
+IGP,TRANQ,D13,,TDC,rose,CIN,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rosé Cinsaut
+IGP,TRANQ,D13,,TDC,rose,MER,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rosé Merlot
+IGP,TRANQ,D13,,TDC,rose,MOU,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rosé Mourvedre
+IGP,TRANQ,D13,,TDC,rose,GRG,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rosé Grenache Gris
+IGP,TRANQ,D13,,TDC,rose,CEP,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Rosé Autre
+IGP,TRANQ,D13,,TDC,blanc,,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Blanc 
+IGP,TRANQ,D13,,TDC,blanc,ROL,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Blanc Rolle-Vermentino
+IGP,TRANQ,D13,,TDC,blanc,CHA,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Blanc Chardonnay
+IGP,TRANQ,D13,,TDC,blanc,SAU,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Blanc Sauvignon
+IGP,TRANQ,D13,,TDC,blanc,GRB,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Blanc Grenache Blanc
+IGP,TRANQ,D13,,TDC,blanc,VIO,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Blanc Viognier
+IGP,TRANQ,D13,,TDC,blanc,MAR,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Blanc Marsanne
+IGP,TRANQ,D13,,TDC,blanc,ROU,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Blanc Roussanne
+IGP,TRANQ,D13,,TDC,blanc,CLA,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Blanc Clairette
+IGP,TRANQ,D13,,TDC,blanc,MUH,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Blanc Muscat de HAMBOURG
+IGP,TRANQ,D13,,TDC,blanc,CEP,IGP Tranquilles Bouches-du-Rhéne Terre de Camargue Blanc Autre
+IGP,TRANQ,D06,,,rouge,,IGP Tranquilles Alpes Maritimes Rouge 
+IGP,TRANQ,D06,,,rouge,SYR,IGP Tranquilles Alpes Maritimes Rouge Syrah
+IGP,TRANQ,D06,,,rouge,GRN,IGP Tranquilles Alpes Maritimes Rouge Grenache Noir
+IGP,TRANQ,D06,,,rouge,CS,IGP Tranquilles Alpes Maritimes Rouge Cabernet-Sauvignon
+IGP,TRANQ,D06,,,rouge,CIN,IGP Tranquilles Alpes Maritimes Rouge Cinsaut
+IGP,TRANQ,D06,,,rouge,MER,IGP Tranquilles Alpes Maritimes Rouge Merlot
+IGP,TRANQ,D06,,,rouge,MOU,IGP Tranquilles Alpes Maritimes Rouge Mourvedre
+IGP,TRANQ,D06,,,rouge,CEP,IGP Tranquilles Alpes Maritimes Rouge Autre
+IGP,TRANQ,D06,,,rose,,IGP Tranquilles Alpes Maritimes Rosé 
+IGP,TRANQ,D06,,,rose,SYR,IGP Tranquilles Alpes Maritimes Rosé Syrah
+IGP,TRANQ,D06,,,rose,GRN,IGP Tranquilles Alpes Maritimes Rosé Grenache Noir
+IGP,TRANQ,D06,,,rose,CS,IGP Tranquilles Alpes Maritimes Rosé Cabernet-Sauvignon
+IGP,TRANQ,D06,,,rose,CIN,IGP Tranquilles Alpes Maritimes Rosé Cinsaut
+IGP,TRANQ,D06,,,rose,MER,IGP Tranquilles Alpes Maritimes Rosé Merlot
+IGP,TRANQ,D06,,,rose,MOU,IGP Tranquilles Alpes Maritimes Rosé Mourvedre
+IGP,TRANQ,D06,,,rose,CEP,IGP Tranquilles Alpes Maritimes Rosé Autre
+IGP,TRANQ,D06,,,blanc,,IGP Tranquilles Alpes Maritimes Blanc 
+IGP,TRANQ,D06,,,blanc,ROL,IGP Tranquilles Alpes Maritimes Blanc Rolle-Vermentino
+IGP,TRANQ,D06,,,blanc,CHA,IGP Tranquilles Alpes Maritimes Blanc Chardonnay
+IGP,TRANQ,D06,,,blanc,SAU,IGP Tranquilles Alpes Maritimes Blanc Sauvignon
+IGP,TRANQ,D06,,,blanc,GRB,IGP Tranquilles Alpes Maritimes Blanc Grenache Blanc
+IGP,TRANQ,D06,,,blanc,VIO,IGP Tranquilles Alpes Maritimes Blanc Viognier
+IGP,TRANQ,D06,,,blanc,MAR,IGP Tranquilles Alpes Maritimes Blanc Marsanne
+IGP,TRANQ,D06,,,blanc,ROU,IGP Tranquilles Alpes Maritimes Blanc Roussanne
+IGP,TRANQ,D06,,,blanc,CLA,IGP Tranquilles Alpes Maritimes Blanc Clairette
+IGP,TRANQ,D06,,,blanc,CEP,IGP Tranquilles Alpes Maritimes Blanc Autre
+IGP,TRANQ,D83,,,rouge,,IGP Tranquilles Var Rouge 
+IGP,TRANQ,D83,,,rouge,SYR,IGP Tranquilles Var Rouge Syrah
+IGP,TRANQ,D83,,,rouge,GRN,IGP Tranquilles Var Rouge Grenache Noir
+IGP,TRANQ,D83,,,rouge,CS,IGP Tranquilles Var Rouge Cabernet-Sauvignon
+IGP,TRANQ,D83,,,rouge,CIN,IGP Tranquilles Var Rouge Cinsaut
+IGP,TRANQ,D83,,,rouge,MER,IGP Tranquilles Var Rouge Merlot
+IGP,TRANQ,D83,,,rouge,MOU,IGP Tranquilles Var Rouge Mourvedre
+IGP,TRANQ,D83,,,rouge,CEP,IGP Tranquilles Var Rouge Autre
+IGP,TRANQ,D83,,,rose,,IGP Tranquilles Var Rosé 
+IGP,TRANQ,D83,,,rose,SYR,IGP Tranquilles Var Rosé Syrah
+IGP,TRANQ,D83,,,rose,GRN,IGP Tranquilles Var Rosé Grenache Noir
+IGP,TRANQ,D83,,,rose,CS,IGP Tranquilles Var Rosé Cabernet-Sauvignon
+IGP,TRANQ,D83,,,rose,CIN,IGP Tranquilles Var Rosé Cinsaut
+IGP,TRANQ,D83,,,rose,MER,IGP Tranquilles Var Rosé Merlot
+IGP,TRANQ,D83,,,rose,MOU,IGP Tranquilles Var Rosé Mourvedre
+IGP,TRANQ,D83,,,rose,CEP,IGP Tranquilles Var Rosé Autre
+IGP,TRANQ,D83,,,blanc,,IGP Tranquilles Var Blanc 
+IGP,TRANQ,D83,,,blanc,ROL,IGP Tranquilles Var Blanc Rolle-Vermentino
+IGP,TRANQ,D83,,,blanc,CHA,IGP Tranquilles Var Blanc Chardonnay
+IGP,TRANQ,D83,,,blanc,SAU,IGP Tranquilles Var Blanc Sauvignon
+IGP,TRANQ,D83,,,blanc,GRB,IGP Tranquilles Var Blanc Grenache Blanc
+IGP,TRANQ,D83,,,blanc,VIO,IGP Tranquilles Var Blanc Viognier
+IGP,TRANQ,D83,,,blanc,MAR,IGP Tranquilles Var Blanc Marsanne
+IGP,TRANQ,D83,,,blanc,ROU,IGP Tranquilles Var Blanc Roussanne
+IGP,TRANQ,D83,,,blanc,CLA,IGP Tranquilles Var Blanc Clairette
+IGP,TRANQ,D83,,,blanc,CEP,IGP Tranquilles Var Blanc Autre
+IGP,TRANQ,D83,,ARG,rouge,,IGP Tranquilles Var Argens Rouge 
+IGP,TRANQ,D83,,ARG,rouge,SYR,IGP Tranquilles Var Argens Rouge Syrah
+IGP,TRANQ,D83,,ARG,rouge,GRN,IGP Tranquilles Var Argens Rouge Grenache Noir
+IGP,TRANQ,D83,,ARG,rouge,CS,IGP Tranquilles Var Argens Rouge Cabernet-Sauvignon
+IGP,TRANQ,D83,,ARG,rouge,CIN,IGP Tranquilles Var Argens Rouge Cinsaut
+IGP,TRANQ,D83,,ARG,rouge,MER,IGP Tranquilles Var Argens Rouge Merlot
+IGP,TRANQ,D83,,ARG,rouge,MOU,IGP Tranquilles Var Argens Rouge Mourvedre
+IGP,TRANQ,D83,,ARG,rouge,CEP,IGP Tranquilles Var Argens Rouge Autre
+IGP,TRANQ,D83,,ARG,rose,,IGP Tranquilles Var Argens Rosé 
+IGP,TRANQ,D83,,ARG,rose,SYR,IGP Tranquilles Var Argens Rosé Syrah
+IGP,TRANQ,D83,,ARG,rose,GRN,IGP Tranquilles Var Argens Rosé Grenache Noir
+IGP,TRANQ,D83,,ARG,rose,CS,IGP Tranquilles Var Argens Rosé Cabernet-Sauvignon
+IGP,TRANQ,D83,,ARG,rose,CIN,IGP Tranquilles Var Argens Rosé Cinsaut
+IGP,TRANQ,D83,,ARG,rose,MER,IGP Tranquilles Var Argens Rosé Merlot
+IGP,TRANQ,D83,,ARG,rose,MOU,IGP Tranquilles Var Argens Rosé Mourvedre
+IGP,TRANQ,D83,,ARG,rose,CEP,IGP Tranquilles Var Argens Rosé Autre
+IGP,TRANQ,D83,,ARG,blanc,,IGP Tranquilles Var Argens Blanc 
+IGP,TRANQ,D83,,ARG,blanc,ROL,IGP Tranquilles Var Argens Blanc Rolle-Vermentino
+IGP,TRANQ,D83,,ARG,blanc,CHA,IGP Tranquilles Var Argens Blanc Chardonnay
+IGP,TRANQ,D83,,ARG,blanc,SAU,IGP Tranquilles Var Argens Blanc Sauvignon
+IGP,TRANQ,D83,,ARG,blanc,GRB,IGP Tranquilles Var Argens Blanc Grenache Blanc
+IGP,TRANQ,D83,,ARG,blanc,VIO,IGP Tranquilles Var Argens Blanc Viognier
+IGP,TRANQ,D83,,ARG,blanc,MAR,IGP Tranquilles Var Argens Blanc Marsanne
+IGP,TRANQ,D83,,ARG,blanc,ROU,IGP Tranquilles Var Argens Blanc Roussanne
+IGP,TRANQ,D83,,ARG,blanc,CLA,IGP Tranquilles Var Argens Blanc Clairette
+IGP,TRANQ,D83,,ARG,blanc,CEP,IGP Tranquilles Var Argens Blanc Autre
+IGP,TRANQ,D83,,CV,rouge,,IGP Tranquilles Var Coteaux du Verdon Rouge 
+IGP,TRANQ,D83,,CV,rouge,SYR,IGP Tranquilles Var Coteaux du Verdon Rouge Syrah
+IGP,TRANQ,D83,,CV,rouge,GRN,IGP Tranquilles Var Coteaux du Verdon Rouge Grenache Noir
+IGP,TRANQ,D83,,CV,rouge,CS,IGP Tranquilles Var Coteaux du Verdon Rouge Cabernet-Sauvignon
+IGP,TRANQ,D83,,CV,rouge,CIN,IGP Tranquilles Var Coteaux du Verdon Rouge Cinsaut
+IGP,TRANQ,D83,,CV,rouge,MER,IGP Tranquilles Var Coteaux du Verdon Rouge Merlot
+IGP,TRANQ,D83,,CV,rouge,MOU,IGP Tranquilles Var Coteaux du Verdon Rouge Mourvedre
+IGP,TRANQ,D83,,CV,rouge,CEP,IGP Tranquilles Var Coteaux du Verdon Rouge Autre
+IGP,TRANQ,D83,,CV,rose,,IGP Tranquilles Var Coteaux du Verdon Rosé 
+IGP,TRANQ,D83,,CV,rose,SYR,IGP Tranquilles Var Coteaux du Verdon Rosé Syrah
+IGP,TRANQ,D83,,CV,rose,GRN,IGP Tranquilles Var Coteaux du Verdon Rosé Grenache Noir
+IGP,TRANQ,D83,,CV,rose,CS,IGP Tranquilles Var Coteaux du Verdon Rosé Cabernet-Sauvignon
+IGP,TRANQ,D83,,CV,rose,CIN,IGP Tranquilles Var Coteaux du Verdon Rosé Cinsaut
+IGP,TRANQ,D83,,CV,rose,MER,IGP Tranquilles Var Coteaux du Verdon Rosé Merlot
+IGP,TRANQ,D83,,CV,rose,MOU,IGP Tranquilles Var Coteaux du Verdon Rosé Mourvedre
+IGP,TRANQ,D83,,CV,rose,CEP,IGP Tranquilles Var Coteaux du Verdon Rosé Autre
+IGP,TRANQ,D83,,CV,blanc,,IGP Tranquilles Var Coteaux du Verdon Blanc 
+IGP,TRANQ,D83,,CV,blanc,ROL,IGP Tranquilles Var Coteaux du Verdon Blanc Rolle-Vermentino
+IGP,TRANQ,D83,,CV,blanc,CHA,IGP Tranquilles Var Coteaux du Verdon Blanc Chardonnay
+IGP,TRANQ,D83,,CV,blanc,SAU,IGP Tranquilles Var Coteaux du Verdon Blanc Sauvignon
+IGP,TRANQ,D83,,CV,blanc,GRB,IGP Tranquilles Var Coteaux du Verdon Blanc Grenache Blanc
+IGP,TRANQ,D83,,CV,blanc,VIO,IGP Tranquilles Var Coteaux du Verdon Blanc Viognier
+IGP,TRANQ,D83,,CV,blanc,MAR,IGP Tranquilles Var Coteaux du Verdon Blanc Marsanne
+IGP,TRANQ,D83,,CV,blanc,ROU,IGP Tranquilles Var Coteaux du Verdon Blanc Roussanne
+IGP,TRANQ,D83,,CV,blanc,CLA,IGP Tranquilles Var Coteaux du Verdon Blanc Clairette
+IGP,TRANQ,D83,,CV,blanc,CEP,IGP Tranquilles Var Coteaux du Verdon Blanc Autre
+IGP,TRANQ,D83,,SBA,rouge,,IGP Tranquilles Var Sainte Baume Rouge 
+IGP,TRANQ,D83,,SBA,rouge,SYR,IGP Tranquilles Var Sainte Baume Rouge Syrah
+IGP,TRANQ,D83,,SBA,rouge,GRN,IGP Tranquilles Var Sainte Baume Rouge Grenache Noir
+IGP,TRANQ,D83,,SBA,rouge,CS,IGP Tranquilles Var Sainte Baume Rouge Cabernet-Sauvignon
+IGP,TRANQ,D83,,SBA,rouge,CIN,IGP Tranquilles Var Sainte Baume Rouge Cinsaut
+IGP,TRANQ,D83,,SBA,rouge,MER,IGP Tranquilles Var Sainte Baume Rouge Merlot
+IGP,TRANQ,D83,,SBA,rouge,MOU,IGP Tranquilles Var Sainte Baume Rouge Mourvedre
+IGP,TRANQ,D83,,SBA,rouge,CEP,IGP Tranquilles Var Sainte Baume Rouge Autre
+IGP,TRANQ,D83,,SBA,rose,,IGP Tranquilles Var Sainte Baume Rosé 
+IGP,TRANQ,D83,,SBA,rose,SYR,IGP Tranquilles Var Sainte Baume Rosé Syrah
+IGP,TRANQ,D83,,SBA,rose,GRN,IGP Tranquilles Var Sainte Baume Rosé Grenache Noir
+IGP,TRANQ,D83,,SBA,rose,CS,IGP Tranquilles Var Sainte Baume Rosé Cabernet-Sauvignon
+IGP,TRANQ,D83,,SBA,rose,CIN,IGP Tranquilles Var Sainte Baume Rosé Cinsaut
+IGP,TRANQ,D83,,SBA,rose,MER,IGP Tranquilles Var Sainte Baume Rosé Merlot
+IGP,TRANQ,D83,,SBA,rose,MOU,IGP Tranquilles Var Sainte Baume Rosé Mourvedre
+IGP,TRANQ,D83,,SBA,rose,CEP,IGP Tranquilles Var Sainte Baume Rosé Autre
+IGP,TRANQ,D83,,SBA,blanc,,IGP Tranquilles Var Sainte Baume Blanc 
+IGP,TRANQ,D83,,SBA,blanc,ROL,IGP Tranquilles Var Sainte Baume Blanc Rolle-Vermentino
+IGP,TRANQ,D83,,SBA,blanc,CHA,IGP Tranquilles Var Sainte Baume Blanc Chardonnay
+IGP,TRANQ,D83,,SBA,blanc,SAU,IGP Tranquilles Var Sainte Baume Blanc Sauvignon
+IGP,TRANQ,D83,,SBA,blanc,GRB,IGP Tranquilles Var Sainte Baume Blanc Grenache Blanc
+IGP,TRANQ,D83,,SBA,blanc,VIO,IGP Tranquilles Var Sainte Baume Blanc Viognier
+IGP,TRANQ,D83,,SBA,blanc,MAR,IGP Tranquilles Var Sainte Baume Blanc Marsanne
+IGP,TRANQ,D83,,SBA,blanc,ROU,IGP Tranquilles Var Sainte Baume Blanc Roussanne
+IGP,TRANQ,D83,,SBA,blanc,CLA,IGP Tranquilles Var Sainte Baume Blanc Clairette
+IGP,TRANQ,D83,,SBA,blanc,CEP,IGP Tranquilles Var Sainte Baume Blanc Autre
+IGP,TRANQ,D83,,MAU,rouge,,IGP Tranquilles Var Maures Rouge 
+IGP,TRANQ,D83,,MAU,rouge,SYR,IGP Tranquilles Var Maures Rouge Syrah
+IGP,TRANQ,D83,,MAU,rouge,GRN,IGP Tranquilles Var Maures Rouge Grenache Noir
+IGP,TRANQ,D83,,MAU,rouge,CS,IGP Tranquilles Var Maures Rouge Cabernet-Sauvignon
+IGP,TRANQ,D83,,MAU,rouge,CIN,IGP Tranquilles Var Maures Rouge Cinsaut
+IGP,TRANQ,D83,,MAU,rouge,MER,IGP Tranquilles Var Maures Rouge Merlot
+IGP,TRANQ,D83,,MAU,rouge,MOU,IGP Tranquilles Var Maures Rouge Mourvedre
+IGP,TRANQ,D83,,MAU,rouge,CEP,IGP Tranquilles Var Maures Rouge Autre
+IGP,TRANQ,D83,,MAU,rose,,IGP Tranquilles Var Maures Rosé 
+IGP,TRANQ,D83,,MAU,rose,SYR,IGP Tranquilles Var Maures Rosé Syrah
+IGP,TRANQ,D83,,MAU,rose,GRN,IGP Tranquilles Var Maures Rosé Grenache Noir
+IGP,TRANQ,D83,,MAU,rose,CS,IGP Tranquilles Var Maures Rosé Cabernet-Sauvignon
+IGP,TRANQ,D83,,MAU,rose,CIN,IGP Tranquilles Var Maures Rosé Cinsaut
+IGP,TRANQ,D83,,MAU,rose,MER,IGP Tranquilles Var Maures Rosé Merlot
+IGP,TRANQ,D83,,MAU,rose,MOU,IGP Tranquilles Var Maures Rosé Mourvedre
+IGP,TRANQ,D83,,MAU,rose,CEP,IGP Tranquilles Var Maures Rosé Autre
+IGP,TRANQ,D83,,MAU,blanc,,IGP Tranquilles Var Maures Blanc 
+IGP,TRANQ,D83,,MAU,blanc,ROL,IGP Tranquilles Var Maures Blanc Rolle-Vermentino
+IGP,TRANQ,D83,,MAU,blanc,CHA,IGP Tranquilles Var Maures Blanc Chardonnay
+IGP,TRANQ,D83,,MAU,blanc,SAU,IGP Tranquilles Var Maures Blanc Sauvignon
+IGP,TRANQ,D83,,MAU,blanc,GRB,IGP Tranquilles Var Maures Blanc Grenache Blanc
+IGP,TRANQ,D83,,MAU,blanc,VIO,IGP Tranquilles Var Maures Blanc Viognier
+IGP,TRANQ,D83,,MAU,blanc,MAR,IGP Tranquilles Var Maures Blanc Marsanne
+IGP,TRANQ,D83,,MAU,blanc,ROU,IGP Tranquilles Var Maures Blanc Roussanne
+IGP,TRANQ,D83,,MAU,blanc,CLA,IGP Tranquilles Var Maures Blanc Clairette
+IGP,TRANQ,D83,,MAU,blanc,CEP,IGP Tranquilles Var Maures Blanc Autre
+IGP,TRANQ,D83,,MCA,rouge,,IGP Tranquilles Var Mont Caume Rouge 
+IGP,TRANQ,D83,,MCA,rouge,SYR,IGP Tranquilles Var Mont Caume Rouge Syrah
+IGP,TRANQ,D83,,MCA,rouge,GRN,IGP Tranquilles Var Mont Caume Rouge Grenache Noir
+IGP,TRANQ,D83,,MCA,rouge,CS,IGP Tranquilles Var Mont Caume Rouge Cabernet-Sauvignon
+IGP,TRANQ,D83,,MCA,rouge,CIN,IGP Tranquilles Var Mont Caume Rouge Cinsaut
+IGP,TRANQ,D83,,MCA,rouge,MER,IGP Tranquilles Var Mont Caume Rouge Merlot
+IGP,TRANQ,D83,,MCA,rouge,MOU,IGP Tranquilles Var Mont Caume Rouge Mourvedre
+IGP,TRANQ,D83,,MCA,rouge,CEP,IGP Tranquilles Var Mont Caume Rouge Autre
+IGP,TRANQ,D83,,MCA,rose,,IGP Tranquilles Var Mont Caume Rosé 
+IGP,TRANQ,D83,,MCA,rose,SYR,IGP Tranquilles Var Mont Caume Rosé Syrah
+IGP,TRANQ,D83,,MCA,rose,GRN,IGP Tranquilles Var Mont Caume Rosé Grenache Noir
+IGP,TRANQ,D83,,MCA,rose,CS,IGP Tranquilles Var Mont Caume Rosé Cabernet-Sauvignon
+IGP,TRANQ,D83,,MCA,rose,CIN,IGP Tranquilles Var Mont Caume Rosé Cinsaut
+IGP,TRANQ,D83,,MCA,rose,MER,IGP Tranquilles Var Mont Caume Rosé Merlot
+IGP,TRANQ,D83,,MCA,rose,MOU,IGP Tranquilles Var Mont Caume Rosé Mourvedre
+IGP,TRANQ,D83,,MCA,rose,CEP,IGP Tranquilles Var Mont Caume Rosé Autre
+IGP,TRANQ,D83,,MCA,blanc,,IGP Tranquilles Var Mont Caume Blanc 
+IGP,TRANQ,D83,,MCA,blanc,ROL,IGP Tranquilles Var Mont Caume Blanc Rolle-Vermentino
+IGP,TRANQ,D83,,MCA,blanc,CHA,IGP Tranquilles Var Mont Caume Blanc Chardonnay
+IGP,TRANQ,D83,,MCA,blanc,SAU,IGP Tranquilles Var Mont Caume Blanc Sauvignon
+IGP,TRANQ,D83,,MCA,blanc,GRB,IGP Tranquilles Var Mont Caume Blanc Grenache Blanc
+IGP,TRANQ,D83,,MCA,blanc,VIO,IGP Tranquilles Var Mont Caume Blanc Viognier
+IGP,TRANQ,D83,,MCA,blanc,MAR,IGP Tranquilles Var Mont Caume Blanc Marsanne
+IGP,TRANQ,D83,,MCA,blanc,ROU,IGP Tranquilles Var Mont Caume Blanc Roussanne
+IGP,TRANQ,D83,,MCA,blanc,CLA,IGP Tranquilles Var Mont Caume Blanc Clairette
+IGP,TRANQ,D83,,MCA,blanc,CEP,IGP Tranquilles Var Mont Caume Blanc Autre
+IGP,TRANQ,MAU,,,rouge,,IGP Tranquilles Maures Rouge 
+IGP,TRANQ,MAU,,,rouge,SYR,IGP Tranquilles Maures Rouge Syrah
+IGP,TRANQ,MAU,,,rouge,GRN,IGP Tranquilles Maures Rouge Grenache Noir
+IGP,TRANQ,MAU,,,rouge,CS,IGP Tranquilles Maures Rouge Cabernet-Sauvignon
+IGP,TRANQ,MAU,,,rouge,CIN,IGP Tranquilles Maures Rouge Cinsaut
+IGP,TRANQ,MAU,,,rouge,MER,IGP Tranquilles Maures Rouge Merlot
+IGP,TRANQ,MAU,,,rouge,MOU,IGP Tranquilles Maures Rouge Mourvedre
+IGP,TRANQ,MAU,,,rouge,CEP,IGP Tranquilles Maures Rouge Autre
+IGP,TRANQ,MAU,,,rose,,IGP Tranquilles Maures Rosé 
+IGP,TRANQ,MAU,,,rose,SYR,IGP Tranquilles Maures Rosé Syrah
+IGP,TRANQ,MAU,,,rose,GRN,IGP Tranquilles Maures Rosé Grenache Noir
+IGP,TRANQ,MAU,,,rose,CS,IGP Tranquilles Maures Rosé Cabernet-Sauvignon
+IGP,TRANQ,MAU,,,rose,CIN,IGP Tranquilles Maures Rosé Cinsaut
+IGP,TRANQ,MAU,,,rose,MER,IGP Tranquilles Maures Rosé Merlot
+IGP,TRANQ,MAU,,,rose,MOU,IGP Tranquilles Maures Rosé Mourvedre
+IGP,TRANQ,MAU,,,rose,CEP,IGP Tranquilles Maures Rosé Autre
+IGP,TRANQ,MAU,,,blanc,,IGP Tranquilles Maures Blanc 
+IGP,TRANQ,MAU,,,blanc,ROL,IGP Tranquilles Maures Blanc Rolle-Vermentino
+IGP,TRANQ,MAU,,,blanc,CHA,IGP Tranquilles Maures Blanc Chardonnay
+IGP,TRANQ,MAU,,,blanc,SAU,IGP Tranquilles Maures Blanc Sauvignon
+IGP,TRANQ,MAU,,,blanc,GRB,IGP Tranquilles Maures Blanc Grenache Blanc
+IGP,TRANQ,MAU,,,blanc,VIO,IGP Tranquilles Maures Blanc Viognier
+IGP,TRANQ,MAU,,,blanc,MAR,IGP Tranquilles Maures Blanc Marsanne
+IGP,TRANQ,MAU,,,blanc,ROU,IGP Tranquilles Maures Blanc Roussanne
+IGP,TRANQ,MAU,,,blanc,CLA,IGP Tranquilles Maures Blanc Clairette
+IGP,TRANQ,MAU,,,blanc,CEP,IGP Tranquilles Maures Blanc Autre
+IGP,TRANQ,MCA,,,rose,,IGP Tranquilles Mont Caume Rosé 
+IGP,TRANQ,MCA,,,rose,SYR,IGP Tranquilles Mont Caume Rosé Syrah
+IGP,TRANQ,MCA,,,rose,GRN,IGP Tranquilles Mont Caume Rosé Grenache Noir
+IGP,TRANQ,MCA,,,rose,CS,IGP Tranquilles Mont Caume Rosé Cabernet-Sauvignon
+IGP,TRANQ,MCA,,,rose,CIN,IGP Tranquilles Mont Caume Rosé Cinsaut
+IGP,TRANQ,MCA,,,rose,MER,IGP Tranquilles Mont Caume Rosé Merlot
+IGP,TRANQ,MCA,,,rose,MOU,IGP Tranquilles Mont Caume Rosé Mourvedre
+IGP,TRANQ,MCA,,,rose,CEP,IGP Tranquilles Mont Caume Rosé Autre
+IGP,TRANQ,MCA,,,rouge,,IGP Tranquilles Mont Caume Rouge 
+IGP,TRANQ,MCA,,,rouge,SYR,IGP Tranquilles Mont Caume Rouge Syrah
+IGP,TRANQ,MCA,,,rouge,GRN,IGP Tranquilles Mont Caume Rouge Grenache Noir
+IGP,TRANQ,MCA,,,rouge,CS,IGP Tranquilles Mont Caume Rouge Cabernet-Sauvignon
+IGP,TRANQ,MCA,,,rouge,CIN,IGP Tranquilles Mont Caume Rouge Cinsaut
+IGP,TRANQ,MCA,,,rouge,MER,IGP Tranquilles Mont Caume Rouge Merlot
+IGP,TRANQ,MCA,,,rouge,MOU,IGP Tranquilles Mont Caume Rouge Mourvedre
+IGP,TRANQ,MCA,,,rouge,CEP,IGP Tranquilles Mont Caume Rouge Autre
+IGP,TRANQ,MCA,,,blanc,,IGP Tranquilles Mont Caume Blanc 
+IGP,TRANQ,MCA,,,blanc,ROL,IGP Tranquilles Mont Caume Blanc Rolle-Vermentino
+IGP,TRANQ,MCA,,,blanc,CHA,IGP Tranquilles Mont Caume Blanc Chardonnay
+IGP,TRANQ,MCA,,,blanc,SAU,IGP Tranquilles Mont Caume Blanc Sauvignon
+IGP,TRANQ,MCA,,,blanc,GRB,IGP Tranquilles Mont Caume Blanc Grenache Blanc
+IGP,TRANQ,MCA,,,blanc,VIO,IGP Tranquilles Mont Caume Blanc Viognier
+IGP,TRANQ,MCA,,,blanc,MAR,IGP Tranquilles Mont Caume Blanc Marsanne
+IGP,TRANQ,MCA,,,blanc,ROU,IGP Tranquilles Mont Caume Blanc Roussanne
+IGP,TRANQ,MCA,,,blanc,CLA,IGP Tranquilles Mont Caume Blanc Clairette
+IGP,TRANQ,MCA,,,blanc,CEP,IGP Tranquilles Mont Caume Blanc Autre
+IGP,TRANQ,IGP,,,rouge,,IGP Tranquilles Autre IGP Rouge 
+IGP,TRANQ,IGP,,,rose,,IGP Tranquilles Autre IGP Rosé 
+IGP,TRANQ,IGP,,,blanc,,IGP Tranquilles Autre IGP Blanc 
+IGP,EFF,MED,,,rouge,,IGP Effervescent Méditerranée Rouge 
+IGP,EFF,MED,,,rouge,SYR,IGP Effervescent Méditerranée Rouge Syrah
+IGP,EFF,MED,,,rouge,GRN,IGP Effervescent Méditerranée Rouge Grenache Noir
+IGP,EFF,MED,,,rouge,CS,IGP Effervescent Méditerranée Rouge Cabernet-Sauvignon
+IGP,EFF,MED,,,rouge,CIN,IGP Effervescent Méditerranée Rouge Cinsaut
+IGP,EFF,MED,,,rouge,MER,IGP Effervescent Méditerranée Rouge Merlot
+IGP,EFF,MED,,,rouge,MOU,IGP Effervescent Méditerranée Rouge Mourvedre
+IGP,EFF,MED,,,rouge,MAR,IGP Effervescent Méditerranée Rouge Marselan
+IGP,EFF,MED,,,rouge,CEP,IGP Effervescent Méditerranée Rouge Autre
+IGP,EFF,MED,,,rose,,IGP Effervescent Méditerranée Rosé 
+IGP,EFF,MED,,,rose,SYR,IGP Effervescent Méditerranée Rosé Syrah
+IGP,EFF,MED,,,rose,GRN,IGP Effervescent Méditerranée Rosé Grenache Noir
+IGP,EFF,MED,,,rose,CS,IGP Effervescent Méditerranée Rosé Cabernet-Sauvignon
+IGP,EFF,MED,,,rose,CIN,IGP Effervescent Méditerranée Rosé Cinsaut
+IGP,EFF,MED,,,rose,MER,IGP Effervescent Méditerranée Rosé Merlot
+IGP,EFF,MED,,,rose,MOU,IGP Effervescent Méditerranée Rosé Mourvedre
+IGP,EFF,MED,,,rose,MAR,IGP Effervescent Méditerranée Rosé Marselan
+IGP,EFF,MED,,,rose,GRG,IGP Effervescent Méditerranée Rosé Grenache Gris
+IGP,EFF,MED,,,rose,CEP,IGP Effervescent Méditerranée Rosé Autre
+IGP,EFF,MED,,,blanc,,IGP Effervescent Méditerranée Blanc 
+IGP,EFF,MED,,,blanc,ROL,IGP Effervescent Méditerranée Blanc Rolle-Vermentino
+IGP,EFF,MED,,,blanc,CHA,IGP Effervescent Méditerranée Blanc Chardonnay
+IGP,EFF,MED,,,blanc,SAU,IGP Effervescent Méditerranée Blanc Sauvignon
+IGP,EFF,MED,,,blanc,GRB,IGP Effervescent Méditerranée Blanc Grenache Blanc
+IGP,EFF,MED,,,blanc,VIO,IGP Effervescent Méditerranée Blanc Viognier
+IGP,EFF,MED,,,blanc,MAR,IGP Effervescent Méditerranée Blanc Marsanne
+IGP,EFF,MED,,,blanc,ROU,IGP Effervescent Méditerranée Blanc Roussanne
+IGP,EFF,MED,,,blanc,CLA,IGP Effervescent Méditerranée Blanc Clairette
+IGP,EFF,MED,,,blanc,MUH,IGP Effervescent Méditerranée Blanc Muscat de HAMBOURG
+IGP,EFF,MED,,,blanc,CEP,IGP Effervescent Méditerranée Blanc Autre
+IGP,EFF,D26,,,rouge,,IGP Effervescent Dréme Rouge 
+IGP,EFF,D26,,,rouge,SYR,IGP Effervescent Dréme Rouge Syrah
+IGP,EFF,D26,,,rouge,GRN,IGP Effervescent Dréme Rouge Grenache Noir
+IGP,EFF,D26,,,rouge,CS,IGP Effervescent Dréme Rouge Cabernet-Sauvignon
+IGP,EFF,D26,,,rouge,CIN,IGP Effervescent Dréme Rouge Cinsaut
+IGP,EFF,D26,,,rouge,MER,IGP Effervescent Dréme Rouge Merlot
+IGP,EFF,D26,,,rouge,MOU,IGP Effervescent Dréme Rouge Mourvedre
+IGP,EFF,D26,,,rouge,CEP,IGP Effervescent Dréme Rouge Autre
+IGP,EFF,D26,,,rose,,IGP Effervescent Dréme Rosé 
+IGP,EFF,D26,,,rose,SYR,IGP Effervescent Dréme Rosé Syrah
+IGP,EFF,D26,,,rose,GRN,IGP Effervescent Dréme Rosé Grenache Noir
+IGP,EFF,D26,,,rose,CS,IGP Effervescent Dréme Rosé Cabernet-Sauvignon
+IGP,EFF,D26,,,rose,CIN,IGP Effervescent Dréme Rosé Cinsaut
+IGP,EFF,D26,,,rose,MER,IGP Effervescent Dréme Rosé Merlot
+IGP,EFF,D26,,,rose,MOU,IGP Effervescent Dréme Rosé Mourvedre
+IGP,EFF,D26,,,rose,GRG,IGP Effervescent Dréme Rosé Grenache Gris
+IGP,EFF,D26,,,rose,CEP,IGP Effervescent Dréme Rosé Autre
+IGP,EFF,D26,,,blanc,,IGP Effervescent Dréme Blanc 
+IGP,EFF,D26,,,blanc,ROL,IGP Effervescent Dréme Blanc Rolle-Vermentino
+IGP,EFF,D26,,,blanc,CHA,IGP Effervescent Dréme Blanc Chardonnay
+IGP,EFF,D26,,,blanc,SAU,IGP Effervescent Dréme Blanc Sauvignon
+IGP,EFF,D26,,,blanc,GRB,IGP Effervescent Dréme Blanc Grenache Blanc
+IGP,EFF,D26,,,blanc,VIO,IGP Effervescent Dréme Blanc Viognier
+IGP,EFF,D26,,,blanc,MAR,IGP Effervescent Dréme Blanc Marsanne
+IGP,EFF,D26,,,blanc,ROU,IGP Effervescent Dréme Blanc Roussanne
+IGP,EFF,D26,,,blanc,CLA,IGP Effervescent Dréme Blanc Clairette
+IGP,EFF,D26,,,blanc,MUH,IGP Effervescent Dréme Blanc Muscat de HAMBOURG
+IGP,EFF,D26,,,blanc,CEP,IGP Effervescent Dréme Blanc Autre
+IGP,EFF,CBA,,,rouge,,IGP Effervescent Coteaux des Baronnies Rouge 
+IGP,EFF,CBA,,,rouge,SYR,IGP Effervescent Coteaux des Baronnies Rouge Syrah
+IGP,EFF,CBA,,,rouge,GRN,IGP Effervescent Coteaux des Baronnies Rouge Grenache Noir
+IGP,EFF,CBA,,,rouge,CS,IGP Effervescent Coteaux des Baronnies Rouge Cabernet-Sauvignon
+IGP,EFF,CBA,,,rouge,CIN,IGP Effervescent Coteaux des Baronnies Rouge Cinsaut
+IGP,EFF,CBA,,,rouge,MER,IGP Effervescent Coteaux des Baronnies Rouge Merlot
+IGP,EFF,CBA,,,rouge,MOU,IGP Effervescent Coteaux des Baronnies Rouge Mourvedre
+IGP,EFF,CBA,,,rouge,CEP,IGP Effervescent Coteaux des Baronnies Rouge Autre
+IGP,EFF,CBA,,,rose,,IGP Effervescent Coteaux des Baronnies Rosé 
+IGP,EFF,CBA,,,rose,SYR,IGP Effervescent Coteaux des Baronnies Rosé Syrah
+IGP,EFF,CBA,,,rose,GRN,IGP Effervescent Coteaux des Baronnies Rosé Grenache Noir
+IGP,EFF,CBA,,,rose,CS,IGP Effervescent Coteaux des Baronnies Rosé Cabernet-Sauvignon
+IGP,EFF,CBA,,,rose,CIN,IGP Effervescent Coteaux des Baronnies Rosé Cinsaut
+IGP,EFF,CBA,,,rose,MER,IGP Effervescent Coteaux des Baronnies Rosé Merlot
+IGP,EFF,CBA,,,rose,MOU,IGP Effervescent Coteaux des Baronnies Rosé Mourvedre
+IGP,EFF,CBA,,,rose,GRG,IGP Effervescent Coteaux des Baronnies Rosé Grenache Gris
+IGP,EFF,CBA,,,rose,CEP,IGP Effervescent Coteaux des Baronnies Rosé Autre
+IGP,EFF,CBA,,,blanc,,IGP Effervescent Coteaux des Baronnies Blanc 
+IGP,EFF,CBA,,,blanc,ROL,IGP Effervescent Coteaux des Baronnies Blanc Rolle-Vermentino
+IGP,EFF,CBA,,,blanc,CHA,IGP Effervescent Coteaux des Baronnies Blanc Chardonnay
+IGP,EFF,CBA,,,blanc,SAU,IGP Effervescent Coteaux des Baronnies Blanc Sauvignon
+IGP,EFF,CBA,,,blanc,GRB,IGP Effervescent Coteaux des Baronnies Blanc Grenache Blanc
+IGP,EFF,CBA,,,blanc,VIO,IGP Effervescent Coteaux des Baronnies Blanc Viognier
+IGP,EFF,CBA,,,blanc,MAR,IGP Effervescent Coteaux des Baronnies Blanc Marsanne
+IGP,EFF,CBA,,,blanc,ROU,IGP Effervescent Coteaux des Baronnies Blanc Roussanne
+IGP,EFF,CBA,,,blanc,CLA,IGP Effervescent Coteaux des Baronnies Blanc Clairette
+IGP,EFF,CBA,,,blanc,MUH,IGP Effervescent Coteaux des Baronnies Blanc Muscat de HAMBOURG
+IGP,EFF,CBA,,,blanc,CEP,IGP Effervescent Coteaux des Baronnies Blanc Autre
+IGP,EFF,D05,,,rouge,,IGP Effervescent Hautes Alpesﾠ Rouge 
+IGP,EFF,D05,,,rouge,SYR,IGP Effervescent Hautes Alpesﾠ Rouge Syrah
+IGP,EFF,D05,,,rouge,GRN,IGP Effervescent Hautes Alpesﾠ Rouge Grenache Noir
+IGP,EFF,D05,,,rouge,CS,IGP Effervescent Hautes Alpesﾠ Rouge Cabernet-Sauvignon
+IGP,EFF,D05,,,rouge,CIN,IGP Effervescent Hautes Alpesﾠ Rouge Cinsaut
+IGP,EFF,D05,,,rouge,MER,IGP Effervescent Hautes Alpesﾠ Rouge Merlot
+IGP,EFF,D05,,,rouge,MOL,IGP Effervescent Hautes Alpesﾠ Rouge Mollard
+IGP,EFF,D05,,,rouge,CEP,IGP Effervescent Hautes Alpesﾠ Rouge Autre
+IGP,EFF,D05,,,rose,,IGP Effervescent Hautes Alpesé Rosé 
+IGP,EFF,D05,,,rose,SYR,IGP Effervescent Hautes Alpesé Rosé Syrah
+IGP,EFF,D05,,,rose,GRN,IGP Effervescent Hautes Alpesé Rosé Grenache Noir
+IGP,EFF,D05,,,rose,CS,IGP Effervescent Hautes Alpesé Rosé Cabernet-Sauvignon
+IGP,EFF,D05,,,rose,CIN,IGP Effervescent Hautes Alpesé Rosé Cinsaut
+IGP,EFF,D05,,,rose,MER,IGP Effervescent Hautes Alpesé Rosé Merlot
+IGP,EFF,D05,,,rose,MOU,IGP Effervescent Hautes Alpesé Rosé Mourvedre
+IGP,EFF,D05,,,rose,CEP,IGP Effervescent Hautes Alpesé Rosé Autre
+IGP,EFF,D05,,,blanc,,IGP Effervescent Hautes Alpesﾠ Blanc 
+IGP,EFF,D05,,,blanc,ROL,IGP Effervescent Hautes Alpesﾠ Blanc Rolle-Vermentino
+IGP,EFF,D05,,,blanc,CHA,IGP Effervescent Hautes Alpesﾠ Blanc Chardonnay
+IGP,EFF,D05,,,blanc,SAU,IGP Effervescent Hautes Alpesﾠ Blanc Sauvignon
+IGP,EFF,D05,,,blanc,GRB,IGP Effervescent Hautes Alpesﾠ Blanc Grenache Blanc
+IGP,EFF,D05,,,blanc,VIO,IGP Effervescent Hautes Alpesﾠ Blanc Viognier
+IGP,EFF,D05,,,blanc,MAR,IGP Effervescent Hautes Alpesﾠ Blanc Marsanne
+IGP,EFF,D05,,,blanc,ROU,IGP Effervescent Hautes Alpesﾠ Blanc Roussanne
+IGP,EFF,D05,,,blanc,MPG,IGP Effervescent Hautes Alpesé Blanc Muscat é petits grains
+IGP,EFF,D05,,,blanc,CEP,IGP Effervescent Hautes Alpesﾠ Blanc Autre
+IGP,EFF,D07,,,rouge,,IGP Effervescent Ardéche Rouge 
+IGP,EFF,D07,,,rouge,SYR,IGP Effervescent Ardéche Rouge Syrah
+IGP,EFF,D07,,,rouge,GRN,IGP Effervescent Ardéche Rouge Grenache Noir
+IGP,EFF,D07,,,rouge,CS,IGP Effervescent Ardéche Rouge Cabernet-Sauvignon
+IGP,EFF,D07,,,rouge,CIN,IGP Effervescent Ardéche Rouge Cinsaut
+IGP,EFF,D07,,,rouge,MER,IGP Effervescent Ardéche Rouge Merlot
+IGP,EFF,D07,,,rouge,MOU,IGP Effervescent Ardéche Rouge Mourvedre
+IGP,EFF,D07,,,rouge,PIN,IGP Effervescent Ardéche Rouge Pinot
+IGP,EFF,D07,,,rouge,GAM,IGP Effervescent Ardéche Rouge Gamay
+IGP,EFF,D07,,,rouge,CEP,IGP Effervescent Ardéche Rouge Autre
+IGP,EFF,D07,,,rose,,IGP Effervescent Ardéche Rosé 
+IGP,EFF,D07,,,rose,SYR,IGP Effervescent Ardéche Rosé Syrah
+IGP,EFF,D07,,,rose,GRN,IGP Effervescent Ardéche Rosé Grenache Noir
+IGP,EFF,D07,,,rose,CS,IGP Effervescent Ardéche Rosé Cabernet-Sauvignon
+IGP,EFF,D07,,,rose,CIN,IGP Effervescent Ardéche Rosé Cinsaut
+IGP,EFF,D07,,,rose,MER,IGP Effervescent Ardéche Rosé Merlot
+IGP,EFF,D07,,,rose,MOU,IGP Effervescent Ardéche Rosé Mourvedre
+IGP,EFF,D07,,,rose,GRG,IGP Effervescent Ardéche Rosé Grenache Gris
+IGP,EFF,D07,,,rose,CEP,IGP Effervescent Ardéche Rosé Autre
+IGP,EFF,D07,,,blanc,,IGP Effervescent Ardéche Blanc 
+IGP,EFF,D07,,,blanc,ROL,IGP Effervescent Ardéche Blanc Rolle-Vermentino
+IGP,EFF,D07,,,blanc,CHA,IGP Effervescent Ardéche Blanc Chardonnay
+IGP,EFF,D07,,,blanc,SAU,IGP Effervescent Ardéche Blanc Sauvignon
+IGP,EFF,D07,,,blanc,GRB,IGP Effervescent Ardéche Blanc Grenache Blanc
+IGP,EFF,D07,,,blanc,VIO,IGP Effervescent Ardéche Blanc Viognier
+IGP,EFF,D07,,,blanc,MAR,IGP Effervescent Ardéche Blanc Marsanne
+IGP,EFF,D07,,,blanc,ROU,IGP Effervescent Ardéche Blanc Roussanne
+IGP,EFF,D07,,,blanc,CLA,IGP Effervescent Ardéche Blanc Clairette
+IGP,EFF,D07,,,blanc,MUH,IGP Effervescent Ardéche Blanc Muscat de HAMBOURG
+IGP,EFF,D07,,,blanc,CEP,IGP Effervescent Ardéche Blanc Autre
+IGP,EFF,CLR,,,rouge,,IGP Effervescent Collines Rhodaniennes Rouge 
+IGP,EFF,CLR,,,rouge,SYR,IGP Effervescent Collines Rhodaniennes Rouge Syrah
+IGP,EFF,CLR,,,rouge,GRN,IGP Effervescent Collines Rhodaniennes Rouge Grenache Noir
+IGP,EFF,CLR,,,rouge,CS,IGP Effervescent Collines Rhodaniennes Rouge Cabernet-Sauvignon
+IGP,EFF,CLR,,,rouge,CIN,IGP Effervescent Collines Rhodaniennes Rouge Cinsaut
+IGP,EFF,CLR,,,rouge,MER,IGP Effervescent Collines Rhodaniennes Rouge Merlot
+IGP,EFF,CLR,,,rouge,MOU,IGP Effervescent Collines Rhodaniennes Rouge Mourvedre
+IGP,EFF,CLR,,,rouge,PIN,IGP Effervescent Collines Rhodaniennes Rouge Pinot
+IGP,EFF,CLR,,,rouge,GAM,IGP Effervescent Collines Rhodaniennes Rouge Gamay
+IGP,EFF,CLR,,,rouge,CEP,IGP Effervescent Collines Rhodaniennes Rouge Autre
+IGP,EFF,CLR,,,rose,,IGP Effervescent Collines Rhodaniennes Rosé 
+IGP,EFF,CLR,,,rose,SYR,IGP Effervescent Collines Rhodaniennes Rosé Syrah
+IGP,EFF,CLR,,,rose,GRN,IGP Effervescent Collines Rhodaniennes Rosé Grenache Noir
+IGP,EFF,CLR,,,rose,CS,IGP Effervescent Collines Rhodaniennes Rosé Cabernet-Sauvignon
+IGP,EFF,CLR,,,rose,CIN,IGP Effervescent Collines Rhodaniennes Rosé Cinsaut
+IGP,EFF,CLR,,,rose,MER,IGP Effervescent Collines Rhodaniennes Rosé Merlot
+IGP,EFF,CLR,,,rose,MOU,IGP Effervescent Collines Rhodaniennes Rosé Mourvedre
+IGP,EFF,CLR,,,rose,GRG,IGP Effervescent Collines Rhodaniennes Rosé Grenache Gris
+IGP,EFF,CLR,,,blanc,,IGP Effervescent Collines Rhodaniennes Blanc 
+IGP,EFF,CLR,,,blanc,ROL,IGP Effervescent Collines Rhodaniennes Blanc Rolle-Vermentino
+IGP,EFF,CLR,,,blanc,CHA,IGP Effervescent Collines Rhodaniennes Blanc Chardonnay
+IGP,EFF,CLR,,,blanc,SAU,IGP Effervescent Collines Rhodaniennes Blanc Sauvignon
+IGP,EFF,CLR,,,blanc,GRB,IGP Effervescent Collines Rhodaniennes Blanc Grenache Blanc
+IGP,EFF,CLR,,,blanc,VIO,IGP Effervescent Collines Rhodaniennes Blanc Viognier
+IGP,EFF,CLR,,,blanc,MAR,IGP Effervescent Collines Rhodaniennes Blanc Marsanne
+IGP,EFF,CLR,,,blanc,ROU,IGP Effervescent Collines Rhodaniennes Blanc Roussanne
+IGP,EFF,CLR,,,blanc,CLA,IGP Effervescent Collines Rhodaniennes Blanc Clairette
+IGP,EFF,CLR,,,blanc,MUH,IGP Effervescent Collines Rhodaniennes Blanc Muscat de HAMBOURG
+IGP,EFF,CLR,,,blanc,CEP,IGP Effervescent Collines Rhodaniennes Blanc Autre
+IGP,EFF,CTR,,,rouge,,IGP Effervescent Comté Rhodanien Rouge 
+IGP,EFF,CTR,,,rouge,SYR,IGP Effervescent Comté Rhodanien Rouge Syrah
+IGP,EFF,CTR,,,rouge,GRN,IGP Effervescent Comté Rhodanien Rouge Grenache Noir
+IGP,EFF,CTR,,,rouge,CS,IGP Effervescent Comté Rhodanien Rouge Cabernet-Sauvignon
+IGP,EFF,CTR,,,rouge,CIN,IGP Effervescent Comté Rhodanien Rouge Cinsaut
+IGP,EFF,CTR,,,rouge,MER,IGP Effervescent Comté Rhodanien Rouge Merlot
+IGP,EFF,CTR,,,rouge,MOU,IGP Effervescent Comté Rhodanien Rouge Mourvedre
+IGP,EFF,CTR,,,rouge,PIN,IGP Effervescent Comté Rhodanien Rouge Pinot
+IGP,EFF,CTR,,,rouge,GAM,IGP Effervescent Comté Rhodanien Rouge Gamay
+IGP,EFF,CTR,,,rouge,CEP,IGP Effervescent Comté Rhodanien Rouge autre
+IGP,EFF,CTR,,,rose,,IGP Effervescent Comté Rhodanien Rosé 
+IGP,EFF,CTR,,,rose,SYR,IGP Effervescent Comté Rhodanien Rosé Syrah
+IGP,EFF,CTR,,,rose,GRN,IGP Effervescent Comté Rhodanien Rosé Grenache Noir
+IGP,EFF,CTR,,,rose,CS,IGP Effervescent Comté Rhodanien Rosé Cabernet-Sauvignon
+IGP,EFF,CTR,,,rose,CIN,IGP Effervescent Comté Rhodanien Rosé Cinsaut
+IGP,EFF,CTR,,,rose,MER,IGP Effervescent Comté Rhodanien Rosé Merlot
+IGP,EFF,CTR,,,rose,MOU,IGP Effervescent Comté Rhodanien Rosé Mourvedre
+IGP,EFF,CTR,,,rose,GRG,IGP Effervescent Comté Rhodanien Rosé Grenache Gris
+IGP,EFF,CTR,,,rose,CEP,IGP Effervescent Comté Rhodanien Rosé Autre
+IGP,EFF,CTR,,,blanc,,IGP Effervescent Comté Rhodanien Blanc 
+IGP,EFF,CTR,,,blanc,ROL,IGP Effervescent Comté Rhodanien Blanc Rolle-Vermentino
+IGP,EFF,CTR,,,blanc,CHA,IGP Effervescent Comté Rhodanien Blanc Chardonnay
+IGP,EFF,CTR,,,blanc,SAU,IGP Effervescent Comté Rhodanien Blanc Sauvignon
+IGP,EFF,CTR,,,blanc,GRB,IGP Effervescent Comté Rhodanien Blanc Grenache Blanc
+IGP,EFF,CTR,,,blanc,VIO,IGP Effervescent Comté Rhodanien Blanc Viognier
+IGP,EFF,CTR,,,blanc,MAR,IGP Effervescent Comté Rhodanien Blanc Marsanne
+IGP,EFF,CTR,,,blanc,ROU,IGP Effervescent Comté Rhodanien Blanc Roussanne
+IGP,EFF,CTR,,,blanc,CLA,IGP Effervescent Comté Rhodanien Blanc Clairette
+IGP,EFF,CTR,,,blanc,MUH,IGP Effervescent Comté Rhodanien Blanc Muscat de HAMBOURG
+IGP,EFF,CTR,,,blanc,CEP,IGP Effervescent Comté Rhodanien Blanc Autre
+IGP,EFF,D13,,,rouge,,IGP Effervescent Bouches-du-Rhéne Rouge 
+IGP,EFF,D13,,,rouge,SYR,IGP Effervescent Bouches-du-Rhéne Rouge Syrah
+IGP,EFF,D13,,,rouge,GRN,IGP Effervescent Bouches-du-Rhéne Rouge Grenache Noir
+IGP,EFF,D13,,,rouge,CS,IGP Effervescent Bouches-du-Rhéne Rouge Cabernet-Sauvignon
+IGP,EFF,D13,,,rouge,CIN,IGP Effervescent Bouches-du-Rhéne Rouge Cinsaut
+IGP,EFF,D13,,,rouge,MER,IGP Effervescent Bouches-du-Rhéne Rouge Merlot
+IGP,EFF,D13,,,rouge,MOU,IGP Effervescent Bouches-du-Rhéne Rouge Mourvedre
+IGP,EFF,D13,,,rouge,MAR,IGP Effervescent Bouches-du-Rhéne Rouge Marselan
+IGP,EFF,D13,,,rouge,CEP,IGP Effervescent Bouches-du-Rhéne Rouge Autre
+IGP,EFF,D13,,,rose,,IGP Effervescent Bouches-du-Rhéne Rosé 
+IGP,EFF,D13,,,rose,SYR,IGP Effervescent Bouches-du-Rhéne Rosé Syrah
+IGP,EFF,D13,,,rose,GRN,IGP Effervescent Bouches-du-Rhéne Rosé Grenache Noir
+IGP,EFF,D13,,,rose,CS,IGP Effervescent Bouches-du-Rhéne Rosé Cabernet-Sauvignon
+IGP,EFF,D13,,,rose,CIN,IGP Effervescent Bouches-du-Rhéne Rosé Cinsaut
+IGP,EFF,D13,,,rose,MER,IGP Effervescent Bouches-du-Rhéne Rosé Merlot
+IGP,EFF,D13,,,rose,MOU,IGP Effervescent Bouches-du-Rhéne Rosé Mourvedre
+IGP,EFF,D13,,,rose,GRG,IGP Effervescent Bouches-du-Rhéne Rosé Grenache Gris
+IGP,EFF,D13,,,rose,CEP,IGP Effervescent Bouches-du-Rhéne Rosé Autre
+IGP,EFF,D13,,,blanc,,IGP Effervescent Bouches-du-Rhéne Blanc 
+IGP,EFF,D13,,,blanc,ROL,IGP Effervescent Bouches-du-Rhéne Blanc Rolle-Vermentino
+IGP,EFF,D13,,,blanc,CHA,IGP Effervescent Bouches-du-Rhéne Blanc Chardonnay
+IGP,EFF,D13,,,blanc,SAU,IGP Effervescent Bouches-du-Rhéne Blanc Sauvignon
+IGP,EFF,D13,,,blanc,GRB,IGP Effervescent Bouches-du-Rhéne Blanc Grenache Blanc
+IGP,EFF,D13,,,blanc,VIO,IGP Effervescent Bouches-du-Rhéne Blanc Viognier
+IGP,EFF,D13,,,blanc,MAR,IGP Effervescent Bouches-du-Rhéne Blanc Marsanne
+IGP,EFF,D13,,,blanc,ROU,IGP Effervescent Bouches-du-Rhéne Blanc Roussanne
+IGP,EFF,D13,,,blanc,CLA,IGP Effervescent Bouches-du-Rhéne Blanc Clairette
+IGP,EFF,D13,,,blanc,MUH,IGP Effervescent Bouches-du-Rhéne Blanc Muscat de HAMBOURG
+IGP,EFF,D13,,,blanc,CEP,IGP Effervescent Bouches-du-Rhéne Blanc Autre
+IGP,EFF,D13,,TDC,rouge,,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rouge 
+IGP,EFF,D13,,TDC,rouge,SYR,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rouge Syrah
+IGP,EFF,D13,,TDC,rouge,GRN,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rouge Grenache Noir
+IGP,EFF,D13,,TDC,rouge,CS,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rouge Cabernet-Sauvignon
+IGP,EFF,D13,,TDC,rouge,CIN,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rouge Cinsaut
+IGP,EFF,D13,,TDC,rouge,MER,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rouge Merlot
+IGP,EFF,D13,,TDC,rouge,MOU,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rouge Mourvedre
+IGP,EFF,D13,,TDC,rouge,MAR,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rouge Marselan
+IGP,EFF,D13,,TDC,rouge,CEP,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rouge Autre
+IGP,EFF,D13,,TDC,rose,,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rosé 
+IGP,EFF,D13,,TDC,rose,SYR,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rosé Syrah
+IGP,EFF,D13,,TDC,rose,GRN,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rosé Grenache Noir
+IGP,EFF,D13,,TDC,rose,CS,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rosé Cabernet-Sauvignon
+IGP,EFF,D13,,TDC,rose,CIN,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rosé Cinsaut
+IGP,EFF,D13,,TDC,rose,MER,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rosé Merlot
+IGP,EFF,D13,,TDC,rose,MOU,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rosé Mourvedre
+IGP,EFF,D13,,TDC,rose,GRG,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rosé Grenache Gris
+IGP,EFF,D13,,TDC,rose,CEP,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Rosé Autre
+IGP,EFF,D13,,TDC,blanc,,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Blanc 
+IGP,EFF,D13,,TDC,blanc,ROL,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Blanc Rolle-Vermentino
+IGP,EFF,D13,,TDC,blanc,CHA,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Blanc Chardonnay
+IGP,EFF,D13,,TDC,blanc,SAU,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Blanc Sauvignon
+IGP,EFF,D13,,TDC,blanc,GRB,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Blanc Grenache Blanc
+IGP,EFF,D13,,TDC,blanc,VIO,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Blanc Viognier
+IGP,EFF,D13,,TDC,blanc,MAR,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Blanc Marsanne
+IGP,EFF,D13,,TDC,blanc,ROU,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Blanc Roussanne
+IGP,EFF,D13,,TDC,blanc,CLA,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Blanc Clairette
+IGP,EFF,D13,,TDC,blanc,MUH,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Blanc Muscat de HAMBOURG
+IGP,EFF,D13,,TDC,blanc,CEP,IGP Effervescent Bouches-du-Rhéne Terre de Camargue Blanc Autre
+IGP,EFF,D06,,,rouge,,IGP Effervescent Alpes Maritimes Rouge 
+IGP,EFF,D06,,,rouge,SYR,IGP Effervescent Alpes Maritimes Rouge Syrah
+IGP,EFF,D06,,,rouge,GRN,IGP Effervescent Alpes Maritimes Rouge Grenache Noir
+IGP,EFF,D06,,,rouge,CS,IGP Effervescent Alpes Maritimes Rouge Cabernet-Sauvignon
+IGP,EFF,D06,,,rouge,CIN,IGP Effervescent Alpes Maritimes Rouge Cinsaut
+IGP,EFF,D06,,,rouge,MER,IGP Effervescent Alpes Maritimes Rouge Merlot
+IGP,EFF,D06,,,rouge,MOU,IGP Effervescent Alpes Maritimes Rouge Mourvedre
+IGP,EFF,D06,,,rouge,CEP,IGP Effervescent Alpes Maritimes Rouge Autre
+IGP,EFF,D06,,,rose,,IGP Effervescent Alpes Maritimes Rosé 
+IGP,EFF,D06,,,rose,SYR,IGP Effervescent Alpes Maritimes Rosé Syrah
+IGP,EFF,D06,,,rose,GRN,IGP Effervescent Alpes Maritimes Rosé Grenache Noir
+IGP,EFF,D06,,,rose,CS,IGP Effervescent Alpes Maritimes Rosé Cabernet-Sauvignon
+IGP,EFF,D06,,,rose,CIN,IGP Effervescent Alpes Maritimes Rosé Cinsaut
+IGP,EFF,D06,,,rose,MER,IGP Effervescent Alpes Maritimes Rosé Merlot
+IGP,EFF,D06,,,rose,MOU,IGP Effervescent Alpes Maritimes Rosé Mourvedre
+IGP,EFF,D06,,,rose,CEP,IGP Effervescent Alpes Maritimes Rosé Autre
+IGP,EFF,D06,,,blanc,,IGP Effervescent Alpes Maritimes Blanc 
+IGP,EFF,D06,,,blanc,ROL,IGP Effervescent Alpes Maritimes Blanc Rolle-Vermentino
+IGP,EFF,D06,,,blanc,CHA,IGP Effervescent Alpes Maritimes Blanc Chardonnay
+IGP,EFF,D06,,,blanc,SAU,IGP Effervescent Alpes Maritimes Blanc Sauvignon
+IGP,EFF,D06,,,blanc,GRB,IGP Effervescent Alpes Maritimes Blanc Grenache Blanc
+IGP,EFF,D06,,,blanc,VIO,IGP Effervescent Alpes Maritimes Blanc Viognier
+IGP,EFF,D06,,,blanc,MAR,IGP Effervescent Alpes Maritimes Blanc Marsanne
+IGP,EFF,D06,,,blanc,ROU,IGP Effervescent Alpes Maritimes Blanc Roussanne
+IGP,EFF,D06,,,blanc,CLA,IGP Effervescent Alpes Maritimes Blanc Clairette
+IGP,EFF,D06,,,blanc,CEP,IGP Effervescent Alpes Maritimes Blanc Autre
+IGP,EFF,D04,,,rouge,,IGP Effervescent Alpesﾠde Haute Provence Rouge 
+IGP,EFF,D04,,,rouge,SYR,IGP Effervescent Alpesﾠde Haute Provence Rouge Syrah
+IGP,EFF,D04,,,rouge,GRN,IGP Effervescent Alpesﾠde Haute Provence Rouge Grenache Noir
+IGP,EFF,D04,,,rouge,CS,IGP Effervescent Alpesﾠde Haute Provence Rouge Cabernet-Sauvignon
+IGP,EFF,D04,,,rouge,CIN,IGP Effervescent Alpesﾠde Haute Provence Rouge Cinsaut
+IGP,EFF,D04,,,rouge,MER,IGP Effervescent Alpesﾠde Haute Provence Rouge Merlot
+IGP,EFF,D04,,,rouge,MOU,IGP Effervescent Alpesﾠde Haute Provence Rouge Mourvedre
+IGP,EFF,D04,,,rouge,CEP,IGP Effervescent Alpesﾠde Haute Provence Rouge Autre
+IGP,EFF,D04,,,rose,,IGP Effervescent Alpeséde Haute Provence Rosé 
+IGP,EFF,D04,,,rose,SYR,IGP Effervescent Alpeséde Haute Provence Rosé Syrah
+IGP,EFF,D04,,,rose,GRN,IGP Effervescent Alpeséde Haute Provence Rosé Grenache Noir
+IGP,EFF,D04,,,rose,CS,IGP Effervescent Alpeséde Haute Provence Rosé Cabernet-Sauvignon
+IGP,EFF,D04,,,rose,CIN,IGP Effervescent Alpeséde Haute Provence Rosé Cinsaut
+IGP,EFF,D04,,,rose,MER,IGP Effervescent Alpeséde Haute Provence Rosé Merlot
+IGP,EFF,D04,,,rose,MOU,IGP Effervescent Alpeséde Haute Provence Rosé Mourvedre
+IGP,EFF,D04,,,rose,CEP,IGP Effervescent Alpeséde Haute Provence Rosé Autre
+IGP,EFF,D04,,,blanc,,IGP Effervescent Alpesﾠde Haute Provence Blanc 
+IGP,EFF,D04,,,blanc,ROL,IGP Effervescent Alpesﾠde Haute Provence Blanc Rolle-Vermentino
+IGP,EFF,D04,,,blanc,CHA,IGP Effervescent Alpesﾠde Haute Provence Blanc Chardonnay
+IGP,EFF,D04,,,blanc,SAU,IGP Effervescent Alpesﾠde Haute Provence Blanc Sauvignon
+IGP,EFF,D04,,,blanc,GRB,IGP Effervescent Alpesﾠde Haute Provence Blanc Grenache Blanc
+IGP,EFF,D04,,,blanc,VIO,IGP Effervescent Alpesﾠde Haute Provence Blanc Viognier
+IGP,EFF,D04,,,blanc,MAR,IGP Effervescent Alpesﾠde Haute Provence Blanc Marsanne
+IGP,EFF,D04,,,blanc,ROU,IGP Effervescent Alpesﾠde Haute Provence Blanc Roussanne
+IGP,EFF,D04,,,blanc,MPG,IGP Effervescent Alpeséde Haute Provence Blanc Muscat é petits grains
+IGP,EFF,D04,,,blanc,CEP,IGP Effervescent Alpesﾠde Haute Provence Blanc Autre
+IGP,EFF,ALP,,,rouge,,IGP Effervescent Alpilles Rouge 
+IGP,EFF,ALP,,,rouge,SYR,IGP Effervescent Alpilles Rouge Syrah
+IGP,EFF,ALP,,,rouge,GRN,IGP Effervescent Alpilles Rouge Grenache Noir
+IGP,EFF,ALP,,,rouge,CS,IGP Effervescent Alpilles Rouge Cabernet-Sauvignon
+IGP,EFF,ALP,,,rouge,CIN,IGP Effervescent Alpilles Rouge Cinsaut
+IGP,EFF,ALP,,,rouge,MER,IGP Effervescent Alpilles Rouge Merlot
+IGP,EFF,ALP,,,rouge,MOU,IGP Effervescent Alpilles Rouge Mourvedre
+IGP,EFF,ALP,,,rouge,MAR,IGP Effervescent Alpilles Rouge Marselan
+IGP,EFF,ALP,,,rouge,CEP,IGP Effervescent Alpilles Rouge Autre
+IGP,EFF,ALP,,,rose,,IGP Effervescent Alpilles Rosé 
+IGP,EFF,ALP,,,rose,SYR,IGP Effervescent Alpilles Rosé Syrah
+IGP,EFF,ALP,,,rose,GRN,IGP Effervescent Alpilles Rosé Grenache Noir
+IGP,EFF,ALP,,,rose,CS,IGP Effervescent Alpilles Rosé Cabernet-Sauvignon
+IGP,EFF,ALP,,,rose,CIN,IGP Effervescent Alpilles Rosé Cinsaut
+IGP,EFF,ALP,,,rose,MER,IGP Effervescent Alpilles Rosé Merlot
+IGP,EFF,ALP,,,rose,MOU,IGP Effervescent Alpilles Rosé Mourvedre
+IGP,EFF,ALP,,,rose,GRG,IGP Effervescent Alpilles Rosé Grenache Gris
+IGP,EFF,ALP,,,rose,CEP,IGP Effervescent Alpilles Rosé Autre
+IGP,EFF,ALP,,,blanc,ROL,IGP Effervescent Alpilles Blanc Rolle-Vermentino
+IGP,EFF,ALP,,,blanc,CHA,IGP Effervescent Alpilles Blanc Chardonnay
+IGP,EFF,ALP,,,blanc,SAU,IGP Effervescent Alpilles Blanc Sauvignon
+IGP,EFF,ALP,,,blanc,GRB,IGP Effervescent Alpilles Blanc Grenache Blanc
+IGP,EFF,ALP,,,blanc,VIO,IGP Effervescent Alpilles Blanc Viognier
+IGP,EFF,ALP,,,blanc,MAR,IGP Effervescent Alpilles Blanc Marsanne
+IGP,EFF,ALP,,,blanc,ROU,IGP Effervescent Alpilles Blanc Roussanne
+IGP,EFF,ALP,,,blanc,CLA,IGP Effervescent Alpilles Blanc Clairette
+IGP,EFF,ALP,,,blanc,MUH,IGP Effervescent Alpilles Blanc Muscat de HAMBOURG
+IGP,EFF,ALP,,,blanc,CEP,IGP Effervescent Alpilles Blanc Autre
+IGP,EFF,ALP,,,blanc,,IGP Effervescent Alpilles Blanc 
+IGP,EFF,D83,,,rouge,,IGP Effervescent Var Rouge 
+IGP,EFF,D83,,,rouge,SYR,IGP Effervescent Var Rouge Syrah
+IGP,EFF,D83,,,rouge,GRN,IGP Effervescent Var Rouge Grenache Noir
+IGP,EFF,D83,,,rouge,CS,IGP Effervescent Var Rouge Cabernet-Sauvignon
+IGP,EFF,D83,,,rouge,CIN,IGP Effervescent Var Rouge Cinsaut
+IGP,EFF,D83,,,rouge,MER,IGP Effervescent Var Rouge Merlot
+IGP,EFF,D83,,,rouge,MOU,IGP Effervescent Var Rouge Mourvedre
+IGP,EFF,D83,,,rouge,CEP,IGP Effervescent Var Rouge Autre
+IGP,EFF,D83,,,rose,,IGP Effervescent Var Rosé 
+IGP,EFF,D83,,,rose,SYR,IGP Effervescent Var Rosé Syrah
+IGP,EFF,D83,,,rose,GRN,IGP Effervescent Var Rosé Grenache Noir
+IGP,EFF,D83,,,rose,CS,IGP Effervescent Var Rosé Cabernet-Sauvignon
+IGP,EFF,D83,,,rose,CIN,IGP Effervescent Var Rosé Cinsaut
+IGP,EFF,D83,,,rose,MER,IGP Effervescent Var Rosé Merlot
+IGP,EFF,D83,,,rose,MOU,IGP Effervescent Var Rosé Mourvedre
+IGP,EFF,D83,,,rose,CEP,IGP Effervescent Var Rosé Autre
+IGP,EFF,D83,,,blanc,,IGP Effervescent Var Blanc 
+IGP,EFF,D83,,,blanc,ROL,IGP Effervescent Var Blanc Rolle-Vermentino
+IGP,EFF,D83,,,blanc,CHA,IGP Effervescent Var Blanc Chardonnay
+IGP,EFF,D83,,,blanc,SAU,IGP Effervescent Var Blanc Sauvignon
+IGP,EFF,D83,,,blanc,GRB,IGP Effervescent Var Blanc Grenache Blanc
+IGP,EFF,D83,,,blanc,VIO,IGP Effervescent Var Blanc Viognier
+IGP,EFF,D83,,,blanc,MAR,IGP Effervescent Var Blanc Marsanne
+IGP,EFF,D83,,,blanc,ROU,IGP Effervescent Var Blanc Roussanne
+IGP,EFF,D83,,,blanc,CLA,IGP Effervescent Var Blanc Clairette
+IGP,EFF,D83,,,blanc,CEP,IGP Effervescent Var Blanc Autre
+IGP,EFF,D83,,ARG,rouge,,IGP Effervescent Var Argens Rouge 
+IGP,EFF,D83,,ARG,rouge,SYR,IGP Effervescent Var Argens Rouge Syrah
+IGP,EFF,D83,,ARG,rouge,GRN,IGP Effervescent Var Argens Rouge Grenache Noir
+IGP,EFF,D83,,ARG,rouge,CS,IGP Effervescent Var Argens Rouge Cabernet-Sauvignon
+IGP,EFF,D83,,ARG,rouge,CIN,IGP Effervescent Var Argens Rouge Cinsaut
+IGP,EFF,D83,,ARG,rouge,MER,IGP Effervescent Var Argens Rouge Merlot
+IGP,EFF,D83,,ARG,rouge,MOU,IGP Effervescent Var Argens Rouge Mourvedre
+IGP,EFF,D83,,ARG,rouge,CEP,IGP Effervescent Var Argens Rouge Autre
+IGP,EFF,D83,,ARG,rose,,IGP Effervescent Var Argens Rosé 
+IGP,EFF,D83,,ARG,rose,SYR,IGP Effervescent Var Argens Rosé Syrah
+IGP,EFF,D83,,ARG,rose,GRN,IGP Effervescent Var Argens Rosé Grenache Noir
+IGP,EFF,D83,,ARG,rose,CS,IGP Effervescent Var Argens Rosé Cabernet-Sauvignon
+IGP,EFF,D83,,ARG,rose,CIN,IGP Effervescent Var Argens Rosé Cinsaut
+IGP,EFF,D83,,ARG,rose,MER,IGP Effervescent Var Argens Rosé Merlot
+IGP,EFF,D83,,ARG,rose,MOU,IGP Effervescent Var Argens Rosé Mourvedre
+IGP,EFF,D83,,ARG,rose,CEP,IGP Effervescent Var Argens Rosé Autre
+IGP,EFF,D83,,ARG,blanc,,IGP Effervescent Var Argens Blanc 
+IGP,EFF,D83,,ARG,blanc,ROL,IGP Effervescent Var Argens Blanc Rolle-Vermentino
+IGP,EFF,D83,,ARG,blanc,CHA,IGP Effervescent Var Argens Blanc Chardonnay
+IGP,EFF,D83,,ARG,blanc,SAU,IGP Effervescent Var Argens Blanc Sauvignon
+IGP,EFF,D83,,ARG,blanc,GRB,IGP Effervescent Var Argens Blanc Grenache Blanc
+IGP,EFF,D83,,ARG,blanc,VIO,IGP Effervescent Var Argens Blanc Viognier
+IGP,EFF,D83,,ARG,blanc,MAR,IGP Effervescent Var Argens Blanc Marsanne
+IGP,EFF,D83,,ARG,blanc,ROU,IGP Effervescent Var Argens Blanc Roussanne
+IGP,EFF,D83,,ARG,blanc,CLA,IGP Effervescent Var Argens Blanc Clairette
+IGP,EFF,D83,,ARG,blanc,CEP,IGP Effervescent Var Argens Blanc Autre
+IGP,EFF,D83,,CV,rouge,,IGP Effervescent Var Coteaux du Verdon Rouge 
+IGP,EFF,D83,,CV,rouge,SYR,IGP Effervescent Var Coteaux du Verdon Rouge Syrah
+IGP,EFF,D83,,CV,rouge,GRN,IGP Effervescent Var Coteaux du Verdon Rouge Grenache Noir
+IGP,EFF,D83,,CV,rouge,CS,IGP Effervescent Var Coteaux du Verdon Rouge Cabernet-Sauvignon
+IGP,EFF,D83,,CV,rouge,CIN,IGP Effervescent Var Coteaux du Verdon Rouge Cinsaut
+IGP,EFF,D83,,CV,rouge,MER,IGP Effervescent Var Coteaux du Verdon Rouge Merlot
+IGP,EFF,D83,,CV,rouge,MOU,IGP Effervescent Var Coteaux du Verdon Rouge Mourvedre
+IGP,EFF,D83,,CV,rouge,CEP,IGP Effervescent Var Coteaux du Verdon Rouge Autre
+IGP,EFF,D83,,CV,rose,,IGP Effervescent Var Coteaux du Verdon Rosé 
+IGP,EFF,D83,,CV,rose,SYR,IGP Effervescent Var Coteaux du Verdon Rosé Syrah
+IGP,EFF,D83,,CV,rose,GRN,IGP Effervescent Var Coteaux du Verdon Rosé Grenache Noir
+IGP,EFF,D83,,CV,rose,CS,IGP Effervescent Var Coteaux du Verdon Rosé Cabernet-Sauvignon
+IGP,EFF,D83,,CV,rose,CIN,IGP Effervescent Var Coteaux du Verdon Rosé Cinsaut
+IGP,EFF,D83,,CV,rose,MER,IGP Effervescent Var Coteaux du Verdon Rosé Merlot
+IGP,EFF,D83,,CV,rose,MOU,IGP Effervescent Var Coteaux du Verdon Rosé Mourvedre
+IGP,EFF,D83,,CV,rose,CEP,IGP Effervescent Var Coteaux du Verdon Rosé Autre
+IGP,EFF,D83,,CV,blanc,,IGP Effervescent Var Coteaux du Verdon Blanc 
+IGP,EFF,D83,,CV,blanc,ROL,IGP Effervescent Var Coteaux du Verdon Blanc Rolle-Vermentino
+IGP,EFF,D83,,CV,blanc,CHA,IGP Effervescent Var Coteaux du Verdon Blanc Chardonnay
+IGP,EFF,D83,,CV,blanc,SAU,IGP Effervescent Var Coteaux du Verdon Blanc Sauvignon
+IGP,EFF,D83,,CV,blanc,GRB,IGP Effervescent Var Coteaux du Verdon Blanc Grenache Blanc
+IGP,EFF,D83,,CV,blanc,VIO,IGP Effervescent Var Coteaux du Verdon Blanc Viognier
+IGP,EFF,D83,,CV,blanc,MAR,IGP Effervescent Var Coteaux du Verdon Blanc Marsanne
+IGP,EFF,D83,,CV,blanc,ROU,IGP Effervescent Var Coteaux du Verdon Blanc Roussanne
+IGP,EFF,D83,,CV,blanc,CLA,IGP Effervescent Var Coteaux du Verdon Blanc Clairette
+IGP,EFF,D83,,CV,blanc,CEP,IGP Effervescent Var Coteaux du Verdon Blanc Autre
+IGP,EFF,D83,,SBA,rouge,,IGP Effervescent Var Sainte Baume Rouge 
+IGP,EFF,D83,,SBA,rouge,SYR,IGP Effervescent Var Sainte Baume Rouge Syrah
+IGP,EFF,D83,,SBA,rouge,GRN,IGP Effervescent Var Sainte Baume Rouge Grenache Noir
+IGP,EFF,D83,,SBA,rouge,CS,IGP Effervescent Var Sainte Baume Rouge Cabernet-Sauvignon
+IGP,EFF,D83,,SBA,rouge,CIN,IGP Effervescent Var Sainte Baume Rouge Cinsaut
+IGP,EFF,D83,,SBA,rouge,MER,IGP Effervescent Var Sainte Baume Rouge Merlot
+IGP,EFF,D83,,SBA,rouge,MOU,IGP Effervescent Var Sainte Baume Rouge Mourvedre
+IGP,EFF,D83,,SBA,rouge,CEP,IGP Effervescent Var Sainte Baume Rouge Autre
+IGP,EFF,D83,,SBA,rose,,IGP Effervescent Var Sainte Baume Rosé 
+IGP,EFF,D83,,SBA,rose,SYR,IGP Effervescent Var Sainte Baume Rosé Syrah
+IGP,EFF,D83,,SBA,rose,GRN,IGP Effervescent Var Sainte Baume Rosé Grenache Noir
+IGP,EFF,D83,,SBA,rose,CS,IGP Effervescent Var Sainte Baume Rosé Cabernet-Sauvignon
+IGP,EFF,D83,,SBA,rose,CIN,IGP Effervescent Var Sainte Baume Rosé Cinsaut
+IGP,EFF,D83,,SBA,rose,MER,IGP Effervescent Var Sainte Baume Rosé Merlot
+IGP,EFF,D83,,SBA,rose,MOU,IGP Effervescent Var Sainte Baume Rosé Mourvedre
+IGP,EFF,D83,,SBA,rose,CEP,IGP Effervescent Var Sainte Baume Rosé Autre
+IGP,EFF,D83,,SBA,blanc,,IGP Effervescent Var Sainte Baume Blanc 
+IGP,EFF,D83,,SBA,blanc,ROL,IGP Effervescent Var Sainte Baume Blanc Rolle-Vermentino
+IGP,EFF,D83,,SBA,blanc,CHA,IGP Effervescent Var Sainte Baume Blanc Chardonnay
+IGP,EFF,D83,,SBA,blanc,SAU,IGP Effervescent Var Sainte Baume Blanc Sauvignon
+IGP,EFF,D83,,SBA,blanc,GRB,IGP Effervescent Var Sainte Baume Blanc Grenache Blanc
+IGP,EFF,D83,,SBA,blanc,VIO,IGP Effervescent Var Sainte Baume Blanc Viognier
+IGP,EFF,D83,,SBA,blanc,MAR,IGP Effervescent Var Sainte Baume Blanc Marsanne
+IGP,EFF,D83,,SBA,blanc,ROU,IGP Effervescent Var Sainte Baume Blanc Roussanne
+IGP,EFF,D83,,SBA,blanc,CLA,IGP Effervescent Var Sainte Baume Blanc Clairette
+IGP,EFF,D83,,SBA,blanc,CEP,IGP Effervescent Var Sainte Baume Blanc Autre
+IGP,EFF,D83,,MAU,rouge,,IGP Effervescent Var Maures Rouge 
+IGP,EFF,D83,,MAU,rouge,SYR,IGP Effervescent Var Maures Rouge Syrah
+IGP,EFF,D83,,MAU,rouge,GRN,IGP Effervescent Var Maures Rouge Grenache Noir
+IGP,EFF,D83,,MAU,rouge,CS,IGP Effervescent Var Maures Rouge Cabernet-Sauvignon
+IGP,EFF,D83,,MAU,rouge,CIN,IGP Effervescent Var Maures Rouge Cinsaut
+IGP,EFF,D83,,MAU,rouge,MER,IGP Effervescent Var Maures Rouge Merlot
+IGP,EFF,D83,,MAU,rouge,MOU,IGP Effervescent Var Maures Rouge Mourvedre
+IGP,EFF,D83,,MAU,rouge,CEP,IGP Effervescent Var Maures Rouge Autre
+IGP,EFF,D83,,MAU,rose,,IGP Effervescent Var Maures Rosé 
+IGP,EFF,D83,,MAU,rose,SYR,IGP Effervescent Var Maures Rosé Syrah
+IGP,EFF,D83,,MAU,rose,GRN,IGP Effervescent Var Maures Rosé Grenache Noir
+IGP,EFF,D83,,MAU,rose,CS,IGP Effervescent Var Maures Rosé Cabernet-Sauvignon
+IGP,EFF,D83,,MAU,rose,CIN,IGP Effervescent Var Maures Rosé Cinsaut
+IGP,EFF,D83,,MAU,rose,MER,IGP Effervescent Var Maures Rosé Merlot
+IGP,EFF,D83,,MAU,rose,MOU,IGP Effervescent Var Maures Rosé Mourvedre
+IGP,EFF,D83,,MAU,rose,CEP,IGP Effervescent Var Maures Rosé Autre
+IGP,EFF,D83,,MAU,blanc,,IGP Effervescent Var Maures Blanc 
+IGP,EFF,D83,,MAU,blanc,ROL,IGP Effervescent Var Maures Blanc Rolle-Vermentino
+IGP,EFF,D83,,MAU,blanc,CHA,IGP Effervescent Var Maures Blanc Chardonnay
+IGP,EFF,D83,,MAU,blanc,SAU,IGP Effervescent Var Maures Blanc Sauvignon
+IGP,EFF,D83,,MAU,blanc,GRB,IGP Effervescent Var Maures Blanc Grenache Blanc
+IGP,EFF,D83,,MAU,blanc,VIO,IGP Effervescent Var Maures Blanc Viognier
+IGP,EFF,D83,,MAU,blanc,MAR,IGP Effervescent Var Maures Blanc Marsanne
+IGP,EFF,D83,,MAU,blanc,ROU,IGP Effervescent Var Maures Blanc Roussanne
+IGP,EFF,D83,,MAU,blanc,CLA,IGP Effervescent Var Maures Blanc Clairette
+IGP,EFF,D83,,MAU,blanc,CEP,IGP Effervescent Var Maures Blanc Autre
+IGP,EFF,D83,,MCA,rouge,,IGP Effervescent Var Mont Caume Rouge 
+IGP,EFF,D83,,MCA,rouge,SYR,IGP Effervescent Var Mont Caume Rouge Syrah
+IGP,EFF,D83,,MCA,rouge,GRN,IGP Effervescent Var Mont Caume Rouge Grenache Noir
+IGP,EFF,D83,,MCA,rouge,CS,IGP Effervescent Var Mont Caume Rouge Cabernet-Sauvignon
+IGP,EFF,D83,,MCA,rouge,CIN,IGP Effervescent Var Mont Caume Rouge Cinsaut
+IGP,EFF,D83,,MCA,rouge,MER,IGP Effervescent Var Mont Caume Rouge Merlot
+IGP,EFF,D83,,MCA,rouge,MOU,IGP Effervescent Var Mont Caume Rouge Mourvedre
+IGP,EFF,D83,,MCA,rouge,CEP,IGP Effervescent Var Mont Caume Rouge Autre
+IGP,EFF,D83,,MCA,rose,,IGP Effervescent Var Mont Caume Rosé 
+IGP,EFF,D83,,MCA,rose,SYR,IGP Effervescent Var Mont Caume Rosé Syrah
+IGP,EFF,D83,,MCA,rose,GRN,IGP Effervescent Var Mont Caume Rosé Grenache Noir
+IGP,EFF,D83,,MCA,rose,CS,IGP Effervescent Var Mont Caume Rosé Cabernet-Sauvignon
+IGP,EFF,D83,,MCA,rose,CIN,IGP Effervescent Var Mont Caume Rosé Cinsaut
+IGP,EFF,D83,,MCA,rose,MER,IGP Effervescent Var Mont Caume Rosé Merlot
+IGP,EFF,D83,,MCA,rose,MOU,IGP Effervescent Var Mont Caume Rosé Mourvedre
+IGP,EFF,D83,,MCA,rose,CEP,IGP Effervescent Var Mont Caume Rosé Autre
+IGP,EFF,D83,,MCA,blanc,,IGP Effervescent Var Mont Caume Blanc 
+IGP,EFF,D83,,MCA,blanc,ROL,IGP Effervescent Var Mont Caume Blanc Rolle-Vermentino
+IGP,EFF,D83,,MCA,blanc,CHA,IGP Effervescent Var Mont Caume Blanc Chardonnay
+IGP,EFF,D83,,MCA,blanc,SAU,IGP Effervescent Var Mont Caume Blanc Sauvignon
+IGP,EFF,D83,,MCA,blanc,GRB,IGP Effervescent Var Mont Caume Blanc Grenache Blanc
+IGP,EFF,D83,,MCA,blanc,VIO,IGP Effervescent Var Mont Caume Blanc Viognier
+IGP,EFF,D83,,MCA,blanc,MAR,IGP Effervescent Var Mont Caume Blanc Marsanne
+IGP,EFF,D83,,MCA,blanc,ROU,IGP Effervescent Var Mont Caume Blanc Roussanne
+IGP,EFF,D83,,MCA,blanc,CLA,IGP Effervescent Var Mont Caume Blanc Clairette
+IGP,EFF,D83,,MCA,blanc,CEP,IGP Effervescent Var Mont Caume Blanc Autre
+IGP,EFF,MAU,,,rouge,,IGP Effervescent Maures Rouge 
+IGP,EFF,MAU,,,rouge,SYR,IGP Effervescent Maures Rouge Syrah
+IGP,EFF,MAU,,,rouge,GRN,IGP Effervescent Maures Rouge Grenache Noir
+IGP,EFF,MAU,,,rouge,CS,IGP Effervescent Maures Rouge Cabernet-Sauvignon
+IGP,EFF,MAU,,,rouge,CIN,IGP Effervescent Maures Rouge Cinsaut
+IGP,EFF,MAU,,,rouge,MER,IGP Effervescent Maures Rouge Merlot
+IGP,EFF,MAU,,,rouge,MOU,IGP Effervescent Maures Rouge Mourvedre
+IGP,EFF,MAU,,,rouge,CEP,IGP Effervescent Maures Rouge Autre
+IGP,EFF,MAU,,,blanc,,IGP Effervescent Maures Blanc 
+IGP,EFF,MAU,,,blanc,ROL,IGP Effervescent Maures Blanc Rolle-Vermentino
+IGP,EFF,MAU,,,blanc,CHA,IGP Effervescent Maures Blanc Chardonnay
+IGP,EFF,MAU,,,blanc,SAU,IGP Effervescent Maures Blanc Sauvignon
+IGP,EFF,MAU,,,blanc,GRB,IGP Effervescent Maures Blanc Grenache Blanc
+IGP,EFF,MAU,,,blanc,VIO,IGP Effervescent Maures Blanc Viognier
+IGP,EFF,MAU,,,blanc,MAR,IGP Effervescent Maures Blanc Marsanne
+IGP,EFF,MAU,,,blanc,ROU,IGP Effervescent Maures Blanc Roussanne
+IGP,EFF,MAU,,,blanc,CLA,IGP Effervescent Maures Blanc Clairette
+IGP,EFF,MAU,,,blanc,CEP,IGP Effervescent Maures Blanc Autre
+IGP,EFF,MAU,,,rose,,IGP Effervescent Maures Rosé 
+IGP,EFF,MAU,,,rose,SYR,IGP Effervescent Maures Rosé Syrah
+IGP,EFF,MAU,,,rose,GRN,IGP Effervescent Maures Rosé Grenache Noir
+IGP,EFF,MAU,,,rose,CS,IGP Effervescent Maures Rosé Cabernet-Sauvignon
+IGP,EFF,MAU,,,rose,CIN,IGP Effervescent Maures Rosé Cinsaut
+IGP,EFF,MAU,,,rose,MER,IGP Effervescent Maures Rosé Merlot
+IGP,EFF,MAU,,,rose,MOU,IGP Effervescent Maures Rosé Mourvedre
+IGP,EFF,MAU,,,rose,CEP,IGP Effervescent Maures Rosé Autre
+IGP,EFF,MCA,,,rouge,,IGP Effervescent Mont Caume Rouge 
+IGP,EFF,MCA,,,rouge,SYR,IGP Effervescent Mont Caume Rouge Syrah
+IGP,EFF,MCA,,,rouge,GRN,IGP Effervescent Mont Caume Rouge Grenache Noir
+IGP,EFF,MCA,,,rouge,CS,IGP Effervescent Mont Caume Rouge Cabernet-Sauvignon
+IGP,EFF,MCA,,,rouge,CIN,IGP Effervescent Mont Caume Rouge Cinsaut
+IGP,EFF,MCA,,,rouge,MER,IGP Effervescent Mont Caume Rouge Merlot
+IGP,EFF,MCA,,,rouge,MOU,IGP Effervescent Mont Caume Rouge Mourvedre
+IGP,EFF,MCA,,,rouge,CEP,IGP Effervescent Mont Caume Rouge Autre
+IGP,EFF,MCA,,,blanc,,IGP Effervescent Mont Caume Blanc 
+IGP,EFF,MCA,,,blanc,ROL,IGP Effervescent Mont Caume Blanc Rolle-Vermentino
+IGP,EFF,MCA,,,blanc,CHA,IGP Effervescent Mont Caume Blanc Chardonnay
+IGP,EFF,MCA,,,blanc,SAU,IGP Effervescent Mont Caume Blanc Sauvignon
+IGP,EFF,MCA,,,blanc,GRB,IGP Effervescent Mont Caume Blanc Grenache Blanc
+IGP,EFF,MCA,,,blanc,VIO,IGP Effervescent Mont Caume Blanc Viognier
+IGP,EFF,MCA,,,blanc,MAR,IGP Effervescent Mont Caume Blanc Marsanne
+IGP,EFF,MCA,,,blanc,ROU,IGP Effervescent Mont Caume Blanc Roussanne
+IGP,EFF,MCA,,,blanc,CLA,IGP Effervescent Mont Caume Blanc Clairette
+IGP,EFF,MCA,,,blanc,CEP,IGP Effervescent Mont Caume Blanc Autre
+IGP,EFF,MCA,,,rose,,IGP Effervescent Mont Caume Rosé 
+IGP,EFF,MCA,,,rose,SYR,IGP Effervescent Mont Caume Rosé Syrah
+IGP,EFF,MCA,,,rose,GRN,IGP Effervescent Mont Caume Rosé Grenache Noir
+IGP,EFF,MCA,,,rose,CS,IGP Effervescent Mont Caume Rosé Cabernet-Sauvignon
+IGP,EFF,MCA,,,rose,CIN,IGP Effervescent Mont Caume Rosé Cinsaut
+IGP,EFF,MCA,,,rose,MER,IGP Effervescent Mont Caume Rosé Merlot
+IGP,EFF,MCA,,,rose,MOU,IGP Effervescent Mont Caume Rosé Mourvedre
+IGP,EFF,MCA,,,rose,CEP,IGP Effervescent Mont Caume Rosé Autre

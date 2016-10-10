@@ -1,0 +1,47 @@
+TYPE_DRM,CATEGORIE MOUVEMENT,TYPE MOUVEMENT,COMMENTAIRE
+suspendu,entrees,achat,Achats / réintégration
+suspendu,entrees,recolte,Récolte / revendication
+suspendu,entrees,repli,Mvt. interne : Replis / Changt. de dénomination
+suspendu,entrees,declassement,Mvt. interne : Déclassement / Lies
+suspendu,entrees,manipulation,Mvt. interne : Augmentation de volume
+suspendu,entrees,vci,Mvt. interne : Intégration issue de VCI
+suspendu,entrees,mouvement,Mvt. temporaire : Retour transfert de chai
+suspendu,entrees,embouteillage,Mvt. temporaire : Retour embouteillage
+suspendu,entrees,travail,Mvt. temporaire : Retour de travail à façon
+suspendu,entrees,distillation,Mvt. temporaire : Retour de distillation à façon
+suspendu,entrees,crd,Replacement en suspension CRD
+suspendu,entrees,excedent,Excédent suite à inventaire ou contrôle douanes
+suspendu,sorties,vrac,Vrac DAA / DAE
+suspendu,sorties,export,Conditionné export
+suspendu,sorties,factures,DSA / Tickets / Factures
+suspendu,sorties,crd,CRD France
+suspendu,sorties,crd_acquittes,CRD Collectives acquittées
+suspendu,sorties,consommation,Conso Fam. / Analyses / Dégustation
+suspendu,sorties,pertes,Pertes exceptionnelles
+suspendu,sorties,declassement,Mvt. interne : Non rev. / Déclassement
+suspendu,sorties,repli,Mvt. interne : Changement / Repli
+suspendu,sorties,mutage,Mvt. interne : Mutage
+suspendu,sorties,vci,Mvt. interne : Revendication de VCI
+suspendu,sorties,autres_interne,Mvt. interne : Autres
+suspendu,sorties,mouvement,Mvt. temporaire : Transfert de chai
+suspendu,sorties,distillation,Mvt. temporaire : Distillation à façon
+suspendu,sorties,embouteillage,Mvt. temporaire : Embouteillage
+suspendu,sorties,travail,Mvt. temporaire : Travail à façon
+suspendu,sorties,autres,Destruction / Distillation
+suspendu,sorties,lies,Lies
+suspendu,stocks,total_debut_mois,Stock théorique début de mois
+suspendu,stocks,total,Stock théorique fin de mois
+suspendu,complement,tav,Taux d'alcool volumique du produit
+suspendu,complement,premix,Indique si le produit est un premix
+suspendu,complement,observation,Observation d'un produit
+suspendu,complement,vrac,Indique une retiraison d'un contrat en vrac
+acquitte,entrees,achat,Achats
+acquitte,entrees,autres,Autres
+acquitte,sorties,crd,Ventes de produits
+acquitte,sorties,replacement,Replacement en suspension
+acquitte,sorties,autres,Autres
+acquitte,stocks,total_debut_mois,Stock théorique début de mois
+acquitte,stocks,total,Stock théorique fin de mois
+acquitte,complement,tav,Taux d'alcool volumique du produit
+acquitte,complement,premix,Indique si le produit est un premix
+acquitte,complement,observation,Observation d'un produit
