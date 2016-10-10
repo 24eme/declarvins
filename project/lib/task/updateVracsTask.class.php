@@ -23,30 +23,20 @@ EOF;
         // initialize the database connection
     	$databaseManager = new sfDatabaseManager($this->configuration);
     	$connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-        $vracs = acCouchdbManager::getClient()
-              ->reduce(false)
-              ->getView("vrac", "all")
+        $drms = acCouchdbManager::getClient()
+        		->reduce(false)
+              ->getView("drm", "all")
               ->rows;
         $i = 1;
-        $nb = count($vracs);
-        foreach ($vracs as $v) {
-        	$vrac = VracClient::getInstance()->find($v->id);
-        	$remove = array();
-        	foreach ($vrac->getOrAdd('enlevements') as $k => $v) {
-        		$drm = DRMClient::getInstance()->find("DRM-T0001-2016-09");
-        		if (!$drm) {
-        			$remove[] = $k;
-        		}
-        	}
-        	if ($remove) {
-        		foreach ($remove as $r) {
-        			$vrac->enlevements->remove($r);
-        		}
-        		$vrac->save();
-        		$this->logSection("debug", $vrac->_id." debuggué avec succès ($i / $nb)", null, 'SUCCESS');
-        	} else {
-        		$this->logSection("squeeze", "($i / $nb)", null, 'INFO');
-        	}
+        $nb = count($drms);
+        foreach ($drms as $d) {
+			$drm = DRMClient::getInstance()->find($d->id);
+			if ($drm->isValidee()) {
+				$drm->updateVrac();
+				$this->logSection("update", $drm->_id." mis à jour avec succès ($i / $nb)", null, 'SUCCESS');
+			} else {
+				$this->logSection("update", "($i / $nb)", null, 'INFO');
+			}
 			$i++;
         }
     }
