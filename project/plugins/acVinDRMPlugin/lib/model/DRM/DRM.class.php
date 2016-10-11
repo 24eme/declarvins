@@ -179,7 +179,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $this->declaratif->adhesion_emcs_gamma = null;
             $this->declaratif->paiement->douane->frequence = null;
             $this->declaratif->paiement->douane->moyen = null;
-            $this->declaratif->paiement->douane->report_paye = null;
             $this->declaratif->paiement->cvo->frequence = null;
             $this->declaratif->paiement->cvo->moyen = null;
             $this->declaratif->caution->dispense = null;
@@ -198,6 +197,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 $this->declaratif->remove('rna');
                 $this->declaratif->add('rna');
         }
+        $this->declaratif->paiement->douane->report_paye = null;
         $this->declaratif->paiement->cvo->report_paye = null;
         $this->declaratif->remove('reports');
         $this->declaratif->add('reports');

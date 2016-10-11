@@ -120,6 +120,11 @@ class DRMValidation
 				$this->errors['diff_ciel'] = new DRMControleError('diff_ciel', $this->generateUrl('drm_validation', $this->drm));
 			}
 		}
+		if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI) {
+			if (!$this->drm->get('declaratif')->get('paiement')->get('douane')->get('frequence')) {
+				$this->errors['droits_frequence'] = new DRMControleError('droits_frequence', $this->generateUrl('drm_declaratif', $this->drm));
+			}
+		}
 	}
 	
 	public function isValide() {
