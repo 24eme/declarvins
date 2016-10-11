@@ -278,9 +278,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     			$reportSet = $reports->get($droit);
     		}
     	}
-    	if ($this->isNouvelleCampagne()) {
+    	/*if ($this->isNouvelleCampagne()) {
     		return 0;
-    	}
+    	}*/
     	if ($this->declaratif->paiement->get($type)->exist('report_paye') && $this->declaratif->paiement->get($type)->get('report_paye')) {
     		return 0;
     	}
