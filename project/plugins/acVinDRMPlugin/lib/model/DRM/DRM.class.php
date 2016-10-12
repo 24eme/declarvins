@@ -1165,6 +1165,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         //$drm->updateVracVersion();
         //$drm->updateProduitsDiponibles();
         $drm->identifiant_drm_historique = null;
+        $drm->declaratif->paiement->douane->report_paye = null;
         return $drm;
     }
 
@@ -1173,6 +1174,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         //$drm->updateVracVersion();
         //$drm->updateProduitsDiponibles();
         $drm->identifiant_drm_historique = null;
+        $drm->declaratif->paiement->douane->report_paye = null;
         return $drm;
     }
 
