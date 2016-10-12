@@ -34,6 +34,7 @@ EOF;
   	try {
   		$service = new CielService("IR");
   		$result = $service->seed($this->getXml());
+  		var_dump($result);exit;
   		echo (strpos($result, '<traderAuthorisation>') !== false)? 'valide' : 'non valide';
   		
   	} catch (sfException $e) {
@@ -46,9 +47,16 @@ EOF;
   
   protected function getXml()
   {
-  	$contextInstance = sfContext::createInstance($this->configuration);
-  	$edi = new EtablissementEdi();
-  	$xml = $edi->getXmlFormat('FR093027E0340', $contextInstance);
-  	return $xml;
+  	return '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.seed.douane.finances.gouv.fr/">
+<soapenv:Header/>
+<soapenv:Body>
+<ws:getInformation>
+<numAccises>
+<numAccise>FR093455E0087</numAccise>
+</numAccises>
+</ws:getInformation>
+</soapenv:Body>
+</soapenv:Envelope>
+  	';
   }
 }
