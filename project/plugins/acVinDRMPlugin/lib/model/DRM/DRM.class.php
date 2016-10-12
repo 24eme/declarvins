@@ -843,11 +843,15 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         if ($this->isDebutCampagne() || ($isAdministrateur && $this->hasVersion())) {
             return true;
         } else {
+        	$mother = $this->getPrecedente();
         	if ($acq) {
-        		$mother = $this->getPrecedente();
+        		
         		if ($mother && $this->hasDroitsAcquittes() && !$mother->hasDroitsAcquittes()) {
         			return true;
         		}
+        	}
+        	if ($mother && $mother->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) {
+        		return true;
         	}
             return false;
         }
