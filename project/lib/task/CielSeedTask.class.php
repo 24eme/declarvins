@@ -52,7 +52,7 @@ EOF;
 <soapenv:Body>
 <ws:getInformation>
 <numAccises>
-<numAccise>FR093455E0087</numAccise>
+<numAccise>FR093027E0635</numAccise>
 </numAccises>
 </ws:getInformation>
 </soapenv:Body>
