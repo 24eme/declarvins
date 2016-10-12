@@ -300,7 +300,7 @@ class ImportEtablissementsCsv {
         }
         $isCiel = (preg_match("/oui/i", trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_CIEL])))? 1 : 0;
         if ($isCiel) {
-        	$service = new CielService($interpro);
+        	$service = new CielService($etab->interpro);
         	$edi = new EtablissementEdi();
   			$result = $service->seed($edi->getXmlFormat(trim($line[EtablissementCsv::COL_NO_ASSICES])));
   			if (strpos($result, '<traderAuthorisation>') === false) {
