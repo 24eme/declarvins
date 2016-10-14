@@ -850,7 +850,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         			return true;
         		}
         	}
-        	if ($mother && $mother->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER) {
+        	if ($mother && $mother->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER && $this->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI) {
         		return true;
         	}
             return false;
@@ -1443,6 +1443,8 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		$result[DRMCsvEdi::CSV_PERIODE] = $this->periode;
 		$result[DRMCsvEdi::CSV_IDENTIFIANT] = $this->identifiant;
 		$result[DRMCsvEdi::CSV_NUMACCISE] = $this->declarant->no_accises;
+		$result[DRMCsvEdi::CSV_SIRET] = $this->declarant->siret;
+		$result[DRMCsvEdi::CSV_CVI] = $this->declarant->cvi;
 		return $result;
 	}
 	
