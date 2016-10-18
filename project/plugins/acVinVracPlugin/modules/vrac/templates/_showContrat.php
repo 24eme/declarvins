@@ -294,13 +294,13 @@
 		<ul>
 			<?php 
 				foreach ($vrac->enlevements as $drm => $enlevement): 
-				preg_match('/^DRM-([a-zA-Z0-9]*)-([a-zA-Z0-9\-]*)$/', $drm, $infosDrm);
+				if ($d = DRMClient::getInstance()->find($drm)):
 			?>
 			<li>
-				<span><a href="<?php echo url_for('drm_visualisation', array('identifiant' => $infosDrm[1], 'periode_version' => $infosDrm[2])); ?>"><?php echo $drm ?></a></span>
+				<span><a href="<?php echo url_for('drm_visualisation', $d); ?>"><?php echo $drm ?></a></span>
 				<span><?php echo $enlevement->volume ?> hl</span>
 			</li>
-			<?php endforeach; ?>
+			<?php endif; endforeach; ?>
 		</ul>
 	</li>
     <?php endif; ?>
