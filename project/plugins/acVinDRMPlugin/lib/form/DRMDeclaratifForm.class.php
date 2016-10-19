@@ -228,7 +228,7 @@ class DRMDeclaratifForm extends acCouchdbForm {
             $reports = $this->_drm->declaratif->getOrAdd('reports');
             if (isset($values['reports'])) {
 		        foreach ($values['reports'] as $code => $report) {
-		        	if ($report) {
+		        	if ($report >= 0) {
 		        		$reports->add($code, $report);
 		        	}
 		        }
