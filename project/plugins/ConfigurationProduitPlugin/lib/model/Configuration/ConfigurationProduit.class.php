@@ -173,6 +173,23 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	return $produits;
     }
     
+    public function getProduitByLibelle($libelle, $libelleDouane = null)
+    {
+    	$libelle = KeyInflector::slugify($libelle);
+    	$libelleDouane = KeyInflector::slugify($libelleDouane);
+    	foreach ($this->getProduits() as $produit) {
+    		$identifiantDouane = KeyInflector::slugify($produit->getIdentifiantDouane());
+    		$libelleProduit = KeyInflector::slugify($produit->getLibelleEdi());
+    		if ($libelleDouane && $identifiantDouane == $libelleDouane) {
+    			return $produit;
+    		}
+    		if (strpos($libelle, $libelleProduit) !== false) {
+    			return $produit;
+    		}
+    	}
+    	return null;
+    }
+    
     public function isProduitInPrestation($hash)
     {
     	$hash = str_replace('/', '_', $hash);

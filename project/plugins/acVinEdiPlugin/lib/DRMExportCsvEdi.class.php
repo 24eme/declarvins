@@ -90,6 +90,10 @@ class DRMExportCsvEdi extends DRMCsvEdi
     {
         $cepageConfig = $produitDetail->getCepage()->getConfig();
         $complement = ($produitDetail->getKey() != $this->drm->getDefaultKeyNode())? $produitDetail->getKey() : null;
+        $libelle = trim($produitDetail->getFormattedLibelle("%g% %a% %l% %co% %ce% %la%"));
+        if ($libelleDouane = $cepageConfig->getIdentifiantDouane()) {
+        	$libelle .= " ($libelleDouane)";
+        }
         return array(
         	DRMCsvEdi::CSV_CAVE_CERTIFICATION => $cepageConfig->getCertification()->getKey(),
         	DRMCsvEdi::CSV_CAVE_GENRE => $cepageConfig->getGenre()->getKey(),
@@ -98,7 +102,7 @@ class DRMExportCsvEdi extends DRMCsvEdi
         	DRMCsvEdi::CSV_CAVE_LIEU => $cepageConfig->getLieu()->getKey(),
         	DRMCsvEdi::CSV_CAVE_COULEUR => $cepageConfig->getCouleur()->getKey(),
         	DRMCsvEdi::CSV_CAVE_CEPAGE => $cepageConfig->getCepage()->getKey(),
-        	DRMCsvEdi::CSV_CAVE_PRODUIT => trim($produitDetail->getFormattedLibelle("%g% %a% %l% %co% %ce% %la%")),
+        	DRMCsvEdi::CSV_CAVE_PRODUIT => $libelle,
         	DRMCsvEdi::CSV_CAVE_COMPLEMENT_PRODUIT => $complement
         );
     }

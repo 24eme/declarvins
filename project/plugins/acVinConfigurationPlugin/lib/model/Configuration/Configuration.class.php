@@ -311,14 +311,40 @@ class Configuration extends BaseConfiguration {
     	return false;
     }
 
-    public function getConfigurationProduit($hash) {
-        $configuration = $this->getConfigurationProduitsComplete();
-        foreach ($configuration as $interpro => $configurationProduits) {
-            if ($configurationProduits->exist($hash)) {
-                return $configurationProduits->get($hash);
-            }
-        }
+    public function getConfigurationProduit($hash = null) {
+    	if ($hash) {
+	        $configuration = $this->getConfigurationProduitsComplete();
+	        foreach ($configuration as $interpro => $configurationProduits) {
+	            if ($configurationProduits->exist($hash)) {
+	                return $configurationProduits->get($hash);
+	            }
+	        }
+    	}
         return null;
+    }
+
+    public function getConfigurationProduitByLibelle($libelle = null) {
+    	$libelleDouane = null;
+    	if (preg_match('/([a-zA-Z0-9\ \-\_]*)\(([a-zA-Z0-9\ \-\_]*)\)/', trim($libelle), $result)) {
+    		$libelle = trim($result[1]);
+    		$libelleDouane = trim($result[2]);
+    	}
+    	if ($libelle) {
+	        $configuration = $this->getConfigurationProduitsComplete();
+	        foreach ($configuration as $interpro => $configurationProduits) {
+	        	if ($produit = $configurationProduits->getProduitByLibelle($libelle, $libelleDouane)) {
+	        		return $produit;
+	        	}
+	        }
+    	}
+        return null;
+    }
+    
+    public function identifyProduct($hash = null, $libelle = null) {
+    	if ($produit = $this->getConfigurationProduit($hash)) {
+    		return $produit;
+    	}
+    	return $this->getConfigurationProduitByLibelle($libelle);
     }
 
     public function getConfigurationVracByInterpro($interpro) {

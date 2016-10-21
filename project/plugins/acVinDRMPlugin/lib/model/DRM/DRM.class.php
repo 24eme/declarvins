@@ -1443,8 +1443,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		$result[DRMCsvEdi::CSV_PERIODE] = $this->periode;
 		$result[DRMCsvEdi::CSV_IDENTIFIANT] = $this->identifiant;
 		$result[DRMCsvEdi::CSV_NUMACCISE] = $this->declarant->no_accises;
-		$result[DRMCsvEdi::CSV_SIRET] = $this->declarant->siret;
-		$result[DRMCsvEdi::CSV_CVI] = $this->declarant->cvi;
 		return $result;
 	}
 	

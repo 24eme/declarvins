@@ -140,7 +140,7 @@ class ediActions extends sfActions
   	set_time_limit(0);
     $date = $request->getParameter('datedebut');
     $interpro = $request->getParameter('interpro');
-  	$this->securizeInterpro($interpro);
+  	//$this->securizeInterpro($interpro);
     if (!$date) {
 		return $this->renderText("Pas de date définie");
     }
@@ -156,7 +156,7 @@ class ediActions extends sfActions
     foreach ($datas as $data) {
     	if (!in_array($data->id, $drms) && $drm = DRMClient::getInstance()->find($data->id)) {
     		$export = new DRMExportCsvEdi($drm);
-    		$csv .= $export->exportEDIInterpro($interpro);
+    		$csv .= $export->exportEDIInterpro(array($interpro, 'INTERPRO-ANIVIN'));
     		$drms[] = $data->id;
 	      	if ($lastDate < $drm->valide->date_saisie) {
 	      		$lastDate = $drm->valide->date_saisie;
