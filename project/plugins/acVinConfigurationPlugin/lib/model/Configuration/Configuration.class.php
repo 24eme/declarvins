@@ -346,6 +346,18 @@ class Configuration extends BaseConfiguration {
     	}
     	return $this->getConfigurationProduitByLibelle($libelle);
     }
+    
+    public function identifyEtablissement($identifiant) {
+    	$result = EtablissementIdentifiantView::getInstance()->findByIdentifiant($identifiant)->rows;
+    	if (count($result) == 1) {
+    		$etablissement = current($result);
+    		if ($object = EtablissementClient::getInstance()->find($etablissement->id)) {
+    			return $object;
+    		}
+    		return null;
+    	}
+    	return null;
+    }
 
     public function getConfigurationVracByInterpro($interpro) {
         return $this->vrac->interpro->get($interpro);

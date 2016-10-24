@@ -86,7 +86,19 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     private function importDRM($datas)
   	{
   		$this->drm->setImportablePeriode($datas[self::CSV_PERIODE]);
-  		$this->drm->setImportableIdentifiant($datas[self::CSV_IDENTIFIANT]);
+  		
+  		$identifiant = trim($datas[self::CSV_IDENTIFIANT]);
+  		$ea = trim($datas[self::CSV_NUMACCISE]);
+  		$siretCvi = null;
+  		if (preg_match('/([a-zA-Z0-9\ \-\_]*)\(([a-zA-Z0-9\ \-\_]*)\)/', $identifiant, $result)) {
+  			$identifiant = trim($result[1]);
+  			$siretCvi = trim($result[2]);
+  		}
+  		$result = $this->drm->setImportableIdentifiant($identifiant, $ea, $siretCvi);
+  		if (!$result) {
+  			$this->csvDoc->addErreur($this->etablissementNotFoundError());
+  			return;
+  		}
     }
     
     private function importCave($numLigne, $datas)
@@ -374,7 +386,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             } else {
             	$periodes[$csvRow[self::CSV_PERIODE]] = 1;
             }
-            if (!preg_match('/^FR0[0-9]{10}$/', $csvRow[self::CSV_NUMACCISE])) {
+            if ($csvRow[self::CSV_NUMACCISE] && !preg_match('/^FR0[0-9]{10}$/', $csvRow[self::CSV_NUMACCISE])) {
                 $this->csvDoc->addErreur($this->createWrongFormatNumAcciseError($ligne_num, $csvRow));
             } else {
             	$accises[$csvRow[self::CSV_NUMACCISE]] = 1;
@@ -401,6 +413,10 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     }
     private function createMultiIdentifiantError() {
         return $this->createError(0, 'DRM', "Import limité à un seul établissement");
+    }
+    
+    private function etablissementNotFoundError() {
+    	return $this->createError(0, 'DRM', "Impossible d'identifier l'établissement");
     }
     
     private function createWrongFormatTypeError($num_ligne, $csvRow) {

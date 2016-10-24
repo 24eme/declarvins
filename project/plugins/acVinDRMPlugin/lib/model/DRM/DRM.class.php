@@ -1442,6 +1442,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		$result = array();
 		$result[DRMCsvEdi::CSV_PERIODE] = $this->periode;
 		$result[DRMCsvEdi::CSV_IDENTIFIANT] = $this->identifiant;
+		if ($this->declarant->siret) {
+			$result[DRMCsvEdi::CSV_IDENTIFIANT] .= ' ('.$this->declarant->siret.')';
+		} elseif ($this->declarant->cvi) {
+			$result[DRMCsvEdi::CSV_IDENTIFIANT] .= ' ('.$this->declarant->cvi.')';
+		}
 		$result[DRMCsvEdi::CSV_NUMACCISE] = $this->declarant->no_accises;
 		return $result;
 	}
@@ -1537,9 +1542,30 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		$this->periode = substr($periode, 0, 4).'-'.substr($periode, -2);
 	}
 	
-	public function setImportableIdentifiant($identifiant) {
-		$this->identifiant = $identifiant;
+	public function setImportableIdentifiant($identifiant = null, $ea = null, $siretCvi = null) {
+		$referent = null;
+		if ($identifiant) {
+			$referent = EtablissementClient::getInstance()->find($identifiant);
+		} elseif ($ea) {
+			$referent = ConfigurationClient::getCurrent()->identifyEtablissement($ea);
+		} elseif ($siretCvi) {
+			$referent = ConfigurationClient::getCurrent()->identifyEtablissement($siretCvi);
+		}
+		if (!$referent) {
+			return false;
+		}
+		if ($identifiant && $referent->identifiant != $identifiant) {
+			return false;
+		}
+		if ($siretCvi && !($referent->cvi == $siretCvi || $referent->siret == $siretCvi)) {
+			return false;
+		}
+		if ($ea && $referent->no_accises != $ea) {
+			return false;
+		}
+		$this->identifiant = $referent->identifiant;
 		$this->setEtablissementInformations();
+		return true;
 	}
 	
 	public function getDefaultKeyNode() {
