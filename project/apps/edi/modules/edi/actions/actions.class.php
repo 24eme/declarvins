@@ -140,7 +140,7 @@ class ediActions extends sfActions
   	set_time_limit(0);
     $date = $request->getParameter('datedebut');
     $interpro = $request->getParameter('interpro');
-  	//$this->securizeInterpro($interpro);
+  	$this->securizeInterpro($interpro);
     if (!$date) {
 		return $this->renderText("Pas de date définie");
     }
@@ -151,6 +151,10 @@ class ediActions extends sfActions
     $dateForView = new DateTime($date);
     $csv = '';
     $datas = DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows;
+    if ($interpro == 'INTERPRO-IS') {
+    	$datas = array_merge($datas, DRMDateView::getInstance()->findByInterproAndDate('INTERPRO-IO', $dateForView->modify('-1 second')->format('c'))->rows);
+    	$datas = array_merge($datas, DRMDateView::getInstance()->findByInterproAndDate('INTERPRO-CIVL', $dateForView->modify('-1 second')->format('c'))->rows);
+    }
     $drms = array();
     $lastDate = $dateTime->format('c');
     foreach ($datas as $data) {
