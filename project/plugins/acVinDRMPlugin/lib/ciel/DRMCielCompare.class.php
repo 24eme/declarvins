@@ -55,14 +55,15 @@ class DRMCielCompare
 		$result = array();
 		foreach ($array as $key => $value) {
 			if (preg_match('/\/produit\//i', $key) || preg_match('/\/compte-crd\//i', $key) || preg_match('/\/centilisation\//i', $key)) {
-				if (preg_match($patternProduit, $key) && preg_match('/libelle-personnalise/i', $key)) {
-					continue;
-				}
 				if (preg_match('/\/observations/i', $key)) {
 					continue;
 				}
 				if (preg_match($patternProduit, $key) && (preg_match('/code-inao/i', $key) || preg_match('/libelle-fiscal/i', $key))) {
 					$newKeyProduit = $value;
+					continue;
+				}
+				if (preg_match($patternProduit, $key) && preg_match('/libelle-personnalise/i', $key)) {
+					$newKeyProduit .= '_'.KeyInflector::slugify($value);
 					continue;
 				}
 				if (preg_match($patternCrd, $key) && preg_match('/categorie-fiscale-capsules/i', $key)) {

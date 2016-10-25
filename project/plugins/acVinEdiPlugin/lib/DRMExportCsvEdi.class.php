@@ -28,6 +28,15 @@ class DRMExportCsvEdi extends DRMCsvEdi
         }
         return $result;
     }
+
+    public function exportEDIInterpro($interpro) 
+    {
+        if (!($this->drm instanceof InterfaceDRMExportable)) {
+            new sfException('DRM must implements InterfaceDRMExportable');
+        }
+        $this->generateCsvEdi($interpro);
+        return $this->getCsvFormat();
+    }
     
     protected function getCsvFormat() {
     	$csvFile = '';
@@ -44,39 +53,47 @@ class DRMExportCsvEdi extends DRMCsvEdi
     	return $this->getPartial('xml', array('csv' => $this->csv, 'drm' => $this->drm, 'ciel' => $this->configuration->ciel), $context);
     }
 
-    protected function generateCsvEdi() 
+    protected function generateCsvEdi($interpro = null) 
     {
-    	$this->csv[] = array(
-    		'#TYPE',
-    		'PERIODE',
-    		'IDENTIFIANT',
-    		'ACCISE',
-    		'CERTIFICATION / TYPE PRODUIT',
-    		'GENRE / COULEUR CAPSULE',
-    		'APPELLATION / CENTILITRAGE',
-    		'MENTION',
-    		'LIEU',
-    		'COULEUR',
-    		'CEPAGE',
-    		'COMPLEMENT PRODUIT',
-    		'PRODUIT',
-    		'TYPE DROITS',
-    		'CATEGORIE MOUVEMENT / TYPE ANNEXE',
-    		'TYPE MOUVEMENT',
-    		'VOLUME / QUANTITE / OBSERVATIONS',
-    		'PAYS EXPORT / DATE NON APUREMENT / PERIODE SUSPENSION CRD',
-    		'NUMERO CONTRAT / NUMERO ACCISE DESTINATAIRE',
-    		'NUMERO DOCUMENT',
-    	);
-    	$this->createMouvementsEdi();
-    	$this->createCrdsEdi();
-    	$this->createAnnexesEdi();
+    	if ($interpro) {
+	    	$this->createMouvementsEdi($interpro);
+    	} else {
+	    	$this->csv[] = array(
+	    		'#TYPE',
+	    		'PERIODE',
+	    		'IDENTIFIANT',
+	    		'ACCISE',
+	    		'CERTIFICATION / TYPE PRODUIT',
+	    		'GENRE / COULEUR CAPSULE',
+	    		'APPELLATION / CENTILITRAGE',
+	    		'MENTION',
+	    		'LIEU',
+	    		'COULEUR',
+	    		'CEPAGE',
+	    		'COMPLEMENT PRODUIT',
+	    		'PRODUIT',
+	    		'TYPE DROITS',
+	    		'CATEGORIE MOUVEMENT / TYPE ANNEXE',
+	    		'TYPE MOUVEMENT',
+	    		'VOLUME / QUANTITE / OBSERVATIONS',
+	    		'PAYS EXPORT / DATE NON APUREMENT / PERIODE SUSPENSION CRD',
+	    		'NUMERO CONTRAT / NUMERO ACCISE DESTINATAIRE',
+	    		'NUMERO DOCUMENT',
+	    	);
+	    	$this->createMouvementsEdi($interpro);
+	    	$this->createCrdsEdi();
+	    	$this->createAnnexesEdi();
+    	}
     }
 
     protected function getProduitCSV($produitDetail) 
     {
         $cepageConfig = $produitDetail->getCepage()->getConfig();
         $complement = ($produitDetail->getKey() != $this->drm->getDefaultKeyNode())? $produitDetail->getKey() : null;
+        $libelle = trim($produitDetail->getFormattedLibelle("%g% %a% %l% %co% %ce% %la%"));
+        if ($libelleDouane = $cepageConfig->getIdentifiantDouane()) {
+        	$libelle .= " ($libelleDouane)";
+        }
         return array(
         	DRMCsvEdi::CSV_CAVE_CERTIFICATION => $cepageConfig->getCertification()->getKey(),
         	DRMCsvEdi::CSV_CAVE_GENRE => $cepageConfig->getGenre()->getKey(),
@@ -85,14 +102,14 @@ class DRMExportCsvEdi extends DRMCsvEdi
         	DRMCsvEdi::CSV_CAVE_LIEU => $cepageConfig->getLieu()->getKey(),
         	DRMCsvEdi::CSV_CAVE_COULEUR => $cepageConfig->getCouleur()->getKey(),
         	DRMCsvEdi::CSV_CAVE_CEPAGE => $cepageConfig->getCepage()->getKey(),
-        	DRMCsvEdi::CSV_CAVE_PRODUIT => trim($produitDetail->getFormattedLibelle("%g% %a% %l% %co% %ce% %la%")),
+        	DRMCsvEdi::CSV_CAVE_PRODUIT => $libelle,
         	DRMCsvEdi::CSV_CAVE_COMPLEMENT_PRODUIT => $complement
         );
     }
 
-    protected function createMouvementsEdi() 
+    protected function createMouvementsEdi($interpro = null) 
     {
-        foreach ($this->drm->getExportableProduits() as $hashProduit => $produitDetail) {
+        foreach ($this->drm->getExportableProduits($interpro) as $hashProduit => $produitDetail) {
             $champs = $this->drm->getExportableCategoriesMouvements();
             foreach ($champs as $champ) {
             	if (!$produitDetail->exist($champ)) {

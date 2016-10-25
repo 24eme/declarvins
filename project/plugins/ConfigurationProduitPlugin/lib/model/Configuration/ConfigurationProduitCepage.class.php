@@ -183,6 +183,27 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
         return $complete_libelle;
     }
     
+    public function getLibelleEdi() {
+        $complete_libelle = "";
+        $libelles = $this->getLibelles();
+        unset($libelles[0]);
+        foreach ($libelles as $key => $value){
+            if($value){
+                $complete_libelle.=$value." ";
+            }
+        }
+        return $complete_libelle;
+    }
+    
+    public function getIdentifiantDouane()
+    {
+    	$inao = $this->getInao();
+    	if (!$inao) {
+    		return $this->getLibelleFiscal();
+    	}
+    	return $inao;
+    }
+    
 	/*
      * Les fonctions ci-dessous sont relatives à la gestion de la configuration du catalogue produit
      */

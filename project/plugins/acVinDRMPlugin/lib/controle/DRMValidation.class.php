@@ -120,6 +120,11 @@ class DRMValidation
 				$this->errors['diff_ciel'] = new DRMControleError('diff_ciel', $this->generateUrl('drm_validation', $this->drm));
 			}
 		}
+		if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI) {
+			if (!$this->drm->get('declaratif')->get('paiement')->get('douane')->get('frequence')) {
+				$this->errors['droits_frequence'] = new DRMControleError('droits_frequence', $this->generateUrl('drm_declaratif', $this->drm));
+			}
+		}
 	}
 	
 	public function isValide() {
@@ -186,7 +191,7 @@ class DRMValidation
 				if (round($d->total,4) != round($detail->total_debut_mois,4)) {
 					$this->errors['stock_deb_'.$detail->getIdentifiantHTML()] = new DRMControleError('stock_deb', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
 				}
-				if (round($d->acq_total,4) != round($detail->acq_total_debut_mois,4)) {
+				if (!$this->drm->canSetStockDebutMois(true) && round($d->acq_total,4) != round($detail->acq_total_debut_mois,4)) {
 					$this->errors['stock_deb_'.$detail->getIdentifiantHTML()] = new DRMControleError('stock_deb_acq', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
 				}
 			}
@@ -200,7 +205,7 @@ class DRMValidation
 		if ($crdNeg) {
 			$this->errors['stock_crd'] = new DRMControleError('crd', $this->generateUrl('drm_crd', $this->drm));
 		}
-		if ($this->isCiel && !$this->isAdmin) {
+		if ($this->isCiel) {
 			if ($detail->entrees->crd > 0 && !$detail->observations) {
 				$this->errors['observations_crd_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_crd', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
 			}

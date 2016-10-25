@@ -240,10 +240,10 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
         return $sister;
     }
 
-    public function getProduits() {
+    public function getProduits($interpro = null) {
         $produits = array();
         foreach($this->getChildrenNode() as $key => $item) {
-            $produits = array_merge($produits, $item->getProduits());
+            $produits = array_merge($produits, $item->getProduits($interpro));
         }
 
         return $produits;

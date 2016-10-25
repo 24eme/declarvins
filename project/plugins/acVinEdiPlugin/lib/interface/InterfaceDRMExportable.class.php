@@ -1,7 +1,7 @@
 <?php
 interface InterfaceDRMExportable
 {
-	public function getExportableProduits();
+	public function getExportableProduits($interpro = null);
 	public function hasExportableProduitsAcquittes();
 	public function getExportableVracs();
 	public function getExportableCrds();

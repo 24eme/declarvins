@@ -134,6 +134,46 @@ class ediActions extends sfActions
     return $this->renderCsv($drms, DRMDateView::VALUE_DATEDESAISIE, "DRM", $dateTime->format('c'), $interpro, array(DRMDateView::VALUE_IDENTIFIANT_DECLARANT));
   }
   
+  public function executeStreamDRMInterpro(sfWebRequest $request) 
+  {
+  	ini_set('memory_limit', '4096M');
+  	set_time_limit(0);
+    $date = $request->getParameter('datedebut');
+    $interpro = $request->getParameter('interpro');
+  	$this->securizeInterpro($interpro);
+    if (!$date) {
+		return $this->renderText("Pas de date définie");
+    }
+    if (!preg_match('/^INTERPRO-/', $interpro)) {
+		$interpro = 'INTERPRO-'.$interpro;
+    }
+    $dateTime = new DateTime($date);
+    $dateForView = new DateTime($date);
+    $csv = '';
+    $datas = DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows;
+    if ($interpro == 'INTERPRO-IS') {
+    	$datas = array_merge($datas, DRMDateView::getInstance()->findByInterproAndDate('INTERPRO-IO', $dateForView->modify('-1 second')->format('c'))->rows);
+    	$datas = array_merge($datas, DRMDateView::getInstance()->findByInterproAndDate('INTERPRO-CIVL', $dateForView->modify('-1 second')->format('c'))->rows);
+    }
+    $drms = array();
+    $lastDate = $dateTime->format('c');
+    foreach ($datas as $data) {
+    	if (!in_array($data->id, $drms) && $drm = DRMClient::getInstance()->find($data->id)) {
+    		$export = new DRMExportCsvEdi($drm);
+    		$csv .= $export->exportEDIInterpro(array($interpro, 'INTERPRO-ANIVIN'));
+    		$drms[] = $data->id;
+	      	if ($lastDate < $drm->valide->date_saisie) {
+	      		$lastDate = $drm->valide->date_saisie;
+	      	}
+    	}
+    }
+    $filename = 'DRM_'.$dateTime->format('c').'_'.$lastDate.'.csv';
+    $this->response->setContentType('text/csv');
+    $this->response->setHttpHeader('md5', md5($csv));
+    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$filename);
+    return $this->renderText($csv);
+  }
+  
   public function executeStreamCampagneDRM(sfWebRequest $request) 
   {
   	ini_set('memory_limit', '2048M');

@@ -621,6 +621,14 @@ class DRMDetail extends BaseDRMDetail {
     {
     	return $this->getCepage()->getInao();
     }
+    public function getIdentifiantDouane()
+    {
+    	$inao = $this->getInao();
+    	if (!$inao) {
+    		return $this->getLibelleFiscal();
+    	}
+    	return $inao;
+    }
     public function getHasSaisieAcq() {
     	$has = false;
     	if ($this->acq_total_debut_mois || $this->acq_total_entrees || $this->acq_total_sorties) {

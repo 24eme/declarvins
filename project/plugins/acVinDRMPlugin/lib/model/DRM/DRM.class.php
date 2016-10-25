@@ -111,9 +111,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return DRMClient::getInstance()->getModeDeSaisieLibelle($this->mode_de_saisie);
     }
 
-    public function getDetails() {
+    public function getDetails($interpro = null) {
 
-        return $this->declaration->getProduits();
+        return $this->declaration->getProduits($interpro);
     }
 
     public function getProduitsCepages() {
@@ -179,7 +179,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $this->declaratif->adhesion_emcs_gamma = null;
             $this->declaratif->paiement->douane->frequence = null;
             $this->declaratif->paiement->douane->moyen = null;
-            $this->declaratif->paiement->douane->report_paye = null;
             $this->declaratif->paiement->cvo->frequence = null;
             $this->declaratif->paiement->cvo->moyen = null;
             $this->declaratif->caution->dispense = null;
@@ -198,6 +197,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 $this->declaratif->remove('rna');
                 $this->declaratif->add('rna');
         }
+        $this->declaratif->paiement->douane->report_paye = null;
         $this->declaratif->paiement->cvo->report_paye = null;
         $this->declaratif->remove('reports');
         $this->declaratif->add('reports');
@@ -278,9 +278,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     			$reportSet = $reports->get($droit);
     		}
     	}
-    	if ($this->isNouvelleCampagne()) {
+    	/*if ($this->isNouvelleCampagne()) {
     		return 0;
-    	}
+    	}*/
     	if ($this->declaratif->paiement->get($type)->exist('report_paye') && $this->declaratif->paiement->get($type)->get('report_paye')) {
     		return 0;
     	}
@@ -416,6 +416,32 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->valide->identifiant = null;
         $this->valide->date_saisie = null;
         $this->valide->date_signee = null;
+        $this->annuleUpdateVrac();
+    }
+    
+    public function annuleUpdateVrac()
+    {
+    	$mothers = array();
+    	foreach ($this->getDetails() as $detail) {
+    		foreach ($detail->vrac as $numero => $vrac) {
+    			$volume = $vrac->volume;
+    			$contrat = VracClient::getInstance()->findByNumContrat($numero);
+    			$contrat->soustraitVolumeEnleve($volume);
+    			$enlevements = $contrat->getOrAdd('enlevements');
+    			if ($this->hasVersion()) {
+    				if ($previous = $this->getMother()) {
+    					$mothers[] = $previous;
+    				}
+    			}
+    			if ($enlevements->exist($this->_id)) {
+    				$enlevements->remove($this->_id);
+    			}
+    			$contrat->save();
+    		}
+    	}
+    	foreach ($mothers as $mother) {
+    		$mother->updateVrac();
+    	}
     }
 
     public function isValidee() {
@@ -541,7 +567,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         foreach ($this->getDetails() as $detail) {
             foreach ($detail->vrac as $numero => $vrac) {
                 $volume = $vrac->volume;
-                $contrat = VracClient::getInstance()->findByNumContrat($numero);
+                if ($contrat = VracClient::getInstance()->findByNumContrat($numero)) {
                 $contrat->integreVolumeEnleve($volume);
                 $enlevements = $contrat->getOrAdd('enlevements');
                 if ($this->hasVersion()) {
@@ -554,6 +580,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 $drm = $enlevements->getOrAdd($this->_id);
                 $drm->add('volume', $volume);
                 $contrat->save();
+                }
             }
         }
     }
@@ -816,11 +843,15 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         if ($this->isDebutCampagne() || ($isAdministrateur && $this->hasVersion())) {
             return true;
         } else {
+        	$mother = $this->getPrecedente();
         	if ($acq) {
-        		$mother = $this->getPrecedente();
+        		
         		if ($mother && $this->hasDroitsAcquittes() && !$mother->hasDroitsAcquittes()) {
         			return true;
         		}
+        	}
+        	if ($mother && $mother->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER && $this->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI) {
+        		return true;
         	}
             return false;
         }
@@ -1138,6 +1169,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         //$drm->updateVracVersion();
         //$drm->updateProduitsDiponibles();
         $drm->identifiant_drm_historique = null;
+        $drm->declaratif->paiement->douane->report_paye = null;
         return $drm;
     }
 
@@ -1146,6 +1178,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         //$drm->updateVracVersion();
         //$drm->updateProduitsDiponibles();
         $drm->identifiant_drm_historique = null;
+        $drm->declaratif->paiement->douane->report_paye = null;
         return $drm;
     }
 
@@ -1278,8 +1311,8 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     /* FIN DES MOUVEMENTS *** */
     
     /* EXPORTABLE */
-    public function getExportableProduits() {
-    	return $this->getDetails();
+    public function getExportableProduits($interpro = null) {
+    	return $this->getDetails($interpro);
     }
     
     public function getExportableSucre() {
@@ -1409,6 +1442,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		$result = array();
 		$result[DRMCsvEdi::CSV_PERIODE] = $this->periode;
 		$result[DRMCsvEdi::CSV_IDENTIFIANT] = $this->identifiant;
+		if ($this->declarant->siret) {
+			$result[DRMCsvEdi::CSV_IDENTIFIANT] .= ' ('.$this->declarant->siret.')';
+		} elseif ($this->declarant->cvi) {
+			$result[DRMCsvEdi::CSV_IDENTIFIANT] .= ' ('.$this->declarant->cvi.')';
+		}
 		$result[DRMCsvEdi::CSV_NUMACCISE] = $this->declarant->no_accises;
 		return $result;
 	}
@@ -1504,9 +1542,30 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		$this->periode = substr($periode, 0, 4).'-'.substr($periode, -2);
 	}
 	
-	public function setImportableIdentifiant($identifiant) {
-		$this->identifiant = $identifiant;
+	public function setImportableIdentifiant($identifiant = null, $ea = null, $siretCvi = null) {
+		$referent = null;
+		if ($identifiant) {
+			$referent = EtablissementClient::getInstance()->find($identifiant);
+		} elseif ($ea) {
+			$referent = ConfigurationClient::getCurrent()->identifyEtablissement($ea);
+		} elseif ($siretCvi) {
+			$referent = ConfigurationClient::getCurrent()->identifyEtablissement($siretCvi);
+		}
+		if (!$referent) {
+			return false;
+		}
+		if ($identifiant && $referent->identifiant != $identifiant) {
+			return false;
+		}
+		if ($siretCvi && !($referent->cvi == $siretCvi || $referent->siret == $siretCvi)) {
+			return false;
+		}
+		if ($ea && $referent->no_accises != $ea) {
+			return false;
+		}
+		$this->identifiant = $referent->identifiant;
 		$this->setEtablissementInformations();
+		return true;
 	}
 	
 	public function getDefaultKeyNode() {
