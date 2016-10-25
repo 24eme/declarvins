@@ -157,20 +157,22 @@ class ediActions extends sfActions
     }
     $drms = array();
     $lastDate = $dateTime->format('c');
-    $i=0;
     foreach ($datas as $data) {
-    	if ($i > 100) {
+    	if (count($drms) >= 100) {
     		break;
     	}
     	if (!in_array($data->id, $drms) && $drm = DRMClient::getInstance()->find($data->id)) {
     		$export = new DRMExportCsvEdi($drm);
-    		$csv .= $export->exportEDIInterpro(array($interpro, 'INTERPRO-ANIVIN'));
+    		if ($interpro == 'INTERPRO-IS') {
+    			$csv .= $export->exportEDIInterpro(array($interpro, 'INTERPRO-IO', 'INTERPRO-CIVL', 'INTERPRO-ANIVIN'));
+    		} else {
+    			$csv .= $export->exportEDIInterpro(array($interpro, 'INTERPRO-ANIVIN'));
+    		}
     		$drms[] = $data->id;
 	      	if ($lastDate < $drm->valide->date_saisie) {
 	      		$lastDate = $drm->valide->date_saisie;
 	      	}
     	}
-    	$i++;
     }
     $filename = 'DRM_'.$dateTime->format('c').'_'.$lastDate.'.csv';
     $this->response->setContentType('text/csv');
