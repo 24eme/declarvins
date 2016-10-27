@@ -29,7 +29,8 @@ Toutes les connexions réalisées sur l'interface de saisie des DRM se feront vi
 
 ###Domaine dédié à l'EDI
 
-Le nom de domaine de pré-production est : https://edi-preprodv2.declarvins.net 
+Le nom de domaine de pré-production est : https://edi-preprodv2.declarvins.net   
+
 Le nom de domaine de production est : https://edi.declarvins.net
 
 ###Envoi des informations par EDI
@@ -46,12 +47,12 @@ Voici les détails téchnique pour accéder au webservice d'envoi EDI :
  
 ##Interface EDI DRM
 
-L'url de récupération des DRM pour une interprofession partenaire est : /edi.php/edi/v2/drm/<<interpro>>/<<date>>
+L'url de récupération des DRM pour une interprofession partenaire est : /edi.php/edi/v2/drm/\<\<interpro\>\>/\<\<date\>\>
 
- * <<interpro>> : correspond à l'identifiant de l'interprofession partenaire
- * <<date>> : correspondant à la date au format ISO 8601 [6] à partir de laquelle les DRM ont été saisies
+ * \<\<interpro\>\> : correspond à l'identifiant de l'interprofession partenaire
+ * \<\<date\>\> : correspondant à la date au format ISO 8601 [6] à partir de laquelle les DRM ont été saisies
  
-La nomenclature du fichier CSV retourné est : DRM_<<date demandée>>_<<date de saisie de la dernière DRM retournée>>.csv 
+La nomenclature du fichier CSV retourné est : DRM_\<\<date demandée\>\>_\<\<date de saisie de la dernière DRM retournée\>\>.csv 
 
 Cet export fournira les mouvements, des produits relatifs à l'interprofession partenaire désignée ainsi que les produits sans indication géographique, des DRM.
 
@@ -61,9 +62,9 @@ La spécification complète du format d'import et d'export des DRM est détaill�
 
 ##Interface EDI Contrat d'achat
 
-L'url de récupération des contrats d'achat pour une interprofession partenaire est : /edi.php/edi/v2/contrats-achat/<<interpro>>
+L'url de récupération des contrats d'achat pour une interprofession partenaire est : /edi.php/edi/v2/contrats-achat/\<\<interpro\>\>
 
- * <<interpro>> : correspond à l'identifiant de l'interprofession partenaire
+ * \<\<interpro\>\> : correspond à l'identifiant de l'interprofession partenaire
  
 Cet export fournira la liste complète des contrats d'achat visés et non soldés dont les produits concernent l'interprofession partenaire désignée.
 
