@@ -13,7 +13,7 @@ class ediActions extends sfActions
 	
   protected function getCompte()
   {
-  	return acCouchdbManager::getClient('_Compte')->retrieveByLogin($_SERVER['PHP_AUTH_USER']);
+  	return acCouchdbManager::getClient('_Compte')->retrieveByLogin('admin-ir');
   }
 	
   protected function securizeInterpro($interpro)
@@ -112,7 +112,7 @@ class ediActions extends sfActions
     $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
     $vracs = $this->vracCallback($interpro, VracOiocView::getInstance()->findByOiocAndDate($oioc, OIOC::STATUT_EDI, "Vrac", $dateForView->modify('-1 second')->format('c'))->rows);
-    return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "TRANSACTION", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID));
+    return $this->renderCsv($vracs, VracOiocView::VALUE_DATE_SAISIE, "TRANSACTION", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID));
   }
   
   public function executeStreamDRM(sfWebRequest $request) 
@@ -179,6 +179,36 @@ class ediActions extends sfActions
     $this->response->setHttpHeader('md5', md5($csv));
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$filename);
     return $this->renderText($csv);
+  }
+  
+  public function executeStreamVracInterpro(sfWebRequest $request) 
+  {
+
+  	ini_set('memory_limit', '4096M');
+  	set_time_limit(0);
+  	$interpro = $request->getParameter('interpro');
+  	//$this->securizeInterpro($interpro);
+  	if (!preg_match('/^INTERPRO-/', $interpro)) {
+  		$interpro = 'INTERPRO-'.$interpro;
+  	}
+  	$values = VracDateView::getInstance()->findByInterpro($interpro)->rows;
+  	if ($interpro == 'INTERPRO-IS') {
+  		$values = array_merge($values, VracDateView::getInstance()->findByInterpro('INTERPRO-IO')->rows);
+  		$values = array_merge($values, VracDateView::getInstance()->findByInterpro('INTERPRO-CIVL')->rows);
+  	}
+
+  	$csv = '';
+	$items = $this->vracInterproCallback($interpro, $values);
+	foreach ($items as $item) {
+		$csv .= implode(';', $item);
+		$csv .= "\n";
+	}
+	
+  	$filename = 'VRAC_'.str_replace('INTERPRO-', '', $interpro).'.csv';
+  	$this->response->setContentType('text/csv');
+  	$this->response->setHttpHeader('md5', md5($csv));
+  	$this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$filename);
+  	return $this->renderText($csv);
   }
   
   public function executeStreamCampagneDRM(sfWebRequest $request) 
@@ -751,9 +781,51 @@ class ediActions extends sfActions
   			$item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE] = $configurationVrac->formatTypesTransactionLibelle(array($item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE]));
   			$item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE] = $configurationVrac->formatCasParticulierLibelle(array($item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE]));
   			$item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE] = $configurationVrac->formatConditionsPaiementLibelle(array($item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE]));
+  			unset($item->value[VracDateView::VALUE_VOLUME_RETIRE]);
   			$vracs[] = $item;
   		}
   		return $vracs;
+  }
+  
+  protected function vracInterproCallback($interpro, $items)
+  {
+
+  	$vracs = array();
+  	$configurationProduitClient = ConfigurationProduitClient::getInstance();
+  	foreach ($items as $item) {
+  		if ($item->value[VracDateView::VALUE_STATUT] != VracClient::STATUS_CONTRAT_NONSOLDE) {
+  			continue;
+  		}
+  		preg_match('/certifications\/([a-zA-Z0-9]*)\/genres\/([a-zA-Z0-9]*)\/appellations\/([a-zA-Z0-9]*)\/mentions\/([a-zA-Z0-9]*)\/lieux\/([a-zA-Z0-9]*)\/couleurs\/([a-zA-Z0-9]*)\/cepages\/([a-zA-Z0-9]*)$/i', $item->key[VracDateView::KEY_PRODUIT_HASH], $hashProduit);
+  		$vendeurId = $item->value[VracDateView::VALUE_VENDEUR_ID];
+  		if ($item->value[VracDateView::VALUE_VENDEUR_SIRET]) {
+  			$vendeurId .= ' ('.$item->value[VracDateView::VALUE_VENDEUR_SIRET].')';
+  		} elseif ($item->value[VracDateView::VALUE_VENDEUR_CVI]) {
+  			$vendeurId .= ' ('.$item->value[VracDateView::VALUE_VENDEUR_CVI].')';
+  		}
+  		$vracs[] = array(
+  				$item->value[VracDateView::VALUE_VRAC_ID],
+  				$vendeurId,
+  				$item->value[VracDateView::VALUE_VENDEUR_EA],
+  				$item->value[VracDateView::VALUE_ACHETEUR_NOM],
+  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[1]),
+  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[2]),
+  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[3]),
+  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[4]),
+  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[5]),
+  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[6]),
+  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[7]),
+  				$configurationProduitClient->format(
+  						array($item->value[VracDateView::VALUE_PRODUIT_CERTIFICATION_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_GENRE_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_APPELLATION_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_LIEU_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_COULEUR_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_CEPAGE_LIBELLE]), 
+  						array(),
+  						"%g% %a% %l% %co% %ce%"
+  				),
+  				$item->value[VracDateView::VALUE_MILLESIME_CODE],
+  				$item->value[VracDateView::VALUE_VOLUME_PROPOSE],
+  				$item->value[VracDateView::VALUE_VOLUME_RETIRE]
+  		);
+  	}
+  	return $vracs;
   }
   
   
