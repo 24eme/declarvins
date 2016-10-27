@@ -20,7 +20,7 @@ streamDRMInterpro:
   url: /edi/v2/drm/:interpro/:datedebut
   param: {module: edi, action: streamDRMInterpro}
 streamVracInterpro:
-  url: /edi/v2/vrac/:interpro
+  url: /edi/v2/contrats-achat/:interpro
   param: {module: edi, action: streamVracInterpro}
 streamDRMEtablissementEdi:
   url: /edi/etablissement/drm/:etablissement/:datedebut
