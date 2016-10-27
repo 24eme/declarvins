@@ -76,6 +76,7 @@ function(doc) {
 		var vrac_premiere_mise_en_marche = doc.premiere_mise_en_marche;
 		var vrac_annexe = doc.annexe;
 		var vrac_volume_propose = doc.volume_propose;
+		var vrac_volume_enleve = doc.volume_enleve;
 		var vrac_prix_unitaire = doc.prix_unitaire;
 		var vrac_type_prix = doc.type_prix;
 		var vrac_determination_prix = doc.determination_prix;
@@ -254,7 +255,8 @@ function(doc) {
 				 vrac_acheteur_ea,
 				 vrac_vendeur_ea,
 				 vrac_determination_prix_date,
-				 vrac_campagne
+				 vrac_campagne,
+				 vrac_volume_enleve
                 		 ]);
 			}
 		} else {
@@ -339,7 +341,8 @@ function(doc) {
 			 vrac_acheteur_ea,
 			 vrac_vendeur_ea,
 			 vrac_determination_prix_date,
-			 vrac_campagne
+			 vrac_campagne,
+			 vrac_volume_enleve
             		 ]);
 		}                              
 	} 

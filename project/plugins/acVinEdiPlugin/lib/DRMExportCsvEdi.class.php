@@ -95,13 +95,13 @@ class DRMExportCsvEdi extends DRMCsvEdi
         	$libelle .= " ($libelleDouane)";
         }
         return array(
-        	DRMCsvEdi::CSV_CAVE_CERTIFICATION => $cepageConfig->getCertification()->getKey(),
-        	DRMCsvEdi::CSV_CAVE_GENRE => $cepageConfig->getGenre()->getKey(),
-        	DRMCsvEdi::CSV_CAVE_APPELLATION => $cepageConfig->getAppellation()->getKey(),
-        	DRMCsvEdi::CSV_CAVE_MENTION => $cepageConfig->getMention()->getKey(),
-        	DRMCsvEdi::CSV_CAVE_LIEU => $cepageConfig->getLieu()->getKey(),
-        	DRMCsvEdi::CSV_CAVE_COULEUR => $cepageConfig->getCouleur()->getKey(),
-        	DRMCsvEdi::CSV_CAVE_CEPAGE => $cepageConfig->getCepage()->getKey(),
+        	DRMCsvEdi::CSV_CAVE_CERTIFICATION => str_replace(ConfigurationProduit::DEFAULT_KEY, null, $cepageConfig->getCertification()->getKey()),
+        	DRMCsvEdi::CSV_CAVE_GENRE => str_replace(ConfigurationProduit::DEFAULT_KEY, null, $cepageConfig->getGenre()->getKey()),
+        	DRMCsvEdi::CSV_CAVE_APPELLATION => str_replace(ConfigurationProduit::DEFAULT_KEY, null, $cepageConfig->getAppellation()->getKey()),
+        	DRMCsvEdi::CSV_CAVE_MENTION => str_replace(ConfigurationProduit::DEFAULT_KEY, null, $cepageConfig->getMention()->getKey()),
+        	DRMCsvEdi::CSV_CAVE_LIEU => str_replace(ConfigurationProduit::DEFAULT_KEY, null, $cepageConfig->getLieu()->getKey()),
+        	DRMCsvEdi::CSV_CAVE_COULEUR => str_replace(ConfigurationProduit::DEFAULT_KEY, null, $cepageConfig->getCouleur()->getKey()),
+        	DRMCsvEdi::CSV_CAVE_CEPAGE => str_replace(ConfigurationProduit::DEFAULT_KEY, null, $cepageConfig->getCepage()->getKey()),
         	DRMCsvEdi::CSV_CAVE_PRODUIT => $libelle,
         	DRMCsvEdi::CSV_CAVE_COMPLEMENT_PRODUIT => $complement
         );

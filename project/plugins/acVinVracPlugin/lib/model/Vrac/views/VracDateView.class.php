@@ -68,7 +68,6 @@ class VracDateView extends acCouchdbView
 	const VALUE_COMMENTAIRE = 59;
 	const VALUE_VERSION = 60;
 	const VALUE_REFERENTE = 61;
-
 	const VALUE_MODE_SAISIE = 62;
 	const VALUE_DATE_SAISIE2 = 63;
 	const VALUE_DATE_VALIDATION2 = 64;
@@ -86,6 +85,9 @@ class VracDateView extends acCouchdbView
 	const VALUE_STOCKAGE_HAS = 76;
 	const VALUE_ACHETEUR_EA = 77;
 	const VALUE_VENDEUR_EA = 78;
+	const VALUE_DATE_DETERMINATION_PRIX = 79;
+	const VALUE_CAMPAGNE = 80;
+	const VALUE_VOLUME_RETIRE = 81;
 
 	public static function getInstance() 
 	{
@@ -96,6 +98,13 @@ class VracDateView extends acCouchdbView
     {
       	return $this->client->startkey(array($interpro, $date))
                     		->endkey(array($interpro, $this->getEndISODateForView(), array()))
+                    		->getView($this->design, $this->view);
+    }
+
+    public function findByInterpro($interpro) 
+    {
+      	return $this->client->startkey(array($interpro))
+                    		->endkey(array($interpro, array()))
                     		->getView($this->design, $this->view);
     }
     
