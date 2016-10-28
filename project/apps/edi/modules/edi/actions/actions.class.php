@@ -175,7 +175,8 @@ class ediActions extends sfActions
 	      	}
     	}
     }
-    $filename = 'DRM_'.$dateTime->format('c').'_'.$lastDate.'.csv';
+    $lastDate = new DateTime($lastDate);
+    $filename = 'DRM_'.$dateTime->format('Y-m-dTH:i:s').'_'.$lastDate->format('Y-m-dTH:i:s').'.csv';
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('md5', md5($csv));
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$filename);
@@ -205,7 +206,7 @@ class ediActions extends sfActions
 		$csv .= "\n";
 	}
 	
-  	$filename = 'VRAC_'.str_replace('INTERPRO-', '', $interpro).'.csv';
+  	$filename = 'contrats_achat_non_soldes_'.str_replace('INTERPRO-', '', $interpro).'.csv';
   	$this->response->setContentType('text/csv');
   	$this->response->setHttpHeader('md5', md5($csv));
   	$this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$filename);
