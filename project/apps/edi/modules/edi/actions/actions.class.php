@@ -140,6 +140,7 @@ class ediActions extends sfActions
   	set_time_limit(0);
     $date = $request->getParameter('datedebut');
     $interpro = $request->getParameter('interpro');
+    $limit = $request->getParameter('limit');
   	$this->securizeInterpro($interpro);
     if (!$date) {
 		return $this->renderText("Pas de date définie");
@@ -158,7 +159,7 @@ class ediActions extends sfActions
     $drms = array();
     $lastDate = $dateTime->format('c');
     foreach ($datas as $data) {
-    	if (count($drms) >= 100) {
+    	if ($limit && count($drms) >= $limit) {
     		break;
     	}
     	if (!in_array($data->id, $drms) && $drm = DRMClient::getInstance()->find($data->id)) {
