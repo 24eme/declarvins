@@ -138,7 +138,7 @@ class ediActions extends sfActions
   {
   	ini_set('memory_limit', '4096M');
   	set_time_limit(0);
-    $date = $request->getParameter('datedebut');
+    $date = str_replace(array('h', 'H', 'm', 'M'), ':', $request->getParameter('datedebut'));
     $interpro = $request->getParameter('interpro');
     $limit = $request->getParameter('limit');
   	$this->securizeInterpro($interpro);
@@ -176,7 +176,7 @@ class ediActions extends sfActions
     	}
     }
     $lastDate = new DateTime($lastDate);
-    $filename = 'DRM_'.$dateTime->format('Y-m-d\TH:i:s').'_'.$lastDate->format('Y-m-d\TH:i:s').'.csv';
+    $filename = 'DRM_'.$dateTime->format('Y-m-d\TH\hi\ms').'_'.$lastDate->format('Y-m-d\TH\hi\ms').'.csv';
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('md5', md5($csv));
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$filename);
