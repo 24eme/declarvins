@@ -52,11 +52,16 @@ L'url de récupération des DRM pour une interprofession partenaire est :
 /edi.php/edi/v2/drm/\<\<interpro\>\>/\<\<date\>\>
 
  * \<\<interpro\>\> : correspond à l'identifiant de l'interprofession partenaire
- * \<\<date\>\> : correspondant à la date au format ISO 8601 [6] à partir de laquelle les DRM ont été saisies (le format horaire 00h00m00 est accepté)
+ * \<\<date\>\> : correspondant à la date au format ISO 8601 [6] à partir de laquelle les DRM ont été saisies (le format horaire 00h00m00 est aussi accepté)
  * limit : paramètre optionnel permettant de limiter le nombre de DRM exportée. (Ex: ?limit=10 pour exporter les 10 DRM saisies à partir de la date souhaitée).
  
-La nomenclature du fichier CSV retourné est : DRM_\<\<date demandée\>\>_\<\<date de saisie de la dernière DRM retournée\>\>.csv 
-Les dates de la nomenclature sont aux formats : aaaa-mm-jjT00h00m00 (en effet le spérateur ":" du format horaire ISO 8601 [6] n'est pas un caractère autorisé en nom de fichier). 
+La nomenclature du fichier CSV retourné est : 
+
+DRM_\<\<date demandée\>\>_\<\<date de saisie de la dernière DRM retournée\>\>.csv 
+
+Les dates de la nomenclature sont aux formats : 
+
+aaaa-mm-jjT00h00m00 (en effet le spérateur ":" du format horaire ISO 8601 [6] n'est pas un caractère autorisé en nom de fichier). 
 
 Cet export fournira les mouvements, des produits relatifs à l'interprofession partenaire désignée ainsi que les produits sans indication géographique, des DRM.
 
