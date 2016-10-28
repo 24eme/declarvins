@@ -176,7 +176,7 @@ class ediActions extends sfActions
     	}
     }
     $lastDate = new DateTime($lastDate);
-    $filename = 'DRM_'.$dateTime->format('Y-m-dTH:i:s').'_'.$lastDate->format('Y-m-dTH:i:s').'.csv';
+    $filename = 'DRM_'.$dateTime->format('Y-m-d\TH:i:s').'_'.$lastDate->format('Y-m-d\TH:i:s').'.csv';
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('md5', md5($csv));
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$filename);
