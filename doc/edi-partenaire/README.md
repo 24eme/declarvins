@@ -71,7 +71,9 @@ La spécification complète du format d'import et d'export des DRM est détaill�
 
 ##Interface EDI Contrat d'achat
 
-L'url de récupération des contrats d'achat pour une interprofession partenaire est : /edi.php/edi/v2/contrats-achat/\<\<interpro\>\>
+L'url de récupération des contrats d'achat pour une interprofession partenaire est : 
+
+/edi.php/edi/v2/contrats-achat/\<\<interpro\>\>
 
  * \<\<interpro\>\> : correspond à l'identifiant de l'interprofession partenaire
  
