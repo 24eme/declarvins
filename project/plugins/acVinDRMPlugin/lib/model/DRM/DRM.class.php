@@ -680,9 +680,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	return false;
     }
     
-	public function save() {
+	public function save($updateBilan = true) {
         parent::save();
-        $this->updateBilan();
+        if ($updateBilan) {
+        	$this->updateBilan();
+        }
     }
 
     protected function getHistoriqueAbstract() {
