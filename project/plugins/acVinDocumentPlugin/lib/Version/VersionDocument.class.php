@@ -221,10 +221,10 @@ class VersionDocument
        return $this->document->motherHasChanged();
     }
 
-    public function generateRectificative() {
+    public function generateRectificative($force = false) {
         $document_rectificative = clone $this->document;
 
-        if(!$this->isVersionnable()) {
+        if(!$force && !$this->isRectifiable()) {
 
             throw new sfException(sprintf('The document %s is not rectificable, maybe she was already rectificate', $this->document->get('_id')));
         }

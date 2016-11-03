@@ -1166,8 +1166,8 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $this->version_document->isModifiedMother($hash_or_object, $key);
     }
 
-    public function generateRectificative() {
-        $drm = $this->version_document->generateRectificative();
+    public function generateRectificative($force = false) {
+        $drm = $this->version_document->generateRectificative($force);
         //$drm->updateVracVersion();
         //$drm->updateProduitsDiponibles();
         $drm->identifiant_drm_historique = null;
