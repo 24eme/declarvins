@@ -93,7 +93,7 @@ EOF;
     	$s .= '<li>'.$item.'</li>';
     }
     $s .= '</ul>';
-    $message = $message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), sfConfig::get('email_to_notification'), "DeclarVins // Rapport CFT", $s)->setContentType('text/html');
+    $message = $message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), sfConfig::get('app_email_to_notification'), "DeclarVins // Rapport CFT", $s)->setContentType('text/html');
     $this->getMailer()->sendNextImmediately()->send($message);
   }
 }
