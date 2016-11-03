@@ -44,8 +44,6 @@ EOF;
     			if ($drm = CielDrmView::getInstance()->findByAccisesPeriode($ea, $periode)) {
     				$drmCiel = $drm->getOrAdd('ciel');
     				if (!$drmCiel->valide) {
-    					
-    					
     					$export = new DRMExportCsvEdi($drm);
     					if ($xml = $export->exportEDI('xml', $contextInstance)) {
     						$xmlOut = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
@@ -55,18 +53,27 @@ EOF;
     							$drm->save();
     							$rapport[] = 'OK // La DRM '.$drm->_id.' a été validée avec succès';
     						} else {
-    							$drm_rectificative = $drm->generateRectificative();
-    							$drm_rectificative->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
-    							$drm_rectificative->add('ciel', $drm->ciel);
-    							$drm_rectificative->ciel->xml = null;
-    							$drm_rectificative->ciel->diff = $content;
-    							$drm_rectificative->save();
-    							$diffs = '<ul>';
-    							foreach ($compare->getDiff()as $k => $v) {
-    								$diffs .= "<li>$k : $v</li>";
+    							$exist = false;
+    							try {
+    								$drm_rectificative = $drm->generateRectificative();
+    							} catch (sfException $e) {
+    								$exist = true;
     							}
-    							$diffs .= '</ul>';
-    							$rapport[] = 'Oups // La DRM '.$drm->_id.' doit être rectifiée suite aux modifications suivantes : '.$diffs;
+    							if (!$exist) {
+	    							$drm_rectificative->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
+	    							$drm_rectificative->add('ciel', $drm->ciel);
+	    							$drm_rectificative->ciel->xml = null;
+	    							$drm_rectificative->ciel->diff = $content;
+	    							$drm_rectificative->save();
+	    							$diffs = '<ul>';
+	    							foreach ($compare->getDiff()as $k => $v) {
+	    								$diffs .= "<li>$k : $v</li>";
+	    							}
+	    							$diffs .= '</ul>';
+	    							$rapport[] = 'Oups // La DRM '.$drm->_id.' doit être rectifiée suite aux modifications suivantes : '.$diffs;
+    							} else {
+    								$rapport[] = 'Oups // La DRM '.$drm->_id.' à déjà été traitée';
+    							}
     						}
     					} else {
     						$rapport[] = 'Oups // Impossible de générer le XML de La DRM '.$drm->_id;
