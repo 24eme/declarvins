@@ -66,9 +66,9 @@ EOF;
 	    								$diffs .= "<li>$k : $v</li>";
 	    							}
 	    							$diffs .= '</ul>';
-	    							$rapport[] = 'Oups // La DRM '.$drm->_id.' doit être rectifiée suite aux modifications suivantes : '.$diffs;
+	    							$rapport[] = 'ATT // La DRM '.$drm->_id.' doit être rectifiée suite aux modifications suivantes : '.$diffs;
     							} else {
-    								$rapport[] = 'Oups // La DRM '.$drm->_id.' à déjà été traitée';
+    								$rapport[] = 'La DRM '.$drm->_id.' à déjà été traitée';
     							}
     						}
     					} else {
@@ -76,10 +76,10 @@ EOF;
     					}
     					
     				} else {
-    					$rapport[] = 'Oups // La DRM '.$drm->_id.' à déjà été traitée';
+    					$rapport[] = 'La DRM '.$drm->_id.' à déjà été traitée';
     				}
     			} else {
-    				$rapport[] = 'Oups // La DRM '.$periode.' de l\'établissement '.$ea.' n\'a pas été saisie sur le portail interprofessionnel';
+    				$rapport[] = 'Oups // La DRM '.$periode.' de l\'établissement '.$ea.' n\'a pas été saisie sur le portail interprofessionnel: '.$item;
     			}
     		} else {
     			$rapport[] = 'Oups // Impossible d\'interroger la DRM : '.$item;
