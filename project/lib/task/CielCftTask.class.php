@@ -54,12 +54,8 @@ EOF;
     							$rapport[] = 'OK // La DRM '.$drm->_id.' a été validée avec succès';
     						} else {
     							$exist = false;
-    							try {
+    							if ($drm->isVersionnable()) {
     								$drm_rectificative = $drm->generateRectificative();
-    							} catch (sfException $e) {
-    								$exist = true;
-    							}
-    							if (!$exist) {
 	    							$drm_rectificative->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
 	    							$drm_rectificative->add('ciel', $drm->ciel);
 	    							$drm_rectificative->ciel->xml = null;

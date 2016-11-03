@@ -224,7 +224,7 @@ class VersionDocument
     public function generateRectificative() {
         $document_rectificative = clone $this->document;
 
-        if(!$this->isRectifiable()) {
+        if(!$this->isVersionnable()) {
 
             throw new sfException(sprintf('The document %s is not rectificable, maybe she was already rectificate', $this->document->get('_id')));
         }
