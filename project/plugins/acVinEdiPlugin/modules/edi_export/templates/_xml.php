@@ -12,8 +12,8 @@
 			<mois><?php echo $drm->getMois() ?></mois>
 			<annee><?php echo $drm->getAnnee() ?></annee>
 		</periode>
-		<declaration-neant><?php echo ($drm->declaration->hasStockEpuise())? "true" : "false"; ?></declaration-neant>
-<?php if (!$drm->declaration->hasStockEpuise()): ?>
+		<declaration-neant><?php echo ($drm->isNeant())? "true" : "false"; ?></declaration-neant>
+<?php if (!$drm->isNeant()): ?>
 		<droits-suspendus>
 <?php foreach ($drm->getExportableProduits() as $produit): ?>
 			<produit>

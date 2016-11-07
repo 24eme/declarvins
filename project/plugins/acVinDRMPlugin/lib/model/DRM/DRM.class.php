@@ -255,6 +255,19 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         	}
         }
     }
+    
+    public function isNeant() {
+    	$details = $this->getDetails();
+    	$isNeant = true;
+    	foreach ($details as $detail) {
+    		if ($detail->hasMouvement()) {
+    			$isNeant = false;
+    			break;
+    		}
+    	}
+    	return $isNeant;
+    }
+    
     public function hasMouvements($hash) {
     	$details = $this->getDetails();
     	foreach ($details as $detail) {
