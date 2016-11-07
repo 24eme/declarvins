@@ -13,7 +13,7 @@ class ediActions extends sfActions
 	
   protected function getCompte()
   {
-  	return acCouchdbManager::getClient('_Compte')->retrieveByLogin('admin-ir');
+  	return acCouchdbManager::getClient('_Compte')->retrieveByLogin($_SERVER['PHP_AUTH_USER']);
   }
 	
   protected function securizeInterpro($interpro)
