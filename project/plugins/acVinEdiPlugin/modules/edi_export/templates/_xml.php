@@ -128,14 +128,14 @@
       		<daa-dca>
         		<debut-periode><?php echo $drm->declaratif->daa->debut ?></debut-periode>
         		<fin-periode><?php echo $drm->declaratif->daa->fin ?></fin-periode>
-        		<nombre-document-empreinte><?php echo $drm->declaratif->empreinte->nb ?></nombre-document-empreinte>
+        		<nombre-document-empreinte><?php echo $drm->declaratif->daa->nb ?></nombre-document-empreinte>
       		</daa-dca>
 <?php endif; ?>
 <?php if ($drm->declaratif->dsa->debut && $drm->declaratif->dsa->fin): ?>
       		<dsa-dsac>
         		<debut-periode><?php echo $drm->declaratif->dsa->debut ?></debut-periode>
         		<fin-periode><?php echo $drm->declaratif->dsa->fin ?></fin-periode>
-        		<nombre-document-empreinte><?php echo $drm->declaratif->empreinte->nb ?></nombre-document-empreinte>
+        		<nombre-document-empreinte><?php echo $drm->declaratif->dsa->nb ?></nombre-document-empreinte>
       		</dsa-dsac>
 <?php endif; ?>
     	</document-accompagnement>
