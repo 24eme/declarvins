@@ -335,6 +335,7 @@ class drmActions extends sfActions {
      * @param sfRequest $request A request object
      */
     public function executeValidation(sfWebRequest $request) {
+  		set_time_limit(90);
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->drm = $this->getRoute()->getDRM();
         $this->drm->storeDroits(array());
