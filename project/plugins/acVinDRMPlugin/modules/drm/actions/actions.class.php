@@ -391,6 +391,8 @@ class drmActions extends sfActions {
 	        }
 	        $this->drmCiel->setInformationsFromXml();
 	        if ($this->drmCiel->hasErreurs()) {
+	        	$interpro = $this->etablissement->getInterproObject();
+	        	$to = ($interpro)? array(sfConfig::get('app_email_to_notification'), $interpro->email_contrat_inscription): sfConfig::get('app_email_to_notification');
 	        	$this->drm->devalide();
 	        	$this->drm->etape = 'validation';
 	        	$erreursCiel = true;
@@ -399,7 +401,7 @@ class drmActions extends sfActions {
 	        		$messageErreurs .= "<li>$erreur</li>";
 	        	}
 	        	$messageErreurs .= "</ol>";
-	        	$message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), sfConfig::get('app_email_to_notification'), "DeclarVins // Erreur transmision XML pour ".$this->drm->_id, "Une transmission vient d'échouer pour ".$this->drm->_id." (".$this->drm->declarant->no_accises.") :<br />".$messageErreurs)->setContentType('text/html');
+	        	$message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur transmision XML pour ".$this->drm->_id, "Une transmission vient d'échouer pour ".$this->drm->_id." (".$this->drm->declarant->no_accises.") :<br />".$messageErreurs)->setContentType('text/html');
 	        	$this->getMailer()->send($message);
 	        }
         }
