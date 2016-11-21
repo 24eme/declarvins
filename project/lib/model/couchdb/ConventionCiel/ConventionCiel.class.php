@@ -128,11 +128,16 @@ FDF;
     		if (!$habilitation->droit_telepaiement) {
     			continue;
     		}
+    		$telepaiement = array(0 => $habilitation->droit_telepaiement, 1 => '');
+    		if ($habilitation->droit_telepaiement && (strpos($habilitation->droit_telepaiement, '_') !== false)) {
+    			$telepaiement = explode('_', $habilitation->droit_telepaiement);
+    		}
     		$mensualisation = ($habilitation->mensualisation)? 'X' : '';
     		$fdfContent .= "<</T(htn{$i})/V({$habilitation->nom})>>";
     		$fdfContent .= "<</T(htp{$i})/V({$habilitation->prenom})>>";
     		$fdfContent .= "<</T(htid{$i})/V({$habilitation->identifiant})>>";
-    		$fdfContent .= "<</T(htdr{$i})/V({$habilitation->droit_telepaiement})>>";
+    		$fdfContent .= "<</T(htdr{$i})/V({$telepaiement[0]})>>";
+    		$fdfContent .= "<</T(htdrb{$i})/V({$telepaiement[1]})>>";
     		$fdfContent .= "<</T(htm{$i})/V({$mensualisation})>>";
     		$i++;
     	}
@@ -141,6 +146,7 @@ FDF;
     		$fdfContent .= "<</T(htp{$i})/V()>>";
     		$fdfContent .= "<</T(htid{$i})/V()>>";
     		$fdfContent .= "<</T(htdr{$i})/V()>>";
+    		$fdfContent .= "<</T(htdrb{$i})/V()>>";
     		$fdfContent .= "<</T(htm{$i})/V()>>";
     		$i++;
     	}
