@@ -1,7 +1,7 @@
 <?php use_helper('Float'); ?>
 <tr class="addContrat">
     <td class="libelle" width="600px">
-        <strong><?php echo $detail->getLibelle(ESC_RAW); ?></strong>
+        <strong><?php echo $detail->getFormattedLibelle(ESC_RAW); ?></strong>
     </td>
     <td style="text-align: left;">
     	Sortie vrac&nbsp;&nbsp;: <span style="width: 60%; text-align: right; display: inline-block;"><strong><?php echo echoLongFloat($detail->sorties->vrac) ?></strong>hl</span><br />
