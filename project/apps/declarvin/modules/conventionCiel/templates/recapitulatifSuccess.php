@@ -80,7 +80,7 @@
 		                        		<td><?php echo ($habilitation->prenom)? $habilitation->prenom : ''; ?></td>
 		                        		<td><?php echo ($habilitation->identifiant)? $habilitation->identifiant : ''; ?></td>
 		                        		<td><?php echo ($habilitation->droit_teleprocedure)? $habilitation->droit_teleprocedure : 'X'; ?></td>
-		                        		<td><?php echo ($habilitation->droit_telepaiement)? $habilitation->droit_telepaiement : 'X'; ?></td>
+		                        		<td><?php echo ($habilitation->droit_telepaiement)? str_replace('_', ' / ', $habilitation->droit_telepaiement) : 'X'; ?></td>
 		                        		<td><?php echo ($habilitation->mensualisation)? 'oui' : ''; ?></td>
 		                        	</tr>
 		                        	<?php endforeach; ?>

@@ -255,6 +255,19 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         	}
         }
     }
+    
+    public function isNeant() {
+    	$details = $this->getDetails();
+    	$isNeant = true;
+    	foreach ($details as $detail) {
+    		if ($detail->hasMouvement()) {
+    			$isNeant = false;
+    			break;
+    		}
+    	}
+    	return $isNeant;
+    }
+    
     public function hasMouvements($hash) {
     	$details = $this->getDetails();
     	foreach ($details as $detail) {
@@ -680,9 +693,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	return false;
     }
     
-	public function save() {
+	public function save($updateBilan = true) {
         parent::save();
-        $this->updateBilan();
+        if ($updateBilan) {
+        	$this->updateBilan();
+        }
     }
 
     protected function getHistoriqueAbstract() {
@@ -1164,8 +1179,8 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $this->version_document->isModifiedMother($hash_or_object, $key);
     }
 
-    public function generateRectificative() {
-        $drm = $this->version_document->generateRectificative();
+    public function generateRectificative($force = false) {
+        $drm = $this->version_document->generateRectificative($force);
         //$drm->updateVracVersion();
         //$drm->updateProduitsDiponibles();
         $drm->identifiant_drm_historique = null;

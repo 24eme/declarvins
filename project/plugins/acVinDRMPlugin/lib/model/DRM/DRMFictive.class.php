@@ -51,7 +51,7 @@ class DRMFictive extends DRM
     protected function preSave() {
     	return;
     }
-    public function save() 
+    public function save($updateBilan = true) 
     {
     	$drm = $this->drm;
     	$produits = $this->getDetails();
@@ -63,7 +63,7 @@ class DRMFictive extends DRM
         $drm->remove('crds');
         $drm->add('crds');
         $drm->crds = $this->crds;
-    	$drm->save();
+    	$drm->save($updateBilan);
     	
     }
     public function delete() 

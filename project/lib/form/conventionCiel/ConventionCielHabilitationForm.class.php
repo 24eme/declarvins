@@ -4,7 +4,7 @@ class ConventionCielHabilitationForm extends acCouchdbObjectForm
 	
     public function configure() {
     	$teleprocedures = array('' => 'Non habilité', 'consulter' => 'Habilité à consulter', 'gérer' => 'Habilité à gérer');
-    	$telepaiements = array('' => 'Non habilité', 'adhérer' => 'Habilité à adhérer', 'valider' => 'Habilité à valider');
+    	$telepaiements = array('' => 'Non habilité', 'adhérer_valider' => 'Habilité à adhérer et valider');
         $this->setWidgets(array(
 			'no_accises' => new sfWidgetFormInputText(),
 			'nom' => new sfWidgetFormInputText(),

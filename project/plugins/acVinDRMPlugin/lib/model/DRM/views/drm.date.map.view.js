@@ -210,14 +210,18 @@ function(doc) {
                                         for(detail_key in cepage.details) {
                                             var detail = cepage.details[detail_key];
                                             var detail_hash =  cepage_hash+"/details/"+detail_key;
-					    var volume_cvo = parseFloat(detail.sorties.vrac + detail.sorties.export + detail.sorties.factures + detail.sorties.crd);
-                                            var montant_cvo = parseFloat(detail.cvo.taux) * parseFloat(detail.sorties.vrac + detail.sorties.export + detail.sorties.factures + detail.sorties.crd);
+					    var volume_cvo = parseFloat(detail.sorties.vrac + detail.sorties.export + detail.sorties.factures + detail.sorties.crd + detail.sorties.crd_acquittes + detail.sorties.acq_crd);
+                                            if (isNaN(volume_cvo)) {
+					    	volume_cvo = parseFloat(detail.sorties.vrac + detail.sorties.export + detail.sorties.factures + detail.sorties.crd);
+					    }
+					    if (isNaN(volume_cvo)) {
+						volume_cvo = null;
+					    }
+					    var montant_cvo = parseFloat(detail.cvo.taux) * volume_cvo;
+					    
                                             if (isNaN(montant_cvo) || parseFloat(detail.cvo.taux) === -1) {
                                                 montant_cvo = null;
                                             }
-					    if (isNaN(volume_cvo)) {
-					    	volume_cvo = null;
-					    }
                                             var libelles_label = '';
                                             var codes_label = '';
                                             for (label_key in detail.libelles_label) {

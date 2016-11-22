@@ -28,7 +28,7 @@ class DRMCiel extends BaseDRMCiel
 	
 	public function getReponseCiel()
 	{
-		return ($this->xml)? new SimpleXMLElement($this->xml) : null;
+		return ($this->xml)? new SimpleXMLElement(trim($this->xml)) : null;
 	}
 	
 	public function isTransfere()

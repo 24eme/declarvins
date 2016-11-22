@@ -31,12 +31,10 @@ class DRMCielCompare
 	{
 		return (count($this->getDiff()) > 0)? true : false;
 	}
-	
-
 
 	private function xmlToArray($xml)
 	{
-		return json_decode(json_encode((array)$xml), TRUE);
+		return json_decode(json_encode((array)$xml), true);
 	}
 	
 	private function flattenArray($array)
@@ -82,12 +80,10 @@ class DRMCielCompare
 				if (preg_match($patternProduit, $key)) {
 					$tmp = preg_replace($patternProduit, '/produit/{array}/'.$newKeyProduit.'/{array}/', $key);
 					$result[$tmp] = $value;
-				} elseif (preg_match($patternCentilisation, $key)) {
-					$tmp = preg_replace($patternCentilisation, '/centilisation/{array}/'.$newKeyCentilisation.'/{array}/', $key);
-					$result[$tmp] = $value;				
-				} elseif (preg_match($patternCrd, $key)) {
+				} elseif (preg_match($patternCrd, $key) || preg_match($patternCentilisation, $key)) {
 					$tmp = preg_replace($patternCrd, '/compte-crd/{array}/'.$newKeyCrd.'/{array}/', $key);
-					$result[$tmp] = $value;				
+					$tmp = preg_replace($patternCentilisation, '/centilisation/{array}/'.$newKeyCentilisation.'/{array}/', $tmp);
+					$result[$tmp] = $value;		
 				} else {
 					$result[$key] = $value;
 				}

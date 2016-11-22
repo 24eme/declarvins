@@ -37,31 +37,26 @@ EOF;
       $i = 0;
       $nb = count($rows);
       foreach($rows as $row) {
-	/*if (round(($i / $nb) * 100) < 12) {
-		$this->logSection("debug", $row->id." squezzée avec succès", null, 'SUCCESS');
-		$i++;
-		continue;
-	}*/
-      	if ($row->key[1] != '2015-2016') {
-			//$this->logSection("debug", $row->id." squezzée avec succès", null, 'SUCCESS');
-			$i++;
+      	$i++;
+      	if ($row->key[1] != '2016-2017') {
 			continue;
       	}
       	if ($drm = DRMClient::getInstance()->find($row->id)) {
       		if (!$drm->isValidee()) {
-      			$i++;
       			continue;
       		}
-      		$drm->setDroits();
-	      	try {
-	      		$drm->save();
-	      		$this->logSection("debug", $drm->_id." drm debugguée avec succès", null, 'SUCCESS');
-	      	} catch (Exception $e) {
-	      		$this->logSection("debug", $drm->_id." bug", null, 'ERROR');
+	      	if ($drm->droits->exist('douane') && $drm->droits->douane->exist('L387_SSIG')) {
+	      		$drm->setDroits();
+		      	try {
+		      		$drm->save(false);
+		      		$this->logSection("debug", $drm->_id." droits recalculés avec succès", null, 'SUCCESS');
+		      	} catch (Exception $e) {
+		      		$this->logSection("debug", $drm->_id." bug", null, 'ERROR');
+		      	}
 	      	}
       	}
       	$i++;
-      	$this->logSection("debug", $i." / ".$nb." (".round(($i / $nb) * 100)."%) drm(s) debugguée(s) avec succès", null, 'SUCCESS');
+      	$this->logSection("debug", $i." / ".$nb." (".round(($i / $nb) * 100)."%)", null, 'INFO');
       }
     
   }

@@ -12,8 +12,8 @@
 			<mois><?php echo $drm->getMois() ?></mois>
 			<annee><?php echo $drm->getAnnee() ?></annee>
 		</periode>
-		<declaration-neant><?php echo ($drm->declaration->hasStockEpuise())? "true" : "false"; ?></declaration-neant>
-<?php if (!$drm->declaration->hasStockEpuise()): ?>
+		<declaration-neant><?php echo ($drm->isNeant())? "true" : "false"; ?></declaration-neant>
+<?php if (!$drm->isNeant()): ?>
 		<droits-suspendus>
 <?php foreach ($drm->getExportableProduits() as $produit): ?>
 			<produit>
@@ -23,7 +23,7 @@
 <?php if ($produit->getInao()): ?>
 				<code-inao><?php echo $produit->getInao() ?></code-inao>
 <?php endif; ?>
-				<libelle-personnalise><?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES | ENT_HTML401)) ?></libelle-personnalise>
+				<libelle-personnalise><?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES | ENT_HTML401)) ?><?php if(count($produit->labels)): ?> <?php echo $produit->getLabelKeyString(); ?><?php endif; ?></libelle-personnalise>
 <?php if ($produit->getTav()): ?>
 				<tav><?php echo sprintf("%01.02f", $produit->getTav()) ?></tav>
 <?php endif; ?>
@@ -128,14 +128,14 @@
       		<daa-dca>
         		<debut-periode><?php echo $drm->declaratif->daa->debut ?></debut-periode>
         		<fin-periode><?php echo $drm->declaratif->daa->fin ?></fin-periode>
-        		<nombre-document-empreinte><?php echo $drm->declaratif->empreinte->nb ?></nombre-document-empreinte>
+        		<nombre-document-empreinte><?php echo $drm->declaratif->daa->nb ?></nombre-document-empreinte>
       		</daa-dca>
 <?php endif; ?>
 <?php if ($drm->declaratif->dsa->debut && $drm->declaratif->dsa->fin): ?>
       		<dsa-dsac>
         		<debut-periode><?php echo $drm->declaratif->dsa->debut ?></debut-periode>
         		<fin-periode><?php echo $drm->declaratif->dsa->fin ?></fin-periode>
-        		<nombre-document-empreinte><?php echo $drm->declaratif->empreinte->nb ?></nombre-document-empreinte>
+        		<nombre-document-empreinte><?php echo $drm->declaratif->dsa->nb ?></nombre-document-empreinte>
       		</dsa-dsac>
 <?php endif; ?>
     	</document-accompagnement>
