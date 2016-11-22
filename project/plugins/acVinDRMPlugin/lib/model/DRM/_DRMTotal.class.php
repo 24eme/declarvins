@@ -150,8 +150,13 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
     }
 
     public function hasMouvement() {
+        foreach($this->getChildrenNode() as $item) {
+            if($item->hasMouvement()) {
+                return true;
+            }
+        }
 
-        return $this->total_entrees > 0 || $this->total_sorties > 0;
+        return false;
     }
 
     public function hasMouvementCheck() {
