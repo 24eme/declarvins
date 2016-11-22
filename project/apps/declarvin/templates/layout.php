@@ -29,7 +29,7 @@
         <?php include_javascripts() ?>
     </head>
 
-    <body style="background-color: #C776AE;">
+    <body>
     
     	
 		<?php include_partial('global/konami'); ?>
@@ -60,7 +60,7 @@
         <!--[if lte IE 9 ]> </div> <![endif]-->
         <!-- ####### A REPRENDRE ABSOLUMENT ####### -->
         <script type="text/javascript">var jsPath = "/js/";</script>
-        <script type="text/javascript" src="/js/includes.js?20160122"></script>
+        <script type="text/javascript" src="/js/includes.js?20160927"></script>
     </body>
 
 </html>

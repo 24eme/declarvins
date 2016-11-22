@@ -8,7 +8,7 @@
 </p>
 
 <div id="colonnes_dr">
-    <?php include_partial('drm_recap/itemHeader', array('config_lieu' => $config_lieu)); ?>    
+    <?php include_partial('drm_recap/itemHeader', array('config_lieu' => $config_lieu, 'acquittes' => $drm->hasDroitsAcquittes())); ?>    
     <div id="col_saisies">
         <script type="text/javascript">
             /* Colonne avec le focus par défaut */
@@ -23,7 +23,9 @@
                         'config_lieu' => $config_lieu,
                         'detail' => $produit,
                     	'active' => ($detail && $detail->getHash() == $produit->getHash()),
-                        'form' => $form));
+                        'form' => $form,
+                    	'acquittes' => $drm->hasDroitsAcquittes()
+                    ));
                     ?>
                 <?php endif; ?>
             <?php endforeach; ?>

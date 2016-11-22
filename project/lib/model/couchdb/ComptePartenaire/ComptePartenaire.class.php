@@ -10,4 +10,8 @@ class ComptePartenaire extends BaseComptePartenaire {
     public function isVirtuel() {
     	return false;
     }
+    
+    public function isTiers() {
+    	return false;
+    }
 }

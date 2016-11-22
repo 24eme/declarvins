@@ -52,6 +52,60 @@ contrat_etablissement_confirmation:
 contrat_pdf:
   url:   /contrat/pdf.:format
   param: { module: contrat, action: pdf, format: (html|pdf) }
+  
+# Convention CIEL
+
+convention_ciel:
+  class: EtablissementRoute
+  url:   /convention-ciel/:identifiant
+  param: { module: conventionCiel, action: index }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
+convention_nouveau:
+  class: EtablissementRoute
+  url:   /convention-ciel/:identifiant/nouveau
+  param: { module: conventionCiel, action: nouveau }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
+convention_habilitations:
+  class: EtablissementRoute
+  url:   /convention-ciel/:identifiant/habilitations
+  param: { module: conventionCiel, action: habilitations }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
+convention_recapitulatif:
+  class: EtablissementRoute
+  url:   /convention-ciel/:identifiant/recapitulatif
+  param: { module: conventionCiel, action: recapitulatif }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
+convention_confirmation:
+  class: EtablissementRoute
+  url:   /convention-ciel/:identifiant/confirmation
+  param: { module: conventionCiel, action: confirmation }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
+convention_pdf:
+  class: EtablissementRoute
+  url:   /convention-ciel/:identifiant/pdf
+  param: { module: conventionCiel, action: pdf }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
+convention_avenant:
+  class: EtablissementRoute
+  url:   /convention-ciel/:identifiant/avenant
+  param: { module: conventionCiel, action: avenant, format: (html|pdf) }
+  requirements: { sf_method: ['get'] }
+  options: { model: Etablissement, type: object }
+  
+# CIEL
+
+ciel_help:
+  class: EtablissementRoute
+  url:   /ciel/:identifiant/assistance
+  param: { module: conventionCiel, action: help }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
 
 # Validation routing
 validation_login:
@@ -69,6 +123,12 @@ validation_fiche:
 validation_pdf:
   url:   /validation/:num_contrat/pdf
   param: { module: validation, action: pdf, num_contrat: null }
+validation_convention:
+  url:   /validation/:num_convention/convention
+  param: { module: validation, action: convention, num_convention: null }
+validation_avenant:
+  url:   /validation/:num_contrat/avenant
+  param: { module: validation, action: avenant, num_contrat: null }
 validation_compte:
   url:   /validation/:num_contrat/compte
   param: { module: validation, action: compte, num_contrat: null }
@@ -107,6 +167,20 @@ tiers_mon_espace:
   param: { module: tiers, action: monEspace }
   requirements: { sf_method: ['get'] }
   options: { model: Etablissement, type: object }
+  
+tiers_adhesion_ciel:
+  class: EtablissementRoute
+  url: /tiers/:identifiant/adhesion-ciel
+  param: { module: tiers, action: adhesionCiel }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
+  
+tiers_acceptation_ciel:
+  class: EtablissementRoute
+  url: /tiers/:identifiant/acceptation-ciel
+  param: { module: tiers, action: acceptationCiel }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
 
 tiers:
   url: /tiers
@@ -122,6 +196,24 @@ profil:
   url: /profil/:identifiant
   param: { module: tiers, action: profil }
   requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
+profil_pdf:
+  class: EtablissementRoute
+  url: /profil/:identifiant/contrat-inscription
+  param: { module: tiers, action: pdf }
+  requirements: { sf_method: ['get'] }
+  options: { model: Etablissement, type: object }
+profil_convention:
+  class: EtablissementRoute
+  url: /profil/:identifiant/convention-ciel
+  param: { module: tiers, action: convention }
+  requirements: { sf_method: ['get'] }
+  options: { model: Etablissement, type: object }
+profil_avenant:
+  class: EtablissementRoute
+  url: /profil/:identifiant/avenant
+  param: { module: tiers, action: avenant }
+  requirements: { sf_method: ['get'] }
   options: { model: Etablissement, type: object }
 profil_statut:
   class: EtablissementRoute
@@ -255,6 +347,7 @@ oioc_compte_password:
   url:   /oioc/compte-password/:login
   param: { module: CompteOIOC, action: redefinitionPassword }
   options: { segment_separators: ["/"] }
+ 
   
 # Statiques
 statiques:

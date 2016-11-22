@@ -20,16 +20,16 @@ function(doc) {
         var explodeIdDRM = function(id) {
             return id.split('-');
         }
-        var getAnneeByDRM = function (tabId) {
-            if (typeof tabId[2] != "undefined") {
-                return tabId[2];
+        var getAnneeByDRM = function (tabPeriode) {
+            if (typeof tabPeriode[0] != "undefined") {
+                return tabPeriode[0];
             } else {
                 return null;
             }
         }
-        var getMoisByDRM = function (tabId) {
-            if (typeof tabId[3] != "undefined") {
-                return tabId[3];
+        var getMoisByDRM = function (tabPeriode) {
+            if (typeof tabPeriode[1] != "undefined") {
+                return tabPeriode[1];
             } else {
                 return null;
             }
@@ -71,6 +71,7 @@ function(doc) {
         var drm_id = doc._id;
         var drm_campagne = (doc.campagne).replace("-", "");
         var drm_explosed_id = explodeIdDRM(drm_id);
+        var drm_explosed_periode = explodeIdDRM(doc.periode);
         var drm_precedente_explosed_id = null;
         var drm_precedente_annee = null;
         var drm_precedente_mois = null;
@@ -85,8 +86,8 @@ function(doc) {
         var drm_declarant = doc.declarant.raison_sociale;
         var drm_declarant_famille = doc.declarant.famille;
         var drm_declarant_sousfamille = doc.declarant.sous_famille;
-        var drm_annee = getAnneeByDRM(drm_explosed_id);
-        var drm_mois = getMoisByDRM(drm_explosed_id);
+        var drm_annee = getAnneeByDRM(drm_explosed_periode);
+        var drm_mois = getMoisByDRM(drm_explosed_periode);
         var drm_version = groupByLastVersion(doc.version);
         var drm_date_saisie = doc.valide.date_saisie;
         var drm_date_signee = doc.valide.date_signee;
@@ -106,7 +107,6 @@ function(doc) {
 
         var regexp = new RegExp("(\r\n|\r|\n)", "g");
         var drm_commentaire = (doc.commentaires)? (doc.commentaires).replace(regexp, " ") : null;
-        var drm_observation = (doc.observations)? (doc.observations).replace(regexp, " ") : null;
         
             for(certification_key in doc.declaration.certifications) {
                 var certification = doc.declaration.certifications[certification_key];
@@ -201,6 +201,8 @@ function(doc) {
                             }
                             var cepage_code = (cepage.code).replace(code, '');
                             var cepage_libelle = (cepage.libelle).replace(libelle, '');
+                            var inao = (cepage.inao)? cepage.inao : null;
+                            var libelle_fiscal = (cepage.libelle_fiscal)? cepage.libelle_fiscal : null;
                             if (cepage_code == key_default) {
                                 cepage_code = null;
                                 cepage_libelle = null;
@@ -208,14 +210,18 @@ function(doc) {
                                         for(detail_key in cepage.details) {
                                             var detail = cepage.details[detail_key];
                                             var detail_hash =  cepage_hash+"/details/"+detail_key;
-					    var volume_cvo = parseFloat(detail.sorties.vrac + detail.sorties.export + detail.sorties.factures + detail.sorties.crd);
-                                            var montant_cvo = parseFloat(detail.cvo.taux) * parseFloat(detail.sorties.vrac + detail.sorties.export + detail.sorties.factures + detail.sorties.crd);
+					    var volume_cvo = parseFloat(detail.sorties.vrac + detail.sorties.export + detail.sorties.factures + detail.sorties.crd + detail.sorties.crd_acquittes + detail.sorties.acq_crd);
+                                            if (isNaN(volume_cvo)) {
+					    	volume_cvo = parseFloat(detail.sorties.vrac + detail.sorties.export + detail.sorties.factures + detail.sorties.crd);
+					    }
+					    if (isNaN(volume_cvo)) {
+						volume_cvo = null;
+					    }
+					    var montant_cvo = parseFloat(detail.cvo.taux) * volume_cvo;
+					    
                                             if (isNaN(montant_cvo) || parseFloat(detail.cvo.taux) === -1) {
                                                 montant_cvo = null;
                                             }
-					    if (isNaN(volume_cvo)) {
-					    	volume_cvo = null;
-					    }
                                             var libelles_label = '';
                                             var codes_label = '';
                                             for (label_key in detail.libelles_label) {
@@ -226,6 +232,7 @@ function(doc) {
                                                 libelles_label += detail.libelles_label[label_key];
                                                 codes_label += label_key;
                                             }
+                                            var drm_observation = (detail.observations)? (detail.observations).replace(regexp, " ") : null;
                                             emit([detail.interpro, doc.valide.date_saisie, detail.has_vrac, doc._id, detail_hash, "PRODUIT"], 
                                                     [key,
                                                      drm_identifiant,
@@ -301,7 +308,30 @@ function(doc) {
                                                      drm_observation,
 						     detail.entrees.vci,
 						     drm_declarant_famille,
-						     drm_declarant_sousfamille
+						     drm_declarant_sousfamille,
+						     inao,
+						     libelle_fiscal,
+						     detail.tav,
+						     detail.entrees.manipulation,
+						     detail.entrees.embouteillage,
+						     detail.entrees.travail,
+						     detail.entrees.distillation,
+						     detail.entrees.excedent,
+						     detail.sorties.crd_acquittes,
+						     detail.sorties.mutages,
+						     detail.sorties.vci,
+						     detail.sorties.autres_interne,
+						     detail.sorties.embouteillage,
+						     detail.sorties.travail,
+						     detail.sorties.distillation,
+						     detail.acq_total_debut_mois,
+						     detail.entrees.acq_achat,
+						     detail.entrees.acq_autres,
+						     detail.sorties.acq_crd,
+						     detail.sorties.acq_replacement,
+						     detail.sorties.acq_autres,
+						     detail.acq_total
+						     
                                                      ]
                                             );
 
@@ -384,7 +414,29 @@ function(doc) {
                                                              drm_observation,
 							     null,
 						     	     drm_declarant_famille,
-						     	     drm_declarant_sousfamille
+						     	     drm_declarant_sousfamille,
+								     inao,
+								     libelle_fiscal,
+								     detail.tav,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null,
+								     null
                                                              ]
                                                     );
                                                 }

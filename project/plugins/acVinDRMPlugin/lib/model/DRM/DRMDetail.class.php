@@ -91,6 +91,14 @@ class DRMDetail extends BaseDRMDetail {
         }
     }
 
+    public function getAcqTotalDebutMois() {
+        if (is_null($this->_get('acq_total_debut_mois'))) {
+            return 0;
+        } else {
+            return $this->_get('acq_total_debut_mois');
+        }
+    }
+
     public function getIdentifiantHTML() {
         return strtolower(str_replace($this->getDocument()->declaration->getHash(), '', str_replace('/', '_', preg_replace('|\/[^\/]+\/DEFAUT|', '', $this->getHash()))));
     }
@@ -98,13 +106,16 @@ class DRMDetail extends BaseDRMDetail {
     protected function update($params = array()) {
         parent::update($params);
         $configuration = ConfigurationClient::getCurrent();
-        $this->total_entrees = round($this->getTotalByKey('entrees'), 4);
-        $this->total_sorties = round($this->getTotalByKey('sorties'), 4);
+        $this->total_entrees = round($this->sommeLignes(DRMVolumes::getEntreesSuspendus()), 4);
+        $this->total_sorties = round($this->sommeLignes(DRMVolumes::getSortiesSuspendus()), 4);
         $this->total = round($this->total_debut_mois + $this->total_entrees - $this->total_sorties, 4);
+        $this->acq_total_entrees = round($this->sommeLignes(DRMVolumes::getEntreesAcquittes()), 4);
+        $this->acq_total_sorties = round($this->sommeLignes(DRMVolumes::getSortiesAcquittes()), 4);
+        $this->acq_total = round($this->acq_total_debut_mois + $this->acq_total_entrees - $this->acq_total_sorties, 4);
         if ($this->has_vrac) {
             $this->total_debut_mois_interpro = $this->total_debut_mois;
-            $this->total_entrees_interpro = round($this->getTotalByKey('entrees'), 4);
-            $this->total_sorties_interpro = round($this->getTotalByKey('sorties'), 4);
+            $this->total_entrees_interpro = $this->total_entrees;
+            $this->total_sorties_interpro = $this->total_sorties;
             $this->total_entrees_nettes = round($this->sommeLignes(DRMVolumes::getEntreesNettes()), 4);
             $this->total_entrees_reciproque = round($this->sommeLignes(DRMVolumes::getEntreesReciproque()), 4);
             $this->total_sorties_nettes = round($this->sommeLignes(DRMVolumes::getSortiesNettes()), 4);
@@ -294,9 +305,13 @@ class DRMDetail extends BaseDRMDetail {
         $nextCampagne = isset($params['next_campagne']) ? $params['next_campagne'] : $this->getDocument()->campagne;
 
         $this->total_debut_mois = ($keepStock) ? $this->total : null;
+        $this->acq_total_debut_mois = ($keepStock) ? $this->acq_total : null;
         $this->total_entrees = null;
         $this->total_sorties = null;
         $this->total = null;
+        $this->acq_total_entrees = null;
+        $this->acq_total_sorties = null;
+        $this->acq_total = null;
         $this->total_entrees_nettes = null;
         $this->total_entrees_reciproque = null;
         $this->total_sorties_nettes = null;
@@ -305,6 +320,7 @@ class DRMDetail extends BaseDRMDetail {
         $this->total_entrees_interpro = null;
         $this->total_sorties_interpro = null;
         $this->total_interpro = null;
+        $this->observations = null;
         $this->selecteur = 1;
         $this->pas_de_mouvement_check = 0;
         if ($nextCampagne != $this->getDocument()->campagne) {
@@ -357,7 +373,7 @@ class DRMDetail extends BaseDRMDetail {
 
     public function hasMouvement() {
 
-        return $this->total_entrees > 0 || $this->total_sorties > 0;
+        return ($this->total_entrees > 0 || $this->total_sorties > 0 || $this->acq_total_entrees > 0 || $this->acq_total_sorties > 0);
     }
 
     public function hasStockEpuise() {
@@ -530,7 +546,9 @@ class DRMDetail extends BaseDRMDetail {
         }
 
         $configCoeffMouvement = Configuration::getAllStocksCoeffsMouvements();
-
+		if (!isset($configCoeffMouvement [$hash])) {
+			return null;
+		}
         $volume = $configCoeffMouvement [$hash] * $volume;
 
         if ($volume == 0) {
@@ -585,9 +603,68 @@ class DRMDetail extends BaseDRMDetail {
         return count($this->vrac);
     }
 
+    public function hasSortieVrac() {
+        return ($this->sorties->vrac > 0) ? true : false;
+    }
+
     public function getStockBilan()
     {
     	return $this->sorties->vrac + $this->sorties->export + $this->sorties->factures + $this->sorties->crd + $this->sorties->consommation + $this->sorties->pertes;
     }
+	
+    public function getLibelleFiscal()
+    {
+    	return $this->getCepage()->getLibelleFiscal();
+    }
+	
+    public function getInao()
+    {
+    	return $this->getCepage()->getInao();
+    }
+    public function getIdentifiantDouane()
+    {
+    	$inao = $this->getInao();
+    	if (!$inao) {
+    		return $this->getLibelleFiscal();
+    	}
+    	return $inao;
+    }
+    public function getHasSaisieAcq() {
+    	$has = false;
+    	if ($this->acq_total_debut_mois || $this->acq_total_entrees || $this->acq_total_sorties) {
+    		$has = true;
+    	}
+    	return $has;
+    }
+    
+    public function getRetiraisons() {
+    	$retiraisons = array();
+    	if (($this->sorties->vrac && $this->canHaveVrac()) || count($this->vrac->toArray()) > 0) {
+    		foreach ($this->vrac as $id => $vrac) {
+    			$retiraisons[$id] = $vrac->volume;
+    		}
+    	}
+    	return $retiraisons;
+    }
 
+
+    public function getTotalVolume($hashes) {
+    	$total = null;
+    		foreach ($hashes as $hash) {
+    			if ($this->exist($hash)) {
+    				$total += $this->getOrAdd($hash);
+    			} else {
+    				$total += null;
+    			}
+    		}
+    	return $total;
+    }
+    
+    public function setImportableObservations($observations) {
+    	$this->add('observations', $observations);
+    }
+    
+    public function isVci() {
+    	return ($this->getGenre()->getKey() == 'VCI');
+    }
 }

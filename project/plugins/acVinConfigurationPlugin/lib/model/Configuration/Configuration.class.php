@@ -10,14 +10,15 @@ class Configuration extends BaseConfiguration {
     protected $_configuration_produits_CIVP = null;
     protected $_configuration_produits_IVSE = null;
     protected $_configuration_produits_ANIVIN = null;
-    protected $_configuration_produits_CIVL = null;
     protected $_configuration_produits_IO = null;
+    protected $_configuration_produits_CIVL = null;
     protected $_zones = null;
+    protected $identifyLibelleProduct = array();
 
     protected static $contraintes_vci = array(
     		'entrees/recolte',
-    		'sorties/repli',
-        	'sorties/distillation'
+    		'sorties/vci',
+        	'sorties/autres'
     );
     
     protected static $stocks_debut = array(
@@ -25,43 +26,70 @@ class Configuration extends BaseConfiguration {
         'warrante' => 'Dont Vin warranté',
         'instance' => 'Dont Vin en instance'
     );
+    protected static $stocks_debut_acq = array();
     protected static $stocks_entree = array(
-        'achat' => 'Achats',
-        'recolte' => 'Récolte',
-        'repli' => 'Replis / Changement de dénomination',
-        'declassement' => 'Déclassement / Lies',
-        'mouvement' => 'Transfert de chai / Embouteillage / Retours',
-        'crd' => 'Réintégration CRD',
-        //'vci' => 'Intégration issue de VCI'
+        'achat' => 'Achats / réintégration',
+        'recolte' => 'Récolte / revendication',
+        'repli' => 'Mvt. interne : Replis / Changt. de dénomination',
+        'declassement' => 'Mvt. interne : Déclassement / Lies',
+    	'manipulation' => 'Mvt. interne : Augmentation de volume',
+    	'vci' => 'Mvt. interne : Intégration issue de VCI',
+        'mouvement' => 'Mvt. temporaire : Retour transfert de chai',
+        'embouteillage' => 'Mvt. temporaire : Retour embouteillage',
+        'travail' => 'Mvt. temporaire : Retour de travail à façon',
+        'distillation' => 'Mvt. temporaire : Retour de distillation à façon',    		
+        'crd' => 'Replacement en suspension CRD',
+    	'excedent' => 'Excédent suite à inventaire ou contrôle douanes'
+    );
+    protected static $stocks_entree_acq = array(
+        'acq_achat' => 'Achats',
+        'acq_autres' => 'Autres'
     );
     protected static $stocks_sortie = array(
-        'vrac' => 'Vrac DAA / DAE / DAC',
-        'export' => 'Conditionné export DAE ou CRD',
+        'vrac' => 'Vrac DAA / DAE',
+        'export' => 'Conditionné export',
         'factures' => 'DSA / Tickets / Factures',
         'crd' => 'CRD France',
+    	'crd_acquittes' => 'CRD Collectives acquittées',
         'consommation' => 'Conso Fam. / Analyses / Dégustation',
-        'pertes' => 'Pertes exceptionnelles',
-        'declassement' => 'Non rev. / Déclassement',
-        'repli' => 'Changement / repli / VCI',
-        'mouvement' => 'Transfert de chai / Embouteillage / Prise de mousse',
-        'distillation' => 'Distillation / Destruction',
+        'pertes' => 'Autres sorties',
+        'autres' => 'Destruction / Distillation',
+        'declassement' => 'Mvt. interne : Non rev. / Déclassement',
+        'repli' => 'Mvt. interne : Changement / Repli',
+        'mutage' => 'Mvt. interne : Mutage',
+        'vci' => 'Mvt. interne : Revendication de VCI',
+        'autres_interne' => 'Mvt. interne : Autres',
+        'mouvement' => 'Mvt. temporaire : Transfert de chai',
+        'embouteillage' => 'Mvt. temporaire : Embouteillage',
+        'travail' => 'Mvt. temporaire : Travail à façon',
+        'distillation' => 'Mvt. temporaire : Distillation à façon',
         'lies' => 'Lies',
         'vrac_contrat' => 'Contrat Vrac'
+    );
+    protected static $stocks_sortie_acq = array(
+        'acq_crd' => 'Ventes de produits',
+        'acq_replacement' => 'Replacement en suspension',
+        'acq_autres' => 'Autres'
     );
     protected static $stocks_fin = array(
         'bloque' => 'Dont Vin bloqué / Reserve',
         'warrante' => 'Dont Vin warranté',
         'instance' => 'Dont Vin en instance',
-        'commercialisable' => 'Dont commercialisable'
     );
+    protected static $stocks_fin_acq = array();
     protected static $mouvement_coefficient_entree = array(
         'achat' => 1,
         'recolte' => 1,
         'repli' => 1,
         'declassement' => 1,
+    	'manipulation' => 1,
+    	'vci' => 1,
         'mouvement' => 1,
+        'embouteillage' => 1,
+        'travail' => 1,
+        'distillation' => 1,    		
         'crd' => 1,
-    	'vci' => 1
+    	'excedent' => 1
     );
     protected static $mouvement_coefficient_sortie = array(
         'vrac' => -1,
@@ -72,9 +100,15 @@ class Configuration extends BaseConfiguration {
         'pertes' => -1,
         'declassement' => -1,
         'repli' => -1,
+        'mutage' => -1,
+        'vci' => -1,
+        'autres_interne' => -1,
         'mouvement' => -1,
+        'embouteillage' => -1,
+        'travail' => -1,
         'distillation' => -1,
         'lies' => -1,
+        'autres' => -1,
         'vrac_contrat' => -1
     );
     
@@ -87,20 +121,20 @@ class Configuration extends BaseConfiguration {
     	return array();
     }
 
-    public static function getStocksDebut() {
-        return self::$stocks_debut;
+    public static function getStocksDebut($acquittes = false) {
+        return ($acquittes)? self::$stocks_debut_acq : self::$stocks_debut;
     }
 
-    public static function getStocksEntree() {
-        return self::$stocks_entree;
+    public static function getStocksEntree($acquittes = false) {
+        return ($acquittes)? self::$stocks_entree_acq : self::$stocks_entree;
     }
 
-    public static function getStocksSortie() {
-        return self::$stocks_sortie;
+    public static function getStocksSortie($acquittes = false) {
+        return ($acquittes)? self::$stocks_sortie_acq : self::$stocks_sortie;
     }
 
-    public static function getStocksFin() {
-        return self::$stocks_fin;
+    public static function getStocksFin($acquittes = false) {
+        return ($acquittes)? self::$stocks_fin_acq : self::$stocks_fin;
     }
 
     public static function getAllStocksLibelles() {
@@ -251,15 +285,78 @@ class Configuration extends BaseConfiguration {
         }
         return $code_produit;
     }
+    
 
-    public function getConfigurationProduit($hash) {
-        $configuration = $this->getConfigurationProduitsComplete();
+
+    public function identifyProductByLibelle($libelle) {
+    	if(array_key_exists($libelle, $this->identifyLibelleProduct)) {
+    
+    		return $this->identifyLibelleProduct[$libelle];
+    	}
+    
+    	$libelleSlugify = KeyInflector::slugify(preg_replace("/[ ]+/", " ", trim($libelle)));
+    
+    	$configuration = $this->getConfigurationProduitsComplete();
         foreach ($configuration as $interpro => $configurationProduits) {
-            if ($configurationProduits->exist($hash)) {
-                return $configurationProduits->get($hash);
-            }
+        foreach ($configurationProduits->getProduits() as $produit) {
+    		$libelleProduitSlugify = KeyInflector::slugify(preg_replace("/[ ]+/", " ", trim($produit->getLibelleFormat())));
+    		if($libelleSlugify == $libelleProduitSlugify) {
+    			$this->identifyLibelleProduct[$libelle] = $produit;
+    
+    			return $produit;
+    		}
+    	}
         }
+    
+    	return false;
+    }
+
+    public function getConfigurationProduit($hash = null) {
+    	if ($hash) {
+	        $configuration = $this->getConfigurationProduitsComplete();
+	        foreach ($configuration as $interpro => $configurationProduits) {
+	            if ($configurationProduits->exist($hash)) {
+	                return $configurationProduits->get($hash);
+	            }
+	        }
+    	}
         return null;
+    }
+
+    public function getConfigurationProduitByLibelle($libelle = null) {
+    	$libelleDouane = null;
+    	if (preg_match('/([a-zA-Z0-9\ \-\_]*)\(([a-zA-Z0-9\ \-\_]*)\)/', trim($libelle), $result)) {
+    		$libelle = trim($result[1]);
+    		$libelleDouane = trim($result[2]);
+    	}
+    	if ($libelle) {
+	        $configuration = $this->getConfigurationProduitsComplete();
+	        foreach ($configuration as $interpro => $configurationProduits) {
+	        	if ($produit = $configurationProduits->getProduitByLibelle($libelle, $libelleDouane)) {
+	        		return $produit;
+	        	}
+	        }
+    	}
+        return null;
+    }
+    
+    public function identifyProduct($hash = null, $libelle = null) {
+    	if ($produit = $this->getConfigurationProduit($hash)) {
+    		return $produit;
+    	}
+    	return $this->getConfigurationProduitByLibelle($libelle);
+    }
+    
+    public function identifyEtablissement($identifiant) {
+    	$result = EtablissementIdentifiantView::getInstance()->findByIdentifiant($identifiant)->rows;
+    	if (count($result) == 1) {
+    		$etablissement = current($result);
+    		if ($object = EtablissementClient::getInstance()->find($etablissement->id)) {
+    			return $object;
+    		}
+    		return null;
+    	}
+    	return null;
     }
 
     public function getConfigurationVracByInterpro($interpro) {
@@ -318,6 +415,42 @@ class Configuration extends BaseConfiguration {
   				$ouverture = 0;
   			}
   			return $ouverture;
+    }
+    
+    public function isTypeCrdAccepted($value)
+    {
+    	if ($this->exist('crds')) {
+    		if ($this->crds->exist('type')) {
+    			if ($this->crds->type->exist($value)) {
+    				return true;
+    			}
+    		}
+    	}
+    	return false;
+    }
+    
+    public function isCategorieCrdAccepted($value)
+    {
+    	if ($this->exist('crds')) {
+    		if ($this->crds->exist('categorie')) {
+    			if ($this->crds->categorie->exist($value)) {
+    				return true;
+    			}
+    		}
+    	}
+    	return false;
+    }
+    
+    public function isCentilisationCrdAccepted($value)
+    {
+    	if ($this->exist('crds')) {
+    		if ($this->crds->exist('centilisation')) {
+    			if ($this->crds->centilisation->exist($value)) {
+    				return true;
+    			}
+    		}
+    	}
+    	return false;
     }
 
 }

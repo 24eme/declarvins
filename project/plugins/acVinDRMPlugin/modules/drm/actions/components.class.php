@@ -11,6 +11,9 @@ class drmComponents extends sfComponents {
             if ($certification_config == 'Sans IG') {
                 $certification_config = 'VINSSANSIG';
             }
+            if ($certification_config == "Autres produits") {
+                $certification_config = 'APD';
+            }
             if ($this->drm->declaration->certifications->exist($certification_config)) {
                 $certif = $this->drm->declaration->certifications->get($certification_config);
                 if ($certif->hasMouvementCheck() && count($certif->genres) > 0) {
@@ -27,22 +30,32 @@ class drmComponents extends sfComponents {
                 'ajouts_liquidations' => 2,
                 'recapitulatif' => 3,
                 'vrac' => 3 + $nbCertifs,
-                'declaratif' => 4 + $nbCertifs,
-                'validation' => 5 + $nbCertifs,
+                'crd' => 4 + $nbCertifs,
+                'declaratif' => 5 + $nbCertifs,
+                'validation' => 6 + $nbCertifs,
             );
         } else {
             $this->numeros = array(
                 'informations' => 1,
                 'ajouts_liquidations' => 2,
                 'recapitulatif' => 3,
-                'declaratif' => 3 + $nbCertifs,
-                'validation' => 4 + $nbCertifs,
+                'crd' => 3 + $nbCertifs,
+                'declaratif' => 4 + $nbCertifs,
+                'validation' => 5 + $nbCertifs,
             );
         }
         
-        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-        	unset($this->numeros['declaratif']);
+
+
+        if ($this->getUser()->getCompte()->isTiers() && (!$this->getUser()->getCompte()->exist('dematerialise_ciel') || !$this->getUser()->getCompte()->dematerialise_ciel)) {
+        	unset($this->numeros['crd']);
+        	$this->numeros['declaratif'] = $this->numeros['declaratif'] - 1;
         	$this->numeros['validation'] = $this->numeros['validation'] - 1;
+        }
+        
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        	unset($this->numeros['declaratif'], $this->numeros['crd']);
+        	$this->numeros['validation'] = $this->numeros['validation'] - 2;
         }
 
         $this->numero = $this->numeros[$this->etape];
@@ -51,6 +64,7 @@ class drmComponents extends sfComponents {
         else
             $this->numero_autorise = '';
         $this->numero_vrac = (isset($this->numeros['vrac'])) ? $this->numeros['vrac'] : null;
+        $this->numero_crd = (isset($this->numeros['crd'])) ? $this->numeros['crd'] : null;
         $this->numero_declaratif = (isset($this->numeros['declaratif'])) ? $this->numeros['declaratif'] : null;
         $this->numero_validation = $this->numeros['validation'];
 
@@ -85,8 +99,13 @@ class drmComponents extends sfComponents {
         /*if ($historique->getLastPeriode(false) >= $historique->getCurrentPeriode()) {
             return false;
         }*/
+    	$last = $historique->getLastDRM();
+    	$lastCiel = ($last)? $last->getOrAdd('ciel') : null;
         if ($historique->hasDRMInProcess()) {
             return false;
+        }
+        if ($lastCiel && $lastCiel->isTransfere() && !$lastCiel->isValide()) {
+        	return false;
         }
         if (isset($this->campagne) && $this->campagne && DRMClient::getInstance()->buildCampagne($historique->getLastPeriode()) != $this->campagne) {
             return false;
@@ -96,6 +115,7 @@ class drmComponents extends sfComponents {
 
     public function executeHistoriqueList() {
         $this->drms = array();
+        $this->formImport = new UploadCSVForm();
         $historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
         $this->new_drm = ($this->etablissement->statut != Etablissement::STATUT_ARCHIVE) ? $this->getNewDRM($historique, $this->etablissement->identifiant) : null;
         //$this->limit = 1;

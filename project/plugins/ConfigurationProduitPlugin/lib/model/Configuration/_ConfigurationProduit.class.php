@@ -403,6 +403,10 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
     	if ($this->hasDRMVrac()) {
     		$this->drm_vrac = ($datas[ConfigurationProduitCsvFile::CSV_PRODUIT_DRM_VRAC])? 1 : 0;
     	}
+    	if ($this->hasCiel()) {
+    		$this->inao = ($datas[ConfigurationProduitCsvFile::CSV_PRODUIT_INAO])? $datas[ConfigurationProduitCsvFile::CSV_PRODUIT_INAO] : null;
+    		$this->libelle_fiscal = ($datas[ConfigurationProduitCsvFile::CSV_PRODUIT_LIBELLE_FISCAL])? $datas[ConfigurationProduitCsvFile::CSV_PRODUIT_LIBELLE_FISCAL] : null;
+    	}
     	if ($this->hasOIOC()) {
     		$this->setOIOCCsv($datas[ConfigurationProduitCsvFile::CSV_PRODUIT_OIOC]);
     	}
@@ -506,6 +510,7 @@ abstract class _ConfigurationProduit extends acCouchdbDocumentTree
  	public abstract function hasCvo();
  	public abstract function hasDouane();
   	public abstract function hasDRMVrac();
+  	public abstract function hasCiel();
   	public abstract function hasOIOC();
   	public abstract function hasDefinitionDrm();
   	public abstract function getTypeNoeud();

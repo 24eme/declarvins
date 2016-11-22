@@ -56,6 +56,19 @@
 			        </div>
 					<?php endif; ?>
 					
+					<?php if ($form->getObject()->hasCiel()): ?>
+					<div class="ligne_form ">
+						<span class="error"><?php echo $form['inao']->renderError() ?></span>
+						<?php echo $form['inao']->renderLabel() ?>
+						<?php echo $form['inao']->render() ?>
+					</div>
+					<div class="ligne_form">
+						<span class="error"><?php echo $form['libelle_fiscal']->renderError() ?></span>
+						<?php echo $form['libelle_fiscal']->renderLabel() ?>
+						<?php echo $form['libelle_fiscal']->render(array('style' => 'width: 200px;')) ?>
+					</div>
+					<?php endif; ?>
+					
 					<?php if ($form->getObject()->hasLabels()): ?>
 			        <h2>Labels&nbsp;&nbsp;<a href="javascript:void(0)" class="addForm btn_ajouter"></a></h2>
 					<div class="subForm contenu_onglet" id="formsLabel">

@@ -37,12 +37,16 @@ class validationActions extends sfActions {
     	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
         $this->comptes = CompteAllView::getInstance()->findBy($this->interpro->get('_id'), 'CompteTiers')->rows;
         
-        $csv_file = 'Compte Statut;Identifiant;Num Interne;Num Contrat;Interpro;Siret;Cni;Cvi;Num Accises;Num TVA intra;Email;Tel;Fax;Raison Sociale;Nom Com.;Adresse;Commune;CP;Pays;Famille;Sous famille;Adresse compta;Commune compta;CP compta;Pays compta;Douane;Complement;Statut;Compte nom;Compte prenom;Compte fonction;Compte email;Compte tel;Compte fax;Num carte pro;';
+        $csv_file = 'Compte Statut;Identifiant;Num Interne;Num Contrat;Interpro;Siret;Cni;Cvi;Num Accises;Num TVA intra;Email;Tel;Fax;Raison Sociale;Nom Com.;Adresse;Commune;CP;Pays;Famille;Sous famille;Adresse compta;Commune compta;CP compta;Pays compta;Douane;Complement;Statut;Compte nom;Compte prenom;Compte fonction;Compte email;Compte tel;Compte fax;Compte CIEL;Num carte pro;';
 		$csv_file .= "\n";	
 		foreach ($this->comptes as $c) {
 			if($compte = _CompteClient::getInstance()->find($c->id)) {
-				$compteInfosCsv = $compte->nom.';'.$compte->prenom.';'.$compte->fonction.';'.$compte->email.';'.$compte->telephone.';'.$compte->fax;
-				$compteNonInfosCsv = ';;;;;';
+				$dematerialise_ciel = 'oui';
+				if (!$compte->dematerialise_ciel) {
+					$dematerialise_ciel = ($compte->getConventionCiel())? 'att' : 'non';
+				}
+				$compteInfosCsv = $compte->nom.';'.$compte->prenom.';'.$compte->fonction.';'.$compte->email.';'.$compte->telephone.';'.$compte->fax.';'.$dematerialise_ciel;
+				$compteNonInfosCsv = ';;;;;;';
 				if (count($compte->tiers) > 0) {
 					foreach ($compte->tiers as $etablissementId => $etablissementInfos) {
 						if ($etablissement = EtablissementClient::getInstance()->find($etablissementId)) {
@@ -290,6 +294,39 @@ class validationActions extends sfActions {
     	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
 	  	$pdf = new ExportContratPdf($this->contrat);
 		return $this->renderText($pdf->render($this->getResponse(), false));
+	  }
+
+	  public function executeAvenant(sfWebRequest $request)
+	  {
+	  	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
+	  	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
+	  	$pdf = new ExportAvenantPdf($this->contrat);
+	  	return $this->renderText($pdf->render($this->getResponse(), false));
+	  }
+	  
+	  public function executeConvention(sfWebRequest $request)
+	  {
+    	$this->forward404Unless($no_convention = $request->getParameter("num_convention"));
+    	$this->convention = ConventionCielClient::getInstance()->retrieveById($no_convention);
+    	
+    	$path = sfConfig::get('sf_data_dir').'/convention-ciel';
+    	
+    	if (!file_exists($path.'/pdf/'.$this->convention->_id.'.pdf')) {
+    		$fdf = tempnam(sys_get_temp_dir(), 'CONVENTIONCIEL');
+    		file_put_contents($fdf, $this->convention->generateFdf());
+    		exec("pdftk ".$path."/template.pdf fill_form $fdf output  /dev/stdout flatten |  gs -o ".$path.'/pdf/'.$this->convention->_id.".pdf -sDEVICE=pdfwrite -dEmbedAllFonts=true  -sFONTPATH=\"/usr/share/fonts/truetype/freefont\" - ");
+    		unlink($fdf);
+    	}
+    	
+    	$response = $this->getResponse();
+    	$response->setHttpHeader('Content-Type', 'application/pdf');
+    	$response->setHttpHeader('Content-disposition', 'attachment; filename="' . basename($path.'/pdf/'.$this->convention->_id.'.pdf') . '"');
+    	$response->setHttpHeader('Content-Length', filesize($path.'/pdf/'.$this->convention->_id.'.pdf'));
+    	$response->setHttpHeader('Pragma', '');
+    	$response->setHttpHeader('Cache-Control', 'public');
+    	$response->setHttpHeader('Expires', '0');
+    	 
+    	return $this->renderText(file_get_contents($path.'/pdf/'.$this->convention->_id.'.pdf'));
 	  }
   
   public function executeRedefinitionPassword(sfWebRequest $request)

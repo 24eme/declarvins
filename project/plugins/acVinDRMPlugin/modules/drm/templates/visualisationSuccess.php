@@ -1,5 +1,7 @@
 <?php use_helper('Float'); ?>
+<?php use_helper('Date'); ?>
 <?php use_helper('Version'); ?>
+<?php use_helper('Link'); ?>
 <?php include_component('global', 'navTop', array('active' => 'drm')); ?>
 
 
@@ -30,8 +32,16 @@
                 <ul>
                     <li>
                     <?php if ($drm->isTeledeclare()): ?>
-                    Votre DRM a bien été validée et transmis à votre interprofession.<br />
+                    Votre DRM a bien été validée et transmise à votre interprofession.<br />
+                    <?php $drmCiel = $drm->getOrAdd('ciel'); if(!$drm->isRectificative() && $drmCiel->isTransfere()): ?>
+                    Votre DRM a été transmise correctement au service CIEL, le <?php echo format_date($drmCiel->horodatage_depot, 'dd/MM/yyyy') ?> à <?php echo format_date($drmCiel->horodatage_depot, 'H:m') ?> sous le numéro <?php echo $drmCiel->identifiant_declaration ?>.<br />
+                    Vous devez terminer votre déclaration en la vérifiant et la validant ("déposer la DRM") sur le site prodouanes via le lien suivant : <a href="https://pro.douane.gouv.fr/">pro.douane.gouv.fr</a><br />
+					en vous connectant et en allant sur l'interface CIEL (menu de gauche).
+                    <?php elseif ($drm->isRectificative() && $drmCiel->isTransfere()): ?>
+                    Votre DRM a bien été corrigée afin de correspondre à celle transmise au service CIEL, le <?php echo format_date($drmCiel->horodatage_depot, 'dd/MM/yyyy') ?> à <?php echo format_date($drmCiel->horodatage_depot, 'H:m') ?> sous le numéro <?php echo $drmCiel->identifiant_declaration ?>.
+                    <?php else: ?>
 					Vous devez par contre imprimer le PDF et le signer puis l'envoyer à votre service des douanes habituel.
+                    <?php endif; ?>
                     <?php else: ?>
                     Votre DRM a bien été saisie et validée.
                     <?php endif; ?>
@@ -56,7 +66,7 @@
             </div>
         <?php endif; ?>
         <div id="contenu_onglet">
-            <?php if ($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()): ?>
+            <?php if (($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()) || $drm->hasMouvementsCrd()): ?>
                 <?php include_partial('drm/recap', array('drm' => $drm)) ?>
                 <?php include_partial('drm/droits', array('drm' => $drm, 'circulation' => $droits_circulation)) ?>
             <?php else: ?>
@@ -80,13 +90,25 @@
 			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->hasVersion()): ?>
             <?php include_partial('drm/mouvements', array('interpro' => $interpro, 'configurationProduits' => $configurationProduits, 'mouvements' => $mouvements, 'etablissement' => $etablissement, 'hamza_style' => false, 'no_link' => null)) ?>
             <?php endif; ?>
-            <br/>
+
         <?php if ($drm->exist('observations') && $drm->observations): ?>
-            <div style="padding: 0 0 30px 0">
-                <strong>Observations</strong>
-                <pre style="background: #fff; border: 1px #E9E9E9; padding: 8px; margin-top: 8px;"><?php echo $drm->observations ?></pre>
+            <div style="padding: 0 0 30px 0" class="tableau_ajouts_liquidations">
+                <h2>
+					<strong>Observations</strong>
+				</h2>
+                <table class="tableau_recap">
+                	<?php $i=0; foreach ($drm->getDetails() as $detail): if (!$detail->observations) {continue;} ?>
+                			<tr<?php if($i%2): ?> class="alt"<?php endif; ?>>
+                				<td style="width: 332px;"><?php echo $detail->getLibelle() ?></td>
+                				<td style="text-align: left;">
+                        			<pre><?php echo $detail->observations ?></pre>
+                        		</td>
+                    		</tr>
+                    	<?php $i++; endforeach; ?>
+                </table>
             </div>
         <?php endif; ?>
+        
         <?php if ($drm->exist('commentaires') && $drm->commentaires && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <div style="padding: 0 0 30px 0">
                 <strong>Commentaires BO</strong>
@@ -95,7 +117,9 @@
         <?php endif; ?>   
             
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
-
+            <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+            <a id="telecharger_pdf" style="margin-left: 225px; padding-left: 5px; background: #9e9e9e;" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Télécharger le XML</a>
+			<?php endif; ?>
             <div id="btn_etape_dr">
                 <?php if ($drm_next_version && $drm_next_version->hasVersion() && !$drm_next_version->isValidee()): ?>
                     <a href="<?php echo url_for('drm_init', array('sf_subject' => $drm_next_version, 'reinit_etape' => 1)) ?>" class="btn_suiv">

@@ -3,10 +3,13 @@
                         ) ?>
 
 <?php foreach ($drm->getDroits() as $typedroit => $droits) if (count($drm->droits->{$typedroit})): ?>
-    <?php /*if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $typedroit == "douane") {continue;}*/ ?>     
-    <?php if (isset($hide_cvo) && $hide_cvo && $typedroit == "cvo") {continue;} ?>       
+    <?php if (($sf_user->getCompte()->isTiers() && $sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel) && $typedroit == "douane") {continue;} ?>     
+    <?php if (isset($hide_cvo) && $hide_cvo && $typedroit == "cvo") {continue;} ?>  
+    <?php if ($typedroit == "douane" && !$circulation){continue;}?>   
+    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)){continue;}?>      
     <div class="tableau_ajouts_liquidations">
-    <h2><?php echo $libelles[$typedroit] ?> <a href="" class="msg_aide" data-msg="help_popup_validation_droit_<?php echo $typedroit; ?>" title="Message aide"></a></h2>
+
+       <h2><strong><?php echo $libelles[$typedroit] ?></strong> <a href="" class="msg_aide" data-msg="help_popup_validation_droit_<?php echo $typedroit; ?>" title="Message aide"></a></h2>
     	
     	<?php if ($typedroit != "douane"): ?>
     	<table class="tableau_recap">
@@ -47,8 +50,10 @@
 
 <?php 
 if ($circulation && $typedroit == "douane"): 
+if (($sf_user->getCompte()->isTiers() && $sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel)) {continue;}
+if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)){continue;}
 $droits_circulation = $circulation->getDroits();
-?>
+?>   
 <div class="tableau_ajouts_liquidations">
     <table class="tableau_recap">
 	<thead>

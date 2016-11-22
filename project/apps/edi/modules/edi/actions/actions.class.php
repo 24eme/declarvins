@@ -117,7 +117,7 @@ class ediActions extends sfActions
   
   public function executeStreamDRM(sfWebRequest $request) 
   {
-  	ini_set('memory_limit', '2048M');
+  	ini_set('memory_limit', '4096M');
   	set_time_limit(0);
     $date = $request->getParameter('datedebut');
     $interpro = $request->getParameter('interpro');
@@ -132,6 +132,85 @@ class ediActions extends sfActions
     $dateForView = new DateTime($date);
     $drms = $this->drmCallback(DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows);
     return $this->renderCsv($drms, DRMDateView::VALUE_DATEDESAISIE, "DRM", $dateTime->format('c'), $interpro, array(DRMDateView::VALUE_IDENTIFIANT_DECLARANT));
+  }
+  
+  public function executeStreamDRMInterpro(sfWebRequest $request) 
+  {
+  	ini_set('memory_limit', '4096M');
+  	set_time_limit(0);
+    $date = str_replace(array('h', 'H', 'm', 'M'), ':', $request->getParameter('datedebut'));
+    $interpro = $request->getParameter('interpro');
+    $limit = $request->getParameter('limit');
+  	$this->securizeInterpro($interpro);
+    if (!$date) {
+		return $this->renderText("Pas de date définie");
+    }
+    if (!preg_match('/^INTERPRO-/', $interpro)) {
+		$interpro = 'INTERPRO-'.$interpro;
+    }
+    $dateTime = new DateTime($date);
+    $dateForView = new DateTime($date);
+    $csv = '';
+    $datas = DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows;
+    if ($interpro == 'INTERPRO-IS') {
+    	$datas = array_merge($datas, DRMDateView::getInstance()->findByInterproAndDate('INTERPRO-IO', $dateForView->modify('-1 second')->format('c'))->rows);
+    	$datas = array_merge($datas, DRMDateView::getInstance()->findByInterproAndDate('INTERPRO-CIVL', $dateForView->modify('-1 second')->format('c'))->rows);
+    }
+    $drms = array();
+    $lastDate = $dateTime->format('c');
+    foreach ($datas as $data) {
+    	if ($limit && count($drms) >= $limit) {
+    		break;
+    	}
+    	if (!in_array($data->id, $drms) && $drm = DRMClient::getInstance()->find($data->id)) {
+    		$export = new DRMExportCsvEdi($drm);
+    		if ($interpro == 'INTERPRO-IS') {
+    			$csv .= $export->exportEDIInterpro(array($interpro, 'INTERPRO-IO', 'INTERPRO-CIVL', 'INTERPRO-ANIVIN'));
+    		} else {
+    			$csv .= $export->exportEDIInterpro(array($interpro, 'INTERPRO-ANIVIN'));
+    		}
+    		$drms[] = $data->id;
+	      	if ($lastDate < $drm->valide->date_saisie) {
+	      		$lastDate = $drm->valide->date_saisie;
+	      	}
+    	}
+    }
+    $lastDate = new DateTime($lastDate);
+    $filename = 'DRM_'.$dateTime->format('Y-m-d\TH\hi\ms').'_'.$lastDate->format('Y-m-d\TH\hi\ms').'.csv';
+    $this->response->setContentType('text/csv');
+    $this->response->setHttpHeader('md5', md5($csv));
+    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$filename);
+    return $this->renderText($csv);
+  }
+  
+  public function executeStreamVracInterpro(sfWebRequest $request) 
+  {
+
+  	ini_set('memory_limit', '4096M');
+  	set_time_limit(0);
+  	$interpro = $request->getParameter('interpro');
+  	//$this->securizeInterpro($interpro);
+  	if (!preg_match('/^INTERPRO-/', $interpro)) {
+  		$interpro = 'INTERPRO-'.$interpro;
+  	}
+  	$values = VracDateView::getInstance()->findByInterpro($interpro)->rows;
+  	if ($interpro == 'INTERPRO-IS') {
+  		$values = array_merge($values, VracDateView::getInstance()->findByInterpro('INTERPRO-IO')->rows);
+  		$values = array_merge($values, VracDateView::getInstance()->findByInterpro('INTERPRO-CIVL')->rows);
+  	}
+
+  	$csv = '';
+	$items = $this->vracInterproCallback($interpro, $values);
+	foreach ($items as $item) {
+		$csv .= implode(';', $item);
+		$csv .= "\n";
+	}
+	
+  	$filename = 'contrats_achat_non_soldes_'.str_replace('INTERPRO-', '', $interpro).'.csv';
+  	$this->response->setContentType('text/csv');
+  	$this->response->setHttpHeader('md5', md5($csv));
+  	$this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$filename);
+  	return $this->renderText($csv);
   }
   
   public function executeStreamCampagneDRM(sfWebRequest $request) 
@@ -198,6 +277,49 @@ class ediActions extends sfActions
     return $this->renderCsv($drms->rows, DRMEtablissementView::VALUE_DATEDESAISIE, "DRM", $date, $etab->interpro);
   }
   
+  public function executeEdiV2(sfWebRequest $request)
+  {
+  	ini_set('memory_limit', '2048M');
+  	set_time_limit(0);
+  	$csv_file = null;
+  	$format = $request->getParameter('format', 'csv');
+    if ($drm = DRMClient::getInstance()->find($request->getParameter('id_drm', null))) {
+    	$export = new DRMExportCsvEdi($drm);
+    	$csv_file = $export->exportEDI($format);
+    }
+    if (!$csv_file) {
+    	$this->response->setStatusCode(204);
+    	return $this->renderText(null);
+    }
+    
+    switch ($format) {
+    	case 'csv':
+    		return $this->renderTextCsv($csv_file); break;
+    	case 'xml':
+    		return $this->renderTextXml($csv_file); break;
+    	case 'debug':
+    	default:
+    		return $this->renderText($csv_file); break;
+    }
+  }
+  
+  public function renderTextCsv($csv_file) {
+  	$this->response->setHttpHeader('md5', md5($csv_file));
+  	$this->response->setHttpHeader('LastDocDate', date('r'));
+  	$this->response->setHttpHeader('Last-Modified', date('r'));
+    $this->response->setContentType('text/csv');
+    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=ediv2.csv");
+    return $this->renderText($csv_file);
+  }
+  
+  public function renderTextXml($csv_file) {
+  	$this->response->setHttpHeader('md5', md5($csv_file));
+  	$this->response->setHttpHeader('LastDocDate', date('r'));
+  	$this->response->setHttpHeader('Last-Modified', date('r'));
+  	$this->response->setContentType('text/xml');
+  	$this->response->setHttpHeader('Content-Disposition', "attachment; filename=ediv2.xml");
+  	return $this->renderText($csv_file);
+  }
 
 
   public function executePushTransaction(sfWebRequest $request)
@@ -247,8 +369,6 @@ class ediActions extends sfActions
     $etab = EtablissementClient::getInstance()->find($etablissement);
 	$formUploadCsv = new UploadCSVForm();
     $result = array();
-    $drms = array();
-    $unsetDrms = array();
 	if ($request->isMethod('post')) {
     	$formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
       	if ($formUploadCsv->isValid()) {
@@ -272,6 +392,99 @@ class ediActions extends sfActions
     	$result[] = array('ERREUR', 'ACCES ', null, 'Seules les requêtes de type POST sont acceptées');
     }
     return $this->renderSimpleCsv($result, "drm");
+  }
+  
+  public function executePushDRMEtablissementV2(sfWebRequest $request)
+  {
+  	ini_set('memory_limit', '2048M');
+  	set_time_limit(0);
+  	$etablissement = $request->getParameter('etablissement');
+  	$this->securizeEtablissement($etablissement);
+  	$etab = EtablissementClient::getInstance()->find($etablissement);
+  	$formUploadCsv = new UploadCSVForm();
+  	$result = array();
+  	if ($request->isMethod('post')) {
+  		$formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
+  		if ($formUploadCsv->isValid()) {
+  			try {
+  				$drm = new DRM();
+  				$file = sfConfig::get('sf_data_dir') . '/upload/' . $formUploadCsv->getValue('file')->getMd5();
+  				$configuration = ConfigurationClient::getCurrent();
+  				$controles = array(
+  					DRMCsvEdi::TYPE_CAVE => array(
+  							DRMCsvEdi::CSV_CAVE_COMPLEMENT_PRODUIT => array_keys($configuration->getLabels())
+  					)
+  				);
+  				
+  				$drmCsvEdi = new DRMImportCsvEdi($file, $drm, $controles);
+  				$drmCsvEdi->checkCSV();
+  			
+  				if($drmCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
+  					foreach($drmCsvEdi->getCsvDoc()->erreurs as $erreur) {
+  						if ($erreur->num_ligne > 0) {
+  							$result[] = array('ERREUR', 'CSV', $erreur->num_ligne, $erreur->diagnostic, $erreur->csv_erreur);
+  						} else {
+  							$result[] = array('ERREUR', 'CSV', null, $erreur->diagnostic, $erreur->csv_erreur);
+  						}
+  					}
+  				} else {
+	  				$drmCsvEdi->importCsv();
+	  				$drm->constructId();
+	  				$errors = 0;
+	  				if($drmCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
+	  					foreach($drmCsvEdi->getCsvDoc()->erreurs as $erreur) {
+	  						$result[] = array('ERREUR', 'CSV', $erreur->num_ligne, $erreur->diagnostic, $erreur->csv_erreur);
+	  						$errors++;
+	  					}
+	  				}
+	  				if ($drm->identifiant != $etablissement) {
+	  					$result[] = array('ERREUR', 'ACCES', null, "Import restreint à l'établissement ".$etablissement);
+	  					$errors++;
+	  				}
+	  				if (!$etab->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) {
+	  					$result[] = array('ERREUR', 'ACCES', null, "L'établissement ".$etablissement." n'est pas autorisé à déclarer des DRMs");
+	  					$errors++;
+	  				}
+	  				if (DRMClient::getInstance()->find($drm->_id)) {
+	  					$master = $drm->findMaster();
+	  					if ($master->mode_de_saisie == DRMClient::MODE_DE_SAISIE_EDI) {
+	  						$master = $master->generateRectificative();
+	  						$drm->version = $master->version;
+	  						$drm->precedente = $master->_id;
+	  						$drm->constructId();
+	  					} else {
+	  						$result[] = array('ERREUR', 'ACCES', null, "La DRM ".$drm->periode." pour ".$drm->identifiant." est déjà existante dans la base DeclarVins");
+	  						$errors++;
+	  					}
+	  				} 
+	  				if (!$errors) {
+		  				$drm->update();
+		  				$validation = new DRMValidation($drm);
+		  				
+		  				if (!$validation->isValide()) {
+		  					foreach ($validation->getErrors() as $error) {
+		  						$result[] = array('ERREUR', 'CSV', null, str_replace('Erreur, ', '', $error));
+		  					}
+		  				} else {
+			  				$drm->validate();
+					    	$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_EDI;
+					    	$drm->save();
+					    	$result[] = array('SUCCESS', 'CSV', null, 'La DRM '.$drm->periode." pour ".$drm->identifiant.' a été importée avec succès');
+		  				}
+	  				}
+  				}
+  			
+  			} catch(Exception $e) {
+  				$result[] = array('ERREUR', 'CSV', null, $e->getMessage());
+  			}
+  		} else {
+      		$result[] = array('ERREUR', 'ACCES', null, 'Fichier csv non valide');
+      	}
+  			
+  	} else {
+  		$result[] = array('ERREUR', 'ACCES ', null, 'Seules les requêtes de type POST sont acceptées');
+  	}
+  	return $this->renderSimpleCsv($result, "drm");
   }
   
   public function executeStreamVracEtablissement(sfWebRequest $request) 
@@ -446,6 +659,14 @@ class ediActions extends sfActions
 		foreach($rows as $row) {
 			$etablissement = $eClient->find($row->id);
 			$compte = $etablissement->getCompteObject();
+			if ($compte) {
+				$convention = 'oui';
+				if (!$compte->dematerialise_ciel) {
+					$convention = ($compte->getConventionCiel())? 'att' : 'non';
+				}
+			} else {
+				$convention = 'non';
+			}
 			$result .= $etablissement->identifiant;
 			$result .= ';';
 			$result .= $etablissement->num_interne;
@@ -535,6 +756,8 @@ class ediActions extends sfActions
 			$result .= ($zonesLibelles)? implode('|', $zonesLibelles) : '';
 			$result .= ';';
 			$result .= ($correspondances)? implode('|', $correspondances) : '';
+			$result .= ';';
+			$result .= $convention;
 			$result .= "\n";
 		}
 	    if (!$result) {
@@ -560,9 +783,51 @@ class ediActions extends sfActions
   			$item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE] = $configurationVrac->formatTypesTransactionLibelle(array($item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE]));
   			$item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE] = $configurationVrac->formatCasParticulierLibelle(array($item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE]));
   			$item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE] = $configurationVrac->formatConditionsPaiementLibelle(array($item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE]));
+  			unset($item->value[VracDateView::VALUE_VOLUME_RETIRE]);
   			$vracs[] = $item;
   		}
   		return $vracs;
+  }
+  
+  protected function vracInterproCallback($interpro, $items)
+  {
+
+  	$vracs = array();
+  	$configurationProduitClient = ConfigurationProduitClient::getInstance();
+  	foreach ($items as $item) {
+  		if ($item->value[VracDateView::VALUE_STATUT] != VracClient::STATUS_CONTRAT_NONSOLDE) {
+  			continue;
+  		}
+  		preg_match('/certifications\/([a-zA-Z0-9]*)\/genres\/([a-zA-Z0-9]*)\/appellations\/([a-zA-Z0-9]*)\/mentions\/([a-zA-Z0-9]*)\/lieux\/([a-zA-Z0-9]*)\/couleurs\/([a-zA-Z0-9]*)\/cepages\/([a-zA-Z0-9]*)$/i', $item->key[VracDateView::KEY_PRODUIT_HASH], $hashProduit);
+  		$vendeurId = $item->value[VracDateView::VALUE_VENDEUR_ID];
+  		if ($item->value[VracDateView::VALUE_VENDEUR_SIRET]) {
+  			$vendeurId .= ' ('.$item->value[VracDateView::VALUE_VENDEUR_SIRET].')';
+  		} elseif ($item->value[VracDateView::VALUE_VENDEUR_CVI]) {
+  			$vendeurId .= ' ('.$item->value[VracDateView::VALUE_VENDEUR_CVI].')';
+  		}
+  		$vracs[] = array(
+  				$item->value[VracDateView::VALUE_VRAC_ID],
+  				$vendeurId,
+  				$item->value[VracDateView::VALUE_VENDEUR_EA],
+  				$item->value[VracDateView::VALUE_ACHETEUR_NOM],
+  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[1]),
+  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[2]),
+  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[3]),
+  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[4]),
+  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[5]),
+  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[6]),
+  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[7]),
+  				$configurationProduitClient->format(
+  						array($item->value[VracDateView::VALUE_PRODUIT_CERTIFICATION_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_GENRE_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_APPELLATION_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_LIEU_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_COULEUR_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_CEPAGE_LIBELLE]), 
+  						array(),
+  						"%g% %a% %l% %co% %ce%"
+  				),
+  				$item->value[VracDateView::VALUE_MILLESIME_CODE],
+  				$item->value[VracDateView::VALUE_VOLUME_PROPOSE],
+  				$item->value[VracDateView::VALUE_VOLUME_RETIRE]
+  		);
+  	}
+  	return $vracs;
   }
   
   

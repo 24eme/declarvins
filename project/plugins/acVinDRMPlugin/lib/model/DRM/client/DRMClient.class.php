@@ -8,9 +8,11 @@ class DRMClient extends acCouchdbClient {
     const VALIDE_STATUS_VALIDEE_RECUE = 'RECUE';
     const MODE_DE_SAISIE_PAPIER = 'PAPIER';
     const MODE_DE_SAISIE_DTI = 'DTI';
+    const MODE_DE_SAISIE_DTI_PLUS = 'DTI_PLUS';
     const MODE_DE_SAISIE_EDI = 'EDI';
     const MODE_DE_SAISIE_PAPIER_LIBELLE = 'par l\'interprofession (papier)';
     const MODE_DE_SAISIE_DTI_LIBELLE = 'via Declarvins (DTI)';
+    const MODE_DE_SAISIE_DTI_PLUS_LIBELLE = 'via l\'import (DTI+)';
     const MODE_DE_SAISIE_EDI_LIBELLE = 'via votre logiciel (EDI)';
     
     const DRM_STATUS_BILAN_VALIDE = 'DRM_STATUS_BILAN_VALIDE';
@@ -20,6 +22,9 @@ class DRMClient extends acCouchdbClient {
     const DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT = 'DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT';
     const DRM_STATUS_BILAN_NON_VALIDE = 'DRM_STATUS_BILAN_NON_VALIDE';
     const DRM_STATUS_BILAN_STOCK_EPUISE = 'DRM_STATUS_BILAN_STOCK_EPUISE';
+    const DRM_STATUS_BILAN_ENVOYEE_CIEL = 'DRM_STATUS_BILAN_ENVOYEE_CIEL';
+    const DRM_STATUS_BILAN_DIFF_CIEL = 'DRM_STATUS_BILAN_DIFF_CIEL';
+    const DRM_STATUS_BILAN_VALIDE_CIEL = 'DRM_STATUS_BILAN_VALIDE_CIEL';
 
     protected $drm_historiques = array();
 
@@ -174,6 +179,9 @@ class DRMClient extends acCouchdbClient {
         switch ($key) {
             case self::MODE_DE_SAISIE_DTI:
                 return self::MODE_DE_SAISIE_DTI_LIBELLE;
+                break;
+            case self::MODE_DE_SAISIE_DTI_PLUS:
+                return self::MODE_DE_SAISIE_DTI_PLUS_LIBELLE;
                 break;
             case self::MODE_DE_SAISIE_EDI:
                 return self::MODE_DE_SAISIE_EDI_LIBELLE;
@@ -412,7 +420,11 @@ class DRMClient extends acCouchdbClient {
             self::DRM_STATUS_BILAN_IGP_MANQUANT => "DRM validée avec infos IGP manquantes",
             self::DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT => "DRM validée avec infos contrats vrac et IGP manquantes",
             self::DRM_STATUS_BILAN_NON_VALIDE => "DRM saisie non validée",
-            self::DRM_STATUS_BILAN_STOCK_EPUISE => "Stock épuisé");
+            self::DRM_STATUS_BILAN_STOCK_EPUISE => "Stock épuisé",
+        	self::DRM_STATUS_BILAN_ENVOYEE_CIEL => "Envoyée CIEL",
+			self::DRM_STATUS_BILAN_DIFF_CIEL => "Incompatible CIEL",
+			self::DRM_STATUS_BILAN_VALIDE_CIEL => "Validée CIEL"
+        );
     }
 
     public static function getLibellesForStatusBilan($status) {
@@ -422,8 +434,8 @@ class DRMClient extends acCouchdbClient {
     
     public function sortDrmId($a, $b) 
     {
-    	preg_match('/DRM-([0-9a-zA-Z]*)-([0-9]{4})-([0-9]{2})/', $a, $ma1);
-        preg_match('/DRM-([0-9a-zA-Z]*)-([0-9]{4})-([0-9]{2})/', $b, $mb1);
+    	preg_match('/DRM-([0-9a-zA-Z\-]*)-([0-9]{4})-([0-9]{2})/', $a, $ma1);
+        preg_match('/DRM-([0-9a-zA-Z\-]*)-([0-9]{4})-([0-9]{2})/', $b, $mb1);
         $hasVersionA = preg_match('/([0-9a-zA-Z\-]*)-(M|R)([0-9]{2})$/', $a, $ma);
         $hasVersionB = preg_match('/([0-9a-zA-Z\-]*)-(M|R)([0-9]{2})$/', $b, $mb);
 

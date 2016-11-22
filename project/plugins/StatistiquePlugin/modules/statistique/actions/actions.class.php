@@ -15,6 +15,8 @@ class statistiqueActions extends sfActions {
      * @param sfWebRequest $request 
      */
     public function executeBilanDrm(sfWebRequest $request) {
+        ini_set('memory_limit', '1024M');
+        set_time_limit(0);
         $this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
         $this->campagne = null;
         $this->statistiquesBilan = null;
@@ -92,7 +94,7 @@ class statistiqueActions extends sfActions {
         $this->interpro = InterproClient::getInstance()->find($interpro);
         //$manquantesBilan = StatistiquesN1View::getInstance()->findManquantesByPeriode($this->interpro->getZone(), $periode)->rows;
         
-        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;Categorie;Genre;Denomination;Lieu;Couleur;Cepage;'.$periode;
+        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;Categorie;Genre;Denomination;Lieu;Couleur;Cepage;'.$periode.';Total debut de mois';
         $csv_file .= "\n";
 
         /*foreach ($manquantesBilan as $manquanteBilan) {
@@ -157,7 +159,8 @@ class statistiqueActions extends sfActions {
         				$csv_file .=  $lieuCode.";";
         				$csv_file .=  $detail->getCouleur()->getKey().";";
         				$csv_file .=  $cepCode.";";
-        				$csv_file .=  $detail->getStockBilan()."\n";
+        				$csv_file .=  $detail->getStockBilan().";";
+        				$csv_file .=  $detail->total_debut_mois."\n";
         			}
         		}
         	}

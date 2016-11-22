@@ -9,7 +9,8 @@ class ContratForm extends acCouchdbObjectForm {
 			'telephone' => new sfWidgetFormInputText(),
 			'fax' => new sfWidgetFormInputText(), 	
             'email' => new sfWidgetFormInputText(),
-        	'email2' => new sfWidgetFormInputText()  		
+        	'email2' => new sfWidgetFormInputText()
+    					
     	));
 		$this->widgetSchema->setLabels(array(
 			'nom' => 'Nom*: ',

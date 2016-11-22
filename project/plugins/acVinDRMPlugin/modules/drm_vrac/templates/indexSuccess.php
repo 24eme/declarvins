@@ -57,11 +57,13 @@
                 </a>
                 <button type="submit" class="btn_suiv"><span>Suivant</span></button>
             </div>
-
+			
+			<?php if($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere): ?>
+			<?php else: ?>
             <div class="ligne_btn">
                 <a href="<?php echo url_for('drm_delete_one', $drm) ?>" class="annuler_saisie btn_remise"><span>supprimer la drm</span></a>
             </div>
-
+			<?php endif; ?>
             </form>
         </div>
     </section>

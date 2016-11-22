@@ -31,6 +31,8 @@ class ConfigurationProduitCsvFile extends CsvFile
   	const CSV_PRODUIT_DRM_CONFIG_ENTREE_DECLASSEMENT = 26;
   	const CSV_PRODUIT_DRM_CONFIG_SORTIE_DECLASSEMENT = 27;
   	const CSV_PRODUIT_PRESTATIONS = 28;
+  	const CSV_PRODUIT_INAO = 29;
+  	const CSV_PRODUIT_LIBELLE_FISCAL = 30;
   	
   	const CSV_PRODUIT_DROITS_CODE = 0;
   	const CSV_PRODUIT_DROITS_LIBELLE = 1;
@@ -80,7 +82,9 @@ class ConfigurationProduitCsvFile extends CsvFile
   		'REPLI_SORTIE',
   		'DECLASSEMENT_ENTREE',
   		'DECLASSEMENT_SORTIE',
-  		'PRESTATIONS'
+  		'PRESTATIONS',
+  		'CODE INAO',
+  		'LIBELLE FISCAL'
 	);
 
     public static function getCsvProduitsEntetes() 
@@ -147,6 +151,8 @@ class ConfigurationProduitCsvFile extends CsvFile
 		  	$result[$i][self::CSV_PRODUIT_DRM_CONFIG_ENTREE_DECLASSEMENT] = $ed;
 		  	$result[$i][self::CSV_PRODUIT_DRM_CONFIG_SORTIE_DECLASSEMENT] = $sd;
 		  	$result[$i][self::CSV_PRODUIT_PRESTATIONS] = $this->renderCsvPrestations($produit->getCurrentPrestations());
+		  	$result[$i][self::CSV_PRODUIT_INAO] = $produit->getCepage()->inao;
+		  	$result[$i][self::CSV_PRODUIT_LIBELLE_FISCAL] = $produit->getCepage()->libelle_fiscal;
   		}
   		return $result;
   	}

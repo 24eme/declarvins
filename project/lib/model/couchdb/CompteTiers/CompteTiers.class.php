@@ -38,8 +38,21 @@ class CompteTiers extends BaseCompteTiers {
         return $this->_contrat;
     }
     
+    /**
+     * @return _Compte
+     */
+    public function getConventionCiel() {
+        return ConventionCielClient::getInstance()->retrieveById($this->login);
+    }
+    
     public function getTiersCollection() {
-        return acCouchdbManager::getClient()->keys(array_keys($this->getTiers()->toArray()))->execute();
+    	$result = array();
+    	foreach ($this->getTiers() as $key => $values) {
+    		if ($etablissement = EtablissementClient::getInstance()->find($key)) {
+    			$result[] = $etablissement;
+    		}
+    	}
+    	return $result;
     }
 
     public function addEtablissement($etablissement) {
@@ -67,6 +80,7 @@ class CompteTiers extends BaseCompteTiers {
     	$this->email = $contrat->email;
     	$etablissement = $contrat->etablissements->getFirst();
     	$this->raison_sociale = $etablissement->raison_sociale;
+    	$this->dematerialise_ciel = $contrat->dematerialise_ciel;
     }
 
     public function __toString() {
@@ -79,6 +93,10 @@ class CompteTiers extends BaseCompteTiers {
     
     public function isVirtuel() {
     	return false;
+    }
+    
+    public function isTiers() {
+    	return true;
     }
 
     private function cleanPhone($phone) {

@@ -48,6 +48,26 @@ class drm_recapActions extends sfActions
         }
         $this->redirect('drm_recap', $last_certification);
     }
+
+    public function executeEsDetailsAjax(sfWebRequest $request)
+    {
+    	$this->forward404Unless($request->isXmlHttpRequest());
+    	$detail = $this->getRoute()->getDRMDetail();
+    	$object = $detail->entrees->crd_details->getOrAdd(ConfigurationProduit::DEFAULT_KEY);
+    	$form = new DRMESDetailCrdForm($object);
+    	if ($request->isMethod(sfWebRequest::POST)) {
+    		$this->getResponse()->setContentType('text/json');
+    		$form->bind($request->getParameter($form->getName()));
+    		if ($form->isValid()) {
+    			$form->save();
+    			return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_recap_detail', $detail))));
+    		} else {
+    			return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('esDetailCrdForm', array('form' => $form, 'detail' => $detail)))));
+    		}
+    	}
+    
+    	return $this->renderText($this->getPartial('popupEsDetailCrd', array('form' => $form, 'detail' => $detail)));
+    }
     
     public function executeLieuAjoutAjax(sfWebRequest $request) {
         $this->forward404Unless($request->isXmlHttpRequest());

@@ -12,6 +12,8 @@ all:
       url: "drm_recap_redirect"
     vrac:
       url: "drm_vrac"
+    crd:
+      url: "drm_crd"
     declaratif:
       url: "drm_declaratif"
     validation:

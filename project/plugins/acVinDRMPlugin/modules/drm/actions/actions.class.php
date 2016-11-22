@@ -54,6 +54,94 @@ class drmActions extends sfActions {
         $drm->save();
         $this->redirect('drm_informations', $drm);
     }
+    
+    /**
+     *
+     * @param sfWebRequest $request 
+     */
+    public function executeImport(sfWebRequest $request) {
+        $drm = $this->getRoute()->getDRM();
+        if ($drm->isFictive()) {
+        	$drm = $drm->getDRM();
+        }
+        $etablissement = $this->getRoute()->getEtablissement();
+        
+
+        $formUploadCsv = new UploadCSVForm();
+
+        $result = array();
+        if ($request->isMethod('post')) {
+        	$formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
+        	if ($formUploadCsv->isValid()) {
+        		try {
+        			$file = sfConfig::get('sf_data_dir') . '/upload/' . $formUploadCsv->getValue('file')->getMd5();
+        			$configuration = ConfigurationClient::getCurrent();
+        			$controles = array(
+        					DRMCsvEdi::TYPE_CAVE => array(
+        							DRMCsvEdi::CSV_CAVE_COMPLEMENT_PRODUIT => array_keys($configuration->getLabels())
+        					)
+        			);
+        
+        			$drmCsvEdi = new DRMImportCsvEdi($file, $drm, $controles);
+        			$drmCsvEdi->checkCSV();
+        				
+        			if($drmCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
+        				foreach($drmCsvEdi->getCsvDoc()->erreurs as $erreur) {
+        					if ($erreur->num_ligne > 0) {
+        						$result[] = array('ERREUR', 'CSV', $erreur->num_ligne, $erreur->diagnostic, $erreur->csv_erreur);
+        					} else {
+        						$result[] = array('ERREUR', 'CSV', null, $erreur->diagnostic, $erreur->csv_erreur);
+        					}
+        				}
+        			} else {
+        				$drmCsvEdi->importCsv();
+        				$drm->constructId();
+        				$errors = 0;
+        				if($drmCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
+        					foreach($drmCsvEdi->getCsvDoc()->erreurs as $erreur) {
+        						$result[] = array('ERREUR', 'CSV', $erreur->num_ligne, $erreur->diagnostic, $erreur->csv_erreur);
+        						$errors++;
+        					}
+        				}
+        				if ($drm->identifiant != $etablissement->getIdentifiant()) {
+        					$result[] = array('ERREUR', 'ACCES', null, "Import restreint à l'établissement ".$etablissement->getIdentifiant());
+        					$errors++;
+        				}
+        				if (!$etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) {
+        					$result[] = array('ERREUR', 'ACCES', null, "L'établissement ".$etablissement->getIdentifiant()." n'est pas autorisé à déclarer des DRMs");
+        					$errors++;
+        				}
+        				if (!$errors) {
+        					$drm->update();
+        					$validation = new DRMValidation($drm);
+        
+        					if (!$validation->isValide()) {
+        						foreach ($validation->getErrors() as $error) {
+        							$result[] = array('ERREUR', 'CSV', null, str_replace('Erreur, ', '', $error));
+        						}
+        					} else {
+        						$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI_PLUS;
+        						$drm->etape = 'validation';
+        						$drm->save();
+        						$this->redirect('drm_validation', $drm);
+        					}
+        				}
+        			}
+        				
+        		} catch(Exception $e) {
+        			$result[] = array('ERREUR', 'CSV', null, $e->getMessage());
+        		}
+        	} else {
+        		$result[] = array('ERREUR', 'ACCES', null, 'Fichier csv non valide');
+        	}
+        		
+        } else {
+        	$result[] = array('ERREUR', 'ACCES ', null, 'Seules les requêtes de type POST sont acceptées');
+        }
+        
+        $this->logs = $result;
+        $this->etablissement = $etablissement;
+    }
 
     /**
      *
@@ -86,6 +174,9 @@ class drmActions extends sfActions {
     public function executeDeleteOne(sfWebRequest $request) {
         $etablissement = $this->getRoute()->getEtablissement();
         $drm = $this->getRoute()->getDRM();
+        
+        $this->forward404If(($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere));
+        
         if (!$drm->isNew() && !$drm->isValidee()) {
             /*if ($drm->hasVersion()) {
             	$drm->updateVracVersion();
@@ -212,7 +303,8 @@ class drmActions extends sfActions {
             $this->form->bind($request->getParameter($this->form->getName()));
             if ($this->form->isValid()) {
                 $this->drm = $this->form->save();
-                $this->drm->setCurrentEtapeRouting('validation');
+                $this->drm->etape = 'validation';
+                $this->drm->save();
                 $this->redirect('drm_validation', $this->drm);
             }
         }
@@ -230,6 +322,12 @@ class drmActions extends sfActions {
     	$drm->save();
     	return $this->redirect('drm_validation', array('sf_subject' => $drm));
     }
+    
+    public function executeTransferCiel(sfWebRequest $request) {
+        $this->drm = $this->getRoute()->getDRM();
+        $this->etablissement = $this->getRoute()->getEtablissement();
+        $this->postVars = $request->getPostParameters();
+    }
 
     /**
      * Executes mouvements generaux action
@@ -237,6 +335,7 @@ class drmActions extends sfActions {
      * @param sfRequest $request A request object
      */
     public function executeValidation(sfWebRequest $request) {
+  		set_time_limit(90);
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->drm = $this->getRoute()->getDRM();
         $this->drm->storeDroits(array());
@@ -247,6 +346,8 @@ class drmActions extends sfActions {
             $this->engagements = array();
         }
         $this->form = new DRMValidationForm($this->drm, array('engagements' => $this->engagements));
+        
+        $this->drmCiel = $this->drm->getOrAdd('ciel');
         
         
         if (!$request->isMethod(sfWebRequest::POST)) {
@@ -265,12 +366,55 @@ class drmActions extends sfActions {
         
         if (isset($values['brouillon']) && $values['brouillon']) 
         {
-        	$this->redirect('drm_validation', $this->drm);
+        	return $this->redirect('drm_validation', $this->drm);
         }
         
         $this->drm->validate();
         
+        // CIEL ==============
+	    $erreursCiel = false;
+        if (!$this->drmCiel->isTransfere() && !$this->drm->hasVersion()) {
+	        if ($this->getUser()->getCompte()->isTiers() && $this->getUser()->getCompte()->dematerialise_ciel) {
+	        	$export = new DRMExportCsvEdi($this->drm);
+	        	if ($xml = $export->exportEDI('xml')) {
+	        		try {
+	        			$service = new CielService($this->etablissement->interpro);
+	        			$this->drmCiel->xml = $service->transfer($xml);
+	        		} catch (sfException $e) {
+	        			$this->drmCiel->xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><reponse-ciel><erreur-interne><message-erreur>'.$e->getMessage().'</message-erreur></erreur-interne></reponse-ciel>';
+	        		}
+	        	} else {
+	        		$this->drmCiel->transfere = 0;
+	        		$this->drmCiel->valide = 0;
+	        		$this->drmCiel->xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><reponse-ciel><erreur-interne><message-erreur>Une erreur est survenue à la génération du XML.</message-erreur></erreur-interne></reponse-ciel>';
+	        	}
+	        }
+	        $this->drmCiel->setInformationsFromXml();
+	        if ($this->drmCiel->hasErreurs()) {
+	        	$interpro = $this->etablissement->getInterproObject();
+	        	$to = ($interpro)? array(sfConfig::get('app_email_to_notification'), $interpro->email_contrat_inscription): sfConfig::get('app_email_to_notification');
+	        	$this->drm->devalide();
+	        	$this->drm->etape = 'validation';
+	        	$erreursCiel = true;
+	        	$messageErreurs = "<ol>";
+	        	foreach ($this->drmCiel->getErreurs() as $erreur) {
+	        		$messageErreurs .= "<li>$erreur</li>";
+	        	}
+	        	$messageErreurs .= "</ol>";
+	        	$message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur transmision XML pour ".$this->drm->_id, "Une transmission vient d'échouer pour ".$this->drm->_id." (".$this->drm->declarant->no_accises.") :<br />".$messageErreurs)->setContentType('text/html');
+	        	$this->getMailer()->send($message);
+	        }
+        }
+        if ($this->drm->hasVersion() && $this->drmCiel->isTransfere()) {
+        	$this->drm->ciel->valide = 1;
+        }
+        // CIEL ===============
+        
         $this->drm->save();
+        
+        if ($erreursCiel) {
+        	return $this->redirect('drm_validation', $this->drm);
+        }
         
     	if ($this->drm->needNextVersion()) {
 	      $generate = true;
@@ -366,6 +510,8 @@ class drmActions extends sfActions {
     public function executeRectificative(sfWebRequest $request) {
         $this->etablissement = $this->getRoute()->getEtablissement();
         $drm = $this->getRoute()->getDRM();
+        
+        $this->forward404Unless($drm->isRectifiable());
 
         if ($drm->getHistorique()->hasDRMInProcess()) {
             $this->getUser()->setFlash('erreur_drm', 'Une DRM est déjà en cours de saisie.');
@@ -386,6 +532,8 @@ class drmActions extends sfActions {
     public function executeModificative(sfWebRequest $request) {
         $this->etablissement = $this->getRoute()->getEtablissement();
         $drm = $this->getRoute()->getDRM();
+        
+        $this->forward404Unless($drm->isModifiable());
 
         if ($drm->getHistorique()->hasDRMInProcess()) {
             $this->getUser()->setFlash('erreur_drm', 'Une DRM est déjà en cours de saisie.');

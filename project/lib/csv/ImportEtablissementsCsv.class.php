@@ -64,7 +64,7 @@ class ImportEtablissementsCsv {
    			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_CVI + 1).') "cvi" manquante');
    		}
     	if (!isset($line[EtablissementCsv::COL_NO_ASSICES])) {
-   			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_NO_ASSICES + 1).') "numéro assices" manquante');
+   			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_NO_ASSICES + 1).') "numéro accises" manquante');
    		}
     	if (!isset($line[EtablissementCsv::COL_NO_TVA_INTRACOMMUNAUTAIRE])) {
    			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_NO_TVA_INTRACOMMUNAUTAIRE + 1).') "numéro tva intracommunautaire" manquante');
@@ -152,6 +152,9 @@ class ImportEtablissementsCsv {
    		}
     	if (!isset($line[EtablissementCsv::COL_CORRESPONDANCES])) {
    			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_CORRESPONDANCES + 1).') "correspondances ids" manquante');
+   		}
+    	if (!isset($line[EtablissementCsv::COL_CHAMPS_COMPTE_CIEL])) {
+   			$errors[] = ('Colonne (indice '.(EtablissementCsv::COL_CHAMPS_COMPTE_CIEL + 1).') "adhesion CIEL" manquante');
    		}
    		if (count($errors) > 0) {
    			$this->_errors[$ligne] = $errors;
@@ -295,6 +298,22 @@ class ImportEtablissementsCsv {
         		$this->_interpros[$i] = $interpro;
         	}
         }
+        $isCiel = (preg_match("/oui/i", trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_CIEL])))? 1 : 0;
+        if ($isCiel && 1==2) { // Desactivation temporaire du controle du num EA
+        	$service = new CielService($etab->interpro);
+        	$edi = new EtablissementEdi();
+  			$result = $service->seed($edi->getXmlFormat(trim($line[EtablissementCsv::COL_NO_ASSICES])));
+  			if (strpos($result, '<traderAuthorisation>') === false) {
+  				if (isset($this->_errors[$ligne])) {
+  					$merge = $this->_errors[$ligne];
+  					$merge[] = 'Colonne (indice '.(EtablissementCsv::COL_NO_ASSICES + 1).') "numéro accises" non reconnu par SEED';
+  					$this->_errors[$ligne] = $merge;
+  				} else {
+  					$this->_errors[$ligne] = array('Colonne (indice '.(EtablissementCsv::COL_NO_ASSICES + 1).') "numéro accises" non reconnu par SEED');
+  				}
+  				throw new sfException('has errors');
+  			}
+        }
 		
         return $etab;
     }
@@ -394,6 +413,7 @@ class ImportEtablissementsCsv {
 		}
         $compte->telephone = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_TELEPHONE]);
         $compte->fax = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_FAX]);
+        $compte->dematerialise_ciel = (preg_match("/oui/i", trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_CIEL])))? 1 : 0;
         return $compte;
     }
 }

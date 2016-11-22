@@ -31,7 +31,12 @@ class drm_vracActions extends sfActions
                         $this->drm->setCurrentEtapeRouting('validation');
                 return $this->redirect('drm_validation', $this->drm);
             }
-                        return $this->redirect('drm_declaratif', $this->drm);
+            
+            if ($this->getUser()->getCompte()->isTiers() && (!$this->getUser()->getCompte()->exist('dematerialise_ciel') || !$this->getUser()->getCompte()->dematerialise_ciel)) {
+            	$this->drm->setCurrentEtapeRouting('declaratif');
+            	return $this->redirect('drm_declaratif', $this->drm);
+            }
+                        return $this->redirect('drm_crd', $this->drm);
         }
 
             $this->drm->etape = "vrac";
@@ -50,8 +55,18 @@ class drm_vracActions extends sfActions
                                 $this->drm->setCurrentEtapeRouting('validation');
                                 return $this->redirect('drm_validation', $this->drm);
                         }
-                        $this->drm->setCurrentEtapeRouting('declaratif');
-                        return $this->redirect('drm_declaratif', $this->drm);
+                        if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER || $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+                        	$this->drm->setCurrentEtapeRouting('validation');
+                			return $this->redirect('drm_validation', $this->drm);
+           				}
+            
+            			if ($this->getUser()->getCompte()->isTiers() && (!$this->getUser()->getCompte()->exist('dematerialise_ciel') || !$this->getUser()->getCompte()->dematerialise_ciel)) {
+            				$this->drm->setCurrentEtapeRouting('declaratif');
+            				return $this->redirect('drm_declaratif', $this->drm);
+            			}
+
+            			$this->drm->setCurrentEtapeRouting('crd');
+                        return $this->redirect('drm_crd', $this->drm);
                 }
         }
     }

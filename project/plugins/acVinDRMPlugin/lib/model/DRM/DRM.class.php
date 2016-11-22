@@ -4,7 +4,7 @@
  * Model for DRM
  *
  */
-class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersionDocument {
+class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersionDocument, InterfaceDRMExportable {
 
     const NOEUD_TEMPORAIRE = 'TMP';
     const DEFAULT_KEY = 'DEFAUT';
@@ -65,7 +65,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
     public function getProduit($hash, $labels = array()) {
         if (!$this->exist($hash)) {
-
             return false;
         }
 
@@ -78,12 +77,25 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function addProduit($hash, $labels = array()) {
+    	if (!is_array($labels)) {
+    		$labels = array($labels);
+    	}
         if ($p = $this->getProduit($hash, $labels)) {
             return $p;
         }
         $detail = $this->getOrAdd($hash)->details->addProduit($labels);
         $detail->updateVolumeBloque();
         return $detail;
+    }
+    
+    public function addCrd($categorie, $type, $centilisation, $stock = 0)
+    {
+    	$idCrd = DRMCrd::makeId($categorie, $type, $centilisation);
+    	$crd = $this->crds->getOrAdd($idCrd);
+    	if (!$crd->libelle) {
+    		$crd->addCrd($categorie, $type, $centilisation, $stock);
+    	}
+    	return $crd;
     }
 
     public function getDepartement() {
@@ -99,9 +111,14 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return DRMClient::getInstance()->getModeDeSaisieLibelle($this->mode_de_saisie);
     }
 
-    public function getDetails() {
+    public function getDetails($interpro = null) {
 
-        return $this->declaration->getProduits();
+        return $this->declaration->getProduits($interpro);
+    }
+
+    public function getProduitsCepages() {
+
+        return $this->declaration->getProduitsCepages();
     }
 
     public function getDetailsAvecVrac() {
@@ -151,7 +168,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         	$this->remove('manquants');
         	$this->add('manquants');
         }
-        
 
         $this->version = null;
         $this->raison_rectificative = null;
@@ -163,7 +179,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $this->declaratif->adhesion_emcs_gamma = null;
             $this->declaratif->paiement->douane->frequence = null;
             $this->declaratif->paiement->douane->moyen = null;
-            $this->declaratif->paiement->douane->report_paye = null;
             $this->declaratif->paiement->cvo->frequence = null;
             $this->declaratif->paiement->cvo->moyen = null;
             $this->declaratif->caution->dispense = null;
@@ -174,13 +189,37 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->declaratif->daa->fin = null;
         $this->declaratif->dsa->debut = null;
         $this->declaratif->dsa->fin = null;
+        if ($this->declaratif->exist('statistiques')) {
+                $this->declaratif->remove('statistiques');
+                $this->declaratif->add('statistiques');
+        }
+        if ($this->declaratif->exist('rna')) {
+                $this->declaratif->remove('rna');
+                $this->declaratif->add('rna');
+        }
+        $this->declaratif->paiement->douane->report_paye = null;
         $this->declaratif->paiement->cvo->report_paye = null;
         $this->declaratif->remove('reports');
         $this->declaratif->add('reports');
 
         $this->commentaires = null;
 
+        if ($this->exist('ciel')) {
+        	$this->remove('ciel');
+        	$this->add('ciel');
+        }
+        
+        
+        $this->initCrds();
+
         $this->devalide();
+    }
+    
+    public function initCrds()
+    {
+    	foreach ($this->crds as $crd) {
+    		$crd->initCrd();
+    	}
     }
 
     public function setDroits() {
@@ -216,6 +255,28 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         	}
         }
     }
+    
+    public function isNeant() {
+    	$details = $this->getDetails();
+    	$isNeant = true;
+    	foreach ($details as $detail) {
+    		if ($detail->hasMouvement()) {
+    			$isNeant = false;
+    			break;
+    		}
+    	}
+    	return $isNeant;
+    }
+    
+    public function hasMouvements($hash) {
+    	$details = $this->getDetails();
+    	foreach ($details as $detail) {
+    		if ($detail->exist($hash) && $detail->get($hash) > 0) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 	public function isNouvelleCampagne() {
 		if ($this->getMois() == 8) {
 			return true;
@@ -230,9 +291,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     			$reportSet = $reports->get($droit);
     		}
     	}
-    	if ($this->isNouvelleCampagne()) {
+    	/*if ($this->isNouvelleCampagne()) {
     		return 0;
-    	}
+    	}*/
     	if ($this->declaratif->paiement->get($type)->exist('report_paye') && $this->declaratif->paiement->get($type)->get('report_paye')) {
     		return 0;
     	}
@@ -268,6 +329,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
         return $e;
     }
+    
+    public function getEtablissementObject() {
+    	return $this->getEtablissement();
+    }
 
     public function setEtablissementInformations($etablissement = null) {
         if (!$etablissement) {
@@ -299,6 +364,15 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     public function getHistorique() {
 
         return $this->store('historique', array($this, 'getHistoriqueAbstract'));
+    }
+    
+    public function isFirstCiel() {
+    	if ($this->getUser()->getCompte()->isTiers() && (!$this->getUser()->getCompte()->exist('dematerialise_ciel') || !$this->getUser()->getCompte()->dematerialise_ciel)) {
+    		return false;
+    	}
+    	$precedente = $this->getPrecedente();
+    	$precedenteCiel = $precedente->getOrAdd('ciel');
+    	return !$precedenteCiel->isTransfere();
     }
 
     public function getPrecedente() {
@@ -355,6 +429,32 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->valide->identifiant = null;
         $this->valide->date_saisie = null;
         $this->valide->date_signee = null;
+        $this->annuleUpdateVrac();
+    }
+    
+    public function annuleUpdateVrac()
+    {
+    	$mothers = array();
+    	foreach ($this->getDetails() as $detail) {
+    		foreach ($detail->vrac as $numero => $vrac) {
+    			$volume = $vrac->volume;
+    			$contrat = VracClient::getInstance()->findByNumContrat($numero);
+    			$contrat->soustraitVolumeEnleve($volume);
+    			$enlevements = $contrat->getOrAdd('enlevements');
+    			if ($this->hasVersion()) {
+    				if ($previous = $this->getMother()) {
+    					$mothers[] = $previous;
+    				}
+    			}
+    			if ($enlevements->exist($this->_id)) {
+    				$enlevements->remove($this->_id);
+    			}
+    			$contrat->save();
+    		}
+    	}
+    	foreach ($mothers as $mother) {
+    		$mother->updateVrac();
+    	}
     }
 
     public function isValidee() {
@@ -378,6 +478,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $next_drm->precedente = $this->_id;
             $next_drm->save();
         }
+        
+        if (!$this->hasDroitsAcquittes()) {
+        	$this->cleanVolumesAcquittes();
+        }
 
         $this->storeIdentifiant($options);
         $this->storeDates();
@@ -389,6 +493,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             }
         }
         $this->updateVrac();
+        $this->updateCrds();
         $this->setEtablissementInformations();
          
         $this->generateMouvements();
@@ -398,13 +503,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $this->getSuivante()->save();
         }
         $this->storeReferente();
-        if ($user = $this->getUser()) {
-            if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-            	$this->mode_de_saisie = DRMClient::MODE_DE_SAISIE_PAPIER;
-            } else {
-            	$this->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
-            }
-        }
+        
     }
     
     public function isTeledeclare()
@@ -463,12 +562,25 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $this->valide->add('date_signee', date('c'));
         }
     }
-
+	public function cleanVolumesAcquittes()
+	{
+		foreach ($this->getDetails() as $detail) {
+			$detail->acq_total_debut_mois = null;
+			$detail->acq_total_entrees = null;
+			$detail->acq_total_sorties = null;
+			$detail->acq_total = null;
+			$detail->entrees->acq_achat = null;
+			$detail->entrees->acq_autres = null;
+			$detail->sorties->acq_crd = null;
+			$detail->sorties->acq_replacement = null;
+			$detail->sorties->acq_autres = null;
+		}
+	}
     public function updateVrac() {
         foreach ($this->getDetails() as $detail) {
             foreach ($detail->vrac as $numero => $vrac) {
                 $volume = $vrac->volume;
-                $contrat = VracClient::getInstance()->findByNumContrat($numero);
+                if ($contrat = VracClient::getInstance()->findByNumContrat($numero)) {
                 $contrat->integreVolumeEnleve($volume);
                 $enlevements = $contrat->getOrAdd('enlevements');
                 if ($this->hasVersion()) {
@@ -481,8 +593,32 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 $drm = $enlevements->getOrAdd($this->_id);
                 $drm->add('volume', $volume);
                 $contrat->save();
+                }
             }
         }
+    }
+    
+    public function updateCrds() {
+    	foreach ($this->crds as $crd) {
+    		$crd->updateStocks();
+    	}
+    }
+    
+    public function hasMouvementsCrd() {
+    	$mvt = false;
+    	foreach ($this->crds as $crd) {
+    		foreach ($crd->entrees as $entree => $vol) {
+    			if ($vol) {
+    				$mvt = true;
+    			}
+    		}
+    		foreach ($crd->sorties as $sortie => $vol) {
+    			if ($vol) {
+    				$mvt = true;
+    			}
+    		}
+    	}
+    	return $mvt;
     }
 
     public function updateVracVersion() {
@@ -551,10 +687,17 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $this->etablissement_num_interne = $etablissement->num_interne;
         }
     }
+
+    public function isFictive()
+    {
+    	return false;
+    }
     
-	public function save() {
+	public function save($updateBilan = true) {
         parent::save();
-        $this->updateBilan();
+        if ($updateBilan) {
+        	$this->updateBilan();
+        }
     }
 
     protected function getHistoriqueAbstract() {
@@ -654,6 +797,29 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             return false;
         }
     }
+    
+    public function hasVolumeAcquittes()
+    {
+    	if (!$this->hasDroitsAcquittes()) {
+    		return false;
+    	}
+    	foreach ($this->getDetails() as $detail) {
+    		if ($detail->acq_total_debut_mois) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+
+    public function setHasDroitsAcquittes($has = 0)
+    {
+    	$this->droits_acquittes = ($has)? 1 : 0;
+    }
+    
+    public function hasDroitsAcquittes()
+    {
+    	return ($this->droits_acquittes)? true : false;
+    }
 
     public function hasVrac() {
         $detailsVrac = $this->getDetailsAvecVrac();
@@ -687,11 +853,21 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
      * Pour les users administrateur
      */
 
-    public function canSetStockDebutMois() {
+    public function canSetStockDebutMois($acq = false) {
         $isAdministrateur = ($this->getUser()) ? $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) : false;
         if ($this->isDebutCampagne() || ($isAdministrateur && $this->hasVersion())) {
             return true;
         } else {
+        	$mother = $this->getPrecedente();
+        	if ($acq) {
+        		
+        		if ($mother && $this->hasDroitsAcquittes() && !$mother->hasDroitsAcquittes()) {
+        			return true;
+        		}
+        	}
+        	if ($mother && $mother->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER && $this->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI) {
+        		return true;
+        	}
             return false;
         }
     }
@@ -809,6 +985,16 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
     
     public function getStatutBilan() {
+        $drmCiel = $this->getOrAdd('ciel');
+        if ($drmCiel->isValide()) {
+        	return DRMClient::DRM_STATUS_BILAN_VALIDE_CIEL;
+        }
+        if ($drmCiel->isTransfere() && !$this->isRectificative()) {
+        	return DRMClient::DRM_STATUS_BILAN_ENVOYEE_CIEL;
+        }
+        if ($this->isRectificative() && $drmCiel->isTransfere() && !$drmCiel->valide) {
+        	return DRMClient::DRM_STATUS_BILAN_DIFF_CIEL;
+        }
         if($this->isNew()){
             return DRMClient::DRM_STATUS_BILAN_A_SAISIR;
         }
@@ -825,6 +1011,14 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             return DRMClient::DRM_STATUS_BILAN_IGP_MANQUANT;
         }
         return DRMClient::DRM_STATUS_BILAN_VALIDE;
+    }
+
+    public function addObservationProduit($hash, $observation)
+    {
+    	if ($this->exist($hash)) {
+    		$produit = $this->get($hash);
+    		$produit->observations = $observation;
+    	}
     }
     
     /*     * ** VERSION *** */
@@ -874,12 +1068,16 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function isRectifiable() {
-
+		if ($this->exist('ciel') && $this->ciel->transfere) {
+			return false;
+		}
         return $this->version_document->isRectifiable();
     }
 
     public function getModificative() {
-
+    	if ($this->exist('ciel') && $this->ciel->transfere) {
+    		return false;
+    	}
         return $this->version_document->getModificative();
     }
 
@@ -981,11 +1179,12 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $this->version_document->isModifiedMother($hash_or_object, $key);
     }
 
-    public function generateRectificative() {
-        $drm = $this->version_document->generateRectificative();
+    public function generateRectificative($force = false) {
+        $drm = $this->version_document->generateRectificative($force);
         //$drm->updateVracVersion();
         //$drm->updateProduitsDiponibles();
         $drm->identifiant_drm_historique = null;
+        $drm->declaratif->paiement->douane->report_paye = null;
         return $drm;
     }
 
@@ -994,6 +1193,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         //$drm->updateVracVersion();
         //$drm->updateProduitsDiponibles();
         $drm->identifiant_drm_historique = null;
+        $drm->declaratif->paiement->douane->report_paye = null;
         return $drm;
     }
 
@@ -1039,6 +1239,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
     protected function replicate($drm) {
         foreach ($this->getDiffWithMother() as $key => $value) {
+            $this->replicateDetail($drm, $key, $value, 'acq_total', 'acq_total_debut_mois');
             $this->replicateDetail($drm, $key, $value, 'total', 'total_debut_mois');
             $this->replicateDetail($drm, $key, $value, 'total_interpro', 'total_debut_mois_interpro');
             $this->replicateDetail($drm, $key, $value, 'stocks_fin/bloque', 'stocks_debut/bloque');
@@ -1123,4 +1324,267 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     
     
     /* FIN DES MOUVEMENTS *** */
+    
+    /* EXPORTABLE */
+    public function getExportableProduits($interpro = null) {
+    	return $this->getDetails($interpro);
+    }
+    
+    public function getExportableSucre() {
+    	return array();
+    }
+    
+    public function getExportableVracs() {
+    	$details = $this->getDetailsAvecVrac();
+    	$result = array();
+    	foreach ($details as $detail) {
+    		$result[$detail->getHash()] = array();
+    		foreach ($detail->vrac as $contrat => $data) {
+    			$result[$detail->getHash()][$contrat] = array(
+    				DRMCsvEdi::CSV_CONTRAT_CONTRATID => $contrat,
+    				DRMCsvEdi::CSV_CONTRAT_VOLUME => $data->volume,
+    			);
+    		}
+    	}
+    	return $result;
+    }
+    
+    public function getExportableCrds() {
+    	$crds = array();
+    	foreach ($this->crds as $key => $crd) {
+    		$crds[$key] = array();
+    		$champs = array(
+    			array('total_debut_mois', null),	
+    			array('entrees', 'achats'),	
+    			array('entrees', 'excedents'),	
+    			array('entrees', 'retours'),	
+    			array('sorties', 'utilisees'),	
+    			array('sorties', 'detruites'),	
+    			array('sorties', 'manquantes'),
+    			array('total_fin_mois', null)
+    		);
+    		foreach ($champs as $index => $datas) {
+    			if ($ligne = $this->getExportableCrd($crd, $datas[0], $datas[1])) {
+    				$crds[$key][$index] = $ligne;
+    			}
+    		}
+    	}
+    	return $crds;
+    }
+    
+    protected function getExportableCrd($crd, $cat, $type) {
+    	$val = ($type)? $crd->get($cat)->get($type) : $crd->get($cat);
+    	if ($val) {
+    		return array(
+    				DRMCsvEdi::CSV_CRD_GENRE => $crd->type->code,
+    				DRMCsvEdi::CSV_CRD_COULEUR => $crd->categorie->code,
+    				DRMCsvEdi::CSV_CRD_CENTILITRAGE => $crd->centilisation->code,
+    				DRMCsvEdi::CSV_CRD_LIBELLE => $crd->libelle,
+    				DRMCsvEdi::CSV_CRD_CATEGORIE_KEY => $cat,
+    				DRMCsvEdi::CSV_CRD_TYPE_KEY => $type,
+    				DRMCsvEdi::CSV_CRD_QUANTITE => $val,
+    		);
+    	}
+    	return null;
+    }
+    
+    public function getExportableAnnexes() {
+    	return array();
+    }
+    
+	public function hasExportableProduitsAcquittes() {
+		return ($this->exist('droits_acquittes') && $this->droits_acquittes)? true : false;
+	}
+
+	public function getExportableObservations() {
+		return 'observations';
+	}
+
+	public function getExportableStatistiquesEuropeennes() {
+		$result = array();
+		if ($this->declaratif->exist('statistiques')) {
+			foreach ($this->declaratif->statistiques as $key => $val) {
+				if ($val) {
+					$result[$key] = $val;
+				}
+			}
+		}
+		return $result;
+	}
+	public function getExportableRna() {
+		$result = array();
+		if ($this->declaratif->exist('rna')) {
+			foreach ($this->declaratif->rna as $rna) {
+				$result[] = array(
+					DRMCsvEdi::CSV_ANNEXE_NONAPUREMENTDATEEMISSION => $rna->date,
+					DRMCsvEdi::CSV_ANNEXE_NONAPUREMENTACCISEDEST => $rna->accises,
+					DRMCsvEdi::CSV_ANNEXE_NUMERODOCUMENT => $rna->numero,
+				);
+			}
+		}
+		return $result;
+	}
+	public function getExportableDocuments() {
+		$result = array();
+		$champs = array('empreinte', 'daa', 'dsa');
+		foreach ($champs as $champ) {
+			if ($this->declaratif->exist($champ)) {
+				$result[$champ] = array();
+				if ($this->declaratif->get($champ)->debut) {
+					$result[$champ][] = array(
+							DRMCsvEdi::CSV_ANNEXE_TYPEMVT => 'debut',
+							DRMCsvEdi::CSV_ANNEXE_QUANTITE => $this->declaratif->get($champ)->debut,
+					);
+				}
+				if ($this->declaratif->get($champ)->fin) {
+					$result[$champ][] = array(
+							DRMCsvEdi::CSV_ANNEXE_TYPEMVT => 'fin',
+							DRMCsvEdi::CSV_ANNEXE_QUANTITE => $this->declaratif->get($champ)->fin,
+					);
+				}
+				if ($this->declaratif->get($champ)->nb) {
+					$result[$champ][] = array(
+							DRMCsvEdi::CSV_ANNEXE_TYPEMVT => 'nb',
+							DRMCsvEdi::CSV_ANNEXE_QUANTITE => $this->declaratif->get($champ)->nb,
+					);
+				}
+			}
+		}
+		return $result;
+	}
+	
+	public function getExportableDeclarantInformations() {
+		$result = array();
+		$result[DRMCsvEdi::CSV_PERIODE] = $this->periode;
+		$result[DRMCsvEdi::CSV_IDENTIFIANT] = $this->identifiant;
+		if ($this->declarant->siret) {
+			$result[DRMCsvEdi::CSV_IDENTIFIANT] .= ' ('.$this->declarant->siret.')';
+		} elseif ($this->declarant->cvi) {
+			$result[DRMCsvEdi::CSV_IDENTIFIANT] .= ' ('.$this->declarant->cvi.')';
+		}
+		$result[DRMCsvEdi::CSV_NUMACCISE] = $this->declarant->no_accises;
+		return $result;
+	}
+	
+	public function getExportableMvtDetails($key, $detail) {
+		if ($key == 'crd_details') {
+			$periode = sprintf('%4d-%02d', $detail->annee, $detail->mois);
+			return array(
+					DRMCsvEdi::CSV_CAVE_EXPORTPAYS => str_replace("-", "", $periode)
+			);
+		}
+		return array();
+	}
+	
+	public function setImportableMvtDetails($type, $categorie, $datas) {
+		if ($type == 'crd' && $categorie->getKey() == 'entrees') {
+			$details = $categorie->getOrAdd('crd_details');
+			$detail = $details->getOrAdd(ConfigurationProduit::DEFAULT_KEY);
+			if (preg_match('/^([0-9]{4})([0-9]{2})$/', $datas[DRMCsvEdi::CSV_CAVE_EXPORTPAYS], $m)) {
+				$detail->annee = $m[1];
+				$detail->mois = $m[2];
+				$detail->volume = $categorie->get($type);				
+				return true;
+			}
+			return false;
+		}
+		return true;
+	}
+	
+	public function getExportableCategoriesMouvements() {
+		return array('total_debut_mois', 'acq_total_debut_mois', 'stocks_debut', 'entrees', 'sorties', 'stocks_fin', 'total', 'acq_total', 'tav', 'premix', 'observations');
+	}
+	
+	public function getExportableCategorieByType($type) {
+		if (in_array($type, array('tav', 'premix', 'observations', 'retiraison'))) {
+			return 'complement';
+		}
+		if (in_array($type, array('total_debut_mois', 'acq_total_debut_mois', 'total', 'acq_total'))) {
+			return 'stocks';
+		}
+		return null;
+	}
+	
+	public function getExportableLibelleMvt($key) {
+		return str_replace(array('acq_', '_details'), '', $key);
+	}
+	
+	public function getImportableLibelleMvt($type, $key) {
+		if ($type == DRMCsvEdi::TYPE_DROITS_ACQUITTES) {
+			return 'acq_'.$key;
+		}
+		return $key;
+	}
+	
+	public function getExportableCountryList() {
+		return array();
+	}
+
+	public function getTotalStockAcq() {
+		$produits = $this->getExportableProduits();
+		$stock = 0;
+		foreach ($produits as $produit) {
+			$stock += $produit->acq_total;
+		}
+		return $stock;
+	
+	}
+	public function getTotalStock() {
+		$produits = $this->getExportableProduits();
+		$stock = 0;
+		foreach ($produits as $produit) {
+			$stock += $produit->total;
+		}
+		return $stock;
+	}
+	
+	public function setImportableSucre($quantite) {
+		return;
+	}
+	
+	public function getImportableDeclaratif() {
+		return $this->declaratif;
+	}
+	
+	public function setImportableRna($numero, $accises, $date) {
+		$rna = $this->declaratif->rna->getOrAdd($numero);
+		$rna->numero = $numero;
+		$rna->accises = $accises;
+		$rna->date = $date;
+	}
+	
+	public function setImportablePeriode($periode) {
+		$this->periode = substr($periode, 0, 4).'-'.substr($periode, -2);
+	}
+	
+	public function setImportableIdentifiant($identifiant = null, $ea = null, $siretCvi = null) {
+		$referent = null;
+		if ($identifiant) {
+			$referent = EtablissementClient::getInstance()->find($identifiant);
+		} elseif ($ea) {
+			$referent = ConfigurationClient::getCurrent()->identifyEtablissement($ea);
+		} elseif ($siretCvi) {
+			$referent = ConfigurationClient::getCurrent()->identifyEtablissement($siretCvi);
+		}
+		if (!$referent) {
+			return false;
+		}
+		if ($identifiant && $referent->identifiant != $identifiant) {
+			return false;
+		}
+		if ($siretCvi && !($referent->cvi == $siretCvi || $referent->siret == $siretCvi)) {
+			return false;
+		}
+		if ($ea && $referent->no_accises != $ea) {
+			return false;
+		}
+		$this->identifiant = $referent->identifiant;
+		$this->setEtablissementInformations();
+		return true;
+	}
+	
+	public function getDefaultKeyNode() {
+		return ConfigurationProduit::DEFAULT_KEY;
+	}
+    /* FIN EXPORTABLE */
 }

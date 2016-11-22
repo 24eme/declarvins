@@ -23,6 +23,23 @@
 			    <strong><?php echo $compte->getEmail() ?></strong>
 			</div>
 			
+			<div class="ligne_form">
+			    <label>Adhésion CIEL:</label>
+			    <?php if ($compte->exist('dematerialise_ciel') && $compte->dematerialise_ciel): ?>
+			    <strong>oui</strong>
+			    <?php else: ?>
+			    <?php if($compte->isTiers()): $convention = $compte->getConventionCiel(); ?>
+			    	<?php if ($convention && $convention->valide):?>
+			    	<strong>en attente</strong>
+				    <?php else: ?>
+				    <strong>non</strong>
+				    <?php endif; ?>
+			    <?php else: ?>
+			    <strong>non</strong>
+			    <?php endif; ?>
+			    <?php endif; ?>
+			</div>
+			
 			<br />
 			
 			<div class="ligne_form">

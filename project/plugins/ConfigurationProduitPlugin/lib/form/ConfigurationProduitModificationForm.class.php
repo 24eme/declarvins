@@ -3,6 +3,12 @@ class ConfigurationProduitModificationForm extends acCouchdbObjectForm
 {
 	
 	protected $hash;
+	protected $conf;
+	
+	public function __construct(acCouchdbJson $object, $options = array(), $CSRFSecret = null) {
+		$this->conf = ConfigurationClient::getCurrent();
+		parent::__construct($object, $options, $CSRFSecret);
+	}
 
     public function configure() 
     {
@@ -66,6 +72,13 @@ class ConfigurationProduitModificationForm extends acCouchdbObjectForm
          	$this->setWidget('drm_vrac',  new WidgetFormInputCheckbox());
         	$this->setValidator('drm_vrac', new ValidatorBoolean(array('required' => false)));
 		}
+		if ($this->getObject()->hasCiel()) {
+			$libellesFiscaux = array_merge(array('' => ''), $this->conf->ciel->libelles_fiscaux->toArray());
+         	$this->setWidget('inao',  new sfWidgetFormInputText());
+        	$this->setValidator('inao', new sfValidatorString(array('min_length' => 5, 'max_length' => 8,'required' => false)));
+         	$this->setWidget('libelle_fiscal',  new sfWidgetFormChoice(array('choices' => $libellesFiscaux)));
+        	$this->setValidator('libelle_fiscal', new sfValidatorChoice(array('choices' => array_keys($libellesFiscaux), 'required' => false)));
+		}
         $this->widgetSchema->setNameFormat('produit_definition[%s]');
         $this->mergePostValidator(new ProduitDefinitionValidatorSchema($this->getObject()));
     }
@@ -83,6 +96,11 @@ class ConfigurationProduitModificationForm extends acCouchdbObjectForm
     public function save($con = null) {
     	$object = parent::save($con);
     	$values = $this->getValues();
+    	if (isset($values['inao']) && !empty($values['inao'])) {
+    		if (strlen($values['inao']) == 5) {
+    			$object->inao = $values['inao'].' ';
+    		}
+    	}
     	$isNew = $this->getOption('isNew', false);
     	if ($isNew && !empty($values['code']) && $object->getKey() != $values['code']) {
     		if ($object->getTypeNoeud() == ConfigurationProduitCouleur::TYPE_NOEUD) {

@@ -33,24 +33,34 @@ EOF;
     
     $from = EtablissementClient::getInstance()->find($arguments['from']);
     $to = EtablissementClient::getInstance()->find($arguments['to']);
-    
-  		$rows = acCouchdbManager::getClient()
-              ->startkey(array($from->identifiant))
-              ->endkey(array($from->identifiant, array()))
-              ->reduce(false)
-              ->getView("drm", "all")
-              ->rows;
-      $i = 0;
-      foreach($rows as $row) {
-      	if ($drm = DRMClient::getInstance()->find($row->id)) {
-      		$drm->setEtablissementInformations($to);
-      		$json = str_replace($from->identifiant, $to->identifiant, json_encode($drm->toJson()));
-      		DRMClient::getInstance()->storeDoc(json_decode($json));
-      		$this->logSection("drm", $drm->_id." drm switchée avec succès", null, 'SUCCESS');
-      		$i++;
-      	}
-      }
-      $this->logSection("drm", $i." drm(s) switchée(s) avec succès", null, 'SUCCESS');
-    
+    if ($to) {
+	    if (!$from) {
+	    	$from = new stdClass();
+	    	$from->identifiant = str_replace('ETABLISSEMENT-', '', $arguments['from']);
+	    }
+	    
+	  		$rows = acCouchdbManager::getClient()
+	              ->startkey(array($from->identifiant))
+	              ->endkey(array($from->identifiant, array()))
+	              ->reduce(false)
+	              ->getView("drm", "all")
+	              ->rows;
+	      $i = 0;
+	      foreach($rows as $row) {
+	      	if ($drm = DRMClient::getInstance()->find($row->id)) {
+	      		$drm->setEtablissementInformations($to);
+	      		$json = str_replace($from->identifiant, $to->identifiant, json_encode($drm->toJson()));
+	      		try {
+	      			DRMClient::getInstance()->storeDoc(json_decode($json));
+	      		} catch (Exception $e) {
+	      			$this->logSection("drm", $row->id." déjà existante", null, 'ERROR');
+	      		}
+	      		$drm->delete();
+	      		$this->logSection("drm", $row->id." drm switchée avec succès", null, 'SUCCESS');
+	      		$i++;
+	      	}
+	      }
+	      $this->logSection("drm", $i." drm(s) switchée(s) avec succès", null, 'SUCCESS');
+    }
   }
 }

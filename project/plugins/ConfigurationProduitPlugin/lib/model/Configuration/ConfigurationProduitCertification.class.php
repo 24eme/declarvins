@@ -63,6 +63,8 @@ class ConfigurationProduitCertification extends BaseConfigurationProduitCertific
   	public function hasDouane() { return true; }
   	
   	public function hasDRMVrac() { return false; }
+  	
+  	public function hasCiel() { return false; }
   	  	
   	public function hasOIOC() { return false; }
   	

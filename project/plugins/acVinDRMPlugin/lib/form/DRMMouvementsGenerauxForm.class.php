@@ -11,14 +11,20 @@ class DRMMouvementsGenerauxForm extends acCouchdbObjectForm
 	public function configure() 
 	{
 		$this->setWidgets(array(
-        	'pas_de_mouvement' => new sfWidgetFormInputCheckbox()
+        	'pas_de_mouvement' => new sfWidgetFormInputCheckbox(),
+        	'droits_acquittes' => new sfWidgetFormInputCheckbox()
 		));
 		$this->widgetSchema->setLabels(array(
-        	'pas_de_mouvement' => 'Pas de mouvement '
+        	'pas_de_mouvement' => 'Pas de mouvement ',
+        	'droits_acquittes' => 'Droits acquittés '
         ));
 		$this->setValidators(array(
-        	'pas_de_mouvement' => new sfValidatorBoolean(array('required' => false))
+        	'pas_de_mouvement' => new sfValidatorBoolean(array('required' => false)),
+        	'droits_acquittes' => new sfValidatorBoolean(array('required' => false))
         ));
+		if ($this->getObject()->hasVolumeAcquittes()) {
+			$this->getWidget('droits_acquittes')->setAttribute('disabled', 'disabled');
+		}
         $certifications = $this->getObject()->declaration->certifications->toArray();
 		foreach ($certifications as $certification => $value) {
 				if ($this->getObject()->declaration->certifications->exist($certification)) {
@@ -33,13 +39,26 @@ class DRMMouvementsGenerauxForm extends acCouchdbObjectForm
     {
 		parent::updateDefaultsFromObject();
         $this->setDefault('pas_de_mouvement', !$this->getObject()->declaration->hasMouvementCheck());
+        if (!$this->getObject()->hasDroitsAcquittes()) {
+        	$this->setDefault('droits_acquittes', null);
+        }
     }
 
     
     public function doUpdateObject($values) {
+    	$volAcq = $this->getObject()->hasVolumeAcquittes();
         parent::doUpdateObject($values);
         foreach ($this->getEmbeddedForms() as $key => $embedForm) {
         	$embedForm->doUpdateObject($values[$key]);
+        }
+        if (isset($values['droits_acquittes']) && $values['droits_acquittes']) {
+        	$this->getObject()->setHasDroitsAcquittes(1);
+        } else {
+        	if ($volAcq) {
+        		$this->getObject()->setHasDroitsAcquittes(1);
+        	} else {
+        		$this->getObject()->setHasDroitsAcquittes(0);
+        	}
         }
     }
 }

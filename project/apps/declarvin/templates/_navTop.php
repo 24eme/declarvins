@@ -31,7 +31,26 @@ use_helper('Text');
         <li<?php if ($active == 'profil'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('profil', $etablissement) ?>">Profil</a>
         </li>
+        
+        <?php if (!$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $configuration->isApplicationOuverte($etablissement->interpro, 'drm', $etablissement)): ?>
+        <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
+        <?php if ($sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?>
+        <?php else: ?>
+        <li<?php if ($active == 'ciel'): ?> class="actif"<?php endif; ?>>
+            <a href="<?php echo url_for('convention_ciel', $etablissement) ?>"><strong>Adhésion CIEL</strong></a>
+        </li>
+        <?php endif; ?>
+        <?php endif; ?>
+        <?php endif; ?>
     </ul>
+    <?php if ($etablissement->getCompteObject()): ?>
+    <ul id="nav_infociel">
+    	<li><span style="cursor: auto;" class="<?php if($etablissement->getCompteObject()->exist('dematerialise_ciel') && $etablissement->getCompteObject()->dematerialise_ciel): ?>ciel_connect<?php else: ?>ciel_disconnect<?php endif; ?>" title="<?php if($etablissement->getCompteObject()->exist('dematerialise_ciel') && $etablissement->getCompteObject()->dematerialise_ciel): ?>Transmission CIEL activée<?php else: ?>Aucune transmission CIEL<?php endif; ?>">CIEL</span></li>
+    	<?php if($sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?>
+    	<li><a href="<?php echo url_for('ciel_help', $etablissement) ?>"><span class="ciel_help" title="Assistance CIEL">&nbsp;</span></a></li>
+    	<?php endif; ?>
+    </ul>
+    <?php endif; ?>
 </nav>
 <nav id="sous_barre_navigation">
 	<ul id="actions_etablissement">

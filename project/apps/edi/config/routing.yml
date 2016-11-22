@@ -6,9 +6,22 @@ upload_etablissements:
   url: /edi/etablissements/csv/:id
   param: {module: edi, action: uploadEtablissements}
 # OK
+testDRMPushEdi:
+  url: /edi/v2/push/etablissement/drm/:etablissement
+  param: {module: edi, action: pushDRMEtablissementV2}
+testDRMEdi:
+  url: /edi/v2/drm/:id_drm.:format
+  param: {module: edi, action: ediV2, format: csv}
+  requirements: {format: (csv|xml|debug)}
 streamDRMEdi:
   url: /edi/drm/:interpro/:datedebut
   param: {module: edi, action: streamDRM}
+streamDRMInterpro:
+  url: /edi/v2/drm/:interpro/:datedebut
+  param: {module: edi, action: streamDRMInterpro}
+streamVracInterpro:
+  url: /edi/v2/contrats-achat/:interpro
+  param: {module: edi, action: streamVracInterpro}
 streamDRMEtablissementEdi:
   url: /edi/etablissement/drm/:etablissement/:datedebut
   param: {module: edi, action: streamDRMEtablissement, datedebut: null}

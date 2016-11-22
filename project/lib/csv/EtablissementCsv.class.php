@@ -38,6 +38,7 @@ class EtablissementCsv {
     const COL_ZONES = 34;
     const COL_ZONES_LIBELLES = 35;
     const COL_CORRESPONDANCES = 36;
-    const NB_COL = 37;
+    const COL_CHAMPS_COMPTE_CIEL = 37;
+    const NB_COL = 38;
 }
 

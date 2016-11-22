@@ -64,6 +64,8 @@ class ConfigurationProduitLieu extends BaseConfigurationProduitLieu
   	public function hasDouane() { return false; }
   	
   	public function hasDRMVrac() { return false; }
+  	
+  	public function hasCiel() { return false; }
   	  	
   	public function hasOIOC() { return false; }
   	

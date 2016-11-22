@@ -1,0 +1,8 @@
+#!/bin/bash
+
+while IFS=';' read from to
+do
+	php symfony etablissement:switch-id $from $to --trace
+	php symfony drm:switch-history $from $to --trace
+	php symfony vrac:switch-history $from $to --trace
+done < $1

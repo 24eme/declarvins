@@ -16,12 +16,14 @@
 		<?php if($new_drm && !$historique): ?>
 		<?php include_partial('drm/historiqueItem', array('alt' => $i%2 == 0, 
 															   'drm' => $new_drm,
-															   'etablissement' => $etablissement)); $i++; ?>
+															   'etablissement' => $etablissement,
+															   'formImport' => $formImport)); $i++; ?>
 		<?php endif; ?>
 		<?php foreach ($drms as $key => $drm): ?>
 			<?php include_partial('drm/historiqueItem', array('alt' => $i%2 == 0, 
 															   'drm' => $drm,
-															   'etablissement' => $etablissement)) ?>
+															   'etablissement' => $etablissement,
+															   'formImport' => $formImport)) ?>
 		<?php $i++; if (isset($limit) && $limit == $i) break; 
 		endforeach; ?>
 	</tbody>

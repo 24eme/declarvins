@@ -13,6 +13,7 @@
 	var anchorIds = {"entrees" : 2, "sorties" : 3}
 	// Variables globales 
 	var colonnesDR = $('#colonnes_dr');
+	var lignesCRD = $('#lignes_crd');
 	var colIntitules = $('#colonne_intitules');
 	var colSaisies = $('#col_saisies');
 	var colSaisiesCont = $('#col_saisies_cont');
@@ -43,6 +44,10 @@
 			$.calculerChampsInterdependants();
 			$.toggleGroupesChamps();
 			$.initChoixRadio();
+		}
+		if(lignesCRD.exists())
+		{
+			$.initLignes();
 		}
 		if ($(".contrat_vracs").length > 0) {
 			$.calculerSommesVrac();
@@ -114,6 +119,49 @@
 		// Colonne active par défaut
 		if(colActiveDefaut.exists()) colActiveDefaut.majColActive();
 	};
+	
+
+	
+	/**
+	 * Calcul dynamique des dimmensions des lignes
+	 * $.initLignes();
+	 ******************************************/
+	$.initLignes = function()
+	{
+		$(".total_crd").each(function() {
+			var total = $(this);
+			var ligne = total.parent();
+			var inputs = ligne.find("input");
+			var nbInputs = inputs.length;
+			var somme = 0;
+			
+			var sommeIputs = function()
+			{
+				somme = 0;
+				inputs.each(function(i)
+				{
+					var input = $(this)
+					var valeur = parseInt(input.val());
+					
+					if (isNaN(valeur)) {
+						valeur = 0;
+					}
+					
+					if (input.hasClass('sorties')) {
+						somme = somme - valeur;
+					} else {
+						somme = somme + valeur;
+					}
+					
+					if(i == nbInputs-1) total.html(somme);
+				});
+			}
+			
+			inputs.blur(function(){
+				sommeIputs();
+			});
+		});
+	}
 	
 	/**
 	 * Initialise le masque qui désactive les 
@@ -669,6 +717,11 @@
 			var champSommeEntrees = colonne.find('input.somme_entrees');
 			var champSommeSorties = colonne.find('input.somme_sorties');
 			
+			var champsSommeAcq = colonne.find('input.somme_acq, input.somme_groupe_acq, input.somme_stock_fin_acq');
+			var champSommeStockDebutAcq = colonne.find('input.somme_stock_debut_acq');
+			var champSommeEntreesAcq = colonne.find('input.somme_entrees_acq');
+			var champSommeSortiesAcq = colonne.find('input.somme_sorties_acq');
+			
 			// Parcours des champs sommes
 			champsSomme.each(function()
 			{
@@ -729,6 +782,69 @@
 				if(float) somme = somme.toFixed(4); // Arrondi à 2 chiffres après la virgule
 				champSomme.attr('value', somme);
 			});
+			
+			// Parcours des champs sommes acquittes
+			champsSommeAcq.each(function()
+			{
+				var champSomme = $(this);
+				var tabChamps;
+				var champsAddition;
+				var float = champSomme.hasClass('num_float');
+				var somme = 0;
+				var valeur = 0;
+				
+				// Récupération des champs à additionner
+				if(champSomme.hasClass('somme_groupe_acq') || champSomme.hasClass('somme_acq'))
+				{
+					// Sommes des groupes
+					if(champSomme.hasClass('somme_groupe_acq'))
+					{
+						champsAddition = champSomme.parents('.groupe').find('ul li input');
+					}
+					// Sommes simples
+					else
+					{
+						tabChamps = champSomme.attr('data-champs-somme').split(';');
+						
+						for(var i = 0; i < tabChamps.length; i++)
+						{
+							champsAddition.add('#' + tabChamps[i])
+						}
+					}
+					
+					// Addition des champs concernés
+					champsAddition.each(function()
+					{
+						valeur = $(this).attr('value');
+						if (valeur == '') valeur = 0;
+		
+						if(float) somme += parseFloat(valeur);
+						else somme += parseInt(valeur);
+					});
+				}
+				else if(champSomme.hasClass('somme_stock_fin_acq'))
+				{
+					// Ajout du stock théorique du début
+					if(champSommeStockDebut.hasClass('num_float')) somme += parseFloat(champSommeStockDebutAcq.val());
+					else somme += parseInt(champSommeStockDebutAcq.val());
+
+					// Ajout des entrées
+					if(champSommeEntrees.hasClass('num_float')) somme += parseFloat(champSommeEntreesAcq.val());
+					else somme += parseInt(champSommeEntreesAcq.val());
+
+					// Soustraction des sorties
+					if(champSommeSorties.hasClass('num_float')) somme -= parseFloat(champSommeSortiesAcq.val());
+					else somme -= parseInt(champSommeSortiesAcq.val());
+				
+					if(float) somme = parseFloat(somme);
+					else somme = parseInt(somme);
+				}
+				
+				if(float) somme = somme.toFixed(4); // Arrondi à 2 chiffres après la virgule
+				champSomme.attr('value', somme);
+			});
+			
+			
 		});
 	};
 

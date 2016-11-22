@@ -51,7 +51,7 @@ class DRMFictive extends DRM
     protected function preSave() {
     	return;
     }
-    public function save() 
+    public function save($updateBilan = true) 
     {
     	$drm = $this->drm;
     	$produits = $this->getDetails();
@@ -60,7 +60,10 @@ class DRMFictive extends DRM
     		$detail->getParent()->set($produit->getKey(), $produit);
     	}
         $drm->update();
-    	$drm->save();
+        $drm->remove('crds');
+        $drm->add('crds');
+        $drm->crds = $this->crds;
+    	$drm->save($updateBilan);
     	
     }
     public function delete() 
@@ -91,9 +94,31 @@ class DRMFictive extends DRM
         return $this->drm->generateModificative();
     }
     
+
+    public function addCrd($categorie, $type, $centilisation, $stock = 0)
+    {
+    	return $this->drm->addCrd($categorie, $type, $centilisation, $stock);
+    }
+    
+
+    public function setHasDroitsAcquittes($has = 0)
+    {
+    	return $this->drm->setHasDroitsAcquittes($has);
+    }
+    
     public function payerReport()
     {
     	$this->drm->payerReport();
+    }
+    
+    public function addObservationProduit($hash, $observation)
+    {
+    	$this->drm->addObservationProduit($hash, $observation);
+    }
+    
+    public function isFictive()
+    {
+    	return true;
     }
 
 }

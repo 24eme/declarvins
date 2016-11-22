@@ -36,7 +36,7 @@
 
 		<?php $colonnes = $pagers_volume[$certification_key]->getResults(); ?>
 		<?php if(count($colonnes) > 0): ?>
-			<h2>Suivi des vins - <?php echo $certification->getConfig()->libelle ?></h2>
+			<h2>Suivi des vins - <?php echo $certification->getConfig()->libelle ?> en droits suspendus</h2>
 			<table class="recap volumes bloc_bottom">
 				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Code produit',
 	    						  								  'counter' => 1,
@@ -61,6 +61,7 @@
 				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksDebut(),
 	    						  								        'counter' => 2,
 																		'colonnes' => $colonnes,
+																        'drm' => $drm,
 																  		'hash' => 'stocks_debut'))?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total entrées',
@@ -75,6 +76,7 @@
 				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksEntree(),
 	    						  								        'counter' => 3,
 																		'colonnes' => $colonnes,
+																        'drm' => $drm,
 																  		'hash' => 'entrees')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total sorties',
@@ -88,6 +90,7 @@
 				<?php $stockSorties = Configuration::getStocksSortie(); unset($stockSorties['vrac_contrat']); include_partial('drm_export/pdfLineDetail', array('stocks' => $stockSorties,
 	    						  								        'counter' => 4,
 																		'colonnes' => $colonnes,
+																        'drm' => $drm,
 																  		'hash' => 'sorties')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Stock fin de mois',
@@ -101,9 +104,72 @@
 				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksFin(),
 	    						  								        'counter' => 5,
 																		'colonnes' => $colonnes,
+																        'drm' => $drm,
 																  		'hash' => 'stocks_fin')) ?>
 
 			</table>
+			<?php if ($drm->hasDroitsAcquittes()): ?>
+			<h2>Suivi des vins - <?php echo $certification->getConfig()->libelle ?> en droits acquittés</h2>
+			<table class="recap volumes bloc_bottom">
+				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Code produit',
+	    						  								  'counter' => 1,
+																  'colonnes' => $colonnes,
+																  'cssclass_value' => 'libelle',
+																  'partial' => 'drm_export/pdfLineVolumeItemProduitLibelle')) ?>
+																  
+				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Labels',
+	    						  								  'counter' => '',
+																  'colonnes' => $colonnes,
+																  'cssclass_value' => 'labels',
+																  'partial' => 'drm_export/pdfLineProduitLabels')) ?>
+
+				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Stock début de mois',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 2,
+																	   'cssclass_libelle' => 'total',
+																       'cssclass_value' => 'total',
+																       'colonnes' => $colonnes,
+																       'hash' => 'acq_total_debut_mois')) ?>
+
+				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total entrées',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 3,
+																	   'cssclass_libelle' => 'total',
+																  	   'cssclass_value' => 'total',
+																	   'colonnes' => $colonnes,
+																	   'hash' => 'acq_total_entrees')) ?>
+
+
+				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksEntree(true),
+	    						  								        'counter' => 3,
+																		'colonnes' => $colonnes,
+																        'drm' => $drm,
+																  		'hash' => 'entrees')) ?>
+
+				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total sorties',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 4,
+																	   'colonnes' => $colonnes,
+																	   'cssclass_libelle' => 'total',
+																	   'cssclass_value' => 'total',
+																	   'hash' => 'acq_total_sorties')) ?>
+
+				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksSortie(true),
+	    						  								        'counter' => 4,
+																		'colonnes' => $colonnes,
+																        'drm' => $drm,
+																  		'hash' => 'sorties')) ?>
+
+				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Stock fin de mois',
+																	   'unite' => 'hl',
+	    						  								       'counter' => 5,
+																	   'cssclass_libelle' => 'total',
+																  	   'cssclass_value' => 'total',
+																  	   'colonnes' => $colonnes,
+																  	   'hash' => 'acq_total')) ?>
+
+			</table>
+			<?php endif; ?>
 		<?php endif; ?>
 		<?php $colonnes = $pagers_vrac[$certification_key]->getResults(); ?>
 		<?php if(count($colonnes) > 0): ?>
@@ -136,7 +202,46 @@
 		<?php $pagers_vrac[$certification_key]->gotoNextPage(); ?>
 		<?php endwhile; ?>
 	<?php endforeach; ?>
+	<?php if ($drm->exist('crds') && count($drm->crds) > 0): ?>
+	<h2>Comptabilité capsules CRD</h2>
 	
+	
+	<table class="recap droits_douane bloc_bottom">
+	<tbody>
+		
+        <tr>
+            <th rowspan="2" style="width: 285px">Catégorie fiscale</th>
+            <th rowspan="2" style="width: 105px; text-align: center;">Stock théorique Début de mois</th>
+            <th colspan="3" style="width: 250px; text-align: center;">Entrées</th>
+            <th colspan="3" style="width: 250px; text-align: center;">Sorties</th>
+            <th rowspan="2" style="width: 105px; text-align: center;">Stock théorique Fin de mois</th>
+        </tr>
+        <tr>
+            <th style="width: 70px; text-align: center;">Achats</th>
+            <th style="width: 70px; text-align: center;">Excédents</th>
+            <th style="width: 70px; text-align: center;">Retours</th>
+            <th style="width: 70px; text-align: center;">Utilisées</th>
+            <th style="width: 70px; text-align: center;">Détruites</th>
+            <th style="width: 70px; text-align: center;">Manquantes</th>
+        </tr>
+		<?php foreach($drm->crds as $crd): ?>
+		
+		<tr >
+			<td><?php echo $crd->libelle ?></td>
+            <td class="number detail"><strong><?php echo $crd->total_debut_mois ?></strong></td>
+			<td class="number detail"><?php echo $crd->entrees->achats ?></td>
+			<td class="number detail"><?php echo $crd->entrees->excedents ?></td>
+			<td class="number detail"><?php echo $crd->entrees->retours ?></td>
+			<td class="number detail"><?php echo $crd->sorties->utilisees ?></td>
+			<td class="number detail"><?php echo $crd->sorties->detruites ?></td>
+			<td class="number detail"><?php echo $crd->sorties->manquantes ?></td>
+			<td class="number detail"><strong><?php echo $crd->total_fin_mois ?></strong></td>
+		</tr>
+		
+		<?php endforeach; ?>
+	</tbody>
+	</table>
+	<?php endif; ?>
 	
 	<?php if (!$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>	
 	<?php if($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()): ?>
@@ -201,7 +306,7 @@
 
 	
 
-
+<?php if ($sf_user->getCompte()->isTiers() && (!$sf_user->getCompte()->exist('dematerialise_ciel') || !$sf_user->getCompte()->dematerialise_ciel)): ?>
 		<h2>Droits de circulation, de consommation et autres taxes</h2>
 	
 	
@@ -327,7 +432,7 @@
 	
 	
 	
-	
+	<hr />
 	
 	
 	<div class="bloc_bottom">
@@ -335,7 +440,7 @@
 		<p><strong>Echéance de paiement</strong> : <?php echo $drm->declaratif->paiement->douane->frequence ?></p>
 		<p><strong>Mode de paiement</strong> : <?php echo $drm->declaratif->paiement->douane->moyen ?></p>
 	</div>
-
+<?php endif; ?>
 <?php if ($drm->valide->date_saisie): ?>
 	<table class="double_col bloc_bottom">
 		<tr>

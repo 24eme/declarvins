@@ -29,11 +29,16 @@ class StatistiquesBilan {
             $bilan->identifiant = $bilanDatas->identifiant;
             $bilan->etablissement = $bilanDatas->etablissement;
             $bilan->periodes = array();
+            $first = null;
             foreach ($bilanDatas->periodes as $periodesKey => $periodesValues) {
+	    		if (!$first && $periodesValues->id_drm) {
+	    			$first = $periodesKey;
+	    		}
                 if (in_array($periodesKey, $this->periodes)) {
                     $bilan->periodes[$periodesKey] = $periodesValues;
                 }
             }
+            $bilan->first_periode = $first;
             
             $bilan->periodesNMoins1 = array();
             foreach ($bilanDatas->periodes as $periodesKey => $periodesValues) {
@@ -110,14 +115,19 @@ class StatistiquesBilan {
     public function getStatutsDrmsCsv($bilanOperateur) {
         $statutsDrmsCsv = "";
         $libelles = DRMClient::getAllLibellesStatusBilan();
+        $firstSaisie = $bilanOperateur->first_periode;
         foreach ($this->buildPeriodes() as $periode) {
-        	if (!isset($bilanOperateur->periodes[$periode]) || is_null($bilanOperateur->periodes[$periode])) {
-        		$statutsDrmsCsv .= $libelles[DRMClient::DRM_STATUS_BILAN_A_SAISIR].";";
-        	} else {
-	        	if (isset($bilanOperateur->periodes[$periode]->mode_de_saisie) && $bilanOperateur->periodes[$periode]->mode_de_saisie) {
-	        		$statutsDrmsCsv .= $bilanOperateur->periodes[$periode]->mode_de_saisie." ";
+        	if ($firstSaisie && $periode >= $firstSaisie) {
+	        	if (!isset($bilanOperateur->periodes[$periode]) || is_null($bilanOperateur->periodes[$periode])) {
+	        		$statutsDrmsCsv .= $libelles[DRMClient::DRM_STATUS_BILAN_A_SAISIR].";";
+	        	} else {
+		        	if (isset($bilanOperateur->periodes[$periode]->mode_de_saisie) && $bilanOperateur->periodes[$periode]->mode_de_saisie) {
+		        		$statutsDrmsCsv .= $bilanOperateur->periodes[$periode]->mode_de_saisie." ";
+		        	}
+		            $statutsDrmsCsv .= $bilanOperateur->periodes[$periode]->statut_libelle.";";
 	        	}
-	            $statutsDrmsCsv .= $bilanOperateur->periodes[$periode]->statut_libelle.";";
+        	} else {
+        		$statutsDrmsCsv .= ";";
         	}
         }
         return $statutsDrmsCsv;

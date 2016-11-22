@@ -568,6 +568,16 @@ p#date_drm
 			vertical-align: middle;
 		}
 		
+		.showTd
+		{
+			display: table-cell !important;
+		}
+		
+		.noTd
+		{
+			display: none !important;
+		}
+		
 		thead
 		{
 			th
@@ -703,7 +713,8 @@ p#date_drm
 /**
  * Etape 3 -> Colonnes déclaration
  ******************************************/
-#colonnes_dr
+#colonnes_dr,
+#colonnes_dr_acq
 {
 	@largeur-col-saisie: 102px;
 	@marge-col-saisie: 25px;
@@ -718,7 +729,8 @@ p#date_drm
 	.col_curseur { font-size: 1px; }
 	
 	/* Colonne des intitulés */
-	#colonne_intitules
+	#colonne_intitules,
+	#colonne_intitules_acq
 	{
 		float: left;
 		font-size: 13px;
@@ -800,7 +812,8 @@ p#date_drm
 	}
 	
 	/* Colonne des saisies */
-	#col_saisies
+	#col_saisies,
+	#col_saisies_acq
 	{
 		float: right;
 		padding: 0 0 10px;
