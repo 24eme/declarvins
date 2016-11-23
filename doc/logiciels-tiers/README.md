@@ -68,11 +68,3 @@ Un exemple spécifique de DRM à importer pour le portail DeclarVins est disponi
 
 Ce fichier reprend l'ensemble des spécificités décrites ci-dessus.
 
-## Suivi du projet chez les éditeurs de registres de cave 
-
-| Nom de l'Éditeur | Prise de contact | Génération du fichier de transfer | Recette des échanges en préproduction | Transmission opérationnelle en production | Versions compatibles |
-|------------------|------------------|-----------------------------------|---------------------------------------|------------------------------------------------------|----------------------|
-| CR2i             | Oui |  |  |  |  |
-| ISAGRI           | Oui |  |  |  |  |
-| ICS-SUD          | Oui |  |  |  |  |
-| I3S              | Oui |  |  |  |  |
