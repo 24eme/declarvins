@@ -6,8 +6,7 @@ class updateDrmsTask extends sfBaseTask {
         $this->addOptions(array(
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-            new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
-      		new sfCommandOption('drm', null, sfCommandOption::PARAMETER_REQUIRED, null)
+            new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default')
                 // add your own options here
         ));
 
@@ -24,43 +23,46 @@ EOF;
     protected function execute($arguments = array(), $options = array()) {
 		ini_set('memory_limit', '2048M');
   		set_time_limit(0);
-        // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         
-        $rows = acCouchdbManager::getClient()
-              ->getView("update", "drm_labels")
-              ->rows;
-        $i = 0;
-        $nb = count($rows);
-        $correspondance = array(
-        		'AB' => 'BIOL',
-        		'ABC' => 'BIOC',
-        		'AR' => 'RAIS',
-        		'BD' => 'BIOD',
-        );
-        $libelles = array(
-        		'BIOL' => 'Agriculture Biologique',
-        		'BIOC' => 'AB en conversion',
-        		'RAIS' => 'Agriculture Raisonnée',
-        		'BIOD' => 'Biodynamie',
-        );
-        foreach($rows as $row) {
-        	if ($drm = DRMClient::getInstance()->find($row->id)) {
-        			echo $drm->_id;
-	        		$detail = $drm->get($row->key[DRMDateView::KEY_DETAIL_HASH]);
-	        		if (isset($correspondance[$detail->getKey()])) {
-	        			$new = $correspondance[$detail->getKey()];
-	        			$details = $detail->getParent();
-	        			$detail->labels = array($new);
-	        			$detail->libelles_label = array($new => $libelles[$new]);
-	        			$details->add($new, $detail);
-	        			$detail->delete();
-	        			$drm->save();
-	      				$this->logSection("debug", $drm->_id." : ".$i." / ".$nb." (".round(($i / $nb) * 100)."%) drm(s) updatée(s) avec succès", null, 'SUCCESS');
-	        		}
+        $configurationProduit = ConfigurationProduitClient::getInstance()->find("CONFIGURATION-PRODUITS-IS");
+        
+        echo "InterOc\n";
+        $items = DRMDateView::getInstance()->findByInterproAndDate("INTERPRO-IO", "2000-01-01")->rows;
+        foreach ($items as $item) {
+        	if ($drm = DRMClient::getInstance()->find($item->id)) {
+        		if ($drm->exist($item->key[DRMDateView::KEY_DETAIL_HASH])) {
+        			$produit = $drm->get($item->key[DRMDateView::KEY_DETAIL_HASH]);
+        			if ($configurationProduit->exist($item->key[DRMDateView::KEY_DETAIL_HASH])) {
+        				$produit->interpro = "INTERPRO-IS";
+        				$drm->save();
+        				echo "yop\n";
+        			} else {
+        				echo "no conf for ".$item->key[DRMDateView::KEY_DETAIL_HASH]."\n";
+        			}
+        		} else {
+        			echo "no produit for ".$item->key[DRMDateView::KEY_DETAIL_HASH]."\n";
+        		}
         	}
-        	$i++;
+        }
+        echo "CIVL\n";
+        $items = DRMDateView::getInstance()->findByInterproAndDate("INTERPRO-CIVL", "2000-01-01")->rows;
+        foreach ($items as $item) {
+        	if ($drm = DRMClient::getInstance()->find($item->id)) {
+        		if ($drm->exist($item->key[DRMDateView::KEY_DETAIL_HASH])) {
+        			$produit = $drm->get($item->key[DRMDateView::KEY_DETAIL_HASH]);
+        			if ($configurationProduit->exist($item->key[DRMDateView::KEY_DETAIL_HASH])) {
+        				$produit->interpro = "INTERPRO-IS";
+        				$drm->save();
+        				echo "yop\n";
+        			} else {
+        				echo "no conf for ".$item->key[DRMDateView::KEY_DETAIL_HASH]."\n";
+        			}
+        		} else {
+        			echo "no produit for ".$item->key[DRMDateView::KEY_DETAIL_HASH]."\n";
+        		}
+        	}
         }
     }
 
