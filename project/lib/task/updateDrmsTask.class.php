@@ -34,12 +34,13 @@ EOF;
         	if ($drm = DRMClient::getInstance()->find($item->id)) {
         		if ($drm->exist($item->key[DRMDateView::KEY_DETAIL_HASH])) {
         			$produit = $drm->get($item->key[DRMDateView::KEY_DETAIL_HASH]);
-        			if ($configurationProduit->exist($item->key[DRMDateView::KEY_DETAIL_HASH])) {
-        				$produit->interpro = "INTERPRO-IS";
-        				$drm->save();
+        			$hash = preg_replace('/\/details\/[a-zA-Z0-9]*/', '', $item->key[DRMDateView::KEY_DETAIL_HASH]);
+        			if ($configurationProduit->exist($hash)) {
+        				//$produit->interpro = "INTERPRO-IS";
+        				//$drm->save();
         				echo "yop\n";
         			} else {
-        				echo "no conf for ".$item->key[DRMDateView::KEY_DETAIL_HASH]."\n";
+        				echo "no conf for ".$hash."\n";
         			}
         		} else {
         			echo "no produit for ".$item->key[DRMDateView::KEY_DETAIL_HASH]."\n";
