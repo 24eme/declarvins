@@ -789,6 +789,24 @@ class ediActions extends sfActions
   		return $vracs;
   }
   
+  
+  protected function transactionCallback($interpro, $items)
+  {
+  		$vracs = array();
+  		$configurationVrac = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro);
+  		foreach ($items as $item) {
+  			if ($item->value[VracDateView::VALUE_STATUT] == VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION) {
+  				continue;
+  			}
+  			$item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE] = $configurationVrac->formatTypesTransactionLibelle(array($item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE]));
+  			$item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE] = $configurationVrac->formatCasParticulierLibelle(array($item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE]));
+  			$item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE] = $configurationVrac->formatConditionsPaiementLibelle(array($item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE]));
+  			unset($item->value[VracDateView::VALUE_VOLUME_RETIRE]);
+  			$vracs[] = $item;
+  		}
+  		return $vracs;
+  }
+  
   protected function vracInterproCallback($interpro, $items)
   {
 
