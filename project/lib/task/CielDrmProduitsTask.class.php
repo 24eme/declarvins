@@ -30,7 +30,7 @@ EOF;
 	foreach ($items as $item) {
 		if ($drm = DRMClient::getInstance()->find($item->id)) {
 			foreach ($drm->getDetails() as $produit) {
-				echo $drm->identifiant.";".$drm->declarant->no_accises.";".$drm->periode.";".$produit->interpro.";".$produit->getFormattedLibelle("%g% %a% %l% %co% %ce% %la%")."\n";
+				echo $drm->identifiant.";".$drm->declarant->no_accises.";".$drm->periode.";".$produit->interpro.";".$produit->getIdentifiantDouane().";".$produit->getFormattedLibelle("%g% %a% %l% %co% %ce% %la%")."\n";
 			}
 		}
 	}
