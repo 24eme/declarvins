@@ -422,7 +422,7 @@ class DRMClient extends acCouchdbClient {
             self::DRM_STATUS_BILAN_NON_VALIDE => "DRM saisie non validée",
             self::DRM_STATUS_BILAN_STOCK_EPUISE => "Stock épuisé",
         	self::DRM_STATUS_BILAN_ENVOYEE_CIEL => "Envoyée CIEL",
-			self::DRM_STATUS_BILAN_DIFF_CIEL => "Incompatible CIEL",
+			self::DRM_STATUS_BILAN_DIFF_CIEL => "Modifiée CIEL",
 			self::DRM_STATUS_BILAN_VALIDE_CIEL => "Validée CIEL"
         );
     }
