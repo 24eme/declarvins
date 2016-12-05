@@ -72,8 +72,8 @@ EOF;
   	$message = '<h1>Monitoring du flux de DRM en provenance de Prodou@ne / CIEL</h1>';
   	
   	foreach ($rapport as $rapportKey => $rapportItem) {
-  		if (count($rapportItem) > 0 || $rapportKey != self::RAPPORT_PASS_KEY) {
-  			$message .= $this->getTitle($rapportKey, count($rapportItem));
+  		if (count($rapportItem) > 0 && $rapportKey != self::RAPPORT_PASS_KEY) {
+  			$message .= '<h2>'.$this->getTitle($rapportKey, count($rapportItem)).'</h2>';
 		  	$message .= '<ul>';
 		  	foreach ($rapportItem as $item) {
 		  		$message .= '<li>'.$item.'</li>';
@@ -93,6 +93,9 @@ EOF;
     
     $checkingMode = $options['checking'];
     $interpro = $options['interpro'];
+    if ($interpro) {
+    	$interpro = InterproClient::getInstance()->find($interpro);
+    }
     $contextInstance = sfContext::createInstance($this->configuration);
     
     $list = simplexml_load_file($arguments['target'], 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
@@ -159,9 +162,14 @@ EOF;
     }
     $s = $this->messagizeRapport($rapport);
     if ($checkingMode) {
-    	echo str_replace("<li>", "\t", str_replace(array("<ul>", "</ul>", "</li>"), "\n", $s));
+    	echo str_replace("</h1>", "\n", str_replace("</h2>", "\n", str_replace("<h2>", "", str_replace("<h1>", "", str_replace("<li>", "\t", str_replace(array("<ul>", "</ul>", "</li>"), "\n", $s))))));
     } else {
-	    $message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), sfConfig::get('app_email_to_notification'), "DeclarVins // Rapport CFT ".$interpro, $s)->setContentType('text/html');
+    	if ($interpro) {
+    		$message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $interpro->email_contrat_inscription, "DeclarVins // Rapport CFT ".$interpro->nom, $s)->setContentType('text/html');
+    		$message->setCc(sfConfig::get('app_email_to_notification'));
+    	} else {
+	    	$message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), sfConfig::get('app_email_to_notification'), "DeclarVins // Rapport CFT", $s)->setContentType('text/html');
+    	}
 	    if (count($files) > 0) {
 	    	foreach ($files as $file) {
 	    		$message->attach(Swift_Attachment::fromPath($file));
