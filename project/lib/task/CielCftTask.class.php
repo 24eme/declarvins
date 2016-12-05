@@ -69,11 +69,11 @@ EOF;
   
   private function messagizeRapport($rapport)
   {
-  	$message = '<h1>Monitoring du flux de DRM en provenance de Prodou@ne / CIEL</h1>';
+  	$message = '<h2>Monitoring du flux de DRM en provenance de Prodou@ne / CIEL</h2>';
   	
   	foreach ($rapport as $rapportKey => $rapportItem) {
   		if (count($rapportItem) > 0 && $rapportKey != self::RAPPORT_PASS_KEY) {
-  			$message .= '<h2>'.$this->getTitle($rapportKey, count($rapportItem)).'</h2>';
+  			$message .= '<h3>'.$this->getTitle($rapportKey, count($rapportItem)).'</h3>';
 		  	$message .= '<ul>';
 		  	foreach ($rapportItem as $item) {
 		  		$message .= '<li>'.$item.'</li>';
@@ -162,7 +162,7 @@ EOF;
     }
     $s = $this->messagizeRapport($rapport);
     if ($checkingMode) {
-    	echo str_replace("</h1>", "\n", str_replace("</h2>", "\n", str_replace("<h2>", "", str_replace("<h1>", "", str_replace("<li>", "\t", str_replace(array("<ul>", "</ul>", "</li>"), "\n", $s))))));
+    	echo str_replace("</h2>", "\n", str_replace("</h3>", "\n", str_replace("<h2>", "", str_replace("<h3>", "", str_replace("<li>", "\t", str_replace(array("<ul>", "</ul>", "</li>"), "\n", $s))))));
     } else {
     	if ($interpro) {
     		$message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $interpro->email_contrat_inscription, "DeclarVins // Rapport CFT ".$interpro->nom, $s)->setContentType('text/html');
