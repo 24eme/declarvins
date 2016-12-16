@@ -72,10 +72,10 @@
 			  	<?php endif; ?>
 				<span class="statut <?php echo $statusColor ?>" title="<?php echo $elt[VracHistoryView::VRAC_VIEW_STATUT]; ?>"></span>
 				<?php if($elt[VracHistoryView::VRAC_OIOC_DATETRAITEMENT]): ?>
-				<br />Envoi Oco : <?php echo format_date($elt[VracHistoryView::VRAC_OIOC_DATETRAITEMENT], 'd/M/y') ?>
+				<br />Envoi Oco : <?php echo format_date($elt[VracHistoryView::VRAC_OIOC_DATETRAITEMENT], 'dd/MM/y') ?>
 				<?php endif; ?>
 				<?php if($elt[VracHistoryView::VRAC_OIOC_DATERECEPTION]): ?>
-				<br />Chargement Oco : <?php echo format_date($elt[VracHistoryView::VRAC_OIOC_DATERECEPTION], 'd/M/y') ?>
+				<br />Chargement Oco : <?php echo format_date($elt[VracHistoryView::VRAC_OIOC_DATERECEPTION], 'dd/MM/y') ?>
 				<?php endif; ?>
 			  </td>
 			  <?php if ($isOperateur):  ?>
