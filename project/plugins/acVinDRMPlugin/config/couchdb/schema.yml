@@ -629,6 +629,8 @@ DRM:
                       fields:
                         code: {  }
                         libelle: {  }
+                        centilitre: {  }
+                        bib: {  }
                   total_debut_mois: { type: float }
                   total_fin_mois: { type: float }
                   entrees:

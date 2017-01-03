@@ -88,12 +88,12 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $detail;
     }
     
-    public function addCrd($categorie, $type, $centilisation, $stock = 0)
+    public function addCrd($categorie, $type, $centilisation, $centilitre, $bib, $stock = 0)
     {
-    	$idCrd = DRMCrd::makeId($categorie, $type, $centilisation);
+    	$idCrd = DRMCrd::makeId($categorie, $type, $centilisation, $centilitre, $bib);
     	$crd = $this->crds->getOrAdd($idCrd);
     	if (!$crd->libelle) {
-    		$crd->addCrd($categorie, $type, $centilisation, $stock);
+    		$crd->addCrd($categorie, $type, $centilisation, $centilitre, $bib, $stock);
     	}
     	return $crd;
     }

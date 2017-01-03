@@ -6,15 +6,14 @@
 
 class DRMCrd extends BaseDRMCrd {
 	
-	public static function makeId($categorie, $type, $centilisation)
+	public static function makeId($categorie, $type, $centilisation, $centilitre, $bib)
 	{
-		return $categorie.'-'.$type.'-'.$centilisation;
+		return ($centilitre)? $categorie.'-'.$type.'-'.$centilisation.'-'.$bib.'-CL_'.str_replace(array('.', ','), '_', $centilitre) : $categorie.'-'.$type.'-'.$centilisation;
 	}
-	
 
-
-	public function addCrd($categorie, $type, $centilisation, $stock = 0)
+	public function addCrd($categorie, $type, $centilisation, $centilitre, $bib, $stock = 0)
 	{
+		$litre = ($centilitre && (intval($centilitre / 100) == $centilitre / 100))? $centilitre / 100 : null;
 		$conf = ConfigurationClient::getCurrent();
 		$this->categorie->code = $categorie;
 		$this->categorie->libelle = $conf->crds->categorie->get($categorie);
@@ -22,7 +21,15 @@ class DRMCrd extends BaseDRMCrd {
 		$this->type->libelle = $conf->crds->type->get($type);
 		$this->centilisation->code = $centilisation;
 		$this->centilisation->libelle = $conf->crds->centilisation->get($centilisation);
-		$this->libelle = $this->categorie->libelle.' '.$this->type->libelle.' '.$this->centilisation->libelle;
+		$this->centilisation->centilitre = $centilitre;
+		$this->centilisation->bib = $bib;
+		if (!$centilitre) {
+			$this->libelle = $this->categorie->libelle.' '.$this->type->libelle.' '.$this->centilisation->libelle;
+		} elseif ($litre) {
+			$this->libelle = ($bib)? $this->categorie->libelle.' '.$this->type->libelle.' BIB '.$litre.' L' : $this->categorie->libelle.' '.$this->type->libelle.' '.$litre.' L';
+		} else {
+			$this->libelle = ($bib)? $this->categorie->libelle.' '.$this->type->libelle.' BIB '.$centilitre.' cL' : $this->categorie->libelle.' '.$this->type->libelle.' '.$centilitre.' cL';
+		}
 		$this->total_debut_mois = ($stock > 0)? $stock : 0;
 		$this->total_fin_mois = ($stock > 0)? $stock : 0;
 	}

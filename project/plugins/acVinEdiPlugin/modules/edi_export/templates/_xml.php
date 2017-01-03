@@ -82,7 +82,7 @@
       		<categorie-fiscale-capsules><?php echo $gcrds[0]->categorie->code ?></categorie-fiscale-capsules>
       		<type-capsule><?php echo $gcrds[0]->type->code ?></type-capsule>
 <?php foreach($gcrds as $crd) : ?>
-      		<centilisation volume="<?php echo $crd->centilisation->code ?>">
+      		<centilisation volume="<?php echo $crd->centilisation->code ?>"<?php if ($crd->centilisation->centilitre): ?> volumePersonnalise="<?php echo $crd->centilisation->centilitre ?>" bib="<?php echo ($crd->centilisation->bib)? 1 : 0; ?>"<?php endif; ?>>
         		<stock-debut-periode><?php echo $crd->total_debut_mois ?></stock-debut-periode>
 <?php if ($crd->entrees->achats || $crd->entrees->excedents || $crd->entrees->retours): ?>
         		<entrees-capsules>

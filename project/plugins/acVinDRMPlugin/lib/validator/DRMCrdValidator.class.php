@@ -4,14 +4,17 @@ class DRMCrdValidator extends sfValidatorSchema
     public function configure($options = array(), $messages = array()) 
     {
         $this->addRequiredOption('drm');
-        $this->addMessage('exist', 'Cette CRD existe déjà !');
+        $this->addMessage('exist', 'Cette CRD existe déjà');
         $this->addMessage('perso', 'Vous ne pouvez pas ajouter de CRD de type Personnalisées avec une CRD de type Collectives en droits acquittés');
         $this->addMessage('collective', 'Vous ne pouvez pas ajouter de CRD de type Collectives en droits acquittés avec une CRD de type Personnalisées');
+        $this->addMessage('centilitre', 'Vous devez renseigner la centilisation pour Autre');
+        $this->addMessage('exist_centilisation', 'Veuillez sélectionner la centilisation préconfigurée plutôt que de la saisir');
+        
     }
 
     protected function doClean($values) 
     {
-        $idCrd = DRMCrd::makeId($values['categorie'], $values['type'], $values['centilisation']);
+        $idCrd = DRMCrd::makeId($values['categorie'], $values['type'], $values['centilisation'], $values['centilitre'], $values['bib']);
         
         if ($values['type'] == 'PERSONNALISEES') {
         	foreach ($this->getDRM()->crds as $crd) {
@@ -27,9 +30,21 @@ class DRMCrdValidator extends sfValidatorSchema
         	 	}
         	 }
         }
+        
+        if ($values['centilisation'] == 'AUTRE' && !$values['centilitre']) {
+        	throw new sfValidatorError($this, 'centilitre');
+        }
 
         if ($this->getDRM()->crds->exist($idCrd)) {
             throw new sfValidatorError($this, 'exist');
+        }
+        
+        if ($values['centilitre']) {
+        	$centilisation = ($values['bib'])? 'BIB_'.str_replace(array('.', ','), '_', $values['centilitre']) : 'CL_'.str_replace(array('.', ','), '_', $values['centilitre']);
+        	$conf = ConfigurationClient::getCurrent();
+        	if ($conf->crds->centilisation->exist($centilisation)) {
+        		throw new sfValidatorError($this, 'exist_centilisation');
+        	}
         }
 
         return $values;
