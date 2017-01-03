@@ -20,6 +20,7 @@ class CielCftTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'prod'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
       new sfCommandOption('checking', null, sfCommandOption::PARAMETER_REQUIRED, 'Cheking mode', 0),
+      new sfCommandOption('daily', null, sfCommandOption::PARAMETER_REQUIRED, 'Daily mode for cron', 0),
       new sfCommandOption('interpro', null, sfCommandOption::PARAMETER_REQUIRED, 'Interprofession', ''),
     ));
 
@@ -92,13 +93,22 @@ EOF;
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
     
     $checkingMode = $options['checking'];
+    $dailyMode = $options['daily'];
     $interpro = $options['interpro'];
     if ($interpro) {
     	$interpro = InterproClient::getInstance()->find($interpro);
     }
     $contextInstance = sfContext::createInstance($this->configuration);
     
-    $list = simplexml_load_file($arguments['target'], 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
+    if ($dailyMode) {
+    	$date = new DateTime();
+    	$date->modify('-1 day');
+    	$target = $arguments['target']."&from=".$date->format('Y-m-d');	
+    } else {
+    	$target = $arguments['target'];	
+    }
+    
+    $list = simplexml_load_file($target, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
     $rapport = $this->initRapport();
     $files = array();
     if ($list !== FALSE) {
@@ -158,7 +168,7 @@ EOF;
     		}
     	}
     } else {
-		$rapport[self::RAPPORT_ERROR_KEY][] = 'Impossible d\'interroger le service : '.$arguments['target'];
+		$rapport[self::RAPPORT_ERROR_KEY][] = 'Impossible d\'interroger le service : '.$target;
     }
     $s = $this->messagizeRapport($rapport);
     if ($checkingMode) {
