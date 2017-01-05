@@ -659,13 +659,13 @@ class ediActions extends sfActions
 		foreach($rows as $row) {
 			$etablissement = $eClient->find($row->id);
 			$compte = $etablissement->getCompteObject();
-			if ($compte) {
+			if ($etablissement->isTransmissionCiel()) {
 				$convention = 'oui';
-				if (!$compte->dematerialise_ciel) {
-					$convention = ($compte->getConventionCiel())? 'att' : 'non';
-				}
 			} else {
 				$convention = 'non';
+				if ($compte && $compte->getConventionCiel()) {
+					$convention = 'att';
+				}
 			}
 			$result .= $etablissement->identifiant;
 			$result .= ';';

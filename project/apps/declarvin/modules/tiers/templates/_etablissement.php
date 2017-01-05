@@ -26,6 +26,9 @@
 				<li>email : <strong><?php echo $etablissement->email ?></strong></li>
 			</ul>
 			<ul>
+				<li>Transmission CIEL : <strong><?php echo ($etablissement->transmission_ciel)? 'oui' : 'non'; ?></strong></li>
+			</ul>
+			<ul>
 				<li>Interprofession référente : <strong><?php echo $etablissement->getInterproObject()->nom ?></strong></li>
 				<?php if ($etablissement->exist('zones')): ?>
 				<li>Zones : <strong><?php $zones = ''; foreach ($etablissement->zones as $zone): if (!$zone->transparente): $zones .= $zone->libelle.' - '; endif; endforeach; echo substr($zones, 0, -2); ?></strong></li>

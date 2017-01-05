@@ -306,7 +306,7 @@
 
 	
 
-<?php if ($sf_user->getCompte()->isTiers() && (!$sf_user->getCompte()->exist('dematerialise_ciel') || !$sf_user->getCompte()->dematerialise_ciel)): ?>
+<?php if ($sf_user->getCompte()->isTiers() && !$drm->getEtablissementObject()->isTransmissionCiel()): ?>
 		<h2>Droits de circulation, de consommation et autres taxes</h2>
 	
 	

@@ -19,7 +19,7 @@
 		    </ol>
 		</div>
     	<?php endif; ?>
-        <form id="formValidation" action="<?php echo ($sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel && !$drm->hasVersion())? url_for('drm_transfer_ciel', $drm) :  url_for('drm_validation', $drm); ?>" method="post">
+        <form id="formValidation" action="<?php echo ($etablissement->isTransmissionCiel() && !$drm->hasVersion())? url_for('drm_transfer_ciel', $drm) :  url_for('drm_validation', $drm); ?>" method="post">
             <?php echo $form->renderGlobalErrors() ?>
             <?php echo $form->renderHiddenFields() ?>
             
@@ -37,8 +37,8 @@
                 <?php endif; ?>
                 
                 <?php if (!$drmValidation->hasErrors()): ?>
-                <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement->getCompteObject() && !$etablissement->getCompteObject()->dematerialise_ciel) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-                <?php if(!$drm->hasVersion() && $sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?>
+                <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->isTransmissionCiel()) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+                <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel()): ?>
                 <?php if(date('Y-m-d') >= $drm->periode.'-'.DRMCiel::VALIDATE_DAY): ?>
                 <button type="submit" class="btn_suiv">
                     <span>Valider et envoyer à CIEL</span>
@@ -148,8 +148,8 @@
                 <?php endif; ?>
                 <?php endif; ?>
                 <?php if (!$drmValidation->hasErrors()): ?>
-                <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement->getCompteObject() && !$etablissement->getCompteObject()->dematerialise_ciel) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-                <?php if(!$drm->hasVersion() && $sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?>
+                <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->isTransmissionCiel()) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+                <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel()): ?>
                 <?php if(date('Y-m-d') >= $drm->periode.'-'.DRMCiel::VALIDATE_DAY): ?>
                 <button type="submit" class="btn_suiv">
                     <span>Valider et envoyer à CIEL</span>

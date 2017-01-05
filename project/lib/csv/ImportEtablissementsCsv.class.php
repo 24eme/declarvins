@@ -299,6 +299,9 @@ class ImportEtablissementsCsv {
         	}
         }
         $isCiel = (preg_match("/oui/i", trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_CIEL])))? 1 : 0;
+        if ($etab->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) {
+        	$etab->transmission_ciel = $isCiel;
+        }
         if ($isCiel && 1==2) { // Desactivation temporaire du controle du num EA
         	$service = new CielService($etab->interpro);
         	$edi = new EtablissementEdi();
@@ -414,8 +417,11 @@ class ImportEtablissementsCsv {
         $compte->telephone = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_TELEPHONE]);
         $compte->fax = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_FAX]);
         if ($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) {
-        	$compte->dematerialise_ciel = (preg_match("/oui/i", trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_CIEL])))? 1 : 0;
-        }
+			 if (preg_match("/oui/i", trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_CIEL]))) {
+			 	$compte->dematerialise_ciel = 1;
+			 }
+		}
+        
         return $compte;
     }
 }
