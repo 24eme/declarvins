@@ -36,11 +36,12 @@ EOF;
 			if ($compte->value[CompteAllView::VALUE_CIEL]) {
 	        	if ($c = _CompteClient::getInstance()->find($compte->id)) {
 	        		foreach ($c->tiers as $etab => $values) {
-	        			$etablissement = EtablissementClient::getInstance()->find($etab);
-	        			$etablissement->transmission_ciel = 1;
-	        			$etablissement->save();
-	        			$pourc = floor($i / $nb * 100);
-	        			$this->logSection("update", $etablissement->id." enregistré avec succès $i / $nb ($pourc)", null, 'SUCCESS');
+	        			if ($etablissement = EtablissementClient::getInstance()->find($etab)) {
+		        			$etablissement->transmission_ciel = 1;
+		        			$etablissement->save();
+		        			$pourc = floor($i / $nb * 100);
+		        			$this->logSection("update", $etablissement->_id." enregistré avec succès $i / $nb ($pourc)", null, 'SUCCESS');
+	        			}
 	        		}
 	        	}
 			}
