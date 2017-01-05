@@ -28,43 +28,22 @@ EOF;
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         $campagne = null;
         
-        $comptes = array(
-        		"COMPTE-170858",
-        		"COMPTE-angrasset",
-        		"COMPTE-carabinier@wanadoo.fr",
-        		"COMPTE-chastanpaulette",
-        		"COMPTE-chateauparadis",
-        		"COMPTE-christian",
-        		"COMPTE-divimer",
-        		"COMPTE-domaine-cabanon@wanadoo.fr",
-        		"COMPTE-domainedelafermonde@gmail.fr",
-        		"COMPTE-domainedesprades@orange.fr",
-        		"COMPTE-domainelabignande",
-        		"COMPTE-earlantonin@orange.fr",
-        		"COMPTE-fallegre",
-        		"COMPTE-lavins",
-        		"COMPTE-peyronniere",
-        		"COMPTE-pierric.michel@orange.fr",
-        		"COMPTE-trenel71"
-        );
-        $ldap = new Ldap();
+        $comptes = CompteAllView::getInstance()->findAll()->rows;
+        $i = 0;
+        $nb = count($comptes);
         foreach ($comptes as $compte) {
-        		if ($c = _CompteClient::getInstance()->find($compte)) {
-        			try {
-        			$contrat = ContratClient::getInstance()->find($c->contrat);
-        			$c->nom = $contrat->nom;
-        			$c->prenom = $contrat->prenom;
-        			$c->save();
-  					$result = $ldap->saveCompte($c);
-        			} catch (Exception $e) {
-        				$result = false;
-        			}
-  					if (!$result) {
-  						$this->logSection("update", $compte->id." bug enregistrement LDAP", null, 'ERROR');
-  					} else {
-  						$this->logSection("update", $compte->id." enregistré avec succès", null, 'SUCCESS');
-  					}
-        		}
+        	$i++;
+			if ($compte->value[CompteAllView::VALUE_CIEL]) {
+	        	if ($c = _CompteClient::getInstance()->find($compte->id)) {
+	        		foreach ($c->tiers as $etab => $values) {
+	        			$etablissement = EtablissementClient::getInstance()->find($etab);
+	        			$etablissement->transmission_ciel = 1;
+	        			$etablissement->save();
+	        			$pourc = floor($i / $nb * 100);
+	        			$this->logSection("update", $etablissement->id." enregistré avec succès $i / $nb ($pourc)", null, 'SUCCESS');
+	        		}
+	        	}
+			}
         }
     }
 
