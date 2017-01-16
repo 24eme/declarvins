@@ -27,10 +27,15 @@ EOF;
     	$contrats = VracAllView::getInstance()->findAll()->rows;
     	$i = 0;
     	$nb = count($contrats);
+    	$configuration = ConfigurationClient::getCurrent();
     	foreach ($contrats as $contrat) {
     		$c = VracClient::getInstance()->find($contrat->id);
-    		$c->storeSoussignesInformations();
-    		$c->save(false);
+    		if ($c->produit) {
+	        	if ($configurationProduit = $configuration->getConfigurationProduit($c->produit)) {
+	        		$c->setDetailProduit($configurationProduit);
+	        		$c->save(false);
+	        	}
+    		}
     		$i++;
     		$this->logSection('update', $c->_id." : succès de la mise à jour (".round(($i/$nb)*100,1)."%)");
     	}
