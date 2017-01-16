@@ -194,7 +194,7 @@ class ediActions extends sfActions
   	set_time_limit(0);
   	
   	$interpro = $this->securizeInterpro($request->getParameter('interpro'));
-  	$items = VracDateView::getInstance()->findByInterpro($interpro)->rows;
+  	$items = EdiVracpartenaireView::getInstance()->findByZoneStatut($interpro->zone, VracClient::STATUS_CONTRAT_NONSOLDE)->rows;
   	
   	$csv = '';
 	foreach ($items as $item) {
