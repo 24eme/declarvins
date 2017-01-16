@@ -299,6 +299,9 @@ class ImportEtablissementsCsv {
         	}
         }
         $isCiel = (preg_match("/oui/i", trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_CIEL])))? 1 : 0;
+        if ($etab->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) {
+        	$etab->transmission_ciel = $isCiel;
+        }
         if ($isCiel && 1==2) { // Desactivation temporaire du controle du num EA
         	$service = new CielService($etab->interpro);
         	$edi = new EtablissementEdi();
@@ -380,7 +383,7 @@ class ImportEtablissementsCsv {
     {
     	if ($contrat) {
 	    	if ($compte = $contrat->getCompteObject()) {
-		    	$compte = $this->bindCompte($line, $compte, $ligne);
+		    	$compte = $this->bindCompte($line, $compte, $ligne, $etablissement);
 		    	if (!$compte->interpro->exist(trim($line[EtablissementCsv::COL_INTERPRO]))) {
 		    		$interpro = $compte->interpro->add(trim($line[EtablissementCsv::COL_INTERPRO]));
 		    		$interpro->statut = _Compte::STATUT_ATTENTE;
@@ -394,7 +397,7 @@ class ImportEtablissementsCsv {
     	}
     }
 
-    protected function bindCompte($line, $compte, $ligne) {
+    protected function bindCompte($line, $compte, $ligne, $etablissement) {
     	$compte->nom = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_NOM]);
         $compte->prenom = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_PRENOM]);
         $compte->fonction = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_FONCTION]);
@@ -413,7 +416,12 @@ class ImportEtablissementsCsv {
 		}
         $compte->telephone = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_TELEPHONE]);
         $compte->fax = trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_FAX]);
-        $compte->dematerialise_ciel = (preg_match("/oui/i", trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_CIEL])))? 1 : 0;
+        if ($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) {
+			 if (preg_match("/oui/i", trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_CIEL]))) {
+			 	$compte->dematerialise_ciel = 1;
+			 }
+		}
+        
         return $compte;
     }
 }

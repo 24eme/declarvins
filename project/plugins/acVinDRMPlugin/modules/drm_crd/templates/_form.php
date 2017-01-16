@@ -30,6 +30,7 @@
 	</div>
 	 <div id="bloc_autre" class="bloc_conditionner" data-condition-value="AUTRE" style="margin-bottom:10px;">
 		<div class="ligne_form">
+			<?php echo MessagesClient::getInstance()->getMessage('help_popup_drm_crd_centilisations'); ?>
 			<span class="error"><?php echo $form['bib']->renderError() ?></span>
 			<?php echo $form['bib']->renderLabel() ?>
 			<?php echo $form['bib']->render() ?>

@@ -111,8 +111,8 @@ class ediActions extends sfActions
     $interpro = current(array_keys($this->getCompte()->interpro->toArray()));
     $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
-    $vracs = $this->vracCallback($interpro, VracOiocView::getInstance()->findByOiocAndDate($oioc, OIOC::STATUT_EDI, "Vrac", $dateForView->modify('-1 second')->format('c'))->rows);
-    return $this->renderCsv($vracs, VracOiocView::VALUE_DATE_SAISIE, "TRANSACTION", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID));
+    $vracs = $this->transactionCallback($interpro, VracOiocView::getInstance()->findByOiocAndDate($oioc, OIOC::STATUT_EDI, "vrac", $dateForView->modify('-1 second')->format('c'))->rows);
+    return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "TRANSACTION", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID));
   }
   
   public function executeStreamDRM(sfWebRequest $request) 
@@ -659,13 +659,13 @@ class ediActions extends sfActions
 		foreach($rows as $row) {
 			$etablissement = $eClient->find($row->id);
 			$compte = $etablissement->getCompteObject();
-			if ($compte) {
+			if ($etablissement->isTransmissionCiel()) {
 				$convention = 'oui';
-				if (!$compte->dematerialise_ciel) {
-					$convention = ($compte->getConventionCiel())? 'att' : 'non';
-				}
 			} else {
 				$convention = 'non';
+				if ($compte && $compte->getConventionCiel()) {
+					$convention = 'att';
+				}
 			}
 			$result .= $etablissement->identifiant;
 			$result .= ';';
@@ -780,6 +780,24 @@ class ediActions extends sfActions
   		$vracs = array();
   		$configurationVrac = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro);
   		foreach ($items as $item) {
+  			$item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE] = $configurationVrac->formatTypesTransactionLibelle(array($item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE]));
+  			$item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE] = $configurationVrac->formatCasParticulierLibelle(array($item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE]));
+  			$item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE] = $configurationVrac->formatConditionsPaiementLibelle(array($item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE]));
+  			unset($item->value[VracDateView::VALUE_VOLUME_RETIRE]);
+  			$vracs[] = $item;
+  		}
+  		return $vracs;
+  }
+  
+  
+  protected function transactionCallback($interpro, $items)
+  {
+  		$vracs = array();
+  		$configurationVrac = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro);
+  		foreach ($items as $item) {
+  			if ($item->value[VracDateView::VALUE_STATUT] == VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION) {
+  				continue;
+  			}
   			$item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE] = $configurationVrac->formatTypesTransactionLibelle(array($item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE]));
   			$item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE] = $configurationVrac->formatCasParticulierLibelle(array($item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE]));
   			$item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE] = $configurationVrac->formatConditionsPaiementLibelle(array($item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE]));

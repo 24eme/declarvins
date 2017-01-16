@@ -147,23 +147,6 @@ class tiersActions extends sfActions
   	  }
   	  $this->redirect('profil', $this->etablissement);
   }
-  
-  public function executeAdhesionCiel(sfWebRequest $request)
-  {
-  	$this->etablissement = $this->getRoute()->getEtablissement();
-  }
-  
-  public function executeAcceptationCiel(sfWebRequest $request)
-  {
-  	$this->compte = $this->getUser()->getCompte();
-  	$this->etablissement = $this->getRoute()->getEtablissement();
-  	if ($this->compte instanceof acVinCompteTiers) {
-	  	$this->compte->dematerialise_ciel = 1;
-	  	$this->compte->save();
-	  	$this->getUser()->setFlash('notice', 'Adhésion au service CIEL effectuée avec succès');
-  	}
-  	return $this->redirect("drm_mon_espace", $this->etablissement);
-  }
 
   public function executePdf(sfWebRequest $request)
   {

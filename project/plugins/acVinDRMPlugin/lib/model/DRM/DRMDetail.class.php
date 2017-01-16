@@ -62,6 +62,15 @@ class DRMDetail extends BaseDRMDetail {
 
         return '';
     }
+    
+    public function hasLabel() {
+    	foreach ($this->labels as $label) {
+    		if ($label) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 
     public function getLabelKey() {
         $key = null;

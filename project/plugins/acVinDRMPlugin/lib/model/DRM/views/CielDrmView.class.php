@@ -21,5 +21,10 @@ class CielDrmView extends acCouchdbView
       	}
       	return null;
     }
+    
+    public function findAllTransmises()
+    {
+    	return $this->client->startkey(array(1))->endkey(array(1, array()))->getView($this->design, $this->view)->rows;
+    }
 
 }  

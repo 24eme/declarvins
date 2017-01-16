@@ -367,7 +367,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
     
     public function isFirstCiel() {
-    	if ($this->getUser()->getCompte()->isTiers() && (!$this->getUser()->getCompte()->exist('dematerialise_ciel') || !$this->getUser()->getCompte()->dematerialise_ciel)) {
+    	if (!$this->getEtablissementObject()->isTransmissionCiel()) {
     		return false;
     	}
     	$precedente = $this->getPrecedente();

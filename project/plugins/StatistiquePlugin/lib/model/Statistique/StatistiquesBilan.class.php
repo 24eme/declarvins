@@ -124,7 +124,7 @@ class StatistiquesBilan {
 		        	if (isset($bilanOperateur->periodes[$periode]->mode_de_saisie) && $bilanOperateur->periodes[$periode]->mode_de_saisie) {
 		        		$statutsDrmsCsv .= $bilanOperateur->periodes[$periode]->mode_de_saisie." ";
 		        	}
-		            $statutsDrmsCsv .= $bilanOperateur->periodes[$periode]->statut_libelle.";";
+		            $statutsDrmsCsv .= $libelles[$bilanOperateur->periodes[$periode]->statut].";";
 	        	}
         	} else {
         		$statutsDrmsCsv .= ";";

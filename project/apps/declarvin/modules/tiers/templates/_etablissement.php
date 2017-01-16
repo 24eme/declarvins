@@ -4,13 +4,11 @@
 	<div id="compteModification">
 		<div class="societe">
 			<ul>
-				<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 				<li>Identifiant <?php echo str_replace('INTERPRO-', '', $etablissement->interpro) ?> : <strong><?php echo $etablissement->identifiant ?></strong></li>
 				<?php if ($etablissement->exist('correspondances')): foreach ($etablissement->correspondances as $interpro => $correspondance): if ($correspondance == $etablissement->identifiant) { continue; }?>
 				<li>Identifiant <?php echo str_replace('INTERPRO-', '', $interpro) ?> : <strong><?php echo $correspondance ?></strong></li>
 				<?php endforeach; endif;?>
 				<li>&nbsp;</li>
-				<?php endif; ?>
 				<li>Raison Sociale : <strong><?php echo $etablissement->raison_sociale ?></strong></li>
 				<li>Nom Commercial : <strong><?php echo $etablissement->nom ?></strong></li>
 				<li>N° RCS / SIRET: <strong><?php echo $etablissement->siret ?></strong></li>
@@ -26,6 +24,9 @@
 				<li>tel : <strong><?php echo $etablissement->telephone ?></strong></li>
 				<li>fax : <strong><?php echo $etablissement->fax ?></strong></li>
 				<li>email : <strong><?php echo $etablissement->email ?></strong></li>
+			</ul>
+			<ul>
+				<li>Transmission CIEL : <strong><?php echo ($etablissement->transmission_ciel)? 'oui' : 'non'; ?></strong></li>
 			</ul>
 			<ul>
 				<li>Interprofession référente : <strong><?php echo $etablissement->getInterproObject()->nom ?></strong></li>

@@ -26,7 +26,7 @@ class DRMValidationObservationForm extends BaseForm
             'observations' => new sfValidatorString(array('required' => false))
         ));
         $this->widgetSchema->setLabels(array(
-        	'observations' => $this->_detail->getLibelle()
+        	'observations' => $this->_detail->getFormattedLibelle()
         ));
         $this->widgetSchema->setNameFormat('[%s]');
 	}

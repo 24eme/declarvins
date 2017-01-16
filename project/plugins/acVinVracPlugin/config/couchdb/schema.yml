@@ -44,6 +44,11 @@ Vrac:
             email: {   }
             famille: {  }
             sous_famille: {   }
+            zones:
+              type: collection
+              definition:
+                fields:
+                  '*': {  }
       vendeur_tva: {  }
       adresse_stockage:
         type: collection
@@ -76,6 +81,11 @@ Vrac:
             email: {   }
             famille: {  }
             sous_famille: {   }
+            zones:
+              type: collection
+              definition:
+                fields:
+                  '*': {  }
       acheteur_tva: {  }
       adresse_livraison:
         type: collection
@@ -112,6 +122,11 @@ Vrac:
             email: {  }
             famille: {  }
             sous_famille: {   }
+            zones:
+              type: collection
+              definition:
+                fields:
+                  '*': {  }
       premiere_mise_en_marche: {  }
       bailleur_metayer: {  }
       cas_particulier: {  }

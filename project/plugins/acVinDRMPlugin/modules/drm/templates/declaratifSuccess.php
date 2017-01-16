@@ -10,10 +10,10 @@
             
 				
                 <div id="btn_etape_dr">
-                	<?php if ($sf_user->getCompte()->isTiers() && (!$sf_user->getCompte()->exist('dematerialise_ciel') || !$sf_user->getCompte()->dematerialise_ciel)): ?>
-                	<a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec"><span>Précédent</span></a>
-                	<?php else: ?>
+                	<?php if ($sf_user->getCompte()->isTiers() && $etablissement->isTransmissionCiel()): ?>
                     <a href="<?php echo url_for('drm_crd', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
+                	<?php else: ?>
+                	<a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec"><span>Précédent</span></a>
                     <?php endif; ?>
                     <button type="submit" class="btn_suiv"><span>suivant</span></button>
                 </div>
@@ -157,7 +157,7 @@
                     </div>
                 </div>
 				
-				<?php if ($sf_user->getCompte()->isTiers() && (!$sf_user->getCompte()->exist('dematerialise_ciel') || !$sf_user->getCompte()->dematerialise_ciel)): ?>
+				<?php if ($sf_user->getCompte()->isTiers() && !$etablissement->isTransmissionCiel()): ?>
                 <ul class="onglets_declaratif">
                     <li><strong>Paiement des droits de circulation</strong><a href="" class="msg_aide" data-msg="help_popup_declaratif_paiement" title="Message aide"></a></li>
                 </ul>
@@ -195,7 +195,7 @@
                 </div>
                 <?php endif; ?>
                 
-                <?php if ($sf_user->getCompte()->isTiers() && $sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?>
+                <?php if ($sf_user->getCompte()->isTiers() && $etablissement->isTransmissionCiel()): ?>
                 <ul class="onglets_declaratif">
                     <li><strong>Statistiques européennes</strong><a href="" class="msg_aide" data-msg="help_popup_drm_stats_euro" title="Message aide"></a></li>
                 </ul>
@@ -248,10 +248,10 @@
                 <?php endif; ?>
 				
                 <div id="btn_etape_dr">
-                	<?php if ($sf_user->getCompte()->isTiers() && (!$sf_user->getCompte()->exist('dematerialise_ciel') || !$sf_user->getCompte()->dematerialise_ciel)): ?>
-                	<a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec"><span>Précédent</span></a>
-                	<?php else: ?>
+                	<?php if ($sf_user->getCompte()->isTiers() && $etablissement->isTransmissionCiel()): ?>
                     <a href="<?php echo url_for('drm_crd', $drm) ?>" class="btn_prec"><span>Précédent</span></a>
+                	<?php else: ?>
+                	<a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec"><span>Précédent</span></a>
                     <?php endif; ?>
                     <button type="submit" class="btn_suiv"><span>suivant</span></button>
                 </div>

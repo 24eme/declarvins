@@ -47,7 +47,7 @@ class drmComponents extends sfComponents {
         
 
 
-        if ($this->getUser()->getCompte()->isTiers() && (!$this->getUser()->getCompte()->exist('dematerialise_ciel') || !$this->getUser()->getCompte()->dematerialise_ciel)) {
+        if ($this->getUser()->getCompte()->isTiers() && !$this->drm->getEtablissementObject()->isTransmissionCiel()) {
         	unset($this->numeros['crd']);
         	$this->numeros['declaratif'] = $this->numeros['declaratif'] - 1;
         	$this->numeros['validation'] = $this->numeros['validation'] - 1;

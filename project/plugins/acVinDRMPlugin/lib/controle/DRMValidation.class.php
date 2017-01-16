@@ -22,9 +22,8 @@ class DRMValidation
 		$this->warnings = array();
 		$this->errors = array();
 		$etablissement = $drm->getEtablissementObject();
-		$compte = $etablissement->getCompteObject();
 		$this->isAdmin = ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER)? true : false;
-		$this->isCiel = ($compte && $compte->exist('dematerialise_ciel') && $compte->dematerialise_ciel)? true : false;
+		$this->isCiel = $etablissement->isTransmissionCiel();
 		$this->controleDRM();
 	}
 	

@@ -67,7 +67,7 @@
                     	</style>
                     	<li class="<?php echo isVersionnerCssClass($form->getObject()->entrees, $key) ?>">
                     		<?php if ($form->getObject()->getGenre()->getKey() != 'VCI'): ?>
-	                    		<?php if ($sf_user->getCompte()->isTiers() && $sf_user->getCompte()->exist('dematerialise_ciel') && $sf_user->getCompte()->dematerialise_ciel): ?>
+	                    		<?php if ($sf_user->getCompte()->isTiers() && $form->getObject()->getDocument()->getEtablissementObject()->isTransmissionCiel()): ?>
 	                    		<a href="<?php echo url_for('drm_recap_es_detail', $form->getObject()) ?>" class="btn_popup btn_es_details" data-popup-enregistrement="true" data-popup-reload="true" data-popup="#popup_details_entree_crd<?php echo str_replace('/', '_', $form->getObject()->getHash()) ?>" data-popup-config="configForm" data-popup-title="Entrée replacement en suspension CRD"><?php echo sprintFloat($form['entrees'][$key]->getValue(), "%01.04f") ?></a>
 	                    		<input type="hidden" id="drm_detail_entrees_crd" autocomplete="off" class="num num_float num_light num_float" data-val-defaut="<?php echo sprintFloat($form['entrees']['crd']->getValue(), "%01.04f") ?>" value="<?php echo sprintFloat($form['entrees']['crd']->getValue(), "%01.04f") ?>" name="">
 	                    		<?php else: ?>

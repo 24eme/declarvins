@@ -32,6 +32,7 @@ Etablissement:
       num_interne: {  }
       siret: {  }
       raison_sociale: {  }
+      transmission_ciel: {  }
       nom: {  }
       cni: {  }
       cvi: {  }

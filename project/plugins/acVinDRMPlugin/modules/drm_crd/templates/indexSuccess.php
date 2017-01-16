@@ -31,7 +31,7 @@
 	                <button type="submit" class="btn_suiv"><span>Suivant</span></button>
 	            </div>
 	            
-		        <p>Veuillez indiquer ci-dessous le compte des capsules CRD correspondant aux volumes déclarés :</p>
+		        <p>Veuillez indiquer ci-dessous le compte des capsules CRD correspondant aux volumes déclarés <a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_centilisations" href=""></a>:</p>
 		        <br />
 	            
 				<table id="lignes_crd" class="tableau_recap">

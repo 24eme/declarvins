@@ -3,7 +3,7 @@
         <?php echo $form->renderGlobalErrors() ?>
         <h1>Paiement</h1>
         <div>
-            <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_paiements|#bloc_vrac_reference_contrat_pluriannuel|#bloc_vrac_delai">
+            <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_paiements|#bloc_vrac_reference_contrat_pluriannuel">
                 <?php echo $form['conditions_paiement']->renderError() ?>
                 <?php echo $form['conditions_paiement']->renderLabel() ?>
                 <?php echo $form['conditions_paiement']->render() ?>
@@ -46,7 +46,7 @@
             <?php endif; ?>
             <?php if(isset($form['delai_paiement'])): ?>
             <?php if ($form->conditionneDelaiContrat()): ?>
-            <div id="bloc_vrac_delai" class="section_label_strong bloc_conditionner" data-condition-value="<?php echo $form->getCgpDelaiNeedDetermination() ?>">
+            <div id="bloc_vrac_delai" class="section_label_strong">
             <?php else: ?>
             <div class="section_label_strong">
             <?php endif; ?>

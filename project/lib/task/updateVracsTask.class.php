@@ -24,19 +24,16 @@ EOF;
     	$databaseManager = new sfDatabaseManager($this->configuration);
     	$connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         
-    	$contrats = VracSoussigneIdentifiantView::getInstance()->findByEtablissement('CIVP24283')->rows;
+    	$contrats = VracAllView::getInstance()->findAll()->rows;
     	$i = 0;
+    	$nb = count($contrats);
     	foreach ($contrats as $contrat) {
-    		$date = new DateTime($contrat->value[VracSoussigneIdentifiantView::VRAC_VIEW_DATESAISIE]);
-    		if ($contrat->value[VracSoussigneIdentifiantView::VRAC_VIEW_ACHETEUR_ID] == 'CIVP24283' && $date->format('Ymd') >= '20140801') {
-    			$c = VracClient::getInstance()->find($contrat->id);
-    			$c->type_prix = 'definitif';
-    			$c->save(false);
-    			$i++;
-    			$this->logSection('update', $c->_id." : succès de la mise à jour.");
-    		}
+    		$c = VracClient::getInstance()->find($contrat->id);
+    		$c->storeSoussignesInformations();
+    		$c->save(false);
+    		$i++;
+    		$this->logSection('update', $c->_id." : succès de la mise à jour (".round(($i/$nb)*100,1)."%)");
     	}
-    	$this->logSection('update', $i." contrats traités");
 
     }
 

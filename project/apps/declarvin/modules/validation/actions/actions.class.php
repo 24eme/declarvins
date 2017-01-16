@@ -37,19 +37,32 @@ class validationActions extends sfActions {
     	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
         $this->comptes = CompteAllView::getInstance()->findBy($this->interpro->get('_id'), 'CompteTiers')->rows;
         
-        $csv_file = 'Compte Statut;Identifiant;Num Interne;Num Contrat;Interpro;Siret;Cni;Cvi;Num Accises;Num TVA intra;Email;Tel;Fax;Raison Sociale;Nom Com.;Adresse;Commune;CP;Pays;Famille;Sous famille;Adresse compta;Commune compta;CP compta;Pays compta;Douane;Complement;Statut;Compte nom;Compte prenom;Compte fonction;Compte email;Compte tel;Compte fax;Compte CIEL;Num carte pro;';
+        $csv_file = 'Compte Statut;Identifiant;Num Interne;Num Contrat;Interpro;Siret;Cni;Cvi;Num Accises;Num TVA intra;Email;Tel;Fax;Raison Sociale;Nom Com.;Adresse;Commune;CP;Pays;Famille;Sous famille;Adresse compta;Commune compta;CP compta;Pays compta;Douane;Complement;Statut;Compte nom;Compte prenom;Compte fonction;Compte email;Compte tel;Compte fax;Num carte pro;Zones;Zones libelles;Correspondances;Ciel';
 		$csv_file .= "\n";	
+		$configZone = ConfigurationZoneClient::getInstance();
 		foreach ($this->comptes as $c) {
 			if($compte = _CompteClient::getInstance()->find($c->id)) {
-				$dematerialise_ciel = 'oui';
-				if (!$compte->dematerialise_ciel) {
-					$dematerialise_ciel = ($compte->getConventionCiel())? 'att' : 'non';
+				$dematerialise_ciel = 'non';
+				if ($compte->getConventionCiel()) {
+					$dematerialise_ciel = 'att';
 				}
-				$compteInfosCsv = $compte->nom.';'.$compte->prenom.';'.$compte->fonction.';'.$compte->email.';'.$compte->telephone.';'.$compte->fax.';'.$dematerialise_ciel;
 				$compteNonInfosCsv = ';;;;;;';
 				if (count($compte->tiers) > 0) {
 					foreach ($compte->tiers as $etablissementId => $etablissementInfos) {
 						if ($etablissement = EtablissementClient::getInstance()->find($etablissementId)) {
+							if ($etablissement->isTransmissionCiel()) {
+								$dematerialise_ciel = 'oui';
+							}
+							$corres = array();
+							foreach ($etablissement->correspondances as $interpro => $correspondance) {
+								$corres[] = str_replace('INTERPRO-', '', $interpro).':'.$correspondance;
+							}
+							$zones = array();
+							$zonesLibelles = array();
+							foreach ($etablissement->zones as $zoneid => $zone) {
+								$zones[] = $configZone->getGrcCode($zoneid);
+								$zonesLibelles[] = $configZone->getGrcLibelle($zoneid);
+							}
 						    $csv_file .= 
 						    			$compte->statut.';'.
 						    			$etablissement->identifiant.';'.
@@ -79,8 +92,17 @@ class validationActions extends sfActions {
 						    			$etablissement->service_douane.';'.
 										';'.
 						    			$etablissement->statut.';'.
-						    			$compteInfosCsv.';'.
-						    			$etablissement->no_carte_professionnelle;
+						    			$compte->nom.';'.
+						    			$compte->prenom.';'.
+						    			$compte->fonction.';'.
+						    			$compte->email.';'.
+						    			$compte->telephone.';'.
+						    			$compte->fax.';'.
+						    			$etablissement->no_carte_professionnelle.';'.
+						    			implode('|', $zones).';'.
+						    			implode('|', $zonesLibelles).';'.
+						    			implode('|', $corres).';'.
+						    			$dematerialise_ciel;
 										$csv_file .= "\n";
 						}
 					}
@@ -116,8 +138,17 @@ class validationActions extends sfActions {
 						    			$etablissement->service_douane.';'.
 										';'.
 						    			';'.
-						    			$compteNonInfosCsv.';'.
-						    			$etablissement->no_carte_professionnelle;
+						    			';'.
+						    			';'.
+						    			';'.
+						    			';'.
+						    			';'.
+						    			';'.
+						    			$etablissement->no_carte_professionnelle.';'.
+						    			';'.
+						    			';'.
+						    			';'.
+						    			'non';
 										$csv_file .= "\n";
 						}
 					}

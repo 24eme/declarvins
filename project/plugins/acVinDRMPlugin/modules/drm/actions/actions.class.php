@@ -297,6 +297,7 @@ class drmActions extends sfActions {
 
     public function executeDeclaratif(sfWebRequest $request) {
         $this->drm = $this->getRoute()->getDRM();
+        $this->etablissement = $this->getRoute()->getEtablissement();
         $this->form = new DRMDeclaratifForm($this->drm);
         $this->hasFrequencePaiement = ($this->drm->declaratif->paiement->douane->frequence) ? true : false;
         if ($request->isMethod(sfWebRequest::POST)) {
@@ -374,7 +375,7 @@ class drmActions extends sfActions {
         // CIEL ==============
 	    $erreursCiel = false;
         if (!$this->drmCiel->isTransfere() && !$this->drm->hasVersion()) {
-	        if ($this->getUser()->getCompte()->isTiers() && $this->getUser()->getCompte()->dematerialise_ciel) {
+	        if ($this->etablissement->isTransmissionCiel()) {
 	        	$export = new DRMExportCsvEdi($this->drm);
 	        	if ($xml = $export->exportEDI('xml')) {
 	        		try {
