@@ -224,6 +224,15 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	$this->produit_detail->couleur->libelle = $produit->getCouleur()->libelle;
     	$this->produit_detail->cepage->code = $produit->code;
     	$this->produit_detail->cepage->libelle = $produit->libelle;
+    	if ($inao = $produit->getInao()) {
+    		if (strlen($inao) == 5) {
+    			$inao = $inao.' ';
+    		}
+    		$this->produit_detail->codes->inao = $inao;
+    	}
+    	if ($lf = $produit->getLibelleFiscal()) {
+    		$this->produit_detail->codes->libelle_fiscal = $lf;
+    	}
     }
 
     public function update($params = array()) {

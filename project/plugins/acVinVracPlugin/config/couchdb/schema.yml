@@ -176,6 +176,12 @@ Vrac:
                 fields:
                   code: {  }
                   libelle: {  }
+            codes:
+              type: collection
+              definition:
+                fields:
+                  inao: {  }
+                  libelle_fiscal: {  }
       millesime: {  }
       contient_domaine: {  }
       domaine: {  }
