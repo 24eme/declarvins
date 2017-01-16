@@ -30,7 +30,6 @@ class EdiVracpartenaireView extends acCouchdbView
     {
       	return $this->client->startkey(array($zone, $statut))
                     		->endkey(array($zone, $statut, array()))
-                    		->reduce(false)
                     		->getView($this->design, $this->view);
     }
 
