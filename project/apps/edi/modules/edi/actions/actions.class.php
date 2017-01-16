@@ -21,10 +21,15 @@ class ediActions extends sfActions
     if (!preg_match('/^INTERPRO-/', $interpro)) {
 		$interpro = 'INTERPRO-'.$interpro;
     }
+    $interpro = InterproClient::getInstance()->find($interpro);
+    if (!$interpro) {
+    	throw new error401Exception("Accès restreint");
+    }
   	$interpros = array_keys($this->getCompte()->interpro->toArray());
-  	if (!in_array($interpro, $interpros)) {
+  	if (!in_array($interpro->getId(), $interpros)) {
   		throw new error401Exception("Accès restreint");
   	}
+  	return $interpro;
   }
 	
   protected function securizeEtablissement($etablissement)
@@ -185,28 +190,19 @@ class ediActions extends sfActions
   
   public function executeStreamVracInterpro(sfWebRequest $request) 
   {
-
-  	ini_set('memory_limit', '4096M');
+  	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
-  	$interpro = $request->getParameter('interpro');
-  	//$this->securizeInterpro($interpro);
-  	if (!preg_match('/^INTERPRO-/', $interpro)) {
-  		$interpro = 'INTERPRO-'.$interpro;
-  	}
-  	$values = VracDateView::getInstance()->findByInterpro($interpro)->rows;
-  	if ($interpro == 'INTERPRO-IS') {
-  		$values = array_merge($values, VracDateView::getInstance()->findByInterpro('INTERPRO-IO')->rows);
-  		$values = array_merge($values, VracDateView::getInstance()->findByInterpro('INTERPRO-CIVL')->rows);
-  	}
-
+  	
+  	$interpro = $this->securizeInterpro($request->getParameter('interpro'));
+  	$items = VracDateView::getInstance()->findByInterpro($interpro)->rows;
+  	
   	$csv = '';
-	$items = $this->vracInterproCallback($interpro, $values);
 	foreach ($items as $item) {
-		$csv .= implode(';', $item);
+		$csv .= implode(';', $item->value);
 		$csv .= "\n";
 	}
 	
-  	$filename = 'contrats_achat_non_soldes_'.str_replace('INTERPRO-', '', $interpro).'.csv';
+  	$filename = 'contrats_achat_non_soldes_'.strtolower($interpro->identifiant).'.csv';
   	$this->response->setContentType('text/csv');
   	$this->response->setHttpHeader('md5', md5($csv));
   	$this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$filename);
@@ -806,48 +802,6 @@ class ediActions extends sfActions
   		}
   		return $vracs;
   }
-  
-  protected function vracInterproCallback($interpro, $items)
-  {
-
-  	$vracs = array();
-  	$configurationProduitClient = ConfigurationProduitClient::getInstance();
-  	foreach ($items as $item) {
-  		if ($item->value[VracDateView::VALUE_STATUT] != VracClient::STATUS_CONTRAT_NONSOLDE) {
-  			continue;
-  		}
-  		preg_match('/certifications\/([a-zA-Z0-9]*)\/genres\/([a-zA-Z0-9]*)\/appellations\/([a-zA-Z0-9]*)\/mentions\/([a-zA-Z0-9]*)\/lieux\/([a-zA-Z0-9]*)\/couleurs\/([a-zA-Z0-9]*)\/cepages\/([a-zA-Z0-9]*)$/i', $item->key[VracDateView::KEY_PRODUIT_HASH], $hashProduit);
-  		$vendeurId = $item->value[VracDateView::VALUE_VENDEUR_ID];
-  		if ($item->value[VracDateView::VALUE_VENDEUR_SIRET]) {
-  			$vendeurId .= ' ('.$item->value[VracDateView::VALUE_VENDEUR_SIRET].')';
-  		} elseif ($item->value[VracDateView::VALUE_VENDEUR_CVI]) {
-  			$vendeurId .= ' ('.$item->value[VracDateView::VALUE_VENDEUR_CVI].')';
-  		}
-  		$vracs[] = array(
-  				$item->value[VracDateView::VALUE_VRAC_ID],
-  				$vendeurId,
-  				$item->value[VracDateView::VALUE_VENDEUR_EA],
-  				$item->value[VracDateView::VALUE_ACHETEUR_NOM],
-  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[1]),
-  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[2]),
-  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[3]),
-  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[4]),
-  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[5]),
-  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[6]),
-  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[7]),
-  				$configurationProduitClient->format(
-  						array($item->value[VracDateView::VALUE_PRODUIT_CERTIFICATION_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_GENRE_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_APPELLATION_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_LIEU_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_COULEUR_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_CEPAGE_LIBELLE]), 
-  						array(),
-  						"%g% %a% %l% %co% %ce%"
-  				),
-  				$item->value[VracDateView::VALUE_MILLESIME_CODE],
-  				$item->value[VracDateView::VALUE_VOLUME_PROPOSE],
-  				$item->value[VracDateView::VALUE_VOLUME_RETIRE]
-  		);
-  	}
-  	return $vracs;
-  }
-  
   
   protected function drmCallback($items)
   {
