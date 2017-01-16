@@ -26,7 +26,7 @@ class ediActions extends sfActions
     	throw new error401Exception("Accès restreint");
     }
   	$interpros = array_keys($this->getCompte()->interpro->toArray());
-  	if (!in_array($interpro->getId(), $interpros)) {
+  	if (!in_array($interpro->_id, $interpros)) {
   		throw new error401Exception("Accès restreint");
   	}
   	return $interpro;
