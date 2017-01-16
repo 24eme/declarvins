@@ -195,6 +195,11 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       	if ($informations->exist('email')) $informations->email = $etablissement->email;
       	if ($informations->exist('famille')) $informations->famille = $etablissement->famille;
       	if ($informations->exist('sous_famille')) $informations->sous_famille = $etablissement->sous_famille;
+      	if ($informations->exist('zones') && $etablissement->exist('zones')) {
+      		foreach ($etablissement->zones as $zoneId => $zone) {
+      			$informations->zones->add($zoneId, $zone->libelle);
+      		}
+      	}
     }
     
     public function getCvoUnitaire() {
