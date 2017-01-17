@@ -1,7 +1,6 @@
 function(doc) { 
-	if (doc.type == "Vrac" && doc.valide.date_validation) {
-		var re = new RegExp('\/declaration\/certifications\/([A-Za-z0-9]+)\/genres\/([A-Za-z0-9]+)\/appellations\/([A-Za-z0-9]+)\/mentions\/([A-Za-z0-9]+)\/lieux\/([A-Za-z0-9]+)\/couleurs\/([A-Za-z0-9]+)\/cepages\/([A-Za-z0-9]+)', 'g');
-		var codesProduit = re.exec(doc.produit);
+	if (doc.type == "Vrac" && doc.valide.date_validation && doc.produit) {
+		var codesProduit = (doc.produit).split('/');;
 		
 		var produit = doc.produit_libelle;
 		if (doc.produit_detail.codes.inao) {
@@ -33,17 +32,17 @@ function(doc) {
             	 	vendeur,
             	 	doc.vendeur.num_accise,
             	 	acheteur,
-            	 	(codesProduit[1] && codesProduit[1] != 'DEFAUT')? codesProduit[1] : null,
-            	 	(codesProduit[2] && codesProduit[2] != 'DEFAUT')? codesProduit[2] : null,
             	 	(codesProduit[3] && codesProduit[3] != 'DEFAUT')? codesProduit[3] : null,
-            	 	(codesProduit[4] && codesProduit[4] != 'DEFAUT')? codesProduit[4] : null,
                     (codesProduit[5] && codesProduit[5] != 'DEFAUT')? codesProduit[5] : null,
-                    (codesProduit[6] && codesProduit[6] != 'DEFAUT')? codesProduit[6] : null,
                     (codesProduit[7] && codesProduit[7] != 'DEFAUT')? codesProduit[7] : null,
+                    (codesProduit[9] && codesProduit[9] != 'DEFAUT')? codesProduit[9] : null,
+                    (codesProduit[11] && codesProduit[11] != 'DEFAUT')? codesProduit[11] : null,
+                    (codesProduit[13] && codesProduit[13] != 'DEFAUT')? codesProduit[13] : null,
+                    (codesProduit[15] && codesProduit[15] != 'DEFAUT')? codesProduit[15] : null,
             	 	produit,
             	 	doc.millesime,
-            	 	doc.volume_propose,
-            	 	doc.volume_enleve
+            	 	(doc.volume_propose).toFixed(4),
+            	 	(doc.volume_enleve).toFixed(4)
             	 ]
 			);
 		}                           

@@ -1492,7 +1492,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 	}
 	
 	public function getExportableCategoriesMouvements() {
-		return array('total_debut_mois', 'acq_total_debut_mois', 'stocks_debut', 'entrees', 'sorties', 'stocks_fin', 'total', 'acq_total', 'tav', 'premix', 'observations');
+		return array('total_debut_mois', 'acq_total_debut_mois', 'entrees', 'sorties', 'total', 'acq_total', 'tav', 'premix', 'observations');
 	}
 	
 	public function getExportableCategorieByType($type) {
