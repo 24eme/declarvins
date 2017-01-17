@@ -151,7 +151,6 @@ class ediActions extends sfActions
     }
     $dateForView = new DateTime($date);
     $items = EdiDrmpartenaireView::getInstance()->findByInterproDate($interpro->_id, $dateForView->format('c'))->rows;
-    $items = array_merge($items, EdiDrmpartenaireView::getInstance()->findByInterproDate('INTERPRO-ANIVIN', $dateForView->format('c'))->rows);
     $csv = '';
     $lastDate = $dateForView->format('c');
     foreach ($items as $item) {
