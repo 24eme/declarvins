@@ -5,7 +5,7 @@ class importDRMTask extends sfBaseTask
   protected function configure()
   {
     $this->addArguments(array(
-      new sfCommandArgument('csvFile', sfCommandArgument::REQUIRED, 'Fichier contenant la DRM à importée'),
+      new sfCommandArgument('csvFile', sfCommandArgument::REQUIRED, 'Fichier contenant la DRM à importer'),
   	));
 
     $this->addOptions(array(

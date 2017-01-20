@@ -55,7 +55,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     {
         $numLigne = 0;
     	foreach ($this->getDocRows() as $csvRow) {
-            if (KeyInflector::slugify($csvRow[self::CSV_TYPE]) == 'TYPE') {
+            if (preg_match('/^#/', $csvRow[self::CSV_TYPE])) {
                 continue;
             }
     		if ($numLigne == 0) {
@@ -372,15 +372,15 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     }
 
     private function checkCSVIntegrity() {
-        $ligne_num = 1;
+        $ligne_num = 0;
         $periodes = array();
         $accises = array();
         $identifiants = array();
         foreach ($this->getDocRows() as $csvRow) {
-            if ($ligne_num == 1 && KeyInflector::slugify($csvRow[self::CSV_TYPE]) == 'TYPE') {
-                $ligne_num++;
+            if (preg_match('/^#/', $csvRow[self::CSV_TYPE])) {
                 continue;
             }
+            $ligne_num++;
             if (!in_array($csvRow[self::CSV_TYPE], self::$permitted_types)) {
                 $this->csvDoc->addErreur($this->createWrongFormatTypeError($ligne_num, $csvRow));
             }
@@ -395,7 +395,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             	$accises[$csvRow[self::CSV_NUMACCISE]] = 1;
             }
             $identifiants[$csvRow[self::CSV_IDENTIFIANT]] = 1;
-            $ligne_num++;
         }
         if (count($periodes) > 1) {
         	$this->csvDoc->addErreur($this->createMultiPeriodeError());
