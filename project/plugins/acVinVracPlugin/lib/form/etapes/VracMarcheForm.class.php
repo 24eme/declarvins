@@ -4,7 +4,6 @@ class VracMarcheForm extends VracForm
    	public function configure()
     {   		
     		$this->setWidgets(array(
-        	'has_transaction' => new sfWidgetFormInputCheckbox(),
         	'has_cotisation_cvo' => new sfWidgetFormInputHidden(array('default' => 1)),
         	'type_transaction' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getTypesTransaction())),
         	'labels' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getLabels())),
@@ -22,7 +21,6 @@ class VracMarcheForm extends VracForm
 	        'millesime' => new sfWidgetFormInputText()
     	));
         $this->widgetSchema->setLabels(array(
-        	'has_transaction' => 'Je souhaite associer une déclaration de transaction',
         	'has_cotisation_cvo' => 'Cvo',
         	'type_transaction' => 'Type de transaction:',
         	'labels' => 'Labels:',
@@ -42,7 +40,6 @@ class VracMarcheForm extends VracForm
         $min = ($this->getObject()->volume_enleve)? $this->getObject()->volume_enleve : 0;
         $minErreur = ($min > 1)? $min.' hl ont déjà été enlevés pour ce contrat' : $min.' hl a déjà été enlevé pour ce contrat';
         $this->setValidators(array(
-        	'has_transaction' => new ValidatorPass(),
         	'has_cotisation_cvo' => new ValidatorPass(),
         	'type_transaction' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getTypesTransaction()))),
         	'labels' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getLabels()))),

@@ -79,7 +79,17 @@
 		<?php 
 			}
 		?>
-
+		<?php 
+		if ($form->getObject()->has_transaction && !$form->getObject()->hasOioc() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)):
+		?>
+		<div style="border: 1px solid #ff9f00;color: #3e3e3e;font-weight: bold;text-align: left;margin: 10px 0 10px 0;padding: 5px 10px;">
+			<ul>
+				<li style="text-align: center;">
+					vous devez imprimer ou enregistrer votre declaration de transaction et l'envoyer à votre organisme d'inspection
+				</li>
+			</ul>
+		</div>
+		<?php endif; ?>
 		<div class="ligne_form_btn">
 			<?php if($form->getObject()->has_transaction): ?>
 				<a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'transaction', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a>

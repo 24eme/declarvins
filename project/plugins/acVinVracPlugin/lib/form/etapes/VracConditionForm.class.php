@@ -4,6 +4,7 @@ class VracConditionForm extends VracForm
    	public function configure()
     {
   		$this->setWidgets(array(
+        	'has_transaction' => new WidgetFormInputCheckbox(),
         	'date_debut_retiraison' => new sfWidgetFormInputText(),
         	'date_limite_retiraison' => new sfWidgetFormInputText(),
         	'conditions_paiement' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getConditionsPaiement(), 'multiple' => false)),
@@ -13,6 +14,7 @@ class VracConditionForm extends VracForm
         	'clause_reserve_retiraison' => new sfWidgetFormInputCheckbox()
     	));
         $this->widgetSchema->setLabels(array(
+        	'has_transaction' => 'je souhaite faire ma déclaration de transaction en même tant que mon contrat',
         	'date_debut_retiraison' => 'Date de début de retiraison*:',
         	'date_limite_retiraison' => 'Date limite de retiraison*:',
         	'conditions_paiement' => 'Conditions générales de vente*:',
@@ -22,6 +24,7 @@ class VracConditionForm extends VracForm
         	'clause_reserve_retiraison' => 'Clause de reserve de propriété (si réserve, recours possible jusqu\'au paiement complet): '
         ));
         $this->setValidators(array(
+        	'has_transaction' => new ValidatorBoolean(),
         	'date_debut_retiraison' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
         	'date_limite_retiraison' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
         	'conditions_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getConditionsPaiement()), 'multiple' => false)),

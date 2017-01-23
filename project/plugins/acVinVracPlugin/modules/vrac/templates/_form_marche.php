@@ -88,13 +88,6 @@
                 <?php echo $form['annexe']->render() ?>
             </div>
             <?php endif; ?>
-            <?php if (isset($form['has_transaction'])): ?>
-            <div class="contenu_onglet">
-                <?php echo $form['has_transaction']->renderError() ?>
-                <?php echo $form['has_transaction']->render() ?> 
-                <?php echo $form['has_transaction']->renderLabel() ?>
-            </div>
-            <?php endif; ?>
         </div>
 
         <div class="ligne_form_btn">

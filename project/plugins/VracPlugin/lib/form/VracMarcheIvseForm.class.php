@@ -13,7 +13,6 @@ class VracMarcheIvseForm extends VracMarcheForm
 			unset($this['non_millesime']);
 		}
         unset($this['annexe']);
-        unset($this['has_transaction']);
     	if (!sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && isset($this['type_transaction'])) {
             unset($this['type_transaction']);
         }
@@ -23,6 +22,5 @@ class VracMarcheIvseForm extends VracMarcheForm
     	if (!sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
     		$this->getObject()->type_transaction = VracClient::TRANSACTION_DEFAUT;
     	}
-    	$this->getObject()->has_transaction = 0;
     }
 }

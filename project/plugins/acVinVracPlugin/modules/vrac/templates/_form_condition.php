@@ -89,6 +89,15 @@
         	<p>En cas de calendrier de retiraison, indiquez les échéances dans la case &laquo;commentaires&raquo; de l'étape suivante</p>
         	
         	<?php endif; ?>
+        	
+            <?php if (isset($form['has_transaction'])): ?>
+            <h1>Transaction</h1>
+            <div>
+                <?php echo $form['has_transaction']->renderError() ?>
+                <?php echo $form['has_transaction']->render() ?> 
+                <?php echo $form['has_transaction']->renderLabel() ?>
+            </div>
+            <?php endif; ?>
         <div class="ligne_form_btn">
             <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'marche', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a> 
             <button class="valider_etape" type="submit"><span>Etape Suivante</span></button>

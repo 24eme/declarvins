@@ -19,6 +19,7 @@ class VracForm extends acCouchdbObjectForm
     	'date_limite_retiraison',
     	'date_stats',
     	'date_signature',
+    	'determination_prix_date'
     );
     
 	public function __construct(ConfigurationVrac $configuration, $etablissement, $user, acCouchdbJson $object, $options = array(), $CSRFSecret = null) 

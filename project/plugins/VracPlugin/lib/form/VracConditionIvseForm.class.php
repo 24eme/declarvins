@@ -8,6 +8,7 @@ class VracConditionIvseForm extends VracConditionForm
 		$this->getWidget('reference_contrat_pluriannuel')->setLabel('Si vous avez un contrat pluriannuel écrit, veuillez noter sa référence:');
 		$this->setWidget('vin_livre', new sfWidgetFormInputHidden());
         unset($this['clause_reserve_retiraison']);
+        unset($this['has_transaction']);
     }
 
 
@@ -18,5 +19,9 @@ class VracConditionIvseForm extends VracConditionForm
 
     public function conditionneIVSE() {
       return true;
+    }
+    protected function doUpdateObject($values) {
+    	parent::doUpdateObject($values);
+    	$this->getObject()->has_transaction = 0;
     }
 }
