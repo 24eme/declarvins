@@ -131,7 +131,7 @@
 		$(".total_crd").each(function() {
 			var total = $(this);
 			var ligne = total.parent();
-			var inputs = ligne.find("input");
+			var inputs = ligne.find("input[type=\"text\"]");
 			var nbInputs = inputs.length;
 			var somme = 0;
 			
