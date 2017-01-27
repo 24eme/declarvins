@@ -61,9 +61,11 @@ class validationActions extends sfActions {
 							}
 							$zones = array();
 							$zonesLibelles = array();
+							if ($etablissement->exist('zones')) {
 							foreach ($etablissement->zones as $zoneid => $zone) {
 								$zones[] = $configZone->getGrcCode($zoneid);
 								$zonesLibelles[] = $configZone->getGrcLibelle($zoneid);
+							}
 							}
 						    $csv_file .= 
 						    			$compte->statut.';'.
