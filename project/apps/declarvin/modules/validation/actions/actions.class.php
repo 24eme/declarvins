@@ -54,8 +54,10 @@ class validationActions extends sfActions {
 								$dematerialise_ciel = 'oui';
 							}
 							$corres = array();
+							if ($etablissement->exist('correspondances')) {
 							foreach ($etablissement->correspondances as $interpro => $correspondance) {
 								$corres[] = str_replace('INTERPRO-', '', $interpro).':'.$correspondance;
+							}
 							}
 							$zones = array();
 							$zonesLibelles = array();
