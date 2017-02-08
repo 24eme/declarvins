@@ -31,7 +31,7 @@ class statistiqueActions extends sfActions {
         if (!$this->campagne) {
             $this->campagne = DRMClient::getInstance()->buildCampagne(date('Y-m'));
             $campagne = explode('-', $this->campagne);
-            $this->formCampagne->setDefault('campagne', $campagne[0]);
+            $this->formCampagne->setDefault('campagne', $campagne[1]);
         } else {
             $this->statistiquesBilan = new StatistiquesBilan($this->interpro->get('_id'), $this->campagne);
         }
