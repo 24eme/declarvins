@@ -260,7 +260,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	$details = $this->getDetails();
     	$isNeant = true;
     	foreach ($details as $detail) {
-    		if ($detail->hasMouvement()) {
+    		if ($detail->total > 0 || $detail->acq_total > 0) {
     			$isNeant = false;
     			break;
     		}
