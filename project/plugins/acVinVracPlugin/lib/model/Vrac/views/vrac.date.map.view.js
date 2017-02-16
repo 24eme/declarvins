@@ -124,6 +124,12 @@ function(doc) {
 		var vrac_addr_stockage_code_postal = doc.adresse_stockage.code_postal;
 		var vrac_addr_stockage_commune = doc.adresse_stockage.commune;
 		var vrac_addr_stockage_pays = doc.adresse_stockage.pays;
+		
+
+		var vrac_poids = (doc.poids)? doc.poids : null;
+		var vrac_mercuriale = (doc.mercuriale)? doc.mercuriale : null;
+		var vrac_variation_hausse = (doc.variation_hausse)? doc.variation_hausse : null;
+		var vrac_variation_baisse = (doc.variation_baisse)? doc.variation_baisse : null;
 
 		var vrac_addr_stockage_has = 0;
 		if (vrac_addr_stockage_adresse || vrac_addr_stockage_code_postal || vrac_addr_stockage_commune) {
@@ -256,7 +262,11 @@ function(doc) {
 				 vrac_vendeur_ea,
 				 vrac_determination_prix_date,
 				 vrac_campagne,
-				 vrac_volume_enleve
+				 vrac_volume_enleve,
+				 vrac_poids,
+				 vrac_mercuriale,
+				 vrac_variation_hausse,
+				 vrac_variation_baisse
                 		 ]);
 			}
 		} else {
@@ -342,7 +352,11 @@ function(doc) {
 			 vrac_vendeur_ea,
 			 vrac_determination_prix_date,
 			 vrac_campagne,
-			 vrac_volume_enleve
+			 vrac_volume_enleve,
+			 vrac_poids,
+			 vrac_mercuriale,
+			 vrac_variation_hausse,
+			 vrac_variation_baisse
             		 ]);
 		}                              
 	} 
