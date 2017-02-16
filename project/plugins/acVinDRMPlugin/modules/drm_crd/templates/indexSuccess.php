@@ -62,7 +62,7 @@
                    				<?php endif; ?>
                    				<?php echo $drm->crds->get($key)->libelle; ?>
                    			</td>
-                   			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key), 'total_debut_mois') ?>"><?php echo (isset($form['crds'][$key]['total_debut_mois']))? $form['crds'][$key]['total_debut_mois'] : $drm->crds->get($key)->total_debut_mois;?><input type="hidden" value="<?php echo $drm->crds->get($key)->total_debut_mois; ?>" class="entrees" /></td>
+                   			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key), 'total_debut_mois') ?>"><?php echo $form['crds'][$key]['total_debut_mois'] ?></td>
                    			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key)->entrees, 'achats') ?>"><?php echo $form['crds'][$key]['entrees']['achats']->render(array('class' => 'entrees')) ?></td>
                    			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key)->entrees, 'excedents') ?>"><?php echo $form['crds'][$key]['entrees']['excedents']->render(array('class' => 'entrees')) ?></td>
                    			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key)->entrees, 'retours') ?>"><?php echo $form['crds'][$key]['entrees']['retours']->render(array('class' => 'entrees')) ?></td>

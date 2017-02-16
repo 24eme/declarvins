@@ -260,7 +260,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	$details = $this->getDetails();
     	$isNeant = true;
     	foreach ($details as $detail) {
-    		if ($detail->hasMouvement()) {
+    		if ($detail->total_debut_mois > 0 || $detail->acq_total_debut_mois > 0 || $detail->total > 0 || $detail->acq_total > 0) {
     			$isNeant = false;
     			break;
     		}
@@ -860,7 +860,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         } else {
         	$mother = $this->getPrecedente();
         	if ($acq) {
-        		
         		if ($mother && $this->hasDroitsAcquittes() && !$mother->hasDroitsAcquittes()) {
         			return true;
         		}
@@ -1492,7 +1491,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 	}
 	
 	public function getExportableCategoriesMouvements() {
-		return array('total_debut_mois', 'acq_total_debut_mois', 'stocks_debut', 'entrees', 'sorties', 'stocks_fin', 'total', 'acq_total', 'tav', 'premix', 'observations');
+		return array('total_debut_mois', 'acq_total_debut_mois', 'entrees', 'sorties', 'total', 'acq_total', 'tav', 'premix', 'observations');
 	}
 	
 	public function getExportableCategorieByType($type) {
@@ -1561,15 +1560,14 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		$referent = null;
 		if ($identifiant) {
 			$referent = EtablissementClient::getInstance()->find($identifiant);
-		} elseif ($ea) {
+		} 
+		if (!$referent && $ea) {
 			$referent = ConfigurationClient::getCurrent()->identifyEtablissement($ea);
-		} elseif ($siretCvi) {
+		} 
+		if (!$referent && $siretCvi) {
 			$referent = ConfigurationClient::getCurrent()->identifyEtablissement($siretCvi);
 		}
 		if (!$referent) {
-			return false;
-		}
-		if ($identifiant && $referent->identifiant != $identifiant) {
 			return false;
 		}
 		if ($siretCvi && !($referent->cvi == $siretCvi || $referent->siret == $siretCvi)) {

@@ -131,16 +131,16 @@
 		$(".total_crd").each(function() {
 			var total = $(this);
 			var ligne = total.parent();
-			var inputs = ligne.find("input");
+			var inputs = ligne.find("input[type=\"text\"]");
 			var nbInputs = inputs.length;
 			var somme = 0;
 			
-			var sommeIputs = function()
+			var sommeInputs = function()
 			{
 				somme = 0;
 				inputs.each(function(i)
 				{
-					var input = $(this)
+					var input = $(this);
 					var valeur = parseInt(input.val());
 					
 					if (isNaN(valeur)) {
@@ -153,12 +153,12 @@
 						somme = somme + valeur;
 					}
 					
-					if(i == nbInputs-1) total.html(somme);
+					total.html(somme);
 				});
 			}
 			
 			inputs.blur(function(){
-				sommeIputs();
+				sommeInputs();
 			});
 		});
 	}

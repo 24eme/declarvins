@@ -42,9 +42,7 @@
 			<small style="font-size: 11px; padding: 0 0 0 205px; display: inline-block; line-height: normal;"><i>Exprimée en <strong><u>centilitre</u></strong> (cL).<br />Nombre acceptant <strong><u>un</u></strong> chiffre après la virgule.</i></small>
 		</div>
 	</div>
-	<?php if ($form->getDRM()->canSetStockDebutMois() || $form->getDRM()->isFirstCiel()): ?>
 	<a href="#" id="lien_<?php echo $form['disponible']->renderId() ?>" style="font-size: 12px">Je souhaite déclarer un stock disponible</a>
-	<?php endif; ?>
 	<div id="ligne_<?php echo $form['disponible']->renderId() ?>" class="ligne_form" style="display: none">
 		<span class="error"><?php echo $form['disponible']->renderError() ?></span>
 		<?php echo $form['disponible']->renderLabel() ?>

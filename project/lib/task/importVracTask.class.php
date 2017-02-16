@@ -4,15 +4,15 @@ class importVracTask extends sfBaseTask
 {
   protected function configure()
   {
-    // // add your own arguments here
+    $this->addArguments(array(
+      new sfCommandArgument('csvFile', sfCommandArgument::REQUIRED, 'Fichier contenant le contrat à importer'),
+  	));
 
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
-      new sfCommandOption('file', null, sfCommandOption::PARAMETER_REQUIRED, null),
-      new sfCommandOption('interpro', null, sfCommandOption::PARAMETER_REQUIRED, null),
-      // add your own options here
+      new sfCommandOption('checking', null, sfCommandOption::PARAMETER_REQUIRED, 'Cheking mode', 0),
     ));
 
     $this->namespace        = 'import';
@@ -23,46 +23,109 @@ class importVracTask extends sfBaseTask
 EOF;
   }
 
-    protected function execute($arguments = array(), $options = array())
+	protected function execute($arguments = array(), $options = array())
   {
     // initialize the database connection
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-        $csv = new CsvFile($options['file']);
-    $lignes = $csv->getCsv();
-    $vracClient = VracClient::getInstance();
-    $vracConfiguration = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($options['interpro']);
-
-    $numLigne = 0;
-    foreach ($lignes as $ligne) {
-        $numLigne++;
-        $import = new VracDetailImport($ligne, $vracClient, $vracConfiguration);
-        $vrac = $import->getVrac();
-        if ($import->hasErrors()) {
-                $this->logSection('vrac', "echec de l'import du contrat ligne $numLigne", null, 'ERROR');
-                $this->logBlock($import->getLogs(), 'ERROR');
-        } else {
-                $vrac->volume_propose = floatval($vrac->volume_propose);
-                $vrac->prix_unitaire = floatval($vrac->prix_unitaire);
-                foreach($vrac->lots as $key => $lot) {
-                        foreach($lot->cuves as $key2 => $cuve) {
-                                $cuve->volume = floatval($cuve->volume);
-                        	
-                        }
-                }
-                foreach($vrac->paiements as $key => $paiement) {
-                	$paiement->volume = floatval($paiement->volume);
-                }
-                try {
-                	$vrac->save(false);
-                } catch (Exception $e) {
-                	$this->logSection('vrac', $numLigne." : erreur save ".$e->getMessage());
-                	continue;
-                }
-                $this->logSection('vrac', $vrac->get('_id')." : succès de l'import du contrat ligne $numLigne.");
-        }
+    $csvFile = $arguments['csvFile'];
+    $checkingMode = $options['checking'];
+    $files = array();
+    $message = '<h2>Monitoring du flux d\'import des Contrats en provenance d\'InterSud</h2>';
+    
+    if (is_dir($csvFile)) {
+    	if ($dir = @opendir($csvFile)) {
+    		while (($f = readdir($dir)) !== false) {
+    			if($f != ".." && $f != ".") {
+    				$files[] = $csvFile.'/'.$f;
+    			}
+    		}
+    		closedir($dir);
+    	}
+    } else {
+    	$files = array($csvFile);
     }
+    
+    foreach ($files as $file) {
+    	$etablissementIdentifiant = null;
+    	$visa = null;
+    	$result = array();
+    
+	    if (!file_exists($file)) {
+	    	$result[] = array('ERREUR', 'ACCES', null, "Le fichier $file n'existe pas");
+	    } else {    
+
+	    	$fileName = explode('/', $file);
+	    	$fileName = explode('_', str_replace('.csv', '', $fileName[count($fileName) - 1]));
+	    	$etablissementIdentifiant = $fileName[0];
+	    	$visa = $fileName[1];
+	    	
+	    	try {
+		    	$vrac = new Vrac();
+		    	$vracCsvEdi = new VracImportCsvEdi($file, $vrac);
+		    	$vracCsvEdi->checkCSV();
+		    		
+		    	if($vracCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
+		    		foreach($vracCsvEdi->getCsvDoc()->erreurs as $erreur) {
+		    			if ($erreur->num_ligne > 0) {
+		    				$result[] = array('ERREUR', 'CSV', $erreur->num_ligne, $erreur->diagnostic, $erreur->csv_erreur);
+		    			} else {
+		    				$result[] = array('ERREUR', 'CSV', null, $erreur->diagnostic, $erreur->csv_erreur);
+		    			}
+		    		}
+		    	} else {
+		    		$vracCsvEdi->importCsv();
+		    		$errors = 0;
+		    		if($vracCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
+		    			foreach($vracCsvEdi->getCsvDoc()->erreurs as $erreur) {
+		    				$result[] = array('ERREUR', 'CSV', $erreur->num_ligne, $erreur->diagnostic, $erreur->csv_erreur);
+		    				$errors++;
+		    			}
+		    		} else {
+		    			$etablissement = $vrac->getVendeurObject();
+		    			$vrac->constructId();
+			    		if (!$etablissement->hasDroit(EtablissementDroit::DROIT_VRAC)) {
+			    			$result[] = array('ERREUR', 'ACCES', null, "L'établissement ".$etablissement->identifiant." n'est pas autorisé à déclarer des DRMs");
+			    			$errors++;
+			    		}
+			    		if ($existant = VracClient::getInstance()->find($vrac->_id)) {
+			    			$vrac->volume_enleve = $existant->volume_enleve;
+			    		}
+			    		if (!$errors) {
+			    			if (!$checkingMode) {
+			    				$vrac->validateEdi();
+			    				$vrac->save(false);
+			    			}
+			    			$result[] = array('SUCCESS', 'CSV', null, 'Le Contrat '.$vrac->_id." pour ".$vrac->vendeur_identifiant.' a été importé avec succès');
+			    		}
+		    		}
+		    	}
+		    		
+		    } catch(Exception $e) {
+		    	$result[] = array('ERREUR', 'CSV', null, $e->getMessage());
+		    }
+	  	}
+	  	$message .= $this->messagizeRapport($result, $etablissementIdentifiant, $visa);
+    }
+  	if ($checkingMode) {
+  		echo str_replace("</h2>", "\n", str_replace("</h3>", "\n", str_replace("<h2>", "", str_replace("<h3>", "", str_replace("<li>", "\t", str_replace(array("<ul>", "</ul>", "</li>"), "\n", $message))))));
+  	} else {
+  		$mail = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), sfConfig::get('app_email_to_notification'), "DeclarVins // Rapport import Contrats InterSud", $message)->setContentType('text/html');
+  		$this->getMailer()->sendNextImmediately()->send($mail);
+  	}
+
+  }
+  
+  private function messagizeRapport($rapport, $etablissementIdentifiant, $periode)
+  {
+	$message = '<h3>Etablissement '.$etablissementIdentifiant.' / Periode '.$periode.'</h3>';
+  	$message .= '<ul>';
+  	foreach ($rapport as $rapportItem) {
+  		$message .= '<li>'.implode(' | ', $rapportItem).'</li>';
+  	}
+  	$message .= '</ul>';  	 
+  	return $message;
   }
 }
   

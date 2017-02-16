@@ -141,47 +141,28 @@ class ediActions extends sfActions
   
   public function executeStreamDRMInterpro(sfWebRequest $request) 
   {
-  	ini_set('memory_limit', '4096M');
+  	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
+  	
+  	$interpro = $this->securizeInterpro($request->getParameter('interpro'));
     $date = str_replace(array('h', 'H', 'm', 'M'), ':', $request->getParameter('datedebut'));
-    $interpro = $request->getParameter('interpro');
-    $limit = $request->getParameter('limit');
-  	$this->securizeInterpro($interpro);
     if (!$date) {
 		return $this->renderText("Pas de date définie");
     }
-    if (!preg_match('/^INTERPRO-/', $interpro)) {
-		$interpro = 'INTERPRO-'.$interpro;
-    }
-    $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
+    $items = EdiDrmpartenaireView::getInstance()->findByInterproDate($interpro->_id, $dateForView->format('c'))->rows;
     $csv = '';
-    $datas = DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows;
-    if ($interpro == 'INTERPRO-IS') {
-    	$datas = array_merge($datas, DRMDateView::getInstance()->findByInterproAndDate('INTERPRO-IO', $dateForView->modify('-1 second')->format('c'))->rows);
-    	$datas = array_merge($datas, DRMDateView::getInstance()->findByInterproAndDate('INTERPRO-CIVL', $dateForView->modify('-1 second')->format('c'))->rows);
-    }
-    $drms = array();
-    $lastDate = $dateTime->format('c');
-    foreach ($datas as $data) {
-    	if ($limit && count($drms) >= $limit) {
-    		break;
-    	}
-    	if (!in_array($data->id, $drms) && $drm = DRMClient::getInstance()->find($data->id)) {
-    		$export = new DRMExportCsvEdi($drm);
-    		if ($interpro == 'INTERPRO-IS') {
-    			$csv .= $export->exportEDIInterpro(array($interpro, 'INTERPRO-IO', 'INTERPRO-CIVL', 'INTERPRO-ANIVIN'));
-    		} else {
-    			$csv .= $export->exportEDIInterpro(array($interpro, 'INTERPRO-ANIVIN'));
-    		}
-    		$drms[] = $data->id;
-	      	if ($lastDate < $drm->valide->date_saisie) {
-	      		$lastDate = $drm->valide->date_saisie;
-	      	}
+    $lastDate = $dateForView->format('c');
+    foreach ($items as $item) {
+    	$csv .= implode(';', $item->value);
+    	$csv .= "\n";
+    	if ($lastDate < $item->key[EdiDrmpartenaireView::KEY_DATE]) {
+    		$lastDate = $item->key[EdiDrmpartenaireView::KEY_DATE];
     	}
     }
+    
     $lastDate = new DateTime($lastDate);
-    $filename = 'DRM_'.$dateTime->format('Y-m-d\TH\hi\ms').'_'.$lastDate->format('Y-m-d\TH\hi\ms').'.csv';
+    $filename = 'DRM_'.strtolower($interpro->identifiant).'_'.$dateForView->format('Y-m-d\TH\hi\ms').'_'.$lastDate->format('Y-m-d\TH\hi\ms').'.csv';
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('md5', md5($csv));
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$filename);

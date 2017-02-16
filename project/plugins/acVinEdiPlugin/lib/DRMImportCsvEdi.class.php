@@ -55,13 +55,16 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     {
         $numLigne = 0;
     	foreach ($this->getDocRows() as $csvRow) {
-    		if ($numLigne == 0) {
-    			$this->importDRM($csvRow);
-    		}
-            $numLigne++;
-            if ($numLigne == 1 && KeyInflector::slugify($csvRow[self::CSV_TYPE]) == 'TYPE') {
+            if (preg_match('/^#/', $csvRow[self::CSV_TYPE])) {
                 continue;
             }
+    		if ($numLigne == 0) {
+    			$this->importDRM($csvRow);
+    			if ($this->csvDoc->hasErreurs()) {
+    				break;
+    			}
+    		}
+            $numLigne++;
     		switch($csvRow[self::CSV_TYPE]) {
     			case self::TYPE_CAVE:
     				$this->importCave($numLigne, $csvRow);
@@ -129,8 +132,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   			}
   		}
   		
-  		$produit = $this->drm->addProduit($hash, $complement);
-  		
+  		$produit = ($complement)? $this->drm->addProduit($hash, $complement) : $this->drm->addProduit($hash);
+
   		$categorieMvt = $datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT];
   		$typeMvt = $this->drm->getImportableLibelleMvt($datas[self::CSV_CAVE_TYPE_DROITS], $datas[self::CSV_CAVE_TYPE_MOUVEMENT]);
   		$valeur = $datas[self::CSV_CAVE_VOLUME];
@@ -369,15 +372,15 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     }
 
     private function checkCSVIntegrity() {
-        $ligne_num = 1;
+        $ligne_num = 0;
         $periodes = array();
         $accises = array();
         $identifiants = array();
         foreach ($this->getDocRows() as $csvRow) {
-            if ($ligne_num == 1 && KeyInflector::slugify($csvRow[self::CSV_TYPE]) == 'TYPE') {
-                $ligne_num++;
+            if (preg_match('/^#/', $csvRow[self::CSV_TYPE])) {
                 continue;
             }
+            $ligne_num++;
             if (!in_array($csvRow[self::CSV_TYPE], self::$permitted_types)) {
                 $this->csvDoc->addErreur($this->createWrongFormatTypeError($ligne_num, $csvRow));
             }
@@ -386,13 +389,12 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             } else {
             	$periodes[$csvRow[self::CSV_PERIODE]] = 1;
             }
-            if ($csvRow[self::CSV_NUMACCISE] && !preg_match('/^FR0[0-9]{10}$/', $csvRow[self::CSV_NUMACCISE])) {
+            if ($csvRow[self::CSV_NUMACCISE] && !preg_match('/^FR0[a-zA-Z0-9]{10}$/', $csvRow[self::CSV_NUMACCISE])) {
                 $this->csvDoc->addErreur($this->createWrongFormatNumAcciseError($ligne_num, $csvRow));
             } else {
             	$accises[$csvRow[self::CSV_NUMACCISE]] = 1;
             }
             $identifiants[$csvRow[self::CSV_IDENTIFIANT]] = 1;
-            $ligne_num++;
         }
         if (count($periodes) > 1) {
         	$this->csvDoc->addErreur($this->createMultiPeriodeError());
@@ -406,17 +408,17 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     }
     
     private function createMultiPeriodeError() {
-        return $this->createError(0, 'DRM', "Import limité à une seule période");
+        return $this->createError(null, 'DRM', "Import limité à une seule période");
     }
     private function createMultiAcciseError() {
-        return $this->createError(0, 'DRM', "Import limité à un seul numéro d'EA");
+        return $this->createError(null, 'DRM', "Import limité à un seul numéro d'EA");
     }
     private function createMultiIdentifiantError() {
-        return $this->createError(0, 'DRM', "Import limité à un seul établissement");
+        return $this->createError(null, 'DRM', "Import limité à un seul établissement");
     }
     
     private function etablissementNotFoundError() {
-    	return $this->createError(0, 'DRM', "Impossible d'identifier l'établissement");
+    	return $this->createError(null, 'DRM', "Impossible d'identifier l'établissement");
     }
     
     private function createWrongFormatTypeError($num_ligne, $csvRow) {

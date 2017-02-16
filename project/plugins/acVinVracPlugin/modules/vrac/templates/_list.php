@@ -109,7 +109,6 @@
 			      
 			  </td>
 			 <td>
-			  <?php if($elt[VracHistoryView::VRAC_VIEW_ACHETEUR_ID]): ?>
 			      <span class="<?php if ($elt[VracHistoryView::VRAC_VIEW_ACHETEURVAL]): ?>texte_vert<?php else: ?>texte_rouge<?php endif; ?>">
 			      <?php if($elt[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM]): ?>
 			          <?php echo $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM] ?>
@@ -120,10 +119,9 @@
 			      <?php endif; ?>
 			      </span>
 				  <?php if ($elt[VracHistoryView::VRAC_VIEW_ACHETEURVAL]): ?><br />Signé le <?php echo date('d/m/Y', strtotime($elt[VracHistoryView::VRAC_VIEW_ACHETEURVAL])) ?><?php endif; ?>
-			<?php endif; ?>
+			
 		    </td>   
 		  <td>
-			  <?php if($elt[VracHistoryView::VRAC_VIEW_VENDEUR_ID]): ?>
 				      <span class="<?php if ($elt[VracHistoryView::VRAC_VIEW_VENDEURVAL]): ?>texte_vert<?php else: ?>texte_rouge<?php endif; ?>">
 				      <?php if($elt[VracHistoryView::VRAC_VIEW_VENDEUR_NOM]): ?>
 				          <?php echo $elt[VracHistoryView::VRAC_VIEW_VENDEUR_NOM] ?>
@@ -134,7 +132,6 @@
 				      <?php endif; ?>
 				      </span>
 					  <?php if ($elt[VracHistoryView::VRAC_VIEW_VENDEURVAL]): ?><br />Signé le <?php echo date('d/m/Y', strtotime($elt[VracHistoryView::VRAC_VIEW_VENDEURVAL])) ?><?php endif; ?>
-				<?php endif; ?>
 		    </td> 
 		  <td>
 		  		  <?php if($elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_ID]): ?>
@@ -244,7 +241,6 @@
 			      
 			  </td>
 			 <td>
-			  <?php if($elt[VracHistoryView::VRAC_VIEW_ACHETEUR_ID]): ?>
 			      <span class="<?php if ($elt[VracHistoryView::VRAC_VIEW_ACHETEURVAL]): ?>texte_vert<?php else: ?>texte_rouge<?php endif; ?>">
 			      <?php if($elt[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM]): ?>
 			          <?php echo $elt[VracHistoryView::VRAC_VIEW_ACHETEUR_NOM] ?>
@@ -255,10 +251,8 @@
 			      <?php endif; ?>
 			      </span>
 				  <?php if ($elt[VracHistoryView::VRAC_VIEW_ACHETEURVAL]): ?><br />Signé le <?php echo date('d/m/Y', strtotime($elt[VracHistoryView::VRAC_VIEW_ACHETEURVAL])) ?><?php endif; ?>
-			<?php endif; ?>
 		    </td>   
 		  <td>
-			  <?php if($elt[VracHistoryView::VRAC_VIEW_VENDEUR_ID]): ?>
 				      <span class="<?php if ($elt[VracHistoryView::VRAC_VIEW_VENDEURVAL]): ?>texte_vert<?php else: ?>texte_rouge<?php endif; ?>">
 				      <?php if($elt[VracHistoryView::VRAC_VIEW_VENDEUR_NOM]): ?>
 				          <?php echo $elt[VracHistoryView::VRAC_VIEW_VENDEUR_NOM] ?>
@@ -269,7 +263,6 @@
 				      <?php endif; ?>
 				      </span>
 					  <?php if ($elt[VracHistoryView::VRAC_VIEW_VENDEURVAL]): ?><br />Signé le <?php echo date('d/m/Y', strtotime($elt[VracHistoryView::VRAC_VIEW_VENDEURVAL])) ?><?php endif; ?>
-				<?php endif; ?>
 		    </td> 
 		  <td>
 		  		  <?php if($elt[VracHistoryView::VRAC_VIEW_MANDATAIRE_ID]): ?>
