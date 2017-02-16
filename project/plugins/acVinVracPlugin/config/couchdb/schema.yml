@@ -194,6 +194,7 @@ Vrac:
             '*': {  }
       mentions_libelle: {  }
       volume_propose: { type: float }
+      poids: { type: float }
       annexe: {  }
       prix_unitaire: { type: float }
       type_prix: {  }
@@ -205,6 +206,9 @@ Vrac:
       part_cvo: { type: float }
       prix_total: { type: float }
       prix_total_net: { type: float }
+      mercuriale: {  }
+      variation_hausse: { type: float }
+      variation_baisse: { type: float }
       conditions_paiement: {  }
       conditions_paiement_libelle: {  }
       type_echeancier_paiement: {  }

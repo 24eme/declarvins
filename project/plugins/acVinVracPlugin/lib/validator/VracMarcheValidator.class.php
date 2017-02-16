@@ -15,6 +15,20 @@ class VracMarcheValidator extends sfValidatorBase {
     protected function doClean($values) {
     	$errorSchema = new sfValidatorErrorSchema($this);
     	$hasError = false;
+    	if (in_array('mercuriale_mois', array_keys($values)) && in_array('mercuriale_annee', array_keys($values))) {
+    		if ($values['mercuriale_mois'] && !$values['mercuriale_annee']) {
+    			$errorSchema->addError(new sfValidatorError($this, 'required'), 'mercuriale_annee');
+    			$hasError = true;
+    		}
+    		if (!$values['mercuriale_mois'] && $values['mercuriale_annee']) {
+    			$errorSchema->addError(new sfValidatorError($this, 'required'), 'mercuriale_mois');
+    			$hasError = true;
+    		}
+    	}
+    	if ($values['type_transaction'] == 'raisin' && !$values['poids']) {
+    		$errorSchema->addError(new sfValidatorError($this, 'required'), 'poids');
+    		$hasError = true;
+    	}
     	if (isset($values['type_prix']) && in_array($values['type_prix'], $this->getTypePrixNeedDetermination())) {
     		if (isset($values['determination_prix']) && !($values['determination_prix'])) {
     			$errorSchema->addError(new sfValidatorError($this, 'required'), 'determination_prix');

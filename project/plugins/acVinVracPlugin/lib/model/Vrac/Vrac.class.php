@@ -237,11 +237,12 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 
     public function update($params = array()) {
       parent::update($params);
-      $this->prix_total_net = round($this->prix_unitaire * $this->volume_propose, 2);
+      $vol = ($this->poids)? $this->poids : $this->volume_propose;
+      $this->prix_total_net = round($this->prix_unitaire * $vol, 2);
 	  if ($this->has_cotisation_cvo && $this->part_cvo > 0) {
-	  	$this->prix_total = round($this->volume_propose * $this->getTotalUnitaire(), 2);
+	  	$this->prix_total = round($vol * $this->getTotalUnitaire(), 2);
 	  } else {
-      	$this->prix_total = round($this->prix_unitaire * $this->volume_propose, 2);
+      	$this->prix_total = round($this->prix_unitaire * $vol, 2);
 	  }
     }
     
