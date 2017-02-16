@@ -19,9 +19,7 @@
 	<div class="ligne_form">
 	<?php echo MessagesClient::getInstance()->getMessage('help_popup_drm_crd_centilisations'); ?>
 	</div>
-	<?php if ($form->getDRM()->canSetStockDebutMois() || $form->getDRM()->isFirstCiel()): ?>
 	<a href="#" id="lien_<?php echo $form['disponible']->renderId() ?>" style="font-size: 12px">Je souhaite déclarer un stock disponible</a>
-	<?php endif; ?>
 	<div id="ligne_<?php echo $form['disponible']->renderId() ?>" class="ligne_form" style="display: none">
 		<span class="error"><?php echo $form['disponible']->renderError() ?></span>
 		<?php echo $form['disponible']->renderLabel() ?>
