@@ -7,7 +7,7 @@ function(doc) {
 			for (entree in detail.entrees) {
 				if (entree.indexOf('_details') != -1) { continue; }
 				if (detail.entrees[entree]) {
-					var acq = (entree.indexOf('acq_') == -1)? 'SUSPENDUS' : 'ACQUITTES';
+					var acq = (entree.indexOf('acq_') == -1)? 'suspendu' : 'acquitte';
 					mvts[i] = [acq, 'entrees', entree.replace('acq_', ''), (detail.entrees[entree]).toFixed(4), null, null];
 					i++;
 				}
@@ -15,41 +15,41 @@ function(doc) {
 			for (sortie in detail.sorties) {
 				if (sortie.indexOf('_details') != -1) { continue; }
 				if (detail.sorties[sortie]) {
-					var acq = (sortie.indexOf('acq_') == -1)? 'SUSPENDUS' : 'ACQUITTES';
+					var acq = (sortie.indexOf('acq_') == -1)? 'suspendu' : 'acquitte';
 					mvts[i] = [acq, 'sorties', sortie.replace('acq_', ''), (detail.sorties[sortie]).toFixed(4), null, null];
 					i++;
 				}
 			}
 			if (detail.total_debut_mois) {
-				mvts[i] = ['SUSPENDUS', 'stocks', 'total_debut_mois', (detail.total_debut_mois).toFixed(4), null, null];
+				mvts[i] = ['suspendu', 'stocks', 'total_debut_mois', (detail.total_debut_mois).toFixed(4), null, null];
 				i++;
 			}
 			if (detail.total) {
-				mvts[i] = ['SUSPENDUS', 'stocks', 'total', (detail.total).toFixed(4), null, null];
+				mvts[i] = ['suspendu', 'stocks', 'total', (detail.total).toFixed(4), null, null];
 				i++;
 			}
 			if (detail.acq_total_debut_mois) {
-				mvts[i] = ['ACQUITTES', 'stocks', 'total_debut_mois', (detail.acq_total_debut_mois).toFixed(4), null, null];
+				mvts[i] = ['acquitte', 'stocks', 'total_debut_mois', (detail.acq_total_debut_mois).toFixed(4), null, null];
 				i++;
 			}
 			if (detail.acq_total) {
-				mvts[i] = ['ACQUITTES', 'stocks', 'total', (detail.acq_total).toFixed(4), null, null];
+				mvts[i] = ['acquitte', 'stocks', 'total', (detail.acq_total).toFixed(4), null, null];
 				i++;
 			}
 			if (detail.tav) {
-				mvts[i] = ['SUSPENDUS', 'complement', 'tav', (detail.tav).toFixed(4), null, null];
+				mvts[i] = ['suspendu', 'complement', 'tav', (detail.tav).toFixed(4), null, null];
 				i++;
 			}
 			if (detail.premix) {
-				mvts[i] = ['SUSPENDUS', 'complement', 'premix', 1, null, null];
+				mvts[i] = ['suspendu', 'complement', 'premix', 1, null, null];
 				i++;
 			}
 			if (detail.observations) {
-				mvts[i] = ['SUSPENDUS', 'complement', 'observations', detail.observations, null, null];
+				mvts[i] = ['suspendu', 'complement', 'observations', detail.observations, null, null];
 				i++;
 			}
 			for (vrac in detail.vrac) {
-				mvts[i] = ['SUSPENDUS', 'complement', 'vrac', ((detail.vrac[vrac]).volume).toFixed(4), null, vrac];
+				mvts[i] = ['suspendu', 'complement', 'vrac', ((detail.vrac[vrac]).volume).toFixed(4), null, vrac];
 				i++;
 			}
             return mvts;
