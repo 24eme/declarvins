@@ -27,7 +27,7 @@ La dernière colonne indique le libellé complet du produit, le processus d'impo
 
 Le catalogue des mouvements de DRM admis par le portail DeclarVins  [Catalogue mouvements](catalogue_mouvements_declarvins.csv) est composé de quatres colonnes :
 
-1. Le type de DRM : suspendu ou acquitte
+1. Le type de DRM : « suspendu » ou « acquitte »
 2. La catégorie du mouvement : stocks, entrees, sorties ou complement
 3. Le type du mouvement : achat, crd, vrac, repli...
 4. Un commentaire : définition du mouvement
@@ -76,4 +76,4 @@ Ce fichier reprend l'ensemble des spécificités décrites ci-dessus.
 | ISAGRI           | Oui |      |  |  |  |
 | ICS-SUD          | Oui |      |  |  |  |
 | I3S              | Oui |      |  |  |  |
-| Antislash        | Oui |      |  |  |  |
+| Antislash        | Oui | Oui  |  |  |  |
