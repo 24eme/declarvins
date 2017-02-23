@@ -40,7 +40,7 @@ EOF;
 	$compare = new DRMCielCompare($xmlIn, $xmlOut);
     if ($compare->hasDiff()) {
     	$diffs= '';
-    	foreach ($compare->getDiff()as $k => $v) {
+    	foreach ($compare->getLitteralDiff()as $k => $v) {
     		$diffs .= "$k : $v\n";
     	}
     	echo $diffs;
