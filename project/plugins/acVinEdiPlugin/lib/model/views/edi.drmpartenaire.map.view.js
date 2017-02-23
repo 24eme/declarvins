@@ -8,7 +8,7 @@ function(doc) {
 				if (entree.indexOf('_details') != -1) { continue; }
 				if (detail.entrees[entree]) {
 					var acq = (entree.indexOf('acq_') == -1)? 'SUSPENDUS' : 'ACQUITTES';
-					mvts[i] = [acq, 'entrees', entree, (detail.entrees[entree]).toFixed(4), null, null];
+					mvts[i] = [acq, 'entrees', entree.replace('acq_', ''), (detail.entrees[entree]).toFixed(4), null, null];
 					i++;
 				}
 			}
@@ -16,7 +16,7 @@ function(doc) {
 				if (sortie.indexOf('_details') != -1) { continue; }
 				if (detail.sorties[sortie]) {
 					var acq = (sortie.indexOf('acq_') == -1)? 'SUSPENDUS' : 'ACQUITTES';
-					mvts[i] = [acq, 'sorties', sortie, (detail.sorties[sortie]).toFixed(4), null, null];
+					mvts[i] = [acq, 'sorties', sortie.replace('acq_', ''), (detail.sorties[sortie]).toFixed(4), null, null];
 					i++;
 				}
 			}
