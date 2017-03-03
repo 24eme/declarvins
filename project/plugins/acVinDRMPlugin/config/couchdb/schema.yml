@@ -571,6 +571,7 @@ DRM:
             identifiant_declaration: {  }
             horodatage_depot: {  }
             diff: {  }
+            date_relance: { required: false }
       mouvements:
         type: collection
         definition:

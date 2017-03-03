@@ -5,6 +5,8 @@ class CielDrmView extends acCouchdbView
 	const KEY_ACCISES = 1;
 	const KEY_PERIODE = 2;
 	
+	const VALUE_CIELVALIDE = 0;
+	
 
 	public static function getInstance() 
 	{

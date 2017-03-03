@@ -335,6 +335,59 @@ class Email {
     	return $this->getMailer()->send($message);
     	
     }
+    
+    public function cielSended($drm)
+    {
+    	$etablissement = $drm->getEtablissement();
+    	$compte = $etablissement->getCompteObject();
+    	$from = $this->getFromEmailInterpros(array($etablissement->getInterproObject()),true);
+    	$to = array($compte->email);
+    	$subject = "Confirmation de l'envoi de votre DRM à CIEL";
+    	$body = $this->getBodyFromPartial('ciel_sended', array('drm' => $drm, 'etablissement' => $etablissement));
+    	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+    	$message->addBcc(sfConfig::get('app_email_to_notification'));
+    	return $this->getMailer()->send($message);
+    }
+    
+    public function cielRappel($drm)
+    {
+    	$etablissement = $drm->getEtablissement();
+    	$compte = $etablissement->getCompteObject();
+    	$interpro = $etablissement->getInterproObject();
+    	$from = $this->getFromEmailInterpros(array($interpro),true);
+    	$to = array($compte->email, $interpro->email_contrat_inscription);
+    	$subject = "Rappel validation de votre DRM sur CIEL";
+    	$body = $this->getBodyFromPartial('ciel_rappel', array('drm' => $drm, 'etablissement' => $etablissement));
+    	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+    	$message->addBcc(sfConfig::get('app_email_to_notification'));
+    	return $this->getMailer()->send($message);
+    }
+    
+    public function cielRectificative($drm, $diffs)
+    {
+    	$etablissement = $drm->getEtablissement();
+    	$compte = $etablissement->getCompteObject();
+    	$from = $this->getFromEmailInterpros(array($etablissement->getInterproObject()),true);
+    	$to = array($compte->email);
+    	$subject = "Modification de votre DRM sur CIEL";
+    	$body = $this->getBodyFromPartial('ciel_rectificative', array('drm' => $drm, 'diffs' => $diffs, 'etablissement' => $etablissement));
+    	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+    	$message->addBcc(sfConfig::get('app_email_to_notification'));
+    	return $this->getMailer()->send($message);
+    }
+    
+    public function cielValide($drm)
+    {
+    	$etablissement = $drm->getEtablissement();
+    	$compte = $etablissement->getCompteObject();
+    	$from = $this->getFromEmailInterpros(array($etablissement->getInterproObject()),true);
+    	$to = array($compte->email);
+    	$subject = "Validation de votre DRM sur CIEL";
+    	$body = $this->getBodyFromPartial('ciel_valide', array('drm' => $drm, 'etablissement' => $etablissement));
+    	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+    	$message->addBcc(sfConfig::get('app_email_to_notification'));
+    	return $this->getMailer()->send($message);
+    }
 
     protected function getMailer() 
     {

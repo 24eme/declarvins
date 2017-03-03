@@ -130,6 +130,7 @@ EOF;
 	    							$drm->save();
     							}
     							$rapport[self::RAPPORT_OK_KEY][] = 'La DRM '.$drm->_id.' a été validée avec succès';
+    							Email::getInstance()->cielValide($drm);
     						} else {
     							$exist = false;
     							if ($drm->isVersionnable()) {
@@ -142,12 +143,13 @@ EOF;
 		    							$drm_rectificative->save();
     								}
 	    							$diffs = '<ul>';
-	    							foreach ($compare->getDiff()as $k => $v) {
-	    								$diffs .= "<li>$k : $v</li>";
+	    							foreach ($compare->getLitteralDiff() as $k => $v) {
+	    								$diffs .= "<li>$k => $v</li>";
 	    							}
 	    							$diffs .= '</ul>';
 	    							$rapport[self::RAPPORT_DIFF_KEY][] = 'La DRM '.$drm->_id.' ('.$ea.') doit être rectifiée suite aux modifications suivantes : '.$diffs;
 	    							$files[] = $item;
+	    							Email::getInstance()->cielRectificative($drm, $compare->getLitteralDiff());
     							} else {
     								$rapport[self::RAPPORT_PASS_KEY][] = 'La DRM '.$drm->_id.' à déjà été traitée';
     							}
