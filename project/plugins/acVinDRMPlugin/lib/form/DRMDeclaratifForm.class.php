@@ -243,10 +243,12 @@ class DRMDeclaratifForm extends acCouchdbForm {
         }
         if ($rnas = $values['rna']) {
         	foreach ($rnas as $doc) {
-        		$rna = $this->_drm->declaratif->rna->getOrAdd($doc['numero']);
-        		$rna->numero = $doc['numero'];
-        		$rna->accises = $doc['accises'];
-        		$rna->date = $doc['date'];
+        		if ($doc['numero']) {
+	        		$rna = $this->_drm->declaratif->rna->getOrAdd($doc['numero']);
+	        		$rna->numero = $doc['numero'];
+	        		$rna->accises = $doc['accises'];
+	        		$rna->date = $doc['date'];
+        		}
         	}
         }
         if ($observations = $values['observationsProduits']) {
