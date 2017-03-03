@@ -345,7 +345,6 @@ class Email {
     	$subject = "Confirmation de l'envoi de votre DRM à CIEL";
     	$body = $this->getBodyFromPartial('ciel_sended', array('drm' => $drm, 'etablissement' => $etablissement));
     	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
-    	$message->addBcc(sfConfig::get('app_email_to_notification'));
     	return $this->getMailer()->send($message);
     }
     
@@ -372,7 +371,6 @@ class Email {
     	$subject = "Modification de votre DRM sur CIEL";
     	$body = $this->getBodyFromPartial('ciel_rectificative', array('drm' => $drm, 'diffs' => $diffs, 'etablissement' => $etablissement));
     	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
-    	$message->addBcc(sfConfig::get('app_email_to_notification'));
     	return $this->getMailer()->send($message);
     }
     
@@ -385,7 +383,6 @@ class Email {
     	$subject = "Validation de votre DRM sur CIEL";
     	$body = $this->getBodyFromPartial('ciel_valide', array('drm' => $drm, 'etablissement' => $etablissement));
     	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
-    	$message->addBcc(sfConfig::get('app_email_to_notification'));
     	return $this->getMailer()->send($message);
     }
 

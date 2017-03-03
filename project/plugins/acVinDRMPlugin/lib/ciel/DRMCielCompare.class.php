@@ -61,6 +61,7 @@ class DRMCielCompare
 			'_declaration-recapitulative_{array}/droits-suspendus/{array}/produit/{array}/' => 'DRM / droits suspendus / ',
 			'_declaration-recapitulative_{array}/compte-crd/{array}/' => 'Compte CRD / ',
 			'/{array}/' => ' / ',
+			'/ @attributes / volume' => '',
 		);
 		foreach ($cleans as $k => $r) {
 			$key = str_replace($k, $r, $key);
