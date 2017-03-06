@@ -177,8 +177,12 @@ EOF;
     	echo str_replace("</h2>", "\n", str_replace("</h3>", "\n", str_replace("<h2>", "", str_replace("<h3>", "", str_replace("<li>", "\t", str_replace(array("<ul>", "</ul>", "</li>"), "\n", $s))))));
     } else {
     	if ($interpro) {
+    		$cc = array(sfConfig::get('app_email_to_notification'));
+    		if ($interpro->identifiant == 'CIVP') {
+    			$cc[] = $interpro->email_assistance_ciel;
+    		}
     		$message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $interpro->email_contrat_inscription, "DeclarVins // Rapport CFT ".$interpro->nom, $s)->setContentType('text/html');
-    		$message->setCc(sfConfig::get('app_email_to_notification'));
+    		$message->setCc($cc);
     	} else {
 	    	$message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), sfConfig::get('app_email_to_notification'), "DeclarVins // Rapport CFT", $s)->setContentType('text/html');
     	}
