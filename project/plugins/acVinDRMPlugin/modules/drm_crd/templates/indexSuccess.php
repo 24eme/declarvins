@@ -31,7 +31,7 @@
 	                <button type="submit" class="btn_suiv"><span>Suivant</span></button>
 	            </div>
 	            
-		        <p>Veuillez indiquer ci-dessous le compte des capsules CRD correspondant aux volumes déclarés :</p>
+		        <p>Veuillez indiquer ci-dessous le compte des capsules CRD correspondant aux volumes déclarés <a class="msg_aide" title="Message aide" data-msg="help_popup_drm_crd_centilisations" href=""></a>:</p>
 		        <br />
 	            
 				<table id="lignes_crd" class="tableau_recap">
@@ -62,7 +62,7 @@
                    				<?php endif; ?>
                    				<?php echo $drm->crds->get($key)->libelle; ?>
                    			</td>
-                   			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key), 'total_debut_mois') ?>"><?php echo (isset($form['crds'][$key]['total_debut_mois']))? $form['crds'][$key]['total_debut_mois'] : $drm->crds->get($key)->total_debut_mois;?><input type="hidden" value="<?php echo $drm->crds->get($key)->total_debut_mois; ?>" class="entrees" /></td>
+                   			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key), 'total_debut_mois') ?>"><?php echo $form['crds'][$key]['total_debut_mois'] ?></td>
                    			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key)->entrees, 'achats') ?>"><?php echo $form['crds'][$key]['entrees']['achats']->render(array('class' => 'entrees')) ?></td>
                    			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key)->entrees, 'excedents') ?>"><?php echo $form['crds'][$key]['entrees']['excedents']->render(array('class' => 'entrees')) ?></td>
                    			<td class="<?php echo isVersionnerCssClass($drm->crds->get($key)->entrees, 'retours') ?>"><?php echo $form['crds'][$key]['entrees']['retours']->render(array('class' => 'entrees')) ?></td>

@@ -168,7 +168,7 @@
 				<span><?php echo $configurationVrac->formatDelaisPaiementLibelle(array($vrac->delai_paiement)) ?></span>
 			</li>
 			<?php endif; ?>
-			<?php if (!$vrac->isConditionneIvse()): ?>
+			<?php if (!$vrac->isConditionneIvse() && $vrac->vin_livre): ?>
 			<li>
 				<span>Le vin sera :</span>
 				<span><?php $statut = VracClient::getInstance()->getStatutsVin(); echo $statut[$vrac->vin_livre] ?></span>

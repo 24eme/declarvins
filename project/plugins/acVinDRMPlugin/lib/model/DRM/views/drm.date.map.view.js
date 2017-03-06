@@ -210,7 +210,7 @@ function(doc) {
                                         for(detail_key in cepage.details) {
                                             var detail = cepage.details[detail_key];
                                             var detail_hash =  cepage_hash+"/details/"+detail_key;
-					    var volume_cvo = parseFloat(detail.sorties.vrac + detail.sorties.export + detail.sorties.factures + detail.sorties.crd + detail.sorties.crd_acquittes + detail.sorties.acq_crd);
+					    var volume_cvo = parseFloat(detail.sorties.vrac + detail.sorties.export + detail.sorties.factures + detail.sorties.crd + detail.sorties.crd_acquittes);
                                             if (isNaN(volume_cvo)) {
 					    	volume_cvo = parseFloat(detail.sorties.vrac + detail.sorties.export + detail.sorties.factures + detail.sorties.crd);
 					    }

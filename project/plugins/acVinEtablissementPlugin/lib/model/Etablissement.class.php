@@ -10,6 +10,10 @@ class Etablissement extends BaseEtablissement {
     const STATUT_DELIE = "DELIE";
     const STATUT_CSV = "CSV";
     
+    public function isTransmissionCiel() {
+    	return ($this->transmission_ciel)? true : false;
+    }
+    
     
     public function getCompteObject() {
         if (is_null($this->_compte) && $this->compte) {

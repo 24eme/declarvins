@@ -12,8 +12,8 @@ class DRMCielCompare
 	
 	public function getDiff()
 	{
-		$arrIn = $this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlIn)));
-		$arrOut = $this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlOut)));
+		$arrIn = $this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlIn))); // CIEL
+		$arrOut = $this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlOut))); // INTERPRO
 		
 		$diff = array();
 		foreach ($arrIn as $key => $value) {
@@ -24,7 +24,49 @@ class DRMCielCompare
 				$diff[$key] = $value;
 			}
 		}
+		foreach ($arrOut as $key => $value) {
+			if (!isset($arrIn[$key]) && $value) {
+				$diff[$key] = $value;
+			}
+		}
 		return $diff;
+	}
+	
+	public function getLitteralDiff()
+	{
+		$arrIn = $this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlIn))); // CIEL
+		$arrOut = $this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlOut))); // INTERPRO
+		
+		$diff = array();
+		foreach ($arrIn as $key => $value) {
+			if (!isset($arrOut[$key]) && $value) {
+				$diff['Donnée ajoutée / '.$this->cleanKey($key)] = "$value (CIEL)";
+			}
+			if (isset($arrOut[$key]) && $arrOut[$key] != $value) {
+				$diff['Donnée modifiée / '.$this->cleanKey($key)] = "$value (CIEL) / $arrOut[$key] (Interpro.)";
+			}
+		}
+		foreach ($arrOut as $key => $value) {
+			if (!isset($arrIn[$key]) && $value) {
+				$diff['Donnée supprimée / '.$this->cleanKey($key)] = "$value (Interpro.)";
+			}
+		}
+		return $diff;
+	}
+	
+	private function cleanKey($key)
+	{
+		$cleans = array(
+			'_declaration-recapitulative_{array}/droits-acquittes/{array}/produit/{array}/' => 'DRM / droits acquittés / ',
+			'_declaration-recapitulative_{array}/droits-suspendus/{array}/produit/{array}/' => 'DRM / droits suspendus / ',
+			'_declaration-recapitulative_{array}/compte-crd/{array}/' => 'Compte CRD / ',
+			'/{array}/' => ' / ',
+			'/ @attributes / volume' => '',
+		);
+		foreach ($cleans as $k => $r) {
+			$key = str_replace($k, $r, $key);
+		}
+		return $key;
 	}
 	
 	public function hasDiff()

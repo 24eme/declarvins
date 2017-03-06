@@ -5,10 +5,8 @@ class DRMCrdForm extends acCouchdbObjectForm
 
     public function configure() 
     {
-    	if ($this->getObject()->getDocument()->canSetStockDebutMois() || $this->getObject()->getDocument()->isFirstCiel()) {
     		$this->setWidget('total_debut_mois', new sfWidgetFormInput());
     		$this->setValidator('total_debut_mois', new sfValidatorInteger(array('required' => false)));
-    	}
 
 
     	$this->entrees = new DRMCrdEntreesForm($this->getObject()->entrees);

@@ -6,9 +6,6 @@
             <div class="ligne_form ligne_form_alt">
                 <label>Statut:</label> <?php echo $compte->statut; ?>
             </div>
-            <div class="ligne_form">
-                <label>CIEL:</label> <?php echo ($compte->exist('dematerialise_ciel') && $compte->dematerialise_ciel)? 'oui' : 'non'; ?>
-            </div>
             <div class="ligne_form ligne_form_alt">
                 <label>Nom:</label> <?php echo $compte->nom; ?>
             </div>
@@ -51,10 +48,6 @@
                 <div class="ligne_form ">
                     <?php echo $form->renderHiddenFields(); ?>
                     <?php echo $form->renderGlobalErrors(); ?>
-
-                    <label><?php echo $form['dematerialise_ciel']->renderLabel() ?></label>
-                    <?php echo $form['dematerialise_ciel']->render() ?>
-                    <?php echo $form['dematerialise_ciel']->renderError() ?>
                 </div>
                 <div class="ligne_form ligne_form_alt">
                     <label><?php echo $form['nom']->renderLabel() ?></label>

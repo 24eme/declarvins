@@ -7,7 +7,7 @@ class DRMDetailForm extends acCouchdbObjectForm {
     	$hasTav = false;
     	$hasPremix = false;
     	$inao = $this->getObject()->getCepage()->inao;
-		if (!$inao || preg_match('/^1[0-9a-zA-Z]+Z$/', $inao)) {
+		if (!$inao || preg_match('/^1[0-9a-zA-Z]+Z$/', $inao) || in_array($inao, array('4B999Z', '4R999Z', '4S999Z'))) {
     		$hasTav = true;
     		$hasPremix = true;
 		}

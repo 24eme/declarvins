@@ -5,6 +5,8 @@ class CielDrmView extends acCouchdbView
 	const KEY_ACCISES = 1;
 	const KEY_PERIODE = 2;
 	
+	const VALUE_CIELVALIDE = 0;
+	
 
 	public static function getInstance() 
 	{
@@ -20,6 +22,11 @@ class CielDrmView extends acCouchdbView
       		return DRMClient::getInstance()->find($row->id);
       	}
       	return null;
+    }
+    
+    public function findAllTransmises()
+    {
+    	return $this->client->startkey(array(1))->endkey(array(1, array()))->getView($this->design, $this->view)->rows;
     }
 
 }  

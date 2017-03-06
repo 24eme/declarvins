@@ -23,7 +23,7 @@ class DRMVracValidator extends sfValidatorBase {
 	    			if (!$contrat['vrac'] && $contrat['volume']) {
 	    				throw new sfValidatorErrorSchema($this, array(new sfValidatorError($this, 'couple_contrat')));
 	    			}
-	    			if (in_array($contrat['vrac'], $contratIds)) {
+	    			if (in_array($key.'/'.$contrat['vrac'], $contratIds)) {
 	    				throw new sfValidatorErrorSchema($this, array(new sfValidatorError($this, 'invalid')));
 	    			}
 	    			$contratVrac = VracClient::getInstance()->findByNumContrat($contrat['vrac']);
@@ -38,7 +38,7 @@ class DRMVracValidator extends sfValidatorBase {
 	    					throw new sfValidatorErrorSchema($this, array(new sfValidatorError($this, 'sup')));
 	    				}
 	    			}
-	    			$contratIds[] = $contrat['vrac'];
+	    			$contratIds[] = $key.'/'.$contrat['vrac'];
 	    		}	
     		}
     	}

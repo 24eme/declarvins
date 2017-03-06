@@ -6,7 +6,9 @@
 	<declaration-recapitulative>
 		<identification-declarant>
 			<numero-agrement><?php echo $drm->declarant->no_accises ?></numero-agrement>
+<?php if($drm->declarant->cvi): ?>
 			<numero-cvi><?php echo $drm->declarant->cvi ?></numero-cvi>
+<?php endif; ?>
 		</identification-declarant>
 		<periode>
 			<mois><?php echo $drm->getMois() ?></mois>
@@ -23,7 +25,7 @@
 <?php if ($produit->getInao()): ?>
 				<code-inao><?php echo $produit->getInao() ?></code-inao>
 <?php endif; ?>
-				<libelle-personnalise><?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES | ENT_HTML401)) ?><?php if(count($produit->labels)): ?> <?php echo $produit->getLabelKeyString(); ?><?php endif; ?></libelle-personnalise>
+				<libelle-personnalise><?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES|ENT_HTML401, "UTF-8")) ?><?php if($produit->hasLabel()): ?> <?php echo $produit->getLabelKeyString(); ?><?php endif; ?></libelle-personnalise>
 <?php if ($produit->getTav()): ?>
 				<tav><?php echo sprintf("%01.02f", $produit->getTav()) ?></tav>
 <?php endif; ?>
@@ -54,7 +56,7 @@
 <?php if ($produit->getInao()): ?>
 				<code-inao><?php echo $produit->getInao() ?></code-inao>
 <?php endif; ?>
-				<libelle-personnalise><?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES | ENT_HTML401)) ?></libelle-personnalise>
+				<libelle-personnalise><?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES|ENT_HTML401, "UTF-8")) ?></libelle-personnalise>
 <?php if ($produit->getTav()): ?>
 				<tav><?php echo sprintf("%01.02f", $produit->getTav()) ?></tav>
 <?php endif; ?>

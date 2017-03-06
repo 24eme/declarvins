@@ -1,0 +1,31 @@
+#VISA,IDENTIFIANT VENDEUR,ACCISE VENDEUR,ACHETEUR,CERTIFICATION, GENRE, APPELLATION,MENTION,LIEU,COULEUR,CEPAGE,LIBELLE,MILLESIME,VOLUME INITIAL,VOLUME RETIRE
+1234567,,FR01234567890,Chateau DeclarVins – EARL DeclarVins – 12345678912345,AOP,TRANQ,LUB,,,rouge,,Tranquilles Luberon Rouge ,2010,145,0
+1234567,(12345678912345),FR01234567890,Chateau DeclarVins – EARL DeclarVins – 12345678912345,AOP,TRANQ,CVS,,,rouge,,Tranquilles CdR Villages sans NG Rouge ,2010,122,0
+1234567,,FR01234567890,Chateau DeclarVins,AOP,TRANQ,CVS,,,rouge,,Tranquilles CdR Villages sans NG Rouge ,2009,100,0
+1234567,11223301,FR01234567890,Chateau DeclarVins,AOP,TRANQ,CDR,,,rouge,,Tranquilles Cotes du Rhone Regional Rouge ,2011,368,0
+1234567,11223301,FR01234567890,Chateau DeclarVins,AOP,TRANQ,VAC,,,rouge,,Tranquilles Vacqueyras Rouge ,2010,80,0
+1234567,11223301 (12345678912345),FR01234567890,Chateau DeclarVins – EARL DeclarVins – 12345678912345,AOP,TRANQ,CDR,,,rouge,,Tranquilles Cotes du Rhone Regional Rouge ,2011,1347,0
+1234567,,FR01234567890,Chateau DeclarVins – EARL DeclarVins,AOP,TRANQ,CDR,,,blanc,,Tranquilles Cotes du Rhone Regional Blanc ,2011,250,0
+1234567,,FR01234567890,Chateau DeclarVins – EARL DeclarVins,AOP,TRANQ,CDR,,,rouge,,Tranquilles Cotes du Rhone Regional Rouge ,2011,240,0
+1234567,,FR01234567890,Chateau DeclarVins – EARL DeclarVins – 12345678912345,AOP,TRANQ,CDR,,,rouge,,Tranquilles Cotes du Rhone Regional Rouge ,2011,270,0
+1234567,11223301 (1234567891),,Chateau DeclarVins – EARL DeclarVins,AOP,TRANQ,CDR,,,rouge,,Tranquilles Cotes du Rhone Regional Rouge ,2011,200,0
+1234567,11223301,,Chateau DeclarVins – EARL DeclarVins,AOP,TRANQ,CDR,,,blanc,,Tranquilles Cotes du Rhone Regional Blanc ,2011,100,50
+1234567,11223301,,Chateau DeclarVins – EARL DeclarVins – 12345678912345,AOP,TRANQ,CDR,,,rouge,,Tranquilles Cotes du Rhone Regional Rouge ,2011,150,0
+1234567,11223301,,EARL DeclarVins,AOP,TRANQ,CDR,,,rouge,,Tranquilles Cotes du Rhone Regional Rouge ,2010,90,0
+1234567,(1234567891),,EARL DeclarVins,AOP,TRANQ,CVS,,,rouge,,Tranquilles CdR Villages sans NG Rouge ,2010,460,0
+1234567,,FR01234567890,Chateau DeclarVins – EARL DeclarVins – 12345678912345,AOP,TRANQ,TAV,,,rose,,Tranquilles Tavel Rosé ,2011,100,0
+1234567,(1234567891),,EARL DeclarVins – 1234567891,AOP,TRANQ,CDR,,,rouge,,Tranquilles Cotes du Rhone Regional Rouge ,2011,1045,0
+1234567,(12345678912345),,EARL DeclarVins – 1234567891,AOP,TRANQ,CDR,,,rouge,,Tranquilles Cotes du Rhone Regional Rouge ,2011,980,0
+1234567,,FR01234567890,Chateau DeclarVins – EARL DeclarVins – 12345678912345,AOP,TRANQ,CRH,,,rouge,,Tranquilles Crozes Hermitage Rouge ,2011,312,0
+1234567,(12345678912345),,EARL DeclarVins – 1234567891,AOP,TRANQ,CDR,,,rouge,,Tranquilles Cotes du Rhone Regional Rouge ,2011,1000,65
+1234567,11223301,,EARL DeclarVins – 1234567891,AOP,TRANQ,CDR,,,rouge,,Tranquilles Cotes du Rhone Regional Rouge ,2011,70,0
+1234567,,FR01234567890,EARL DeclarVins – 12345678912345,AOP,TRANQ,CDR,,,rouge,,Tranquilles Cotes du Rhone Regional Rouge ,2011,250,0
+1234567,11223301,,EARL DeclarVins – 12345678912345,AOP,TRANQ,VAC,,,rouge,,Tranquilles Vacqueyras Rouge ,2011,50,0
+1234567,11223301,,EARL DeclarVins – 12345678912345,AOP,TRANQ,CDN,,,rose,,Tranquilles Costieres de Nimes Rosé ,2011,230,0
+1234567,,FR01234567890,EARL DeclarVins – 12345678912345,AOP,TRANQ,GLA,,,rouge,,Tranquilles Grignan les Adhémar Rouge ,2011,200,0
+1234567,11223301,,Chateau DeclarVins – EARL DeclarVins – 12345678912345,AOP,TRANQ,CDR,,,rouge,,Tranquilles Cotes du Rhone Regional Rouge ,2011,1143,0
+1234567,11223301,,Chateau DeclarVins – EARL DeclarVins – 12345678912345,AOP,TRANQ,CDR,,,blanc,,Tranquilles Cotes du Rhone Regional Blanc ,2011,139,0
+1234567,11223301,,Chateau DeclarVins,AOP,TRANQ,TAV,,,rose,,Tranquilles Tavel Rosé ,2011,250,161.54
+1234567,11223301,,Chateau DeclarVins,AOP,TRANQ,CRH,,,rouge,,Tranquilles Crozes Hermitage Rouge ,2008,25,0
+1234567,11223301,,EARL DeclarVins – 1234567891,AOP,TRANQ,CVS,,,rouge,,Tranquilles CdR Villages sans NG Rouge ,2011,520,0
+1234567,11223301,,EARL DeclarVins – 12345678912345,AOP,TRANQ,CDN,,,rouge,,Tranquilles Costieres de Nimes Rouge ,2011,2500,0

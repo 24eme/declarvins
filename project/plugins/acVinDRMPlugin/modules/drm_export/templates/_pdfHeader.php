@@ -12,7 +12,7 @@
 <table>
 <tr>
 	<td class="premier">Nom / Raison sociale : <strong><?php echo ($drm->declarant->raison_sociale)? $drm->declarant->raison_sociale : $drm->declarant->nom ?></strong></td>
-   <td>N° DRM : <strong><?php echo preg_replace('/DRM-/', '', $drm->_id); ?></strong><?php if($drm->isValidee()): ?><br />(<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>saisie interne le<?php else: ?>validée le<?php endif;?> <strong><?php echo $drm->getEuValideDate(); ?></strong>)<?php endif; ?></td>
+   <td>N° DRM : <strong><?php echo preg_replace('/DRM-/', '', $drm->_id); ?></strong><?php if($drm->isValidee()): ?><br />(saisie <?php echo $drm->getModeDeSaisieLibelle() ?> le <strong><?php echo $drm->getEuValideDate(); ?></strong>)<?php endif; ?></td>
 </tr>
 <tr>
 	<td class="premier" >Lieu où est tenue la comptabilité matière :

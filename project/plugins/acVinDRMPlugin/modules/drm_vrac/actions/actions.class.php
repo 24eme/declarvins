@@ -27,12 +27,12 @@ class drm_vracActions extends sfActions
                 }
 
         if (count($this->details)==0) {
-            if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER || $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+            if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
                         $this->drm->setCurrentEtapeRouting('validation');
                 return $this->redirect('drm_validation', $this->drm);
             }
             
-            if ($this->getUser()->getCompte()->isTiers() && (!$this->getUser()->getCompte()->exist('dematerialise_ciel') || !$this->getUser()->getCompte()->dematerialise_ciel)) {
+            if ($this->getUser()->getCompte()->isTiers() && !$this->etablissement->isTransmissionCiel()) {
             	$this->drm->setCurrentEtapeRouting('declaratif');
             	return $this->redirect('drm_declaratif', $this->drm);
             }
@@ -51,16 +51,16 @@ class drm_vracActions extends sfActions
                 $this->form->bind($request->getParameter($this->form->getName()));
                 if ($this->form->isValid()) {
                         $this->drm = $this->form->save();
-                        if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER || $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+                        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
                                 $this->drm->setCurrentEtapeRouting('validation');
                                 return $this->redirect('drm_validation', $this->drm);
                         }
-                        if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER || $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+                        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
                         	$this->drm->setCurrentEtapeRouting('validation');
                 			return $this->redirect('drm_validation', $this->drm);
            				}
             
-            			if ($this->getUser()->getCompte()->isTiers() && (!$this->getUser()->getCompte()->exist('dematerialise_ciel') || !$this->getUser()->getCompte()->dematerialise_ciel)) {
+            			if ($this->getUser()->getCompte()->isTiers() && !$this->etablissement->isTransmissionCiel()) {
             				$this->drm->setCurrentEtapeRouting('declaratif');
             				return $this->redirect('drm_declaratif', $this->drm);
             			}

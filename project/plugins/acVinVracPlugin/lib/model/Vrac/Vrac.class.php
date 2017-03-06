@@ -195,6 +195,11 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       	if ($informations->exist('email')) $informations->email = $etablissement->email;
       	if ($informations->exist('famille')) $informations->famille = $etablissement->famille;
       	if ($informations->exist('sous_famille')) $informations->sous_famille = $etablissement->sous_famille;
+      	if ($informations->exist('zones') && $etablissement->exist('zones')) {
+      		foreach ($etablissement->zones as $zoneId => $zone) {
+      			$informations->zones->add($zoneId, $zone->libelle);
+      		}
+      	}
     }
     
     public function getCvoUnitaire() {
@@ -219,6 +224,15 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	$this->produit_detail->couleur->libelle = $produit->getCouleur()->libelle;
     	$this->produit_detail->cepage->code = $produit->code;
     	$this->produit_detail->cepage->libelle = $produit->libelle;
+    	if ($inao = $produit->getInao()) {
+    		if (strlen($inao) == 5) {
+    			$inao = $inao.' ';
+    		}
+    		$this->produit_detail->codes->inao = $inao;
+    	}
+    	if ($lf = $produit->getLibelleFiscal()) {
+    		$this->produit_detail->codes->libelle_fiscal = $lf;
+    	}
     }
 
     public function update($params = array()) {
@@ -344,6 +358,21 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		}
     	}
     }
+
+    public function validateEdi() 
+    {
+    	$this->vous_etes = 'vendeur';
+    	$this->date_signature = date('c');
+    	$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
+    	$this->valide->date_saisie = $this->date_signature;
+    	$this->valide->date_validation = $this->date_signature;
+    	$this->valide->date_validation_vendeur = $this->date_signature;
+    	$this->valide->date_validation_acheteur = $this->date_signature;
+    	$this->mode_de_saisie = self::MODE_DE_SAISIE_EDI;
+    	if ($interpro = $this->getProduitInterpro()) {
+    		$this->interpro = $interpro->_id;
+    	}
+    }
     
 	public function getTypeByEtablissement($identifiant)
 	{
@@ -434,6 +463,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 	    	$oioc = $this->getOrAdd('oioc');
 	    	$oioc->identifiant = str_replace(OIOC::OIOC_KEY, '', $organisme->oioc);
 	    	$oioc->statut = OIOC::STATUT_EDI;
+	    	$oioc->date_traitement = date('c');
     	}
     }
     
@@ -592,6 +622,32 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     public static function getModeDeSaisieLibelles() {
 		return self::$_mode_de_saisie_libelles;
     }
+    
+    public function setImportableVendeur($identifiant = null, $ea = null, $siretCvi = null) {
+    	$referent = null;
+    	if ($identifiant) {
+    		$referent = EtablissementClient::getInstance()->find($identifiant);
+    	}
+    	if (!$referent && $ea) {
+    		$referent = ConfigurationClient::getCurrent()->identifyEtablissement($ea);
+    	}
+    	if (!$referent && $siretCvi) {
+    		$referent = ConfigurationClient::getCurrent()->identifyEtablissement($siretCvi);
+    	}
+    	if (!$referent) {
+    		return false;
+    	}
+    	if ($siretCvi && !($referent->cvi == $siretCvi || $referent->siret == $siretCvi)) {
+    		return false;
+    	}
+    	if ($ea && $referent->no_accises != $ea) {
+    		return false;
+    	}
+    	$this->vendeur_identifiant = $referent->identifiant;
+    	$this->storeSoussigneInformations('vendeur', $referent);
+    	return true;
+    }
+    
     /*     * ** VERSION *** */
 
     public static function buildVersion($rectificative, $modificative) {

@@ -4,5 +4,6 @@ function(doc) {
         return;     
     }
     var ciel = (doc.ciel && doc.ciel.transfere)? 1 : 0; 
-    emit([ciel, doc.declarant.no_accises, doc.periode], null);
+    var ciel_valide = (doc.ciel && doc.ciel.valide)? 1 : 0;
+    emit([ciel, (doc.declarant.no_accises).toUpperCase(), doc.periode], ciel_valide);
 }

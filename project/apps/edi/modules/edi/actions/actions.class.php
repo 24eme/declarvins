@@ -21,10 +21,15 @@ class ediActions extends sfActions
     if (!preg_match('/^INTERPRO-/', $interpro)) {
 		$interpro = 'INTERPRO-'.$interpro;
     }
+    $interpro = InterproClient::getInstance()->find($interpro);
+    if (!$interpro) {
+    	throw new error401Exception("Accès restreint");
+    }
   	$interpros = array_keys($this->getCompte()->interpro->toArray());
-  	if (!in_array($interpro, $interpros)) {
+  	if (!in_array($interpro->_id, $interpros)) {
   		throw new error401Exception("Accès restreint");
   	}
+  	return $interpro;
   }
 	
   protected function securizeEtablissement($etablissement)
@@ -111,8 +116,8 @@ class ediActions extends sfActions
     $interpro = current(array_keys($this->getCompte()->interpro->toArray()));
     $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
-    $vracs = $this->vracCallback($interpro, VracOiocView::getInstance()->findByOiocAndDate($oioc, OIOC::STATUT_EDI, "Vrac", $dateForView->modify('-1 second')->format('c'))->rows);
-    return $this->renderCsv($vracs, VracOiocView::VALUE_DATE_SAISIE, "TRANSACTION", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID));
+    $vracs = $this->transactionCallback($interpro, VracOiocView::getInstance()->findByOiocAndDate($oioc, OIOC::STATUT_EDI, "vrac", $dateForView->modify('-1 second')->format('c'))->rows);
+    return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "TRANSACTION", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID));
   }
   
   public function executeStreamDRM(sfWebRequest $request) 
@@ -136,47 +141,28 @@ class ediActions extends sfActions
   
   public function executeStreamDRMInterpro(sfWebRequest $request) 
   {
-  	ini_set('memory_limit', '4096M');
+  	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
+  	
+  	$interpro = $this->securizeInterpro($request->getParameter('interpro'));
     $date = str_replace(array('h', 'H', 'm', 'M'), ':', $request->getParameter('datedebut'));
-    $interpro = $request->getParameter('interpro');
-    $limit = $request->getParameter('limit');
-  	$this->securizeInterpro($interpro);
     if (!$date) {
 		return $this->renderText("Pas de date définie");
     }
-    if (!preg_match('/^INTERPRO-/', $interpro)) {
-		$interpro = 'INTERPRO-'.$interpro;
-    }
-    $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
+    $items = EdiDrmpartenaireView::getInstance()->findByInterproDate($interpro->_id, $dateForView->format('c'))->rows;
     $csv = '';
-    $datas = DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows;
-    if ($interpro == 'INTERPRO-IS') {
-    	$datas = array_merge($datas, DRMDateView::getInstance()->findByInterproAndDate('INTERPRO-IO', $dateForView->modify('-1 second')->format('c'))->rows);
-    	$datas = array_merge($datas, DRMDateView::getInstance()->findByInterproAndDate('INTERPRO-CIVL', $dateForView->modify('-1 second')->format('c'))->rows);
-    }
-    $drms = array();
-    $lastDate = $dateTime->format('c');
-    foreach ($datas as $data) {
-    	if ($limit && count($drms) >= $limit) {
-    		break;
-    	}
-    	if (!in_array($data->id, $drms) && $drm = DRMClient::getInstance()->find($data->id)) {
-    		$export = new DRMExportCsvEdi($drm);
-    		if ($interpro == 'INTERPRO-IS') {
-    			$csv .= $export->exportEDIInterpro(array($interpro, 'INTERPRO-IO', 'INTERPRO-CIVL', 'INTERPRO-ANIVIN'));
-    		} else {
-    			$csv .= $export->exportEDIInterpro(array($interpro, 'INTERPRO-ANIVIN'));
-    		}
-    		$drms[] = $data->id;
-	      	if ($lastDate < $drm->valide->date_saisie) {
-	      		$lastDate = $drm->valide->date_saisie;
-	      	}
+    $lastDate = $dateForView->format('c');
+    foreach ($items as $item) {
+    	$csv .= implode(';', $item->value);
+    	$csv .= "\n";
+    	if ($lastDate < $item->key[EdiDrmpartenaireView::KEY_DATE]) {
+    		$lastDate = $item->key[EdiDrmpartenaireView::KEY_DATE];
     	}
     }
+    
     $lastDate = new DateTime($lastDate);
-    $filename = 'DRM_'.$dateTime->format('Y-m-d\TH\hi\ms').'_'.$lastDate->format('Y-m-d\TH\hi\ms').'.csv';
+    $filename = 'DRM_'.strtolower($interpro->identifiant).'_'.$dateForView->format('Y-m-d\TH\hi\ms').'_'.$lastDate->format('Y-m-d\TH\hi\ms').'.csv';
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('md5', md5($csv));
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$filename);
@@ -185,28 +171,19 @@ class ediActions extends sfActions
   
   public function executeStreamVracInterpro(sfWebRequest $request) 
   {
-
-  	ini_set('memory_limit', '4096M');
+  	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
-  	$interpro = $request->getParameter('interpro');
-  	//$this->securizeInterpro($interpro);
-  	if (!preg_match('/^INTERPRO-/', $interpro)) {
-  		$interpro = 'INTERPRO-'.$interpro;
-  	}
-  	$values = VracDateView::getInstance()->findByInterpro($interpro)->rows;
-  	if ($interpro == 'INTERPRO-IS') {
-  		$values = array_merge($values, VracDateView::getInstance()->findByInterpro('INTERPRO-IO')->rows);
-  		$values = array_merge($values, VracDateView::getInstance()->findByInterpro('INTERPRO-CIVL')->rows);
-  	}
-
+  	
+  	$interpro = $this->securizeInterpro($request->getParameter('interpro'));
+  	$items = EdiVracpartenaireView::getInstance()->findByZoneStatut($interpro->zone, VracClient::STATUS_CONTRAT_NONSOLDE)->rows;
+  	
   	$csv = '';
-	$items = $this->vracInterproCallback($interpro, $values);
 	foreach ($items as $item) {
-		$csv .= implode(';', $item);
+		$csv .= implode(';', $item->value);
 		$csv .= "\n";
 	}
 	
-  	$filename = 'contrats_achat_non_soldes_'.str_replace('INTERPRO-', '', $interpro).'.csv';
+  	$filename = 'contrats_achat_non_soldes_'.strtolower($interpro->identifiant).'.csv';
   	$this->response->setContentType('text/csv');
   	$this->response->setHttpHeader('md5', md5($csv));
   	$this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$filename);
@@ -659,13 +636,13 @@ class ediActions extends sfActions
 		foreach($rows as $row) {
 			$etablissement = $eClient->find($row->id);
 			$compte = $etablissement->getCompteObject();
-			if ($compte) {
+			if ($etablissement->isTransmissionCiel()) {
 				$convention = 'oui';
-				if (!$compte->dematerialise_ciel) {
-					$convention = ($compte->getConventionCiel())? 'att' : 'non';
-				}
 			} else {
 				$convention = 'non';
+				if ($compte && $compte->getConventionCiel()) {
+					$convention = 'att';
+				}
 			}
 			$result .= $etablissement->identifiant;
 			$result .= ';';
@@ -789,47 +766,23 @@ class ediActions extends sfActions
   		return $vracs;
   }
   
-  protected function vracInterproCallback($interpro, $items)
-  {
-
-  	$vracs = array();
-  	$configurationProduitClient = ConfigurationProduitClient::getInstance();
-  	foreach ($items as $item) {
-  		if ($item->value[VracDateView::VALUE_STATUT] != VracClient::STATUS_CONTRAT_NONSOLDE) {
-  			continue;
-  		}
-  		preg_match('/certifications\/([a-zA-Z0-9]*)\/genres\/([a-zA-Z0-9]*)\/appellations\/([a-zA-Z0-9]*)\/mentions\/([a-zA-Z0-9]*)\/lieux\/([a-zA-Z0-9]*)\/couleurs\/([a-zA-Z0-9]*)\/cepages\/([a-zA-Z0-9]*)$/i', $item->key[VracDateView::KEY_PRODUIT_HASH], $hashProduit);
-  		$vendeurId = $item->value[VracDateView::VALUE_VENDEUR_ID];
-  		if ($item->value[VracDateView::VALUE_VENDEUR_SIRET]) {
-  			$vendeurId .= ' ('.$item->value[VracDateView::VALUE_VENDEUR_SIRET].')';
-  		} elseif ($item->value[VracDateView::VALUE_VENDEUR_CVI]) {
-  			$vendeurId .= ' ('.$item->value[VracDateView::VALUE_VENDEUR_CVI].')';
-  		}
-  		$vracs[] = array(
-  				$item->value[VracDateView::VALUE_VRAC_ID],
-  				$vendeurId,
-  				$item->value[VracDateView::VALUE_VENDEUR_EA],
-  				$item->value[VracDateView::VALUE_ACHETEUR_NOM],
-  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[1]),
-  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[2]),
-  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[3]),
-  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[4]),
-  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[5]),
-  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[6]),
-  				str_replace(ConfigurationProduit::DEFAULT_KEY, null, $hashProduit[7]),
-  				$configurationProduitClient->format(
-  						array($item->value[VracDateView::VALUE_PRODUIT_CERTIFICATION_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_GENRE_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_APPELLATION_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_LIEU_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_COULEUR_LIBELLE], $item->value[VracDateView::VALUE_PRODUIT_CEPAGE_LIBELLE]), 
-  						array(),
-  						"%g% %a% %l% %co% %ce%"
-  				),
-  				$item->value[VracDateView::VALUE_MILLESIME_CODE],
-  				$item->value[VracDateView::VALUE_VOLUME_PROPOSE],
-  				$item->value[VracDateView::VALUE_VOLUME_RETIRE]
-  		);
-  	}
-  	return $vracs;
-  }
   
+  protected function transactionCallback($interpro, $items)
+  {
+  		$vracs = array();
+  		$configurationVrac = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro);
+  		foreach ($items as $item) {
+  			if ($item->value[VracDateView::VALUE_STATUT] == VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION) {
+  				continue;
+  			}
+  			$item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE] = $configurationVrac->formatTypesTransactionLibelle(array($item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE]));
+  			$item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE] = $configurationVrac->formatCasParticulierLibelle(array($item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE]));
+  			$item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE] = $configurationVrac->formatConditionsPaiementLibelle(array($item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE]));
+  			unset($item->value[VracDateView::VALUE_VOLUME_RETIRE]);
+  			$vracs[] = $item;
+  		}
+  		return $vracs;
+  }
   
   protected function drmCallback($items)
   {
