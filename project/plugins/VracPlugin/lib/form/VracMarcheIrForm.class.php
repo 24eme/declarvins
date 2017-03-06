@@ -18,6 +18,6 @@ class VracMarcheIrForm extends VracMarcheForm
     	if (!sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
     		$this->getObject()->type_transaction = VracClient::TRANSACTION_DEFAUT;
     	}
-    	$this->getObject()->has_transaction = 1;
+    	$this->getObject()->has_transaction = 0;
     }
 }
