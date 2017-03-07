@@ -340,6 +340,9 @@ class Email {
     {
     	$etablissement = $drm->getEtablissement();
     	$compte = $etablissement->getCompteObject();
+    	if (!$compte->email) {
+    		return null;
+    	}
     	$from = $this->getFromEmailInterpros(array($etablissement->getInterproObject()),true);
     	$to = array($compte->email);
     	$subject = "Confirmation de l'envoi de votre DRM à CIEL";
@@ -352,6 +355,9 @@ class Email {
     {
     	$etablissement = $drm->getEtablissement();
     	$compte = $etablissement->getCompteObject();
+    	if (!$compte->email) {
+    		return null;
+    	}
     	$interpro = $etablissement->getInterproObject();
     	$from = $this->getFromEmailInterpros(array($interpro),true);
     	$to = array($compte->email, $interpro->email_contrat_inscription);
@@ -366,6 +372,9 @@ class Email {
     {
     	$etablissement = $drm->getEtablissement();
     	$compte = $etablissement->getCompteObject();
+    	if (!$compte->email) {
+    		return null;
+    	}
     	$from = $this->getFromEmailInterpros(array($etablissement->getInterproObject()),true);
     	$to = array($compte->email);
     	$subject = "Modification de votre DRM sur CIEL";
@@ -378,6 +387,9 @@ class Email {
     {
     	$etablissement = $drm->getEtablissement();
     	$compte = $etablissement->getCompteObject();
+    	if (!$compte->email) {
+    		return null;
+    	}
     	$from = $this->getFromEmailInterpros(array($etablissement->getInterproObject()),true);
     	$to = array($compte->email);
     	$subject = "Validation de votre DRM sur CIEL";
