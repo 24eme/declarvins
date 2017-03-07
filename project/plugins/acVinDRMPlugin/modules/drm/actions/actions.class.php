@@ -400,9 +400,6 @@ class drmActions extends sfActions {
 	        	$message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur transmision XML pour ".$this->drm->_id, "Une transmission vient d'échouer pour ".$this->drm->_id." (".$this->drm->declarant->no_accises.") :<br />".$messageErreurs)->setContentType('text/html');
 	        	$this->getMailer()->send($message);
 	        }
-	        if ($this->drmCiel->isTransfere()) {
-	        	Email::getInstance()->cielSended($this->drm);
-	        }
         }
         if ($this->drm->hasVersion() && $this->drmCiel->isTransfere()) {
         	$this->drm->ciel->valide = 1;
@@ -410,6 +407,10 @@ class drmActions extends sfActions {
         // CIEL ===============
         
         $this->drm->save();
+
+        if ($this->drmCiel->isTransfere()) {
+        	Email::getInstance()->cielSended($this->drm);
+        }
         
         if ($erreursCiel) {
         	return $this->redirect('drm_validation', $this->drm);

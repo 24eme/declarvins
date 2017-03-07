@@ -370,6 +370,8 @@ class Email {
     
     public function cielRectificative($drm, $diffs)
     {
+    	// Desactivation temporaire
+    	return null;
     	$etablissement = $drm->getEtablissement();
     	$compte = $etablissement->getCompteObject();
     	if (!$compte->email) {
