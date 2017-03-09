@@ -268,6 +268,30 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	return $isNeant;
     }
     
+    public function hasStocks() {
+    	$details = $this->getDetails();
+    	$hasStock = false;
+    	foreach ($details as $detail) {
+    		if ($detail->total_debut_mois > 0 || $detail->total > 0) {
+    			$hasStock = true;
+    			break;
+    		}
+    	}
+    	return $hasStock;
+    }
+    
+    public function hasStocksAcq() {
+    	$details = $this->getDetails();
+    	$hasStock = false;
+    	foreach ($details as $detail) {
+    		if ($detail->acq_total_debut_mois > 0 || $detail->acq_total > 0) {
+    			$hasStock = true;
+    			break;
+    		}
+    	}
+    	return $hasStock;
+    }
+    
     public function hasMouvements($hash) {
     	$details = $this->getDetails();
     	foreach ($details as $detail) {

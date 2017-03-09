@@ -17,7 +17,7 @@
 		<declaration-neant><?php echo ($drm->isNeant())? "true" : "false"; ?></declaration-neant>
 <?php if (!$drm->isNeant()): ?>
 		<droits-suspendus>
-<?php foreach ($drm->getExportableProduits() as $produit): ?>
+<?php if ($drm->hasStocks()): foreach ($drm->getExportableProduits() as $produit): ?>
 			<produit>
 <?php if ($produit->getLibelleFiscal()): ?>
 				<libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
@@ -43,12 +43,12 @@
 ?>
 				</balance-stocks>
 			</produit>
-<?php endforeach; ?>
+<?php endforeach; endif; ?>
 			<stockEpuise><?php echo (!$drm->getTotalStock())? "true" : "false"; ?></stockEpuise>
 		</droits-suspendus>
 <?php if ($drm->hasExportableProduitsAcquittes()): ?>
 		<droits-acquittes>
-<?php foreach ($drm->getExportableProduits() as $produit): if (!$produit->getHasSaisieAcq()) { continue; } ?>
+<?php if ($drm->hasStocksAcq()): foreach ($drm->getExportableProduits() as $produit): if (!$produit->getHasSaisieAcq()) { continue; } ?>
 			<produit>
 <?php if ($produit->getLibelleFiscal()): ?>
 				<libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
@@ -74,7 +74,7 @@
 ?>
 				</balance-stocks>
 			</produit>
-<?php endforeach; ?>
+<?php endforeach; endif; ?>
 			<stockEpuise><?php echo (!$drm->getTotalStockAcq())? "true" : "false"; ?></stockEpuise>
     	</droits-acquittes>
 <?php endif; ?>
