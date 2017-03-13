@@ -115,8 +115,16 @@ class DRMCielCompare
 					continue;
 				}
 				if (preg_match($patternCentilisation, $key) && preg_match('/@attributes/i', $key)) {
-					$newKeyCentilisation = $value;
-					continue;
+					if (preg_match('/volumePersonnalise/i', $key)) {
+						$newKeyCentilisation .= sprintf("%01.02f", $value);
+						continue;
+					} elseif (preg_match('/bib/i', $key)) {
+						$newKeyCentilisation .= ($value == 1 || $value == 'true')? 1 : 0;
+						continue;						
+					} else {
+						$newKeyCentilisation = $value;
+						continue;
+					}
 				}
 				$value = $this->cleanValue($value);
 				if (preg_match($patternProduit, $key)) {
