@@ -109,6 +109,9 @@
 		<thead>
 			<tr>
 				<th>Volume total (hl)</th>
+				<?php if($vrac->type_transaction == 'raisin'): ?>
+				<th>Poids (kg)</th>
+				<?php endif;?>
 				<th>Prix unitaire net HT hors cotisation</th>
 				<?php if ($vrac->has_cotisation_cvo): ?>
 				<th>Part cotisation payée par l'acheteur</th>
@@ -118,7 +121,10 @@
         </thead>
         <tbody>
 			<tr>
-				<td><?php echoLongFloat($vrac->volume_propose) ?> <?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?></td>
+				<td><?php echoFloat($vrac->volume_propose) ?></td>
+				<?php if($vrac->type_transaction == 'raisin'): ?>
+				<td><?php echoFloat($vrac->poids) ?></td>
+				<?php endif; ?>
 				<td><?php echoFloat($vrac->prix_unitaire) ?> <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€/kg (Hors Taxes / Net)<?php endif;?></td>
 				<?php if ($vrac->has_cotisation_cvo): ?>
 				<td><?php echoFloat($vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) ?>  <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€/kg (Hors Taxes / Net)<?php endif;?></td>

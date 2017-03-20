@@ -90,7 +90,10 @@
 	
 	<h2>Conditions</h2>
 	
-	<p>Volume total : <?php echoLongFloat($vrac->volume_propose) ?>&nbsp;hl</p>
+	<p>Volume total : <?php echoFloat($vrac->volume_propose) ?>&nbsp;hl</p>
+	<?php if($vrac->type_transaction == 'raisin'): ?>
+	<p>Poids : <?php echoFloat($vrac->poids) ?>&nbsp;kg</p>
+	<?php endif;?>
 	<p>Date de début de retiraison : <?php if ($vrac->date_debut_retiraison): ?><?php echo Date::francizeDate($vrac->date_debut_retiraison) ?><?php endif; ?></p>
 	<p>Autres observations : <?php if ($vrac->exist('observations') && $vrac->observations): ?><?php echo $vrac->observations ?><?php endif; ?><br /></p>
 	
