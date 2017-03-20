@@ -1,6 +1,6 @@
 # Spécifications techniques de l'implémentation du format de DRM attendues sur le portail DeclarVins
 
-**/!\ La version de cette documentation n'est pas définitive et sera amenée à évoluer /!\**
+*/!\ La version de cette documentation n'est pas définitive et sera amenée à évoluer*
 
 La spécification complète du format d'import attendu est détaillée ici : [Spécification générique DRM logiciels tiers](https://github.com/24eme/mutualisation-douane/blob/master/logiciels-tiers/). Cette documentation "générique" est commune pour les portails déclaratifs du CIVA, du CIVP, d'Interloire, d'InterRhone, d'IVBD, d'IVSO et d'IVSE.
 
