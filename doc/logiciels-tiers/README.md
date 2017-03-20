@@ -1,4 +1,4 @@
-#Spécifications techniques de l'implémentation du format de DRM attendues sur le portail DeclarVins
+# Spécifications techniques de l'implémentation du format de DRM attendues sur le portail DeclarVins
 
 **/!\ La version de cette documentation n'est pas définitive et sera amenée à évoluer /!\**
 
@@ -32,7 +32,7 @@ Le catalogue des mouvements de DRM admis par le portail DeclarVins  [Catalogue m
 3. Le type du mouvement : achat, crd, vrac, repli...
 4. Un commentaire : définition du mouvement
 
-##Description des lignes CRD
+## Description des lignes CRD
 
 **Type de la CDR** : trois valeurs acceptées « PERSONNALISEES », « COLLECTIVES_DROITS_SUSPENDUS » ou « COLLECTIVES_DROITS_ACQUITTES »  
  
