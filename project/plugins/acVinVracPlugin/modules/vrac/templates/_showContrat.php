@@ -117,8 +117,26 @@
 			</li>
 			<?php if ($vrac->determination_prix): ?>
 			<li>
-				<span>Mode de détermination du prix définitif :</span>
+				<span>Mode de détermination du prix :</span>
 				<span><?php echo $vrac->determination_prix ?></span>
+			</li>
+			<?php endif; ?>
+			<?php if ($vrac->determination_prix_date): ?>
+			<li>
+				<span>Date de détermination du prix :</span>
+				<span><?php echo Date::francizeDate($vrac->determination_prix_date) ?></span>
+			</li>
+			<?php endif; ?>
+			<?php if ($vrac->mercuriale): ?>
+			<li>
+				<span>Mercuriale pour la fixation du prix :</span>
+				<span><?php echo Date::francizePeriode($vrac->mercuriale) ?></span>
+			</li>
+			<?php endif; ?>
+			<?php if ($vrac->variation_hausse || $vrac->variation_baisse): ?>
+			<li>
+				<span>Variation max :</span>
+				<span><?php if ($vrac->variation_hausse): ?><?php echo $vrac->variation_hausse ?>% à la hausse <?php endif; ?><?php if ($vrac->variation_baisse): ?><?php echo $vrac->variation_baisse ?>% à la baisse<?php endif; ?></span>
 			</li>
 			<?php endif; ?>
 			<?php if ($vrac->annexe): ?>

@@ -1,6 +1,8 @@
 <?php
 class VracMarcheIrForm extends VracMarcheForm 
 {
+	public static $mois = array('01' => 'Janvier', '02' => 'Février', '03' => 'Mars', '04' => 'Avril', '05' => 'Mai', '06' => 'Juin', '07' => 'Juillet', '08' => 'Août', '09' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
+	
     public function configure() {
         parent::configure();
 		$this->setWidget('prix_total_unitaire', new sfWidgetFormInputFloat());
@@ -11,11 +13,13 @@ class VracMarcheIrForm extends VracMarcheForm
     	if (!sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && isset($this['type_transaction'])) {
             unset($this['type_transaction']);
         }
-
-        $this->setWidget('mercuriale_mois', new sfWidgetFormInputText());
-        $this->setValidator('mercuriale_mois', new sfValidatorInteger(array('required' => false, 'min' => 1, 'max' => 12)));
-        $this->setWidget('mercuriale_annee', new sfWidgetFormInputText());
-        $this->setValidator('mercuriale_annee', new sfValidatorInteger(array('required' => false, 'min' => 2000, 'max' => 2100)));
+        
+        $annee = date('Y');
+		$annees = array($annee => $annee, $annee+1 => $annee+1, $annee+2 => $annee+2);
+        $this->setWidget('mercuriale_mois', new sfWidgetFormChoice(array('choices' => self::$mois)));
+        $this->setValidator('mercuriale_mois', new sfValidatorChoice(array('required' => false, 'choices' => array_keys(self::$mois))));
+        $this->setWidget('mercuriale_annee', new sfWidgetFormChoice(array('choices' => $annees)));
+        $this->setValidator('mercuriale_annee', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($annees))));
         $this->setWidget('variation_hausse', new sfWidgetFormInputFloat());
         $this->setValidator('variation_hausse', new sfValidatorNumber(array('required' => false)));
         $this->setWidget('variation_baisse', new sfWidgetFormInputFloat());

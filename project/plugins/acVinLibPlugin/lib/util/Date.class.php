@@ -65,5 +65,16 @@ class Date {
     		}
     		return $date;
     	}
+        
+    	public static function francizePeriode($periode) 
+    	{
+    		if (preg_match('/^([0-9]{4})-([0-9]{2})$/', $periode, $matches)) {
+	      		$mois = $matches[2];
+	      		$annee = $matches[1];
+	      		setlocale(LC_ALL, 'fr_FR');
+	      		return strftime("%B %Y", mktime(0,0,0,$mois,1,$annee));
+    		}
+    		return $date;
+    	}
        
 }

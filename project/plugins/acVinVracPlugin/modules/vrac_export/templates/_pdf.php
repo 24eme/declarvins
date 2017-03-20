@@ -127,10 +127,19 @@
 			</tr>
         </tbody>
     </table>
-
-	<?php if ($vrac->determination_prix): ?><p>Mode de determination : <?php echo $vrac->determination_prix ?></p><?php endif; ?>
-	
-
+    
+    <table class="bloc_bottom" width="100%">
+		<tr>
+			<td width="50%">
+				<?php if ($vrac->determination_prix): ?><p>Mode de determination du prix : <?php echo $vrac->determination_prix ?></p><?php endif; ?>
+				<?php if ($vrac->determination_prix_date): ?><p>Date de détermination du prix : <?php echo Date::francizeDate($vrac->determination_prix_date) ?></p><?php endif; ?>
+			</td>
+			<td width="50%">
+				<?php if ($vrac->mercuriale): ?><p>Mercuriale pour la fixation du prix : <?php echo Date::francizePeriode($vrac->mercuriale) ?></p><?php endif; ?>
+				<?php if ($vrac->variation_hausse || $vrac->variation_baisse): ?><p>Variation max : <?php if ($vrac->variation_hausse): ?><?php echo $vrac->variation_hausse ?>% à la hausse <?php endif; ?><?php if ($vrac->variation_baisse): ?><?php echo $vrac->variation_baisse ?>% à la baisse<?php endif; ?></p><?php endif; ?>
+			</td>
+		</tr>
+	</table>
 	<h2>Conditions</h2>
 	<?php if ($vrac->isConditionneIvse()): ?><p><strong>De retiraison :</strong></p><?php endif; ?>
 	<p>

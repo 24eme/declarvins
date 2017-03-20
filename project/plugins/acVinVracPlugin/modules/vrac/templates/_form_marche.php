@@ -90,14 +90,12 @@
             <div id="bloc_vrac_mercuriale" class="section_label_strong bloc_conditionner" data-condition-value="<?php echo implode("|", $form->getTypePrixNeedDetermination()) ?>">
             	<label>Mercuriale de référence pour la fixation du prix définitif:</label>
             	<ul class="radio_list">
-            		<li style="width: 150px !important;padding:0;">
+            		<li style="width: 100px !important;padding:0;">
                 		<?php echo $form['mercuriale_mois']->renderError() ?>
-                		<?php echo $form['mercuriale_mois']->renderLabel('Mois') ?>
                 		<?php echo $form['mercuriale_mois']->render(array('style' => 'position:relative;')) ?>
                 	</li>
-            		<li style="width: 150px !important;">
+            		<li style="width: 100px !important;padding:0;">
                 		<?php echo $form['mercuriale_annee']->renderError() ?>
-                		<?php echo $form['mercuriale_annee']->renderLabel('Année') ?>
                 		<?php echo $form['mercuriale_annee']->render(array('style' => 'position:relative;')) ?>
                 	</li>
                 </ul>
