@@ -400,9 +400,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function getPrecedente() {
-        if ($this->exist('precedente') && $this->_get('precedente')) {
+        /*if ($this->exist('precedente') && $this->_get('precedente')) {
             return DRMClient::getInstance()->find($this->_get('precedente'));
-        }
+        }*/
     	$periode = DRMClient::getInstance()->getPeriodePrecedente($this->periode);
     	$campagne = DRMClient::getInstance()->buildCampagne($periode);
     	if ($campagne != $this->campagne) {
