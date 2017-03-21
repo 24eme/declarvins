@@ -3,7 +3,7 @@
     <div class="presentation" <?php if ($form->hasErrors()) echo ' style="display:none;"'; ?>>
 
         <div class="bloc_form">
-            <div class="ligne_form ligne_form_alt">
+            <div class="ligne_form">
                 <label>Statut:</label> <?php echo $compte->statut; ?>
             </div>
             <div class="ligne_form ligne_form_alt">
@@ -45,41 +45,39 @@
     <div class="modification"<?php if (!$form->hasErrors()) echo ' style="display:none;"'; ?>>
     	<form method="post" action="<?php echo url_for('validation_compte', array('num_contrat' => $contrat->no_contrat)) ?>">
         <div class="bloc_form">
-                <div class="ligne_form ">
-                    <?php echo $form->renderHiddenFields(); ?>
-                    <?php echo $form->renderGlobalErrors(); ?>
-                </div>
-                <div class="ligne_form ligne_form_alt">
+                <?php echo $form->renderHiddenFields(); ?>
+                <?php echo $form->renderGlobalErrors(); ?>
+                <div class="ligne_form">
                     <label><?php echo $form['nom']->renderLabel() ?></label>
                     <?php echo $form['nom']->render() ?>
                     <?php echo $form['nom']->renderError() ?>
                 </div>
-                <div class="ligne_form">
+                <div class="ligne_form ligne_form_alt">
                     <label><?php echo $form['prenom']->renderLabel() ?></label>
                     <?php echo $form['prenom']->render() ?>
                     <?php echo $form['prenom']->renderError() ?>
                 </div>
-                <div class="ligne_form ligne_form_alt">
+                <div class="ligne_form">
                     <label><?php echo $form['telephone']->renderLabel() ?></label>
                     <?php echo $form['telephone']->render() ?>
                     <?php echo $form['telephone']->renderError() ?>
                 </div>
-                <div class="ligne_form">
+                <div class="ligne_form ligne_form_alt">
                     <label><?php echo $form['fax']->renderLabel() ?></label>
                     <?php echo $form['fax']->render() ?>
                     <?php echo $form['fax']->renderError() ?>
                 </div>
-                <div class="ligne_form ligne_form_alt">
+                <div class="ligne_form">
                     <label><?php echo $form['email']->renderLabel() ?></label>
                     <?php echo $form['email']->render() ?>
                     <?php echo $form['email']->renderError() ?>
                 </div>
-                <div class="ligne_form">
+                <div class="ligne_form ligne_form_alt">
                     <label><?php echo $form['mdp1']->renderLabel() ?></label>
                     <?php echo $form['mdp1']->render() ?>
                     <?php echo $form['mdp1']->renderError() ?>
                 </div>
-                <div class="ligne_form ligne_form_alt">
+                <div class="ligne_form">
                     <label><?php echo $form['mdp2']->renderLabel() ?></label>
                     <?php echo $form['mdp2']->render() ?>
                     <?php echo $form['mdp2']->renderError() ?>
