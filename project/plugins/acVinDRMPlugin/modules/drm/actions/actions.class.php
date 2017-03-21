@@ -143,12 +143,14 @@ class drmActions extends sfActions {
         $infos = array();
         $reinit_etape = $request->getParameter('reinit_etape', 0);
         if ($reinit_etape) {
-            $drm->setCurrentEtapeRouting('recapitulatif');
+            $drm->etape = 'recapitulatif';
+            $drm->save();
             $this->redirect($drm->getCurrentEtapeRouting(), $drm);
-        } elseif ($etape = $drm->etape) {
+        } elseif ($drm->etape) {
             $this->redirect($drm->getCurrentEtapeRouting(), $drm);
         } else {
-            $drm->setCurrentEtapeRouting('ajouts_liquidations');
+            $drm->etape = 'ajouts_liquidations';
+            $drm->save();
             $this->redirect('drm_informations', $drm);
         }
     }
