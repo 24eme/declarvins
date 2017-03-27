@@ -29,7 +29,7 @@
         <?php include_javascripts() ?>
     </head>
 
-    <body>
+    <body style="background-color: #C44C51;">
     
     	
 		<?php include_partial('global/konami'); ?>
