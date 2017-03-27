@@ -46,5 +46,6 @@ class VracMarcheIrForm extends VracMarcheForm
       		$this->setDefault('mercuriale_annee', $mercuriale[0]);
       	}
       }
+
     }
 }

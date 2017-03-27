@@ -462,7 +462,7 @@ DRM:
                     type: collection
                     definition:
                       fields:
-                        numero: { type: integer }
+                        numero: { }
                         accises: {  }
                         date: {  }
             statistiques:

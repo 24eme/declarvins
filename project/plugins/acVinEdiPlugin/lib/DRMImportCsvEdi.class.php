@@ -156,6 +156,10 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   					$categorieMvt = null;
   				}
 	  		}
+	  		if ($categorieMvt && !is_object($categorieMvt)) {
+		  		$this->csvDoc->addErreur($this->categorieMouvementNotFoundError($numLigne, $datas));
+		  		return;
+	  		}
   			if ($categorieMvt && !$produit->get($categorieMvt)->exist($typeMvt)) {
 	  			$this->csvDoc->addErreur($this->typeMouvementNotFoundError($numLigne, $datas));
 	  			return;

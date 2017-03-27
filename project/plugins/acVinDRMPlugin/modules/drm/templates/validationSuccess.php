@@ -25,7 +25,7 @@
             
             <div id="btn_etape_dr">
             	<?php if (!$drm->isIncomplete()): ?>
-                <?php if ($drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+                <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>
@@ -89,9 +89,12 @@
                         <?php include_partial('drm/recap', array('drm' => $drm)) ?>
                 		<?php include_partial('drm/droits', array('drm' => $drm, 'circulation' => $droits_circulation, 'hide_cvo' => true)) ?>
                 		<?php if($drm->droits->douane->getReport() > 0 && $drm->get('declaratif')->get('paiement')->get('douane')->isAnnuelle()): ?>
+                		<?php if($etablissement->isTransmissionCiel() && !$drmCiel->isValide() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+                		<?php else: ?>
                 		<div style="height: 20px;">
                 			<a href="<?php echo url_for('drm_payer_report', $drm) ?>" onclick="return confirm('Etes vous sûre de vouloir remettre le report à zéro ?');" style="text-transform: uppercase; color: #FFFFFF; height: 19px; line-height: 20px; font-weight: bold; padding: 0 10px; background-color: #ff9f00; border: 1px solid #ECEBEB; float: right;">J'ai payé le cumul des droits de circulation et souhaite remettre le report à zéro</a>
                 		</div>
+                		<?php endif; ?>
                 		<?php endif; ?>
                     <?php else: ?>
                         <?php include_partial('drm/pasDeMouvement', array('drm' => $drm)) ?>
@@ -132,12 +135,15 @@
                 </div>
                 <?php endif; ?>
             </div>
+            <?php if($etablissement->isTransmissionCiel() && !$drmCiel->isValide() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+            <?php else: ?>
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Visualisez le brouillon de DRM</a>
+            <?php endif; ?>
             <a id="telecharger_pdf" style="margin-left: 225px; padding-left: 5px; background: #9e9e9e;" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Visualisez le XML CIEL</a>
             
             <div id="btn_etape_dr">
             	<?php if (!$drm->isIncomplete()): ?>
-                <?php if ($drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+                <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <a href="<?php echo url_for('drm_vrac', array('sf_subject' => $drm, 'precedent' => '1')) ?>" class="btn_prec">
                     <span>Précédent</span>
                 </a>

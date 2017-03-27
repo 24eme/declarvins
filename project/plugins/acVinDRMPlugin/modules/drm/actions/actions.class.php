@@ -36,21 +36,11 @@ class drmActions extends sfActions {
             $this->getUser()->setFlash('erreur_drm', 'Une DRM est déjà en cours de saisie.');
             $this->redirect('drm_mon_espace', $etablissement);
         }
-
-        /*if ($drm->periode > DRMClient::getInstance()->getCurrentPeriode()) {
-            $this->getUser()->setFlash('erreur_drm', 'Impossible de faire une DRM future');
-            $this->redirect('drm_mon_espace', $etablissement);
-        }*/
-
-        /* if ($drm->isDebutCampagne() && !$drm->hasDaidsCampagnePrecedente()) {
-          $this->getUser()->setFlash('erreur_drm', 'Impossible de faire la DRM '.$drm->periode.' sans la DAI/DS '.$drm->getCampagnePrecedente());
-          $this->redirect('drm_mon_espace', $etablissement);
-          } */
-    		if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-            	$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_PAPIER;
-            } else {
-            	$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
-            }
+    	if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+           	$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_PAPIER;
+        } else {
+        	$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
+        }
         $drm->save();
         $this->redirect('drm_informations', $drm);
     }
@@ -153,12 +143,14 @@ class drmActions extends sfActions {
         $infos = array();
         $reinit_etape = $request->getParameter('reinit_etape', 0);
         if ($reinit_etape) {
-            $drm->setCurrentEtapeRouting('recapitulatif');
+            $drm->etape = 'recapitulatif';
+            $drm->save();
             $this->redirect($drm->getCurrentEtapeRouting(), $drm);
-        } elseif ($etape = $drm->etape) {
+        } elseif ($drm->etape) {
             $this->redirect($drm->getCurrentEtapeRouting(), $drm);
         } else {
-            $drm->setCurrentEtapeRouting('ajouts_liquidations');
+            $drm->etape = 'ajouts_liquidations';
+            $drm->save();
             $this->redirect('drm_informations', $drm);
         }
     }
@@ -339,6 +331,11 @@ class drmActions extends sfActions {
   		set_time_limit(90);
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->drm = $this->getRoute()->getDRM();
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        	$this->drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_PAPIER;
+        } else {
+        	$this->drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
+        }
         $this->drm->storeDroits(array());
         $this->droits_circulation = new DRMDroitsCirculation($this->drm);
         $this->drmValidation = $this->drm->validation(array('stock' => 'warning', 'is_operateur' => $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)));
@@ -405,9 +402,6 @@ class drmActions extends sfActions {
 	        	$message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur transmision XML pour ".$this->drm->_id, "Une transmission vient d'échouer pour ".$this->drm->_id." (".$this->drm->declarant->no_accises.") :<br />".$messageErreurs)->setContentType('text/html');
 	        	$this->getMailer()->send($message);
 	        }
-	        if ($this->drmCiel->isTransfere()) {
-	        	Email::getInstance()->cielSended($this->drm);
-	        }
         }
         if ($this->drm->hasVersion() && $this->drmCiel->isTransfere()) {
         	$this->drm->ciel->valide = 1;
@@ -415,6 +409,10 @@ class drmActions extends sfActions {
         // CIEL ===============
         
         $this->drm->save();
+
+        if ($this->drmCiel->isTransfere()) {
+        	Email::getInstance()->cielSended($this->drm);
+        }
         
         if ($erreursCiel) {
         	return $this->redirect('drm_validation', $this->drm);

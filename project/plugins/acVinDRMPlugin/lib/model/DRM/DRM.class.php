@@ -260,12 +260,36 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	$details = $this->getDetails();
     	$isNeant = true;
     	foreach ($details as $detail) {
-    		if ($detail->total_debut_mois > 0 || $detail->acq_total_debut_mois > 0 || $detail->total > 0 || $detail->acq_total > 0) {
+    		if (($detail->total_debut_mois > 0 || $detail->acq_total_debut_mois > 0) && ($detail->total > 0 || $detail->acq_total > 0)) {
     			$isNeant = false;
     			break;
     		}
     	}
     	return $isNeant;
+    }
+    
+    public function hasStocks() {
+    	$details = $this->getDetails();
+    	$hasStock = false;
+    	foreach ($details as $detail) {
+    		if ($detail->total_debut_mois > 0 || $detail->total > 0) {
+    			$hasStock = true;
+    			break;
+    		}
+    	}
+    	return $hasStock;
+    }
+    
+    public function hasStocksAcq() {
+    	$details = $this->getDetails();
+    	$hasStock = false;
+    	foreach ($details as $detail) {
+    		if ($detail->acq_total_debut_mois > 0 || $detail->acq_total > 0) {
+    			$hasStock = true;
+    			break;
+    		}
+    	}
+    	return $hasStock;
     }
     
     public function hasMouvements($hash) {
@@ -376,9 +400,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function getPrecedente() {
-        if ($this->exist('precedente') && $this->_get('precedente')) {
+        /*if ($this->exist('precedente') && $this->_get('precedente')) {
             return DRMClient::getInstance()->find($this->_get('precedente'));
-        }
+        }*/
     	$periode = DRMClient::getInstance()->getPeriodePrecedente($this->periode);
     	$campagne = DRMClient::getInstance()->buildCampagne($periode);
     	if ($campagne != $this->campagne) {
