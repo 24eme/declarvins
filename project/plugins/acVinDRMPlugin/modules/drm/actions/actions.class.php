@@ -71,7 +71,8 @@ class drmActions extends sfActions {
         							DRMCsvEdi::CSV_CAVE_COMPLEMENT_PRODUIT => array_keys($configuration->getLabels())
         					)
         			);
-        
+
+        			$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI_PLUS;
         			$drmCsvEdi = new DRMImportCsvEdi($file, $drm, $controles);
         			$drmCsvEdi->checkCSV();
         				
