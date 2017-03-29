@@ -334,8 +334,6 @@ class drmActions extends sfActions {
         $this->drm = $this->getRoute()->getDRM();
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
         	$this->drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_PAPIER;
-        } else {
-        	$this->drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
         }
         $this->drm->storeDroits(array());
         $this->droits_circulation = new DRMDroitsCirculation($this->drm);
