@@ -18,7 +18,7 @@
 		</ul>
 	</div>
 	
-	<div class="groupe demarrage-ouvert" data-groupe-id="2">
+	<div class="groupe" data-groupe-id="2">
 		<p>Entrées&nbsp;(<span class="unite">hl</span>)</p>
 		<ul>
 			<?php foreach (Configuration::getStocksEntree(false) as $key => $item): ?>
@@ -27,7 +27,7 @@
 		</ul>
 	</div>
 	
-	<div class="groupe" data-groupe-id="3">
+	<div class="groupe demarrage-ouvert" data-groupe-id="3">
 		<p>Sorties&nbsp;(<span class="unite">hl</span>)</p>
 		<ul>
 			<?php 
