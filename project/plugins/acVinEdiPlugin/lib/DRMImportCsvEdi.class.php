@@ -215,7 +215,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 	  		}
 	  		
 	  		$mvt = ($categorieMvt)? $produit->getOrAdd($categorieMvt) : $produit;
-	  		$mvt->add($typeMvt, round($this->floatize($valeur), 2));
+	  		$old = floatval($mvt->getOrAdd($typeMvt));
+	  		$mvt->add($typeMvt, round(($old + $this->floatize($valeur)), 2));
 	  		$result = $this->drm->setImportableMvtDetails($typeMvt, $mvt, $datas);
 	  		if (!$result) {
 	  			$this->csvDoc->addErreur($this->mvtDetailsNotValidError($numLigne, $datas));
@@ -271,7 +272,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		}
   		
   		$mvt = ($categorieCrd)? $crd->getOrAdd($categorieCrd) : $crd;
-  		$mvt->add($typeCrd, intval($valeur));
+  		$old = intval($mvt->getOrAdd($typeCrd));
+  		$mvt->add($typeCrd, ($old + intval($valeur)));
   		
     }
     
@@ -372,7 +374,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     	}
     	
     	$mvt = $declaratif->getOrAdd($categorie);
-    	$mvt->add($type, round($this->floatize($valeur), 2));
+    	$old = floatval($mvt->getOrAdd($type));
+    	$mvt->add($type, round(($old + $this->floatize($valeur)), 2));
     }
 
     private function checkCSVIntegrity() {

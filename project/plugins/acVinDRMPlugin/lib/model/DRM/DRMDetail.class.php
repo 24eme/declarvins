@@ -222,7 +222,8 @@ class DRMDetail extends BaseDRMDetail {
 
     public function addVrac($contrat_numero, $volume) {
         $contratVrac = $this->vrac->getOrAdd($contrat_numero);
-        $contratVrac->volume = $volume * 1;
+        $old = floatval($contratVrac->volume);
+        $contratVrac->volume = $old + ($volume * 1);
     }
 
     public function getContratsVracAutocomplete($prestation = false, $withSolde = false) {

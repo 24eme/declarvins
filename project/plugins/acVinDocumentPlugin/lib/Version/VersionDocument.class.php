@@ -185,6 +185,11 @@ class VersionDocument
 
     public function needNextVersion() {
 
+    	if ($this->document->getSuivante()) {
+    	
+    		return true;
+    	}
+
         if($this->document->isModificative()) {
 
             return $this->needNextModificative();
@@ -193,11 +198,6 @@ class VersionDocument
         if($this->document->isRectificative()) {
 
             return $this->needNextRectificative();
-        }
-        
-        if ($this->document->getSuivante()) {
-
-            return true;
         }
 
         return false;      
