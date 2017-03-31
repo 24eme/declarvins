@@ -378,9 +378,11 @@ class ediActions extends sfActions
   	$etablissement = $request->getParameter('etablissement');
   	$this->securizeEtablissement($etablissement);
   	$etab = EtablissementClient::getInstance()->find($etablissement);
+  	$historique = new DRMHistorique($etablissement->identifiant);
   	$formUploadCsv = new UploadCSVForm();
   	$result = array();
   	if ($request->isMethod('post')) {
+      	if (!$historique->hasDRMInProcess()) {
   		$formUploadCsv->bind($request->getParameter($formUploadCsv->getName()), $request->getFiles($formUploadCsv->getName()));
   		if ($formUploadCsv->isValid()) {
   			try {
@@ -399,9 +401,9 @@ class ediActions extends sfActions
   				if($drmCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
   					foreach($drmCsvEdi->getCsvDoc()->erreurs as $erreur) {
   						if ($erreur->num_ligne > 0) {
-  							$result[] = array('ERREUR', 'CSV', $erreur->num_ligne, $erreur->diagnostic, $erreur->csv_erreur);
+  							$result[] = array('ERREUR', 'CSV', $erreur->num_ligne, $erreur->id, $erreur->diagnostic, $erreur->csv_erreur);
   						} else {
-  							$result[] = array('ERREUR', 'CSV', null, $erreur->diagnostic, $erreur->csv_erreur);
+  							$result[] = array('ERREUR', 'CSV', null, $erreur->id, $erreur->diagnostic, $erreur->csv_erreur);
   						}
   					}
   				} else {
@@ -410,16 +412,16 @@ class ediActions extends sfActions
 	  				$errors = 0;
 	  				if($drmCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
 	  					foreach($drmCsvEdi->getCsvDoc()->erreurs as $erreur) {
-	  						$result[] = array('ERREUR', 'CSV', $erreur->num_ligne, $erreur->diagnostic, $erreur->csv_erreur);
+	  						$result[] = array('ERREUR', 'CSV', $erreur->num_ligne, $erreur->id, $erreur->diagnostic, $erreur->csv_erreur);
 	  						$errors++;
 	  					}
 	  				}
 	  				if ($drm->identifiant != $etablissement) {
-	  					$result[] = array('ERREUR', 'ACCES', null, "Import restreint à l'établissement ".$etablissement);
+	  					$result[] = array('ERREUR', 'ACCES', null, 'error_access_nonpermis', "Import restreint à l'établissement ".$etablissement);
 	  					$errors++;
 	  				}
 	  				if (!$etab->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) {
-	  					$result[] = array('ERREUR', 'ACCES', null, "L'établissement ".$etablissement." n'est pas autorisé à déclarer des DRMs");
+	  					$result[] = array('ERREUR', 'ACCES', null, 'error_access_droits', "L'établissement ".$etablissement." n'est pas autorisé à déclarer des DRMs");
 	  					$errors++;
 	  				}
 	  				if (DRMClient::getInstance()->find($drm->_id)) {
@@ -430,7 +432,7 @@ class ediActions extends sfActions
 	  						$drm->precedente = $master->_id;
 	  						$drm->constructId();
 	  					} else {
-	  						$result[] = array('ERREUR', 'ACCES', null, "La DRM ".$drm->periode." pour ".$drm->identifiant." est déjà existante dans la base DeclarVins");
+	  						$result[] = array('ERREUR', 'ACCES', null, 'error_access_drmexist', "La DRM ".$drm->periode." pour ".$drm->identifiant." est déjà existante dans la base DeclarVins");
 	  						$errors++;
 	  					}
 	  				} 
@@ -440,7 +442,7 @@ class ediActions extends sfActions
 		  				
 		  				if (!$validation->isValide()) {
 		  					foreach ($validation->getErrors() as $error) {
-		  						$result[] = array('ERREUR', 'CSV', null, str_replace('Erreur, ', '', $error));
+		  						$result[] = array('ERREUR', 'CSV', null, $error->getIdentifiant(), str_replace('Erreur, ', '', $error));
 		  					}
 		  				} else {
 					    	$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_EDI;
@@ -456,14 +458,17 @@ class ediActions extends sfActions
   				}
   			
   			} catch(Exception $e) {
-  				$result[] = array('ERREUR', 'CSV', null, $e->getMessage());
+  				$result[] = array('ERREUR', 'CSV', null, 'error_500', $e->getMessage());
   			}
   		} else {
-      		$result[] = array('ERREUR', 'ACCES', null, 'Fichier csv non valide');
+      		$result[] = array('ERREUR', 'ACCES', null, 'error_notvalid_inputcsv', 'Fichier csv non valide');
       	}
+        } else {
+        	$result[] = array('ERREUR', 'ACCES ', null, 'error_access_drmencours', 'Une DRM est en cours de saisie');
+        }
   			
   	} else {
-  		$result[] = array('ERREUR', 'ACCES ', null, 'Seules les requêtes de type POST sont acceptées');
+  		$result[] = array('ERREUR', 'ACCES ', null, 'error_access_rest', 'Seules les requêtes de type POST sont acceptées');
   	}
   	return $this->renderSimpleCsv($result, "drm");
   }
