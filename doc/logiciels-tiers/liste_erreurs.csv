@@ -1,0 +1,58 @@
+#IDENTIFIANT_ERREUR,DESCRIPTION_ERREUR
+error_repli,la somme des replis en entrée est différente de celle en sortie.
+error_stock,le stock théorique fin de mois est différent du stock théorique début de mois de la DRM suivante.
+error_stock_entrepots,la somme des stocks de vos entrepôts doit être égale aux vins de la propriété.
+error_stock_propriete,la somme des stocks de votre propriété doit être égale au total.
+error_total_negatif,la différence du total des stocks en entrées avec celui en sorties ne doit pas être négatif.
+error_total_stocks,le total est inférieur aux stocks bloqués et en instance.
+error_volume_non_vinifie,le volume stocké de pertes autorisées ne peut être supérieur au volume stocke non vinifié.
+error_vrac,la sortie vrac est différente des volumes vrac saisie.
+error_crd,le stock théorique fin de mois CRD ne peut pas être négatif.
+error_obs_autres_pertes,vous devez commenter la saisie du volume sortie / autres sorties.
+error_obs_crd,vous devez commenter la saisie du volume entrée / replacement suspension.
+error_obs_excedent,vous devez commenter la saisie du volume entrée / autres entrées.
+error_declassement,les entrées en Vins sans IG/lies sont supérieures aux déclassements dans les autres catégories.
+error_stock_deb,le stock théorique début de mois est différent du stock théorique fin de mois de la DRM précédente.
+error_vci,la somme des vci en entrée est différente de celle en sortie.
+error_stock_deb_acq,le stock théorique début de mois acquitté est différent du stock théorique fin acquitté de mois de la DRM précédente.
+error_tav_value,le TAV doit être compris entre 0.5 et 100
+error_notvalid_annexernaea,Le numéro d'accises du destinataire est vide ou mal formatté
+error_notvalid_annexernadate,La date est vide ou mal formattée
+error_empty_annexetypedoc,Le numéro de document ne peut pas être vide
+error_notvalid_annexetypedoc,Le type d'enregistrement des <...> doit être 'début' ou 'fin'
+error_notfound_annexetypedoc,Le type de document d'annexe n'est pas connu
+error_empty_observations,Les observations sont vides
+error_notvalid_annexestatsvolume,La valeur doit être un nombre positif
+error_notvalid_annexerna,Le numéro de document doit être un nombre entier positif
+error_notvalid_annexequantite,La valeur doit être un nombre entier positif
+error_notvalid_crdquantite,La valeur doit être un nombre entier positif
+error_notvalid_mvtvolume,La valeur doit être un nombre positif
+error_notfound_crdtypemvt,Le type de mouvement de CRD n'a pas été trouvé
+error_notfound_crdcategoriemvt,La catégorie de mouvement de CRD n'a pas été trouvée
+error_notfound_mvttype,Le type de mouvement n'a pas été trouvé
+error_notfound_mvtcategorie,La catégorie de mouvement n'a pas été trouvée
+error_notfound_produitcomplement,Le complément produit n'est pas reconnu
+error_notfound_droitstype,Le type de droit n'a pas été trouvé
+error_notfound_produit,Le produit n'a pas été trouvé
+error_notfound_contrat,Le contrat n'a pas été trouvé
+error_notallow_retiraison,Aucune sortie cave ne permet la retiraison du contrat
+error_notfound_annexetype,Le type d'annexe n'a pas été reconnu
+error_notvalid_mvtinfos,Le mouvement attend des informations complementaires valides
+error_notfound_annexecategorie,La catégorie d'annexe n'a pas été reconnue
+error_notfound_crdtype,Le type CRD n'a pas été reconnu
+error_notfound_crdcategorie,La catégorie fiscale CRD n'a pas été reconnue
+error_notfound_crdcentilisation,La centilisation CRD n'a pas été reconnue
+error_format_ea,Format numéro d'accises non valide
+error_format_periode,Format période , AAAAMM
+error_format_type,Choix possible type , <...> 
+error_notfound_etablissement,Impossible d'identifier l'établissement
+error_multi_etablissement,Import limité à un seul établissement
+error_multi_ea,Import limité à un seul numéro d'EA
+error_multi_periode,Import limité à une seule période
+error_access_nonpermis,Import restreint à l'établissement <...>
+error_access_droits,L'établissement <...> n'est pas autorisé à déclarer des DRMs
+error_access_drmexist,La DRM <...> pour <...> est déjà existante dans la base DeclarVins
+error_notvalid_inputcsv,Fichier csv non valide
+error_access_rest,Seules les requêtes de type POST sont acceptées
+error_access_drmencours,Une DRM est en cours de saisie
+error_500,<...>

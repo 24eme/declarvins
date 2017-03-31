@@ -68,6 +68,20 @@ Un exemple spécifique de DRM à importer pour le portail DeclarVins est disponi
 
 Ce fichier reprend l'ensemble des spécificités décrites ci-dessus.
 
+## Retour d'import
+
+Un fichier CSV contenant le résultat de l'import sera fourni en retour d'import.
+
+Les lignes de ce fichier se constituent des champs suivants :
+
+1. Le type de retour : « SUCCES » ou « ERREUR »
+2. La catégorie de retour : « CSV » pour les données du fichier ou « ACCES » pour l'accès au webservice
+3. Le numéro de ligne : En cas d'erreur, numéro de la ligne incriminée ou vide si il s'agit d'une erreur globale
+4. L'identifiant d'erreur
+5. Description : Message décrivant le retour
+
+La liste des erreurs (identifiant et description) pour le portail DeclarVins est disponible ici : [Liste des erreurs pour DeclarVins](liste_erreurs.csv) .
+
 ## Suivi du projet chez les éditeurs de registres de cave 
 
 | Nom de l'Éditeur | Prise de contact | Génération du fichier de transfer | Recette des échanges en préproduction | Transmission opérationnelle en production | Versions compatibles |
