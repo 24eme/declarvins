@@ -43,8 +43,8 @@ error_notfound_crdtype,Le type CRD n'a pas été reconnu
 error_notfound_crdcategorie,La catégorie fiscale CRD n'a pas été reconnue
 error_notfound_crdcentilisation,La centilisation CRD n'a pas été reconnue
 error_format_ea,Format numéro d'accises non valide
-error_format_periode,Format période , AAAAMM
-error_format_type,Choix possible type , <...> 
+error_format_periode,Format période AAAAMM
+error_format_type,Choix possible type <...> 
 error_notfound_etablissement,Impossible d'identifier l'établissement
 error_multi_etablissement,Import limité à un seul établissement
 error_multi_ea,Import limité à un seul numéro d'EA
