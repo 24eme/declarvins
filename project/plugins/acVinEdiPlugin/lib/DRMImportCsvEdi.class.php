@@ -415,156 +415,141 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     }
     
     private function createMultiPeriodeError() {
-        return $this->createError(null, 'DRM', "Import limité à une seule période");
+        return $this->createError(null, 'DRM', "Import limité à une seule période", 'error_multi_periode');
     }
     private function createMultiAcciseError() {
-        return $this->createError(null, 'DRM', "Import limité à un seul numéro d'EA");
+        return $this->createError(null, 'DRM', "Import limité à un seul numéro d'EA", 'error_multi_ea');
     }
     private function createMultiIdentifiantError() {
-        return $this->createError(null, 'DRM', "Import limité à un seul établissement");
+        return $this->createError(null, 'DRM', "Import limité à un seul établissement", 'error_multi_etablissement');
     }
     
     private function etablissementNotFoundError() {
-    	return $this->createError(null, 'DRM', "Impossible d'identifier l'établissement");
+    	return $this->createError(null, 'DRM', "Impossible d'identifier l'établissement", 'error_notfound_etablissement');
     }
     
     private function createWrongFormatTypeError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, KeyInflector::slugify($csvRow[self::CSV_TYPE]), "Choix possible type : " . implode(', ', self::$permitted_types));
+        return $this->createError($num_ligne, KeyInflector::slugify($csvRow[self::CSV_TYPE]), "Choix possible type : " . implode(', ', self::$permitted_types), 'error_format_type');
     }
 
     private function createWrongFormatPeriodeError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, KeyInflector::slugify($csvRow[self::CSV_PERIODE]), "Format période : AAAAMM");
+        return $this->createError($num_ligne, KeyInflector::slugify($csvRow[self::CSV_PERIODE]), "Format période : AAAAMM", 'error_format_periode');
     }
 
     private function createWrongFormatNumAcciseError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, KeyInflector::slugify($csvRow[self::CSV_NUMACCISE]), "Format numéro d'accises non valide");
+        return $this->createError($num_ligne, KeyInflector::slugify($csvRow[self::CSV_NUMACCISE]), "Format numéro d'accises non valide", 'error_format_ea');
     }
     
   	private function centilisationCrdNotFoundError($num_ligne, $csvRow) {
-  		return $this->createError($num_ligne, $csvRow[self::CSV_CRD_CENTILITRAGE], "La centilisation CRD n'a pas été reconnue");
+  		return $this->createError($num_ligne, $csvRow[self::CSV_CRD_CENTILITRAGE], "La centilisation CRD n'a pas été reconnue", 'error_notfound_crdcentilisation');
   	}
   	
   	private function categorieCrdNotFoundError($num_ligne, $csvRow) {
-  		return $this->createError($num_ligne, $csvRow[self::CSV_CRD_TYPE_DROITS], "La catégorie fiscale CRD n'a pas été reconnue");
+  		return $this->createError($num_ligne, $csvRow[self::CSV_CRD_TYPE_DROITS], "La catégorie fiscale CRD n'a pas été reconnue", 'error_notfound_crdcategorie');
   	}
   	
   	private function typeCrdNotFoundError($num_ligne, $csvRow) {
-  		return $this->createError($num_ligne, $csvRow[self::CSV_CRD_GENRE], "Le type CRD n'a pas été reconnu");
+  		return $this->createError($num_ligne, $csvRow[self::CSV_CRD_GENRE], "Le type CRD n'a pas été reconnu", 'error_notfound_crdtype');
   	}
   	
   	private function categorieAnnexeNotFoundError($num_ligne, $csvRow) {
-  		return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_CATMVT], "La catégorie d'annexe n'a pas été reconnue");
+  		return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_CATMVT], "La catégorie d'annexe n'a pas été reconnue", 'error_notfound_annexecategorie');
   	}
 
   	private function mvtDetailsNotValidError($num_ligne, $csvRow) {
-  		return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_TYPEMVT], "Le mouvement attend des informations complementaires valides");
+  		return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_TYPEMVT], "Le mouvement attend des informations complementaires valides", 'error_notvalid_mvtinfos');
   	}
   	
   	private function typeAnnexeNotFoundError($num_ligne, $csvRow) {
-  		return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_TYPEMVT], "Le type d'annexe n'a pas été reconnu");
+  		return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_TYPEMVT], "Le type d'annexe n'a pas été reconnu", 'error_notfound_annexetype');
   	}
 
     private function retiraisonNotAllowedError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_CONTRATID], "Aucune sortie cave ne permet la retiraison du contrat");
+        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_CONTRATID], "Aucune sortie cave ne permet la retiraison du contrat", 'error_notallow_retiraison');
     }
 
     private function contratNotFoundError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_CONTRATID], "Le contrat n'a pas été trouvé");
+        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_CONTRATID], "Le contrat n'a pas été trouvé", 'error_notfound_contrat');
     }
 
     private function productNotFoundError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_PRODUIT], "Le produit n'a pas été trouvé");
+        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_PRODUIT], "Le produit n'a pas été trouvé", 'error_notfound_produit');
     }
 
     private function droitsNotFoundError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_TYPE_DROITS], "Le type de droit n'a pas été trouvé");
+        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_TYPE_DROITS], "Le type de droit n'a pas été trouvé", 'error_notfound_droitstype');
     }
 
     private function complementProductWrongFormatError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_COMPLEMENT_PRODUIT], "Le complément produit n'est pas reconnu");
+        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_COMPLEMENT_PRODUIT], "Le complément produit n'est pas reconnu", 'error_notfound_produitcomplement');
     }
 
     private function categorieMouvementNotFoundError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_CATEGORIE_MOUVEMENT], "La catégorie de mouvement n'a pas été trouvée");
+        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_CATEGORIE_MOUVEMENT], "La catégorie de mouvement n'a pas été trouvée", 'error_notfound_mvtcategorie');
     }
 
     private function typeMouvementNotFoundError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_TYPE_MOUVEMENT], "Le type de mouvement n'a pas été trouvé");
+        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_TYPE_MOUVEMENT], "Le type de mouvement n'a pas été trouvé", 'error_notfound_mvttype');
     }
 
     private function categorieCrdMvtNotFoundError($num_ligne, $csvRow) {
-    	return $this->createError($num_ligne, $csvRow[self::CSV_CRD_CATEGORIE_KEY], "La catégorie de mouvement de CRD n'a pas été trouvée");
+    	return $this->createError($num_ligne, $csvRow[self::CSV_CRD_CATEGORIE_KEY], "La catégorie de mouvement de CRD n'a pas été trouvée", 'error_notfound_crdcategoriemvt');
     }
     
     private function typeCrdMvtNotFoundError($num_ligne, $csvRow) {
-    	return $this->createError($num_ligne, $csvRow[self::CSV_CRD_TYPE_KEY], "Le type de mouvement de CRD n'a pas été trouvé");
+    	return $this->createError($num_ligne, $csvRow[self::CSV_CRD_TYPE_KEY], "Le type de mouvement de CRD n'a pas été trouvé", 'error_notfound_crdtypemvt');
     }
     
     private function valeurMouvementNotValidError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_VOLUME], "La valeur doit être un nombre positif");
+        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_VOLUME], "La valeur doit être un nombre positif", 'error_notvalid_mvtvolume');
     }
     
     private function valeurCrdMouvementNotValidError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_CRD_QUANTITE], "La valeur doit être un nombre entier positif");
+        return $this->createError($num_ligne, $csvRow[self::CSV_CRD_QUANTITE], "La valeur doit être un nombre entier positif", 'error_notvalid_crdquantite');
     }
     
     private function valeurAnnexeNotValidError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_QUANTITE], "La valeur doit être un nombre entier positif");
+        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_QUANTITE], "La valeur doit être un nombre entier positif", 'error_notvalid_annexequantite');
     }
     
     private function numeroRnaAnnexeNotValidError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_NUMERODOCUMENT], "Le numéro de document doit être un nombre entier positif");
+        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_NUMERODOCUMENT], "Le numéro de document doit être un nombre entier positif", 'error_notvalid_annexerna');
     }
     
     private function valeurStatistiqueNotValidError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_QUANTITE], "La valeur doit être un nombre positif");
-    }
-
-    private function exportPaysNotFoundError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_EXPORTPAYS], "Le pays d'export n'a pas été trouvé");
-    }
-
-    private function contratIDEmptyError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_CONTRATID], "L'identifiant du contrat ne peut pas être vide");
-    }
-
-    private function contratIDNotFoundError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_CONTRATID], "Le contrat n'a pas été trouvé");
+        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_QUANTITE], "La valeur doit être un nombre positif", 'error_notvalid_annexestatsvolume');
     }
 
     private function observationsEmptyError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_VOLUME], "Les observations sont vides");
-    }
-
-    private function sucreWrongFormatError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_QUANTITE], "La quantité de sucre est nulle ou possède un mauvais format");
+        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_VOLUME], "Les observations sont vides", 'error_empty_observations');
     }
 
     private function typeDocumentWrongFormatError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_TYPEANNEXE], "Le type de document d'annexe n'est pas connu");
+        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_TYPEANNEXE], "Le type de document d'annexe n'est pas connu", 'error_notfound_annexetypedoc');
     }
 
     private function annexesTypeMvtWrongFormatError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_TYPEMVT], "Le type d'enregistrement des " . $csvRow[self::CSV_ANNEXE_TYPEANNEXE] . " doit être 'début' ou 'fin'");
+        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_TYPEMVT], "Le type d'enregistrement des " . $csvRow[self::CSV_ANNEXE_TYPEANNEXE] . " doit être 'début' ou 'fin'", 'error_notvalid_annexetypedoc');
     }
 
     private function annexesNumeroDocumentError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_TYPEANNEXE], "Le numéro de document ne peut pas être vide");
+        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_TYPEANNEXE], "Le numéro de document ne peut pas être vide", 'error_empty_annexetypedoc');
     }
 
     private function annexesNonApurementWrongDateError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_NONAPUREMENTDATEEMISSION], "La date est vide ou mal formattée");
+        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_NONAPUREMENTDATEEMISSION], "La date est vide ou mal formattée", 'error_notvalid_annexernadate');
     }
 
     private function annexesNonApurementWrongNumAcciseError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_NONAPUREMENTACCISEDEST], "Le numéro d'accises du destinataire est vide ou mal formatté");
+        return $this->createError($num_ligne, $csvRow[self::CSV_ANNEXE_NONAPUREMENTACCISEDEST], "Le numéro d'accises du destinataire est vide ou mal formatté", 'error_notvalid_annexernaea');
     }
 
-    private function createError($num_ligne, $erreur_csv, $raison) {
+    private function createError($num_ligne, $erreur_csv, $raison, $id = null) {
         $error = new stdClass();
         $error->num_ligne = $num_ligne;
         $error->erreur_csv = $erreur_csv;
         $error->raison = $raison;
+        $error->id = $id;
         return $error;
     }
 

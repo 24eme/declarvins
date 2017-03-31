@@ -14,6 +14,11 @@ abstract class DRMControle
 		$this->setLibelle($libelle);
 		$this->setMessages(ControlesClient::getInstance()->findAll()->getFields());
 	}
+	
+	public function getIdentifiant()
+	{
+		return $this->type.'_'.$this->code;
+	}
 
 	public function getType()
 	{

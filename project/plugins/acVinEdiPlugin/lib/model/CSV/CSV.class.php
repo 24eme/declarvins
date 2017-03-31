@@ -27,6 +27,9 @@ class CSV extends BaseCSV {
         $erreurNode->num_ligne = $erreur->num_ligne;
         $erreurNode->csv_erreur = $erreur->erreur_csv;
         $erreurNode->diagnostic = $erreur->raison;
+        if (isset($erreur->id)) {
+        	$erreurNode->id = $erreur->id;
+        }
         return $erreurNode;
     }
 
