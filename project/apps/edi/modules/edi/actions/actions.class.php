@@ -452,7 +452,7 @@ class ediActions extends sfActions
 					    		$drm->validate();
 					    	}
 					    	$drm->save();
-					    	$result[] = array('SUCCESS', 'CSV', null, 'La DRM '.$drm->periode." pour ".$drm->identifiant.' a été importée avec succès');
+					    	$result[] = array('SUCCES', 'CSV', null, null, 'La DRM '.$drm->periode." pour ".$drm->identifiant.' a été importée avec succès');
 		  				}
 	  				}
   				}
