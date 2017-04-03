@@ -17,7 +17,6 @@ class VracSoussigneForm extends VracForm
 				'acheteur_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
 				'mandataire_exist' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
 				'mandataire_identifiant' => new WidgetEtablissement(array('interpro_id' => $zonesEtablissement, 'familles' => EtablissementFamilles::FAMILLE_COURTIER, 'only_actif' => 1)),
-				'premiere_mise_en_marche' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
 				'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier(), 'renderer_options' => array('formatter' => array('VracSoussigneForm', 'casParticulierFormatter')))),
         	    'bailleur_metayer' => new WidgetFormInputCheckbox(),
 		));
@@ -31,7 +30,6 @@ class VracSoussigneForm extends VracForm
 				'acheteur_tva' => 'Assujetti à la TVA',
 				'mandataire_exist' => 'Transaction avec un courtier',
 				'mandataire_identifiant' => 'Mandataire:',
-				'premiere_mise_en_marche' => 'Première mise en marché:',
 				'cas_particulier' => 'Condition particulière:',
         		'bailleur_metayer' => 'Entre bailleur et métayer:'
 		));
@@ -45,7 +43,6 @@ class VracSoussigneForm extends VracForm
 				'acheteur_tva' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
 				'mandataire_exist' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
 				'mandataire_identifiant' => new ValidatorEtablissement(array('required' => false, 'familles' => EtablissementFamilles::FAMILLE_COURTIER)),
-				'premiere_mise_en_marche' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
 				'cas_particulier' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCasParticulier()))),
         		'bailleur_metayer' => new ValidatorBoolean(array('required' => false))
 		));
@@ -113,7 +110,6 @@ class VracSoussigneForm extends VracForm
 		parent::updateDefaultsFromObject();
 
 		$this->setDefault('cas_particulier', (($this->getObject()->cas_particulier) ? $this->getObject()->cas_particulier : ConfigurationVrac::CAS_PARTICULIER_DEFAULT_KEY));
-		$this->setDefault('premiere_mise_en_marche', true);
 
 		if ($this->getEtablissement()) {
 			if ($this->getEtablissement()->identifiant == $this->getObject()->acheteur_identifiant) {
@@ -157,6 +153,12 @@ class VracSoussigneForm extends VracForm
 			$this->getObject()->remove('mandataire');
 			$this->getObject()->add('mandataire');
 			$this->getObject()->mandataire_identifiant = null;
+		}
+		
+		if ($this->getObject()->vendeur_type == EtablissementFamilles::FAMILLE_PRODUCTEUR) {
+			$this->getObject()->premiere_mise_en_marche = 1;
+		} else {
+			$this->getObject()->premiere_mise_en_marche = 0;
 		}
 
 		$this->getObject()->storeSoussignesInformations();
