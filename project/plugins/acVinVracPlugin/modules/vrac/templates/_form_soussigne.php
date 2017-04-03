@@ -41,11 +41,6 @@
 
     <div id="contrat">
         <h1>Type de contrat</h1>
-        <div class="section_label_strong">
-            <?php echo $form['premiere_mise_en_marche']->renderError() ?>
-            <?php echo $form['premiere_mise_en_marche']->renderLabel() ?>
-            <?php echo $form['premiere_mise_en_marche']->render() ?>
-        </div>
         <div class="section_label_strong_bloc">
             <?php echo $form['cas_particulier']->renderError() ?>
             <?php echo $form['cas_particulier']->renderLabel() ?>
