@@ -215,7 +215,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 	  		}
 	  		
 	  		$mvt = ($categorieMvt)? $produit->getOrAdd($categorieMvt) : $produit;
-	  		$old = ($categorieMvt == 'stock' || $categorieMvt == 'stocks')? 0 : floatval($mvt->getOrAdd($typeMvt));
+	  		$old = (in_array(str_replace('acq_', '', $typeMvt), array('total_debut_mois', 'total')))? 0 : floatval($mvt->getOrAdd($typeMvt));
 	  		$mvt->add($typeMvt, round(($old + $this->floatize($valeur)), 2));
 	  		$result = $this->drm->setImportableMvtDetails($typeMvt, $mvt, $datas);
 	  		if (!$result) {
@@ -272,7 +272,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		}
   		
   		$mvt = ($categorieCrd)? $crd->getOrAdd($categorieCrd) : $crd;
-  		$old = ($categorieCrd == 'stock' || $categorieCrd == 'stocks')? 0 : intval($mvt->getOrAdd($typeCrd));
+  		$old = (in_array($typeMvt, array('total_debut_mois', 'total_fin_mois')))? 0 : intval($mvt->getOrAdd($typeCrd));
   		$mvt->add($typeCrd, ($old + intval($valeur)));
   		
     }
