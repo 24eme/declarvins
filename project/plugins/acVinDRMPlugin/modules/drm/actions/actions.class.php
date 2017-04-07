@@ -392,7 +392,10 @@ class drmActions extends sfActions {
 	        $this->drmCiel->setInformationsFromXml();
 	        if ($this->drmCiel->hasErreurs()) {
 	        	$interpro = $this->etablissement->getInterproObject();
-	        	$to = ($interpro)? array(sfConfig::get('app_email_to_notification'), $interpro->email_contrat_inscription): sfConfig::get('app_email_to_notification');
+	        	$to = ($interpro)? array(sfConfig::get('app_email_to_notification'), $interpro->email_contrat_inscription): array(sfConfig::get('app_email_to_notification'));
+	        	if ($interpro && $interpro->identifiant == 'CIVP') {
+	        		$to[] = $interpro->email_assistance_ciel;
+	        	}
 	        	$this->drm->devalide();
 	        	$this->drm->etape = 'validation';
 	        	$erreursCiel = true;
