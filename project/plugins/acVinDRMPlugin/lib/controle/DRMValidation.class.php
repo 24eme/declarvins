@@ -211,8 +211,11 @@ class DRMValidation
 			if ($detail->entrees->excedent > 0 && !$detail->observations) {
 				$this->errors['observations_excedent_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_excedent', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
 			}
-			if (($detail->sorties->autres > 0 || $detail->sorties->pertes > 0) && !$detail->observations) {
-				$this->errors['observations_autres_pertes_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_autres_pertes', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
+			if ($detail->sorties->autres > 0 && !$detail->observations) {
+				$this->errors['observations_autres_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_autres', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
+			}
+			if ($detail->sorties->pertes > 0 && !$detail->observations) {
+				$this->errors['observations_pertes_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_pertes', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
 			}
 		}
 		if ($detail->tav && ($detail->tav < 0.5 || $detail->tav > 100)) {
