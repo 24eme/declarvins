@@ -45,7 +45,16 @@
 					Vous devez par contre imprimer le PDF et le signer puis l'envoyer à votre service des douanes habituel.
                     <?php endif; ?>
                     <?php else: ?>
-                    Votre DRM a bien été saisie et validée.
+                    Votre DRM a bien été saisie et validée.<br />
+                    <?php if(!$drm->isRectificative() && $drmCiel->isTransfere()): ?>
+                    Votre DRM a été transmise correctement au service CIEL, le <?php echo format_date($drmCiel->horodatage_depot, 'dd/MM/yyyy') ?> à <?php echo format_date($drmCiel->horodatage_depot, 'H:m') ?> sous le numéro <?php echo $drmCiel->identifiant_declaration ?>.<br />
+                    Vous devez terminer votre déclaration en la vérifiant et la validant ("déposer la DRM") sur le site prodouanes via le lien suivant : <a href="https://pro.douane.gouv.fr/">pro.douane.gouv.fr</a><br />
+					en vous connectant et en allant sur l'interface CIEL (menu de gauche).
+                    <?php elseif ($drm->isRectificative() && $drmCiel->isTransfere()): ?>
+                    Votre DRM a bien été corrigée afin de correspondre à celle transmise au service CIEL, le <?php echo format_date($drmCiel->horodatage_depot, 'dd/MM/yyyy') ?> à <?php echo format_date($drmCiel->horodatage_depot, 'H:m') ?> sous le numéro <?php echo $drmCiel->identifiant_declaration ?>.
+                    <?php else: ?>
+					Vous devez par contre imprimer le PDF et le signer puis l'envoyer à votre service des douanes habituel.
+                    <?php endif; ?>
                     <?php endif; ?>
                     </li>
                 </ul>
