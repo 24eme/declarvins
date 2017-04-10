@@ -126,7 +126,7 @@
                 <pre style="background: #fff; border: 1px #E9E9E9; padding: 8px; margin-top: 8px;"><?php echo $drm->commentaires ?></pre>
             </div>
         <?php endif; ?>
-            <?php if ($hide_rectificative): ?>
+            <?php if ($etablissement->isTransmissionCiel() && $hide_rectificative): ?>
             <?php elseif ($etablissement->isTransmissionCiel() && !$drmCiel->isValide() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <?php else: ?>
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
