@@ -337,7 +337,6 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		}
     		$this->updateReferente();
     		$this->updateEnlevements();
-    		$this->setOioc();
     	} else {
     		if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
     			$this->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
