@@ -85,15 +85,19 @@ Configuration:
                                 definition:
                                   fields:
                                     '*': {  }
-                              'replacement':
+                              'replacements':
                                 type: collection
                                 definition:
                                   fields:
-                                    '*': 
-                                      type: array_collection
+                                    'replacement-suspension': 
+                                      type: collection
                                       definition:
                                         fields:
-                                          '*': {  }
+                                          '*':
+                                            type: array_collection
+                                            definition:
+                                              fields:
+                                                '*': {  }
                         'sorties-periode':
                           type: collection
                           definition:

@@ -6,9 +6,13 @@ upload_etablissements:
   url: /edi/etablissements/csv/:id
   param: {module: edi, action: uploadEtablissements}
 # OK
-testDRMPushEdi:
+DRMPushEdi:
   url: /edi/v2/push/etablissement/drm/:etablissement
   param: {module: edi, action: pushDRMEtablissementV2}
+GetBilanDRMEdi:
+  url: /edi/v2/bilan/etablissement/drm/:etablissement
+  param: {module: edi, action: getBilanDrmEtablissement}
+
 testDRMEdi:
   url: /edi/v2/drm/:id_drm.:format
   param: {module: edi, action: ediV2, format: csv}
