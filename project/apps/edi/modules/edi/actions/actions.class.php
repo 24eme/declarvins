@@ -377,7 +377,7 @@ class ediActions extends sfActions
   	set_time_limit(0);
   	$etablissement = $request->getParameter('etablissement');
   	$this->securizeEtablissement($etablissement);
-  	$result = array();
+  	$result = array('Période', 'Code statut', 'Libellé statut');
   	$bilanClient = BilanClient::getInstance();
   	if ($bilan = $bilanClient->findByIdentifiantAndType($etablissement, 'DRM')) {
   		foreach ($bilan->periodes as $periode => $datas) {
