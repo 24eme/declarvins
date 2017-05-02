@@ -371,6 +371,23 @@ class ediActions extends sfActions
     return $this->renderSimpleCsv($result, "drm");
   }
   
+  public function executeGetBilanDrmEtablissement(sfWebRequest $request)
+  {
+  	ini_set('memory_limit', '2048M');
+  	set_time_limit(0);
+  	$etablissement = $request->getParameter('etablissement');
+  	$this->securizeEtablissement($etablissement);
+  	$result = array();
+  	$bilanClient = BilanClient::getInstance();
+  	if ($bilan = $bilanClient->findByIdentifiantAndType($etablissement, 'DRM')) {
+  		foreach ($bilan->periodes as $periode => $datas) {
+  			if (!$result && !$datas->id_drm) { continue; }
+  			$result[] = array($periode, $bilanClient->getStatutSimple($datas->statut), $bilanClient->getStatutLibelleSimple($datas->statut));
+  		}
+  	}
+  	return $this->renderSimpleCsv($result, "bilan");
+  }
+  
   public function executePushDRMEtablissementV2(sfWebRequest $request)
   {
   	ini_set('memory_limit', '2048M');
