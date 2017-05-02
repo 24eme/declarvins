@@ -377,11 +377,13 @@ class ediActions extends sfActions
   	set_time_limit(0);
   	$etablissement = $request->getParameter('etablissement');
   	$this->securizeEtablissement($etablissement);
-  	$result = array('Période', 'Code statut', 'Libellé statut');
+  	$result = array(array('Période', 'Code statut', 'Libellé statut'));
   	$bilanClient = BilanClient::getInstance();
+  	$find = false;
   	if ($bilan = $bilanClient->findByIdentifiantAndType($etablissement, 'DRM')) {
   		foreach ($bilan->periodes as $periode => $datas) {
-  			if (!$result && !$datas->id_drm) { continue; }
+  			if (!$find && !$datas->id_drm) { continue; }
+  			$find = true;
   			$result[] = array($periode, $bilanClient->getStatutSimple($datas->statut), $bilanClient->getStatutLibelleSimple($datas->statut));
   		}
   	}
