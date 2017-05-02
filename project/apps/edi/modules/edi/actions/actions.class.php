@@ -384,7 +384,7 @@ class ediActions extends sfActions
   		foreach ($bilan->periodes as $periode => $datas) {
   			if (!$find && !$datas->id_drm) { continue; }
   			$find = true;
-  			$result[] = array($periode, $bilanClient->getStatutSimple($datas->statut), $bilanClient->getStatutLibelleSimple($datas->statut));
+  			$result[] = array(str_replace('-', '', $periode), $bilanClient->getStatutSimple($datas->statut), $bilanClient->getStatutLibelleSimple($datas->statut));
   		}
   	}
   	return $this->renderSimpleCsv($result, "bilan");
