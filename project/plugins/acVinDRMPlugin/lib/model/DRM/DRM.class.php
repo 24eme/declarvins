@@ -468,16 +468,16 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     			if ($this->hasVersion()) {
     				if ($previous = $this->getMother()) {
     					$mothers[] = $previous;
+	    				if ($contrat->enlevements->exist($previous->_id)) {
+	    					$contrat->enlevements->remove($previous->_id);
+	    				}
     				}
     			}
-    			if ($enlevements->exist($this->_id)) {
-    				$enlevements->remove($this->_id);
+    			if ($contrat->enlevements->exist($this->_id)) {
+    				$contrat->enlevements->remove($this->_id);
     			}
     			$contrat->save();
     		}
-    	}
-    	foreach ($mothers as $mother) {
-    		$mother->updateVrac();
     	}
     }
 
