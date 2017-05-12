@@ -1192,6 +1192,29 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
         return $change;
     }
+    
+    public function hasRectifications() {
+    	if(!$this->hasVersion()) {
+    		return false;
+    	}
+    	$diffs = $this->getDiffWithMother();
+    	$diff = false;
+    	foreach ($diffs as $hash => $val) {
+    		if (preg_match('/\/declaration\//', $hash)) {
+    			$diff = true;
+    			break;
+    		}
+    		if (preg_match('/\/crds\//', $hash)) {
+    			$diff = true;
+    			break;
+    		}
+    		if (preg_match('/\/declaratif\//', $hash)) {
+    			$diff = true;
+    			break;
+    		}
+    	}
+    	return $diff;
+    }
 
     public function getDiffWithMother() {
 

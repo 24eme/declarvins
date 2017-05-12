@@ -203,6 +203,16 @@ class DRMRouting {
                               									'must_be_valid' => false,
                               									'must_be_not_valid' => true)));
 
+        $r->prependRoute('drm_force_validation_ciel', new DRMRoute('/drm/:identifiant/edition/:periode_version/force-validation-ciel', 
+                                                          array('module' => 'drm', 
+                                                                'action' => 'forceValidationCiel'),
+                                                          array('sf_method' => array('get','post')),
+                                                          array('model' => 'DRM',
+                                                                'type' => 'object',
+                            						  			'no_archive' => true,
+                              									'must_be_valid' => false,
+                              									'must_be_not_valid' => true)));
+
         $r->prependRoute('drm_payer_report', new DRMRoute('/drm/:identifiant/edition/:periode_version/payement-report', 
                                                           array('module' => 'drm', 
                                                                 'action' => 'payerReport'),

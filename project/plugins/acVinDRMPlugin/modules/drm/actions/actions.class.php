@@ -471,6 +471,30 @@ class drmActions extends sfActions {
             $this->getUser()->setAttribute('last_drm', $infos);
         }
     }
+    
+    public function executeForceValidationCiel(sfWebRequest $request) {
+    	$this->etablissement = $this->getRoute()->getEtablissement();
+    	$this->drm = $this->getRoute()->getDRM();
+    	if ($this->drm->isFictive()) {
+    		$this->drm = $this->drm->getDRM();
+    	}
+    	$condition = $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->drm->hasVersion();
+    	$this->forward404Unless($condition);
+    	$isDelete = false;
+    	if (!$this->drm->hasRectifications()) {
+	    	if ($mother = $this->drm->getMother()) {
+	    		$this->drm->delete();
+	    		$this->drm = $mother;
+    			$isDelete = true;
+	    	}
+    	}
+    	if (!$isDelete) {
+    		$this->drm->validate();
+    	}
+    	$this->drm->ciel->valide = 1;
+    	$this->drm->save();
+    	return $this->redirect('drm_visualisation', array('sf_subject' => $this->drm));
+    }
 
     public function executeShowError(sfWebRequest $request) {
         $drm = $this->getRoute()->getDRM();

@@ -265,10 +265,10 @@ class DRMValidation
 		return (count($this->errors) > 0)? true : false;
 	}
 	
-	public function hasError($error)
+	public function hasError($error, $strict = false)
 	{
 		$keys = array_keys($this->errors);
-    	return (count(preg_grep('/^'.$error.'_.+$/',$keys)) > 0);
+    	return ($strict)? in_array($error, $keys) : (count(preg_grep('/^'.$error.'_.+$/',$keys)) > 0);
 	}
 	
 	public function hasWarnings()
