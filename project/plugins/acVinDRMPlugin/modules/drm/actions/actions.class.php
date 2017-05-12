@@ -324,6 +324,14 @@ class drmActions extends sfActions {
         $this->drm = $this->getRoute()->getDRM();
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->postVars = $request->getPostParameters();
+        if (isset($this->postVars['drm_validation']['brouillon']) && $this->postVars['drm_validation']['brouillon']) {
+        	foreach ($this->postVars as $id => $vars) {
+        		foreach ($vars as $name => $value) {
+        			$this->getRequest()->setParameter($id.'['.$name.']', $value);
+        		}
+        	}
+        	$this->forward('drm','validation');
+        }
     }
 
     /**
@@ -368,6 +376,8 @@ class drmActions extends sfActions {
         {
         	return $this->redirect('drm_validation', $this->drm);
         }
+        
+        var_dump($values);exit;
         
         $this->drm->validate();
         
