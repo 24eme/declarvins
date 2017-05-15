@@ -376,9 +376,7 @@ class drmActions extends sfActions {
         {
         	return $this->redirect('drm_validation', $this->drm);
         }
-        
-        var_dump($values);exit;
-        
+                
         $this->drm->validate();
         
         // CIEL ==============
