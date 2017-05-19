@@ -257,15 +257,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
     
     public function isNeant() {
-    	$details = $this->getDetails();
-    	$isNeant = true;
-    	foreach ($details as $detail) {
-    		if (($detail->total_debut_mois > 0 || $detail->acq_total_debut_mois > 0) && ($detail->total > 0 || $detail->acq_total > 0)) {
-    			$isNeant = false;
-    			break;
-    		}
-    	}
-    	return $isNeant;
+    	$hasStockAcq = $this->hasStocksAcq();
+    	$hasStockSus = $this->hasStocks();
+    	
+    	return ($hasStockSus || $hasStockAcq)? true : false;
     }
     
     public function hasStocks() {
