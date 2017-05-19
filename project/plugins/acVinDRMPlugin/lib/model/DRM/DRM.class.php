@@ -260,7 +260,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	$hasStockAcq = $this->hasStocksAcq();
     	$hasStockSus = $this->hasStocks();
     	
-    	return ($hasStockSus || $hasStockAcq)? true : false;
+    	return ($hasStockSus || $hasStockAcq)? false : true;
     }
     
     public function hasStocks() {
