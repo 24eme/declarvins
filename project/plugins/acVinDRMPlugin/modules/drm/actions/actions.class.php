@@ -50,6 +50,7 @@ class drmActions extends sfActions {
      * @param sfWebRequest $request 
      */
     public function executeImport(sfWebRequest $request) {
+  		set_time_limit(120);
         $drm = $this->getRoute()->getDRM();
         if ($drm->isFictive()) {
         	$drm = $drm->getDRM();
