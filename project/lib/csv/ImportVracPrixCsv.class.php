@@ -72,13 +72,25 @@ class ImportVracPrixCsv
       			continue;
       		}
       		
-      		$master->determination_prix = null;
-      		$master->determination_prix_date = null;
-      		$master->prix_unitaire = $this->castFloat(trim($line[self::COL_PRIX]));
-      		$master->type_prix = $typePrix;
-      		$master->update();
-      		$master->valide->date_saisie = date('c');
+      		$contrat = clone $master;
+      		
+      		$numero = (int)$contrat->getRectificative() + (int)$contrat->getModificative();
+      		$contrat->version = Vrac::buildVersion(null, $numero + 1);
+      		$contrat->constructId();
+      		$contrat->referente = 1;
+      		$contrat->determination_prix = null;
+      		$contrat->determination_prix_date = null;
+      		$contrat->prix_unitaire = $this->castFloat(trim($line[self::COL_PRIX]));
+      		$contrat->type_prix = $typePrix;
+      		$contrat->update();
+      		$contrat->valide->date_saisie = date('c');
+      		$contrat->save(false);
+      		
+      		$master->referente = 0;
+      		$master->valide->statut = VracClient::STATUS_CONTRAT_ANNULE;
+      		$master->commentaires = "Mise à jour du prix définitif";
       		$master->save(false);
+      		
       		$cpt++;
       		
       	}
