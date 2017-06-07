@@ -159,6 +159,9 @@ interpro_upload_csv:
 interpro_upload_csv_volumes_bloques:
   url:   /interpro/upload_csv_volumes_bloques
   param: { module: interpro, action: uploadCsvVolumesBloques }
+interpro_upload_csv_vrac_prix:
+  url:   /interpro/upload_csv_vrac_prix
+  param: { module: interpro, action: uploadCsvVracPrix }
 
 # Rush II : DRM routing
 tiers_mon_espace:

@@ -62,4 +62,42 @@ class interproActions extends sfActions
             }
         }
     }
+    
+    public function executeUploadCsvVracPrix(sfWebRequest $request) {
+    	$this->forward404Unless($this->interpro = $this->getUser()->getCompte()->getGerantInterpro());
+    	ini_set('memory_limit', '1024M');
+    	set_time_limit(0);
+    	$this->formUploadCsv = new UploadCSVForm();
+    	$this->hasErrors = false;
+    	if ($request->isMethod(sfWebRequest::POST) && $request->getFiles('csv')) {
+    		$this->formUploadCsv->bind($request->getParameter('csv'), $request->getFiles('csv'));
+    		if ($this->formUploadCsv->isValid()) {
+    			$file = $this->formUploadCsv->getValue('file');
+    			
+    			
+    			$csv = array();
+    			if (@file_get_contents($file->getSavedName())) {
+    				$handler = fopen($file->getSavedName(), 'r');
+    				if (!$handler) {
+    					throw new Exception('Cannot open csv file anymore');
+    				}
+    				while (($line = fgetcsv($handler, 0, ";")) !== FALSE) {
+    					if (!preg_match('/^#/', trim($line[ImportVracPrixCsv::COL_VISA]))) {
+    						$csv[] = $line;
+    					}
+    				}
+    				fclose($handler);
+    			}
+    			
+    			$this->import = new ImportVracPrixCsv($csv);
+    			try {
+    				$nb = $this->import->update();
+    				$this->getUser()->setFlash('notice', "$nb contrats ont été mis à jour");
+    				$this->redirect('interpro_upload_csv_vrac_prix');
+    			} catch (Exception $e) {
+    				$this->hasErrors = true;
+    			}
+    		}
+    	}
+    }
 }

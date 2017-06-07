@@ -5,6 +5,8 @@
             Contrats interprofessionnels &nbsp;
             <?php if (!$etablissement || $etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
             <a class="btn_ajouter" href="<?php echo url_for('vrac_nouveau', array('etablissement' => $etablissement)) ?>">Ajouter</a>
+            
+            <a class="btn_ajouter" href="<?php echo url_for('interpro_upload_csv_vrac_prix') ?>">Mise à jours des prix</a>
         	<?php endif; ?>
         </h1>
         
