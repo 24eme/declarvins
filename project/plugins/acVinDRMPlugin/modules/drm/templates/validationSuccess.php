@@ -10,7 +10,7 @@
 
     <!-- #principal -->
     <section id="principal">
-    	<?php if ($drmCiel->hasErreurs()): ?>
+    	<?php if ($drmCiel->hasErreurs() && $etablissement->isTransmissionCiel()): ?>
     	<div class="error_list" style="margin-bottom: 20px;">
 		    <h3 style="margin-bottom: 15px;">Erreurs lors de la transmission CIEL (veuillez corriger votre DRM ou contacter votre interprofession pour plus d'information sur les erreurs rencontrées)&nbsp;:</h3>
 		    <ol style="font-weight: normal;">
