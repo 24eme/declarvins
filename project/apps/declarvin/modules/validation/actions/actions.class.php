@@ -316,9 +316,6 @@ class validationActions extends sfActions {
         $etablissement->save();
         $compte = $this->contrat->getCompteObject();
         $compte->tiers->remove($etablissement->get('_id'));
-        if ($compte->tiers->count() == 0) {
-        	$compte->setStatut(_Compte::STATUT_ARCHIVE);
-        }
         $compte->save();
         $this->getUser()->setFlash('notice', "L'établissement a bien été délié");
         $this->redirect('validation_fiche', array('num_contrat' => $this->contrat->no_contrat));

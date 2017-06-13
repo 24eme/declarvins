@@ -4,12 +4,13 @@
 
 <section id="contenu">
 
+
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
     <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'validation', 'pourcentage' => '100')); ?>
 
     <!-- #principal -->
     <section id="principal">
-    	<?php if ($drmCiel->hasErreurs()): ?>
+    	<?php if ($drmCiel->hasErreurs() && $etablissement->isTransmissionCiel()): ?>
     	<div class="error_list" style="margin-bottom: 20px;">
 		    <h3 style="margin-bottom: 15px;">Erreurs lors de la transmission CIEL (veuillez corriger votre DRM ou contacter votre interprofession pour plus d'information sur les erreurs rencontrées)&nbsp;:</h3>
 		    <ol style="font-weight: normal;">
@@ -52,6 +53,12 @@
                 </button>
                 <?php endif; ?>
                 <?php endif; ?>
+                <?php endif; ?>
+                
+                <?php if ($drmValidation->hasError('diff_ciel', true) && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->hasVersion()): ?>
+                <div class="ligne_btn">
+                	<a class="btn_suiv" href="<?php echo url_for('drm_force_validation_ciel', $drm) ?>"><span>Forcer la validation CIEL</span></a>
+                </div>
                 <?php endif; ?>
             </div>
             
@@ -169,6 +176,14 @@
                 </button>
                 <?php endif; ?>
                 <?php endif; ?>
+                <?php endif; ?>
+                
+                
+                
+                <?php if ($drmValidation->hasError('diff_ciel', true) && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->hasVersion()): ?>
+                <div class="ligne_btn">
+                	<a class="btn_suiv" href="<?php echo url_for('drm_force_validation_ciel', $drm) ?>"><span>Forcer la validation CIEL</span></a>
+                </div>
                 <?php endif; ?>
             </div>
 

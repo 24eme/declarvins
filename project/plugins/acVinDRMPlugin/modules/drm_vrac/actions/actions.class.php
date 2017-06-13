@@ -17,7 +17,7 @@ class drm_vracActions extends sfActions
   		
   	}
     public function executeIndex(sfWebRequest $request) {
-    	set_time_limit(60);
+    	set_time_limit(90);
         $this->drm = $this->getRoute()->getDRM();
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->details = $this->drm->getDetailsAvecVrac();

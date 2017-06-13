@@ -257,15 +257,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
     
     public function isNeant() {
-    	$details = $this->getDetails();
-    	$isNeant = true;
-    	foreach ($details as $detail) {
-    		if (($detail->total_debut_mois > 0 || $detail->acq_total_debut_mois > 0) && ($detail->total > 0 || $detail->acq_total > 0)) {
-    			$isNeant = false;
-    			break;
-    		}
-    	}
-    	return $isNeant;
+    	$hasStockAcq = $this->hasStocksAcq();
+    	$hasStockSus = $this->hasStocks();
+    	
+    	return ($hasStockSus || $hasStockAcq)? false : true;
     }
     
     public function hasStocks() {
@@ -468,16 +463,16 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     			if ($this->hasVersion()) {
     				if ($previous = $this->getMother()) {
     					$mothers[] = $previous;
+	    				if ($contrat->enlevements->exist($previous->_id)) {
+	    					$contrat->enlevements->remove($previous->_id);
+	    				}
     				}
     			}
-    			if ($enlevements->exist($this->_id)) {
-    				$enlevements->remove($this->_id);
+    			if ($contrat->enlevements->exist($this->_id)) {
+    				$contrat->enlevements->remove($this->_id);
     			}
     			$contrat->save();
     		}
-    	}
-    	foreach ($mothers as $mother) {
-    		$mother->updateVrac();
     	}
     }
 
@@ -1191,6 +1186,29 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         
 
         return $change;
+    }
+    
+    public function hasRectifications() {
+    	if(!$this->hasVersion()) {
+    		return false;
+    	}
+    	$diffs = $this->getDiffWithMother();
+    	$diff = false;
+    	foreach ($diffs as $hash => $val) {
+    		if (preg_match('/\/declaration\//', $hash)) {
+    			$diff = true;
+    			break;
+    		}
+    		if (preg_match('/\/crds\//', $hash)) {
+    			$diff = true;
+    			break;
+    		}
+    		if (preg_match('/\/declaratif\//', $hash)) {
+    			$diff = true;
+    			break;
+    		}
+    	}
+    	return $diff;
     }
 
     public function getDiffWithMother() {

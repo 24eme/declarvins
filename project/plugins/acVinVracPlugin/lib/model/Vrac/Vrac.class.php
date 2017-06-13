@@ -157,9 +157,15 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
 
     public function storeSoussignesInformations() {
-      $this->storeSoussigneInformations('acheteur', $this->getAcheteurObject());
-      $this->storeSoussigneInformations('vendeur', $this->getVendeurObject());
-      $this->storeSoussigneInformations('mandataire', $this->getMandataireObject());
+    	$acheteur = $this->getAcheteurObject();
+    	$vendeur = $this->getVendeurObject();
+    	$mandataire = $this->getMandataireObject();
+      	$this->storeSoussigneInformations('acheteur', $acheteur);
+      	$this->storeSoussigneInformations('vendeur', $vendeur);
+     	$this->storeSoussigneInformations('mandataire', $mandataire);
+     	if ($acheteur->compte == $vendeur->compte) {
+     		$this->cas_particulier = 'interne';
+     	}
     }
 
     public function storeSoussigneInformations($type, $etablissement) 

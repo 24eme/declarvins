@@ -38,6 +38,17 @@ class Contrat extends BaseContrat {
     	$z->administratrice = $zone->administratrice;
     }
     
+    public function needAvenant()
+    {
+    	$need = false;
+    	foreach ($this->etablissements as $etab) {
+    		if ($etab->famille == EtablissementFamilles::FAMILLE_PRODUCTEUR && $etab->zones->exist(ConfigurationZoneClient::ZONE_PROVENCE)) {
+    			$need = true;
+    		}
+    	}
+    	return $need;
+    }
+    
     public function getConfigurationZones()
     {
     	$result = array();

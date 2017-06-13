@@ -60,8 +60,11 @@ endif;
 										    <?php echo $formImport['file']->render() ?>
 										    <?php echo $formImport['file']->renderError() ?>
 										
-											<div class="btn ligne_form_btn" style="text-align: center;">
+											<div id="submit-drm-edi" class="btn ligne_form_btn" style="text-align: center;">
 												<button class="btn_valider" type="submit">Importer la DRM</button>
+											</div>
+											<div id="loading-drm-edi" class="btn ligne_form_btn" style="text-align: center; display:none;">
+												<img src="/images/pictos/pi_loader.gif" alt="chargement..." /> L'import peut prendre du temps
 											</div>
 										</form>
 									</td>
@@ -70,6 +73,12 @@ endif;
 						</table>
 						</div>
 					</div>
+					<script type="text/javascript">
+						$("#submit-drm-edi button").click(function() {
+							$("#submit-drm-edi").css("display","none");
+							$("#loading-drm-edi").css("display","block");
+						});
+					</script>
 				</div>
             <?php endif; ?>
         <?php elseif ($drm->isValidee()): ?>

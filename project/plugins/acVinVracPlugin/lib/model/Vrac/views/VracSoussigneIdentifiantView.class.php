@@ -54,4 +54,16 @@ class VracSoussigneIdentifiantView extends acCouchdbView
                             ->getView($this->design, $this->view);
     }
     
+    public function findContratMaster($identifiant, $visa) {
+    	$contrats = $this->findByEtablissement($identifiant)->rows;
+    	$master = null;
+    	foreach ($contrats as $contrat) {
+    		if (($contrat->value[self::VRAC_VIEW_NUM] == $visa) && (in_array($contrat->value[self::VRAC_VIEW_STATUT], array(VracClient::STATUS_CONTRAT_NONSOLDE, VracClient::STATUS_CONTRAT_SOLDE)))) {
+    			$master = VracClient::getInstance()->find($contrat->id);
+    			break;
+    		}
+    	}
+    	return $master;
+    }
+    
 }  

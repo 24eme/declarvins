@@ -270,6 +270,9 @@ class Email {
   					->setBody($body)
   					->setContentType('text/html')
   					->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$contrat->get('_id').'.pdf'));
+  		if ($contrat->needAvenant()) {
+  			$message->attach(Swift_Attachment::fromPath(sfConfig::get('sf_data_dir').'/inscription/avenant-oco.pdf'));
+  		}
 		return $this->getMailer()->send($message);
     }
 

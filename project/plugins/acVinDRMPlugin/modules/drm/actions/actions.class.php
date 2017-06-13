@@ -50,6 +50,7 @@ class drmActions extends sfActions {
      * @param sfWebRequest $request 
      */
     public function executeImport(sfWebRequest $request) {
+  		set_time_limit(120);
         $drm = $this->getRoute()->getDRM();
         if ($drm->isFictive()) {
         	$drm = $drm->getDRM();
@@ -324,6 +325,14 @@ class drmActions extends sfActions {
         $this->drm = $this->getRoute()->getDRM();
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->postVars = $request->getPostParameters();
+        if (isset($this->postVars['drm_validation']['brouillon']) && $this->postVars['drm_validation']['brouillon']) {
+        	foreach ($this->postVars as $id => $vars) {
+        		foreach ($vars as $name => $value) {
+        			$this->getRequest()->setParameter($id.'['.$name.']', $value);
+        		}
+        	}
+        	$this->forward('drm','validation');
+        }
     }
 
     /**
@@ -368,7 +377,7 @@ class drmActions extends sfActions {
         {
         	return $this->redirect('drm_validation', $this->drm);
         }
-        
+                
         $this->drm->validate();
         
         // CIEL ==============
@@ -470,6 +479,30 @@ class drmActions extends sfActions {
             }
             $this->getUser()->setAttribute('last_drm', $infos);
         }
+    }
+    
+    public function executeForceValidationCiel(sfWebRequest $request) {
+    	$this->etablissement = $this->getRoute()->getEtablissement();
+    	$this->drm = $this->getRoute()->getDRM();
+    	if ($this->drm->isFictive()) {
+    		$this->drm = $this->drm->getDRM();
+    	}
+    	$condition = $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->drm->hasVersion();
+    	$this->forward404Unless($condition);
+    	$isDelete = false;
+    	if (!$this->drm->hasRectifications()) {
+	    	if ($mother = $this->drm->getMother()) {
+	    		$this->drm->delete();
+	    		$this->drm = $mother;
+    			$isDelete = true;
+	    	}
+    	}
+    	if (!$isDelete) {
+    		$this->drm->validate();
+    	}
+    	$this->drm->ciel->valide = 1;
+    	$this->drm->save();
+    	return $this->redirect('drm_visualisation', array('sf_subject' => $this->drm));
     }
 
     public function executeShowError(sfWebRequest $request) {

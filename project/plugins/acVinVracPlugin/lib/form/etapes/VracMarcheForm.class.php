@@ -112,6 +112,7 @@ class VracMarcheForm extends VracForm
 
         if (!in_array($this->getObject()->type_prix, $this->getTypePrixNeedDetermination())) {
           $this->getObject()->determination_prix = null;
+          $this->getObject()->determination_prix_date = null;
         }
         if (!$this->getObject()->annexe) {
         	$this->getObject()->annexe = 0;
@@ -147,6 +148,10 @@ class VracMarcheForm extends VracForm
       	if (!$this->getObject()->millesime && $this->getObject()->volume_propose) {
         		$this->setDefault('non_millesime', true);
         	}
+      if ($this->getObject()->determination_prix_date) {
+      	$d = new DateTime($this->getObject()->determination_prix_date);
+        $this->setDefault('determination_prix_date', $d->format('d/m/Y'));
+      }
     }
     
     public function getCepages()
