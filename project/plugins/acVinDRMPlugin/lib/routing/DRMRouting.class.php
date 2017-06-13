@@ -263,6 +263,16 @@ class DRMRouting {
                                                                 'type' => 'object',
                                                                 'must_be_valid' => false,
                               									                'must_be_not_valid' => false)));
+        
+
+        $r->prependRoute('drm_xml', new DRMRoute('/drm/:identifiant/xml/:periode_version', 
+                                                          array('module' => 'drm', 
+                                                                'action' => 'getXml'),
+                                                          array('sf_method' => array('get')),
+                                                          array('model' => 'DRM',
+                                                                'type' => 'object',
+                                                                'must_be_valid' => false,
+                              									'must_be_not_valid' => false)));
 
         $r->prependRoute('drm_mouvements_generaux', new DRMRoute('/drm/:identifiant/edition/:periode_version/mouvements-generaux', 
                                                           array('module' => 'drm_mouvements_generaux', 
