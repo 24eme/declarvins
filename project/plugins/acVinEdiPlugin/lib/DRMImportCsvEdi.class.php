@@ -79,6 +79,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     				break;
     		}
     	}
+    	$this->drm->restoreLibelle();
     	if ($this->csvDoc->hasErreurs()) {
     		$this->csvDoc->setStatut(self::STATUT_ERREUR);
     		$this->csvDoc->save();

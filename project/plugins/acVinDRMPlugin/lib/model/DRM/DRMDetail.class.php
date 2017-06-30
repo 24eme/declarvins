@@ -14,6 +14,9 @@ class DRMDetail extends BaseDRMDetail {
         }
         return $this->_config;
     }
+    public function getGeneratedLibelle() {
+    	return ConfigurationProduitClient::getInstance()->format($this->getCepage()->getConfig()->getLibelles(), array(), "%g% %a% %l% %co% %ce%");
+    }
 
     public function getFormattedLibelle($format = "%g% %a% %l% %co% %ce% <span class=\"labels\">%la%</span>", $label_separator = ", ") {
         return ConfigurationProduitClient::getInstance()->format($this->getCepage()->getConfig()->getLibelles(), $this->labels->toArray(), $format);
@@ -64,6 +67,9 @@ class DRMDetail extends BaseDRMDetail {
     }
     
     public function hasLabel() {
+    	if ($this->getLibelle() != $this->getGeneratedLibelle()) {
+    		return false;
+    	}
     	foreach ($this->labels as $label) {
     		if ($label) {
     			return true;

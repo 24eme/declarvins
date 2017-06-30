@@ -316,6 +316,16 @@ class DRMRouting {
                               'must_be_valid' => false,
                               'must_be_not_valid' => true)));
 
+        $r->prependRoute('drm_mouvements_generaux_product_edit', new DRMDetailRoute('/drm/:identifiant/edition/:periode_version/mouvements-generaux/:certification/:genre/:appellation/:mention/:lieu/:couleur/:cepage/:detail/edit',
+                        array('module' => 'drm_mouvements_generaux',
+                            'action' => 'editAjax'),
+                        array('sf_method' => array('get','post')),
+                        array('model' => 'DRMProduit',
+                              'type' => 'object',
+                              'no_archive' => true,
+                              'must_be_valid' => false,
+                              'must_be_not_valid' => true)));
+
         $r->prependRoute('drm_mouvements_generaux_product_add', new DRMCertificationRoute('/drm/:identifiant/edition/:periode_version/mouvements-generaux/add/:certification',
                         array('module' => 'drm_mouvements_generaux',
                             'action' => 'add'),

@@ -121,6 +121,28 @@ class drm_mouvements_generauxActions extends sfActions
 
         return $this->renderText($this->getPartial('popupAjout', array('form' => $form, 'certification' => $certification)));
     }
+    
+    public function executeEditAjax(sfWebRequest $request) 
+    {
+        $this->forward404Unless($request->isXmlHttpRequest());
+    	$drm = $this->getRoute()->getObject()->getDocument();
+    	$detail = $this->getRoute()->getObject();
+
+        $form = new DRMProduitEditForm($detail, ConfigurationClient::getCurrent());
+        if ($request->isMethod(sfWebRequest::POST)) {
+    		$this->getResponse()->setContentType('text/json');
+            $form->bind($request->getParameter($form->getName()));
+			if ($form->isValid()) {
+				$form->save();
+				$this->getUser()->setFlash("notice", 'Le produit a été modifié avec succès.');
+				return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_mouvements_generaux', $drm))));
+			} else {
+				return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('formEdit', array('form' => $form, 'detail' => $detail)))));
+			}
+        }
+
+        return $this->renderText($this->getPartial('popupEdit', array('form' => $form, 'detail' => $detail)));
+    }
 	
 	protected function getConfigurationProduit()
 	{

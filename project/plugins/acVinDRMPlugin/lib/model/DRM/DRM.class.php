@@ -88,6 +88,18 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $detail;
     }
     
+    public function restoreLibelle()
+    {
+    	if ($drmPrecedente = $this->getPrecedente()) {
+    		foreach ($this->getDetails() as $detail) {
+    			if ($drmPrecedente->exist($detail->getHash())) {
+    				$detailPrecedent = $drmPrecedente->get($detail->getHash());
+    				$detail->libelle = $detailPrecedent->libelle;
+    			}
+    		}
+    	}
+    }
+    
     public function addCrd($categorie, $type, $centilisation, $centilitre, $bib, $stock = 0)
     {
     	$idCrd = DRMCrd::makeId($categorie, $type, $centilisation, $centilitre, $bib);
