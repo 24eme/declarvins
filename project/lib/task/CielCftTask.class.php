@@ -187,9 +187,15 @@ EOF;
 	    	$message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), sfConfig::get('app_email_to_notification'), "DeclarVins // Rapport CFT", $s)->setContentType('text/html');
     	}
 	    if (count($files) > 0) {
-	    	foreach ($files as $file) {
+	    	$target = '/tmp/cielxml/';
+	    	$zipname = date('Ymd').'_xml.zip';
+	    	
+	    	exec('mkdir -p '.$target);
+	    	exec('zip -j '.$target.$zipname.' '.implode(' ', $files));
+	    	$message->attach(Swift_Attachment::fromPath($target.$zipname));
+	    	/*foreach ($files as $file) {
 	    		$message->attach(Swift_Attachment::fromPath($file));
-	    	}
+	    	}*/
 	    }
 	    $this->getMailer()->sendNextImmediately()->send($message);
     }
