@@ -132,8 +132,15 @@ EOF;
     							$rapport[self::RAPPORT_OK_KEY][] = 'La DRM '.$drm->_id.' a été validée avec succès';
     							Email::getInstance()->cielValide($drm);
     						} else {
-    							$exist = false;
-    							if ($drm->isVersionnable()) {
+    							
+    							$generateRectif = $drm->isVersionnable();
+    							$rectif = $drm->findMaster();
+    							if ($rectif && $rectif->version == 'R01') {
+    								$rectif->delete();
+    								$generateRectif = true;
+    							}
+    							
+    							if ($generateRectif) {
     								if (!$checkingMode) {
 	    								$drm_rectificative = $drm->generateRectificative(true);
 		    							$drm_rectificative->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
