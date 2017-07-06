@@ -191,7 +191,11 @@ EOF;
 	    	$zipname = date('Ymd').'_xml.zip';
 	    	
 	    	exec('mkdir -p '.$target);
-	    	exec('zip -j '.$target.$zipname.' '.implode(' ', $files));
+	    	exec('mkdir -p '.$target.date('Ymd').'/');
+	    	foreach ($files as $file) {
+	    	 	exec('wget -O '.$target.date('Ymd').'/ '.$file);
+	    	}
+	    	exec('zip -j -r '.$target.$zipname.' '.$target.date('Ymd').'/');
 	    	$message->attach(Swift_Attachment::fromPath($target.$zipname));
 	    	/*foreach ($files as $file) {
 	    		$message->attach(Swift_Attachment::fromPath($file));
