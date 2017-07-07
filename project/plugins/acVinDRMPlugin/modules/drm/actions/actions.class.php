@@ -392,6 +392,15 @@ class drmActions extends sfActions {
         {
         	return $this->redirect('drm_validation', $this->drm);
         }
+        
+        if ($values['manquants']['contrats'])
+        {
+        	$details = $this->drm->getDetailsVracSansContrat();
+        	if (count($details) > 0) {
+        		$compte = $this->etablissement->getCompteObject();
+        		Email::getInstance()->vracRelanceFromDRM($this->drm, $details, $compte->email);
+        	}
+        }
                 
         $this->drm->validate();
         

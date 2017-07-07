@@ -144,6 +144,23 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $details;
     }
 
+    public function getDetailsVracSansContrat() {
+        $details = array();
+        foreach ($this->getDetailsAvecVrac() as $d) {
+        	$totalVolume = 0;
+        	foreach ($detail->vrac as $contrat) {
+        		$totalVolume += $contrat->volume;
+        	}
+        	if ($detail->canHaveVrac() && $detail->sorties->vrac) {
+        		$ecart = round($detail->sorties->vrac * DRMValidation::ECART_VRAC, 4);
+        		if (round($totalVolume,4) < (round($detail->sorties->vrac,4) - $ecart)) {
+        			$details[] = $detail;
+        		}
+        	}
+        }
+        return $details;
+    }
+
     public function generateSuivante() {
 
         return $this->generateSuivanteByPeriode(DRMClient::getInstance()->getPeriodeSuivante($this->periode));
