@@ -146,7 +146,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
     public function getDetailsVracSansContrat() {
         $details = array();
-        foreach ($this->getDetailsAvecVrac() as $d) {
+        foreach ($this->getDetailsAvecVrac() as $detail) {
         	$totalVolume = 0;
         	foreach ($detail->vrac as $contrat) {
         		$totalVolume += $contrat->volume;
