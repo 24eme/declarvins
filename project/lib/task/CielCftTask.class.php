@@ -124,6 +124,12 @@ EOF;
     					if ($xml = $export->exportEDI('xml', $contextInstance)) {
     						$xmlOut = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
     						$compare = new DRMCielCompare($xmlIn, $xmlOut);
+
+    						$rectif = $drm->findMaster();
+    						if ($rectif && $rectif->version == 'R01') {
+    							$rectif->delete();
+    						}
+    						
     						if (!$compare->hasDiff()) {
     							if (!$checkingMode) {
 	    							$drm->ciel->valide = 1;
@@ -133,14 +139,7 @@ EOF;
     							Email::getInstance()->cielValide($drm);
     						} else {
     							
-    							$generateRectif = $drm->isVersionnable();
-    							$rectif = $drm->findMaster();
-    							if ($rectif && $rectif->version == 'R01') {
-    								$rectif->delete();
-    								$generateRectif = true;
-    							}
-    							
-    							if ($generateRectif) {
+    							if ($drm->isVersionnable()) {
     								if (!$checkingMode) {
 	    								$drm_rectificative = $drm->generateRectificative(true);
 		    							$drm_rectificative->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
