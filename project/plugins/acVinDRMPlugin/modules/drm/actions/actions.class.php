@@ -398,7 +398,9 @@ class drmActions extends sfActions {
         	$details = $this->drm->getDetailsVracSansContrat();
         	if (count($details) > 0) {
         		$compte = $this->etablissement->getCompteObject();
-        		Email::getInstance()->vracRelanceFromDRM($this->drm, $details, $compte->email);
+        		if ($compte->email) {
+        			Email::getInstance()->vracRelanceFromDRM($this->drm, $details, $compte->email);
+        		}
         	}
         }
                 
