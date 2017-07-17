@@ -117,8 +117,8 @@ class tiersActions extends sfActions
   	  $this->etablissement = $this->getRoute()->getEtablissement();
   	  $this->hasCompte = false;
   	  if ($this->compte_id = $this->etablissement->compte) {
-  	    $this->hasCompte = true;
-  	  	$this->compte = acCouchdbManager::getClient('_Compte')->find($this->compte_id);
+  	  	if ($this->compte = acCouchdbManager::getClient('_Compte')->find($this->compte_id)) {
+  	    $this->hasCompte = true;;
   	  	$this->form = new CompteProfilForm($this->compte);
 	      if ($request->isMethod(sfWebRequest::POST)) {
 	      	$this->form->bind($request->getParameter($this->form->getName()));
@@ -130,6 +130,7 @@ class tiersActions extends sfActions
 	      		$this->redirect('profil', $this->etablissement);
 	      	}
 	      }
+  	  }
   	  }
   }
   
