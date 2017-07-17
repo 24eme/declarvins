@@ -48,21 +48,28 @@ EOF;
     }
     
     foreach ($files as $file) {
-    	$etablissementIdentifiant = null;
-    	$visa = null;
+    	
+    	$f = explode('/', $file);
+    	$f = $f[count($f) - 1];
+    	if (!preg_match('/^([a-zA-Z0-9]+)_([a-zA-Z0-9]+)_([a-zA-Z0-9]+).csv$/', $f, $m)) {
+			continue;
+    	}
+		$ea = $m[1];
+		$siretCvi = $m[2];
+		$visa = $m[3];
+		
     	$result = array();
     
 	    if (!file_exists($file)) {
 	    	$result[] = array('ERREUR', 'ACCES', null, "Le fichier $file n'existe pas");
 	    } else {    
-
-	    	$fileName = explode('/', $file);
-	    	$fileName = explode('_', str_replace('.csv', '', $fileName[count($fileName) - 1]));
-	    	$etablissementIdentifiant = $fileName[0];
-	    	$visa = $fileName[1];
 	    	
 	    	try {
-		    	$vrac = new Vrac();
+	    		$vrac = VracClient::getInstance()->findByNumContrat($visa);
+	    		if (!$vrac) {
+		    		$vrac = new Vrac();
+		    		$vrac->numero_contrat = $visa;
+	    		}
 		    	$vracCsvEdi = new VracImportCsvEdi($file, $vrac);
 		    	$vracCsvEdi->checkCSV();
 		    		
@@ -106,7 +113,7 @@ EOF;
 		    	$result[] = array('ERREUR', 'CSV', null, $e->getMessage());
 		    }
 	  	}
-	  	$message .= $this->messagizeRapport($result, $etablissementIdentifiant, $visa);
+	  	$message .= $this->messagizeRapport($result, $ea, $visa);
     }
   	if ($checkingMode) {
   		echo str_replace("</h2>", "\n", str_replace("</h3>", "\n", str_replace("<h2>", "", str_replace("<h3>", "", str_replace("<li>", "\t", str_replace(array("<ul>", "</ul>", "</li>"), "\n", $message))))));

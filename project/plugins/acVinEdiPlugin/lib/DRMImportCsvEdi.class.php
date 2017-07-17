@@ -120,8 +120,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		}
   		
 		$hash = str_replace('/declaration', 'declaration', $configurationProduit->getHash());
-  		$droits = $datas[self::CSV_CAVE_TYPE_DROITS];
-  		if (!in_array($datas[self::CSV_CAVE_TYPE_DROITS], array(self::TYPE_DROITS_SUSPENDUS, self::TYPE_DROITS_ACQUITTES))) {
+  		$droits = $this->matchDroits(trim($datas[self::CSV_CAVE_TYPE_DROITS]));
+  		if (!in_array($droits, array(self::TYPE_DROITS_SUSPENDUS, self::TYPE_DROITS_ACQUITTES))) {
     		$this->csvDoc->addErreur($this->droitsNotFoundError($numLigne, $datas));
     		return;
   		}
@@ -142,7 +142,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		$produit = ($complement)? $this->drm->addProduit($hash, $complement) : $this->drm->addProduit($hash);
 
   		$categorieMvt = $datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT];
-  		$typeMvt = $this->drm->getImportableLibelleMvt($datas[self::CSV_CAVE_TYPE_DROITS], $datas[self::CSV_CAVE_TYPE_MOUVEMENT]);
+  		$typeMvt = $this->drm->getImportableLibelleMvt($droits, $datas[self::CSV_CAVE_TYPE_MOUVEMENT]);
   		$valeur = $datas[self::CSV_CAVE_VOLUME];
   		
   		if ($this->mouvements) {
@@ -419,6 +419,19 @@ class DRMImportCsvEdi extends DRMCsvEdi {
         if (count($identifiants) > 1) {
         	$this->csvDoc->addErreur($this->createMultiIdentifiantError());
         }
+    }
+
+    private function matchDroits($d) {
+    	if (preg_match('/suspendu/i', $d)) {
+    
+    		return self::TYPE_DROITS_SUSPENDUS;
+    	}
+    	if (preg_match('/acquitte/i', $d)) {
+    
+    		return self::TYPE_DROITS_ACQUITTES;
+    	}
+    
+    	return $d;
     }
     
     private function createMultiPeriodeError() {
