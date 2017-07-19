@@ -17,7 +17,7 @@ wget -O $DATA_DIR/contrats_intersud.csv $REMOTE_VRAC
 
 
 
-if [ -f $DATA_DIR/contrat_intersud.csv ]; then
+if [ -f $DATA_DIR/contrats_intersud.csv ]; then
 
 	rm -rf $DATA_DIR/contrats; 
 	mkdir $DATA_DIR/contrats

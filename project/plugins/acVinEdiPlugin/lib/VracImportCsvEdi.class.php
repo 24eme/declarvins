@@ -106,7 +106,7 @@ class VracImportCsvEdi extends VracCsvEdi {
                 continue;
             }
             $ligne_num++;
-            if ($csvRow[self::CSV_ACCISESVENDEUR] && !preg_match('/^FR0[a-zA-Z0-9]{10}$/', $csvRow[self::CSV_ACCISESVENDEUR])) {
+            if ($csvRow[self::CSV_ACCISESVENDEUR] && !preg_match('/^FR[a-zA-Z0-9]{11}$/', $csvRow[self::CSV_ACCISESVENDEUR])) {
                 $this->csvDoc->addErreur($this->createWrongFormatNumAcciseError($ligne_num, $csvRow));
             }
             if ($csvRow[self::CSV_CAVE_MILLESIME] && !preg_match('/^[0-9]{4}$/', $csvRow[self::CSV_CAVE_MILLESIME])) {

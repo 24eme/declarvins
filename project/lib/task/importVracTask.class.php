@@ -124,9 +124,9 @@ EOF;
 
   }
   
-  private function messagizeRapport($rapport, $etablissementIdentifiant, $periode)
+  private function messagizeRapport($rapport, $etablissementIdentifiant, $visa)
   {
-	$message = '<h3>Etablissement '.$etablissementIdentifiant.' / Periode '.$periode.'</h3>';
+	$message = '<h3>Etablissement '.$etablissementIdentifiant.' / Contrat '.$visa.'</h3>';
   	$message .= '<ul>';
   	foreach ($rapport as $rapportItem) {
   		$message .= '<li>'.implode(' | ', $rapportItem).'</li>';

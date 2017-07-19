@@ -16,6 +16,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     protected $mouvements = array();
     protected $csvDoc = null;
     protected $permettedValues = null;
+    protected $complements = array();
 
     public function __construct($file, DRM $drm = null, $permettedValues = array()) 
     {
@@ -79,6 +80,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     				break;
     		}
     	}
+    	foreach ($this->complements as $l => $row) {
+    		$this->importCave($l, $row);
+    	}
     	$this->drm->restoreLibelle();
     	if ($this->csvDoc->hasErreurs()) {
     		$this->csvDoc->setStatut(self::STATUT_ERREUR);
@@ -105,8 +109,18 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		}
     }
     
+    protected function isComplement($datas)
+    {
+    	return ($datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT] == 'complement' || $datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT] == 'complements')? true : false;
+    }
+    
     private function importCave($numLigne, $datas)
   	{
+    	if ($this->isComplement($datas)) {
+    		$this->complements[$numLigne] = $datas;
+    		return;
+    	}
+    	
 		$libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]);
 		$configurationProduit = $this->configuration->identifyProduct($this->getHashProduit($datas), $libelle);
     	if (!$configurationProduit) {
@@ -403,7 +417,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             } else {
             	$periodes[$csvRow[self::CSV_PERIODE]] = 1;
             }
-            if ($csvRow[self::CSV_NUMACCISE] && !preg_match('/^FR0[a-zA-Z0-9]{10}$/', $csvRow[self::CSV_NUMACCISE])) {
+            if ($csvRow[self::CSV_NUMACCISE] && !preg_match('/^FR[a-zA-Z0-9]{11}$/', $csvRow[self::CSV_NUMACCISE])) {
                 $this->csvDoc->addErreur($this->createWrongFormatNumAcciseError($ligne_num, $csvRow));
             } else {
             	$accises[$csvRow[self::CSV_NUMACCISE]] = 1;
