@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. bin/config.inc
+TMP=/tmp/declarvins
 
 REMOTE_DRM=$1
 REMOTE_VRAC=$2
