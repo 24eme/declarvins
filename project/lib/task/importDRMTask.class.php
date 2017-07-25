@@ -46,7 +46,8 @@ EOF;
     } else {
     	$files = array($csvFile);
     }
-    
+
+    $nbSuccess = 0;
     foreach ($files as $file) {
     	$f = explode('/', $file);
     	$f = $f[count($f) - 1];
@@ -129,7 +130,8 @@ EOF;
 				    					$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_EDI;
 				    					$drm->save();
 				    				}
-				    				$result[] = array('SUCCESS', 'CSV', null, 'La DRM '.$drm->periode." pour ".$drm->identifiant.' a été importée avec succès');
+			    					$nbSuccess++;
+				    				//$result[] = array('SUCCESS', 'CSV', null, 'La DRM '.$drm->periode." pour ".$drm->identifiant.' a été importée avec succès');
 				    			}
 				    		}
 			    		}
@@ -142,6 +144,7 @@ EOF;
 	  	}
 	  	$message .= $this->messagizeRapport($result, $ea, $periode);
     }
+    $message = '<h3>'.$nbSuccess.' DRM créées avec success</h3><h3>Erreurs :</h3><ul>'.$message.'</ul>';
   	if ($checkingMode) {
   		echo str_replace("</h2>", "\n", str_replace("</h3>", "\n", str_replace("<h2>", "", str_replace("<h3>", "", str_replace("<li>", "\t", str_replace(array("<ul>", "</ul>", "</li>"), "\n", $message))))));
   	} else {
@@ -153,12 +156,12 @@ EOF;
   
   private function messagizeRapport($rapport, $etablissementIdentifiant, $periode)
   {
-	$message = '<h3>Etablissement '.$etablissementIdentifiant.' / Periode '.$periode.'</h3>';
-  	$message .= '<ul>';
+	//$message = '<h3>Etablissement '.$etablissementIdentifiant.' / Periode '.$periode.'</h3>';
+  	//$message .= '<ul>';
   	foreach ($rapport as $rapportItem) {
-  		$message .= '<li>'.implode(' | ', $rapportItem).'</li>';
+  		$message .= '<li>'.implode(' | ', $rapportItem).' // Période '.$periode.'</li>';
   	}
-  	$message .= '</ul>';  	 
+  	//$message .= '</ul>';  	 
   	return $message;
   }
 }

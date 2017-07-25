@@ -46,7 +46,7 @@ EOF;
     } else {
     	$files = array($csvFile);
     }
-    
+    $nbSuccess = 0;
     foreach ($files as $file) {
     	
     	$f = explode('/', $file);
@@ -91,20 +91,21 @@ EOF;
 		    			}
 		    		} else {
 		    			$etablissement = $vrac->getVendeurObject();
-		    			$vrac->constructId();
+		    			//$vrac->constructId();
 			    		if (!$etablissement->hasDroit(EtablissementDroit::DROIT_VRAC)) {
 			    			$result[] = array('ERREUR', 'ACCES', null, "L'établissement ".$etablissement->identifiant." n'est pas autorisé à déclarer des DRMs");
 			    			$errors++;
 			    		}
-			    		if ($existant = VracClient::getInstance()->find($vrac->_id)) {
+			    		/*if ($existant = VracClient::getInstance()->find($vrac->_id)) {
 			    			$vrac->volume_enleve = $existant->volume_enleve;
-			    		}
+			    		}*/
 			    		if (!$errors) {
 			    			if (!$checkingMode) {
 			    				$vrac->validateEdi();
 			    				$vrac->save(false);
 			    			}
-			    			$result[] = array('SUCCESS', 'CSV', null, 'Le Contrat '.$vrac->_id." pour ".$vrac->vendeur_identifiant.' a été importé avec succès');
+			    			$nbSuccess++;
+			    			//$result[] = array('SUCCESS', 'CSV', null, 'Le Contrat '.$vrac->_id." pour ".$vrac->vendeur_identifiant.' a été importé avec succès');
 			    		}
 		    		}
 		    	}
@@ -115,6 +116,7 @@ EOF;
 	  	}
 	  	$message .= $this->messagizeRapport($result, $ea, $visa);
     }
+    $message = '<h3>'.$nbSuccess.' Contrats créés avec success</h3><h3>Erreurs :</h3><ul>'.$message.'</ul>';
   	if ($checkingMode) {
   		echo str_replace("</h2>", "\n", str_replace("</h3>", "\n", str_replace("<h2>", "", str_replace("<h3>", "", str_replace("<li>", "\t", str_replace(array("<ul>", "</ul>", "</li>"), "\n", $message))))));
   	} else {
@@ -126,12 +128,12 @@ EOF;
   
   private function messagizeRapport($rapport, $etablissementIdentifiant, $visa)
   {
-	$message = '<h3>Etablissement '.$etablissementIdentifiant.' / Contrat '.$visa.'</h3>';
-  	$message .= '<ul>';
+	//$message = '<h3>Etablissement '.$etablissementIdentifiant.' / Contrat '.$visa.'</h3>';
+  	//$message .= '<ul>';
   	foreach ($rapport as $rapportItem) {
-  		$message .= '<li>'.implode(' | ', $rapportItem).'</li>';
+  		$message .= '<li>'.implode(' | ', $rapportItem).' // Contrat '.$visa.'</li>';
   	}
-  	$message .= '</ul>';  	 
+  	//$message .= '</ul>';  	 
   	return $message;
   }
 }

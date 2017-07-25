@@ -57,13 +57,23 @@ class VracImportCsvEdi extends VracCsvEdi {
                 continue;
             }
             $numLigne++;
-            $this->importVrac($numLigne, $csvRow);
+            if ($this->vrac->isNew()) {
+            	$this->importVrac($numLigne, $csvRow);
+            } else {
+            	$this->updateVrac($numLigne, $csvRow);
+            }
     	}
     	if ($this->csvDoc->hasErreurs()) {
     		$this->csvDoc->setStatut(self::STATUT_ERREUR);
     		$this->csvDoc->save();
     		return;
     	}
+    }
+    
+    private function updateVrac($numLigne, $datas)
+    {
+    	$this->vrac->volume_propose = ($datas[self::CSV_CAVE_VOLINITIAL])? round($this->floatize($datas[self::CSV_CAVE_VOLINITIAL]), 2) : 0;
+    	$this->vrac->volume_enleve = ($datas[self::CSV_CAVE_VOLRETIRE])? round($this->floatize($datas[self::CSV_CAVE_VOLINITIAL]), 2) : 0;
     }
     
     private function importVrac($numLigne, $datas)
