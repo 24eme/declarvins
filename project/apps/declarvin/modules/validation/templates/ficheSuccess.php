@@ -53,7 +53,7 @@ var formModificationCompte = function()
 
     <div id="contrat_mandat" >
 
-        <h1 style="margin: 0 0 15px;">Contrat d'inscription</h1>
+        <h1 style="margin: 0 0 15px;">Contrat d'inscription<?php if ($contrat->compte): ?> <a href="<?php echo url_for("validation_suppression_compte", array('num_contrat' => $contrat->no_contrat)) ?>" onclick="return confirm('Confirmez-vous la suppression du compte <?php echo $compte->login ?> ?')" style="font-size: 12px;vertical-align: middle;">[x] supprimer</a><?php endif; ?></h1>
        
         <a href="<?php echo url_for("validation_pdf", array("num_contrat" => $contrat->no_contrat)) ?>" class="btn_suiv"><span>Télécharger le pdf du contrat d'inscription n°<?php echo $contrat->no_contrat ?></span></a>
         

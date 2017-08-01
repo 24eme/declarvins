@@ -117,6 +117,9 @@ validation_comptes_csv:
 validation_suppression:
   url:   /validation/:num_contrat/suppression
   param: { module: validation, action: suppression }
+validation_suppression_compte:
+  url:   /validation/:num_contrat/suppression-compte
+  param: { module: validation, action: suppressionCompte }
 validation_fiche:
   url:   /validation/fiche/:num_contrat
   param: { module: validation, action: fiche, num_contrat: null }
