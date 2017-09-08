@@ -465,10 +465,12 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     {
     	$produit = $this->getProduitObject();
     	if ($organisme = $produit->getCurrentOrganisme($this->valide->date_saisie, true)) {
-	    	$oioc = $this->getOrAdd('oioc');
-	    	$oioc->identifiant = str_replace(OIOC::OIOC_KEY, '', $organisme->oioc);
-	    	$oioc->statut = OIOC::STATUT_EDI;
-	    	$oioc->date_traitement = date('c');
+    		if ($this->type_transaction == 'vrac') {
+	    		$oioc = $this->getOrAdd('oioc');
+	    		$oioc->identifiant = str_replace(OIOC::OIOC_KEY, '', $organisme->oioc);
+	    		$oioc->statut = OIOC::STATUT_EDI;
+	    		$oioc->date_traitement = date('c');
+    		}
     	}
     }
     
