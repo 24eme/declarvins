@@ -23,7 +23,6 @@
 				<li>Pays : <strong><?php echo $etablissement->siege->pays ?></strong></li>
 				<li>tel : <strong><?php echo $etablissement->telephone ?></strong></li>
 				<li>fax : <strong><?php echo $etablissement->fax ?></strong></li>
-				<li>email : <strong><?php echo $etablissement->email ?></strong></li>
 			</ul>
 			<ul>
 				<li>Transmission CIEL : <strong><?php echo ($etablissement->transmission_ciel)? 'oui' : 'non'; ?></strong></li>
