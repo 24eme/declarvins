@@ -98,11 +98,11 @@
 			<?php if ($vrac->has_cotisation_cvo && $vrac->part_cvo > 0): ?>
 			<li>
 				<span>Cotisation interprofessionnelle :</span>
-				<span><?php echo $vrac->getCvoUnitaire() ?> €(HT)/hl</span>
+				<span><?php echo $vrac->getCvoUnitaire() ?> €(HT)/<?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?></span>
 			</li>
 			<li>
 				<span>Prix total unitaire :</span>
-				<span><?php echo $vrac->getTotalUnitaire() ?> €(HT)/hl</span>
+				<span><?php echo $vrac->getTotalUnitaire() ?> €(HT)/<?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?></span>
 			</li>
 			<?php endif; ?>
 			<li>
@@ -146,7 +146,7 @@
 					<thead>
 						<tr>
 							<th>Date</th>
-							<th>Volume (hl)</th>
+							<th>Volume (<?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?>)</th>
 							<th>Montant (€ HT)</th>
 		            	</tr>
 		            </thead>
@@ -154,7 +154,7 @@
 						<?php foreach ($vrac->paiements as $paiement): ?>
 						<tr>
 							<td><?php echo Date::francizeDate($paiement->date) ?></td>
-							<td><?php echo $paiement->volume ?> hl</td>
+							<td><?php echo $paiement->volume ?></td>
 							<td><?php echo $paiement->montant ?> €</td>
 						</tr>
 						<?php endforeach; ?>
@@ -224,7 +224,7 @@
 							<thead>
 								<tr>
 									<th>Numéro(s) des cuves</th>
-									<th>Volume (hl)</th>
+									<th>Volume (<?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?>)</th>
 									<th>Date</th>
 				            	</tr>
 				            </thead>
@@ -298,7 +298,7 @@
 			?>
 			<li>
 				<span><a href="<?php echo url_for('drm_visualisation', $d); ?>"><?php echo $drm ?></a></span>
-				<span><?php echo $enlevement->volume ?> hl</span>
+				<span><?php echo $enlevement->volume ?> <?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?></span>
 			</li>
 			<?php endif; endforeach; ?>
 		</ul>
