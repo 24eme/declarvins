@@ -13,6 +13,12 @@
     </div>
 
     <div class="ligne_form ligne_entiere ecart_check">
+        <?php echo $form['contrat']->renderLabel() ?>
+        <?php echo $form['contrat']->render() ?>
+        <?php echo $form['contrat']->renderError() ?>
+    </div>
+
+    <div class="ligne_form ligne_entiere ecart_check">
         <?php echo $form['acces']->renderLabel() ?>
         <?php echo $form['acces']->render() ?>
         <?php echo $form['acces']->renderError() ?>

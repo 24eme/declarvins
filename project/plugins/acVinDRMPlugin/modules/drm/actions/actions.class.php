@@ -314,6 +314,21 @@ class drmActions extends sfActions {
         return $this->renderText($this->getPartial('popupFrequence', array('drm' => $drm)));
     }
     
+    public function executeGetXml(sfWebRequest $request) {
+    	$drm = $this->getRoute()->getDRM();
+    	$xml = $drm->ciel->diff;
+    	$this->forward404Unless($xml);
+    	$dom = new DOMDocument();
+    	$dom->loadXML($xml);
+    	$dom->formatOutput = true;
+    	$this->getResponse()->setHttpHeader('md5', md5($xml));
+    	$this->getResponse()->setHttpHeader('LastDocDate', date('r'));
+    	$this->getResponse()->setHttpHeader('Last-Modified', date('r'));
+    	$this->getResponse()->setContentType('text/xml');
+    	$this->getResponse()->setHttpHeader('Content-Disposition', "attachment; filename=".$drm->_id.".xml");
+    	return $this->renderText($dom->saveXML());
+    }
+    
     public function executePayerReport(sfWebRequest $request) {
     	$drm = $this->getRoute()->getDRM();
     	$drm->payerReport();
@@ -376,6 +391,17 @@ class drmActions extends sfActions {
         if (isset($values['brouillon']) && $values['brouillon']) 
         {
         	return $this->redirect('drm_validation', $this->drm);
+        }
+        
+        if ($values['manquants']['contrats'])
+        {
+        	$details = $this->drm->getDetailsVracSansContrat();
+        	if (count($details) > 0) {
+        		$compte = $this->etablissement->getCompteObject();
+        		if ($compte->email) {
+        			Email::getInstance()->vracRelanceFromDRM($this->drm, $details, $compte->email);
+        		}
+        	}
         }
                 
         $this->drm->validate();

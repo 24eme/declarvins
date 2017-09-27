@@ -124,6 +124,12 @@ EOF;
     					if ($xml = $export->exportEDI('xml', $contextInstance)) {
     						$xmlOut = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
     						$compare = new DRMCielCompare($xmlIn, $xmlOut);
+
+    						$rectif = $drm->findMaster();
+    						if ($rectif && $rectif->version == 'R01') {
+    							$rectif->delete();
+    						}
+    						
     						if (!$compare->hasDiff()) {
     							if (!$checkingMode) {
 	    							$drm->ciel->valide = 1;
@@ -132,7 +138,7 @@ EOF;
     							$rapport[self::RAPPORT_OK_KEY][] = 'La DRM '.$drm->_id.' a été validée avec succès';
     							Email::getInstance()->cielValide($drm);
     						} else {
-    							$exist = false;
+    							
     							if ($drm->isVersionnable()) {
     								if (!$checkingMode) {
 	    								$drm_rectificative = $drm->generateRectificative(true);
@@ -187,9 +193,20 @@ EOF;
 	    	$message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), sfConfig::get('app_email_to_notification'), "DeclarVins // Rapport CFT", $s)->setContentType('text/html');
     	}
 	    if (count($files) > 0) {
+	    	$target = '/tmp/cielxml/';
+	    	$zipname = date('Ymd').'_xml.zip';
+	    	
+	    	exec('mkdir -p '.$target);
+	    	exec('mkdir -p '.$target.date('Ymd').'/');
 	    	foreach ($files as $file) {
-	    		$message->attach(Swift_Attachment::fromPath($file));
+	    		$split = explode('/', $file);
+	    	 	exec('wget -O '.$target.date('Ymd').'/'.$split[count($split) - 1].' '.$file);
 	    	}
+	    	exec('zip -j -r '.$target.$zipname.' '.$target.date('Ymd').'/');
+	    	$message->attach(Swift_Attachment::fromPath($target.$zipname));
+	    	/*foreach ($files as $file) {
+	    		$message->attach(Swift_Attachment::fromPath($file));
+	    	}*/
 	    }
 	    $this->getMailer()->sendNextImmediately()->send($message);
     }

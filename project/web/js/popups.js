@@ -45,6 +45,22 @@
 				$('#' + event.target.id).uninitPopupForm();
 				$(this).trigger('fermer');
 			}
+		},
+
+		/* Configuration de form edit */
+		configFormEdit:
+		{
+			create: function(popup)
+			{
+
+			},
+			open: function(event, ui)
+			{
+				$('#' + event.target.id).initPopupForm();
+			},
+			close: function(event, ui)
+			{
+			}
 		}
 	});
 

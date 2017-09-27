@@ -88,6 +88,18 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $detail;
     }
     
+    public function restoreLibelle()
+    {
+    	if ($drmPrecedente = $this->getPrecedente()) {
+    		foreach ($this->getDetails() as $detail) {
+    			if ($drmPrecedente->exist($detail->getHash())) {
+    				$detailPrecedent = $drmPrecedente->get($detail->getHash());
+    				$detail->libelle = $detailPrecedent->libelle;
+    			}
+    		}
+    	}
+    }
+    
     public function addCrd($categorie, $type, $centilisation, $centilitre, $bib, $stock = 0)
     {
     	$idCrd = DRMCrd::makeId($categorie, $type, $centilisation, $centilitre, $bib);
@@ -129,6 +141,23 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             }
         }
 
+        return $details;
+    }
+
+    public function getDetailsVracSansContrat() {
+        $details = array();
+        foreach ($this->getDetailsAvecVrac() as $detail) {
+        	$totalVolume = 0;
+        	foreach ($detail->vrac as $contrat) {
+        		$totalVolume += $contrat->volume;
+        	}
+        	if ($detail->canHaveVrac() && $detail->sorties->vrac) {
+        		$ecart = round($detail->sorties->vrac * DRMValidation::ECART_VRAC, 4);
+        		if (round($totalVolume,4) < (round($detail->sorties->vrac,4) - $ecart)) {
+        			$details[] = $detail;
+        		}
+        	}
+        }
         return $details;
     }
 
@@ -1552,7 +1581,14 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 	
 	public function getImportableLibelleMvt($type, $key) {
 		if ($type == DRMCsvEdi::TYPE_DROITS_ACQUITTES) {
-			return 'acq_'.$key;
+			return 'acq_'.$this->getImportableMvt($key);
+		}
+		return $this->getImportableMvt($key);
+	}
+	
+	private function getImportableMvt($key) {
+		if ($key == 'observation') {
+			return 'observations';
 		}
 		return $key;
 	}

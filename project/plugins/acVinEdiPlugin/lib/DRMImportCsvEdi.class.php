@@ -16,6 +16,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     protected $mouvements = array();
     protected $csvDoc = null;
     protected $permettedValues = null;
+    protected $complements = array();
 
     public function __construct($file, DRM $drm = null, $permettedValues = array()) 
     {
@@ -79,6 +80,10 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     				break;
     		}
     	}
+    	foreach ($this->complements as $l => $row) {
+    		$this->importCave($l, $row);
+    	}
+    	$this->drm->restoreLibelle();
     	if ($this->csvDoc->hasErreurs()) {
     		$this->csvDoc->setStatut(self::STATUT_ERREUR);
     		$this->csvDoc->save();
@@ -104,17 +109,33 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		}
     }
     
+    protected function isComplement($datas)
+    {
+    	return ($datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT] == 'complement' || $datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT] == 'complements')? true : false;
+    }
+    
     private function importCave($numLigne, $datas)
   	{
+    	if ($this->isComplement($datas)) {
+    		$this->complements[$numLigne] = $datas;
+    		return;
+    	}
+    	
 		$libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]);
 		$configurationProduit = $this->configuration->identifyProduct($this->getHashProduit($datas), $libelle);
     	if (!$configurationProduit) {
     		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
     		return;
   		}
+  		$droit = $configurationProduit->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, $this->drm->periode.'-02', true);
+  		if($droit && $droit->taux < 0){
+    		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
+    		return;
+  		}
+  		
 		$hash = str_replace('/declaration', 'declaration', $configurationProduit->getHash());
-  		$droits = $datas[self::CSV_CAVE_TYPE_DROITS];
-  		if (!in_array($datas[self::CSV_CAVE_TYPE_DROITS], array(self::TYPE_DROITS_SUSPENDUS, self::TYPE_DROITS_ACQUITTES))) {
+  		$droits = $this->matchDroits(trim($datas[self::CSV_CAVE_TYPE_DROITS]));
+  		if (!in_array($droits, array(self::TYPE_DROITS_SUSPENDUS, self::TYPE_DROITS_ACQUITTES))) {
     		$this->csvDoc->addErreur($this->droitsNotFoundError($numLigne, $datas));
     		return;
   		}
@@ -135,7 +156,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		$produit = ($complement)? $this->drm->addProduit($hash, $complement) : $this->drm->addProduit($hash);
 
   		$categorieMvt = $datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT];
-  		$typeMvt = $this->drm->getImportableLibelleMvt($datas[self::CSV_CAVE_TYPE_DROITS], $datas[self::CSV_CAVE_TYPE_MOUVEMENT]);
+  		$typeMvt = $this->drm->getImportableLibelleMvt($droits, $datas[self::CSV_CAVE_TYPE_MOUVEMENT]);
   		$valeur = $datas[self::CSV_CAVE_VOLUME];
   		
   		if ($this->mouvements) {
@@ -396,7 +417,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             } else {
             	$periodes[$csvRow[self::CSV_PERIODE]] = 1;
             }
-            if ($csvRow[self::CSV_NUMACCISE] && !preg_match('/^FR0[a-zA-Z0-9]{10}$/', $csvRow[self::CSV_NUMACCISE])) {
+            if ($csvRow[self::CSV_NUMACCISE] && !preg_match('/^FR[a-zA-Z0-9]{11}$/', $csvRow[self::CSV_NUMACCISE])) {
                 $this->csvDoc->addErreur($this->createWrongFormatNumAcciseError($ligne_num, $csvRow));
             } else {
             	$accises[$csvRow[self::CSV_NUMACCISE]] = 1;
@@ -412,6 +433,19 @@ class DRMImportCsvEdi extends DRMCsvEdi {
         if (count($identifiants) > 1) {
         	$this->csvDoc->addErreur($this->createMultiIdentifiantError());
         }
+    }
+
+    private function matchDroits($d) {
+    	if (preg_match('/suspendu/i', $d)) {
+    
+    		return self::TYPE_DROITS_SUSPENDUS;
+    	}
+    	if (preg_match('/acquitte/i', $d)) {
+    
+    		return self::TYPE_DROITS_ACQUITTES;
+    	}
+    
+    	return $d;
     }
     
     private function createMultiPeriodeError() {

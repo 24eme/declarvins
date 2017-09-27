@@ -25,6 +25,11 @@ class ComptePartenaireModificationForm extends CompteModificationForm {
             $this->getWidget('login')->setLabel('Login*: ');
             $this->setValidator('login', new sfValidatorString(array('required' => true)));
          }
+
+         $this->setWidget('contrat', new sfWidgetFormInputText());
+         $this->getWidget('contrat')->setLabel('Contrat inscription: ');
+         $this->setValidator('contrat', new sfValidatorString(array('required' => false)));
+         
          $accesChoices = _CompteClient::getInstance()->getAcces();
          $this->setWidget('acces',  new sfWidgetFormChoice(array('choices' => $accesChoices, 'expanded' => true, 'multiple' => true)));
          $this->getWidget('acces')->setLabel('Accès: ');
@@ -35,6 +40,9 @@ class ComptePartenaireModificationForm extends CompteModificationForm {
      
      public function doUpdateObject($values) {
 		parent::doUpdateObject($values);
+		if ($values['contrat']) {
+			$this->getObject()->contrat = 'CONTRAT-'.$values['contrat'];
+		}
         if (!$this->getObject()->isNew()) {
                         if($this->getObject()->get('_id')!='COMPTE-'.$this->getObject()->login)
                         {

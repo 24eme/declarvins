@@ -15,7 +15,7 @@ class CSV extends BaseCSV {
     }
 
     public function getFileName() {
-        return 'import_edi_' . $this->identifiant . '_' . $this->periode . '.csv';
+        return ($this->periode)? 'import_edi_' . $this->identifiant . '_' . $this->periode . '.csv' : 'import_edi_' . $this->identifiant . '.csv';
     }
 
     public function hasErreurs() {

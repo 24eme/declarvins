@@ -419,6 +419,8 @@ class ImportEtablissementsCsv {
         if ($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) {
 			 if (preg_match("/oui/i", trim($line[EtablissementCsv::COL_CHAMPS_COMPTE_CIEL]))) {
 			 	$compte->dematerialise_ciel = 1;
+			 } else {
+			 	$compte->dematerialise_ciel = 0;
 			 }
 		}
         

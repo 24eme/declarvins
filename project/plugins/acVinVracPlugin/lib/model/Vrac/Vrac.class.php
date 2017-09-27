@@ -276,7 +276,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       	}
     	if ($user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $force) {
     		$this->annulation->date_annulation = date('c');
-    		$this->date_stats = $this->annulation->date_annulation;
+    		//$this->date_stats = $this->annulation->date_annulation;
     		foreach ($acteurs as $acteur) {
     			$validateur = 'date_annulation_'.$acteur;
     			if (!$this->annulation->get($validateur)) {
@@ -308,8 +308,8 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 	      	if ($statut_annule) {
 	      		$this->valide->statut = VracClient::STATUS_CONTRAT_ANNULE;
 	    		$this->annulation->date_annulation = date('c');
-    			$this->date_stats = $this->annulation->date_annulation;
-    			$this->valide->date_validation = $this->annulation->date_annulation;
+    			//$this->date_stats = $this->annulation->date_annulation;
+    			//$this->valide->date_validation = $this->annulation->date_annulation;
 	      	}
     	}
     }
@@ -328,6 +328,9 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$this->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
     		if (!$this->date_signature) {
     			$this->date_signature = date('c');
+    		}
+    		if (!$this->date_stats) {
+    			$this->date_stats = $this->date_signature;
     		}
     		foreach ($acteurs as $acteur) {
     			$validateur = 'date_validation_'.$acteur;
@@ -446,8 +449,8 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	if ($mother = $this->getMother()) {
     		$mother->referente = 0;
     		$mother->valide->statut = VracClient::STATUS_CONTRAT_ANNULE;
-    		$mother->date_stats = date('c');
-    		$mother->valide->date_validation = $mother->date_stats;
+    		//$mother->date_stats = date('c');
+    		//$mother->valide->date_validation = $mother->date_stats;
     		$mother->save(false);
     	}
     }
@@ -466,10 +469,12 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     {
     	$produit = $this->getProduitObject();
     	if ($organisme = $produit->getCurrentOrganisme($this->valide->date_saisie, true)) {
-	    	$oioc = $this->getOrAdd('oioc');
-	    	$oioc->identifiant = str_replace(OIOC::OIOC_KEY, '', $organisme->oioc);
-	    	$oioc->statut = OIOC::STATUT_EDI;
-	    	$oioc->date_traitement = date('c');
+    		if ($this->type_transaction == 'vrac') {
+	    		$oioc = $this->getOrAdd('oioc');
+	    		$oioc->identifiant = str_replace(OIOC::OIOC_KEY, '', $organisme->oioc);
+	    		$oioc->statut = OIOC::STATUT_EDI;
+	    		$oioc->date_traitement = date('c');
+    		}
     	}
     }
     

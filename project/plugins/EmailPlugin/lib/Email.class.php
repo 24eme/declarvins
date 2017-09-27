@@ -257,6 +257,21 @@ class Email {
         return $this->getMailer()->send($message);
     }
     
+    public function vracRelanceFromDRM($drm, $details, $destinataire) 
+    {
+        $interpros = array();
+        foreach ($details as $detail) {
+        	$interpros[$detail->interpro] = InterproClient::getInstance()->getById($detail->interpro);
+        }
+        $from = $this->getFromEmailInterpros($interpros);
+        $to = array($destinataire);
+        $subject = (count($details) > 1)? 'Contrats interprofessionnel manquants sur la DRM '.$drm->getMois().'/'.$drm->getAnnee() : 'Contrat interprofessionnel manquant sur la DRM '.$drm->getMois().'/'.$drm->getAnnee();
+        $body = $this->getBodyFromPartial('vrac_relance_from_drm', array('drm' => $drm, 'details' => $details));
+        $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+
+        return $this->getMailer()->send($message);
+    }
+    
     public function sendContratMandat($contrat, $destinataire, $interpros = null) 
     {
         $from = $this->getFromEmailInterpros($interpros,true);

@@ -43,7 +43,6 @@
 				<p>N° accises / EA : <?php echo $vrac->vendeur->num_accise ?></p>
 				<p>Adresse :</p>
 				<p><?php echo $vrac->vendeur->adresse ?> <?php echo $vrac->vendeur->code_postal ?> <?php echo $vrac->vendeur->commune ?><br /><?php echo $vrac->vendeur->pays ?></p>
-				<p>Email : <?php echo $vrac->vendeur->email ?></p>
 				<p>Tel : <?php echo $vrac->vendeur->telephone ?>&nbsp;&nbsp;&nbsp;Fax : <?php echo $vrac->vendeur->fax ?></p>
 				<?php if ($vrac->hasAdresseStockage()): ?>
 				<br />
@@ -65,7 +64,6 @@
 				<p>N° RCS / SIRET : <?php echo $vrac->mandataire->siret ?></p>
 				<p>Adresse :</p>
 				<p><?php echo $vrac->mandataire->adresse ?> <?php echo $vrac->mandataire->code_postal ?> <?php echo $vrac->mandataire->commune ?><br /><?php echo $vrac->mandataire->pays ?></p>
-				<p>Email : <?php echo $vrac->mandataire->email ?></p>
 				<p>Tel : <?php echo $vrac->mandataire->telephone ?>&nbsp;&nbsp;&nbsp;Fax : <?php echo $vrac->mandataire->fax ?></p>
 				<?php if ($vrac->valide->date_validation_mandataire): ?>
 				<br />
@@ -83,7 +81,6 @@
 				<p>N° accises / EA : <?php echo $vrac->acheteur->num_accise ?></p>
 				<p>Adresse :</p>
 				<p><?php echo $vrac->acheteur->adresse ?><br /><?php echo $vrac->acheteur->code_postal ?> <?php echo $vrac->acheteur->commune ?><br /><?php echo $vrac->acheteur->pays ?></p>
-				<p>Email : <?php echo $vrac->acheteur->email ?></p>
 				<p>Tel : <?php echo $vrac->acheteur->telephone ?>&nbsp;&nbsp;&nbsp;Fax : <?php echo $vrac->acheteur->fax ?></p>
 				<?php if ($vrac->hasAdresseLivraison()): ?>
 				<br />
@@ -108,10 +105,7 @@
 	<table class="tableau_simple">
 		<thead>
 			<tr>
-				<th>Volume total (hl)</th>
-				<?php if($vrac->type_transaction == 'raisin'): ?>
-				<th>Poids (kg)</th>
-				<?php endif;?>
+				<th>Volume total (<?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?>)</th>
 				<th>Prix unitaire net HT hors cotisation</th>
 				<?php if ($vrac->has_cotisation_cvo): ?>
 				<th>Part cotisation payée par l'acheteur</th>
@@ -168,7 +162,7 @@
 		<thead>
 			<tr>
 				<th>Date</th>
-				<th>Volume (hl)</th>
+				<th>Volume (<?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?>)</th>
 				<th>Montant (€ HT)</th>
         	</tr>
         </thead>
@@ -176,7 +170,7 @@
 			<?php foreach ($vrac->paiements as $paiement): ?>
 			<tr>
 				<td><?php echo Date::francizeDate($paiement->date) ?></td>
-				<td><?php if ($paiement->volume) {echoLongFloat($paiement->volume);} ?> hl</td>
+				<td><?php if ($paiement->volume) {echoLongFloat($paiement->volume);} ?></td>
 				<td><?php if ($paiement->montant) {echoFloat($paiement->montant);} ?> €</td>
 			</tr>
 			<?php endforeach; ?>
@@ -217,7 +211,7 @@
 				<th rowspan="5" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
 				<th rowspan="2" class="cuves">Cuves</th>
 				<th>N° des cuves</th>
-				<th>Volume (hl)</th>
+				<th>Volume (<?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?>)</th>
 				<th>Date de retiraison</th>
 			</tr>
 
@@ -225,7 +219,7 @@
 			<?php foreach ($lot->cuves as $cuve): ?>
 			<tr class="<?php if($i==sizeof($lot->cuves)) echo 'der_cat'; ?>">
 				<td><?php echo $cuve->numero ?></td>
-				<td><?php if ($cuve->volume) {echoLongFloat($cuve->volume);} ?> hl</td>
+				<td><?php if ($cuve->volume) {echoLongFloat($cuve->volume);} ?></td>
 				<td><?php echo Date::francizeDate($cuve->date) ?></td>
 			</tr>
 			<?php $i++; ?>

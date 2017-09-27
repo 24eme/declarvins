@@ -20,7 +20,6 @@ Prix : <?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction != '
 Vendeur :<br />
 <ul>
 	<li><?php if($vrac->vendeur->nom) { echo $vrac->vendeur->nom; } if($vrac->vendeur->raison_sociale) { echo ($vrac->vendeur->nom)? ' / '.$vrac->vendeur->raison_sociale : $vrac->vendeur->raison_sociale; } echo ($vrac->vendeur->famille)? ' - '.ucfirst($vrac->vendeur->famille) : ''; ?></li>
-	<li>Adresse e-mail : <?php echo $vrac->vendeur->email; ?></li>
 	<li>Inscrit sur DeclarVins.net : <?php echo ($vrac->vendeurHasCompteActif())? 'oui' : 'non'; ?></li>
 </ul> 
 <br />
@@ -29,7 +28,6 @@ Vendeur :<br />
 Acheteur :<br />
 <ul>
 	<li><?php if($vrac->acheteur->nom) { echo $vrac->acheteur->nom; } if($vrac->acheteur->raison_sociale) { echo ($vrac->acheteur->nom)? ' / '.$vrac->acheteur->raison_sociale : $vrac->acheteur->raison_sociale; } echo ($vrac->acheteur->famille)? ' - '.ucfirst($vrac->acheteur->famille) : ''; ?></li>
-	<li>Adresse e-mail : <?php echo $vrac->acheteur->email; ?></li>
 	<li>Inscrit sur DeclarVins.net : <?php echo ($vrac->acheteurHasCompteActif())? 'oui' : 'non'; ?></li>
 </ul> 
 <br />
@@ -38,7 +36,6 @@ Acheteur :<br />
 Courtier :<br />
 <ul>
 	<li><?php if($vrac->mandataire->nom) { echo $vrac->mandataire->nom; } if($vrac->mandataire->raison_sociale) { echo ($vrac->mandataire->nom)? ' / '.$vrac->mandataire->raison_sociale : $vrac->mandataire->raison_sociale; } echo ($vrac->mandataire->famille)? ' - '.ucfirst($vrac->mandataire->famille) : ''; ?></li>
-	<li>Adresse e-mail : <?php echo $vrac->mandataire->email; ?></li>
 	<li>Inscrit sur DeclarVins.net : <?php echo ($vrac->mandataireHasCompteActif())? 'oui' : 'non'; ?></li>
 </ul> 
 <br />

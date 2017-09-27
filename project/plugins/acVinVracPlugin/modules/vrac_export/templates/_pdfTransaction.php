@@ -43,7 +43,6 @@
 				<p>N° accises / EA : <?php echo $vrac->vendeur->num_accise ?></p>
 				<p>Adresse :</p>
 				<p><?php echo $vrac->vendeur->adresse ?> <?php echo $vrac->vendeur->code_postal ?> <?php echo $vrac->vendeur->commune ?><br /><?php echo $vrac->vendeur->pays ?></p>
-				<p>Email : <?php echo $vrac->vendeur->email ?></p>
 				<p>Tel : <?php echo $vrac->vendeur->telephone ?>&nbsp;&nbsp;&nbsp;Fax : <?php echo $vrac->vendeur->fax ?></p>
 				<?php if ($vrac->hasAdresseStockage()): ?>
 				<br />
@@ -67,7 +66,6 @@
 				<p>N° accises / EA : <?php echo $vrac->acheteur->num_accise ?></p>
 				<p>Adresse :</p>
 				<p><?php echo $vrac->acheteur->adresse ?><br /><?php echo $vrac->acheteur->code_postal ?> <?php echo $vrac->acheteur->commune ?><br /><?php echo $vrac->acheteur->pays ?></p>
-				<p>Email : <?php echo $vrac->acheteur->email ?></p>
 				<p>Tel : <?php echo $vrac->acheteur->telephone ?>&nbsp;&nbsp;&nbsp;Fax : <?php echo $vrac->acheteur->fax ?></p>
 				<?php if ($vrac->hasAdresseLivraison()): ?>
 				<br />

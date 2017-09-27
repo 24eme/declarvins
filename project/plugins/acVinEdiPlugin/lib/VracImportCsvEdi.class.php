@@ -57,13 +57,23 @@ class VracImportCsvEdi extends VracCsvEdi {
                 continue;
             }
             $numLigne++;
-            $this->importVrac($numLigne, $csvRow);
+            if ($this->vrac->isNew()) {
+            	$this->importVrac($numLigne, $csvRow);
+            } else {
+            	$this->updateVrac($numLigne, $csvRow);
+            }
     	}
     	if ($this->csvDoc->hasErreurs()) {
     		$this->csvDoc->setStatut(self::STATUT_ERREUR);
     		$this->csvDoc->save();
     		return;
     	}
+    }
+    
+    private function updateVrac($numLigne, $datas)
+    {
+    	$this->vrac->volume_propose = ($datas[self::CSV_CAVE_VOLINITIAL])? round($this->floatize($datas[self::CSV_CAVE_VOLINITIAL]), 2) : 0;
+    	$this->vrac->volume_enleve = ($datas[self::CSV_CAVE_VOLRETIRE])? round($this->floatize($datas[self::CSV_CAVE_VOLINITIAL]), 2) : 0;
     }
     
     private function importVrac($numLigne, $datas)
@@ -106,7 +116,7 @@ class VracImportCsvEdi extends VracCsvEdi {
                 continue;
             }
             $ligne_num++;
-            if ($csvRow[self::CSV_ACCISESVENDEUR] && !preg_match('/^FR0[a-zA-Z0-9]{10}$/', $csvRow[self::CSV_ACCISESVENDEUR])) {
+            if ($csvRow[self::CSV_ACCISESVENDEUR] && !preg_match('/^FR[a-zA-Z0-9]{11}$/', $csvRow[self::CSV_ACCISESVENDEUR])) {
                 $this->csvDoc->addErreur($this->createWrongFormatNumAcciseError($ligne_num, $csvRow));
             }
             if ($csvRow[self::CSV_CAVE_MILLESIME] && !preg_match('/^[0-9]{4}$/', $csvRow[self::CSV_CAVE_MILLESIME])) {
