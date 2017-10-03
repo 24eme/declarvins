@@ -157,7 +157,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
   		$categorieMvt = $datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT];
   		$typeMvt = $this->drm->getImportableLibelleMvt($droits, $datas[self::CSV_CAVE_TYPE_MOUVEMENT]);
-  		$valeur = $datas[self::CSV_CAVE_VOLUME];
+  		$valeur = $this->floatize($datas[self::CSV_CAVE_VOLUME]);
   		
   		if ($this->mouvements) {
 	  		if ($categorieMvt && !array_key_exists($categorieMvt, $this->mouvements)) {
@@ -434,7 +434,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
         	$this->csvDoc->addErreur($this->createMultiIdentifiantError());
         }
     }
-
+    
     private function matchDroits($d) {
     	if (preg_match('/suspendu/i', $d)) {
     
@@ -628,7 +628,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		if ($value === null) {
   			return null;
   		}
-  		return floatval(str_replace(',', '.', $value));
+  		$value = str_replace(',', '.', $value);
+  		return (is_numeric($value))? floatval($value) : str_replace('.', ',', $value);
   	}
 
 }

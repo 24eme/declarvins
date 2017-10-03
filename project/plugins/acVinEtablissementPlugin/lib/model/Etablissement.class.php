@@ -175,6 +175,7 @@ class Etablissement extends BaseEtablissement {
     	$datas[EtablissementAllView::KEY_CODE_POSTAL] = $this->siege->code_postal;
     	$datas[EtablissementAllView::KEY_PAYS] = $this->siege->pays;
     	$datas[EtablissementAllView::KEY_STATUT] = $this->statut;
+    	$datas[EtablissementAllView::KEY_CORRESPONDANCE] = $this->correspondances;
     	return EtablissementAllView::makeLibelle($datas);
     }
 }

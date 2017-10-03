@@ -19,6 +19,7 @@ class EtablissementAllView extends acCouchdbView
 	const KEY_STATUT = 14;
 	const KEY_CONTRAT = 15;
 	const KEY_DOUANE = 16;
+	const KEY_CORRESPONDANCE = 17;
 
 	public static function getInstance() {
 
@@ -98,6 +99,14 @@ class EtablissementAllView extends acCouchdbView
 
     public static function makeLibelle($datas) {
         $libelle = '';
+        $c = array();
+        if ($datas[self::KEY_CORRESPONDANCE]) {
+        	foreach ($datas[self::KEY_CORRESPONDANCE] as $id) {
+        		if ($datas[self::KEY_IDENTIFIANT] != $id) {
+        			$c[] = $id;
+        		}
+        	}
+        }
 
         if ($nom = $datas[self::KEY_NOM]) {
             $libelle .= $nom;
@@ -111,6 +120,9 @@ class EtablissementAllView extends acCouchdbView
         }
 
         $libelle .= ' ('.$datas[self::KEY_IDENTIFIANT];
+        if ($c) {
+            $libelle .= ' / '.implode(' / ', $c);
+        }
         if (isset($datas[self::KEY_SIRET]) && $siret = $datas[self::KEY_SIRET]) {
             $libelle .= ' / '.$siret;
         }
