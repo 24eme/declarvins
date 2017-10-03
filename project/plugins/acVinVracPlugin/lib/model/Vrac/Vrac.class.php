@@ -430,7 +430,9 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
       	$this->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
     	$this->valide->date_validation = date('c');
     	$this->date_signature = $this->valide->date_validation;
+    	if (!$this->hasVersion()) {
     	$this->date_stats = $this->valide->date_validation;
+    	}
     	if (!$this->mandataire_exist) {
     		$this->remove('mandataire');
     		$this->add('mandataire');
