@@ -94,4 +94,4 @@ La liste des erreurs (identifiant et description) pour le portail DeclarVins est
 | ISAGRI           | Oui | Oui  |  |  |  |
 | ICS-SUD          | Oui |      |  |  |  |
 | I3S              | Oui |      |  |  |  |
-| Antislash        | Oui | Oui  |  |  |  |
+| Antislash        | Oui | Oui  | Oui | Oui |  |
