@@ -66,7 +66,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     			}
     		}
             $numLigne++;
-    		switch($csvRow[self::CSV_TYPE]) {
+    		switch(strtoupper($csvRow[self::CSV_TYPE])) {
     			case self::TYPE_CAVE:
     				$this->importCave($numLigne, $csvRow);
     				break;
@@ -95,7 +95,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   	{
   		$this->drm->setImportablePeriode($datas[self::CSV_PERIODE]);
   		
-  		$identifiant = trim($datas[self::CSV_IDENTIFIANT]);
+  		$identifiant = strtoupper(trim($datas[self::CSV_IDENTIFIANT]));
   		$ea = trim($datas[self::CSV_NUMACCISE]);
   		$siretCvi = null;
   		if (preg_match('/([a-zA-Z0-9\ \-\_]*)\(([a-zA-Z0-9\ \-\_]*)\)/', $identifiant, $result)) {
@@ -111,7 +111,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     
     protected function isComplement($datas)
     {
-    	return ($datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT] == 'complement' || $datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT] == 'complements')? true : false;
+    	return (preg_match('/^compl.+ment/i', $datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT]))? true : false;
     }
     
     private function importCave($numLigne, $datas)
@@ -140,7 +140,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		return;
   		}
   		
-  		if ($complement = $datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]) {
+  		if ($complement = strtoupper($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
   			if (isset($this->permettedValues[self::TYPE_CAVE]) && isset($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
   				if (is_array($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT]) && !in_array($complement, $this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
   					$this->csvDoc->addErreur($this->complementProductWrongFormatError($numLigne, $datas));
@@ -155,8 +155,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		
   		$produit = ($complement)? $this->drm->addProduit($hash, $complement) : $this->drm->addProduit($hash);
 
-  		$categorieMvt = $datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT];
-  		$typeMvt = $this->drm->getImportableLibelleMvt($droits, $datas[self::CSV_CAVE_TYPE_MOUVEMENT]);
+  		$categorieMvt = strtolower($datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT]);
+  		$typeMvt = $this->drm->getImportableLibelleMvt($droits, strtolower($datas[self::CSV_CAVE_TYPE_MOUVEMENT]));
   		$valeur = $this->floatize($datas[self::CSV_CAVE_VOLUME]);
   		
   		if ($this->mouvements) {
@@ -171,7 +171,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		} else {
   			if ($categorieMvt && !$produit->exist($categorieMvt)) {
   				if (!$produit->exist($typeMvt)) {
-		  			$this->csvDoc->addErreur($this->categorieMouvementNotFoundError($numLigne, $datas));
+		  			$this->csvDoc->addErreur($this->categorieOrTypeMouvementNotFoundError($numLigne, $datas));
 		  			return;
   				} else {
   					$categorieMvt = null;
@@ -215,13 +215,13 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   			}
   			$produit->addVrac($numContrat, round($this->floatize($valeur), 2));
   			
-  		} elseif (!$categorieMvt && $typeMvt == 'observations') {
+  		} elseif (!$categorieMvt && preg_match('/^observation/i', $typeMvt)) {
   			if (!$valeur) {
   				$this->csvDoc->addErreur($this->observationsEmptyError($numLigne, $datas));
   				return;
   			}
   			$produit->setImportableObservations($valeur);
-  		} elseif (!$categorieMvt && $typeMvt == 'premix') {
+  		} elseif (!$categorieMvt && preg_match('/^pr.+mix$/i', $typeMvt)) {
   			if (!is_numeric($valeur) || $valeur < 0) {
   				$this->csvDoc->addErreur($this->valeurMouvementNotValidError($numLigne, $datas));
   				return;
@@ -248,18 +248,14 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     
     private function importCrd($numLigne, $datas)
   	{
-  		$categorie = $datas[self::CSV_CRD_COULEUR];
-  		$type = $datas[self::CSV_CRD_TYPE_DROITS];
-  		$centilisation = $datas[self::CSV_CRD_CENTILITRAGE];
+  		$categorie = strtoupper($datas[self::CSV_CRD_COULEUR]);
+  		$type = strtoupper($datas[self::CSV_CRD_TYPE_DROITS]);
+  		$centilisation = strtoupper($datas[self::CSV_CRD_CENTILITRAGE]);
   		
-  		$categorieCrd = $datas[self::CSV_CRD_CATEGORIE_KEY];
-  		$typeCrd = $datas[self::CSV_CRD_TYPE_KEY];
+  		$categorieCrd = strtolower($datas[self::CSV_CRD_CATEGORIE_KEY]);
+  		$typeCrd = strtolower($datas[self::CSV_CRD_TYPE_KEY]);
   		$valeur = $datas[self::CSV_CRD_QUANTITE];
   		
-  		if (!$this->configuration->isCentilisationCrdAccepted($centilisation)) {
-  			$this->csvDoc->addErreur($this->centilisationCrdNotFoundError($numLigne, $datas));	
-  			return;
-  		}
   		if (!$this->configuration->isCategorieCrdAccepted($categorie)) {
   			$this->csvDoc->addErreur($this->categorieCrdNotFoundError($numLigne, $datas));  	
   			return;			
@@ -269,8 +265,18 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   			return;
   		}
   		
-  		$crd = $this->drm->addCrd($categorie, $type, $centilisation);
-  		
+  		if (!$this->configuration->isCentilisationCrdAccepted($centilisation)) {
+  			$isBib = null;
+  			if (preg_match('/^(BIB|CL)_([0-9]+)/i', $centilisation, $m)) {
+  				$crd = $this->drm->addCrd($categorie, $type, 'AUTRE', $m[2], ($m[1] == 'BIB'));
+  			} else {
+  				$this->csvDoc->addErreur($this->centilisationCrdNotFoundError($numLigne, $datas));	
+  				return;
+  			}
+  		} else {
+  			$crd = $this->drm->addCrd($categorie, $type, $centilisation, null, null);
+  		}
+  		  		
   		if ($categorieCrd && !$crd->exist($categorieCrd)) {
   			if (!$crd->exist($typeCrd)) {
 	  			$this->csvDoc->addErreur($this->categorieCrdMvtNotFoundError($numLigne, $datas));
@@ -293,14 +299,14 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		}
   		
   		$mvt = ($categorieCrd)? $crd->getOrAdd($categorieCrd) : $crd;
-  		$old = (in_array($typeMvt, array('total_debut_mois', 'total_fin_mois')))? 0 : intval($mvt->getOrAdd($typeCrd));
+  		$old = (in_array($typeCrd , array('total_debut_mois', 'total_fin_mois')))? 0 : intval($mvt->getOrAdd($typeCrd));
   		$mvt->add($typeCrd, ($old + intval($valeur)));
   		
     }
     
     private function importAnnexe($numLigne, $datas)
   	{
-    	switch ($datas[self::CSV_ANNEXE_CATMVT]) {
+    	switch (strtolower($datas[self::CSV_ANNEXE_CATMVT])) {
     		case 'rna':
     			$this->importNonApurement($numLigne, $datas);
     			break;
@@ -349,8 +355,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     {
     	$declaratif = $this->drm->getImportableDeclaratif();
 
-    	$categorie = $datas[self::CSV_ANNEXE_CATMVT];
-    	$type = $datas[self::CSV_ANNEXE_TYPEMVT];
+    	$categorie = strtolower($datas[self::CSV_ANNEXE_CATMVT]);
+    	$type = strtolower($datas[self::CSV_ANNEXE_TYPEMVT]);
     	$valeur = $datas[self::CSV_ANNEXE_QUANTITE];
     	
     	if (!$categorie || !$declaratif->exist($categorie)) {
@@ -376,8 +382,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
     	$declaratif = $this->drm->getImportableDeclaratif();
     	
-    	$categorie = $datas[self::CSV_ANNEXE_CATMVT];
-    	$type = $datas[self::CSV_ANNEXE_TYPEMVT];
+    	$categorie = strtolower($datas[self::CSV_ANNEXE_CATMVT]);
+    	$type = strtolower($datas[self::CSV_ANNEXE_TYPEMVT]);
     	$valeur = $datas[self::CSV_ANNEXE_QUANTITE];
     	 
     	if (!$categorie || !$declaratif->exist($categorie)) {
@@ -409,7 +415,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 continue;
             }
             $ligne_num++;
-            if (!in_array($csvRow[self::CSV_TYPE], self::$permitted_types)) {
+            if (!in_array(strtoupper($csvRow[self::CSV_TYPE]), self::$permitted_types)) {
                 $this->csvDoc->addErreur($this->createWrongFormatTypeError($ligne_num, $csvRow));
             }
             if (!preg_match('/^[0-9]{6}$/', $csvRow[self::CSV_PERIODE])) {
@@ -440,7 +446,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     
     		return self::TYPE_DROITS_SUSPENDUS;
     	}
-    	if (preg_match('/acquitte/i', $d)) {
+    	if (preg_match('/acquitt.+/i', $d)) {
     
     		return self::TYPE_DROITS_ACQUITTES;
     	}
@@ -525,6 +531,10 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     private function typeMouvementNotFoundError($num_ligne, $csvRow) {
         return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_TYPE_MOUVEMENT], "Le type de mouvement n'a pas été trouvé", 'error_notfound_mvttype');
     }
+    
+    private function categorieOrTypeMouvementNotFoundError($num_ligne, $csvRow) {
+        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_CATEGORIE_MOUVEMENT].' / '.$csvRow[self::CSV_CAVE_TYPE_MOUVEMENT], "La catégorie ou le type de mouvement n'a pas été trouvée", 'error_notfound_mvtcategorietype');
+    }
 
     private function categorieCrdMvtNotFoundError($num_ligne, $csvRow) {
     	return $this->createError($num_ligne, $csvRow[self::CSV_CRD_CATEGORIE_KEY], "La catégorie de mouvement de CRD n'a pas été trouvée", 'error_notfound_crdcategoriemvt');
@@ -604,6 +614,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     	if ($key == " " || !$key) {
     		$key = null;
     	}
+    	$key = strtoupper($key);
     	if ($withDefault) {
     		return ($key)? $key : ConfigurationProduit::DEFAULT_KEY;
     	} else {
@@ -613,6 +624,10 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     
     private function couleurKeyToCode($key)
     {
+    	$key = strtolower($key);
+    	if (preg_match('/^ros.+$/', $key)) {
+    		$key = 'rose';
+    	}
     	$correspondances = array(1 => "rouge",
     			2 => "rose",
     			3 => "blanc");
