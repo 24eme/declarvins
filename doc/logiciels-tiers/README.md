@@ -61,6 +61,10 @@ Le catalogue des mouvements de DRM admis par le portail DeclarVins  [Catalogue m
  * BIB_500 (BIB 5 L)
  * BIB_800 (BIB 8 L)
  * BIB_1000 (BIB 10 L)
+ 
+Il est possible de saisir une centilisation non présente dans la liste en respectant le format : 
+
+(CL|BIB)_([0-9]+) : clé CL pour centilitre ou BIB pour un bib, séparateur underscore, centilisation exprimée en centilitre.
 
 ## Exemple complet de fichier d'import de DRM
 
