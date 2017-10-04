@@ -16,7 +16,8 @@ function(doc) {
 		      	  doc.siege.pays,
 		      	  doc.statut,
 			  doc.contrat_mandat,
-    			  doc.service_douane], null);
+    			  doc.service_douane,
+    			  doc.correspondances], null);
  	}
 	}
 }
