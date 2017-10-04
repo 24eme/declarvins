@@ -31,6 +31,7 @@ error_notfound_crdtypemvt,Le type de mouvement de CRD n'a pas été trouvé
 error_notfound_crdcategoriemvt,La catégorie de mouvement de CRD n'a pas été trouvée
 error_notfound_mvttype,Le type de mouvement n'a pas été trouvé
 error_notfound_mvtcategorie,La catégorie de mouvement n'a pas été trouvée
+error_notfound_mvtcategorietype,La catégorie ou le type de mouvement n'a pas été trouvée
 error_notfound_produitcomplement,Le complément produit n'est pas reconnu
 error_notfound_droitstype,Le type de droit n'a pas été trouvé
 error_notfound_produit,Le produit n'a pas été trouvé
