@@ -1551,7 +1551,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 			$details = $categorie->getOrAdd('crd_details');
 			$detail = $details->getOrAdd(ConfigurationProduit::DEFAULT_KEY);
 			$data = str_replace('-', '', $datas[DRMCsvEdi::CSV_CAVE_EXPORTPAYS]);
-			if (preg_match('/^([0-9]{4})([0-9]{2})$/', $datas[DRMCsvEdi::CSV_CAVE_EXPORTPAYS], $m)) {
+			if (preg_match('/^([0-9]{4})([0-9]{2})$/', $data, $m)) {
 				$detail->annee = $m[1];
 				$detail->mois = $m[2];
 				$detail->volume = $categorie->get($type);				
