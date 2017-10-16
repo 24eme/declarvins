@@ -25,6 +25,8 @@ class ConfigurationProduit extends BaseConfigurationProduit
   	const NOEUD_DROIT_CVO = 'cvo';
   	const NOEUD_DROIT_DOUANE = 'douane';
   	
+  	const CERTIFICATION_APD = 'APD';
+  	
   	public $interpro_object = null;
   	
   	protected static $correspondance_couleurs = array (

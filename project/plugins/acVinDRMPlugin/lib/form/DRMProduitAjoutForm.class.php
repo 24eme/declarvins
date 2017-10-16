@@ -26,16 +26,19 @@ class DRMProduitAjoutForm extends acCouchdbForm
             'hashref' => new sfWidgetFormChoice(array('choices' => $produits)),
             'label' => new sfWidgetFormChoice(array('expanded' => true,'choices' => $labels)),
             'disponible' => new sfWidgetFormInputFloat(array('float_format' => "%01.04f")),
+            'libelle' => new sfWidgetFormInput(),
         ));
         $this->widgetSchema->setLabels(array(
             'hashref' => 'Produit: ',
             'label' => 'Label: ',
+            'libelle' => 'Libelle CIEL: ',
         ));
 
         $this->setValidators(array(
             'hashref' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($produits)),array('required' => "Aucun produit n'a été saisi !")),
             'label' => new sfValidatorChoice(array('multiple' => true, 'required' => false, 'choices' => array_keys($labels))),
             'disponible' => new sfValidatorNumber(array('required' => false)),
+            'libelle' => new sfValidatorString(array('required' => false)),
         ));
 
         $this->validatorSchema->setPostValidator(new DRMProduitValidator(null, array('drm' => $this->_drm)));
@@ -67,6 +70,11 @@ class DRMProduitAjoutForm extends acCouchdbForm
         return count($this->getLabels()) > 0;
     }
     
+    public function isProduitApd()
+    {
+    	return ($this->_certification == ConfigurationProduit::CERTIFICATION_APD);
+    }
+    
     public function getProduits() 
     {
     	if ($this->_configurationProduits) {
@@ -80,7 +88,10 @@ class DRMProduitAjoutForm extends acCouchdbForm
         if (!$this->isValid()) {
             throw $this->getErrorSchema();
         }
-
+        $hash = $this->values['hashref'];
+        if ($this->values['libelle']) {
+        	$this->values['label'] = array_merge(array(md5($this->values['libelle'])), $this->values['label']);
+        }
         $detail = $this->_drm->addProduit($this->values['hashref'], $this->values['label']);
         $detail->total_debut_mois = 0;
         $detail->acq_total_debut_mois = 0;
@@ -90,6 +101,9 @@ class DRMProduitAjoutForm extends acCouchdbForm
             if ($detail->has_vrac) {
         		$detail->total_debut_mois_interpro = $this->values['disponible'];
             }
+        }
+        if ($this->values['libelle']) {
+        	$detail->libelle = $this->values['libelle'];
         }
 		$this->_drm->update();
         return $detail;

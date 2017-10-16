@@ -12,8 +12,11 @@ class DRMProduitValidator extends sfValidatorSchema
         if (!is_array($values['label'])) {
             $values['label'] = array();
         }
-
-        if ($this->getDRM()->getProduit($values['hashref'], $values['label'])) {
+		$label = $values['label'];
+		if ($libelle = $values['libelle']) {
+			$label = array(md5($libelle));
+		}
+        if ($this->getDRM()->getProduit($values['hashref'], $label)) {
             throw new sfValidatorError($this, 'exist');
         }
 
