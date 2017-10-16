@@ -6,6 +6,13 @@
 		<?php echo $form['hashref']->renderLabel() ?>
 		<?php echo $form['hashref']->render() ?>
 	</div>
+	<?php if ($form->isProduitApd()): ?>
+	<div class="ligne_form">
+		<span class="error"><?php echo $form['libelle']->renderError() ?></span>
+		<?php echo $form['libelle']->renderLabel() ?>
+		<?php echo $form['libelle']->render() ?>
+	</div>
+	<?php endif; ?>
     <?php if ($form->hasLabel()):?>
 	<div class="ligne_form">
 		<span class="error"><?php echo $form['label']->renderError() ?></span>

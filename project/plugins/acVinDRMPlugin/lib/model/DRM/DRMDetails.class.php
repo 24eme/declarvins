@@ -18,7 +18,13 @@ class DRMDetails extends BaseDRMDetails {
 
 	public function addProduit($labels = array()) {
 		$detail = $this->add($this->slugifyLabels($labels));
-		$detail->labels = $labels;
+		$lab = array();
+		foreach ($labels as $label) {
+			if (!preg_match('/^[a-f0-9]{32}$/', $label)) {
+				$lab[] = $label;
+			}
+		}
+		$detail->labels = $lab;
 		$detail->storeInterpro();
 		if ($config = $detail->getConfig()) {
 			$detail->has_vrac = $config->getCurrentDrmVrac(true);

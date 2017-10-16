@@ -56,7 +56,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     {
         $numLigne = 0;
     	foreach ($this->getDocRows() as $csvRow) {
-            if (preg_match('/^#/', $csvRow[self::CSV_TYPE])) {
+            if (preg_match('/^(...)?#/', $csvRow[self::CSV_TYPE])) {
                 continue;
             }
     		if ($numLigne == 0) {
@@ -411,7 +411,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
         $accises = array();
         $identifiants = array();
         foreach ($this->getDocRows() as $csvRow) {
-            if (preg_match('/^#/', $csvRow[self::CSV_TYPE])) {
+            if (preg_match('/^(...)?#/', $csvRow[self::CSV_TYPE])) {
                 continue;
             }
             $ligne_num++;

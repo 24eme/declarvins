@@ -68,6 +68,8 @@ class DRMCiel extends BaseDRMCiel
 					$erreurs[] =  $reponseCiel->{'erreur-interne'}->{'message-erreur'};
 				}
 			}
+		} elseif (!$this->isTransfere() && $this->xml === false) {
+			$erreurs[] =  "Le service CIEL - Prodouane ne répond pas. Veuillez réessayer ultérieurement.";
 		}
 		return $erreurs;
 	}

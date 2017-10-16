@@ -19,6 +19,9 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function getFormattedLibelle($format = "%g% %a% %l% %co% %ce% <span class=\"labels\">%la%</span>", $label_separator = ", ") {
+    	if ($this->getCertification()->getKey() == ConfigurationProduit::CERTIFICATION_APD && $this->getKey() != ConfigurationProduit::DEFAULT_KEY) {
+    		return ConfigurationProduitClient::getInstance()->format($this->getCepage()->getConfig()->getLibelles(), array_merge(array($this->libelle), $this->labels->toArray()), $format);
+    	}
         return ConfigurationProduitClient::getInstance()->format($this->getCepage()->getConfig()->getLibelles(), $this->labels->toArray(), $format);
     }
 
