@@ -57,7 +57,7 @@ class CsvFile
     }
     $this->csvdata = array();
     while (($data = fgetcsv($handler, 0, $this->separator)) !== FALSE) {
-      if (!preg_match('/^#/', $data[0])) {
+      if (!preg_match('/^(...)?#/', $data[0])) {
 		$this->csvdata[] = $data;           
       }  
     }
