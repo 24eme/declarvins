@@ -81,7 +81,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		}
     	}
     	foreach ($this->complements as $l => $row) {
-    		$this->importCave($l, $row);
+    		$this->importCave($l, $row, true);
     	}
     	$this->drm->restoreLibelle();
     	if ($this->csvDoc->hasErreurs()) {
@@ -114,9 +114,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     	return (preg_match('/^compl.+ment/i', $datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT]))? true : false;
     }
     
-    private function importCave($numLigne, $datas)
+    private function importCave($numLigne, $datas, $complements = false)
   	{
-    	if ($this->isComplement($datas)) {
+    	if ($this->isComplement($datas) && !$complements) {
     		$this->complements[$numLigne] = $datas;
     		return;
     	}
