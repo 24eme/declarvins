@@ -216,6 +216,10 @@ class drmActions extends sfActions {
         $this->historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
         $this->formCampagne = new DRMCampagneForm($this->etablissement->identifiant);
         $this->hasDrmEnCours = $this->historique->hasDRMInProcess();
+        $this->drmEnCours = null; 
+        if ($drmEnCours = $this->historique->getDRMInProcess()) {
+        	$this->drmEnCours = DRMClient::getInstance()->find($drmEnCours->_id);
+        }
         $drmSessionInfos = $this->getUser()->getAttribute('last_drm');
         if (!(isset($drmSessionInfos['periode']) && !empty($drmSessionInfos['periode'])) && $this->hasNewDRM($this->historique, $this->etablissement->identifiant)) {
             $periode = DRMClient::getInstance()->getLastPeriode($this->etablissement->identifiant);

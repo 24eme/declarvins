@@ -34,6 +34,12 @@
 	</div>
     <?php endif; ?>
     
+	<?php if ($hasDrmEnCours): ?>
+	<div id="flash_message">
+		<div class="flash_warning">Vous n'avez pas validé votre DRM de <?php echo strftime('%B %Y', strtotime($drmEnCours->periode.'-01')); ?> : <a href="<?php echo url_for('drm_init', $drmEnCours) ?>">Accéder à la déclaration en cours</a></div>
+	</div>
+	<?php endif; ?>
+    
     <section id="principal">
         <div id="recap_drm">
             <div id="drm_annee_courante" >

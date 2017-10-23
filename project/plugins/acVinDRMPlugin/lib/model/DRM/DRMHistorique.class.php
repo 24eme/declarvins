@@ -5,6 +5,7 @@ class DRMHistorique {
     protected $identifiant = null;
     protected $drms = null;
     protected $has_drm_process = null;
+    protected $drm_process = null;
     protected $last_drm = null;
 
     const VIEW_INDEX_ETABLISSEMENT = 0;
@@ -26,6 +27,11 @@ class DRMHistorique {
     public function hasDRMInProcess() {
         
         return $this->has_drm_process;
+    }
+
+    public function getDRMInProcess() {
+        
+        return $this->drm_process;
     }
 
     public function getLastDRM() {
@@ -99,6 +105,7 @@ class DRMHistorique {
 
             if (!$this->drms[$key]->valide->date_saisie) {
                 $this->has_drm_process = true;
+                $this->drm_process = $this->drms[$key];
             }
         }
     }
