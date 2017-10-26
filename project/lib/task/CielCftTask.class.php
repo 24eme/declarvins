@@ -114,7 +114,7 @@ EOF;
     if ($list !== FALSE) {
     	foreach ($list->children() as $item) {
     		$xmlIn = simplexml_load_file($item, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
-    		if ($list !== FALSE) {
+    		if ($xmlIn !== FALSE) {
     			$ea = (string) $xmlIn->{"declaration-recapitulative"}->{"identification-declarant"}->{"numero-agrement"};
     			$periode = sprintf("%4d-%02d", (string) $xmlIn->{"declaration-recapitulative"}->{"periode"}->{"annee"}, (string) $xmlIn->{"declaration-recapitulative"}->{"periode"}->{"mois"});
     			if ($drm = CielDrmView::getInstance()->findByAccisesPeriode($ea, $periode)) {
@@ -127,7 +127,9 @@ EOF;
 
     						$rectif = $drm->findMaster();
     						if ($rectif && $rectif->version == 'R01') {
-    							$rectif->delete();
+    							if (!$checkingMode) {
+    								$rectif->delete();
+    							}
     						}
     						
     						if (!$compare->hasDiff()) {
