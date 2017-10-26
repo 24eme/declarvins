@@ -1,4 +1,4 @@
-#Spécifications techniques de l'implémentation du format de DRM attendues sur le portail DeclarVins
+# Spécifications techniques de l'implémentation du format de DRM attendues sur le portail DeclarVins
 
 **/!\ La version de cette documentation n'est pas définitive et sera amenée à évoluer /!\**
 
@@ -81,7 +81,7 @@ Les lignes de ce fichier se constituent des champs suivants :
 1. Le type de retour : « SUCCES » ou « ERREUR »
 2. La catégorie de retour : « CSV » pour les données du fichier ou « ACCES » pour l'accès au webservice
 3. Le numéro de ligne : En cas d'erreur, numéro de la ligne incriminée ou vide si il s'agit d'une erreur globale
-4. L'identifiant d'erreur
+4. L'identifiant d'erreur ou url de redirection DeclarVins en cas de succes
 5. Description : Message décrivant le retour
 
 La liste des erreurs (identifiant et description) pour le portail DeclarVins est disponible ici : [Liste des erreurs pour DeclarVins](liste_erreurs.csv) .
@@ -91,7 +91,7 @@ La liste des erreurs (identifiant et description) pour le portail DeclarVins est
 | Nom de l'Éditeur | Prise de contact | Génération du fichier de transfer | Recette des échanges en préproduction | Transmission opérationnelle en production | Versions compatibles |
 |------------------|------------------|-----------------------------------|---------------------------------------|------------------------------------------------------|----------------------|
 | CR2i             | Oui |      |  |  |  |
-| ISAGRI           | Oui | Oui  |  |  |  |
+| ISAGRI           | Oui | Oui  | Oui | Oui |  |
 | ICS-SUD          | Oui |      |  |  |  |
 | I3S              | Oui |      |  |  |  |
 | Antislash        | Oui | Oui  | Oui | Oui |  |
