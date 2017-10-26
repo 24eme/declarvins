@@ -91,7 +91,7 @@ La liste des erreurs (identifiant et description) pour le portail DeclarVins est
 | Nom de l'Éditeur | Prise de contact | Génération du fichier de transfer | Recette des échanges en préproduction | Transmission opérationnelle en production | Versions compatibles |
 |------------------|------------------|-----------------------------------|---------------------------------------|------------------------------------------------------|----------------------|
 | CR2i             | Oui |      |  |  |  |
-| ISAGRI           | Oui | Oui  | Oui | Oui |  |
+| ISAGRI           | Oui | Oui  | Oui |  |  |
 | ICS-SUD          | Oui |      |  |  |  |
 | I3S              | Oui |      |  |  |  |
 | Antislash        | Oui | Oui  | Oui | Oui |  |
