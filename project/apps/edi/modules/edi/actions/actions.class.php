@@ -464,14 +464,17 @@ class ediActions extends sfActions
 		  						$result[] = array('ERREUR', 'CSV', null, $error->getIdentifiant(), str_replace('Erreur, ', '', $error));
 		  					}
 		  				} else {
+		  					$route = 'drm_';
 					    	$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_EDI;
 					    	if ($etab->isTransmissionCiel()) {
 					    		$drm->etape = 'validation';
+					    		$route += 'validation';
 					    	} else {
 					    		$drm->validate();
+					    		$route += 'visualisation';
 					    	}
 					    	$drm->save();
-					    	$result[] = array('SUCCES', 'CSV', null, null, 'La DRM '.$drm->periode." pour ".$drm->identifiant.' a été importée avec succès');
+					    	$result[] = array('SUCCES', 'CSV', null, $this->generateUrl($route, $drm, true), 'La DRM '.$drm->periode." pour ".$drm->identifiant.' a été importée avec succès');
 		  				}
 	  				}
   				}
