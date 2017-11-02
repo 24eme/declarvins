@@ -474,7 +474,9 @@ class ediActions extends sfActions
 					    		$route .= 'visualisation';
 					    	}
 					    	$drm->save();
-					    	$result[] = array('SUCCES', 'CSV', null, $this->generateUrl($route, $drm, true), 'La DRM '.$drm->periode." pour ".$drm->identifiant.' a été importée avec succès');
+					    	$configuration = ProjectConfiguration::getApplicationConfiguration('declarvin', 'prod', false);
+					    	$context = sfContext::createInstance($configuration);
+					    	$result[] = array('SUCCES', 'CSV', null, $context->getRouting()->generate($route, $drm, true), 'La DRM '.$drm->periode." pour ".$drm->identifiant.' a été importée avec succès');
 		  				}
 	  				}
   				}
