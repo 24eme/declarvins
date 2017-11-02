@@ -474,7 +474,7 @@ class ediActions extends sfActions
 					    		$route .= 'visualisation';
 					    	}
 					    	$drm->save();
-					    	$result[] = array('SUCCES', 'CSV', null, str_replace('edi-', '', $this->generateUrl($route, $drm, true)), 'La DRM '.$drm->periode." pour ".$drm->identifiant.' a été importée avec succès');
+					    	$result[] = array('SUCCES', 'CSV', null, str_replace('edi', 'declarvin', str_replace('edi-', '', $this->generateUrl($route, $drm, true))), 'La DRM '.$drm->periode." pour ".$drm->identifiant.' a été importée avec succès');
 		  				}
 	  				}
   				}
