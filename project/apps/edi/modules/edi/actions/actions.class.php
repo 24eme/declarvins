@@ -397,7 +397,7 @@ class ediActions extends sfActions
   	$etablissement = $request->getParameter('etablissement');
   	$this->securizeEtablissement($etablissement);
   	$etab = EtablissementClient::getInstance()->find($etablissement);
-  	$historique = new DRMHistorique($etablissement->identifiant);
+  	$historique = new DRMHistorique($etab->identifiant);
   	$formUploadCsv = new UploadCSVForm();
   	$result = array();
   	if ($request->isMethod('post')) {
@@ -468,10 +468,10 @@ class ediActions extends sfActions
 					    	$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_EDI;
 					    	if ($etab->isTransmissionCiel()) {
 					    		$drm->etape = 'validation';
-					    		$route += 'validation';
+					    		$route .= 'validation';
 					    	} else {
 					    		$drm->validate();
-					    		$route += 'visualisation';
+					    		$route .= 'visualisation';
 					    	}
 					    	$drm->save();
 					    	$result[] = array('SUCCES', 'CSV', null, $this->generateUrl($route, $drm, true), 'La DRM '.$drm->periode." pour ".$drm->identifiant.' a été importée avec succès');
