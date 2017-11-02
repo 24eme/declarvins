@@ -898,7 +898,7 @@ class ediActions extends sfActions
     $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$lastDate."_resultat_import_".$type.".csv");
     $this->response->setHttpHeader('LastDocDate', $lastDate);
     $this->response->setHttpHeader('Last-Modified', date('r', strtotime($lastDate)));
-    return $this->renderText(utf8_decode($csv_file));
+    return $this->renderText($csv_file);
   }
 
   // A TESTER
