@@ -156,7 +156,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		$produit = ($complement)? $this->drm->addProduit($hash, $complement) : $this->drm->addProduit($hash);
 
   		$categorieMvt = strtolower($datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT]);
-  		$typeMvt = $this->drm->getImportableLibelleMvt($droits, strtolower($datas[self::CSV_CAVE_TYPE_MOUVEMENT]));
+  		$typeMvt = $this->drm->getImportableLibelleMvt($droits, $categorieMvt, strtolower($datas[self::CSV_CAVE_TYPE_MOUVEMENT]));
   		$valeur = $this->floatize($datas[self::CSV_CAVE_VOLUME]);
   		
   		if ($this->mouvements) {
