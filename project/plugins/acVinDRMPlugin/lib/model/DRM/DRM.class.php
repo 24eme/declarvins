@@ -1580,8 +1580,8 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		return str_replace(array('acq_', '_details'), '', $key);
 	}
 	
-	public function getImportableLibelleMvt($type, $key) {
-		if ($type == DRMCsvEdi::TYPE_DROITS_ACQUITTES) {
+	public function getImportableLibelleMvt($type, $categorie, $key) {
+		if ($type == DRMCsvEdi::TYPE_DROITS_ACQUITTES && $categorie != 'complement') {
 			return 'acq_'.$this->getImportableMvt($key);
 		}
 		return $this->getImportableMvt($key);

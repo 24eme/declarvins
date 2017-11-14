@@ -37,26 +37,30 @@
                 <?php endif; ?>
                 <?php endif; ?>
                 
+                
                 <?php if (!$drmValidation->hasErrors()): ?>
                 <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->isTransmissionCiel()) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-	                <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel()): ?>
-		                <?php if(date('Y-m-d') >= $drm->periode.'-'.DRMCiel::VALIDATE_DAY): ?>
-		                <button type="submit" class="btn_suiv">
-		                    <span>Valider et envoyer à CIEL</span>
-		                </button>
-		                <?php else: ?>
-		                <div class="ciel_wait">Vous pourrez valider à partir du <strong><?php echo DRMCiel::VALIDATE_DAY ?>/<?php echo $drm->getMois() ?></strong></div>
-		                <?php endif; ?>
-	                <?php else: ?>
-	                <button type="submit" class="btn_suiv">
-	                    <span>Valider</span>
-	                </button>
-	                <?php endif; ?>
+                <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel()): ?>
+                <?php if(date('Y-m-d') >= $drm->periode.'-'.DRMCiel::VALIDATE_DAY): ?>
+                <button type="submit" class="btn_suiv">
+                    <span>Valider et envoyer à CIEL</span>
+                </button>
+                <?php else: ?>
+                <div class="ciel_wait">Vous pourrez valider à partir du <strong><?php echo DRMCiel::VALIDATE_DAY ?>/<?php echo $drm->getMois() ?></strong></div>
+                <?php endif; ?>
+                <?php else: ?>
+                <button type="submit" class="btn_suiv">
+                    <span>Valider</span>
+                </button>
+                <?php endif; ?>
                 <?php elseif ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 	                <button type="submit" class="btn_suiv">
 	                    <span>Forcer Validation</span>
 	                </button>
                 <?php endif; ?>
+                <?php endif; ?>
+                
+                
                 
                 <?php if ($drmValidation->hasError('diff_ciel', true) && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->hasVersion()): ?>
                 <div class="ligne_btn">
@@ -182,7 +186,6 @@
 	                <button type="submit" class="btn_suiv">
 	                    <span>Forcer Validation</span>
 	                </button>
-                <?php endif; ?>
                 <?php endif; ?>
                 <?php endif; ?>
                 

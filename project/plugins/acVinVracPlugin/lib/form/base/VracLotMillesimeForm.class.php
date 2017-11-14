@@ -12,7 +12,7 @@ class VracLotMillesimeForm extends acCouchdbObjectForm
 	       'pourcentage' => 'Pourcentage:'
 		));
 		$this->setValidators(array(
-	       'annee' => new sfValidatorString(array('required' => true)),
+	       'annee' => new sfValidatorRegex(array('required' => true, 'pattern' => '/^[0-9]{4}$/')),
 	       'pourcentage' => new sfValidatorString(array('required' => true))
 		));
 		$this->widgetSchema->setNameFormat('millesime[%s]');
