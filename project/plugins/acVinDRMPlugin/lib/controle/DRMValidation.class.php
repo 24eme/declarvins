@@ -152,6 +152,9 @@ class DRMValidation
 		if ($detail->total < 0) {
 			$this->errors['total_negatif_'.$detail->getIdentifiantHTML()] = new DRMControleError('total_negatif', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
 		}
+		if ($detail->acq_total < 0) {
+			$this->errors['total_negatif_'.$detail->getIdentifiantHTML()] = new DRMControleError('total_negatif', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
+		}
 		if (round($detail->total,4) < round($detail->stocks_fin->bloque + $detail->stocks_fin->instance,4)) {
 			$this->errors['total_stocks_'.$detail->getIdentifiantHTML()] = new DRMControleError('total_stocks', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
 		}
@@ -176,6 +179,13 @@ class DRMValidation
 			if ($drmSuivante->exist($detail->getHash())) {
 				$d = $drmSuivante->get($detail->getHash());
 				if (round($d->total_debut_mois,4) != round($detail->total,4) && !$this->drm->hasVersion()) {
+					if(isset($this->options['stock']) && $this->options['stock'] == 'warning') {
+						$this->warnings['stock_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('stock', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
+					} else {
+						$this->errors['stock_'.$detail->getIdentifiantHTML()] = new DRMControleError('stock', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
+					}
+				}
+				if (round($d->acq_total_debut_mois,4) != round($detail->acq_total,4) && !$this->drm->hasVersion()) {
 					if(isset($this->options['stock']) && $this->options['stock'] == 'warning') {
 						$this->warnings['stock_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('stock', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
 					} else {
