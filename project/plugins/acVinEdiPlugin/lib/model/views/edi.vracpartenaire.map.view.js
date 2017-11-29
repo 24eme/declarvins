@@ -22,6 +22,13 @@ function(doc) {
 		} else if (doc.acheteur.nom && doc.acheteur.nom != doc.acheteur.raison_sociale) {
 			acheteur += ' - '+doc.acheteur.nom;
 		}
+
+
+		if (doc.acheteur.siret) {
+			acheteur += ' ('+doc.acheteur.siret+')';
+		} else if (doc.acheteur.cvi) {
+			acheteur += ' ('+doc.acheteur.cvi+')';
+		}
 		
 
 		for(zone in doc.vendeur.zones) {
