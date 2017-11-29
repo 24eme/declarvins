@@ -102,7 +102,7 @@ EOF;
 			    		if (!$errors) {
 			    			if (!$checkingMode) {
 			    				$vrac->validateEdi();
-			    				$vrac->save(false);
+			    				$vrac->save();
 			    			}
 			    			$nbSuccess++;
 			    			//$result[] = array('SUCCESS', 'CSV', null, 'Le Contrat '.$vrac->_id." pour ".$vrac->vendeur_identifiant.' a été importé avec succès');
