@@ -50,6 +50,9 @@ streamDAIDSEdi:
 streamStatistiquesBilanDrm:
   url: /edi/statistiques-bilan-drm/:interpro/:campagne
   param: {module: edi, action: streamStatistiquesBilanDrm}
+streamStatistiquesBilanDrmManquantes:
+  url: /edi/statistiques-bilan-drm-manquantes/:interpro/:campagne/:periode
+  param: {module: edi, action: streamStatistiquesBilanDrmManquantes}
 pushTransactionEdi:
   url: /edi/push/transaction/:oioc
   param: {module: edi, action: pushTransaction}

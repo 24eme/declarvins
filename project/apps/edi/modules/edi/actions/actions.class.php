@@ -588,6 +588,62 @@ class ediActions extends sfActions
     return $this->renderText($csv_file);
   }
   
+  public function executeStreamStatistiquesBilanDrmManquantes(sfWebRequest $request) 
+  {
+  	ini_set('memory_limit', '2048M');
+  	set_time_limit(0);
+    $campagne = $request->getParameter('campagne');
+    $periode = $request->getParameter('periode');
+    $interpro = $request->getParameter('interpro');
+    $this->securizeInterpro($interpro);
+    if (!$campagne) {
+		return $this->renderText("Pas de campagne définie");
+    }
+    if (!preg_match("/[0-9]{4}-[0-9]{4}/", $campagne)) {
+    	return $this->renderText("Campagne invalide");
+    }
+        if (!$periode) {
+            return $this->renderText("Pas de periode définie");
+        }
+    if (!preg_match('/^INTERPRO-/', $interpro)) {
+		$interpro = 'INTERPRO-'.$interpro;
+    }
+  	$statistiquesBilan = new StatistiquesBilan($interpro, $campagne);
+
+        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;Categorie;Genre;Denomination;Lieu;Couleur;Cepage;'.$periode.';Total debut de mois';
+        $csv_file .= "\n";
+
+        foreach ($statistiquesBilan->getBilans() as $bilanOperateur) {
+        	$statutPeriode = (!isset($bilanOperateur->periodes[$periode]) || is_null($bilanOperateur->periodes[$periode]))? DRMClient::DRM_STATUS_BILAN_A_SAISIR : $bilanOperateur->periodes[$periode]->statut;
+        	if ($statutPeriode == DRMClient::DRM_STATUS_BILAN_A_SAISIR) {
+        		$periodeNmoins1 = (((int) substr($periode, 0,4) ) - 1 ).substr($periode, 4);
+        		if ($drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($bilanOperateur->identifiant, $periodeNmoins1)) {
+        			foreach ($drm->getDetails() as $detail) {
+        				if ($detail->interpro != $this->interpro->_id) {
+        					continue;
+        				}
+        				$appCode = str_replace(DRM::DEFAULT_KEY, '', $detail->getAppellation()->getKey());
+        				$lieuCode = str_replace(DRM::DEFAULT_KEY, '', $detail->getLieu()->getKey());
+        				$cepCode = str_replace(DRM::DEFAULT_KEY, '', $detail->getCepage()->getKey());
+        				$csv_file .= $statistiquesBilan->getEtablissementFieldCsv($bilanOperateur);
+        				$csv_file .=  $detail->getCertification()->getKey().";";
+        				$csv_file .=  $detail->getGenre()->getCode().";";
+        				$csv_file .=  $appCode.";";
+        				$csv_file .=  $lieuCode.";";
+        				$csv_file .=  $detail->getCouleur()->getKey().";";
+        				$csv_file .=  $cepCode.";";
+        				$csv_file .=  $detail->getStockBilan().";";
+        				$csv_file .=  $detail->total_debut_mois."\n";
+        			}
+        		}
+        	}
+        }
+    $this->response->setContentType('text/csv');
+    $this->response->setHttpHeader('md5', md5($csv_file));
+    $this->response->setHttpHeader('Content-Disposition', "attachment; filename=".$campagne."_".$periode.".csv");
+    return $this->renderText($csv_file);
+  }
+  
   public function executeViewDRM(sfWebRequest $request) 
   {
     $this->securizeEtablissement($request->getParameter('identifiant'));
