@@ -130,6 +130,7 @@ EOF;
   {
 	//$message = '<h3>Etablissement '.$etablissementIdentifiant.' / Contrat '.$visa.'</h3>';
   	//$message .= '<ul>';
+  	$message = '';
   	foreach ($rapport as $rapportItem) {
   		$message .= '<li>'.implode(' | ', $rapportItem).' // Contrat '.$visa.'</li>';
   	}
