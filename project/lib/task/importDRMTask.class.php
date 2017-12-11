@@ -158,6 +158,7 @@ EOF;
   {
 	//$message = '<h3>Etablissement '.$etablissementIdentifiant.' / Periode '.$periode.'</h3>';
   	//$message .= '<ul>';
+  	$message = '';
   	foreach ($rapport as $rapportItem) {
   		$message .= '<li>'.implode(' | ', $rapportItem).' // Période '.$periode.'</li>';
   	}
