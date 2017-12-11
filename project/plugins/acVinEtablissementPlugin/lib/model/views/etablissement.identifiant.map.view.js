@@ -1,5 +1,5 @@
 function(doc) {
-  	if (doc.type == "Etablissement") {
+  	if (doc.type == "Etablissement" && doc.statut != "ARCHIVE") {
   		if (doc.siret) {
   			emit([doc.siret], doc._id);
   		}
