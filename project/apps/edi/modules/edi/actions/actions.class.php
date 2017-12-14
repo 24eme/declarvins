@@ -844,6 +844,7 @@ class ediActions extends sfActions
   		$vracs = array();
   		$configurationVrac = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro);
   		foreach ($items as $item) {
+  			if ($item->value[VracDateView::VALUE_MODE_SAISIE] == 'EDI') continue;
   			$item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE] = $configurationVrac->formatTypesTransactionLibelle(array($item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE]));
   			$item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE] = $configurationVrac->formatCasParticulierLibelle(array($item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE]));
   			$item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE] = $configurationVrac->formatConditionsPaiementLibelle(array($item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE]));

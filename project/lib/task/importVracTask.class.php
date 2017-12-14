@@ -101,7 +101,7 @@ EOF;
 			    		}*/
 			    		if (!$errors) {
 			    			if (!$checkingMode) {
-			    				$vrac->validateEdi('INTERPRO-IS');
+			    				$vrac->validateEdi();
 			    				$vrac->save();
 			    			}
 			    			$nbSuccess++;

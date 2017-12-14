@@ -367,7 +367,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     }
 
-    public function validateEdi($interpro = null) 
+    public function validateEdi() 
     {
     	$this->vous_etes = 'vendeur';
     	$this->date_signature = date('c');
@@ -377,12 +377,8 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	$this->valide->date_validation_vendeur = $this->date_signature;
     	$this->valide->date_validation_acheteur = $this->date_signature;
     	$this->mode_de_saisie = self::MODE_DE_SAISIE_EDI;
-    	if ($interpro) {
-    		$this->interpro = $interpro;
-    	} else {
-	    	if ($interpro = $this->getProduitInterpro()) {
-	    		$this->interpro = $interpro->_id;
-	    	}
+    	if ($interpro = $this->getProduitInterpro()) {
+    		$this->interpro = $interpro->_id;
     	}
     }
     
