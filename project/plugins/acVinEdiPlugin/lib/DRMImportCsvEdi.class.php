@@ -632,7 +632,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     			2 => "rose",
     			3 => "blanc");
     	if (!in_array($key, array_keys($correspondances))) {
-    		return $key;
+    		return $this->getKey($key, true);
     	}
     	return $correspondances[$key];
     }	
