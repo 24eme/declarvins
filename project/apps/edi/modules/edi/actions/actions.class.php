@@ -595,7 +595,7 @@ class ediActions extends sfActions
     $campagne = $request->getParameter('campagne');
     $periode = $request->getParameter('periode');
     $interpro = $request->getParameter('interpro');
-    $this->securizeInterpro($interpro);
+    //$this->securizeInterpro($interpro);
     if (!$campagne) {
 		return $this->renderText("Pas de campagne définie");
     }
@@ -619,7 +619,7 @@ class ediActions extends sfActions
         		$periodeNmoins1 = (((int) substr($periode, 0,4) ) - 1 ).substr($periode, 4);
         		if ($drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($bilanOperateur->identifiant, $periodeNmoins1)) {
         			foreach ($drm->getDetails() as $detail) {
-        				if ($detail->interpro != $this->interpro->_id) {
+        				if ($detail->interpro != $interpro) {
         					continue;
         				}
         				$appCode = str_replace(DRM::DEFAULT_KEY, '', $detail->getAppellation()->getKey());
