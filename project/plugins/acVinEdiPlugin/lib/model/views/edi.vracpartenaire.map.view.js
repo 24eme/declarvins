@@ -1,5 +1,5 @@
 function(doc) { 
-	if (doc.type == "Vrac" && doc.valide.date_validation && doc.produit) {
+	if (doc.type == "Vrac" && doc.valide.date_validation && doc.produit  && doc.mode_de_saisie != 'EDI') {
 		var codesProduit = (doc.produit).split('/');;
 		
 		var produit = doc.produit_libelle;
