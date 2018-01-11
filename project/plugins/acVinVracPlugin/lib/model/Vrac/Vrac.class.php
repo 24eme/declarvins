@@ -640,6 +640,9 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	if ($identifiant) {
     		$referent = EtablissementClient::getInstance()->find($identifiant);
     	}
+    	if (!$referent) {
+    		$referent = ConfigurationClient::getCurrent()->identifyEtablissement($identifiant);
+    	}
     	if (!$referent && $ea) {
     		$referent = ConfigurationClient::getCurrent()->identifyEtablissement($ea);
     	}
