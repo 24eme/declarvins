@@ -30,6 +30,7 @@ class StatistiquesBilan {
             $bilan->etablissement = $bilanDatas->etablissement;
             $bilan->periodes = array();
             $first = null;
+            $last = null;
             foreach ($bilanDatas->periodes as $periodesKey => $periodesValues) {
 	    		if (!$first && $periodesValues->id_drm) {
 	    			$first = $periodesKey;
@@ -37,8 +38,10 @@ class StatistiquesBilan {
                 if (in_array($periodesKey, $this->periodes)) {
                     $bilan->periodes[$periodesKey] = $periodesValues;
                 }
+                $last = $periodesValues->statut;
             }
             $bilan->first_periode = $first;
+            $bilan->last_statut = $last;
             
             $bilan->periodesNMoins1 = array();
             foreach ($bilanDatas->periodes as $periodesKey => $periodesValues) {
@@ -116,8 +119,12 @@ class StatistiquesBilan {
         $statutsDrmsCsv = "";
         $libelles = DRMClient::getAllLibellesStatusBilan();
         $firstSaisie = $bilanOperateur->first_periode;
+        $lastStatut = $bilanOperateur->last_statut;
         foreach ($this->buildPeriodes() as $periode) {
         	if ($firstSaisie && $periode >= $firstSaisie) {
+        		if ($lastStatut == DRMClient::DRM_STATUS_BILAN_STOCK_EPUISE) {
+        			$statutsDrmsCsv .= $libelles[DRMClient::DRM_STATUS_BILAN_STOCK_EPUISE].";";
+        		} else {
 	        	if (!isset($bilanOperateur->periodes[$periode]) || is_null($bilanOperateur->periodes[$periode])) {
 	        		$statutsDrmsCsv .= $libelles[DRMClient::DRM_STATUS_BILAN_A_SAISIR].";";
 	        	} else {
@@ -126,6 +133,7 @@ class StatistiquesBilan {
 		        	}
 		            $statutsDrmsCsv .= $libelles[$bilanOperateur->periodes[$periode]->statut].";";
 	        	}
+        		}
         	} else {
         		$statutsDrmsCsv .= ";";
         	}

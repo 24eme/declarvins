@@ -427,6 +427,20 @@ class DRMClient extends acCouchdbClient {
         );
     }
 
+    public static function getAllCodesStatusBilan() {
+        return array(self::DRM_STATUS_BILAN_A_SAISIR => 0,
+            self::DRM_STATUS_BILAN_VALIDE => 1,
+            self::DRM_STATUS_BILAN_CONTRAT_MANQUANT => 2,
+            self::DRM_STATUS_BILAN_IGP_MANQUANT => 3,
+            self::DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT => 4,
+            self::DRM_STATUS_BILAN_NON_VALIDE => 5,
+            self::DRM_STATUS_BILAN_STOCK_EPUISE => 6,
+        	self::DRM_STATUS_BILAN_ENVOYEE_CIEL => 7,
+			self::DRM_STATUS_BILAN_DIFF_CIEL => 8,
+			self::DRM_STATUS_BILAN_VALIDE_CIEL => 9
+        );
+    }
+
     public static function getLibellesForStatusBilan($status) {
         $allLibellesStatusBilan = self::getAllLibellesStatusBilan();
         return $allLibellesStatusBilan[$status];
