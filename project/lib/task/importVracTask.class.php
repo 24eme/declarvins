@@ -102,7 +102,7 @@ EOF;
 			    		if (!$errors) {
 			    			if (!$checkingMode) {
 			    				$vrac->validateEdi();
-			    				$vrac->save(false);
+			    				$vrac->save();
 			    			}
 			    			$nbSuccess++;
 			    			//$result[] = array('SUCCESS', 'CSV', null, 'Le Contrat '.$vrac->_id." pour ".$vrac->vendeur_identifiant.' a été importé avec succès');
@@ -130,6 +130,7 @@ EOF;
   {
 	//$message = '<h3>Etablissement '.$etablissementIdentifiant.' / Contrat '.$visa.'</h3>';
   	//$message .= '<ul>';
+  	$message = '';
   	foreach ($rapport as $rapportItem) {
   		$message .= '<li>'.implode(' | ', $rapportItem).' // Contrat '.$visa.'</li>';
   	}

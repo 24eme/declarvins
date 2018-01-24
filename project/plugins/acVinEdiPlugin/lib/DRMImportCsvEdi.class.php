@@ -333,7 +333,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     	$date = $datas[self::CSV_ANNEXE_NONAPUREMENTDATEEMISSION];
     	
     	
-    	if (!preg_match('/^[A-Za-z]{2}[0-9A-Za-z]{11}$/', $accises)) {
+    	if ($accises && !preg_match('/^[A-Za-z]{2}[0-9A-Za-z]{11}$/', $accises)) {
     		$this->csvDoc->addErreur($this->annexesNonApurementWrongNumAcciseError($numLigne, $datas));
     		return;
     	}
@@ -632,7 +632,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     			2 => "rose",
     			3 => "blanc");
     	if (!in_array($key, array_keys($correspondances))) {
-    		return $key;
+    		return $this->getKey($key, true);
     	}
     	return $correspondances[$key];
     }	

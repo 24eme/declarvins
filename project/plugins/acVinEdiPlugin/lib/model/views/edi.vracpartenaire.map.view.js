@@ -1,5 +1,5 @@
 function(doc) { 
-	if (doc.type == "Vrac" && doc.valide.date_validation && doc.produit) {
+	if (doc.type == "Vrac" && doc.valide.date_validation && doc.produit  && doc.mode_de_saisie != 'EDI') {
 		var codesProduit = (doc.produit).split('/');;
 		
 		var produit = doc.produit_libelle;
@@ -21,6 +21,13 @@ function(doc) {
 			acheteur = doc.acheteur.nom;
 		} else if (doc.acheteur.nom && doc.acheteur.nom != doc.acheteur.raison_sociale) {
 			acheteur += ' - '+doc.acheteur.nom;
+		}
+
+
+		if (doc.acheteur.siret) {
+			acheteur += ' ('+doc.acheteur.siret+')';
+		} else if (doc.acheteur.cvi) {
+			acheteur += ' ('+doc.acheteur.cvi+')';
 		}
 		
 

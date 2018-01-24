@@ -54,9 +54,10 @@
                         </thead>
                         <tbody>
                             <?php
-                            $statusArray = array_keys(DRMClient::getAllLibellesStatusBilan());
+                            $statusArray = DRMClient::getAllCodesStatusBilan();
                             foreach ($statistiquesBilan->getBilans() as $bilanOperateur):
                             	$firstSaisie = $bilanOperateur->first_periode;
+                            	$lastStatut = $bilanOperateur->last_statut;
                                 ?>
                                 <tr>
                                     <td style="padding: 0 5px;">
@@ -76,11 +77,17 @@
                                     foreach ($statistiquesBilan->getPeriodes() as $periode):
                                         ?>
                                         <td style="padding: 0;">
-                                        	<?php if ($firstSaisie && $periode >= $firstSaisie): ?>
                                             <strong>
-                                             <?php echo (!isset($bilanOperateur->periodes[$periode]) || is_null($bilanOperateur->periodes[$periode]))? array_search(DRMClient::DRM_STATUS_BILAN_A_SAISIR, $statusArray) : array_search($bilanOperateur->periodes[$periode]->statut, $statusArray); ?>
+                                            <?php 
+                                            	if ($firstSaisie && $periode >= $firstSaisie) {
+                                            		if ($lastStatut == DRMClient::DRM_STATUS_BILAN_STOCK_EPUISE) {
+                                            			echo $statusArray[DRMClient::DRM_STATUS_BILAN_STOCK_EPUISE];
+                                            		} else {
+                                             			echo (!isset($bilanOperateur->periodes[$periode]) || is_null($bilanOperateur->periodes[$periode]))? $statusArray[DRMClient::DRM_STATUS_BILAN_A_SAISIR] : $statusArray[$bilanOperateur->periodes[$periode]->statut];
+                                            		}
+                                            	}
+                                            ?>
                                             </strong>
-                                            <?php endif; ?>
                                         </td>
                                         <?php
                                     endforeach;

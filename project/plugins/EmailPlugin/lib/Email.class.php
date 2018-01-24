@@ -345,7 +345,11 @@ class Email {
     public function sendCielAssistance($datas, $etablissement, $interpro = null)
     {
     	$from = $this->getFromEmailInterpros(array($interpro),true);
-    	$to = $interpro->email_assistance_ciel;
+    	if ($interpro->identifiant == 'CIVP') {
+    		$to = $interpro->email_contrat_inscription;
+    	} else {
+    		$to = $interpro->email_assistance_ciel;
+    	}
     	$subject = $etablissement->identifiant.' | '.$datas['sujet'];
     	$body = $this->getBodyFromPartial('send_assistance_ciel', array('datas' => $datas));
     	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');

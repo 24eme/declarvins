@@ -308,7 +308,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	$details = $this->getDetails();
     	$hasStock = false;
     	foreach ($details as $detail) {
-    		if ($detail->acq_total_debut_mois > 0 || $detail->acq_total > 0) {
+    		if ($detail->acq_total_debut_mois || $detail->acq_total > 0) {
     			$hasStock = true;
     			break;
     		}
@@ -907,6 +907,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             return true;
         } else {
         	$mother = $this->getPrecedente();
+        	if ($mother) {
+        		return true;
+        	}
         	if ($acq) {
         		if ($mother && $this->hasDroitsAcquittes() && !$mother->hasDroitsAcquittes()) {
         			return true;

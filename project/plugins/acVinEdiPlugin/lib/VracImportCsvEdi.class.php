@@ -73,7 +73,7 @@ class VracImportCsvEdi extends VracCsvEdi {
     private function updateVrac($numLigne, $datas)
     {
     	$this->vrac->volume_propose = ($datas[self::CSV_CAVE_VOLINITIAL])? round($this->floatize($datas[self::CSV_CAVE_VOLINITIAL]), 2) : 0;
-    	$this->vrac->volume_enleve = ($datas[self::CSV_CAVE_VOLRETIRE])? round($this->floatize($datas[self::CSV_CAVE_VOLINITIAL]), 2) : 0;
+    	$this->vrac->volume_enleve = ($datas[self::CSV_CAVE_VOLRETIRE])? round($this->floatize($datas[self::CSV_CAVE_VOLRETIRE]), 2) : 0;
     }
     
     private function importVrac($numLigne, $datas)
@@ -106,7 +106,7 @@ class VracImportCsvEdi extends VracCsvEdi {
   		$this->vrac->numero_contrat = $datas[self::CSV_VISA];
   		$this->vrac->millesime = $datas[self::CSV_CAVE_MILLESIME];
   		$this->vrac->volume_propose = ($datas[self::CSV_CAVE_VOLINITIAL])? round($this->floatize($datas[self::CSV_CAVE_VOLINITIAL]), 2) : 0;
-  		$this->vrac->volume_enleve = ($datas[self::CSV_CAVE_VOLRETIRE])? round($this->floatize($datas[self::CSV_CAVE_VOLINITIAL]), 2) : 0;
+  		$this->vrac->volume_enleve = ($datas[self::CSV_CAVE_VOLRETIRE])? round($this->floatize($datas[self::CSV_CAVE_VOLRETIRE]), 2) : 0;
     }
 
     private function checkCSVIntegrity() {
