@@ -62,6 +62,14 @@ class EtablissementAllView extends acCouchdbView
     	return $etablissements;
     }
 
+    public function findByZoneAndSousFamillesFamille($zone, $sous_familles) {
+    	$etablissements = array();
+    	foreach($sous_familles as $sous_famille => $famille) {
+    			$etablissements = array_merge($etablissements, $this->findByZoneAndSousFamille($zone, $famille, $sous_famille)->rows);
+    	}
+    	return $etablissements;
+    }
+
     public function findByZoneAndFamille($zone, $famille) {
     	return $this->client->startkey(array(Etablissement::STATUT_ACTIF, $zone, $famille))
                     		->endkey(array(Etablissement::STATUT_ACTIF, $zone, $famille, array()))

@@ -78,22 +78,23 @@ class etablissement_autocompleteActions extends sfActions
 		$sous_famille = explode('|', $request->getParameter('sous_familles'));
 		$only_actif = $request->getParameter('only_actif');
 		$result = array();
-		for ($i=0, $nb = count($famille); $i<$nb; $i++) {
-			$result[$famille[$i]] = $sous_famille[$i];
+		foreach ($sous_famille as $sf)
+		{
+			$result[$sf] = EtablissementFamilles::getFamilleBySousFamille($sf);
 		}
 
 		if (preg_match('/zone/i', $interpro)) {
 			$this->json = array();
 			foreach (explode('|', $interpro) as $zone) {
 				$this->json = array_merge($this->json,
-						$this->matchEtablissements(EtablissementAllView::getInstance()->findByZoneAndSousFamilles($zone, $result),
+						$this->matchEtablissements(EtablissementAllView::getInstance()->findByZoneAndSousFamillesFamille($zone, $result),
 								$request->getParameter('q'),
 								$request->getParameter('limit', 100),
 								$only_actif)
 				);
 			}
 		} else {
-			$this->json = $this->matchEtablissements(EtablissementAllView::getInstance()->findByZoneAndSousFamilles($this->getZone($interpro), $result),
+			$this->json = $this->matchEtablissements(EtablissementAllView::getInstance()->findByZoneAndSousFamillesFamille($this->getZone($interpro), $result),
 					$request->getParameter('q'),
 					$request->getParameter('limit', 100),
 					$only_actif);

@@ -68,6 +68,22 @@ class EtablissementFamilles
     	return $result;
     }
 
+    public static function getFamilleBySousFamille($sf) 
+    {
+    	$items = self::$sous_familles;
+    	if (!$sf) {
+    		return null;
+    	}
+    	foreach ($items as $famille => $item) {
+    		foreach ($item as $sousfamille => $i) {
+    			if ($sf == $sousfamille) {
+    				return $famille;
+    			}
+    		}
+    	}
+    	return null;
+    }
+
     public static function getSousFamilles() 
     {
     	return self::$sous_familles;
