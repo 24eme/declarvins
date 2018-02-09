@@ -587,7 +587,8 @@ class drmActions extends sfActions {
     		$this->drm = $this->drm->getDRM();
     	}
     	$historique = new DRMHistorique($this->drm->identifiant);
-    	if ($historique->hasDRMInProcess()) {
+    	$drmCiel = $this->drm->getOrAdd('ciel');
+    	if ($drmCiel->isTransfere() || $historique->hasDRMInProcess()) {
     		return $this->redirect('drm_visualisation', $this->drm);
     	}
     	$this->drm->devalide();

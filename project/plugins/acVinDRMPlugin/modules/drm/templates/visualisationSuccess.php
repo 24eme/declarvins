@@ -151,7 +151,7 @@
     <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$drm->getHistorique()->hasDRMInProcess() && $drm->isModifiable()): ?>
         <form method="get" action="<?php echo url_for('drm_modificative', $drm) ?>">
             <button style="float:left;" class="btn_passer_etape modificative" type="submit">Faire une DRM Modificative</button>
-        	 <?php if (!$historique->hasDRMInProcess() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+        	 <?php if (!$drmCiel->isTransfere() && !$historique->hasDRMInProcess() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <a id="telecharger_pdf" onclick="return confirm('Vous allez dévalider cette DRM, êtes vous sûr ?')" style="font-weight: bold; float: right; margin-left: 0; position: relative; padding: 3px; background: #9e9e9e;" href="<?php echo url_for('drm_devalide', $drm); ?>">[X] DEVALIDER</a>
 			<?php endif; ?>
         </form>
