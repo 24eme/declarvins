@@ -243,6 +243,16 @@ class DRMRouting {
                                                           'must_be_valid' => true,
                                                           'must_be_not_valid' => false)));
 
+        $r->prependRoute('drm_devalide', new DRMRoute('/drm/:identifiant/devalide/:periode_version/:hide_rectificative', 
+                                                          array('module' => 'drm', 
+                                                                'action' => 'devalide',
+                                                          		'hide_rectificative' => null),
+                                                          array('sf_method' => array('get')),
+                                                          array('model' => 'DRM',
+                                                                'type' => 'object',
+                                                          'must_be_valid' => true,
+                                                          'must_be_not_valid' => false)));
+
         $r->prependRoute('drm_transfer_ciel', new DRMRoute('/drm/:identifiant/edition/:periode_version/ciel', 
                                                           array('module' => 'drm', 
                                                                 'action' => 'transferCiel'),
