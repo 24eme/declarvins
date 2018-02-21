@@ -134,6 +134,16 @@ class tiersActions extends sfActions
   	  }
   }
   
+  public function executeCiel(sfWebRequest $request) 
+  {
+  	  $this->etablissement = $this->getRoute()->getEtablissement();
+  	  
+  	  $this->etablissement->transmission_ciel = ($this->etablissement->transmission_ciel)? 0 : 1;
+  	  $this->etablissement->save();
+  	  
+  	  $this->redirect('profil', $this->etablissement);
+  }
+  
   public function executeStatut(sfWebRequest $request) 
   {
   	  $this->etablissement = $this->getRoute()->getEtablissement();

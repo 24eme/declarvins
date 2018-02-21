@@ -382,18 +382,20 @@ class ImportEtablissementsCsv {
     private function updateCompte($line, $etablissement, $contrat, $ligne) 
     {
     	if ($contrat) {
-	    	if ($compte = $contrat->getCompteObject()) {
-		    	$compte = $this->bindCompte($line, $compte, $ligne, $etablissement);
-		    	if (!$compte->interpro->exist(trim($line[EtablissementCsv::COL_INTERPRO]))) {
-		    		$interpro = $compte->interpro->add(trim($line[EtablissementCsv::COL_INTERPRO]));
-		    		$interpro->statut = _Compte::STATUT_ATTENTE;
+    		if ($etablissement->statut == Etablissement::STATUT_ACTIF) {
+		    	if ($compte = $contrat->getCompteObject()) {
+			    	$compte = $this->bindCompte($line, $compte, $ligne, $etablissement);
+			    	if (!$compte->interpro->exist(trim($line[EtablissementCsv::COL_INTERPRO]))) {
+			    		$interpro = $compte->interpro->add(trim($line[EtablissementCsv::COL_INTERPRO]));
+			    		$interpro->statut = _Compte::STATUT_ATTENTE;
+			    	}
+			    	if (!$compte->tiers->exist($etablissement->get('_id'))) {
+			    		$compte->addEtablissement($etablissement);
+			    	}
+			    	$compte->save();
+			    	$this->_ldap->saveCompte($compte);
 		    	}
-		    	if (!$compte->tiers->exist($etablissement->get('_id'))) {
-		    		$compte->addEtablissement($etablissement);
-		    	}
-		    	$compte->save();
-		    	$this->_ldap->saveCompte($compte);
-	    	}
+    		}
     	}
     }
 

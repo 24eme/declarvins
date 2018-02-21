@@ -554,6 +554,8 @@ class drmActions extends sfActions {
      */
     public function executeVisualisation(sfWebRequest $request) {
         $this->drm = $this->getRoute()->getDRM();
+
+        $this->historique = new DRMHistorique($this->drm->identifiant);
         if ($this->drm->type == DRMFictive::TYPE) {
         	$this->drm->update();
         	$this->drm->setDroits();
@@ -577,6 +579,23 @@ class drmActions extends sfActions {
         $this->drm_precedente_version = DRMClient::getInstance()->find($this->drm_precedente_version_id);
         $this->masterVersion = $this->drm->getMaster();
         $this->mouvements = DRMMouvementsConsultationView::getInstance()->getMouvementsByEtablissementAndPeriode($this->drm->identifiant, $this->drm->periode);
+    }
+    
+    public function executeDevalide(sfWebRequest $request) {
+    	$this->drm = $this->getRoute()->getDRM();
+    	if ($this->drm->isFictive()) {
+    		$this->drm = $this->drm->getDRM();
+    	}
+    	$historique = new DRMHistorique($this->drm->identifiant);
+    	$drmCiel = $this->drm->getOrAdd('ciel');
+    	if ($drmCiel->isTransfere() || $historique->hasDRMInProcess()) {
+    		return $this->redirect('drm_visualisation', $this->drm);
+    	}
+    	$this->drm->devalide();
+    	$this->drm->etape = 'validation';
+    	$this->drm->save();
+    	
+    	return $this->redirect('drm_validation', $this->drm);
     }
 
     public function executeRectificative(sfWebRequest $request) {

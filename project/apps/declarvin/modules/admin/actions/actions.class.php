@@ -27,7 +27,8 @@ class adminActions extends sfActions
   public function executeEtablissementDRMLogin(sfWebRequest $request)
   {
   	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
-    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'), array(), array('familles' => array("producteur")));
+  	$admin = (int)$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN);
+    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'), array(), array('sous_familles' => array("producteur" => "cave_particuliere|cave_cooperative", "negociant" => "vinificateur")));
     if ($request->isMethod(sfWebRequest::POST)) {
     	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
     		$this->form->bind($request->getParameter('etablissement_selection_nav'));

@@ -49,7 +49,7 @@ class EtablissementFamilles
     	"negociant_exterieur" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
     	"negociant_etranger" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
     	"negociant_union" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
-    	"negociant_vinificateur" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
+    	"negociant_vinificateur" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
     	"courtier" => array(EtablissementDroit::DROIT_VRAC)
     );
 
@@ -66,6 +66,22 @@ class EtablissementFamilles
     		$result[$key] = $value;
     	}
     	return $result;
+    }
+
+    public static function getFamilleBySousFamille($sf) 
+    {
+    	$items = self::$sous_familles;
+    	if (!$sf) {
+    		return null;
+    	}
+    	foreach ($items as $famille => $item) {
+    		foreach ($item as $sousfamille => $i) {
+    			if ($sf == $sousfamille) {
+    				return $famille;
+    			}
+    		}
+    	}
+    	return null;
     }
 
     public static function getSousFamilles() 

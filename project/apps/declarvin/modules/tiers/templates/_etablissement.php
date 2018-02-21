@@ -4,6 +4,9 @@
 	<div id="compteModification">
 		<div class="societe">
 			<ul>
+				<li>Transmission CIEL : <strong><?php echo ($etablissement->transmission_ciel)? 'oui' : 'non'; ?></strong><?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?> <a href="<?php echo url_for('profil_ciel', $etablissement) ?>" class="btn_valider" style="float: right;" onclick="return confirm('Le statut CIEL de l\'établissement va être modifié, confirmez-vous l\'action ?')"><?php echo ($etablissement->transmission_ciel)? 'Désactiver CIEL' : 'Activer CIEL'; ?></a><?php endif; ?></li>
+			</ul>
+			<ul>
 				<li>Identifiant <?php echo str_replace('INTERPRO-', '', $etablissement->interpro) ?> : <strong><?php echo $etablissement->identifiant ?></strong></li>
 				<?php if ($etablissement->exist('correspondances')): foreach ($etablissement->correspondances as $interpro => $correspondance): if ($correspondance == $etablissement->identifiant) { continue; }?>
 				<li>Identifiant <?php echo str_replace('INTERPRO-', '', $interpro) ?> : <strong><?php echo $correspondance ?></strong></li>
@@ -23,9 +26,6 @@
 				<li>Pays : <strong><?php echo $etablissement->siege->pays ?></strong></li>
 				<li>tel : <strong><?php echo $etablissement->telephone ?></strong></li>
 				<li>fax : <strong><?php echo $etablissement->fax ?></strong></li>
-			</ul>
-			<ul>
-				<li>Transmission CIEL : <strong><?php echo ($etablissement->transmission_ciel)? 'oui' : 'non'; ?></strong></li>
 			</ul>
 			<ul>
 				<li>Interprofession référente : <strong><?php echo $etablissement->getInterproObject()->nom ?></strong></li>

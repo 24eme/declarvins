@@ -192,6 +192,12 @@ profil:
   param: { module: tiers, action: profil }
   requirements: { sf_method: ['get', 'post'] }
   options: { model: Etablissement, type: object }
+profil_ciel:
+  class: EtablissementRoute
+  url: /profil/:identifiant/ciel
+  param: { module: tiers, action: ciel }
+  requirements: { sf_method: ['get'] }
+  options: { model: Etablissement, type: object }
 profil_pdf:
   class: EtablissementRoute
   url: /profil/:identifiant/contrat-inscription
