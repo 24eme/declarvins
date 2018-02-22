@@ -679,8 +679,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                     }
                     $contrat->soustraitVolumeEnleve($volume);
                     $enlevements = $contrat->getOrAdd('enlevements');
-                	$drm = $enlevements->getOrAdd($this->_id);
-                	$drm->add('volume', $volume);
+                    if ($enlevements->exist($this->_id)) {
+                    	$enlevements->remove($this->_id);
+                    }
                     $contrat->save(false);
                 }
             }
