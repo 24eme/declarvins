@@ -908,7 +908,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             return true;
         } else {
         	$mother = $this->getPrecedente();
-        	$mother = ($mother->isNew())? false : true;
+        	$mother = ($mother->isNew())? null : $mother;
         	if (!$mother) {
         		return true;
         	}
