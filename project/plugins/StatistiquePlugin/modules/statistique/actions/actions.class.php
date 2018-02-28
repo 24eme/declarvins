@@ -92,52 +92,10 @@ class statistiqueActions extends sfActions {
             $interpro = 'INTERPRO-' . $interpro;
         }
         $this->interpro = InterproClient::getInstance()->find($interpro);
-        //$manquantesBilan = StatistiquesN1View::getInstance()->findManquantesByPeriode($this->interpro->getZone(), $periode)->rows;
         
-        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;Categorie;Genre;Denomination;Lieu;Couleur;Cepage;'.$periode.';Total debut de mois';
+        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;Categorie;Genre;Denomination;Lieu;Couleur;Cepage;'.$periode.';Total debut de mois;Vrac DAA/DAE;Conditionne Export;DSA / Tickets / Factures;CRD France';
         $csv_file .= "\n";
-
-        /*foreach ($manquantesBilan as $manquanteBilan) {
-        	$manquante = $manquanteBilan->value;
-                $etablissement = $manquante[StatistiquesN1View::VALUE_ETABLISSEMENT];
-                $etablissementId = $manquante[StatistiquesN1View::VALUE_ETABLISSEMENTID];
-                $etablissementFieldCsv = 
-                  $etablissementId . ";"
-                . $etablissement->raison_sociale . ";"
-                . $etablissement->nom . ";"
-                . $etablissement->siret . ";"
-                . $etablissement->cvi . ";"
-                . $etablissement->no_accises . ";"
-                . $etablissement->siege->adresse . ";"
-                . $etablissement->siege->code_postal . ";"
-                . $etablissement->siege->commune . ";"
-                . $etablissement->siege->pays . ";"
-                . $etablissement->email . ";"
-                . $etablissement->telephone . ";"
-                . $etablissement->fax . ";"
-                . $etablissement->service_douane . ";"
-                . $etablissement->statut . ";";
-                $periodeNmoins1 = (((int) substr($periode, 0,4) ) - 1 ).substr($periode, 4);
-                
-                if ($drm = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($etablissementId, $periodeNmoins1)) {                                                   
-	                foreach ($drm->getDetails() as $detail) {
-	                	if ($detail->interpro != $this->interpro->_id) {
-	                		continue;
-	                	}
-	                	$appCode = str_replace(DRM::DEFAULT_KEY, '', $detail->getAppellation()->getKey());
-	                	$lieuCode = str_replace(DRM::DEFAULT_KEY, '', $detail->getLieu()->getKey());
-	                	$cepCode = str_replace(DRM::DEFAULT_KEY, '', $detail->getCepage()->getKey());
-	                    $csv_file .= $etablissementFieldCsv;
-	                    $csv_file .=  $detail->getCertification()->getKey().";";
-	                    $csv_file .=  $detail->getGenre()->getCode().";";
-	                    $csv_file .=  $appCode.";";
-	                    $csv_file .=  $lieuCode.";";
-	                    $csv_file .=  $detail->getCouleur()->getKey().";";
-	                    $csv_file .=  $cepCode.";";
-	                    $csv_file .=  $detail->getStockBilan()."\n";
-	                }
-                }
-        }*/
+        
         $statistiquesBilan = new StatistiquesBilan($interpro, $campagne);
         
         foreach ($statistiquesBilan->getBilans() as $bilanOperateur) {
@@ -160,15 +118,15 @@ class statistiqueActions extends sfActions {
         				$csv_file .=  $detail->getCouleur()->getKey().";";
         				$csv_file .=  $cepCode.";";
         				$csv_file .=  $detail->getStockBilan().";";
-        				$csv_file .=  $detail->total_debut_mois."\n";
+        				$csv_file .=  $detail->total_debut_mois.";";
+        				$csv_file .=  $detail->sorties->vrac.";";
+        				$csv_file .=  $detail->sorties->export.";";
+        				$csv_file .=  $detail->sorties->factures.";";
+        				$csv_file .=  $detail->sorties->crd."\n";
         			}
         		}
         	}
         }
-        
-        
-        
-        
         $this->response->setContentType('text/csv');
         $this->response->setHttpHeader('md5', md5($csv_file));
         $this->response->setHttpHeader('Content-Disposition', "attachment; filename=bilan_drm_manquantes_" . $campagne . "_".$periode.".csv");

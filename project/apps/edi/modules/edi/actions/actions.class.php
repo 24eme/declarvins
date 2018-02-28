@@ -610,7 +610,7 @@ class ediActions extends sfActions
     }
   	$statistiquesBilan = new StatistiquesBilan($interpro, $campagne);
 
-        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;Categorie;Genre;Denomination;Lieu;Couleur;Cepage;'.$periode.';Total debut de mois';
+        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;Categorie;Genre;Denomination;Lieu;Couleur;Cepage;'.$periode.';Total debut de mois;Vrac DAA/DAE;Conditionne Export;DSA / Tickets / Factures;CRD France';
         $csv_file .= "\n";
 
         foreach ($statistiquesBilan->getBilans() as $bilanOperateur) {
@@ -633,7 +633,11 @@ class ediActions extends sfActions
         				$csv_file .=  $detail->getCouleur()->getKey().";";
         				$csv_file .=  $cepCode.";";
         				$csv_file .=  $detail->getStockBilan().";";
-        				$csv_file .=  $detail->total_debut_mois."\n";
+        				$csv_file .=  $detail->total_debut_mois.";";
+        				$csv_file .=  $detail->sorties->vrac.";";
+        				$csv_file .=  $detail->sorties->export.";";
+        				$csv_file .=  $detail->sorties->factures.";";
+        				$csv_file .=  $detail->sorties->crd."\n";
         			}
         		}
         	}
