@@ -343,12 +343,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 			return;
     	}
     	
-    	if (!is_numeric($numero) || $numero < 0 || intval($numero) != $numero) {
-    		$this->csvDoc->addErreur($this->numeroRnaAnnexeNotValidError($numLigne, $datas));
-    		return;
-    	}
-    	
-    	$this->drm->setImportableRna(intval($numero), $accises, $date);
+    	$this->drm->setImportableRna($numero, $accises, $date);
     }
     
     private function importDocument($numLigne, $datas)
@@ -367,14 +362,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		$this->csvDoc->addErreur($this->typeAnnexeNotFoundError($numLigne, $datas));
     		return;
     	}
-    	
-    	if (!is_numeric($valeur) || $valeur < 0 || intval($valeur) != $valeur) {
-    		$this->csvDoc->addErreur($this->valeurAnnexeNotValidError($numLigne, $datas));
-    		return;
-    	}
   		
   		$mvt = $declaratif->getOrAdd($categorie);
-  		$mvt->add($type, intval($valeur));
+  		$mvt->add($type, $valeur);
     }
     
     private function importStatistiques($numLigne, $datas)
