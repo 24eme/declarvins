@@ -3,7 +3,7 @@
     <p>Vos contacts au sujet de DeclarVins, suivant vos produits :</p>
     <br />
     <p><strong>CIVP – Conseil Interprofessionnel des Vins de Provence</strong></p>
-	<p>Service Economique</p>
+	<p>Service - Suivi du Vignoble & SI</p>
 	<p>Maison des Vins ; RN 7 ; 83460 Les Arcs sur Argens</p>
 	<p>Tel : 04 94 99 50 26 ; Fax : 04 94 99 50 19</p>
 	<p>Mail : <a href="mailto:declarvins@provencewines.com" class="highlight_link">declarvins@provencewines.com</a></p>
