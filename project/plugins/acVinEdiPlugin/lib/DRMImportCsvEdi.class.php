@@ -237,7 +237,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 	  		
 	  		$mvt = ($categorieMvt)? $produit->getOrAdd($categorieMvt) : $produit;
 	  		$old = (in_array(str_replace('acq_', '', $typeMvt), array('total_debut_mois', 'total')))? 0 : floatval($mvt->getOrAdd($typeMvt));
-	  		$mvt->add($typeMvt, round(($old + $this->floatize($valeur)), 2));
+	  		$mvt->add($typeMvt, round(($old + $this->floatize($valeur)), 4));
 	  		$result = $this->drm->setImportableMvtDetails($typeMvt, $mvt, $datas);
 	  		if (!$result) {
 	  			$this->csvDoc->addErreur($this->mvtDetailsNotValidError($numLigne, $datas));
