@@ -136,6 +136,20 @@ class drmActions extends sfActions {
         
         $this->logs = $result;
         $this->etablissement = $etablissement;
+        
+        $interpro = $this->etablissement->getInterproObject();
+        $to = ($interpro)? array(sfConfig::get('app_email_to_notification'), $interpro->email_contrat_inscription): array(sfConfig::get('app_email_to_notification'));
+        if ($interpro && $interpro->identifiant == 'CIVP') {
+        	$to[] = $interpro->email_assistance_ciel;
+        }
+
+        $messageErreurs = "<ol>";
+        foreach ($this->logs as $log) {
+        	$messageErreurs .= "<li>".implode(';', $log)."</li>";
+        }
+        $messageErreurs .= "</ol>";
+        $message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur import DTI+ pour ".$this->drm->_id, "Une transmission vient d'échouer pour ".$drm->identifiant."-".$drm->campagne." :<br />".$messageErreurs)->setContentType('text/html');
+        $this->getMailer()->send($message);
     }
 
     /**
