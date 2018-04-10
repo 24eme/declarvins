@@ -643,19 +643,13 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	if (!$referent) {
     		$referent = ConfigurationClient::getCurrent()->identifyEtablissement($identifiant);
     	}
-    	if (!$referent && $ea) {
-    		$referent = ConfigurationClient::getCurrent()->identifyEtablissement($ea);
-    	}
     	if (!$referent && $siretCvi) {
     		$referent = ConfigurationClient::getCurrent()->identifyEtablissement($siretCvi);
     	}
+    	if (!$referent && $ea) {
+    		$referent = ConfigurationClient::getCurrent()->identifyEtablissement($ea);
+    	}
     	if (!$referent) {
-    		return false;
-    	}
-    	if ($siretCvi && !($referent->cvi == $siretCvi || $referent->siret == $siretCvi)) {
-    		return false;
-    	}
-    	if ($ea && $referent->no_accises != $ea) {
     		return false;
     	}
     	$this->vendeur_identifiant = $referent->identifiant;
