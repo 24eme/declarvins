@@ -148,7 +148,7 @@ class drmActions extends sfActions {
         	$messageErreurs .= "<li>".implode(';', $log)."</li>";
         }
         $messageErreurs .= "</ol>";
-        $message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur import DTI+ pour ".$this->drm->_id, "Une transmission vient d'échouer pour ".$drm->identifiant."-".$drm->campagne." :<br />".$messageErreurs)->setContentType('text/html');
+        $message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur import DTI+ pour ".$drm->identifiant, "Une transmission vient d'échouer pour ".$drm->identifiant."-".$drm->periode." :<br />".$messageErreurs)->setContentType('text/html');
         $this->getMailer()->send($message);
     }
 
