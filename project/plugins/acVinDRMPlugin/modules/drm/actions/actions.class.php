@@ -396,7 +396,7 @@ class drmActions extends sfActions {
 
             return sfView::SUCCESS;
         }
-
+        
         $this->form->bind($request->getParameter($this->form->getName()));
         if (!$this->form->isValid() || !$this->drmValidation->isValide()) {
 
@@ -442,7 +442,6 @@ class drmActions extends sfActions {
 	        		$this->drmCiel->valide = 0;
 	        		$this->drmCiel->xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><reponse-ciel><erreur-interne><message-erreur>Une erreur est survenue à la génération du XML.</message-erreur></erreur-interne></reponse-ciel>';
 	        	}
-	        }
 	        $this->drmCiel->setInformationsFromXml();
 	        if ($this->drmCiel->hasErreurs()) {
 	        	$interpro = $this->etablissement->getInterproObject();
@@ -461,6 +460,7 @@ class drmActions extends sfActions {
 	        	$message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur transmision XML pour ".$this->drm->_id, "Une transmission vient d'échouer pour ".$this->drm->_id." (".$this->drm->declarant->no_accises.") :<br />".$messageErreurs)->setContentType('text/html');
 	        	$this->getMailer()->send($message);
 	        }
+	        }
         }
         if ($this->drm->hasVersion() && $this->drmCiel->isTransfere()) {
         	$this->drm->ciel->valide = 1;
@@ -473,7 +473,7 @@ class drmActions extends sfActions {
         if ($this->drmCiel->isTransfere()) {
         	Email::getInstance()->cielSended($this->drm);
         }
-        
+
         if ($erreursCiel) {
         	return $this->redirect('drm_validation', $this->drm);
         }
