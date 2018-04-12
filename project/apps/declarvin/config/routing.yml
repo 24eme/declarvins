@@ -204,6 +204,12 @@ profil_pdf:
   param: { module: tiers, action: pdf }
   requirements: { sf_method: ['get'] }
   options: { model: Etablissement, type: object }
+fiche_pdf:
+  class: EtablissementRoute
+  url: /profil/:identifiant/fiche-profil
+  param: { module: tiers, action: ficheProfil }
+  requirements: { sf_method: ['get'] }
+  options: { model: Etablissement, type: object }
 profil_convention:
   class: EtablissementRoute
   url: /profil/:identifiant/convention-ciel
