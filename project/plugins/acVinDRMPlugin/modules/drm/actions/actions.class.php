@@ -59,6 +59,8 @@ class drmActions extends sfActions {
         $historique = new DRMHistorique($etablissement->identifiant);
 
         $formUploadCsv = new UploadCSVForm();
+        
+        $send = true;
 
         $result = array();
         if ($request->isMethod('post')) {
@@ -122,6 +124,9 @@ class drmActions extends sfActions {
         			}
         				
         		} catch(Exception $e) {
+        			if (!$e->getMessage()) {
+        				$send = false;
+        			}
         			$result[] = array('ERREUR', 'CSV', null, 'error_500', $e->getMessage());
         		}
         	} else {
@@ -149,7 +154,9 @@ class drmActions extends sfActions {
         }
         $messageErreurs .= "</ol>";
         $message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur import DTI+ pour ".$drm->identifiant, "Une transmission vient d'échouer pour ".$drm->identifiant."-".$drm->periode." :<br />".$messageErreurs)->setContentType('text/html');
-        $this->getMailer()->send($message);
+        if ($send) {
+        	$this->getMailer()->send($message);
+        }
     }
 
     /**
