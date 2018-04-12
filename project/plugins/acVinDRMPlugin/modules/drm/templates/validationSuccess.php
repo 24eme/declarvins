@@ -149,11 +149,12 @@
                 </div>
                 <?php endif; ?>
             </div>
-            <?php if($etablissement->isTransmissionCiel() && !$drmCiel->isValide() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-            <?php else: ?>
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Visualisez le brouillon de DRM</a>
-            <?php endif; ?>
+            <?php if($etablissement->isTransmissionCiel() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <a id="telecharger_pdf" style="margin-left: 225px; padding-left: 5px; background: #9e9e9e;" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Visualisez le XML CIEL</a>
+            <?php endif; ?>
+            
+            
             
             <div id="btn_etape_dr">
             	<?php if (!$drm->isIncomplete()): ?>

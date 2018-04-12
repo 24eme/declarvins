@@ -397,7 +397,12 @@ class DRMDetail extends BaseDRMDetail {
 
     public function hasStockEpuise() {
 
-        return $this->total_debut_mois == 0 && !$this->hasMouvement();
+        return $this->total_debut_mois == 0 && $this->acq_total_debut_mois == 0 && !$this->hasMouvement();
+    }
+
+    public function hasStockEpuiseByType($acq) {
+
+        return ($acq)? ($this->acq_total_debut_mois == 0 && !($this->acq_total_entrees > 0 || $this->acq_total_sorties > 0)) : ($this->total_debut_mois == 0 && !($this->total_entrees > 0 || $this->total_sorties > 0));
     }
 
     public function hasMouvementCheck() {

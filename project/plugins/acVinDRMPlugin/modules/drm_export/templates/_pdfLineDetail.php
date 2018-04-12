@@ -2,6 +2,7 @@
 	<?php if(!$drm->hasMouvements($hash.'/'.$key)) {continue;} ?>
 	<?php include_partial('drm_export/pdfLineFloat', array('libelle' => $item, 
 													   	   'colonnes' => $colonnes,  
+														   'acq' => $acq,
 													   	   'counter' => $counter.$i, 
 													   	   'unite' => 'hl',
 														   'hash' => $hash.'/'.$key,
