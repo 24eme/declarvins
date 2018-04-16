@@ -195,17 +195,20 @@
 			<table class="recap volumes bloc_bottom" id="recap_contrat">
 				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Code produit',
 																  'colonnes' => $colonnes,
+																  'acq' => false,
 																  'cssclass_value' => 'libelle',
 																  'partial' => 'drm_export/pdfLineVracItemProduitLibelle')) ?>
 
 				<?php include_partial('drm_export/pdfLine', array('libelle' => 'N° de contrat', 
 																	   'colonnes' => $colonnes,
+																  		'acq' => false,
 																	   'cssclass_libelle' => 'detail',
 																  	   'cssclass_value' => 'detail',
 																  	   'method' => 'getKey')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume',
 																  	   'colonnes' => $colonnes,
+																  		'acq' => false,
 																  	   'unite' => 'hl',
 																  	   'cssclass_libelle' => 'detail',
 																  	   'cssclass_value' => 'detail',

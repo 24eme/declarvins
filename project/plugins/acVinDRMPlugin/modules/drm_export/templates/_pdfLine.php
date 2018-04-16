@@ -4,8 +4,8 @@
 	<?php endif; ?>
 	<th class="<?php echo ((isset($cssclass_libelle)) ? $cssclass_libelle : null) ?>"><?php echo $libelle ?></th>
 	<?php foreach($colonnes as $col_key => $item): ?>
-	<?php if(!is_null($item)): ?>
-	<?php if ($item->hasStockEpuiseByType($acq)) continue; ?>
+	<?php if(!is_null($item)): $item = $item->getRawValue(); ?>
+	<?php if ($item instanceof DRMDetail && $item->hasStockEpuiseByType($acq)) continue;  ?>
 	<?php $td_cssclass_ = ((isset($cssclass_value)) ? $cssclass_value : null) ?>
 	<?php $td_cssclass_ .= ((isset($partial_cssclass_value)) ? ' '.get_partial($partial_cssclass_value, array('item' => $item, 'hash' => isset($hash) ? $hash : null)) : null) ?>
 	<td class="<?php echo $td_cssclass_ ?>">
