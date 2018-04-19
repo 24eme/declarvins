@@ -43,8 +43,10 @@ class validationActions extends sfActions {
 		foreach ($this->comptes as $c) {
 			if($compte = _CompteClient::getInstance()->find($c->id)) {
 				$dematerialise_ciel = 'non';
-				if ($compte->getConventionCiel()) {
-					$dematerialise_ciel = 'att';
+				if ($convention = $compte->getConventionCiel()) {
+					if ($convention->valide) {
+						$dematerialise_ciel = 'att';
+					}
 				}
 				$compteNonInfosCsv = ';;;;;;';
 				if (count($compte->tiers) > 0) {
