@@ -45,3 +45,9 @@ acquitte,stocks,total,Stock théorique fin de mois
 acquitte,complement,tav,Taux d'alcool volumique du produit
 acquitte,complement,premix,Indique si le produit est un premix
 acquitte,complement,observation,Observation d'un produit
+crd,entrees,achats
+crd,entrees,excedents
+crd,entrees,retours
+crd,sorties,utilisees
+crd,sorties,detruites
+crd,sorties,manquantes
