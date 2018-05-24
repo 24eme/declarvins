@@ -169,29 +169,21 @@
             $w = $pdf->get_width();
             $h = $pdf->get_height();
             $font = Font_Metrics::get_font("helvetica");
-            $pdf->page_text($w / 2 - 115, $h - 20, 'Declarvins.net - Fiche Profil n<?php echo utf8_encode('°').' '.$contrat->no_contrat ?> - {PAGE_NUM} / {PAGE_COUNT}', $font, 10, array(0,0,0));
+            $pdf->page_text($w / 2 - 115, $h - 20, 'Declarvins.net - Fiche Profil au <?php echo date('d/m/Y') ?> - {PAGE_NUM} / {PAGE_COUNT}', $font, 10, array(0,0,0));
     }
 </script>
 <!-- #global -->
 	<div id="global">                
 		<div id="entete_doc">
-			<div id="logo">
-				<table width="100%">
-					<tr>
-						<td width="33%" align="center"><img src="<?php echo sfConfig::get('sf_web_dir')?>/images/visuels/logo_interpro-ivse.png" alt="InterVins Sud Est" /></td>
-						<td width="33%" align="center"><img src="<?php echo sfConfig::get('sf_web_dir')?>/images/visuels/logo_interpro-ir.png" alt="Inter Rhone" /></td>
-						<td width="33%" align="center"><img src="<?php echo sfConfig::get('sf_web_dir')?>/images/visuels/logo_interpro-civp.png" alt="Provence" /></td>
-					</tr>
-				</table>
-			</div>
 			<h1>
-				Fiche Profil <br />
-				&laquo; DeclarVins.net &raquo; N° : <?php echo $contrat->no_contrat ?>&nbsp;&nbsp;&nbsp;<sup>(1)</sup><br />
+				Fiche Profil &laquo; DeclarVins.net &raquo;
 			</h1>
-                    <br />
-			<p class="note">(1) Numéro Interprofessionnel d'enregistrement de l'inscription</p>
-                <br />
-                <br />
+			<h2>
+				au <?php echo date('d/m/Y') ?>
+			</h2>
+            <br />
+            <br />
+            <br />
 		</div>
 
 		
