@@ -42,6 +42,8 @@ class drmActions extends sfActions {
         	$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
         }
         $drm->save();
+        if ($drm->isDebutCampagne())
+        	$this->getUser()->setFlash('info_stocks', true);
         $this->redirect('drm_informations', $drm);
     }
     
