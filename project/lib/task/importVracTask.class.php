@@ -51,12 +51,13 @@ EOF;
     	
     	$f = explode('/', $file);
     	$f = $f[count($f) - 1];
-    	if (!preg_match('/^([a-zA-Z0-9]+)_([a-zA-Z0-9]+)_([a-zA-Z0-9]+).csv$/', $f, $m)) {
+    	$m = explode('_', str_replace('.csv', '', $f));
+    	if (count($m) != 3) {
 			continue;
     	}
-		$ea = $m[1];
-		$siretCvi = $m[2];
-		$visa = $m[3];
+		$ea = $m[0];
+		$siretCvi = $m[1];
+		$visa = $m[2];
 		
     	$result = array();
     
