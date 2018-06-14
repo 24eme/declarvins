@@ -57,7 +57,7 @@
                             $statusArray = DRMClient::getAllCodesStatusBilan();
                             foreach ($statistiquesBilan->getBilans() as $bilanOperateur):
                             	$firstSaisie = $bilanOperateur->first_periode;
-                            	$lastStatut = $bilanOperateur->last_statut;
+        						$lastStock = $bilanOperateur->last_stock;
                             	$lastSaisie = $bilanOperateur->last_saisie;
                                 ?>
                                 <tr>
@@ -81,7 +81,7 @@
                                             <strong>
                                             <?php 
                                             	if ($firstSaisie && $periode >= $firstSaisie) {
-                                            		if ($lastSaisie && $periode >= $lastSaisie && $lastStatut == DRMClient::DRM_STATUS_BILAN_STOCK_EPUISE) {
+                                            		if ($lastSaisie && $periode > $lastSaisie && !$lastStock) {
                                             			echo $statusArray[DRMClient::DRM_STATUS_BILAN_STOCK_EPUISE];
                                             		} else {
                                              			echo (!isset($bilanOperateur->periodes[$periode]) || is_null($bilanOperateur->periodes[$periode]))? $statusArray[DRMClient::DRM_STATUS_BILAN_A_SAISIR] : $statusArray[$bilanOperateur->periodes[$periode]->statut];
