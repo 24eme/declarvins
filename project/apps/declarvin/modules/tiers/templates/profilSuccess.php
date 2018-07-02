@@ -13,7 +13,6 @@
 						<?php if ($convention = $compte->getConventionCiel()): ?>
 				        <?php if($convention->valide): ?>
 				        <li><a href="<?php echo url_for("profil_convention", $etablissement) ?>" class=""><span>Convention CIEL</span></a></li>
-				        <li><a href="<?php echo url_for("profil_avenant", $etablissement) ?>" class=""><span>Avenant au contrat d'inscription</span></a></li>
 				        <?php endif; ?>
 				        <?php endif; ?>
 			        </ul>

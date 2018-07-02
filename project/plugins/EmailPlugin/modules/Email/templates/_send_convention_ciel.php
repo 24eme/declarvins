@@ -5,7 +5,6 @@ Vous venez d'adhérer en ligne au service d'échange de données CIEL-Declarvins
 Vous trouverez en pièce jointe en pdf :
 <ul>
 <li>La convention CIEL des douanes, à renvoyer signée par courrier à votre service des douanes habituels.</li>
-<li>L'avenant au contrat d'inscription Declarvins, à renvoyer signé à votre interprofession par scan, fax ou courrier.</li>
 </ul>
 <br />
 Pour toute question, n'hésitez pas à <a href="<?php echo ProjectConfiguration::getAppRouting()->generate('contact', array(), true); ?>">contacter votre interprofession</a><br /><br />

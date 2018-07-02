@@ -178,21 +178,6 @@ class conventionCielActions extends sfActions
   	return $this->renderText(file_get_contents($path.'/pdf/'.$this->convention->_id.'.pdf'));
   }
   
-
-  public function executeAvenant(sfWebRequest $request)
-  {
-  	$this->etablissement = $this->getRoute()->getEtablissement();
-  	$this->compte = $this->getUser()->getCompte();
-  	if (!$this->compte->isTiers()) {
-  		throw new sfError404Exception();
-  	}
-  	$this->convention = $this->compte->getConventionCiel();
-  	$this->forward404Unless($this->convention);
-  	$this->contrat = ContratClient::getInstance()->find($this->compte->contrat);
-  	$pdf = new ExportAvenantPdf($this->contrat);
-  	return $this->renderText($pdf->render($this->getResponse(), false));
-  }
-  
   protected function generatePdf($c = null) 
   {
   	$compte = ($c)? $c : $this->getUser()->getCompte();

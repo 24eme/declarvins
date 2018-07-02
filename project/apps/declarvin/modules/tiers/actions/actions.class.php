@@ -202,14 +202,5 @@ class tiersActions extends sfActions
   
   	return $this->renderText(file_get_contents($path.'/pdf/'.$this->convention->_id.'.pdf'));
   }
-
-  public function executeAvenant(sfWebRequest $request)
-  {
-  	$this->etablissement = $this->getRoute()->getEtablissement();
-  	$this->compte = $this->etablissement->getCompteObject();
-  	$this->contrat = ContratClient::getInstance()->find($this->compte->contrat);
-  	$pdf = new ExportAvenantPdf($this->contrat);
-  	return $this->renderText($pdf->render($this->getResponse(), false));
-  }
   
 }
