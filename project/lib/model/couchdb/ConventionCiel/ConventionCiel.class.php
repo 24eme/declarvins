@@ -46,7 +46,7 @@ class ConventionCiel extends BaseConventionCiel {
     public function generateFdf()
     {
 
-    	$contrat = ($this->_compte)? str_replace('CONTRAT-', '', $this->_compte->contrat) : null;
+    	$contrat = ($c = $this->getCompteObject())? str_replace('CONTRAT-', '', $c->contrat) : null;
     	$fdfHeader = 
 <<<FDF
 %FDF-1.2
