@@ -45,6 +45,8 @@ class ConventionCiel extends BaseConventionCiel {
     
     public function generateFdf()
     {
+
+    	$contrat = ($this->_compte)? str_replace('CONTRAT-', '', $this->_compte->contrat) : null;
     	$fdfHeader = 
 <<<FDF
 %FDF-1.2
@@ -85,6 +87,7 @@ FDF;
     	$fdfContent .= "<</T(iinterpro)/V({$this->getInterprofession()})>>";
     	$fdfContent .= "<</T(emailiinterpro)/V({$this->getEmailInterprofession()})>>";
     	$fdfContent .= "<</T(datesaisie)/V({$this->getDateSaisieObj()->format('d/m/Y')})>>";
+    	$fdfContent .= "<</T(ivisa)/V({$contrat})>>";
     	
     	$i=0;
     	foreach ($this->etablissements as $etablissement) {
