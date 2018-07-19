@@ -17,6 +17,11 @@ class ConfigurationClient extends acCouchdbClient
     {
         return $this->find('CONFIGURATION', $hydrate);
     }
+
+    public static function getConfiguration($date) 
+    {
+    	return self::getCurrent();
+    }
     
 	public static function getCurrent() 
 	{
@@ -115,6 +120,11 @@ class ConfigurationClient extends acCouchdbClient
     public function buildDateFinCampagne($date) 
     {
       return sprintf(self::CAMPAGNE_DATE_FIN, date('Y', strtotime($this->buildDateDebutCampagne($date)))+1);
+    }
+
+    public function getCurrentCampagne() {
+    
+    	return $this->buildCampagne(date('Y-m-d'));
     }
   
 }

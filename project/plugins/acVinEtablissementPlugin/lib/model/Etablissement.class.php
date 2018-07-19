@@ -23,6 +23,11 @@ class Etablissement extends BaseEtablissement {
         return $this->_compte;
     }
     
+    public function getRegion()
+    {
+    	return null;
+    }
+    
     public function getInterproObject() {
         if (is_null($this->_interpro) && $this->interpro) {
             $this->_interpro = InterproClient::getInstance()->find($this->interpro);

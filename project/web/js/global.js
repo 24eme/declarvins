@@ -60,6 +60,10 @@ var fbConfig =
 		$(".datepicker").datepicker(dpConfig); 
 
 		$('.num_float').saisieNum(true);
+		
+		$(".select2").select2({
+            allowClear: true
+        });
                
 	});
 	

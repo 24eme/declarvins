@@ -26,7 +26,14 @@ use_helper('Text');
             <a href="<?php echo url_for('daids_mon_espace', $etablissement) ?>">DAI/DS</a>
         </li>
         <?php endif; ?>
+        <?php endif; ?>    
+        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $configuration->isApplicationOuverte($etablissement->interpro, 'dae')): ?>
+        <?php if($etablissement->hasDroit(EtablissementDroit::DROIT_DAE)): ?>
+        <li<?php if ($active == 'dae'): ?> class="actif"<?php endif; ?>>
+            <a href="<?php echo url_for('dae_etablissement', $etablissement) ?>">Activités mensuelle</a>
+        </li>
         <?php endif; ?>
+        <?php endif; ?>  
         
         <li<?php if ($active == 'profil'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('profil', $etablissement) ?>">Profil</a>

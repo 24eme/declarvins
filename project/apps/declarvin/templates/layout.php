@@ -61,6 +61,7 @@
         <!-- ####### A REPRENDRE ABSOLUMENT ####### -->
         <script type="text/javascript">var jsPath = "/js/";</script>
         <script type="text/javascript" src="/js/includes.js?20170712"></script>
+        <script type="text/javascript" src="/js/lib/select2.min.js"></script>
     </body>
 
 </html>

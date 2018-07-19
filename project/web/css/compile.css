@@ -751,10 +751,10 @@ a.msg_aide:hover {
 }
 body {
   background: #989898;
-  color: #494949;
-  font-family: Arial, Calibri, Verdana, Geneva, sans-serif;
-  font-size: 12px;
-  line-height: 1.2;
+  color: #494949 !important;
+  font-family: Arial, Calibri, Verdana, Geneva, sans-serif !important;
+  font-size: 12px !important;
+  line-height: 1.2 !important;
 }
 a {
   color: #494949;

@@ -215,6 +215,16 @@ class Configuration extends BaseConfiguration {
         }
         return $this->$variable;
     }
+    
+    public function formatProduits($date, $format = "%g% %a% %m% %l% %co% %ce%", $cvoNeg = false) {
+    	// Utiliser uniquement pour DAE
+    	$produits = array();
+    	$zoneProduits = ConfigurationZoneClient::getInstance()->find('CONFIGURATION-ZONE-RHONE')->getConfigurationProduits();
+    	foreach ($zoneProduits as $configurationProduitsId => $configurationProduits) {
+    		$produits = array_merge($produits, $configurationProduits->getProduits(null, false, false, $date));
+    	}
+    	return $this->format($produits);
+    }
 
     public function getConfigurationProduitsComplete() {
         $configuration = array();

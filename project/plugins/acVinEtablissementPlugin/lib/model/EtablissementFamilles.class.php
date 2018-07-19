@@ -44,12 +44,12 @@ class EtablissementFamilles
     protected static $droits = array (
     	"producteur_cave_particuliere" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
     	"producteur_cave_cooperative" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
-    	"negociant" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
-    	"negociant_regional" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
-    	"negociant_exterieur" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
-    	"negociant_etranger" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
-    	"negociant_union" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
-    	"negociant_vinificateur" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
+    	"negociant" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DAE),
+    	"negociant_regional" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DAE),
+    	"negociant_exterieur" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DAE),
+    	"negociant_etranger" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DAE),
+    	"negociant_union" => array(EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DAE),
+    	"negociant_vinificateur" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DAE),
     	"courtier" => array(EtablissementDroit::DROIT_VRAC)
     );
 
