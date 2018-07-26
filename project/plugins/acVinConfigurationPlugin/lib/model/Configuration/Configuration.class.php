@@ -218,12 +218,12 @@ class Configuration extends BaseConfiguration {
     
     public function formatProduits($date, $format = "%g% %a% %m% %l% %co% %ce%", $cvoNeg = false) {
     	// Utiliser uniquement pour DAE
-    	$produits = array();
-    	$zoneProduits = ConfigurationZoneClient::getInstance()->find('CONFIGURATION-ZONE-RHONE')->getConfigurationProduits();
-    	foreach ($zoneProduits as $configurationProduitsId => $configurationProduits) {
-    		$produits = array_merge($produits, $configurationProduits->getProduits(null, false, false, $date));
+    	$zone = ConfigurationZoneClient::getInstance()->find(ConfigurationZoneClient::ZONE_RHONE);
+    	$exception = null;
+    	if ($this->vrac->exist('exception_produit')) {
+    		$exception = $this->vrac->get('exception_produit');
     	}
-    	return $this->format($produits);
+    	return $this->getFormattedCouleursWithoutCode(null, array(ConfigurationZoneClient::ZONE_RHONE => $zone), false, "%g% %a% %m% %l% %co%", false,  $date, $exception);
     }
 
     public function getConfigurationProduitsComplete() {
@@ -262,6 +262,16 @@ class Configuration extends BaseConfiguration {
             }
         }
         return $this->formatWithCode($produits, $format);
+    }
+
+    public function getFormattedCouleursWithoutCode($hash = null, $zones, $onlyForDrmVrac = false, $format = "%g% %a% %m% %l% %co%", $cvoNeg = false, $date = null, $exception = null) {
+    	$produits = array();
+        foreach ($zones as $zoneId => $zone) {
+            foreach ($zone->getConfigurationProduits() as $configurationProduitsId => $configurationProduits) {
+                $produits = array_merge($produits, $configurationProduits->getTotalCouleurs($hash, $onlyForDrmVrac, $cvoNeg, $date, false, $exception));
+            }
+        }
+        return $this->format($produits, $format);
     }
 
     public function format($produits, $format = "%g% %a% %m% %l% %co% %ce%") {

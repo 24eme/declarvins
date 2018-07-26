@@ -21,6 +21,11 @@ class VracConfiguration
 		$centilisations = $config->crds->centilisation->toArray();
 		if (isset($centilisations['AUTRE']))
 			unset($centilisations['AUTRE']);
+		foreach ($centilisations as $k => $v) {
+			if (preg_match('/CL_/', $k)) {
+				$centilisations[$k] = 'Bouteille '.$v;
+			}
+		}
 		return $centilisations;
 	}
 }

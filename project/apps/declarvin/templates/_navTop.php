@@ -30,7 +30,7 @@ use_helper('Text');
         <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $configuration->isApplicationOuverte($etablissement->interpro, 'dae')): ?>
         <?php if($etablissement->hasDroit(EtablissementDroit::DROIT_DAE)): ?>
         <li<?php if ($active == 'dae'): ?> class="actif"<?php endif; ?>>
-            <a href="<?php echo url_for('dae_etablissement', $etablissement) ?>">Activités mensuelle</a>
+            <a href="<?php echo url_for('dae_etablissement', $etablissement) ?>">Commercialisation</a>
         </li>
         <?php endif; ?>
         <?php endif; ?>  

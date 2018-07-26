@@ -64,6 +64,12 @@ var fbConfig =
 		$(".select2").select2({
             allowClear: true
         });
+		
+		$('.collapsed').click(function(){
+		    $('#clientDetails').slideToggle('fast');
+		});
+		
+
                
 	});
 	
