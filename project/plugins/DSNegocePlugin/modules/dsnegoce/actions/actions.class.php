@@ -31,7 +31,7 @@ class dsnegoceActions extends sfActions {
     	
     	$this->form->save();
     	
-    	Email::getInstance()->dsnegoceSend($this->fichier, $this->etablissement, $etablissement->getInterproObject()->email_contrat_vrac);
+    	Email::getInstance()->dsnegoceSend($this->fichier, $this->etablissement, $this->etablissement->getInterproObject()->email_contrat_vrac);
     	
     	return $this->redirect('dsnegoce_mon_espace', $this->etablissement);
     }

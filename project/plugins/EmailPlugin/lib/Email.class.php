@@ -68,7 +68,7 @@ class Email {
         $from = $this->getFromEmailInterpros($interpros);
         $to = array($destinataire);
         $subject = 'DS Négoce du '.$etablissement->identifiant;
-        $body = $this->getBodyFromPartial('dsnegoce_send', array('$ds' => $ds, 'etablissement' => $etablissement));
+        $body = $this->getBodyFromPartial('dsnegoce_send', array('ds' => $ds, 'etablissement' => $etablissement));
 		$message = Swift_Message::newInstance()
   					->setFrom($from)
   					->setTo($to)
