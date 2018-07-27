@@ -275,7 +275,6 @@
                 <ul>
                         <li>Contrats Interprofessionnels, </li>
                         <li>DRM (Déclaration Récapitulative Mensuelle),</li>
-                        <li>DAI/DS (Déclaration Annuel d'Inventaire / Déclaration de Stock). </li>
                 </ul>
                 <p>
                     Cela pourra concerner d'autres obligations déclaratives faisant l'objet d'une convention avec les douanes ou les autres organismes de la filière viti-vinicole.
