@@ -4,12 +4,19 @@ class dsnegoceActions extends sfActions {
     public function executeMonEspace(sfWebRequest $request) {
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->cm = new CampagneManager('08-01');
-        $this->ds = DSNegoceClient::getInstance()->findByIdentifiant($this->etablissement->identifiant);
+        $this->isCloture = (date('Y-m-d') > sfConfig::get('app_dsnegoce_cloture'))? true : false;
+        $this->canImport = (DSNegoceClient::getInstance()->findByIdentifiantPeriode($this->etablissement->identifiant))? false : true;
+        $this->history = PieceAllView::getInstance()->getPiecesByEtablissement($this->etablissement->identifiant, $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN));
     }
     
     public function executeUpload(sfWebRequest $request) {
         $this->etablissement = $this->getRoute()->getEtablissement();
-    	$this->fichier = DSNegoceClient::getInstance()->createDoc($this->etablissement->identifiant, null, $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN));
+    	$this->isCloture = (date('Y-m-d') > sfConfig::get('app_dsnegoce_cloture'))? true : false;
+        $this->canImport = (DSNegoceClient::getInstance()->findByIdentifiantPeriode($this->etablissement->identifiant))? false : true;
+    	if ($this->isCloture || !$this->canImport) {
+    		return $this->redirect('dsnegoce_mon_espace', $this->etablissement);
+    	}
+    	$this->fichier = DSNegoceClient::getInstance()->createDoc($this->etablissement->identifiant, sfConfig::get('app_dsnegoce_date'), $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN));
     	$this->form = new DSForm($this->fichier);
     	
     	if (!$request->isMethod(sfWebRequest::POST)) {
@@ -23,6 +30,9 @@ class dsnegoceActions extends sfActions {
     	}
     	
     	$this->form->save();
+    	
+    	Email::getInstance()->dsnegoceSend($this->fichier, $this->etablissement, $etablissement->getInterproObject()->email_contrat_vrac);
+    	
     	return $this->redirect('dsnegoce_mon_espace', $this->etablissement);
     }
 }

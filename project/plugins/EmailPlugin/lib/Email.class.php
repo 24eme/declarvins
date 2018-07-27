@@ -62,6 +62,24 @@ class Email {
         return $this->getMailer()->send($message);
     }
     
+    public function dsnegoceSend($ds, $etablissement, $destinataire) 
+    {
+        $interpros = array(InterproClient::getInstance()->getById($etablissement->interpro));
+        $from = $this->getFromEmailInterpros($interpros);
+        $to = array($destinataire);
+        $subject = 'DS Négoce du '.$etablissement->identifiant;
+        $body = $this->getBodyFromPartial('dsnegoce_send', array('$ds' => $ds, 'etablissement' => $etablissement));
+		$message = Swift_Message::newInstance()
+  					->setFrom($from)
+  					->setTo($to)
+  					->setSubject($subject)
+  					->setBody($body)
+  					->setContentType('text/html')
+  					->attach(Swift_Attachment::fromPath($ds->getAttachmentUri(current($ds->getFichiers()))));
+		
+        return $this->getMailer()->send($message);
+    }
+    
     public function vracContratValide($vrac, $etablissement, $destinataire) 
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));

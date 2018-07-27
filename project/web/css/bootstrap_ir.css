@@ -39,10 +39,10 @@ input.ui-autocomplete-input {
 	float: left;
 }
 
-a, a:link {
+a, a:link, a:visited {
     color: #86005b;
 }
-a:hover, a:active, a:visited {
+a:hover, a:active {
     color: #c582af;
     text-decoration: none;
 }

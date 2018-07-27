@@ -17,14 +17,11 @@ class DSNegoceClient extends acCouchdbClient {
     
     protected function getPeriodeByDate($date = null)
     {
-    	return substr($date, -3);
+    	return substr($date, 0, -3);
     }
 
-    public function createDoc($identifiant, $date = null, $papier = false)
+    public function createDoc($identifiant, $date, $papier = false)
     {
-    	if (!$date) {
-    		$date = date('Y-m-d');
-    	}
         $fichier = new DSNegoce();
         $fichier->initDoc($identifiant);
         $fichier->date_import = $date;
@@ -38,6 +35,12 @@ class DSNegoceClient extends acCouchdbClient {
             $fichier->add('papier', 1);
         }
         return $fichier;
+    }
+    
+    public function findByIdentifiantPeriode($identifiant,  $hydrate = acCouchdbClient::HYDRATE_DOCUMENT)
+    {
+    	$date = explode('-', sfConfig::get('app_dsnegoce_date'));
+    	return $this->find(sprintf(self::TYPE_MODEL."-%s-%s-%s", $identifiant, $date[0], $date[1]));
     }
     
     public function findByIdentifiant($identifiant,  $hydrate = acCouchdbClient::HYDRATE_DOCUMENT)
