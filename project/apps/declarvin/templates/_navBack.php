@@ -34,6 +34,9 @@
 			<li<?php if ($subactive == 'vrac'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('vrac_admin') ?>">Contrat interprofessionnel</a>
 			</li>
+			<li<?php if ($subactive == 'dsnegoce'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('@etablissement_login_dsnegoce') ?>">DS Négoce</a>
+			</li>
 			<li<?php if ($subactive == 'profil'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@etablissement_profil_login') ?>">Profil</a>
 			</li>

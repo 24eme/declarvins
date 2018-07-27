@@ -6,6 +6,7 @@ class EtablissementDroit
     const DROIT_DRM_DTI = 'drm_dti';
     const DROIT_VRAC = 'vrac';
     const DROIT_DAE = 'dae';
+    const DROIT_DSNEGOCE = 'dsnegoce';
 
 
     protected $etablissement;
