@@ -25,7 +25,7 @@ class DSNegoceClient extends acCouchdbClient {
         $fichier = new DSNegoce();
         $fichier->initDoc($identifiant);
         $fichier->date_import = $date;
-        $fichier->date_depot = $date;
+        $fichier->date_depot = date('Y-m-d');
         $fichier->visibilite = 1;        
         $fichier->periode = $this->getPeriodeByDate($date);
         $cm = new CampagneManager('08-01');
@@ -44,8 +44,7 @@ class DSNegoceClient extends acCouchdbClient {
     	return $view->execute($hydrate)->getDatas();
     }
 
-    public function getNextIdentifiantForEtablissementAndDate($identifiant, $date) {
-    	$periode = $this->getPeriodeByDate($date);
+    public function getNextIdentifiantForEtablissementAndPeriode($identifiant, $periode) {
     	$ids = $this->startkey(self::TYPE_MODEL.'-' . $identifiant . '-'.$periode.'-000')->endkey(self::TYPE_MODEL. '-' . $identifiant . '-'.$periode.'-999')->execute(acCouchdbClient::HYDRATE_ON_DEMAND)->getIds();
     	$last_num = 0;
     	foreach ($ids as $id) {

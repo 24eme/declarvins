@@ -8,7 +8,7 @@ class DSNegoce extends BaseDSNegoce {
 
 
 	public function constructId() {
-		$numero = DSNegoceClient::getInstance()->getNextIdentifiantForEtablissementAndDate($this->identifiant, $this->date_depot);
+		$numero = DSNegoceClient::getInstance()->getNextIdentifiantForEtablissementAndPeriode($this->identifiant, $this->periode);
 		$this->set('_id', 'DSNEGOCE-' . $this->identifiant . '-' . $this->periode . '-' . $numero);
 	}
 
