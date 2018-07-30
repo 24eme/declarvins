@@ -37,26 +37,24 @@ class DSNegoceClient extends acCouchdbClient {
         return $fichier;
     }
     
-    public function findByIdentifiantPeriode($identifiant,  $hydrate = acCouchdbClient::HYDRATE_DOCUMENT)
-    {
-    	$date = explode('-', sfConfig::get('app_dsnegoce_date'));
-    	return $this->find(sprintf(self::TYPE_MODEL."-%s-%s-%s", $identifiant, $date[0], $date[1]));
-    }
-    
     public function findByIdentifiant($identifiant,  $hydrate = acCouchdbClient::HYDRATE_DOCUMENT)
     {
-    	$view = $this->startkey(sprintf(self::TYPE_MODEL."-%s-%s-%s", $identifiant, "0000", "00"))
-    	->endkey(sprintf(self::TYPE_MODEL."-%s-%s-%s", $identifiant, "9999", "99"));
+    	$view = $this->startkey(sprintf(self::TYPE_MODEL."-%s-%s-%s-%s", $identifiant, "0000", "00", "000"))
+    	->endkey(sprintf(self::TYPE_MODEL."-%s-%s-%s-%s", $identifiant, "9999", "99", "999"));
     	return $view->execute($hydrate)->getDatas();
     }
 
-    public function findAll($limit = null, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT)
-    {
-    	$view = $this->startkey(sprintf(self::TYPE_MODEL."-%s-%s-%s", "00000000", "0000", "00"))
-    				 ->endkey(sprintf(self::TYPE_MODEL."-%s-%s-%s", "99999999", "9999", "99"));
-    	if ($limit) {
-    		$view->limit($limit);
+    public function getNextIdentifiantForEtablissementAndDate($identifiant, $date) {
+    	$periode = $this->getPeriodeByDate($date);
+    	$ids = $this->startkey(self::TYPE_MODEL.'-' . $identifiant . '-'.$periode.'-000')->endkey(self::TYPE_MODEL. '-' . $identifiant . '-'.$periode.'-999')->execute(acCouchdbClient::HYDRATE_ON_DEMAND)->getIds();
+    	$last_num = 0;
+    	foreach ($ids as $id) {
+    		$exploded = explode('-', $id);
+    		$num = ($exploded[count($exploded) - 1] * 1);
+    		if ($num > $last_num) {
+    			$last_num = $num;
+    		}
     	}
-    	return $view->execute($hydrate)->getDatas();
+    	return sprintf("%03d", $last_num + 1);
     }
 }

@@ -10,14 +10,22 @@
         	<p class="text-center text-danger"><em>Le téléservice est cloturé</em></p>
         	<?php else: ?>
         	<div class="col-xs-6">
-        		<a href="/docs/<?php if (strtolower($etablissement->getInterproObject()->identifiant) == 'ir'): ?>dsnegoce-ir.xls<?php else: ?>dsnegoce-civp.xlsx<?php endif; ?>" class="btn btn-default pull-right">Télécharger la DS à compléter</a>
+        	
+        		<div class="dropdown pull-right">
+				  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				    <a>Télécharger la DS à compléter</a>
+				    <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu">
+				    <li><a href="/docs/dsnegoce-ir.xls">Modèle Vallée du Rhône</a></li>
+				    <li><a href="/docs/dsnegoce-civp.xlsx">Modèle Provence</a></li>
+				  </ul>
+				</div>
+        	
+        	
         	</div>
         	<div class="col-xs-6">
-        		<?php if ($canImport): ?>
         		<a href="<?php echo url_for('dsnegoce_upload', $etablissement) ?>" class="btn btn-default"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;Importer la DS complétée</a>
-        		<?php else: ?>
-        		<p class="btn btn-default disabled"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;Importer la DS complétée</p>
-        		<?php endif; ?>
         	</div>
         	<?php endif; ?>
 		</div>
@@ -32,7 +40,7 @@
 							<?php echo (preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $document->key[PieceAllView::KEYS_DATE_DEPOT]))? format_date($document->key[PieceAllView::KEYS_DATE_DEPOT], "dd/MM/yyyy", "fr_FR") : null; ?>
 						</span>
 						<span class="col-sm-8 col-xs-12">
-							<a href="<?php echo url_for('get_piece', array('doc_id' => $document->id, 'piece_id' => $document->value[PieceAllView::VALUES_KEY])) ?>"><?php echo $document->key[PieceAllView::KEYS_LIBELLE] ?></a>
+							<a href="<?php echo url_for('get_piece', array('doc_id' => $document->id, 'piece_id' => $document->value[PieceAllView::VALUES_KEY])) ?>"><?php echo substr($document->id, -3) .' - '. $document->key[PieceAllView::KEYS_LIBELLE] ?></a>
 						</span>
 						<span class="col-sm-2 col-xs-12">
 							<a class="pull-right" href="<?php echo url_for('get_piece', array('doc_id' => $document->id, 'piece_id' => $document->value[PieceAllView::VALUES_KEY])) ?>"><span class="glyphicon glyphicon-file"></span></a>

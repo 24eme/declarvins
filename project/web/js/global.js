@@ -69,6 +69,14 @@ var fbConfig =
 		    $('#clientDetails').slideToggle('fast');
 		});
 		
+		$('.dropdown-toggle').click(function(){
+			$(this).parent().find('.dropdown-menu').slideToggle('fast');
+		});
+		
+		$('.dropdown-menu a').click(function(){
+			$('.dropdown-menu').css('display', 'none');
+		});
+		
 
                
 	});

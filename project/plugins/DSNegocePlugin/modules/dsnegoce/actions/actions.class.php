@@ -5,15 +5,13 @@ class dsnegoceActions extends sfActions {
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->cm = new CampagneManager('08-01');
         $this->isCloture = (date('Y-m-d') > sfConfig::get('app_dsnegoce_cloture'))? true : false;
-        $this->canImport = (DSNegoceClient::getInstance()->findByIdentifiantPeriode($this->etablissement->identifiant))? false : true;
         $this->history = PieceAllView::getInstance()->getPiecesByEtablissement($this->etablissement->identifiant, $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN));
     }
     
     public function executeUpload(sfWebRequest $request) {
         $this->etablissement = $this->getRoute()->getEtablissement();
     	$this->isCloture = (date('Y-m-d') > sfConfig::get('app_dsnegoce_cloture'))? true : false;
-        $this->canImport = (DSNegoceClient::getInstance()->findByIdentifiantPeriode($this->etablissement->identifiant))? false : true;
-    	if ($this->isCloture || !$this->canImport) {
+    	if ($this->isCloture) {
     		return $this->redirect('dsnegoce_mon_espace', $this->etablissement);
     	}
     	$this->fichier = DSNegoceClient::getInstance()->createDoc($this->etablissement->identifiant, sfConfig::get('app_dsnegoce_date'), $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN));
@@ -31,7 +29,9 @@ class dsnegoceActions extends sfActions {
     	
     	$this->form->save();
     	
-    	Email::getInstance()->dsnegoceSend($this->fichier, $this->etablissement, $this->etablissement->getInterproObject()->email_contrat_vrac);
+    	$interpro = InterproClient::getInstance()->find($this->form->getValue('interpro'));
+    	
+    	Email::getInstance()->dsnegoceSend($this->fichier, $this->etablissement, $interpro->email_dsnegoce);
     	
     	return $this->redirect('dsnegoce_mon_espace', $this->etablissement);
     }

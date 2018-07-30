@@ -17,9 +17,17 @@
 				
 				    	<div class="form-group <?php if($form['file']->hasError()): ?>has-error<?php endif; ?>">
 							<?php echo $form['file']->renderError() ?>
-					        <?php echo $form['file']->renderLabel(null, array("class" => "col-xs-1 control-label")); ?>
+					        <?php echo $form['file']->renderLabel(null, array("class" => "col-xs-2 control-label")); ?>
 							<div class="col-xs-5">
 								<?php echo $form['file']->render() ?>
+							</div>
+						</div>
+				
+				    	<div class="form-group <?php if($form['interpro']->hasError()): ?>has-error<?php endif; ?>">
+							<?php echo $form['interpro']->renderError() ?>
+					        <?php echo $form['interpro']->renderLabel(null, array("class" => "col-xs-2 control-label")); ?>
+							<div class="col-xs-5">
+								<?php echo $form['interpro']->render() ?>
 							</div>
 						</div>
 						
