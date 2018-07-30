@@ -18,7 +18,7 @@
 				  </button>
 				  <ul class="dropdown-menu">
 				    <li><a href="/docs/dsnegoce-ir.xls">Modèle Vallée du Rhône</a></li>
-				    <li><a href="/docs/dsnegoce-civp.xlsx">Modèle Provence</a></li>
+				    <li><a href="/docs/dsnegoce-civp.xls">Modèle Provence</a></li>
 				  </ul>
 				</div>
         	
