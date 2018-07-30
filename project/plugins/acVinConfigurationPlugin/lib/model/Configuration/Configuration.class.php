@@ -330,6 +330,11 @@ class Configuration extends BaseConfiguration {
     	return false;
     }
 
+    public function getProduit($hash) {
+    
+    	return $this->getConfigurationProduit($hash);
+    }
+    
     public function getConfigurationProduit($hash = null) {
     	if ($hash) {
 	        $configuration = $this->getConfigurationProduitsComplete();
