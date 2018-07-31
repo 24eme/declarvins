@@ -46,3 +46,7 @@ a:hover, a:active {
     color: #c582af;
     text-decoration: none;
 }
+tr.filters {
+	display: none !important;
+}
+}

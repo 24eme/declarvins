@@ -83,6 +83,10 @@ class Etablissement extends BaseEtablissement {
         return $familleType[$this->famille];
     }
 
+    public function isViticulteur() {
+        return ($this->famille == EtablissementFamilles::FAMILLE_PRODUCTEUR);
+    }
+
 	public function getDepartement()
 	{
 		if ($this->siege->code_postal) {
