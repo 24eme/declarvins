@@ -1,3 +1,7 @@
+body {
+	background-color: #989898;
+}
+
 .breadcrumb, #daeFormEtablissement {
 	display: none;
 }
