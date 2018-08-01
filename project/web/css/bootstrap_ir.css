@@ -43,7 +43,7 @@ input.ui-autocomplete-input {
 	float: left;
 }
 
-a, a:link, a:visited {
+a, a:link, a:visited, .link {
     color: #86005b;
 }
 a:hover, a:active {

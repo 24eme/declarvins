@@ -13,8 +13,8 @@
         	<div class="col-xs-6">
         	
         		<div class="dropdown pull-right">
-				  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				    <a>Télécharger la DS à compléter</a>
+				  <button class="btn btn-default dropdown-toggle link" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				    Télécharger la DS à compléter
 				    <span class="caret"></span>
 				  </button>
 				  <ul class="dropdown-menu">
