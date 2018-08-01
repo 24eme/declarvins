@@ -1,2 +1,2 @@
 all:
-  stylesheets:    [bootstrap.css, bootstrap_ir.css, select2.css, select2-bootstrap.min.css]
+  stylesheets:    [bootstrap.css, bootstrap_ir.css?20180801, select2.css, select2-bootstrap.min.css]
