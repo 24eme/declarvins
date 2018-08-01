@@ -169,53 +169,43 @@
             $w = $pdf->get_width();
             $h = $pdf->get_height();
             $font = Font_Metrics::get_font("helvetica");
-            $pdf->page_text($w / 2 - 115, $h - 20, 'Declarvins.net - Contrat inscription n<?php echo utf8_encode('°').' '.$contrat->no_contrat ?> - {PAGE_NUM} / {PAGE_COUNT}', $font, 10, array(0,0,0));
+            $pdf->page_text($w / 2 - 115, $h - 20, 'Declarvins.net - Fiche Profil au <?php echo date('d/m/Y') ?> - {PAGE_NUM} / {PAGE_COUNT}', $font, 10, array(0,0,0));
     }
 </script>
 <!-- #global -->
 	<div id="global">                
 		<div id="entete_doc">
-			<div id="logo">
-				<table width="100%">
-					<tr>
-						<td width="33%" align="center"><img src="<?php echo sfConfig::get('sf_web_dir')?>/images/visuels/logo_interpro-ivse.png" alt="InterVins Sud Est" /></td>
-						<td width="33%" align="center"><img src="<?php echo sfConfig::get('sf_web_dir')?>/images/visuels/logo_interpro-ir.png" alt="Inter Rhone" /></td>
-						<td width="33%" align="center"><img src="<?php echo sfConfig::get('sf_web_dir')?>/images/visuels/logo_interpro-civp.png" alt="Provence" /></td>
-					</tr>
-				</table>
-			</div>
 			<h1>
-				Contrat d'inscription <br />
-				&laquo; DeclarVins.net &raquo; N° : <?php echo $contrat->no_contrat ?>&nbsp;&nbsp;&nbsp;<sup>(1)</sup><br />
+				Fiche Profil &laquo; DeclarVins.net &raquo;
 			</h1>
-                    <br />
-			<p class="note">(1) Numéro Interprofessionnel d'enregistrement de l'inscription</p>
+			<h2>
+				au <?php echo date('d/m/Y') ?>
+			</h2>
+            <br />
+            <br />
+            <br />
 		</div>
-                <br />
-                <br />
-                <p>A un système d'identification sécurisé permettant :<br />
-                - de réaliser des Déclarations Informatisées sur DeclarVins.net et de les transmettre aux différents destinataires.<br />
-                - et d'accéder à des services spécifiques à votre Interprofession. </p>
 
 		
 		<div id="formulaire">
 			
 			<div id="declarant">
 				<h2>D&Eacute;CLARANT</h2>
-                                <br/><br/>
+                <br/><br/>
 				<p>
-                Je soussigné,&nbsp;&nbsp;Nom : <strong><?php echo $contrat->nom ?></strong>&nbsp;&nbsp;Prénom : <strong><?php echo $contrat->prenom ?></strong>&nbsp;&nbsp;<br/> 
-				Fonction : <strong><?php echo $contrat->fonction ?></strong><br />
+				Login : <strong><?php echo $compte->login ?></strong><br /><br />
+                Nom : <strong><?php echo $compte->nom ?></strong>&nbsp;&nbsp;Prénom : <strong><?php echo $compte->prenom ?></strong>&nbsp;&nbsp;<br/> 
+				Fonction : <strong><?php echo $compte->fonction ?></strong><br />
                 <?php if($compte->exist('telephone') && $compte->telephone): ?> Tel : <strong><?php echo $compte->telephone ?></strong><br /><?php endif; ?>
                 <?php if($compte->exist('fax') && $compte->fax): ?>Fax : <strong><?php echo $compte->fax ?></strong><br /><?php endif; ?>
                 <?php if($compte->exist('email') && $compte->email): ?>Email : <strong><?php echo $compte->email ?></strong><br /><?php endif; ?>
 				</p>
-                                <br/>
-                                <p class="note">(Attention à vérifier les sécurités, paramètres, et espaces disponibles sur cette adresse mail : des informations importantes vous y seront envoyées. Notamment certains systèmes de sécurité pourraient classer en &laquo; SPAM &raquo; ces informations)</p>
-                        </div>
+				<br /><br />
+            </div>
 			
 			<?php 
-				foreach ($contrat->etablissements as $i => $etablissement): 
+				$nb = count($compte->getTiersCollection());
+				foreach ($compte->getTiersCollection() as $i => $etablissement): 
 					$zones = array();
 					if ($etablissement->exist('zones')) {
                 		foreach ($etablissement->zones as $zone): if (!$zone->transparente) {$zones[] = $zone->libelle;} endforeach;
@@ -231,73 +221,40 @@
 					N° CVI : <strong><?php echo $etablissement->cvi ?></strong><br />
 					N° accises / EA : <strong><?php echo $etablissement->no_accises ?></strong><br />
 					N° TVA intracommunautaire : <strong><?php echo $etablissement->no_tva_intracommunautaire ?></strong><br />
-                                        N° de carte pro courtier : <strong><?php echo $etablissement->no_carte_professionnelle ?></strong><br />
-					Adresse : <strong><?php echo $etablissement->adresse ?></strong><br />
-					CP : <strong><?php echo $etablissement->code_postal ?></strong><br />
-					Ville : <strong><?php echo $etablissement->commune ?></strong><br />
-					Pays : <strong><?php echo $etablissement->pays ?></strong><br />
+                    N° de carte pro courtier : <strong><?php echo $etablissement->no_carte_professionnelle ?></strong><br />
+					Adresse : <strong><?php echo $etablissement->siege->adresse ?></strong><br />
+					CP : <strong><?php echo $etablissement->siege->code_postal ?></strong><br />
+					Ville : <strong><?php echo $etablissement->siege->commune ?></strong><br />
+					Pays : <strong><?php echo $etablissement->siege->pays ?></strong><br />
 					Tél : <strong><?php echo $etablissement->telephone ?></strong><br />
 					Fax : <strong><?php echo $etablissement->fax ?></strong><br />
 					Email : <strong><?php echo $etablissement->email ?></strong>
 				</p>
-                                <?php $sousFamille = EtablissementFamilles::getSousFamilleLibelle($etablissement->famille, $etablissement->sous_famille); ?>
-                                <p>Famille - sous-famille : <strong><?php echo EtablissementFamilles::getFamilleLibelle($etablissement->famille) ?></strong><br />
-                                  <?php if($sousFamille): ?> Sous-famille : <strong><?php echo $sousFamille ?></strong><?php endif; ?>
-                              </p>
-                              	<p>Zones : <strong><?php echo implode(', ', $zones); ?></strong></p>
-                                <p>Provenance EDI : <strong><?php echo ($etablissement->edi) ? "Oui" : "Non" ?></strong></p>
-
-                                <br />
-                                <?php if ($etablissement->comptabilite_adresse): ?>
+                <?php $sousFamille = EtablissementFamilles::getSousFamilleLibelle($etablissement->famille, $etablissement->sous_famille); ?>
+                <p>Famille - sous-famille : <strong><?php echo EtablissementFamilles::getFamilleLibelle($etablissement->famille) ?></strong><br />
+                <?php if($sousFamille): ?> Sous-famille : <strong><?php echo $sousFamille ?></strong><?php endif; ?>
+                </p>
+                <p>Zones : <strong><?php echo implode(', ', $zones); ?></strong></p>
+                <br />
+                <?php if ($etablissement->comptabilite->adresse): ?>
 				<p>
 					Lieu où est tenue la comptabilité matière (si différente de l'adresse du chai) :<br />
-					Adresse : <strong><?php echo $etablissement->comptabilite_adresse ?></strong><br />
-					CP : <strong><?php echo $etablissement->comptabilite_code_postal ?></strong><br />
-					ville : <strong><?php echo $etablissement->comptabilite_commune ?></strong><br />
-					Pays : <strong><?php echo $etablissement->comptabilite_pays ?></strong>
+					Adresse : <strong><?php echo $etablissement->comptabilite->adresse ?></strong><br />
+					CP : <strong><?php echo $etablissement->comptabilite->code_postal ?></strong><br />
+					ville : <strong><?php echo $etablissement->comptabilite->commune ?></strong><br />
+					Pays : <strong><?php echo $etablissement->comptabilite->pays ?></strong>
 				</p>
-                                <?php endif; ?>
-                                <?php if($etablissement->service_douane): ?>
+                <?php endif; ?>
+                <?php if($etablissement->service_douane): ?>
 				<p>
 					Dépend du service des douanes de : <strong><?php echo $etablissement->service_douane ?></strong>
 				</p>
-                                <?php endif; ?>
+                <?php endif; ?>
 			</div>
-                        <div class="page_break">&nbsp;</div>
-                        <?php endforeach; ?>
+			<?php if ($i+1 < $nb): ?><div class="page_break">&nbsp;</div><?php endif; ?>
+            <?php endforeach; ?>
 		</div>
 		
-		<div class="important">
-                    <p>Le déclarant, pour le compte des Etablissements précitées, demande à bénéficier d'une connexion au système informatique &laquo; DeclarVins.net &raquo;, </p>
-		</div>
-                <p>En fonction de la mise en place des services, le système d'indentification 'Declarvins.net' permet l'accès à la saisie et validation <u>pour les interprofessions</u> de divers documents déclaratifs obligatoires selon les produits concernés en fonction des modalités des accords interprofessionnels en vigueur.</p>
-                <p>Cela concerne : </p>
-                <ul>
-                        <li>Contrats Interprofessionnels, </li>
-                        <li>DRM (Déclaration Récapitulative Mensuelle),</li>
-                </ul>
-                <p>
-                    Cela pourra concerner d'autres obligations déclaratives faisant l'objet d'une convention avec les douanes ou les autres organismes de la filière viti-vinicole.
-                </p>
-                <p>
-                    Les Interprofessions développent des partenariats pour transporter l'information auprès de différents destinataires. En l'absence de partenariats, le déclarant doit réaliser les déclarations aux différents destinataires suivant les modalités prévues par ces derniers (papier signé et envoyé par la poste en général).
-                </p>
-                <p>
-                    Des Avenants précisent les partenariats et contrats mandats de dépôt (transport de l'information par DeclarVins vers un autre destinataire pour le compte de l'opérateur déclarant).
-                </p>
-                <div class="important">
-                        Une information vous sera fournie à chaque nouvelle fonctionnalité mise en service, ainsi qu'un avenant récapitulatif de l'ensemble des fonctionnalités et Mandats de dépôt proposés.
-                </div>
-
-        <?php echo include_partial('export/contrat_pdf_conditions',array('contrat' => $contrat)); ?>
-                <br/><br/>
-		<div id="signature">
-                        <p>Fait à 
-                        <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>, Le <strong></strong>
-                        </p>
-			<p>Le déclarant, <strong><?php echo $contrat->nom ?> <?php echo $contrat->prenom ?></strong> signature et cachet :</p><br/> 								
-			<p>L'e-mail d'activation, que vous recevrez après traitement et validation de votre inscription, vaudra engagement de l'interprofession.<strong></strong></p>
-		</div>                
 	</div>
         		
 <!-- fin #global -->

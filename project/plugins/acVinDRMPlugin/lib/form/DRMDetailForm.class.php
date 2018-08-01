@@ -11,6 +11,9 @@ class DRMDetailForm extends acCouchdbObjectForm {
     		$hasTav = true;
     		$hasPremix = true;
 		}
+		if ($this->getObject()->premix) {
+    		$hasPremix = true;
+		}
 		if (preg_match('/^1[0-9a-zA-Z]+N$/', $inao) || preg_match('/^1[R|S|B]175Z$/', $inao)) {
     		$hasTav = true;
 		}

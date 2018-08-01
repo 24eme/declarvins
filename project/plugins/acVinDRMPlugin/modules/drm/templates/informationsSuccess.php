@@ -2,6 +2,19 @@
 
 <section id="contenu">
 
+	<?php if ($sf_user->hasFlash('info_stocks')): ?>
+	<div id="popup_info_stocks" class="popup_contenu popup_form" style="display:none;">
+		<p>Nous sommes en début de campagne.</p> 
+		<br />
+		<p>Veuillez modifier votre <strong>Stock théorique début de mois</strong> pour y indiquer votre stock réel suite à votre inventaire.</p>
+		<br />
+		<p>La saisie du stock est rendu possible, comme illustré ci-dessous.</p>
+		<br />
+		<img src="/images/visuels/stocks.png" alt="" />
+		<p style="text-align: center;"><i>Ecran de saisie des mouvements de la DRM</i></p>
+	</div>
+	<?php endif; ?>
+
     <?php include_partial('drm/header', array('drm' => $drm)); ?>
     <?php include_component('drm', 'etapes', array('drm' => $drm, 'etape' => 'informations', 'pourcentage' => '5')); ?>
 

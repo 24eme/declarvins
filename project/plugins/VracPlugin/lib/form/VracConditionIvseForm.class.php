@@ -7,8 +7,8 @@ class VracConditionIvseForm extends VracConditionForm
 		$this->getValidator('conditions_paiement')->setOption('required', false);
 		$this->getWidget('reference_contrat_pluriannuel')->setLabel('Si vous avez un contrat pluriannuel écrit, veuillez noter sa référence:');
 		$this->setWidget('vin_livre', new sfWidgetFormInputHidden());
-        unset($this['clause_reserve_retiraison']);
-        unset($this['has_transaction']);
+
+        unset($this['clause_reserve_retiraison'], $this['delai_paiement']);
     }
 
 

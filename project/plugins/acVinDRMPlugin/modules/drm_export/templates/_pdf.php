@@ -41,12 +41,14 @@
 				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Code produit',
 	    						  								  'counter' => 1,
 																  'colonnes' => $colonnes,
+																  'acq' => false,
 																  'cssclass_value' => 'libelle',
 																  'partial' => 'drm_export/pdfLineVolumeItemProduitLibelle')) ?>
 																  
 				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Labels',
 	    						  								  'counter' => '',
 																  'colonnes' => $colonnes,
+																  'acq' => false,
 																  'cssclass_value' => 'labels',
 																  'partial' => 'drm_export/pdfLineProduitLabels')) ?>
 
@@ -56,11 +58,13 @@
 																	   'cssclass_libelle' => 'total',
 																       'cssclass_value' => 'total',
 																       'colonnes' => $colonnes,
+																  		'acq' => false,
 																       'hash' => 'total_debut_mois')) ?>
 
 				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksDebut(),
 	    						  								        'counter' => 2,
 																		'colonnes' => $colonnes,
+																  		'acq' => false,
 																        'drm' => $drm,
 																  		'hash' => 'stocks_debut'))?>
 
@@ -70,12 +74,14 @@
 																	   'cssclass_libelle' => 'total',
 																  	   'cssclass_value' => 'total',
 																	   'colonnes' => $colonnes,
+																  		'acq' => false,
 																	   'hash' => 'total_entrees')) ?>
 
 
 				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksEntree(),
 	    						  								        'counter' => 3,
 																		'colonnes' => $colonnes,
+																  		'acq' => false,
 																        'drm' => $drm,
 																  		'hash' => 'entrees')) ?>
 
@@ -83,6 +89,7 @@
 																	   'unite' => 'hl',
 	    						  								       'counter' => 4,
 																	   'colonnes' => $colonnes,
+																  		'acq' => false,
 																	   'cssclass_libelle' => 'total',
 																	   'cssclass_value' => 'total',
 																	   'hash' => 'total_sorties')) ?>
@@ -90,6 +97,7 @@
 				<?php $stockSorties = Configuration::getStocksSortie(); unset($stockSorties['vrac_contrat']); include_partial('drm_export/pdfLineDetail', array('stocks' => $stockSorties,
 	    						  								        'counter' => 4,
 																		'colonnes' => $colonnes,
+																  		'acq' => false,
 																        'drm' => $drm,
 																  		'hash' => 'sorties')) ?>
 
@@ -99,11 +107,13 @@
 																	   'cssclass_libelle' => 'total',
 																  	   'cssclass_value' => 'total',
 																  	   'colonnes' => $colonnes,
+																  		'acq' => false,
 																  	   'hash' => 'total')) ?>
 
 				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksFin(),
 	    						  								        'counter' => 5,
 																		'colonnes' => $colonnes,
+																 		'acq' => false,
 																        'drm' => $drm,
 																  		'hash' => 'stocks_fin')) ?>
 
@@ -114,12 +124,14 @@
 				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Code produit',
 	    						  								  'counter' => 1,
 																  'colonnes' => $colonnes,
+																  'acq' => true,
 																  'cssclass_value' => 'libelle',
 																  'partial' => 'drm_export/pdfLineVolumeItemProduitLibelle')) ?>
 																  
 				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Labels',
 	    						  								  'counter' => '',
 																  'colonnes' => $colonnes,
+																  'acq' => true,
 																  'cssclass_value' => 'labels',
 																  'partial' => 'drm_export/pdfLineProduitLabels')) ?>
 
@@ -129,6 +141,7 @@
 																	   'cssclass_libelle' => 'total',
 																       'cssclass_value' => 'total',
 																       'colonnes' => $colonnes,
+																  		'acq' => true,
 																       'hash' => 'acq_total_debut_mois')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total entrées',
@@ -137,12 +150,14 @@
 																	   'cssclass_libelle' => 'total',
 																  	   'cssclass_value' => 'total',
 																	   'colonnes' => $colonnes,
+																  		'acq' => true,
 																	   'hash' => 'acq_total_entrees')) ?>
 
 
 				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksEntree(true),
 	    						  								        'counter' => 3,
 																		'colonnes' => $colonnes,
+																  		'acq' => true,
 																        'drm' => $drm,
 																  		'hash' => 'entrees')) ?>
 
@@ -150,6 +165,7 @@
 																	   'unite' => 'hl',
 	    						  								       'counter' => 4,
 																	   'colonnes' => $colonnes,
+																 		'acq' => true,
 																	   'cssclass_libelle' => 'total',
 																	   'cssclass_value' => 'total',
 																	   'hash' => 'acq_total_sorties')) ?>
@@ -157,6 +173,7 @@
 				<?php include_partial('drm_export/pdfLineDetail', array('stocks' => Configuration::getStocksSortie(true),
 	    						  								        'counter' => 4,
 																		'colonnes' => $colonnes,
+																  		'acq' => true,
 																        'drm' => $drm,
 																  		'hash' => 'sorties')) ?>
 
@@ -166,6 +183,7 @@
 																	   'cssclass_libelle' => 'total',
 																  	   'cssclass_value' => 'total',
 																  	   'colonnes' => $colonnes,
+																  		'acq' => true,
 																  	   'hash' => 'acq_total')) ?>
 
 			</table>
@@ -177,17 +195,20 @@
 			<table class="recap volumes bloc_bottom" id="recap_contrat">
 				<?php include_partial('drm_export/pdfLine', array('libelle' => 'Code produit',
 																  'colonnes' => $colonnes,
+																  'acq' => false,
 																  'cssclass_value' => 'libelle',
 																  'partial' => 'drm_export/pdfLineVracItemProduitLibelle')) ?>
 
 				<?php include_partial('drm_export/pdfLine', array('libelle' => 'N° de contrat', 
 																	   'colonnes' => $colonnes,
+																  		'acq' => false,
 																	   'cssclass_libelle' => 'detail',
 																  	   'cssclass_value' => 'detail',
 																  	   'method' => 'getKey')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Volume',
 																  	   'colonnes' => $colonnes,
+																  		'acq' => false,
 																  	   'unite' => 'hl',
 																  	   'cssclass_libelle' => 'detail',
 																  	   'cssclass_value' => 'detail',

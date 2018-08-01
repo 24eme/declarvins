@@ -43,7 +43,7 @@ class VracSoussigneForm extends VracForm
 				'acheteur_tva' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
 				'mandataire_exist' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
 				'mandataire_identifiant' => new ValidatorEtablissement(array('required' => false, 'familles' => EtablissementFamilles::FAMILLE_COURTIER)),
-				'cas_particulier' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getCasParticulier()))),
+				'cas_particulier' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getCasParticulier()))),
         		'bailleur_metayer' => new ValidatorBoolean(array('required' => false))
 		));
 
@@ -108,8 +108,8 @@ class VracSoussigneForm extends VracForm
 
 	protected function updateDefaultsFromObject() {
 		parent::updateDefaultsFromObject();
-
-		$this->setDefault('cas_particulier', (($this->getObject()->cas_particulier) ? $this->getObject()->cas_particulier : ConfigurationVrac::CAS_PARTICULIER_DEFAULT_KEY));
+		
+		$this->setDefault('cas_particulier', (($this->getObject()->cas_particulier) ? $this->getObject()->cas_particulier : null));
 
 		if ($this->getEtablissement()) {
 			if ($this->getEtablissement()->identifiant == $this->getObject()->acheteur_identifiant) {

@@ -43,8 +43,10 @@ class validationActions extends sfActions {
 		foreach ($this->comptes as $c) {
 			if($compte = _CompteClient::getInstance()->find($c->id)) {
 				$dematerialise_ciel = 'non';
-				if ($compte->getConventionCiel()) {
-					$dematerialise_ciel = 'att';
+				if ($convention = $compte->getConventionCiel()) {
+					if ($convention->valide) {
+						$dematerialise_ciel = 'att';
+					}
 				}
 				$compteNonInfosCsv = ';;;;;;';
 				if (count($compte->tiers) > 0) {
@@ -340,14 +342,6 @@ class validationActions extends sfActions {
     	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
 	  	$pdf = new ExportContratPdf($this->contrat);
 		return $this->renderText($pdf->render($this->getResponse(), false));
-	  }
-
-	  public function executeAvenant(sfWebRequest $request)
-	  {
-	  	$this->forward404Unless($no_contrat = $request->getParameter("num_contrat"));
-	  	$this->contrat = ContratClient::getInstance()->retrieveById($no_contrat);
-	  	$pdf = new ExportAvenantPdf($this->contrat);
-	  	return $this->renderText($pdf->render($this->getResponse(), false));
 	  }
 	  
 	  public function executeConvention(sfWebRequest $request)
