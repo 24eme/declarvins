@@ -28,42 +28,42 @@
 
 	var checkUncheckCondition = function(blocCondition)
     {
-    	var input = blocCondition.find('input[type="radio"]');
+		var isSelect = false;
+		var input = blocCondition.find('input[type="radio"]');
     	if(input.length == 0) {
     		input = blocCondition.find('input[type="checkbox"]');
     	}
     	if(input.length == 0) {
     		input = blocCondition.find('select');
+    		isSelect = true;
     	}
-    	var blocs = blocCondition.attr('data-condition-cible').split('|');
-    	var traitement = function(input, blocs) {
-    		if(input.is(':checked') || input.is(':selected') || input.val())
-            {
-        	   for (bloc in blocs) {
-        		   if ($(blocs[bloc]).size() > 0) {
-            		   var values = $(blocs[bloc]).attr('data-condition-value').split('|');
-            		   for(key in values) {
-            			   
-            			   if (input.attr('type') == 'checkbox') {
-            				   if (values[key] == 1 && input.is(':checked')) {
-            					   $(blocs[bloc]).show();
-                				   $(blocs[bloc]).initBlocsFormCol();
-            				   }
-            				   if (values[key] != 1 && !input.is(':checked')) {
-            					   $(blocs[bloc]).show();
-                				   $(blocs[bloc]).initBlocsFormCol();
-            				   }
-            			   }
-            			   
-            			   if (input.val() && values[key] == input.val()) {
-            				   $(blocs[bloc]).show();
-            				   $(blocs[bloc]).initBlocsFormCol();
-            			   }
-            		   }
-        		   }
-        	   }
-            }
-    	}
+		var blocs = blocCondition.attr('data-condition-cible').split('|');
+		var traitement = function(input, blocs) {
+			if(input.is(':checked') || input.is(':selected') || (isSelect && input.val())) {
+				 for (bloc in blocs) {
+					 if ($(blocs[bloc]).exists()) {
+						 var values = $(blocs[bloc]).attr('data-condition-value').split('|');
+						 for(key in values) {
+							 if (input.attr('type') == 'checkbox') {
+	            				   if (values[key] == 1 && input.is(':checked')) {
+	            					   $(blocs[bloc]).show();
+	                				   $(blocs[bloc]).initBlocsFormCol();
+	            				   }
+	            				   if (values[key] != 1 && !input.is(':checked')) {
+	            					   $(blocs[bloc]).show();
+	                				   $(blocs[bloc]).initBlocsFormCol();
+	            				   }
+	            			   }
+							 if (values[key] == input.val()) {
+								 $(blocs[bloc]).show();
+								 $(blocs[bloc]).initBlocsFormCol();	
+							 }
+						 }
+					 }
+				 }
+			}
+			
+		}
     	if(input.length == 0) {
      	   for (bloc in blocs) {
   				$(blocs[bloc]).show();
@@ -90,20 +90,20 @@
       		   traitement($(this), blocs);
       	   }
         });
-
+        
         input.change(function()
-        {
-           for (bloc in blocs) {
- 				$(blocs[bloc]).hide();
-    	   }
-      	   if($(this).is(':checkbox')) {
-          	   $(this).parent().find('input').each(function() {
-	        	   traitement($(this), blocs);
-          	   });
-      	   } else {
-      		   traitement($(this), blocs);
-      	   }
-        });
+                {
+            for (bloc in blocs) {
+  				$(blocs[bloc]).hide();
+     	   }
+       	   if($(this).is(':checkbox')) {
+           	   $(this).parent().find('input').each(function() {
+ 	        	   traitement($(this), blocs);
+           	   });
+       	   } else {
+       		   traitement($(this), blocs);
+       	   }
+         });
 	}
 
 	/* Egalisation des lignes pour les champs en 2 colonnes */
