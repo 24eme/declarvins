@@ -57,7 +57,7 @@
 	$.fn.includeJS(jsPath, 'declaration_acq.js?20160927');
     $.fn.includeJS(jsPath, 'produits.js');
     $.fn.includeJS(jsPath, 'ajaxHelper.js');
-    $.fn.includeJS(jsPath, 'vrac.js');
+    $.fn.includeJS(jsPath, 'vrac.js?20180802');
 	$.fn.includeJS(jsPath, 'statistiques.js');
 
 })(jQuery);
