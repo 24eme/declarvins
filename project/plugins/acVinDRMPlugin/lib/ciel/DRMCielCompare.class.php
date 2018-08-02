@@ -16,6 +16,8 @@ class DRMCielCompare
 		$arrOut = $this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlOut))); // INTERPRO
 		
 		$diff = array();
+		$stocksIn = 0;
+		$stocksOut = 0;
 		foreach ($arrIn as $key => $value) {
 			if (!isset($arrOut[$key]) && $value) {
 				$diff[$key] = $value;
@@ -23,11 +25,26 @@ class DRMCielCompare
 			if (isset($arrOut[$key]) && $arrOut[$key] != $value) {
 				$diff[$key] = $value;
 			}
+			if (preg_match('/stock-debut-periode/', $key)) {
+				$stocksIn += $value;
+			}
+			if (preg_match('/stock-fin-periode/', $key)) {
+				$stocksIn += $value;
+			}
 		}
 		foreach ($arrOut as $key => $value) {
 			if (!isset($arrIn[$key]) && $value) {
 				$diff[$key] = $value;
 			}
+			if (preg_match('/stock-debut-periode/', $key)) {
+				$stocksOut += $value;
+			}
+			if (preg_match('/stock-fin-periode/', $key)) {
+				$stocksOut += $value;
+			}
+		}
+		if (!$stocksOut && !$stocksIn) {
+			$diff = array();
 		}
 		return $diff;
 	}
@@ -38,6 +55,8 @@ class DRMCielCompare
 		$arrOut = $this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlOut))); // INTERPRO
 		
 		$diff = array();
+		$stocksIn = 0;
+		$stocksOut = 0;
 		foreach ($arrIn as $key => $value) {
 			if (!isset($arrOut[$key]) && $value) {
 				$diff['Donnée ajoutée / '.$this->cleanKey($key)] = "$value (CIEL)";
@@ -45,11 +64,26 @@ class DRMCielCompare
 			if (isset($arrOut[$key]) && $arrOut[$key] != $value) {
 				$diff['Donnée modifiée / '.$this->cleanKey($key)] = "$value (CIEL) / $arrOut[$key] (Interpro.)";
 			}
+			if (preg_match('/stock-debut-periode/', $key)) {
+				$stocksIn += $value;
+			}
+			if (preg_match('/stock-fin-periode/', $key)) {
+				$stocksIn += $value;
+			}
 		}
 		foreach ($arrOut as $key => $value) {
 			if (!isset($arrIn[$key]) && $value) {
 				$diff['Donnée supprimée / '.$this->cleanKey($key)] = "$value (Interpro.)";
 			}
+			if (preg_match('/stock-debut-periode/', $key)) {
+				$stocksOut += $value;
+			}
+			if (preg_match('/stock-fin-periode/', $key)) {
+				$stocksOut += $value;
+			}
+		}
+		if (!$stocksOut && !$stocksIn) {
+			$diff = array();
 		}
 		return $diff;
 	}

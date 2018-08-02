@@ -3,40 +3,35 @@ use_helper('Text');
 ?>
 <nav id="barre_navigation">
     <ul id="nav_principale">
-        <!--<li>
-            <a href="#">Accueil</a>
-        </li>-->
-        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $configuration->isApplicationOuverte($etablissement->interpro, 'drm', $etablissement)): ?>
+        <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'drm', $etablissement)): ?>
         <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
         <li<?php if ($active == 'drm'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('drm_mon_espace', $etablissement) ?>">DRM</a>
         </li>
         <?php endif; ?>
         <?php endif; ?>
-        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $configuration->isApplicationOuverte($etablissement->interpro, 'vrac')): ?>
+        <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'vrac')): ?>
         <?php if($etablissement->hasDroit(EtablissementDroit::DROIT_VRAC) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
         <li<?php if ($active == 'vrac'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('vrac_etablissement', $etablissement) ?>">Contrat interprofessionnel</a>
         </li>
         <?php endif; ?>
         <?php endif; ?>        
-        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $configuration->isApplicationOuverte($etablissement->interpro, 'daids')): ?>
+        <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'daids')): ?>
         <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
-        <!-- 
         <li<?php if ($active == 'daids'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('daids_mon_espace', $etablissement) ?>">DAI/DS</a>
         </li>
-         -->
         <?php endif; ?>
         <?php endif; ?>        
-        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $configuration->isApplicationOuverte($etablissement->interpro, 'dsnegoce')): ?>
+        <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'dsnegoce')): ?>
         <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DSNEGOCE)) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
         <li<?php if ($active == 'dsnegoce'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('dsnegoce_mon_espace', $etablissement) ?>">DS Négoce</a>
         </li>
         <?php endif; ?>
         <?php endif; ?> 
-        <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $configuration->isApplicationOuverte($etablissement->interpro, 'dae')): ?>
+        <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'dae')): ?>
         <?php if($etablissement->hasDroit(EtablissementDroit::DROIT_DAE)): ?>
         <li<?php if ($active == 'dae'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('dae_etablissement', $etablissement) ?>">Commercialisation</a>

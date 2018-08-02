@@ -200,8 +200,11 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   			$contrats = $produit->getContratsVrac();
   			$exist = false;
   			foreach ($contrats as $contrat) {
-  				if ($numContrat == $contrat->getNumeroContrat()) {
+  				if ($numContrat == $contrat->getNumeroContrat() && $contrat->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE) {
   					$exist = true;
+  					if ($contrat->version) {
+  						$numContrat .= '-'.$contrat->version;
+  					}
   					break;
   				}
   			}

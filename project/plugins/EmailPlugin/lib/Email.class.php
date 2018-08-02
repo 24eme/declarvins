@@ -322,9 +322,6 @@ class Email {
     	->setBody($body)
     	->setContentType('text/html')
     	->attach(Swift_Attachment::fromPath(sfConfig::get('sf_data_dir').'/convention-ciel/pdf/'.$convention->get('_id').'.pdf'));
-    	if ($contrat) {
-    		$message->attach(Swift_Attachment::fromPath(sfConfig::get('sf_cache_dir').'/pdf/'.$contrat->get('_id').'_avenant.pdf'));
-    	}
     	return $this->getMailer()->send($message);
     }
     
@@ -408,10 +405,8 @@ class Email {
     	return $this->getMailer()->send($message);
     }
     
-    public function cielRectificative($drm, $diffs)
+    public function cielRectificative($drm, $diffs, $interpro)
     {
-    	// Desactivation temporaire
-    	return null;
     	$etablissement = $drm->getEtablissement();
     	$compte = $etablissement->getCompteObject();
     	if (!$compte->email) {
@@ -422,6 +417,13 @@ class Email {
     	$subject = "Modification de votre DRM sur CIEL";
     	$body = $this->getBodyFromPartial('ciel_rectificative', array('drm' => $drm, 'diffs' => $diffs, 'etablissement' => $etablissement));
     	$message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
+    	if ($interpro) {
+    		$cc = array($interpro->email_contrat_inscription);
+    		if ($interpro->identifiant == 'CIVP') {
+    			$cc[] = $interpro->email_assistance_ciel;
+    		}
+    		$message->setCc($cc);
+    	}
     	return $this->getMailer()->send($message);
     }
     

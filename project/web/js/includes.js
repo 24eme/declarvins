@@ -47,7 +47,7 @@
 		
 	// Fonctions personnalisées)
 	$.fn.includeJS(jsPath, 'konami.js');
-	$.fn.includeJS(jsPath, 'global.js?20160927');
+	$.fn.includeJS(jsPath, 'global.js?20180801');
 	$.fn.includeJS(jsPath, 'popups.js?20170712');
 	$.fn.includeJS(jsPath, 'form.js');
 	$.fn.includeJS(jsPath, 'autocomplete.js?20160122');
@@ -57,7 +57,7 @@
 	$.fn.includeJS(jsPath, 'declaration_acq.js?20160927');
     $.fn.includeJS(jsPath, 'produits.js');
     $.fn.includeJS(jsPath, 'ajaxHelper.js');
-    $.fn.includeJS(jsPath, 'vrac.js');
+    $.fn.includeJS(jsPath, 'vrac.js?20180802');
 	$.fn.includeJS(jsPath, 'statistiques.js');
 
 })(jQuery);

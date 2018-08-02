@@ -5,19 +5,20 @@
 	<h1>Déclaration de Stock <strong><?php echo $cm->getCampagneByDate(sfConfig::get('app_dsnegoce_date')) ?></strong></h1>
 	
 	<div class="col-xs-12">
-        <div class="row">        	
+        <div class="row"> 
+        	<h4>Formulaire à déposer avant le 15 septembre</h4>    	
         	<?php if ($isCloture): ?>
         	<p class="text-center text-danger"><em>Le téléservice est cloturé</em></p>
         	<?php else: ?>
         	<div class="col-xs-6">
         	
         		<div class="dropdown pull-right">
-				  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				    <a>Télécharger la DS à compléter</a>
+				  <button class="btn btn-default dropdown-toggle link" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				    Télécharger la DS à compléter
 				    <span class="caret"></span>
 				  </button>
 				  <ul class="dropdown-menu">
-				    <li><a href="/docs/dsnegoce-ir.xls">Modèle Vallée du Rhône</a></li>
+				    <li><a href="/docs/dsnegoce-ir.xls">Modèle Inter-Rhône</a></li>
 				    <li><a href="/docs/dsnegoce-civp.xls">Modèle Provence</a></li>
 				  </ul>
 				</div>
@@ -25,7 +26,7 @@
         	
         	</div>
         	<div class="col-xs-6">
-        		<a href="<?php echo url_for('dsnegoce_upload', $etablissement) ?>" class="btn btn-default"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;Importer la DS complétée</a>
+        		<a href="<?php echo url_for('dsnegoce_upload', $etablissement) ?>" class="btn btn-default"><span class="glyphicon glyphicon-download-alt"></span>&nbsp;Déposer la DS complétée</a>
         	</div>
         	<?php endif; ?>
 		</div>

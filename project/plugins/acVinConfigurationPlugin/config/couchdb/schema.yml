@@ -27,6 +27,7 @@ Configuration:
                   vrac: {  }
                   daids: {  }
                   dsnegoce: {  }
+                  dae: {  }
       ciel:
         type: collection
         definition:

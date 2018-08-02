@@ -45,6 +45,12 @@ Etablissement:
       email: {  }
       telephone: {  }
       fax: {  }
+      droits:
+        type: array_collection
+        required: false
+        definition:
+          fields:
+            '*': { }
       siege:
           type: collection
           definition:

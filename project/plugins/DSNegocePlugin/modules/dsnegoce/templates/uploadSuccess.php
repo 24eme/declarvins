@@ -3,7 +3,7 @@
 
 	<div class="col-xs-12">
         <div class="row">
-        	<h4>Importer la DS complétée</h4>
+        	<h4>Déposer la DS complétée</h4>
         	
         	<div class="col-md-12" style="margin-top: 20px;">
 
@@ -35,7 +35,7 @@
 					</div>
 					
 					<div class="col-xs-6"><a href="<?php echo url_for('dsnegoce_mon_espace', $etablissement) ?>" class="btn btn-default">Annuler</a></div>
-	    			<div class="col-xs-6 text-right"><button id="btn_valider" type="submit" class="btn btn-success">Importer</button></div>
+	    			<div class="col-xs-6 text-right"><button id="btn_valider" type="submit" class="btn btn-success">Déposer</button></div>
 				    
 				</form>
 			

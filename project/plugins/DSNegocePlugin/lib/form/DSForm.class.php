@@ -18,6 +18,6 @@ class DSForm extends FichierForm
 	}
 	
 	public function getInterpro() {
-		return array('INTERPRO-IR' => 'Vallée du Rhône', 'INTERPRO-CIVP' => 'Provence');
+		return array('INTERPRO-IR' => 'Inter-Rhône', 'INTERPRO-CIVP' => 'Provence');
 	}
 }

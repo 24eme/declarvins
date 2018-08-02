@@ -168,6 +168,21 @@
 
 	$(document).ready(function()
 	{
+		if($('#popup_info_stocks').exists())
+		{
+			$.openPopup("#popup_info_stocks", 
+					null, 
+					"Nouvelle campagne", 
+					null, 
+					null, 
+					function() {
+						btnPopup.addClass('btn_chargement');
+					}, 
+					function() {
+						btnPopup.removeClass('btn_chargement');
+					}
+			);
+		}
 		$('.btn_popup').each(function()
 		{
 			var btnPopup = $(this);

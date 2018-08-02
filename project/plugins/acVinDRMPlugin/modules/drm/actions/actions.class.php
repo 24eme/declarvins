@@ -42,6 +42,8 @@ class drmActions extends sfActions {
         	$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
         }
         $drm->save();
+        if ($drm->isDebutCampagne())
+        	$this->getUser()->setFlash('info_stocks', true);
         $this->redirect('drm_informations', $drm);
     }
     
@@ -59,6 +61,8 @@ class drmActions extends sfActions {
         $historique = new DRMHistorique($etablissement->identifiant);
 
         $formUploadCsv = new UploadCSVForm();
+        
+        $send = true;
 
         $result = array();
         if ($request->isMethod('post')) {
@@ -122,6 +126,9 @@ class drmActions extends sfActions {
         			}
         				
         		} catch(Exception $e) {
+        			if (!$e->getMessage()) {
+        				$send = false;
+        			}
         			$result[] = array('ERREUR', 'CSV', null, 'error_500', $e->getMessage());
         		}
         	} else {
@@ -136,6 +143,22 @@ class drmActions extends sfActions {
         
         $this->logs = $result;
         $this->etablissement = $etablissement;
+        
+        $interpro = $this->etablissement->getInterproObject();
+        $to = ($interpro)? array(sfConfig::get('app_email_to_notification'), $interpro->email_contrat_inscription): array(sfConfig::get('app_email_to_notification'));
+        if ($interpro && $interpro->identifiant == 'CIVP') {
+        	$to[] = $interpro->email_assistance_ciel;
+        }
+
+        $messageErreurs = "<ol>";
+        foreach ($this->logs as $log) {
+        	$messageErreurs .= "<li>".implode(';', $log)."</li>";
+        }
+        $messageErreurs .= "</ol>";
+        $message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur import DTI+ pour ".$drm->identifiant, "Une transmission vient d'échouer pour ".$drm->identifiant."-".$drm->periode." :<br />".$messageErreurs)->setContentType('text/html');
+        if ($send) {
+        	$this->getMailer()->send($message);
+        }
     }
 
     /**
@@ -382,7 +405,7 @@ class drmActions extends sfActions {
 
             return sfView::SUCCESS;
         }
-
+        
         $this->form->bind($request->getParameter($this->form->getName()));
         if (!$this->form->isValid() || !$this->drmValidation->isValide()) {
 
@@ -428,7 +451,6 @@ class drmActions extends sfActions {
 	        		$this->drmCiel->valide = 0;
 	        		$this->drmCiel->xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><reponse-ciel><erreur-interne><message-erreur>Une erreur est survenue à la génération du XML.</message-erreur></erreur-interne></reponse-ciel>';
 	        	}
-	        }
 	        $this->drmCiel->setInformationsFromXml();
 	        if ($this->drmCiel->hasErreurs()) {
 	        	$interpro = $this->etablissement->getInterproObject();
@@ -447,6 +469,7 @@ class drmActions extends sfActions {
 	        	$message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur transmision XML pour ".$this->drm->_id, "Une transmission vient d'échouer pour ".$this->drm->_id." (".$this->drm->declarant->no_accises.") :<br />".$messageErreurs)->setContentType('text/html');
 	        	$this->getMailer()->send($message);
 	        }
+	        }
         }
         if ($this->drm->hasVersion() && $this->drmCiel->isTransfere()) {
         	$this->drm->ciel->valide = 1;
@@ -459,7 +482,7 @@ class drmActions extends sfActions {
         if ($this->drmCiel->isTransfere()) {
         	Email::getInstance()->cielSended($this->drm);
         }
-        
+
         if ($erreursCiel) {
         	return $this->redirect('drm_validation', $this->drm);
         }

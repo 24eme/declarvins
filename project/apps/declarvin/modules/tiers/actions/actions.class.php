@@ -167,6 +167,15 @@ class tiersActions extends sfActions
   	$pdf = new ExportContratPdf($this->contrat);
   	return $this->renderText($pdf->render($this->getResponse(), false));
   }
+
+  public function executeFicheProfil(sfWebRequest $request)
+  {
+  	$this->etablissement = $this->getRoute()->getEtablissement();
+  	$this->compte = $this->etablissement->getCompteObject();
+  	$this->contrat = ContratClient::getInstance()->find($this->compte->contrat);
+  	$pdf = new ExportFichePdf($this->contrat, $this->compte);
+  	return $this->renderText($pdf->render($this->getResponse(), false));
+  }
   
   public function executeConvention(sfWebRequest $request)
   {
@@ -192,15 +201,6 @@ class tiersActions extends sfActions
   	$response->setHttpHeader('Expires', '0');
   
   	return $this->renderText(file_get_contents($path.'/pdf/'.$this->convention->_id.'.pdf'));
-  }
-
-  public function executeAvenant(sfWebRequest $request)
-  {
-  	$this->etablissement = $this->getRoute()->getEtablissement();
-  	$this->compte = $this->etablissement->getCompteObject();
-  	$this->contrat = ContratClient::getInstance()->find($this->compte->contrat);
-  	$pdf = new ExportAvenantPdf($this->contrat);
-  	return $this->renderText($pdf->render($this->getResponse(), false));
   }
   
 }

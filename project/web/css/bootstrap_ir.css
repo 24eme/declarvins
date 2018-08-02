@@ -1,3 +1,7 @@
+body {
+	background-color: #989898;
+}
+
 .breadcrumb, #daeFormEtablissement {
 	display: none;
 }
@@ -39,10 +43,14 @@ input.ui-autocomplete-input {
 	float: left;
 }
 
-a, a:link, a:visited {
+a, a:link, a:visited, .link {
     color: #86005b;
 }
 a:hover, a:active {
     color: #c582af;
     text-decoration: none;
+}
+tr.filters {
+	display: none !important;
+}
 }

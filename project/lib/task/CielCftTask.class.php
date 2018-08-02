@@ -157,7 +157,7 @@ EOF;
 	    							$diffs .= '</ul>';
 	    							$rapport[self::RAPPORT_DIFF_KEY][] = 'La DRM '.$drm->_id.' ('.$ea.') doit être rectifiée suite aux modifications suivantes : '.$diffs;
 	    							$files[] = $item;
-	    							Email::getInstance()->cielRectificative($drm, $compare->getLitteralDiff());
+	    							Email::getInstance()->cielRectificative($drm, $compare->getLitteralDiff(), $interpro);
     							} else {
     								$rapport[self::RAPPORT_PASS_KEY][] = 'La DRM '.$drm->_id.' à déjà été traitée';
     							}

@@ -83,6 +83,10 @@ class Etablissement extends BaseEtablissement {
         return $familleType[$this->famille];
     }
 
+    public function isViticulteur() {
+        return ($this->famille == EtablissementFamilles::FAMILLE_PRODUCTEUR);
+    }
+
 	public function getDepartement()
 	{
 		if ($this->siege->code_postal) {
@@ -107,7 +111,7 @@ class Etablissement extends BaseEtablissement {
     }
 
     public function getDroits() {
-    	return EtablissementFamilles::getDroitsByFamilleAndSousFamille($this->famille, $this->sous_famille);
+    	return ($this->exist('droits'))? array_merge_recursive($this->_get('droits')->toArray(), EtablissementFamilles::getDroitsByFamilleAndSousFamille($this->famille, $this->sous_famille)) : EtablissementFamilles::getDroitsByFamilleAndSousFamille($this->famille, $this->sous_famille);
     }
 
     public function save() {
