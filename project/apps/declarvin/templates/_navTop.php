@@ -11,7 +11,7 @@ use_helper('Text');
         <?php endif; ?>
         <?php endif; ?>
         <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'vrac')): ?>
-        <?php if($etablissement->hasDroit(EtablissementDroit::DROIT_VRAC) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+        <?php if($etablissement->hasDroit(EtablissementDroit::DROIT_VRAC)): ?>
         <li<?php if ($active == 'vrac'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('vrac_etablissement', $etablissement) ?>">Contrat interprofessionnel</a>
         </li>
@@ -25,7 +25,7 @@ use_helper('Text');
         <?php endif; ?>
         <?php endif; ?>        
         <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'dsnegoce')): ?>
-        <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DSNEGOCE)) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+        <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DSNEGOCE))): ?>
         <li<?php if ($active == 'dsnegoce'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('dsnegoce_mon_espace', $etablissement) ?>">DS Négoce</a>
         </li>
