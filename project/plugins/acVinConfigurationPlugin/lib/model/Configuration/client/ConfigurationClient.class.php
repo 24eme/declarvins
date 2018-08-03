@@ -157,5 +157,3 @@ class ConfigurationClient extends acCouchdbClient
         return hash("ripemd128", $value.$this->getSaltToken());
     }
 }
-
-}
