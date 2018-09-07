@@ -293,6 +293,9 @@ class ImportEtablissementsCsv {
         		$i = InterproClient::getInstance()->matchInterpro($c[0]);
         		$interpro = $this->_interpros[$i];
         		$idCorrespondance = trim($c[1]);
+        		if ($idCorrespondance == $etab->identifiant) {
+        			continue;
+        		}
         		$etab->correspondances->add($interpro->_id, $idCorrespondance);
         		$interpro->correspondances->add($etab->identifiant, $idCorrespondance);
         		$this->_interpros[$i] = $interpro;
