@@ -51,22 +51,29 @@ class DRMCiel extends BaseDRMCiel
 		$erreurs = array();
 		if ($this->xml && !$this->isTransfere()) {
 			$reponseCiel = $this->getReponseCiel();
+			$known = false;
 			if (isset($reponseCiel->{'erreurs-fonctionnelles'})) {
 				foreach ($reponseCiel->{'erreurs-fonctionnelles'}->{'erreur-fonctionnelle'} as $erreurFonctionnelle) {
 					if (isset($erreurFonctionnelle->{'message-erreur'})) {
 						$erreurs[] =  $erreurFonctionnelle->{'message-erreur'};
+						$known = true;
 					}
 				}
 			}
 			if (isset($reponseCiel->{'erreur-technique'})) {
 				if (isset($reponseCiel->{'erreur-technique'}->{'message-erreur'})) {
 					$erreurs[] =  $reponseCiel->{'erreur-technique'}->{'message-erreur'};
+					$known = true;
 				}
 			}
 			if (isset($reponseCiel->{'erreur-interne'})) {
 				if (isset($reponseCiel->{'erreur-interne'}->{'message-erreur'})) {
 					$erreurs[] =  $reponseCiel->{'erreur-interne'}->{'message-erreur'};
+					$known = true;
 				}
+			}
+			if ($known) {
+				$erreurs[] =  $this->xml;
 			}
 		} elseif (!$this->isTransfere() && $this->xml === false) {
 			$erreurs[] =  "Le service CIEL - Prodouane ne répond pas. Veuillez réessayer ultérieurement.";
