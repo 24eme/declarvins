@@ -72,7 +72,7 @@ class DRMCiel extends BaseDRMCiel
 					$known = true;
 				}
 			}
-			if ($known) {
+			if (!$known) {
 				$erreurs[] =  $this->xml;
 			}
 		} elseif (!$this->isTransfere() && $this->xml === false) {
