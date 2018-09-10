@@ -95,3 +95,4 @@ La liste des erreurs (identifiant et description) pour le portail DeclarVins est
 | ICS-SUD          | Oui |      |  |  |  |
 | I3S              | Oui |      |  |  |  |
 | Antislash        | Oui | Oui  | Oui | Oui |  |
+| La Graine Informatique | Oui |      |  |  |  |
