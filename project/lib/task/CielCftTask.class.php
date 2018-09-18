@@ -119,7 +119,6 @@ EOF;
     			$periode = sprintf("%4d-%02d", (string) $xmlIn->{"declaration-recapitulative"}->{"periode"}->{"annee"}, (string) $xmlIn->{"declaration-recapitulative"}->{"periode"}->{"mois"});
     			if ($drm = CielDrmView::getInstance()->findByAccisesPeriode($ea, $periode)) {
     				$drmCiel = $drm->getOrAdd('ciel');
-    				if (!$drmCiel->valide) {
     					$export = new DRMExportCsvEdi($drm);
     					if ($xml = $export->exportEDI('xml', $contextInstance)) {
     						$xmlOut = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
@@ -165,10 +164,7 @@ EOF;
     					} else {
     						$rapport[self::RAPPORT_ERROR_KEY][] = 'Impossible de générer le XML de La DRM '.$drm->_id;
     					}
-    					
-    				} else {
-    					$rapport[self::RAPPORT_PASS_KEY][] = 'La DRM '.$drm->_id.' à déjà été traitée';
-    				}
+    				
     			} else {
     				$rapport[self::RAPPORT_NONSAISIE_KEY][] = 'La DRM '.$periode.' de l\'établissement '.$ea.' n\'a pas été saisie sur le portail interprofessionnel';
     				$files[] = $item;
@@ -206,9 +202,6 @@ EOF;
 	    	}
 	    	exec('zip -j -r '.$target.$zipname.' '.$target.date('Ymd').'/');
 	    	$message->attach(Swift_Attachment::fromPath($target.$zipname));
-	    	/*foreach ($files as $file) {
-	    		$message->attach(Swift_Attachment::fromPath($file));
-	    	}*/
 	    }
 	    $this->getMailer()->sendNextImmediately()->send($message);
     }
