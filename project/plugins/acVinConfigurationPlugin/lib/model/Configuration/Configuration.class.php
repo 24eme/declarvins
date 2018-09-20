@@ -339,7 +339,7 @@ class Configuration extends BaseConfiguration {
     	if ($hash) {
 	        $configuration = $this->getConfigurationProduitsComplete();
 	        foreach ($configuration as $interpro => $configurationProduits) {
-	            if ($configurationProduits->exist($hash)) {
+	            if ($configurationProduits->exist($hash) && !preg_match('/^[\/]?declaration\/certifications[\/]?$/', $hash)) {
 	                return $configurationProduits->get($hash);
 	            }
 	        }
