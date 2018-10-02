@@ -9,11 +9,17 @@
 		<div class="flash_error">
 			L'import de votre DRM a échoué. Nous vous invitons à contacter votre éditeur de logiciel et de l'informer du rapport d'erreur ci-dessous.
 		</div>
+		<p style="padding: 5px 0;">
+		En cas de difficultés temporaires avec votre fichier DRM issu de votre registre de cave, nous vous invitons à contacter votre Fédération de métiers.
+		</p>
+		<p style="padding: 5px 0;">
+		Si le problème persiste et afin de ne pas bloquer votre déclaration, vous pouvez également saisir pour cette fois directement votre DRM sur DeclarVins pour la transférer ensuite en 1 clic sur CIEL !<?php if ($hasnewdrm): ?> <a style="color: #86005b; font-weight: bold;" href="<?php echo url_for('drm_nouvelle', DRMClient::getInstance()->createDoc($etablissement->identifiant)) ?>">Saisir ma DRM sur DeclarVins</a><?php endif; ?>
+		</p>
 	</div>
 	
-	<h1>Rapport d'erreur</h1>
+	<h1 style="margin-top: 20px;">Rapport d'erreur</h1>
 	
-	<div style="padding: 20px;">
+	<div style="padding: 0 0 20px 0;">
 	<?php foreach ($logs as $log): ?>
 		<?php echo implode(';', $log->getRawValue()); ?><br />
 	<?php endforeach; ?>

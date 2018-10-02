@@ -159,6 +159,23 @@ class drmActions extends sfActions {
         if ($send) {
         	$this->getMailer()->send($message);
         }
+        
+        $this->hasnewdrm = $this->hasNewDRM(DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant));
+    }
+    
+    protected function hasNewDRM($historique, $identifiant = null) {
+    	$last = $historique->getLastDRM();
+    	$lastCiel = ($last)? $last->getOrAdd('ciel') : null;
+    	if ($historique->hasDRMInProcess()) {
+    		return false;
+    	}
+    	if ($lastCiel && $lastCiel->isTransfere() && !$lastCiel->isValide()) {
+    		return false;
+    	}
+    	if (isset($this->campagne) && $this->campagne && DRMClient::getInstance()->buildCampagne($historique->getLastPeriode()) != $this->campagne) {
+    		return false;
+    	}
+    	return true;
     }
 
     /**
@@ -266,16 +283,6 @@ class drmActions extends sfActions {
                 $this->redirect('drm_informations', $drm);
             }
         }
-    }
-
-    protected function hasNewDRM($historique, $identifiant) {
-        if ($historique->getLastPeriode(false) >= $historique->getCurrentPeriode()) {
-            return false;
-        }
-        if ($historique->hasDRMInProcess()) {
-            return false;
-        }
-        return true;
     }
 
     /**
