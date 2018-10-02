@@ -89,7 +89,7 @@
 			</li>
 			<li>
 				<span>Prix :</span>
-				<span><?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€/kg (Hors Taxes / Net)<?php endif;?></span>
+				<span><?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€(HT)/kg soit <?php echo round($vrac->poids * $vrac->prix_unitaire / $vrac->volume_propose) ?> €(HT)/hl<?php endif;?></span>
 			</li>
 			<li>
 				<span>Volume :</span>
