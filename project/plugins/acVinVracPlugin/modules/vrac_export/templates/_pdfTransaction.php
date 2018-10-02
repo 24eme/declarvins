@@ -90,7 +90,7 @@
 	
 	<p>Volume total : <?php echoFloat($vrac->volume_propose) ?>&nbsp;hl</p>
 	<?php if($vrac->type_transaction == 'raisin'): ?>
-	<p>Poids : <?php echoFloat($vrac->poids) ?>&nbsp;kg</p>
+	<p>Poids total : <?php echoFloat($vrac->poids) ?>&nbsp;kg</p>
 	<?php endif;?>
 	<p>Date de début de retiraison : <?php if ($vrac->date_debut_retiraison): ?><?php echo Date::francizeDate($vrac->date_debut_retiraison) ?><?php endif; ?></p>
 	<p>Autres observations : <?php if ($vrac->exist('observations') && $vrac->observations): ?><?php echo $vrac->observations ?><?php endif; ?><br /></p>
@@ -116,7 +116,7 @@
 			<?php foreach ($lot->cuves as $cuve): ?>
 			<tr class="<?php if($i==sizeof($lot->cuves)) echo 'der_cat'; ?>">
 				<td><?php echo $cuve->numero ?></td>
-				<td><?php if ($cuve->volume) {echoLongFloat($cuve->volume);} ?> hl</td>
+				<td><?php if ($cuve->volume) {echoLongFloat($cuve->volume);} ?>&nbsp;hl</td>
 				<td><?php echo Date::francizeDate($cuve->date) ?></td>
 			</tr>
 			<?php $i++; ?>
