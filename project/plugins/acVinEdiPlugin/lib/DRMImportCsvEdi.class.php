@@ -598,7 +598,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     			!$this->getKey($datas[self::CSV_CAVE_APPELLATION]) &&
     			!$this->getKey($datas[self::CSV_CAVE_MENTION]) &&
     			!$this->getKey($datas[self::CSV_CAVE_LIEU]) &&
-    			!$this->couleurKeyToCode($datas[self::CSV_CAVE_COULEUR]) && 
+    			!$this->couleurKeyToCode($datas[self::CSV_CAVE_COULEUR], false) && 
     			!$this->getKey($datas[self::CSV_CAVE_CEPAGE])
     		) {
     		return null;
@@ -625,16 +625,20 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     	}
     }
     
-    private function couleurKeyToCode($key)
+    private function couleurKeyToCode($key , $withDefault = true)
     {
-    	if ($key == " " || !$key) {
-    		$key = null;
+    	$key = strtolower($key);
+    	if (preg_match('/^ros.+$/', $key)) {
+    		$key = 'rose';
+    	}
+    	if (!$withDefault && ($key == " " || !$key)) {
+    		return null;
     	}
     	$correspondances = array(1 => "rouge",
     			2 => "rose",
     			3 => "blanc");
     	if (!in_array($key, array_keys($correspondances))) {
-    		return $key;
+    		return $this->getKey($key, true);
     	}
     	return $correspondances[$key];
     }	
