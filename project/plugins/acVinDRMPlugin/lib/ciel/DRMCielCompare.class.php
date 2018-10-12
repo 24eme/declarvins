@@ -25,10 +25,10 @@ class DRMCielCompare
 			if (isset($arrOut[$key]) && $arrOut[$key] != $value) {
 				$diff[$key] = $value;
 			}
-			if (preg_match('/stock-debut-periode/', $key)) {
+			if (preg_match('/stock-debut-periode/', $key) && !preg_match('/compte-crd/', $key)) {
 				$stocksIn += $value;
 			}
-			if (preg_match('/stock-fin-periode/', $key)) {
+			if (preg_match('/stock-fin-periode/', $key) && !preg_match('/compte-crd/', $key)) {
 				$stocksIn += $value;
 			}
 		}
@@ -36,10 +36,10 @@ class DRMCielCompare
 			if (!isset($arrIn[$key]) && $value) {
 				$diff[$key] = $value;
 			}
-			if (preg_match('/stock-debut-periode/', $key)) {
+			if (preg_match('/stock-debut-periode/', $key) && !preg_match('/compte-crd/', $key)) {
 				$stocksOut += $value;
 			}
-			if (preg_match('/stock-fin-periode/', $key)) {
+			if (preg_match('/stock-fin-periode/', $key) && !preg_match('/compte-crd/', $key)) {
 				$stocksOut += $value;
 			}
 		}
