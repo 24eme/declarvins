@@ -603,6 +603,19 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		) {
     		return null;
     	}
+    	$libelles = explode(' ', $datas[self::CSV_CAVE_PRODUIT]);
+    	foreach ($libelles as $k => $libelle) {
+    		$libelles[$k] = $this->getKey($libelle);
+    	}
+ 		if (
+ 				$libelles && (
+    			in_array($this->getKey($datas[self::CSV_CAVE_GENRE]), $libelles) ||
+ 				in_array($this->getKey($datas[self::CSV_CAVE_APPELLATION]), $libelles) ||
+ 				in_array($this->getKey($datas[self::CSV_CAVE_LIEU]), $libelles) ||
+ 				in_array($this->getKey($datas[self::CSV_CAVE_CEPAGE]), $libelles))
+    		) {
+    		return null;
+    	}
     	$hash = 'declaration/certifications/'.$this->getKey($datas[self::CSV_CAVE_CERTIFICATION]).
     	'/genres/'.$this->getKey($datas[self::CSV_CAVE_GENRE], true).
     	'/appellations/'.$this->getKey($datas[self::CSV_CAVE_APPELLATION], true).
