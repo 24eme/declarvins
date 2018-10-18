@@ -603,7 +603,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		) {
     		return null;
     	}
-    	$libelles = explode(' ', $datas[self::CSV_CAVE_PRODUIT]);
+    	$libelle = trim($datas[self::CSV_CAVE_PRODUIT]);
+    	$libelles = ($libelle)? explode(' ', $libelle) : array();
     	foreach ($libelles as $k => $libelle) {
     		$libelles[$k] = $this->getKey($libelle);
     	}
