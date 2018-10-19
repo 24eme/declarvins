@@ -368,7 +368,7 @@ class Configuration extends BaseConfiguration {
     	if ($produit = $this->getConfigurationProduit($hash)) {
     		return $produit;
     	}
-    	return ($hash)? null : $this->getConfigurationProduitByLibelle($libelle);
+    	return (!$libelle)? null : $this->getConfigurationProduitByLibelle($libelle);
     }
     
     public function identifyEtablissement($identifiant) {
