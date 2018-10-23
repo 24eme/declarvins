@@ -110,7 +110,7 @@ class CielService
 	{
 		return array(
 				'headers'  => array(
-						"Host: ".$this->configuration['host'],
+						"Host: ".$this->configuration['hosttoken'],
 						"Content-Type: application/x-www-form-urlencoded"),
 				'method'  => 'POST',
 				'protocol_version' => 1.1,
@@ -122,7 +122,7 @@ class CielService
 	{
 		return array(
 				'headers'  => array(
-						"Host: ".$this->configuration['host'], 
+						"Host: ".$this->configuration['hostapp'], 
 						"Content-Type: application/xml;charset=UTF-8",
 						"Authorization: Bearer $token"),
 				'method'  => 'POST',
