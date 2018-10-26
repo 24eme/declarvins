@@ -41,6 +41,7 @@ class VracSoussigneIdentifiantView extends acCouchdbView
     const VRAC_OIOC_STATUT = 36;
     const VRAC_OIOC_DATERECEPTION = 37;
     const VRAC_OIOC_DATETRAITEMENT = 38;
+    const VRAC_POIDS = 39;
 
     public static function getInstance() {
 

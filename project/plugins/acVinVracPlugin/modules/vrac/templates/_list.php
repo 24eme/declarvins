@@ -149,7 +149,11 @@
 		    </td>            
 			    <td><?php echo $elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE] ?><br /><?php echo $elt[VracHistoryView::VRAC_VIEW_MILLESIME] ?></td>
 			    <td><?php echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLENLEVE]))? $elt[VracHistoryView::VRAC_VIEW_VOLENLEVE] : '0'; ?> hl / <?php echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLPROP]))? $elt[VracHistoryView::VRAC_VIEW_VOLPROP] : '0'; ?> hl</td>
-			    <td><?php echo (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]))? $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE] : '0'; ?>&nbsp;€&nbsp;HT/hl</td>
+			    <td>
+			    	<?php if (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE])): ?>
+			    	<?php echo $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE] ?>&nbsp;<?php if($elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT] != 'raisin'): ?>€(HT)/hl<?php else: ?>€(HT)/kg<br /><?php echo round($elt[VracHistoryView::VRAC_POIDS] * $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE] / $elt[VracHistoryView::VRAC_VIEW_VOLPROP]) ?>€(HT)/hl<?php endif;?>
+					<?php endif; ?>
+			    </td>
 			</tr>
 			<?php endif; ?>
 	        <?php endforeach; ?>
@@ -280,7 +284,11 @@
 		    </td>            
 			    <td><?php echo $elt[VracHistoryView::VRAC_VIEW_PRODUIT_LIBELLE] ?><br /><?php echo $elt[VracHistoryView::VRAC_VIEW_MILLESIME] ?></td>
 			    <td><?php echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLENLEVE]))? round($elt[VracHistoryView::VRAC_VIEW_VOLENLEVE],4) : '0'; ?> hl / <?php echo (isset($elt[VracHistoryView::VRAC_VIEW_VOLPROP]))? round($elt[VracHistoryView::VRAC_VIEW_VOLPROP],4) : '0'; ?> hl</td>
-			    <td><?php echo (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE]))? round($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE],2) : '0'; ?>&nbsp;€&nbsp;HT/hl</td>
+			    <td>
+			    	<?php if (isset($elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE])): ?>
+			    	<?php echo $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE] ?>&nbsp;<?php if($elt[VracHistoryView::VRAC_VIEW_TYPEPRODUIT] != 'raisin'): ?>€(HT)/hl<?php else: ?>€(HT)/kg<br /><?php echo round($elt[VracHistoryView::VRAC_POIDS] * $elt[VracHistoryView::VRAC_VIEW_PRIXUNITAIRE] / $elt[VracHistoryView::VRAC_VIEW_VOLPROP]) ?>€(HT)/hl<?php endif;?>
+					<?php endif; ?>
+			    </td>
 			</tr>
 			<?php endif; ?>
 	        <?php endforeach; ?>
