@@ -11,7 +11,7 @@
 						<li><a href="<?php echo url_for("profil_pdf", $etablissement) ?>" class=""><span>Contrat d'inscription</span></a></li>
 						<li><a href="<?php echo url_for("fiche_pdf", $etablissement) ?>" class=""><span>Fiche profil</span></a></li>
 						<?php if ($convention = $compte->getConventionCiel()): ?>
-				        <?php if($convention->valide): ?>
+				        <?php if($convention->valide && $etablissement->isTransmissionCiel()): ?>
 				        <li><a href="<?php echo url_for("profil_convention", $etablissement) ?>" class=""><span>Convention CIEL</span></a></li>
 				        <?php endif; ?>
 				        <?php endif; ?>
