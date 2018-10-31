@@ -731,10 +731,12 @@ class ediActions extends sfActions
 				$convention = 'oui';
 			} else {
 				$convention = 'non';
+				if ($compte) {
 				if ($convention = $compte->getConventionCiel()) {
 					if ($convention->valide) {
 						$dematerialise_ciel = 'att';
 					}
+				}
 				}
 			}
 			$result .= $etablissement->identifiant;
