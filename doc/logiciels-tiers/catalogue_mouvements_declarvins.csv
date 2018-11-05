@@ -53,3 +53,15 @@ crd,sorties,detruites,Mouvement pour la partie CRD
 crd,sorties,manquantes,Mouvement pour la partie CRD
 crd,stocks,total_debut_mois,Stock pour la partie CRD
 crd,stocks,total_fin_mois,Stock pour la partie CRD
+annexe,empreinte,debut,Début de période du numéro d'empreinte utilisé
+annexe,empreinte,fin,Fin de période du numéro d'empreinte utilisé
+annexe,empreinte,nb,Nombre de document
+annexe,daa,debut,Début de période du numéro DAA/DCA
+annexe,daa,fin,Fin de période du numéro DAA/DCA
+annexe,daa,nb,Nombre de document
+annexe,dsa,debut,Début de période du numéro DSA/DSAC
+annexe,dsa,fin,Fin de période du numéro DSA/DSAC
+annexe,dsa,nb,Nombre de document
+annexe,statistiques,jus,Statistiques européennes de volume de jus
+annexe,statistiques,mcr,Statistiques européennes de volume de mcr
+annexe,statistiques,vinaigre,Statistiques européennes de volume de vinaigre
