@@ -367,7 +367,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     	}
   		
   		$mvt = $declaratif->getOrAdd($categorie);
-  		$mvt->add($type, $valeur);
+  		$mvt->add($type, (is_numeric($valeur))? $valeur * 1 : $valeur);
     }
     
     private function importStatistiques($numLigne, $datas)
@@ -377,7 +377,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     	
     	$categorie = strtolower($datas[self::CSV_ANNEXE_CATMVT]);
     	$type = strtolower($datas[self::CSV_ANNEXE_TYPEMVT]);
-    	$valeur = $datas[self::CSV_ANNEXE_QUANTITE];
+    	$valeur = $datas[self::CSV_ANNEXE_QUANTITE] * 1;
     	 
     	if (!$categorie || !$declaratif->exist($categorie)) {
     		$this->csvDoc->addErreur($this->categorieAnnexeNotFoundError($numLigne, $datas));
