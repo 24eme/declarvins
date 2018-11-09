@@ -353,7 +353,7 @@ class Configuration extends BaseConfiguration {
     		$libelle = trim($result[1]);
     		$libelleDouane = trim($result[2]);
     	}
-    	if ($libelle) {
+    	if ($libelle || $libelleDouane) {
 	        $configuration = $this->getConfigurationProduitsComplete();
 	        foreach ($configuration as $interpro => $configurationProduits) {
 	        	if ($produit = $configurationProduits->getProduitByLibelle($libelle, $libelleDouane)) {
