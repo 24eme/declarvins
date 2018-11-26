@@ -70,14 +70,16 @@ if (file_exists($csvTest)) {
 		$t->is($nbImported, $nbExported);
 		
 		
-		$daes = DAEClient::getInstance()->findByIdentifiant('TEST1');
+		$daes = DAEClient::getInstance()->findByIdentifiant('TEST1', acCouchdbClient::HYDRATE_JSON);
+		$client = acCouchdbManager::getClient();
 		foreach ($daes as $dae) {
-			$dae->delete();
+			$client->deleteDoc($dae);
 		}
 	}
 	
-	$csvDoc = $daeCsvEdi->getCsvDoc();
-	$csvDoc->delete();
+	if ($csvDoc = $daeCsvEdi->getCsvDoc()) {
+		$csvDoc->delete();
+	}
 	
 } else {
 	$t->comment("/!\ Le fichier non trouvé, l'import / export des DAE n'a pas pu être testé");
