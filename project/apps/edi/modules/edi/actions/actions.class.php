@@ -135,8 +135,10 @@ class ediActions extends sfActions
   	}
   	$dateTime = new DateTime($date);
   	$dateForView = new DateTime($date);
+  	$entetes = array("#date de la commercialisation","identifiant declarvins du déclarant","numéro d'accises du déclarant","nom du déclarant","stat famille","stat sous famille","stat département","code ou nom de la certification du vin","nom ou code du genre du vin","nom ou code du appellation du vin","nom ou code du mention du vin","nom ou code du lieu du vin","nom ou code du couleur du vin","nom ou code du cépage du vin","Le complément du vin","Le libellé personnalisé du vin","label du produit","mention de domaine ou château revendiqué","millésime","primeur","n° accise de l'acheteur","nom acheteur","type acheteur","nom du pays de destination","type de conditionnement","libellé conditionnement","contenance conditionnement en litres","quantité de conditionnement","prix unitaire","stat qtt hl","stat prix hl");
   	$daes = $this->daeCallback($interpro, EdiDAEView::getInstance()->findByDate($dateForView->modify('-1 second')->format('c'))->rows);
-  	return $this->renderCsv($daes, EdiDAEView::VALUE_DATE, "DAE", $dateTime->format('c'), $interpro);
+  	
+  	return $this->renderCsv(array_merge($entetes, $daes), EdiDAEView::VALUE_DATE, "DAE", $dateTime->format('c'), $interpro);
   }
   
   public function executeStreamDRM(sfWebRequest $request) 
