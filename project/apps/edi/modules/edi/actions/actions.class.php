@@ -119,6 +119,25 @@ class ediActions extends sfActions
     $vracs = $this->transactionCallback($interpro, VracOiocView::getInstance()->findByOiocAndDate($oioc, OIOC::STATUT_EDI, "Vrac", $dateForView->modify('-1 second')->format('c'))->rows);
     return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "TRANSACTION", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID));
   }
+
+  public function executeStreamDAE(sfWebRequest $request)
+  {
+  	ini_set('memory_limit', '4096M');
+  	set_time_limit(0);
+  	$date = $request->getParameter('datedebut');
+  	$interpro = $request->getParameter('interpro');
+  	$this->securizeInterpro($interpro);
+  	if (!$date) {
+  		return $this->renderText("Pas de date définie");
+  	}
+  	if (!preg_match('/^INTERPRO-/', $interpro)) {
+  		$interpro = 'INTERPRO-'.$interpro;
+  	}
+  	$dateTime = new DateTime($date);
+  	$dateForView = new DateTime($date);
+  	$daes = $this->daeCallback($interpro, EdiDAEView::getInstance()->findByDate($dateForView->modify('-1 second')->format('c'))->rows);
+  	return $this->renderCsv($daes, EdiDAEView::VALUE_DATE, "DAE", $dateTime->format('c'), $interpro);
+  }
   
   public function executeStreamDRM(sfWebRequest $request) 
   {
@@ -879,6 +898,20 @@ class ediActions extends sfActions
   			$vracs[] = $item;
   		}
   		return $vracs;
+  }
+  
+  protected function daeCallback($interpro, $items)
+  {
+  		$daes = array();
+  		foreach ($items as $item) {
+  			$item->value[EdiDAEView::VALUE_IDENTIFIANT_DECLARANT] = (EdiDAEView::VALUE_IDENTIFIANT_DECLARANT)? ConfigurationClient::getInstance()->anonymisation(EdiDAEView::VALUE_IDENTIFIANT_DECLARANT) : null;
+  			$item->value[EdiDAEView::VALUE_ACCISES_DECLARANT] = (EdiDAEView::VALUE_ACCISES_DECLARANT)? ConfigurationClient::getInstance()->anonymisation(EdiDAEView::VALUE_ACCISES_DECLARANT) : null;
+  			$item->value[EdiDAEView::VALUE_NOM_DECLARANT] = (EdiDAEView::VALUE_NOM_DECLARANT)? ConfigurationClient::getInstance()->anonymisation(EdiDAEView::VALUE_NOM_DECLARANT) : null;
+  			$item->value[EdiDAEView::VALUE_ACCISES_ACHETEUR] = (EdiDAEView::VALUE_ACCISES_ACHETEUR)? ConfigurationClient::getInstance()->anonymisation(EdiDAEView::VALUE_ACCISES_ACHETEUR) : null;
+  			$item->value[EdiDAEView::VALUE_NOM_ACHETEUR] = (EdiDAEView::VALUE_NOM_ACHETEUR)? ConfigurationClient::getInstance()->anonymisation(EdiDAEView::VALUE_NOM_ACHETEUR) : null;
+  			$daes[] = $item;
+  		}
+  		return $daes;
   }
   
   protected function drmCallback($interpro, $items)

@@ -17,6 +17,9 @@ testDRMEdi:
   url: /edi/v2/drm/:id_drm.:format
   param: {module: edi, action: ediV2, format: csv}
   requirements: {format: (csv|xml|debug)}
+streamDAEEdi:
+  url: /edi/dae/:interpro/:datedebut
+  param: {module: edi, action: streamDAE}
 streamDRMEdi:
   url: /edi/drm/:interpro/:datedebut
   param: {module: edi, action: streamDRM}
