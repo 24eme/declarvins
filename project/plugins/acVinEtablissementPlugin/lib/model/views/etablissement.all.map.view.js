@@ -17,7 +17,8 @@ function(doc) {
 		      	  doc.statut,
 			  doc.contrat_mandat,
     			  doc.service_douane,
-    			  doc.correspondances], null);
+			  doc.correspondances,
+     			  doc.no_accises], null);
  	}
 	}
 }

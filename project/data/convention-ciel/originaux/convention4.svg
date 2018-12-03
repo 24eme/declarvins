@@ -13,7 +13,7 @@
    viewBox="0 0 595 842"
    version="1.1"
    id="svg2"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="convention4.svg">
   <metadata
      id="metadata2268">
@@ -36,12 +36,12 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1360"
-     inkscape:window-height="716"
+     inkscape:window-height="717"
      id="namedview2266"
      showgrid="false"
-     inkscape:zoom="2.5368505"
-     inkscape:cx="466.27089"
-     inkscape:cy="135.93951"
+     inkscape:zoom="14.350594"
+     inkscape:cx="411.55822"
+     inkscape:cy="74.852005"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -5381,9 +5381,17 @@
        d="m 374.39775,944.55739 -0.756,0 -2.673,9.0855 0.756,0 2.673,-9.0855"
        style="font-size:13.5px;font-variant:normal;font-stretch:normal;font-family:Standard Symbols L;-inkscape-font-specification:Standard Symbols L"
        id="path4170" />
-    <path
-       d="m 380.76089,944.55739 -4.887,0 -0.837,2.214 0.405,0 c 0.2025,-0.432 0.4725,-0.783 0.729,-0.945 0.243,-0.162 0.3375,-0.1755 1.3095,-0.1755 l 2.0925,0 -2.835,7.8705 c 0.351,0.081 0.405,0.0945 0.7695,0.216 l 3.2535,-9.18"
-       style="font-size:13.5px;font-variant:normal;font-stretch:normal;font-family:Standard Symbols L;-inkscape-font-specification:Standard Symbols L"
-       id="path4172" />
   </g>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:9.60000038px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="304.48917"
+     y="781.90491"
+     id="text4518"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan4520"
+       x="304.48917"
+       y="781.90491"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.80000019px;font-family:'Standard Symbols L';-inkscape-font-specification:'Standard Symbols L'">11</tspan></text>
 </svg>
