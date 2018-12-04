@@ -33,7 +33,7 @@
 				<premix>true</premix>
 <?php endif; ?>
 <?php if ($produit->getObservations()): ?>
-				<observations><?php echo $produit->getObservations() ?></observations>
+				<observations><![CDATA[<?php echo $produit->getObservations() ?>]]></observations>
 <?php endif; ?>
 				<balance-stocks>
 <?php 
@@ -64,7 +64,7 @@
 				<premix>true</premix>
 <?php endif; ?>	
 <?php if ($produit->getObservations()): ?>
-				<observations><?php echo $produit->getObservations() ?></observations>
+				<observations><![CDATA[<?php echo $produit->getObservations() ?>]]></observations>
 <?php endif; ?>
 				<balance-stocks>
 <?php 
