@@ -6,7 +6,8 @@
     <?php if (($sf_user->getCompte()->isTiers() && $drm->getEtablissementObject()->isTransmissionCiel()) && $typedroit == "douane") {continue;} ?>     
     <?php if (isset($hide_cvo) && $hide_cvo && $typedroit == "cvo") {continue;} ?>  
     <?php if ($typedroit == "douane" && !$circulation){continue;}?>   
-    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)){continue;}?>      
+    <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)){continue;}?> 
+    <?php if ($typedroit == "cvo" && $drm->declarant->famille != 'producteur') {continue;} ?>  
     <div class="tableau_ajouts_liquidations">
 
        <h2><strong><?php echo $libelles[$typedroit] ?></strong> <a href="" class="msg_aide" data-msg="help_popup_validation_droit_<?php echo $typedroit; ?>" title="Message aide"></a></h2>
