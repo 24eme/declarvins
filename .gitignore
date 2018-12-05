@@ -8,6 +8,7 @@ project/data/ciel/*
 project/apps/declarvin/templates/_header.php
 project/apps/declarvin/templates/layout.php
 project/data/convention-ciel/pdf/*
+project/data/dae/import-test.csv
 *~
 project/plugins/acVinDAEPlugin
 project/plugins/acVinFichierPlugin

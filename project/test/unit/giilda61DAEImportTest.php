@@ -17,11 +17,13 @@ if ($e->isNew()) {
 	$e->raison_sociale = 'Château TEST';
 	$e->statut = 'ACTIF';
 	$e->add('droits', array('dae'));
+	$e->add('correspondances', array());
 	$e->save();
 }
 
 $etablissement = EtablissementClient::getInstance()->findByIdentifiant('TEST1');
 $t->ok($etablissement);
+
 
 $csvTest = sfConfig::get('sf_data_dir').'/dae/import-test.csv';
 $t->comment("Import DAE depuis $csvTest"); // ********************************************************
@@ -38,6 +40,12 @@ if (file_exists($csvTest)) {
 	$t->is($daeCsvEdi->getCsvDoc()->hasErreurs(), 0);
 	
 	if ($daeCsvEdi->getCsvDoc()->hasErreurs() == 0) {
+		
+		$daes = DAEClient::getInstance()->findByIdentifiant('TEST1', acCouchdbClient::HYDRATE_JSON);
+		$client = acCouchdbManager::getClient();
+		foreach ($daes as $dae) {
+			$client->deleteDoc($dae);
+		}
 		
 		$nbImported = $daeCsvEdi->importCsv();
 		
@@ -66,7 +74,7 @@ if (file_exists($csvTest)) {
 			}
 		}
 		$nbExported = ($csvExport)? count(str_getcsv($csvExport, "\n")) : 0;
-		
+
 		$t->is($nbImported, $nbExported);
 		
 		
