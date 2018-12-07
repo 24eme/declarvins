@@ -386,6 +386,9 @@ class drmActions extends sfActions {
     
     public function executeRetransferCiel(sfWebRequest $request) {
         $this->drm = $this->getRoute()->getDRM();
+        if ($this->drm->isFictive()) {
+        	$this->drm = $this->drm->getDRM();
+        }
         $this->etablissement = $this->getRoute()->getEtablissement();
         $this->drmCiel = $this->drm->getOrAdd('ciel');
         $this->postVars = array('drm_validation' => array('retransmission' => 1));
