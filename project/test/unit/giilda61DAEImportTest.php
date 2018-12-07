@@ -41,12 +41,6 @@ if (file_exists($csvTest)) {
 	
 	if ($daeCsvEdi->getCsvDoc()->hasErreurs() == 0) {
 		
-		$daes = DAEClient::getInstance()->findByIdentifiant('TEST1', acCouchdbClient::HYDRATE_JSON);
-		$client = acCouchdbManager::getClient();
-		foreach ($daes as $dae) {
-			$client->deleteDoc($dae);
-		}
-		
 		$nbImported = $daeCsvEdi->importCsv();
 		
 		$t->is($daeCsvEdi->getCsvDoc()->hasErreurs(), 0);
