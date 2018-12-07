@@ -383,6 +383,42 @@ class drmActions extends sfActions {
         	$this->forward('drm','validation');
         }
     }
+    
+    public function executeRetransferCiel(sfWebRequest $request) {
+        $this->drm = $this->getRoute()->getDRM();
+        $this->etablissement = $this->getRoute()->getEtablissement();
+        $this->drmCiel = $this->drm->getOrAdd('ciel');
+        $this->postVars = array('drm_validation' => array('retransmission' => 1));
+    	$this->url = $this->generateUrl('drm_retransfer_ciel', array('sf_subject' => $this->drm));
+
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->drmCiel->isTransfere() && $this->etablissement->isTransmissionCiel()) {
+        	if ($request->isMethod(sfWebRequest::POST)) {
+	        	$export = new DRMExportCsvEdi($this->drm);
+		        if ($xml = $export->exportEDI('xml')) {
+		        	try {
+		        		$service = new CielService($this->etablissement->interpro);
+		        		$this->drmCiel->xml = $service->transfer($xml);
+		        	} catch (sfException $e) {
+		        		$this->getUser()->setFlash('error', "Une erreur est survenue lors du dialogue avec CIEL");
+		        		return $this->redirect('drm_visualisation', array('sf_subject' => $this->drm));
+		        	}
+		        }
+		        $this->drmCiel->setInformationsFromXml();
+		        if ($this->drmCiel->hasErreurs()) {
+		        	$this->drm->devalide();
+		        }
+		        $this->drm->save();
+		        if ($this->drm->isValidee()) {
+		        	$this->redirect('drm_visualisation', array('sf_subject' => $this->drm));
+		        } else {
+		        	$this->redirect('drm_validation', array('sf_subject' => $this->drm));
+		        }
+        	}
+    	} else {
+    		return $this->redirect404();
+    	}
+    	$this->setTemplate('transferCiel');
+    }
 
     /**
      * Executes mouvements generaux action

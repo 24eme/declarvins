@@ -262,7 +262,16 @@ class DRMRouting {
                             						  			'no_archive' => true,
                               									'must_be_valid' => false,
                               									'must_be_not_valid' => true)));
-        
+
+        $r->prependRoute('drm_retransfer_ciel', new DRMRoute('/drm/:identifiant/retransfert/:periode_version/ciel', 
+                                                          array('module' => 'drm', 
+                                                                'action' => 'retransferCiel'),
+                                                          array('sf_method' => array('get', 'post')),
+                                                          array('model' => 'DRM',
+                                                                'type' => 'object',
+                            						  			'no_archive' => true,
+                              									'must_be_valid' => true,
+                              									'must_be_not_valid' => false)));        
 
         $r->prependRoute('drm_pdf', new DRMRoute('/drm/:identifiant/pdf/:periode_version.:format', 
                                                           array('module' => 'drm', 
