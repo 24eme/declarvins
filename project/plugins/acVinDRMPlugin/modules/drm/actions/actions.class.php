@@ -412,6 +412,7 @@ class drmActions extends sfActions {
 		        }
 		        $this->drm->save();
 		        if ($this->drm->isValidee()) {
+		        	$this->getUser()->setFlash('notice', "DRM re-transmise avec succès à CIEL");
 		        	$this->redirect('drm_visualisation', array('sf_subject' => $this->drm));
 		        } else {
 		        	$this->redirect('drm_validation', array('sf_subject' => $this->drm));
