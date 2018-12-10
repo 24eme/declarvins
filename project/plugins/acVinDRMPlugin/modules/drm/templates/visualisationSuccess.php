@@ -59,7 +59,7 @@
                     </li>
                 </ul>
             </div>
-            <?php if(!$drm->isRectificative() && $drmCiel->isTransfere()): ?>
+            <?php if(!$drm->isRectificative() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <p style="text-align: right; margin-bottom: 10px;"><a href="<?php echo url_for('drm_retransfer_ciel', $drm) ?>" style="background-color: #9e9e9e; padding: 6px; color: #fff;">Re-transmettre la DRM</a></p>
             <?php endif; ?>
         <?php endif; ?>
