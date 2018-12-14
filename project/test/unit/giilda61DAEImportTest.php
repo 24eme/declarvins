@@ -1,8 +1,19 @@
 <?php
 require_once(dirname(__FILE__).'/../bootstrap/unit.php');
 
+function deleteAllDaes()
+{
+	$daes = DAEClient::getInstance()->findByIdentifiant('TEST1', acCouchdbClient::HYDRATE_JSON);
+	$client = acCouchdbManager::getClient();
+	foreach ($daes as $dae) {
+		$client->deleteDoc($dae);
+	}
+}
+
 $configuration = ProjectConfiguration::getApplicationConfiguration('declarvin', 'prod', true);
 $databaseManager = new sfDatabaseManager($configuration);
+
+$deleteDaes = true;
 
 $t = new lime_test(5);
 
@@ -27,6 +38,8 @@ $t->ok($etablissement);
 
 $csvTest = sfConfig::get('sf_data_dir').'/dae/import-test.csv';
 $t->comment("Import DAE depuis $csvTest"); // ********************************************************
+
+deleteAllDaes();
 
 if (file_exists($csvTest)) {
 	
@@ -71,11 +84,8 @@ if (file_exists($csvTest)) {
 
 		$t->is($nbImported, $nbExported);
 		
-		
-		$daes = DAEClient::getInstance()->findByIdentifiant('TEST1', acCouchdbClient::HYDRATE_JSON);
-		$client = acCouchdbManager::getClient();
-		foreach ($daes as $dae) {
-			$client->deleteDoc($dae);
+		if ($deleteDaes) {
+			deleteAllDaes();
 		}
 	}
 	
@@ -88,7 +98,10 @@ if (file_exists($csvTest)) {
 }
 
 $t->comment("Suppression etablissement TEST1"); // ****************************************************
-$etablissement->delete();
+
+if ($deleteDaes) {
+	$etablissement->delete();
+}
 
 $etablissement = EtablissementClient::getInstance()->findByIdentifiant('TEST1');
 
