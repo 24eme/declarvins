@@ -7,6 +7,7 @@ class DRMValidation
 	private $errors;
 	private $isAdmin;
 	private $isCiel;
+	private $etablissement;
 	const VINSSANSIG_KEY = 'VINSSANSIG';
 	const VCI_KEY = 'VCI';
 	const AOP_KEY = 'AOP';
@@ -21,9 +22,9 @@ class DRMValidation
 		$this->engagements = array();
 		$this->warnings = array();
 		$this->errors = array();
-		$etablissement = $drm->getEtablissementObject();
+		$this->etablissement = $drm->getEtablissementObject();
 		$this->isAdmin = ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER)? true : false;
-		$this->isCiel = $etablissement->isTransmissionCiel();
+		$this->isCiel = $this->etablissement->isTransmissionCiel();
 		$this->controleDRM();
 	}
 	
@@ -166,7 +167,7 @@ class DRMValidation
 			  if (($detail->canHaveVrac() && $detail->sorties->vrac) || count($detail->vrac->toArray()) > 0) {
 			  	  $ecart = round($detail->sorties->vrac * self::ECART_VRAC, 4);
 				  if (round($totalVolume,4) < (round($detail->sorties->vrac,4) - $ecart) || round($totalVolume,4) > (round($detail->sorties->vrac,4) + $ecart)) {
-				  	if (($detail->getCertification()->getKey() == self::IGP_KEY || $detail->interpro == 'INTERPRO-CIVP') && $detail->interpro != 'INTERPRO-IS') {
+				  	if (($detail->getCertification()->getKey() == self::IGP_KEY || $detail->interpro == 'INTERPRO-CIVP' || $this->etablissement->famille != 'producteur') && $detail->interpro != 'INTERPRO-IS') {
 				  		$this->warnings['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('vrac', $this->generateUrl('drm_vrac', $this->drm), $detail->makeFormattedLibelle().': %message%');
 				    } else {
 				    	$this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm), $detail->makeFormattedLibelle().': %message%');
