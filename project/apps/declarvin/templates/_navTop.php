@@ -77,7 +77,11 @@ use_helper('Text');
         <li class="quitter"><a href="<?php echo url_for('@tiers') ?>"><img src="/images/boutons/btn_quitter_etablissement.png" alt="Quitter cet établissement"></a></li>
     </ul>
 </nav>
-
+<?php $compte = $etablissement->getCompteObject(); if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement && $compte): ?>
+<div style="text-align: right; background: #fff; height: 16px; padding-top: 5px;">
+<a href="<?php echo url_for('tiers_connexion_email', array('login' => $compte->login)); ?>" style="background: url('/images/pictos/pi_anonyme.png') left 0 no-repeat; padding: 2px 5px 0 20px;">Accéder au compte</a>
+</div>
+<?php  endif; ?>
 
 <?php if ($etablissement->statut == Etablissement::STATUT_ARCHIVE): ?>
 	<div id="etablissement_archive">

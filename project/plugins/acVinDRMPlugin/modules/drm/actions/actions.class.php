@@ -159,6 +159,23 @@ class drmActions extends sfActions {
         if ($send) {
         	$this->getMailer()->send($message);
         }
+        
+        $this->hasnewdrm = $this->hasNewDRM(DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant));
+    }
+    
+    protected function hasNewDRM($historique, $identifiant = null) {
+    	$last = $historique->getLastDRM();
+    	$lastCiel = ($last)? $last->getOrAdd('ciel') : null;
+    	if ($historique->hasDRMInProcess()) {
+    		return false;
+    	}
+    	if ($lastCiel && $lastCiel->isTransfere() && !$lastCiel->isValide()) {
+    		return false;
+    	}
+    	if (isset($this->campagne) && $this->campagne && DRMClient::getInstance()->buildCampagne($historique->getLastPeriode()) != $this->campagne) {
+    		return false;
+    	}
+    	return true;
     }
 
     /**
@@ -268,16 +285,6 @@ class drmActions extends sfActions {
         }
     }
 
-    protected function hasNewDRM($historique, $identifiant) {
-        if ($historique->getLastPeriode(false) >= $historique->getCurrentPeriode()) {
-            return false;
-        }
-        if ($historique->hasDRMInProcess()) {
-            return false;
-        }
-        return true;
-    }
-
     /**
      * Executes historique action
      *
@@ -375,6 +382,46 @@ class drmActions extends sfActions {
         	}
         	$this->forward('drm','validation');
         }
+    }
+    
+    public function executeRetransferCiel(sfWebRequest $request) {
+        $this->drm = $this->getRoute()->getDRM();
+        if ($this->drm->isFictive()) {
+        	$this->drm = $this->drm->getDRM();
+        }
+        $this->etablissement = $this->getRoute()->getEtablissement();
+        $this->drmCiel = $this->drm->getOrAdd('ciel');
+        $this->postVars = array('drm_validation' => array('retransmission' => 1));
+    	$this->url = $this->generateUrl('drm_retransfer_ciel', array('sf_subject' => $this->drm));
+
+        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $this->drmCiel->isTransfere() && $this->etablissement->isTransmissionCiel()) {
+        	if ($request->isMethod(sfWebRequest::POST)) {
+	        	$export = new DRMExportCsvEdi($this->drm);
+		        if ($xml = $export->exportEDI('xml')) {
+		        	try {
+		        		$service = new CielService($this->etablissement->interpro);
+		        		$this->drmCiel->xml = $service->transfer($xml);
+		        	} catch (sfException $e) {
+		        		$this->getUser()->setFlash('error', "Une erreur est survenue lors du dialogue avec CIEL");
+		        		return $this->redirect('drm_visualisation', array('sf_subject' => $this->drm));
+		        	}
+		        }
+		        $this->drmCiel->setInformationsFromXml();
+		        if ($this->drmCiel->hasErreurs()) {
+		        	$this->drm->devalide();
+		        }
+		        $this->drm->save();
+		        if ($this->drm->isValidee()) {
+		        	$this->getUser()->setFlash('notice', "DRM re-transmise avec succès à CIEL");
+		        	$this->redirect('drm_visualisation', array('sf_subject' => $this->drm));
+		        } else {
+		        	$this->redirect('drm_validation', array('sf_subject' => $this->drm));
+		        }
+        	}
+    	} else {
+    		return $this->redirect404();
+    	}
+    	$this->setTemplate('transferCiel');
     }
 
     /**

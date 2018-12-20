@@ -13,7 +13,7 @@
    viewBox="0 0 595 842"
    version="1.1"
    id="svg2"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="convention7.svg">
   <metadata
      id="metadata7002">
@@ -36,12 +36,12 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1360"
-     inkscape:window-height="716"
+     inkscape:window-height="717"
      id="namedview7000"
      showgrid="false"
-     inkscape:zoom="1.7938242"
-     inkscape:cx="371.875"
-     inkscape:cy="199.42078"
+     inkscape:zoom="14.350594"
+     inkscape:cx="369.38441"
+     inkscape:cy="91.429937"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -16472,9 +16472,17 @@
        d="m 363.054,946.68239 -0.756,0 -2.673,9.0855 0.756,0 2.673,-9.0855"
        style=""
        id="path9990" />
-    <path
-       d="m 369.41714,946.68239 -4.887,0 -0.837,2.214 0.405,0 c 0.2025,-0.432 0.4725,-0.783 0.729,-0.945 0.243,-0.162 0.3375,-0.1755 1.3095,-0.1755 l 2.0925,0 -2.835,7.8705 c 0.351,0.081 0.405,0.0945 0.7695,0.216 l 3.2535,-9.18"
-       style=""
-       id="path9992" />
   </g>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:9.60000038px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="303.70868"
+     y="782.68536"
+     id="text6899"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan6901"
+       x="303.70868"
+       y="782.68536"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.80000019px;font-family:'Standard Symbols L';-inkscape-font-specification:'Standard Symbols L'">11</tspan></text>
 </svg>

@@ -188,6 +188,10 @@
 
 			</table>
 			<?php endif; ?>
+			<?php foreach($colonnes as $item): if ($item): ?>
+			<br />
+			<strong><?php echo $item->getCode() ?></strong> : <?php echo $item->getLibelle() ?>
+			<?php endif; endforeach; ?>
 		<?php endif; ?>
 		<?php $colonnes = $pagers_vrac[$certification_key]->getResults(); ?>
 		<?php if(count($colonnes) > 0): ?>

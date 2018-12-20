@@ -54,11 +54,13 @@
                 <?php echo $form['volume_propose']->renderLabel() ?>
                 <?php echo $form['volume_propose']->render() ?> hl
             </div>
+            <?php if (isset($form['poids'])): ?>
             <div class="section_label_strong" id="bloc_poids" class="bloc_conditionner" data-condition-value="raisin">
                 <?php echo $form['poids']->renderError() ?>
                 <?php echo $form['poids']->renderLabel() ?>
                 <?php echo $form['poids']->render() ?> kg
             </div>
+            <?php endif; ?>
             <div class="section_label_strong">
                 <?php echo $form['prix_unitaire']->renderError() ?>
                 <?php echo $form['prix_unitaire']->renderLabel() ?>

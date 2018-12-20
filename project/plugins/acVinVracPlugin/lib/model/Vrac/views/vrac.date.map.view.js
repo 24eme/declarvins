@@ -77,7 +77,7 @@ function(doc) {
 		var vrac_annexe = doc.annexe;
 		var vrac_volume_propose = doc.volume_propose;
 		var vrac_volume_enleve = doc.volume_enleve;
-		var vrac_prix_unitaire = doc.prix_unitaire;
+		var vrac_prix_unitaire = (doc.type_transaction == 'raisin')? ((doc.poids * doc.prix_unitaire) / doc.volume_propose) : doc.prix_unitaire;
 		var vrac_type_prix = doc.type_prix;
 		var vrac_determination_prix = doc.determination_prix;
 		var vrac_determination_prix_date = doc.determination_prix_date;

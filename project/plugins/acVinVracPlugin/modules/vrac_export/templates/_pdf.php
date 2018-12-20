@@ -105,7 +105,10 @@
 	<table class="tableau_simple">
 		<thead>
 			<tr>
-				<th>Volume total (<?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?>)</th>
+				<th>Volume total</th>
+				<?php if($vrac->type_transaction == 'raisin'): ?>
+				<th>Poids total</th>
+				<?php endif; ?>
 				<th>Prix unitaire net HT hors cotisation</th>
 				<?php if ($vrac->has_cotisation_cvo): ?>
 				<th>Part cotisation payée par l'acheteur</th>
@@ -115,11 +118,11 @@
         </thead>
         <tbody>
 			<tr>
-				<td><?php echoFloat($vrac->volume_propose) ?></td>
+				<td><?php echoFloat($vrac->volume_propose) ?>&nbsp;hl</td>
 				<?php if($vrac->type_transaction == 'raisin'): ?>
-				<td><?php echoFloat($vrac->poids) ?></td>
+				<td><?php echoFloat($vrac->poids) ?>&nbsp;kg</td>
 				<?php endif; ?>
-				<td><?php echoFloat($vrac->prix_unitaire) ?> <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€/kg (Hors Taxes / Net)<?php endif;?></td>
+				<td><?php echoFloat($vrac->prix_unitaire) ?> <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€(HT)/kg soit <?php echo round($vrac->poids * $vrac->prix_unitaire / $vrac->volume_propose) ?> €(HT)/hl<?php endif;?></td>
 				<?php if ($vrac->has_cotisation_cvo): ?>
 				<td><?php echoFloat($vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) ?>  <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€/kg (Hors Taxes / Net)<?php endif;?></td>
 				<?php endif; ?>
@@ -211,7 +214,7 @@
 				<th rowspan="5" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
 				<th rowspan="2" class="cuves">Cuves</th>
 				<th>N° des cuves</th>
-				<th>Volume (<?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?>)</th>
+				<th>Volume</th>
 				<th>Date de retiraison</th>
 			</tr>
 
@@ -219,7 +222,7 @@
 			<?php foreach ($lot->cuves as $cuve): ?>
 			<tr class="<?php if($i==sizeof($lot->cuves)) echo 'der_cat'; ?>">
 				<td><?php echo $cuve->numero ?></td>
-				<td><?php if ($cuve->volume) {echoLongFloat($cuve->volume);} ?></td>
+				<td><?php if ($cuve->volume) {echoLongFloat($cuve->volume);} ?>&nbsp;hl</td>
 				<td><?php echo Date::francizeDate($cuve->date) ?></td>
 			</tr>
 			<?php $i++; ?>

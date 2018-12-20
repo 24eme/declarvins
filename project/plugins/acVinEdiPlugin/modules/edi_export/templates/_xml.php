@@ -25,7 +25,7 @@
 <?php if ($produit->getInao()): ?>
 				<code-inao><?php echo $produit->getInao() ?></code-inao>
 <?php endif; ?>
-				<libelle-personnalise><?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?><?php if($produit->hasLabel()): ?> <?php echo $produit->getLabelKeyString(); ?><?php endif; ?></libelle-personnalise>
+				<libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?><?php if($produit->hasLabel()): ?> <?php echo $produit->getLabelKeyString(); ?><?php endif; ?>]]></libelle-personnalise>
 <?php if ($produit->getTav()): ?>
 				<tav><?php echo sprintf("%01.02f", $produit->getTav()) ?></tav>
 <?php endif; ?>
@@ -33,7 +33,7 @@
 				<premix>true</premix>
 <?php endif; ?>
 <?php if ($produit->getObservations()): ?>
-				<observations><?php echo $produit->getObservations() ?></observations>
+				<observations><![CDATA[<?php echo $produit->getObservations() ?>]]></observations>
 <?php endif; ?>
 				<balance-stocks>
 <?php 
@@ -56,7 +56,7 @@
 <?php if ($produit->getInao()): ?>
 				<code-inao><?php echo $produit->getInao() ?></code-inao>
 <?php endif; ?>
-				<libelle-personnalise><?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?></libelle-personnalise>
+				<libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?>]]></libelle-personnalise>
 <?php if ($produit->getTav()): ?>
 				<tav><?php echo sprintf("%01.02f", $produit->getTav()) ?></tav>
 <?php endif; ?>
@@ -64,7 +64,7 @@
 				<premix>true</premix>
 <?php endif; ?>	
 <?php if ($produit->getObservations()): ?>
-				<observations><?php echo $produit->getObservations() ?></observations>
+				<observations><![CDATA[<?php echo $produit->getObservations() ?>]]></observations>
 <?php endif; ?>
 				<balance-stocks>
 <?php 

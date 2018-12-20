@@ -234,6 +234,15 @@ class Configuration extends BaseConfiguration {
         return $configuration;
     }
 
+    public function getProduitsComplete() {
+        $produits = array();
+        foreach ($this->getConfigurationProduitsComplete() as $confProduits) {
+        	foreach ($confProduits->getProduits() as $p)
+            $produits[$p->getHash()] = $p;
+        }
+        return $produits;
+    }
+
     public function getFormattedProduits($hash = null, $zones, $onlyForDrmVrac = false, $format = "%g% %a% %m% %l% %co% %ce%", $cvoNeg = false, $date = null) {
         $produits = array();
         foreach ($zones as $zoneId => $zone) {
@@ -339,7 +348,7 @@ class Configuration extends BaseConfiguration {
     	if ($hash) {
 	        $configuration = $this->getConfigurationProduitsComplete();
 	        foreach ($configuration as $interpro => $configurationProduits) {
-	            if ($configurationProduits->exist($hash)) {
+	            if ($configurationProduits->exist($hash) && !preg_match('/^[\/]?declaration\/certifications[\/]?$/', $hash)) {
 	                return $configurationProduits->get($hash);
 	            }
 	        }
@@ -353,7 +362,7 @@ class Configuration extends BaseConfiguration {
     		$libelle = trim($result[1]);
     		$libelleDouane = trim($result[2]);
     	}
-    	if ($libelle) {
+    	if ($libelle || $libelleDouane) {
 	        $configuration = $this->getConfigurationProduitsComplete();
 	        foreach ($configuration as $interpro => $configurationProduits) {
 	        	if ($produit = $configurationProduits->getProduitByLibelle($libelle, $libelleDouane)) {
@@ -368,7 +377,7 @@ class Configuration extends BaseConfiguration {
     	if ($produit = $this->getConfigurationProduit($hash)) {
     		return $produit;
     	}
-    	return ($hash)? null : $this->getConfigurationProduitByLibelle($libelle);
+    	return (!$libelle)? null : $this->getConfigurationProduitByLibelle($libelle);
     }
     
     public function identifyEtablissement($identifiant) {

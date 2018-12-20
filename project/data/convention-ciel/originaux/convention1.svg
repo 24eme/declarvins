@@ -13,8 +13,8 @@
    viewBox="0 0 595 842"
    version="1.1"
    id="svg2"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="convention.svg">
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="convention1.svg">
   <metadata
      id="metadata3590">
     <rdf:RDF>
@@ -36,12 +36,12 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1360"
-     inkscape:window-height="716"
+     inkscape:window-height="717"
      id="namedview3588"
      showgrid="false"
-     inkscape:zoom="3.5876484"
-     inkscape:cx="484.2986"
-     inkscape:cy="124.87288"
+     inkscape:zoom="7.1752968"
+     inkscape:cx="410.23238"
+     inkscape:cy="102.689"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -10311,7 +10311,7 @@
            y="967.48608" /></flowRegion><flowPara
          id="flowPara9621">77tghj</flowPara></flowRoot>    <text
        xml:space="preserve"
-       style="font-size:9.60000038px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-style:normal;font-weight:normal;font-size:9.60000038px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
        x="304.35016"
        y="782.90839"
        id="text9623"
@@ -10320,6 +10320,6 @@
          id="tspan9625"
          x="304.35016"
          y="782.90839"
-         style="font-size:10.80000019px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Standard Symbols L;-inkscape-font-specification:Standard Symbols L">7</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.80000019px;font-family:'Standard Symbols L';-inkscape-font-specification:'Standard Symbols L'">11</tspan></text>
   </g>
 </svg>

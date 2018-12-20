@@ -204,6 +204,11 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
     	return $inao;
     }
     
+    public function getCodeDouane()
+    {
+    	return $this->getIdentifiantDouane();
+    }
+    
 	/*
      * Les fonctions ci-dessous sont relatives à la gestion de la configuration du catalogue produit
      */

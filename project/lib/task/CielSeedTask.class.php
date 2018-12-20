@@ -14,6 +14,8 @@ class CielSeedTask extends sfBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'declarvin'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
+      new sfCommandOption('interpro', null, sfCommandOption::PARAMETER_REQUIRED, 'Interprofession'),
+      new sfCommandOption('ea', null, sfCommandOption::PARAMETER_REQUIRED, 'EA'),
       // add your own options here
     ));
 
@@ -31,11 +33,16 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
     
+    $ea = $options['ea'];
+    $interpro = $options['interpro'];
+    
   	try {
-  		$service = new CielService("IR");
-  		$result = $service->seed($this->getXml());
-  		var_dump($result);exit;
+  		$service = new CielService($interpro);
+  		$result = $service->seed($this->getXml($ea));
+  		var_dump($result);
+  		echo "\n";
   		echo (strpos($result, '<traderAuthorisation>') !== false)? 'valide' : 'non valide';
+  		echo "\n";
   		
   	} catch (sfException $e) {
   		echo "/!\ Erreurs :\n";
@@ -45,14 +52,14 @@ EOF;
     
   }
   
-  protected function getXml()
+  protected function getXml($ea)
   {
   	return '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.seed.douane.finances.gouv.fr/">
 <soapenv:Header/>
 <soapenv:Body>
 <ws:getInformation>
 <numAccises>
-<numAccise>FR093027E0635</numAccise>
+<numAccise>'.$ea.'</numAccise>
 </numAccises>
 </ws:getInformation>
 </soapenv:Body>

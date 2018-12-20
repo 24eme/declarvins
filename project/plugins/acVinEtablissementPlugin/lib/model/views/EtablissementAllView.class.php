@@ -20,6 +20,7 @@ class EtablissementAllView extends acCouchdbView
 	const KEY_CONTRAT = 15;
 	const KEY_DOUANE = 16;
 	const KEY_CORRESPONDANCE = 17;
+	const KEY_EA = 18;
 
 	public static function getInstance() {
 
@@ -137,6 +138,10 @@ class EtablissementAllView extends acCouchdbView
 
         if (isset($datas[self::KEY_CVI]) && $cvi = $datas[self::KEY_CVI]) {
             $libelle .= ' / '.$cvi;
+        }
+
+        if (isset($datas[self::KEY_EA]) && $ea = $datas[self::KEY_EA]) {
+            $libelle .= ' / '.$ea;
         }
         $libelle .= ') ';
 

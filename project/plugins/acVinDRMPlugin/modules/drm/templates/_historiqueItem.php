@@ -58,7 +58,7 @@ endif;
 										    <?php echo $formImport->renderHiddenFields(); ?>
 										    <?php echo $formImport->renderGlobalErrors(); ?>
 										
-										    <?php echo $formImport['file']->render() ?>
+										    <?php echo $formImport['file']->render(array('id' => 'uploadFileInput', 'required' => 'required')) ?>
 										    <?php echo $formImport['file']->renderError() ?>
 										
 											<div id="submit-drm-edi" class="btn ligne_form_btn" style="text-align: center;">
@@ -76,8 +76,10 @@ endif;
 					</div>
 					<script type="text/javascript">
 						$("#submit-drm-edi button").click(function() {
-							$("#submit-drm-edi").css("display","none");
-							$("#loading-drm-edi").css("display","block");
+							if( document.getElementById("uploadFileInput").files.length != 0 ){
+								$("#submit-drm-edi").css("display","none");
+								$("#loading-drm-edi").css("display","block");
+							}
 						});
 					</script>
 				</div>

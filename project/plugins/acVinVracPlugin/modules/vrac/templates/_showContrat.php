@@ -89,7 +89,7 @@
 			</li>
 			<li>
 				<span>Prix :</span>
-				<span><?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€/kg (Hors Taxes / Net)<?php endif;?></span>
+				<span><?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€(HT)/kg soit <?php echo round($vrac->poids * $vrac->prix_unitaire / $vrac->volume_propose) ?> €(HT)/hl<?php endif;?></span>
 			</li>
 			<li>
 				<span>Volume :</span>
@@ -248,7 +248,7 @@
 							<thead>
 								<tr>
 									<th>Numéro(s) des cuves</th>
-									<th>Volume (<?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?>)</th>
+									<th>Volume</th>
 									<th>Date</th>
 				            	</tr>
 				            </thead>
@@ -256,7 +256,7 @@
 								<?php foreach ($lot->cuves as $cuve): ?>
 								<tr>
 									<td><?php echo $cuve->numero ?></td>
-									<td><?php echo $cuve->volume ?></td>
+									<td><?php echo $cuve->volume ?>&nbsp;hl</td>
 									<td><?php echo Date::francizeDate($cuve->date) ?></td>
 								</tr>
 								<?php endforeach; ?>

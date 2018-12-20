@@ -592,6 +592,17 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
     private function getHashProduit($datas)
     {
+    	if (
+    			!$this->getKey($datas[self::CSV_CAVE_CERTIFICATION]) &&
+    			!$this->getKey($datas[self::CSV_CAVE_GENRE]) &&
+    			!$this->getKey($datas[self::CSV_CAVE_APPELLATION]) &&
+    			!$this->getKey($datas[self::CSV_CAVE_MENTION]) &&
+    			!$this->getKey($datas[self::CSV_CAVE_LIEU]) &&
+    			!$this->couleurKeyToCode($datas[self::CSV_CAVE_COULEUR], false) && 
+    			!$this->getKey($datas[self::CSV_CAVE_CEPAGE])
+    		) {
+    		return null;
+    	}
     	$hash = 'declaration/certifications/'.$this->getKey($datas[self::CSV_CAVE_CERTIFICATION]).
     	'/genres/'.$this->getKey($datas[self::CSV_CAVE_GENRE], true).
     	'/appellations/'.$this->getKey($datas[self::CSV_CAVE_APPELLATION], true).
@@ -607,7 +618,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     	if ($key == " " || !$key) {
     		$key = null;
     	}
-    	$key = strtoupper($key);
     	if ($withDefault) {
     		return ($key)? $key : ConfigurationProduit::DEFAULT_KEY;
     	} else {
@@ -615,11 +625,14 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     	}
     }
     
-    private function couleurKeyToCode($key)
+    private function couleurKeyToCode($key , $withDefault = true)
     {
     	$key = strtolower($key);
     	if (preg_match('/^ros.+$/', $key)) {
     		$key = 'rose';
+    	}
+    	if (!$withDefault && ($key == " " || !$key)) {
+    		return null;
     	}
     	$correspondances = array(1 => "rouge",
     			2 => "rose",

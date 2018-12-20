@@ -119,6 +119,26 @@ class ediActions extends sfActions
     $vracs = $this->transactionCallback($interpro, VracOiocView::getInstance()->findByOiocAndDate($oioc, OIOC::STATUT_EDI, "Vrac", $dateForView->modify('-1 second')->format('c'))->rows);
     return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "TRANSACTION", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID));
   }
+
+  public function executeStreamDAE(sfWebRequest $request)
+  {
+  	ini_set('memory_limit', '4096M');
+  	set_time_limit(0);
+  	$date = $request->getParameter('datedebut');
+  	$interpro = $request->getParameter('interpro');
+  	//$this->securizeInterpro($interpro);
+  	if (!$date) {
+  		return $this->renderText("Pas de date définie");
+  	}
+  	if (!preg_match('/^INTERPRO-/', $interpro)) {
+  		$interpro = 'INTERPRO-'.$interpro;
+  	}
+  	$dateTime = new DateTime($date);
+  	$dateForView = new DateTime($date);
+  	$entetes = array("#date de la commercialisation","identifiant declarvins du déclarant","numéro d'accises du déclarant","nom du déclarant","stat famille","stat sous famille","stat département","code ou nom de la certification du vin","nom ou code du genre du vin","nom ou code du appellation du vin","nom ou code du mention du vin","nom ou code du lieu du vin","nom ou code du couleur du vin","nom ou code du cépage du vin","Le complément du vin","Le libellé personnalisé du vin","label du produit","mention de domaine ou château revendiqué","millésime","primeur","n° accise de l'acheteur","nom acheteur","type acheteur","nom du pays de destination","type de conditionnement","libellé conditionnement","contenance conditionnement en litres","quantité de conditionnement","prix unitaire","stat qtt hl","stat prix hl");
+  	$daes = $this->daeCallback($interpro, EdiDAEView::getInstance()->findByDate($dateForView->modify('-1 second')->format('c'))->rows);
+  	return $this->renderCsv($daes, EdiDAEView::VALUE_DATE, "DAE", $dateTime->format('c'), $interpro, array(), $entetes);
+  }
   
   public function executeStreamDRM(sfWebRequest $request) 
   {
@@ -731,10 +751,12 @@ class ediActions extends sfActions
 				$convention = 'oui';
 			} else {
 				$convention = 'non';
-				if ($convention = $compte->getConventionCiel()) {
-					if ($convention->valide) {
-						$dematerialise_ciel = 'att';
+				if ($compte) {
+				if ($c = $compte->getConventionCiel()) {
+					if ($c->valide) {
+						$convention = 'att';
 					}
+				}
 				}
 			}
 			$result .= $etablissement->identifiant;
@@ -854,6 +876,7 @@ class ediActions extends sfActions
   			$item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE] = $configurationVrac->formatTypesTransactionLibelle(array($item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE]));
   			$item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE] = $configurationVrac->formatCasParticulierLibelle(array($item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE]));
   			$item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE] = $configurationVrac->formatConditionsPaiementLibelle(array($item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE]));
+  			$item->value[VracDateView::VALUE_PRIX_UNITAIRE] = round($item->value[VracDateView::VALUE_PRIX_UNITAIRE], 2);
   			unset($item->value[VracDateView::VALUE_VOLUME_RETIRE]);
   			$vracs[] = $item;
   		}
@@ -878,6 +901,20 @@ class ediActions extends sfActions
   		return $vracs;
   }
   
+  protected function daeCallback($interpro, $items)
+  {
+  		$daes = array();
+  		foreach ($items as $item) {
+  			$item->value[EdiDAEView::VALUE_IDENTIFIANT_DECLARANT] = (EdiDAEView::VALUE_IDENTIFIANT_DECLARANT)? ConfigurationClient::getInstance()->anonymisation(EdiDAEView::VALUE_IDENTIFIANT_DECLARANT) : null;
+  			$item->value[EdiDAEView::VALUE_ACCISES_DECLARANT] = (EdiDAEView::VALUE_ACCISES_DECLARANT)? ConfigurationClient::getInstance()->anonymisation(EdiDAEView::VALUE_ACCISES_DECLARANT) : null;
+  			$item->value[EdiDAEView::VALUE_NOM_DECLARANT] = (EdiDAEView::VALUE_NOM_DECLARANT)? ConfigurationClient::getInstance()->anonymisation(EdiDAEView::VALUE_NOM_DECLARANT) : null;
+  			$item->value[EdiDAEView::VALUE_ACCISES_ACHETEUR] = (EdiDAEView::VALUE_ACCISES_ACHETEUR)? ConfigurationClient::getInstance()->anonymisation(EdiDAEView::VALUE_ACCISES_ACHETEUR) : null;
+  			$item->value[EdiDAEView::VALUE_NOM_ACHETEUR] = (EdiDAEView::VALUE_NOM_ACHETEUR)? ConfigurationClient::getInstance()->anonymisation(EdiDAEView::VALUE_NOM_ACHETEUR) : null;
+  			$daes[] = $item;
+  		}
+  		return $daes;
+  }
+  
   protected function drmCallback($interpro, $items)
   {
   		$drms = array();
@@ -896,7 +933,7 @@ class ediActions extends sfActions
   		return $drms;
   }
 
-  protected function renderCsv($items, $dateSaisieIndice, $type, $date = null, $interpro, $correspondances = array()) 
+  protected function renderCsv($items, $dateSaisieIndice, $type, $date = null, $interpro, $correspondances = array(), $entetes) 
   {
     $this->setLayout(false);
     $csv_file = '';
@@ -932,6 +969,9 @@ class ediActions extends sfActions
     if (!$csv_file) {
 		$this->response->setStatusCode(204);
 		return $this->renderText(null);
+    }
+    if ($entetes && is_array($entetes)) {
+    	$csv_file = str_replace(array($rc1, $rc2), array(' ', ' '), implode(';', str_replace(';', '-', $entetes)))."\n".$csv_file;
     }
     $this->response->setContentType('text/csv');
     $this->response->setHttpHeader('md5', md5($csv_file));

@@ -25,7 +25,7 @@ class VracMarcheValidator extends sfValidatorBase {
     			$hasError = true;
     		}
     	}
-    	if ($values['type_transaction'] == 'raisin' && !$values['poids']) {
+    	if ($values['type_transaction'] == 'raisin' && isset($values['poids']) && !$values['poids']) {
     		$errorSchema->addError(new sfValidatorError($this, 'required'), 'poids');
     		$hasError = true;
     	}

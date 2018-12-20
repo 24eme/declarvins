@@ -138,6 +138,7 @@ Interpro:
       email_contrat_inscription: {  }
       email_assistance_ciel: {  }
       email_dsnegoce: {  } 
+      email_technique: {  } 
       siren: {  }
 
 OIOC:

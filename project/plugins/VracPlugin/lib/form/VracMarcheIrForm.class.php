@@ -10,8 +10,10 @@ class VracMarcheIrForm extends VracMarcheForm
 		$this->getWidget('prix_total_unitaire')->setLabel('Prix unitaire total HT:');
 		$this->getWidget('prix_total_unitaire')->setDefault($this->getObject()->getTotalUnitaire());
         unset($this['annexe']);
+		$this->setValidator('poids', new sfValidatorNumber(array('required' => false)));
     	if (!sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && isset($this['type_transaction'])) {
             unset($this['type_transaction']);
+            unset($this['poids']);
         }
         
         $annee = date('Y');
@@ -31,6 +33,9 @@ class VracMarcheIrForm extends VracMarcheForm
     	parent::doUpdateObject($values);
     	if (!sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
     		$this->getObject()->type_transaction = VracClient::TRANSACTION_DEFAUT;
+    	}
+    	if ($this->getObject()->type_transaction == 'raisin' && !$values['poids']) {
+    		$this->getObject()->poids = $this->getObject()->volume_propose;
     	}
     	if ($values['mercuriale_mois'] && $values['mercuriale_annee']) {
     		$this->getObject()->mercuriale = $values['mercuriale_annee'].'-'.$values['mercuriale_mois'];

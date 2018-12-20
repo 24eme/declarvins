@@ -80,6 +80,24 @@ class Email {
         return $this->getMailer()->send($message);
     }
     
+    public function daeErrorFileSend($path, $etablissement) 
+    {
+        $interpro = InterproClient::getInstance()->getById($etablissement->interpro);
+        $from = $this->getFromEmailInterpros(array($interpro));
+        $to = array($interpro->email_technique);
+        $subject = 'DeclarVins | Erreur d\'import du fichier de commercialisation pour '.$etablissement->identifiant;
+        $body = $this->getBodyFromPartial('dae_error_file_send', array('etablissement' => $etablissement));
+		$message = Swift_Message::newInstance()
+  					->setFrom($from)
+  					->setTo($to)
+  					->setSubject($subject)
+  					->setBody($body)
+  					->setContentType('text/html')
+  					->attach(Swift_Attachment::fromPath($path));
+		
+        return $this->getMailer()->send($message);
+    }
+    
     public function vracContratValide($vrac, $etablissement, $destinataire) 
     {
         $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
