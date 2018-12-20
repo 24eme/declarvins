@@ -209,10 +209,6 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
     	return $this->getIdentifiantDouane();
     }
     
-    public function getFormatLibelleCalcule() {
-    	return $this->getLibelleEdi();
-    }
-    
 	/*
      * Les fonctions ci-dessous sont relatives à la gestion de la configuration du catalogue produit
      */
