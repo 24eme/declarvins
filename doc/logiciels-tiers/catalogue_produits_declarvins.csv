@@ -457,16 +457,7 @@ AOP,AOP,TRANQ,Tranquilles,DUZ,Duché d'Uzès,,,,,rose,Rosé,,,AOP Tranquilles Du
 AOP,AOP,TRANQ,Tranquilles,DUZ,Duché d'Uzès,,,,,rouge,Rouge,,,AOP Tranquilles Duché d'Uzès Rouge,1R548S
 AOP,AOP,TRANQ,Tranquilles,CAR,Cru Cairanne,,,,,rouge,Rouge,,,AOP Tranquilles Cru Cairanne Rouge,1R544
 AOP,AOP,TRANQ,Tranquilles,CAR,Cru Cairanne,,,,,blanc,Blanc,,,AOP Tranquilles Cru Cairanne Blanc,1B544
-AOP,AOP,TRANQ,Tranquilles,GRI,Chateau Grillet,,,,,blanc,Blanc,,,AOP Tranquilles Chateau Grillet Blanc,1B520
-AOP,AOP,TRANQ,Tranquilles,CHD,Chatillon en Diois,,,,,rouge,Rouge,,,AOP Tranquilles Chatillon en Diois Rouge,1R522 
-AOP,AOP,TRANQ,Tranquilles,CHD,Chatillon en Diois,,,,,rose,Rosé,,,AOP Tranquilles Chatillon en Diois Rosé,1S522 
-AOP,AOP,TRANQ,Tranquilles,CHD,Chatillon en Diois,,,,,blanc,Blanc,,,AOP Tranquilles Chatillon en Diois Blanc,1B522 
-AOP,AOP,TRANQ,Tranquilles,COT,Coteaux de Die,,,,,blanc,Blanc,,,AOP Tranquilles Coteaux de Die Blanc,1B523S
 AOP,AOP,EFF,Effervescent,SPE,Saint Peray Effervescents,,,,,blanc,Blanc,,,AOP Effervescent Saint Peray Effervescents Blanc,1B546M 1
-AOP,AOP,EFF,Effervescent,CRE,Crémant de DieCRE,,,,,blanc,Blanc,,,AOP Effervescent Crémant de DieCRE Blanc,1B524M
-AOP,AOP,EFF,Effervescent,CDD,Clairette de Die Brut,,,,,blanc,Blanc,,,AOP Effervescent Clairette de Die Brut Blanc,1B523M 1
-AOP,AOP,EFF,Effervescent,CDA,Clairette de Die Méthode Ancestrale,,,,,blanc,Blanc,,,AOP Effervescent Clairette de Die Méthode Ancestrale Blanc,1B523M 2
-AOP,AOP,EFF,Effervescent,CDA,Clairette de Die Méthode Ancestrale,,,,,rose,Rosé,,,AOP Effervescent Clairette de Die Méthode Ancestrale Rosé,1S523M 2
 AOP,AOP,VDN,Vin Doux Naturel,VDB,Muscat de BdVenise,,,,,rouge,Rouge,,,AOP Vin Doux Naturel Muscat de BdVenise Rouge,1R181N
 AOP,AOP,VDN,Vin Doux Naturel,VDB,Muscat de BdVenise,,,,,rose,Rosé,,,AOP Vin Doux Naturel Muscat de BdVenise Rosé,1S181N
 AOP,AOP,VDN,Vin Doux Naturel,VDB,Muscat de BdVenise,,,,,blanc,Blanc,,,AOP Vin Doux Naturel Muscat de BdVenise Blanc,1S181N
@@ -500,8 +491,6 @@ AOP,AOP,VCI,VCI,CVIVAC,Vacqueyras,,,,,rouge,Rouge,,,AOP VCI Vacqueyras Rouge,1R5
 AOP,AOP,VCI,VCI,CVIVAC,Vacqueyras,,,,,blanc,Blanc,,,AOP VCI Vacqueyras Blanc,1B538S99
 AOP,AOP,VCI,VCI,VCIRTA,Rasteau,,,,,rouge,Rouge,,,AOP VCI Rasteau Rouge,1R187S99
 AOP,AOP,VCI,VCI,VCIBEA,Beaumes de Venise,,,,,rouge,Rouge,,,AOP VCI Beaumes de Venise Rouge,1R539S99
-MP,Matières Premières,SP,Spiritueux,EVVCDR,Eau de vie de vin de Côtes du Rhône,,,,,,,,,Matières Premières Spiritueux Eau de vie de vin de Côtes du Rhône,MATIERES_PREMIERES_SPIRITUEUX
-MP,Matières Premières,SP,Spiritueux,EVMCDR,Eau de vie de marc de Côtes du Rhône,,,,,,,,,Matières Premières Spiritueux Eau de vie de marc de Côtes du Rhône,MATIERES_PREMIERES_SPIRITUEUX
 IGP,IGP,TRANQ,Tranquilles,MED,Méditerranée,,,,,rouge,Rouge,,,IGP Tranquilles Méditerranée Rouge,3R007 
 IGP,IGP,TRANQ,Tranquilles,MED,Méditerranée,,,,,rouge,Rouge,SYR,Syrah,IGP Tranquilles Méditerranée Rouge Syrah,3R007 AI
 IGP,IGP,TRANQ,Tranquilles,MED,Méditerranée,,,,,rouge,Rouge,GRN,Grenache Noir,IGP Tranquilles Méditerranée Rouge Grenache Noir,3R007 CS
@@ -1392,8 +1381,6 @@ IGP,IGP,EFF,Effervescent,ALP,Alpilles,,,,,blanc,Blanc,CLA,Clairette,IGP Efferves
 IGP,IGP,EFF,Effervescent,ALP,Alpilles,,,,,blanc,Blanc,MUH,Muscat de HAMBOURG,IGP Effervescent Alpilles Blanc Muscat de HAMBOURG,
 IGP,IGP,EFF,Effervescent,ALP,Alpilles,,,,,blanc,Blanc,CEP,Autre,IGP Effervescent Alpilles Blanc Autre,
 IGP,IGP,EFF,Effervescent,ALP,Alpilles,,,,,blanc,Blanc,,,IGP Effervescent Alpilles Blanc,
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,,,AVECCEP,Avec cépage,Sans IG Tranquilles Avec cépage,VT_SANS_IG_CEPAGE
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,,,SANSCEP,Sans cépage,Sans IG Tranquilles Sans cépage,VT_SANS_IG_AUTRES
 VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rouge,Rouge,SYR,Syrah,Sans IG Tranquilles Rouge Syrah,4R500 AI
 VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rouge,Rouge,GRN,Grenache Noir,Sans IG Tranquilles Rouge Grenache Noir,4R500 CS
 VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rouge,Rouge,CS,Cabernet-Sauvignon,Sans IG Tranquilles Rouge Cabernet-Sauvignon,4R500 BX
@@ -1420,8 +1407,6 @@ VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,blanc,Blanc,ROU,Roussanne,Sans IG Tra
 VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,blanc,Blanc,CLA,Clairette,Sans IG Tranquilles Blanc Clairette,4B500 CH
 VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,blanc,Blanc,CEP,Autre,Sans IG Tranquilles Blanc Autre,4B999 
 VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,blanc,Blanc,,,Sans IG Tranquilles Blanc,4B999 
-VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,,,AVECCEP,Avec cépage,Sans IG Effervescent Avec cépage,VM_SANS_IG_CEPAGE
-VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,,,SANSCEP,Sans cépage,Sans IG Effervescent Sans cépage,VM_SANS_IG_AUTRES
 VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,rouge,Rouge,,,Sans IG Effervescent Rouge,4R999M
 VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,rouge,Rouge,SANS,Sans,Sans IG Effervescent Rouge Sans,4R999M
 VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,rose,Rosé,,,Sans IG Effervescent Rosé,4S999M
@@ -1493,17 +1478,9 @@ APD,Autres produits,SP,Spiritueux,SPI15,Spiritueux à base d'alcools de cru Réu
 APD,Autres produits,SP,Spiritueux,SPI16,Alcools DOM autres que rhums traditionnels sup. 18%,,,,,,,,,Autres produits Spiritueux Alcools DOM autres que rhums traditionnels sup. 18%,AUTRES_ALCOOLS_SUP_18
 APD,Autres produits,SP,Spiritueux,SPI17,Alcools DOM autres que rhums traditionnels inf. 18%,,,,,,,,,Autres produits Spiritueux Alcools DOM autres que rhums traditionnels inf. 18%,AUTRES_ALCOOLS_INF_18
 APD,Autres produits,SP,Spiritueux,SPI18,Alcools DOM autres que rhums traditionnels DOM inf. 18%  prémix,,,,,,,,,Autres produits Spiritueux Alcools DOM autres que rhums traditionnels DOM inf. 18%  prémix,AUTRES_ALCOOLS_INF_18_PREMIX
-APD,Autres produits,EFF,Effervescent,EETR,Vin étranger,,,,,,,,,Autres produits Effervescent Vin étranger,VM_ETRANGERS
-APD,Autres produits,TRANQ,Tranquilles,EETR,Vin étranger,,,,,,,,,Autres produits Tranquilles Vin étranger,VT_ETRANGERS
+APD,Autres produits,MP,Matieres premieres,MP1,Matieres_premieres_spiritueux,,,,,,,,,Autres produits Matieres premieres Matieres_premieres_spiritueux,MATIERES_PREMIERES_SPIRITUEUX
+APD,Autres produits,MP,Matieres premieres,MP2,Matieres_premieres_alcools,,,,,,,,,Autres produits Matieres premieres Matieres_premieres_alcools,MATIERES_PREMIERES_ALCOOLS
 AOC,AOC,EFF,Effervescent,361,Crémant de Bourgogne,,,,,blanc,Blanc,,,AOC Effervescent Crémant de Bourgogne Blanc,1B361M
-AOP,AOP,TRANQ,Tranquilles,,Autres,,,,,,,,,AOP Tranquilles Autres,VT_IG_AOP
-AOP,AOP,EFF,Effervescent,,Autres,,,,,,,,,AOP Effervescent Autres,VM_IG_AOP
-AOP,AOP,VDN,Vin Doux Naturel,VDN1,Vins doux naturel ou liquoreux sup. 18% vol.,,,,,,,,,AOP Vin Doux Naturel Vins doux naturel ou liquoreux sup. 18% vol.,VDN_VDL_AOP_SUP_18
-AOP,AOP,VDN,Vin Doux Naturel,VDN2,Vins doux naturel ou liquoreux inf. 18% vol.,,,,,,,,,AOP Vin Doux Naturel Vins doux naturel ou liquoreux inf. 18% vol.,VDN_VDL_AOP_INF_18
-MP,Matières premières,SP,Spiritueux,MPSP,Matières premières spiritueux,,,,,,,,,Matières premières Spiritueux Matières premières spiritueux,MATIERES_PREMIERES_SPIRITUEUX
-MP,Matières premières,,Alcools,MPAL,Matières premières alcools,,,,,,,,,Matières premières Alcools Matières premières alcools,MATIERES_PREMIERES_ALCOOLS
-IGP,IGP,TRANQ,Tranquilles,,Autres,,,,,,,,,IGP Tranquilles Autres,VT_IG_IGP
-IGP,IGP,EFF,Effervescent,,Autres,,,,,,,,,IGP Effervescent Autres,VM_IG_IGP
 IGP,IGP,TRANQ,Tranquilles,236,Duche d'Uzes,,,,,rouge,Rouge,,,IGP Tranquilles Duche d'Uzes Rouge,1R548S
 IGP,IGP,TRANQ,Tranquilles,301,Gard,,,,,rouge,Rouge,,,IGP Tranquilles Gard Rouge,3R301 
 IGP,IGP,TRANQ,Tranquilles,301,Gard,,,,,rouge,Rouge,SYR,Syrah,IGP Tranquilles Gard Rouge Syrah,3R301 AI
@@ -1672,9 +1649,6 @@ IGP,IGP,TRANQ,Tranquilles,OC,Pays d'OC,,,,,blanc,Blanc,UGN,Ugni,IGP Tranquilles 
 IGP,IGP,TRANQ,Tranquilles,OC,Pays d'OC,,,,,blanc,Blanc,COL,Colombar,IGP Tranquilles Pays d'OC Blanc Colombar,3B001 CJ
 IGP,IGP,TRANQ,Tranquilles,OC,Pays d'OC,,,,,blanc,Blanc,MUA,Muscat Alexandre,IGP Tranquilles Pays d'OC Blanc Muscat Alexandre,3B001 53
 IGP,IGP,TRANQ,Tranquilles,OC,Pays d'OC,,,,,blanc,Blanc,MUP,Muscat petits grains,IGP Tranquilles Pays d'OC Blanc Muscat petits grains,3B001 54
-IGP,IGP,TRANQ,Tranquilles,TDM,Terres du Midi,,,,,rouge,Rouge,,,IGP Tranquilles Terres du Midi Rouge,3R010 
-IGP,IGP,TRANQ,Tranquilles,TDM,Terres du Midi,,,,,blanc,Blanc,,,IGP Tranquilles Terres du Midi Blanc,3B010 
-IGP,IGP,TRANQ,Tranquilles,TDM,Terres du Midi,,,,,rose,Rosé,,,IGP Tranquilles Terres du Midi Rosé,3S010 
 IGP,IGP,EFF,Effervescent,OC,Pays d'OC,,,,,rose,Rosé,,,IGP Effervescent Pays d'OC Rosé,3S001M
 IGP,IGP,EFF,Effervescent,OC,Pays d'OC,,,,,rose,Rosé,PIN,Pinot,IGP Effervescent Pays d'OC Rosé Pinot,3S001MAB
 IGP,IGP,EFF,Effervescent,OC,Pays d'OC,,,,,rose,Rosé,SYR,Syrah,IGP Effervescent Pays d'OC Rosé Syrah,3S001MAI
