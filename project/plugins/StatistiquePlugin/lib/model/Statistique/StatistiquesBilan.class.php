@@ -154,4 +154,43 @@ class StatistiquesBilan {
         return ($bilanOperateur->periodes[$periode]->statut == DRMClient::DRM_STATUS_BILAN_A_SAISIR);
     } 
     
+    public function getStats($periode) {
+    	$stats = array(
+    		'PAPIER' => 0,
+    		'DTI' => 0,
+    		'CIEL' => 0,
+    		'TOTAL' => 0,
+    		'DEMAT' => 0
+    	);
+    	foreach ($this->getBilans() as $bilanOperateur) {
+    		if ($bilanOperateur->first_periode && $periode >= $bilanOperateur->first_periode) {
+    			if ($bilanOperateur->last_saisie && $periode > $bilanOperateur->last_saisie && !$bilanOperateur->last_stock) {
+    				continue;
+    			}
+    			if (!isset($bilanOperateur->periodes[$periode]) || is_null($bilanOperateur->periodes[$periode])) {
+    				continue;
+    			}
+    			
+    			if (in_array($bilanOperateur->periodes[$periode]->statut, array(DRMClient::DRM_STATUS_BILAN_VALIDE_CIEL, DRMClient::DRM_STATUS_BILAN_DIFF_CIEL, DRMClient::DRM_STATUS_BILAN_ENVOYEE_CIEL))) {
+    				$stats['CIEL'] = $stats['CIEL']+1;
+    				continue;
+    			}
+    			
+    			if (in_array($bilanOperateur->periodes[$periode]->statut, array(DRMClient::DRM_STATUS_BILAN_VALIDE, DRMClient::DRM_STATUS_BILAN_IGP_MANQUANT, DRMClient::DRM_STATUS_BILAN_CONTRAT_MANQUANT, DRMClient::DRM_STATUS_BILAN_IGP_ET_CONTRAT_MANQUANT, DRMClient::DRM_STATUS_BILAN_NON_VALIDE))) {
+    				if (!isset($bilanOperateur->periodes[$periode]->mode_de_saisie) || !$bilanOperateur->periodes[$periode]->mode_de_saisie) {
+    					continue;
+    				}
+	    			if (trim($bilanOperateur->periodes[$periode]->mode_de_saisie) == 'PAPIER') {
+	    				$stats['PAPIER'] = $stats['PAPIER']+1;
+	    			} else {
+	    				$stats['DTI'] = $stats['DTI']+1;
+	    			}
+    			}
+    		}
+    	}
+    	$stats['TOTAL'] = $stats['PAPIER'] + $stats['DTI'] + $stats['CIEL'];
+    	$stats['DEMAT'] = ($stats['TOTAL'] > 0 && $stats['CIEL'] > 0)? round(($stats['CIEL'] / $stats['TOTAL']) * 100) : 0;
+    	return $stats;
+    }
+    
 }
