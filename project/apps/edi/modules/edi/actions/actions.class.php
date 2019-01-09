@@ -11,7 +11,7 @@
 class ediActions extends sfActions
 {
 	
-  {
+  protected function getCompte() {
   	return acCouchdbManager::getClient('_Compte')->retrieveByLogin($_SERVER['PHP_AUTH_USER']);
   }
 	
