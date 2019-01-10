@@ -6,7 +6,7 @@
 	
 	<div class="col-xs-12">
         <div class="row"> 
-        	<h4>Formulaire à déposer avant le 15 septembre</h4>    	
+        	<h4>Formulaire à déposer avant le <?php echo $cm->getCampagneByDate(sfConfig::get('app_dsnegoce_cloture_libelle')) ?></h4>    	
         	<?php if ($isCloture): ?>
         	<p class="text-center text-danger"><em>Le téléservice est cloturé</em></p>
         	<?php else: ?>
