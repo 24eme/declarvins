@@ -29,7 +29,7 @@
         <?php include_javascripts() ?>
     </head>
 
-    <body>
+    <body<?php if(sfConfig::get('app_instance') == 'preprod' ): ?> style="background-color: #C44C51;"<?php endif; ?>>
     
     	
 		<?php include_partial('global/konami'); ?>
