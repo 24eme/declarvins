@@ -182,10 +182,13 @@ class ConfigurationProduit extends BaseConfigurationProduit
     	foreach ($this->getProduits() as $produit) {
     		$identifiantDouane = KeyInflector::slugify($produit->getIdentifiantDouane());
     		$libelleProduit = KeyInflector::slugify($produit->getLibelleEdi());
-    		if ($libelleDouane && $identifiantDouane == $libelleDouane) {
+    		if ($libelleDouane && $identifiantDouane == $libelleDouane && $libelle && strpos($libelle, $libelleProduit) !== false) {
     			return $produit;
     		}
-    		if (strpos($libelle, $libelleProduit) !== false) {
+    		if ($libelleDouane && $identifiantDouane == $libelleDouane && !$libelle) {
+    			return $produit;
+    		}
+    		if (!$libelleDouane && strpos($libelle, $libelleProduit) !== false) {
     			return $produit;
     		}
     	}
