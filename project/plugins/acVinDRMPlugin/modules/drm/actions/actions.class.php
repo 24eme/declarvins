@@ -156,7 +156,7 @@ class drmActions extends sfActions {
         }
         $messageErreurs .= "</ol>";
         $message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur import DTI+ pour ".$drm->identifiant, "Une transmission vient d'échouer pour ".$drm->identifiant."-".$drm->periode." :<br />".$messageErreurs)->setContentType('text/html');
-        if ($send) {
+        if ($send && sfConfig::get('app_instance') != 'preprod') {
         	$this->getMailer()->send($message);
         }
         
