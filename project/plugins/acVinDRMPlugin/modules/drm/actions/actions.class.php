@@ -423,6 +423,20 @@ class drmActions extends sfActions {
     	}
     	$this->setTemplate('transferCiel');
     }
+    
+    public function executeReouvrir(sfWebRequest $request) {
+        $this->drm = $this->getRoute()->getDRM();
+        if ($this->drm->isFictive()) {
+        	$this->drm = $this->drm->getDRM();
+        }
+        $this->etablissement = $this->getRoute()->getEtablissement();
+
+        $this->drm->cleanCiel();
+        $this->drm->devalide();
+        $this->drm->save();
+
+        $this->redirect('drm_init', array('sf_subject' => $this->drm));
+    }
 
     /**
      * Executes mouvements generaux action

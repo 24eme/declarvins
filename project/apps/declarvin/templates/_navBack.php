@@ -72,17 +72,21 @@
 			<?php if($sf_user->hasCredential(myUser::CREDENTIAL_ADMIN)): ?>
 			<li<?php if ($subactive == 'bilan_drm'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('@statistiques_bilan_drm') ?>">Bilan DRM</a>
-			</li>
+			</li>	
+			<li<?php if ($subactive == 'demat_drm'): ?> class="actif"<?php endif; ?>>
+				<a href="<?php echo url_for('statistiques_demat_drm') ?>">Démat. DRM</a>
+			</li>	
+			<!-- 
 			<li<?php if ($subactive == 'drm'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('statistiques_drm') ?>">DRM</a>
-			</li>		
+			</li>	
 			<li<?php if ($subactive == 'vrac'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('statistiques_vrac') ?>">Contrat interprofessionnel</a>
 			</li>		
 			<li<?php if ($subactive == 'daids'): ?> class="actif"<?php endif; ?>>
 				<a href="<?php echo url_for('statistiques_drm') ?>">DAI/DS</a>
 			</li>
-			<!-- <li class="options_recherche">
+			<li class="options_recherche">
 				<a href="#">Options de recherche</a>
 			</li> -->
 			<?php endif; ?>

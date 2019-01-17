@@ -122,7 +122,12 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     	}
     	
 		$libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]);
-		$configurationProduit = $this->configuration->identifyProduct($this->getHashProduit($datas), $libelle);
+		if ($idDouane = $this->getIdDouane($datas)) {
+			$configurationProduit = $this->configuration->identifyProduct(null, "($idDouane)");
+		}
+		if (!$configurationProduit) {
+			$configurationProduit = $this->configuration->identifyProduct($this->getHashProduit($datas), $libelle);
+		}
     	if (!$configurationProduit) {
     		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
     		return;
@@ -139,21 +144,28 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		$this->csvDoc->addErreur($this->droitsNotFoundError($numLigne, $datas));
     		return;
   		}
-  		
   		if ($complement = strtoupper($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
   			if (isset($this->permettedValues[self::TYPE_CAVE]) && isset($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
-  				if (is_array($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT]) && !in_array($complement, $this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
-  					$this->csvDoc->addErreur($this->complementProductWrongFormatError($numLigne, $datas));
-  					return;
-  				}
-  				if (!is_array($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT]) && !preg_match($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT], $complement)) {
-  					$this->csvDoc->addErreur($this->complementProductWrongFormatError($numLigne, $datas));
-  					return;
+  				if (!$idDouane) {
+	  				if (is_array($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT]) && !in_array($complement, $this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
+	  					$this->csvDoc->addErreur($this->complementProductWrongFormatError($numLigne, $datas));
+	  					return;
+	  				}
+	  				if (!is_array($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT]) && !preg_match($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT], $complement)) {
+	  					$this->csvDoc->addErreur($this->complementProductWrongFormatError($numLigne, $datas));
+	  					return;
+	  				}
+  				} else {
+  					$complement = md5(trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]));
   				}
   			}
   		}
   		
   		$produit = ($complement)? $this->drm->addProduit($hash, $complement) : $this->drm->addProduit($hash);
+  		
+  		if ($complement && preg_match('/^[a-f0-9]{32}$/', $complement)) {
+  			$produit->libelle = trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
+  		}
 
   		$categorieMvt = strtolower($datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT]);
   		$typeMvt = $this->drm->getImportableLibelleMvt($droits, $categorieMvt, strtolower($datas[self::CSV_CAVE_TYPE_MOUVEMENT]));
@@ -588,6 +600,23 @@ class DRMImportCsvEdi extends DRMCsvEdi {
         $error->raison = $raison;
         $error->id = $id;
         return $error;
+    }
+
+    private function getIdDouane($datas)
+    {
+    	$certification = trim(str_replace(array('(', ')'), '', $datas[self::CSV_CAVE_CERTIFICATION]));
+    	if (
+    			$certification &&
+    			!$this->getKey($datas[self::CSV_CAVE_GENRE]) &&
+    			!$this->getKey($datas[self::CSV_CAVE_APPELLATION]) &&
+    			!$this->getKey($datas[self::CSV_CAVE_MENTION]) &&
+    			!$this->getKey($datas[self::CSV_CAVE_LIEU]) &&
+    			!$this->couleurKeyToCode($datas[self::CSV_CAVE_COULEUR], false) &&
+    			!$this->getKey($datas[self::CSV_CAVE_CEPAGE])
+    		) {
+    		return $certification;
+    	}
+    	return null;
     }
 
     private function getHashProduit($datas)

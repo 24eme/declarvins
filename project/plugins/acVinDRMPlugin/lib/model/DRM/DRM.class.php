@@ -480,6 +480,13 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $this->annuleUpdateVrac();
     }
     
+    public function cleanCiel() {
+    	if ($this->exist('ciel')) {
+    		$this->remove('ciel');
+    		$this->add('ciel');
+    	}
+    }
+    
     public function annuleUpdateVrac()
     {
     	$mothers = array();

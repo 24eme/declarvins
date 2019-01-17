@@ -4,6 +4,7 @@ all:
   autologin: false
   email_from_notification: "contact@declarvins.actualys.com"
   email_to_notification: "vins@actualys.com"
+  instance: preprod
   ac_php_cas:
     domain: declarweb.site.com
     port: 443
