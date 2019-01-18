@@ -57,7 +57,7 @@ class VracMarcheForm extends VracForm
 	        'part_cvo' => new sfValidatorNumber(array('required' => false)),
 	        'repartition_cvo_acheteur' => new sfValidatorNumber(array('required' => false)),
         	'export' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixOuiNon()))),
-	        'millesime' => new sfValidatorString(array('required' => false))
+	        'millesime' => new sfValidatorRegex(array('required' => false, 'pattern' => '/^[0-9]{4}$/'))
          ));
         
         $cepages = $this->getCepages();
