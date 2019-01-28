@@ -12,6 +12,7 @@
 						<?php echo ($vrac->vendeur->nom)? ' / '.$vrac->vendeur->raison_sociale : $vrac->vendeur->raison_sociale; ?>
 					<?php endif; ?>
 					<?php echo ($vrac->vendeur->famille)? ' - '.ucfirst(($vrac->vendeur->famille)) : ''; ?>
+					<?php echo ($vrac->vendeur->sous_famille)? ' '.ucfirst(($vrac->vendeur->sous_famille)) : ''; ?>
 					<?php echo ($vrac->vendeur_tva)? ' (Assujetti à la TVA)' : ''; ?>
 				</span>
 			</li>
@@ -25,6 +26,7 @@
 						<?php echo ($vrac->acheteur->nom)? ' / '.$vrac->acheteur->raison_sociale : $vrac->acheteur->raison_sociale; ?>
 					<?php endif; ?>
 					<?php echo ($vrac->acheteur->famille)? ' - '.ucfirst(($vrac->acheteur->famille)) : ''; ?>
+					<?php echo ($vrac->acheteur->sous_famille)? ' '.ucfirst(($vrac->acheteur->sous_famille)) : ''; ?>
 					<?php echo ($vrac->acheteur_tva)? ' (Assujetti à la TVA)' : ''; ?>
 				</span>
 			</li>

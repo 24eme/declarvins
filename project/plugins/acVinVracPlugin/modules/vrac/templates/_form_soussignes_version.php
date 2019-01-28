@@ -5,7 +5,7 @@
     	<?php if ($vrac->vous_etes == 'vendeur'): ?><h2>Vous êtes le vendeur</h2><?php endif; ?>
         <div class="section_label_strong etablissement_famille_choice">
             <label for="">Type :</label>
-            <?php echo $vrac->vendeur->famille ?>
+            <?php echo ucfirst($vrac->vendeur->famille) ?> <?php echo ucfirst($vrac->vendeur->sous_famille) ?>
         </div>
         <div class="section_label_strong etablissement_choice">
             <label for="">Nom :</label>
@@ -145,7 +145,7 @@
     	<?php if ($vrac->vous_etes == 'acheteur'): ?><h2>Vous êtes l'acheteur</h2><?php endif; ?>
         <div class="section_label_strong etablissement_famille_choice">
             <label for="">Type :</label>
-            <?php echo $vrac->acheteur->famille ?>
+            <?php echo ucfirst($vrac->acheteur->famille) ?> <?php echo ucfirst($vrac->acheteur->sous_famille) ?>
         </div>
         <div class="section_label_strong etablissement_choice">
             <label for="">Nom :</label>

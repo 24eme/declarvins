@@ -35,7 +35,7 @@
 		<tr>
 			<td width="<?php echo $w ?>" valign="top">
 				<h2>Vendeur</h2>
-				<p>Type : <?php echo $vrac->vendeur_type ?></p>
+				<p>Type : <?php echo ucfirst($vrac->vendeur->famille) ?> <?php echo ucfirst($vrac->vendeur->sous_famille) ?></p>
 				<p>Raison sociale : <?php echo $vrac->vendeur->raison_sociale; ?></p>
 				<p>Nom commercial : <?php echo $vrac->vendeur->nom; ?></p>
 				<p>N° RCS / SIRET : <?php echo $vrac->vendeur->siret ?></p>
@@ -58,7 +58,7 @@
 			<?php if ($configurationVrac->transaction_has_acheteur): ?>
 			<td width="<?php echo $w ?>" valign="top">
 				<h2>Acheteur</h2>
-				<p>Type : <?php echo $vrac->acheteur_type ?></p>
+				<p>Type : <?php echo ucfirst($vrac->acheteur->famille) ?> <?php echo ucfirst($vrac->acheteur->sous_famille) ?></p>
 				<p>Raison sociale : <?php echo $vrac->acheteur->raison_sociale; ?></p>
 				<p>Nom commercial : <?php echo $vrac->acheteur->nom; ?></p>
 				<p>N° RCS / SIRET : <?php echo $vrac->acheteur->siret ?></p>
