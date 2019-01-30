@@ -230,7 +230,7 @@
                 <?php endif; ?>
                 <div class="ligne_form">
 	                <button id="test" type="submit" class="btn_suiv">
-	                    <span>Valider et envoyer à CIEL</span>
+	                    <span>Valider</span>
 	                </button>
                 </div>
                 <p>&nbsp;</p>
