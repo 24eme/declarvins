@@ -19,7 +19,8 @@ class VracMarcheForm extends VracForm
 	        'part_cvo' => new sfWidgetFormInputHidden(),
 	        'repartition_cvo_acheteur' => new sfWidgetFormInputHidden(array('default' => ConfigurationVrac::REPARTITION_CVO_ACHETEUR)),
         	'export' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
-	        'millesime' => new sfWidgetFormInputText()
+	        'millesime' => new sfWidgetFormInputText(),
+    		'premiere_mise_en_marche' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
     	));
         $this->widgetSchema->setLabels(array(
         	'has_cotisation_cvo' => 'Cvo',
@@ -37,7 +38,8 @@ class VracMarcheForm extends VracForm
         	'part_cvo' => 'Part CVO:',
         	'repartition_cvo_acheteur' => 'Repartition CVO acheteur:',
         	'export' => 'Expédition export*:',
-	        'millesime' => 'Millesime:'
+	        'millesime' => 'Millesime:',
+        	'premiere_mise_en_marche' => 'Première mise en marché:',
         ));
         $min = ($this->getObject()->volume_enleve)? $this->getObject()->volume_enleve : 0;
         $minErreur = ($min > 1)? $min.' hl ont déjà été enlevés pour ce contrat' : $min.' hl a déjà été enlevé pour ce contrat';
@@ -57,7 +59,8 @@ class VracMarcheForm extends VracForm
 	        'part_cvo' => new sfValidatorNumber(array('required' => false)),
 	        'repartition_cvo_acheteur' => new sfValidatorNumber(array('required' => false)),
         	'export' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixOuiNon()))),
-	        'millesime' => new sfValidatorRegex(array('required' => false, 'pattern' => '/^(1|2)[0-9]{3}$/'))
+	        'millesime' => new sfValidatorRegex(array('required' => false, 'pattern' => '/^(1|2)[0-9]{3}$/')),
+        	'premiere_mise_en_marche' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
          ));
         
         $cepages = $this->getCepages();
@@ -83,6 +86,9 @@ class VracMarcheForm extends VracForm
 
         if (count($this->getTypesTransaction()) < 2) {
             unset($this['type_transaction']);
+        }
+        if ($this->getObject()->vendeur->sous_famille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
+        	//unset($this['premiere_mise_en_marche']);
         }
     }
     protected function doUpdateObject($values) {

@@ -11,6 +11,13 @@
                 <?php echo $form['type_transaction']->render() ?>
             </div>
             <?php endif; ?>
+            <?php if (isset($form['premiere_mise_en_marche'])): ?>
+        	<div class="section_label_strong">
+            	<?php echo $form['premiere_mise_en_marche']->renderError() ?>
+            	<?php echo $form['premiere_mise_en_marche']->renderLabel() ?>
+            	<?php echo $form['premiere_mise_en_marche']->render() ?>
+        	</div>
+        	<?php endif; ?>
             <div class="section_label_strong">
             	<label>Produit: </label>
                 <?php echo ($form->getObject()->produit)? $form->getObject()->getLibelleProduit("%g% %a% %l% %co%", true) : null; ?>
