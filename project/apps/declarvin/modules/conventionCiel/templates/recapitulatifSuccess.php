@@ -1,5 +1,9 @@
 <?php include_component('global', 'navTop', array('active' => 'ciel')); ?>
-
+<style>
+#principal #contenu_onglet, #principal .contenu_onglet {
+	padding: 5px;
+}
+</style>
 <section id="contenu">
     <div id="creation_compte">
         <div id="principal" >
@@ -13,16 +17,21 @@
                         <div class="col">
                             <p><span>Raison sociale :</span> <strong><?php echo $convention->raison_sociale ?></strong></p>
                             <p><span>N°SIREN/SIRET ou N°douane :</span> <strong><?php echo $convention->no_operateur ?></strong></p>
+                            <p><span>N°SIRET payeur :</span> <strong><?php echo $convention->no_siret_payeur ?></strong></p>
+                            <p><span>Adresse :</span> <strong><?php echo $convention->adresse ?></strong></p>
+                            <p><span>Code Postal :</span> <strong><?php echo $convention->code_postal ?></strong></p>
+                            <p><span>Commune :</span> <strong><?php echo $convention->commune ?></strong></p>
+                            <p><span>Courriel :</span> <strong><?php echo $convention->email_beneficiaire ?></strong></p>
+                            <p><span>Téléphone :</span> <strong><?php echo $convention->telephone_beneficiaire ?></strong></p>
+                            <p><span>Date de fin d'excercice :</span> <strong><?php echo $convention->getObj('date_fin_exercice')->format('d/m/Y') ?></strong></p>
+                            <p><span>Date de passage envisagé à CIEL :</span> <strong><?php echo $convention->getObj('date_ciel')->format('d/m/Y') ?></strong></p>
                         </div>
-                        <div class="col">
+                        <div class="col tableau_ajouts_liquidations">
                             <p><span>Interprofession principale :</span> <strong><?php echo $convention->getInterprofession() ?></strong></p>
-                        </div>
-                        
-                        <div class="tableau_ajouts_liquidations" style="padding: 20px 0 0 0;">
-	                        <table class="tableau_recap">
+                            <table class="tableau_recap">
 	                        	<thead>
 		                        	<tr>
-		                        		<td style="border: none; padding: 0;"><h1 style="font-size: 16px; margin: 0;">Etablissements</h1></td>
+		                        		<td style="border: none; padding: 0;"></td>
 		                        		<th>N° CVI</th>
 		                        		<th>N° accises / EA</th>
 		                        	</tr>
@@ -38,6 +47,7 @@
 	                        	</tbody>
 	                        </table>
                         </div>
+                        
                     </div>
                 </div>
                 
@@ -47,10 +57,11 @@
                         <div class="col">
                             <p><span>Nom :</span> <strong><?php echo $convention->nom ?></strong></p>
                             <p><span>Prénom :</span> <strong><?php echo $convention->prenom ?></strong></p>
-                            <p><span>Fonction :</span> <strong><?php echo $convention->fonction ?></strong></p>
+                            <?php if ($convention->representant_legal): ?><p>Agissant en qualité de représentant légal</p><?php endif; ?>
+                            <?php if ($convention->mandataire): ?><p><?php echo ConventionCiel::$mandataire[$convention->mandataire] ?></p><?php endif; ?>
                         </div>
                         <div class="col">
-                            <p><span>E-mail :</span> <strong><?php echo $convention->email ?></strong></p>
+                            <p><span>Courriel :</span> <strong><?php echo $convention->email ?></strong></p>
                             <p><span>Téléphone :</span> <strong><?php echo $convention->telephone ?></strong></p>
                         </div>
                     </div>
@@ -64,24 +75,18 @@
 	                        	<thead>
 		                        	<tr>
 		                        		<th>N° accises / EA</th>
-		                        		<th>Nom</th>
-		                        		<th>Prénom</th>
 		                        		<th>Id. Prodou@ne</th>
 		                        		<th>Droit téléprocédure</th>
 		                        		<th>Droit télépaiement</th>
-		                        		<th>Mensualisation</th>
 		                        	</tr>
 	                        	</thead>
 	                        	<tbody>
-		                        	<?php $i=1; foreach ($convention->habilitations as $habilitation): $i++; ?>
+		                        	<?php $i=1; foreach ($convention->getHabilitationsSaisies() as $habilitation): $i++; ?>
 		                        	<tr<?php if($i%2!=0) echo ' class="alt"'; ?>>
 		                        		<td><?php echo ($habilitation->no_accises)? $habilitation->no_accises : ''; ?></td>
-		                        		<td><?php echo ($habilitation->nom)? $habilitation->nom : ''; ?></td>
-		                        		<td><?php echo ($habilitation->prenom)? $habilitation->prenom : ''; ?></td>
 		                        		<td><?php echo ($habilitation->identifiant)? $habilitation->identifiant : ''; ?></td>
-		                        		<td><?php echo ($habilitation->droit_teleprocedure)? $habilitation->droit_teleprocedure : 'X'; ?></td>
-		                        		<td><?php echo ($habilitation->droit_telepaiement)? str_replace('_', ' / ', $habilitation->droit_telepaiement) : 'X'; ?></td>
-		                        		<td><?php echo ($habilitation->mensualisation)? 'oui' : ''; ?></td>
+		                        		<td><?php echo ($habilitation->droit_teleprocedure)? ConventionCiel::$droits[$habilitation->droit_teleprocedure] : 'X'; ?></td>
+		                        		<td><?php echo ($habilitation->droit_telepaiement)? ConventionCiel::$droits[$habilitation->droit_telepaiement] : 'X'; ?></td>
 		                        	</tr>
 		                        	<?php endforeach; ?>
 	                        	</tbody>

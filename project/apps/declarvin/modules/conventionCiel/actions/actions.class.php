@@ -141,11 +141,12 @@ class conventionCielActions extends sfActions
   	
   	if (!$this->convention->valide) {
   		$this->convention->valide = 1;
+  		$this->convention->cleanHabilitations();
   		$this->convention->save();
   		$this->generatePdf();
-  		$this->generateAvenant();
     	Email::getInstance()->sendConventionCiel($this->convention, $this->compte->email, array(InterproClient::getInstance()->getById($this->convention->interpro)), ContratClient::getInstance()->find($this->compte->contrat));
     	Email::getInstance()->sendConventionCiel($this->convention, $this->convention->getEmailInterprofession(), array(InterproClient::getInstance()->getById($this->convention->interpro)), ContratClient::getInstance()->find($this->compte->contrat));
+    	
   	}
 
   }

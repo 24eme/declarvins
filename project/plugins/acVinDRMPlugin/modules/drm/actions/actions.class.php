@@ -468,6 +468,14 @@ class drmActions extends sfActions {
         }
         
         $this->form->bind($request->getParameter($this->form->getName()));
+        
+        if (isset($values['brouillon']) && $values['brouillon'] && $this->form->isValid())
+        {
+        	$values = $this->form->getValues();
+        	$this->drm = $this->form->save();
+        	return $this->redirect('drm_validation', $this->drm);
+        }
+        
         if (!$this->form->isValid() || !$this->drmValidation->isValide()) {
 
             return sfView::SUCCESS;
@@ -475,11 +483,6 @@ class drmActions extends sfActions {
 		$values = $this->form->getValues();
 		
         $this->drm = $this->form->save();
-        
-        if (isset($values['brouillon']) && $values['brouillon']) 
-        {
-        	return $this->redirect('drm_validation', $this->drm);
-        }
         
         if ($values['manquants']['contrats'])
         {
@@ -491,12 +494,10 @@ class drmActions extends sfActions {
         		}
         	}
         }
-                
         $this->drm->validate();
-        
         // CIEL ==============
 	    $erreursCiel = false;
-        if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $request->getParameter('transfer_ciel')) {
         if (!$this->drmCiel->isTransfere() && !$this->drm->hasVersion()) {
 	        if ($this->etablissement->isTransmissionCiel()) {
 	        	$export = new DRMExportCsvEdi($this->drm);

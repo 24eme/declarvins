@@ -29,19 +29,26 @@ class ConventionCielClient extends acCouchdbClient
     	$convention->fonction = $compte->fonction;
     	$convention->email = $compte->email;
     	$convention->telephone = $compte->telephone;
+    	$convention->email_beneficiaire = $compte->email;
+    	$convention->telephone_beneficiaire = $compte->telephone;
+    	$convention->date_ciel = date('Y-m-d');
+    	$convention->representant_legal = 0;
     	$convention->valide = 0;
     	$interpro = array();
     	$nbEtablissement = 0;
     	$currentEtab = null;
-    	$habilitation = $convention->habilitations->add();
-    	$habilitation->nom = $compte->nom;
-    	$habilitation->prenom = $compte->prenom;
+    	for ($i=0; $i<3; $i++) {
+    		$convention->habilitations->add();
+    	}
     	foreach ($compte->getTiersCollection() as $etablissement) {
     		if (!$etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) {
     			continue;
     		}
     		if ($etablissement->statut != Etablissement::STATUT_ACTIF) {
     			continue;
+    		}
+    		if ($nbEtablissement >= 2) {
+    			break;
     		}
     		$nbEtablissement++;
     		$currentEtab = $etablissement;
@@ -75,6 +82,13 @@ class ConventionCielClient extends acCouchdbClient
     	if ($nbEtablissement == 1) {
     		$convention->raison_sociale = ($currentEtab->raison_sociale)? $currentEtab->raison_sociale : $currentEtab->nom ;
     		$convention->no_operateur = $currentEtab->siret;
+    		$convention->no_siret_payeur = $currentEtab->siret;
+    		$convention->adresse = $currentEtab->siege->adresse;
+    		$convention->code_postal = $currentEtab->siege->code_postal;
+    		$convention->commune = $currentEtab->siege->commune;
+    		$convention->pays = $currentEtab->siege->pays;
+    		$convention->email_beneficiaire = $currentEtab->email;
+    		$convention->telephone_beneficiaire = $currentEtab->telephone;
     	}
     	return $convention;
     }
