@@ -7,7 +7,7 @@ class drmComponents extends sfComponents {
         $this->certifications = array();
 
         $i = 3;
-        foreach ($this->config_certifications as $certification_config) {
+        foreach ($this->config_certifications as $certification_config => $val) {
             if ($certification_config == 'Sans IG') {
                 $certification_config = 'VINSSANSIG';
             }

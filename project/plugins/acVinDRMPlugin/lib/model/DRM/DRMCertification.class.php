@@ -54,5 +54,10 @@ class DRMCertification extends BaseDRMCertification {
     	}
     	return false;
     }
+    
+    public function getLibelleEtape()
+    {
+    	return str_replace('VINSSANSIG', 'Sans IG', $this->getKey());
+    }
 
 }

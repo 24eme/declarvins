@@ -2,7 +2,7 @@
 	<nav id="declaration_etapes">
 		<ol>
                   <?php include_partial('drm/etapeItem', array('drm' => $drm,
-                                                               'libelle' => 'Informations',
+                                                               'libelle' => 'Infos',
                                                                'numero' => 1,
                                                                'numero_courant' => $numero,
                                                                'numero_autorise' => $numero_autorise,
@@ -10,7 +10,7 @@
                                                                'cssclass' => 'premier')); ?>
 
                   <?php include_partial('drm/etapeItem', array('drm' => $drm,
-                                                               'libelle' => 'Gestion produits',
+                                                               'libelle' => 'Produits',
                                                                'numero' => 2,
                                                                'numero_courant' => $numero,
                                                                'numero_autorise' => $numero_autorise,
@@ -18,7 +18,8 @@
                                                                'cssclass' => null)); ?>
             <?php foreach($certifications as $key => $certification): ?>
                  <?php include_partial('drm/etapeItem', array('drm' => $drm,
-                                                               'libelle' => $certification->getConfig()->getLibelle(),
+                                                               'libelle' => $certification->getLibelleEtape(),
+                 											   'title' => $certification->getConfig()->getLibelle(),
                                                                'numero' => $key,
                                                                'numero_courant' => $numero,
                                                                'numero_autorise' => $numero_autorise,
@@ -45,7 +46,7 @@
             <?php endif; ?>
 			<?php if (!$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <?php include_partial('drm/etapeItem', array('drm' => $drm,
-                                                               'libelle' => 'Déclaratif',
+                                                               'libelle' => 'Annexes',
                                                                'numero' => $numero_declaratif,
                                                                'numero_courant' => $numero,
                                                                'numero_autorise' => $numero_autorise,
