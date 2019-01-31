@@ -5,6 +5,10 @@
  */
 
 class DRMCertification extends BaseDRMCertification {
+	
+	public function getCertification() {
+		return $this;
+	}
 
 	public function getPreviousSisterWithMouvementCheck() {
         $item = $this->getPreviousSister();

@@ -4,7 +4,7 @@
 													   	   'colonnes' => $colonnes,  
 														   'acq' => $acq,
 													   	   'counter' => $counter.$i, 
-													   	   'unite' => 'hl',
+													   	   'unite' => (isset($unite))? $unite : 'hl',
 														   'hash' => $hash.'/'.$key,
 														   'cssclass_value' => 'detail',
 														   'cssclass_libelle' => 'detail')) ?>

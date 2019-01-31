@@ -8,12 +8,6 @@ class drmComponents extends sfComponents {
 
         $i = 3;
         foreach ($this->config_certifications as $certification_config => $val) {
-            if ($certification_config == 'Sans IG') {
-                $certification_config = 'VINSSANSIG';
-            }
-            if ($certification_config == "Autres produits") {
-                $certification_config = 'APD';
-            }
             if ($this->drm->declaration->certifications->exist($certification_config)) {
                 $certif = $this->drm->declaration->certifications->get($certification_config);
                 if ($certif->hasMouvementCheck() && count($certif->genres) > 0) {
@@ -69,10 +63,7 @@ class drmComponents extends sfComponents {
         $this->numero_validation = $this->numeros['validation'];
 
         if ($this->etape == 'recapitulatif') {
-            foreach ($this->config_certifications as $certification_config) {
-                if ($certification_config == 'Sans IG') {
-                    $certification_config = 'VINSSANSIG';
-                }                
+            foreach ($this->config_certifications as $certification_config => $val) {
                 if ($this->drm->declaration->certifications->exist($certification_config)){
                 $certif = $this->drm->declaration->certifications->get($certification_config);
                    if($certif->hasMouvementCheck() && count($certif->genres) > 0) {

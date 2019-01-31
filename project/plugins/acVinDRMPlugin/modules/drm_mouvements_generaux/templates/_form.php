@@ -1,3 +1,4 @@
+<?php use_helper('Unit'); ?>
 <form  class="popup_form" id="form_ajout" action="<?php echo url_for('drm_mouvements_generaux_product_ajout', $form->getDRM()->declaration->certifications->getOrAdd($certification)) ?>" method="post">
 	<?php echo $form->renderGlobalErrors() ?>
 	<?php echo $form->renderHiddenFields() ?>
@@ -23,7 +24,7 @@
 	<div id="ligne_<?php echo $form['disponible']->renderId() ?>" class="ligne_form" style="display: none">
 		<span class="error"><?php echo $form['disponible']->renderError() ?></span>
 		<?php echo $form['disponible']->renderLabel() ?>
-		<?php echo $form['disponible']->render(array('class' => 'num num_float')) ?>
+		<?php echo $form['disponible']->render(array('class' => 'num num_float')) ?>&nbsp;<?php echoHl($form->getDRM()->declaration->certifications->getOrAdd($certification)) ?>
 	</div>
 	<div class="ligne_form_btn">
 		<button name="annuler" class="btn_annuler btn_fermer" type="reset">Annuler</button>
