@@ -469,6 +469,8 @@ class drmActions extends sfActions {
         
         $this->form->bind($request->getParameter($this->form->getName()));
         
+		$values = $this->form->getValues();
+        
         if (isset($values['brouillon']) && $values['brouillon'] && $this->form->isValid())
         {
         	$values = $this->form->getValues();
@@ -480,7 +482,6 @@ class drmActions extends sfActions {
 
             return sfView::SUCCESS;
         }
-		$values = $this->form->getValues();
 		
         $this->drm = $this->form->save();
         
