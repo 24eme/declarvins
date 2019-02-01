@@ -217,19 +217,21 @@
             
             <div id="popupValidation" style="display: none;">
             	<form id="formValidationPopup" action="<?php echo url_for('drm_validation', $drm); ?>" method="post">
-          	    <p>Si vous le souhaitez, en cliquant sur l'option ci-dessous, vous pouvez transmettre cette DRM directement sur le portail de la douane, qui apparaitra en mode brouillon sur le portail pro.douane.gouv.fr. Il vous restera alors à la valider en ligne sur le site web douanier.</p>
+          	    <p>En cliquant sur « Valider », votre DRM sera directement transmise vers le portail de la Douane.</p>
+          	    <p>Sur <a href="https://pro.douane.gouv.fr/" target="_blank">pro.douane.gouv.fr</a> vous la retrouverez en mode Brouillon.</p>
+          	    <p>Il ne vous restera  plus qu'à la valider en ligne sur le site web douanier.</p>
                 <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel()): ?>
                   <div class="ligne_form" style="margin: 10px 0;">
                       <div class="checkbox">
                           <label>
                               <input id="drm_transmission_ciel_visible" name="drm_transmission_ciel" type="checkbox"  value="1" checked="checked" />
-                              <strong>Transmission pour préremplissage de votre DRM electronique sur le portail pro.douane.gouv.fr</strong>
+                              <strong>J'autorise Déclarvins à transmettre au portail de la Douane les données de ma DRM en mode brouillon. Et j'ai compris que ma DRM ne sera définitive qu'après validation de ma part sur le portail de la Douane.</strong>
                           </label>
                       </div>
                   </div>
                 <?php endif; ?>
                 <div class="ligne_form">
-	                <button id="test" type="submit" class="btn_suiv">
+	                <button id="btnPopupValider" type="submit" class="btn_suiv">
 	                    <span>Valider</span>
 	                </button>
                 </div>
@@ -238,13 +240,21 @@
 			</div>
 <script type="text/javascript">
 	$(document).ready(function () {
-		$("#formValidationPopup").submit(function(){
-			if(!$("#drm_transmission_ciel_visible").is(':checked')) {
-				$("#formValidation").attr('action', "<?php echo url_for('drm_validation', $drm); ?>");
-			} else {
+		$("#drm_transmission_ciel_visible").change(function() {
+			if($(this).is(":checked")) {
 				$("#formValidation").attr('action', "<?php echo url_for('drm_transfer_ciel', $drm); ?>");
+				$("#btnPopupValider").show();
+			} else {
+				$("#btnPopupValider").hide();
+				$("#formValidation").attr('action', '#');
 			}
-			$("#formValidation").submit();
+
+		}); 
+		$("#formValidationPopup").submit(function(){
+			if($("#drm_transmission_ciel_visible").is(':checked')) {
+				$("#formValidation").attr('action', "<?php echo url_for('drm_transfer_ciel', $drm); ?>");
+				$("#formValidation").submit();
+			}
 			return false;
 		});
 		$("#formValidation").submit(function(){
