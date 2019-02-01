@@ -17,6 +17,10 @@ class DRMDetailForm extends acCouchdbObjectForm {
 		if (preg_match('/^1[0-9a-zA-Z]+N$/', $inao) || preg_match('/^1[R|S|B]175Z$/', $inao)) {
     		$hasTav = true;
 		}
+		if ($this->getObject()->getCertification()->getKey() == 'MP') {
+	    	$hasTav = false;
+	    	$hasPremix = false;
+		}
     	if ($hasTav) {
     		$this->setWidget('tav', new sfWidgetFormInputFloat(array('float_format' => "%01.04f")));
     	} else {
