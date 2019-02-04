@@ -498,8 +498,8 @@ class drmActions extends sfActions {
         $this->drm->validate();
         // CIEL ==============
 	    $erreursCiel = false;
-        if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $request->getParameter('transfer_ciel')) {
-        if (!$this->drmCiel->isTransfere() && !$this->drm->hasVersion()) {
+        if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+        if (!$this->drmCiel->isTransfere() && !$this->drm->hasVersion() && $request->getParameter('transfer_ciel')) {
 	        if ($this->etablissement->isTransmissionCiel()) {
 	        	$export = new DRMExportCsvEdi($this->drm);
 	        	if ($xml = $export->exportEDI('xml')) {
