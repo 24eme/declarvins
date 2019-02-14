@@ -20,12 +20,12 @@ function echoFloat($float)
 
 function echoLongFloat($float) 
 {
-  echo sprintFloat($float, "%01.04f");
+  echo sprintFloat($float, "%01.05f");
 }
 
 function echoLongFloatFr($float)
 {
-  echo sprintFloatFr($float, "%01.04f");
+  echo sprintFloatFr($float, "%01.05f");
 }
 
 function echoFloatFr($float)

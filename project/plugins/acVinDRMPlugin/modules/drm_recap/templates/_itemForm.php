@@ -11,7 +11,7 @@
             <p class="cepage"><?php echo $form->getObject()->getCepage()->getConfig()->libelle ?></p>
             <?php endif; ?>
             <p class="label" style="font-size: 12px; text-align: center;">
-            	<?php if ($form->getObject()->getCertification()->getKey() == ConfigurationProduit::CERTIFICATION_APD && $form->getObject()->getKey() != ConfigurationProduit::DEFAULT_KEY): ?>
+            	<?php if ($form->getObject()->getKey() != ConfigurationProduit::DEFAULT_KEY && !in_array($form->getObject()->getKey(), $form->getObject()->getLabels()->toArray())): ?>
             		<span title="<?php echo implode(', ', array_merge(array($form->getObject()->libelle), $form->getObject()->labels->toArray())) ?>"><?php echo (strlen(implode(', ', array_merge(array($form->getObject()->libelle), $form->getObject()->labels->toArray()))) > 15)? substr(implode(', ', array_merge(array($form->getObject()->libelle), $form->getObject()->labels->toArray())), 0, 12).'...' : implode(', ', array_merge(array($form->getObject()->libelle), $form->getObject()->labels->toArray())); ?></span>
             	<?php else: ?>
                 	<?php echo $form->getObject()->getLabelsLibelle() ?><br />
