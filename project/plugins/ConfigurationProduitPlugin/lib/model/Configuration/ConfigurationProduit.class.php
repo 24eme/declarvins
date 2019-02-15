@@ -179,6 +179,7 @@ class ConfigurationProduit extends BaseConfigurationProduit
     {
     	$libelle = KeyInflector::slugify($libelle);
     	$libelleDouane = KeyInflector::slugify($libelleDouane);
+    	$produitSiRienTrouve = null;
     	foreach ($this->getProduits() as $produit) {
     		$identifiantDouane = KeyInflector::slugify($produit->getIdentifiantDouane());
     		$libelleProduit = KeyInflector::slugify($produit->getLibelleEdi());
@@ -191,8 +192,11 @@ class ConfigurationProduit extends BaseConfigurationProduit
     		if (!$libelleDouane && strpos($libelle, $libelleProduit) !== false) {
     			return $produit;
     		}
+    		if ($libelleDouane && $identifiantDouane == $libelleDouane) {
+    		    $produitSiRienTrouve = $produit;
+    		}
     	}
-    	return null;
+    	return $produitSiRienTrouve;
     }
     
     public function isProduitInPrestation($hash)
