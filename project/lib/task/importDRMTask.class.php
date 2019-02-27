@@ -51,7 +51,7 @@ EOF;
     foreach ($files as $file) {
     	$f = explode('/', $file);
     	$f = $f[count($f) - 1];
-    	if (!preg_match('/^([a-zA-Z0-9]+)_([a-zA-Z0-9]+)_([a-zA-Z0-9]{6}).csv$/', $f, $m)) {
+    	if (!preg_match('/^([a-zA-Z0-9]*)_([a-zA-Z0-9]*)_([a-zA-Z0-9]{6}).csv$/', $f, $m)) {
 			continue;
     	}
 		$ea = $m[1];
