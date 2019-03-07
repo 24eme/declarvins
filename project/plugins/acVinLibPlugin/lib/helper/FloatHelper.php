@@ -4,7 +4,15 @@ function sprintFloat($float, $format = "%01.02f")
 {
 	if (is_null($float))
 		return null;
-  return sprintf($format, $float);
+    $tab = explode('.', str_replace(',', '.', $float));
+    $nb = (isset($tab[1]))? strlen($tab[1]) : 2;
+    if ($nb > 5) {
+        $nb = 5;
+    }
+    if ($nb < 2) {
+        $nb = 2;
+    }
+  return sprintf("%01.0".$nb."f", $float);
 }
 
 function sprintFloatFr($float, $format = "%01.02f")
