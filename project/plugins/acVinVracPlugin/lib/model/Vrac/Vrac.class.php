@@ -252,6 +252,10 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
 	  }
     }
     
+    public function getPrixTotalCalc() {
+        return ($this->type_transaction != 'raisin')? round($this->prix_unitaire * $this->volume_propose, 2) : round($this->poids * $this->prix_unitaire, 2);
+    }
+    
     public function normalizeNumeric()
     {
     	$this->prix_unitaire = ($this->prix_unitaire)? $this->prix_unitaire * 1 : 0;

@@ -1,4 +1,5 @@
 <?php 
+    use_helper('Float');
 	$warningMiseEnMarche = false;
 	$warningExport = false;
 	if (!$form->getObject()->isValide() && $form->getObject()->premiere_mise_en_marche && $form->getObject()->vendeur->famille == EtablissementFamilles::FAMILLE_NEGOCIANT) {
@@ -100,21 +101,39 @@
 			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$form->getObject()->isRectificative()): ?>
 				<button id="no_mail" style="text-transform: uppercase; color: #FFFFFF; height: 21px; line-height: 21px; font-weight: bold; padding: 0 10px; background-color: #FF9F00; border: 1px solid #D68500;" type="submit"><span>Valider sans e-mail</span></button>
 			<?php endif; ?>
-			<button class="valider_etape" type="submit"><span>Terminer la saisie</span></button>
+			<button id="btnSubmit" class="valider_etape" type="submit"><span>Terminer la saisie</span></button>
 		</div>
         <div class="ligne_form_btn">
             <a href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $form->getObject(), 'etablissement' => $etablissement)) ?>" class="annuler_saisie" onclick="return confirm('<?php if ($form->getObject()->hasVersion()): ?>Attention, vous êtes sur le point d\'annuler les modifications en cours<?php else: ?>Attention, ce contrat sera supprimé de la base<?php endif; ?>')"><span><?php if($form->getObject()->hasVersion()): ?>Annuler les modifications<?php else: ?>supprimer le contrat<?php endif; ?></span></a>
         </div> 
 	</form>
 	<script type="text/javascript">
+		var showConfirme = true;
 		$("#no_mail").click(function() {
+			showConfirme = false;
 			$('#<?php echo $form['email']->renderId() ?>').val(0);
 			$("#recap_saisie").submit();
 			return false;
 		});
 		$("#brouillon").click(function() {
+			showConfirme = false;
 			$('#<?php echo $form['brouillon']->renderId() ?>').val(1);
 			$("#recap_saisie").submit();
 			return false;
 		});
+		$("#brouillon").click(function() {
+			showConfirme = false;
+			$("#recap_saisie").submit();
+			return false;
+		});
+
+
+		$('#recap_saisie').submit(function() {
+			if (showConfirme)
+		    	return confirm("Vous êtes sur le point de valider un contrat <?php echo $form->getObject()->type_transaction ?>\n\nde <?php echoArialFloat($form->getObject()->prix_unitaire) ?> <?php if($form->getObject()->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€(HT)/kg soit <?php echoArialFloat($form->getObject()->poids * $form->getObject()->prix_unitaire / $form->getObject()->volume_propose) ?> €(HT)/hl<?php endif;?> pour <?php echoArialFloat($form->getObject()->volume_propose) ?> hl proposé\n\nSoit un prix total de <?php echoArialFloat($form->getObject()->getPrixTotalCalc()) ?> €(HT)");
+			else
+				return true;
+		});
+
+				
 	</script>
