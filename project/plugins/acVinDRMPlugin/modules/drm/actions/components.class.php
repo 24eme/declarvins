@@ -39,7 +39,7 @@ class drmComponents extends sfComponents {
             );
         }
         
-
+        $this->numero = $this->numeros[$this->etape];
 
         if ($this->getUser()->getCompte()->isTiers() && !$this->drm->getEtablissementObject()->isTransmissionCiel()) {
         	unset($this->numeros['crd']);
@@ -52,7 +52,6 @@ class drmComponents extends sfComponents {
         	$this->numeros['validation'] = $this->numeros['validation'] - 2;
         }
 
-        $this->numero = $this->numeros[$this->etape];
         if (isset($this->numeros[$this->drm->etape]))
             $this->numero_autorise = $this->numeros[$this->drm->etape];
         else
