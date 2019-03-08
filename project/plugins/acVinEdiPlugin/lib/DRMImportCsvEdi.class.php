@@ -122,6 +122,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     	}
     	
 		$libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]);
+		$configurationProduit = null;
 		if ($idDouane = $this->getIdDouane($datas)) {
 			$configurationProduit = $this->configuration->identifyProduct(null, "($idDouane)");
 		}
