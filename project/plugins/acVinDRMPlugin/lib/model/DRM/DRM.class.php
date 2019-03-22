@@ -152,8 +152,8 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         		$totalVolume += $contrat->volume;
         	}
         	if ($detail->canHaveVrac() && $detail->sorties->vrac) {
-        		$ecart = round($detail->sorties->vrac * DRMValidation::ECART_VRAC, 4);
-        		if (round($totalVolume,4) < (round($detail->sorties->vrac,4) - $ecart)) {
+        		$ecart = round($detail->sorties->vrac * DRMValidation::ECART_VRAC,5);
+        		if (round($totalVolume,5) < (round($detail->sorties->vrac,5) - $ecart)) {
         			$details[] = $detail;
         		}
         	}
@@ -1029,8 +1029,8 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 			 	$totalVolume += $contrat->volume;
 			 }
 			 if ($detail->canHaveVrac() && $detail->sorties->vrac) {
-			  	  $ecart = round($detail->sorties->vrac * DRMValidation::ECART_VRAC, 4);
-				  if (round($totalVolume,4) < (round($detail->sorties->vrac,4) - $ecart)) {
+			  	  $ecart = round($detail->sorties->vrac * DRMValidation::ECART_VRAC,5);
+				  if (round($totalVolume,5) < (round($detail->sorties->vrac,5) - $ecart)) {
 				    $result = true;
 				    break;
 				  }

@@ -1,4 +1,5 @@
 <?php use_helper('Float'); ?>
+<?php use_helper('Unit'); ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" class="no-js">
 <head>
@@ -53,7 +54,7 @@
 																  'partial' => 'drm_export/pdfLineProduitLabels')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Stock début de mois',
-																	   'unite' => 'hl',
+																	   'unite' => getHl($certification),
 	    						  								       'counter' => 2,
 																	   'cssclass_libelle' => 'total',
 																       'cssclass_value' => 'total',
@@ -66,10 +67,11 @@
 																		'colonnes' => $colonnes,
 																  		'acq' => false,
 																        'drm' => $drm,
+																	    'unite' => getHl($certification),
 																  		'hash' => 'stocks_debut'))?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total entrées',
-																	   'unite' => 'hl',
+																	   'unite' => getHl($certification),
 	    						  								       'counter' => 3,
 																	   'cssclass_libelle' => 'total',
 																  	   'cssclass_value' => 'total',
@@ -83,10 +85,11 @@
 																		'colonnes' => $colonnes,
 																  		'acq' => false,
 																        'drm' => $drm,
+																	    'unite' => getHl($certification),
 																  		'hash' => 'entrees')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total sorties',
-																	   'unite' => 'hl',
+																	   'unite' => getHl($certification),
 	    						  								       'counter' => 4,
 																	   'colonnes' => $colonnes,
 																  		'acq' => false,
@@ -99,10 +102,11 @@
 																		'colonnes' => $colonnes,
 																  		'acq' => false,
 																        'drm' => $drm,
+																	    'unite' => getHl($certification),
 																  		'hash' => 'sorties')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Stock fin de mois',
-																	   'unite' => 'hl',
+																	   'unite' => getHl($certification),
 	    						  								       'counter' => 5,
 																	   'cssclass_libelle' => 'total',
 																  	   'cssclass_value' => 'total',
@@ -115,6 +119,7 @@
 																		'colonnes' => $colonnes,
 																 		'acq' => false,
 																        'drm' => $drm,
+																	    'unite' => getHl($certification),
 																  		'hash' => 'stocks_fin')) ?>
 
 			</table>
@@ -136,7 +141,7 @@
 																  'partial' => 'drm_export/pdfLineProduitLabels')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Stock début de mois',
-																	   'unite' => 'hl',
+																	   'unite' => getHl($certification),
 	    						  								       'counter' => 2,
 																	   'cssclass_libelle' => 'total',
 																       'cssclass_value' => 'total',
@@ -145,7 +150,7 @@
 																       'hash' => 'acq_total_debut_mois')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total entrées',
-																	   'unite' => 'hl',
+																	   'unite' => getHl($certification),
 	    						  								       'counter' => 3,
 																	   'cssclass_libelle' => 'total',
 																  	   'cssclass_value' => 'total',
@@ -159,10 +164,11 @@
 																		'colonnes' => $colonnes,
 																  		'acq' => true,
 																        'drm' => $drm,
+																	    'unite' => getHl($certification),
 																  		'hash' => 'entrees')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Total sorties',
-																	   'unite' => 'hl',
+																	   'unite' => getHl($certification),
 	    						  								       'counter' => 4,
 																	   'colonnes' => $colonnes,
 																 		'acq' => true,
@@ -175,10 +181,11 @@
 																		'colonnes' => $colonnes,
 																  		'acq' => true,
 																        'drm' => $drm,
+																	    'unite' => getHl($certification),
 																  		'hash' => 'sorties')) ?>
 
 				<?php include_partial('drm_export/pdfLineFloat', array('libelle' => 'Stock fin de mois',
-																	   'unite' => 'hl',
+																	   'unite' => getHl($certification),
 	    						  								       'counter' => 5,
 																	   'cssclass_libelle' => 'total',
 																  	   'cssclass_value' => 'total',

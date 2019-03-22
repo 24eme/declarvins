@@ -42,7 +42,7 @@
                 <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->isTransmissionCiel()) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel()): ?>
                 <?php if(date('Y-m-d') >= $drm->periode.'-'.DRMCiel::VALIDATE_DAY): ?>
-                <button type="submit" class="btn_suiv">
+                <button type="button" class="btn_popup btn_suiv" data-popup="#popupValidation" data-popup-config="configDefaut">
                     <span>Valider et envoyer à CIEL</span>
                 </button>
                 <?php else: ?>
@@ -172,7 +172,7 @@
                 <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->isTransmissionCiel()) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel()): ?>
                 <?php if(date('Y-m-d') >= $drm->periode.'-'.DRMCiel::VALIDATE_DAY): ?>
-                <button type="submit" class="btn_suiv">
+                <button type="button" class="btn_popup btn_suiv" data-popup="#popupValidation" data-popup-config="configDefaut">
                     <span>Valider et envoyer à CIEL</span>
                 </button>
                 <?php else: ?>
@@ -212,8 +212,51 @@
         </form>
     </section>
 </section>
+
+            
+            
+            <div id="popupValidation" style="display: none;">
+            	<form id="formValidationPopup" action="<?php echo url_for('drm_validation', $drm); ?>" method="post">
+          	    <p>En cliquant sur « Valider », votre DRM sera directement transmise vers le portail de la Douane.</p>
+          	    <p>Sur <a href="https://pro.douane.gouv.fr/" target="_blank">pro.douane.gouv.fr</a> vous la retrouverez en mode Brouillon.</p>
+          	    <p>Il ne vous restera  plus qu'à la valider en ligne sur le site web douanier.</p>
+                <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel()): ?>
+                  <div class="ligne_form" style="margin: 10px 0;">
+                      <div class="checkbox">
+                          <label>
+                              <input id="drm_transmission_ciel_visible" name="drm_transmission_ciel" type="checkbox"  value="1" checked="checked" />
+                              <strong>J'autorise Déclarvins à transmettre au portail de la Douane les données de ma DRM en mode brouillon. Et j'ai compris que ma DRM ne sera définitive qu'après validation de ma part sur le portail de la Douane.</strong>
+                          </label>
+                      </div>
+                  </div>
+                <?php endif; ?>
+                <div class="ligne_form">
+	                <button id="btnPopupValider" type="submit" class="btn_suiv">
+	                    <span>Valider</span>
+	                </button>
+                </div>
+                <p>&nbsp;</p>
+                </form>
+			</div>
 <script type="text/javascript">
 	$(document).ready(function () {
+		$("#drm_transmission_ciel_visible").change(function() {
+			if($(this).is(":checked")) {
+				$("#formValidation").attr('action', "<?php echo url_for('drm_transfer_ciel', $drm); ?>");
+				$("#btnPopupValider").show();
+			} else {
+				$("#btnPopupValider").hide();
+				$("#formValidation").attr('action', '#');
+			}
+
+		}); 
+		$("#formValidationPopup").submit(function(){
+			if($("#drm_transmission_ciel_visible").is(':checked')) {
+				$("#formValidation").attr('action', "<?php echo url_for('drm_transfer_ciel', $drm); ?>");
+				$("#formValidation").submit();
+			}
+			return false;
+		});
 		$("#formValidation").submit(function(){
 			if ($('#<?php echo $form['brouillon']->renderId() ?>').val() == 1) {
 				return true;

@@ -292,7 +292,7 @@ var fbConfig =
 			if(val.indexOf('0') == 0 && val.length > 1) val = val.substring(1);
 			
 			// Comparaison nombre entier / flottant
-			if(float || parseInt(val) != parseFloat(val)) val = parseFloat(val).toFixed(4);		
+			if(float || parseInt(val) != parseFloat(val)) val = parseFloat(val);		
 			else val = parseInt(val);
 		}
 		// Si rien n'a été saisi

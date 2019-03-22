@@ -143,11 +143,11 @@ class DRMDetailImport
       	$total_entrees = $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_ENTREES]);
       	$total_sorties = $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_SORTIES]);
       	$total = $this->floatize($this->datas[DRMDateView::VALUE_DETAIL_TOTAL]);
-      	if (round($detail->total_entrees,4) != round($total_entrees,4)) {
-      		if (round($detail->total_entrees,4) > 0) {
+      	if (round($detail->total_entrees,5) != round($total_entrees,5)) {
+      		if (round($detail->total_entrees,5) > 0) {
       			$this->loggeur->addCalculateColumnLog(DRMDateView::VALUE_DETAIL_ENTREES, 'drm detail total entrées', $total_entrees, $detail->total_entrees);
       		} else {
-      			$detail->entrees->recolte = round($total_entrees,4);
+      			$detail->entrees->recolte = round($total_entrees,5);
       		}
       	}
   	}

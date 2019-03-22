@@ -385,9 +385,24 @@ class Configuration extends BaseConfiguration {
     	if (count($result) == 1) {
     		$etablissement = current($result);
     		if ($object = EtablissementClient::getInstance()->find($etablissement->id)) {
-    			return $object;
+                if ($object->statut != Etablissement::STATUT_ARCHIVE) {
+    			     return $object;
+                }
     		}
     		return null;
+    	} else {
+    	    $etabs = array();
+    	    foreach ($result as $item) {
+        		if ($object = EtablissementClient::getInstance()->find($item->id)) {
+        		    if ($object->statut != Etablissement::STATUT_ARCHIVE) {
+        		        $etabs[] = $object;
+        		    }
+        		}
+    	    }
+    	    if (count($etabs) == 1) {
+    		  $etablissement = current($etabs);
+    		  return $etablissement;
+    	    }
     	}
     	return null;
     }

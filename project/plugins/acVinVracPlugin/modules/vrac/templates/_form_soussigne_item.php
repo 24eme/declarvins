@@ -24,11 +24,11 @@
         <h2><?php echo $sous_titre_vous ?></h2>
         <div class="section_label_strong etablissement_famille_choice">
             <label for="">Type :</label>
-            <?php echo $form->getEtablissement()->getFamille() ?>
+            <?php echo ucfirst($form->getEtablissement()->getFamille()) ?> <?php echo ucfirst($form->getEtablissement()->getSousFamille()) ?>
         </div>
         <div class="section_label_strong etablissement_choice">
             <label for="">Nom :</label>
-            <?php if ($form->getEtablissement()->raison_sociale): ?> / <?php endif; ?><?php echo $form->getEtablissement()->nom ?>
+            <?php echo $form->getEtablissement()->raison_sociale ?><?php if ($form->getEtablissement()->raison_sociale && $form->getEtablissement()->nom): ?> / <?php endif; ?><?php echo $form->getEtablissement()->nom ?>
         </div>
 
         <div class="bloc_form etablissement_informations"> 

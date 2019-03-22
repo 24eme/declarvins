@@ -9,6 +9,7 @@
 <p>Transmission des données à pro.douane.gouv.fr en cours... <br/>Veuillez patienter</p>
 </center></div>
 <form id="form_transmission" method="post" action="<?php echo (isset($url))? $url : url_for('drm_validation', $drm); ?>">
+	<input type="hidden" name="transfer_ciel" value="1" />
 	<?php foreach ($postVars as $id => $vars): ?>
 		<?php foreach ($vars as $name => $value): ?>
 		<input type="hidden" name="<?php echo $id.'['.$name.']'; ?>" value="<?php echo $value ?>" />

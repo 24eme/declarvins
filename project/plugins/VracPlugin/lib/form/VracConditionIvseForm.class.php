@@ -9,6 +9,7 @@ class VracConditionIvseForm extends VracConditionForm
 		$this->setWidget('vin_livre', new sfWidgetFormInputHidden());
 
         unset($this['clause_reserve_retiraison'], $this['delai_paiement']);
+        unset($this['has_transaction']);
     }
 
 

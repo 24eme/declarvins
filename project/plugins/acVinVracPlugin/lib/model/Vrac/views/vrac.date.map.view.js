@@ -76,7 +76,6 @@ function(doc) {
 		var vrac_premiere_mise_en_marche = doc.premiere_mise_en_marche;
 		var vrac_annexe = doc.annexe;
 		var vrac_volume_propose = doc.volume_propose;
-		var vrac_volume_enleve = doc.volume_enleve;
 		var vrac_prix_unitaire = (doc.type_transaction == 'raisin')? ((doc.poids * doc.prix_unitaire) / doc.volume_propose) : doc.prix_unitaire;
 		var vrac_type_prix = doc.type_prix;
 		var vrac_determination_prix = doc.determination_prix;
@@ -124,17 +123,13 @@ function(doc) {
 		var vrac_addr_stockage_code_postal = doc.adresse_stockage.code_postal;
 		var vrac_addr_stockage_commune = doc.adresse_stockage.commune;
 		var vrac_addr_stockage_pays = doc.adresse_stockage.pays;
-		
-
-		var vrac_poids = (doc.poids)? doc.poids : null;
-		var vrac_mercuriale = (doc.mercuriale)? doc.mercuriale : null;
-		var vrac_variation_hausse = (doc.variation_hausse)? doc.variation_hausse : null;
-		var vrac_variation_baisse = (doc.variation_baisse)? doc.variation_baisse : null;
 
 		var vrac_addr_stockage_has = 0;
 		if (vrac_addr_stockage_adresse || vrac_addr_stockage_code_postal || vrac_addr_stockage_commune) {
 			vrac_addr_stockage_has = 1;
 		}
+		
+		var vrac_prix_total = (vrac_prix_unitaire * vrac_volume_propose).toFixed(2);
 		
 		var nbItem = doc.lots.length;
 		
@@ -262,11 +257,7 @@ function(doc) {
 				 vrac_vendeur_ea,
 				 vrac_determination_prix_date,
 				 vrac_campagne,
-				 vrac_volume_enleve,
-				 vrac_poids,
-				 vrac_mercuriale,
-				 vrac_variation_hausse,
-				 vrac_variation_baisse
+				vrac_prix_total
                 		 ]);
 			}
 		} else {
@@ -352,11 +343,7 @@ function(doc) {
 			 vrac_vendeur_ea,
 			 vrac_determination_prix_date,
 			 vrac_campagne,
-			 vrac_volume_enleve,
-			 vrac_poids,
-			 vrac_mercuriale,
-			 vrac_variation_hausse,
-			 vrac_variation_baisse
+				vrac_prix_total
             		 ]);
 		}                              
 	} 

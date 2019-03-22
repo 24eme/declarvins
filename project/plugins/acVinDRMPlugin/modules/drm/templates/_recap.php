@@ -1,5 +1,6 @@
 <?php use_helper('Version'); ?>
 <?php use_helper('Float'); ?>
+<?php use_helper('Unit'); ?>
 <?php 
 	foreach($drm->declaration->certifications as $certification): 
 	$details = $certification->getProduits();
@@ -27,10 +28,10 @@
 							<td>
 								<?php echo $detail->getFormattedLibelle(ESC_RAW) ?>
 				            </td>
-                            <td class="<?php echo isVersionnerCssClass($detail, 'total_debut_mois') ?>"><strong><?php echoLongFloat($detail->total_debut_mois) ?></strong>&nbsp;<span class="unite">hl</span></td>
-							<td class="<?php echo isVersionnerCssClass($detail, 'total_entrees') ?>"><?php echoLongFloat($detail->total_entrees) ?>&nbsp;<span class="unite">hl</span></td>
-							<td class="<?php echo isVersionnerCssClass($detail, 'total_sorties') ?>"><?php echoLongFloat($detail->total_sorties) ?>&nbsp;<span class="unite">hl</span></td>
-							<td class="<?php echo isVersionnerCssClass($detail, 'total') ?>"><strong><?php echoLongFloat($detail->total) ?></strong>&nbsp;<span class="unite">hl</span></td>
+                            <td class="<?php echo isVersionnerCssClass($detail, 'total_debut_mois') ?>"><strong><?php echoLongFloat($detail->total_debut_mois) ?></strong>&nbsp;<span class="unite"><?php echoHl($detail) ?></span></td>
+							<td class="<?php echo isVersionnerCssClass($detail, 'total_entrees') ?>"><?php echoLongFloat($detail->total_entrees) ?>&nbsp;<span class="unite"><?php echoHl($detail) ?></span></td>
+							<td class="<?php echo isVersionnerCssClass($detail, 'total_sorties') ?>"><?php echoLongFloat($detail->total_sorties) ?>&nbsp;<span class="unite"><?php echoHl($detail) ?></span></td>
+							<td class="<?php echo isVersionnerCssClass($detail, 'total') ?>"><strong><?php echoLongFloat($detail->total) ?></strong>&nbsp;<span class="unite"><?php echoHl($detail) ?></span></td>
 						</tr>
 				<?php endforeach; ?>
 			</tbody>
@@ -56,10 +57,10 @@
 						<td>
 							<?php echo $detail->getFormattedLibelle(ESC_RAW) ?>
 				            </td>
-                            <td class="<?php echo isVersionnerCssClass($detail, 'acq_total_debut_mois') ?>"><strong><?php echoLongFloat($detail->acq_total_debut_mois) ?></strong>&nbsp;<span class="unite">hl</span></td>
-						<td class="<?php echo isVersionnerCssClass($detail, 'acq_total_entrees') ?>"><?php echoLongFloat($detail->acq_total_entrees) ?>&nbsp;<span class="unite">hl</span></td>
-						<td class="<?php echo isVersionnerCssClass($detail, 'acq_total_sorties') ?>"><?php echoLongFloat($detail->acq_total_sorties) ?>&nbsp;<span class="unite">hl</span></td>
-						<td class="<?php echo isVersionnerCssClass($detail, 'acq_total') ?>"><strong><?php echoLongFloat($detail->acq_total) ?></strong>&nbsp;<span class="unite">hl</span></td>
+                            <td class="<?php echo isVersionnerCssClass($detail, 'acq_total_debut_mois') ?>"><strong><?php echoLongFloat($detail->acq_total_debut_mois) ?></strong>&nbsp;<span class="unite"><?php echoHl($detail) ?></span></td>
+						<td class="<?php echo isVersionnerCssClass($detail, 'acq_total_entrees') ?>"><?php echoLongFloat($detail->acq_total_entrees) ?>&nbsp;<span class="unite"><?php echoHl($detail) ?></span></td>
+						<td class="<?php echo isVersionnerCssClass($detail, 'acq_total_sorties') ?>"><?php echoLongFloat($detail->acq_total_sorties) ?>&nbsp;<span class="unite"><?php echoHl($detail) ?></span></td>
+						<td class="<?php echo isVersionnerCssClass($detail, 'acq_total') ?>"><strong><?php echoLongFloat($detail->acq_total) ?></strong>&nbsp;<span class="unite"><?php echoHl($detail) ?></span></td>
 					</tr>
 			<?php endforeach; ?>
 		</tbody>

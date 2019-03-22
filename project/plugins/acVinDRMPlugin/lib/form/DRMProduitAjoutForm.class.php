@@ -32,6 +32,7 @@ class DRMProduitAjoutForm extends acCouchdbForm
             'hashref' => 'Produit: ',
             'label' => 'Label: ',
             'libelle' => 'Libelle CIEL: ',
+            'disponible' => 'Volume disponible : ',
         ));
 
         $this->setValidators(array(

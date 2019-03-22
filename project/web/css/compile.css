@@ -2135,7 +2135,7 @@ p#date_drm {
 }
 #statut_declaration #declaration_etapes ol li.premier > * {
   background: 0;
-  padding-left: 10px;
+  padding-left: 5px;
 }
 #statut_declaration #declaration_etapes ol li.dernier > * {
   padding-right: 0;

@@ -76,12 +76,6 @@ function(doc) {
         var drm_precedente_annee = null;
         var drm_precedente_mois = null;
         var drm_precedente_version = null;
-        /*if (doc.precedente) {
-            drm_precedente_explosed_id = explodeIdDRM(doc.precedente);
-            drm_precedente_annee = getAnneeByDRM(drm_precedente_explosed_id);
-            drm_precedente_mois = getMoisByDRM(drm_precedente_explosed_id);
-            drm_precedente_version = getVersionByDRM(drm_precedente_explosed_id);
-        }*/
         var drm_identifiant = doc.identifiant;
         var drm_declarant = doc.declarant.raison_sociale;
         var drm_declarant_famille = doc.declarant.famille;
@@ -124,7 +118,7 @@ function(doc) {
                 if (certification_code) {
                     code = certification_code;
                 }
-                var genre_code = (genre.code).replace(code, '');
+                var genre_code = (genre.code)? (genre.code).replace(code, '') : genre.code;
                 var genre_libelle = (genre.libelle).replace(libelle, '');
                 if (genre_code == key_default) {
                     genre_code = null;
@@ -139,7 +133,7 @@ function(doc) {
                     if (genre.code && genre_code != key_default) {
                         code = genre.code;
                     }
-                    var appellation_code = (appellation.code).replace(code, '');
+		    var appellation_code = (appellation.code)? (appellation.code).replace(code, '') : appellation.code;
                     var appellation_libelle = (appellation.libelle).replace(libelle, '');
                     if (appellation_code == key_default) {
                         appellation_code = null;
@@ -155,7 +149,7 @@ function(doc) {
                             code = appellation.code;
                         }
                         var mention_libelle = (mention.libelle).replace(libelle, '');
-                        var mention_code = (mention.code).replace(code, '');
+						var mention_code = (mention.code)? (mention.code).replace(code, '') : mention.code;
                         if (mention_code == key_default) {
                             mention_code = null;
                             mention_libelle = null;
@@ -169,7 +163,7 @@ function(doc) {
                         if (mention.code && mention_code != key_default) {
                             code = mention.code;
                         }
-                        var lieu_code = (lieu.code).replace(code, '');
+						var lieu_code = (lieu.code)? (lieu.code).replace(code, '') : lieu.code;
                         var lieu_libelle = (lieu.libelle).replace(libelle, '');
                         if (lieu_code == key_default) {
                             lieu_code = null;
@@ -184,7 +178,7 @@ function(doc) {
                         if (lieu.code && lieu_code != key_default) {
                             code = lieu.code;
                         }
-                        var couleur_code = (couleur.code).replace(code, '');
+						var couleur_code = (couleur.code)? (couleur.code).replace(code, '') : couleur.code;
                         var couleur_libelle = (couleur.libelle).replace(libelle, '');
                         if (couleur_code == key_default) {
                             couleur_code = null;
@@ -199,7 +193,7 @@ function(doc) {
                             if (couleur.code && couleur_code != key_default) {
                                 code = couleur.code;
                             }
-                            var cepage_code = (cepage.code).replace(code, '');
+							var cepage_code = (cepage.code)? (cepage.code).replace(code, '') : cepage.code;
                             var cepage_libelle = (cepage.libelle).replace(libelle, '');
                             var inao = (cepage.inao)? cepage.inao : null;
                             var libelle_fiscal = (cepage.libelle_fiscal)? cepage.libelle_fiscal : null;

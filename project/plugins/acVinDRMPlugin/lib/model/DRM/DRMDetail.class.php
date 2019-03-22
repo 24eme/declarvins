@@ -19,7 +19,7 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function getFormattedLibelle($format = "%g% %a% %l% %co% %ce% <span class=\"labels\">%la%</span>", $label_separator = ", ") {
-    	if ($this->getCertification()->getKey() == ConfigurationProduit::CERTIFICATION_APD && $this->getKey() != ConfigurationProduit::DEFAULT_KEY) {
+    	if ($this->getKey() != ConfigurationProduit::DEFAULT_KEY && !in_array($this->getKey(), $this->getLabels()->toArray())) {
     		return ConfigurationProduitClient::getInstance()->format($this->getCepage()->getConfig()->getLibelles(), array_merge(array($this->libelle), $this->labels->toArray()), $format);
     	}
         return ConfigurationProduitClient::getInstance()->format($this->getCepage()->getConfig()->getLibelles(), $this->labels->toArray(), $format);
@@ -124,21 +124,21 @@ class DRMDetail extends BaseDRMDetail {
     protected function update($params = array()) {
         parent::update($params);
         $configuration = ConfigurationClient::getCurrent();
-        $this->total_entrees = round($this->sommeLignes(DRMVolumes::getEntreesSuspendus()), 4);
-        $this->total_sorties = round($this->sommeLignes(DRMVolumes::getSortiesSuspendus()), 4);
-        $this->total = round($this->total_debut_mois + $this->total_entrees - $this->total_sorties, 4);
-        $this->acq_total_entrees = round($this->sommeLignes(DRMVolumes::getEntreesAcquittes()), 4);
-        $this->acq_total_sorties = round($this->sommeLignes(DRMVolumes::getSortiesAcquittes()), 4);
-        $this->acq_total = round($this->acq_total_debut_mois + $this->acq_total_entrees - $this->acq_total_sorties, 4);
+        $this->total_entrees = round($this->sommeLignes(DRMVolumes::getEntreesSuspendus()),5);
+        $this->total_sorties = round($this->sommeLignes(DRMVolumes::getSortiesSuspendus()),5);
+        $this->total = round($this->total_debut_mois + $this->total_entrees - $this->total_sorties,5);
+        $this->acq_total_entrees = round($this->sommeLignes(DRMVolumes::getEntreesAcquittes()),5);
+        $this->acq_total_sorties = round($this->sommeLignes(DRMVolumes::getSortiesAcquittes()),5);
+        $this->acq_total = round($this->acq_total_debut_mois + $this->acq_total_entrees - $this->acq_total_sorties,5);
         if ($this->has_vrac) {
             $this->total_debut_mois_interpro = $this->total_debut_mois;
             $this->total_entrees_interpro = $this->total_entrees;
             $this->total_sorties_interpro = $this->total_sorties;
-            $this->total_entrees_nettes = round($this->sommeLignes(DRMVolumes::getEntreesNettes()), 4);
-            $this->total_entrees_reciproque = round($this->sommeLignes(DRMVolumes::getEntreesReciproque()), 4);
-            $this->total_sorties_nettes = round($this->sommeLignes(DRMVolumes::getSortiesNettes()), 4);
-            $this->total_sorties_reciproque = round($this->sommeLignes(DRMVolumes::getSortiesReciproque()), 4);
-            $this->total_interpro = round($this->total_debut_mois_interpro + $this->total_entrees_interpro - $this->total_sorties_interpro, 4);
+            $this->total_entrees_nettes = round($this->sommeLignes(DRMVolumes::getEntreesNettes()),5);
+            $this->total_entrees_reciproque = round($this->sommeLignes(DRMVolumes::getEntreesReciproque()),5);
+            $this->total_sorties_nettes = round($this->sommeLignes(DRMVolumes::getSortiesNettes()),5);
+            $this->total_sorties_reciproque = round($this->sommeLignes(DRMVolumes::getSortiesReciproque()),5);
+            $this->total_interpro = round($this->total_debut_mois_interpro + $this->total_entrees_interpro - $this->total_sorties_interpro,5);
         }
         if (!$this->code) {
             $this->code = $this->getFormattedCode();

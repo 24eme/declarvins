@@ -72,7 +72,7 @@
 					total += parseFloat(input.val());
 				}
 			});
-			table.find(".total_saisie_contrats").text(total.toFixed(4));
+			table.find(".total_saisie_contrats").text(total);
 		});
 	};
 	
@@ -354,7 +354,7 @@
 						if (isNaN(val_defaut)) {
 							val_defaut = '';
 						} else {
-							val_defaut = val_defaut.toFixed(4);
+							val_defaut = val_defaut;
 						}
 						if (val_defaut != val) {
 							if (colActive.attr('data-cssclass-rectif')) {
@@ -778,8 +778,7 @@
 					if(float) somme = parseFloat(somme);
 					else somme = parseInt(somme);
 				}
-				
-				if(float) somme = somme.toFixed(4); // Arrondi à 2 chiffres après la virgule
+				if(float) somme = somme.toFixed(5);
 				champSomme.attr('value', somme);
 			});
 			
@@ -839,8 +838,7 @@
 					if(float) somme = parseFloat(somme);
 					else somme = parseInt(somme);
 				}
-				
-				if(float) somme = somme.toFixed(4); // Arrondi à 2 chiffres après la virgule
+				if(float) somme = somme.toFixed(5);
 				champSomme.attr('value', somme);
 			});
 			
@@ -902,7 +900,7 @@
 				if (jQuery.inArray("not_pos_value", classes) != -1 && resultat > 0) {
 					resultat = 0;
 				}
-				resultat = resultat.toFixed(4);
+				resultat = resultat;
 				champCalcul.val(resultat);
 
 				if(resultat > 0) champCalcul.addClass('positif');
@@ -931,7 +929,7 @@
 					{
 						if (champLiaison.val()) {
 							val = parseFloat(champLiaison.val());
-							$(tabChamps[i]).val(val.toFixed(4));
+							$(tabChamps[i]).val(val);
 						} else {
 							$(tabChamps[i]).val(null);
 						}

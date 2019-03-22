@@ -221,6 +221,15 @@ ConventionCiel:
       no_convention: {  }
       raison_sociale: {  }
       no_operateur: {  }
+      no_siret_payeur: {  }
+      adresse: {  }
+      code_postal: {  }
+      commune: {  }
+      pays: {  }
+      email_beneficiaire: {  }
+      telephone_beneficiaire: {  }
+      date_fin_exercice: {  }
+      date_ciel: {  }
       date_saisie: {  }
       type: {  }
       nom: {  }
@@ -228,6 +237,8 @@ ConventionCiel:
       fonction: {  }
       telephone: {  }
       email: {  }
+      representant_legal: { type: integer }
+      mandataire: {  }
       compte: {  }
       interpro: {  }
       valide: { type: integer }
