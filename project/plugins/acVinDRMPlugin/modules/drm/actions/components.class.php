@@ -40,11 +40,15 @@ class drmComponents extends sfComponents {
         }
         
         $this->numero = $this->numeros[$this->etape];
-
-        if ($this->getUser()->getCompte()->isTiers() && !$this->drm->getEtablissementObject()->isTransmissionCiel()) {
-        	unset($this->numeros['crd']);
-        	$this->numeros['declaratif'] = $this->numeros['declaratif'] - 1;
-        	$this->numeros['validation'] = $this->numeros['validation'] - 1;
+        $etablissement = $this->drm->getEtablissementObject();
+        if (!$etablissement->isTransmissionCiel()) {
+            if ($etablissement->famille == EtablissementFamilles::FAMILLE_NEGOCIANT && $etablissement->sous_famille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
+                
+            } else {
+            	unset($this->numeros['crd']);
+            	$this->numeros['declaratif'] = $this->numeros['declaratif'] - 1;
+            	$this->numeros['validation'] = $this->numeros['validation'] - 1;
+            }
         }
         
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
@@ -56,6 +60,7 @@ class drmComponents extends sfComponents {
             $this->numero_autorise = $this->numeros[$this->drm->etape];
         else
             $this->numero_autorise = '';
+
         $this->numero_vrac = (isset($this->numeros['vrac'])) ? $this->numeros['vrac'] : null;
         $this->numero_crd = (isset($this->numeros['crd'])) ? $this->numeros['crd'] : null;
         $this->numero_declaratif = (isset($this->numeros['declaratif'])) ? $this->numeros['declaratif'] : null;
