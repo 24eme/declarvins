@@ -17,7 +17,7 @@
 		<declaration-neant><?php echo ($drm->isNeant())? "true" : "false"; ?></declaration-neant>
 <?php if (!$drm->isNeant()): ?>
 		<droits-suspendus>
-<?php if ($drm->hasStocks()): foreach ($drm->getExportableProduits() as $produit): ?>
+<?php if ($drm->hasStocks()): foreach ($drm->getCielProduits() as $produit): ?>
 			<produit>
 <?php if ($produit->getLibelleFiscal()): ?>
 				<libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
@@ -48,7 +48,7 @@
 		</droits-suspendus>
 <?php if ($drm->hasExportableProduitsAcquittes()): ?>
 		<droits-acquittes>
-<?php if ($drm->hasStocksAcq()): foreach ($drm->getExportableProduits() as $produit): if (!$produit->getHasSaisieAcq()) { continue; } ?>
+<?php if ($drm->hasStocksAcq()): foreach ($drm->getCielProduits() as $produit): if (!$produit->getHasSaisieAcq()) { continue; } ?>
 			<produit>
 <?php if ($produit->getLibelleFiscal()): ?>
 				<libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>

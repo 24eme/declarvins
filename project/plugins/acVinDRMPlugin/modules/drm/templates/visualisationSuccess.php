@@ -63,6 +63,20 @@
                     </li>
                 </ul>
             </div>
+            
+            <?php if (($etablissement->famille == EtablissementFamilles::FAMILLE_NEGOCIANT && $etablissement->sous_famille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
+            <div style="background: none repeat scroll 0 0 #d9e0ed; border: 1px solid #182188; color: #182188; font-weight: bold;margin: 0 0 10px 0;padding: 5px 10px;">
+                <ul>
+                    <li>
+                    	<img src="/images/visuels/prodouane.png" /><br />
+                    	Vous pouvez à présent télécharger votre DRM au format XML afin de l'importer en DTI+ pour en la vérifier et la valider ("déposer la DRM") sur le site prodouanes via le lien suivant : <a href="https://pro.douane.gouv.fr/">pro.douane.gouv.fr</a><br />
+            			<a id="telecharger_pdf" style="padding-left: 5px; background: #9e9e9e; margin-left:0;float: right; position: inherit;" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Télécharger le XML</a><br />
+            			&nbsp;
+            		</li>
+            	</ul>
+            </div>
+			<?php endif; ?>
+			
             <?php if(!$drm->isRectificative() && !$drmCiel->isValide() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <p style="text-align: right; margin-bottom: 10px;"><a href="<?php echo url_for('drm_retransfer_ciel', $drm) ?>" style="background-color: #9e9e9e; padding: 6px; color: #fff;">Re-transmettre la DRM</a></p>
             <?php endif; ?>
@@ -137,7 +151,7 @@
             <?php else: ?>
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
             <?php endif; ?>
-            <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+            <?php if (($etablissement->famille == EtablissementFamilles::FAMILLE_NEGOCIANT && $etablissement->sous_famille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
             <a id="telecharger_pdf" style="margin-left: 225px; padding-left: 5px; background: #9e9e9e;" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Télécharger le XML</a>
 			<?php endif; ?>
             <div id="btn_etape_dr">

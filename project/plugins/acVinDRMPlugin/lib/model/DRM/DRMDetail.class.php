@@ -7,6 +7,39 @@
 class DRMDetail extends BaseDRMDetail {
 
     protected $_config = null;
+    
+    protected static $correspondances_negoce = array (
+        '/declaration/certifications/AOP/genres/TRANQ' => '/declaration/certifications/AOP/genres/TRANQ/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT',
+        '/declaration/certifications/AOP/genres/EFF' => '/declaration/certifications/AOP/genres/EFF/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT',
+        '/declaration/certifications/AOP/genres/VDN' => array('sup18' => '/declaration/certifications/AOP/genres/VDN/appellations/VDN1/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT', 'inf18' => '/declaration/certifications/AOP/genres/VDN/appellations/VDN2/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT'),
+        '/declaration/certifications/AOC/genres/TRANQ' => '/declaration/certifications/AOP/genres/TRANQ/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT',
+        '/declaration/certifications/AOC/genres/EFF' => '/declaration/certifications/AOP/genres/EFF/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT',
+        '/declaration/certifications/IGP/genres/TRANQ' => '/declaration/certifications/IGP/genres/TRANQ/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT',
+        '/declaration/certifications/IGP/genres/EFF' => '/declaration/certifications/IGP/genres/EFF/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT',
+        '/declaration/certifications/VINSSANSIG/genres/TRANQ' => array('cepage' => '/declaration/certifications/VINSSANSIG/genres/TRANQ/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/AVECCEP/details/DEFAUT', 'sanscepage' => '/declaration/certifications/VINSSANSIG/genres/TRANQ/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/SANSCEP/details/DEFAUT'),
+        '/declaration/certifications/VINSSANSIG/genres/EFF' => array('cepage' => '/declaration/certifications/VINSSANSIG/genres/EFF/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/AVECCEP/details/DEFAUT', 'sanscepage' => '/declaration/certifications/VINSSANSIG/genres/EFF/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/SANSCEP/details/DEFAUT'),
+        '/declaration/certifications/VINSSANSIG/genres/N' => array('sup18' => '/declaration/certifications/AOP/genres/VDN/appellations/VDN1/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT', 'inf18' => '/declaration/certifications/AOP/genres/VDN/appellations/VDN2/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT')
+    );
+    
+    public function getCorrespondanceNegoce()
+    {
+        $c = (isset(self::$correspondances_negoce[$this->getGenre()->getHash()])) ? self::$correspondances_negoce[$this->getGenre()->getHash()] : null;
+        if (!$c) {
+            var_dump($this->getGenre()->getHash(), array_keys(self::$correspondances_negoce), isset(self::$correspondances_negoce[$this->getGenre()->getHash()]));exit;
+            throw new sfException('agg correspondance not found');
+        }
+        if (is_array($c)) {
+            $pos1 = strpos($this->getGenre()->getHash(), '/VDN') !== false;
+            $pos2 = strpos($this->getGenre()->getHash(), '/N') !== false;
+            if ($pos1 || $pos2) {
+                return ($this->tav > 18)? $c['sup18'] : $c['inf18']; 
+            } else {
+                return (in_array($this->getCepage()->getKey(), array('CEP', 'DEFAUT', 'SANSCEP', 'SANS')))? $c['sanscepage'] : $c['cepage'];
+            }
+        } else {
+            return $c;
+        }
+    }
 
     public function getConfig() {
         if (!$this->_config) {
