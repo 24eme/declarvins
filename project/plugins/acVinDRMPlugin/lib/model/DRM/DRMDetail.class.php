@@ -32,9 +32,9 @@ class DRMDetail extends BaseDRMDetail {
             $pos1 = strpos($this->getGenre()->getHash(), '/VDN') !== false;
             $pos2 = strpos($this->getGenre()->getHash(), '/N') !== false;
             if ($pos1 || $pos2) {
-                return ($this->tav > 18)? $c['sup18'] : $c['sup18']; 
+                return ($this->tav > 18)? $c['sup18'] : $c['inf18']; 
             } else {
-                return (in_array($this->getKey(), array('CEP', 'DEFAUT', 'SANSCEP', 'SANS')))? $c['sanscepage'] : $c['cepage'];
+                return (in_array($this->getCepage()->getKey(), array('CEP', 'DEFAUT', 'SANSCEP', 'SANS')))? $c['sanscepage'] : $c['cepage'];
             }
         } else {
             return $c;
