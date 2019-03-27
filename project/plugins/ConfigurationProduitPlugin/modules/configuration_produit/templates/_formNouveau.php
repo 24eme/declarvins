@@ -1,4 +1,4 @@
-<form class="popup_form form_delay" id="form_ajout" action="<?php echo url_for('produit_nouveau') ?>" method="post">
+<form class="popup_form form_delay" id="form_ajout" action="<?php echo url_for('produit_nouveau', array('anivin' => $sf_request->getParameter('anivin', 0))) ?>" method="post">
 	<?php echo $form->renderGlobalErrors() ?>
 	<?php echo $form->renderHiddenFields() ?>
 	<div class="ligne_form">
@@ -33,7 +33,7 @@
 	</div>
 	<div class="ligne_form_btn">
 		<!-- <button name="annuler" class="btn_annuler btn_fermer" type="reset">Annuler</button> -->
-		<a name="annuler" class="btn_annuler btn_fermer" href="<?php echo url_for('produits') ?>">Annuler</a>
+		<a name="annuler" class="btn_annuler btn_fermer" href="<?php echo url_for('produits', array('anivin' => $sf_request->getParameter('anivin', 0))) ?>">Annuler</a>
 		<button name="valider" class="btn_valider" type="submit">Valider</button>
 	</div>
 </form>

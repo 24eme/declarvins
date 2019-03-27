@@ -5,12 +5,12 @@ class configuration_produitActions extends sfActions
   	public function executeIndex(sfWebRequest $request)
   	{
   		$this->getUser()->setAttribute('pile_noeud', null);
-  		$this->configurationProduits = $this->getConfigurationProduit();
+  		$this->configurationProduits = $this->getConfigurationProduit($request);
 	}
   
 	public function executeImport(sfWebRequest $request)
   	{
-  		$configurationProduits = $this->getConfigurationProduit();
+  		$configurationProduits = $this->getConfigurationProduit($request);
   		$this->form = new UploadCSVForm();
   		$this->erreurs = array();
   		if ($request->isMethod(sfWebRequest::POST) && $request->getFiles('csv')) {
@@ -27,7 +27,7 @@ class configuration_produitActions extends sfActions
     					$cache->remove('configuration_produit/index');
 	    			}
 	    			$this->getUser()->setFlash('notice', 'Catalogue produit mis à jour avec succès');
-	    			$this->redirect('configuration_produit');
+	    			$this->redirect('configuration_produit', array('anivin' => $request->getParameter('anivin', 0)));
 	    		}
 	    	}
   		}
@@ -35,7 +35,7 @@ class configuration_produitActions extends sfActions
 	
 	public function executeExport(sfWebRequest $request)
 	{
-		$configurationProduits = $this->getConfigurationProduit();
+		$configurationProduits = $this->getConfigurationProduit($request);
 		$catalogue = new ConfigurationProduitCsvFile($configurationProduits);
 		$csv = $catalogue->exportProduits();
 		return $this->renderCsv($csv);
@@ -63,7 +63,7 @@ class configuration_produitActions extends sfActions
 	
 	public function executeNouveau(sfWebRequest $request)
 	{
-		$configurationProduits = $this->getConfigurationProduit();
+		$configurationProduits = $this->getConfigurationProduit($request);
 	  	$this->form = new ConfigurationProduitNouveauForm($configurationProduits);
 	  	if ($request->isMethod(sfWebRequest::POST)) {
 	        $this->form->bind($request->getParameter($this->form->getName()));
@@ -73,10 +73,12 @@ class configuration_produitActions extends sfActions
 				$noeud = $result['noeud'];
 				$values = $result['values'];
 				if ($values) {
+				    if (!isset($values['cepages']) || empty($values['cepages'])) {
+				        $values['cepages'] = '';
+				    }
 					$this->getUser()->setAttribute('pile_noeud', $values);
 				}
-				$this->getUser()->setFlash("notice", 'Le produit a été ajouté avec success.');
-				$this->redirect('configuration_produit_modification', array('noeud' => $noeud, 'hash' => str_replace('/', '-', $hash)));
+				$this->redirect('configuration_produit_modification', array('anivin' => $request->getParameter('anivin', 0), 'noeud' => $noeud, 'hash' => str_replace('/', '-', $hash)));
 			}
 	    }
 	}
@@ -92,7 +94,7 @@ class configuration_produitActions extends sfActions
 	  	$this->nbLabel = $request->getParameter('nb_label', null);
 	  	$this->nbOrganisme = $request->getParameter('nb_organisme', null);
   		$hash = str_replace('-', '/', $hash);
-  		$configurationProduits = $this->getConfigurationProduit();
+  		$configurationProduits = $this->getConfigurationProduit($request);
   		$object = $configurationProduits->getOrAdd($hash);
   		$object = $object->__get($noeud);
   		$isNew = ($this->getUser()->hasAttribute('pile_noeud'))? true : false;
@@ -133,7 +135,7 @@ class configuration_produitActions extends sfActions
 			  							$correspondance = ConfigurationProduit::getCorrespondanceNoeuds();
 			  							if (isset($correspondance[$p])) {
   											$object = $object->__get($correspondance[$p]);
-			  								$this->redirect('configuration_produit_modification', array('noeud' => $object->getTypeNoeud(), 'hash' => str_replace('/', '-', $nextHash)));
+			  								$this->redirect('configuration_produit_modification', array('anivin' => $request->getParameter('anivin', 0), 'noeud' => $object->getTypeNoeud(), 'hash' => str_replace('/', '-', $nextHash)));
 			  							}
 			  						}
 			  					}
@@ -143,7 +145,7 @@ class configuration_produitActions extends sfActions
 			    				$cache->remove('configuration_produit/index');
 				    		}
 							$this->getUser()->setFlash("notice", 'Le produit a été ajouté avec success.');
-		  					$this->redirect('configuration_produit');
+		  					$this->redirect('configuration_produit', array('anivin' => $request->getParameter('anivin', 0)));
 			  			}
 			  		}
 			  	}
@@ -151,7 +153,7 @@ class configuration_produitActions extends sfActions
     				$cache->remove('configuration_produit/index');
 	    		}
 				$this->getUser()->setFlash("notice", 'Le produit a été modifié avec success.');
-			  	$this->redirect('configuration_produit');
+			  	$this->redirect('configuration_produit', array('anivin' => $request->getParameter('anivin', 0)));
 			}
 	    }
   	}
@@ -162,7 +164,7 @@ class configuration_produitActions extends sfActions
   	{
   		$this->forward404Unless($hash = $request->getParameter('hash', null));
   		$hash = str_replace('-', '/', $hash);
-  		$configurationProduits = $this->getConfigurationProduit();
+  		$configurationProduits = $this->getConfigurationProduit($request);
   		$object = $configurationProduits->getOrAdd($hash);
 	  	while ($object->getParent()->count() == 1) {
 	  		$object = $object->getParentNode();
@@ -174,18 +176,20 @@ class configuration_produitActions extends sfActions
     		$cache->remove('configuration_produit/index');
 	    }
 		$this->getUser()->setFlash("notice", 'Le produit a été supprimé avec success.');
-		$this->redirect('configuration_produit');
+		$this->redirect('configuration_produit', array('anivin' => $request->getParameter('anivin', 0)));
   	}
   
   	protected function getNextHash($object) 
   	{
 	  	$hash = $object->getHash();
+	  	$n = $object;
 	  	$nodes = ConfigurationProduit::getArborescence();
 	  	$noeud = $object->getTypeNoeud();
 	  	$nextNoeuds = false;
 	  	foreach ($nodes as $node) {
 	  		if ($nextNoeuds) {
-	  			$hash = $hash.'/'.$node.'/'.ConfigurationProduit::DEFAULT_KEY;
+	  			$n = $n->getOrAdd($node)->getFirst();
+	  			$hash = $n->getHash();
 	  		}
 	  		if (preg_match('/^'.$noeud.'[a-z]?$/', $node)) {
 	  			$nextNoeuds = true;
@@ -194,9 +198,9 @@ class configuration_produitActions extends sfActions
 	  	return $hash;
   	}
 	
-	protected function getConfigurationProduit()
+	protected function getConfigurationProduit($request)
 	{
-		$interpro = $this->getInterpro()->_id;
+		$interpro = ($request->getParameter('anivin'))? 'INTERPRO-ANIVIN' : $this->getInterpro()->_id;
 		return ConfigurationProduitClient::getInstance()->getOrCreate($interpro);
 	}
 	
