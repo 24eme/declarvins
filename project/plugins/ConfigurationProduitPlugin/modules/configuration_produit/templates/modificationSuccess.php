@@ -33,7 +33,7 @@
 	<div class="clearfix" id="application_dr">
 	    <h1>Modification du noeud <strong><?php echo printLibelleNode($noeud) ?></strong>.</h1>
 	    <div id="popup_produit" class="popup_contenu">
-			<form class="popup_form" id="form_ajout" action="<?php echo url_for('configuration_produit_modification', array('noeud' => $form->getObject()->getTypeNoeud(), 'hash' => str_replace('/', '-', $form->getHash()))) ?>" method="post">
+			<form class="popup_form" id="form_ajout" action="<?php echo url_for('configuration_produit_modification', array('anivin' => $sf_request->getParameter('anivin', 0), 'noeud' => $form->getObject()->getTypeNoeud(), 'hash' => str_replace('/', '-', $form->getHash()))) ?>" method="post">
 				<?php echo $form->renderGlobalErrors() ?>
 				<?php echo $form->renderHiddenFields() ?>
 			    <div class="contenu_onglet">
@@ -203,7 +203,7 @@
 					<?php endif; ?>
 					
 					<div class="ligne_form_btn">
-						<a name="annuler" class="btn_annuler btn_fermer" href="<?php echo url_for('configuration_produit') ?>">Annuler</a>
+						<a name="annuler" class="btn_annuler btn_fermer" href="<?php echo url_for('configuration_produit', array('anivin' => $sf_request->getParameter('anivin', 0))) ?>">Annuler</a>
 						<button name="valider" class="btn_valider" type="submit">Valider</button>
 					</div>
 				</div>

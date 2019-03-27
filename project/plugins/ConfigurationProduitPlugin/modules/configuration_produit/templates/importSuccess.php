@@ -25,7 +25,7 @@
 		    <?php endif; ?>
 		    
 	    	<p>Merci de fournir le fichier de votre catalogue produit au format <strong><u>CSV</u></strong>.<br /><br />
-	    	<form action="<?php echo url_for('configuration_produit_import') ?>" method="post" enctype="multipart/form-data">
+	    	<form action="<?php echo url_for('configuration_produit_import', array('anivin' => $sf_request->getParameter('anivin', 0))) ?>" method="post" enctype="multipart/form-data">
 			    <?php echo $form->renderHiddenFields(); ?>
 			    <?php echo $form->renderGlobalErrors(); ?>			
 			    <?php echo $form['file']->render() ?>

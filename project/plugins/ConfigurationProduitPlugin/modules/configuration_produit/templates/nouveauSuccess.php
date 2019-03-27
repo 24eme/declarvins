@@ -3,7 +3,7 @@
 	<section id="principal">
 	<div class="clearfix" id="application_dr">
 	    <h1>Produits</h1>
-	    <form class="popup_form form_delay" id="form_ajout" action="<?php echo url_for('configuration_produit_nouveau') ?>" method="post">
+	    <form class="popup_form form_delay" id="form_ajout" action="<?php echo url_for('configuration_produit_nouveau', array('anivin' => $sf_request->getParameter('anivin', 0))) ?>" method="post">
 			<?php echo $form->renderGlobalErrors() ?>
 			<?php echo $form->renderHiddenFields() ?>
 			<div class="ligne_form">
@@ -37,7 +37,7 @@
 				<?php echo $form['cepages']->render(array('class' => 'permissif')) ?>
 			</div>
 			<div class="ligne_form_btn">
-				<a name="annuler" class="btn_annuler btn_fermer" href="<?php echo url_for('configuration_produit') ?>">Annuler</a>
+				<a name="annuler" class="btn_annuler btn_fermer" href="<?php echo url_for('configuration_produit', array('anivin' => $sf_request->getParameter('anivin', 0))) ?>">Annuler</a>
 				<button name="valider" class="btn_valider" type="submit">Valider</button>
 			</div>
 		</form>

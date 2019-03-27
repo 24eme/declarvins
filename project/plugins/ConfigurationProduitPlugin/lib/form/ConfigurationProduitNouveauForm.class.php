@@ -69,7 +69,7 @@ class ConfigurationProduitNouveauForm extends sfForm
 	        		if (!$noeud) {
 	        			$noeud = $correspondanceNoeuds[$node];
 	        		}
-	        		$hash = $hash.'/'.$node.'/'.ConfigurationProduit::DEFAULT_KEY;
+	        		$hash = $hash.'/'.$node.'/'.$values[$node];
 	        	}
 	        } else {
 	        	$hash = $hash.'/'.$node.'/'.ConfigurationProduit::DEFAULT_KEY;
