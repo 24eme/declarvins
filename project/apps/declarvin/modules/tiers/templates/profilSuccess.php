@@ -21,7 +21,7 @@
 		<?php endif; ?>
 		
 		<div id="visualisation_profil">
-			<?php include_partial('etablissement', array('etablissement' => $etablissement)); ?>
+			<?php include_partial('etablissement', array('etablissement' => $etablissement, 'form' => $formEtablissement)); ?>
 		</div>
 
 		<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>

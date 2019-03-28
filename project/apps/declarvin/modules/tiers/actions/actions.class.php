@@ -116,11 +116,12 @@ class tiersActions extends sfActions
   {
   	  $this->etablissement = $this->getRoute()->getEtablissement();
   	  $this->hasCompte = false;
+  	  $this->formEtablissement = null;
   	  if ($this->compte_id = $this->etablissement->compte) {
   	  	if ($this->compte = acCouchdbManager::getClient('_Compte')->find($this->compte_id)) {
   	    $this->hasCompte = true;;
   	  	$this->form = new CompteProfilForm($this->compte);
-	      if ($request->isMethod(sfWebRequest::POST)) {
+	      if ($request->isMethod(sfWebRequest::POST) && $request->getParameter($this->form->getName())) {
 	      	$this->form->bind($request->getParameter($this->form->getName()));
 	      	if ($this->form->isValid()) {
 	      		$this->form->save();
@@ -131,6 +132,17 @@ class tiersActions extends sfActions
 	      	}
 	      }
   	  }
+  	  }
+  	  if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+  	      $this->formEtablissement = new EtablissementMoisStockForm($this->etablissement);
+  	      if ($request->isMethod(sfWebRequest::POST) && $request->getParameter($this->formEtablissement->getName())) {
+  	          $this->formEtablissement->bind($request->getParameter($this->formEtablissement->getName()));
+  	          if ($this->formEtablissement->isValid()) {
+  	              $this->formEtablissement->save();
+  	              $this->getUser()->setFlash('notice', 'Modifications effectuées avec succès');
+  	              $this->redirect('profil', $this->etablissement);
+  	          }
+  	      }
   	  }
   }
   

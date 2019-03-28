@@ -42,7 +42,7 @@ class DRMLieuAjoutForm extends acCouchdbForm {
     		return array_merge(array("" => ""), $this->_config->format($this->_configurationProduits->getTotalLieux($this->getCertificationHash(), true), "%g% %a% %m% %l%"));
     	}
     	$etablissement = $this->_drm->getEtablissement();
-        return array_merge(array("" => ""), $this->_config->getFormattedLieux($this->getCertificationHash(), $etablissement->getConfigurationZones()));;
+        return array_merge(array("" => ""), $this->_config->getFormattedLieux($this->getCertificationHash(), $etablissement->getConfigurationZones(), $etablissement->famille, $etablissement->sous_famille));;
     }
     
     public function addLieu() 
