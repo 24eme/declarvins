@@ -45,6 +45,24 @@
 				<?php if($etablissement->comptabilite->pays): ?><li>Pays : <strong><?php echo $etablissement->comptabilite->pays ?></strong></li><?php endif; ?>
 			</ul>
             <?php endif; ?>
+            
+            <?php if ($form): ?>
+            <form method="post" action="<?php echo url_for('profil', $etablissement); ?>">
+		    <?php echo $form->renderHiddenFields(); ?>
+		    <?php echo $form->renderGlobalErrors(); ?>
+			<div class="ligne_form">
+			    <label>Mois de saisie du stock :</label>
+			    <?php echo $form['mois_stock_debut']->render() ?>
+			    <?php echo $form['mois_stock_debut']->renderError() ?>
+    		    <input type="submit" value="Modifier"/>
+			</div>
+			</form>
+			<?php else: ?>
+			<ul>
+				<li>Mois de saisie du stock : <strong><?php $dateFormat = new sfDateFormat('fr_FR'); echo ucfirst($dateFormat->format(date('Y').'-'.$etablissement->getMoisToSetStock().'-01', 'MMMM')); ?></strong>
+			</ul>
+			<?php endif; ?>
+			
 		</div>
 	</div>
 </div>

@@ -810,6 +810,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     public function isDebutCampagne() {
         return DRMPaiement::isDebutCampagne(DRMClient::getInstance()->getMois($this->periode));
     }
+    
+    public function isMoisOuvert() {
+        $mois = ($this->getEtablissementObject())? $this->getEtablissementObject()->getMoisToSetStock() : DRMPaiement::NUM_MOIS_DEBUT_CAMPAGNE;
+        return (DRMClient::getInstance()->getMois($this->periode) == $mois)? true : false;
+    }
 
     public function getCampagnePrecedente() {
         $annee = preg_replace('/([0-9]{4})-([0-9]{4})/', '$1', $this->campagne);
@@ -911,7 +916,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
     public function canSetStockDebutMois($acq = false) {
         $isAdministrateur = ($this->getUser()) ? $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) : false;
-        if ($this->isDebutCampagne() || ($isAdministrateur && $this->hasVersion())) {
+        if ($this->isMoisOuvert() || $this->isDebutCampagne() || ($isAdministrateur && $this->hasVersion())) {
             return true;
         } else {
         	$mother = $this->getPrecedente();
