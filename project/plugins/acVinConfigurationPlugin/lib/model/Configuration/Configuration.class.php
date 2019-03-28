@@ -261,11 +261,19 @@ class Configuration extends BaseConfiguration {
         return $this->formatWithCode($produits, $format);
     }
 
-    public function getFormattedLieux($hash = null, $zones, $format = "%g% %a% %m% %l%") {
+    public function getFormattedLieux($hash = null, $zones, $famille, $sous_famille, $format = "%g% %a% %m% %l%") {
         $lieux = array();
         foreach ($zones as $zoneId => $zone) {
             foreach ($zone->getConfigurationProduits() as $configurationProduitsId => $configurationProduits) {
-                $lieux = array_merge($lieux, $configurationProduits->getTotalLieux($hash));
+                $p = $configurationProduits->getTotalLieux($hash);
+                if ($configurationProduits->interpro == InterproClient::INTERPRO_COMMUNE && $famille == EtablissementFamilles::FAMILLE_PRODUCTEUR) {
+                    foreach ($p as $k => $v) {
+                        if (strpos($k, '/AOP/') !== false || strpos($k, '/IGP/') !== false) {
+                            unset($p[$k]);
+                        }
+                    }
+                }
+                $lieux = array_merge($lieux, $p);
             }
         }
         return $this->format($lieux, $format);
