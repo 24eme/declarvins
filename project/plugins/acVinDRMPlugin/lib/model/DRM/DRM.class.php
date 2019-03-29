@@ -916,7 +916,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
     public function canSetStockDebutMois($acq = false) {
         $isAdministrateur = ($this->getUser()) ? $this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN) : false;
-        if ($this->isMoisOuvert() || $this->isDebutCampagne() || ($isAdministrateur && $this->hasVersion())) {
+        if ($this->isMoisOuvert() || ($isAdministrateur && $this->hasVersion())) {
             return true;
         } else {
         	$mother = $this->getPrecedente();
