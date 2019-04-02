@@ -117,7 +117,7 @@
                 <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <div style="background: #E3E2E2; color: #3E3E3E; border-radius: 5px; margin-bottom: 25px;">
                     <div style="padding: 4px 0 10px 10px;">
-                    	<div style="padding: 10px 0px; font-weight: bold; display: block;">DRM incomplète</div>
+                    	<div style="padding: 10px 0px; font-weight: bold; display: blocdmin/etablissements/drmk;">DRM incomplète</div>
                     	<div>
 	                        <?php echo $form['manquants']['igp']->renderError() ?>
 	                        <?php echo $form['manquants']['igp']->render() ?>
@@ -261,7 +261,11 @@
 			if ($('#<?php echo $form['brouillon']->renderId() ?>').val() == 1) {
 				return true;
 			} else { 
-				return confirm("Une fois votre déclaration validée, vous ne pourrez plus la modifier.\n\nConfirmez vous la validation de votre DRM ?");
+				if($("#drm_transmission_ciel_visible").length && $("#drm_transmission_ciel_visible").is(":checked")) {
+					return true;
+				} else {
+					return confirm("Une fois votre déclaration validée, vous ne pourrez plus la modifier.\n\nConfirmez vous la validation de votre DRM ?");
+				}
 			}
 		});
 		$("#brouillon").click(function() {
