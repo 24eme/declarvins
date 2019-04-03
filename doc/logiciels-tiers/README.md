@@ -32,7 +32,13 @@ Le catalogue des mouvements de DRM admis par le portail DeclarVins  [Catalogue m
 3. Le type du mouvement : achat, crd, vrac, repli...
 4. Un commentaire : définition du mouvement
 
-##Description des lignes CRD
+## Libellé personnalisé
+
+Il est possible de personnaliser les libellés des produits pour se mettre en conformité avec ceux de Prodouane, d'inclure des mentions valorisantes,...
+
+Pour cela, il faut obligatoirement identifier le produit via le code INAO ou le libellé fiscal (en colonne 5 ou entre parenthèse en colonne 13) et préciser le libellé personnalisé complet du produit en colonne 12.
+
+## Description des lignes CRD
 
 **Type de la CDR** : trois valeurs acceptées « PERSONNALISEES », « COLLECTIVES_DROITS_SUSPENDUS » ou « COLLECTIVES_DROITS_ACQUITTES »  
  
