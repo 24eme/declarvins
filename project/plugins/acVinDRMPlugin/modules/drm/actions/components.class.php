@@ -39,7 +39,6 @@ class drmComponents extends sfComponents {
             );
         }
         
-        $this->numero = $this->numeros[$this->etape];
 
         if ($this->getUser()->getCompte()->isTiers() && !$this->drm->getEtablissementObject()->isTransmissionCiel()) {
         	unset($this->numeros['crd']);
@@ -56,6 +55,8 @@ class drmComponents extends sfComponents {
             $this->numero_autorise = $this->numeros[$this->drm->etape];
         else
             $this->numero_autorise = '';
+        
+        $this->numero = $this->numeros[$this->etape];
         $this->numero_vrac = (isset($this->numeros['vrac'])) ? $this->numeros['vrac'] : null;
         $this->numero_crd = (isset($this->numeros['crd'])) ? $this->numeros['crd'] : null;
         $this->numero_declaratif = (isset($this->numeros['declaratif'])) ? $this->numeros['declaratif'] : null;
