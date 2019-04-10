@@ -39,7 +39,7 @@ class drmComponents extends sfComponents {
             );
         }
         
-        $this->numero = $this->numeros[$this->etape];
+;
         $etablissement = $this->drm->getEtablissementObject();
         if (!$etablissement->isTransmissionCiel()) {
             if ($etablissement->famille == EtablissementFamilles::FAMILLE_NEGOCIANT && $etablissement->sous_famille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
@@ -61,6 +61,7 @@ class drmComponents extends sfComponents {
         else
             $this->numero_autorise = '';
 
+        $this->numero = $this->numeros[$this->etape];
         $this->numero_vrac = (isset($this->numeros['vrac'])) ? $this->numeros['vrac'] : null;
         $this->numero_crd = (isset($this->numeros['crd'])) ? $this->numeros['crd'] : null;
         $this->numero_declaratif = (isset($this->numeros['declaratif'])) ? $this->numeros['declaratif'] : null;
