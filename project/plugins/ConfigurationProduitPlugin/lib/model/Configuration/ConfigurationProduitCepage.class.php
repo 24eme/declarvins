@@ -183,16 +183,8 @@ class ConfigurationProduitCepage extends BaseConfigurationProduitCepage
         return $complete_libelle;
     }
     
-    public function getLibelleEdi() {
-        $complete_libelle = "";
-        $libelles = $this->getLibelles();
-        unset($libelles[0]);
-        foreach ($libelles as $key => $value){
-            if($value){
-                $complete_libelle.=$value." ";
-            }
-        }
-        return $complete_libelle;
+    public function getLibelleEdi() {        
+        return str_replace(',', '.', trim($this->getLibelleFormat()));
     }
     
     public function getIdentifiantDouane()
