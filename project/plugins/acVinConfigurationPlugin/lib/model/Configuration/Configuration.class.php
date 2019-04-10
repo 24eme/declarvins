@@ -374,7 +374,7 @@ class Configuration extends BaseConfiguration {
 
     public function getConfigurationProduitByLibelle($libelle = null) {
     	$libelleDouane = null;
-    	if (preg_match('/([a-zA-Z0-9\ \-\_]*)\(([a-zA-Z0-9\ \-\_]*)\)/', trim($libelle), $result)) {
+    	if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
     		$libelle = trim($result[1]);
     		$libelleDouane = trim($result[2]);
     	}
