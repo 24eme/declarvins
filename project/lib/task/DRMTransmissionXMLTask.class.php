@@ -25,6 +25,10 @@ EOF;
     $contextInstance = sfContext::createInstance($this->configuration);
     try {
       $drm = DRMClient::getInstance()->find($arguments['drmid']);
+      if ($drm->ciel->isTransfere()) {
+          echo "DRM;".$drm->_id.";Transmisssion ok;\n";
+          exit;
+      }
       $result = $drm->transferToCiel();
       if ($result)  {
           Email::getInstance()->cielSended($drm);

@@ -97,11 +97,12 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             try {
                 $service = new CielService($etablissement->interpro);
                 $drmCiel->xml = $service->transfer($xml);
+                $drmCiel->setInformationsFromXml();
+                $transfert = $drmCiel->isTransfere();
             } catch (sfException $e) {
                 $transfert = false;
             }
         }
-        $drmCiel->setInformationsFromXml();
         if ($transfert) {
             $this->validate();
         }
