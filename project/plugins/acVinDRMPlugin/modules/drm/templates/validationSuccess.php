@@ -15,7 +15,7 @@
 		    <h3 style="margin-bottom: 15px;">Erreurs lors de la transmission CIEL (veuillez corriger votre DRM ou contacter votre interprofession pour plus d'information sur les erreurs rencontrées)&nbsp;:</h3>
 		    <ol style="font-weight: normal;">
 		        <?php foreach ($drmCiel->getErreurs() as $erreur): ?>
-		            <li><?php echo $erreur ?></li>
+		            <li><?php if($erreur == "CielService Error : null"): ?>Le service de reception des DRM de la Douane est indisponible pour le moment<?php else: ?><?php echo $erreur ?><?php endif; ?></li>
 		        <?php endforeach; ?>
 		    </ol>
 		</div>
