@@ -92,7 +92,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $drmCiel = $this->getOrAdd('ciel');
         $export = new DRMExportCsvEdi($this);
         $etablissement = $this->getEtablissement();
-        if ($xml = $export->exportEDI('xml') && $etablissement) {
+        if ($xml = $export->exportEDI('xml')) {
             $transfert = true;
             try {
                 $service = new CielService($etablissement->interpro);
