@@ -206,7 +206,7 @@
                 if(isNaN(thisVal)) {
                 	thisVal = 0;                
                 }
-                var cotis = parseFloat(cotisation.text());
+                var cotis = parseFloat(cotisation);
                 if(!isNaN(thisVal) && !isNaN(cotis))
                 {
                     if (hasCotisationCvo != 0) {
@@ -218,11 +218,11 @@
         var prix = $('#vrac_marche_prix_unitaire');
         var totalSomme = $('#vrac_marche_prix_total_unitaire');
         var hasCotisationCvo = $('#vrac_marche_has_cotisation_cvo').val();
-        var cotisation = $('#vrac_cotisation_interpro');
+        var cotisation = $('#vrac_cotisation_interpro').attr('data-cotisation-value');
         var tauxRepartition = $('#vrac_marche_repartition_cvo_acheteur');
         var tauxCVO = $('#vrac_marche_part_cvo');
         if (hasCotisationCvo && prix.val()) {
-        	totalSomme.val(parseFloat(prix.val()) + parseFloat(cotisation.text())); 
+        	totalSomme.val(parseFloat(prix.val()) + parseFloat(cotisation)); 
         }
         sommeEuros(prix, totalSomme, cotisation, tauxRepartition, tauxCVO, hasCotisationCvo);
 	    
