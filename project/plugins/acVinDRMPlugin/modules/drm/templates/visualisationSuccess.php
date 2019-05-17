@@ -45,7 +45,7 @@
 					en vous connectant et en allant sur l'interface CIEL (menu de gauche).
                     <?php elseif ($drm->isRectificative() && $drmCiel->isTransfere()): ?>
                     Votre DRM a bien été corrigée afin de correspondre à celle transmise au service CIEL, le <?php echo format_date($drmCiel->horodatage_depot, 'dd/MM/yyyy') ?> à <?php echo format_date($drmCiel->horodatage_depot, 'H:m') ?> sous le numéro <?php echo $drmCiel->identifiant_declaration ?>.
-                    <?php else: ?>
+                    <?php elseif (!$etablissement->isTransmissionCiel()): ?>
 					Vous devez par contre imprimer le PDF et le signer puis l'envoyer à votre service des douanes habituel.
                     <?php endif; ?>
                     <?php else: ?>
@@ -64,13 +64,13 @@
                 </ul>
             </div>
             
-            <?php if (($etablissement->famille == EtablissementFamilles::FAMILLE_NEGOCIANT && $etablissement->sous_famille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
+            <?php if (($etablissement->isTransmissionCiel() && $drm->isNegoce()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
             <div style="background: none repeat scroll 0 0 #d9e0ed; border: 1px solid #182188; color: #182188; font-weight: bold;margin: 0 0 10px 0;padding: 5px 10px;">
                 <ul>
                     <li>
                     	<img src="/images/visuels/prodouane.png" /><br />
                     	Vous pouvez à présent télécharger votre DRM au format XML afin de l'importer en DTI+ pour en la vérifier et la valider ("déposer la DRM") sur le site prodouanes via le lien suivant : <a href="https://pro.douane.gouv.fr/">pro.douane.gouv.fr</a><br />
-            			<a id="telecharger_pdf" style="padding-left: 5px; background: #9e9e9e; margin-left:0;float: right; position: inherit;" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Télécharger le XML</a><br />
+            			<a id="telecharger_xml" style="margin-left:0;float: right; position: inherit; font-weight: normal;" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Télécharger le XML</a><br />
             			&nbsp;
             		</li>
             	</ul>
@@ -147,12 +147,12 @@
                 <pre style="background: #fff; border: 1px #E9E9E9; padding: 8px; margin-top: 8px;"><?php echo $drm->commentaires ?></pre>
             </div>
         <?php endif; ?>
-            <?php if ($etablissement->isTransmissionCiel() && $drmCiel->isTransfere() && !$drmCiel->isValide() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+            <?php if ($etablissement->isTransmissionCiel() && !$drm->isNegoce() && $drmCiel->isTransfere() && !$drmCiel->isValide() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <?php else: ?>
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
             <?php endif; ?>
-            <?php if (($etablissement->famille == EtablissementFamilles::FAMILLE_NEGOCIANT && $etablissement->sous_famille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
-            <a id="telecharger_pdf" style="margin-left: 225px; padding-left: 5px; background: #9e9e9e;" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Télécharger le XML</a>
+            <?php if ($drm->isNegoce() || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
+            <a id="telecharger_xml" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Télécharger le XML</a>
 			<?php endif; ?>
             <div id="btn_etape_dr">
                 <?php if ($drm_next_version && $drm_next_version->hasVersion() && !$drm_next_version->isValidee()): ?>

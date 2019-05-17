@@ -38,7 +38,7 @@
 				<balance-stocks>
 <?php 
 	$xml = '';
-	noeudXml($produit, $ciel->get('balance-stocks/droits-suspendus'), $xml, array('mois', 'annee'));
+	noeudXml($produit, $ciel->get('balance-stocks/'.$drm->getCielLot().'/droits-suspendus'), $xml, array('mois', 'annee'));
 	echo formatXml($xml, 5);
 ?>
 				</balance-stocks>
@@ -69,7 +69,7 @@
 				<balance-stocks>
 <?php 
 	$xml = '';
-	noeudXml($produit, $ciel->get('balance-stocks/droits-acquittes'), $xml, array('mois', 'annee'));
+	noeudXml($produit, $ciel->get('balance-stocks/'.$drm->getCielLot().'/droits-acquittes'), $xml, array('mois', 'annee'));
 	echo formatXml($xml, 5);
 ?>
 				</balance-stocks>

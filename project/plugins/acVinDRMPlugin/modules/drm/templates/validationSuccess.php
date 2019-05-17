@@ -10,7 +10,7 @@
 
     <!-- #principal -->
     <section id="principal">
-    	<?php if ($drmCiel->hasErreurs() && $etablissement->isTransmissionCiel()): ?>
+    	<?php if ($drmCiel->hasErreurs() && $etablissement->isTransmissionCiel() && !$drm->isNegoce()): ?>
     	<div class="error_list" style="margin-bottom: 20px;">
 		    <h3 style="margin-bottom: 15px;">Erreurs lors de la transmission CIEL (veuillez corriger votre DRM ou contacter votre interprofession pour plus d'information sur les erreurs rencontrées)&nbsp;:</h3>
 		    <ol style="font-weight: normal;">
@@ -20,7 +20,7 @@
 		    </ol>
 		</div>
     	<?php endif; ?>
-        <form id="formValidation" action="<?php echo ($etablissement->isTransmissionCiel() && !$drm->hasVersion() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))? url_for('drm_transfer_ciel', $drm) :  url_for('drm_validation', $drm); ?>" method="post">
+        <form id="formValidation" action="<?php echo ($etablissement->isTransmissionCiel() && !$drm->isNegoce() && !$drm->hasVersion() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))? url_for('drm_transfer_ciel', $drm) :  url_for('drm_validation', $drm); ?>" method="post">
             <?php echo $form->renderGlobalErrors() ?>
             <?php echo $form->renderHiddenFields() ?>
             
@@ -40,7 +40,7 @@
                 
                 <?php if (!$drmValidation->hasErrors()): ?>
                 <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->isTransmissionCiel()) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-                <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel()): ?>
+                <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel() && !$drm->isNegoce()): ?>
                 <?php if(date('Y-m-d') >= $drm->periode.'-'.DRMCiel::VALIDATE_DAY): ?>
                 <button type="button" class="btn_popup btn_suiv" data-popup="#popupValidation" data-popup-config="configDefaut">
                     <span>Valider et envoyer à CIEL</span>
@@ -150,7 +150,7 @@
                 <?php endif; ?>
             </div>
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Visualisez le brouillon de DRM</a>
-            <?php if($etablissement->isTransmissionCiel() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+            <?php if($etablissement->isTransmissionCiel() && ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
             <a id="telecharger_pdf" style="margin-left: 225px; padding-left: 5px; background: #9e9e9e;" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Visualisez le XML CIEL</a>
             <?php endif; ?>
             
@@ -170,7 +170,7 @@
                 <?php endif; ?>
                 <?php if (!$drmValidation->hasErrors()): ?>
                 <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->isTransmissionCiel()) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-                <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel()): ?>
+                <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel() && !$drm->isNegoce()): ?>
                 <?php if(date('Y-m-d') >= $drm->periode.'-'.DRMCiel::VALIDATE_DAY): ?>
                 <button type="button" class="btn_popup btn_suiv" data-popup="#popupValidation" data-popup-config="configDefaut">
                     <span>Valider et envoyer à CIEL</span>
@@ -220,7 +220,7 @@
           	    <p>En cliquant sur « Valider », votre DRM sera directement transmise vers le portail de la Douane.</p>
           	    <p>Sur <a href="https://pro.douane.gouv.fr/" target="_blank">pro.douane.gouv.fr</a> vous la retrouverez en mode Brouillon.</p>
           	    <p>Il ne vous restera  plus qu'à la valider en ligne sur le site web douanier.</p>
-                <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel()): ?>
+                <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel() && !$drm->isNegoce()): ?>
                   <div class="ligne_form" style="margin: 10px 0;">
                       <div class="checkbox">
                           <label>

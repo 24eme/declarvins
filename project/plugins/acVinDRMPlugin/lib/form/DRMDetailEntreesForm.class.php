@@ -16,6 +16,9 @@ class DRMDetailEntreesForm  extends acCouchdbObjectForm {
 	    			$this->setWidget($key, new sfWidgetFormInputFloat(array('float_format' => "%01.04f")));
 	    		}
     		}
+    		if ($this->getObject()->getDocument()->isNegoce() && $key == 'vci') {
+    		    $this->getWidget($key)->setAttribute('readonly', 'readonly');
+    		}
 	    	$this->setValidator($key, new sfValidatorNumber(array('required' => false)));
     	}   
         $this->widgetSchema->setNameFormat('drm_detail_entrees[%s]');
