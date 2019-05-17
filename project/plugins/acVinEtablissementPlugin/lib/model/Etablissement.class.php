@@ -11,14 +11,14 @@ class Etablissement extends BaseEtablissement {
     const STATUT_CSV = "CSV";
     
     public function isTransmissionCiel() {
-        if (!$this->isViticulteur() && $this->sous_famille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
+        if (!$this->canAdhesionCiel()) {
             return false;
         }
     	return ($this->transmission_ciel)? true : false;
     }
     
     public function canAdhesionCiel() {
-        if ($this->isViticulteur() || $this->sous_famille == EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
+        if ($this->famille != EtablissementFamilles::FAMILLE_COURTIER) {
             return true;
         }
         return false;

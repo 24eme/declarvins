@@ -71,6 +71,14 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $this->get($hash)->details->getProduit($labels);
     }
     
+    public function isNegoce() {
+        return $this->declarant->famille == EtablissementFamilles::FAMILLE_NEGOCIANT && $this->declarant->sous_famille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR;
+    }
+    
+    public function getCielLot() {
+        return ($this->isNegoce())? 'lot1' : 'lot2';
+    }
+    
     public function payerReport()
     {
     	$this->declaratif->paiement->douane->report_paye = 1;
@@ -779,16 +787,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         }
 
         return array('certification' => $match[1], 'appellation' => $match[2]);
-    }
-
-    private function setDroit($type, $appellation) {
-        throw new sfException('Utilisé  ?');
-        exit;
-        $configurationDroits = $appellation->getConfig()->interpro->get($this->getInterpro()->get('_id'))->droits->get($type)->getCurrentDroit($this->periode);
-        $droit = $appellation->droits->get($type);
-        $droit->ratio = $configurationDroits->ratio;
-        $droit->code = $configurationDroits->code;
-        $droit->libelle = $configurationDroits->libelle;
     }
 
     public function isPaiementAnnualise() {
