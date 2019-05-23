@@ -18,7 +18,7 @@ class Etablissement extends BaseEtablissement {
     }
     
     public function canAdhesionCiel() {
-        if ($this->famille != EtablissementFamilles::FAMILLE_COURTIER) {
+        if ($this->famille == EtablissementFamilles::FAMILLE_PRODUCTEUR || $this->sous_famille == EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
             return true;
         }
         return false;

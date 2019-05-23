@@ -64,7 +64,7 @@
                 </ul>
             </div>
             
-            <?php if (($etablissement->isTransmissionCiel() && $drm->isNegoce()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
+            <?php if ($drm->isNegoce() || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <div style="background: none repeat scroll 0 0 #d9e0ed; border: 1px solid #182188; color: #182188; font-weight: bold;margin: 0 0 10px 0;padding: 5px 10px;">
                 <ul>
                     <li>
@@ -147,11 +147,11 @@
                 <pre style="background: #fff; border: 1px #E9E9E9; padding: 8px; margin-top: 8px;"><?php echo $drm->commentaires ?></pre>
             </div>
         <?php endif; ?>
-            <?php if ($etablissement->isTransmissionCiel() && !$drm->isNegoce() && $drmCiel->isTransfere() && !$drmCiel->isValide() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+            <?php if ($etablissement->isTransmissionCiel() && $drmCiel->isTransfere() && !$drmCiel->isValide() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <?php else: ?>
             <a id="telecharger_pdf" href="<?php echo url_for('drm_pdf', $drm) ?>">Télécharger le PDF</a>
             <?php endif; ?>
-            <?php if ($drm->isNegoce() || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
+            <?php if ($drm->isNegoce() || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <a id="telecharger_xml" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Télécharger le XML</a>
 			<?php endif; ?>
             <div id="btn_etape_dr">
