@@ -2,6 +2,8 @@
 <?php use_helper('Link'); ?>
 <?php include_component('global', 'navTop', array('active' => 'drm')); ?>
 
+<?php $serviceCielActif = sfConfig::get('app_ciel_actif'); ?>
+
 <section id="contenu">
 
 
@@ -42,9 +44,13 @@
                 <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->isTransmissionCiel()) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel()): ?>
                 <?php if(date('Y-m-d') >= $drm->periode.'-'.DRMCiel::VALIDATE_DAY): ?>
+                <?php if ($serviceCielActif):?>
                 <button type="button" class="btn_popup btn_suiv" data-popup="#popupValidation" data-popup-config="configDefaut">
                     <span>Valider et envoyer à CIEL</span>
                 </button>
+                <?php else:?>
+                <span style="float:right;color:#f0ad4e;font-weight:bold; width;width: 280px;text-align: center;text-transform: none;">/!\<br />Le service de reception des DRM de la Douane est indisponible pour le moment</span>
+                <?php endif; ?>
                 <?php else: ?>
                 <div class="ciel_wait">Vous pourrez valider à partir du <strong><?php echo DRMCiel::VALIDATE_DAY ?>/<?php echo $drm->getMois() ?></strong></div>
                 <?php endif; ?>
@@ -172,9 +178,13 @@
                 <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->isTransmissionCiel()) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel()): ?>
                 <?php if(date('Y-m-d') >= $drm->periode.'-'.DRMCiel::VALIDATE_DAY): ?>
+                <?php if ($serviceCielActif): ?>
                 <button type="button" class="btn_popup btn_suiv" data-popup="#popupValidation" data-popup-config="configDefaut">
                     <span>Valider et envoyer à CIEL</span>
                 </button>
+                <?php else:?>
+                <span style="float:right;color:#f0ad4e;font-weight:bold; width;width: 280px;text-align: center;text-transform: none;">/!\<br />Le service de reception des DRM de la Douane est indisponible pour le moment</span>
+                <?php endif; ?>
                 <?php else: ?>
                 <div class="ciel_wait">Vous pourrez valider à partir du <strong><?php echo DRMCiel::VALIDATE_DAY ?>/<?php echo $drm->getMois() ?></strong></div>
                 <?php endif; ?>
