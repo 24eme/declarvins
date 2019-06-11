@@ -52,7 +52,11 @@ class DRMCiel extends BaseDRMCiel
 		if ($this->xml && !$this->isTransfere()) {
 			$reponseCiel = $this->getReponseCiel();
 			$known = false;
-			if (isset($reponseCiel->{'erreurs-fonctionnelles'})) {
+			if (preg_match('/HTTP Error 0/', html_entity_decode($this->xml)) || preg_match('/permission to access .authtoken.oauth2/', html_entity_decode($this->xml))) {
+			    $erreurs[] = "<strong>Le service de reception des DRM de la Douane est indisponible pour le moment</strong>";
+				$known = true;
+			}
+			if (!$known && isset($reponseCiel->{'erreurs-fonctionnelles'})) {
 				foreach ($reponseCiel->{'erreurs-fonctionnelles'}->{'erreur-fonctionnelle'} as $erreurFonctionnelle) {
 					if (isset($erreurFonctionnelle->{'message-erreur'})) {
 						$erreurs[] =  $erreurFonctionnelle->{'message-erreur'};
@@ -60,13 +64,13 @@ class DRMCiel extends BaseDRMCiel
 					}
 				}
 			}
-			if (isset($reponseCiel->{'erreur-technique'})) {
+			if (!$known && isset($reponseCiel->{'erreur-technique'})) {
 				if (isset($reponseCiel->{'erreur-technique'}->{'message-erreur'})) {
 					$erreurs[] =  $reponseCiel->{'erreur-technique'}->{'message-erreur'};
 					$known = true;
 				}
 			}
-			if (isset($reponseCiel->{'erreur-interne'})) {
+			if (!$known && isset($reponseCiel->{'erreur-interne'})) {
 				if (isset($reponseCiel->{'erreur-interne'}->{'message-erreur'})) {
 					$erreurs[] =  $reponseCiel->{'erreur-interne'}->{'message-erreur'};
 					$known = true;
