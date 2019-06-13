@@ -21,6 +21,10 @@ class Ldap extends acVinLdap {
         return $this->delete($compte->login);
     }
     
+    public function removeCompte($compteid) {
+        return $this->delete($compteid);
+    }
+    
     /**
      *
      * @param _Compte $compte
