@@ -16,8 +16,8 @@
         <?php else: ?>
         <p>La plateforme déclarative des vins du Rhône, de Provence et du Sud Est</p>
         <?php endif; ?>
-        <p style="font-weight: bold; text-align:center; background-color:#f0ad4e; margin:10px 0; padding: 10px 0;">/!\<br>Madame, Monsieur,<br> La plateforme DeclarVins sera en maintenance et donc indisponible du jeudi 13 Juin 12h00 au vendredi 14 Juin 2019 vers 10h00.<br>
-						Veuillez nous excuser pour la gêne occasionnée.<br>/!\</p>
+        <!-- <p style="font-weight: bold; text-align:center; background-color:#f0ad4e; margin:10px 0; padding: 10px 0;">/!\<br>Madame, Monsieur,<br> La plateforme DeclarVins sera en maintenance et donc indisponible du jeudi 13 Juin 12h00 au vendredi 14 Juin 2019 vers 10h00.<br>
+						Veuillez nous excuser pour la gêne occasionnée.<br>/!\</p>  -->
     </div>
     <?php if ($sf_user->isAuthenticated()): ?>
     <p class="deconnexion"><a href="<?php echo url_for('@ac_vin_logout'); ?>">Se deconnecter</a></p>
