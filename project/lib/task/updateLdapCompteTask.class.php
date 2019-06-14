@@ -34,8 +34,8 @@ EOF;
         $compte = acCouchdbManager::getClient()->find($compteid);
         if (!$compte) {
             $ldap = new Ldap();
-            $ldap->removeCompte($compteid);
-            echo "UPDATE;".$compteid.";removed;;\n";
+            $ldap->removeCompte($arguments['compteid']);
+            echo "UPDATE;".$arguments['compteid'].";removed;;\n";
             exit;
         }
         try {
