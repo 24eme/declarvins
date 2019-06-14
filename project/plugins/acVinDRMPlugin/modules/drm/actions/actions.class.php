@@ -534,10 +534,10 @@ class drmActions extends sfActions {
 	        }
 	        }
         }
+    	}
         if ($this->drm->hasVersion() && $this->drmCiel->isTransfere()) {
         	$this->drm->ciel->valide = 1;
         }
-    	}
         // CIEL ===============
         
         $this->drm->save();
