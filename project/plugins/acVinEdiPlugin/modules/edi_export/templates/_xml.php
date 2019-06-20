@@ -1,6 +1,14 @@
 <?php use_helper('Edi'); ?>
 <?php echo '<?xml version="1.0" encoding="utf-8" ?>' ?>
 
+<?php if ($drm->isNegoce()): ?>
+<mouvements-balances xsi:schemaLocation="http://douane.finances.gouv.fr/app/ciel/dtiplus/v1 ciel-dti-plus_v1.0.7.xsd" xmlns="http://douane.finances.gouv.fr/app/ciel/dtiplus/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <periode-taxation>
+    <mois><?php echo $drm->getMois() ?></mois>
+    <annee><?php echo $drm->getAnnee() ?></annee>
+  </periode-taxation>
+  <identification-redevable><?php echo $drm->declarant->no_accises ?></identification-redevable>
+<?php else: ?>
 <message-interprofession xmlns="http://douane.finances.gouv.fr/app/ciel/interprofession/echanges/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://douane.finances.gouv.fr/app/ciel/interprofession/echanges/1.0 echanges-interprofession-1.7.xsd">
 	<siren-interprofession><?php echo $drm->getEtablissement()->getInterproObject()->siren ?></siren-interprofession>
 	<declaration-recapitulative>
@@ -15,6 +23,8 @@
 			<annee><?php echo $drm->getAnnee() ?></annee>
 		</periode>
 		<declaration-neant><?php echo ($drm->isNeant())? "true" : "false"; ?></declaration-neant>
+<?php endif; ?>
+
 <?php if (!$drm->isNeant()): ?>
 		<droits-suspendus>
 <?php if ($drm->hasStocks()): foreach ($drm->getCielProduits() as $produit): ?>
@@ -162,5 +172,10 @@
 <?php endif; ?>
     	</statistiques>
 <?php endif; ?>
+
+<?php if ($drm->isNegoce()): ?>
+</mouvements-balances>
+<?php else: ?>
   	</declaration-recapitulative>
 </message-interprofession>
+<?php endif; ?>
