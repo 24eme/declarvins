@@ -24,7 +24,6 @@
 		</periode>
 		<declaration-neant><?php echo ($drm->isNeant())? "true" : "false"; ?></declaration-neant>
 <?php endif; ?>
-
 <?php if (!$drm->isNeant()): ?>
 		<droits-suspendus>
 <?php if ($drm->hasStocks()): foreach ($drm->getCielProduits() as $produit): ?>
@@ -172,7 +171,6 @@
 <?php endif; ?>
     	</statistiques>
 <?php endif; ?>
-
 <?php if ($drm->isNegoce()): ?>
 </mouvements-balances>
 <?php else: ?>
