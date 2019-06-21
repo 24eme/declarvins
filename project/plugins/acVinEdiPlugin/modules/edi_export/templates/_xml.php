@@ -44,16 +44,18 @@
 <?php if ($produit->getObservations()): ?>
 				<observations><![CDATA[<?php echo $produit->getObservations() ?>]]></observations>
 <?php endif; ?>
-				<balance-stocks>
+				<?php if ($drm->isNegoce()): ?><balance-stock><?php else: ?><balance-stocks><?php endif; ?>
 <?php 
 	$xml = '';
 	noeudXml($produit, $ciel->get('balance-stocks/'.$drm->getCielLot().'/droits-suspendus'), $xml, array('mois', 'annee'));
 	echo formatXml($xml, 5);
 ?>
-				</balance-stocks>
+				<?php if ($drm->isNegoce()): ?></balance-stock><?php else: ?></balance-stocks><?php endif; ?>
 			</produit>
 <?php endforeach; endif; ?>
+			<?php if (!$drm->isNegoce()): ?>
 			<stockEpuise><?php echo (!$drm->getTotalStock())? "true" : "false"; ?></stockEpuise>
+			<?php endif; ?>
 		</droits-suspendus>
 <?php if ($drm->hasExportableProduitsAcquittes()): ?>
 		<droits-acquittes>
@@ -75,16 +77,18 @@
 <?php if ($produit->getObservations()): ?>
 				<observations><![CDATA[<?php echo $produit->getObservations() ?>]]></observations>
 <?php endif; ?>
-				<balance-stocks>
+				<?php if ($drm->isNegoce()): ?><balance-stock><?php else: ?><balance-stocks><?php endif; ?>
 <?php 
 	$xml = '';
 	noeudXml($produit, $ciel->get('balance-stocks/'.$drm->getCielLot().'/droits-acquittes'), $xml, array('mois', 'annee'));
 	echo formatXml($xml, 5);
 ?>
-				</balance-stocks>
+				<?php if ($drm->isNegoce()): ?></balance-stocks><?php else: ?></balance-stock><?php endif; ?>
 			</produit>
 <?php endforeach; endif; ?>
+			<?php if (!$drm->isNegoce()): ?>
 			<stockEpuise><?php echo (!$drm->getTotalStockAcq())? "true" : "false"; ?></stockEpuise>
+			<?php endif; ?>
     	</droits-acquittes>
 <?php endif; ?>
 <?php endif; ?>
