@@ -72,6 +72,7 @@ class VracImportCsvEdi extends VracCsvEdi {
     
     private function updateVrac($numLigne, $datas)
     {
+        return $this->importVrac($numLigne, $datas);
     	$this->vrac->volume_propose = ($datas[self::CSV_CAVE_VOLINITIAL])? round($this->floatize($datas[self::CSV_CAVE_VOLINITIAL]), 2) : 0;
     	$this->vrac->volume_enleve = ($datas[self::CSV_CAVE_VOLRETIRE])? round($this->floatize($datas[self::CSV_CAVE_VOLRETIRE]), 2) : 0;
     }
