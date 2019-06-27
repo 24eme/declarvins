@@ -24,7 +24,7 @@ class DRMValidation
 		$this->errors = array();
 		$this->etablissement = $drm->getEtablissementObject();
 		$this->isAdmin = ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER)? true : false;
-		$this->isCiel = $this->etablissement->isTransmissionCiel();
+		$this->isCiel = ($this->etablissement->isTransmissionCiel() || $drm->isNegoce());
 		$this->controleDRM();
 	}
 	
@@ -229,6 +229,32 @@ class DRMValidation
 			}
 			if ($detail->sorties->pertes > 0 && !$detail->observations) {
 				$this->errors['observations_pertes_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_pertes', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
+			}
+			if ($this->drm->isNegoce()) {
+			    if ($detail->entrees->declassement > 0 && !$detail->observations) {
+			        $this->errors['observations_entrees_declassement_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_entrees_declassement', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
+			    }
+			    if ($detail->entrees->repli > 0 && !$detail->observations) {
+			        $this->errors['observations_entrees_repli_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_entrees_repli', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
+			    }
+			    if ($detail->entrees->mouvement > 0 && !$detail->observations) {
+			        $this->errors['observations_entrees_mouvement_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_entrees_mouvement', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
+			    }
+			    if ($detail->sorties->autres_interne > 0 && !$detail->observations) {
+			        $this->errors['observations_autres_interne_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_autres_interne', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
+			    }
+			    if ($detail->sorties->declassement > 0 && !$detail->observations) {
+			        $this->errors['observations_declassement_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_declassement', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
+			    }
+			    if ($detail->sorties->repli > 0 && !$detail->observations) {
+			        $this->errors['observations_repli_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_repli', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
+			    }
+			    if ($detail->sorties->mouvement > 0 && !$detail->observations) {
+			        $this->errors['observations_mouvement_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_mouvement', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
+			    }
+			    if ($detail->sorties->crd_acquittes > 0 && !$detail->observations) {
+			        $this->errors['observations_crd_acquittes_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_crd_acquittes', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
+			    }
 			}
 		}
 		if ($detail->tav && ($detail->tav < 0.5 || $detail->tav > 100)) {

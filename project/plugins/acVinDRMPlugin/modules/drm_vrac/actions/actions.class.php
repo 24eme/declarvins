@@ -32,7 +32,7 @@ class drm_vracActions extends sfActions
                 return $this->redirect('drm_validation', $this->drm);
             }
             
-            if ($this->getUser()->getCompte()->isTiers() && !$this->etablissement->isTransmissionCiel()) {
+            if ($this->getUser()->getCompte()->isTiers() && !$this->etablissement->isTransmissionCiel() && !$this->drm->isNegoce()) {
             	$this->drm->setCurrentEtapeRouting('declaratif');
             	return $this->redirect('drm_declaratif', $this->drm);
             }
@@ -60,7 +60,7 @@ class drm_vracActions extends sfActions
                 			return $this->redirect('drm_validation', $this->drm);
            				}
             
-            			if ($this->getUser()->getCompte()->isTiers() && !$this->etablissement->isTransmissionCiel()) {
+            			if ($this->getUser()->getCompte()->isTiers() && !$this->etablissement->isTransmissionCiel() && $this->drm->isNegoce()) {
             				$this->drm->setCurrentEtapeRouting('declaratif');
             				return $this->redirect('drm_declaratif', $this->drm);
             			}

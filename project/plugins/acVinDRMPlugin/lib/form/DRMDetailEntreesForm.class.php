@@ -7,7 +7,7 @@ class DRMDetailEntreesForm  extends acCouchdbObjectForm {
     	$stockEntrees = Configuration::getStocksEntree(true);
     	$stockEntrees = array_merge($stockEntrees, Configuration::getStocksEntree(false));
     	foreach ($stockEntrees as $key => $item) {
-    		if ($this->getObject()->exist($key.'_details') && ($this->getUser()->getCompte()->isTiers() && $this->getObject()->getDocument()->getEtablissementObject()->isTransmissionCiel())) {
+    		if ($this->getObject()->exist($key.'_details') && (($this->getUser()->getCompte()->isTiers() && $this->getObject()->getDocument()->getEtablissementObject()->isTransmissionCiel()) || $this->getObject()->getDocument()->isNegoce())) {
     			$this->setWidget($key, new sfWidgetFormInputHidden());
     		} else {
 	    		if ($contraintes && !in_array('entrees/'.$key, $contraintes)) {

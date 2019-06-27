@@ -28,13 +28,18 @@
 		<droits-suspendus>
 <?php if ($drm->hasStocks()): foreach ($drm->getCielProduits() as $produit): ?>
 			<produit>
+<?php if ($drm->isNegoce()): ?>
+				<libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?><?php if($produit->hasLabel()): ?> <?php echo $produit->getLabelKeyString(); ?><?php endif; ?>]]></libelle-personnalise>
+<?php endif; ?>
 <?php if ($produit->getLibelleFiscal()): ?>
 				<libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
 <?php endif; ?>
 <?php if ($produit->getInao()): ?>
 				<code-inao><?php echo $produit->getInao() ?></code-inao>
 <?php endif; ?>
+<?php if (!$drm->isNegoce()): ?>
 				<libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?><?php if($produit->hasLabel()): ?> <?php echo $produit->getLabelKeyString(); ?><?php endif; ?>]]></libelle-personnalise>
+<?php endif; ?>
 <?php if ($produit->getTav()): ?>
 				<tav><?php echo sprintf("%01.02f", $produit->getTav()) ?></tav>
 <?php endif; ?>
@@ -63,13 +68,18 @@
 		<droits-acquittes>
 <?php if ($drm->hasStocksAcq()): foreach ($drm->getCielProduits() as $produit): if (!$produit->getHasSaisieAcq()) { continue; } ?>
 			<produit>
+<?php if ($drm->isNegoce()): ?>
+				<libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?>]]></libelle-personnalise>
+<?php endif; ?>
 <?php if ($produit->getLibelleFiscal()): ?>
 				<libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
 <?php endif; ?>
 <?php if ($produit->getInao()): ?>
 				<code-inao><?php echo $produit->getInao() ?></code-inao>
 <?php endif; ?>
+<?php if (!$drm->isNegoce()): ?>
 				<libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?>]]></libelle-personnalise>
+<?php endif; ?>
 <?php if ($produit->getTav()): ?>
 				<tav><?php echo sprintf("%01.02f", $produit->getTav()) ?></tav>
 <?php endif; ?>

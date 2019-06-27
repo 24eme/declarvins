@@ -1428,7 +1428,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 $produit->total_debut_mois += $detail->total_debut_mois;
                 $produit->acq_total_debut_mois += $detail->acq_total_debut_mois;
                 if ($detail->observations) {
-                    $produit->observations = ($produit->observations)? $produit->observations.' - '.$detail->observations : $detail->observations;
+                    $produit->observations = ($produit->observations && !preg_match('/'.$detail->observations.'/', $produit->observations))? $produit->observations.' - '.$detail->observations : $detail->observations;
                 }
                 foreach (array('stocks_debut', 'entrees', 'sorties', 'stocks_fin') as $item) {
                     foreach ($detail->{$item} as $mv => $val) {

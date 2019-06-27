@@ -338,7 +338,7 @@
 
 	
 
-<?php if ($sf_user->getCompte()->isTiers() && !$drm->getEtablissementObject()->isTransmissionCiel()): ?>
+<?php if ($sf_user->getCompte()->isTiers() && !$drm->getEtablissementObject()->isTransmissionCiel() && !$drm->isNegoce()): ?>
 		<h2>Droits de circulation, de consommation et autres taxes</h2>
 	
 	
