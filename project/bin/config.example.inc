@@ -11,3 +11,9 @@ ELASTHOST=127.0.0.1
 ELASTPORT=9200
 ELASTINDEX=declarvin
 ELASTRIVERNAME=declarvin
+
+STATSCIEL_XML_IR="***********"
+STATSCIEL_XML_CIVP="***********"
+STATSCIEL_BILANDRM="***********"
+STATSCIEL_GRC_IR="***********"
+STATSCIEL_GRC_CIVP="***********"
