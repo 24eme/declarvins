@@ -1,4 +1,5 @@
 #!/bin/bash
+. bin/config.inc
 
 INTERPRO=$1
 
