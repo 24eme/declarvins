@@ -92,6 +92,49 @@ Les lignes de ce fichier se constituent des champs suivants :
 
 La liste des erreurs (identifiant et description) pour le portail DeclarVins est disponible ici : [Liste des erreurs pour DeclarVins](liste_erreurs.csv) .
 
+## Correspondances mouvements droits suspendus
+
+| Mouvement | DeclarVins | CIEL Lot 2  | CIEL Lot 1 |
+|-----------|------------|-------------|------------|
+| stock | total_debut_mois | stock-debut-periode | stock-debut-periode |
+| entrees | recolte | volume-produit | volume-produit |
+| entrees | achat | achats-reintegrations | entree-droits-suspendus |
+| entrees temporaires | embouteillage | embouteillage | travail-a-facon |
+| entrees temporaires | mouvement | relogement | autres-entrees |
+| entrees temporaires | travail | travail-a-facon | travail-a-facon |
+| entrees temporaires | distillation | distillation-a-facon | volume-produit |
+| entrees internes | repli + declassement | replis-declassement-transfert-changement-appellation | autres-entrees |
+| entrees internes | manipulation | manipulations | volume-produit |
+| entrees internes | vci | integration-vci-agree | X |
+| entrees | excedent | autres-entrees | autres-entrees |
+| entrees | crd | replacement-suspension | replacement-suspension |
+| sorties | factures + crd | ventes-france-crd-suspendus | sorties-avec-paiement-annee-courante |
+| sorties | crd_acquittes | ventes-france-crd-acquittes | autres-sorties |
+| sorties sans droits | vrac + lies + export | sorties-definitives | sorties-definitives + lies-vins-distilles |
+| sorties sans droits | consommation | consommation-familiale-degustation | sorties-exoneration-droits |
+| sorties sans droits temporaires | embouteillage | embouteillage | travail-a-facon |
+| sorties sans droits temporaires | mouvement | relogement | autres-sorties |
+| sorties sans droits temporaires | travail | travail-a-facon | travail-a-facon |
+| sorties sans droits temporaires | distillation | distillation-a-facon | fabrication-autre-produit |
+| sorties sans droits internes | repli + declassement | replis-declassement-transfert-changement-appellation | autres-sorties |
+| sorties sans droits internes | mutage | fabrication-autre-produit | fabrication-autre-produit |
+| sorties sans droits internes | vci | revendication-vci | X |
+| sorties sans droits internes | autres_interne | autres-mouvements-internes | autres-sorties |
+| sorties sans droits | autres + pertes | autres-sorties | autres-sorties |
+| stocks | total | stock-fin-periode | stock-fin-periode |
+
+## Correspondances mouvements droits acquittes
+
+| Mouvement | DeclarVins | CIEL Lot 2  | CIEL Lot 1 |
+|-----------|------------|-------------|------------|
+| stocks | total_debut_mois | stock-debut-periode | stock-debut-periode |
+| entrees | achat | achats | achats |
+| entrees | autres | autres-entrees | autres-entrees |
+| sorties | crd | ventes | ventes |
+| sorties | replacement | replacement-suspension | replacement-suspension |
+| sorties | autres | autres-sorties | autres-sorties |
+| stocks | total | stock-fin-periode | stock-fin-periode |
+
 ## Suivi du projet chez les éditeurs de registres de cave 
 
 | Nom de l'Éditeur | Prise de contact | Génération du fichier de transfer | Recette des échanges en préproduction | Transmission opérationnelle en production | Versions compatibles |
