@@ -73,10 +73,10 @@ class DRMValidation
 					$totalSortiRepli += $detail->sorties->repli;
 				}
 				$totalSortiDeclassement += $detail->sorties->declassement;
-				if ($certification->getKey() == self::AOP_KEY && $detail->sorties->repli) {
+				if (!$this->drm->isNegoce() && $certification->getKey() == self::AOP_KEY && $detail->sorties->repli) {
 					$this->engagements['odg'] = new DRMControleEngagement('odg');
 				}
-				if ($certification->getKey() == self::IGP_KEY && $detail->entrees->declassement) {
+				if (!$this->drm->isNegoce() && $certification->getKey() == self::IGP_KEY && $detail->entrees->declassement) {
 					$this->engagements['odg'] = new DRMControleEngagement('odg');
 				}
 				if ($certification->getKey() == self::VINSSANSIG_KEY) {
@@ -133,6 +133,9 @@ class DRMValidation
 	
 	private function controleEngagements($detail)
 	{
+	    if ($this->drm->isNegoce()) {
+	        return;
+	    }
 		if ($detail->sorties->export > 0) {
 			$this->engagements['export'] = new DRMControleEngagement('export');
 		}
