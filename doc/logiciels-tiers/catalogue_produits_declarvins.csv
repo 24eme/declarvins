@@ -430,6 +430,8 @@ AOP,AOP,TRANQ,Tranquilles,GIG,Gigondas,,,,,rouge,Rouge,,,AOP Tranquilles Gigonda
 AOP,AOP,TRANQ,Tranquilles,GIG,Gigondas,,,,,rose,Rosé,,,AOP Tranquilles Gigondas Rosé,1S535S
 AOP,AOP,TRANQ,Tranquilles,HER,Hermitage,,,,,rouge,Rouge,,,AOP Tranquilles Hermitage Rouge,1R541
 AOP,AOP,TRANQ,Tranquilles,HER,Hermitage,,,,,blanc,Blanc,,,AOP Tranquilles Hermitage Blanc,1B541
+AOP,AOP,TRANQ,Tranquilles,HER,Hermitage,,,HERVDP,,blanc,Blanc,,,AOP Tranquilles Hermitage Blanc,1B541L01
+AOP,AOP,TRANQ,Tranquilles,HER,Hermitage,,,HERVdP,L'Hermitage ou  l'Ermitage Vin de Paille,blanc,Blanc,,,AOP Tranquilles Hermitage L'Hermitage ou  l'Ermitage Vin de Paille Blanc,1B541L01
 AOP,AOP,TRANQ,Tranquilles,LIR,Lirac,,,,,rouge,Rouge,,,AOP Tranquilles Lirac Rouge,1R536S
 AOP,AOP,TRANQ,Tranquilles,LIR,Lirac,,,,,rose,Rosé,,,AOP Tranquilles Lirac Rosé,1S536S
 AOP,AOP,TRANQ,Tranquilles,LIR,Lirac,,,,,blanc,Blanc,,,AOP Tranquilles Lirac Blanc,1B536S
@@ -1321,6 +1323,8 @@ AOP,AOP,TRANQ,Tranquilles,COL,Collioure,,,,,blanc,Blanc,,,AOP Tranquilles Collio
 AOP,AOP,TRANQ,Tranquilles,CDB,Côte de Brouilly,,,,,rouge,Rouge,,,AOP Tranquilles Côte de Brouilly Rouge,1R326 
 AOP,AOP,TRANQ,Tranquilles,CBG,Coteaux Bourguignons,,,,,rouge,Rouge,,,AOP Tranquilles Coteaux Bourguignons Rouge,1R320 
 AOP,AOP,TRANQ,Tranquilles,CLG,Coteaux du Languedoc,,,,,rose,Rosé,,,AOP Tranquilles Coteaux du Languedoc Rosé,1S495 
+AOP,AOP,TRANQ,Tranquilles,CLG,Coteaux du Languedoc,,,,,rouge,rouge,,,AOP Tranquilles Coteaux du Languedoc rouge,1R495
+AOP,AOP,TRANQ,Tranquilles,CLG,Coteaux du Languedoc,,,,,blanc,blanc,,,AOP Tranquilles Coteaux du Languedoc blanc,1B494
 AOP,AOP,TRANQ,Tranquilles,GADH,Grignan les Adhémar,,,,,rouge,Rouge,,,AOP Tranquilles Grignan les Adhémar Rouge,1R543S
 AOP,AOP,TRANQ,Tranquilles,GADH,Grignan les Adhémar,,,,,blanc,Blanc,,,AOP Tranquilles Grignan les Adhémar Blanc,1B543S
 AOP,AOP,TRANQ,Tranquilles,GADH,Grignan les Adhémar,,,,,rose,Rosé,,,AOP Tranquilles Grignan les Adhémar Rosé,1S543S
@@ -1346,6 +1350,8 @@ AOP,AOP,TRANQ,Tranquilles,SEML,Saint Emilion,,,,,rouge,Rouge,,,AOP Tranquilles S
 AOP,AOP,TRANQ,Tranquilles,SVRN,Saint Véran,,,,,blanc,Blanc,,,AOP Tranquilles Saint Véran Blanc,1B422 
 AOP,AOP,TRANQ,Tranquilles,SYLV,Sylvaner,,,,,blanc,Blanc,,,AOP Tranquilles Sylvaner Blanc,1B001S 8
 AOP,AOP,TRANQ,Tranquilles,VRCLS,Viré Clessé,,,,,blanc,Blanc,,,AOP Tranquilles Viré Clessé Blanc,1B372 
+AOP,AOP,TRANQ,Tranquilles,CDL,Coteaux du Languedoc,,,,,rouge,rouge,,,AOP Tranquilles Coteaux du Languedoc rouge,1R495
+AOP,AOP,TRANQ,Tranquilles,CDL,Coteaux du Languedoc,,,,,blanc,blanc,,,AOP Tranquilles Coteaux du Languedoc blanc,1B494
 AOP,AOP,EFF,Effervescent,,Autres,,,,,,,,,AOP Effervescent Autres,VM_IG_AOP
 AOP,AOP,EFF,Effervescent,CHP,Champagne,,,,,blanc,Blanc,,,AOP Effervescent Champagne Blanc,1B080M
 AOP,AOP,EFF,Effervescent,CHP,Champagne,,,,,rose,Rosé,,,AOP Effervescent Champagne Rosé,1S080M
