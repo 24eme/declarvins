@@ -42,7 +42,7 @@ cat /tmp/grc.csv | while IFS='' read -r line; do
 
 	CONV=$(echo "$line" | cut -d ';' -f 3)
 	CONV_CIEL=$(echo "$line" | cut -d ';' -f 38)
-	NB_BILAN=$(cat /tmp/bilans.json | grep "BILAN-DRM-$ID" | wc -l)
+	NB_BILAN=$(cat /tmp/bilans.json | grep "BILAN-DRM-$ID" | | grep -E "DRM_STATUS_BILAN_VALIDE|CIEL|MANQUANT" | wc -l)
 	NB_DV_CIEL=$(cat /tmp/bilans.json | grep "BILAN-DRM-$ID" | grep "CIEL" | wc -l)
 	NB_DRM_CIEL=0
 	if [ ! -z "$EA" ]; then
