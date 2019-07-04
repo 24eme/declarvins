@@ -1,5 +1,5 @@
 #!/bin/bash
-. bin/config.inc
+. $(dirname $0)/config.inc
 
 INTERPRO=$1
 
