@@ -270,6 +270,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		
   		$categorieCrd = strtolower($datas[self::CSV_CRD_CATEGORIE_KEY]);
   		$typeCrd = strtolower($datas[self::CSV_CRD_TYPE_KEY]);
+        $typeCrd = str_replace('utilisations', 'utilisees', $typeCrd);
+        $typeCrd = str_replace('destructions', 'detruites', $typeCrd);
+        $typeCrd = str_replace('manquants', 'manquantes', $typeCrd);
   		$valeur = $datas[self::CSV_CRD_QUANTITE];
   		
   		if (!$this->configuration->isCategorieCrdAccepted($categorie)) {
