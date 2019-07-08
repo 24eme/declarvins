@@ -54,7 +54,7 @@ class DRMCepage extends BaseDRMCepage {
   
     public function getInao() {
 		$inao = $this->_get('inao');
-        if ($this->getConfig()->getInao() && $inao != $this->getConfig()->getInao()) {
+        if ($this->getConfig()->getInao() && !$inao) {
 			$inao = $this->getConfig()->getInao();
 			if (strlen($inao) == 5) {
 				$inao = $inao.' ';
