@@ -59,11 +59,7 @@ class drmComponents extends sfComponents {
             $this->numero_autorise = $this->numeros[$this->drm->etape];
         else
             $this->numero_autorise = '';
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> prod
         $this->numero = $this->numeros[$this->etape];
         $this->numero_vrac = (isset($this->numeros['vrac'])) ? $this->numeros['vrac'] : null;
         $this->numero_crd = (isset($this->numeros['crd'])) ? $this->numeros['crd'] : null;
