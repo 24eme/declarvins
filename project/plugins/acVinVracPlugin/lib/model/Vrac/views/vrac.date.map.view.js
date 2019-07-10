@@ -22,12 +22,30 @@ function(doc) {
 			return annee+""+(annee+1);
 		}
 
+		var getMois = function(date) {
+			if (!date) {
+				return null;
+			}
+			var d = date.split('-');
+			return d[1];
+		}
+
+		var getAnnee = function(date) {
+			if (!date) {
+				return null;
+			}
+			var d = date.split('-');
+			return d[0];
+		}
+
 		var vrac_campagne = getCampagne(doc.valide.date_validation);		
 		var vrac_id = doc.numero_contrat;
 		var vrac_version = (doc.version)? doc.version : null;
 		var vrac_referente = (doc.referente === null || doc.referente === undefined)? 1 : doc.referente;
 		var vrac_date_saisie = doc.valide.date_saisie;
 		var vrac_date_stat = (doc.date_stats)? doc.date_stats : doc.valide.date_validation;
+		var vrac_date_stat_mois = getMois(vrac_date_stat);
+		var vrac_date_stat_annee = getAnnee(vrac_date_stat);
 		var vrac_date_signature = (doc.date_signature)? doc.date_signature : doc.valide.date_validation;
 		var vrac_mode = doc.mode_de_saisie;
 		var vrac_date_validation = doc.valide.date_validation;
@@ -257,7 +275,9 @@ function(doc) {
 				 vrac_vendeur_ea,
 				 vrac_determination_prix_date,
 				 vrac_campagne,
-				vrac_prix_total
+				vrac_prix_total,
+				vrac_date_stat_mois,
+				vrac_date_stat_annee
                 		 ]);
 			}
 		} else {
@@ -343,7 +363,9 @@ function(doc) {
 			 vrac_vendeur_ea,
 			 vrac_determination_prix_date,
 			 vrac_campagne,
-				vrac_prix_total
+				vrac_prix_total,
+				vrac_date_stat_mois,
+				vrac_date_stat_annee
             		 ]);
 		}                              
 	} 

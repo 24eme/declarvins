@@ -96,6 +96,28 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $detail;
     }
     
+    public function transferToCiel() {
+        $drmCiel = $this->getOrAdd('ciel');
+        $export = new DRMExportCsvEdi($this);
+        $etablissement = $this->getEtablissement();
+        if ($xml = $export->exportEDI('xml')) {
+            $transfert = true;
+            try {
+                $service = new CielService($etablissement->interpro);
+                $drmCiel->xml = $service->transfer($xml);
+                $drmCiel->setInformationsFromXml();
+                $transfert = $drmCiel->isTransfere();
+            } catch (sfException $e) {
+                $transfert = false;
+            }
+        }
+        if ($transfert) {
+            $this->validate();
+        }
+        $this->save();
+        return $transfert;
+    }
+    
     public function restoreLibelle()
     {
     	if ($drmPrecedente = $this->getPrecedente()) {

@@ -134,6 +134,8 @@ class ConfigurationClient extends acCouchdbClient
 		if(is_null($this->countries)) {
 			$destinationChoicesWidget = new sfWidgetFormI18nChoiceCountry(array('culture' => 'fr'));
 			$this->countries = $destinationChoicesWidget->getChoices();
+			$this->countries['MF'] = 'Saint-Martin (partie française)';
+			$this->countries['SX'] = 'Saint-Martin (partie néerlandaise)';
 		}
 
 		return $this->countries;

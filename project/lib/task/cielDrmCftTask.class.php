@@ -47,18 +47,27 @@ EOF;
     			$ea = (string) $xmlIn->{"declaration-recapitulative"}->{"identification-declarant"}->{"numero-agrement"};
 				$periode = sprintf("%4d-%02d", (string) $xmlIn->{"declaration-recapitulative"}->{"periode"}->{"annee"}, (string) $xmlIn->{"declaration-recapitulative"}->{"periode"}->{"mois"});
     			if ($drm = CielDrmView::getInstance()->findByAccisesPeriode($ea, $periode)) {
+    			    $drmCiel = $drm->getOrAdd('ciel');
     				$export = new DRMExportCsvEdi($drm);
     				if ($xml = $export->exportEDI('xml', $contextInstance)) {
     					$xmlOut = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
     					$compare = new DRMCielCompare($xmlIn, $xmlOut);
+    					$rectif = $drm->findMaster();
+    					if ($rectif && $rectif->version == 'R01') {
+    					   $rectif->delete();
+    					}
     					if ($compare->hasDiff()) {
-    						$drm_rectificative = $drm->generateRectificative();
-    						$drm_rectificative->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
-    						$drm_rectificative->add('ciel', $drm->ciel);
-    						$drm_rectificative->ciel->xml = null;
-    						$drm_rectificative->ciel->diff = $content;
-    						$drm_rectificative->save();
-    						$this->logSection("rectificative", $drm->_id." nécessite une correction du déclarant", null, 'ERROR');
+    					    if ($drm->isVersionnable()) {
+        						$drm_rectificative = $drm->generateRectificative(true);
+        						$drm_rectificative->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI;
+        						$drm_rectificative->add('ciel', $drm->ciel);
+        						$drm_rectificative->ciel->xml = null;
+        						$drm_rectificative->ciel->diff = $xmlIn->asXML();
+        						$drm_rectificative->save();
+        						$this->logSection("rectificative", $drm->_id." nécessite une correction du déclarant", null, 'ERROR');
+    					    } else {
+    					        $this->logSection("rectificative", $drm->_id." a déjà été traitée", null, 'ERROR');
+    					    }
     					} else {
     						$drm->ciel->valide = 1;
     						$drm->save();

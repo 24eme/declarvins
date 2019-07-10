@@ -8,6 +8,7 @@ class DRMCrd extends BaseDRMCrd {
 	
 	public static function makeId($categorie, $type, $centilisation, $centilitre, $bib)
 	{
+	    $bib = ($bib)? 1 : 0;
 		return ($centilitre)? $categorie.'-'.$type.'-'.$centilisation.'-'.$bib.'-CL_'.str_replace(array('.', ','), '_', $centilitre) : $categorie.'-'.$type.'-'.$centilisation;
 	}
 

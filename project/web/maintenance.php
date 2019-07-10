@@ -54,7 +54,7 @@
                 	<h1 style="padding-top: 20px;">Maintenance</h1>
 					<p style="font-size: 14px;">
 						Madame, Monsieur,<br />
-						La plateforme DeclarVins est en maintenance et donc indisponible ce week end, du vendredi 20 Février 18h00 au lundi 23 Février 2015 vers 10h00.<br />
+						La plateforme DeclarVins est en maintenance et donc indisponible cet après-midi, du jeudi 13 Juin 12h00 au vendredi 14 Juin 2019 vers 10h00.<br />
 						Veuillez nous excuser pour la gêne occasionnée.
 					</p>
 				</section>

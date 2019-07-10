@@ -5,7 +5,7 @@
 
         <div>
             <?php if (isset($form['type_transaction'])): ?>
-            <div id="vrac_type_transaction" class="section_label_strong bloc_condition" data-condition-cible="#bloc_poids|#bloc_libelle_unite_prix_hl|#bloc_libelle_unite_prix_kg|#bloc_libelle_unite_cotis_kg|#bloc_libelle_unite_cotis_hl">
+            <div id="vrac_type_transaction" class="section_label_strong bloc_condition" data-condition-cible="#bloc_poids|#bloc_libelle_unite_prix_hl|#bloc_libelle_unite_prix_kg|#bloc_libelle_unite_cotis_kg|#bloc_libelle_unite_cotis_hl|#vrac_cotisation_interpro">
                 <?php echo $form['type_transaction']->renderError() ?>
                 <?php echo $form['type_transaction']->renderLabel() ?>
                 <?php echo $form['type_transaction']->render() ?>
@@ -71,13 +71,13 @@
             <div class="section_label_strong">
                 <?php echo $form['prix_unitaire']->renderError() ?>
                 <?php echo $form['prix_unitaire']->renderLabel() ?>
-                <?php echo $form['prix_unitaire']->render() ?> <span id="bloc_libelle_unite_prix_hl" class="bloc_conditionner" data-condition-value="vrac|mout">€ HT/hl</span><span id="bloc_libelle_unite_prix_kg" class="bloc_conditionner" data-condition-value="raisin">€/kg (Hors Taxes / Net)</span><?php if ($form->getWidget('has_cotisation_cvo')->getDefault()): ?>&nbsp;+&nbsp;<span id="vrac_cotisation_interpro"><?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?></span>&nbsp;€ <span id="bloc_libelle_unite_cotis_kg" class="bloc_conditionner" data-condition-value="raisin">HT/kg</span><span id="bloc_libelle_unite_cotis_hl" class="bloc_conditionner" data-condition-value="vrac|mout">HT/hl</span> de cotisation interprofessionnelle acheteur (<?php echo (ConfigurationVrac::REPARTITION_CVO_ACHETEUR)? ConfigurationVrac::REPARTITION_CVO_ACHETEUR*100 : 0; ?>%).<?php endif; ?>
+                <?php echo $form['prix_unitaire']->render() ?> <span id="bloc_libelle_unite_prix_hl" class="bloc_conditionner" data-condition-value="vrac|mout">€ HT/hl</span><span id="bloc_libelle_unite_prix_kg" class="bloc_conditionner" data-condition-value="raisin">€ HT/kg</span><?php if ($form->getWidget('has_cotisation_cvo')->getDefault()): ?><span id="vrac_cotisation_interpro" class="bloc_conditionner" data-condition-value="vrac" data-cotisation-value="<?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?>">&nbsp;+&nbsp;<?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?>&nbsp;€ HT/hl de cotisation interprofessionnelle acheteur (<?php echo (ConfigurationVrac::REPARTITION_CVO_ACHETEUR)? ConfigurationVrac::REPARTITION_CVO_ACHETEUR*100 : 0; ?>%).</span><?php endif; ?>
             </div>
             <?php if (isset($form['prix_total_unitaire'])): ?>
             <div class="section_label_strong">
                 <?php echo $form['prix_total_unitaire']->renderError() ?>
                 <?php echo $form['prix_total_unitaire']->renderLabel() ?>
-                <?php echo $form['prix_total_unitaire']->render(array('disabled' => 'disabled')) ?> <span id="bloc_libelle_unite_prix_hl" class="bloc_conditionner" data-condition-value="vrac|mout">€ HT/hl</span><span id="bloc_libelle_unite_prix_kg" class="bloc_conditionner" data-condition-value="raisin">€/kg (Hors Taxes / Net)</span>
+                <?php echo $form['prix_total_unitaire']->render(array('disabled' => 'disabled')) ?> <span id="bloc_libelle_unite_prix_hl" class="bloc_conditionner" data-condition-value="vrac|mout">€ HT/hl</span><span id="bloc_libelle_unite_prix_kg" class="bloc_conditionner" data-condition-value="raisin">€ HT/kg</span>
             </div>
             <?php endif; ?>
             <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="<?php if (isset($form['mercuriale_mois']) && isset($form['mercuriale_annee']) && isset($form['variation_hausse']) && isset($form['variation_baisse'])): ?>#bloc_vrac_mercuriale|#bloc_vrac_var_baisse|#bloc_vrac_var_hausse|<?php endif; ?>#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date">

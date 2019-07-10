@@ -91,7 +91,7 @@
 			</li>
 			<li>
 				<span>Prix :</span>
-				<span><?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€(HT)/kg soit <?php echo round($vrac->poids * $vrac->prix_unitaire / $vrac->volume_propose) ?> €(HT)/hl<?php endif;?></span>
+				<span><?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction != 'raisin'): ?>€ HT/hl<?php else: ?>€ HT/kg soit <?php echo round($vrac->poids * $vrac->prix_unitaire / $vrac->volume_propose) ?> € HT/hl<?php endif;?></span>
 			</li>
 			<li>
 				<span>Volume :</span>
@@ -106,11 +106,11 @@
 			<?php if ($vrac->has_cotisation_cvo && $vrac->part_cvo > 0): ?>
 			<li>
 				<span>Cotisation interprofessionnelle :</span>
-				<span><?php echo $vrac->getCvoUnitaire() ?> €(HT)/<?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?></span>
+				<span><?php echo $vrac->getCvoUnitaire() ?> € HT/<?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?></span>
 			</li>
 			<li>
 				<span>Prix total unitaire :</span>
-				<span><?php echo $vrac->getTotalUnitaire() ?> €(HT)/<?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?></span>
+				<span><?php echo $vrac->getTotalUnitaire() ?> € HT/<?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?></span>
 			</li>
 			<?php endif; ?>
 			<li>

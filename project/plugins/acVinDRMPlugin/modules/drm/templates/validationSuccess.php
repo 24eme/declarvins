@@ -2,6 +2,8 @@
 <?php use_helper('Link'); ?>
 <?php include_component('global', 'navTop', array('active' => 'drm')); ?>
 
+<?php $serviceCielActif = sfConfig::get('app_ciel_actif'); ?>
+
 <section id="contenu">
 
 
@@ -15,7 +17,7 @@
 		    <h3 style="margin-bottom: 15px;">Erreurs lors de la transmission CIEL (veuillez corriger votre DRM ou contacter votre interprofession pour plus d'information sur les erreurs rencontrées)&nbsp;:</h3>
 		    <ol style="font-weight: normal;">
 		        <?php foreach ($drmCiel->getErreurs() as $erreur): ?>
-		            <li><?php echo $erreur ?></li>
+		            <li><?php if($erreur == "CielService Error : null"): ?>Le service de reception des DRM de la Douane est indisponible pour le moment<?php else: ?><?php echo $erreur ?><?php endif; ?></li>
 		        <?php endforeach; ?>
 		    </ol>
 		</div>
@@ -42,9 +44,13 @@
                 <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->isTransmissionCiel()) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel()): ?>
                 <?php if(date('Y-m-d') >= $drm->periode.'-'.DRMCiel::VALIDATE_DAY): ?>
+                <?php if ($serviceCielActif):?>
                 <button type="button" class="btn_popup btn_suiv" data-popup="#popupValidation" data-popup-config="configDefaut">
                     <span>Valider et envoyer à CIEL</span>
                 </button>
+                <?php else:?>
+                <span style="float:right;color:#f0ad4e;font-weight:bold; width;width: 280px;text-align: center;text-transform: none;">/!\<br />Le service de reception des DRM de la Douane est indisponible pour le moment</span>
+                <?php endif; ?>
                 <?php else: ?>
                 <div class="ciel_wait">Vous pourrez valider à partir du <strong><?php echo DRMCiel::VALIDATE_DAY ?>/<?php echo $drm->getMois() ?></strong></div>
                 <?php endif; ?>
@@ -117,7 +123,7 @@
                 <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <div style="background: #E3E2E2; color: #3E3E3E; border-radius: 5px; margin-bottom: 25px;">
                     <div style="padding: 4px 0 10px 10px;">
-                    	<div style="padding: 10px 0px; font-weight: bold; display: block;">DRM incomplète</div>
+                    	<div style="padding: 10px 0px; font-weight: bold; display: blocdmin/etablissements/drmk;">DRM incomplète</div>
                     	<div>
 	                        <?php echo $form['manquants']['igp']->renderError() ?>
 	                        <?php echo $form['manquants']['igp']->render() ?>
@@ -172,9 +178,13 @@
                 <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->isTransmissionCiel()) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel()): ?>
                 <?php if(date('Y-m-d') >= $drm->periode.'-'.DRMCiel::VALIDATE_DAY): ?>
+                <?php if ($serviceCielActif): ?>
                 <button type="button" class="btn_popup btn_suiv" data-popup="#popupValidation" data-popup-config="configDefaut">
                     <span>Valider et envoyer à CIEL</span>
                 </button>
+                <?php else:?>
+                <span style="float:right;color:#f0ad4e;font-weight:bold; width;width: 280px;text-align: center;text-transform: none;">/!\<br />Le service de reception des DRM de la Douane est indisponible pour le moment</span>
+                <?php endif; ?>
                 <?php else: ?>
                 <div class="ciel_wait">Vous pourrez valider à partir du <strong><?php echo DRMCiel::VALIDATE_DAY ?>/<?php echo $drm->getMois() ?></strong></div>
                 <?php endif; ?>
@@ -261,7 +271,11 @@
 			if ($('#<?php echo $form['brouillon']->renderId() ?>').val() == 1) {
 				return true;
 			} else { 
-				return confirm("Une fois votre déclaration validée, vous ne pourrez plus la modifier.\n\nConfirmez vous la validation de votre DRM ?");
+				if($("#drm_transmission_ciel_visible").length && $("#drm_transmission_ciel_visible").is(":checked")) {
+					return true;
+				} else {
+					return confirm("Une fois votre déclaration validée, vous ne pourrez plus la modifier.\n\nConfirmez vous la validation de votre DRM ?");
+				}
 			}
 		});
 		$("#brouillon").click(function() {

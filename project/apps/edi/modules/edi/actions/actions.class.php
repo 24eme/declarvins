@@ -742,7 +742,7 @@ class ediActions extends sfActions
 		$rows = EtablissementAllView::getInstance()->findAllByZone($interpro->zone);
 		$eClient = EtablissementClient::getInstance();
 		$zClient = ConfigurationZoneClient::getInstance();
-		$result = '';
+		$result = "#ID INTERPRO;ID HISTORIQUE;NUM CONVENTION;INTERPRO REF;SIRET;CNI;CVI;NUM ACCISES;NUM TVA INTRACOM;EMAIL;TEL;FAX;RAISON SOCIALE;NOM COM;ADRESSE;COMMUNE;CP;PAYS;DOUANE;;STATUT;NOM;PRENOM;FONCTION;EMAIL;TEL;FAX;NUM CARTE PRO;ZONES;ZONES;CORRESPONDANCES INTERPRO;CONVENTIONNE CIEL\N";
 		foreach($rows as $row) {
 			$etablissement = $eClient->find($row->id);
 			$compte = $etablissement->getCompteObject();

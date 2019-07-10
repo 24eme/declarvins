@@ -252,7 +252,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 	  		}
 	  		
 	  		$mvt = ($categorieMvt)? $produit->getOrAdd($categorieMvt) : $produit;
-	  		$old = (in_array(str_replace('acq_', '', $typeMvt), array('total_debut_mois', 'total')))? 0 : floatval($mvt->getOrAdd($typeMvt));
+	  		$old = (in_array(str_replace('acq_', '', $typeMvt), array('total_debut_mois', 'total', 'tav')))? 0 : floatval($mvt->getOrAdd($typeMvt));
 	  		$mvt->add($typeMvt, round(($old + $this->floatize($valeur)), 4));
 	  		$result = $this->drm->setImportableMvtDetails($typeMvt, $mvt, $datas);
 	  		if (!$result) {
@@ -270,6 +270,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		
   		$categorieCrd = strtolower($datas[self::CSV_CRD_CATEGORIE_KEY]);
   		$typeCrd = strtolower($datas[self::CSV_CRD_TYPE_KEY]);
+        $typeCrd = str_replace('utilisations', 'utilisees', $typeCrd);
+        $typeCrd = str_replace('destructions', 'detruites', $typeCrd);
+        $typeCrd = str_replace('manquants', 'manquantes', $typeCrd);
   		$valeur = $datas[self::CSV_CRD_QUANTITE];
   		
   		if (!$this->configuration->isCategorieCrdAccepted($categorie)) {

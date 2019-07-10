@@ -122,9 +122,9 @@
 				<?php if($vrac->type_transaction == 'raisin'): ?>
 				<td><?php echoFloat($vrac->poids) ?>&nbsp;kg</td>
 				<?php endif; ?>
-				<td><?php echoFloat($vrac->prix_unitaire) ?> <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€(HT)/kg soit <?php echo round($vrac->poids * $vrac->prix_unitaire / $vrac->volume_propose) ?> €(HT)/hl<?php endif;?></td>
+				<td><?php echoFloat($vrac->prix_unitaire) ?> <?php if($vrac->type_transaction != 'raisin'): ?>€ HT/hl<?php else: ?>€ HT/kg soit <?php echo round($vrac->poids * $vrac->prix_unitaire / $vrac->volume_propose) ?> € HT/hl<?php endif;?></td>
 				<?php if ($vrac->has_cotisation_cvo): ?>
-				<td><?php echoFloat($vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) ?>  <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€/kg (Hors Taxes / Net)<?php endif;?></td>
+				<td><?php echoFloat($vrac->part_cvo * ConfigurationVrac::REPARTITION_CVO_ACHETEUR) ?>  <?php if($vrac->type_transaction != 'raisin'): ?>€ HT/hl<?php else: ?>€/kg (Hors Taxes / Net)<?php endif;?></td>
 				<?php endif; ?>
 				<td><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)); ?></td>
 			</tr>
