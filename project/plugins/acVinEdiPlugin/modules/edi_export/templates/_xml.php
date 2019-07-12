@@ -31,11 +31,10 @@
 <?php if ($drm->isNegoce()): ?>
 				<libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?><?php if($produit->hasLabel()): ?> <?php echo $produit->getLabelKeyString(); ?><?php endif; ?>]]></libelle-personnalise>
 <?php endif; ?>
-<?php if ($produit->getLibelleFiscal()): ?>
-				<libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
-<?php endif; ?>
 <?php if ($produit->getInao()): ?>
 				<code-inao><?php echo $produit->getInao() ?></code-inao>
+<?php elseif ($produit->getLibelleFiscal()): ?>
+				<libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
 <?php endif; ?>
 <?php if (!$drm->isNegoce()): ?>
 				<libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?><?php if($produit->hasLabel()): ?> <?php echo $produit->getLabelKeyString(); ?><?php endif; ?>]]></libelle-personnalise>
@@ -71,11 +70,10 @@
 <?php if ($drm->isNegoce()): ?>
 				<libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?>]]></libelle-personnalise>
 <?php endif; ?>
-<?php if ($produit->getLibelleFiscal()): ?>
-				<libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
-<?php endif; ?>
 <?php if ($produit->getInao()): ?>
 				<code-inao><?php echo $produit->getInao() ?></code-inao>
+<?php elseif ($produit->getLibelleFiscal()): ?>
+				<libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
 <?php endif; ?>
 <?php if (!$drm->isNegoce()): ?>
 				<libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?>]]></libelle-personnalise>
