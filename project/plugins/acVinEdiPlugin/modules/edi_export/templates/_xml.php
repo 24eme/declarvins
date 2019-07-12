@@ -94,7 +94,7 @@
 	noeudXml($produit, $ciel->get('balance-stocks/'.$drm->getCielLot().'/droits-acquittes'), $xml, array('mois', 'annee'));
 	echo formatXml($xml, 5);
 ?>
-				<?php if ($drm->isNegoce()): ?></balance-stocks><?php else: ?></balance-stock><?php endif; ?>
+				<?php if ($drm->isNegoce()): ?></balance-stock><?php else: ?></balance-stocks><?php endif; ?>
 
 			</produit>
 <?php endforeach; endif; ?>
