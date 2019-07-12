@@ -49,7 +49,7 @@ EOF;
 	  		$rows = acCouchdbManager::getClient()
 	              ->startkey(array($from->identifiant))
 	              ->endkey(array($from->identifiant, array()))
-	              ->getView("update", "vrac_etablissement")
+	              ->getView("vrac", "etablissement")
 	              ->rows;
 	      	$i = 0;
 	      	foreach($rows as $row) {
