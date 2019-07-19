@@ -24,7 +24,7 @@ if [[ $INTERPRO = "CIVP" ]]; then
 	wget -q -O /tmp/drms.xml "$STATSCIEL_XML_CIVP"
 fi
 
-echo "IDENTIFIANT;STATUT;INTERPRO_REF;ZONES;FAMILLE;SOUS_FAMILLE;NUM_ACCISES;RAISON_SOCIALE;CODE_POSTAL;SERVICE_DOUANE;EST_CONVENTIONNE_DV;NUM_CONVENTION_DV;TELEDECL_DRM_DV;EST_CONVENTIONNE_CIEL;TRANSMET_DRM_DV_CIEL;TELEDECL_DRM_CIEL"
+echo "IDENTIFIANT;STATUT;INTERPRO_REF;ZONES;FAMILLE;SOUS_FAMILLE;NUM_ACCISES;SIRET;RAISON_SOCIALE;CODE_POSTAL;SERVICE_DOUANE;EMAIL;EST_CONVENTIONNE_DV;NUM_CONVENTION_DV;TELEDECL_DRM_DV;EST_CONVENTIONNE_CIEL;TRANSMET_DRM_DV_CIEL;TELEDECL_DRM_CIEL"
 
 cat /tmp/grc.csv | while IFS='' read -r line; do
 	if [[ $line =~ ^\# ]]; then
@@ -32,7 +32,7 @@ cat /tmp/grc.csv | while IFS='' read -r line; do
 	fi
 	ID=$(echo "$line" | cut -d ';' -f 1)
 	EA=$(echo "$line" | cut -d ';' -f 8)
-	INFOS=$(echo "$line" | awk -F ";" '{print $1 ";" $27 ";" $4 ";" $36 ";" $19 ";" $20 ";" $8 ";" $13 ";" $17 ";" $25 }')
+	INFOS=$(echo "$line" | awk -F ";" '{print $1 ";" $27 ";" $4 ";" $36 ";" $19 ";" $20 ";" $8 ";" $5 ";" $13 ";" $17 ";" $25 ";" $10 }')
 
 	HAS_CONV=0
 	HAS_CONV_CIEL=0
