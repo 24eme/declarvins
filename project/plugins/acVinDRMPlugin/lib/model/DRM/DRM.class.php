@@ -1713,11 +1713,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		if (!$referent) {
 			$referent = ConfigurationClient::getCurrent()->identifyEtablissement($identifiant);
 		}
-		if (!$referent && $siretCvi) {
-			$referent = ConfigurationClient::getCurrent()->identifyEtablissement($siretCvi);
-		}
 		if (!$referent && $ea) {
 			$referent = ConfigurationClient::getCurrent()->identifyEtablissement($ea);
+		}
+		if (!$referent && $siretCvi) {
+			$referent = ConfigurationClient::getCurrent()->identifyEtablissement($siretCvi);
 		}
 		if (!$referent) {
 			return false;

@@ -172,6 +172,10 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		$typeMvt = $this->drm->getImportableLibelleMvt($droits, $categorieMvt, strtolower($datas[self::CSV_CAVE_TYPE_MOUVEMENT]));
   		$valeur = $this->floatize($datas[self::CSV_CAVE_VOLUME]);
   		
+  		if ($droits == DRMCsvEdi::TYPE_DROITS_ACQUITTES && !$this->drm->droits_acquittes && $valeur > 0) {
+  		    $this->drm->setHasDroitsAcquittes(1);
+  		}
+  		
   		if ($this->mouvements) {
 	  		if ($categorieMvt && !array_key_exists($categorieMvt, $this->mouvements)) {
 	  			$this->csvDoc->addErreur($this->categorieMouvementNotFoundError($numLigne, $datas));

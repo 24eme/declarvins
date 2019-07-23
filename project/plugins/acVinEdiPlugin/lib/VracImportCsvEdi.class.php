@@ -79,12 +79,10 @@ class VracImportCsvEdi extends VracCsvEdi {
   		    $identifiant = trim($result[1]);
   			$siretCvi = trim($result[2]);
   		}
-  		if ($ea != $this->vrac->vendeur->num_accise && $siretCvi != $this->vrac->vendeur->cvi && $siretCvi != $this->vrac->vendeur->siret) {
-      		$result = $this->vrac->setImportableVendeur($identifiant, $ea, $siretCvi);
-      		if (!$result) {
-      			$this->csvDoc->addErreur($this->etablissementNotFoundError($numLigne, $datas));
-      			return;
-      		}
+  		$result = $this->vrac->setImportableVendeur($identifiant, $ea, $siretCvi);
+  		if (!$result) {
+  			$this->csvDoc->addErreur($this->etablissementNotFoundError($numLigne, $datas));
+  			return;
   		}
     	$this->vrac->volume_propose = ($datas[self::CSV_CAVE_VOLINITIAL])? round($this->floatize($datas[self::CSV_CAVE_VOLINITIAL]), 2) : 0;
     	$this->vrac->volume_enleve = ($datas[self::CSV_CAVE_VOLRETIRE])? round($this->floatize($datas[self::CSV_CAVE_VOLRETIRE]), 2) : 0;
