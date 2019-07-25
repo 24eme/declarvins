@@ -184,16 +184,22 @@ class ConfigurationProduit extends BaseConfigurationProduit
     		$identifiantDouane = KeyInflector::slugify($produit->getIdentifiantDouane());
     		$libelleProduit = KeyInflector::slugify($produit->getLibelleEdi());
     		if ($libelleDouane && $identifiantDouane == $libelleDouane && $libelle && strpos($libelle, $libelleProduit)) {
-    			return $produit;
+    		    if ($produit->getInao() || !in_array($this->getDocument()->interpro, InterproClient::getInstance()->getInterpros())) {
+    			     return $produit;
+    		    }
     		}
     		if ($libelleDouane && $identifiantDouane == $libelleDouane && !$libelle) {
-    			return $produit;
+    		    if ($produit->getInao() || !in_array($this->getDocument()->interpro, InterproClient::getInstance()->getInterpros())) {
+    			     return $produit;
+    		    }
     		}
     		if (!$libelleDouane && strpos($libelle, $libelleProduit)) {
     			return $produit;
     		}
     		if ($libelleDouane && $identifiantDouane == $libelleDouane) {
-    		    $produitSiRienTrouve = $produit;
+    		    if ($produit->getInao() || !in_array($this->getDocument()->interpro, InterproClient::getInstance()->getInterpros())) {
+    		          $produitSiRienTrouve = $produit;
+    		    }
     		}
     	}
     	return $produitSiRienTrouve;

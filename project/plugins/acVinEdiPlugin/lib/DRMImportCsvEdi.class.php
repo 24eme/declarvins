@@ -145,6 +145,14 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		$this->csvDoc->addErreur($this->droitsNotFoundError($numLigne, $datas));
     		return;
   		}
+  		
+  		$libellePerso = null;
+  		$libelleConfig = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles(), array(), "%c% %g% %a% %l% %co% %ce%");
+  		
+  		if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
+  		    $libellePerso = (trim($result[1]) != trim($libelleConfig)) ? trim($result[1]) : null;
+  		}
+  		
   		if ($complement = strtoupper($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
   			if (isset($this->permettedValues[self::TYPE_CAVE]) && isset($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
   				if (!$idDouane) {
@@ -162,10 +170,14 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   			}
   		}
   		
+  		if ($libellePerso) {
+  		    $complement = md5($libellePerso);
+  		}
+  		
   		$produit = ($complement)? $this->drm->addProduit($hash, $complement) : $this->drm->addProduit($hash);
   		
   		if ($complement && preg_match('/^[a-f0-9]{32}$/', $complement)) {
-  			$produit->libelle = trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
+  			$produit->libelle = ($libellePerso)? $libellePerso : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
   		}
 
   		$categorieMvt = strtolower($datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT]);
