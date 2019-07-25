@@ -92,6 +92,25 @@ Les lignes de ce fichier se constituent des champs suivants :
 
 La liste des erreurs (identifiant et description) pour le portail DeclarVins est disponible ici : [Liste des erreurs pour DeclarVins](liste_erreurs.csv) .
 
+## Web Service EDI
+
+Domaine de production : edi.declarvins.net
+Domaine de test : edi-preprodv2.declarvins.net
+
+Url d'envoi des DRM : /edi.php/edi/v2/push/etablissement/drm/id_etablissement_
+
+Exemple de requête :
+
+     curl -X POST -F "csv[file]=@/_drm_.csv" https://_login_:_password_@edi.declarvins.net/edi.php/edi/v2/push/etablissement/drm/_id_etablissement_
+
+avec :
+
+_drm_.csv : le chemin vers le fichier csv
+
+_login_ & _password_ : les identifiants de connexion du compte adhérent à l'interpro.
+
+_id_etablissement_ : l'identifiant interpro. de l'etablissement 
+
 ## Correspondances mouvements droits suspendus
 
 | Mouvement | DeclarVins | CIEL Lot 2  | CIEL Lot 1 |
