@@ -105,11 +105,11 @@ Exemple de requête :
 
 avec :
 
-_drm_.csv : le chemin vers le fichier csv
+\_drm\_.csv : le chemin vers le fichier csv
 
-_login_ & _password_ : les identifiants de connexion du compte adhérent à l'interpro.
+\_login\_ & \_password\_ : les identifiants de connexion du compte adhérent à l'interpro.
 
-_id_etablissement_ : l'identifiant interpro. de l'etablissement 
+\_id_etablissement\_ : l'identifiant interpro. de l'etablissement 
 
 ## Correspondances mouvements droits suspendus
 
