@@ -34,9 +34,13 @@ Le catalogue des mouvements de DRM admis par le portail DeclarVins  [Catalogue m
 
 ## Libellé personnalisé
 
-Il est possible de personnaliser les libellés des produits pour se mettre en conformité avec ceux de Prodouane, d'inclure des mentions valorisantes,...
+Il est possible de personnaliser les libellés des produits pour se mettre en conformité avec ceux de Prodouane, d'inclure des mentions valorisantes, de différencier des alcools à taux différents...
 
-Pour cela, il faut obligatoirement identifier le produit via le code INAO ou le libellé fiscal (en colonne 5 ou entre parenthèse en colonne 13) et préciser le libellé personnalisé complet du produit en colonne 12.
+Pour cela, il faut obligatoirement identifier le produit via le code INAO ou le libellé fiscal (en colonne 5 ou entre parenthèse en colonne 13) 
+
+et 
+
+préciser le libellé personnalisé complet du produit en colonne 12 (complément) ou 13 (libellé).
 
 ## Description des lignes CRD
 
