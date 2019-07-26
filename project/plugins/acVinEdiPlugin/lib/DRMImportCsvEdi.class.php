@@ -26,12 +26,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $this->csvDoc = CSVClient::getInstance()->createOrFindDocFromDRM($file, $drm);
         }
         parent::__construct($file, $drm);
-        $this->drm->remove('crds');
-        $this->drm->remove('declaratif');
-        $this->drm->remove('declaration');
-        $this->drm->add('crds');
-        $this->drm->add('declaratif');
-        $this->drm->add('declaration');
     }
 
     public function getCsvDoc() 
