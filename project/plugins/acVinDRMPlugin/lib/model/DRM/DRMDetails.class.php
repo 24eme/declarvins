@@ -8,6 +8,13 @@ class DRMDetails extends BaseDRMDetails {
 
 	public function getProduit($labels = array()) {
 		$slug = $this->slugifyLabels($labels);
+		$keys = array_keys($this->toArray());
+		foreach ($keys as $key) {
+		    if ($slug == $key) {
+		        return $this->get($key);
+		    }
+		}
+		
 		if (!$this->exist($slug)) {
 
 			return false;
