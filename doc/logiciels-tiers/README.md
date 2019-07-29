@@ -130,7 +130,7 @@ avec :
 | entrees internes | manipulation | manipulations | volume-produit |
 | entrees internes | vci | integration-vci-agree | X |
 | entrees | excedent | autres-entrees | autres-entrees |
-| entrees | crd | replacement-suspension | replacement-suspension |
+| entrees | crd | replacement-suspension/volume | replacement-suspension/volume |
 | sorties | factures + crd | ventes-france-crd-suspendus | sorties-avec-paiement-annee-courante |
 | sorties | crd_acquittes | ventes-france-crd-acquittes | autres-sorties |
 | sorties sans droits | vrac + lies + export | sorties-definitives | sorties-definitives + lies-vins-distilles |
