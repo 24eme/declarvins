@@ -170,7 +170,7 @@ class DRMValidation
 			  if (($detail->canHaveVrac() && $detail->sorties->vrac) || count($detail->vrac->toArray()) > 0) {
 			  	  $ecart = round($detail->sorties->vrac * self::ECART_VRAC,5);
 				  if (round($totalVolume,5) < (round($detail->sorties->vrac,5) - $ecart) || round($totalVolume,5) > (round($detail->sorties->vrac,5) + $ecart)) {
-				  	if (($detail->getCertification()->getKey() == self::IGP_KEY || $detail->interpro == 'INTERPRO-CIVP' || $this->etablissement->famille != 'producteur') && $detail->interpro != 'INTERPRO-IS') {
+				  	if ($detail->getCertification()->getKey() == self::IGP_KEY || $detail->interpro == 'INTERPRO-CIVP' || $this->etablissement->famille != 'producteur') {
 				  		$this->warnings['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('vrac', $this->generateUrl('drm_vrac', $this->drm), $detail->makeFormattedLibelle().': %message%');
 				    } else {
 				    	$this->errors['vrac_'.$detail->getIdentifiantHTML()] = new DRMControleError('vrac', $this->generateUrl('drm_vrac', $this->drm), $detail->makeFormattedLibelle().': %message%');
