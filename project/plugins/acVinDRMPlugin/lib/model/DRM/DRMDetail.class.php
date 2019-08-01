@@ -9,7 +9,7 @@ class DRMDetail extends BaseDRMDetail {
     protected $_config = null;
     
     protected static $correspondances_negoce = array (
-        '/declaration/certifications/LIE/genres/T' => null,
+        '/declaration/certifications/LIE/genres/T' => '',
         '/declaration/certifications/AOP/genres/TRANQ' => '/declaration/certifications/AOP/genres/TRANQ/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT',
         '/declaration/certifications/AOP/genres/EFF' => '/declaration/certifications/AOP/genres/EFF/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT',
         '/declaration/certifications/AOP/genres/VDN' => array('sup18' => '/declaration/certifications/AOP/genres/VDN/appellations/VDN1/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT', 'inf18' => '/declaration/certifications/AOP/genres/VDN/appellations/VDN2/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT'),
@@ -25,7 +25,7 @@ class DRMDetail extends BaseDRMDetail {
     public function getCorrespondanceNegoce()
     {
         $c = (isset(self::$correspondances_negoce[$this->getGenre()->getHash()])) ? self::$correspondances_negoce[$this->getGenre()->getHash()] : null;
-        if (!$c) {
+        if ($c === null) {
             throw new sfException('agg correspondance not found : '.$this->getGenre()->getHash());
         }
         if (is_array($c)) {
