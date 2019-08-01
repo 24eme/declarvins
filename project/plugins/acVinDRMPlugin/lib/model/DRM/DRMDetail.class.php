@@ -25,7 +25,7 @@ class DRMDetail extends BaseDRMDetail {
     {
         $c = (isset(self::$correspondances_negoce[$this->getGenre()->getHash()])) ? self::$correspondances_negoce[$this->getGenre()->getHash()] : null;
         if (!$c) {
-            throw new sfException('agg correspondance not found');
+            throw new sfException('agg correspondance not found : '.$this->getGenre()->getHash());
         }
         if (is_array($c)) {
             $pos1 = strpos($this->getGenre()->getHash(), '/VDN') !== false;
