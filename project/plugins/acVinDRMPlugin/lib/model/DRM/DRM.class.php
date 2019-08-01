@@ -1445,7 +1445,11 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $drm = new DRM();
             $drm->periode = $this->periode;
             foreach ($this->getDetails() as $detail) {
-                $produit = $drm->getOrAdd($detail->getCorrespondanceNegoce());
+                $hash = $detail->getCorrespondanceNegoce();
+                if (!$hash) {
+                    continue;
+                }
+                $produit = $drm->getOrAdd($hash);
                 
                 $produit->total_debut_mois += $detail->total_debut_mois;
                 $produit->acq_total_debut_mois += $detail->acq_total_debut_mois;
