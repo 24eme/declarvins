@@ -51,7 +51,11 @@ class DRMCepage extends BaseDRMCepage {
 
     	return $this->details;
   	}
-  
+
+	public function isInao() {
+		return preg_match('/^[0-9]/', $this->getInao());
+	}
+
     public function getInao() {
 		$inao = $this->_get('inao');
         if ($this->getConfig()->getInao() && !$inao) {

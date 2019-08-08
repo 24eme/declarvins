@@ -669,12 +669,16 @@ class DRMDetail extends BaseDRMDetail {
     {
     	return $this->sorties->vrac + $this->sorties->export + $this->sorties->factures + $this->sorties->crd + $this->sorties->consommation + $this->sorties->pertes;
     }
-	
+
     public function getLibelleFiscal()
     {
     	return $this->getCepage()->getLibelleFiscal();
     }
-	
+
+    public function isInao() {
+        return $this->getCepage()->isInao();
+    }
+
     public function getInao()
     {
     	return $this->getCepage()->getInao();
