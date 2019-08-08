@@ -33,7 +33,7 @@
 <?php endif; ?>
 <?php if ($produit->isInao()): ?>
 				<code-inao><?php echo $produit->getInao() ?></code-inao>
-<?php if ($produit->getInao()): ?>
+<?php elseif ($produit->getInao()): ?>
                 <libelle-fiscal><?php echo $produit->getInao() ?></libelle-fiscal>
 <?php elseif ($produit->getLibelleFiscal()): ?>
 				<libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
