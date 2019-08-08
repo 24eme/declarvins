@@ -27,7 +27,7 @@ La dernière colonne indique le libellé complet du produit, le processus d'impo
 
 Le catalogue des mouvements de DRM admis par le portail DeclarVins  [Catalogue mouvements](catalogue_mouvements_declarvins.csv) est composé de quatres colonnes :
 
-1. Le type de DRM : suspendu ou acquitte
+1. Le type de DRM : « suspendu » ou « acquitte »
 2. La catégorie du mouvement : stocks, entrees, sorties ou complement
 3. Le type du mouvement : achat, crd, vrac, repli...
 4. Un commentaire : définition du mouvement
@@ -61,6 +61,10 @@ Le catalogue des mouvements de DRM admis par le portail DeclarVins  [Catalogue m
  * BIB_500 (BIB 5 L)
  * BIB_800 (BIB 8 L)
  * BIB_1000 (BIB 10 L)
+ 
+Il est possible de saisir une centilisation non présente dans la liste en respectant le format : 
+
+(CL|BIB)_([0-9]+) : clé CL pour centilitre ou BIB pour un bib, séparateur underscore, centilisation exprimée en centilitre.
 
 ## Exemple complet de fichier d'import de DRM
 
@@ -68,11 +72,26 @@ Un exemple spécifique de DRM à importer pour le portail DeclarVins est disponi
 
 Ce fichier reprend l'ensemble des spécificités décrites ci-dessus.
 
+## Retour d'import
+
+Un fichier CSV contenant le résultat de l'import sera fourni en retour d'import.
+
+Les lignes de ce fichier se constituent des champs suivants :
+
+1. Le type de retour : « SUCCES » ou « ERREUR »
+2. La catégorie de retour : « CSV » pour les données du fichier ou « ACCES » pour l'accès au webservice
+3. Le numéro de ligne : En cas d'erreur, numéro de la ligne incriminée ou vide si il s'agit d'une erreur globale
+4. L'identifiant d'erreur ou url de redirection DeclarVins en cas de succes
+5. Description : Message décrivant le retour
+
+La liste des erreurs (identifiant et description) pour le portail DeclarVins est disponible ici : [Liste des erreurs pour DeclarVins](liste_erreurs.csv) .
+
 ## Suivi du projet chez les éditeurs de registres de cave 
 
 | Nom de l'Éditeur | Prise de contact | Génération du fichier de transfer | Recette des échanges en préproduction | Transmission opérationnelle en production | Versions compatibles |
 |------------------|------------------|-----------------------------------|---------------------------------------|------------------------------------------------------|----------------------|
-| CR2i             | Oui |  |  |  |  |
-| ISAGRI           | Oui |  |  |  |  |
-| ICS-SUD          | Oui |  |  |  |  |
-| I3S              | Oui |  |  |  |  |
+| CR2i             | Oui |      |  |  |  |
+| ISAGRI           | Oui | Oui  | Oui |  |  |
+| ICS-SUD          | Oui |      |  |  |  |
+| I3S              | Oui |      |  |  |  |
+| Antislash        | Oui | Oui  | Oui | Oui |  |
