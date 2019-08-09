@@ -141,6 +141,10 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     {
     	if ($this->produit) {
     		$produit = $this->getProduitObject();
+			if(!$produit) {
+                throw new Exception("Produit non trouvé : ".$this->produit." (".$this->_id.")");
+            }
+
       		return $produit->getDocument()->getInterproObject();
     	}
     	return null;
