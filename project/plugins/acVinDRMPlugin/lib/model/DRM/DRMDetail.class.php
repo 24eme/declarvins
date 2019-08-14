@@ -8,6 +8,13 @@ class DRMDetail extends BaseDRMDetail {
 
     protected $_config = null;
 
+    public function getLibelleFiscalNegocePur() {
+        $hash = $this->getCorrespondanceNegoce();
+        $hash = preg_replace('/.details.DEFAUT$/', '', $hash);
+        $p = ConfigurationClient::getCurrent()->getConfigurationProduit($hash);
+        return $p->getLibelleFiscal();
+    }
+
     public function getConfig() {
         if (!$this->_config) {
             $this->_config = ConfigurationClient::getCurrent()->getConfigurationProduit($this->getCepage()->getHash());

@@ -17,11 +17,15 @@
 		<droits-suspendus>
 <?php foreach ($drm->getExportableProduits() as $produit): ?>
 			<produit>
-<?php if ($produit->getLibelleFiscal()): ?>
-				<libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
+<?php if ($drm->isNegoce()): ?>
+				<libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?><?php if($produit->hasLabel()): ?> <?php echo $produit->getLabelKeyString(); ?><?php endif; ?>]]></libelle-personnalise>
 <?php endif; ?>
-<?php if ($produit->getInao()): ?>
+<?php if ($produit->getLibelleFiscal()): ?>
+    <libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
+<?php elseif ($produit->isInao()): ?>
 				<code-inao><?php echo $produit->getInao() ?></code-inao>
+<?php elseif ($produit->getInao()): ?>
+                <libelle-fiscal><?php echo $produit->getInao() ?></libelle-fiscal>
 <?php endif; ?>
 				<libelle-personnalise><?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES | ENT_HTML401)) ?><?php if(count($produit->labels)): ?> <?php echo $produit->getLabelKeyString(); ?><?php endif; ?></libelle-personnalise>
 <?php if ($produit->getTav()): ?>
@@ -34,7 +38,7 @@
 				<observations><?php echo $produit->getObservations() ?></observations>
 <?php endif; ?>
 				<balance-stocks>
-<?php 
+<?php
 	$xml = '';
 	noeudXml($produit, $ciel->get('balance-stocks/droits-suspendus'), $xml, array('mois', 'annee'));
 	echo formatXml($xml, 5);
@@ -60,12 +64,12 @@
 <?php endif; ?>
 <?php if ($produit->getPremix()): ?>
 				<premix>true</premix>
-<?php endif; ?>	
+<?php endif; ?>
 <?php if ($produit->getObservations()): ?>
 				<observations><?php echo $produit->getObservations() ?></observations>
 <?php endif; ?>
 				<balance-stocks>
-<?php 
+<?php
 	$xml = '';
 	noeudXml($produit, $ciel->get('balance-stocks/droits-acquittes'), $xml, array('mois', 'annee'));
 	echo formatXml($xml, 5);
