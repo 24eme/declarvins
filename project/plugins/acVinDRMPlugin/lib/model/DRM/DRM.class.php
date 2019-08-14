@@ -1441,42 +1441,22 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $e = $this->getEtablissementObject();
         if ($e->famille == EtablissementFamilles::FAMILLE_PRODUCTEUR || $e->sous_famille == EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
             return $this->getDetails();
+            return $this->getDetails();
         } else {
-            $drm = new DRM();
-            $drm->periode = $this->periode;
             foreach ($this->getDetails() as $detail) {
-                $hash = $detail->getCorrespondanceNegoce();
-                if (!$hash) {
-                    continue;
-                }
-                $produit = $drm->getOrAdd($hash);
-                
-                $produit->total_debut_mois += $detail->total_debut_mois;
-                $produit->acq_total_debut_mois += $detail->acq_total_debut_mois;
-                if ($detail->observations) {
-                    $produit->observations = ($produit->observations && !preg_match('/'.$detail->observations.'/', $produit->observations))? $produit->observations.' - '.$detail->observations : $detail->observations;
-                }
-                foreach (array('stocks_debut', 'entrees', 'sorties', 'stocks_fin') as $item) {
-                    foreach ($detail->{$item} as $mv => $val) {
-                        if ($produit->{$item}->{$mv} instanceof DRMESDetails) {
-                            continue;
-                        }
-                        $produit->{$item}->{$mv} += $detail->{$item}->{$mv};
-                    }
+                if (!$detail->getCepage()->libelle_fiscal && $detail->getCorrespondanceNegoce()) {
+                    $detail->getCepage()->libelle_fiscal = $detail->getLibelleFiscalNegocePur();
+                    $detail->getCepage()->inao =  $detail->getLibelleFiscalNegocePur();
                 }
             }
-            $drm->update();
-            foreach ($drm->getDetails() as $detail) {
-                $detail->libelle = $detail->getCertification()->getKey().' '.$detail->libelle;
-            }
-            return $drm->getDetails();
+            return $this->getDetails();
         }
     }
-    
+
     public function getExportableSucre() {
     	return array();
     }
-    
+
     public function getExportableVracs() {
     	$details = $this->getDetailsAvecVrac();
     	$result = array();
