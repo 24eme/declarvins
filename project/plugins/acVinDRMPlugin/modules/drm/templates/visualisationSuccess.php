@@ -69,7 +69,7 @@
                 <ul>
                     <li>
                     	<img src="/images/visuels/prodouane.png" /><br />
-                    	Vous pouvez à présent télécharger votre DRM au format XML afin de l'importer en DTI+ pour en la vérifier et la valider ("déposer la DRM") sur le site prodouanes via le lien suivant : <a href="https://pro.douane.gouv.fr/">pro.douane.gouv.fr</a><br />
+                    	Vous devez à présent télécharger votre DRM au format XML pour la déposer ensuite et la valider sur CIEL à partir de votre compte ProDouane via le lien suivant : <a href="https://pro.douane.gouv.fr/">pro.douane.gouv.fr</a><br />
             			<a id="telecharger_xml" style="margin-left:0;float: right; position: inherit; font-weight: normal;" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Télécharger le XML</a><br />
             			&nbsp;
             		</li>
