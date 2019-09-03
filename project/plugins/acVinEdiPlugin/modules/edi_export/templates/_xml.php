@@ -62,7 +62,7 @@
 			</produit>
 <?php endforeach; endif; ?>
 			<?php if (!$drm->isNegoce()): ?>
-			<stockEpuise><?php echo (!$drm->getTotalStock())? "true" : "false"; ?></stockEpuise>
+			<stockEpuise><?php echo (!$drm->getTotalStock() && !$drm->isDebutCampagne())? "true" : "false"; ?></stockEpuise>
 			<?php endif; ?>
 		</droits-suspendus>
 <?php if ($drm->hasExportableProduitsAcquittes()): ?>
@@ -101,7 +101,7 @@
 			</produit>
 <?php endforeach; endif; ?>
 			<?php if (!$drm->isNegoce()): ?>
-			<stockEpuise><?php echo (!$drm->getTotalStockAcq())? "true" : "false"; ?></stockEpuise>
+			<stockEpuise><?php echo (!$drm->getTotalStockAcq() && !$drm->isDebutCampagne())? "true" : "false"; ?></stockEpuise>
 			<?php endif; ?>
     	</droits-acquittes>
 <?php endif; ?>
