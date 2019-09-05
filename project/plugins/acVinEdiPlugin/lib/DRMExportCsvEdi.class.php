@@ -50,7 +50,12 @@ class DRMExportCsvEdi extends DRMCsvEdi
     	if (!$this->configuration->exist('ciel')) {
     		throw new sfException('Il n\'existe aucune configuration pour CIEL.');
     	}
-    	return $this->getPartial('xml', array('csv' => $this->csv, 'drm' => $this->drm, 'ciel' => $this->configuration->ciel), $context);
+    	
+    	$partial = 'xml';
+    	if ($this->drm->isNegoce()) {
+    	    $partial .= 'negoce';
+    	}
+    	return $this->getPartial($partial, array('csv' => $this->csv, 'drm' => $this->drm, 'ciel' => $this->configuration->ciel), $context);
     }
 
     protected function generateCsvEdi($interpro = null) 

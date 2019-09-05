@@ -1,14 +1,6 @@
 <?php use_helper('Edi'); ?>
 <?php echo '<?xml version="1.0" encoding="utf-8" ?>' ?>
 
-<?php if ($drm->isNegoce()): ?>
-<mouvements-balances xsi:schemaLocation="http://douane.finances.gouv.fr/app/ciel/dtiplus/v1 ciel-dti-plus_v1.0.7.xsd" xmlns="http://douane.finances.gouv.fr/app/ciel/dtiplus/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <periode-taxation>
-    <mois><?php echo $drm->getMois() ?></mois>
-    <annee><?php echo $drm->getAnnee() ?></annee>
-  </periode-taxation>
-  <identification-redevable><?php echo $drm->declarant->no_accises ?></identification-redevable>
-<?php else: ?>
 <message-interprofession xmlns="http://douane.finances.gouv.fr/app/ciel/interprofession/echanges/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://douane.finances.gouv.fr/app/ciel/interprofession/echanges/1.0 echanges-interprofession-1.7.xsd">
 	<siren-interprofession><?php echo $drm->getEtablissement()->getInterproObject()->siren ?></siren-interprofession>
 	<declaration-recapitulative>
@@ -23,24 +15,16 @@
 			<annee><?php echo $drm->getAnnee() ?></annee>
 		</periode>
 		<declaration-neant><?php echo ($drm->isNeant())? "true" : "false"; ?></declaration-neant>
-<?php endif; ?>
 <?php if (!$drm->isNeant()): ?>
 		<droits-suspendus>
 <?php if ($drm->hasStocks()): foreach ($drm->getCielProduits() as $produit): ?>
 			<produit>
-<?php if ($drm->isNegoce()): ?>
-				<libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?><?php if($produit->hasLabel()): ?> <?php echo $produit->getLabelKeyString(); ?><?php endif; ?>]]></libelle-personnalise>
-<?php endif; ?>
 <?php if ($produit->getLibelleFiscal()): ?>
-    <libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
-<?php elseif ($produit->isInao()): ?>
-				<code-inao><?php echo $produit->getInao() ?></code-inao>
+                <libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
 <?php elseif ($produit->getInao()): ?>
-                <libelle-fiscal><?php echo $produit->getInao() ?></libelle-fiscal>
+				<code-inao><?php echo $produit->getInao() ?></code-inao>
 <?php endif; ?>
-<?php if (!$drm->isNegoce()): ?>
 				<libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?><?php if($produit->hasLabel()): ?> <?php echo $produit->getLabelKeyString(); ?><?php endif; ?>]]></libelle-personnalise>
-<?php endif; ?>
 <?php if ($produit->getTav()): ?>
 				<tav><?php echo sprintf("%01.02f", $produit->getTav()) ?></tav>
 <?php endif; ?>
@@ -50,36 +34,28 @@
 <?php if ($produit->getObservations()): ?>
 				<observations><![CDATA[<?php echo $produit->getObservations() ?>]]></observations>
 <?php endif; ?>
-				<?php if ($drm->isNegoce()): ?><balance-stock><?php else: ?><balance-stocks><?php endif; ?>
+				<balance-stocks>
 
 <?php 
 	$xml = '';
 	noeudXml($produit, $ciel->get('balance-stocks/'.$drm->getCielLot().'/droits-suspendus'), $xml, array('mois', 'annee'));
 	echo formatXml($xml, 5);
 ?>
-				<?php if ($drm->isNegoce()): ?></balance-stock><?php else: ?></balance-stocks><?php endif; ?>
-
+				</balance-stocks>
 			</produit>
 <?php endforeach; endif; ?>
-			<?php if (!$drm->isNegoce()): ?>
 			<stockEpuise><?php echo (!$drm->getTotalStock() && !$drm->isDebutCampagne())? "true" : "false"; ?></stockEpuise>
-			<?php endif; ?>
 		</droits-suspendus>
 <?php if ($drm->hasExportableProduitsAcquittes()): ?>
 		<droits-acquittes>
 <?php if ($drm->hasStocksAcq()): foreach ($drm->getCielProduits() as $produit): if (!$produit->getHasSaisieAcq()) { continue; } ?>
 			<produit>
-<?php if ($drm->isNegoce()): ?>
-				<libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?>]]></libelle-personnalise>
-<?php endif; ?>
-<?php if ($produit->getInao()): ?>
+<?php if ($produit->getLibelleFiscal()): ?>
+                <libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
+<?php elseif ($produit->getInao()): ?>
 				<code-inao><?php echo $produit->getInao() ?></code-inao>
-<?php elseif ($produit->getLibelleFiscal()): ?>
-				<libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
 <?php endif; ?>
-<?php if (!$drm->isNegoce()): ?>
 				<libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?>]]></libelle-personnalise>
-<?php endif; ?>
 <?php if ($produit->getTav()): ?>
 				<tav><?php echo sprintf("%01.02f", $produit->getTav()) ?></tav>
 <?php endif; ?>
@@ -89,20 +65,17 @@
 <?php if ($produit->getObservations()): ?>
 				<observations><![CDATA[<?php echo $produit->getObservations() ?>]]></observations>
 <?php endif; ?>
-				<?php if ($drm->isNegoce()): ?><balance-stock><?php else: ?><balance-stocks><?php endif; ?>
+				<balance-stocks>
 
 <?php 
 	$xml = '';
 	noeudXml($produit, $ciel->get('balance-stocks/'.$drm->getCielLot().'/droits-acquittes'), $xml, array('mois', 'annee'));
 	echo formatXml($xml, 5);
 ?>
-				<?php if ($drm->isNegoce()): ?></balance-stock><?php else: ?></balance-stocks><?php endif; ?>
-
+				</balance-stocks>
 			</produit>
 <?php endforeach; endif; ?>
-			<?php if (!$drm->isNegoce()): ?>
 			<stockEpuise><?php echo (!$drm->getTotalStockAcq() && !$drm->isDebutCampagne())? "true" : "false"; ?></stockEpuise>
-			<?php endif; ?>
     	</droits-acquittes>
 <?php endif; ?>
 <?php endif; ?>
@@ -189,9 +162,5 @@
 <?php endif; ?>
     	</statistiques>
 <?php endif; ?>
-<?php if ($drm->isNegoce()): ?>
-</mouvements-balances>
-<?php else: ?>
   	</declaration-recapitulative>
 </message-interprofession>
-<?php endif; ?>
