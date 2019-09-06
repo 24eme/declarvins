@@ -9,7 +9,7 @@
   <identification-redevable><?php echo $drm->declarant->no_accises ?></identification-redevable>
 <?php if ($drm->hasExportableProduitsAcquittes()): ?>
   <droits-acquittes>
-<?php if ($drm->hasStocksAcq()): foreach ($drm->getCielProduits() as $produit): if (!$produit->getHasSaisieAcq()) { continue; } ?>
+<?php if ($drm->hasStocksAcq()): foreach ($drm->getCielProduits() as $produit): if (!$produit->getHasSaisieAcq() || !$produit->getLibelleFiscal()) { continue; } ?>
     <produit>
 	  <libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?>]]></libelle-personnalise>
 	  <libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
@@ -31,7 +31,7 @@
   </droits-acquittes>
 <?php endif; ?>
   <droits-suspendus>
-<?php if ($drm->hasStocks()): foreach ($drm->getCielProduits() as $produit): ?>
+<?php if ($drm->hasStocks()): foreach ($drm->getCielProduits() as $produit): if (!$produit->getLibelleFiscal()) { continue; } ?>
     <produit>
 	  <libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?><?php if($produit->hasLabel()): ?> <?php echo $produit->getLabelKeyString(); ?><?php endif; ?>]]></libelle-personnalise>
 	  <libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
@@ -43,6 +43,7 @@
 <?php endif; ?>
 	  <balance-stock>
 <?php 
+    
 	$xml = '';
 	noeudXml($produit, $ciel->get('balance-stocks/lot1/droits-suspendus'), $xml, array('mois', 'annee'));
 	echo formatXml($xml, 5);

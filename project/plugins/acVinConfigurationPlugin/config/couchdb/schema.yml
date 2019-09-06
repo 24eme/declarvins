@@ -58,7 +58,22 @@ Configuration:
                                 type: collection
                                 definition:
                                   fields:
-                                    '*':
+                                    'volume-produit':
+                                      type: array_collection
+                                      definition:
+                                        fields:
+                                          '*': {  }
+                                    'entree-droits-suspendus':
+                                      type: array_collection
+                                      definition:
+                                        fields:
+                                          '*': {  }
+                                    'travail-a-facon':
+                                      type: array_collection
+                                      definition:
+                                        fields:
+                                          '*': {  }
+                                    'autres-entrees':
                                       type: array_collection
                                       definition:
                                         fields:
