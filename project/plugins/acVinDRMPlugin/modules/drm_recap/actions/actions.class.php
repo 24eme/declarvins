@@ -33,6 +33,9 @@ class drm_recapActions extends sfActions
         		}
         	}
         }
+        if (!$first_certification) {
+            $this->redirect('drm_mouvements_generaux', $drm);
+        }
         $this->redirect('drm_recap', $first_certification);
     }
 
