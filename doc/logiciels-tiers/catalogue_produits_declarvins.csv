@@ -46,6 +46,7 @@ IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,rouge,Rouge,CIN,Cinsaut,IGP Tranquilles Va
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,rouge,Rouge,MER,Merlot,IGP Tranquilles Var Rouge Merlot,3R831
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,rouge,Rouge,MOU,Mourvedre,IGP Tranquilles Var Rouge Mourvedre,3R831
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,rouge,Rouge,CEP,Autre,IGP Tranquilles Var Rouge Autre,3R831
+IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,rouge,Rouge,MCPG,Multi CPG,IGP Tranquilles Var Rouge Multi CPG,3R831 00
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,rose,Rosé,,,IGP Tranquilles Var Rosé,3S831 
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,rose,Rosé,SYR,Syrah,IGP Tranquilles Var Rosé Syrah,3S831 
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,rose,Rosé,GRN,Grenache Noir,IGP Tranquilles Var Rosé Grenache Noir,3S831
@@ -54,6 +55,7 @@ IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,rose,Rosé,CIN,Cinsaut,IGP Tranquilles Var
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,rose,Rosé,MER,Merlot,IGP Tranquilles Var Rosé Merlot,3S831
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,rose,Rosé,MOU,Mourvedre,IGP Tranquilles Var Rosé Mourvedre,3S831
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,rose,Rosé,CEP,Autre,IGP Tranquilles Var Rosé Autre,3S831
+IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,rose,Rosé,MCPG,Multi CPG,IGP Tranquilles Var Rosé Multi CPG,3S831 00
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,blanc,Blanc,,,IGP Tranquilles Var Blanc,3B831 
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,blanc,Blanc,ROL,Rolle-Vermentino,IGP Tranquilles Var Blanc Rolle-Vermentino,3B831 
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,blanc,Blanc,CHA,Chardonnay,IGP Tranquilles Var Blanc Chardonnay,3B831
@@ -64,6 +66,7 @@ IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,blanc,Blanc,MAR,Marsanne,IGP Tranquilles V
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,blanc,Blanc,ROU,Roussanne,IGP Tranquilles Var Blanc Roussanne,3B831
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,blanc,Blanc,CLA,Clairette,IGP Tranquilles Var Blanc Clairette,3B831
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,blanc,Blanc,CEP,Autre,IGP Tranquilles Var Blanc Autre,3B831
+IGP,IGP,TRANQ,Tranquilles,D83,Var,,,,,blanc,Blanc,MCPG,Multi CPG,IGP Tranquilles Var Blanc Multi CPG,3B831 00
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,ARG,Argens,rouge,Rouge,,,IGP Tranquilles Var Argens Rouge,3R833 
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,ARG,Argens,rouge,Rouge,SYR,Syrah,IGP Tranquilles Var Argens Rouge Syrah,3R833 
 IGP,IGP,TRANQ,Tranquilles,D83,Var,,,ARG,Argens,rouge,Rouge,GRN,Grenache Noir,IGP Tranquilles Var Argens Rouge Grenache Noir,3R833 
@@ -1322,7 +1325,6 @@ AOP,AOP,TRANQ,Tranquilles,COL,Collioure,,,,,rouge,Rouge,,,AOP Tranquilles Collio
 AOP,AOP,TRANQ,Tranquilles,COL,Collioure,,,,,blanc,Blanc,,,AOP Tranquilles Collioure Blanc,1B489S
 AOP,AOP,TRANQ,Tranquilles,CDB,Côte de Brouilly,,,,,rouge,Rouge,,,AOP Tranquilles Côte de Brouilly Rouge,1R326 
 AOP,AOP,TRANQ,Tranquilles,CBG,Coteaux Bourguignons,,,,,rouge,Rouge,,,AOP Tranquilles Coteaux Bourguignons Rouge,1R320 
-AOP,AOP,TRANQ,Tranquilles,CLG,Coteaux du Languedoc,,,,,rose,Rosé,,,AOP Tranquilles Coteaux du Languedoc Rosé,1S495 
 AOP,AOP,TRANQ,Tranquilles,CROVL,Côtes du Roussillon Villages Lesquerde,,,,,rouge,Rouge,,,AOP Tranquilles Côtes du Roussillon Villages Lesquerde Rouge,1R481S 3
 AOP,AOP,TRANQ,Tranquilles,CDROU,Côtes du Roussillon,,,,,rouge,Rouge,,,AOP Tranquilles Côtes du Roussillon Rouge,1R480S
 AOP,AOP,TRANQ,Tranquilles,CDROU,Côtes du Roussillon,,,,,blanc,Blanc,,,AOP Tranquilles Côtes du Roussillon Blanc,1B480S
@@ -1345,11 +1347,8 @@ AOP,AOP,TRANQ,Tranquilles,SEML,Saint Emilion,,,,,rouge,Rouge,,,AOP Tranquilles S
 AOP,AOP,TRANQ,Tranquilles,SVRN,Saint Véran,,,,,blanc,Blanc,,,AOP Tranquilles Saint Véran Blanc,1B422 
 AOP,AOP,TRANQ,Tranquilles,SYLV,Sylvaner,,,,,blanc,Blanc,,,AOP Tranquilles Sylvaner Blanc,1B001S 8
 AOP,AOP,TRANQ,Tranquilles,VRCLS,Viré Clessé,,,,,blanc,Blanc,,,AOP Tranquilles Viré Clessé Blanc,1B372 
-AOP,AOP,TRANQ,Tranquilles,CDL,Coteaux du Languedoc,,,,,rouge,rouge,,,AOP Tranquilles Coteaux du Languedoc rouge,1R495
-AOP,AOP,TRANQ,Tranquilles,CDL,Coteaux du Languedoc,,,,,rose,rose,,,AOP Tranquilles Coteaux du Languedoc rose,1S495
-AOP,AOP,TRANQ,Tranquilles,CDL,Coteaux du Languedoc,,,,,blanc,blanc,,,AOP Tranquilles Coteaux du Languedoc blanc,1B494
 AOP,AOP,TRANQ,Tranquilles,ANJ,Anjou,,,,,,Rosé,,,AOP Tranquilles Anjou Rosé,1S200D
-AOP,AOP,TRANQ,Tranquilles,BAN,Banuyls rimage,,,,,,Rouge,,,AOP Tranquilles Banuyls rimage Rouge,1R175L
+AOP,AOP,TRANQ,Tranquilles,BAN,Banyuls Blanc,,,,,,Blanc,,,AOP Tranquilles Banyuls Blanc Blanc,1B175N
 AOP,AOP,TRANQ,Tranquilles,SAU,Sauternes,,,,,,Blanc,,,AOP Tranquilles Sauternes Blanc,1B164L
 AOP,AOP,TRANQ,Tranquilles,PCH,Petit Chablis,,,,,,Blanc,,,AOP Tranquilles Petit Chablis Blanc,1B410
 AOP,AOP,EFF,Effervescent,,Autres,,,,,,,,,AOP Effervescent Autres,VM_IG_AOP
@@ -1360,10 +1359,13 @@ AOP,AOP,EFF,Effervescent,CRAL,Crémant d'Alsace,,,,,blanc,Blanc,PNB,Pinot Noir B
 AOP,AOP,VDN,Vin Doux Naturel,VDN1,Vins doux naturel ou liquoreux sup. 18% vol.,,,,,,,,,AOP Vin Doux Naturel Vins doux naturel ou liquoreux sup. 18% vol.,VDN_VDL_AOP_SUP_18
 AOP,AOP,VDN,Vin Doux Naturel,VDN2,Vins doux naturel ou liquoreux inf. 18% vol.,,,,,,,,,AOP Vin Doux Naturel Vins doux naturel ou liquoreux inf. 18% vol.,VDN_VDL_AOP_INF_18
 AOP,AOP,VDN,Vin Doux Naturel,MUSCRIV,Muscat de Rivesaltes,,,,,blanc,Blanc,,,AOP Vin Doux Naturel Muscat de Rivesaltes Blanc,1B184N
+AOP,AOP,VDN,Vin Doux Naturel,BAN,Banyuls Rouge Rimage,,,,,,Rouge,,,AOP Vin Doux Naturel Banyuls Rouge Rimage Rouge,1R175L
 MP,Matières premières,SP,Spiritueux,MPSP,Matières premières spiritueux,,,,,,,,,Matières premières Spiritueux Matières premières spiritueux,MATIERES_PREMIERES_SPIRITUEUX
 MP,Matières premières,,Alcools,MPAL,Matières premières alcools,,,,,,,,,Matières premières Alcools Matières premières alcools,MATIERES_PREMIERES_ALCOOLS
 IGP,IGP,TRANQ,Tranquilles,,Autres,,,,,,,,,IGP Tranquilles Autres,VT_IG_IGP
 IGP,IGP,TRANQ,Tranquilles,CAR,Cité de Carcassonne,,,,,,Rouge,,,IGP Tranquilles Cité de Carcassonne Rouge,3R112
+IGP,IGP,TRANQ,Tranquilles,CAT,Côtes Catalanes Rouge,,,,,,Rouge,,,IGP Tranquilles Côtes Catalanes Rouge Rouge,3R664
+IGP,IGP,TRANQ,Tranquilles,PAYOC,Pays d'OC Blanc,,,,,,Blanc,,,IGP Tranquilles Pays d'OC Blanc Blanc,3B001
 IGP,IGP,EFF,Effervescent,,Autres,,,,,,,,,IGP Effervescent Autres,VM_IG_IGP
 IGP,IGP,TRANQ,Tranquilles,236,Duche d'Uzes,,,,,rouge,Rouge,,,IGP Tranquilles Duche d'Uzes Rouge,1R548S
 IGP,IGP,TRANQ,Tranquilles,301,Gard,,,,,rouge,Rouge,,,IGP Tranquilles Gard Rouge,3R301 
