@@ -53,9 +53,32 @@ class tiersActions extends sfActions
   public function executeConnexion(sfWebRequest $request)
   {
   	if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+  	    $compte = acCouchdbManager::getClient('_Compte')->retrieveByLogin($request->getParameter('login'));
+  	    if (!$compte) {
+  	        throw new sfException('compte does not exist');
+  	    }
+  	    $droits = $compte->getDroits();
+  	    if (!$droits) {
+  	        $droits = array();
+  	    }
+  	    if (!in_array(myUser::CREDENTIAL_OPERATEUR, $droits)) {
+  	        $this->getUser()->setAttribute('initial_user', $this->getUser()->getCompte()->login);
+  	    }
   		$this->getUser()->signOut();
   		$this->getUser()->signIn($request->getParameter('login'));
   		return $this->redirect('@tiers');
+  	}
+  	return $this->redirect('tiers_forbidden');
+  }
+  
+  public function executeInitialConnexion(sfWebRequest $request)
+  {
+    $this->etablissement = $this->getRoute()->getEtablissement();
+  	if ($login = $this->getUser()->getAttribute('initial_user', null)) {
+  	    $this->getUser()->setAttribute('initial_user', null);
+  		$this->getUser()->signOut();
+  		$this->getUser()->signIn($login);
+        return $this->redirect("tiers_mon_espace", $this->etablissement);
   	}
   	return $this->redirect('tiers_forbidden');
   }

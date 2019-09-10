@@ -174,6 +174,12 @@ tiers_connexion:
 tiers_connexion_email:
   url: /tiers/connexion
   param: { module: tiers, action: connexion}
+tiers_connexion_initial:
+  class: EtablissementRoute
+  url: /tiers/:identifiant/connexion-initial
+  param: { module: tiers, action: initialConnexion }
+  requirements: { sf_method: ['get', 'post'] }
+  options: { model: Etablissement, type: object }
 tiers_forbidden:
   url: /tiers/acces-restreint
   param: { module: tiers, action: accessForbidden }
