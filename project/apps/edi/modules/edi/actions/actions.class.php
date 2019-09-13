@@ -226,7 +226,7 @@ class ediActions extends sfActions
 "drm referente",
 "drm a contrats manquants",
 "drm a igp manquants",
-"observation drm",
+"observation mouvement",
 "entrees vci",
 "famille du declarant",
 "sous famille du declarant",
