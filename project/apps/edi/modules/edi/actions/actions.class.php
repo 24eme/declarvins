@@ -170,8 +170,6 @@ class ediActions extends sfActions
 "code du genre du vin",
 "nom de l'appellation du vin",
 "code de l'appellation du vin",
-"nom de la mention du vin",
-"code de la mention du vin",
 "nom du lieu du vin",
 "code du lieu du vin",
 "nom de la couleur du vin",
