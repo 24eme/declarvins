@@ -394,6 +394,17 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     }
     
+    public function getHasCotisationCvo() {
+        $interpro = $this->interpro;
+        if ($i = $this->getProduitInterpro()) {
+            $interpro = $i->_id;
+        }
+        if ($interpro == 'INTERPRO-IR') {
+            return 1;
+        }
+        return $this->get('has_cotisation_cvo');
+    }
+    
 	public function getTypeByEtablissement($identifiant)
 	{
 		$type = null;
@@ -514,6 +525,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$this->updateStatutSolde();
     	}
     	$this->part_cvo = floatval($this->part_cvo);
+    	$this->has_cotisation_cvo = $this->getHasCotisationCvo();
     	if (!$this->valide->date_saisie) {
     		$this->valide->date_saisie = date('c');
     	}
