@@ -402,7 +402,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         if ($interpro == 'INTERPRO-IR') {
             return 1;
         }
-        return $this->get('has_cotisation_cvo');
+        return 0;
     }
     
 	public function getTypeByEtablissement($identifiant)
