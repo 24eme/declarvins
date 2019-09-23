@@ -730,7 +730,7 @@ class DRMDetail extends BaseDRMDetail {
     }
     
     public function setImportableObservations($observations) {
-    	$this->add('observations', $observations);
+    	$this->add('observations', "".$observations);
     }
     
     public function isVci() {
