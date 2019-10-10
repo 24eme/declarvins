@@ -174,7 +174,11 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		    $complement = md5($libellePerso);
   		}
   		
-  		$produit = ($complement)? $this->drm->addProduit($hash, $complement) : $this->drm->addProduit($hash);
+  		$produit = ($complement)? $this->drm->getProduitByIdDouane($configurationProduit->getIdentifiantDouane()) : $this->drm->getProduitByIdDouane($configurationProduit->getIdentifiantDouane(), $complement);
+  		
+  		if (!$produit) {
+  		    $produit = ($complement)? $this->drm->addProduit($hash, $complement) : $this->drm->addProduit($hash);
+  		}
   		
   		if ($complement && preg_match('/^[a-f0-9]{32}$/', $complement)) {
   			$produit->libelle = ($libellePerso)? $libellePerso : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
