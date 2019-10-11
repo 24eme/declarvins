@@ -27,7 +27,7 @@ class DRMESDetailCrdForm extends acCouchdbObjectForm {
 	public function getMois() {
 		$mois = array(null => null);
 		for($i = 1; $i < 13; $i++) {
-			$mois[$i] = sprintf("%02d", $i);
+			$mois["".sprintf("%02d", $i)] = sprintf("%02d", $i);
 		}
 		return $mois;
 	}

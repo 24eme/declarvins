@@ -71,7 +71,7 @@ class MouvementsConsultationView extends acCouchdbView {
         $mouvements = array();
         foreach ($rows as $row) {
             $mouvement = $this->buildMouvement($row);
-            $mouvement_sort = sprintf('%02d', str_replace('M', '', $mouvement->version) * 1);
+            $mouvement_sort = sprintf('%02d', str_replace(array('M', 'R'), '', $mouvement->version));
             $mouvements[$mouvement->date_version . $mouvement->type . $mouvement_sort . $mouvement->doc_id . $mouvement->id] = $mouvement;
         }
 
