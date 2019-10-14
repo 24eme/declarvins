@@ -46,7 +46,8 @@ EOF;
             $bilan->updateEtablissement();
             $bilan->save();
             $i++;
-            echo $bilan->_id." updated - ".round(($i / $nb) * 100);
+            echo $bilan->_id." updated - ".round(($i / $nb) * 100)."% <br />";
+            
         }
     }
 
