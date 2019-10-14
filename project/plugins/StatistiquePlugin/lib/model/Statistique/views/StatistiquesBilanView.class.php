@@ -19,4 +19,8 @@ class StatistiquesBilanView extends acCouchdbView
                     		->endkey($endparams)
                     		->getView($this->design, $this->view);
     }
+    
+    public function findAll() {
+        return $this->client->getView($this->design, $this->view);
+    }
 }  
