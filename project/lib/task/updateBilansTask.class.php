@@ -11,7 +11,7 @@
  *
  * @author mathurin
  */
-class updateBilansForCurrentCampagneDrmTask extends sfBaseTask {
+class updateBilansTask extends sfBaseTask {
 
     protected function configure() {
         $this->addOptions(array(
