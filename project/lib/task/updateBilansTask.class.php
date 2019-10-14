@@ -38,7 +38,7 @@ EOF;
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         
         
-        $bilans = StatistiquesBilanView::getInstance()->findAll();
+        $bilans = StatistiquesBilanView::getInstance()->findAll()->rows;
         $nb = count($bilans);
         $i=0;
         foreach ($bilans as $b) {
