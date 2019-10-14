@@ -24,6 +24,8 @@ Bilan:
             telephone: {  }
             fax: {  }
             service_douane: {  }
+            famille: {  }
+            sous_famille: {  }
             siege:
               type: collection
               definition:
