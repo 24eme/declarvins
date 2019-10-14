@@ -42,8 +42,8 @@ class Bilan extends BaseBilan {
         if ($etablissement->exist('zones')) {
             $this->etablissement->add('zones', $etablissement->zones);
         }
-        $this->etablissement->famille = $etablissement->famille;
-        $this->etablissement->sous_famille = $etablissement->sous_famille;
+        $this->etablissement->add('famille', $etablissement->famille);
+        $this->etablissement->add('sous_famille', $etablissement->sous_famille);
     }
     
     public function getFirstPeriodeSaisie()
