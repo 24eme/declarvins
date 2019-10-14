@@ -75,6 +75,9 @@ EOF;
   	foreach ($rapport as $rapportKey => $rapportItem) {
   		if (count($rapportItem) > 0 && $rapportKey != self::RAPPORT_PASS_KEY) {
   			$message .= '<h3>'.$this->getTitle($rapportKey, count($rapportItem)).'</h3>';
+  			if (self::RAPPORT_OK_KEY == $rapportKey) {
+  			    continue;
+  			}
 		  	$message .= '<ul>';
 		  	foreach ($rapportItem as $item) {
 		  		$message .= '<li>'.$item.'</li>';
@@ -166,7 +169,7 @@ EOF;
     					}
     				
     			} else {
-    				$rapport[self::RAPPORT_NONSAISIE_KEY][] = 'La DRM '.$periode.' de l\'établissement '.$ea.' n\'a pas été saisie sur le portail interprofessionnel';
+    				$rapport[self::RAPPORT_NONSAISIE_KEY][] = 'La DRM '.$periode.' de l\'établissement '.$ea.' n\'a pas été saisie sur le portail interprofessionnel : <a href="http://cniv.24eme.fr/tools/SEED.php?accise='.$ea.'" target="_blank">Information SEED</a>';
     				$files[] = $item;
     			}
     		} else {
