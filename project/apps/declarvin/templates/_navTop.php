@@ -86,7 +86,7 @@ use_helper('Text');
 <a href="<?php echo url_for('tiers_connexion_email', array('login' => $compte->login)); ?>" style="background: url('/images/pictos/pi_usurpation_in.png') left 0 no-repeat; padding: 0px 5px 0 20px;">Accéder au compte</a>
 </div>
 <?php  endif; ?>
-<?php if ($etablissement && $sf_user->getAttribute('initial_user')): ?>
+<?php if ($etablissement && $sf_user->isUsurpationMode()): ?>
 <div style="text-align: right; background: #fff; height: 16px; padding-top: 5px;">
 <a href="<?php echo url_for('tiers_connexion_initial', $etablissement); ?>" style="background: url('/images/pictos/pi_usurpation_out.png') left 0 no-repeat; padding: 0px 5px 0 20px;">Retour compte admin</a>
 </div>
