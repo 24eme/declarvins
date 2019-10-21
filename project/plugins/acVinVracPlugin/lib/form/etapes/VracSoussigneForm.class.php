@@ -17,8 +17,6 @@ class VracSoussigneForm extends VracForm
 				'acheteur_tva' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
 				'mandataire_exist' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
 				'mandataire_identifiant' => new WidgetEtablissement(array('interpro_id' => $zonesEtablissement, 'familles' => EtablissementFamilles::FAMILLE_COURTIER, 'only_actif' => 1)),
-				'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier(), 'renderer_options' => array('formatter' => array('VracSoussigneForm', 'casParticulierFormatter')))),
-        	    'bailleur_metayer' => new WidgetFormInputCheckbox(),
 		));
 		$this->widgetSchema->setLabels(array(
 				'vous_etes' => 'Vous êtes*: ',
@@ -30,8 +28,6 @@ class VracSoussigneForm extends VracForm
 				'acheteur_tva' => 'Assujetti à la TVA',
 				'mandataire_exist' => 'Transaction avec un courtier',
 				'mandataire_identifiant' => 'Mandataire:',
-				'cas_particulier' => 'Condition particulière:',
-        		'bailleur_metayer' => 'Entre bailleur et métayer:'
 		));
 		$this->setValidators(array(
 				'vous_etes' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getVousEtes()))),
@@ -43,8 +39,6 @@ class VracSoussigneForm extends VracForm
 				'acheteur_tva' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
 				'mandataire_exist' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
 				'mandataire_identifiant' => new ValidatorEtablissement(array('required' => false, 'familles' => EtablissementFamilles::FAMILLE_COURTIER)),
-				'cas_particulier' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getCasParticulier()))),
-        		'bailleur_metayer' => new ValidatorBoolean(array('required' => false))
 		));
 
 		if ($type = $this->getObject()->vendeur_type) {
@@ -92,25 +86,10 @@ class VracSoussigneForm extends VracForm
 		$this->widgetSchema->setNameFormat('vrac_soussigne[%s]');
 		$this->validatorSchema->setPostValidator(new VracSoussigneValidator());
 	}
-	
-	public static function casParticulierFormatter($widget, $inputs) {
-		$result = '<ul class="radio_list">';
-		foreach ($inputs as $k => $input) {
-			if ($k == 'vrac_soussigne_cas_particulier_producteur') {
-				$result .= '<li>' . $input ['input'] . '   ' . $input ['label'] . ' <a class="msg_aide" href="" data-msg="help_popup_vrac_contrat_entre_producteurs" title="Message aide"></a><br /><span style="font-size: 10px; color:#676767; font-style: italic;">attention, le producteur acheteur doit se mettre en conformité avec les douanes</span></li>';
-			} else {
-				$result .= '<li>' . $input ['input'] . '   ' . $input ['label'] . '</li>';
-			}
-		}
-		$result .= '</ul>';
-		return $result;
-	}
 
 	protected function updateDefaultsFromObject() {
 		parent::updateDefaultsFromObject();
 		
-		$this->setDefault('cas_particulier', (($this->getObject()->cas_particulier) ? $this->getObject()->cas_particulier : null));
-
 		if ($this->getEtablissement()) {
 			if ($this->getEtablissement()->identifiant == $this->getObject()->acheteur_identifiant) {
 				$this->setDefault('vous_etes', 'acheteur');
@@ -146,7 +125,6 @@ class VracSoussigneForm extends VracForm
 			$this->getObject()->vous_etes = 'mandataire';
 		}
 
-		$this->getObject()->cas_particulier_libelle = $this->getConfiguration()->formatCasParticulierLibelle(array($this->getObject()->cas_particulier));
 		parent::doUpdateObject($values);
 
 		if (!$this->getObject()->mandataire_exist) {

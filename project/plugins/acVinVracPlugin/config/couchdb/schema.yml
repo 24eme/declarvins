@@ -187,6 +187,11 @@ Vrac:
       domaine: {  }
       labels: {  }
       labels_libelle: {  }
+      labels_arr:
+        type: array_collection
+        definition:
+          fields:
+            '*': {  }
       mentions:
         type: array_collection
         definition:
@@ -213,6 +218,7 @@ Vrac:
       conditions_paiement_libelle: {  }
       type_echeancier_paiement: {  }
       vin_livre: {  }
+      type_retiraison: {  }
       date_debut_retiraison: {  }
       contrat_pluriannuel: {  }
       reference_contrat_pluriannuel: {  }

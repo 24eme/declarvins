@@ -5,21 +5,30 @@ class VracProduitForm extends VracForm
     {
     		$produits = $this->getProduits();
 	    	$this->setWidgets(array(
-	        	'produit' => new sfWidgetFormChoice(array('choices' => $produits), array('class' => 'autocomplete'))
+	        	'produit' => new sfWidgetFormChoice(array('choices' => $produits), array('class' => 'autocomplete')),
+	    	    'millesime' => new sfWidgetFormInputText(),
 	    	));
 	        $this->widgetSchema->setLabels(array(
-	        	'produit' => 'Produit*:'
+	        	'produit' => 'Produit*:',
+	             'millesime' => 'Millesime:',
 	        ));
 	        $this->setValidators(array(
-	        	'produit' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($produits)))
+	        	'produit' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($produits))),
+	            'millesime' => new sfValidatorRegex(array('required' => false, 'pattern' => '/^(20)[0-9]{2}$/')),
 	        ));
-    		
+	        
+	        $this->setWidget('non_millesime', new sfWidgetFormInputCheckbox());
+	        $this->widgetSchema->setLabel('non_millesime', '&nbsp;');
+	        $this->setValidator('non_millesime', new ValidatorPass());
     		
     
 	        
 		    if ($this->getObject()->hasVersion() && $this->getObject()->volume_enleve > 0) {
 		      	$this->setWidget('produit', new sfWidgetFormInputHidden());
+		      	$this->setWidget('millesime', new sfWidgetFormInputHidden());
+            	unset($this['non_millesime']);
 		      }
+    		
     		
   		    $this->validatorSchema->setPostValidator(new VracProduitValidator());
     		$this->widgetSchema->setNameFormat('vrac_produit[%s]');
@@ -49,7 +58,9 @@ class VracProduitForm extends VracForm
         if ($this->getObject()->produit) {
         	preg_match('/([0-9a-zA-Z\/]+)\/cepages\/[0-9a-zA-Z\/]+/', $this->getObject()->produit, $matches);
         	$this->setDefault('produit', '/'.str_replace('/declaration/', 'declaration/', $matches[1]));
-        	
-        }   
+        }  
+      	if (!$this->getObject()->millesime && $this->getObject()->volume_propose) {
+        		$this->setDefault('non_millesime', true);
+        	} 
     }
 }

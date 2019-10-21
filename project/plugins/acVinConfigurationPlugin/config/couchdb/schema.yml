@@ -428,6 +428,11 @@ Configuration:
                           definition:
                             fields:
                               '*': {  }
+                        types_retiraison:
+                          type: collection
+                          definition:
+                            fields:
+                              '*': {  }
       daids:
         type: collection
         definition:

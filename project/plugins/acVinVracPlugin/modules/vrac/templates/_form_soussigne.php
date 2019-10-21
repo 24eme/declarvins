@@ -39,21 +39,6 @@
     
     <?php endif; ?>
 
-    <div id="contrat">
-        <h1>Type de contrat</h1>
-        <div class="section_label_strong_bloc">
-            <?php echo $form['cas_particulier']->renderError() ?>
-            <?php echo $form['cas_particulier']->renderLabel() ?>
-            <a class="msg_aide" title="Message aide" data-msg="help_popup_vrac_condition_particuliere" href=""></a>
-            <?php echo $form['cas_particulier']->render() ?>
-        </div>
-        <div class="section_label_strong_bloc">
-            <?php echo $form['bailleur_metayer']->renderError() ?>
-            <?php echo $form['bailleur_metayer']->renderLabel() ?>
-            <?php echo $form['bailleur_metayer']->render() ?>
-        </div>
-    </div>
-
     <div class="ligne_form_btn">
         <a href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $form->getObject(), 'etablissement' => $etablissement)) ?>" class="annuler_saisie" onclick="return confirm('<?php if ($form->getObject()->hasVersion()): ?>Attention, vous êtes sur le point d\'annuler les modifications en cours<?php else: ?>Attention, ce contrat sera supprimé de la base<?php endif; ?>')"><span><?php if($form->getObject()->hasVersion()): ?>Annuler les modifications<?php else: ?>supprimer le contrat<?php endif; ?></span></a>
         <button class="valider_etape" type="submit"><span>Etape Suivante</span></button>

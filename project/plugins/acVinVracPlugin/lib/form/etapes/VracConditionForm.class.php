@@ -7,35 +7,44 @@ class VracConditionForm extends VracForm
         	'has_transaction' => new WidgetFormInputCheckbox(),
         	'date_debut_retiraison' => new sfWidgetFormInputText(),
         	'date_limite_retiraison' => new sfWidgetFormInputText(),
-        	'conditions_paiement' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getConditionsPaiement(), 'multiple' => false)),
         	'vin_livre' => new sfWidgetFormChoice(array('choices' => $this->getChoixVinLivre(),'expanded' => true)),
         	'reference_contrat_pluriannuel' => new sfWidgetFormInputText(),
-        	'delai_paiement' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getDelaisPaiement())),
-        	'clause_reserve_retiraison' => new sfWidgetFormInputCheckbox()
+        	'clause_reserve_retiraison' => new sfWidgetFormInputCheckbox(),
+  		    'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier(), 'renderer_options' => array('formatter' => array('VracSoussigneForm', 'casParticulierFormatter')))),
+        	'export' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
+    		'premiere_mise_en_marche' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
+        	'bailleur_metayer' => new WidgetFormInputCheckbox(),
+        	'annexe' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
+        	'type_retiraison' => new sfWidgetFormChoice(array('choices' => $this->getChoixTypeRetiraison(),'expanded' => true)),
     	));
         $this->widgetSchema->setLabels(array(
         	'has_transaction' => 'je souhaite faire ma déclaration de transaction en même tant que mon contrat',
         	'date_debut_retiraison' => 'Date de début de retiraison*:',
         	'date_limite_retiraison' => 'Date limite de retiraison*:',
-        	'conditions_paiement' => 'Conditions générales de vente*:',
-        	'vin_livre' => 'Le vin sera*:',
-        	'reference_contrat_pluriannuel' => 'Référence contrat pluriannuel:',
-        	'delai_paiement' => 'Delai de paiement*:',
-        	'clause_reserve_retiraison' => 'Clause de reserve de propriété (si réserve, recours possible jusqu\'au paiement complet): '
+        	'vin_livre' => 'Le produit sera*:',
+        	'reference_contrat_pluriannuel' => 'Référence du contrat pluriannuel adossé à ce contrat:',
+        	'clause_reserve_retiraison' => 'Clause de reserve de propriété (si réserve, recours possible jusqu\'au paiement complet): ',
+            'cas_particulier' => 'Condition particulière:',
+        	'export' => 'Expédition export*:',
+        	'premiere_mise_en_marche' => 'Première mise en marché:',
+            'bailleur_metayer' => 'Entre bailleur et métayer:',
+        	'annexe' => 'Présence d\'une annexe (cahier des charges techniques):',
+        	'type_retiraison' => 'Type de retiraison/livraison:',
         ));
         $this->setValidators(array(
         	'has_transaction' => new ValidatorBoolean(),
         	'date_debut_retiraison' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
         	'date_limite_retiraison' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
-        	'conditions_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getConditionsPaiement()), 'multiple' => false)),
         	'vin_livre' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixVinLivre()))),
         	'reference_contrat_pluriannuel' => new sfValidatorString(array('required' => false)),
-        	'delai_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getDelaisPaiement()))),
-        	'clause_reserve_retiraison' => new ValidatorPass()
+        	'clause_reserve_retiraison' => new ValidatorPass(),
+            'cas_particulier' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getCasParticulier()))),
+        	'export' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixOuiNon()))),
+        	'premiere_mise_en_marche' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
+            'bailleur_metayer' => new ValidatorBoolean(array('required' => false)),
+        	'annexe' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
+        	'type_retiraison' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixTypeRetiraison()))),
         ));
-        
-        $paiements = new VracPaiementCollectionForm($this->vracPaiementFormName(), $this->getObject()->paiements);
-        $this->embedForm('paiements', $paiements);
   		
   		
 		$this->setWidget('volume_propose', new sfWidgetFormInputHidden());
@@ -45,13 +54,11 @@ class VracConditionForm extends VracForm
     }
 
     protected function doUpdateObject($values) {
-      if ($values['conditions_paiement'] != VracClient::ECHEANCIER_PAIEMENT) {
-        $values['paiements'] = array();
-        $this->getObject()->remove('paiements');
-        $this->getObject()->add('paiements');
-      }
-      $this->getObject()->conditions_paiement_libelle = $this->getConfiguration()->formatConditionsPaiementLibelle(array($this->getObject()->conditions_paiement));
+      $this->getObject()->cas_particulier_libelle = $this->getConfiguration()->formatCasParticulierLibelle(array($this->getObject()->cas_particulier));
       parent::doUpdateObject($values); 
+        if (!$this->getObject()->annexe) {
+        	$this->getObject()->annexe = 0;
+        }
     }
 
     protected function updateDefaultsFromObject() {
@@ -59,31 +66,14 @@ class VracConditionForm extends VracForm
       if (is_null($this->getObject()->vin_livre)) {
         $this->setDefault('vin_livre', VracClient::STATUS_VIN_RETIRE);
       }  
+      $this->setDefault('cas_particulier', (($this->getObject()->cas_particulier) ? $this->getObject()->cas_particulier : null));
+      if (is_null($this->getObject()->export)) {
+          $this->setDefault('export', 0);
+      }
+      if (is_null($this->getObject()->annexe)) {
+        $this->setDefault('annexe', 0);
+      }   
     }
-
-
-    public function getCgpEcheancierNeedDetermination() {
-      return 'echeancier_paiement';
-    }
-
-    public function getCgpContratNeedDetermination() {
-      return 'contrat_pluriannuel';
-    }
-
-    public function getCgpDelaiNeedDetermination() {
-      return 'cadre_reglementaire';
-    }
-
-
-    public function conditionneReferenceContrat() {
-      return true;
-    }
-
-
-    public function conditionneDelaiContrat() {
-      return true;
-    }
-
 
     public function conditionneIVSE() {
       return false;

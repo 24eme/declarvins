@@ -3820,7 +3820,7 @@ p#date_drm {
   float: left;
   padding: 11px 0 11px 6px;
   zoom: 1;
-  margin-bottom: 35px;
+  margin-bottom: 10px;
   float: none;
 }
 .vracs #contrats_etapes ol {
@@ -3896,6 +3896,7 @@ p#date_drm {
 .vracs .radio_list,
 .vracs .checkbox_list {
   display: inline-block;
+  max-width: 666px;
 }
 .ielt8 .vracs .radio_list,
 .ielt8 .vracs .checkbox_list {
@@ -3926,6 +3927,7 @@ p#date_drm {
 }
 .vracs .checkbox_list li {
   width: 200px;
+  padding-bottom: 10px;
 }
 .vracs .vracs_ligne_form {
   min-height: 29px;
@@ -4004,9 +4006,6 @@ p#date_drm {
 }
 .vracs .contenu_onglet label input[type="radio"] {
   margin-right: 7px;
-}
-.vracs .bloc_condition .radio_list {
-  margin: 0 0 0 20px;
 }
 .vracs .bloc_condition .radio_list li {
   margin: 0 15px 0 0;

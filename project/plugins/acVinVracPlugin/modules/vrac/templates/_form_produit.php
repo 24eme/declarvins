@@ -8,8 +8,14 @@
                 <?php echo $form['produit']->renderError() ?>
                 <?php echo $form['produit']->renderLabel() ?>
                 <?php echo ($form->getObject()->hasVersion() && $form->getObject()->volume_enleve > 0)? $form->getObject()->produit_libelle : $form['produit']->render(); ?>
+            </div>            
+            <div  id="section_millesime" class="section_label_strong">
+                <?php echo $form['millesime']->renderError() ?>
+                    <?php echo $form['non_millesime']->renderError() ?>
+                <?php echo $form['millesime']->renderLabel() ?>
+                <?php echo ($form->getObject()->hasVersion() && $form->getObject()->volume_enleve > 0)? $form->getObject()->millesime : $form['millesime']->render(); ?>
+                <?php echo $form['non_millesime']->render() ?>&nbsp;<label for="vrac_produit_non_millesime" style="font-weight: normal;width:auto;">Non millésimé</label>
             </div>
-            
         </div>
 
         <div class="ligne_form_btn">
@@ -20,3 +26,22 @@
             <a href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $form->getObject(), 'etablissement' => $etablissement)) ?>" class="annuler_saisie" onclick="return confirm('<?php if ($form->getObject()->hasVersion()): ?>Attention, vous êtes sur le point d\'annuler les modifications en cours<?php else: ?>Attention, ce contrat sera supprimé de la base<?php endif; ?>')"><span><?php if($form->getObject()->hasVersion()): ?>Annuler les modifications<?php else: ?>supprimer le contrat<?php endif; ?></span></a>
         </div> 
     </form>
+
+    <?php if (isset($form['non_millesime'])): ?>
+    <script type="text/javascript">
+    $( document ).ready(function() {
+    	if ($("#<?php echo $form['non_millesime']->renderId() ?>").is(':checked')) {
+    		$('#section_millesime input:text').attr("disabled", "disabled");
+			$('#section_millesime input:text').val(null);
+    	}
+    	$("#<?php echo $form['non_millesime']->renderId() ?>").change(function() {
+			$('#section_millesime input').val(null);
+    		if ($("#<?php echo $form['non_millesime']->renderId() ?>").is(':checked')) {
+    			$('#section_millesime input:text').attr("disabled", "disabled");
+    		} else {
+    			$('#section_millesime input:text').removeAttr("disabled");
+    		}
+        });
+    });
+	</script>
+	<?php endif; ?>

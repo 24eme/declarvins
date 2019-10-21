@@ -1,62 +1,60 @@
     <form class="popup_form" method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>">
         <?php echo $form->renderHiddenFields() ?>
         <?php echo $form->renderGlobalErrors() ?>
-        <h1>Paiement</h1>
+        
         <div>
-            <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_paiements|#bloc_vrac_reference_contrat_pluriannuel">
-                <?php echo $form['conditions_paiement']->renderError() ?>
-                <?php echo $form['conditions_paiement']->renderLabel() ?>
-                <?php echo $form['conditions_paiement']->render() ?>
+        	<h1>Spécificités du contrat</h1>
+            <?php if (isset($form['premiere_mise_en_marche'])): ?>
+        	<div class="section_label_strong">
+            	<?php echo $form['premiere_mise_en_marche']->renderError() ?>
+            	<?php echo $form['premiere_mise_en_marche']->renderLabel() ?>
+            	<?php echo $form['premiere_mise_en_marche']->render() ?>
+        	</div>
+        	<?php endif; ?>
+			<?php if (isset($form['cas_particulier'])): ?>
+            <div class="section_label_strong_bloc">
+                <?php echo $form['cas_particulier']->renderError() ?>
+                <?php echo $form['cas_particulier']->renderLabel() ?>
+                <a class="msg_aide" title="Message aide" data-msg="help_popup_vrac_condition_particuliere" href=""></a>
+                <?php echo $form['cas_particulier']->render() ?>
             </div>
-            <div id="bloc_vrac_paiements" class="table_container bloc_conditionner" data-condition-value="<?php echo $form->getCgpEcheancierNeedDetermination() ?>">
-            	<p>Rappel du volume total proposé : <strong><?php echo $form->getObject()->volume_propose ?>&nbsp;hl</strong></p>
-                <table id="table_paiements">
-                    <thead>
-                        <tr>
-                            <th>Date (jj/mm/aaaa)</th>
-                            <th>Volume (hl)</th>
-                            <th>Montant du paiement (€ HT)</th>
-                            <th class="dernier"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($form['paiements'] as $formPaiement): ?>
-                        <?php include_partial('form_paiements_item', array('form' => $formPaiement)) ?>
-                    <?php endforeach; ?>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="3"><a class="btn_ajouter_ligne_template" data-container="#table_paiements tbody" data-template="#template_form_paiements_item" href="#"><span>Ajouter</span></a></td>
-                            <td></td>
-                        </tr>
-                    </tfoot>
-                </table>
-                
-            </div>
-            <?php if(isset($form['reference_contrat_pluriannuel'])): ?>
-            <?php if ($form->conditionneReferenceContrat()): ?>
-            <div id="bloc_vrac_reference_contrat_pluriannuel" class="section_label_strong bloc_conditionner" data-condition-value="<?php echo $form->getCgpContratNeedDetermination() ?>">
-            <?php else: ?>
-            <div class="section_label_strong">
             <?php endif; ?>
+            <?php if (isset($form['bailleur_metayer'])): ?>
+            <div class="section_label_strong_bloc">
+                <?php echo $form['bailleur_metayer']->renderError() ?>
+                <?php echo $form['bailleur_metayer']->renderLabel() ?>
+                <?php echo $form['bailleur_metayer']->render() ?>
+            </div>
+            <?php endif; ?>
+        	<div class="section_label_strong">
+            	<?php echo $form['export']->renderError() ?>
+            	<?php echo $form['export']->renderLabel() ?>
+            	<?php echo $form['export']->render() ?>
+        	</div>
+            <?php if(isset($form['reference_contrat_pluriannuel'])): ?>
+            <div class="section_label_strong">
                 <?php echo $form['reference_contrat_pluriannuel']->renderError() ?>
                 <?php echo $form['reference_contrat_pluriannuel']->renderLabel() ?>
                 <?php echo $form['reference_contrat_pluriannuel']->render() ?>
             </div>
             <?php endif; ?>
-            <?php if(isset($form['delai_paiement'])): ?>
-            <?php if ($form->conditionneDelaiContrat()): ?>
-            <div id="bloc_vrac_delai" class="section_label_strong">
-            <?php else: ?>
-            <div class="section_label_strong">
-            <?php endif; ?>
-                <?php echo $form['delai_paiement']->renderError() ?>
-                <?php echo $form['delai_paiement']->renderLabel() ?>
-                <?php echo $form['delai_paiement']->render() ?>
+        	
+        	
+        	
+            <?php if(isset($form['annexe'])): ?>
+            <div  class="section_label_strong">
+                <?php echo $form['annexe']->renderError() ?>
+                <?php echo $form['annexe']->renderLabel() ?>
+                <?php echo $form['annexe']->render() ?>
             </div>
             <?php endif; ?>
         </div>
         <h1>Retiraison / Enlèvement</h1>
+        <div class="section_label_strong">
+            <?php echo $form['type_retiraison']->renderError() ?>
+            <?php echo $form['type_retiraison']->renderLabel() ?>
+            <?php echo $form['type_retiraison']->render() ?>
+        </div>
         <?php if (!$form->conditionneIVSE()): ?>
         <div class="section_label_strong">
             <?php echo $form['vin_livre']->renderError() ?>

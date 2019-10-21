@@ -100,6 +100,11 @@ class VracForm extends acCouchdbObjectForm
     	return $this->getConfiguration()->getCasParticulier()->toArray();
     }
     
+    public function getChoixTypeRetiraison()
+    {
+    	return $this->getConfiguration()->getTypesRetiraison()->toArray();
+    }
+    
     public function getProduits()
     {
     	$zones = array();
@@ -287,6 +292,19 @@ class VracForm extends acCouchdbObjectForm
         }
 
         return $this->getObject();
+    }
+    
+    public static function casParticulierFormatter($widget, $inputs) {
+        $result = '<ul class="radio_list">';
+        foreach ($inputs as $k => $input) {
+            if ($k == 'vrac_soussigne_cas_particulier_producteur') {
+                $result .= '<li>' . $input ['input'] . '   ' . $input ['label'] . ' <a class="msg_aide" href="" data-msg="help_popup_vrac_contrat_entre_producteurs" title="Message aide"></a><br /><span style="font-size: 10px; color:#676767; font-style: italic;">attention, le producteur acheteur doit se mettre en conformité avec les douanes</span></li>';
+            } else {
+                $result .= '<li>' . $input ['input'] . '   ' . $input ['label'] . '</li>';
+            }
+        }
+        $result .= '</ul>';
+        return $result;
     }
 }
 
