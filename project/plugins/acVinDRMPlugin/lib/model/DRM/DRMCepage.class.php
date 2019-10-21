@@ -58,6 +58,12 @@ class DRMCepage extends BaseDRMCepage {
 
     public function getInao() {
 		$inao = $this->_get('inao');
+
+	if(!$this->getConfig()) {
+		throw new Exception("Le produit n'a pas été trouvé dans la configuration : DRM-".$this->getDocument()->getIdentifiant().'-'.$this->getDocument()->getPeriode().":".$this->getHash());
+	}
+
+
         if ($this->getConfig()->getInao() && !$inao) {
 			$inao = $this->getConfig()->getInao();
 			if (strlen($inao) == 5) {
