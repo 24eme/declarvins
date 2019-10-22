@@ -54,7 +54,15 @@
 	                				   $(blocs[bloc]).initBlocsFormCol();
 	            				   }
 	            			   }
-							 if (values[key] == input.val()) {
+							 var allValues = [];
+							 if (input.attr('type') == 'checkbox') {
+						            $.each($("input[name='"+input.attr('name')+"']:checked"), function(){
+						            	allValues.push($(this).val());
+						            });
+							 } else {
+								 allValues.push(input.val());
+							 }
+							 if (jQuery.inArray(values[key],allValues) != -1) {
 								 $(blocs[bloc]).show();
 								 $(blocs[bloc]).initBlocsFormCol();	
 							 }

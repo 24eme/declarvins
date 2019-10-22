@@ -7,6 +7,9 @@ class VracMarcheCivpForm extends VracMarcheForm
 
         $this->getWidget('conditions_paiement')->setLabel('Conditions de vente:');
         $this->getValidator('conditions_paiement')->setOption('required', false);
+        
+        $this->getWidget('conditions_paiement')->setOption('multiple', true);
+        $this->getValidator('conditions_paiement')->setOption('multiple', true);
     }
     protected function doUpdateObject($values) {
     	parent::doUpdateObject($values);

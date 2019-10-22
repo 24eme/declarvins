@@ -187,6 +187,7 @@ Vrac:
       domaine: {  }
       labels: {  }
       labels_libelle: {  }
+      labels_libelle_autre: {  }
       labels_arr:
         type: array_collection
         definition:
@@ -198,6 +199,8 @@ Vrac:
           fields:
             '*': {  }
       mentions_libelle: {  }
+      mentions_libelle_autre: {  }
+      mentions_libelle_chdo: {  }
       volume_propose: { type: float }
       poids: { type: float }
       annexe: {  }
@@ -223,6 +226,7 @@ Vrac:
       contrat_pluriannuel: {  }
       reference_contrat_pluriannuel: {  }
       delai_paiement: {  }
+      delai_paiement_autre: {  }
       echeancier_paiement: {  }
       paiements:
         type: array_collection

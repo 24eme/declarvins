@@ -10,6 +10,8 @@ class VracConditionCivpForm extends VracConditionForm
         parent::doUpdateObject($values);
         if (!sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
         	$this->getObject()->has_transaction = 1;
+        } else {
+            $this->getObject()->has_transaction = 0;
         }
     }
 }

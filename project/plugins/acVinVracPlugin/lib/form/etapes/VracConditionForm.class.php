@@ -9,11 +9,11 @@ class VracConditionForm extends VracForm
         	'date_limite_retiraison' => new sfWidgetFormInputText(),
         	'vin_livre' => new sfWidgetFormChoice(array('choices' => $this->getChoixVinLivre(),'expanded' => true)),
         	'reference_contrat_pluriannuel' => new sfWidgetFormInputText(),
-        	'clause_reserve_retiraison' => new sfWidgetFormInputCheckbox(),
+        	'clause_reserve_retiraison' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
   		    'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier(), 'renderer_options' => array('formatter' => array('VracSoussigneForm', 'casParticulierFormatter')))),
         	'export' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
     		'premiere_mise_en_marche' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
-        	'bailleur_metayer' => new WidgetFormInputCheckbox(),
+        	'bailleur_metayer' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'annexe' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'type_retiraison' => new sfWidgetFormChoice(array('choices' => $this->getChoixTypeRetiraison(),'expanded' => true)),
     	));
@@ -29,7 +29,7 @@ class VracConditionForm extends VracForm
         	'premiere_mise_en_marche' => 'Première mise en marché:',
             'bailleur_metayer' => 'Entre bailleur et métayer:',
         	'annexe' => 'Présence d\'une annexe (cahier des charges techniques):',
-        	'type_retiraison' => 'Type de retiraison/livraison:',
+        	'type_retiraison' => 'Type de retiraison/livraison*:',
         ));
         $this->setValidators(array(
         	'has_transaction' => new ValidatorBoolean(),
@@ -37,11 +37,11 @@ class VracConditionForm extends VracForm
         	'date_limite_retiraison' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
         	'vin_livre' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixVinLivre()))),
         	'reference_contrat_pluriannuel' => new sfValidatorString(array('required' => false)),
-        	'clause_reserve_retiraison' => new ValidatorPass(),
+        	'clause_reserve_retiraison' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
             'cas_particulier' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getCasParticulier()))),
         	'export' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'premiere_mise_en_marche' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
-            'bailleur_metayer' => new ValidatorBoolean(array('required' => false)),
+            'bailleur_metayer' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'annexe' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'type_retiraison' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixTypeRetiraison()))),
         ));
@@ -72,6 +72,15 @@ class VracConditionForm extends VracForm
       }
       if (is_null($this->getObject()->annexe)) {
         $this->setDefault('annexe', 0);
+      }   
+      if (is_null($this->getObject()->bailleur_metayer)) {
+        $this->setDefault('bailleur_metayer', 0);
+      }   
+      if (is_null($this->getObject()->clause_reserve_retiraison)) {
+        $this->setDefault('clause_reserve_retiraison', 0);
+      }   
+      if (is_null($this->getObject()->type_retiraison)) {
+        $this->setDefault('type_retiraison', 'vrac');
       }   
     }
 

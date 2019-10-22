@@ -20,7 +20,7 @@
             </div>
             <?php endif; ?>
             <?php if (isset($form['bailleur_metayer'])): ?>
-            <div class="section_label_strong_bloc">
+            <div class="section_label_strong">
                 <?php echo $form['bailleur_metayer']->renderError() ?>
                 <?php echo $form['bailleur_metayer']->renderLabel() ?>
                 <?php echo $form['bailleur_metayer']->render() ?>
@@ -31,21 +31,18 @@
             	<?php echo $form['export']->renderLabel() ?>
             	<?php echo $form['export']->render() ?>
         	</div>
-            <?php if(isset($form['reference_contrat_pluriannuel'])): ?>
-            <div class="section_label_strong">
-                <?php echo $form['reference_contrat_pluriannuel']->renderError() ?>
-                <?php echo $form['reference_contrat_pluriannuel']->renderLabel() ?>
-                <?php echo $form['reference_contrat_pluriannuel']->render() ?>
-            </div>
-            <?php endif; ?>
-        	
-        	
-        	
             <?php if(isset($form['annexe'])): ?>
             <div  class="section_label_strong">
                 <?php echo $form['annexe']->renderError() ?>
                 <?php echo $form['annexe']->renderLabel() ?>
                 <?php echo $form['annexe']->render() ?>
+            </div>
+            <?php endif; ?>
+            <?php if(isset($form['reference_contrat_pluriannuel'])): ?>
+            <div class="section_label_strong">
+                <?php echo $form['reference_contrat_pluriannuel']->renderError() ?>
+                <?php echo $form['reference_contrat_pluriannuel']->renderLabel() ?>
+                <?php echo $form['reference_contrat_pluriannuel']->render() ?>
             </div>
             <?php endif; ?>
         </div>
@@ -105,7 +102,3 @@
             <a href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $form->getObject(), 'etablissement' => $etablissement)) ?>" class="annuler_saisie" onclick="return confirm('<?php if ($form->getObject()->hasVersion()): ?>Attention, vous êtes sur le point d\'annuler les modifications en cours<?php else: ?>Attention, ce contrat sera supprimé de la base<?php endif; ?>')"><span><?php if($form->getObject()->hasVersion()): ?>Annuler les modifications<?php else: ?>supprimer le contrat<?php endif; ?></span></a>
         </div> 
     </form>
-
-<?php include_partial('form_collection_template', array('partial' => 'form_paiements_item',
-    'form' => $form->getFormTemplatePaiements()));
-?>

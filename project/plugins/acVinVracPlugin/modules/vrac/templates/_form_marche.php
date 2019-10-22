@@ -23,15 +23,30 @@
                 <?php echo $form['type_transaction']->render() ?>
             </div>
             <?php endif; ?>
-            <div class="section_label_strong">
+            <div id="vrac_labels" class="section_label_strong bloc_condition" data-condition-cible="#bloc_labels_libelle_autre">
                 <?php echo $form['labels_arr']->renderError() ?>
                 <?php echo $form['labels_arr']->renderLabel() ?>
                 <?php echo $form['labels_arr']->render() ?>
             </div>
-            <div class="section_label_strong">
+            <div class="section_label_strong bloc_conditionner" id="bloc_labels_libelle_autre" data-condition-value="autre">
+                <?php echo $form['labels_libelle_autre']->renderError() ?>
+                <?php echo $form['labels_libelle_autre']->renderLabel() ?>
+                <?php echo $form['labels_libelle_autre']->render() ?>
+            </div>
+            <div id="vrac_mentions" class="section_label_strong bloc_condition" data-condition-cible="#bloc_mentions_libelle_autre|#bloc_mentions_libelle_chdo">
                 <?php echo $form['mentions']->renderError() ?>
                 <?php echo $form['mentions']->renderLabel('Mentions: <a href="" class="msg_aide" data-msg="help_popup_vrac_mentions" title="Message aide"></a>') ?>
                 <?php echo $form['mentions']->render() ?>
+            </div>
+            <div class="section_label_strong bloc_conditionner" id="bloc_mentions_libelle_chdo" data-condition-value="chdo">
+                <?php echo $form['mentions_libelle_chdo']->renderError() ?>
+                <?php echo $form['mentions_libelle_chdo']->renderLabel() ?>
+                <?php echo $form['mentions_libelle_chdo']->render() ?>
+            </div>
+            <div class="section_label_strong bloc_conditionner" id="bloc_mentions_libelle_autre" data-condition-value="autre">
+                <?php echo $form['mentions_libelle_autre']->renderError() ?>
+                <?php echo $form['mentions_libelle_autre']->renderLabel() ?>
+                <?php echo $form['mentions_libelle_autre']->render() ?>
             </div>
         	<h1>Volume / Prix</h1>
             <div class="section_label_strong">
@@ -74,13 +89,13 @@
                 <?php echo $form['determination_prix']->render(array("style" => "height: 60px;")) ?> 
             </div>
             <h1>Paiement</h1>
-            <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_paiements|#bloc_vrac_reference_contrat_pluriannuel">
+            <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_paiements|#bloc_vrac_delai">
                 <?php echo $form['conditions_paiement']->renderError() ?>
                 <?php echo $form['conditions_paiement']->renderLabel() ?>
                 <?php echo $form['conditions_paiement']->render() ?>
             </div>
             <div id="bloc_vrac_paiements" class="table_container bloc_conditionner" data-condition-value="<?php echo $form->getCgpEcheancierNeedDetermination() ?>">
-            	<p>Rappel du volume total proposé : <strong><?php echo $form->getObject()->volume_propose ?>&nbsp;hl</strong></p>
+            	<!--  <p>Rappel du volume total proposé : <strong><?php echo $form->getObject()->volume_propose ?>&nbsp;hl</strong></p>  -->
                 <table id="table_paiements">
                     <thead>
                         <tr>
@@ -104,10 +119,21 @@
                 </table>
             </div>
             <?php if(isset($form['delai_paiement'])): ?>
-            <div id="bloc_vrac_delai" class="section_label_strong">
+            <?php if ($form->isConditionneDelaiPaiement()): ?>
+            <div id="bloc_vrac_delai" class="section_label_strong bloc_conditionner bloc_condition" data-condition-value="<?php echo $form->getCgpDelaiNeedDetermination() ?>" data-condition-cible="#bloc_vrac_delai_autre">
+            <?php else: ?>
+            <div class="section_label_strong">
+            <?php endif; ?>
                 <?php echo $form['delai_paiement']->renderError() ?>
                 <?php echo $form['delai_paiement']->renderLabel() ?>
                 <?php echo $form['delai_paiement']->render() ?>
+            </div>
+            <?php endif; ?>
+            <?php if(isset($form['delai_paiement_autre'])): ?>
+            <div id="bloc_vrac_delai_autre" class="section_label_strong bloc_conditionner" data-condition-value="autre">
+                <?php echo $form['delai_paiement_autre']->renderError() ?>
+                <?php echo $form['delai_paiement_autre']->renderLabel() ?>
+                <?php echo $form['delai_paiement_autre']->render() ?>
             </div>
             <?php endif; ?>
         </div>
@@ -120,3 +146,6 @@
             <a href="<?php echo url_for('vrac_supprimer', array('sf_subject' => $form->getObject(), 'etablissement' => $etablissement)) ?>" class="annuler_saisie" onclick="return confirm('<?php if ($form->getObject()->hasVersion()): ?>Attention, vous êtes sur le point d\'annuler les modifications en cours<?php else: ?>Attention, ce contrat sera supprimé de la base<?php endif; ?>')"><span><?php if($form->getObject()->hasVersion()): ?>Annuler les modifications<?php else: ?>supprimer le contrat<?php endif; ?></span></a>
         </div> 
     </form>
+<?php include_partial('form_collection_template', array('partial' => 'form_paiements_item',
+    'form' => $form->getFormTemplatePaiements()));
+?>

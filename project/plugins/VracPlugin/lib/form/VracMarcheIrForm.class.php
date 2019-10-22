@@ -8,10 +8,13 @@ class VracMarcheIrForm extends VracMarcheForm
 		$this->getWidget('prix_total_unitaire')->setLabel('Prix unitaire total HT:');
 		$this->getWidget('prix_total_unitaire')->setDefault($this->getObject()->getTotalUnitaire());
 		$this->setValidator('poids', new sfValidatorNumber(array('required' => false)));
-    	if (!sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && isset($this['type_transaction'])) {
-            unset($this['poids']);
-        }
+		$this->setValidator('delai_paiement', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getDelaisPaiement()))));
         
+		
+		$this->setWidget('delai_paiement_autre', new sfWidgetFormInputText());
+		$this->getWidget('delai_paiement_autre')->setLabel('précisez le délai*:');
+		$this->setValidator('delai_paiement_autre', new sfValidatorString(array('required' => false)));
+		
         $this->validatorSchema->setPostValidator(new VracMarcheValidator());
     }
     protected function doUpdateObject($values) {
@@ -25,5 +28,10 @@ class VracMarcheIrForm extends VracMarcheForm
       parent::updateDefaultsFromObject();
       $this->setDefault('has_cotisation_cvo', 1);
 
+    }
+    
+    public function isConditionneDelaiPaiement()
+    {
+        return true;
     }
 }

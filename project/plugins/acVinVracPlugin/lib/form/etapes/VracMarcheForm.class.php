@@ -19,6 +19,9 @@ class VracMarcheForm extends VracForm
 	        'repartition_cvo_acheteur' => new sfWidgetFormInputHidden(array('default' => ConfigurationVrac::REPARTITION_CVO_ACHETEUR)),
     		'conditions_paiement' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getConditionsPaiement(), 'multiple' => false)),
     		'delai_paiement' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getDelaisPaiement())),
+    		'labels_libelle_autre' => new sfWidgetFormInputText(),
+    		'mentions_libelle_autre' => new sfWidgetFormInputText(),
+    		'mentions_libelle_chdo' => new sfWidgetFormInputText(),
     	));
         $this->widgetSchema->setLabels(array(
         	'has_cotisation_cvo' => 'Cvo',
@@ -36,6 +39,9 @@ class VracMarcheForm extends VracForm
         	'repartition_cvo_acheteur' => 'Repartition CVO acheteur:',
         	'conditions_paiement' => 'Conditions générales de vente*:',
         	'delai_paiement' => 'Delai de paiement*:',
+    		'labels_libelle_autre' => 'Précisez le label*:',
+    		'mentions_libelle_autre' => 'Précisez la mention*:',
+    		'mentions_libelle_chdo' => 'Précisez le Domaine/Château*:',
         ));
         $min = ($this->getObject()->volume_enleve)? $this->getObject()->volume_enleve : 0;
         $minErreur = ($min > 1)? $min.' hl ont déjà été enlevés pour ce contrat' : $min.' hl a déjà été enlevé pour ce contrat';
@@ -55,6 +61,9 @@ class VracMarcheForm extends VracForm
 	        'repartition_cvo_acheteur' => new sfValidatorNumber(array('required' => false)),
             'conditions_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getConditionsPaiement()), 'multiple' => false)),
             'delai_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getDelaisPaiement()))),
+    		'labels_libelle_autre' => new sfValidatorString(array('required' => false)),
+    		'mentions_libelle_autre' => new sfValidatorString(array('required' => false)),
+    		'mentions_libelle_chdo' => new sfValidatorString(array('required' => false)),
          ));
         
         $paiements = new VracPaiementCollectionForm($this->vracPaiementFormName(), $this->getObject()->paiements);
@@ -159,5 +168,10 @@ class VracMarcheForm extends VracForm
 
     public function getCgpDelaiNeedDetermination() {
       return 'cadre_reglementaire';
+    }
+    
+    public function isConditionneDelaiPaiement()
+    {
+        return false;
     }
 }

@@ -228,7 +228,6 @@ class acVinVracActions extends sfActions
 				if ($this->vrac->isNew()) {
 					$this->vrac->numero_contrat = $this->getNumeroContrat();
 				}
-				//$updateVol = (!$this->vrac->hasVersion())? true : false;
 				$this->vrac->save();
 				$sendEmail = (bool)$this->form->getValue('email');
 				$brouillon = (bool)$this->form->getValue('brouillon');

@@ -9,8 +9,13 @@ class VracMarcheIvseForm extends VracMarcheForm
 		$this->setValidator('prix_total_unitaire', new sfValidatorNumber(array('required' => false)));
 		$this->getWidget('prix_total_unitaire')->setLabel('Prix unitaire total HT:');
 		$this->getWidget('prix_total_unitaire')->setDefault($this->getObject()->getTotalUnitaire());
+		$this->getWidget('conditions_paiement')->setOption('multiple', true);
+        $this->getValidator('conditions_paiement')->setOption('multiple', true);
     }
     protected function doUpdateObject($values) {
+        if (isset($values['conditions_paiement']) && !empty($values['conditions_paiement']) && is_array($values['conditions_paiement'])) {
+            $values['conditions_paiement'] = current($values['conditions_paiement']);
+        }
     	parent::doUpdateObject($values);
     	$this->getObject()->has_cotisation_cvo = 1;
     }
