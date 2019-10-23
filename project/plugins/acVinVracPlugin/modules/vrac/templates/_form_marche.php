@@ -128,6 +128,7 @@
                 <?php echo $form['delai_paiement']->renderError() ?>
                 <?php echo $form['delai_paiement']->renderLabel() ?>
                 <?php echo $form['delai_paiement']->render() ?>
+                <p class="center"><em><strong>Acompte obligatoire de 15%</strong> dans les 10 jours suivants la signature du contrat</em></p>
             </div>
             <?php endif; ?>
             <?php if(isset($form['delai_paiement_autre'])): ?>
