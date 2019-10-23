@@ -40,7 +40,7 @@ class VracMarcheForm extends VracForm
         	'conditions_paiement' => 'Conditions générales de vente*:',
         	'delai_paiement' => 'Delai de paiement*:',
     		'labels_libelle_autre' => 'Précisez le label*:',
-    		'mentions_libelle_autre' => 'Précisez la mention*:',
+            'mentions_libelle_autre' => 'Précisez la mention autre*:',
     		'mentions_libelle_chdo' => 'Précisez le Domaine/Château*:',
         ));
         $min = ($this->getObject()->volume_enleve)? $this->getObject()->volume_enleve : 0;
