@@ -20,6 +20,9 @@ public static function create($interpro, $step, $configurationVrac, $etablisseme
 				case 'transaction':
 					$form = new VracTransactionCivpForm($configurationVrac, $etablissement, $user, $vrac);
 					break;
+				case 'clause':
+					$form = new VracClauseCivpForm($configurationVrac, $etablissement, $user, $vrac);
+					break;
 				case 'validation':
 					$form = new VracValidationCivpForm($configurationVrac, $etablissement, $user, $vrac);
 					break;
@@ -43,6 +46,9 @@ public static function create($interpro, $step, $configurationVrac, $etablisseme
 				case 'transaction':
 					$form = new VracTransactionIrForm($configurationVrac, $etablissement, $user, $vrac);
 					break;
+				case 'clause':
+					$form = new VracClauseIrForm($configurationVrac, $etablissement, $user, $vrac);
+					break;
 				case 'validation':
 					$form = new VracValidationIrForm($configurationVrac, $etablissement, $user, $vrac);
 					break;
@@ -65,6 +71,9 @@ public static function create($interpro, $step, $configurationVrac, $etablisseme
 					break;
 				case 'transaction':
 					$form = new VracTransactionIvseForm($configurationVrac, $etablissement, $user, $vrac);
+					break;
+				case 'clause':
+					$form = new VracClauseIvseForm($configurationVrac, $etablissement, $user, $vrac);
 					break;
 				case 'validation':
 					$form = new VracValidationIvseForm($configurationVrac, $etablissement, $user, $vrac);

@@ -339,7 +339,24 @@ Configuration:
                     definition:
                       fields:
                         transaction_has_acheteur: {  }
-                        clauses: {  }
+                        clauses_complementaires:
+                          type: collection
+                          definition:
+                            fields:
+                              '*':
+                                type: collection
+                                definition:
+                                  fields:
+                                    '*': {  }
+                        clauses:
+                          type: collection
+                          definition:
+                            fields:
+                              '*':
+                                type: collection
+                                definition:
+                                  fields:
+                                    '*': {  }
                         informations_complementaires: {  }
                         has_transaction: {  }
                         etapes:

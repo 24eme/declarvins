@@ -240,6 +240,7 @@ Vrac:
                   volume: { type: float }
                   montant: { type: float }
       clause_reserve_retiraison: {  }
+      clauses_complementaires: {  }
       export: {  }
       lots:
         type: array_collection
