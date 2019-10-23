@@ -41,6 +41,11 @@ class VracSoussigneForm extends VracForm
 				'mandataire_identifiant' => new ValidatorEtablissement(array('required' => false, 'familles' => EtablissementFamilles::FAMILLE_COURTIER)),
 		));
 
+        $this->widgetSchema->setDefaults([
+            'acheteur_tva' => 1,
+            'vendeur_tva'  => 1
+        ]);
+
 		if ($type = $this->getObject()->vendeur_type) {
 			$this->setWidget('vendeur_identifiant', new WidgetEtablissement(array('interpro_id' => $zonesEtablissement, 'familles' => $type, 'only_actif' => 1)));
 		}
