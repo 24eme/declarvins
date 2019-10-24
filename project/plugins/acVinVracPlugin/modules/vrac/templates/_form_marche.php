@@ -101,7 +101,6 @@
                     <thead>
                         <tr>
                             <th>Date (jj/mm/aaaa)</th>
-                            <th>Volume (hl)</th>
                             <th>Montant du paiement (€ HT)</th>
                             <th class="dernier"></th>
                         </tr>

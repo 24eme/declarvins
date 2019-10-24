@@ -4,10 +4,6 @@
         <?php echo $form['date']->render(array('class' => 'datepicker')) ?>
     </td>
     <td>
-        <?php echo $form['volume']->renderError() ?>
-        <?php echo $form['volume']->render() ?>
-    </td>
-    <td>
         <?php echo $form['montant']->renderError() ?>
         <?php echo $form['montant']->render() ?>
     </td>
