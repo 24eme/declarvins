@@ -94,7 +94,7 @@
             </div>
             <?php endif; ?>
         <div class="ligne_form_btn">
-            <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'marche', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a> 
+            <a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'produit', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a>
             <button class="valider_etape" type="submit"><span>Etape Suivante</span></button>
         </div>
         
