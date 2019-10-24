@@ -2,7 +2,7 @@
 class DRMESDetailCrdForm extends acCouchdbObjectForm {
 	
 	public function configure() {
-		$this->setWidget('volume', new sfWidgetFormInputFloat(array('float_format' => "%01.04f")));
+		$this->setWidget('volume', new sfWidgetFormInputFloat(array('float_format' => "%01.05f")));
 		$this->setValidator('volume', new sfValidatorNumber(array('required' => false)));
 		
 		$this->setWidget('mois', new sfWidgetFormChoice(array('choices' => $this->getMois())));
