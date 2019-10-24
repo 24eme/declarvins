@@ -234,7 +234,7 @@ var fbConfig =
 				// virgule déjà présente
 				if(touche == 44 && ponctuationPresente) e.preventDefault(); 
 				// 2 décimales
-				if(val.match(/[\.\,][0-9][0-9][0-9][0-9]/) && chiffre && e.currentTarget && e.currentTarget.selectionStart > val.length - 3) e.preventDefault();
+				if(val.match(/[\.\,][0-9][0-9][0-9][0-9][0-9]/) && chiffre && e.currentTarget && e.currentTarget.selectionStart > val.length - 3) e.preventDefault();
 			}
 			// Champ nombre entier
 			else
