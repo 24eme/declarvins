@@ -21,7 +21,7 @@ class DRMVracContratForm extends acCouchdbObjectForm
         {
         $this->setWidgets(array(
             'vrac' => new sfWidgetFormChoice(array('choices' => $this->getContratChoices())),
-                'volume' => new sfWidgetFormInputFloat(array('float_format' => "%01.04f")),
+                'volume' => new sfWidgetFormInputFloat(array('float_format' => "%01.05f")),
         ));
         $this->widgetSchema->setLabels(array(
                 'vrac' => 'Contrat*: ',
