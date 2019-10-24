@@ -42,6 +42,7 @@
                 <?php echo $form['mentions_libelle_chdo']->renderError() ?>
                 <?php echo $form['mentions_libelle_chdo']->renderLabel() ?>
                 <?php echo $form['mentions_libelle_chdo']->render() ?>
+                <p><em>Le vendeur autorise expressément l'Acheteur à utiliser son nom d'exploitation. Ce dernier être indiqué sur la facture et le document d'accompagnement. L'Acheteur devra respecter les exigences du décret n° 2012-655 du 4 mai 2012.</em></p>
             </div>
             <div class="section_label_strong bloc_conditionner" id="bloc_mentions_libelle_autre" data-condition-value="autre">
                 <?php echo $form['mentions_libelle_autre']->renderError() ?>
@@ -127,6 +128,7 @@
                 <?php echo $form['delai_paiement']->renderError() ?>
                 <?php echo $form['delai_paiement']->renderLabel() ?>
                 <?php echo $form['delai_paiement']->render() ?>
+                <p class="center"><em><strong>Acompte obligatoire de 15%</strong> dans les 10 jours suivants la signature du contrat</em></p>
             </div>
             <?php endif; ?>
             <?php if(isset($form['delai_paiement_autre'])): ?>
