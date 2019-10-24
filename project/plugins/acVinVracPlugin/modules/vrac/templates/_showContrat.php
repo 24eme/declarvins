@@ -172,7 +172,6 @@
 					<thead>
 						<tr>
 							<th>Date</th>
-							<th>Volume (<?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?>)</th>
 							<th>Montant (€ HT)</th>
 		            	</tr>
 		            </thead>
@@ -180,7 +179,6 @@
 						<?php foreach ($vrac->paiements as $paiement): ?>
 						<tr>
 							<td><?php echo Date::francizeDate($paiement->date) ?></td>
-							<td><?php echo $paiement->volume ?></td>
 							<td><?php echo $paiement->montant ?> €</td>
 						</tr>
 						<?php endforeach; ?>
