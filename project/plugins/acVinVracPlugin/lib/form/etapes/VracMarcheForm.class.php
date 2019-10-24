@@ -37,7 +37,7 @@ class VracMarcheForm extends VracForm
         	'prix_total' => 'Prix total HT:',
         	'part_cvo' => 'Part CVO:',
         	'repartition_cvo_acheteur' => 'Repartition CVO acheteur:',
-        	'conditions_paiement' => 'Conditions générales de vente*:',
+            'conditions_paiement' => 'Paiement*:',
         	'delai_paiement' => 'Delai de paiement*:',
     		'labels_libelle_autre' => 'Précisez le label*:',
             'mentions_libelle_autre' => 'Précisez la mention autre*:',
