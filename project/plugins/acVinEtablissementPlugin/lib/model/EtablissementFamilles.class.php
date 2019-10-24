@@ -8,6 +8,7 @@ class EtablissementFamilles
 
     const SOUS_FAMILLE_CAVE_PARTICULIERE = "cave_particuliere";
     const SOUS_FAMILLE_CAVE_COOPERATIVE = "cave_cooperative";
+    const SOUS_FAMILLE_VENDEUR_RAISIN = "vendeur_raisin";
     const SOUS_FAMILLE_REGIONAL = "regional";
     const SOUS_FAMILLE_EXTERIEUR = "exterieur";
     const SOUS_FAMILLE_ETRANGER = "etranger";
@@ -21,7 +22,8 @@ class EtablissementFamilles
     );
     protected static $sous_familles = array (
     	self::FAMILLE_PRODUCTEUR => array(self::SOUS_FAMILLE_CAVE_PARTICULIERE => "Cave particulière", 
-                                          self::SOUS_FAMILLE_CAVE_COOPERATIVE => "Cave coopérative"),
+                                          self::SOUS_FAMILLE_CAVE_COOPERATIVE => "Cave coopérative", 
+                                          self::SOUS_FAMILLE_VENDEUR_RAISIN => "Vendeur de raisin"),
     	self::FAMILLE_NEGOCIANT => array(null => null,
     									 self::SOUS_FAMILLE_REGIONAL => "Régional", 
                                          self::SOUS_FAMILLE_EXTERIEUR => "Extérieur", 
@@ -34,6 +36,7 @@ class EtablissementFamilles
     protected static $sous_familles_all = array (
     	self::SOUS_FAMILLE_CAVE_PARTICULIERE => "Cave particulière", 
         self::SOUS_FAMILLE_CAVE_COOPERATIVE => "Cave coopérative",
+        self::SOUS_FAMILLE_VENDEUR_RAISIN => "Vendeur de raisin",
     	self::SOUS_FAMILLE_REGIONAL => "Régional", 
         self::SOUS_FAMILLE_EXTERIEUR => "Extérieur", 
         self::SOUS_FAMILLE_ETRANGER => "Etranger", 
@@ -44,6 +47,7 @@ class EtablissementFamilles
     protected static $droits = array (
     	"producteur_cave_particuliere" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
     	"producteur_cave_cooperative" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC),
+        "producteur_vendeur_raisin" => array(EtablissementDroit::DROIT_VRAC),
     	"negociant" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCE),
     	"negociant_regional" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCE),
     	"negociant_exterieur" => array(EtablissementDroit::DROIT_DRM_DTI, EtablissementDroit::DROIT_DRM_PAPIER, EtablissementDroit::DROIT_VRAC, EtablissementDroit::DROIT_DSNEGOCE),
