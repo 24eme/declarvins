@@ -4,7 +4,7 @@
         <?php echo $form->renderGlobalErrors() ?>
 
         <div>
-        	<h1>Produit / Qualité / Origine</h1>
+        	<h1>Produit</h1>
         	<div class="section_label_strong">
             	<label>Produit: </label>
                 <strong><?php echo ($form->getObject()->produit)? $form->getObject()->getLibelleProduit("%g% %a% %l% %co%", true) : null; ?><?php if ($form->getObject()->millesime): ?>&nbsp;<?php echo $form->getObject()->millesime; ?><?php endif; ?></strong>
@@ -105,6 +105,45 @@
                 <?php echo $form['delai_paiement_autre']->render() ?>
             </div>
             <?php endif; ?>
+            
+            <h1>Retiraison / Enlèvement</h1>
+            <div class="section_label_strong">
+                <?php echo $form['type_retiraison']->renderError() ?>
+                <?php echo $form['type_retiraison']->renderLabel() ?>
+                <?php echo $form['type_retiraison']->render() ?>
+            </div>
+            <?php if (!$form->conditionneIVSE()): ?>
+            <div class="section_label_strong">
+                <?php echo $form['vin_livre']->renderError() ?>
+                <?php echo $form['vin_livre']->renderLabel() ?>
+                <?php echo $form['vin_livre']->render() ?>
+            </div>
+            <?php endif; ?>
+                <?php if(isset($form['date_debut_retiraison'])): ?>
+                <div class="section_label_strong">
+                    <?php echo $form['date_debut_retiraison']->renderError() ?>
+                    <?php echo $form['date_debut_retiraison']->renderLabel() ?>
+                    <?php echo $form['date_debut_retiraison']->render(array('class' => 'datepicker')) ?>
+                    &nbsp;(jj/mm/aaaa)
+                </div>
+                <?php endif; ?>
+                <div class="section_label_strong">
+                    <?php echo $form['date_limite_retiraison']->renderError() ?>
+                    <?php echo $form['date_limite_retiraison']->renderLabel() ?>
+                    <?php echo $form['date_limite_retiraison']->render(array('class' => 'datepicker')) ?>
+                    &nbsp;(jj/mm/aaaa)
+                </div>
+                <?php if(isset($form['clause_reserve_retiraison'])): ?>
+                <div class="section_label_strong">
+                    <?php echo $form['clause_reserve_retiraison']->renderError() ?>
+                    <?php echo $form['clause_reserve_retiraison']->renderLabel() ?>
+                    <?php echo $form['clause_reserve_retiraison']->render() ?>
+                </div>
+                <?php endif; ?>
+            	<?php if ($form->conditionneIVSE()): ?>
+            	<p>En cas de calendrier de retiraison, indiquez les échéances dans la case &laquo;commentaires&raquo; de l'étape validation</p>
+            	
+            	<?php endif; ?>
         </div>
 
         <div class="ligne_form_btn">

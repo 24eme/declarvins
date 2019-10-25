@@ -16,6 +16,11 @@ class VracMarcheForm extends VracForm
 	        'repartition_cvo_acheteur' => new sfWidgetFormInputHidden(array('default' => ConfigurationVrac::REPARTITION_CVO_ACHETEUR)),
     		'conditions_paiement' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getConditionsPaiement(), 'multiple' => false)),
     		'delai_paiement' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getDelaisPaiement())),
+    		'clause_reserve_retiraison' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
+        	'date_debut_retiraison' => new sfWidgetFormInputText(),
+        	'date_limite_retiraison' => new sfWidgetFormInputText(),
+        	'vin_livre' => new sfWidgetFormChoice(array('choices' => $this->getChoixVinLivre(),'expanded' => true)),
+        	'type_retiraison' => new sfWidgetFormChoice(array('choices' => $this->getChoixTypeRetiraison(),'expanded' => true)),
     	));
         $this->widgetSchema->setLabels(array(
         	'has_cotisation_cvo' => 'Cvo',
@@ -30,6 +35,11 @@ class VracMarcheForm extends VracForm
         	'repartition_cvo_acheteur' => 'Repartition CVO acheteur:',
             'conditions_paiement' => 'Paiement*:',
         	'delai_paiement' => 'Delai de paiement*:',
+        	'clause_reserve_retiraison' => 'Clause de reserve de propriété (si réserve, recours possible jusqu\'au paiement complet): ',
+        	'date_debut_retiraison' => 'Date de début de retiraison*:',
+        	'date_limite_retiraison' => 'Date limite de retiraison*:',
+        	'vin_livre' => 'Le produit sera:',
+        	'type_retiraison' => 'Type de retiraison/livraison*:',
         ));
         $min = ($this->getObject()->volume_enleve)? $this->getObject()->volume_enleve : 0;
         $minErreur = ($min > 1)? $min.' hl ont déjà été enlevés pour ce contrat' : $min.' hl a déjà été enlevé pour ce contrat';
@@ -46,6 +56,11 @@ class VracMarcheForm extends VracForm
 	        'repartition_cvo_acheteur' => new sfValidatorNumber(array('required' => false)),
             'conditions_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getConditionsPaiement()), 'multiple' => false)),
             'delai_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getDelaisPaiement()))),
+        	'clause_reserve_retiraison' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
+        	'date_debut_retiraison' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
+        	'date_limite_retiraison' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
+        	'vin_livre' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixVinLivre()))),
+        	'type_retiraison' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixTypeRetiraison()))),
          ));
         
         $paiements = new VracPaiementCollectionForm($this->vracPaiementFormName(), $this->getObject()->paiements);
@@ -105,6 +120,15 @@ class VracMarcheForm extends VracForm
       	$d = new DateTime($this->getObject()->determination_prix_date);
         $this->setDefault('determination_prix_date', $d->format('d/m/Y'));
       }
+      if (is_null($this->getObject()->clause_reserve_retiraison)) {
+        $this->setDefault('clause_reserve_retiraison', 0);
+      }   
+      if (is_null($this->getObject()->vin_livre)) {
+        $this->setDefault('vin_livre', VracClient::STATUS_VIN_RETIRE);
+      }  
+      if (is_null($this->getObject()->type_retiraison)) {
+        $this->setDefault('type_retiraison', 'vrac');
+      }   
     }
     
     public function getCepages()
@@ -133,5 +157,9 @@ class VracMarcheForm extends VracForm
     public function isConditionneDelaiPaiement()
     {
         return false;
+    }
+
+    public function conditionneIVSE() {
+      return false;
     }
 }

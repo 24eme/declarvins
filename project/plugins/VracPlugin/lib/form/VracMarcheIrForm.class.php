@@ -9,12 +9,10 @@ class VracMarcheIrForm extends VracMarcheForm
 		$this->getWidget('prix_total_unitaire')->setDefault($this->getObject()->getTotalUnitaire());
 		$this->setValidator('poids', new sfValidatorNumber(array('required' => false)));
 		$this->setValidator('delai_paiement', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getDelaisPaiement()))));
-        
-		
 		$this->setWidget('delai_paiement_autre', new sfWidgetFormInputText());
 		$this->getWidget('delai_paiement_autre')->setLabel('précisez le délai*:');
 		$this->setValidator('delai_paiement_autre', new sfValidatorString(array('required' => false)));
-		
+		unset($this['clause_reserve_retiraison'], $this['date_debut_retiraison']);
         $this->validatorSchema->setPostValidator(new VracMarcheValidator());
     }
     protected function doUpdateObject($values) {
