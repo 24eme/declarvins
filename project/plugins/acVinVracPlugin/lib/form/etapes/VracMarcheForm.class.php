@@ -3,11 +3,15 @@ class VracMarcheForm extends VracForm
 {
    	public function configure()
     {   		
+   	    $typePrix1 = array('definitif' => 'Définitif', 'non_definitif' => 'Prix non définitif');
+   	    $typePrix2 = array('objectif' => 'D\'objectif', 'acompte' => 'D\'acompte');
+   	    
     		$this->setWidgets(array(
         	'has_cotisation_cvo' => new sfWidgetFormInputHidden(array('default' => 1)),
         	'volume_propose' => new sfWidgetFormInputFloat(),
         	'prix_unitaire' => new sfWidgetFormInputFloat(),
-        	'type_prix' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getTypesPrix())),
+        	'type_prix_1' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $typePrix1)),
+    		'type_prix_2' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $typePrix2)),
         	'determination_prix' => new sfWidgetFormTextarea(),
         	'determination_prix_date' => new sfWidgetFormInputText(),
         	'prix_total' => new sfWidgetFormInputHidden(),
@@ -24,7 +28,8 @@ class VracMarcheForm extends VracForm
         $this->widgetSchema->setLabels(array(
         	'has_cotisation_cvo' => 'Cvo',
         	'volume_propose' => 'Volume total proposé*:',
-        	'type_prix' => 'Type de prix*:',
+        	'type_prix_1' => 'Type de prix*:',
+        	'type_prix_2' => 'Préciser*:',
         	'determination_prix' => 'Mode de détermination du prix définitif*:',
         	'determination_prix_date' => 'Date de détermination du prix définitif*:',
         	'prix_total' => 'Prix total HT:',
@@ -44,7 +49,8 @@ class VracMarcheForm extends VracForm
         	'has_cotisation_cvo' => new ValidatorPass(),
         	'volume_propose' => new sfValidatorNumber(array('required' => true, 'min' => $min), array('min' => $minErreur)),
         	'prix_unitaire' => new sfValidatorNumber(array('required' => true)),
-        	'type_prix' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getTypesPrix()))),
+        	'type_prix_1' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($typePrix1))),
+            'type_prix_2' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($typePrix2))),
         	'determination_prix' => new sfValidatorString(array('required' => false)),
         	'determination_prix_date' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => false)),
         	'prix_total' => new sfValidatorNumber(array('required' => false)),
@@ -102,6 +108,8 @@ class VracMarcheForm extends VracForm
         	$this->getObject()->produit_libelle = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles());
         	
         }
+        
+        $this->getObject()->type_prix = ($values['type_prix_1'] == 'non_definitif' && isset($values['type_prix_2']))? $values['type_prix_2'] : 'definitif';
 
         if (!in_array($this->getObject()->type_prix, $this->getTypePrixNeedDetermination())) {
           $this->getObject()->determination_prix = null;
@@ -133,7 +141,14 @@ class VracMarcheForm extends VracForm
       }  
       if (is_null($this->getObject()->type_retiraison)) {
         $this->setDefault('type_retiraison', 'vrac');
-      }   
+      }
+      if (in_array($this->getObject()->type_prix, array('objectif', 'acompte'))) {
+          $this->setDefault('type_prix_1', 'non_definitif');
+          $this->setDefault('type_prix_2', $this->getObject()->type_prix);
+      } else {
+          $this->setDefault('type_prix_1', 'definitif');
+          $this->setDefault('type_prix_2', null);
+      }
     }
     
     public function getCepages()

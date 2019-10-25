@@ -35,17 +35,22 @@
                 <?php echo $form['prix_total_unitaire']->render(array('disabled' => 'disabled')) ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
             </div>
             <?php endif; ?>
-            <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="<?php if (isset($form['mercuriale_mois']) && isset($form['mercuriale_annee']) && isset($form['variation_hausse']) && isset($form['variation_baisse'])): ?>#bloc_vrac_mercuriale|#bloc_vrac_var_baisse|#bloc_vrac_var_hausse|<?php endif; ?>#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date">
-                <?php echo $form['type_prix']->renderError() ?>
-                <?php echo $form['type_prix']->renderLabel() ?>
-                <?php echo $form['type_prix']->render() ?> 
+            <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date">
+                <?php echo $form['type_prix_1']->renderError() ?>
+                <?php echo $form['type_prix_1']->renderLabel() ?>
+                <?php echo $form['type_prix_1']->render() ?> 
             </div>
-            <div id="bloc_vrac_determination_prix_date" class="section_label_strong bloc_conditionner" data-condition-value="<?php echo implode("|", $form->getTypePrixNeedDetermination()) ?>">
+            <div id="bloc_vrac_type_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
+                <?php echo $form['type_prix_2']->renderError() ?>
+                <?php echo $form['type_prix_2']->renderLabel() ?>
+                <?php echo $form['type_prix_2']->render() ?> 
+            </div>
+            <div id="bloc_vrac_determination_prix_date" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
                 <?php echo $form['determination_prix_date']->renderError() ?>
                 <?php echo $form['determination_prix_date']->renderLabel('Date de détermination du prix définitif*: <a href="" class="msg_aide" data-msg="help_popup_vrac_determination_prix_date" title="Message aide"></a>') ?>
                 <?php echo $form['determination_prix_date']->render(array('class' => 'datepicker')) ?> 
             </div>
-            <div id="bloc_vrac_determination_prix" class="section_label_strong bloc_conditionner" data-condition-value="<?php echo implode("|", $form->getTypePrixNeedDetermination()) ?>">
+            <div id="bloc_vrac_determination_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
                 <?php echo $form['determination_prix']->renderError() ?>
                 <?php echo $form['determination_prix']->renderLabel('Modalité de fixation du prix définitif ou de révision du prix* (celui-ci sera communiqué à l\'interprofession par les parties au contrat)') ?>
                 <?php echo $form['determination_prix']->render(array("style" => "height: 60px;")) ?> 
