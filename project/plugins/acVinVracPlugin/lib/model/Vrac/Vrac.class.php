@@ -258,7 +258,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
     
     public function getTotalUnitaire() {
-    	return round($this->prix_unitaire + $this->getCvoUnitaire(), 2);
+    	return ($this->type_transaction == 'vrac' && $this->isConditionneIr())? round($this->prix_unitaire + $this->getCvoUnitaire(), 2) : round($this->prix_unitaire, 2);
     }
     
     public function setDetailProduit($produit)
@@ -301,7 +301,7 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     }
     
     public function getPrixTotalCalc() {
-        return ($this->type_transaction != 'raisin')? round($this->prix_unitaire * $this->volume_propose, 2) : round($this->poids * $this->prix_unitaire, 2);
+        return round($this->getTotalUnitaire() * $this->volume_propose, 2);
     }
     
     public function normalizeNumeric()

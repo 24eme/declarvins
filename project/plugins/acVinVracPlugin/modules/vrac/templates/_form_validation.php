@@ -126,7 +126,7 @@
 
 		$('#recap_saisie').submit(function() {
 			if (showConfirme)
-		    	return confirm("Vous êtes sur le point de valider un contrat <?php echo $form->getObject()->type_transaction ?>\n\nde <?php echoArialFloat($form->getObject()->prix_unitaire) ?> <?php if($form->getObject()->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€(HT)/kg soit <?php echoArialFloat($form->getObject()->poids * $form->getObject()->prix_unitaire / $form->getObject()->volume_propose) ?> €(HT)/hl<?php endif;?> pour <?php echoArialFloat($form->getObject()->volume_propose) ?> hl proposé\n\nSoit un prix total de <?php echoArialFloat($form->getObject()->getPrixTotalCalc()) ?> €(HT)");
+		    	return confirm("Vous êtes sur le point de valider un contrat <?php echo $form->getObject()->type_transaction ?>\n\nde <?php echoArialFloat($form->getObject()->getTotalUnitaire()) ?> € HT / <?php if($form->getObject()->type_transaction != 'raisin'): ?>HL<?php else: ?>Kg<?php endif; ?> pour <?php echoArialFloat($form->getObject()->volume_propose) ?> <?php if($form->getObject()->type_transaction != 'raisin'): ?>HL<?php else: ?>Kg<?php endif; ?> proposé\n\nSoit un prix total de <?php echoArialFloat($form->getObject()->getPrixTotalCalc()) ?> € HT");
 			else
 				return true;
 		});

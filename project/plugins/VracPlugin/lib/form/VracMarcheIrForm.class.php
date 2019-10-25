@@ -19,9 +19,6 @@ class VracMarcheIrForm extends VracMarcheForm
     }
     protected function doUpdateObject($values) {
     	parent::doUpdateObject($values);
-    	if ($this->getObject()->type_transaction == 'raisin') {
-    		$this->getObject()->prix_total_unitaire = $this->getObject()->prix_unitaire;
-    	} 
     	$this->getObject()->has_cotisation_cvo = 1;
     }
     protected function updateDefaultsFromObject() {

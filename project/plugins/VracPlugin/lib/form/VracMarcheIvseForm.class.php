@@ -25,9 +25,6 @@ class VracMarcheIvseForm extends VracMarcheForm
         }
     	parent::doUpdateObject($values);
     	$this->getObject()->has_cotisation_cvo = 1;
-    	if ($this->getObject()->type_transaction == 'raisin') {
-    		$this->getObject()->prix_total_unitaire = $this->getObject()->prix_unitaire;
-    	} 
     }
     protected function updateDefaultsFromObject() {
       parent::updateDefaultsFromObject();

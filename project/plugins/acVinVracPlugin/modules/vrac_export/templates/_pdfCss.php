@@ -21,6 +21,10 @@
 	p {
 		margin-top: 5px;
 	}
+	.clauses p {
+		margin-top: 0px;
+		margin-bottom: 5px;
+	}
 
 	#header,
 	#footer {
