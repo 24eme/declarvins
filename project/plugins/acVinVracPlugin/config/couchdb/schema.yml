@@ -201,6 +201,7 @@ Vrac:
       mentions_libelle: {  }
       mentions_libelle_autre: {  }
       mentions_libelle_chdo: {  }
+      mentions_libelle_marque: {  }
       volume_propose: { type: float }
       poids: { type: float }
       annexe: {  }

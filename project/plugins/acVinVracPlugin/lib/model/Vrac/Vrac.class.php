@@ -30,6 +30,25 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     	return $id;
     }
+    
+    public function getLibellesMentions()
+    {
+        $mentions = $this->getMentions();
+        $result = array();
+        foreach ($mentions as $mention) {
+            if ($mention == 'autre') {
+                $mention = $this->mentions_libelle_autre;
+            }
+            if ($mention == 'chdo') {
+                $mention = $this->mentions_libelle_chdo;
+            }
+            if ($mention == 'marque') {
+                $mention = $this->mentions_libelle_marque;
+            }
+            $result[] = $mention;
+        }
+        return $result;
+    }
 
     public function getProduitObject() 
     {
