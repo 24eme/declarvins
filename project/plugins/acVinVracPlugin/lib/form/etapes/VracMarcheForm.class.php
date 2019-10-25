@@ -6,7 +6,6 @@ class VracMarcheForm extends VracForm
     		$this->setWidgets(array(
         	'has_cotisation_cvo' => new sfWidgetFormInputHidden(array('default' => 1)),
         	'volume_propose' => new sfWidgetFormInputFloat(),
-        	'poids' => new sfWidgetFormInputFloat(),
         	'prix_unitaire' => new sfWidgetFormInputFloat(),
         	'type_prix' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getTypesPrix())),
         	'determination_prix' => new sfWidgetFormTextarea(),
@@ -25,8 +24,6 @@ class VracMarcheForm extends VracForm
         $this->widgetSchema->setLabels(array(
         	'has_cotisation_cvo' => 'Cvo',
         	'volume_propose' => 'Volume total proposé*:',
-        	'poids' => 'Poids*:',
-        	'prix_unitaire' => 'Prix unitaire net HT hors cotisation*:',
         	'type_prix' => 'Type de prix*:',
         	'determination_prix' => 'Mode de détermination du prix définitif*:',
         	'determination_prix_date' => 'Date de détermination du prix définitif*:',
@@ -46,7 +43,6 @@ class VracMarcheForm extends VracForm
         $this->setValidators(array(
         	'has_cotisation_cvo' => new ValidatorPass(),
         	'volume_propose' => new sfValidatorNumber(array('required' => true, 'min' => $min), array('min' => $minErreur)),
-        	'poids' => new sfValidatorNumber(array('required' => false)),
         	'prix_unitaire' => new sfValidatorNumber(array('required' => true)),
         	'type_prix' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getTypesPrix()))),
         	'determination_prix' => new sfValidatorString(array('required' => false)),
@@ -72,6 +68,12 @@ class VracMarcheForm extends VracForm
     		$this->setWidget('cepages', new sfWidgetFormChoice(array('choices' => $cepages), array('class' => 'autocomplete')));
     		$this->widgetSchema->setLabel('cepages', 'Cépage:');
     		$this->setValidator('cepages', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($cepages))));
+    	}
+    	
+    	if ($this->getObject()->type_transaction != 'raisin') {
+    	    $this->getWidget('prix_unitaire')->setLabel('Prix unitaire net HT hors cotisation*:');
+    	} else {
+    	    $this->getWidget('prix_unitaire')->setLabel('Prix unitaire net HT*:');
     	}
     		
   		    $this->validatorSchema->setPostValidator(new VracMarcheValidator());
@@ -105,6 +107,9 @@ class VracMarcheForm extends VracForm
           $this->getObject()->determination_prix = null;
           $this->getObject()->determination_prix_date = null;
         }
+    	if ($this->getObject()->type_transaction == 'raisin') {
+    		$this->getObject()->poids = $this->getObject()->volume_propose;
+    	} 
         
         $this->getObject()->update();
     }
