@@ -178,6 +178,28 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	}
     	return false;
     }
+    
+    public function isConditionneIr()
+    {
+    	if ($interpro = $this->getProduitInterpro()) {
+    		if ($interpro->identifiant == 'IR') {
+    			return true;
+    		}
+    	}
+    	return false;
+        
+    }
+    
+    public function isConditionneCivp()
+    {
+    	if ($interpro = $this->getProduitInterpro()) {
+    		if ($interpro->identifiant == 'CIVP') {
+    			return true;
+    		}
+    	}
+    	return false;
+        
+    }
 
     public function storeSoussignesInformations() {
     	$acheteur = $this->getAcheteurObject();

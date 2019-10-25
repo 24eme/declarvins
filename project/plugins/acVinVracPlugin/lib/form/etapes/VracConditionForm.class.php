@@ -42,8 +42,6 @@ class VracConditionForm extends VracForm
             unset($this['type_transaction']);
         }
   		
-		$this->setWidget('volume_propose', new sfWidgetFormInputHidden());
-		$this->setValidator('volume_propose', new ValidatorPass());
   		$this->validatorSchema->setPostValidator(new VracConditionValidator());
   		$this->widgetSchema->setNameFormat('vrac_condition[%s]');
     }
@@ -54,10 +52,9 @@ class VracConditionForm extends VracForm
           $values['reference_contrat_pluriannuel'] = null;
       }
       parent::doUpdateObject($values); 
-        if (!$this->getObject()->annexe) {
-        	$this->getObject()->annexe = 0;
-        }
-
+      if (!$this->getObject()->annexe) {
+          $this->getObject()->annexe = 0;
+      }
         $types_transaction = $this->getTypesTransaction();
         if (count($types_transaction) == 1) {
             foreach($types_transaction as $key => $value) {

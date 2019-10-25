@@ -92,11 +92,7 @@
 		</div>
 		<?php endif; ?>
 		<div class="ligne_form_btn">
-			<?php if($form->getObject()->has_transaction): ?>
-				<a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'transaction', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a>
-			<?php else: ?>
-				<a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'condition', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a>
-			<?php endif; ?>
+			<a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'clause', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a>
 			<button id="brouillon" style="text-transform: uppercase; color: #FFFFFF; height: 21px; line-height: 21px; font-weight: bold; padding: 0 10px; background-color: #989898; border: 1px solid  #ECEBEB;" type="submit"><span>Sauvegarder le brouillon</span></button>
 			<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$form->getObject()->isRectificative()): ?>
 				<button id="no_mail" style="text-transform: uppercase; color: #FFFFFF; height: 21px; line-height: 21px; font-weight: bold; padding: 0 10px; background-color: #FF9F00; border: 1px solid #D68500;" type="submit"><span>Valider sans e-mail</span></button>

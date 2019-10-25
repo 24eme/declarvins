@@ -5,13 +5,16 @@ class VracMarcheIvseForm extends VracMarcheForm
         parent::configure();
 		$this->getWidget('conditions_paiement')->setLabel('Conditions de vente:');
 		$this->getValidator('conditions_paiement')->setOption('required', false);
+		
 		$this->setWidget('prix_total_unitaire', new sfWidgetFormInputFloat());
 		$this->setValidator('prix_total_unitaire', new sfValidatorNumber(array('required' => false)));
+		
 		$this->getWidget('prix_total_unitaire')->setLabel('Prix unitaire total HT:');
 		$this->getWidget('prix_total_unitaire')->setDefault($this->getObject()->getTotalUnitaire());
 		$this->getWidget('conditions_paiement')->setOption('multiple', true);
         $this->getValidator('conditions_paiement')->setOption('multiple', true);
-		$this->setWidget('vin_livre', new sfWidgetFormInputHidden());
+
+        unset($this['clause_reserve_retiraison'], $this['vin_livre']);
 		if ($this->getObject()->type_transaction == 'raisin') {
 		   unset($this['prix_total_unitaire']);
 		}

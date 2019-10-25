@@ -12,6 +12,9 @@ class VracMarcheCivpForm extends VracMarcheForm
         $this->getValidator('conditions_paiement')->setOption('multiple', true);
     }
     protected function doUpdateObject($values) {
+        if (isset($values['conditions_paiement']) && !empty($values['conditions_paiement']) && is_array($values['conditions_paiement'])) {
+            $values['conditions_paiement'] = current($values['conditions_paiement']);
+        }
     	parent::doUpdateObject($values);
     	$this->getObject()->has_cotisation_cvo = 0;
     }

@@ -56,4 +56,17 @@ class VracClauseForm extends VracForm
 
         $vrac->update();
     }
+    protected function updateDefaultsFromObject() {
+      parent::updateDefaultsFromObject(); 
+      $complements = explode(',', $this->getObject()->clauses_complementaires);
+      if (!in_array('emission_facture', $complements)) {
+          $this->setDefault('emission_facture', 1);
+      }
+      if (!in_array('agreage_vins', $complements)) {
+          $this->setDefault('agreage_vins', 1);
+      }
+      if (!in_array('transfert_propriete', $complements)) {
+          $this->setDefault('transfert_propriete', 1);
+      }
+    }
 }

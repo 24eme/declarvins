@@ -62,7 +62,7 @@
                 <?php echo $form['conditions_paiement']->render() ?>
             </div>
             <div id="bloc_vrac_paiements" class="table_container bloc_conditionner" data-condition-value="<?php echo $form->getCgpEcheancierNeedDetermination() ?>">
-            	<!--  <p>Rappel du volume total proposé : <strong><?php echo $form->getObject()->volume_propose ?>&nbsp;hl</strong></p>  -->
+            	<p>Nombre d'échéances prévues : <input type="text" name="echeances" id="echeances" /> <input id="generateur" type="button" value="générer" /></p>
                 <table id="table_paiements">
                     <thead>
                         <tr>
@@ -78,7 +78,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="3"><a class="btn_ajouter_ligne_template" data-container="#table_paiements tbody" data-template="#template_form_paiements_item" href="#"><span>Ajouter</span></a></td>
+                            <td colspan="3"><a id="table_paiements_add" class="btn_ajouter_ligne_template" data-container="#table_paiements tbody" data-template="#template_form_paiements_item" href="#"><span>Ajouter</span></a></td>
                             <td></td>
                         </tr>
                     </tfoot>
@@ -155,3 +155,38 @@
 <?php include_partial('form_collection_template', array('partial' => 'form_paiements_item',
     'form' => $form->getFormTemplatePaiements()));
 ?>
+<script type="text/javascript">
+$( document ).ready(function() {
+	$("#generateur").click(function() {
+		var nbEcheances = parseInt($("#echeances").val());
+		var prix = parseFloat($('#vrac_marche_prix_unitaire').val());
+        var prixTotal = parseFloat($('#vrac_marche_prix_total_unitaire').val());
+        if (!isNaN(prixTotal) && prixTotal > 0) {
+        	prix = prixTotal;
+        }
+        var volume = parseFloat($('#vrac_marche_volume_propose').val());
+        var total = 0;
+        if (!isNaN(prix) && !isNaN(volume)) {
+        	total = parseFloat(prix*volume).toFixed(2);
+        	if (isNaN(total)) {
+        		total = 0;
+        	}
+        }
+		if(!isNaN(nbEcheances) && nbEcheances > 0) {
+			var echeance;
+			if (total > 0) {
+				echeance = parseFloat(total/nbEcheances).toFixed(2);;
+			}
+			$('#table_paiements tbody').html('');
+			for (var i=0;i<nbEcheances;i++) {
+				$("#table_paiements_add").trigger( "click" );
+			}
+			if (echeance) {
+    			$('#table_paiements tbody input.num_float').each(function () {
+    				$(this).val(echeance);
+    			})
+			}
+		}
+    });
+});
+</script>

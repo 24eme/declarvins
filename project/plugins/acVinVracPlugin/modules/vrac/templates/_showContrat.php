@@ -5,11 +5,11 @@
 			<li>
 				<span>Vendeur :</span>
 				<span>
-					<?php if($vrac->vendeur->nom): ?>
+					<?php if($vrac->vendeur->nom && !$vrac->vendeur->raison_sociale): ?>
 						<?php echo $vrac->vendeur->nom ?>
 					<?php endif; ?>
 					<?php if($vrac->vendeur->raison_sociale): ?>
-						<?php echo ($vrac->vendeur->nom)? ' / '.$vrac->vendeur->raison_sociale : $vrac->vendeur->raison_sociale; ?>
+						<?php echo $vrac->vendeur->raison_sociale; ?>
 					<?php endif; ?>
 					<?php echo ($vrac->vendeur->famille)? ' - '.ucfirst(($vrac->vendeur->famille)) : ''; ?>
 					<?php echo ($vrac->vendeur->sous_famille)? ' '.ucfirst(($vrac->vendeur->sous_famille)) : ''; ?>
@@ -19,11 +19,11 @@
 			<li>
 				<span>Acheteur :</span>
 				<span>
-					<?php if($vrac->acheteur->nom): ?>
+					<?php if($vrac->acheteur->nom && !$vrac->acheteur->raison_sociale): ?>
 						<?php echo $vrac->acheteur->nom ?>
 					<?php endif; ?>
 					<?php if($vrac->acheteur->raison_sociale): ?>
-						<?php echo ($vrac->acheteur->nom)? ' / '.$vrac->acheteur->raison_sociale : $vrac->acheteur->raison_sociale; ?>
+						<?php echo $vrac->acheteur->raison_sociale; ?>
 					<?php endif; ?>
 					<?php echo ($vrac->acheteur->famille)? ' - '.ucfirst(($vrac->acheteur->famille)) : ''; ?>
 					<?php echo ($vrac->acheteur->sous_famille)? ' '.ucfirst(($vrac->acheteur->sous_famille)) : ''; ?>
@@ -34,11 +34,11 @@
 			<li>
 				<span>Courtier :</span>
 				<span>
-					<?php if($vrac->mandataire->nom): ?>
+					<?php if($vrac->mandataire->nom && !$vrac->mandataire->raison_sociale): ?>
 						<?php echo $vrac->mandataire->nom ?>
 					<?php endif; ?>
 					<?php if($vrac->mandataire->raison_sociale): ?>
-						<?php echo ($vrac->mandataire->nom)? ' / '.$vrac->mandataire->raison_sociale : $vrac->mandataire->raison_sociale; ?>
+						<?php echo $vrac->mandataire->raison_sociale; ?>
 					<?php endif; ?>
 				</span>
 			</li>
@@ -99,14 +99,18 @@
 				<span>Expédition export :</span>
 				<span><?php echo ($vrac->export)? 'Oui' : 'Non'; ?></span>
 			</li>
+			<?php if(!$vrac->isConditionneIr()): ?>
 			<li>
 				<span>Première mise en marché :</span>
 				<span><?php echo ($vrac->premiere_mise_en_marche)? 'Oui' : 'Non'; ?></span>
 			</li>
+			<?php endif; ?>
+			<?php if($vrac->isConditionneCivp()): ?>
 			<li>
 				<span>Entre bailleur et métayer :</span>
 				<span><?php echo ($vrac->bailleur_metayer)? 'Oui' : 'Non'; ?></span>
 			</li>
+			<?php endif; ?>
 			<?php if ($vrac->annexe): ?>
 			<li>
 				<span>Présence d'une annexe :</span>
@@ -143,16 +147,16 @@
 				<span>Type de prix :</span>
 				<span><?php echo $configurationVrac->formatTypesPrixLibelle(array($vrac->type_prix)) ?></span>
 			</li>
-			<?php if ($vrac->determination_prix): ?>
-			<li>
-				<span>Mode de détermination du prix :</span>
-				<span><?php echo $vrac->determination_prix ?></span>
-			</li>
-			<?php endif; ?>
 			<?php if ($vrac->determination_prix_date): ?>
 			<li>
 				<span>Date de détermination du prix :</span>
 				<span><?php echo Date::francizeDate($vrac->determination_prix_date) ?></span>
+			</li>
+			<?php endif; ?>
+			<?php if ($vrac->determination_prix): ?>
+			<li>
+				<span>Mode de détermination du prix :</span>
+				<span><?php echo $vrac->determination_prix ?></span>
 			</li>
 			<?php endif; ?>
 			<li>
@@ -161,7 +165,9 @@
 			</li>			
 			<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_ECHEANCIER): ?>
 			<li>
-				<table id="table_paiements">
+				<span>Echéancier :</span>
+				<span>
+				<table id="table_paiements" style="display: inline;">
 					<thead>
 						<tr>
 							<th>Date</th>
@@ -177,12 +183,13 @@
 						<?php endforeach; ?>
 		            </tbody>
 		        </table>
+		        </span>
 			</li>
 			<?php endif; ?>
 			<?php if(!is_null($vrac->delai_paiement)): ?>
 			<li>
 				<span>Delai de paiement :</span>
-				<span><?php echo $configurationVrac->formatDelaisPaiementLibelle(array($vrac->delai_paiement)) ?></span>
+				<span><?php echo $configurationVrac->formatDelaisPaiementLibelle(array(str_replace('autre', $vrac->delai_paiement_autre, $vrac->delai_paiement))) ?></span>
 			</li>
 			<?php endif; ?>
 			
@@ -192,12 +199,18 @@
 		<?php endif; ?>
     </li>
     <li<?php if (!$vrac->has_transaction): ?> style="margin: 0;"<?php endif; ?>>
-		<h3>Mode et date de reiraison / livraison</h3>
+		<h3>Mode et date de retiraison / livraison</h3>
         <ul>
-			<?php if (!$vrac->isConditionneIvse() && $vrac->vin_livre): ?>
+			<?php if (!$vrac->isConditionneIvse()): ?>
 			<li>
 				<span>Le vin sera :</span>
 				<span><?php $statut = VracClient::getInstance()->getStatutsVin(); echo $statut[$vrac->vin_livre] ?></span>
+			</li>
+			<?php endif; ?>
+			<?php if($vrac->type_retiraison): ?>
+			<li>
+				<span>Type de retiraison:</span>
+				<span><?php echo $configurationVrac->formatTypesRetiraisonLibelle(array($vrac->type_retiraison)) ?></span>
 			</li>
 			<?php endif; ?>
 			<?php if($vrac->date_debut_retiraison): ?>
@@ -314,8 +327,30 @@
 		<?php endif; ?>
 	</li>
     <?php endif; ?>
+    <?php if ($vrac->clauses_complementaires || $vrac->autres_conditions): ?>
+	<li>
+	    <h3>Clauses</h3>
+        <ul>
+        	<?php if ($vrac->clauses_complementaires): ?>
+			<li>
+				<span>Complémentaire(s) :</span>
+				<span><?php echo str_replace(array('_', ','), array(' ', ', '), $vrac->clauses_complementaires) ?></span>
+			</li>
+			<?php endif ?>
+			<?php if ($vrac->autres_conditions): ?>
+			<li>
+				<span>Autres conditions :</span>
+				<span><?php echo $vrac->autres_conditions ?></span>
+			</li>
+			<?php endif ?>
+		</ul>
+    		<?php if($editer_etape): ?>
+    			<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'clause', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
+    		<?php endif; ?>
+	</li>
+	<?php endif; ?>
     <?php if ($vrac->hasEnlevements() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
-    <li id="recap_enlevements" style="margin-top: 45px;">
+    <li id="recap_enlevements" style="margin-top: 15px;">
 		<h3>Enlevements</h3>
 		<ul>
 			<?php 

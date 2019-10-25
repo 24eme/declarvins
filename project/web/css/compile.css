@@ -3689,7 +3689,7 @@ p#date_drm {
 .vracs .popup_form#recap_saisie ol li {
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 45px;
+  margin-bottom: 15px;
 }
 .ielt8 .vracs .popup_form#recap_saisie ol li {
   vertical-align: top;
@@ -3810,8 +3810,7 @@ p#date_drm {
 .vracs h2 {
   font-size: 15px;
   font-weight: bold;
-  height: 35px;
-  padding-top: 4px;
+  padding: 15px 0px 5px 0px;
   text-transform: uppercase;
 }
 .vracs #contrats_etapes {

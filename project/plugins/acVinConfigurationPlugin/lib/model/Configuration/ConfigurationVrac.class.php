@@ -56,6 +56,12 @@ class ConfigurationVrac extends BaseConfigurationVrac {
       $libelles = $this->getLibelles($types, 'types_transaction');
       return str_replace("%tr%", implode($separator, $libelles), $format);
     }
+    
+    public function formatTypesRetiraisonLibelle($types, $format = "%ty%", $separator = ", ") {
+      $libelles = $this->getLibelles($types, 'types_retiraison');
+      return str_replace("%ty%", implode($separator, $libelles), $format);
+        
+    }
 
     public function formatTypesPrixLibelle($types, $format = "%pr%", $separator = ", ") {
       $libelles = $this->getLibelles($types, 'types_prix');

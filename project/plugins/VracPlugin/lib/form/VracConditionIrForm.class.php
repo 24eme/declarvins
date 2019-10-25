@@ -11,5 +11,6 @@ class VracConditionIrForm extends VracConditionForm
     protected function doUpdateObject($values) {
     	parent::doUpdateObject($values);
     	$this->getObject()->premiere_mise_en_marche = 1;
+    	$this->getObject()->has_transaction = 0;
     }
 }
