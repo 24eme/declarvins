@@ -81,80 +81,89 @@
 			<?php endif; ?>
 		</tr>
 	</table>
-	<h2>Produit</h2>
-	<p><?php echo $configurationVrac->formatTypesTransactionLibelle(array($vrac->type_transaction)); ?>, <?php echo ($vrac->produit)? $vrac->getLibelleProduit("%a% %l% %co% %ce%") : null; ?>&nbsp;<?php echo ($vrac->millesime)? $vrac->millesime.'&nbsp;' : ''; ?><p>
-	<p><?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)).'&nbsp;' : ''; ?><?php echo (count($vrac->mentions) > 0)? $configurationVrac->formatMentionsLibelle($vrac->mentions) : ''; ?></p>
-	<p>Annexe technique : <?php echo ($vrac->annexe)? 'Oui' : 'Non'; ?>, Export : <?php echo ($vrac->export)? 'Oui' : 'Non'; ?></p>
+	<h2>Produit / Qualité / Origine</h2>
+	<p>Contrat de <?php echo $configurationVrac->formatTypesTransactionLibelle(array($vrac->type_transaction)); ?> de <?php echo ($vrac->produit)? $vrac->getLibelleProduit("%a% %l% %co% %ce%") : null; ?>&nbsp;<?php echo ($vrac->millesime)? $vrac->millesime.'&nbsp;' : ''; ?></p>
+	<p>Mention(s) : <?php echo ($vrac->getLibellesMentions())? $configurationVrac->formatMentionsLibelle($vrac->getLibellesMentions()) : '-'; ?></p>
+	<p>Certification(s)/Label(s) : <?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)) : ($vrac->labels_arr)? str_replace('Autre', $vrac->labels_libelle_autre, $configurationVrac->formatLabelsLibelle($vrac->labels_arr)) : '-'; ?></p>
 	
 	<h2>Conditions</h2>
-	
-	<p>Volume total : <?php echoFloat($vrac->volume_propose) ?>&nbsp;hl</p>
-	<?php if($vrac->type_transaction == 'raisin'): ?>
-	<p>Poids total : <?php echoFloat($vrac->poids) ?>&nbsp;kg</p>
-	<?php endif;?>
+	<p><?php if($vrac->type_transaction == 'raisin'): ?>Quantité<?php else: ?>Volume<?php endif; ?> total<?php if($vrac->type_transaction == 'raisin'): ?>e<?php endif; ?> : <?php echoFloat($vrac->volume_propose) ?>&nbsp;<?php if($vrac->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></p>
 	<p>Date de début de retiraison : <?php if ($vrac->date_debut_retiraison): ?><?php echo Date::francizeDate($vrac->date_debut_retiraison) ?><?php endif; ?></p>
-	<p>Autres observations : <?php if ($vrac->exist('observations') && $vrac->observations): ?><?php echo $vrac->observations ?><?php endif; ?><br /></p>
+	<p>Observations : <?php if ($vrac->exist('observations') && $vrac->observations): ?><?php echo $vrac->observations ?><?php endif; ?><br /></p>
 	
 	<?php if ($vrac->has_transaction): ?>
 	<hr />
 	<h2>Descriptif des lots</h2>
+	<?php $item = 1; foreach ($vrac->lots as $lot): ?>
+		<div id="lots">
+		<table>
+		<tr>
+			<th rowspan="5" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
+			<th rowspan="2" class="cuves">Cuves</th>
+			<th>N° des cuves</th>
+			<th>Volume (hl)</th>
+			<th>Date de retiraison</th>
+		</tr>
 
-	
+		<?php $i=1; ?>
+		<?php foreach ($lot->cuves as $cuve): ?>
+		<tr class="<?php if($i==sizeof($lot->cuves)) echo 'der_cat'; ?>">
+			<td><?php echo $cuve->numero ?></td>
+			<td><?php if ($cuve->volume) {echoLongFloat($cuve->volume);} ?>&nbsp;hl</td>
+			<td><?php echo Date::francizeDate($cuve->date) ?></td>
+		</tr>
+		<?php $i++; ?>
+		<?php endforeach; ?>
 
-		<?php $item = 1; foreach ($vrac->lots as $lot): ?>
-			<div id="lots">
-			<table>
-			<tr>
-				<th rowspan="5" class="num_lot">Lot n° <?php echo $lot->numero ?></th>
-				<th rowspan="2" class="cuves">Cuves</th>
-				<th>N° des cuves</th>
-				<th>Volume (hl)</th>
-				<th>Date de retiraison</th>
-			</tr>
+		<?php if($lot->assemblage): ?>
+		<tr class="der_cat">
+			<th class="degre">Assemblage de millésimes</th>
+			<td colspan="3">
+			<?php $j=0; foreach ($lot->millesimes as $millesime): ?>
+			<?php echo $millesime->annee ?> (<?php echo $millesime->pourcentage ?>%)
+			<?php if ($j < (sizeof($lot->millesimes) - 1)): ?> - <?php endif; ?>
+			<?php $j++; endforeach; ?>
+			</td>
+		</tr>
 
-			<?php $i=1; ?>
-			<?php foreach ($lot->cuves as $cuve): ?>
-			<tr class="<?php if($i==sizeof($lot->cuves)) echo 'der_cat'; ?>">
-				<td><?php echo $cuve->numero ?></td>
-				<td><?php if ($cuve->volume) {echoLongFloat($cuve->volume);} ?>&nbsp;hl</td>
-				<td><?php echo Date::francizeDate($cuve->date) ?></td>
-			</tr>
-			<?php $i++; ?>
-			<?php endforeach; ?>
+		<?php endif; ?>
 
-			<?php if($lot->assemblage): ?>
-			<tr class="der_cat">
-				<th class="degre">Assemblage de millésimes</th>
-				<td colspan="3">
-				<?php $j=0; foreach ($lot->millesimes as $millesime): ?>
-				<?php echo $millesime->annee ?> (<?php echo $millesime->pourcentage ?>%)
-				<?php if ($j < (sizeof($lot->millesimes) - 1)): ?> - <?php endif; ?>
-				<?php $j++; endforeach; ?>
-				</td>
-			</tr>
-
-			<?php endif; ?>
-
-			<tr class="der_cat">
-				<th class="degre">Degré</th>
-				<td><?php echo $lot->degre ?></td>
-				<td colspan="2"></td>
-			</tr>
-			<tr class="dernier">
-				<th class="allergenes">Allergènes</th>
-				<td><?php echo ($lot->presence_allergenes)? 'Oui' : 'Non'; ?></td>
-				<td colspan="2"></td>
-			</tr>
-			</table>
-			</div>
-			<?php if ($item%5 == 0) {echo "<hr />"; } $item++; endforeach; ?>
-			
+		<tr class="der_cat">
+			<th class="degre">Degré</th>
+			<td><?php echo $lot->degre ?></td>
+			<td colspan="2"></td>
+		</tr>
+		<tr class="dernier">
+			<th class="allergenes">Allergènes</th>
+			<td><?php echo ($lot->presence_allergenes)? 'Oui' : 'Non'; ?></td>
+			<td colspan="2"></td>
+		</tr>
+		</table>
+		</div>
+		<?php if ($item%5 == 0) {echo "<hr />"; } $item++; endforeach; ?>
 	<?php endif; ?>
 	
-	<?php if ($configurationVrac->getInformationsComplementaires()): ?>
-	<h2>Informations complémentaires</h2>
+	<hr />
+	<h2>Clauses</h2>
 	<div class="clauses">
-	<?php echo $configurationVrac->getInformationsComplementaires(ESC_RAW) ?>
+	<?php foreach ($configurationVrac->clauses as $clause): ?>
+    <h3><?= $clause['nom'] ?></h3>
+    <p><?= $clause['description'] ?></p>
+	<?php endforeach; ?>
+	</div>
+	<?php if($vrac->clauses_complementaires): ?>
+	<h2>Clauses complémentaires</h2>
+	<div class="clauses">
+	<?php foreach (explode(',', $vrac->clauses_complementaires) as $cc): $clause = $configurationVrac->clauses_complementaires->get($cc) ?>
+    <h3><?= $clause['nom'] ?></h3>
+    <p><?= $clause['description'] ?></p>
+	<?php endforeach; ?>
+	</div>
+	<?php endif; ?>
+	<?php if ($vrac->autres_conditions): ?>
+	<h2>Autres conditions</h2>
+	<div class="clauses">
+	<?php echo $vrac->autres_conditions ?>
 	</div>
 	<?php endif; ?>
 </body>

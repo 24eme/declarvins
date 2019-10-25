@@ -4,7 +4,7 @@
 	</div>
 	<center>
 		<h1>
-			Contrat d'achat interprofessionnel
+			<?php if ($vrac->numero_contrat): ?>Contrat<?php else: ?>Proposition<?php endif; ?> de vente interprofessionnel
 			<?php if($vrac->isRectificative()): ?>
  			- <span class="rectificative">Rectificatif <?php echo sprintf('%02d', $vrac->rectificative) ?></span>
 			<?php endif; ?>
@@ -17,22 +17,16 @@
 	   		<td width="50%" style="text-align: right;">Saisie <?php echo $vrac->getModeDeSaisieLibelle() ?></td>
 		</tr>
 		<tr>
-			<td width="50%"><?php if ($vrac->exist('bailleur_metayer') && $vrac->bailleur_metayer): ?>Entre bailleur et métayer<?php endif; ?></td>
+			<td width="50%">&nbsp;</td>
 			<td width="50%">&nbsp;</td>
 		</tr>
 		<tr>
 			<td width="50%">Saisie le <?php echo $vrac->getEuSaisieDate(); ?></td>
 			<?php if ($vrac->isValide()): ?>
-			<td width="50%" style="text-align: right;">N° de Visa du contrat : <?php echo ($vrac->isValide())? $vrac->numero_contrat : 'En attente'; ?><?php if ($vrac->isConditionneIvse()): ?><br /><span class="clauses">à reporter sur la DRM et le document d'accompagnement DAA/DAE/DSA</span><?php endif; ?></td>
+			<td width="50%" style="text-align: right;">N° de Visa du contrat : <?php echo $vrac->numero_contrat; ?></td>
 			<?php else: ?>
 			<td width="50%" style="text-align: right;">&nbsp;</td>
 			<?php endif; ?>
 		</tr>
-		<?php if ($vrac->cas_particulier != ConfigurationVrac::CAS_PARTICULIER_DEFAULT_KEY): ?>
-		<tr>
-			<td width="50%">Condition particulière : <?php echo $configurationVrac->formatCasParticulierLibelle(array($vrac->cas_particulier)); ?></td>
-			<td width="50%">&nbsp;</td>
-		</tr>
-		<?php endif; ?>
 	</table>
 </div>
