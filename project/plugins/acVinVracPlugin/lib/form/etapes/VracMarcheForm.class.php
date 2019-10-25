@@ -5,7 +5,6 @@ class VracMarcheForm extends VracForm
     {   		
     		$this->setWidgets(array(
         	'has_cotisation_cvo' => new sfWidgetFormInputHidden(array('default' => 1)),
-        	'type_transaction' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getTypesTransaction())),
         	'volume_propose' => new sfWidgetFormInputFloat(),
         	'poids' => new sfWidgetFormInputFloat(),
         	'prix_unitaire' => new sfWidgetFormInputFloat(),
@@ -20,7 +19,6 @@ class VracMarcheForm extends VracForm
     	));
         $this->widgetSchema->setLabels(array(
         	'has_cotisation_cvo' => 'Cvo',
-        	'type_transaction' => 'Type de produit:',
         	'volume_propose' => 'Volume total proposé*:',
         	'poids' => 'Poids*:',
         	'prix_unitaire' => 'Prix unitaire net HT hors cotisation*:',
@@ -37,7 +35,6 @@ class VracMarcheForm extends VracForm
         $minErreur = ($min > 1)? $min.' hl ont déjà été enlevés pour ce contrat' : $min.' hl a déjà été enlevé pour ce contrat';
         $this->setValidators(array(
         	'has_cotisation_cvo' => new ValidatorPass(),
-        	'type_transaction' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getTypesTransaction()))),
         	'volume_propose' => new sfValidatorNumber(array('required' => true, 'min' => $min), array('min' => $minErreur)),
         	'poids' => new sfValidatorNumber(array('required' => false)),
         	'prix_unitaire' => new sfValidatorNumber(array('required' => true)),
@@ -64,10 +61,6 @@ class VracMarcheForm extends VracForm
     		
   		    $this->validatorSchema->setPostValidator(new VracMarcheValidator());
     		$this->widgetSchema->setNameFormat('vrac_marche[%s]');
-
-        if (count($this->getTypesTransaction()) < 2) {
-            unset($this['type_transaction']);
-        }
     }
     protected function doUpdateObject($values) {
         if ($values['conditions_paiement'] != VracClient::ECHEANCIER_PAIEMENT) {
@@ -93,18 +86,11 @@ class VracMarcheForm extends VracForm
         	
         }
 
-        $types_transaction = $this->getTypesTransaction();
-        if (count($types_transaction) == 1) {
-            foreach($types_transaction as $key => $value) {
-                $this->getObject()->type_transaction = $key;
-            }
-        }
-
         if (!in_array($this->getObject()->type_prix, $this->getTypePrixNeedDetermination())) {
           $this->getObject()->determination_prix = null;
           $this->getObject()->determination_prix_date = null;
         }
-        $this->getObject()->type_transaction_libelle = $this->getConfiguration()->formatTypesTransactionLibelle(array($this->getObject()->type_transaction));
+        
         $this->getObject()->update();
     }
     protected function updateDefaultsFromObject() {
@@ -112,9 +98,6 @@ class VracMarcheForm extends VracForm
       
       $this->setDefault('cepages', $this->getObject()->produit);
       
-      if (is_null($this->getObject()->type_transaction)) {
-        $this->setDefault('type_transaction', VracClient::TRANSACTION_DEFAUT);
-      }      
       if (is_null($this->getObject()->type_prix)) {
         $this->setDefault('type_prix', VracClient::PRIX_DEFAUT);
       }

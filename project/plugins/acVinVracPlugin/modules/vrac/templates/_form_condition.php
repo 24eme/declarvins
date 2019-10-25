@@ -3,39 +3,12 @@
         <?php echo $form->renderGlobalErrors() ?>
         
         <div>
-        	<h1>Spécificités du contrat</h1>
-            <?php if (isset($form['premiere_mise_en_marche'])): ?>
-        	<div class="section_label_strong">
-            	<?php echo $form['premiere_mise_en_marche']->renderError() ?>
-            	<?php echo $form['premiere_mise_en_marche']->renderLabel() ?>
-            	<?php echo $form['premiere_mise_en_marche']->render() ?>
-        	</div>
-        	<?php endif; ?>
-			<?php if (isset($form['cas_particulier'])): ?>
-            <div class="section_label_strong_bloc">
-                <?php echo $form['cas_particulier']->renderError() ?>
-                <?php echo $form['cas_particulier']->renderLabel() ?>
-                <a class="msg_aide" title="Message aide" data-msg="help_popup_vrac_condition_particuliere" href=""></a>
-                <?php echo $form['cas_particulier']->render() ?>
-            </div>
-            <?php endif; ?>
-            <?php if (isset($form['bailleur_metayer'])): ?>
+        	<h1>Type</h1>
+            <?php if (isset($form['type_transaction'])): ?>
             <div class="section_label_strong">
-                <?php echo $form['bailleur_metayer']->renderError() ?>
-                <?php echo $form['bailleur_metayer']->renderLabel() ?>
-                <?php echo $form['bailleur_metayer']->render() ?>
-            </div>
-            <?php endif; ?>
-        	<div class="section_label_strong">
-            	<?php echo $form['export']->renderError() ?>
-            	<?php echo $form['export']->renderLabel() ?>
-            	<?php echo $form['export']->render() ?>
-        	</div>
-            <?php if(isset($form['annexe'])): ?>
-            <div  class="section_label_strong">
-                <?php echo $form['annexe']->renderError() ?>
-                <?php echo $form['annexe']->renderLabel() ?>
-                <?php echo $form['annexe']->render() ?>
+                <?php echo $form['type_transaction']->renderError() ?>
+                <?php echo $form['type_transaction']->renderLabel() ?>
+                <?php echo $form['type_transaction']->render() ?>
             </div>
             <?php endif; ?>
             <div  id="vrac_type_contrat" class="section_label_strong bloc_condition" data-condition-cible="#bloc_reference_pluriannuel">
@@ -48,6 +21,41 @@
                 <?php echo $form['reference_contrat_pluriannuel']->renderLabel() ?>
                 <?php echo $form['reference_contrat_pluriannuel']->render() ?>
             </div>
+        	<h1>Spécificités</h1>
+			<?php if (isset($form['cas_particulier'])): ?>
+            <div class="section_label_strong_bloc">
+                <?php echo $form['cas_particulier']->renderError() ?>
+                <?php echo $form['cas_particulier']->renderLabel() ?>
+                <a class="msg_aide" title="Message aide" data-msg="help_popup_vrac_condition_particuliere" href=""></a>
+                <?php echo $form['cas_particulier']->render() ?>
+            </div>
+            <?php endif; ?>
+            <?php if (isset($form['premiere_mise_en_marche'])): ?>
+        	<div class="section_label_strong">
+            	<?php echo $form['premiere_mise_en_marche']->renderError() ?>
+            	<?php echo $form['premiere_mise_en_marche']->renderLabel() ?>
+            	<?php echo $form['premiere_mise_en_marche']->render() ?>
+        	</div>
+        	<?php endif; ?>
+        	<div class="section_label_strong">
+            	<?php echo $form['export']->renderError() ?>
+            	<?php echo $form['export']->renderLabel() ?>
+            	<?php echo $form['export']->render() ?>
+        	</div>
+            <?php if (isset($form['bailleur_metayer'])): ?>
+            <div class="section_label_strong">
+                <?php echo $form['bailleur_metayer']->renderError() ?>
+                <?php echo $form['bailleur_metayer']->renderLabel() ?>
+                <?php echo $form['bailleur_metayer']->render() ?>
+            </div>
+            <?php endif; ?>
+            <?php if(isset($form['annexe'])): ?>
+            <div  class="section_label_strong">
+                <?php echo $form['annexe']->renderError() ?>
+                <?php echo $form['annexe']->renderLabel() ?>
+                <?php echo $form['annexe']->render() ?>
+            </div>
+            <?php endif; ?>
         </div>
         <h1>Retiraison / Enlèvement</h1>
         <div class="section_label_strong">

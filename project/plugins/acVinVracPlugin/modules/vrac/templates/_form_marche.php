@@ -16,13 +16,6 @@
                 <?php echo $form['cepages']->render() ?>
             </div>
             <?php endif; ?>
-            <?php if (isset($form['type_transaction'])): ?>
-            <div id="vrac_type_transaction" class="section_label_strong bloc_condition" data-condition-cible="#bloc_poids|#bloc_libelle_unite_prix_hl|#bloc_libelle_unite_prix_kg|#bloc_libelle_unite_cotis_kg|#bloc_libelle_unite_cotis_hl|#vrac_cotisation_interpro">
-                <?php echo $form['type_transaction']->renderError() ?>
-                <?php echo $form['type_transaction']->renderLabel() ?>
-                <?php echo $form['type_transaction']->render() ?>
-            </div>
-            <?php endif; ?>
 
         	<h1>Volume / Prix</h1>
             <div class="section_label_strong">

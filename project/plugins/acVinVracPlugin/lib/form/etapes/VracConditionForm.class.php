@@ -17,6 +17,7 @@ class VracConditionForm extends VracForm
         	'bailleur_metayer' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'annexe' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
         	'type_retiraison' => new sfWidgetFormChoice(array('choices' => $this->getChoixTypeRetiraison(),'expanded' => true)),
+        	'type_transaction' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getTypesTransaction())),
     	));
         $this->widgetSchema->setLabels(array(
         	'has_transaction' => 'je souhaite faire ma déclaration de transaction en même tant que mon contrat',
@@ -32,6 +33,7 @@ class VracConditionForm extends VracForm
             'bailleur_metayer' => 'Entre bailleur et métayer:',
         	'annexe' => 'Présence d\'une annexe (cahier des charges techniques):',
         	'type_retiraison' => 'Type de retiraison/livraison*:',
+        	'type_transaction' => 'Type de produit:',
         ));
         $this->setValidators(array(
         	'has_transaction' => new ValidatorBoolean(),
@@ -47,8 +49,13 @@ class VracConditionForm extends VracForm
             'bailleur_metayer' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'annexe' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
         	'type_retiraison' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixTypeRetiraison()))),
+        	'type_transaction' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getTypesTransaction()))),
         ));
-  		
+
+
+        if (count($this->getTypesTransaction()) < 2) {
+            unset($this['type_transaction']);
+        }
   		
 		$this->setWidget('volume_propose', new sfWidgetFormInputHidden());
 		$this->setValidator('volume_propose', new ValidatorPass());
@@ -65,6 +72,14 @@ class VracConditionForm extends VracForm
         if (!$this->getObject()->annexe) {
         	$this->getObject()->annexe = 0;
         }
+
+        $types_transaction = $this->getTypesTransaction();
+        if (count($types_transaction) == 1) {
+            foreach($types_transaction as $key => $value) {
+                $this->getObject()->type_transaction = $key;
+            }
+        }
+        $this->getObject()->type_transaction_libelle = $this->getConfiguration()->formatTypesTransactionLibelle(array($this->getObject()->type_transaction));
     }
 
     protected function updateDefaultsFromObject() {
@@ -93,6 +108,10 @@ class VracConditionForm extends VracForm
       } else {
           $this->setDefault('type_contrat', '1');
       }
+      
+      if (is_null($this->getObject()->type_transaction)) {
+        $this->setDefault('type_transaction', VracClient::TRANSACTION_DEFAUT);
+      }      
     }
 
     public function conditionneIVSE() {
