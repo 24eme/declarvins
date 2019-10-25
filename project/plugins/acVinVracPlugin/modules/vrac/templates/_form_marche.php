@@ -85,10 +85,10 @@
             <?php else: ?>
             <div class="section_label_strong">
             <?php endif; ?>
-                <p style="padding: 0 0 10px 210px;"><em><strong>Acompte obligatoire de 15%</strong> dans les 10 jours suivants la signature du contrat</em></p>
                 <?php echo $form['delai_paiement']->renderError() ?>
                 <?php echo $form['delai_paiement']->renderLabel() ?>
                 <?php echo $form['delai_paiement']->render() ?>
+                <p style="padding: 10px 0 0 210px;"><em><strong>Acompte obligatoire de 15%</strong> dans les 10 jours suivants la signature du contrat</em></p>
             </div>
             <?php endif; ?>
             <?php if(isset($form['delai_paiement_autre'])): ?>
