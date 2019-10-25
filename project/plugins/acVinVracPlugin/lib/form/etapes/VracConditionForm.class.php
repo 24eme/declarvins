@@ -8,6 +8,7 @@ class VracConditionForm extends VracForm
         	'date_debut_retiraison' => new sfWidgetFormInputText(),
         	'date_limite_retiraison' => new sfWidgetFormInputText(),
         	'vin_livre' => new sfWidgetFormChoice(array('choices' => $this->getChoixVinLivre(),'expanded' => true)),
+  		    'type_contrat' => new sfWidgetFormChoice(array('choices' => array('0' => 'Ponctuel', '1' => 'Adossé à un contrat pluriannel'),'expanded' => true)),
         	'reference_contrat_pluriannuel' => new sfWidgetFormInputText(),
         	'clause_reserve_retiraison' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
   		    'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier(), 'renderer_options' => array('formatter' => array('VracSoussigneForm', 'casParticulierFormatter')))),
@@ -21,7 +22,8 @@ class VracConditionForm extends VracForm
         	'has_transaction' => 'je souhaite faire ma déclaration de transaction en même tant que mon contrat',
         	'date_debut_retiraison' => 'Date de début de retiraison*:',
         	'date_limite_retiraison' => 'Date limite de retiraison*:',
-        	'vin_livre' => 'Le produit sera*:',
+        	'vin_livre' => 'Le produit sera:',
+        	'type_contrat' => 'Type de contrat:',
         	'reference_contrat_pluriannuel' => 'Référence du contrat pluriannuel adossé à ce contrat:',
         	'clause_reserve_retiraison' => 'Clause de reserve de propriété (si réserve, recours possible jusqu\'au paiement complet): ',
             'cas_particulier' => 'Condition particulière:',
@@ -36,6 +38,7 @@ class VracConditionForm extends VracForm
         	'date_debut_retiraison' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
         	'date_limite_retiraison' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
         	'vin_livre' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixVinLivre()))),
+            'type_contrat' => new sfValidatorChoice(array('required' => false, 'choices' => array('0','1'))),
         	'reference_contrat_pluriannuel' => new sfValidatorString(array('required' => false)),
         	'clause_reserve_retiraison' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
             'cas_particulier' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getCasParticulier()))),
@@ -55,6 +58,9 @@ class VracConditionForm extends VracForm
 
     protected function doUpdateObject($values) {
       $this->getObject()->cas_particulier_libelle = $this->getConfiguration()->formatCasParticulierLibelle(array($this->getObject()->cas_particulier));
+      if (isset($values['type_contrat']) && !$values['type_contrat']) {
+          $values['reference_contrat_pluriannuel'] = null;
+      }
       parent::doUpdateObject($values); 
         if (!$this->getObject()->annexe) {
         	$this->getObject()->annexe = 0;
@@ -81,7 +87,12 @@ class VracConditionForm extends VracForm
       }   
       if (is_null($this->getObject()->type_retiraison)) {
         $this->setDefault('type_retiraison', 'vrac');
-      }   
+      }    
+      if (is_null($this->getObject()->reference_contrat_pluriannuel)) {
+        $this->setDefault('type_contrat', '0');
+      } else {
+          $this->setDefault('type_contrat', '1');
+      }
     }
 
     public function conditionneIVSE() {
