@@ -88,8 +88,8 @@ class acVinVracActions extends sfActions
 	public function executeNouveau(sfWebRequest $request)
 	{
 		$this->vrac = $this->getRoute()->getVrac();
-                $this->etablissement = $this->getRoute()->getEtablissement();
-		$vrac = $this->getNewVrac($etablissement);
+        $this->etablissement = $this->getRoute()->getEtablissement();
+		$vrac = $this->getNewVrac($this->etablissement);
 		$this->redirect(array('sf_route' => 'vrac_etape', 
                               'sf_subject' => $vrac, 
                               'step' => $this->configurationVracEtapes->next($vrac->etape), 

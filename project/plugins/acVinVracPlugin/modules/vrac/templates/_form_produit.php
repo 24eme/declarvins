@@ -15,6 +15,39 @@
                 <?php echo $form['millesime']->renderLabel() ?>
                 <?php echo ($form->getObject()->hasVersion() && $form->getObject()->volume_enleve > 0)? $form->getObject()->millesime : $form['millesime']->render(); ?>
                 <?php echo $form['non_millesime']->render() ?>&nbsp;<label for="vrac_produit_non_millesime" style="font-weight: normal;width:auto;">Non millésimé</label>
+            </div>            
+            
+            <div id="vrac_labels" class="section_label_strong bloc_condition" data-condition-cible="#bloc_labels_libelle_autre">
+                <?php echo $form['labels_arr']->renderError() ?>
+                <?php echo $form['labels_arr']->renderLabel() ?>
+                <?php echo $form['labels_arr']->render() ?>
+            </div>
+            <div class="section_label_strong bloc_conditionner" id="bloc_labels_libelle_autre" data-condition-value="autre">
+                <?php echo $form['labels_libelle_autre']->renderError() ?>
+                <?php echo $form['labels_libelle_autre']->renderLabel() ?>
+                <?php echo $form['labels_libelle_autre']->render() ?>
+            </div>
+            <div id="vrac_mentions" class="section_label_strong bloc_condition" data-condition-cible="#bloc_mentions_libelle_autre|#bloc_mentions_libelle_chdo|#bloc_mentions_libelle_marque">
+                <?php echo $form['mentions']->renderError() ?>
+                <?php echo $form['mentions']->renderLabel('Mentions: <a href="" class="msg_aide" data-msg="help_popup_vrac_mentions" title="Message aide"></a>') ?>
+                <?php echo $form['mentions']->render() ?>
+            </div>
+            <div class="section_label_strong bloc_conditionner" id="bloc_mentions_libelle_chdo" data-condition-value="chdo">
+                <?php echo $form['mentions_libelle_chdo']->renderError() ?>
+                <?php echo $form['mentions_libelle_chdo']->renderLabel() ?>
+                <?php echo $form['mentions_libelle_chdo']->render() ?>
+                <p style="padding-left: 212px;"><em>Le vendeur autorise expressément l'Acheteur à utiliser son nom d'exploitation. Ce dernier être indiqué sur la facture et le document d'accompagnement. L'Acheteur devra respecter les exigences du décret n° 2012-655 du 4 mai 2012.</em></p>
+            </div>
+            <div class="section_label_strong bloc_conditionner" id="bloc_mentions_libelle_autre" data-condition-value="autre">
+                <?php echo $form['mentions_libelle_autre']->renderError() ?>
+                <?php echo $form['mentions_libelle_autre']->renderLabel() ?>
+                <?php echo $form['mentions_libelle_autre']->render() ?>
+            </div>
+            <div class="section_label_strong bloc_conditionner" id="bloc_mentions_libelle_marque" data-condition-value="marque">
+                <?php echo $form['mentions_libelle_marque']->renderError() ?>
+                <?php echo $form['mentions_libelle_marque']->renderLabel() ?>
+                <?php echo $form['mentions_libelle_marque']->render() ?>
+                <p style="padding-left: 212px;"><em>Le vendeur autorise expressément l'Acheteur à utiliser sa marque.</em></p>
             </div>
         </div>
 
