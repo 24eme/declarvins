@@ -30,7 +30,7 @@ class VracMarcheForm extends VracForm
         	'mentions' => 'Mentions:',
         	'volume_propose' => 'Volume total proposé*:',
         	'poids' => 'Poids*:',
-        	'prix_unitaire' => 'Prix unitaire net HT hors cotisation*:',
+            'prix_unitaire' => 'Prix unitaire net HT*:',
         	'type_prix' => 'Type de prix*:',
         	'determination_prix' => 'Mode de détermination du prix définitif*:',
         	'determination_prix_date' => 'Date de détermination du prix définitif*:',
