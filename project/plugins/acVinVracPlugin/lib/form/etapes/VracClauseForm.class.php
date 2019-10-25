@@ -21,6 +21,12 @@ class VracClauseForm extends VracForm
             ['required' => false]
         ));
 
+        $this->setWidget('autres_conditions', new sfWidgetFormTextarea(
+            [],
+            ['placeholder' => 'Saisie libre des autres conditions convenues entre les parties']
+        ));
+        $this->setValidator('autres_conditions', new sfValidatorString(['required'=>false]));
+
         $this->widgetSchema->setLabels([
             'emission_facture' => $this->text,
             'agreage_vins' => $this->text,
@@ -43,6 +49,11 @@ class VracClauseForm extends VracForm
         }
 
         $vrac->add('clauses_complementaires', implode(',', $cc));
+
+        if (isset($values['autres_conditions'])) {
+            $vrac->add('autres_conditions', $values['autres_conditions']);
+        }
+
         $vrac->update();
     }
 }

@@ -241,6 +241,7 @@ Vrac:
                   montant: { type: float }
       clause_reserve_retiraison: {  }
       clauses_complementaires: {  }
+      autres_conditions: {  }
       export: {  }
       lots:
         type: array_collection
