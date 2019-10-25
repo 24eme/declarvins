@@ -13,7 +13,7 @@
 <?php foreach ($clauses_complementaires as $key => $clause): ?>
 
     <h2><?= $clause['nom'] ?></h2>
-    <p><?= $clause['description'] ?></p>
+    <p><?= html_entity_decode($clause['description']) ?></p>
 
     <div class="section_label_strong bloc_condition">
         <?= $form[$key]->renderError() ?>
