@@ -5,9 +5,6 @@ class VracMarcheForm extends VracForm
     {   		
     		$this->setWidgets(array(
         	'has_cotisation_cvo' => new sfWidgetFormInputHidden(array('default' => 1)),
-        	'type_transaction' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getTypesTransaction())),
-        	'labels_arr' => new sfWidgetFormChoice(array('expanded' => true, 'multiple' => true, 'choices' => $this->getLabels())),
-        	'mentions' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getMentions(), 'multiple' => true)),
         	'volume_propose' => new sfWidgetFormInputFloat(),
         	'poids' => new sfWidgetFormInputFloat(),
         	'prix_unitaire' => new sfWidgetFormInputFloat(),
@@ -19,15 +16,14 @@ class VracMarcheForm extends VracForm
 	        'repartition_cvo_acheteur' => new sfWidgetFormInputHidden(array('default' => ConfigurationVrac::REPARTITION_CVO_ACHETEUR)),
     		'conditions_paiement' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getConditionsPaiement(), 'multiple' => false)),
     		'delai_paiement' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getDelaisPaiement())),
-    		'labels_libelle_autre' => new sfWidgetFormInputText(),
-    		'mentions_libelle_autre' => new sfWidgetFormInputText(),
-    		'mentions_libelle_chdo' => new sfWidgetFormInputText(),
+    		'clause_reserve_retiraison' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
+        	'date_debut_retiraison' => new sfWidgetFormInputText(),
+        	'date_limite_retiraison' => new sfWidgetFormInputText(),
+        	'vin_livre' => new sfWidgetFormChoice(array('choices' => $this->getChoixVinLivre(),'expanded' => true)),
+        	'type_retiraison' => new sfWidgetFormChoice(array('choices' => $this->getChoixTypeRetiraison(),'expanded' => true)),
     	));
         $this->widgetSchema->setLabels(array(
         	'has_cotisation_cvo' => 'Cvo',
-        	'type_transaction' => 'Type de produit:',
-        	'labels_arr' => 'Labels:',
-        	'mentions' => 'Mentions:',
         	'volume_propose' => 'Volume total proposé*:',
         	'poids' => 'Poids*:',
             'prix_unitaire' => 'Prix unitaire net HT*:',
@@ -39,17 +35,16 @@ class VracMarcheForm extends VracForm
         	'repartition_cvo_acheteur' => 'Repartition CVO acheteur:',
             'conditions_paiement' => 'Paiement*:',
         	'delai_paiement' => 'Delai de paiement*:',
-    		'labels_libelle_autre' => 'Précisez le label*:',
-            'mentions_libelle_autre' => 'Précisez la mention autre*:',
-    		'mentions_libelle_chdo' => 'Précisez le Domaine/Château*:',
+        	'clause_reserve_retiraison' => 'Clause de reserve de propriété (si réserve, recours possible jusqu\'au paiement complet): ',
+        	'date_debut_retiraison' => 'Date de début de retiraison*:',
+        	'date_limite_retiraison' => 'Date limite de retiraison*:',
+        	'vin_livre' => 'Le produit sera:',
+        	'type_retiraison' => 'Type de retiraison/livraison*:',
         ));
         $min = ($this->getObject()->volume_enleve)? $this->getObject()->volume_enleve : 0;
         $minErreur = ($min > 1)? $min.' hl ont déjà été enlevés pour ce contrat' : $min.' hl a déjà été enlevé pour ce contrat';
         $this->setValidators(array(
         	'has_cotisation_cvo' => new ValidatorPass(),
-        	'type_transaction' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getTypesTransaction()))),
-        	'labels_arr' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getLabels()), 'multiple' => true)),
-        	'mentions' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getMentions()), 'multiple' => true)),
         	'volume_propose' => new sfValidatorNumber(array('required' => true, 'min' => $min), array('min' => $minErreur)),
         	'poids' => new sfValidatorNumber(array('required' => false)),
         	'prix_unitaire' => new sfValidatorNumber(array('required' => true)),
@@ -61,9 +56,11 @@ class VracMarcheForm extends VracForm
 	        'repartition_cvo_acheteur' => new sfValidatorNumber(array('required' => false)),
             'conditions_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getConditionsPaiement()), 'multiple' => false)),
             'delai_paiement' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getDelaisPaiement()))),
-    		'labels_libelle_autre' => new sfValidatorString(array('required' => false)),
-    		'mentions_libelle_autre' => new sfValidatorString(array('required' => false)),
-    		'mentions_libelle_chdo' => new sfValidatorString(array('required' => false)),
+        	'clause_reserve_retiraison' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getChoixOuiNon()))),
+        	'date_debut_retiraison' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
+        	'date_limite_retiraison' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true), array('invalid' => 'Format valide : dd/mm/aaaa')),
+        	'vin_livre' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixVinLivre()))),
+        	'type_retiraison' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixTypeRetiraison()))),
          ));
         
         $paiements = new VracPaiementCollectionForm($this->vracPaiementFormName(), $this->getObject()->paiements);
@@ -79,10 +76,6 @@ class VracMarcheForm extends VracForm
     		
   		    $this->validatorSchema->setPostValidator(new VracMarcheValidator());
     		$this->widgetSchema->setNameFormat('vrac_marche[%s]');
-
-        if (count($this->getTypesTransaction()) < 2) {
-            unset($this['type_transaction']);
-        }
     }
     protected function doUpdateObject($values) {
         if ($values['conditions_paiement'] != VracClient::ECHEANCIER_PAIEMENT) {
@@ -108,20 +101,11 @@ class VracMarcheForm extends VracForm
         	
         }
 
-        $types_transaction = $this->getTypesTransaction();
-        if (count($types_transaction) == 1) {
-            foreach($types_transaction as $key => $value) {
-                $this->getObject()->type_transaction = $key;
-            }
-        }
-
         if (!in_array($this->getObject()->type_prix, $this->getTypePrixNeedDetermination())) {
           $this->getObject()->determination_prix = null;
           $this->getObject()->determination_prix_date = null;
         }
-        $this->getObject()->labels_libelle = $this->getConfiguration()->formatLabelsLibelle(array($this->getObject()->labels));
-        $this->getObject()->mentions_libelle = $this->getConfiguration()->formatMentionsLibelle($this->getObject()->mentions);
-        $this->getObject()->type_transaction_libelle = $this->getConfiguration()->formatTypesTransactionLibelle(array($this->getObject()->type_transaction));
+        
         $this->getObject()->update();
     }
     protected function updateDefaultsFromObject() {
@@ -129,22 +113,22 @@ class VracMarcheForm extends VracForm
       
       $this->setDefault('cepages', $this->getObject()->produit);
       
-      if (is_null($this->getObject()->type_transaction)) {
-        $this->setDefault('type_transaction', VracClient::TRANSACTION_DEFAUT);
-      }      
       if (is_null($this->getObject()->type_prix)) {
         $this->setDefault('type_prix', VracClient::PRIX_DEFAUT);
-      }  
-      if (!(count($this->getObject()->labels_arr->toArray()) > 0)) {
-        $this->setDefault('labels_arr', '');
-      }  
-      if (!(count($this->getObject()->mentions->toArray()) > 0)) {
-        $this->setDefault('mentions', '');
-      }  
+      }
       if ($this->getObject()->determination_prix_date) {
       	$d = new DateTime($this->getObject()->determination_prix_date);
         $this->setDefault('determination_prix_date', $d->format('d/m/Y'));
       }
+      if (is_null($this->getObject()->clause_reserve_retiraison)) {
+        $this->setDefault('clause_reserve_retiraison', 0);
+      }   
+      if (is_null($this->getObject()->vin_livre)) {
+        $this->setDefault('vin_livre', VracClient::STATUS_VIN_RETIRE);
+      }  
+      if (is_null($this->getObject()->type_retiraison)) {
+        $this->setDefault('type_retiraison', 'vrac');
+      }   
     }
     
     public function getCepages()
@@ -173,5 +157,9 @@ class VracMarcheForm extends VracForm
     public function isConditionneDelaiPaiement()
     {
         return false;
+    }
+
+    public function conditionneIVSE() {
+      return false;
     }
 }

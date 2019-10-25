@@ -4,9 +4,7 @@ class VracConditionIvseForm extends VracConditionForm
     public function configure() {
         parent::configure();
 		$this->setWidget('vin_livre', new sfWidgetFormInputHidden());
-        unset($this['clause_reserve_retiraison'], $this['delai_paiement']);
-        unset($this['has_transaction']);
-        unset($this['annexe']);
+        unset($this['clause_reserve_retiraison'], $this['delai_paiement'], $this['has_transaction'], $this['annexe'], $this['bailleur_metayer']);
     }
 
     public function conditionneIVSE() {

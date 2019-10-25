@@ -5,6 +5,10 @@ class VracMarcheValidator extends sfValidatorBase {
     public function configure($options = array(), $messages = array()) {
         $this->addOption('determination_prix_field', 'determination_prix');
         $this->addOption('determination_prix_date_field', 'determination_prix_date');
+        $this->addMessage('impossible_volume', "La somme des volumes ne correspond pas au volume total proposé");
+        $this->addMessage('impossible_date', "La date limite doit être supérieur ou égale aux dates de l'échéancier");
+        $this->addMessage('impossible_date_retiraison', "La date limite doit être supérieur ou égale à la date de debut de retiraison");
+        $this->addMessage('echeancier_date', "Vous devez saisir les dates de votre échéancier");
     }
     
 	protected function getTypePrixNeedDetermination() {
@@ -15,20 +19,7 @@ class VracMarcheValidator extends sfValidatorBase {
     protected function doClean($values) {
     	$errorSchema = new sfValidatorErrorSchema($this);
     	$hasError = false;
-    	if (in_array('mercuriale_mois', array_keys($values)) && in_array('mercuriale_annee', array_keys($values))) {
-    		if ($values['mercuriale_mois'] && !$values['mercuriale_annee']) {
-    			$errorSchema->addError(new sfValidatorError($this, 'required'), 'mercuriale_annee');
-    			$hasError = true;
-    		}
-    		if (!$values['mercuriale_mois'] && $values['mercuriale_annee']) {
-    			$errorSchema->addError(new sfValidatorError($this, 'required'), 'mercuriale_mois');
-    			$hasError = true;
-    		}
-    	}
-    	if ($values['type_transaction'] == 'raisin' && isset($values['poids']) && !$values['poids']) {
-    		$errorSchema->addError(new sfValidatorError($this, 'required'), 'poids');
-    		$hasError = true;
-    	}
+    	
     	if (isset($values['type_prix']) && in_array($values['type_prix'], $this->getTypePrixNeedDetermination())) {
     		if (isset($values['determination_prix']) && !($values['determination_prix'])) {
     			$errorSchema->addError(new sfValidatorError($this, 'required'), 'determination_prix');
@@ -47,25 +38,47 @@ class VracMarcheValidator extends sfValidatorBase {
     			$errorSchema->addError(new sfValidatorError($this, 'required'), 'prix_unitaire');
     			$hasError = true;
     	}
-    if (!isset($values['millesime']) || empty($values['millesime'])) {
-                if (isset($values['non_millesime']) && is_null($values['non_millesime'])) {
-                        $errorSchema->addError(new sfValidatorError($this, 'millesime_inexistant'), 'millesime');
+        
+        if ($values['conditions_paiement'] == VracClient::ECHEANCIER_PAIEMENT) {
+            if (is_array($values['paiements'])) {
+                foreach ($values['paiements'] as $key => $paiement) {
+                    if (!$paiement['date']) {
+                        $errorSchema->addError(new sfValidatorError($this, 'echeancier_date'));
                         $hasError = true;
+                    }
                 }
+            }
         }
-
-        if (isset($values['millesime']) && !empty($values['millesime'])) {
-                if (strlen($values['millesime']) != 4) {
-                        //throw new sfValidatorErrorSchema($this, array($this->getOption('millesime') => new sfValidatorError($this, 'format_millesime')));
-                                        $errorSchema->addError(new sfValidatorError($this, 'format_millesime'), 'millesime');
-                                        $hasError = true;
+        $isDateSup = false;
+        if (isset($values['date_limite_retiraison']) && $values['date_limite_retiraison']) {
+            $date_limite_retiraison = new DateTime($values['date_limite_retiraison']);
+            if (isset($values['date_debut_retiraison']) && $values['date_debut_retiraison']) {
+                $date_debut_retiraison = new DateTime($values['date_debut_retiraison']);
+                if ($date_debut_retiraison->format('Ymd') > $date_limite_retiraison->format('Ymd')) {
+                    //throw new sfValidatorErrorSchema($this, array('date_limite_retiraison' => new sfValidatorError($this, 'impossible_date_retiraison')));
+                    $errorSchema->addError(new sfValidatorError($this, 'impossible_date_retiraison'), 'date_limite_retiraison');
+                    $hasError = true;
                 }
-                if ($values['millesime'] > (date('Y')+1)) {
-                        //throw new sfValidatorErrorSchema($this, array($this->getOption('millesime') => new sfValidatorError($this, 'date_millesime')));
-                                        $errorSchema->addError(new sfValidatorError($this, 'date_millesime'), 'millesime');
-                                        $hasError = true;
+            }
+            if ($values['conditions_paiement'] == VracClient::ECHEANCIER_PAIEMENT) {
+                if (is_array($values['paiements'])) {
+                    foreach ($values['paiements'] as $paiement) {
+                        if ($date = $paiement['date']) {
+                            $d = new DateTime($date);
+                            if ($d->format('Ymd') > $date_limite_retiraison->format('Ymd')) {
+                                $isDateSup = true;
+                            }
+                        }
+                    }
                 }
+            }
         }
+        if ($isDateSup) {
+            //throw new sfValidatorErrorSchema($this, array('date_limite_retiraison' => new sfValidatorError($this, 'impossible_date')));
+            //$errorSchema->addError(new sfValidatorError($this, 'impossible_date'), 'date_limite_retiraison');
+            //$hasError = true;
+        }
+        
     	if ($hasError) {
     		throw new sfValidatorErrorSchema($this, $errorSchema);
     	}

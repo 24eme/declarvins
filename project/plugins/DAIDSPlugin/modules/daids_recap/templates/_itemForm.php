@@ -14,15 +14,15 @@
                 <?php echo $form->getObject()->getLabelsLibelle() ?><br />
                 <?php echo $form->getObject()->label_supplementaire ?>
             </p>
-            
+
             <p class="stock_th stock_th_drm  <?php echo isVersionnerCssClass($form->getObject(), 'stock_theorique') ?>">
             	<?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             	<?php echo $form['stock_theorique']->render(array('class' => 'num num_float num_light', 'data-val-defaut' => sprintFloat($form->getObject()->stock_theorique, "%01.04f"))) ?>
 				<?php else: ?>
             	<?php echo $form['stock_theorique']->render(array('readonly' => 'readonly', 'class' => 'texte stock_th stock_th_drm', 'data-val-defaut' => sprintFloat($form->getObject()->stock_theorique, "%01.04f"))) ?>
             	<?php endif; ?>
-			</p>     	
-			
+			</p>
+
 			<div class="groupe" data-groupe-id="1">
 				<p class="total_chais <?php echo isVersionnerCssClass($form->getObject(), 'stock_chais') ?>">
 					<?php echo $form['stock_chais']->render(array('class' => 'texte total_chais', 'data-champs' => '#col_recolte_'.$form->getObject()->renderId().' #'.$form['stocks']['chais']->renderId().';#col_recolte_'.$form->getObject()->renderId().' #'.$form['stocks']['propriete_tiers']->renderId(), 'data-calcul' => 'somme', 'data-val-defaut' => sprintFloat($form->getObject()->stock_chais, "%01.04f"))) ?>
@@ -35,7 +35,7 @@
 					<li class="<?php echo isVersionnerCssClass($form->getObject()->stocks, 'propriete_tiers') ?>"><?php echo $form['stocks']['propriete_tiers']->render(array('class' => 'num num_float', 'autocomplete' => 'off', 'data-val-defaut' => sprintFloat($form->getObject()->stocks->propriete_tiers, "%01.04f"))) ?></li>
 				</ul>
 			</div>
-			
+
 			<div class="groupe" data-groupe-id="2">
 				<p class="total_propriete <?php echo isVersionnerCssClass($form->getObject(), 'stock_propriete') ?>">
 					<?php echo $form['stock_propriete']->render(array('class' => 'texte total_propriete', 'data-champs' => '#col_recolte_'.$form->getObject()->renderId().' #'.$form['stocks']['chais']->renderId().';#col_recolte_'.$form->getObject()->renderId().' #'.$form['stocks']['tiers']->renderId(), 'data-calcul' => 'somme', 'data-val-defaut' => sprintFloat($form->getObject()->stock_propriete, "%01.04f"))) ?>

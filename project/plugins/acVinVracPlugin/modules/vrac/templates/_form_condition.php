@@ -3,14 +3,25 @@
         <?php echo $form->renderGlobalErrors() ?>
         
         <div>
-        	<h1>Spécificités du contrat</h1>
-            <?php if (isset($form['premiere_mise_en_marche'])): ?>
-        	<div class="section_label_strong">
-            	<?php echo $form['premiere_mise_en_marche']->renderError() ?>
-            	<?php echo $form['premiere_mise_en_marche']->renderLabel() ?>
-            	<?php echo $form['premiere_mise_en_marche']->render() ?>
-        	</div>
-        	<?php endif; ?>
+        	<h1>Type</h1>
+            <?php if (isset($form['type_transaction'])): ?>
+            <div class="section_label_strong">
+                <?php echo $form['type_transaction']->renderError() ?>
+                <?php echo $form['type_transaction']->renderLabel() ?>
+                <?php echo $form['type_transaction']->render() ?>
+            </div>
+            <?php endif; ?>
+            <div  id="vrac_type_contrat" class="section_label_strong bloc_condition" data-condition-cible="#bloc_reference_pluriannuel">
+                <?php echo $form['type_contrat']->renderError() ?>
+                <?php echo $form['type_contrat']->renderLabel() ?>
+                <?php echo $form['type_contrat']->render() ?>
+            </div>
+            <div class="section_label_strong bloc_conditionner" id="bloc_reference_pluriannuel" data-condition-value="1">
+                <?php echo $form['reference_contrat_pluriannuel']->renderError() ?>
+                <?php echo $form['reference_contrat_pluriannuel']->renderLabel() ?>
+                <?php echo $form['reference_contrat_pluriannuel']->render() ?>
+            </div>
+        	<h1>Spécificités</h1>
 			<?php if (isset($form['cas_particulier'])): ?>
             <div class="section_label_strong_bloc">
                 <?php echo $form['cas_particulier']->renderError() ?>
@@ -19,6 +30,18 @@
                 <?php echo $form['cas_particulier']->render() ?>
             </div>
             <?php endif; ?>
+            <?php if (isset($form['premiere_mise_en_marche'])): ?>
+        	<div class="section_label_strong">
+            	<?php echo $form['premiere_mise_en_marche']->renderError() ?>
+            	<?php echo $form['premiere_mise_en_marche']->renderLabel() ?>
+            	<?php echo $form['premiere_mise_en_marche']->render() ?>
+        	</div>
+        	<?php endif; ?>
+        	<div class="section_label_strong">
+            	<?php echo $form['export']->renderError() ?>
+            	<?php echo $form['export']->renderLabel() ?>
+            	<?php echo $form['export']->render() ?>
+        	</div>
             <?php if (isset($form['bailleur_metayer'])): ?>
             <div class="section_label_strong">
                 <?php echo $form['bailleur_metayer']->renderError() ?>
@@ -26,11 +49,6 @@
                 <?php echo $form['bailleur_metayer']->render() ?>
             </div>
             <?php endif; ?>
-        	<div class="section_label_strong">
-            	<?php echo $form['export']->renderError() ?>
-            	<?php echo $form['export']->renderLabel() ?>
-            	<?php echo $form['export']->render() ?>
-        	</div>
             <?php if(isset($form['annexe'])): ?>
             <div  class="section_label_strong">
                 <?php echo $form['annexe']->renderError() ?>
@@ -38,52 +56,7 @@
                 <?php echo $form['annexe']->render() ?>
             </div>
             <?php endif; ?>
-            <?php if(isset($form['reference_contrat_pluriannuel'])): ?>
-            <div class="section_label_strong">
-                <?php echo $form['reference_contrat_pluriannuel']->renderError() ?>
-                <?php echo $form['reference_contrat_pluriannuel']->renderLabel() ?>
-                <?php echo $form['reference_contrat_pluriannuel']->render() ?>
-            </div>
-            <?php endif; ?>
         </div>
-        <h1>Retiraison / Enlèvement</h1>
-        <div class="section_label_strong">
-            <?php echo $form['type_retiraison']->renderError() ?>
-            <?php echo $form['type_retiraison']->renderLabel() ?>
-            <?php echo $form['type_retiraison']->render() ?>
-        </div>
-        <?php if (!$form->conditionneIVSE()): ?>
-        <div class="section_label_strong">
-            <?php echo $form['vin_livre']->renderError() ?>
-            <?php echo $form['vin_livre']->renderLabel() ?>
-            <?php echo $form['vin_livre']->render() ?>
-        </div>
-        <?php endif; ?>
-            <?php if(isset($form['date_debut_retiraison'])): ?>
-            <div class="section_label_strong">
-                <?php echo $form['date_debut_retiraison']->renderError() ?>
-                <?php echo $form['date_debut_retiraison']->renderLabel() ?>
-                <?php echo $form['date_debut_retiraison']->render(array('class' => 'datepicker')) ?>
-                &nbsp;(jj/mm/aaaa)
-            </div>
-            <?php endif; ?>
-            <div class="section_label_strong">
-                <?php echo $form['date_limite_retiraison']->renderError() ?>
-                <?php echo $form['date_limite_retiraison']->renderLabel() ?>
-                <?php echo $form['date_limite_retiraison']->render(array('class' => 'datepicker')) ?>
-                &nbsp;(jj/mm/aaaa)
-            </div>
-            <?php if(isset($form['clause_reserve_retiraison'])): ?>
-            <div class="section_label_strong">
-                <?php echo $form['clause_reserve_retiraison']->renderError() ?>
-                <?php echo $form['clause_reserve_retiraison']->renderLabel() ?>
-                <?php echo $form['clause_reserve_retiraison']->render() ?>
-            </div>
-            <?php endif; ?>
-        	<?php if ($form->conditionneIVSE()): ?>
-        	<p>En cas de calendrier de retiraison, indiquez les échéances dans la case &laquo;commentaires&raquo; de l'étape suivante</p>
-        	
-        	<?php endif; ?>
         	
             <?php if (isset($form['has_transaction'])): ?>
             <h1>Transaction</h1>

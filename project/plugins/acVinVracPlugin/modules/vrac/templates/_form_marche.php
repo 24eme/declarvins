@@ -4,7 +4,7 @@
         <?php echo $form->renderGlobalErrors() ?>
 
         <div>
-        	<h1>Produit / Qualité / Origine</h1>
+        	<h1>Produit</h1>
         	<div class="section_label_strong">
             	<label>Produit: </label>
                 <strong><?php echo ($form->getObject()->produit)? $form->getObject()->getLibelleProduit("%g% %a% %l% %co%", true) : null; ?><?php if ($form->getObject()->millesime): ?>&nbsp;<?php echo $form->getObject()->millesime; ?><?php endif; ?></strong>
@@ -16,39 +16,7 @@
                 <?php echo $form['cepages']->render() ?>
             </div>
             <?php endif; ?>
-            <?php if (isset($form['type_transaction'])): ?>
-            <div id="vrac_type_transaction" class="section_label_strong bloc_condition" data-condition-cible="#bloc_poids|#bloc_libelle_unite_prix_hl|#bloc_libelle_unite_prix_kg|#bloc_libelle_unite_cotis_kg|#bloc_libelle_unite_cotis_hl|#vrac_cotisation_interpro">
-                <?php echo $form['type_transaction']->renderError() ?>
-                <?php echo $form['type_transaction']->renderLabel() ?>
-                <?php echo $form['type_transaction']->render() ?>
-            </div>
-            <?php endif; ?>
-            <div id="vrac_labels" class="section_label_strong bloc_condition" data-condition-cible="#bloc_labels_libelle_autre">
-                <?php echo $form['labels_arr']->renderError() ?>
-                <?php echo $form['labels_arr']->renderLabel() ?>
-                <?php echo $form['labels_arr']->render() ?>
-            </div>
-            <div class="section_label_strong bloc_conditionner" id="bloc_labels_libelle_autre" data-condition-value="autre">
-                <?php echo $form['labels_libelle_autre']->renderError() ?>
-                <?php echo $form['labels_libelle_autre']->renderLabel() ?>
-                <?php echo $form['labels_libelle_autre']->render() ?>
-            </div>
-            <div id="vrac_mentions" class="section_label_strong bloc_condition" data-condition-cible="#bloc_mentions_libelle_autre|#bloc_mentions_libelle_chdo">
-                <?php echo $form['mentions']->renderError() ?>
-                <?php echo $form['mentions']->renderLabel('Mentions: <a href="" class="msg_aide" data-msg="help_popup_vrac_mentions" title="Message aide"></a>') ?>
-                <?php echo $form['mentions']->render() ?>
-            </div>
-            <div class="section_label_strong bloc_conditionner" id="bloc_mentions_libelle_chdo" data-condition-value="chdo">
-                <?php echo $form['mentions_libelle_chdo']->renderError() ?>
-                <?php echo $form['mentions_libelle_chdo']->renderLabel() ?>
-                <?php echo $form['mentions_libelle_chdo']->render() ?>
-                <p><em>Le vendeur autorise expressément l'Acheteur à utiliser son nom d'exploitation. Ce dernier être indiqué sur la facture et le document d'accompagnement. L'Acheteur devra respecter les exigences du décret n° 2012-655 du 4 mai 2012.</em></p>
-            </div>
-            <div class="section_label_strong bloc_conditionner" id="bloc_mentions_libelle_autre" data-condition-value="autre">
-                <?php echo $form['mentions_libelle_autre']->renderError() ?>
-                <?php echo $form['mentions_libelle_autre']->renderLabel() ?>
-                <?php echo $form['mentions_libelle_autre']->render() ?>
-            </div>
+
         	<h1>Volume / Prix</h1>
             <div class="section_label_strong">
                 <?php echo $form['volume_propose']->renderError() ?>
@@ -137,6 +105,45 @@
                 <?php echo $form['delai_paiement_autre']->render() ?>
             </div>
             <?php endif; ?>
+            
+            <h1>Retiraison / Enlèvement</h1>
+            <div class="section_label_strong">
+                <?php echo $form['type_retiraison']->renderError() ?>
+                <?php echo $form['type_retiraison']->renderLabel() ?>
+                <?php echo $form['type_retiraison']->render() ?>
+            </div>
+            <?php if (!$form->conditionneIVSE()): ?>
+            <div class="section_label_strong">
+                <?php echo $form['vin_livre']->renderError() ?>
+                <?php echo $form['vin_livre']->renderLabel() ?>
+                <?php echo $form['vin_livre']->render() ?>
+            </div>
+            <?php endif; ?>
+                <?php if(isset($form['date_debut_retiraison'])): ?>
+                <div class="section_label_strong">
+                    <?php echo $form['date_debut_retiraison']->renderError() ?>
+                    <?php echo $form['date_debut_retiraison']->renderLabel() ?>
+                    <?php echo $form['date_debut_retiraison']->render(array('class' => 'datepicker')) ?>
+                    &nbsp;(jj/mm/aaaa)
+                </div>
+                <?php endif; ?>
+                <div class="section_label_strong">
+                    <?php echo $form['date_limite_retiraison']->renderError() ?>
+                    <?php echo $form['date_limite_retiraison']->renderLabel() ?>
+                    <?php echo $form['date_limite_retiraison']->render(array('class' => 'datepicker')) ?>
+                    &nbsp;(jj/mm/aaaa)
+                </div>
+                <?php if(isset($form['clause_reserve_retiraison'])): ?>
+                <div class="section_label_strong">
+                    <?php echo $form['clause_reserve_retiraison']->renderError() ?>
+                    <?php echo $form['clause_reserve_retiraison']->renderLabel() ?>
+                    <?php echo $form['clause_reserve_retiraison']->render() ?>
+                </div>
+                <?php endif; ?>
+            	<?php if ($form->conditionneIVSE()): ?>
+            	<p>En cas de calendrier de retiraison, indiquez les échéances dans la case &laquo;commentaires&raquo; de l'étape validation</p>
+            	
+            	<?php endif; ?>
         </div>
 
         <div class="ligne_form_btn">

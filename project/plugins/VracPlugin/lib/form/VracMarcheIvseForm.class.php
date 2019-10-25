@@ -24,4 +24,8 @@ class VracMarcheIvseForm extends VracMarcheForm
       $this->setDefault('has_cotisation_cvo', 1);
 
     }
+
+    public function conditionneIVSE() {
+      return true;
+    }
 }
