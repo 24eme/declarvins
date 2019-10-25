@@ -105,6 +105,8 @@ class ConfigurationVrac extends BaseConfigurationVrac {
         foreach($collection as $key) {
         	if ($this->{$node}->exist($key))
             	$libelles[$key] = $this->{$node}->get($key);
+        	else
+            	$libelles[$key] = $key;
         }
         return $libelles;
     }

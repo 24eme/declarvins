@@ -43,33 +43,19 @@
 				</span>
 			</li>
 			<?php endif; ?>
-			<li>
-				<span>Première mise en marché :</span>
-				<span><?php echo ($vrac->premiere_mise_en_marche)? 'Oui' : 'Non'; ?></span>
-			</li>
-			<li>
-				<span>Condition particulière :</span>
-				<span><?php echo $configurationVrac->formatCasParticulierLibelle(array($vrac->cas_particulier)); ?></span>
-			</li>
-			<?php if ($vrac->exist('bailleur_metayer')): ?>
-			<li>
-				<span>Entre bailleur et métayer :</span>
-				<span><?php echo ($vrac->bailleur_metayer)? 'Oui' : 'Non'; ?></span>
-			</li>
-			<?php endif; ?>
     	</ul>
     	<?php if($editer_etape): ?>
     	<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'soussigne', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
    		<?php endif; ?>
     </li>
-	<li>
-	    <h3>Marché</h3>
+    <li>
+	    <h3>Produit / Qualité / Origine</h3>
         <ul>
 			<li>
-				<span>Type de transaction :</span>
+				<span>Type de produit :</span>
 				<span><?php echo $configurationVrac->formatTypesTransactionLibelle(array($vrac->type_transaction)); ?></span>
 			</li>
-			<li>
+        	<li>
 				<span>Produit :</span>
 				<span><?php echo ($vrac->produit)? $vrac->getLibelleProduit() : null; ?></span>
 			</li>
@@ -78,39 +64,79 @@
 				<span><?php echo ($vrac->millesime)? $vrac->millesime : 'Non millésimé'; ?></span>
 			</li>
 			<li>
-				<span>Label :</span>
-				<span><?php echo $configurationVrac->formatLabelsLibelle(array($vrac->labels)) ?></span>				
+				<span>Label(s) :</span>
+				<span><?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)) : str_replace('Autre', $vrac->labels_libelle_autre, $configurationVrac->formatLabelsLibelle($vrac->labels_arr)) ?></span>				
 			</li>
 			<li>
 				<span>Mention(s) :</span>
-				<span><?php echo $configurationVrac->formatMentionsLibelle($vrac->mentions->getRawValue()->toArray()) ?></span>				
+				<span><?php echo $configurationVrac->formatMentionsLibelle($vrac->getLibellesMentions()) ?></span>				
+			</li>
+		</ul>
+    	<?php if($editer_etape): ?>
+    	<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'produit', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
+   		<?php endif; ?>
+	</li>
+    <li>
+	    <h3>Type de contrat</h3>
+        <ul>
+			<li>
+				<span>Type de contrat :</span>
+				<span><?php if ($vrac->reference_contrat_pluriannuel): ?>Adossé à un contrat pluriannuel (<?php echo $vrac->reference_contrat_pluriannuel ?>)<?php else: ?>Ponctuel<?php endif; ?></span>
+			</li>
+		</ul>
+    	<?php if($editer_etape): ?>
+    	<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'condition', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
+   		<?php endif; ?>
+	</li>
+    <li>
+	    <h3>Spécificités du contrat</h3>
+        <ul>
+			<li>
+				<span>Condition particulière :</span>
+				<span><?php echo $configurationVrac->formatCasParticulierLibelle(array($vrac->cas_particulier)); ?></span>
 			</li>
 			<li>
 				<span>Expédition export :</span>
 				<span><?php echo ($vrac->export)? 'Oui' : 'Non'; ?></span>
 			</li>
 			<li>
-				<span>Prix :</span>
-				<span><?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction != 'raisin'): ?>€ HT/hl<?php else: ?>€ HT/kg soit <?php echo round($vrac->poids * $vrac->prix_unitaire / $vrac->volume_propose) ?> € HT/hl<?php endif;?></span>
+				<span>Première mise en marché :</span>
+				<span><?php echo ($vrac->premiere_mise_en_marche)? 'Oui' : 'Non'; ?></span>
 			</li>
+			<li>
+				<span>Entre bailleur et métayer :</span>
+				<span><?php echo ($vrac->bailleur_metayer)? 'Oui' : 'Non'; ?></span>
+			</li>
+			<?php if ($vrac->annexe): ?>
+			<li>
+				<span>Présence d'une annexe :</span>
+				<span>Oui</span>
+			</li>
+			<?php endif; ?>
+		</ul>
+    	<?php if($editer_etape): ?>
+    	<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'condition', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
+   		<?php endif; ?>
+	</li>
+	<li>
+	    <h3>Volume / Prix</h3>
+        <ul>
 			<li>
 				<span>Volume :</span>
-				<span><?php echo $vrac->volume_propose ?> hl</span>
+				<span><?php echo $vrac->volume_propose ?><?php if($vrac->type_transaction == 'raisin'): ?> Kg<?php else: ?> HL<?php endif; ?></span>
 			</li>
-			<?php if($vrac->type_transaction == 'raisin'): ?>
 			<li>
-				<span>Poids :</span>
-				<span><?php echo $vrac->poids ?> kg</span>
+				<span>Prix unitaire net :</span>
+				<span><?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction == 'raisin'): ?>€ HT / Kg<?php else: ?>€ HT / HL hors cotisations<?php endif;?></span>
 			</li>
-			<?php endif;?>
-			<?php if ($vrac->has_cotisation_cvo && $vrac->part_cvo > 0): ?>
+			<?php if ($vrac->type_transaction == 'vin' && $vrac->has_cotisation_cvo && $vrac->part_cvo > 0): ?>
 			<li>
 				<span>Cotisation interprofessionnelle :</span>
-				<span><?php echo $vrac->getCvoUnitaire() ?> € HT/<?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?></span>
+				<span><?php echo $vrac->getCvoUnitaire() ?> € HT / HL</span>
 			</li>
 			<li>
 				<span>Prix total unitaire :</span>
-				<span><?php echo $vrac->getTotalUnitaire() ?> € HT/<?php if($vrac->type_transaction != 'raisin'): ?>hl<?php else: ?>kg<?php endif;?></span>
+				<span><?php echo $vrac->getTotalUnitaire() ?> € HT / HL</span>
 			</li>
 			<?php endif; ?>
 			<li>
@@ -129,43 +155,10 @@
 				<span><?php echo Date::francizeDate($vrac->determination_prix_date) ?></span>
 			</li>
 			<?php endif; ?>
-			<?php if ($vrac->mercuriale): ?>
 			<li>
-				<span>Mercuriale pour la fixation du prix :</span>
-				<span><?php echo Date::francizePeriode($vrac->mercuriale) ?></span>
-			</li>
-			<?php endif; ?>
-			<?php if ($vrac->variation_hausse || $vrac->variation_baisse): ?>
-			<li>
-				<span>Variation max :</span>
-				<span><?php if ($vrac->variation_hausse): ?><?php echo $vrac->variation_hausse ?>% à la hausse <?php endif; ?><?php if ($vrac->variation_baisse): ?><?php echo $vrac->variation_baisse ?>% à la baisse<?php endif; ?></span>
-			</li>
-			<?php endif; ?>
-			<?php if ($vrac->annexe): ?>
-			<li>
-				<span>Présence d'une annexe :</span>
-				<span>Oui</span>
-			</li>
-			<?php endif; ?>
-			
-		</ul>
-		<?php if($editer_etape): ?>
-		<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'marche', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
-		<?php endif; ?>
-    </li>
-    <li<?php if (!$vrac->has_transaction): ?> style="margin: 0;"<?php endif; ?>>
-		<h3>Conditions</h3>
-        <ul>
-			<li>
-				<span>Conditions générales de paiement :</span>
+				<span>Paiement :</span>
 				<span><?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></span>
-			</li>
-			<?php if ($vrac->reference_contrat_pluriannuel): ?>
-			<li>
-				<span>Référence contrat pluriannuel :</span>
-				<span><?php echo $vrac->reference_contrat_pluriannuel ?></span>
-			</li>
-			<?php endif; ?>
+			</li>			
 			<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_ECHEANCIER): ?>
 			<li>
 				<table id="table_paiements">
@@ -192,6 +185,15 @@
 				<span><?php echo $configurationVrac->formatDelaisPaiementLibelle(array($vrac->delai_paiement)) ?></span>
 			</li>
 			<?php endif; ?>
+			
+		</ul>
+		<?php if($editer_etape): ?>
+		<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'marche', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
+		<?php endif; ?>
+    </li>
+    <li<?php if (!$vrac->has_transaction): ?> style="margin: 0;"<?php endif; ?>>
+		<h3>Mode et date de reiraison / livraison</h3>
+        <ul>
 			<?php if (!$vrac->isConditionneIvse() && $vrac->vin_livre): ?>
 			<li>
 				<span>Le vin sera :</span>
@@ -228,7 +230,7 @@
 			<?php endif; ?>
 		</ul>
 		<?php if($editer_etape): ?>
-			<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'condition', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
+			<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'marche', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
 		<?php endif; ?>
     </li>
 	<?php if ($vrac->has_transaction): ?>

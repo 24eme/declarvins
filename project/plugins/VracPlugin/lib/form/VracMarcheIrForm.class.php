@@ -13,13 +13,16 @@ class VracMarcheIrForm extends VracMarcheForm
 		$this->getWidget('delai_paiement_autre')->setLabel('précisez le délai*:');
 		$this->setValidator('delai_paiement_autre', new sfValidatorString(array('required' => false)));
 		unset($this['clause_reserve_retiraison'], $this['date_debut_retiraison']);
+		if ($this->getObject()->type_transaction == 'raisin') {
+		   unset($this['prix_total_unitaire']);
+		}
         $this->validatorSchema->setPostValidator(new VracMarcheValidator());
     }
     protected function doUpdateObject($values) {
     	parent::doUpdateObject($values);
-    	if ($this->getObject()->type_transaction == 'raisin' && !$values['poids']) {
-    		$this->getObject()->poids = $this->getObject()->volume_propose;
-    	}
+    	if ($this->getObject()->type_transaction == 'raisin') {
+    		$this->getObject()->prix_total_unitaire = $this->getObject()->prix_unitaire;
+    	} 
     	$this->getObject()->has_cotisation_cvo = 1;
     }
     protected function updateDefaultsFromObject() {

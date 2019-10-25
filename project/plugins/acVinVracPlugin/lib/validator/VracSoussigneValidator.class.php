@@ -5,6 +5,7 @@ class VracSoussigneValidator extends sfValidatorBase {
 	public function configure($options = array(), $messages = array()) {
         $this->addMessage('impossible_acheteur_vendeur', "Le vendeur et l'acheteur ne peuvent être le même établissement");
         $this->addMessage('stockage', "Vous devez renseigner tous les champs de l'adresse de stockage");
+        $this->addMessage('num_carte_pro', "Ce courtier n'est pas habilité à intervenir dans un contrat de vente (carte professionnelle manquante)");
     }
     
     protected function doClean($values) {
@@ -65,6 +66,15 @@ class VracSoussigneValidator extends sfValidatorBase {
     	}
     	if (isset($values['mandataire_exist']) && !$values['mandataire_exist']) {
     		$values['mandataire_identifiant'] = null;
+    	}
+    	
+    	if ($values['mandataire_identifiant']) {
+    	    if ($courtier = EtablissementClient::getInstance()->find($values['mandataire_identifiant'])) {
+    	        if (!$courtier->no_carte_professionnelle) {
+    	            $errorSchema->addError(new sfValidatorError($this, 'num_carte_pro'), 'mandataire_identifiant');
+    	            $hasError = true;
+    	        }
+    	    }
     	}
     	
     	if ($hasError) {

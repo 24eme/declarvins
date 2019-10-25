@@ -21,38 +21,36 @@
             <div class="section_label_strong">
                 <?php echo $form['volume_propose']->renderError() ?>
                 <?php echo $form['volume_propose']->renderLabel() ?>
-                <?php echo $form['volume_propose']->render() ?> <strong>HL</strong>
+                <?php echo $form['volume_propose']->render() ?> <strong><?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
             </div>
-            <?php if (isset($form['poids'])): ?>
-            <div class="section_label_strong" id="bloc_poids" class="bloc_conditionner" data-condition-value="raisin">
-                <?php echo $form['poids']->renderError() ?>
-                <?php echo $form['poids']->renderLabel() ?>
-                <?php echo $form['poids']->render() ?> <strong>Kg</strong>
-            </div>
-            <?php endif; ?>
             <div class="section_label_strong">
                 <?php echo $form['prix_unitaire']->renderError() ?>
                 <?php echo $form['prix_unitaire']->renderLabel() ?>
-                <?php echo $form['prix_unitaire']->render() ?> <span id="bloc_libelle_unite_prix_hl" class="bloc_conditionner" data-condition-value="vrac|mout"><strong>€ HT / HL</strong></span><span id="bloc_libelle_unite_prix_kg" class="bloc_conditionner" data-condition-value="raisin"><strong>€ HT / Kg</strong></span><?php if ($form->getWidget('has_cotisation_cvo')->getDefault() && isset($form['prix_total_unitaire'])): ?><span id="vrac_cotisation_interpro" class="bloc_conditionner" data-condition-value="vrac" data-cotisation-value="<?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?>">&nbsp;+&nbsp;<?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?>&nbsp;€ HT/hl de cotisation interprofessionnelle acheteur (<?php echo (ConfigurationVrac::REPARTITION_CVO_ACHETEUR)? ConfigurationVrac::REPARTITION_CVO_ACHETEUR*100 : 0; ?>%).</span><?php endif; ?>
+                <?php echo $form['prix_unitaire']->render() ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong><?php if (isset($form['prix_total_unitaire'])): ?><span id="vrac_cotisation_interpro" data-cotisation-value="<?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?>">&nbsp;+&nbsp;<?php echo ($form->getObject()->getPartCvo())? round($form->getObject()->getPartCvo() * ConfigurationVrac::REPARTITION_CVO_ACHETEUR, 2) : 0;?>&nbsp;€ HT / HL de cotisation interprofessionnelle acheteur (<?php echo (ConfigurationVrac::REPARTITION_CVO_ACHETEUR)? ConfigurationVrac::REPARTITION_CVO_ACHETEUR*100 : 0; ?>%).</span><?php endif; ?>
             </div>
             <?php if (isset($form['prix_total_unitaire'])): ?>
             <div class="section_label_strong">
                 <?php echo $form['prix_total_unitaire']->renderError() ?>
                 <?php echo $form['prix_total_unitaire']->renderLabel() ?>
-                <?php echo $form['prix_total_unitaire']->render(array('disabled' => 'disabled')) ?> <span id="bloc_libelle_unite_prix_hl" class="bloc_conditionner" data-condition-value="vrac|mout"><strong>€ HT / HL</strong></span><span id="bloc_libelle_unite_prix_kg" class="bloc_conditionner" data-condition-value="raisin"><strong>€ HT / Kg</strong></span>
+                <?php echo $form['prix_total_unitaire']->render(array('disabled' => 'disabled')) ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
             </div>
             <?php endif; ?>
-            <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="<?php if (isset($form['mercuriale_mois']) && isset($form['mercuriale_annee']) && isset($form['variation_hausse']) && isset($form['variation_baisse'])): ?>#bloc_vrac_mercuriale|#bloc_vrac_var_baisse|#bloc_vrac_var_hausse|<?php endif; ?>#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date">
-                <?php echo $form['type_prix']->renderError() ?>
-                <?php echo $form['type_prix']->renderLabel() ?>
-                <?php echo $form['type_prix']->render() ?> 
+            <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date">
+                <?php echo $form['type_prix_1']->renderError() ?>
+                <?php echo $form['type_prix_1']->renderLabel() ?>
+                <?php echo $form['type_prix_1']->render() ?> 
             </div>
-            <div id="bloc_vrac_determination_prix_date" class="section_label_strong bloc_conditionner" data-condition-value="<?php echo implode("|", $form->getTypePrixNeedDetermination()) ?>">
+            <div id="bloc_vrac_type_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
+                <?php echo $form['type_prix_2']->renderError() ?>
+                <?php echo $form['type_prix_2']->renderLabel() ?>
+                <?php echo $form['type_prix_2']->render() ?> 
+            </div>
+            <div id="bloc_vrac_determination_prix_date" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
                 <?php echo $form['determination_prix_date']->renderError() ?>
                 <?php echo $form['determination_prix_date']->renderLabel('Date de détermination du prix définitif*: <a href="" class="msg_aide" data-msg="help_popup_vrac_determination_prix_date" title="Message aide"></a>') ?>
                 <?php echo $form['determination_prix_date']->render(array('class' => 'datepicker')) ?> 
             </div>
-            <div id="bloc_vrac_determination_prix" class="section_label_strong bloc_conditionner" data-condition-value="<?php echo implode("|", $form->getTypePrixNeedDetermination()) ?>">
+            <div id="bloc_vrac_determination_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
                 <?php echo $form['determination_prix']->renderError() ?>
                 <?php echo $form['determination_prix']->renderLabel('Modalité de fixation du prix définitif ou de révision du prix* (celui-ci sera communiqué à l\'interprofession par les parties au contrat)') ?>
                 <?php echo $form['determination_prix']->render(array("style" => "height: 60px;")) ?> 
@@ -95,7 +93,7 @@
                 <?php echo $form['delai_paiement']->renderError() ?>
                 <?php echo $form['delai_paiement']->renderLabel() ?>
                 <?php echo $form['delai_paiement']->render() ?>
-                <p class="center"><em><strong>Acompte obligatoire de 15%</strong> dans les 10 jours suivants la signature du contrat</em></p>
+                <p style="padding: 10px 0 0 210px;"><em><strong>Acompte obligatoire de 15%</strong> dans les 10 jours suivants la signature du contrat</em></p>
             </div>
             <?php endif; ?>
             <?php if(isset($form['delai_paiement_autre'])): ?>
