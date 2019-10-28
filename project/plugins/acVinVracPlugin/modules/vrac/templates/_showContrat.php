@@ -65,7 +65,7 @@
 			</li>
 			<li>
 				<span>Label(s) :</span>
-				<span><?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)) : str_replace('Autre', $vrac->labels_libelle_autre, $configurationVrac->formatLabelsLibelle($vrac->labels_arr)) ?></span>				
+				<span><?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)) : $configurationVrac->formatLabelsLibelle($vrac->getLibellesLabels()) ?></span>				
 			</li>
 			<li>
 				<span>Mention(s) :</span>
