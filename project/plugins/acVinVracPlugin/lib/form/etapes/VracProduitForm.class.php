@@ -17,17 +17,17 @@ class VracProduitForm extends VracForm
 	        $this->widgetSchema->setLabels(array(
 	        	'produit' => 'Produit*:',
 	             'millesime' => 'Millesime:',
-            	'labels_arr' => 'Labels:',
+            	'labels_arr' => 'Labels*:',
             	'mentions' => 'Mentions:',
-        		'labels_libelle_autre' => 'Précisez le label*:',
-                'mentions_libelle_autre' => 'Précisez la mention autre*:',
-        		'mentions_libelle_chdo' => 'Précisez le terme règlementé*:',
-        		'mentions_libelle_marque' => 'Précisez la marque*:',
+        		'labels_libelle_autre' => 'Précisez le label:',
+                'mentions_libelle_autre' => 'Précisez la mention autre:',
+        		'mentions_libelle_chdo' => 'Précisez le terme règlementé:',
+        		'mentions_libelle_marque' => 'Précisez la marque:',
 	        ));
 	        $this->setValidators(array(
 	        	'produit' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($produits))),
 	            'millesime' => new sfValidatorRegex(array('required' => false, 'pattern' => '/^(20)[0-9]{2}$/')),
-            	'labels_arr' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getLabels()), 'multiple' => true)),
+            	'labels_arr' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getLabels()), 'multiple' => true)),
             	'mentions' => new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getMentions()), 'multiple' => true)),
         		'labels_libelle_autre' => new sfValidatorString(array('required' => false)),
         		'mentions_libelle_autre' => new sfValidatorString(array('required' => false)),

@@ -9,6 +9,9 @@ class VracMarcheValidator extends sfValidatorBase {
         $this->addMessage('impossible_date', "La date limite doit être supérieur ou égale aux dates de l'échéancier");
         $this->addMessage('impossible_date_retiraison', "La date limite doit être supérieur ou égale à la date de debut de retiraison");
         $this->addMessage('echeancier_date', "Vous devez saisir les dates de votre échéancier");
+        $this->addMessage('echeancier_montant', "Vous devez saisir les montants de votre échéancier");
+        $this->addMessage('echeancier_max_date', "Vos échéances ne peuvent s'étaler au dela du 30/09 prochain");
+        $this->addMessage('echeancier_moitie_montant', "Au moins la moitié du montant total doit être payée à la moitié de la durée de l'échéancier");
     }
     
 	protected function getTypePrixNeedDetermination() {
@@ -20,8 +23,12 @@ class VracMarcheValidator extends sfValidatorBase {
     	$errorSchema = new sfValidatorErrorSchema($this);
     	$hasError = false;
     	
-    	if (isset($values['type_prix']) && in_array($values['type_prix'], $this->getTypePrixNeedDetermination())) {
-    		if (isset($values['determination_prix']) && !($values['determination_prix'])) {
+    	if ($values['type_prix_1'] == 'non_definitif') {
+    		if (!isset($values['type_prix_2']) || !$values['type_prix_2']) {
+    			$errorSchema->addError(new sfValidatorError($this, 'required'), 'type_prix_2');
+    			$hasError = true;
+    		}
+    		if (!$values['determination_prix']) {
     			$errorSchema->addError(new sfValidatorError($this, 'required'), 'determination_prix');
     			$hasError = true;
     		}
@@ -39,44 +46,75 @@ class VracMarcheValidator extends sfValidatorBase {
     			$hasError = true;
     	}
         
+    	if (isset($values['conditions_paiement']) && $values['conditions_paiement'] == 'cadre_reglementaire') {
+
+    	    if (!$values['delai_paiement']) {
+    	        $errorSchema->addError(new sfValidatorError($this, 'required'), 'delai_paiement');
+    	        $hasError = true;
+    	    }
+    	    if ($values['delai_paiement'] == 'autre' && (!isset($values['delai_paiement_autre']) || !$values['delai_paiement_autre'])) {
+    	        $errorSchema->addError(new sfValidatorError($this, 'required'), 'delai_paiement_autre');
+    	        $hasError = true;
+    	    }
+    	}
         if ($values['conditions_paiement'] == VracClient::ECHEANCIER_PAIEMENT) {
             if (is_array($values['paiements'])) {
+                if (!$values['paiements']) {
+                    $errorSchema->addError(new sfValidatorError($this, 'echeancier_date'), 'conditions_paiement');
+                    $hasError = true;
+                }
+                $maxd = null;
+                $montantTotal = 0;
                 foreach ($values['paiements'] as $key => $paiement) {
                     if (!$paiement['date']) {
-                        $errorSchema->addError(new sfValidatorError($this, 'echeancier_date'));
+                        $errorSchema->addError(new sfValidatorError($this, 'echeancier_date'), 'conditions_paiement');
                         $hasError = true;
                     }
+                    if (!$paiement['montant']) {
+                        $errorSchema->addError(new sfValidatorError($this, 'echeancier_montant'), 'conditions_paiement');
+                        $hasError = true;
+                    }
+                    $today = date('Y-m-d');
+                    $limite = ($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31')? (date('Y')+1).'-09-30' : date('Y').'-09-30';
+                    if ($paiement['date'] > $limite) {
+                        $errorSchema->addError(new sfValidatorError($this, 'echeancier_max_date'), 'conditions_paiement');
+                        $hasError = true;
+                    }
+                    if (!$maxd || $paiement['date'] > $maxd) {
+                        $maxd = $paiement['date'];
+                    }
+                    $montantTotal += $paiement['montant'];
                 }
+                
+                $date1 = new DateTime();
+                $date2 = new DateTime($maxd);
+                $nbJour = ceil($date2->diff($date1)->format("%a") / 2);
+                $date1->modify("+$nbJour day");
+                
+                $moitie = $date1->format('Y-m-d');
+                $montantMoitie = 0;
+                foreach ($values['paiements'] as $key => $paiement) {
+                    if ($paiement['date'] <= $moitie) {
+                        $montantMoitie += $paiement['montant'];
+                    }
+                }
+                
+                if ($montantMoitie < round($montantTotal/2, 2)) {
+                    $errorSchema->addError(new sfValidatorError($this, 'echeancier_moitie_montant'), 'conditions_paiement');
+                    $hasError = true;
+                }
+                
             }
         }
-        $isDateSup = false;
         if (isset($values['date_limite_retiraison']) && $values['date_limite_retiraison']) {
             $date_limite_retiraison = new DateTime($values['date_limite_retiraison']);
             if (isset($values['date_debut_retiraison']) && $values['date_debut_retiraison']) {
                 $date_debut_retiraison = new DateTime($values['date_debut_retiraison']);
                 if ($date_debut_retiraison->format('Ymd') > $date_limite_retiraison->format('Ymd')) {
-                    //throw new sfValidatorErrorSchema($this, array('date_limite_retiraison' => new sfValidatorError($this, 'impossible_date_retiraison')));
                     $errorSchema->addError(new sfValidatorError($this, 'impossible_date_retiraison'), 'date_limite_retiraison');
                     $hasError = true;
                 }
             }
-            if ($values['conditions_paiement'] == VracClient::ECHEANCIER_PAIEMENT) {
-                if (is_array($values['paiements'])) {
-                    foreach ($values['paiements'] as $paiement) {
-                        if ($date = $paiement['date']) {
-                            $d = new DateTime($date);
-                            if ($d->format('Ymd') > $date_limite_retiraison->format('Ymd')) {
-                                $isDateSup = true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        if ($isDateSup) {
-            //throw new sfValidatorErrorSchema($this, array('date_limite_retiraison' => new sfValidatorError($this, 'impossible_date')));
-            //$errorSchema->addError(new sfValidatorError($this, 'impossible_date'), 'date_limite_retiraison');
-            //$hasError = true;
         }
         
     	if ($hasError) {

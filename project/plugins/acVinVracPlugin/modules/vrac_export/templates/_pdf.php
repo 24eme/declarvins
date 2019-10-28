@@ -173,6 +173,32 @@
 	<?php if ($vrac->exist('observations') && $vrac->observations): ?>
 	<p>Observations : <?php echo $vrac->observations ?></p>
 	<?php endif; ?>
+	
+	<!-- CLAUSES -->
+	<hr />
+	<h2>Clauses</h2>
+	<div class="clauses">
+	<?php foreach ($configurationVrac->clauses as $clause): ?>
+    <h3><?= $clause['nom'] ?></h3>
+    <p><?= $clause['description'] ?></p>
+	<?php endforeach; ?>
+	</div>
+	<?php if($vrac->clauses_complementaires): ?>
+	<h2>Clauses complémentaires</h2>
+	<div class="clauses">
+	<?php foreach (explode(',', $vrac->clauses_complementaires) as $cc): $clause = $configurationVrac->clauses_complementaires->get($cc) ?>
+    <h3><?= $clause['nom'] ?></h3>
+    <p><?= $clause['description'] ?></p>
+	<?php endforeach; ?>
+	</div>
+	<?php endif; ?>
+	<?php if ($vrac->autres_conditions): ?>
+	<h2>Autres conditions</h2>
+	<div class="clauses">
+	<?php echo $vrac->autres_conditions ?>
+	</div>
+	<?php endif; ?>
+	<!-- LOTS -->
 	<?php if ($vrac->has_transaction): ?>
 	<hr />
 	<h2>Descriptif des lots</h2>
@@ -220,27 +246,11 @@
 	</div>
 	<?php if ($item%5 == 0) {echo "<hr />"; } $item++; endforeach; ?>
 	<?php endif; ?>
-	<hr />
-	<h2>Clauses</h2>
+	<!-- Infos Complementaires -->
+	<?php if ($configurationVrac->getInformationsComplementaires()): ?>
+	<h2>Informations complémentaires</h2>
 	<div class="clauses">
-	<?php foreach ($configurationVrac->clauses as $clause): ?>
-    <h3><?= $clause['nom'] ?></h3>
-    <p><?= $clause['description'] ?></p>
-	<?php endforeach; ?>
-	</div>
-	<?php if($vrac->clauses_complementaires): ?>
-	<h2>Clauses complémentaires</h2>
-	<div class="clauses">
-	<?php foreach (explode(',', $vrac->clauses_complementaires) as $cc): $clause = $configurationVrac->clauses_complementaires->get($cc) ?>
-    <h3><?= $clause['nom'] ?></h3>
-    <p><?= $clause['description'] ?></p>
-	<?php endforeach; ?>
-	</div>
-	<?php endif; ?>
-	<?php if ($vrac->autres_conditions): ?>
-	<h2>Autres conditions</h2>
-	<div class="clauses">
-	<?php echo $vrac->autres_conditions ?>
+	<?php echo $configurationVrac->getInformationsComplementaires(ESC_RAW) ?>
 	</div>
 	<?php endif; ?>
 

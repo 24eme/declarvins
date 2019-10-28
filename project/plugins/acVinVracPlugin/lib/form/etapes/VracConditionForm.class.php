@@ -18,7 +18,7 @@ class VracConditionForm extends VracForm
         	'has_transaction' => 'je souhaite faire ma déclaration de transaction en même tant que mon contrat',
         	'type_contrat' => 'Type de contrat:',
         	'reference_contrat_pluriannuel' => 'Référence du contrat pluriannuel adossé à ce contrat:',
-            'cas_particulier' => 'Condition particulière:',
+            'cas_particulier' => 'Condition particulière*:',
         	'export' => 'Expédition export*:',
         	'premiere_mise_en_marche' => 'Première mise en marché:',
             'bailleur_metayer' => 'Entre bailleur et métayer:',

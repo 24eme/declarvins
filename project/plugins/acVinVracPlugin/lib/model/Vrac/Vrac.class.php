@@ -31,6 +31,17 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	return $id;
     }
     
+    public function initClausesComplementaires() {
+        $cc = array();
+        $configuration = ConfigurationClient::getCurrent();
+        foreach ($configuration->vrac->interpro as $interpro) {
+            foreach ($interpro->clauses_complementaires as $k => $v) {
+                $cc[$k] = $k;
+            }
+        }
+        $this->clauses_complementaires = implode(',', $cc);
+    }
+    
     public function getLibellesMentions()
     {
         $mentions = $this->getMentions();

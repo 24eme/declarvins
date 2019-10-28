@@ -104,6 +104,7 @@ class acVinVracActions extends sfActions
 		$vrac->numero_contrat = uniqid();
 		$vrac->add('referente', 1);
 		$vrac->add('version', null);
+		$vrac->initClausesComplementaires();
 		return $vrac;
 	}
 
