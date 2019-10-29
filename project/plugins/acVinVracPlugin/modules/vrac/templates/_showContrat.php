@@ -56,7 +56,7 @@
 				<span><?php echo $configurationVrac->formatTypesTransactionLibelle(array($vrac->type_transaction)); ?></span>
 			</li>
         	<li>
-				<span>Produit :</span>
+				<span>Appellation concernée :</span>
 				<span><?php echo ($vrac->produit)? $vrac->getLibelleProduit() : null; ?></span>
 			</li>
 			<li>

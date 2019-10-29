@@ -15,7 +15,7 @@ class VracProduitForm extends VracForm
         		'mentions_libelle_marque' => new sfWidgetFormInputText(),
 	    	));
 	        $this->widgetSchema->setLabels(array(
-	        	'produit' => 'Produit*:',
+	        	'produit' => 'Appellation concernée*:',
 	             'millesime' => 'Millesime:',
             	'labels_arr' => 'Certifications / Labels*:',
             	'mentions' => 'Mentions:',
