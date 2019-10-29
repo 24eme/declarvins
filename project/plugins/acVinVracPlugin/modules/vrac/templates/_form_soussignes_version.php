@@ -100,11 +100,11 @@
    <div class="bloc_adresse">
 	    <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_adresse_stockage_form">
 	        <label for="cb_adresse_differente_adresse_stockage">
-	        	<input type="checkbox" disabled="disabled" class="disabled" value="differente" id="cb_adresse_differente_adresse_stockage" <?php if($vrac->adresse_stockage->adresse): echo 'checked="checked"'; endif; ?> /> 
+	        	<input type="checkbox" disabled="disabled" class="disabled" value="1" id="cb_adresse_differente_adresse_stockage" <?php if($vrac->adresse_stockage->adresse): echo 'checked="checked"'; endif; ?> /> 
 	            Adresse de stockage différente
 	        </label>
 	    </div>
-	    <div id="bloc_adresse_stockage_form" class="bloc_form bloc_conditionner" data-condition-value="differente"> 
+	    <div id="bloc_adresse_stockage_form" class="bloc_form bloc_conditionner" data-condition-value="1"> 
 	        <div class="vracs_ligne_form vracs_ligne_form_alt">
 	            <span>
 	                <?php echo $form['adresse_stockage']['libelle']->renderLabel() ?>
@@ -240,11 +240,11 @@
    <div class="bloc_adresse">
 	    <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_adresse_livraison_form">
 	        <label for="cb_adresse_differente_adresse_livraison">
-	        	<input type="checkbox" disabled="disabled" class="disabled" value="differente" id="cb_adresse_differente_adresse_livraison" <?php if($vrac->adresse_livraison->adresse): echo 'checked="checked"'; endif; ?> /> 
+	        	<input type="checkbox" disabled="disabled" class="disabled" value="1" id="cb_adresse_differente_adresse_livraison" <?php if($vrac->adresse_livraison->adresse): echo 'checked="checked"'; endif; ?> /> 
 	            Adresse de livraison différente
 	        </label>
 	    </div>
-	    <div id="bloc_adresse_livraison_form" class="bloc_form bloc_conditionner" data-condition-value="differente"> 
+	    <div id="bloc_adresse_livraison_form" class="bloc_form bloc_conditionner" data-condition-value="1"> 
 	        <div class="vracs_ligne_form vracs_ligne_form_alt">
 	            <span>
 	                <?php echo $form['adresse_livraison']['libelle']->renderLabel() ?>

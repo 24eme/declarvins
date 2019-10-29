@@ -1,11 +1,11 @@
 <div class="bloc_adresse">
     <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_<?php echo $field ?>_form">
         <label for="cb_adresse_differente_<?php echo $field ?>">
-        	<input type="checkbox" value="differente" id="cb_adresse_differente_<?php echo $field ?>" <?php if($form[$field]['siret']->getValue() || $form[$field]['adresse']->getValue() || $form[$field]['libelle']->getValue() || $form[$field]['code_postal']->getValue() || $form[$field]['commune']->getValue() || $form[$field]['pays']->getValue()): echo 'checked="checked"'; endif; ?> /> 
+        	<input type="checkbox" value="1" id="cb_adresse_differente_<?php echo $field ?>" <?php if($form[$field]['siret']->getValue() || $form[$field]['adresse']->getValue() || $form[$field]['libelle']->getValue() || $form[$field]['code_postal']->getValue() || $form[$field]['commune']->getValue() || $form[$field]['pays']->getValue()): echo 'checked="checked"'; endif; ?> /> 
             <?php echo $label_adresse ?>
         </label>
     </div>
-    <div id="bloc_<?php echo $field ?>_form" class="bloc_form bloc_conditionner" data-condition-value="differente"> 
+    <div id="bloc_<?php echo $field ?>_form" class="bloc_form bloc_conditionner" data-condition-value="1"> 
 		<?php if ($field == 'adresse_stockage'): ?>
         		<div class="vigilance_list" style="margin-top: 10px;">Attention, tout lieu de stockage doit être préalablement déclaré à votre Organisme de Contrôle</div>
 		<?php endif; ?>
