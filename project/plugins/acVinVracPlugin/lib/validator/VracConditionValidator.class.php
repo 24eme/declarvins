@@ -13,6 +13,11 @@ class VracConditionValidator extends sfValidatorBase {
     	$errorSchema = new sfValidatorErrorSchema($this);
     	$hasError = false;
     	
+    	if ($values['contrat_pluriannuel'] == 1 && isset($values['reference_contrat_pluriannuel']) && !$values['reference_contrat_pluriannuel']) {
+    	    $errorSchema->addError(new sfValidatorError($this, 'required'), 'reference_contrat_pluriannuel');
+    	    $hasError = true;
+    	}
+    	
     	if ($hasError) {
     		throw new sfValidatorErrorSchema($this, $errorSchema);
     	}

@@ -464,10 +464,10 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
         if ($i = $this->getProduitInterpro()) {
             $interpro = $i->_id;
         }
-        if ($interpro == 'INTERPRO-IR') {
+        if ($interpro == 'INTERPRO-IR' || $interpro == 'INTERPRO-CIVP') {
             return 1;
         }
-        return 0;
+        return $this->_get('has_cotisation_cvo');
     }
     
 	public function getTypeByEtablissement($identifiant)

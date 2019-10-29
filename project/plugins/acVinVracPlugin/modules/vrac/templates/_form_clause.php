@@ -10,7 +10,10 @@
 <?php endforeach; ?>
 
 <h1 style="margin: 15px 0px 0px 0px">Clauses complémentaires</h1>
-<?php foreach ($clauses_complementaires as $key => $clause): ?>
+	<?php 
+    foreach ($clauses_complementaires as $key => $clause): 
+        if ($key == 'transfert_propriete' && $form->getObject()->type_transaction != 'vrac') continue;
+    ?>
 
     <h2><?= $clause['nom'] ?></h2>
     <p><?= html_entity_decode($clause['description']) ?></p>
