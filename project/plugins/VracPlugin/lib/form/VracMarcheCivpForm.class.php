@@ -10,6 +10,8 @@ class VracMarcheCivpForm extends VracMarcheForm
         
         $this->getWidget('conditions_paiement')->setOption('multiple', true);
         $this->getValidator('conditions_paiement')->setOption('multiple', true);
+        
+        $this->getWidget('determination_prix')->setLabel('Modalité de fixation du prix définitif ou de révision du prix*:');
     }
     protected function doUpdateObject($values) {
         if (isset($values['conditions_paiement']) && !empty($values['conditions_paiement']) && is_array($values['conditions_paiement'])) {

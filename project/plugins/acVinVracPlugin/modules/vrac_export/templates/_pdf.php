@@ -100,7 +100,7 @@
 	<p>Mention(s) : <?php echo ($vrac->getLibellesMentions())? $configurationVrac->formatMentionsLibelle($vrac->getLibellesMentions()) : '-'; ?></p>
 	<p>Certification(s)/Label(s) : <?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)) : ($vrac->labels_arr)? $configurationVrac->formatLabelsLibelle($vrac->getLibellesLabels()) : '-'; ?></p>
 	<h2>Type de contrat</h2>
-	<p><?php if ($vrac->reference_contrat_pluriannuel): ?>Contrat adossé à un contrat pluriannuel, référence <?php echo $vrac->reference_contrat_pluriannuel ?><?php else: ?>Contrat ponctuel<?php endif; ?></p>
+	<p><?php if ($vrac->contrat_pluriannuel): ?>Contrat adossé à un contrat pluriannuel<?php if ($vrac->reference_contrat_pluriannuel): ?>, référence <?php echo $vrac->reference_contrat_pluriannuel ?><?php endif; ?><?php else: ?>Contrat ponctuel<?php endif; ?></p>
 	<h2>Spécificités du contrat</h2>
 	<p>Condition particulière : <?php echo $configurationVrac->formatCasParticulierLibelle(array($vrac->cas_particulier)); ?></p>
 	<p>Expédition export : <?php echo ($vrac->export)? 'Oui' : 'Non'; ?></p>

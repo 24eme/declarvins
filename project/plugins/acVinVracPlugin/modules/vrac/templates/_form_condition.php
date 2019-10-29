@@ -12,15 +12,17 @@
             </div>
             <?php endif; ?>
             <div  id="vrac_type_contrat" class="section_label_strong bloc_condition" data-condition-cible="#bloc_reference_pluriannuel">
-                <?php echo $form['type_contrat']->renderError() ?>
-                <?php echo $form['type_contrat']->renderLabel() ?>
-                <?php echo $form['type_contrat']->render() ?>
+                <?php echo $form['contrat_pluriannuel']->renderError() ?>
+                <?php echo $form['contrat_pluriannuel']->renderLabel() ?>
+                <?php echo $form['contrat_pluriannuel']->render() ?>
             </div>
+            <?php if (isset($form['reference_contrat_pluriannuel'])): ?>
             <div class="section_label_strong bloc_conditionner" id="bloc_reference_pluriannuel" data-condition-value="1">
                 <?php echo $form['reference_contrat_pluriannuel']->renderError() ?>
                 <?php echo $form['reference_contrat_pluriannuel']->renderLabel() ?>
                 <?php echo $form['reference_contrat_pluriannuel']->render() ?>
             </div>
+            <?php endif; ?>
         	<h1>Spécificités</h1>
 			<?php if (isset($form['cas_particulier'])): ?>
             <div class="section_label_strong_bloc">

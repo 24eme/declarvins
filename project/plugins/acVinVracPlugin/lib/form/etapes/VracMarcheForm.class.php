@@ -32,7 +32,7 @@ class VracMarcheForm extends VracForm
             'prix_unitaire' => 'Prix unitaire net HT*:',
         	'type_prix_1' => 'Type de prix*:',
         	'type_prix_2' => 'Préciser*:',
-        	'determination_prix' => 'Mode de détermination du prix définitif*:',
+        	'determination_prix' => 'Modalité de fixation du prix définitif ou de révision du prix*: (celui-ci sera communiqué à l\'interprofession par les parties au contrat)',
         	'determination_prix_date' => 'Date de détermination du prix définitif*:',
         	'prix_total' => 'Prix total HT:',
         	'part_cvo' => 'Part CVO:',

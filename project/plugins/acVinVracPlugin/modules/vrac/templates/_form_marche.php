@@ -52,7 +52,7 @@
             </div>
             <div id="bloc_vrac_determination_prix" class="section_label_strong bloc_conditionner" data-condition-value="non_definitif">
                 <?php echo $form['determination_prix']->renderError() ?>
-                <?php echo $form['determination_prix']->renderLabel('Modalité de fixation du prix définitif ou de révision du prix* (celui-ci sera communiqué à l\'interprofession par les parties au contrat)') ?>
+                <?php echo $form['determination_prix']->renderLabel() ?>
                 <?php echo $form['determination_prix']->render(array("style" => "height: 60px;")) ?> 
             </div>
             <h1>Paiement</h1>

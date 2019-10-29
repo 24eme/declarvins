@@ -17,7 +17,7 @@ class VracProduitForm extends VracForm
 	        $this->widgetSchema->setLabels(array(
 	        	'produit' => 'Produit*:',
 	             'millesime' => 'Millesime:',
-            	'labels_arr' => 'Labels*:',
+            	'labels_arr' => 'Certifications / Labels*:',
             	'mentions' => 'Mentions:',
         		'labels_libelle_autre' => 'Précisez le label:',
                 'mentions_libelle_autre' => 'Précisez la mention autre:',

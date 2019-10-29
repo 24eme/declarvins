@@ -61,7 +61,7 @@
 	    </div>
 	    <br />
 	    <h2>Récapitulatif de la saisie</h2>
-	    <?php include_partial('showContrat', array('configurationVrac' => $configurationVrac,'etablissement' => $etablissement, 'vrac' => $form->getObject(), 'editer_etape' => true)); ?>
+	    <?php include_partial('showContrat', array('configurationVrac' => $configurationVrac,'etablissement' => $etablissement, 'vrac' => $form->getObject(), 'editer_etape' => true, 'hasClauses' => $form->hasClauses())); ?>
 		<?php 
 		if ($form->getObject()->hasOioc() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
 		?>

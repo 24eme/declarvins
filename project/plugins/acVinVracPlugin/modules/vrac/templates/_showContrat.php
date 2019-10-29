@@ -81,7 +81,7 @@
         <ul>
 			<li>
 				<span>Type de contrat :</span>
-				<span><?php if ($vrac->reference_contrat_pluriannuel): ?>Adossé à un contrat pluriannuel (<?php echo $vrac->reference_contrat_pluriannuel ?>)<?php else: ?>Ponctuel<?php endif; ?></span>
+				<span><?php if ($vrac->contrat_pluriannuel): ?>Adossé à un contrat pluriannuel<?php if ($vrac->reference_contrat_pluriannuel): ?> (<?php echo $vrac->reference_contrat_pluriannuel ?>)<?php endif ?><?php else: ?>Ponctuel<?php endif; ?></span>
 			</li>
 		</ul>
     	<?php if($editer_etape): ?>
@@ -327,6 +327,7 @@
 		<?php endif; ?>
 	</li>
     <?php endif; ?>
+    <?php if(!isset($hasClauses) || $hasClauses): ?>
     <?php if ($vrac->clauses_complementaires || $vrac->autres_conditions): ?>
 	<li>
 	    <h3>Clauses</h3>
@@ -348,6 +349,7 @@
     			<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'clause', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
     		<?php endif; ?>
 	</li>
+	<?php endif; ?>
 	<?php endif; ?>
     <?php if ($vrac->hasEnlevements() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
     <li id="recap_enlevements" style="margin-top: 15px;">

@@ -5,7 +5,7 @@ class VracConditionForm extends VracForm
     {
   		$this->setWidgets(array(
         	'has_transaction' => new WidgetFormInputCheckbox(),
-  		    'type_contrat' => new sfWidgetFormChoice(array('choices' => array('0' => 'Ponctuel', '1' => 'Adossé à un contrat pluriannel'),'expanded' => true)),
+  		    'contrat_pluriannuel' => new sfWidgetFormChoice(array('choices' => array('0' => 'Ponctuel', '1' => 'Adossé à un contrat pluriannel'),'expanded' => true)),
         	'reference_contrat_pluriannuel' => new sfWidgetFormInputText(),
   		    'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier(), 'renderer_options' => array('formatter' => array('VracSoussigneForm', 'casParticulierFormatter')))),
         	'export' => new sfWidgetFormChoice(array('choices' => $this->getChoixOuiNon(),'expanded' => true)),
@@ -16,7 +16,7 @@ class VracConditionForm extends VracForm
     	));
         $this->widgetSchema->setLabels(array(
         	'has_transaction' => 'je souhaite faire ma déclaration de transaction en même tant que mon contrat',
-        	'type_contrat' => 'Type de contrat:',
+        	'contrat_pluriannuel' => 'Type de contrat:',
         	'reference_contrat_pluriannuel' => 'Référence du contrat pluriannuel adossé à ce contrat:',
             'cas_particulier' => 'Condition particulière*:',
         	'export' => 'Expédition export*:',
@@ -27,7 +27,7 @@ class VracConditionForm extends VracForm
         ));
         $this->setValidators(array(
         	'has_transaction' => new ValidatorBoolean(),
-            'type_contrat' => new sfValidatorChoice(array('required' => false, 'choices' => array('0','1'))),
+            'contrat_pluriannuel' => new sfValidatorChoice(array('required' => true, 'choices' => array('0','1'))),
         	'reference_contrat_pluriannuel' => new sfValidatorString(array('required' => false)),
             'cas_particulier' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getCasParticulier()))),
         	'export' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getChoixOuiNon()))),
@@ -48,7 +48,7 @@ class VracConditionForm extends VracForm
 
     protected function doUpdateObject($values) {
       $this->getObject()->cas_particulier_libelle = $this->getConfiguration()->formatCasParticulierLibelle(array($this->getObject()->cas_particulier));
-      if (isset($values['type_contrat']) && !$values['type_contrat']) {
+      if (!$values['contrat_pluriannuel']) {
           $values['reference_contrat_pluriannuel'] = null;
       }
       parent::doUpdateObject($values); 
@@ -76,10 +76,10 @@ class VracConditionForm extends VracForm
       if (is_null($this->getObject()->bailleur_metayer)) {
         $this->setDefault('bailleur_metayer', 0);
       }    
-      if (is_null($this->getObject()->reference_contrat_pluriannuel)) {
-        $this->setDefault('type_contrat', '0');
+      if (!$this->getObject()->contrat_pluriannuel) {
+        $this->setDefault('contrat_pluriannuel', '0');
       } else {
-          $this->setDefault('type_contrat', '1');
+          $this->setDefault('contrat_pluriannuel', '1');
       }
       
       if (is_null($this->getObject()->type_transaction)) {

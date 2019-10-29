@@ -76,4 +76,8 @@ class VracValidationForm extends VracForm
         $defaults['brouillon'] = 0;
         $this->setDefaults($defaults);     
     }
+    
+    public function hasClauses() {
+        return true;
+    }
 }
