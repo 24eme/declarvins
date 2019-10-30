@@ -127,9 +127,6 @@ if ($nextModif && $nextModif->valide->statut != VracClient::STATUS_CONTRAT_ANNUL
 					<?php endif; ?>
 					<?php endif; ?>
 				</div>
-				<?php if ($vrac->has_transaction): ?>
-				<p style="text-align: right; font-size: 10px;">à envoyer à votre organisme d'inspection</p>
-                <?php endif; ?>
             </div> 
         </section>
     </div>
