@@ -81,7 +81,7 @@ class VracMarcheForm extends VracForm
     	if ($this->getObject()->type_transaction != 'raisin') {
     	    $this->getWidget('prix_unitaire')->setLabel('Prix unitaire net HT hors cotisation*:');
     	} else {
-    	    $this->getWidget('volume_propose')->setLabel('Quantité total proposé*:');
+    	    $this->getWidget('volume_propose')->setLabel('Quantité total proposée*:');
     	    $this->getWidget('prix_unitaire')->setLabel('Prix unitaire net HT*:');
     	}
     		
