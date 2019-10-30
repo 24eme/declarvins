@@ -60,13 +60,13 @@ class VracClauseForm extends VracForm
       parent::updateDefaultsFromObject(); 
       $complements = explode(',', $this->getObject()->clauses_complementaires);
       if (!in_array('emission_facture', $complements)) {
-          $this->setDefault('emission_facture', 1);
+          $this->setDefault('emission_facture', 0);
       }
       if (!in_array('agreage_vins', $complements)) {
-          $this->setDefault('agreage_vins', 1);
+          $this->setDefault('agreage_vins', 0);
       }
       if (!in_array('transfert_propriete', $complements)) {
-          $this->setDefault('transfert_propriete', 1);
+          $this->setDefault('transfert_propriete', 0);
       }
     }
 }
