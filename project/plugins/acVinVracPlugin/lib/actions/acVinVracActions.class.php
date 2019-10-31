@@ -343,14 +343,7 @@ class acVinVracActions extends sfActions
 		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
   		$pdf = new ExportVracPdf($this->vrac, $this->configurationVrac);
   		
-  		$fname = null;
-  		foreach ($this->vrac->_attachments as $filename => $fileinfos) {
-  		    $fname = $filename;
-  		}
-  		$file = file_get_contents($this->vrac->getAttachmentUri($fname));
-  		
-  		
-    	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')).$file);
+    	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
   }
   
   public function executePdfTransaction(sfWebRequest $request)
@@ -362,13 +355,7 @@ class acVinVracActions extends sfActions
 		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
   		$pdf = new ExportVracPdfTransaction($this->vrac, $this->configurationVrac, true);
   		
-  		$fname = null;
-  		foreach ($this->vrac->_attachments as $filename => $fileinfos) {
-  		    $fname = $filename;
-  		}
-  		$file = file_get_contents($this->vrac->getAttachmentUri($fname));
-  		
-    	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')).$file);
+    	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
   }
   
 	public function executeVisualisation(sfWebRequest $request)

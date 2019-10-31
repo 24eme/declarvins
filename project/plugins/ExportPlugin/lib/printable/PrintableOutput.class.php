@@ -4,6 +4,7 @@ class PrintableOutput {
 
   protected $filename;
   protected $file_dir;
+  protected $annexe;
   
   const FORMAT_A4 = "a4";
   const ORIENTATION_PORTRAIT = "portrait";
@@ -14,6 +15,11 @@ class PrintableOutput {
     $this->file_dir = $file_dir;
     $this->init();
   }
+
+  public function setAnnexe($annexe) {
+      $this->annexe = $annexe;
+  }
+  
 
   public function setPaper($format, $orientation) {
   }
