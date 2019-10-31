@@ -22,6 +22,14 @@ class ExportVracPdf extends ExportVrac
 		}
 		$document->setPaper(PrintableOutput::FORMAT_A4, PrintableOutput::ORIENTATION_PORTRAIT);
 		$document->addHtml($this->getContent());
+		$fname = null;
+		foreach ($this->vrac->_attachments as $filename => $fileinfos) {
+		    $fname = $filename;
+		}
+		$file = file_get_contents($this->vrac->getAttachmentUri($fname));
+		if ($file) {
+		    $document->setAnnexe($file);
+		}
 		$content = $document->output();
 		$document->addHeaders($response);
 
