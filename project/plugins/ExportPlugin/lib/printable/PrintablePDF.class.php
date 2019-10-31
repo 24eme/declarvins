@@ -49,12 +49,7 @@ class PrintablePDF extends PrintableOutput {
 
     public function generatePDF() {   
 		$this->pdf->render();
-		$fp = fopen($this->pdf_file, 'w');
-		fwrite($fp, $this->pdf->output());
-        if ($this->annexe) {
-		  fwrite($fp, $this->annexe);
-		}
-		fclose($fp);
+		file_put_contents($this->pdf_file,  $this->pdf->output());
     }
 
     public function addHeaders($response) {
@@ -71,7 +66,7 @@ class PrintablePDF extends PrintableOutput {
         if (!$this->isCached()) {
             $this->generatePDF();
         }
-        return file_get_contents($this->pdf_file);
+        return ($this->annexe)? file_get_contents($this->pdf_file).($this->annexe) : file_get_contents($this->pdf_file);
     }
 }
 
