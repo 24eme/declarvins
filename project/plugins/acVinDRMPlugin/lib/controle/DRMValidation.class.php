@@ -202,7 +202,7 @@ class DRMValidation
 			if ($drmPrecedente->exist($detail->getHash()) && !$this->drm->isDebutCampagne()) {
 				if (!$this->drm->hasVersion() && !$this->isAdmin) {
 					$d = $drmPrecedente->get($detail->getHash());
-					if (round($d->total,5) != round($detail->total_debut_mois,5)) {
+					if (!$this->drm->canSetStockDebutMois() && round($d->total,5) != round($detail->total_debut_mois,5)) {
 						$this->errors['stock_deb_'.$detail->getIdentifiantHTML()] = new DRMControleError('stock_deb', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
 					}
 					if (!$this->drm->canSetStockDebutMois(true) && round($d->acq_total,5) != round($detail->acq_total_debut_mois,5)) {
