@@ -19,7 +19,7 @@ class VracProduitForm extends VracForm
 	             'millesime' => 'Millesime:',
             	'labels_arr' => 'Certifications / Labels*:',
             	'mentions' => 'Mentions:',
-        		'labels_libelle_autre' => 'Précisez le label:',
+        		'labels_libelle_autre' => 'Précisez le label autre:',
                 'mentions_libelle_autre' => 'Précisez la mention autre:',
         		'mentions_libelle_chdo' => 'Précisez le terme règlementé:',
         		'mentions_libelle_marque' => 'Précisez la marque:',
