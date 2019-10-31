@@ -49,11 +49,10 @@ class PrintablePDF extends PrintableOutput {
 
     public function generatePDF() {   
 		$this->pdf->render();
-		$content = $this->pdf->output();
+		file_put_contents($this->pdf_file,  $this->pdf->output());
 		if ($this->annexe) {
-		    $content =  $this->pdf->output() ."\n". $this->annexe;
+		    file_put_contents($this->pdf_file, $this->annexe, FILE_APPEND);
 		}
-		file_put_contents($this->pdf_file, $content);
     }
 
     public function addHeaders($response) {
