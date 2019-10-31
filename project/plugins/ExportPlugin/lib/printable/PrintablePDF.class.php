@@ -49,7 +49,15 @@ class PrintablePDF extends PrintableOutput {
 
     public function generatePDF() {   
 		$this->pdf->render();
-		file_put_contents($this->pdf_file,  $this->pdf->output());
+		if ($this->annexe) {
+		    file_put_contents('/tmp/'.$this->filename,  $this->pdf->output());
+		    file_put_contents('/tmp/annexe_'.$this->filename,  $this->annexe);
+		    exec("pdftk /tmp/".$this->filename." /tmp/annexe_".$this->filename." cat output ".$this->pdf_file);
+		    unlink('/tmp/'.$this->filename);
+		    unlink('/tmp/annexe_'.$this->filename);
+		} else {
+		  file_put_contents($this->pdf_file,  $this->pdf->output());
+		}
     }
 
     public function addHeaders($response) {
@@ -66,7 +74,7 @@ class PrintablePDF extends PrintableOutput {
         if (!$this->isCached()) {
             $this->generatePDF();
         }
-        return ($this->annexe)? file_get_contents($this->pdf_file).($this->annexe) : file_get_contents($this->pdf_file);
+        return file_get_contents($this->pdf_file);
     }
 }
 
