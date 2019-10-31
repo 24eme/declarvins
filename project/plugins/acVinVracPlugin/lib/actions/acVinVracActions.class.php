@@ -127,6 +127,27 @@ class acVinVracActions extends sfActions
 		$this->redirect('vrac_etablissement', array('sf_subject' => $this->etablissement));
 	}
 
+	public function executeAnnexe(sfWebRequest $request)
+	{
+        $this->vrac = $this->getRoute()->getVrac();
+        $fname = null;
+	    foreach ($this->vrac->_attachments as $filename => $fileinfos) {
+    		$fname = $filename;
+    	}
+        $file = file_get_contents($this->vrac->getAttachmentUri($fname));
+        if(!$file) {
+            return $this->forward404($filename." n'existe pas pour ".$this->vrac->_id);
+        }
+        $this->getResponse()->setHttpHeader('Content-Type', 'application/pdf');
+        $this->getResponse()->setHttpHeader('Content-disposition', sprintf('attachment; filename="%s"', $this->vrac->annexe_file));
+        $this->getResponse()->setHttpHeader('Content-Transfer-Encoding', 'binary');
+        $this->getResponse()->setHttpHeader('Pragma', '');
+        $this->getResponse()->setHttpHeader('Cache-Control', 'public');
+        $this->getResponse()->setHttpHeader('Expires', '0');
+        
+        return $this->renderText($file);
+	}
+
 	public function executeStatut(sfWebRequest $request)
 	{
         $this->vrac = $this->getRoute()->getVrac();
@@ -223,7 +244,7 @@ class acVinVracActions extends sfActions
 		}
 		$this->form = $this->getForm($this->interpro->_id, $this->etape, $this->configurationVrac, $this->etablissement, $this->getUser(), $this->vrac);
 		if ($request->isMethod(sfWebRequest::POST)) {
-			$this->form->bind($request->getParameter($this->form->getName()));
+    	   $this->form->bind($request->getParameter($this->form->getName()), $request->getFiles($this->form->getName()));
 			if ($this->form->isValid()) {
 				$this->vrac = $this->form->getUpdatedObject();
 				if ($this->vrac->isNew()) {
@@ -321,7 +342,15 @@ class acVinVracActions extends sfActions
     	$this->interpro = $this->getInterpro($this->vrac, $this->etablissement);
 		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
   		$pdf = new ExportVracPdf($this->vrac, $this->configurationVrac);
-    	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
+  		
+  		$fname = null;
+  		foreach ($this->vrac->_attachments as $filename => $fileinfos) {
+  		    $fname = $filename;
+  		}
+  		$file = file_get_contents($this->vrac->getAttachmentUri($fname));
+  		
+  		
+    	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')).$file);
   }
   
   public function executePdfTransaction(sfWebRequest $request)
@@ -332,7 +361,14 @@ class acVinVracActions extends sfActions
     	$this->interpro = $this->getInterpro($this->vrac, $this->etablissement);
 		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
   		$pdf = new ExportVracPdfTransaction($this->vrac, $this->configurationVrac, true);
-    	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')));
+  		
+  		$fname = null;
+  		foreach ($this->vrac->_attachments as $filename => $fileinfos) {
+  		    $fname = $filename;
+  		}
+  		$file = file_get_contents($this->vrac->getAttachmentUri($fname));
+  		
+    	return $this->renderText($pdf->render($this->getResponse(), false, $request->getParameter('format')).$file);
   }
   
 	public function executeVisualisation(sfWebRequest $request)

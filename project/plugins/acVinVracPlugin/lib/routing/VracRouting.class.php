@@ -40,6 +40,12 @@ class VracRouting {
                                                         array('module' => 'vrac', 'action' => 'supprimer'),
                                                         array('sf_method' => array('get')),
                                                         array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true, 'segment_separators' => array('/'))));
+        
+        $r->prependRoute('vrac_annexe', new VracRoute('/vrac/:identifiant/:contrat/annexe',
+                                                        array('module' => 'vrac', 'action' => 'annexe'),
+                                                        array('sf_method' => array('get')),
+                                                        array('model' => 'Vrac', 'type' => 'object', 'no_archive' => true, 'segment_separators' => array('/'))));
+        
         $r->prependRoute('vrac_edition', new VracRoute('/vrac/:identifiant/:contrat/edition',
                                                         array('module' => 'vrac','action' => 'edition'),
                                                         array('sf_method' => array('get','post')),

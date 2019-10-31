@@ -141,7 +141,7 @@
 				<span>Cotisation interprofessionnelle :</span>
 				<span><?php echo $vrac->getCvoUnitaire() ?> € HT / HL</span>
 			</li>
-			<li>
+			<li>0.00
 				<span>Prix total unitaire :</span>
 				<span><?php echo $vrac->getTotalUnitaire() ?> € HT / HL</span>
 			</li>
@@ -347,6 +347,12 @@
 				<span><?php echo $vrac->autres_conditions ?></span>
 			</li>
 			<?php endif ?>
+			<?php if (count($vrac->_attachments) > 0): ?>
+			<li>
+				<span>Annexe PDF :</span>
+				<span><a href="<?php echo url_for('vrac_annexe', $vrac) ?>"><?php echo $vrac->annexe_file ?></a></span>
+			</li>
+			<?php endif; ?>
 		</ul>
     		<?php if($editer_etape): ?>
     			<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'clause', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>

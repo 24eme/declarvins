@@ -1,7 +1,7 @@
 <?php $clauses = $configurationVrac->clauses ?>
 <?php $clauses_complementaires = $configurationVrac->clauses_complementaires ?>
 
-<form method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>">
+<form method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>" enctype="multipart/form-data">
  <?php echo $form->renderHiddenFields() ?>
  <?php echo $form->renderGlobalErrors() ?>
 <h1 style="margin: 0px 0px 0px 0px">Clauses</h1>
@@ -58,6 +58,15 @@
 <h1>Autres conditions</h1>
 <?= $form['autres_conditions']->render(array('style' => 'width:99%;height:120px;')) ?>
 
+<h1 style="margin: 15px 0px 0px 0px">Annexes</h1>
+<?php if (isset($form['annexe_file'])): ?>
+<div class="section_label_strong" style="margin: 5px 0;">
+    <?php echo $form['annexe_file']->renderError() ?>
+    <?php echo $form['annexe_file']->renderLabel() ?>
+    <?php echo $form['annexe_file']->render() ?>
+</div>
+<?php endif; ?>
+    
 <div class="ligne_form_btn">
 	<?php if($form->getObject()->has_transaction): ?>
 		<a href="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => 'transaction', 'etablissement' => $etablissement)) ?>" class="etape_prec"><span>etape précédente</span></a>

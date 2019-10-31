@@ -4,6 +4,15 @@ Vrac:
     fields:
       _id: {  }
       _rev: {  }
+      _attachments:
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  '*': { }
       type: {  }
       interpro: {  }
       has_transaction: {  }
@@ -205,6 +214,7 @@ Vrac:
       volume_propose: { type: float }
       poids: { type: float }
       annexe: {  }
+      annexe_file: {  }
       prix_unitaire: { type: float }
       type_prix: {  }
       determination_prix_date: {  }
