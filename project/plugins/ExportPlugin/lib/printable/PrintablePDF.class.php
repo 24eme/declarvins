@@ -51,7 +51,7 @@ class PrintablePDF extends PrintableOutput {
 		$this->pdf->render();
 		$content = $this->pdf->output();
 		if ($this->annexe) {
-		    $content .= $this->annexe;
+		    $content =  $this->pdf->output() ."\n". $this->annexe;
 		}
 		file_put_contents($this->pdf_file, $content);
     }
