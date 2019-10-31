@@ -2,11 +2,37 @@
 <?php $clauses_complementaires = $configurationVrac->clauses_complementaires ?>
 
 <form method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>">
-<?= $form->renderHiddenFields(); ?>
+ <?php echo $form->renderHiddenFields() ?>
+ <?php echo $form->renderGlobalErrors() ?>
 <h1 style="margin: 0px 0px 0px 0px">Clauses</h1>
-<?php foreach ($clauses as $clause): ?>
+<?php foreach ($clauses as $k => $clause): ?>
     <h2><?= $clause['nom'] ?></h2>
     <p><?= $clause['description'] ?></p>
+    <?php if ($k == 'resiliation'): ?>
+    
+    <?php if (isset($form['clause_resiliation_cas'])): ?>
+    <div class="section_label_strong" style="margin: 5px 0;">
+        <?php echo $form['clause_resiliation_cas']->renderError() ?>
+        <?php echo $form['clause_resiliation_cas']->renderLabel() ?>
+        <?php echo $form['clause_resiliation_cas']->render() ?>
+    </div>
+    <?php endif; ?>
+    <?php if (isset($form['clause_resiliation_preavis'])): ?>
+    <div class="section_label_strong" style="margin: 5px 0;">
+        <?php echo $form['clause_resiliation_preavis']->renderError() ?>
+        <?php echo $form['clause_resiliation_preavis']->renderLabel() ?>
+        <?php echo $form['clause_resiliation_preavis']->render() ?>
+    </div>
+    <?php endif; ?>
+    <?php if (isset($form['clause_resiliation_indemnite'])): ?>
+    <div class="section_label_strong" style="margin: 5px 0;">
+        <?php echo $form['clause_resiliation_indemnite']->renderError() ?>
+        <?php echo $form['clause_resiliation_indemnite']->renderLabel() ?>
+        <?php echo $form['clause_resiliation_indemnite']->render() ?>
+    </div>
+    <?php endif; ?>
+    
+    <?php endif; ?>
 <?php endforeach; ?>
 
 <h1 style="margin: 15px 0px 0px 0px">Clauses complémentaires</h1>

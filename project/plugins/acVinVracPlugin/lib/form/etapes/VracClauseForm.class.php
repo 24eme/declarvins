@@ -35,8 +35,9 @@ class VracClauseForm extends VracForm
         $this->widgetSchema->setNameFormat('vrac_clause[%s]');
     }
 
-    public function doUpdateObject($values)
+    protected function doUpdateObject($values)
     {
+        parent::doUpdateObject($values);
         $clauses_complementaires = $this->getConfiguration()->clauses_complementaires;
         $vrac = $this->getObject();
         $vrac->remove('clauses_complementaires');

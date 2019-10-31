@@ -243,6 +243,9 @@ Vrac:
       clause_reserve_retiraison: {  }
       clauses_complementaires: {  }
       autres_conditions: {  }
+      clause_resiliation_cas: {  }
+      clause_resiliation_preavis: {  }
+      clause_resiliation_indemnite: {  }
       export: {  }
       lots:
         type: array_collection

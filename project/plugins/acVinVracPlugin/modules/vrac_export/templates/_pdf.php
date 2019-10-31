@@ -178,9 +178,14 @@
 	<hr />
 	<h2>Clauses</h2>
 	<div class="clauses">
-	<?php foreach ($configurationVrac->clauses as $clause): ?>
+	<?php foreach ($configurationVrac->clauses as $k => $clause): ?>
     <h3><?= $clause['nom'] ?></h3>
     <p><?= $clause['description'] ?></p>
+    <?php if ($k == 'resiliation'): ?>
+    <?php if($vrac->clause_resiliation_cas): ?><p>Cas de résiliation : <?php echo $vrac->clause_resiliation_cas ?></p><?php endif; ?>
+    <?php if($vrac->clause_resiliation_preavis): ?><p>Délai de préavis : <?php echo $vrac->clause_resiliation_preavis ?></p><?php endif; ?>
+    <?php if($vrac->clause_resiliation_indemnite): ?><p>Indemnité : <?php echo $vrac->clause_resiliation_indemnite ?></p><?php endif; ?>
+    <?php endif ?>
 	<?php endforeach; ?>
 	</div>
 	<?php if($vrac->clauses_complementaires): ?>
