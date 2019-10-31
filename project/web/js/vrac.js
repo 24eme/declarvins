@@ -54,20 +54,25 @@
 	                				   $(blocs[bloc]).initBlocsFormCol();
 	            				   }
 	            			   }
-							 var allValues = [];
-							 if (input.attr('type') == 'checkbox') {
-						            $.each($("input[name='"+input.attr('name')+"']:checked"), function(){
-						            	allValues.push($(this).val());
-						            });
-							 } else {
-								 allValues.push(input.val());
-							 }
-							 if (jQuery.inArray(values[key],allValues) != -1) {
+							 if (values[key] == input.val()) {
 								 $(blocs[bloc]).show();
 								 $(blocs[bloc]).initBlocsFormCol();	
 							 }
 						 }
 					 }
+				 }
+			}
+			if (input.attr('type') == 'checkbox') {
+				var allValues = [];
+				$.each($("input[name='"+input.attr('name')+"']:checked"), function(){
+					allValues.push($(this).val());
+				});
+				var values = $(blocs[bloc]).attr('data-condition-value').split('|');
+				 for(key in values) {
+				 if (jQuery.inArray(values[key],allValues) != -1) {
+					 $(blocs[bloc]).show();
+					 $(blocs[bloc]).initBlocsFormCol();	
+				 }
 				 }
 			}
 			
@@ -89,6 +94,7 @@
         {
       	   for (bloc in blocs) {
  				$(blocs[bloc]).hide();
+  				console.log('ok')
     	   }
       	   if($(this).is(':checkbox')) {
           	   $(this).parent().find('input').each(function() {
