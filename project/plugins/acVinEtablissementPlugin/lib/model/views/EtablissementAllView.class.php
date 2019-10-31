@@ -128,22 +128,24 @@ class EtablissementAllView extends acCouchdbView
             $libelle .= $rs;
         }
 
-        $libelle .= ' ('.$datas[self::KEY_IDENTIFIANT];
-        if ($c) {
-            $libelle .= ' / '.implode(' / ', $c);
-        }
-        if (isset($datas[self::KEY_SIRET]) && $siret = $datas[self::KEY_SIRET]) {
-            $libelle .= ' / '.$siret;
+        if (sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN)) {
+            $libelle .= ' ('.$datas[self::KEY_IDENTIFIANT];
+            if ($c) {
+                $libelle .= ' / '.implode(' / ', $c);
+            }
+            if (isset($datas[self::KEY_SIRET]) && $siret = $datas[self::KEY_SIRET]) {
+                $libelle .= ' / '.$siret;
+            }
+            if (isset($datas[self::KEY_CVI]) && $cvi = $datas[self::KEY_CVI]) {
+                $libelle .= ' / '.$cvi;
+            }
+            if (isset($datas[self::KEY_EA]) && $ea = $datas[self::KEY_EA]) {
+                $libelle .= ' / '.$ea;
+            }
+            $libelle .= ') ';
         }
 
-        if (isset($datas[self::KEY_CVI]) && $cvi = $datas[self::KEY_CVI]) {
-            $libelle .= ' / '.$cvi;
-        }
-
-        if (isset($datas[self::KEY_EA]) && $ea = $datas[self::KEY_EA]) {
-            $libelle .= ' / '.$ea;
-        }
-        $libelle .= ') ';
+        $libelle .= ' ';
 
     	if (isset($datas[self::KEY_FAMILLE]))
     	  	$libelle .= $datas[self::KEY_FAMILLE];

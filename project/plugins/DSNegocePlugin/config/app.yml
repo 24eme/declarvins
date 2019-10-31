@@ -1,5 +1,5 @@
 all:
   dsnegoce:
     date: "2019-07-01"
-    cloture: "2019-09-15"
-    cloture_libelle: "15 septembre"
+    cloture: "2019-12-15"
+    cloture_libelle: "15 Décembre"
