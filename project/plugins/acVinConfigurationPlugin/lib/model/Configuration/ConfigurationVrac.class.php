@@ -108,11 +108,11 @@ class ConfigurationVrac extends BaseConfigurationVrac {
 
     public function getLibelles($collection, $node) {
         $libelles = array(); 
-        foreach($collection as $key) {
+        foreach($collection as $ind => $key) {
         	if ($this->{$node}->exist($key))
-            	$libelles[$key] = $this->{$node}->get($key);
+            	$libelles[$ind.$key] = $this->{$node}->get($key);
         	else
-            	$libelles[$key] = $key;
+            	$libelles[$ind.$key] = $key;
         }
         return $libelles;
     }
