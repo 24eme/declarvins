@@ -1,18 +1,18 @@
-#Spécifications techniques de l'implémentation du service EDI sur le portail DeclarVins à destination des interprofessions partenaires
+# Spécifications techniques de l'implémentation du service EDI sur le portail DeclarVins à destination des interprofessions partenaires
 
-##Architecture technique de sécurité
+## Architecture technique de sécurité
 
-###Authentification des utilisateurs
+### Authentification des utilisateurs
 
 L'interface EDI n'est accessible qu'après authentification. L'authentification nécessite que l'utilisateur possède un compte sur la plateforme de télédéclaration DeclarVins. Une fois ce compte créé, l'utilisateur pourra s'identifier sur la plateforme EDI en fournissant son login et mot de passe via le protocole d'authentification HTTP (HTTP Authentication Basic [1]).
 
 Les informations relatives aux identifiants/mots de passe, aux cookies ou aux authentifications HTTP seront transférées en HTTPS [2] comme tout le reste des informations.
 
-###Protocole technique utilisé
+### Protocole technique utilisé
 
 L'EDI mis à disposition est accessible à travers le protocole HTTPS. Pour l'envoi d'information, la méthode POST x-www-form-urlencoded [3] doit être implémentée.
 
-###Échange de données
+### Échange de données
 
 Les données échangées en mode lecture ou écriture se font sous le format CSV [4]. La plateforme supporte indifféremment les séparateurs virgules (« , ») ou point-virgules (« ; »). En revanche, il est nécessaire qu'un seul type de séparateur soit utilisé  au sein d'un même document.
 
@@ -23,17 +23,17 @@ Débuter une ligne par le caractère « # » permet de définir des commentaires
 
 Les nombres décimaux peuvent avoir pour séparateur décimal une virgule « , » ou un point « . ». Dans le cas ou la virgule « , » est choisi, bien faire attention qu'il n'y ait pas de confusion avec le séparateur du CSV.
 
-###Sécurité des transferts
+### Sécurité des transferts
 
 Toutes les connexions réalisées sur l'interface de saisie des DRM se feront via le protocole HTTPS [2].
 
-###Domaine dédié à l'EDI
+### Domaine dédié à l'EDI
 
 Le nom de domaine de pré-production est : https://edi-preprodv2.declarvins.net   
 
 Le nom de domaine de production est : https://edi.declarvins.net
 
-###Envoi des informations par EDI
+### Envoi des informations par EDI
 
 Voici les détails téchnique pour accéder au webservice d'envoi EDI :
 
@@ -45,7 +45,7 @@ Voici les détails téchnique pour accéder au webservice d'envoi EDI :
  - Type de requete : POST x-www-form-urlencoded
  - URL : *mis à disposition sur le portail DeclarVins*
  
-##Interface EDI DRM
+## Interface EDI DRM
 
 L'url de récupération des DRM pour une interprofession partenaire est : 
 
@@ -66,7 +66,7 @@ Cet export fournira les mouvements, des produits relatifs à l'interprofession p
 
 La spécification complète du format d'import et d'export des DRM est détaillée ici : [Spécification DRM DeclarVins](https://github.com/24eme/declarvins/tree/master/doc/logiciels-tiers/). 
 
-##Interface EDI Contrat d'achat
+## Interface EDI Contrat d'achat
 
 L'url de récupération des contrats d'achat pour une interprofession partenaire est : 
 
