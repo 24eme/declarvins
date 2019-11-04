@@ -67,6 +67,8 @@
 				$.each($("input[name='"+input.attr('name')+"']:checked"), function(){
 					allValues.push($(this).val());
 				});
+				for (bloc in blocs) {
+					if ($(blocs[bloc]).exists()) {
 				var values = $(blocs[bloc]).attr('data-condition-value').split('|');
 				 for(key in values) {
 				 if (jQuery.inArray(values[key],allValues) != -1) {
@@ -74,6 +76,8 @@
 					 $(blocs[bloc]).initBlocsFormCol();	
 				 }
 				 }
+					}
+				}
 			}
 			
 		}
@@ -94,7 +98,6 @@
         {
       	   for (bloc in blocs) {
  				$(blocs[bloc]).hide();
-  				console.log('ok')
     	   }
       	   if($(this).is(':checkbox')) {
           	   $(this).parent().find('input').each(function() {
