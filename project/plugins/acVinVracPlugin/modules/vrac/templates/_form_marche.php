@@ -17,7 +17,7 @@
             </div>
             <?php endif; ?>
 
-        	<h1>Volume / Prix</h1>
+        	<h1><?php if($form->getObject()->type_transaction == 'raisin'): ?>Quantité<?php else: ?>Volume<?php endif; ?> / Prix</h1>
             <div class="section_label_strong">
                 <?php echo $form['volume_propose']->renderError() ?>
                 <?php echo $form['volume_propose']->renderLabel() ?>
