@@ -91,8 +91,8 @@ class VracProduitForm extends VracForm
         } elseif (!in_array('marque', $values['mentions'])) {
             $this->getObject()->mentions_libelle_marque = null;
         }
-        $this->getObject()->labels_libelle = $this->getConfiguration()->formatLabelsLibelle(array($this->getObject()->labels));
-        $this->getObject()->mentions_libelle = $this->getConfiguration()->formatMentionsLibelle($this->getObject()->mentions);
+        $this->getObject()->labels_libelle = $this->getConfiguration()->formatLabelsLibelle($this->getObject()->getLibellesLabels());
+        $this->getObject()->mentions_libelle = $this->getConfiguration()->formatMentionsLibelle($this->getObject()->getLibellesMentions());
     }
     
 	protected function updateDefaultsFromObject() {
