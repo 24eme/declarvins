@@ -6,7 +6,7 @@
         <div>
         	<h1>Produit</h1>
         	<div class="section_label_strong">
-            	<label>Appellation concernée: </label>
+            	<label><?php if($form->getObject()->isConditionneIvse()): ?>Dénomination<?php else: ?>Appellation<?php endif; ?> concernée: </label>
                 <strong><?php echo ($form->getObject()->produit)? $form->getObject()->getLibelleProduit("%g% %a% %l% %co%", true) : null; ?><?php if ($form->getObject()->millesime): ?>&nbsp;<?php echo $form->getObject()->millesime; ?><?php endif; ?></strong>
             </div>
             <?php if (isset($form['cepages'])): ?>
