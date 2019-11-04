@@ -239,7 +239,7 @@
         var tauxRepartition = $('#vrac_marche_repartition_cvo_acheteur');
         var tauxCVO = $('#vrac_marche_part_cvo');
         if (hasCotisationCvo && prix.val()) {
-        	totalSomme.val(parseFloat(prix.val()) + parseFloat(cotisation)); 
+        	totalSomme.val((parseFloat(prix.val()) + parseFloat(cotisation)).toFixed(2)); 
         }
         sommeEuros(prix, totalSomme, cotisation, tauxRepartition, tauxCVO, hasCotisationCvo);
 	    
