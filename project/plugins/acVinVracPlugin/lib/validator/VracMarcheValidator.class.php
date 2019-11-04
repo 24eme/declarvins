@@ -12,6 +12,7 @@ class VracMarcheValidator extends sfValidatorBase {
         $this->addMessage('echeancier_montant', "Vous devez saisir les montants de votre échéancier");
         $this->addMessage('echeancier_max_date', "Vos échéances ne peuvent s'étaler au dela du 30/09 prochain");
         $this->addMessage('echeancier_moitie_montant', "Au moins la moitié du montant total doit être payée à la moitié de la durée de l'échéancier");
+        $this->addMessage('echeancier_montant_total', "Le prix total de l'échéancier ne correspond pas au montant total du contrat");
     }
     
 	protected function getTypePrixNeedDetermination() {
@@ -58,13 +59,13 @@ class VracMarcheValidator extends sfValidatorBase {
     	    }
     	}
         if ($values['conditions_paiement'] == VracClient::ECHEANCIER_PAIEMENT) {
+            $montantTotal = 0;
             if (is_array($values['paiements'])) {
                 if (!$values['paiements']) {
                     $errorSchema->addError(new sfValidatorError($this, 'echeancier_date'), 'conditions_paiement');
                     $hasError = true;
                 }
                 $maxd = null;
-                $montantTotal = 0;
                 foreach ($values['paiements'] as $key => $paiement) {
                     if (!$paiement['date']) {
                         $errorSchema->addError(new sfValidatorError($this, 'echeancier_date'), 'conditions_paiement');
@@ -104,6 +105,15 @@ class VracMarcheValidator extends sfValidatorBase {
                     $hasError = true;
                 }
                 
+            }
+            $vol = (isset($values['volume_propose']))? $values['volume_propose'] : 0;
+            $cvo = (isset($values['part_cvo']))? $values['part_cvo'] : 0;
+            $prix = (isset($values['prix_unitaire']))? $values['prix_unitaire'] : 0;
+            $totalMax = ceil(($prix + $cvo) * $vol);
+            $totalMin = floor($prix * $vol);
+            if ($montantTotal < $totalMin || $montantTotal > $totalMax) {
+                $errorSchema->addError(new sfValidatorError($this, 'echeancier_montant_total'), 'conditions_paiement');
+                $hasError = true;
             }
         }
         if (isset($values['date_limite_retiraison']) && $values['date_limite_retiraison']) {
