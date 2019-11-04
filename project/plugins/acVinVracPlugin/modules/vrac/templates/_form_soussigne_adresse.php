@@ -1,6 +1,6 @@
 <div class="bloc_adresse">
     <div class="section_label_strong bloc_condition" data-condition-cible="#bloc_<?php echo $field ?>_form">
-        <label for="cb_adresse_differente_<?php echo $field ?>">
+        <label style="float:none;" for="cb_adresse_differente_<?php echo $field ?>">
         	<input type="checkbox" value="1" id="cb_adresse_differente_<?php echo $field ?>" <?php if($form[$field]['siret']->getValue() || $form[$field]['adresse']->getValue() || $form[$field]['libelle']->getValue() || $form[$field]['code_postal']->getValue() || $form[$field]['commune']->getValue() || $form[$field]['pays']->getValue()): echo 'checked="checked"'; endif; ?> /> 
             <?php echo $label_adresse ?>
         </label>

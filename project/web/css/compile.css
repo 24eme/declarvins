@@ -3969,6 +3969,7 @@ p#date_drm {
   font-weight: bold;
   text-transform: none;
   width: 210px;
+  float: left;
 }
 .vracs .section_label_strong .radio_list li {
   width: 200px !important;

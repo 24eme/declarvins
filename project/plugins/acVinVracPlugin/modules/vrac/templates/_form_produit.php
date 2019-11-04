@@ -11,10 +11,10 @@
             </div>            
             <div  id="section_millesime" class="section_label_strong">
                 <?php echo $form['millesime']->renderError() ?>
-                    <?php echo $form['non_millesime']->renderError() ?>
+                <?php echo $form['non_millesime']->renderError() ?>
                 <?php echo $form['millesime']->renderLabel() ?>
                 <?php echo ($form->getObject()->hasVersion() && $form->getObject()->volume_enleve > 0)? $form->getObject()->millesime : $form['millesime']->render(); ?>
-                <?php echo $form['non_millesime']->render() ?>&nbsp;<label for="vrac_produit_non_millesime" style="font-weight: normal;width:auto;">Non millésimé</label>
+                <?php echo $form['non_millesime']->render() ?>&nbsp;<label for="vrac_produit_non_millesime" style="font-weight: normal;width:auto;float:none;">Non millésimé</label>
             </div>            
             
             <div id="vrac_labels" class="section_label_strong bloc_condition" data-condition-cible="#bloc_labels_libelle_autre">
