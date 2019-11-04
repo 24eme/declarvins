@@ -34,7 +34,7 @@
     
     <?php endif; ?>
 <?php endforeach; ?>
-
+<?php if ($clauses_complementaires): ?>
 <h1 style="margin: 15px 0px 0px 0px">Clauses complémentaires</h1>
 	<?php 
     foreach ($clauses_complementaires as $key => $clause): 
@@ -49,7 +49,7 @@
         <span><?= $form[$key]->render() ?> <?= $form[$key]->renderLabel() ?></span>
     </div>
 <?php endforeach; ?>
-
+<?php endif; ?>
 <?php if ($configurationVrac->informations_complementaires): ?>
 <h1>Informations complémentaires</h1>
 <?= html_entity_decode($configurationVrac->informations_complementaires); ?>
@@ -58,8 +58,8 @@
 <h1>Autres conditions</h1>
 <?= $form['autres_conditions']->render(array('style' => 'width:99%;height:120px;')) ?>
 
-<h1 style="margin: 15px 0px 0px 0px">Annexes</h1>
 <?php if (isset($form['annexe_file'])): ?>
+<h1 style="margin: 15px 0px 0px 0px">Annexes</h1>
 <div class="section_label_strong" style="margin: 5px 0;">
     <?php echo $form['annexe_file']->renderError() ?>
     <?php echo $form['annexe_file']->renderLabel() ?>
