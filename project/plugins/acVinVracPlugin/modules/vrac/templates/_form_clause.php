@@ -34,7 +34,7 @@
     
     <?php endif; ?>
 <?php endforeach; ?>
-<?php if ($clauses_complementaires): ?>
+<?php if (count($clauses_complementaires) > 0): ?>
 <h1 style="margin: 15px 0px 0px 0px">Clauses complémentaires</h1>
 	<?php 
     foreach ($clauses_complementaires as $key => $clause): 
@@ -55,8 +55,10 @@
 <?= html_entity_decode($configurationVrac->informations_complementaires); ?>
 <?php endif; ?>
 
+<?php if (isset($form['autres_conditions'])): ?>
 <h1>Autres conditions</h1>
 <?= $form['autres_conditions']->render(array('style' => 'width:99%;height:120px;')) ?>
+<?php endif; ?>
 
 <?php if (isset($form['annexe_file'])): ?>
 <h1 style="margin: 15px 0px 0px 0px">Annexes</h1>
