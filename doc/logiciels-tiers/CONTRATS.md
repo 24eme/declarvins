@@ -1,6 +1,6 @@
-#Spécifications techniques de l'implémentation du format de contrat d'achat attendues sur le portail DeclarVins
+# Spécifications techniques de l'implémentation du format de contrat d'achat attendues sur le portail DeclarVins
 
-##Organisation générale 
+## Organisation générale 
 
 Le fichier CSV permet de déclarer les différentes informations liées au contrat d'achat.
 
@@ -13,7 +13,7 @@ Chaque ligne du fichier correspond à un contrat d'achat. Cette structure s'orga
 
 La partie identification du produit peut être utilisé soit de manière éclaté (qui permet de faire des exploitations statistiques sur les appellations, les couleurs, ...), soit de manière agrégé en indiquant le nom complet du produit.
 
-###Description des lignes 
+### Description des lignes 
 
  **Pour la section commune :**
  
@@ -43,6 +43,6 @@ Pour identifier un produit, il est obligatoire de renseigner les codes du produi
  14. Le volume initial : (champ obligatoire)
  15. Le volume retiré : (champ facultatif)
 
-###Exemple de CSV complet
+### Exemple de CSV complet
 
 [Vous trouverez ici un exemple complet](export_edi_complet_contrats.csv "csv_complet")
