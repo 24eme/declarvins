@@ -27,7 +27,7 @@ class ExportVracPdf extends ExportVrac
 		    $fname = $filename;
 		}
 		$file = file_get_contents($this->vrac->getAttachmentUri($fname));
-		if ($file) {
+		if ($fname && $file) {
 		    $document->setAnnexe($file);
 		}
 		$content = $document->output();
