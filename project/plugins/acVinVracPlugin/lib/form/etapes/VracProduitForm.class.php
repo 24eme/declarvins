@@ -75,6 +75,22 @@ class VracProduitForm extends VracForm
         } else {
             $this->getObject()->has_transaction = 0;
         }
+        if (!isset($values['labels_arr'])) {
+            $this->getObject()->labels_libelle_autre = null;
+        } elseif (!in_array('autre', $values['labels_arr'])) {
+            $this->getObject()->labels_libelle_autre = null;
+        }
+        if (!isset($values['mentions'])) {
+            $this->getObject()->mentions_libelle_autre = null;
+            $this->getObject()->mentions_libelle_chdo = null;
+            $this->getObject()->mentions_libelle_marque = null;
+        } elseif (!in_array('chdo', $values['mentions'])) {
+            $this->getObject()->mentions_libelle_chdo = null;
+        } elseif (!in_array('autre', $values['mentions'])) {
+            $this->getObject()->mentions_libelle_autre = null;
+        } elseif (!in_array('marque', $values['mentions'])) {
+            $this->getObject()->mentions_libelle_marque = null;
+        }
         $this->getObject()->labels_libelle = $this->getConfiguration()->formatLabelsLibelle(array($this->getObject()->labels));
         $this->getObject()->mentions_libelle = $this->getConfiguration()->formatMentionsLibelle($this->getObject()->mentions);
     }
