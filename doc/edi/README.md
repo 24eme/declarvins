@@ -167,6 +167,8 @@ VRAC_\<\<date demandée\>\>_\<\<date de saisie du dernier contrat retourné\>\>.
 81. Prix total du contrat
 82. Mois de la date de statistique
 83. Année de la date de statistique
+84. Type de retiraison : vrac (Retiraison/Livraison en Vrac) / tire_bouche (Retiraison/Livraison en Tiré Bouché) / lattes (Retiraison/Livraison sur Lattes)
+85. Delai de paiement : 60_jours / 45_jours / autre
 
 
    [1]: https://fr.wikipedia.org/wiki/Authentification_HTTP
