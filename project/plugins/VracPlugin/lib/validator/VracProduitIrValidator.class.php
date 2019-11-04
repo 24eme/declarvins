@@ -3,10 +3,12 @@
 class VracProduitIrValidator extends VracProduitValidator {
 
     public function configure($options = array(), $messages = array()) {
+        parent::configure($options, $messages);
         $this->addMessage('labels_incoherent', "Combinaison de label impossible.");
     }
 
     protected function doClean($values) {
+        parent::doClean($values);
         $errorSchema = new sfValidatorErrorSchema($this);
         $hasError = false;
         
