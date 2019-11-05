@@ -133,9 +133,6 @@
 				<span>Prix unitaire net :</span>
 				<span><?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction == 'raisin'): ?>€ HT / Kg<?php else: ?>€ HT / HL hors cotisations<?php endif;?></span>
 			</li>
-			<li>
-				<?php var_dump($vrac->type_transaction == 'vrac',$vrac->has_cotisation_cvo,$vrac->part_cvo > 0) ?>
-			</li>
 			<?php if ($vrac->type_transaction == 'vrac'): ?>
 			<li>
 				<span>Cotisation interprofessionnelle :</span>
