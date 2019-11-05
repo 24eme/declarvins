@@ -77,28 +77,40 @@ function(doc) {
 		var vrac_produit_cepage_code = doc.produit_detail.cepage.code;
 		var vrac_millesime = doc.millesime;
 		var vrac_labels_libelle = doc.labels_libelle;
-		var vrac_labels = doc.labels;
-		var nbItem = doc.mentions.length;
+		var vrac_labels = '';
+		if (doc.labels_arr && doc.labels_arr.length > 0) {
+			var counter = 0;
+			for (l in doc.labels_arr) {
+				counter++;
+				vrac_labels = vrac_labels + doc.labels_arr[l];
+				if (counter != doc.labels_arr.length) {
+					vrac_labels = vrac_labels + '|';
+				}
+			}
+		} else {
+			vrac_labels = doc.labels;
+		}
 		var vrac_mentions = '';
-		if (nbItem > 0) {
+		if (doc.mentions.length > 0) {
 			var counter = 0;
 			for (m in doc.mentions) {
 				counter++;
 				vrac_mentions = vrac_mentions + doc.mentions[m];
-				if (counter != nbItem) {
+				if (counter != doc.mentions.length) {
 					vrac_mentions = vrac_mentions + '|';
 				}
 			}
 		}
+		var vrac_mentions_libelle = doc.mentions_libelle;
 		var vrac_cas_particulier = doc.cas_particulier;
-		var vrac_premiere_mise_en_marche = doc.premiere_mise_en_marche;
-		var vrac_annexe = doc.annexe;
+		var vrac_premiere_mise_en_marche = (doc.premiere_mise_en_marche)? 1 : 0;
+		var vrac_annexe = (doc.annexe)? 1 : 0;
 		var vrac_volume_propose = doc.volume_propose;
-		var vrac_prix_unitaire = (doc.type_transaction == 'raisin')? ((doc.poids * doc.prix_unitaire) / doc.volume_propose) : doc.prix_unitaire;
+		var vrac_prix_unitaire = doc.prix_unitaire;
 		var vrac_type_prix = doc.type_prix;
 		var vrac_determination_prix = doc.determination_prix;
 		var vrac_determination_prix_date = doc.determination_prix_date;
-		var vrac_export = doc.export;
+		var vrac_export = (doc.export)? 1 : 0;
 		var vrac_conditions_paiement = doc.conditions_paiement;
 		var vrac_reference_contrat_pluriannuel = doc.reference_contrat_pluriannuel;
 		var vrac_vin_livre = doc.vin_livre;
@@ -127,7 +139,7 @@ function(doc) {
 		var vrac_commentaire = (doc.commentaires)? (doc.commentaires).replace(regexp, " ") : null;
 		var vrac_observation = (doc.observations)? (doc.observations).replace(regexp, " ") : null;
 
-		var vrac_bailleur_metayer = (doc.bailleur_metayer)? doc.bailleur_metayer : 0;
+		var vrac_bailleur_metayer = (doc.bailleur_metayer)? 1 : 0;
 		var vrac_oioc_date_reception = null;
 		var vrac_oioc_date_traitement = null;
 		if (doc.oioc) {
@@ -154,9 +166,9 @@ function(doc) {
 		if (nbItem > 0) {
 			for (l in doc.lots) {
 				var vrac_lot_numero = doc.lots[l].numero;
-				var vrac_lot_assemblage = doc.lots[l].assemblage;
+				var vrac_lot_assemblage = (doc.lots[l].assemblage)? 1 : 0;
 				var vrac_lot_degre = doc.lots[l].degre;
-				var vrac_lot_presence_allergenes = doc.lots[l].presence_allergenes;
+				var vrac_lot_presence_allergenes = (doc.lots[l].presence_allergenes)? 1 : 0;
 				var vrac_lot_bailleur = doc.lots[l].bailleur;
 				
 				var nbItem = doc.lots[l].cuves.length;
@@ -225,7 +237,7 @@ function(doc) {
                 		 vrac_millesime,
                 		 vrac_labels_libelle,
                 		 vrac_labels,
-                		 vrac_mentions,
+                		 vrac_mentions_libelle,
                 		 vrac_mentions,
                 		 vrac_cas_particulier,
                 		 vrac_premiere_mise_en_marche,
@@ -241,7 +253,7 @@ function(doc) {
                 		 vrac_date_debut_retiraison,
                 		 vrac_date_limite_retiraison,
                 		 vrac_paiements_date,
-                		 vrac_paiements_volume,
+                		 null,
                 		 vrac_paiements_montant,
                 		 vrac_lot_numero,
                 		 vrac_lot_cuves_numero,
@@ -257,27 +269,29 @@ function(doc) {
                 		 vrac_version,
                 		 vrac_referente,
                 		 vrac_mode,
-				 vrac_date_saisie,
-				 vrac_date_validation,
-				 vrac_observation,
-				 vrac_bailleur_metayer,
-				 doc.valide.date_validation,
-				 vrac_oioc_date_reception,
-				 vrac_oioc_date_traitement,
-				 vrac_addr_stockage_siret,
-				 vrac_addr_stockage_libelle,
-				 vrac_addr_stockage_adresse,
-				 vrac_addr_stockage_code_postal,
-				 vrac_addr_stockage_commune,
-				 vrac_addr_stockage_pays,
-				 vrac_addr_stockage_has,
-				 vrac_acheteur_ea,
-				 vrac_vendeur_ea,
-				 vrac_determination_prix_date,
-				 vrac_campagne,
-				vrac_prix_total,
-				vrac_date_stat_mois,
-				vrac_date_stat_annee
+				 		 vrac_date_saisie,
+				 		 vrac_date_validation,
+				 		 vrac_observation,
+				 		 vrac_bailleur_metayer,
+				 		 doc.valide.date_validation,
+				 		 vrac_oioc_date_reception,
+				 		 vrac_oioc_date_traitement,
+				 		 vrac_addr_stockage_siret,
+				 		 vrac_addr_stockage_libelle,
+				 		 vrac_addr_stockage_adresse,
+				 		 vrac_addr_stockage_code_postal,
+				 		 vrac_addr_stockage_commune,
+				 		 vrac_addr_stockage_pays,
+				 		 vrac_addr_stockage_has,
+				 		 vrac_acheteur_ea,
+				 		 vrac_vendeur_ea,
+				 		 vrac_determination_prix_date,
+				 		 vrac_campagne,
+						 vrac_prix_total,
+						 vrac_date_stat_mois,
+						 vrac_date_stat_annee,
+						 doc.type_retiraison,
+						 doc.delai_paiement
                 		 ]);
 			}
 		} else {
@@ -287,7 +301,7 @@ function(doc) {
             		 vrac_date_signature,
             		 vrac_acheteur_id,
             		 vrac_acheteur_cvi,
-			 vrac_acheteur_siret,
+			 		 vrac_acheteur_siret,
             		 vrac_acheteur_nom,
             		 vrac_vendeur_id,
             		 vrac_vendeur_cvi,
@@ -313,7 +327,7 @@ function(doc) {
             		 vrac_millesime,
             		 vrac_labels_libelle,
             		 vrac_labels,
-            		 vrac_mentions,
+            		 vrac_mentions_libelle,
             		 vrac_mentions,
             		 vrac_cas_particulier,
             		 vrac_premiere_mise_en_marche,
@@ -329,7 +343,7 @@ function(doc) {
             		 vrac_date_debut_retiraison,
             		 vrac_date_limite_retiraison,
             		 vrac_paiements_date,
-            		 vrac_paiements_volume,
+            		 null,
             		 vrac_paiements_montant,
             		 null,
             		 null,
@@ -345,27 +359,29 @@ function(doc) {
             		 vrac_version,
             		 vrac_referente,
             		 vrac_mode,
-			 vrac_date_saisie,
-			 vrac_date_validation,
-			 vrac_observation,
-			 vrac_bailleur_metayer,
-			 doc.valide.date_validation,
-			 vrac_oioc_date_reception,
-			 vrac_oioc_date_traitement,
-			 vrac_addr_stockage_siret,
-			 vrac_addr_stockage_libelle,
-			 vrac_addr_stockage_adresse,
-			 vrac_addr_stockage_code_postal,
-			 vrac_addr_stockage_commune,
-			 vrac_addr_stockage_pays,
-			 vrac_addr_stockage_has,
-			 vrac_acheteur_ea,
-			 vrac_vendeur_ea,
-			 vrac_determination_prix_date,
-			 vrac_campagne,
-				vrac_prix_total,
-				vrac_date_stat_mois,
-				vrac_date_stat_annee
+			 		 vrac_date_saisie,
+			 		 vrac_date_validation,
+			 		 vrac_observation,
+			 		 vrac_bailleur_metayer,
+			 		 doc.valide.date_validation,
+			 		 vrac_oioc_date_reception,
+			 		 vrac_oioc_date_traitement,
+			 		 vrac_addr_stockage_siret,
+			 		 vrac_addr_stockage_libelle,
+			 		 vrac_addr_stockage_adresse,
+			 		 vrac_addr_stockage_code_postal,
+			 		 vrac_addr_stockage_commune,
+			 		 vrac_addr_stockage_pays,
+			 		 vrac_addr_stockage_has,
+			 		 vrac_acheteur_ea,
+			 		 vrac_vendeur_ea,
+			 		 vrac_determination_prix_date,
+			 		 vrac_campagne,
+					 vrac_prix_total,
+					 vrac_date_stat_mois,
+					 vrac_date_stat_annee,
+					 doc.type_retiraison,
+					 doc.delai_paiement
             		 ]);
 		}                              
 	} 
