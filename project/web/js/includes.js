@@ -53,7 +53,7 @@
 	$.fn.includeJS(jsPath, 'autocomplete.js?20160122');
 	$.fn.includeJS(jsPath, 'contrat.js');
 	$.fn.includeJS(jsPath, 'drm.js');
-	$.fn.includeJS(jsPath, 'declaration.js?20190307');
+	$.fn.includeJS(jsPath, 'declaration.js?20191105');
 	$.fn.includeJS(jsPath, 'declaration_acq.js?20190307');
     $.fn.includeJS(jsPath, 'produits.js');
     $.fn.includeJS(jsPath, 'ajaxHelper.js');
