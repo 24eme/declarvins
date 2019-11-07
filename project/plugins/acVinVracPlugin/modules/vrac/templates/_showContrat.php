@@ -161,10 +161,12 @@
 				<span><?php echo $vrac->determination_prix ?></span>
 			</li>
 			<?php endif; ?>
+			<?php if ($vrac->conditions_paiement): ?>
 			<li>
 				<span>Paiement :</span>
 				<span><?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></span>
 			</li>			
+			<?php endif; ?>
 			<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_ECHEANCIER): ?>
 			<li>
 				<span>Echéancier :</span>
