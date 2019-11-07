@@ -174,7 +174,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		    $complement = md5($libellePerso);
   		}
   		
-  		$produit = ($complement)? $this->drm->getProduitByIdDouane($configurationProduit->getIdentifiantDouane()) : $this->drm->getProduitByIdDouane($configurationProduit->getIdentifiantDouane(), $complement);
+  		$produit = ($complement)? $this->drm->getProduitByIdDouane($configurationProduit->getIdentifiantDouane(), $complement) : $this->drm->getProduitByIdDouane($configurationProduit->getIdentifiantDouane());
   		
   		if (!$produit) {
   		    $produit = ($complement)? $this->drm->addProduit($hash, $complement) : $this->drm->addProduit($hash);
