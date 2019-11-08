@@ -310,20 +310,18 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 $this->droits->getOrAdd(DRMDroits::DROIT_CVO)->getOrAdd($droitCvo->code)->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties()), $detail->sommeLignes(DRMDroits::getDroitEntrees()), $droitCvo->taux, 0, $droitCvo->libelle);
             }
             if ($droitDouane) {
-                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($droitDouane->code)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDouaneDroitEntrees()), $droitDouane->taux, $this->getReportByDroit(DRMDroits::DROIT_DOUANE, $droitDouane->code), $droitDouane->libelle);
+                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($droitDouane->code)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDouaneDroitEntrees()), $droitDouane->taux, 0, $droitDouane->libelle);
                 $codeTotal = DRMDroitsCirculation::getCorrespondanceCode($droitDouane->code).'_'.DRMDroitsCirculation::KEY_VIRTUAL_TOTAL;
-                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($codeTotal)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDouaneDroitEntrees()), $droitDouane->taux, $this->getReportByDroit(DRMDroits::DROIT_DOUANE, $codeTotal), $codeTotal);
+                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($codeTotal)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDouaneDroitEntrees()), $droitDouane->taux, 0, $codeTotal);
             }
         }
         $douanes = $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE);
         foreach ($douanes as $k => $douane) {
         	$round = (preg_match('/\_'.DRMDroitsCirculation::KEY_VIRTUAL_TOTAL.'/', $k))? 0 : 2;
         	$douane->total = round($douane->total, $round);
-        	if ($douane->report) {
-        		$douane->report = round($douane->report, $round);
-        	}
-        	if ($douane->cumul) {
-        		$douane->cumul = round($douane->cumul, $round);
+        	if ($report = $this->getReportByDroit(DRMDroits::DROIT_DOUANE, $douane->code)) {
+        		$douane->report = round($report, $round);
+        		$douane->cumul = round($report + $douane->total, $round);
         	}
         }
     }
@@ -382,9 +380,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     			$reportSet = $reports->get($droit);
     		}
     	}
-    	/*if ($this->isNouvelleCampagne()) {
-    		return 0;
-    	}*/
     	if ($this->declaratif->paiement->get($type)->exist('report_paye') && $this->declaratif->paiement->get($type)->get('report_paye')) {
     		return 0;
     	}

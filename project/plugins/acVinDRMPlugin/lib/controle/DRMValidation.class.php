@@ -2,6 +2,8 @@
 class DRMValidation
 {
 	private $drm;
+	private $drmSuivante;
+	private $drmPrecedente;
 	private $engagements;
 	private $warnings;
 	private $errors;
@@ -18,6 +20,8 @@ class DRMValidation
 	public function __construct($drm, $options = null)
 	{
 		$this->drm = $drm;
+		$this->drmSuivante = $drm->getSuivante();
+		$this->drmPrecedente = $drm->getPrecedente();
 		$this->options = $options;
 		$this->engagements = array();
 		$this->warnings = array();
@@ -179,7 +183,7 @@ class DRMValidation
 			  }
 			}
 		}
-		if ($drmSuivante = $this->drm->getSuivante()) {
+		if ($drmSuivante = $this->drmSuivante) {
 			if ($drmSuivante->exist($detail->getHash())) {
 				$d = $drmSuivante->get($detail->getHash());
 				if (round($d->total_debut_mois,5) != round($detail->total,5) && !$this->drm->hasVersion()) {
@@ -198,7 +202,7 @@ class DRMValidation
 				}
 			}
 		}
-		if ($drmPrecedente = $this->drm->getPrecedente()) {
+		if ($drmPrecedente = $this->drmPrecedente) {
 			if ($drmPrecedente->exist($detail->getHash()) && !$this->drm->isDebutCampagne()) {
 				if (!$this->drm->hasVersion() && !$this->isAdmin) {
 					$d = $drmPrecedente->get($detail->getHash());
