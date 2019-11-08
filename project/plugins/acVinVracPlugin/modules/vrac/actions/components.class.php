@@ -3,7 +3,11 @@ class vracComponents extends sfComponents
 {
     public function executeEtapes() 
     {
-    	$this->interpro = $this->getInterpro($this->etablissement);
+        if ($interpro = $this->vrac->getProduitInterpro()) {
+            $this->interpro = $interpro;
+        } else {
+    	   $this->interpro = $this->getInterpro($this->etablissement);
+        }
 		$this->configurationVrac = $this->getConfigurationVrac($this->interpro->_id);
 		$this->configurationVracEtapes = $this->configurationVrac->getEtapes();
 		$this->etapes = $this->configurationVracEtapes->getTabEtapes();
