@@ -66,7 +66,11 @@ class tiersActions extends sfActions
   	    }
   		$this->getUser()->signOut();
   		$this->getUser()->signIn($request->getParameter('login'));
-  		return $this->redirect('@tiers');
+  		if ($referer = $request->getReferer()) {
+  		    return $this->redirect($referer);
+  		} else {
+  		    return $this->redirect('@tiers');
+  		}
   	}
   	return $this->redirect('tiers_forbidden');
   }
@@ -78,7 +82,11 @@ class tiersActions extends sfActions
   	    $this->getUser()->setAttribute('initial_user', null);
   		$this->getUser()->signOut();
   		$this->getUser()->signIn($login);
-        return $this->redirect("tiers_mon_espace", $this->etablissement);
+  		if ($referer = $request->getReferer()) {
+  		    return $this->redirect($referer);
+  		} else {
+            return $this->redirect("tiers_mon_espace", $this->etablissement);
+  		}
   	}
   	return $this->redirect('tiers_forbidden');
   }
