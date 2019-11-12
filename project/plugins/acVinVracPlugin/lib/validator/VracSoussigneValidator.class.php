@@ -68,14 +68,14 @@ class VracSoussigneValidator extends sfValidatorBase {
     		$values['mandataire_identifiant'] = null;
     	}
     	
-    	if ($values['mandataire_identifiant']) {
+    	/*if ($values['mandataire_identifiant']) {
     	    if ($courtier = EtablissementClient::getInstance()->find($values['mandataire_identifiant'])) {
     	        if (!$courtier->no_carte_professionnelle) {
     	            $errorSchema->addError(new sfValidatorError($this, 'num_carte_pro'), 'mandataire_identifiant');
     	            $hasError = true;
     	        }
     	    }
-    	}
+    	}*/
     	
     	if ($hasError) {
     		throw new sfValidatorErrorSchema($this, $errorSchema);
