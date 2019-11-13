@@ -164,6 +164,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 	  					$this->csvDoc->addErreur($this->complementProductWrongFormatError($numLigne, $datas));
 	  					return;
 	  				}
+	  				$complement = trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
   				} else {
   					$complement = md5(trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]));
   				}

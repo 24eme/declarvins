@@ -180,7 +180,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
             $idcomplement = 'DEFAUT';
         }
         foreach ($this->getDetails() as $detail) {
-            if ($detail->getIdentifiantDouane() == $idDouane && $idcomplement == $detail->getKey()) {
+            if (trim($detail->getIdentifiantDouane()) == trim($idDouane) && strtoupper($idcomplement) == strtoupper($detail->getKey())) {
                 return $detail;
             }
         }
