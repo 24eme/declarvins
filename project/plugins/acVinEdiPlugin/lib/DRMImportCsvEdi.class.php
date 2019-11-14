@@ -151,6 +151,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		
   		if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
   		    $libellePerso = (trim($result[1]) != trim($libelleConfig)) ? trim($result[1]) : null;
+  		} elseif (trim($libelle) != trim($libelleConfig)) {
+  		    $libellePerso = trim($libelle);
   		}
   		
   		if ($complement = strtoupper($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
