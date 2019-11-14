@@ -35,6 +35,10 @@
                 <?php echo $form['prix_total_unitaire']->render(array('disabled' => 'disabled')) ?> <strong>€ HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
             </div>
             <?php endif; ?>
+            <div class="section_label_strong">
+            	<label>Prix total HT:</label>
+            	<strong><span id="prix_total_contrat">0.0</span> € HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
+            </div>
             <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date">
                 <?php echo $form['type_prix_1']->renderError() ?>
                 <?php echo $form['type_prix_1']->renderLabel() ?>
@@ -63,6 +67,20 @@
             </div>
             <div id="bloc_vrac_paiements" class="table_container bloc_conditionner" data-condition-value="<?php echo $form->getCgpEcheancierNeedDetermination() ?>">
             	<p>Nombre d'échéances prévues : <input type="text" name="echeances" id="echeances" /> <input id="generateur" type="button" value="générer" /></p>
+                
+                <?php 
+                $today = date('Y-m-d');
+                $limite = ($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31')? (date('Y')+1).'-09-30' : date('Y').'-09-30';
+                $date1 = new DateTime();
+                $date2 = new DateTime($limite);
+                $nbJour = ceil($date2->diff($date1)->format("%a") / 2);
+                $date1->modify("+$nbJour day");
+                $moitie = $date1->format('d/m/Y');
+                $fin = $date2->format('d/m/Y');
+                ?>
+                <p>&nbsp;</p>
+                <p>Date limite d'échéance : <?php echo $fin ?></p>
+                <p>Date de mi-échéance&nbsp;&nbsp;&nbsp;: <?php echo $moitie ?></p>
                 <table id="table_paiements">
                     <thead>
                         <tr>
@@ -84,17 +102,16 @@
                     </tfoot>
                 </table>
             </div>
-            <?php if(isset($form['delai_paiement'])): ?>
             <?php if ($form->isConditionneDelaiPaiement()): ?>
             <div id="bloc_vrac_delai" class="section_label_strong bloc_conditionner bloc_condition" data-condition-value="<?php echo $form->getCgpDelaiNeedDetermination() ?>" data-condition-cible="#bloc_vrac_delai_autre">
             <?php else: ?>
             <div class="section_label_strong">
             <?php endif; ?>
+            <?php if(isset($form['delai_paiement'])): ?>
                 <?php echo $form['delai_paiement']->renderError() ?>
                 <?php echo $form['delai_paiement']->renderLabel() ?>
                 <?php echo $form['delai_paiement']->render() ?>
                 <p style="padding: 10px 0 0 210px;"><em><strong>Acompte obligatoire de 15%</strong> dans les 10 jours suivants la signature du contrat</em></p>
-            </div>
             <?php endif; ?>
             <?php if(isset($form['delai_paiement_autre'])): ?>
             <div id="bloc_vrac_delai_autre" class="section_label_strong bloc_conditionner" data-condition-value="autre">
@@ -103,7 +120,7 @@
                 <?php echo $form['delai_paiement_autre']->render() ?>
             </div>
             <?php endif; ?>
-            
+            </div>
             <h1>Retiraison / Enlèvement</h1>
             <div class="section_label_strong">
                 <?php echo $form['type_retiraison']->renderError() ?>
@@ -188,5 +205,36 @@ $( document ).ready(function() {
 			}
 		}
     });
+
+
+
+    var updatePrixTotal = function()
+	{
+    	var vol = parseFloat($("#vrac_marche_volume_propose").val());
+    	var prix = parseFloat($("#vrac_marche_prix_unitaire").val());
+    	var prixTot = parseFloat($("#vrac_marche_prix_total_unitaire").val());
+        if(isNaN(vol)) {
+        	vol = 0;                
+        }
+        if(isNaN(prix)) {
+        	prix = 0;                
+        }
+        if(isNaN(prixTot)) {
+        	prixTot = prix;                
+        }
+        $("#prix_total_contrat").html((vol*prixTot).toFixed(2));
+	}
+
+    $("#vrac_marche_volume_propose").keyup(function() {
+    	updatePrixTotal();
+    });
+
+    $("#vrac_marche_prix_unitaire").keyup(function() {
+    	updatePrixTotal();
+    });
+
+    updatePrixTotal();
+
+   
 });
 </script>

@@ -66,6 +66,8 @@ class VracMarcheValidator extends sfValidatorBase {
                     $hasError = true;
                 }
                 $maxd = null;
+                $today = date('Y-m-d');
+                $limite = ($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31')? (date('Y')+1).'-09-30' : date('Y').'-09-30';
                 foreach ($values['paiements'] as $key => $paiement) {
                     if (!$paiement['date']) {
                         $errorSchema->addError(new sfValidatorError($this, 'echeancier_date'), 'conditions_paiement');
@@ -75,8 +77,6 @@ class VracMarcheValidator extends sfValidatorBase {
                         $errorSchema->addError(new sfValidatorError($this, 'echeancier_montant'), 'conditions_paiement');
                         $hasError = true;
                     }
-                    $today = date('Y-m-d');
-                    $limite = ($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31')? (date('Y')+1).'-09-30' : date('Y').'-09-30';
                     if ($paiement['date'] > $limite) {
                         $errorSchema->addError(new sfValidatorError($this, 'echeancier_max_date'), 'conditions_paiement');
                         $hasError = true;
@@ -88,7 +88,7 @@ class VracMarcheValidator extends sfValidatorBase {
                 }
                 
                 $date1 = new DateTime();
-                $date2 = new DateTime($maxd);
+                $date2 = new DateTime($limite);
                 $nbJour = ceil($date2->diff($date1)->format("%a") / 2);
                 $date1->modify("+$nbJour day");
                 
