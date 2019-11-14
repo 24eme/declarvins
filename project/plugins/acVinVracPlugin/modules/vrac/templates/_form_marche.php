@@ -79,8 +79,7 @@
                 $fin = $date2->format('d/m/Y');
                 ?>
                 <p>&nbsp;</p>
-                <p>Date limite d'échéance : <?php echo $fin ?></p>
-                <p>Date de mi-échéance&nbsp;&nbsp;&nbsp;: <?php echo $moitie ?></p>
+                <p>Les accord interprofessionnels impliquent que la moitié du montant de la transaction soit réglée entre le <?php echo date('d/m/Y') ?> et le <?php echo $fin ?>  soit <span id="prix_moitie_contrat">0.0</span> € HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?> avant le <?php echo $moitie ?></p>
                 <table id="table_paiements">
                     <thead>
                         <tr>
@@ -222,7 +221,11 @@ $( document ).ready(function() {
         if(isNaN(prixTot)) {
         	prixTot = prix;                
         }
-        $("#prix_total_contrat").html((vol*prixTot).toFixed(2));
+        var total = vol*prixTot;
+        $("#prix_total_contrat").html(total.toFixed(2));
+        if (total > 0) {
+        	$("#prix_moitie_contrat").html((total/2).toFixed(2));
+        }
 	}
 
     $("#vrac_marche_volume_propose").keyup(function() {

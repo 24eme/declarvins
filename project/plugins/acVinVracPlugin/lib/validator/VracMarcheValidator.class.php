@@ -11,7 +11,7 @@ class VracMarcheValidator extends sfValidatorBase {
         $this->addMessage('echeancier_date', "Vous devez saisir les dates de votre échéancier");
         $this->addMessage('echeancier_montant', "Vous devez saisir les montants de votre échéancier");
         $this->addMessage('echeancier_max_date', "Vos échéances ne peuvent s'étaler au dela du 30/09 prochain");
-        $this->addMessage('echeancier_moitie_montant', "Au moins la moitié du montant total doit être payée à la moitié de la durée de l'échéancier");
+        $this->addMessage('echeancier_moitie_montant', "Au moins la moitié du montant total de la transaction doit être réglée à la moitié de la période d'aujourd'hui au 30/09 prochain");
         $this->addMessage('echeancier_montant_total', "Le prix total de l'échéancier ne correspond pas au montant total du contrat");
     }
     
