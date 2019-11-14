@@ -174,8 +174,17 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $details;
     }
     
-    public function getProduitByIdDouane($idDouane, $idcomplement = null)
+    public function getProduitByIdDouane($hash, $idDouane, $idcomplement = null)
     {
+        $labels = array();
+        if ($idcomplement && !is_array($idcomplement)) {
+            $labels = array($idcomplement);
+        }
+        if ($p = $this->getProduit($hash, $labels)) {
+            if (trim($p->getIdentifiantDouane()) == trim($idDouane)) {
+                return $p;
+            }
+        }
         if (!$idcomplement) {
             $idcomplement = 'DEFAUT';
         }
