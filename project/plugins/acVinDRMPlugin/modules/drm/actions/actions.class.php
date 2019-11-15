@@ -739,7 +739,7 @@ class drmActions extends sfActions {
         }
         $periode = $drm->periode;
         $numeroAccise = $etablissement->no_accises;
-        $interpro = $etablissement->interpro;
+        $interpro = str_replace('INTERPRO-', '', $etablissement->interpro);
         $id = $drm->_id;
         $cmd = "bash $pathScript \"$interpro\" \"$numeroAccise\" \"$periode\" \"$id\"";
         $retour = shell_exec($cmd);
