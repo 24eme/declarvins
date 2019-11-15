@@ -77,6 +77,10 @@
             </div>
 			<?php endif; ?>
 			
+                    
+            <?php if($drmCiel->isTransfere() && !$drmCiel->isValide() && ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $sf_user->isUsurpationMode())): ?>
+            <p>Aucun retour de la part de proDou@ne n'a été effectué : <a href="<?php echo url_for('drm_retour_refresh', $drm); ?>"  class="pull-right btn btn-xs btn-default" >Ré-interroger</a></p>
+            <?php endif; ?>
             <?php if(!$drm->isRectificative() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <p style="text-align: right; margin-bottom: 10px;"><a href="<?php echo url_for('drm_retransfer_ciel', $drm) ?>" style="background-color: #9e9e9e; padding: 6px; color: #fff;">Re-transmettre la DRM</a></p>
             <?php endif; ?>

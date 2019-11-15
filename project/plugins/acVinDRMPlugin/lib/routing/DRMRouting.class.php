@@ -509,6 +509,17 @@ class DRMRouting {
                               'add_noeud' => true,
                               'must_be_valid' => false,
                               'must_be_not_valid' => true))); 
+
+        $r->prependRoute('drm_retour_refresh', new DRMRoute('/drm/:identifiant/edition/:periode_version/maj-retour',
+                        array('module' => 'drm',
+                            'action' => 'retourRefresh'),
+                        array('sf_method' => array('get','post')),
+                        array('model' => 'DRM',
+                              'type' => 'object',
+                              'no_archive' => true,
+                              'add_noeud' => true,
+                              'must_be_valid' => true,
+                              'must_be_not_valid' => false))); 
     }
 
 }

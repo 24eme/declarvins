@@ -17,3 +17,4 @@ STATSCIEL_XML_CIVP="***********"
 STATSCIEL_BILANDRM="***********"
 STATSCIEL_GRC_IR="***********"
 STATSCIEL_GRC_CIVP="***********"
+WORKINGDIR=/home/******/project/

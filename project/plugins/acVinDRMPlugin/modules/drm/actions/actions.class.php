@@ -728,6 +728,27 @@ class drmActions extends sfActions {
 
         return $this->redirect('drm_init', $drm_modificative);
     }
+    
+    public function executeRetourRefresh(sfWebRequest $request) {
+        $etablissement = $this->getRoute()->getEtablissement();
+        $drm = $this->getRoute()->getDRM();
+        $this->setLayout(false);
+        $pathScript = realpath('../bin/updateRetourCielDrm.sh');
+        if(!$pathScript){
+            throw new sfException("Le script de mis à jour n'existe pas");
+        }
+        $periode = $this->drm->periode;
+        $etb = $this->drm->getEtablissement();
+        $numeroAccise = $etablissement->no_accises;
+        $interpro = $etablissement->interpro;
+        $id = $drm->_id;
+        $cmd = "bash $pathScript \"$interpro\" \"$numeroAccise\" \"$periode\" \"$id\"";
+        $retour = shell_exec($cmd);
+        if($rectif = DRMClient::getInstance()->find($drm->_id."-R01")){
+            return $this->redirect('drm_validation', array('sf_subject' => $rectif));
+        }
+        return $this->redirect('drm_visualisation', array('sf_subject' => $drm));
+    }
 
     /**
      * Executes mouvements generaux action
