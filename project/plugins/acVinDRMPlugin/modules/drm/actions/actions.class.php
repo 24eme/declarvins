@@ -737,8 +737,7 @@ class drmActions extends sfActions {
         if(!$pathScript){
             throw new sfException("Le script de mis à jour n'existe pas");
         }
-        $periode = $this->drm->periode;
-        $etb = $this->drm->getEtablissement();
+        $periode = $drm->periode;
         $numeroAccise = $etablissement->no_accises;
         $interpro = $etablissement->interpro;
         $id = $drm->_id;
