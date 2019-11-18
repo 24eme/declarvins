@@ -20,6 +20,16 @@
 							<option value="<?php echo sprintf('%02d', $i); ?>"<?php if($i == $periodeMonth): ?> selected="selected"<?php endif; ?>><?php echo sprintf('%02d', $i); ?></option>
 							<?php endfor; ?>
 						</select>
+						<div style="width: auto;display:inline-block;">
+    						<div style="width: auto;display:inline-block;">
+    							<input type="radio" id="lot1" name="lot" value="1"<?php if ($lot == 1): ?> checked="checked"<?php endif; ?> />
+                              	<label for="lot1" style="width: auto;">Lot 1</label>
+                            </div>
+                            <div style="width: auto;display:inline-block;">
+                              <input type="radio" id="lot2" name="lot" value="2"<?php if ($lot == 2): ?> checked="checked"<?php endif; ?> />
+                              <label for="lot2" style="width: auto;">Lot 2</label>
+                            </div>
+                        </div>
 						<span class="ligne_form_btn">
 							<button class="btn_valider" type="submit" name="valider" style="height: 22px; line-height: 21px;">Changer</button>
 						</span>

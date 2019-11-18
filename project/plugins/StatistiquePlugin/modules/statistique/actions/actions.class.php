@@ -22,11 +22,12 @@ class statistiqueActions extends sfActions {
 		
 		$this->periodeMonth = $request->getGetParameter('periode_month', date('m'));
 		$this->periodeYear = $request->getGetParameter('periode_year', date('Y'));
+		$this->lot = $request->getGetParameter('lot', 2);
 		$this->periode = sprintf('%04d-%02d', $this->periodeYear, $this->periodeMonth);
 		
 		$cm = new CampagneManager('08-01');
 		$statistiquesBilan = new StatistiquesBilan($this->interpro->get('_id'), $cm->getCampagneByDate($this->periode.'-01'));
-		$this->stats = $statistiquesBilan->getStats($this->periode);
+		$this->stats = $statistiquesBilan->getStats($this->periode, $this->lot);
 	}
 	
     public function executeBilanDrm(sfWebRequest $request) {

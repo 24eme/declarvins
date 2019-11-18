@@ -156,7 +156,7 @@ class StatistiquesBilan {
         return ($bilanOperateur->periodes[$periode]->statut == DRMClient::DRM_STATUS_BILAN_A_SAISIR);
     } 
     
-    public function getStats($periode) {
+    public function getStats($periode, $lot = 2) {
     	$stats = array(
     		'PAPIER' => 0,
     		'DTI' => 0,
@@ -165,6 +165,12 @@ class StatistiquesBilan {
     		'DEMAT' => 0
     	);
     	foreach ($this->getBilans() as $bilanOperateur) {
+    	    if ($lot == 2 && !($bilanOperateur->etablissement->famille == 'producteur' || $bilanOperateur->etablissement->sous_famille == 'vinificateur')) {
+    	        continue;
+    	    }
+    	    if ($lot == 1 && !($bilanOperateur->etablissement->famille == 'negociant' && $bilanOperateur->etablissement->sous_famille != 'vinificateur')) {
+    	        continue;
+    	    }
     		if ($bilanOperateur->first_periode && $periode >= $bilanOperateur->first_periode) {
     			if ($bilanOperateur->last_saisie && $periode > $bilanOperateur->last_saisie && !$bilanOperateur->last_stock) {
     				continue;
