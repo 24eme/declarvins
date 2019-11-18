@@ -117,7 +117,9 @@ class StatistiquesBilan {
                 . $bilanOperateur->etablissement->telephone . ";"
                 . $bilanOperateur->etablissement->fax . ";"
                 . $bilanOperateur->etablissement->service_douane . ";"
-                . $bilanOperateur->etablissement->statut . ";";
+                . $bilanOperateur->etablissement->statut . ";"
+                . $bilanOperateur->etablissement->famille . ";"
+                . $bilanOperateur->etablissement->sous_famille . ";";
     }
     
     public function getStatutsDrmsCsv($bilanOperateur) {

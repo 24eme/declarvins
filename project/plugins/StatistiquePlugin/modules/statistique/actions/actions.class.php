@@ -68,7 +68,7 @@ class statistiqueActions extends sfActions {
         }
         $statistiquesBilan = new StatistiquesBilan($interpro, $campagne);
 
-        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;';
+        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;Famille;Sous Famille;';
         foreach ($statistiquesBilan->getPeriodes() as $periode) {
             $csv_file .= "$periode;";
         }
@@ -108,7 +108,7 @@ class statistiqueActions extends sfActions {
         }
         $this->interpro = InterproClient::getInstance()->find($interpro);
         
-        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;Categorie;Genre;Denomination;Lieu;Couleur;Cepage;'.$periode.';Total debut de mois;Vrac DAA/DAE;Conditionne Export;DSA / Tickets / Factures;CRD France';
+        $csv_file = 'Identifiant;Raison Sociale;Nom Com.;Siret;Cvi;Num. Accises;Adresse;Code postal;Commune;Pays;Email;Tel.;Fax;Douane;Statut;Famille;Sous Famille;Categorie;Genre;Denomination;Lieu;Couleur;Cepage;'.$periode.';Total debut de mois;Vrac DAA/DAE;Conditionne Export;DSA / Tickets / Factures;CRD France';
         $csv_file .= "\n";
         
         $statistiquesBilan = new StatistiquesBilan($interpro, $campagne);
