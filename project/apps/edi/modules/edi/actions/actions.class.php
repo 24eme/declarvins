@@ -253,7 +253,7 @@ class ediActions extends sfActions
 "sorties autres acquitté",
 "total acquitté"); 
     $drms = $this->drmCallback($interpro, DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows);
-    return $this->renderCsv($drms, DRMDateView::VALUE_DATEDESAISIE, "DRM", $dateTime->format('c'), $interpro, array(DRMDateView::VALUE_IDENTIFIANT_DECLARANT), $entetes);
+    return $this->renderCsv($drms, DRMDateView::VALUE_DATEDESAISIE, "DRM", $dateTime->format('c'), $interpro, array(DRMDateView::VALUE_IDENTIFIANT_DECLARANT));//, $entetes);
   }
   
   public function executeStreamDRMInterpro(sfWebRequest $request) 
