@@ -136,8 +136,10 @@ class ConfigurationClient extends acCouchdbClient
 			$this->countries = $destinationChoicesWidget->getChoices();
 			$this->countries['MF'] = 'Saint-Martin (partie française)';
 			$this->countries['SX'] = 'Saint-Martin (partie néerlandaise)';
+			$this->countries['QR'] = 'Avitaillement et soutage dans le cadre des echanges intra-UE';
+			$this->countries['QS'] = 'Avitaillement et soutage dans le cadre des echanges avec les pays tiers';
+			$this->countries['QU'] = 'Pays et territoires non déterminés';
 		}
-
 		return $this->countries;
 	}
 
