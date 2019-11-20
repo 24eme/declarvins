@@ -37,7 +37,7 @@
             <?php endif; ?>
             <div class="section_label_strong">
             	<label>Prix total HT:</label>
-            	<strong><span id="prix_total_contrat">0.0</span> € HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></strong>
+            	<strong><span id="prix_total_contrat">0.0</span> € HT</strong>
             </div>
             <div id="vrac_type_prix" class="section_label_strong bloc_condition" data-condition-cible="#bloc_vrac_type_prix|#bloc_vrac_determination_prix|#bloc_vrac_determination_prix_date">
                 <?php echo $form['type_prix_1']->renderError() ?>

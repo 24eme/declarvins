@@ -143,6 +143,15 @@
 				<span>Prix total unitaire :</span>
 				<span><?php echo $vrac->getTotalUnitaire() ?> € HT / HL</span>
 			</li>
+			<li>
+				<span>Prix total :</span>
+				<span><?php echo round($vrac->volume_propose * $vrac->getTotalUnitaire(),2) ?> € HT</span>
+			</li>
+			<?php else: ?>
+			<li>
+				<span>Prix total :</span>
+				<span><?php echo round($vrac->volume_propose * $vrac->prix_unitaire,2) ?> € HT</span>
+			</li>
 			<?php endif; ?>
 			<?php endif; ?>
 			<li>
