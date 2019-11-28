@@ -198,7 +198,9 @@ class ConfigurationProduit extends BaseConfigurationProduit
     		}
     		if ($libelleDouane && $identifiantDouane == $libelleDouane) {
     		    if ($produit->getInao() || !in_array($this->getDocument()->interpro, InterproClient::getInstance()->getInterpros())) {
+    		        if (!$produitSiRienTrouve) {
     		          $produitSiRienTrouve = $produit;
+    		        }
     		    }
     		}
     	}
