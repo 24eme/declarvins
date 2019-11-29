@@ -8,11 +8,8 @@ Pour mémoire, le contrat portait sur la transaction suivante :<br />
 Date de saisie : <?php echo strftime('%d/%m/%Y', strtotime($vrac->valide->date_saisie)) ?><br />
 Produit : <?php echo $vrac->getLibelleProduit() ?><br />
 Millésime : <?php echo $vrac->millesime ?><br />
-Type : <?php echo $vrac->type ?><br />
-Volume : <?php echo $vrac->volume_propose ?> hl<br />
-<?php if($vrac->type_transaction == 'raisin'): ?>
-Poids : <?php echo $vrac->poids ?> kg<br />
-<?php endif; ?>
+Type : <?php echo $vrac->type_transaction ?><br />
+Volume : <?php echo $vrac->volume_propose ?> <?php if($vrac->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?><br />
 Prix : <?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€/kg (Hors Taxes / Net)<?php endif;?><br />
 <?php if ($vrac->vendeur_identifiant): ?>
 Vendeur :<br />
