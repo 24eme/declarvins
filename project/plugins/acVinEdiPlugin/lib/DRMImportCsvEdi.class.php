@@ -123,11 +123,17 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     	
 		$libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]);
 		$configurationProduit = null;
+		$identifyByHash = false;
 		if ($idDouane = $this->getIdDouane($datas)) {
 			$configurationProduit = $this->configuration->identifyProduct(null, "($idDouane)");
 		}
 		if (!$configurationProduit) {
-			$configurationProduit = $this->configuration->identifyProduct($this->getHashProduit($datas), $libelle);
+			$configurationProduit = $this->configuration->getConfigurationProduit($this->getHashProduit($datas));
+		}
+		if (!$configurationProduit) {
+		    $configurationProduit = $this->configuration->getConfigurationProduitByLibelle($libelle);
+		} else {
+		    $identifyByHash = true;
 		}
     	if (!$configurationProduit) {
     		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
@@ -149,9 +155,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		$libellePerso = null;
   		$libelleConfig = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles(), array(), "%c% %g% %a% %l% %co% %ce%");
   		
-  		if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
+  		if (!$identifyByHash && preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
   		    $libellePerso = (trim($result[1]) != trim($libelleConfig)) ? trim($result[1]) : null;
-  		} elseif (trim($libelle) != trim($libelleConfig)) {
+  		} elseif (!$identifyByHash && trim($libelle) != trim($libelleConfig)) {
   		    $libellePerso = trim($libelle);
   		}
   		
