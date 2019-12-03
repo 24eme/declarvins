@@ -56,8 +56,8 @@ class drm_recapActions extends sfActions
     {
     	$this->forward404Unless($request->isXmlHttpRequest());
     	$detail = $this->getRoute()->getDRMDetail();
-    	$object = $detail->entrees->crd_details->getOrAdd(ConfigurationProduit::DEFAULT_KEY);
-    	$form = new DRMESDetailCrdForm($object);
+    	$object = $detail->entrees;
+    	$form = new DRMESDetailsCrdForm($object);
     	if ($request->isMethod(sfWebRequest::POST)) {
     		$this->getResponse()->setContentType('text/json');
     		$form->bind($request->getParameter($form->getName()));
