@@ -15,7 +15,6 @@ class VracProduitValidator extends sfValidatorBase {
         if (isset($values['labels_arr']) && $values['labels_arr']) {
             if (
                 (in_array('conv', $values['labels_arr']) && in_array('biol', $values['labels_arr'])) ||
-                (in_array('conv', $values['labels_arr']) && in_array('bioc', $values['labels_arr'])) ||
                 (in_array('biol', $values['labels_arr']) && in_array('bioc', $values['labels_arr'])) ||
                 (in_array('conv', $values['labels_arr']) && in_array('biol', $values['labels_arr']) && in_array('bioc', $values['labels_arr']))
                 ) {
