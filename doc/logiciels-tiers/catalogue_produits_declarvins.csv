@@ -13,6 +13,8 @@ AOP,AOP,TRANQ,Tranquilles,CP,Côtes de Provence,,,,,blanc,Blanc,ROL,Rolle-Vermen
 AOP,AOP,TRANQ,Tranquilles,CP,Côtes de Provence,,,,,blanc,Blanc,,,AOP Tranquilles Côtes de Provence Blanc,1B582S
 AOP,AOP,TRANQ,Tranquilles,CP,Côtes de Provence,,,PIE,Pierrefeu,rouge,Rouge,,,AOP Tranquilles Côtes de Provence Pierrefeu Rouge,1R595S
 AOP,AOP,TRANQ,Tranquilles,CP,Côtes de Provence,,,PIE,Pierrefeu,rose,Rosé,,,AOP Tranquilles Côtes de Provence Pierrefeu Rosé,1S595S
+AOP,AOP,TRANQ,Tranquilles,CP,Côtes de Provence,,,NDA,Notre Dame des Anges,rouge,Rouge,,,AOP Tranquilles Côtes de Provence Notre Dame des Anges Rouge,1R596S
+AOP,AOP,TRANQ,Tranquilles,CP,Côtes de Provence,,,NDA,Notre Dame des Anges,rose,Rosé,,,AOP Tranquilles Côtes de Provence Notre Dame des Anges Rosé,1S596S
 AOP,AOP,TRANQ,Tranquilles,CAP,Coteaux d'Aix en Provence,,,,,rouge,Rouge,,,AOP Tranquilles Coteaux d'Aix en Provence Rouge,1R579S
 AOP,AOP,TRANQ,Tranquilles,CAP,Coteaux d'Aix en Provence,,,,,rose,Rosé,,,AOP Tranquilles Coteaux d'Aix en Provence Rosé,1S579S
 AOP,AOP,TRANQ,Tranquilles,CAP,Coteaux d'Aix en Provence,,,,,blanc,Blanc,,,AOP Tranquilles Coteaux d'Aix en Provence Blanc,1B579S
@@ -525,6 +527,7 @@ IGP,IGP,TRANQ,Tranquilles,MED,Méditerranée,,,,,rouge,Rouge,MER,Merlot,IGP Tran
 IGP,IGP,TRANQ,Tranquilles,MED,Méditerranée,,,,,rouge,Rouge,MOU,Mourvedre,IGP Tranquilles Méditerranée Rouge Mourvedre,3R007 BC
 IGP,IGP,TRANQ,Tranquilles,MED,Méditerranée,,,,,rouge,Rouge,MAR,Marselan,IGP Tranquilles Méditerranée Rouge Marselan,3R007 AX
 IGP,IGP,TRANQ,Tranquilles,MED,Méditerranée,,,,,rouge,Rouge,CEP,Autre,IGP Tranquilles Méditerranée Rouge Autre,3R007 00
+IGP,IGP,TRANQ,Tranquilles,MED,Méditerranée,,,,,rouge,Rouge,CF,Cabernet Franc,IGP Tranquilles Méditerranée Rouge Cabernet Franc,3R007 BW
 IGP,IGP,TRANQ,Tranquilles,MED,Méditerranée,,,,,rose,Rosé,,,IGP Tranquilles Méditerranée Rosé,3S007 
 IGP,IGP,TRANQ,Tranquilles,MED,Méditerranée,,,,,rose,Rosé,SYR,Syrah,IGP Tranquilles Méditerranée Rosé Syrah,3S007 AI
 IGP,IGP,TRANQ,Tranquilles,MED,Méditerranée,,,,,rose,Rosé,GRN,Grenache Noir,IGP Tranquilles Méditerranée Rosé Grenache Noir,3S007 CS
@@ -1018,6 +1021,7 @@ IGP,IGP,TRANQ,Tranquilles,D13,Bouches-du-Rhône,,,,,rouge,Rouge,MER,Merlot,IGP T
 IGP,IGP,TRANQ,Tranquilles,D13,Bouches-du-Rhône,,,,,rouge,Rouge,MOU,Mourvedre,IGP Tranquilles Bouches-du-Rhône Rouge Mourvedre,3R131 BC
 IGP,IGP,TRANQ,Tranquilles,D13,Bouches-du-Rhône,,,,,rouge,Rouge,MAR,Marselan,IGP Tranquilles Bouches-du-Rhône Rouge Marselan,3R131 ABX
 IGP,IGP,TRANQ,Tranquilles,D13,Bouches-du-Rhône,,,,,rouge,Rouge,CEP,Autre,IGP Tranquilles Bouches-du-Rhône Rouge Autre,3R131 00
+IGP,IGP,TRANQ,Tranquilles,D13,Bouches-du-Rhône,,,,,rouge,Rouge,CF,Cabernet Franc,IGP Tranquilles Bouches-du-Rhône Rouge Cabernet Franc,3R131 BW
 IGP,IGP,TRANQ,Tranquilles,D13,Bouches-du-Rhône,,,,,rose,Rosé,,,IGP Tranquilles Bouches-du-Rhône Rosé,3S131 
 IGP,IGP,TRANQ,Tranquilles,D13,Bouches-du-Rhône,,,,,rose,Rosé,SYR,Syrah,IGP Tranquilles Bouches-du-Rhône Rosé Syrah,3S131 AI
 IGP,IGP,TRANQ,Tranquilles,D13,Bouches-du-Rhône,,,,,rose,Rosé,GRN,Grenache Noir,IGP Tranquilles Bouches-du-Rhône Rosé Grenache Noir,3S131 CS
@@ -1204,57 +1208,99 @@ IGP,IGP,EFF,Effervescent,D04,Alpes de Haute Provence,,,,,blanc,Blanc,MAR,Marsann
 IGP,IGP,EFF,Effervescent,D04,Alpes de Haute Provence,,,,,blanc,Blanc,ROU,Roussanne,IGP Effervescent Alpes de Haute Provence Blanc Roussanne,
 IGP,IGP,EFF,Effervescent,D04,Alpes de Haute Provence,,,,,blanc,Blanc,MPG,Muscat à petits grains,IGP Effervescent Alpes de Haute Provence Blanc Muscat à petits grains,
 IGP,IGP,EFF,Effervescent,D04,Alpes de Haute Provence,,,,,blanc,Blanc,CEP,Autre,IGP Effervescent Alpes de Haute Provence Blanc Autre,
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,,,AVECCEP,Avec cépage,Sans IG Tranquilles Avec cépage,VT_SANS_IG_CEPAGE
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,,,SANSCEP,Sans cépage,Sans IG Tranquilles Sans cépage,VT_SANS_IG_AUTRES
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rouge,Rouge,SYR,Syrah,Sans IG Tranquilles Rouge Syrah,4R500 AI
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rouge,Rouge,GRN,Grenache Noir,Sans IG Tranquilles Rouge Grenache Noir,4R500 CS
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rouge,Rouge,CS,Cabernet-Sauvignon,Sans IG Tranquilles Rouge Cabernet-Sauvignon,4R500 BX
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rouge,Rouge,CIN,Cinsaut,Sans IG Tranquilles Rouge Cinsaut,4R500 CG
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rouge,Rouge,MER,Merlot,Sans IG Tranquilles Rouge Merlot,4R500 DE
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rouge,Rouge,MOU,Mourvedre,Sans IG Tranquilles Rouge Mourvedre,4R500 BC
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rouge,Rouge,CEP,Autre,Sans IG Tranquilles Rouge Autre,4R999 
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rouge,Rouge,,,Sans IG Tranquilles Rouge,4R999 
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rose,Rosé,SYR,Syrah,Sans IG Tranquilles Rosé Syrah,4S500 AI
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rose,Rosé,GRN,Grenache Noir,Sans IG Tranquilles Rosé Grenache Noir,4S500 CS
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rose,Rosé,CS,Cabernet-Sauvignon,Sans IG Tranquilles Rosé Cabernet-Sauvignon,4S500 BX
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rose,Rosé,CIN,Cinsaut,Sans IG Tranquilles Rosé Cinsaut,4S500 CG
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rose,Rosé,MER,Merlot,Sans IG Tranquilles Rosé Merlot,4S500 DE
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rose,Rosé,MOU,Mourvedre,Sans IG Tranquilles Rosé Mourvedre,4S500 BC
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rose,Rosé,CEP,Autre,Sans IG Tranquilles Rosé Autre,4S999 
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,rose,Rosé,,,Sans IG Tranquilles Rosé,4S999 
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,blanc,Blanc,ROL,Rolle-Vermentino,Sans IG Tranquilles Blanc Rolle-Vermentino,4B500 BK
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,blanc,Blanc,CHA,Chardonnay,Sans IG Tranquilles Blanc Chardonnay,4B500 CA
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,blanc,Blanc,SAU,Sauvignon,Sans IG Tranquilles Blanc Sauvignon,4B500 AE
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,blanc,Blanc,GRB,Grenache blanc,Sans IG Tranquilles Blanc Grenache blanc,4B500 CQ
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,blanc,Blanc,VIO,Viognier,Sans IG Tranquilles Blanc Viognier,4B500 AO
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,blanc,Blanc,MAR,Marsanne,Sans IG Tranquilles Blanc Marsanne,4B500 DA
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,blanc,Blanc,ROU,Roussanne,Sans IG Tranquilles Blanc Roussanne,4B500 BI
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,blanc,Blanc,CLA,Clairette,Sans IG Tranquilles Blanc Clairette,4B500 CH
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,blanc,Blanc,CEP,Autre,Sans IG Tranquilles Blanc Autre,4B999 
-VINSSANSIG,Sans IG,TRANQ,Tranquilles,,,,,,,blanc,Blanc,,,Sans IG Tranquilles Blanc,4B999 
-VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,,,AVECCEP,Avec cépage,Sans IG Effervescent Avec cépage,VM_SANS_IG_CEPAGE
-VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,,,SANSCEP,Sans cépage,Sans IG Effervescent Sans cépage,VM_SANS_IG_AUTRES
-VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,rouge,Rouge,,,Sans IG Effervescent Rouge,4R999M
-VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,rouge,Rouge,SANS,Sans,Sans IG Effervescent Rouge Sans,4R999M
-VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,rose,Rosé,,,Sans IG Effervescent Rosé,4S999M
-VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,rose,Rosé,SANS,Sans,Sans IG Effervescent Rosé Sans,4S999M
-VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,rose,Rosé,CIN,Cinsaut,Sans IG Effervescent Rosé Cinsaut,4S999M
-VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,rose,Rosé,CEP,Autre,Sans IG Effervescent Rosé Autre,4S999M
-VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,blanc,Blanc,,,Sans IG Effervescent Blanc,4B999M
-VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,blanc,Blanc,SANS,Sans,Sans IG Effervescent Blanc Sans,4B999M
-VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,blanc,Blanc,CHA,Chardonnay,Sans IG Effervescent Blanc Chardonnay,4B999M
-VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,blanc,Blanc,CLA,Clairette,Sans IG Effervescent Blanc Clairette,4B999M
-VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,blanc,Blanc,CEP,Autre,Sans IG Effervescent Blanc Autre,4B999M
-VINSSANSIG,Sans IG,N,VDN,,,,,,,rouge,Rouge,,,Sans IG VDN Rouge,4R999Z
-VINSSANSIG,Sans IG,N,VDN,,,,,,,rouge,Rouge,CEP,Autre,Sans IG VDN Rouge Autre,4R999Z
-VINSSANSIG,Sans IG,N,VDN,,,,,,,rose,Rosé,,,Sans IG VDN Rosé,4S999Z
-VINSSANSIG,Sans IG,N,VDN,,,,,,,rose,Rosé,CEP,Autre,Sans IG VDN Rosé Autre,4S999Z
-VINSSANSIG,Sans IG,N,VDN,,,,,,,blanc,Blanc,,,Sans IG VDN Blanc,4B999Z
-VINSSANSIG,Sans IG,N,VDN,,,,,,,blanc,Blanc,CHA,Chardonnay,Sans IG VDN Blanc Chardonnay,4B999Z
-VINSSANSIG,Sans IG,N,VDN,,,,,,,blanc,Blanc,VIO,Viognier,Sans IG VDN Blanc Viognier,4B999Z
-VINSSANSIG,Sans IG,N,VDN,,,,,,,blanc,Blanc,CEP,Autre,Sans IG VDN Blanc Autre,4B999Z
-LIE,LIE,T,TRANQ,,LIES,,,,,,,,,LIE TRANQ LIES,4X999V
-LIE,LIE,TRANQ,TRANQ,PAE,Produits a eliminer,,,,,,,,,LIE TRANQ Produits a eliminer,5X999V
+IGP,IGP,TRANQ,Tranquilles,,Autres,,,,,,,,,IGP Tranquilles Autres,VT_IG_IGP
+IGP,IGP,TRANQ,Tranquilles,CAR,Cité de Carcassonne,,,,,rouge,Rouge,,,IGP Tranquilles Cité de Carcassonne Rouge,3R112
+IGP,IGP,TRANQ,Tranquilles,CAT,Côtes Catalanes,,,,,rouge,Rouge,,,IGP Tranquilles Côtes Catalanes Rouge,3R664
+IGP,IGP,TRANQ,Tranquilles,CAT,Côtes Catalanes,,,,,blanc,Blanc,,,IGP Tranquilles Côtes Catalanes Blanc,3B664
+IGP,IGP,TRANQ,Tranquilles,Côtes de Gascogne,Côtes de Gascogne,,,,,blanc,Blanc,,,IGP Tranquilles Côtes de Gascogne Blanc,3B323 
+IGP,IGP,TRANQ,Tranquilles,IDB,Ile de Beauté,,,,,rouge,Rouge,,,IGP Tranquilles Ile de Beauté Rouge,3R202 
+IGP,IGP,TRANQ,Tranquilles,IDB,Ile de Beauté,,,,,blanc,Blanc,,,IGP Tranquilles Ile de Beauté Blanc,3B202 
+IGP,IGP,TRANQ,Tranquilles,IDB,Ile de Beauté,,,,,rose,Rosé,,,IGP Tranquilles Ile de Beauté Rosé,3S202 
+IGP,IGP,EFF,Effervescent,,Autres,,,,,,,,,IGP Effervescent Autres,VM_IG_IGP
+AOP,AOP,TRANQ,Tranquilles,BANYR,Banyuls Rimage,,,,,rouge,Rouge,,,AOP Tranquilles Banyuls Rimage Rouge,1R175L
+AOP,AOP,TRANQ,Tranquilles,BANY,Banyuls,,,,,blanc,Blanc,,,AOP Tranquilles Banyuls Blanc,1B175N
+AOP,AOP,TRANQ,Tranquilles,COL,Collioure,,,,,blanc,Blanc,,,AOP Tranquilles Collioure Blanc,1B489S
+AOP,AOP,TRANQ,Tranquilles,COL,Collioure,,,,,rouge,Rouge,,,AOP Tranquilles Collioure Rouge,1R489S
+AOP,AOP,TRANQ,Tranquilles,COL,Collioure,,,,,rose,Rosé,,,AOP Tranquilles Collioure Rosé,1S489S
+AOP,AOP,TRANQ,Tranquilles,RIE,Riesling,,,,,blanc,Blanc,,,AOP Tranquilles Riesling Blanc,1B001S 4
+AOP,AOP,TRANQ,Tranquilles,BJL,Beaujolais,,,,,rouge,Rouge,,,AOP Tranquilles Beaujolais Rouge,1R300 
+AOP,AOP,TRANQ,Tranquilles,BJL,Beaujolais,,,,,blanc,Blanc,,,AOP Tranquilles Beaujolais Blanc,1B300 
+AOP,AOP,TRANQ,Tranquilles,BJLP,Beaujolais Primeur,,,,,rouge,Rouge,,,AOP Tranquilles Beaujolais Primeur Rouge,1R300 01
+AOP,AOP,TRANQ,Tranquilles,BJLV,Beaujolais Villages,,,,,rouge,Rouge,,,AOP Tranquilles Beaujolais Villages Rouge,1R301 
+AOP,AOP,TRANQ,Tranquilles,BDX,Bordeaux,,,,,rouge,Rouge,,,AOP Tranquilles Bordeaux Rouge,1R105S
+AOP,AOP,TRANQ,Tranquilles,BRY,Brouilly,,,,,rouge,Rouge,,,AOP Tranquilles Brouilly Rouge,1R325 
+AOP,AOP,TRANQ,Tranquilles,CRVL,Côtes du Roussillon Villages Latour de France,,,,,rouge,Rouge,,,AOP Tranquilles Côtes du Roussillon Villages Latour de France Rouge,1R481S 2
+AOP,AOP,TRANQ,Tranquilles,CRVL,Côtes du Roussillon Villages Latour de France,,,,,blanc,Blanc,,,AOP Tranquilles Côtes du Roussillon Villages Latour de France Blanc,1B481S 2
+AOP,AOP,TRANQ,Tranquilles,CHI,Chinon,,,,,rouge,Rouge,,,AOP Tranquilles Chinon Rouge,1R222S
+AOP,AOP,TRANQ,Tranquilles,CHRB,Chiroubles,,,,,rouge,Rouge,,,AOP Tranquilles Chiroubles Rouge,1R345 
+AOP,AOP,TRANQ,Tranquilles,CDB,Côte de Brouilly,,,,,rouge,Rouge,,,AOP Tranquilles Côte de Brouilly Rouge,1R326 
+AOP,AOP,TRANQ,Tranquilles,CBG,Coteaux Bourguignons,,,,,rouge,Rouge,,,AOP Tranquilles Coteaux Bourguignons Rouge,1R320 
+AOP,AOP,TRANQ,Tranquilles,CROVL,Côtes du Roussillon Villages Lesquerde,,,,,rouge,Rouge,,,AOP Tranquilles Côtes du Roussillon Villages Lesquerde Rouge,1R481S 3
+AOP,AOP,TRANQ,Tranquilles,CDROU,Côtes du Roussillon,,,,,rouge,Rouge,,,AOP Tranquilles Côtes du Roussillon Rouge,1R480S
+AOP,AOP,TRANQ,Tranquilles,CDROU,Côtes du Roussillon,,,,,blanc,Blanc,,,AOP Tranquilles Côtes du Roussillon Blanc,1B480S
+AOP,AOP,TRANQ,Tranquilles,CDROUV,Côtes du Roussillon Villages,,,,,rouge,Rouge,,,AOP Tranquilles Côtes du Roussillon Villages Rouge,1R481S
+AOP,AOP,TRANQ,Tranquilles,FLR,Fleurie,,,,,rouge,Rouge,,,AOP Tranquilles Fleurie Rouge,1R365 
+AOP,AOP,TRANQ,Tranquilles,GWT,Gewurztraminer,,,,,blanc,Blanc,,,AOP Tranquilles Gewurztraminer Blanc,1B001S 1
+AOP,AOP,TRANQ,Tranquilles,JUL,Juliénas,,,,,rouge,Rouge,,,AOP Tranquilles Juliénas Rouge,1R367 
+AOP,AOP,TRANQ,Tranquilles,MCM,Mâcon Charnay lès Mâcon,,,,,blanc,Blanc,,,AOP Tranquilles Mâcon Charnay lès Mâcon Blanc,1B370 22
+AOP,AOP,TRANQ,Tranquilles,MACV,Mâcon Villages,,,,,blanc,Blanc,,,AOP Tranquilles Mâcon Villages Blanc,1B370 
+AOP,AOP,TRANQ,Tranquilles,MRGX,Margaux,,,,,rouge,Rouge,,,AOP Tranquilles Margaux Rouge,1R142S
+AOP,AOP,TRANQ,Tranquilles,MORG,Morgon,,,,,rouge,Rouge,,,AOP Tranquilles Morgon Rouge,1R390 
+AOP,AOP,TRANQ,Tranquilles,PGR,Pinot Gris,,,,,blanc,Blanc,,,AOP Tranquilles Pinot Gris Blanc,1B001S 3
+AOP,AOP,TRANQ,Tranquilles,PFUS,Pouilly Fuissé,,,,,blanc,Blanc,,,AOP Tranquilles Pouilly Fuissé Blanc,1B399 
+AOP,AOP,TRANQ,Tranquilles,PVNZ,Pouilly Vinzelles,,,,,blanc,Blanc,,,AOP Tranquilles Pouilly Vinzelles Blanc,1B401 
+AOP,AOP,TRANQ,Tranquilles,RIVS,Rivesaltes,,,,,rouge,Rouge,,,AOP Tranquilles Rivesaltes Rouge,1R188N02
+AOP,AOP,TRANQ,Tranquilles,SAMR,Saint Amour,,,,,rouge,Rouge,,,AOP Tranquilles Saint Amour Rouge,1R421 
+AOP,AOP,TRANQ,Tranquilles,SEML,Saint Emilion,,,,,rouge,Rouge,,,AOP Tranquilles Saint Emilion Rouge,1R156S
+AOP,AOP,TRANQ,Tranquilles,SVRN,Saint Véran,,,,,blanc,Blanc,,,AOP Tranquilles Saint Véran Blanc,1B422 
+AOP,AOP,TRANQ,Tranquilles,SYLV,Sylvaner,,,,,blanc,Blanc,,,AOP Tranquilles Sylvaner Blanc,1B001S 8
+AOP,AOP,TRANQ,Tranquilles,VRCLS,Viré Clessé,,,,,blanc,Blanc,,,AOP Tranquilles Viré Clessé Blanc,1B372 
+AOP,AOP,TRANQ,Tranquilles,FAU,Faugères,,,,,rouge,Rouge,,,AOP Tranquilles Faugères Rouge,1R515
+AOP,AOP,TRANQ,Tranquilles,FAU,Faugères,,,,,rose,Rosé,,,AOP Tranquilles Faugères Rosé,1S515
+AOP,AOP,TRANQ,Tranquilles,FAU,Faugères,,,,,blanc,Blanc,,,AOP Tranquilles Faugères Blanc,1B515
+AOP,AOP,TRANQ,Tranquilles,,Autres,,,,,,,,,AOP Tranquilles Autres,VT_IG_AOP
+AOP,AOP,TRANQ,Tranquilles,BJLVP,Beaujolais Villages Primeur,,,,,rouge,Rouge,,,AOP Tranquilles Beaujolais Villages Primeur Rouge,1R301 00
+AOP,AOP,TRANQ,Tranquilles,PLLC,Pauillac,,,,,rouge,Rouge,,,AOP Tranquilles Pauillac Rouge,1R148S
+AOP,AOP,TRANQ,Tranquilles,PNO,Pinot Noir,,,,,rouge,Rouge,,,AOP Tranquilles Pinot Noir Rouge,1R001S
+AOP,AOP,TRANQ,Tranquilles,ANJ,Anjou,,,,,rose,Rosé,,,AOP Tranquilles Anjou Rosé,1S200D
+AOP,AOP,TRANQ,Tranquilles,SAU,Sauternes,,,,,blanc,Blanc,,,AOP Tranquilles Sauternes Blanc,1B164L
+AOP,AOP,TRANQ,Tranquilles,PCH,Petit Chablis,,,,,blanc,Blanc,,,AOP Tranquilles Petit Chablis Blanc,1B410
+AOP,AOP,TRANQ,Tranquilles,CORB,Corbiere Rouge,,,,,rouge,Rouge,,,AOP Tranquilles Corbiere Rouge Rouge,1R493
+AOP,AOP,TRANQ,Tranquilles,MIN,Minervois,,,,,blanc,blanc,,,AOP Tranquilles Minervois blanc,1B517
+AOP,AOP,TRANQ,Tranquilles,MIN,Minervois,,,,,rose,rosé,,,AOP Tranquilles Minervois rosé,1S517
+AOP,AOP,TRANQ,Tranquilles,MIN,Minervois,,,,,rouge,rouge,,,AOP Tranquilles Minervois rouge,1R517
+AOP,AOP,TRANQ,Tranquilles,CRS,Corse,,,,,rouge,Rouge,,,AOP Tranquilles Corse Rouge,1R585S
+AOP,AOP,TRANQ,Tranquilles,CRS,Corse,,,,,blanc,Blanc,,,AOP Tranquilles Corse Blanc,1B585S
+AOP,AOP,TRANQ,Tranquilles,CRS,Corse,,,,,rose,Rosé,,,AOP Tranquilles Corse Rosé,1S585S
+AOP,AOP,EFF,Effervescent,CHP,Champagne,,,,,blanc,Blanc,,,AOP Effervescent Champagne Blanc,1B080M
+AOP,AOP,EFF,Effervescent,CHP,Champagne,,,,,rose,Rosé,,,AOP Effervescent Champagne Rosé,1S080M
+AOP,AOP,EFF,Effervescent,,Autres,,,,,,,,,AOP Effervescent Autres,VM_IG_AOP
+AOP,AOP,EFF,Effervescent,HMED,Haut Médoc,,,,,rouge,Rouge,,,AOP Effervescent Haut Médoc Rouge,1R132S
+AOP,AOP,EFF,Effervescent,CRAL,Crémant d'Alsace,,,,,blanc,Blanc,PNB,Pinot Noir Blanc,AOP Effervescent Crémant d'Alsace Blanc Pinot Noir Blanc,1B001M06
+AOP,AOP,VDN,Vin Doux Naturel,MUSCRIV,Muscat de Rivesaltes,,,,,blanc,Blanc,,,AOP Vin Doux Naturel Muscat de Rivesaltes Blanc,1B184N
+AOP,AOP,VDN,Vin Doux Naturel,VDN1,Vins doux naturel ou liquoreux sup. 18% vol.,,,,,,,,,AOP Vin Doux Naturel Vins doux naturel ou liquoreux sup. 18% vol.,VDN_VDL_AOP_SUP_18
+AOP,AOP,VDN,Vin Doux Naturel,VDN2,Vins doux naturel ou liquoreux inf. 18% vol.,,,,,,,,,AOP Vin Doux Naturel Vins doux naturel ou liquoreux inf. 18% vol.,VDN_VDL_AOP_INF_18
+MP,Matières premières,SP,Spiritueux,MPSP,Matières premières spiritueux,,,,,,,,,Matières premières Spiritueux Matières premières spiritueux,MATIERES_PREMIERES_SPIRITUEUX
+MP,Matières premières,,Alcools,MPAL,Matières premières alcools,,,,,,,,,Matières premières Alcools Matières premières alcools,MATIERES_PREMIERES_ALCOOLS
+APD,Autres produits,TRANQ,Tranquilles,EETR,Vin étranger,,,,,,,,,Autres produits Tranquilles Vin étranger,VT_ETRANGERS
+APD,Autres produits,SP,Spiritueux,SPI1,Alcools autres que rhums sup. 18% vol.,,,,,,,,,Autres produits Spiritueux Alcools autres que rhums sup. 18% vol.,ALCOOL_AUTRE_SUP_18
+APD,Autres produits,SP,Spiritueux,SPI2,Alcools autres que rhums inf. 18% vol.,,,,,,,,,Autres produits Spiritueux Alcools autres que rhums inf. 18% vol.,ALCOOL_AUTRE_INF_18
+APD,Autres produits,SP,Spiritueux,SPI3,Alcools autres que rhums inf. 18% vol. prémix,,,,,,,,,Autres produits Spiritueux Alcools autres que rhums inf. 18% vol. prémix,ALCOOL_AUTRE_INF_18_PREMIX
+APD,Autres produits,SP,Spiritueux,SPI4,Spiritueux à base d'alcools de cru Guadeloupe sup. 18% vol.,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Guadeloupe sup. 18% vol.,SPIRITUEUX_GUADELOUPE_SUP_18
+APD,Autres produits,SP,Spiritueux,SPI5,Spiritueux à base d'alcools de cru Guadeloupe inf. 18% vol.,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Guadeloupe inf. 18% vol.,SPIRITUEUX_GUADELOUPE_INF_18
+APD,Autres produits,SP,Spiritueux,SPI6,Spiritueux à base d'alcools de cru Guadeloupe inf. 18% vol. prémix,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Guadeloupe inf. 18% vol. prémix,SPIRITUEUX_GUADELOUPE_INF_18_PREMIX
+APD,Autres produits,SP,Spiritueux,SPI7,Spiritueux à base d'alcools de cru Martinique sup. 18% vol.,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Martinique sup. 18% vol.,SPIRITUEUX_MARTINIQUE_SUP_18
+APD,Autres produits,SP,Spiritueux,SPI8,Spiritueux à base d'alcools de cru Martinique inf. 18% vol.,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Martinique inf. 18% vol.,SPIRITUEUX_MARTINIQUE_INF_18
+APD,Autres produits,SP,Spiritueux,SPI9,Spiritueux à base d'alcools de cru Martinique inf. 18% vol. prémix,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Martinique inf. 18% vol. prémix,SPIRITUEUX_MARTINIQUE_INF_18_PREMIX
+APD,Autres produits,SP,Spiritueux,SPI10,Spiritueux à base d'alcools de cru Guyane sup. 18% vol.,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Guyane sup. 18% vol.,SPIRITUEUX_GUYANE_SUP_18
+APD,Autres produits,SP,Spiritueux,SPI11,Spiritueux à base d'alcools de cru Guyane inf. 18% vol.,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Guyane inf. 18% vol.,SPIRITUEUX_GUYANE_INF_18
+APD,Autres produits,SP,Spiritueux,SPI12,Spiritueux à base d'alcools de cru Guyane inf. 18% vol. prémix,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Guyane inf. 18% vol. prémix,SPIRITUEUX_GUYANE_INF_18_PREMIX
+APD,Autres produits,SP,Spiritueux,SPI13,Spiritueux à base d'alcools de cru Réunion sup. 18% vol.,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Réunion sup. 18% vol.,SPIRITUEUX_REUNION_SUP_18
+APD,Autres produits,SP,Spiritueux,SPI14,Spiritueux à base d'alcools de cru Réunion inf. 18% vol.,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Réunion inf. 18% vol.,SPIRITUEUX_REUNION_INF_18
+APD,Autres produits,SP,Spiritueux,SPI15,Spiritueux à base d'alcools de cru Réunion inf. 18% vol. prémix,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Réunion inf. 18% vol. prémix,SPIRITUEUX_REUNION_INF_18_PREMIX
+APD,Autres produits,SP,Spiritueux,SPI16,Alcools DOM autres que rhums traditionnels sup. 18%,,,,,,,,,Autres produits Spiritueux Alcools DOM autres que rhums traditionnels sup. 18%,AUTRES_ALCOOLS_SUP_18
+APD,Autres produits,SP,Spiritueux,SPI17,Alcools DOM autres que rhums traditionnels inf. 18%,,,,,,,,,Autres produits Spiritueux Alcools DOM autres que rhums traditionnels inf. 18%,AUTRES_ALCOOLS_INF_18
+APD,Autres produits,SP,Spiritueux,SPI18,Alcools DOM autres que rhums traditionnels DOM inf. 18%  prémix,,,,,,,,,Autres produits Spiritueux Alcools DOM autres que rhums traditionnels DOM inf. 18%  prémix,AUTRES_ALCOOLS_INF_18_PREMIX
 APD,Autres produits,BF,Autres boissons,BFA,Boissons fermentées autres,,,,,,,,,Autres produits Autres boissons Boissons fermentées autres,BOISSONS_FERMENTEES_AUTRES
 APD,Autres produits,BF,Autres boissons,BFP,Boissons fermentées autres prémix,,,,,,,,,Autres produits Autres boissons Boissons fermentées autres prémix,BOISSONS_FERMENTEES_AUTRES_PREMIX
 APD,Autres produits,BF,Autres boissons,CID,Cidres,,,,,,,,,Autres produits Autres boissons Cidres,CIDRES
@@ -1287,86 +1333,62 @@ APD,Autres produits,RH,Rhum,RHU4,Rhums DOM et tafias Guadeloupe,,,,,,,,,Autres p
 APD,Autres produits,RH,Rhum,RHU5,Rhums DOM et tafias Martinique,,,,,,,,,Autres produits Rhum Rhums DOM et tafias Martinique,RHUM_MARTINIQUE
 APD,Autres produits,RH,Rhum,RHU6,Rhums DOM et tafias Guyane,,,,,,,,,Autres produits Rhum Rhums DOM et tafias Guyane,RHUM_GUYANE
 APD,Autres produits,RH,Rhum,RHU7,Rhums DOM et tafias Réunion,,,,,,,,,Autres produits Rhum Rhums DOM et tafias Réunion,RHUM_REUNION
-APD,Autres produits,SP,Spiritueux,SPI1,Alcools autres que rhums sup. 18% vol.,,,,,,,,,Autres produits Spiritueux Alcools autres que rhums sup. 18% vol.,ALCOOL_AUTRE_SUP_18
-APD,Autres produits,SP,Spiritueux,SPI2,Alcools autres que rhums inf. 18% vol.,,,,,,,,,Autres produits Spiritueux Alcools autres que rhums inf. 18% vol.,ALCOOL_AUTRE_INF_18
-APD,Autres produits,SP,Spiritueux,SPI3,Alcools autres que rhums inf. 18% vol. prémix,,,,,,,,,Autres produits Spiritueux Alcools autres que rhums inf. 18% vol. prémix,ALCOOL_AUTRE_INF_18_PREMIX
-APD,Autres produits,SP,Spiritueux,SPI4,Spiritueux à base d'alcools de cru Guadeloupe sup. 18% vol.,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Guadeloupe sup. 18% vol.,SPIRITUEUX_GUADELOUPE_SUP_18
-APD,Autres produits,SP,Spiritueux,SPI5,Spiritueux à base d'alcools de cru Guadeloupe inf. 18% vol.,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Guadeloupe inf. 18% vol.,SPIRITUEUX_GUADELOUPE_INF_18
-APD,Autres produits,SP,Spiritueux,SPI6,Spiritueux à base d'alcools de cru Guadeloupe inf. 18% vol. prémix,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Guadeloupe inf. 18% vol. prémix,SPIRITUEUX_GUADELOUPE_INF_18_PREMIX
-APD,Autres produits,SP,Spiritueux,SPI7,Spiritueux à base d'alcools de cru Martinique sup. 18% vol.,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Martinique sup. 18% vol.,SPIRITUEUX_MARTINIQUE_SUP_18
-APD,Autres produits,SP,Spiritueux,SPI8,Spiritueux à base d'alcools de cru Martinique inf. 18% vol.,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Martinique inf. 18% vol.,SPIRITUEUX_MARTINIQUE_INF_18
-APD,Autres produits,SP,Spiritueux,SPI9,Spiritueux à base d'alcools de cru Martinique inf. 18% vol. prémix,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Martinique inf. 18% vol. prémix,SPIRITUEUX_MARTINIQUE_INF_18_PREMIX
-APD,Autres produits,SP,Spiritueux,SPI10,Spiritueux à base d'alcools de cru Guyane sup. 18% vol.,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Guyane sup. 18% vol.,SPIRITUEUX_GUYANE_SUP_18
-APD,Autres produits,SP,Spiritueux,SPI11,Spiritueux à base d'alcools de cru Guyane inf. 18% vol.,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Guyane inf. 18% vol.,SPIRITUEUX_GUYANE_INF_18
-APD,Autres produits,SP,Spiritueux,SPI12,Spiritueux à base d'alcools de cru Guyane inf. 18% vol. prémix,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Guyane inf. 18% vol. prémix,SPIRITUEUX_GUYANE_INF_18_PREMIX
-APD,Autres produits,SP,Spiritueux,SPI13,Spiritueux à base d'alcools de cru Réunion sup. 18% vol.,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Réunion sup. 18% vol.,SPIRITUEUX_REUNION_SUP_18
-APD,Autres produits,SP,Spiritueux,SPI14,Spiritueux à base d'alcools de cru Réunion inf. 18% vol.,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Réunion inf. 18% vol.,SPIRITUEUX_REUNION_INF_18
-APD,Autres produits,SP,Spiritueux,SPI15,Spiritueux à base d'alcools de cru Réunion inf. 18% vol. prémix,,,,,,,,,Autres produits Spiritueux Spiritueux à base d'alcools de cru Réunion inf. 18% vol. prémix,SPIRITUEUX_REUNION_INF_18_PREMIX
-APD,Autres produits,SP,Spiritueux,SPI16,Alcools DOM autres que rhums traditionnels sup. 18%,,,,,,,,,Autres produits Spiritueux Alcools DOM autres que rhums traditionnels sup. 18%,AUTRES_ALCOOLS_SUP_18
-APD,Autres produits,SP,Spiritueux,SPI17,Alcools DOM autres que rhums traditionnels inf. 18%,,,,,,,,,Autres produits Spiritueux Alcools DOM autres que rhums traditionnels inf. 18%,AUTRES_ALCOOLS_INF_18
-APD,Autres produits,SP,Spiritueux,SPI18,Alcools DOM autres que rhums traditionnels DOM inf. 18%  prémix,,,,,,,,,Autres produits Spiritueux Alcools DOM autres que rhums traditionnels DOM inf. 18%  prémix,AUTRES_ALCOOLS_INF_18_PREMIX
 APD,Autres produits,EFF,Effervescent,EETR,Vin étranger,,,,,,,,,Autres produits Effervescent Vin étranger,VM_ETRANGERS
-APD,Autres produits,TRANQ,Tranquilles,EETR,Vin étranger,,,,,,,,,Autres produits Tranquilles Vin étranger,VT_ETRANGERS
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,rouge,Rouge,,,Sans IG Tranquilles Vin Sans IG Rouge,4R999 
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,rouge,Rouge,SYR,Syrah,Sans IG Tranquilles Vin Sans IG Rouge Syrah,4R500 AI
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,rouge,Rouge,GRN,Grenache Noir,Sans IG Tranquilles Vin Sans IG Rouge Grenache Noir,4R500 CS
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,rouge,Rouge,CS,Cabernet-Sauvignon,Sans IG Tranquilles Vin Sans IG Rouge Cabernet-Sauvignon,4R500 BX
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,rouge,Rouge,CIN,Cinsaut,Sans IG Tranquilles Vin Sans IG Rouge Cinsaut,4R500 CG
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,rouge,Rouge,MER,Merlot,Sans IG Tranquilles Vin Sans IG Rouge Merlot,4R500 DE
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,rouge,Rouge,MOU,Mourvedre,Sans IG Tranquilles Vin Sans IG Rouge Mourvedre,4R500 BC
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,rouge,Rouge,CEP,Autre,Sans IG Tranquilles Vin Sans IG Rouge Autre,4R999 
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,rouge,Rouge,COT,Cot,Sans IG Tranquilles Vin Sans IG Rouge Cot,4R500 CZ
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,rose,Rosé,,,Sans IG Tranquilles Vin Sans IG Rosé,4S999 
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,rose,Rosé,SYR,Syrah,Sans IG Tranquilles Vin Sans IG Rosé Syrah,4S500 AI
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,rose,Rosé,GRN,Grenache Noir,Sans IG Tranquilles Vin Sans IG Rosé Grenache Noir,4S500 CS
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,rose,Rosé,CS,Cabernet-Sauvignon,Sans IG Tranquilles Vin Sans IG Rosé Cabernet-Sauvignon,4S500 BX
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,rose,Rosé,CIN,Cinsaut,Sans IG Tranquilles Vin Sans IG Rosé Cinsaut,4S500 CG
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,rose,Rosé,MER,Merlot,Sans IG Tranquilles Vin Sans IG Rosé Merlot,4S500 DE
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,rose,Rosé,MOU,Mourvedre,Sans IG Tranquilles Vin Sans IG Rosé Mourvedre,4S500 BC
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,rose,Rosé,CEP,Autre,Sans IG Tranquilles Vin Sans IG Rosé Autre,4S999 
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,blanc,Blanc,,,Sans IG Tranquilles Vin Sans IG Blanc,4B999 
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,blanc,Blanc,ROL,Rolle-Vermentino,Sans IG Tranquilles Vin Sans IG Blanc Rolle-Vermentino,4B500 BK
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,blanc,Blanc,CHA,Chardonnay,Sans IG Tranquilles Vin Sans IG Blanc Chardonnay,4B500 CA
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,blanc,Blanc,SAU,Sauvignon,Sans IG Tranquilles Vin Sans IG Blanc Sauvignon,4B500 AE
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,blanc,Blanc,GRB,Grenache blanc,Sans IG Tranquilles Vin Sans IG Blanc Grenache blanc,4B500 CQ
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,blanc,Blanc,VIO,Viognier,Sans IG Tranquilles Vin Sans IG Blanc Viognier,4B500 AO
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,blanc,Blanc,MAR,Marsanne,Sans IG Tranquilles Vin Sans IG Blanc Marsanne,4B500 DA
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,blanc,Blanc,ROU,Roussanne,Sans IG Tranquilles Vin Sans IG Blanc Roussanne,4B500 BI
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,blanc,Blanc,CLA,Clairette,Sans IG Tranquilles Vin Sans IG Blanc Clairette,4B500 CH
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,blanc,Blanc,CEP,Autre,Sans IG Tranquilles Vin Sans IG Blanc Autre,4B999 
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,blanc,Blanc,UGNI,Ugni,Sans IG Tranquilles Vin Sans IG Blanc Ugni,4B500 AN
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,,,SANSCEP,Sans cépage,Sans IG Tranquilles Vin Sans IG Sans cépage,VT_SANS_IG_AUTRES
+VINSSANSIG,Sans IG,TRANQ,Tranquilles,,Vin Sans IG,,,,,,,AVECCEP,Avec cépage,Sans IG Tranquilles Vin Sans IG Avec cépage,VT_SANS_IG_CEPAGE
+VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,,,SANSCEP,Sans cépage,Sans IG Effervescent Sans cépage,VM_SANS_IG_AUTRES
+VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,,,AVECCEP,Avec cépage,Sans IG Effervescent Avec cépage,VM_SANS_IG_CEPAGE
+VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,blanc,Blanc,,,Sans IG Effervescent Blanc,4B999M
+VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,blanc,Blanc,SANS,Sans,Sans IG Effervescent Blanc Sans,4B999M
+VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,blanc,Blanc,CHA,Chardonnay,Sans IG Effervescent Blanc Chardonnay,4B999M
+VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,blanc,Blanc,CLA,Clairette,Sans IG Effervescent Blanc Clairette,4B999M
+VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,blanc,Blanc,CEP,Autre,Sans IG Effervescent Blanc Autre,4B999M
+VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,rouge,Rouge,,,Sans IG Effervescent Rouge,4R999M
+VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,rouge,Rouge,SANS,Sans,Sans IG Effervescent Rouge Sans,4R999M
+VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,rose,Rosé,,,Sans IG Effervescent Rosé,4S999M
+VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,rose,Rosé,SANS,Sans,Sans IG Effervescent Rosé Sans,4S999M
+VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,rose,Rosé,CIN,Cinsaut,Sans IG Effervescent Rosé Cinsaut,4S999M
+VINSSANSIG,Sans IG,EFF,Effervescent,,,,,,,rose,Rosé,CEP,Autre,Sans IG Effervescent Rosé Autre,4S999M
+VINSSANSIG,Sans IG,N,VDN,,,,,,,rouge,Rouge,,,Sans IG VDN Rouge,4R999Z
+VINSSANSIG,Sans IG,N,VDN,,,,,,,rouge,Rouge,CEP,Autre,Sans IG VDN Rouge Autre,4R999Z
+VINSSANSIG,Sans IG,N,VDN,,,,,,,rose,Rosé,,,Sans IG VDN Rosé,4S999Z
+VINSSANSIG,Sans IG,N,VDN,,,,,,,rose,Rosé,CEP,Autre,Sans IG VDN Rosé Autre,4S999Z
+VINSSANSIG,Sans IG,N,VDN,,,,,,,blanc,Blanc,,,Sans IG VDN Blanc,4B999Z
+VINSSANSIG,Sans IG,N,VDN,,,,,,,blanc,Blanc,CHA,Chardonnay,Sans IG VDN Blanc Chardonnay,4B999Z
+VINSSANSIG,Sans IG,N,VDN,,,,,,,blanc,Blanc,VIO,Viognier,Sans IG VDN Blanc Viognier,4B999Z
+VINSSANSIG,Sans IG,N,VDN,,,,,,,blanc,Blanc,CEP,Autre,Sans IG VDN Blanc Autre,4B999Z
+LIE,LIE,T,TRANQ,,LIES,,,,,,,,,LIE TRANQ LIES,4X999V
+LIE,LIE,TRANQ,TRANQ,PAE,Produits a eliminer,,,,,,,,,LIE TRANQ Produits a eliminer,5X999V
 AOC,AOC,EFF,Effervescent,361,Crémant de Bourgogne,,,,,blanc,Blanc,,,AOC Effervescent Crémant de Bourgogne Blanc,1B361M
-AOP,AOP,TRANQ,Tranquilles,,Autres,,,,,,,,,AOP Tranquilles Autres,VT_IG_AOP
-AOP,AOP,TRANQ,Tranquilles,RIE,Riesling,,,,,blanc,Blanc,,,AOP Tranquilles Riesling Blanc,1B001S 4
-AOP,AOP,TRANQ,Tranquilles,BJL,Beaujolais,,,,,rouge,Rouge,,,AOP Tranquilles Beaujolais Rouge,1R300 
-AOP,AOP,TRANQ,Tranquilles,BJL,Beaujolais,,,,,blanc,Blanc,,,AOP Tranquilles Beaujolais Blanc,1B300 
-AOP,AOP,TRANQ,Tranquilles,BJLP,Beaujolais Primeur,,,,,rouge,Rouge,,,AOP Tranquilles Beaujolais Primeur Rouge,1R300 01
-AOP,AOP,TRANQ,Tranquilles,BJLV,Beaujolais Villages,,,,,rouge,Rouge,,,AOP Tranquilles Beaujolais Villages Rouge,1R301 
-AOP,AOP,TRANQ,Tranquilles,BJLVP,Beaujolais Villages Primeur,,,,,rouge,Rouge,,,AOP Tranquilles Beaujolais Villages Primeur Rouge,1R301 00
-AOP,AOP,TRANQ,Tranquilles,BDX,Bordeaux,,,,,rouge,Rouge,,,AOP Tranquilles Bordeaux Rouge,1R105S
-AOP,AOP,TRANQ,Tranquilles,BRY,Brouilly,,,,,rouge,Rouge,,,AOP Tranquilles Brouilly Rouge,1R325 
-AOP,AOP,TRANQ,Tranquilles,CRVL,Côtes du Roussillon Villages Latour de France,,,,,rouge,Rouge,,,AOP Tranquilles Côtes du Roussillon Villages Latour de France Rouge,1R481S 2
-AOP,AOP,TRANQ,Tranquilles,CRVL,Côtes du Roussillon Villages Latour de France,,,,,blanc,Blanc,,,AOP Tranquilles Côtes du Roussillon Villages Latour de France Blanc,1B481S 2
-AOP,AOP,TRANQ,Tranquilles,CHI,Chinon,,,,,rouge,Rouge,,,AOP Tranquilles Chinon Rouge,1R222S
-AOP,AOP,TRANQ,Tranquilles,CHRB,Chiroubles,,,,,rouge,Rouge,,,AOP Tranquilles Chiroubles Rouge,1R345 
-AOP,AOP,TRANQ,Tranquilles,COL,Collioure,,,,,rouge,Rouge,,,AOP Tranquilles Collioure Rouge,1R489S
-AOP,AOP,TRANQ,Tranquilles,COL,Collioure,,,,,blanc,Blanc,,,AOP Tranquilles Collioure Blanc,1B489S
-AOP,AOP,TRANQ,Tranquilles,CDB,Côte de Brouilly,,,,,rouge,Rouge,,,AOP Tranquilles Côte de Brouilly Rouge,1R326 
-AOP,AOP,TRANQ,Tranquilles,CBG,Coteaux Bourguignons,,,,,rouge,Rouge,,,AOP Tranquilles Coteaux Bourguignons Rouge,1R320 
-AOP,AOP,TRANQ,Tranquilles,CROVL,Côtes du Roussillon Villages Lesquerde,,,,,rouge,Rouge,,,AOP Tranquilles Côtes du Roussillon Villages Lesquerde Rouge,1R481S 3
-AOP,AOP,TRANQ,Tranquilles,CDROU,Côtes du Roussillon,,,,,rouge,Rouge,,,AOP Tranquilles Côtes du Roussillon Rouge,1R480S
-AOP,AOP,TRANQ,Tranquilles,CDROU,Côtes du Roussillon,,,,,blanc,Blanc,,,AOP Tranquilles Côtes du Roussillon Blanc,1B480S
-AOP,AOP,TRANQ,Tranquilles,CDROUV,Côtes du Roussillon Villages,,,,,rouge,Rouge,,,AOP Tranquilles Côtes du Roussillon Villages Rouge,1R481S
-AOP,AOP,TRANQ,Tranquilles,FLR,Fleurie,,,,,rouge,Rouge,,,AOP Tranquilles Fleurie Rouge,1R365 
-AOP,AOP,TRANQ,Tranquilles,GWT,Gewurztraminer,,,,,blanc,Blanc,,,AOP Tranquilles Gewurztraminer Blanc,1B001S 1
-AOP,AOP,TRANQ,Tranquilles,JUL,Juliénas,,,,,rouge,Rouge,,,AOP Tranquilles Juliénas Rouge,1R367 
-AOP,AOP,TRANQ,Tranquilles,MCM,Mâcon Charnay lès Mâcon,,,,,blanc,Blanc,,,AOP Tranquilles Mâcon Charnay lès Mâcon Blanc,1B370 22
-AOP,AOP,TRANQ,Tranquilles,MACV,Mâcon Villages,,,,,blanc,Blanc,,,AOP Tranquilles Mâcon Villages Blanc,1B370 
-AOP,AOP,TRANQ,Tranquilles,MRGX,Margaux,,,,,rouge,Rouge,,,AOP Tranquilles Margaux Rouge,1R142S
-AOP,AOP,TRANQ,Tranquilles,MORG,Morgon,,,,,rouge,Rouge,,,AOP Tranquilles Morgon Rouge,1R390 
-AOP,AOP,TRANQ,Tranquilles,PLLC,Pauillac,,,,,rouge,Rouge,,,AOP Tranquilles Pauillac Rouge,1R148S
-AOP,AOP,TRANQ,Tranquilles,PGR,Pinot Gris,,,,,blanc,Blanc,,,AOP Tranquilles Pinot Gris Blanc,1B001S 3
-AOP,AOP,TRANQ,Tranquilles,PNO,Pinot Noir,,,,,rouge,Rouge,,,AOP Tranquilles Pinot Noir Rouge,1R001S
-AOP,AOP,TRANQ,Tranquilles,PFUS,Pouilly Fuissé,,,,,blanc,Blanc,,,AOP Tranquilles Pouilly Fuissé Blanc,1B399 
-AOP,AOP,TRANQ,Tranquilles,PVNZ,Pouilly Vinzelles,,,,,blanc,Blanc,,,AOP Tranquilles Pouilly Vinzelles Blanc,1B401 
-AOP,AOP,TRANQ,Tranquilles,RIVS,Rivesaltes,,,,,rouge,Rouge,,,AOP Tranquilles Rivesaltes Rouge,1R188N02
-AOP,AOP,TRANQ,Tranquilles,SAMR,Saint Amour,,,,,rouge,Rouge,,,AOP Tranquilles Saint Amour Rouge,1R421 
-AOP,AOP,TRANQ,Tranquilles,SEML,Saint Emilion,,,,,rouge,Rouge,,,AOP Tranquilles Saint Emilion Rouge,1R156S
-AOP,AOP,TRANQ,Tranquilles,SVRN,Saint Véran,,,,,blanc,Blanc,,,AOP Tranquilles Saint Véran Blanc,1B422 
-AOP,AOP,TRANQ,Tranquilles,SYLV,Sylvaner,,,,,blanc,Blanc,,,AOP Tranquilles Sylvaner Blanc,1B001S 8
-AOP,AOP,TRANQ,Tranquilles,VRCLS,Viré Clessé,,,,,blanc,Blanc,,,AOP Tranquilles Viré Clessé Blanc,1B372 
-AOP,AOP,TRANQ,Tranquilles,ANJ,Anjou,,,,,,Rosé,,,AOP Tranquilles Anjou Rosé,1S200D
-AOP,AOP,TRANQ,Tranquilles,BAN,Banyuls Blanc,,,,,,Blanc,,,AOP Tranquilles Banyuls Blanc Blanc,1B175N
-AOP,AOP,TRANQ,Tranquilles,SAU,Sauternes,,,,,,Blanc,,,AOP Tranquilles Sauternes Blanc,1B164L
-AOP,AOP,TRANQ,Tranquilles,PCH,Petit Chablis,,,,,,Blanc,,,AOP Tranquilles Petit Chablis Blanc,1B410
-AOP,AOP,EFF,Effervescent,,Autres,,,,,,,,,AOP Effervescent Autres,VM_IG_AOP
-AOP,AOP,EFF,Effervescent,CHP,Champagne,,,,,blanc,Blanc,,,AOP Effervescent Champagne Blanc,1B080M
-AOP,AOP,EFF,Effervescent,CHP,Champagne,,,,,rose,Rosé,,,AOP Effervescent Champagne Rosé,1S080M
-AOP,AOP,EFF,Effervescent,HMED,Haut Médoc,,,,,rouge,Rouge,,,AOP Effervescent Haut Médoc Rouge,1R132S
-AOP,AOP,EFF,Effervescent,CRAL,Crémant d'Alsace,,,,,blanc,Blanc,PNB,Pinot Noir Blanc,AOP Effervescent Crémant d'Alsace Blanc Pinot Noir Blanc,1B001M06
-AOP,AOP,VDN,Vin Doux Naturel,VDN1,Vins doux naturel ou liquoreux sup. 18% vol.,,,,,,,,,AOP Vin Doux Naturel Vins doux naturel ou liquoreux sup. 18% vol.,VDN_VDL_AOP_SUP_18
-AOP,AOP,VDN,Vin Doux Naturel,VDN2,Vins doux naturel ou liquoreux inf. 18% vol.,,,,,,,,,AOP Vin Doux Naturel Vins doux naturel ou liquoreux inf. 18% vol.,VDN_VDL_AOP_INF_18
-AOP,AOP,VDN,Vin Doux Naturel,MUSCRIV,Muscat de Rivesaltes,,,,,blanc,Blanc,,,AOP Vin Doux Naturel Muscat de Rivesaltes Blanc,1B184N
-AOP,AOP,VDN,Vin Doux Naturel,BAN,Banyuls Rouge Rimage,,,,,,Rouge,,,AOP Vin Doux Naturel Banyuls Rouge Rimage Rouge,1R175L
-MP,Matières premières,SP,Spiritueux,MPSP,Matières premières spiritueux,,,,,,,,,Matières premières Spiritueux Matières premières spiritueux,MATIERES_PREMIERES_SPIRITUEUX
-MP,Matières premières,,Alcools,MPAL,Matières premières alcools,,,,,,,,,Matières premières Alcools Matières premières alcools,MATIERES_PREMIERES_ALCOOLS
-IGP,IGP,TRANQ,Tranquilles,,Autres,,,,,,,,,IGP Tranquilles Autres,VT_IG_IGP
-IGP,IGP,TRANQ,Tranquilles,CAR,Cité de Carcassonne,,,,,,Rouge,,,IGP Tranquilles Cité de Carcassonne Rouge,3R112
-IGP,IGP,TRANQ,Tranquilles,CAT,Côtes Catalanes Rouge,,,,,,Rouge,,,IGP Tranquilles Côtes Catalanes Rouge Rouge,3R664
-IGP,IGP,TRANQ,Tranquilles,PAYOC,Pays d'OC Blanc,,,,,,Blanc,,,IGP Tranquilles Pays d'OC Blanc Blanc,3B001
-IGP,IGP,EFF,Effervescent,,Autres,,,,,,,,,IGP Effervescent Autres,VM_IG_IGP
+AOC,AOC,EFF,Effervescent,361,Crémant de Bourgogne,,,,,rose,rosé,,,AOC Effervescent Crémant de Bourgogne rosé,1S361M
 IGP,IGP,TRANQ,Tranquilles,236,Duche d'Uzes,,,,,rouge,Rouge,,,IGP Tranquilles Duche d'Uzes Rouge,1R548S
 IGP,IGP,TRANQ,Tranquilles,301,Gard,,,,,rouge,Rouge,,,IGP Tranquilles Gard Rouge,3R301 
 IGP,IGP,TRANQ,Tranquilles,301,Gard,,,,,rouge,Rouge,SYR,Syrah,IGP Tranquilles Gard Rouge Syrah,3R301 AI
@@ -1508,6 +1530,7 @@ IGP,IGP,TRANQ,Tranquilles,OC,Pays d'OC,,,,,rouge,Rouge,NIE,Nielluc,IGP Tranquill
 IGP,IGP,TRANQ,Tranquilles,OC,Pays d'OC,,,,,rouge,Rouge,TEM,Tempran,IGP Tranquilles Pays d'OC Rouge Tempran,3R001 BQ
 IGP,IGP,TRANQ,Tranquilles,OC,Pays d'OC,,,,,rouge,Rouge,CAR,Carignan,IGP Tranquilles Pays d'OC Rouge Carignan,3R001 BZ
 IGP,IGP,TRANQ,Tranquilles,OC,Pays d'OC,,,,,rouge,Rouge,ALI,Alicante H.B,IGP Tranquilles Pays d'OC Rouge Alicante H.B,3R001 BR
+IGP,IGP,TRANQ,Tranquilles,OC,Pays d'OC,,,,,rouge,Rouge,COT,Cot,IGP Tranquilles Pays d'OC Rouge Cot,3R001 CZ
 IGP,IGP,TRANQ,Tranquilles,OC,Pays d'OC,,,,,rose,Rosé,,,IGP Tranquilles Pays d'OC Rosé,3S001 
 IGP,IGP,TRANQ,Tranquilles,OC,Pays d'OC,,,,,rose,Rosé,SYR,Syrah,IGP Tranquilles Pays d'OC Rosé Syrah,3S001 AI
 IGP,IGP,TRANQ,Tranquilles,OC,Pays d'OC,,,,,rose,Rosé,GRN,Grenache Noir,IGP Tranquilles Pays d'OC Rosé Grenache Noir,3S001 CS
@@ -1535,6 +1558,7 @@ IGP,IGP,TRANQ,Tranquilles,OC,Pays d'OC,,,,,blanc,Blanc,UGN,Ugni,IGP Tranquilles 
 IGP,IGP,TRANQ,Tranquilles,OC,Pays d'OC,,,,,blanc,Blanc,COL,Colombar,IGP Tranquilles Pays d'OC Blanc Colombar,3B001 CJ
 IGP,IGP,TRANQ,Tranquilles,OC,Pays d'OC,,,,,blanc,Blanc,MUA,Muscat Alexandre,IGP Tranquilles Pays d'OC Blanc Muscat Alexandre,3B001 53
 IGP,IGP,TRANQ,Tranquilles,OC,Pays d'OC,,,,,blanc,Blanc,MUP,Muscat petits grains,IGP Tranquilles Pays d'OC Blanc Muscat petits grains,3B001 54
+IGP,IGP,TRANQ,Tranquilles,OC,Pays d'OC,,,,,blanc,Blanc,CAR,Carignan,IGP Tranquilles Pays d'OC Blanc Carignan,3B001 BY
 IGP,IGP,TRANQ,Tranquilles,TDM,Terres du Midi,,,,,rouge,Rouge,,,IGP Tranquilles Terres du Midi Rouge,3R010 
 IGP,IGP,TRANQ,Tranquilles,TDM,Terres du Midi,,,,,blanc,Blanc,,,IGP Tranquilles Terres du Midi Blanc,3B010 
 IGP,IGP,TRANQ,Tranquilles,TDM,Terres du Midi,,,,,rose,Rosé,,,IGP Tranquilles Terres du Midi Rosé,3S010 
