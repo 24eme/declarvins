@@ -16,6 +16,7 @@ class VracProduitValidator extends sfValidatorBase {
             if (
                 (in_array('conv', $values['labels_arr']) && in_array('biol', $values['labels_arr'])) ||
                 (in_array('biol', $values['labels_arr']) && in_array('bioc', $values['labels_arr'])) ||
+                (!in_array('biol', $values['labels_arr']) && !in_array('conv', $values['labels_arr'])) ||
                 (in_array('conv', $values['labels_arr']) && in_array('biol', $values['labels_arr']) && in_array('bioc', $values['labels_arr']))
                 ) {
                     $errorSchema->addError(new sfValidatorError($this, 'labels_incoherent'), 'labels_arr');
