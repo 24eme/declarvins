@@ -23,7 +23,7 @@ class DRMESCollectionDetailCrdForm extends acCouchdbObjectForm implements FormBi
     public function configure()
     {
         if (count($this->getObject()) == 0) {
-            $this->virgin_object = $this->getObject()->add();
+            $this->virgin_object = $this->getObject()->add(uniqid());
         }
         $embedFormName = $this->getEmbedFormName();
         foreach ($this->getObject() as $key => $object) {
