@@ -79,7 +79,9 @@
                 $fin = $date2->format('d/m/Y');
                 ?>
                 <p>&nbsp;</p>
+                <?php if(!$form->getObject()->isConditionneIvse()): ?>
                 <p>Les accord interprofessionnels impliquent que la moitié du montant de la transaction soit réglée entre le <?php echo date('d/m/Y') ?> et le <?php echo $fin ?>  soit <span id="prix_moitie_contrat">0.0</span> € HT / <?php if($form->getObject()->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?> avant le <?php echo $moitie ?></p>
+                <?php endif; ?>
                 <table id="table_paiements">
                     <thead>
                         <tr>

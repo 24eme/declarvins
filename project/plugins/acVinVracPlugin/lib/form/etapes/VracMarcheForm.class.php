@@ -85,7 +85,7 @@ class VracMarcheForm extends VracForm
     	    $this->getWidget('prix_unitaire')->setLabel('Prix unitaire net HT*:');
     	}
     		
-  		    $this->validatorSchema->setPostValidator(new VracMarcheValidator());
+  		    $this->validatorSchema->setPostValidator(new VracMarcheValidator($this->getObject()->isConditionneIvse()));
     		$this->widgetSchema->setNameFormat('vrac_marche[%s]');
     }
     protected function doUpdateObject($values) {
