@@ -123,7 +123,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     	
 		$libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]);
 		$configurationProduit = null;
-		$identifyByHash = false;
 		if ($idDouane = $this->getIdDouane($datas)) {
 			$configurationProduit = $this->configuration->identifyProduct(null, "($idDouane)");
 		}
@@ -132,8 +131,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 		}
 		if (!$configurationProduit) {
 		    $configurationProduit = $this->configuration->getConfigurationProduitByLibelle($libelle);
-		} else {
-		    $identifyByHash = true;
 		}
     	if (!$configurationProduit) {
     		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
@@ -155,14 +152,19 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		$libellePerso = null;
   		$libelleConfig = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles(), array(), "%c% %g% %a% %l% %co% %ce%");
   		
-  		if (!$identifyByHash && preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
+  		if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
   		    $libellePerso = (trim($result[1]) != trim($libelleConfig)) ? trim($result[1]) : null;
-  		} elseif (!$identifyByHash && trim($libelle) != trim($libelleConfig)) {
+  		} elseif (trim($libelle) != trim($libelleConfig)) {
   		    $libellePerso = trim($libelle);
   		}
   		
-  		if ($complement = strtoupper($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
+  		if ($libellePerso) {
+  		    $complement = md5($libellePerso);
+  		}
+  		
+  		if ($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]) {
   			if (isset($this->permettedValues[self::TYPE_CAVE]) && isset($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
+  			    $complement = strtoupper($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
   				if (!$idDouane) {
 	  				if (is_array($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT]) && !in_array($complement, $this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
 	  					$this->csvDoc->addErreur($this->complementProductWrongFormatError($numLigne, $datas));
@@ -177,10 +179,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   					$complement = md5(trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]));
   				}
   			}
-  		}
-  		
-  		if ($libellePerso) {
-  		    $complement = md5($libellePerso);
   		}
   		
   		$produit = ($complement)? $this->drm->getProduitByIdDouane($hash, $configurationProduit->getIdentifiantDouane(), $complement) : $this->drm->getProduitByIdDouane($hash, $configurationProduit->getIdentifiantDouane());
