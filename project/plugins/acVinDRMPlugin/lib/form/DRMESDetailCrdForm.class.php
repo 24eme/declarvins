@@ -1,5 +1,22 @@
 <?php
-class DRMESDetailCrdForm extends acCouchdbObjectForm {
+class DRMESDetailCrdForm extends BaseForm {
+    
+    protected $detail;
+    
+    public function __construct($detail, $options = array(), $CSRFSecret = null)
+    {
+        $this->detail = $detail;
+        parent::__construct($this->getDefaultValues(), $options, $CSRFSecret);
+    }
+    
+    public function getDefaultValues() {
+        $defaults = array(
+            'volume' => $this->detail->volume,
+            'mois' => $this->detail->mois,
+            'annee' => $this->detail->annee
+        );
+        return  $defaults;
+    }
 	
 	public function configure() {
 		$this->setWidget('volume', new sfWidgetFormInputFloat(array('float_format' => "%01.05f")));
@@ -11,18 +28,9 @@ class DRMESDetailCrdForm extends acCouchdbObjectForm {
 		$this->setWidget('annee', new sfWidgetFormChoice(array('choices' => $this->getAnnees())));
 		$this->setValidator('annee', new sfValidatorChoice(array('required' => false, 'choices' => array_keys($this->getAnnees()))));
 		
-		$this->widgetSchema->setNameFormat('drm_es_detail_crd[%s]');
-		$this->validatorSchema->setPostValidator(new DRMESDetailCrdValidator());
-		$this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+		$this->widgetSchema->setNameFormat('[%s]');
 	}
 	
-	protected function doUpdateObject($values) {
-		$this->getObject()->getParent()->getParent()->crd = $values['volume'];
-		parent::doUpdateObject($values);
-		if (!$values['volume']) {
-			$this->getObject()->delete();
-		}
-	}
 	
 	public function getMois() {
 		$mois = array(null => null);
@@ -34,7 +42,7 @@ class DRMESDetailCrdForm extends acCouchdbObjectForm {
 	
 	public function getAnnees() {
 		$annees = array(null => null);
-		for($i = $this->getObject()->getDocument()->getAnnee(); $i >= ($this->getObject()->getDocument()->getAnnee() - 10); $i--) {
+		for($i = $this->detail->getDocument()->getAnnee(); $i >= ($this->detail->getDocument()->getAnnee() - 10); $i--) {
 			$annees[$i] = $i;
 		}
 		return $annees;

@@ -65,7 +65,6 @@ class drm_recapActions extends sfActions
     			$form->save();
     			return $this->renderText(json_encode(array("success" => true, "url" => $this->generateUrl('drm_recap_detail', $detail))));
     		} else {
-    		    echo $form;exit;
     			return $this->renderText(json_encode(array("success" => false, "content" => $this->getPartial('esDetailCrdForm', array('form' => $form, 'detail' => $detail)))));
     		}
     	}
