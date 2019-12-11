@@ -7,16 +7,20 @@ class VracProduitValidator extends sfValidatorBase {
         $this->addMessage('date_millesime', "Millésime invalide");
         $this->addMessage('millesime_inexistant', "Le millésime doit être renseigné si la case Non millésimé n'est pas cochée.");
         $this->addMessage('labels_incoherent', "Combinaison de label impossible.");
+        $this->addMessage('labels_obl', "Vous devez, entre autre, obligatoirement faire un choix entre le conventionnel et le biologique");
     }
 
     protected function doClean($values) {
         $errorSchema = new sfValidatorErrorSchema($this);
         $hasError = false;
         if (isset($values['labels_arr']) && $values['labels_arr']) {
+            if (!in_array('biol', $values['labels_arr']) && !in_array('conv', $values['labels_arr'])) {
+                $errorSchema->addError(new sfValidatorError($this, 'labels_obl'), 'labels_arr');
+                $hasError = true;
+            }
             if (
                 (in_array('conv', $values['labels_arr']) && in_array('biol', $values['labels_arr'])) ||
                 (in_array('biol', $values['labels_arr']) && in_array('bioc', $values['labels_arr'])) ||
-                (!in_array('biol', $values['labels_arr']) && !in_array('conv', $values['labels_arr'])) ||
                 (in_array('conv', $values['labels_arr']) && in_array('biol', $values['labels_arr']) && in_array('bioc', $values['labels_arr']))
                 ) {
                     $errorSchema->addError(new sfValidatorError($this, 'labels_incoherent'), 'labels_arr');
