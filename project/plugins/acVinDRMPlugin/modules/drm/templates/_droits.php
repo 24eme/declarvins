@@ -3,7 +3,7 @@
                         ) ?>
 
 <?php foreach ($drm->getDroits() as $typedroit => $droits) if (count($drm->droits->{$typedroit})): ?>
-    <?php if ((($sf_user->getCompte()->isTiers() && $drm->getEtablissementObject()->isTransmissionCiel()) || $drm->isNegoce()) && $typedroit == "douane") {continue;} ?>     
+    <?php //if ((($sf_user->getCompte()->isTiers() && $drm->getEtablissementObject()->isTransmissionCiel()) || $drm->isNegoce()) && $typedroit == "douane") {continue;} ?>     
     <?php if (isset($hide_cvo) && $hide_cvo && $typedroit == "cvo") {continue;} ?>  
     <?php if ($typedroit == "douane" && !$circulation){continue;}?>   
     <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)){continue;}?> 
@@ -51,7 +51,7 @@
 
 <?php 
 if ($circulation && $typedroit == "douane"): 
-if (($sf_user->getCompte()->isTiers() && $drm->getEtablissementObject()->isTransmissionCiel()) || $drm->isNegoce()) {continue;}
+//if (($sf_user->getCompte()->isTiers() && $drm->getEtablissementObject()->isTransmissionCiel()) || $drm->isNegoce()) {continue;}
 if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)){continue;}
 $droits_circulation = $circulation->getDroits();
 ?>   
