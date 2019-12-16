@@ -20,7 +20,7 @@ class VracMarcheCivpForm extends VracMarcheForm
         if ($this->getObject()->type_transaction != 'vrac') {
             unset($this['prix_total_unitaire']);
         }
-        $this->validatorSchema->setPostValidator(new VracMarcheValidator());
+        $this->validatorSchema->setPostValidator(new VracMarcheValidator($this->getObject()->isConditionneIvse()));
     }
     protected function doUpdateObject($values) {
         if (isset($values['conditions_paiement']) && !empty($values['conditions_paiement']) && is_array($values['conditions_paiement'])) {

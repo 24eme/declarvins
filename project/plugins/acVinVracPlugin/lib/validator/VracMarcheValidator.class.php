@@ -1,6 +1,14 @@
 <?php
 
 class VracMarcheValidator extends sfValidatorBase {
+    
+    protected $ivse;
+    
+    public function __construct($ivse, $options = array(), $messages = array())
+    {
+        $this->ivse = $ivse;
+        parent::__construct($options, $messages);
+    }
 
     public function configure($options = array(), $messages = array()) {
         $this->addOption('determination_prix_field', 'determination_prix');
@@ -65,44 +73,46 @@ class VracMarcheValidator extends sfValidatorBase {
                     $errorSchema->addError(new sfValidatorError($this, 'echeancier_date'), 'conditions_paiement');
                     $hasError = true;
                 }
-                $maxd = null;
-                $today = date('Y-m-d');
-                $limite = ($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31')? (date('Y')+1).'-09-30' : date('Y').'-09-30';
-                foreach ($values['paiements'] as $key => $paiement) {
-                    if (!$paiement['date']) {
-                        $errorSchema->addError(new sfValidatorError($this, 'echeancier_date'), 'conditions_paiement');
+                if (!$this->ivse) {
+                    $maxd = null;
+                    $today = date('Y-m-d');
+                    $limite = ($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31')? (date('Y')+1).'-09-30' : date('Y').'-09-30';
+                    foreach ($values['paiements'] as $key => $paiement) {
+                        if (!$paiement['date']) {
+                            $errorSchema->addError(new sfValidatorError($this, 'echeancier_date'), 'conditions_paiement');
+                            $hasError = true;
+                        }
+                        if (!$paiement['montant']) {
+                            $errorSchema->addError(new sfValidatorError($this, 'echeancier_montant'), 'conditions_paiement');
+                            $hasError = true;
+                        }
+                        if ($paiement['date'] > $limite) {
+                            $errorSchema->addError(new sfValidatorError($this, 'echeancier_max_date'), 'conditions_paiement');
+                            $hasError = true;
+                        }
+                        if (!$maxd || $paiement['date'] > $maxd) {
+                            $maxd = $paiement['date'];
+                        }
+                        $montantTotal += $paiement['montant'];
+                    }
+                    
+                    $date1 = new DateTime();
+                    $date2 = new DateTime($limite);
+                    $nbJour = ceil($date2->diff($date1)->format("%a") / 2);
+                    $date1->modify("+$nbJour day");
+                    
+                    $moitie = $date1->format('Y-m-d');
+                    $montantMoitie = 0;
+                    foreach ($values['paiements'] as $key => $paiement) {
+                        if ($paiement['date'] <= $moitie) {
+                            $montantMoitie += $paiement['montant'];
+                        }
+                    }
+                    
+                    if ($montantMoitie < round($montantTotal/2, 2)) {
+                        $errorSchema->addError(new sfValidatorError($this, 'echeancier_moitie_montant'), 'conditions_paiement');
                         $hasError = true;
                     }
-                    if (!$paiement['montant']) {
-                        $errorSchema->addError(new sfValidatorError($this, 'echeancier_montant'), 'conditions_paiement');
-                        $hasError = true;
-                    }
-                    if ($paiement['date'] > $limite) {
-                        $errorSchema->addError(new sfValidatorError($this, 'echeancier_max_date'), 'conditions_paiement');
-                        $hasError = true;
-                    }
-                    if (!$maxd || $paiement['date'] > $maxd) {
-                        $maxd = $paiement['date'];
-                    }
-                    $montantTotal += $paiement['montant'];
-                }
-                
-                $date1 = new DateTime();
-                $date2 = new DateTime($limite);
-                $nbJour = ceil($date2->diff($date1)->format("%a") / 2);
-                $date1->modify("+$nbJour day");
-                
-                $moitie = $date1->format('Y-m-d');
-                $montantMoitie = 0;
-                foreach ($values['paiements'] as $key => $paiement) {
-                    if ($paiement['date'] <= $moitie) {
-                        $montantMoitie += $paiement['montant'];
-                    }
-                }
-                
-                if ($montantMoitie < round($montantTotal/2, 2)) {
-                    $errorSchema->addError(new sfValidatorError($this, 'echeancier_moitie_montant'), 'conditions_paiement');
-                    $hasError = true;
                 }
                 
             }

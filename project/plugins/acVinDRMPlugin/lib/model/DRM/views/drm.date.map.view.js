@@ -100,7 +100,7 @@ function(doc) {
         var drm_igp_manquants = (doc.manquants)? doc.manquants.igp : null;
 
         var regexp = new RegExp("(\r\n|\r|\n)", "g");
-        var drm_commentaire = (doc.commentaires)? (doc.commentaires).replace(regexp, " ") : null;
+        var drm_commentaire = (doc.commentaires)? (""+doc.commentaires).replace(regexp, " ") : null;
         
             for(certification_key in doc.declaration.certifications) {
                 var certification = doc.declaration.certifications[certification_key];
@@ -226,7 +226,7 @@ function(doc) {
                                                 libelles_label += detail.libelles_label[label_key];
                                                 codes_label += label_key;
                                             }
-                                            var drm_observation = (detail.observations)? (detail.observations).replace(regexp, " ") : null;
+                                            var drm_observation = (detail.observations)? (""+detail.observations).replace(regexp, " ") : null;
                                             emit([detail.interpro, doc.valide.date_saisie, detail.has_vrac, doc._id, detail_hash, "PRODUIT"], 
                                                     [key,
                                                      drm_identifiant,
@@ -253,7 +253,7 @@ function(doc) {
                                                      null,
                                                      libelles_label,
                                                      codes_label,
-                                                     detail.label_supplementaire,
+                                                     detail.libelle.trim(),
                                                      detail.total_debut_mois,
                                                      detail.stocks_debut.bloque,
                                                      detail.stocks_debut.warrante,
@@ -359,7 +359,7 @@ function(doc) {
                                                              null,
                                                              libelles_label,
                                                              codes_label,
-                                                             detail.label_supplementaire,
+                                                             detail.libelle.trim(),
                                                              null,
                                                              null,
                                                              null,

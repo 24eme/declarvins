@@ -15,7 +15,7 @@ class VracMarcheIrForm extends VracMarcheForm
 		if ($this->getObject()->type_transaction != 'vrac') {
 		   unset($this['prix_total_unitaire']);
 		}
-        $this->validatorSchema->setPostValidator(new VracMarcheValidator());
+        $this->validatorSchema->setPostValidator(new VracMarcheValidator($this->getObject()->isConditionneIvse()));
     }
     protected function doUpdateObject($values) {
     	parent::doUpdateObject($values);
