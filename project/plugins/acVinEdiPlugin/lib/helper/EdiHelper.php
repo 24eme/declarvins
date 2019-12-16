@@ -2,6 +2,18 @@
 
 function noeudXml($produit, $noeud, &$xml, $exceptions = array()) {
 	foreach ($noeud as $key => $children) {
+	    if ($key === 'replacements') {
+	        $xml .= "<$key>";
+	        foreach ($produit->entrees->crd_details as $crd) {
+	           $xml .= "<replacement-suspension>";
+	               $xml .= "<mois>".$crd->mois."</mois>";
+	               $xml .= "<annee>".$crd->annee."</annee>";
+	               $xml .= "<volume>".$crd->volume."</volume>";
+	           $xml .= "</replacement-suspension>";
+	        }
+	        $xml .= "</$key>";
+	        return null;
+	    }
 		if (!is_numeric($key)) {
 			$xml .= "<$key>";
 			$xml .= noeudXml($produit, $children, $xml, $exceptions);

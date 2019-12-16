@@ -708,11 +708,16 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
   	private function floatize($value)
   	{
-  		if ($value === null) {
-  			return null;
-  		}
-  		$value = str_replace(',', '.', $value);
-  		return (is_numeric($value))? floatval($value) : str_replace('.', ',', $value);
+  		return self::floatizeVal($value);
+  	}
+  	
+  	public static function floatizeVal($value)
+  	{
+  	    if ($value === null) {
+  	        return null;
+  	    }
+  	    $value = str_replace(',', '.', $value);
+  	    return (is_numeric($value))? floatval($value) : str_replace('.', ',', $value);
   	}
 
 }

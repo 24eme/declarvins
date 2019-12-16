@@ -1619,12 +1619,12 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 	public function setImportableMvtDetails($type, $categorie, $datas) {
 		if ($type == 'crd' && $categorie->getKey() == 'entrees') {
 			$details = $categorie->getOrAdd('crd_details');
-			$detail = $details->getOrAdd(ConfigurationProduit::DEFAULT_KEY);
 			$data = str_replace('-', '', $datas[DRMCsvEdi::CSV_CAVE_EXPORTPAYS]);
-			$detail->add('volume', $categorie->get($type));
 			if (preg_match('/^([0-9]{4})([0-9]{2})$/', $data, $m)) {
+			    $detail = $details->getOrAdd($m[1].$m[2]);
 				$detail->annee = $m[1];
-				$detail->mois = $m[2];				
+				$detail->mois = $m[2];
+				$detail->add('volume', DRMImportCsvEdi::floatizeVal($datas[DRMCsvEdi::CSV_CAVE_VOLUME]));
 				return true;
 			}
 			return false;
