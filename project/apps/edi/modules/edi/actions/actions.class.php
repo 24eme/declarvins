@@ -511,7 +511,6 @@ class ediActions extends sfActions
   {
   	ini_set('memory_limit', '2048M');
   	set_time_limit(0);
-  	$routing = ProjectConfiguration::getAppRouting();  	
   	$etablissement = $request->getParameter('etablissement');
   	$this->securizeEtablissement($etablissement);
   	$etab = EtablissementClient::getInstance()->find($etablissement);
@@ -592,7 +591,7 @@ class ediActions extends sfActions
 					    		$route .= 'visualisation';
 					    	}
 					    	$drm->save();
-					    	$result[] = array('SUCCES', 'CSV', null, str_replace(array('edi.php/', 'edi_dev.php/'), '', str_replace('edi-', '', $routing->generate($route, $drm, true))), 'La DRM '.$drm->periode." pour ".$drm->identifiant.' a été importée avec succès');
+					    	$result[] = array('SUCCES', 'CSV', null, sfConfig::get('app_base_url').str_replace(array('edi.php/', 'edi_dev.php/'), '', $this->generateUrl($route, $drm)), 'La DRM '.$drm->periode." pour ".$drm->identifiant.' a été importée avec succès');
 		  				}
 	  				}
   				}
