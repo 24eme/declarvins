@@ -17,6 +17,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     protected $csvDoc = null;
     protected $permettedValues = null;
     protected $complements = array();
+    protected $drmPrecedente = null;
 
     public function __construct($file, DRM $drm = null, $permettedValues = array()) 
     {
@@ -25,6 +26,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
         if(is_null($this->csvDoc)) {
             $this->csvDoc = CSVClient::getInstance()->createOrFindDocFromDRM($file, $drm);
         }
+        $this->drmPrecedente = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($drm->identifiant, DRMClient::getInstance()->getPeriodePrecedente($drm->periode));
         parent::__construct($file, $drm);
     }
 
@@ -116,7 +118,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     
     private function importCave($numLigne, $datas, $complements = false)
   	{
-    	if ($this->isComplement($datas) && !$complements) {
+        $complement = null;
+
+        if ($this->isComplement($datas) && !$complements) {
     		$this->complements[$numLigne] = $datas;
     		return;
     	}
@@ -277,7 +281,10 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 		  		$this->csvDoc->addErreur($this->valeurMouvementNotValidError($numLigne, $datas));
 		  		return;  			
 	  		}
-	  		
+            if($typeMvt == 'total_debut_mois' && $this->floatize($valeur) > 0 && $this->drmPrecedente && !$this->drmPrecedente->exist($produit->getHash())) {
+                $this->csvDoc->addErreur($this->productDuplicateError($numLigne, $datas));
+                return;
+            }
 	  		$mvt = ($categorieMvt)? $produit->getOrAdd($categorieMvt) : $produit;
 	  		$old = (in_array(str_replace('acq_', '', $typeMvt), array('total_debut_mois', 'total', 'tav')))? 0 : floatval($mvt->getOrAdd($typeMvt));
 	  		$mvt->add($typeMvt, round(($old + $this->floatize($valeur)), 5));
@@ -550,6 +557,10 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
     private function productNotFoundError($num_ligne, $csvRow) {
         return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_PRODUIT], "Le produit n'a pas été trouvé", 'error_notfound_produit');
+    }
+
+    private function productDuplicateError($num_ligne, $csvRow) {
+        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_PRODUIT], "Ce produit a un stock début de mois > 0 alors qu'il n'était pas présent dans la DRM du mois précédent. Il peut aussi s'agir d'un problème dans la reconnaissance du produit", 'error_duplicate_produit');
     }
 
     private function droitsNotFoundError($num_ligne, $csvRow) {
