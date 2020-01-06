@@ -215,13 +215,13 @@ $( document ).ready(function() {
     	var prix = parseFloat($("#vrac_marche_prix_unitaire").val());
     	var prixTot = parseFloat($("#vrac_marche_prix_total_unitaire").val());
         if(isNaN(vol)) {
-        	vol = 0;                
+        	vol = 0;
         }
         if(isNaN(prix)) {
-        	prix = 0;                
+        	prix = 0;
         }
         if(isNaN(prixTot)) {
-        	prixTot = prix;                
+        	prixTot = prix;
         }
         var total = vol*prixTot;
         $("#prix_total_contrat").html(total.toFixed(2));
@@ -230,16 +230,16 @@ $( document ).ready(function() {
         }
 	}
 
-    $("#vrac_marche_volume_propose").keyup(function() {
+    $("#vrac_marche_volume_propose").input(function() {
     	updatePrixTotal();
     });
 
-    $("#vrac_marche_prix_unitaire").keyup(function() {
+    $("#vrac_marche_prix_unitaire").input(function() {
     	updatePrixTotal();
     });
 
     updatePrixTotal();
 
-   
+
 });
 </script>
