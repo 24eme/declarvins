@@ -193,7 +193,7 @@ $( document ).ready(function() {
 		if(!isNaN(nbEcheances) && nbEcheances > 0) {
 			var echeance;
 			if (total > 0) {
-				echeance = parseFloat(total/nbEcheances).toFixed(2);;
+				echeance = parseFloat(total/nbEcheances).toFixed(2);
 			}
 			$('#table_paiements tbody').html('');
 			for (var i=0;i<nbEcheances;i++) {
@@ -202,7 +202,7 @@ $( document ).ready(function() {
 			if (echeance) {
     			$('#table_paiements tbody input.num_float').each(function () {
     				$(this).val(echeance);
-    			})
+    			});
 			}
 		}
     });
@@ -215,7 +215,7 @@ $( document ).ready(function() {
         var vol = parseFloat(volume.val());
         var prix = parseFloat(prix_total_unitaire.val());
 
-        console.log('Volume: ' + vol + ' / Prix: ' + prix)
+        console.log('Volume: ' + vol + ' / Prix: ' + prix);
 
         if(isNaN(vol)) {
             vol = 0;
@@ -233,11 +233,11 @@ $( document ).ready(function() {
         }
 	}
 
-    $("#vrac_marche_volume_propose").keyup(function() {
+    $("#vrac_marche_volume_propose").change(function() {
         updatePrixTotal();
     });
 
-    $("#vrac_marche_prix_unitaire").keyup(function() {
+    $("#vrac_marche_prix_unitaire").change(function() {
         updatePrixTotal();
     });
 
