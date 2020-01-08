@@ -30,32 +30,140 @@ class DRMImportCsvEdi extends DRMCsvEdi {
         parent::__construct($file, $drm);
     }
 
-    public function getCsvDoc() 
+    public function getCsvDoc()
     {
         return $this->csvDoc;
     }
 
-    public function getDocRows() 
+    public function getDocRows()
     {
         return $this->getCsv($this->csvDoc->getFileContent());
     }
-    
+
     public function checkCSV() {
         $this->csvDoc->clearErreurs();
         $this->checkCSVIntegrity();
-        
+
         if ($this->csvDoc->hasErreurs()) {
             $this->csvDoc->setStatut(self::STATUT_ERREUR);
             $this->csvDoc->save();
             return;
         }
-        
+
         $this->csvDoc->setStatut(self::STATUT_VALIDE);
         $this->csvDoc->save();
     }
-    
+
+    private function getCacheKeyFromData($datas) {
+        return $datas[self::CSV_CAVE_CERTIFICATION].
+            	$datas[self::CSV_CAVE_GENRE].
+            	$datas[self::CSV_CAVE_APPELLATION].
+            	$datas[self::CSV_CAVE_MENTION].
+            	$datas[self::CSV_CAVE_LIEU].
+            	$datas[self::CSV_CAVE_COULEUR].
+            	$datas[self::CSV_CAVE_CEPAGE].
+                $datas[self::CSV_CAVE_COMPLEMENT_PRODUIT].
+                $datas[self::CSV_CAVE_PRODUIT];
+    }
+
+    public function createCacheProduits() {
+        $this->cache = array();
+        foreach ($this->getDocRows() as $datas) {
+            if (preg_match('/^(...)?#/', $datas[self::CSV_TYPE])) {
+                continue;
+            }
+            if (strtoupper($datas[self::CSV_TYPE]) != self::TYPE_CAVE) {
+                continue;
+            }
+            if (strtolower($datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT] != 'stocks')) {
+                continue;
+            }
+            if (strtolower($datas[self::CSV_CAVE_TYPE_MOUVEMENT]) != 'total') {
+                continue;
+            }
+            $libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]);
+            $configurationProduit = null;
+            if ($idDouane = $this->getIdDouane($datas)) {
+                $configurationProduit = $this->configuration->identifyProduct(null, "($idDouane)");
+            }
+            if (!$configurationProduit) {
+                $configurationProduit = $this->configuration->getConfigurationProduit($this->getHashProduit($datas));
+            }
+            if (!$configurationProduit) {
+                $configurationProduit = $this->configuration->getConfigurationProduitByLibelle($libelle);
+            }
+            if (!$configurationProduit) {
+                $this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
+                continue;
+            }
+            $droit = $configurationProduit->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, $this->drm->periode.'-02', true);
+            if($droit && $droit->taux < 0){
+                $this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
+                continue;
+            }
+
+            $hash = str_replace('/declaration', 'declaration', $configurationProduit->getHash());
+            $droits = $this->matchDroits(trim($datas[self::CSV_CAVE_TYPE_DROITS]));
+            if (!in_array($droits, array(self::TYPE_DROITS_SUSPENDUS, self::TYPE_DROITS_ACQUITTES))) {
+                $this->csvDoc->addErreur($this->droitsNotFoundError($numLigne, $datas));
+                continue;
+            }
+
+            $libellePerso = null;
+            $libelleConfig = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles(), array(), "%c% %g% %a% %l% %co% %ce%");
+
+            if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
+                $libellePerso = (trim($result[1]) != trim($libelleConfig)) ? trim($result[1]) : null;
+            } elseif (trim($libelle) != trim($libelleConfig)) {
+                $libellePerso = trim($libelle);
+            }
+
+            if ($libellePerso) {
+                $complement = md5($libellePerso);
+            }
+
+            if ($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]) {
+                if (isset($this->permettedValues[self::TYPE_CAVE]) && isset($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
+                    $complement = strtoupper($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
+                    if (!$idDouane) {
+                        if (is_array($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT]) && !in_array($complement, $this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
+                            $this->csvDoc->addErreur($this->complementProductWrongFormatError($numLigne, $datas));
+                            continue;
+                        }
+                        if (!is_array($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT]) && !preg_match($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT], $complement)) {
+                            $this->csvDoc->addErreur($this->complementProductWrongFormatError($numLigne, $datas));
+                            continue;
+                        }
+                        $complement = trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
+                    } else {
+                        $complement = md5(trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]));
+                    }
+                }
+            }
+
+            $produit = ($complement)? $this->drm->getProduitByIdDouane($hash, $configurationProduit->getIdentifiantDouane(), $complement) : $this->drm->getProduitByIdDouane($hash, $configurationProduit->getIdentifiantDouane());
+
+            if (!$produit) {
+                $produit = ($complement)? $this->drm->addProduit($hash, $complement) : $this->drm->addProduit($hash);
+            }
+
+            if ($complement && preg_match('/^[a-f0-9]{32}$/', $complement)) {
+                $produit->libelle = ($libellePerso)? $libellePerso : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
+            }
+            $this->cache[$this->getCacheKeyFromData($datas)] = $produit;
+        }
+    }
+
+    public function getProduitFromCache($datas) {
+        if (!isset($this->cache[$this->getCacheKeyFromData($datas)])) {
+            return null;
+        }
+        return $this->cache[$this->getCacheKeyFromData($datas)];
+    }
+
     public function importCsv()
     {
+        $this->createCacheProduits();
         $numLigne = 0;
     	foreach ($this->getDocRows() as $csvRow) {
             if (preg_match('/^(...)?#/', $csvRow[self::CSV_TYPE])) {
@@ -110,99 +218,39 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   			return;
   		}
     }
-    
+
     protected function isComplement($datas)
     {
     	return (preg_match('/^compl.+ment/i', $datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT]))? true : false;
     }
-    
+
     private function importCave($numLigne, $datas, $complements = false)
   	{
-        $complement = null;
 
         if ($this->isComplement($datas) && !$complements) {
     		$this->complements[$numLigne] = $datas;
     		return;
     	}
-    	
-		$libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]);
-		$configurationProduit = null;
-		if ($idDouane = $this->getIdDouane($datas)) {
-			$configurationProduit = $this->configuration->identifyProduct(null, "($idDouane)");
-		}
-		if (!$configurationProduit) {
-			$configurationProduit = $this->configuration->getConfigurationProduit($this->getHashProduit($datas));
-		}
-		if (!$configurationProduit) {
-		    $configurationProduit = $this->configuration->getConfigurationProduitByLibelle($libelle);
-		}
-    	if (!$configurationProduit) {
-    		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
-    		return;
-  		}
-  		$droit = $configurationProduit->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, $this->drm->periode.'-02', true);
-  		if($droit && $droit->taux < 0){
-    		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
-    		return;
-  		}
-  		
-		$hash = str_replace('/declaration', 'declaration', $configurationProduit->getHash());
-  		$droits = $this->matchDroits(trim($datas[self::CSV_CAVE_TYPE_DROITS]));
-  		if (!in_array($droits, array(self::TYPE_DROITS_SUSPENDUS, self::TYPE_DROITS_ACQUITTES))) {
-    		$this->csvDoc->addErreur($this->droitsNotFoundError($numLigne, $datas));
-    		return;
-  		}
-  		
-  		$libellePerso = null;
-  		$libelleConfig = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles(), array(), "%c% %g% %a% %l% %co% %ce%");
-  		
-  		if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
-  		    $libellePerso = (trim($result[1]) != trim($libelleConfig)) ? trim($result[1]) : null;
-  		} elseif (trim($libelle) != trim($libelleConfig)) {
-  		    $libellePerso = trim($libelle);
-  		}
-  		
-  		if ($libellePerso) {
-  		    $complement = md5($libellePerso);
-  		}
-  		
-  		if ($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]) {
-  			if (isset($this->permettedValues[self::TYPE_CAVE]) && isset($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
-  			    $complement = strtoupper($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
-  				if (!$idDouane) {
-	  				if (is_array($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT]) && !in_array($complement, $this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
-	  					$this->csvDoc->addErreur($this->complementProductWrongFormatError($numLigne, $datas));
-	  					return;
-	  				}
-	  				if (!is_array($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT]) && !preg_match($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT], $complement)) {
-	  					$this->csvDoc->addErreur($this->complementProductWrongFormatError($numLigne, $datas));
-	  					return;
-	  				}
-	  				$complement = trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
-  				} else {
-  					$complement = md5(trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]));
-  				}
-  			}
-  		}
-  		
-  		$produit = ($complement)? $this->drm->getProduitByIdDouane($hash, $configurationProduit->getIdentifiantDouane(), $complement) : $this->drm->getProduitByIdDouane($hash, $configurationProduit->getIdentifiantDouane());
-  		
-  		if (!$produit) {
-  		    $produit = ($complement)? $this->drm->addProduit($hash, $complement) : $this->drm->addProduit($hash);
-  		}
-  		
-  		if ($complement && preg_match('/^[a-f0-9]{32}$/', $complement)) {
-  			$produit->libelle = ($libellePerso)? $libellePerso : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
-  		}
+
+        $produit = $this->getProduitFromCache($datas);
+        if (!$produit) {
+            return;
+        }
+
+        $droits = $this->matchDroits(trim($datas[self::CSV_CAVE_TYPE_DROITS]));
+        if (!in_array($droits, array(self::TYPE_DROITS_SUSPENDUS, self::TYPE_DROITS_ACQUITTES))) {
+            $this->csvDoc->addErreur($this->droitsNotFoundError($numLigne, $datas));
+            return;
+        }
 
   		$categorieMvt = strtolower($datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT]);
   		$typeMvt = $this->drm->getImportableLibelleMvt($droits, $categorieMvt, strtolower($datas[self::CSV_CAVE_TYPE_MOUVEMENT]));
   		$valeur = $this->floatize($datas[self::CSV_CAVE_VOLUME]);
-  		
+
   		if ($droits == DRMCsvEdi::TYPE_DROITS_ACQUITTES && !$this->drm->droits_acquittes && $valeur > 0) {
   		    $this->drm->setHasDroitsAcquittes(1);
   		}
-  		
+
   		if ($this->mouvements) {
 	  		if ($categorieMvt && !array_key_exists($categorieMvt, $this->mouvements)) {
 	  			$this->csvDoc->addErreur($this->categorieMouvementNotFoundError($numLigne, $datas));
