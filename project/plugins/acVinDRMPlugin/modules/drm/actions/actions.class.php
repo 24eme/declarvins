@@ -140,29 +140,29 @@ class drmActions extends sfActions {
         } else {
         	$result[] = array('ERREUR', 'ACCES ', null, 'error_access_rest', 'Seules les requêtes de type POST sont acceptées');
         }
-        
+
         $this->logs = $result;
         $this->etablissement = $etablissement;
-        
-        $interpro = $this->etablissement->getInterproObject();
-        $to = ($interpro)? array(sfConfig::get('app_email_to_notification'), $interpro->email_contrat_inscription): array(sfConfig::get('app_email_to_notification'));
-        if ($interpro && $interpro->identifiant == 'CIVP') {
-        	$to[] = $interpro->email_assistance_ciel;
-        }
 
-        $messageErreurs = "<ol>";
-        foreach ($this->logs as $log) {
-        	$messageErreurs .= "<li>".implode(';', $log)."</li>";
-        }
-        $messageErreurs .= "</ol>";
-        $message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur import DTI+ pour ".$drm->identifiant, "Une transmission vient d'échouer pour ".$drm->identifiant."-".$drm->periode." :<br />".$messageErreurs)->setContentType('text/html');
-        if ($send && sfConfig::get('app_instance') != 'preprod') {
+		if ($send && sfConfig::get('app_instance') != 'preprod') {
+	        $interpro = $this->etablissement->getInterproObject();
+	        $to = ($interpro)? array(sfConfig::get('app_email_to_notification'), $interpro->email_contrat_inscription): array(sfConfig::get('app_email_to_notification'));
+	        if ($interpro && $interpro->identifiant == 'CIVP') {
+	        	$to[] = $interpro->email_assistance_ciel;
+	        }
+
+	        $messageErreurs = "<ol>";
+	        foreach ($this->logs as $log) {
+	        	$messageErreurs .= "<li>".implode(';', $log)."</li>";
+	        }
+	        $messageErreurs .= "</ol>";
+        	$message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur import DTI+ pour ".$drm->identifiant, "Une transmission vient d'échouer pour ".$drm->identifiant."-".$drm->periode." :<br />".$messageErreurs)->setContentType('text/html');
         	$this->getMailer()->send($message);
         }
-        
+
         $this->hasnewdrm = $this->hasNewDRM(DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant));
     }
-    
+
     protected function hasNewDRM($historique, $identifiant = null) {
     	$last = $historique->getLastDRM();
     	$lastCiel = ($last)? $last->getOrAdd('ciel') : null;
