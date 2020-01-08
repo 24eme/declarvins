@@ -70,21 +70,24 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
         return $this->get($hash)->details->getProduit($labels);
     }
-    
+
     public function isNegoce() {
         return $this->declarant->famille == EtablissementFamilles::FAMILLE_NEGOCIANT && $this->declarant->sous_famille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR;
     }
-    
+
     public function getCielLot() {
         return ($this->isNegoce())? 'lot1' : 'lot2';
     }
-    
+
     public function payerReport()
     {
     	$this->declaratif->paiement->douane->report_paye = 1;
     }
 
     public function addProduit($hash, $labels = array()) {
+        if (!$labels) {
+            $labels = array();
+        }
     	if (!is_array($labels)) {
     		$labels = array($labels);
     	}
