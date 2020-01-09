@@ -12,12 +12,12 @@
  * @author mathurin
  */
 class DRMImportCsvEdiStandalone extends DRMImportCsvEdi {
-    public function __construct($file, DRM $drm = null, $permettedValues = array()) {
+    public function __construct($file, DRM $drm = null) {
         $this->csvDoc = new CSVStandalone();
         $this->csvDoc->identifiant = $drm->identifiant;
         $this->csvDoc->periode = $drm->periode;
 
-        parent::__construct($file, $drm, $permettedValues);
+        parent::__construct($file, $drm);
     }
 
     public function getDocRows() {

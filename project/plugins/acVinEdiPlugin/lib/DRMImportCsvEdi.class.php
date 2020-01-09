@@ -19,10 +19,14 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     protected $complements = array();
     protected $drmPrecedente = null;
 
-    public function __construct($file, DRM $drm = null, $permettedValues = array()) 
+    public function __construct($file, DRM $drm = null)
     {
         $this->configuration = ConfigurationClient::getCurrent();
-        $this->permettedValues = $permettedValues;
+        $this->permettedValues = = array(
+            DRMCsvEdi::TYPE_CAVE => array(
+                    DRMCsvEdi::CSV_CAVE_COMPLEMENT_PRODUIT => array_keys($this->configuration->getLabels())
+            )
+        );
         if(is_null($this->csvDoc)) {
             $this->csvDoc = CSVClient::getInstance()->createOrFindDocFromDRM($file, $drm);
         }
