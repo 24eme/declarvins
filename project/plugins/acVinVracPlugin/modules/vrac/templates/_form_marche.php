@@ -193,7 +193,7 @@ $( document ).ready(function() {
 		if(!isNaN(nbEcheances) && nbEcheances > 0) {
 			var echeance;
 			if (total > 0) {
-				echeance = parseFloat(total/nbEcheances).toFixed(2);;
+				echeance = parseFloat(total/nbEcheances).toFixed(2);
 			}
 			$('#table_paiements tbody').html('');
 			for (var i=0;i<nbEcheances;i++) {
@@ -202,44 +202,47 @@ $( document ).ready(function() {
 			if (echeance) {
     			$('#table_paiements tbody input.num_float').each(function () {
     				$(this).val(echeance);
-    			})
+    			});
 			}
 		}
     });
 
+    var volume = $("#vrac_marche_volume_propose");
+    var prix_total_unitaire = $("#vrac_marche_prix_total_unitaire");
 
-
-    var updatePrixTotal = function()
+    function updatePrixTotal()
 	{
-    	var vol = parseFloat($("#vrac_marche_volume_propose").val());
-    	var prix = parseFloat($("#vrac_marche_prix_unitaire").val());
-    	var prixTot = parseFloat($("#vrac_marche_prix_total_unitaire").val());
+        var vol = parseFloat(volume.val());
+        var prix = parseFloat(prix_total_unitaire.val());
+
+        console.log('Volume: ' + vol + ' / Prix: ' + prix);
+
         if(isNaN(vol)) {
-        	vol = 0;                
+            vol = 0;
         }
+
         if(isNaN(prix)) {
-        	prix = 0;                
+            prix = 0;
         }
-        if(isNaN(prixTot)) {
-        	prixTot = prix;                
-        }
-        var total = vol*prixTot;
+
+        var total = vol * prix;
+
         $("#prix_total_contrat").html(total.toFixed(2));
         if (total > 0) {
         	$("#prix_moitie_contrat").html((total/2).toFixed(2));
         }
 	}
 
-    $("#vrac_marche_volume_propose").keyup(function() {
-    	updatePrixTotal();
+    $("#vrac_marche_volume_propose").change(function() {
+        updatePrixTotal();
     });
 
-    $("#vrac_marche_prix_unitaire").keyup(function() {
-    	updatePrixTotal();
+    $("#vrac_marche_prix_unitaire").change(function() {
+        updatePrixTotal();
     });
 
     updatePrixTotal();
 
-   
+
 });
 </script>
