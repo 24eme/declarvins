@@ -150,6 +150,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $cache2datas[$this->getCacheKeyFromData($datas)] = $datas;
             $cache2datas[$this->getCacheKeyFromData($datas)]['hash'] = $hash;
             $cache2datas[$this->getCacheKeyFromData($datas)]['label'] = $label;
+            $cache2datas[$this->getCacheKeyFromData($datas)]['complement_libelle'] = $complement_libelle;
+            $cache2datas[$this->getCacheKeyFromData($datas)]['libelle'] = ($libellePerso) ? $libellePerso : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
         }
         //on prépare les vérifications
         $check = array();
@@ -170,16 +172,16 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 continue;
             }
             ksort($array);
-            echo "Problème avec $hash :\n - ".implode("\n - ", array_keys($array))."\n";
             $isfirst = true;
             foreach($array as $cacheid => $null) {
                 if ($isfirst) {
                     $isfirst = false;
                     continue;
                 }
-                $this->cache[$cacheid] = $this->drm->addProduit($cache2datas[$cacheid]['hash'], $cache2datas[$cacheid]['label'], $cache2datas[$cacheid][self::CSV_CAVE_PRODUIT]);
+                $p = $this->drm->addProduit($cache2datas[$cacheid]['hash'], $cache2datas[$cacheid]['label'], $cache2datas[$cacheid]['libelle']);
+                $p->libelle = $cache2datas[$cacheid]['libelle'];
+                $this->cache[$cacheid] = $p;
             }
-
         }
     }
 
