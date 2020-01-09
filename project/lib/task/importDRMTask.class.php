@@ -71,15 +71,9 @@ EOF;
 		    	if (!$findEtablissement) {
 		    		$result[] = array('ERREUR', 'CSV', null, "Impossible d'identifier l'établissement $ea $siretCvi");
 		    	} else {
-			    	$configuration = ConfigurationClient::getCurrent();
-			    	$controles = array(
-			    			DRMCsvEdi::TYPE_CAVE => array(
-			    					DRMCsvEdi::CSV_CAVE_COMPLEMENT_PRODUIT => array_keys($configuration->getLabels())
-			    			)
-			    	);
-			    	$drmCsvEdi = new DRMImportCsvEdi($file, $drm, $controles);
+			    	$drmCsvEdi = new DRMImportCsvEdi($file, $drm);
 			    	$drmCsvEdi->checkCSV();
-			    		
+
 			    	if($drmCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
 			    		foreach($drmCsvEdi->getCsvDoc()->erreurs as $erreur) {
 			    			if ($erreur->num_ligne > 0) {

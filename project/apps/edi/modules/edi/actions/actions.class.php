@@ -524,16 +524,10 @@ class ediActions extends sfActions
   			try {
   				$drm = new DRM();
   				$file = sfConfig::get('sf_data_dir') . '/upload/' . $formUploadCsv->getValue('file')->getMd5();
-  				$configuration = ConfigurationClient::getCurrent();
-  				$controles = array(
-  					DRMCsvEdi::TYPE_CAVE => array(
-  							DRMCsvEdi::CSV_CAVE_COMPLEMENT_PRODUIT => array_keys($configuration->getLabels())
-  					)
-  				);
   				$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_EDI;
-  				$drmCsvEdi = new DRMImportCsvEdi($file, $drm, $controles);
+  				$drmCsvEdi = new DRMImportCsvEdi($file, $drm);
   				$drmCsvEdi->checkCSV();
-  			
+
   				if($drmCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
   					foreach($drmCsvEdi->getCsvDoc()->erreurs as $erreur) {
   						if ($erreur->num_ligne > 0) {
