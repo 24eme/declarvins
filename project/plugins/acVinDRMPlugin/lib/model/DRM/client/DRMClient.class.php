@@ -377,8 +377,12 @@ class DRMClient extends acCouchdbClient {
             }
         }
         $drm->mode_de_saisie = self::MODE_DE_SAISIE_DTI;
-        if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-            $drm->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
+        try {
+            if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
+                $drm->mode_de_saisie = self::MODE_DE_SAISIE_PAPIER;
+            }
+        } catch(Exception $e) {
+
         }
         return $drm;
     }
