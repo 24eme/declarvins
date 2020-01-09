@@ -72,6 +72,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
     public function createCacheProduits() {
         $this->cache = array();
+        $cache2datas = array();
         foreach ($this->getDocRows() as $datas) {
             if (preg_match('/^(...)?#/', $datas[self::CSV_TYPE])) {
                 continue;
@@ -146,6 +147,39 @@ class DRMImportCsvEdi extends DRMCsvEdi {
       			$produit->libelle = ($libellePerso) ? $libellePerso : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
       		}
             $this->cache[$this->getCacheKeyFromData($datas)] = $produit;
+            $cache2datas[$this->getCacheKeyFromData($datas)] = $datas;
+            $cache2datas[$this->getCacheKeyFromData($datas)]['hash'] = $hash;
+            $cache2datas[$this->getCacheKeyFromData($datas)]['label'] = $label;
+        }
+        //on prépare les vérifications
+        $check = array();
+        $cepages = array();
+        foreach ($this->cache as $cacheid => $produit) {
+            if (!isset($check[$produit->getHash()])) {
+                $check[$produit->getHash()] = array();
+            }
+            $check[$produit->getHash()][$cacheid] = 1;
+            if (!isset($cepages[$produit->getCepage()->getHash()])) {
+                $cepages[$produit->getCepage()->getHash()] = array();
+            }
+            $cepages[$produit->getCepage()->getHash()][$cacheid] = 1;
+        }
+        // Cas d'un nouveau produit avec label ou complement et où un produit DEFAUT existe
+        foreach ($check as $hash => $array) {
+            if (count($array) <= 1) {
+                continue;
+            }
+            ksort($array);
+            echo "Problème avec $hash :\n - ".implode("\n - ", array_keys($array))."\n";
+            $isfirst = true;
+            foreach($array as $cacheid => $null) {
+                if ($isfirst) {
+                    $isfirst = false;
+                    continue;
+                }
+                $this->cache[$cacheid] = $this->drm->addProduit($cache2datas[$cacheid]['hash'], $cache2datas[$cacheid]['label'], $cache2datas[$cacheid][self::CSV_CAVE_PRODUIT]);
+            }
+
         }
     }
 
