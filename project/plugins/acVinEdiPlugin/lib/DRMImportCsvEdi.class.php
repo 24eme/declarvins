@@ -22,7 +22,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     public function __construct($file, DRM $drm = null)
     {
         $this->configuration = ConfigurationClient::getCurrent();
-        $this->permettedValues = = array(
+        $this->permettedValues = array(
             DRMCsvEdi::TYPE_CAVE => array(
                     DRMCsvEdi::CSV_CAVE_COMPLEMENT_PRODUIT => array_keys($this->configuration->getLabels())
             )
