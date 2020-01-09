@@ -63,12 +63,12 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         return $this->_set('periode', $periode);
     }
 
-    public function getProduit($hash, $labels = array()) {
+    public function getProduit($hash, $labels = array(), $complement_libelle = null) {
         if (!$this->exist($hash)) {
             return false;
         }
 
-        return $this->get($hash)->details->getProduit($labels);
+        return $this->get($hash)->details->getProduit($labels, $complement_libelle);
     }
 
     public function isNegoce() {
@@ -84,21 +84,21 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	$this->declaratif->paiement->douane->report_paye = 1;
     }
 
-    public function addProduit($hash, $labels = array()) {
+    public function addProduit($hash, $labels = array(), $complement_libelle = null) {
         if (!$labels) {
             $labels = array();
         }
     	if (!is_array($labels)) {
     		$labels = array($labels);
     	}
-        if ($p = $this->getProduit($hash, $labels)) {
+        if ($p = $this->getProduit($hash, $labels, $complement_libelle)) {
             return $p;
         }
-        $detail = $this->getOrAdd($hash)->details->addProduit($labels);
+        $detail = $this->getOrAdd($hash)->details->addProduit($labels, $complement_libelle);
         $detail->updateVolumeBloque();
         return $detail;
     }
-    
+
     public function transferToCiel() {
         $drmCiel = $this->getOrAdd('ciel');
         $export = new DRMExportCsvEdi($this);
@@ -176,27 +176,30 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
         return $details;
     }
-    
-    public function getProduitByIdDouane($hash, $idDouane, $idcomplement = null)
+
+    public function getProduitByIdDouane($hash, $idDouane, $labels = null, $complement_libelle = null)
     {
-        $labels = array();
-        if ($idcomplement && !is_array($idcomplement)) {
-            $labels = array($idcomplement);
+        if ($labels && !is_array($labels)) {
+            $labels = array($labels);
+        }else{
+            $labels = array();
         }
-        if ($p = $this->getProduit($hash, $labels)) {
+        if ($p = $this->getProduit($hash, $labels, $complement_libelle)) {
             if (trim($p->getIdentifiantDouane()) == trim($idDouane)) {
                 return $p;
             }
         }
         if (!$labels) {
-            if ($p = $this->getProduit($hash, array())) {
+            if ($p = $this->getProduit($hash, array(), $complement_libelle)) {
                 if (trim($p->getIdentifiantDouane()) == trim($idDouane)) {
                     return $p;
                 }
             }
         }
-        if (!$idcomplement) {
+        if (!$labels && !$complement_libelle) {
             $idcomplement = 'DEFAUT';
+        }else{
+            $idcomplement = DRMDetails::hashifyLabels($labels, $complement_libelle);
         }
         foreach ($this->getDetails() as $detail) {
             if (trim($detail->getIdentifiantDouane()) == trim($idDouane) && strtoupper($idcomplement) == strtoupper($detail->getKey())) {
