@@ -18,6 +18,7 @@ class DRMEDIImportTask extends sfBaseTask
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
             new sfCommandOption('date-validation', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', false),
             new sfCommandOption('facture', null, sfCommandOption::PARAMETER_REQUIRED, 'Flag automatiquement les mouvements comme facturé', false),
+            new sfCommandOption('dontsave', null, sfCommandOption::PARAMETER_REQUIRED, 'Debug et pas de sauvegarde des documents', false),
         ));
 
         $this->namespace        = 'drm';
@@ -57,7 +58,9 @@ EOF;
 
         if(DRMClient::getInstance()->find('DRM-'.$identifiant.'-'.$arguments['periode'], acCouchdbClient::HYDRATE_JSON)) {
             echo "Existe : ".'DRM-'.$identifiant.'-'.$arguments['periode']."\n";
-            return;
+            if (!$options['dontsave']) {
+                return;
+            }
         }
 
         $drm = DRMClient::getInstance()->createDocByPeriode($identifiant, $arguments['periode']);
@@ -92,6 +95,10 @@ EOF;
                 foreach($drmCsvEdi->getCsvDoc()->erreurs as $erreur) {
                     echo sprintf("ERROR;%s : %s;#%s\n", $erreur->diagnostic, $erreur->csv_erreur, implode(";", $csv[$erreur->num_ligne-1]));
                 }
+                if ($options['dontsave']) {
+                    $export = new DRMExportCsvEdi($drm);
+                    echo $export->exportEDI();
+                }
                 return;
             }
 
@@ -102,10 +109,16 @@ EOF;
                 foreach ($validation->getErrors() as $error) {
                     echo sprintf("ERROR;%s : %s;\n", $error->getIdentifiant(), str_replace('Erreur, ', '', $error));
                 }
+                if ($options['dontsave']) {
+                    $export = new DRMExportCsvEdi($drm);
+                    echo $export->exportEDI();
+                }
 		        return;
             }
 
-            $drm->validate();
+            if (!$options['dontsave']) {
+                $drm->validate();
+            }
 
             if($options['date-validation']) {
                 $drm->valide->date_saisie = $options['date-validation'];
@@ -117,8 +130,14 @@ EOF;
             }
 
             $drm->type_creation = "IMPORT";
+            if ($options['dontsave']) {
+                $export = new DRMExportCsvEdi($drm);
+                echo $export->exportEDI();
+            }
 
-            $drm->save();
+            if (!$options['dontsave']) {
+                $drm->save();
+            }
 
             DRMClient::getInstance()->generateVersionCascade($drm);
 
