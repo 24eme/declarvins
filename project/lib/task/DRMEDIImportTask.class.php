@@ -129,7 +129,6 @@ EOF;
                 $drm->facturerMouvements();
             }
 
-            $drm->type_creation = "IMPORT";
             if ($options['dontsave']) {
                 $export = new DRMExportCsvEdi($drm);
                 echo $export->exportEDI();
@@ -138,8 +137,6 @@ EOF;
             if (!$options['dontsave']) {
                 $drm->save();
             }
-
-            DRMClient::getInstance()->generateVersionCascade($drm);
 
         } catch(Exception $e) {
             echo $e->getMessage().";#".$arguments['periode'].";".$identifiant."\n";
