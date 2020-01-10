@@ -83,7 +83,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             if (strtolower($datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT] != 'stocks')) {
                 continue;
             }
-            if (strtolower($datas[self::CSV_CAVE_TYPE_MOUVEMENT]) != 'total') {
+            if (strtolower($datas[self::CSV_CAVE_TYPE_MOUVEMENT]) != 'total_debut_mois') {
                 continue;
             }
             $complement_libelle = null;
@@ -155,16 +155,11 @@ class DRMImportCsvEdi extends DRMCsvEdi {
         }
         //on prépare les vérifications
         $check = array();
-        $cepages = array();
         foreach ($this->cache as $cacheid => $produit) {
             if (!isset($check[$produit->getHash()])) {
                 $check[$produit->getHash()] = array();
             }
             $check[$produit->getHash()][$cacheid] = 1;
-            if (!isset($cepages[$produit->getCepage()->getHash()])) {
-                $cepages[$produit->getCepage()->getHash()] = array();
-            }
-            $cepages[$produit->getCepage()->getHash()][$cacheid] = 1;
         }
         // Cas d'un nouveau produit avec label ou complement et où un produit DEFAUT existe
         foreach ($check as $hash => $array) {
@@ -181,6 +176,43 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 $p = $this->drm->addProduit($cache2datas[$cacheid]['hash'], $cache2datas[$cacheid]['label'], $cache2datas[$cacheid]['libelle']);
                 $p->libelle = $cache2datas[$cacheid]['libelle'];
                 $this->cache[$cacheid] = $p;
+            }
+        }
+        $cepages = array();
+        foreach ($this->cache as $cacheid => $produit) {
+            if (!isset($cepages[$produit->getCepage()->getHash()])) {
+                $cepages[$produit->getCepage()->getHash()] = array();
+            }
+            $cepages[$produit->getCepage()->getHash()][$cacheid] = 1;
+        }
+        //gestion des multidetails
+        foreach($cepages as $hash => $array_cache) {
+            $volume2hash = array();
+            if($this->drmPrecedente->exist($hash)) {
+                foreach($this->drmPrecedente->get($hash)->details as $k => $d) {
+                    $total_fin_mois = $d->total * 1;
+                    if (!isset($volume2hash[$total_fin_mois])) {
+                        $volume2hash[$total_fin_mois] = array();
+                    }
+                    $volume2hash[$total_fin_mois][$d->getKey()] = 1;
+                }
+            }
+            foreach($array_cache as $cacheid => $null)  {
+                $total_debut_mois = $cache2datas[$cacheid][self::CSV_CAVE_VOLUME] * 1;
+                if (!isset($volume2hash[$total_debut_mois]))  {
+                    continue;
+                }
+                if (isset($volume2hash[$total_debut_mois][$this->cache[$cacheid]->getKey()])) {
+                    continue;
+                }
+                if (count(array_keys($volume2hash[$total_debut_mois])) > 1) {
+                    throw new sfException('trop de volume identiques pour '.$this->cache[$cacheid]->getHash());
+                }
+                $this->drm->get($hash)->details->remove($this->cache[$cacheid]->getKey());
+                $new_keys = array_keys($volume2hash[$total_debut_mois]);
+                $new_key = array_shift($new_keys);
+                unset($volume2hash[$total_debut_mois][$new_key]);
+                $this->cache[$cacheid] = $this->drm->get($hash)->details->add($new_key);
             }
         }
     }
