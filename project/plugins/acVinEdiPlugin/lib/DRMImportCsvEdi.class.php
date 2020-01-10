@@ -364,7 +364,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 	  		}
             if($typeMvt == 'total_debut_mois' && $this->floatize($valeur) > 0 && $this->drmPrecedente && !$this->drmPrecedente->exist($produit->getHash())) {
                 $this->csvDoc->addErreur($this->productDuplicateError($numLigne, $datas));
-                return;
             }
 	  		$mvt = ($categorieMvt)? $produit->getOrAdd($categorieMvt) : $produit;
 	  		$old = (in_array(str_replace('acq_', '', $typeMvt), array('total_debut_mois', 'total', 'tav')))? 0 : floatval($mvt->getOrAdd($typeMvt));
