@@ -1631,7 +1631,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 			    $detail = $details->getOrAdd($m[1].$m[2]);
 				$detail->annee = $m[1];
 				$detail->mois = $m[2];
-				$detail->add('volume', DRMImportCsvEdi::floatizeVal($datas[DRMCsvEdi::CSV_CAVE_VOLUME]));
+				$detail->volume = $detail->volume + DRMImportCsvEdi::floatizeVal($datas[DRMCsvEdi::CSV_CAVE_VOLUME]);
 				return true;
 			}
 			return false;
