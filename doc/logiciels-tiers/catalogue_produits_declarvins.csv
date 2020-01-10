@@ -962,6 +962,7 @@ IGP,IGP,TRANQ,Tranquilles,CLR,Collines Rhodaniennes,,,,,rose,Rosé,MER,Merlot,IG
 IGP,IGP,TRANQ,Tranquilles,CLR,Collines Rhodaniennes,,,,,rose,Rosé,MOU,Mourvedre,IGP Tranquilles Collines Rhodaniennes Rosé Mourvedre,3S073 BC
 IGP,IGP,TRANQ,Tranquilles,CLR,Collines Rhodaniennes,,,,,rose,Rosé,GRG,Grenache Gris,IGP Tranquilles Collines Rhodaniennes Rosé Grenache Gris,3S073 CR
 IGP,IGP,TRANQ,Tranquilles,CLR,Collines Rhodaniennes,,,,,rose,Rosé,CEP,Autre,IGP Tranquilles Collines Rhodaniennes Rosé Autre,3S073 00
+IGP,IGP,TRANQ,Tranquilles,CLR,Collines Rhodaniennes,,,,,rose,Rosé,GAM,Gamay,IGP Tranquilles Collines Rhodaniennes Rosé Gamay,3S073 CM
 IGP,IGP,TRANQ,Tranquilles,CLR,Collines Rhodaniennes,,,,,rouge,Rouge,,,IGP Tranquilles Collines Rhodaniennes Rouge,3R073 
 IGP,IGP,TRANQ,Tranquilles,CLR,Collines Rhodaniennes,,,,,rouge,Rouge,SYR,Syrah,IGP Tranquilles Collines Rhodaniennes Rouge Syrah,3R073 AI
 IGP,IGP,TRANQ,Tranquilles,CLR,Collines Rhodaniennes,,,,,rouge,Rouge,GRN,Grenache Noir,IGP Tranquilles Collines Rhodaniennes Rouge Grenache Noir,3R073 CS
@@ -970,7 +971,7 @@ IGP,IGP,TRANQ,Tranquilles,CLR,Collines Rhodaniennes,,,,,rouge,Rouge,CIN,Cinsaut,
 IGP,IGP,TRANQ,Tranquilles,CLR,Collines Rhodaniennes,,,,,rouge,Rouge,MER,Merlot,IGP Tranquilles Collines Rhodaniennes Rouge Merlot,3R073 DE
 IGP,IGP,TRANQ,Tranquilles,CLR,Collines Rhodaniennes,,,,,rouge,Rouge,MOU,Mourvedre,IGP Tranquilles Collines Rhodaniennes Rouge Mourvedre,3R073 BC
 IGP,IGP,TRANQ,Tranquilles,CLR,Collines Rhodaniennes,,,,,rouge,Rouge,PIN,Pinot,IGP Tranquilles Collines Rhodaniennes Rouge Pinot,3R073 AB
-IGP,IGP,TRANQ,Tranquilles,CLR,Collines Rhodaniennes,,,,,rouge,Rouge,GAM,Gamay,IGP Tranquilles Collines Rhodaniennes Rouge Gamay,3S073 CM
+IGP,IGP,TRANQ,Tranquilles,CLR,Collines Rhodaniennes,,,,,rouge,Rouge,GAM,Gamay,IGP Tranquilles Collines Rhodaniennes Rouge Gamay,3R073 CM
 IGP,IGP,TRANQ,Tranquilles,CLR,Collines Rhodaniennes,,,,,blanc,Blanc,,,IGP Tranquilles Collines Rhodaniennes Blanc,3B073 
 IGP,IGP,TRANQ,Tranquilles,CLR,Collines Rhodaniennes,,,,,blanc,Blanc,ROL,Rolle-Vermentino,IGP Tranquilles Collines Rhodaniennes Blanc Rolle-Vermentino,3B073 BK
 IGP,IGP,TRANQ,Tranquilles,CLR,Collines Rhodaniennes,,,,,blanc,Blanc,CHA,Chardonnay,IGP Tranquilles Collines Rhodaniennes Blanc Chardonnay,3B073 CA

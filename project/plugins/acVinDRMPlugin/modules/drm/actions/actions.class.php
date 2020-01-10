@@ -71,17 +71,10 @@ class drmActions extends sfActions {
         	if ($formUploadCsv->isValid()) {
         		try {
         			$file = sfConfig::get('sf_data_dir') . '/upload/' . $formUploadCsv->getValue('file')->getMd5();
-        			$configuration = ConfigurationClient::getCurrent();
-        			$controles = array(
-        					DRMCsvEdi::TYPE_CAVE => array(
-        							DRMCsvEdi::CSV_CAVE_COMPLEMENT_PRODUIT => array_keys($configuration->getLabels())
-        					)
-        			);
-
         			$drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_DTI_PLUS;
-        			$drmCsvEdi = new DRMImportCsvEdi($file, $drm, $controles);
+        			$drmCsvEdi = new DRMImportCsvEdi($file, $drm);
         			$drmCsvEdi->checkCSV();
-        				
+
         			if($drmCsvEdi->getCsvDoc()->getStatut() != "VALIDE") {
         				foreach($drmCsvEdi->getCsvDoc()->erreurs as $erreur) {
         					if ($erreur->num_ligne > 0) {
@@ -140,29 +133,29 @@ class drmActions extends sfActions {
         } else {
         	$result[] = array('ERREUR', 'ACCES ', null, 'error_access_rest', 'Seules les requêtes de type POST sont acceptées');
         }
-        
+
         $this->logs = $result;
         $this->etablissement = $etablissement;
-        
-        $interpro = $this->etablissement->getInterproObject();
-        $to = ($interpro)? array(sfConfig::get('app_email_to_notification'), $interpro->email_contrat_inscription): array(sfConfig::get('app_email_to_notification'));
-        if ($interpro && $interpro->identifiant == 'CIVP') {
-        	$to[] = $interpro->email_assistance_ciel;
-        }
 
-        $messageErreurs = "<ol>";
-        foreach ($this->logs as $log) {
-        	$messageErreurs .= "<li>".implode(';', $log)."</li>";
-        }
-        $messageErreurs .= "</ol>";
-        $message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur import DTI+ pour ".$drm->identifiant, "Une transmission vient d'échouer pour ".$drm->identifiant."-".$drm->periode." :<br />".$messageErreurs)->setContentType('text/html');
-        if ($send && sfConfig::get('app_instance') != 'preprod') {
+		if ($send && sfConfig::get('app_instance') != 'preprod') {
+	        $interpro = $this->etablissement->getInterproObject();
+	        $to = ($interpro)? array(sfConfig::get('app_email_to_notification'), $interpro->email_contrat_inscription): array(sfConfig::get('app_email_to_notification'));
+	        if ($interpro && $interpro->identifiant == 'CIVP') {
+	        	$to[] = $interpro->email_assistance_ciel;
+	        }
+
+	        $messageErreurs = "<ol>";
+	        foreach ($this->logs as $log) {
+	        	$messageErreurs .= "<li>".implode(';', $log)."</li>";
+	        }
+	        $messageErreurs .= "</ol>";
+        	$message = $this->getMailer()->compose(sfConfig::get('app_email_from_notification'), $to, "DeclarVins // Erreur import DTI+ pour ".$drm->identifiant, "Une transmission vient d'échouer pour ".$drm->identifiant."-".$drm->periode." :<br />".$messageErreurs)->setContentType('text/html');
         	$this->getMailer()->send($message);
         }
-        
+
         $this->hasnewdrm = $this->hasNewDRM(DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant));
     }
-    
+
     protected function hasNewDRM($historique, $identifiant = null) {
     	$last = $historique->getLastDRM();
     	$lastCiel = ($last)? $last->getOrAdd('ciel') : null;
