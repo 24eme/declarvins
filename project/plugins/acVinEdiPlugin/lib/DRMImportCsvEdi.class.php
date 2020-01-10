@@ -148,6 +148,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
       		}
             $this->cache[$this->getCacheKeyFromData($datas)] = $produit;
             $cache2datas[$this->getCacheKeyFromData($datas)] = $datas;
+            $cache2datas[$this->getCacheKeyFromData($datas)][self::CSV_CAVE_VOLUME] = $this->floatize($cache2datas[$this->getCacheKeyFromData($datas)][self::CSV_CAVE_VOLUME]);
             $cache2datas[$this->getCacheKeyFromData($datas)]['hash'] = $hash;
             $cache2datas[$this->getCacheKeyFromData($datas)]['label'] = $label;
             $cache2datas[$this->getCacheKeyFromData($datas)]['complement_libelle'] = $complement_libelle;
