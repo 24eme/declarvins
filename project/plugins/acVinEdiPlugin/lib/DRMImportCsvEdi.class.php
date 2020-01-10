@@ -178,41 +178,59 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 $this->cache[$cacheid] = $p;
             }
         }
-        $cepages = array();
+        $couleurs = array();
         foreach ($this->cache as $cacheid => $produit) {
-            if (!isset($cepages[$produit->getCepage()->getHash()])) {
-                $cepages[$produit->getCepage()->getHash()] = array();
+            if (!isset($couleurs[$produit->getCouleur()->getHash()])) {
+                $couleurs[$produit->getCouleur()->getHash()] = array();
             }
-            $cepages[$produit->getCepage()->getHash()][$cacheid] = 1;
+            $couleurs[$produit->getCouleur()->getHash()][$cacheid] = 1;
         }
         //gestion des multidetails
-        foreach($cepages as $hash => $array_cache) {
+        foreach($couleurs as $hash => $array_cache) {
             $volume2hash = array();
             if($this->drmPrecedente->exist($hash)) {
-                foreach($this->drmPrecedente->get($hash)->details as $k => $d) {
+                foreach($this->drmPrecedente->get($hash)->getProduits() as $k => $d) {
                     $total_fin_mois = $d->total * 1;
+                    if (!$total_fin_mois) {
+                        continue;
+                    }
                     if (!isset($volume2hash[$total_fin_mois])) {
                         $volume2hash[$total_fin_mois] = array();
                     }
-                    $volume2hash[$total_fin_mois][$d->getKey()] = 1;
+                    $volume2hash[$total_fin_mois][$d->getHash()] = 1;
                 }
             }
             foreach($array_cache as $cacheid => $null)  {
                 $total_debut_mois = $cache2datas[$cacheid][self::CSV_CAVE_VOLUME] * 1;
+                if (!$total_debut_mois) {
+                    continue;
+                }
                 if (!isset($volume2hash[$total_debut_mois]))  {
                     continue;
                 }
-                if (isset($volume2hash[$total_debut_mois][$this->cache[$cacheid]->getKey()])) {
+                if (isset($volume2hash[$total_debut_mois][$this->cache[$cacheid]->getHash()])) {
                     continue;
                 }
                 if (count(array_keys($volume2hash[$total_debut_mois])) > 1) {
-                    throw new sfException('trop de volume identiques pour '.$this->cache[$cacheid]->getHash());
+                    $current_cepage_hash = $this->cache[$cacheid]->getCepage()->getHash();
+                    $nb = 0;
+                    foreach(array_keys($volume2hash[$total_debut_mois]) as $a_hash_volume) {
+                        if (preg_replace('/.details.[^\/]*$/', '', $a_hash_volume) == $current_cepage_hash) {
+                            $nb++;
+                            $new_hash = $a_hash_volume;
+                        }
+                    }
+                    if (!$nb) {
+                        throw new sfException('ambiguité identification produit (trop de volume identiques) pour '.$this->cache[$cacheid]->getHash());
+                    }
+                    unset($volume2hash[$total_debut_mois][$new_hash]);
+                }else{
+                    $new_hashes = array_keys($volume2hash[$total_debut_mois]);
+                    $new_hash = array_shift($new_hashes);
+                    unset($volume2hash[$total_debut_mois][$new_hash]);
                 }
-                $this->drm->get($hash)->details->remove($this->cache[$cacheid]->getKey());
-                $new_keys = array_keys($volume2hash[$total_debut_mois]);
-                $new_key = array_shift($new_keys);
-                unset($volume2hash[$total_debut_mois][$new_key]);
-                $this->cache[$cacheid] = $this->drm->get($hash)->details->add($new_key);
+                $this->drm->get($this->cache[$cacheid]->getCepage()->getHash())->details->remove($this->cache[$cacheid]->getKey());
+                $this->cache[$cacheid] = $this->drm->getOrAdd($new_hash);
             }
         }
     }
