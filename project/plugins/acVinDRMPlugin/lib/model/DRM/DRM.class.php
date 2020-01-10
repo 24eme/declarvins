@@ -979,7 +979,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         			return true;
         		}
         	}
-        	if ($mother && $mother->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER && $this->mode_de_saisie == DRMClient::MODE_DE_SAISIE_DTI) {
+        	if ($mother && !$mother->ciel->transfere && $mother->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER && $this->mode_de_saisie != DRMClient::MODE_DE_SAISIE_PAPIER) {
         		return true;
         	}
             return false;
