@@ -91,9 +91,10 @@ class DRMProduitAjoutForm extends acCouchdbForm
         }
         $hash = $this->values['hashref'];
         if ($this->values['libelle']) {
-        	$this->values['label'] = array_merge(array(md5($this->values['libelle'])), $this->values['label']);
+            $detail = $this->_drm->addProduit($this->values['hashref'], $this->values['label'], $this->values['libelle']);
+        }else{
+            $detail = $this->_drm->addProduit($this->values['hashref'], $this->values['label']);
         }
-        $detail = $this->_drm->addProduit($this->values['hashref'], $this->values['label']);
         $detail->total_debut_mois = 0;
         $detail->acq_total_debut_mois = 0;
         $detail->total_debut_mois_interpro = 0;
