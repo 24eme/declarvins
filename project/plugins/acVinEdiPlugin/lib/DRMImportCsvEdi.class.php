@@ -230,7 +230,11 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                     $new_hash = array_shift($new_hashes);
                     unset($volume2hash[$total_debut_mois][$new_hash]);
                 }
-                $this->drm->get($this->cache[$cacheid]->getCepage()->getHash())->details->remove($this->cache[$cacheid]->getKey());
+                if (!$this->drmPrecedente->exist($this->cache[$cacheid]->getCepage()->getHash())
+                   || !$this->drmPrecedente->get($this->cache[$cacheid]->getCepage()->getHash())->details->exist($this->cache[$cacheid]->getKey())
+                   ) {
+                    $this->drm->get($this->cache[$cacheid]->getCepage()->getHash())->details->remove($this->cache[$cacheid]->getKey());
+                }
                 $this->cache[$cacheid] = $this->drm->getOrAdd($new_hash);
             }
         }
