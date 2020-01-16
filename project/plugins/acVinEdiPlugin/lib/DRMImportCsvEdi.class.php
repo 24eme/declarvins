@@ -80,7 +80,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             if (strtoupper($datas[self::CSV_TYPE]) != self::TYPE_CAVE) {
                 continue;
             }
-            if (strtolower($datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT] != 'stocks')) {
+            if (!preg_match("/stock/i", $datas[self::CSV_CAVE_CATEGORIE_MOUVEMENT])) {
                 continue;
             }
             if (strtolower($datas[self::CSV_CAVE_TYPE_MOUVEMENT]) != 'total_debut_mois') {
