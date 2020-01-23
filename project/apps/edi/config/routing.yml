@@ -21,8 +21,8 @@ streamDAEEdi:
   url: /edi/dae/:interpro/:datedebut
   param: {module: edi, action: streamDAE}
 streamDRMEdi:
-  url: /edi/drm/:interpro/:datedebut
-  param: {module: edi, action: streamDRM}
+  url: /edi/drm/:interpro/:datedebut/:famille
+  param: {module: edi, action: streamDRM, famille: null}
 streamDRMInterpro:
   url: /edi/v2/drm/:interpro/:datedebut
   param: {module: edi, action: streamDRMInterpro}

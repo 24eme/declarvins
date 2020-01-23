@@ -145,6 +145,7 @@ class ediActions extends sfActions
   	set_time_limit(0);
     $date = $request->getParameter('datedebut');
     $interpro = $request->getParameter('interpro');
+    $famille = $request->getParameter('famille');
   	$this->securizeInterpro($interpro);
     if (!$date) {
 		return $this->renderText("Pas de date définie");
@@ -252,7 +253,7 @@ class ediActions extends sfActions
 "sorties replacement acquitté",
 "sorties autres acquitté",
 "total acquitté"); 
-    $drms = $this->drmCallback($interpro, DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows);
+    $drms = $this->drmCallback($interpro, DRMDateView::getInstance()->findByInterproAndDate($interpro, $dateForView->modify('-1 second')->format('c'))->rows, $famille);
     return $this->renderCsv($drms, DRMDateView::VALUE_DATEDESAISIE, "DRM", $dateTime->format('c'), $interpro, array(DRMDateView::VALUE_IDENTIFIANT_DECLARANT));//, $entetes);
   }
   
@@ -1006,7 +1007,7 @@ class ediActions extends sfActions
   		return $daes;
   }
   
-  protected function drmCallback($interpro, $items)
+  protected function drmCallback($interpro, $items, $famille)
   {
   		$drms = array();
   		$squeeze = null;
@@ -1014,8 +1015,11 @@ class ediActions extends sfActions
   			if ($item->value[DRMDateView::VALUE_TYPE] == 'DETAIL' && (is_null($item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX]) || $item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX] < 0 || !$item->value[DRMDateView::VALUE_DETAIL_CVO_CODE])) {
   				$squeeze = $item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH];
   			}
-  			if (($interpro == 'INTERPRO-CIVP' || $interpro == 'INTERPRO-IVSE') && $item->value[DRMDateView::VALUE_DETAIL_DECLARANT_FAMILLE] != 'producteur') {
+  			if (($interpro == 'INTERPRO-CIVP' || $interpro == 'INTERPRO-IVSE') && !$famille && $item->value[DRMDateView::VALUE_DETAIL_DECLARANT_FAMILLE] != 'producteur') {
   				$squeeze = $item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH];
+  			}
+  			if (($interpro == 'INTERPRO-CIVP' || $interpro == 'INTERPRO-IVSE') && $famille && $item->value[DRMDateView::VALUE_DETAIL_DECLARANT_FAMILLE] != $famille) {
+  			    $squeeze = $item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH];
   			}
   			if ($item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH] != $squeeze) {
   				$drms[] = $item;
