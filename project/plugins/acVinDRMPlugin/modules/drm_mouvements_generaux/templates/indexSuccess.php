@@ -109,7 +109,7 @@
 		                <?php endif; ?>
 			        </div>
 
-					<?php if($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere): ?>
+					<?php if($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 					<?php else: ?>
 			        <div class="ligne_btn">
            				<a href="<?php echo url_for('drm_delete_one', $drm) ?>" class="annuler_saisie btn_remise"><span>supprimer la drm</span></a>
