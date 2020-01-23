@@ -205,7 +205,7 @@ class drmActions extends sfActions {
         $etablissement = $this->getRoute()->getEtablissement();
         $drm = $this->getRoute()->getDRM();
         
-        $this->forward404If(($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere));
+        $this->forward404If(($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere && !$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)));
         
         if (!$drm->isNew() && !$drm->isValidee()) {
             /*if ($drm->hasVersion()) {
