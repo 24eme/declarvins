@@ -15,7 +15,7 @@
                 <?php echo $form['non_millesime']->renderError() ?>
                 <?php endif; ?>
                 <?php echo $form['millesime']->renderLabel() ?>
-                <?php echo ($form->getObject()->hasVersion() && $form->getObject()->volume_enleve > 0)? $form->getObject()->millesime : $form['millesime']->render(); ?>
+                <?php echo $form['millesime']->render(); ?>
                 <?php if(isset($form['non_millesime'])): ?>
                 <?php echo $form['non_millesime']->render() ?>&nbsp;<label for="vrac_produit_non_millesime" style="font-weight: normal;width:auto;float:none;">Non millésimé</label>
                 <?php endif; ?>
