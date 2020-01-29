@@ -98,6 +98,12 @@
 	<h2>Produit / Qualité / Origine</h2>
 	<p>Contrat de <?php echo $configurationVrac->formatTypesTransactionLibelle(array($vrac->type_transaction)); ?> de <?php echo ($vrac->produit)? $vrac->getLibelleProduit("%a% %l% %co% %ce%") : null; ?>&nbsp;<?php echo ($vrac->millesime)? $vrac->millesime.'&nbsp;' : ''; ?></p>
 	<p>Mention(s) : <?php echo ($vrac->getLibellesMentions())? $configurationVrac->formatMentionsLibelle($vrac->getLibellesMentions()) : '-'; ?></p>
+	<?php if (count($vrac->getMentions())): ?>
+		<?php foreach ($vrac->getMentions()->getRawValue()->toArray() as $mention): ?>
+			<?php if ($mention == 'chdo'): echo "<p>Le vendeur autorise expressément l'Acheteur à utiliser son nom d'exploitation. Ce dernier devra être indiqué sur la facture et le document d'accompagnement. L'Acheteur devra respecter les exigences du décret n° 2012-655 du 4 mai 2012.</p>"; endif; ?>
+			<?php if ($mention == 'marque'): echo "<p>Le vendeur autorise expressément l'Acheteur à utiliser sa marque.</p>"; endif; ?>
+		<?php endforeach ?>
+	<?php endif; ?>
 	<p>Certification(s)/Label(s) : <?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)) : ($vrac->labels_arr)? $configurationVrac->formatLabelsLibelle($vrac->getLibellesLabels()) : '-'; ?></p>
 	<h2>Type de contrat</h2>
 	<p><?php if ($vrac->contrat_pluriannuel): ?>Contrat adossé à un contrat pluriannuel<?php if ($vrac->reference_contrat_pluriannuel): ?>, référence <?php echo $vrac->reference_contrat_pluriannuel ?><?php endif; ?><?php else: ?>Contrat ponctuel<?php endif; ?></p>
