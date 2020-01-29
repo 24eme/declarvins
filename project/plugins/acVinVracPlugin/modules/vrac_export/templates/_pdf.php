@@ -138,7 +138,12 @@
     </table>
     <?php if ($vrac->determination_prix_date): ?><p>Date de détermination du prix : <?php echo Date::francizeDate($vrac->determination_prix_date) ?></p><?php endif; ?>
 	<?php if ($vrac->determination_prix): ?><p>Mode de determination du prix : <?php echo $vrac->determination_prix ?></p><?php endif; ?>
-	<?php if($vrac->conditions_paiement): ?><p>Paiement : <?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></p><?php endif; ?>
+	<?php if($vrac->conditions_paiement): ?>
+		<p>Paiement : <?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></p>
+		<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE && $vrac->isConditionneIr()): ?>
+			<p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat</p>
+		<?php endif; ?>
+	<?php endif; ?>
 	<?php if (count($vrac->paiements) > 0): ?>
 	<p>Echéancier de paiements : </p>
 	<table class="tableau_simple">
