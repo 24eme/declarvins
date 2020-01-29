@@ -71,6 +71,19 @@
 				<span>Mention(s) :</span>
 				<span><?php echo $configurationVrac->formatMentionsLibelle($vrac->getLibellesMentions()) ?></span>				
 			</li>
+			<?php $mentions = $vrac->getMentions()->getRawValue()->toArray() ?>
+			<?php if (in_array('chdo', $mentions)): ?>
+			<li>
+				<span>Rappel :</span>
+				<span>Le vendeur autorise expressément l'Acheteur à utiliser son nom d'exploitation. Ce dernier devra être indiqué sur la facture et le document d'accompagnement. L'Acheteur devra respecter les exigences du décret n° 2012-655 du 4 mai 2012.</span>
+			</li>
+			<?php endif; ?>
+			<?php if (in_array('marque', $mentions)): ?>
+			<li>
+				<span>Rappel :</span>
+				<span>Le vendeur autorise expressément l'Acheteur à utiliser sa marque.</span>
+			</li>
+			<?php endif; ?>
 		</ul>
     	<?php if($editer_etape): ?>
     	<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'produit', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
