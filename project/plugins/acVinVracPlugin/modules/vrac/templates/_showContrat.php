@@ -191,7 +191,7 @@
 				<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE && $vrac->isConditionneIr()): ?>
 					<li>
 						<span>Rappel:</span>
-						<span>« Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat »</span>
+						<span>Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat</span>
 					</li>
 				<?php endif; ?>
 				<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_ECHEANCIER): ?>
