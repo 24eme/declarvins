@@ -171,33 +171,39 @@
 			</li>
 			<?php endif; ?>
 			<?php if ($vrac->conditions_paiement): ?>
-			<li>
-				<span>Paiement :</span>
-				<span><?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></span>
-			</li>			
-			<?php endif; ?>
-			<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_ECHEANCIER): ?>
-			<li>
-				<span>Echéancier :</span>
-				<span>
-				<table id="table_paiements" style="display: inline;">
-					<thead>
-						<tr>
-							<th>Date</th>
-							<th>Montant (€ HT)</th>
-		            	</tr>
-		            </thead>
-		            <tbody>
-						<?php foreach ($vrac->paiements as $paiement): ?>
-						<tr>
-							<td><?php echo Date::francizeDate($paiement->date) ?></td>
-							<td><?php echo $paiement->montant ?> €</td>
-						</tr>
-						<?php endforeach; ?>
-		            </tbody>
-		        </table>
-		        </span>
-			</li>
+				<li>
+					<span>Paiement :</span>
+					<span><?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></span>
+				</li>
+				<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE && $vrac->isConditionneIr()): ?>
+					<li>
+						<span>Rappel:</span>
+						<span>« Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat »</span>
+					</li>
+				<?php endif; ?>
+				<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_ECHEANCIER): ?>
+				<li>
+					<span>Echéancier :</span>
+					<span>
+					<table id="table_paiements" style="display: inline;">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>Montant (€ HT)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($vrac->paiements as $paiement): ?>
+							<tr>
+								<td><?php echo Date::francizeDate($paiement->date) ?></td>
+								<td><?php echo $paiement->montant ?> €</td>
+							</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</span>
+				</li>
+				<?php endif; ?>
 			<?php endif; ?>
 			<?php if(!is_null($vrac->delai_paiement)): ?>
 			<li>
