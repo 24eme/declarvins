@@ -179,15 +179,16 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 $this->cache[$cacheid] = $p;
             }
         }
-        $couleurs = array();
+        //Préparation du repérage de changement de hash sur la base du stock de la DRM précédente
+        $noeuds = array();
         foreach ($this->cache as $cacheid => $produit) {
-            if (!isset($couleurs[$produit->getCouleur()->getHash()])) {
-                $couleurs[$produit->getCouleur()->getHash()] = array();
+            if (!isset($noeuds[$produit->getLieu()->getHash()])) {
+                $noeuds[$produit->getLieu()->getHash()] = array();
             }
-            $couleurs[$produit->getCouleur()->getHash()][$cacheid] = 1;
+            $noeuds[$produit->getLieu()->getHash()][$cacheid] = 1;
         }
         //gestion des multidetails
-        foreach($couleurs as $hash => $array_cache) {
+        foreach($noeuds as $hash => $array_cache) {
             $volume2hash = array();
             if($this->drmPrecedente->exist($hash)) {
                 foreach($this->drmPrecedente->get($hash)->getProduits() as $k => $d) {
