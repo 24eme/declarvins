@@ -192,31 +192,31 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $volume2hash = array();
             if($this->drmPrecedente->exist($hash)) {
                 foreach($this->drmPrecedente->get($hash)->getProduits() as $k => $d) {
-                    $total_fin_mois = $d->total * 1;
+                    $total_fin_mois = self::floatizeVal($d->total * 1);
                     if (!$total_fin_mois) {
                         continue;
                     }
-                    if (!isset($volume2hash[$total_fin_mois])) {
-                        $volume2hash[$total_fin_mois] = array();
+                    if (!isset($volume2hash["$total_fin_mois"])) {
+                        $volume2hash["$total_fin_mois"] = array();
                     }
-                    $volume2hash[$total_fin_mois][$d->getHash()] = 1;
+                    $volume2hash["$total_fin_mois"][$d->getHash()] = 1;
                 }
             }
             foreach($array_cache as $cacheid => $null)  {
-                $total_debut_mois = $cache2datas[$cacheid][self::CSV_CAVE_VOLUME] * 1;
+                $total_debut_mois = self::floatizeVal($cache2datas[$cacheid][self::CSV_CAVE_VOLUME] * 1);
                 if (!$total_debut_mois) {
                     continue;
                 }
-                if (!isset($volume2hash[$total_debut_mois]))  {
+                if (!isset($volume2hash["$total_debut_mois"]))  {
                     continue;
                 }
-                if (isset($volume2hash[$total_debut_mois][$this->cache[$cacheid]->getHash()])) {
+                if (isset($volume2hash["$total_debut_mois"][$this->cache[$cacheid]->getHash()])) {
                     continue;
                 }
-                if (count(array_keys($volume2hash[$total_debut_mois])) > 1) {
+                if (count(array_keys($volume2hash["$total_debut_mois"])) > 1) {
                     $current_cepage_hash = $this->cache[$cacheid]->getCepage()->getHash();
                     $nb = 0;
-                    foreach(array_keys($volume2hash[$total_debut_mois]) as $a_hash_volume) {
+                    foreach(array_keys($volume2hash["$total_debut_mois"]) as $a_hash_volume) {
                         if (preg_replace('/.details.[^\/]*$/', '', $a_hash_volume) == $current_cepage_hash) {
                             $nb++;
                             $new_hash = $a_hash_volume;
@@ -225,11 +225,11 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                     if (!$nb) {
                         throw new sfException('ambiguité identification produit (trop de volume identiques) pour '.$this->cache[$cacheid]->getHash());
                     }
-                    unset($volume2hash[$total_debut_mois][$new_hash]);
+                    unset($volume2hash["$total_debut_mois"][$new_hash]);
                 }else{
-                    $new_hashes = array_keys($volume2hash[$total_debut_mois]);
+                    $new_hashes = array_keys($volume2hash["$total_debut_mois"]);
                     $new_hash = array_shift($new_hashes);
-                    unset($volume2hash[$total_debut_mois][$new_hash]);
+                    unset($volume2hash["$total_debut_mois"][$new_hash]);
                 }
                 if (!$this->drmPrecedente->exist($this->cache[$cacheid]->getCepage()->getHash())
                    || !$this->drmPrecedente->get($this->cache[$cacheid]->getCepage()->getHash())->details->exist($this->cache[$cacheid]->getKey())
