@@ -61,7 +61,7 @@ class StatistiquesBilan {
 
     private function buildPeriodes() {
         $this->periodes = array();
-        $stopPeriode = date('Y-m', strtotime('-1 month'));
+        $stopPeriode = date('Y-m');
         $months = array('08', '09', '10', '11', '12', '01', '02', '03', '04', '05', '06', '07');
         $years = explode('-', $this->campagne);
         foreach ($months as $month) {

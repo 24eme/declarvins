@@ -119,7 +119,7 @@ avec :
 
 | Mouvement | DeclarVins | CIEL Lot 2  | CIEL Lot 1 |
 |-----------|------------|-------------|------------|
-| stock | total_debut_mois | stock-debut-periode | stock-debut-periode |
+| stocks | total_debut_mois | stock-debut-periode | stock-debut-periode |
 | entrees | recolte | volume-produit | volume-produit |
 | entrees | achat | achats-reintegrations | entree-droits-suspendus |
 | entrees temporaires | embouteillage | embouteillage | travail-a-facon |

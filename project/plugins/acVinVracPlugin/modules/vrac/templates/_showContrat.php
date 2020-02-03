@@ -71,6 +71,19 @@
 				<span>Mention(s) :</span>
 				<span><?php echo $configurationVrac->formatMentionsLibelle($vrac->getLibellesMentions()) ?></span>				
 			</li>
+			<?php $mentions = $vrac->getMentions()->getRawValue()->toArray() ?>
+			<?php if (in_array('chdo', $mentions)): ?>
+			<li>
+				<span>Rappel :</span>
+				<span>Le vendeur autorise expressément l'Acheteur à utiliser son nom d'exploitation. Ce dernier devra être indiqué sur la facture et le document d'accompagnement. L'Acheteur devra respecter les exigences du décret n° 2012-655 du 4 mai 2012.</span>
+			</li>
+			<?php endif; ?>
+			<?php if (in_array('marque', $mentions)): ?>
+			<li>
+				<span>Rappel :</span>
+				<span>Le vendeur autorise expressément l'Acheteur à utiliser sa marque.</span>
+			</li>
+			<?php endif; ?>
 		</ul>
     	<?php if($editer_etape): ?>
     	<p><a href="<?php echo url_for('vrac_etape', array('sf_subject' => $vrac, 'step' => 'produit', 'etablissement' => $etablissement)) ?>" class="modifier">modifier</a></p>
@@ -171,33 +184,39 @@
 			</li>
 			<?php endif; ?>
 			<?php if ($vrac->conditions_paiement): ?>
-			<li>
-				<span>Paiement :</span>
-				<span><?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></span>
-			</li>			
-			<?php endif; ?>
-			<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_ECHEANCIER): ?>
-			<li>
-				<span>Echéancier :</span>
-				<span>
-				<table id="table_paiements" style="display: inline;">
-					<thead>
-						<tr>
-							<th>Date</th>
-							<th>Montant (€ HT)</th>
-		            	</tr>
-		            </thead>
-		            <tbody>
-						<?php foreach ($vrac->paiements as $paiement): ?>
-						<tr>
-							<td><?php echo Date::francizeDate($paiement->date) ?></td>
-							<td><?php echo $paiement->montant ?> €</td>
-						</tr>
-						<?php endforeach; ?>
-		            </tbody>
-		        </table>
-		        </span>
-			</li>
+				<li>
+					<span>Paiement :</span>
+					<span><?php echo $configurationVrac->formatConditionsPaiementLibelle(array($vrac->conditions_paiement)); ?></span>
+				</li>
+				<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE && $vrac->isConditionneIr()): ?>
+					<li>
+						<span>Rappel:</span>
+						<span>Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat</span>
+					</li>
+				<?php endif; ?>
+				<?php if ($vrac->conditions_paiement == ConfigurationVrac::CONDITION_PAIEMENT_ECHEANCIER): ?>
+				<li>
+					<span>Echéancier :</span>
+					<span>
+					<table id="table_paiements" style="display: inline;">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>Montant (€ HT)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($vrac->paiements as $paiement): ?>
+							<tr>
+								<td><?php echo Date::francizeDate($paiement->date) ?></td>
+								<td><?php echo $paiement->montant ?> €</td>
+							</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</span>
+				</li>
+				<?php endif; ?>
 			<?php endif; ?>
 			<?php if(!is_null($vrac->delai_paiement)): ?>
 			<li>

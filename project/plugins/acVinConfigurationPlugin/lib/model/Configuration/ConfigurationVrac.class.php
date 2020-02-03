@@ -14,6 +14,7 @@ class ConfigurationVrac extends BaseConfigurationVrac {
 	
 	const CAS_PARTICULIER_DEFAULT_KEY = 'aucune';
 	const CONDITION_PAIEMENT_ECHEANCIER = 'echeancier_paiement';
+	const CONDITION_PAIEMENT_CADRE_REGLEMENTAIRE = 'cadre_reglementaire';
 	
     public function getVendeurs() {
     	return EtablissementAllView::getInstance()->findByZoneAndFamille($this->getInterpro()->zone, self::FAMILLE_VENDEUR)->rows;
