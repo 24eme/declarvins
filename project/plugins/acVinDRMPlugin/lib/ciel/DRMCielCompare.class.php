@@ -51,8 +51,8 @@ class DRMCielCompare
 	
 	public function getLitteralDiff()
 	{
-		$arrIn = $this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlIn))); // CIEL
-		$arrOut = $this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlOut))); // INTERPRO
+		$arrIn = $this->updateReplacementKeys($this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlIn)))); // CIEL
+		$arrOut = $this->updateReplacementKeys($this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlOut)))); // INTERPRO
 		
 		$diff = array();
 		$stocksIn = 0;
@@ -86,6 +86,30 @@ class DRMCielCompare
 			$diff = array();
 		}
 		return $diff;
+	}
+	
+	private function updateReplacementKeys($arr) 
+	{
+	    $updatedArr = array();
+	    foreach ($arr as $key => $value) {
+	        if (preg_match('/replacement-suspension\/{array}\/[0-9]+\/{array}/', $key)) {
+	            $explodedKey = explode('/', $key);
+	            if (count($explodedKey) > 0) {
+	                $explodedKey[count($explodedKey)-1] = 'mois';
+	                $moisKey = implode('/', $explodedKey);
+	                $explodedKey[count($explodedKey)-1] = 'annee';
+	                $anneeKey = implode('/', $explodedKey);
+	                if (isset($arr[$moisKey]) && isset($arr[$anneeKey])) {
+	                    $explodedKey = explode('/', $key);
+	                    $explodedKey[count($explodedKey)-3] = $arr[$anneeKey].$arr[$moisKey];
+	                    $updatedArr[implode('/', $explodedKey)] = $value;
+	                }
+	            }
+	        } else {
+	            $updatedArr[$key] = $value;
+	        }
+	    }
+	    return $updatedArr;
 	}
 	
 	private function cleanKey($key)

@@ -34,8 +34,8 @@ EOF;
     $contextInstance = sfContext::createInstance($this->configuration);
     
     
-    $xmlIn = simplexml_load_file($arguments['xmlPlateforme'], 'SimpleXMLElement');
-    $xmlOut = simplexml_load_file($arguments['xmlCiel'], 'SimpleXMLElement');
+    $xmlIn = simplexml_load_file($arguments['xmlPlateforme'], 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
+    $xmlOut = simplexml_load_file($arguments['xmlCiel'], 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
 
 	$compare = new DRMCielCompare($xmlIn, $xmlOut);
     if ($compare->hasDiff()) {
