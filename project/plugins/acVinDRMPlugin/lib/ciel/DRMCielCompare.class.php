@@ -12,8 +12,8 @@ class DRMCielCompare
 	
 	public function getDiff()
 	{
-		$arrIn = $this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlIn))); // CIEL
-		$arrOut = $this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlOut))); // INTERPRO
+		$arrIn = $this->updateReplacementKeys($this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlIn)))); // CIEL
+		$arrOut = $this->updateReplacementKeys($this->identifyKey($this->flattenArray($this->xmlToArray($this->xmlOut)))); // INTERPRO
 		
 		$diff = array();
 		$stocksIn = 0;
