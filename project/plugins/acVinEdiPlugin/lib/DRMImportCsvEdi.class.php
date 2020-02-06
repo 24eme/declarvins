@@ -418,7 +418,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 		  		$this->csvDoc->addErreur($this->valeurMouvementNotValidError($numLigne, $datas));
 		  		return;
 	  		}
-            if($typeMvt == 'total_debut_mois' && $this->floatize($valeur) > 0 && $this->drmPrecedente && !$this->drmPrecedente->exist($produit->getHash())) {
+            if(!$this->drm->isNouvelleCampagne() && $typeMvt == 'total_debut_mois' && $this->floatize($valeur) > 0 && $this->drmPrecedente && !$this->drmPrecedente->exist($produit->getHash())) {
                 $this->csvDoc->addErreur($this->productDuplicateError($numLigne, $datas));
             }
 	  		$mvt = ($categorieMvt)? $produit->getOrAdd($categorieMvt) : $produit;
