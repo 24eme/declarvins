@@ -73,6 +73,11 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     public function createCacheProduits() {
         $this->cache = array();
         $cache2datas = array();
+        if($this->drm->canSetStockDebutMois()){
+            $this->drm->remove("declaration");
+            $this->drm->add("declaration");
+        }
+        
         foreach ($this->getDocRows() as $datas) {
             if (preg_match('/^(...)?#/', $datas[self::CSV_TYPE])) {
                 continue;
@@ -418,7 +423,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 		  		$this->csvDoc->addErreur($this->valeurMouvementNotValidError($numLigne, $datas));
 		  		return;
 	  		}
-            if(!$this->drm->isNouvelleCampagne() && $typeMvt == 'total_debut_mois' && $this->floatize($valeur) > 0 && $this->drmPrecedente && !$this->drmPrecedente->exist($produit->getHash())) {
+            if(!$this->drm->canSetStockDebutMois() && $typeMvt == 'total_debut_mois' && $this->floatize($valeur) > 0 && $this->drmPrecedente && !$this->drmPrecedente->exist($produit->getHash())) {
                 $this->csvDoc->addErreur($this->productDuplicateError($numLigne, $datas));
             }
 	  		$mvt = ($categorieMvt)? $produit->getOrAdd($categorieMvt) : $produit;
