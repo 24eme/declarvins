@@ -71,14 +71,16 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     }
 
     public function createCacheProduits() {
+        $numLigne = 0;
         $this->cache = array();
         $cache2datas = array();
         if($this->drm->canSetStockDebutMois()){
             $this->drm->remove("declaration");
             $this->drm->add("declaration");
         }
-        
+
         foreach ($this->getDocRows() as $datas) {
+            $numLigne++;
             if (preg_match('/^(...)?#/', $datas[self::CSV_TYPE])) {
                 continue;
             }
