@@ -259,7 +259,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
     public function importCsv()
     {
-        $this->createCacheProduits();
         $numLigne = 0;
     	foreach ($this->getDocRows() as $csvRow) {
             if (preg_match('/^(...)?#/', $csvRow[self::CSV_TYPE])) {
@@ -270,6 +269,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     			if ($this->csvDoc->hasErreurs()) {
     				break;
     			}
+    			$this->createCacheProduits();
     		}
             $numLigne++;
     		switch(strtoupper($csvRow[self::CSV_TYPE])) {
