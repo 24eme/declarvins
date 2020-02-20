@@ -389,7 +389,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	return false;
     }
 	public function isNouvelleCampagne() {
-		if ($this->getMois() == 8) {
+		if ($this->getMois() == $this->getEtablissement()->getMoisToSetStock()) {
 			return true;
 		}
 		return false;

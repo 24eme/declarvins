@@ -71,9 +71,16 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     }
 
     public function createCacheProduits() {
+        $numLigne = 0;
         $this->cache = array();
         $cache2datas = array();
+        if($this->drm->canSetStockDebutMois()){
+            $this->drm->remove("declaration");
+            $this->drm->add("declaration");
+        }
+
         foreach ($this->getDocRows() as $datas) {
+            $numLigne++;
             if (preg_match('/^(...)?#/', $datas[self::CSV_TYPE])) {
                 continue;
             }
@@ -190,7 +197,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
         //gestion des multidetails
         foreach($noeuds as $hash => $array_cache) {
             $volume2hash = array();
-            if($this->drmPrecedente->exist($hash)) {
+            if($this->drmPrecedente ==! null && $this->drmPrecedente->exist($hash)) {
                 foreach($this->drmPrecedente->get($hash)->getProduits() as $k => $d) {
                     $total_fin_mois = self::floatizeVal($d->total * 1);
                     if (!$total_fin_mois) {
@@ -231,10 +238,12 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                     $new_hash = array_shift($new_hashes);
                     unset($volume2hash["$total_debut_mois"][$new_hash]);
                 }
-                if (!$this->drmPrecedente->exist($this->cache[$cacheid]->getCepage()->getHash())
-                   || !$this->drmPrecedente->get($this->cache[$cacheid]->getCepage()->getHash())->details->exist($this->cache[$cacheid]->getKey())
-                   ) {
-                    $this->drm->get($this->cache[$cacheid]->getCepage()->getHash())->details->remove($this->cache[$cacheid]->getKey());
+                if ($this->drmPrecedente ==! null) {
+                    if (!$this->drmPrecedente->exist($this->cache[$cacheid]->getCepage()->getHash())
+                        || !$this->drmPrecedente->get($this->cache[$cacheid]->getCepage()->getHash())->details->exist($this->cache[$cacheid]->getKey())
+                    ) {
+                        $this->drm->get($this->cache[$cacheid]->getCepage()->getHash())->details->remove($this->cache[$cacheid]->getKey());
+                    }
                 }
                 $this->cache[$cacheid] = $this->drm->getOrAdd($new_hash);
             }
@@ -250,7 +259,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
     public function importCsv()
     {
-        $this->createCacheProduits();
         $numLigne = 0;
     	foreach ($this->getDocRows() as $csvRow) {
             if (preg_match('/^(...)?#/', $csvRow[self::CSV_TYPE])) {
@@ -261,6 +269,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     			if ($this->csvDoc->hasErreurs()) {
     				break;
     			}
+    			$this->createCacheProduits();
     		}
             $numLigne++;
     		switch(strtoupper($csvRow[self::CSV_TYPE])) {
@@ -418,7 +427,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 		  		$this->csvDoc->addErreur($this->valeurMouvementNotValidError($numLigne, $datas));
 		  		return;
 	  		}
-            if($typeMvt == 'total_debut_mois' && $this->floatize($valeur) > 0 && $this->drmPrecedente && !$this->drmPrecedente->exist($produit->getHash())) {
+            if(!$this->drm->canSetStockDebutMois() && $typeMvt == 'total_debut_mois' && $this->floatize($valeur) > 0 && $this->drmPrecedente && !$this->drmPrecedente->exist($produit->getHash())) {
                 $this->csvDoc->addErreur($this->productDuplicateError($numLigne, $datas));
             }
 	  		$mvt = ($categorieMvt)? $produit->getOrAdd($categorieMvt) : $produit;
