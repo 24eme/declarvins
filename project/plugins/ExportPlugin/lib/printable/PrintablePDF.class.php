@@ -1,5 +1,6 @@
 <?php
 
+use Dompdf\Dompdf;
 
 class PrintablePDF extends PrintableOutput {
 
