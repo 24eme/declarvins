@@ -1,71 +1,55 @@
 /**
- * DOMPDF - PHP5 HTML to PDF renderer
+ * dompdf default stylesheet.
  *
- * File: $RCSfile: html.css,v $
- * Created on: 2004-08-04
- *
- * Copyright (c) 2004 - Benj Carson <benjcarson@digitaljunkies.ca>
- *               1998 - Netscape Communications Corporation
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library in the file LICENSE.LGPL; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
- * 02111-1307 USA
- *
- * Originally from mozilla (http://www.mozilla.org).  Original code was
- * licensed under the NPL, with the option of release under the GPL or LGPL.
- * This file is hence released under the LGPL.
- *
- * The Original Code is mozilla.org code.
- *
- * The Initial Developer of the Original Code is 
- * Netscape Communications Corporation.
- * Portions created by the Initial Developer are Copyright (C) 1998
- * the Initial Developer. All Rights Reserved.
- *
- * Contributor(s):
- *      Blake Ross <BlakeR1234@aol.com>
- *
- * The latest version of DOMPDF might be available at:
- * http://www.dompdf.com/
- *
- * @link http://www.dompdf.com/
- * @copyright 2004 Benj Carson
- * @author Benj Carson <benjcarson@digitaljunkies.ca>
  * @package dompdf
- * @version 0.3
+ * @link    http://dompdf.github.com/
+ * @author  Benj Carson <benjcarson@digitaljunkies.ca>
+ * @author  Blake Ross <BlakeR1234@aol.com>
+ * @author  Fabien Ménager <fabien.menager@gmail.com>
+ * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
+ *
+ * Portions from Mozilla
+ * @link https://dxr.mozilla.org/mozilla-central/source/layout/style/res/html.css
+ * @license http://mozilla.org/MPL/2.0/ Mozilla Public License, v. 2.0 
+ *
+ * Portions from W3C
+ * @link https://drafts.csswg.org/css-ui-3/#default-style-sheet
+ *
  */
-
-/* $Id: html.css,v 1.4 2006-04-05 20:09:00 benjcarson Exp $ */
 
 @page {
   margin: 1.2cm;
 }
 
-html { 
-  display: -dompdf-page;
-  counter-increment: page;
+html {
+  display: -dompdf-page !important;
+  counter-reset: page;
 }
 
 /* blocks */
 
-div, map, dt, isindex {
+article,
+aside,
+details,
+div,
+dt,
+figcaption,
+footer,
+form,
+header,
+hgroup,
+main,
+nav,
+noscript,
+section,
+summary {
   display: block;
 }
 
 body {
   page-break-before: avoid;
-  display: block;
+  display: block !important;
+  counter-increment: page;
 }
 
 p, dl, multicol {
@@ -78,7 +62,7 @@ dd {
   margin-left: 40px;
 }
 
-blockquote {
+blockquote, figure {
   display: block;
   margin: 1em 40px;
 }
@@ -95,7 +79,7 @@ center {
 
 blockquote[type=cite] {
   display: block;
-  margin: 1em 0px;
+  margin: 1em 0;
   padding-left: 1em;
   border-left: solid;
   border-color: blue;
@@ -144,7 +128,7 @@ listing {
   margin: 1em 0;
 }
 
-plaintext, xmp, pre {
+plaintext, pre, xmp {
   display: block;
   font-family: fixed;
   white-space: pre;
@@ -155,7 +139,7 @@ plaintext, xmp, pre {
 
 table {
   display: table;
-  border-spacing: 2px; 
+  border-spacing: 2px;
   border-collapse: separate;
   margin-top: 0;
   margin-bottom: 0;
@@ -177,10 +161,14 @@ table[border] th {
 
 /* make sure backgrounds are inherited in tables  -- see bug 4510 */
 td, th, tr {
-  background: inherit;
+  background-color: inherit;
+  background-image: inherit;
+  background-image-resolution: inherit;
+  background-position: inherit;
+  background-repeat: inherit;
 }
-   
-/* caption inherits from table not table-outer */  
+
+/* caption inherits from table not table-outer */
 caption {
   display: table-caption;
   text-align: center;
@@ -219,10 +207,10 @@ table > tr {
   vertical-align: middle;
 }
 
-td { 
+td {
   display: table-cell;
   vertical-align: inherit;
-  text-align: inherit; 
+  text-align: inherit;
   padding: 1px;
 }
 
@@ -231,7 +219,6 @@ th {
   vertical-align: inherit;
   font-weight: bold;
   padding: 1px;
-  text-align: center;
 }
 
 /* inlines */
@@ -247,7 +234,7 @@ q:after {
   content: close-quote;
 }
 
-a:link {
+:link {
   color: #00c;
   text-decoration: underline;
 }
@@ -270,10 +257,6 @@ u, ins {
 
 s, strike, del {
   text-decoration: line-through;
-}
-
-blink {
-  text-decoration: blink;
 }
 
 big {
@@ -300,6 +283,17 @@ nobr {
   white-space: nowrap;
 }
 
+mark {
+  background: yellow;
+  color: black;
+}
+
+/* titles */
+
+abbr[title], acronym[title] {
+  text-decoration: dotted underline;
+}
+
 /* lists */
 
 ul, menu, dir {
@@ -320,69 +314,169 @@ li {
   display: list-item;
 }
 
+/*li:before {
+  display: -dompdf-list-bullet !important;
+  content: counter(-dompdf-default-counter) ". ";
+  padding-right: 0.5em;
+}*/
+
 /* nested lists have no top/bottom margins */
-ul ul,   ul ol,   ul dir,   ul menu,   ul dl,
-ol ul,   ol ol,   ol dir,   ol menu,   ol dl,
-dir ul,  dir ol,  dir dir,  dir menu,  dir dl,
-menu ul, menu ol, menu dir, menu menu, menu dl,
-dl ul,   dl ol,   dl dir,   dl menu,   dl dl {
+:matches(ul, ol, dir, menu, dl) ul,
+:matches(ul, ol, dir, menu, dl) ol,
+:matches(ul, ol, dir, menu, dl) dir,
+:matches(ul, ol, dir, menu, dl) menu,
+:matches(ul, ol, dir, menu, dl) dl {
   margin-top: 0;
   margin-bottom: 0;
 }
 
 /* 2 deep unordered lists use a circle */
-ol ul,   ul ul,   menu ul,   dir ul,
-ol menu, ul menu, menu menu, dir menu,
-ol dir,  ul dir,  menu dir,  dir dir {
+:matches(ul, ol, dir, menu) ul,
+:matches(ul, ol, dir, menu) ul,
+:matches(ul, ol, dir, menu) ul,
+:matches(ul, ol, dir, menu) ul {
   list-style-type: circle;
 }
 
 /* 3 deep (or more) unordered lists use a square */
-ol ol ul,     ol ul ul,     ol menu ul,     ol dir ul,
-ol ol menu,   ol ul menu,   ol menu menu,   ol dir menu,
-ol ol dir,    ol ul dir,    ol menu dir,    ol dir dir,
-ul ol ul,     ul ul ul,     ul menu ul,     ul dir ul,
-ul ol menu,   ul ul menu,   ul menu menu,   ul dir menu,
-ul ol dir,    ul ul dir,    ul menu dir,    ul dir dir,
-menu ol ul,   menu ul ul,   menu menu ul,   menu dir ul,
-menu ol menu, menu ul menu, menu menu menu, menu dir menu,
-menu ol dir,  menu ul dir,  menu menu dir,  menu dir dir,
-dir ol ul,    dir ul ul,    dir menu ul,    dir dir ul,
-dir ol menu,  dir ul menu,  dir menu menu,  dir dir menu,
-dir ol dir,   dir ul dir,   dir menu dir,   dir dir dir {
+:matches(ul, ol, dir, menu) :matches(ul, ol, dir, menu) ul,
+:matches(ul, ol, dir, menu) :matches(ul, ol, dir, menu) menu,
+:matches(ul, ol, dir, menu) :matches(ul, ol, dir, menu) dir {
   list-style-type: square;
 }
 
 /* forms */
-
-/*
-input[type=text] {
-	border: 1pt solid black;
-	background-color: white;
+/* From https://drafts.csswg.org/css-ui-3/#default-style-sheet */
+form {
+  display: block;
 }
 
-input[type=text]:before {
+input, button, select {
+  display: inline-block;
+  font-family: sans-serif;
+}
+
+input[type=text],
+input[type=password],
+select {
+  width: 12em;
+}
+
+input[type=text],
+input[type=password],
+input[type=button],
+input[type=submit],
+input[type=reset],
+input[type=file],
+button,
+textarea,
+select {
+  background: #FFF;
+  border: 1px solid #999;
+  padding: 2px;
+  margin: 2px;
+}
+
+input[type=button],
+input[type=submit],
+input[type=reset],
+input[type=file],
+button {
+  background: #CCC;
+  text-align: center;
+}
+
+input[type=file] {
+  width: 8em;
+}
+
+input[type=text]:before,
+input[type=button]:before,
+input[type=submit]:before,
+input[type=reset]:before {
   content: attr(value);
-}*/
+}
+
+input[type=file]:before {
+  content: "Choose a file";
+}
+
+input[type=password][value]:before {
+  font-family: "DejaVu Sans" !important;
+  content: "\2022\2022\2022\2022\2022\2022\2022\2022";
+  line-height: 1em;
+}
+
+input[type=checkbox],
+input[type=radio],
+select:after {
+  font-family: "DejaVu Sans" !important;
+  font-size: 18px;
+  line-height: 1;
+}
+
+input[type=checkbox]:before {
+  content: "\2610";
+}
+
+input[type=checkbox][checked]:before {
+  content: "\2611";
+}
+
+input[type=radio]:before {
+  content: "\25CB";
+}
+
+input[type=radio][checked]:before {
+  content: "\25C9";
+}
+
+textarea {
+  display: block;
+  height: 3em;
+  overflow: hidden;
+  font-family: monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+select {
+  position: relative!important;
+  overflow: hidden!important;
+}
+
+select:after {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 5em;
+  width: 1.4em;
+  text-align: center;
+  background: #CCC;
+  content: "\25BE";
+}
+
+select option {
+  display: none;
+}
+
+select option[selected] {
+  display: inline;
+}
 
 fieldset {
   display: block;
-  margin-left: 2px;
-  margin-right: 2px;
-  padding: 0.35em 0.625em 0.75em;
+  margin: 0.6em 2px 2px;
+  padding: 0.75em;
   border: 1pt groove #666;
+  position: relative;
 }
 
 fieldset > legend {
-  padding-left: 2px;
-  padding-right: 2px;
-  min-width: 1em;
-  max-width: none;
-  height: auto;
-  min-height: 0;
-  max-height: none;
-  white-space: nowrap;
-  margin-top: -1.0em;
+  position: absolute;
+  top: -0.6em;
+  left: 0.75em;
+  padding: 0 0.3em;
   background: white;
 }
 
@@ -390,14 +484,17 @@ legend {
   display: inline-block;
 }
 
-
 /* leafs */
 
 hr {
   display: block;
-  height: 2px;
+  height: 0;
   border: 1px inset;
   margin: 0.5em auto 0.5em auto;
+}
+
+hr[size="1"] {
+  border-style: solid none none none;
 }
 
 iframe {
@@ -405,15 +502,15 @@ iframe {
 }
 
 noframes {
-  display: none;
+  display: block;
 }
 
-br { 
+br {
   display: -dompdf-br;
 }
 
 img, img_generated {
-  display: -dompdf-image;
+  display: -dompdf-image !important;
 }
 
 dompdf_generated {
@@ -422,6 +519,7 @@ dompdf_generated {
 
 /* hidden elements */
 area, base, basefont, head, meta, script, style, title,
-noembed, noscript, param {
+noembed, param {
   display: none;
+  -dompdf-keep: yes;
 }
