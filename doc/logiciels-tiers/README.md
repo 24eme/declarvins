@@ -44,7 +44,7 @@ préciser le libellé personnalisé complet du produit en colonne 12 (complémen
 
 ## Description des lignes CRD
 
-**Type de la CDR** : trois valeurs acceptées « PERSONNALISEES », « COLLECTIVES_DROITS_SUSPENDUS » ou « COLLECTIVES_DROITS_ACQUITTES »  
+**Type de la CRD** : trois valeurs acceptées « PERSONNALISEES », « COLLECTIVES_DROITS_SUSPENDUS » ou « COLLECTIVES_DROITS_ACQUITTES »  
  
 **Catégorie fiscale de la CRD** : trois valeurs acceptées « M » pour les vins mousseux, « T » pour les vins tranquilles ou « PI » pour les produits intermédiaires  
 
