@@ -30,7 +30,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
         if(is_null($this->csvDoc)) {
             $this->csvDoc = CSVClient::getInstance()->createOrFindDocFromDRM($file, $drm);
         }
-        $this->drmPrecedente = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($drm->identifiant, DRMClient::getInstance()->getPeriodePrecedente($drm->periode));
         parent::__construct($file, $drm);
     }
 
@@ -313,6 +312,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   			$this->csvDoc->addErreur($this->etablissementNotFoundError());
   			return;
   		}
+  		$this->drmPrecedente = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($this->drm->identifiant, DRMClient::getInstance()->getPeriodePrecedente($this->drm->periode));
     }
 
     protected function isComplement($datas)
