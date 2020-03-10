@@ -66,7 +66,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             	$datas[self::CSV_CAVE_COULEUR].
             	$datas[self::CSV_CAVE_CEPAGE].
                 $datas[self::CSV_CAVE_COMPLEMENT_PRODUIT].
-                $datas[self::CSV_CAVE_PRODUIT];
+                $datas[self::CSV_CAVE_PRODUIT].
+                $datas[self::CSV_CAVE_TYPE_DROITS];
     }
 
     public function createCacheProduits() {
@@ -198,14 +199,16 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $volume2hash = array();
             if($this->drmPrecedente ==! null && $this->drmPrecedente->exist($hash)) {
                 foreach($this->drmPrecedente->get($hash)->getProduits() as $k => $d) {
-                    $total_fin_mois = self::floatizeVal($d->total * 1);
-                    if (!$total_fin_mois) {
-                        continue;
+                    foreach(array("total", "acq_total") as $totalKey) {
+                        $total_fin_mois = self::floatizeVal($d->get($totalKey) * 1);
+                        if (!$total_fin_mois) {
+                            continue;
+                        }
+                        if (!isset($volume2hash["$total_fin_mois"])) {
+                            $volume2hash["$total_fin_mois"] = array();
+                        }
+                        $volume2hash["$total_fin_mois"][$d->getHash()] = 1;
                     }
-                    if (!isset($volume2hash["$total_fin_mois"])) {
-                        $volume2hash["$total_fin_mois"] = array();
-                    }
-                    $volume2hash["$total_fin_mois"][$d->getHash()] = 1;
                 }
             }
             foreach($array_cache as $cacheid => $null)  {
