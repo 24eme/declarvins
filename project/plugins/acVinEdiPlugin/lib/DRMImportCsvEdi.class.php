@@ -59,15 +59,22 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
     private function getCacheKeyFromData($datas) {
         return $datas[self::CSV_CAVE_CERTIFICATION].
-            	$datas[self::CSV_CAVE_GENRE].
-            	$datas[self::CSV_CAVE_APPELLATION].
-            	$datas[self::CSV_CAVE_MENTION].
-            	$datas[self::CSV_CAVE_LIEU].
-            	$datas[self::CSV_CAVE_COULEUR].
-            	$datas[self::CSV_CAVE_CEPAGE].
-                $datas[self::CSV_CAVE_COMPLEMENT_PRODUIT].
-                $datas[self::CSV_CAVE_PRODUIT].
-                $datas[self::CSV_CAVE_TYPE_DROITS];
+            	$this->formatCacheKey($datas[self::CSV_CAVE_GENRE]).
+            	$this->formatCacheKey($datas[self::CSV_CAVE_APPELLATION]).
+            	$this->formatCacheKey($datas[self::CSV_CAVE_MENTION]).
+            	$this->formatCacheKey($datas[self::CSV_CAVE_LIEU]).
+            	$this->formatCacheKey($datas[self::CSV_CAVE_COULEUR]).
+            	$this->formatCacheKey($datas[self::CSV_CAVE_CEPAGE]).
+                $this->formatCacheKey($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]).
+                $this->formatCacheKey($datas[self::CSV_CAVE_PRODUIT]).
+                $this->formatCacheKey($datas[self::CSV_CAVE_TYPE_DROITS]);
+    }
+
+    private function formatCacheKey($value) {
+        $value = $this->formatPermissifCool($value);
+        $value = KeyInflector::slugify($value);
+
+        return $value;
     }
 
     public function createCacheProduits() {
@@ -630,6 +637,13 @@ class DRMImportCsvEdi extends DRMCsvEdi {
         if (count($identifiants) > 1) {
         	$this->csvDoc->addErreur($this->createMultiIdentifiantError());
         }
+    }
+
+    private function formatPermissifCool($value) {
+
+        $value =  preg_replace("/e?s?$/i", "", $value);
+
+        return $value;
     }
 
     private function matchDroits($d) {
