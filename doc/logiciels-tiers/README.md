@@ -133,7 +133,7 @@ avec :
 | entrees | crd | replacement-suspension/volume | replacement-suspension/volume |
 | sorties | factures + crd | ventes-france-crd-suspendus | sorties-avec-paiement-annee-courante |
 | sorties | crd_acquittes | ventes-france-crd-acquittes | autres-sorties |
-| sorties sans droits | vrac + export | sorties-definitives | sorties-definitives + lies-vins-distilles |
+| sorties sans droits | vrac + export | sorties-definitives | sorties-definitives |
 | sorties sans droits | consommation | consommation-familiale-degustation | sorties-exoneration-droits |
 | sorties sans droits temporaires | embouteillage | embouteillage | travail-a-facon |
 | sorties sans droits temporaires | mouvement | relogement | autres-sorties |
