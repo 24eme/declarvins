@@ -142,7 +142,7 @@ avec :
 | sorties sans droits internes | repli + declassement | replis-declassement-transfert-changement-appellation | autres-sorties |
 | sorties sans droits internes | mutage | fabrication-autre-produit | fabrication-autre-produit |
 | sorties sans droits internes | vci | revendication-vci | X |
-| sorties sans droits internes | autres_interne + lies | autres-mouvements-internes | autres-sorties |
+| sorties sans droits internes | autres_interne + lies | autres-mouvements-internes | autres-sorties + lies-vins-distilles |
 | sorties sans droits | autres + pertes | autres-sorties | autres-sorties |
 | stocks | total | stock-fin-periode | stock-fin-periode |
 
