@@ -30,7 +30,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
         if(is_null($this->csvDoc)) {
             $this->csvDoc = CSVClient::getInstance()->createOrFindDocFromDRM($file, $drm);
         }
-        $this->drmPrecedente = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($drm->identifiant, DRMClient::getInstance()->getPeriodePrecedente($drm->periode));
         parent::__construct($file, $drm);
     }
 
@@ -60,14 +59,22 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
     private function getCacheKeyFromData($datas) {
         return $datas[self::CSV_CAVE_CERTIFICATION].
-            	$datas[self::CSV_CAVE_GENRE].
-            	$datas[self::CSV_CAVE_APPELLATION].
-            	$datas[self::CSV_CAVE_MENTION].
-            	$datas[self::CSV_CAVE_LIEU].
-            	$datas[self::CSV_CAVE_COULEUR].
-            	$datas[self::CSV_CAVE_CEPAGE].
-                $datas[self::CSV_CAVE_COMPLEMENT_PRODUIT].
-                $datas[self::CSV_CAVE_PRODUIT];
+            	$this->formatCacheKey($datas[self::CSV_CAVE_GENRE]).
+            	$this->formatCacheKey($datas[self::CSV_CAVE_APPELLATION]).
+            	$this->formatCacheKey($datas[self::CSV_CAVE_MENTION]).
+            	$this->formatCacheKey($datas[self::CSV_CAVE_LIEU]).
+            	$this->formatCacheKey($datas[self::CSV_CAVE_COULEUR]).
+            	$this->formatCacheKey($datas[self::CSV_CAVE_CEPAGE]).
+                $this->formatCacheKey($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]).
+                $this->formatCacheKey($datas[self::CSV_CAVE_PRODUIT]).
+                $this->formatCacheKey($datas[self::CSV_CAVE_TYPE_DROITS]);
+    }
+
+    private function formatCacheKey($value) {
+        $value = $this->formatPermissifCool($value);
+        $value = KeyInflector::slugify($value);
+
+        return $value;
     }
 
     public function createCacheProduits() {
@@ -199,14 +206,16 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $volume2hash = array();
             if($this->drmPrecedente ==! null && $this->drmPrecedente->exist($hash)) {
                 foreach($this->drmPrecedente->get($hash)->getProduits() as $k => $d) {
-                    $total_fin_mois = self::floatizeVal($d->total * 1);
-                    if (!$total_fin_mois) {
-                        continue;
+                    foreach(array("total", "acq_total") as $totalKey) {
+                        $total_fin_mois = self::floatizeVal($d->get($totalKey) * 1);
+                        if (!$total_fin_mois) {
+                            continue;
+                        }
+                        if (!isset($volume2hash["$total_fin_mois"])) {
+                            $volume2hash["$total_fin_mois"] = array();
+                        }
+                        $volume2hash["$total_fin_mois"][$d->getHash()] = 1;
                     }
-                    if (!isset($volume2hash["$total_fin_mois"])) {
-                        $volume2hash["$total_fin_mois"] = array();
-                    }
-                    $volume2hash["$total_fin_mois"][$d->getHash()] = 1;
                 }
             }
             foreach($array_cache as $cacheid => $null)  {
@@ -313,6 +322,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   			$this->csvDoc->addErreur($this->etablissementNotFoundError());
   			return;
   		}
+  		$this->drmPrecedente = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($this->drm->identifiant, DRMClient::getInstance()->getPeriodePrecedente($this->drm->periode));
     }
 
     protected function isComplement($datas)
@@ -627,6 +637,13 @@ class DRMImportCsvEdi extends DRMCsvEdi {
         if (count($identifiants) > 1) {
         	$this->csvDoc->addErreur($this->createMultiIdentifiantError());
         }
+    }
+
+    private function formatPermissifCool($value) {
+
+        $value =  preg_replace("/e?s?$/i", "", $value);
+
+        return $value;
     }
 
     private function matchDroits($d) {
