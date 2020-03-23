@@ -1628,9 +1628,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		}
 		return array();
 	}
-
+	
 	public function setImportableMvtDetails($type, $categorie, $datas) {
-		if ($type == 'crd' && $categorie->getKey() == 'entrees' && !$this->isNegoce()) {
+		if ($type == 'crd' && $categorie->getKey() == 'entrees') {
 			$details = $categorie->getOrAdd('crd_details');
 			$data = str_replace('-', '', $datas[DRMCsvEdi::CSV_CAVE_EXPORTPAYS]);
 			if (preg_match('/^([0-9]{4})([0-9]{2})$/', $data, $m)) {
