@@ -4,11 +4,11 @@
     	<h1>Modification du libellé</h1>
 
     	<div id="libelleModification">
-			<form method="post" action="<?php echo url_for('admin_libelles_edit', array('type' => $type, 'key' => $key)) ?>">
+			<form method="post" action="<?php echo url_for('admin_libelles_edit', array('type' => $type, 'key' => $key4Route)) ?>">
 			    <div class="ligne_form">
 			        <?php echo $form->renderHiddenFields(); ?>
 			        <?php echo $form->renderGlobalErrors(); ?>
-			
+
 			        <?php echo $form['libelle']->renderLabel() ?>
 			        <?php echo $form['libelle']->render() ?>
 			        <?php echo $form['libelle']->renderError() ?>
