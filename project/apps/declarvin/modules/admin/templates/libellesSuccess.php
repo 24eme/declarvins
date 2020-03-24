@@ -31,6 +31,18 @@
 </tr><tr>
 <?php endforeach; ?>
 					</tr>
+<?php if (count($configurationVrac->clauses_complementaires)): ?>
+					<tr>
+						<td rowspan="<?php echo count($configurationVrac->clauses_complementaires); ?>">Clauses complémentaires</td>
+<?php foreach ($configurationVrac->clauses_complementaires as $k => $c) : ?>
+								<td><?php echo $c->nom." : ".$c->description; ?></td>
+								<td class="actions"><a class="btn_modifier"
+										href="<?php echo url_for('admin_libelles_edit', array('type' => 'vrac', 'key' => 'clauses_complementaires@'.$k)) ?>">Edit</a>
+								</td>
+</tr><tr>
+<?php endforeach; ?>
+					</tr>
+<?php endif; ?>
 					<tr class="alt">
 						<td>Informations complémentaires</td>
 						<td><?php echo $configurationVrac->informations_complementaires; ?></td>
