@@ -26,7 +26,7 @@
 <?php foreach ($configurationVrac->clauses as $k => $c) : ?>
 								<td><?php echo $c->nom." : ".$c->description; ?></td>
 								<td class="actions"><a class="btn_modifier"
-										href="<?php echo url_for('admin_libelles_edit', array('type' => 'vrac', 'key' => 'clauses@'.$k)) ?>">Edit</a>
+										href="<?php echo url_for('admin_libelles_edit', array('type' => 'vrac', 'key' => 'clauses@'.$k.'@description')) ?>">Edit</a>
 								</td>
 </tr><tr>
 <?php endforeach; ?>
@@ -37,7 +37,7 @@
 <?php foreach ($configurationVrac->clauses_complementaires as $k => $c) : ?>
 								<td><?php echo $c->nom." : ".$c->description; ?></td>
 								<td class="actions"><a class="btn_modifier"
-										href="<?php echo url_for('admin_libelles_edit', array('type' => 'vrac', 'key' => 'clauses_complementaires@'.$k)) ?>">Edit</a>
+										href="<?php echo url_for('admin_libelles_edit', array('type' => 'vrac', 'key' => 'clauses_complementaires@'.$k.'@description')) ?>">Edit</a>
 								</td>
 </tr><tr>
 <?php endforeach; ?>
