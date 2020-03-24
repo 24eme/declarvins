@@ -26,7 +26,7 @@
 <?php foreach ($configurationVrac->clauses as $k => $c) : ?>
 								<td><?php echo $c->nom." : ".$c->description; ?></td>
 								<td class="actions"><a class="btn_modifier"
-										href="<?php echo url_for('admin_libelles_edit', array('type' => 'vrac', 'key' => 'clauses/'.$k)) ?>">Edit</a>
+										href="<?php echo url_for('admin_libelles_edit', array('type' => 'vrac', 'key' => 'clauses@'.$k)) ?>">Edit</a>
 								</td>
 </tr><tr>
 <?php endforeach; ?>
