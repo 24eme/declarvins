@@ -25,8 +25,9 @@
 						<td rowspan="<?php echo count($configurationVrac->clauses); ?>">Clauses</td>
 <?php foreach ($configurationVrac->clauses as $k => $c) : ?>
 								<td><?php echo $c->nom." : ".$c->description; ?></td>
-								<td class="actions"><a class="btn_modifier"
-										href="<?php echo url_for('admin_libelles_edit', array('type' => 'vrac', 'key' => 'clauses@'.$k.'@description')) ?>">Edit</a>
+								<td class="actions">
+									<a class="btn_modifier" href="<?php echo url_for('admin_libelles_edit', array('type' => 'vrac', 'key' => 'clauses@'.$k.'@nom')) ?>">Nom</a><br/>
+									<a class="btn_modifier" href="<?php echo url_for('admin_libelles_edit', array('type' => 'vrac', 'key' => 'clauses@'.$k.'@description')) ?>">Description</a>
 								</td>
 </tr><tr>
 <?php endforeach; ?>
@@ -36,8 +37,9 @@
 						<td rowspan="<?php echo count($configurationVrac->clauses_complementaires); ?>">Clauses complémentaires</td>
 <?php foreach ($configurationVrac->clauses_complementaires as $k => $c) : ?>
 								<td><?php echo $c->nom." : ".$c->description; ?></td>
-								<td class="actions"><a class="btn_modifier"
-										href="<?php echo url_for('admin_libelles_edit', array('type' => 'vrac', 'key' => 'clauses_complementaires@'.$k.'@description')) ?>">Edit</a>
+								<td class="actions">
+									<a class="btn_modifier" href="<?php echo url_for('admin_libelles_edit', array('type' => 'vrac', 'key' => 'clauses_complementaires@'.$k.'@nom')) ?>">Nom</a><br/>
+									<a class="btn_modifier" href="<?php echo url_for('admin_libelles_edit', array('type' => 'vrac', 'key' => 'clauses_complementaires@'.$k.'@description')) ?>">Description</a>
 								</td>
 </tr><tr>
 <?php endforeach; ?>
