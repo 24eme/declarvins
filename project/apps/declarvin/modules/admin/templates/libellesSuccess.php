@@ -2,15 +2,15 @@
 <section id="contenu">
 	<section id="principal">
 		<div class="clearfix" id="application_dr">
-    		<h1>Messages</h1>
+    		<h1 id="messages">Messages</h1>
     		<?php include_partial('tableLibelles', array('object' => $messages, 'type' => 'messages')) ?>
     		<!-- <h1>Droits</h1> -->
     		<?php //include_partial('tableLibelles', array('object' => $droits, 'type' => 'droits')) ?>
-    		<h1>Labels</h1>
+    		<h1 id="labels">Labels</h1>
     		<?php include_partial('tableLibelles', array('object' => $labels, 'type' => 'labels')) ?>
-    		<h1>Controles</h1>
+    		<h1 id="controles">Controles</h1>
     		<?php include_partial('tableLibelles', array('object' => $controles, 'type' => 'controles')) ?>
-    		<h1>Contrat Vrac</h1>
+    		<h1 id="contrat_vrac">Contrat Vrac</h1>
 	    	<div class="tableau_ajouts_liquidations">
 				<table class="tableau_recap">
 					<thead>
