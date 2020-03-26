@@ -133,7 +133,7 @@ avec :
 | entrees | crd | replacement-suspension/volume | replacement-suspension/volume |
 | sorties | factures + crd | ventes-france-crd-suspendus | sorties-avec-paiement-annee-courante |
 | sorties | crd_acquittes | ventes-france-crd-acquittes | autres-sorties |
-| sorties sans droits | vrac + lies + export | sorties-definitives | sorties-definitives + lies-vins-distilles |
+| sorties sans droits | vrac + export | sorties-definitives | sorties-definitives |
 | sorties sans droits | consommation | consommation-familiale-degustation | sorties-exoneration-droits |
 | sorties sans droits temporaires | embouteillage | embouteillage | travail-a-facon |
 | sorties sans droits temporaires | mouvement | relogement | autres-sorties |
@@ -142,7 +142,7 @@ avec :
 | sorties sans droits internes | repli + declassement | replis-declassement-transfert-changement-appellation | autres-sorties |
 | sorties sans droits internes | mutage | fabrication-autre-produit | fabrication-autre-produit |
 | sorties sans droits internes | vci | revendication-vci | X |
-| sorties sans droits internes | autres_interne | autres-mouvements-internes | autres-sorties |
+| sorties sans droits internes | autres_interne + lies | autres-mouvements-internes | autres-sorties + lies-vins-distilles |
 | sorties sans droits | autres + pertes | autres-sorties | autres-sorties |
 | stocks | total | stock-fin-periode | stock-fin-periode |
 

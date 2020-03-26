@@ -85,12 +85,16 @@
 	<p>Contrat de <?php echo $configurationVrac->formatTypesTransactionLibelle(array($vrac->type_transaction)); ?> de <?php echo ($vrac->produit)? $vrac->getLibelleProduit("%a% %l% %co% %ce%") : null; ?>&nbsp;<?php echo ($vrac->millesime)? $vrac->millesime.'&nbsp;' : ''; ?></p>
 	<p>Mention(s) : <?php echo ($vrac->getLibellesMentions())? $configurationVrac->formatMentionsLibelle($vrac->getLibellesMentions()) : '-'; ?></p>
 	<p>Certification(s)/Label(s) : <?php echo ($vrac->labels)? $configurationVrac->formatLabelsLibelle(array($vrac->labels)) : ($vrac->labels_arr)? str_replace('Autre', $vrac->labels_libelle_autre, $configurationVrac->formatLabelsLibelle($vrac->labels_arr)) : '-'; ?></p>
-	
+
 	<h2>Conditions</h2>
 	<p><?php if($vrac->type_transaction == 'raisin'): ?>Quantité<?php else: ?>Volume<?php endif; ?> total<?php if($vrac->type_transaction == 'raisin'): ?>e<?php endif; ?> : <?php echoFloat($vrac->volume_propose) ?>&nbsp;<?php if($vrac->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?></p>
 	<p>Date de début de retiraison : <?php if ($vrac->date_debut_retiraison): ?><?php echo Date::francizeDate($vrac->date_debut_retiraison) ?><?php endif; ?></p>
+	<p>Expédition export : <?php echo ($vrac->export)? 'Oui' : 'Non'; ?></p>
+	<?php if($vrac->isConditionneCivp()): ?>
+	<p>Entre bailleur et métayer : <?php echo ($vrac->bailleur_metayer)? 'Oui' : 'Non'; ?></p>
+	<?php endif; ?>
 	<p>Observations : <?php if ($vrac->exist('observations') && $vrac->observations): ?><?php echo $vrac->observations ?><?php endif; ?><br /></p>
-	
+
 	<?php if ($vrac->has_transaction): ?>
 	<hr />
 	<h2>Descriptif des lots</h2>

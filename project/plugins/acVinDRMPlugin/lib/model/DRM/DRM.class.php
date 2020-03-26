@@ -1658,25 +1658,35 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 		}
 		return null;
 	}
-	
+
 	public function getExportableLibelleMvt($key) {
 		return str_replace(array('acq_', '_details'), '', $key);
 	}
-	
+
 	public function getImportableLibelleMvt($type, $categorie, $key) {
 		if ($type == DRMCsvEdi::TYPE_DROITS_ACQUITTES && $categorie != 'complement') {
 			return 'acq_'.$this->getImportableMvt($key);
 		}
 		return $this->getImportableMvt($key);
 	}
-	
+
 	private function getImportableMvt($key) {
-		if ($key == 'observation') {
-			return 'observations';
-		}
+
+        $key = str_replace("autre_", "autres_", $key);
+
+        if(in_array($key, array("achats", "acq_achats", "acq_crds", "acq_replacements", "bloques", "commercialisables", "consommations", "crds", "declassements", "distillations", "embouteillages", "excedents", "exports", "instances", "manipulations", "mouvements", "mutages", "recoltes", "replis", "travails", "vcis", "vracs"," warrantes", "autres_internes"))) {
+
+            return preg_replace('/s$/', '', $key);
+        }
+
+        if(in_array($key, array("facture","lie","perte","autre","acq_autre", "observation", "crd_acquitte"))) {
+
+            return $key.'s';
+        }
+
 		return $key;
 	}
-	
+
 	public function getExportableCountryList() {
 		return array();
 	}

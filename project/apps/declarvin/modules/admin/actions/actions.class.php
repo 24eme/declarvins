@@ -123,7 +123,8 @@ class adminActions extends sfActions
   }
   public function executeLibelleModification(sfWebRequest $request)
   {
-  	$this->forward404Unless($this->key = $request->getParameter('key'));
+  	$this->forward404Unless($this->key4Route = $request->getParameter('key'));
+    $this->key = str_replace('@', '/', $this->key4Route);
   	$this->forward404Unless($this->type = $request->getParameter('type'));
   	if ($this->type == 'messages') {
   		$object = MessagesClient::getInstance()->retrieveMessages();
