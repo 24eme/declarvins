@@ -70,8 +70,11 @@ class CielService
 		if (!$token) {
 			$token = $this->getToken();
 		}
-		$result = $this->httpQuerry($this->configuration['urlapp'], array('http' => $this->getTransferHttpRequest($token, $datas)));
-		return $result;
+		if ($result = $this->httpQuerry($this->configuration['urlapp'], array('http' => $this->getTransferHttpRequest($token, $datas)))) {
+		  return $result;
+		} else {
+		    throw new sfException('Le service CIEL est actuellement indisponible.');
+		}
 	}
 	
 	public function seed($datas = null)
