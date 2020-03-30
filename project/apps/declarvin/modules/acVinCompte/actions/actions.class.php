@@ -61,7 +61,7 @@ class acVinCompteActions extends BaseacVinCompteActions {
     	$this->forward404Unless($this->login = $request->getParameter('login'));
     	$this->forward404Unless($this->rev = $request->getParameter('rev'));
         $this->forward404Unless($this->compte = _CompteClient::getInstance()->retrieveByLogin($this->login));
-        $this->forward404Unless($this->compte->_rev != $this->rev);
+        $this->forward404Unless($this->compte->_rev == $this->rev);
         $this->form = new CompteTiersPasswordForm($this->compte);
         if ($request->isMethod(sfWebRequest::POST)) {
             $this->form->bind($request->getParameter($this->form->getName()));
