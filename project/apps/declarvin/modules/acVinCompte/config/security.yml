@@ -1,2 +1,4 @@
 nouveau:
   is_secure: false
+redefinitionPassword:
+  is_secure: false
