@@ -25,7 +25,7 @@ compte_valide:
   url:   /compte/valide
   param: { module: acVinCompte, action: valide }
 compte_password:
-  url:   /compte/mot-de-passe/:login
+  url:   /compte/mot-de-passe/:login/:rev
   param: { module: acVinCompte, action: redefinitionPassword, login: null }
   options: { segment_separators: ["/"] }
 compte_lost_password:

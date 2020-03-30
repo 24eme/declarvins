@@ -3,7 +3,7 @@
 	<p class="flash_message"><?php echo $sf_user->getFlash('notice'); ?></p><br />
 	<?php endif; ?>
 	<p></p>
-	<form id="creation_compte" method="post" action="<?php echo url_for('compte_password', array('login' => $compte->login)) ?>">
+	<form id="creation_compte" method="post" action="<?php echo url_for('compte_password', array('login' => $compte->login, 'rev' => $compte->_rev)) ?>">
 		<?php echo $form->renderHiddenFields(); ?>
 		<?php echo $form->renderGlobalErrors(); ?>
 		<h1>Redéfinition de votre mot de passe</h1>
