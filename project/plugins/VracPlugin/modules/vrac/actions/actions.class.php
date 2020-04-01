@@ -74,7 +74,7 @@ class vracActions extends acVinVracActions
 		}
 		if ($vrac->mode_de_saisie != Vrac::MODE_DE_SAISIE_PAPIER) {
 			if ($vrac->exist('oioc') && $vrac->oioc->identifiant) {
-				if ($vrac->type_transaction == 'vrac') {
+				if ($vrac->type_transaction == 'vrac' && $vrac->type_retiraison == 'vrac') {
 					$oioc = OIOCClient::getInstance()->find($vrac->oioc->identifiant);
 					$etablissement = EtablissementClient::getInstance()->find($vrac->get('vendeur_identifiant'));
 					$configurationVrac = $this->getConfigurationVrac($vrac->interpro);
@@ -148,7 +148,7 @@ class vracActions extends acVinVracActions
 		}	
 		if ($vrac->mode_de_saisie != Vrac::MODE_DE_SAISIE_PAPIER) {
 			if ($vrac->exist('oioc') && $vrac->oioc->identifiant) {
-				if ($vrac->type_transaction == 'vrac') {
+				if ($vrac->type_transaction == 'vrac' && $vrac->type_retiraison == 'vrac') {
 					$oioc = OIOCClient::getInstance()->find($vrac->oioc->identifiant);
 					$etablissement = EtablissementClient::getInstance()->find($vrac->get('vendeur_identifiant'));
 					Email::getInstance()->vracTransactionAnnulation($vrac, $etab, $oioc, $oioc->email_transaction);
