@@ -47,7 +47,7 @@ class DRMESDetailsCrdForm extends acCouchdbForm {
         $values = $this->getValues();
         $this->obj->remove('crd_details');
         $this->obj->add('crd_details');
-        $volTotal = 0;
+        $volTotal = array();
         if ($details = $values['details']) {
             foreach ($details as $doc) {
                 if ($doc['volume'] > 0 && $doc['mois'] && $doc['annee']) {
@@ -55,10 +55,10 @@ class DRMESDetailsCrdForm extends acCouchdbForm {
                     $detail->volume = $doc['volume'];
                     $detail->mois = $doc['mois'];
                     $detail->annee = $doc['annee'];
-                    $volTotal += $doc['volume'];
+                    $volTotal[$doc['annee'].$doc['mois']] = $doc['volume'];
                 }
             }
-            $this->obj->crd = round($volTotal,5);
+            $this->obj->crd = round(array_sum($volTotal),5);
             $this->obj->getDocument()->save();
         }
     }
