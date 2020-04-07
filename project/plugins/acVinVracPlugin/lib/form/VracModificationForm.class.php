@@ -26,7 +26,7 @@ class VracModificationForm extends VracForm
         	'date_signature' => new sfValidatorDate(array('date_output' => 'Y-m-d', 'date_format' => '~(?P<day>\d{2})/(?P<month>\d{2})/(?P<year>\d{4})~', 'required' => true))
         ));
 
-        $this->validatorSchema->setPostValidator(new VracMarcheValidator($this->getObject()->isConditionneIvse()));
+        $this->validatorSchema->setPostValidator(new VracMarcheValidator($this->getObject()));
 
         $this->widgetSchema->setNameFormat('vrac_modification[%s]');
     }

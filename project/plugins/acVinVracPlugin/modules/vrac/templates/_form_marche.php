@@ -75,8 +75,14 @@
                 $date2 = new DateTime($limite);
                 $nbJour = ceil($date2->diff($date1)->format("%a") / 2);
                 $date1->modify("+$nbJour day");
-                $moitie = $date1->format('d/m/Y');
-                $fin = $date2->format('d/m/Y');
+                if ($form->getObject()->contrat_pluriannuel) {
+                    $limite = ($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31')? '30/06/'.(date('Y')+1) : '30/06/'.date('Y');
+                    $moitie = $limite;
+                    $fin = $limite;
+                } else {
+                    $moitie = $date1->format('d/m/Y');
+                    $fin = $date2->format('d/m/Y');
+                }
                 ?>
                 <p>&nbsp;</p>
                 <?php if(!$form->getObject()->isConditionneIvse()): ?>

@@ -3,10 +3,18 @@
 class VracMarcheValidator extends sfValidatorBase {
     
     protected $ivse;
+    protected $vrac;
     
-    public function __construct($ivse, $options = array(), $messages = array())
+    public function __construct($vrac, $options = array(), $messages = array())
     {
-        $this->ivse = $ivse;
+        if ($vrac) {
+            $this->vrac = $vrac;
+            $this->ivse = $vrac->isConditionneIvse();
+        } else {
+            $this->vrac = null;
+            $this->ivse = null;
+        }
+        
         parent::__construct($options, $messages);
     }
 
@@ -18,8 +26,13 @@ class VracMarcheValidator extends sfValidatorBase {
         $this->addMessage('impossible_date_retiraison', "La date limite doit être supérieur ou égale à la date de debut de retiraison");
         $this->addMessage('echeancier_date', "Vous devez saisir les dates de votre échéancier");
         $this->addMessage('echeancier_montant', "Vous devez saisir les montants de votre échéancier");
-        $this->addMessage('echeancier_max_date', "Vos échéances ne peuvent s'étaler au dela du 30/09 prochain");
-        $this->addMessage('echeancier_moitie_montant', "Au moins la moitié du montant total de la transaction doit être réglée à la moitié de la période d'aujourd'hui au 30/09 prochain");
+        if ($this->vrac->contrat_pluriannuel) {
+            $this->addMessage('echeancier_max_date', "Vos échéances ne peuvent s'étaler au dela du 15/09 prochain");
+            $this->addMessage('echeancier_moitie_montant', "Au moins la moitié du montant total de la transaction doit être réglée au 30/06 prochain");
+        } else {
+            $this->addMessage('echeancier_max_date', "Vos échéances ne peuvent s'étaler au dela du 30/09 prochain");
+            $this->addMessage('echeancier_moitie_montant', "Au moins la moitié du montant total de la transaction doit être réglée à la moitié de la période d'aujourd'hui au 30/09 prochain");
+        }
         $this->addMessage('echeancier_montant_total', "Le prix total de l'échéancier ne correspond pas au montant total du contrat");
     }
     
@@ -76,7 +89,12 @@ class VracMarcheValidator extends sfValidatorBase {
                 if (!$this->ivse) {
                     $maxd = null;
                     $today = date('Y-m-d');
-                    $limite = ($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31')? (date('Y')+1).'-09-30' : date('Y').'-09-30';
+                    
+                    if ($this->vrac->contrat_pluriannuel) {
+                        $limite = ($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31')? (date('Y')+1).'-09-15' : date('Y').'-09-15';
+                    } else {
+                        $limite = ($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31')? (date('Y')+1).'-09-30' : date('Y').'-09-30';
+                    }
                     foreach ($values['paiements'] as $key => $paiement) {
                         if (!$paiement['date']) {
                             $errorSchema->addError(new sfValidatorError($this, 'echeancier_date'), 'conditions_paiement');
@@ -97,8 +115,14 @@ class VracMarcheValidator extends sfValidatorBase {
                     }
                     
                     $date1 = new DateTime();
-                    $date2 = new DateTime($limite);
-                    $nbJour = ceil($date2->diff($date1)->format("%a") / 2);
+                    if ($this->vrac->contrat_pluriannuel) {
+                        $limite = ($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31')? (date('Y')+1).'-06-30' : date('Y').'-06-30';
+                        $date2 = new DateTime($limite);
+                        $nbJour = ceil($date2->diff($date1)->format("%a"));
+                    } else {
+                        $date2 = new DateTime($limite);
+                        $nbJour = ceil($date2->diff($date1)->format("%a") / 2);
+                    }
                     $date1->modify("+$nbJour day");
                     
                     $moitie = $date1->format('Y-m-d');
