@@ -387,11 +387,13 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 	  			return;
 	  		}
   		}
-
-  		if (!$categorieMvt && $typeMvt == 'vrac') {
-
+  		$vracIsComplement = false;
+  		if ((!$categorieMvt && $typeMvt == 'vrac') || ($typeMvt == 'vrac' && $datas[self::CSV_CAVE_CONTRATID])) {
+  		    if (!$categorieMvt) {
+  		        $vracIsComplement = true;
+  		    }
   			$numContrat = $datas[self::CSV_CAVE_CONTRATID];
-  			if (!$produit->hasSortieVrac()) {
+  			if (!$produit->hasSortieVrac() && $vracIsComplement) {
   				$this->csvDoc->addErreur($this->retiraisonNotAllowedError($numLigne, $datas));
   				return;
   			}
@@ -418,6 +420,9 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   			}
   			$produit->addVrac($numContrat, round($this->floatize($valeur), 2));
 
+  		}
+  		if ($vracIsComplement) {
+  		    return;
   		} elseif (!$categorieMvt && preg_match('/^observation/i', $typeMvt)) {
   			if (!$valeur) {
   				$this->csvDoc->addErreur($this->observationsEmptyError($numLigne, $datas));
