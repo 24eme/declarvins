@@ -108,6 +108,7 @@ EOF;
     	$date->modify('-1 day');
     	$target = $arguments['target']."&from=".$date->format('Y-m-d');	
     } else {
+        $date = null;
     	$target = $arguments['target'];	
     }
     
@@ -116,6 +117,14 @@ EOF;
     $files = array();
     if ($list !== FALSE) {
     	foreach ($list->children() as $item) {
+    	    if ($dailyMode && $date && ($headers = get_headers($item->__toString(),1))) {
+    	        if (isset($headers['Last-Modified'])) {
+    	            $d = DateTime::createFromFormat("D, d M Y H:i:s O", $headers['Last-Modified']);
+    	            if ($d->format('Ymd') != $date->format('Ymd')) {
+    	               continue;
+    	            }
+    	        }
+    	    }
     		$xmlIn = simplexml_load_file($item, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
     		if ($xmlIn !== FALSE) {
     			$ea = (string) $xmlIn->{"declaration-recapitulative"}->{"identification-declarant"}->{"numero-agrement"};
