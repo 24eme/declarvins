@@ -388,7 +388,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 	  		}
   		}
   		$vracIsComplement = false;
-  		if ((!$categorieMvt && $typeMvt == 'vrac') || ($typeMvt == 'vrac' && $datas[self::CSV_CAVE_CONTRATID])) {
+        if ((!$categorieMvt && $typeMvt == 'vrac') || ($typeMvt == 'vrac' && $datas[self::CSV_CAVE_CONTRATID] && preg_match('/[0-9]+/', $datas[self::CSV_CAVE_CONTRATID]))) {
   		    if (!$categorieMvt) {
   		        $vracIsComplement = true;
   		    }
