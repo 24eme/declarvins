@@ -8,22 +8,29 @@ class MouvementsConsultationView extends acCouchdbView {
     const KEY_PERIODE = 3;
     const KEY_ID = 4;
     const KEY_PRODUIT_HASH = 5;
-    const KEY_TYPE_HASH = 6;
-    const KEY_VRAC_NUMERO = 7;
-    const KEY_DETAIL_IDENTIFIANT = 8;
+    const KEY_TYPE_DRM = 6;
+    const KEY_TYPE_HASH = 7;
+    const KEY_VRAC_NUMERO = 8;
+    const KEY_DETAIL_IDENTIFIANT = 9;
+    
     const VALUE_ETABLISSEMENT_NOM = 0;
     const VALUE_PRODUIT_LIBELLE = 1;
-    const VALUE_TYPE_LIBELLE = 2;
-    const VALUE_VOLUME = 3;
-    const VALUE_VRAC_DESTINATAIRE = 4;
-    const VALUE_DETAIL_LIBELLE = 5;
-    const VALUE_DATE_VERSION = 6;
-    const VALUE_VERSION = 7;
-    const VALUE_CVO = 8;
-    const VALUE_FACTURABLE = 9;
-    const VALUE_MOUVEMENT_ID = 10;
-    const VALUE_PAYS = 11;
-    const VALUE_INTERPRO = 12;
+    const VALUE_TYPE_DRM_LIBELLE = 2;
+    const VALUE_TYPE_LIBELLE = 3;
+    const VALUE_VOLUME = 4;
+    const VALUE_VRAC_DESTINATAIRE = 5;
+    const VALUE_DETAIL_LIBELLE = 6;
+    const VALUE_DATE_VERSION = 7;
+    const VALUE_VERSION = 8;
+    const VALUE_CVO = 9;
+    const VALUE_FACTURABLE = 10;
+    const VALUE_MOUVEMENT_ID = 11;
+    const VALUE_PAYS = 12;
+    const VALUE_FACTURE = 13;
+    const VALUE_COEFFICIENT_FACTURE = 14;
+    const VALUE_DATE = 15;
+    const VALUE_FAMILLE = 16;
+    const VALUE_INTERPRO = 17;
 
     public static $types_document = array("DRM", "SV12");
 
