@@ -332,9 +332,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 $this->droits->getOrAdd(DRMDroits::DROIT_CVO)->getOrAdd($droitCvo->code)->integreVolume($detail->sommeLignes(DRMDroits::getDroitSorties()), $detail->sommeLignes(DRMDroits::getDroitEntrees()), $droitCvo->taux, 0, $droitCvo->libelle);
             }
             if ($droitDouane) {
-                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($droitDouane->code)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDouaneDroitEntrees()), $droitDouane->taux, 0, $droitDouane->libelle);
+                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($droitDouane->code)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDouaneDroitEntrees()), $droitDouane->taux, 0, $droitDouane->libelle, $detail->tav);
                 $codeTotal = DRMDroitsCirculation::getCorrespondanceCode($droitDouane->code).'_'.DRMDroitsCirculation::KEY_VIRTUAL_TOTAL;
-                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($codeTotal)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDouaneDroitEntrees()), $droitDouane->taux, 0, $codeTotal);
+                $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE)->getOrAdd($codeTotal)->integreVolume($detail->sommeLignes(DRMDroits::getDouaneDroitSorties()), $detail->sommeLignes(DRMDroits::getDouaneDroitEntrees()), $droitDouane->taux, 0, $codeTotal, $detail->tav);
             }
         }
         $douanes = $this->droits->getOrAdd(DRMDroits::DROIT_DOUANE);

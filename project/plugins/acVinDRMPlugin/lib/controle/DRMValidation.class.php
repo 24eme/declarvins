@@ -299,6 +299,9 @@ class DRMValidation
 		) {
 			$this->warnings['stocksdebut_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('stocksdebut', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
 		}
+		if ($detail->tav > 0) {
+		    $this->warnings['saisiealcool_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('saisiealcool', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
+		}
 	}
 	
 	public function hasEngagements()
