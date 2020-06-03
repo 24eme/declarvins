@@ -37,7 +37,7 @@ class VracTransactionValidator extends sfValidatorBase {
     					$errorSchema->addError(new sfValidatorError($this, 'impossible_date'));
     					$hasError = true;
 	        }
-	        if ($total != $values['volume_propose']) {
+	        if (round($total,5) != round($values['volume_propose'], 5)) {
 	        	//throw new sfValidatorErrorSchema($this, array(new sfValidatorError($this, 'impossible_volume')));
     					$errorSchema->addError(new sfValidatorError($this, 'impossible_volume'));
     					$hasError = true;
