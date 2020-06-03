@@ -55,6 +55,9 @@ if ($circulation && $typedroit == "douane"):
 if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)){continue;}
 $droits_circulation = $circulation->getDroits();
 ?>   
+<p style="color: #820608; text-align:right; margin-top: -40px;">
+<strong>A TITRE INDICATIF UNIQUEMENT</strong><br />Prenez en compte les droits indiqués sur CIEL, une fois votre DRM transmise
+</p>
 <div class="tableau_ajouts_liquidations">
     <table class="tableau_recap">
 	<thead>
