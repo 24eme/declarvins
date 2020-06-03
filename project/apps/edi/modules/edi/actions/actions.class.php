@@ -108,11 +108,11 @@ class ediActions extends sfActions
   	set_time_limit(0);
     $date = $request->getParameter('datedebut');
     $oioc = $request->getParameter('oioc');
-    //$this->securizeOioc($oioc);
+    $this->securizeOioc($oioc);
     if (!$date) {
 		return $this->renderText("Pas de date définie");
     }
-    $interpro = "INTERPRO-CIVP"; //current(array_keys($this->getCompte()->interpro->toArray()));
+    $interpro = current(array_keys($this->getCompte()->interpro->toArray()));
     $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
     $vracs = $this->transactionCallback($interpro, VracOiocView::getInstance()->findByOiocAndDate($oioc, OIOC::STATUT_EDI, "vrac", $dateForView->modify('-1 second')->format('c'))->rows);
