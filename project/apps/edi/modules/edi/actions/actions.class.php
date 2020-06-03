@@ -108,15 +108,15 @@ class ediActions extends sfActions
   	set_time_limit(0);
     $date = $request->getParameter('datedebut');
     $oioc = $request->getParameter('oioc');
-    $this->securizeOioc($oioc);
+    //$this->securizeOioc($oioc);
     if (!$date) {
 		return $this->renderText("Pas de date définie");
     }
-    $interpro = current(array_keys($this->getCompte()->interpro->toArray()));
+    $interpro = "INTERPRO-CIVP"; //current(array_keys($this->getCompte()->interpro->toArray()));
     $dateTime = new DateTime($date);
     $dateForView = new DateTime($date);
-    $vracs = $this->transactionCallback($interpro, VracOiocView::getInstance()->findByOiocAndDate($oioc, OIOC::STATUT_EDI, "Vrac", $dateForView->modify('-1 second')->format('c'))->rows);
-    return $this->renderCsv($vracs, VracDateView::VALUE_DATE_SAISIE, "TRANSACTION", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID));
+    $vracs = $this->transactionCallback($interpro, VracOiocView::getInstance()->findByOiocAndDate($oioc, OIOC::STATUT_EDI, "vrac", $dateForView->modify('-1 second')->format('c'))->rows);
+    return $this->renderCsv($vracs, VracOiocView::VALUE_DATE_SAISIE, "TRANSACTION", $dateTime->format('c'), $interpro, array(VracDateView::VALUE_ACHETEUR_ID, VracDateView::VALUE_VENDEUR_ID));
   }
 
   public function executeStreamDAE(sfWebRequest $request)
@@ -981,13 +981,12 @@ class ediActions extends sfActions
   		$vracs = array();
   		$configurationVrac = ConfigurationClient::getCurrent()->getConfigurationVracByInterpro($interpro);
   		foreach ($items as $item) {
-  			if ($item->value[VracDateView::VALUE_STATUT] == VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION) {
+  			if ($item->value[VracOiocView::VALUE_STATUT] == VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION) {
   				continue;
   			}
-  			$item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE] = $configurationVrac->formatTypesTransactionLibelle(array($item->value[VracDateView::VALUE_TYPE_CONTRAT_LIBELLE]));
-  			$item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE] = $configurationVrac->formatCasParticulierLibelle(array($item->value[VracDateView::VALUE_CAS_PARTICULIER_LIBELLE]));
-  			$item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE] = $configurationVrac->formatConditionsPaiementLibelle(array($item->value[VracDateView::VALUE_CONDITIONS_PAIEMENT_LIBELLE]));
-  			unset($item->value[VracDateView::VALUE_VOLUME_RETIRE]);
+  			$item->value[VracOiocView::VALUE_TYPE_CONTRAT_LIBELLE] = $configurationVrac->formatTypesTransactionLibelle(array($item->value[VracOiocView::VALUE_TYPE_CONTRAT_LIBELLE]));
+  			$item->value[VracOiocView::VALUE_CAS_PARTICULIER_LIBELLE] = $configurationVrac->formatCasParticulierLibelle(array($item->value[VracOiocView::VALUE_CAS_PARTICULIER_LIBELLE]));
+  			$item->value[VracOiocView::VALUE_CONDITIONS_PAIEMENT_LIBELLE] = $configurationVrac->formatConditionsPaiementLibelle(array($item->value[VracOiocView::VALUE_CONDITIONS_PAIEMENT_LIBELLE]));
   			$vracs[] = $item;
   		}
   		return $vracs;
@@ -1028,7 +1027,7 @@ class ediActions extends sfActions
   		return $drms;
   }
 
-  protected function renderCsv($items, $dateSaisieIndice, $type, $date = null, $interpro, $correspondances = array(), $entetes) 
+  protected function renderCsv($items, $dateSaisieIndice, $type, $date = null, $interpro, $correspondances = array(), $entetes = null) 
   {
     $this->setLayout(false);
     $csv_file = '';
