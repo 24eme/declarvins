@@ -1,6 +1,12 @@
 <?php $clauses = $configurationVrac->clauses ?>
 <?php $clauses_complementaires = $configurationVrac->clauses_complementaires ?>
 
+<style>
+#informations_complementaires table td, #informations_complementaires table th {
+    border: 1px solid #000;
+}
+</style>
+
 <form method="post" action="<?php echo url_for('vrac_etape', array('sf_subject' => $form->getObject(), 'step' => $etape, 'etablissement' => $etablissement)) ?>" enctype="multipart/form-data">
  <?php echo $form->renderHiddenFields() ?>
  <?php echo $form->renderGlobalErrors() ?>
@@ -52,7 +58,9 @@
 <?php endif; ?>
 <?php if ($configurationVrac->informations_complementaires): ?>
 <h1>Informations complémentaires</h1>
+<div id="informations_complementaires">
 <?= html_entity_decode($configurationVrac->informations_complementaires); ?>
+</div>
 <?php endif; ?>
 
 <?php if (isset($form['autres_conditions'])): ?>
