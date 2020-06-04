@@ -318,16 +318,7 @@ class Configuration extends BaseConfiguration {
     }
 
     protected function constructCode($produit) {
-        $codes = $produit->getCodes();
-        $code_produit = '';
-        foreach ($codes as $k => $c) {
-            if (!$k) {
-                $code_produit .= ($c) ? $c : '';
-            } else {
-                $code_produit .= ($c) ? $c : '';
-            }
-        }
-        return $code_produit;
+        return $produit->getIdentifiantDouane();
     }
     
 
