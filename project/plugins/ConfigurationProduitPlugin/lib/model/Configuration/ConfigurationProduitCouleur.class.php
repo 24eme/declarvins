@@ -80,6 +80,14 @@ class ConfigurationProduitCouleur extends BaseConfigurationProduitCouleur
         }
         return array();
     }
+    
+    public function getIdentifiantDouane() {
+        $defautCep = null;
+        if ($this->cepages->exist(ConfigurationProduit::DEFAULT_KEY)) {
+            $defautCep = $this->cepages->get(ConfigurationProduit::DEFAULT_KEY);
+        }
+        return ($defautCep)? $defautCep->getIdentifiantDouane() : null;
+    }
 
 	/*
      * Les fonctions ci-dessous sont relatives à la gestion de la configuration du catalogue produit
