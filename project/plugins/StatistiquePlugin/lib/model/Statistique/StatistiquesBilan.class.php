@@ -32,6 +32,7 @@ class StatistiquesBilan {
             $first = null;
             $last = null;
             $lastSaisie = null;
+            $lastStatut = null;
             foreach ($bilanDatas->periodes as $periodesKey => $periodesValues) {
 	    		if (!$first && $periodesValues->id_drm) {
 	    			$first = $periodesKey;
@@ -42,11 +43,13 @@ class StatistiquesBilan {
 	    		if ($periodesValues->id_drm) {
 	    			$lastSaisie = $periodesKey;
                 	$last = $periodesValues->total_fin_de_mois;
+                	$lastStatut = $periodesValues->statut;
 	    		}
             }
             $bilan->first_periode = $first;
             $bilan->last_stock = $last;
             $bilan->last_saisie = $lastSaisie;
+            $bilan->last_statut = $lastStatut   ;
             
             $bilan->periodesNMoins1 = array();
             foreach ($bilanDatas->periodes as $periodesKey => $periodesValues) {
@@ -128,9 +131,10 @@ class StatistiquesBilan {
         $firstSaisie = $bilanOperateur->first_periode;
         $lastStock = $bilanOperateur->last_stock;
         $lastSaisie = $bilanOperateur->last_saisie;
+        $lastStatut = $bilanOperateur->last_statut;
         foreach ($this->buildPeriodes() as $periode) {
         	if ($firstSaisie && $periode >= $firstSaisie) {
-        		if ($lastSaisie && $periode > $lastSaisie && !$lastStock) {
+        		if ($lastSaisie && $periode > $lastSaisie && !$lastStock && $lastStatut != DRMClient::DRM_STATUS_BILAN_NON_VALIDE) {
         			$statutsDrmsCsv .= $libelles[DRMClient::DRM_STATUS_BILAN_STOCK_EPUISE].";";
         		} else {
 	        	if (!isset($bilanOperateur->periodes[$periode]) || is_null($bilanOperateur->periodes[$periode])) {
