@@ -76,7 +76,18 @@ L'url de récupération des contrats d'achat pour une interprofession partenaire
  
 Cet export fournira la liste complète des contrats d'achat visés et non soldés dont les produits concernent l'interprofession partenaire désignée.
 
-La spécification complète du format d'import et d'export des contrats d'achat est détaillée ici : [Spécification contrats d'achat DeclarVins](https://github.com/24eme/declarvins/tree/master/doc/logiciels-tiers/CONTRATS.md). 
+## Interface EDI Transaction
+
+L'url de récupération des transactions pour un organisme d'inspection / de controle partenaire est : 
+
+/edi.php/edi/v2/transaction/\<\<oioc\>\>/\<\<date\>\>
+
+ * \<\<oioc\>\> : correspond à l'identifiant de l'organisme partenaire
+ * \<\<date\>\> : correspondant à la date au format ISO 8601 [6] à partir de laquelle les Contrats ont été saisies (le format horaire 00h00m00 est aussi accepté)
+ 
+Cet export fournira la liste complète des transactions visés dont les produits concernent l'organisme partenaire désigné.
+
+La spécification complète du format d'export des transactions est détaillée ici : [Spécification transactions DeclarVins](https://github.com/24eme/declarvins/tree/master/doc/logiciels-tiers/TRANSACTIONS.md). 
 
 
    [1]: https://fr.wikipedia.org/wiki/Authentification_HTTP
