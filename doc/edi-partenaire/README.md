@@ -76,6 +76,8 @@ L'url de récupération des contrats d'achat pour une interprofession partenaire
  
 Cet export fournira la liste complète des contrats d'achat visés et non soldés dont les produits concernent l'interprofession partenaire désignée.
 
+La spécification complète du format d'export des contrats d'achat est détaillée ici : [Spécification Contrats d'achat DeclarVins](https://github.com/24eme/declarvins/tree/master/doc/logiciels-tiers/CONTRATS.md). 
+
 ## Interface EDI Transaction
 
 L'url de récupération des transactions pour un organisme d'inspection / de controle partenaire est : 
