@@ -89,6 +89,10 @@ L'url de récupération des transactions pour un organisme d'inspection / de con
  
 Cet export fournira la liste complète des transactions visés dont les produits concernent l'organisme partenaire désigné.
 
+La nomenclature du fichier CSV retourné est : 
+
+TRANSACTION_\<\<date demandée\>\>_\<\<date de saisie du dernier contrat retourné\>\>.csv 
+
 La spécification complète du format d'export des transactions est détaillée ici : [Spécification transactions DeclarVins](https://github.com/24eme/declarvins/tree/master/doc/logiciels-tiers/TRANSACTIONS.md). 
 
 
