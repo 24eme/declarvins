@@ -32,6 +32,15 @@ Le catalogue des mouvements de DRM admis par le portail DeclarVins  [Catalogue m
 3. Le type du mouvement : achat, crd, vrac, repli...
 4. Un commentaire : définition du mouvement
 
+## Complément produit
+
+Pour affecter un label à un produit, il faut utiliser la colonne 12 (complément) en spécifiant une des valeurs suivantes :
+
+ * BIOL (Agriculture biologique)
+ * RAIS (Agriculture raisonnée)
+ * BIOD (Biodynamie)
+ * BIOC (AB en conversion)
+ 
 ## Libellé personnalisé
 
 Il est possible de personnaliser les libellés des produits pour se mettre en conformité avec ceux de Prodouane, d'inclure des mentions valorisantes, de différencier des alcools à taux différents...
@@ -40,7 +49,7 @@ Pour cela, il faut obligatoirement identifier le produit via le code INAO ou le 
 
 et 
 
-préciser le libellé personnalisé complet du produit en colonne 12 (complément) ou 13 (libellé).
+préciser le libellé personnalisé complet du produit 13 (libellé) ou en colonne 12 (complément) si le produit n'est pas complémenté par un label.
 
 ## Description des lignes CRD
 
