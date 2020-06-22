@@ -189,7 +189,7 @@
 	<hr />
 	<h2>Clauses</h2>
 	<div class="clauses">
-	<?php foreach ($configurationVrac->clauses as $k => $clause): ?>
+	<?php foreach ($vrac->clauses as $k => $clause): ?>
     <h3><?= $clause['nom'] ?></h3>
     <p><?= $clause['description'] ?></p>
     <?php if ($k == 'resiliation'): ?>

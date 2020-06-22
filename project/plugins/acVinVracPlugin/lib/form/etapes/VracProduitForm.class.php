@@ -67,6 +67,7 @@ class VracProduitForm extends VracForm
 	        }
         }
         $this->getObject()->update();
+        $this->getObject()->initClauses();
         $interpro = $this->getObject()->getProduitInterpro();
         if ($interpro && $interpro->identifiant == 'CIVP' && !sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
             $this->getObject()->has_transaction = 1;

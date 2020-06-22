@@ -6,20 +6,13 @@ class VracClauseForm extends VracForm
 
     public function configure()
     {
-        $this->setWidget('emission_facture', new sfWidgetFormInputCheckbox());
-        $this->setValidator('emission_facture', new sfValidatorBoolean(
-            ['required' => false] 
-        ));
-
-        $this->setWidget('agreage_vins', new sfWidgetFormInputCheckbox());
-        $this->setValidator('agreage_vins', new sfValidatorBoolean(
-            ['required' => false]
-        ));
-
-        $this->setWidget('transfert_propriete', new sfWidgetFormInputCheckbox());
-        $this->setValidator('transfert_propriete', new sfValidatorBoolean(
-            ['required' => false]
-        ));
+        $clauses_complementaires = $this->getConfiguration()->clauses_complementaires;
+        foreach ($clauses_complementaires as $key => $value) {
+            $this->setWidget($key, new sfWidgetFormInputCheckbox());
+            $this->setValidator($key, new sfValidatorBoolean(
+                ['required' => false]
+                ));
+        }
 
         $this->setWidget('autres_conditions', new sfWidgetFormTextarea(
             [],
@@ -59,15 +52,12 @@ class VracClauseForm extends VracForm
     }
     protected function updateDefaultsFromObject() {
       parent::updateDefaultsFromObject(); 
+      $clauses_complementaires = $this->getConfiguration()->clauses_complementaires;
       $complements = explode(',', $this->getObject()->clauses_complementaires);
-      if (!in_array('emission_facture', $complements)) {
-          $this->setDefault('emission_facture', 0);
-      }
-      if (!in_array('agreage_vins', $complements)) {
-          $this->setDefault('agreage_vins', 0);
-      }
-      if (!in_array('transfert_propriete', $complements)) {
-          $this->setDefault('transfert_propriete', 0);
-      }
+        foreach ($clauses_complementaires as $key => $value) {
+            if (!in_array($key, $complements)) {
+              $this->setDefault($key, 0);
+          }
+        }
     }
 }

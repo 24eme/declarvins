@@ -31,13 +31,26 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     	return $id;
     }
     
-    public function initClausesComplementaires() {
+    public function initClauses() {
+        $this->remove('clauses');
+        $this->remove('clauses_complementaires');
+        $this->add('clauses');
+        $this->add('clauses_complementaires');
+        $interpro = $this->getProduitInterpro();
+        if (!$interpro) {
+            $interpro = ($this->interpro)? InterproClient::getInstance()->find($this->interpro) : null;
+        }
+        if (!$interpro) {
+            return;
+        }
+        if (!ConfigurationClient::getCurrent()->vrac->interpro->exist($interpro->_id)) {
+            return;
+        }
+        $configuration = ConfigurationClient::getCurrent()->vrac->interpro->get($interpro->_id);
+        $this->clauses = $configuration->get('clauses');
         $cc = array();
-        $configuration = ConfigurationClient::getCurrent();
-        foreach ($configuration->vrac->interpro as $interpro) {
-            foreach ($interpro->clauses_complementaires as $k => $v) {
-                $cc[$k] = $k;
-            }
+        foreach ($configuration->get('clauses_complementaires') as $k => $v) {
+            $cc[$k] = $k;
         }
         $this->clauses_complementaires = implode(',', $cc);
     }

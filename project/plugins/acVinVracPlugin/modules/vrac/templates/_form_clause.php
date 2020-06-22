@@ -1,5 +1,5 @@
-<?php $clauses = $configurationVrac->clauses ?>
-<?php $clauses_complementaires = $configurationVrac->clauses_complementaires ?>
+<?php $clauses = $form->getObject()->clauses ?>
+<?php $clauses_complementaires = $configurationVrac->clauses_complementaires; ?>
 
 <style>
 #informations_complementaires table td, #informations_complementaires table th {
