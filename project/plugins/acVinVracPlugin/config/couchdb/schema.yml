@@ -340,4 +340,12 @@ Vrac:
       commentaires: {  }
       observations: {  }
       mode_de_saisie: {  }
-
+      clauses:
+        type: collection
+        definition:
+          fields:
+            '*':
+              type: collection
+              definition:
+                fields:
+                  '*': {  }
