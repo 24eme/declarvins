@@ -28,4 +28,17 @@ class MessagesClient extends acCouchdbClient {
       return "\"".$id."\" PAS DE MESSAGE TROUVÉ !!";
     }
   }
+
+  public function getInfos($interpro) {
+      $interpro = str_replace('INTERPRO-', '', $interpro);
+      if ($interpro == 'IR') {
+          $m = trim($this->retrieveMessages()->info_encart_ir);
+          return ($m)? $m : null;
+      }
+      if ($interpro == 'CIVP') {
+          $m = trim($this->retrieveMessages()->info_encart_civp);
+          return ($m)? $m : null;
+      }
+      return null;
+  }
 }

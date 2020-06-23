@@ -99,13 +99,22 @@ use_helper('Text');
 <?php endif; ?>
 
 <?php if ($sf_user->hasFlash('notice')){ ?>
-    <div id="flash_message">
+    <div id="flash_message" style="padding-top: 0px">
         <div class="flash_notice"><?php echo $sf_user->getFlash('notice'); ?></div>
     </div>
 <?php } ?>
 
 <?php if ($sf_user->hasFlash('error')){ ?>
-    <div id="flash_message">
+    <div id="flash_message" style="padding-top: 0px">
         <div class="flash_error"><?php echo esc_entities($sf_user->getFlash('error')); ?></div>
     </div>
 <?php } ?>
+
+<?php if ($info = MessagesClient::getInstance()->getInfos($etablissement->interpro)): ?>
+<div id="flash_message" style="padding-top: 0px">
+    <div style="background: none repeat scroll 0 0 #d9e0ed; border: 1px solid #182188; color: #182188; font-weight: bold; margin: 0 0 10px 0; padding: 5px 10px;">
+    	<h3 style="font-size: 14px; height: 32px; line-height: 28px; padding-bottom: 5px;" ><img src="/images/pictos/info2.png" style="float: left; height: 32px;" />&nbsp;Alertes / Infos</h3>
+    	<?php echo $info ?> 
+	</div>
+</div>
+<?php endif; ?>

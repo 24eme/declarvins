@@ -1,27 +1,5 @@
 <?php include_component('global', 'navTop', array('active' => 'drm')); ?>
 
-<?php if ($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE): ?>
-	<?php if($lastDrmInfos = $sf_user->getDerniereDrmSaisie()): ?>
-			<?php if ($lastDrmInfos['valide'] === 'NEW'): ?>
-				<?php if (str_replace('-', '', $lastDrmInfos['periode']) < date('Ym')): ?>
-			    <div id="flash_message">
-			        <div class="flash_error">/!\ Vous devez saisir votre DRM de <?php echo strftime('%B %Y', strtotime($lastDrmInfos['periode'].'-01')); ?> /!\</div>
-			    </div>
-				<?php endif; ?>
-			<?php else: ?>
-				<?php if (!$lastDrmInfos['valide'] && str_replace('-', '', $lastDrmInfos['periode']) < date('Ym')): ?>
-			    <div id="flash_message">
-			        <div class="flash_error">/!\ Vous n'avez pas validé votre DRM de <?php echo strftime('%B %Y', strtotime($lastDrmInfos['periode'].'-01')); ?> /!\</div>
-			    </div>
-			    <?php elseif (str_replace('-', '', $lastDrmInfos['periode']) < date('Ym', strtotime('-1 month'))): ?>
-			    <div id="flash_message">
-			        <div class="flash_error">/!\ Vous devez saisir votre DRM de <?php echo strftime('%B %Y', strtotime('next month',strtotime($lastDrmInfos['periode'].'-01'))); ?> /!\</div>
-			    </div>
-				<?php endif; ?>
-			<?php endif; ?>			
-		<?php endif; ?>
-<?php endif; ?>
-
 <section id="contenu">
     
     <h1>Déclaration Récapitulative Mensuelle <a href="" class="msg_aide" data-msg="help_popup_monespace" data-doc="<?php echo url_for('drm_notice') ?>" title="Message aide"></a></h1>
@@ -29,16 +7,34 @@
     <p class="intro">Bienvenue sur votre espace DRM. Que voulez-vous faire ?</p>
     
     <?php if ($sf_user->hasFlash('erreur_drm')): ?>
-    <div id="flash_message">
+    <div id="flash_message" style="padding-top: 0px">
 		<div class="flash_error"><?php echo $sf_user->getFlash('erreur_drm') ?></div>
 	</div>
     <?php endif; ?>
     
 	<?php if ($hasDrmEnCours): ?>
-	<div id="flash_message">
+	<div id="flash_message" style="padding-top: 0px">
 		<div class="flash_warning">Vous n'avez pas validé votre DRM de <?php echo strftime('%B %Y', strtotime($drmEnCours->periode.'-01')); ?> : <a href="<?php echo url_for('drm_init', $drmEnCours) ?>">Accéder à la déclaration en cours</a></div>
 	</div>
 	<?php endif; ?>
+	
+	<?php if ($etablissement && $etablissement->statut != Etablissement::STATUT_ARCHIVE && !$hasDrmEnCours): ?>
+    	<?php if($lastDrmInfos = $sf_user->getDerniereDrmSaisie()): ?>
+    			<div id="flash_message" style="padding-top: 0px">
+    			<?php if ($lastDrmInfos['valide'] === 'NEW'): ?>
+    				<?php if (str_replace('-', '', $lastDrmInfos['periode']) < date('Ym')): ?>
+    			        <div class="flash_error">/!\ Vous devez saisir votre DRM de <?php echo strftime('%B %Y', strtotime($lastDrmInfos['periode'].'-01')); ?> /!\</div>
+    				<?php endif; ?>
+    			<?php else: ?>
+    				<?php if (!$lastDrmInfos['valide'] && str_replace('-', '', $lastDrmInfos['periode']) < date('Ym')): ?>
+    			        <div class="flash_error">/!\ Vous n'avez pas validé votre DRM de <?php echo strftime('%B %Y', strtotime($lastDrmInfos['periode'].'-01')); ?> /!\</div>
+    			    <?php elseif (str_replace('-', '', $lastDrmInfos['periode']) < date('Ym', strtotime('-1 month'))): ?>
+    			        <div class="flash_error">/!\ Vous devez saisir votre DRM de <?php echo strftime('%B %Y', strtotime('next month',strtotime($lastDrmInfos['periode'].'-01'))); ?> /!\</div>
+    				<?php endif; ?>
+    			<?php endif; ?>
+    			</div>	
+    		<?php endif; ?>
+    <?php endif; ?>
     
     <section id="principal">
         <div id="recap_drm">
