@@ -112,7 +112,7 @@ use_helper('Text');
 
 <?php if ($info = MessagesClient::getInstance()->getInfos($etablissement->interpro)): ?>
 <div id="flash_message" style="padding-top: 0px">
-    <div style="background: none repeat scroll 0 0 #d9e0ed; border: 1px solid #182188; color: #182188; font-weight: bold; margin: 0 0 10px 0; padding: 5px 10px;">
+    <div class="flash_error">
     	<h2 style="font-size: 14px; height: 32px; line-height: 28px; padding: 0 0 5px 0; margin: 0; font-weight: bold; " ><img src="/images/pictos/info2.png" style="float: left; height: 32px;" />&nbsp;Alertes / Infos</h2>
     	<?php echo $info ?> 
 	</div>
