@@ -44,6 +44,7 @@
                                 <th><?php echo mb_strtoupper(format_date($periode.'-01', 'MMMM yyyy', 'fr_FR'), 'UTF-8') ?></th>
                                 <th>DRM PAPIER</th>
                                 <th>DRM DTI</th>
+                                <th>DRM DTI+</th>
                                 <th>DRM CIEL</th>
                                 <th>TOTAL DRM</th>
                                 <th>DEMAT. CIEL</th>
@@ -54,6 +55,7 @@
                             	<td>Nb DRM</td>
                             	<td><?php echo $stats['PAPIER'] ?></td>
                             	<td><?php echo $stats['DTI'] ?></td>
+                            	<td><?php echo $stats['DTI_PLUS'] ?></td>
                             	<td><?php echo $stats['CIEL'] ?></td>
                             	<td><?php echo $stats['TOTAL'] ?></td>
                             	<td><?php echo $stats['DEMAT'] ?>&nbsp;%</td>

@@ -164,6 +164,7 @@ class StatistiquesBilan {
     	$stats = array(
     		'PAPIER' => 0,
     		'DTI' => 0,
+    		'DTI_PLUS' => 0,
     		'CIEL' => 0,
     		'TOTAL' => 0,
     		'DEMAT' => 0
@@ -194,13 +195,15 @@ class StatistiquesBilan {
     				}
 	    			if (trim($bilanOperateur->periodes[$periode]->mode_de_saisie) == 'PAPIER') {
 	    				$stats['PAPIER'] = $stats['PAPIER']+1;
+	    			} elseif (trim($bilanOperateur->periodes[$periode]->mode_de_saisie) == 'DTI_PLUS') {
+	    			    $stats['DTI_PLUS'] = $stats['DTI_PLUS']+1;
 	    			} else {
 	    				$stats['DTI'] = $stats['DTI']+1;
 	    			}
     			}
     		}
     	}
-    	$stats['TOTAL'] = $stats['PAPIER'] + $stats['DTI'] + $stats['CIEL'];
+    	$stats['TOTAL'] = $stats['PAPIER'] + $stats['DTI'] + $stats['CIEL'] + $stats['DTI_PLUS'];
     	$stats['DEMAT'] = ($stats['TOTAL'] > 0 && $stats['CIEL'] > 0)? round(($stats['CIEL'] / $stats['TOTAL']) * 100) : 0;
     	return $stats;
     }
