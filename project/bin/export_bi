@@ -31,12 +31,12 @@ curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/vrac/_view/historybi  | 
 echo "#ETABLISSEMENT;statut (ACTIF, SUSPENDU);famille;identifiant societe;identifiant interne;nom;identifiant;cvi;region viticole;raison sociale;siege.adresse;siege.commune;siege.code postal;no accises;carte pro;email;telephone;fax;recette_locale_id_douane;recette_locale_nom;" > $TMP/export_bi_etablissements.csv
 curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/etablissement/_view/all  | grep "CONFIGURATION-ZONE-$Z" | sed -f bin/unicode2alpha | sed '1d' | sed 's/{"id"://g' | sed 's/"key":\[//g' | sed 's/\],"value":null}//g'  | sed 's/,/;/g' | sed 's/"//g' | awk -F ';' 'BEGIN { OFS=";" }{ print "ETABLISSEMENT;"$2";"$4";;;"$8";"$9";"$13";;"$10";;"$14";"$15";"$20";;;;;;"$18";" }' | sed 's/null//g'  >> $TMP/export_bi_etablissements.csv
 
-. bin/export_bi_stocks
+. bin/export_bi_stocks $1
 
 echo "#ID;Type document;campagne;identifiant;certifications;genres;appellations;mentions;lieux;couleurs;cepages;date;modificatrice;stock debut;entree;entree revendiquee;sortie;sortie revendiquee;stock fin;nom;libelle produit" > $TMP/export_bi_drm_stock.csv
 cat $TMP/export_bi_drm_stock_last_modificatrices.csv | sed 's/"//g' | sed 's|/declaration/certifications/||' | sed 's|/genres/|;|' | sed 's|/appellations/|;|' | sed 's|/mentions/|;|' | sed 's|/lieux/|;|' | sed 's|/couleurs/|;|' | sed 's|/cepages/|;|' >> $TMP/export_bi_drm_stock.csv
 
-. bin/export_bi_drm
+. bin/export_bi_drm $1
 
 cd $TMP
 recode UTF8..ISO88591-1 export_bi_mouvements.csv export_bi_contrats.csv export_bi_etablissements.csv export_bi_drm_stock.csv
