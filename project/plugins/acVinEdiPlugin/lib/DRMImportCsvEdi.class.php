@@ -410,15 +410,16 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   					break;
   				}
   			}
-  			if (!$exist) {
+  			if (!$exist && $produit->getCertification()->getKey() != 'VINSSANSIG') {
   				$this->csvDoc->addErreur($this->contratNotFoundError($numLigne, $datas));
   				return;
-  			}
-  			if (!is_numeric($valeur) || $valeur < 0) {
+  			} elseif (!is_numeric($valeur) || $valeur < 0) {
   				$this->csvDoc->addErreur($this->valeurMouvementNotValidError($numLigne, $datas));
   				return;
   			}
-  			$produit->addVrac($numContrat, round($this->floatize($valeur), 2));
+  			if ($exist) {
+  			   $produit->addVrac($numContrat, round($this->floatize($valeur), 2));
+  			}
 
   		}
   		if ($vracIsComplement) {
