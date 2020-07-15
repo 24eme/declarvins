@@ -12,3 +12,4 @@ project/data/dae/import-test.csv
 *~
 project/plugins/acVinDAEPlugin
 project/plugins/acVinFichierPlugin
+project/plugins/acVinSubventionPlugin
