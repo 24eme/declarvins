@@ -5,6 +5,7 @@ class CielCftTask extends sfBaseTask
 	CONST RAPPORT_OK_KEY = 'OK';
 	CONST RAPPORT_DIFF_KEY = 'DIFF';
 	CONST RAPPORT_NONSAISIE_KEY = 'NONSAISIE';
+	CONST RAPPORT_GENERATE_KEY = 'GENERATE';
 	CONST RAPPORT_PASS_KEY = 'PASS';
 	CONST RAPPORT_ERROR_KEY = 'ERROR';
 	
@@ -38,6 +39,7 @@ EOF;
   	$rapport[self::RAPPORT_OK_KEY] = array();
   	$rapport[self::RAPPORT_DIFF_KEY] = array();
   	$rapport[self::RAPPORT_NONSAISIE_KEY] = array();
+  	$rapport[self::RAPPORT_GENERATE_KEY] = array();
   	$rapport[self::RAPPORT_PASS_KEY] = array();
   	$rapport[self::RAPPORT_ERROR_KEY] = array();
   	return $rapport;
@@ -61,6 +63,9 @@ EOF;
   			break;
   		case self::RAPPORT_ERROR_KEY:
   			$title .= ($nb > 1)? ' Erreurs sont survenues' : ' Erreur est survenue';
+  			break;
+  		case self::RAPPORT_GENERATE_KEY:
+  			$title .= ($nb > 1)? ' DRM à stock épuisé ont bien été générées automatiquement ' : ' DRM a bien été générée';
   			break;
   		default:
   			$title = '';
@@ -147,9 +152,9 @@ EOF;
     							if (!$checkingMode) {
 	    							$drm->ciel->valide = 1;
 	    							$drm->save();
+	    							Email::getInstance()->cielValide($drm);
     							}
     							$rapport[self::RAPPORT_OK_KEY][] = 'La DRM '.$drm->_id.' a été validée avec succès';
-    							Email::getInstance()->cielValide($drm);
     						} else {
     							
     							if ($drm->isVersionnable()) {
@@ -160,6 +165,7 @@ EOF;
 		    							$drm_rectificative->ciel->xml = null;
 		    							$drm_rectificative->ciel->diff = $xmlIn->asXML();
 		    							$drm_rectificative->save();
+		    							Email::getInstance()->cielRectificative($drm, $compare->getLitteralDiff(), $interpro);
     								}
 	    							$diffs = '<ul>';
 	    							foreach ($compare->getLitteralDiff() as $k => $v) {
@@ -168,7 +174,6 @@ EOF;
 	    							$diffs .= '</ul>';
 	    							$rapport[self::RAPPORT_DIFF_KEY][] = 'La DRM '.$drm->_id.' ('.$ea.') doit être rectifiée suite aux modifications suivantes : '.$diffs;
 	    							$files[] = $item;
-	    							Email::getInstance()->cielRectificative($drm, $compare->getLitteralDiff(), $interpro);
     							} else {
     								$rapport[self::RAPPORT_PASS_KEY][] = 'La DRM '.$drm->_id.' à déjà été traitée';
     							}
@@ -178,8 +183,28 @@ EOF;
     					}
     				
     			} else {
-    				$rapport[self::RAPPORT_NONSAISIE_KEY][] = 'La DRM '.$periode.' de l\'établissement '.$ea.' n\'a pas été saisie sur le portail interprofessionnel : <a href="http://cniv.24eme.fr/tools/SEED.php?accise='.$ea.'" target="_blank">Information SEED</a>';
-    				$files[] = $item;
+    			    $generate = false;
+    			    $stockEpuiseSuspendus = (bool) $xmlIn->{"declaration-recapitulative"}->{"droits-suspendus"}->{"stockEpuise"};
+    			    $stockEpuiseAcquittes = (bool) $xmlIn->{"declaration-recapitulative"}->{"droits-acquittes"}->{"stockEpuise"};
+    			    $periodePrecedente = sprintf("%4d-%02d", (string) $xmlIn->{"declaration-recapitulative"}->{"periode"}->{"annee"}, ((int) $xmlIn->{"declaration-recapitulative"}->{"periode"}->{"mois"}) - 1);
+    			    if ($drmPrecedente = CielDrmView::getInstance()->findByAccisesPeriode($ea, $periodePrecedente)) {
+    			        if($drmPrecedente->hasStocksEpuise()) {
+    			            $drmGeneree = $drmPrecedente->generateSuivante();
+    			            $drmGeneree->validateAutoCiel($xmlIn->asXML());
+    			            $drmGeneree->validate();
+    			            if (!$checkingMode) {
+    			                 $drmGeneree->save();
+    			                 Email::getInstance()->cielValide($drmGeneree);
+    			            }
+    			            $generate = true;
+    			        }
+    			    }
+    			    if ($generate) {
+    			        $rapport[self::RAPPORT_GENERATE_KEY][] = 'La DRM '.$drmGeneree->_id.' a été générée avec succès';
+    			    } else {
+    				    $rapport[self::RAPPORT_NONSAISIE_KEY][] = 'La DRM '.$periode.' de l\'établissement '.$ea.' n\'a pas été saisie sur le portail interprofessionnel : <a href="http://cniv.24eme.fr/tools/SEED.php?accise='.$ea.'" target="_blank">Information SEED</a>';
+    				    $files[] = $item;
+    			    }
     			}
     		} else {
     			$rapport[self::RAPPORT_ERROR_KEY][] = 'Impossible d\'interroger la DRM : '.$item;

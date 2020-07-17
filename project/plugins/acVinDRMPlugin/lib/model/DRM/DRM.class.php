@@ -347,6 +347,17 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         	}
         }
     }
+    
+    public function hasStocksEpuise() {
+        $hasStock = false;
+        foreach ($details as $detail) {
+            if ($detail->total > 0 || $detail->acq_total > 0) {
+                $hasStock = true;
+                break;
+            }
+        }
+        return !$hasStock;
+    }
 
     public function isNeant() {
     	$hasStockAcq = $this->hasStocksAcq();
@@ -575,6 +586,15 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     public function isValidee() {
 
         return ($this->valide->date_saisie);
+    }
+    
+    public function validateAutoCiel($xml) {
+        $this->ciel->transfere = 1;
+        $this->ciel->valide = 1;
+        $this->ciel->identifiant_declaration = "AUTOGENERE";
+        $this->ciel->horodatage_depot = date('c');
+        $this->ciel->xml = $xml;
+        
     }
 
     public function validate($options = array()) {
