@@ -94,7 +94,15 @@ class Etablissement extends BaseEtablissement {
     }
 
     public function isViticulteur() {
-        return ($this->famille == EtablissementFamilles::FAMILLE_PRODUCTEUR);
+        return ($this->famille == EtablissementFamilles::FAMILLE_PRODUCTEUR && $this->sous_famille != EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE);
+    }
+
+    public function isNegociant() {
+        return ($this->famille == EtablissementFamilles::FAMILLE_NEGOCIANT);
+    }
+
+    public function isCaveCooperative() {
+        return ($this->sous_famille == EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE);
     }
 
 	public function getDepartement()
