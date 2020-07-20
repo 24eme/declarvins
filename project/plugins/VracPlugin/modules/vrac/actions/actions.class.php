@@ -5,7 +5,7 @@ class vracActions extends acVinVracActions
 	{
 		return VracFormDeclarvinFactory::create($interproId, $etape, $configurationVrac, $etablissement, $compte, $vrac);
 	}
-	
+
 	protected function saisieTerminee($vrac, $interpro) {
 		$acteurs = VracClient::getInstance()->getActeurs();
 		if (!$vrac->mandataire_exist) {
@@ -41,7 +41,7 @@ class vracActions extends acVinVracActions
 			}
 		}
 	}
-	
+
 	protected function contratValide($vrac) {
 		$acteurs = VracClient::getInstance()->getActeurs();
 		if (!$vrac->mandataire_exist) {
@@ -85,7 +85,7 @@ class vracActions extends acVinVracActions
 			}
 		}
 	}
-	
+
 	protected function contratModifie($vrac) {
 		$acteurs = VracClient::getInstance()->getActeurs();
 		if (!$vrac->mandataire_exist) {
@@ -115,11 +115,11 @@ class vracActions extends acVinVracActions
 			}
 		}
 	}
-	
+
 	protected function contratValidation($vrac, $acteur) {
 		return;
 	}
-	
+
 	protected function contratAnnulation($vrac, $interpro, $etab = null) {
 		$acteurs = VracClient::getInstance()->getActeurs();
 		if (!$vrac->mandataire_exist) {
@@ -145,10 +145,10 @@ class vracActions extends acVinVracActions
 					Email::getInstance()->vracContratAnnulation($vrac, $etab, $acteur, $interpro->email_contrat_vrac);
 				}
 			}
-		}	
+		}
 		if ($vrac->mode_de_saisie != Vrac::MODE_DE_SAISIE_PAPIER) {
 			if ($vrac->exist('oioc') && $vrac->oioc->identifiant) {
-				if ($vrac->type_transaction == 'vrac' && $vrac->type_retiraison == 'vrac') {
+				if ($vrac->type_transaction == 'vrac' && ($vrac->type_retiraison == 'vrac' || !$vrac->type_retiraison)) {
 					$oioc = OIOCClient::getInstance()->find($vrac->oioc->identifiant);
 					$etablissement = EtablissementClient::getInstance()->find($vrac->get('vendeur_identifiant'));
 					Email::getInstance()->vracTransactionAnnulation($vrac, $etab, $oioc, $oioc->email_transaction);
@@ -156,9 +156,9 @@ class vracActions extends acVinVracActions
 			}
 		}
 	}
-	
 
-	
+
+
 	protected function contratDemandeAnnulation($vrac, $interpro, $etab = null) {
 		$acteurs = VracClient::getInstance()->getActeurs();
 		if (!$vrac->mandataire_exist) {
@@ -189,9 +189,9 @@ class vracActions extends acVinVracActions
 			}
 		}
 	}
-	
 
-	
+
+
 	protected function contratRefusAnnulation($vrac, $interpro, $etab = null) {
 		$acteurs = VracClient::getInstance()->getActeurs();
 		if (!$vrac->mandataire_exist) {
