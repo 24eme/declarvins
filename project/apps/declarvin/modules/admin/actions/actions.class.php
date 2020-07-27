@@ -41,6 +41,23 @@ class adminActions extends sfActions
       }
     }
   }
+  public function executeEtablissementSubventionLogin(sfWebRequest $request)
+  {
+  	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
+  	$admin = (int)$this->getUser()->hasCredential(myUser::CREDENTIAL_ADMIN);
+    $this->form = new EtablissementSelectionForm($this->interpro->get('_id'));
+    if ($request->isMethod(sfWebRequest::POST)) {
+    	if ($request->getParameterHolder()->has('etablissement_selection_nav')) {
+    		$this->form->bind($request->getParameter('etablissement_selection_nav'));
+    	} else {
+      	$this->form->bind($request->getParameter($this->form->getName()));
+    	}
+      
+      if ($this->form->isValid()) {
+        	return $this->redirect("subvention_etablissement", $this->form->getEtablissement());
+      }
+    }
+  }
  /**
   * Executes index action
   *

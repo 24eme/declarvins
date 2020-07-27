@@ -1,0 +1,56 @@
+body {
+	background-color: #989898;
+}
+
+.breadcrumb, #daeFormEtablissement {
+	display: none;
+}
+#sous_barre_navigation #actions_etablissement li.backend {
+  height: 27px;
+}
+h1, .h1 {
+    font-size: 100%;
+    height: 32.2px;
+}
+p {
+    margin: 0;
+}
+
+.control-label{
+	font-size: 14px;
+}
+input.ui-autocomplete-input {
+	width: 93%;	
+}
+
+.select2-container {
+	width: 100%;
+}
+
+.form-group .select2-container {
+  position: relative;
+  float: left;
+  width: 100%;
+  margin-bottom: 0;
+  display: table;
+  table-layout: fixed;
+}
+
+.select2 {
+	width: 100% !important;
+}
+.input-group[class*="col-"] {
+	float: left;
+}
+
+a, a:link, a:visited, .link {
+    color: #86005b;
+}
+a:hover, a:active {
+    color: #c582af;
+    text-decoration: none;
+}
+tr.filters {
+	display: none !important;
+}
+}

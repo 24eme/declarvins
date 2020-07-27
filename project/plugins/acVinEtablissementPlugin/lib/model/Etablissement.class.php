@@ -191,6 +191,11 @@ class Etablissement extends BaseEtablissement {
     	return $zones;
     }
     
+    public function hasZoneIS()
+    {
+        return $this->zones->exist(ConfigurationZoneClient::ZONE_LANGUEDOC);
+    }
+    
     public function makeLibelle()
     {
     	$datas = array();
@@ -212,5 +217,20 @@ class Etablissement extends BaseEtablissement {
             return $this->mois_stock_debut;
         }
         return DRMPaiement::NUM_MOIS_DEBUT_CAMPAGNE;
+    }
+    
+    public function getAdresse()
+    {
+        return $this->siege->adresse;
+    }
+    
+    public function getCodePostal()
+    {
+        return $this->siege->code_postal;
+    }
+    
+    public function getCommune()
+    {
+        return $this->siege->commune;
     }
 }

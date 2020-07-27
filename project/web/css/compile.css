@@ -808,6 +808,7 @@ a.highlight_link:hover {
   -webkit-box-shadow: 0 0 5px #666;
   -moz-box-shadow: 0 0 5px #666;
   box-shadow: 0 0 5px #666;
+  background-color: #fff;
 }
 #etablissement_archive {
   background: #494949;

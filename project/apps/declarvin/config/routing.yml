@@ -247,6 +247,9 @@ alerte_edit:
 etablissement_login:
   url: /admin/etablissements/drm
   param: {module: admin, action: etablissementDRMLogin}
+etablissement_login_subvention:
+  url: /admin/etablissements/subvention
+  param: {module: admin, action: etablissementSubventionLogin}
 etablissement_login_daids:
   url: /admin/etablissements/daids
   param: {module: admin, action: etablissementDAIDSLogin}
