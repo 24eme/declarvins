@@ -1,8 +1,3 @@
-<style>
-#formEtablissementChoice {
-    display: none;
-}
-</style>
 <?php include_component('global', 'navTop', array('active' => 'subvention')); ?>
 
 <section id="contenu" style="margin-top: 15px;">

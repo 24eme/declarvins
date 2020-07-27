@@ -9,9 +9,6 @@ a:hover, a:active {
 a, a:link, a:visited, .link {
     color: inherit;
 }
-#formEtablissementChoice {
-    display: none;
-}
 label {
     font-weight: normal;
     margin-bottom: 0px;
