@@ -21,5 +21,9 @@ class myUser extends acVinCompteSecurityUser
 		
 		return $this->getAttribute('initial_user');
 	}
+	
+	public function hasTeledeclaration() {
+	    return !$this->hasCredential(self::CREDENTIAL_OPERATEUR);
+	}
 
 }
