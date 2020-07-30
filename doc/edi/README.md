@@ -63,8 +63,104 @@ Les dates de la nomenclature sont aux formats :
 aaaa-mm-jjT00h00m00 (en effet le spérateur ":" du format horaire ISO 8601 [6] n'est pas un caractère autorisé en nom de fichier). 
 
 ### Spécification complète du format d'export des DRM
-
-*informations à venir*
+1. Type d'enregistrement : « DETAIL » pour un mouvement de DRM, « CONTRAT » pour une retiraison vrac
+2. Identifiant DeclarVins
+3. Raison sociale de l'établissement
+4. Année DRM courante
+5. Mois DRM courante
+6. Version rectificative ou modificative DRM courante
+7. Année DRM précédente
+8. Mois DRM précédente
+9. Version rectificative ou modificative DRM précédente
+10. Le libellé de la certification
+11. Le code de la certification
+12. Le libellé du genre
+13. Le code du genre
+14. Le libellé de l'appellation
+15. Le code de l'appellation
+16. Le libellé du lieu
+17. Le code du lieu
+18. Le libellé de la couleur
+19. Le code de la couleur
+20. Le libellé du cepage
+21. Le code du cepage
+22. Millésime
+23. (historique) champs vide
+24. Labels : Libellés des labels (Biodynamie, Bio, Bio en conversion, Agriculture raisonnée), cumulables à l'aide du séparateur « | » (pipe)
+25. Codes DeclarVins Labels : Codes des labels (biod, biol, bioc, rais), cumulables à l'aide du séparateur « | » (pipe)
+26. Libellé complet du produit
+27. Stock théorique début de mois
+28. Dont Vin bloqué ; 
+29. Dont Vin warranté ; 
+30. Dont Vin en instance ; 
+31. Dont Vin commercialisable ; 
+32. Volume total des entrées
+33. Volume entrée achats
+34. Volume entrée récolte
+35. Volume entrée replis / changement de dénomination
+36. Volume entrée déclassement
+37. Volume entrée transfert de chai / embouteillage
+38. Volume entrée réintégration CRD
+39. Volume total des sorties
+40. Volume sortie vrac DAA/DAE
+41. Volume sortie conditionné export
+42. Volume sortie  DSA / tickets / factures
+43. Volume sortie CRD France
+44. Volume sortie conso fam. / analyses / dégustation
+45. Volume sortie pertes
+46. Volume sortie non rev. / déclassement
+47. Volume sortie changement / repli
+48. Volume sortie transfert de chai / embouteillage
+49. Volume sortie destruction / distillation
+50. Volume sortie lies
+51. Stock théorique fin de mois
+52. Dont Vin bloqué
+53. Dont Vin warranté
+54. Dont Vin en instance
+55. Dont Vin commercialisable
+56. Date validation
+57. Date Signature (historique : doublon avec 56)
+58. Mode de saisie : PAPIER si saisie par l'interprofession, DTI si saisie par le déclarant, EDI si échange informatique avec logiciel déclarant
+59. CVO Code
+60. CVO Taux
+61. CVO Volume
+62. CVO Montant
+63. Campagne DRM
+64. ID de cette DRM : concaténation de DRM-IDDeclarant-AnnéeDRM-MoisDRM-RevisionDRM
+65. Identifiant IVSE
+66. Numéro du contrat : Pour enregistrement « CONTRAT »
+67. Volume du contrat : Pour enregistrement « CONTRAT »
+68. Commentaires DRM saisis en back office par l'opérateur  
+69. DRM référente : 0 ou 1
+70. Contrat Vrac manquant : 0 ou 1
+71. Infos IGP manquantes : 0 ou 1
+72. Observation pour le produit saisies par le télédéclarant 
+73. Volume entrée vci
+74. Famille du déclarant (Producteur, Négociant, Courtier)
+75. Sous famille du déclarant (Cave particulière, Cave coopérative, Vendeur de raisin, Régional, Extérieur, Etranger, Union, Vinificateur)
+76. Identifiant INAO du produit
+77. Libellé fiscal du produit (en l'absence de code INAO)
+78. TAV (taux d'alcool volumique)
+79. Volume entrée manipulation
+80. Volume entrée embouteillage
+81. Volume entrée travail à façon
+82. Volume entrée distillation
+83. Volume entrée excedent
+84. Volume sortie crd acquittée
+85. Volume sortie mutage
+86. Volume sortie vci
+87. Volume sortie autres mouvements interne
+88. Volume sortie embouteillage
+89. Volume sortie travail à façon
+90. Volume sortie distillation
+91. Stock acquitté théorique début de mois
+92. Volume acquitté entrée achat
+93. Volume acquitté entrée autres
+94. Volume acquitté sortie crd
+95. Volume acquitté sortie replacement
+96. Volume acquitté sortie autres
+97. Stock acquitté théorique fin de mois
+98. Volume sortie autres
 
 ## Interface EDI Contrat d'achat
 
