@@ -18,10 +18,10 @@ class myUser extends acVinCompteSecurityUser
 	}
 
 	public function isUsurpationMode() {
-		
+
 		return $this->getAttribute('initial_user');
 	}
-	
+
 	public function hasTeledeclaration() {
 	    return !$this->hasCredential(self::CREDENTIAL_OPERATEUR);
 	}

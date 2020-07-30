@@ -13,7 +13,7 @@ h1, .h1 {
     height: 32.2px;
 }
 p {
-    margin: 0;
+    margin: 0 0 10px;
 }
 
 .control-label{
@@ -41,6 +41,26 @@ input.ui-autocomplete-input {
 }
 .input-group[class*="col-"] {
 	float: left;
+}
+
+.btn.btn-warning {
+	color: #333;
+}
+
+.btn.btn-primary {
+	color: white;
+}
+
+.btn.btn-default {
+	color: #333;
+}
+
+.btn.btn-success {
+	color: #333;
+}
+
+#principal .navbar.navbar-default  {
+ 	color: #e0ced8;
 }
 
 a, a:link, a:visited, .link {

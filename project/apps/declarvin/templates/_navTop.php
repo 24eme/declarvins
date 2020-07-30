@@ -39,7 +39,7 @@ use_helper('Text');
         <?php endif; ?>
         <?php endif; ?>
         
-        <?php if($etablissement->hasZoneIS()): ?>
+        <?php if($etablissement->hasZoneIS() || $active == 'subvention'): ?>
         <li<?php if ($active == 'subvention'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('subvention_etablissement', $etablissement) ?>">Aides Occitanie</a>
         </li>
