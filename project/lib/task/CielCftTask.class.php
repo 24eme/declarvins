@@ -191,8 +191,9 @@ EOF;
     			        if($drmPrecedente->hasStocksEpuise()) {
     			            $drmGeneree = $drmPrecedente->generateSuivante();
     			            $drmGeneree->validateAutoCiel($xmlIn->asXML());
+    			            $drmGeneree->validate();
     			            if (!$checkingMode) {
-    			                 $drmGeneree->validate();
+    			                 $drmGeneree->save();
     			                 Email::getInstance()->cielValide($drmGeneree);
     			            }
     			            $generate = true;
