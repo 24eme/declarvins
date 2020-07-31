@@ -37,6 +37,12 @@ use_helper('Text');
             <a href="<?php echo url_for('dae_etablissement', $etablissement) ?>">Commercialisation</a>
         </li>
         <?php endif; ?>
+        <?php endif; ?>
+        
+        <?php if($etablissement->hasZoneIS() || $active == 'subvention'): ?>
+        <li<?php if ($active == 'subvention'): ?> class="actif"<?php endif; ?>>
+            <a href="<?php echo url_for('subvention_etablissement', $etablissement) ?>">Aides Occitanie</a>
+        </li>
         <?php endif; ?>  
         
         <li<?php if ($active == 'profil'): ?> class="actif"<?php endif; ?>>
@@ -110,7 +116,7 @@ use_helper('Text');
     </div>
 <?php } ?>
 
-<?php if ($info = MessagesClient::getInstance()->getInfos($etablissement->interpro)): ?>
+<?php if ($info = MessagesClient::getInstance()->getInfos($etablissement->interpro) && $active == 'drm'): ?>
 <div id="flash_message" style="padding-top: 0px">
     <div class="flash_error" style="color: #fff; background-color: #ed1b24; border: none;">
     	<h2 style="font-size: 14px; height: 32px; line-height: 28px; padding: 0 0 5px 0; margin: 0; font-weight: bold; " ><img src="/images/pictos/info2.png" style="float: left; height: 32px;" />&nbsp;Alertes / Infos</h2>

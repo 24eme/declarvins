@@ -73,5 +73,9 @@ class DeclarantDocument
              if($declarant->getDefinition()->exist('fax'))
                 $declarant->add('fax', $etablissement->fax);
         }
+        if ($etablissement->exist("famille")) {
+             if($declarant->getDefinition()->exist('famille'))
+                $declarant->add('famille', $etablissement->famille);
+        }
     }
 }
