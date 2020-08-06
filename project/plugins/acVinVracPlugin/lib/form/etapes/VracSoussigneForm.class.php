@@ -138,7 +138,7 @@ class VracSoussigneForm extends VracForm
 			$this->getObject()->mandataire_identifiant = null;
 		}
 		
-		if ($this->getObject()->vendeur_type == EtablissementFamilles::FAMILLE_PRODUCTEUR || $this->getObject()->vendeur->sous_famille == EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
+		if ($this->getObject()->vendeur->famille == EtablissementFamilles::FAMILLE_PRODUCTEUR || $this->getObject()->vendeur->sous_famille == EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
 			$this->getObject()->premiere_mise_en_marche = 1;
 		} else {
 			$this->getObject()->premiere_mise_en_marche = 0;
