@@ -319,7 +319,7 @@ class Configuration extends BaseConfiguration {
     
 
     public function hasEdiDefaultProduitHash() {
-        if (!isset($this->edi_default_produit_hash)) {
+        if (!$this->exist('edi_default_produit_hash')) {
             return false;
         }
         if (!is_array($this->edi_default_produit_hash->toArray(true,false))) {
@@ -329,7 +329,7 @@ class Configuration extends BaseConfiguration {
     
     }
 
-    public function getEdiDefaultProduitHash($inao) {
+    public function getDefaultProduitHash($inao) {
         if (!$this->hasEdiDefaultProduitHash()) {
             return "";
         }
