@@ -114,6 +114,11 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		if (!$configurationProduit) {
     		    $configurationProduit = $this->configuration->getConfigurationProduitByLibelle($libelle);
     		}
+
+    		if((!$configurationProduit) && ($idDouane = $this->getIdDouane($datas)) && ($libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]))) {
+    		    $configurationProduit = $this->configuration->getConfigurationProduit($this->getHashProduit($datas));
+    		}
+    		
         	if (!$configurationProduit) {
         		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
         		continue;

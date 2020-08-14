@@ -316,6 +316,32 @@ class Configuration extends BaseConfiguration {
         }
         return $result;
     }
+    
+
+    public function hasEdiDefaultProduitHash() {
+        if (!isset($this->edi_default_produit_hash)) {
+            return false;
+        }
+        if (!is_array($this->edi_default_produit_hash->toArray(true,false))) {
+            return false;
+        }
+        return true;
+    
+    }
+
+    public function getEdiDefaultProduitHash($inao) {
+        if (!$this->hasEdiDefaultProduitHash()) {
+            return "";
+        }
+        $hashes = $this->edi_default_produit_hash->toArray(true,false);
+        if (preg_match('/^.....M/', $inao) || preg_match('/^VM_/', $inao)) {
+            return $hashes['MOU'];
+        }
+        if (!preg_match('/^VT_/', $inao) && preg_match('/_/', $inao)) {
+            return $hashes['AUTRE'];
+        }
+        return $hashes['TRANQ'];
+    }
 
     protected function constructCode($produit) {
         return $produit->getIdentifiantDouane();
