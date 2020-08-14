@@ -5,6 +5,7 @@ class ConfigurationClient extends acCouchdbClient
 
 	private static $current = null;
 	protected $countries = null;
+	protected $devises = null;
 
 	protected $saltToken = null;
 
@@ -141,6 +142,14 @@ class ConfigurationClient extends acCouchdbClient
 			$this->countries['QU'] = 'Pays et territoires non déterminés';
 		}
 		return $this->countries;
+	}
+
+	public function getDeviseList() {
+		if(is_null($this->devises)) {
+			$deviseChoicesWidget = new sfWidgetFormI18nChoiceCurrency(array('culture' => 'fr'));
+			$this->devises = $deviseChoicesWidget->getChoices();
+		}
+		return $this->devises;
 	}
 
 	public static function generateSaltToken() {

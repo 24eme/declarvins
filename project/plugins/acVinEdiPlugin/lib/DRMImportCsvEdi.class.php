@@ -105,6 +105,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $label = null;
     		$libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]);
     		$configurationProduit = null;
+    		$isAutre = false;
     		if ($idDouane = $this->getIdDouane($datas)) {
     			$configurationProduit = $this->configuration->identifyProduct(null, "($idDouane)");
     		}
@@ -114,6 +115,13 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		if (!$configurationProduit) {
     		    $configurationProduit = $this->configuration->getConfigurationProduitByLibelle($libelle);
     		}
+
+    		if((!$configurationProduit) && ($idDouane = $this->getIdDouane($datas)) && ($libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]))) {
+    		    $default_produit_hash = $this->configuration->getDefaultProduitHash($idDouane);
+    		    $configurationProduit = $this->configuration->getConfigurationProduit($default_produit_hash);
+    		    $isAutre = true;
+    		}
+    		
         	if (!$configurationProduit) {
         		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
         		continue;
@@ -159,6 +167,10 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
       		if ($complement_libelle) {
       			$produit->libelle = ($libellePerso) ? $libellePerso : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
+      		}
+      		if ($isAutre) {
+      		    $produit->libelle = $libellePerso;
+      		    $produit->getCepage()->inao = $this->getIdDouane($datas);
       		}
             $this->cache[$this->getCacheKeyFromData($datas)] = $produit;
             $cache2datas[$this->getCacheKeyFromData($datas)] = $datas;

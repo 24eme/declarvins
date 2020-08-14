@@ -10,6 +10,11 @@ Configuration:
         definition:
           fields:
             '*': {  }
+      edi_default_produit_hash:
+        type: collection
+        definition:
+          fields:
+            '*': {  }
       zones:
         type: array_collection
         definition:
