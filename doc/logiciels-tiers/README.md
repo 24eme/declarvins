@@ -10,6 +10,8 @@ Cette page apporte un éclairage DeclarVins à la documentation générique. Ell
 
 Le catalogue produit nécessaire aux imports de DRM pour DeclarVins est décrit dans le fichier suivant : [Catalogue produit](catalogue_produits_declarvins.csv)
 
+Tout produit hors catalogue peut être intégré dans la DRM en l'identifiant avec son couple code INAO / libellé produit. 
+
 Ce fichier comporte les différentes colonnes suivantes :
 
 1. La code certification : l'identifiant de la certification du produit
