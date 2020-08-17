@@ -117,8 +117,16 @@ use_helper('Text');
 <?php } ?>
 
 
-<?php $info = MessagesClient::getInstance()->getInfos($etablissement->interpro); ?>
-<?php if ($info && $active == 'drm'): ?>
+<?php 
+    $info = null;
+    if ($active == 'drm') {
+       $info = MessagesClient::getInstance()->getDRMInfos($etablissement->interpro); 
+    }
+    if ($active == 'vrac') {
+       $info = MessagesClient::getInstance()->getVracInfos($etablissement->interpro); 
+    }
+?>
+<?php if ($info): ?>
 <div id="flash_message" style="padding-top: 0px">
     <div class="flash_error" style="color: #fff; background-color: #ed1b24; border: none;">
     	<h2 style="font-size: 14px; height: 32px; line-height: 28px; padding: 0 0 5px 0; margin: 0; font-weight: bold; " ><img src="/images/pictos/info2.png" style="float: left; height: 32px;" />&nbsp;Alertes / Infos</h2>
