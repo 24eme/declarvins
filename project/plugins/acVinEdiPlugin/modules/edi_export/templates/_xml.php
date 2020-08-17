@@ -37,7 +37,6 @@
 				<observations><![CDATA[<?php echo $produit->getObservations() ?>]]></observations>
 <?php endif; ?>
 				<balance-stocks>
-
 <?php 
 	$xml = '';
 	noeudXml($produit, $ciel->get('balance-stocks/'.$drm->getCielLot().'/droits-suspendus'), $xml, array('mois', 'annee'));
@@ -59,7 +58,11 @@
 <?php elseif ($produit->getInao()): ?>
 				<libelle-fiscal><?php echo $produit->getInao() ?></libelle-fiscal>
 <?php endif; ?>
+<?php if(((int)$drm->getAnnee() == 2020 && (int)$drm->getMois() < 8) || (int)$drm->getAnnee() < 2020): ?>
 				<libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?>]]></libelle-personnalise>
+<?php else: ?>
+				<libelle-personnalise><![CDATA[<?php echo trim(html_entity_decode($produit->getLibelle(), ENT_QUOTES, "UTF-8")) ?><?php if($produit->hasLabel()): ?> <?php echo $produit->getLabelKeyString(); ?><?php endif; ?>]]></libelle-personnalise>
+<?php endif; ?>
 <?php if ($produit->getTav()): ?>
 				<tav><?php echo sprintf("%01.02f", $produit->getTav()) ?></tav>
 <?php endif; ?>
@@ -70,7 +73,6 @@
 				<observations><![CDATA[<?php echo $produit->getObservations() ?>]]></observations>
 <?php endif; ?>
 				<balance-stocks>
-
 <?php 
 	$xml = '';
 	noeudXml($produit, $ciel->get('balance-stocks/'.$drm->getCielLot().'/droits-acquittes'), $xml, array('mois', 'annee'));
