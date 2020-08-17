@@ -29,14 +29,27 @@ class MessagesClient extends acCouchdbClient {
     }
   }
 
-  public function getInfos($interpro) {
+  public function getDRMInfos($interpro) {
       $interpro = str_replace('INTERPRO-', '', $interpro);
       if ($interpro == 'IR') {
-          $m = trim($this->retrieveMessages()->info_encart_ir);
+          $m = trim($this->retrieveMessages()->info_drm_encart_ir);
           return ($m)? $m : null;
       }
       if ($interpro == 'CIVP') {
-          $m = trim($this->retrieveMessages()->info_encart_civp);
+          $m = trim($this->retrieveMessages()->info_drm_encart_civp);
+          return ($m)? $m : null;
+      }
+      return null;
+  }
+
+  public function getVracInfos($interpro) {
+      $interpro = str_replace('INTERPRO-', '', $interpro);
+      if ($interpro == 'IR') {
+          $m = trim($this->retrieveMessages()->info_vrac_encart_ir);
+          return ($m)? $m : null;
+      }
+      if ($interpro == 'CIVP') {
+          $m = trim($this->retrieveMessages()->info_vrac_drm_encart_civp);
           return ($m)? $m : null;
       }
       return null;
