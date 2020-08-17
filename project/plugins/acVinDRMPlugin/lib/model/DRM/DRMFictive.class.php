@@ -12,7 +12,7 @@ class DRMFictive extends DRM
         parent::__construct();
     	$this->drm = $drm;
     	$this->interpro = $interpro;
-    	$this->configurationProduits = ConfigurationProduitClient::getInstance()->find($interpro->getOrAdd('configuration_produits'));
+    	$this->configurationProduits = ConfigurationProduitClient::getInstance()->getByInterpro($interpro->identifiant, $this->drm->getDateDebutPeriode());
     	$this->initDrm();
     	$this->initProduits();
     	$this->type = self::TYPE;

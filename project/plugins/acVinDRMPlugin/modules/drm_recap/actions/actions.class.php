@@ -77,12 +77,12 @@ class drm_recapActions extends sfActions
         $this->getResponse()->setContentType('text/json');
         $this->certification = $this->getRoute()->getObject();
         $this->drm = $this->getRoute()->getDRM();
-        $config = ConfigurationClient::getCurrent();
+        $config = ConfigurationClient::getCurrent($this->drm->getDateDebutPeriode());
         $certification = $this->getRoute()->getCertification();
     	$configurationProduits = null;
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
         	$interpro = $this->getUser()->getCompte()->getGerantInterpro();
-        	$configurationProduits = ConfigurationProduitClient::getInstance()->find($interpro->getOrAdd('configuration_produits'));
+        	$configurationProduits = ConfigurationProduitClient::getInstance()->getByInterpro($interpro->identifiant, $this->drm->getDateDebutPeriode());
         }
 
         $this->form = new DRMLieuAjoutForm($this->drm, $config, $certification, $configurationProduits);
@@ -110,14 +110,14 @@ class drm_recapActions extends sfActions
     {
         $this->drm = $this->getRoute()->getDRM();
         $this->drm_lieu = $this->getRoute()->getDRMLieu();
-        $config = ConfigurationClient::getCurrent();
+        $config = ConfigurationClient::getCurrent($this->drm->getDateDebutPeriode());
         $certification = $this->getRoute()->getCertification();
         
         $this->forward404Unless($request->isXmlHttpRequest());
     	$configurationProduits = null;
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
         	$interpro = $this->getUser()->getCompte()->getGerantInterpro();
-        	$configurationProduits = ConfigurationProduitClient::getInstance()->find($interpro->getOrAdd('configuration_produits'));
+        	$configurationProduits = ConfigurationProduitClient::getInstance()->getByInterpro($interpro->identifiant, $this->drm->getDateDebutPeriode());
         }
 
         $form = new DRMProduitAjoutForm($this->drm, $config, $certification, $this->drm_lieu->getHash(), $configurationProduits);
@@ -186,7 +186,7 @@ class drm_recapActions extends sfActions
 		if (count($this->drm->getDetailsAvecVrac()) > 0) {
 			$this->percent -= 10;
 		}
-		$config_certifications = ConfigurationClient::getCurrent()->getCertifications();
+		$config_certifications = ConfigurationClient::getCurrent($this->drm->getDateDebutPeriode())->getCertifications();
         $certifications = array();
         $current = 1;
         $find = false;

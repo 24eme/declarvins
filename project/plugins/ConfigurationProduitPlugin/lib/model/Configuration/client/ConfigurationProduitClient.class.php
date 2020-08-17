@@ -24,9 +24,9 @@ class ConfigurationProduitClient extends acCouchdbClient
 		return self::PREFIXE_ID.'-'.$this->getIdentifiantInterpro($interpro);
 	}
 	
-	public function getOrCreate($interpro)
+	public function getOrCreate($interpro, $date = null)
 	{
-		$configurationProduits = $this->getByInterpro($interpro);
+		$configurationProduits = $this->getByInterpro($interpro, $date);
 		if (!$configurationProduits) {
 			$configurationProduits = new ConfigurationProduit();
 	  		$configurationProduits->interpro = $interpro;
@@ -34,9 +34,14 @@ class ConfigurationProduitClient extends acCouchdbClient
 		return $configurationProduits;
 	}
 	
-	public function getByInterpro($interpro)
+	public function getByInterpro($interpro, $date = null)
 	{
-		return $this->find($this->buildId($interpro));
+	    $configuration = ConfigurationClient::getCurrent($date);
+	    $i = 'INTERPRO-'.$this->getIdentifiantInterpro($interpro);
+	    if ($configuration->produits->exist($i)) {
+	        return $this->find($configuration->produits->get($i));
+	    }
+		throw new sfException("Probleme d'identification de la configuration produit pour l'interpro ".$i);
 	}
 	
 	private function getIdentifiantInterpro($interpro)

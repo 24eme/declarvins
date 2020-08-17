@@ -18,7 +18,7 @@ class DRMDetailImport
     	$drm = $this->parseDrm();
     	$hasDetail = true;
     	try {
-    		$configuration = ConfigurationClient::getCurrent();
+    		$configuration = ConfigurationClient::getCurrent($drm->getDateDebutPeriode());
     		$hash = $this->getHashProduit();
     		if ($configuration->getConfigurationProduit($hash)) {
 	  			$detail = $drm->addProduit($this->getHashProduit(), explode('|', $this->getDataValue(DRMDateView::VALUE_LABELS, 'drm detail labels')));

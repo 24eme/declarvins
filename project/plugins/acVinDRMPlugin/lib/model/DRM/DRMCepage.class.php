@@ -76,18 +76,18 @@ class DRMCepage extends BaseDRMCepage {
 	
   	protected function update($params = array()) {
   		parent::update($params);
-  		$configuration = ConfigurationClient::getCurrent();
-	  	if (!$this->inao) {
-	  		$inao = $this->getConfig()->getInao();
-	  		if (strlen($inao) == 5) {
-	  			$inao = $inao.' ';
-	  		}
+  		$configuration = ConfigurationClient::getCurrent($this->getDocument()->getDateDebutPeriode());
+  		$inao = $this->getConfig()->getInao();
+  		$libelle_fiscal = $this->getConfig()->getLibelleFiscal();
+  		if (strlen($inao) == 5) {
+  			$inao = $inao.' ';
+  		}
+	  	if (!$this->inao || $inao != $this->inao) {
 	  		$this->inao = $inao;
 	  	}
-	  	if (!$this->libelle_fiscal) {
-	  		$this->libelle_fiscal = $this->getConfig()->getLibelleFiscal();
+	  	if (!$inao && (!$this->libelle_fiscal || $this->libelle_fiscal != $libelle_fiscal)) {
+	  		$this->libelle_fiscal = $libelle_fiscal;
 	  	}
-  		
   	}
 
 }

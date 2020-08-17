@@ -16,7 +16,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     public function __construct() {
         parent::__construct();
         $this->initDocuments();
-        $config_certifications = ConfigurationClient::getCurrent()->getCertifications();
+        $config_certifications = ConfigurationClient::getCurrent($this->getDocument()->getDateDebutPeriode())->getCertifications();
         foreach ($config_certifications as $certification => $config_certification) {
             $this->declaration->certifications->add($certification);
         }
@@ -55,6 +55,13 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     public function getDate() {
 
         return DRMClient::getInstance()->buildDate($this->periode);
+    }
+
+    public function getDateDebutPeriode() {
+        if (!$this->periode) {
+            return null;
+        }
+        return DRMClient::getInstance()->buildDateDebut($this->periode);
     }
 
     public function setPeriode($periode) {
@@ -1755,13 +1762,13 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 			$referent = EtablissementClient::getInstance()->find($identifiant);
 		}
 		if (!$referent) {
-			$referent = ConfigurationClient::getCurrent()->identifyEtablissement($identifiant);
+			$referent = ConfigurationClient::getCurrent($this->getDocument()->getDateDebutPeriode())->identifyEtablissement($identifiant);
 		}
 		if (!$referent && $ea) {
-			$referent = ConfigurationClient::getCurrent()->identifyEtablissement($ea);
+			$referent = ConfigurationClient::getCurrent($this->getDocument()->getDateDebutPeriode())->identifyEtablissement($ea);
 		}
 		if (!$referent && $siretCvi) {
-			$referent = ConfigurationClient::getCurrent()->identifyEtablissement($siretCvi);
+			$referent = ConfigurationClient::getCurrent($this->getDocument()->getDateDebutPeriode())->identifyEtablissement($siretCvi);
 		}
 		if (!$referent) {
 			return false;

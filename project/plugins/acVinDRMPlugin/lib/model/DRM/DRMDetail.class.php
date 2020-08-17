@@ -44,13 +44,13 @@ class DRMDetail extends BaseDRMDetail {
     public function getLibelleFiscalNegocePur() {
         $hash = $this->getCorrespondanceNegoce();
         $hash = preg_replace('/.details.DEFAUT$/', '', $hash);
-        $p = ConfigurationClient::getCurrent()->getConfigurationProduit($hash);
+        $p = ConfigurationClient::getCurrent($this->getDocument()->getDateDebutPeriode())->getConfigurationProduit($hash);
         return $p->getLibelleFiscal();
     }
 
     public function getConfig() {
         if (!$this->_config) {
-            $this->_config = ConfigurationClient::getCurrent()->getConfigurationProduit($this->getCepage()->getHash());
+            $this->_config = ConfigurationClient::getCurrent($this->getDocument()->getDateDebutPeriode())->getConfigurationProduit($this->getCepage()->getHash());
         }
         return $this->_config;
     }
@@ -164,7 +164,7 @@ class DRMDetail extends BaseDRMDetail {
 
     protected function update($params = array()) {
         parent::update($params);
-        $configuration = ConfigurationClient::getCurrent();
+        $configuration = ConfigurationClient::getCurrent($this->getDocument()->getDateDebutPeriode());
         $this->total_entrees = round($this->sommeLignes(DRMVolumes::getEntreesSuspendus()),5);
         $this->total_sorties = round($this->sommeLignes(DRMVolumes::getSortiesSuspendus()),5);
         $this->total = round($this->total_debut_mois + $this->total_entrees - $this->total_sorties,5);
@@ -188,7 +188,7 @@ class DRMDetail extends BaseDRMDetail {
             $this->libelle = $this->makeFormattedLibelle("%g% %a% %l% %co% %ce%");
         }
         $labels = $this->labels->toArray();
-        $labelLibelles = ConfigurationClient::getCurrent()->getLabels();
+        $labelLibelles = ConfigurationClient::getCurrent($this->getDocument()->getDateDebutPeriode())->getLabels();
         foreach ($labelLibelles as $code => $label) {
             if (in_array($code, $labels)) {
                 $this->libelles_label->add($code, $label);

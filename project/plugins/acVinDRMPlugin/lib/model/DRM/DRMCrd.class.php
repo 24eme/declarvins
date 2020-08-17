@@ -15,7 +15,7 @@ class DRMCrd extends BaseDRMCrd {
 	public function addCrd($categorie, $type, $centilisation, $centilitre, $bib, $stock = 0)
 	{
 		$litre = ($centilitre && (intval($centilitre / 100) == $centilitre / 100))? $centilitre / 100 : null;
-		$conf = ConfigurationClient::getCurrent();
+		$conf = ConfigurationClient::getCurrent($this->getDocument()->getDateDebutPeriode());
 		$this->categorie->code = $categorie;
 		$this->categorie->libelle = $conf->crds->categorie->get($categorie);
 		$this->type->code = $type;

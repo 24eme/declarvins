@@ -6,6 +6,7 @@ class ConfigurationClient extends acCouchdbClient
 	private static $current = null;
 	protected $countries = null;
 	protected $devises = null;
+	protected $configurations = array();
 
 	protected $saltToken = null;
 
@@ -17,44 +18,49 @@ class ConfigurationClient extends acCouchdbClient
 	  	return acCouchdbManager::getClient("CONFIGURATION");
 	}
 
-    public function findCurrent($hydrate = acCouchdbClient::HYDRATE_DOCUMENT)
-    {
-        return $this->find('CONFIGURATION', $hydrate);
+    public static function getConfiguration($date = null) {
+
+        return self::getInstance()->findConfiguration($date);
     }
 
-    public static function getConfiguration($date)
-    {
-    	return self::getCurrent();
-    }
-
-	public static function getCurrent()
-	{
-		if (self::$current == null) {
-            self::$current = self::getInstance()->cacheGetCurrent();
-		}
-		return self::$current;
-	}
-
-
-	public function findCurrentForCache()
-	{
-	  	$configuration = $this->findCurrent();
-        if(!sfConfig::get('sf_debug')) {
-            //$configuration->prepareCache();
+    public function findConfiguration($date = null) {
+        if(is_null($date)) {
+            $date = date('Y-m-d');
         }
 
-		return $configuration;
+        $current = CurrentClient::getCurrent();
+        $id = $current->getConfigurationId($date);
+
+        if(array_key_exists($id, $this->configurations)) {
+
+            return $this->configurations[$id];
+        }
+
+        $this->configurations[$id] = $this->cacheFindConfigurationForCache($id);
+
+        return $this->configurations[$id];
+    }
+
+    public function cacheFindConfigurationForCache($id) {
+
+        return CacheFunction::cache('model', "ConfigurationClientCache::findConfigurationForCache", array($id));
+    }
+
+    public function findConfigurationForCache($id) {
+        $configuration = $this->find($id);
+        $configuration->prepareCache();
+
+        return $configuration;
+    }
+
+    public function cacheResetConfiguration() {
+        CacheFunction::remove('model');
+    }
+
+	public static function getCurrent($date = null)
+	{
+		return self::getConfiguration($date);
 	}
-
-    public function cacheGetCurrent()
-    {
-        return CacheFunction::cache('model_configuration', array(ConfigurationClient::getInstance(), 'findCurrentForCache'), array());
-    }
-
-    public function cacheResetCurrent()
-    {
-        CacheFunction::remove('model_configuration');
-    }
 
     public function getProduitsByKey($key)
     {
@@ -168,5 +174,15 @@ class ConfigurationClient extends acCouchdbClient
     public function anonymisation($value) {
 
         return hash("ripemd128", $value.$this->getSaltToken());
+    }
+}
+
+
+class ConfigurationClientCache {
+	public static function findConfigurationForCache($id) {
+        $configuration = ConfigurationClient::getInstance()->find($id);
+        $configuration->prepareCache();
+
+        return $configuration;
     }
 }

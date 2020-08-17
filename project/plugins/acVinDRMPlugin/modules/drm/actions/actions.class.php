@@ -644,7 +644,7 @@ class drmActions extends sfActions {
         $this->interpro = null;
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
         	$this->interpro = $this->getUser()->getCompte()->getGerantInterpro();
-        	$this->configurationProduits = ConfigurationProduitClient::getInstance()->find($this->interpro->getOrAdd('configuration_produits'));
+        	$this->configurationProduits = ConfigurationProduitClient::getInstance()->getByInterpro($this->interpro->identifiant, $this->drm->getDateDebutPeriode());
         }
         $this->droits_circulation = new DRMDroitsCirculation($this->drm);
         $this->etablissement = $this->getRoute()->getEtablissement();

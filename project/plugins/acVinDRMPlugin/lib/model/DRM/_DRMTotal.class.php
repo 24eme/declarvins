@@ -10,7 +10,7 @@ abstract class _DRMTotal extends acCouchdbDocumentTree {
 	
     public function getConfig() {
 		if (!$this->_config) {
-			$this->_config = ConfigurationClient::getCurrent()->getConfigurationProduit($this->getHash());
+			$this->_config = ConfigurationClient::getCurrent($this->getDocument()->getDateDebutPeriode())->getConfigurationProduit($this->getHash());
 		}
         return $this->_config;
     }
