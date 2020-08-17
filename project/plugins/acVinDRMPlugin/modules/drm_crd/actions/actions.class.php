@@ -45,7 +45,7 @@ class drm_crdActions extends sfActions
     {
         $this->forward404Unless($request->isXmlHttpRequest());
     	$drm = $this->getRoute()->getDRM();
-        $config = ConfigurationClient::getCurrent();
+        $config = ConfigurationClient::getCurrent($drm->getDateDebutPeriode());
         
         $form = new DRMCrdAjoutForm($drm, $config);
         if ($request->isMethod(sfWebRequest::POST)) {

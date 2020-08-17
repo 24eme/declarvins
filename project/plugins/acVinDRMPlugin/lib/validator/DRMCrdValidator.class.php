@@ -41,7 +41,7 @@ class DRMCrdValidator extends sfValidatorSchema
         
         if ($values['centilitre']) {
         	$centilisation = ($values['bib'])? 'BIB_'.str_replace(array('.', ','), '_', $values['centilitre']) : 'CL_'.str_replace(array('.', ','), '_', $values['centilitre']);
-        	$conf = ConfigurationClient::getCurrent();
+        	$conf = ConfigurationClient::getCurrent($this->getDRM()->getDateDebutPeriode());
         	if ($conf->crds->centilisation->exist($centilisation)) {
         		throw new sfValidatorError($this, 'exist_centilisation');
         	}

@@ -23,9 +23,8 @@ class drm_mouvements_generauxActions extends sfActions
 		$this->drm = $this->getRoute()->getDRM();
 		$this->certifs = array();
 		$this->certificationLibelle = array();
-		$configuration = $this->getConfigurationProduit();
-                $certification_config = $configuration->declaration->certifications;
-		$certifications = ConfigurationClient::getCurrent()->getCertifications();
+		$configuration = ConfigurationClient::getCurrent($this->drm->getDateDebutPeriode());
+		$certifications = $configuration->getCertifications();
 		foreach ($certifications as $c => $certification) {
 	            if (!isset($this->certifs[$c])) {
 					$this->certifs[$c] = $certification;
@@ -97,12 +96,12 @@ class drm_mouvements_generauxActions extends sfActions
     {
         $this->forward404Unless($request->isXmlHttpRequest());
     	$drm = $this->getRoute()->getDRM();
-        $config = ConfigurationClient::getCurrent();
+        $config = ConfigurationClient::getCurrent($drm->getDateDebutPeriode());
         $certification = $this->getRoute()->getCertification();
         $configurationProduits = null;
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
         	$interpro = $this->getUser()->getCompte()->getGerantInterpro();
-        	$configurationProduits = ConfigurationProduitClient::getInstance()->find($interpro->getOrAdd('configuration_produits'));
+        	$configurationProduits = ConfigurationProduitClient::getInstance()->getByInterpro($interpro->identifiant, $drm->getDateDebutPeriode());
         }
 
         $form = new DRMProduitAjoutForm($drm, $config, $certification, null, $configurationProduits);
@@ -128,7 +127,7 @@ class drm_mouvements_generauxActions extends sfActions
     	$drm = $this->getRoute()->getObject()->getDocument();
     	$detail = $this->getRoute()->getObject();
 
-        $form = new DRMProduitEditForm($detail, ConfigurationClient::getCurrent());
+        $form = new DRMProduitEditForm($detail, ConfigurationClient::getCurrent($drm->getDateDebutPeriode()));
         if ($request->isMethod(sfWebRequest::POST)) {
     		$this->getResponse()->setContentType('text/json');
             $form->bind($request->getParameter($form->getName()));
@@ -143,15 +142,4 @@ class drm_mouvements_generauxActions extends sfActions
 
         return $this->renderText($this->getPartial('popupEdit', array('form' => $form, 'detail' => $detail)));
     }
-	
-	protected function getConfigurationProduit()
-	{
-		$interpro = $this->getInterpro()->_id;
-		return ConfigurationProduitClient::getInstance()->getOrCreate($interpro);
-	}
-	
-	protected function getInterpro()
-	{
-		return $this->getUser()->getCompte()->getGerantInterpro();
-	}
 }

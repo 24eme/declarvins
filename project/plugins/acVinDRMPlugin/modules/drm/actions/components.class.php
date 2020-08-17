@@ -3,7 +3,7 @@
 class drmComponents extends sfComponents {
 
     public function executeEtapes() {
-        $this->config_certifications = ConfigurationClient::getCurrent()->getCertifications();
+        $this->config_certifications = ConfigurationClient::getCurrent($this->drm->getDateDebutPeriode())->getCertifications();
         $this->certifications = array();
 
         $i = 3;

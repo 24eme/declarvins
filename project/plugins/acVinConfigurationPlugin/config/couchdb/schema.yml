@@ -1,4 +1,18 @@
 
+Current:
+  indexable: false
+  definition:
+    fields:
+      _id: {  }
+      _rev: {  }
+      type: {  }
+      campagne: {  }
+      configurations:
+        type: collection
+        definition:
+          fields:
+            '*': {  }
+
 Configuration:
   definition:
     fields:

@@ -201,7 +201,8 @@ class configuration_produitActions extends sfActions
 	protected function getConfigurationProduit($request)
 	{
 		$interpro = ($request->getParameter('anivin'))? 'INTERPRO-ANIVIN' : $this->getInterpro()->_id;
-		return ConfigurationProduitClient::getInstance()->getOrCreate($interpro);
+		$date = ($request->getParameter('date'))? $request->getParameter('date') : date('Y-m-d');
+		return ConfigurationProduitClient::getInstance()->getOrCreate($interpro, $date);
 	}
 	
 	protected function getInterpro()
