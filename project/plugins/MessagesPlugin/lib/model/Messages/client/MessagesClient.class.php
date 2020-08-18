@@ -49,7 +49,7 @@ class MessagesClient extends acCouchdbClient {
           return ($m)? $m : null;
       }
       if ($interpro == 'CIVP') {
-          $m = trim($this->retrieveMessages()->info_vrac_drm_encart_civp);
+          $m = trim($this->retrieveMessages()->info_vrac_encart_civp);
           return ($m)? $m : null;
       }
       return null;
