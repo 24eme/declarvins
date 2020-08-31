@@ -179,7 +179,7 @@ function(doc) {
                             code = lieu.code;
                         }
 						var couleur_code = (couleur.code)? (couleur.code).replace(code, '') : couleur.code;
-                        var couleur_libelle = (couleur.libelle).replace(libelle, '');
+                        var couleur_libelle = (couleur.libelle) ? (couleur.libelle).replace(libelle, '') : null;
                         if (couleur_code == key_default) {
                             couleur_code = null;
                             couleur_libelle = null;

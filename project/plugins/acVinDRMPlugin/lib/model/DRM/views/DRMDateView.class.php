@@ -2,8 +2,8 @@
 class DRMDateView extends acCouchdbView
 {
 	const KEY_INTERPRO_ID = 0;
-	const KEY_HAS_VRAC = 1;
-	const KEY_DATE_SAISIE = 2;
+	const KEY_DATE_SAISIE = 1;
+	const KEY_HAS_VRAC = 2;
 	const KEY_DRM_ID = 3;
 	const KEY_DETAIL_HASH = 4;
 
