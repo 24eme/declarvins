@@ -507,7 +507,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         }*/
     	$periode = DRMClient::getInstance()->getPeriodePrecedente($this->periode);
     	$campagne = DRMClient::getInstance()->buildCampagne($periode);
-    	if ($campagne != $this->campagne) {
+        if ($this->isMoisOuvert()) {
     		return new DRM();
     	}
     	if ($precente = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($this->identifiant, $periode)) {
@@ -887,10 +887,10 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     public function isDebutCampagne() {
         return DRMPaiement::isDebutCampagne(DRMClient::getInstance()->getMois($this->periode));
     }
-    
+
     public function isMoisOuvert() {
         $mois = ($this->getEtablissementObject())? $this->getEtablissementObject()->getMoisToSetStock() : DRMPaiement::NUM_MOIS_DEBUT_CAMPAGNE;
-        return (DRMClient::getInstance()->getMois($this->periode) == $mois)? true : false;
+        return DRMClient::getInstance()->getMois($this->periode) == $mois;
     }
 
     public function getCampagnePrecedente() {
