@@ -137,14 +137,14 @@ class VracSoussigneForm extends VracForm
 			$this->getObject()->add('mandataire');
 			$this->getObject()->mandataire_identifiant = null;
 		}
-		
+
+		$this->getObject()->storeSoussignesInformations();
+
 		if ($this->getObject()->vendeur->famille == EtablissementFamilles::FAMILLE_PRODUCTEUR || $this->getObject()->vendeur->sous_famille == EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
 			$this->getObject()->premiere_mise_en_marche = 1;
 		} else {
 			$this->getObject()->premiere_mise_en_marche = 0;
 		}
-
-		$this->getObject()->storeSoussignesInformations();
 	}
 
 	public function etablissementIsVendeurOrAcheteur() {
