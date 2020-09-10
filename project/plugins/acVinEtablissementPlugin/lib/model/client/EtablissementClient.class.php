@@ -84,13 +84,13 @@ class EtablissementClient extends acCouchdbClient {
     public function matchSousFamille($sf) {
       $sf = KeyInflector::slugify($sf);
       $matches = array("cave.{1}particuli.{1}re" => EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE,
-      					 "cave.{1}coop.{1}rative" => EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE,
-                         "vendeur.{1}raisin" => EtablissementFamilles::SOUS_FAMILLE_VENDEUR_RAISIN,
-                         "r.{1}gional" => EtablissementFamilles::SOUS_FAMILLE_REGIONAL,
-                         "ext.{1}rieur" => EtablissementFamilles::SOUS_FAMILLE_EXTERIEUR,
-                         ".{1}tranger" =>  EtablissementFamilles::SOUS_FAMILLE_ETRANGER,
-                         "union" => EtablissementFamilles::SOUS_FAMILLE_UNION,
-                         "vinificateur" => EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR);
+          "cave.{1}coop.{1}rative" => EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE,
+          "vendeur.{1}de.{1}raisin" => EtablissementFamilles::SOUS_FAMILLE_VENDEUR_RAISIN,
+          "r.{1}gional" => EtablissementFamilles::SOUS_FAMILLE_REGIONAL,
+          "ext.{1}rieur" => EtablissementFamilles::SOUS_FAMILLE_EXTERIEUR,
+          ".{1}tranger" =>  EtablissementFamilles::SOUS_FAMILLE_ETRANGER,
+          "union" => EtablissementFamilles::SOUS_FAMILLE_UNION,
+          "vinificateur" => EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR);
       foreach ($matches as $match => $s) {
         if (preg_match('/'.$match.'/i', $sf)) {
           return $s;
