@@ -1496,18 +1496,42 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
 
     public function getCielProduits() {
         $e = $this->getEtablissementObject();
+        $produits = $this->getDetails();
+        $produits_fait = [];
+
+        foreach ($produits as $detail) {
+                $produits_fait[] = $detail->getCepage()->libelle_fiscal.$detail->getCepage()->inao;
+        }
+
         if ($e->famille == EtablissementFamilles::FAMILLE_PRODUCTEUR || $e->sous_famille == EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
-            return $this->getDetails();
-            return $this->getDetails();
+            //return $produits;
         } else {
-            foreach ($this->getDetails() as $detail) {
+            foreach ($produits as $detail) {
                 if (!$detail->getCepage()->libelle_fiscal && $detail->getCorrespondanceNegoce()) {
                     $detail->getCepage()->libelle_fiscal = $detail->getLibelleFiscalNegocePur();
                     $detail->getCepage()->inao =  $detail->getLibelleFiscalNegocePur();
                 }
+                $produits_fait[] = $detail->getCepage()->libelle_fiscal.$detail->getCepage()->inao;
             }
-            return $this->getDetails();
+            //return $produits;
         }
+
+        if ($this->isMoisOuvert()) {
+            $drm_juillet = DRMClient::getInstance()->find(preg_replace('/08$/', '07', $this->_id));
+            if ($drm_juillet) {
+                $drm_juillet->init(['keepStock' => false]);
+
+                foreach ($drm_juillet->getDetails() as $detail) {
+                    if (in_array($detail->getCepage()->libelle_fiscal.$detail->getCepage()->inao, $produits_fait)) {
+                        continue;
+                    }
+                    $produits_fait[] = $detail->getCepage()->libelle_fiscal.$detail->getCepage()->inao;
+                    $produits[] = $detail;
+                }
+            }
+        }
+
+        return $produits;
     }
 
     public function getExportableSucre() {
