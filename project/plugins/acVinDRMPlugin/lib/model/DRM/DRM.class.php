@@ -501,18 +501,18 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     	return !$precedenteCiel->isTransfere();
     }
 
-    public function getPrecedente() {
-        /*if ($this->exist('precedente') && $this->_get('precedente')) {
-            return DRMClient::getInstance()->find($this->_get('precedente'));
-        }*/
+    public function getPrecedente($always_precedente = false) {
     	$periode = DRMClient::getInstance()->getPeriodePrecedente($this->periode);
     	$campagne = DRMClient::getInstance()->buildCampagne($periode);
-        if ($this->isMoisOuvert()) {
+        if (!$always_precedente && $this->isMoisOuvert()) {
     		return new DRM();
     	}
     	if ($precente = DRMClient::getInstance()->findMasterByIdentifiantAndPeriode($this->identifiant, $periode)) {
     		return $precente;
     	}
+        if ($always_precedente) {
+            return null;
+        }
         return new DRM();
     }
 
@@ -1497,15 +1497,22 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     public function getCielProduits() {
         $e = $this->getEtablissementObject();
         $produits = $this->getDetails();
+
+        if (!$this->isMoisOuvert()) {
+            return $produits;
+        }
+        $drm_precedente = $this->getPrecedente(true);
+        if (!$drm_precedente) {
+            return $produits;
+        }
+
         $produits_fait = [];
 
         foreach ($produits as $detail) {
                 $produits_fait[] = $detail->getCepage()->libelle_fiscal.$detail->getCepage()->inao;
         }
 
-        if ($e->famille == EtablissementFamilles::FAMILLE_PRODUCTEUR || $e->sous_famille == EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
-            //return $produits;
-        } else {
+        if ($e->famille != EtablissementFamilles::FAMILLE_PRODUCTEUR && $e->sous_famille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
             foreach ($produits as $detail) {
                 if (!$detail->getCepage()->libelle_fiscal && $detail->getCorrespondanceNegoce()) {
                     $detail->getCepage()->libelle_fiscal = $detail->getLibelleFiscalNegocePur();
@@ -1513,22 +1520,15 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 }
                 $produits_fait[] = $detail->getCepage()->libelle_fiscal.$detail->getCepage()->inao;
             }
-            //return $produits;
         }
 
-        if ($this->isMoisOuvert()) {
-            $drm_juillet = DRMClient::getInstance()->find(preg_replace('/08$/', '07', $this->_id));
-            if ($drm_juillet) {
-                $drm_juillet->init(['keepStock' => false]);
-
-                foreach ($drm_juillet->getDetails() as $detail) {
-                    if (in_array($detail->getCepage()->libelle_fiscal.$detail->getCepage()->inao, $produits_fait)) {
-                        continue;
-                    }
-                    $produits_fait[] = $detail->getCepage()->libelle_fiscal.$detail->getCepage()->inao;
-                    $produits[] = $detail;
-                }
+        $drm_precedente->init(['keepStock' => false]);
+        foreach ($drm_precedente->getDetails() as $detail) {
+            if (in_array($detail->getCepage()->libelle_fiscal.$detail->getCepage()->inao, $produits_fait)) {
+                continue;
             }
+            $produits_fait[] = $detail->getCepage()->libelle_fiscal.$detail->getCepage()->inao;
+            $produits[] = $detail;
         }
 
         return $produits;
