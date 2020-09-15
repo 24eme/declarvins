@@ -276,7 +276,7 @@ function(doc) {
                                                      detail.sorties.declassement,
                                                      detail.sorties.repli,
                                                      detail.sorties.mouvement,
-                                                     detail.sorties.distillation,
+                                                     detail.sorties.autres,
                                                      detail.sorties.lies,
                                                      detail.total,
                                                      detail.stocks_fin.bloque,
