@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 /**
 * CouchDB client class
 *
-* This class implements all required methods to use with a 
+* This class implements all required methods to use with a
 * CouchDB server
 *
 *
@@ -103,7 +103,7 @@ class couchClient extends couch {
 	public function __construct($dsn, $dbname) {
 		$this->useDatabase($dbname);
 		parent::__construct($dsn);
-		
+
 	}
 
 	/**
@@ -122,9 +122,17 @@ class couchClient extends couch {
 	protected function _queryAndTest ( $method, $url,$allowed_status_codes, $parameters = array(),$data = NULL ) {
 // 		print_r($method.' '.$url."\n");
 // 		print_r($parameters);
+		if (sfConfig::get('sf_debug')) {
+			$memory = memory_get_usage();
+			$timer = sfTimerManager::getTimer("CouchDB", true);
+		}
 		$raw = $this->query($method,$url,$parameters,$data);
 // 		echo $raw."\n";
 		$response = $this->parseRawResponse($raw, $this->results_as_array);
+		if (sfConfig::get('sf_debug')) {
+			$memoryUse = memory_get_usage() - $memory;
+			CouchdbDebugManager::addQuery($url, $method, $parameters, $timer->addTime(), $memoryUse);
+		}
 		$this->results_as_array = false;
 // 		print_r($response);
 		if ( in_array($response['status_code'], $allowed_status_codes) ) {
@@ -309,7 +317,7 @@ class couchClient extends couch {
 		}
 		return $this;
 	}
-	
+
 
 	/**
 	*CouchDb changes option
@@ -479,7 +487,7 @@ class couchClient extends couch {
 
 
 	/**
-	* update a couchDB document through an Update Handler 
+	* update a couchDB document through an Update Handler
 	*
 	* @link http://wiki.apache.org/couchdb/Document_Update_Handlers
 	* @param string $ddoc_id name of the design doc containing the update handler definition (without _design)
@@ -701,16 +709,16 @@ class couchClient extends couch {
 			// create couchDocument
 			$cd = new couchDocument($this);
 			$cd->loadFromObject($row->doc);
-			
+
 			// set key name
 			if ( is_string($row->key) ) $key = $row->key;
 			elseif ( is_array($row->key) ) {
-				if ( !is_array(end($row->key)) && !is_object(end($row->key)) ) 
+				if ( !is_array(end($row->key)) && !is_object(end($row->key)) )
 					$key = end($row->key);
 				else
 					continue;
 			}
-			
+
 			// set value in result array
 			if ( isset($back[$key]) ) {
 				if ( is_array($back[$key]) ) 	$back[$key][] = $cd;
@@ -752,7 +760,7 @@ class couchClient extends couch {
 	* the design doc where the view function is defined
 	*
 	* So if you got a design doc "_design/example1" with a defined view "view1", and
-	* a design doc "_design/example2" with a defined list "list1", you can query the view view1 
+	* a design doc "_design/example2" with a defined list "list1", you can query the view view1
 	* and then pass it through the list list1 by using :
 	*
 	* getForeignList("example2","list1","example1","view1");
@@ -931,4 +939,3 @@ class couchException extends Exception {
 		return $this->couch_response['body'];
 	}
 }
-

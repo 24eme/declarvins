@@ -160,7 +160,6 @@ aaaa-mm-jjT00h00m00 (en effet le spérateur ":" du format horaire ISO 8601 [6] n
 95. Volume acquitté sortie replacement
 96. Volume acquitté sortie autres
 97. Stock acquitté théorique fin de mois
-98. Volume sortie autres
 
 ## Interface EDI Contrat d'achat
 
