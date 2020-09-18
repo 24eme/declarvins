@@ -95,24 +95,24 @@ aaaa-mm-jjT00h00m00 (en effet le spérateur ":" du format horaire ISO 8601 [6] n
 30. Dont Vin en instance ; 
 31. Dont Vin commercialisable ; 
 32. Volume total des entrées
-33. Volume entrée achats
-34. Volume entrée récolte
-35. Volume entrée replis / changement de dénomination
-36. Volume entrée déclassement
-37. Volume entrée transfert de chai / embouteillage
-38. Volume entrée réintégration CRD
+33. Volume entrée Achats / réintégration
+34. Volume entrée Récolte / revendication
+35. Volume entrée Mvt. interne : Replis / Changt. de dénomination
+36. Volume entrée Mvt. interne : Déclassement / Lies
+37. Volume entrée Mvt. temporaire : Retour transfert de chai
+38. Volume entrée Replacement en suspension CRD
 39. Volume total des sorties
-40. Volume sortie vrac DAA/DAE
-41. Volume sortie conditionné export
-42. Volume sortie  DSA / tickets / factures
+40. Volume sortie Vrac DAA/DAE
+41. Volume sortie Conditionné export
+42. Volume sortie DSA / tickets / factures
 43. Volume sortie CRD France
-44. Volume sortie conso fam. / analyses / dégustation
-45. Volume sortie pertes
-46. Volume sortie non rev. / déclassement
-47. Volume sortie changement / repli
-48. Volume sortie transfert de chai / embouteillage
-49. Volume sortie destruction / distillation
-50. Volume sortie lies
+44. Volume sortie Conso Fam. / Analyses / Dégustation
+45. Volume sortie Autres sorties
+46. Volume sortie Mvt. interne : Non rev. / Déclassement
+47. Volume sortie Mvt. interne : Changement / Repli
+48. Volume sortie Mvt. temporaire : Transfert de chai
+49. Volume sortie Destruction / Distillation
+50. Volume sortie Lies
 51. Stock théorique fin de mois
 52. Dont Vin bloqué
 53. Dont Vin warranté
@@ -141,24 +141,24 @@ aaaa-mm-jjT00h00m00 (en effet le spérateur ":" du format horaire ISO 8601 [6] n
 76. Identifiant INAO du produit
 77. Libellé fiscal du produit (en l'absence de code INAO)
 78. TAV (taux d'alcool volumique)
-79. Volume entrée manipulation
-80. Volume entrée embouteillage
-81. Volume entrée travail à façon
-82. Volume entrée distillation
-83. Volume entrée excedent
-84. Volume sortie crd acquittée
-85. Volume sortie mutage
-86. Volume sortie vci
-87. Volume sortie autres mouvements interne
-88. Volume sortie embouteillage
-89. Volume sortie travail à façon
-90. Volume sortie distillation
+79. Volume entrée Mvt. interne : Augmentation de volume
+80. Volume entrée Mvt. temporaire : Retour embouteillage
+81. Volume entrée Mvt. temporaire : Retour de travail à façon
+82. Volume entrée Mvt. temporaire : Retour de distillation à façon
+83. Volume entrée Excédent suite à inventaire ou contrôle douanes
+84. Volume sortie CRD Collectives acquittées
+85. Volume sortie Mvt. interne : Mutage
+86. Volume sortie Mvt. interne : Revendication de VCI
+87. Volume sortie Mvt. interne : Autres
+88. Volume sortie Mvt. temporaire : Embouteillage
+89. Volume sortie Mvt. temporaire : Travail à façon
+90. Volume sortie Mvt. temporaire : Distillation à faço
 91. Stock acquitté théorique début de mois
-92. Volume acquitté entrée achat
-93. Volume acquitté entrée autres
-94. Volume acquitté sortie crd
-95. Volume acquitté sortie replacement
-96. Volume acquitté sortie autres
+92. Volume acquitté entrée Achats
+93. Volume acquitté entrée Autres
+94. Volume acquitté sortie Ventes de produits
+95. Volume acquitté sortie Replacement en suspension 
+96. Volume acquitté sortie Autres
 97. Stock acquitté théorique fin de mois
 
 ## Interface EDI Contrat d'achat
