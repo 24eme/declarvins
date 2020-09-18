@@ -70,13 +70,13 @@
                 
                 <?php 
                 $today = date('Y-m-d');
-                $limite = ($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31')? (date('Y')+1).'-09-30' : date('Y').'-09-30';
+                $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $form->getObject()->type_transaction != 'vrac')? (date('Y')+1).'-09-30' : date('Y').'-09-30';
                 $date1 = new DateTime();
                 $date2 = new DateTime($limite);
                 $nbJour = ceil($date2->diff($date1)->format("%a") / 2);
                 $date1->modify("+$nbJour day");
                 if ($form->getObject()->contrat_pluriannuel) {
-                    $limite = ($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31')? '30/06/'.(date('Y')+1) : '30/06/'.date('Y');
+                    $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $form->getObject()->type_transaction != 'vrac')? '30/06/'.(date('Y')+1) : '30/06/'.date('Y');
                     $moitie = $limite;
                     $fin = $limite;
                 } else {
