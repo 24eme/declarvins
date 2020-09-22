@@ -129,11 +129,13 @@
             <?php endif; ?>
             </div>
             <h1>Retiraison / Enlèvement</h1>
+            <?php if(isset($form['type_retiraison'])): ?>
             <div class="section_label_strong">
                 <?php echo $form['type_retiraison']->renderError() ?>
                 <?php echo $form['type_retiraison']->renderLabel() ?>
                 <?php echo $form['type_retiraison']->render() ?>
             </div>
+            <?php endif; ?>
             <?php if (!$form->conditionneIVSE()): ?>
             <div class="section_label_strong">
                 <?php echo $form['vin_livre']->renderError() ?>
