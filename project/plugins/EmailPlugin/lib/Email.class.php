@@ -265,7 +265,7 @@ class Email {
         $subject = 'Relance : Demande de validation d\'un contrat interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true);
         $body = $this->getBodyFromPartial('vrac_contrat_relance', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur, 'url' => $url));
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
-		return $message;
+
         return $this->getMailer()->send($message);
     }
     
@@ -290,6 +290,24 @@ class Email {
         $body = $this->getBodyFromPartial('vrac_contrat_expiration_annulation', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur, 'url' => $url));
         $message = $this->getMailer()->compose($from, $to, $subject, $body)->setContentType('text/html');
 
+        return $this->getMailer()->send($message);
+    }    
+
+    public function vracDeterminationPrix($vrac, $etablissement, $destinataire, $acteur, $url)
+    {
+        $interpros = array(InterproClient::getInstance()->getById($vrac->interpro));
+        $from = $this->getFromEmailInterpros($interpros);
+        $to = array($destinataire);
+        $subject = 'Relance : Demande du prix définitif d\'un contrat interprofessionnel '.$vrac->getLibelleProduit("%c% %a%", true);
+        $body = $this->getBodyFromPartial('vrac_determination_prix', array('vrac' => $vrac, 'etablissement' => $etablissement, 'acteur' => $acteur, 'url' => $url));
+        $message = Swift_Message::newInstance()
+        ->setFrom($from)
+        ->setTo($to)
+        ->setCc($from)
+        ->setSubject($subject)
+        ->setBody($body)
+        ->setContentType('text/html');
+    
         return $this->getMailer()->send($message);
     }
     
