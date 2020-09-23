@@ -35,6 +35,9 @@ EOF;
     $vracs = VracDeterminationprixView::getInstance()->findLast();
     foreach ($vracs->rows as $row) {
         if ($vrac = VracClient::getInstance()->find($row->id)) {
+            if ($vrac->type_prix == 'definitif') {
+                continue;
+            }
             if ($vrac->valide->statut == VracClient::STATUS_CONTRAT_SOLDE || $vrac->valide->statut == VracClient::STATUS_CONTRAT_NONSOLDE) {
                 if (!$vrac->date_relance || ($vrac->date_relance < $vrac->valide->date_validation)) {
                     $this->sendEmail($vrac, $vrac->acheteur_identifiant, 'acheteur');

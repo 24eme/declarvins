@@ -10,7 +10,7 @@ Millésime : <?php echo $vrac->millesime ?><br />
 Type : <?php echo $vrac->type_transaction ?><br />
 Volume : <?php echo $vrac->volume_propose ?> <?php if($vrac->type_transaction == 'raisin'): ?>Kg<?php else: ?>HL<?php endif; ?><br />
 Prix non définitif : <?php echo $vrac->prix_unitaire ?> <?php if($vrac->type_transaction != 'raisin'): ?>€(HT)/hl<?php else: ?>€/kg (Hors Taxes / Net)<?php endif;?><br />
-Date de fixation du prix : <?php strftime('%d/%m/%Y', strtotime($vrac->determination_prix_date)) ?>
+Date de fixation du prix : <?php echo strftime('%d/%m/%Y', strtotime($vrac->determination_prix_date)) ?>
 <?php if ($vrac->vendeur_identifiant): ?>
 Vendeur :<br />
 <ul>
