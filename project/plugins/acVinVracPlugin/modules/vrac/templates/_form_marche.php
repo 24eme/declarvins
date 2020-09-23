@@ -217,13 +217,16 @@ $( document ).ready(function() {
 
     var volume = $("#vrac_marche_volume_propose");
     var prix_total_unitaire = $("#vrac_marche_prix_total_unitaire");
+    var prix_unitaire = $("#vrac_marche_prix_unitaire");
 
     function updatePrixTotal()
 	{
         var vol = parseFloat(volume.val());
         var prix = parseFloat(prix_total_unitaire.val());
-
-        console.log('Volume: ' + vol + ' / Prix: ' + prix);
+        
+        if(isNaN(prix)) {
+        	prix = parseFloat(prix_unitaire.val());
+        }
 
         if(isNaN(vol)) {
             vol = 0;
