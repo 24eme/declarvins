@@ -51,10 +51,11 @@ strings $TMP/export_bi_mouvements.csv > $TMP/export_bi_mouvements_cl.csv
 strings $TMP/export_bi_contrats.csv > $TMP/export_bi_contrats_cl.csv
 strings $TMP/export_bi_etablissements.csv > $TMP/export_bi_etablissements_cl.csv
 strings $TMP/export_bi_drm_stock.csv > $TMP/export_bi_drm_stock_cl.csv
+strings $TMP/export_bi_drm.csv > $TMP/export_bi_drm_cl.csv
 strings $TMP/export_bi_daes.csv > $TMP/export_bi_daes_cl.csv
 
 cd $TMP
-recode UTF8..ISO88591-1 export_bi_mouvements_cl.csv export_bi_contrats_cl.csv export_bi_etablissements_cl.csv export_bi_drm_stock_cl.csv export_bi_daes_cl.csv
+recode UTF8..ISO88591-1 export_bi_drm_cl.csv export_bi_mouvements_cl.csv export_bi_contrats_cl.csv export_bi_etablissements_cl.csv export_bi_drm_stock_cl.csv export_bi_daes_cl.csv
 
 #Fichier DV
 #export_bi_mouvements_cl.csv export_bi_contrats_cl.csv export_bi_etablissements_cl.csv export_bi_drm_cl.csv export_bi_daes_cl.csv
