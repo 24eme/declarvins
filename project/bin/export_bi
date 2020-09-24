@@ -47,11 +47,11 @@ if [[ $1 -eq "IR" ]] ; then
 fi
 
 #Stringifie
-strings export_bi_mouvements.csv >  export_bi_mouvements_cl.csv 
-strings export_bi_contrats.csv > export_bi_contrats_cl.csv
-strings export_bi_etablissements.csv > export_bi_etablissements_cl.csv
-strings export_bi_drm_stock.csv > export_bi_drm_stock_cl.csv
-strings export_bi_daes.csv > export_bi_daes_cl.csv
+strings $TMP/export_bi_mouvements.csv > $TMP/export_bi_mouvements_cl.csv 
+strings $TMP/export_bi_contrats.csv > $TMP/export_bi_contrats_cl.csv
+strings $TMP/export_bi_etablissements.csv > $TMP/export_bi_etablissements_cl.csv
+strings $TMP/export_bi_drm_stock.csv > $TMP/export_bi_drm_stock_cl.csv
+strings $TMP/export_bi_daes.csv > $TMP/export_bi_daes_cl.csv
 
 cd $TMP
 recode UTF8..ISO88591-1 export_bi_mouvements_cl.csv export_bi_contrats_cl.csv export_bi_etablissements_cl.csv export_bi_drm_stock_cl.csv export_bi_daes_cl.csv
