@@ -2,7 +2,8 @@
 
 . bin/config.inc
 
-curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/drm/_view/stocks | grep "INTERPRO-$1" | sed -f bin/unicode2alpha | sed 's/.*"key":\[/DRM;/' | sed 's/\],"value":\[*/,/' | sed 's/\]*\},*//' | grep '^DRM;"' | sed 's/,/;/g' | sed 's/\r*$/;/' | sed 's/null//g' | sed 's/";;"/";"/' > $TMP/export_bi_drm_stock.csv
+curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/drm/_view/stocks | grep "INTERPRO-$1" | sed -f bin/unicode2alpha | sed 's/.*"key":\[/DRM;/' | sed 's/\],"value":\[*/,/' | sed 's/\]*\},*//' | grep '^DRM;"' | sed 's/,/;/g' | sed 's/\r*$/;/' | sed 's/null//g' | sed 's/";;"/";"/' > $TMP/export_bi_drm_stock_tmp.csv
+strings $TMP/export_bi_drm_stock_tmp.csv > $TMP/export_bi_drm_stock.csv
 cat $TMP/export_bi_drm_stock.csv | awk -F ";" ' substr($5,2,4) >= 2014  { print }' | sort -t ";" -k 1,1 > $TMP/export_bi_drm_stock_campagne_filtered.csv
 
 # Récupération des plus hautes modificatrices
