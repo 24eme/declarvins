@@ -61,22 +61,19 @@ EOF;
 
   	$url['contact'] = $routing->generate('contact', array(), true);
   	$url['home'] = $routing->generate('homepage', array(), true);
+  	
+  	$compte = ($etablissement)? $etablissement->getCompteObject() : null;
+  	if ($compte && $compte->email) {
+  	    if ($compte->statut == _Compte::STATUT_ARCHIVE) {
+  	        if ($interpro->email_contrat_vrac) {
+  	            Email::getInstance($contextInstance)->vracDeterminationPrix($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
+  	        }
+  	    } else {
+  	        Email::getInstance($contextInstance)->vracDeterminationPrix($vrac, $etablissement, $compte->email, $acteur, $url);
+  	    }
+  	} else {
+  	    Email::getInstance($contextInstance)->vracDeterminationPrix($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
+  	}
 
-  	if ($etablissement->compte) {
-		if ($compte = _CompteClient::getInstance()->find($etablissement->compte)) {
-			if ($compte->statut == _Compte::STATUT_ARCHIVE) {
-				if ($interpro->email_contrat_vrac) {
-					Email::getInstance($contextInstance)->vracDeterminationPrix($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
-				}
-			}
-		}
-	}
-	if ($etablissement->email) {
-		try {
-			Email::getInstance($contextInstance)->vracDeterminationPrix($vrac, $etablissement, $etablissement->email, $acteur, $url);
-		} catch (Exception $e) {
-			return;
-		}
-	}
   }
 }
