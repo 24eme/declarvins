@@ -160,6 +160,7 @@ aaaa-mm-jjT00h00m00 (en effet le spérateur ":" du format horaire ISO 8601 [6] n
 95. Volume acquitté sortie Replacement en suspension 
 96. Volume acquitté sortie Autres
 97. Stock acquitté théorique fin de mois
+98. Montant de l'avoir (Volume entrée Replacement en suspension CRD x CVO Taux)
 
 ## Interface EDI Contrat d'achat
 
