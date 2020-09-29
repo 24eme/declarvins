@@ -312,7 +312,7 @@ class ConfigurationProduit extends BaseConfigurationProduit
     		$this->updatePrestations();
     	}
         parent::save();
-        ConfigurationClient::getInstance()->cacheResetCurrent();
+        ConfigurationClient::getInstance()->cacheResetConfiguration();
     }
     
     public function updatePrestations() 
