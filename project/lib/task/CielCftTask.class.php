@@ -186,17 +186,20 @@ EOF;
     			    $generate = false;
     			    $stockEpuiseSuspendus = (bool) $xmlIn->{"declaration-recapitulative"}->{"droits-suspendus"}->{"stockEpuise"};
     			    $stockEpuiseAcquittes = (bool) $xmlIn->{"declaration-recapitulative"}->{"droits-acquittes"}->{"stockEpuise"};
-    			    $periodePrecedente = sprintf("%4d-%02d", (string) $xmlIn->{"declaration-recapitulative"}->{"periode"}->{"annee"}, ((int) $xmlIn->{"declaration-recapitulative"}->{"periode"}->{"mois"}) - 1);
+    			    $periodePrecedente = (((int) $xmlIn->{"declaration-recapitulative"}->{"periode"}->{"mois"}) - 1 > 0)? sprintf("%4d-%02d", (int)$xmlIn->{"declaration-recapitulative"}->{"periode"}->{"annee"}, ((int) $xmlIn->{"declaration-recapitulative"}->{"periode"}->{"mois"}) - 1) : sprintf("%4d-%02d", ((int)$xmlIn->{"declaration-recapitulative"}->{"periode"}->{"annee"}-1), 12);
     			    if ($drmPrecedente = CielDrmView::getInstance()->findByAccisesPeriode($ea, $periodePrecedente)) {
-    			        if($drmPrecedente->hasStocksEpuise()) {
+    			        if($drmPrecedente->hasStocksEpuise() && $stockEpuiseSuspendus && $stockEpuiseAcquittes) {
     			            $drmGeneree = $drmPrecedente->generateSuivante();
-    			            $drmGeneree->validateAutoCiel($xmlIn->asXML());
-    			            $drmGeneree->validate();
-    			            if (!$checkingMode) {
-    			                 $drmGeneree->save();
-    			                 Email::getInstance()->cielValide($drmGeneree);
+    			            $drmGeneree->constructId();
+    			            if (!DRMClient::getInstance()->find($drmGeneree->_id)) {
+        			            $drmGeneree->validateAutoCiel($xmlIn->asXML());
+        			            $drmGeneree->validate();
+        			            if (!$checkingMode) {
+        			                 $drmGeneree->save();
+        			                 Email::getInstance()->cielValide($drmGeneree);
+        			            }
+        			            $generate = true;
     			            }
-    			            $generate = true;
     			        }
     			    }
     			    if ($generate) {

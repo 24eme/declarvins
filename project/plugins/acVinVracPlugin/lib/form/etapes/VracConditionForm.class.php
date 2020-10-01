@@ -4,7 +4,6 @@ class VracConditionForm extends VracForm
    	public function configure()
     {
   		$this->setWidgets(array(
-        	'has_transaction' => new WidgetFormInputCheckbox(),
   		    'contrat_pluriannuel' => new sfWidgetFormChoice(array('choices' => array('0' => 'Ponctuel', '1' => 'Adossé à un contrat pluriannel'),'expanded' => true)),
         	'reference_contrat_pluriannuel' => new sfWidgetFormInputText(),
   		    'cas_particulier' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getCasParticulier(), 'renderer_options' => array('formatter' => array('VracSoussigneForm', 'casParticulierFormatter')))),
@@ -15,7 +14,6 @@ class VracConditionForm extends VracForm
         	'type_transaction' => new sfWidgetFormChoice(array('expanded' => true, 'choices' => $this->getTypesTransaction())),
     	));
         $this->widgetSchema->setLabels(array(
-        	'has_transaction' => 'je souhaite faire ma déclaration de transaction en même tant que mon contrat',
         	'contrat_pluriannuel' => 'Type de contrat:',
         	'reference_contrat_pluriannuel' => 'Référence du contrat pluriannuel adossé à ce contrat*:',
             'cas_particulier' => 'Condition particulière*:',
@@ -26,7 +24,6 @@ class VracConditionForm extends VracForm
         	'type_transaction' => 'Type de produit:',
         ));
         $this->setValidators(array(
-        	'has_transaction' => new ValidatorBoolean(),
             'contrat_pluriannuel' => new sfValidatorChoice(array('required' => true, 'choices' => array('0','1'))),
         	'reference_contrat_pluriannuel' => new sfValidatorString(array('required' => false)),
             'cas_particulier' => new sfValidatorChoice(array('required' => true, 'choices' => array_keys($this->getCasParticulier()))),

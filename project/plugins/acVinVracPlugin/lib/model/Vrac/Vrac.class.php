@@ -608,6 +608,10 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     		$this->valide->date_saisie = date('c');
     	}
     	$this->normalizeNumeric();
+    	$this->has_transaction = 0;
+    	if ($this->produit && $this->interpro && $this->type_transaction && $this->interpro == 'INTERPRO-CIVP' && $this->type_transaction == 'vrac') {
+    	    $this->has_transaction = 1;
+    	}
     	parent::save();
     }
     

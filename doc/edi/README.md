@@ -162,6 +162,17 @@ aaaa-mm-jjT00h00m00 (en effet le spérateur ":" du format horaire ISO 8601 [6] n
 97. Stock acquitté théorique fin de mois
 98. Montant de l'avoir (Volume entrée Replacement en suspension CRD x CVO Taux)
 
+### Format d'export des DRM orienté CIEL
+
+L'url de récupération des DRM pour une interprofession est :
+
+/edi.php/edi/v2/drm/\<\<interpro\>\>/\<\<date\>\>
+
+ * \<\<interpro\>\> : correspond à l'identifiant de l'interprofession
+ * \<\<date\>\> : correspondant à la date au format ISO 8601 [6] à partir de laquelle les DRM ont été saisies (le format horaire 00h00m00 est aussi accepté)
+
+La spécification complète du format d'export est détaillée ici : [Spécification complète du format d'export des DRM](https://github.com/24eme/declarvins/tree/master/doc/logiciels-tiers/)
+
 ## Interface EDI Contrat d'achat
 
 L'url de récupération des contrats d'achat pour une interprofession est : 
