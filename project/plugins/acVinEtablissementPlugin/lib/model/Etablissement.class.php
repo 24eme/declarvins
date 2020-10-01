@@ -9,48 +9,48 @@ class Etablissement extends BaseEtablissement {
     const STATUT_ARCHIVE = "ARCHIVE";
     const STATUT_DELIE = "DELIE";
     const STATUT_CSV = "CSV";
-    
+
     public function isTransmissionCiel() {
         if (!$this->canAdhesionCiel()) {
             return false;
         }
     	return ($this->transmission_ciel)? true : false;
     }
-    
+
     public function canAdhesionCiel() {
         if ($this->famille == EtablissementFamilles::FAMILLE_PRODUCTEUR || $this->sous_famille == EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
             return true;
         }
         return false;
     }
-    
-    
+
+
     public function getCompteObject() {
         if (is_null($this->_compte) && $this->compte) {
             $this->_compte = _CompteClient::getInstance()->find($this->compte);
         }
-        
+
         return $this->_compte;
     }
-    
+
     public function getRegion()
     {
     	return null;
     }
-    
+
     public function getInterproObject() {
         if (is_null($this->_interpro) && $this->interpro) {
             $this->_interpro = InterproClient::getInstance()->find($this->interpro);
         }
-        
+
         return $this->_interpro;
-    	
+
     }
-    
+
     public function constructId() {
         $this->set('_id', 'ETABLISSEMENT-' . $this->identifiant);
     }
-    
+
     public function getAllDRM() {
         return acCouchdbManager::getClient()->startkey(array($this->identifiant, null))
                                             ->endkey(array($this->identifiant, null))
@@ -67,7 +67,7 @@ class Etablissement extends BaseEtablissement {
 
         /*if (!preg_match('/^\+/', $phone) || (strlen($phone) != 12 && preg_match('/^\+33/', $phone)))
         	echo("$phone n'est pas un téléphone correct pour ".$idcompte."\n");*/
-        
+
         return $phone;
     }
 
@@ -79,13 +79,13 @@ class Etablissement extends BaseEtablissement {
         if ($phone)
             $this->_set('telephone', $this->cleanPhone($phone, $idcompte));
     }
-    
+
     public function getDenomination() {
 
     	return ($this->nom) ? $this->nom : $this->raison_sociale;
     }
-        
-    public function getFamilleType() 
+
+    public function getFamilleType()
     {
         $familleType = array(EtablissementFamilles::FAMILLE_PRODUCTEUR => 'vendeur',
                              EtablissementFamilles::FAMILLE_NEGOCIANT => 'acheteur',
@@ -124,7 +124,7 @@ class Etablissement extends BaseEtablissement {
 
     public function hasDroit($droit)
     {
-        
+
         return $this->getDroit()->has($droit);
     }
 
@@ -143,20 +143,20 @@ class Etablissement extends BaseEtablissement {
     	}
     	parent::save();
     }
-    
+
     public function getBilan()
     {
     	return BilanClient::getInstance()->findByIdentifiantAndType($this->identifiant, 'DRM');
     }
-    
+
 
     public function __toString() {
 
         return sprintf('%s (%s)', $this->nom, $this->identifiant);
     }
-    
+
     public function getVolumeBloque($produit, $atDate = null)
-    {    
+    {
     	$atDate = ($atDate)? $atDate : date('Y-m-d');
     	if ($this->produits->exist($produit)) {
     		$volumes = $this->produits->get($produit)->volume_bloque->toArray();
@@ -173,7 +173,7 @@ class Etablissement extends BaseEtablissement {
     	}
     	return null;
     }
-    
+
     public function getConfigurationZones($onlyBase = false)
     {
     	$zones = array();
@@ -190,12 +190,17 @@ class Etablissement extends BaseEtablissement {
     	}
     	return $zones;
     }
-    
+
     public function hasZoneIS()
     {
         return $this->zones->exist(ConfigurationZoneClient::ZONE_LANGUEDOC);
     }
-    
+
+    public function hasDocuments()
+    {
+        return (count(PieceAllView::getInstance()->getPiecesByEtablissement($this->identifiant)) > 0);
+    }
+
     public function makeLibelle()
     {
     	$datas = array();
@@ -210,7 +215,7 @@ class Etablissement extends BaseEtablissement {
     	$datas[EtablissementAllView::KEY_CORRESPONDANCE] = $this->correspondances;
     	return EtablissementAllView::makeLibelle($datas);
     }
-    
+
     public function getMoisToSetStock()
     {
         if ($this->exist('mois_stock_debut') && $this->mois_stock_debut) {
@@ -218,17 +223,17 @@ class Etablissement extends BaseEtablissement {
         }
         return DRMPaiement::NUM_MOIS_DEBUT_CAMPAGNE;
     }
-    
+
     public function getAdresse()
     {
         return $this->siege->adresse;
     }
-    
+
     public function getCodePostal()
     {
         return $this->siege->code_postal;
     }
-    
+
     public function getCommune()
     {
         return $this->siege->commune;
