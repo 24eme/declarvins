@@ -31,32 +31,40 @@ EOF;
     $file = $arguments['file'];
 
     if (!is_file($file)) {
-      echo "ERREUR;not a file;$file";
+      echo "ERREUR;not a file;$file\n";
       exit;
     }
     $infos = pathinfo($file);
 
     if (!isset($infos['extension']) || !isset($infos['filename']) || strtolower($infos['extension']) != 'html') {
-        echo "ERREUR;invalid filename (cvi.html);$file";
+        echo "ERREUR;invalid filename (cvi.html);$file\n";
         exit;
     }
     $cvi = $infos['filename'];
     $etablissements = EtablissementIdentifiantView::getInstance()->findByIdentifiant($cvi)->rows;
 
     if (!count($etablissements)) {
-          echo "ERREUR;CVI inconnu;$cvi";
+          echo "ERREUR;CVI inconnu;$cvi\n";
           exit;
     }
     foreach($etablissements as $etablissement) {
-      $fichier = FichierClient::getInstance()->createDoc(str_replace('ETABLISSEMENT-', '', $etablissement->id), true);
+      $identifiant = str_replace('ETABLISSEMENT-', '', $etablissement->id);
+      $historique = PieceAllView::getInstance()->getPiecesByEtablissement($identifiant, true);
+      foreach($historique as $fich) {
+          if (preg_match('/^FICHIER-/', $fich->id)) {
+              $fichier = FichierClient::getInstance()->find($fich->id);
+              $fichier->delete();
+          }
+      }
+      $fichier = FichierClient::getInstance()->createDoc($identifiant, true);
       $fichier->date_depot = '2020-10-01';
       $fichier->libelle = "Systèmes d’Informations Géographique";
       $fichier->save();
       try {
         $fichier->storeFichier($file);
       } catch (Exception $e) {
-        echo $e;
-        $fichier->remove();
+        echo $e."\n";
+        $fichier->delete();
         exit;
       }
       $fichier->save();
