@@ -5,14 +5,24 @@
  */
 
 class DRMCepage extends BaseDRMCepage {
-	
+
 	/**
      *
      * @return DRMCouleur
      */
   	public function getCouleur() {
-   
+
     	return $this->getParentNode();
+  	}
+
+	public function getCertification() {
+
+    	return $this->getCouleur()->getLieu()->getCertification();
+  	}
+
+	public function getGenre() {
+
+    	return $this->getCouleur()->getLieu()->getGenre();
   	}
 
   	public function getProduits($interpro = null) {
@@ -87,7 +97,34 @@ class DRMCepage extends BaseDRMCepage {
 		if ($this->getDocument()->isNouvelleCampagne() && $this->_get('libelle_fiscal') != $config->getLibelleFiscal()) {
 		    $this->setLibelleFiscal($config->getLibelleFiscal());
 		}
+		if(!$this->_get('libelle_fiscal') && $this->getDocument()->isNegoce()) {
+			$this->setLibelleFiscal($this->devineLibelleFiscal());
+		}
+
 		return $this->_get('libelle_fiscal');
 	}
+
+	public function devineLibelleFiscal() {
+
+		$genreLF = preg_match("/(EFF)/", $this->getGenre()->getKey()) ? "M" : "T";
+
+		if(preg_match("/(AOC|AOP)/", $this->getCertification()->getKey())) {
+
+			return "V".$genreLF."_IG_AOP";
+		}
+
+		if(preg_match("/IGP/", $this->getCertification()->getKey())) {
+
+			return "V".$genreLF."_IG_IGP";
+		}
+
+		if(preg_match("/(VINSSANSIG)/", $this->getCertification()->getKey())) {
+
+			return "V".$genreLF."_SANS_IG_AUTRES";
+		}
+
+		return null;
+	}
+
 
 }
