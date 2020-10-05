@@ -110,8 +110,7 @@ class DRMCepage extends BaseDRMCepage {
             foreach($this->getDetails() as $detail) {
                 $tavLF = ($detail->tav > 18) ? "SUP_18" : "INF_18";
 
-                    return "VDN_VDL_AOP_".$tavLF;
-                }
+                return "VDN_VDL_AOP_".$tavLF;
             }
         }
 
