@@ -45,7 +45,7 @@ use_helper('Text');
         </li>
         <?php endif; ?>
 
-        <?php if($etablissement->hasDocuments()): ?>
+        <?php if(($etablissement->hasDocuments() && 1==2) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
         <li<?php if ($active == 'documents'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('fichiers_etablissement', $etablissement) ?>">Documents</a>
         </li>
