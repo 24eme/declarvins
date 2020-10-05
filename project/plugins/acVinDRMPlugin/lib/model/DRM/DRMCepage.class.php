@@ -106,6 +106,15 @@ class DRMCepage extends BaseDRMCepage {
 
 	public function devineLibelleFiscal() {
 
+        if(in_array($this->getGenre(), array("VDN", "N"))) {
+            foreach($this->getDetails() as $detail) {
+                $tavLF = ($detail->tav > 18) ? "SUP_18" : "INF_18";
+
+                    return "VDN_VDL_AOP_".$tavLF;
+                }
+            }
+        }
+
 		$genreLF = preg_match("/(EFF)/", $this->getGenre()->getKey()) ? "M" : "T";
 
 		if(preg_match("/(AOC|AOP)/", $this->getCertification()->getKey())) {
@@ -118,10 +127,13 @@ class DRMCepage extends BaseDRMCepage {
 			return "V".$genreLF."_IG_IGP";
 		}
 
-		if(preg_match("/(VINSSANSIG)/", $this->getCertification()->getKey())) {
+		if(preg_match("/(VINSSANSIG)/", $this->getCertification()->getKey()) && !in_array($this->getKey(),array("CEP", "DEFAUT", "SANSCEP", "SANS"))) {
 
-			return "V".$genreLF."_SANS_IG_AUTRES";
-		}
+			return "V".$genreLF."_SANS_IG_CEPAGES";
+		} elseif(preg_match("/(VINSSANSIG)/", $this->getCertification()->getKey())) {
+
+            return "V".$genreLF."_SANS_IG_AUTRES";
+        }
 
 		return null;
 	}
