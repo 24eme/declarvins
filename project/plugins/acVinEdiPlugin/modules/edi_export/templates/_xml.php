@@ -17,7 +17,7 @@
 		<declaration-neant><?php echo ($drm->isNeant())? "true" : "false"; ?></declaration-neant>
 <?php if (!$drm->isNeant()): ?>
 		<droits-suspendus>
-<?php if ($drm->hasStocks()): foreach ($drm->getCielProduits() as $produit): ?>
+<?php if ($drm->hasStocks()): foreach ($drm->getCielProduits() as $produit): if ($produit->isCleanable() && $drm->canSetStockDebutMois()) continue; ?>
 			<produit>
 <?php if ($produit->getLibelleFiscal()): ?>
                 <libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
@@ -37,7 +37,7 @@
 				<observations><![CDATA[<?php echo $produit->getObservations() ?>]]></observations>
 <?php endif; ?>
 				<balance-stocks>
-<?php 
+<?php
 	$xml = '';
 	noeudXml($produit, $ciel->get('balance-stocks/'.$drm->getCielLot().'/droits-suspendus'), $xml, array('mois', 'annee'));
 	echo formatXml($xml, 5);
@@ -45,11 +45,11 @@
 				</balance-stocks>
 			</produit>
 <?php endforeach; endif; ?>
-			<stockEpuise><?php echo (!$drm->getTotalStock() && !$drm->isDebutCampagne())? "true" : "false"; ?></stockEpuise>
+			<stockEpuise><?php echo (!$drm->getTotalStock() && !$drm->canSetStockDebutMois())? "true" : "false"; ?></stockEpuise>
 		</droits-suspendus>
 <?php if ($drm->hasExportableProduitsAcquittes()): ?>
 		<droits-acquittes>
-<?php if ($drm->hasStocksAcq()): foreach ($drm->getCielProduits() as $produit): if (!$produit->getHasSaisieAcq()) { continue; } ?>
+<?php if ($drm->hasStocksAcq()): foreach ($drm->getCielProduits() as $produit): if ($produit->isCleanable(true) && $drm->canSetStockDebutMois(true)) continue;  if (!$produit->getHasSaisieAcq()) { continue; } ?>
 			<produit>
 <?php if ($produit->getLibelleFiscal()): ?>
                 <libelle-fiscal><?php echo $produit->getLibelleFiscal() ?></libelle-fiscal>
@@ -68,12 +68,12 @@
 <?php endif; ?>
 <?php if ($produit->getPremix()): ?>
 				<premix>true</premix>
-<?php endif; ?>	
+<?php endif; ?>
 <?php if ($produit->getObservations()): ?>
 				<observations><![CDATA[<?php echo $produit->getObservations() ?>]]></observations>
 <?php endif; ?>
 				<balance-stocks>
-<?php 
+<?php
 	$xml = '';
 	noeudXml($produit, $ciel->get('balance-stocks/'.$drm->getCielLot().'/droits-acquittes'), $xml, array('mois', 'annee'));
 	echo formatXml($xml, 5);
@@ -81,7 +81,7 @@
 				</balance-stocks>
 			</produit>
 <?php endforeach; endif; ?>
-			<stockEpuise><?php echo (!$drm->getTotalStockAcq() && !$drm->isDebutCampagne())? "true" : "false"; ?></stockEpuise>
+			<stockEpuise><?php echo (!$drm->getTotalStockAcq() && !$drm->canSetStockDebutMois(true))? "true" : "false"; ?></stockEpuise>
     	</droits-acquittes>
 <?php endif; ?>
 <?php endif; ?>

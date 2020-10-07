@@ -6,7 +6,7 @@
  */
 class DRMDetail extends BaseDRMDetail {
 
-    protected $_config = null; 
+    protected $_config = null;
 
     public function getConfig() {
         if (!$this->_config) {
@@ -69,7 +69,7 @@ class DRMDetail extends BaseDRMDetail {
 
         return '';
     }
-    
+
     public function hasLabel() {
     	if ($this->getLibelle() != $this->getGeneratedLibelle()) {
     		return false;
@@ -443,7 +443,7 @@ class DRMDetail extends BaseDRMDetail {
         }
         return $objectToDelete;
     }
-    
+
 
 
     public function cascadingFictiveDelete() {
@@ -665,7 +665,7 @@ class DRMDetail extends BaseDRMDetail {
     	}
     	return $has;
     }
-    
+
     public function getRetiraisons() {
     	$retiraisons = array();
     	if (($this->sorties->vrac && $this->canHaveVrac()) || count($this->vrac->toArray()) > 0) {
@@ -688,12 +688,20 @@ class DRMDetail extends BaseDRMDetail {
     		}
     	return $total;
     }
-    
+
     public function setImportableObservations($observations) {
     	$this->add('observations', "".$observations);
     }
-    
+
     public function isVci() {
     	return ($this->getGenre()->getKey() == 'VCI');
+    }
+
+    public function isCleanable($acq = false) {
+      if ($acq) {
+        return ($this->acq_total_debut_mois == 0 && $this->acq_total_entrees == 0 && $this->acq_total_sorties == 0);
+      } else {
+        return ($this->total_debut_mois == 0 && $this->total_entrees == 0 && $this->total_sorties == 0);
+      }
     }
 }
