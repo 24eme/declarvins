@@ -31,17 +31,9 @@
 	<br />
 	<h2 style="color: #86005B; font-size:18px; font-weight: normal;">Conception</h2>
 	<br />
-	<p>Actualys</p>
-	<p>1 rue Garnier</p>
-	<p>92200 Neuilly-sur-Seine</p>
-	<p>Tél. : (33) 01 71 11 31 90 / Fax : (33) 01 41 43 48 03</p>
-	<p>Site Internet : <a href="http://www.actualys.com" target="_blank" class="highlight_link">http://www.actualys.com</a></p>
-	<br />
-	<h2 style="color: #86005B; font-size:18px; font-weight: normal;">Hébergement</h2>
-	<br />
-	<p>TAS France</p>
-	<p>WTC1-K, 1300 route des Crêtes</p>
-	<p>06560 Valbonne, Sophia Antipolis – France</p>
-	<p>Tél. : (33) 08 25563400 / Fax : (33) 04 92943399</p>
-	<p>Site internet : <a href="http://www.tasfrance.com" target="_blank" class="highlight_link">http://www.tasfrance.com</a></p>
+    <p>Déclarvins est un logiciel libre diffusé sous licence AGPL. Le projet est disponible depuis <a href="https://github.com/24eme/declarvins">github.com/24eme/declarvins</a>. Le projet est développé par la société <a href="https://24eme.fr/">24eme</a>.</p>
+    <br />
+    <h2 style="color: #86005B; font-size:18px; font-weight: normal;">Hébergement</h2>
+    <br />
+    <p>Déclarvins est hébergé par la société <a href="https://24eme.fr/">24eme</a> pour le compte du groupement Inter-Rhone, CIVP, IVSE.</p>
 </section>
