@@ -146,6 +146,8 @@ class ConfigurationClient extends acCouchdbClient
 			$this->countries['QR'] = 'Avitaillement et soutage dans le cadre des echanges intra-UE';
 			$this->countries['QS'] = 'Avitaillement et soutage dans le cadre des echanges avec les pays tiers';
 			$this->countries['QU'] = 'Pays et territoires non déterminés';
+			$this->countries['QW'] = 'Pays et territoires non déterminés';
+			$this->countries['CS'] = 'Serbie et Monténégro';
 		}
 		return $this->countries;
 	}

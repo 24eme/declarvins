@@ -1,5 +1,5 @@
 <?php
-class VracProduitForm extends VracForm 
+class VracProduitForm extends VracForm
 {
    	public function configure()
     {
@@ -34,18 +34,18 @@ class VracProduitForm extends VracForm
         		'mentions_libelle_chdo' => new sfValidatorString(array('required' => false)),
         		'mentions_libelle_marque' => new sfValidatorString(array('required' => false)),
 	        ));
-	        
+
 	        $this->setWidget('non_millesime', new sfWidgetFormInputCheckbox());
 	        $this->widgetSchema->setLabel('non_millesime', '&nbsp;');
 	        $this->setValidator('non_millesime', new ValidatorPass());
-    		
-    
-	        
+
+
+
 		    if ($this->getObject()->hasVersion() && $this->getObject()->volume_enleve > 0) {
 		      	$this->setWidget('produit', new sfWidgetFormInputHidden());
 		      }
-    		
-    		
+
+
   		    $this->validatorSchema->setPostValidator(new VracProduitValidator());
     		$this->widgetSchema->setNameFormat('vrac_produit[%s]');
     }
@@ -61,6 +61,7 @@ class VracProduitForm extends VracForm
         if ($configurationProduit) {
         	$this->getObject()->setDetailProduit($configurationProduit);
         	$this->getObject()->produit_libelle = ConfigurationProduitClient::getInstance()->format($configurationProduit->getLibelles());
+          $this->getObject()->interpro = $configurationProduit->getDocument()->interpro;
         	$cvo = $configurationProduit->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, null, true);
 	        if ($cvo) {
 	        	$this->getObject()->part_cvo = $cvo->taux;
@@ -68,12 +69,6 @@ class VracProduitForm extends VracForm
         }
         $this->getObject()->update();
         $this->getObject()->initClauses();
-        $interpro = $this->getObject()->getProduitInterpro();
-        if ($interpro && $interpro->identifiant == 'CIVP' && !sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
-            $this->getObject()->has_transaction = 1;
-        } else {
-            $this->getObject()->has_transaction = 0;
-        }
         if (!isset($values['labels_arr'])) {
             $this->getObject()->labels_libelle_autre = null;
         } elseif (!in_array('autre', $values['labels_arr'])) {
@@ -93,21 +88,21 @@ class VracProduitForm extends VracForm
         $this->getObject()->labels_libelle = $this->getConfiguration()->formatLabelsLibelle($this->getObject()->getLibellesLabels());
         $this->getObject()->mentions_libelle = $this->getConfiguration()->formatMentionsLibelle($this->getObject()->getLibellesMentions());
     }
-    
+
 	protected function updateDefaultsFromObject() {
         parent::updateDefaultsFromObject();
         if ($this->getObject()->produit) {
         	preg_match('/([0-9a-zA-Z\/]+)\/cepages\/[0-9a-zA-Z\/]+/', $this->getObject()->produit, $matches);
         	$this->setDefault('produit', '/'.str_replace('/declaration/', 'declaration/', $matches[1]));
-        }  
+        }
       	if (!$this->getObject()->millesime && $this->getObject()->volume_propose) {
         		$this->setDefault('non_millesime', true);
-        } 
+        }
         if (!(count($this->getObject()->labels_arr->toArray()) > 0)) {
             $this->setDefault('labels_arr', '');
-        }  
+        }
         if (!(count($this->getObject()->mentions->toArray()) > 0)) {
            $this->setDefault('mentions', '');
-        }  
+        }
     }
 }

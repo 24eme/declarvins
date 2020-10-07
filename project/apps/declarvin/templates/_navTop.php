@@ -16,21 +16,21 @@ use_helper('Text');
             <a href="<?php echo url_for('vrac_etablissement', $etablissement) ?>">Contrat interprofessionnel</a>
         </li>
         <?php endif; ?>
-        <?php endif; ?>        
+        <?php endif; ?>
         <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'daids')): ?>
         <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_DTI)) || ($etablissement->hasDroit(EtablissementDroit::DROIT_DRM_PAPIER) && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
         <li<?php if ($active == 'daids'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('daids_mon_espace', $etablissement) ?>">DAI/DS</a>
         </li>
         <?php endif; ?>
-        <?php endif; ?>        
+        <?php endif; ?>
         <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'dsnegoce')): ?>
         <?php if(($etablissement->hasDroit(EtablissementDroit::DROIT_DSNEGOCE))): ?>
         <li<?php if ($active == 'dsnegoce'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('dsnegoce_mon_espace', $etablissement) ?>">DS Négoce</a>
         </li>
         <?php endif; ?>
-        <?php endif; ?> 
+        <?php endif; ?>
         <?php if ($configuration->isApplicationOuverte($etablissement->interpro, 'dae')): ?>
         <?php if($etablissement->hasDroit(EtablissementDroit::DROIT_DAE)): ?>
         <li<?php if ($active == 'dae'): ?> class="actif"<?php endif; ?>>
@@ -38,22 +38,28 @@ use_helper('Text');
         </li>
         <?php endif; ?>
         <?php endif; ?>
-        
+
         <?php if($etablissement->hasZoneIS() || $active == 'subvention'): ?>
         <li<?php if ($active == 'subvention'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('subvention_etablissement', $etablissement) ?>">Aides Occitanie</a>
         </li>
-        <?php endif; ?>  
-        
+        <?php endif; ?>
+
+        <?php if(($etablissement->hasDocuments() && 1==2) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+        <li<?php if ($active == 'documents'): ?> class="actif"<?php endif; ?>>
+            <a href="<?php echo url_for('fichiers_etablissement', $etablissement) ?>">Documents</a>
+        </li>
+        <?php endif; ?>
+
         <li<?php if ($active == 'profil'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('profil', $etablissement) ?>">Profil</a>
         </li>
-        
+
         <?php if (!$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $configuration->isApplicationOuverte($etablissement->interpro, 'drm', $etablissement)): ?>
         <?php if($etablissement->canAdhesionCiel() && !$etablissement->isTransmissionCiel()): ?>
-        <?php 
+        <?php
             $convention = $sf_user->getCompte()->getConventionCiel();
-            if (!$convention || !$convention->valide): 
+            if (!$convention || !$convention->valide):
         ?>
         <li<?php if ($active == 'ciel'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('convention_ciel', $etablissement) ?>"><strong>Adhésion CIEL</strong></a>
@@ -78,7 +84,7 @@ use_helper('Text');
                 <a href="<?php echo url_for('@admin'); ?>"><?php echo $sf_user->getCompte() ?></a>
             </li>
         <?php  endif; ?>
-        
+
         <li class="etablissement_courant">
             <a href="<?php echo url_for('profil', $etablissement) ?>" title="<?php echo $etablissement->getDenomination();?> (<?php echo $etablissement->getRaisonSociale(); ?> <?php echo $etablissement->getIdentifiant();?>)">
                 <span><?php echo $etablissement->getDenomination(); ?></span>
@@ -117,20 +123,20 @@ use_helper('Text');
 <?php } ?>
 
 
-<?php 
+<?php
     $info = null;
     if ($active == 'drm') {
-       $info = MessagesClient::getInstance()->getDRMInfos($etablissement->interpro); 
+       $info = MessagesClient::getInstance()->getDRMInfos($etablissement->interpro);
     }
     if ($active == 'vrac') {
-       $info = MessagesClient::getInstance()->getVracInfos($etablissement->interpro); 
+       $info = MessagesClient::getInstance()->getVracInfos($etablissement->interpro);
     }
 ?>
 <?php if ($info): ?>
 <div id="flash_message" style="padding-top: 0px">
     <div class="flash_error" style="color: #fff; background-color: #ed1b24; border: none;">
     	<h2 style="font-size: 14px; height: 32px; line-height: 28px; padding: 0 0 5px 0; margin: 0; font-weight: bold; " ><img src="/images/pictos/info2.png" style="float: left; height: 32px;" />&nbsp;Alertes / Infos</h2>
-    	<?php echo $info ?> 
+    	<?php echo $info ?>
 	</div>
 </div>
 <?php endif; ?>

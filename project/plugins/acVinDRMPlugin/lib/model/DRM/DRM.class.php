@@ -1512,16 +1512,6 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
                 $produits_fait[] = $detail->getCepage()->libelle_fiscal.$detail->getCepage()->inao;
         }
 
-        if ($e->famille != EtablissementFamilles::FAMILLE_PRODUCTEUR && $e->sous_famille != EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
-            foreach ($produits as $detail) {
-                if (!$detail->getCepage()->libelle_fiscal && $detail->getCorrespondanceNegoce()) {
-                    $detail->getCepage()->libelle_fiscal = $detail->getLibelleFiscalNegocePur();
-                    $detail->getCepage()->inao =  $detail->getLibelleFiscalNegocePur();
-                }
-                $produits_fait[] = $detail->getCepage()->libelle_fiscal.$detail->getCepage()->inao;
-            }
-        }
-
         $drm_precedente->init(['keepStock' => false]);
         foreach ($drm_precedente->getDetails() as $detail) {
             if (in_array($detail->getCepage()->libelle_fiscal.$detail->getCepage()->inao, $produits_fait)) {

@@ -84,6 +84,10 @@ class VracMarcheForm extends VracForm
     	    $this->getWidget('volume_propose')->setLabel('Quantité totale proposée*:');
     	    $this->getWidget('prix_unitaire')->setLabel('Prix unitaire net HT*:');
     	}
+    	
+    	if ($this->getObject()->type_transaction != 'vrac') {
+    	    unset($this['type_retiraison']);
+    	}
     		
   		    $this->validatorSchema->setPostValidator(new VracMarcheValidator($this->getObject()));
     		$this->widgetSchema->setNameFormat('vrac_marche[%s]');
@@ -121,6 +125,9 @@ class VracMarcheForm extends VracForm
     	if ($this->getObject()->type_transaction == 'raisin') {
     		$this->getObject()->poids = $this->getObject()->volume_propose;
     	} 
+    	if (is_null($this->getObject()->type_retiraison)) {
+    	    $this->getObject()->type_retiraison = 'vrac';
+    	}
         
         $this->getObject()->update();
     }
@@ -142,7 +149,7 @@ class VracMarcheForm extends VracForm
       if (is_null($this->getObject()->vin_livre)) {
         $this->setDefault('vin_livre', VracClient::STATUS_VIN_RETIRE);
       }  
-      if (is_null($this->getObject()->type_retiraison)) {
+      if (is_null($this->getObject()->type_retiraison) && $this->getObject()->type_transaction == 'vrac') {
         $this->setDefault('type_retiraison', 'vrac');
       }
       if (in_array($this->getObject()->type_prix, array('objectif', 'acompte'))) {

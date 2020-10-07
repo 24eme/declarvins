@@ -211,10 +211,15 @@ function(doc) {
 					    if (isNaN(volume_cvo)) {
 						volume_cvo = null;
 					    }
+						var volume_reintegre = parseFloat(detail.entrees.crd);
 					    var montant_cvo = parseFloat(detail.cvo.taux) * volume_cvo;
+						var montant_avoir = parseFloat(detail.cvo.taux) * volume_reintegre;
 					    
                                             if (isNaN(montant_cvo) || parseFloat(detail.cvo.taux) === -1) {
                                                 montant_cvo = null;
+                                            }
+											if (isNaN(montant_avoir) || parseFloat(detail.cvo.taux) === -1) {
+                                                montant_avoir = null;
                                             }
                                             var libelles_label = '';
                                             var codes_label = '';
@@ -324,7 +329,8 @@ function(doc) {
 						     detail.sorties.acq_crd,
 						     detail.sorties.acq_replacement,
 						     detail.sorties.acq_autres,
-						     detail.acq_total
+						     detail.acq_total,
+							 montant_avoir
 						     
                                                      ]
                                             );
@@ -430,7 +436,8 @@ function(doc) {
 								     null,
 								     null,
 								     null,
-								     null
+								     null,
+									 null
                                                              ]
                                                     );
                                                 }
