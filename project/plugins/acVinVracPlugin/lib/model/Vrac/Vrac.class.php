@@ -140,22 +140,22 @@ class Vrac extends BaseVrac implements InterfaceVersionDocument
     
     public function vendeurHasCompteActif()
     {
-    	$etablissement = $this->getVendeurObject();
-    	if ($compte = $etablissement->getCompteObject()) {
-    		return ($compte->statut == _Compte::STATUT_INSCRIT);
-    	}
-    	return false;
+        $etablissement = $this->getVendeurObject();
+        if ($etablissement && $compte = $etablissement->getCompteObject()) {
+            return ($compte->statut == _Compte::STATUT_INSCRIT);
+        }
+        return false;
     }
-    
+
     public function acheteurHasCompteActif()
     {
-    	$etablissement = $this->getAcheteurObject();
-    	if ($compte = $etablissement->getCompteObject()) {
-    		return ($compte->statut == _Compte::STATUT_INSCRIT);
-    	}
-    	return false;
+        $etablissement = $this->getAcheteurObject();
+        if ($etablissement && $compte = $etablissement->getCompteObject()) {
+            return ($compte->statut == _Compte::STATUT_INSCRIT);
+        }
+        return false;
     }
-    
+
     public function mandataireHasCompteActif()
     {
     	$etablissement = $this->getMandataireObject();

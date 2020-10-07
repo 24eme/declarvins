@@ -277,7 +277,7 @@ VRAC_\<\<date demandée\>\>_\<\<date de saisie du dernier contrat retourné\>\>.
 84. Type de retiraison : vrac (Retiraison/Livraison en Vrac) / tire_bouche (Retiraison/Livraison en Tiré Bouché) / lattes (Retiraison/Livraison sur Lattes)
 85. Delai de paiement : 60_jours / 45_jours / autre
 86. Prix Unitaire HL : Prix unitaire net HT hors cotisation en HL estimé pour le raisin (= prix unitaire pour le vrac et mout)
-87. Prix total du contrat en HL : Prix total du contrat en HL pour le raisin (= prix total du contrat pour le vrac et mout)
+87. Volume total du contrat en HL : Volume total du contrat en HL pour le raisin (= volume total du contrat pour le vrac et mout)
 
 
    [1]: https://fr.wikipedia.org/wiki/Authentification_HTTP
