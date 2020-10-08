@@ -698,6 +698,9 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function isCleanable($acq = false) {
+      if ($this->getDocument()->hasVersion()) {
+        return false;
+      }
       if ($acq) {
         return ($this->acq_total_debut_mois == 0 && $this->acq_total_entrees == 0 && $this->acq_total_sorties == 0);
       } else {
