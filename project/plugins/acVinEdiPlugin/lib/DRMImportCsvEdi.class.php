@@ -121,13 +121,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		    $configurationProduit = $this->configuration->getConfigurationProduit($default_produit_hash);
     		    $isAutre = true;
     		}
-    		
+
         	if (!$configurationProduit) {
-        		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
-        		continue;
-      		}
-      		$droit = $configurationProduit->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, $this->drm->periode.'-02', true);
-      		if($droit && $droit->taux < 0){
         		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
         		continue;
       		}
