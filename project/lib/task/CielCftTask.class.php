@@ -141,13 +141,6 @@ EOF;
     						$xmlOut = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
     						$compare = new DRMCielCompare($xmlIn, $xmlOut);
 
-    						$rectif = $drm->findMaster();
-    						if ($rectif && $rectif->version == 'R01') {
-    							if (!$checkingMode) {
-    								$rectif->delete();
-    							}
-    						}
-
     						if (!$compare->hasDiff()) {
     							if (!$checkingMode) {
 	    							$drm->ciel->valide = 1;
