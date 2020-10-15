@@ -26,11 +26,11 @@
     <?php endif; ?>
     <!-- #principal -->
     <section id="principal">
-    
+
     	<?php $drmCiel = $drm->getOrAdd('ciel');  ?>
 
         <?php if ($drm->isValidee()): ?>
-        
+
             <?php if(!$drm->isRectificative() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <p style="text-align: right; margin-bottom: 10px;"><a href="<?php echo url_for('drm_reouvrir', $drm) ?>" style="background-color: #FF9F00; padding: 6px; color: #fff;">Ré-ouvir la DRM</a></p>
             <?php endif; ?>
@@ -63,7 +63,7 @@
                     </li>
                 </ul>
             </div>
-            
+
             <?php if ($drm->isNegoce()): ?>
             <div style="background: none repeat scroll 0 0 #d9e0ed; border: 1px solid #182188; color: #182188; font-weight: bold;margin: 0 0 10px 0;padding: 5px 10px;">
                 <ul>
@@ -76,14 +76,14 @@
             	</ul>
             </div>
 			<?php endif; ?>
-			
-                    
+
+
             <?php if($drmCiel->isTransfere() && !$drmCiel->isValide() && ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $sf_user->isUsurpationMode())): ?>
             <p>Aucun retour de la part de proDou@ne n'a été effectué : <a href="<?php echo url_for('drm_retour_refresh', $drm); ?>"  class="pull-right btn btn-xs btn-default" >Ré-interroger</a></p>
             <?php elseif($drmCiel->isTransfere() && $drmCiel->isValide()): ?>
             <p>DRM conforme proDou@ne</p>
             <?php endif; ?>
-            <?php if(!$drm->isRectificative() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+            <?php if($drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <p style="text-align: right; margin-bottom: 10px;"><a href="<?php echo url_for('drm_retransfer_ciel', $drm) ?>" style="background-color: #9e9e9e; padding: 6px; color: #fff;">Re-transmettre la DRM</a></p>
             <?php endif; ?>
         <?php endif; ?>
@@ -146,7 +146,7 @@
                 </table>
             </div>
         <?php endif; ?>
-        
+
         <?php if ($drm->exist('commentaires') && $drm->commentaires && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <div style="padding: 0 0 30px 0">
                 <strong>Commentaires BO</strong>
@@ -172,7 +172,7 @@
                 <?php endif; ?>
             </div>
 
-        </div> 
+        </div>
 
     </section>
     <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$drm->getHistorique()->hasDRMInProcess() && $drm->isModifiable()): ?>
