@@ -16,7 +16,7 @@ class DRMValidation
 	const IGP_KEY = 'IGP';
 	const NO_LINK = '#';
 	const ECART_VRAC = 0.2;
-	
+
 	public function __construct($drm, $options = null)
 	{
 		$this->drm = $drm;
@@ -27,26 +27,29 @@ class DRMValidation
 		$this->warnings = array();
 		$this->errors = array();
 		$this->etablissement = $drm->getEtablissementObject();
-		$this->isAdmin = ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_PAPIER)? true : false;
+		$this->isAdmin = (in_array($this->drm->mode_de_saisie, array(DRMClient::MODE_DE_SAISIE_PAPIER, DRMClient::MODE_DE_SAISIE_EDI)))? true : false;
 		$this->isCiel = ($this->etablissement->isTransmissionCiel() || $drm->isNegoce());
+		if ($this->drm->mode_de_saisie == DRMClient::MODE_DE_SAISIE_EDI) {
+			$this->isCiel = false;
+		}
 		$this->controleDRM();
 	}
-	
+
 	public function getEngagements()
 	{
 		return $this->engagements;
 	}
-	
+
 	public function getWarnings()
 	{
 		return $this->warnings;
 	}
-	
+
 	public function getErrors()
 	{
 		return $this->errors;
 	}
-	
+
 	private function controleDRM()
 	{
 		$totalEntreeDeclassement = 0;
@@ -130,11 +133,11 @@ class DRMValidation
 			}
 		}
 	}
-	
+
 	public function isValide() {
 	  return !($this->hasErrors());
 	}
-	
+
 	private function controleEngagements($detail)
 	{
 	    if ($this->drm->isNegoce()) {
@@ -153,7 +156,7 @@ class DRMValidation
 			$this->engagements['pertes'] = new DRMControleEngagement('pertes');
 		}
 	}
-	
+
 	private function controleErrors($detail)
 	{
 		$totalVolume = 0;
@@ -268,7 +271,7 @@ class DRMValidation
 			$this->errors['tav_value_'.$detail->getIdentifiantHTML()] = new DRMControleError('tav_value', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
 		}
 	}
-	
+
 	private function controleWarnings($detail)
 	{
 		$totalVolume = 0;
@@ -303,23 +306,23 @@ class DRMValidation
 		    $this->warnings['saisiealcool_'.$detail->getIdentifiantHTML()] = new DRMControleWarning('saisiealcool', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
 		}
 	}
-	
+
 	public function hasEngagements()
 	{
 		return (count($this->engagements) > 0)? true : false;
 	}
-	
+
 	public function hasErrors()
 	{
 		return (count($this->errors) > 0)? true : false;
 	}
-	
+
 	public function hasError($error, $strict = false)
 	{
 		$keys = array_keys($this->errors);
     	return ($strict)? in_array($error, $keys) : (count(preg_grep('/^'.$error.'_.+$/',$keys)) > 0);
 	}
-	
+
 	public function hasWarnings()
 	{
 		return (count($this->warnings) > 0)? true : false;
@@ -334,13 +337,13 @@ class DRMValidation
 
 			return $this->warnings[$identifiant];
 		} elseif($type == 'engagement' && array_key_exists($identifiant, $this->engagements)) {
-			
+
 			return $this->engagements[$identifiant];
 		}
 
 		return null;
 	}
-	
+
 	protected function generateUrl($route, $params = array(), $absolute = false)
 	{
 	  try {
@@ -349,5 +352,5 @@ class DRMValidation
 	    return;
 	  }
 	}
-	
+
 }
