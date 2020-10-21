@@ -13,12 +13,12 @@ class EtablissementClient extends acCouchdbClient {
     public function getViewClient($view) {
         return acCouchdbManager::getView("etablissement", $view, 'Etablissement');
     }
-    
+
     /**
      *
      * @param string $login
      * @param integer $hydrate
-     * @return Etablissement 
+     * @return Etablissement
      * @deprecated find()
      */
     public function retrieveById($id, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
@@ -45,7 +45,7 @@ class EtablissementClient extends acCouchdbClient {
     }
 
     /**
-     * 
+     *
      * @deprecated find()
      */
     public function findByIdentifiant($identifiant, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
@@ -55,7 +55,7 @@ class EtablissementClient extends acCouchdbClient {
 
     public function retrieveOrCreateById($id, $hydrate = acCouchdbClient::HYDRATE_DOCUMENT) {
         $etab =  parent::find('ETABLISSEMENT-'.$id, $hydrate);
-    	
+
         if (!$etab) {
     	  	$etab = new Etablissement();
 	    	$etab->_id = 'ETABLISSEMENT-'.$id;
@@ -66,15 +66,15 @@ class EtablissementClient extends acCouchdbClient {
 
     public function matchFamille($f) {
       if (preg_match('/producteur/i', $f)) {
-        
+
         return EtablissementFamilles::FAMILLE_PRODUCTEUR;
       }
       if (preg_match('/n.{1}gociant/i', $f)) {
-        
+
         return EtablissementFamilles::FAMILLE_NEGOCIANT;
       }
       if (preg_match('/courtier/i', $f)) {
-        
+
         return EtablissementFamilles::FAMILLE_COURTIER;
       }
 
@@ -85,7 +85,7 @@ class EtablissementClient extends acCouchdbClient {
       $sf = KeyInflector::slugify($sf);
       $matches = array("cave.{1}particuli.{1}re" => EtablissementFamilles::SOUS_FAMILLE_CAVE_PARTICULIERE,
           "cave.{1}coop.{1}rative" => EtablissementFamilles::SOUS_FAMILLE_CAVE_COOPERATIVE,
-          "vendeur.{1}de.{1}raisin" => EtablissementFamilles::SOUS_FAMILLE_VENDEUR_RAISIN,
+          "vendeur.+raisin" => EtablissementFamilles::SOUS_FAMILLE_VENDEUR_RAISIN,
           "r.{1}gional" => EtablissementFamilles::SOUS_FAMILLE_REGIONAL,
           "ext.{1}rieur" => EtablissementFamilles::SOUS_FAMILLE_EXTERIEUR,
           ".{1}tranger" =>  EtablissementFamilles::SOUS_FAMILLE_ETRANGER,
