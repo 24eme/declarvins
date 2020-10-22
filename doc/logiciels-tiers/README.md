@@ -137,7 +137,8 @@ avec :
 | entrees temporaires | mouvement | relogement | autres-entrees | Lot 1 |
 | entrees temporaires | travail | travail-a-facon | travail-a-facon | |
 | entrees temporaires | distillation | distillation-a-facon | volume-produit | |
-| entrees internes | repli + declassement | replis-declassement-transfert-changement-appellation | autres-entrees | Lot 1 |
+| entrees internes | repli | replis-declassement-transfert-changement-appellation | autres-entrees | Lot 1 |
+| entrees internes | declassement | replis-declassement-transfert-changement-appellation | autres-entrees | Lot 1 |
 | entrees internes | manipulation | manipulations | volume-produit | |
 | entrees internes | vci | integration-vci-agree | X | |
 | entrees | excedent | autres-entrees | autres-entrees | Lot 2 et Lot 1 |
@@ -152,7 +153,8 @@ avec :
 | sorties sans droits temporaires | mouvement | relogement | autres-sorties | Lot 1 |
 | sorties sans droits temporaires | travail | travail-a-facon | travail-a-facon | |
 | sorties sans droits temporaires | distillation | distillation-a-facon | fabrication-autre-produit | |
-| sorties sans droits internes | repli + declassement | replis-declassement-transfert-changement-appellation | autres-sorties | Lot 1 |
+| sorties sans droits internes | repli | replis-declassement-transfert-changement-appellation | autres-sorties | Lot 1 |
+| sorties sans droits internes | declassement | replis-declassement-transfert-changement-appellation | autres-sorties | Lot 1 |
 | sorties sans droits internes | mutage | fabrication-autre-produit | fabrication-autre-produit | |
 | sorties sans droits internes | vci | revendication-vci | X | |
 | sorties sans droits internes | autres_interne | autres-mouvements-internes | autres-sorties | Lot 1 |
