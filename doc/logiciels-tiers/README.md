@@ -128,34 +128,38 @@ avec :
 
 ## Correspondances mouvements droits suspendus
 
-| Mouvement | DeclarVins | CIEL Lot 2  | CIEL Lot 1 |
-|-----------|------------|-------------|------------|
-| stocks | total_debut_mois | stock-debut-periode | stock-debut-periode |
-| entrees | recolte | volume-produit | volume-produit |
-| entrees | achat | achats-reintegrations | entree-droits-suspendus |
-| entrees temporaires | embouteillage | embouteillage | travail-a-facon |
-| entrees temporaires | mouvement | relogement | autres-entrees |
-| entrees temporaires | travail | travail-a-facon | travail-a-facon |
-| entrees temporaires | distillation | distillation-a-facon | volume-produit |
-| entrees internes | repli + declassement | replis-declassement-transfert-changement-appellation | autres-entrees |
-| entrees internes | manipulation | manipulations | volume-produit |
-| entrees internes | vci | integration-vci-agree | X |
-| entrees | excedent | autres-entrees | autres-entrees |
-| entrees | crd | replacement-suspension/volume | replacement-suspension/volume |
-| sorties | factures + crd | ventes-france-crd-suspendus | sorties-avec-paiement-annee-courante |
-| sorties | crd_acquittes | ventes-france-crd-acquittes | autres-sorties |
-| sorties sans droits | vrac + export | sorties-definitives | sorties-definitives |
-| sorties sans droits | consommation | consommation-familiale-degustation | sorties-exoneration-droits |
-| sorties sans droits temporaires | embouteillage | embouteillage | travail-a-facon |
-| sorties sans droits temporaires | mouvement | relogement | autres-sorties |
-| sorties sans droits temporaires | travail | travail-a-facon | travail-a-facon |
-| sorties sans droits temporaires | distillation | distillation-a-facon | fabrication-autre-produit |
-| sorties sans droits internes | repli + declassement | replis-declassement-transfert-changement-appellation | autres-sorties |
-| sorties sans droits internes | mutage | fabrication-autre-produit | fabrication-autre-produit |
-| sorties sans droits internes | vci | revendication-vci | X |
-| sorties sans droits internes | autres_interne + lies | autres-mouvements-internes | autres-sorties + lies-vins-distilles |
-| sorties sans droits | autres + pertes | autres-sorties | autres-sorties |
-| stocks | total | stock-fin-periode | stock-fin-periode |
+| Mouvement | DeclarVins | CIEL Lot 2  | CIEL Lot 1 | Observations obligatoire |
+|-----------|------------|-------------|------------|------------|
+| stocks | total_debut_mois | stock-debut-periode | stock-debut-periode | |
+| entrees | recolte | volume-produit | volume-produit | |
+| entrees | achat | achats-reintegrations | entree-droits-suspendus | |
+| entrees temporaires | embouteillage | embouteillage | travail-a-facon | |
+| entrees temporaires | mouvement | relogement | autres-entrees | Lot 1 |
+| entrees temporaires | travail | travail-a-facon | travail-a-facon | |
+| entrees temporaires | distillation | distillation-a-facon | volume-produit | |
+| entrees internes | repli + declassement | replis-declassement-transfert-changement-appellation | autres-entrees | Lot 1 |
+| entrees internes | manipulation | manipulations | volume-produit | |
+| entrees internes | vci | integration-vci-agree | X | |
+| entrees | excedent | autres-entrees | autres-entrees | Lot 2 et Lot 1 |
+| entrees | crd | replacement-suspension/volume | replacement-suspension/volume | Lot 2 et Lot 1 |
+| sorties | factures | ventes-france-crd-suspendus | sorties-avec-paiement-annee-courante | |
+| sorties | crd | ventes-france-crd-suspendus | sorties-avec-paiement-annee-courante | |
+| sorties | crd_acquittes | ventes-france-crd-acquittes | autres-sorties | Lot 1|
+| sorties sans droits | vrac | sorties-definitives | sorties-definitives | |
+| sorties sans droits | export | sorties-definitives | sorties-definitives | |
+| sorties sans droits | consommation | consommation-familiale-degustation | sorties-exoneration-droits | |
+| sorties sans droits temporaires | embouteillage | embouteillage | travail-a-facon | |
+| sorties sans droits temporaires | mouvement | relogement | autres-sorties | Lot 1 |
+| sorties sans droits temporaires | travail | travail-a-facon | travail-a-facon | |
+| sorties sans droits temporaires | distillation | distillation-a-facon | fabrication-autre-produit | |
+| sorties sans droits internes | repli + declassement | replis-declassement-transfert-changement-appellation | autres-sorties | Lot 1 |
+| sorties sans droits internes | mutage | fabrication-autre-produit | fabrication-autre-produit | |
+| sorties sans droits internes | vci | revendication-vci | X | |
+| sorties sans droits internes | autres_interne | autres-mouvements-internes | autres-sorties | Lot 1 |
+| sorties sans droits internes | lies | autres-mouvements-internes | lies-vins-distilles | |
+| sorties sans droits | autres | autres-sorties | autres-sorties | Lot 2 et Lot 1 |
+| sorties sans droits | pertes | autres-sorties | autres-sorties | Lot 2 et Lot 1 |
+| stocks | total | stock-fin-periode | stock-fin-periode | |
 
 ## Correspondances mouvements droits acquittes
 
