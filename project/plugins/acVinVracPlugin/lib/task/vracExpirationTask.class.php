@@ -29,26 +29,29 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
     set_time_limit(0);
-    
+
     $vracs = VracHistoryView::getInstance()->findLast();
     foreach ($vracs->rows as $vrac) {
     	$values = $vrac->value;
-    	$this->sendExpiration($values);		
+    	$this->sendExpiration($values);
     }
   }
-  
+
   protected function sendExpiration($values) {
   	$routing = clone ProjectConfiguration::getAppRouting();
-	$contextInstance = sfContext::createInstance($this->configuration);
+		$contextInstance = sfContext::createInstance($this->configuration);
     $contextInstance->set('routing', $routing);
-    
+		if ($values[VracHistoryView::VRAC_VIEW_TYPEPRODUIT] != 'vrac') {
+			return;
+		}
+
   	$today = new DateTime();
-	$datesaisie = new DateTime($values[VracHistoryView::VRAC_VIEW_DATESAISIE]);
-	$interval = $today->diff($datesaisie);
-	$ecart = $interval->format('%a');
+		$datesaisie = new DateTime($values[VracHistoryView::VRAC_VIEW_DATESAISIE]);
+		$interval = $today->diff($datesaisie);
+		$ecart = $interval->format('%a');
   	if ($ecart >= self::NB_JOUR_EXPIRATION && $values[VracHistoryView::VRAC_VIEW_DATERELANCE]) {
   		$vrac = VracClient::getInstance()->find($values[VracHistoryView::VRAC_VIEW_NUMCONTRAT]);
-  		
+
   		$acteurs = VracClient::getInstance()->getActeurs();
 		foreach ($acteurs as $acteur) {
 			if (!$vrac->get($acteur.'_identifiant')) {
@@ -73,7 +76,7 @@ EOF;
 					} catch (Exception $e) {
 						continue;
 					}
-				
+
 			}
 		}
   		$this->logSection('vrac-expiration', 'Expiration du contrat '.$vrac->_id);

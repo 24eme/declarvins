@@ -70,13 +70,13 @@
                 
                 <?php 
                 $today = date('Y-m-d');
-                $limite = ($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31')? (date('Y')+1).'-09-30' : date('Y').'-09-30';
+                $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $form->getObject()->type_transaction != 'vrac')? (date('Y')+1).'-09-30' : date('Y').'-09-30';
                 $date1 = new DateTime();
                 $date2 = new DateTime($limite);
                 $nbJour = ceil($date2->diff($date1)->format("%a") / 2);
                 $date1->modify("+$nbJour day");
                 if ($form->getObject()->contrat_pluriannuel) {
-                    $limite = ($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31')? '30/06/'.(date('Y')+1) : '30/06/'.date('Y');
+                    $limite = (($today >= date('Y').'-10-01' && $today <= date('Y').'-12-31') || $form->getObject()->type_transaction != 'vrac')? '30/06/'.(date('Y')+1) : '30/06/'.date('Y');
                     $moitie = $limite;
                     $fin = $limite;
                 } else {
@@ -129,11 +129,13 @@
             <?php endif; ?>
             </div>
             <h1>Retiraison / Enlèvement</h1>
+            <?php if(isset($form['type_retiraison'])): ?>
             <div class="section_label_strong">
                 <?php echo $form['type_retiraison']->renderError() ?>
                 <?php echo $form['type_retiraison']->renderLabel() ?>
                 <?php echo $form['type_retiraison']->render() ?>
             </div>
+            <?php endif; ?>
             <?php if (!$form->conditionneIVSE()): ?>
             <div class="section_label_strong">
                 <?php echo $form['vin_livre']->renderError() ?>
@@ -215,13 +217,16 @@ $( document ).ready(function() {
 
     var volume = $("#vrac_marche_volume_propose");
     var prix_total_unitaire = $("#vrac_marche_prix_total_unitaire");
+    var prix_unitaire = $("#vrac_marche_prix_unitaire");
 
     function updatePrixTotal()
 	{
         var vol = parseFloat(volume.val());
         var prix = parseFloat(prix_total_unitaire.val());
-
-        console.log('Volume: ' + vol + ' / Prix: ' + prix);
+        
+        if(isNaN(prix)) {
+        	prix = parseFloat(prix_unitaire.val());
+        }
 
         if(isNaN(vol)) {
             vol = 0;

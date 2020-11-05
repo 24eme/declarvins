@@ -126,11 +126,6 @@ class DRMImportCsvEdi extends DRMCsvEdi {
         		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
         		continue;
       		}
-      		$droit = $configurationProduit->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, $this->drm->periode.'-02', true);
-      		if($droit && $droit->taux < 0){
-        		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
-        		continue;
-      		}
 
     		$hash = str_replace('/declaration', 'declaration', $configurationProduit->getHash());
 
@@ -166,7 +161,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
       		}
 
       		if ($complement_libelle) {
-      			$produit->libelle = ($libellePerso) ? $libellePerso : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
+                $produit->libelle = ($libellePerso) ? $libellePerso : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
       		}
       		if ($isAutre) {
       		    $produit->libelle = $libellePerso;

@@ -179,7 +179,7 @@ function(doc) {
                             code = lieu.code;
                         }
 						var couleur_code = (couleur.code)? (couleur.code).replace(code, '') : couleur.code;
-                        var couleur_libelle = (couleur.libelle).replace(libelle, '');
+                        var couleur_libelle = (couleur.libelle) ? (couleur.libelle).replace(libelle, '') : null;
                         if (couleur_code == key_default) {
                             couleur_code = null;
                             couleur_libelle = null;
@@ -211,10 +211,15 @@ function(doc) {
 					    if (isNaN(volume_cvo)) {
 						volume_cvo = null;
 					    }
+						var volume_reintegre = parseFloat(detail.entrees.crd);
 					    var montant_cvo = parseFloat(detail.cvo.taux) * volume_cvo;
+						var montant_avoir = parseFloat(detail.cvo.taux) * volume_reintegre;
 					    
                                             if (isNaN(montant_cvo) || parseFloat(detail.cvo.taux) === -1) {
                                                 montant_cvo = null;
+                                            }
+											if (isNaN(montant_avoir) || parseFloat(detail.cvo.taux) === -1) {
+                                                montant_avoir = null;
                                             }
                                             var libelles_label = '';
                                             var codes_label = '';
@@ -276,7 +281,7 @@ function(doc) {
                                                      detail.sorties.declassement,
                                                      detail.sorties.repli,
                                                      detail.sorties.mouvement,
-                                                     detail.sorties.distillation,
+                                                     detail.sorties.autres,
                                                      detail.sorties.lies,
                                                      detail.total,
                                                      detail.stocks_fin.bloque,
@@ -324,7 +329,8 @@ function(doc) {
 						     detail.sorties.acq_crd,
 						     detail.sorties.acq_replacement,
 						     detail.sorties.acq_autres,
-						     detail.acq_total
+						     detail.acq_total,
+							 montant_avoir
 						     
                                                      ]
                                             );
@@ -430,7 +436,8 @@ function(doc) {
 								     null,
 								     null,
 								     null,
-								     null
+								     null,
+									 null
                                                              ]
                                                     );
                                                 }

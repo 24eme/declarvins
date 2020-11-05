@@ -20,13 +20,13 @@ class drmActions extends sfActions {
   		if (!$this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $etablissement) {
   			$configuration = ConfigurationClient::getCurrent();
   			$access = ($configuration->isApplicationOuverte($etablissement->interpro, 'drm', $etablissement))? true : false;
-  			$this->forward404Unless($access);	
+  			$this->forward404Unless($access);
   		}
-  		
+
   	}
     /**
      *
-     * @param sfWebRequest $request 
+     * @param sfWebRequest $request
      */
     public function executeNouvelle(sfWebRequest $request) {
         $drm = $this->getRoute()->getDRM();
@@ -46,10 +46,10 @@ class drmActions extends sfActions {
         	$this->getUser()->setFlash('info_stocks', true);
         $this->redirect('drm_informations', $drm);
     }
-    
+
     /**
      *
-     * @param sfWebRequest $request 
+     * @param sfWebRequest $request
      */
     public function executeImport(sfWebRequest $request) {
   		set_time_limit(0);
@@ -61,7 +61,7 @@ class drmActions extends sfActions {
         $historique = new DRMHistorique($etablissement->identifiant);
 
         $formUploadCsv = new UploadCSVForm();
-        
+
         $send = true;
 
         $result = array();
@@ -104,7 +104,7 @@ class drmActions extends sfActions {
         				if (!$errors) {
         					$drm->update();
         					$validation = new DRMValidation($drm);
-        
+
         					if (!$validation->isValide()) {
         						foreach ($validation->getErrors() as $error) {
         							$result[] = array('ERREUR', 'CSV', null, $error->getIdentifiant(), str_replace('Erreur, ', '', $error));
@@ -117,7 +117,7 @@ class drmActions extends sfActions {
         					}
         				}
         			}
-        				
+
         		} catch(Exception $e) {
         			if (!$e->getMessage()) {
         				$send = false;
@@ -173,7 +173,7 @@ class drmActions extends sfActions {
 
     /**
      *
-     * @param sfWebRequest $request 
+     * @param sfWebRequest $request
      */
     public function executeInit(sfWebRequest $request) {
         $drm = $this->getRoute()->getDRM();
@@ -195,7 +195,7 @@ class drmActions extends sfActions {
 
     /**
      *
-     * @param sfWebRequest $request 
+     * @param sfWebRequest $request
      */
     public function executeDelete(sfWebRequest $request) {
         throw new sfException('Obsolète');
@@ -204,9 +204,9 @@ class drmActions extends sfActions {
     public function executeDeleteOne(sfWebRequest $request) {
         $etablissement = $this->getRoute()->getEtablissement();
         $drm = $this->getRoute()->getDRM();
-        
+
         $this->forward404If(($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere));
-        
+
         if (!$drm->isNew() && !$drm->isValidee()) {
             /*if ($drm->hasVersion()) {
             	$drm->updateVracVersion();
@@ -216,20 +216,20 @@ class drmActions extends sfActions {
             }*/
             $campagneDrm = $drm->campagne;
             $periodeDrm = $drm->periode;
-            
+
             $hasVersion = $drm->hasVersion();
             $previous = ($drm->getPreviousVersion())? $drm->findDocumentByVersion($drm->getPreviousVersion()) : null;
             $mother = $drm->getMother();
             $bilan = BilanClient::getInstance()->findOrCreateByIdentifiant($etablissement->identifiant, 'DRM');
             $drm->delete();
-            
+
             if ($hasVersion) {
             	if ($previous) {
             		$previous->updateBilan();
             	} elseif($mother) {
             		$mother->updateBilan();
             	}
-            } else {            
+            } else {
             	$bilan->updateDRMManquantesAndNonSaisiesForCampagne($campagneDrm,$periodeDrm);
             	$bilan->save();
             }
@@ -249,7 +249,7 @@ class drmActions extends sfActions {
         $this->historique = DRMClient::getInstance()->getDRMHistorique($this->etablissement->identifiant);
         $this->formCampagne = new DRMCampagneForm($this->etablissement->identifiant);
         $this->hasDrmEnCours = $this->historique->hasDRMInProcess();
-        $this->drmEnCours = null; 
+        $this->drmEnCours = null;
         if ($drmEnCours = $this->historique->getDRMInProcess()) {
         	$this->drmEnCours = DRMClient::getInstance()->find($drmEnCours->_id);
         }
@@ -340,7 +340,7 @@ class drmActions extends sfActions {
         $drm = $this->getRoute()->getDRM();
         return $this->renderText($this->getPartial('popupFrequence', array('drm' => $drm)));
     }
-    
+
     public function executeGetXml(sfWebRequest $request) {
     	$drm = $this->getRoute()->getDRM();
     	$xml = $drm->ciel->diff;
@@ -355,14 +355,14 @@ class drmActions extends sfActions {
     	$this->getResponse()->setHttpHeader('Content-Disposition', "attachment; filename=".$drm->_id.".xml");
     	return $this->renderText($dom->saveXML());
     }
-    
+
     public function executePayerReport(sfWebRequest $request) {
     	$drm = $this->getRoute()->getDRM();
     	$drm->payerReport();
     	$drm->save();
     	return $this->redirect('drm_validation', array('sf_subject' => $drm));
     }
-    
+
     public function executeTransferCiel(sfWebRequest $request) {
         $this->drm = $this->getRoute()->getDRM();
         $this->etablissement = $this->getRoute()->getEtablissement();
@@ -376,7 +376,7 @@ class drmActions extends sfActions {
         	$this->forward('drm','validation');
         }
     }
-    
+
     public function executeRetransferCiel(sfWebRequest $request) {
         $this->drm = $this->getRoute()->getDRM();
         if ($this->drm->isFictive()) {
@@ -416,7 +416,7 @@ class drmActions extends sfActions {
     	}
     	$this->setTemplate('transferCiel');
     }
-    
+
     public function executeReouvrir(sfWebRequest $request) {
         $this->drm = $this->getRoute()->getDRM();
         if ($this->drm->isFictive()) {
@@ -446,39 +446,39 @@ class drmActions extends sfActions {
         $this->drm->storeDroits(array());
         $this->droits_circulation = new DRMDroitsCirculation($this->drm);
         $this->drmValidation = $this->drm->validation(array('stock' => 'warning', 'is_operateur' => $this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)));
-        
+
         $this->engagements = $this->drmValidation->getEngagements();
         if ($this->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR)) {
             $this->engagements = array();
         }
         $this->form = new DRMValidationForm($this->drm, array('engagements' => $this->engagements));
-        
+
         $this->drmCiel = $this->drm->getOrAdd('ciel');
-        
-        
+
+
         if (!$request->isMethod(sfWebRequest::POST)) {
 
             return sfView::SUCCESS;
         }
-        
+
         $this->form->bind($request->getParameter($this->form->getName()));
-        
+
 		$values = $this->form->getValues();
-        
+
         if (isset($values['brouillon']) && $values['brouillon'] && $this->form->isValid())
         {
         	$values = $this->form->getValues();
         	$this->drm = $this->form->save();
         	return $this->redirect('drm_validation', $this->drm);
         }
-        
+
         if (!$this->form->isValid() || !$this->drmValidation->isValide()) {
 
             return sfView::SUCCESS;
         }
-		
+
         $this->drm = $this->form->save();
-        
+
         if ($values['manquants']['contrats'])
         {
         	$details = $this->drm->getDetailsVracSansContrat();
@@ -533,7 +533,7 @@ class drmActions extends sfActions {
         	$this->drm->ciel->valide = 1;
         }
         // CIEL ===============
-        
+
         $this->drm->save();
 
         if ($this->drmCiel->isTransfere()) {
@@ -543,7 +543,7 @@ class drmActions extends sfActions {
         if ($erreursCiel) {
         	return $this->redirect('drm_validation', $this->drm);
         }
-        
+
     	if ($this->drm->needNextVersion()) {
 	      $generate = true;
 	      $nb_generate = 0;
@@ -564,7 +564,7 @@ class drmActions extends sfActions {
 		      		$this->getUser()->setFlash('drm_next_version', $drm_version_suivante->_id);
 		      		$generate = false;
 		      	}
-		      	if ($drm_version_suivante->needNextVersion()) {      			
+		      	if ($drm_version_suivante->needNextVersion()) {
 		      		$drm_version_suivante = $drm_version_suivante->generateNextVersion();
 		      		if (!$drm_version_suivante) {
 		      			$generate = false;
@@ -592,7 +592,7 @@ class drmActions extends sfActions {
             $this->getUser()->setAttribute('last_drm', $infos);
         }
     }
-    
+
     public function executeForceValidationCiel(sfWebRequest $request) {
     	$this->etablissement = $this->getRoute()->getEtablissement();
     	$this->drm = $this->getRoute()->getDRM();
@@ -648,7 +648,7 @@ class drmActions extends sfActions {
         }
         $this->droits_circulation = new DRMDroitsCirculation($this->drm);
         $this->etablissement = $this->getRoute()->getEtablissement();
-        $this->hide_rectificative = $request->getParameter('hide_rectificative');
+        $this->hide_rectificative = 0; //$request->getParameter('hide_rectificative');
         $this->drm_next_version = $this->getUser()->getFlash('drm_next_version');
         if ($this->drm_next_version) {
         	$this->drm_next_version = DRMClient::getInstance()->find($this->drm_next_version);
@@ -660,7 +660,7 @@ class drmActions extends sfActions {
         $this->masterVersion = $this->drm->getMaster();
         $this->mouvements = DRMMouvementsConsultationView::getInstance()->getMouvementsByEtablissementAndPeriode($this->drm->identifiant, $this->drm->periode);
     }
-    
+
     public function executeDevalide(sfWebRequest $request) {
     	$this->drm = $this->getRoute()->getDRM();
     	if ($this->drm->isFictive()) {
@@ -674,14 +674,14 @@ class drmActions extends sfActions {
     	$this->drm->devalide();
     	$this->drm->etape = 'validation';
     	$this->drm->save();
-    	
+
     	return $this->redirect('drm_validation', $this->drm);
     }
 
     public function executeRectificative(sfWebRequest $request) {
         $this->etablissement = $this->getRoute()->getEtablissement();
         $drm = $this->getRoute()->getDRM();
-        
+
         $this->forward404Unless($drm->isRectifiable());
 
         if ($drm->getHistorique()->hasDRMInProcess()) {
@@ -703,7 +703,7 @@ class drmActions extends sfActions {
     public function executeModificative(sfWebRequest $request) {
         $this->etablissement = $this->getRoute()->getEtablissement();
         $drm = $this->getRoute()->getDRM();
-        
+
         $this->forward404Unless($drm->isModifiable());
 
         if ($drm->getHistorique()->hasDRMInProcess()) {
@@ -721,7 +721,7 @@ class drmActions extends sfActions {
 
         return $this->redirect('drm_init', $drm_modificative);
     }
-    
+
     public function executeRetourRefresh(sfWebRequest $request) {
         $etablissement = $this->getRoute()->getEtablissement();
         $drm = $this->getRoute()->getDRM();

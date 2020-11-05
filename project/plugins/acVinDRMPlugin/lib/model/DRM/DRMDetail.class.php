@@ -7,46 +7,6 @@
 class DRMDetail extends BaseDRMDetail {
 
     protected $_config = null;
-    
-    protected static $correspondances_negoce = array (
-        '/declaration/certifications/LIE/genres/T' => '',
-        '/declaration/certifications/AOP/genres/TRANQ' => '/declaration/certifications/AOP/genres/TRANQ/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT',
-        '/declaration/certifications/AOP/genres/EFF' => '/declaration/certifications/AOP/genres/EFF/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT',
-        '/declaration/certifications/AOP/genres/VDN' => array('sup18' => '/declaration/certifications/AOP/genres/VDN/appellations/VDN1/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT', 'inf18' => '/declaration/certifications/AOP/genres/VDN/appellations/VDN2/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT'),
-        '/declaration/certifications/AOC/genres/TRANQ' => '/declaration/certifications/AOP/genres/TRANQ/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT',
-        '/declaration/certifications/AOC/genres/EFF' => '/declaration/certifications/AOP/genres/EFF/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT',
-        '/declaration/certifications/IGP/genres/TRANQ' => '/declaration/certifications/IGP/genres/TRANQ/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT',
-        '/declaration/certifications/IGP/genres/EFF' => '/declaration/certifications/IGP/genres/EFF/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT',
-        '/declaration/certifications/VINSSANSIG/genres/TRANQ' => array('cepage' => '/declaration/certifications/VINSSANSIG/genres/TRANQ/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/AVECCEP/details/DEFAUT', 'sanscepage' => '/declaration/certifications/VINSSANSIG/genres/TRANQ/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/SANSCEP/details/DEFAUT'),
-        '/declaration/certifications/VINSSANSIG/genres/EFF' => array('cepage' => '/declaration/certifications/VINSSANSIG/genres/EFF/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/AVECCEP/details/DEFAUT', 'sanscepage' => '/declaration/certifications/VINSSANSIG/genres/EFF/appellations/DEFAUT/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/SANSCEP/details/DEFAUT'),
-        '/declaration/certifications/VINSSANSIG/genres/N' => array('sup18' => '/declaration/certifications/AOP/genres/VDN/appellations/VDN1/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT', 'inf18' => '/declaration/certifications/AOP/genres/VDN/appellations/VDN2/mentions/DEFAUT/lieux/DEFAUT/couleurs/DEFAUT/cepages/DEFAUT/details/DEFAUT')
-    );
-    
-    public function getCorrespondanceNegoce()
-    {
-        $c = (isset(self::$correspondances_negoce[$this->getGenre()->getHash()])) ? self::$correspondances_negoce[$this->getGenre()->getHash()] : null;
-        if ($c === null) {
-            throw new sfException('agg correspondance not found : '.$this->getGenre()->getHash());
-        }
-        if (is_array($c)) {
-            $pos1 = strpos($this->getGenre()->getHash(), '/VDN') !== false;
-            $pos2 = strpos($this->getGenre()->getHash(), '/N') !== false;
-            if ($pos1 || $pos2) {
-                return ($this->tav > 18)? $c['sup18'] : $c['inf18']; 
-            } else {
-                return (in_array($this->getCepage()->getKey(), array('CEP', 'DEFAUT', 'SANSCEP', 'SANS')))? $c['sanscepage'] : $c['cepage'];
-            }
-        } else {
-            return $c;
-        }
-    }
-
-    public function getLibelleFiscalNegocePur() {
-        $hash = $this->getCorrespondanceNegoce();
-        $hash = preg_replace('/.details.DEFAUT$/', '', $hash);
-        $p = ConfigurationClient::getCurrent($this->getDocument()->getDateDebutPeriode())->getConfigurationProduit($hash);
-        return $p->getLibelleFiscal();
-    }
 
     public function getConfig() {
         if (!$this->_config) {
@@ -109,7 +69,7 @@ class DRMDetail extends BaseDRMDetail {
 
         return '';
     }
-    
+
     public function hasLabel() {
     	if ($this->getLibelle() != $this->getGeneratedLibelle()) {
     		return false;
@@ -483,7 +443,7 @@ class DRMDetail extends BaseDRMDetail {
         }
         return $objectToDelete;
     }
-    
+
 
 
     public function cascadingFictiveDelete() {
@@ -705,7 +665,7 @@ class DRMDetail extends BaseDRMDetail {
     	}
     	return $has;
     }
-    
+
     public function getRetiraisons() {
     	$retiraisons = array();
     	if (($this->sorties->vrac && $this->canHaveVrac()) || count($this->vrac->toArray()) > 0) {
@@ -728,12 +688,23 @@ class DRMDetail extends BaseDRMDetail {
     		}
     	return $total;
     }
-    
+
     public function setImportableObservations($observations) {
     	$this->add('observations', "".$observations);
     }
-    
+
     public function isVci() {
     	return ($this->getGenre()->getKey() == 'VCI');
+    }
+
+    public function isCleanable($acq = false) {
+      if ($this->getDocument()->hasVersion()) {
+        return false;
+      }
+      if ($acq) {
+        return ($this->acq_total_debut_mois == 0 && $this->acq_total_entrees == 0 && $this->acq_total_sorties == 0);
+      } else {
+        return ($this->total_debut_mois == 0 && $this->total_entrees == 0 && $this->total_sorties == 0);
+      }
     }
 }

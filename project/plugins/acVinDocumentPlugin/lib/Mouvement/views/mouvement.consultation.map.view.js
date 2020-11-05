@@ -8,6 +8,13 @@ function(doc) {
  
          return;
      }
+
+    var nom_declarant = doc.declarant.nom
+    if (! nom_declarant) {
+        nom_declarant = doc.declarant.raison_sociale
+    }
+
+    nom_declarant = nom_declarant.replace(",", "")
  
      for(identifiant in doc.mouvements) {
          if(identifiant == doc.identifiant) {
@@ -31,7 +38,7 @@ function(doc) {
 				 	type_drm = "ACQUITTE";
                  	type_drm_libelle = "Acquitte";
                  }
-                 emit([doc.type, identifiant, doc.campagne, doc.periode, doc._id, mouv.produit_hash, type_drm, mouv.type_hash, mouv.vrac_numero, mouv.detail_identifiant], [doc.declarant.nom, mouv.produit_libelle, type_drm_libelle, mouv.type_libelle, mouv.volume, mouv.vrac_destinataire, mouv.detail_libelle, mouv.date_version, mouv.version, mouv.cvo, mouv.facturable, doc._id+'/mouvements/'+identifiant+'/'+key, pays, mouv.facture, coefficient_facturation, mouv.date, familledrm, mouv.interpro]);
+                 emit([doc.type, identifiant, doc.campagne, doc.periode, doc._id, mouv.produit_hash, type_drm, mouv.type_hash, mouv.vrac_numero, mouv.detail_identifiant], [nom_declarant, mouv.produit_libelle, type_drm_libelle, mouv.type_libelle, mouv.volume, mouv.vrac_destinataire, mouv.detail_libelle, mouv.date_version, mouv.version, mouv.cvo, mouv.facturable, doc._id+'/mouvements/'+identifiant+'/'+key, pays, mouv.facture, coefficient_facturation, mouv.date, familledrm, mouv.interpro]);
              }
          }
      }

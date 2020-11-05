@@ -26,44 +26,31 @@
     <?php endif; ?>
     <!-- #principal -->
     <section id="principal">
-    
+
     	<?php $drmCiel = $drm->getOrAdd('ciel');  ?>
 
         <?php if ($drm->isValidee()): ?>
-        
+
             <?php if(!$drm->isRectificative() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <p style="text-align: right; margin-bottom: 10px;"><a href="<?php echo url_for('drm_reouvrir', $drm) ?>" style="background-color: #FF9F00; padding: 6px; color: #fff;">Ré-ouvir la DRM</a></p>
             <?php endif; ?>
             <div style="background: none repeat scroll 0 0 #ECFEEA;border: 1px solid #359B02;color: #1E5204;font-weight: bold;margin: 0 0 10px 0;padding: 5px 10px;">
                 <ul>
                     <li>
-                    <?php if ($drm->isTeledeclare()): ?>
                     Votre DRM a bien été validée et transmise à votre interprofession.<br />
-                    <?php if(!$drm->isRectificative() && $drmCiel->isTransfere()): ?>
+                    <?php if($drmCiel->isTransfere() && $drmCiel->getReponseCiel()): ?>
                     Votre DRM a été transmise correctement au service CIEL, le <?php echo format_date($drmCiel->horodatage_depot, 'dd/MM/yyyy') ?> à <?php echo format_date($drmCiel->horodatage_depot, 'H:m') ?> sous le numéro <?php echo $drmCiel->identifiant_declaration ?>.<br />
                     Vous devez terminer votre déclaration en la vérifiant et la validant ("déposer la DRM") sur le site prodouanes via le lien suivant : <a href="https://pro.douane.gouv.fr/">pro.douane.gouv.fr</a><br />
 					en vous connectant et en allant sur l'interface CIEL (menu de gauche).
-                    <?php elseif ($drm->isRectificative() && $drmCiel->isTransfere()): ?>
+        <?php elseif ($drm->isRectificative() && $drmCiel->isTransfere() && !$drmCiel->getReponseCiel()): ?>
                     Votre DRM a bien été corrigée afin de correspondre à celle transmise au service CIEL, le <?php echo format_date($drmCiel->horodatage_depot, 'dd/MM/yyyy') ?> à <?php echo format_date($drmCiel->horodatage_depot, 'H:m') ?> sous le numéro <?php echo $drmCiel->identifiant_declaration ?>.
                     <?php elseif (!$etablissement->isTransmissionCiel() && !$drm->isNegoce()): ?>
 					Vous devez par contre imprimer le PDF et le signer puis l'envoyer à votre service des douanes habituel.
                     <?php endif; ?>
-                    <?php else: ?>
-                    Votre DRM a bien été saisie et validée.<br />
-                    <?php if(!$drm->isRectificative() && $drmCiel->isTransfere()): ?>
-                    Votre DRM a été transmise correctement au service CIEL, le <?php echo format_date($drmCiel->horodatage_depot, 'dd/MM/yyyy') ?> à <?php echo format_date($drmCiel->horodatage_depot, 'H:m') ?> sous le numéro <?php echo $drmCiel->identifiant_declaration ?>.<br />
-                    Vous devez terminer votre déclaration en la vérifiant et la validant ("déposer la DRM") sur le site prodouanes via le lien suivant : <a href="https://pro.douane.gouv.fr/">pro.douane.gouv.fr</a><br />
-					en vous connectant et en allant sur l'interface CIEL (menu de gauche).
-                    <?php elseif ($drm->isRectificative() && $drmCiel->isTransfere()): ?>
-                    Votre DRM a bien été corrigée afin de correspondre à celle transmise au service CIEL, le <?php echo format_date($drmCiel->horodatage_depot, 'dd/MM/yyyy') ?> à <?php echo format_date($drmCiel->horodatage_depot, 'H:m') ?> sous le numéro <?php echo $drmCiel->identifiant_declaration ?>.
-                    <?php else: ?>
-					Vous devez par contre imprimer le PDF et le signer puis l'envoyer à votre service des douanes habituel.
-                    <?php endif; ?>
-                    <?php endif; ?>
                     </li>
                 </ul>
             </div>
-            
+
             <?php if ($drm->isNegoce()): ?>
             <div style="background: none repeat scroll 0 0 #d9e0ed; border: 1px solid #182188; color: #182188; font-weight: bold;margin: 0 0 10px 0;padding: 5px 10px;">
                 <ul>
@@ -76,14 +63,14 @@
             	</ul>
             </div>
 			<?php endif; ?>
-			
-                    
+
+
             <?php if($drmCiel->isTransfere() && !$drmCiel->isValide() && ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) || $sf_user->isUsurpationMode())): ?>
             <p>Aucun retour de la part de proDou@ne n'a été effectué : <a href="<?php echo url_for('drm_retour_refresh', $drm); ?>"  class="pull-right btn btn-xs btn-default" >Ré-interroger</a></p>
             <?php elseif($drmCiel->isTransfere() && $drmCiel->isValide()): ?>
             <p>DRM conforme proDou@ne</p>
             <?php endif; ?>
-            <?php if(!$drm->isRectificative() && $drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+            <?php if($drmCiel->isTransfere() && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <p style="text-align: right; margin-bottom: 10px;"><a href="<?php echo url_for('drm_retransfer_ciel', $drm) ?>" style="background-color: #9e9e9e; padding: 6px; color: #fff;">Re-transmettre la DRM</a></p>
             <?php endif; ?>
         <?php endif; ?>
@@ -146,7 +133,7 @@
                 </table>
             </div>
         <?php endif; ?>
-        
+
         <?php if ($drm->exist('commentaires') && $drm->commentaires && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
             <div style="padding: 0 0 30px 0">
                 <strong>Commentaires BO</strong>
@@ -172,7 +159,7 @@
                 <?php endif; ?>
             </div>
 
-        </div> 
+        </div>
 
     </section>
     <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$drm->getHistorique()->hasDRMInProcess() && $drm->isModifiable()): ?>

@@ -94,7 +94,7 @@ class VracSoussigneForm extends VracForm
 
 	protected function updateDefaultsFromObject() {
 		parent::updateDefaultsFromObject();
-		
+
 		if ($this->getEtablissement()) {
 			if ($this->getEtablissement()->identifiant == $this->getObject()->acheteur_identifiant) {
 				$this->setDefault('vous_etes', 'acheteur');
@@ -137,14 +137,14 @@ class VracSoussigneForm extends VracForm
 			$this->getObject()->add('mandataire');
 			$this->getObject()->mandataire_identifiant = null;
 		}
-		
-		if ($this->getObject()->vendeur->famille == EtablissementFamilles::FAMILLE_PRODUCTEUR || $this->getObject()->vendeur->sous_famille == EtablissementFamilles::SOUS_FAMILLE_VINIFICATEUR) {
+
+		$this->getObject()->storeSoussignesInformations();
+
+		if ($this->getObject()->vendeur->famille == EtablissementFamilles::FAMILLE_PRODUCTEUR) {
 			$this->getObject()->premiere_mise_en_marche = 1;
 		} else {
 			$this->getObject()->premiere_mise_en_marche = 0;
 		}
-
-		$this->getObject()->storeSoussignesInformations();
 	}
 
 	public function etablissementIsVendeurOrAcheteur() {
@@ -163,4 +163,3 @@ class VracSoussigneForm extends VracForm
 		return sfContext::getInstance()->getUser()->hasCredential(myUser::CREDENTIAL_OPERATEUR);
 	}
 }
-

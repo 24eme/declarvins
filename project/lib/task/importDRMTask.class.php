@@ -33,7 +33,7 @@ EOF;
     $checkingMode = $options['checking'];
     $files = array();
     $message = '<h2>Monitoring du flux d\'import des DRM en provenance d\'InterSud</h2>';
-    
+
     if (is_dir($csvFile)) {
     	if ($dir = @opendir($csvFile)) {
     		while (($f = readdir($dir)) !== false) {
@@ -59,14 +59,15 @@ EOF;
 		$periode = substr($m[3], 0, -2) . "-" . substr($m[3], -2);
 
     	$result = array();
-    
+
 	    if (!file_exists($file)) {
 	    	$result[] = array('ERREUR', 'ACCES', null, "Le fichier $file n'existe pas");
-	    } else {    
-	    	
+	    } else {
+
 	    	try {
 		    	$drm = new DRM();
 		    	$drm->periode = $periode;
+          $drm->mode_de_saisie = DRMClient::MODE_DE_SAISIE_EDI;
 		    	$findEtablissement = $drm->setImportableIdentifiant(null, $ea, $siretCvi);
 		    	if (!$findEtablissement) {
 		    		$result[] = array('ERREUR', 'CSV', null, "Impossible d'identifier l'établissement $ea $siretCvi");
@@ -97,7 +98,7 @@ EOF;
 				    			$result[] = array('ERREUR', 'ACCES', null, "L'établissement ".$etablissement->identifiant." n'est pas autorisé à déclarer des DRMs");
 				    			$errors++;
 				    		}
-				    		
+
 				    		if (DRMClient::getInstance()->find($drm->_id)) {
 				    			$master = $drm->findMaster();
 			  					if ($master->mode_de_saisie == DRMClient::MODE_DE_SAISIE_EDI) {
@@ -113,7 +114,7 @@ EOF;
 				    		if (!$errors) {
 				    			$drm->update();
 				    			$validation = new DRMValidation($drm);
-				    
+
 				    			if (!$validation->isValide()) {
 				    				foreach ($validation->getErrors() as $error) {
 				    					$result[] = array('ERREUR', 'CSV', null, str_replace('Erreur, ', '', $error));
@@ -131,7 +132,7 @@ EOF;
 			    		}
 			    	}
 	    		}
-		    		
+
 		    } catch(Exception $e) {
 		    	$result[] = array('ERREUR', 'CSV', null, $e->getMessage());
 		    }
@@ -147,7 +148,7 @@ EOF;
   	}
 
   }
-  
+
   private function messagizeRapport($rapport, $etablissementIdentifiant, $periode)
   {
 	//$message = '<h3>Etablissement '.$etablissementIdentifiant.' / Periode '.$periode.'</h3>';
@@ -156,7 +157,7 @@ EOF;
   	foreach ($rapport as $rapportItem) {
   		$message .= '<li>'.implode(' | ', $rapportItem).' // Période '.$periode.'</li>';
   	}
-  	//$message .= '</ul>';  	 
+  	//$message .= '</ul>';
   	return $message;
   }
 }

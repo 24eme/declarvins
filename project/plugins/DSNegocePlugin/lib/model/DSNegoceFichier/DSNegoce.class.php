@@ -13,6 +13,6 @@ class DSNegoce extends BaseDSNegoce {
 	}
 
     public static function isPieceEditable($admin = false) {
-    	return ($admin)? true : false;
+    	return false;
     }
 }
