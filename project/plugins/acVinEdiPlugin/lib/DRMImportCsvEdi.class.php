@@ -121,7 +121,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		    $configurationProduit = $this->configuration->getConfigurationProduit($default_produit_hash);
     		    $isAutre = true;
     		}
-    		
+
         	if (!$configurationProduit) {
         		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
         		continue;
@@ -491,7 +491,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   			$this->csvDoc->addErreur($this->categorieCrdNotFoundError($numLigne, $datas));
   			return;
   		}
-  		if (!$this->configuration->isTypeCrdAccepted($type)) {
+      $typeDroit = $this->configuration->isTypeCrdAccepted($type);
+  		if (!$typeDroit) {
   			$this->csvDoc->addErreur($this->typeCrdNotFoundError($numLigne, $datas));
   			return;
   		}
@@ -499,13 +500,13 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		if (!$this->configuration->isCentilisationCrdAccepted($centilisation)) {
   			$isBib = null;
   			if (preg_match('/^(BIB|CL)_([0-9]+)/i', $centilisation, $m)) {
-  				$crd = $this->drm->addCrd($categorie, $type, 'AUTRE', $m[2], ($m[1] == 'BIB'));
+  				$crd = $this->drm->addCrd($categorie, $typeDroit, 'AUTRE', $m[2], ($m[1] == 'BIB'));
   			} else {
   				$this->csvDoc->addErreur($this->centilisationCrdNotFoundError($numLigne, $datas));
   				return;
   			}
   		} else {
-  			$crd = $this->drm->addCrd($categorie, $type, $centilisation, null, null);
+  			$crd = $this->drm->addCrd($categorie, $typeDroit, $centilisation, null, null);
   		}
 
   		if ($categorieCrd && !$crd->exist($categorieCrd)) {
