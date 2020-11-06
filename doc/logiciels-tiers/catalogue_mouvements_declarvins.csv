@@ -17,7 +17,7 @@ suspendu,sorties,factures,DSA / Tickets / Factures
 suspendu,sorties,crd,CRD France
 suspendu,sorties,crd_acquittes,CRD Collectives acquittées
 suspendu,sorties,consommation,Conso Fam. / Analyses / Dégustation
-suspendu,sorties,pertes,Pertes exceptionnelles
+suspendu,sorties,pertes,Autres sorties
 suspendu,sorties,declassement,Mvt. interne : Non rev. / Déclassement
 suspendu,sorties,repli,Mvt. interne : Changement / Repli
 suspendu,sorties,mutage,Mvt. interne : Mutage
