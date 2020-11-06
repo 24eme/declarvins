@@ -509,9 +509,6 @@ class Configuration extends BaseConfiguration {
             if (preg_match("/^$value/i", $k)) {
               return $k;
             }
-            if (preg_match("/^$value/i", $v)) {
-              return $k;
-            }
           }
     		}
     	}
