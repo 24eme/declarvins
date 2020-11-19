@@ -3,3 +3,4 @@ all:
     subvention:
       plateforme: "DéclarVins"
       referent: "Service Économique d'Inter-Rhône"
+      actif: true

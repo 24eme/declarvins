@@ -39,7 +39,7 @@ use_helper('Text');
         <?php endif; ?>
         <?php endif; ?>
 
-        <?php $sub = SubventionClient::getInstance()->findByEtablissementAndOperation($etablissement->identifiant, 'COVID1'); if($etablissement->hasZoneIS() && $sub && $sub->isValide()): ?>
+        <?php if(SubventionConfiguration::getInstance()->isActif($etablissement, $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
         <li<?php if ($active == 'subvention'): ?> class="actif"<?php endif; ?>>
             <a href="<?php echo url_for('subvention_etablissement', $etablissement) ?>">Aides Occitanie</a>
         </li>
