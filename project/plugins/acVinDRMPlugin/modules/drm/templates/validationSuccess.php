@@ -211,7 +211,7 @@
 
             <div class="ligne_btn">
             	<?php if (!$drm->isIncomplete()): ?>
-				<?php if(($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
+				<?php if($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR): ?>
 				<?php else: ?>
                 <a href="<?php echo url_for('drm_delete_one', $drm) ?>" class="annuler_saisie btn_remise"><span>supprimer la drm</span></a>
                 <?php endif; ?>
