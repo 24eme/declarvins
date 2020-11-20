@@ -11,7 +11,7 @@
             <?php echo sprintf('%s %s', $drm->periode, $drm->version); ?>
 
             <?php if ($drm->isMaster()): ?></strong><?php endif; ?>
-        <!-- 
+        <!--
 if($drm->getModificative() > 0):
 echo sprintf('(M%02d)', $drm->getModificative())
 endif;
@@ -57,10 +57,10 @@ endif;
 										<form action="<?php echo url_for('drm_import', $drm) ?>" method="post" enctype="multipart/form-data">
 										    <?php echo $formImport->renderHiddenFields(); ?>
 										    <?php echo $formImport->renderGlobalErrors(); ?>
-										
+
 										    <?php echo $formImport['file']->render(array('id' => 'uploadFileInput', 'required' => 'required')) ?>
 										    <?php echo $formImport['file']->renderError() ?>
-										
+
 											<div id="submit-drm-edi" class="btn ligne_form_btn" style="text-align: center;">
 												<button class="btn_valider" type="submit">Importer la DRM</button>
 											</div>
@@ -92,12 +92,12 @@ endif;
             <?php endif; ?>
         <?php endif; ?>
     </td>
-    <?php if (!$drm->isNew() && !$drm->isValidee()): ?>	
-		<?php if($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere): ?>
+    <?php if (!$drm->isNew() && !$drm->isValidee()): ?>
+		<?php if(($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 		<?php else: ?>
         <td style="border: 0px; padding-left: 0px;background-color: #ffffff;">
             <a href="<?php echo url_for('drm_delete_one', $drm); ?>" class="btn_reinitialiser" onclick="return confirm('Etes vous surs de vouloir supprimer cette DRM ?')"><span><img src="/images/pictos/pi_supprimer.png"/></span></a>
         </td>
         <?php endif; ?>
-    <?php endif; ?>			
+    <?php endif; ?>
 </tr>

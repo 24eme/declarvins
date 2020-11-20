@@ -25,7 +25,7 @@
         <form id="formValidation" action="<?php echo ($etablissement->isTransmissionCiel() && !$drm->hasVersion() && !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))? url_for('drm_transfer_ciel', $drm) :  url_for('drm_validation', $drm); ?>" method="post">
             <?php echo $form->renderGlobalErrors() ?>
             <?php echo $form->renderHiddenFields() ?>
-            
+
             <div id="btn_etape_dr">
             	<?php if (!$drm->isIncomplete()): ?>
                 <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
@@ -38,8 +38,8 @@
                 </a>
                 <?php endif; ?>
                 <?php endif; ?>
-                
-                
+
+
                 <?php if (!$drmValidation->hasErrors()): ?>
                 <?php if(($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->getCompteObject()) || ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && !$etablissement->isTransmissionCiel()) || !$sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
                 <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel()): ?>
@@ -65,26 +65,26 @@
 	                </button>
                 <?php endif; ?>
                 <?php endif; ?>
-                
-                
-                
+
+
+
                 <?php if ($drmValidation->hasError('diff_ciel', true) && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->hasVersion()): ?>
                 <div class="ligne_btn">
                 	<a class="btn_suiv" href="<?php echo url_for('drm_force_validation_ciel', $drm) ?>"><span>Forcer la validation CIEL</span></a>
                 </div>
                 <?php endif; ?>
             </div>
-            
+
             <div id="application_dr">
 
                 <div id="validation_intro">
                     <h2>Validation</h2>
                     <p>Vous êtes sur le point de valider votre DRM. Merci de vérifier vos données.</p>
                 </div>
-                
+
                 <?php if ($drmValidation->hasErrors() || $drmValidation->hasWarnings()) { ?>
                 <div id="contenu_onglet">
-               
+
                     <div id="retours">
                         <?php
                         if ($drmValidation->hasErrors()) {
@@ -97,13 +97,13 @@
                     </div>
                 </div>
                 <?php } ?>
-                
+
                 <?php if (count($engagements) > 0) { ?>
                 <div id="contenu_onglet" class="tableau_ajouts_liquidations">
-                    <?php include_partial('engagements', array('drm' => $drm, 'drmValidation' => $drmValidation, 'engagements' => $engagements, 'form' => $form)); ?>                    
+                    <?php include_partial('engagements', array('drm' => $drm, 'drmValidation' => $drmValidation, 'engagements' => $engagements, 'form' => $form)); ?>
                 </div>
                 <?php } ?>
-                
+
                 <div id="contenu_onglet">
                     <?php if(($drm->declaration->hasMouvement() && !$drm->declaration->hasStockEpuise()) || $drm->hasMouvementsCrd()):  ?>
                         <?php include_partial('drm/recap', array('drm' => $drm)) ?>
@@ -159,9 +159,9 @@
             <?php if($etablissement->isTransmissionCiel() && ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR))): ?>
             <a id="telecharger_pdf" style="margin-left: 225px; padding-left: 5px; background: #9e9e9e;" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Visualisez le XML CIEL</a>
             <?php endif; ?>
-            
-            
-            
+
+
+
             <div id="btn_etape_dr">
             	<?php if (!$drm->isIncomplete()): ?>
                 <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
@@ -199,9 +199,9 @@
 	                </button>
                 <?php endif; ?>
                 <?php endif; ?>
-                
-                
-                
+
+
+
                 <?php if ($drmValidation->hasError('diff_ciel', true) && $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR) && $drm->hasVersion()): ?>
                 <div class="ligne_btn">
                 	<a class="btn_suiv" href="<?php echo url_for('drm_force_validation_ciel', $drm) ?>"><span>Forcer la validation CIEL</span></a>
@@ -211,7 +211,7 @@
 
             <div class="ligne_btn">
             	<?php if (!$drm->isIncomplete()): ?>
-				<?php if($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere): ?>
+				<?php if(($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere) || $sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
 				<?php else: ?>
                 <a href="<?php echo url_for('drm_delete_one', $drm) ?>" class="annuler_saisie btn_remise"><span>supprimer la drm</span></a>
                 <?php endif; ?>
@@ -223,8 +223,8 @@
     </section>
 </section>
 
-            
-            
+
+
             <div id="popupValidation" style="display: none;">
             	<form id="formValidationPopup" action="<?php echo url_for('drm_validation', $drm); ?>" method="post">
           	    <p>En cliquant sur « Valider », votre DRM sera directement transmise vers le portail de la Douane.</p>
@@ -259,7 +259,7 @@
 				$("#formValidation").attr('action', '#');
 			}
 
-		}); 
+		});
 		$("#formValidationPopup").submit(function(){
 			if($("#drm_transmission_ciel_visible").is(':checked')) {
 				$("#formValidation").attr('action', "<?php echo url_for('drm_transfer_ciel', $drm); ?>");
@@ -270,7 +270,7 @@
 		$("#formValidation").submit(function(){
 			if ($('#<?php echo $form['brouillon']->renderId() ?>').val() == 1) {
 				return true;
-			} else { 
+			} else {
 				if($("#drm_transmission_ciel_visible").length && $("#drm_transmission_ciel_visible").is(":checked")) {
 					return true;
 				} else {
