@@ -208,12 +208,11 @@ class drmActions extends sfActions {
         $this->forward404If(($drm->isRectificative() && $drm->exist('ciel') && $drm->ciel->transfere));
 
         if (!$drm->isNew() && !$drm->isValidee()) {
-            /*if ($drm->hasVersion()) {
-            	$drm->updateVracVersion();
+            if ($drm->hasVersion()) {
                 if ($previous = $drm->getMother()) {
                     $previous->updateVrac();
                 }
-            }*/
+            }
             $campagneDrm = $drm->campagne;
             $periodeDrm = $drm->periode;
 
