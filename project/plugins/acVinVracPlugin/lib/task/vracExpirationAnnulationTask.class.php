@@ -29,7 +29,7 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
     set_time_limit(0);
-    
+
     $vracs = VracAllView::getInstance()->findByStatut(VracClient::STATUS_CONTRAT_ATTENTE_ANNULATION);
     $client = VracClient::getInstance();
     foreach ($vracs->rows as $values) {
@@ -60,31 +60,36 @@ EOF;
     		$vrac->valide->statut = VracClient::STATUS_CONTRAT_NONSOLDE;
     		$vrac->save();
     		$this->logSection('vrac-expiration-annulation', 'Expiration de l\'annulation du contrat '.$vrac->_id);
-    	}		
+    	}
     }
   }
-  
+
   protected function sendExpiration($vrac) {
   	$routing = clone ProjectConfiguration::getAppRouting();
 	$contextInstance = sfContext::createInstance($this->configuration);
     $contextInstance->set('routing', $routing);
   		$acteurs = VracClient::getInstance()->getActeurs();
 		foreach ($acteurs as $acteur) {
-			if ($email = $vrac->get($acteur)->email) {
+				if (!$vrac->get($acteur.'_identifiant')) {
+					continue;
+				}
 				$etablissement = EtablissementClient::getInstance()->find($vrac->get($acteur.'_identifiant'));
+				$compte = ($etablissement)? $etablissement->getCompteObject() : null;
 				$url['contact'] = $routing->generate('contact', array(), true);
 				$url['home'] = $routing->generate('homepage', array(), true);
-				if ($etablissement->compte) {
-					if ($compte = _CompteClient::getInstance()->find($etablissement->compte)) {
-						if ($compte->statut == _Compte::STATUT_ARCHIVE) {
-							if ($interpro->email_contrat_vrac) {
-								Email::getInstance($contextInstance)->vracExpirationAnnulationContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
-							}
-						}
-					}
-				}
-				Email::getInstance($contextInstance)->vracExpirationAnnulationContrat($vrac, $etablissement, $email, $acteur, $url);
-			}
+
+				if ($compte && $compte->email) {
+		  	    if ($compte->statut == _Compte::STATUT_ARCHIVE) {
+		  	        if ($interpro->email_contrat_vrac) {
+		  	            Email::getInstance($contextInstance)->vracExpirationAnnulationContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
+		  	        }
+		  	    } else {
+		  	        Email::getInstance($contextInstance)->vracExpirationAnnulationContrat($vrac, $etablissement, $compte->email, $acteur, $url);
+		  	    }
+		  	} else {
+		  	    Email::getInstance($contextInstance)->vracExpirationAnnulationContrat($vrac, $etablissement, $interpro->email_contrat_vrac, $acteur, $url);
+		  	}
+
 		}
   }
 }
