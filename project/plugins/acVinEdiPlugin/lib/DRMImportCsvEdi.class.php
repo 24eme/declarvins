@@ -136,6 +136,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 $libellePerso = (trim($result[1]) != trim($libelleConfig)) ? trim($result[1]) : null;
             } elseif (trim($libelle) != trim($libelleConfig)) {
                 $libellePerso = trim($libelle);
+            } else {
+              $libellePerso = $libelleConfig;
             }
 
             if ($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]) {
@@ -160,11 +162,12 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                 $produit = $this->drm->addProduit($hash, $label, $complement_libelle);
       		}
 
+      		$produit->libelle = $libellePerso;
+
       		if ($complement_libelle) {
                 $produit->libelle = ($libellePerso) ? $libellePerso : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
       		}
       		if ($isAutre) {
-      		    $produit->libelle = $libellePerso;
       		    $produit->getCepage()->inao = $this->getIdDouane($datas);
       		}
             $this->cache[$this->getCacheKeyFromData($datas)] = $produit;
