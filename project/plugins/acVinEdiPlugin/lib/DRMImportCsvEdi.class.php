@@ -66,7 +66,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             	$this->formatCacheKey($datas[self::CSV_CAVE_COULEUR]).
             	$this->formatCacheKey($datas[self::CSV_CAVE_CEPAGE]).
                 $this->formatCacheKey($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]).
-                $this->formatCacheKey($datas[self::CSV_CAVE_PRODUIT]).
+                $this->formatCacheKey($datas[self::CSV_CAVE_LIBELLE_PRODUIT]).
                 $this->formatCacheKey($datas[self::CSV_CAVE_TYPE_DROITS]);
     }
 
@@ -103,7 +103,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $complement_libelle = null;
             $complement_hash = null;
             $label = null;
-    		$libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]);
+    		$libelle = $this->getKey($datas[self::CSV_CAVE_LIBELLE_PRODUIT]);
     		$configurationProduit = null;
     		$isAutre = false;
     		if ($idDouane = $this->getIdDouane($datas)) {
@@ -116,7 +116,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		    $configurationProduit = $this->configuration->getConfigurationProduitByLibelle($libelle);
     		}
 
-    		if((!$configurationProduit) && ($idDouane = $this->getIdDouane($datas)) && ($libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]))) {
+    		if((!$configurationProduit) && ($idDouane = $this->getIdDouane($datas)) && $libelle) {
     		    $default_produit_hash = $this->configuration->getDefaultProduitHash($idDouane);
     		    $configurationProduit = $this->configuration->getConfigurationProduit($default_produit_hash);
     		    $isAutre = true;
@@ -737,11 +737,11 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     }
 
     private function productNotFoundError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_PRODUIT], "Le produit n'a pas été trouvé", 'error_notfound_produit');
+        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_LIBELLE_PRODUIT], "Le produit n'a pas été trouvé", 'error_notfound_produit');
     }
 
     private function productDuplicateError($num_ligne, $csvRow) {
-        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_PRODUIT], "Ce produit a un stock début de mois > 0 alors qu'il n'était pas présent dans la DRM du mois précédent. Il peut aussi s'agir d'un problème dans la reconnaissance du produit", 'error_duplicate_produit');
+        return $this->createError($num_ligne, $csvRow[self::CSV_CAVE_LIBELLE_PRODUIT], "Ce produit a un stock début de mois > 0 alors qu'il n'était pas présent dans la DRM du mois précédent. Il peut aussi s'agir d'un problème dans la reconnaissance du produit", 'error_duplicate_produit');
     }
 
     private function droitsNotFoundError($num_ligne, $csvRow) {
