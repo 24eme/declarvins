@@ -116,7 +116,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		    $configurationProduit = $this->configuration->getConfigurationProduitByLibelle($libelle);
     		}
 
-    		if((!$configurationProduit) && ($idDouane = $this->getIdDouane($datas)) && ($libelle) {
+    		if((!$configurationProduit) && ($idDouane = $this->getIdDouane($datas)) && $libelle) {
     		    $default_produit_hash = $this->configuration->getDefaultProduitHash($idDouane);
     		    $configurationProduit = $this->configuration->getConfigurationProduit($default_produit_hash);
     		    $isAutre = true;
