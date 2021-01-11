@@ -847,6 +847,12 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		) {
     		return $certification;
     	}
+      $libelle = $this->getKey($datas[self::CSV_CAVE_PRODUIT]);
+      if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
+    		if ($libelleDouane = trim($result[2])) {
+          return $libelleDouane;
+        }
+    	}
     	return null;
     }
 
