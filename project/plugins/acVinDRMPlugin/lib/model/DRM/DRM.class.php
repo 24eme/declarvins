@@ -1209,6 +1209,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     }
 
     public function isRectifiable() {
+        if ($this->exist('ciel') && $this->ciel->transfere) {
+          return false;
+        }
         return $this->version_document->isRectifiable();
     }
 
