@@ -400,6 +400,9 @@ class drmActions extends sfActions {
 		        }
 		        $this->drmCiel->setInformationsFromXml();
 		        if ($this->drmCiel->hasErreurs()) {
+							if ($this->drm->hasVersion()) {
+								$this->drm->updateVracVersion();
+							}
 		        	$this->drm->devalide();
 		        }
 		        $this->drm->save();
