@@ -1498,7 +1498,7 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
         $e = $this->getEtablissementObject();
         $produits = $this->getDetails();
 
-        if (!$this->isMoisOuvert()) {
+        if ($this->isMoisOuvert()) {
             return $produits;
         }
         $drm_precedente = $this->getPrecedente(true);
