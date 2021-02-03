@@ -140,20 +140,16 @@ class DRMImportCsvEdi extends DRMCsvEdi {
 
             if ($libellePerso) {
               $complement_libelle = $libellePerso;
+            } else {
+              $complement_libelle = null;
             }
 
             if ($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]) {
-                $complement_libelle = trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
                 if (isset($this->permettedValues[self::TYPE_CAVE]) && isset($this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
-                    $complement_libelle = strtoupper(trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]));
-                    if (!$idDouane && $this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT]) {
-                        if (in_array($complement_libelle, $this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
-                            $label = $complement_libelle;
-                            $complement_libelle = null;
-                        }else{
-                            $complement_libelle = trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
-                        }
-                    } else {
+                    $complement = strtoupper(trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]));
+                    if (in_array($complement, $this->permettedValues[self::TYPE_CAVE][self::CSV_CAVE_COMPLEMENT_PRODUIT])) {
+                        $label = $complement;
+                    } else{
                         $complement_libelle = trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
                     }
                 }
@@ -269,7 +265,10 @@ class DRMImportCsvEdi extends DRMCsvEdi {
                         $this->drm->get($this->cache[$cacheid]->getCepage()->getHash())->details->remove($this->cache[$cacheid]->getKey());
                     }
                 }
-                $this->cache[$cacheid] = $this->drm->getOrAdd($new_hash);
+                $p = $this->drm->getOrAdd($new_hash);
+                $p->libelle = $cache2datas[$cacheid]['libelle'];
+                $p->labels = array($cache2datas[$cacheid]['label']);
+                $this->cache[$cacheid] = $p;
             }
         }
     }
