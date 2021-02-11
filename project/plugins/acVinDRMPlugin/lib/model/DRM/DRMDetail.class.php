@@ -643,7 +643,7 @@ class DRMDetail extends BaseDRMDetail {
     }
 
     public function isInao() {
-        return $this->getCepage()->isInao();
+        return preg_match('/^[0-9]/', $this->getInao());
     }
 
     public function getInao()
