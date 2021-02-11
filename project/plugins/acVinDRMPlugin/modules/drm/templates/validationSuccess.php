@@ -82,6 +82,12 @@
                     <p>Vous êtes sur le point de valider votre DRM. Merci de vérifier vos données.</p>
                 </div>
 
+                <?php if (count($engagements) > 0) { ?>
+                <div id="contenu_onglet" class="tableau_ajouts_liquidations">
+                    <?php include_partial('engagements', array('drm' => $drm, 'drmValidation' => $drmValidation, 'engagements' => $engagements, 'form' => $form)); ?>
+                </div>
+                <?php } ?>
+
                 <?php if ($drmValidation->hasErrors() || $drmValidation->hasWarnings()) { ?>
                 <div id="contenu_onglet">
 
@@ -95,12 +101,6 @@
                         }
                         ?>
                     </div>
-                </div>
-                <?php } ?>
-
-                <?php if (count($engagements) > 0) { ?>
-                <div id="contenu_onglet" class="tableau_ajouts_liquidations">
-                    <?php include_partial('engagements', array('drm' => $drm, 'drmValidation' => $drmValidation, 'engagements' => $engagements, 'form' => $form)); ?>
                 </div>
                 <?php } ?>
 
