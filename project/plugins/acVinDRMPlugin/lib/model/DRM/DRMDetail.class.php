@@ -648,8 +648,13 @@ class DRMDetail extends BaseDRMDetail {
 
     public function getInao()
     {
-    	return $this->getCepage()->getInao();
+      $inao = null;
+      if ($this->exist('inao')) {
+        $inao = $this->_get('inao');
+      }
+    	return ($inao)? $inao : $this->getCepage()->getInao();
     }
+
     public function getIdentifiantDouane()
     {
     	$inao = $this->getInao();

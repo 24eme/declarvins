@@ -282,6 +282,7 @@ DRM:
                                                                                                             code: {  }
                                                                                                             libelle: {  }
                                                                                                             selecteur: {  }
+                                                                                                            inao: { required: false }
                                                                                                             has_vrac: {  }
                                                                                                             observations: {  }
                                                                                                             pas_de_mouvement_check: { type: integer }
