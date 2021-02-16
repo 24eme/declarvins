@@ -143,6 +143,10 @@ EOF;
 
     						if (!$compare->hasDiff()) {
     							if (!$checkingMode) {
+										if (!$drm->isVersionnable()) {
+											$rectif = $drm->getMaster();
+											$rectif->delete();
+										}
 	    							$drm->ciel->valide = 1;
 	    							$drm->save();
 	    							Email::getInstance()->cielValide($drm);
