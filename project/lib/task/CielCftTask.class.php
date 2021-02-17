@@ -169,7 +169,7 @@ EOF;
 	    								$diffs .= "<li>$k => $v</li>";
 	    							}
 	    							$diffs .= '</ul>';
-	    							$rapport[self::RAPPORT_DIFF_KEY][] = 'La DRM '.$drm->_id.' ('.$ea.') doit être rectifiée suite aux modifications suivantes : '.$diffs;
+	    							$rapport[self::RAPPORT_DIFF_KEY][] = 'La DRM '.$drm->_id.' ('.$ea.') doit être rectifiée suite aux rectifications suivantes : '.$diffs;
 	    							$files[] = $item;
     							} else {
     								$rapport[self::RAPPORT_PASS_KEY][] = 'La DRM '.$drm->_id.' à déjà été traitée';
