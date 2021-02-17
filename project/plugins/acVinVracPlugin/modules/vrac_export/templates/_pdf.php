@@ -171,6 +171,9 @@
 	<?php endif; ?>
 	<?php if(!is_null($vrac->delai_paiement)): ?>
 	<p>Delai de paiement : <?php echo $configurationVrac->formatDelaisPaiementLibelle(array(str_replace('autre', $vrac->delai_paiement_autre, $vrac->delai_paiement))) ?></p>
+	<?php if ($vrac->isConditionneIr()||$vrac->isConditionneIvse()): ?>
+		<p>Rappel : Acompte obligatoire de 15% dans les 10 jours suivants la signature du contrat</p>
+	<?php endif; ?>
 	<?php endif; ?>
 	<h2>Mode et date de retiraison / livraison</h2>
 	<?php if (!$vrac->isConditionneIvse()): ?><p>Le vin sera <?php echo ($vrac->vin_livre == VracClient::STATUS_VIN_LIVRE)? 'livré' : 'retiré'; ?><?php if($vrac->type_retiraison): ?> : <?php echo $configurationVrac->formatTypesRetiraisonLibelle(array($vrac->type_retiraison)) ?><?php endif; ?></p><?php endif; ?>
