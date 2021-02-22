@@ -278,6 +278,7 @@ VRAC_\<\<date demandée\>\>_\<\<date de saisie du dernier contrat retourné\>\>.
 85. Delai de paiement : 60_jours / 45_jours / autre
 86. Prix Unitaire HL : Prix unitaire net HT hors cotisation en HL estimé pour le raisin (= prix unitaire pour le vrac et mout)
 87. Volume total du contrat en HL : Volume total du contrat en HL pour le raisin (= volume total du contrat pour le vrac et mout)
+88. Volume enlevé du contrat en HL : Volume enlevé du contrat en HL
 
 
    [1]: https://fr.wikipedia.org/wiki/Authentification_HTTP
