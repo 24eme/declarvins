@@ -19,7 +19,7 @@ class Configuration extends BaseConfiguration {
     		'sorties/vci',
         	'sorties/autres'
     );
-    
+
     protected static $stocks_debut = array(
         'bloque' => 'Dont Vin bloqué / Reserve',
         'warrante' => 'Dont Vin warranté',
@@ -36,7 +36,7 @@ class Configuration extends BaseConfiguration {
         'mouvement' => 'Mvt. temporaire : Retour transfert de chai',
         'embouteillage' => 'Mvt. temporaire : Retour embouteillage',
         'travail' => 'Mvt. temporaire : Retour de travail à façon',
-        'distillation' => 'Mvt. temporaire : Retour de distillation à façon',    		
+        'distillation' => 'Mvt. temporaire : Retour de distillation à façon',
         'crd' => 'Replacement en suspension CRD',
     	'excedent' => 'Excédent suite à inventaire ou contrôle douanes'
     );
@@ -86,7 +86,7 @@ class Configuration extends BaseConfiguration {
         'mouvement' => 1,
         'embouteillage' => 1,
         'travail' => 1,
-        'distillation' => 1,    		
+        'distillation' => 1,
         'crd' => 1,
     	'excedent' => 1
     );
@@ -110,7 +110,7 @@ class Configuration extends BaseConfiguration {
         'autres' => -1,
         'vrac_contrat' => -1
     );
-    
+
 
 
     public static function getContraintes($genre) {
@@ -215,7 +215,7 @@ class Configuration extends BaseConfiguration {
         }
         return $this->$variable;
     }
-    
+
     public function formatProduits($date, $format = "%g% %a% %m% %l% %co% %ce%", $cvoNeg = false) {
     	// Utiliser uniquement pour DAE
     	$zone = ConfigurationZoneClient::getInstance()->find(ConfigurationZoneClient::ZONE_RHONE);
@@ -316,7 +316,7 @@ class Configuration extends BaseConfiguration {
         }
         return $result;
     }
-    
+
 
     public function hasEdiDefaultProduitHash() {
         if (!$this->exist('edi_default_produit_hash')) {
@@ -326,7 +326,7 @@ class Configuration extends BaseConfiguration {
             return false;
         }
         return true;
-    
+
     }
 
     public function getDefaultProduitHash($inao) {
@@ -346,37 +346,37 @@ class Configuration extends BaseConfiguration {
     protected function constructCode($produit) {
         return $produit->getIdentifiantDouane();
     }
-    
+
 
 
     public function identifyProductByLibelle($libelle) {
     	if(array_key_exists($libelle, $this->identifyLibelleProduct)) {
-    
+
     		return $this->identifyLibelleProduct[$libelle];
     	}
-    
+
     	$libelleSlugify = KeyInflector::slugify(preg_replace("/[ ]+/", " ", trim($libelle)));
-    
+
     	$configuration = $this->getConfigurationProduitsComplete();
         foreach ($configuration as $interpro => $configurationProduits) {
         foreach ($configurationProduits->getProduits() as $produit) {
     		$libelleProduitSlugify = KeyInflector::slugify(preg_replace("/[ ]+/", " ", trim($produit->getLibelleFormat())));
     		if($libelleSlugify == $libelleProduitSlugify) {
     			$this->identifyLibelleProduct[$libelle] = $produit;
-    
+
     			return $produit;
     		}
     	}
         }
-    
+
     	return false;
     }
 
     public function getProduit($hash) {
-    
+
     	return $this->getConfigurationProduit($hash);
     }
-    
+
     public function getConfigurationProduit($hash = null) {
     	if ($hash) {
 	        $configuration = $this->getConfigurationProduitsComplete();
@@ -405,14 +405,14 @@ class Configuration extends BaseConfiguration {
     	}
         return null;
     }
-    
+
     public function identifyProduct($hash = null, $libelle = null) {
     	if ($produit = $this->getConfigurationProduit($hash)) {
     		return $produit;
     	}
     	return (!$libelle)? null : $this->getConfigurationProduitByLibelle($libelle);
     }
-    
+
     public function identifyEtablissement($identifiant) {
     	$result = EtablissementIdentifiantView::getInstance()->findByIdentifiant($identifiant)->rows;
     	if (count($result) == 1) {
@@ -488,28 +488,36 @@ class Configuration extends BaseConfiguration {
     public function prepareCache() {
         $this->loadAllData();
     }
-    
+
     public function isApplicationOuverte($interpro, $application, $etablissement = null) {
     		try {
   				$ouverture = $this->ouverture->get($interpro)->get($application);
-  			} catch (Exception $e) { 
+  			} catch (Exception $e) {
   				$ouverture = 0;
   			}
   			return $ouverture;
     }
-    
+
     public function isTypeCrdAccepted($value)
     {
     	if ($this->exist('crds')) {
     		if ($this->crds->exist('type')) {
     			if ($this->crds->type->exist($value)) {
-    				return true;
+    				return $value;
     			}
+          foreach($this->crds->type as $k => $v) {
+            if (preg_match("/^$value/i", $k)) {
+              return $k;
+            }
+            if (preg_match("/^$value/i", $v)) {
+              return $k;
+            }
+          }
     		}
     	}
     	return false;
     }
-    
+
     public function isCategorieCrdAccepted($value)
     {
     	if ($this->exist('crds')) {
@@ -521,7 +529,7 @@ class Configuration extends BaseConfiguration {
     	}
     	return false;
     }
-    
+
     public function isCentilisationCrdAccepted($value)
     {
     	if ($this->exist('crds')) {

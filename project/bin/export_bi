@@ -41,12 +41,13 @@ cat $TMP/export_bi_drm_stock_last_modificatrices.csv | sed 's/"//g' | sed 's|/de
 
 . bin/export_bi_drm $1
 
-echo "#DAE;date;identifiant;numero accises;raison sociale;famille;sous famille;code postal;certifications;genres;appellations;mentions;lieux;couleurs;cepages;libelle produit;label;mention;millesime;primeur;acheteur numero accises;acheteur raison sociale;acheteur type;destination;conditionnement;contenance en litre;quantite;prix unitaire;volume total en hl;prix unitaire en hl" > $TMP/export_bi_daes.csv
+echo "#DAE;date;famille;sous famille;code postal;certifications;genres;appellations;mentions;lieux;couleurs;cepages;libelle produit;label;mention;millesime;primeur;acheteur type;destination;conditionnement;contenance en litre;quantite;prix unitaire;volume total en hl;prix unitaire en hl" > $TMP/export_bi_daes.csv
 if [[ $1 -eq "IR" ]] ; then
-	curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/edi/_view/dae | sed -f bin/unicode2alpha | sed 's/\],"value":\[/,/' | sed 's/\]\},*//' | grep 'DAE-' | sed 's/{"id"://g' | sed 's/"key":\[//g' | sed 's/\],"value":null}//g' | sed 's/Leclerc, Carrefour.../Leclerc \/ Carrefour.../g' | sed 's/LIDL, ALDI, Leader Price.../LIDL \/ ALDI \/ Leader Price.../g' | sed 's/,/;/g' | sed 's/"//g' | awk -F ';' 'BEGIN { OFS=";" }{ print "DAE;"$2";"$5";"$6";"$7";"$8";"$9";"$10";"$11";"$12";"$13";"$14";"$15";"$16";"$17";"$19";"$20";"$21";"$22";"$23";"$24";"$25";"$26";"$27";"$28";"$30";"$31";"$32";"$33";"$34";" }' | sed 's/null//g'  >> $TMP/export_bi_daes.csv
+	curl -s http://$COUCHHOST:$COUCHPORT/$COUCHBASE/_design/edi/_view/dae | sed -f bin/unicode2alpha | sed 's/\],"value":\[/,/' | sed 's/\]\},*//' | grep 'DAE-' | sed 's/{"id"://g' | sed 's/"key":\[//g' | sed 's/\],"value":null}//g' | sed 's/Leclerc, Carrefour.../Leclerc \/ Carrefour.../g' | sed 's/LIDL, ALDI, Leader Price.../LIDL \/ ALDI \/ Leader Price.../g' | sed 's/,/;/g' | sed 's/"//g' | awk -F ';' 'BEGIN { OFS=";" }{ print "DAE;"$2";"$8";"$9";"$10";"$11";"$12";"$13";"$14";"$15";"$16";"$17";"$19";"$20";"$21";"$22";"$23";"$26";"$27";"$28";"$30";"$31";"$32";"$33";"$34";" }' | sed 's/null//g'  >> $TMP/export_bi_daes.csv
 fi
 
 cd $TMP
+recode UTF8..ISO88591-1 export_bi_daes.csv
 #recode UTF8..ISO88591-1 export_bi_mouvements.csv export_bi_contrats.csv export_bi_etablissements.csv export_bi_drm_stock.csv export_bi_daes.csv
 
 #Fichier DV

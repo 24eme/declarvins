@@ -134,7 +134,7 @@ use_helper('Text');
 ?>
 <?php if ($info): ?>
 <div id="flash_message" style="padding-top: 0px">
-    <div class="flash_error" style="color: #fff; background-color: #ed1b24; border: none;">
+    <div class="flash_error" style="color: #fff; background-color: #8faf6e; border: 1px solid #4D6D2C;">
     	<h2 style="font-size: 14px; height: 32px; line-height: 28px; padding: 0 0 5px 0; margin: 0; font-weight: bold; " ><img src="/images/pictos/info2.png" style="float: left; height: 32px;" />&nbsp;Alertes / Infos</h2>
     	<?php echo $info ?>
 	</div>

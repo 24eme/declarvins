@@ -53,7 +53,7 @@ class DRMCepage extends BaseDRMCepage {
       	foreach($this->details as $detail) {
         	$details[$detail->getHash()] = $detail;
       	}
-      	
+
       	return $details;
     }
 
@@ -105,8 +105,7 @@ class DRMCepage extends BaseDRMCepage {
 	}
 
 	public function devineLibelleFiscal() {
-
-        if(in_array($this->getGenre(), array("VDN", "N"))) {
+        if(in_array($this->getGenre()->getKey(), array("VDN", "N"))) {
             foreach($this->getDetails() as $detail) {
                 $tavLF = ($detail->tav > 18) ? "SUP_18" : "INF_18";
 

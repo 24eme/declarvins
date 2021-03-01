@@ -121,13 +121,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		    $configurationProduit = $this->configuration->getConfigurationProduit($default_produit_hash);
     		    $isAutre = true;
     		}
-    		
+
         	if (!$configurationProduit) {
-        		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
-        		continue;
-      		}
-      		$droit = $configurationProduit->getCurrentDroit(ConfigurationProduit::NOEUD_DROIT_CVO, $this->drm->periode.'-02', true);
-      		if($droit && $droit->taux < 0){
         		$this->csvDoc->addErreur($this->productNotFoundError($numLigne, $datas));
         		continue;
       		}
@@ -166,11 +161,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
       		}
 
       		if ($complement_libelle) {
-                if ($libellePerso) {
-                    $produit->libelle = $libellePerso;
-                } else {
-                    $produit->libelle = trim($libelle) . " " . trim($complement_libelle);
-                }
+                $produit->libelle = ($libellePerso) ? $libellePerso : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
       		}
       		if ($isAutre) {
       		    $produit->libelle = $libellePerso;
@@ -182,11 +173,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
             $cache2datas[$this->getCacheKeyFromData($datas)]['hash'] = $hash;
             $cache2datas[$this->getCacheKeyFromData($datas)]['label'] = $label;
             $cache2datas[$this->getCacheKeyFromData($datas)]['complement_libelle'] = $complement_libelle;
-            if ($libellePerso) {
-                $cache2datas[$this->getCacheKeyFromData($datas)]['libelle'] = $libellePerso;
-            } else {
-                $cache2datas[$this->getCacheKeyFromData($datas)]['libelle'] = trim($libelle) . " " . trim($complement_libelle);
-            }
+            $cache2datas[$this->getCacheKeyFromData($datas)]['libelle'] = ($libellePerso) ? $libellePerso : trim($datas[self::CSV_CAVE_COMPLEMENT_PRODUIT]);
         }
         //on prépare les vérifications
         $check = array();
@@ -499,7 +486,8 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   			$this->csvDoc->addErreur($this->categorieCrdNotFoundError($numLigne, $datas));
   			return;
   		}
-  		if (!$this->configuration->isTypeCrdAccepted($type)) {
+      $typeDroit = $this->configuration->isTypeCrdAccepted($type);
+  		if (!$typeDroit) {
   			$this->csvDoc->addErreur($this->typeCrdNotFoundError($numLigne, $datas));
   			return;
   		}
@@ -507,13 +495,13 @@ class DRMImportCsvEdi extends DRMCsvEdi {
   		if (!$this->configuration->isCentilisationCrdAccepted($centilisation)) {
   			$isBib = null;
   			if (preg_match('/^(BIB|CL)_([0-9]+)/i', $centilisation, $m)) {
-  				$crd = $this->drm->addCrd($categorie, $type, 'AUTRE', $m[2], ($m[1] == 'BIB'));
+  				$crd = $this->drm->addCrd($categorie, $typeDroit, 'AUTRE', $m[2], ($m[1] == 'BIB'));
   			} else {
   				$this->csvDoc->addErreur($this->centilisationCrdNotFoundError($numLigne, $datas));
   				return;
   			}
   		} else {
-  			$crd = $this->drm->addCrd($categorie, $type, $centilisation, null, null);
+  			$crd = $this->drm->addCrd($categorie, $typeDroit, $centilisation, null, null);
   		}
 
   		if ($categorieCrd && !$crd->exist($categorieCrd)) {
