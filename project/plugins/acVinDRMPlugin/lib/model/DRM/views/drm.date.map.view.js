@@ -1,6 +1,6 @@
-function(doc) { 
-    if (doc.type == "DRM" && doc.valide.date_saisie) { 
-        
+function(doc) {
+    if (doc.type == "DRM" && doc.valide.date_saisie) {
+
         var getCouleur = function(couleur) {
             if (couleur == "rouge") {
                 return 1;
@@ -14,7 +14,7 @@ function(doc) {
             else {
                 return couleur;
             }
-            
+
         }
 
         var explodeIdDRM = function(id) {
@@ -41,7 +41,7 @@ function(doc) {
                 return null;
             }
         }
-        
+
         var groupByLastVersion = function (version) {
             var versionRegexp = RegExp("^[A-Z]{1}[0-9]+[A-Z]{1}[0-9]+$");
             if (versionRegexp.test(version)) {
@@ -57,14 +57,14 @@ function(doc) {
             }
             return version;
         }
-        
+
         var formatVersion = function (version) {
             if (version < 10) {
                 return '0'+version;
             }
             return ''+version;
         }
-        
+
         var key = 'DETAIL';
         var key_vrac = 'CONTRAT';
         var key_default = 'DEFAUT';
@@ -101,7 +101,7 @@ function(doc) {
 
         var regexp = new RegExp("(\r\n|\r|\n)", "g");
         var drm_commentaire = (doc.commentaires)? (""+doc.commentaires).replace(regexp, " ") : null;
-        
+
             for(certification_key in doc.declaration.certifications) {
                 var certification = doc.declaration.certifications[certification_key];
                 var certification_hash = "declaration/certifications/"+certification_key;
@@ -214,7 +214,10 @@ function(doc) {
 						var volume_reintegre = parseFloat(detail.entrees.crd);
 					    var montant_cvo = parseFloat(detail.cvo.taux) * volume_cvo;
 						var montant_avoir = parseFloat(detail.cvo.taux) * volume_reintegre;
-					    
+						if (drm_declarant_famille != 'producteur') {
+							montant_avoir = 0
+						}
+
                                             if (isNaN(montant_cvo) || parseFloat(detail.cvo.taux) === -1) {
                                                 montant_cvo = null;
                                             }
@@ -232,7 +235,7 @@ function(doc) {
                                                 codes_label += label_key;
                                             }
                                             var drm_observation = (detail.observations)? (""+detail.observations).replace(regexp, " ") : null;
-                                            emit([detail.interpro, doc.valide.date_saisie, detail.has_vrac, doc._id, detail_hash, "PRODUIT"], 
+                                            emit([detail.interpro, doc.valide.date_saisie, detail.has_vrac, doc._id, detail_hash, "PRODUIT"],
                                                     [key,
                                                      drm_identifiant,
                                                      drm_declarant,
@@ -331,7 +334,7 @@ function(doc) {
 						     detail.sorties.acq_autres,
 						     detail.acq_total,
 							 montant_avoir
-						     
+
                                                      ]
                                             );
 
@@ -339,7 +342,7 @@ function(doc) {
                                             if (nb_vracs > 0) {
                                                 for (numero_vrac in detail.vrac) {
                                                     var volume_vrac = detail.vrac[numero_vrac].volume;
-                                                    emit([detail.interpro, doc.valide.date_saisie, detail.has_vrac, doc._id, detail_hash, "VRAC"], 
+                                                    emit([detail.interpro, doc.valide.date_saisie, detail.has_vrac, doc._id, detail_hash, "VRAC"],
                                                             [key_vrac,
                                                              drm_identifiant,
                                                              drm_declarant,
@@ -450,5 +453,5 @@ function(doc) {
                     }
                 }
             }
-    } 
+    }
 }
