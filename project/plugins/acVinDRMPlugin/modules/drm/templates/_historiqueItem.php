@@ -23,7 +23,7 @@ endif;
     <?php if ($sf_user->hasCredential(myUser::CREDENTIAL_OPERATEUR)): ?>
     <td style="padding: 5px;">
     <?php echo $drm->commentaires; ?>
-    <?php if ($drm->ciel->diff): ?><a href="<?php echo url_for('drm_xml', $drm) ?>">XML Ciel</a><?php endif; ?>
+    <?php if ($drm->ciel->diff): ?>Il existe une différence entre la DRM Declarvins et sa version <a href="<?php echo url_for('drm_xml', $drm) ?>">XML Ciel</a>.<?php endif; ?>
     </td>
     <?php endif; ?>
         <td style="padding: 5px;">
