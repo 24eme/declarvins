@@ -1,6 +1,6 @@
 <?php
 
-class updateVracsTask extends sfBaseTask {
+class updateFilesTask extends sfBaseTask {
 
     protected function configure() {
         $this->addOptions(array(
