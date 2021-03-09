@@ -107,7 +107,11 @@ class DRMImportCsvEdi extends DRMCsvEdi {
     		$configurationProduit = null;
     		$isAutre = false;
     		if ($idDouane = $this->getIdDouane($datas)) {
-    			$configurationProduit = $this->configuration->identifyProduct(null, "($idDouane)");
+          $lp = '';
+          if (preg_match('/(.*)\(([a-zA-Z0-9\ \-\_]*)\)$/', trim($libelle), $result)) {
+              $lp = trim($result[1]).' ';
+          }
+    			$configurationProduit = $this->configuration->identifyProduct(null, "$lp($idDouane)");
     		}
     		if (!$configurationProduit) {
     			$configurationProduit = $this->configuration->getConfigurationProduit($this->getHashProduit($datas));
