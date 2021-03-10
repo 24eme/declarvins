@@ -572,6 +572,9 @@ class DRM extends BaseDRM implements InterfaceMouvementDocument, InterfaceVersio
     		foreach ($detail->vrac as $numero => $vrac) {
     			$volume = $vrac->volume;
     			$contrat = VracClient::getInstance()->findByNumContrat($numero);
+                if (!$contrat) {
+                    continue;
+                }
     			$contrat->soustraitVolumeEnleve($volume);
     			$enlevements = $contrat->getOrAdd('enlevements');
     			if ($this->hasVersion()) {
