@@ -173,7 +173,7 @@ class DRMImportCsvEdi extends DRMCsvEdi {
       		}
       		if ($isAutre) {
               $produit->libelle = $libellePerso;
-      		    $produit->getCepage()->inao = $this->getIdDouane($datas);
+      		    $produit->add('inao', $this->getIdDouane($datas));
       		}
             $this->cache[$this->getCacheKeyFromData($datas)] = $produit;
             $cache2datas[$this->getCacheKeyFromData($datas)] = $datas;
