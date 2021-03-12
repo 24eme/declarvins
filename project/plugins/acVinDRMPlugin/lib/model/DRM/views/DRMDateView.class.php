@@ -83,12 +83,48 @@ class DRMDateView extends acCouchdbView
 	const VALUE_DETAIL_DECLARANT_FAMILLE = 73;
 	const VALUE_DETAIL_DECLARANT_SOUSFAMILLE = 74;
 
-	public static function getInstance() 
+	public static function numberValues()
+	{
+		return [
+			self::VALUE_DETAIL_TOTAL_DEBUT_MOIS,
+			self::VALUE_DETAIL_STOCKDEB_BLOQUE,
+			self::VALUE_DETAIL_STOCKDEB_WARRANTE,
+			self::VALUE_DETAIL_STOCKDEB_INSTANCE,
+			self::VALUE_DETAIL_STOCKDEB_COMMERCIALISABLE,
+			self::VALUE_DETAIL_ENTREES,
+			self::VALUE_DETAIL_ENTREES_ACHAT,
+			self::VALUE_DETAIL_ENTREES_RECOLTE,
+			self::VALUE_DETAIL_ENTREES_REPLI,
+			self::VALUE_DETAIL_ENTREES_DECLASSEMENT,
+			self::VALUE_DETAIL_ENTREES_MOUVEMENT,
+			self::VALUE_DETAIL_ENTREES_CRD,
+			self::VALUE_DETAIL_SORTIES,
+			self::VALUE_DETAIL_SORTIES_VRAC,
+			self::VALUE_DETAIL_SORTIES_EXPORT,
+			self::VALUE_DETAIL_SORTIES_FACTURES,
+			self::VALUE_DETAIL_SORTIES_CRD,
+			self::VALUE_DETAIL_SORTIES_CONSOMMATION,
+			self::VALUE_DETAIL_SORTIES_PERTES,
+			self::VALUE_DETAIL_SORTIES_DECLASSEMENT,
+			self::VALUE_DETAIL_SORTIES_REPLI,
+			self::VALUE_DETAIL_SORTIES_MOUVEMENT,
+			self::VALUE_DETAIL_SORTIES_DISTILLATION,
+			self::VALUE_DETAIL_SORTIES_LIES,
+			self::VALUE_DETAIL_TOTAL,
+			self::VALUE_DETAIL_STOCKFIN_BLOQUE,
+			self::VALUE_DETAIL_STOCKFIN_WARRANTE,
+			self::VALUE_DETAIL_STOCKFIN_INSTANCE,
+			self::VALUE_DETAIL_STOCKFIN_COMMERCIALISABLE,
+			self::VALUE_DETAIL_ENTREES_VCI
+		];
+	}
+
+	public static function getInstance()
 	{
         return acCouchdbManager::getView('drm', 'date', 'DRM');
     }
 
-    public function findByInterproAndDate($interpro, $date, $onlyVrac = false) 
+    public function findByInterproAndDate($interpro, $date, $onlyVrac = false)
     {
     	if ($onlyVrac) {
       		return $this->client->startkey(array($interpro, $date, 1))
