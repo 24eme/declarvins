@@ -1013,7 +1013,9 @@ class ediActions extends sfActions
 			$numberValues = DRMDateView::numberValues();
   		foreach ($items as $item) {
 				foreach ($numberValues as $val) {
-					$item->value[$val] = number_format($item->value[$val], 5, '.', '');
+					if ($item->value[$val]) {
+						$item->value[$val] = number_format($item->value[$val], 5, '.', '');
+					}
 				}
   			if ($item->value[DRMDateView::VALUE_TYPE] == 'DETAIL' && (is_null($item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX]) || $item->value[DRMDateView::VALUE_DETAIL_CVO_TAUX] < 0 || !$item->value[DRMDateView::VALUE_DETAIL_CVO_CODE])) {
   				$squeeze = $item->value[DRMDateView::VALUE_IDDRM].$item->key[DRMDateView::KEY_DETAIL_HASH];
