@@ -651,6 +651,10 @@ class DRMDetail extends BaseDRMDetail {
       $inao = null;
       if ($this->exist('inao')) {
         $inao = $this->_get('inao');
+  			if (strlen($inao) == 5) {
+  				$inao = $inao.' ';
+  			}
+  			$this->setInao($inao);
       }
     	return ($inao)? $inao : $this->getCepage()->getInao();
     }
