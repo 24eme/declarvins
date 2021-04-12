@@ -266,6 +266,9 @@ class DRMValidation
 			        $this->errors['observations_crd_acquittes_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_crd_acquittes', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
 			    }
 			}
+			if ($detail->observations && strlen($detail->observations)>250) {
+				$this->errors['observations_length_'.$detail->getIdentifiantHTML()] = new DRMControleError('obs_length', $this->generateUrl('drm_declaratif', $this->drm), $detail->makeFormattedLibelle().': %message%');
+			}
 		}
 		if ($detail->tav && ($detail->tav < 0.5 || $detail->tav > 100)) {
 			$this->errors['tav_value_'.$detail->getIdentifiantHTML()] = new DRMControleError('tav_value', $this->generateUrl('drm_recap_detail', $detail), $detail->makeFormattedLibelle().': %message%');
