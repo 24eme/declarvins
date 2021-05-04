@@ -6,7 +6,7 @@
 
 <div style="text-align: center;"><center>
 <img src="/images/declarvins2douane.gif" width="600" height="150"/>
-<p>Transmission des données à douane.gouv.fr en cours... <br/>Veuillez patienter</p>
+<p>Transmission des données à pro.douane.gouv.fr en cours... <br/>Veuillez patienter</p>
 </center></div>
 <form id="form_transmission" method="post" action="<?php echo (isset($url))? $url : url_for('drm_validation', $drm); ?>">
 	<input type="hidden" name="transfer_ciel" value="1" />
