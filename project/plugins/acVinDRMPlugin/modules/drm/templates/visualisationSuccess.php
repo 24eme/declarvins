@@ -40,13 +40,28 @@
                     Votre DRM a bien été validée et transmise à votre interprofession.<br />
                     <?php if($drmCiel->isTransfere() && $drmCiel->getReponseCiel()): ?>
                     Votre DRM a été transmise correctement au service CIEL, le <?php echo format_date($drmCiel->horodatage_depot, 'dd/MM/yyyy') ?> à <?php echo format_date($drmCiel->horodatage_depot, 'H:m') ?> sous le numéro <?php echo $drmCiel->identifiant_declaration ?>.<br />
-                    Vous devez terminer votre déclaration en la vérifiant et la validant ("déposer la DRM") sur le site prodouanes via le lien suivant : <a href="https://pro.douane.gouv.fr/">pro.douane.gouv.fr</a><br />
+                    Vous devez terminer votre déclaration en la vérifiant et la validant ("déposer la DRM") sur le site de la douane via le lien suivant : <a href="https://douane.gouv.fr/">douane.gouv.fr</a><br />
 					en vous connectant et en allant sur l'interface CIEL (menu de gauche).
         <?php elseif ($drm->isRectificative() && $drmCiel->isTransfere() && !$drmCiel->getReponseCiel()): ?>
                     Votre DRM a bien été corrigée afin de correspondre à celle transmise au service CIEL, le <?php echo format_date($drmCiel->horodatage_depot, 'dd/MM/yyyy') ?> à <?php echo format_date($drmCiel->horodatage_depot, 'H:m') ?> sous le numéro <?php echo $drmCiel->identifiant_declaration ?>.
                     <?php elseif (!$etablissement->isTransmissionCiel() && !$drm->isNegoce()): ?>
 					Vous devez par contre imprimer le PDF et le signer puis l'envoyer à votre service des douanes habituel.
                     <?php endif; ?>
+<<<<<<< HEAD
+=======
+                    <?php else: ?>
+                    Votre DRM a bien été saisie et validée.<br />
+                    <?php if(!$drm->isRectificative() && $drmCiel->isTransfere()): ?>
+                    Votre DRM a été transmise correctement au service CIEL, le <?php echo format_date($drmCiel->horodatage_depot, 'dd/MM/yyyy') ?> à <?php echo format_date($drmCiel->horodatage_depot, 'H:m') ?> sous le numéro <?php echo $drmCiel->identifiant_declaration ?>.<br />
+                    Vous devez terminer votre déclaration en la vérifiant et la validant ("déposer la DRM") sur le site de la douane via le lien suivant : <a href="https://douane.gouv.fr/">douane.gouv.fr</a><br />
+					en vous connectant et en allant sur l'interface CIEL (menu de gauche).
+                    <?php elseif ($drm->isRectificative() && $drmCiel->isTransfere()): ?>
+                    Votre DRM a bien été corrigée afin de correspondre à celle transmise au service CIEL, le <?php echo format_date($drmCiel->horodatage_depot, 'dd/MM/yyyy') ?> à <?php echo format_date($drmCiel->horodatage_depot, 'H:m') ?> sous le numéro <?php echo $drmCiel->identifiant_declaration ?>.
+                    <?php else: ?>
+					Vous devez par contre imprimer le PDF et le signer puis l'envoyer à votre service des douanes habituel.
+                    <?php endif; ?>
+                    <?php endif; ?>
+>>>>>>> a4c8fa403... pro.douane.gouv.fr en douane.gouv.fr
                     </li>
                 </ul>
             </div>
@@ -56,7 +71,7 @@
                 <ul>
                     <li>
                     	<img src="/images/visuels/prodouane.png" /><br />
-                    	Vous devez à présent télécharger votre DRM au format XML pour la déposer ensuite et la valider sur CIEL à partir de votre compte ProDouane via le lien suivant : <a href="https://pro.douane.gouv.fr/">pro.douane.gouv.fr</a><br />
+                    	Vous devez à présent télécharger votre DRM au format XML pour la déposer ensuite et la valider sur CIEL à partir de votre compte ProDouane via le lien suivant : <a href="https://douane.gouv.fr/">douane.gouv.fr</a><br />
             			<a id="telecharger_xml" style="margin-left:0;float: right; position: inherit; font-weight: normal;" target="_blank" href="<?php echo link_to_edi('testDRMEdi', array('id_drm' => $drm->_id, 'format' => 'xml')); ?>">Télécharger le XML</a><br />
             			&nbsp;
             		</li>

@@ -228,7 +228,7 @@
             <div id="popupValidation" style="display: none;">
             	<form id="formValidationPopup" action="<?php echo url_for('drm_validation', $drm); ?>" method="post">
           	    <p>En cliquant sur « Valider », votre DRM sera directement transmise vers le portail de la Douane.</p>
-          	    <p>Sur <a href="https://pro.douane.gouv.fr/" target="_blank">pro.douane.gouv.fr</a> vous la retrouverez en mode Brouillon.</p>
+          	    <p>Sur <a href="https://douane.gouv.fr/" target="_blank">douane.gouv.fr</a> vous la retrouverez en mode Brouillon.</p>
           	    <p>Il ne vous restera  plus qu'à la valider en ligne sur le site web douanier.</p>
                 <?php if(!$drm->hasVersion() && $etablissement->isTransmissionCiel()): ?>
                   <div class="ligne_form" style="margin: 10px 0;">
